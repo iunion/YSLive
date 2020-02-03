@@ -1,0 +1,545 @@
+//
+//  SCDrawBoardView.m
+//  YSLive
+//
+//  Created by fzxm on 2019/11/7.
+//  Copyright © 2019 YS. All rights reserved.
+//
+
+#import "SCDrawBoardView.h"
+#import "SCColorSelectView.h"
+#import "YSSliderSuperView.h"
+
+#define WeightViewCoefficient (28.00 - 6.00) / (1.00 - 0.03)
+@interface SCDrawBoardView ()
+<
+    UIGestureRecognizerDelegate
+>
+/// 背景view
+@property (nonatomic, strong) UIView *bacContainerView;
+
+/// 默认笔按钮 或者空心矩形
+
+@property (nonatomic, strong) UIButton *toolOneBtn;
+/// 记号笔按钮 或者 实心矩形
+@property (nonatomic, strong) UIButton *toolTwoBtn;
+/// 线按钮 或者 空心圆形
+@property (nonatomic, strong) UIButton *toolThreeBtn;
+/// 箭头按钮 或者 实心圆形
+@property (nonatomic, strong) UIButton *toolFourBtn;
+/// 割线
+@property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) SCColorSelectView *colorSelectView;
+@property (nonatomic, strong) UIView *progressSelectView;
+@property (nonatomic, strong) UIView *progressView;
+
+@property (nonatomic, strong) YSSliderSuperView *slider;
+/// 滑杆 粗细view
+@property (nonatomic, strong) UIView *weightView;
+/// 存放按钮的数组
+@property (nonatomic, strong) NSArray *toolBtnArr;
+
+///// 画笔类型  边框类型
+//@property (nonatomic, assign) YSDrawType drawType;
+/// 颜色
+@property (nonatomic, strong) NSString *selectColor;
+/// 线宽
+@property (nonatomic, assign) CGFloat progressResult;
+
+@end
+
+@implementation SCDrawBoardView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame])
+    {
+        [self setup];
+    }
+    
+    return self;
+}
+
+- (void)setup
+{
+    self.drawType = YSDrawTypePen;
+    self.selectColor = @"#000000";
+    self.progressResult = [self setDefaultProgress];
+    BMWeakSelf
+    self.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
+    tapGesture.delegate =self;
+    self.userInteractionEnabled = YES;
+    [self addGestureRecognizer:tapGesture];
+    self.triangleImgView = [[UIImageView alloc] init];
+    [self.triangleImgView setImage:[UIImage imageNamed:@"sc_brush_board_triangle"]];
+    [self addSubview:self.triangleImgView];
+    
+    self.backgroundView = [[UIView alloc] init];
+    self.backgroundView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    self.backgroundView.layer.masksToBounds = YES;
+    self.backgroundView.layer.cornerRadius = 20;
+    [self addSubview:self.backgroundView];
+    
+    
+    self.bacContainerView = [[UIView alloc] init];
+    self.bacContainerView.backgroundColor = UIColor.clearColor;
+    [self.backgroundView addSubview:self.bacContainerView];
+    [self.bacContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.backgroundView.mas_left);
+        make.right.equalTo(weakSelf.backgroundView.mas_right);
+        make.bottom.equalTo(weakSelf.backgroundView.mas_bottom);
+    }];
+    
+    self.toolOneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_pen_selected"] forState:UIControlStateNormal];
+    [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_pen_selected"] forState:UIControlStateSelected];
+    
+    self.toolTwoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_text_selected"] forState:UIControlStateNormal];
+    [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_text_selected"] forState:UIControlStateSelected];
+    
+    self.toolThreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_shape_selected"] forState:UIControlStateNormal];
+    [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_shape_selected"] forState:UIControlStateSelected];
+    
+    self.toolFourBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_eraser_selected"] forState:UIControlStateNormal];
+    [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_eraser_selected"] forState:UIControlStateSelected];
+    self.toolBtnArr = @[self.toolOneBtn,self.toolTwoBtn,self.toolThreeBtn,self.toolFourBtn];
+    
+    UIButton *lastBtn = nil;
+    
+    for (int i = 0; i < self.toolBtnArr.count; i++) {
+        UIButton *btn = self.toolBtnArr[i];
+        [self.bacContainerView addSubview:btn];
+        [btn addTarget:self action:@selector(toolBtnsSelect:) forControlEvents:UIControlEventTouchUpInside];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo([NSValue valueWithCGSize:CGSizeMake(30, 30)]);
+            make.left.equalTo(lastBtn ? lastBtn.mas_right : weakSelf.bacContainerView.mas_left).offset(lastBtn ? 30  : 19);
+            make.top.equalTo(weakSelf.bacContainerView.mas_top).offset(21);
+            if (i == self.toolBtnArr.count - 1)
+            {
+                make.right.equalTo(weakSelf.bacContainerView.mas_right).offset(-19);
+            }
+        }];
+        lastBtn = btn;
+    }
+    
+    self.lineView = [[UIView alloc] init];
+    self.lineView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    [self.bacContainerView addSubview:self.lineView];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.bacContainerView).offset(13);
+        make.right.equalTo(weakSelf.bacContainerView).offset(-13);
+        make.top.equalTo(weakSelf.toolOneBtn.mas_bottom).offset(15);
+        make.height.equalTo(@(1));
+    }];
+    
+    self.colorSelectView = [[SCColorSelectView alloc] init];
+    [self.colorSelectView setCurrentSelectColor:self.selectColor];
+    [self.bacContainerView addSubview:self.colorSelectView];
+    [self.colorSelectView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.bacContainerView).offset(20);
+        make.right.equalTo(weakSelf.bacContainerView).offset(-14);
+        make.top.equalTo(weakSelf.lineView.mas_bottom).offset(38);
+        make.height.equalTo(@(20));
+    }];
+    self.colorSelectView.chooseBackBlock = ^(NSString * _Nonnull colorStr) {
+
+        if ([weakSelf.delegate respondsToSelector:@selector(brushSelectorViewDidSelectDrawType:color:widthProgress:)])
+        {
+            [weakSelf.delegate brushSelectorViewDidSelectDrawType:weakSelf.drawType color:colorStr widthProgress:weakSelf.progressResult];
+        }
+        weakSelf.selectColor = colorStr;
+    };
+    
+    self.progressView = [[UIView alloc] init];
+    self.progressView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.progressView.layer.masksToBounds = YES;
+    self.progressView.layer.cornerRadius = 2.5f;
+    [self.bacContainerView addSubview:self.progressView];
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.bacContainerView.mas_left).offset(20);
+        make.right.equalTo(weakSelf.bacContainerView.mas_right).offset(-44);
+        make.height.equalTo(@(10));
+        make.top.equalTo(weakSelf.colorSelectView.mas_bottom).offset(33);
+        make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom).offset(-33);
+    }];
+    
+    self.progressSelectView = [[UIView alloc] init];
+    self.progressSelectView.backgroundColor = [UIColor bm_colorWithHex:0xFFE895];
+    self.progressSelectView.layer.masksToBounds = YES;
+    self.progressSelectView.layer.cornerRadius = 2.5f;
+    [self.bacContainerView addSubview:self.progressSelectView];
+    [self.progressSelectView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.bacContainerView.mas_left).offset(20);
+        make.width.mas_equalTo(weakSelf.progressView.mas_width).multipliedBy(weakSelf.progressResult);
+        make.height.equalTo(@(10));
+        make.top.equalTo(weakSelf.colorSelectView.mas_bottom).offset(33);
+    }];
+    
+    self.slider = [[YSSliderSuperView alloc] init];
+    self.slider.minimumTrackTintColor = [UIColor clearColor];
+    self.slider.maximumTrackTintColor = [UIColor clearColor];
+    [self.slider setThumbImage:[UIImage imageNamed:@"sc_brush_board_slider"] forState:UIControlStateNormal];
+
+    self.slider.minimumValue = 0.03f;
+    self.slider.maximumValue = 1.0;
+    self.slider.value = self.progressResult;
+    [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.slider addTarget:self action:@selector(sliderViewEnd:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bacContainerView addSubview:self.slider];
+    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(5));
+        make.centerY.equalTo(weakSelf.progressView);
+        make.left.equalTo(weakSelf.progressView.mas_left).offset(-4);
+        make.right.equalTo(weakSelf.progressView.mas_right).offset(4);
+    }];
+    
+    
+    self.weightView = [[UIView alloc] init];
+    self.weightView.backgroundColor = [UIColor bm_colorWithHex:0xFFE895];
+    [self.bacContainerView addSubview:self.weightView];
+    [self.weightView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.height.equalTo(@(weakSelf.slider.value * WeightViewCoefficient + 5 ));
+        make.centerY.equalTo(weakSelf.progressView);
+        make.centerX.equalTo(weakSelf.bacContainerView.mas_right).offset(-24);
+        
+    }];
+    self.weightView.layer.cornerRadius = (weakSelf.slider.value * WeightViewCoefficient + 5 ) / 2;
+    self.weightView.layer.masksToBounds = YES;
+    
+    [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.bacContainerView.mas_left);
+        make.right.equalTo(weakSelf.bacContainerView.mas_right);
+        make.top.equalTo(weakSelf.bacContainerView.mas_top);
+        make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+    }];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.frame = CGRectMake(73, 0, UI_SCREEN_WIDTH-73, UI_SCREEN_HEIGHT);
+}
+
+- (void)tapGestureClicked:(UITapGestureRecognizer *)tap
+{
+    self.hidden = YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.backgroundView])
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+
+}
+
+#pragma mark - SETTER
+
+- (void)changeSelectColor:(NSString *)selectColor
+{
+    NSArray *colorArray = [SCColorSelectView colorArray];
+    
+    BOOL found = NO;
+    for (NSString *colorStr in colorArray)
+    {
+        if ([colorStr isEqualToString:selectColor])
+        {
+            found = YES;
+            break;
+        }
+    }
+    
+    if (found)
+    {
+        self.selectColor = selectColor;
+        [self.colorSelectView setCurrentSelectColor:self.selectColor];
+    }
+}
+
+- (void)setBrushToolType:(YSBrushToolType)brushToolType
+{
+    _brushToolType = brushToolType;
+    
+    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    NSDictionary *config = [liveManager.whiteBoardManager getBrushToolConfigWithToolType:brushToolType];
+    
+    YSDrawType drawType = [config bm_uintForKey:@"drawType"];
+    NSString *colorHex = [config bm_stringForKey:@"colorHex"];
+    CGFloat progress = [config bm_doubleForKey:@"progress"];
+
+    switch (brushToolType)
+    {
+        case YSBrushToolTypeMouse:
+            self.hidden = YES;
+            break;
+          
+        case YSBrushToolTypeLine:
+        
+            self.drawType = drawType;
+            [self creatToolBtnWithBrushToolType:YSBrushToolTypeLine];
+            [self showType:YSSelectorShowType_All];
+            
+            break;
+            
+        case YSBrushToolTypeText:
+            self.drawType = drawType;
+            [self showType:YSSelectorShowType_ColorSize];
+            break;
+            
+        case YSBrushToolTypeShape:
+            self.drawType = drawType;
+            [self creatToolBtnWithBrushToolType:YSBrushToolTypeShape];
+            [self showType:YSSelectorShowType_All];
+            break;
+            
+        case YSBrushToolTypeEraser:
+            self.drawType = drawType;
+            [self showType:YSSelectorShowType_Size];
+        
+            break;
+            
+        default:
+            break;
+    }
+    
+    self.slider.value = progress;
+    self.progressResult = progress;
+    [self changeSelectColor:colorHex];
+    [self layoutIfNeeded];
+    [self.progressSelectView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bacContainerView.mas_left).offset(20);
+        make.width.mas_equalTo(progress * self.progressView.frame.size.width);
+        make.height.equalTo(@(10));
+        make.top.equalTo(self.colorSelectView.mas_bottom).offset(33);
+    }];
+//    [self layoutIfNeeded];
+    [self.weightView mas_updateConstraints:^(MASConstraintMaker *make) {        
+        make.width.height.equalTo(@(progress * WeightViewCoefficient + 5));
+    }];
+    self.weightView.layer.cornerRadius = (progress * WeightViewCoefficient + 5) / 2;
+    self.weightView.layer.masksToBounds = YES;
+    if (brushToolType != YSBrushToolTypeMouse)
+    {
+        if ([self.delegate respondsToSelector:@selector(brushSelectorViewDidSelectDrawType:color:widthProgress:)])
+        {
+            [self.delegate brushSelectorViewDidSelectDrawType:_drawType color:self.selectColor widthProgress:progress];
+        }
+    }
+
+}
+
+- (void)setDrawType:(YSDrawType)drawType
+{
+    _drawType = drawType;
+    
+    for (UIButton *tool in self.toolBtnArr)
+    {
+        tool.selected = NO;
+    }
+
+    switch (drawType) {
+        case YSDrawTypePen:
+        case YSDrawTypeEmptyRectangle:
+            self.toolOneBtn.selected = YES;
+            break;
+        case YSDrawTypeMarkPen:
+        case YSDrawTypeFilledRectangle:
+            self.toolTwoBtn.selected = YES;
+            break;
+        case YSDrawTypeLine:
+        case YSDrawTypeEmptyEllipse:
+            self.toolThreeBtn.selected = YES;
+            break;
+        case YSDrawTypeArrowLine:
+        case YSDrawTypeFilledEllipse:
+            self.toolFourBtn.selected = YES;
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark -UISel
+- (CGFloat)setDefaultProgress
+{
+    CGFloat progress = 0.03f;
+    switch (self.brushToolType) {
+        case YSBrushToolTypeMouse:
+            break;
+          
+        case YSBrushToolTypeLine:
+
+            progress = 0.03f;
+            break;
+            
+        case YSBrushToolTypeText:
+            progress = 0.3f;
+            break;
+        case YSBrushToolTypeShape:
+            progress = 0.03f;
+            break;
+            
+        case YSBrushToolTypeEraser:
+            progress = 0.03f;
+            break;
+        default:
+            break;
+    }
+    return progress;
+}
+
+- (void)creatToolBtnWithBrushToolType:(YSBrushToolType)brushToolType
+{
+    
+    if (brushToolType == YSBrushToolTypeLine)
+    {
+        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_drawpen_normal"] forState:UIControlStateNormal];
+        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_drawpen_selected"] forState:UIControlStateSelected];
+        
+        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_markpen_normal"] forState:UIControlStateNormal];
+        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_markpen_selected"] forState:UIControlStateSelected];
+        
+        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_line_normal"] forState:UIControlStateNormal];
+        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_line_selected"] forState:UIControlStateSelected];
+        
+        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_arrowline_normal"] forState:UIControlStateNormal];
+        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_arrowline_selected"] forState:UIControlStateSelected];
+    }
+    
+    if (brushToolType == YSBrushToolTypeShape)
+    {
+        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_emptyrectangle_normal"] forState:UIControlStateNormal];
+        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_emptyrectangle_selected"] forState:UIControlStateSelected];
+        
+        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_filledrectangle_normal"] forState:UIControlStateNormal];
+        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_filledrectangle_selected"] forState:UIControlStateSelected];
+        
+        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_emptyellipse_normal"] forState:UIControlStateNormal];
+        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_emptyellipse_selected"] forState:UIControlStateSelected];
+        
+        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_filledellipse_normal"] forState:UIControlStateNormal];
+        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_filledellipse_selected"] forState:UIControlStateSelected];
+    }
+    
+}
+
+- (void)showType:(YSSelectorShowType)type
+{
+    BMWeakSelf
+    switch (type) {
+        case YSSelectorShowType_All:
+        {
+            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(weakSelf.bacContainerView.mas_left);
+                make.right.equalTo(weakSelf.bacContainerView.mas_right);
+                make.top.equalTo(weakSelf.bacContainerView.mas_top);
+                make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+            }];
+            break;
+        }
+        case YSSelectorShowType_ColorSize:
+        {
+            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(weakSelf.bacContainerView.mas_left);
+                make.right.equalTo(weakSelf.bacContainerView.mas_right);
+                make.top.equalTo(weakSelf.lineView.mas_bottom);
+                make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+            }];
+            break;
+        }
+        case YSSelectorShowType_Color:
+        {
+            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(weakSelf.bacContainerView.mas_left);
+                make.right.equalTo(weakSelf.bacContainerView.mas_right);
+                make.top.equalTo(weakSelf.lineView.mas_bottom);
+                make.bottom.equalTo(weakSelf.progressView.mas_top).offset(-12 );
+            }];
+            break;
+        }
+        case YSSelectorShowType_Size:
+        {
+            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(weakSelf.bacContainerView.mas_left);
+                make.right.equalTo(weakSelf.bacContainerView.mas_right);
+                make.top.equalTo(weakSelf.progressView.mas_top).offset(-33);
+                make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+            }];
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+#pragma mark - SEL
+- (void)toolBtnsSelect:(UIButton *)btn
+{
+    if (self.brushToolType == YSBrushToolTypeLine)
+    {
+        /**
+        YSDrawTypePen               = 10,    //钢笔
+        YSDrawTypeMarkPen           = 11,    //记号笔
+        YSDrawTypeLine              = 12,    //直线
+        YSDrawTypeArrowLine         = 13,    //箭头
+        */
+        self.drawType = 10 + [self.toolBtnArr indexOfObject:btn];//通过整型得到type
+    }
+    
+    if (self.brushToolType == YSBrushToolTypeShape)
+    {
+        /**
+         YSDrawTypeEmptyRectangle    = 30,    //空心矩形
+         YSDrawTypeFilledRectangle   = 31,    //实心矩形
+         YSDrawTypeEmptyEllipse      = 32,    //空心圆
+         YSDrawTypeFilledEllipse     = 33,    //实心圆
+         */
+        self.drawType = 30 + [self.toolBtnArr indexOfObject:btn];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(brushSelectorViewDidSelectDrawType:color:widthProgress:)]) {
+        [self.delegate brushSelectorViewDidSelectDrawType:self.drawType color:self.selectColor widthProgress:self.progressResult];
+    }
+}
+- (void)sliderViewEnd:(UISlider *)sender
+{
+    self.progressResult = sender.value;
+    if ([self.delegate respondsToSelector:@selector(brushSelectorViewDidSelectDrawType:color:widthProgress:)]) {
+        [self.delegate brushSelectorViewDidSelectDrawType:_drawType color:self.selectColor widthProgress:self.progressResult];
+    }
+}
+
+- (void)sliderValueChanged:(UISlider *)sender
+{
+    BMWeakSelf
+    self.progressResult = sender.value;
+    [self layoutIfNeeded];
+    [self.weightView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.height.equalTo(@(sender.value * WeightViewCoefficient + 5));
+
+    }];
+    self.weightView.layer.cornerRadius = (sender.value * WeightViewCoefficient + 5) / 2;
+    self.weightView.layer.masksToBounds = YES;
+    
+    [self.progressSelectView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.bacContainerView.mas_left).offset(20);
+        make.width.mas_equalTo(sender.value * weakSelf.progressView.frame.size.width);
+        make.height.equalTo(@(10));
+        make.top.equalTo(weakSelf.colorSelectView.mas_bottom).offset(33);
+    }];
+    
+}
+
+@end

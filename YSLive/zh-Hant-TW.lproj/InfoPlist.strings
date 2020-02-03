@@ -1,0 +1,16 @@
+/* 
+  InfoPlist.strings
+  YSLive
+
+  Created by jiang deng on 2019/12/4.
+  Copyright © 2019 YS. All rights reserved.
+*/
+
+CFBundleDisplayName = "雲樞互動";
+
+/*权限声明*/
+NSPhotoLibraryUsageDescription = "房间中需要選擇本地圖片您是否允許訪問相冊";
+NSCameraUsageDescription = "房间中需要進行視頻通話以及拍攝您是否允許打開相機";
+NSPhotoLibraryAddUsageDescription  = "房间中需要上傳圖片您是否允許添加圖片";
+NSLocationWhenInUseUsageDescription  = "房间中需要通過您的地理位置信息獲取您周邊的位置相關數據您是否允許開啟位置";
+NSMicrophoneUsageDescription  = "房间中需要發送語音消息及發言您是否允許打開麥克風";

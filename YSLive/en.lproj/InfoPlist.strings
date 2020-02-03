@@ -1,0 +1,15 @@
+/* 
+  InfoPlist.strings
+  YSLive
+
+  Created by jiang deng on 2019/12/4.
+  Copyright © 2019 YS. All rights reserved.
+*/
+
+CFBundleDisplayName = "YSLive";
+/*权限声明*/
+NSPhotoLibraryUsageDescription = "You need to select a local picture in the room. Are you allowed to access the album";
+NSCameraUsageDescription = "You need to make video calls in the room and shoot if you allow the camera to turn on";
+NSPhotoLibraryAddUsageDescription  = "Need to upload pictures in the room Whether you can add pictures";
+NSLocationWhenInUseUsageDescription  = "Your location in the room needs information about your location Get relevant information about your location Whether or not you want to leave your location open";
+NSMicrophoneUsageDescription  = "You need to send a voice message in the room and speak if you're allowed to turn on the microphone";

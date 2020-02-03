@@ -1,0 +1,447 @@
+//
+//  YSQuestionView.m
+//  YSLive
+//
+//  Created by 马迪 on 2019/10/21.
+//  Copyright © 2019 FS. All rights reserved.
+//
+
+#if __has_include(<AFNetworking/AFNetworking.h>)
+#import <AFNetworking/AFNetworking.h>
+#else
+#import "AFNetworking.h"
+#endif
+
+#import "YSQuestionView.h"
+#import "YSAnswerCell.h"
+#import "BMProgressHUD.h"
+
+//输入框高度
+#define ToolHeight (IS_IPHONEXANDP?(50+20):50)
+//iphoneX的时候键盘多出的高度
+#define BottomH 20
+//输入框的初始位置
+#define ToolOriginalY self.bm_height-ToolHeight
+
+@interface YSQuestionView ()
+<
+    UITableViewDelegate,
+    UITableViewDataSource,
+    UITextViewDelegate
+>
+
+///聊天tableView
+@property (nonatomic, strong) UITableView *questTableView;
+///底部工具栏
+@property (nonatomic, strong) UIView *bottomView;
+///输入框背景view
+@property (nonatomic, strong) UIView *backView;
+///输入框
+@property (nonatomic, strong) UITextView *inputView;
+///发送按钮
+@property (nonatomic, strong) UIButton *sendBtn;
+///placehold
+@property (nonatomic, strong) UILabel *placeholdLab;
+
+
+@end
+
+@implementation YSQuestionView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        self.backgroundColor = [UIColor whiteColor];
+        self.questionArr = [NSMutableArray array];
+        
+        [self setupUI];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    }
+    return self;
+}
+
+- (void)setupUI{
+    
+    self.questTableView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, self.bm_height-ToolHeight);
+    [self addSubview:self.questTableView];
+    
+    self.bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ToolOriginalY, UI_SCREEN_WIDTH, ToolHeight)];
+    self.bottomView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    [self addSubview:self.bottomView];
+    
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(kScale_W(20), 10, kScale_W(230), 30)];
+    self.backView.layer.cornerRadius = 30/2;
+    self.backView.backgroundColor = [UIColor whiteColor];
+    [self.bottomView addSubview:self.backView];
+    
+    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(271), 8, kScale_W(96), 34)];
+//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton"] forState:UIControlStateNormal];
+//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
+    
+    [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
+    [self.sendBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
+    [self.sendBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+    [self.sendBtn bm_roundedRect:17.0f borderWidth:3.0f borderColor:[UIColor bm_colorWithHex:0x97B7EB]];
+    [self.sendBtn addTarget:self action:@selector(sendButtonClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.bottomView addSubview:self.sendBtn];
+    
+    self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(5, 0, self.backView.bm_width-10, 30)];
+    self.inputView.backgroundColor = UIColor.clearColor;
+    self.inputView.textColor = [UIColor bm_colorWithHex:0x828282];
+    self.inputView.delegate = self;
+    [self.backView addSubview:self.inputView];
+    
+    self.placeholdLab = [[UILabel alloc]initWithFrame:CGRectMake(8, 5, 150, 20)];
+    self.placeholdLab.text = YSLocalized(@"Alert.WriteQuest");
+    self.placeholdLab.textColor = [UIColor bm_colorWithHex:0x828282];
+    self.placeholdLab.font = UI_FONT_14;
+    //    self.placeholdLab.backgroundColor = UIColor.redColor;
+    [self.inputView addSubview:self.placeholdLab];
+    
+    self.maskView = [[UIView alloc]initWithFrame:self.bottomView.bounds];
+    self.maskView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC  alpha:0.6];
+    [self.bottomView addSubview:self.maskView];
+    
+    if (![YSLiveManager shareInstance].isBeginClass)
+    {
+        self.maskView.hidden = NO;
+    }
+    else
+    {
+        self.maskView.hidden = YES;
+    }
+}
+
+#pragma mark -
+#pragma mark 发送
+
+- (void)sendButtonClick
+{
+    if (![YSLiveManager shareInstance].isBeginClass)
+    {
+        BMProgressHUD * hub =[BMProgressHUD bm_showHUDAddedTo:self animated:YES withText:YSLocalized(@"Alert.CanNotQuestion")];
+        hub.yOffset = -130;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [BMProgressHUD bm_hideHUDForView:self animated:YES];
+        });
+        return ;
+    }
+    
+    NSString * questionId =  [[YSLiveManager shareInstance] sendQuestionWithText:self.inputView.text];
+    if ([questionId bm_isNotEmpty])
+    {
+        YSQuestionModel * model = [[YSQuestionModel alloc]init];
+        model.nickName = YSCurrentUser.nickName;
+        model.timeInterval = [YSLiveManager shareInstance].tCurrentTime;
+        model.questDetails = self.inputView.text;
+        model.state = YSQuestionState_Question;
+        model.questionId = questionId;
+        [self.questionArr addObject:model];
+    }
+    [self frashView:nil];
+    
+    self.inputView.text = nil;
+    [self.inputView resignFirstResponder];
+}
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    self.placeholdLab.hidden = [textView.text bm_isNotEmpty];
+}
+
+#pragma mark - 刷新
+- (void)frashView:(id)message
+{
+    if ([message bm_isNotEmpty] && [message isKindOfClass:[YSQuestionModel class]])
+    {//添加的时候传model
+        YSQuestionModel * questionModel = (YSQuestionModel*)message;
+        
+        if (questionModel.state == YSQuestionState_Responed) {
+            for (YSQuestionModel * model in self.questionArr)
+            {
+                if ([model.questionId isEqualToString:questionModel.questionId])
+                {
+                    if (questionModel.state == YSQuestionState_Answer)
+                    {
+                        questionModel.questDetails = model.questDetails;
+                    }
+                    [self.questionArr removeObject:model];
+                    break;
+                }
+            }
+        }
+        
+        [self.questionArr addObject:questionModel];
+    }
+    else if ([message bm_isNotEmpty] && [message isKindOfClass:[NSString class]])
+    {//删除的时候传id
+        NSString * questionId = (NSString *)message;
+
+        for (int i = (int)(self.questionArr.count)-1; i>=0; i--) {
+            
+            YSQuestionModel * model = self.questionArr[i];
+            if ([model.questionId isEqualToString:questionId]) {
+                [self.questionArr removeObject:model];
+            }
+        }
+    }
+    
+    [self.questTableView reloadData];
+    if (self.questionArr.count)
+    {
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.questionArr.count-1 inSection:0];
+        [self.questTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
+}
+
+#pragma mark - tableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.questionArr.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    YSQuestionModel * model = _questionArr[indexPath.row];
+    
+    YSAnswerCell * cell =[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSAnswerCell.class) forIndexPath:indexPath];
+    cell.model = model;
+    BMWeakSelf
+    cell.translationBtnClick = ^{
+        [weakSelf getBaiduTranslateWithIndexPath:indexPath];
+    };
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    YSQuestionModel * model = _questionArr[indexPath.row];
+    
+    
+    CGSize tagSize = [YSLocalized(@"Label.Reply") bm_sizeToFitWidth:100 withFont:UI_FONT_12];
+    
+    CGFloat cellTopHeight = 10 + tagSize.height + 5;
+    
+    if ([model.detailTrans bm_isNotEmpty])
+    {//有翻译
+        if (!model.transCellHeight)
+        {
+            if (model.state == YSQuestionState_Answer)
+            {//回复
+                NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
+                CGSize questStrSize = [questStr bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+                
+                model.cellHeight = cellTopHeight +  model.answerDetailsSize.height + 5 + model.translatSize.height + 5 + questStrSize.height + 2*10 + 10;
+            }
+            else
+            {
+                model.cellHeight = cellTopHeight + model.questDetailsSize.height + 4 + 1 + 4 + model.translatSize.height + 2*10 + 10;
+            }
+        }
+        return model.cellHeight;
+    }
+    else
+    {//无翻译
+        if (!model.cellHeight)
+        {
+            if (model.state == YSQuestionState_Answer)
+            {//回复
+                NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
+                CGSize questStrSize = [questStr bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+                model.cellHeight = cellTopHeight +  model.answerDetailsSize.height + 5 + questStrSize.height + 2*10 + 10;
+            }
+            else
+            {
+                model.cellHeight = cellTopHeight + model.questDetailsSize.height + 2*10+10;
+            }
+        }
+        return model.cellHeight;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10.f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10.f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self toHiddenKeyBoard];
+}
+
+#pragma mark 键盘通知
+
+- (void)keyboardWillShow:(NSNotification*)notification
+{
+    // 1.键盘弹出需要的时间
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    // 取出键盘高度
+    CGRect keyboardF = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    // 2.动画
+    [UIView animateWithDuration:duration animations:^{
+        self.bottomView.bm_originY = ToolOriginalY-keyboardF.size.height;
+        self.questTableView.bm_originY = -keyboardF.size.height+BottomH;
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    double duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration:duration animations:^{
+        self.bottomView.bm_originY= ToolOriginalY;
+        self.questTableView.bm_originY = 0;
+    }];
+}
+
+#pragma mark - 滚动或点击空白时，键盘回归原位
+- (void)toHiddenKeyBoard
+{
+    if (self.questTableView.bm_originY<0)
+    {
+        [self.inputView resignFirstResponder];
+        [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+            self.bottomView.bm_originY = ToolOriginalY;
+            self.questTableView.bm_originY = 0;
+        }];
+    }
+}
+
+#pragma mark 聊天的tableView
+
+- (UITableView *)questTableView
+{
+    if (!_questTableView)
+    {
+        self.questTableView = [[UITableView alloc]initWithFrame:CGRectZero style: UITableViewStylePlain];
+        
+        self.questTableView.delegate   = self;
+        self.questTableView.dataSource = self;
+        self.questTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        self.questTableView.backgroundColor = [UIColor clearColor];
+        self.questTableView.separatorColor  = [UIColor clearColor];
+        self.questTableView.showsHorizontalScrollIndicator = NO;
+        self.questTableView.showsVerticalScrollIndicator = NO;
+        
+        [self.questTableView registerClass:[YSAnswerCell class] forCellReuseIdentifier:NSStringFromClass(YSAnswerCell.class)];
+        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(toHiddenKeyBoard)];
+        [self.questTableView addGestureRecognizer:tap];
+    }
+    return _questTableView;
+}
+
+#pragma mark -
+#pragma mark 翻译
+- (void)getBaiduTranslateWithIndexPath:(NSIndexPath *) indexPath
+{
+    YSQuestionModel * model = self.questionArr[indexPath.row];
+    
+    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    [manger.requestSerializer setTimeoutInterval:30];
+    manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
+        @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
+        @"text/xml", @"image/jpeg", @"image/*"
+    ]];
+    //=====增加表情的识别，表情不进行翻译 ===  +  === 对链接地址不进行翻译======
+    NSString * aTranslationString = @"";
+    
+    if (model.state == YSQuestionState_Answer)
+    {
+        aTranslationString = model.answerDetails;
+    }
+    else
+    {
+        aTranslationString = model.questDetails;
+    }
+    
+    aTranslationString = [aTranslationString stringByReplacingOccurrencesOfString:@"\n" withString:@","];
+    
+    unichar ch = [aTranslationString characterAtIndex:0];
+    NSString *tTo;
+    NSString *tFrom;
+    
+    //中日互译。默认为日译中，探测到输入为中文则改成中译日
+    //    if ([TKEduClassRoom shareInstance].roomJson.configuration.isChineseJapaneseTranslation == YES) {
+    //        /*
+    //         /u4e00-/u9fa5 (中文)
+    //         /u0800-/u4e00 (日文)
+    //         */
+    //        tTo   = @"zh";
+    //        tFrom = @"jp";
+    //
+    //        float chNum = 0;
+    //        for (int i = 0; i < aTranslationString.length; i++) {
+    //            unichar ch = [aTranslationString characterAtIndex:i];
+    //            if (ch >= 0x4e00 && ch <= 0x9fa5) { chNum++; }
+    //        }
+    //        if (chNum > 0) {
+    //            //纯中文，则中译日
+    //            tTo   = @"jp";
+    //            tFrom = @"zh";
+    //        }
+    //    } else {
+    //中英互译。默认英译中，探测到输入为中文则改成中译英
+    tTo   = @"zh";
+    tFrom = @"en";
+    
+    if ((int)(ch)>127) {
+        tFrom = @"auto";
+        tTo   = @"en";
+    }
+    //    }
+    
+    NSNumber *tSaltNumber = @(arc4random());
+    // APP_ID + query + salt + SECURITY_KEY;
+    NSString *tSign = [[NSString stringWithFormat:@"%@%@%@%@", YSAPP_ID_BaiDu, aTranslationString,
+                                     tSaltNumber, YSSECURITY_KEY] bm_md5String];
+    NSDictionary *tParamDic = @{
+        @"appid" : YSAPP_ID_BaiDu,
+        @"q" : aTranslationString,
+        @"from" : tFrom,
+        @"to" : tTo,
+        @"salt" : tSaltNumber,
+        @"sign" : tSign
+        
+    };
+    BMWeakSelf
+    
+    
+    [manger GET:YSTRANS_API_HOST parameters:tParamDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        BMLog(@"%@",responseObject);
+        if (responseObject == nil)
+        {
+            return;
+        }
+        
+        NSArray *tRanslationArray    = [responseObject objectForKey:@"trans_result"];
+        NSDictionary *tRanslationDic = [tRanslationArray firstObject];
+        NSString * transString = [tRanslationDic objectForKey:@"dst"];
+        model.detailTrans = transString;
+        //        model.isOpen = YES;
+        
+//        [weakSelf.questTableView reloadData];
+//        weakSelf.questTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone
+        [weakSelf.questTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        BMLog(@"%@",error);
+    }];
+}
+
+@end

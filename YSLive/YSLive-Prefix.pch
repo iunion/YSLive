@@ -1,0 +1,23 @@
+//
+//  YSLive-Prefix.pch
+//  YSLive
+//
+//  Created by jiang deng on 2019/10/11.
+//  Copyright © 2019 FS. All rights reserved.
+//
+
+#ifndef YSLive_Prefix_h
+#define YSLive_Prefix_h
+
+#import <Availability.h>
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import <BMKit/BMkit.h>
+#import "YSAppConfig.h"
+#endif
+
+#endif /* YSLive_Prefix_h */
