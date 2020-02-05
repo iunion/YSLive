@@ -54,7 +54,7 @@ Podfile.lock
 YSEdu/Podfile
 YSEdu/YSEdu.xcworkspace/contents.xcworkspacedata
 YSEdu/YSEdu.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
-YSLib/BMKit.framework
+YSLib/BMKit/BMKit.framework
 YSLiveSample/YSLiveSample/YSLib/
 contents.xcworkspacedata
 
