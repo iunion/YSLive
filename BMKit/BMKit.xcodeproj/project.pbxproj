@@ -279,6 +279,49 @@
 		8701B124237165AA00A43607 /* BMTableViewActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */; };
 		8706C50E2394D67200223C87 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8706C50D2394D67200223C87 /* BMKitResources.bundle */; };
 		8706C5142395F73000223C87 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8706C5132395F73000223C87 /* BMKitImage.xcassets */; };
+		8777C77623EA72A2002002BF /* BMFreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74323EA72A2002002BF /* BMFreshBaseView.m */; };
+		8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */; };
+		8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */; };
+		8777C77923EA72A2002002BF /* BMFreshNormalHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74823EA72A2002002BF /* BMFreshNormalHeader.h */; };
+		8777C77B23EA72A2002002BF /* BMFreshNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74A23EA72A2002002BF /* BMFreshNormalHeader.m */; };
+		8777C77C23EA72A2002002BF /* BMFreshFiveStarHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74C23EA72A2002002BF /* BMFreshFiveStarHeader.m */; };
+		8777C77D23EA72A2002002BF /* BMFreshFiveStarHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74D23EA72A2002002BF /* BMFreshFiveStarHeader.h */; };
+		8777C77E23EA72A2002002BF /* BMFreshHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74E23EA72A2002002BF /* BMFreshHeaderView.h */; };
+		8777C77F23EA72A2002002BF /* BMFreshDotHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75023EA72A2002002BF /* BMFreshDotHeader.m */; };
+		8777C78023EA72A2002002BF /* BMFreshTriangleDotHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75123EA72A2002002BF /* BMFreshTriangleDotHeader.m */; };
+		8777C78123EA72A2002002BF /* BMFreshDotHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75223EA72A2002002BF /* BMFreshDotHeader.h */; };
+		8777C78223EA72A2002002BF /* BMFreshTriangleDotHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75323EA72A2002002BF /* BMFreshTriangleDotHeader.h */; };
+		8777C78323EA72A2002002BF /* BMFreshContainerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75423EA72A2002002BF /* BMFreshContainerHeaderView.m */; };
+		8777C78423EA72A2002002BF /* BMFreshDotCircleHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75623EA72A2002002BF /* BMFreshDotCircleHeader.h */; };
+		8777C78523EA72A2002002BF /* BMFreshCircleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75723EA72A2002002BF /* BMFreshCircleHeader.m */; };
+		8777C78623EA72A2002002BF /* BMFreshArcHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75823EA72A2002002BF /* BMFreshArcHeader.m */; };
+		8777C78723EA72A2002002BF /* BMFreshArcHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75923EA72A2002002BF /* BMFreshArcHeader.h */; };
+		8777C78823EA72A2002002BF /* BMFreshCircleHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75A23EA72A2002002BF /* BMFreshCircleHeader.h */; };
+		8777C78923EA72A2002002BF /* BMFreshDotCircleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75B23EA72A2002002BF /* BMFreshDotCircleHeader.m */; };
+		8777C78A23EA72A2002002BF /* BMFreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75C23EA72A2002002BF /* BMFreshHeaderView.m */; };
+		8777C78B23EA72A2002002BF /* BMFreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75E23EA72A2002002BF /* BMFreshGifHeader.m */; };
+		8777C78C23EA72A2002002BF /* BMFreshGifHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75F23EA72A2002002BF /* BMFreshGifHeader.h */; };
+		8777C78D23EA72A2002002BF /* BMFreshView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76023EA72A2002002BF /* BMFreshView.h */; };
+		8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76423EA72A2002002BF /* BMFreshBackNormalFooter.h */; };
+		8777C78F23EA72A2002002BF /* BMFreshBackNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76523EA72A2002002BF /* BMFreshBackNormalFooter.m */; };
+		8777C79023EA72A2002002BF /* BMFreshBackContainerFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76623EA72A2002002BF /* BMFreshBackContainerFooterView.m */; };
+		8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76723EA72A2002002BF /* BMFreshBackFooterView.h */; };
+		8777C79223EA72A2002002BF /* BMFreshBackFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76823EA72A2002002BF /* BMFreshBackFooterView.m */; };
+		8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76923EA72A2002002BF /* BMFreshBackContainerFooterView.h */; };
+		8777C79423EA72A2002002BF /* BMFreshAutoContainerFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76B23EA72A2002002BF /* BMFreshAutoContainerFooterView.h */; };
+		8777C79523EA72A2002002BF /* BMFreshAutoFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76C23EA72A2002002BF /* BMFreshAutoFooterView.m */; };
+		8777C79623EA72A2002002BF /* BMFreshAutoContainerFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76D23EA72A2002002BF /* BMFreshAutoContainerFooterView.m */; };
+		8777C79723EA72A3002002BF /* BMFreshAutoFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76E23EA72A2002002BF /* BMFreshAutoFooterView.h */; };
+		8777C79823EA72A3002002BF /* BMFreshAutoNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77023EA72A2002002BF /* BMFreshAutoNormalFooter.h */; };
+		8777C79923EA72A3002002BF /* BMFreshAutoNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C77123EA72A2002002BF /* BMFreshAutoNormalFooter.m */; };
+		8777C79A23EA72A3002002BF /* BMFreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C77223EA72A2002002BF /* BMFreshFooterView.m */; };
+		8777C79B23EA72A3002002BF /* BMFreshFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77323EA72A2002002BF /* BMFreshFooterView.h */; };
+		8777C79C23EA72A3002002BF /* BMFreshBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77423EA72A2002002BF /* BMFreshBaseView.h */; };
+		8777C79D23EA72A3002002BF /* UIScrollView+BMFresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C77523EA72A2002002BF /* UIScrollView+BMFresh.m */; };
+		8777C7A323EA7489002002BF /* BMEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C79F23EA7489002002BF /* BMEmptyView.m */; };
+		8777C7A423EA7489002002BF /* UIScrollView+BMEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7A023EA7489002002BF /* UIScrollView+BMEmpty.m */; };
+		8777C7A523EA7489002002BF /* BMEmptyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A123EA7489002002BF /* BMEmptyView.h */; };
+		8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -551,6 +594,49 @@
 		8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTableViewActionBar.m; sourceTree = "<group>"; };
 		8706C50D2394D67200223C87 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		8706C5132395F73000223C87 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		8777C74323EA72A2002002BF /* BMFreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshBaseView.m; sourceTree = "<group>"; };
+		8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+BMFresh.h"; sourceTree = "<group>"; };
+		8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshContainerHeaderView.h; sourceTree = "<group>"; };
+		8777C74823EA72A2002002BF /* BMFreshNormalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshNormalHeader.h; sourceTree = "<group>"; };
+		8777C74A23EA72A2002002BF /* BMFreshNormalHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshNormalHeader.m; sourceTree = "<group>"; };
+		8777C74C23EA72A2002002BF /* BMFreshFiveStarHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshFiveStarHeader.m; sourceTree = "<group>"; };
+		8777C74D23EA72A2002002BF /* BMFreshFiveStarHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshFiveStarHeader.h; sourceTree = "<group>"; };
+		8777C74E23EA72A2002002BF /* BMFreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshHeaderView.h; sourceTree = "<group>"; };
+		8777C75023EA72A2002002BF /* BMFreshDotHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshDotHeader.m; sourceTree = "<group>"; };
+		8777C75123EA72A2002002BF /* BMFreshTriangleDotHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshTriangleDotHeader.m; sourceTree = "<group>"; };
+		8777C75223EA72A2002002BF /* BMFreshDotHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshDotHeader.h; sourceTree = "<group>"; };
+		8777C75323EA72A2002002BF /* BMFreshTriangleDotHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshTriangleDotHeader.h; sourceTree = "<group>"; };
+		8777C75423EA72A2002002BF /* BMFreshContainerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshContainerHeaderView.m; sourceTree = "<group>"; };
+		8777C75623EA72A2002002BF /* BMFreshDotCircleHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshDotCircleHeader.h; sourceTree = "<group>"; };
+		8777C75723EA72A2002002BF /* BMFreshCircleHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshCircleHeader.m; sourceTree = "<group>"; };
+		8777C75823EA72A2002002BF /* BMFreshArcHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshArcHeader.m; sourceTree = "<group>"; };
+		8777C75923EA72A2002002BF /* BMFreshArcHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshArcHeader.h; sourceTree = "<group>"; };
+		8777C75A23EA72A2002002BF /* BMFreshCircleHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshCircleHeader.h; sourceTree = "<group>"; };
+		8777C75B23EA72A2002002BF /* BMFreshDotCircleHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshDotCircleHeader.m; sourceTree = "<group>"; };
+		8777C75C23EA72A2002002BF /* BMFreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshHeaderView.m; sourceTree = "<group>"; };
+		8777C75E23EA72A2002002BF /* BMFreshGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshGifHeader.m; sourceTree = "<group>"; };
+		8777C75F23EA72A2002002BF /* BMFreshGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshGifHeader.h; sourceTree = "<group>"; };
+		8777C76023EA72A2002002BF /* BMFreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshView.h; sourceTree = "<group>"; };
+		8777C76423EA72A2002002BF /* BMFreshBackNormalFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshBackNormalFooter.h; sourceTree = "<group>"; };
+		8777C76523EA72A2002002BF /* BMFreshBackNormalFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshBackNormalFooter.m; sourceTree = "<group>"; };
+		8777C76623EA72A2002002BF /* BMFreshBackContainerFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshBackContainerFooterView.m; sourceTree = "<group>"; };
+		8777C76723EA72A2002002BF /* BMFreshBackFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshBackFooterView.h; sourceTree = "<group>"; };
+		8777C76823EA72A2002002BF /* BMFreshBackFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshBackFooterView.m; sourceTree = "<group>"; };
+		8777C76923EA72A2002002BF /* BMFreshBackContainerFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshBackContainerFooterView.h; sourceTree = "<group>"; };
+		8777C76B23EA72A2002002BF /* BMFreshAutoContainerFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshAutoContainerFooterView.h; sourceTree = "<group>"; };
+		8777C76C23EA72A2002002BF /* BMFreshAutoFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshAutoFooterView.m; sourceTree = "<group>"; };
+		8777C76D23EA72A2002002BF /* BMFreshAutoContainerFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshAutoContainerFooterView.m; sourceTree = "<group>"; };
+		8777C76E23EA72A2002002BF /* BMFreshAutoFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshAutoFooterView.h; sourceTree = "<group>"; };
+		8777C77023EA72A2002002BF /* BMFreshAutoNormalFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshAutoNormalFooter.h; sourceTree = "<group>"; };
+		8777C77123EA72A2002002BF /* BMFreshAutoNormalFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshAutoNormalFooter.m; sourceTree = "<group>"; };
+		8777C77223EA72A2002002BF /* BMFreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshFooterView.m; sourceTree = "<group>"; };
+		8777C77323EA72A2002002BF /* BMFreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshFooterView.h; sourceTree = "<group>"; };
+		8777C77423EA72A2002002BF /* BMFreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshBaseView.h; sourceTree = "<group>"; };
+		8777C77523EA72A2002002BF /* UIScrollView+BMFresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+BMFresh.m"; sourceTree = "<group>"; };
+		8777C79F23EA7489002002BF /* BMEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMEmptyView.m; sourceTree = "<group>"; };
+		8777C7A023EA7489002002BF /* UIScrollView+BMEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+BMEmpty.m"; sourceTree = "<group>"; };
+		8777C7A123EA7489002002BF /* BMEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMEmptyView.h; sourceTree = "<group>"; };
+		8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+BMEmpty.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -750,9 +836,11 @@
 				8701B0862371650F00A43607 /* BMCheckBox */,
 				8701AF3523715CF900A43607 /* BMCountDownManager */,
 				8701AFED2371648100A43607 /* BMDatePicker */,
+				8777C79E23EA7489002002BF /* BMEmptyView */,
 				8701AF3E23715DF800A43607 /* BMImageTextView */,
 				8701AF4323715F5500A43607 /* BMNavigationBar */,
 				8701AFA82371623600A43607 /* BMPlaceholderTextView */,
+				8777C74223EA72A2002002BF /* BMRefreshView */,
 				8701AF8D237160DB00A43607 /* BMScrollPageView */,
 				8701AF992371610D00A43607 /* BMSingleLineView */,
 				8701AFAD2371624F00A43607 /* BMStepperInputView */,
@@ -1085,6 +1173,151 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		8777C74223EA72A2002002BF /* BMRefreshView */ = {
+			isa = PBXGroup;
+			children = (
+				8777C74523EA72A2002002BF /* BMFreshHeaderView */,
+				8777C76123EA72A2002002BF /* BMFreshFooterView */,
+				8777C76023EA72A2002002BF /* BMFreshView.h */,
+				8777C77423EA72A2002002BF /* BMFreshBaseView.h */,
+				8777C74323EA72A2002002BF /* BMFreshBaseView.m */,
+				8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */,
+				8777C77523EA72A2002002BF /* UIScrollView+BMFresh.m */,
+			);
+			path = BMRefreshView;
+			sourceTree = "<group>";
+		};
+		8777C74523EA72A2002002BF /* BMFreshHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				8777C75523EA72A2002002BF /* BMFreshCircleHeader */,
+				8777C74F23EA72A2002002BF /* BMFreshDotHeader */,
+				8777C74B23EA72A2002002BF /* BMFreshFiveStarHeader */,
+				8777C75D23EA72A2002002BF /* BMFreshGifHeader */,
+				8777C74723EA72A2002002BF /* BMFreshNormalHeader */,
+				8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */,
+				8777C75423EA72A2002002BF /* BMFreshContainerHeaderView.m */,
+				8777C74E23EA72A2002002BF /* BMFreshHeaderView.h */,
+				8777C75C23EA72A2002002BF /* BMFreshHeaderView.m */,
+			);
+			path = BMFreshHeaderView;
+			sourceTree = "<group>";
+		};
+		8777C74723EA72A2002002BF /* BMFreshNormalHeader */ = {
+			isa = PBXGroup;
+			children = (
+				8777C74823EA72A2002002BF /* BMFreshNormalHeader.h */,
+				8777C74A23EA72A2002002BF /* BMFreshNormalHeader.m */,
+			);
+			path = BMFreshNormalHeader;
+			sourceTree = "<group>";
+		};
+		8777C74B23EA72A2002002BF /* BMFreshFiveStarHeader */ = {
+			isa = PBXGroup;
+			children = (
+				8777C74D23EA72A2002002BF /* BMFreshFiveStarHeader.h */,
+				8777C74C23EA72A2002002BF /* BMFreshFiveStarHeader.m */,
+			);
+			path = BMFreshFiveStarHeader;
+			sourceTree = "<group>";
+		};
+		8777C74F23EA72A2002002BF /* BMFreshDotHeader */ = {
+			isa = PBXGroup;
+			children = (
+				8777C75223EA72A2002002BF /* BMFreshDotHeader.h */,
+				8777C75023EA72A2002002BF /* BMFreshDotHeader.m */,
+				8777C75323EA72A2002002BF /* BMFreshTriangleDotHeader.h */,
+				8777C75123EA72A2002002BF /* BMFreshTriangleDotHeader.m */,
+			);
+			path = BMFreshDotHeader;
+			sourceTree = "<group>";
+		};
+		8777C75523EA72A2002002BF /* BMFreshCircleHeader */ = {
+			isa = PBXGroup;
+			children = (
+				8777C75923EA72A2002002BF /* BMFreshArcHeader.h */,
+				8777C75823EA72A2002002BF /* BMFreshArcHeader.m */,
+				8777C75A23EA72A2002002BF /* BMFreshCircleHeader.h */,
+				8777C75723EA72A2002002BF /* BMFreshCircleHeader.m */,
+				8777C75623EA72A2002002BF /* BMFreshDotCircleHeader.h */,
+				8777C75B23EA72A2002002BF /* BMFreshDotCircleHeader.m */,
+			);
+			path = BMFreshCircleHeader;
+			sourceTree = "<group>";
+		};
+		8777C75D23EA72A2002002BF /* BMFreshGifHeader */ = {
+			isa = PBXGroup;
+			children = (
+				8777C75F23EA72A2002002BF /* BMFreshGifHeader.h */,
+				8777C75E23EA72A2002002BF /* BMFreshGifHeader.m */,
+			);
+			path = BMFreshGifHeader;
+			sourceTree = "<group>";
+		};
+		8777C76123EA72A2002002BF /* BMFreshFooterView */ = {
+			isa = PBXGroup;
+			children = (
+				8777C76223EA72A2002002BF /* Back */,
+				8777C76A23EA72A2002002BF /* Auto */,
+				8777C77323EA72A2002002BF /* BMFreshFooterView.h */,
+				8777C77223EA72A2002002BF /* BMFreshFooterView.m */,
+			);
+			path = BMFreshFooterView;
+			sourceTree = "<group>";
+		};
+		8777C76223EA72A2002002BF /* Back */ = {
+			isa = PBXGroup;
+			children = (
+				8777C76323EA72A2002002BF /* BMFreshBackNormalFooter */,
+				8777C76923EA72A2002002BF /* BMFreshBackContainerFooterView.h */,
+				8777C76623EA72A2002002BF /* BMFreshBackContainerFooterView.m */,
+				8777C76723EA72A2002002BF /* BMFreshBackFooterView.h */,
+				8777C76823EA72A2002002BF /* BMFreshBackFooterView.m */,
+			);
+			path = Back;
+			sourceTree = "<group>";
+		};
+		8777C76323EA72A2002002BF /* BMFreshBackNormalFooter */ = {
+			isa = PBXGroup;
+			children = (
+				8777C76423EA72A2002002BF /* BMFreshBackNormalFooter.h */,
+				8777C76523EA72A2002002BF /* BMFreshBackNormalFooter.m */,
+			);
+			path = BMFreshBackNormalFooter;
+			sourceTree = "<group>";
+		};
+		8777C76A23EA72A2002002BF /* Auto */ = {
+			isa = PBXGroup;
+			children = (
+				8777C76F23EA72A2002002BF /* BMFreshAutoNormalFooter */,
+				8777C76B23EA72A2002002BF /* BMFreshAutoContainerFooterView.h */,
+				8777C76D23EA72A2002002BF /* BMFreshAutoContainerFooterView.m */,
+				8777C76E23EA72A2002002BF /* BMFreshAutoFooterView.h */,
+				8777C76C23EA72A2002002BF /* BMFreshAutoFooterView.m */,
+			);
+			path = Auto;
+			sourceTree = "<group>";
+		};
+		8777C76F23EA72A2002002BF /* BMFreshAutoNormalFooter */ = {
+			isa = PBXGroup;
+			children = (
+				8777C77023EA72A2002002BF /* BMFreshAutoNormalFooter.h */,
+				8777C77123EA72A2002002BF /* BMFreshAutoNormalFooter.m */,
+			);
+			path = BMFreshAutoNormalFooter;
+			sourceTree = "<group>";
+		};
+		8777C79E23EA7489002002BF /* BMEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				8777C7A123EA7489002002BF /* BMEmptyView.h */,
+				8777C79F23EA7489002002BF /* BMEmptyView.m */,
+				8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */,
+				8777C7A023EA7489002002BF /* UIScrollView+BMEmpty.m */,
+			);
+			path = BMEmptyView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1096,9 +1329,11 @@
 				8701AE4E23714E6000A43607 /* NSString+BMFormat.h in Headers */,
 				8701AE0723714E6000A43607 /* BMClassCategory.h in Headers */,
 				8701AF2223715B4D00A43607 /* BMSDImageCache.h in Headers */,
+				8777C79C23EA72A3002002BF /* BMFreshBaseView.h in Headers */,
 				8701AE5F23714E6000A43607 /* NSURL+BMParameters.h in Headers */,
 				8701AE1123714E6000A43607 /* UIView+BMSize.h in Headers */,
 				8701AF1723715B4D00A43607 /* BMSDWebImageDownloader.h in Headers */,
+				8777C78423EA72A2002002BF /* BMFreshDotCircleHeader.h in Headers */,
 				8701AF1F23715B4D00A43607 /* BMSDWebImagePrefetcher.h in Headers */,
 				8701AF1523715B4D00A43607 /* UIImage+BMGIF.h in Headers */,
 				8701AE2523714E6000A43607 /* CAAnimation+Blocks.h in Headers */,
@@ -1123,6 +1358,7 @@
 				8701AE2023714E6000A43607 /* UIFont+BMCategory.h in Headers */,
 				8701AE4723714E6000A43607 /* NSNumber+BMCategory.h in Headers */,
 				8701AE0823714E6000A43607 /* UIButton+BMContentRect.h in Headers */,
+				8777C79723EA72A3002002BF /* BMFreshAutoFooterView.h in Headers */,
 				8701AF1423715B4D00A43607 /* UIView+BMWebCache.h in Headers */,
 				8701AD9C23714E1500A43607 /* BMKit.h in Headers */,
 				8701AF2023715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h in Headers */,
@@ -1130,8 +1366,10 @@
 				8701AE5423714E6000A43607 /* NSString+BMMandarinLatin.h in Headers */,
 				8701AF2423715B4D00A43607 /* UIView+BMWebCacheOperation.h in Headers */,
 				8701AE2D23714E6000A43607 /* UIWindow+BMCategory.h in Headers */,
+				8777C78823EA72A2002002BF /* BMFreshCircleHeader.h in Headers */,
 				8701AE1923714E6000A43607 /* UIView+BMCorner.h in Headers */,
 				8701AF1323715B4D00A43607 /* NSImage+BMWebCache.h in Headers */,
+				8777C78223EA72A2002002BF /* BMFreshTriangleDotHeader.h in Headers */,
 				8701AF0523715B4D00A43607 /* UIImage+BMMultiFormat.h in Headers */,
 				8701AE5723714E6000A43607 /* NSString+BMRoundNumber.h in Headers */,
 				8701AE4323714E6000A43607 /* NSData+BMEncrypt.h in Headers */,
@@ -1142,6 +1380,8 @@
 				8701AE0D23714E6000A43607 /* UIView+BMPositioning.h in Headers */,
 				8701AE4023714E6000A43607 /* NSObject+BMCategory.h in Headers */,
 				8701AE5823714E6000A43607 /* NSString+Emoji.h in Headers */,
+				8777C78D23EA72A2002002BF /* BMFreshView.h in Headers */,
+				8777C7A523EA7489002002BF /* BMEmptyView.h in Headers */,
 				8701AE0E23714E6000A43607 /* UIView+BMNibLoading.h in Headers */,
 				8701AF1D23715B4D00A43607 /* BMSDWebImageCompat.h in Headers */,
 				8701AE3823714E6000A43607 /* NSArray+BMCategory.h in Headers */,
@@ -1153,12 +1393,17 @@
 				8701AF8A23715F5500A43607 /* UIViewController+BMNavigationItem.h in Headers */,
 				8701AF6923715F5500A43607 /* BMNavigationBar.h in Headers */,
 				8701AF8323715F5500A43607 /* UIViewController+BMNavigationBar.h in Headers */,
+				8777C77923EA72A2002002BF /* BMFreshNormalHeader.h in Headers */,
+				8777C79423EA72A2002002BF /* BMFreshAutoContainerFooterView.h in Headers */,
 				8701AF3323715C9E00A43607 /* BMBadgeDefine.h in Headers */,
+				8777C78123EA72A2002002BF /* BMFreshDotHeader.h in Headers */,
 				8701B10F237165AA00A43607 /* BMNumberTextItem.h in Headers */,
 				8701AF98237160DB00A43607 /* BMScrollPageView.h in Headers */,
 				8701B116237165AA00A43607 /* BMSegmentItem.h in Headers */,
+				8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */,
 				8701AF9C2371610D00A43607 /* BMSingleLineView.h in Headers */,
 				8701B0E7237165AA00A43607 /* BMTableViewPickerCell.h in Headers */,
+				8777C78C23EA72A2002002BF /* BMFreshGifHeader.h in Headers */,
 				8701B0E4237165AA00A43607 /* BMTableViewLongTextCell.h in Headers */,
 				8701B11C237165AA00A43607 /* BMLongTextItem.h in Headers */,
 				8701B109237165AA00A43607 /* BMImageDetailItem.h in Headers */,
@@ -1167,15 +1412,19 @@
 				8701B0E3237165AA00A43607 /* BMTableViewImageDetailCell.h in Headers */,
 				8701B0FA237165AA00A43607 /* BMTableViewItem.h in Headers */,
 				8701B0E2237165AA00A43607 /* BMTableViewStepperInputCell.h in Headers */,
+				8777C77E23EA72A2002002BF /* BMFreshHeaderView.h in Headers */,
 				8701B0EA237165AA00A43607 /* BMTableViewNumberTextCell.h in Headers */,
 				8701B0E1237165AA00A43607 /* BMTableViewMaskTextCell.h in Headers */,
 				8701B11B237165AA00A43607 /* BMBoolItem.h in Headers */,
 				8701B0EB237165AA00A43607 /* BMTableViewCheckBoxGroupCell.h in Headers */,
 				8701B122237165AA00A43607 /* BMTableViewManagerDefine.h in Headers */,
+				8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */,
 				8701B119237165AA00A43607 /* BMSliderItem.h in Headers */,
 				8701B0DF237165AA00A43607 /* BMTableViewSection.h in Headers */,
 				8701B0F7237165AA00A43607 /* BMTableViewBoolCell.h in Headers */,
 				8701B115237165AA00A43607 /* BMMaskTextItem.h in Headers */,
+				8777C79B23EA72A3002002BF /* BMFreshFooterView.h in Headers */,
+				8777C78723EA72A2002002BF /* BMFreshArcHeader.h in Headers */,
 				8701B0EC237165AA00A43607 /* BMTableViewDateTimeCell.h in Headers */,
 				8701B0F6237165AA00A43607 /* BMTableViewSliderCell.h in Headers */,
 				8701B0F0237165AA00A43607 /* BMTableViewSegmentCell.h in Headers */,
@@ -1187,12 +1436,14 @@
 				8701B0F9237165AA00A43607 /* BMTableViewManager.h in Headers */,
 				8701B0FB237165AA00A43607 /* BMTableViewCell.h in Headers */,
 				8701AF97237160DB00A43607 /* BMScrollPageSegment.h in Headers */,
+				8777C77D23EA72A2002002BF /* BMFreshFiveStarHeader.h in Headers */,
 				8701AF3A23715CF900A43607 /* BMCountDownManager.h in Headers */,
 				8701AFA5237161AA00A43607 /* BMApiUtil.h in Headers */,
 				8701AFA7237161AA00A43607 /* BMApiStatusView.h in Headers */,
 				8701AFAB2371623600A43607 /* BMPlaceholderTextView.h in Headers */,
 				8701AFD92371624F00A43607 /* BMStepperInputView.h in Headers */,
 				8701AFE6237163B100A43607 /* BMVerifyField.h in Headers */,
+				8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */,
 				8701AF4223715DF800A43607 /* BMImageTextView.h in Headers */,
 				8701B08E2371650F00A43607 /* BMCheckBoxLabel.h in Headers */,
 				8701B08F2371650F00A43607 /* BMCheckBox.h in Headers */,
@@ -1207,10 +1458,12 @@
 				8701AE6123714E6000A43607 /* NSBundle+BMResource.h in Headers */,
 				8701AF2323715B4D00A43607 /* UIImage+BMWebP.h in Headers */,
 				8701AE1B23714E6000A43607 /* UITextField+BMCategory.h in Headers */,
+				8777C79823EA72A3002002BF /* BMFreshAutoNormalFooter.h in Headers */,
 				8701AE2123714E6000A43607 /* UIButton+BMCategory.h in Headers */,
 				8701AF0A23715B4D00A43607 /* BMSDWebImageOperation.h in Headers */,
 				8701AE4423714E6000A43607 /* NSData+BMCategory.h in Headers */,
 				8701AF1B23715B4D00A43607 /* BMSDWebImageDownloaderOperation.h in Headers */,
+				8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */,
 				8701AF1823715B4D00A43607 /* UIImageView+BMWebCache.h in Headers */,
 				8701AE5D23714E6000A43607 /* NSRegularExpression+BMRegEx.h in Headers */,
 				8701AF1E23715B4D00A43607 /* SDWebImageDecoder.h in Headers */,
@@ -1219,9 +1472,11 @@
 				8701AE6A2371512100A43607 /* BMApp.h in Headers */,
 				8701AE672371511200A43607 /* BMkitMacros.h in Headers */,
 				8701AEAC2371550000A43607 /* BMAlertView.h in Headers */,
+				8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */,
 				8701AEA92371550000A43607 /* BMNoticeView.h in Headers */,
 				8701AEAD2371550000A43607 /* BMTools.h in Headers */,
 				8701AE3923714E6000A43607 /* NSDictionary+BMCategory.h in Headers */,
+				8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */,
 				8701AFE5237163B100A43607 /* BMVerifyFieldTextPosition.h in Headers */,
 				8701AE0C23714E6000A43607 /* UIView+BMInnerShadow.h in Headers */,
 			);
@@ -1327,11 +1582,13 @@
 				8701B11E237165AA00A43607 /* BMCheckBoxGroupItem.m in Sources */,
 				8701B0EE237165AA00A43607 /* BMTableViewMaskTextCell.m in Sources */,
 				8701AF3C23715CF900A43607 /* BMCountDownManager.m in Sources */,
+				8777C79D23EA72A3002002BF /* UIScrollView+BMFresh.m in Sources */,
 				8701AE3C23714E6000A43607 /* NSDecimalNumber+BMCategory.m in Sources */,
 				8701AE3F23714E6000A43607 /* NSURL+BMParameters.m in Sources */,
 				8701AE2823714E6000A43607 /* UIButton+BMContentRect.m in Sources */,
 				8701B0F2237165AA00A43607 /* BMTableViewLongTextCell.m in Sources */,
 				8701AF0F23715B4D00A43607 /* BMSDImageCache.m in Sources */,
+				8777C78023EA72A2002002BF /* BMFreshTriangleDotHeader.m in Sources */,
 				8701B10B237165AA00A43607 /* BMSegmentItem.m in Sources */,
 				8701AE1723714E6000A43607 /* UIView+BMAnimationExtensions.m in Sources */,
 				8701AE2C23714E6000A43607 /* UITextField+BMCategory.m in Sources */,
@@ -1349,9 +1606,11 @@
 				8701B121237165AA00A43607 /* BMInputItem.m in Sources */,
 				8701AE1C23714E6000A43607 /* UILocalNotification+BMCategory.m in Sources */,
 				8701B117237165AA00A43607 /* BMDateTimeItem.m in Sources */,
+				8777C79623EA72A2002002BF /* BMFreshAutoContainerFooterView.m in Sources */,
 				8701B0E9237165AA00A43607 /* BMTableViewSliderCell.m in Sources */,
 				8701AE3B23714E6000A43607 /* NSRegularExpression+BMRegEx.m in Sources */,
 				8701AE6423714E6000A43607 /* NSMutableArray+BMCategory.m in Sources */,
+				8777C79523EA72A2002002BF /* BMFreshAutoFooterView.m in Sources */,
 				8701B118237165AA00A43607 /* BMNumberTextItem.m in Sources */,
 				8701AE4B23714E6000A43607 /* NSString+BMEncrypt.m in Sources */,
 				8701B108237165AA00A43607 /* BMMaskTextItem.m in Sources */,
@@ -1368,9 +1627,11 @@
 				8701B0E6237165AA00A43607 /* BMTableViewSegmentCell.m in Sources */,
 				8701AFA4237161AA00A43607 /* BMApiUtil.m in Sources */,
 				8701AE3D23714E6000A43607 /* NSBundle+BMResource.m in Sources */,
+				8777C77F23EA72A2002002BF /* BMFreshDotHeader.m in Sources */,
 				8701AE2E23714E6000A43607 /* UIImage+BMAssets.m in Sources */,
 				8701AF1623715B4D00A43607 /* UIView+BMWebCacheOperation.m in Sources */,
 				8701AE2623714E6000A43607 /* UILabel+BMCategory.m in Sources */,
+				8777C78523EA72A2002002BF /* BMFreshCircleHeader.m in Sources */,
 				8701B0F3237165AA00A43607 /* BMTableViewImageDetailCell.m in Sources */,
 				8701AF0D23715B4D00A43607 /* BMSDWebImageCompat.m in Sources */,
 				8701B0E0237165AA00A43607 /* BMTableViewDateTimeCell.m in Sources */,
@@ -1383,18 +1644,23 @@
 				8701AE3223714E6000A43607 /* UIImage+BMTint.m in Sources */,
 				8701AFE2237163B100A43607 /* BMVerifyFieldTextPosition.m in Sources */,
 				8701B103237165AA00A43607 /* BMTableViewSection.m in Sources */,
+				8777C7A323EA7489002002BF /* BMEmptyView.m in Sources */,
 				8701AE1023714E6000A43607 /* UIView+BMAnimation.m in Sources */,
 				8701B0E8237165AA00A43607 /* BMTableViewBoolCell.m in Sources */,
 				8701B113237165AA00A43607 /* BMLongTextItem.m in Sources */,
 				8701AF1C23715B4D00A43607 /* UIImage+BMMultiFormat.m in Sources */,
 				8701AF1223715B4D00A43607 /* UIButton+BMWebCache.m in Sources */,
+				8777C78A23EA72A2002002BF /* BMFreshHeaderView.m in Sources */,
 				8701AF0B23715B4D00A43607 /* BMSDWebImagePrefetcher.m in Sources */,
+				8777C78323EA72A2002002BF /* BMFreshContainerHeaderView.m in Sources */,
 				8701AF0E23715B4D00A43607 /* UIImage+BMWebP.m in Sources */,
 				8701AE4F23714E6000A43607 /* NSString+Emoji.m in Sources */,
 				8701AE2A23714E6000A43607 /* UIImageView+BMCategory.m in Sources */,
 				8701AE4623714E6000A43607 /* NSData+BMCategory.m in Sources */,
+				8777C79223EA72A2002002BF /* BMFreshBackFooterView.m in Sources */,
 				8701B0ED237165AA00A43607 /* BMTableViewStepperInputCell.m in Sources */,
 				8701AE1323714E6000A43607 /* UIView+BMOutSide.m in Sources */,
+				8777C79023EA72A2002002BF /* BMFreshBackContainerFooterView.m in Sources */,
 				8701B0EF237165AA00A43607 /* BMTableViewPickerCell.m in Sources */,
 				8701AF3B23715CF900A43607 /* UIView+BMCountDownManager.m in Sources */,
 				8701AE2923714E6000A43607 /* UIImage+BMCategory.m in Sources */,
@@ -1407,10 +1673,14 @@
 				8701B10E237165AA00A43607 /* BMSliderItem.m in Sources */,
 				8701AFE4237163B100A43607 /* BMVerifyField.m in Sources */,
 				8701B0F8237165AA00A43607 /* BMTableViewCellStyle.m in Sources */,
+				8777C7A423EA7489002002BF /* UIScrollView+BMEmpty.m in Sources */,
 				8701AE3A23714E6000A43607 /* NSAttributedString+BMCategory.m in Sources */,
 				8701B106237165AA00A43607 /* BMTableViewManager.m in Sources */,
 				8701AE6B2371512100A43607 /* BMApp.m in Sources */,
 				8701AE1223714E6000A43607 /* UIView+BMCorner.m in Sources */,
+				8777C78F23EA72A2002002BF /* BMFreshBackNormalFooter.m in Sources */,
+				8777C79A23EA72A3002002BF /* BMFreshFooterView.m in Sources */,
+				8777C78623EA72A2002002BF /* BMFreshArcHeader.m in Sources */,
 				8701AE2223714E6000A43607 /* UIColor+BMCategory.m in Sources */,
 				8701B105237165AA00A43607 /* BMTableViewItem.m in Sources */,
 				8701B10C237165AA00A43607 /* BMBoolItem.m in Sources */,
@@ -1420,9 +1690,12 @@
 				8701AF94237160DB00A43607 /* BMScrollPageSegment.m in Sources */,
 				8701AE3123714E6000A43607 /* UIButton+BMCategory.m in Sources */,
 				8701B104237165AA00A43607 /* BMTableViewCell.m in Sources */,
+				8777C78923EA72A2002002BF /* BMFreshDotCircleHeader.m in Sources */,
 				8701AE5923714E6000A43607 /* NSString+BMRegEx.m in Sources */,
 				8701AFE3237163B100A43607 /* BMVerifyFieldTextRange.m in Sources */,
+				8777C78B23EA72A2002002BF /* BMFreshGifHeader.m in Sources */,
 				8701AE4D23714E6000A43607 /* NSString+BMMandarinLatin.m in Sources */,
+				8777C77B23EA72A2002002BF /* BMFreshNormalHeader.m in Sources */,
 				8701AF2D23715B9400A43607 /* BMAlignedImageView.m in Sources */,
 				8701AE3623714E6000A43607 /* CAAnimation+Blocks.m in Sources */,
 				8701AF8B23715F5500A43607 /* BMNavigationController.m in Sources */,
@@ -1434,7 +1707,10 @@
 				8701AEAB2371550000A43607 /* BMAlertView.m in Sources */,
 				8701AF3223715C9E00A43607 /* UIView+BMBadge.m in Sources */,
 				8701AE4223714E6000A43607 /* NSDate+BMCategory.m in Sources */,
+				8777C77C23EA72A2002002BF /* BMFreshFiveStarHeader.m in Sources */,
 				8701AE1A23714E6000A43607 /* UIView+BMSize.m in Sources */,
+				8777C77623EA72A2002002BF /* BMFreshBaseView.m in Sources */,
+				8777C79923EA72A3002002BF /* BMFreshAutoNormalFooter.m in Sources */,
 				8701AFF12371648200A43607 /* BMDatePicker.m in Sources */,
 				8701AE0A23714E6000A43607 /* UIWindow+BMCategory.m in Sources */,
 				8701AE1423714E6000A43607 /* UIView+BMPositioning.m in Sources */,

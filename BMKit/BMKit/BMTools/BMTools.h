@@ -46,4 +46,7 @@
 
 #import "BMTableViewManager.h"
 
+#import "BMEmptyView.h"
+#import "BMFreshView.h"
+
 #endif /* BMTools_h */
