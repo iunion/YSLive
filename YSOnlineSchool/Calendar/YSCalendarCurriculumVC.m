@@ -9,6 +9,7 @@
 #import "YSCalendarCurriculumVC.h"
 #import "FSCalendar.h"
 #import "YSCalendarCell.h"
+#import "YSClassOneDayVC.h"
 
 @interface YSCalendarCurriculumVC ()
 <
@@ -49,8 +50,6 @@ FSCalendarDelegateAppearance
     [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
     
-    
-    
     self.dateDict = @{
         @"2020-02-02":@"共1节课",
         @"2020-02-05":@"共3节课",
@@ -62,9 +61,7 @@ FSCalendarDelegateAppearance
 
 - (void)backBtnClick
 {
-    
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 - (void)setupUI
 {
@@ -89,7 +86,7 @@ FSCalendarDelegateAppearance
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.swipeToChooseGesture.enabled = YES;
-    calendar.allowsMultipleSelection = YES;
+    calendar.allowsMultipleSelection = NO;
     [self.view addSubview:calendar];
     calendar.scrollEnabled = NO;
     self.MyCalendar = calendar;
@@ -138,10 +135,21 @@ FSCalendarDelegateAppearance
 {
     NSLog(@"点击的date %@",[self.dateFormatter stringFromDate:date]);
 //    [self configureVisibleCells];
-    FSCalendarCell *cell = [calendar cellForDate:date atMonthPosition:monthPosition];    
+//    FSCalendarCell *cell = [calendar cellForDate:date atMonthPosition:monthPosition];
+    
+    YSClassOneDayVC * classVC = [[YSClassOneDayVC alloc]init];
+    NSString * dateString = [self.dateFormatter stringFromDate:date];
+    classVC.selectDate = [self.dateFormatter dateFromString:dateString];
+    [self.navigationController pushViewController:classVC animated:YES];
 }
 
-
+- (void)calendar:(FSCalendar *)calendar didDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+//    YSClassOneDayVC * classVC = [[YSClassOneDayVC alloc]init];
+//    NSString * dateString = [self.dateFormatter stringFromDate:date];
+//    classVC.selectDate = [self.dateFormatter dateFromString:dateString];
+//    [self.navigationController pushViewController:classVC animated:YES];
+}
 
 - (FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {

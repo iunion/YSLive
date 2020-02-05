@@ -163,6 +163,11 @@
 		34043CA223EABA8D004982E6 /* FSCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C8E23EABA8D004982E6 /* FSCalendarHeaderView.m */; };
 		34043CA323EABA8E004982E6 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C9223EABA8D004982E6 /* FSCalendarTransitionCoordinator.m */; };
 		34043CA423EABA8E004982E6 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C9323EABA8D004982E6 /* FSCalendarAppearance.m */; };
+		34043CA823EAE0DB004982E6 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DAE23C57CC300DA0276 /* BMKit.framework */; };
+		34043CA923EAE0DC004982E6 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DAE23C57CC300DA0276 /* BMKit.framework */; };
+		34043CAA23EAE0E1004982E6 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
+		34043CAB23EAE0E1004982E6 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
+		34043CAE23EAE4C4004982E6 /* YSClassOneDayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */; };
 		8701B15F2371720600A43607 /* testcolorpalette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1312371720600A43607 /* testcolorpalette@2x.png */; };
 		8701B1602371720600A43607 /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
 		8701B1612371720600A43607 /* BMTestColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1332371720600A43607 /* BMTestColorPickerView.m */; };
@@ -1002,6 +1007,8 @@
 		34043C9123EABA8D004982E6 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
 		34043C9223EABA8D004982E6 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
 		34043C9323EABA8D004982E6 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
+		34043CAC23EAE4C4004982E6 /* YSClassOneDayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassOneDayVC.h; sourceTree = "<group>"; };
+		34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassOneDayVC.m; sourceTree = "<group>"; };
 		8701B1312371720600A43607 /* testcolorpalette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpalette@2x.png"; sourceTree = "<group>"; };
 		8701B1322371720600A43607 /* testcolorpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpicker@2x.png"; sourceTree = "<group>"; };
 		8701B1332371720600A43607 /* BMTestColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTestColorPickerView.m; sourceTree = "<group>"; };
@@ -1609,6 +1616,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				871337FE237272B9006534A4 /* HockeySDK.framework in Frameworks */,
+				34043CA923EAE0DC004982E6 /* BMKit.framework in Frameworks */,
 				877CCBCF2389479B00584E65 /* YSRoomSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1618,6 +1626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26672B662356CDE300C448B3 /* HockeySDK.framework in Frameworks */,
+				34043CA823EAE0DB004982E6 /* BMKit.framework in Frameworks */,
 				877CCBCE2389479B00584E65 /* YSRoomSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1923,6 +1932,8 @@
 			children = (
 				34043C4123EA62EB004982E6 /* YSTabBarViewController.h */,
 				34043C4023EA62EB004982E6 /* YSTabBarViewController.m */,
+				34043CAC23EAE4C4004982E6 /* YSClassOneDayVC.h */,
+				34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */,
 				34043C3F23EA623C004982E6 /* Mine */,
 				34043C3E23EA6216004982E6 /* Calendar */,
 			);
@@ -3524,6 +3535,7 @@
 				87133862237272B9006534A4 /* testcolorpalette@2x.png in Resources */,
 				87133887237272B9006534A4 /* testcolorpicker@2x.png in Resources */,
 				8713388E237272B9006534A4 /* (null) in Resources */,
+				34043CAB23EAE0E1004982E6 /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3546,6 +3558,7 @@
 				0463843F237A971700DE7236 /* TZImagePickerController.bundle in Resources */,
 				8701B1602371720600A43607 /* testcolorpicker@2x.png in Resources */,
 				2644A3F623543F2A004EE24D /* (null) in Resources */,
+				34043CAA23EAE0E1004982E6 /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3845,6 +3858,7 @@
 				26C1D3852376B2CF007869EA /* SCTopToolBar.m in Sources */,
 				87133627237270F6006534A4 /* AFURLSessionManager.m in Sources */,
 				87133628237270F6006534A4 /* ioapi.c in Sources */,
+				34043CAE23EAE4C4004982E6 /* YSClassOneDayVC.m in Sources */,
 				872D04A623B7362300DAC321 /* FLEXSystemLogMessage.m in Sources */,
 				872D046C23B7362300DAC321 /* FLEXDictionaryExplorerViewController.m in Sources */,
 				872D04AF23B7362300DAC321 /* FLEXTableListViewController.m in Sources */,
@@ -4472,6 +4486,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
+					"$(PROJECT_DIR)/YSLib/BMKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";
@@ -4521,6 +4536,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
+					"$(PROJECT_DIR)/YSLib/BMKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";
@@ -4668,6 +4684,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
+					"$(PROJECT_DIR)/YSLib/BMKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";
@@ -4718,6 +4735,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
+					"$(PROJECT_DIR)/YSLib/BMKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";

@@ -45,7 +45,7 @@
     self.backgroundView.frame = CGRectInset(self.bounds, 1, 1);
     self.selectionLayer.frame = self.bounds;
     self.selectionLayer.path = [UIBezierPath bezierPathWithRect:self.selectionLayer.bounds].CGPath;
-self.circleLab.frame = CGRectMake(0, self.backgroundView.frame.size.height-10, self.backgroundView.frame.size.width, 10);
+self.circleLab.frame = CGRectMake(0, self.backgroundView.frame.size.height-20, self.backgroundView.frame.size.width, 10);
     [self bringSubviewToFront:self.circleLab];//不起作用
 }
 
