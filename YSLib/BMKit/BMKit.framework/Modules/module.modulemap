@@ -1,6 +1,0 @@
-framework module BMKit {
-  umbrella header "BMKit.h"
-
-  export *
-  module * { export * }
-}
