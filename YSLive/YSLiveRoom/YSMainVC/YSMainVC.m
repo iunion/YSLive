@@ -1242,7 +1242,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Prompt.NetworkChanged") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Prompt.NetworkChanged") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1265,7 +1265,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Prompt.NetworkChanged") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Prompt.NetworkChanged") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1297,7 +1297,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     if (!inlist)
     {
         [self bringSomeViewToFront];
-        [self.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Alert.BeginClass") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Alert.BeginClass") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     
     

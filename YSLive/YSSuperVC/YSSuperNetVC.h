@@ -18,15 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 >
 
 // 网络等待
-@property (nonatomic, strong) BMProgressHUD *m_ProgressHUD;
+@property (nonatomic, strong) BMProgressHUD *progressHUD;
 
 // 显示等待开关
-@property (nonatomic, assign) BOOL m_ShowProgressHUD;
+@property (nonatomic, assign) BOOL showProgressHUD;
 // 显示结果消息提示开关
-@property (nonatomic, assign) BOOL m_ShowResultHUD;
+@property (nonatomic, assign) BOOL showResultHUD;
 
 // 网络请求成功后,data是否可以为空, 默认不为空(NO)
-@property (nonatomic, assign) BOOL m_AllowEmptyJson;
+@property (nonatomic, assign) BOOL allowEmptyJson;
 
 @end
 

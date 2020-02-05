@@ -594,7 +594,7 @@
     [self.navigationController pushViewController:tabBar animated:YES];
     return;
     
-    if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+    if (![YSCoreStatus isNetworkEnable])
     {
         [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:@"请开启网络" delay:0.5];
         return;
@@ -1393,7 +1393,7 @@
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
     [self.m_ProgressHUD bm_hideAnimated:YES];
-    if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+    if (![YSCoreStatus isNetworkEnable])
     {
         descript = YSLocalized(@"Prompt.NetworkChanged");
     }
