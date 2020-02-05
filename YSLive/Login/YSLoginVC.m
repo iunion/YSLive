@@ -24,6 +24,8 @@
 
 #import "YSTeacherRoleMainVC.h"
 
+#import "YSTabBarViewController.h"
+
 #if USE_TEST_HELP
 #import "YSTestHelp.h"
 #endif
@@ -586,6 +588,12 @@
 
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
+    
+    YSTabBarViewController * tabBar = [[YSTabBarViewController alloc]init];
+//    [self presentViewController:tabBar animated:YES completion:nil];
+    [self.navigationController pushViewController:tabBar animated:YES];
+    return;
+    
     if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
     {
         [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:@"请开启网络" delay:0.5];
