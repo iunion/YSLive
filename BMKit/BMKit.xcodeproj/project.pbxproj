@@ -322,6 +322,8 @@
 		8777C7A423EA7489002002BF /* UIScrollView+BMEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7A023EA7489002002BF /* UIScrollView+BMEmpty.m */; };
 		8777C7A523EA7489002002BF /* BMEmptyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A123EA7489002002BF /* BMEmptyView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C7B623EAC069002002BF /* BMTabItemButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7B423EAC069002002BF /* BMTabItemButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C7B723EAC069002002BF /* BMTabItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B523EAC069002002BF /* BMTabItemButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -637,6 +639,8 @@
 		8777C7A023EA7489002002BF /* UIScrollView+BMEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+BMEmpty.m"; sourceTree = "<group>"; };
 		8777C7A123EA7489002002BF /* BMEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMEmptyView.h; sourceTree = "<group>"; };
 		8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+BMEmpty.h"; sourceTree = "<group>"; };
+		8777C7B423EAC069002002BF /* BMTabItemButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMTabItemButton.h; sourceTree = "<group>"; };
+		8777C7B523EAC069002002BF /* BMTabItemButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMTabItemButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -844,6 +848,7 @@
 				8701AF8D237160DB00A43607 /* BMScrollPageView */,
 				8701AF992371610D00A43607 /* BMSingleLineView */,
 				8701AFAD2371624F00A43607 /* BMStepperInputView */,
+				8777C7B323EAC003002002BF /* BMTabItem */,
 				8701B093237165A900A43607 /* BMTableViewManager */,
 				8701AFDB237163B000A43607 /* BMVerifyField */,
 				8701AEA82371550000A43607 /* BMTools.h */,
@@ -1318,6 +1323,15 @@
 			path = BMEmptyView;
 			sourceTree = "<group>";
 		};
+		8777C7B323EAC003002002BF /* BMTabItem */ = {
+			isa = PBXGroup;
+			children = (
+				8777C7B423EAC069002002BF /* BMTabItemButton.h */,
+				8777C7B523EAC069002002BF /* BMTabItemButton.m */,
+			);
+			path = BMTabItem;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1325,6 +1339,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8777C7B623EAC069002002BF /* BMTabItemButton.h in Headers */,
 				8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */,
 				8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */,
 				8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */,
@@ -1568,7 +1583,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "​\n# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\nFMK_NAME=${PROJECT_NAME}\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nPRODUCT_DIR=${SRCROOT}/../YSLib\nINSTALL_DIR=${SRCROOT}/../YSLib/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWORK_DIR=build\nDEVICE_DIR=${WORK_DIR}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WORK_DIR}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework\n\n# -configuration ${CONFIGURATION} \"Release\"\n# Clean and Building both architectures.\n#xcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\n#xcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\nxcodebuild -configuration ${CONFIGURATION} -target \"${FMK_NAME}\" -sdk iphoneos\nxcodebuild -configuration ${CONFIGURATION} -target \"${FMK_NAME}\" -sdk iphonesimulator\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#cp -R \"${SIMULATOR_DIR}/\" \"${INSTALL_DIR}/\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WORK_DIR}\"\nopen \"${PRODUCT_DIR}\"\n\n";
+			shellScript = "​\n# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\nFMK_NAME=${PROJECT_NAME}\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nPRODUCT_DIR=${SRCROOT}/../YSLib\nINSTALL_DIR=${SRCROOT}/../YSLib/BMKit/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWORK_DIR=build\nDEVICE_DIR=${WORK_DIR}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WORK_DIR}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework\n\n# -configuration ${CONFIGURATION} \"Release\"\n# Clean and Building both architectures.\n#xcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\n#xcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\nxcodebuild -configuration ${CONFIGURATION} -target \"${FMK_NAME}\" -sdk iphoneos\nxcodebuild -configuration ${CONFIGURATION} -target \"${FMK_NAME}\" -sdk iphonesimulator\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#cp -R \"${SIMULATOR_DIR}/\" \"${INSTALL_DIR}/\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WORK_DIR}\"\nopen \"${PRODUCT_DIR}\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1590,6 +1605,7 @@
 				8701AF0F23715B4D00A43607 /* BMSDImageCache.m in Sources */,
 				8777C78023EA72A2002002BF /* BMFreshTriangleDotHeader.m in Sources */,
 				8701B10B237165AA00A43607 /* BMSegmentItem.m in Sources */,
+				8777C7B723EAC069002002BF /* BMTabItemButton.m in Sources */,
 				8701AE1723714E6000A43607 /* UIView+BMAnimationExtensions.m in Sources */,
 				8701AE2C23714E6000A43607 /* UITextField+BMCategory.m in Sources */,
 				8701AF1123715B4D00A43607 /* UIImageView+BMHighlightedWebCache.m in Sources */,
