@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import "Reachability.h"
+#import "AFNetworkReachabilityManager.h"
 
 /** 网络状态 */
 typedef NS_ENUM(NSUInteger, YSCoreNetWorkStatus)
@@ -31,7 +30,7 @@ typedef NS_ENUM(NSUInteger, YSCoreNetWorkStatus)
     /** 4G网络 */
     YSCoreNetWorkStatus4G,
     
-    //未知网络
+    /** 未知网络 */
     YSCoreNetWorkStatusUnkhow
 };
 

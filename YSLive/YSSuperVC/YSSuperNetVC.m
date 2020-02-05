@@ -11,7 +11,7 @@
 @interface YSSuperNetVC ()
 
 // 网络请求
-@property (nonatomic, strong) NSURLSessionDataTask *m_DataTask;
+@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
 
 @end
 
@@ -19,8 +19,8 @@
 
 - (void)dealloc
 {
-    [_m_DataTask cancel];
-    _m_DataTask = nil;
+    [_dataTask cancel];
+    _dataTask = nil;
 }
 
 
@@ -30,14 +30,14 @@
     // Do any additional setup after loading the view.
     
     // MBProgressHUD显示等待框
-    self.m_ProgressHUD = [[BMProgressHUD alloc] initWithView:self.view];
-    self.m_ProgressHUD.animationType = BMProgressHUDAnimationFade;
-    [self.view addSubview:self.m_ProgressHUD];
+    self.progressHUD = [[BMProgressHUD alloc] initWithView:self.view];
+    self.progressHUD.animationType = BMProgressHUDAnimationFade;
+    [self.view addSubview:self.progressHUD];
     
-    self.m_ShowProgressHUD = YES;
-    self.m_ShowResultHUD = YES;
+    self.showProgressHUD = YES;
+    self.showResultHUD = YES;
     
-    self.m_AllowEmptyJson = NO;
+    self.allowEmptyJson = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,7 +48,7 @@
 
 - (void)bringSomeViewToFront
 {
-    [self.m_ProgressHUD bm_bringToFront];
+    [self.progressHUD bm_bringToFront];
 }
 
 
@@ -67,12 +67,12 @@
         return;
     }
     
-    if (self.m_ShowProgressHUD)
+    if (self.showProgressHUD)
     {
 #if (PROGRESSHUD_UESGIF)
         [self.m_ProgressHUD bm_showWait:YES backgroundColor:nil text:nil useHMGif:YES];
 #else
-        [self.m_ProgressHUD bm_showAnimated:YES showBackground:NO];
+        [self.progressHUD bm_showAnimated:YES showBackground:NO];
 #endif
     }
     
@@ -82,7 +82,7 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSMutableURLRequest *request = [self setLoadDataRequest];
     
-    if (self.m_DataTask)
+    if (self.dataTask)
     {
         request = nil;
     }
@@ -90,7 +90,7 @@
     if (request)
     {
         BMWeakSelf
-        self.m_DataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        self.dataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
@@ -104,13 +104,13 @@
 #endif
                 [weakSelf loadDataResponseFinished:response responseDic:responseObject];
             }
-            weakSelf.m_DataTask = nil;
+            weakSelf.dataTask = nil;
         }];
-        [self.m_DataTask resume];
+        [self.dataTask resume];
     }
     else
     {
-        [self.m_ProgressHUD bm_hideAnimated:YES];
+        [self.progressHUD bm_hideAnimated:YES];
     }
 }
 
@@ -131,18 +131,18 @@
 
 - (void)loadDataResponseFinished:(NSURLResponse *)response responseDic:(NSDictionary *)responseDic
 {
-    if (!self.m_ShowResultHUD)
+    if (!self.showResultHUD)
     {
-        [self.m_ProgressHUD bm_hideAnimated:NO];
+        [self.progressHUD bm_hideAnimated:NO];
     }
     
     if (![responseDic bm_isNotEmptyDictionary])
     {
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:YSAPI_JSON_ERRORCODE];
         
-        if (self.m_ShowResultHUD)
+        if (self.showResultHUD)
         {
-            [self.m_ProgressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return;
@@ -156,9 +156,9 @@
     NSInteger statusCode = [responseDic bm_intForKey:@"code"];
     if (statusCode == 1000)
     {
-        if (self.m_ShowResultHUD)
+        if (self.showResultHUD)
         {
-            [self.m_ProgressHUD bm_hideAnimated:NO];
+            [self.progressHUD bm_hideAnimated:NO];
         }
         
         BOOL succeed = NO;
@@ -185,7 +185,7 @@
         if (![dataDic bm_isNotEmptyDictionary] && ![dataArray bm_isNotEmpty])
         {
             // 允许"data"为空
-            if (self.m_AllowEmptyJson)
+            if (self.allowEmptyJson)
             {
                 return;
             }
@@ -193,9 +193,9 @@
         
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:YSAPI_DATA_ERRORCODE];
         
-        if (self.m_ShowResultHUD)
+        if (self.showResultHUD)
         {
-            [self.m_ProgressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
     else
@@ -205,12 +205,12 @@
         NSString *message = [responseDic bm_stringTrimForKey:@"message" withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
         if ([self checkRequestStatus:statusCode message:message responseDic:responseDic logOutQuit:YES showLogin:YES])
         {
-            [self.m_ProgressHUD bm_hideAnimated:YES];
+            [self.progressHUD bm_hideAnimated:YES];
         }
-        else if (self.m_ShowResultHUD)
+        else if (self.showResultHUD)
         {
 #ifdef DEBUG
-            [self.m_ProgressHUD bm_showAnimated:YES withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:YES withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
             [self.m_ProgressHUD bm_showAnimated:YES withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
@@ -223,13 +223,13 @@
     BMLog(@"API失败的错误:++++网络超时");
     [self failLoadedResponse:response responseDic:nil withErrorCode:YSAPI_NET_ERRORCODE];
     
-    if (self.m_ShowResultHUD)
+    if (self.showResultHUD)
     {
-        [self.m_ProgressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     else
     {
-        [self.m_ProgressHUD bm_hideAnimated:YES];
+        [self.progressHUD bm_hideAnimated:YES];
     }
 }
 

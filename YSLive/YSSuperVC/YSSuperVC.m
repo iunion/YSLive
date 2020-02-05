@@ -40,7 +40,6 @@
     self.bm_NavigationShadowColor  = UI_COLOR_B6;
     
     self.view.backgroundColor = YS_VIEW_BGCOLOR;
-
 }
 
 - (void)didReceiveMemoryWarning

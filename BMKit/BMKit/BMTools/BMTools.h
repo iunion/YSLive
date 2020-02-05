@@ -47,6 +47,22 @@
 #import "BMTableViewManager.h"
 
 #import "BMEmptyView.h"
+#import "UIScrollView+BMEmpty.h"
+
 #import "BMFreshView.h"
+#import "BMFreshBaseView.h"
+#import "UIScrollView+BMFresh.h"
+
+#import "BMFreshNormalHeader.h"
+#import "BMFreshGifHeader.h"
+#import "BMFreshFiveStarHeader.h"
+#import "BMFreshDotHeader.h"
+#import "BMFreshTriangleDotHeader.h"
+#import "BMFreshArcHeader.h"
+#import "BMFreshCircleHeader.h"
+#import "BMFreshDotCircleHeader.h"
+
+#import "BMFreshBackNormalFooter.h"
+#import "BMFreshAutoNormalFooter.h"
 
 #endif /* BMTools_h */

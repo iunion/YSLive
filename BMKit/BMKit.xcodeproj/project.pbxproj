@@ -280,48 +280,48 @@
 		8706C50E2394D67200223C87 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8706C50D2394D67200223C87 /* BMKitResources.bundle */; };
 		8706C5142395F73000223C87 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8706C5132395F73000223C87 /* BMKitImage.xcassets */; };
 		8777C77623EA72A2002002BF /* BMFreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74323EA72A2002002BF /* BMFreshBaseView.m */; };
-		8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */; };
-		8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */; };
-		8777C77923EA72A2002002BF /* BMFreshNormalHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74823EA72A2002002BF /* BMFreshNormalHeader.h */; };
+		8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C77923EA72A2002002BF /* BMFreshNormalHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74823EA72A2002002BF /* BMFreshNormalHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C77B23EA72A2002002BF /* BMFreshNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74A23EA72A2002002BF /* BMFreshNormalHeader.m */; };
 		8777C77C23EA72A2002002BF /* BMFreshFiveStarHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74C23EA72A2002002BF /* BMFreshFiveStarHeader.m */; };
-		8777C77D23EA72A2002002BF /* BMFreshFiveStarHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74D23EA72A2002002BF /* BMFreshFiveStarHeader.h */; };
-		8777C77E23EA72A2002002BF /* BMFreshHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74E23EA72A2002002BF /* BMFreshHeaderView.h */; };
+		8777C77D23EA72A2002002BF /* BMFreshFiveStarHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74D23EA72A2002002BF /* BMFreshFiveStarHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C77E23EA72A2002002BF /* BMFreshHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74E23EA72A2002002BF /* BMFreshHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C77F23EA72A2002002BF /* BMFreshDotHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75023EA72A2002002BF /* BMFreshDotHeader.m */; };
 		8777C78023EA72A2002002BF /* BMFreshTriangleDotHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75123EA72A2002002BF /* BMFreshTriangleDotHeader.m */; };
-		8777C78123EA72A2002002BF /* BMFreshDotHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75223EA72A2002002BF /* BMFreshDotHeader.h */; };
-		8777C78223EA72A2002002BF /* BMFreshTriangleDotHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75323EA72A2002002BF /* BMFreshTriangleDotHeader.h */; };
+		8777C78123EA72A2002002BF /* BMFreshDotHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75223EA72A2002002BF /* BMFreshDotHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C78223EA72A2002002BF /* BMFreshTriangleDotHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75323EA72A2002002BF /* BMFreshTriangleDotHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C78323EA72A2002002BF /* BMFreshContainerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75423EA72A2002002BF /* BMFreshContainerHeaderView.m */; };
-		8777C78423EA72A2002002BF /* BMFreshDotCircleHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75623EA72A2002002BF /* BMFreshDotCircleHeader.h */; };
+		8777C78423EA72A2002002BF /* BMFreshDotCircleHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75623EA72A2002002BF /* BMFreshDotCircleHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C78523EA72A2002002BF /* BMFreshCircleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75723EA72A2002002BF /* BMFreshCircleHeader.m */; };
 		8777C78623EA72A2002002BF /* BMFreshArcHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75823EA72A2002002BF /* BMFreshArcHeader.m */; };
-		8777C78723EA72A2002002BF /* BMFreshArcHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75923EA72A2002002BF /* BMFreshArcHeader.h */; };
-		8777C78823EA72A2002002BF /* BMFreshCircleHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75A23EA72A2002002BF /* BMFreshCircleHeader.h */; };
+		8777C78723EA72A2002002BF /* BMFreshArcHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75923EA72A2002002BF /* BMFreshArcHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C78823EA72A2002002BF /* BMFreshCircleHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75A23EA72A2002002BF /* BMFreshCircleHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C78923EA72A2002002BF /* BMFreshDotCircleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75B23EA72A2002002BF /* BMFreshDotCircleHeader.m */; };
 		8777C78A23EA72A2002002BF /* BMFreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75C23EA72A2002002BF /* BMFreshHeaderView.m */; };
 		8777C78B23EA72A2002002BF /* BMFreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C75E23EA72A2002002BF /* BMFreshGifHeader.m */; };
-		8777C78C23EA72A2002002BF /* BMFreshGifHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75F23EA72A2002002BF /* BMFreshGifHeader.h */; };
-		8777C78D23EA72A2002002BF /* BMFreshView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76023EA72A2002002BF /* BMFreshView.h */; };
-		8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76423EA72A2002002BF /* BMFreshBackNormalFooter.h */; };
+		8777C78C23EA72A2002002BF /* BMFreshGifHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C75F23EA72A2002002BF /* BMFreshGifHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C78D23EA72A2002002BF /* BMFreshView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76023EA72A2002002BF /* BMFreshView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76423EA72A2002002BF /* BMFreshBackNormalFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C78F23EA72A2002002BF /* BMFreshBackNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76523EA72A2002002BF /* BMFreshBackNormalFooter.m */; };
 		8777C79023EA72A2002002BF /* BMFreshBackContainerFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76623EA72A2002002BF /* BMFreshBackContainerFooterView.m */; };
-		8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76723EA72A2002002BF /* BMFreshBackFooterView.h */; };
+		8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76723EA72A2002002BF /* BMFreshBackFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C79223EA72A2002002BF /* BMFreshBackFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76823EA72A2002002BF /* BMFreshBackFooterView.m */; };
-		8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76923EA72A2002002BF /* BMFreshBackContainerFooterView.h */; };
-		8777C79423EA72A2002002BF /* BMFreshAutoContainerFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76B23EA72A2002002BF /* BMFreshAutoContainerFooterView.h */; };
+		8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76923EA72A2002002BF /* BMFreshBackContainerFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C79423EA72A2002002BF /* BMFreshAutoContainerFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76B23EA72A2002002BF /* BMFreshAutoContainerFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C79523EA72A2002002BF /* BMFreshAutoFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76C23EA72A2002002BF /* BMFreshAutoFooterView.m */; };
 		8777C79623EA72A2002002BF /* BMFreshAutoContainerFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C76D23EA72A2002002BF /* BMFreshAutoContainerFooterView.m */; };
-		8777C79723EA72A3002002BF /* BMFreshAutoFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76E23EA72A2002002BF /* BMFreshAutoFooterView.h */; };
-		8777C79823EA72A3002002BF /* BMFreshAutoNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77023EA72A2002002BF /* BMFreshAutoNormalFooter.h */; };
+		8777C79723EA72A3002002BF /* BMFreshAutoFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C76E23EA72A2002002BF /* BMFreshAutoFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C79823EA72A3002002BF /* BMFreshAutoNormalFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77023EA72A2002002BF /* BMFreshAutoNormalFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C79923EA72A3002002BF /* BMFreshAutoNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C77123EA72A2002002BF /* BMFreshAutoNormalFooter.m */; };
 		8777C79A23EA72A3002002BF /* BMFreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C77223EA72A2002002BF /* BMFreshFooterView.m */; };
-		8777C79B23EA72A3002002BF /* BMFreshFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77323EA72A2002002BF /* BMFreshFooterView.h */; };
-		8777C79C23EA72A3002002BF /* BMFreshBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77423EA72A2002002BF /* BMFreshBaseView.h */; };
+		8777C79B23EA72A3002002BF /* BMFreshFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77323EA72A2002002BF /* BMFreshFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C79C23EA72A3002002BF /* BMFreshBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C77423EA72A2002002BF /* BMFreshBaseView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C79D23EA72A3002002BF /* UIScrollView+BMFresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C77523EA72A2002002BF /* UIScrollView+BMFresh.m */; };
 		8777C7A323EA7489002002BF /* BMEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C79F23EA7489002002BF /* BMEmptyView.m */; };
 		8777C7A423EA7489002002BF /* UIScrollView+BMEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7A023EA7489002002BF /* UIScrollView+BMEmpty.m */; };
-		8777C7A523EA7489002002BF /* BMEmptyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A123EA7489002002BF /* BMEmptyView.h */; };
-		8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */; };
+		8777C7A523EA7489002002BF /* BMEmptyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A123EA7489002002BF /* BMEmptyView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1325,15 +1325,35 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */,
+				8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */,
+				8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */,
+				8777C79823EA72A3002002BF /* BMFreshAutoNormalFooter.h in Headers */,
+				8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */,
+				8777C77D23EA72A2002002BF /* BMFreshFiveStarHeader.h in Headers */,
+				8777C78723EA72A2002002BF /* BMFreshArcHeader.h in Headers */,
+				8777C79B23EA72A3002002BF /* BMFreshFooterView.h in Headers */,
+				8777C77E23EA72A2002002BF /* BMFreshHeaderView.h in Headers */,
+				8777C78C23EA72A2002002BF /* BMFreshGifHeader.h in Headers */,
+				8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */,
+				8777C78123EA72A2002002BF /* BMFreshDotHeader.h in Headers */,
+				8777C79423EA72A2002002BF /* BMFreshAutoContainerFooterView.h in Headers */,
+				8777C77923EA72A2002002BF /* BMFreshNormalHeader.h in Headers */,
+				8777C78223EA72A2002002BF /* BMFreshTriangleDotHeader.h in Headers */,
+				8777C78823EA72A2002002BF /* BMFreshCircleHeader.h in Headers */,
+				8777C79723EA72A3002002BF /* BMFreshAutoFooterView.h in Headers */,
+				8777C78423EA72A2002002BF /* BMFreshDotCircleHeader.h in Headers */,
+				8777C79C23EA72A3002002BF /* BMFreshBaseView.h in Headers */,
+				8777C78D23EA72A2002002BF /* BMFreshView.h in Headers */,
+				8777C7A523EA7489002002BF /* BMEmptyView.h in Headers */,
+				8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */,
 				8701AF2C23715B9400A43607 /* BMAlignedImageView.h in Headers */,
 				8701AE4E23714E6000A43607 /* NSString+BMFormat.h in Headers */,
 				8701AE0723714E6000A43607 /* BMClassCategory.h in Headers */,
 				8701AF2223715B4D00A43607 /* BMSDImageCache.h in Headers */,
-				8777C79C23EA72A3002002BF /* BMFreshBaseView.h in Headers */,
 				8701AE5F23714E6000A43607 /* NSURL+BMParameters.h in Headers */,
 				8701AE1123714E6000A43607 /* UIView+BMSize.h in Headers */,
 				8701AF1723715B4D00A43607 /* BMSDWebImageDownloader.h in Headers */,
-				8777C78423EA72A2002002BF /* BMFreshDotCircleHeader.h in Headers */,
 				8701AF1F23715B4D00A43607 /* BMSDWebImagePrefetcher.h in Headers */,
 				8701AF1523715B4D00A43607 /* UIImage+BMGIF.h in Headers */,
 				8701AE2523714E6000A43607 /* CAAnimation+Blocks.h in Headers */,
@@ -1358,7 +1378,6 @@
 				8701AE2023714E6000A43607 /* UIFont+BMCategory.h in Headers */,
 				8701AE4723714E6000A43607 /* NSNumber+BMCategory.h in Headers */,
 				8701AE0823714E6000A43607 /* UIButton+BMContentRect.h in Headers */,
-				8777C79723EA72A3002002BF /* BMFreshAutoFooterView.h in Headers */,
 				8701AF1423715B4D00A43607 /* UIView+BMWebCache.h in Headers */,
 				8701AD9C23714E1500A43607 /* BMKit.h in Headers */,
 				8701AF2023715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h in Headers */,
@@ -1366,10 +1385,8 @@
 				8701AE5423714E6000A43607 /* NSString+BMMandarinLatin.h in Headers */,
 				8701AF2423715B4D00A43607 /* UIView+BMWebCacheOperation.h in Headers */,
 				8701AE2D23714E6000A43607 /* UIWindow+BMCategory.h in Headers */,
-				8777C78823EA72A2002002BF /* BMFreshCircleHeader.h in Headers */,
 				8701AE1923714E6000A43607 /* UIView+BMCorner.h in Headers */,
 				8701AF1323715B4D00A43607 /* NSImage+BMWebCache.h in Headers */,
-				8777C78223EA72A2002002BF /* BMFreshTriangleDotHeader.h in Headers */,
 				8701AF0523715B4D00A43607 /* UIImage+BMMultiFormat.h in Headers */,
 				8701AE5723714E6000A43607 /* NSString+BMRoundNumber.h in Headers */,
 				8701AE4323714E6000A43607 /* NSData+BMEncrypt.h in Headers */,
@@ -1380,8 +1397,6 @@
 				8701AE0D23714E6000A43607 /* UIView+BMPositioning.h in Headers */,
 				8701AE4023714E6000A43607 /* NSObject+BMCategory.h in Headers */,
 				8701AE5823714E6000A43607 /* NSString+Emoji.h in Headers */,
-				8777C78D23EA72A2002002BF /* BMFreshView.h in Headers */,
-				8777C7A523EA7489002002BF /* BMEmptyView.h in Headers */,
 				8701AE0E23714E6000A43607 /* UIView+BMNibLoading.h in Headers */,
 				8701AF1D23715B4D00A43607 /* BMSDWebImageCompat.h in Headers */,
 				8701AE3823714E6000A43607 /* NSArray+BMCategory.h in Headers */,
@@ -1393,17 +1408,12 @@
 				8701AF8A23715F5500A43607 /* UIViewController+BMNavigationItem.h in Headers */,
 				8701AF6923715F5500A43607 /* BMNavigationBar.h in Headers */,
 				8701AF8323715F5500A43607 /* UIViewController+BMNavigationBar.h in Headers */,
-				8777C77923EA72A2002002BF /* BMFreshNormalHeader.h in Headers */,
-				8777C79423EA72A2002002BF /* BMFreshAutoContainerFooterView.h in Headers */,
 				8701AF3323715C9E00A43607 /* BMBadgeDefine.h in Headers */,
-				8777C78123EA72A2002002BF /* BMFreshDotHeader.h in Headers */,
 				8701B10F237165AA00A43607 /* BMNumberTextItem.h in Headers */,
 				8701AF98237160DB00A43607 /* BMScrollPageView.h in Headers */,
 				8701B116237165AA00A43607 /* BMSegmentItem.h in Headers */,
-				8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */,
 				8701AF9C2371610D00A43607 /* BMSingleLineView.h in Headers */,
 				8701B0E7237165AA00A43607 /* BMTableViewPickerCell.h in Headers */,
-				8777C78C23EA72A2002002BF /* BMFreshGifHeader.h in Headers */,
 				8701B0E4237165AA00A43607 /* BMTableViewLongTextCell.h in Headers */,
 				8701B11C237165AA00A43607 /* BMLongTextItem.h in Headers */,
 				8701B109237165AA00A43607 /* BMImageDetailItem.h in Headers */,
@@ -1412,19 +1422,15 @@
 				8701B0E3237165AA00A43607 /* BMTableViewImageDetailCell.h in Headers */,
 				8701B0FA237165AA00A43607 /* BMTableViewItem.h in Headers */,
 				8701B0E2237165AA00A43607 /* BMTableViewStepperInputCell.h in Headers */,
-				8777C77E23EA72A2002002BF /* BMFreshHeaderView.h in Headers */,
 				8701B0EA237165AA00A43607 /* BMTableViewNumberTextCell.h in Headers */,
 				8701B0E1237165AA00A43607 /* BMTableViewMaskTextCell.h in Headers */,
 				8701B11B237165AA00A43607 /* BMBoolItem.h in Headers */,
 				8701B0EB237165AA00A43607 /* BMTableViewCheckBoxGroupCell.h in Headers */,
 				8701B122237165AA00A43607 /* BMTableViewManagerDefine.h in Headers */,
-				8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */,
 				8701B119237165AA00A43607 /* BMSliderItem.h in Headers */,
 				8701B0DF237165AA00A43607 /* BMTableViewSection.h in Headers */,
 				8701B0F7237165AA00A43607 /* BMTableViewBoolCell.h in Headers */,
 				8701B115237165AA00A43607 /* BMMaskTextItem.h in Headers */,
-				8777C79B23EA72A3002002BF /* BMFreshFooterView.h in Headers */,
-				8777C78723EA72A2002002BF /* BMFreshArcHeader.h in Headers */,
 				8701B0EC237165AA00A43607 /* BMTableViewDateTimeCell.h in Headers */,
 				8701B0F6237165AA00A43607 /* BMTableViewSliderCell.h in Headers */,
 				8701B0F0237165AA00A43607 /* BMTableViewSegmentCell.h in Headers */,
@@ -1436,14 +1442,12 @@
 				8701B0F9237165AA00A43607 /* BMTableViewManager.h in Headers */,
 				8701B0FB237165AA00A43607 /* BMTableViewCell.h in Headers */,
 				8701AF97237160DB00A43607 /* BMScrollPageSegment.h in Headers */,
-				8777C77D23EA72A2002002BF /* BMFreshFiveStarHeader.h in Headers */,
 				8701AF3A23715CF900A43607 /* BMCountDownManager.h in Headers */,
 				8701AFA5237161AA00A43607 /* BMApiUtil.h in Headers */,
 				8701AFA7237161AA00A43607 /* BMApiStatusView.h in Headers */,
 				8701AFAB2371623600A43607 /* BMPlaceholderTextView.h in Headers */,
 				8701AFD92371624F00A43607 /* BMStepperInputView.h in Headers */,
 				8701AFE6237163B100A43607 /* BMVerifyField.h in Headers */,
-				8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */,
 				8701AF4223715DF800A43607 /* BMImageTextView.h in Headers */,
 				8701B08E2371650F00A43607 /* BMCheckBoxLabel.h in Headers */,
 				8701B08F2371650F00A43607 /* BMCheckBox.h in Headers */,
@@ -1458,12 +1462,10 @@
 				8701AE6123714E6000A43607 /* NSBundle+BMResource.h in Headers */,
 				8701AF2323715B4D00A43607 /* UIImage+BMWebP.h in Headers */,
 				8701AE1B23714E6000A43607 /* UITextField+BMCategory.h in Headers */,
-				8777C79823EA72A3002002BF /* BMFreshAutoNormalFooter.h in Headers */,
 				8701AE2123714E6000A43607 /* UIButton+BMCategory.h in Headers */,
 				8701AF0A23715B4D00A43607 /* BMSDWebImageOperation.h in Headers */,
 				8701AE4423714E6000A43607 /* NSData+BMCategory.h in Headers */,
 				8701AF1B23715B4D00A43607 /* BMSDWebImageDownloaderOperation.h in Headers */,
-				8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */,
 				8701AF1823715B4D00A43607 /* UIImageView+BMWebCache.h in Headers */,
 				8701AE5D23714E6000A43607 /* NSRegularExpression+BMRegEx.h in Headers */,
 				8701AF1E23715B4D00A43607 /* SDWebImageDecoder.h in Headers */,
@@ -1472,11 +1474,9 @@
 				8701AE6A2371512100A43607 /* BMApp.h in Headers */,
 				8701AE672371511200A43607 /* BMkitMacros.h in Headers */,
 				8701AEAC2371550000A43607 /* BMAlertView.h in Headers */,
-				8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */,
 				8701AEA92371550000A43607 /* BMNoticeView.h in Headers */,
 				8701AEAD2371550000A43607 /* BMTools.h in Headers */,
 				8701AE3923714E6000A43607 /* NSDictionary+BMCategory.h in Headers */,
-				8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */,
 				8701AFE5237163B100A43607 /* BMVerifyFieldTextPosition.h in Headers */,
 				8701AE0C23714E6000A43607 /* UIView+BMInnerShadow.h in Headers */,
 			);

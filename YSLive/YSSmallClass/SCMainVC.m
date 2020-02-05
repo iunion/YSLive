@@ -2987,7 +2987,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     
     self.topBarModel.netQuality = netQuality;
@@ -3028,7 +3028,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     
     //    self.topBarModel.netQuality = netQuality;
@@ -3045,7 +3045,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     if (networkQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
