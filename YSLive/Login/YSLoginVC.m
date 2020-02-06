@@ -39,6 +39,7 @@
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 1
 #define CLEARCHECK 0
+#define ONLINESCHOOL 1
 #endif
 
 /// 每次打包的递增版本号 +1
