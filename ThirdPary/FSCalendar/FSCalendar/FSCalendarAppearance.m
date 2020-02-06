@@ -17,7 +17,7 @@
 @property (weak  , nonatomic) FSCalendar *calendar;
 
 @property (strong, nonatomic) NSMutableDictionary *backgroundColors;
-@property (strong, nonatomic) NSMutableDictionary *titleColors;
+//@property (strong, nonatomic) NSMutableDictionary *titleColors;
 @property (strong, nonatomic) NSMutableDictionary *subtitleColors;
 @property (strong, nonatomic) NSMutableDictionary *borderColors;
 
@@ -35,10 +35,13 @@
         _weekdayFont = [UIFont systemFontOfSize:FSCalendarStandardWeekdayTextSize];
         _headerTitleFont = [UIFont systemFontOfSize:FSCalendarStandardHeaderTextSize];
         
-        _headerTitleColor = FSCalendarStandardTitleTextColor;
-        _headerDateFormat = @"MMMM yyyy";
+//        _headerTitleColor = FSCalendarStandardTitleTextColor;
+        _headerTitleColor = [UIColor grayColor];
+//        _headerDateFormat = @"MMMM yyyy";
+        _headerDateFormat = @"yyyy MMMM";
         _headerMinimumDissolvedAlpha = 0.2;
-        _weekdayTextColor = FSCalendarStandardTitleTextColor;
+//        _weekdayTextColor = FSCalendarStandardTitleTextColor;
+        _weekdayTextColor = UIColor.grayColor;
         _caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase|FSCalendarCaseOptionsWeekdayUsesDefaultCase;
         
         _backgroundColors = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -49,7 +52,8 @@
         _backgroundColors[@(FSCalendarCellStateToday)]       = FSCalendarStandardTodayColor;
         
         _titleColors = [NSMutableDictionary dictionaryWithCapacity:5];
-        _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor blackColor];
+//        _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor blackColor];
+        _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor grayColor];
         _titleColors[@(FSCalendarCellStateSelected)]    = [UIColor whiteColor];
         _titleColors[@(FSCalendarCellStateDisabled)]    = [UIColor grayColor];
         _titleColors[@(FSCalendarCellStatePlaceholder)] = [UIColor lightGrayColor];
@@ -155,7 +159,7 @@
 
 - (UIColor *)titleDefaultColor
 {
-    return _titleColors[@(FSCalendarCellStateNormal)];
+    return _titleColors[@(FSCalendarCellStateNormal)];;
 }
 
 - (void)setTitleSelectionColor:(UIColor *)color
@@ -325,6 +329,8 @@
 
 - (void)setTodaySelectionColor:(UIColor *)todaySelectionColor
 {
+    
+    
     if (todaySelectionColor) {
         _backgroundColors[@(FSCalendarCellStateToday|FSCalendarCellStateSelected)] = todaySelectionColor;
     } else {
