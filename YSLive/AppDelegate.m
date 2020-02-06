@@ -64,6 +64,7 @@
     {
         YSLoginVC *vc = [[YSLoginVC alloc] initWithLoginURL:url];
         nav = [[BMNavigationController alloc] initWithRootViewController:vc];
+        nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
         //nav.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     

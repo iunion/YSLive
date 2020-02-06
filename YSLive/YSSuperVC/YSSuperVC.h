@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
     YSSuperVCProtocol
 >
 
++ (shouldPopOnBackButtonHandler)getPopOnBackButtonHandler;
+
 - (void)backAction:(nullable id)sender;
 
 - (void)backRootAction:(nullable id)sender;

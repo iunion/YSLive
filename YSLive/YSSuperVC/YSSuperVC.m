@@ -52,6 +52,20 @@
 #pragma mark -
 #pragma mark Navigation Action
 
++ (shouldPopOnBackButtonHandler)getPopOnBackButtonHandler
+{
+    shouldPopOnBackButtonHandler handler = ^BOOL(UIViewController *vc) {
+        if ([vc isKindOfClass:[YSSuperVC class]])
+        {
+            YSSuperVC *superVC = (YSSuperVC *)vc;
+            return [superVC shouldPopOnBackButton];
+        }
+        return YES;
+    };
+    
+    return handler;
+}
+
 - (BOOL)shouldPopOnBackButton
 {
     return YES;

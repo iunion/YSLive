@@ -589,7 +589,8 @@
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
     
-    YSTabBarViewController * tabBar = [[YSTabBarViewController alloc]init];
+    YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
+    [tabBar addViewControllers];
 //    [self presentViewController:tabBar animated:YES completion:nil];
     [self.navigationController pushViewController:tabBar animated:YES];
     return;
@@ -1286,6 +1287,7 @@
             mainVC.appUseTheType = self.room_UseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
             [self presentViewController:nav animated:YES completion:^{
                 [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
             }];
@@ -1307,6 +1309,7 @@
             mainVC.appUseTheType = self.room_UseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
             [self presentViewController:nav animated:YES completion:^{
                 [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
             }];
@@ -1324,6 +1327,7 @@
         YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:liveManager.whiteBordView userId:nil];
         BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
         nav.modalPresentationStyle = UIModalPresentationFullScreen;
+        nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
         [self presentViewController:nav animated:YES completion:^{
             [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:YES];
         }];

@@ -324,6 +324,8 @@
 		8777C7A623EA7489002002BF /* UIScrollView+BMEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C7B623EAC069002002BF /* BMTabItemButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7B423EAC069002002BF /* BMTabItemButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C7B723EAC069002002BF /* BMTabItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B523EAC069002002BF /* BMTabItemButton.m */; };
+		8777C7BA23EBA9CD002002BF /* BMTabBarController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7B823EBA9CD002002BF /* BMTabBarController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8777C7BB23EBA9CD002002BF /* BMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B923EBA9CD002002BF /* BMTabBarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -641,6 +643,8 @@
 		8777C7A223EA7489002002BF /* UIScrollView+BMEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+BMEmpty.h"; sourceTree = "<group>"; };
 		8777C7B423EAC069002002BF /* BMTabItemButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMTabItemButton.h; sourceTree = "<group>"; };
 		8777C7B523EAC069002002BF /* BMTabItemButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMTabItemButton.m; sourceTree = "<group>"; };
+		8777C7B823EBA9CD002002BF /* BMTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMTabBarController.h; sourceTree = "<group>"; };
+		8777C7B923EBA9CD002002BF /* BMTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMTabBarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1328,6 +1332,8 @@
 			children = (
 				8777C7B423EAC069002002BF /* BMTabItemButton.h */,
 				8777C7B523EAC069002002BF /* BMTabItemButton.m */,
+				8777C7B823EBA9CD002002BF /* BMTabBarController.h */,
+				8777C7B923EBA9CD002002BF /* BMTabBarController.m */,
 			);
 			path = BMTabItem;
 			sourceTree = "<group>";
@@ -1339,6 +1345,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8777C7BA23EBA9CD002002BF /* BMTabBarController.h in Headers */,
 				8777C7B623EAC069002002BF /* BMTabItemButton.h in Headers */,
 				8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */,
 				8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */,
@@ -1613,6 +1620,7 @@
 				8701AF1923715B4D00A43607 /* NSData+BMImageContentType.m in Sources */,
 				8701B114237165AA00A43607 /* BMImageDetailItem.m in Sources */,
 				8701B08D2371650F00A43607 /* BMCheckBoxGroup.m in Sources */,
+				8777C7BB23EBA9CD002002BF /* BMTabBarController.m in Sources */,
 				8701AE1523714E6000A43607 /* UIView+BMInnerShadow.m in Sources */,
 				8701AE2423714E6000A43607 /* UIDevice+BMCategory.m in Sources */,
 				8701AE4523714E6000A43607 /* NSData+BMEncrypt.m in Sources */,
