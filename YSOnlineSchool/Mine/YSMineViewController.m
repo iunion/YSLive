@@ -17,7 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = UIColor.grayColor;
+    self.view.backgroundColor = UIColor.whiteColor;
+    
+    self.bm_NavigationTitleTintColor = UIColor.whiteColor;
+//    self.bm_NavigationBarTintColor = UIColor.whiteColor;
+    
+    self.bm_NavigationBarBgTintColor = [UIColor bm_colorWithHex:0x82ABEC];
+    
+    self.navigationController.navigationItem.title = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
+    [self bm_setNavigationWithTitle:@"我的" barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:@"live_sel" rightToucheEvent:@selector(refreshBtnClick)];
+    
+}
+
+//刷新
+- (void)refreshBtnClick
+{
 }
 
 /*
