@@ -33,7 +33,7 @@
     tab1.selectedIcon = @"live_sel";
 
     BMTabItemClass *tab2 = [[BMTabItemClass alloc] init];
-    tab2.title = @"我的";
+    tab2.title = @"个人中心";
     tab2.normalColor = ITEM_NOR_COLOR;
     tab2.selectedColor = ITEM_SEL_COLOR;
     tab2.normalIcon = @"home";
