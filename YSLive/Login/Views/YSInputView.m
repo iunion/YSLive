@@ -65,6 +65,15 @@
     _iconImageView.contentMode = UIViewContentModeCenter;
 }
 
+- (void)setPlaceholder:(NSString *)placeholder
+{
+    _placeholder = placeholder;
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:placeholder attributes:@{
+        NSForegroundColorAttributeName:YSColor_LoginPlaceholder,
+        NSFontAttributeName:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 15)
+    }];
+    _inputTextField.attributedPlaceholder = attrString;
+}
 - (void)layoutSubviews
 {
     [super layoutSubviews];

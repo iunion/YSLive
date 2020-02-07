@@ -48,6 +48,7 @@
 "Prompt.underPlatformTime" = "Clicked so faster";
 
 //login
+"Login.Enter" = "Enter";
 "Login.EnterRoom" = "Enter room";
 "Login.RoomIdPlaceHolder"    = "Room ID";
 "Login.nickName"  = "Name";
@@ -136,6 +137,8 @@
 "Button.Sign" = "Sign in";
 "Button.vote" = "vote";
 "Button.ReturnRoom" = "Return to live";
+"Button.onlineschool" = "Online School";
+
 
 "title.ToVote" = "Start vote";
 "title.Voting" = "Voting";
@@ -260,6 +263,9 @@
 "Label.roomid" = "room id";
 "Label.roomPlaceholder" = "Please enter your room number";
 "Label.nicknamePlaceholder" = "Please enter your nickname";
+"Label.onlineSchoolPlaceholder" = "Please enter the organization domain name";
+"Label.accountNumberPlaceholder" = "Please enter your account number";
+"Label.onlineSchoolSystem" = "Network school system";
 "Label.messageBoard" = "message board";
 "Menu.Copy" = "copy";
 

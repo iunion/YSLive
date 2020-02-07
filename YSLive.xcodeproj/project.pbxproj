@@ -675,6 +675,14 @@
 		8777C7AB23EA9EA1002002BF /* YSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AA23EA9EA1002002BF /* YSTableView.m */; };
 		8777C7AE23EAA78E002002BF /* YSTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AD23EAA78E002002BF /* YSTableViewVC.m */; };
 		8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B023EAB7A6002002BF /* YSSetTableViewVC.m */; };
+		8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7BE23EC313D002002BF /* YSClassDayList.m */; };
+		8777C7C423EC31C8002002BF /* YSClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7C223EC31C8002002BF /* YSClassCell.m */; };
+		8777C7C523EC31C8002002BF /* YSCalssCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C323EC31C8002002BF /* YSCalssCell.xib */; };
+		8777C7C923EC32F2002002BF /* YSClassInstructionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7C723EC32F2002002BF /* YSClassInstructionCell.m */; };
+		8777C7CA23EC32F2002002BF /* YSCalssInstructionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C823EC32F2002002BF /* YSCalssInstructionCell.xib */; };
+		8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7CC23EC336B002002BF /* YSClassMediumCell.m */; };
+		8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */; };
+		8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D123EC3409002002BF /* YSClassDetailVC.m */; };
 		877CCBCD2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCE2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCF2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
@@ -1391,6 +1399,19 @@
 		8777C7AD23EAA78E002002BF /* YSTableViewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTableViewVC.m; sourceTree = "<group>"; };
 		8777C7AF23EAB7A6002002BF /* YSSetTableViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSetTableViewVC.h; sourceTree = "<group>"; };
 		8777C7B023EAB7A6002002BF /* YSSetTableViewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSetTableViewVC.m; sourceTree = "<group>"; };
+		8777C7BD23EC313D002002BF /* YSClassDayList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassDayList.h; sourceTree = "<group>"; };
+		8777C7BE23EC313D002002BF /* YSClassDayList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassDayList.m; sourceTree = "<group>"; };
+		8777C7C123EC31C8002002BF /* YSClassCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassCell.h; sourceTree = "<group>"; };
+		8777C7C223EC31C8002002BF /* YSClassCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassCell.m; sourceTree = "<group>"; };
+		8777C7C323EC31C8002002BF /* YSCalssCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSCalssCell.xib; sourceTree = "<group>"; };
+		8777C7C623EC32F2002002BF /* YSClassInstructionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassInstructionCell.h; sourceTree = "<group>"; };
+		8777C7C723EC32F2002002BF /* YSClassInstructionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassInstructionCell.m; sourceTree = "<group>"; };
+		8777C7C823EC32F2002002BF /* YSCalssInstructionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSCalssInstructionCell.xib; sourceTree = "<group>"; };
+		8777C7CB23EC336B002002BF /* YSClassMediumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassMediumCell.h; sourceTree = "<group>"; };
+		8777C7CC23EC336B002002BF /* YSClassMediumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassMediumCell.m; sourceTree = "<group>"; };
+		8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSClassMediumCell.xib; sourceTree = "<group>"; };
+		8777C7D023EC3409002002BF /* YSClassDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassDetailVC.h; sourceTree = "<group>"; };
+		8777C7D123EC3409002002BF /* YSClassDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassDetailVC.m; sourceTree = "<group>"; };
 		877CCBC92389479B00584E65 /* YSRoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSRoomSDK.framework; sourceTree = "<group>"; };
 		878D983023A0C6530007FBBA /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		8790DBEB238D282A005C0BC7 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
@@ -1939,6 +1960,7 @@
 				34043C4023EA62EB004982E6 /* YSTabBarViewController.m */,
 				34043CAC23EAE4C4004982E6 /* YSClassOneDayVC.h */,
 				34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */,
+				8777C7BC23EC3082002002BF /* Class */,
 				34043C3F23EA623C004982E6 /* Mine */,
 				34043C3E23EA6216004982E6 /* Calendar */,
 				3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */,
@@ -2901,6 +2923,34 @@
 			path = YSSuperTableVC;
 			sourceTree = "<group>";
 		};
+		8777C7BC23EC3082002002BF /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				8777C7C023EC31B8002002BF /* Cell */,
+				8777C7BD23EC313D002002BF /* YSClassDayList.h */,
+				8777C7BE23EC313D002002BF /* YSClassDayList.m */,
+				8777C7D023EC3409002002BF /* YSClassDetailVC.h */,
+				8777C7D123EC3409002002BF /* YSClassDetailVC.m */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		8777C7C023EC31B8002002BF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8777C7C123EC31C8002002BF /* YSClassCell.h */,
+				8777C7C223EC31C8002002BF /* YSClassCell.m */,
+				8777C7C323EC31C8002002BF /* YSCalssCell.xib */,
+				8777C7C623EC32F2002002BF /* YSClassInstructionCell.h */,
+				8777C7C723EC32F2002002BF /* YSClassInstructionCell.m */,
+				8777C7C823EC32F2002002BF /* YSCalssInstructionCell.xib */,
+				8777C7CB23EC336B002002BF /* YSClassMediumCell.h */,
+				8777C7CC23EC336B002002BF /* YSClassMediumCell.m */,
+				8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		878D982F23A0C6520007FBBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3510,8 +3560,10 @@
 				87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */,
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
 				871336A5237270F6006534A4 /* HockeySDKResources.bundle in Resources */,
+				8777C7CA23EC32F2002002BF /* YSCalssInstructionCell.xib in Resources */,
 				871336AE237270F6006534A4 /* LICENSE in Resources */,
 				871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */,
+				8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */,
 				87981DAB23C57CBB00DA0276 /* YSWhiteBoardImage.xcassets in Resources */,
 				3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */,
 				0463843E237A971700DE7236 /* TZImagePickerController.bundle in Resources */,
@@ -3519,6 +3571,7 @@
 				871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */,
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
+				8777C7C523EC31C8002002BF /* YSCalssCell.xib in Resources */,
 				871336ED237270F6006534A4 /* (null) in Resources */,
 				87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */,
 			);
@@ -3691,6 +3744,7 @@
 				87133597237270F6006534A4 /* ioapi_buf.c in Sources */,
 				872D04AA23B7362300DAC321 /* FLEXSystemLogTableViewCell.m in Sources */,
 				872D04B923B7362300DAC321 /* FLEXHierarchyTableViewCell.m in Sources */,
+				8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */,
 				87133598237270F6006534A4 /* UIDevice+Private.m in Sources */,
 				875A720823758F1900407A75 /* SCVideoGridView.m in Sources */,
 				87981DCE23C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m in Sources */,
@@ -3731,6 +3785,7 @@
 				872D047623B7362300DAC321 /* FLEXTableViewCell.m in Sources */,
 				871335B3237270F6006534A4 /* YSLiveManager+message.m in Sources */,
 				8745557D23B3358000BC6CAB /* YSSkinCoverWindow.m in Sources */,
+				8777C7C923EC32F2002002BF /* YSClassInstructionCell.m in Sources */,
 				872D04C623B7362300DAC321 /* UIPasteboard+FLEX.m in Sources */,
 				871335B5237270F6006534A4 /* YSSuperVC.m in Sources */,
 				8745557F23B3358000BC6CAB /* YSEyeCareManager.m in Sources */,
@@ -3768,6 +3823,7 @@
 				04A479E6239E274D00680D84 /* SCColorListView.m in Sources */,
 				871335D3237270F6006534A4 /* aeskey.c in Sources */,
 				871335D4237270F6006534A4 /* UIImage+MultiFormat.m in Sources */,
+				8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */,
 				872D046D23B7362300DAC321 /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,
 				872D048E23B7362300DAC321 /* FLEXArgumentInputStructView.m in Sources */,
@@ -3778,8 +3834,10 @@
 				871335D9237270F6006534A4 /* AFHTTPSessionManager.m in Sources */,
 				26EFA686237A841C00EC2A64 /* SCAnswerDetailModel.m in Sources */,
 				872D04B123B7362300DAC321 /* FLEXMultiColumnTableView.m in Sources */,
+				8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */,
 				871335DB237270F6006534A4 /* YSNewPictureCell.m in Sources */,
 				26215A7623C7130600D6730B /* YSSliderSuperView.m in Sources */,
+				8777C7C423EC31C8002002BF /* YSClassCell.m in Sources */,
 				871335DC237270F6006534A4 /* YSAnswerCell.m in Sources */,
 				87AED05123B5F74500D38129 /* YSTeacherRoleMainVC.m in Sources */,
 				34043C7023EABA04004982E6 /* YSCalendarCell.m in Sources */,
