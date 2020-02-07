@@ -26,18 +26,20 @@
 - (instancetype)initWithDefaultItems
 {
     BMTabItemClass *tab1 = [[BMTabItemClass alloc] init];
-    tab1.title = @"日历课程";
+    tab1.title = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
     tab1.normalColor = ITEM_NOR_COLOR;
     tab1.selectedColor = ITEM_SEL_COLOR;
     tab1.normalIcon = @"live";
     tab1.selectedIcon = @"live_sel";
 
     BMTabItemClass *tab2 = [[BMTabItemClass alloc] init];
-    tab2.title = @"我的";
+    tab2.title = YSLocalizedSchool(@"Title.OnlineSchool.Mine");
     tab2.normalColor = ITEM_NOR_COLOR;
     tab2.selectedColor = ITEM_SEL_COLOR;
-    tab2.normalIcon = @"home";
-    tab2.selectedIcon = @"home_sel";
+//    tab2.normalIcon = @"home";
+//    tab2.selectedIcon = @"home_sel";
+    tab2.normalIcon = @"me";
+    tab2.selectedIcon = @"me";
     
     return [self initWithArray:@[tab1, tab2]];
 }
@@ -46,6 +48,7 @@
 {
     YSCalendarCurriculumVC *calendarVC = [[YSCalendarCurriculumVC alloc] init];
     BMNavigationController *nav1 = [[BMNavigationController alloc] initWithRootViewController:calendarVC];
+//    nav1.title = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
     nav1.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
 
     YSMineViewController *personVC = [[YSMineViewController alloc] init];

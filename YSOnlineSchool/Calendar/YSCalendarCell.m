@@ -40,7 +40,7 @@
         self.circleLab = circleLab;
         
         UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-1, self.bm_width, 1)];
-        lineView.backgroundColor = UIColor.grayColor;
+        lineView.backgroundColor = UIColor.lightGrayColor;
         [self.contentView addSubview:lineView];
         self.lineView = lineView;
     }
@@ -57,7 +57,7 @@
     self.circleLab.frame = CGRectMake(0, self.bm_height-20, self.backgroundView.frame.size.width, 20);
     
     if ([self.dateDict bm_isNotEmpty]) {
-    
+        self.circleLab.hidden = NO;
         NSDate *currentDate = [NSDate date];//获取当前时间，日期
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
         dateFormatter.dateFormat = @"yyyy-MM-dd";
@@ -67,6 +67,7 @@
         
         NSDate * dateKey = [dateFormatter dateFromString:key];
         self.titleLabel.textColor = UIColor.whiteColor;
+        
         //日期比较
         NSComparisonResult result = [dateKey compare:nowDate];
         if (result == -1)
@@ -88,6 +89,7 @@
     else
     {
         self.titleLabel.textColor = UIColor.grayColor;
+        self.circleLab.hidden = YES;
         self.selectionLayer.hidden = YES;
     }
 }
