@@ -681,6 +681,7 @@
 		8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7CC23EC336B002002BF /* YSClassMediumCell.m */; };
 		8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */; };
 		8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D123EC3409002002BF /* YSClassDetailVC.m */; };
+		8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D523ED1A46002002BF /* YSClassModel.m */; };
 		877CCBCD2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCE2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCF2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
@@ -1408,6 +1409,8 @@
 		8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSClassMediumCell.xib; sourceTree = "<group>"; };
 		8777C7D023EC3409002002BF /* YSClassDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassDetailVC.h; sourceTree = "<group>"; };
 		8777C7D123EC3409002002BF /* YSClassDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassDetailVC.m; sourceTree = "<group>"; };
+		8777C7D423ED1A46002002BF /* YSClassModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassModel.h; sourceTree = "<group>"; };
+		8777C7D523ED1A46002002BF /* YSClassModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassModel.m; sourceTree = "<group>"; };
 		877CCBC92389479B00584E65 /* YSRoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSRoomSDK.framework; sourceTree = "<group>"; };
 		878D983023A0C6530007FBBA /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		8790DBEB238D282A005C0BC7 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
@@ -2920,6 +2923,7 @@
 		8777C7BC23EC3082002002BF /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				8777C7D323ED1A21002002BF /* Model */,
 				8777C7C023EC31B8002002BF /* Cell */,
 				8777C7BD23EC313D002002BF /* YSClassDayList.h */,
 				8777C7BE23EC313D002002BF /* YSClassDayList.m */,
@@ -2943,6 +2947,15 @@
 				8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		8777C7D323ED1A21002002BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8777C7D423ED1A46002002BF /* YSClassModel.h */,
+				8777C7D523ED1A46002002BF /* YSClassModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		878D982F23A0C6520007FBBA /* Frameworks */ = {
@@ -3748,6 +3761,7 @@
 				8713359E237270F6006534A4 /* prng.c in Sources */,
 				04638429237A971700DE7236 /* TZImageCropManager.m in Sources */,
 				263265E4237900E500605A0E /* SCBoardControlView.m in Sources */,
+				8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */,
 				872D046823B7362300DAC321 /* FLEXArrayExplorerViewController.m in Sources */,
 				872D048523B7362300DAC321 /* FLEXPropertyEditorViewController.m in Sources */,
 				871335A0237270F6006534A4 /* BMTestAlignView.m in Sources */,

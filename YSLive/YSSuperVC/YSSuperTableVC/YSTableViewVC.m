@@ -352,6 +352,7 @@
         BMWeakSelf
         self.dataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
             //LLog(@"absoluteURL2: %@", response.URL.absoluteURL);
+
             if (error)
             {
                 BMLog(@"Error: %@", error);
@@ -386,7 +387,10 @@
         
         self.isLoadNew = NO;
         
-        [self.progressHUD bm_hideAnimated:YES];
+        if (self.showProgressHUD)
+        {
+            [self.progressHUD bm_hideAnimated:YES];
+        }
     }
 }
 
