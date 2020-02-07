@@ -22,6 +22,12 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 
 @implementation YSMineViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,12 +37,11 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     [self getRequest];
         
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-//    self.bm_NavigationBarTintColor = UIColor.whiteColor;
     
     self.bm_NavigationBarBgTintColor = [UIColor bm_colorWithHex:0x82ABEC];
     
-    self.navigationController.navigationItem.title = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
-    [self bm_setNavigationWithTitle:@"我的" barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:@"live_sel" rightToucheEvent:@selector(refreshBtnClick)];
+//    self.navigationController.navigationItem.title = YSLocalizedSchool(@"Title.OnlineSchool.Mine");
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:@"live_sel" rightToucheEvent:@selector(refreshBtnClick)];
 }
 
 - (void)getRequest
@@ -48,7 +53,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 - (void)setupUI
 {
     self.mineTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.mineTableView.frame = CGRectMake(15, 46 + UI_NAVIGATION_BAR_HEIGHT, UI_SCREEN_WIDTH - 30, 200);
+    self.mineTableView.frame = CGRectMake(15, 46 , UI_SCREEN_WIDTH - 30, 200);
     self.mineTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.mineTableView.delegate = self;
     self.mineTableView.dataSource = self;
@@ -65,7 +70,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     self.userIconImg = [[UIImageView alloc] init];
     [self.view addSubview:self.userIconImg];
     self.userIconImg.backgroundColor = [UIColor redColor];
-    self.userIconImg.frame = CGRectMake(0, 25 + UI_NAVIGATION_BAR_HEIGHT, 74, 74);
+    self.userIconImg.frame = CGRectMake(0, 25 , 74, 74);
     self.userIconImg.bm_centerX = self.view.bm_centerX;
     self.userIconImg.layer.cornerRadius = 37;
     self.userIconImg.layer.borderColor = [UIColor whiteColor].CGColor;
