@@ -51,9 +51,13 @@
     for (int i = 0; i < 7; i++) {
         UILabel *weekdayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         weekdayLabel.textAlignment = NSTextAlignmentCenter;
+        
+        
+        
         [self.contentView addSubview:weekdayLabel];
         [_weekdayPointers addPointer:(__bridge void * _Nullable)(weekdayLabel)];
     }
+    
 }
 
 - (void)layoutSubviews
@@ -61,6 +65,14 @@
     [super layoutSubviews];
     
     self.contentView.frame = self.bounds;
+    
+    
+    for (int i=0; i<_weekdayPointers.count; i++)
+    {
+        UILabel *label = [self.weekdayPointers pointerAtIndex:i];
+        BMLog(@"=======%@",label);
+    }
+    
     
     // Position Calculation
     NSInteger count = self.weekdayPointers.count;
@@ -80,6 +92,19 @@
         NSInteger labelIndex = opposite ? count-1-i : i;
         UILabel *label = [self.weekdayPointers pointerAtIndex:labelIndex];
         label.frame = CGRectMake(x, 0, width, self.contentView.fs_height);
+        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, label.fs_height-1, label.fs_width, 1)];
+        lineView.backgroundColor = UIColor.grayColor;
+        [label addSubview:lineView];
+        
+        if (i == 0)
+        {
+            lineView.frame = CGRectMake(10, label.fs_height-1, label.fs_width-10, 1);
+        }
+        else if (i == count-1)
+        {
+            lineView.frame = CGRectMake(0, label.fs_height-1, label.fs_width-10, 1);
+        }
+        
         x = CGRectGetMaxX(label.frame);
     }
     free(widths);
@@ -99,6 +124,8 @@
 - (void)configureAppearance
 {
     BOOL useVeryShortWeekdaySymbols = (self.calendar.appearance.caseOptions & (15<<4) ) == FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
+    
+    //周一，周二
     NSArray *weekdaySymbols = useVeryShortWeekdaySymbols ? self.calendar.gregorian.veryShortStandaloneWeekdaySymbols : self.calendar.gregorian.shortStandaloneWeekdaySymbols;
     BOOL useDefaultWeekdayCase = (self.calendar.appearance.caseOptions & (15<<4) ) == FSCalendarCaseOptionsWeekdayUsesDefaultCase;
     

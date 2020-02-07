@@ -16,5 +16,6 @@
 
 @property (weak, nonatomic) CAShapeLayer *selectionLayer;
 
+@property (strong, nonatomic) NSDictionary  *dateDict;
 
 @end

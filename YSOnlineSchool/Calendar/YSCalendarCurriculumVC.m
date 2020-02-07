@@ -34,7 +34,8 @@ FSCalendarDelegateAppearance
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = UIColor.whiteColor;
+//    self.view.backgroundColor = [UIColor colorWithRed:132 green:174 blue:246 alpha:1.0];
+    self.view.backgroundColor = UIColor.grayColor;
     
     UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, 30)];
     titleLab.textAlignment = NSTextAlignmentCenter;
@@ -44,16 +45,16 @@ FSCalendarDelegateAppearance
     
     [self setupUI];
     
-    UIButton * backBtn = [[UIButton alloc]initWithFrame:CGRectMake(150, self.view.bounds.size.height-150, 150, 30)];
-    [backBtn setBackgroundColor:UIColor.redColor];
-    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    NSString * nowDateStr = [dateFormatter stringFromDate:currentDate];
+    NSDate * nowDate = [dateFormatter dateFromString:nowDateStr];
     
     self.dateDict = @{
         @"2020-02-02":@"共1节课",
         @"2020-02-05":@"共3节课",
-        @"2020-02-10":@"共4节课",
+        nowDateStr:@"共4节课",
         @"2020-02-15":@"共3节课",
         @"2020-02-25":@"共2节课",
     };
@@ -77,12 +78,7 @@ FSCalendarDelegateAppearance
     
     self.nowDate = [self.dateFormatter dateFromString:nowDateStr];
     
-    UILabel * yearLab = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width-150, 120, 150, 20)];
-    yearLab.text = dateString;
-    yearLab.font = [UIFont systemFontOfSize:14];
-    [self.view addSubview:yearLab];
-    
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0,  150, self.view.frame.size.width, 400)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  80, self.view.frame.size.width-20, 400)];
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.swipeToChooseGesture.enabled = YES;
@@ -90,10 +86,12 @@ FSCalendarDelegateAppearance
     [self.view addSubview:calendar];
     calendar.scrollEnabled = NO;
     self.MyCalendar = calendar;
+    calendar.backgroundColor = UIColor.whiteColor;
+    calendar.layer.cornerRadius = 30;
     
-    calendar.calendarHeaderView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
-    calendar.calendarWeekdayView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
-    calendar.appearance.eventSelectionColor = [UIColor redColor];
+//    calendar.calendarHeaderView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
+//    calendar.calendarWeekdayView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
+//    calendar.appearance.eventSelectionColor = [UIColor redColor];
     calendar.appearance.eventOffset = CGPointMake(0, -7);
     calendar.today = nil; // Hide the today circle
     [calendar registerClass:[YSCalendarCell class] forCellReuseIdentifier:@"cell"];
@@ -107,7 +105,7 @@ FSCalendarDelegateAppearance
     calendar.firstWeekday = 2;     //设置周一为第一天
     //    calendar.appearance.headerDateFormat = @"yyyy年MM月";
 //    calendar.appearance.titleTodayColor = [UIColor redColor];
-    calendar.headerHeight = 0.0f;
+    calendar.headerHeight = 60.0f;
     
     [self.MyCalendar selectDate:[NSDate date] scrollToDate:NO];
     self.MyCalendar.accessibilityIdentifier = @"calendar";
@@ -123,7 +121,7 @@ FSCalendarDelegateAppearance
 
 - (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleSelectionColorForDate:(NSDate *)date
 {
-    return UIColor.redColor;
+    return UIColor.grayColor;
 }
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date
@@ -134,13 +132,19 @@ FSCalendarDelegateAppearance
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     NSLog(@"点击的date %@",[self.dateFormatter stringFromDate:date]);
-//    [self configureVisibleCells];
+    [self configureVisibleCells];
 //    FSCalendarCell *cell = [calendar cellForDate:date atMonthPosition:monthPosition];
     
-    YSClassOneDayVC * classVC = [[YSClassOneDayVC alloc]init];
+    
     NSString * dateString = [self.dateFormatter stringFromDate:date];
-    classVC.selectDate = [self.dateFormatter dateFromString:dateString];
-    [self.navigationController pushViewController:classVC animated:YES];
+    
+    if ([[self.dateDict allKeys] containsObject:dateString]) {
+        
+        YSClassOneDayVC * classVC = [[YSClassOneDayVC alloc]init];
+        NSString * dateString = [self.dateFormatter stringFromDate:date];
+        classVC.selectDate = [self.dateFormatter dateFromString:dateString];
+        [self.navigationController pushViewController:classVC animated:YES];
+    }
 }
 
 - (void)calendar:(FSCalendar *)calendar didDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
@@ -180,31 +184,48 @@ FSCalendarDelegateAppearance
     NSString * dateString = [self.dateFormatter stringFromDate:date];
     
     if ([[self.dateDict allKeys] containsObject:dateString]) {
-        diyCell.selectionLayer.hidden = NO;
-        NSDate * dateKey = [self.dateFormatter dateFromString:dateString];
         
-        //日期比较
-        NSComparisonResult result = [dateKey compare:self.nowDate];
-        if (result == -1)
-        {//之前
-            diyCell.selectionLayer.fillColor = UIColor.yellowColor.CGColor;
-        }
-        else if (result == 1)
-        {//以后
-            diyCell.selectionLayer.fillColor = UIColor.greenColor.CGColor;
-        }
-        else
-        {//今天
-            diyCell.selectionLayer.fillColor = UIColor.purpleColor.CGColor;
-        }
+//        NSString * num = self.dateDict[dateString];
         
-        diyCell.circleLab.text = [self.dateDict objectForKey:dateString];
-        [diyCell bringSubviewToFront:diyCell.circleLab];//不起作用
+        diyCell.dateDict = @{dateString:self.dateDict[dateString]};
+        
+        
+//        diyCell.selectionLayer.hidden = NO;
+//        NSDate * dateKey = [self.dateFormatter dateFromString:dateString];
+//
+//        //日期比较
+//        NSComparisonResult result = [dateKey compare:self.nowDate];
+//        if (result == -1)
+//        {//之前
+//            diyCell.selectionLayer.fillColor = UIColor.yellowColor.CGColor;
+//        }
+//        else if (result == 1)
+//        {//以后
+//            diyCell.selectionLayer.fillColor = UIColor.greenColor.CGColor;
+//        }
+//        else
+//        {//今天
+//            diyCell.selectionLayer.fillColor = UIColor.purpleColor.CGColor;
+//        }
+//
+//        diyCell.circleLab.text = [self.dateDict objectForKey:dateString];
+//        [diyCell bringSubviewToFront:diyCell.circleLab];//不起作用
+//    }
+//    else
+//    {
+//        diyCell.selectionLayer.hidden = YES;
     }
-    else
-    {
-        diyCell.selectionLayer.hidden = YES;
-    }
+}
+- (BOOL)calendar:(FSCalendar *)calendar shouldSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    return monthPosition == FSCalendarMonthPositionCurrent;
+}
+
+
+
+- (BOOL)calendar:(FSCalendar *)calendar shouldDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    return monthPosition == FSCalendarMonthPositionCurrent;
 }
 
 

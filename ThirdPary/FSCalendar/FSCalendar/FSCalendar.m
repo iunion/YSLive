@@ -219,6 +219,8 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     [collectionView registerClass:[FSCalendarBlankCell class] forCellWithReuseIdentifier:FSCalendarBlankCellReuseIdentifier];
     [collectionView registerClass:[FSCalendarStickyHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader"];
+//    [collectionView registerNib:[UINib nibWithNibName:collettionSectionFoot bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:collettionSectionFoot];
+    [collectionView registerClass:[UIView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     [daysContainer addSubview:collectionView];
     self.collectionView = collectionView;
     self.collectionViewLayout = collectionViewLayout;
@@ -310,13 +312,13 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
                 case FSCalendarScopeMonth: {
                     CGFloat contentHeight = rowHeight*6 + padding*2;
                     _daysContainer.frame = CGRectMake(0, headerHeight+weekdayHeight, self.fs_width, contentHeight);
-                    _collectionView.frame = CGRectMake(0, 0, _daysContainer.fs_width, contentHeight);
+                    _collectionView.frame = CGRectMake(10, 0, _daysContainer.fs_width-20, contentHeight);
                     break;
                 }
                 case FSCalendarScopeWeek: {
                     CGFloat contentHeight = rowHeight + padding*2;
                     _daysContainer.frame = CGRectMake(0, headerHeight+weekdayHeight, self.fs_width, contentHeight);
-                    _collectionView.frame = CGRectMake(0, 0, _daysContainer.fs_width, contentHeight);
+                    _collectionView.frame = CGRectMake(10, 0, _daysContainer.fs_width-20, contentHeight);
                     break;
                 }
             }
@@ -325,6 +327,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
             CGFloat contentHeight = _contentView.fs_height;
             _daysContainer.frame = CGRectMake(0, 0, self.fs_width, contentHeight);
             _collectionView.frame = _daysContainer.bounds;
+            _collectionView.frame = CGRectMake(10, 0, _daysContainer.fs_width-20, _daysContainer.fs_height);
             
         }
         _collectionView.fs_height = FSCalendarHalfFloor(_collectionView.fs_height);
@@ -432,17 +435,25 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.floatingMode) {
-        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            FSCalendarStickyHeader *stickyHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-            stickyHeader.calendar = self;
-            stickyHeader.month = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:indexPath.section toDate:[self.gregorian fs_firstDayOfMonth:_minimumDate] options:0];
-            self.visibleSectionHeaders[indexPath] = stickyHeader;
-            [stickyHeader setNeedsLayout];
-            return stickyHeader;
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        if (self.floatingMode) {
+            if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+                FSCalendarStickyHeader *stickyHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+                stickyHeader.calendar = self;
+                stickyHeader.month = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:indexPath.section toDate:[self.gregorian fs_firstDayOfMonth:_minimumDate] options:0];
+                self.visibleSectionHeaders[indexPath] = stickyHeader;
+                [stickyHeader setNeedsLayout];
+                return stickyHeader;
+            }
         }
+        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader" forIndexPath:indexPath];
+    }else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+//        UICollectionReusableView* view = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:collettionSectionFoot forIndexPath:indexPath];
+        return nil;
+    }else{
+        return nil;
     }
-    return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader" forIndexPath:indexPath];
+    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
@@ -1495,6 +1506,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 - (NSArray *)visibleStickyHeaders
 {
+        
     return [self.visibleSectionHeaders.dictionaryRepresentation allValues];
 }
 

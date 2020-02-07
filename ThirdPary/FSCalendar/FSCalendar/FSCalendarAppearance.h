@@ -43,6 +43,9 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
  */
 @interface FSCalendarAppearance : NSObject
 
+
+@property (strong, nonatomic) NSMutableDictionary *titleColors;
+
 /**
  * The font of the day text.
  */

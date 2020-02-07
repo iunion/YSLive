@@ -108,11 +108,11 @@
         
         CGFloat height = titleHeight + subtitleHeight;
         _titleLabel.frame = CGRectMake(
-                                       self.preferredTitleOffset.x+self.contentView.fs_width/2,
-                                       (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y,
-                                       self.contentView.fs_width/2,
-//                                       titleHeight
-                                       25
+//                                       self.preferredTitleOffset.x+self.contentView.fs_width/2,
+                                      self.preferredTitleOffset.x, (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y,
+                                       self.contentView.fs_width,
+                                       titleHeight-10
+//                                       25
                                        );
         _subtitleLabel.frame = CGRectMake(
                                           self.preferredSubtitleOffset.x,
@@ -122,11 +122,12 @@
                                           );
     } else {
         _titleLabel.frame = CGRectMake(
-                                       self.preferredTitleOffset.x+self.contentView.fs_width/2,
+//                                       self.preferredTitleOffset.x+self.contentView.fs_width/2,
+                                       self.preferredTitleOffset.x,
                                        self.preferredTitleOffset.y,
-                                       self.contentView.fs_width/2,
-//                                       floor(self.contentView.fs_height*5.0/6.0)
-                                       25
+                                       self.contentView.fs_width,
+                                       floor(self.contentView.fs_height*5.0/6.0)-10
+//                                       25
                                        );
     }
     _imageView.frame = CGRectMake(self.preferredImageOffset.x, self.preferredImageOffset.y, self.contentView.fs_width, self.contentView.fs_height);
@@ -285,8 +286,12 @@
 
 - (UIColor *)colorForTitleLabel
 {
+    return self.appearance.titleDefaultColor;// --- MDI ---
+    
     if (self.selected) {
         return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
+        
+        return self.appearance.titleDefaultColor;
     }
     return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
 }
