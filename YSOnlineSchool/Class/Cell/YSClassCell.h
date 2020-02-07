@@ -7,10 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YSClassModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol YSClassCellDelegate;
 @interface YSClassCell : UITableViewCell
+
+@property (nullable, nonatomic, weak) id <YSClassCellDelegate> delegate;
+
+@property (nonatomic, strong, readonly) YSClassModel *classModel;
+
++ (CGFloat)cellHeight;
+
+- (void)drawCellWithModel:(YSClassModel *)classModel isDetail:(BOOL)isDetail;
+
+@end
+
+@protocol YSClassCellDelegate <NSObject>
+
+@optional
+
+- (void)enterClassWith:(YSClassModel *)classModel;
 
 @end
 

@@ -29,7 +29,14 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     [self setupUI];
     [self getRequest];
+        
+    self.bm_NavigationTitleTintColor = UIColor.whiteColor;
+//    self.bm_NavigationBarTintColor = UIColor.whiteColor;
     
+    self.bm_NavigationBarBgTintColor = [UIColor bm_colorWithHex:0x82ABEC];
+    
+    self.navigationController.navigationItem.title = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
+    [self bm_setNavigationWithTitle:@"我的" barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:@"live_sel" rightToucheEvent:@selector(refreshBtnClick)];
 }
 
 - (void)getRequest
@@ -89,6 +96,12 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     YSOnlineMineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YSOnlineMineTableViewCellID forIndexPath:indexPath];
     cell.title = indexPath.row == 0 ? @"修改密码" : @"退出登录";
     return cell;
+}
+
+//刷新
+- (void)refreshBtnClick
+{
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

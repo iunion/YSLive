@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YSClassModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSClassInstructionCell : UITableViewCell
+
+@property (nonatomic, strong, readonly) YSClassDetailModel *classDetailModel;
+
+@property (nonatomic, assign, readonly) CGFloat cellHeight;
+
+- (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel;
 
 @end
 
