@@ -96,12 +96,12 @@ FSCalendarDelegateAppearance
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     [dateFormatter setDateFormat:@"YYYY 年 MM 月 "];//设定时间格式,这里可以设置成自己需要的格式
-    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
+//    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
     NSString * nowDateStr = [self.dateFormatter stringFromDate:currentDate];
     
     self.nowDate = [self.dateFormatter dateFromString:nowDateStr];
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  80, self.view.frame.size.width-20, 400)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  50, self.view.frame.size.width-20, 400)];
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.swipeToChooseGesture.enabled = NO;
