@@ -70,6 +70,10 @@
 @property (nonatomic, strong) YSInputView *nickNameTextField;
 /// 密码输入框
 @property (nonatomic, strong) YSInputView *passwordTextField;
+/// 网校密码输入框
+@property (nonatomic, strong) YSInputView *passOnlineTextField;
+/// 网校系统
+@property (nonatomic, strong) UILabel *onlineSchoolTitle;
 
 ///获取房间类型时，探测接口的调用次数
 @property (nonatomic, assign) NSInteger  callNum;
@@ -100,9 +104,11 @@
 
 /// 选中的角色button
 @property (nonatomic, strong) UIButton *selectedRoleBtn;
+/// 进入网校
+@property (nonatomic, strong) UIButton *onlineSchoolBtn;
 // 网络等待
 @property (nonatomic, strong) BMProgressHUD *m_ProgressHUD;
-
+@property (nonatomic, assign) BOOL isOnlineSchool;
 @end
 
 @implementation YSLoginVC
@@ -147,6 +153,7 @@
     [self getAppStoreNewVersion];
     
     self.selectRoleType = YSUserType_Student;
+    self.isOnlineSchool = NO;
     // 主题问题
     [self setupUI];
     
@@ -483,6 +490,22 @@
         make.width.mas_equalTo(kScale_W(197));
     }];
     
+    
+    UILabel *onlineSchoolTitle = [[UILabel alloc] init];
+    onlineSchoolTitle.font = [UIFont systemFontOfSize:16];
+    onlineSchoolTitle.textColor = [UIColor bm_colorWithHex:0x6D7278];
+    onlineSchoolTitle.textAlignment = NSTextAlignmentCenter;
+    onlineSchoolTitle.hidden = YES;
+    onlineSchoolTitle.text = YSLocalized(@"Label.onlineSchoolSystem");
+    self.onlineSchoolTitle = onlineSchoolTitle;
+    [self.backImageView addSubview:onlineSchoolTitle];
+    [self.onlineSchoolTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(kScale_W(28));
+        make.right.mas_equalTo(-kScale_W(28));
+        make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(kScale_H(5));
+        make.height.mas_equalTo(30);
+    }];
+    
     [self.backImageView addSubview:self.roomTextField];
     [self.roomTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(kScale_W(28));
@@ -505,6 +528,18 @@
     self.nickNameTextField.layer.cornerRadius = 20;
     self.nickNameTextField.layer.borderWidth = 1;
     self.nickNameTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    
+    [self.backImageView addSubview:self.passOnlineTextField];
+    [self.passOnlineTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(kScale_W(28));
+        make.right.mas_equalTo(-kScale_W(28));
+        make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(30));
+        make.height.mas_equalTo(40);
+    }];
+    self.passOnlineTextField.layer.cornerRadius = 20;
+    self.passOnlineTextField.layer.borderWidth = 1;
+    self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    self.passOnlineTextField.hidden = YES;
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -550,6 +585,23 @@
     //    NSString *string = [NSString stringWithFormat:@"buildNO: %@", bundleVersionCode];
     //    UILabel *label = [UILabel bm_labelWithFrame:CGRectMake(20, 40, 200, 30) text:string fontSize:14.0 color:[UIColor bm_colorWithHex:0x999999] alignment:NSTextAlignmentLeft lines:1];
     //    [self.backImageView addSubview:label];
+        
+#if ONLINESCHOOL
+    UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.onlineSchoolBtn = onlineSchoolBtn;
+    [self.backImageView addSubview:onlineSchoolBtn];
+    [onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
+    [onlineSchoolBtn setTitleColor:[UIColor bm_colorWithHex:0x6D7278] forState:UIControlStateNormal];
+    onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(15));
+        make.height.mas_equalTo(17);
+//        make.width.mas_equalTo(kScale_W(50));
+        make.right.mas_equalTo(weakSelf.joinRoomBtn.mas_right);
+    }];
+    
+#endif
 }
 
 #pragma mark --键盘弹出收起管理
@@ -581,6 +633,83 @@
 
 #pragma mark -
 #pragma mark SEL
+- (void)onlineSchoolBtnClicked:(UIButton *)btn
+{
+    self.isOnlineSchool = !_isOnlineSchool;
+    BMWeakSelf
+    if (self.isOnlineSchool)
+    {
+        BMLog(@"进入网校");
+        self.onlineSchoolTitle.hidden = NO;
+        self.passOnlineTextField.hidden = NO;
+        [self.logoImageView setImage:[UIImage imageNamed:@"onlineSchool_login_icon"]];
+        [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(0);
+            //        make.top.mas_equalTo(kScale_H(130));
+            make.top.mas_equalTo(kScale_H(50));
+            make.height.mas_equalTo(kScale_W(153));
+            make.width.mas_equalTo(kScale_W(197));
+        }];
+        self.roomTextField.placeholder = YSLocalized(@"Label.onlineSchoolPlaceholder");
+        self.nickNameTextField.placeholder = YSLocalized(@"Label.accountNumberPlaceholder");
+        [self.joinRoomBtn setTitle:YSLocalized(@"Login.Enter") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
+        
+        [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.passOnlineTextField.mas_bottom).mas_offset(kScale_H(43));
+            make.height.mas_equalTo(50);
+            make.width.mas_equalTo(kScale_W(238));
+            make.centerX.mas_equalTo(0);
+        }];
+        NSString * realmName = [YSUserDefault getRealmName];
+//        if ([realmName bm_isNotEmpty])
+//        {
+            self.roomTextField.inputTextField.text = realmName;
+//        }
+        NSString * userNumber = [YSUserDefault getUserNumber];
+//        if ([userNumber bm_isNotEmpty])
+//        {
+            self.nickNameTextField.inputTextField.text = userNumber;
+//        }
+        self.passOnlineTextField.inputTextField.text = @"";
+    }
+    else
+    {
+        BMLog(@"进入教室");
+        NSString * roomID = [YSUserDefault getLoginRoomID];
+        if ([roomID bm_isNotEmpty])
+        {
+            self.roomTextField.inputTextField.text = roomID;
+        }
+        NSString * nickName = [YSUserDefault getLoginNickName];
+        if ([nickName bm_isNotEmpty])
+        {
+            self.nickNameTextField.inputTextField.text = nickName;
+        }
+
+        self.onlineSchoolTitle.hidden = YES;
+        self.passOnlineTextField.hidden = YES;
+        [self.logoImageView setImage:[UIImage imageNamed:@"login_icon"]];
+        [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(0);
+            make.top.mas_equalTo(kScale_H(100));
+            make.height.mas_equalTo(kScale_W(153));
+            make.width.mas_equalTo(kScale_W(197));
+        }];
+        self.roomTextField.placeholder = YSLocalized(@"Label.roomPlaceholder");
+        self.nickNameTextField.placeholder = YSLocalized(@"Label.nicknamePlaceholder");
+        [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
+        [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(43));
+            make.height.mas_equalTo(50);
+            make.width.mas_equalTo(kScale_W(238));
+            make.centerX.mas_equalTo(0);
+        }];
+
+    }
+
+}
 
 - (void)clickAction:(UITapGestureRecognizer *)tap
 {
@@ -589,13 +718,14 @@
 
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
-    
-    YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
-    [tabBar addViewControllers];
-//    [self presentViewController:tabBar animated:YES completion:nil];
-    [self.navigationController pushViewController:tabBar animated:YES];
-    return;
-    
+    if (self.isOnlineSchool)
+    {
+        YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
+        [tabBar addViewControllers];
+        //    [self presentViewController:tabBar animated:YES completion:nil];
+        [self.navigationController pushViewController:tabBar animated:YES];
+        return;
+    }
     if (![YSCoreStatus isNetworkEnable])
     {
         [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:@"请开启网络" delay:0.5];
@@ -921,10 +1051,43 @@
     return _passwordTextField;
 }
 
+- (YSInputView *)passOnlineTextField
+{
+    if (!_passOnlineTextField)
+    {
+        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
+        _passOnlineTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
+        _passOnlineTextField.inputTextField.secureTextEntry = YES;
+        _passOnlineTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
+        _passOnlineTextField.layer.cornerRadius = 20;
+        _passOnlineTextField.layer.borderWidth = 1;
+        _passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+
+        if (![UIDevice bm_isiPad]) {
+            self.passOnlineTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
+        }
+        
+        UIButton * eyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
+        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
+        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
+        [eyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
+        [_passOnlineTextField addSubview:eyeBtn];
+    }
+    return _passOnlineTextField;
+}
+
 - (void)changeSecureTextEntry:(UIButton *)button
 {
     button.selected = !button.selected;
-    self.passwordTextField.inputTextField.secureTextEntry = !button.selected;
+    
+    if (self.isOnlineSchool)
+    {
+        self.passOnlineTextField.inputTextField.secureTextEntry = !button.selected;
+    }
+    else
+    {
+        self.passwordTextField.inputTextField.secureTextEntry = !button.selected;
+    }
 }
 
 /// 底部选择角色的view

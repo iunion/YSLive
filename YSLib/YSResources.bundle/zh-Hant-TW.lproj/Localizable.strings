@@ -49,6 +49,7 @@
 "Prompt.underPlatformTime" = "點擊過於頻繁";
 
 //login
+"Login.Enter" = "登入";
 "Login.EnterRoom" = "進入房間";
 "Login.RoomIdPlaceHolder"    = "房間號";
 "Login.nickName"  = "昵稱";
@@ -137,6 +138,8 @@
 "Button.Sign" = "簽到";
 "Button.vote" = "投票";
 "Button.ReturnRoom" = "返回直播";
+"Button.onlineschool" = "登入網校";
+
 
 "title.ToVote" = "發起投票";
 "title.Voting" = "投票中";
@@ -259,6 +262,9 @@
 "Label.roomid" = "房間號";
 "Label.roomPlaceholder" = "請輸入您的房間號";
 "Label.nicknamePlaceholder" = "請輸入您的昵稱";
+"Label.onlineSchoolPlaceholder" = "請輸入機构域名";
+"Label.accountNumberPlaceholder" = "請輸入您的帳號";
+"Label.onlineSchoolSystem" = "網校系統";
 "Label.messageBoard" = "留言板";
 "Menu.Copy" = "復制";
 

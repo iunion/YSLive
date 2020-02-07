@@ -15,6 +15,12 @@ static NSString *const YSLOGIN_USERDEFAULT_ROOMID = @"ysLOGIN_USERDEFAULT_ROOMID
 static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICKNAME";
 /// 扬声器权限
 static NSString *const YSPERMISSION_USERDEFAULT_REPRODUCER = @"ysPERMISSION_USERDEFAULT_REPRODUCER";
+/// 网校登录时 域名
+static NSString *const YSLOGIN_ONLINESCHOOL_REALMNAME = @"ysYSLOGIN_ONLINESCHOOL_REALMNAME";
+/// 网校登录时 账户
+static NSString *const YSLOGIN_ONLINESCHOOL_USERNUMBER = @"ysYSLOGIN_ONLINESCHOOL_USERNUMBER";
+/// 网校登录时 密码
+static NSString *const YSLOGIN_ONLINESCHOOL_PASSWORD = @"ysYSLOGIN_ONLINESCHOOL_PASSWORD";
 
 @interface YSUserDefault : NSObject
 + (void)setLoginRoomID:(NSString *)roomID;
@@ -23,6 +29,15 @@ static NSString *const YSPERMISSION_USERDEFAULT_REPRODUCER = @"ysPERMISSION_USER
 + (void)setLoginNickName:(NSString *)nickName;
 + (NSString *)getLoginNickName;
 
+/// 域名
++ (void)setRealmName:(NSString *)realmName;
++ (NSString *)getRealmName;
+/// 账号
++ (void)setUserNumber:(NSString *)userNumber;
++ (NSString *)getUserNumber;
+/// 密码
++ (void)setPassWord:(NSString *)passWord;
++ (NSString *)getPassWord;
 //+ (void)setLoginRoleType:(YSUserRoleType)roleType;
 //+ (NSString *)getLoginRoleType;
 

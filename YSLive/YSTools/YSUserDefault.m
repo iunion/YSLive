@@ -51,4 +51,47 @@
     BOOL reproducerPermission = [defaults boolForKey:YSPERMISSION_USERDEFAULT_REPRODUCER];
     return reproducerPermission;
 }
+
++ (void)setRealmName:(NSString *)realmName
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:realmName forKey:YSLOGIN_ONLINESCHOOL_REALMNAME];
+    [defaults synchronize];
+}
+
++ (NSString *)getRealmName
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *realmName = [defaults objectForKey:YSLOGIN_ONLINESCHOOL_REALMNAME];
+    return realmName;
+}
+
++ (void)setUserNumber:(NSString *)userNumber
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:userNumber forKey:YSLOGIN_ONLINESCHOOL_USERNUMBER];
+    [defaults synchronize];
+}
+
++ (NSString *)getUserNumber
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userNumber = [defaults objectForKey:YSLOGIN_ONLINESCHOOL_USERNUMBER];
+    return userNumber;
+}
+
+//+ (void)setRealmName:(NSString *)realmName
+//{
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:realmName forKey:YSLOGIN_ONLINESCHOOL_REALMNAME];
+//    [defaults synchronize];
+//}
+//
+//+ (NSString *)getgetRealmName
+//{
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *realmName = [defaults objectForKey:YSLOGIN_ONLINESCHOOL_REALMNAME];
+//    return realmName;
+//}
+
 @end
