@@ -33,15 +33,14 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    
     [self setupUI];
     [self getRequest];
         
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    
-    self.bm_NavigationBarBgTintColor = [UIColor bm_colorWithHex:0x82ABEC];
-    
-//    self.navigationController.navigationItem.title = YSLocalizedSchool(@"Title.OnlineSchool.Mine");
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:@"live_sel" rightToucheEvent:@selector(refreshBtnClick)];
+    self.bm_NavigationBarTintColor = UIColor.whiteColor;
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshBtnClick)];
+    self.title = nil;
 }
 
 - (void)getRequest
