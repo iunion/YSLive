@@ -9,7 +9,7 @@
 #import "YSCalendarCurriculumVC.h"
 #import "FSCalendar.h"
 #import "YSCalendarCell.h"
-#import "YSClassOneDayVC.h"
+#import "YSClassDayList.h"
 
 #import "FSCalendarCollectionView.h"
 @interface YSCalendarCurriculumVC ()
@@ -40,12 +40,12 @@ FSCalendarDelegateAppearance
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
     self.bm_NavigationBarTintColor = UIColor.whiteColor;
-//    self.navigationController.navigationItem.it = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
-    self.title = @"我的课表";
-    [self bm_setNavigationWithTitle:nil barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:@"live_sel" rightToucheEvent:@selector(refreshBtnClick)];
+    [self bm_setNavigationWithTitle:@"我的课表" barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshBtnClick)];
+    self.title = nil;
     
     [self setupUI];
     
@@ -156,9 +156,9 @@ FSCalendarDelegateAppearance
     
     if ([[self.dateDict allKeys] containsObject:dateString]) {
         
-        YSClassOneDayVC * classVC = [[YSClassOneDayVC alloc]init];
-        NSString * dateString = [self.dateFormatter stringFromDate:date];
-        classVC.selectDate = [self.dateFormatter dateFromString:dateString];
+        YSClassDayList *classVC = [[YSClassDayList alloc] init];
+        classVC.selectedDate = date;
+        classVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:classVC animated:YES];
     }
 }

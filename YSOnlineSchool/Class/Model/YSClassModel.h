@@ -33,13 +33,25 @@ NS_ASSUME_NONNULL_BEGIN
 /// 课程图标
 @property (nonatomic, strong) NSString *classImage;
 
+/// 服务器当前时间
+//@property (nonatomic, assign) NSTimeInterval currentTime;
 /// 开始时间
 @property (nonatomic, assign) NSTimeInterval startTime;
 /// 结束时间
 @property (nonatomic, assign) NSTimeInterval endTime;
 
+///// 可进入教室倒计时时间
+//@property (nonatomic, assign) NSUInteger canEnterCountdown;
+///// 课程开始倒计时时间
+//@property (nonatomic, assign) NSUInteger startCountdown;
+///// 课程最后结束倒计时时间
+//@property (nonatomic, assign) NSUInteger endCountdown;
+
 /// 当前状态
 @property (nonatomic, assign) YSClassState classState;
+
+///// 是否可进入教室
+//@property (nonatomic, assign) BOOL canEnterClass;
 
 + (nullable instancetype)classModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
@@ -57,6 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable instancetype)classDetailModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
+
+- (CGFloat)getInstructionTextCellHeight;
 
 @end
 

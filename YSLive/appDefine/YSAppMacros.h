@@ -13,21 +13,14 @@
 #define YS_SCBUNDLE_NAME            @ "YSResources.bundle"
 #define YS_MEETINGBUNDLE_NAME       @ "YSMeetingResources.bundle"
 
-
-
 #define YS_BUNDLE_NAME      ([YSLiveManager shareInstance].room_UseTheType == YSAppUseTheTypeMeeting) ? YS_MEETINGBUNDLE_NAME : YS_SCBUNDLE_NAME
-
- 
 #define YSAPP_Localized     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_BUNDLE_NAME]]
-
 #define YSLocalized(s)      [YSAPP_Localized localizedStringForKey:s value:@"" table:nil]
-
 
 #define YS_ONLINESCHOOL_NAME       @ "YSOnlineSchool.bundle"
 
 #define YSAPP_LocalizedSchool     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_ONLINESCHOOL_NAME]]
 #define YSLocalizedSchool(s)      [YSAPP_LocalizedSchool localizedStringForKey:s value:@"" table:nil]
-
 
 
 #define YS_APPSTORE_DOWNLOADAPP_ADDRESS     @"itms-apps://itunes.apple.com/app/id1489026684"

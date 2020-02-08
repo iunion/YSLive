@@ -1,0 +1,14 @@
+/*
+ Localizable.strings
+ libMeetings
+ 
+ Created by miniMac on 16/2/24.
+ Copyright © 2016年 macmini. All rights reserved.
+ */
+
+"Title.OnlineSchool.Calendar"       = "我的课表";
+"Title.OnlineSchool.Mine"           = "我的";
+
+
+"ClassDayList.Title"            = "課表";
+"ClassDetail.Title"             = "查看课表";

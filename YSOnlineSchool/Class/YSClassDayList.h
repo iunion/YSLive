@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSClassDayList : YSTableViewVC
 
+@property(nonatomic, strong) NSDate *selectedDate;
+
 @end
 
 NS_ASSUME_NONNULL_END

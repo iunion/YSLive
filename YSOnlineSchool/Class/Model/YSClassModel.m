@@ -83,9 +83,16 @@
     {
         self.endTime = [dic bm_doubleForKey:@"endTime"];
     }
+    
+    /// 可进入教室倒计时时间
+    //self.startCountdown = [dic bm_uintForKey:@"startCountdown"];
+    /// 课程最后结束倒计时时间
+    //self.endCountdown = [dic bm_uintForKey:@"endCountdown"];
 
     /// 当前状态
     self.classState = [dic bm_uintForKey:@"classState"];
+    /// 是否可进入教室
+    //self.canEnterClass = [dic bm_boolForKey:@"canEnterClass"];
 }
 
 @end
@@ -149,6 +156,13 @@
             }
         }
     }
+}
+
+- (CGFloat)getInstructionTextCellHeight
+{
+    CGFloat height = [self.classInstruction bm_heightToFitWidth:(UI_SCREEN_WIDTH-16.0f*2.0f) withFont:[UIFont systemFontOfSize:12.0f]];
+    
+    return height+60.0f;
 }
 
 @end

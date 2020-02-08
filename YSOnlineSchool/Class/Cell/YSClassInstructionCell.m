@@ -14,10 +14,12 @@
 @property (nonatomic, assign) CGFloat cellHeight;
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *iconView;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 
 @end
@@ -45,33 +47,29 @@
 
 - (void)makeCellStyle
 {
-    self.bgView.backgroundColor = [UIColor whiteColor];
-    self.bgView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.bgView.backgroundColor = [UIColor clearColor];
+    
+    self.topView.backgroundColor = [UIColor whiteColor];
+    [self.topView bm_roundedRect:4.0f];
+    
+    self.iconView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    [self.iconView bm_roundedRect:2.0f];
 
-//    [self.iconImageView bm_roundedRect:4.0f];
-//    
-//    self.titleLabel.textColor = [UIColor bm_colorWithHex:0x828282];
-//    self.titleLabel.font = UI_BOLDFONT_16;
-//
-//    self.nameLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
-//    self.nameLabel.font = UI_BOLDFONT_12;
-//    self.gistLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
-//    self.gistLabel.font = UI_BOLDFONT_12;
-//
-//    [self.enterBtn bm_roundedRect:self.enterBtn.bm_height * 0.5f];
-//    self.enterBtn.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-//    
-//    self.timeLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
-//    self.timeLabel.font = UI_BOLDFONT_12;
-//
-//    self.stateLabel.textColor = [UIColor whiteColor];
-//    self.stateLabel.font = UI_BOLDFONT_12;
-//    [self.stateLabel bm_roundedRect:self.stateLabel.bm_height * 0.5f];
+    self.titleLabel.textColor = [UIColor bm_colorWithHex:0x828282];
+    self.titleLabel.font = UI_BOLDFONT_16;
+
+    self.bottomView.backgroundColor = [UIColor whiteColor];
+    self.detailLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
+    self.detailLabel.font = UI_BOLDFONT_12;
 }
 
 - (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel
 {
+    self.classDetailModel = classDetailModel;
+
+    self.titleLabel.text = @"课程简介";
     
+    self.detailLabel.text = classDetailModel.classInstruction;
 }
 
 @end

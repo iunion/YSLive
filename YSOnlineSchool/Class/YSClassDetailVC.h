@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class YSClassModel;
+
 @interface YSClassDetailVC : YSTableViewVC
+
+@property (nullable, nonatomic, strong) YSClassModel *linkClassModel;
 
 @end
 
