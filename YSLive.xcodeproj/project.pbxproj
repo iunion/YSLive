@@ -797,6 +797,7 @@
 		87EB13D32372647900D642E8 /* YSLessonDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */; };
 		87F8D4B42368273D00A888AB /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
 		CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */; };
+		CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1622,6 +1623,8 @@
 		87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveMediaModel.m; sourceTree = "<group>"; };
 		CB3D958A23ED925800A0DEC4 /* YSOnlineMineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSOnlineMineTableViewCell.h; sourceTree = "<group>"; };
 		CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSOnlineMineTableViewCell.m; sourceTree = "<group>"; };
+		CB3D958D23EDBA0B00A0DEC4 /* YSChangePassWordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSChangePassWordVC.h; sourceTree = "<group>"; };
+		CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSChangePassWordVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1992,6 +1995,8 @@
 				34043C4423EA6514004982E6 /* YSMineViewController.m */,
 				CB3D958A23ED925800A0DEC4 /* YSOnlineMineTableViewCell.h */,
 				CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */,
+				CB3D958D23EDBA0B00A0DEC4 /* YSChangePassWordVC.h */,
+				CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -3951,6 +3956,7 @@
 				04B8C6E523CEECFF0095F880 /* PanGestureControl.m in Sources */,
 				872D04C023B7362300DAC321 /* FLEXAlert.m in Sources */,
 				04A479E8239E274D00680D84 /* SCColorSelectView.m in Sources */,
+				CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */,
 				872D04C723B7362300DAC321 /* NSArray+Functional.m in Sources */,
 				26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */,
 				87AED04B23B5D71000D38129 /* YSPermissionsVC.m in Sources */,
