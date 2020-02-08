@@ -169,6 +169,7 @@
 		34043CAB23EAE0E1004982E6 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
 		34043CAE23EAE4C4004982E6 /* YSClassOneDayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */; };
 		3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
+		3410E70B23EE94CE00900F3F /* YSOnlineSchool.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70A23EE94CE00900F3F /* YSOnlineSchool.bundle */; };
 		8701B15F2371720600A43607 /* testcolorpalette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1312371720600A43607 /* testcolorpalette@2x.png */; };
 		8701B1602371720600A43607 /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
 		8701B1612371720600A43607 /* BMTestColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1332371720600A43607 /* BMTestColorPickerView.m */; };
@@ -1021,6 +1022,7 @@
 		34043CAC23EAE4C4004982E6 /* YSClassOneDayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassOneDayVC.h; sourceTree = "<group>"; };
 		34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassOneDayVC.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
+		3410E70A23EE94CE00900F3F /* YSOnlineSchool.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSOnlineSchool.bundle; sourceTree = "<group>"; };
 		8701B1312371720600A43607 /* testcolorpalette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpalette@2x.png"; sourceTree = "<group>"; };
 		8701B1322371720600A43607 /* testcolorpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpicker@2x.png"; sourceTree = "<group>"; };
 		8701B1332371720600A43607 /* BMTestColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTestColorPickerView.m; sourceTree = "<group>"; };
@@ -1959,6 +1961,7 @@
 		34043C3A23EA60B4004982E6 /* YSOnlineSchool */ = {
 			isa = PBXGroup;
 			children = (
+				3410E70A23EE94CE00900F3F /* YSOnlineSchool.bundle */,
 				34043C4123EA62EB004982E6 /* YSTabBarViewController.h */,
 				34043C4023EA62EB004982E6 /* YSTabBarViewController.m */,
 				34043CAC23EAE4C4004982E6 /* YSClassOneDayVC.h */,
@@ -3569,6 +3572,7 @@
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
 				87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */,
+				3410E70B23EE94CE00900F3F /* YSOnlineSchool.bundle in Resources */,
 				045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */,
 				87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */,
 				87981DAA23C57CBB00DA0276 /* YSWhiteBoardResources.bundle in Resources */,
