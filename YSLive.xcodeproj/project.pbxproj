@@ -676,9 +676,9 @@
 		8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B023EAB7A6002002BF /* YSSetTableViewVC.m */; };
 		8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7BE23EC313D002002BF /* YSClassDayList.m */; };
 		8777C7C423EC31C8002002BF /* YSClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7C223EC31C8002002BF /* YSClassCell.m */; };
-		8777C7C523EC31C8002002BF /* YSCalssCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C323EC31C8002002BF /* YSCalssCell.xib */; };
+		8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C323EC31C8002002BF /* YSClassCell.xib */; };
 		8777C7C923EC32F2002002BF /* YSClassInstructionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7C723EC32F2002002BF /* YSClassInstructionCell.m */; };
-		8777C7CA23EC32F2002002BF /* YSCalssInstructionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C823EC32F2002002BF /* YSCalssInstructionCell.xib */; };
+		8777C7CA23EC32F2002002BF /* YSClassInstructionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C823EC32F2002002BF /* YSClassInstructionCell.xib */; };
 		8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7CC23EC336B002002BF /* YSClassMediumCell.m */; };
 		8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */; };
 		8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D123EC3409002002BF /* YSClassDetailVC.m */; };
@@ -1404,10 +1404,10 @@
 		8777C7BE23EC313D002002BF /* YSClassDayList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassDayList.m; sourceTree = "<group>"; };
 		8777C7C123EC31C8002002BF /* YSClassCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassCell.h; sourceTree = "<group>"; };
 		8777C7C223EC31C8002002BF /* YSClassCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassCell.m; sourceTree = "<group>"; };
-		8777C7C323EC31C8002002BF /* YSCalssCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSCalssCell.xib; sourceTree = "<group>"; };
+		8777C7C323EC31C8002002BF /* YSClassCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSClassCell.xib; sourceTree = "<group>"; };
 		8777C7C623EC32F2002002BF /* YSClassInstructionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassInstructionCell.h; sourceTree = "<group>"; };
 		8777C7C723EC32F2002002BF /* YSClassInstructionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassInstructionCell.m; sourceTree = "<group>"; };
-		8777C7C823EC32F2002002BF /* YSCalssInstructionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSCalssInstructionCell.xib; sourceTree = "<group>"; };
+		8777C7C823EC32F2002002BF /* YSClassInstructionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSClassInstructionCell.xib; sourceTree = "<group>"; };
 		8777C7CB23EC336B002002BF /* YSClassMediumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassMediumCell.h; sourceTree = "<group>"; };
 		8777C7CC23EC336B002002BF /* YSClassMediumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassMediumCell.m; sourceTree = "<group>"; };
 		8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YSClassMediumCell.xib; sourceTree = "<group>"; };
@@ -2949,10 +2949,10 @@
 			children = (
 				8777C7C123EC31C8002002BF /* YSClassCell.h */,
 				8777C7C223EC31C8002002BF /* YSClassCell.m */,
-				8777C7C323EC31C8002002BF /* YSCalssCell.xib */,
+				8777C7C323EC31C8002002BF /* YSClassCell.xib */,
 				8777C7C623EC32F2002002BF /* YSClassInstructionCell.h */,
 				8777C7C723EC32F2002002BF /* YSClassInstructionCell.m */,
-				8777C7C823EC32F2002002BF /* YSCalssInstructionCell.xib */,
+				8777C7C823EC32F2002002BF /* YSClassInstructionCell.xib */,
 				8777C7CB23EC336B002002BF /* YSClassMediumCell.h */,
 				8777C7CC23EC336B002002BF /* YSClassMediumCell.m */,
 				8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */,
@@ -3579,7 +3579,7 @@
 				87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */,
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
 				871336A5237270F6006534A4 /* HockeySDKResources.bundle in Resources */,
-				8777C7CA23EC32F2002002BF /* YSCalssInstructionCell.xib in Resources */,
+				8777C7CA23EC32F2002002BF /* YSClassInstructionCell.xib in Resources */,
 				871336AE237270F6006534A4 /* LICENSE in Resources */,
 				871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */,
 				8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */,
@@ -3589,7 +3589,7 @@
 				871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */,
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
-				8777C7C523EC31C8002002BF /* YSCalssCell.xib in Resources */,
+				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
 				871336ED237270F6006534A4 /* (null) in Resources */,
 				87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */,
 			);

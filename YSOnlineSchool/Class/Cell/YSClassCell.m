@@ -7,6 +7,7 @@
 //
 
 #import "YSClassCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface YSClassCell ()
 
@@ -35,7 +36,7 @@
 
 + (CGFloat)cellHeight
 {
-    return 118.0f;
+    return 122.0f;
 }
 
 - (void)dealloc
@@ -65,7 +66,7 @@
     self.bgView.backgroundColor = [UIColor whiteColor];
     [self.bgView bm_roundedRect:6.0f];
 
-    self.topView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.topView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
 
     [self.iconImageView bm_roundedRect:4.0f];
     
@@ -154,6 +155,8 @@
     }
 
     self.titleLabel.text = classModel.title;
+
+    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:classModel.classImage] placeholderImage:[UIImage imageNamed:@"classdefault_icon"] options:SDWebImageRetryFailed|SDWebImageLowPriority];
 
     self.nameLabel.text = [NSString stringWithFormat:@"%@: %@", @"老师", classModel.teacherName ? classModel.teacherName : @""];
     self.gistLabel.text = [NSString stringWithFormat:@"%@: %@", @"课程", classModel.classGist ? classModel.classGist : @""];

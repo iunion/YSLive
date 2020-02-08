@@ -9,7 +9,7 @@
 #import "YSCalendarCurriculumVC.h"
 #import "FSCalendar.h"
 #import "YSCalendarCell.h"
-#import "YSClassOneDayVC.h"
+#import "YSClassDayList.h"
 
 #import "FSCalendarCollectionView.h"
 
@@ -157,9 +157,8 @@ FSCalendarDelegateAppearance
     
     if ([[self.dateDict allKeys] containsObject:dateString]) {
         
-        YSClassOneDayVC * classVC = [[YSClassOneDayVC alloc]init];
-        NSString * dateString = [self.dateFormatter stringFromDate:date];
-        classVC.selectDate = [self.dateFormatter dateFromString:dateString];
+        YSClassDayList *classVC = [[YSClassDayList alloc] init];
+        classVC.selectedDate = date;
         [self.navigationController pushViewController:classVC animated:YES];
     }
 }

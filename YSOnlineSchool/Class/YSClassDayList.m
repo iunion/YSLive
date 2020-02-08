@@ -9,6 +9,7 @@
 #import "YSClassDayList.h"
 #import "YSClassModel.h"
 #import "YSClassCell.h"
+#import "YSClassDetailVC.h"
 
 @interface YSClassDayList ()
 <
@@ -26,10 +27,30 @@
 
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     
+    // iOS 获取设备当前语言和地区的代码
+    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+    NSString *time;
+    if ([currentLanguageRegion bm_containString:@"en"])
+    {
+        time = [self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"];
+    }
+    else
+    {
+        time = [self.selectedDate bm_stringWithFormat:@"yyyy年MM月dd日"];
+    }
+
+    NSString *title = [NSString stringWithFormat:@"%@ %@", time, YSLocalizedSchool(@"ClassDayList.Title")];
+
+    self.bm_NavigationItemTintColor = [UIColor whiteColor];
+    self.bm_NavigationTitleTintColor = [UIColor whiteColor];
+    [self bm_setNavigationWithTitle:title barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshVC)];
+
     [self createUI];
 
-    [self loadApiData];
+    [self refreshVC];
 
     [self bringSomeViewToFront];
 }
@@ -41,6 +62,22 @@
 - (void)refreshVC
 {
     [self loadApiData];
+    
+#warning test
+    YSClassModel *classModel = [[YSClassModel alloc] init];
+    classModel.classId = @"111";
+    classModel.title = @"邓老师讲课";
+    classModel.teacherName = @"邓小平";
+    classModel.classGist = @"马克思理论马克思理论马克思理论";
+    
+    classModel.startTime = [[NSDate date] timeIntervalSince1970];
+    classModel.endTime = [[[NSDate date] bm_dateByAddingHours:1] timeIntervalSince1970];
+
+    classModel.classState = arc4random() % (YSClassState_End+1);
+    
+    [self.dataArray addObject:classModel];
+    
+    [self.tableView reloadData];
 }
 
 - (NSMutableURLRequest *)setLoadDataRequest
@@ -83,7 +120,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 200;
+    return [YSClassCell cellHeight];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,7 +130,7 @@
     
     if (cell == nil)
     {
-        cell = [[YSClassCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:taskCellIdentifier];
+        cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassCell" owner:self options:nil].firstObject;
         cell.delegate = self;
     }
     
@@ -107,6 +144,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     YSClassModel *classModel = self.dataArray[indexPath.row];
+
+    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
+    detailsVC.linkClassModel = classModel;
+    detailsVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:detailsVC animated:YES];
 }
 
 @end

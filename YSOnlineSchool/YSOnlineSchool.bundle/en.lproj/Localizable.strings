@@ -6,8 +6,9 @@
  Copyright © 2016年 macmini. All rights reserved.
  */
 
-
-
 "Title.OnlineSchool.Calendar"       = "My timetable";
-"Title.OnlineSchool.Mine"       = "Mine";
+"Title.OnlineSchool.Mine"           = "Mine";
+
+"ClassDayList.Title"            = "Timetable";
+"ClassDetail.Title"             = "Review Timetable";
 

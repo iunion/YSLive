@@ -7,4 +7,8 @@
  */
 
 "Title.OnlineSchool.Calendar"       = "我的課表";
-"Title.OnlineSchool.Mine"       = "我的";
+"Title.OnlineSchool.Mine"           = "我的";
+
+
+"ClassDayList.Title"            = "課表";
+"ClassDetail.Title"             = "查看課表";
