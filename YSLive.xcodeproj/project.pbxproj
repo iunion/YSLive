@@ -169,7 +169,6 @@
 		34043CAB23EAE0E1004982E6 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
 		34043CAE23EAE4C4004982E6 /* YSClassOneDayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */; };
 		3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
-		3410E70B23EE94CE00900F3F /* YSOnlineSchool.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70A23EE94CE00900F3F /* YSOnlineSchool.bundle */; };
 		8701B15F2371720600A43607 /* testcolorpalette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1312371720600A43607 /* testcolorpalette@2x.png */; };
 		8701B1602371720600A43607 /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
 		8701B1612371720600A43607 /* BMTestColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1332371720600A43607 /* BMTestColorPickerView.m */; };
@@ -684,6 +683,7 @@
 		8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */; };
 		8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D123EC3409002002BF /* YSClassDetailVC.m */; };
 		8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D523ED1A46002002BF /* YSClassModel.m */; };
+		8777C7DA23EE96EC002002BF /* YSOnlineSchool.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */; };
 		877CCBCD2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCE2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCF2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
@@ -1022,7 +1022,6 @@
 		34043CAC23EAE4C4004982E6 /* YSClassOneDayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassOneDayVC.h; sourceTree = "<group>"; };
 		34043CAD23EAE4C4004982E6 /* YSClassOneDayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassOneDayVC.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
-		3410E70A23EE94CE00900F3F /* YSOnlineSchool.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSOnlineSchool.bundle; sourceTree = "<group>"; };
 		8701B1312371720600A43607 /* testcolorpalette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpalette@2x.png"; sourceTree = "<group>"; };
 		8701B1322371720600A43607 /* testcolorpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpicker@2x.png"; sourceTree = "<group>"; };
 		8701B1332371720600A43607 /* BMTestColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTestColorPickerView.m; sourceTree = "<group>"; };
@@ -1416,6 +1415,7 @@
 		8777C7D123EC3409002002BF /* YSClassDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassDetailVC.m; sourceTree = "<group>"; };
 		8777C7D423ED1A46002002BF /* YSClassModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassModel.h; sourceTree = "<group>"; };
 		8777C7D523ED1A46002002BF /* YSClassModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassModel.m; sourceTree = "<group>"; };
+		8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSOnlineSchool.bundle; sourceTree = "<group>"; };
 		877CCBC92389479B00584E65 /* YSRoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSRoomSDK.framework; sourceTree = "<group>"; };
 		878D983023A0C6530007FBBA /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		8790DBEB238D282A005C0BC7 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
@@ -1961,7 +1961,8 @@
 		34043C3A23EA60B4004982E6 /* YSOnlineSchool */ = {
 			isa = PBXGroup;
 			children = (
-				3410E70A23EE94CE00900F3F /* YSOnlineSchool.bundle */,
+				8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */,
+				3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */,
 				34043C4123EA62EB004982E6 /* YSTabBarViewController.h */,
 				34043C4023EA62EB004982E6 /* YSTabBarViewController.m */,
 				34043CAC23EAE4C4004982E6 /* YSClassOneDayVC.h */,
@@ -1969,7 +1970,6 @@
 				8777C7BC23EC3082002002BF /* Class */,
 				34043C3F23EA623C004982E6 /* Mine */,
 				34043C3E23EA6216004982E6 /* Calendar */,
-				3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */,
 			);
 			path = YSOnlineSchool;
 			sourceTree = "<group>";
@@ -3572,7 +3572,7 @@
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
 				87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */,
-				3410E70B23EE94CE00900F3F /* YSOnlineSchool.bundle in Resources */,
+				8777C7DA23EE96EC002002BF /* YSOnlineSchool.bundle in Resources */,
 				045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */,
 				87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */,
 				87981DAA23C57CBB00DA0276 /* YSWhiteBoardResources.bundle in Resources */,

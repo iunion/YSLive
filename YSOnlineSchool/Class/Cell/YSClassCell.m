@@ -35,7 +35,7 @@
 
 + (CGFloat)cellHeight
 {
-    return 108.0f;
+    return 118.0f;
 }
 
 - (void)dealloc
@@ -63,7 +63,9 @@
     self.isDetail = NO;
     
     self.bgView.backgroundColor = [UIColor whiteColor];
-    self.bgView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    [self.bgView bm_roundedRect:6.0f];
+
+    self.topView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
 
     [self.iconImageView bm_roundedRect:4.0f];
     
@@ -114,12 +116,14 @@
 {
     switch (state)
     {
+        // 教室预约时间前10分钟才可以进入
         case YSClassState_Waiting:
-            self.enterBtn.hidden = YES;
+            self.enterBtn.hidden = NO;
             self.stateLabel.text = @"未开始";
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0x5ABEDC];
             break;
             
+        // 到了预约结束时间30分钟后会自动关闭教室
         case YSClassState_Beging:
             self.enterBtn.hidden = NO;
             self.stateLabel.text = @"进行中";

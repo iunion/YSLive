@@ -1,0 +1,13 @@
+/* 
+ Localizable.strings
+ libMeetings
+ 
+ Created by miniMac on 16/2/24.
+ Copyright © 2016年 macmini. All rights reserved.
+ */
+
+
+
+"Title.OnlineSchool.Calendar"       = "My timetable";
+"Title.OnlineSchool.Mine"       = "Mine";
+

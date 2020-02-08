@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) YSClassDetailModel *classDetailModel;
 
-@property (nonatomic, assign, readonly) CGFloat cellHeight;
-
 - (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel;
 
 @end
