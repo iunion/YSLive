@@ -13,8 +13,11 @@
 
 @interface YSClassDetailVC ()
 <
-    YSClassCellDelegate
+    YSClassCellDelegate,
+    YSClassMediumCellDelegate
 >
+
+@property (nonatomic, strong) YSClassDetailModel *classDetailModel;
 
 @end
 
@@ -64,13 +67,20 @@
     
     self.showEmptyView = NO;
     
-    if (self.isLoadNew)
+    YSClassDetailModel *classDetailModel = [YSClassDetailModel classDetailModelWithServerDic:data linkClass:self.linkClassModel];
+    // 获取新数据成功更新
+    if (classDetailModel)
     {
-        [self.dataArray removeAllObjects];
+        if (self.isLoadNew)
+        {
+            [self.dataArray removeAllObjects];
+        }
+        
+        self.classDetailModel = classDetailModel;
+        
+        [self.dataArray addObject:classDetailModel];
+        [self.tableView reloadData];
     }
-    
-    
-    [self.tableView reloadData];
     
     return YES;
 }
@@ -79,24 +89,80 @@
 #pragma mark -
 #pragma mark Table Data Source Methods
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if ([self.dataArray bm_isNotEmpty])
+    {
+        return 3;
+    }
+    return 0;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    switch (indexPath.row)
+    {
+        case 0:
+            return [YSClassCell cellHeight];
+            
+        case 1:
+            return [self.classDetailModel calculateInstructionTextCellHeight];
+
+        case 2:
+            return [YSClassCell cellHeight];
+    }
+    
+    return 0.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *taskCellIdentifier = @"YSClassCell";
-    YSClassCell *cell = [tableView dequeueReusableCellWithIdentifier:taskCellIdentifier];
+    switch (indexPath.row)
+    {
+        case 0:
+        {
+            YSClassCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassCell" owner:self options:nil].firstObject;
+            cell.delegate = self;
+            if (self.linkClassModel)
+            {
+                [cell drawCellWithModel:self.linkClassModel isDetail:YES];
+            }
+            else
+            {
+                [cell drawCellWithModel:self.classDetailModel isDetail:YES];
+            }
+            
+            return cell;
+        }
+        
+        case 1:
+            {
+                YSClassInstructionCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassInstructionCell" owner:self options:nil].firstObject;
+                [cell drawCellWithModel:self.classDetailModel];
+                
+                return cell;
+            }
+
+        case 2:
+            {
+                YSClassInstructionCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassInstructionCell" owner:self options:nil].firstObject;
+                [cell drawCellWithModel:self.classDetailModel];
+                
+                return cell;
+            }
+    }
+
+    static NSString *taskCellIdentifier = @"YSCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:taskCellIdentifier];
     
     if (cell == nil)
     {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassCell" owner:self options:nil].firstObject;
-        cell.delegate = self;
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:taskCellIdentifier];
     }
+    cell.backgroundColor = YS_VIEW_BGCOLOR;
     
-    YSClassModel *classModel = self.dataArray[indexPath.row];
-    [cell drawCellWithModel:classModel isDetail:NO];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
+    cell.selectedBackgroundView.backgroundColor = [UIColor bm_colorWithHex:0xEEEEEE];
     
     return cell;
 }

@@ -11,7 +11,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol YSClassMediumCellDelegate;
 @interface YSClassMediumCell : UITableViewCell
+
+@property (nullable, nonatomic, weak) id <YSClassMediumCellDelegate> delegate;
+
+@property (nonatomic, strong, readonly) YSClassDetailModel *classDetailModel;
+
+- (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel;
+
+@end
+
+@protocol YSClassMediumCellDelegate <NSObject>
+
+@optional
+
+- (void)playReplayClassWithClassDetailModel:(YSClassModel *)classModel index:(NSUInteger)replayIndex;
 
 @end
 
