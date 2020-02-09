@@ -1043,6 +1043,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
+    videoView.publishState = 4;
 }
 
 
