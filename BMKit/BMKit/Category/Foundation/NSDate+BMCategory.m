@@ -163,6 +163,18 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
     return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hour, (long)min, (long)second];
 }
 
++ (NSString *)bm_mediaDurationStringDateFromTs:(NSTimeInterval)timestamp
+{
+    if (timestamp <= 0)
+    {
+        return @"";
+    }
+
+    NSUInteger min = timestamp/SECONDS_IN_MINUTE;
+    NSUInteger second = ((NSInteger)timestamp)%SECONDS_IN_MINUTE;
+    return [NSString stringWithFormat:@"%02ld’%02ld‘’", (long)min, (long)second];
+}
+
 + (NSTimeInterval)bm_timeIntervalFromString:(NSString *)dateString
 {
     return [NSDate bm_timeIntervalFromString:dateString withFormat:@"yyyy-MM-dd HH:mm:ss"];

@@ -102,6 +102,11 @@
 
 + (instancetype)classDetailModelWithServerDic:(NSDictionary *)dic
 {
+    return [YSClassDetailModel classDetailModelWithServerDic:dic linkClass:nil];
+}
+
++ (instancetype)classDetailModelWithServerDic:(NSDictionary *)dic linkClass:(YSClassModel *)linkClass
+{
     if (![dic bm_isNotEmptyDictionary])
     {
         return nil;
@@ -115,6 +120,7 @@
     }
     
     YSClassDetailModel *classDetailModel = [[YSClassDetailModel alloc] init];
+    classDetailModel.linkClassModel = linkClass;
     [classDetailModel updateWithServerDic:dic];
     
     if ([classDetailModel.classId bm_isNotEmpty])
@@ -156,9 +162,15 @@
             }
         }
     }
+    
+    if (self.linkClassModel)
+    {
+        // 状态
+        self.linkClassModel.classState = self.classState;
+    }
 }
 
-- (CGFloat)getInstructionTextCellHeight
+- (CGFloat)calculateInstructionTextCellHeight
 {
     CGFloat height = [self.classInstruction bm_heightToFitWidth:(UI_SCREEN_WIDTH-16.0f*2.0f) withFont:[UIFont systemFontOfSize:12.0f]];
     

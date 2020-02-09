@@ -51,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)bm_countDownStringDateFromTs:(NSUInteger)count;
 + (NSString *)bm_countDownENStringDateFromTs:(NSUInteger)count;
+
++ (NSString *)bm_mediaDurationStringDateFromTs:(NSTimeInterval)timestamp;
+
 + (NSTimeInterval)bm_timeIntervalFromString:(NSString *)dateString;
 + (NSTimeInterval)bm_timeIntervalFromString:(NSString *)dateString withFormat:(NSString *)format;
 + (NSDate *)bm_dateFromString:(NSString *)dateString;

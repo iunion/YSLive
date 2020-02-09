@@ -11,7 +11,6 @@
 @interface YSClassInstructionCell ()
 
 @property (nonatomic, strong) YSClassDetailModel *classDetailModel;
-@property (nonatomic, assign) CGFloat cellHeight;
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIView *topView;

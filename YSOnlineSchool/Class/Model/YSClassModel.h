@@ -60,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSClassDetailModel : YSClassModel
 
+// 相关联课程列表数据
+@property (nonatomic, weak) YSClassModel *linkClassModel;
+
 /// 课程简介
 @property (nonatomic, strong) NSString *classInstruction;
 
@@ -68,9 +71,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (nullable instancetype)classDetailModelWithServerDic:(NSDictionary *)dic;
++ (nullable instancetype)classDetailModelWithServerDic:(NSDictionary *)dic linkClass:(nullable YSClassModel *)linkClass;
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
-- (CGFloat)getInstructionTextCellHeight;
+- (CGFloat)calculateInstructionTextCellHeight;
 
 @end
 
