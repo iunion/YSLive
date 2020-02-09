@@ -507,7 +507,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
         }
                 break;
         case YSPermissionsTypeCamera:
-            if ([currentLanguageRegion bm_containString:@"zh-Hans"] || [currentLanguageRegion bm_containString:@"zh-Hant"])
+            if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
             {
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"CameraDetection_China.mp3"];
             }
@@ -517,7 +517,8 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
             }
                 break;
         case YSPermissionsTypeMicrophonic:
-            if ([currentLanguageRegion bm_containString:@"zh-Hans"] || [currentLanguageRegion bm_containString:@"zh-Hant"])
+            if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+
             {
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"MicrophoneDetection_China.mp3"];
             }
@@ -529,7 +530,8 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
         case YSPermissionsTypeResult:
             if (!isOpenMicrophone || !isCamera || !isReproducer)
             {
-                if ([currentLanguageRegion bm_containString:@"zh-Hans"] || [currentLanguageRegion bm_containString:@"zh-Hant"])
+                if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+
                 {
                     filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"TestReportAbnormal_China.mp3"];
                 }
@@ -540,7 +542,8 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
             }
             else
             {
-                if ([currentLanguageRegion bm_containString:@"zh-Hans"] || [currentLanguageRegion bm_containString:@"zh-Hant"])
+                if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+
                 {
                     filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"TestReportNormal_China.mp3"];
                 }
