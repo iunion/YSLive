@@ -101,14 +101,14 @@
         if ([model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//我的消息
             
-            if ([currentLanguageRegion isEqualToString:@"zh-Hans"]) {
+            if ([currentLanguageRegion bm_containString:@"zh-Hans"]) {
                 nameTimeStr = [NSString stringWithFormat:@"%@ 我对“%@”说",model.timeStr,model.receiveUser.nickName];
             }
-            else if([currentLanguageRegion isEqualToString:@"zh-Hant"])
+            else if([currentLanguageRegion bm_containString:@"zh-Hant"])
             {
                 nameTimeStr = [NSString stringWithFormat:@"%@ 我對“%@”說",model.timeStr,model.receiveUser.nickName];
             }
-            else if ([currentLanguageRegion bm_containString:@"en"])
+            if ([currentLanguageRegion bm_containString:@"en"])
 
             {
                 nameTimeStr = [NSString stringWithFormat:@"%@ Chat to “%@”",model.timeStr,model.receiveUser.nickName];

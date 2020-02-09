@@ -501,7 +501,6 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"SpeakerDetection_China.mp3"];
             }
             else
-
             {
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"SpeakerDetection_English.mp3"];
             }
@@ -519,6 +518,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
                 break;
         case YSPermissionsTypeMicrophonic:
             if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+
             {
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"MicrophoneDetection_China.mp3"];
             }
@@ -531,6 +531,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
             if (!isOpenMicrophone || !isCamera || !isReproducer)
             {
                 if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+
                 {
                     filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"TestReportAbnormal_China.mp3"];
                 }
@@ -542,6 +543,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
             else
             {
                 if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+
                 {
                     filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"TestReportNormal_China.mp3"];
                 }

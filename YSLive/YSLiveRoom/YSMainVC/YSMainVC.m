@@ -628,7 +628,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     // iOS 获取设备当前语言和地区的代码
     NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
     
-//    if ([currentLanguageRegion isEqualToString:@"zh-Hans-CN"] || [currentLanguageRegion isEqualToString:@"zh-Hant-CN"])
     if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
     {        
         
