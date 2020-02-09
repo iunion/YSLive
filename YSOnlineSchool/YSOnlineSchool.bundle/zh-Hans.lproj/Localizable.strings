@@ -8,7 +8,16 @@
 
 "Title.OnlineSchool.Calendar"       = "我的课表";
 "Title.OnlineSchool.Mine"           = "我的";
+"Title.OnlineSchool.ChangePassWord" = "修改密码";
+"Title.OnlineSchool.SignOut"        = "退出登录";
+"Title.OnlineSchool.Submit"         = "提交";
+"Title.OnlineSchool.oldPassword"    = "原密码";
+"Title.OnlineSchool.changePassword" = "新密码";
+"Title.OnlineSchool.againPassword"  = "确认密码";
 
+"Prompt.OnlineSchool.oldPassword"    = "请输入原密码";
+"Prompt.OnlineSchool.changePassword" = "请输入6-20位新密码";
+"Prompt.OnlineSchool.againPassword"  = "再次输入新密码";
 
-"ClassDayList.Title"            = "課表";
+"ClassDayList.Title"            = "课表";
 "ClassDetail.Title"             = "查看课表";

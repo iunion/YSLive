@@ -8,7 +8,7 @@
 
 #import "YSMineViewController.h"
 #import "YSOnlineMineTableViewCell.h"
-
+#import "YSChangePassWordVC.h"
 static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTableViewCell";
 @interface YSMineViewController ()
 <
@@ -130,6 +130,9 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     if (indexPath.row == 0)
     {
         //修改密码
+        YSChangePassWordVC *vc = [[YSChangePassWordVC alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
         
     }
     else if (indexPath.row == 1)
