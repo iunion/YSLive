@@ -496,13 +496,19 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
             break;
         case YSPermissionsTypeReproducer:
         {
-            if ([currentLanguageRegion isEqualToString:@"zh-Hans-CN"] || [currentLanguageRegion isEqualToString:@"zh-Hant-CN"])
+//            if ([currentLanguageRegion isEqualToString:@"zh-Hans-CN"] || [currentLanguageRegion isEqualToString:@"zh-Hant-CN"])
+            if([currentLanguageRegion bm_containString:@"zh-Hant"])
             {
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"SpeakerDetection_China.mp3"];
             }
-            else
+            else if ([currentLanguageRegion bm_containString:@"en"])
+
             {
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"SpeakerDetection_English.mp3"];
+            }
+            else
+            {
+                
             }
         }
                 break;

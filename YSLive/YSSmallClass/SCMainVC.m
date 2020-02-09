@@ -1490,7 +1490,6 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         }
     }
     
-    
     for (SCVideoView *videoView in self.videoViewArray)
     {
         if (videoView.isDragOut || videoView.isFullScreen)
@@ -3030,11 +3029,6 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         [self bringSomeViewToFront];
         [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
-    
-    //    self.topBarModel.netQuality = netQuality;
-    //    self.topBarModel.netDelay = netDelay;
-    //    self.topBarModel.lostRate = lostRate;
-    //    self.topToolBar.topToolModel = self.topBarModel;
 }
 
 // 网络测速回调
@@ -3218,19 +3212,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         }
     }
     
-    
     // 举手上台
     if ([properties bm_containsObjectForKey:sUserRaisehand])
     {
-        //        BOOL isRaiseHand  = [properties bm_boolForKey:sUserRaisehand];
-        //        if (isRaiseHand)
-        //        {
-        //            [self addVidoeViewWithPeerId:peerID];
-        //        }
-        //        else
-        //        {
-        //            [self delVidoeViewWithPeerId:peerID];
-        //        }
     }
     
     // 发布媒体状态

@@ -149,9 +149,7 @@ FSCalendarDelegateAppearance
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
-    NSLog(@"点击的date %@",[self.dateFormatter stringFromDate:date]);
-//    [self configureVisibleCells];
-    
+    BMLog(@"点击的date %@",[self.dateFormatter stringFromDate:date]);    
     
     NSString * dateString = [self.dateFormatter stringFromDate:date];
     

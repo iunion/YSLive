@@ -1502,7 +1502,7 @@
     }
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
-    if (1)//[YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
