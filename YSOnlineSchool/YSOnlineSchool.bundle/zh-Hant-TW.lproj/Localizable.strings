@@ -8,6 +8,16 @@
 
 "Title.OnlineSchool.Calendar"       = "我的課表";
 "Title.OnlineSchool.Mine"           = "我的";
+"Title.OnlineSchool.ChangePassWord" = "修改密碼";
+"Title.OnlineSchool.SignOut"        = "退出登录";
+"Title.OnlineSchool.Submit"         = "提交";
+"Title.OnlineSchool.oldPassword"    = "原密碼";
+"Title.OnlineSchool.changePassword" = "新密碼";
+"Title.OnlineSchool.againPassword"  = "確認密碼";
+
+"Prompt.OnlineSchool.oldPassword"    = "請輸入原密碼";
+"Prompt.OnlineSchool.changePassword" = "請輸入6-20位新密碼";
+"Prompt.OnlineSchool.againPassword"  = "再次輸入新密碼";
 
 
 "ClassDayList.Title"            = "課表";

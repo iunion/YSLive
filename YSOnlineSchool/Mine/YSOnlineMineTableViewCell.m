@@ -50,7 +50,7 @@
     self.signImage.bm_centerY = self.contentView.bm_centerY;
     self.signImage.bm_right = self.contentView.bm_right - 20;
     [self.contentView addSubview:self.signImage];
-    [self.signImage setImage:[UIImage imageNamed:@"cancel_gray"]];
+    [self.signImage setImage:[UIImage imageNamed:@"mine_fanhui"]];
     
     
 }

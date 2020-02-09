@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSChangePassWordVC : YSMainSuperVC
+@interface YSChangePassWordVC : YSSuperNetVC
 
 @end
 

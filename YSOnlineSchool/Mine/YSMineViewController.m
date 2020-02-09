@@ -131,7 +131,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     {
         //修改密码
         YSChangePassWordVC *vc = [[YSChangePassWordVC alloc] init];
-        [self.tabBarController setHidesBottomBarWhenPushed:YES];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
         
     }

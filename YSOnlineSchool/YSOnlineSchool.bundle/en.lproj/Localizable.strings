@@ -8,6 +8,16 @@
 
 "Title.OnlineSchool.Calendar"       = "My timetable";
 "Title.OnlineSchool.Mine"           = "Mine";
+"Title.OnlineSchool.ChangePassWord" = "Change Password";
+"Title.OnlineSchool.SignOut"        = "Sign Out";
+"Title.OnlineSchool.Submit"         = "submit";
+"Title.OnlineSchool.oldPassword"    = "Original password";
+"Title.OnlineSchool.changePassword" = "New password";
+"Title.OnlineSchool.againPassword"  = "Confirm password";
+
+"Prompt.OnlineSchool.oldPassword"    = "Please enter the original password";
+"Prompt.OnlineSchool.changePassword" = "Please enter a new password of 6-20 digits";
+"Prompt.OnlineSchool.againPassword"  = "Enter the new password again";
 
 "ClassDayList.Title"            = "Timetable";
 "ClassDetail.Title"             = "Review Timetable";
