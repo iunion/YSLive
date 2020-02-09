@@ -46,6 +46,12 @@
     }
     return self;
 }
+- (void)setDateDict:(NSDictionary *)dateDict
+{
+    _dateDict = dateDict;
+    
+    [self setNeedsLayout];
+}
 
 - (void)layoutSubviews
 {
@@ -58,6 +64,7 @@
     
     if ([self.dateDict bm_isNotEmpty]) {
         self.circleLab.hidden = NO;
+        self.selectionLayer.hidden = NO;
         NSDate *currentDate = [NSDate date];//获取当前时间，日期
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
         dateFormatter.dateFormat = @"yyyy-MM-dd";

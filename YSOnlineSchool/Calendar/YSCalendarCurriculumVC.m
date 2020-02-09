@@ -190,12 +190,22 @@ FSCalendarDelegateAppearance
 {
     YSCalendarCell *diyCell = (YSCalendarCell *)cell;
     
-    NSString * dateString = [self.dateFormatter stringFromDate:date];
-    
-    if ([[self.dateDict allKeys] containsObject:dateString]) {
-                
+    NSString *dateString = [date bm_stringWithFormat:@"yyyy-MM-dd"];
+    if ([[self.dateDict allKeys] containsObject:dateString])
+    {
         diyCell.dateDict = @{dateString:self.dateDict[dateString]};
     }
+    else
+    {
+        diyCell.dateDict = nil;
+    }
+    
+//    NSString * dateString = [self.dateFormatter stringFromDate:date];
+//
+//    if ([[self.dateDict allKeys] containsObject:dateString]) {
+//
+//        diyCell.dateDict = @{dateString:self.dateDict[dateString]};
+//    }
 }
 //- (BOOL)calendar:(FSCalendar *)calendar shouldSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 //{
