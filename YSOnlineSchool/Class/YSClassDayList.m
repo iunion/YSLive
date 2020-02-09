@@ -33,13 +33,13 @@
     // iOS 获取设备当前语言和地区的代码
     NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
     NSString *time;
-    if ([currentLanguageRegion bm_containString:@"en"])
+    if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
     {
-        time = [self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"];
+        time = [self.selectedDate bm_stringWithFormat:@"yyyy年MM月dd日"];
     }
     else
     {
-        time = [self.selectedDate bm_stringWithFormat:@"yyyy年MM月dd日"];
+        time = [self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"];
     }
 
     NSString *title = [NSString stringWithFormat:@"%@ %@", time, YSLocalizedSchool(@"ClassDayList.Title")];
