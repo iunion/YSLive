@@ -51,6 +51,7 @@
     self.signImage.bm_right = self.contentView.bm_right - 20;
     [self.contentView addSubview:self.signImage];
     [self.signImage setImage:[UIImage imageNamed:@"mine_fanhui"]];
+    _signImage.contentMode = UIViewContentModeCenter;
     
     
 }
