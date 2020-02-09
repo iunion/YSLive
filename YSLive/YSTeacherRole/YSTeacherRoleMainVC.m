@@ -157,6 +157,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     UIAlertController *classEndAlertVC;
     
     YSLiveRoomLayout defaultRoomLayout;
+    
+    BOOL needFreshVideoView;
 }
 
 /// 原keywindow
@@ -1011,6 +1013,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
     }
 }
+
 - (void)freshContentView
 {
     if (self.roomtype == YSRoomType_One)
@@ -1299,6 +1302,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     
     [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
+    videoView.publishState = 4;
 }
 
 
@@ -1846,6 +1850,40 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     view.iVolume = volume;
 }
 
+#pragma mark 切换网络 会收到onRoomJoined
+
+- (void)onRoomJoined:(long)ts
+{
+    if (self.liveManager.isBeginClass)
+    {
+        needFreshVideoView = YES;
+        
+        // 因为切换网络会先调用classBeging
+        // 所以要在这里刷新VideoAudio
+        [self rePlayVideoAudio];
+    
+        if (YSCurrentUser.hasVideo)
+        {
+            [self.liveManager.roomManager unPublishVideo:nil];
+            [self.liveManager.roomManager publishVideo:nil];
+        }
+        if (YSCurrentUser.hasAudio)
+        {
+            [self.liveManager.roomManager unPublishAudio:nil];
+            [self.liveManager.roomManager publishAudio:nil];
+        }
+    }
+}
+
+- (void)rePlayVideoAudio
+{
+    for (SCVideoView *videoView in self.videoViewArray)
+    {
+        [self stopVideoAudioWithVideoView:videoView];
+        [self playVideoAudioWithVideoView:videoView];
+    }
+}
+
 #pragma mark 上课
 //inlist表示在我进房间之前的信令
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
@@ -1871,6 +1909,11 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.brushToolView.hidden = NO;
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
+        if (needFreshVideoView)
+        {
+            needFreshVideoView = NO;
+            break;
+        }
         YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
         NSString *peerID = roomUser.peerID;
         
@@ -1909,6 +1952,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.boardControlView.allowPaging = YES;
     [self.boardControlView sc_setTotalPage:self.liveManager.currentFile.pagenum.integerValue currentPage:self.liveManager.currentFile.currpage.integerValue isWhiteBoard:[self.liveManager.currentFile.fileid isEqualToString:@"0"]];
     
+    if (self.topBarTimer)
+    {
+        dispatch_source_cancel(self.topBarTimer);
+        self.topBarTimer = nil;
+    }
+
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.topBarTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     

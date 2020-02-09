@@ -132,6 +132,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     NSTimeInterval _topbarTimeInterval;
     
     YSLiveRoomLayout defaultRoomLayout;
+    
+    BOOL needFreshVideoView;
 }
 
 /// 原keywindow
@@ -2030,6 +2032,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     
     [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
+    videoView.publishState = 4;
 }
 
 #pragma mark  添加视频窗口
@@ -3297,6 +3300,67 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     view.iVolume = volume;
 }
 
+#pragma mark 切换网络 会收到onRoomJoined
+
+- (void)onRoomJoined:(long)ts
+{
+    if (self.liveManager.isBeginClass)
+    {
+        needFreshVideoView = YES;
+        
+        // 因为切换网络会先调用classBeging
+        // 所以要在这里刷新VideoAudio
+        [self rePlayVideoAudio];
+    
+        if (self.appUseTheType == YSAppUseTheTypeSmallClass)
+        {
+            // 自动上台
+            if (self.videoViewArray.count < maxVideoCount)
+            {
+                BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
+                if (autoOpenAudioAndVideoFlag)
+                {
+                    if (YSCurrentUser.hasVideo)
+                    {
+                        [self.liveManager.roomManager unPublishVideo:nil];
+                        [self.liveManager.roomManager publishVideo:nil];
+                    }
+                    if (YSCurrentUser.hasAudio)
+                    {
+                        [self.liveManager.roomManager unPublishAudio:nil];
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
+                }
+            }
+        }
+        else if (self.appUseTheType == YSAppUseTheTypeMeeting)
+        {//会议，进教室默认上台
+            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
+            {
+                if (YSCurrentUser.hasVideo)
+                {
+                    [self.liveManager.roomManager unPublishVideo:nil];
+                    [self.liveManager.roomManager publishVideo:nil];
+                }
+                if (YSCurrentUser.hasAudio)
+                {
+                    [self.liveManager.roomManager unPublishAudio:nil];
+                    [self.liveManager.roomManager publishAudio:nil];
+                }
+            }
+        }
+    }
+}
+
+- (void)rePlayVideoAudio
+{
+    for (SCVideoView *videoView in self.videoViewArray)
+    {
+        [self stopVideoAudioWithVideoView:videoView];
+        [self playVideoAudioWithVideoView:videoView];
+    }
+}
+
 #pragma mark 上课
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
@@ -3310,6 +3374,12 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     {
         for (YSRoomUser *roomUser in self.liveManager.userList)
         {
+            if (needFreshVideoView)
+            {
+                needFreshVideoView = NO;
+                break;
+            }
+
             BOOL isTeacher = NO;
             
             YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
@@ -3384,6 +3454,12 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     
     self.boardControlView.allowPaging = NO;
     
+    if (self.topBarTimer)
+    {
+        dispatch_source_cancel(self.topBarTimer);
+        self.topBarTimer = nil;
+    }
+
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.topBarTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     
