@@ -101,10 +101,10 @@
         if ([model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//我的消息
             
-            if ([currentLanguageRegion isEqualToString:@"zh-Hans-CN"]) {
+            if ([currentLanguageRegion isEqualToString:@"zh-Hans"]) {
                 nameTimeStr = [NSString stringWithFormat:@"%@ 我对“%@”说",model.timeStr,model.receiveUser.nickName];
             }
-            else if([currentLanguageRegion isEqualToString:@"zh-Hant-CN"])
+            else if([currentLanguageRegion isEqualToString:@"zh-Hant"])
             {
                 nameTimeStr = [NSString stringWithFormat:@"%@ 我對“%@”說",model.timeStr,model.receiveUser.nickName];
             }

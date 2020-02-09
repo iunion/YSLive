@@ -497,7 +497,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
         case YSPermissionsTypeReproducer:
         {
 //            if ([currentLanguageRegion isEqualToString:@"zh-Hans-CN"] || [currentLanguageRegion isEqualToString:@"zh-Hant-CN"])
-            if([currentLanguageRegion bm_containString:@"zh-Hant"])
+            if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
             {
                 filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"SpeakerDetection_China.mp3"];
             }

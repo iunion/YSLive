@@ -629,7 +629,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
     
 //    if ([currentLanguageRegion isEqualToString:@"zh-Hans-CN"] || [currentLanguageRegion isEqualToString:@"zh-Hant-CN"])
-    if([currentLanguageRegion bm_containString:@"zh-Hant"])
+    if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
     {        
         
         [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom"] forState:UIControlStateNormal];
