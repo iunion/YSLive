@@ -108,8 +108,7 @@
             {
                 nameTimeStr = [NSString stringWithFormat:@"%@ 我對“%@”說",model.timeStr,model.receiveUser.nickName];
             }
-            if ([currentLanguageRegion bm_containString:@"en"])
-
+            else
             {
                 nameTimeStr = [NSString stringWithFormat:@"%@ Chat to “%@”",model.timeStr,model.receiveUser.nickName];
             }
