@@ -137,7 +137,7 @@
 "Button.Sign" = "Sign in";
 "Button.vote" = "vote";
 "Button.ReturnRoom" = "Return to live";
-"Button.onlineschool" = "Online School";
+"Button.onlineschool" = "Log in to the online school";
 
 
 "title.ToVote" = "Start vote";
@@ -263,7 +263,7 @@
 "Label.roomid" = "room id";
 "Label.roomPlaceholder" = "Please enter your room number";
 "Label.nicknamePlaceholder" = "Please enter your nickname";
-"Label.onlineSchoolPlaceholder" = "Please enter the organization domain name";
+"Label.onlineSchoolPlaceholder" = "Please enter the institution domain name";
 "Label.accountNumberPlaceholder" = "Please enter your account number";
 "Label.onlineSchoolSystem" = "Network school system";
 "Label.messageBoard" = "message board";

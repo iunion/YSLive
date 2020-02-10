@@ -7,12 +7,12 @@
  */
 
 "Title.OnlineSchool.Calendar"       = "我的课表";
-"Title.OnlineSchool.Mine"           = "我的";
-"Title.OnlineSchool.ChangePassWord" = "修改密码";
+"Title.OnlineSchool.Mine"           = "个人中心";
+"Title.OnlineSchool.ModifyPassWord" = "修改密码";
 "Title.OnlineSchool.SignOut"        = "退出登录";
 "Title.OnlineSchool.Submit"         = "提交";
-"Title.OnlineSchool.oldPassword"    = "原密码";
-"Title.OnlineSchool.changePassword" = "新密码";
+"Title.OnlineSchool.OriginalPassword"    = "原密码";
+"Title.OnlineSchool.NewPassword" = "新密码";
 "Title.OnlineSchool.againPassword"  = "确认密码";
 
 "Prompt.OnlineSchool.oldPassword"    = "请输入原密码";

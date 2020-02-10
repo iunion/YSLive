@@ -100,7 +100,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YSOnlineMineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YSOnlineMineTableViewCellID forIndexPath:indexPath];
-    cell.title = indexPath.row == 0 ? YSLocalizedSchool(@"Title.OnlineSchool.ChangePassWord") : YSLocalizedSchool(@"Title.OnlineSchool.SignOut");
+    cell.title = indexPath.row == 0 ? YSLocalizedSchool(@"Title.OnlineSchool.ModifyPassWord") : YSLocalizedSchool(@"Title.OnlineSchool.SignOut");
     return cell;
 }
 
