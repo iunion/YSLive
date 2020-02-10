@@ -3312,36 +3312,41 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     
-        YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
-
-        if (publishState == YSUser_PublishState_AUDIOONLY)
+        if (self.appUseTheType == YSAppUseTheTypeSmallClass)
         {
-            if (YSCurrentUser.hasAudio)
+            // 自动上台
+            if (self.videoViewArray.count < maxVideoCount)
             {
-                [self.liveManager.roomManager unPublishAudio:nil];
-                [self.liveManager.roomManager publishAudio:nil];
+                BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
+                if (autoOpenAudioAndVideoFlag)
+                {
+                    if (YSCurrentUser.hasVideo)
+                    {
+                        [self.liveManager.roomManager unPublishVideo:nil];
+                        [self.liveManager.roomManager publishVideo:nil];
+                    }
+                    if (YSCurrentUser.hasAudio)
+                    {
+                        [self.liveManager.roomManager unPublishAudio:nil];
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
+                }
             }
-
         }
-        else if (publishState == YSUser_PublishState_VIDEOONLY)
-        {
-            if (YSCurrentUser.hasVideo)
+        else if (self.appUseTheType == YSAppUseTheTypeMeeting)
+        {//会议，进教室默认上台
+            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
             {
-                [self.liveManager.roomManager unPublishVideo:nil];
-                [self.liveManager.roomManager publishVideo:nil];
-            }
-        }
-        else if (publishState == YSUser_PublishState_BOTH)
-        {
-            if (YSCurrentUser.hasVideo)
-            {
-                [self.liveManager.roomManager unPublishVideo:nil];
-                [self.liveManager.roomManager publishVideo:nil];
-            }
-            if (YSCurrentUser.hasAudio)
-            {
-                [self.liveManager.roomManager unPublishAudio:nil];
-                [self.liveManager.roomManager publishAudio:nil];
+                if (YSCurrentUser.hasVideo)
+                {
+                    [self.liveManager.roomManager unPublishVideo:nil];
+                    [self.liveManager.roomManager publishVideo:nil];
+                }
+                if (YSCurrentUser.hasAudio)
+                {
+                    [self.liveManager.roomManager unPublishAudio:nil];
+                    [self.liveManager.roomManager publishAudio:nil];
+                }
             }
         }
     }
@@ -3352,6 +3357,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     for (SCVideoView *videoView in self.videoViewArray)
     {
         [self stopVideoAudioWithVideoView:videoView];
+        videoView.disableSound = YES;
+        videoView.disableVideo = YES;
+
         [self playVideoAudioWithVideoView:videoView];
     }
 }
