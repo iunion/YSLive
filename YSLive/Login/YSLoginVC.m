@@ -1459,6 +1459,7 @@
 #if YSCLASS
     
     YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
+    // 未通过check进入房间时
     if (self.room_UseTheType == 0)
     {
         self.room_UseTheType = appUseTheType;
