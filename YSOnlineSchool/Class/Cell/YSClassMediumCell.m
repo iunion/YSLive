@@ -84,7 +84,7 @@
         classReplayView.bm_left = 15.0f;
     }
     
-    self.bottomView.bm_height = classDetailModel.classReplayList.count*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;
+//    self.bottomView.bm_height = classDetailModel.classReplayList.count*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;
 }
 
 - (void)playReviewClassWithClassReviewModel:(YSClassReviewModel *)classReviewModel index:(NSUInteger)replayIndex
@@ -99,7 +99,7 @@
 @end
 
 #define YSClassReplayView_LeftGap       (15.0f)
-#define YSClassReplayView_IconWidth     (30.0f)
+#define YSClassReplayView_IconWidth     (26.0f)
 #define YSClassReplayView_IconGap       (10.0f)
 #define YSClassReplayView_TextGap       (5.0f)
 
@@ -131,14 +131,14 @@
 - (void)creatUI
 {
     self.bm_size = CGSizeMake(UI_SCREEN_WIDTH-YSClassReplayView_LeftGap*4.0f, YSClassReplayView_Height);
-    [self bm_roundedRect:6.0f];
+    [self bm_roundedRect:10.0f];
     
     CGFloat maxWidth = self.bm_width - YSClassReplayView_LeftGap*2.0f - YSClassReplayView_IconWidth - YSClassReplayView_IconGap - YSClassReplayView_TextGap*2.0f;
 
     CGFloat titleWidth = maxWidth * 0.5f;
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(YSClassReplayView_LeftGap, 0, titleWidth, self.bm_height)];
     self.titleLabel.textColor = [UIColor whiteColor];
-    self.titleLabel.font = UI_FONT_12;
+    self.titleLabel.font = UI_BOLDFONT_12;
     [self addSubview:self.titleLabel];
 
     CGFloat timeWidth = maxWidth * 0.25f;
@@ -160,6 +160,7 @@
     self.clickControl.backgroundColor = [UIColor clearColor];
     self.clickControl.exclusiveTouch = YES;
     [self.clickControl addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.clickControl];
 }
 
 - (void)setClassReviewModel:(YSClassReviewModel *)classReviewModel

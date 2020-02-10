@@ -67,14 +67,23 @@
 
     classModel.classState = arc4random() % (YSClassState_End+1);
     
-    YSClassReviewModel *classReviewModel = [[YSClassReviewModel alloc] init];
-    classReviewModel.title = @"课件1";
-    classReviewModel.during = @"35'12''";
-    classReviewModel.size = @"112.34M";
-    
-    classModel.classReplayList = [[NSMutableArray alloc] init];
-    [classModel.classReplayList addObject:classReviewModel];
-    
+    YSClassReviewModel *classReviewModel1 = [[YSClassReviewModel alloc] init];
+    classReviewModel1.title = @"课件1";
+    classReviewModel1.during = @"35'12''";
+    classReviewModel1.size = @"112.36M";
+
+    YSClassReviewModel *classReviewModel2 = [[YSClassReviewModel alloc] init];
+    classReviewModel2.title = @"课件2";
+    classReviewModel2.during = @"55'32''";
+    classReviewModel2.size = @"232.56M";
+
+    if (arc4random()%2)
+    {
+        classModel.classReplayList = [[NSMutableArray alloc] init];
+        [classModel.classReplayList addObject:classReviewModel1];
+        [classModel.classReplayList addObject:classReviewModel2];
+    }
+
     [self.dataArray removeAllObjects];
     [self.dataArray addObject:classModel];
     

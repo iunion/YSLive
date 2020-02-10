@@ -181,7 +181,7 @@
 {
     CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
     
-    return height+50.0f;
+    return height+45.0f+5.0f;
 }
 
 @end

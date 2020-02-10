@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, YSClassState)
 };
 
 #define YSClassReplayView_Height    (40.0f)
-#define YSClassReplayView_Gap       (10.0f)
+#define YSClassReplayView_Gap       (15.0f)
 
 NS_ASSUME_NONNULL_BEGIN
 

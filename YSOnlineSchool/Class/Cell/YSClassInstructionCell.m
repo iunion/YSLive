@@ -71,6 +71,15 @@
     self.titleLabel.text = YSLocalizedSchool(@"ClassInstructionCell.Title");
     
     self.detailLabel.text = classDetailModel.classInstruction;
+    
+    if ([classDetailModel.classReplayList bm_isNotEmpty])
+    {
+        [self.bottomView bm_removeBorders];
+    }
+    else
+    {
+        [self.bottomView bm_roundedRect:6.0f];
+    }
 }
 
 @end
