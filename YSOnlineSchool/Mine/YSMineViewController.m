@@ -9,6 +9,8 @@
 #import "YSMineViewController.h"
 #import "YSOnlineMineTableViewCell.h"
 #import "YSChangePassWordVC.h"
+#import "YSLoginVC.h"
+
 static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTableViewCell";
 @interface YSMineViewController ()
 <
@@ -98,7 +100,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YSOnlineMineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YSOnlineMineTableViewCellID forIndexPath:indexPath];
-    cell.title = indexPath.row == 0 ? @"修改密码" : @"退出登录";
+    cell.title = indexPath.row == 0 ? YSLocalizedSchool(@"Title.OnlineSchool.ChangePassWord") : YSLocalizedSchool(@"Title.OnlineSchool.SignOut");
     return cell;
 }
 
@@ -138,6 +140,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     else if (indexPath.row == 1)
     {
         //退出登录
+//        [self.navigationController popToViewController:YSLoginVC] animated:<#(BOOL)#>]; 
     }
 }
 @end
