@@ -3357,8 +3357,11 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     for (SCVideoView *videoView in self.videoViewArray)
     {
         [self stopVideoAudioWithVideoView:videoView];
-        videoView.disableSound = YES;
-        videoView.disableVideo = YES;
+        if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {
+            videoView.disableSound = YES;
+            videoView.disableVideo = YES;
+        }
 
         [self playVideoAudioWithVideoView:videoView];
     }
