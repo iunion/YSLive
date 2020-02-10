@@ -3312,77 +3312,36 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     
-        if (self.appUseTheType == YSAppUseTheTypeSmallClass)
+        YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
+
+        if (publishState == YSUser_PublishState_AUDIOONLY)
         {
-            YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
-
-            if (publishState == YSUser_PublishState_AUDIOONLY)
+            if (YSCurrentUser.hasAudio)
             {
-                if (YSCurrentUser.hasAudio)
-                {
-                    [self.liveManager.roomManager unPublishAudio:nil];
-                    [self.liveManager.roomManager publishAudio:nil];
-                }
-
+                [self.liveManager.roomManager unPublishAudio:nil];
+                [self.liveManager.roomManager publishAudio:nil];
             }
-            else if (publishState == YSUser_PublishState_VIDEOONLY)
+
+        }
+        else if (publishState == YSUser_PublishState_VIDEOONLY)
+        {
+            if (YSCurrentUser.hasVideo)
             {
-                if (YSCurrentUser.hasVideo)
-                {
-                    [self.liveManager.roomManager unPublishVideo:nil];
-                    [self.liveManager.roomManager publishVideo:nil];
-                }
-            }
-            else if (publishState == YSUser_PublishState_BOTH)
-            {
-                if (YSCurrentUser.hasVideo)
-                {
-                    [self.liveManager.roomManager unPublishVideo:nil];
-                    [self.liveManager.roomManager publishVideo:nil];
-                }
-                if (YSCurrentUser.hasAudio)
-                {
-                    [self.liveManager.roomManager unPublishAudio:nil];
-                    [self.liveManager.roomManager publishAudio:nil];
-                }
+                [self.liveManager.roomManager unPublishVideo:nil];
+                [self.liveManager.roomManager publishVideo:nil];
             }
         }
-        else if (self.appUseTheType == YSAppUseTheTypeMeeting)
-        {//会议，进教室默认上台
-            if (self.liveManager.isBeginClass)
+        else if (publishState == YSUser_PublishState_BOTH)
+        {
+            if (YSCurrentUser.hasVideo)
             {
-                YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
-
-                if (publishState == YSUser_PublishState_AUDIOONLY)
-                {
-                    if (YSCurrentUser.hasAudio)
-                    {
-                        [self.liveManager.roomManager unPublishAudio:nil];
-                        [self.liveManager.roomManager publishAudio:nil];
-                    }
-
-                }
-                else if (publishState == YSUser_PublishState_VIDEOONLY)
-                {
-                    if (YSCurrentUser.hasVideo)
-                    {
-                        [self.liveManager.roomManager unPublishVideo:nil];
-                        [self.liveManager.roomManager publishVideo:nil];
-                    }
-                }
-                else if (publishState == YSUser_PublishState_BOTH)
-                {
-                    if (YSCurrentUser.hasVideo)
-                    {
-                        [self.liveManager.roomManager unPublishVideo:nil];
-                        [self.liveManager.roomManager publishVideo:nil];
-                    }
-                    if (YSCurrentUser.hasAudio)
-                    {
-                        [self.liveManager.roomManager unPublishAudio:nil];
-                        [self.liveManager.roomManager publishAudio:nil];
-                    }
-                }
+                [self.liveManager.roomManager unPublishVideo:nil];
+                [self.liveManager.roomManager publishVideo:nil];
+            }
+            if (YSCurrentUser.hasAudio)
+            {
+                [self.liveManager.roomManager unPublishAudio:nil];
+                [self.liveManager.roomManager publishAudio:nil];
             }
         }
     }
