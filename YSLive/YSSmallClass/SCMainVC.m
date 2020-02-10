@@ -3314,11 +3314,63 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     
         if (self.appUseTheType == YSAppUseTheTypeSmallClass)
         {
-            // 自动上台
-            if (self.videoViewArray.count < maxVideoCount)
+            YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
+
+            if (publishState == YSUser_PublishState_AUDIOONLY)
             {
-                BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
-                if (autoOpenAudioAndVideoFlag)
+                if (YSCurrentUser.hasAudio)
+                {
+                    [self.liveManager.roomManager unPublishAudio:nil];
+                    [self.liveManager.roomManager publishAudio:nil];
+                }
+
+            }
+            else if (publishState == YSUser_PublishState_VIDEOONLY)
+            {
+                if (YSCurrentUser.hasVideo)
+                {
+                    [self.liveManager.roomManager unPublishVideo:nil];
+                    [self.liveManager.roomManager publishVideo:nil];
+                }
+            }
+            else if (publishState == YSUser_PublishState_BOTH)
+            {
+                if (YSCurrentUser.hasVideo)
+                {
+                    [self.liveManager.roomManager unPublishVideo:nil];
+                    [self.liveManager.roomManager publishVideo:nil];
+                }
+                if (YSCurrentUser.hasAudio)
+                {
+                    [self.liveManager.roomManager unPublishAudio:nil];
+                    [self.liveManager.roomManager publishAudio:nil];
+                }
+            }
+        }
+        else if (self.appUseTheType == YSAppUseTheTypeMeeting)
+        {//会议，进教室默认上台
+            if (self.liveManager.isBeginClass)
+            {
+                YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
+
+                if (publishState == YSUser_PublishState_AUDIOONLY)
+                {
+                    if (YSCurrentUser.hasAudio)
+                    {
+                        [self.liveManager.roomManager unPublishAudio:nil];
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
+
+                }
+                else if (publishState == YSUser_PublishState_VIDEOONLY)
+                {
+                    if (YSCurrentUser.hasVideo)
+                    {
+                        [self.liveManager.roomManager unPublishVideo:nil];
+                        [self.liveManager.roomManager publishVideo:nil];
+                    }
+                }
+                else if (publishState == YSUser_PublishState_BOTH)
                 {
                     if (YSCurrentUser.hasVideo)
                     {
@@ -3330,22 +3382,6 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
                         [self.liveManager.roomManager unPublishAudio:nil];
                         [self.liveManager.roomManager publishAudio:nil];
                     }
-                }
-            }
-        }
-        else if (self.appUseTheType == YSAppUseTheTypeMeeting)
-        {//会议，进教室默认上台
-            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
-            {
-                if (YSCurrentUser.hasVideo)
-                {
-                    [self.liveManager.roomManager unPublishVideo:nil];
-                    [self.liveManager.roomManager publishVideo:nil];
-                }
-                if (YSCurrentUser.hasAudio)
-                {
-                    [self.liveManager.roomManager unPublishAudio:nil];
-                    [self.liveManager.roomManager publishAudio:nil];
                 }
             }
         }
