@@ -1435,8 +1435,11 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
 #if YSCLASS
     
+    YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
+     BOOL isSmallClass = (appUseTheType == YSAppUseTheTypeSmallClass || appUseTheType == YSAppUseTheTypeMeeting);
+    
     // 3: 小班课  4: 直播  6： 会议
-    BOOL isSmallClass = (self.room_UseTheType == YSAppUseTheTypeSmallClass || self.room_UseTheType == YSAppUseTheTypeMeeting);
+//    BOOL isSmallClass = (self.room_UseTheType == YSAppUseTheTypeSmallClass || self.room_UseTheType == YSAppUseTheTypeMeeting);
     
     if (isSmallClass)
     {
@@ -1446,9 +1449,9 @@
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
-        if (self.selectRoleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || ([UIDevice bm_isiPad] && self.room_UseTheType == YSAppUseTheTypeSmallClass))) {
+        if (self.selectRoleType == YSUserType_Teacher && (appUseTheType == YSAppUseTheTypeMeeting || ([UIDevice bm_isiPad] && appUseTheType == YSAppUseTheTypeSmallClass))) {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
-            mainVC.appUseTheType = self.room_UseTheType;
+            mainVC.appUseTheType = appUseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
             nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
@@ -1470,7 +1473,7 @@
         else
         {
            SCMainVC *mainVC = [[SCMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
-            mainVC.appUseTheType = self.room_UseTheType;
+            mainVC.appUseTheType = appUseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
             nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];

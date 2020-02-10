@@ -187,7 +187,7 @@
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noVideo_SCVideoViewImage"]];
-    self.maskNoVideo.contentMode = UIViewContentModeCenter;
+    self.maskNoVideo.contentMode = UIViewContentModeScaleAspectFit;
     self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#EDEDED"];
     [self.backVideoView addSubview:self.maskNoVideo];
     
