@@ -74,18 +74,18 @@
     self.titleLabel.font = UI_BOLDFONT_16;
 
     self.nameLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
-    self.nameLabel.font = UI_BOLDFONT_12;
+    self.nameLabel.font = UI_FONT_12;
     self.gistLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
-    self.gistLabel.font = UI_BOLDFONT_12;
+    self.gistLabel.font = UI_FONT_12;
 
     [self.enterBtn bm_roundedRect:self.enterBtn.bm_height * 0.5f];
     self.enterBtn.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
     
     self.timeLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
-    self.timeLabel.font = UI_BOLDFONT_12;
+    self.timeLabel.font = UI_FONT_12;
 
     self.stateLabel.textColor = [UIColor whiteColor];
-    self.stateLabel.font = UI_BOLDFONT_12;
+    self.stateLabel.font = UI_FONT_12;
     [self.stateLabel bm_roundedRect:self.stateLabel.bm_height * 0.5f];
 }
 
@@ -120,21 +120,21 @@
         // 教室预约时间前10分钟才可以进入
         case YSClassState_Waiting:
             self.enterBtn.hidden = NO;
-            self.stateLabel.text = @"未开始";
+            self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Waiting");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0x5ABEDC];
             break;
             
         // 到了预约结束时间30分钟后会自动关闭教室
-        case YSClassState_Beging:
+        case YSClassState_Begin:
             self.enterBtn.hidden = NO;
-            self.stateLabel.text = @"进行中";
+            self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Begin");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xEA7676];
             break;
             
         case YSClassState_End:
         default:
             self.enterBtn.hidden = YES;
-            self.stateLabel.text = @"已结束";
+            self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.End");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xA2A2A2];
             break;
     }
@@ -147,6 +147,7 @@
 
     if (self.isDetail)
     {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.stateLabel.hidden = YES;
     }
     else
@@ -158,8 +159,8 @@
 
     [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:classModel.classImage] placeholderImage:[UIImage imageNamed:@"classdefault_icon"] options:SDWebImageRetryFailed|SDWebImageLowPriority];
 
-    self.nameLabel.text = [NSString stringWithFormat:@"%@: %@", @"老师", classModel.teacherName ? classModel.teacherName : @""];
-    self.gistLabel.text = [NSString stringWithFormat:@"%@: %@", @"课程", classModel.classGist ? classModel.classGist : @""];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Teacher"), classModel.teacherName ? classModel.teacherName : @""];
+    self.gistLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Class"), classModel.classGist ? classModel.classGist : @""];
 
     NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:classModel.startTime];
     NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:classModel.endTime];

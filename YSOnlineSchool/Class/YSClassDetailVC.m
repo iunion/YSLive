@@ -46,11 +46,42 @@
 
 - (void)createUI
 {
+    self.tableView.allowsSelection = NO;
 }
 
 - (void)refreshVC
 {
     [self loadApiData];
+    
+#warning test
+    YSClassDetailModel *classModel = [[YSClassDetailModel alloc] init];
+    classModel.classId = @"111";
+    classModel.title = @"邓老师讲课";
+    classModel.teacherName = @"邓小平";
+    classModel.classGist = @"马克思理论马克思理论马克思理论";
+    
+    classModel.startTime = [[NSDate date] timeIntervalSince1970];
+    classModel.endTime = [[[NSDate date] bm_dateByAddingHours:1] timeIntervalSince1970];
+    
+    classModel.classInstruction = @"含有硒，是一种抗癌成分，它的抗癌功效是芦荟的十倍，而且可以增加人体的免疫力";
+
+    classModel.classState = arc4random() % (YSClassState_End+1);
+    
+    YSClassReviewModel *classReviewModel = [[YSClassReviewModel alloc] init];
+    classReviewModel.title = @"课件1";
+    classReviewModel.during = @"35'12''";
+    classReviewModel.size = @"112.34M";
+    
+    classModel.classReplayList = [[NSMutableArray alloc] init];
+    [classModel.classReplayList addObject:classReviewModel];
+    
+    [self.dataArray removeAllObjects];
+    [self.dataArray addObject:classModel];
+    
+    self.classDetailModel = classModel;
+    
+    [self.tableView reloadData];
+
 }
 
 - (NSMutableURLRequest *)setLoadDataRequest
@@ -93,7 +124,14 @@
 {
     if ([self.dataArray bm_isNotEmpty])
     {
-        return 3;
+        if ([self.classDetailModel.classReplayList bm_isNotEmpty])
+        {
+            return 3;
+        }
+        else
+        {
+            return 2;
+        }
     }
     return 0;
 }
@@ -109,7 +147,7 @@
             return [self.classDetailModel calculateInstructionTextCellHeight];
 
         case 2:
-            return [YSClassCell cellHeight];
+            return [self.classDetailModel calculateMediumCellHeight];
     }
     
     return 0.0f;
@@ -145,7 +183,7 @@
 
         case 2:
             {
-                YSClassInstructionCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassInstructionCell" owner:self options:nil].firstObject;
+                YSClassMediumCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassMediumCell" owner:self options:nil].firstObject;
                 [cell drawCellWithModel:self.classDetailModel];
                 
                 return cell;
@@ -165,17 +203,6 @@
     cell.selectedBackgroundView.backgroundColor = [UIColor bm_colorWithHex:0xEEEEEE];
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    YSClassModel *classModel = self.dataArray[indexPath.row];
-
-    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
-    detailsVC.linkClassModel = classModel;
-    detailsVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:detailsVC animated:YES];
 }
 
 @end

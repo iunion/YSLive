@@ -21,3 +21,13 @@
 
 "ClassDayList.Title"            = "课表";
 "ClassDetail.Title"             = "查看课表";
+"ClassListCell.State.Waiting"   = "未开始";
+"ClassListCell.State.Begin"     = "进行中";
+"ClassListCell.State.End"       = "已结束";
+"ClassListCell.Text.Teacher"    = "老师";
+"ClassListCell.Text.Class"      = "课程";
+
+"ClassInstructionCell.Title"    = "课程简介";
+"ClassMediumCell.Title"         = "课程回放";
+"ClassReplayView.Duration"      = "时长";
+"ClassReplayView.Size"          = "大小";

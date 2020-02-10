@@ -3308,7 +3308,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     {
         needFreshVideoView = YES;
         
-        // 因为切换网络会先调用classBeging
+        // 因为切换网络会先调用classBegin
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     

@@ -155,10 +155,10 @@
         NSArray *replayList = [dic bm_arrayForKey:@"classReplayList"];
         for (NSDictionary *dic in replayList)
         {
-            NSString *replayUrl = [dic bm_stringTrimForKey:@"replay"];
-            if (replayUrl)
+            YSClassReviewModel *classReviewModel = [YSClassReviewModel classReviewModelWithServerDic:dic];
+            if (classReviewModel)
             {
-                [self.classReplayList addObject:replayUrl];
+                [self.classReplayList addObject:classReviewModel];
             }
         }
     }
@@ -172,9 +172,61 @@
 
 - (CGFloat)calculateInstructionTextCellHeight
 {
-    CGFloat height = [self.classInstruction bm_heightToFitWidth:(UI_SCREEN_WIDTH-16.0f*2.0f) withFont:[UIFont systemFontOfSize:12.0f]];
+    CGFloat height = [self.classInstruction bm_heightToFitWidth:(UI_SCREEN_WIDTH-15.0f*2.0f) withFont:[UIFont systemFontOfSize:12.0f]];
     
-    return height+60.0f;
+    return height+50.0f+10.0f;
 }
+
+- (CGFloat)calculateMediumCellHeight
+{
+    CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+    
+    return height+50.0f;
+}
+
+@end
+
+@implementation YSClassReviewModel
+
++ (instancetype)classReviewModelWithServerDic:(NSDictionary *)dic
+{
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return nil;
+    }
+    
+    YSClassReviewModel *classModel = [[YSClassReviewModel alloc] init];
+    [classModel updateWithServerDic:dic];
+    
+    if ([classModel.linkUrl bm_isNotEmpty])
+    {
+        return classModel;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (void)updateWithServerDic:(NSDictionary *)dic
+{
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return;
+    }
+    
+    NSString *linkUrl = [dic bm_stringTrimForKey:@"linkUrl"];
+    if (![linkUrl bm_isNotEmpty])
+    {
+        return;
+    }
+    
+    self.linkUrl = linkUrl;
+    
+    self.title = [dic bm_stringTrimForKey:@"title"];
+    self.during = [dic bm_stringTrimForKey:@"during"];
+    self.size = [dic bm_stringTrimForKey:@"size"];
+}
+
 
 @end
