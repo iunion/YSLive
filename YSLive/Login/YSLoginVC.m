@@ -223,7 +223,8 @@
 #if CLEARCHECK
 - (void)clearCheckBtnClicked:(UIButton *)btn
 {
-    NSString *urlstr = @"joinroom://rddoccdndemows.roadofcloud.com/static/h5_live_2.1.1.16/index.html/?host=release.roadofcloud.com&domain=xzj&param=oQWJiPESSSloUJYW_eebY4yhaXjcSeaZpBOt-tb2Cin88FjhbovGoYEX4dwrhvbuqYDqikDGwcB2bh3nMEiDhD7Vf-GmIxIs_tB_CdQZIiQrcC3ZIkUOS6NH9ks6LYfKu33bWttb7llfvnUU8_0C3A&timestamp=1581314212&roomtype=3&logintype=2&video=320*180&companyidentify=1";
+//    NSString *urlstr = @"joinroom://rddoccdndemows.roadofcloud.com/static/h5_live_2.1.1.16/index.html/?host=release.roadofcloud.com&domain=xzj&param=oQWJiPESSSloUJYW_eebY4yhaXjcSeaZpBOt-tb2Cin88FjhbovGoYEX4dwrhvbuqYDqikDGwcB2bh3nMEiDhD7Vf-GmIxIs_tB_CdQZIiQrcC3ZIkUOS6NH9ks6LYfKu33bWttb7llfvnUU8_0C3A&timestamp=1581314212&roomtype=3&logintype=2&video=320*180&companyidentify=1";
+        NSString *urlstr = @"joinroom://?host=api.roadofcloud.net&domain=wjy&param=JxMe2Nu5uY9Bb5C_hStqSGuavpYFRNVVeHLFDFPH-R_q7cduxOZzR4i7XX3TqgytZtMeGuLhBSaXK4Gw6IXs7YZZQLFGu5SyULxpCxSfIJ6vuff28NGkwAq19EcpO7lBOAbgZ6Iv5XgJs26-2lNy4pZxaiTiGVbXAre7LrqaoVk&timestamp=1581327248&roomtype=3&logintype=2&video=200*150&companyidentify=1";
     NSURL *url = [NSURL URLWithString:urlstr];
     NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
 

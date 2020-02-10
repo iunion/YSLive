@@ -19,8 +19,9 @@
 "Prompt.OnlineSchool.changePassword" = "Please enter a 6-20 digit new password";
 "Prompt.OnlineSchool.againPassword"  = "Enter the new password again";
 
-"ClassDayList.Title"            = "Timetable";
-"ClassDetail.Title"             = "Review Timetable";
+"ClassDayList.Title"            = "Schedule";
+"ClassDetail.Title"             = "Review Schedule";
+"ClassListCell.Enter"           = "Enter";
 "ClassListCell.State.Waiting"   = "Wait";
 "ClassListCell.State.Begin"     = "Begin";
 "ClassListCell.State.End"       = "End";
@@ -28,7 +29,7 @@
 "ClassListCell.Text.Class"      = "Course";
 
 "ClassInstructionCell.Title"    = "Instruction";
-"ClassMediumCell.Title"         = "Reviewin";
+"ClassMediumCell.Title"         = "Course Playback";
 "ClassReplayView.Duration"      = "Duration";
 "ClassReplayView.Size"          = "Size";
 

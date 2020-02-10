@@ -21,6 +21,7 @@
 
 "ClassDayList.Title"            = "课表";
 "ClassDetail.Title"             = "查看课表";
+"ClassListCell.Enter"           = "进 入";
 "ClassListCell.State.Waiting"   = "未开始";
 "ClassListCell.State.Begin"     = "进行中";
 "ClassListCell.State.End"       = "已结束";

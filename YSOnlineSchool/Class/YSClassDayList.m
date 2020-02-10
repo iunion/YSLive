@@ -92,8 +92,6 @@
         return NO;
     }
     
-    self.showEmptyView = NO;
-    
     if (self.isLoadNew)
     {
         [self.dataArray removeAllObjects];

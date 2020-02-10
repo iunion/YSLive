@@ -302,8 +302,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSString *roomId = [YSLiveManager shareInstance].room_Id;
-    //NSMutableURLRequest *request = [YSLiveApiRequest getGiftCountWithRoomId:roomId peerId:YSCurrentUser.peerID];
-    NSMutableURLRequest *request = [YSLiveApiRequest getGiftCountWithRoomId:roomId peerId:self.userId];
+    NSMutableURLRequest *request = [YSLiveApiRequest getGiftCountWithRoomId:roomId peerId:YSCurrentUser.peerID];
+    //NSMutableURLRequest *request = [YSLiveApiRequest getGiftCountWithRoomId:roomId peerId:self.userId];
     if (request)
     {
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
@@ -449,7 +449,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     
     self.videoViewArray = [[NSMutableArray alloc] init];
     
-    if (self.userId)
+    //if (self.userId)
     {
         [self getGiftCount];
     }

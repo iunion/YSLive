@@ -125,7 +125,7 @@ FOUNDATION_EXTERN NSNotificationName const YSRoomInterfaceJoinRoomFailedNotifica
                                     fromID:(NSString *)fromID
                                     inList:(BOOL)inlist
                                         ts:(long)ts
-                                      body:(NSDictionary*)msgBody;
+                               body:(NSDictionary*)msgBody;
 
 /**
     收到自定义信令 删去消息

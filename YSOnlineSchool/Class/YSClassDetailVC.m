@@ -105,8 +105,6 @@
         return NO;
     }
     
-    self.showEmptyView = NO;
-    
     YSClassDetailModel *classDetailModel = [YSClassDetailModel classDetailModelWithServerDic:data linkClass:self.linkClassModel];
     // 获取新数据成功更新
     if (classDetailModel)
