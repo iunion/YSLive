@@ -46,10 +46,12 @@
 
 - (void)makeCellStyle
 {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     self.bgView.backgroundColor = [UIColor clearColor];
     
     self.topView.backgroundColor = [UIColor whiteColor];
-    [self.topView bm_roundedRect:4.0f];
+    [self.topView bm_roundedRect:6.0f];
     
     self.iconView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     [self.iconView bm_roundedRect:2.0f];
@@ -59,14 +61,14 @@
 
     self.bottomView.backgroundColor = [UIColor whiteColor];
     self.detailLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
-    self.detailLabel.font = UI_BOLDFONT_12;
+    self.detailLabel.font = UI_FONT_12;
 }
 
 - (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel
 {
     self.classDetailModel = classDetailModel;
 
-    self.titleLabel.text = @"课程简介";
+    self.titleLabel.text = YSLocalizedSchool(@"ClassInstructionCell.Title");
     
     self.detailLabel.text = classDetailModel.classInstruction;
 }

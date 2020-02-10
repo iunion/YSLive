@@ -21,4 +21,14 @@
 
 "ClassDayList.Title"            = "Timetable";
 "ClassDetail.Title"             = "Review Timetable";
+"ClassListCell.State.Waiting"   = "Wait";
+"ClassListCell.State.Begin"     = "Begin";
+"ClassListCell.State.End"       = "End";
+"ClassListCell.Text.Teacher"    = "Teacher";
+"ClassListCell.Text.Class"      = "Course";
+
+"ClassInstructionCell.Title"    = "Instruction";
+"ClassMediumCell.Title"         = "Reviewin";
+"ClassReplayView.Duration"      = "Duration";
+"ClassReplayView.Size"          = "Size";
 

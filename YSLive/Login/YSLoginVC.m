@@ -38,7 +38,7 @@
 
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 1
-#define CLEARCHECK 0
+#define CLEARCHECK 1
 #define ONLINESCHOOL 1
 #endif
 
@@ -223,7 +223,30 @@
 #if CLEARCHECK
 - (void)clearCheckBtnClicked:(UIButton *)btn
 {
-    [YSUserDefault setReproducerPermission:NO];
+    NSString *urlstr = @"joinroom://rddoccdndemows.roadofcloud.com/static/h5_live_2.1.1.16/index.html/?host=release.roadofcloud.com&domain=xzj&param=oQWJiPESSSloUJYW_eebY4yhaXjcSeaZpBOt-tb2Cin88FjhbovGoYEX4dwrhvbuqYDqikDGwcB2bh3nMEiDhD7Vf-GmIxIs_tB_CdQZIiQrcC3ZIkUOS6NH9ks6LYfKu33bWttb7llfvnUU8_0C3A&timestamp=1581314212&roomtype=3&logintype=2&video=320*180&companyidentify=1";
+    NSURL *url = [NSURL URLWithString:urlstr];
+    NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
+
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return;
+    }
+
+    if ([dic bm_containsObjectForKey:@"roomid"])
+    {
+        NSString *roomId = [dic bm_stringTrimForKey:@"roomid"];
+        if ([roomId bm_isNotEmpty])
+        {
+            [self joinRoomWithRoomId:roomId];
+        }
+    }
+    else
+    {
+        [self joinRoomWithRoomParams:dic userParams:nil];
+    }
+
+    
+//    [YSUserDefault setReproducerPermission:NO];
 }
 #endif
 
@@ -1435,6 +1458,12 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
 #if YSCLASS
     
+    YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
+    if (self.room_UseTheType == 0)
+    {
+        self.room_UseTheType = appUseTheType;
+    }
+
     // 3: 小班课  4: 直播  6： 会议
     BOOL isSmallClass = (self.room_UseTheType == YSAppUseTheTypeSmallClass || self.room_UseTheType == YSAppUseTheTypeMeeting);
     

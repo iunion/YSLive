@@ -12,13 +12,17 @@
 typedef NS_ENUM(NSUInteger, YSClassState)
 {
     YSClassState_Waiting,
-    YSClassState_Beging,
+    YSClassState_Begin,
     
     YSClassState_End
 };
 
+#define YSClassReplayView_Height    (40.0f)
+#define YSClassReplayView_Gap       (10.0f)
+
 NS_ASSUME_NONNULL_BEGIN
 
+@class YSClassReviewModel;
 @interface YSClassModel : NSObject
 
 /// 课程id
@@ -67,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *classInstruction;
 
 /// 课程回放列表
-@property (nonatomic, strong) NSMutableArray <NSString *> *classReplayList;
+@property (nonatomic, strong) NSMutableArray <YSClassReviewModel *> *classReplayList;
 
 
 + (nullable instancetype)classDetailModelWithServerDic:(NSDictionary *)dic;
@@ -75,6 +79,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
 - (CGFloat)calculateInstructionTextCellHeight;
+- (CGFloat)calculateMediumCellHeight;
+
+@end
+
+@interface YSClassReviewModel : NSObject
+
+/// 标题
+@property (nonatomic, strong) NSString *title;
+/// 时长
+@property (nonatomic, strong) NSString *during;
+/// 存储大小
+@property (nonatomic, strong) NSString *size;
+
+/// 链接
+@property (nonatomic, strong) NSString *linkUrl;
+
+
++ (nullable instancetype)classReviewModelWithServerDic:(NSDictionary *)dic;
+- (void)updateWithServerDic:(NSDictionary *)dic;
 
 @end
 

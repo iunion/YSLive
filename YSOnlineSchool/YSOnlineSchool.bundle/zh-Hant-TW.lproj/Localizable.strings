@@ -22,3 +22,13 @@
 
 "ClassDayList.Title"            = "課表";
 "ClassDetail.Title"             = "查看課表";
+"ClassListCell.State.Waiting"   = "未開始";
+"ClassListCell.State.Begin"     = "進行中";
+"ClassListCell.State.End"       = "已結束";
+"ClassListCell.Text.Teacher"    = "老師";
+"ClassListCell.Text.Class"      = "課程";
+
+"ClassInstructionCell.Title"    = "課程簡介";
+"ClassMediumCell.Title"         = "課程重播";
+"ClassReplayView.Duration"      = "時長";
+"ClassReplayView.Size"          = "大小";

@@ -26,7 +26,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)playReplayClassWithClassDetailModel:(YSClassModel *)classModel index:(NSUInteger)replayIndex;
+- (void)playReviewClassWithClassReviewModel:(YSClassReviewModel *)classReviewModel index:(NSUInteger)replayIndex;
+
+@end
+
+@interface YSClassReplayView : UIView
+
+@property (nullable, nonatomic, weak) id <YSClassMediumCellDelegate> delegate;
+
+@property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, strong) YSClassReviewModel *classReviewModel;
 
 @end
 
