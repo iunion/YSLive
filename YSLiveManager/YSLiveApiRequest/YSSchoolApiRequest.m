@@ -12,7 +12,7 @@
 
 
 /// 获取b课表日历数据
-+ (void )getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure
++ (void )getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure
 {
     NSString *urlStr = @"http://school.roadofcloud.cn/student/Mycourse/studentCourseList.html";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
@@ -34,10 +34,10 @@
             success(dict[@"data"]);
         }else
         {
-            failure([dict bm_uintForKey:@"code"]);
+            failure([dict bm_uintForKey:@"code"],[dict bm_stringForKey:@"info"]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error.code);
+        failure(error.code,error.description);
     }];
     [task resume];
 }

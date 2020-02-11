@@ -22,7 +22,6 @@ FSCalendarDelegate,
 FSCalendarDelegateAppearance
 >
 
-
 @property (weak, nonatomic) FSCalendar *MyCalendar;
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
@@ -32,8 +31,7 @@ FSCalendarDelegateAppearance
 /// 课表日历数据请求
 @property (nonatomic, strong) NSURLSessionDataTask *calendarDataTask;
 
-
-@property (strong, nonatomic) NSDictionary *dateDict;
+@property (strong, nonatomic) NSMutableDictionary *dateDict;
 
 @end
 
@@ -51,7 +49,6 @@ FSCalendarDelegateAppearance
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-//    self.bm_NavigationBarTintColor = UIColor.whiteColor;
     self.bm_NavigationItemTintColor = UIColor.whiteColor;
     
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshBtnClick)];
@@ -64,29 +61,44 @@ FSCalendarDelegateAppearance
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     self.nowDateStr = [dateFormatter stringFromDate:currentDate];
     
-    self.dateDict = @{
+    NSDictionary *dict = @{
         @"2020-02-02":@"共1节课",
         @"2020-02-05":@"共3节课",
         self.nowDateStr:@"共4节课",
         @"2020-02-15":@"共3节课",
         @"2020-02-25":@"共2节课",
     };
-    [self getCalendarDatas];
     
+    self.dateDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [self getCalendarDatas];
 }
 
 - (void)getCalendarDatas
 {
-    [YSLiveApiRequest getCalendarCalendarWithdate:self.nowDate success:^(NSDictionary * _Nonnull dict) {
+    BMWeakSelf
+    [YSLiveApiRequest getCalendarCalendarWithdate:self.nowDateStr success:^(NSDictionary * _Nonnull calendarDict) {
         
-        if ([dict bm_isNotEmpty]) {
-            
+        if ([calendarDict bm_isNotEmpty]) {
+            NSArray * array = [calendarDict bm_arrayForKey:@"chargeinfo"];
+            if (array.count) {
+                for (NSDictionary * dict in array) {
+                    NSString * keyStr = [dict bm_stringForKey:@"timestr"];
+                    NSString * num = [dict bm_stringForKey:@"num"];
+                    if ([keyStr bm_isNotEmpty] && [num bm_isNotEmpty])
+                    {
+                        NSString * value = [NSString stringWithFormat:@"共%@节",num];
+                        
+                        [weakSelf.dateDict setValue:value forKey:keyStr];
+                    }
+                }
+                [self.MyCalendar reloadData];
+            }
         }
         
+    } failure:^(NSInteger errorCode,NSString *errorStr) {
         
-    } failure:^(NSInteger errorCode) {
+        BMLog(@"errorCode = %ld,errorStr = %@",errorCode,errorStr);
         
-        BMLog(@"errorCode = %ld",errorCode);
         
     }];
 }
@@ -139,7 +151,7 @@ FSCalendarDelegateAppearance
     calendar.scrollEnabled = NO;
     self.MyCalendar = calendar;
     calendar.backgroundColor = UIColor.whiteColor;
-    calendar.layer.cornerRadius = 30;
+    calendar.layer.cornerRadius = 16;
     
     calendar.appearance.eventOffset = CGPointMake(0, -7);
     calendar.today = nil; // Hide the today circle

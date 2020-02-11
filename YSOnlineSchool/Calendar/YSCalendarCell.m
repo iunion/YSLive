@@ -40,7 +40,7 @@
         self.circleLab = circleLab;
         
         UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-1, self.bm_width, 1)];
-        lineView.backgroundColor = UIColor.lightGrayColor;
+        lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
         [self.contentView addSubview:lineView];
         self.lineView = lineView;
     }
@@ -79,15 +79,15 @@
         NSComparisonResult result = [dateKey compare:nowDate];
         if (result == -1)
         {//之前
-            self.selectionLayer.fillColor = UIColor.grayColor.CGColor;
+            self.selectionLayer.fillColor = [UIColor bm_colorWithHex:0xA2A2A2].CGColor;
         }
         else if (result == 1)
         {//以后
-            self.selectionLayer.fillColor = UIColor.blueColor.CGColor;
+            self.selectionLayer.fillColor = [UIColor bm_colorWithHex:0x5A8CDC].CGColor;
         }
         else
         {//今天
-            self.selectionLayer.fillColor = UIColor.orangeColor.CGColor;
+            self.selectionLayer.fillColor = [UIColor bm_colorWithHex:0xFF9E00].CGColor;
         }
         CGFloat diameter = MIN(self.selectionLayer.fs_height, self.selectionLayer.fs_width);
         self.selectionLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.contentView.fs_width/2-diameter/2, 0, diameter, diameter)].CGPath;
