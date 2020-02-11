@@ -86,7 +86,7 @@
     _refreshLabel.textColor = [UIColor bm_colorWithHex:0x999999];
     _refreshLabel.font = [UIFont systemFontOfSize:14];
     _refreshLabel.textAlignment = NSTextAlignmentCenter;
-    _refreshLabel.text = @"轻点屏幕即可刷新重试";
+    _refreshLabel.text = BMKitLocalized(@"EmptyView.FreshText", @"");
     [self addSubview:_refreshLabel];
 
     self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(refreshAction:)];
@@ -94,7 +94,7 @@
     
     // 刷新按钮
     _freshButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90.0f, 30.0f)];
-    [_freshButton setTitle:@"点击重试" forState:UIControlStateNormal];
+    [_freshButton setTitle:BMKitLocalized(@"EmptyView.ButtonText", @"") forState:UIControlStateNormal];
     [_freshButton bm_setTitleColor:[UIColor bm_colorWithHex:0x577EEE]];
     _freshButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [_freshButton addTarget:self action:@selector(refreshAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -140,13 +140,13 @@
     {
         case BMEmptyViewType_NoData:
         {
-            NSString *text = @"该页面空空如也...";
+            NSString *text =BMKitLocalized(@"EmptyView.NoData", @"");
             atrText = [[NSMutableAttributedString alloc] initWithString:text];
         }
             break;
         case BMEmptyViewType_NetworkError:
         {
-            NSString *text = @"网络链接暂时失败...";
+            NSString *text = BMKitLocalized(@"EmptyView.NetworkError", @"");
             atrText = [[NSMutableAttributedString alloc] initWithString:text];
         }
             break;
@@ -155,7 +155,7 @@
         case BMEmptyViewType_DataError:
         case BMEmptyViewType_UnknownError:
         {
-            NSString *text = @"抱歉，页面出现问题了...";
+            NSString *text = BMKitLocalized(@"EmptyView.OtherError", @"");
             atrText = [[NSMutableAttributedString alloc] initWithString:text];
         }
             break;
@@ -360,7 +360,7 @@
     
     self.messageLabel.attributedText = [self messsageWithType:type];
     self.imageView.image = [UIImage imageNamed:[self imageNameWithType:type]];
-    [self.freshButton setTitle:@"点击重试" forState:UIControlStateNormal];
+    [self.freshButton setTitle:BMKitLocalized(@"EmptyView.ButtonText", @"") forState:UIControlStateNormal];
 
     self.tapGesture.enabled = NO;
     self.refreshLabel.hidden = YES;

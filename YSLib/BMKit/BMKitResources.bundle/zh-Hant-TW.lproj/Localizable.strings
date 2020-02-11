@@ -13,3 +13,9 @@
 "ToolBar.Next" = "下一個";
 "ToolBar.Delete" = "删除";
 "ToolBar.Edit" = "編輯";
+
+"EmptyView.NoData" = "該頁面空空如也...";
+"EmptyView.NetworkError" = "網絡連結暫時失敗...";
+"EmptyView.OtherError" = "抱歉，頁面出現問題了";
+"EmptyView.FreshText" = "輕點荧幕即可重繪重試";
+"EmptyView.ButtonText" = "點擊重試";
