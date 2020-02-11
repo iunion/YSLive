@@ -19,3 +19,13 @@
 "EmptyView.OtherError" = "抱歉，页面出现问题了";
 "EmptyView.FreshText" = "轻点屏幕即可刷新重试";
 "EmptyView.ButtonText" = "点击重试";
+
+"Fresh.Default.NormalHeaderText" = "下拉可以刷新";
+"Fresh.Default.WillLoadHeaderText" = "松开立即刷新";
+"Fresh.Default.LoadingHeaderText" = "正在刷新数据中...";
+
+"Fresh.Default.NormalFooterText" = "上拉可以加载更多";
+"Fresh.Default.AutoNormalFooterText" = "上拉或点击可以加载更多";
+"Fresh.Default.WilllLoadFooterText" = "松开立即加载更多";
+"Fresh.Default.LoadingFooterText" = "正在加载更多的数据...";
+"Fresh.Default.NoMoredataFooterText" = "已经全部加载完毕";
