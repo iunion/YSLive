@@ -102,4 +102,6 @@
 - (void)bm_setSize:(CGSize)value forKey:(nonnull id)key;
 - (void)bm_setRect:(CGRect)value forKey:(nonnull id)key;
 
+- (void)bm_setBMApiObject:(nullable id)anObject forKey:(nonnull id)aKey;
+
 @end

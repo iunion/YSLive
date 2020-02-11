@@ -67,4 +67,6 @@
 #import "BMFreshBackNormalFooter.h"
 #import "BMFreshAutoNormalFooter.h"
 
+#import "BMRSA.h"
+
 #endif /* BMTools_h */

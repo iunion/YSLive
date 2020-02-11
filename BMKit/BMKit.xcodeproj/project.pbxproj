@@ -326,6 +326,8 @@
 		8777C7B723EAC069002002BF /* BMTabItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B523EAC069002002BF /* BMTabItemButton.m */; };
 		8777C7BA23EBA9CD002002BF /* BMTabBarController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C7B823EBA9CD002002BF /* BMTabBarController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C7BB23EBA9CD002002BF /* BMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B923EBA9CD002002BF /* BMTabBarController.m */; };
+		8779E57A23F2D3FC008E885C /* BMRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E57823F2D3FC008E885C /* BMRSA.m */; };
+		8779E57B23F2D3FC008E885C /* BMRSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 8779E57923F2D3FC008E885C /* BMRSA.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -645,6 +647,8 @@
 		8777C7B523EAC069002002BF /* BMTabItemButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMTabItemButton.m; sourceTree = "<group>"; };
 		8777C7B823EBA9CD002002BF /* BMTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMTabBarController.h; sourceTree = "<group>"; };
 		8777C7B923EBA9CD002002BF /* BMTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMTabBarController.m; sourceTree = "<group>"; };
+		8779E57823F2D3FC008E885C /* BMRSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMRSA.m; sourceTree = "<group>"; };
+		8779E57923F2D3FC008E885C /* BMRSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRSA.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -836,6 +840,7 @@
 		8701AEA12371550000A43607 /* BMTools */ = {
 			isa = PBXGroup;
 			children = (
+				8779E57723F2D3FC008E885C /* BMRSA */,
 				8701AEA22371550000A43607 /* BMAlertView */,
 				8701AF2923715B9400A43607 /* BMAlignedImageView */,
 				8701AFA1237161AA00A43607 /* BMApiStatusView */,
@@ -1338,6 +1343,15 @@
 			path = BMTabItem;
 			sourceTree = "<group>";
 		};
+		8779E57723F2D3FC008E885C /* BMRSA */ = {
+			isa = PBXGroup;
+			children = (
+				8779E57923F2D3FC008E885C /* BMRSA.h */,
+				8779E57823F2D3FC008E885C /* BMRSA.m */,
+			);
+			path = BMRSA;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1345,6 +1359,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8779E57B23F2D3FC008E885C /* BMRSA.h in Headers */,
 				8777C7BA23EBA9CD002002BF /* BMTabBarController.h in Headers */,
 				8777C7B623EAC069002002BF /* BMTabItemButton.h in Headers */,
 				8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */,
@@ -1742,6 +1757,7 @@
 				8701AE3E23714E6000A43607 /* NSBundle+BMCategory.m in Sources */,
 				8701AF0823715B4D00A43607 /* UIImageView+BMWebCache.m in Sources */,
 				8701B124237165AA00A43607 /* BMTableViewActionBar.m in Sources */,
+				8779E57A23F2D3FC008E885C /* BMRSA.m in Sources */,
 				8701AF0423715B4D00A43607 /* BMSDWebImageDownloaderOperation.m in Sources */,
 				8701B0E5237165AA00A43607 /* BMTableViewTextCell.m in Sources */,
 			);

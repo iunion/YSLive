@@ -672,4 +672,17 @@
     [self setValue:rectDict forKey:key];
 }
 
+- (void)bm_setBMApiObject:(id)anObject forKey:(id)aKey
+{
+    NSString *string = @"";
+    if ([anObject bm_isNotEmpty])
+    {
+        [self setObject:anObject forKey:aKey];
+        
+        return;
+    }
+    
+    [self setObject:string forKey:aKey];
+}
+
 @end
