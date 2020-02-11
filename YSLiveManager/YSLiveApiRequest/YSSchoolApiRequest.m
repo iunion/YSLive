@@ -10,6 +10,47 @@
 
 @implementation YSLiveApiRequest (School)
 
+/// 获取登录密匙
++ (NSMutableURLRequest *)getSchoolPublicKey
+{
+    //http://school.roadofcloud.cn/index/Login/getPublicKey
+    NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/getPublicKey", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+}
+
+/// 登录接口
++ (NSMutableURLRequest *)postLoginWithPubKey:(NSString *)pubKey
+                                      domain:(NSString *)domain
+                               admin_account:(NSString *)admin_account
+                                   admin_pwd:(NSString *)admin_pwd
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/loginV1", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    NSString *key = [NSString bm_randomStringWithLength:10];
+    
+    [parameters setObject:domain forKey:@"domain"];
+    [parameters setObject:admin_account forKey:@"admin_account"];
+    [parameters setObject:admin_pwd forKey:@"admin_pwd"];
+//    [parameters setObject:@"wxcs" forKey:@"domain"];
+//    [parameters setObject:@"deng123" forKey:@"admin_account"];
+//    [parameters setObject:@"123456" forKey:@"admin_pwd"];
+    [parameters setObject:@(3) forKey:@"type"];
+    [parameters setObject:key forKey:@"key"];
+    
+    NSError *error = nil;
+
+    NSMutableDictionary *loginParameter = [[NSMutableDictionary alloc] init];
+    NSString *jsonStr = [parameters bm_toJSON];
+    NSString *encodeString = [BMRSA encryptString:jsonStr publicPemKey:pubKey error:&error];
+    NSLog(@"%@", encodeString);
+    
+    [loginParameter setObject:encodeString forKey:@"login_data"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
+}
 
 /// 获取b课表日历数据
 + (void )getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure
@@ -42,6 +83,7 @@
     [task resume];
 }
 
+/// 获取课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum
 {
     // http://school.roadofcloud.cn/student/Mycourse/getLessonsByDate

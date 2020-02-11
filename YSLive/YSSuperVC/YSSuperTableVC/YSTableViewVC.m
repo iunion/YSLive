@@ -334,7 +334,8 @@
     [self.dataTask cancel];
     self.dataTask = nil;
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [self setLoadDataRequest];
     if (!request)
     {
@@ -559,7 +560,7 @@
     switch (statusCode)
     {
         case 1000:
-            break;
+           // break;
             
         default:
             [self showEmptyViewWithType:BMEmptyViewType_DataError];

@@ -86,6 +86,17 @@
     return manager;
 }
 
++ (AFHTTPSessionManager *)makeYSJSONSessionManager
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    // 增加application/octet-stream，text/html
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"application/octet-stream", @"text/html", @"audio/mpeg", @"audio/mp3", @"text/plain", nil];
+    
+    return manager;
+}
+
 // deviceId     设备号
 // deviceModel  设备型号
 // osVersion    系统版本号
@@ -94,13 +105,13 @@
 
 // JWTToken
 // timer        当前时间戳
-+ (AFHTTPRequestSerializer *)requestSerializer
++ (AFHTTPRequestSerializer *)HTTPRequestSerializer
 {
-    static AFHTTPRequestSerializer *YSRequestSerializer;
+    static AFHTTPRequestSerializer *YSHTTPRequestSerializer;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        YSRequestSerializer = [AFHTTPRequestSerializer serializer];
-        YSRequestSerializer.timeoutInterval = YSAPI_TIMEOUT_SECONDS;
+        YSHTTPRequestSerializer = [AFHTTPRequestSerializer serializer];
+        YSHTTPRequestSerializer.timeoutInterval = YSAPI_TIMEOUT_SECONDS;
         
         // 设备号
 //        [YSRequestSerializer setValue:[YSAppInfo getOpenUDID] forHTTPHeaderField:@"deviceId"];
@@ -118,7 +129,20 @@
 //        [YSRequestSerializer setValue:[YSAppInfo catchChannelName] forHTTPHeaderField:@"channelCode"];
     });
     
-    return YSRequestSerializer;
+    return YSHTTPRequestSerializer;
+}
+
++ (AFJSONRequestSerializer *)JSONRequestSerializer
+{
+    static AFJSONRequestSerializer *YSJSONRequestSerializer;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        YSJSONRequestSerializer = [AFJSONRequestSerializer serializer];
+        YSJSONRequestSerializer.timeoutInterval = YSAPI_TIMEOUT_SECONDS;
+        
+    });
+    
+    return YSJSONRequestSerializer;
 }
 
 + (void)logUrlPramaWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters
@@ -147,7 +171,7 @@
 
 + (NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost
 {
-    AFHTTPRequestSerializer *requestSerializer = [YSApiRequest requestSerializer];
+    AFJSONRequestSerializer *requestSerializer = [YSApiRequest HTTPRequestSerializer];
     
     NSMutableDictionary *parameterDic;
     if ([parameters bm_isNotEmptyDictionary])
@@ -171,6 +195,17 @@
         return nil;
     }
     
+//    sign: 3bd14e8442dd368a9d8d5ad886ce341b
+//    starttime: 1581408462000
+//    token: 360960395426803
+    
+    //[request setValue:@"3bd14e8442dd368a9d8d5ad886ce341b" forHTTPHeaderField:@"sign"];
+    //[request setValue:@"360960395426803" forHTTPHeaderField:@"token"];
+    
+    [request setValue:@"3bd14e8442dd368a9d8d5ad886ce341b" forHTTPHeaderField:@"sign"];
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    [request setValue:[NSString stringWithFormat:@"%@", @(time)] forHTTPHeaderField:@"starttime"];
+
     // 时间戳
 //    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
 //    NSString *tmp = [NSString stringWithFormat:@"%@", @(time)];

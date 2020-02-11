@@ -36,11 +36,14 @@
 
 #import "BMAlertView+YSDefaultAlert.h"
 
+#import "YSLiveUtil.h"
+
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 1
 #define CLEARCHECK 1
-#define ONLINESCHOOL 1
 #endif
+
+#define ONLINESCHOOL 1
 
 /// 每次打包的递增版本号 +1
 #define YSAPP_CommitVersion [[NSBundle mainBundle] infoDictionary][@"YSAppCommitVersion"]
@@ -619,12 +622,11 @@
     onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(15));
-        make.height.mas_equalTo(17);
-//        make.width.mas_equalTo(kScale_W(50));
+        make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(5));
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(70);
         make.right.mas_equalTo(weakSelf.joinRoomBtn.mas_right);
     }];
-    
 #endif
 }
 
@@ -657,6 +659,7 @@
 
 #pragma mark -
 #pragma mark SEL
+
 - (void)onlineSchoolBtnClicked:(UIButton *)btn
 {
     self.isOnlineSchool = !_isOnlineSchool;
@@ -675,6 +678,7 @@
             make.width.mas_equalTo(kScale_W(197));
         }];
         self.roomTextField.placeholder = YSLocalized(@"Label.onlineSchoolPlaceholder");
+        self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         self.nickNameTextField.placeholder = YSLocalized(@"Label.accountNumberPlaceholder");
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.Enter") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
@@ -721,6 +725,7 @@
             make.width.mas_equalTo(kScale_W(197));
         }];
         self.roomTextField.placeholder = YSLocalized(@"Label.roomPlaceholder");
+        self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         self.nickNameTextField.placeholder = YSLocalized(@"Label.nicknamePlaceholder");
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
@@ -740,19 +745,81 @@
     [self.view endEditing:YES];
 }
 
+- (void)getSchoolPublicKey
+{
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    NSMutableURLRequest *request = [YSLiveApiRequest getSchoolPublicKey];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+            }
+            else
+            {
+                NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
+                if ([dataDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [dataDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        NSString *key = [dataDic bm_stringForKey:@"key"];
+                        if ([key bm_isNotEmpty])
+                        {
+                            [self loginSchoolWithPubKey:key];
+                        }
+                    }
+                }
+            }
+        }];
+        [task resume];
+    }
+}
+
+- (void)loginSchoolWithPubKey:(NSString *)key
+{
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    NSMutableURLRequest *request =
+        [YSLiveApiRequest postLoginWithPubKey:key
+                                       domain:self.roomTextField.inputTextField.text
+                                admin_account:self.nickNameTextField.inputTextField.text
+                                    admin_pwd:self.passOnlineTextField.inputTextField.text];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+            }
+            else
+            {
+                NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
+                
+                NSString *str = [[NSString stringWithFormat:@"%@", dataDic] bm_convertUnicode];
+                
+                YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
+                [tabBar addViewControllers];
+                [weakSelf.navigationController pushViewController:tabBar animated:YES];
+            }
+        }];
+        [task resume];
+    }
+}
+
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
-    if (self.isOnlineSchool)
-    {
-        YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
-        [tabBar addViewControllers];
-        //    [self presentViewController:tabBar animated:YES completion:nil];
-        [self.navigationController pushViewController:tabBar animated:YES];
-        return;
-    }
     if (![YSCoreStatus isNetworkEnable])
     {
         [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:@"请开启网络" delay:0.5];
+        return;
+    }
+
+    if (self.isOnlineSchool)
+    {
+        [self getSchoolPublicKey];
         return;
     }
     
