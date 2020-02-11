@@ -12,6 +12,9 @@
 #import "YSClassDayList.h"
 
 #import "FSCalendarCollectionView.h"
+
+#import "YSLiveApiRequest.h"
+
 @interface YSCalendarCurriculumVC ()
 <
 FSCalendarDataSource,
@@ -24,6 +27,11 @@ FSCalendarDelegateAppearance
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSDate *nowDate;
+@property (copy, nonatomic) NSString *nowDateStr;
+
+/// 课表日历数据请求
+@property (nonatomic, strong) NSURLSessionDataTask *calendarDataTask;
+
 
 @property (strong, nonatomic) NSDictionary *dateDict;
 
@@ -43,8 +51,10 @@ FSCalendarDelegateAppearance
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    self.bm_NavigationBarTintColor = UIColor.whiteColor;
-    [self bm_setNavigationWithTitle:@"我的课表" barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshBtnClick)];
+//    self.bm_NavigationBarTintColor = UIColor.whiteColor;
+    self.bm_NavigationItemTintColor = UIColor.whiteColor;
+    
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshBtnClick)];
     self.title = nil;
     
     [self setupUI];
@@ -52,34 +62,54 @@ FSCalendarDelegateAppearance
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     dateFormatter.dateFormat = @"yyyy-MM-dd";
-    NSString * nowDateStr = [dateFormatter stringFromDate:currentDate];
+    self.nowDateStr = [dateFormatter stringFromDate:currentDate];
     
     self.dateDict = @{
         @"2020-02-02":@"共1节课",
         @"2020-02-05":@"共3节课",
-        nowDateStr:@"共4节课",
+        self.nowDateStr:@"共4节课",
         @"2020-02-15":@"共3节课",
         @"2020-02-25":@"共2节课",
     };
+    [self getCalendarDatas];
+    
+}
+
+- (void)getCalendarDatas
+{
+    [YSLiveApiRequest getCalendarCalendarWithdate:self.nowDate success:^(NSDictionary * _Nonnull dict) {
+        
+        if ([dict bm_isNotEmpty]) {
+            
+        }
+        
+        
+    } failure:^(NSInteger errorCode) {
+        
+        BMLog(@"errorCode = %ld",errorCode);
+        
+    }];
 }
 
 //刷新
 - (void)refreshBtnClick
 {
-    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
-    dateFormatter.dateFormat = @"yyyy-MM-dd";
-    NSString * nowDateStr = [dateFormatter stringFromDate:currentDate];
+//    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+//    dateFormatter.dateFormat = @"yyyy-MM-dd";
+//    NSString * nowDateStr = [dateFormatter stringFromDate:currentDate];
+//
+//    self.dateDict = @{
+//        @"2020-02-03":@"共1节课",
+//        @"2020-02-04":@"共3节课",
+//        nowDateStr:@"共4节课",
+//        @"2020-02-17":@"共3节课",
+//        @"2020-02-27":@"共2节课",
+//    };
+    [self getCalendarDatas];
     
-    self.dateDict = @{
-        @"2020-02-03":@"共1节课",
-        @"2020-02-04":@"共3节课",
-        nowDateStr:@"共4节课",
-        @"2020-02-17":@"共3节课",
-        @"2020-02-27":@"共2节课",
-    };
         
-    [self.MyCalendar reloadData];
+//    [self.MyCalendar reloadData];
 }
 
 - (void)backBtnClick

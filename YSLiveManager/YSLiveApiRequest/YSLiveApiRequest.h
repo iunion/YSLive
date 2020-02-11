@@ -15,6 +15,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 @interface YSLiveApiRequest : YSApiRequest
 
+
 /// 获取升级信息 versionNum  发版的年月日 加上 版本递增的两位整数  例子：2019122201
 + (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum;
 
@@ -42,6 +43,13 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)getSimplifyAnswerCountWithRoomId:(NSString *)roomId answerId:(NSString *)answerId startTime:(NSTimeInterval)startTime endTime:(NSTimeInterval)endTime;
 /// 删除课件
 + (NSMutableURLRequest *)deleteCoursewareWithRoomId:(NSString *)roomId fileId:(NSString *)fileId;
+
+
+
+
+/// 获取课表日历数据
++ (void)getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure;
+
 @end
 
 NS_ASSUME_NONNULL_END
