@@ -36,7 +36,7 @@
 
 #import "YSLiveManager.h"
 #import "YSUserDefault.h"
-
+#import "YSSchoolUser.h"
 #define YSKeyWindow [UIApplication sharedApplication].keyWindow
 
 
