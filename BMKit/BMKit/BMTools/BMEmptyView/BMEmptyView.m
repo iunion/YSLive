@@ -251,6 +251,7 @@
         }
             break;
 
+        case BMEmptyViewType_ClassError:
         default:
             return nil;
     }
@@ -268,6 +269,9 @@
     {
         case BMEmptyViewType_NoData:
             imageName = @"empty_commonicon";
+            break;
+        case BMEmptyViewType_ClassError:
+            imageName = @"empty_class";
             break;
         case BMEmptyViewType_NetworkError:
             imageName = @"empty_neticon";
@@ -367,6 +371,9 @@
     switch (type)
     {
         case BMEmptyViewType_NoData:
+            self.freshButton.hidden = NO;
+            break;
+        case BMEmptyViewType_ClassError:
             self.freshButton.hidden = NO;
             break;
         case BMEmptyViewType_NetworkError:

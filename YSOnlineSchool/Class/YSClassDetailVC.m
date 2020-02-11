@@ -37,6 +37,8 @@
     self.bm_NavigationTitleTintColor = [UIColor whiteColor];
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"ClassDetail.Title") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshVC)];
     
+    self.showEmptyView = YES;
+
     [self createUI];
 
     [self refreshVC];
@@ -90,7 +92,11 @@
     self.classDetailModel = classModel;
     
     [self.tableView reloadData];
+}
 
+- (BMEmptyViewType)getNoDataEmptyViewType
+{
+    return BMEmptyViewType_ClassError;
 }
 
 - (NSMutableURLRequest *)setLoadDataRequest

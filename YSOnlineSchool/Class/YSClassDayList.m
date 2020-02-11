@@ -50,6 +50,10 @@
     self.bm_NavigationTitleTintColor = [UIColor whiteColor];
     [self bm_setNavigationWithTitle:title barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshVC)];
 
+    
+    self.loadDataType = YSAPILoadDataType_Page;
+    self.showEmptyView = YES;
+
     [self createUI];
 
     [self refreshVC];
@@ -82,10 +86,15 @@
 //    [self.tableView reloadData];
 }
 
-- (NSMutableURLRequest *)setLoadDataRequest
+- (BMEmptyViewType)getNoDataEmptyViewType
+{
+    return BMEmptyViewType_ClassError;
+}
+
+- (NSMutableURLRequest *)setLoadDataRequestWithFresh:(BOOL)isLoadNew
 {
     //return [YSLiveApiRequest getClassListWithStudentId:@"268" date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
-    return [YSLiveApiRequest getClassListWithStudentId:@"268" date:@"2020-02-10" pagenum:1];
+    return [YSLiveApiRequest getClassListWithStudentId:@"268" date:@"2020-02-10" pagenum:s_LoadedPage];
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data

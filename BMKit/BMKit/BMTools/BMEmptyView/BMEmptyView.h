@@ -13,6 +13,7 @@
 
 typedef NS_ENUM(NSUInteger, BMEmptyViewType) {
     BMEmptyViewType_NoData = 0,       // 显示无数据文本提示+刷新按钮
+    BMEmptyViewType_ClassError,       // 无网络连接，请检查网络+刷新按钮
     BMEmptyViewType_NetworkError,     // 无网络连接，请检查网络+刷新按钮
     BMEmptyViewType_SysError,         // 系统错误
     BMEmptyViewType_ServerError,      // 服务器连接失败
