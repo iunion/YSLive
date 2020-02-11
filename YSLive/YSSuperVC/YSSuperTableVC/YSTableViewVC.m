@@ -435,8 +435,8 @@
 //    BMLog(@"API返回数据是:+++++%@", responseStr);
 //#endif
 
-    NSInteger statusCode = [responseDic bm_intForKey:@"code"];
-    if (statusCode == 1000)
+    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+    if (statusCode == YSSuperVC_StatusCode_Succeed)
     {
         if (self.showResultHUD)
         {
@@ -445,16 +445,16 @@
         
         BOOL succeed = NO;
         
-        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
+        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:YSSuperVC_DataDic_Key];
         succeed = [self succeedLoadedRequestWithDic:dataDic];
         NSArray *dataArray = nil;
         if (!succeed)
         {
-            dataArray = [responseDic bm_arrayForKey:@"data"];
+            dataArray = [responseDic bm_arrayForKey:YSSuperVC_DataDic_Key];
             succeed = [self succeedLoadedRequestWithArray:dataArray];
             if (!succeed)
             {
-                NSString *dataStr = [responseDic bm_stringTrimForKey:@"data"];
+                NSString *dataStr = [responseDic bm_stringTrimForKey:YSSuperVC_DataDic_Key];
                 succeed = [self succeedLoadedRequestWithString:dataStr];
             }
         }
@@ -530,7 +530,7 @@
     {
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:statusCode];
         
-        NSString *message = [responseDic bm_stringTrimForKey:@"message" withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
+        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
         if ([self checkRequestStatus:statusCode message:message responseDic:responseDic logOutQuit:YES showLogin:YES])
         {
             [self.progressHUD bm_hideAnimated:YES];
@@ -611,32 +611,20 @@
         s_IsNoMorePage = NO;
     }
     
-//    hasNextPage = 0;
-//    hasPreviousPage = 0;
-//    lastPage = 1;
-//    pageIndex = 1;
-//    pageSize = 10;
-//    totalPages = 1;
-//    startRow = 0;
-//    totalRows = 10;
-//    endRow = 9;
-
     if ([requestDic bm_isNotEmptyDictionary])
     {
-        NSDictionary *pageDic = requestDic;//[requestDic bm_dictionaryForKey:@"pageInfo"];
+        NSDictionary *pageDic = [requestDic bm_dictionaryForKey:YSSuperVC_PageInfo_key];
         
-        //if ([pageDic bm_isNotEmptyDictionary])
+        if ([pageDic bm_isNotEmptyDictionary])
         {
-            // 总记录数:  totalRows
-            NSUInteger totalcount = [pageDic bm_uintForKey:@"totalRows"];
             // 每页记录数: pageSize
-            //NSUInteger pageSize = [pageDic bm_uintForKey:@"pageSize"];
+            NSUInteger pageSize = [pageDic bm_uintForKey:YSSuperVC_PageSize_key];
             // 当前页码: pageIndex
-            NSUInteger curPageNo = [pageDic bm_uintForKey:@"pageIndex"];
+            NSUInteger curPageNo = [pageDic bm_uintForKey:YSSuperVC_CurrentPageNum_key];
             //总页码: totalPages
-            NSUInteger totalPage = [pageDic bm_uintForKey:@"totalPages"];
+            NSUInteger totalPage = [pageDic bm_uintForKey:YSSuperVC_TotalPageNum_key];
             
-            if (self.countPerPage != 0 && totalcount != 0)
+            if (pageSize)
             {
                 //s_LoadedPage = s_BakLoadedPage;
                 s_LoadedPage = curPageNo;
@@ -650,7 +638,7 @@
                     return YES;
                 }
             }
-            else if (totalcount == 0)
+            else
             {
                 s_IsNoMorePage = YES;
                 return YES;

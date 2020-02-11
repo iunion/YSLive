@@ -9,6 +9,25 @@
 #ifndef YSVCProtocol_h
 #define YSVCProtocol_h
 
+// 求情回调状态key
+#define YSSuperVC_StatusCode_Key        @"code"
+// 求情回调成功码
+#define YSSuperVC_StatusCode_Succeed    (0)
+// 求情回调数据key
+#define YSSuperVC_DataDic_Key           @"data"
+// 求情回错误提示key
+#define YSSuperVC_ErrorMessage_key      @"info"
+
+// 求情回调页码信息key
+#define YSSuperVC_PageInfo_key          @"pageinfo"
+// 求情回调页码每页最大数量
+#define YSSuperVC_PageSize_key          @"pagesize"
+// 求情回调当前页
+#define YSSuperVC_CurrentPageNum_key    @"pagenum"
+// 求情回调总页数
+#define YSSuperVC_TotalPageNum_key      @"total"
+
+
 @protocol YSSuperVCProtocol <NSObject>
 
 @required

@@ -42,6 +42,15 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)getSimplifyAnswerCountWithRoomId:(NSString *)roomId answerId:(NSString *)answerId startTime:(NSTimeInterval)startTime endTime:(NSTimeInterval)endTime;
 /// 删除课件
 + (NSMutableURLRequest *)deleteCoursewareWithRoomId:(NSString *)roomId fileId:(NSString *)fileId;
+
+@end
+
+
+@interface YSLiveApiRequest (School)
+
+/// 获取课程列表
++ (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
+
 @end
 
 NS_ASSUME_NONNULL_END

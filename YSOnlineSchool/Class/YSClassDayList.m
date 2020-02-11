@@ -11,6 +11,8 @@
 #import "YSClassCell.h"
 #import "YSClassDetailVC.h"
 
+#import "YSLiveApiRequest.h"
+
 @interface YSClassDayList ()
 <
     YSClassCellDelegate
@@ -63,26 +65,27 @@
 {
     [self loadApiData];
     
-#warning test
-    YSClassModel *classModel = [[YSClassModel alloc] init];
-    classModel.classId = @"111";
-    classModel.title = @"邓老师讲课";
-    classModel.teacherName = @"邓小平";
-    classModel.classGist = @"马克思理论马克思理论马克思理论";
-    
-    classModel.startTime = [[NSDate date] timeIntervalSince1970];
-    classModel.endTime = [[[NSDate date] bm_dateByAddingHours:1] timeIntervalSince1970];
-
-    classModel.classState = arc4random() % (YSClassState_End+1);
-    
-    [self.dataArray addObject:classModel];
-    
-    [self.tableView reloadData];
+//#warning test
+//    YSClassModel *classModel = [[YSClassModel alloc] init];
+//    classModel.classId = @"111";
+//    classModel.title = @"邓老师讲课";
+//    classModel.teacherName = @"邓小平";
+//    classModel.classGist = @"马克思理论马克思理论马克思理论";
+//
+//    classModel.startTime = [[NSDate date] timeIntervalSince1970];
+//    classModel.endTime = [[[NSDate date] bm_dateByAddingHours:1] timeIntervalSince1970];
+//
+//    classModel.classState = arc4random() % (YSClassState_End+1);
+//
+//    [self.dataArray addObject:classModel];
+//
+//    [self.tableView reloadData];
 }
 
 - (NSMutableURLRequest *)setLoadDataRequest
 {
-    return nil;//[FSApiRequest getMeetingDetailWithId:self.m_MeetingId];
+    //return [YSLiveApiRequest getClassListWithStudentId:@"268" date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+    return [YSLiveApiRequest getClassListWithStudentId:@"268" date:@"2020-02-10" pagenum:1];
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data

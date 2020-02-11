@@ -192,6 +192,7 @@
 		8701B1732371720600A43607 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		8701B176237172B700A43607 /* UIDevice+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B174237172B700A43607 /* UIDevice+Private.m */; };
 		8701B17A237172F200A43607 /* YSTestHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B179237172F200A43607 /* YSTestHelp.m */; };
+		8703620F23F2402E0054E50A /* YSSchoolApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */; };
 		87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		87133568237270F6006534A4 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
 		87133569237270F6006534A4 /* YSChatMemberListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13282372647900D642E8 /* YSChatMemberListCell.m */; };
@@ -1065,6 +1066,7 @@
 		8701B175237172B700A43607 /* UIDevice+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Private.h"; sourceTree = "<group>"; };
 		8701B178237172F200A43607 /* YSTestHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTestHelp.h; sourceTree = "<group>"; };
 		8701B179237172F200A43607 /* YSTestHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTestHelp.m; sourceTree = "<group>"; };
+		8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolApiRequest.m; sourceTree = "<group>"; };
 		870C531C23572DF100BDB1EC /* YSLiveEnumHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveEnumHeader.h; sourceTree = "<group>"; };
 		870C531E23572DF600BDB1EC /* YSLiveRoomConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveRoomConfiguration.m; sourceTree = "<group>"; };
 		870C532123572DF600BDB1EC /* YSLiveRoomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveRoomConfiguration.h; sourceTree = "<group>"; };
@@ -3130,6 +3132,7 @@
 			children = (
 				87AF4D2323602347008D9D00 /* YSLiveApiRequest.h */,
 				87AF4D2423602347008D9D00 /* YSLiveApiRequest.m */,
+				8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */,
 			);
 			path = YSLiveApiRequest;
 			sourceTree = "<group>";
@@ -4020,6 +4023,7 @@
 				8713364A237270F6006534A4 /* unzip.c in Sources */,
 				875A720D237A541900407A75 /* YSFloatView.m in Sources */,
 				8713364B237270F6006534A4 /* YSSignedAlertView.m in Sources */,
+				8703620F23F2402E0054E50A /* YSSchoolApiRequest.m in Sources */,
 				34043C9723EABA8D004982E6 /* FSCalendarDelegationProxy.m in Sources */,
 				8713364C237270F6006534A4 /* YSTestHelp.m in Sources */,
 				8713364F237270F6006534A4 /* BMTestNetFlowSummaryVC.m in Sources */,

@@ -17,8 +17,8 @@
         return nil;
     }
     
-    /// 课程id
-    NSString *classId = [dic bm_stringTrimForKey:@"classId"];
+    /// 课程id: curriculumid
+    NSString *classId = [dic bm_stringTrimForKey:@"curriculumid"];
     if (![classId bm_isNotEmpty])
     {
         return nil;
@@ -44,55 +44,52 @@
         return;
     }
 
-    /// 课程id
-    NSString *classId = [dic bm_stringTrimForKey:@"classId"];
+    /// 课程id: curriculumid
+    NSString *classId = [dic bm_stringTrimForKey:@"curriculumid"];
     if (![classId bm_isNotEmpty])
     {
         return;
     }
     self.classId = classId;
 
-    /// 标题
-    if ([dic bm_containsObjectForKey:@"title"])
+    /// 标题: coursename
+    if ([dic bm_containsObjectForKey:@"coursename"])
     {
-        self.title = [dic bm_stringTrimForKey:@"title"];
+        self.title = [dic bm_stringTrimForKey:@"coursename"];
     }
-    /// 老师姓名
-    if ([dic bm_containsObjectForKey:@"teacherName"])
+    /// 老师姓名: teachername
+    if ([dic bm_containsObjectForKey:@"teachername"])
     {
-        self.teacherName = [dic bm_stringTrimForKey:@"teacherName"];
+        self.teacherName = [dic bm_stringTrimForKey:@"teachername"];
     }
-    /// 课程主题
-    if ([dic bm_containsObjectForKey:@"classGist"])
+    /// 课程主题: periodname
+    if ([dic bm_containsObjectForKey:@"periodname"])
     {
-        self.classGist = [dic bm_stringTrimForKey:@"classGist"];
+        self.classGist = [dic bm_stringTrimForKey:@"periodname"];
     }
-    /// 课程图标
-    if ([dic bm_containsObjectForKey:@"classImage"])
+    /// 课程图标: imageurl
+     if ([dic bm_containsObjectForKey:@"imageurl"])
     {
-        self.classImage = [dic bm_stringTrimForKey:@"classImage"];
+        self.classImage = [dic bm_stringTrimForKey:@"imageurl"];
     }
 
-    /// 开始时间
-    if ([dic bm_containsObjectForKey:@"startTime"])
+    /// 开始时间: starttime 格式2018-05-09 16:30:00
+    if ([dic bm_containsObjectForKey:@"starttime"])
     {
-        self.startTime = [dic bm_doubleForKey:@"startTime"];
+        self.startTime = [dic bm_doubleForKey:@"starttime"];
     }
-    /// 结束时间
-    if ([dic bm_containsObjectForKey:@"endTime"])
+    /// 结束时间: endtime 格式2018-05-09 16:30:00
+    if ([dic bm_containsObjectForKey:@"endtime"])
     {
-        self.endTime = [dic bm_doubleForKey:@"endTime"];
+        self.endTime = [dic bm_doubleForKey:@"endtime"];
     }
     
-    /// 可进入教室倒计时时间
-    //self.startCountdown = [dic bm_uintForKey:@"startCountdown"];
-    /// 课程最后结束倒计时时间
-    //self.endCountdown = [dic bm_uintForKey:@"endCountdown"];
-
-    /// 当前状态
+    /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
     self.classState = [dic bm_uintForKey:@"classState"];
-    /// 是否可进入教室
-    //self.canEnterClass = [dic bm_boolForKey:@"canEnterClass"];
+    if (self.classState > YSClassState_Begin )
+    {
+        self.classState = YSClassState_End;
+    }
 }
 
 @end
