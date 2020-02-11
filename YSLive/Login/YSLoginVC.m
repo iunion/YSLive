@@ -39,8 +39,9 @@
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 1
 #define CLEARCHECK 1
-#define ONLINESCHOOL 1
 #endif
+
+#define ONLINESCHOOL 1
 
 /// 每次打包的递增版本号 +1
 #define YSAPP_CommitVersion [[NSBundle mainBundle] infoDictionary][@"YSAppCommitVersion"]
@@ -619,12 +620,11 @@
     onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(15));
-        make.height.mas_equalTo(17);
-//        make.width.mas_equalTo(kScale_W(50));
+        make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(5));
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(70);
         make.right.mas_equalTo(weakSelf.joinRoomBtn.mas_right);
     }];
-    
 #endif
 }
 
@@ -657,6 +657,7 @@
 
 #pragma mark -
 #pragma mark SEL
+
 - (void)onlineSchoolBtnClicked:(UIButton *)btn
 {
     self.isOnlineSchool = !_isOnlineSchool;
