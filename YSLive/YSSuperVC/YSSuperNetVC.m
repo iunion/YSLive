@@ -153,8 +153,8 @@
     BMLog(@"API返回数据是:+++++%@", responseStr);
 #endif
     
-    NSInteger statusCode = [responseDic bm_intForKey:@"code"];
-    if (statusCode == 1000)
+    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+    if (statusCode == YSSuperVC_StatusCode_Succeed)
     {
         if (self.showResultHUD)
         {
@@ -163,16 +163,16 @@
         
         BOOL succeed = NO;
         
-        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
+        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:YSSuperVC_DataDic_Key];
         succeed = [self succeedLoadedRequestWithDic:dataDic];
         NSArray *dataArray = nil;
         if (!succeed)
         {
-            dataArray = [responseDic bm_arrayForKey:@"data"];
+            dataArray = [responseDic bm_arrayForKey:YSSuperVC_DataDic_Key];
             succeed = [self succeedLoadedRequestWithArray:dataArray];
             if (!succeed)
             {
-                NSString *requestStr = [responseDic bm_stringTrimForKey:@"data"];
+                NSString *requestStr = [responseDic bm_stringTrimForKey:YSSuperVC_DataDic_Key];
                 succeed = [self succeedLoadedRequestWithString:requestStr];
             }
         }
@@ -202,7 +202,7 @@
     {
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:statusCode];
         
-        NSString *message = [responseDic bm_stringTrimForKey:@"message" withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
+        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
         if ([self checkRequestStatus:statusCode message:message responseDic:responseDic logOutQuit:YES showLogin:YES])
         {
             [self.progressHUD bm_hideAnimated:YES];

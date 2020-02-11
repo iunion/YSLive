@@ -80,6 +80,7 @@
 
     [self.enterBtn bm_roundedRect:self.enterBtn.bm_height * 0.5f];
     self.enterBtn.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
     
     self.timeLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
     self.timeLabel.font = UI_FONT_12;
@@ -176,7 +177,7 @@
         endStr = [NSDate bm_stringFromDate:startDate formatter:@"HH:mm"];
     }
     
-    self.titleLabel.text = [NSString stringWithFormat:@"%@—%@", startStr, endStr];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@—%@", startStr, endStr];
     
     [self freshClassStateIconWithState:classModel.classState];
 }

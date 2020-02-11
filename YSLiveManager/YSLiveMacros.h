@@ -29,6 +29,9 @@
 #define YSLive_Port         YSLive_HTTPS ? (443) : (80)
 #define YSLive_IsHttps      YSLive_HTTPS ? @"YES" : @"NO"
 
+
+#define YSSchool_Server     @"http://school.roadofcloud.cn"
+
 #if USE_TEST_HELP
 
 // 开发环境

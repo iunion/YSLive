@@ -18,49 +18,44 @@ typedef NS_ENUM(NSUInteger, YSClassState)
 };
 
 #define YSClassReplayView_Height    (40.0f)
-#define YSClassReplayView_Gap       (10.0f)
+#define YSClassReplayView_Gap       (15.0f)
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class YSClassReviewModel;
 @interface YSClassModel : NSObject
 
-/// 课程id
+// {"code":0,"data":{"data":[{"organid":1,"curriculumid":566,"gradename":"\u9093\u8001\u5e08\u5f00\u8bfe\u4e86","starttime":"2020-02-10 22:00:00","endtime":"2020-02-10 23:40:00","schedulingid":710,"intime":"2020-02-10","timekey":"44,45,46,47","coursename":"\u9093\u8001\u5e08\u5f00\u8bfe\u4e86","type":2,"teacherid":332,"toteachid":1781,"periodname":"\u9093\u8001\u5e08\u5f00\u8bfe\u4e860","periodsort":0,"classhour":null,"lessonsid":1491,"imageurl":"","generalize":"<p>\u9093\u8001\u5e08\u5f00\u8bfe\u4e86<\/p>","teachername":"\u9093\u8001\u5e08","buttonstatus":2,"organname":"\u4e91\u67a2\u7f51\u6821\u673a\u6784\u540e\u53f0"}],"pageinfo":{"pagesize":20,"pagenum":1,"total":1}},"info":"\u64cd\u4f5c\u6210\u529f"}
+
+
+
+/// 课程id: curriculumid
 @property (nonatomic, strong) NSString *classId;
 
-/// 标题
+/// 标题: coursename
 @property (nonatomic, strong) NSString *title;
-/// 老师姓名
+/// 老师姓名: teachername
 @property (nonatomic, strong) NSString *teacherName;
-/// 课程主题
+/// 课程主题: periodname
 @property (nonatomic, strong) NSString *classGist;
-/// 课程图标
+/// 课程图标: imageurl
 @property (nonatomic, strong) NSString *classImage;
 
 /// 服务器当前时间
 //@property (nonatomic, assign) NSTimeInterval currentTime;
-/// 开始时间
+/// 开始时间: starttime 格式2018-05-09 16:30:00
 @property (nonatomic, assign) NSTimeInterval startTime;
-/// 结束时间
+/// 结束时间: endtime 格式2018-05-09 16:30:00
 @property (nonatomic, assign) NSTimeInterval endTime;
 
-///// 可进入教室倒计时时间
-//@property (nonatomic, assign) NSUInteger canEnterCountdown;
-///// 课程开始倒计时时间
-//@property (nonatomic, assign) NSUInteger startCountdown;
-///// 课程最后结束倒计时时间
-//@property (nonatomic, assign) NSUInteger endCountdown;
-
-/// 当前状态
+/// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
 @property (nonatomic, assign) YSClassState classState;
-
-///// 是否可进入教室
-//@property (nonatomic, assign) BOOL canEnterClass;
 
 + (nullable instancetype)classModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
 @end
+
 
 @interface YSClassDetailModel : YSClassModel
 
