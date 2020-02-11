@@ -17,7 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)publicErrorMessageWithCode:(NSInteger)code;
 
 + (AFHTTPSessionManager *)makeYSHTTPSessionManager;
-+ (AFHTTPRequestSerializer *)requestSerializer;
++ (AFHTTPSessionManager *)makeYSJSONSessionManager;
+
++ (AFHTTPRequestSerializer *)HTTPRequestSerializer;
++ (AFJSONRequestSerializer *)JSONRequestSerializer;
 
 + (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters;
 + (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost;

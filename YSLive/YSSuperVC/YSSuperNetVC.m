@@ -79,7 +79,8 @@
     //[self.m_DataTask cancel];
     //self.m_DataTask = nil;
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [self setLoadDataRequest];
     
     if (self.dataTask)

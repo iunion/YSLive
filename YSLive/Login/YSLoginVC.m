@@ -751,7 +751,7 @@
 
     if (self.isOnlineSchool)
     {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
         NSMutableURLRequest *request = [YSLiveApiRequest postLoginWithDomain: self.roomTextField.inputTextField.text admin_pwd:self.passOnlineTextField.inputTextField.text admin_account:self.nickNameTextField.inputTextField.text];
         if (request)
         {

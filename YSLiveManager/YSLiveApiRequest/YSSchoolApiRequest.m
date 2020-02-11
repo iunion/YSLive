@@ -64,15 +64,19 @@
     
     NSString *key = [NSString bm_randomStringWithLength:10];
     
-    [parameters setObject:admin_account forKey:@"admin_account"];
-    [parameters setObject:admin_pwd forKey:@"admin_pwd"];
-    [parameters setObject:domain forKey:@"domain"];
+    [parameters setObject:@"wxcs" forKey:@"domain"];
+    [parameters setObject:@"deng123" forKey:@"admin_account"];
+    [parameters setObject:@"123456" forKey:@"admin_pwd"];
     [parameters setObject:@"86" forKey:@"prephone"];
     [parameters setObject:@"web" forKey:@"source"];
     [parameters setObject:@(3) forKey:@"type"];
     [parameters setObject:key forKey:@"key"];
     
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    
+    NSMutableDictionary *loginParameter = [[NSMutableDictionary alloc] init];
+    [loginParameter setObject:[parameters bm_toJSON] forKey:@"login_data"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
 
 }
 @end
