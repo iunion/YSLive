@@ -458,6 +458,24 @@
     return [NSString bm_convertUnicode:self];
 }
 
++ (NSString *)bm_randomStringWithLength:(NSUInteger)length
+{
+    if (length == 0)
+    {
+        return nil;
+    }
+    
+    NSMutableString *randomString = [[NSMutableString alloc] init];
+    NSString *baseString = @"0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ";
+    for (NSUInteger index = 0; index<length; index++)
+    {
+        NSString *str = [baseString substringWithRange:NSMakeRange(arc4random()%baseString.length,1)];
+        [randomString appendString:str];
+    }
+    
+    return randomString;
+}
+
 @end
 
 

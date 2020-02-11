@@ -743,6 +743,12 @@
 
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
+    if (![YSCoreStatus isNetworkEnable])
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:@"请开启网络" delay:0.5];
+        return;
+    }
+
     if (self.isOnlineSchool)
     {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -750,10 +756,6 @@
         if (request)
         {
             BMWeakSelf
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-                @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",@"text/xml"
-            ]];
-            
             NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
                 if (error)
                 {
@@ -763,19 +765,12 @@
                 {
                     YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
                     [tabBar addViewControllers];
-                    //    [self presentViewController:tabBar animated:YES completion:nil];
-                    [self.navigationController pushViewController:tabBar animated:YES];
-
+                    [weakSelf.navigationController pushViewController:tabBar animated:YES];
                 }
             }];
             [task resume];
         }
 
-        return;
-    }
-    if (![YSCoreStatus isNetworkEnable])
-    {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:@"请开启网络" delay:0.5];
         return;
     }
     
