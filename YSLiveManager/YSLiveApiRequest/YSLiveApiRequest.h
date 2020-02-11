@@ -59,7 +59,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
                                admin_account:(NSString *)admin_account;
 
 
-// 获取课表日历数据
+/// 获取课表日历数据
 + (void)getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure;
 
 

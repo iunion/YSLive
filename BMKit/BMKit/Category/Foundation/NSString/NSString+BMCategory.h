@@ -70,6 +70,8 @@
 + (NSString *)bm_convertUnicode:(NSString *)aString;
 - (NSString *)bm_convertUnicode;
 
++ (NSString *)bm_randomStringWithLength:(NSUInteger)length;
+
 @end
 
 
