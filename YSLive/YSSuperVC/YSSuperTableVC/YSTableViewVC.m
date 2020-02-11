@@ -559,7 +559,7 @@
     switch (statusCode)
     {
         case 1000:
-            break;
+           // break;
             
         default:
             [self showEmptyViewWithType:BMEmptyViewType_DataError];

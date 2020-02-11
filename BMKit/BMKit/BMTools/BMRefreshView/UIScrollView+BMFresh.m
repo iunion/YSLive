@@ -29,9 +29,9 @@
         [self insertSubview:freshHeaderView atIndex:0];
         
         // KVO
-        [self willChangeValueForKey:@"dj_freshHeaderView"];
+        [self willChangeValueForKey:@"bm_freshHeaderView"];
         objc_setAssociatedObject(self, @selector(bm_freshHeaderView), freshHeaderView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [self didChangeValueForKey:@"dj_freshHeaderView"];
+        [self didChangeValueForKey:@"bm_freshHeaderView"];
     }
 }
 
@@ -53,9 +53,9 @@
         [self insertSubview:freshFooterView atIndex:0];
         
         // KVO
-        [self willChangeValueForKey:@"dj_freshFooterView"];
+        [self willChangeValueForKey:@"bm_freshFooterView"];
         objc_setAssociatedObject(self, @selector(bm_freshFooterView), freshFooterView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [self didChangeValueForKey:@"dj_freshFooterView"];
+        [self didChangeValueForKey:@"bm_freshFooterView"];
     }
 }
 

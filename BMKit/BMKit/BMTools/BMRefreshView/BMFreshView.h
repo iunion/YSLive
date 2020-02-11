@@ -27,15 +27,15 @@ static const NSTimeInterval BMFreshAnimationDuration = 0.25f;
 #endif
 
 
-#define BMFRESH_DEFAULT_NORMALHEADERTEXT        @"下拉可以刷新"
-#define BMFRESH_DEFAULT_WILLLOADHEADERTEXT      @"松开立即刷新"
-#define BMFRESH_DEFAULT_LOADINGHEADERTEXT       @"正在刷新数据中..."
+#define BMFRESH_DEFAULT_NORMALHEADERTEXT        BMKitLocalized(@"Fresh.Default.NormalHeaderText", @"")
+#define BMFRESH_DEFAULT_WILLLOADHEADERTEXT      BMKitLocalized(@"Fresh.Default.WillLoadHeaderText", @"")
+#define BMFRESH_DEFAULT_LOADINGHEADERTEXT       BMKitLocalized(@"Fresh.Default.LoadingHeaderText", @"")
 
-#define BMFRESH_DEFAULT_NORMALFOOTERTEXT        @"上拉可以加载更多"
-#define BMFRESH_DEFAULT_AUTONORMALFOOTERTEXT    @"上拉或点击可以加载更多"
-#define BMFRESH_DEFAULT_WILLLOADFOOTERTEXT      @"松开立即加载更多"
-#define BMFRESH_DEFAULT_LOADINGFOOTERTEXT       @"正在加载更多的数据..."
-#define BMFRESH_DEFAULT_NOMOREDATAFOOTERTEXT    @"已经全部加载完毕"
+#define BMFRESH_DEFAULT_NORMALFOOTERTEXT        BMKitLocalized(@"Fresh.Default.NormalFooterText", @"")
+#define BMFRESH_DEFAULT_AUTONORMALFOOTERTEXT    BMKitLocalized(@"Fresh.Default.AutoNormalFooterText", @"")
+#define BMFRESH_DEFAULT_WILLLOADFOOTERTEXT      BMKitLocalized(@"Fresh.Default.WilllLoadFooterText", @"")
+#define BMFRESH_DEFAULT_LOADINGFOOTERTEXT       BMKitLocalized(@"Fresh.Default.LoadingFooterText", @"")
+#define BMFRESH_DEFAULT_NOMOREDATAFOOTERTEXT    BMKitLocalized(@"Fresh.Default.NoMoredataFooterText", @"")
 
 
 static const CGFloat BMFreshDefaultContainerSize = 36.0f;
