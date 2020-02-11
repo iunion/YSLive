@@ -676,6 +676,7 @@
             make.width.mas_equalTo(kScale_W(197));
         }];
         self.roomTextField.placeholder = YSLocalized(@"Label.onlineSchoolPlaceholder");
+        self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         self.nickNameTextField.placeholder = YSLocalized(@"Label.accountNumberPlaceholder");
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.Enter") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
@@ -722,6 +723,7 @@
             make.width.mas_equalTo(kScale_W(197));
         }];
         self.roomTextField.placeholder = YSLocalized(@"Label.roomPlaceholder");
+        self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         self.nickNameTextField.placeholder = YSLocalized(@"Label.nicknamePlaceholder");
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
