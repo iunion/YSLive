@@ -744,10 +744,32 @@
 {
     if (self.isOnlineSchool)
     {
-        YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
-        [tabBar addViewControllers];
-        //    [self presentViewController:tabBar animated:YES completion:nil];
-        [self.navigationController pushViewController:tabBar animated:YES];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSMutableURLRequest *request = [YSLiveApiRequest postLoginWithDomain: self.roomTextField.inputTextField.text admin_pwd:self.passOnlineTextField.inputTextField.text admin_account:self.nickNameTextField.inputTextField.text];
+        if (request)
+        {
+            BMWeakSelf
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
+                @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",@"text/xml"
+            ]];
+            
+            NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                if (error)
+                {
+                    BMLog(@"Error: %@", error);
+                }
+                else
+                {
+                    YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
+                    [tabBar addViewControllers];
+                    //    [self presentViewController:tabBar animated:YES completion:nil];
+                    [self.navigationController pushViewController:tabBar animated:YES];
+
+                }
+            }];
+            [task resume];
+        }
+
         return;
     }
     if (![YSCoreStatus isNetworkEnable])

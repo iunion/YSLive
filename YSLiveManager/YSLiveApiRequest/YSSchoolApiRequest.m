@@ -54,4 +54,21 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
 
++ (NSMutableURLRequest *)postLoginWithDomain:(NSString *)domain
+                  admin_pwd:(NSString *)admin_pwd
+              admin_account:(NSString *)admin_account
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/loginV1.html", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    int a = arc4random() % 1000000000;
+    NSString *key = [NSString stringWithFormat:@"%010d", a];
+    [parameters setObject:admin_account forKey:@"admin_account"];
+    [parameters setObject:admin_pwd forKey:@"admin_pwd"];
+    [parameters setObject:domain forKey:@"domain"];
+    [parameters setObject:@(3) forKey:@"type"];
+    [parameters setObject:key forKey:@"key"];
+    
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+
+}
 @end

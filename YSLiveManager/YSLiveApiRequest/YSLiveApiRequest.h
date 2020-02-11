@@ -50,7 +50,16 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 @interface YSLiveApiRequest (School)
 
-/// 获取课表日历数据
+/// 登录
+/// @param domain 机构域名
+/// @param admin_pwd 密码
+/// @param admin_account 用户名 账号
++ (NSMutableURLRequest *)postLoginWithDomain:(NSString *)domain
+                                   admin_pwd:(NSString *)admin_pwd
+                               admin_account:(NSString *)admin_account;
+
+
+// 获取课表日历数据
 + (void)getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure;
 
 
