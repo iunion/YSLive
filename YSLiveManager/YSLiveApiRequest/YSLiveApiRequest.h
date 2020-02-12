@@ -62,8 +62,8 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
                                admin_account:(NSString *)admin_account
                                    admin_pwd:(NSString *)admin_pwd
                                    randomKey:(NSString *)randomKey;
-
-
+/// 退出
++ (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token;
 /// 获取课表日历数据
 + (void)getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure;
 

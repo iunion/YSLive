@@ -186,8 +186,38 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     }
     else if (indexPath.row == 1)
     {
-        //退出登录
+        //退出登录 清楚token 调用接口
 //        [self.navigationController popToViewController:YSLoginVC] animated:<#(BOOL)#>];
+//        [self.navigationController popViewControllerAnimated:YES];
+//        [self backRootAction:nil];
+        
+          AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+            
+            NSString *token = [YSSchoolUser shareInstance].token;
+            NSMutableURLRequest *request =
+            [YSLiveApiRequest postExitLoginWithToken:token];
+            if (request)
+            {
+                BMWeakSelf
+                NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                    if (error)
+                    {
+                        BMLog(@"Error: %@", error);
+                        
+                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+                    }
+                    else
+                    {
+#warning 退出登录
+                
+                    }
+                }];
+                [task resume];
+            }
+            else
+            {
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+            }
         
     }
 }
