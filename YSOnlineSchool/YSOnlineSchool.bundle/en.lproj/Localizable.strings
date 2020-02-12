@@ -18,6 +18,12 @@
 "Prompt.OnlineSchool.oldPassword"    = "Please enter the original password";
 "Prompt.OnlineSchool.changePassword" = "Please enter a 6-20 digit new password";
 "Prompt.OnlineSchool.againPassword"  = "Enter the new password again";
+"Prompt.NoDomain"  = "No institutional domain name entered";
+"Prompt.NoAccount"  = "No account number entered";
+"Prompt.NoPassword"  = "No password entered";
+"Prompt.OK" = "OK";
+
+
 
 "ClassDayList.Title"            = "Schedule";
 "ClassDetail.Title"             = "Review Schedule";
@@ -33,3 +39,11 @@
 "ClassReplayView.Duration"      = "Duration";
 "ClassReplayView.Size"          = "Size";
 
+"Label.onlineSchoolPlaceholder" = "Please enter the institution domain name";
+"Label.accountNumberPlaceholder" = "Please enter your account number";
+"Label.onlineSchoolSystem" = "Network school system";
+"Login.Enter" = "Enter";
+"Login.EnterRoom" = "Enter room";
+
+
+"Error.ServerError" = "Server access exception";

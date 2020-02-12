@@ -263,9 +263,7 @@
 "Label.roomid" = "room id";
 "Label.roomPlaceholder" = "Please enter your room number";
 "Label.nicknamePlaceholder" = "Please enter your nickname";
-"Label.onlineSchoolPlaceholder" = "Please enter the institution domain name";
-"Label.accountNumberPlaceholder" = "Please enter your account number";
-"Label.onlineSchoolSystem" = "Network school system";
+
 "Label.messageBoard" = "message board";
 "Menu.Copy" = "copy";
 

@@ -24,6 +24,10 @@
 @end
 
 @implementation YSChangePassWordVC
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)even
+{
+    [self.view endEditing:YES];
+}
 
 - (void)viewDidLoad
 {

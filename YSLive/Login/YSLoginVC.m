@@ -684,11 +684,11 @@
             make.height.mas_equalTo(kScale_W(153));
             make.width.mas_equalTo(kScale_W(197));
         }];
-        self.roomTextField.placeholder = YSLocalized(@"Label.onlineSchoolPlaceholder");
+        self.roomTextField.placeholder = YSLocalizedSchool(@"Label.onlineSchoolPlaceholder");
         self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
-        self.nickNameTextField.placeholder = YSLocalized(@"Label.accountNumberPlaceholder");
-        [self.joinRoomBtn setTitle:YSLocalized(@"Login.Enter") forState:UIControlStateNormal];
-        [self.onlineSchoolBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
+        self.nickNameTextField.placeholder = YSLocalizedSchool(@"Label.accountNumberPlaceholder");
+        [self.joinRoomBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.EnterRoom") forState:UIControlStateNormal];
         
         [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.passOnlineTextField.mas_bottom).mas_offset(kScale_H(43));
@@ -848,9 +848,17 @@
                             return;
                         }
                     }
+                    else
+                    {
+                        NSString *info = [responseDic bm_stringForKey:@"info"];
+                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:info delay:0.5];
+                    }
                 }
-                
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+                else
+                {
+                     
+                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+                }
             }
         }];
         [task resume];
@@ -871,6 +879,29 @@
 
     if (self.isOnlineSchool)
     {
+        if (![self.roomTextField.inputTextField.text bm_isNotEmpty])
+        {
+            //没有输入机构域名
+            NSString *content =  YSLocalizedSchool(@"Prompt.NoDomain");
+            [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+            return;
+        }
+        if (![self.nickNameTextField.inputTextField.text bm_isNotEmpty])
+        {
+            //没有输入账号
+            NSString *content =  YSLocalizedSchool(@"Prompt.NoAccountl");
+            [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+            return;
+        }
+        
+        if (![self.passOnlineTextField.inputTextField.text bm_isNotEmpty])
+        {
+            //没有输入密码
+            NSString *content =  YSLocalizedSchool(@"Prompt.NoPassword");
+            [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+            return;
+        }
+        
         [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
         
         [self getSchoolPublicKey];

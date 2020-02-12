@@ -18,6 +18,11 @@
 "Prompt.OnlineSchool.oldPassword"    = "請輸入原密碼";
 "Prompt.OnlineSchool.changePassword" = "請輸入6-20位新密碼";
 "Prompt.OnlineSchool.againPassword"  = "再次輸入新密碼";
+"Prompt.NoDomain"  = "沒有輸入機构域名";
+"Prompt.NoAccount"  = "沒有輸入帳號";
+"Prompt.NoPassword"  = "沒有輸入密碼";
+"Prompt.OK" = "確定";
+
 
 
 "ClassDayList.Title"            = "課表";
@@ -33,3 +38,15 @@
 "ClassMediumCell.Title"         = "課程重播";
 "ClassReplayView.Duration"      = "時長";
 "ClassReplayView.Size"          = "大小";
+
+
+
+"Label.onlineSchoolPlaceholder" = "請輸入機构域名";
+"Label.accountNumberPlaceholder" = "請輸入您的帳號";
+"Label.onlineSchoolSystem" = "網校系統";
+
+
+"Login.Enter" = "登入";
+"Login.EnterRoom" = "進入房間";
+
+"Error.ServerError" = "服務器訪問異常";

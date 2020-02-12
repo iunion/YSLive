@@ -44,6 +44,7 @@
         _inputTextField.textColor = YSColor_LoginTextField;
         _inputTextField.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14);
         _inputTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _inputTextField.secureTextEntry = YES;
         _inputTextField.delegate = self;
         _inputTextField.tintColor = YSColor_LoginTextField;
         _inputTextField.enabled = YES;
