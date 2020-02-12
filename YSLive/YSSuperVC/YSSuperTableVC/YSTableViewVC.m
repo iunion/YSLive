@@ -532,7 +532,7 @@
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:statusCode];
         
         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
-        if ([self checkRequestStatus:statusCode message:message responseDic:responseDic logOutQuit:YES showLogin:YES])
+        if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
         {
             [self.progressHUD bm_hideAnimated:YES];
         }
@@ -555,7 +555,7 @@
     }
 }
 
-- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic logOutQuit:(BOOL)quit showLogin:(BOOL)show
+- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic
 {
     switch (statusCode)
     {
@@ -567,7 +567,7 @@
             break;
     }
     
-    return [super checkRequestStatus:statusCode message:message responseDic:responseDic logOutQuit:quit showLogin:show];
+    return [super checkRequestStatus:statusCode message:message responseDic:responseDic];
 }
 
 // API请求失败的代理方法，一般不需要重写

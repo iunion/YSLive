@@ -25,11 +25,10 @@
                                       domain:(NSString *)domain
                                admin_account:(NSString *)admin_account
                                    admin_pwd:(NSString *)admin_pwd
+                                   randomKey:(NSString *)randomKey
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/loginV1", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
-    NSString *key = [NSString bm_randomStringWithLength:10];
     
     [parameters setObject:domain forKey:@"domain"];
     [parameters setObject:admin_account forKey:@"admin_account"];
@@ -38,7 +37,7 @@
 //    [parameters setObject:@"deng123" forKey:@"admin_account"];
 //    [parameters setObject:@"123456" forKey:@"admin_pwd"];
     [parameters setObject:@(3) forKey:@"type"];
-    [parameters setObject:key forKey:@"key"];
+    [parameters setObject:randomKey forKey:@"key"];
     
     NSError *error = nil;
 
@@ -52,17 +51,16 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
 }
 
-
 /// 获取课表日历数据
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
     NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/studentCourseList", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//    [parameters bm_setString:studentId forKey:@"studentid"];
+    [parameters bm_setString:studentId forKey:@"studentid"];
     [parameters bm_setString:dateStr forKey:@"date"];
 
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
 
@@ -76,7 +74,7 @@
     [parameters bm_setString:date forKey:@"date"];
     [parameters bm_setInteger:pagenum forKey:@"pagenum"];
 
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
 @end

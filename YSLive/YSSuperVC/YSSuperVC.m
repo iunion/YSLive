@@ -7,6 +7,8 @@
 //
 
 #import "YSSuperVC.h"
+#import "BMProgressHUD.h"
+#import "AppDelegate.h"
 
 @interface YSSuperVC ()
 
@@ -127,15 +129,22 @@
 #pragma mark -
 #pragma mark checkRequestStatus
 
-- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic logOutQuit:(BOOL)quit showLogin:(BOOL)show
+- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic
 {
-//    if (!quit && !show)
-//    {
-//        show = YES;
-//    }
-/*
     switch (statusCode)
     {
+        // 过期 和 挤掉 都是 code==-40666   是：  当前账号在其他设备登录, 请重新登录
+        case -40666:
+        {
+            [BMProgressHUD bm_showHUDAddedTo:GetAppDelegate.window animated:YES withText:@"登录信息已失效，请重新登录" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(PROGRESSBOX_DEFAULT_HIDE_DELAY * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [GetAppDelegate logOut];
+            });
+            
+            return YES;
+        }
+
+/*
         // 未登录
         case 1001:
         case 1002:
@@ -217,11 +226,11 @@
             
             return YES;
         }
-            
+*/
         default:
             break;
     }
- */
+
     return NO;
 }
 

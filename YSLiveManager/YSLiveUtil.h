@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)checkIsMedia:(NSString *)filetype;
 + (BOOL)checkIsVideo:(NSString *)filetype;
 
++ (NSString *)makeApiSignWithData:(NSObject *)data;
+
 @end
 
 NS_ASSUME_NONNULL_END

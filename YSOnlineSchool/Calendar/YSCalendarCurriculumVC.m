@@ -25,7 +25,7 @@ FSCalendarDelegateAppearance
 @property (weak, nonatomic) FSCalendar *MyCalendar;
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-@property (strong, nonatomic) NSDate *nowDate;
+//@property (strong, nonatomic) NSDate *nowDate;
 @property (copy, nonatomic) NSString *nowDateStr;
 
 /// 课表日历数据请求
@@ -36,6 +36,15 @@ FSCalendarDelegateAppearance
 @end
 
 @implementation YSCalendarCurriculumVC
+
+
+- (NSMutableDictionary *)dateDict
+{
+    if (!_dateDict) {
+        self.dateDict = [NSMutableDictionary dictionary];
+    }
+    return _dateDict;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -51,7 +60,7 @@ FSCalendarDelegateAppearance
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
     self.bm_NavigationItemTintColor = UIColor.whiteColor;
     
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshBtnClick)];
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(getCalendarDatas)];
     self.title = nil;
     
     [self setupUI];
@@ -60,72 +69,58 @@ FSCalendarDelegateAppearance
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     self.nowDateStr = [dateFormatter stringFromDate:currentDate];
-    
-    NSDictionary *dict = @{
-        @"2020-02-02":@"共1节课",
-        @"2020-02-05":@"共3节课",
-        self.nowDateStr:@"共4节课",
-        @"2020-02-15":@"共3节课",
-        @"2020-02-25":@"共2节课",
-    };
-    
-    self.dateDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+
     [self getCalendarDatas];
 }
 
-/// <#Description#>
+#pragma mark - 获取学生课程列表当月数据
 - (void)getCalendarDatas
 {
-    
     [self.calendarDataTask cancel];
     self.calendarDataTask = nil;
     
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
 
     NSMutableURLRequest *request = [YSLiveApiRequest getClassListWithStudentId:@"8374" Withdate:self.nowDateStr];
+
     if (request)
        {
-//           BMWeakSelf
+           BMWeakSelf
            self.calendarDataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                
                if (error)
                {
-                   BMLog(@"Error: %@", error);
-                                   
                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
                }
                else
                {
                    NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
-                   
-                   BMLog(@"dataDic = %@",dataDic);
-               }
-               
+                   if ([dataDic bm_uintForKey:@"code"] == 0)
+                   {
+                       NSArray * allDate = [dataDic bm_arrayForKey:@"data"];
+                       
+                       NSString * month = [weakSelf.nowDateStr substringToIndex:7];
+                       
+                       for (NSArray * arr in allDate)
+                       {
+                           for (NSDictionary * dict in arr)
+                           {
+                               if ([[dict bm_stringForKey:@"timestr"] containsString:month] && ([dict bm_uintForKey:@"num"]>0 || [[dict bm_stringForKey:@"timestr"] isEqualToString:self.nowDateStr]))
+                               {
+                                   [weakSelf.dateDict setValue:dict[@"num"] forKey:dict[@"timestr"]];
+                               }
+                           }
+                       }
+                        [weakSelf.MyCalendar reloadData];
+                   }
+                   else
+                   {
+                       [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[dataDic bm_stringForKey:@"info"] delay:0.5];
+                   }
+                }
            }];
            [self.calendarDataTask resume];
        }
- 
-}
-
-//刷新
-- (void)refreshBtnClick
-{
-//    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
-//    dateFormatter.dateFormat = @"yyyy-MM-dd";
-//    NSString * nowDateStr = [dateFormatter stringFromDate:currentDate];
-//
-//    self.dateDict = @{
-//        @"2020-02-03":@"共1节课",
-//        @"2020-02-04":@"共3节课",
-//        nowDateStr:@"共4节课",
-//        @"2020-02-17":@"共3节课",
-//        @"2020-02-27":@"共2节课",
-//    };
-    [self getCalendarDatas];
-    
-        
-//    [self.MyCalendar reloadData];
 }
 
 - (void)backBtnClick
@@ -137,14 +132,7 @@ FSCalendarDelegateAppearance
     self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
-    
-    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
-    [dateFormatter setDateFormat:@"YYYY 年 MM 月 "];//设定时间格式,这里可以设置成自己需要的格式
-//    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
-    NSString * nowDateStr = [self.dateFormatter stringFromDate:currentDate];
-    
-    self.nowDate = [self.dateFormatter dateFromString:nowDateStr];
+
     
     FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  50, self.view.frame.size.width-20, 400)];
     calendar.dataSource = self;
@@ -176,7 +164,8 @@ FSCalendarDelegateAppearance
 
 - (NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date
 {
-    if ([self.gregorian isDateInToday:date]) {
+    if ([self.gregorian isDateInToday:date])
+    {
         return @"今";
     }
     return nil;
@@ -194,12 +183,10 @@ FSCalendarDelegateAppearance
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
-    BMLog(@"点击的date %@",[self.dateFormatter stringFromDate:date]);    
-    
     NSString * dateString = [self.dateFormatter stringFromDate:date];
     
-    if ([[self.dateDict allKeys] containsObject:dateString]) {
-        
+    if ([[self.dateDict allKeys] containsObject:dateString] && [self.dateDict bm_uintForKey:dateString]>0)
+    {
         YSClassDayList *classVC = [[YSClassDayList alloc] init];
         classVC.selectedDate = date;
         classVC.hidesBottomBarWhenPushed = YES;
@@ -242,23 +229,7 @@ FSCalendarDelegateAppearance
     {
         diyCell.dateDict = nil;
     }
-    
-//    NSString * dateString = [self.dateFormatter stringFromDate:date];
-//
-//    if ([[self.dateDict allKeys] containsObject:dateString]) {
-//
-//        diyCell.dateDict = @{dateString:self.dateDict[dateString]};
-//    }
 }
-//- (BOOL)calendar:(FSCalendar *)calendar shouldSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
-//{
-//    return monthPosition == FSCalendarMonthPositionCurrent;
-//}
-//
-//- (BOOL)calendar:(FSCalendar *)calendar shouldDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
-//{
-//    return monthPosition == FSCalendarMonthPositionCurrent;
-//}
 
 
 @end
