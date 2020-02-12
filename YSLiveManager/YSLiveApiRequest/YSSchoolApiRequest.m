@@ -53,7 +53,7 @@
 }
 
 
-/// 获取课程列表
+/// 获取课表日历数据
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
@@ -65,37 +65,6 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
 
-
-/// 获取b课表日历数据
-+ (void )getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure
-{
-    NSString *urlStr = @"http://school.roadofcloud.cn/student/Mycourse/studentCourseList.html";
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:dateStr forKey:@"date"];
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-               @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
-               @"text/xml", @"image/jpeg", @"image/*"
-           ]];
-    NSURLSessionTask * task = [manager POST:urlStr parameters:parameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSDictionary *dict = [YSLiveUtil convertWithData:responseObject];
-        
-        if ([dict bm_uintForKey:@"code"] == 0) {
-            success(dict[@"data"]);
-        }else
-        {
-            failure([dict bm_uintForKey:@"code"],[dict bm_stringForKey:@"info"]);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error.code,error.description);
-    }];
-    [task resume];
-}
 
 /// 获取课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum
