@@ -16,7 +16,8 @@
 
 @interface YSClassDayList ()
 <
-    YSClassCellDelegate
+    YSClassCellDelegate,
+    YSLiveRoomManagerDelegate
 >
 
 @end
@@ -162,5 +163,91 @@
     detailsVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detailsVC animated:YES];
 }
+
+
+
+#pragma mark - YSClassCellDelegate
+
+- (void)enterClassWith:(YSClassModel *)classModel
+{
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithToTeachId:classModel.toTeachId];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5f];
+            }
+            else
+            {
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                if ([responseDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:YSSuperVC_DataDic_Key];
+                        NSDictionary *urlParam = [dataDic bm_dictionaryForKey:@"urlParam"];
+                        if ([urlParam bm_isNotEmptyDictionary])
+                        {
+                            NSString *serial = [urlParam bm_stringTrimForKey:@"serial"];
+                            NSString *username = [urlParam bm_stringTrimForKey:@"username"];
+                            NSString *userpassword = [urlParam bm_stringTrimForKey:@"userpassword"];
+                            if ([serial bm_isNotEmpty])
+                            {
+                                [weakSelf enterSchoolRoomWithNickName:username roomId:serial passWord:userpassword];
+
+                                return;
+                            }
+                        }
+                    }
+                }
+                
+                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5f];
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+         [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5f];
+    }
+}
+
+- (void)enterSchoolRoomWithNickName:(NSString *)nickName roomId:(NSString *)roomId passWord:(NSString *)passWord
+{
+    [[YSLiveManager shareInstance] destroy];
+    
+    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    [liveManager registerRoomManagerDelegate:self];
+    
+    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
+    
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+}
+
+/*
+code: 0, data: {,…}, info: "操作成功"}
+code: 0
+data: {,…}
+url: "http://api.roadofcloud.com/WebAPI/Entry?domain=wxcs&serial=908938221&username=%E9%82%93%E5%AD%A6%E7%94%9F&usertype=2&pid=0&ts=1581516064&auth=bedaeb97c20cd57d3260c31376706ed5&userpassword=6d379deb69df534bb1f50adcf956dd7e&servername=&jumpurl=http%3A%2F%2Fschool.roadofcloud.cn%2Fteacher"
+urlParam: {domain: "wxcs", serial: 908938221, username: "邓学生", usertype: "2", pid: 0, ts: 1581516064,…}
+domain: "wxcs"
+serial: 908938221
+username: "邓学生"
+usertype: "2"
+pid: 0
+ts: 1581516064
+auth: "bedaeb97c20cd57d3260c31376706ed5"
+userpassword: "634708"
+servername: ""
+jumpurl: "school.roadofcloud.cn/student"
+info: "操作成功"
+*/
 
 @end

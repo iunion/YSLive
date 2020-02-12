@@ -76,6 +76,9 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 /// 获取课程回放列表
 + (NSMutableURLRequest *)getClassReplayListWithOrganId:(NSString *)organid toTeachId:(NSString *)toteachid;
 
+/// 进入教室
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithToTeachId:(NSString *)toteachid;
+
 @end
 
 NS_ASSUME_NONNULL_END

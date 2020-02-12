@@ -110,7 +110,7 @@
 /// 进入网校
 @property (nonatomic, strong) UIButton *onlineSchoolBtn;
 // 网络等待
-@property (nonatomic, strong) BMProgressHUD *m_ProgressHUD;
+@property (nonatomic, strong) BMProgressHUD *progressHUD;
 @property (nonatomic, assign) BOOL isOnlineSchool;
 
 @property (nonatomic, strong) NSString *randomKey;
@@ -173,9 +173,9 @@
     [clearCheckBtn addTarget:self action:@selector(clearCheckBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 #endif
         
-    self.m_ProgressHUD = [[BMProgressHUD alloc] initWithView:self.view];
-    self.m_ProgressHUD.animationType = BMProgressHUDAnimationFade;
-    [self.view addSubview:self.m_ProgressHUD];
+    self.progressHUD = [[BMProgressHUD alloc] initWithView:self.view];
+    self.progressHUD.animationType = BMProgressHUDAnimationFade;
+    [self.view addSubview:self.progressHUD];
     
     NSString * roomID = [YSUserDefault getLoginRoomID];
     if ([roomID bm_isNotEmpty])
@@ -815,7 +815,7 @@
             }
             else
             {
-                [self.m_ProgressHUD bm_hideAnimated:YES];
+                [self.progressHUD bm_hideAnimated:YES];
                 
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 
@@ -871,7 +871,7 @@
 
     if (self.isOnlineSchool)
     {
-        [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+        [self.progressHUD bm_showAnimated:YES showBackground:YES];
         
         [self getSchoolPublicKey];
         
@@ -954,7 +954,7 @@
 #pragma mark - 检查房间类型
 - (void)checkRoomType
 {
-    [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
     
     BMWeakSelf
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -968,27 +968,27 @@
         ]];
     
         NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-            [weakSelf.m_ProgressHUD bm_hideAnimated:NO];
+            [weakSelf.progressHUD bm_hideAnimated:NO];
             if (error)
             {
-                [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
-                [self.m_ProgressHUD bm_hideAnimated:YES];
+                [self.progressHUD bm_hideAnimated:YES];
                 
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 
                 if (![responseDic bm_isNotEmptyDictionary])
                 {
-                    [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
 
                 NSInteger result = [responseDic bm_intForKey:@"result"];
                 if (result == 4007)
                 {
-                    [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
@@ -1000,7 +1000,7 @@
                     }
                     else
                     {
-                        [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         weakSelf.callNum = 0;
                     }
                     return;
@@ -1091,7 +1091,7 @@
 //    self.passwordTextField.hidden = YES;
     self.passwordTextField.inputTextField.text = nil;
     
-    [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
 }
 
 // URL打开登录
@@ -1110,7 +1110,7 @@
     
     [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams];
     
-    [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
     
     return YES;
 }
@@ -1579,7 +1579,7 @@
 {
     BMLog(@"YSLoginVC onRoomJoined");
     
-    [self.m_ProgressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:YES];
     
     [YSUserDefault setLoginRoomID:[self.roomTextField.inputTextField.text bm_trimAllSpace]];
     [YSUserDefault setLoginNickName:[self.nickNameTextField.inputTextField.text bm_trimAllSpace]];
@@ -1669,7 +1669,7 @@
 
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
 {
-    [self.m_ProgressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:YES];
 
     [[YSLiveManager shareInstance] destroy];
 
@@ -1707,7 +1707,7 @@
             
             [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
             
-            [weakSelf.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+            [weakSelf.progressHUD bm_showAnimated:YES showBackground:YES];
         } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
             if (index == 0)
             {
@@ -1719,7 +1719,7 @@
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
-    [self.m_ProgressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:YES];
     if (![YSCoreStatus isNetworkEnable])
     {
         descript = YSLocalized(@"Prompt.NetworkChanged");

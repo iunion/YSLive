@@ -89,4 +89,15 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
+/// 进入教室
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithToTeachId:(NSString *)toteachid
+{
+    // /student/Mycourse/intoClassroom
+    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/intoClassroom", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters bm_setString:toteachid forKey:@"toteachid"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+}
+
 @end
