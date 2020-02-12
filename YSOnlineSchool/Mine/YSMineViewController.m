@@ -10,6 +10,7 @@
 #import "YSOnlineMineTableViewCell.h"
 #import "YSChangePassWordVC.h"
 #import "YSLoginVC.h"
+#import "YSLiveApiRequest.h"
 static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTableViewCell";
 @interface YSMineViewController ()
 <
@@ -108,7 +109,52 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 //刷新
 - (void)refreshBtnClick
 {
-
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    
+    NSString *studentId = [YSSchoolUser shareInstance].userId;
+    NSMutableURLRequest *request =
+    [YSLiveApiRequest getStudentInfoWithfStudentId:studentId];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+            }
+            else
+            {
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+#ifdef DEBUG
+                NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
+                NSLog(@"%@", str);
+#endif
+                if ([responseDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+                        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
+                        [schoolUser updateWithServerDic:dataDic];
+                    }
+                }
+                else
+                {
+                    
+                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+                }
+        
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -77,4 +77,13 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
++ (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId
+{
+    // http://school.roadofcloud.cn/appstudent/User/getStudentInfo
+    NSString *urlStr = [NSString stringWithFormat:@"%@/appstudent/User/getStudentInfo", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters bm_setString:studentId forKey:@"studentid"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+}
 @end

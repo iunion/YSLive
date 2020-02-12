@@ -72,7 +72,8 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 /// 获取课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
-
+/// 获取个人信息
++ (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId;
 @end
 
 NS_ASSUME_NONNULL_END
