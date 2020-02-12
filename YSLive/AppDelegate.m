@@ -25,6 +25,8 @@
     YSCoreNetWorkStatusProtocol
 >
 
+@property (nonatomic, weak) YSLoginVC *loginVC;
+
 @end
 
 @implementation AppDelegate
@@ -65,6 +67,8 @@
         YSLoginVC *vc = [[YSLoginVC alloc] initWithLoginURL:url];
         nav = [[BMNavigationController alloc] initWithRootViewController:vc];
         nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
+        self.loginVC = vc;
+        
         //nav.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     
@@ -266,9 +270,12 @@
 }
 
 
-- (void)logOut
+- (void)logoutOnlineSchool
 {
-#warning logOut
+    if (self.loginVC)
+    {
+        [self.loginVC logoutOnlineSchool];
+    }
 }
 
 @end

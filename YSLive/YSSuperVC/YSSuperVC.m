@@ -138,7 +138,7 @@
         {
             [BMProgressHUD bm_showHUDAddedTo:GetAppDelegate.window animated:YES withText:@"登录信息已失效，请重新登录" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(PROGRESSBOX_DEFAULT_HIDE_DELAY * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [GetAppDelegate logOut];
+                [GetAppDelegate logoutOnlineSchool];
             });
             
             return YES;

@@ -15,7 +15,7 @@ static NSString *const YSLOGIN_ONLINESCHOOL_USERACCOUNT = @"ysLOGIN_ONLINESCHOOL
 /// 网校登录时 密码
 //static NSString *const YSLOGIN_ONLINESCHOOL_PASSWORD = @"ysLOGIN_ONLINESCHOOL_PASSWORD";
 
-NS_ASSUME_NONNULL_BEGIN
+//NS_ASSUME_NONNULL_BEGIN
 
 @interface YSSchoolUser : NSObject
 
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 登录名
 @property (nonatomic, strong) NSString *userAccount;
 /// 登录密码
-@property (nonatomic, strong) NSString *userPassWord;
+//@property (nonatomic, strong) NSString *userPassWord;
 
 /// api使用随机Key
 @property (nonatomic, strong) NSString *randomKey;
@@ -51,9 +51,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
+- (void)clearUserdata;
 - (void)saveSchoolUserLoginData;
 - (void)getSchoolUserLoginData;
 
 @end
 
-NS_ASSUME_NONNULL_END
+//NS_ASSUME_NONNULL_END

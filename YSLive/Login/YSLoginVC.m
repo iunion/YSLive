@@ -828,7 +828,7 @@
                         YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
                         schoolUser.domain = weakSelf.roomTextField.inputTextField.text;
                         schoolUser.userAccount = weakSelf.nickNameTextField.inputTextField.text;
-                        schoolUser.userPassWord = weakSelf.passOnlineTextField.inputTextField.text;
+                        //schoolUser.userPassWord = weakSelf.passOnlineTextField.inputTextField.text;
                         schoolUser.randomKey = self.randomKey;
                         
                         NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
@@ -1724,6 +1724,13 @@
     [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
     
     [[YSLiveManager shareInstance] destroy];
+}
+
+- (void)logoutOnlineSchool
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    self.passOnlineTextField.inputTextField.text = @"";
 }
 
 @end

@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 // URL直接进入房间
 - (BOOL)joinRoomWithRoomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams;
 
+- (void)logoutOnlineSchool;
+
 @end
 
 NS_ASSUME_NONNULL_END

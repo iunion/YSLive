@@ -53,6 +53,17 @@
     self.schoolUserDic = dic;
 }
 
+- (void)clearUserdata
+{
+    self.randomKey = nil;
+    
+    self.schoolUserDic = nil;
+    self.userId = nil;
+    self.token = nil;
+    self.nickName = nil;
+    self.imageUrl = nil;
+}
+
 - (void)saveSchoolUserLoginData
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

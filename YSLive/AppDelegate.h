@@ -16,7 +16,7 @@
 
 @property (assign, nonatomic) BOOL allowRotation;
 
-- (void)logOut;
+- (void)logoutOnlineSchool;
 
 @end
 

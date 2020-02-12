@@ -7,6 +7,7 @@
 //
 
 #import "YSCalendarCurriculumVC.h"
+#import "AppDelegate.h"
 #import "FSCalendar.h"
 #import "YSCalendarCell.h"
 #import "YSClassDayList.h"
@@ -60,7 +61,7 @@ FSCalendarDelegateAppearance
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
     self.bm_NavigationItemTintColor = UIColor.whiteColor;
     
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(getCalendarDatas)];
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(getCalendarDatas)];
     self.title = nil;
     
     [self setupUI];
@@ -71,6 +72,12 @@ FSCalendarDelegateAppearance
     self.nowDateStr = [dateFormatter stringFromDate:currentDate];
 
     [self getCalendarDatas];
+}
+
+#warning 测试代码先不要删
+- (void)backAction:(id)sender
+{
+    [GetAppDelegate logoutOnlineSchool];
 }
 
 #pragma mark - 获取学生课程列表当月数据
