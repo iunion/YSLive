@@ -77,4 +77,16 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
+/// 获取课程回放列表
++ (NSMutableURLRequest *)getClassReplayListWithOrganId:(NSString *)organid toTeachId:(NSString *)toteachid
+{
+    // student/Mycourse/getLessonsPlayback
+    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/getLessonsPlayback", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters bm_setString:organid forKey:@"organid"];
+    [parameters bm_setString:toteachid forKey:@"toteachid"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+}
+
 @end

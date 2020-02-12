@@ -48,8 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 结束时间: endtime 格式2018-05-09 16:30:00
 @property (nonatomic, assign) NSTimeInterval endTime;
 
+/// toteachid
+@property (nonatomic, strong) NSString *toTeachId;
+
 /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
 @property (nonatomic, assign) YSClassState classState;
+
+@property (nonatomic, strong) NSDictionary *classDic;
 
 + (nullable instancetype)classModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
