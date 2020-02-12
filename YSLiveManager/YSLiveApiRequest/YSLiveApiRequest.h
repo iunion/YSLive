@@ -65,8 +65,10 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 
 /// 获取课表日历数据
-+ (void)getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure;
++ (void)getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure;
 
+/// 获取课程列表
++ (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr;
 
 /// 获取课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;

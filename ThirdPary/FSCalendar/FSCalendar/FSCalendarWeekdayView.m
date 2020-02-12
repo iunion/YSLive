@@ -93,7 +93,7 @@
         UILabel *label = [self.weekdayPointers pointerAtIndex:labelIndex];
         label.frame = CGRectMake(x, 0, width, self.contentView.fs_height);
         UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, label.fs_height-1, label.fs_width, 1)];
-        lineView.backgroundColor = UIColor.lightGrayColor;
+        lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
         [label addSubview:lineView];
         
         if (i == 0)
