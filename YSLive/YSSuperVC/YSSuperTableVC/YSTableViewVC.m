@@ -417,6 +417,11 @@
     
     if (![responseDic bm_isNotEmptyDictionary])
     {
+        responseDic = [YSLiveUtil convertWithData:responseDic];
+    }
+    
+    if (![responseDic bm_isNotEmptyDictionary])
+    {
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:YSAPI_JSON_ERRORCODE];
         
         if (self.showResultHUD)

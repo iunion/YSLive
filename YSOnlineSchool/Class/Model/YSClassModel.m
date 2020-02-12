@@ -76,12 +76,16 @@
     /// 开始时间: starttime 格式2018-05-09 16:30:00
     if ([dic bm_containsObjectForKey:@"starttime"])
     {
-        self.startTime = [dic bm_doubleForKey:@"starttime"];
+        NSString *dateStr = [dic bm_stringTrimForKey:@"starttime"];
+        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd hh:mm:ss"];
+        self.startTime = [date timeIntervalSince1970];
     }
     /// 结束时间: endtime 格式2018-05-09 16:30:00
     if ([dic bm_containsObjectForKey:@"endtime"])
     {
-        self.endTime = [dic bm_doubleForKey:@"endtime"];
+        NSString *dateStr = [dic bm_stringTrimForKey:@"endtime"];
+        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd hh:mm:ss"];
+        self.endTime = [date timeIntervalSince1970];
     }
     
     /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放

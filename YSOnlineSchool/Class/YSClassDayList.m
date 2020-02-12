@@ -10,6 +10,7 @@
 #import "YSClassModel.h"
 #import "YSClassCell.h"
 #import "YSClassDetailVC.h"
+#import "YSSchoolUser.h"
 
 #import "YSLiveApiRequest.h"
 
@@ -93,8 +94,9 @@
 
 - (NSMutableURLRequest *)setLoadDataRequestWithFresh:(BOOL)isLoadNew
 {
-    //return [YSLiveApiRequest getClassListWithStudentId:@"268" date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
-    return [YSLiveApiRequest getClassListWithStudentId:@"268" date:@"2020-02-10" pagenum:s_LoadedPage];
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+    
+    return [YSLiveApiRequest getClassListWithStudentId:schoolUser.userId date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data
@@ -109,7 +111,7 @@
         [self.dataArray removeAllObjects];
     }
     
-    NSArray *dicArray = [data bm_arrayForKey:@"classList"];
+    NSArray *dicArray = [data bm_arrayForKey:@"data"];
     for (NSDictionary *dic in dicArray)
     {
         YSClassModel *classModel = [YSClassModel classModelWithServerDic:dic];

@@ -170,11 +170,11 @@
     NSString *endStr = @"";
     if ([startDate bm_isSameDayAsDate:endDate])
     {
-        endStr = [NSDate bm_stringFromDate:startDate formatter:@"MM/dd HH:mm"];
+        endStr = [NSDate bm_stringFromDate:endDate formatter:@"MM/dd HH:mm"];
     }
     else
     {
-        endStr = [NSDate bm_stringFromDate:startDate formatter:@"HH:mm"];
+        endStr = [NSDate bm_stringFromDate:endDate formatter:@"HH:mm"];
     }
     
     self.timeLabel.text = [NSString stringWithFormat:@"%@—%@", startStr, endStr];
