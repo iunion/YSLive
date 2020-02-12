@@ -43,6 +43,8 @@
     
     self.allowRotation = YES;
     
+    [self crashManager];
+    
 #if USE_TEST_HELP
     [YSTestHelp sharedInstance];
     self.window = [[BMConsoleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
