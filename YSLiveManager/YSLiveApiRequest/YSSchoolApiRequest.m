@@ -52,6 +52,20 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
 }
 
+
+/// 获取课程列表
++ (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr
+{
+    // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
+    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/studentCourseList", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+//    [parameters bm_setString:studentId forKey:@"studentid"];
+    [parameters bm_setString:dateStr forKey:@"date"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+}
+
+
 /// 获取b课表日历数据
 + (void )getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure
 {

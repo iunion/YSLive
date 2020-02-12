@@ -73,34 +73,94 @@ FSCalendarDelegateAppearance
     [self getCalendarDatas];
 }
 
+/// <#Description#>
 - (void)getCalendarDatas
 {
-    BMWeakSelf
-    [YSLiveApiRequest getCalendarCalendarWithdate:self.nowDateStr success:^(NSDictionary * _Nonnull calendarDict) {
-        
-        if ([calendarDict bm_isNotEmpty]) {
-            NSArray * array = [calendarDict bm_arrayForKey:@"chargeinfo"];
-            if (array.count) {
-                for (NSDictionary * dict in array) {
-                    NSString * keyStr = [dict bm_stringForKey:@"timestr"];
-                    NSString * num = [dict bm_stringForKey:@"num"];
-                    if ([keyStr bm_isNotEmpty] && [num bm_isNotEmpty])
-                    {
-                        NSString * value = [NSString stringWithFormat:@"共%@节",num];
-                        
-                        [weakSelf.dateDict setValue:value forKey:keyStr];
-                    }
-                }
-                [self.MyCalendar reloadData];
+    
+    [self.calendarDataTask cancel];
+    self.calendarDataTask = nil;
+    
+    //AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    NSMutableURLRequest *request = [self setLoadDataRequest];
+    if (!request)
+    {
+        request = [YSLiveApiRequest getClassListWithStudentId:nil Withdate:self.nowDateStr];
+    }
+    
+    //BMLog(@"absoluteURL1: %@", request.URL.absoluteURL);
+    if (self.calendarDataTask)
+    {
+        request = nil;
+    }
+    if (request)
+    {
+        BMWeakSelf
+        self.calendarDataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);                
             }
-        }
-        
-    } failure:^(NSInteger errorCode,NSString *errorStr) {
-        
-        BMLog(@"errorCode = %ld,errorStr = %@",errorCode,errorStr);
-        
-        
-    }];
+            else
+            {
+                 
+                NSDictionary *dict = [YSLiveUtil convertWithData:responseObject];
+                
+                BMLog(@"dict = %@",dict);
+                
+            }
+        }];
+    [self.calendarDataTask resume];
+    }
+    
+//    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    [manager.requestSerializer setTimeoutInterval:30];
+//       manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
+//           @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
+//           @"text/xml"
+//       ]];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/studentCourseList", YSSchool_Server];
+//        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+//        [parameters bm_setString:self.nowDateStr forKey:@"date"];
+//
+//    self.calendarDataTask = [manager POST:urlStr parameters:parameters headers:nil constructingBodyWithBlock:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//
+//        if ([[responseObject bm_stringForKey:@"result"] isEqualToString:@"-1"])
+//        {
+//            return ;
+//        }
+//
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        if (error)
+//        {
+//            BMLog(@"Error: %@", error);
+//        }
+//    }];
+//
+    
+    BMWeakSelf
+//    [YSLiveApiRequest getCalendarCalendarWithdate:self.nowDateStr success:^(NSDictionary * _Nonnull calendarDict) {
+//
+//        if ([calendarDict bm_isNotEmpty]) {
+//            NSArray * array = [calendarDict bm_arrayForKey:@"chargeinfo"];
+//            if (array.count) {
+//                for (NSDictionary * dict in array) {
+//                    NSString * keyStr = [dict bm_stringForKey:@"timestr"];
+//                    NSString * num = [dict bm_stringForKey:@"num"];
+//                    if ([keyStr bm_isNotEmpty] && [num bm_isNotEmpty])
+//                    {
+//                        NSString * value = [NSString stringWithFormat:@"共%@节",num];
+//                        [weakSelf.dateDict setValue:value forKey:keyStr];
+//                    }
+//                }
+//                [self.MyCalendar reloadData];
+//            }
+//        }
+//    } failure:^(NSInteger errorCode,NSString *errorStr) {
+//
+//        BMLog(@"errorCode = %ld,errorStr = %@",errorCode,errorStr);
+//    }];
 }
 
 //刷新
