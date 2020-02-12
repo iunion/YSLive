@@ -689,12 +689,12 @@
             make.width.mas_equalTo(kScale_W(238));
             make.centerX.mas_equalTo(0);
         }];
-        NSString * realmName = [YSUserDefault getRealmName];
+        NSString * realmName = [YSSchoolUser shareInstance].domain;
 //        if ([realmName bm_isNotEmpty])
 //        {
             self.roomTextField.inputTextField.text = realmName;
 //        }
-        NSString * userNumber = [YSUserDefault getUserNumber];
+        NSString * userNumber = [YSSchoolUser shareInstance].admin_account;
 //        if ([userNumber bm_isNotEmpty])
 //        {
             self.nickNameTextField.inputTextField.text = userNumber;
@@ -756,6 +756,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
             }
             else
             {
@@ -770,6 +771,11 @@
                         {
                             [self loginSchoolWithPubKey:key];
                         }
+                    }
+                    else
+                    {
+                                       
+                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
                     }
                 }
             }
@@ -793,16 +799,25 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
+                                
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
             }
             else
             {
                 NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
                 
                 NSString *str = [[NSString stringWithFormat:@"%@", dataDic] bm_convertUnicode];
-                
-                YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
-                [tabBar addViewControllers];
-                [weakSelf.navigationController pushViewController:tabBar animated:YES];
+                if ([dataDic bm_intForKey:@"code"] == 0)
+                {
+                    [YSSchoolUser shareInstance].domain = weakSelf.roomTextField.inputTextField.text;
+                    [YSSchoolUser shareInstance].admin_account = weakSelf.nickNameTextField.inputTextField.text;
+                    [YSSchoolUser shareInstance].admin_pwd = weakSelf.passOnlineTextField.inputTextField.text;
+                    [YSSchoolUser shareInstance].schoolUser = dataDic;
+                    YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
+                    [tabBar addViewControllers];
+                    [weakSelf.navigationController pushViewController:tabBar animated:YES];
+                }
+
             }
         }];
         [task resume];
