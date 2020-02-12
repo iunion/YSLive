@@ -45,12 +45,12 @@
 
 - (void)setupUI
 {
-    YSPassWordChangeView *oldPasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.OriginalPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.oldPassword")];
-    oldPasswordView.delegate = self;
-    self.oldPasswordView = oldPasswordView;
-    [self.view addSubview:self.oldPasswordView];
+//    YSPassWordChangeView *oldPasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.OriginalPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.oldPassword")];
+//    oldPasswordView.delegate = self;
+//    self.oldPasswordView = oldPasswordView;
+//    [self.view addSubview:self.oldPasswordView];
     
-    YSPassWordChangeView *changePasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(oldPasswordView.frame) + 15, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.NewPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.changePassword")];
+    YSPassWordChangeView *changePasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.NewPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.changePassword")];
     self.changePasswordView = changePasswordView;
     changePasswordView.delegate = self;
     [self.view addSubview:self.changePasswordView];
@@ -87,7 +87,7 @@
 
 - (void)inpuTextFieldDidChanged:(UITextField *)textField
 {
-    if (self.oldPasswordView.inputTextField.text.length > 0 && self.changePasswordView.inputTextField.text.length > 0 && self.againPasswordView.inputTextField.text.length > 0)
+    if (/*self.oldPasswordView.inputTextField.text.length > 0 &&*/ self.changePasswordView.inputTextField.text.length > 0 && self.againPasswordView.inputTextField.text.length > 0)
     {
         self.submitBtn.enabled = YES;
     }

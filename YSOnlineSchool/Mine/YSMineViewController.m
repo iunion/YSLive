@@ -69,13 +69,15 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     
     self.userIconImg = [[UIImageView alloc] init];
     [self.view addSubview:self.userIconImg];
-    self.userIconImg.backgroundColor = [UIColor redColor];
+    self.userIconImg.backgroundColor = [UIColor whiteColor];
     self.userIconImg.frame = CGRectMake(0, 25 , 74, 74);
     self.userIconImg.bm_centerX = self.view.bm_centerX;
     self.userIconImg.layer.cornerRadius = 37;
     self.userIconImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userIconImg.layer.borderWidth = 3.0f;
     self.userIconImg.layer.masksToBounds = YES;
+    NSString *imgUrl = [YSSchoolUser shareInstance].imageUrl;
+    [self.userIconImg sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"user_placeholderImage"]];
     
     self.userNameL = [[UILabel alloc] init];
     self.userNameL.frame = CGRectMake(0, 0, self.mineTableView.bm_width, 22);
@@ -84,7 +86,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     self.userNameL.font = [UIFont systemFontOfSize:16.0f];
     self.userNameL.textAlignment = NSTextAlignmentCenter;
     self.userNameL.textColor = [UIColor bm_colorWithHex:0x828282];
-    self.userNameL.text = @"宁杰英";
+    self.userNameL.text = [YSSchoolUser shareInstance].nickName;
     [self.view addSubview:self.userNameL];
 }
 
