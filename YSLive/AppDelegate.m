@@ -106,21 +106,21 @@
     }
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
-{
-    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
-        NSURL *webUrl = userActivity.webpageURL;
-        if ([webUrl.host isEqualToString:@"demo.roadofcloud.com"])
-        {
-            
-        }
-        else
-        {
-            [[UIApplication sharedApplication] openURL:webUrl];
-        }
-    }
-    return YES;
-}
+//- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+//{
+//    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+//        NSURL *webUrl = userActivity.webpageURL;
+//        if ([webUrl.host isEqualToString:@"demo.roadofcloud.com"])
+//        {
+//
+//        }
+//        else
+//        {
+//            [[UIApplication sharedApplication] openURL:webUrl];
+//        }
+//    }
+//    return YES;
+//}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -160,19 +160,24 @@
      小班课: enterclassroom    这个是网页跳转APP的scheme头
      */
 
-    NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
-    if (![dic bm_isNotEmptyDictionary])
-    {
-        return NO;
-    }
-    
     BMNavigationController *nav = (BMNavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     YSLoginVC *loginVC = (YSLoginVC *)nav.topViewController;
     if (![loginVC isKindOfClass:[YSLoginVC class]])
     {
         return NO;
     }
-    
+
+    if ([loginVC.loginUrl bm_isNotEmpty])
+    {
+        return NO;
+    }
+
+    NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return NO;
+    }
+
     if ([dic bm_containsObjectForKey:@"roomid"])
     {
         NSString *roomId = [dic bm_stringTrimForKey:@"roomid"];

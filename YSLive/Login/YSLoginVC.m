@@ -207,6 +207,7 @@
     if (self.loginUrl)
     {
         NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:self.loginUrl];
+        self.loginUrl = nil;
         if (![dic bm_isNotEmptyDictionary])
         {
             return;

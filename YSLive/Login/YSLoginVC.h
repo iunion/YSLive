@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSLoginVC : YSSuperVC
 
+@property (nullable, nonatomic, strong, readonly) NSURL *loginUrl;
+
 - (instancetype)initWithLoginURL:(NSURL *)loginurl;
 
 // URL打开登录
