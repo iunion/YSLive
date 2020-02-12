@@ -833,7 +833,8 @@
                         schoolUser.admin_pwd = weakSelf.passOnlineTextField.inputTextField.text;
                         schoolUser.randomKey = self.randomKey;
                         
-                        [schoolUser updateWithServerDic:responseDic];
+                        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
+                        [schoolUser updateWithServerDic:dataDic];
                         
                         if ([schoolUser.userId bm_isNotEmpty] && [schoolUser.token bm_isNotEmpty])
                         {

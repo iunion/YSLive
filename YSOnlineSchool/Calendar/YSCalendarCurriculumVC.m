@@ -85,7 +85,8 @@ FSCalendarDelegateAppearance
     NSMutableURLRequest *request = [self setLoadDataRequest];
     if (!request)
     {
-        request = [YSLiveApiRequest getClassListWithStudentId:nil Withdate:self.nowDateStr];
+        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+        request = [YSLiveApiRequest getClassListWithStudentId:schoolUser.userId Withdate:self.nowDateStr];
     }
     
     //BMLog(@"absoluteURL1: %@", request.URL.absoluteURL);

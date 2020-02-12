@@ -51,21 +51,19 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
 }
 
-
-/// 获取课程列表
+/// 获取课表日历数据
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
     NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/studentCourseList", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//    [parameters bm_setString:studentId forKey:@"studentid"];
+    [parameters bm_setString:studentId forKey:@"studentid"];
     [parameters bm_setString:dateStr forKey:@"date"];
 
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
-
-/// 获取b课表日历数据
+/// 获取课表日历数据
 + (void )getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure
 {
     NSString *urlStr = @"http://school.roadofcloud.cn/student/Mycourse/studentCourseList.html";
@@ -106,7 +104,7 @@
     [parameters bm_setString:date forKey:@"date"];
     [parameters bm_setInteger:pagenum forKey:@"pagenum"];
 
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
 @end
