@@ -53,4 +53,24 @@
     self.schoolUserDic = dic;
 }
 
+- (void)saveSchoolUserLoginData
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.domain forKey:YSLOGIN_ONLINESCHOOL_DOMAIN];
+    [defaults setObject:self.userAccount forKey:YSLOGIN_ONLINESCHOOL_USERACCOUNT];
+    //[defaults setObject:self.admin_pwd forKey:YSLOGIN_ONLINESCHOOL_PASSWORD];
+
+    [defaults synchronize];
+}
+
+- (void)getSchoolUserLoginData
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.domain = [defaults objectForKey:YSLOGIN_ONLINESCHOOL_DOMAIN];
+    self.userAccount = [defaults objectForKey:YSLOGIN_ONLINESCHOOL_USERACCOUNT];
+    //self.admin_pwd = [defaults objectForKey:YSLOGIN_ONLINESCHOOL_PASSWORD];
+
+    [defaults synchronize];
+}
+
 @end

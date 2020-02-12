@@ -693,16 +693,14 @@
             make.width.mas_equalTo(kScale_W(238));
             make.centerX.mas_equalTo(0);
         }];
-        NSString * realmName = [YSSchoolUser shareInstance].domain;
-//        if ([realmName bm_isNotEmpty])
-//        {
-            self.roomTextField.inputTextField.text = realmName;
-//        }
-        NSString * userNumber = [YSSchoolUser shareInstance].admin_account;
-//        if ([userNumber bm_isNotEmpty])
-//        {
-            self.nickNameTextField.inputTextField.text = userNumber;
-//        }
+        
+        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+        if (![schoolUser.domain bm_isNotEmpty])
+        {
+            [schoolUser getSchoolUserLoginData];
+        }
+        self.roomTextField.inputTextField.text = schoolUser.domain;
+        self.nickNameTextField.inputTextField.text = schoolUser.userAccount;
         self.passOnlineTextField.inputTextField.text = @"";
     }
     else
@@ -829,8 +827,8 @@
                     {
                         YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
                         schoolUser.domain = weakSelf.roomTextField.inputTextField.text;
-                        schoolUser.admin_account = weakSelf.nickNameTextField.inputTextField.text;
-                        schoolUser.admin_pwd = weakSelf.passOnlineTextField.inputTextField.text;
+                        schoolUser.userAccount = weakSelf.nickNameTextField.inputTextField.text;
+                        schoolUser.userPassWord = weakSelf.passOnlineTextField.inputTextField.text;
                         schoolUser.randomKey = self.randomKey;
                         
                         NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
@@ -838,6 +836,8 @@
                         
                         if ([schoolUser.userId bm_isNotEmpty] && [schoolUser.token bm_isNotEmpty])
                         {
+                            [schoolUser saveSchoolUserLoginData];
+
                             YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
                             [tabBar addViewControllers];
                             [weakSelf.navigationController pushViewController:tabBar animated:YES];

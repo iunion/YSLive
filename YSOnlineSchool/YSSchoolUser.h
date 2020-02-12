@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+/// 网校登录时 域名
+static NSString *const YSLOGIN_ONLINESCHOOL_DOMAIN = @"ysLOGIN_ONLINESCHOOL_DOMAIN";
+/// 网校登录时 账户
+static NSString *const YSLOGIN_ONLINESCHOOL_USERACCOUNT = @"ysLOGIN_ONLINESCHOOL_USERACCOUNT";
+/// 网校登录时 密码
+//static NSString *const YSLOGIN_ONLINESCHOOL_PASSWORD = @"ysLOGIN_ONLINESCHOOL_PASSWORD";
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSSchoolUser : NSObject
@@ -15,9 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 企业域名
 @property (nonatomic, strong) NSString *domain;
 /// 登录名
-@property (nonatomic, strong) NSString *admin_account;
+@property (nonatomic, strong) NSString *userAccount;
 /// 登录密码
-@property (nonatomic, strong) NSString *admin_pwd;
+@property (nonatomic, strong) NSString *userPassWord;
 
 /// api使用随机Key
 @property (nonatomic, strong) NSString *randomKey;
@@ -43,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)shareInstance;
 
 - (void)updateWithServerDic:(NSDictionary *)dic;
+
+- (void)saveSchoolUserLoginData;
+- (void)getSchoolUserLoginData;
 
 @end
 
