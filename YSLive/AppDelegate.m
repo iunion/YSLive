@@ -265,4 +265,10 @@
     BMLog(@"网络运营商: %@", [userDic bm_stringForKey:@"currentBrandName"]);
 }
 
+
+- (void)logOut
+{
+#warning logOut
+}
+
 @end

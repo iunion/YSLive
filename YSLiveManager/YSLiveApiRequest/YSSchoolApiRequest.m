@@ -25,11 +25,10 @@
                                       domain:(NSString *)domain
                                admin_account:(NSString *)admin_account
                                    admin_pwd:(NSString *)admin_pwd
+                                   randomKey:(NSString *)randomKey
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/loginV1", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
-    NSString *key = [NSString bm_randomStringWithLength:10];
     
     [parameters setObject:domain forKey:@"domain"];
     [parameters setObject:admin_account forKey:@"admin_account"];
@@ -38,7 +37,7 @@
 //    [parameters setObject:@"deng123" forKey:@"admin_account"];
 //    [parameters setObject:@"123456" forKey:@"admin_pwd"];
     [parameters setObject:@(3) forKey:@"type"];
-    [parameters setObject:key forKey:@"key"];
+    [parameters setObject:randomKey forKey:@"key"];
     
     NSError *error = nil;
 

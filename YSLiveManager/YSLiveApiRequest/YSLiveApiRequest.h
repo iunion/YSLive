@@ -60,7 +60,8 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)postLoginWithPubKey:(NSString *)pubKey
                                       domain:(NSString *)domain
                                admin_account:(NSString *)admin_account
-                                   admin_pwd:(NSString *)admin_pwd;
+                                   admin_pwd:(NSString *)admin_pwd
+                                   randomKey:(NSString *)randomKey;
 
 
 /// 获取课表日历数据

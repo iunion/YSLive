@@ -112,10 +112,14 @@
 // 网络等待
 @property (nonatomic, strong) BMProgressHUD *m_ProgressHUD;
 @property (nonatomic, assign) BOOL isOnlineSchool;
+
+@property (nonatomic, strong) NSString *randomKey;
+
 @end
 
+
 @implementation YSLoginVC
-//sajdfjsajdsfkla
+
 - (instancetype)initWithLoginURL:(NSURL *)loginurl
 {
     self = [super init];
@@ -769,29 +773,35 @@
                         NSString *key = [dataDic bm_stringForKey:@"key"];
                         if ([key bm_isNotEmpty])
                         {
-                            [self loginSchoolWithPubKey:key];
+                            NSString *randomKey = [NSString bm_randomStringWithLength:10];
+                            self.randomKey = randomKey;
+                            [weakSelf loginSchoolWithPubKey:key randomKey:randomKey];
+
+                            return;
                         }
                     }
-                    else
-                    {
-                                       
-                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
-                    }
                 }
+                
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
             }
         }];
         [task resume];
     }
+    else
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+    }
 }
 
-- (void)loginSchoolWithPubKey:(NSString *)key
+- (void)loginSchoolWithPubKey:(NSString *)key randomKey:(NSString *)randomKey
 {
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request =
         [YSLiveApiRequest postLoginWithPubKey:key
                                        domain:self.roomTextField.inputTextField.text
                                 admin_account:self.nickNameTextField.inputTextField.text
-                                    admin_pwd:self.passOnlineTextField.inputTextField.text];
+                                    admin_pwd:self.passOnlineTextField.inputTextField.text
+                                    randomKey:randomKey];
     if (request)
     {
         BMWeakSelf
@@ -804,23 +814,46 @@
             }
             else
             {
-                NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
+                [self.m_ProgressHUD bm_hideAnimated:YES];
                 
-                NSString *str = [[NSString stringWithFormat:@"%@", dataDic] bm_convertUnicode];
-                if ([dataDic bm_intForKey:@"code"] == 0)
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                
+#ifdef DEBUG
+                NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
+                NSLog(@"%@", str);
+#endif
+                if ([responseDic bm_isNotEmptyDictionary])
                 {
-                    [YSSchoolUser shareInstance].domain = weakSelf.roomTextField.inputTextField.text;
-                    [YSSchoolUser shareInstance].admin_account = weakSelf.nickNameTextField.inputTextField.text;
-                    [YSSchoolUser shareInstance].admin_pwd = weakSelf.passOnlineTextField.inputTextField.text;
-                    [YSSchoolUser shareInstance].schoolUser = dataDic;
-                    YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
-                    [tabBar addViewControllers];
-                    [weakSelf.navigationController pushViewController:tabBar animated:YES];
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+                        schoolUser.domain = weakSelf.roomTextField.inputTextField.text;
+                        schoolUser.admin_account = weakSelf.nickNameTextField.inputTextField.text;
+                        schoolUser.admin_pwd = weakSelf.passOnlineTextField.inputTextField.text;
+                        schoolUser.randomKey = self.randomKey;
+                        
+                        [schoolUser updateWithServerDic:responseDic];
+                        
+                        if ([schoolUser.userId bm_isNotEmpty] && [schoolUser.token bm_isNotEmpty])
+                        {
+                            YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
+                            [tabBar addViewControllers];
+                            [weakSelf.navigationController pushViewController:tabBar animated:YES];
+                            
+                            return;
+                        }
+                    }
                 }
-
+                
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
             }
         }];
         [task resume];
+    }
+    else
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
     }
 }
 
@@ -834,7 +867,10 @@
 
     if (self.isOnlineSchool)
     {
+        [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+        
         [self getSchoolPublicKey];
+        
         return;
     }
     
@@ -914,7 +950,7 @@
 #pragma mark - 检查房间类型
 - (void)checkRoomType
 {
-    [self.m_ProgressHUD bm_showAnimated:YES];
+    [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
     
     BMWeakSelf
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -935,9 +971,11 @@
             }
             else
             {
+                [self.m_ProgressHUD bm_hideAnimated:YES];
+                
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 
-                if ([responseDic bm_isNotKindOfClass:[NSDictionary class]])
+                if (![responseDic bm_isNotEmptyDictionary])
                 {
                     [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
@@ -1018,6 +1056,10 @@
             }
         }];
         [task resume];
+    }
+    else
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
     }
 }
 
