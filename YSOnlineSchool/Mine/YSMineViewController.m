@@ -10,7 +10,6 @@
 #import "YSOnlineMineTableViewCell.h"
 #import "YSChangePassWordVC.h"
 #import "YSLoginVC.h"
-
 static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTableViewCell";
 @interface YSMineViewController ()
 <
@@ -140,7 +139,8 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     else if (indexPath.row == 1)
     {
         //退出登录
-//        [self.navigationController popToViewController:YSLoginVC] animated:<#(BOOL)#>]; 
+//        [self.navigationController popToViewController:YSLoginVC] animated:<#(BOOL)#>];
+        
     }
 }
 @end

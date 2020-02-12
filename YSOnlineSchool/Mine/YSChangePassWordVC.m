@@ -8,7 +8,6 @@
 
 #import "YSChangePassWordVC.h"
 #import "YSPassWordChangeView.h"
-
 @interface YSChangePassWordVC ()
 <
     YSPassWordChangeViewDelegate
@@ -34,6 +33,12 @@
     self.bm_NavigationTitleTintColor = [UIColor whiteColor];
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.ModifyPassWord") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
     
+//        YSSchoolAVPlayerView *playerView = [[YSSchoolAVPlayerView alloc] init];
+//        playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100);
+//        [self.view addSubview:playerView];
+//        [playerView settingPlayerItemWithUrl:[NSURL URLWithString:@"https://v-cdn.zjol.com.cn/276982.mp4"]];
+//        playerView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+//        playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100);
     [self setupUI];
     
 }
