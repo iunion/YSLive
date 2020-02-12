@@ -46,6 +46,9 @@ static NSString *const YSLOGIN_ONLINESCHOOL_USERACCOUNT = @"ysLOGIN_ONLINESCHOOL
 /// 头像: imageurl
 @property (nonatomic, strong) NSString *imageUrl;
 
+/// organid
+@property (nonatomic, strong) NSString *organId;
+
 
 + (instancetype)shareInstance;
 

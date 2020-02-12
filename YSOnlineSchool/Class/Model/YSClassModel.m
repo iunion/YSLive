@@ -87,13 +87,21 @@
         NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd hh:mm:ss"];
         self.endTime = [date timeIntervalSince1970];
     }
-    
+
+    /// toteachid
+    if ([dic bm_containsObjectForKey:@"toteachid"])
+    {
+        self.toTeachId = [dic bm_stringTrimForKey:@"toteachid"];
+    }
+
     /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
     self.classState = [dic bm_uintForKey:@"classState"];
     if (self.classState > YSClassState_Begin )
     {
         self.classState = YSClassState_End;
     }
+    
+    self.classDic = dic;
 }
 
 @end

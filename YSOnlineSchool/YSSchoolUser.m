@@ -50,6 +50,9 @@
     /// 头像: imageurl
     self.imageUrl = [dic bm_stringTrimForKey:@"imageurl"];
     
+    /// organid
+    self.organId = [dic bm_stringTrimForKey:@"organid"];;
+
     self.schoolUserDic = dic;
 }
 
@@ -62,6 +65,7 @@
     self.token = nil;
     self.nickName = nil;
     self.imageUrl = nil;
+    self.organId = nil;
 }
 
 - (void)saveSchoolUserLoginData
