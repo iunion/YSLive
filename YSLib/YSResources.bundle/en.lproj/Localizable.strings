@@ -136,9 +136,6 @@
 "Button.jump" = "Jump";
 "Button.Sign" = "Sign in";
 "Button.vote" = "vote";
-"Button.ReturnRoom" = "Return to live";
-"Button.onlineschool" = "Log in to the online school";
-
 
 "title.ToVote" = "Start vote";
 "title.Voting" = "Voting";

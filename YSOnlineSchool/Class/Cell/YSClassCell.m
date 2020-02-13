@@ -8,6 +8,7 @@
 
 #import "YSClassCell.h"
 #import "UIImageView+WebCache.h"
+#import "YSLiveManager.h"
 
 @interface YSClassCell ()
 
@@ -120,9 +121,20 @@
     {
         // 教室预约时间前10分钟才可以进入
         case YSClassState_Waiting:
+        {
+//            self.enterBtn.hidden = YES;
+//            YSLiveManager *liveManager = [YSLiveManager shareInstance];
+//            if (liveManager.tServiceTime)
+//            {
+//                if ((self.classModel.startTime - liveManager.tServiceTime) <= 600)
+//                {
+//                    self.enterBtn.hidden = NO;
+//                }
+//            }
             self.enterBtn.hidden = NO;
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Waiting");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0x5ABEDC];
+        }
             break;
             
         // 到了预约结束时间30分钟后会自动关闭教室

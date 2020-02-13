@@ -95,7 +95,7 @@
     }
 
     /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
-    self.classState = [dic bm_uintForKey:@"classState"];
+    self.classState = [dic bm_uintForKey:@"buttonstatus"];
     if (self.classState > YSClassState_Begin )
     {
         self.classState = YSClassState_End;
