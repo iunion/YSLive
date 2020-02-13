@@ -123,7 +123,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             {
                 BMLog(@"Error: %@", error);
                 
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -153,7 +153,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                 else
                 {
                     
-                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
         
             }
@@ -218,15 +218,17 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     [YSLiveApiRequest postExitLoginWithToken:token];
     if (request)
     {
+        BMWeakSelf
         NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
                 
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 [GetAppDelegate logoutOnlineSchool];
                 [[YSSchoolUser shareInstance] clearUserdata];
             }
