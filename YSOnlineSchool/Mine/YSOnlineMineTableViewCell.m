@@ -34,7 +34,7 @@
     
     self.lineView = [[UIView alloc] init];
     [self.contentView addSubview:self.lineView];
-    self.lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
+    self.lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278 alpha:0.3];
 //    self.lineView.frame = CGRectMake(15, 0, self.bm_width - 30, 1);
     
     self.titleL = [[UILabel alloc] init];

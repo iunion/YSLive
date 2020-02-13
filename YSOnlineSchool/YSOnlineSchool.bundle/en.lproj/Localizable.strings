@@ -22,6 +22,7 @@
 "Prompt.NoAccount"  = "No account number entered";
 "Prompt.NoPassword"  = "No password entered";
 "Prompt.OK" = "OK";
+"Prompt.Cancel" = "Cancel";
 
 "Button.ReturnRoom" = "Return to live";
 "Button.onlineschool" = "Login online school";

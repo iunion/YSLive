@@ -22,6 +22,7 @@
 "Prompt.NoAccount"  = "没有输入账号";
 "Prompt.NoPassword"  = "没有输入密码";
 "Prompt.OK" = "确定";
+"Prompt.Cancel" = "取消";
 
 "Button.ReturnRoom" = "返回直播";
 "Button.onlineschool" = "登录网校";

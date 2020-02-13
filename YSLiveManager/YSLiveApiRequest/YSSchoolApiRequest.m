@@ -120,5 +120,15 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
++ (NSMutableURLRequest *)postUpdatePass:(NSString *)updatePass mobile:(NSString *)mobile organid:(NSString *)organid
+{
+    //http://school.roadofcloud.cn/student/Homepage/updatePass
+    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Homepage/updatePass", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setObject:mobile forKey:@"mobile"];
+    [parameters setObject:organid forKey:@"organid"];
+    [parameters setObject:updatePass forKey:@"newpass"];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+}
 
 @end

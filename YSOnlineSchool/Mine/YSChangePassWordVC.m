@@ -8,6 +8,10 @@
 
 #import "YSChangePassWordVC.h"
 #import "YSPassWordChangeView.h"
+#import "YSLiveApiRequest.h"
+#import "AppDelegate.h"
+
+#import "BMAlertView+YSDefaultAlert.h"
 @interface YSChangePassWordVC ()
 <
     YSPassWordChangeViewDelegate
@@ -93,7 +97,75 @@
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
+
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
     // 提交密码
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    
+    NSString *organId = [YSSchoolUser shareInstance].organId;
+    
+    NSString *mobile = [YSSchoolUser shareInstance].mobile;
+    NSMutableURLRequest *request =
+    [YSLiveApiRequest postUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+    if (request)
+    {
+        
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:0.5];
+            }
+            else
+            {
+                [self.progressHUD bm_hideAnimated:YES];
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+#ifdef DEBUG
+                NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
+                NSLog(@"%@", str);
+#endif
+                if ([responseDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        if (![self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {    
+                            [BMAlertView ys_showAlertWithTitle:message message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+                        }
+
+                        [[YSSchoolUser shareInstance] clearUserdata];
+                        [GetAppDelegate logoutOnlineSchool];
+                    }
+                    else
+                    {
+                        
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        if (![self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {
+                            [self.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
+                        }
+                        
+                        return;
+                    }
+                }
+                else
+                {
+                    
+                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:0.5];
+                }
+                
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:0.5];
+    }
 }
 
 - (void)inpuTextFieldDidChanged:(UITextField *)textField
