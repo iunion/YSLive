@@ -101,7 +101,6 @@
     [self.progressHUD bm_showAnimated:YES showBackground:YES];
     // 提交密码
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
-    
     NSString *organId = [YSSchoolUser shareInstance].organId;
     
     NSString *mobile = [YSSchoolUser shareInstance].mobile;
@@ -109,13 +108,13 @@
     [YSLiveApiRequest postUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
     if (request)
     {
-        
+        BMWeakSelf
         NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
                 
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -132,7 +131,7 @@
                     {
                         
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        if (![self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {    
                             [BMAlertView ys_showAlertWithTitle:message message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
                         }
@@ -144,9 +143,9 @@
                     {
                         
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        if (![self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
-                            [self.progressHUD bm_showAnimated:YES withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                            [weakSelf.progressHUD bm_showAnimated:YES withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                         
                         return;
@@ -155,7 +154,7 @@
                 else
                 {
                     
-                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
                 
             }

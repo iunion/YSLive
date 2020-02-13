@@ -106,7 +106,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/exitLogin", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:token forKey:@"token"];
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
     
 }
 /// 进入教室
@@ -128,7 +128,7 @@
     [parameters setObject:mobile forKey:@"mobile"];
     [parameters setObject:organid forKey:@"organid"];
     [parameters setObject:updatePass forKey:@"newpass"];
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
 @end
