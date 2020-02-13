@@ -122,6 +122,8 @@
         return NO;
     }
     
+    //NSString *sss = [[NSString stringWithFormat:@"%@", data] bm_convertUnicode];
+    
     YSClassReplayListModel *classReplayListModel = [YSClassReplayListModel classReplayListModelWithServerDic:data];
     self.classReplayListModel = classReplayListModel;
     
@@ -209,6 +211,17 @@
     cell.selectedBackgroundView.backgroundColor = [UIColor bm_colorWithHex:0xEEEEEE];
     
     return cell;
+}
+
+
+#pragma mark - YSClassCellDelegate
+
+- (void)enterClassWith:(YSClassModel *)classModel
+{
+    if ([self.delegate respondsToSelector:@selector(enterClassWith:)])
+    {
+        [self.delegate enterClassWith:self.linkClassModel];
+    }
 }
 
 @end

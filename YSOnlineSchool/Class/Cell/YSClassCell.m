@@ -64,6 +64,8 @@
 {
     self.isDetail = NO;
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     self.bgView.backgroundColor = [UIColor whiteColor];
     [self.bgView bm_roundedRect:6.0f];
 
@@ -153,7 +155,14 @@
             
         case YSClassState_End:
         default:
-            self.enterBtn.hidden = NO;
+            if (self.isDetail)
+            {
+                self.enterBtn.hidden = YES;
+            }
+            else
+            {
+                self.enterBtn.hidden = NO;
+            }
             [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.RePlay") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.End");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xA2A2A2];
@@ -200,15 +209,6 @@
     self.timeLabel.text = [NSString stringWithFormat:@"%@—%@", startStr, endStr];
     
     [self freshClassStateIconWithState:classModel.classState];
-    
-    if (self.isDetail)
-    {
-        self.enterBtn.hidden = YES;
-    }
-    else
-    {
-        self.enterBtn.hidden = NO;
-    }
 }
 
 - (IBAction)enterClass:(id)sender

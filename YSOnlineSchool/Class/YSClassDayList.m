@@ -27,7 +27,8 @@
 @interface YSClassDayList ()
 <
     YSClassCellDelegate,
-    YSLiveRoomManagerDelegate
+    YSLiveRoomManagerDelegate,
+    YSClassDetailVCDelegate
 >
 
 @property (nonatomic, strong) NSString *roomId;
@@ -188,6 +189,7 @@
 {
     YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
     detailsVC.linkClassModel = classModel;
+    detailsVC.delegate = self;
     detailsVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detailsVC animated:YES];
 }
