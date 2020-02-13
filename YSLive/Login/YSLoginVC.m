@@ -893,7 +893,7 @@
 {
     if (![YSCoreStatus isNetworkEnable])
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
 

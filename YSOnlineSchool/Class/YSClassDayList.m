@@ -216,27 +216,54 @@
                     if (statusCode == YSSuperVC_StatusCode_Succeed)
                     {
                         NSDictionary *dataDic = [responseDic bm_dictionaryForKey:YSSuperVC_DataDic_Key];
+                        
                         NSDictionary *urlParam = [dataDic bm_dictionaryForKey:@"urlParam"];
                         if ([urlParam bm_isNotEmptyDictionary])
                         {
+                            NSTimeInterval serverTime = [urlParam bm_doubleForKey:@"ts" withDefault:0];
+                            if (serverTime > 0)
+                            {
+                                //serverTime = serverTime / 1000;
+                                YSLiveManager *liveManager = [YSLiveManager shareInstance];
+                                liveManager.tServiceTime = serverTime;
+                                NSString *message = @"";
+                                BOOL stop = NO;
+                                if ((classModel.endTime - liveManager.tCurrentTime) <= 0)
+                                {
+                                    stop = YES;
+                                    classModel.classState = YSClassState_End;
+                                    message = YSLocalizedSchool(@"ClassListCell.Enter.EndError");
+                                }
+                                else if ((classModel.startTime - liveManager.tCurrentTime) >= 600)
+                                {
+                                    stop = YES;
+                                    message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
+                                }
+                                
+                                if (stop)
+                                {
+                                    [weakSelf.progressHUD bm_showAnimated:YES withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                                    return;
+                                }
+                            }
+                            
+                            
                             NSString *serial = [urlParam bm_stringTrimForKey:@"serial"];
                             NSString *username = [urlParam bm_stringTrimForKey:@"username"];
                             NSString *userpassword = [urlParam bm_stringTrimForKey:@"userpassword"];
                             if ([serial bm_isNotEmpty])
                             {
+                                classModel.classState = YSClassState_Begin;
                                 weakSelf.roomId = serial;
                                 weakSelf.userName = username;
                                 [weakSelf enterSchoolRoomWithNickName:username roomId:serial passWord:userpassword];
-
+                                
                                 return;
                             }
                         }
                     }
                     else
                     {
-                        //ClassListCell.Enter.WaitError
-                        //ClassListCell.Enter.EndError
-                        
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
                         if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
@@ -244,6 +271,11 @@
                         }
                         else
                         {
+                            if (statusCode == -60016)
+                            {
+                                message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
+                            }
+                            
                             [weakSelf.progressHUD bm_showAnimated:YES withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                         

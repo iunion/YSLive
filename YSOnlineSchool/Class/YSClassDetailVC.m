@@ -11,13 +11,16 @@
 #import "YSClassInstructionCell.h"
 #import "YSClassMediumCell.h"
 
+#import "YSLiveApiRequest.h"
+#import "YSSchoolUser.h"
+
 @interface YSClassDetailVC ()
 <
     YSClassCellDelegate,
     YSClassMediumCellDelegate
 >
 
-@property (nonatomic, strong) YSClassDetailModel *classDetailModel;
+@property (nonatomic, strong) YSClassReplayListModel *classReplayListModel;
 
 @end
 
@@ -40,6 +43,8 @@
     self.showEmptyView = YES;
 
     [self createUI];
+    
+    [self.dataArray addObject:@"1"];
 
     [self refreshVC];
 
@@ -55,6 +60,7 @@
 {
     [self loadApiData];
     
+    /*
 #warning test
     YSClassDetailModel *classModel = [[YSClassDetailModel alloc] init];
     classModel.classId = @"111";
@@ -70,12 +76,12 @@
     classModel.classState = arc4random() % (YSClassState_End+1);
     
     YSClassReviewModel *classReviewModel1 = [[YSClassReviewModel alloc] init];
-    classReviewModel1.title = @"课件1";
+    classReviewModel1.part = @"1";
     classReviewModel1.duration = @"35'12''";
     classReviewModel1.size = @"112.36M";
 
     YSClassReviewModel *classReviewModel2 = [[YSClassReviewModel alloc] init];
-    classReviewModel2.title = @"课件2";
+    classReviewModel2.part = @"2";
     classReviewModel2.duration = @"55'32''";
     classReviewModel2.size = @"232.56M";
 
@@ -92,6 +98,7 @@
     self.classDetailModel = classModel;
     
     [self.tableView reloadData];
+     */
 }
 
 - (BMEmptyViewType)getNoDataEmptyViewType
@@ -101,7 +108,11 @@
 
 - (NSMutableURLRequest *)setLoadDataRequest
 {
-    return nil;//[FSApiRequest getMeetingDetailWithId:self.m_MeetingId];
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+    NSString *organId = schoolUser.organId;
+    NSString *toTeachId = self.linkClassModel.toTeachId;
+    
+    return [YSLiveApiRequest getClassReplayListWithOrganId:organId toTeachId:toTeachId];
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data
@@ -111,20 +122,12 @@
         return NO;
     }
     
-    YSClassDetailModel *classDetailModel = [YSClassDetailModel classDetailModelWithServerDic:data linkClass:self.linkClassModel];
-    // 获取新数据成功更新
-    if (classDetailModel)
-    {
-        if (self.isLoadNew)
-        {
-            [self.dataArray removeAllObjects];
-        }
-        
-        self.classDetailModel = classDetailModel;
-        
-        [self.dataArray addObject:classDetailModel];
-        [self.tableView reloadData];
-    }
+    YSClassReplayListModel *classReplayListModel = [YSClassReplayListModel classReplayListModelWithServerDic:data];
+    self.classReplayListModel = classReplayListModel;
+    
+    
+    
+    [self.tableView reloadData];
     
     return YES;
 }
@@ -135,15 +138,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self.dataArray bm_isNotEmpty])
+    if ([self.linkClassModel bm_isNotEmpty])
     {
-        if ([self.classDetailModel.classReplayList bm_isNotEmpty])
+        if ([self.classReplayListModel.classReplayList bm_isNotEmpty])
         {
-            return 3;
+            return 2;
         }
         else
         {
-            return 2;
+            return 1;
         }
     }
     return 0;
@@ -157,10 +160,7 @@
             return [YSClassCell cellHeight];
             
         case 1:
-            return [self.classDetailModel calculateInstructionTextCellHeight];
-
-        case 2:
-            return [self.classDetailModel calculateMediumCellHeight];
+            return [self.classReplayListModel calculateMediumCellHeight];
     }
     
     return 0.0f;
@@ -174,30 +174,23 @@
         {
             YSClassCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassCell" owner:self options:nil].firstObject;
             cell.delegate = self;
-            if (self.linkClassModel)
-            {
-                [cell drawCellWithModel:self.linkClassModel isDetail:YES];
-            }
-            else
-            {
-                [cell drawCellWithModel:self.classDetailModel isDetail:YES];
-            }
+            [cell drawCellWithModel:self.linkClassModel isDetail:YES];
             
             return cell;
         }
         
+//        case 1:
+//            {
+//                YSClassInstructionCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassInstructionCell" owner:self options:nil].firstObject;
+//                [cell drawCellWithModel:self.classDetailModel];
+//
+//                return cell;
+//            }
+
         case 1:
             {
-                YSClassInstructionCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassInstructionCell" owner:self options:nil].firstObject;
-                [cell drawCellWithModel:self.classDetailModel];
-                
-                return cell;
-            }
-
-        case 2:
-            {
                 YSClassMediumCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassMediumCell" owner:self options:nil].firstObject;
-                [cell drawCellWithModel:self.classDetailModel];
+                [cell drawCellWithModel:self.classReplayListModel];
                 
                 return cell;
             }

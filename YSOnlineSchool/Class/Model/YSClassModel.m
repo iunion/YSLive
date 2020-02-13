@@ -195,6 +195,60 @@
 
 @end
 
+@implementation YSClassReplayListModel
+
++ (instancetype)classReplayListModelWithServerDic:(NSDictionary *)dic
+{
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return nil;
+    }
+    
+    YSClassReplayListModel *classReplayListModel = [[YSClassReplayListModel alloc] init];
+    [classReplayListModel updateWithServerDic:dic];
+    
+    return classReplayListModel;
+}
+
+- (void)updateWithServerDic:(NSDictionary *)dic
+{
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return;
+    }
+    
+    /// 课节名称: lessonsname
+    self.lessonsName = [dic bm_stringTrimForKey:@"lessonsname"];
+
+    /// 课程回放列表: video
+    NSArray *videoArray = [dic bm_arrayForKey:@"video"];
+    NSMutableArray *classReplayList = [[NSMutableArray alloc] init];
+    for (NSDictionary *dic in videoArray)
+    {
+        if ([dic bm_isNotEmptyDictionary])
+        {
+            YSClassReviewModel *classReviewModel = [YSClassReviewModel classReviewModelWithServerDic:dic];
+            if (classReviewModel)
+            {
+                [classReplayList addObject:classReviewModel];
+            }
+        }
+    }
+    if ([classReplayList bm_isNotEmpty])
+    {
+        self.classReplayList = classReplayList;
+    }
+}
+
+- (CGFloat)calculateMediumCellHeight
+{
+    CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+    
+    return height+45.0f+5.0f;
+}
+
+@end
+
 @implementation YSClassReviewModel
 
 + (instancetype)classReviewModelWithServerDic:(NSDictionary *)dic
@@ -224,7 +278,8 @@
         return;
     }
     
-    NSString *linkUrl = [dic bm_stringTrimForKey:@"linkUrl"];
+    /// 链接: https_playpath
+    NSString *linkUrl = [dic bm_stringTrimForKey:@"https_playpath"];
     if (![linkUrl bm_isNotEmpty])
     {
         return;
@@ -232,8 +287,11 @@
     
     self.linkUrl = linkUrl;
     
-    self.title = [dic bm_stringTrimForKey:@"title"];
+    /// 标题编号: part
+    self.part = [dic bm_stringTrimForKey:@"part" withDefault:@""];
+    /// 时长: duration
     self.duration = [dic bm_stringTrimForKey:@"duration"];
+    /// 存储大小: size
     self.size = [dic bm_stringTrimForKey:@"size"];
 }
 

@@ -55,10 +55,6 @@
         NSTimeInterval timeInterval = ts;
         self.tServiceTime = timeInterval;
         
-        BMLog(@"tServiceTime %@", [NSDate bm_stringFromTs:timeInterval]);
-        
-        self.tHowMuchTimeServerFasterThenMe = self.tServiceTime - [[NSDate date] timeIntervalSince1970];
-        
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingUpdateTimeWithTimeInterval:)])
         {
             [self.roomManagerDelegate handleSignalingUpdateTimeWithTimeInterval:timeInterval];

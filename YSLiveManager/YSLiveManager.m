@@ -751,6 +751,15 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 #pragma mark - time
 
+- (void)setTServiceTime:(NSTimeInterval)tServiceTime
+{
+    _tServiceTime = tServiceTime;
+    
+    BMLog(@"tServiceTime %@", [NSDate bm_stringFromTs:tServiceTime]);
+    self.tHowMuchTimeServerFasterThenMe = tServiceTime - [[NSDate date] timeIntervalSince1970];
+    BMLog(@"tHowMuchTimeServerFasterThenMe %@", @(self.tHowMuchTimeServerFasterThenMe));
+}
+
 - (NSTimeInterval)tCurrentTime
 {
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970] + self.tHowMuchTimeServerFasterThenMe;
@@ -853,10 +862,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     BMLog(@"onRoomJoined %@", [NSDate bm_stringFromTs:timeInterval]);
     BMLog(@"local %@", [NSDate date]);
-    
-    self.tHowMuchTimeServerFasterThenMe = self.tServiceTime - [[NSDate date] timeIntervalSince1970];
-    BMLog(@"tHowMuchTimeServerFasterThenMe %@", @(self.tHowMuchTimeServerFasterThenMe));
-    
+        
     //    if (!self.viewDidAppear)
     //    {
     //        [self addMsgCachePoolWithMethodName:@selector(onRoomJoined) parameters:nil];

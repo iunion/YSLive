@@ -13,7 +13,7 @@
     YSClassMediumCellDelegate
 >
 
-@property (nonatomic, strong) YSClassDetailModel *classDetailModel;
+@property (nonatomic, strong) YSClassReplayListModel *classReplayListModel;
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -64,17 +64,20 @@
     [self.bottomView bm_roundedRect:6.0f];
 }
 
-- (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel
+- (void)drawCellWithModel:(YSClassReplayListModel *)classReplayListModel
 {
-    self.classDetailModel = classDetailModel;
+    self.classReplayListModel = classReplayListModel;
 
     self.titleLabel.text = YSLocalizedSchool(@"ClassMediumCell.Title");
     
-    for (NSUInteger index = 0; index<classDetailModel.classReplayList.count; index++)
+    [self.bottomView bm_removeAllSubviews];
+    
+    for (NSUInteger index = 0; index<classReplayListModel.classReplayList.count; index++)
     {
-        YSClassReviewModel *classReviewModel = classDetailModel.classReplayList[index];
+        YSClassReviewModel *classReviewModel = classReplayListModel.classReplayList[index];
         
         YSClassReplayView *classReplayView = [[YSClassReplayView alloc] init];
+        classReplayView.name = self.classReplayListModel.lessonsName;
         classReplayView.classReviewModel = classReviewModel;
         classReplayView.index = index;
         classReplayView.delegate = self;
@@ -94,7 +97,6 @@
         [self.delegate playReviewClassWithClassReviewModel:classReviewModel index:replayIndex];
     }
 }
-
 
 @end
 
@@ -168,7 +170,15 @@
 {
     _classReviewModel = classReviewModel;
     
-    NSString *title = classReviewModel.title;
+    NSString *title;
+    if ([self.name bm_isNotEmpty])
+    {
+        title = [NSString stringWithFormat:@"%@%@", self.name, classReviewModel.part];
+    }
+    else
+    {
+        title = classReviewModel.part;
+    }
     NSString *time = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Duration"), classReviewModel.duration];
     NSString *size = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Size"), classReviewModel.size];
 

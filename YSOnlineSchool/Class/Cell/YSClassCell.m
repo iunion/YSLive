@@ -127,7 +127,8 @@
             YSLiveManager *liveManager = [YSLiveManager shareInstance];
             if (liveManager.tServiceTime)
             {
-                if ((self.classModel.startTime - liveManager.tServiceTime) <= 600)
+                CGFloat timecount = self.classModel.startTime - liveManager.tCurrentTime;
+                if (timecount <= 600 || timecount > 0)
                 {
                     self.enterBtn.hidden = NO;
                     [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
@@ -136,6 +137,7 @@
 #else
             self.enterBtn.hidden = NO;
 #endif
+            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Waiting");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0x5ABEDC];
         }
@@ -144,6 +146,7 @@
         // 到了预约结束时间30分钟后会自动关闭教室
         case YSClassState_Begin:
             self.enterBtn.hidden = NO;
+            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Begin");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xEA7676];
             break;
@@ -151,7 +154,7 @@
         case YSClassState_End:
         default:
             self.enterBtn.hidden = NO;
-            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
+            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.RePlay") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.End");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xA2A2A2];
             break;
@@ -197,6 +200,15 @@
     self.timeLabel.text = [NSString stringWithFormat:@"%@—%@", startStr, endStr];
     
     [self freshClassStateIconWithState:classModel.classState];
+    
+    if (self.isDetail)
+    {
+        self.enterBtn.hidden = YES;
+    }
+    else
+    {
+        self.enterBtn.hidden = NO;
+    }
 }
 
 - (IBAction)enterClass:(id)sender

@@ -83,36 +83,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface YSClassReplayListModel : NSObject
+
+/// 课节名称: lessonsname
+@property (nonatomic, strong) NSString *lessonsName;
+
+/// 课程回放列表: video
+@property (nonatomic, strong) NSMutableArray <YSClassReviewModel *> *classReplayList;
+
++ (nullable instancetype)classReplayListModelWithServerDic:(NSDictionary *)dic;
+- (void)updateWithServerDic:(NSDictionary *)dic;
+
+- (CGFloat)calculateMediumCellHeight;
+
+@end
+
 @interface YSClassReviewModel : NSObject
 
-/// 标题
-@property (nonatomic, strong) NSString *title;
+/// 标题编号: part
+@property (nonatomic, strong) NSString *part;
 /// 时长: duration
 @property (nonatomic, strong) NSString *duration;
-/// 存储大小
+/// 存储大小: size
 @property (nonatomic, strong) NSString *size;
 
-/// 链接
+/// 链接: https_playpath
 @property (nonatomic, strong) NSString *linkUrl;
-
 
 + (nullable instancetype)classReviewModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
 @end
 
-@interface YSClassReplayListModel : NSObject
-
-/// 课节名称: lessonsname
-@property (nonatomic, strong) NSString *lessonsName;
-
-/// 课程回放列表
-@property (nonatomic, strong) NSMutableArray <YSClassReviewModel *> *classReplayList;
-
-+ (nullable instancetype)classReplayListModelWithServerDic:(NSDictionary *)dic;
-- (void)updateWithServerDic:(NSDictionary *)dic;
-
-@end
 
 //{
 //        "code": "成功的时候返回0,失败或者异常返回其他",
