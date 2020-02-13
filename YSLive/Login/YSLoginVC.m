@@ -109,6 +109,10 @@
 @property (nonatomic, strong) UIButton *selectedRoleBtn;
 /// 进入网校
 @property (nonatomic, strong) UIButton *onlineSchoolBtn;
+
+/// 网校密码明文按钮
+@property (nonatomic, strong) UIButton *passwordEyeBtn;
+
 // 网络等待
 @property (nonatomic, strong) BMProgressHUD *progressHUD;
 @property (nonatomic, assign) BOOL isOnlineSchool;
@@ -581,6 +585,12 @@
     self.passOnlineTextField.layer.borderWidth = 1;
     self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     self.passOnlineTextField.hidden = YES;
+    
+    [self.passwordEyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.top.equalTo(self.passOnlineTextField);
+        make.width.height.mas_equalTo(40);
+    }];
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1259,11 +1269,13 @@
             self.passOnlineTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
         
-        UIButton * eyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
-        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
-        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
-        [eyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
-        [_passOnlineTextField addSubview:eyeBtn];
+        self.passwordEyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
+        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
+        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
+        [self.passwordEyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_passOnlineTextField addSubview:self.passwordEyeBtn];
+
     }
     return _passOnlineTextField;
 }
