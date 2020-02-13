@@ -82,7 +82,14 @@
     [submitBtn addTarget:self action:@selector(submitBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
 }
-
+- (void)viewWillLayoutSubviews
+{
+    self.changePasswordView.frame = CGRectMake(0, 40, UI_SCREEN_WIDTH, 40);
+    self.againPasswordView.frame = CGRectMake(0, CGRectGetMaxY(self.changePasswordView.frame) + 15, UI_SCREEN_WIDTH, 40);
+    self.submitBtn.frame = CGRectMake(0, 0, 224, 34);
+    self.submitBtn.bm_centerX = self.view.bm_centerX;
+    self.submitBtn.bm_top = self.againPasswordView.bm_bottom + 50;
+}
 
 - (void)submitBtnClicked:(UIButton *)btn
 {

@@ -11,6 +11,8 @@
 #import "YSChangePassWordVC.h"
 #import "YSLoginVC.h"
 #import "YSLiveApiRequest.h"
+#import "AppDelegate.h"
+
 static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTableViewCell";
 @interface YSMineViewController ()
 <
@@ -175,6 +177,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     BMLog(@"点击");
     if (indexPath.row == 0)
     {
@@ -208,8 +211,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                     }
                     else
                     {
-#warning 退出登录
-                
+                        [GetAppDelegate logoutOnlineSchool];
                     }
                 }];
                 [task resume];
