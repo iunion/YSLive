@@ -169,7 +169,7 @@
     _classReviewModel = classReviewModel;
     
     NSString *title = classReviewModel.title;
-    NSString *time = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Duration"), classReviewModel.during];
+    NSString *time = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Duration"), classReviewModel.duration];
     NSString *size = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Size"), classReviewModel.size];
 
     self.titleLabel.text = title;
