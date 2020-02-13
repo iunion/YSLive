@@ -10,12 +10,14 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+typedef void (^YSSchoolAVPlayerViewClose)(void);
 
 @interface YSSchoolAVPlayerView : UIView
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 @property (nonatomic, strong) AVPlayer *avPlayer;
-
+/// 结束答题
+@property (nonatomic, copy) YSSchoolAVPlayerViewClose closeBlock;
 - (void)settingPlayerItemWithUrl:(NSURL *)playerUrl;
 
 @end

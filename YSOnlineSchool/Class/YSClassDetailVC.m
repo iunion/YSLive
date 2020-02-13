@@ -216,12 +216,19 @@
 
 - (void)playReviewClassWithClassReviewModel:(YSClassReviewModel *)classReviewModel index:(NSUInteger)replayIndex
 {
+    self.navigationController.navigationBarHidden = YES;
     YSSchoolAVPlayerView *playerView = [[YSSchoolAVPlayerView alloc] init];
-    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100);
+    playerView.backgroundColor = [UIColor blackColor];
+    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height );
     [self.view addSubview:playerView];
     [playerView settingPlayerItemWithUrl:[NSURL URLWithString:classReviewModel.linkUrl]];
     playerView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100);
+    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height);
+    
+    BMWeakSelf
+    playerView.closeBlock = ^{
+        weakSelf.navigationController.navigationBarHidden = NO;
+    };
 
 }
 

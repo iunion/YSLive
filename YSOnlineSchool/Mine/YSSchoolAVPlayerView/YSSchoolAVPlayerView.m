@@ -289,6 +289,11 @@
 {
     
     [self removeFromSuperview];
+    if (self.closeBlock)
+    {
+        self.closeBlock();
+    }
+
 }
 
 - (void)toHiddenView:(UITapGestureRecognizer *)tap
