@@ -8,6 +8,8 @@
 
 #import "YSChangePassWordVC.h"
 #import "YSPassWordChangeView.h"
+#import "YSLiveApiRequest.h"
+#import "AppDelegate.h"
 @interface YSChangePassWordVC ()
 <
     YSPassWordChangeViewDelegate
@@ -93,7 +95,62 @@
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
+
     // 提交密码
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    
+    NSString *organId = [YSSchoolUser shareInstance].organId;
+    
+    NSString *mobile = [YSSchoolUser shareInstance].mobile;
+    NSMutableURLRequest *request =
+    [YSLiveApiRequest postUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+    if (request)
+    {
+        
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                
+                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:0.5];
+            }
+            else
+            {
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+#ifdef DEBUG
+                NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
+                NSLog(@"%@", str);
+#endif
+                if ([responseDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        NSString *info = [responseDic bm_stringForKey:@"info"];
+                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:info delay:0.5];
+                        [[YSSchoolUser shareInstance] clearUserdata];
+                        [GetAppDelegate logoutOnlineSchool];
+                    }
+                    else
+                    {
+                        NSString *info = [responseDic bm_stringForKey:@"info"];
+                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:info delay:0.5];
+                    }
+                }
+                else
+                {
+                    
+                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:0.5];
+                }
+                
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:0.5];
+    }
 }
 
 - (void)inpuTextFieldDidChanged:(UITextField *)textField

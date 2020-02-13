@@ -80,7 +80,10 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     self.userIconImg.layer.borderWidth = 3.0f;
     self.userIconImg.layer.masksToBounds = YES;
     NSString *imgUrl = [YSSchoolUser shareInstance].imageUrl;
-    [self.userIconImg sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"user_placeholderImage"]];
+    if (![imgUrl bm_isNotEmpty]) {
+        imgUrl = [YSSchoolUser shareInstance].organimageurl;
+    }
+    [self.userIconImg sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage bm_appIconImage]];
     
     self.userNameL = [[UILabel alloc] init];
     self.userNameL.frame = CGRectMake(0, 0, self.mineTableView.bm_width, 22);
@@ -161,7 +164,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -212,6 +215,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                     else
                     {
                         [GetAppDelegate logoutOnlineSchool];
+                        [[YSSchoolUser shareInstance] clearUserdata];
                     }
                 }];
                 [task resume];
