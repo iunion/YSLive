@@ -249,7 +249,6 @@
                                 }
                             }
                             
-                            
                             NSString *serial = [urlParam bm_stringTrimForKey:@"serial"];
                             NSString *username = [urlParam bm_stringTrimForKey:@"username"];
                             NSString *userpassword = [urlParam bm_stringTrimForKey:@"userpassword"];

@@ -91,8 +91,8 @@
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
-
     [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    
     // 提交密码
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSString *organId = [YSSchoolUser shareInstance].organId;
@@ -108,11 +108,11 @@
             {
                 BMLog(@"Error: %@", error);
                 
-                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
-                [self.progressHUD bm_hideAnimated:YES];
+                [weakSelf.progressHUD bm_hideAnimated:YES];
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
@@ -135,20 +135,21 @@
                     }
                     else
                     {
-                        
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
                         if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
+                            [weakSelf.progressHUD bm_hideAnimated:YES];
+                        }
+                        else
+                        {
                             [weakSelf.progressHUD bm_showAnimated:YES withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
-                        
                         return;
                     }
                 }
                 else
                 {
-                    
-                    [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
                 
             }
@@ -157,7 +158,7 @@
     }
     else
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -172,4 +173,5 @@
         self.submitBtn.enabled = NO;
     }
 }
+
 @end

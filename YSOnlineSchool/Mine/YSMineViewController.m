@@ -110,6 +110,8 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 //刷新
 - (void)refreshBtnClick
 {
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
     NSString *studentId = [YSSchoolUser shareInstance].userId;
@@ -123,7 +125,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             {
                 BMLog(@"Error: %@", error);
                 
-                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -144,15 +146,19 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                     else
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
-                        if (![self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
-                            [self.progressHUD bm_showAnimated:YES withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                            [weakSelf.progressHUD bm_hideAnimated:YES];
+                        }
+                        else
+                        {
+                            [weakSelf.progressHUD bm_showAnimated:YES withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                     }
                 }
                 else
                 {
-                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
         }];
@@ -160,7 +166,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     }
     else
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -182,7 +188,6 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     BMLog(@"点击");
     if (indexPath.row == 0)
     {
@@ -209,6 +214,8 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 /// 退出
 - (void)signOut
 {
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
     NSString *token = [YSSchoolUser shareInstance].token;
@@ -222,10 +229,12 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             {
                 BMLog(@"Error: %@", error);
                 
-                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
+                [weakSelf.progressHUD bm_hideAnimated:YES];
+                
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 [GetAppDelegate logoutOnlineSchool];
                 [[YSSchoolUser shareInstance] clearUserdata];
@@ -235,7 +244,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     }
     else
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 @end

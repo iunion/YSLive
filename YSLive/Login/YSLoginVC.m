@@ -781,7 +781,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -803,14 +803,14 @@
                     }
                 }
                 
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
     else
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -831,7 +831,7 @@
             {
                 BMLog(@"Error: %@", error);
                                 
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -871,13 +871,12 @@
                     else
                     {
                         NSString *info = [responseDic bm_stringForKey:@"info"];
-                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [self.progressHUD bm_showAnimated:YES withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     }
                 }
                 else
                 {
-                     
-                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
         }];
@@ -885,7 +884,7 @@
     }
     else
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -893,13 +892,12 @@
 {
     if (![YSCoreStatus isNetworkEnable])
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
 
     if (self.isOnlineSchool)
     {
-
         if (![self.roomTextField.inputTextField.text bm_isNotEmpty])
         {
             //没有输入机构域名
@@ -1115,7 +1113,7 @@
     }
     else
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1346,7 +1344,6 @@
             
             margin = (350-buttonNum*100)/(buttonNum+1);
         }
-        
         
         for (int i = 0; i<buttonNum; i++)
         {
@@ -1619,7 +1616,7 @@
             NSString *s = [textField.text substringToIndex:10];
             [textField setText:s];
             
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
 }

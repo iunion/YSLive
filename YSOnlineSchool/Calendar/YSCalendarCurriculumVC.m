@@ -83,6 +83,8 @@ FSCalendarDelegateAppearance
 #pragma mark - 获取学生课程列表当月数据
 - (void)getCalendarDatas
 {
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    
     [self.calendarDataTask cancel];
     self.calendarDataTask = nil;
     
@@ -97,10 +99,12 @@ FSCalendarDelegateAppearance
                
                if (error)
                {
-                   [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                   [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                }
                else
                {
+                   [self.progressHUD bm_hideAnimated:YES];
+                   
                    NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                    if ([responseDic bm_isNotEmptyDictionary])
                    {
