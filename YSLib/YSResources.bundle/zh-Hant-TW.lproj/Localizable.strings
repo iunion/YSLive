@@ -137,8 +137,6 @@
 "Button.jump" = "跳轉";
 "Button.Sign" = "簽到";
 "Button.vote" = "投票";
-"Button.ReturnRoom" = "返回直播";
-"Button.onlineschool" = "登入網校";
 
 
 "title.ToVote" = "發起投票";

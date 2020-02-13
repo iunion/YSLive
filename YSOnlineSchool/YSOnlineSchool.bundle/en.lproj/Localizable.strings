@@ -23,7 +23,8 @@
 "Prompt.NoPassword"  = "No password entered";
 "Prompt.OK" = "OK";
 
-
+"Button.ReturnRoom" = "Return to live";
+"Button.onlineschool" = "Login online school";
 
 "ClassDayList.Title"            = "Schedule";
 "ClassDetail.Title"             = "Review Schedule";
@@ -42,8 +43,8 @@
 "Label.onlineSchoolPlaceholder" = "Please enter the institution domain name";
 "Label.accountNumberPlaceholder" = "Please enter your account number";
 "Label.onlineSchoolSystem" = "Network school system";
+
 "Login.Enter" = "Enter";
 "Login.EnterRoom" = "Enter room";
-
 
 "Error.ServerError" = "Server access exception";

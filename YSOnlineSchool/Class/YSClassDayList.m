@@ -12,13 +12,26 @@
 #import "YSClassDetailVC.h"
 #import "YSSchoolUser.h"
 
+#import "AppDelegate.h"
+
 #import "YSLiveApiRequest.h"
+#import "YSMainVC.h"
+#import "SCMainVC.h"
+
+#import "YSEyeCareManager.h"
+#import "YSPassWordAlert.h"
+#import "BMAlertView+YSDefaultAlert.h"
+#import "YSCoreStatus.h"
+
 
 @interface YSClassDayList ()
 <
     YSClassCellDelegate,
     YSLiveRoomManagerDelegate
 >
+
+@property (nonatomic, strong) NSString *roomId;
+@property (nonatomic, strong) NSString *userName;
 
 @end
 
@@ -200,11 +213,19 @@
                             NSString *userpassword = [urlParam bm_stringTrimForKey:@"userpassword"];
                             if ([serial bm_isNotEmpty])
                             {
+                                self.roomId = serial;
+                                self.userName = username;
                                 [weakSelf enterSchoolRoomWithNickName:username roomId:serial passWord:userpassword];
 
                                 return;
                             }
                         }
+                    }
+                    else
+                    {
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        [self.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
+                        return;
                     }
                 }
                 
@@ -231,23 +252,123 @@
     [self.progressHUD bm_showAnimated:YES showBackground:YES];
 }
 
-/*
-code: 0, data: {,…}, info: "操作成功"}
-code: 0
-data: {,…}
-url: "http://api.roadofcloud.com/WebAPI/Entry?domain=wxcs&serial=908938221&username=%E9%82%93%E5%AD%A6%E7%94%9F&usertype=2&pid=0&ts=1581516064&auth=bedaeb97c20cd57d3260c31376706ed5&userpassword=6d379deb69df534bb1f50adcf956dd7e&servername=&jumpurl=http%3A%2F%2Fschool.roadofcloud.cn%2Fteacher"
-urlParam: {domain: "wxcs", serial: 908938221, username: "邓学生", usertype: "2", pid: 0, ts: 1581516064,…}
-domain: "wxcs"
-serial: 908938221
-username: "邓学生"
-usertype: "2"
-pid: 0
-ts: 1581516064
-auth: "bedaeb97c20cd57d3260c31376706ed5"
-userpassword: "634708"
-servername: ""
-jumpurl: "school.roadofcloud.cn/student"
-info: "操作成功"
-*/
+
+#pragma mark -
+#pragma mark YSRoomInterfaceDelegate
+
+// 成功进入房间
+- (void)onRoomJoined:(long)ts;
+{
+    BMLog(@"YSLoginVC onRoomJoined");
+    
+    [self.progressHUD bm_hideAnimated:YES];
+    
+    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    
+    YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
+
+    // 3: 小班课  4: 直播  6： 会议
+    if (appUseTheType == YSAppUseTheTypeSmallClass || appUseTheType == YSAppUseTheTypeMeeting)
+    {
+        GetAppDelegate.allowRotation = YES;
+        NSUInteger maxvideo = [[YSLiveManager shareInstance].roomDic bm_uintForKey:@"maxvideo"];
+        YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
+        
+        BOOL isWideScreen = liveManager.room_IsWideScreen;
+        
+        {
+           SCMainVC *mainVC = [[SCMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
+            mainVC.appUseTheType = appUseTheType;
+            BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
+            nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
+            [self presentViewController:nav animated:YES completion:^{
+                [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
+            }];
+            
+            [YSEyeCareManager shareInstance].showRemindBlock = ^{
+                [mainVC showEyeCareRemind];
+            };
+        }
+    }
+    else
+    {
+        GetAppDelegate.allowRotation = NO;
+        BOOL isWideScreen = liveManager.room_IsWideScreen;
+        YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:liveManager.whiteBordView userId:nil];
+        BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
+        nav.modalPresentationStyle = UIModalPresentationFullScreen;
+        nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
+        [self presentViewController:nav animated:YES completion:^{
+            [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:YES];
+        }];
+        
+        [YSEyeCareManager shareInstance].showRemindBlock = ^{
+            [mainVC showEyeCareRemind];
+        };
+    }
+    
+    [[YSEyeCareManager shareInstance] stopRemindtime];
+    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    {
+        [[YSEyeCareManager shareInstance] startRemindtime];
+    }
+}
+
+- (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
+{
+    [self.progressHUD bm_hideAnimated:YES];
+
+    [[YSLiveManager shareInstance] destroy];
+
+    BMWeakSelf
+    if (errorCode == YSErrorCode_CheckRoom_PasswordError ||
+        errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
+    {
+        [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Error.PwdError") message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+             [weakSelf theRoomNeedPassword];
+        }];
+        [[YSLiveManager shareInstance] destroy];
+    }
+    else
+    {
+        [self theRoomNeedPassword];
+    }
+}
+
+- (void)theRoomNeedPassword
+{
+    BMWeakSelf
+    [YSPassWordAlert showPassWordInputAlerWithTopDistance:(UI_SCREEN_HEIGHT - 210)/2 inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) sureBlock:^(NSString * _Nonnull passWord) {
+        BMLog(@"%@",passWord);
+        [[YSLiveManager shareInstance] destroy];
+        
+        YSLiveManager *liveManager = [YSLiveManager shareInstance];
+        [liveManager registerRoomManagerDelegate:self];
+        
+        [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
+        
+        [weakSelf.progressHUD bm_showAnimated:YES showBackground:YES];
+    } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
+        if (index == 0)
+        {
+            [[YSLiveManager shareInstance] destroy];
+        }
+    }];
+}
+
+- (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
+{
+    [self.progressHUD bm_hideAnimated:YES];
+    if (![YSCoreStatus isNetworkEnable])
+    {
+        descript = YSLocalized(@"Prompt.NetworkChanged");
+    }
+    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+    
+    [[YSLiveManager shareInstance] destroy];
+}
+
+
 
 @end

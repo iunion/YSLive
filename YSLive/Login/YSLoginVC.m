@@ -336,11 +336,18 @@
 #ifdef DEBUG
                 NSString *responseStr = [[NSString stringWithFormat:@"%@", responseObject] bm_convertUnicode];
                 BMLog(@"%@ %@", response, responseStr);
-                
+#endif
+
+#ifdef ONLINESCHOOL
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 if ([responseDic bm_containsObjectForKey:@"time"])
                 {
                     NSTimeInterval timeInterval = [responseDic bm_doubleForKey:@"time"];
+                    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+                    if (liveManager.tServiceTime == 0)
+                    {
+                        liveManager.tServiceTime = timeInterval;
+                    }
                     BMLog(@"服务器当前时间： %@", [NSDate bm_stringFromTs:timeInterval]);
                 }
 #endif
@@ -624,14 +631,15 @@
     UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
-    [onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
+    [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
     [onlineSchoolBtn setTitleColor:[UIColor bm_colorWithHex:0x6D7278] forState:UIControlStateNormal];
     onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(5));
         make.height.mas_equalTo(30);
-        make.width.mas_equalTo(70);
+        make.width.mas_equalTo(120);
         make.right.mas_equalTo(weakSelf.joinRoomBtn.mas_right);
     }];
 #endif
@@ -733,7 +741,7 @@
         self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         self.nickNameTextField.placeholder = YSLocalized(@"Label.nicknamePlaceholder");
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
-        [self.onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
         [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(43));
             make.height.mas_equalTo(50);

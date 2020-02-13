@@ -23,6 +23,8 @@
 "Prompt.NoPassword"  = "没有输入密码";
 "Prompt.OK" = "确定";
 
+"Button.ReturnRoom" = "返回直播";
+"Button.onlineschool" = "登录网校";
 
 "ClassDayList.Title"            = "课表";
 "ClassDetail.Title"             = "查看课表";
@@ -37,7 +39,6 @@
 "ClassMediumCell.Title"         = "课程回放";
 "ClassReplayView.Duration"      = "时长";
 "ClassReplayView.Size"          = "大小";
-
 
 "Label.onlineSchoolPlaceholder" = "请输入机构域名";
 "Label.accountNumberPlaceholder" = "请输入您的账号";
