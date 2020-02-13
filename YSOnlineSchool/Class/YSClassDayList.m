@@ -224,7 +224,15 @@
                     else
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        [self.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
+                        if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {
+                            [self.progressHUD bm_hideAnimated:YES];
+                        }
+                        else
+                        {
+                            [self.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
+                        }
+                        
                         return;
                     }
                 }
