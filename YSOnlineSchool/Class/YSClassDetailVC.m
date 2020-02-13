@@ -71,12 +71,12 @@
     
     YSClassReviewModel *classReviewModel1 = [[YSClassReviewModel alloc] init];
     classReviewModel1.title = @"课件1";
-    classReviewModel1.during = @"35'12''";
+    classReviewModel1.duration = @"35'12''";
     classReviewModel1.size = @"112.36M";
 
     YSClassReviewModel *classReviewModel2 = [[YSClassReviewModel alloc] init];
     classReviewModel2.title = @"课件2";
-    classReviewModel2.during = @"55'32''";
+    classReviewModel2.duration = @"55'32''";
     classReviewModel2.size = @"232.56M";
 
     if (arc4random()%2)
