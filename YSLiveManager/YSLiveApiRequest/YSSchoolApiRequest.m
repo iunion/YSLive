@@ -102,8 +102,8 @@
 
 + (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token
 {
-    // http://school.roadofcloud.cn/admin/index/logout
-    NSString *urlStr = [NSString stringWithFormat:@"%@/admin/index/logout", YSSchool_Server];
+    // http://school.roadofcloud.cn/index/Login/exitLogin
+    NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/exitLogin", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:token forKey:@"token"];
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
