@@ -205,7 +205,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -224,8 +224,8 @@
                             NSString *userpassword = [urlParam bm_stringTrimForKey:@"userpassword"];
                             if ([serial bm_isNotEmpty])
                             {
-                                self.roomId = serial;
-                                self.userName = username;
+                                weakSelf.roomId = serial;
+                                weakSelf.userName = username;
                                 [weakSelf enterSchoolRoomWithNickName:username roomId:serial passWord:userpassword];
 
                                 return;
@@ -238,20 +238,20 @@
                         //ClassListCell.Enter.EndError
                         
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
-                            [self.progressHUD bm_hideAnimated:YES];
+                            [weakSelf.progressHUD bm_hideAnimated:YES];
                         }
                         else
                         {
-                            [self.progressHUD bm_showAnimated:YES withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                            [weakSelf.progressHUD bm_showAnimated:YES withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                         
                         return;
                     }
                 }
                 
-                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
