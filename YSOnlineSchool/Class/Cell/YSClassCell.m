@@ -122,16 +122,20 @@
         // 教室预约时间前10分钟才可以进入
         case YSClassState_Waiting:
         {
-//            self.enterBtn.hidden = YES;
-//            YSLiveManager *liveManager = [YSLiveManager shareInstance];
-//            if (liveManager.tServiceTime)
-//            {
-//                if ((self.classModel.startTime - liveManager.tServiceTime) <= 600)
-//                {
-//                    self.enterBtn.hidden = NO;
-//                }
-//            }
+#if 1
+            self.enterBtn.hidden = YES;
+            YSLiveManager *liveManager = [YSLiveManager shareInstance];
+            if (liveManager.tServiceTime)
+            {
+                if ((self.classModel.startTime - liveManager.tServiceTime) <= 600)
+                {
+                    self.enterBtn.hidden = NO;
+                    [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
+                }
+            }
+#else
             self.enterBtn.hidden = NO;
+#endif
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Waiting");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0x5ABEDC];
         }
@@ -146,7 +150,8 @@
             
         case YSClassState_End:
         default:
-            self.enterBtn.hidden = YES;
+            self.enterBtn.hidden = NO;
+            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.End");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xA2A2A2];
             break;
@@ -196,9 +201,19 @@
 
 - (IBAction)enterClass:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(enterClassWith:)])
+    if (self.classModel.classState < YSClassState_End)
     {
-        [self.delegate enterClassWith:self.classModel];
+        if ([self.delegate respondsToSelector:@selector(enterClassWith:)])
+        {
+            [self.delegate enterClassWith:self.classModel];
+        }
+    }
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(openClassWith:)])
+        {
+            [self.delegate openClassWith:self.classModel];
+        }
     }
 }
 

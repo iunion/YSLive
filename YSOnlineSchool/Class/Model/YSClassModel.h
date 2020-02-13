@@ -87,8 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 标题
 @property (nonatomic, strong) NSString *title;
-/// 时长
-@property (nonatomic, strong) NSString *during;
+/// 时长: duration
+@property (nonatomic, strong) NSString *duration;
 /// 存储大小
 @property (nonatomic, strong) NSString *size;
 
@@ -100,5 +100,34 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
 @end
+
+@interface YSClassReplayListModel : NSObject
+
+/// 课节名称: lessonsname
+@property (nonatomic, strong) NSString *lessonsName;
+
+/// 课程回放列表
+@property (nonatomic, strong) NSMutableArray <YSClassReviewModel *> *classReplayList;
+
++ (nullable instancetype)classReplayListModelWithServerDic:(NSDictionary *)dic;
+- (void)updateWithServerDic:(NSDictionary *)dic;
+
+@end
+
+//{
+//        "code": "成功的时候返回0,失败或者异常返回其他",
+//        "data": {
+//                "teachername": "老师名称",
+//                "starttime": "上课时间",
+//                "lessonsname": "课节名称",
+//                "video": {
+//                        "playpath": "视频片段url",
+//                        "https_playpath": "视频https片段",
+//                        "duration": "时长时分秒",
+//                        "part": "片段编号1,2"
+//                }
+//        },
+//        "info": "成功的时候返回操作成功,失败或者异常返回其他"
+//}
 
 NS_ASSUME_NONNULL_END

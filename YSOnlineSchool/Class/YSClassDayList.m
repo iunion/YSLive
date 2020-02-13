@@ -169,17 +169,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    YSClassModel *classModel = self.dataArray[indexPath.row];
-
-    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
-    detailsVC.linkClassModel = classModel;
-    detailsVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:detailsVC animated:YES];
+    
+//    YSClassModel *classModel = self.dataArray[indexPath.row];
+//
+//    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
+//    detailsVC.linkClassModel = classModel;
+//    detailsVC.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:detailsVC animated:YES];
 }
 
 
 
 #pragma mark - YSClassCellDelegate
+
+- (void)openClassWith:(YSClassModel *)classModel
+{
+    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
+    detailsVC.linkClassModel = classModel;
+    detailsVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
 
 - (void)enterClassWith:(YSClassModel *)classModel
 {

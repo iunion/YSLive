@@ -29,6 +29,7 @@
 "ClassDayList.Title"            = "Schedule";
 "ClassDetail.Title"             = "Review Schedule";
 "ClassListCell.Enter"           = "Enter";
+"ClassListCell.RePlay"          = "RePlay";
 "ClassListCell.State.Waiting"   = "Wait";
 "ClassListCell.State.Begin"     = "Begin";
 "ClassListCell.State.End"       = "End";

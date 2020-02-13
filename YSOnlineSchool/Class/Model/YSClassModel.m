@@ -233,7 +233,7 @@
     self.linkUrl = linkUrl;
     
     self.title = [dic bm_stringTrimForKey:@"title"];
-    self.during = [dic bm_stringTrimForKey:@"during"];
+    self.duration = [dic bm_stringTrimForKey:@"duration"];
     self.size = [dic bm_stringTrimForKey:@"size"];
 }
 
