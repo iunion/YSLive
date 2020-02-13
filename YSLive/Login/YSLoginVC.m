@@ -985,16 +985,16 @@
                     case 3:
                         weakSelf.room_UseTheType = YSAppUseTheTypeSmallClass;
                         
-                        if ([UIDevice bm_isiPad])
-                        {
+//                        if ([UIDevice bm_isiPad])
+//                        {
                             [weakSelf showRoleSelectView];
                             
-                        }
-                        else
-                        {
-                            self.roleSelectView.hidden = YES;
-                            [self joinRoom];
-                        }
+//                        }
+//                        else
+//                        {
+//                            self.roleSelectView.hidden = YES;
+//                            [self joinRoom];
+//                        }
                         
                         [weakSelf.view endEditing:YES];
                         weakSelf.passwordTextField.inputTextField.text = nil;
@@ -1196,7 +1196,7 @@
     }
 }
 
-/// 底部选择角色的view
+/// 选择角色的view
 - (UIView *)roleSelectView
 {
     if (!_roleSelectView)
@@ -1559,7 +1559,9 @@
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
-        if (self.selectRoleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || ([UIDevice bm_isiPad] && self.room_UseTheType == YSAppUseTheTypeSmallClass))) {
+//        if (self.selectRoleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || ([UIDevice bm_isiPad] && self.room_UseTheType == YSAppUseTheTypeSmallClass)))
+        if (self.selectRoleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass))
+        {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = self.room_UseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
@@ -1645,7 +1647,9 @@
 - (void)theRoomNeedPassword
 {
     // 需要密码
-    if ([UIDevice bm_isiPad] || self.room_UseTheType == YSAppUseTheTypeMeeting) {
+//    if ([UIDevice bm_isiPad] || self.room_UseTheType == YSAppUseTheTypeMeeting)
+     if ( self.room_UseTheType == YSAppUseTheTypeMeeting)
+    {
 //        self.roleSelectView.hidden = NO;
         [self showRoleSelectView];
     }
