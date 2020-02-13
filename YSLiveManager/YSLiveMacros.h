@@ -30,7 +30,7 @@
 #define YSLive_IsHttps      YSLive_HTTPS ? @"YES" : @"NO"
 
 
-#define YSSchool_Server     @"http://school.roadofcloud.cn"
+#define YSSchool_Server     @"https://school.roadofcloud.cn"
 
 #if USE_TEST_HELP
 

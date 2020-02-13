@@ -297,7 +297,7 @@
     NSUInteger second = 0;
     NSUInteger location = 0;
     NSRange rang = [duration rangeOfString:@"时"];
-    if (rang.location != NSNotFound)
+    if (rang.location != NSNotFound && rang.location > location)
     {
         NSRange hrang = NSMakeRange(location, rang.location-location);
         NSString *hs = [duration substringWithRange:hrang];
@@ -307,7 +307,7 @@
     }
     
     rang = [duration rangeOfString:@"分"];
-    if (rang.location != NSNotFound)
+    if (rang.location != NSNotFound && rang.location > location)
     {
         NSRange mrang = NSMakeRange(location, rang.location-location);
         NSString *ms = [duration substringWithRange:mrang];
@@ -317,7 +317,7 @@
     }
 
     rang = [duration rangeOfString:@"秒"];
-    if (rang.location != NSNotFound)
+    if (rang.location != NSNotFound && rang.location > location)
     {
         NSRange srang = NSMakeRange(location, rang.location-location);
         NSString *ss = [duration substringWithRange:srang];
