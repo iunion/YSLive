@@ -152,10 +152,8 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                 }
                 else
                 {
-                    
                     [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
-        
             }
         }];
         [task resume];

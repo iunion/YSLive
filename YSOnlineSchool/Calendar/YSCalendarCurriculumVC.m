@@ -97,7 +97,7 @@ FSCalendarDelegateAppearance
                
                if (error)
                {
-                   [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                   [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                }
                else
                {
@@ -111,38 +111,45 @@ FSCalendarDelegateAppearance
                            NSArray * allDate = [responseDic bm_arrayForKey:@"data"];
                            
                            NSString * month = [weakSelf.nowDateStr substringToIndex:7];
-                           
-                           for (NSArray * arr in allDate)
+                           if ([allDate bm_isNotEmpty])
                            {
-                               for (NSDictionary * dict in arr)
+                               for (NSArray * arr in allDate)
                                {
-                                   if ([[dict bm_stringForKey:@"timestr"] containsString:month] && ([dict bm_uintForKey:@"num"]>0 || [[dict bm_stringForKey:@"timestr"] isEqualToString:self.nowDateStr]))
+                                   for (NSDictionary * dict in arr)
                                    {
-                                       [weakSelf.dateDict setValue:dict[@"num"] forKey:dict[@"timestr"]];
+                                       if ([[dict bm_stringForKey:@"timestr"] containsString:month] && ([dict bm_uintForKey:@"num"]>0 || [[dict bm_stringForKey:@"timestr"] isEqualToString:weakSelf.nowDateStr]))
+                                       {
+                                           [weakSelf.dateDict setValue:dict[@"num"] forKey:dict[@"timestr"]];
+                                       }
                                    }
                                }
+                               [weakSelf.MyCalendar reloadData];
+                               return;
                            }
-                           [weakSelf.MyCalendar reloadData];
                        }
                        else
                        {
                            NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                           if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                           if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                            {
-                               [self.progressHUD bm_hideAnimated:YES];
+                               [weakSelf.progressHUD bm_hideAnimated:YES];
                            }
                            else
                            {
-                               [self.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
+                               [weakSelf.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
                            }
                            return;
                        }
                    }
-                   [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                   [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
            }];
            [self.calendarDataTask resume];
        }
+    else
+    {
+         [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
 }
 
 - (void)backBtnClick
