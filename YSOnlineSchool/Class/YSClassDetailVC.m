@@ -13,7 +13,7 @@
 
 #import "YSLiveApiRequest.h"
 #import "YSSchoolUser.h"
-
+#import "YSSchoolAVPlayerView.h"
 @interface YSClassDetailVC ()
 <
     YSClassCellDelegate,
@@ -191,7 +191,7 @@
             {
                 YSClassMediumCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassMediumCell" owner:self options:nil].firstObject;
                 [cell drawCellWithModel:self.classReplayListModel];
-                
+                cell.delegate = self;
                 return cell;
             }
     }
@@ -211,4 +211,14 @@
     return cell;
 }
 
+- (void)playReviewClassWithClassReviewModel:(YSClassReviewModel *)classReviewModel index:(NSUInteger)replayIndex
+{
+    YSSchoolAVPlayerView *playerView = [[YSSchoolAVPlayerView alloc] init];
+    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100);
+    [self.view addSubview:playerView];
+    [playerView settingPlayerItemWithUrl:[NSURL URLWithString:classReviewModel.linkUrl]];
+    playerView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100);
+
+}
 @end
