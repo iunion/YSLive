@@ -10,6 +10,8 @@
 #import "YSPassWordChangeView.h"
 #import "YSLiveApiRequest.h"
 #import "AppDelegate.h"
+
+#import "BMAlertView+YSDefaultAlert.h"
 @interface YSChangePassWordVC ()
 <
     YSPassWordChangeViewDelegate
@@ -96,6 +98,7 @@
 - (void)submitBtnClicked:(UIButton *)btn
 {
 
+    [self.progressHUD bm_showAnimated:YES showBackground:YES];
     // 提交密码
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
@@ -116,6 +119,7 @@
             }
             else
             {
+                [self.progressHUD bm_hideAnimated:YES];
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
@@ -126,15 +130,26 @@
                     NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
                     if (statusCode == YSSuperVC_StatusCode_Succeed)
                     {
-                        NSString *info = [responseDic bm_stringForKey:@"info"];
-                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:info delay:0.5];
+                        
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        if (![self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {    
+                            [BMAlertView ys_showAlertWithTitle:message message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+                        }
+
                         [[YSSchoolUser shareInstance] clearUserdata];
                         [GetAppDelegate logoutOnlineSchool];
                     }
                     else
                     {
-                        NSString *info = [responseDic bm_stringForKey:@"info"];
-                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:info delay:0.5];
+                        
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        if (![self checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {
+                            [self.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
+                        }
+                        
+                        return;
                     }
                 }
                 else
