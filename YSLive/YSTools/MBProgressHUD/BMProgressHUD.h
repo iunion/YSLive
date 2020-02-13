@@ -218,8 +218,8 @@ typedef void (^BMProgressHUDCompletionBlock)(void);
 - (void)bm_showAnimated:(BOOL)animated backgroundColor:(UIColor *)bcolor activityIndicatorColor:(UIColor *)acolor;
 
 // 只有文字，可设置背景色，没有菊花效果
-- (void)bm_showAnimated:(BOOL)animated withText:(NSString *)text;;
-- (void)bm_showAnimated:(BOOL)animated withText:(NSString *)text delay:(NSTimeInterval)delay;;
+- (void)bm_showAnimated:(BOOL)animated withText:(NSString *)text;
+- (void)bm_showAnimated:(BOOL)animated withText:(NSString *)text delay:(NSTimeInterval)delay;
 - (void)bm_showAnimated:(BOOL)animated withDetailText:(NSString *)detailText;
 - (void)bm_showAnimated:(BOOL)animated withDetailText:(NSString *)detailText delay:(NSTimeInterval)delay;
 - (void)bm_showAnimated:(BOOL)animated withText:(NSString *)text detailText:(NSString *)detailText delay:(NSTimeInterval)delay;
