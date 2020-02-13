@@ -157,6 +157,7 @@
 "Alert.UpdateMessage" = "有新版本啦，建議下載安裝，陞級到最新版本，體驗線上實时互動。";
 "Alert.UpdateNow" = "現在陞級";
 "Alert.UpdateAfter" = "稍後再說";
+"Alert.CheckNetMessage" = "請連接網絡 ";
 
 "Action.EnterRoom"          = "加入房間!";
 "Action.ExitRoom"           = "離開房間!";

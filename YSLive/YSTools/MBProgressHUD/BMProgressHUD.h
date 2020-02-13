@@ -128,6 +128,9 @@ typedef void (^BMProgressHUDCompletionBlock)(void);
 + (BM_INSTANCETYPE)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withText:(NSString *)text;
 + (BM_INSTANCETYPE)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withText:(NSString *)text delay:(NSTimeInterval)delay;
 
++ (BM_INSTANCETYPE)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withDetailText:(NSString *)text;
++ (BM_INSTANCETYPE)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withDetailText:(NSString *)text delay:(NSTimeInterval)delay;
+
 /**
  * Finds the top-most HUD subview and hides it. The counterpart to this method is showHUDAddedTo:animated:.
  *

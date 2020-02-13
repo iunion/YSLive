@@ -155,6 +155,7 @@
 "Alert.UpdateMessage" = "New version found,recommended to download and install,update to the latest version.";
 "Alert.UpdateNow" = "Update now";
 "Alert.UpdateAfter" = "Latter";
+"Alert.CheckNetMessage" = "Please connect to the network";
 
 "Action.EnterRoom"          = "Enter room";
 "Action.ExitRoom"           = "Leave room";

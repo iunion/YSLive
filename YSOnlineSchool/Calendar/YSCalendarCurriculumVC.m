@@ -97,7 +97,7 @@ FSCalendarDelegateAppearance
                
                if (error)
                {
-                   [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+                   [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                }
                else
                {
@@ -122,7 +122,7 @@ FSCalendarDelegateAppearance
                    }
                    else
                    {
-                       [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[dataDic bm_stringForKey:@"info"] delay:0.5];
+                       [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[dataDic bm_stringForKey:@"info"] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                    }
                 }
            }];

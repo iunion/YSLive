@@ -78,6 +78,8 @@
 
 - (void)createUI
 {
+    //[self.progressHUD bm_showAnimated:YES withDetailText:YSLocalizedSchool(@"ClassListCell.Enter.EndError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+
 }
 
 - (void)refreshVC
@@ -203,7 +205,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5f];
+                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -232,6 +234,9 @@
                     }
                     else
                     {
+                        //ClassListCell.Enter.WaitError
+                        //ClassListCell.Enter.EndError
+                        
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
                         if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
@@ -239,21 +244,21 @@
                         }
                         else
                         {
-                            [self.progressHUD bm_showAnimated:YES withText:message delay:0.5f];
+                            [self.progressHUD bm_showAnimated:YES withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                         
                         return;
                     }
                 }
                 
-                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5f];
+                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
     else
     {
-         [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5f];
+         [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 

@@ -2588,7 +2588,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
             
             BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Alert.NumberOfWords.140")];
             hub.yOffset = -100;
-            [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:1.0];
+            [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
 }
@@ -2616,7 +2616,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
                 if (!isSucceed) {
                     BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
                     hub.yOffset = -100;
-                    [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:1.0];
+                    [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
             /*

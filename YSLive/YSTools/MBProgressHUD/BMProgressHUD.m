@@ -143,6 +143,28 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     return BM_AUTORELEASE(hud);
 }
 
++ (BM_INSTANCETYPE)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withDetailText:(NSString *)text
+{
+    return [BMProgressHUD bm_showHUDAddedTo:view animated:animated withDetailText:text delay:0];
+}
+
++ (instancetype)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withDetailText:(NSString *)text delay:(NSTimeInterval)delay
+{
+    BMProgressHUD *hud = [[self alloc] initWithView:view];
+    hud.removeFromSuperViewOnHide = YES;
+    [view addSubview:hud];
+    [hud setDetailsLabelText:text];
+    hud.color = nil;
+    hud.mode = BMProgressHUDModeText;
+    [hud oldmb_showAnimated:animated];
+    if (delay > 0)
+    {
+        hud.removeFromSuperViewOnHide = YES;
+        [hud bm_hideAnimated:animated afterDelay:delay];
+    }
+    return BM_AUTORELEASE(hud);
+}
+
 + (BOOL)bm_hideHUDForView:(UIView *)view animated:(BOOL)animated {
     BMProgressHUD *hud = [self bm_HUDForView:view];
     if (hud != nil) {
