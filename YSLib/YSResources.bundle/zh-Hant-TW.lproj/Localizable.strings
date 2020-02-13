@@ -261,10 +261,8 @@
 "Label.roomid" = "房間號";
 "Label.roomPlaceholder" = "請輸入您的房間號";
 "Label.nicknamePlaceholder" = "請輸入您的昵稱";
-"Label.onlineSchoolPlaceholder" = "請輸入機构域名";
-"Label.accountNumberPlaceholder" = "請輸入您的帳號";
-"Label.onlineSchoolSystem" = "網校系統";
 "Label.messageBoard" = "留言板";
+
 "Menu.Copy" = "復制";
 
 "Label.addFile" = "添加課件";

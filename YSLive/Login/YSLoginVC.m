@@ -543,7 +543,7 @@
     onlineSchoolTitle.textColor = [UIColor bm_colorWithHex:0x6D7278];
     onlineSchoolTitle.textAlignment = NSTextAlignmentCenter;
     onlineSchoolTitle.hidden = YES;
-    onlineSchoolTitle.text = YSLocalized(@"Label.onlineSchoolSystem");
+    onlineSchoolTitle.text = YSLocalizedSchool(@"Label.onlineSchoolSystem");
     self.onlineSchoolTitle = onlineSchoolTitle;
     [self.backImageView addSubview:onlineSchoolTitle];
     [self.onlineSchoolTitle mas_makeConstraints:^(MASConstraintMaker *make) {

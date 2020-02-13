@@ -122,6 +122,8 @@
         return NO;
     }
     
+    //NSString *sss = [[NSString stringWithFormat:@"%@", data] bm_convertUnicode];
+    
     YSClassReplayListModel *classReplayListModel = [YSClassReplayListModel classReplayListModelWithServerDic:data];
     self.classReplayListModel = classReplayListModel;
     
@@ -211,6 +213,7 @@
     return cell;
 }
 
+
 - (void)playReviewClassWithClassReviewModel:(YSClassReviewModel *)classReviewModel index:(NSUInteger)replayIndex
 {
     YSSchoolAVPlayerView *playerView = [[YSSchoolAVPlayerView alloc] init];
@@ -221,4 +224,16 @@
     playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 100, [UIScreen mainScreen].bounds.size.height - 100);
 
 }
+
+
+#pragma mark - YSClassCellDelegate
+
+- (void)enterClassWith:(YSClassModel *)classModel
+{
+    if ([self.delegate respondsToSelector:@selector(enterClassWith:)])
+    {
+        [self.delegate enterClassWith:self.linkClassModel];
+    }
+}
+
 @end

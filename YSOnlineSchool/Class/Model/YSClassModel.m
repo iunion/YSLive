@@ -289,10 +289,48 @@
     
     /// 标题编号: part
     self.part = [dic bm_stringTrimForKey:@"part" withDefault:@""];
+    
     /// 时长: duration
-    self.duration = [dic bm_stringTrimForKey:@"duration"];
+    NSString *duration = [dic bm_stringTrimForKey:@"duration"];
+    NSUInteger hour = 0;
+    NSUInteger minute = 0;
+    NSUInteger second = 0;
+    NSUInteger location = 0;
+    NSRange rang = [duration rangeOfString:@"时"];
+    if (rang.location != NSNotFound)
+    {
+        NSRange hrang = NSMakeRange(location, rang.location-location);
+        NSString *hs = [duration substringWithRange:hrang];
+        
+        hour = [hs integerValue];
+        location = rang.location + 1;
+    }
+    
+    rang = [duration rangeOfString:@"分"];
+    if (rang.location != NSNotFound)
+    {
+        NSRange mrang = NSMakeRange(location, rang.location-location);
+        NSString *ms = [duration substringWithRange:mrang];
+        
+        minute = [ms integerValue];
+        location = rang.location + 1;
+    }
+
+    rang = [duration rangeOfString:@"秒"];
+    if (rang.location != NSNotFound)
+    {
+        NSRange srang = NSMakeRange(location, rang.location-location);
+        NSString *ss = [duration substringWithRange:srang];
+        
+        second = [ss integerValue];
+    }
+    minute = minute + hour*60;
+
+    self.duration = [NSString stringWithFormat:@"%@'%@''", @(minute), @(second)];
     /// 存储大小: size
-    self.size = [dic bm_stringTrimForKey:@"size"];
+    double size = [dic bm_doubleForKey:@"size"];
+    NSArray *tokens = [NSArray arrayWithObjects:@"B", @"K", @"M", @"G", @"T", nil];
+    self.size = [NSString bm_storeStringWithBitSize:size tokens:tokens];
 }
 
 

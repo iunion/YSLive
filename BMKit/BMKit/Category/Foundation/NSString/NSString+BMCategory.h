@@ -39,6 +39,7 @@
 
 // 从bit转化为KB、MB、GB
 + (NSString *)bm_storeStringWithBitSize:(double)bsize;
++ (NSString *)bm_storeStringWithBitSize:(double)bsize tokens:(NSArray *)tokens;
 + (NSString *)bm_countStringWithCount:(NSUInteger)count;
 
 // 得到一个时间格式为:02天 14时 49分 16秒
