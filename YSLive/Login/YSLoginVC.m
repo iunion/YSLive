@@ -781,7 +781,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -795,7 +795,7 @@
                         if ([key bm_isNotEmpty])
                         {
                             NSString *randomKey = [NSString bm_randomStringWithLength:10];
-                            self.randomKey = randomKey;
+                            weakSelf.randomKey = randomKey;
                             [weakSelf loginSchoolWithPubKey:key randomKey:randomKey];
 
                             return;
@@ -803,7 +803,7 @@
                     }
                 }
                 
-                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
@@ -831,11 +831,11 @@
             {
                 BMLog(@"Error: %@", error);
                                 
-                [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
-                [self.progressHUD bm_hideAnimated:YES];
+                [weakSelf.progressHUD bm_hideAnimated:NO];
                 
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 
@@ -871,12 +871,12 @@
                     else
                     {
                         NSString *info = [responseDic bm_stringForKey:@"info"];
-                        [self.progressHUD bm_showAnimated:YES withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:YES withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     }
                 }
                 else
                 {
-                    [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
         }];
@@ -1025,7 +1025,7 @@
             }
             else
             {
-                [self.progressHUD bm_hideAnimated:YES];
+                [self.progressHUD bm_hideAnimated:NO];
                 
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 
@@ -1630,7 +1630,7 @@
 {
     BMLog(@"YSLoginVC onRoomJoined");
     
-    [self.progressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
     
     [YSUserDefault setLoginRoomID:[self.roomTextField.inputTextField.text bm_trimAllSpace]];
     [YSUserDefault setLoginNickName:[self.nickNameTextField.inputTextField.text bm_trimAllSpace]];
@@ -1720,7 +1720,7 @@
 
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
 {
-    [self.progressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
 
     [[YSLiveManager shareInstance] destroy];
 
@@ -1770,7 +1770,7 @@
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
-    [self.progressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
     if (![YSCoreStatus isNetworkEnable])
     {
         descript = YSLocalized(@"Prompt.NetworkChanged");

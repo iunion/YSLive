@@ -111,7 +111,7 @@
     }
     else
     {
-        [self.progressHUD bm_hideAnimated:YES];
+        [self.progressHUD bm_hideAnimated:NO];
     }
 }
 
@@ -206,7 +206,7 @@
         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
         if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
         {
-            [self.progressHUD bm_hideAnimated:YES];
+            [self.progressHUD bm_hideAnimated:NO];
         }
         else if (self.showResultHUD)
         {
@@ -230,7 +230,7 @@
     }
     else
     {
-        [self.progressHUD bm_hideAnimated:YES];
+        [self.progressHUD bm_hideAnimated:NO];
     }
 }
 

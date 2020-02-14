@@ -112,7 +112,7 @@
             }
             else
             {
-                [weakSelf.progressHUD bm_hideAnimated:YES];
+                [weakSelf.progressHUD bm_hideAnimated:NO];
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
@@ -138,7 +138,7 @@
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
                         if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
-                            [weakSelf.progressHUD bm_hideAnimated:YES];
+                            [weakSelf.progressHUD bm_hideAnimated:NO];
                         }
                         else
                         {

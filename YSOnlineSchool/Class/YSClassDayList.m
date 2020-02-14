@@ -64,7 +64,7 @@
 
     self.bm_NavigationItemTintColor = [UIColor whiteColor];
     self.bm_NavigationTitleTintColor = [UIColor whiteColor];
-    [self bm_setNavigationWithTitle:title barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshVC)];
+    [self bm_setNavigationWithTitle:title barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshVC)];
 
     
     self.loadDataType = YSAPILoadDataType_Page;
@@ -268,7 +268,7 @@
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
                         if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
-                            [weakSelf.progressHUD bm_hideAnimated:YES];
+                            [weakSelf.progressHUD bm_hideAnimated:NO];
                         }
                         else
                         {
@@ -316,7 +316,7 @@
 {
     BMLog(@"YSLoginVC onRoomJoined");
     
-    [self.progressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     
@@ -372,7 +372,7 @@
 
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
 {
-    [self.progressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
 
     [[YSLiveManager shareInstance] destroy];
 
@@ -414,7 +414,7 @@
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
-    [self.progressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
     if (![YSCoreStatus isNetworkEnable])
     {
         descript = YSLocalized(@"Prompt.NetworkChanged");

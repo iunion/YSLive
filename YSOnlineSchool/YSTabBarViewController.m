@@ -47,6 +47,9 @@
 // 初始化所有Item
 - (instancetype)initWithDefaultItems
 {
+    /// 不支持手滑返回
+    self.bm_CanBackInteractive = NO;
+    
     BMTabItemClass *tab1 = [[BMTabItemClass alloc] init];
     tab1.title = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
     tab1.normalColor = ITEM_NOR_COLOR;

@@ -41,10 +41,10 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     
     [self setupUI];
     
-        
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    self.bm_NavigationBarTintColor = UIColor.whiteColor;
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshBtnClick)];
+    self.bm_NavigationItemTintColor = [UIColor whiteColor];
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshBtnClick)];
+    
     self.title = nil;
 }
 
@@ -148,7 +148,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
                         if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
-                            [weakSelf.progressHUD bm_hideAnimated:YES];
+                            [weakSelf.progressHUD bm_hideAnimated:NO];
                         }
                         else
                         {
@@ -233,7 +233,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             }
             else
             {
-                [weakSelf.progressHUD bm_hideAnimated:YES];
+                [weakSelf.progressHUD bm_hideAnimated:NO];
                 
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 [GetAppDelegate logoutOnlineSchool];
