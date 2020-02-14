@@ -1128,16 +1128,14 @@
     NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
     NSString *nickName = self.nickNameTextField.inputTextField.text;
     NSString *passWordStr = self.passwordTextField.inputTextField.text;
-    
-    YSUserRoleType roleType = liveManager.localUser.role;
-    
+        
     if ([passWordStr bm_isNotEmpty])
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:roleType userId:nil userParams:nil];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:roleType userId:nil userParams:nil];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil];
     }
     
 //    self.passwordTextField.hidden = YES;
