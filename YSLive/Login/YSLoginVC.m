@@ -781,7 +781,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -803,14 +803,14 @@
                     }
                 }
                 
-                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
     else
     {
-        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -831,7 +831,7 @@
             {
                 BMLog(@"Error: %@", error);
                                 
-                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -871,12 +871,12 @@
                     else
                     {
                         NSString *info = [responseDic bm_stringForKey:@"info"];
-                        [weakSelf.progressHUD bm_showAnimated:YES withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     }
                 }
                 else
                 {
-                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
         }];
@@ -884,7 +884,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -892,7 +892,7 @@
 {
     if (![YSCoreStatus isNetworkEnable])
     {
-        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
 
@@ -1021,7 +1021,7 @@
             [weakSelf.progressHUD bm_hideAnimated:NO];
             if (error)
             {
-                [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -1031,14 +1031,14 @@
 
                 if (![responseDic bm_isNotEmptyDictionary])
                 {
-                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
 
                 NSInteger result = [responseDic bm_intForKey:@"result"];
                 if (result == 4007)
                 {
-                    [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
@@ -1050,7 +1050,7 @@
                     }
                     else
                     {
-                        [weakSelf.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         weakSelf.callNum = 0;
                     }
                     return;
@@ -1113,7 +1113,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1616,7 +1616,7 @@
             NSString *s = [textField.text substringToIndex:10];
             [textField setText:s];
             
-            [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
 }
