@@ -106,8 +106,17 @@
 
     self.rightResultStr = @"";
     
-    self.bacView.bm_height = ViewHeight;
-    self.bacView.bm_width = ViewWidth;
+
+    if ([UIDevice bm_isiPad])
+    {
+        self.bacView.bm_width = ViewWidth;
+        self.bacView.bm_height = ViewHeight;
+    }
+    else
+    {
+        self.bacView.bm_width = UI_SCREEN_WIDTH - 100;
+        self.bacView.bm_height = UI_SCREEN_HEIGHT - 80;
+    }
     [self.bacView bm_roundedRect:10.0f];
     
     [self.bacView addSubview:self.topView];
@@ -163,8 +172,7 @@
         self.topBtn.layer.cornerRadius = 16;
         self.topBtn.layer.masksToBounds = YES;
 
-        [self.bacView addSubview:self.resultTableView];
-        self.resultTableView.frame = CGRectMake(0, CGRectGetMaxY(self.timeL.frame) + 10 ,self.bacView.bm_width , 170);
+        
 
         [self.topBtn setTitle:YSLocalized(@"tool.detail") forState:UIControlStateNormal];
         
@@ -182,7 +190,13 @@
         self.endAgainBtn.bm_right = self.bacView.bm_right - 36;
         self.endAgainBtn.bm_bottom = self.bacView.bm_bottom - 34;
         [self.endAgainBtn bm_addShadow:3 Radius:20 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+        [self.bacView addSubview:self.resultTableView];
+        self.resultTableView.frame = CGRectMake(0, CGRectGetMaxY(self.timeL.frame) + 10 ,self.bacView.bm_width , self.bacView.bm_height - self.timeL.bm_bottom - 10 -  self.bacView.bm_bottom - 100);
+        self.resultTableView.bm_top = self.topBtn.bm_bottom + 10;
+        [self.resultTableView bm_setTop:self.topBtn.bm_bottom + 10 bottom:self.openResultBtn.bm_top - 20];
         
+        
+
         
     }
     [self showWithView:self.bacView inView:inView];
@@ -530,26 +544,32 @@
 }
 
 - (void)freshAnswerIngView
-{    if (self.answerIngArr.count > 4)
+{
+    if ([UIDevice bm_isiPad])
     {
-        
-        self.bacView.bm_height = ViewHeight + 70 + 40;
-        self.optionCollectionView.bm_height = 232;
-        self.addBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        self.delBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        self.promptL.bm_top = self.delBtn.bm_bottom + 15;
-        self.putBtn.bm_bottom = self.bacView.bm_bottom - 34;
-        
+        if (self.answerIngArr.count > 4)
+        {
+            
+            self.bacView.bm_height = ViewHeight + 70 + 40;
+            self.optionCollectionView.bm_height = 232;
+            self.addBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
+            self.delBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
+            self.promptL.bm_top = self.delBtn.bm_bottom + 15;
+            self.putBtn.bm_bottom = self.bacView.bm_bottom - 34;
+            
+        }
+        else
+        {
+            self.bacView.bm_height = ViewHeight;
+            self.optionCollectionView.bm_height = 158;
+            self.addBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
+            self.delBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
+            self.promptL.bm_top = self.delBtn.bm_bottom + 15;
+            self.putBtn.bm_bottom = self.bacView.bm_bottom - 34;
+        }
+
     }
-    else
-    {
-        self.bacView.bm_height = ViewHeight;
-        self.optionCollectionView.bm_height = 158;
-        self.addBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        self.delBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        self.promptL.bm_top = self.delBtn.bm_bottom + 15;
-        self.putBtn.bm_bottom = self.bacView.bm_bottom - 34;
-    }
+    
     
     [self.optionCollectionView reloadData];
     [self showWithView:self.bacView inView:self.superview];
