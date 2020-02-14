@@ -1656,7 +1656,6 @@
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
-//        if (self.selectRoleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || ([UIDevice bm_isiPad] && self.room_UseTheType == YSAppUseTheTypeSmallClass)))
         if (self.selectRoleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass))
         {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
