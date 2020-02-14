@@ -8,6 +8,7 @@
 
 #import "YSClassCell.h"
 #import "UIImageView+WebCache.h"
+#import "YSLiveManager.h"
 
 @interface YSClassCell ()
 
@@ -63,6 +64,8 @@
 {
     self.isDetail = NO;
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     self.bgView.backgroundColor = [UIColor whiteColor];
     [self.bgView bm_roundedRect:6.0f];
 
@@ -120,21 +123,47 @@
     {
         // 教室预约时间前10分钟才可以进入
         case YSClassState_Waiting:
+        {
+#if 1
+            self.enterBtn.hidden = YES;
+            YSLiveManager *liveManager = [YSLiveManager shareInstance];
+            if (liveManager.tServiceTime)
+            {
+                CGFloat timecount = self.classModel.startTime - liveManager.tCurrentTime;
+                if (timecount <= 600 && timecount > 0)
+                {
+                    self.enterBtn.hidden = NO;
+                    [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
+                }
+            }
+#else
             self.enterBtn.hidden = NO;
+#endif
+            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Waiting");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0x5ABEDC];
+        }
             break;
             
         // 到了预约结束时间30分钟后会自动关闭教室
         case YSClassState_Begin:
             self.enterBtn.hidden = NO;
+            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Begin");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xEA7676];
             break;
             
         case YSClassState_End:
         default:
-            self.enterBtn.hidden = YES;
+            if (self.isDetail)
+            {
+                self.enterBtn.hidden = YES;
+            }
+            else
+            {
+                self.enterBtn.hidden = NO;
+            }
+            [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.RePlay") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.End");
             self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xA2A2A2];
             break;
@@ -170,11 +199,11 @@
     NSString *endStr = @"";
     if ([startDate bm_isSameDayAsDate:endDate])
     {
-        endStr = [NSDate bm_stringFromDate:startDate formatter:@"MM/dd HH:mm"];
+        endStr = [NSDate bm_stringFromDate:endDate formatter:@"MM/dd HH:mm"];
     }
     else
     {
-        endStr = [NSDate bm_stringFromDate:startDate formatter:@"HH:mm"];
+        endStr = [NSDate bm_stringFromDate:endDate formatter:@"HH:mm"];
     }
     
     self.timeLabel.text = [NSString stringWithFormat:@"%@—%@", startStr, endStr];
@@ -184,9 +213,19 @@
 
 - (IBAction)enterClass:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(enterClassWith:)])
+    if (self.classModel.classState < YSClassState_End)
     {
-        [self.delegate enterClassWith:self.classModel];
+        if ([self.delegate respondsToSelector:@selector(enterClassWith:)])
+        {
+            [self.delegate enterClassWith:self.classModel];
+        }
+    }
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(openClassWith:)])
+        {
+            [self.delegate openClassWith:self.classModel];
+        }
     }
 }
 

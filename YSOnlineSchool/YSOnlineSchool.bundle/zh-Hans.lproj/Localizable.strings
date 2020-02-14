@@ -18,10 +18,21 @@
 "Prompt.OnlineSchool.oldPassword"    = "请输入原密码";
 "Prompt.OnlineSchool.changePassword" = "请输入6-20位新密码";
 "Prompt.OnlineSchool.againPassword"  = "再次输入新密码";
+"Prompt.NoDomain"  = "没有输入机构域名";
+"Prompt.NoAccount"  = "没有输入账号";
+"Prompt.NoPassword"  = "没有输入密码";
+"Prompt.OK" = "确定";
+"Prompt.Cancel" = "取消";
+
+"Button.ReturnRoom" = "返回直播";
+"Button.onlineschool" = "登录网校";
 
 "ClassDayList.Title"            = "课表";
 "ClassDetail.Title"             = "查看课表";
 "ClassListCell.Enter"           = "进 入";
+"ClassListCell.Enter.WaitError" = "开课前十分钟可以进入教室\n请耐心等待";
+"ClassListCell.Enter.EndError"  = "本课堂已结束\n您可以点击课程回放\n查看本课堂记录";
+"ClassListCell.RePlay"          = "回 放";
 "ClassListCell.State.Waiting"   = "未开始";
 "ClassListCell.State.Begin"     = "进行中";
 "ClassListCell.State.End"       = "已结束";
@@ -30,5 +41,15 @@
 
 "ClassInstructionCell.Title"    = "课程简介";
 "ClassMediumCell.Title"         = "课程回放";
+"ClassMediumCell.NoTitle"       = "课程回放制作中";
 "ClassReplayView.Duration"      = "时长";
 "ClassReplayView.Size"          = "大小";
+
+"Label.onlineSchoolPlaceholder" = "请输入机构域名";
+"Label.accountNumberPlaceholder" = "请输入您的账号";
+"Label.onlineSchoolSystem" = "网校系统";
+
+"Login.Enter" = "登录";
+"Login.EnterRoom" = "进入房间";
+
+"Error.ServerError" = "服务器访问异常";

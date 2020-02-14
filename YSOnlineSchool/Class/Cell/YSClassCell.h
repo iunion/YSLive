@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 - (void)enterClassWith:(YSClassModel *)classModel;
+- (void)openClassWith:(YSClassModel *)classModel;
 
 @end
 

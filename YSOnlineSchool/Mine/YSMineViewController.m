@@ -10,7 +10,10 @@
 #import "YSOnlineMineTableViewCell.h"
 #import "YSChangePassWordVC.h"
 #import "YSLoginVC.h"
+#import "YSLiveApiRequest.h"
+#import "AppDelegate.h"
 
+#import "BMAlertView+YSDefaultAlert.h"
 static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTableViewCell";
 @interface YSMineViewController ()
 <
@@ -37,17 +40,12 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     
     [self setupUI];
-    [self getRequest];
-        
+    
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    self.bm_NavigationBarTintColor = UIColor.whiteColor;
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshBtnClick)];
+    self.bm_NavigationItemTintColor = [UIColor whiteColor];
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshBtnClick)];
+    
     self.title = nil;
-}
-
-- (void)getRequest
-{
-    /// 请求用户信息
 }
 
 
@@ -70,13 +68,18 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     
     self.userIconImg = [[UIImageView alloc] init];
     [self.view addSubview:self.userIconImg];
-    self.userIconImg.backgroundColor = [UIColor redColor];
+    self.userIconImg.backgroundColor = [UIColor whiteColor];
     self.userIconImg.frame = CGRectMake(0, 25 , 74, 74);
     self.userIconImg.bm_centerX = self.view.bm_centerX;
     self.userIconImg.layer.cornerRadius = 37;
     self.userIconImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userIconImg.layer.borderWidth = 3.0f;
     self.userIconImg.layer.masksToBounds = YES;
+    NSString *imgUrl = [YSSchoolUser shareInstance].imageUrl;
+    if (![imgUrl bm_isNotEmpty]) {
+        imgUrl = [YSSchoolUser shareInstance].organimageurl;
+    }
+    [self.userIconImg sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage bm_appIconImage]];
     
     self.userNameL = [[UILabel alloc] init];
     self.userNameL.frame = CGRectMake(0, 0, self.mineTableView.bm_width, 22);
@@ -85,7 +88,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     self.userNameL.font = [UIFont systemFontOfSize:16.0f];
     self.userNameL.textAlignment = NSTextAlignmentCenter;
     self.userNameL.textColor = [UIColor bm_colorWithHex:0x828282];
-    self.userNameL.text = @"宁杰英";
+    self.userNameL.text = [YSSchoolUser shareInstance].nickName;
     [self.view addSubview:self.userNameL];
 }
 
@@ -107,12 +110,69 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 //刷新
 - (void)refreshBtnClick
 {
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    
+    NSString *studentId = [YSSchoolUser shareInstance].userId;
+    NSMutableURLRequest *request =
+    [YSLiveApiRequest getStudentInfoWithfStudentId:studentId];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            }
+            else
+            {
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+#ifdef DEBUG
+                NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
+                NSLog(@"%@", str);
+#endif
+                if ([responseDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+                        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
+                        [schoolUser updateWithServerDic:dataDic];
+                    }
+                    else
+                    {
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
+                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {
+                            [weakSelf.progressHUD bm_hideAnimated:NO];
+                        }
+                        else
+                        {
+                            [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        }
+                    }
+                }
+                else
+                {
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                }
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -139,8 +199,52 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     }
     else if (indexPath.row == 1)
     {
-        //退出登录
-//        [self.navigationController popToViewController:YSLoginVC] animated:<#(BOOL)#>]; 
+        //退出登录 清楚token 调用接口
+        BMWeakSelf
+        [BMAlertView ys_showAlertWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.SignOut") message:nil cancelTitle:YSLocalizedSchool(@"Prompt.Cancel") otherTitle:YSLocalizedSchool(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+            // 关闭页面
+            if (buttonIndex == 1)
+            {
+                [weakSelf signOut];
+            }
+        }];
+    }
+}
+
+/// 退出
+- (void)signOut
+{
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
+
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    
+    NSString *token = [YSSchoolUser shareInstance].token;
+    NSMutableURLRequest *request =
+    [YSLiveApiRequest postExitLoginWithToken:token];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            }
+            else
+            {
+                [weakSelf.progressHUD bm_hideAnimated:NO];
+                
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                [GetAppDelegate logoutOnlineSchool];
+                [[YSSchoolUser shareInstance] clearUserdata];
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 @end

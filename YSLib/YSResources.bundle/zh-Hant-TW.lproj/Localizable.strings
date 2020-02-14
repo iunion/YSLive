@@ -137,8 +137,6 @@
 "Button.jump" = "跳轉";
 "Button.Sign" = "簽到";
 "Button.vote" = "投票";
-"Button.ReturnRoom" = "返回直播";
-"Button.onlineschool" = "登入網校";
 
 
 "title.ToVote" = "發起投票";
@@ -159,6 +157,7 @@
 "Alert.UpdateMessage" = "有新版本啦，建議下載安裝，陞級到最新版本，體驗線上實时互動。";
 "Alert.UpdateNow" = "現在陞級";
 "Alert.UpdateAfter" = "稍後再說";
+"Alert.CheckNetMessage" = "請連接網絡 ";
 
 "Action.EnterRoom"          = "加入房間!";
 "Action.ExitRoom"           = "離開房間!";
@@ -262,10 +261,8 @@
 "Label.roomid" = "房間號";
 "Label.roomPlaceholder" = "請輸入您的房間號";
 "Label.nicknamePlaceholder" = "請輸入您的昵稱";
-"Label.onlineSchoolPlaceholder" = "請輸入機构域名";
-"Label.accountNumberPlaceholder" = "請輸入您的帳號";
-"Label.onlineSchoolSystem" = "網校系統";
 "Label.messageBoard" = "留言板";
+
 "Menu.Copy" = "復制";
 
 "Label.addFile" = "添加課件";

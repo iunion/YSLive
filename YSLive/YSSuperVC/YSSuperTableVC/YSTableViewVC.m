@@ -325,7 +325,7 @@
 #if (PROGRESSHUD_UESGIF)
         [self.progressHUD showWait:YES backgroundColor:nil text:nil useHMGif:YES];
 #else
-        [self.progressHUD bm_showAnimated:YES showBackground:NO];
+        [self.progressHUD bm_showAnimated:NO showBackground:YES];
 #endif
     }
     
@@ -390,7 +390,7 @@
         
         if (self.showProgressHUD)
         {
-            [self.progressHUD bm_hideAnimated:YES];
+            [self.progressHUD bm_hideAnimated:NO];
         }
     }
 }
@@ -417,11 +417,16 @@
     
     if (![responseDic bm_isNotEmptyDictionary])
     {
+        responseDic = [YSLiveUtil convertWithData:responseDic];
+    }
+    
+    if (![responseDic bm_isNotEmptyDictionary])
+    {
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:YSAPI_JSON_ERRORCODE];
         
         if (self.showResultHUD)
         {
-            [self.progressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         [self showEmptyViewWithType:BMEmptyViewType_DataError];
@@ -521,7 +526,7 @@
 
         if (self.showResultHUD)
         {
-            [self.progressHUD bm_showAnimated:YES withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         [self showEmptyViewWithType:BMEmptyViewType_DataError];
@@ -532,16 +537,16 @@
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:statusCode];
         
         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
-        if ([self checkRequestStatus:statusCode message:message responseDic:responseDic logOutQuit:YES showLogin:YES])
+        if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
         {
-            [self.progressHUD bm_hideAnimated:YES];
+            [self.progressHUD bm_hideAnimated:NO];
         }
         else if (self.showResultHUD)
         {
 #ifdef DEBUG
-            [self.progressHUD bm_showAnimated:YES withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-            [self.progressHUD bm_showAnimated:YES withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
         }
 
@@ -555,7 +560,7 @@
     }
 }
 
-- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic logOutQuit:(BOOL)quit showLogin:(BOOL)show
+- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic
 {
     switch (statusCode)
     {
@@ -567,7 +572,7 @@
             break;
     }
     
-    return [super checkRequestStatus:statusCode message:message responseDic:responseDic logOutQuit:quit showLogin:show];
+    return [super checkRequestStatus:statusCode message:message responseDic:responseDic];
 }
 
 // API请求失败的代理方法，一般不需要重写

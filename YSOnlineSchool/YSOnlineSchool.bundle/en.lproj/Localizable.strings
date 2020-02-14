@@ -9,7 +9,7 @@
 "Title.OnlineSchool.Calendar"       = "My timetable";
 "Title.OnlineSchool.Mine"           = "Personal center";
 "Title.OnlineSchool.ModifyPassWord" = "Modify password";
-"Title.OnlineSchool.SignOut"        = "Sign Out";
+"Title.OnlineSchool.SignOut"        = "Sign out";
 "Title.OnlineSchool.Submit"         = "Submit";
 "Title.OnlineSchool.OriginalPassword"    = "Original password";
 "Title.OnlineSchool.changePassword" = "New password";
@@ -18,10 +18,21 @@
 "Prompt.OnlineSchool.oldPassword"    = "Please enter the original password";
 "Prompt.OnlineSchool.changePassword" = "Please enter a 6-20 digit new password";
 "Prompt.OnlineSchool.againPassword"  = "Enter the new password again";
+"Prompt.NoDomain"  = "No institutional domain name entered";
+"Prompt.NoAccount"  = "No account number entered";
+"Prompt.NoPassword"  = "No password entered";
+"Prompt.OK" = "OK";
+"Prompt.Cancel" = "Cancel";
+
+"Button.ReturnRoom" = "Return to live";
+"Button.onlineschool" = "Login online school";
 
 "ClassDayList.Title"            = "Schedule";
 "ClassDetail.Title"             = "Review Schedule";
 "ClassListCell.Enter"           = "Enter";
+"ClassListCell.Enter.WaitError" = "You can enter the classroom ten minutes before the class starts, please wait patiently.";
+"ClassListCell.Enter.EndError"  = "This class is over.\nYou can click on the course playback to view the class record.";
+"ClassListCell.RePlay"          = "RePlay";
 "ClassListCell.State.Waiting"   = "Wait";
 "ClassListCell.State.Begin"     = "Begin";
 "ClassListCell.State.End"       = "End";
@@ -30,6 +41,15 @@
 
 "ClassInstructionCell.Title"    = "Instruction";
 "ClassMediumCell.Title"         = "Course Playback";
+"ClassMediumCell.NoTitle"       = "Course playback in production";
 "ClassReplayView.Duration"      = "Duration";
 "ClassReplayView.Size"          = "Size";
 
+"Label.onlineSchoolPlaceholder" = "Please enter the institution domain name";
+"Label.accountNumberPlaceholder" = "Please enter your account number";
+"Label.onlineSchoolSystem" = "Network school system";
+
+"Login.Enter" = "Enter";
+"Login.EnterRoom" = "Enter room";
+
+"Error.ServerError" = "Server access exception";

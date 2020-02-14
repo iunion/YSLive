@@ -74,6 +74,7 @@
         
         NSDate * dateKey = [dateFormatter dateFromString:key];
         self.titleLabel.textColor = UIColor.whiteColor;
+//        self.appearance.selectionColor = UIColor.whiteColor;
         
         //日期比较
         NSComparisonResult result = [dateKey compare:nowDate];
@@ -91,11 +92,19 @@
         }
         CGFloat diameter = MIN(self.selectionLayer.fs_height, self.selectionLayer.fs_width);
         self.selectionLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.contentView.fs_width/2-diameter/2, 0, diameter, diameter)].CGPath;
-        self.circleLab.text = self.dateDict[key];
+        if ([self.dateDict bm_uintForKey:key] >0) {
+            self.circleLab.hidden = NO;
+            self.circleLab.text = [NSString stringWithFormat:@"共%@节",[self.dateDict bm_stringForKey:key]];
+        }
+        else
+        {
+            self.circleLab.hidden = YES;
+        }
     }
     else
     {
         self.titleLabel.textColor = UIColor.grayColor;
+//        self.appearance.selectionColor = UIColor.whiteColor;
         self.circleLab.hidden = YES;
         self.selectionLayer.hidden = YES;
     }

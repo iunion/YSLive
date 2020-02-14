@@ -25,11 +25,10 @@
                                       domain:(NSString *)domain
                                admin_account:(NSString *)admin_account
                                    admin_pwd:(NSString *)admin_pwd
+                                   randomKey:(NSString *)randomKey
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/loginV1", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
-    NSString *key = [NSString bm_randomStringWithLength:10];
     
     [parameters setObject:domain forKey:@"domain"];
     [parameters setObject:admin_account forKey:@"admin_account"];
@@ -38,7 +37,7 @@
 //    [parameters setObject:@"deng123" forKey:@"admin_account"];
 //    [parameters setObject:@"123456" forKey:@"admin_pwd"];
     [parameters setObject:@(3) forKey:@"type"];
-    [parameters setObject:key forKey:@"key"];
+    [parameters setObject:randomKey forKey:@"key"];
     
     NSError *error = nil;
 
@@ -52,50 +51,29 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
 }
 
+/// 登出
++ (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token
+{
+    // http://school.roadofcloud.cn/index/Login/exitLogin
+    NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/exitLogin", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setObject:token forKey:@"token"];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+    
+}
 
-/// 获取课程列表
+/// 获取课表日历数据
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
     NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/studentCourseList", YSSchool_Server];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//    [parameters bm_setString:studentId forKey:@"studentid"];
+    [parameters bm_setString:studentId forKey:@"studentid"];
     [parameters bm_setString:dateStr forKey:@"date"];
 
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
-
-/// 获取b课表日历数据
-+ (void )getCalendarCalendarWithdate:(NSString *)dateStr success:(void(^)(NSDictionary *calendarDict))success failure:(void(^)(NSInteger errorCode,NSString *errorStr))failure
-{
-    NSString *urlStr = @"http://school.roadofcloud.cn/student/Mycourse/studentCourseList.html";
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:dateStr forKey:@"date"];
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-               @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
-               @"text/xml", @"image/jpeg", @"image/*"
-           ]];
-    NSURLSessionTask * task = [manager POST:urlStr parameters:parameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSDictionary *dict = [YSLiveUtil convertWithData:responseObject];
-        
-        if ([dict bm_uintForKey:@"code"] == 0) {
-            success(dict[@"data"]);
-        }else
-        {
-            failure([dict bm_uintForKey:@"code"],[dict bm_stringForKey:@"info"]);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error.code,error.description);
-    }];
-    [task resume];
-}
 
 /// 获取课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum
@@ -107,7 +85,54 @@
     [parameters bm_setString:date forKey:@"date"];
     [parameters bm_setInteger:pagenum forKey:@"pagenum"];
 
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+}
+
+/// 获取个人信息
++ (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId
+{
+    // http://school.roadofcloud.cn/appstudent/User/getStudentInfo
+    NSString *urlStr = [NSString stringWithFormat:@"%@/appstudent/User/getStudentInfo", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters bm_setString:studentId forKey:@"studentid"];
+    
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+}
+
+/// 获取课程回放列表
++ (NSMutableURLRequest *)getClassReplayListWithOrganId:(NSString *)organid toTeachId:(NSString *)toteachid
+{
+    // student/Mycourse/getLessonsPlayback
+    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/getLessonsPlayback", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters bm_setString:organid forKey:@"organid"];
+    [parameters bm_setString:toteachid forKey:@"toteachid"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+}
+
+/// 进入教室
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithToTeachId:(NSString *)toteachid
+{
+    // /student/Mycourse/intoClassroom
+    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/intoClassroom", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters bm_setString:toteachid forKey:@"toteachid"];
+
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+}
+
+///  修改密码
++ (NSMutableURLRequest *)postUpdatePass:(NSString *)updatePass mobile:(NSString *)mobile organid:(NSString *)organid
+{
+    //http://school.roadofcloud.cn/student/Homepage/updatePass
+    NSString *urlStr = [NSString stringWithFormat:@"%@/student/Homepage/updatePass", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setObject:mobile forKey:@"mobile"];
+    [parameters setObject:organid forKey:@"organid"];
+    [parameters setObject:updatePass forKey:@"newpass"];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
 @end
+

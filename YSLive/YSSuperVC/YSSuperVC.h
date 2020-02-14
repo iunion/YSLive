@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // RequestStatus
 // 校验一些特殊全局状态码,比如:token失效,强制升级
-- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic logOutQuit:(BOOL)quit showLogin:(BOOL)show;
+- (BOOL)checkRequestStatus:(NSInteger)statusCode message:(NSString *)message responseDic:(NSDictionary *)responseDic;
 
 @end
 

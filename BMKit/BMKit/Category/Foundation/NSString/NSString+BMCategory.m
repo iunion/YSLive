@@ -192,6 +192,13 @@
 
 + (NSString *)bm_storeStringWithBitSize:(double)bsize
 {
+    NSArray *tokens = [NSArray arrayWithObjects:@"B", @"KB", @"MB", @"GB", @"TB", nil];
+
+    return [NSString bm_storeStringWithBitSize:bsize tokens:tokens];
+}
+
++ (NSString *)bm_storeStringWithBitSize:(double)bsize tokens:(NSArray *)tokens
+{
 //    if (bsize < 1024)
 //    {
 //        return [NSString stringWithFormat:@"%ldB", (long)bsize];
@@ -212,9 +219,14 @@
 //        return [NSString stringWithFormat:@"%0.2fGB", kbsize];
 //    }
     
+    if (![tokens bm_isNotEmpty])
+    {
+        return @"";
+    }
+    
     double convertedValue = bsize;
     NSInteger multiplyFactor = 0;
-    NSArray *tokens = [NSArray arrayWithObjects:@"B", @"KB", @"MB", @"GB", @"TB", nil];
+    //NSArray *tokens = [NSArray arrayWithObjects:@"B", @"KB", @"MB", @"GB", @"TB", nil];
     
     while (convertedValue > 1024 && multiplyFactor < tokens.count)
     {

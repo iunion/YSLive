@@ -138,9 +138,6 @@
 "Button.jump" = "跳转";
 "Button.Sign" = "签到";
 "Button.vote" = "投票";
-"Button.ReturnRoom" = "返回直播";
-"Button.onlineschool" = "登录网校";
-
 
 "title.ToVote" = "发起投票";
 "title.Voting" = "投票中";
@@ -160,6 +157,7 @@
 "Alert.UpdateMessage" = "有新版本啦,建议下载安装,升级到最新版本,体验在线实时互动。";
 "Alert.UpdateNow" = "现在升级";
 "Alert.UpdateAfter" = "稍后再说";
+"Alert.CheckNetMessage" = "请连接网络";
 
 "Action.EnterRoom"          = "加入房间!";
 "Action.ExitRoom"           = "离开房间!";
@@ -263,9 +261,6 @@
 "Label.roomPlaceholder" = "请输入您的房间号";
 "Label.nicknamePlaceholder" = "请输入您的昵称";
 "Label.messageBoard" = "留言板";
-"Label.onlineSchoolPlaceholder" = "请输入机构域名";
-"Label.accountNumberPlaceholder" = "请输入您的账号";
-"Label.onlineSchoolSystem" = "网校系统";
 
 "Menu.Copy" = "复制";
 
@@ -395,4 +390,5 @@
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "参会者";
+
 

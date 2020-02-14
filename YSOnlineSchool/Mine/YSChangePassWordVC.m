@@ -8,7 +8,10 @@
 
 #import "YSChangePassWordVC.h"
 #import "YSPassWordChangeView.h"
+#import "YSLiveApiRequest.h"
+#import "AppDelegate.h"
 
+#import "BMAlertView+YSDefaultAlert.h"
 @interface YSChangePassWordVC ()
 <
     YSPassWordChangeViewDelegate
@@ -25,6 +28,10 @@
 @end
 
 @implementation YSChangePassWordVC
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)even
+{
+    [self.view endEditing:YES];
+}
 
 - (void)viewDidLoad
 {
@@ -40,12 +47,12 @@
 
 - (void)setupUI
 {
-    YSPassWordChangeView *oldPasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.OriginalPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.oldPassword")];
-    oldPasswordView.delegate = self;
-    self.oldPasswordView = oldPasswordView;
-    [self.view addSubview:self.oldPasswordView];
+//    YSPassWordChangeView *oldPasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.OriginalPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.oldPassword")];
+//    oldPasswordView.delegate = self;
+//    self.oldPasswordView = oldPasswordView;
+//    [self.view addSubview:self.oldPasswordView];
     
-    YSPassWordChangeView *changePasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(oldPasswordView.frame) + 15, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.NewPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.changePassword")];
+    YSPassWordChangeView *changePasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.NewPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.changePassword")];
     self.changePasswordView = changePasswordView;
     changePasswordView.delegate = self;
     [self.view addSubview:self.changePasswordView];
@@ -73,16 +80,91 @@
     [submitBtn addTarget:self action:@selector(submitBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
 }
-
+- (void)viewWillLayoutSubviews
+{
+    self.changePasswordView.frame = CGRectMake(0, 40, UI_SCREEN_WIDTH, 40);
+    self.againPasswordView.frame = CGRectMake(0, CGRectGetMaxY(self.changePasswordView.frame) + 15, UI_SCREEN_WIDTH, 40);
+    self.submitBtn.frame = CGRectMake(0, 0, 224, 34);
+    self.submitBtn.bm_centerX = self.view.bm_centerX;
+    self.submitBtn.bm_top = self.againPasswordView.bm_bottom + 50;
+}
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
+    
     // 提交密码
+    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    NSString *organId = [YSSchoolUser shareInstance].organId;
+    
+    NSString *mobile = [YSSchoolUser shareInstance].mobile;
+    NSMutableURLRequest *request =
+    [YSLiveApiRequest postUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            }
+            else
+            {
+                [weakSelf.progressHUD bm_hideAnimated:NO];
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+#ifdef DEBUG
+                NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
+                NSLog(@"%@", str);
+#endif
+                if ([responseDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {    
+                            [BMAlertView ys_showAlertWithTitle:message message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+                        }
+
+                        [[YSSchoolUser shareInstance] clearUserdata];
+                        [GetAppDelegate logoutOnlineSchool];
+                    }
+                    else
+                    {
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {
+                            [weakSelf.progressHUD bm_hideAnimated:NO];
+                        }
+                        else
+                        {
+                            [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        }
+                        return;
+                    }
+                }
+                else
+                {
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                }
+                
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
 }
 
 - (void)inpuTextFieldDidChanged:(UITextField *)textField
 {
-    if (self.oldPasswordView.inputTextField.text.length > 0 && self.changePasswordView.inputTextField.text.length > 0 && self.againPasswordView.inputTextField.text.length > 0)
+    if (/*self.oldPasswordView.inputTextField.text.length > 0 &&*/ self.changePasswordView.inputTextField.text.length > 0 && self.againPasswordView.inputTextField.text.length > 0)
     {
         self.submitBtn.enabled = YES;
     }
@@ -91,4 +173,5 @@
         self.submitBtn.enabled = NO;
     }
 }
+
 @end

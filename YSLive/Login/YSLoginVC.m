@@ -40,7 +40,7 @@
 
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 1
-#define CLEARCHECK 1
+#define CLEARCHECK 0
 #endif
 
 #define ONLINESCHOOL 1
@@ -109,13 +109,21 @@
 @property (nonatomic, strong) UIButton *selectedRoleBtn;
 /// 进入网校
 @property (nonatomic, strong) UIButton *onlineSchoolBtn;
+
+/// 网校密码明文按钮
+@property (nonatomic, strong) UIButton *passwordEyeBtn;
+
 // 网络等待
-@property (nonatomic, strong) BMProgressHUD *m_ProgressHUD;
+@property (nonatomic, strong) BMProgressHUD *progressHUD;
 @property (nonatomic, assign) BOOL isOnlineSchool;
+
+@property (nonatomic, strong) NSString *randomKey;
+
 @end
 
+
 @implementation YSLoginVC
-//sajdfjsajdsfkla
+
 - (instancetype)initWithLoginURL:(NSURL *)loginurl
 {
     self = [super init];
@@ -169,9 +177,9 @@
     [clearCheckBtn addTarget:self action:@selector(clearCheckBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 #endif
         
-    self.m_ProgressHUD = [[BMProgressHUD alloc] initWithView:self.view];
-    self.m_ProgressHUD.animationType = BMProgressHUDAnimationFade;
-    [self.view addSubview:self.m_ProgressHUD];
+    self.progressHUD = [[BMProgressHUD alloc] initWithView:self.view];
+    self.progressHUD.animationType = BMProgressHUDAnimationFade;
+    [self.view addSubview:self.progressHUD];
     
     NSString * roomID = [YSUserDefault getLoginRoomID];
     if ([roomID bm_isNotEmpty])
@@ -203,6 +211,7 @@
     if (self.loginUrl)
     {
         NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:self.loginUrl];
+        self.loginUrl = nil;
         if (![dic bm_isNotEmptyDictionary])
         {
             return;
@@ -227,7 +236,9 @@
 - (void)clearCheckBtnClicked:(UIButton *)btn
 {
 //    NSString *urlstr = @"joinroom://rddoccdndemows.roadofcloud.com/static/h5_live_2.1.1.16/index.html/?host=release.roadofcloud.com&domain=xzj&param=oQWJiPESSSloUJYW_eebY4yhaXjcSeaZpBOt-tb2Cin88FjhbovGoYEX4dwrhvbuqYDqikDGwcB2bh3nMEiDhD7Vf-GmIxIs_tB_CdQZIiQrcC3ZIkUOS6NH9ks6LYfKu33bWttb7llfvnUU8_0C3A&timestamp=1581314212&roomtype=3&logintype=2&video=320*180&companyidentify=1";
-        NSString *urlstr = @"joinroom://?host=api.roadofcloud.net&domain=wjy&param=JxMe2Nu5uY9Bb5C_hStqSGuavpYFRNVVeHLFDFPH-R_q7cduxOZzR4i7XX3TqgytZtMeGuLhBSaXK4Gw6IXs7YZZQLFGu5SyULxpCxSfIJ6vuff28NGkwAq19EcpO7lBOAbgZ6Iv5XgJs26-2lNy4pZxaiTiGVbXAre7LrqaoVk&timestamp=1581327248&roomtype=3&logintype=2&video=200*150&companyidentify=1";
+        //NSString *urlstr = @"joinroom://?host=api.roadofcloud.net&domain=wjy&param=JxMe2Nu5uY9Bb5C_hStqSGuavpYFRNVVeHLFDFPH-R_q7cduxOZzR4i7XX3TqgytZtMeGuLhBSaXK4Gw6IXs7YZZQLFGu5SyULxpCxSfIJ6vuff28NGkwAq19EcpO7lBOAbgZ6Iv5XgJs26-2lNy4pZxaiTiGVbXAre7LrqaoVk&timestamp=1581327248&roomtype=3&logintype=2&video=200*150&companyidentify=1";
+    NSString *urlstr = @"joinroom://?host=api.roadofcloud.net&domain=wjy&param=JxMe2Nu5uY-l_bzNjinmoaeL6LbNaatpEnJM0sSUj6In0bo9pmxZMFqVdhpay2ki8fgtSO-azH9m0x4a4uEFJpcrgbDoheztZn7cF4vFUetQvGkLFJ8gnq-59_bw0aTACrX0Ryk7uUE4BuBnoi_leAmzbr7aU3LilnFqJOIZVtcEZHxpqdz3aQ&timestamp=1581500012&roomtype=3&logintype=2&video=200*150&companyidentify=1";
+    
     NSURL *url = [NSURL URLWithString:urlstr];
     NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
 
@@ -329,11 +340,18 @@
 #ifdef DEBUG
                 NSString *responseStr = [[NSString stringWithFormat:@"%@", responseObject] bm_convertUnicode];
                 BMLog(@"%@ %@", response, responseStr);
-                
+#endif
+
+#ifdef ONLINESCHOOL
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 if ([responseDic bm_containsObjectForKey:@"time"])
                 {
                     NSTimeInterval timeInterval = [responseDic bm_doubleForKey:@"time"];
+                    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+                    if (liveManager.tServiceTime == 0)
+                    {
+                        liveManager.tServiceTime = timeInterval;
+                    }
                     BMLog(@"服务器当前时间： %@", [NSDate bm_stringFromTs:timeInterval]);
                 }
 #endif
@@ -380,6 +398,8 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager shareInstance].liveHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
+    // 默认是自己的标准app，传值是其他公司定制
+    //[parameters bm_setString:@"" forKey:@"companydomain"];
     [parameters bm_setString:commitVersion forKey:@"version"];
     [parameters bm_setInteger:3 forKey:@"type"];
     
@@ -523,7 +543,7 @@
     onlineSchoolTitle.textColor = [UIColor bm_colorWithHex:0x6D7278];
     onlineSchoolTitle.textAlignment = NSTextAlignmentCenter;
     onlineSchoolTitle.hidden = YES;
-    onlineSchoolTitle.text = YSLocalized(@"Label.onlineSchoolSystem");
+    onlineSchoolTitle.text = YSLocalizedSchool(@"Label.onlineSchoolSystem");
     self.onlineSchoolTitle = onlineSchoolTitle;
     [self.backImageView addSubview:onlineSchoolTitle];
     [self.onlineSchoolTitle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -567,6 +587,12 @@
     self.passOnlineTextField.layer.borderWidth = 1;
     self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     self.passOnlineTextField.hidden = YES;
+    
+    [self.passwordEyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.top.equalTo(self.passOnlineTextField);
+        make.width.height.mas_equalTo(40);
+    }];
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -617,14 +643,15 @@
     UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
-    [onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
+    [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
     [onlineSchoolBtn setTitleColor:[UIColor bm_colorWithHex:0x6D7278] forState:UIControlStateNormal];
     onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(5));
         make.height.mas_equalTo(30);
-        make.width.mas_equalTo(70);
+        make.width.mas_equalTo(120);
         make.right.mas_equalTo(weakSelf.joinRoomBtn.mas_right);
     }];
 #endif
@@ -677,11 +704,11 @@
             make.height.mas_equalTo(kScale_W(153));
             make.width.mas_equalTo(kScale_W(197));
         }];
-        self.roomTextField.placeholder = YSLocalized(@"Label.onlineSchoolPlaceholder");
+        self.roomTextField.placeholder = YSLocalizedSchool(@"Label.onlineSchoolPlaceholder");
         self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
-        self.nickNameTextField.placeholder = YSLocalized(@"Label.accountNumberPlaceholder");
-        [self.joinRoomBtn setTitle:YSLocalized(@"Login.Enter") forState:UIControlStateNormal];
-        [self.onlineSchoolBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
+        self.nickNameTextField.placeholder = YSLocalizedSchool(@"Label.accountNumberPlaceholder");
+        [self.joinRoomBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.EnterRoom") forState:UIControlStateNormal];
         
         [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.passOnlineTextField.mas_bottom).mas_offset(kScale_H(43));
@@ -689,16 +716,14 @@
             make.width.mas_equalTo(kScale_W(238));
             make.centerX.mas_equalTo(0);
         }];
-        NSString * realmName = [YSSchoolUser shareInstance].domain;
-//        if ([realmName bm_isNotEmpty])
-//        {
-            self.roomTextField.inputTextField.text = realmName;
-//        }
-        NSString * userNumber = [YSSchoolUser shareInstance].admin_account;
-//        if ([userNumber bm_isNotEmpty])
-//        {
-            self.nickNameTextField.inputTextField.text = userNumber;
-//        }
+        
+        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+        if (![schoolUser.domain bm_isNotEmpty])
+        {
+            [schoolUser getSchoolUserLoginData];
+        }
+        self.roomTextField.inputTextField.text = schoolUser.domain;
+        self.nickNameTextField.inputTextField.text = schoolUser.userAccount;
         self.passOnlineTextField.inputTextField.text = @"";
     }
     else
@@ -728,7 +753,7 @@
         self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         self.nickNameTextField.placeholder = YSLocalized(@"Label.nicknamePlaceholder");
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
-        [self.onlineSchoolBtn setTitle:YSLocalized(@"Button.onlineschool") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
         [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(43));
             make.height.mas_equalTo(50);
@@ -756,7 +781,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -769,29 +794,35 @@
                         NSString *key = [dataDic bm_stringForKey:@"key"];
                         if ([key bm_isNotEmpty])
                         {
-                            [self loginSchoolWithPubKey:key];
+                            NSString *randomKey = [NSString bm_randomStringWithLength:10];
+                            weakSelf.randomKey = randomKey;
+                            [weakSelf loginSchoolWithPubKey:key randomKey:randomKey];
+
+                            return;
                         }
                     }
-                    else
-                    {
-                                       
-                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
-                    }
                 }
+                
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
+    else
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
 }
 
-- (void)loginSchoolWithPubKey:(NSString *)key
+- (void)loginSchoolWithPubKey:(NSString *)key randomKey:(NSString *)randomKey
 {
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request =
         [YSLiveApiRequest postLoginWithPubKey:key
                                        domain:self.roomTextField.inputTextField.text
                                 admin_account:self.nickNameTextField.inputTextField.text
-                                    admin_pwd:self.passOnlineTextField.inputTextField.text];
+                                    admin_pwd:self.passOnlineTextField.inputTextField.text
+                                    randomKey:randomKey];
     if (request)
     {
         BMWeakSelf
@@ -800,27 +831,60 @@
             {
                 BMLog(@"Error: %@", error);
                                 
-                [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.ServerError") delay:0.5];
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
-                NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
+                [weakSelf.progressHUD bm_hideAnimated:NO];
                 
-                NSString *str = [[NSString stringWithFormat:@"%@", dataDic] bm_convertUnicode];
-                if ([dataDic bm_intForKey:@"code"] == 0)
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                
+#ifdef DEBUG
+                NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
+                NSLog(@"%@", str);
+#endif
+                if ([responseDic bm_isNotEmptyDictionary])
                 {
-                    [YSSchoolUser shareInstance].domain = weakSelf.roomTextField.inputTextField.text;
-                    [YSSchoolUser shareInstance].admin_account = weakSelf.nickNameTextField.inputTextField.text;
-                    [YSSchoolUser shareInstance].admin_pwd = weakSelf.passOnlineTextField.inputTextField.text;
-                    [YSSchoolUser shareInstance].schoolUser = dataDic;
-                    YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
-                    [tabBar addViewControllers];
-                    [weakSelf.navigationController pushViewController:tabBar animated:YES];
-                }
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+                        schoolUser.domain = weakSelf.roomTextField.inputTextField.text;
+                        schoolUser.userAccount = weakSelf.nickNameTextField.inputTextField.text;
+                        //schoolUser.userPassWord = weakSelf.passOnlineTextField.inputTextField.text;
+                        schoolUser.randomKey = self.randomKey;
+                        
+                        NSDictionary *dataDic = [responseDic bm_dictionaryForKey:@"data"];
+                        [schoolUser updateWithServerDic:dataDic];
+                        
+                        if ([schoolUser.userId bm_isNotEmpty] && [schoolUser.token bm_isNotEmpty])
+                        {
+                            [schoolUser saveSchoolUserLoginData];
 
+                            YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
+                            [tabBar addViewControllers];
+                            [weakSelf.navigationController pushViewController:tabBar animated:YES];
+                            
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        NSString *info = [responseDic bm_stringForKey:@"info"];
+                        [weakSelf.progressHUD bm_showAnimated:NO withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    }
+                }
+                else
+                {
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                }
             }
         }];
         [task resume];
+    }
+    else
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -828,13 +892,39 @@
 {
     if (![YSCoreStatus isNetworkEnable])
     {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:@"请开启网络" delay:0.5];
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
 
     if (self.isOnlineSchool)
     {
+        if (![self.roomTextField.inputTextField.text bm_isNotEmpty])
+        {
+            //没有输入机构域名
+            NSString *content =  YSLocalizedSchool(@"Prompt.NoDomain");
+            [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+            return;
+        }
+        if (![self.nickNameTextField.inputTextField.text bm_isNotEmpty])
+        {
+            //没有输入账号
+            NSString *content =  YSLocalizedSchool(@"Prompt.NoAccountl");
+            [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+            return;
+        }
+        
+        if (![self.passOnlineTextField.inputTextField.text bm_isNotEmpty])
+        {
+            //没有输入密码
+            NSString *content =  YSLocalizedSchool(@"Prompt.NoPassword");
+            [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+            return;
+        }
+
+        [self.progressHUD bm_showAnimated:NO showBackground:YES];
+
         [self getSchoolPublicKey];
+        
         return;
     }
     
@@ -914,7 +1004,7 @@
 #pragma mark - 检查房间类型
 - (void)checkRoomType
 {
-    [self.m_ProgressHUD bm_showAnimated:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     BMWeakSelf
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -928,25 +1018,27 @@
         ]];
     
         NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-            [weakSelf.m_ProgressHUD bm_hideAnimated:NO];
+            [weakSelf.progressHUD bm_hideAnimated:NO];
             if (error)
             {
-                [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
+                [self.progressHUD bm_hideAnimated:NO];
+                
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 
-                if ([responseDic bm_isNotKindOfClass:[NSDictionary class]])
+                if (![responseDic bm_isNotEmptyDictionary])
                 {
-                    [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
 
                 NSInteger result = [responseDic bm_intForKey:@"result"];
                 if (result == 4007)
                 {
-                    [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
@@ -958,7 +1050,7 @@
                     }
                     else
                     {
-                        [weakSelf.m_ProgressHUD bm_showAnimated:YES withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         weakSelf.callNum = 0;
                     }
                     return;
@@ -1019,6 +1111,10 @@
         }];
         [task resume];
     }
+    else
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
 }
 
 - (void)joinRoom
@@ -1045,7 +1141,7 @@
 //    self.passwordTextField.hidden = YES;
     self.passwordTextField.inputTextField.text = nil;
     
-    [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
 
 // URL打开登录
@@ -1064,7 +1160,7 @@
     
     [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams];
     
-    [self.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     return YES;
 }
@@ -1173,11 +1269,13 @@
             self.passOnlineTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
         
-        UIButton * eyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
-        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
-        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
-        [eyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
-        [_passOnlineTextField addSubview:eyeBtn];
+        self.passwordEyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
+        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
+        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
+        [self.passwordEyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_passOnlineTextField addSubview:self.passwordEyeBtn];
+
     }
     return _passOnlineTextField;
 }
@@ -1246,7 +1344,6 @@
             
             margin = (350-buttonNum*100)/(buttonNum+1);
         }
-        
         
         for (int i = 0; i<buttonNum; i++)
         {
@@ -1519,7 +1616,7 @@
             NSString *s = [textField.text substringToIndex:10];
             [textField setText:s];
             
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Alert.NumberOfWords.10") delay:0.5];
+            [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
 }
@@ -1533,7 +1630,7 @@
 {
     BMLog(@"YSLoginVC onRoomJoined");
     
-    [self.m_ProgressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
     
     [YSUserDefault setLoginRoomID:[self.roomTextField.inputTextField.text bm_trimAllSpace]];
     [YSUserDefault setLoginNickName:[self.nickNameTextField.inputTextField.text bm_trimAllSpace]];
@@ -1625,7 +1722,7 @@
 
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
 {
-    [self.m_ProgressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
 
     [[YSLiveManager shareInstance] destroy];
 
@@ -1647,8 +1744,7 @@
 - (void)theRoomNeedPassword
 {
     // 需要密码
-//    if ([UIDevice bm_isiPad] || self.room_UseTheType == YSAppUseTheTypeMeeting)
-     if ( self.room_UseTheType == YSAppUseTheTypeMeeting)
+     if ( self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass)
     {
 //        self.roleSelectView.hidden = NO;
         [self showRoleSelectView];
@@ -1665,7 +1761,7 @@
             
             [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
             
-            [weakSelf.m_ProgressHUD bm_showAnimated:YES showBackground:YES];
+            [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
         } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
             if (index == 0)
             {
@@ -1677,7 +1773,7 @@
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
-    [self.m_ProgressHUD bm_hideAnimated:YES];
+    [self.progressHUD bm_hideAnimated:NO];
     if (![YSCoreStatus isNetworkEnable])
     {
         descript = YSLocalized(@"Prompt.NetworkChanged");
@@ -1685,6 +1781,13 @@
     [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
     
     [[YSLiveManager shareInstance] destroy];
+}
+
+- (void)logoutOnlineSchool
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    self.passOnlineTextField.inputTextField.text = @"";
 }
 
 @end
