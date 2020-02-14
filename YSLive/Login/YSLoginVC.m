@@ -1129,13 +1129,15 @@
     NSString *nickName = self.nickNameTextField.inputTextField.text;
     NSString *passWordStr = self.passwordTextField.inputTextField.text;
     
+    YSUserRoleType roleType = liveManager.localUser.role;
+    
     if ([passWordStr bm_isNotEmpty])
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:roleType userId:nil userParams:nil];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:roleType userId:nil userParams:nil];
     }
     
 //    self.passwordTextField.hidden = YES;
@@ -1645,6 +1647,8 @@
         self.room_UseTheType = appUseTheType;
     }
 
+    YSUserRoleType roleType = [YSLiveManager shareInstance].localUser.role;
+           
     // 3: 小班课  4: 直播  6： 会议
     BOOL isSmallClass = (self.room_UseTheType == YSAppUseTheTypeSmallClass || self.room_UseTheType == YSAppUseTheTypeMeeting);
     
@@ -1656,7 +1660,7 @@
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
-        if (self.selectRoleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass))
+        if (roleType == YSUserType_Teacher && (self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass))
         {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = self.room_UseTheType;
