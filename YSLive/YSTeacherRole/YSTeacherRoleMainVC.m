@@ -3647,10 +3647,11 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     popover.sourceRect = videoView.bounds;
     popover.delegate = self;
     popover.backgroundColor =  [UIColor bm_colorWithHex:0x336CC7];
-    
+    self.controlPopoverView.roomLayout = self.roomLayout;
     [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
 
-        if (self.roomtype == YSRoomType_One)
+        
+    if (self.roomtype == YSRoomType_One)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
 
