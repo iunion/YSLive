@@ -84,7 +84,7 @@ FSCalendarDelegateAppearance
 #pragma mark - 获取学生课程列表当月数据
 - (void)getCalendarDatas
 {
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     [self.calendarDataTask cancel];
     self.calendarDataTask = nil;

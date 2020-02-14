@@ -921,7 +921,7 @@
             return;
         }
 
-        [self.progressHUD bm_showAnimated:YES showBackground:YES];
+        [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
         [self getSchoolPublicKey];
         
@@ -1004,7 +1004,7 @@
 #pragma mark - 检查房间类型
 - (void)checkRoomType
 {
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     BMWeakSelf
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -1141,7 +1141,7 @@
 //    self.passwordTextField.hidden = YES;
     self.passwordTextField.inputTextField.text = nil;
     
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
 
 // URL打开登录
@@ -1160,7 +1160,7 @@
     
     [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams];
     
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     return YES;
 }
@@ -1758,7 +1758,7 @@
             
             [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
             
-            [weakSelf.progressHUD bm_showAnimated:YES showBackground:YES];
+            [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
         } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
             if (index == 0)
             {

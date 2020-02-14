@@ -79,7 +79,7 @@
 
 - (void)createUI
 {
-    //[self.progressHUD bm_showAnimated:YES withDetailText:YSLocalizedSchool(@"ClassListCell.Enter.EndError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    //[self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"ClassListCell.Enter.EndError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 
 }
 
@@ -173,12 +173,13 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    YSClassModel *classModel = self.dataArray[indexPath.row];
-//
-//    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
-//    detailsVC.linkClassModel = classModel;
-//    detailsVC.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:detailsVC animated:YES];
+    YSClassModel *classModel = self.dataArray[indexPath.row];
+
+    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
+    detailsVC.linkClassModel = classModel;
+    detailsVC.delegate = self;
+    detailsVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:detailsVC animated:YES];
 }
 
 
@@ -196,7 +197,7 @@
 
 - (void)enterClassWith:(YSClassModel *)classModel
 {
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithToTeachId:classModel.toTeachId];
@@ -301,10 +302,10 @@
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
-    
+        
     [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
     
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
 
 
@@ -403,7 +404,7 @@
         
         [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
         
-        [weakSelf.progressHUD bm_showAnimated:YES showBackground:YES];
+        [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
     } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
         if (index == 0)
         {

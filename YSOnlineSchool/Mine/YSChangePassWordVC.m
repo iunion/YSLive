@@ -91,7 +91,7 @@
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     // 提交密码
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];

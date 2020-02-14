@@ -110,7 +110,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 //刷新
 - (void)refreshBtnClick
 {
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
@@ -214,7 +214,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 /// 退出
 - (void)signOut
 {
-    [self.progressHUD bm_showAnimated:YES showBackground:YES];
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     

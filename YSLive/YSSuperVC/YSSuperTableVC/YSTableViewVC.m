@@ -325,7 +325,7 @@
 #if (PROGRESSHUD_UESGIF)
         [self.progressHUD showWait:YES backgroundColor:nil text:nil useHMGif:YES];
 #else
-        [self.progressHUD bm_showAnimated:YES showBackground:NO];
+        [self.progressHUD bm_showAnimated:NO showBackground:YES];
 #endif
     }
     
