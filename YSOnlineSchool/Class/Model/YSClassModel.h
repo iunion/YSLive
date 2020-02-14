@@ -17,8 +17,9 @@ typedef NS_ENUM(NSUInteger, YSClassState)
     YSClassState_End
 };
 
-#define YSClassReplayView_Height    (40.0f)
-#define YSClassReplayView_Gap       (15.0f)
+#define YSClassReplayView_Height        (40.0f)
+#define YSClassReplayView_Gap           (15.0f)
+#define YSClassReplayView_NoDateHeight  (30.0f)
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -79,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
 - (CGFloat)calculateInstructionTextCellHeight;
-- (CGFloat)calculateMediumCellHeight;
+//- (CGFloat)calculateMediumCellHeight;
 
 @end
 

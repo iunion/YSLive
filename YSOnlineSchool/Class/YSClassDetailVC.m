@@ -127,8 +127,6 @@
     YSClassReplayListModel *classReplayListModel = [YSClassReplayListModel classReplayListModelWithServerDic:data];
     self.classReplayListModel = classReplayListModel;
     
-    
-    
     [self.tableView reloadData];
     
     return YES;
@@ -142,14 +140,15 @@
 {
     if ([self.linkClassModel bm_isNotEmpty])
     {
-        if ([self.classReplayListModel.classReplayList bm_isNotEmpty])
-        {
-            return 2;
-        }
-        else
-        {
-            return 1;
-        }
+        return 2;
+//        if ([self.classReplayListModel.classReplayList bm_isNotEmpty])
+//        {
+//            return 2;
+//        }
+//        else
+//        {
+//            return 1;
+//        }
     }
     return 0;
 }
@@ -162,7 +161,14 @@
             return [YSClassCell cellHeight];
             
         case 1:
-            return [self.classReplayListModel calculateMediumCellHeight];
+            if (self.classReplayListModel)
+            {
+                return [self.classReplayListModel calculateMediumCellHeight];
+            }
+            else
+            {
+                return YSClassReplayView_NoDateHeight+45.0f+5.0f;
+            }
     }
     
     return 0.0f;

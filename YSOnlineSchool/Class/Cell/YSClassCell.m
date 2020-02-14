@@ -130,7 +130,7 @@
             if (liveManager.tServiceTime)
             {
                 CGFloat timecount = self.classModel.startTime - liveManager.tCurrentTime;
-                if (timecount <= 600 || timecount > 0)
+                if (timecount <= 600 && timecount > 0)
                 {
                     self.enterBtn.hidden = NO;
                     [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];

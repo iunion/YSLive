@@ -62,7 +62,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
                                admin_account:(NSString *)admin_account
                                    admin_pwd:(NSString *)admin_pwd
                                    randomKey:(NSString *)randomKey;
-/// 退出
+/// 登出
 + (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token;
 
 /// 获取课表日历数据
@@ -70,6 +70,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 /// 获取课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
+
 /// 获取个人信息
 + (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId;
 

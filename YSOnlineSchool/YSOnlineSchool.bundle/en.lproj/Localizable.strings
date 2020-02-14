@@ -41,6 +41,7 @@
 
 "ClassInstructionCell.Title"    = "Instruction";
 "ClassMediumCell.Title"         = "Course Playback";
+"ClassMediumCell.NoTitle"       = "Course playback in production";
 "ClassReplayView.Duration"      = "Duration";
 "ClassReplayView.Size"          = "Size";
 

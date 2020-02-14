@@ -51,6 +51,17 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
 }
 
+/// 登出
++ (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token
+{
+    // http://school.roadofcloud.cn/index/Login/exitLogin
+    NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/exitLogin", YSSchool_Server];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setObject:token forKey:@"token"];
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
+    
+}
+
 /// 获取课表日历数据
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr
 {
@@ -77,7 +88,7 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
-
+/// 获取个人信息
 + (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId
 {
     // http://school.roadofcloud.cn/appstudent/User/getStudentInfo
@@ -100,16 +111,6 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
-
-+ (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token
-{
-    // http://school.roadofcloud.cn/index/Login/exitLogin
-    NSString *urlStr = [NSString stringWithFormat:@"%@/index/Login/exitLogin", YSSchool_Server];
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:token forKey:@"token"];
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
-    
-}
 /// 进入教室
 + (NSMutableURLRequest *)enterOnlineSchoolClassWithToTeachId:(NSString *)toteachid
 {
@@ -121,6 +122,7 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
+///  修改密码
 + (NSMutableURLRequest *)postUpdatePass:(NSString *)updatePass mobile:(NSString *)mobile organid:(NSString *)organid
 {
     //http://school.roadofcloud.cn/student/Homepage/updatePass
@@ -133,3 +135,4 @@
 }
 
 @end
+

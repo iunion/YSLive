@@ -41,6 +41,7 @@
 
 "ClassInstructionCell.Title"    = "课程简介";
 "ClassMediumCell.Title"         = "课程回放";
+"ClassMediumCell.NoTitle"       = "课程回放制作中";
 "ClassReplayView.Duration"      = "时长";
 "ClassReplayView.Size"          = "大小";
 

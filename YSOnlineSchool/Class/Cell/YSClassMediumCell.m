@@ -72,19 +72,31 @@
     
     [self.bottomView bm_removeAllSubviews];
     
-    for (NSUInteger index = 0; index<classReplayListModel.classReplayList.count; index++)
+    if ([classReplayListModel.classReplayList bm_isNotEmpty])
     {
-        YSClassReviewModel *classReviewModel = classReplayListModel.classReplayList[index];
+        for (NSUInteger index = 0; index<classReplayListModel.classReplayList.count; index++)
+        {
+            YSClassReviewModel *classReviewModel = classReplayListModel.classReplayList[index];
+            
+            YSClassReplayView *classReplayView = [[YSClassReplayView alloc] init];
+            classReplayView.name = self.classReplayListModel.lessonsName;
+            classReplayView.classReviewModel = classReviewModel;
+            classReplayView.index = index;
+            classReplayView.delegate = self;
+            
+            [self.bottomView addSubview:classReplayView];
+            classReplayView.bm_top = index*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;
+            classReplayView.bm_left = 15.0f;
+        }
+    }
+    else
+    {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, UI_SCREEN_WIDTH-60.0f, YSClassReplayView_NoDateHeight)];
+        label.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
+        label.font = UI_FONT_12;
+        label.text = YSLocalizedSchool(@"ClassMediumCell.NoTitle");
         
-        YSClassReplayView *classReplayView = [[YSClassReplayView alloc] init];
-        classReplayView.name = self.classReplayListModel.lessonsName;
-        classReplayView.classReviewModel = classReviewModel;
-        classReplayView.index = index;
-        classReplayView.delegate = self;
-        
-        [self.bottomView addSubview:classReplayView];
-        classReplayView.bm_top = index*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;
-        classReplayView.bm_left = 15.0f;
+        [self.bottomView addSubview:label];
     }
     
 //    self.bottomView.bm_height = classDetailModel.classReplayList.count*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;

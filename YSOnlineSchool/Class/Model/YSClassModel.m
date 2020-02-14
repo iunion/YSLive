@@ -186,12 +186,12 @@
     return height+50.0f+10.0f;
 }
 
-- (CGFloat)calculateMediumCellHeight
-{
-    CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
-    
-    return height+45.0f+5.0f;
-}
+//- (CGFloat)calculateMediumCellHeight
+//{
+//    CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+//    
+//    return height+45.0f+5.0f;
+//}
 
 @end
 
@@ -242,7 +242,11 @@
 
 - (CGFloat)calculateMediumCellHeight
 {
-    CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+    CGFloat height = YSClassReplayView_NoDateHeight;
+    if ([self.classReplayList bm_isNotEmpty])
+    {
+        height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+    }
     
     return height+45.0f+5.0f;
 }
