@@ -30,6 +30,8 @@
         [self addSubview:self.titleLabel];
         self.titleLabel.text = title;
         
+
+        
         _inputTextField = [[UITextField alloc] init];
         [_inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
         if (placeholder)
@@ -44,22 +46,29 @@
         _inputTextField.textColor = YSColor_LoginTextField;
         _inputTextField.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14);
         _inputTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _inputTextField.secureTextEntry = YES;
         _inputTextField.delegate = self;
         _inputTextField.tintColor = YSColor_LoginTextField;
         _inputTextField.enabled = YES;
-        _inputTextField.frame = CGRectMake(UI_SCREEN_WIDTH - 40 - 230, 0, 230, 40);
+        
         _inputTextField.layer.cornerRadius = 20;
         _inputTextField.layer.masksToBounds = YES;
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 40)];
         _inputTextField.leftView = view;
         _inputTextField.leftViewMode = UITextFieldViewModeAlways;
         [self addSubview:self.inputTextField];
-        _titleLabel.frame = CGRectMake(10, 10, UI_SCREEN_WIDTH - 40 - 230 - 10-10, 20);
+        
         
     }
     return self;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    _titleLabel.frame = CGRectMake(10, 10, 100, 20);
+    _inputTextField.frame = CGRectMake(CGRectGetMaxX(_titleLabel.frame) + 10, 0, self.bm_width - self.titleLabel.bm_right - 10 - 40, 40);
+}
 #pragma mark  -- TextFieldDelegate
 
 - (void)textFieldDidChanged:(UITextField *)textField

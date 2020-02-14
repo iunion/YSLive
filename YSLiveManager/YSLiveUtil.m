@@ -117,4 +117,49 @@
     return NO;
 }
 
++ (NSString *)makeApiSignWithData:(NSObject *)data
+{
+    if (![YSLiveUtil checkDataType:data])
+    {
+        return @"";
+    }
+    
+    if ([data isKindOfClass:[NSString class]])
+    {
+        return (NSString *)data;
+    }
+    else if ([data isKindOfClass:[NSNumber class]])
+    {
+        NSNumber *number = (NSNumber *)data;
+        NSString *string = [NSString stringWithFormat:@"%@", number];
+        return string;
+    }
+    else if ([data isKindOfClass:[NSArray class]])
+    {
+        NSArray *array = (NSArray *)data;
+        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
+        for (NSUInteger i=0; i<array.count; i++)
+        {
+            [string appendFormat:@"%@%@", @(i), [YSLiveUtil makeApiSignWithData:array[i]]];
+        }
+        
+        return string;
+    }
+    else if ([data isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *dic = (NSDictionary *)data;
+        NSArray *KeyArray = [dic allKeys];
+        KeyArray = [KeyArray bm_sortedArray];
+        
+        NSMutableString *string = [NSMutableString stringWithString:@""];
+        for (NSString *key in KeyArray)
+        {
+            [string appendFormat:@"%@%@", key, [YSLiveUtil makeApiSignWithData:[dic objectForKey:key]]];
+        }
+        return string;
+    }
+    
+    return @"";
+}
+
 @end

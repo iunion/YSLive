@@ -17,8 +17,9 @@ typedef NS_ENUM(NSUInteger, YSClassState)
     YSClassState_End
 };
 
-#define YSClassReplayView_Height    (40.0f)
-#define YSClassReplayView_Gap       (15.0f)
+#define YSClassReplayView_Height        (40.0f)
+#define YSClassReplayView_Gap           (15.0f)
+#define YSClassReplayView_NoDateHeight  (30.0f)
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,8 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 结束时间: endtime 格式2018-05-09 16:30:00
 @property (nonatomic, assign) NSTimeInterval endTime;
 
+/// toteachid
+@property (nonatomic, strong) NSString *toTeachId;
+
 /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
 @property (nonatomic, assign) YSClassState classState;
+
+@property (nonatomic, strong) NSDictionary *classDic;
 
 + (nullable instancetype)classModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
@@ -74,26 +80,57 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
 - (CGFloat)calculateInstructionTextCellHeight;
+//- (CGFloat)calculateMediumCellHeight;
+
+@end
+
+@interface YSClassReplayListModel : NSObject
+
+/// 课节名称: lessonsname
+@property (nonatomic, strong) NSString *lessonsName;
+
+/// 课程回放列表: video
+@property (nonatomic, strong) NSMutableArray <YSClassReviewModel *> *classReplayList;
+
++ (nullable instancetype)classReplayListModelWithServerDic:(NSDictionary *)dic;
+- (void)updateWithServerDic:(NSDictionary *)dic;
+
 - (CGFloat)calculateMediumCellHeight;
 
 @end
 
 @interface YSClassReviewModel : NSObject
 
-/// 标题
-@property (nonatomic, strong) NSString *title;
-/// 时长
-@property (nonatomic, strong) NSString *during;
-/// 存储大小
+/// 标题编号: part
+@property (nonatomic, strong) NSString *part;
+/// 时长: duration
+@property (nonatomic, strong) NSString *duration;
+/// 存储大小: size
 @property (nonatomic, strong) NSString *size;
 
-/// 链接
+/// 链接: https_playpath
 @property (nonatomic, strong) NSString *linkUrl;
-
 
 + (nullable instancetype)classReviewModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
 
 @end
+
+
+//{
+//        "code": "成功的时候返回0,失败或者异常返回其他",
+//        "data": {
+//                "teachername": "老师名称",
+//                "starttime": "上课时间",
+//                "lessonsname": "课节名称",
+//                "video": {
+//                        "playpath": "视频片段url",
+//                        "https_playpath": "视频https片段",
+//                        "duration": "时长时分秒",
+//                        "part": "片段编号1,2"
+//                }
+//        },
+//        "info": "成功的时候返回操作成功,失败或者异常返回其他"
+//}
 
 NS_ASSUME_NONNULL_END

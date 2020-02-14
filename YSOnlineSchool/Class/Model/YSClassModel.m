@@ -76,20 +76,32 @@
     /// 开始时间: starttime 格式2018-05-09 16:30:00
     if ([dic bm_containsObjectForKey:@"starttime"])
     {
-        self.startTime = [dic bm_doubleForKey:@"starttime"];
+        NSString *dateStr = [dic bm_stringTrimForKey:@"starttime"];
+        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd hh:mm:ss"];
+        self.startTime = [date timeIntervalSince1970];
     }
     /// 结束时间: endtime 格式2018-05-09 16:30:00
     if ([dic bm_containsObjectForKey:@"endtime"])
     {
-        self.endTime = [dic bm_doubleForKey:@"endtime"];
+        NSString *dateStr = [dic bm_stringTrimForKey:@"endtime"];
+        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd hh:mm:ss"];
+        self.endTime = [date timeIntervalSince1970];
     }
-    
+
+    /// toteachid
+    if ([dic bm_containsObjectForKey:@"toteachid"])
+    {
+        self.toTeachId = [dic bm_stringTrimForKey:@"toteachid"];
+    }
+
     /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
-    self.classState = [dic bm_uintForKey:@"classState"];
+    self.classState = [dic bm_uintForKey:@"buttonstatus"];
     if (self.classState > YSClassState_Begin )
     {
         self.classState = YSClassState_End;
     }
+    
+    self.classDic = dic;
 }
 
 @end
@@ -174,9 +186,67 @@
     return height+50.0f+10.0f;
 }
 
+//- (CGFloat)calculateMediumCellHeight
+//{
+//    CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+//    
+//    return height+45.0f+5.0f;
+//}
+
+@end
+
+@implementation YSClassReplayListModel
+
++ (instancetype)classReplayListModelWithServerDic:(NSDictionary *)dic
+{
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return nil;
+    }
+    
+    YSClassReplayListModel *classReplayListModel = [[YSClassReplayListModel alloc] init];
+    [classReplayListModel updateWithServerDic:dic];
+    
+    return classReplayListModel;
+}
+
+- (void)updateWithServerDic:(NSDictionary *)dic
+{
+    if (![dic bm_isNotEmptyDictionary])
+    {
+        return;
+    }
+    
+    /// 课节名称: lessonsname
+    self.lessonsName = [dic bm_stringTrimForKey:@"lessonsname"];
+
+    /// 课程回放列表: video
+    NSArray *videoArray = [dic bm_arrayForKey:@"video"];
+    NSMutableArray *classReplayList = [[NSMutableArray alloc] init];
+    for (NSDictionary *dic in videoArray)
+    {
+        if ([dic bm_isNotEmptyDictionary])
+        {
+            YSClassReviewModel *classReviewModel = [YSClassReviewModel classReviewModelWithServerDic:dic];
+            if (classReviewModel)
+            {
+                [classReplayList addObject:classReviewModel];
+            }
+        }
+    }
+    if ([classReplayList bm_isNotEmpty])
+    {
+        self.classReplayList = classReplayList;
+    }
+}
+
 - (CGFloat)calculateMediumCellHeight
 {
-    CGFloat height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+    CGFloat height = YSClassReplayView_NoDateHeight;
+    if ([self.classReplayList bm_isNotEmpty])
+    {
+        height = self.classReplayList.count * (YSClassReplayView_Height+YSClassReplayView_Gap);
+    }
     
     return height+45.0f+5.0f;
 }
@@ -212,7 +282,8 @@
         return;
     }
     
-    NSString *linkUrl = [dic bm_stringTrimForKey:@"linkUrl"];
+    /// 链接: https_playpath
+    NSString *linkUrl = [dic bm_stringTrimForKey:@"https_playpath"];
     if (![linkUrl bm_isNotEmpty])
     {
         return;
@@ -220,9 +291,50 @@
     
     self.linkUrl = linkUrl;
     
-    self.title = [dic bm_stringTrimForKey:@"title"];
-    self.during = [dic bm_stringTrimForKey:@"during"];
-    self.size = [dic bm_stringTrimForKey:@"size"];
+    /// 标题编号: part
+    self.part = [dic bm_stringTrimForKey:@"part" withDefault:@""];
+    
+    /// 时长: duration
+    NSString *duration = [dic bm_stringTrimForKey:@"duration"];
+    NSUInteger hour = 0;
+    NSUInteger minute = 0;
+    NSUInteger second = 0;
+    NSUInteger location = 0;
+    NSRange rang = [duration rangeOfString:@"时"];
+    if (rang.location != NSNotFound && rang.location > location)
+    {
+        NSRange hrang = NSMakeRange(location, rang.location-location);
+        NSString *hs = [duration substringWithRange:hrang];
+        
+        hour = [hs integerValue];
+        location = rang.location + 1;
+    }
+    
+    rang = [duration rangeOfString:@"分"];
+    if (rang.location != NSNotFound && rang.location > location)
+    {
+        NSRange mrang = NSMakeRange(location, rang.location-location);
+        NSString *ms = [duration substringWithRange:mrang];
+        
+        minute = [ms integerValue];
+        location = rang.location + 1;
+    }
+
+    rang = [duration rangeOfString:@"秒"];
+    if (rang.location != NSNotFound && rang.location > location)
+    {
+        NSRange srang = NSMakeRange(location, rang.location-location);
+        NSString *ss = [duration substringWithRange:srang];
+        
+        second = [ss integerValue];
+    }
+    minute = minute + hour*60;
+
+    self.duration = [NSString stringWithFormat:@"%@'%@''", @(minute), @(second)];
+    /// 存储大小: size
+    double size = [dic bm_doubleForKey:@"size"];
+    NSArray *tokens = [NSArray arrayWithObjects:@"B", @"K", @"M", @"G", @"T", nil];
+    self.size = [NSString bm_storeStringWithBitSize:size tokens:tokens];
 }
 
 

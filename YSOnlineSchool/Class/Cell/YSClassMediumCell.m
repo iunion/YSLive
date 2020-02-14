@@ -13,7 +13,7 @@
     YSClassMediumCellDelegate
 >
 
-@property (nonatomic, strong) YSClassDetailModel *classDetailModel;
+@property (nonatomic, strong) YSClassReplayListModel *classReplayListModel;
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -64,24 +64,39 @@
     [self.bottomView bm_roundedRect:6.0f];
 }
 
-- (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel
+- (void)drawCellWithModel:(YSClassReplayListModel *)classReplayListModel
 {
-    self.classDetailModel = classDetailModel;
+    self.classReplayListModel = classReplayListModel;
 
     self.titleLabel.text = YSLocalizedSchool(@"ClassMediumCell.Title");
     
-    for (NSUInteger index = 0; index<classDetailModel.classReplayList.count; index++)
+    [self.bottomView bm_removeAllSubviews];
+    
+    if ([classReplayListModel.classReplayList bm_isNotEmpty])
     {
-        YSClassReviewModel *classReviewModel = classDetailModel.classReplayList[index];
+        for (NSUInteger index = 0; index<classReplayListModel.classReplayList.count; index++)
+        {
+            YSClassReviewModel *classReviewModel = classReplayListModel.classReplayList[index];
+            
+            YSClassReplayView *classReplayView = [[YSClassReplayView alloc] init];
+            classReplayView.name = self.classReplayListModel.lessonsName;
+            classReplayView.classReviewModel = classReviewModel;
+            classReplayView.index = index;
+            classReplayView.delegate = self;
+            
+            [self.bottomView addSubview:classReplayView];
+            classReplayView.bm_top = index*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;
+            classReplayView.bm_left = 15.0f;
+        }
+    }
+    else
+    {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, UI_SCREEN_WIDTH-60.0f, YSClassReplayView_NoDateHeight)];
+        label.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
+        label.font = UI_FONT_12;
+        label.text = YSLocalizedSchool(@"ClassMediumCell.NoTitle");
         
-        YSClassReplayView *classReplayView = [[YSClassReplayView alloc] init];
-        classReplayView.classReviewModel = classReviewModel;
-        classReplayView.index = index;
-        classReplayView.delegate = self;
-        
-        [self.bottomView addSubview:classReplayView];
-        classReplayView.bm_top = index*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;
-        classReplayView.bm_left = 15.0f;
+        [self.bottomView addSubview:label];
     }
     
 //    self.bottomView.bm_height = classDetailModel.classReplayList.count*(YSClassReplayView_Height+YSClassReplayView_Gap)+6.0f;
@@ -94,7 +109,6 @@
         [self.delegate playReviewClassWithClassReviewModel:classReviewModel index:replayIndex];
     }
 }
-
 
 @end
 
@@ -168,8 +182,16 @@
 {
     _classReviewModel = classReviewModel;
     
-    NSString *title = classReviewModel.title;
-    NSString *time = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Duration"), classReviewModel.during];
+    NSString *title;
+    if ([self.name bm_isNotEmpty])
+    {
+        title = [NSString stringWithFormat:@"%@%@", self.name, classReviewModel.part];
+    }
+    else
+    {
+        title = classReviewModel.part;
+    }
+    NSString *time = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Duration"), classReviewModel.duration];
     NSString *size = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassReplayView.Size"), classReviewModel.size];
 
     self.titleLabel.text = title;

@@ -13,6 +13,9 @@
 #import "YSCoreStatus.h"
 #endif
 
+#import "YSSchoolUser.h"
+#import "YSLiveUtil.h"
+
 #import "YSAppInfo.h"
 
 @implementation YSApiRequest
@@ -171,7 +174,40 @@
 
 + (NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost
 {
-    AFJSONRequestSerializer *requestSerializer = [YSApiRequest HTTPRequestSerializer];
+    return [YSApiRequest makeRequestWithURL:URLString parameters:parameters isPost:isPost isOnlineSchool:NO];
+}
+
++ (NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isOnlineSchool:(BOOL)isOnlineSchool
+{
+    return [YSApiRequest makeRequestWithURL:URLString parameters:parameters isPost:YES isOnlineSchool:isOnlineSchool];
+}
+
++ (NSString *)makeOnlineSchooleSignWithParameters:(NSDictionary *)parameters timeInterval:(NSTimeInterval)timeInterval
+{
+    NSString *parameterString = [YSLiveUtil makeApiSignWithData:parameters];
+    if (![parameterString bm_isNotEmpty])
+    {
+        return @"";
+    }
+    
+    NSString *parameterStringMd5 = [parameterString bm_md5String];
+
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+    NSString *keyMd5 = [schoolUser.randomKey bm_md5String];
+    
+    NSString *sign = [NSString stringWithFormat:@"%@%@%@", parameterStringMd5, keyMd5, @(timeInterval)];
+    NSString *signSha1 = [sign bm_sha1String];
+    
+    sign = [NSString stringWithFormat:@"%@%@", signSha1, schoolUser.token];
+    
+    NSString *signMd5 = [sign bm_md5String];
+    
+    return signMd5;
+}
+
++ (NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost isOnlineSchool:(BOOL)isOnlineSchool
+{
+    AFHTTPRequestSerializer *requestSerializer = [YSApiRequest HTTPRequestSerializer];
     
     NSMutableDictionary *parameterDic;
     if ([parameters bm_isNotEmptyDictionary])
@@ -199,12 +235,22 @@
 //    starttime: 1581408462000
 //    token: 360960395426803
     
-    //[request setValue:@"3bd14e8442dd368a9d8d5ad886ce341b" forHTTPHeaderField:@"sign"];
-    //[request setValue:@"360960395426803" forHTTPHeaderField:@"token"];
-    
-    [request setValue:@"3bd14e8442dd368a9d8d5ad886ce341b" forHTTPHeaderField:@"sign"];
-    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    [request setValue:[NSString stringWithFormat:@"%@", @(time)] forHTTPHeaderField:@"starttime"];
+    if (isOnlineSchool)
+    {
+        YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+        if ([schoolUser.userId bm_isNotEmpty])
+        {
+            // 毫秒
+            NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+            time = time*1000;
+            [request setValue:[NSString stringWithFormat:@"%@", @(time)] forHTTPHeaderField:@"starttime"];
+            
+            [request setValue:schoolUser.token forHTTPHeaderField:@"token"];
+
+            NSString *sign = [YSApiRequest makeOnlineSchooleSignWithParameters:parameterDic timeInterval:time];
+            [request setValue:sign forHTTPHeaderField:@"sign"];
+        }
+    }
 
     // 时间戳
 //    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];

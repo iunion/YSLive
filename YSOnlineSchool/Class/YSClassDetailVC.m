@@ -11,13 +11,16 @@
 #import "YSClassInstructionCell.h"
 #import "YSClassMediumCell.h"
 
+#import "YSLiveApiRequest.h"
+#import "YSSchoolUser.h"
+#import "YSSchoolAVPlayerView.h"
 @interface YSClassDetailVC ()
 <
     YSClassCellDelegate,
     YSClassMediumCellDelegate
 >
 
-@property (nonatomic, strong) YSClassDetailModel *classDetailModel;
+@property (nonatomic, strong) YSClassReplayListModel *classReplayListModel;
 
 @end
 
@@ -35,11 +38,13 @@
 
     self.bm_NavigationItemTintColor = [UIColor whiteColor];
     self.bm_NavigationTitleTintColor = [UIColor whiteColor];
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"ClassDetail.Title") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"navigationbar_fresh_icon"] rightToucheEvent:@selector(refreshVC)];
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"ClassDetail.Title") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshVC)];
     
     self.showEmptyView = YES;
 
     [self createUI];
+    
+    [self.dataArray addObject:@"1"];
 
     [self refreshVC];
 
@@ -55,6 +60,7 @@
 {
     [self loadApiData];
     
+    /*
 #warning test
     YSClassDetailModel *classModel = [[YSClassDetailModel alloc] init];
     classModel.classId = @"111";
@@ -70,13 +76,13 @@
     classModel.classState = arc4random() % (YSClassState_End+1);
     
     YSClassReviewModel *classReviewModel1 = [[YSClassReviewModel alloc] init];
-    classReviewModel1.title = @"课件1";
-    classReviewModel1.during = @"35'12''";
+    classReviewModel1.part = @"1";
+    classReviewModel1.duration = @"35'12''";
     classReviewModel1.size = @"112.36M";
 
     YSClassReviewModel *classReviewModel2 = [[YSClassReviewModel alloc] init];
-    classReviewModel2.title = @"课件2";
-    classReviewModel2.during = @"55'32''";
+    classReviewModel2.part = @"2";
+    classReviewModel2.duration = @"55'32''";
     classReviewModel2.size = @"232.56M";
 
     if (arc4random()%2)
@@ -92,6 +98,7 @@
     self.classDetailModel = classModel;
     
     [self.tableView reloadData];
+     */
 }
 
 - (BMEmptyViewType)getNoDataEmptyViewType
@@ -101,7 +108,11 @@
 
 - (NSMutableURLRequest *)setLoadDataRequest
 {
-    return nil;//[FSApiRequest getMeetingDetailWithId:self.m_MeetingId];
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+    NSString *organId = schoolUser.organId;
+    NSString *toTeachId = self.linkClassModel.toTeachId;
+    
+    return [YSLiveApiRequest getClassReplayListWithOrganId:organId toTeachId:toTeachId];
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data
@@ -111,20 +122,12 @@
         return NO;
     }
     
-    YSClassDetailModel *classDetailModel = [YSClassDetailModel classDetailModelWithServerDic:data linkClass:self.linkClassModel];
-    // 获取新数据成功更新
-    if (classDetailModel)
-    {
-        if (self.isLoadNew)
-        {
-            [self.dataArray removeAllObjects];
-        }
-        
-        self.classDetailModel = classDetailModel;
-        
-        [self.dataArray addObject:classDetailModel];
-        [self.tableView reloadData];
-    }
+    //NSString *sss = [[NSString stringWithFormat:@"%@", data] bm_convertUnicode];
+    
+    YSClassReplayListModel *classReplayListModel = [YSClassReplayListModel classReplayListModelWithServerDic:data];
+    self.classReplayListModel = classReplayListModel;
+    
+    [self.tableView reloadData];
     
     return YES;
 }
@@ -135,16 +138,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self.dataArray bm_isNotEmpty])
+    if ([self.linkClassModel bm_isNotEmpty])
     {
-        if ([self.classDetailModel.classReplayList bm_isNotEmpty])
-        {
-            return 3;
-        }
-        else
-        {
-            return 2;
-        }
+        return 2;
+//        if ([self.classReplayListModel.classReplayList bm_isNotEmpty])
+//        {
+//            return 2;
+//        }
+//        else
+//        {
+//            return 1;
+//        }
     }
     return 0;
 }
@@ -157,10 +161,14 @@
             return [YSClassCell cellHeight];
             
         case 1:
-            return [self.classDetailModel calculateInstructionTextCellHeight];
-
-        case 2:
-            return [self.classDetailModel calculateMediumCellHeight];
+            if (self.classReplayListModel)
+            {
+                return [self.classReplayListModel calculateMediumCellHeight];
+            }
+            else
+            {
+                return YSClassReplayView_NoDateHeight+45.0f+5.0f;
+            }
     }
     
     return 0.0f;
@@ -174,31 +182,24 @@
         {
             YSClassCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassCell" owner:self options:nil].firstObject;
             cell.delegate = self;
-            if (self.linkClassModel)
-            {
-                [cell drawCellWithModel:self.linkClassModel isDetail:YES];
-            }
-            else
-            {
-                [cell drawCellWithModel:self.classDetailModel isDetail:YES];
-            }
+            [cell drawCellWithModel:self.linkClassModel isDetail:YES];
             
             return cell;
         }
         
+//        case 1:
+//            {
+//                YSClassInstructionCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassInstructionCell" owner:self options:nil].firstObject;
+//                [cell drawCellWithModel:self.classDetailModel];
+//
+//                return cell;
+//            }
+
         case 1:
             {
-                YSClassInstructionCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassInstructionCell" owner:self options:nil].firstObject;
-                [cell drawCellWithModel:self.classDetailModel];
-                
-                return cell;
-            }
-
-        case 2:
-            {
                 YSClassMediumCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassMediumCell" owner:self options:nil].firstObject;
-                [cell drawCellWithModel:self.classDetailModel];
-                
+                [cell drawCellWithModel:self.classReplayListModel];
+                cell.delegate = self;
                 return cell;
             }
     }
@@ -216,6 +217,36 @@
     cell.selectedBackgroundView.backgroundColor = [UIColor bm_colorWithHex:0xEEEEEE];
     
     return cell;
+}
+
+
+- (void)playReviewClassWithClassReviewModel:(YSClassReviewModel *)classReviewModel index:(NSUInteger)replayIndex
+{
+    self.navigationController.navigationBarHidden = YES;
+    YSSchoolAVPlayerView *playerView = [[YSSchoolAVPlayerView alloc] init];
+    playerView.backgroundColor = [UIColor blackColor];
+    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height );
+    [self.view addSubview:playerView];
+    [playerView settingPlayerItemWithUrl:[NSURL URLWithString:classReviewModel.linkUrl]];
+    playerView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height);
+    
+    BMWeakSelf
+    playerView.closeBlock = ^{
+        weakSelf.navigationController.navigationBarHidden = NO;
+    };
+
+}
+
+
+#pragma mark - YSClassCellDelegate
+
+- (void)enterClassWith:(YSClassModel *)classModel
+{
+    if ([self.delegate respondsToSelector:@selector(enterClassWith:)])
+    {
+        [self.delegate enterClassWith:self.linkClassModel];
+    }
 }
 
 @end

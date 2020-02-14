@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, weak) id <YSClassMediumCellDelegate> delegate;
 
-@property (nonatomic, strong, readonly) YSClassDetailModel *classDetailModel;
+@property (nonatomic, strong, readonly) YSClassReplayListModel *classReplayListModel;
 
-- (void)drawCellWithModel:(YSClassDetailModel *)classDetailModel;
+- (void)drawCellWithModel:(YSClassReplayListModel *)classReplayListModel;
 
 @end
 
@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, weak) id <YSClassMediumCellDelegate> delegate;
 
 @property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) YSClassReviewModel *classReviewModel;
 
 @end
