@@ -40,7 +40,7 @@
 
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 1
-#define CLEARCHECK 1
+#define CLEARCHECK 0
 #endif
 
 #define ONLINESCHOOL 1
