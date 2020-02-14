@@ -1742,8 +1742,8 @@
 - (void)theRoomNeedPassword
 {
     // 需要密码
-//    if ([UIDevice bm_isiPad] || self.room_UseTheType == YSAppUseTheTypeMeeting)
-    if (self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass)
+    if ([UIDevice bm_isiPad] || self.room_UseTheType == YSAppUseTheTypeMeeting)
+//    if (self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass)
     {
 //        self.roleSelectView.hidden = NO;
         [self showRoleSelectView];
