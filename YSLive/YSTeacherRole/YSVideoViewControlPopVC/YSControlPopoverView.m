@@ -288,10 +288,17 @@
     [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
     [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
     button.titleLabel.font = UI_FONT_10;
-    [button setTitle:title forState:UIControlStateNormal];
-    if (selectTitle.length)
+    if (![UIDevice bm_isiPad] && self.roomLayout == YSLiveRoomLayout_VideoLayout)
     {
-        [button setTitle:selectTitle forState:UIControlStateSelected];
+
+
+    }else
+    {
+        [button setTitle:title forState:UIControlStateNormal];
+        if (selectTitle.length)
+        {
+            [button setTitle:selectTitle forState:UIControlStateSelected];
+        }
     }
     
     [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
