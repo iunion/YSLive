@@ -161,6 +161,8 @@ FSCalendarDelegateAppearance
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+//UI
 - (void)setupUI
 {
     self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
@@ -207,7 +209,8 @@ FSCalendarDelegateAppearance
 
 - (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleSelectionColorForDate:(NSDate *)date
 {
-    return UIColor.grayColor;
+    
+    return UIColor.whiteColor;
 }
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date

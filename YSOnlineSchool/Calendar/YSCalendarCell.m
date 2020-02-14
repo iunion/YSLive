@@ -74,6 +74,7 @@
         
         NSDate * dateKey = [dateFormatter dateFromString:key];
         self.titleLabel.textColor = UIColor.whiteColor;
+//        self.appearance.selectionColor = UIColor.whiteColor;
         
         //日期比较
         NSComparisonResult result = [dateKey compare:nowDate];
@@ -103,6 +104,7 @@
     else
     {
         self.titleLabel.textColor = UIColor.grayColor;
+//        self.appearance.selectionColor = UIColor.whiteColor;
         self.circleLab.hidden = YES;
         self.selectionLayer.hidden = YES;
     }
