@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// host地址
 @property (nonatomic, strong) NSString *liveHost;
 
+/// 网校api接口host地址
+@property (nonatomic, strong) NSString *schoolHost;
+
 #if YSSDK
 @property (nullable, nonatomic, weak) id <YSLiveRoomManagerDelegate> sdkDelegate;
 #endif

@@ -312,6 +312,10 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     
+    if (![passWord bm_isNotEmpty])
+    {
+        passWord = nil;
+    }
     YSUserRoleType userRoleType = [YSSchoolUser shareInstance].userRoleType;
     [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:nil userParams:nil];
     
