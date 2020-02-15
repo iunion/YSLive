@@ -185,12 +185,12 @@
         self.stateLabel.hidden = NO;
     }
 
-    self.titleLabel.text = classModel.title;
+    self.titleLabel.text = classModel.classGist;//classModel.title;
 
     [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:classModel.classImage] placeholderImage:[UIImage imageNamed:@"classdefault_icon"] options:SDWebImageRetryFailed|SDWebImageLowPriority];
 
     self.nameLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Teacher"), classModel.teacherName ? classModel.teacherName : @""];
-    self.gistLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Class"), classModel.classGist ? classModel.classGist : @""];
+    self.gistLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Class"), classModel.title ? classModel.title : @""];
 
     NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:classModel.startTime];
     NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:classModel.endTime];

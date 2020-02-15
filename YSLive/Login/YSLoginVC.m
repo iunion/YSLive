@@ -781,6 +781,13 @@
 
 - (void)getSchoolPublicKey
 {
+    NSString *domain = [self.roomTextField.inputTextField.text bm_trim];
+    if ([domain bm_containString:@"."])
+    {
+        YSLiveManager *liveManager = [YSLiveManager shareInstance];
+        liveManager.schoolHost = domain;
+    }
+    
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest getSchoolPublicKey];
     if (request)
@@ -828,7 +835,7 @@
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request =
         [YSLiveApiRequest postLoginWithPubKey:key
-                                       domain:self.roomTextField.inputTextField.text
+                                       domain:[self.roomTextField.inputTextField.text bm_trim]
                                 admin_account:self.nickNameTextField.inputTextField.text
                                     admin_pwd:self.passOnlineTextField.inputTextField.text
                                     randomKey:randomKey];
@@ -858,7 +865,7 @@
                     if (statusCode == YSSuperVC_StatusCode_Succeed)
                     {
                         YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-                        schoolUser.domain = weakSelf.roomTextField.inputTextField.text;
+                        schoolUser.domain = [weakSelf.roomTextField.inputTextField.text bm_trim];
                         schoolUser.userAccount = weakSelf.nickNameTextField.inputTextField.text;
                         //schoolUser.userPassWord = weakSelf.passOnlineTextField.inputTextField.text;
                         schoolUser.randomKey = self.randomKey;

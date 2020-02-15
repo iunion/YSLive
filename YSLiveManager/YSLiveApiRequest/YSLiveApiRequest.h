@@ -66,19 +66,24 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token;
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithUserTyper:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr;
++ (NSMutableURLRequest *)getClassListWithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr;
 
-/// 获取课程列表
+/// 获取学生课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
+/// 获取老师课程列表
++ (NSMutableURLRequest *)getTeacherClassListWithPagesize:(NSUInteger)pagesize date:(NSString *)date pagenum:(NSUInteger)pagenum;
+
+/// 获取学生课程回放列表
++ (NSMutableURLRequest *)getClassReplayListWithOrganId:(NSString *)organid toTeachId:(NSString *)toteachid;
+/// 获取老师课程信息，包含课程回放列表
++ (NSMutableURLRequest *)getTeacherClassInfoWithToteachtimeid:(NSString *)toteachtimeid lessonsid:(NSString *)lessonsid starttime:(NSString *)starttime endtime:(NSString *)endtime date:(NSString *)date;
+
 
 /// 获取个人信息
 + (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId;
 
-/// 获取课程回放列表
-+ (NSMutableURLRequest *)getClassReplayListWithOrganId:(NSString *)organid toTeachId:(NSString *)toteachid;
-
 /// 进入教室
-+ (NSMutableURLRequest *)enterOnlineSchoolClassWithToTeachId:(NSString *)toteachid;
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(YSUserRoleType)userRoleType toTeachId:(NSString *)toteachid;
 
 ///  修改密码
 + (NSMutableURLRequest *)postUpdatePass:(NSString *)updatePass mobile:(NSString *)mobile organid:(NSString *)organid;

@@ -92,6 +92,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.liveHost = YSLIVE_HOST;
         
+        liveManagerSingleton.schoolHost = YSSchool_Server;
+        
         [liveManagerSingleton registerURLProtocol:YES];
     }
     //    static dispatch_once_t onceToken;

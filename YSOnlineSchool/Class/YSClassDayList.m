@@ -114,7 +114,14 @@
 {
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
     
-    return [YSLiveApiRequest getClassListWithStudentId:schoolUser.userId date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+    if (schoolUser.userRoleType == YSUserType_Teacher)
+    {
+        return [YSLiveApiRequest getTeacherClassListWithPagesize:20 date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+    }
+    else
+    {
+        return [YSLiveApiRequest getClassListWithStudentId:schoolUser.userId date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+    }
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data
@@ -188,6 +195,7 @@
 - (void)openClassWith:(YSClassModel *)classModel
 {
     YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
+    detailsVC.selectedDate = self.selectedDate;
     detailsVC.linkClassModel = classModel;
     detailsVC.delegate = self;
     detailsVC.hidesBottomBarWhenPushed = YES;
@@ -198,8 +206,10 @@
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
+    YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
+
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
-    NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithToTeachId:classModel.toTeachId];
+    NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithWithUserType:schoolUserType toTeachId:classModel.toTeachId];
     if (request)
     {
         BMWeakSelf
@@ -302,6 +312,10 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     
+    if (![passWord bm_isNotEmpty])
+    {
+        passWord = nil;
+    }
     YSUserRoleType userRoleType = [YSSchoolUser shareInstance].userRoleType;
     [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:nil userParams:nil];
     

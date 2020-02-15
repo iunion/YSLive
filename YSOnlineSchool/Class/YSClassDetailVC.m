@@ -111,8 +111,19 @@
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
     NSString *organId = schoolUser.organId;
     NSString *toTeachId = self.linkClassModel.toTeachId;
-    
-    return [YSLiveApiRequest getClassReplayListWithOrganId:organId toTeachId:toTeachId];
+    NSString *lessonsId = self.linkClassModel.lessonsId;
+    NSString *starttime = self.linkClassModel.startTimeStr;
+    NSString *endtime = self.linkClassModel.endTimeStr;
+
+    if (schoolUser.userRoleType == YSUserType_Teacher)
+    {
+        return [YSLiveApiRequest getTeacherClassInfoWithToteachtimeid:toTeachId lessonsid:lessonsId starttime:starttime endtime:endtime date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"]];
+    }
+    else
+    {
+        return [YSLiveApiRequest getClassReplayListWithOrganId:organId toTeachId:toTeachId];
+    }
+
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data
@@ -122,8 +133,17 @@
         return NO;
     }
     
-    //NSString *sss = [[NSString stringWithFormat:@"%@", data] bm_convertUnicode];
+#if DEBUG
+    NSString *sss = [[NSString stringWithFormat:@"%@", data] bm_convertUnicode];
+#endif
     
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+    if (schoolUser.userRoleType == YSUserType_Teacher)
+    {
+        data = [data bm_dictionaryForKey:@"playback"];
+        data = [data bm_dictionaryForKey:@"data"];
+    }
+
     YSClassReplayListModel *classReplayListModel = [YSClassReplayListModel classReplayListModelWithServerDic:data];
     self.classReplayListModel = classReplayListModel;
     
