@@ -66,7 +66,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token;
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithUserTyper:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr;
++ (NSMutableURLRequest *)getClassListWithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr;
 
 /// 获取学生课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
@@ -83,7 +83,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId;
 
 /// 进入教室
-+ (NSMutableURLRequest *)enterOnlineSchoolClassWithToTeachId:(NSString *)toteachid;
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(YSUserRoleType)userRoleType toTeachId:(NSString *)toteachid;
 
 ///  修改密码
 + (NSMutableURLRequest *)postUpdatePass:(NSString *)updatePass mobile:(NSString *)mobile organid:(NSString *)organid;

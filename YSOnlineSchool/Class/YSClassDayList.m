@@ -206,8 +206,10 @@
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
+    YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
+
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
-    NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithToTeachId:classModel.toTeachId];
+    NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithWithUserType:schoolUserType toTeachId:classModel.toTeachId];
     if (request)
     {
         BMWeakSelf
