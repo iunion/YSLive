@@ -62,12 +62,17 @@
 }
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId Withdate:(NSString *)dateStr
++ (NSMutableURLRequest *)getClassListWithUserTyper:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
     NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/studentCourseList", YSSchool_Server];
+    
+    if (userRoleType == YSUserType_Teacher) {
+        urlStr = [NSString stringWithFormat:@"%@/teacher/Personalcourse/teachCourseList", YSSchool_Server];
+    }
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters bm_setString:studentId forKey:@"studentid"];
+//    [parameters bm_setString:studentId forKey:@"studentid"];
     [parameters bm_setString:dateStr forKey:@"date"];
 
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
