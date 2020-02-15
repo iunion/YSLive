@@ -23,6 +23,7 @@
 #import "BMAlertView+YSDefaultAlert.h"
 #import "YSCoreStatus.h"
 
+#import "YSTeacherRoleMainVC.h"
 
 @interface YSClassDayList ()
 <
@@ -338,6 +339,25 @@
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
+        YSUserRoleType roleType = [YSLiveManager shareInstance].localUser.role;
+        YSAppUseTheType room_UseTheType = [YSLiveManager shareInstance].room_UseTheType;
+        
+        
+        if (roleType == YSUserType_Teacher && (room_UseTheType == YSAppUseTheTypeMeeting || room_UseTheType == YSAppUseTheTypeSmallClass))
+        {
+            YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
+            mainVC.appUseTheType = room_UseTheType;
+            BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
+            nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
+            [self presentViewController:nav animated:YES completion:^{
+                [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
+            }];
+            [YSEyeCareManager shareInstance].showRemindBlock = ^{
+                [mainVC showEyeCareRemind];
+            };
+        }
+        else
         {
            SCMainVC *mainVC = [[SCMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = appUseTheType;
