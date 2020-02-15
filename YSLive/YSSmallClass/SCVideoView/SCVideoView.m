@@ -9,7 +9,7 @@
 #import "SCVideoView.h"
 #import "PanGestureControl.h"
 
-#define widthScale  self.bm_width/([UIDevice bm_isiPad]? 400 : 350)
+#define widthScale  self.bm_width/([UIDevice bm_isiPad]? 400 : 300)
 #define heightScale self.bm_height/([UIDevice bm_isiPad]? 260 : 160)
 
 @interface SCVideoView ()
@@ -218,7 +218,7 @@
     [self.backVideoView addSubview:self.brushImageView];
     
     //用户名
-    self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 20)];
+    self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.font = UI_FONT_16;
     self.nickNameLab.textColor = UIColor.whiteColor;
@@ -330,7 +330,7 @@
     {
         height = 12;
     }
-    self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 100*widthScale, height);
+    self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 120*widthScale, height);
     CGFloat soundImageWidth = height*5/3;
     self.soundImage.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
 }
