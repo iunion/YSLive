@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, weak) id <YSClassDetailVCDelegate> delegate;
 
+@property(nonatomic, strong) NSDate *selectedDate;
 @property (nullable, nonatomic, strong) YSClassModel *linkClassModel;
 
 @end

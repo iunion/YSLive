@@ -62,6 +62,11 @@
     {
         self.teacherName = [dic bm_stringTrimForKey:@"teachername"];
     }
+    else if ([dic bm_containsObjectForKey:@"nickname"])
+    {
+        self.teacherName = [dic bm_stringTrimForKey:@"nickname"];
+    }
+
     /// 课程主题: periodname
     if ([dic bm_containsObjectForKey:@"periodname"])
     {
@@ -77,25 +82,46 @@
     if ([dic bm_containsObjectForKey:@"starttime"])
     {
         NSString *dateStr = [dic bm_stringTrimForKey:@"starttime"];
-        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd hh:mm:ss"];
+        self.startTimeStr = dateStr;
+        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd HH:mm:ss"];
         self.startTime = [date timeIntervalSince1970];
     }
     /// 结束时间: endtime 格式2018-05-09 16:30:00
     if ([dic bm_containsObjectForKey:@"endtime"])
     {
         NSString *dateStr = [dic bm_stringTrimForKey:@"endtime"];
-        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd hh:mm:ss"];
+        self.endTimeStr = dateStr;
+        NSDate *date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd HH:mm:ss"];
         self.endTime = [date timeIntervalSince1970];
     }
 
-    /// toteachid
+    /// toteachid id = 1854;
     if ([dic bm_containsObjectForKey:@"toteachid"])
     {
         self.toTeachId = [dic bm_stringTrimForKey:@"toteachid"];
     }
+    else if ([dic bm_containsObjectForKey:@"id"])
+    {
+        self.toTeachTimeId = [dic bm_stringTrimForKey:@"id"];
+        self.toTeachId = self.toTeachTimeId;
+    }
+
+    /// lessonsid = 1564;
+    if ([dic bm_containsObjectForKey:@"lessonsid"])
+    {
+        self.lessonsId = [dic bm_stringTrimForKey:@"lessonsid"];
+    }
 
     /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
-    self.classState = [dic bm_uintForKey:@"buttonstatus"];
+    /// classstatus
+    if ([dic bm_containsObjectForKey:@"buttonstatus"])
+    {
+        self.classState = [dic bm_uintForKey:@"buttonstatus"];
+    }
+    else if ([dic bm_containsObjectForKey:@"status"])
+    {
+        self.classState = [dic bm_uintForKey:@"status"];
+    }
     if (self.classState > YSClassState_Begin )
     {
         self.classState = YSClassState_End;

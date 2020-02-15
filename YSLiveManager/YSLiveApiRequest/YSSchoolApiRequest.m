@@ -68,7 +68,8 @@
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
     NSString *urlStr = [NSString stringWithFormat:@"%@/student/Mycourse/studentCourseList", YSSchool_Server];
     
-    if (userRoleType == YSUserType_Teacher) {
+    if (userRoleType == YSUserType_Teacher)
+    {
         urlStr = [NSString stringWithFormat:@"%@/teacher/Personalcourse/teachCourseList", YSSchool_Server];
     }
     

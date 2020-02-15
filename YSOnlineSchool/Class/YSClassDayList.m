@@ -195,6 +195,7 @@
 - (void)openClassWith:(YSClassModel *)classModel
 {
     YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
+    detailsVC.selectedDate = self.selectedDate;
     detailsVC.linkClassModel = classModel;
     detailsVC.delegate = self;
     detailsVC.hidesBottomBarWhenPushed = YES;
