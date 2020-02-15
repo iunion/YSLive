@@ -44,6 +44,16 @@
     self.userId = userId;
     self.token = token;
 
+    /// 用户类型: usertype
+    if ([dic bm_containsObjectForKey:@"usertype"])
+    {
+        self.userRoleType = [dic bm_intForKey:@"usertype"];
+    }
+    else
+    {
+        self.userRoleType = YSUserType_Student;
+    }
+
     /// 昵称: nickname
     self.nickName = [dic bm_stringTrimForKey:@"nickname"];
 
@@ -64,6 +74,7 @@
     self.schoolUserDic = nil;
     self.userId = nil;
     self.token = nil;
+    self.userRoleType = YSUserType_Student;
     self.nickName = nil;
     self.imageUrl = nil;
     self.organId = nil;

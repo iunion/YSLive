@@ -684,6 +684,7 @@
 		8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D123EC3409002002BF /* YSClassDetailVC.m */; };
 		8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D523ED1A46002002BF /* YSClassModel.m */; };
 		8777C7DA23EE96EC002002BF /* YSOnlineSchool.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */; };
+		8779E58523F7981B008E885C /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E58423F7981B008E885C /* YSCircleProgress.m */; };
 		877CCBCD2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCE2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
 		877CCBCF2389479B00584E65 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; };
@@ -1419,6 +1420,8 @@
 		8777C7D423ED1A46002002BF /* YSClassModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassModel.h; sourceTree = "<group>"; };
 		8777C7D523ED1A46002002BF /* YSClassModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassModel.m; sourceTree = "<group>"; };
 		8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSOnlineSchool.bundle; sourceTree = "<group>"; };
+		8779E58323F7981B008E885C /* YSCircleProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSCircleProgress.h; sourceTree = "<group>"; };
+		8779E58423F7981B008E885C /* YSCircleProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSCircleProgress.m; sourceTree = "<group>"; };
 		877CCBC92389479B00584E65 /* YSRoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSRoomSDK.framework; sourceTree = "<group>"; };
 		878D983023A0C6530007FBBA /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		8790DBEB238D282A005C0BC7 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
@@ -2985,6 +2988,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8779E58223F79803008E885C /* YSCircleProgress */ = {
+			isa = PBXGroup;
+			children = (
+				8779E58323F7981B008E885C /* YSCircleProgress.h */,
+				8779E58423F7981B008E885C /* YSCircleProgress.m */,
+			);
+			path = YSCircleProgress;
+			sourceTree = "<group>";
+		};
 		878D982F23A0C6520007FBBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3056,6 +3068,7 @@
 		879ADAEA23516D4400C72EAA /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
+				8779E58223F79803008E885C /* YSCircleProgress */,
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
 				8745556123B309CE00BC6CAB /* YSEyeCare */,
 				876688152350794E00C4C635 /* MBProgressHUD */,
@@ -3980,6 +3993,7 @@
 				CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */,
 				872D04C723B7362300DAC321 /* NSArray+Functional.m in Sources */,
 				26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */,
+				8779E58523F7981B008E885C /* YSCircleProgress.m in Sources */,
 				87AED04B23B5D71000D38129 /* YSPermissionsVC.m in Sources */,
 				872D04BD23B7362300DAC321 /* FLEXHeapEnumerator.m in Sources */,
 				8713362A237270F6006534A4 /* MASCompositeConstraint.m in Sources */,
