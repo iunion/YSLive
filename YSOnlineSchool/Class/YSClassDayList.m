@@ -113,7 +113,14 @@
 {
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
     
-    return [YSLiveApiRequest getClassListWithStudentId:schoolUser.userId date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+    if (schoolUser.userRoleType == YSUserType_Teacher)
+    {
+        return [YSLiveApiRequest getTeacherClassListWithPagesize:20 date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+    }
+    else
+    {
+        return [YSLiveApiRequest getClassListWithStudentId:schoolUser.userId date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+    }
 }
 
 - (BOOL)succeedLoadedRequestWithDic:(NSDictionary *)data
