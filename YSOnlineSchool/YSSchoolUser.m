@@ -47,7 +47,15 @@
     /// 用户类型: usertype
     if ([dic bm_containsObjectForKey:@"usertype"])
     {
-        self.userRoleType = [dic bm_intForKey:@"usertype"];
+        NSInteger userType = [dic bm_intForKey:@"usertype"];
+        if (userType == 2)
+        {
+            self.userRoleType = YSUserType_Teacher;
+        }
+        else
+        {
+            self.userRoleType = YSUserType_Student;
+        }
     }
     else
     {

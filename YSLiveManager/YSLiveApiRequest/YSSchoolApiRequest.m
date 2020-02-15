@@ -36,6 +36,7 @@
 //    [parameters setObject:@"wxcs" forKey:@"domain"];
 //    [parameters setObject:@"deng123" forKey:@"admin_account"];
 //    [parameters setObject:@"123456" forKey:@"admin_pwd"];
+//    [parameters setObject:@(3) forKey:@"type"];
     [parameters setObject:randomKey forKey:@"key"];
     
     NSError *error = nil;
