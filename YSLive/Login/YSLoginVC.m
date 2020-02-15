@@ -43,6 +43,9 @@
 #define CLEARCHECK 0
 #endif
 
+#import "YSCircleProgress.h"
+
+
 #define ONLINESCHOOL 1
 
 /// 每次打包的递增版本号 +1
@@ -167,6 +170,12 @@
     self.isOnlineSchool = NO;
     // 主题问题
     [self setupUI];
+    
+    YSCircleProgress *circleProgress = [[YSCircleProgress alloc] init];
+    circleProgress.frame = CGRectMake(50, 100, 100, 100);
+    circleProgress.progress = 0.5;
+    
+    [self.view addSubview:circleProgress];
     
 #if CLEARCHECK
     UIButton *clearCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];

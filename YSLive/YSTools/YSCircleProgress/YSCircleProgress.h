@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 宽度
 @property (nonatomic, assign) CGFloat lineWidth;
 
+/// 进度方向
+@property (nonatomic, assign) BOOL isClockwise;
 
 @end
 
