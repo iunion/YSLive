@@ -91,15 +91,25 @@
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
+    
+    
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
-    
     // 提交密码
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
-    NSString *organId = [YSSchoolUser shareInstance].organId;
-    
+     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+     NSString *organId = [YSSchoolUser shareInstance].organId;
+     
     NSString *mobile = [YSSchoolUser shareInstance].mobile;
-    NSMutableURLRequest *request =
-    [YSLiveApiRequest postUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+    NSMutableURLRequest *request = nil;
+    
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+    if (schoolUser.userRoleType == YSUserType_Teacher)
+    {
+      request = [YSLiveApiRequest postTeacherNewpass:self.changePasswordView.inputTextField.text repass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+    }
+    else
+    {
+request =  [YSLiveApiRequest postStudentUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+    }
     if (request)
     {
         BMWeakSelf
@@ -120,12 +130,12 @@
 #endif
                 if ([responseDic bm_isNotEmptyDictionary])
                 {
-                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
-                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    NSInteger resquestCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (resquestCode == YSSuperVC_StatusCode_Succeed)
                     {
                         
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        if (![weakSelf checkRequestStatus:resquestCode message:message responseDic:responseDic])
                         {    
                             [BMAlertView ys_showAlertWithTitle:message message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
                         }
@@ -136,7 +146,7 @@
                     else
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        if (![weakSelf checkRequestStatus:resquestCode message:message responseDic:responseDic])
                         {
                             [weakSelf.progressHUD bm_hideAnimated:NO];
                         }
