@@ -20,6 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 启动倒计时，计时timeInterval
 - (void)startCountDownWithTimeInterval:(NSInteger)timeInterval;
+
+// 暂停倒计时
+- (void)pauseCountDown;
+// 继续倒计时
+- (void)continueCountDown;
+
 // 停止倒计时
 - (void)stopCountDown;
 

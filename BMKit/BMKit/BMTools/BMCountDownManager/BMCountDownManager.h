@@ -33,6 +33,11 @@ typedef void(^BMCountDownProcessBlock)(id identifier, NSInteger timeInterval, BO
 // 不停止计时，只去除processBlock调用
 - (void)removeProcessBlockWithIdentifier:(id)identifier;
 
+// 暂停倒计时
+- (void)pauseCountDownIdentifier:(id)identifier;
+// 继续倒计时
+- (void)continueCountDownIdentifier:(id)identifier;
+
 // 停止倒计时，并调用processBlock
 - (void)stopCountDownIdentifier:(id)identifier;
 // 停止所有倒计时，调用所有processBlock
@@ -42,6 +47,7 @@ typedef void(^BMCountDownProcessBlock)(id identifier, NSInteger timeInterval, BO
 
 // 是否正在倒计时
 - (BOOL)isCountDownWithIdentifier:(id)identifier;
+- (BOOL)isPauseCountDownWithIdentifier:(id)identifier;
 
 @end
 

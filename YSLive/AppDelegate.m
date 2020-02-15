@@ -58,6 +58,8 @@
     
     NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
     
+    //NSString *cx = [[NSString alloc] initWithCString:YSRoomSDKVersionString];
+    
     BMNavigationController *nav;
 //    if ([UIDevice bm_isiPad])
 //    {
