@@ -26,7 +26,6 @@ FSCalendarDelegateAppearance
 @property (weak, nonatomic) FSCalendar *MyCalendar;
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-//@property (strong, nonatomic) NSDate *nowDate;
 @property (copy, nonatomic) NSString *nowDateStr;
 
 /// 课表日历数据请求
@@ -61,7 +60,6 @@ FSCalendarDelegateAppearance
     self.bm_NavigationTitleTintColor = UIColor.whiteColor;
     self.bm_NavigationItemTintColor = UIColor.whiteColor;
     
-    //[self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(getCalendarDatas)];
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(getCalendarDatas)];
     self.title = nil;
     
@@ -90,10 +88,8 @@ FSCalendarDelegateAppearance
     self.calendarDataTask = nil;
     
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
-
     YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
     
-//    NSMutableURLRequest *request = [YSLiveApiRequest getClassListWithStudentId:@"8374" Withdate:self.nowDateStr];    
     NSMutableURLRequest *request = [YSLiveApiRequest getClassListWithUserTyper:schoolUserType Withdate:self.nowDateStr];
 
     if (request)
@@ -171,7 +167,6 @@ FSCalendarDelegateAppearance
     self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
-
     
     FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  50, self.view.frame.size.width-20, 400)];
     calendar.dataSource = self;
@@ -234,7 +229,6 @@ FSCalendarDelegateAppearance
     }
 }
 
-
 - (FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     YSCalendarCell *cell = [calendar dequeueReusableCellWithIdentifier:@"cell" forDate:date atMonthPosition:monthPosition];
@@ -245,7 +239,6 @@ FSCalendarDelegateAppearance
 {
     [self configureCell:cell forDate:date atMonthPosition:monthPosition];
 }
-
 
 - (void)configureVisibleCells
 {
