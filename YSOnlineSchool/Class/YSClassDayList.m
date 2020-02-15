@@ -175,11 +175,10 @@
     
     YSClassModel *classModel = self.dataArray[indexPath.row];
 
-    YSClassDetailVC *detailsVC = [[YSClassDetailVC alloc] init];
-    detailsVC.linkClassModel = classModel;
-    detailsVC.delegate = self;
-    detailsVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:detailsVC animated:YES];
+    //if (classModel.classState > YSClassState_Begin)
+    {
+        [self openClassWith:classModel];
+    }
 }
 
 

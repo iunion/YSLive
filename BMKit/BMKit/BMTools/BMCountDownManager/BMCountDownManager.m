@@ -15,6 +15,10 @@
 //@property (nonatomic, strong) NSString *identifier;
 // 倒计时剩余时间(单位:秒)
 @property (nonatomic, assign) NSInteger timeInterval;
+
+// 是否暂停
+@property (nonatomic, assign) BOOL isPause;
+
 // 每秒触发响应事件
 @property (nullable, nonatomic, copy) BMCountDownProcessBlock processBlock;
 
@@ -70,6 +74,12 @@
 {
     BMCountDownItem *countDownItem = self.countDownDict[identifier];
     return (countDownItem.timeInterval > 0);
+}
+
+- (BOOL)isPauseCountDownWithIdentifier:(id)identifier
+{
+    BMCountDownItem *countDownItem = self.countDownDict[identifier];
+    return countDownItem.isPause;
 }
 
 - (void)startCountDownWithIdentifier:(id)identifier processBlock:(BMCountDownProcessBlock)processBlock
@@ -146,6 +156,26 @@
     [self setProcessBlock:nil withIdentifier:identifier];
 }
 
+// 暂停倒计时，并调用processBlock
+- (void)pauseCountDownIdentifier:(id)identifier
+{
+    BMCountDownItem *countDownItem = self.countDownDict[identifier];
+    if (countDownItem)
+    {
+        countDownItem.isPause = YES;
+    }
+}
+
+// 继续倒计时
+- (void)continueCountDownIdentifier:(id)identifier
+{
+    BMCountDownItem *countDownItem = self.countDownDict[identifier];
+    if (countDownItem)
+    {
+        countDownItem.isPause = NO;
+    }
+}
+
 - (void)stopCountDownIdentifier:(id)identifier
 {
     [self stopCountDownIdentifier:identifier forcedStop:YES];
@@ -206,11 +236,14 @@
         }
         else
         {
-            countDownItem.timeInterval--;
-
-            if (countDownItem.processBlock)
+            if (!countDownItem.isPause)
             {
-                countDownItem.processBlock(identifier, countDownItem.timeInterval, NO);
+                countDownItem.timeInterval--;
+
+                if (countDownItem.processBlock)
+                {
+                    countDownItem.processBlock(identifier, countDownItem.timeInterval, NO);
+                }
             }
         }
     }

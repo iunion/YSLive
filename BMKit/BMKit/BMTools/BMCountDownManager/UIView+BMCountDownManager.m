@@ -92,6 +92,18 @@
     [[BMCountDownManager manager] startCountDownWithIdentifier:self.countDownIdentifier timeInterval:timeInterval processBlock:self.countDownProcessBlock];
 }
 
+// 暂停倒计时
+- (void)pauseCountDown
+{
+    [[BMCountDownManager manager] pauseCountDownIdentifier:self.countDownIdentifier];
+}
+
+// 继续倒计时
+- (void)continueCountDown
+{
+    [[BMCountDownManager manager] continueCountDownIdentifier:self.countDownIdentifier];
+}
+
 - (void)stopCountDown
 {
     if ([self.countDownIdentifier isKindOfClass:[NSNumber class]])
