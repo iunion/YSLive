@@ -118,9 +118,9 @@
     {
         self.classState = [dic bm_uintForKey:@"buttonstatus"];
     }
-    else if ([dic bm_containsObjectForKey:@"status"])
+    else if ([dic bm_containsObjectForKey:@"classstatus"])
     {
-        self.classState = [dic bm_uintForKey:@"status"];
+        self.classState = [dic bm_uintForKey:@"classstatus"];
     }
     if (self.classState > YSClassState_Begin )
     {
