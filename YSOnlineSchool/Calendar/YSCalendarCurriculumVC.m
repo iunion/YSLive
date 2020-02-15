@@ -90,7 +90,7 @@ FSCalendarDelegateAppearance
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
     
-    NSMutableURLRequest *request = [YSLiveApiRequest getClassListWithUserTyper:schoolUserType Withdate:self.nowDateStr];
+    NSMutableURLRequest *request = [YSLiveApiRequest getClassListWithUserType:schoolUserType Withdate:self.nowDateStr];
 
     if (request)
        {
