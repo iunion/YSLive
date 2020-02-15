@@ -183,7 +183,6 @@
 }
 
 
-
 #pragma mark - YSClassCellDelegate
 
 - (void)openClassWith:(YSClassModel *)classModel
@@ -302,8 +301,9 @@
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
-        
-    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
+    
+    YSUserRoleType userRoleType = [YSSchoolUser shareInstance].userRoleType;
+    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:nil userParams:nil];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }

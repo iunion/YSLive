@@ -36,7 +36,6 @@
 //    [parameters setObject:@"wxcs" forKey:@"domain"];
 //    [parameters setObject:@"deng123" forKey:@"admin_account"];
 //    [parameters setObject:@"123456" forKey:@"admin_pwd"];
-    [parameters setObject:@(3) forKey:@"type"];
     [parameters setObject:randomKey forKey:@"key"];
     
     NSError *error = nil;
@@ -73,7 +72,6 @@
 
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
-
 
 /// 获取课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum

@@ -40,6 +40,9 @@ static NSString *const YSLOGIN_ONLINESCHOOL_USERACCOUNT = @"ysLOGIN_ONLINESCHOOL
 /// token: token
 @property (nonatomic, strong) NSString *token;
 
+/// 用户类型: usertype
+@property (nonatomic, assign) YSUserRoleType userRoleType;
+
 /// 昵称: nickname
 @property (nonatomic, strong) NSString *nickName;
 
