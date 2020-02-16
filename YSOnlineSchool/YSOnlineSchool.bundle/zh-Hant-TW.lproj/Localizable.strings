@@ -32,6 +32,8 @@
 "ClassListCell.Enter"           = "進 入";
 "ClassListCell.Enter.WaitError" = "開課前十分鐘可以進入教室\n請耐心等待";
 "ClassListCell.Enter.EndError"  = "本課堂已結束\n您可以點擊課程回放\n查看本課堂記錄";
+"ClassListCell.Enter.SysError"  = "系統繁忙，請稍後再試";
+"ClassListCell.Enter.TeacherError"  = "請等待老師進入教室";
 "ClassListCell.RePlay"          = "重 播";
 "ClassListCell.State.Waiting"   = "未開始";
 "ClassListCell.State.Begin"     = "進行中";

@@ -32,6 +32,8 @@
 "ClassListCell.Enter"           = "Enter";
 "ClassListCell.Enter.WaitError" = "You can enter the classroom ten minutes before the class starts, please wait patiently.";
 "ClassListCell.Enter.EndError"  = "This class is over.\nYou can click on the course playback to view the class record.";
+"ClassListCell.Enter.SysError"  = "The system is busy, please try again later.";
+"ClassListCell.Enter.TeacherError"  = "Please wait for the teacher to enter the classroom.";
 "ClassListCell.RePlay"          = "RePlay";
 "ClassListCell.State.Waiting"   = "Wait";
 "ClassListCell.State.Begin"     = "Begin";

@@ -296,7 +296,12 @@
                         {
                             if (statusCode == -60016)
                             {
-                                message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
+                                message = YSLocalizedSchool(@"ClassListCell.Enter.TeacherError");
+                                //message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
+                            }
+                            else if (statusCode == 23001)
+                            {
+                                message = YSLocalizedSchool(@"ClassListCell.Enter.SysError");
                             }
                             
                             [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
