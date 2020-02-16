@@ -45,6 +45,7 @@
 #import "BMCheckBoxLabel.h"
 
 #import "BMTabItemButton.h"
+#import "BMTabBarController.h"
 
 #import "BMTableViewManager.h"
 

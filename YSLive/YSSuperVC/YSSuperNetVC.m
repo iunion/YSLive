@@ -213,7 +213,7 @@
 #ifdef DEBUG
             [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-            [self.m_ProgressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
         }
     }
