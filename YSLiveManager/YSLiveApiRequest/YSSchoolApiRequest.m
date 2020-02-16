@@ -164,24 +164,24 @@
 }
 
 ///  修改学生密码
-+ (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass mobile:(NSString *)mobile organid:(NSString *)organid
++ (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass studentid:(NSString *)studentid organid:(NSString *)organid
 {
     //http://school.roadofcloud.cn/student/Homepage/updatePass
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Homepage/updatePass", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:mobile forKey:@"mobile"];
+    [parameters setObject:studentid forKey:@"studentid"];
     [parameters setObject:organid forKey:@"organid"];
     [parameters setObject:updatePass forKey:@"newpass"];
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
 ///  修改老师密码
-+ (NSMutableURLRequest *)postTeacherNewpass:(NSString *)newpass  repass:(NSString *)repass mobile:(NSString *)mobile organid:(NSString *)organid
++ (NSMutableURLRequest *)postTeacherNewpass:(NSString *)newpass repass:(NSString *)repass teacherid:(NSString *)teacherid organid:(NSString *)organid
 {
     //http://school.roadofcloud.net/teacher/Teacher/updatePass
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Teacher/updatePass", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:mobile forKey:@"mobile"];
+    [parameters setObject:teacherid forKey:@"teacherid"];
     [parameters setObject:organid forKey:@"organid"];
     [parameters setObject:newpass forKey:@"newpass"];
     [parameters setObject:repass forKey:@"repass"];

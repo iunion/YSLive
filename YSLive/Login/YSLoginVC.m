@@ -76,6 +76,11 @@
 @property (nonatomic, strong) YSInputView *nickNameTextField;
 /// 密码输入框
 @property (nonatomic, strong) YSInputView *passwordTextField;
+
+/// 域名输入框
+@property (nonatomic, strong) YSInputView *domainTextField;
+/// 账号输入框
+@property (nonatomic, strong) YSInputView *admin_accountTextField;
 /// 网校密码输入框
 @property (nonatomic, strong) YSInputView *passOnlineTextField;
 /// 网校系统
@@ -574,6 +579,17 @@
     self.roomTextField.layer.borderWidth = 1;
     self.roomTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
+    [self.backImageView addSubview:self.domainTextField];
+    [self.domainTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(kScale_W(28));
+        make.right.mas_equalTo(-kScale_W(28));
+        make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(kScale_H(60));
+        make.height.mas_equalTo(40);
+    }];
+    self.domainTextField.hidden = YES;
+    self.domainTextField.layer.cornerRadius = 20;
+    self.domainTextField.layer.borderWidth = 1;
+    self.domainTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
     [self.backImageView addSubview:self.nickNameTextField];
     [self.nickNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -586,11 +602,24 @@
     self.nickNameTextField.layer.borderWidth = 1;
     self.nickNameTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
+    
+    [self.backImageView addSubview:self.admin_accountTextField];
+    [self.admin_accountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(kScale_W(28));
+        make.right.mas_equalTo(-kScale_W(28));
+        make.top.mas_equalTo(weakSelf.domainTextField.mas_bottom).mas_offset(kScale_H(30));
+        make.height.mas_equalTo(40);
+    }];
+    self.admin_accountTextField.hidden = YES;
+    self.admin_accountTextField.layer.cornerRadius = 20;
+    self.admin_accountTextField.layer.borderWidth = 1;
+    self.admin_accountTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    
     [self.backImageView addSubview:self.passOnlineTextField];
     [self.passOnlineTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(kScale_W(28));
         make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(30));
+        make.top.mas_equalTo(weakSelf.admin_accountTextField.mas_bottom).mas_offset(kScale_H(30));
         make.height.mas_equalTo(40);
     }];
     self.passOnlineTextField.layer.cornerRadius = 20;
@@ -704,8 +733,7 @@
     if (self.isOnlineSchool)
     {
         BMLog(@"进入网校");
-        self.onlineSchoolTitle.hidden = NO;
-        self.passOnlineTextField.hidden = NO;
+        
         [self.logoImageView setImage:[UIImage imageNamed:@"onlineSchool_login_icon"]];
         [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(0);
@@ -714,9 +742,12 @@
             make.height.mas_equalTo(kScale_W(153));
             make.width.mas_equalTo(kScale_W(197));
         }];
-        self.roomTextField.placeholder = YSLocalizedSchool(@"Label.onlineSchoolPlaceholder");
-        self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
-        self.nickNameTextField.placeholder = YSLocalizedSchool(@"Label.accountNumberPlaceholder");
+        self.onlineSchoolTitle.hidden = NO;
+        self.passOnlineTextField.hidden = NO;
+        self.domainTextField.hidden = NO;
+        self.admin_accountTextField.hidden = NO;
+        self.roomTextField.hidden = YES;
+        self.nickNameTextField.hidden = YES;
         [self.joinRoomBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.EnterRoom") forState:UIControlStateNormal];
         
@@ -732,8 +763,8 @@
         {
             [schoolUser getSchoolUserLoginData];
         }
-        self.roomTextField.inputTextField.text = schoolUser.domain;
-        self.nickNameTextField.inputTextField.text = schoolUser.userAccount;
+        self.domainTextField.inputTextField.text = schoolUser.domain;
+        self.admin_accountTextField.inputTextField.text = schoolUser.userAccount;
         self.passOnlineTextField.inputTextField.text = @"";
     }
     else
@@ -750,8 +781,8 @@
             self.nickNameTextField.inputTextField.text = nickName;
         }
 
-        self.onlineSchoolTitle.hidden = YES;
-        self.passOnlineTextField.hidden = YES;
+        
+
         [self.logoImageView setImage:[UIImage imageNamed:@"login_icon"]];
         [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(0);
@@ -759,9 +790,12 @@
             make.height.mas_equalTo(kScale_W(153));
             make.width.mas_equalTo(kScale_W(197));
         }];
-        self.roomTextField.placeholder = YSLocalized(@"Label.roomPlaceholder");
-        self.roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
-        self.nickNameTextField.placeholder = YSLocalized(@"Label.nicknamePlaceholder");
+        self.onlineSchoolTitle.hidden = YES;
+        self.passOnlineTextField.hidden = YES;
+        self.domainTextField.hidden = YES;
+        self.admin_accountTextField.hidden = YES;
+        self.roomTextField.hidden = NO;
+        self.nickNameTextField.hidden = NO;
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
         [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -782,7 +816,7 @@
 
 - (void)getSchoolPublicKey
 {
-    NSString *domain = [self.roomTextField.inputTextField.text bm_trim];
+    NSString *domain = [self.domainTextField.inputTextField.text bm_trim];
     if ([domain bm_containString:@"."])
     {
         YSLiveManager *liveManager = [YSLiveManager shareInstance];
@@ -836,8 +870,8 @@
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request =
         [YSLiveApiRequest postLoginWithPubKey:key
-                                       domain:[self.roomTextField.inputTextField.text bm_trim]
-                                admin_account:self.nickNameTextField.inputTextField.text
+                                       domain:[self.domainTextField.inputTextField.text bm_trim]
+                                admin_account:self.admin_accountTextField.inputTextField.text
                                     admin_pwd:self.passOnlineTextField.inputTextField.text
                                     randomKey:randomKey];
     if (request)
@@ -866,8 +900,8 @@
                     if (statusCode == YSSuperVC_StatusCode_Succeed)
                     {
                         YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-                        schoolUser.domain = [weakSelf.roomTextField.inputTextField.text bm_trim];
-                        schoolUser.userAccount = weakSelf.nickNameTextField.inputTextField.text;
+                        schoolUser.domain = [weakSelf.domainTextField.inputTextField.text bm_trim];
+                        schoolUser.userAccount = weakSelf.admin_accountTextField.inputTextField.text;
                         //schoolUser.userPassWord = weakSelf.passOnlineTextField.inputTextField.text;
                         schoolUser.randomKey = self.randomKey;
                         
@@ -917,14 +951,14 @@
 
     if (self.isOnlineSchool)
     {
-        if (![self.roomTextField.inputTextField.text bm_isNotEmpty])
+        if (![self.domainTextField.inputTextField.text bm_isNotEmpty])
         {
             //没有输入机构域名
             NSString *content =  YSLocalizedSchool(@"Prompt.NoDomain");
             [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
             return;
         }
-        if (![self.nickNameTextField.inputTextField.text bm_isNotEmpty])
+        if (![self.admin_accountTextField.inputTextField.text bm_isNotEmpty])
         {
             //没有输入账号
             NSString *content =  YSLocalizedSchool(@"Prompt.NoAccountl");
@@ -1271,6 +1305,35 @@
     }
     return _passwordTextField;
 }
+
+// 房间号输入框
+- (YSInputView *)domainTextField
+{
+    if (!_domainTextField)
+    {
+        _domainTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalizedSchool(@"Label.onlineSchoolPlaceholder") withImageName:@"login_room"];
+        _domainTextField.inputTextField.delegate = self;
+        _domainTextField.inputTextField.tag = 1001;
+        _domainTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
+        _domainTextField.delegate = self;
+    }
+    return _domainTextField;
+}
+
+
+// 昵称输入框
+- (YSInputView *)admin_accountTextField
+{
+    if (!_admin_accountTextField)
+    {
+        _admin_accountTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalizedSchool(@"Label.accountNumberPlaceholder") withImageName:@"login_name"];
+        _admin_accountTextField.inputTextField.delegate = self;
+        _admin_accountTextField.inputTextField.tag = 1002;
+        _admin_accountTextField.delegate = self;
+    }
+    return _admin_accountTextField;
+}
+
 
 - (YSInputView *)passOnlineTextField
 {
@@ -1621,7 +1684,7 @@
 #endif
     }
     
-    if (!self.isOnlineSchool && textField.tag ==102 )
+    if (textField.tag ==102 )
     {
         NSInteger existTextNum = textField.text.length;
         if (existTextNum == 1 && [textField.text isEqualToString:@" "])

@@ -86,10 +86,10 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(YSUserRoleType)userRoleType toTeachId:(NSString *)toteachid;
 
 ///  修改学生密码
-+ (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass mobile:(NSString *)mobile organid:(NSString *)organid;
++ (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass studentid:(NSString *)studentid organid:(NSString *)organid;
 
 ///  修改老师密码
-+ (NSMutableURLRequest *)postTeacherNewpass:(NSString *)newpass repass:(NSString *)repass mobile:(NSString *)mobile organid:(NSString *)organid;
++ (NSMutableURLRequest *)postTeacherNewpass:(NSString *)newpass repass:(NSString *)repass teacherid:(NSString *)teacherid organid:(NSString *)organid;
 @end
 
 NS_ASSUME_NONNULL_END
