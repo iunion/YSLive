@@ -84,11 +84,11 @@
         }
         else if (result == 1)
         {//以后
-            self.selectionLayer.fillColor = [UIColor bm_colorWithHex:0x5A8CDC].CGColor;
+            self.selectionLayer.fillColor = [UIColor bm_colorWithHex:0xFF9E00].CGColor;
         }
         else
         {//今天
-            self.selectionLayer.fillColor = [UIColor bm_colorWithHex:0xFF9E00].CGColor;
+            self.selectionLayer.fillColor = [UIColor bm_colorWithHex:0x5A8CDC].CGColor;
         }
         CGFloat diameter = MIN(self.selectionLayer.fs_height, self.selectionLayer.fs_width);
         self.selectionLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.contentView.fs_width/2-diameter/2, 0, diameter, diameter)].CGPath;
