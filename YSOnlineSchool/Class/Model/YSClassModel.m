@@ -117,14 +117,27 @@
     if ([dic bm_containsObjectForKey:@"buttonstatus"])
     {
         self.classState = [dic bm_uintForKey:@"buttonstatus"];
+        if (self.classState > YSClassState_Begin )
+        {
+            self.classState = YSClassState_End;
+        }
     }
     else if ([dic bm_containsObjectForKey:@"classstatus"])
     {
-        self.classState = [dic bm_uintForKey:@"classstatus"];
-    }
-    if (self.classState > YSClassState_Begin )
-    {
-        self.classState = YSClassState_End;
+        NSInteger classState = [dic bm_uintForKey:@"classstatus"];
+        
+        if (classState == 0)
+        {
+            self.classState = YSClassState_End;
+        }
+        else if (classState == 1)
+        {
+            self.classState = YSClassState_Begin;
+        }
+        else
+        {
+            self.classState = YSClassState_Waiting;
+        }
     }
     
     self.classDic = dic;

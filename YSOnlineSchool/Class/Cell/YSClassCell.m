@@ -124,7 +124,7 @@
         // 教室预约时间前10分钟才可以进入
         case YSClassState_Waiting:
         {
-#if 1
+#if 0
             self.enterBtn.hidden = YES;
             YSLiveManager *liveManager = [YSLiveManager shareInstance];
             if (liveManager.tServiceTime)
