@@ -984,10 +984,7 @@
         
         //    isOpenMicrophone = NO;
         if (!isOpenMicrophone || !isCamera || !isReproducer)
-        {
-            UIWindow *window = [[UIApplication sharedApplication].delegate window];
-            UIViewController *topViewController = [window rootViewController];
-            
+        {            
             YSPermissionsVC *vc = [[YSPermissionsVC alloc] init];
             
             BMWeakSelf
@@ -995,9 +992,7 @@
                 [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
                 [weakSelf getSchoolPublicKey];
             };
-            vc.modalPresentationStyle = UIModalPresentationFullScreen;
-            [topViewController presentViewController:vc animated:NO completion:^{
-            }];
+            [self.navigationController pushViewController:vc animated:NO];
             return;
         }
         
@@ -1211,11 +1206,11 @@
         
     if ([passWordStr bm_isNotEmpty])
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:YES];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:YES];
     }
     
 //    self.passwordTextField.hidden = YES;
@@ -1238,7 +1233,7 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     
-    [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams];
+    [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams needCheckPermissions:YES];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
@@ -1869,7 +1864,7 @@
             YSLiveManager *liveManager = [YSLiveManager shareInstance];
             [liveManager registerRoomManagerDelegate:self];
             
-            [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
+            [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
             
             [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
         } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
