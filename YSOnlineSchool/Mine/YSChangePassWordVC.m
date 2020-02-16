@@ -38,6 +38,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     
+    self.bm_CanBackInteractive = NO;
+
     self.bm_NavigationItemTintColor = [UIColor whiteColor];
     self.bm_NavigationTitleTintColor = [UIColor whiteColor];
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.ModifyPassWord") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];

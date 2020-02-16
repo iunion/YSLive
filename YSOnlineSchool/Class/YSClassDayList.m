@@ -47,6 +47,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.bm_CanBackInteractive = NO;
+
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
     
     // iOS 获取设备当前语言和地区的代码
