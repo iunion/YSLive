@@ -1621,7 +1621,7 @@
 #endif
     }
     
-    if (textField.tag ==102)
+    if (!self.isOnlineSchool && textField.tag ==102 )
     {
         NSInteger existTextNum = textField.text.length;
         if (existTextNum == 1 && [textField.text isEqualToString:@" "])
