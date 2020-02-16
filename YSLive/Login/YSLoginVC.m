@@ -880,6 +880,7 @@
 
                             YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
                             [tabBar addViewControllers];
+                            tabBar.modalPresentationStyle = UIModalPresentationFullScreen;
                             [self presentViewController:tabBar animated:YES completion:^{
                             }];
 
