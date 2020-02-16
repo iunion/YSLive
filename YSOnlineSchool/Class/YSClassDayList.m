@@ -78,6 +78,13 @@
     [self bringSomeViewToFront];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 - (void)createUI
 {
     //[self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"ClassListCell.Enter.EndError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];

@@ -879,8 +879,9 @@
 
                             YSTabBarViewController *tabBar = [[YSTabBarViewController alloc] initWithDefaultItems];
                             [tabBar addViewControllers];
-                            [weakSelf.navigationController pushViewController:tabBar animated:YES];
-                            
+                            [self presentViewController:tabBar animated:YES completion:^{
+                            }];
+
                             return;
                         }
                     }
@@ -1802,7 +1803,8 @@
 
 - (void)logoutOnlineSchool
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
     
     self.passOnlineTextField.inputTextField.text = @"";
 }

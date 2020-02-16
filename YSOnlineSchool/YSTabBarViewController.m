@@ -24,6 +24,24 @@
 
 #pragma mark 横竖屏
 
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+//
+//    self.bm_NavigationItemTintColor = [UIColor whiteColor];
+//    self.bm_NavigationTitleTintColor = [UIColor whiteColor];
+//    self.bm_NavigationBarTintColor = [UIColor bm_colorWithHex:0x82ABEC];
+//    self.bm_NavigationShadowHidden = YES;
+//    [self bm_setNeedsUpdateNavigationBar];
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+//}
+
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {

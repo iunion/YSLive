@@ -52,7 +52,8 @@ FSCalendarDelegateAppearance
     self.navigationController.navigationBarHidden = NO;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
