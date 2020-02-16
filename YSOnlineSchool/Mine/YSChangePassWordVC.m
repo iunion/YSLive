@@ -104,11 +104,11 @@
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
     if (schoolUser.userRoleType == YSUserType_Teacher)
     {
-      request = [YSLiveApiRequest postTeacherNewpass:self.changePasswordView.inputTextField.text repass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+        request = [YSLiveApiRequest postTeacherNewpass:self.changePasswordView.inputTextField.text repass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
     }
     else
     {
-request =  [YSLiveApiRequest postStudentUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
+        request =  [YSLiveApiRequest postStudentUpdatePass:self.againPasswordView.inputTextField.text mobile:mobile organid:organId];
     }
     if (request)
     {
