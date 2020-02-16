@@ -328,8 +328,19 @@
     {
         passWord = nil;
     }
+    
+    NSString *userId;
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+    if (schoolUser.userRoleType == YSUserType_Teacher)
+    {
+        userId = [NSString stringWithFormat:@"2_%@", schoolUser.userId];
+    }
+    else
+    {
+        userId = [NSString stringWithFormat:@"3_%@", schoolUser.userId];
+    }
     YSUserRoleType userRoleType = [YSSchoolUser shareInstance].userRoleType;
-    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:[YSSchoolUser shareInstance].userId userParams:nil];
+    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
