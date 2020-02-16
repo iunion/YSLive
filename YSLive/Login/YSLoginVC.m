@@ -14,7 +14,8 @@
 
 #import "YSEyeCareVC.h"
 #import "YSEyeCareManager.h"
-
+#import "YSPermissionsVC.h"
+#import <AVFoundation/AVFoundation.h>
 #ifdef YSLIVE
 #import "YSMainVC.h"
 #endif
@@ -974,6 +975,32 @@
             return;
         }
 
+        ///查看摄像头权限
+        BOOL isCamera = [self cameraPermissionsService];
+        ///查看麦克风权限
+        BOOL isOpenMicrophone = [self microphonePermissionsService];
+        /// 扬声器权限
+        BOOL isReproducer = [YSUserDefault getReproducerPermission];
+        
+        //    isOpenMicrophone = NO;
+        if (!isOpenMicrophone || !isCamera || !isReproducer)
+        {
+            UIWindow *window = [[UIApplication sharedApplication].delegate window];
+            UIViewController *topViewController = [window rootViewController];
+            
+            YSPermissionsVC *vc = [[YSPermissionsVC alloc] init];
+            
+            BMWeakSelf
+            vc.toJoinRoom = ^{
+                [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
+                [weakSelf getSchoolPublicKey];
+            };
+            vc.modalPresentationStyle = UIModalPresentationFullScreen;
+            [topViewController presentViewController:vc animated:NO completion:^{
+            }];
+            return;
+        }
+        
         [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
         [self getSchoolPublicKey];
@@ -1880,5 +1907,20 @@
     
     self.passOnlineTextField.inputTextField.text = @"";
 }
+
+
+///查看麦克风权限
+- (BOOL)microphonePermissionsService
+{
+    AVAudioSessionRecordPermission permissionStatus = [[AVAudioSession sharedInstance] recordPermission];
+    return permissionStatus == AVAudioSessionRecordPermissionGranted;
+}
+///查看摄像头权限
+- (BOOL)cameraPermissionsService
+{
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    return authStatus == AVAuthorizationStatusAuthorized;
+}
+
 
 @end
