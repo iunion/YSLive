@@ -21,14 +21,15 @@
 #import "NSURLProtocol+YSWhiteBoard.h"
 #endif
 
-/// 进入房间要密码
-static BOOL needPassWord = NO;
 
 @interface YSLiveManager ()
 <
     YSRoomInterfaceDelegate,
     YSWhiteBoardManagerDelegate
 >
+
+// 是否需要设备检测
+@property (nonatomic, assign) BOOL needCheckPermissions;
 
 // 房间音视频
 @property (nonatomic, strong) YSRoomInterface *roomManager;
@@ -187,7 +188,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.roomManagerDelegate = RoomManagerDelegate;
 }
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
+//- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
     //@"server"    :self.defaultServer,
     //@"clientType":@(3)
@@ -216,20 +218,12 @@ static YSLiveManager *liveManagerSingleton = nil;
         [parameters setObject:userId forKey:YSJoinRoomParamsUserIDKey];
     }
     
-    if (needPassWord)
-    {
-        if (![roomPassword bm_isNotEmpty])
-        {
-            needPassWord = NO;
-        }
-    }
-    
-    return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters userParams:nil];
+    return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters userParams:nil needCheckPermissions:needCheckPermissions];
 }
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
-    if (!needPassWord)
+    if (needCheckPermissions)
     {
         ///查看摄像头权限
         BOOL isCamera = [self cameraPermissionsService];
@@ -946,7 +940,6 @@ static YSLiveManager *liveManagerSingleton = nil;
         errorCode == YSErrorCode_CheckRoom_PasswordError ||
         errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
     { // 密码弹出 处理进入主界面之前的错误
-        needPassWord = YES;
         if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerNeedEnterPassWord:)])
         {
             [self.roomManagerDelegate roomManagerNeedEnterPassWord:errorCode];

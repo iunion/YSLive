@@ -139,9 +139,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerRoomManagerDelegate:(nullable id <YSLiveRoomManagerDelegate>)RoomManagerDelegate;
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams;
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams;
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 
 - (void)doMsgCachePool;

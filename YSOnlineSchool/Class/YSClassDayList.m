@@ -345,7 +345,7 @@
         userId = [NSString stringWithFormat:@"3_%@", schoolUser.userId];
     }
     YSUserRoleType userRoleType = [YSSchoolUser shareInstance].userRoleType;
-    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil];
+    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
@@ -461,7 +461,7 @@
         YSLiveManager *liveManager = [YSLiveManager shareInstance];
         [liveManager registerRoomManagerDelegate:self];
         
-        [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil];
+        [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
         
         [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
     } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
