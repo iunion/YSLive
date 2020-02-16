@@ -330,6 +330,7 @@
 /// 获取服务器时间
 - (void)getServerTime
 {
+    // 使用的默认host，所以获取的服务器时间是默认标准服务器时间
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSMutableURLRequest *request = [YSLiveApiRequest getServerTime];
     if (request)
@@ -351,19 +352,19 @@
                 BMLog(@"%@ %@", response, responseStr);
 #endif
 
-#ifdef ONLINESCHOOL
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 if ([responseDic bm_containsObjectForKey:@"time"])
                 {
                     NSTimeInterval timeInterval = [responseDic bm_doubleForKey:@"time"];
+#if (0)
                     YSLiveManager *liveManager = [YSLiveManager shareInstance];
                     if (liveManager.tServiceTime == 0)
                     {
                         liveManager.tServiceTime = timeInterval;
                     }
+#endif
                     BMLog(@"服务器当前时间： %@", [NSDate bm_stringFromTs:timeInterval]);
                 }
-#endif
             }
         }];
         [task resume];
