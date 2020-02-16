@@ -230,6 +230,8 @@
             }
             else
             {
+                [weakSelf.progressHUD bm_hideAnimated:NO];
+
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 if ([responseDic bm_isNotEmptyDictionary])
                 {
@@ -245,6 +247,7 @@
                             if (serverTime > 0)
                             {
                                 //serverTime = serverTime / 1000;
+                                //NSString *str = [NSDate bm_stringFromTs:serverTime];
                                 YSLiveManager *liveManager = [YSLiveManager shareInstance];
                                 liveManager.tServiceTime = serverTime;
                                 NSString *message = @"";
@@ -260,7 +263,7 @@
                                     stop = YES;
                                     message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
                                 }
-                                
+
                                 if (stop)
                                 {
                                     [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
@@ -343,7 +346,7 @@
     [self.progressHUD bm_hideAnimated:NO];
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
-    
+
     YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
 
     // 3: 小班课  4: 直播  6： 会议
@@ -465,6 +468,11 @@
     [[YSLiveManager shareInstance] destroy];
 }
 
+- (void)onRoomConnectionLost
+{
+    [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 
+    [[YSLiveManager shareInstance] destroy];
+}
 
 @end

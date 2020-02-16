@@ -94,63 +94,63 @@ FSCalendarDelegateAppearance
     NSMutableURLRequest *request = [YSLiveApiRequest getClassListWithUserType:schoolUserType Withdate:self.nowDateStr];
 
     if (request)
-       {
-           BMWeakSelf
-           self.calendarDataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-               
-               if (error)
-               {
-                   [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-               }
-               else
-               {
-                   [self.progressHUD bm_hideAnimated:NO];
-                   
-                   NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
-                   if ([responseDic bm_isNotEmptyDictionary])
-                   {
-                   
-                       NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
-                       if (statusCode == YSSuperVC_StatusCode_Succeed)
-                       {
-                           NSArray * allDate = [responseDic bm_arrayForKey:@"data"];
-                           
-                           NSString * month = [weakSelf.nowDateStr substringToIndex:7];
-                           if ([allDate bm_isNotEmpty])
-                           {
-                               for (NSArray * arr in allDate)
-                               {
-                                   for (NSDictionary * dict in arr)
-                                   {
-                                       if ([[dict bm_stringForKey:@"timestr"] containsString:month] && ([dict bm_uintForKey:@"num"]>0 || [[dict bm_stringForKey:@"timestr"] isEqualToString:weakSelf.nowDateStr]))
-                                       {
-                                           [weakSelf.dateDict setValue:dict[@"num"] forKey:dict[@"timestr"]];
-                                       }
-                                   }
-                               }
-                               [weakSelf.MyCalendar reloadData];
-                               return;
-                           }
-                       }
-                       else
-                       {
-                           NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                           if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
-                           {
-                               [weakSelf.progressHUD bm_hideAnimated:NO];
-                           }
-                           else
-                           {
-                               [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:0.5f];
-                           }
-                           return;
-                       }
-                   }
-                   [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    {
+        BMWeakSelf
+        self.calendarDataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+            
+            if (error)
+            {
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            }
+            else
+            {
+                [self.progressHUD bm_hideAnimated:NO];
+                
+                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                if ([responseDic bm_isNotEmptyDictionary])
+                {
+                    
+                    NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        NSArray * allDate = [responseDic bm_arrayForKey:@"data"];
+                        
+                        NSString * month = [weakSelf.nowDateStr substringToIndex:7];
+                        if ([allDate bm_isNotEmpty])
+                        {
+                            for (NSArray * arr in allDate)
+                            {
+                                for (NSDictionary * dict in arr)
+                                {
+                                    if ([[dict bm_stringForKey:@"timestr"] containsString:month] && ([dict bm_uintForKey:@"num"]>0 || [[dict bm_stringForKey:@"timestr"] isEqualToString:weakSelf.nowDateStr]))
+                                    {
+                                        [weakSelf.dateDict setValue:dict[@"num"] forKey:dict[@"timestr"]];
+                                    }
+                                }
+                            }
+                            [weakSelf.MyCalendar reloadData];
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        {
+                            [weakSelf.progressHUD bm_hideAnimated:NO];
+                        }
+                        else
+                        {
+                            [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        }
+                        return;
+                    }
                 }
-           }];
-           [self.calendarDataTask resume];
-       }
+                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            }
+        }];
+        [self.calendarDataTask resume];
+    }
     else
     {
          [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];

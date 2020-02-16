@@ -1803,6 +1803,13 @@
     [[YSLiveManager shareInstance] destroy];
 }
 
+- (void)onRoomConnectionLost
+{
+    [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+
+    [[YSLiveManager shareInstance] destroy];
+}
+
 - (void)logoutOnlineSchool
 {
     [self dismissViewControllerAnimated:YES completion:^{

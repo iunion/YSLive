@@ -129,6 +129,8 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             }
             else
             {
+                [weakSelf.progressHUD bm_hideAnimated:NO];
+
                 NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
@@ -146,7 +148,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                     else
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
-                        if (![weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
+                        if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
                             [weakSelf.progressHUD bm_hideAnimated:NO];
                         }
@@ -235,7 +237,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
                 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                //NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
                 [GetAppDelegate logoutOnlineSchool];
                 [[YSSchoolUser shareInstance] clearUserdata];
             }

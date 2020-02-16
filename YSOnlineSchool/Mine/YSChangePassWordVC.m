@@ -100,8 +100,6 @@
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
-    
-    
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     // 提交密码
      AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
@@ -142,20 +140,13 @@
                     NSInteger resquestCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
                     if (resquestCode == YSSuperVC_StatusCode_Succeed)
                     {
-                        
-                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        if (![weakSelf checkRequestStatus:resquestCode message:message responseDic:responseDic])
-                        {    
-                            [BMAlertView ys_showAlertWithTitle:message message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
-                        }
-
                         [[YSSchoolUser shareInstance] clearUserdata];
                         [GetAppDelegate logoutOnlineSchool];
                     }
                     else
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
-                        if (![weakSelf checkRequestStatus:resquestCode message:message responseDic:responseDic])
+                        if ([weakSelf checkRequestStatus:resquestCode message:message responseDic:responseDic])
                         {
                             [weakSelf.progressHUD bm_hideAnimated:NO];
                         }
@@ -163,7 +154,6 @@
                         {
                             [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
-                        return;
                     }
                 }
                 else
