@@ -346,14 +346,12 @@
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
-        YSUserRoleType roleType = [YSLiveManager shareInstance].localUser.role;
-        YSAppUseTheType room_UseTheType = [YSLiveManager shareInstance].room_UseTheType;
+        YSUserRoleType roleType = liveManager.localUser.role;
         
-        
-        if (roleType == YSUserType_Teacher && (room_UseTheType == YSAppUseTheTypeMeeting || room_UseTheType == YSAppUseTheTypeSmallClass))
+        if (roleType == YSUserType_Teacher)
         {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
-            mainVC.appUseTheType = room_UseTheType;
+            mainVC.appUseTheType = appUseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
             nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
