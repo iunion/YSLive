@@ -18,6 +18,7 @@
 
 #import <HockeySDK/HockeySDK.h>
 
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 <
@@ -43,7 +44,8 @@
     
     self.allowRotation = YES;
     
-    [self crashManager];
+    //[self crashManager];
+    [Bugly startWithAppId:@"55ff7e6968"];
     
 #if USE_TEST_HELP
     [YSTestHelp sharedInstance];
