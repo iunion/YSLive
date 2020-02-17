@@ -12,7 +12,7 @@
 "Title.OnlineSchool.SignOut"        = "Sign out";
 "Title.OnlineSchool.Submit"         = "Submit";
 "Title.OnlineSchool.OriginalPassword"    = "Original password";
-"Title.OnlineSchool.changePassword" = "New password";
+"Title.OnlineSchool.NewPassword" = "New password";
 "Title.OnlineSchool.againPassword"  = "Confirm password";
 
 "Prompt.OnlineSchool.oldPassword"    = "Please enter the original password";
