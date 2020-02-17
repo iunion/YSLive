@@ -258,11 +258,11 @@
                                     classModel.classState = YSClassState_End;
                                     message = YSLocalizedSchool(@"ClassListCell.Enter.EndError");
                                 }
-                                else if ((classModel.startTime - liveManager.tCurrentTime) >= 60*60)
-                                {
-                                    stop = YES;
-                                    message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
-                                }
+                                //else if ((classModel.startTime - liveManager.tCurrentTime) >= 60*60)
+                                //{
+                                //    stop = YES;
+                                //    message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
+                                //}
 
                                 if (stop)
                                 {
