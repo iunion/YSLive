@@ -75,9 +75,9 @@
 
     [self createUI];
 
-    [self refreshVC];
-
     [self bringSomeViewToFront];
+
+    [self refreshVC];
 }
 
 - (void)viewWillAppear:(BOOL)animated

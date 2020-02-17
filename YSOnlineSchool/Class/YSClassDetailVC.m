@@ -44,11 +44,11 @@
 
     [self createUI];
     
+    [self bringSomeViewToFront];
+
     [self.dataArray addObject:@"1"];
 
     [self refreshVC];
-
-    [self bringSomeViewToFront];
 }
 
 - (void)createUI
