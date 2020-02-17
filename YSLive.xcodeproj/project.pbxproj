@@ -1029,9 +1029,7 @@
 		34043C9223EABA8D004982E6 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
 		34043C9323EABA8D004982E6 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
-		34B8D0ED23FA854800EDBCBF /* YSUpHandPopoverVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopoverVC.h; sourceTree = "<group>"; };
 		34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopoverVC.m; sourceTree = "<group>"; };
-		34B8D0F123FA92D600EDBCBF /* YSUpHandPopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
 		34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopCell.m; sourceTree = "<group>"; };
 		8701B1312371720600A43607 /* testcolorpalette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpalette@2x.png"; sourceTree = "<group>"; };
 		8701B1322371720600A43607 /* testcolorpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpicker@2x.png"; sourceTree = "<group>"; };
@@ -1644,6 +1642,8 @@
 		CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolUser.m; sourceTree = "<group>"; };
 		CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSchoolAVPlayerView.m; sourceTree = "<group>"; };
 		CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSchoolAVPlayerView.h; sourceTree = "<group>"; };
+		CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
+		CBE342D723FAE42C003EA794 /* YSUpHandPopoverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopoverVC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1802,10 +1802,10 @@
 			children = (
 				26355BD723B4ACB3004B8366 /* YSControlPopoverView.h */,
 				26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */,
-				34B8D0ED23FA854800EDBCBF /* YSUpHandPopoverVC.h */,
-				34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */,
-				34B8D0F123FA92D600EDBCBF /* YSUpHandPopCell.h */,
+				CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */,
 				34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */,
+				CBE342D723FAE42C003EA794 /* YSUpHandPopoverVC.h */,
+				34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */,
 			);
 			path = YSVideoViewControlPopVC;
 			sourceTree = "<group>";

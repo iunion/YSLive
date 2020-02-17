@@ -3053,6 +3053,16 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         //相册上传
         [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
     }
+    else if (sender.tag == 3)
+    {
+        //计时器
+        
+    }
+    else if (sender.tag == 4)
+    {
+        //抢答器
+        
+    }
 }
 
 
