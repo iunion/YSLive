@@ -104,15 +104,72 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     cyclePlayView.backgroundColor = UIColor.yellowColor;
     cyclePlayView.layer.cornerRadius = 26;
     self.cyclePlayView = cyclePlayView;
-    [self.tableBacView addSubview:cyclePlayView];
+    [self.tableView addSubview:cyclePlayView];
     
     UIButton * cancleBtn = [[UIButton alloc]initWithFrame:CGRectMake(287, 10, 25, 25)];
     [cancleBtn setImage:[UIImage imageNamed:@"cancel_gray"] forState:UIControlStateNormal];
     [cancleBtn addTarget:self action:@selector(cancleBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [cyclePlayView addSubview:cancleBtn];
     
-//    UILabel * numLab = [UILabel alloc]initWithFrame:CGRectMake(60, 58, <#CGFloat width#>, <#CGFloat height#>)
+    UILabel * cycleNumLab = [[UILabel alloc]initWithFrame:CGRectMake(60, 58, 100, 25)];
+    cycleNumLab.text = @"轮循人数";
+    cycleNumLab.layer.borderColor = UIColor.redColor.CGColor;
+    cycleNumLab.layer.borderWidth = 1.0;
+    [cyclePlayView addSubview:cycleNumLab];
     
+    UIView * numView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(cycleNumLab.frame), cycleNumLab.bm_originY, 116, 40)];
+    [numView bm_addShadow:3 Radius:20 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+    numView.bm_centerY = cycleNumLab.bm_centerY;
+    [cyclePlayView addSubview:numView];
+    
+    UILabel * numLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 50, 40)];
+    numLab.text = @"3";
+    numLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    numLab.font = UI_FONT_16;
+    [numView addSubview:numLab];
+//    numLab.backgroundColor = UIColor.redColor;
+        
+    UIButton * numBtn = [[UIButton alloc]initWithFrame:CGRectMake(numView.bm_width-40, 0, 30, 40)];
+    [numBtn setImage:[UIImage imageNamed:@"SCTextArrow"] forState:UIControlStateNormal];
+    [numBtn addTarget:self action:@selector(btnsClick:) forControlEvents:UIControlEventTouchUpInside];
+    numBtn.tag = 1;
+    [numView addSubview:numBtn];
+    
+    
+    UILabel * cycleTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(60, CGRectGetMaxY(cycleNumLab.frame)+37, 100, 25)];
+    cycleTimeLab.text = @"轮循时间";
+    cycleTimeLab.layer.borderColor = UIColor.redColor.CGColor;
+    cycleTimeLab.layer.borderWidth = 1.0;
+    [cyclePlayView addSubview:cycleTimeLab];
+    
+    UIView * timeView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(cycleTimeLab.frame), cycleTimeLab.bm_originY, 116, 40)];
+    [timeView bm_addShadow:3 Radius:20 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+    timeView.bm_centerY = cycleTimeLab.bm_centerY;
+    [cyclePlayView addSubview:timeView];
+    
+    UILabel * timeLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 50, 40)];
+    timeLab.text = @"30秒";
+    timeLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    timeLab.font = UI_FONT_16;
+    [timeView addSubview:timeLab];
+        
+    UIButton * timeBtn = [[UIButton alloc]initWithFrame:CGRectMake(numView.bm_width-40, 0, 30, 40)];
+    [timeBtn setImage:[UIImage imageNamed:@"SCTextArrow"] forState:UIControlStateNormal];
+    [timeBtn addTarget:self action:@selector(btnsClick:) forControlEvents:UIControlEventTouchUpInside];
+    timeBtn.tag = 2;
+    [timeView addSubview:timeBtn];
+    
+    UIButton * soureBtn = [[UIButton alloc]initWithFrame:CGRectMake((cyclePlayView.bm_width-150)/2, 175, 150, 40)];
+    [soureBtn setTitle:YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
+    [soureBtn bm_addShadow:3 Radius:20 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+    [soureBtn addTarget:self action:@selector(btnsClick:) forControlEvents:UIControlEventTouchUpInside];
+    soureBtn.tag = 3;
+    [soureBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
+    [cyclePlayView addSubview:soureBtn];
+}
+
+- (void)btnsClick:(UIButton *)sender
+{
     
 }
 
@@ -239,6 +296,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [cycleTitleBtn setTitle:@"启动视频轮播" forState:UIControlStateNormal];
     [cycleTitleBtn setBackgroundImage:[UIImage imageNamed:@"permissions_BtnSelect"] forState:UIControlStateNormal];
     [cycleTitleBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+    [cycleTitleBtn addTarget:self action:@selector(cycleTitleBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [cycleTitleBtn.titleLabel setFont:UI_FONT_14];
     [view addSubview:cycleTitleBtn];
     
@@ -258,6 +316,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 40;
+}
+
+- (void)cycleTitleBtnClick
+{
+    self.cyclePlayView.hidden = NO;
 }
 
 #pragma mark -
