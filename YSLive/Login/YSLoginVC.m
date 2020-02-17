@@ -40,7 +40,7 @@
 #import "YSLiveUtil.h"
 
 #if USE_TEST_HELP
-#define USE_YSLIVE_ROOMID 1
+#define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
 #endif
 
@@ -1713,17 +1713,20 @@
 
 - (void)inpuTextFieldDidChanged:(UITextField *)textField
 {
-    if (self.roomTextField.inputTextField.text.length > 0 && self.nickNameTextField.inputTextField.text.length > 0)
+    if (!self.isOnlineSchool)
     {
-        self.joinRoomBtn.enabled = YES;
-    }
-    else
-    {
+        if (self.roomTextField.inputTextField.text.length > 0 && self.nickNameTextField.inputTextField.text.length > 0)
+        {
+            self.joinRoomBtn.enabled = YES;
+        }
+        else
+        {
 #if USE_YSLIVE_ROOMID
-        self.joinRoomBtn.enabled = YES;
+            self.joinRoomBtn.enabled = YES;
 #else
-        self.joinRoomBtn.enabled = NO;
+            self.joinRoomBtn.enabled = NO;
 #endif
+        }
     }
     
     if (textField.tag ==102 )
