@@ -80,6 +80,8 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
 {
     [super viewDidLoad];
 
+    self.bm_CanBackInteractive = NO;
+    
 //只是为了触发 获取摄像头权限
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
