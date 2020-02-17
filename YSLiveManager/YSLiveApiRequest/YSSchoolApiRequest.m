@@ -63,20 +63,26 @@
 }
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr
++ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/studentCourseList", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = nil;
+        
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters bm_setString:dateStr forKey:@"date"];
+    [parameters bm_setString:organId forKey:@"organid"];
     
     if (userRoleType == YSUserType_Teacher)
     {
         urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/teachCourseList", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+        [parameters bm_setString:userId forKey:@"teacherid"];
     }
-    
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//    [parameters bm_setString:studentId forKey:@"studentid"];
-    [parameters bm_setString:dateStr forKey:@"date"];
-
+    else
+    {
+        urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/studentCourseList", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+        [parameters bm_setString:userId forKey:@"studentid"];
+    }
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 

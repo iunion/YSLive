@@ -66,7 +66,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token;
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr;
++ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr;
 
 /// 获取学生课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
