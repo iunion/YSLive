@@ -104,6 +104,15 @@
     return [self bm_isMatchWithPattern:BMNICKNAME_PATTERN];
 }
 
+- (BOOL)bm_isValidDomain
+{
+    if (!self.length)
+    {
+        return NO;
+    }
+    return [self bm_isMatchWithPattern:BMDOMAIN_PATTERN];
+}
+
 - (BOOL)bm_isValidChinesePhoneNumber
 {
     if (self.length != 11)

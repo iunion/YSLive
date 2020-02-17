@@ -18,6 +18,8 @@
 #define BMPASSWORD_PATTERN                      @"^[0-9A-Za-z_\\.\\*\\&\\[\\]\\(\\)\%\\$#@]{6,16}$"
 #define BMNICKNAME_PATTERN                      @"^(\\s*\\S+\\s*)+$"
 
+#define BMDOMAIN_PATTERN                       @"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
+
 
 @interface NSString (RegEx)
 
@@ -179,6 +181,7 @@
 - (BOOL)bm_isValidMD532String;
 - (BOOL)bm_isValidChineseIDNumberString;
 - (BOOL)bm_isValidNickName;
+- (BOOL)bm_isValidDomain;
 
 #pragma mark - Tools
 /**

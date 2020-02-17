@@ -55,3 +55,4 @@
 "Login.EnterRoom" = "Enter room";
 
 "Error.ServerError" = "Server access exception";
+"Error.DomainError" = "Domain input error";

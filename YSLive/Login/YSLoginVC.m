@@ -772,6 +772,8 @@
         self.domainTextField.inputTextField.text = schoolUser.domain;
         self.admin_accountTextField.inputTextField.text = schoolUser.userAccount;
         self.passOnlineTextField.inputTextField.text = @"";
+        
+        self.joinRoomBtn.enabled = YES;
     }
     else
     {
@@ -786,8 +788,6 @@
         {
             self.nickNameTextField.inputTextField.text = nickName;
         }
-
-        
 
         [self.logoImageView setImage:[UIImage imageNamed:@"login_icon"]];
         [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -811,8 +811,15 @@
             make.centerX.mas_equalTo(0);
         }];
 
+        if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty])
+        {
+            self.joinRoomBtn.enabled = YES;
+        }
+        else
+        {
+            self.joinRoomBtn.enabled = NO;
+        }
     }
-
 }
 
 - (void)clickAction:(UITapGestureRecognizer *)tap
@@ -822,9 +829,18 @@
 
 - (void)getSchoolPublicKey
 {
-    NSString *domain = [self.domainTextField.inputTextField.text bm_trim];
+    NSString *domain = [self.domainTextField.inputTextField.text bm_trimAllSpace];
     if ([domain bm_containString:@"."])
     {
+        if (![domain bm_isValidDomain])
+        {
+            [self.progressHUD bm_hideAnimated:NO];
+            
+            NSString *content = YSLocalizedSchool(@"Error.DomainError");
+            [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+            return;
+        }
+        
         YSLiveManager *liveManager = [YSLiveManager shareInstance];
         liveManager.schoolHost = domain;
     }
@@ -876,7 +892,7 @@
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request =
         [YSLiveApiRequest postLoginWithPubKey:key
-                                       domain:[self.domainTextField.inputTextField.text bm_trim]
+                                       domain:[self.domainTextField.inputTextField.text bm_trimAllSpace]
                                 admin_account:self.admin_accountTextField.inputTextField.text
                                     admin_pwd:self.passOnlineTextField.inputTextField.text
                                     randomKey:randomKey];
@@ -906,7 +922,7 @@
                     if (statusCode == YSSuperVC_StatusCode_Succeed)
                     {
                         YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-                        schoolUser.domain = [weakSelf.domainTextField.inputTextField.text bm_trim];
+                        schoolUser.domain = [weakSelf.domainTextField.inputTextField.text bm_trimAllSpace];
                         schoolUser.userAccount = weakSelf.admin_accountTextField.inputTextField.text;
                         //schoolUser.userPassWord = weakSelf.passOnlineTextField.inputTextField.text;
                         schoolUser.randomKey = self.randomKey;
@@ -957,7 +973,7 @@
 
     if (self.isOnlineSchool)
     {
-        if (![self.domainTextField.inputTextField.text bm_isNotEmpty])
+        if (![[self.domainTextField.inputTextField.text bm_trimAllSpace] bm_isNotEmpty])
         {
             //没有输入机构域名
             NSString *content =  YSLocalizedSchool(@"Prompt.NoDomain");
