@@ -168,6 +168,10 @@
 		34043CAA23EAE0E1004982E6 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
 		34043CAB23EAE0E1004982E6 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
 		3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
+		34B8D0EF23FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */; };
+		34B8D0F023FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */; };
+		34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */; };
+		34B8D0F423FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */; };
 		8701B15F2371720600A43607 /* testcolorpalette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1312371720600A43607 /* testcolorpalette@2x.png */; };
 		8701B1602371720600A43607 /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
 		8701B1612371720600A43607 /* BMTestColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1332371720600A43607 /* BMTestColorPickerView.m */; };
@@ -1025,6 +1029,10 @@
 		34043C9223EABA8D004982E6 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
 		34043C9323EABA8D004982E6 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
+		34B8D0ED23FA854800EDBCBF /* YSUpHandPopoverVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopoverVC.h; sourceTree = "<group>"; };
+		34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopoverVC.m; sourceTree = "<group>"; };
+		34B8D0F123FA92D600EDBCBF /* YSUpHandPopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
+		34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopCell.m; sourceTree = "<group>"; };
 		8701B1312371720600A43607 /* testcolorpalette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpalette@2x.png"; sourceTree = "<group>"; };
 		8701B1322371720600A43607 /* testcolorpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpicker@2x.png"; sourceTree = "<group>"; };
 		8701B1332371720600A43607 /* BMTestColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTestColorPickerView.m; sourceTree = "<group>"; };
@@ -1794,6 +1802,10 @@
 			children = (
 				26355BD723B4ACB3004B8366 /* YSControlPopoverView.h */,
 				26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */,
+				34B8D0ED23FA854800EDBCBF /* YSUpHandPopoverVC.h */,
+				34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */,
+				34B8D0F123FA92D600EDBCBF /* YSUpHandPopCell.h */,
+				34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */,
 			);
 			path = YSVideoViewControlPopVC;
 			sourceTree = "<group>";
@@ -3760,6 +3772,7 @@
 				87133586237270F6006534A4 /* BMTestNetFlowHttpModel.m in Sources */,
 				872D04B723B7362300DAC321 /* FLEXLiveObjectsTableViewController.m in Sources */,
 				87981DCC23C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m in Sources */,
+				34B8D0EF23FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */,
 				34043CA423EABA8E004982E6 /* FSCalendarAppearance.m in Sources */,
 				872D048023B7362300DAC321 /* FLEXNetworkObserver.m in Sources */,
 				872D047123B7362300DAC321 /* FLEXLayerExplorerViewController.m in Sources */,
@@ -3881,6 +3894,7 @@
 				871335CF237270F6006534A4 /* SDImageCache.m in Sources */,
 				04A479E6239E274D00680D84 /* SCColorListView.m in Sources */,
 				871335D3237270F6006534A4 /* aeskey.c in Sources */,
+				34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
 				871335D4237270F6006534A4 /* UIImage+MultiFormat.m in Sources */,
 				8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */,
 				CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */,
@@ -4327,6 +4341,7 @@
 				87CC23362351A8AC00864FA3 /* ioapi_buf.c in Sources */,
 				8701B176237172B700A43607 /* UIDevice+Private.m in Sources */,
 				87EB13BD2372647900D642E8 /* YSChatView.m in Sources */,
+				34B8D0F423FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
 				87CE8D0C2351B29B00CD4A76 /* SDWebImagePrefetcher.m in Sources */,
 				87CC233F2351A8AC00864FA3 /* prng.c in Sources */,
 				8701B1632371720600A43607 /* BMTestAlignView.m in Sources */,
@@ -4406,6 +4421,7 @@
 				2661FB2323670AB5000859F7 /* YSBarrageTextDescriptor.m in Sources */,
 				87CE8D132351B29B00CD4A76 /* NSData+ImageContentType.m in Sources */,
 				87CE8D042351B29B00CD4A76 /* SDWebImageFrame.m in Sources */,
+				34B8D0F023FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */,
 				87CE8D052351B29B00CD4A76 /* UIImage+ForceDecode.m in Sources */,
 				87CE8D0F2351B29B00CD4A76 /* SDAnimatedImageRep.m in Sources */,
 				8701B16F2371720600A43607 /* BMTestAppInfoVC.m in Sources */,

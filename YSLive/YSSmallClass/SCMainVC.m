@@ -244,6 +244,10 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 ///上传图片的用途
 @property (nonatomic, assign)SCUploadImageUseType *uploadImageUseType;
 
+
+/// 举手按钮
+@property(nonatomic,strong)UIButton *raiseHandsBtn;
+
 @end
 
 @implementation SCMainVC
@@ -481,6 +485,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
 
+    //举手上台的按钮
+    [self.view addSubview:self.raiseHandsBtn];
+    
     // 会议默认视频布局
     if (self.appUseTheType == YSAppUseTheTypeMeeting)
     {
@@ -1273,6 +1280,28 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     return _chatBtn;
 }
 
+- (UIButton *)raiseHandsBtn
+{
+    if (!_raiseHandsBtn)
+    {
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-45, 40, 40)];
+        [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
+        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
+        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateSelected];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+//        [self.raiseHandsBtn setBackgroundColor:UIColor.redColor];
+        //拖拽
+        //        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
+        //        [self.chatBtn addGestureRecognizer:panGestureRecognizer];
+    }
+    return _raiseHandsBtn;
+}
+
+- (void)raiseHandsButtonClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+}
 
 #pragma mark -
 #pragma mark UI fresh

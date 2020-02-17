@@ -46,6 +46,7 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
+#import "YSUpHandPopoverVC.h"
 
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
@@ -274,6 +275,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 /// MP3进度控制
 @property (nonatomic, strong) YSMp3Controlview *mp3ControlView;
 
+/// 举手按钮
+@property(nonatomic,strong)UIButton *raiseHandsBtn;
+//举手上台的popOverView列表
+@property (nonatomic,weak)YSUpHandPopoverVC * upHandPopTableView;
+
+
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -368,6 +375,9 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
+    
+    //举手上台的按钮
+    [self setupHandView];
     
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
@@ -628,6 +638,46 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.whitebordFullBackgroud.hidden = YES;
 }
 
+#pragma mark - 举手上台的UI
+- (void)setupHandView
+{
+    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-60, 40, 40)];
+    [raiseHandsBtn setBackgroundColor: UIColor.clearColor];
+    [raiseHandsBtn setImage:[UIImage imageNamed:@"teacherNormalHand"] forState:UIControlStateNormal];
+    [raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateSelected];
+    [raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.raiseHandsBtn = raiseHandsBtn;
+     [self.view addSubview:raiseHandsBtn];
+    
+    UILabel * handNum = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, CGRectGetMaxY(raiseHandsBtn.frame), 40, 15)];
+    handNum.text = @"1/5";
+    handNum.font = UI_FONT_13;
+    handNum.textColor = UIColor.whiteColor;
+    handNum.backgroundColor = UIColor.grayColor;
+    handNum.layer.cornerRadius = 13/2;
+    handNum.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:handNum];
+    
+}
+
+- (void)raiseHandsButtonClick:(UIButton *)sender
+{
+
+    sender.selected = !sender.selected;
+    
+    YSUpHandPopoverVC * popTab = [[YSUpHandPopoverVC alloc]init];
+    popTab.preferredContentSize = CGSizeMake(95, 146);
+    popTab.modalPresentationStyle = UIModalPresentationPopover;
+    self.upHandPopTableView = popTab;
+    
+    UIPopoverPresentationController *popover = popTab.popoverPresentationController;
+    popover.sourceView = self.raiseHandsBtn;
+    popover.sourceRect = self.raiseHandsBtn.bounds;
+    popover.delegate = self;
+    [self presentViewController:popTab animated:YES completion:nil];//present即可
+}
+
+
 /// 设置左侧工具栏
 - (void)setupBrushToolView
 {
@@ -639,6 +689,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
 }
+
 
 #pragma mark 内容背景
 - (void)setupContentView
