@@ -943,11 +943,9 @@
                             return;
                         }
                     }
-                    else
-                    {
-                        NSString *info = [responseDic bm_stringForKey:@"info"];
-                        [weakSelf.progressHUD bm_showAnimated:NO withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-                    }
+
+                    NSString *info = [responseDic bm_stringForKey:@"info"];
+                    [weakSelf.progressHUD bm_showAnimated:NO withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
                 else
                 {
