@@ -327,9 +327,18 @@
     {
         return;
     }
+    /// 存储大小: size
+    double size = [dic bm_doubleForKey:@"size"];
+    if (size <= 0)
+    {
+        return;
+    }
     
     self.linkUrl = linkUrl;
     
+    NSArray *tokens = [NSArray arrayWithObjects:@"B", @"K", @"M", @"G", @"T", nil];
+    self.size = [NSString bm_storeStringWithBitSize:size tokens:tokens];
+
     /// 标题编号: part
     self.part = [dic bm_stringTrimForKey:@"part" withDefault:@""];
     
@@ -370,10 +379,7 @@
     minute = minute + hour*60;
 
     self.duration = [NSString stringWithFormat:@"%@'%@''", @(minute), @(second)];
-    /// 存储大小: size
-    double size = [dic bm_doubleForKey:@"size"];
-    NSArray *tokens = [NSArray arrayWithObjects:@"B", @"K", @"M", @"G", @"T", nil];
-    self.size = [NSString bm_storeStringWithBitSize:size tokens:tokens];
+
 }
 
 

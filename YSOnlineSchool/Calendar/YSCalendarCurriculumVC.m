@@ -18,9 +18,9 @@
 
 @interface YSCalendarCurriculumVC ()
 <
-FSCalendarDataSource,
-FSCalendarDelegate,
-FSCalendarDelegateAppearance
+    FSCalendarDataSource,
+    FSCalendarDelegate,
+    FSCalendarDelegateAppearance
 >
 
 @property (weak, nonatomic) FSCalendar *MyCalendar;
@@ -65,6 +65,8 @@ FSCalendarDelegateAppearance
     self.title = nil;
     
     [self setupUI];
+    
+    [self bringSomeViewToFront];
     
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
