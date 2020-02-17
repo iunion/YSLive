@@ -6,7 +6,7 @@
   Copyright © 2019 YS. All rights reserved.
 */
 
-CFBundleDisplayName = "云枢互动";
+CFBundleDisplayName = "网宿云课堂";
 /*权限声明*/
 NSPhotoLibraryUsageDescription = "房间中需要选择本地图片您是否允许访问相册";
 NSCameraUsageDescription = "房间中需要进行视频通话以及拍摄您是否允许打开相机";
