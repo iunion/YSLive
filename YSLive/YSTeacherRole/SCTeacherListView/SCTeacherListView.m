@@ -30,6 +30,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectArr;
 
+
+@property (nonatomic, strong) UIView *cyclePlayView;
+
+@property (nonatomic, strong) UILabel *studentNumLabel;
+
 @end
 
 @implementation SCTeacherListView
@@ -40,6 +45,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     if (self = [super initWithFrame:frame])
     {
         [self setup];
+        
+        [self cyclePlaySetup];
     }
     return self;
 }
@@ -74,7 +81,6 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, tableHeight) style:UITableViewStylePlain];
-//    tableView.bm_centerY = self.tableBacView.bm_centerY;
     tableView.bounces = NO;
     if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0)
     {
@@ -89,6 +95,30 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [tableView registerClass:[SCTeacherCoursewareListCell class] forCellReuseIdentifier:SCTeacherCoursewareListCellID];
     self.tableView = tableView;
     [tableBacView addSubview:tableView];
+}
+
+- (void)cyclePlaySetup
+{
+    
+    UIView * cyclePlayView = [[UIView alloc]initWithFrame:CGRectMake((ListView_Width - 333)/2, 145, 333, 226)];
+    cyclePlayView.backgroundColor = UIColor.yellowColor;
+    cyclePlayView.layer.cornerRadius = 26;
+    self.cyclePlayView = cyclePlayView;
+    [self.tableBacView addSubview:cyclePlayView];
+    
+    UIButton * cancleBtn = [[UIButton alloc]initWithFrame:CGRectMake(287, 10, 25, 25)];
+    [cancleBtn setImage:[UIImage imageNamed:@"cancel_gray"] forState:UIControlStateNormal];
+    [cancleBtn addTarget:self action:@selector(cancleBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [cyclePlayView addSubview:cancleBtn];
+    
+//    UILabel * numLab = [UILabel alloc]initWithFrame:CGRectMake(60, 58, <#CGFloat width#>, <#CGFloat height#>)
+    
+    
+}
+
+- (void)cancleBtnClick
+{
+    self.cyclePlayView.hidden = YES;
 }
 
 - (void)tapGestureClicked:(UITapGestureRecognizer *)tap
@@ -109,7 +139,6 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         return YES;
     }
-
 }
 
 - (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type
@@ -126,13 +155,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
                 [self.dataSource removeObject:user];
             }
         }
-        
     }
     if (self.type == SCTeacherTopBarTypeCourseware)
     {
         [self.dataSource addObjectsFromArray:dataSource];
         [self.dataSource sortUsingComparator:^NSComparisonResult(YSFileModel * _Nonnull obj1, YSFileModel * _Nonnull obj2) {
-            
             return [obj2.fileid compare:obj1.fileid];
         }];
         
@@ -145,14 +172,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
                 break;
             }
         }
-        
         if (whiteBoardFile)
         {
             [self.dataSource removeObject:whiteBoardFile];
             [self.dataSource insertObject:whiteBoardFile atIndex:0];
         }
     }
-    
     [self.tableView reloadData];
 }
 
@@ -162,12 +187,13 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    self.studentNumLabel.text = [NSString stringWithFormat:@"学生人数：%ld",self.dataSource.count];
+    
     return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     if (self.type == SCTeacherTopBarTypePersonList)
     {
         SCTeacherPersonListCell * personCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherPersonListCellID forIndexPath:indexPath];
@@ -187,12 +213,13 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     
     UITableViewCell * cell = [UITableViewCell new];
     return cell;
-   
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel * label = [[UILabel alloc] init];
+    UIView * view = [[UIView alloc]init];
+    
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 40)];
     label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
     label.textColor = [UIColor bm_colorWithHex:0xFFE895];
     label.font = [UIFont systemFontOfSize:14];
@@ -206,7 +233,26 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.DocumentList"),@(self.dataSource.count)];
         label.text = str;
     }
-    return label;
+    [view addSubview:label];
+    
+    UIButton * cycleTitleBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(label.frame) + 20, 5, 125, 30)];
+    [cycleTitleBtn setTitle:@"启动视频轮播" forState:UIControlStateNormal];
+    [cycleTitleBtn setBackgroundImage:[UIImage imageNamed:@"permissions_BtnSelect"] forState:UIControlStateNormal];
+    [cycleTitleBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+    [cycleTitleBtn.titleLabel setFont:UI_FONT_14];
+    [view addSubview:cycleTitleBtn];
+    
+    label.backgroundColor = UIColor.greenColor;
+    [cycleTitleBtn setBackgroundColor:UIColor.greenColor];
+    
+    UILabel * studentNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(ListView_Width-100, 0, 100, 40)];
+    studentNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    studentNumLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
+    studentNumLabel.font = UI_FONT_14;
+    
+    [view addSubview:studentNumLabel];
+    self.studentNumLabel = studentNumLabel;
+    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -218,7 +264,6 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if ([UIDevice bm_isiPad])
     {
         return 70;
@@ -239,7 +284,6 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
             [self.delegate selectCoursewareProxyWithFileModel:model];
         }
     }
-    
 }
 
 #pragma mark -
