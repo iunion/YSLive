@@ -180,7 +180,7 @@
 //    BOOL noAudio = [YSUserDefault getAllMuteAudio];
     BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
     
-    if (isEveryoneNoAudio) {
+    if (!isEveryoneNoAudio) {
         btn.selected = !btn.selected;
         if ([self.delegate respondsToSelector:@selector(microphoneProxyWithBtn:)])
         {

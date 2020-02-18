@@ -103,7 +103,7 @@ WithValue:(NSObject *)value
 /// 全体静音
 - (BOOL)sendSignalingTeacherToLiveAllNoAudioCompletion:(completion_block)completion
 {
-    NSDictionary *sendDic = @{@"liveAllNoAudio":@(false)};
+    NSDictionary *sendDic = @{@"liveAllNoAudio":@(true)};
     BOOL result = [self sendPubMsg:YSSignalingName_LiveAllNoAudio toID:YSRoomPubMsgTellAll data:sendDic save:YES completion:completion];
 
     return result;
@@ -112,8 +112,11 @@ WithValue:(NSObject *)value
 /// 取消全体静音
 - (BOOL)deleteSignalingTeacherToLiveAllNoAudioCompletion:(completion_block)completion
 {
-    NSDictionary *sendDic = @{@"liveAllNoAudio":@(true)};
-    BOOL result = [self sendPubMsg:YSSignalingName_LiveAllNoAudio toID:YSRoomPubMsgTellAll data:sendDic save:NO completion:completion];
+    NSDictionary *sendDic = @{@"liveAllNoAudio":@(false)};
+//    BOOL result = [self sendPubMsg:YSSignalingName_LiveAllNoAudio toID:YSRoomPubMsgTellAll data:sendDic save:NO completion:completion];
+    
+    BOOL result  = [self deleteMsg:YSSignalingName_LiveAllNoAudio toID:YSRoomPubMsgTellAll data:sendDic completion:completion];
+    
     return result;
 }
 

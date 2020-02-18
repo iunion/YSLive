@@ -4006,7 +4006,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         BOOL needsend = NO;
-        if (!noAudio)
+        if (noAudio)
         {
             // 关闭音频
             if (publishState == YSUser_PublishState_AUDIOONLY)
