@@ -126,6 +126,9 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
     self = [super init];
     if (self)
     {
+        // 不支持手势退出
+        self.bm_CanBackInteractive = NO;
+        
         self.mainWindow = [self windowWithLevel:UIWindowLevelNormal];
         
         self.alertWindow = [self windowWithLevel:UIWindowLevelAlert];
