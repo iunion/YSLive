@@ -129,7 +129,12 @@ static  NSString * const   YSLessonNotifyTableCellID      = @"YSLessonNotifyTabl
     NSString * aTranslationString = model.details;
 
     aTranslationString = [aTranslationString stringByReplacingOccurrencesOfString:@"\n" withString:@","];
-
+    
+    if (![aTranslationString bm_isNotEmpty])
+    {
+        return;
+    }
+    
     unichar ch = [aTranslationString characterAtIndex:0];
     NSString *tTo;
     NSString *tFrom;

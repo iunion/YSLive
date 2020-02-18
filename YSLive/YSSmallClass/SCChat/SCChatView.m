@@ -301,6 +301,11 @@ UITextFieldDelegate
     //=====增加表情的识别，表情不进行翻译 ===  +  === 对链接地址不进行翻译======
     NSString * aTranslationString = [model.message stringByReplacingOccurrencesOfString:@"\n" withString:@","];
     
+    if (![aTranslationString bm_isNotEmpty])
+    {
+        return;
+    }
+    
     unichar ch = [aTranslationString characterAtIndex:0];
     NSString *tTo;
     NSString *tFrom;
