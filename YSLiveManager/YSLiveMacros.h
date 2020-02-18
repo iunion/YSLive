@@ -180,14 +180,14 @@ static  NSString *const sUser                        = @"User";
 /// 允许/拒绝上麦
 static  NSString *const sUserUpPlatform            = @"isAllowUpPlatForm";
 
+// 全体静音
+static  NSString *const sMuteAudio                  = @"MuteAudio";
+
 
 #pragma mark - 待删除
 
-
 static  NSString *const sMobile                     = @"mobile";//拍照上传入口
 static  NSString *const sLowConsume                 = @"LowConsume";
-
-
 
 static  NSString *const sClassBegin                 = @"ClassBegin";//上课
 static  NSString *const sStreamFailure              = @"StreamFailure";
@@ -199,7 +199,7 @@ static  NSString *const sVideoZoom                  = @"VideoChangeSize";//视�
 static  NSString *const sChangeServerArea           = @"RemoteControl";// 助教协助切换服务器（课件服务器）
 static  NSString *const sServerName                 = @"servername";//助教协助切换服务器（优选网络）
 static  NSString *const sUpdateTime                 = @"UpdateTime";
-static  NSString *const sMuteAudio                  = @"MuteAudio";// 全体静音
+
 static  NSString *const sEveryoneBanChat            = @"EveryoneBanChat";//全体禁言
 static  NSString *const sOnlyAudioRoom              = @"OnlyAudioRoom"; //音频教室
 static  NSString *const sWBFullScreen               = @"FullScreen";// 全屏
