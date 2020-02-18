@@ -845,6 +845,11 @@
         YSLiveManager *liveManager = [YSLiveManager shareInstance];
         liveManager.schoolHost = domain;
     }
+    else
+    {
+        YSLiveManager *liveManager = [YSLiveManager shareInstance];
+        liveManager.schoolHost = YSSchool_Server;
+    }
     
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest getSchoolPublicKey];
@@ -1219,7 +1224,8 @@
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
-    
+    liveManager.liveHost = YSLIVE_HOST;
+
     NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
     NSString *nickName = self.nickNameTextField.inputTextField.text;
     NSString *passWordStr = self.passwordTextField.inputTextField.text;
