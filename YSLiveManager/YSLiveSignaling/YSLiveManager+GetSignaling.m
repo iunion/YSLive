@@ -34,16 +34,16 @@
     }
     
     ///全体静音 全体发言
-        if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
+    if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
+    {
+        BMLog(@"全体静音");
+        self.isEveryoneNoAudio = YES;
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToliveAllNoAudio:)])
         {
-            BMLog(@"全体静音");
-            self.isEveryoneNoAudio = YES;
-            if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToliveAllNoAudio:)])
-            {
-                [self.roomManagerDelegate handleSignalingToliveAllNoAudio:YES];
-            }
-            return;
+            [self.roomManagerDelegate handleSignalingToliveAllNoAudio:YES];
         }
+        return;
+    }
         
     if (![YSLiveUtil checkDataType:data])
     {
