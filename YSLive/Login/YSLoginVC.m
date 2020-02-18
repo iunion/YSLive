@@ -47,7 +47,7 @@
 #import "YSCircleProgress.h"
 
 
-#define ONLINESCHOOL 1
+#define YSONLINESCHOOL 1
 
 /// 每次打包的递增版本号 +1
 #define YSAPP_CommitVersion [[NSBundle mainBundle] infoDictionary][@"YSAppCommitVersion"]
@@ -382,7 +382,6 @@
     }
 }
 
-
 #pragma mark -- 获取商店的版本
 
 - (void)getAppStoreNewVersion
@@ -684,7 +683,7 @@
     //    UILabel *label = [UILabel bm_labelWithFrame:CGRectMake(20, 40, 200, 30) text:string fontSize:14.0 color:[UIColor bm_colorWithHex:0x999999] alignment:NSTextAlignmentLeft lines:1];
     //    [self.backImageView addSubview:label];
         
-#if ONLINESCHOOL
+#if YSONLINESCHOOL
     UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
