@@ -657,11 +657,11 @@
     if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
     {
         BMLog(@"全体静音");
-        BOOL isNoAudio = [dataDic bm_boolForKey:@"liveAllNoAudio"];
-        self.isEveryoneNoAudio = isNoAudio;
+//        BOOL isNoAudio = [dataDic bm_boolForKey:@"liveAllNoAudio"];
+        self.isEveryoneNoAudio = YES;
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToliveAllNoAudio:)])
         {
-            [self.roomManagerDelegate handleSignalingToliveAllNoAudio:isNoAudio];
+            [self.roomManagerDelegate handleSignalingToliveAllNoAudio:YES];
         }
         return;
     }
@@ -974,11 +974,11 @@
     if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
     {
         BMLog(@"取消全体静音");
-        BOOL isNoAudio = [dataDic bm_boolForKey:@"liveAllNoAudio"];
-        self.isEveryoneNoAudio = isNoAudio;
+//        BOOL isNoAudio = [dataDic bm_boolForKey:@"liveAllNoAudio"];
+        self.isEveryoneNoAudio = NO;
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToliveAllNoAudio:)])
         {
-            [self.roomManagerDelegate handleSignalingToliveAllNoAudio:isNoAudio];
+            [self.roomManagerDelegate handleSignalingToliveAllNoAudio:NO];
         }
         
         return;
