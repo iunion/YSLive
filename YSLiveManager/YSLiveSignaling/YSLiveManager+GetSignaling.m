@@ -974,7 +974,13 @@
     if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
     {
         BMLog(@"取消全体静音");
-        self.isEveryoneNoAudio = NO;
+        BOOL isNoAudio = [dataDic bm_boolForKey:@"liveAllNoAudio"];
+        self.isEveryoneNoAudio = isNoAudio;
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToliveAllNoAudio:)])
+        {
+            [self.roomManagerDelegate handleSignalingToliveAllNoAudio:isNoAudio];
+        }
+        
         return;
     }
     

@@ -177,10 +177,15 @@
 /// 麦克风
 - (void)microphoneBtnClicked:(UIButton *)btn
 {
-    btn.selected = !btn.selected;
-    if ([self.delegate respondsToSelector:@selector(microphoneProxyWithBtn:)])
-    {
-        [self.delegate microphoneProxyWithBtn:btn];
+//    BOOL noAudio = [YSUserDefault getAllMuteAudio];
+    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+    
+    if (isEveryoneNoAudio) {
+        btn.selected = !btn.selected;
+        if ([self.delegate respondsToSelector:@selector(microphoneProxyWithBtn:)])
+        {
+            [self.delegate microphoneProxyWithBtn:btn];
+        }
     }
 }
 
