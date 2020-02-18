@@ -33,6 +33,18 @@
         return;
     }
     
+    ///全体静音 全体发言
+        if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
+        {
+            BMLog(@"全体静音");
+            self.isEveryoneNoAudio = YES;
+            if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToliveAllNoAudio:)])
+            {
+                [self.roomManagerDelegate handleSignalingToliveAllNoAudio:YES];
+            }
+            return;
+        }
+        
     if (![YSLiveUtil checkDataType:data])
     {
         return;
@@ -614,7 +626,6 @@
                 [self.roomManagerDelegate handleSignalingAnswerPublicResultWithAnswerId:answerId resault:resault durationStr:durationStr answers:answers totalUsers:totalUsers];
             }
         }
-        
         return;
     }
     
@@ -653,18 +664,7 @@
         return;
     }
     
-    ///全体静音 全体发言
-    if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
-    {
-        BMLog(@"全体静音");
-//        BOOL isNoAudio = [dataDic bm_boolForKey:@"liveAllNoAudio"];
-        self.isEveryoneNoAudio = YES;
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToliveAllNoAudio:)])
-        {
-            [self.roomManagerDelegate handleSignalingToliveAllNoAudio:YES];
-        }
-        return;
-    }
+    
     // 全体禁言
     if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])
     {

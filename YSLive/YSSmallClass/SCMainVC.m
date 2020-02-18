@@ -538,7 +538,10 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
                 }
                 if (YSCurrentUser.hasAudio)
                 {
-                    [self.liveManager.roomManager publishAudio:nil];
+                    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                    if (!isEveryoneNoAudio) {
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
                 }
             }
         }
@@ -3246,10 +3249,10 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
             }
             else
             {
-                if (publishState != YSUser_PublishState_VIDEOONLY)
-                {
+//                if (publishState != YSUser_PublishState_VIDEOONLY)
+//                {
                     [self.topToolBar hideMicrophoneBtn:NO];
-                }
+//                }
             }
         }
         
@@ -4007,7 +4010,6 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
-    
 }
 
 - (void)handleSignalingDelAnswerResultWithAnswerId:(NSString *)answerId
@@ -4018,6 +4020,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 #pragma mark -全体静音 发言
 - (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
 {
+    
     if (self.liveManager.localUser.hasAudio)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
