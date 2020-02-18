@@ -64,12 +64,12 @@
     [self.bottomView bm_roundedRect:6.0f];
 }
 
-- (void)drawCellWithModel:(YSClassReplayListModel *)classReplayListModel
+- (void)drawCellWithModel:(YSClassReplayListModel *)classReplayListModel withClassState:(YSClassState)classState
 {
     self.classReplayListModel = classReplayListModel;
 
     self.titleLabel.text = YSLocalizedSchool(@"ClassMediumCell.Title");
-    
+        
     [self.bottomView bm_removeAllSubviews];
     
     if ([classReplayListModel.classReplayList bm_isNotEmpty])
@@ -95,6 +95,15 @@
         label.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
         label.font = UI_FONT_12;
         label.text = YSLocalizedSchool(@"ClassMediumCell.NoTitle");
+        
+        if (classState == YSClassState_End)
+        {
+            label.hidden = NO;
+        }
+        else
+        {
+            label.hidden = YES;
+        }
         
         [self.bottomView addSubview:label];
     }

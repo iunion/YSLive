@@ -1854,6 +1854,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 
 - (void)onRoomJoined:(long)ts
 {
+    [super onRoomJoined:ts];
+    
     if (self.liveManager.isBeginClass)
     {
         needFreshVideoView = YES;
@@ -1871,6 +1873,20 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         {
             [self.liveManager.roomManager unPublishAudio:nil];
             [self.liveManager.roomManager publishAudio:nil];
+        }
+    }
+    else
+    {
+        if (self.roomtype == YSRoomType_More)
+        {
+            // 1VN 初始本人视频音频
+            SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
+            videoView.appUseTheType = self.appUseTheType;
+            [self.videoViewArray addObject:videoView];
+            [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+            [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+            
+            [self freshContentView];
         }
     }
 }

@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) YSClassReplayListModel *classReplayListModel;
 
-- (void)drawCellWithModel:(YSClassReplayListModel *)classReplayListModel;
+- (void)drawCellWithModel:(YSClassReplayListModel *)classReplayListModel withClassState:(YSClassState)classState;
 
 @end
 

@@ -218,7 +218,7 @@
         case 1:
             {
                 YSClassMediumCell *cell = [[NSBundle mainBundle] loadNibNamed:@"YSClassMediumCell" owner:self options:nil].firstObject;
-                [cell drawCellWithModel:self.classReplayListModel];
+                [cell drawCellWithModel:self.classReplayListModel withClassState:self.linkClassModel.classState];
                 cell.delegate = self;
                 return cell;
             }

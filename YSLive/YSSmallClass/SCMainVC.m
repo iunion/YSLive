@@ -538,7 +538,10 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
                 }
                 if (YSCurrentUser.hasAudio)
                 {
-                    [self.liveManager.roomManager publishAudio:nil];
+                    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                    if (!isEveryoneNoAudio) {
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
                 }
             }
         }
@@ -3246,10 +3249,10 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
             }
             else
             {
-                if (publishState != YSUser_PublishState_VIDEOONLY)
-                {
+//                if (publishState != YSUser_PublishState_VIDEOONLY)
+//                {
                     [self.topToolBar hideMicrophoneBtn:NO];
-                }
+//                }
             }
         }
         
@@ -3304,6 +3307,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 
 - (void)onRoomJoined:(long)ts
 {
+    [super onRoomJoined:ts];
+    
     if (self.liveManager.isBeginClass)
     {
         needFreshVideoView = YES;
@@ -3348,6 +3353,20 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
                     [self.liveManager.roomManager publishAudio:nil];
                 }
             }
+        }
+    }
+    else
+    {
+        if (self.roomtype == YSRoomType_More)
+        {
+            // 1VN 初始本人视频音频
+            SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
+            videoView.appUseTheType = self.appUseTheType;
+            [self.videoViewArray addObject:videoView];
+            [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+            [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+            
+            [self freshContentView];
         }
     }
 }
@@ -3991,7 +4010,6 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
-    
 }
 
 - (void)handleSignalingDelAnswerResultWithAnswerId:(NSString *)answerId
@@ -4002,6 +4020,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 #pragma mark -全体静音 发言
 - (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
 {
+    
     if (self.liveManager.localUser.hasAudio)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
