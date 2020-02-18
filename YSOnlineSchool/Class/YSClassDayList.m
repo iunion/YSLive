@@ -277,7 +277,11 @@
                             NSString *userpassword = [urlParam bm_stringTrimForKey:@"userpassword"];
                             if ([serial bm_isNotEmpty])
                             {
-                                classModel.classState = YSClassState_Begin;
+                                YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+                                if (schoolUser.userRoleType == YSUserType_Teacher)
+                                {
+                                    classModel.classState = YSClassState_Begin;
+                                }
                                 weakSelf.roomId = serial;
                                 weakSelf.userName = username;
                                 [weakSelf enterSchoolRoomWithNickName:username roomId:serial passWord:userpassword];
