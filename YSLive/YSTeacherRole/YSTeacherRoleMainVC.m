@@ -2688,7 +2688,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     {
         return;
     }
-    
+     
     [self.boardControlView resetBtnStates];
 
     self.boardControlView.bm_width = 161; //CGRectMake(0, 0, 160, 34);
