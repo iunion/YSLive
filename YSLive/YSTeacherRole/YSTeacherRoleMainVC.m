@@ -47,7 +47,8 @@
 #import "SCEyeCareWindow.h"
 
 #import "YSUpHandPopoverVC.h"
-
+#import "YSCircleProgress.h"
+#import "YSTeacherResponder.h"
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
     SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView,
@@ -280,7 +281,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 //举手上台的popOverView列表
 @property (nonatomic,weak)YSUpHandPopoverVC * upHandPopTableView;
 
-
+@property (nonatomic, strong)YSTeacherResponder *responderView;
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -3061,6 +3062,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     else if (sender.tag == 4)
     {
         //抢答器
+        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
+            self.topSelectBtn.selected = NO;
+        }];
+
+        self.responderView = [[YSTeacherResponder alloc] init];
+        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
         
     }
 }

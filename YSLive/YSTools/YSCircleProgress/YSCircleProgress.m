@@ -80,6 +80,8 @@
     progressLabel.textColor = [UIColor blackColor];
     [self addSubview:progressLabel];
     self.progressLabel = progressLabel;
+    
+    self.progressLabel.hidden = YES;
 }
 
 - (void)setFrame:(CGRect)frame

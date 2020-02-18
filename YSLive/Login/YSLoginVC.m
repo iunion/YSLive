@@ -177,11 +177,7 @@
     // 主题问题
     [self setupUI];
     
-//    YSCircleProgress *circleProgress = [[YSCircleProgress alloc] init];
-//    circleProgress.frame = CGRectMake(50, 100, 100, 100);
-//    circleProgress.progress = 0.5;
-    
-//    [self.view addSubview:circleProgress];
+
     
 #if CLEARCHECK
     UIButton *clearCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];

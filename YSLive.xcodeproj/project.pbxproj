@@ -806,6 +806,7 @@
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */; };
 		CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
+		CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1644,6 +1645,8 @@
 		CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSchoolAVPlayerView.h; sourceTree = "<group>"; };
 		CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
 		CBE342D723FAE42C003EA794 /* YSUpHandPopoverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopoverVC.h; sourceTree = "<group>"; };
+		CBE342D923FBA2DA003EA794 /* YSTeacherResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTeacherResponder.h; sourceTree = "<group>"; };
+		CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTeacherResponder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1742,6 +1745,7 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
+				CBE342D823FBA286003EA794 /* SCTeacherResponder */,
 				2626447323C5795000317DAE /* YSTeacherMediaControl */,
 				2653226A23BB4E9300E24379 /* SCTeacherAnswerView */,
 				04B73BFB23B44C2B00BFF7BA /* YSVideoViewControlPopVC */,
@@ -3469,6 +3473,15 @@
 			path = YSSchoolAVPlayerView;
 			sourceTree = "<group>";
 		};
+		CBE342D823FBA286003EA794 /* SCTeacherResponder */ = {
+			isa = PBXGroup;
+			children = (
+				CBE342D923FBA2DA003EA794 /* YSTeacherResponder.h */,
+				CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */,
+			);
+			path = SCTeacherResponder;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3926,6 +3939,7 @@
 				871335E6237270F6006534A4 /* NSButton+WebCache.m in Sources */,
 				872D048123B7362300DAC321 /* FLEXToolbarItem.m in Sources */,
 				871335E7237270F6006534A4 /* UIView+WebCache.m in Sources */,
+				CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */,
 				872D048D23B7362300DAC321 /* FLEXArgumentInputSwitchView.m in Sources */,
 				871335E9237270F6006534A4 /* SDWebImageTransition.m in Sources */,
 				871335EF237270F6006534A4 /* YSCoreStatus.m in Sources */,
