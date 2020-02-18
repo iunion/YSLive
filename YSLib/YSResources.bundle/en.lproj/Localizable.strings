@@ -36,7 +36,7 @@
 "Prompt.prompt" = "Prompt";
 "Prompt.kick" = "Please come into the room in three minutes";
 "Prompt.stuHasKicked" = "You have been invited to the room. Please come back in three minutes.";
-"Prompt.inputPwd" = "A password is required for this rooom";
+"Prompt.inputPwd" = "A password is required for this classrooom";
 "Prompt.OK" = "Confirm";
 "Prompt.Cancel" = "Cancel";
 "Prompt.Know" = "Yes,I know";
@@ -49,7 +49,7 @@
 
 //login
 "Login.Enter" = "Enter";
-"Login.EnterRoom" = "Enter room";
+"Login.EnterRoom" = "Enter classroom";
 "Login.RoomIdPlaceHolder"    = "Room ID";
 "Login.nickName"  = "Name";
 "Login.Role"      = "Role";
@@ -259,8 +259,8 @@
 
 "Label.choiceIdentity" = "Select identity";
 "Label.roomid" = "room id";
-"Label.roomPlaceholder" = "Please enter your room number";
-"Label.nicknamePlaceholder" = "Please enter your nickname";
+"Label.roomPlaceholder" = "Please enter your classroom number";
+"Label.nicknamePlaceholder" = "Please enter nickname";
 
 "Label.messageBoard" = "message board";
 "Menu.Copy" = "copy";

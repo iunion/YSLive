@@ -52,7 +52,7 @@
 "Label.onlineSchoolSystem" = "Network school system";
 
 "Login.Enter" = "Enter";
-"Login.EnterRoom" = "Enter room";
+"Login.EnterRoom" = "Enter classroom";
 
 "Error.ServerError" = "Server access exception";
 "Error.DomainError" = "Domain input error";

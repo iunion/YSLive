@@ -36,7 +36,7 @@
 "Prompt.prompt" = "提示";
 "Prompt.kick" = "请您三分钟以后进入房间";
 "Prompt.stuHasKicked" = "您已被请出房间，请三分钟之后再进入房间!";
-"Prompt.inputPwd" = "请输入密码";
+"Prompt.inputPwd" = "请输入课堂登录码";
 "Prompt.OK" = "确定";
 "Prompt.Cancel" = "取消";
 "Prompt.Know" = "知道啦";
@@ -49,7 +49,7 @@
 
 //login
 "Login.Enter" = "登录";
-"Login.EnterRoom" = "进入房间";
+"Login.EnterRoom" = "进入课堂";
 "Login.RoomIdPlaceHolder"    = "房间号";
 "Login.nickName" = "昵称";
 "Login.Role"      = "角色";
@@ -258,8 +258,8 @@
 
 "Label.choiceIdentity" = "选择身份";
 "Label.roomid" = "房间号";
-"Label.roomPlaceholder" = "请输入您的房间号";
-"Label.nicknamePlaceholder" = "请输入您的昵称";
+"Label.roomPlaceholder" = "请输入课堂编号";
+"Label.nicknamePlaceholder" = "请输入昵称";
 "Label.messageBoard" = "留言板";
 
 "Menu.Copy" = "复制";
