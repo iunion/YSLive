@@ -125,7 +125,8 @@
     
     if (schoolUser.userRoleType == YSUserType_Teacher)
     {
-        return [YSLiveApiRequest getTeacherClassListWithPagesize:20 date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+        return [YSLiveApiRequest getTeacherClassListWithUserId:schoolUser.userId
+                pagesize:20 date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
     }
     else
     {

@@ -71,7 +71,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 /// 获取学生课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
 /// 获取老师课程列表
-+ (NSMutableURLRequest *)getTeacherClassListWithPagesize:(NSUInteger)pagesize date:(NSString *)date pagenum:(NSUInteger)pagenum;
++ (NSMutableURLRequest *)getTeacherClassListWithUserId:(NSString *)userId pagesize:(NSUInteger)pagesize date:(NSString *)date pagenum:(NSUInteger)pagenum;
 
 /// 获取学生课程回放列表
 + (NSMutableURLRequest *)getClassReplayListWithOrganId:(NSString *)organid toTeachId:(NSString *)toteachid;
