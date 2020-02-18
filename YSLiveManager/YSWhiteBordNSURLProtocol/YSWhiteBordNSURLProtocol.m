@@ -70,13 +70,13 @@ static NSString * const YSWhiteBordNSURLProtocolKey = @"yswhitebord_protocol_key
 #endif
         )
     {
-//        NSString *extension = request.URL.pathExtension;
-//        BOOL isMedia = [YSWhiteBordNSURLProtocol isMedia:extension];
-//        
-//        if (isMedia)
-//        {
-//            return NO;
-//        }
+        NSString *extension = request.URL.pathExtension;
+        BOOL isMedia = [YSWhiteBordNSURLProtocol isMedia:extension];
+        
+        if (isMedia)
+        {
+            return NO;
+        }
         
         return YES;
 //        YSWhiteBordHttpDNSUtil *httpDNSUtil = [YSWhiteBordHttpDNSUtil sharedInstance];
