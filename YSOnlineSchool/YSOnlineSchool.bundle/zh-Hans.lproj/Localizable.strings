@@ -14,7 +14,7 @@
 "Title.OnlineSchool.OriginalPassword"    = "原密码";
 "Title.OnlineSchool.NewPassword" = "新密码";
 "Title.OnlineSchool.againPassword"  = "确认密码";
-
+"Prompt.OnlineSchool.inputPwd" = "请输入网校登录码";
 "Prompt.OnlineSchool.oldPassword"    = "请输入原密码";
 "Prompt.OnlineSchool.changePassword" = "请输入6-20位新密码";
 "Prompt.OnlineSchool.againPassword"  = "再次输入新密码";

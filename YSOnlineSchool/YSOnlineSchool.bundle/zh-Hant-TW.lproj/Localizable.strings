@@ -23,7 +23,7 @@
 "Prompt.NoPassword"  = "沒有輸入密碼";
 "Prompt.OK" = "確定";
 "Prompt.Cancel" = "取消";
-
+"Prompt.OnlineSchool.inputPwd" = "請輸入網校登入碼";
 "Button.ReturnRoom" = "返回直播";
 "Button.onlineschool" = "登入網校";
 

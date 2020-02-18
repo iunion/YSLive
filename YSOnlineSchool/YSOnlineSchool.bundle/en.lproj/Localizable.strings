@@ -53,6 +53,6 @@
 
 "Login.Enter" = "Enter";
 "Login.EnterRoom" = "Enter classroom";
-
+"Prompt.OnlineSchool.inputPwd" = "A password is required for this onlineSchool";
 "Error.ServerError" = "Server access exception";
 "Error.DomainError" = "Domain input error";

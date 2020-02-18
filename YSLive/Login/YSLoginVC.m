@@ -73,6 +73,7 @@
 @property (nonatomic, strong) UIImageView *logoImageView;
 /// 房间号输入框
 @property (nonatomic, strong) YSInputView *roomTextField;
+@property (nonatomic, strong) UIImageView *wangshuImg;
 /// 昵称输入框
 @property (nonatomic, strong) YSInputView *nickNameTextField;
 /// 密码输入框
@@ -649,11 +650,11 @@
 //    }];
 //
 //
-//    [self.passwordEyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.mas_equalTo(-10);
-//        make.top.equalTo(self.passOnlineTextField);
-//        make.width.height.mas_equalTo(40);
-//    }];
+    [self.wangshuImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.centerY.equalTo(self.roomTextField);
+        make.width.height.mas_equalTo(20);
+    }];
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1240,7 +1241,6 @@
     NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
     NSString *nickName = self.nickNameTextField.inputTextField.text;
     NSString *passWordStr = self.passwordTextField.inputTextField.text;
-        
     if ([passWordStr bm_isNotEmpty])
     {
         [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:YES];
@@ -1322,6 +1322,9 @@
         _roomTextField.inputTextField.tag = 101;
         _roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         _roomTextField.delegate = self;
+        self.wangshuImg = [[UIImageView alloc]initWithFrame:CGRectMake(_roomTextField.bm_width-20, 0, 20, 20)];
+        [self.wangshuImg setImage:[UIImage imageNamed:@"wangshuImg"]];
+        [_roomTextField addSubview:self.wangshuImg];
     }
     return _roomTextField;
 }
@@ -1348,6 +1351,7 @@
         _passwordTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passwordTextField.inputTextField.secureTextEntry = YES;
         _passwordTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
+        _passwordTextField.inputTextField.textColor = YSColor_LoginTextField;
         _passwordTextField.layer.cornerRadius = 20;
         _passwordTextField.layer.borderWidth = 1;
         _passwordTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
@@ -1355,6 +1359,7 @@
         if (![UIDevice bm_isiPad]) {
             self.passwordTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
+        _passwordTextField.lineView.hidden = YES;
         
 //        UIButton * eyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passwordTextField.bm_width-40, 0, 40, 40)];
 //        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
@@ -1426,7 +1431,7 @@
 {
     if (!_passOnlineTextField)
     {
-        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
+        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalizedSchool(@"Prompt.OnlineSchool.inputPwd") withImageName:@"login_password"];
         _passOnlineTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passOnlineTextField.inputTextField.secureTextEntry = YES;
         _passOnlineTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;

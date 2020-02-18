@@ -13,7 +13,7 @@
 @property (nonatomic, strong) UIView *bacView;
 /// icon
 @property (nonatomic, strong) UIImageView *iconImageView;
-@property (nonatomic, strong) UIView *lineView;
+//@property (nonatomic, strong) UIView *lineView;
 @end
 
 @implementation YSInputView
