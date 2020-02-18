@@ -594,6 +594,11 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)addRoomUser:(YSRoomUser *)aRoomUser showMessge:(BOOL)showMessge
 {
+    if (![aRoomUser bm_isNotEmpty])
+    {
+        return;
+    }
+    
     BOOL isUserExist = NO;
     NSUInteger roomUserIndex = 0;
     
