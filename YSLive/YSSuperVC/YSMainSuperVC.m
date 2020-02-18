@@ -26,6 +26,7 @@
     self = [super init];
     if (self)
     {
+        self.bm_CanBackInteractive = NO;
         [self setRoomManagerDelegate];
     }
     return self;
