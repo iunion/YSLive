@@ -36,7 +36,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "2436h",
-      "filename" : "1125*3436.png",
+      "filename" : "1125x2436.png",
       "minimum-system-version" : "11.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -53,7 +53,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "736h",
-      "filename" : "1242*2208.png",
+      "filename" : "1242x2208.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -70,7 +70,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "667h",
-      "filename" : "750*1334.png",
+      "filename" : "750x1334.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -78,7 +78,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "640*960.png",
+      "filename" : "640x960.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"
@@ -94,7 +94,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "768*1024.png",
+      "filename" : "768x1024.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "1x"
@@ -102,7 +102,7 @@
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "filename" : "1024*768.png",
+      "filename" : "1024x768.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "1x"
@@ -136,7 +136,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "640*1136.png",
+      "filename" : "640x1136.png",
       "extent" : "full-screen",
       "subtype" : "retina4",
       "scale" : "2x"
@@ -144,7 +144,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "768*1004备份.png",
+      "filename" : "768x1004.png",
       "extent" : "to-status-bar",
       "scale" : "1x"
     },
@@ -169,28 +169,28 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "1536*2008备份.png",
+      "filename" : "1536x2008.png",
       "extent" : "to-status-bar",
       "scale" : "2x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "1536*2048.png",
+      "filename" : "1536x2048.png",
       "extent" : "full-screen",
       "scale" : "2x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "filename" : "2048*1496.png",
+      "filename" : "2048x1496.png",
       "extent" : "to-status-bar",
       "scale" : "2x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "filename" : "2048*1536.png",
+      "filename" : "2048x1536.png",
       "extent" : "full-screen",
       "scale" : "2x"
     }
