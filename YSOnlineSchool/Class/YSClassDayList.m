@@ -125,7 +125,8 @@
     
     if (schoolUser.userRoleType == YSUserType_Teacher)
     {
-        return [YSLiveApiRequest getTeacherClassListWithPagesize:20 date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
+        return [YSLiveApiRequest getTeacherClassListWithUserId:schoolUser.userId
+                pagesize:20 date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
     }
     else
     {
@@ -258,11 +259,11 @@
                                     classModel.classState = YSClassState_End;
                                     message = YSLocalizedSchool(@"ClassListCell.Enter.EndError");
                                 }
-                                else if ((classModel.startTime - liveManager.tCurrentTime) >= 600)
-                                {
-                                    stop = YES;
-                                    message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
-                                }
+                                //else if ((classModel.startTime - liveManager.tCurrentTime) >= 60*60)
+                                //{
+                                //    stop = YES;
+                                //    message = YSLocalizedSchool(@"ClassListCell.Enter.WaitError");
+                                //}
 
                                 if (stop)
                                 {
@@ -276,7 +277,11 @@
                             NSString *userpassword = [urlParam bm_stringTrimForKey:@"userpassword"];
                             if ([serial bm_isNotEmpty])
                             {
-                                classModel.classState = YSClassState_Begin;
+                                YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+                                if (schoolUser.userRoleType == YSUserType_Teacher)
+                                {
+                                    classModel.classState = YSClassState_Begin;
+                                }
                                 weakSelf.roomId = serial;
                                 weakSelf.userName = username;
                                 [weakSelf enterSchoolRoomWithNickName:username roomId:serial passWord:userpassword];

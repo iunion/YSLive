@@ -101,12 +101,13 @@
 }
 
 /// 获取老师课程列表
-+ (NSMutableURLRequest *)getTeacherClassListWithPagesize:(NSUInteger)pagesize date:(NSString *)date pagenum:(NSUInteger)pagenum
++ (NSMutableURLRequest *)getTeacherClassListWithUserId:(NSString *)userId pagesize:(NSUInteger)pagesize date:(NSString *)date pagenum:(NSUInteger)pagenum
 {
     // http://school.roadofcloud.net/teacher/Personalcourse/getLessonsByDate
     
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/getLessonsByDate", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters bm_setString:userId forKey:@"teacherid"];
     [parameters bm_setInteger:pagesize forKey:@"pagesize"];
     [parameters bm_setString:date forKey:@"date"];
     [parameters bm_setInteger:pagenum forKey:@"pagenum"];

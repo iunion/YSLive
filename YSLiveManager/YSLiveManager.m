@@ -180,7 +180,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     NSString *logsDirectory = [cachesPath stringByAppendingPathComponent:YSLive_LogPath];
     [YSRoomInterface setLogLevel:(YSLogLevelDebug)logPath:logsDirectory debugToConsole:YES];
     self.isEveryoneBanChat = NO;
-    self.isEveryoneNoAudio = YES;
+//    self.isEveryoneNoAudio = YES;
+    self.isEveryoneNoAudio = NO;
 }
 
 - (void)registerRoomManagerDelegate:(id <YSLiveRoomManagerDelegate>)RoomManagerDelegate
@@ -594,6 +595,11 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)addRoomUser:(YSRoomUser *)aRoomUser showMessge:(BOOL)showMessge
 {
+    if (![aRoomUser bm_isNotEmpty])
+    {
+        return;
+    }
+    
     BOOL isUserExist = NO;
     NSUInteger roomUserIndex = 0;
     

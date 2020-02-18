@@ -3471,9 +3471,10 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     
     dispatch_source_set_timer(self.topBarTimer, DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
     //3.要调用的任务
+    BMWeakSelf
     dispatch_source_set_event_handler(self.topBarTimer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self countDownTime:nil];
+            [weakSelf countDownTime:nil];
         });
     });
     //4.开始执行
@@ -4005,7 +4006,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         BOOL needsend = NO;
-        if (!noAudio)
+        if (noAudio)
         {
             // 关闭音频
             if (publishState == YSUser_PublishState_AUDIOONLY)

@@ -40,7 +40,7 @@
 #import "YSLiveUtil.h"
 
 #if USE_TEST_HELP
-#define USE_YSLIVE_ROOMID 1
+#define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
 #endif
 
@@ -705,16 +705,17 @@
     UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
-    [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
-    [onlineSchoolBtn setTitleColor:[UIColor bm_colorWithHex:0x6D7278] forState:UIControlStateNormal];
-    onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
+    [onlineSchoolBtn setTitleColor:[UIColor bm_colorWithHex:0x4A4A4A] forState:UIControlStateNormal];
+    onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:22];
     onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.joinRoomBtn.mas_bottom).mas_offset(kScale_H(5));
+        make.bottom.mas_equalTo(weakSelf.backImageView.mas_bottom).offset(-kScale_H(17));
         make.height.mas_equalTo(30);
-        make.width.mas_equalTo(120);
-        make.right.mas_equalTo(weakSelf.joinRoomBtn.mas_right);
+//        make.right.mas_equalTo(weakSelf.bottomVersionL.mas_left).offset(-5);
+        make.width.mas_equalTo(kScale_W(100));
+        make.left.mas_equalTo(15);
     }];
 #endif
 }
@@ -822,7 +823,7 @@
         self.nickNameTextField.hidden = NO;
         self.wangsuPasswordTextField.hidden = NO;
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
-        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
         [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.wangsuPasswordTextField.mas_bottom).mas_offset(kScale_H(43));
             make.height.mas_equalTo(50);
@@ -862,6 +863,11 @@
         
         YSLiveManager *liveManager = [YSLiveManager shareInstance];
         liveManager.schoolHost = domain;
+    }
+    else
+    {
+        YSLiveManager *liveManager = [YSLiveManager shareInstance];
+        liveManager.schoolHost = YSSchool_Server;
     }
     
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
@@ -1237,7 +1243,8 @@
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
-    
+    liveManager.liveHost = YSLIVE_HOST;
+
     NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
     NSString *nickName = self.nickNameTextField.inputTextField.text;
     NSString *passWordStr = self.passwordTextField.inputTextField.text;
@@ -1771,6 +1778,7 @@
 
 - (void)inpuTextFieldDidChanged:(UITextField *)textField
 {
+
     if (self.isOnlineSchool)
     {
         if (self.domainTextField.inputTextField.text.length > 0 && self.admin_accountTextField.inputTextField.text.length > 0 && self.passOnlineTextField.inputTextField.text.length > 0)
@@ -1800,7 +1808,6 @@
             self.joinRoomBtn.enabled = NO;
 #endif
         }
-            
     }
 
     if (textField.tag ==102 )

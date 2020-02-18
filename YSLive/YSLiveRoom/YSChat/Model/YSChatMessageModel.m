@@ -83,8 +83,10 @@
         NSRange rang = NSMakeRange([match rangeAtIndex:0].location - strLength, [match rangeAtIndex:0].length);
         
         // 开始替换
-        [emojiAttributedString replaceCharactersInRange:rang withAttributedString:attStr];
-        strLength += match.range.length-1 ;
+        if ((rang.location+rang.length)<= emojiAttributedString.length) {
+            [emojiAttributedString replaceCharactersInRange:rang withAttributedString:attStr];
+            strLength += match.range.length-1 ;
+        }
     }
     
     // 设置富文本属性

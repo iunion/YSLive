@@ -243,6 +243,13 @@
 		871336ED237270F6006534A4 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		871338DC2372BE57006534A4 /* SCMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338D02372BE57006534A4 /* SCMainVC.m */; };
 		871338F62373AB72006534A4 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
+		871338F72373AB73006534A4 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
+		871338F82373AB74006534A4 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
+		871A00902363D5D3009297C2 /* BMAlertView+YSDefaultAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007D2363D5D3009297C2 /* BMAlertView+YSDefaultAlert.m */; };
+		871A00912363D5D3009297C2 /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007E2363D5D3009297C2 /* YSSignedAlertView.m */; };
+		871A009C2363D5D3009297C2 /* YSPassWordAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008C2363D5D3009297C2 /* YSPassWordAlert.m */; };
+		871A009D2363D5D3009297C2 /* YSPrizeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */; };
+		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
 		872D046323B7362300DAC321 /* FLEXTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038423B7362300DAC321 /* FLEXTableViewController.m */; };
 		872D046423B7362300DAC321 /* FLEXScopeCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038723B7362300DAC321 /* FLEXScopeCarousel.m */; };
 		872D046523B7362300DAC321 /* FLEXTableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038823B7362300DAC321 /* FLEXTableViewSection.m */; };
@@ -647,6 +654,7 @@
 		871A008D2363D5D3009297C2 /* YSSignedAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSignedAlertView.h; sourceTree = "<group>"; };
 		871A008E2363D5D3009297C2 /* BMAlertView+YSDefaultAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BMAlertView+YSDefaultAlert.h"; sourceTree = "<group>"; };
 		871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSPrizeAlertView.m; sourceTree = "<group>"; };
+		872558A823FAB5D9009A3A79 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		872D038223B7362300DAC321 /* FLEXManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXManager.h; sourceTree = "<group>"; };
 		872D038423B7362300DAC321 /* FLEXTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXTableViewController.m; sourceTree = "<group>"; };
 		872D038523B7362300DAC321 /* FLEXTableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXTableViewSection.h; sourceTree = "<group>"; };
@@ -1210,6 +1218,7 @@
 				87981DC123C5809F00DA0276 /* UTMini.framework in Frameworks */,
 				87981DC223C5809F00DA0276 /* AlicloudHttpDNS.framework in Frameworks */,
 				87981DB123C57CC300DA0276 /* BMKit.framework in Frameworks */,
+				872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */,
 				8713365D237270F6006534A4 /* HockeySDK.framework in Frameworks */,
 				877CCBCD2389479B00584E65 /* YSRoomSDK.framework in Frameworks */,
 				87981DAC23C57CBB00DA0276 /* YSWhiteBoard.framework in Frameworks */,
@@ -1755,6 +1764,7 @@
 		870C56FC2358577B00BDB1EC /* YSLib */ = {
 			isa = PBXGroup;
 			children = (
+				872558A823FAB5D9009A3A79 /* Bugly.framework */,
 				87981DB823C5809F00DA0276 /* OneSDK */,
 				87981DAD23C57CC300DA0276 /* BMKit */,
 				87981DA623C57CBB00DA0276 /* YSWhiteBoard */,

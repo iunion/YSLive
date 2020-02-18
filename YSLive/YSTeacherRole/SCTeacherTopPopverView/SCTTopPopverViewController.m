@@ -160,7 +160,8 @@
                     [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_MuteAudio"] forState:UIControlStateNormal];
                     [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_MuteAll"] forState:UIControlStateSelected];
                     BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
-                    button.selected = !isEveryoneNoAudio;
+//                    button.selected = !isEveryoneNoAudio;
+                    button.selected = isEveryoneNoAudio;
                     break;
                 case 1:
                     button.tag = 1;
@@ -210,7 +211,8 @@
                 [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_MuteAudio"] forState:UIControlStateNormal];
                 [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_MuteAll"] forState:UIControlStateSelected];
                 BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
-                button.selected = !isEveryoneNoAudio;
+//                button.selected = !isEveryoneNoAudio;
+                button.selected = isEveryoneNoAudio;
                 break;
             case 1:
                 [button setTitle:YSLocalized(@"Button.ShutUpAll") forState:UIControlStateNormal];
