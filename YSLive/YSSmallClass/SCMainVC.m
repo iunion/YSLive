@@ -1959,12 +1959,15 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 // 关闭课件视频
 - (void)hideWhiteBordVidoeViewWithPeerId:(NSString *)peerId
 {
-    if (!peerId)
+    if (self.liveManager.playMediaModel.video)
     {
-        peerId = self.liveManager.playMediaModel.user_peerId;
+        if (!peerId)
+        {
+            peerId = self.liveManager.playMediaModel.user_peerId;
+        }
+        [self.liveManager.roomManager unPlayMediaFile:peerId completion:^(NSError *error) {
+        }];
     }
-    [self.liveManager.roomManager unPlayMediaFile:peerId completion:^(NSError *error) {
-    }];
     
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
