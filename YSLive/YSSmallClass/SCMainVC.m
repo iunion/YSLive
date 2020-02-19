@@ -1712,7 +1712,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     //[self hideShareVidoeView];
     
-    [self hideWhiteBordVidoeViewWithPeerId:nil];
+//    [self hideWhiteBordVidoeViewWithPeerId:nil];
     [self hideAllDragOutVidoeView];
     
     //    [self.videoBackgroud bm_removeAllSubviews];
