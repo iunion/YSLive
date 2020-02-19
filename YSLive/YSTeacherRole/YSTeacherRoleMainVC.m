@@ -2639,15 +2639,15 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 // 关闭课件视频
 - (void)hideWhiteBordVidoeViewWithPeerId:(NSString *)peerId
 {
-    if (!peerId)
-    {
-        peerId = self.liveManager.playMediaModel.user_peerId;
-    }
     if (self.liveManager.playMediaModel.video)
     {
-       [self.liveManager.roomManager unPlayMediaFile:peerId completion:nil];
+        if (!peerId)
+        {
+            peerId = self.liveManager.playMediaModel.user_peerId;
+        }
+        [self.liveManager.roomManager unPlayMediaFile:peerId completion:^(NSError *error) {
+        }];
     }
-
     
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
