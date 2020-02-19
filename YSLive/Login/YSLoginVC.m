@@ -1330,6 +1330,7 @@
         _roomTextField.inputTextField.tag = 101;
         _roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         _roomTextField.delegate = self;
+        _roomTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
         self.wangshuImg = [[UIImageView alloc]initWithFrame:CGRectMake(_roomTextField.bm_width-20, 0, 20, 20)];
         [self.wangshuImg setImage:[UIImage imageNamed:@"wangshuImg"]];
         [_roomTextField addSubview:self.wangshuImg];
@@ -1782,18 +1783,18 @@
 
     if (self.isOnlineSchool)
     {
-        if (self.domainTextField.inputTextField.text.length > 0 && self.admin_accountTextField.inputTextField.text.length > 0 && self.passOnlineTextField.inputTextField.text.length > 0)
-        {
-            self.joinRoomBtn.enabled = YES;
-        }
-        else
-        {
-#if USE_YSLIVE_ROOMID
-            self.joinRoomBtn.enabled = YES;
-#else
-            self.joinRoomBtn.enabled = NO;
-#endif
-        }
+//        if (self.domainTextField.inputTextField.text.length > 0 && self.admin_accountTextField.inputTextField.text.length > 0 && self.passOnlineTextField.inputTextField.text.length > 0)
+//        {
+//            self.joinRoomBtn.enabled = YES;
+//        }
+//        else
+//        {
+//#if USE_YSLIVE_ROOMID
+//            self.joinRoomBtn.enabled = YES;
+//#else
+//            self.joinRoomBtn.enabled = NO;
+//#endif
+//        }
     }
     else
     {
