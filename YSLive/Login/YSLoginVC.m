@@ -418,7 +418,8 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     // 默认是自己的标准app，传值是其他公司定制
-    //[parameters bm_setString:@"" forKey:@"companydomain"];
+    // 网宿科技
+    [parameters bm_setString:@"wskj" forKey:@"companydomain"];
     [parameters bm_setString:commitVersion forKey:@"version"];
     [parameters bm_setInteger:3 forKey:@"type"];
     
