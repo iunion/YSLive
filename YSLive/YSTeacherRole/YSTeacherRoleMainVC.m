@@ -280,6 +280,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 @property(nonatomic,strong)UIButton *raiseHandsBtn;
 //举手上台的popOverView列表
 @property (nonatomic,weak)YSUpHandPopoverVC * upHandPopTableView;
+/// 正在举手上台的人员数组
+@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *raiseHandArray;
+/// 举过手的人员数组
+@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *haveRaiseHandArray;
+/// 举手上台的人数
+@property (nonatomic, strong) UILabel *handNumLab;
 
 @property (nonatomic, strong)YSTeacherResponder *responderView;
 @end
@@ -650,23 +656,22 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.raiseHandsBtn = raiseHandsBtn;
      [self.view addSubview:raiseHandsBtn];
     
-    UILabel * handNum = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, CGRectGetMaxY(raiseHandsBtn.frame), 40, 15)];
-    handNum.text = @"1/5";
-    handNum.font = UI_FONT_13;
-    handNum.textColor = UIColor.whiteColor;
-    handNum.backgroundColor = UIColor.grayColor;
-    handNum.layer.cornerRadius = 13/2;
-    handNum.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:handNum];
-    
+    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, CGRectGetMaxY(raiseHandsBtn.frame), 40, 15)];
+    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+    handNumLab.font = UI_FONT_13;
+    handNumLab.textColor = UIColor.whiteColor;
+    handNumLab.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    handNumLab.layer.cornerRadius = 15/2;
+    handNumLab.layer.masksToBounds = YES;
+    handNumLab.textAlignment = NSTextAlignmentCenter;
+    self.handNumLab = handNumLab;
+    [self.view addSubview:handNumLab];
 }
 
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
-
-    sender.selected = !sender.selected;
-    
     YSUpHandPopoverVC * popTab = [[YSUpHandPopoverVC alloc]init];
+    popTab.userArr = self.raiseHandArray;
     popTab.preferredContentSize = CGSizeMake(95, 146);
     popTab.modalPresentationStyle = UIModalPresentationPopover;
     self.upHandPopTableView = popTab;
@@ -1727,6 +1732,41 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
 
+    // 举手上台
+       if ([properties bm_containsObjectForKey:sUserRaisehand])
+       {
+           BOOL raisehand = [properties bm_boolForKey:sUserRaisehand];
+                      
+           YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+           
+           if (user.publishState>0 && raisehand)
+           {
+               videoView.isRaiseHand = YES;
+           }
+           else
+           {
+               videoView.isRaiseHand = NO;
+           }
+           
+           if (raisehand && ![self.raiseHandArray containsObject:user])
+           {//举手上台
+               [self.raiseHandArray addObject:user];
+               self.upHandPopTableView.userArr = self.raiseHandArray;
+               
+               if (![self.haveRaiseHandArray containsObject:user]) {
+                   [self.haveRaiseHandArray addObject:user];
+               }
+           }
+           else if (!raisehand && [self.raiseHandArray containsObject:user])
+           {//取消举手上台
+               [self.raiseHandArray removeObject:user];
+               self.upHandPopTableView.userArr = self.raiseHandArray;
+           }
+           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+           
+            self.raiseHandsBtn.selected = (self.raiseHandArray.count > 0);
+       }
+    
     // 奖杯数
     if ([properties bm_containsObjectForKey:sUserGiftNumber])
     {
@@ -1816,6 +1856,13 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     if ([properties bm_containsObjectForKey:sUserPublishstate])
     {
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
+        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+        
+        if ([self.raiseHandArray containsObject:user]) {
+            [self.raiseHandArray removeObject:user];
+            [self.raiseHandArray addObject:user];
+            self.upHandPopTableView.userArr = self.raiseHandArray;
+        }
         
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
@@ -4448,6 +4495,24 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
                                                     isBeginClass:self.liveManager.isBeginClass
                                                         isPubMsg:NO];
     [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[tDataDic1 bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
+}
+
+/// 正在举手上台的人员数组
+- (NSMutableArray<YSRoomUser *> *)raiseHandArray
+{
+    if (!_raiseHandArray) {
+        _raiseHandArray = [NSMutableArray array];
+    }
+    return _raiseHandArray;
+}
+
+/// 举过手的人员数组
+- (NSMutableArray<YSRoomUser *> *)haveRaiseHandArray
+{
+    if (!_haveRaiseHandArray) {
+        _haveRaiseHandArray = [NSMutableArray array];
+    }
+    return _haveRaiseHandArray;
 }
 
 @end

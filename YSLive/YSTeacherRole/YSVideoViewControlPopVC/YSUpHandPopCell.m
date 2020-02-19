@@ -7,13 +7,13 @@
 //
 
 #import "YSUpHandPopCell.h"
-
+#import "UIButton+WebCache.h"
 
 @interface YSUpHandPopCell ()
 ///用户名
 @property (nonatomic, strong) UILabel *nickNameLab;
-///选中标识
-@property (nonatomic, strong) UIImageView * headImage;
+///头像按钮
+@property (nonatomic, strong) UIButton * headBtn;
 @end
 
 @implementation YSUpHandPopCell
@@ -48,26 +48,44 @@
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 95-10-24, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.lineBreakMode = NSLineBreakByTruncatingTail;
-    self.nickNameLab.textColor =[UIColor bm_colorWithHexString:@"#828282"];
-    self.nickNameLab.font = UI_FONT_16;
+    self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
+    self.nickNameLab.font = UI_FONT_14;
     [self.contentView addSubview:_nickNameLab];
     
     //选中标识
-    self.headImage = [[UIImageView alloc] initWithFrame:CGRectMake(95-30, 2, 20,20)];
-    self.headImage.image = [UIImage imageNamed:@"member_noSelected"];
-    [self.contentView addSubview:self.headImage];
+    self.headBtn = [[UIButton alloc] initWithFrame:CGRectMake(95-30, 2, 20,20)];
+    [self.headBtn addTarget:self action:@selector(buttonclick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headBtn setImage:[UIImage imageNamed:@"downPlatform_hand"] forState:UIControlStateNormal];
+    [self.headBtn setImage:[UIImage imageNamed:@"upPlatform_hand"] forState:UIControlStateSelected];
+    [self.contentView addSubview:self.headBtn];
     
 }
 
-- (void)setDataDict:(NSDictionary *)dataDict
+- (void)buttonclick:(UIButton *)sender
 {
-    _dataDict = dataDict;
-    self.nickNameLab.text = [dataDict bm_stringForKey:@"nickName"];
+    if (!sender.selected) {
+        sender.selected = !sender.selected;
+        if (_headButtonClick) {
+            _headButtonClick();
+        }
+    }
+}
+
+- (void)setUserModel:(YSRoomUser *)userModel
+{
+    _userModel = userModel;
+    self.nickNameLab.text = userModel.nickName;
     
-    [self.headImage sd_setImageWithURL:[NSURL URLWithString:[dataDict bm_stringForKey:@"headImage"]] placeholderImage:[UIImage imageNamed:@"login_name"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        
-    }];
-    
+    if (userModel.publishState >0)
+    {
+        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+        self.headBtn.selected = YES;
+    }
+    else
+    {
+        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
+        self.headBtn.selected = NO;
+    }
 }
 
 @end

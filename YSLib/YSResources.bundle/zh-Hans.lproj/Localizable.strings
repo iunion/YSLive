@@ -392,3 +392,5 @@
 "Role.Attendee" = "参会者";
 
 
+"Prompt.RaiseHand_classBegain" = "上课后才能举手";
+

@@ -1287,21 +1287,37 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-45, 40, 40)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
-        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateSelected];
-        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateHighlighted];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
         
-//        [self.raiseHandsBtn setBackgroundColor:UIColor.redColor];
-        //拖拽
-        //        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
-        //        [self.chatBtn addGestureRecognizer:panGestureRecognizer];
+        [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+
     }
     return _raiseHandsBtn;
 }
 
+///举手上台
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+    BMLog(@"举手上台");
+    if (self.liveManager.isBeginClass) {
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+    }
+    else{
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
 }
+///取消举手上台
+- (void)downHandsButtonClick:(UIButton *)sender
+{
+    BMLog(@"取消举手上台");
+    if (self.liveManager.isBeginClass) {
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    }
+    else{
+    }
+}
+
 
 #pragma mark -
 #pragma mark UI fresh
@@ -3220,12 +3236,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
-            
-//            NSString * teacherId = [YSLiveManager shareInstance].teacher.peerID;
-            
+                        
             YSRoomUser *user = [[YSRoomUser alloc]initWithPeerId:fromId];
             
-//            if ([fromId isEqualToString:teacherId])
             if (user.role == YSUserType_Teacher || user.role == YSUserType_Assistant)
             {
                 self.rightChatView.allDisabledChat.hidden = !disablechat;
@@ -3247,6 +3260,17 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     // 举手上台
     if ([properties bm_containsObjectForKey:sUserRaisehand])
     {
+        BOOL raisehand = [properties bm_boolForKey:sUserRaisehand];
+        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+        
+        if (user.publishState>0 && raisehand)
+        {
+            videoView.isRaiseHand = YES;
+        }
+        else
+        {
+            videoView.isRaiseHand = NO;
+        }
     }
     
     // 发布媒体状态

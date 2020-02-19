@@ -393,3 +393,6 @@
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "參會者";
+
+
+"Prompt.RaiseHand_classBegain" = "上課後才能舉手";

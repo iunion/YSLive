@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSUpHandPopCell : UITableViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
-@property(nonatomic,strong)NSDictionary *dataDict;
+@property(nonatomic,strong)YSRoomUser *userModel;
+
+@property(nonatomic,copy)void(^headButtonClick)(void);
 
 @end
 

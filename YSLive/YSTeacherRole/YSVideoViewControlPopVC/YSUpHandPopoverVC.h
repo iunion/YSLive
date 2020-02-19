@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSUpHandPopoverVC : UIViewController
 
-@property(nonatomic,strong)NSArray * dataArr;
+@property(nonatomic,strong)NSMutableArray * userArr;
 
 @property(nonatomic,weak)UITableView * tabView;
 

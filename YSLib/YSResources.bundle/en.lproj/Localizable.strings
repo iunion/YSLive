@@ -396,3 +396,6 @@
 "Role.Host" = "Host";
 "Role.Attendee" = "Attendee";
 
+
+"Prompt.RaiseHand_classBegain" = "Hands up after class";
+
