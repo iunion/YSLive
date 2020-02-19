@@ -1797,7 +1797,7 @@
     }
     else
     {
-        if (self.roomTextField.inputTextField.text.length > 0 && self.nickNameTextField.inputTextField.text.length > 0 && self.wangsuPasswordTextField.inputTextField.text.length > 0)
+        if (self.roomTextField.inputTextField.text.length > 0 && self.nickNameTextField.inputTextField.text.length > 0)
         {
             self.joinRoomBtn.enabled = YES;
         }

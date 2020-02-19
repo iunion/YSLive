@@ -243,12 +243,6 @@
 		871336ED237270F6006534A4 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		871338DC2372BE57006534A4 /* SCMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338D02372BE57006534A4 /* SCMainVC.m */; };
 		871338F62373AB72006534A4 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
-		871338F72373AB73006534A4 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
-		871338F82373AB74006534A4 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
-		871A00902363D5D3009297C2 /* BMAlertView+YSDefaultAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007D2363D5D3009297C2 /* BMAlertView+YSDefaultAlert.m */; };
-		871A00912363D5D3009297C2 /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007E2363D5D3009297C2 /* YSSignedAlertView.m */; };
-		871A009C2363D5D3009297C2 /* YSPassWordAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008C2363D5D3009297C2 /* YSPassWordAlert.m */; };
-		871A009D2363D5D3009297C2 /* YSPrizeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */; };
 		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
 		872D046323B7362300DAC321 /* FLEXTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038423B7362300DAC321 /* FLEXTableViewController.m */; };
 		872D046423B7362300DAC321 /* FLEXScopeCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038723B7362300DAC321 /* FLEXScopeCarousel.m */; };
@@ -3581,7 +3575,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.0.0;
-				DEVELOPMENT_TEAM = S6NQ524Y5V;
+				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3611,7 +3605,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclasss;
 				PRODUCT_NAME = vclass;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3625,7 +3619,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.0.0;
-				DEVELOPMENT_TEAM = S6NQ524Y5V;
+				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					"FLEX*",
@@ -3668,7 +3662,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclasss;
 				PRODUCT_NAME = vclass;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
