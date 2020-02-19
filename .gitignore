@@ -18,7 +18,7 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
+#xcuserdata/
 
 ## Other
 *.moved-aside
@@ -52,10 +52,16 @@ Podfile.lock
 
 # End of https://www.gitignore.io/api/cocoapods
 
-YSEdu/Podfile
-YSEdu/YSEdu.xcworkspace/contents.xcworkspacedata
-YSEdu/YSEdu.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+
+contents.xcworkspacedata
+IDEFindNavigatorScopes.plist
+WorkspaceSettings.xcsettings
+xcshareddata/
+xcdebugger/
+xcschemes/
+
+
 YSLib/BMKit/BMKit.framework
 YSLiveSample/YSLiveSample/YSLib/
-contents.xcworkspacedata
+
 
