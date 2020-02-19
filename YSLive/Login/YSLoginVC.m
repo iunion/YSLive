@@ -73,7 +73,7 @@
 @property (nonatomic, strong) UIImageView *logoImageView;
 /// 房间号输入框
 @property (nonatomic, strong) YSInputView *roomTextField;
-@property (nonatomic, strong) UIImageView *wangshuImg;
+//@property (nonatomic, strong) UIImageView *wangshuImg;
 /// 昵称输入框
 @property (nonatomic, strong) YSInputView *nickNameTextField;
 /// 密码输入框
@@ -651,11 +651,11 @@
 //    }];
 //
 //
-    [self.wangshuImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-10);
-        make.centerY.equalTo(self.roomTextField);
-        make.width.height.mas_equalTo(20);
-    }];
+//    [self.wangshuImg mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.mas_equalTo(-10);
+//        make.centerY.equalTo(self.roomTextField);
+//        make.width.height.mas_equalTo(20);
+//    }];
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1331,9 +1331,9 @@
         _roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         _roomTextField.delegate = self;
         _roomTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
-        self.wangshuImg = [[UIImageView alloc]initWithFrame:CGRectMake(_roomTextField.bm_width-20, 0, 20, 20)];
-        [self.wangshuImg setImage:[UIImage imageNamed:@"wangshuImg"]];
-        [_roomTextField addSubview:self.wangshuImg];
+//        self.wangshuImg = [[UIImageView alloc]initWithFrame:CGRectMake(_roomTextField.bm_width-20, 0, 20, 20)];
+//        [self.wangshuImg setImage:[UIImage imageNamed:@"wangshuImg"]];
+//        [_roomTextField addSubview:self.wangshuImg];
     }
     return _roomTextField;
 }
