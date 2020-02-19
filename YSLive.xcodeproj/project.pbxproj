@@ -3573,9 +3573,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.0.0;
-				DEVELOPMENT_TEAM = 2DPW2MS2H5;
+				DEVELOPMENT_TEAM = S6NQ524Y5V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3605,8 +3606,9 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclasss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclass;
 				PRODUCT_NAME = vclass;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3617,9 +3619,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.0.0;
-				DEVELOPMENT_TEAM = 2DPW2MS2H5;
+				DEVELOPMENT_TEAM = S6NQ524Y5V;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					"FLEX*",
@@ -3662,8 +3665,9 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclasss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangsu.vclass;
 				PRODUCT_NAME = vclass;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
