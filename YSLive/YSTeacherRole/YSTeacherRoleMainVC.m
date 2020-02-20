@@ -2395,12 +2395,14 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     if (self.isWideScreen)
     {
         width = ceil(UI_SCREEN_WIDTH / 25) * 9;
-        height = ceil(width*9 / 16);
+        NSString *heightStr = [NSString stringWithFormat:@"%.2f",width*9 / 16];
+        height = [heightStr floatValue];
     }
     else
     {
         width = ceil(UI_SCREEN_WIDTH*5 / 21);
-        height = ceil(width*3 / 4);
+        NSString *heightStr = [NSString stringWithFormat:@"%.2f",width*3 / 4];
+        height = [heightStr floatValue];
     }
     
     /// 悬浮默认视频宽(拖出和共享)
