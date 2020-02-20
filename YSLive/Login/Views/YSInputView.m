@@ -13,7 +13,7 @@
 @property (nonatomic, strong) UIView *bacView;
 /// icon
 @property (nonatomic, strong) UIImageView *iconImageView;
-//@property (nonatomic, strong) UIView *lineView;
+
 @end
 
 @implementation YSInputView
@@ -33,9 +33,7 @@
         _inputTextField = [[UITextField alloc] init];
         [self addSubview:_inputTextField];
         [_inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
-        _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor bm_colorWithHex:0x333333 alpha:0.5f];
-        [self addSubview:_lineView];
+        
         [self setViewWithPlaceholderText:placeholder setImageName:imageName];
     }
     return self;
@@ -43,9 +41,9 @@
 
 - (void)setViewWithPlaceholderText:(NSString *)placeholder setImageName:(NSString *)imageName
 {
-    _bacView.backgroundColor = [UIColor clearColor];
-//    _bacView.layer.cornerRadius = 20;
-//    _bacView.layer.masksToBounds = YES;
+    _bacView.backgroundColor = [UIColor whiteColor];
+    _bacView.layer.cornerRadius = 20;
+    _bacView.layer.masksToBounds = YES;
     
     if (placeholder)
     {
@@ -56,7 +54,7 @@
         _inputTextField.attributedPlaceholder = attrString;
     }
     
-    _inputTextField.textColor = [UIColor whiteColor];
+    _inputTextField.textColor = YSColor_LoginTextField;
     _inputTextField.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 15);
     _inputTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _inputTextField.delegate = self;
@@ -85,7 +83,6 @@
     _iconImageView.frame = CGRectMake(25, 0, 15,CGRectGetHeight(_bacView.frame));
     
     _inputTextField.frame = CGRectMake(CGRectGetMaxX(_iconImageView.frame)+ 18, 0, CGRectGetWidth(_bacView.frame) - 70, CGRectGetHeight(_bacView.frame));
-    _lineView.frame = CGRectMake(0, CGRectGetMaxY(_bacView.frame), self.frame.size.width, 1);
     
 }
 
