@@ -42,12 +42,13 @@
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
+#define CLEARCHECK 1
 #endif
 
 #import "YSCircleProgress.h"
 
 
-#define YSONLINESCHOOL 1
+#define ONLINESCHOOL 1
 
 /// 每次打包的递增版本号 +1
 #define YSAPP_CommitVersion [[NSBundle mainBundle] infoDictionary][@"YSAppCommitVersion"]
@@ -73,15 +74,11 @@
 @property (nonatomic, strong) UIImageView *logoImageView;
 /// 房间号输入框
 @property (nonatomic, strong) YSInputView *roomTextField;
-//@property (nonatomic, strong) UIImageView *wangshuImg;
 /// 昵称输入框
 @property (nonatomic, strong) YSInputView *nickNameTextField;
 /// 密码输入框
 @property (nonatomic, strong) YSInputView *passwordTextField;
-/// 密码输入框
-@property (nonatomic, strong) YSInputView *wangsuPasswordTextField;
-/// 网宿密码明文按钮
-//@property (nonatomic, strong) UIButton *wangsuPasswordEyeBtn;
+
 /// 域名输入框
 @property (nonatomic, strong) YSInputView *domainTextField;
 /// 账号输入框
@@ -124,7 +121,7 @@
 @property (nonatomic, strong) UIButton *onlineSchoolBtn;
 
 /// 网校密码明文按钮
-//@property (nonatomic, strong) UIButton *passwordEyeBtn;
+@property (nonatomic, strong) UIButton *passwordEyeBtn;
 
 // 网络等待
 @property (nonatomic, strong) BMProgressHUD *progressHUD;
@@ -181,6 +178,11 @@
     // 主题问题
     [self setupUI];
     
+//    YSCircleProgress *circleProgress = [[YSCircleProgress alloc] init];
+//    circleProgress.frame = CGRectMake(50, 100, 100, 100);
+//    circleProgress.progress = 0.5;
+    
+//    [self.view addSubview:circleProgress];
     
 #if CLEARCHECK
     UIButton *clearCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -208,7 +210,7 @@
     
 #if USE_YSLIVE_ROOMID
 #else
-    if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty] )
+    if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty])
     {
         self.joinRoomBtn.enabled = YES;
     }
@@ -381,6 +383,7 @@
     }
 }
 
+
 #pragma mark -- 获取商店的版本
 
 - (void)getAppStoreNewVersion
@@ -418,8 +421,7 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     // 默认是自己的标准app，传值是其他公司定制
-    // 网宿科技
-    [parameters bm_setString:@"wskj" forKey:@"companydomain"];
+    //[parameters bm_setString:@"" forKey:@"companydomain"];
     [parameters bm_setString:commitVersion forKey:@"version"];
     [parameters bm_setInteger:3 forKey:@"type"];
     
@@ -580,9 +582,9 @@
         make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(kScale_H(60));
         make.height.mas_equalTo(40);
     }];
-//    self.roomTextField.layer.cornerRadius = 20;
-//    self.roomTextField.layer.borderWidth = 1;
-//    self.roomTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    self.roomTextField.layer.cornerRadius = 20;
+    self.roomTextField.layer.borderWidth = 1;
+    self.roomTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
     [self.backImageView addSubview:self.domainTextField];
     [self.domainTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -592,9 +594,9 @@
         make.height.mas_equalTo(40);
     }];
     self.domainTextField.hidden = YES;
-//    self.domainTextField.layer.cornerRadius = 20;
-//    self.domainTextField.layer.borderWidth = 1;
-//    self.domainTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    self.domainTextField.layer.cornerRadius = 20;
+    self.domainTextField.layer.borderWidth = 1;
+    self.domainTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
     [self.backImageView addSubview:self.nickNameTextField];
     [self.nickNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -603,9 +605,9 @@
         make.top.mas_equalTo(weakSelf.roomTextField.mas_bottom).mas_offset(kScale_H(30));
         make.height.mas_equalTo(40);
     }];
-//    self.nickNameTextField.layer.cornerRadius = 20;
-//    self.nickNameTextField.layer.borderWidth = 1;
-//    self.nickNameTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    self.nickNameTextField.layer.cornerRadius = 20;
+    self.nickNameTextField.layer.borderWidth = 1;
+    self.nickNameTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
     
     [self.backImageView addSubview:self.admin_accountTextField];
@@ -616,10 +618,10 @@
         make.height.mas_equalTo(40);
     }];
     self.admin_accountTextField.hidden = YES;
-//    self.admin_accountTextField.layer.cornerRadius = 20;
-//    self.admin_accountTextField.layer.borderWidth = 1;
-//    self.admin_accountTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-//
+    self.admin_accountTextField.layer.cornerRadius = 20;
+    self.admin_accountTextField.layer.borderWidth = 1;
+    self.admin_accountTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    
     [self.backImageView addSubview:self.passOnlineTextField];
     [self.passOnlineTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(kScale_W(28));
@@ -627,35 +629,16 @@
         make.top.mas_equalTo(weakSelf.admin_accountTextField.mas_bottom).mas_offset(kScale_H(30));
         make.height.mas_equalTo(40);
     }];
-//    self.passOnlineTextField.layer.cornerRadius = 20;
-//    self.passOnlineTextField.layer.borderWidth = 1;
-//    self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+    self.passOnlineTextField.layer.cornerRadius = 20;
+    self.passOnlineTextField.layer.borderWidth = 1;
+    self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     self.passOnlineTextField.hidden = YES;
     
-    [self.backImageView addSubview:self.wangsuPasswordTextField];
-    [self.wangsuPasswordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(28));
-        make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(30));
-        make.height.mas_equalTo(40);
+    [self.passwordEyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.top.equalTo(self.passOnlineTextField);
+        make.width.height.mas_equalTo(40);
     }];
-//    self.wangsuPasswordTextField.layer.cornerRadius = 20;
-//    self.wangsuPasswordTextField.layer.borderWidth = 1;
-//    self.wangsuPasswordTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-    self.wangsuPasswordTextField.hidden = NO;
-    
-//    [self.wangsuPasswordEyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.mas_equalTo(-10);
-//        make.top.equalTo(self.passOnlineTextField);
-//        make.width.height.mas_equalTo(40);
-//    }];
-//
-//
-//    [self.wangshuImg mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.mas_equalTo(-10);
-//        make.centerY.equalTo(self.roomTextField);
-//        make.width.height.mas_equalTo(20);
-//    }];
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -675,7 +658,7 @@
     
     [self.backImageView addSubview:self.joinRoomBtn];
     [self.joinRoomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.wangsuPasswordTextField.mas_bottom).mas_offset(kScale_H(43));
+        make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(43));
         make.height.mas_equalTo(50);
         make.width.mas_equalTo(kScale_W(238));
         make.centerX.mas_equalTo(0);
@@ -693,8 +676,8 @@
         make.bottom.mas_equalTo(-kScale_H(17));
     }];
 
-//    self.joinRoomBtn.layer.cornerRadius = 25;
-//    self.joinRoomBtn.layer.masksToBounds = YES;
+    self.joinRoomBtn.layer.cornerRadius = 25;
+    self.joinRoomBtn.layer.masksToBounds = YES;
     [self.joinRoomBtn addTarget:self action:@selector(joinRoomBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     //    NSString *bundleVersionCode = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
@@ -702,7 +685,7 @@
     //    UILabel *label = [UILabel bm_labelWithFrame:CGRectMake(20, 40, 200, 30) text:string fontSize:14.0 color:[UIColor bm_colorWithHex:0x999999] alignment:NSTextAlignmentLeft lines:1];
     //    [self.backImageView addSubview:label];
         
-#if YSONLINESCHOOL
+#if ONLINESCHOOL
     UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
@@ -729,7 +712,7 @@
     //获取键盘高度
     NSDictionary* info = [note userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    CGFloat offSet = frame.origin.y + 160 - (self.view.frame.size.height - kbSize.height);
+    CGFloat offSet = frame.origin.y + 60 - (self.view.frame.size.height - kbSize.height);
     
     if (offSet > 0.01)
     {
@@ -773,7 +756,6 @@
         self.admin_accountTextField.hidden = NO;
         self.roomTextField.hidden = YES;
         self.nickNameTextField.hidden = YES;
-        self.wangsuPasswordTextField.hidden = YES;
         [self.joinRoomBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.EnterRoom") forState:UIControlStateNormal];
         
@@ -822,17 +804,16 @@
         self.admin_accountTextField.hidden = YES;
         self.roomTextField.hidden = NO;
         self.nickNameTextField.hidden = NO;
-        self.wangsuPasswordTextField.hidden = NO;
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
         [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.wangsuPasswordTextField.mas_bottom).mas_offset(kScale_H(43));
+            make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(43));
             make.height.mas_equalTo(50);
             make.width.mas_equalTo(kScale_W(238));
             make.centerX.mas_equalTo(0);
         }];
 
-        if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty] )
+        if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty])
         {
             self.joinRoomBtn.enabled = YES;
         }
@@ -1249,6 +1230,7 @@
     NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
     NSString *nickName = self.nickNameTextField.inputTextField.text;
     NSString *passWordStr = self.passwordTextField.inputTextField.text;
+        
     if ([passWordStr bm_isNotEmpty])
     {
         [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:YES];
@@ -1330,9 +1312,6 @@
         _roomTextField.inputTextField.tag = 101;
         _roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         _roomTextField.delegate = self;
-//        self.wangshuImg = [[UIImageView alloc]initWithFrame:CGRectMake(_roomTextField.bm_width-20, 0, 20, 20)];
-//        [self.wangshuImg setImage:[UIImage imageNamed:@"wangshuImg"]];
-//        [_roomTextField addSubview:self.wangshuImg];
     }
     return _roomTextField;
 }
@@ -1359,7 +1338,6 @@
         _passwordTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passwordTextField.inputTextField.secureTextEntry = YES;
         _passwordTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
-        _passwordTextField.inputTextField.textColor = YSColor_LoginTextField;
         _passwordTextField.layer.cornerRadius = 20;
         _passwordTextField.layer.borderWidth = 1;
         _passwordTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
@@ -1367,44 +1345,15 @@
         if (![UIDevice bm_isiPad]) {
             self.passwordTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
-        _passwordTextField.lineView.hidden = YES;
         
-//        UIButton * eyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passwordTextField.bm_width-40, 0, 40, 40)];
-//        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
-//        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
-//        [eyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
-//        [_passwordTextField addSubview:eyeBtn];
+        UIButton * eyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passwordTextField.bm_width-40, 0, 40, 40)];
+        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
+        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
+        [eyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
+        [_passwordTextField addSubview:eyeBtn];
     }
     return _passwordTextField;
 }
-
-- (YSInputView *)wangsuPasswordTextField
-{
-    if (!_wangsuPasswordTextField)
-    {
-        _wangsuPasswordTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
-        _wangsuPasswordTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
-        _wangsuPasswordTextField.inputTextField.secureTextEntry = YES;
-        _wangsuPasswordTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
-//        _wangsuPasswordTextField.layer.cornerRadius = 20;
-//        _wangsuPasswordTextField.layer.borderWidth = 1;
-//        _wangsuPasswordTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-
-        if (![UIDevice bm_isiPad]) {
-            self.wangsuPasswordTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
-        }
-        
-        
-//         self.wangsuPasswordEyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_wangsuPasswordTextField.bm_width-40, 0, 40, 40)];
-//         [self.wangsuPasswordEyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
-//         [self.wangsuPasswordEyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
-//         [self.wangsuPasswordEyeBtn addTarget:self action:@selector(wangsuChangeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
-//
-//         [_wangsuPasswordTextField addSubview:self.wangsuPasswordEyeBtn];
-    }
-    return _wangsuPasswordTextField;
-}
-
 
 // 房间号输入框
 - (YSInputView *)domainTextField
@@ -1439,36 +1388,28 @@
 {
     if (!_passOnlineTextField)
     {
-        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalizedSchool(@"Prompt.OnlineSchool.inputPwd") withImageName:@"login_password"];
+        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
         _passOnlineTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passOnlineTextField.inputTextField.secureTextEntry = YES;
         _passOnlineTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
-//        _passOnlineTextField.layer.cornerRadius = 20;
-//        _passOnlineTextField.layer.borderWidth = 1;
-//        _passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+        _passOnlineTextField.layer.cornerRadius = 20;
+        _passOnlineTextField.layer.borderWidth = 1;
+        _passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
 
         if (![UIDevice bm_isiPad]) {
             self.passOnlineTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
         
-//        self.passwordEyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
-//        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
-//        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
-//        [self.passwordEyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
+        self.passwordEyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
+        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
+        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
+        [self.passwordEyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
         
-//        [_passOnlineTextField addSubview:self.passwordEyeBtn];
+        [_passOnlineTextField addSubview:self.passwordEyeBtn];
 
     }
     return _passOnlineTextField;
 }
-
-- (void)wangsuChangeSecureTextEntry:(UIButton *)button
-{
-    button.selected = !button.selected;
-    self.wangsuPasswordTextField.inputTextField.secureTextEntry = !button.selected;
-    
-}
-
 
 - (void)changeSecureTextEntry:(UIButton *)button
 {
@@ -1492,7 +1433,7 @@
         _roleSelectView = [[UIView alloc]initWithFrame:self.view.bounds];
         _roleSelectView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
         [self.backImageView addSubview:_roleSelectView];
-        //0x5b4ec4
+        
         //弹框
         UIImageView * alertView = [[UIImageView alloc]initWithFrame:CGRectMake((UI_SCREEN_WIDTH-500)/2, (UI_SCREEN_HEIGHT-330)/2, 500, 330)];
         alertView.image = [UIImage imageNamed:@"roleAlertBackImage"];
@@ -1739,12 +1680,12 @@
         _joinRoomBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 50) color:[UIColor bm_colorWithHex:0x648CD6] highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
         [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
-        [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+        [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
         [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0x999999] forState:UIControlStateDisabled];
         _joinRoomBtn.titleLabel.textAlignment =  NSTextAlignmentCenter;
         _joinRoomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16);//UI_FSFONT_MAKE(FontNamePFSCMedium, 18);//(@"PingFang-SC-Medium", 18);
         
-//        [_joinRoomBtn bm_addShadow:4.0f Radius:25.0f BorderColor:[UIColor bm_colorWithHex:0x9DB7E7] ShadowColor:[UIColor lightGrayColor]];
+        [_joinRoomBtn bm_addShadow:4.0f Radius:25.0f BorderColor:[UIColor bm_colorWithHex:0x9DB7E7] ShadowColor:[UIColor lightGrayColor]];
 
 #if USE_YSLIVE_ROOMID
         _joinRoomBtn.enabled = YES;
@@ -1779,23 +1720,7 @@
 
 - (void)inpuTextFieldDidChanged:(UITextField *)textField
 {
-
-    if (self.isOnlineSchool)
-    {
-//        if (self.domainTextField.inputTextField.text.length > 0 && self.admin_accountTextField.inputTextField.text.length > 0 && self.passOnlineTextField.inputTextField.text.length > 0)
-//        {
-//            self.joinRoomBtn.enabled = YES;
-//        }
-//        else
-//        {
-//#if USE_YSLIVE_ROOMID
-//            self.joinRoomBtn.enabled = YES;
-//#else
-//            self.joinRoomBtn.enabled = NO;
-//#endif
-//        }
-    }
-    else
+    if (!self.isOnlineSchool)
     {
         if (self.roomTextField.inputTextField.text.length > 0 && self.nickNameTextField.inputTextField.text.length > 0)
         {
@@ -1810,7 +1735,7 @@
 #endif
         }
     }
-
+    
     if (textField.tag ==102 )
     {
         NSInteger existTextNum = textField.text.length;
@@ -1862,7 +1787,7 @@
     if (isSmallClass)
     {
         GetAppDelegate.allowRotation = YES;
-        NSUInteger maxvideo = [[YSLiveManager shareInstance].roomDic bm_uintForKey:@"maxvideo"];
+        NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
         YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;

@@ -26,7 +26,7 @@ DerivedData/
 *.xcscmblueprint
 
 ### Xcode Patch ###
-*.xcodeproj/*
+#*.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddat
 !*/xcuserdata/admin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlista/
@@ -56,9 +56,10 @@ Podfile.lock
 contents.xcworkspacedata
 IDEFindNavigatorScopes.plist
 WorkspaceSettings.xcsettings
+UserInterfaceState.xcuserstate
 xcshareddata/
 xcdebugger/
-xcschemes/
+#xcschemes/
 
 
 YSLib/BMKit/BMKit.framework
