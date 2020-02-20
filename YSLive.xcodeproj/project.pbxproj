@@ -802,6 +802,7 @@
 		87EB13D32372647900D642E8 /* YSLessonDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */; };
 		87F8D4B42368273D00A888AB /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
 		CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */; };
+		CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */; };
 		CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */; };
 		CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
@@ -1636,6 +1637,8 @@
 		87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveMediaModel.m; sourceTree = "<group>"; };
 		CB384CE123FE6C0400DCD1C0 /* YSStudentResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentResponder.h; sourceTree = "<group>"; };
 		CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSStudentResponder.m; sourceTree = "<group>"; };
+		CB384CE523FE7D3100DCD1C0 /* YSTeacherTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTeacherTimerView.h; sourceTree = "<group>"; };
+		CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTeacherTimerView.m; sourceTree = "<group>"; };
 		CB3D958A23ED925800A0DEC4 /* YSOnlineMineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSOnlineMineTableViewCell.h; sourceTree = "<group>"; };
 		CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSOnlineMineTableViewCell.m; sourceTree = "<group>"; };
 		CB3D958D23EDBA0B00A0DEC4 /* YSChangePassWordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSChangePassWordVC.h; sourceTree = "<group>"; };
@@ -1748,6 +1751,7 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
+				CB384CE423FE7D1100DCD1C0 /* YSTeacherTimer */,
 				CBE342D823FBA286003EA794 /* YSTeacherResponder */,
 				2626447323C5795000317DAE /* YSTeacherMediaControl */,
 				2653226A23BB4E9300E24379 /* SCTeacherAnswerView */,
@@ -3477,6 +3481,15 @@
 			path = YSStudentResponder;
 			sourceTree = "<group>";
 		};
+		CB384CE423FE7D1100DCD1C0 /* YSTeacherTimer */ = {
+			isa = PBXGroup;
+			children = (
+				CB384CE523FE7D3100DCD1C0 /* YSTeacherTimerView.h */,
+				CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */,
+			);
+			path = YSTeacherTimer;
+			sourceTree = "<group>";
+		};
 		CB3D963823F43E6000A0DEC4 /* YSSchoolAVPlayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3955,6 +3968,7 @@
 				871335E7237270F6006534A4 /* UIView+WebCache.m in Sources */,
 				CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */,
 				872D048D23B7362300DAC321 /* FLEXArgumentInputSwitchView.m in Sources */,
+				CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */,
 				871335E9237270F6006534A4 /* SDWebImageTransition.m in Sources */,
 				871335EF237270F6006534A4 /* YSCoreStatus.m in Sources */,
 				872D048B23B7362300DAC321 /* FLEXArgumentInputColorView.m in Sources */,

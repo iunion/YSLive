@@ -64,6 +64,8 @@
     self.bacView.backgroundColor = [UIColor clearColor];
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
+    [self showWithView:self.bacView inView:inView];
+    
     
     self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.closeBtn setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
@@ -86,7 +88,7 @@
     self.circleProgress.bm_centerX = self.bacView.bm_centerX;
     self.circleProgress.bm_centerY = self.bacView.bm_centerY;
     [self.bacView addSubview:self.circleProgress];
-    [self showWithView:self.bacView inView:inView];
+    
     
     self.titleL = [[UILabel alloc] init];
     [self.circleProgress addSubview:self.titleL];
@@ -131,6 +133,7 @@
     [self.circleProgress addSubview:self.selectBtn];
     [self.selectBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:4];
 
+    
     
 }
 

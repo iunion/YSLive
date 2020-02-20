@@ -49,6 +49,8 @@
 #import "YSUpHandPopoverVC.h"
 #import "YSCircleProgress.h"
 #import "YSTeacherResponder.h"
+#import "YSTeacherTimerView.h"
+
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
     SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView,
@@ -102,6 +104,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 
 
 #define YSTeacherResponderCountDownKey     @"YSTeacherResponderCountDownKey"
+#define YSTeacherTimerCountDownKey         @"YSTeacherTimerCountDownKey"
 @interface YSTeacherRoleMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -122,7 +125,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     YSMp4ControlViewDelegate,
     YSMp3ControlviewDelegate,
     UIGestureRecognizerDelegate,
-    YSTeacherResponderDelegate
+    YSTeacherResponderDelegate,
+    YSTeacherTimerViewDelegate
 >
 {
     /// 最大上台数
@@ -291,6 +295,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 @property (nonatomic, strong) UILabel *handNumLab;
 
 @property (nonatomic, strong)YSTeacherResponder *responderView;
+/// 老师计时器
+@property (nonatomic, strong)YSTeacherTimerView *teacherTimerView;
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -3110,6 +3116,16 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     {
         //计时器
         
+        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
+            self.topSelectBtn.selected = NO;
+        }];
+        self.teacherTimerView  = [[YSTeacherTimerView alloc] init];
+        [self.teacherTimerView showYSTeacherTimerViewInView:self.view
+                                       backgroundEdgeInsets:UIEdgeInsetsZero
+                                                topDistance:0];
+        [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
+        self.teacherTimerView.delegate = self;
+        
     }
     else if (sender.tag == 4)
     {
@@ -3458,7 +3474,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 
 
 #pragma mark -
-#pragma mark YSTeacherResponderDelegate
+#pragma mark 抢答器 YSTeacherResponderDelegate
 - (void)startClicked
 {
     BMWeakSelf
@@ -3485,6 +3501,62 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 {
     [self.responderView showResponderWithType:YSTeacherResponderType_Start];
     [self.responderView setProgress:0.0f];
+}
+
+
+#pragma mark -
+#pragma mark 计时器代理 YSTeacherTimerViewDelegate
+
+/// 开始
+- (void)startWithTime:(NSInteger)time
+{
+    BMWeakSelf
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
+        [weakSelf.teacherTimerView showTimeInterval:timeInterval];
+        
+        if (timeInterval == 0)
+        {
+            [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
+        }
+    }];
+}
+
+/// 暂停继续
+- (void)pasueWithTime:(NSInteger)time pasue:(BOOL)pasue
+{
+    if (pasue)
+    {
+        [[BMCountDownManager manager] pauseCountDownIdentifier:YSTeacherTimerCountDownKey];
+    }
+    else
+    {
+        [[BMCountDownManager manager] continueCountDownIdentifier:YSTeacherTimerCountDownKey];
+    }
+}
+
+/// 计时中重置
+- (void)resetWithTIme:(NSInteger)time
+{
+    BMWeakSelf
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherTimerCountDownKey];
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
+        [weakSelf.teacherTimerView showTimeInterval:timeInterval];
+        
+        if (timeInterval == 0)
+        {
+            [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
+        }
+    }];
+
+}
+
+- (void)againTimer
+{
+    [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
 }
 
 #pragma mark -

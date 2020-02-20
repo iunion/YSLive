@@ -283,6 +283,9 @@
 "Res.lab.getting" = "抢答中...";
 "Res.lab.get" = "抢答";
 
+"Timer.btn.start" = "开始计时";
+"Timer.lab.end" = "计时结束";
+
 "netstate.excellent" = "优";
 "netstate.medium" = "中";
 "netstate.bad" = "差";

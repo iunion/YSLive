@@ -281,6 +281,8 @@
 "Res.lab.getting" = "rushing";
 "Res.lab.get" = "get";
 
+"Timer.btn.start" = "Start";
+"Timer.lab.end" = "Timer end";
 
 "netstate.excellent" = "excellent";
 "netstate.medium" = "medium";
