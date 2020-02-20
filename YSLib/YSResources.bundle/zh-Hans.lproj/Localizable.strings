@@ -138,6 +138,7 @@
 "Button.jump" = "跳转";
 "Button.Sign" = "签到";
 "Button.vote" = "投票";
+"Button.AnswerSpeak" = "抢到上台";
 
 "title.ToVote" = "发起投票";
 "title.Voting" = "投票中";

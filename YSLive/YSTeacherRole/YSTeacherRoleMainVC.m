@@ -100,6 +100,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 #define ListView_Width        426.0f
 #define ListView_Height        598.0f
 
+
+#define YSTeacherResponderCountDownKey     @"YSTeacherResponderCountDownKey"
 @interface YSTeacherRoleMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -119,7 +121,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     SCTeacherListViewDelegate,
     YSMp4ControlViewDelegate,
     YSMp3ControlviewDelegate,
-    UIGestureRecognizerDelegate
+    UIGestureRecognizerDelegate,
+    YSTeacherResponderDelegate
 >
 {
     /// 最大上台数
@@ -3117,7 +3120,10 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 
         self.responderView = [[YSTeacherResponder alloc] init];
         [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-        
+        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+        self.responderView.delegate = self;
+//        [self.responderView setPersonNumber:@"7" totalNumber:@"16"];//用于传人数
+//        [self.responderView setPersonName:@"宁杰英"];
     }
 }
 
@@ -3450,6 +3456,36 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     
 }
 
+
+#pragma mark -
+#pragma mark YSTeacherResponderDelegate
+- (void)startClicked
+{
+    BMWeakSelf
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
+        [weakSelf.responderView setPersonNumber:@"7" totalNumber:@"16"];//用于传人数
+//        [weakSelf.responderView setPersonName:@"宁杰英"];
+        CGFloat progress = (10 - timeInterval) / 10.0f;
+        [weakSelf.responderView setProgress:progress];
+        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%ld",(long)timeInterval] totalNumber:@"16"];
+        if (timeInterval == 0)
+        {
+            [weakSelf.responderView showResponderWithType:YSTeacherResponderType_Result];
+            [weakSelf.responderView setPersonNumber:@"7" totalNumber:@"16"];//用于传人数
+            CGFloat progress = 1.0f;
+            [weakSelf.responderView setProgress:progress];
+            
+            [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%ld",(long)timeInterval] totalNumber:@"16"];
+        }
+    }];}
+
+- (void)againClicked
+{
+    [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+    [self.responderView setProgress:0.0f];
+}
 
 #pragma mark -
 #pragma mark 聊天相关视图

@@ -136,7 +136,7 @@
 "Button.jump" = "Jump";
 "Button.Sign" = "Sign in";
 "Button.vote" = "vote";
-
+"Button.AnswerSpeak" = "Answer speak";
 "title.ToVote" = "Start vote";
 "title.Voting" = "Voting";
 "title.Voted" = "End";
@@ -271,7 +271,7 @@
 "Res.btn.start" = "Start";
 "Res.btn.get"   = "grabbed";
 "Res.btn.noget"   = "restart";
-"Res.btn.getting" = "rushing";
+"Res.btn.getting" = "In answering";
 "Res.btn.t.get"   = "someone";
 "Res.readyget"    = "Ready";
 
