@@ -2431,8 +2431,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 //            return;
 //        }
                
-        CGFloat x = percentLeft * (UI_SCREEN_WIDTH - videoView.bm_width);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - videoView.bm_height);
+        CGFloat x = percentLeft * (UI_SCREEN_WIDTH - 2 - videoView.bm_width);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - 2 - videoView.bm_height);
+        if (x <= 0) {
+            x = 1.0;
+        }
+        
         CGPoint point = CGPointMake(x, y);
         
         YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
@@ -2446,8 +2450,11 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         videoView.isDragOut = YES;
         [self freshContentVidoeView];
         
-        CGFloat x = percentLeft * (UI_SCREEN_WIDTH - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
+        CGFloat x = percentLeft * (UI_SCREEN_WIDTH - 2 - floatVideoDefaultWidth);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - 2 - floatVideoDefaultHeight);
+        if (x <= 0) {
+            x = 1.0;
+        }
         CGPoint point = CGPointMake(x, y);
         
         YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
