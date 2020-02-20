@@ -801,6 +801,7 @@
 		87EB13D22372647900D642E8 /* YSLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133C2372647900D642E8 /* YSLessonView.m */; };
 		87EB13D32372647900D642E8 /* YSLessonDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */; };
 		87F8D4B42368273D00A888AB /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
+		CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */; };
 		CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */; };
 		CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
@@ -1633,6 +1634,8 @@
 		87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLessonDetailHeaderView.m; sourceTree = "<group>"; };
 		87F8D4B22368273D00A888AB /* YSLiveMediaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveMediaModel.h; sourceTree = "<group>"; };
 		87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveMediaModel.m; sourceTree = "<group>"; };
+		CB384CE123FE6C0400DCD1C0 /* YSStudentResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentResponder.h; sourceTree = "<group>"; };
+		CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSStudentResponder.m; sourceTree = "<group>"; };
 		CB3D958A23ED925800A0DEC4 /* YSOnlineMineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSOnlineMineTableViewCell.h; sourceTree = "<group>"; };
 		CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSOnlineMineTableViewCell.m; sourceTree = "<group>"; };
 		CB3D958D23EDBA0B00A0DEC4 /* YSChangePassWordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSChangePassWordVC.h; sourceTree = "<group>"; };
@@ -1745,7 +1748,7 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
-				CBE342D823FBA286003EA794 /* SCTeacherResponder */,
+				CBE342D823FBA286003EA794 /* YSTeacherResponder */,
 				2626447323C5795000317DAE /* YSTeacherMediaControl */,
 				2653226A23BB4E9300E24379 /* SCTeacherAnswerView */,
 				04B73BFB23B44C2B00BFF7BA /* YSVideoViewControlPopVC */,
@@ -2242,6 +2245,7 @@
 		871338C72372BE56006534A4 /* YSSmallClass */ = {
 			isa = PBXGroup;
 			children = (
+				CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */,
 				26EFA5FD23794C4B00EC2A64 /* SCAnswerView */,
 				263265DF237900A100605A0E /* SCBoardControlView */,
 				04A479DE239E274C00680D84 /* BrushToolView */,
@@ -3464,6 +3468,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */ = {
+			isa = PBXGroup;
+			children = (
+				CB384CE123FE6C0400DCD1C0 /* YSStudentResponder.h */,
+				CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */,
+			);
+			path = YSStudentResponder;
+			sourceTree = "<group>";
+		};
 		CB3D963823F43E6000A0DEC4 /* YSSchoolAVPlayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3473,13 +3486,13 @@
 			path = YSSchoolAVPlayerView;
 			sourceTree = "<group>";
 		};
-		CBE342D823FBA286003EA794 /* SCTeacherResponder */ = {
+		CBE342D823FBA286003EA794 /* YSTeacherResponder */ = {
 			isa = PBXGroup;
 			children = (
 				CBE342D923FBA2DA003EA794 /* YSTeacherResponder.h */,
 				CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */,
 			);
-			path = SCTeacherResponder;
+			path = YSTeacherResponder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3910,6 +3923,7 @@
 				34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
 				871335D4237270F6006534A4 /* UIImage+MultiFormat.m in Sources */,
 				8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */,
+				CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */,
 				CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */,
 				872D046D23B7362300DAC321 /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,

@@ -34,7 +34,7 @@
 
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
-
+#import "YSStudentResponder.h"
 
 //上传图片的用途
 typedef NS_ENUM(NSInteger, SCUploadImageUseType) {
@@ -90,6 +90,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 //右侧聊天视图宽度
 #define ChatViewWidth 284
 
+#define YSStudentResponderCountDownKey @"YSStudentResponderCountDownKey"
 @interface SCMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -247,6 +248,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 
 /// 举手按钮
 @property(nonatomic,strong)UIButton *raiseHandsBtn;
+
+@property (nonatomic, strong)YSStudentResponder *responderView;
 
 @end
 
@@ -2507,9 +2510,41 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     // selected在回调前变化过了
     // true：使用前置摄像头；false：使用后置摄像头
-    [self.liveManager.roomManager selectCameraPosition:!btn.selected];
+        [self.liveManager.roomManager selectCameraPosition:!btn.selected];
+    
+    
+//    self.responderView = [[YSStudentResponder alloc] init];
+//    [self.responderView showInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+//    BMWeakSelf
+//    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentResponderCountDownKey timeInterval:3 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+//        BMLog(@"%ld", (long)timeInterval);
+//        //        [weakSelf.responderView setPersonName:@"宁杰英"];
+//        CGFloat progress = (3.0f - timeInterval) / 3.0f;
+//        [weakSelf.responderView setProgress:progress];
+//        [weakSelf.responderView setTitleName:[NSString stringWithFormat:@"%ld",(long)timeInterval]];
+//        weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:50.0f];
+//        if (timeInterval == 0)
+//        {
+//            [weakSelf.responderView setTitleName:YSLocalized(@"Res.lab.get")];
+//            weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:26.0f];
+//
+//            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:weakSelf action:@selector(getStudentResponder)];
+//            weakSelf.responderView.titleL.userInteractionEnabled = YES;
+//            [weakSelf.responderView.titleL addGestureRecognizer:tap];
+//        }
+//
+//    }];
+//
+    
 }
 
+#warning 抢答
+/// 抢答
+- (void)getStudentResponder
+{
+    [self.responderView setTitleName:[NSString stringWithFormat:@"%@",@"dsffasdf\n抢答成功"]];
+    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
+}
 /// 退出
 - (void)exitProxyWithBtn:(UIButton *)btn
 {

@@ -11,7 +11,7 @@
 
 #define backViewWidth 220
 #define backViewHeight 220
-#define YSTeacherResponderCountDownKey     @"YSTeacherResponderCountDownKey"
+
 @interface YSTeacherResponder ()
 @property (nonatomic, assign) YSTeacherResponderType responderType;
 /// 底部view
@@ -217,8 +217,6 @@
         {
             [self.delegate startClicked];
         }
-
-
     }
     else if (self.responderType == YSTeacherResponderType_Result)
     {

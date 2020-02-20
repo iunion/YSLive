@@ -279,6 +279,8 @@
 "Res.lab.iget"  = "winning";
 "Res.lab.noget"   = "no rushes";
 "Res.lab.getting" = "rushing";
+"Res.lab.get" = "get";
+
 
 "netstate.excellent" = "excellent";
 "netstate.medium" = "medium";
