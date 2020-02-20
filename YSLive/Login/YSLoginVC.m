@@ -42,6 +42,7 @@
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
+#define CLEARCHECK 1
 #endif
 
 #import "YSCircleProgress.h"
@@ -1786,7 +1787,7 @@
     if (isSmallClass)
     {
         GetAppDelegate.allowRotation = YES;
-        NSUInteger maxvideo = [[YSLiveManager shareInstance].roomDic bm_uintForKey:@"maxvideo"];
+        NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
         YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;

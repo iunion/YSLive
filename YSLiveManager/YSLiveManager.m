@@ -109,7 +109,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     if (self)
     {
-        [self initializeSDK];
+        [self initializeManager];
     }
     
     return self;
@@ -127,6 +127,9 @@ static YSLiveManager *liveManagerSingleton = nil;
 
         [YSRoomInterface destory];
         [YSWhiteBoardManager destroy];
+        
+        liveManagerSingleton.roomManager = nil;
+        liveManagerSingleton.whiteBoardManager = nil;
 
         [liveManagerSingleton registerURLProtocol:NO];
     }
@@ -160,28 +163,35 @@ static YSLiveManager *liveManagerSingleton = nil;
 #endif
 }
 
-- (void)initializeSDK
+- (void)initializeManager
 {
     self.viewDidAppear = NO;
     self.cacheMsgPool = [[NSMutableArray alloc] init];
     
-    self.roomManager = [YSRoomInterface instance];
-    [self.roomManager initWithAppKey: YSLive_AppKey
-                            optional: @{
-                                YSRoomSettingOptionalWhiteBoardNotify : @(YES),
-                                YSRoomSettingOptionalSecureSocket : @(1),
-                                YSRoomSettingOptionalReconnectattempts : @(5)
-                            }];
-    [YSRoomInterface setLogLevel:YSLogLevelOff logPath:nil debugToConsole:NO];
-    
-    // log存储
-    NSArray *cachesPathArr = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachesPath = cachesPathArr.firstObject;
-    NSString *logsDirectory = [cachesPath stringByAppendingPathComponent:YSLive_LogPath];
-    [YSRoomInterface setLogLevel:(YSLogLevelDebug)logPath:logsDirectory debugToConsole:YES];
     self.isEveryoneBanChat = NO;
 //    self.isEveryoneNoAudio = YES;
     self.isEveryoneNoAudio = NO;
+}
+
+- (void)initializeSDK
+{
+    if (!self.roomManager)
+    {
+        self.roomManager = [YSRoomInterface instance];
+        [self.roomManager initWithAppKey: YSLive_AppKey
+                                optional: @{
+                                    YSRoomSettingOptionalWhiteBoardNotify : @(YES),
+                                    YSRoomSettingOptionalSecureSocket : @(1),
+                                    YSRoomSettingOptionalReconnectattempts : @(5)
+                                }];
+        [YSRoomInterface setLogLevel:YSLogLevelOff logPath:nil debugToConsole:NO];
+        
+        // log存储
+        NSArray *cachesPathArr = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *cachesPath = cachesPathArr.firstObject;
+        NSString *logsDirectory = [cachesPath stringByAppendingPathComponent:YSLive_LogPath];
+        [YSRoomInterface setLogLevel:(YSLogLevelDebug)logPath:logsDirectory debugToConsole:YES];
+    }
 }
 
 - (void)registerRoomManagerDelegate:(id <YSLiveRoomManagerDelegate>)RoomManagerDelegate
@@ -265,6 +275,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)prepareToJoinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
 {
+    [self initializeSDK];
+    
     self.userList = [[NSMutableArray alloc] init];
     
     self.whiteBoardManager = [YSWhiteBoardManager shareInstance];
