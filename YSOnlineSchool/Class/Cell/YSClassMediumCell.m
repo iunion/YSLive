@@ -158,20 +158,19 @@
     
     CGFloat maxWidth = self.bm_width - YSClassReplayView_LeftGap*2.0f - YSClassReplayView_IconWidth - YSClassReplayView_IconGap - YSClassReplayView_TextGap*2.0f;
 
-    CGFloat titleWidth = maxWidth * 0.4f;
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(YSClassReplayView_LeftGap, 0, titleWidth, self.bm_height)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(YSClassReplayView_LeftGap, 8, maxWidth, 20.0f)];
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.font = UI_BOLDFONT_12;
     [self addSubview:self.titleLabel];
 
     CGFloat timeWidth = maxWidth * 0.25f;
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.bm_right+YSClassReplayView_TextGap, 0, timeWidth, self.bm_height)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(YSClassReplayView_LeftGap, self.titleLabel.bm_bottom+4.0f, timeWidth, 20.0f)];
     self.timeLabel.textColor = [UIColor whiteColor];
     self.timeLabel.font = UI_FONT_12;
     [self addSubview:self.timeLabel];
     
     timeWidth = maxWidth * 0.35f;
-    self.sizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.timeLabel.bm_right+YSClassReplayView_TextGap, 0, timeWidth, self.bm_height)];
+    self.sizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.timeLabel.bm_right+YSClassReplayView_TextGap, self.titleLabel.bm_bottom+4.0f, timeWidth, 20.0f)];
     self.sizeLabel.textColor = [UIColor whiteColor];
     self.sizeLabel.font = UI_FONT_12;
     [self addSubview:self.sizeLabel];
@@ -194,7 +193,7 @@
     NSString *title;
     if ([self.name bm_isNotEmpty])
     {
-        title = [NSString stringWithFormat:@"%@%@", self.name, classReviewModel.part];
+        title = [NSString stringWithFormat:@"%@_%@", self.name, classReviewModel.part];
     }
     else
     {

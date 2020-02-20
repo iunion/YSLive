@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, YSClassState)
     YSClassState_End
 };
 
-#define YSClassReplayView_Height        (40.0f)
+#define YSClassReplayView_Height        (60.0f)
 #define YSClassReplayView_Gap           (15.0f)
 #define YSClassReplayView_NoDateHeight  (30.0f)
 
