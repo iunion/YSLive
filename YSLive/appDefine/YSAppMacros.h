@@ -23,8 +23,8 @@
 #define YSLocalizedSchool(s)      [YSAPP_LocalizedSchool localizedStringForKey:s value:@"" table:nil]
 
 
-#define YS_APPSTORE_DOWNLOADAPP_ADDRESS     @"itms-apps://itunes.apple.com/app/id1489026684"
-#define YS_APPID                            @"1489026684"
+#define YS_APPSTORE_DOWNLOADAPP_ADDRESS     @"itms-apps://itunes.apple.com/app/id1463540096"
+#define YS_APPID                            @"1463540096"
 
 // 崩溃日志
 //#define CRASH_REPORT_ADDRESS    @"http://global.talk-cloud.com/update/public"
