@@ -20,11 +20,29 @@ typedef NS_ENUM(NSInteger, YSTeacherResponderType)
 
 };
 
+
+@protocol YSTeacherResponderDelegate <NSObject>
+
+- (void)startClicked;
+- (void)againClicked;
+
+
+@end
+
+
 @interface YSTeacherResponder : BMNoticeView
+
+@property(nonatomic,weak) id<YSTeacherResponderDelegate> delegate;
+
 - (void)showYSTeacherResponderType:(YSTeacherResponderType)responderType
                             inView:(UIView *)inView
               backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
                        topDistance:(CGFloat)topDistance;
+
+- (void)showResponderWithType:(YSTeacherResponderType)responderType;
+- (void)setPersonNumber:(NSString *)person totalNumber:(NSString *)totalNumber;
+- (void)setPersonName:(NSString *)name;
+- (void)setProgress:(CGFloat)progress;
 
 @end
 
