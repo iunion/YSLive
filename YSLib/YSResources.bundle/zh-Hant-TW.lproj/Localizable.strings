@@ -279,6 +279,7 @@
 "Res.lab.iget"="恭喜您已搶中";
 "Res.lab.noget"="無人搶答";
 "Res.lab.getting"="搶答中…";
+"Res.lab.get" = "搶答";
 
 "netstate.excellent" = "優";
 "netstate.medium" = "中";

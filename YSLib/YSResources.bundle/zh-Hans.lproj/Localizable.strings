@@ -281,6 +281,7 @@
 "Res.lab.iget"  = "恭喜您已抢中";
 "Res.lab.noget"   = "无人抢答";
 "Res.lab.getting" = "抢答中...";
+"Res.lab.get" = "抢答";
 
 "netstate.excellent" = "优";
 "netstate.medium" = "中";
