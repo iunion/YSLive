@@ -46,7 +46,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         [self setup];
         
-        [self cyclePlaySetup];
+//        [self cyclePlaySetup];
     }
     return self;
 }
