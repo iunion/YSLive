@@ -657,7 +657,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
      [self.view addSubview:raiseHandsBtn];
     
     UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, CGRectGetMaxY(raiseHandsBtn.frame), 40, 15)];
-    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+//    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,self.liveManager.userList.count];
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = UIColor.whiteColor;
     handNumLab.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
@@ -1762,7 +1763,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
                [self.raiseHandArray removeObject:user];
                self.upHandPopTableView.userArr = self.raiseHandArray;
            }
-           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+//           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,self.liveManager.userList.count];
            
             self.raiseHandsBtn.selected = (self.raiseHandArray.count > 0);
        }
