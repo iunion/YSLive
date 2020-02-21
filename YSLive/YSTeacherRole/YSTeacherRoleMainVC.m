@@ -3651,10 +3651,18 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     return _controlPopoverView;
 }
 
--(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+// 只实现这个代理的话，会有横屏显示不正确的问题。
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
 {
     return UIModalPresentationNone;
 }
+
+// 实现下面这个代理方法后，横屏状态下显示正常。解决plus机型横屏显示问题
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection
+{
+    return UIModalPresentationNone;
+}
+
 
 ///点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView

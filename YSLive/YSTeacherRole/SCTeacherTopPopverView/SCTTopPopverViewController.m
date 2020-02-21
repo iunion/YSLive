@@ -23,6 +23,17 @@
 
 @implementation SCTTopPopverViewController
 
+//只实现这个代理的话，会有横屏显示不正确的问题。
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+//实现下面这个代理方法后，横屏状态下显示正常。
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection
+{
+    return UIModalPresentationNone;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
