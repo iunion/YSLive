@@ -1137,6 +1137,17 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [self.liveManager stopPlayVideo:user.peerID completion:nil];
         [self.liveManager stopPlayAudio:user.peerID completion:nil];
     }
+    
+#if 0
+    for (YSRoomUser *memberUser in self.memberList)
+    {
+        if ([memberUser.peerID isEqualToString:user.peerID])
+        {
+            [self.memberList removeObject:memberUser];
+            break;
+        }
+    }
+#endif
 }
 
 #pragma mark 用户属性变化
