@@ -808,6 +808,7 @@
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */; };
 		CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
+		CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
 		CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */; };
 /* End PBXBuildFile section */
 
@@ -1649,6 +1650,8 @@
 		CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolUser.m; sourceTree = "<group>"; };
 		CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSchoolAVPlayerView.m; sourceTree = "<group>"; };
 		CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSchoolAVPlayerView.h; sourceTree = "<group>"; };
+		CBCD78B923FF8B6800498742 /* YSStudentTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
+		CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSStudentTimerView.m; sourceTree = "<group>"; };
 		CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
 		CBE342D723FAE42C003EA794 /* YSUpHandPopoverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopoverVC.h; sourceTree = "<group>"; };
 		CBE342D923FBA2DA003EA794 /* YSTeacherResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTeacherResponder.h; sourceTree = "<group>"; };
@@ -2249,6 +2252,7 @@
 		871338C72372BE56006534A4 /* YSSmallClass */ = {
 			isa = PBXGroup;
 			children = (
+				CBCD78B823FF8B4500498742 /* YSStudentTimer */,
 				CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */,
 				26EFA5FD23794C4B00EC2A64 /* SCAnswerView */,
 				263265DF237900A100605A0E /* SCBoardControlView */,
@@ -3499,6 +3503,15 @@
 			path = YSSchoolAVPlayerView;
 			sourceTree = "<group>";
 		};
+		CBCD78B823FF8B4500498742 /* YSStudentTimer */ = {
+			isa = PBXGroup;
+			children = (
+				CBCD78B923FF8B6800498742 /* YSStudentTimerView.h */,
+				CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */,
+			);
+			path = YSStudentTimer;
+			sourceTree = "<group>";
+		};
 		CBE342D823FBA286003EA794 /* YSTeacherResponder */ = {
 			isa = PBXGroup;
 			children = (
@@ -4060,6 +4073,7 @@
 				872D048823B7362300DAC321 /* FLEXIvarEditorViewController.m in Sources */,
 				CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */,
 				8713362E237270F6006534A4 /* YSLiveManager.m in Sources */,
+				CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */,
 				04638453237A971700DE7236 /* TZGifPhotoPreviewController.m in Sources */,
 				04638456237A971700DE7236 /* TZImageRequestOperation.m in Sources */,
 				872D049B23B7362300DAC321 /* FLEXGlobalsTableViewController.m in Sources */,

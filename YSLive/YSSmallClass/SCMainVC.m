@@ -35,7 +35,7 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 #import "YSStudentResponder.h"
-
+#import "YSStudentTimerView.h"
 //上传图片的用途
 typedef NS_ENUM(NSInteger, SCUploadImageUseType) {
     /// 作为课件
@@ -91,6 +91,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 #define ChatViewWidth 284
 
 #define YSStudentResponderCountDownKey @"YSStudentResponderCountDownKey"
+#define YSStudentTimerCountDownKey     @"YSStudentTimerCountDownKey"
 @interface SCMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -249,8 +250,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 /// 举手按钮
 @property(nonatomic,strong)UIButton *raiseHandsBtn;
 
-@property (nonatomic, strong)YSStudentResponder *responderView;
-
+@property (nonatomic, strong) YSStudentResponder *responderView;
+@property (nonatomic, strong) YSStudentTimerView *studentTimerView;
 @end
 
 @implementation SCMainVC
@@ -2535,6 +2536,14 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 //
 //    }];
 //
+    
+    self.studentTimerView = [[YSStudentTimerView alloc] init];
+    [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+    
+    BMWeakSelf
+//    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+//        [weakSelf.studentTimerView showTimeInterval:timeInterval];
+//    }];
     
 }
 
