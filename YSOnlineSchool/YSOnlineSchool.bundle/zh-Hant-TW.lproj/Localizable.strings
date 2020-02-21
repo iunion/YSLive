@@ -56,3 +56,7 @@
 
 "Error.ServerError" = "服務器訪問異常";
 "Error.DomainError" = "域名輸入錯誤";
+"Error.NewPwdEmpty" = "新密碼不能為空";
+"Error.ConfirmPwdRmpty" = "確認密碼不能為空";
+"Error.PwdFormat" = "密碼格式錯誤";
+"Error.PwdLength" = "新密碼和確認密碼的不一致";

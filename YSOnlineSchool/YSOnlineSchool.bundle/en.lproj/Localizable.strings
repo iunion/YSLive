@@ -56,3 +56,9 @@
 
 "Error.ServerError" = "Server access exception";
 "Error.DomainError" = "Domain input error";
+"Error.NewPwdEmpty" = "The new password cannot be empty";
+"Error.ConfirmPwdRmpty" = "Confirm password cannot be empty";
+"Error.PwdFormat" = "Password format error";
+"Error.PwdLength1" = "The length of the new password and the sure password are inconsistent";
+"Error.PwdLength" = "Inconsistency between new password and confirm password";
+

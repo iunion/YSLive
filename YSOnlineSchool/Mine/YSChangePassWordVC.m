@@ -12,6 +12,9 @@
 #import "AppDelegate.h"
 
 #import "BMAlertView+YSDefaultAlert.h"
+
+#define YSSCHOOLPASSWORD_PATTERN                      @"^[0-9A-Za-z_\\.\\*\\&\\[\\]\\(\\)\%\\$#@]{6,20}$"
+
 @interface YSChangePassWordVC ()
 <
     YSPassWordChangeViewDelegate
@@ -102,6 +105,28 @@
 
 - (void)submitBtnClicked:(UIButton *)btn
 {
+    NSString *newPwd = self.changePasswordView.inputTextField.text;
+    NSString *confirmPwd = self.againPasswordView.inputTextField.text;
+    if (![newPwd bm_isMatchWithPattern:YSSCHOOLPASSWORD_PATTERN])
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        
+        return;
+    }
+    if (![confirmPwd bm_isMatchWithPattern:YSSCHOOLPASSWORD_PATTERN])
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        
+        return;
+    }
+    
+    if (![confirmPwd isEqualToString:newPwd])
+    {
+        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.PwdLength") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        
+        return;
+    }
+
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     // 提交密码
      AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
