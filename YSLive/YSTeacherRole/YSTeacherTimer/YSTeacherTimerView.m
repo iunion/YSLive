@@ -426,4 +426,16 @@
         [self.delegate pasueWithTime:time pasue:btn.selected];
     }
 }
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+
+    CGPoint btnP =  [self convertPoint:point toView:self.bacView];
+    if ( [self.bacView pointInside:btnP withEvent:event]) {
+        return [super hitTest:point withEvent:event];
+    }else{
+        return nil;
+    }
+}
+
+
 @end
