@@ -336,4 +336,82 @@ WithValue:(NSObject *)value
 
     return result;
 }
+/// fas计时器
+/// @param time 计时器时间
+/// @param isStatus 当前状态 暂停 继续
+/// @param isRestart 重置是否
+/// @param isShow 是否显示弹窗  老师第一次点击计时器传false  老师显示，老师点击开始计时，传true ，学生显示
+
+/// @param defaultTime 开始计时时间
+/// @param completion 回调
+- (BOOL)sendSignalingTeacherToStartTimerWithTime:(NSInteger)time isStatus:(BOOL)isStatus isRestart:(BOOL)isRestart isShow:(BOOL)isShow defaultTime:(NSInteger)defaultTime completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"time": @(time),
+                              @"isStatus": isStatus ? @(true): @(false),
+                              @"isRestart": isRestart ? @(true): @(false),
+                              @"isShow": isShow ? @(true): @(false),
+                              @"defaultTime": @(defaultTime)
+                             };
+     BOOL result = [self.roomManager pubMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+     return result;
+}
+- (BOOL)sendSignalingTeacherToShowTimerCompletion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{
+                              @"isShow": @(false)
+                             };
+     BOOL result = [self.roomManager pubMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+     return result;
+
+}
+/// 学生计时器显示
+- (BOOL)sendSignalingStudentToShowTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"isShow": @(true),
+                              @"time" : @(time)
+                             };
+     BOOL result = [self.roomManager pubMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+     return result;
+
+}
+/// 老师计时器暂停
+- (BOOL)sendSignalingTeacherToPauseTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"time": @(time),
+                              @"isStatus": @(true),
+                             };
+     BOOL result = [self.roomManager pubMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+     return result;
+}
+/// 老师计时器继续
+- (BOOL)sendSignalingTeacherToContinueTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"time": @(time),
+                              @"isStatus": @(false),
+                             };
+     BOOL result = [self.roomManager pubMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+     return result;
+}
+/// 计时器中重置
+- (BOOL)sendSignalingTeacherToRestartTimerWithDefaultTime:(NSInteger)defaultTime completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"defaultTime": @(defaultTime),
+                              @"isRestart": @(true)
+                             };
+     BOOL result = [self.roomManager pubMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+     return result;
+}
+/// 结束计时
+- (BOOL)sendSignalingTeacherToDeleteTimerCompletion:(nullable completion_block)completion
+{
+    BOOL result = [self.roomManager delMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:@{} completion:completion] == 0;
+
+    return result;
+}
 @end

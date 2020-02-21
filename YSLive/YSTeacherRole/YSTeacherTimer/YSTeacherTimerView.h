@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, YSTeacherTimerViewType)
 - (void)pasueWithTime:(NSInteger)time pasue:(BOOL)pasue;
 - (void)resetWithTIme:(NSInteger)time;
 - (void)againTimer;
+- (void)timerClose;
 @end
 
 @interface YSTeacherTimerView : BMNoticeView

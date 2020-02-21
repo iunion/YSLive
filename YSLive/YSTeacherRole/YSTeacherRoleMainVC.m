@@ -174,6 +174,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     NSString *contestPeerId;
     
     BOOL autoUpPlatform;
+    NSInteger defaultTime;
 }
 
 /// 原keywindow
@@ -3125,12 +3126,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
             self.topSelectBtn.selected = NO;
         }];
-        self.teacherTimerView  = [[YSTeacherTimerView alloc] init];
-        [self.teacherTimerView showYSTeacherTimerViewInView:self.view
-                                       backgroundEdgeInsets:UIEdgeInsetsZero
-                                                topDistance:0];
-        [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
-        self.teacherTimerView.delegate = self;
+        [self.liveManager sendSignalingTeacherToStartTimerWithTime:0 isStatus:false isRestart:false isShow:false defaultTime:0 completion:nil];
         
     }
     else if (sender.tag == 4)
@@ -3583,10 +3579,22 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 #pragma mark -
 #pragma mark 计时器代理 YSTeacherTimerViewDelegate
 
+- (void)handleSignalingTeacherTimerShow
+{
+    self.teacherTimerView  = [[YSTeacherTimerView alloc] init];
+    [self.teacherTimerView showYSTeacherTimerViewInView:self.view
+                                   backgroundEdgeInsets:UIEdgeInsetsZero
+                                            topDistance:0];
+    [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
+    self.teacherTimerView.delegate = self;
+}
+
 /// 开始
 - (void)startWithTime:(NSInteger)time
 {
     BMWeakSelf
+    defaultTime = time;
+    [self.liveManager sendSignalingStudentToShowTimerWithTime:time completion:nil];
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
@@ -3605,10 +3613,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     if (pasue)
     {
         [[BMCountDownManager manager] pauseCountDownIdentifier:YSTeacherTimerCountDownKey];
+        [self.liveManager sendSignalingTeacherToPauseTimerWithTime:time completion:nil];
     }
     else
     {
         [[BMCountDownManager manager] continueCountDownIdentifier:YSTeacherTimerCountDownKey];
+        [self.liveManager sendSignalingTeacherToContinueTimerWithTime:time completion:nil];
     }
 }
 
@@ -3616,6 +3626,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 - (void)resetWithTIme:(NSInteger)time
 {
     BMWeakSelf
+    defaultTime = time;
+    [self.liveManager sendSignalingTeacherToRestartTimerWithDefaultTime: defaultTime completion:nil];
     [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherTimerCountDownKey];
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
@@ -3631,6 +3643,19 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 }
 
 - (void)againTimer
+{
+    
+    [self.liveManager sendSignalingTeacherToDeleteTimerCompletion:nil];
+
+}
+
+- (void)timerClose
+{
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherTimerCountDownKey];
+
+    [self.liveManager sendSignalingTeacherToDeleteTimerCompletion:nil];
+}
+- (void)handleSignalingDeleteTimerWithTime
 {
     [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
 }

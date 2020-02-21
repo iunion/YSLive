@@ -2513,39 +2513,6 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     // selected在回调前变化过了
     // true：使用前置摄像头；false：使用后置摄像头
         [self.liveManager.roomManager selectCameraPosition:!btn.selected];
-    
-    
-//    self.responderView = [[YSStudentResponder alloc] init];
-//    [self.responderView showInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-//    BMWeakSelf
-//    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentResponderCountDownKey timeInterval:3 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
-//        BMLog(@"%ld", (long)timeInterval);
-//        //        [weakSelf.responderView setPersonName:@"宁杰英"];
-//        CGFloat progress = (3.0f - timeInterval) / 3.0f;
-//        [weakSelf.responderView setProgress:progress];
-//        [weakSelf.responderView setTitleName:[NSString stringWithFormat:@"%ld",(long)timeInterval]];
-//        weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:50.0f];
-//        if (timeInterval == 0)
-//        {
-//            [weakSelf.responderView setTitleName:YSLocalized(@"Res.lab.get")];
-//            weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:26.0f];
-//
-//            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:weakSelf action:@selector(getStudentResponder)];
-//            weakSelf.responderView.titleL.userInteractionEnabled = YES;
-//            [weakSelf.responderView.titleL addGestureRecognizer:tap];
-//        }
-//
-//    }];
-//
-    
-    self.studentTimerView = [[YSStudentTimerView alloc] init];
-    [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-    
-    BMWeakSelf
-//    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
-//        [weakSelf.studentTimerView showTimeInterval:timeInterval];
-//    }];
-    
 }
 
 /// 退出
@@ -4195,6 +4162,53 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 
     self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
 }
+
+
+#pragma mark - 计时器
+
+- (void)handleSignalingStudentTimerWithTime:(NSInteger)time
+{
+    if (self.studentTimerView)
+    {
+        [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
+    }
+    
+    self.studentTimerView = [[YSStudentTimerView alloc] init];
+    [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+    
+    BMWeakSelf
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [weakSelf.studentTimerView showTimeInterval:timeInterval];
+    }];
+
+}
+
+- (void)handleSignalingStudentPauseTimerWithTime:(NSInteger)time
+{
+    [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
+}
+- (void)handleSignalingStudentContinueTimerWithTime:(NSInteger)time
+{
+    [[BMCountDownManager manager] continueCountDownIdentifier:YSStudentTimerCountDownKey];
+}
+
+- (void)handleSignalingStudentRestartTimerWithTime:(NSInteger)time
+{
+    
+    BMWeakSelf
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [weakSelf.studentTimerView showTimeInterval:timeInterval];
+    }];
+
+}
+
+- (void)handleSignalingDeleteTimerWithTime
+{
+    [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
+}
+
 #pragma mark - 打开相机  UIImagePickerController
 
 ///打开相机时查看相机和相册权限

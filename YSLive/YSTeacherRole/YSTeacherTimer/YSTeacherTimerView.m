@@ -319,6 +319,12 @@
 #pragma mark - SEL
 - (void)closeBtnClicked:(UIButton *)btn
 {
+    
+    if ([self.delegate respondsToSelector:@selector(timerClose)])
+    {
+        [self.delegate timerClose];
+    }
+
     [self dismiss:nil animated:NO dismissBlock:nil];
 }
 

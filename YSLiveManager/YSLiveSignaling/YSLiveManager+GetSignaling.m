@@ -770,7 +770,81 @@
         }
         return;
     }
-       
+    
+    // 计时器
+    if ([msgName isEqualToString:YSSignalingName_Timer])
+    {
+        
+        if ([dataDic bm_isNotEmptyDictionary])
+        {
+            
+            
+            
+            
+            NSInteger defaultTime = [dataDic bm_intForKey:@"defaultTime"];
+            NSInteger time = [dataDic bm_intForKey:@"time"];
+            if ([dataDic bm_containsObjectForKey:@"isShow"])
+            {
+                BOOL isShow = [dataDic bm_boolForKey:@"isShow"];
+                if (isShow)
+                {
+                    
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentTimerWithTime:time];
+                    }
+                }
+                else
+                {
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTeacherTimerShow)])
+                    {
+                        [self.roomManagerDelegate handleSignalingTeacherTimerShow];
+                    }
+                }
+            }
+            
+            if ([dataDic bm_containsObjectForKey:@"isStatus"])
+            {
+                BOOL isStatus = [dataDic bm_boolForKey:@"isStatus"];
+                if (isStatus)
+                {
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentPauseTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentPauseTimerWithTime:time];
+                    }
+                    
+                }
+                else
+                {
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentContinueTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentContinueTimerWithTime:time];
+                    }
+                }
+            }
+            
+            if ([dataDic bm_containsObjectForKey:@"isRestart"])
+            {
+                BOOL isRestart = [dataDic bm_boolForKey:@"isRestart"];
+                if (isRestart)
+                {
+                    //重置
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentRestartTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentRestartTimerWithTime:defaultTime];
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+
+
+        }
+        
+        return;
+    }
     
     //老师处理的接收信令
     BOOL isTrue = [self handleRoomTeacherPubMsgWithMsgID:msgID msgName:msgName data:data fromID:fromID inList:inlist ts:ts];
@@ -1038,6 +1112,16 @@
         }
         return;
     }
+    //关闭计时器
+    if ([msgName isEqualToString:YSSignalingName_Timer])
+    {
+       
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingDeleteTimerWithTime)]) {
+            [self.roomManagerDelegate handleSignalingDeleteTimerWithTime];
+        }
+        return;
+    }
+
     
     //双师：老师拖拽视频布局相关信令
     if ([msgName isEqualToString:YSSignalingName_DoubleTeacher]) {
