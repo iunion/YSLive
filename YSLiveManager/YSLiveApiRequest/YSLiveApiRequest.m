@@ -69,8 +69,8 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getgiftinfo", YSLive_Http, [YSLiveManager shareInstance].liveHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters setObject:@(roomId.integerValue) forKey:@"serial"];
-    [parameters setObject:peerId forKey:@"receiveid"];
+    [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
+    [parameters bm_setString:peerId forKey:@"receiveid"];
     
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 
@@ -89,11 +89,11 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/sendgift", YSLive_Http, [YSLiveManager shareInstance].liveHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters setObject:@(roomId.integerValue) forKey:@"serial"];
-    [parameters setObject:sendUserId forKey:@"sendid"];
-    [parameters setObject:sendUserName forKey:@"sendname"];
+    [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
+    [parameters bm_setString:sendUserId forKey:@"sendid"];
+    [parameters bm_setString:sendUserName forKey:@"sendname"];
     NSString *receiverKey = [NSString stringWithFormat:@"receivearr[%@]", receiveUserId];
-    [parameters setObject:receiveUserName forKey:receiverKey];
+    [parameters bm_setString:receiveUserName forKey:receiverKey];
     
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
@@ -180,12 +180,12 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/simplifyAnswer", YSLive_Http, [YSLiveManager shareInstance].liveHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters setObject:@(roomId.integerValue) forKey:@"serial"];
-    [parameters setObject:answerId forKey:@"id"];
-    [parameters setObject:@(startTime) forKey:@"starttime"];
-    [parameters setObject:@(endTime)  forKey:@"endtime"];
-    [parameters setObject:@(0) forKey:@"page"];
-    [parameters setObject:@(200) forKey:@"pageNum"];
+    [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
+    [parameters bm_setString:answerId forKey:@"id"];
+    [parameters bm_setDouble:startTime forKey:@"starttime"];
+    [parameters bm_setDouble:endTime forKey:@"endtime"];
+    [parameters bm_setInteger:0 forKey:@"page"];
+    [parameters bm_setInteger:200 forKey:@"pageNum"];
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
 
@@ -229,8 +229,8 @@
     //https://demo.roadofcloud.com/ClientAPI/delroomfile?ts=1578305280751
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/delroomfile", YSLive_Http, [YSLiveManager shareInstance].liveHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:@(roomId.integerValue) forKey:@"serial"];
-    [parameters setObject:fileId forKey:@"fileid"];
+    [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
+    [parameters bm_setString:fileId forKey:@"fileid"];
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
 

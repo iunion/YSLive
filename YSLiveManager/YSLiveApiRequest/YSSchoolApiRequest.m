@@ -30,14 +30,14 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/loginV1", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters setObject:domain forKey:@"domain"];
-    [parameters setObject:admin_account forKey:@"admin_account"];
-    [parameters setObject:admin_pwd forKey:@"admin_pwd"];
+    [parameters bm_setString:domain forKey:@"domain"];
+    [parameters bm_setString:admin_account forKey:@"admin_account"];
+    [parameters bm_setString:admin_pwd forKey:@"admin_pwd"];
 //    [parameters setObject:@"wxcs" forKey:@"domain"];
 //    [parameters setObject:@"deng123" forKey:@"admin_account"];
 //    [parameters setObject:@"123456" forKey:@"admin_pwd"];
 //    [parameters setObject:@(3) forKey:@"type"];
-    [parameters setObject:randomKey forKey:@"key"];
+    [parameters bm_setString:randomKey forKey:@"key"];
     
     NSError *error = nil;
 
@@ -46,7 +46,7 @@
     NSString *encodeString = [BMRSA encryptString:jsonStr publicPemKey:pubKey error:&error];
     NSLog(@"%@", encodeString);
     
-    [loginParameter setObject:encodeString forKey:@"login_data"];
+    [loginParameter bm_setString:encodeString forKey:@"login_data"];
 
     return [YSApiRequest makeRequestWithURL:urlStr parameters:loginParameter];
 }
@@ -56,8 +56,10 @@
 {
     // http://school.roadofcloud.cn/index/Login/exitLogin
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/exitLogin", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:token forKey:@"token"];
+    [parameters bm_setString:token forKey:@"token"];
+    
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
     
 }
@@ -176,9 +178,9 @@
     //http://school.roadofcloud.cn/student/Homepage/updatePass
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Homepage/updatePass", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:studentid forKey:@"studentid"];
-    [parameters setObject:organid forKey:@"organid"];
-    [parameters setObject:updatePass forKey:@"newpass"];
+    [parameters bm_setString:studentid forKey:@"studentid"];
+    [parameters bm_setString:organid forKey:@"organid"];
+    [parameters bm_setString:updatePass forKey:@"newpass"];
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 
@@ -188,10 +190,10 @@
     //http://school.roadofcloud.net/teacher/Teacher/updatePass
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Teacher/updatePass", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:teacherid forKey:@"teacherid"];
-    [parameters setObject:organid forKey:@"organid"];
-    [parameters setObject:newpass forKey:@"newpass"];
-    [parameters setObject:repass forKey:@"repass"];
+    [parameters bm_setString:teacherid forKey:@"teacherid"];
+    [parameters bm_setString:organid forKey:@"organid"];
+    [parameters bm_setString:newpass forKey:@"newpass"];
+    [parameters bm_setString:repass forKey:@"repass"];
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
 @end
