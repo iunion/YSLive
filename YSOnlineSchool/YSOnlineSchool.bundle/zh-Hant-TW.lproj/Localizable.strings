@@ -52,7 +52,7 @@
 "Label.onlineSchoolSystem" = "網校系統";
 
 "Login.Enter" = "登入";
-"Login.EnterRoom" = "進入房間";
+"Login.EnterRoom" = "加入房間";
 
 "Error.ServerError" = "服務器訪問異常";
 "Error.DomainError" = "域名輸入錯誤";

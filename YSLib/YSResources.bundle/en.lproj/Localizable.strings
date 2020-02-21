@@ -49,7 +49,7 @@
 
 //login
 "Login.Enter" = "Enter";
-"Login.EnterRoom" = "Enter room";
+"Login.EnterRoom" = "Enter";
 "Login.RoomIdPlaceHolder"    = "Room ID";
 "Login.nickName"  = "Name";
 "Login.Role"      = "Role";

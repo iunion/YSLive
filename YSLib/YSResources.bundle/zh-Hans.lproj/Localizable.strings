@@ -49,7 +49,7 @@
 
 //login
 "Login.Enter" = "登录";
-"Login.EnterRoom" = "进入房间";
+"Login.EnterRoom" = "进入";
 "Login.RoomIdPlaceHolder"    = "房间号";
 "Login.nickName" = "昵称";
 "Login.Role"      = "角色";

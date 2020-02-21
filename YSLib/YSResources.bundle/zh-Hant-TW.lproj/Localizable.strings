@@ -50,7 +50,7 @@
 
 //login
 "Login.Enter" = "登入";
-"Login.EnterRoom" = "進入房間";
+"Login.EnterRoom" = "進入";
 "Login.RoomIdPlaceHolder"    = "房間號";
 "Login.nickName"  = "昵稱";
 "Login.Role"      = "角色";
