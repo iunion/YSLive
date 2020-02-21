@@ -23,9 +23,9 @@ typedef NS_ENUM(NSInteger, YSTeacherResponderType)
 
 @protocol YSTeacherResponderDelegate <NSObject>
 
-- (void)startClicked;
+- (void)startClickedWithUpPlatform:(BOOL)upPlatform;
 - (void)againClicked;
-
+- (void)teacherResponderCloseClicked;
 
 @end
 

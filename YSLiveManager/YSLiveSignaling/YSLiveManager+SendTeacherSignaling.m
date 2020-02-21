@@ -308,4 +308,32 @@ WithValue:(NSObject *)value
     return result;
 }
 
+/// 抢答器  开始
+- (BOOL)sendSignalingTeacherToStartResponderCompletion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"state":@"starting"
+                            };
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_Contest msgID:YSSignalingName_Contest toID:YSRoomPubMsgTellAllExceptSender data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+    return result;
+
+}
+
+/// 发布抢答器结果
+- (BOOL)sendSignalingTeacherToContestResultWithName:(NSString *)name completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"nickName": name
+                            };
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestResult msgID:YSSignalingName_ContestResult toID:YSRoomPubMsgTellAllExceptSender data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+    return result;
+
+}
+/// 关闭抢答器
+- (BOOL)sendSignalingTeacherToCloseResponderCompletion:(nullable completion_block)completion
+{
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_delContest msgID:YSSignalingName_delContest toID:YSRoomPubMsgTellAllExceptSender data:nil save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+    return result;
+}
 @end

@@ -158,6 +158,7 @@
         self.actionBtn.hidden = NO;
         self.selectBtn.hidden = NO;
         self.iconImgV.hidden = NO;
+        self.selectBtn.selected = NO;
     }
     else if (responderType == YSTeacherResponderType_ING)
     {
@@ -209,6 +210,14 @@
 
 - (void)closeBtnClicked:(UIButton *)btn
 {
+//    if (self.responderType != YSTeacherResponderType_Start)
+//    {
+       
+        if ([self.delegate respondsToSelector:@selector(teacherResponderCloseClicked)])
+        {
+            [self.delegate teacherResponderCloseClicked];
+        }
+//    }
     [self dismiss:nil animated:NO dismissBlock:nil];
 }
 
@@ -216,9 +225,9 @@
 {
     if (self.responderType == YSTeacherResponderType_Start)
     {
-        if ([self.delegate respondsToSelector:@selector(startClicked)])
+        if ([self.delegate respondsToSelector:@selector(startClickedWithUpPlatform:)])
         {
-            [self.delegate startClicked];
+            [self.delegate startClickedWithUpPlatform:self.selectBtn.selected];
         }
     }
     else if (self.responderType == YSTeacherResponderType_Result)

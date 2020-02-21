@@ -168,6 +168,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     YSLiveRoomLayout defaultRoomLayout;
     
     BOOL needFreshVideoView;
+    
+    NSInteger contestCommitNumber;
+    
+    NSString *contestPeerId;
+    
+    BOOL autoUpPlatform;
 }
 
 /// 原keywindow
@@ -3475,32 +3481,102 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 
 #pragma mark -
 #pragma mark 抢答器 YSTeacherResponderDelegate
-- (void)startClicked
+- (void)startClickedWithUpPlatform:(BOOL)upPlatform
 {
+    autoUpPlatform = upPlatform;
     BMWeakSelf
+    [self.liveManager sendSignalingTeacherToStartResponderCompletion:nil];
+    contestCommitNumber = 0;
+    contestPeerId = @"";
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
-        [weakSelf.responderView setPersonNumber:@"7" totalNumber:@"16"];//用于传人数
+      
+        NSInteger total = 0;
+        for (YSRoomUser * user in weakSelf.liveManager.userList)
+        {
+            if (user.role == YSUserType_Student)
+            {
+                total++;
+            }
+        }
+        NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];//用于传人数
 //        [weakSelf.responderView setPersonName:@"宁杰英"];
         CGFloat progress = (10 - timeInterval) / 10.0f;
         [weakSelf.responderView setProgress:progress];
-        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%ld",(long)timeInterval] totalNumber:@"16"];
         if (timeInterval == 0)
         {
             [weakSelf.responderView showResponderWithType:YSTeacherResponderType_Result];
-            [weakSelf.responderView setPersonNumber:@"7" totalNumber:@"16"];//用于传人数
+            NSInteger total = 0;
+            for (YSRoomUser * user in weakSelf.liveManager.userList)
+            {
+                if (user.role == YSUserType_Student)
+                {
+                    total++;
+                }
+            }
+            NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+            [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];;//用于传人数
             CGFloat progress = 1.0f;
             [weakSelf.responderView setProgress:progress];
             
-            [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%ld",(long)timeInterval] totalNumber:@"16"];
+            if (self->contestCommitNumber == 0)
+            {
+                [weakSelf.responderView setPersonName:YSLocalized(@"Res.lab.fail")];
+                
+                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
+            }
+            if (self->contestCommitNumber > 0)
+            {
+                YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
+                [weakSelf.responderView setPersonName:user.nickName];
+                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
+                if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+                {
+                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                }
+            }
+            
+            
         }
-    }];}
+    }];
+    
+}
 
 - (void)againClicked
 {
     [self.responderView showResponderWithType:YSTeacherResponderType_Start];
     [self.responderView setProgress:0.0f];
+    autoUpPlatform = NO;
+}
+
+- (void)teacherResponderCloseClicked
+{
+    [self.liveManager sendSignalingTeacherToCloseResponderCompletion:nil];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherResponderCountDownKey];
+}
+
+- (void)handleSignalingContestCommitWithData:(NSDictionary *)data
+{
+    contestCommitNumber++;
+    NSInteger total = 0;
+    for (YSRoomUser * user in self.liveManager.userList)
+    {
+        if (user.role == YSUserType_Student)
+        {
+            total++;
+        }
+    }
+    NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+
+    [self.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(contestCommitNumber)] totalNumber:totalNumber];
+    if (contestCommitNumber == 1)
+    {
+        NSString *peerID = [data bm_stringForKey:@"peerId"];
+        contestPeerId = peerID;
+    }
+
 }
 
 

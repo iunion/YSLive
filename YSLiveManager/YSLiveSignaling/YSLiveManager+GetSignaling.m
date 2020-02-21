@@ -723,6 +723,54 @@
         return;
     }
     
+    // 收到开始抢答
+    if ([msgName isEqualToString:YSSignalingName_Contest])
+    {
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContest)])
+        {
+            [self.roomManagerDelegate handleSignalingContest];
+        }
+        return;
+    }
+
+    
+    // 收到学生抢答
+    if ([msgName isEqualToString:YSSignalingName_ContestCommit])
+    {
+        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestCommitWithData:)])
+        {
+            [self.roomManagerDelegate handleSignalingContestCommitWithData:dict];
+        }
+        return;
+    }
+    /// 收到抢答结果
+    if ([msgName isEqualToString:YSSignalingName_ContestResult])
+    {
+        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestResultWithName:)])
+        {
+            NSString *name = [dict bm_stringForKey:@"nickName"];
+
+            [self.roomManagerDelegate handleSignalingContestResultWithName:name];
+        }
+        return;
+    }
+
+    // 关闭抢答器
+    if ([msgName isEqualToString:YSSignalingName_delContest])
+    {
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentToCloseResponder)])
+        {
+            [self.roomManagerDelegate handleSignalingStudentToCloseResponder];
+        }
+        return;
+    }
+       
     
     //老师处理的接收信令
     BOOL isTrue = [self handleRoomTeacherPubMsgWithMsgID:msgID msgName:msgName data:data fromID:fromID inList:inlist ts:ts];

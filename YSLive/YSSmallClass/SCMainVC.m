@@ -136,6 +136,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     YSLiveRoomLayout defaultRoomLayout;
     
     BOOL needFreshVideoView;
+    NSInteger contestTouchOne;
 }
 
 /// 原keywindow
@@ -2547,13 +2548,6 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     
 }
 
-#warning 抢答
-/// 抢答
-- (void)getStudentResponder
-{
-    [self.responderView setTitleName:[NSString stringWithFormat:@"%@",@"dsffasdf\n抢答成功"]];
-    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
-}
 /// 退出
 - (void)exitProxyWithBtn:(UIButton *)btn
 {
@@ -4138,6 +4132,69 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     }
 }
 
+#pragma mark - 抢答器
+- (void)handleSignalingContest
+{
+    contestTouchOne = 0;
+    if (self.responderView)
+    {
+        [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+    }
+      
+    self.responderView = [[YSStudentResponder alloc] init];
+    [self.responderView showInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+    BMWeakSelf
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentResponderCountDownKey timeInterval:3 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        //        [weakSelf.responderView setPersonName:@"宁杰英"];
+        CGFloat progress = (3.0f - timeInterval) / 3.0f;
+        [weakSelf.responderView setProgress:progress];
+        [weakSelf.responderView setTitleName:[NSString stringWithFormat:@"%ld",(long)timeInterval]];
+        weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:50.0f];
+        if (timeInterval == 0)
+        {
+            [weakSelf.responderView setTitleName:YSLocalized(@"Res.lab.get")];
+            weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:26.0f];
+            
+            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:weakSelf action:@selector(getStudentResponder:)];
+            weakSelf.responderView.titleL.userInteractionEnabled = YES;
+            [weakSelf.responderView.titleL addGestureRecognizer:tap];
+        }
+        
+    }];
+    
+}
+
+/// 抢答
+- (void)getStudentResponder:(UITapGestureRecognizer *)sender
+{
+    if (contestTouchOne == 0)
+    {
+        [self.liveManager sendSignalingStudentContestCommitCompletion:nil];
+    }
+    contestTouchOne = 1;
+//    [self.responderView setTitleName:[NSString stringWithFormat:@"%@",@"dsffasdf\n抢答成功"]];
+//    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
+}
+
+-(void)handleSignalingStudentToCloseResponder
+{
+    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+}
+
+- (void)handleSignalingContestResultWithName:(NSString *)name
+{
+    if ([name bm_isNotEmpty])
+    {
+        [self.responderView setTitleName:[NSString stringWithFormat:@"%@\n%@",name,YSLocalized(@"Res.lab.success")]];
+    }
+    else
+    {
+        [self.responderView setTitleName:[NSString stringWithFormat:@"%@",YSLocalized(@"Res.lab.fail")]];
+    }
+
+    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
+}
 #pragma mark - 打开相机  UIImagePickerController
 
 ///打开相机时查看相机和相册权限

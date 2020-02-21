@@ -280,7 +280,8 @@
 "Res.lab.noget"   = "no rushes";
 "Res.lab.getting" = "rushing";
 "Res.lab.get" = "get";
-
+"Res.lab.success" = "Get chance";
+"Res.lab.fail" = "No answer";
 "Timer.btn.start" = "Start";
 "Timer.lab.end" = "Timer end";
 

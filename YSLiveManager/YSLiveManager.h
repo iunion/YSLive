@@ -352,7 +352,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param answerId 答题ID
 - (void)handleSignalingDelAnswerResultWithAnswerId:(NSString *)answerId;
 
+/// 收到开始抢答 学生
+- (void)handleSignalingContest;
 
+/// 收到抢答学生
+- (void)handleSignalingContestCommitWithData:(NSDictionary *)data;
+/// 关闭抢答器
+- (void)handleSignalingStudentToCloseResponder;
+/// 收到抢答结果
+- (void)handleSignalingContestResultWithName:(NSString *)name;
 
 /// 收到白板
 /// @param message 课件信息 （翻页，类型，ID等）
@@ -471,6 +479,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 修改答题卡答案
 - (BOOL)sendSignalingAnwserModifyWithAnswerId:(NSString *)answerId addAnwserResault:(nullable NSArray *)addAnwserResault  delAnwserResault:(nullable NSArray *)delAnwserResault notChangeAnwserResault:(nullable NSArray *)notChangeAnwserResault completion:(nullable completion_block)completion;
+
+/// 发送抢答
+- (BOOL)sendSignalingStudentContestCommitCompletion:(nullable completion_block)completion;
 
 @end
 
@@ -605,6 +616,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sendSignalingTeacherToAnswerPublicResultWithAnswerID:(NSString *)answerID selecteds:(NSDictionary *)selecteds duration:(NSString *)duration detailData:(NSArray *)detailData totalUsers:(NSInteger)totalUsers completion:(nullable completion_block)completion;
 /// 结束答题结果
 - (BOOL)sendSignalingTeacherToDeleteAnswerPublicResultCompletion:(nullable completion_block)completion;
+
+/// 抢答器  开始
+- (BOOL)sendSignalingTeacherToStartResponderCompletion:(nullable completion_block)completion;
+/// 发布抢答器结果
+- (BOOL)sendSignalingTeacherToContestResultWithName:(NSString *)name completion:(nullable completion_block)completion;
+/// 关闭抢答器
+- (BOOL)sendSignalingTeacherToCloseResponderCompletion:(nullable completion_block)completion;
 
 @end
 
