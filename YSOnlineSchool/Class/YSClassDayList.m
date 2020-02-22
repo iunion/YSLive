@@ -244,6 +244,7 @@
                         NSDictionary *urlParam = [dataDic bm_dictionaryForKey:@"urlParam"];
                         if ([urlParam bm_isNotEmptyDictionary])
                         {
+#if 1
                             NSTimeInterval serverTime = [urlParam bm_doubleForKey:@"ts" withDefault:0];
                             if (serverTime > 0)
                             {
@@ -253,7 +254,7 @@
                                 liveManager.tServiceTime = serverTime;
                                 NSString *message = @"";
                                 BOOL stop = NO;
-                                if ((classModel.endTime - liveManager.tCurrentTime) <= 0)
+                                if ((classModel.endTime - liveManager.tCurrentTime) <= -30*60)
                                 {
                                     stop = YES;
                                     classModel.classState = YSClassState_End;
@@ -271,6 +272,7 @@
                                     return;
                                 }
                             }
+#endif
                             
                             NSString *serial = [urlParam bm_stringTrimForKey:@"serial"];
                             NSString *username = [urlParam bm_stringTrimForKey:@"username"];
