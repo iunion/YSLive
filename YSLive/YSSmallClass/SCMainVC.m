@@ -3144,9 +3144,14 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 /// 自己被踢出房间
 - (void)onRoomKickedOut:(NSDictionary *)reason
 {
+    NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
 
-    NSString *reasonString = YSLocalized(@"Prompt.stuHasKicked");
-    
+    NSString *reasonString = YSLocalized(@"KickOut.Repeat");
+    if (reasonCode)
+    {
+        reasonString = YSLocalized(@"KickOut.SentOutClassroom");//(@"KickOut.SentOutClassroom");
+    }
+
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     

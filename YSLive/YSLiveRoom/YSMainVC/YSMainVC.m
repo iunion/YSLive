@@ -1080,8 +1080,14 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 /// 自己被踢出房间
 - (void)onRoomKickedOut:(NSDictionary *)reason
 {
-    NSString *reasonString = YSLocalized(@"Prompt.stuHasKicked");
-    
+    NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
+
+    NSString *reasonString = YSLocalized(@"KickOut.Repeat");
+    if (reasonCode)
+    {
+        reasonString = YSLocalized(@"KickOut.SentOutClassroom");//(@"KickOut.SentOutClassroom");
+    }
+
     BMWeakSelf
     [BMAlertView ys_showAlertWithTitle:reasonString message:nil cancelTitle:YSLocalized(@"Prompt.OK") otherTitle:nil completion:^(BOOL cancelled, NSInteger buttonIndex) {
         // 关闭页面

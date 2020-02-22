@@ -1558,9 +1558,9 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     [self.videoViewArray removeAllObjects];
 }
 
-- (void)kickedOutFromRoom
+- (void)kickedOutFromRoom:(NSUInteger)reasonCode
 {
-    NSString *reasonString = YSLocalized(@"KickOut.Repeat");//(@"Prompt.stuHasKicked");
+    NSString *reasonString = YSLocalized(@"KickOut.Repeat");//(@"KickOut.SentOutClassroom");
     
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -1731,16 +1731,18 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 /// 自己被踢出房间
 - (void)onRoomKickedOut:(NSDictionary *)reason
 {
+    NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
+
     if (classEndAlertVC)
     {
         [classEndAlertVC dismissViewControllerAnimated:YES completion:^{
-            [self kickedOutFromRoom];
+            [self kickedOutFromRoom:reasonCode];
         }];
         
         return;
     }
     
-    [self kickedOutFromRoom];
+    [self kickedOutFromRoom:reasonCode];
 }
 
 #pragma mark - 用户属性变化
