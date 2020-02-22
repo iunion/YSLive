@@ -723,6 +723,128 @@
         return;
     }
     
+    // 收到开始抢答
+    if ([msgName isEqualToString:YSSignalingName_Contest])
+    {
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContest)])
+        {
+            [self.roomManagerDelegate handleSignalingContest];
+        }
+        return;
+    }
+
+    
+    // 收到学生抢答
+    if ([msgName isEqualToString:YSSignalingName_ContestCommit])
+    {
+        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestCommitWithData:)])
+        {
+            [self.roomManagerDelegate handleSignalingContestCommitWithData:dict];
+        }
+        return;
+    }
+    /// 收到抢答结果
+    if ([msgName isEqualToString:YSSignalingName_ContestResult])
+    {
+        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestResultWithName:)])
+        {
+            NSString *name = [dict bm_stringForKey:@"nickName"];
+
+            [self.roomManagerDelegate handleSignalingContestResultWithName:name];
+        }
+        return;
+    }
+
+    // 关闭抢答器
+    if ([msgName isEqualToString:YSSignalingName_delContest])
+    {
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentToCloseResponder)])
+        {
+            [self.roomManagerDelegate handleSignalingStudentToCloseResponder];
+        }
+        return;
+    }
+    
+    // 计时器
+    if ([msgName isEqualToString:YSSignalingName_Timer])
+    {
+        
+        if ([dataDic bm_isNotEmptyDictionary])
+        {
+            
+            
+            
+            
+            NSInteger defaultTime = [dataDic bm_intForKey:@"defaultTime"];
+            NSInteger time = [dataDic bm_intForKey:@"time"];
+            if ([dataDic bm_containsObjectForKey:@"isShow"])
+            {
+                BOOL isShow = [dataDic bm_boolForKey:@"isShow"];
+                if (isShow)
+                {
+                    
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentTimerWithTime:time];
+                    }
+                }
+                else
+                {
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTeacherTimerShow)])
+                    {
+                        [self.roomManagerDelegate handleSignalingTeacherTimerShow];
+                    }
+                }
+            }
+            
+            if ([dataDic bm_containsObjectForKey:@"isStatus"])
+            {
+                BOOL isStatus = [dataDic bm_boolForKey:@"isStatus"];
+                if (isStatus)
+                {
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentPauseTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentPauseTimerWithTime:time];
+                    }
+                    
+                }
+                else
+                {
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentContinueTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentContinueTimerWithTime:time];
+                    }
+                }
+            }
+            
+            if ([dataDic bm_containsObjectForKey:@"isRestart"])
+            {
+                BOOL isRestart = [dataDic bm_boolForKey:@"isRestart"];
+                if (isRestart)
+                {
+                    //重置
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentRestartTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingStudentRestartTimerWithTime:defaultTime];
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+
+
+        }
+        
+        return;
+    }
     
     //老师处理的接收信令
     BOOL isTrue = [self handleRoomTeacherPubMsgWithMsgID:msgID msgName:msgName data:data fromID:fromID inList:inlist ts:ts];
@@ -996,6 +1118,16 @@
         }
         return;
     }
+    //关闭计时器
+    if ([msgName isEqualToString:YSSignalingName_Timer])
+    {
+       
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingDeleteTimerWithTime)]) {
+            [self.roomManagerDelegate handleSignalingDeleteTimerWithTime];
+        }
+        return;
+    }
+
     
     //双师：老师拖拽视频布局相关信令
     if ([msgName isEqualToString:YSSignalingName_DoubleTeacher]) {

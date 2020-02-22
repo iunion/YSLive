@@ -270,7 +270,7 @@
 "Res.btn.start" = "Start";
 "Res.btn.get"   = "grabbed";
 "Res.btn.noget"   = "restart";
-"Res.btn.getting" = "rushing";
+"Res.btn.getting" = "In answering";
 "Res.btn.t.get"   = "someone";
 "Res.readyget"    = "Ready";
 
@@ -290,7 +290,7 @@
 "tool.datiqiqi"   = "Clicker";
 "tool.zhuanpan"   = "Rotary";
 "tool.jishiqi"   = "Timer";
-"tool.qiangdaqi"   = "Vies";
+"tool.qiangdaqi"   = "Contest";
 "tool.xiaobaiban"   = "Whiteboard";
 
 "tool.fabudati"   = "Release";

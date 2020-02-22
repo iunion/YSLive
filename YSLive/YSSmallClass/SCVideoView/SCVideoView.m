@@ -48,6 +48,10 @@
 ///拖出时的文字字号
 @property (nonatomic, strong)UIFont *notDragFont;
 
+///举手图标
+@property (nonatomic, strong) UIImageView *raiseHandImage;
+
+
 @end
 
 @implementation SCVideoView
@@ -217,6 +221,16 @@
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
     
+    //举手图标
+    self.raiseHandImage = [[UIImageView alloc] init];
+//    UIImage *handImage = [UIImage imageNamed:@"videlHand"];
+//    handImage = [handImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.raiseHandImage.image = [UIImage imageNamed:@"videlHand"];
+    
+    self.raiseHandImage.hidden = YES;
+    [self.backVideoView addSubview:self.raiseHandImage];
+    
+    
     //用户名
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
@@ -323,7 +337,9 @@
         self.cupNumLab.bm_width = 100*widthScale;
     }
    
-    self.brushImageView.frame = CGRectMake(self.bm_width-(8+14)*widthScale, 5*heightScale, 14*widthScale, 14*widthScale);
+    self.brushImageView.frame = CGRectMake(self.bm_width-(8+20)*widthScale, 5*heightScale, 20*widthScale, 20*widthScale);
+    
+    self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-(10+25)*widthScale, 5*heightScale, 25*widthScale, 25*widthScale);
     
     CGFloat height = 20*widthScale;
     if (height < 12)
@@ -504,9 +520,21 @@
     }
 }
 
+// 是否举手
+- (void)setIsRaiseHand:(BOOL)isRaiseHand
+{
+    _isRaiseHand = isRaiseHand;
+    
+    self.raiseHandImage.hidden = !isRaiseHand;
+}
+
+
 - (void)changeRoomUserProperty:(YSRoomUser *)roomUser
 {
     self.roomUser = roomUser;
 }
+
+
+
 
 @end

@@ -178,11 +178,7 @@
     // 主题问题
     [self setupUI];
     
-//    YSCircleProgress *circleProgress = [[YSCircleProgress alloc] init];
-//    circleProgress.frame = CGRectMake(50, 100, 100, 100);
-//    circleProgress.progress = 0.5;
-    
-//    [self.view addSubview:circleProgress];
+
     
 #if CLEARCHECK
     UIButton *clearCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -642,9 +638,10 @@
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.left.mas_equalTo(0);
+        make.left.mas_equalTo(25);
         make.height.mas_equalTo(kScale_H(17));
-        make.bottom.mas_equalTo(-kScale_H(17));
+        make.width.mas_equalTo(kScale_W(100));
+        make.top.mas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
     }];
     
 #ifdef DEBUG
@@ -664,16 +661,18 @@
         make.centerX.mas_equalTo(0);
     }];
     
-    UIButton *eyeBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 40) image:[UIImage imageNamed:@"eyecaresetup"]];
+    UIButton *eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    eyeBtn.frame = CGRectMake(0, 0, 100, 40);
+                        //bm_buttonWithFrame:CGRectMake(0, 0, 100, 40) image:[UIImage imageNamed:@"eyecaresetup"]];
     [eyeBtn setTitle:YSLocalized(@"EyeProtection.Btnsetup") forState:UIControlStateNormal];
     eyeBtn.titleLabel.font = UI_FONT_12;
     [eyeBtn setTitleColor:[UIColor bm_colorWithHex:0x878E95] forState:UIControlStateNormal];
     [eyeBtn addTarget:self action:@selector(onClickEye:) forControlEvents:UIControlEventTouchUpInside];
     [self.backImageView addSubview:eyeBtn];
-    [eyeBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:2.0f];
+//    [eyeBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:2.0f];
     [eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-10);
-        make.bottom.mas_equalTo(-kScale_H(17));
+        make.right.mas_equalTo(-20);
+        make.top.mas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
     }];
 
     self.joinRoomBtn.layer.cornerRadius = 25;
@@ -689,17 +688,17 @@
     UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
-    [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
+    [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
     [onlineSchoolBtn setTitleColor:[UIColor bm_colorWithHex:0x4A4A4A] forState:UIControlStateNormal];
     onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-    onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    onlineSchoolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(weakSelf.backImageView.mas_bottom).offset(-kScale_H(17));
+        make.bottom.mas_equalTo(-25);
         make.height.mas_equalTo(30);
-//        make.right.mas_equalTo(weakSelf.bottomVersionL.mas_left).offset(-5);
-        make.width.mas_equalTo(kScale_W(100));
-        make.left.mas_equalTo(15);
+        make.width.mas_equalTo(UI_SCREEN_WIDTH - 60);
+        make.left.mas_equalTo(30);
     }];
 #endif
 }

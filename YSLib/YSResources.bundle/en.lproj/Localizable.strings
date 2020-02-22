@@ -49,7 +49,7 @@
 
 //login
 "Login.Enter" = "Enter";
-"Login.EnterRoom" = "Enter room";
+"Login.EnterRoom" = "Enter";
 "Login.RoomIdPlaceHolder"    = "Room ID";
 "Login.nickName"  = "Name";
 "Login.Role"      = "Role";
@@ -136,7 +136,7 @@
 "Button.jump" = "Jump";
 "Button.Sign" = "Sign in";
 "Button.vote" = "vote";
-
+"Button.AnswerSpeak" = "Answer speak";
 "title.ToVote" = "Start vote";
 "title.Voting" = "Voting";
 "title.Voted" = "End";
@@ -271,7 +271,7 @@
 "Res.btn.start" = "Start";
 "Res.btn.get"   = "grabbed";
 "Res.btn.noget"   = "restart";
-"Res.btn.getting" = "rushing";
+"Res.btn.getting" = "In answering";
 "Res.btn.t.get"   = "someone";
 "Res.readyget"    = "Ready";
 
@@ -279,6 +279,11 @@
 "Res.lab.iget"  = "winning";
 "Res.lab.noget"   = "no rushes";
 "Res.lab.getting" = "rushing";
+"Res.lab.get" = "get";
+"Res.lab.success" = "Get chance";
+"Res.lab.fail" = "No answer";
+"Timer.btn.start" = "Start";
+"Timer.lab.end" = "Timer end";
 
 "netstate.excellent" = "excellent";
 "netstate.medium" = "medium";
@@ -395,4 +400,7 @@
 
 "Role.Host" = "Host";
 "Role.Attendee" = "Attendee";
+
+
+"Prompt.RaiseHand_classBegain" = "Hands up after class";
 

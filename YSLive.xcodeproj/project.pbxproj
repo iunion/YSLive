@@ -83,6 +83,33 @@
 		34043CA323EABA8E004982E6 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C9223EABA8D004982E6 /* FSCalendarTransitionCoordinator.m */; };
 		34043CA423EABA8E004982E6 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C9323EABA8D004982E6 /* FSCalendarAppearance.m */; };
 		3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
+		34B8D0EF23FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */; };
+		34B8D0F023FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */; };
+		34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */; };
+		34B8D0F423FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */; };
+		8701B15F2371720600A43607 /* testcolorpalette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1312371720600A43607 /* testcolorpalette@2x.png */; };
+		8701B1602371720600A43607 /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
+		8701B1612371720600A43607 /* BMTestColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1332371720600A43607 /* BMTestColorPickerView.m */; };
+		8701B1622371720600A43607 /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
+		8701B1632371720600A43607 /* BMTestAlignView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1382371720600A43607 /* BMTestAlignView.m */; };
+		8701B1642371720600A43607 /* testalignsight_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B13A2371720600A43607 /* testalignsight_icon@2x.png */; };
+		8701B1652371720600A43607 /* BMTestAlignManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13D2371720600A43607 /* BMTestAlignManager.m */; };
+		8701B1662371720600A43607 /* BMConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13E2371720600A43607 /* BMConsole.m */; };
+		8701B1672371720600A43607 /* BMTestNetFlowHttpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1412371720600A43607 /* BMTestNetFlowHttpModel.m */; };
+		8701B1682371720600A43607 /* BMTestNetFlowDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1422371720600A43607 /* BMTestNetFlowDetailVC.m */; };
+		8701B1692371720600A43607 /* BMTestNetFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1442371720600A43607 /* BMTestNetFlowCell.xib */; };
+		8701B16A2371720600A43607 /* BMTestNetFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1462371720600A43607 /* BMTestNetFlowCell.m */; };
+		8701B16B2371720600A43607 /* BMTestNetFlowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1492371720600A43607 /* BMTestNetFlowManager.m */; };
+		8701B16C2371720600A43607 /* BMTestNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B14B2371720600A43607 /* BMTestNSURLProtocol.m */; };
+		8701B16D2371720600A43607 /* BMTestNetFlowSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B14D2371720600A43607 /* BMTestNetFlowSummaryVC.m */; };
+		8701B16E2371720600A43607 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1502371720600A43607 /* YYFPSLabel.m */; };
+		8701B16F2371720600A43607 /* BMTestAppInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1522371720600A43607 /* BMTestAppInfoVC.m */; };
+		8701B1702371720600A43607 /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1572371720600A43607 /* GTMStackTrace.m */; };
+		8701B1712371720600A43607 /* testgpsmoker_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B15A2371720600A43607 /* testgpsmoker_icon@2x.png */; };
+		8701B1722371720600A43607 /* BMTestGPSMocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15D2371720600A43607 /* BMTestGPSMocker.m */; };
+		8701B1732371720600A43607 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
+		8701B176237172B700A43607 /* UIDevice+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B174237172B700A43607 /* UIDevice+Private.m */; };
+		8701B17A237172F200A43607 /* YSTestHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B179237172F200A43607 /* YSTestHelp.m */; };
 		8703620F23F2402E0054E50A /* YSSchoolApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */; };
 		87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		87133568237270F6006534A4 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
@@ -397,11 +424,90 @@
 		87AED04B23B5D71000D38129 /* YSPermissionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04723B5D71000D38129 /* YSPermissionsVC.m */; };
 		87AED04E23B5D8F300D38129 /* SCEyeCareEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04D23B5D8F300D38129 /* SCEyeCareEmptyVC.m */; };
 		87AED05123B5F74500D38129 /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */; };
+		87AF4D1E235FEC0E008D9D00 /* YSLiveManager+GetSignaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF4D1C235FEC0E008D9D00 /* YSLiveManager+GetSignaling.m */; };
+		87AF4D1F235FEC0E008D9D00 /* YSLiveManager+SendSignaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF4D1D235FEC0E008D9D00 /* YSLiveManager+SendSignaling.m */; };
+		87AF4D2523602347008D9D00 /* YSLiveApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF4D2423602347008D9D00 /* YSLiveApiRequest.m */; };
+		87AF4D2B23619A8E008D9D00 /* YSLiveManager+message.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF4D2A23619A8E008D9D00 /* YSLiveManager+message.m */; };
+		87CC23322351A8AC00864FA3 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230C2351A8AC00864FA3 /* crypt.c */; };
+		87CC23332351A8AC00864FA3 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230D2351A8AC00864FA3 /* unzip.c */; };
+		87CC23342351A8AC00864FA3 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230E2351A8AC00864FA3 /* zip.c */; };
+		87CC23352351A8AC00864FA3 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23102351A8AC00864FA3 /* ioapi.c */; };
+		87CC23362351A8AC00864FA3 /* ioapi_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23122351A8AC00864FA3 /* ioapi_buf.c */; };
+		87CC23372351A8AC00864FA3 /* ioapi_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23162351A8AC00864FA3 /* ioapi_mem.c */; };
+		87CC23382351A8AC00864FA3 /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23172351A8AC00864FA3 /* minishared.c */; };
+		87CC23392351A8AC00864FA3 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC231D2351A8AC00864FA3 /* aeskey.c */; };
+		87CC233A2351A8AC00864FA3 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC231E2351A8AC00864FA3 /* hmac.c */; };
+		87CC233B2351A8AC00864FA3 /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23212351A8AC00864FA3 /* aescrypt.c */; };
+		87CC233C2351A8AC00864FA3 /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23222351A8AC00864FA3 /* fileenc.c */; };
+		87CC233D2351A8AC00864FA3 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23242351A8AC00864FA3 /* sha1.c */; };
+		87CC233E2351A8AC00864FA3 /* aes_ni.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23272351A8AC00864FA3 /* aes_ni.c */; };
+		87CC233F2351A8AC00864FA3 /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23292351A8AC00864FA3 /* prng.c */; };
+		87CC23402351A8AC00864FA3 /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC232B2351A8AC00864FA3 /* pwd2key.c */; };
+		87CC23412351A8AC00864FA3 /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC232C2351A8AC00864FA3 /* aestab.c */; };
+		87CC23422351A8AC00864FA3 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23312351A8AC00864FA3 /* SSZipArchive.m */; };
+		87CE8D002351B29B00CD4A76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 87CE8CC82351B29B00CD4A76 /* LICENSE */; };
+		87CE8D012351B29B00CD4A76 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 87CE8CC92351B29B00CD4A76 /* README.md */; };
+		87CE8D022351B29B00CD4A76 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CD22351B29B00CD4A76 /* SDWebImageManager.m */; };
+		87CE8D032351B29B00CD4A76 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CD42351B29B00CD4A76 /* UIImageView+HighlightedWebCache.m */; };
+		87CE8D042351B29B00CD4A76 /* SDWebImageFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CD52351B29B00CD4A76 /* SDWebImageFrame.m */; };
+		87CE8D052351B29B00CD4A76 /* UIImage+ForceDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CD72351B29B00CD4A76 /* UIImage+ForceDecode.m */; };
+		87CE8D062351B29B00CD4A76 /* SDWebImageCodersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CD92351B29B00CD4A76 /* SDWebImageCodersManager.m */; };
+		87CE8D072351B29B00CD4A76 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CDA2351B29B00CD4A76 /* SDWebImageDownloader.m */; };
+		87CE8D082351B29B00CD4A76 /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CDC2351B29B00CD4A76 /* UIImage+GIF.m */; };
+		87CE8D092351B29B00CD4A76 /* UIImage+MultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CDE2351B29B00CD4A76 /* UIImage+MultiFormat.m */; };
+		87CE8D0A2351B29B00CD4A76 /* SDWebImageCoderHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CDF2351B29B00CD4A76 /* SDWebImageCoderHelper.m */; };
+		87CE8D0B2351B29B00CD4A76 /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CE02351B29B00CD4A76 /* SDWebImageCompat.m */; };
+		87CE8D0C2351B29B00CD4A76 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CE22351B29B00CD4A76 /* SDWebImagePrefetcher.m */; };
+		87CE8D0D2351B29B00CD4A76 /* SDWebImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CE52351B29B00CD4A76 /* SDWebImageCoder.m */; };
+		87CE8D0E2351B29B00CD4A76 /* NSButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CE62351B29B00CD4A76 /* NSButton+WebCache.m */; };
+		87CE8D0F2351B29B00CD4A76 /* SDAnimatedImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CE72351B29B00CD4A76 /* SDAnimatedImageRep.m */; };
+		87CE8D102351B29B00CD4A76 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CE82351B29B00CD4A76 /* SDImageCache.m */; };
+		87CE8D112351B29B00CD4A76 /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CEB2351B29B00CD4A76 /* SDWebImageDownloaderOperation.m */; };
+		87CE8D122351B29B00CD4A76 /* SDWebImageTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CEC2351B29B00CD4A76 /* SDWebImageTransition.m */; };
+		87CE8D132351B29B00CD4A76 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CEE2351B29B00CD4A76 /* NSData+ImageContentType.m */; };
+		87CE8D142351B29B00CD4A76 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CEF2351B29B00CD4A76 /* UIImageView+WebCache.m */; };
+		87CE8D152351B29B00CD4A76 /* NSImage+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CF12351B29B00CD4A76 /* NSImage+WebCache.m */; };
+		87CE8D162351B29B00CD4A76 /* SDWebImageGIFCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CF22351B29B00CD4A76 /* SDWebImageGIFCoder.m */; };
+		87CE8D172351B29B00CD4A76 /* SDImageCacheConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CF42351B29B00CD4A76 /* SDImageCacheConfig.m */; };
+		87CE8D182351B29B00CD4A76 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CF72351B29B00CD4A76 /* UIView+WebCacheOperation.m */; };
+		87CE8D192351B29B00CD4A76 /* UIView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CF82351B29B00CD4A76 /* UIView+WebCache.m */; };
+		87CE8D1A2351B29B00CD4A76 /* SDWebImageImageIOCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CFA2351B29B00CD4A76 /* SDWebImageImageIOCoder.m */; };
+		87CE8D1B2351B29B00CD4A76 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CFE2351B29B00CD4A76 /* UIButton+WebCache.m */; };
+		87EB13402372647900D642E8 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
+		87EB134B2372647900D642E8 /* YSVoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12842372647800D642E8 /* YSVoteVC.m */; };
+		87EB134C2372647900D642E8 /* YSVotingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12872372647800D642E8 /* YSVotingTableCell.m */; };
+		87EB134D2372647900D642E8 /* YSVoteResultTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12892372647800D642E8 /* YSVoteResultTableCell.m */; };
+		87EB134E2372647900D642E8 /* YSVoteTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128A2372647800D642E8 /* YSVoteTopView.m */; };
+		87EB134F2372647900D642E8 /* YSAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128E2372647800D642E8 /* YSAnswerCell.m */; };
+		87EB13512372647900D642E8 /* YSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12902372647800D642E8 /* YSQuestionView.m */; };
+		87EB13522372647900D642E8 /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
+		87EB13952372647900D642E8 /* YSMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DC2372647800D642E8 /* YSMainVC.m */; };
+		87EB13972372647900D642E8 /* YSChatMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DF2372647800D642E8 /* YSChatMemberListVC.m */; };
+		87EB13BB2372647900D642E8 /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
+		87EB13BC2372647900D642E8 /* YSChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13142372647900D642E8 /* YSChatMessageModel.m */; };
+		87EB13BD2372647900D642E8 /* YSChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131B2372647900D642E8 /* YSChatView.m */; };
+		87EB13BE2372647900D642E8 /* YSChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131C2372647900D642E8 /* YSChatToolView.m */; };
+		87EB13BF2372647900D642E8 /* YSCommentPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131D2372647900D642E8 /* YSCommentPopView.m */; };
+		87EB13C02372647900D642E8 /* YSEmotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131E2372647900D642E8 /* YSEmotionView.m */; };
+		87EB13C12372647900D642E8 /* YSTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13202372647900D642E8 /* YSTextMessageCell.m */; };
+		87EB13C22372647900D642E8 /* YSChatBasicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13212372647900D642E8 /* YSChatBasicTableViewCell.m */; };
+		87EB13C32372647900D642E8 /* YSNewPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13242372647900D642E8 /* YSNewPictureCell.m */; };
+		87EB13C42372647900D642E8 /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
+		87EB13C52372647900D642E8 /* YSChatMemberListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13282372647900D642E8 /* YSChatMemberListCell.m */; };
+		87EB13D02372647900D642E8 /* YSLessonNotifyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13382372647900D642E8 /* YSLessonNotifyTableCell.m */; };
+		87EB13D12372647900D642E8 /* YSLessonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133B2372647900D642E8 /* YSLessonModel.m */; };
+		87EB13D22372647900D642E8 /* YSLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133C2372647900D642E8 /* YSLessonView.m */; };
+		87EB13D32372647900D642E8 /* YSLessonDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */; };
+		87F8D4B42368273D00A888AB /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
+		CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */; };
+		CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */; };
 		CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */; };
 		CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */; };
 		CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
+		CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
+		CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -590,6 +696,8 @@
 		34043C9223EABA8D004982E6 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
 		34043C9323EABA8D004982E6 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
+		34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopoverVC.m; sourceTree = "<group>"; };
+		34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopCell.m; sourceTree = "<group>"; };
 		8701B1312371720600A43607 /* testcolorpalette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpalette@2x.png"; sourceTree = "<group>"; };
 		8701B1322371720600A43607 /* testcolorpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpicker@2x.png"; sourceTree = "<group>"; };
 		8701B1332371720600A43607 /* BMTestColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTestColorPickerView.m; sourceTree = "<group>"; };
@@ -1190,6 +1298,10 @@
 		87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLessonDetailHeaderView.m; sourceTree = "<group>"; };
 		87F8D4B22368273D00A888AB /* YSLiveMediaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveMediaModel.h; sourceTree = "<group>"; };
 		87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveMediaModel.m; sourceTree = "<group>"; };
+		CB384CE123FE6C0400DCD1C0 /* YSStudentResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentResponder.h; sourceTree = "<group>"; };
+		CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSStudentResponder.m; sourceTree = "<group>"; };
+		CB384CE523FE7D3100DCD1C0 /* YSTeacherTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTeacherTimerView.h; sourceTree = "<group>"; };
+		CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTeacherTimerView.m; sourceTree = "<group>"; };
 		CB3D958A23ED925800A0DEC4 /* YSOnlineMineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSOnlineMineTableViewCell.h; sourceTree = "<group>"; };
 		CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSOnlineMineTableViewCell.m; sourceTree = "<group>"; };
 		CB3D958D23EDBA0B00A0DEC4 /* YSChangePassWordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSChangePassWordVC.h; sourceTree = "<group>"; };
@@ -1200,6 +1312,12 @@
 		CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolUser.m; sourceTree = "<group>"; };
 		CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSchoolAVPlayerView.m; sourceTree = "<group>"; };
 		CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSchoolAVPlayerView.h; sourceTree = "<group>"; };
+		CBCD78B923FF8B6800498742 /* YSStudentTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
+		CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSStudentTimerView.m; sourceTree = "<group>"; };
+		CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
+		CBE342D723FAE42C003EA794 /* YSUpHandPopoverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopoverVC.h; sourceTree = "<group>"; };
+		CBE342D923FBA2DA003EA794 /* YSTeacherResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTeacherResponder.h; sourceTree = "<group>"; };
+		CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTeacherResponder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1279,6 +1397,8 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
+				CB384CE423FE7D1100DCD1C0 /* YSTeacherTimer */,
+				CBE342D823FBA286003EA794 /* YSTeacherResponder */,
 				2626447323C5795000317DAE /* YSTeacherMediaControl */,
 				2653226A23BB4E9300E24379 /* SCTeacherAnswerView */,
 				04B73BFB23B44C2B00BFF7BA /* YSVideoViewControlPopVC */,
@@ -1339,6 +1459,10 @@
 			children = (
 				26355BD723B4ACB3004B8366 /* YSControlPopoverView.h */,
 				26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */,
+				CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */,
+				34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */,
+				CBE342D723FAE42C003EA794 /* YSUpHandPopoverVC.h */,
+				34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */,
 			);
 			path = YSVideoViewControlPopVC;
 			sourceTree = "<group>";
@@ -1772,6 +1896,8 @@
 		871338C72372BE56006534A4 /* YSSmallClass */ = {
 			isa = PBXGroup;
 			children = (
+				CBCD78B823FF8B4500498742 /* YSStudentTimer */,
+				CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */,
 				26EFA5FD23794C4B00EC2A64 /* SCAnswerView */,
 				263265DF237900A100605A0E /* SCBoardControlView */,
 				04A479DE239E274C00680D84 /* BrushToolView */,
@@ -2992,6 +3118,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */ = {
+			isa = PBXGroup;
+			children = (
+				CB384CE123FE6C0400DCD1C0 /* YSStudentResponder.h */,
+				CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */,
+			);
+			path = YSStudentResponder;
+			sourceTree = "<group>";
+		};
+		CB384CE423FE7D1100DCD1C0 /* YSTeacherTimer */ = {
+			isa = PBXGroup;
+			children = (
+				CB384CE523FE7D3100DCD1C0 /* YSTeacherTimerView.h */,
+				CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */,
+			);
+			path = YSTeacherTimer;
+			sourceTree = "<group>";
+		};
 		CB3D963823F43E6000A0DEC4 /* YSSchoolAVPlayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2999,6 +3143,24 @@
 				CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */,
 			);
 			path = YSSchoolAVPlayerView;
+			sourceTree = "<group>";
+		};
+		CBCD78B823FF8B4500498742 /* YSStudentTimer */ = {
+			isa = PBXGroup;
+			children = (
+				CBCD78B923FF8B6800498742 /* YSStudentTimerView.h */,
+				CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */,
+			);
+			path = YSStudentTimer;
+			sourceTree = "<group>";
+		};
+		CBE342D823FBA286003EA794 /* YSTeacherResponder */ = {
+			isa = PBXGroup;
+			children = (
+				CBE342D923FBA2DA003EA794 /* YSTeacherResponder.h */,
+				CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */,
+			);
+			path = YSTeacherResponder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3215,6 +3377,7 @@
 				87133586237270F6006534A4 /* BMTestNetFlowHttpModel.m in Sources */,
 				872D04B723B7362300DAC321 /* FLEXLiveObjectsTableViewController.m in Sources */,
 				87981DCC23C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m in Sources */,
+				34B8D0EF23FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */,
 				34043CA423EABA8E004982E6 /* FSCalendarAppearance.m in Sources */,
 				872D048023B7362300DAC321 /* FLEXNetworkObserver.m in Sources */,
 				872D047123B7362300DAC321 /* FLEXLayerExplorerViewController.m in Sources */,
@@ -3336,8 +3499,10 @@
 				871335CF237270F6006534A4 /* SDImageCache.m in Sources */,
 				04A479E6239E274D00680D84 /* SCColorListView.m in Sources */,
 				871335D3237270F6006534A4 /* aeskey.c in Sources */,
+				34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
 				871335D4237270F6006534A4 /* UIImage+MultiFormat.m in Sources */,
 				8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */,
+				CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */,
 				CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */,
 				872D046D23B7362300DAC321 /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,
@@ -3367,7 +3532,9 @@
 				871335E6237270F6006534A4 /* NSButton+WebCache.m in Sources */,
 				872D048123B7362300DAC321 /* FLEXToolbarItem.m in Sources */,
 				871335E7237270F6006534A4 /* UIView+WebCache.m in Sources */,
+				CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */,
 				872D048D23B7362300DAC321 /* FLEXArgumentInputSwitchView.m in Sources */,
+				CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */,
 				871335E9237270F6006534A4 /* SDWebImageTransition.m in Sources */,
 				871335EF237270F6006534A4 /* YSCoreStatus.m in Sources */,
 				872D048B23B7362300DAC321 /* FLEXArgumentInputColorView.m in Sources */,
@@ -3459,6 +3626,7 @@
 				872D048823B7362300DAC321 /* FLEXIvarEditorViewController.m in Sources */,
 				CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */,
 				8713362E237270F6006534A4 /* YSLiveManager.m in Sources */,
+				CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */,
 				04638453237A971700DE7236 /* TZGifPhotoPreviewController.m in Sources */,
 				04638456237A971700DE7236 /* TZImageRequestOperation.m in Sources */,
 				872D049B23B7362300DAC321 /* FLEXGlobalsTableViewController.m in Sources */,
@@ -3535,6 +3703,385 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		87133705237272B9006534A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87133706237272B9006534A4 /* BMTestGPSMockVC.m in Sources */,
+				87133709237272B9006534A4 /* YSVoteModel.m in Sources */,
+				8713370A237272B9006534A4 /* YSChatMemberListCell.m in Sources */,
+				8713370B237272B9006534A4 /* YSChatBasicTableViewCell.m in Sources */,
+				8713370C237272B9006534A4 /* YSSuperNetVC.m in Sources */,
+				8713370D237272B9006534A4 /* YSBarrageDescriptor.m in Sources */,
+				8713370E237272B9006534A4 /* BMTestGPSMocker.m in Sources */,
+				8713370F237272B9006534A4 /* YSLiveManager+GetSignaling.m in Sources */,
+				87133715237272B9006534A4 /* YSLiveApiRequest.m in Sources */,
+				26262AF32386972C005B9F27 /* SCAnswerTBHeaderView.m in Sources */,
+				87133718237272B9006534A4 /* SDWebImageCodersManager.m in Sources */,
+				8713371A237272B9006534A4 /* PLDictionaryTableViewController.m in Sources */,
+				871338F72373AB73006534A4 /* YSMainSuperVC.m in Sources */,
+				8713371C237272B9006534A4 /* BMTestNSURLProtocol.m in Sources */,
+				8713371F237272B9006534A4 /* YSLiveUtil.m in Sources */,
+				26EFA683237A61E300EC2A64 /* SCAnswerPageView.m in Sources */,
+				87133720237272B9006534A4 /* BMTestNetFlowDetailVC.m in Sources */,
+				04B5A47D2372E49F00DB2EDC /* YSEmotionCollectionCell.m in Sources */,
+				87133721237272B9006534A4 /* BMAlertView+YSDefaultAlert.m in Sources */,
+				046384CB237FA85D00DE7236 /* SCPictureMessageCell.m in Sources */,
+				87133723237272B9006534A4 /* aes_ni.c in Sources */,
+				87133727237272B9006534A4 /* BMTestNetFlowHttpModel.m in Sources */,
+				87133729237272B9006534A4 /* YSPassWordAlert.m in Sources */,
+				8713372A237272B9006534A4 /* sha1.c in Sources */,
+				8713372B237272B9006534A4 /* YSNewTipMessageCell.m in Sources */,
+				8713372C237272B9006534A4 /* WebViewJavascriptBridge_JS.m in Sources */,
+				0463843D237A971700DE7236 /* TZPhotoPreviewController.m in Sources */,
+				8713372E237272B9006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				26EFA6772379963F00EC2A64 /* SCStatisticsTableViewCell.m in Sources */,
+				8713372F237272B9006534A4 /* YSMainVC.m in Sources */,
+				87133730237272B9006534A4 /* UIButton+WebCache.m in Sources */,
+				87133731237272B9006534A4 /* OpenUDID.m in Sources */,
+				87133732237272B9006534A4 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				26EFA67B2379967A00EC2A64 /* SCAnswerDetailTableViewCell.m in Sources */,
+				87133734237272B9006534A4 /* YSVoteTopView.m in Sources */,
+				87133735237272B9006534A4 /* YSLiveMediaModel.m in Sources */,
+				87133736237272B9006534A4 /* zip.c in Sources */,
+				046E683E2373CF73001CBB27 /* SCTextMessageCell.m in Sources */,
+				87133737237272B9006534A4 /* YSBarrageTextCell.m in Sources */,
+				04638446237A971700DE7236 /* TZImageManager.m in Sources */,
+				87133738237272B9006534A4 /* ioapi_buf.c in Sources */,
+				87133739237272B9006534A4 /* UIDevice+Private.m in Sources */,
+				875A720923758F1900407A75 /* SCVideoGridView.m in Sources */,
+				8713373A237272B9006534A4 /* YSChatView.m in Sources */,
+				8713373B237272B9006534A4 /* SDWebImagePrefetcher.m in Sources */,
+				8713373F237272B9006534A4 /* prng.c in Sources */,
+				0463842B237A971700DE7236 /* TZImageCropManager.m in Sources */,
+				263265E3237900E500605A0E /* SCBoardControlView.m in Sources */,
+				87133741237272B9006534A4 /* BMTestAlignView.m in Sources */,
+				87133742237272B9006534A4 /* YSVoteResultTableCell.m in Sources */,
+				87133743237272B9006534A4 /* SDWebImageDownloaderOperation.m in Sources */,
+				87133744237272B9006534A4 /* YSQuestionView.m in Sources */,
+				87133746237272B9006534A4 /* YSUserDefault.m in Sources */,
+				87133747237272B9006534A4 /* YSLessonDetailHeaderView.m in Sources */,
+				8713374A237272B9006534A4 /* YSChatMessageModel.m in Sources */,
+				8713374B237272B9006534A4 /* SDWebImageManager.m in Sources */,
+				8713374C237272B9006534A4 /* aestab.c in Sources */,
+				8713374D237272B9006534A4 /* SDWebImageCoder.m in Sources */,
+				8713374E237272B9006534A4 /* YSApiRequest.m in Sources */,
+				8713374F237272B9006534A4 /* FMDatabasePool.m in Sources */,
+				87133750237272B9006534A4 /* hmac.c in Sources */,
+				87133752237272B9006534A4 /* fileenc.c in Sources */,
+				87133753237272B9006534A4 /* YSPrizeAlertView.m in Sources */,
+				87133754237272B9006534A4 /* YSLiveManager+message.m in Sources */,
+				87133756237272B9006534A4 /* YSSuperVC.m in Sources */,
+				269B023A2376C9FF00DE83B0 /* SCTopToolBarModel.m in Sources */,
+				87133757237272B9006534A4 /* MASViewConstraint.m in Sources */,
+				87133758237272B9006534A4 /* AFSecurityPolicy.m in Sources */,
+				87133759237272B9006534A4 /* pwd2key.c in Sources */,
+				8713375A237272B9006534A4 /* SDWebImageImageIOCoder.m in Sources */,
+				8713375B237272B9006534A4 /* UIImageView+HighlightedWebCache.m in Sources */,
+				8713375C237272B9006534A4 /* BMTestAlignManager.m in Sources */,
+				8713375E237272B9006534A4 /* crypt.c in Sources */,
+				8713375F237272B9006534A4 /* BMTestColorPickerView.m in Sources */,
+				87133761237272B9006534A4 /* YSLocation.m in Sources */,
+				04638434237A971700DE7236 /* TZAssetModel.m in Sources */,
+				87133763237272B9006534A4 /* YSInputView.m in Sources */,
+				87133765237272B9006534A4 /* YSLiveManager+SendSignaling.m in Sources */,
+				87133766237272B9006534A4 /* BMTestNetFlowCell.m in Sources */,
+				87133768237272B9006534A4 /* YSLessonNotifyTableCell.m in Sources */,
+				8713376B237272B9006534A4 /* GTMStackTrace.m in Sources */,
+				8713376C237272B9006534A4 /* AFURLRequestSerialization.m in Sources */,
+				8713376D237272B9006534A4 /* YSAppInfo.m in Sources */,
+				8713376E237272B9006534A4 /* BMConsole.m in Sources */,
+				87133770237272B9006534A4 /* SDImageCache.m in Sources */,
+				04A479E7239E274D00680D84 /* SCColorListView.m in Sources */,
+				87133774237272B9006534A4 /* aeskey.c in Sources */,
+				87133775237272B9006534A4 /* UIImage+MultiFormat.m in Sources */,
+				87133777237272B9006534A4 /* WebViewJavascriptBridgeBase.m in Sources */,
+				0463843A237A971700DE7236 /* UIView+Layout.m in Sources */,
+				04638437237A971700DE7236 /* NSBundle+TZImagePicker.m in Sources */,
+				8713377A237272B9006534A4 /* AFHTTPSessionManager.m in Sources */,
+				26EFA687237A841C00EC2A64 /* SCAnswerDetailModel.m in Sources */,
+				8713377C237272B9006534A4 /* YSNewPictureCell.m in Sources */,
+				8713377D237272B9006534A4 /* YSAnswerCell.m in Sources */,
+				8713377E237272B9006534A4 /* WebViewJavascriptBridge.m in Sources */,
+				8713377F237272B9006534A4 /* YSBarrageCell.m in Sources */,
+				87133780237272B9006534A4 /* YSCommentPopView.m in Sources */,
+				87133781237272B9006534A4 /* YSLessonModel.m in Sources */,
+				87133783237272B9006534A4 /* FMDatabaseQueue.m in Sources */,
+				87133787237272B9006534A4 /* NSButton+WebCache.m in Sources */,
+				87133788237272B9006534A4 /* UIView+WebCache.m in Sources */,
+				8713378A237272B9006534A4 /* SDWebImageTransition.m in Sources */,
+				87133790237272B9006534A4 /* YSCoreStatus.m in Sources */,
+				87133791237272B9006534A4 /* FMDatabaseAdditions.m in Sources */,
+				2600397723B1C1520031CFD9 /* SCTeacherTopBar.m in Sources */,
+				875A7205237561E400407A75 /* SCVideoView.m in Sources */,
+				0463844F237A971700DE7236 /* TZImagePickerController.m in Sources */,
+				87133793237272B9006534A4 /* YSBarrageManager.m in Sources */,
+				04638443237A971700DE7236 /* TZProgressView.m in Sources */,
+				0463842E237A971700DE7236 /* TZAssetCell.m in Sources */,
+				8713379C237272B9006534A4 /* UIImageView+WebCache.m in Sources */,
+				871338DD2372BE57006534A4 /* SCMainVC.m in Sources */,
+				8713379D237272B9006534A4 /* YSChatMemberListVC.m in Sources */,
+				8713379E237272B9006534A4 /* YYFPSLabel.m in Sources */,
+				8713379F237272B9006534A4 /* AFURLResponseSerialization.m in Sources */,
+				26355BD623B450A8004B8366 /* SCTTopPopverViewController.m in Sources */,
+				871337A4237272B9006534A4 /* YSBarrageTrackInfo.m in Sources */,
+				875A723523824F1B00407A75 /* YSMediaMarkView.m in Sources */,
+				871337A5237272B9006534A4 /* minishared.c in Sources */,
+				871337A7237272B9006534A4 /* UIImage+GIF.m in Sources */,
+				871337A8237272B9006534A4 /* FMDatabase.m in Sources */,
+				04B8C6E723CEECFF0095F880 /* PanGestureControl.m in Sources */,
+				871337AA237272B9006534A4 /* MASViewAttribute.m in Sources */,
+				871337AB237272B9006534A4 /* BMTestColorPickerManager.m in Sources */,
+				871337AC237272B9006534A4 /* NSImage+WebCache.m in Sources */,
+				871337AF237272B9006534A4 /* PTTextAttachment.m in Sources */,
+				871337B0237272B9006534A4 /* WKWebViewJavascriptBridge.m in Sources */,
+				871337B2237272B9006534A4 /* YSBarrageTextDescriptor.m in Sources */,
+				871337B3237272B9006534A4 /* NSData+ImageContentType.m in Sources */,
+				04638460237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */,
+				875A722F238243FB00407A75 /* YSLiveRoomConfiguration.m in Sources */,
+				04A479EB239E274D00680D84 /* SCColorTipView.m in Sources */,
+				871337B9237272B9006534A4 /* SDWebImageFrame.m in Sources */,
+				046384CF237FC1AE00DE7236 /* SCTipsMessageCell.m in Sources */,
+				871337BA237272B9006534A4 /* UIImage+ForceDecode.m in Sources */,
+				871337BC237272B9006534A4 /* SDAnimatedImageRep.m in Sources */,
+				871337BE237272B9006534A4 /* BMTestAppInfoVC.m in Sources */,
+				871337BF237272B9006534A4 /* MASConstraint.m in Sources */,
+				871337C2237272B9006534A4 /* YSLoginVC.m in Sources */,
+				871337C3237272B9006534A4 /* YSTextMessageCell.m in Sources */,
+				26355BEB23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */,
+				0463844C237A971700DE7236 /* TZPhotoPreviewCell.m in Sources */,
+				871337C5237272B9006534A4 /* SDWebImageGIFCoder.m in Sources */,
+				871337C6237272B9006534A4 /* SSZipArchive.m in Sources */,
+				871337C7237272B9006534A4 /* SDWebImageCompat.m in Sources */,
+				26C1D3862376B2D0007869EA /* SCTopToolBar.m in Sources */,
+				871337C8237272B9006534A4 /* AFURLSessionManager.m in Sources */,
+				871337C9237272B9006534A4 /* ioapi.c in Sources */,
+				04A479E9239E274D00680D84 /* SCColorSelectView.m in Sources */,
+				871337CB237272B9006534A4 /* MASCompositeConstraint.m in Sources */,
+				871337CC237272B9006534A4 /* YSQuestionModel.m in Sources */,
+				04638452237A971700DE7236 /* TZLocationManager.m in Sources */,
+				26355BE723B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */,
+				26D5406023BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */,
+				871337CE237272B9006534A4 /* MASConstraintMaker.m in Sources */,
+				871337CF237272B9006534A4 /* YSLiveManager.m in Sources */,
+				04638455237A971700DE7236 /* TZGifPhotoPreviewController.m in Sources */,
+				04638458237A971700DE7236 /* TZImageRequestOperation.m in Sources */,
+				871337D0237272B9006534A4 /* MASLayoutConstraint.m in Sources */,
+				871337D1237272B9006534A4 /* NSArray+MASAdditions.m in Sources */,
+				871337D2237272B9006534A4 /* ioapi_mem.c in Sources */,
+				871337D3237272B9006534A4 /* aescrypt.c in Sources */,
+				871337D4237272B9006534A4 /* SDImageCacheConfig.m in Sources */,
+				871337D7237272B9006534A4 /* FMResultSet.m in Sources */,
+				871337D8237272B9006534A4 /* YSVoteVC.m in Sources */,
+				871337D9237272B9006534A4 /* YSEmotionView.m in Sources */,
+				871337DA237272B9006534A4 /* YSLessonView.m in Sources */,
+				871337DC237272B9006534A4 /* main.m in Sources */,
+				871337DD237272B9006534A4 /* SDWebImageDownloader.m in Sources */,
+				871337DE237272B9006534A4 /* PLArrayTableViewController.m in Sources */,
+				871337DF237272B9006534A4 /* CALayer+YSBarrage.m in Sources */,
+				871337E0237272B9006534A4 /* YSChatToolView.m in Sources */,
+				871337E2237272B9006534A4 /* BMTestNetFlowManager.m in Sources */,
+				871337E4237272B9006534A4 /* View+MASAdditions.m in Sources */,
+				871337E6237272B9006534A4 /* UIView+WebCacheOperation.m in Sources */,
+				871337E7237272B9006534A4 /* BMProgressHUD.m in Sources */,
+				871337E9237272B9006534A4 /* ViewController+MASAdditions.m in Sources */,
+				871337EB237272B9006534A4 /* unzip.c in Sources */,
+				875A720E237A541900407A75 /* YSFloatView.m in Sources */,
+				871337EC237272B9006534A4 /* YSSignedAlertView.m in Sources */,
+				871337ED237272B9006534A4 /* YSTestHelp.m in Sources */,
+				871337F0237272B9006534A4 /* BMTestNetFlowSummaryVC.m in Sources */,
+				871337F1237272B9006534A4 /* SDWebImageCoderHelper.m in Sources */,
+				26EFA60223795A7200EC2A64 /* SCAnswerView.m in Sources */,
+				871337F2237272B9006534A4 /* YSBarrageRenderView.m in Sources */,
+				871337F4237272B9006534A4 /* AFNetworkReachabilityManager.m in Sources */,
+				04B5A47F2372E49F00DB2EDC /* SCChatView.m in Sources */,
+				26EFA67323797B0000EC2A64 /* SCOptionCollectionCell.m in Sources */,
+				871337F7237272B9006534A4 /* YSVotingTableCell.m in Sources */,
+				046E68422373E152001CBB27 /* SCChatToolView.m in Sources */,
+				04638431237A971700DE7236 /* TZVideoPlayerController.m in Sources */,
+				26EFA67F23799F0600EC2A64 /* SCAnswerStatisticsModel.m in Sources */,
+				871337F9237272B9006534A4 /* AppDelegate.m in Sources */,
+				04638449237A971700DE7236 /* TZPhotoPickerController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		876681F223506EF400C4C635 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8701B1732371720600A43607 /* BMTestGPSMockVC.m in Sources */,
+				87EB13402372647900D642E8 /* YSVoteModel.m in Sources */,
+				87EB13C52372647900D642E8 /* YSChatMemberListCell.m in Sources */,
+				87EB13C22372647900D642E8 /* YSChatBasicTableViewCell.m in Sources */,
+				875A722E238243FB00407A75 /* YSLiveRoomConfiguration.m in Sources */,
+				879ADAF62351734100C72EAA /* YSSuperNetVC.m in Sources */,
+				2661FB2123670AB5000859F7 /* YSBarrageDescriptor.m in Sources */,
+				8701B1722371720600A43607 /* BMTestGPSMocker.m in Sources */,
+				87AF4D1E235FEC0E008D9D00 /* YSLiveManager+GetSignaling.m in Sources */,
+				04638457237A971700DE7236 /* TZImageRequestOperation.m in Sources */,
+				87AF4D2523602347008D9D00 /* YSLiveApiRequest.m in Sources */,
+				87CE8D062351B29B00CD4A76 /* SDWebImageCodersManager.m in Sources */,
+				876689782350794E00C4C635 /* PLDictionaryTableViewController.m in Sources */,
+				04A479F1239E276100680D84 /* SCBrushToolView.m in Sources */,
+				8701B16C2371720600A43607 /* BMTestNSURLProtocol.m in Sources */,
+				04638433237A971700DE7236 /* TZAssetModel.m in Sources */,
+				04638436237A971700DE7236 /* NSBundle+TZImagePicker.m in Sources */,
+				874061F5235AA428005D3620 /* YSLiveUtil.m in Sources */,
+				8701B1682371720600A43607 /* BMTestNetFlowDetailVC.m in Sources */,
+				871A00902363D5D3009297C2 /* BMAlertView+YSDefaultAlert.m in Sources */,
+				87CC233E2351A8AC00864FA3 /* aes_ni.c in Sources */,
+				8701B1672371720600A43607 /* BMTestNetFlowHttpModel.m in Sources */,
+				871A009C2363D5D3009297C2 /* YSPassWordAlert.m in Sources */,
+				87CC233D2351A8AC00864FA3 /* sha1.c in Sources */,
+				87EB13C42372647900D642E8 /* YSNewTipMessageCell.m in Sources */,
+				04638454237A971700DE7236 /* TZGifPhotoPreviewController.m in Sources */,
+				876689762350794E00C4C635 /* WebViewJavascriptBridge_JS.m in Sources */,
+				04638448237A971700DE7236 /* TZPhotoPickerController.m in Sources */,
+				876689792350794E00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				87EB13952372647900D642E8 /* YSMainVC.m in Sources */,
+				87CE8D1B2351B29B00CD4A76 /* UIButton+WebCache.m in Sources */,
+				876689722350794E00C4C635 /* OpenUDID.m in Sources */,
+				876689A92350794E00C4C635 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				0463842D237A971700DE7236 /* TZAssetCell.m in Sources */,
+				87EB134E2372647900D642E8 /* YSVoteTopView.m in Sources */,
+				87F8D4B42368273D00A888AB /* YSLiveMediaModel.m in Sources */,
+				87CC23342351A8AC00864FA3 /* zip.c in Sources */,
+				2661FB2023670AB5000859F7 /* YSBarrageTextCell.m in Sources */,
+				87CC23362351A8AC00864FA3 /* ioapi_buf.c in Sources */,
+				8701B176237172B700A43607 /* UIDevice+Private.m in Sources */,
+				87EB13BD2372647900D642E8 /* YSChatView.m in Sources */,
+				34B8D0F423FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
+				87CE8D0C2351B29B00CD4A76 /* SDWebImagePrefetcher.m in Sources */,
+				87CC233F2351A8AC00864FA3 /* prng.c in Sources */,
+				8701B1632371720600A43607 /* BMTestAlignView.m in Sources */,
+				87EB134D2372647900D642E8 /* YSVoteResultTableCell.m in Sources */,
+				04A479F3239E276100680D84 /* SCDrawBoardView.m in Sources */,
+				87CE8D112351B29B00CD4A76 /* SDWebImageDownloaderOperation.m in Sources */,
+				87EB13512372647900D642E8 /* YSQuestionView.m in Sources */,
+				26E6401923699700000D9CEC /* YSUserDefault.m in Sources */,
+				87EB13D32372647900D642E8 /* YSLessonDetailHeaderView.m in Sources */,
+				87EB13BC2372647900D642E8 /* YSChatMessageModel.m in Sources */,
+				87CE8D022351B29B00CD4A76 /* SDWebImageManager.m in Sources */,
+				04638442237A971700DE7236 /* TZProgressView.m in Sources */,
+				87CC23412351A8AC00864FA3 /* aestab.c in Sources */,
+				87CE8D0D2351B29B00CD4A76 /* SDWebImageCoder.m in Sources */,
+				879ADB02235178C000C72EAA /* YSApiRequest.m in Sources */,
+				876689AE2350794E00C4C635 /* FMDatabasePool.m in Sources */,
+				87CC233A2351A8AC00864FA3 /* hmac.c in Sources */,
+				87CC233C2351A8AC00864FA3 /* fileenc.c in Sources */,
+				871A009D2363D5D3009297C2 /* YSPrizeAlertView.m in Sources */,
+				87AF4D2B23619A8E008D9D00 /* YSLiveManager+message.m in Sources */,
+				875A723423824F1B00407A75 /* YSMediaMarkView.m in Sources */,
+				879ADAF22351708200C72EAA /* YSSuperVC.m in Sources */,
+				876689812350794E00C4C635 /* MASViewConstraint.m in Sources */,
+				876689A82350794E00C4C635 /* AFSecurityPolicy.m in Sources */,
+				87CC23402351A8AC00864FA3 /* pwd2key.c in Sources */,
+				87CE8D1A2351B29B00CD4A76 /* SDWebImageImageIOCoder.m in Sources */,
+				87CE8D032351B29B00CD4A76 /* UIImageView+HighlightedWebCache.m in Sources */,
+				8701B1652371720600A43607 /* BMTestAlignManager.m in Sources */,
+				87CC23322351A8AC00864FA3 /* crypt.c in Sources */,
+				8701B1612371720600A43607 /* BMTestColorPickerView.m in Sources */,
+				879ADAFC2351769900C72EAA /* YSLocation.m in Sources */,
+				260A1A8123507CB300288B01 /* YSInputView.m in Sources */,
+				87AF4D1F235FEC0E008D9D00 /* YSLiveManager+SendSignaling.m in Sources */,
+				8701B16A2371720600A43607 /* BMTestNetFlowCell.m in Sources */,
+				87EB13D02372647900D642E8 /* YSLessonNotifyTableCell.m in Sources */,
+				8701B1702371720600A43607 /* GTMStackTrace.m in Sources */,
+				876689A62350794E00C4C635 /* AFURLRequestSerialization.m in Sources */,
+				879ADB0523517A2600C72EAA /* YSAppInfo.m in Sources */,
+				8701B1662371720600A43607 /* BMConsole.m in Sources */,
+				87CE8D102351B29B00CD4A76 /* SDImageCache.m in Sources */,
+				0463844B237A971700DE7236 /* TZPhotoPreviewCell.m in Sources */,
+				87CC23392351A8AC00864FA3 /* aeskey.c in Sources */,
+				87CE8D092351B29B00CD4A76 /* UIImage+MultiFormat.m in Sources */,
+				876689732350794E00C4C635 /* WebViewJavascriptBridgeBase.m in Sources */,
+				876689A42350794E00C4C635 /* AFHTTPSessionManager.m in Sources */,
+				87EB13C32372647900D642E8 /* YSNewPictureCell.m in Sources */,
+				87EB134F2372647900D642E8 /* YSAnswerCell.m in Sources */,
+				876689752350794E00C4C635 /* WebViewJavascriptBridge.m in Sources */,
+				04638445237A971700DE7236 /* TZImageManager.m in Sources */,
+				2661FB2223670AB5000859F7 /* YSBarrageCell.m in Sources */,
+				87EB13BF2372647900D642E8 /* YSCommentPopView.m in Sources */,
+				87EB13D12372647900D642E8 /* YSLessonModel.m in Sources */,
+				876689AB2350794E00C4C635 /* FMDatabaseQueue.m in Sources */,
+				87CE8D0E2351B29B00CD4A76 /* NSButton+WebCache.m in Sources */,
+				04638461237BA18900DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */,
+				87CE8D192351B29B00CD4A76 /* UIView+WebCache.m in Sources */,
+				0463844E237A971700DE7236 /* TZImagePickerController.m in Sources */,
+				87CE8D122351B29B00CD4A76 /* SDWebImageTransition.m in Sources */,
+				879ADAFF2351774500C72EAA /* YSCoreStatus.m in Sources */,
+				876689AC2350794E00C4C635 /* FMDatabaseAdditions.m in Sources */,
+				2661FB2523670AB5000859F7 /* YSBarrageManager.m in Sources */,
+				04638439237A971700DE7236 /* UIView+Layout.m in Sources */,
+				87CE8D142351B29B00CD4A76 /* UIImageView+WebCache.m in Sources */,
+				87EB13972372647900D642E8 /* YSChatMemberListVC.m in Sources */,
+				8701B16E2371720600A43607 /* YYFPSLabel.m in Sources */,
+				876689A32350794E00C4C635 /* AFURLResponseSerialization.m in Sources */,
+				04638430237A971700DE7236 /* TZVideoPlayerController.m in Sources */,
+				2661FB2623670AB5000859F7 /* YSBarrageTrackInfo.m in Sources */,
+				87CC23382351A8AC00864FA3 /* minishared.c in Sources */,
+				87CE8D082351B29B00CD4A76 /* UIImage+GIF.m in Sources */,
+				876689AD2350794E00C4C635 /* FMDatabase.m in Sources */,
+				876689822350794E00C4C635 /* MASViewAttribute.m in Sources */,
+				8701B1622371720600A43607 /* BMTestColorPickerManager.m in Sources */,
+				87CE8D152351B29B00CD4A76 /* NSImage+WebCache.m in Sources */,
+				87EB13BB2372647900D642E8 /* PTTextAttachment.m in Sources */,
+				876689742350794E00C4C635 /* WKWebViewJavascriptBridge.m in Sources */,
+				2661FB2323670AB5000859F7 /* YSBarrageTextDescriptor.m in Sources */,
+				87CE8D132351B29B00CD4A76 /* NSData+ImageContentType.m in Sources */,
+				87CE8D042351B29B00CD4A76 /* SDWebImageFrame.m in Sources */,
+				34B8D0F023FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */,
+				87CE8D052351B29B00CD4A76 /* UIImage+ForceDecode.m in Sources */,
+				87CE8D0F2351B29B00CD4A76 /* SDAnimatedImageRep.m in Sources */,
+				8701B16F2371720600A43607 /* BMTestAppInfoVC.m in Sources */,
+				876689802350794E00C4C635 /* MASConstraint.m in Sources */,
+				260A1A8223507CB300288B01 /* YSLoginVC.m in Sources */,
+				87EB13C12372647900D642E8 /* YSTextMessageCell.m in Sources */,
+				87CE8D162351B29B00CD4A76 /* SDWebImageGIFCoder.m in Sources */,
+				87CC23422351A8AC00864FA3 /* SSZipArchive.m in Sources */,
+				87CE8D0B2351B29B00CD4A76 /* SDWebImageCompat.m in Sources */,
+				876689A52350794E00C4C635 /* AFURLSessionManager.m in Sources */,
+				87CC23352351A8AC00864FA3 /* ioapi.c in Sources */,
+				8766897B2350794E00C4C635 /* MASCompositeConstraint.m in Sources */,
+				87EB13522372647900D642E8 /* YSQuestionModel.m in Sources */,
+				8766897C2350794E00C4C635 /* MASConstraintMaker.m in Sources */,
+				87728F2B2355CCD800E34916 /* YSLiveManager.m in Sources */,
+				8766897D2350794E00C4C635 /* MASLayoutConstraint.m in Sources */,
+				0463843C237A971700DE7236 /* TZPhotoPreviewController.m in Sources */,
+				8766897E2350794E00C4C635 /* NSArray+MASAdditions.m in Sources */,
+				87CC23372351A8AC00864FA3 /* ioapi_mem.c in Sources */,
+				87CC233B2351A8AC00864FA3 /* aescrypt.c in Sources */,
+				87CE8D172351B29B00CD4A76 /* SDImageCacheConfig.m in Sources */,
+				876689AF2350794E00C4C635 /* FMResultSet.m in Sources */,
+				87EB134B2372647900D642E8 /* YSVoteVC.m in Sources */,
+				87EB13C02372647900D642E8 /* YSEmotionView.m in Sources */,
+				04B8C6E623CEECFF0095F880 /* PanGestureControl.m in Sources */,
+				87EB13D22372647900D642E8 /* YSLessonView.m in Sources */,
+				8766820923506EF600C4C635 /* main.m in Sources */,
+				87CE8D072351B29B00CD4A76 /* SDWebImageDownloader.m in Sources */,
+				876689772350794E00C4C635 /* PLArrayTableViewController.m in Sources */,
+				2661FB2423670AB5000859F7 /* CALayer+YSBarrage.m in Sources */,
+				87EB13BE2372647900D642E8 /* YSChatToolView.m in Sources */,
+				8701B16B2371720600A43607 /* BMTestNetFlowManager.m in Sources */,
+				8766897F2350794E00C4C635 /* View+MASAdditions.m in Sources */,
+				87CE8D182351B29B00CD4A76 /* UIView+WebCacheOperation.m in Sources */,
+				876689AA2350794E00C4C635 /* BMProgressHUD.m in Sources */,
+				04638451237A971700DE7236 /* TZLocationManager.m in Sources */,
+				0463842A237A971700DE7236 /* TZImageCropManager.m in Sources */,
+				871338F82373AB74006534A4 /* YSMainSuperVC.m in Sources */,
+				8766897A2350794E00C4C635 /* ViewController+MASAdditions.m in Sources */,
+				87CC23332351A8AC00864FA3 /* unzip.c in Sources */,
+				871A00912363D5D3009297C2 /* YSSignedAlertView.m in Sources */,
+				8701B17A237172F200A43607 /* YSTestHelp.m in Sources */,
+				8701B16D2371720600A43607 /* BMTestNetFlowSummaryVC.m in Sources */,
+				87CE8D0A2351B29B00CD4A76 /* SDWebImageCoderHelper.m in Sources */,
+				2661FB2723670AB5000859F7 /* YSBarrageRenderView.m in Sources */,
+				876689A72350794E00C4C635 /* AFNetworkReachabilityManager.m in Sources */,
+				87EB134C2372647900D642E8 /* YSVotingTableCell.m in Sources */,
+				876681FB23506EF400C4C635 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8766820A23506EF600C4C635 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3573,6 +4120,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.3.3.0;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
@@ -3607,6 +4155,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.roadofcloud.YSLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3617,6 +4166,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.3.3.0;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
@@ -3664,6 +4214,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.roadofcloud.YSLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -67,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIPanGestureRecognizer * panGesture;
 
+/// 是否举手
+@property (nonatomic, assign) BOOL isRaiseHand;
 
 // 保存发布状态，用于比较是否有变更
 @property (nonatomic, assign) YSPublishState publishState;

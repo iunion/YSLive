@@ -46,6 +46,10 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
+#import "YSUpHandPopoverVC.h"
+#import "YSCircleProgress.h"
+#import "YSTeacherResponder.h"
+#import "YSTeacherTimerView.h"
 
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
@@ -98,6 +102,9 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 #define ListView_Width        426.0f
 #define ListView_Height        598.0f
 
+
+#define YSTeacherResponderCountDownKey     @"YSTeacherResponderCountDownKey"
+#define YSTeacherTimerCountDownKey         @"YSTeacherTimerCountDownKey"
 @interface YSTeacherRoleMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -117,7 +124,9 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     SCTeacherListViewDelegate,
     YSMp4ControlViewDelegate,
     YSMp3ControlviewDelegate,
-    UIGestureRecognizerDelegate
+    UIGestureRecognizerDelegate,
+    YSTeacherResponderDelegate,
+    YSTeacherTimerViewDelegate
 >
 {
     /// 最大上台数
@@ -159,6 +168,13 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     YSLiveRoomLayout defaultRoomLayout;
     
     BOOL needFreshVideoView;
+    
+    NSInteger contestCommitNumber;
+    
+    NSString *contestPeerId;
+    
+    BOOL autoUpPlatform;
+    NSInteger defaultTime;
 }
 
 /// 原keywindow
@@ -274,6 +290,20 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 /// MP3进度控制
 @property (nonatomic, strong) YSMp3Controlview *mp3ControlView;
 
+/// 举手按钮
+@property(nonatomic,strong)UIButton *raiseHandsBtn;
+//举手上台的popOverView列表
+@property (nonatomic,weak)YSUpHandPopoverVC * upHandPopTableView;
+/// 正在举手上台的人员数组
+@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *raiseHandArray;
+/// 举过手的人员数组
+@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *haveRaiseHandArray;
+/// 举手上台的人数
+@property (nonatomic, strong) UILabel *handNumLab;
+
+@property (nonatomic, strong)YSTeacherResponder *responderView;
+/// 老师计时器
+@property (nonatomic, strong)YSTeacherTimerView *teacherTimerView;
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -368,6 +398,9 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
+    
+    //举手上台的按钮
+    [self setupHandView];
     
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
@@ -628,6 +661,46 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.whitebordFullBackgroud.hidden = YES;
 }
 
+#pragma mark - 举手上台的UI
+- (void)setupHandView
+{
+    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-60, 40, 40)];
+    [raiseHandsBtn setBackgroundColor: UIColor.clearColor];
+    [raiseHandsBtn setImage:[UIImage imageNamed:@"teacherNormalHand"] forState:UIControlStateNormal];
+    [raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateSelected];
+    [raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.raiseHandsBtn = raiseHandsBtn;
+     [self.view addSubview:raiseHandsBtn];
+    
+    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, CGRectGetMaxY(raiseHandsBtn.frame), 40, 15)];
+//    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,self.liveManager.userList.count];
+    handNumLab.font = UI_FONT_13;
+    handNumLab.textColor = UIColor.whiteColor;
+    handNumLab.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    handNumLab.layer.cornerRadius = 15/2;
+    handNumLab.layer.masksToBounds = YES;
+    handNumLab.textAlignment = NSTextAlignmentCenter;
+    self.handNumLab = handNumLab;
+    [self.view addSubview:handNumLab];
+}
+
+- (void)raiseHandsButtonClick:(UIButton *)sender
+{
+    YSUpHandPopoverVC * popTab = [[YSUpHandPopoverVC alloc]init];
+    popTab.userArr = self.raiseHandArray;
+    popTab.preferredContentSize = CGSizeMake(95, 146);
+    popTab.modalPresentationStyle = UIModalPresentationPopover;
+    self.upHandPopTableView = popTab;
+    
+    UIPopoverPresentationController *popover = popTab.popoverPresentationController;
+    popover.sourceView = self.raiseHandsBtn;
+    popover.sourceRect = self.raiseHandsBtn.bounds;
+    popover.delegate = self;
+    [self presentViewController:popTab animated:YES completion:nil];//present即可
+}
+
+
 /// 设置左侧工具栏
 - (void)setupBrushToolView
 {
@@ -639,6 +712,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
 }
+
 
 #pragma mark 内容背景
 - (void)setupContentView
@@ -1675,6 +1749,42 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
 
+    // 举手上台
+       if ([properties bm_containsObjectForKey:sUserRaisehand])
+       {
+           BOOL raisehand = [properties bm_boolForKey:sUserRaisehand];
+                      
+           YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+           
+           if (user.publishState>0 && raisehand)
+           {
+               videoView.isRaiseHand = YES;
+           }
+           else
+           {
+               videoView.isRaiseHand = NO;
+           }
+           
+           if (raisehand && ![self.raiseHandArray containsObject:user])
+           {//举手上台
+               [self.raiseHandArray addObject:user];
+               self.upHandPopTableView.userArr = self.raiseHandArray;
+               
+               if (![self.haveRaiseHandArray containsObject:user]) {
+                   [self.haveRaiseHandArray addObject:user];
+               }
+           }
+           else if (!raisehand && [self.raiseHandArray containsObject:user])
+           {//取消举手上台
+               [self.raiseHandArray removeObject:user];
+               self.upHandPopTableView.userArr = self.raiseHandArray;
+           }
+//           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
+           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,self.liveManager.userList.count];
+           
+            self.raiseHandsBtn.selected = (self.raiseHandArray.count > 0);
+       }
+    
     // 奖杯数
     if ([properties bm_containsObjectForKey:sUserGiftNumber])
     {
@@ -1764,6 +1874,13 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     if ([properties bm_containsObjectForKey:sUserPublishstate])
     {
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
+        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+        
+        if ([self.raiseHandArray containsObject:user]) {
+            [self.raiseHandArray removeObject:user];
+            [self.raiseHandArray addObject:user];
+            self.upHandPopTableView.userArr = self.raiseHandArray;
+        }
         
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
@@ -3028,6 +3145,30 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         //相册上传
         [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
     }
+    else if (sender.tag == 3)
+    {
+        //计时器
+        
+        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
+            self.topSelectBtn.selected = NO;
+        }];
+        [self.liveManager sendSignalingTeacherToStartTimerWithTime:0 isStatus:false isRestart:false isShow:false defaultTime:0 completion:nil];
+        
+    }
+    else if (sender.tag == 4)
+    {
+        //抢答器
+        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
+            self.topSelectBtn.selected = NO;
+        }];
+
+        self.responderView = [[YSTeacherResponder alloc] init];
+        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+        self.responderView.delegate = self;
+//        [self.responderView setPersonNumber:@"7" totalNumber:@"16"];//用于传人数
+//        [self.responderView setPersonName:@"宁杰英"];
+    }
 }
 
 
@@ -3359,6 +3500,191 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     
 }
 
+
+#pragma mark -
+#pragma mark 抢答器 YSTeacherResponderDelegate
+- (void)startClickedWithUpPlatform:(BOOL)upPlatform
+{
+    autoUpPlatform = upPlatform;
+    BMWeakSelf
+    [self.liveManager sendSignalingTeacherToStartResponderCompletion:nil];
+    contestCommitNumber = 0;
+    contestPeerId = @"";
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
+      
+        NSInteger total = 0;
+        for (YSRoomUser * user in weakSelf.liveManager.userList)
+        {
+            if (user.role == YSUserType_Student)
+            {
+                total++;
+            }
+        }
+        NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];//用于传人数
+//        [weakSelf.responderView setPersonName:@"宁杰英"];
+        CGFloat progress = (10 - timeInterval) / 10.0f;
+        [weakSelf.responderView setProgress:progress];
+        if (timeInterval == 0)
+        {
+            [weakSelf.responderView showResponderWithType:YSTeacherResponderType_Result];
+            NSInteger total = 0;
+            for (YSRoomUser * user in weakSelf.liveManager.userList)
+            {
+                if (user.role == YSUserType_Student)
+                {
+                    total++;
+                }
+            }
+            NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+            [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];;//用于传人数
+            CGFloat progress = 1.0f;
+            [weakSelf.responderView setProgress:progress];
+            
+            if (self->contestCommitNumber == 0)
+            {
+                [weakSelf.responderView setPersonName:YSLocalized(@"Res.lab.fail")];
+                
+                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
+            }
+            if (self->contestCommitNumber > 0)
+            {
+                YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
+                [weakSelf.responderView setPersonName:user.nickName];
+                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
+                if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+                {
+                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                }
+            }
+            
+            
+        }
+    }];
+    
+}
+
+- (void)againClicked
+{
+    [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+    [self.responderView setProgress:0.0f];
+    autoUpPlatform = NO;
+}
+
+- (void)teacherResponderCloseClicked
+{
+    [self.liveManager sendSignalingTeacherToCloseResponderCompletion:nil];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherResponderCountDownKey];
+}
+
+- (void)handleSignalingContestCommitWithData:(NSDictionary *)data
+{
+    contestCommitNumber++;
+    NSInteger total = 0;
+    for (YSRoomUser * user in self.liveManager.userList)
+    {
+        if (user.role == YSUserType_Student)
+        {
+            total++;
+        }
+    }
+    NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+
+    [self.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(contestCommitNumber)] totalNumber:totalNumber];
+    if (contestCommitNumber == 1)
+    {
+        NSString *peerID = [data bm_stringForKey:@"peerId"];
+        contestPeerId = peerID;
+    }
+
+}
+
+
+#pragma mark -
+#pragma mark 计时器代理 YSTeacherTimerViewDelegate
+
+- (void)handleSignalingTeacherTimerShow
+{
+    self.teacherTimerView  = [[YSTeacherTimerView alloc] init];
+    [self.teacherTimerView showYSTeacherTimerViewInView:self.view
+                                   backgroundEdgeInsets:UIEdgeInsetsZero
+                                            topDistance:0];
+    [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
+    self.teacherTimerView.delegate = self;
+}
+
+/// 开始
+- (void)startWithTime:(NSInteger)time
+{
+    BMWeakSelf
+    defaultTime = time;
+    [self.liveManager sendSignalingStudentToShowTimerWithTime:time completion:nil];
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
+        [weakSelf.teacherTimerView showTimeInterval:timeInterval];
+        
+        if (timeInterval == 0)
+        {
+            [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
+        }
+    }];
+}
+
+/// 暂停继续
+- (void)pasueWithTime:(NSInteger)time pasue:(BOOL)pasue
+{
+    if (pasue)
+    {
+        [[BMCountDownManager manager] pauseCountDownIdentifier:YSTeacherTimerCountDownKey];
+        [self.liveManager sendSignalingTeacherToPauseTimerWithTime:time completion:nil];
+    }
+    else
+    {
+        [[BMCountDownManager manager] continueCountDownIdentifier:YSTeacherTimerCountDownKey];
+        [self.liveManager sendSignalingTeacherToContinueTimerWithTime:time completion:nil];
+    }
+}
+
+/// 计时中重置
+- (void)resetWithTIme:(NSInteger)time
+{
+    BMWeakSelf
+    defaultTime = time;
+    [self.liveManager sendSignalingTeacherToRestartTimerWithDefaultTime: defaultTime completion:nil];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherTimerCountDownKey];
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
+        [weakSelf.teacherTimerView showTimeInterval:timeInterval];
+        
+        if (timeInterval == 0)
+        {
+            [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
+        }
+    }];
+
+}
+
+- (void)againTimer
+{
+    
+    [self.liveManager sendSignalingTeacherToDeleteTimerCompletion:nil];
+
+}
+
+- (void)timerClose
+{
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherTimerCountDownKey];
+
+    [self.liveManager sendSignalingTeacherToDeleteTimerCompletion:nil];
+}
+- (void)handleSignalingDeleteTimerWithTime
+{
+    [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
+}
 
 #pragma mark -
 #pragma mark 聊天相关视图
@@ -4414,6 +4740,24 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
                                                     isBeginClass:self.liveManager.isBeginClass
                                                         isPubMsg:NO];
     [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[tDataDic1 bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
+}
+
+/// 正在举手上台的人员数组
+- (NSMutableArray<YSRoomUser *> *)raiseHandArray
+{
+    if (!_raiseHandArray) {
+        _raiseHandArray = [NSMutableArray array];
+    }
+    return _raiseHandArray;
+}
+
+/// 举过手的人员数组
+- (NSMutableArray<YSRoomUser *> *)haveRaiseHandArray
+{
+    if (!_haveRaiseHandArray) {
+        _haveRaiseHandArray = [NSMutableArray array];
+    }
+    return _haveRaiseHandArray;
 }
 
 @end

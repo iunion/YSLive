@@ -50,7 +50,7 @@
 
 //login
 "Login.Enter" = "登入";
-"Login.EnterRoom" = "進入房間";
+"Login.EnterRoom" = "進入";
 "Login.RoomIdPlaceHolder"    = "房間號";
 "Login.nickName"  = "昵稱";
 "Login.Role"      = "角色";
@@ -137,7 +137,7 @@
 "Button.jump" = "跳轉";
 "Button.Sign" = "簽到";
 "Button.vote" = "投票";
-
+"Button.AnswerSpeak" = "搶到上臺";
 
 "title.ToVote" = "發起投票";
 "title.Voting" = "投票中";
@@ -279,6 +279,12 @@
 "Res.lab.iget"="恭喜您已搶中";
 "Res.lab.noget"="無人搶答";
 "Res.lab.getting"="搶答中…";
+"Res.lab.get" = "搶答";
+
+"Res.lab.success" = "搶答成功";
+"Res.lab.fail" = "無人搶答";
+"Timer.btn.start" = "開始計時";
+"Timer.lab.end" = "計時結束";
 
 "netstate.excellent" = "優";
 "netstate.medium" = "中";
@@ -393,3 +399,6 @@
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "參會者";
+
+
+"Prompt.RaiseHand_classBegain" = "上課後才能舉手";

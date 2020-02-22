@@ -349,5 +349,14 @@
     return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:nil save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
 }
 
+
+- (BOOL)sendSignalingStudentContestCommitCompletion:(completion_block)completion
+{
+    NSDictionary *sendDic = @{@"peerId" : self.localUser.peerID};
+    
+//    return ([self.roomManager pubMsg:YSSignalingName_ContestCommit msgID:YSSignalingName_ContestCommit toID:YSRoomPubMsgTellAll data:nil save:NO extensionData:sendDic associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
+    
+    return ([self sendPubMsg:YSSignalingName_ContestCommit toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:NO completion:completion]);
+}
 @end
 

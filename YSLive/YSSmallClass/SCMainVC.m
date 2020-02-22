@@ -34,8 +34,8 @@
 
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
-
-
+#import "YSStudentResponder.h"
+#import "YSStudentTimerView.h"
 //上传图片的用途
 typedef NS_ENUM(NSInteger, SCUploadImageUseType) {
     /// 作为课件
@@ -90,6 +90,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 //右侧聊天视图宽度
 #define ChatViewWidth 284
 
+#define YSStudentResponderCountDownKey @"YSStudentResponderCountDownKey"
+#define YSStudentTimerCountDownKey     @"YSStudentTimerCountDownKey"
 @interface SCMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -134,6 +136,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     YSLiveRoomLayout defaultRoomLayout;
     
     BOOL needFreshVideoView;
+    NSInteger contestTouchOne;
 }
 
 /// 原keywindow
@@ -244,6 +247,12 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 ///上传图片的用途
 @property (nonatomic, assign)SCUploadImageUseType *uploadImageUseType;
 
+
+/// 举手按钮
+@property(nonatomic,strong)UIButton *raiseHandsBtn;
+
+@property (nonatomic, strong) YSStudentResponder *responderView;
+@property (nonatomic, strong) YSStudentTimerView *studentTimerView;
 @end
 
 @implementation SCMainVC
@@ -481,6 +490,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
 
+    //举手上台的按钮
+    [self.view addSubview:self.raiseHandsBtn];
+    
     // 会议默认视频布局
     if (self.appUseTheType == YSAppUseTheTypeMeeting)
     {
@@ -1274,6 +1286,44 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         //        [self.chatBtn addGestureRecognizer:panGestureRecognizer];
     }
     return _chatBtn;
+}
+
+- (UIButton *)raiseHandsBtn
+{
+    if (!_raiseHandsBtn)
+    {
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-45, 40, 40)];
+        [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
+        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
+        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateHighlighted];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
+        
+        [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+
+    }
+    return _raiseHandsBtn;
+}
+
+///举手上台
+- (void)raiseHandsButtonClick:(UIButton *)sender
+{
+    BMLog(@"举手上台");
+    if (self.liveManager.isBeginClass) {
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+    }
+    else{
+        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
+}
+///取消举手上台
+- (void)downHandsButtonClick:(UIButton *)sender
+{
+    BMLog(@"取消举手上台");
+    if (self.liveManager.isBeginClass) {
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    }
+    else{
+    }
 }
 
 
@@ -2468,7 +2518,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     // selected在回调前变化过了
     // true：使用前置摄像头；false：使用后置摄像头
-    [self.liveManager.roomManager selectCameraPosition:!btn.selected];
+        [self.liveManager.roomManager selectCameraPosition:!btn.selected];
 }
 
 /// 退出
@@ -3197,12 +3247,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
-            
-//            NSString * teacherId = [YSLiveManager shareInstance].teacher.peerID;
-            
+                        
             YSRoomUser *user = [[YSRoomUser alloc]initWithPeerId:fromId];
             
-//            if ([fromId isEqualToString:teacherId])
             if (user.role == YSUserType_Teacher || user.role == YSUserType_Assistant)
             {
                 self.rightChatView.allDisabledChat.hidden = !disablechat;
@@ -3224,6 +3271,17 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     // 举手上台
     if ([properties bm_containsObjectForKey:sUserRaisehand])
     {
+        BOOL raisehand = [properties bm_boolForKey:sUserRaisehand];
+        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+        
+        if (user.publishState>0 && raisehand)
+        {
+            videoView.isRaiseHand = YES;
+        }
+        else
+        {
+            videoView.isRaiseHand = NO;
+        }
     }
     
     // 发布媒体状态
@@ -4062,6 +4120,116 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
             [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserPublishstate value:@(publishState) completion:nil];
         }
     }
+}
+
+#pragma mark - 抢答器
+- (void)handleSignalingContest
+{
+    contestTouchOne = 0;
+    if (self.responderView)
+    {
+        [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+    }
+      
+    self.responderView = [[YSStudentResponder alloc] init];
+    [self.responderView showInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+    BMWeakSelf
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentResponderCountDownKey timeInterval:3 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        //        [weakSelf.responderView setPersonName:@"宁杰英"];
+        CGFloat progress = (3.0f - timeInterval) / 3.0f;
+        [weakSelf.responderView setProgress:progress];
+        [weakSelf.responderView setTitleName:[NSString stringWithFormat:@"%ld",(long)timeInterval]];
+        weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:50.0f];
+        if (timeInterval == 0)
+        {
+            [weakSelf.responderView setTitleName:YSLocalized(@"Res.lab.get")];
+            weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:26.0f];
+            
+            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:weakSelf action:@selector(getStudentResponder:)];
+            weakSelf.responderView.titleL.userInteractionEnabled = YES;
+            [weakSelf.responderView.titleL addGestureRecognizer:tap];
+        }
+        
+    }];
+    
+}
+
+/// 抢答
+- (void)getStudentResponder:(UITapGestureRecognizer *)sender
+{
+    if (contestTouchOne == 0)
+    {
+        [self.liveManager sendSignalingStudentContestCommitCompletion:nil];
+    }
+    contestTouchOne = 1;
+//    [self.responderView setTitleName:[NSString stringWithFormat:@"%@",@"dsffasdf\n抢答成功"]];
+//    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
+}
+
+-(void)handleSignalingStudentToCloseResponder
+{
+    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+}
+
+- (void)handleSignalingContestResultWithName:(NSString *)name
+{
+    if ([name bm_isNotEmpty])
+    {
+        [self.responderView setTitleName:[NSString stringWithFormat:@"%@\n%@",name,YSLocalized(@"Res.lab.success")]];
+    }
+    else
+    {
+        [self.responderView setTitleName:[NSString stringWithFormat:@"%@",YSLocalized(@"Res.lab.fail")]];
+    }
+
+    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
+}
+
+
+#pragma mark - 计时器
+
+- (void)handleSignalingStudentTimerWithTime:(NSInteger)time
+{
+    if (self.studentTimerView)
+    {
+        [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
+    }
+    
+    self.studentTimerView = [[YSStudentTimerView alloc] init];
+    [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+    
+    BMWeakSelf
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [weakSelf.studentTimerView showTimeInterval:timeInterval];
+    }];
+
+}
+
+- (void)handleSignalingStudentPauseTimerWithTime:(NSInteger)time
+{
+    [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
+}
+- (void)handleSignalingStudentContinueTimerWithTime:(NSInteger)time
+{
+    [[BMCountDownManager manager] continueCountDownIdentifier:YSStudentTimerCountDownKey];
+}
+
+- (void)handleSignalingStudentRestartTimerWithTime:(NSInteger)time
+{
+    
+    BMWeakSelf
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [weakSelf.studentTimerView showTimeInterval:timeInterval];
+    }];
+
+}
+
+- (void)handleSignalingDeleteTimerWithTime
+{
+    [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
 }
 
 #pragma mark - 打开相机  UIImagePickerController

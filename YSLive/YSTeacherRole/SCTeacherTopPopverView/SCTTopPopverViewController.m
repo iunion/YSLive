@@ -96,10 +96,10 @@
         return;
     }
     
-    CGFloat viewWidth = TopBarButtonWidth * 3;
+    CGFloat viewWidth = TopBarButtonWidth * 5;
     self.view.frame = CGRectMake(0, 0, viewWidth, TopBarButtonHeight);
     self.preferredContentSize = CGSizeMake(viewWidth, TopBarButtonHeight);
-    for (int i = 0; i<3; i++)
+    for (int i = 0; i<5; i++)
     {
         UIButton * button = [[UIButton alloc] init];
         CGFloat width = TopBarButtonWidth;
@@ -123,6 +123,17 @@
             [button setTitle:YSLocalized(@"UploadPhoto.FromGallery") forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Album"] forState:UIControlStateNormal];
         }
+        else if(i == 3)
+        {
+            [button setTitle:YSLocalized(@"tool.jishiqi") forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_timer"] forState:UIControlStateNormal];
+        }
+        else if(i == 4)
+        {
+            [button setTitle:YSLocalized(@"tool.qiangdaqi") forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_responder"] forState:UIControlStateNormal];
+        }
+
         
         [self moveButtonTitleAndImageWithButton:button];
 

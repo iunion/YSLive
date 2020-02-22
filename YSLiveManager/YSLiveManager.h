@@ -352,7 +352,29 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param answerId 答题ID
 - (void)handleSignalingDelAnswerResultWithAnswerId:(NSString *)answerId;
 
+/// 收到开始抢答 学生
+- (void)handleSignalingContest;
 
+/// 收到抢答学生
+- (void)handleSignalingContestCommitWithData:(NSDictionary *)data;
+/// 关闭抢答器
+- (void)handleSignalingStudentToCloseResponder;
+/// 收到抢答结果
+- (void)handleSignalingContestResultWithName:(NSString *)name;
+
+/// 老师收到计时器显示
+- (void)handleSignalingTeacherTimerShow;
+
+/// 学生收到计时器显示
+- (void)handleSignalingStudentTimerWithTime:(NSInteger)time;
+/// 暂停计时器
+- (void)handleSignalingStudentPauseTimerWithTime:(NSInteger)time;
+/// 继续计时器
+- (void)handleSignalingStudentContinueTimerWithTime:(NSInteger)time;
+/// 重置定时器
+- (void)handleSignalingStudentRestartTimerWithTime:(NSInteger)time;
+/// 关闭计时器
+- (void)handleSignalingDeleteTimerWithTime;
 
 /// 收到白板
 /// @param message 课件信息 （翻页，类型，ID等）
@@ -471,6 +493,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 修改答题卡答案
 - (BOOL)sendSignalingAnwserModifyWithAnswerId:(NSString *)answerId addAnwserResault:(nullable NSArray *)addAnwserResault  delAnwserResault:(nullable NSArray *)delAnwserResault notChangeAnwserResault:(nullable NSArray *)notChangeAnwserResault completion:(nullable completion_block)completion;
+
+/// 发送抢答
+- (BOOL)sendSignalingStudentContestCommitCompletion:(nullable completion_block)completion;
 
 @end
 
@@ -606,6 +631,38 @@ NS_ASSUME_NONNULL_BEGIN
 /// 结束答题结果
 - (BOOL)sendSignalingTeacherToDeleteAnswerPublicResultCompletion:(nullable completion_block)completion;
 
+/// 抢答器  开始
+- (BOOL)sendSignalingTeacherToStartResponderCompletion:(nullable completion_block)completion;
+/// 发布抢答器结果
+- (BOOL)sendSignalingTeacherToContestResultWithName:(NSString *)name completion:(nullable completion_block)completion;
+/// 关闭抢答器
+- (BOOL)sendSignalingTeacherToCloseResponderCompletion:(nullable completion_block)completion;
+
+/// fas计时器
+/// @param time 计时器时间
+/// @param isStatus 当前状态 暂停 继续
+/// @param isRestart 重置是否
+/// @param isShow 是否显示弹窗  老师第一次点击计时器传false  老师显示，老师点击开始计时，传true ，学生显示
+
+/// @param defaultTime 开始计时时间
+/// @param completion 回调
+
+/// 老师计时器显示
+- (BOOL)sendSignalingTeacherToShowTimerCompletion:(nullable completion_block)completion;
+/// 学生计时器显示
+- (BOOL)sendSignalingStudentToShowTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion;
+
+/// 老师计时器暂停
+- (BOOL)sendSignalingTeacherToPauseTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion;
+/// 老师计时器继续
+- (BOOL)sendSignalingTeacherToContinueTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion;
+/// 计时器中重置
+- (BOOL)sendSignalingTeacherToRestartTimerWithDefaultTime:(NSInteger)defaultTime completion:(nullable completion_block)completion;
+
+
+- (BOOL)sendSignalingTeacherToStartTimerWithTime:(NSInteger)time isStatus:(BOOL)isStatus isRestart:(BOOL)isRestart isShow:(BOOL)isShow defaultTime:(NSInteger)defaultTime completion:(nullable completion_block)completion;
+/// 结束计时
+- (BOOL)sendSignalingTeacherToDeleteTimerCompletion:(nullable completion_block)completion;
 @end
 
 
