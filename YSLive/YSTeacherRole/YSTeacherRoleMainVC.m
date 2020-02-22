@@ -1752,9 +1752,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 {
     NSMutableArray * userList = [NSMutableArray arrayWithArray:self.liveManager.userList];
     for (YSRoomUser * user in userList) {
-        if ([user.peerID isEqualToString:self.liveManager.teacher.peerID]) {
+        if (user.role != YSUserType_Student) {
             [userList removeObject:user];
-            break;
         }
     }
     self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,userList.count];
