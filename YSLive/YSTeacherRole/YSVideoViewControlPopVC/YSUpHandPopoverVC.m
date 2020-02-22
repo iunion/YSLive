@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
     UITableView * tabView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,95, 146)];
     [self.view addSubview:tabView];
     self.tabView = tabView;
@@ -51,12 +51,6 @@
     
     YSUpHandPopCell * cell = [YSUpHandPopCell cellWithTableView:tableView];
 
-    //在这里判断，看indexPath是否已经被选中,如果选中就将其对应的那一行的字体颜色设置为选中时的颜色，否则就是默认的颜色
-//    if ([_indexArray containsObject:indexPath]) {
-//        cell.textLabel.textColor = kMainColor;
-//    }else{
-//        cell.textLabel.textColor = [UIColor blackColor];
-//    }
     YSRoomUser * user = self.userArr[indexPath.row];
     
     cell.userModel = self.userArr[indexPath.row];
@@ -78,7 +72,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 24;
+    return 23;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [UIView new];
 }
 
 @end
