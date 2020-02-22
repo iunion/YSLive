@@ -16,13 +16,22 @@
 #import "YSLoginVC.h"
 #import "YSCoreStatus.h" //网络状态
 
-#import <HockeySDK/HockeySDK.h>
+//#import <HockeySDK/HockeySDK.h>
 
+#define Ues_Bugly   1
+
+#if YSCUSTOMIZED_WSKJ
+#undef Ues_Bugly
+#define Ues_Bugly   0
+#endif
+
+#if Ues_Bugly
 #import <Bugly/Bugly.h>
+#endif
 
 @interface AppDelegate ()
 <
-    BITHockeyManagerDelegate,
+    //BITHockeyManagerDelegate,
     YSCoreNetWorkStatusProtocol
 >
 
@@ -45,7 +54,9 @@
     self.allowRotation = YES;
     
     //[self crashManager];
+#if Ues_Bugly
     [Bugly startWithAppId:@"55ff7e6968"];
+#endif
     
 #if USE_TEST_HELP
     [YSTestHelp sharedInstance];
@@ -83,18 +94,18 @@
     return YES;
 }
 
-- (void)crashManager
-{
-    //注册HockeySDK
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:CRASH_IDENTIFIER
-                                                           delegate:self];
-    [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelWarning;
-    [BITHockeyManager sharedHockeyManager].serverURL = CRASH_REPORT_ADDRESS;
-    
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-    [[BITHockeyManager sharedHockeyManager].crashManager setCrashManagerStatus: BITCrashManagerStatusAutoSend];
-}
+//- (void)crashManager
+//{
+//    //注册HockeySDK
+//    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:CRASH_IDENTIFIER
+//                                                           delegate:self];
+//    [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelWarning;
+//    [BITHockeyManager sharedHockeyManager].serverURL = CRASH_REPORT_ADDRESS;
+//
+//    [[BITHockeyManager sharedHockeyManager] startManager];
+//    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+//    [[BITHockeyManager sharedHockeyManager].crashManager setCrashManagerStatus: BITCrashManagerStatusAutoSend];
+//}
 
 /// 强制应用只能响应竖屏
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
@@ -235,7 +246,7 @@
 
 #pragma mark -
 #pragma mark BITCrashManagerDelegate
-
+#if 0
 - (BOOL)didCrashInLastSessionOnStartup
 {
     return ([[BITHockeyManager sharedHockeyManager].crashManager didCrashInLastSession] &&
@@ -268,7 +279,7 @@
         
     }
 }
-
+#endif
 
 #pragma mark - network status
 
