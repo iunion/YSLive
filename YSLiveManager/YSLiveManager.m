@@ -828,7 +828,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     BOOL isHighDevice = [self devicePlatformHighEndEquipment];
 
-    if (isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID]) {
+    if (!self.isBeginClass || isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
+    {
         return [self.roomManager playVideo:peerID renderType:renderType window:view completion:completion];
     }
     else
@@ -2277,7 +2278,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPhone6,2"])    return NO;
     if ([platform isEqualToString:@"iPhone7,1"])    return NO;
     if ([platform isEqualToString:@"iPhone7,2"])    return NO;
-
+    
     // iPod
     if ([platform isEqualToString:@"iPod1,1"])      return NO;
     if ([platform isEqualToString:@"iPod2,1"])      return NO;

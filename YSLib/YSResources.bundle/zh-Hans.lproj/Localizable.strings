@@ -400,3 +400,4 @@
 
 "Prompt.RaiseHand_classBegain" = "上课后才能举手";
 
+"Prompt.LowDeviceTitle" = "设备性能过低，无法显示更多视频";

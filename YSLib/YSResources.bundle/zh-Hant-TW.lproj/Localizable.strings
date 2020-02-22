@@ -402,3 +402,6 @@
 
 
 "Prompt.RaiseHand_classBegain" = "上課後才能舉手";
+
+
+"Prompt.LowDeviceTitle" = "設備效能過低，無法顯示更多視頻";

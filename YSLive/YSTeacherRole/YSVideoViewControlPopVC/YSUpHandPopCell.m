@@ -51,17 +51,13 @@
     self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
     self.nickNameLab.font = UI_FONT_14;
     [self.contentView addSubview:_nickNameLab];
-    
-    self.nickNameLab.backgroundColor = UIColor.redColor;
-    
+        
     //选中标识
     self.headBtn = [[UIButton alloc] initWithFrame:CGRectMake(95-25, 5, 15,15)];
     [self.headBtn addTarget:self action:@selector(buttonclick:) forControlEvents:UIControlEventTouchUpInside];
     [self.headBtn setImage:[UIImage imageNamed:@"downPlatform_hand"] forState:UIControlStateNormal];
     [self.headBtn setImage:[UIImage imageNamed:@"upPlatform_hand"] forState:UIControlStateSelected];
     [self.contentView addSubview:self.headBtn];
-    
-    [self.headBtn setBackgroundColor:UIColor.yellowColor];
 }
 
 - (void)buttonclick:(UIButton *)sender

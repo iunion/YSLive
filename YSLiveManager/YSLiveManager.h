@@ -176,8 +176,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 房间内各身份人数
 - (NSUInteger)userCountWithUserRole:(YSUserRoleType)role;
 
-//- (void)joinRoomWithUrl:(NSString *)url;
-
 - (YSFileModel *)getFileWithFileID:(NSString *)fileId;
 
 @end

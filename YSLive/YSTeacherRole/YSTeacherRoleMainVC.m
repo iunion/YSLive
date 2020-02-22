@@ -1753,13 +1753,22 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 ///刷新举手上台的人数
 - (void)raiseHandReloadData
 {
-    NSMutableArray * userList = [NSMutableArray arrayWithArray:self.liveManager.userList];
-    for (YSRoomUser * user in userList) {
+//    NSMutableArray * userList = [NSMutableArray arrayWithArray:self.liveManager.userList];
+    
+    NSInteger userNum = self.liveManager.userList.count;
+    
+    for (YSRoomUser * user in self.liveManager.userList) {
         if (user.role != YSUserType_Student) {
-            [userList removeObject:user];
+            userNum --;
         }
     }
-    self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,userList.count];
+    
+    if (userNum<0)
+    {
+        userNum = 0;
+    }
+    
+    self.handNumLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)self.raiseHandArray.count,(long)userNum];
 }
 
 

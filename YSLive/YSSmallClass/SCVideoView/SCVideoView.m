@@ -203,12 +203,11 @@
     //设备性能低时的蒙版
     self.lowDeviceBgView = [[UIView alloc] init];
     self.lowDeviceBgView.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
-    
     [self.backVideoView addSubview:self.lowDeviceBgView];
     
     BOOL isHighDevice = [[YSLiveManager shareInstance] devicePlatformHighEndEquipment];
-
-    if (isHighDevice || self.roomUser.role == YSUserType_Teacher || [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID]) {
+    if (isHighDevice || self.roomUser.role == YSUserType_Teacher || [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    {
         self.lowDeviceBgView.hidden = YES;
     }
     else
@@ -216,16 +215,18 @@
         self.lowDeviceBgView.hidden = NO;
     }
     
-    
-    //奖杯个数
-    self.lowDeviceTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
-    self.lowDeviceTitle.backgroundColor = [UIColor clearColor];
-    self.lowDeviceTitle.font = UI_FONT_14;
-    self.lowDeviceTitle.text = @"× 0";
-    self.lowDeviceTitle.textColor = [UIColor bm_colorWithHexString:@"#FFE895"];
-    self.lowDeviceTitle.adjustsFontSizeToFitWidth = YES;
-    self.lowDeviceTitle.minimumScaleFactor = 0.3;
-    [self.lowDeviceBgView addSubview:self.lowDeviceTitle];
+    //设备性能低时的蒙版上的文字
+    UILabel * lowDeviceTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
+    lowDeviceTitle.backgroundColor = [UIColor clearColor];
+    lowDeviceTitle.font = UI_FONT_14;
+    lowDeviceTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+    lowDeviceTitle.textColor = UIColor.whiteColor;
+    lowDeviceTitle.adjustsFontSizeToFitWidth = YES;
+    lowDeviceTitle.minimumScaleFactor = 0.3;
+    lowDeviceTitle.numberOfLines = 0;
+    lowDeviceTitle.textAlignment = NSTextAlignmentCenter;
+    [self.lowDeviceBgView addSubview:lowDeviceTitle];
+    self.lowDeviceTitle = lowDeviceTitle;
     
     
     //奖杯
@@ -340,6 +341,8 @@
     self.maskCloseVideoBgView.frame = self.bounds;
     self.homeMaskBtn.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
+    self.lowDeviceBgView.frame = self.bounds;
+    self.lowDeviceTitle.frame = CGRectMake(5, 10, self.bm_width-10, self.bm_height-25) ;
     
     CGFloat imageWidth = frame.size.height*0.3f;
     if (imageWidth > self.maskCloseVideo.image.size.width)
