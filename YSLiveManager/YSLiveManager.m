@@ -827,8 +827,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 - (int)playVideoOnView:(UIView *)view withPeerId:(NSString *)peerID renderType:(YSRenderMode)renderType completion:(completion_block)completion
 {
     BOOL isHighDevice = [self devicePlatformHighEndEquipment];
-
-    if (!self.isBeginClass || isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
+    
+    if (self.room_UseTheType != YSAppUseTheTypeSmallClass || !self.isBeginClass || isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
     {
         return [self.roomManager playVideo:peerID renderType:renderType window:view completion:completion];
     }
