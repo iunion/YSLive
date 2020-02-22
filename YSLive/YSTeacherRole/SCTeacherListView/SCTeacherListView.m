@@ -291,25 +291,25 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         label.text = str;
     }
     [view addSubview:label];
-    
-    UIButton * cycleTitleBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(label.frame) + 20, 5, 125, 30)];
-    [cycleTitleBtn setTitle:@"启动视频轮播" forState:UIControlStateNormal];
-    [cycleTitleBtn setBackgroundImage:[UIImage imageNamed:@"permissions_BtnSelect"] forState:UIControlStateNormal];
-    [cycleTitleBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    [cycleTitleBtn addTarget:self action:@selector(cycleTitleBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [cycleTitleBtn.titleLabel setFont:UI_FONT_14];
-    [view addSubview:cycleTitleBtn];
-    
-    label.backgroundColor = UIColor.greenColor;
-    [cycleTitleBtn setBackgroundColor:UIColor.greenColor];
-    
-    UILabel * studentNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(ListView_Width-100, 0, 100, 40)];
-    studentNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-    studentNumLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
-    studentNumLabel.font = UI_FONT_14;
-    
-    [view addSubview:studentNumLabel];
-    self.studentNumLabel = studentNumLabel;
+//
+//    UIButton * cycleTitleBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(label.frame) + 20, 5, 125, 30)];
+//    [cycleTitleBtn setTitle:@"启动视频轮播" forState:UIControlStateNormal];
+//    [cycleTitleBtn setBackgroundImage:[UIImage imageNamed:@"permissions_BtnSelect"] forState:UIControlStateNormal];
+//    [cycleTitleBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+//    [cycleTitleBtn addTarget:self action:@selector(cycleTitleBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [cycleTitleBtn.titleLabel setFont:UI_FONT_14];
+//    [view addSubview:cycleTitleBtn];
+//
+//    label.backgroundColor = UIColor.greenColor;
+//    [cycleTitleBtn setBackgroundColor:UIColor.greenColor];
+//
+//    UILabel * studentNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(ListView_Width-100, 0, 100, 40)];
+//    studentNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+//    studentNumLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
+//    studentNumLabel.font = UI_FONT_14;
+//
+//    [view addSubview:studentNumLabel];
+//    self.studentNumLabel = studentNumLabel;
     return view;
 }
 
