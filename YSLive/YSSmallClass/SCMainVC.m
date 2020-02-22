@@ -927,6 +927,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 - (void)setupContentView
 {
     [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
+    [[YSLiveManager shareInstance].roomManager setLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
     
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];

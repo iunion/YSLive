@@ -718,7 +718,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 - (void)setupContentView
 {
     [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
-    
+    [[YSLiveManager shareInstance].roomManager setLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
+
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
     contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
