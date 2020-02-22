@@ -80,7 +80,7 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 /// 变更白板content背景色
 - (void)changeWhiteBoardBackgroudColor:(UIColor *)color;
 /// 变更白板画板背景色
-//- (void)changeFileViewBackgroudColor:(UIColor *)color;
+- (void)changeFileViewBackgroudColor:(UIColor *)color;
 /// 变更白板背景图
 - (void)changeWhiteBoardBackImage:(nullable UIImage *)image;
 
