@@ -624,7 +624,6 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
             [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
                 dragView.frame = currentFrame;
             }];
-            
             return;
         }
         
@@ -673,8 +672,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
      [self.view addSubview:raiseHandsBtn];
     
     UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, CGRectGetMaxY(raiseHandsBtn.frame), 40, 15)];
-//    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
-    handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,self.liveManager.userList.count];
+
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = UIColor.whiteColor;
     handNumLab.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
@@ -683,6 +681,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     handNumLab.textAlignment = NSTextAlignmentCenter;
     self.handNumLab = handNumLab;
     [self.view addSubview:handNumLab];
+    
+    [self raiseHandReloadData];
 }
 
 - (void)raiseHandsButtonClick:(UIButton *)sender
@@ -1710,6 +1710,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     }
     [self freshTeacherPersonListData];
     
+   [self raiseHandReloadData];
+    
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
@@ -1727,6 +1729,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     }
     
     [self freshTeacherPersonListData];
+    
+    [self raiseHandReloadData];
 }
 
 /// 自己被踢出房间
@@ -1745,6 +1749,19 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     
     [self kickedOutFromRoom:reasonCode];
 }
+
+///刷新举手上台的人数
+- (void)raiseHandReloadData
+{
+    NSMutableArray * userList = [NSMutableArray arrayWithArray:self.liveManager.userList];
+    for (YSRoomUser * user in userList) {
+        if (user.role != YSUserType_Student) {
+            [userList removeObject:user];
+        }
+    }
+    self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,userList.count];
+}
+
 
 #pragma mark - 用户属性变化
 
@@ -1782,10 +1799,10 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
                [self.raiseHandArray removeObject:user];
                self.upHandPopTableView.userArr = self.raiseHandArray;
            }
-//           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,(unsigned long)self.haveRaiseHandArray.count];
-           self.handNumLab.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.raiseHandArray.count,self.liveManager.userList.count];
            
-            self.raiseHandsBtn.selected = (self.raiseHandArray.count > 0);
+           self.raiseHandsBtn.selected = [self.raiseHandArray bm_isNotEmpty];
+           
+           [self raiseHandReloadData];
        }
     
     // 奖杯数
@@ -2994,7 +3011,6 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     [UIView animateWithDuration:0.25 animations:^{
         self.teacherListView.frame = tempRect;
     }];
-    
 }
 
 /// 退出
