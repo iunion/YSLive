@@ -816,6 +816,8 @@
             make.centerX.mas_equalTo(0);
         }];
 
+        roomID = self.roomTextField.inputTextField.text;
+        nickName = self.nickNameTextField.inputTextField.text;
         if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty])
         {
             self.joinRoomBtn.enabled = YES;
