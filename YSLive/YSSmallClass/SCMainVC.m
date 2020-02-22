@@ -2046,12 +2046,20 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         renderType = YSRenderMode_fit;
     }
     
+//    BOOL isHighDevice = [self.liveManager devicePlatformHighEndEquipment];
+    
     if (publishState == YSUser_PublishState_VIDEOONLY)
     {
         if (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH)
         {
-            //[self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
+            
+//            if (isHighDevice) {
+                [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
+//            }
+//            else
+//            {
+//                [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+//            }
             [videoView bringSubviewToFront:videoView.backVideoView];
         }
         [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
@@ -2066,7 +2074,14 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         if (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH)
         {
             //[self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
+//            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
+//            if (isHighDevice) {
+                [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
+//            }
+//            else
+//            {
+//                [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+//            }
             [videoView bringSubviewToFront:videoView.backVideoView];
         }
         [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];

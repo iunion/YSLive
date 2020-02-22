@@ -21,7 +21,7 @@
 #import "NSURLProtocol+YSWhiteBoard.h"
 #endif
 
-
+#include <sys/sysctl.h>
 @interface YSLiveManager ()
 <
     YSRoomInterfaceDelegate,
@@ -826,7 +826,15 @@ static YSLiveManager *liveManagerSingleton = nil;
 // 打开视频
 - (int)playVideoOnView:(UIView *)view withPeerId:(NSString *)peerID renderType:(YSRenderMode)renderType completion:(completion_block)completion
 {
-    return [self.roomManager playVideo:peerID renderType:renderType window:view completion:completion];
+    BOOL isHighDevice = [self devicePlatformHighEndEquipment];
+
+    if (isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID]) {
+        return [self.roomManager playVideo:peerID renderType:renderType window:view completion:completion];
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 // 关闭视频
@@ -2237,4 +2245,71 @@ static YSLiveManager *liveManagerSingleton = nil;
     return authStatus == AVAuthorizationStatusAuthorized;
 }
 
+
+- (NSString *)devicePlatform
+{
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithUTF8String:machine];
+    free(machine);
+    return platform;
+}
+
+//判断设备是否是高端机型，能否支持多人上台
+- (BOOL)devicePlatformHighEndEquipment
+{
+    NSString *platform = [self devicePlatform];
+    // iPhone
+    if ([platform isEqualToString:@"iPhone1,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone1,2"])    return NO;
+    if ([platform isEqualToString:@"iPhone2,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone3,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone3,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone3,3"])    return NO;
+    if ([platform isEqualToString:@"iPhone4,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone5,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone5,2"])    return NO;
+    if ([platform isEqualToString:@"iPhone5,3"])    return NO;
+    if ([platform isEqualToString:@"iPhone5,4"])    return NO;
+    if ([platform isEqualToString:@"iPhone6,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone6,2"])    return NO;
+    if ([platform isEqualToString:@"iPhone7,1"])    return NO;
+    if ([platform isEqualToString:@"iPhone7,2"])    return NO;
+
+    // iPod
+    if ([platform isEqualToString:@"iPod1,1"])      return NO;
+    if ([platform isEqualToString:@"iPod2,1"])      return NO;
+    if ([platform isEqualToString:@"iPod3,1"])      return NO;
+    if ([platform isEqualToString:@"iPod4,1"])      return NO;
+    if ([platform isEqualToString:@"iPod5,1"])      return NO;
+    if ([platform isEqualToString:@"iPod7,1"])      return NO;
+    // iPad
+    if ([platform isEqualToString:@"iPad1,1"])      return NO;
+    if ([platform isEqualToString:@"iPad2,1"])      return NO;
+    if ([platform isEqualToString:@"iPad2,2"])      return NO;
+    if ([platform isEqualToString:@"iPad2,3"])      return NO;
+    if ([platform isEqualToString:@"iPad2,4"])      return NO;
+    if ([platform isEqualToString:@"iPad3,1"])      return NO;
+    if ([platform isEqualToString:@"iPad3,2"])      return NO;
+    if ([platform isEqualToString:@"iPad3,3"])      return NO;
+    if ([platform isEqualToString:@"iPad3,4"])      return NO;
+    if ([platform isEqualToString:@"iPad3,5"])      return NO;
+    if ([platform isEqualToString:@"iPad3,6"])      return NO;
+    if ([platform isEqualToString:@"iPad4,1"])      return NO;
+    if ([platform isEqualToString:@"iPad4,2"])      return NO;
+    if ([platform isEqualToString:@"iPad4,3"])      return NO;
+    if ([platform isEqualToString:@"iPad5,3"])      return NO;
+    if ([platform isEqualToString:@"iPad5,4"])      return NO;
+    // iPad mini
+    if ([platform isEqualToString:@"iPad2,5"])      return NO;
+    if ([platform isEqualToString:@"iPad2,6"])      return NO;
+    if ([platform isEqualToString:@"iPad2,7"])      return NO;
+    
+    return YES;
+}
+
+    
+    
 @end

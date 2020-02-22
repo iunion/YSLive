@@ -51,6 +51,11 @@
 ///举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
 
+///设备性能低时的蒙版
+@property (nonatomic, strong) UIView *lowDeviceBgView;
+///设备性能低时的蒙版上的文字
+@property (nonatomic, strong) UILabel *lowDeviceTitle;
+
 
 @end
 
@@ -194,6 +199,34 @@
     self.maskNoVideo.contentMode = UIViewContentModeScaleAspectFit;
     self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#EDEDED"];
     [self.backVideoView addSubview:self.maskNoVideo];
+    
+    //设备性能低时的蒙版
+    self.lowDeviceBgView = [[UIView alloc] init];
+    self.lowDeviceBgView.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
+    
+    [self.backVideoView addSubview:self.lowDeviceBgView];
+    
+    BOOL isHighDevice = [[YSLiveManager shareInstance] devicePlatformHighEndEquipment];
+
+    if (isHighDevice || self.roomUser.role == YSUserType_Teacher || [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID]) {
+        self.lowDeviceBgView.hidden = YES;
+    }
+    else
+    {
+        self.lowDeviceBgView.hidden = NO;
+    }
+    
+    
+    //奖杯个数
+    self.lowDeviceTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
+    self.lowDeviceTitle.backgroundColor = [UIColor clearColor];
+    self.lowDeviceTitle.font = UI_FONT_14;
+    self.lowDeviceTitle.text = @"× 0";
+    self.lowDeviceTitle.textColor = [UIColor bm_colorWithHexString:@"#FFE895"];
+    self.lowDeviceTitle.adjustsFontSizeToFitWidth = YES;
+    self.lowDeviceTitle.minimumScaleFactor = 0.3;
+    [self.lowDeviceBgView addSubview:self.lowDeviceTitle];
+    
     
     //奖杯
     self.cupImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
