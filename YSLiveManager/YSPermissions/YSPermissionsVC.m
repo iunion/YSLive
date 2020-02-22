@@ -94,6 +94,28 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
 
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
+
+    ///查看麦克风权限
+    BOOL isOpenMicrophone = [self microphonePermissionsService];
+    if (!isOpenMicrophone)
+    {
+        AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+        if (videoAuthStatus == AVAuthorizationStatusNotDetermined)
+        {// 未询问用户是否授权
+            //第一次询问用户是否进行授权
+            [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+                // CALL YOUR METHOD HERE - as this assumes being called only once from user interacting with permission alert!
+                if (granted)
+                {
+                    // Microphone enabled code
+                }
+                else
+                {
+                    // Microphone disabled code
+                }
+            }];
+        }
+    }
     
     /// 白色展示区
     UIView *whiteView = [[UIView alloc]init];
