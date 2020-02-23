@@ -115,7 +115,7 @@
 /// 抢答结果
 #define YSSignalingName_ContestResult          @"ContestResult"
 /// 关闭抢答
-#define YSSignalingName_delContest             @"delContest"
+#define YSSignalingName_delContest             @"DelContest"
 #define YSSignalingName_Timer             @"timer"
 #pragma mark -
 #pragma mark whiteBordSignaling
