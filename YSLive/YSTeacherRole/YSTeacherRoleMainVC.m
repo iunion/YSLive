@@ -1753,16 +1753,14 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 ///刷新举手上台的人数
 - (void)raiseHandReloadData
 {
-//    NSMutableArray * userList = [NSMutableArray arrayWithArray:self.liveManager.userList];
-    
     NSInteger userNum = self.liveManager.userList.count;
     
     for (YSRoomUser * user in self.liveManager.userList) {
-        if (user.role != YSUserType_Student) {
+        if (user.role != YSUserType_Student)
+        {
             userNum --;
         }
     }
-    
     if (userNum<0)
     {
         userNum = 0;
@@ -1807,10 +1805,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
            {//取消举手上台
                [self.raiseHandArray removeObject:user];
                self.upHandPopTableView.userArr = self.raiseHandArray;
+               
+               if (self.raiseHandArray.count<1) {
+                   [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+               }
            }
-           
            self.raiseHandsBtn.selected = [self.raiseHandArray bm_isNotEmpty];
-           
            [self raiseHandReloadData];
        }
     
@@ -3122,9 +3122,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
     [self presentViewController:self.topbarPopoverView animated:YES completion:nil];///present即可
     popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
-
     [self.topbarPopoverView freshUIWithType:type isMeeting:self.appUseTheType == YSAppUseTheTypeMeeting];
-    
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate
