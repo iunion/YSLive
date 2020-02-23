@@ -113,7 +113,7 @@
     }
 
     /// 当前状态: buttonstatus 0未开始 1进教室 2去评价 回放 3回放
-    /// classstatus
+    /// classstatus 0结束 1进行中 2未开始 
     if ([dic bm_containsObjectForKey:@"buttonstatus"])
     {
         self.classState = [dic bm_uintForKey:@"buttonstatus"];
