@@ -199,6 +199,7 @@
     [self.bacImageView addSubview:self.startBtn];
     self.startBtn.frame = CGRectMake(0, self.bacImageView.bm_height - 50, self.bacImageView.bm_width, 40);
     [self.startBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.startBtn setTitleColor:[UIColor bm_colorWithHex:0x333333 alpha:0.5] forState:UIControlStateDisabled];
     self.startBtn.titleLabel.font = [UIFont systemFontOfSize:18.0f];
     
     
@@ -379,6 +380,17 @@
         self.minute = maxMinute;
     }
     self.minuteL.text = [NSString stringWithFormat:@"%02ld", (long)self.minute];
+    NSInteger time = self.minute * 60 + self.second;
+    if (time == 0)
+    {
+        self.startBtn.enabled = NO;
+    }
+    else
+    {
+        self.startBtn.enabled = YES;
+    }
+
+    
 }
 
 - (void)minuteDownBtnClicked:(UIButton *)btn
@@ -392,6 +404,16 @@
         self.minuteDownBtn.enabled = NO;
     }
     self.minuteL.text = [NSString stringWithFormat:@"%02ld",(long)self.minute];
+    NSInteger time = self.minute * 60 + self.second;
+    if (time == 0)
+    {
+        self.startBtn.enabled = NO;
+    }
+    else
+    {
+        self.startBtn.enabled = YES;
+    }
+
 }
 
 - (void)secondUpBtnClicked:(UIButton *)btn
@@ -405,6 +427,16 @@
         self.second = maxSecond;
     }
     self.secondL.text = [NSString stringWithFormat:@"%02ld",(long)self.second];
+    NSInteger time = self.minute * 60 + self.second;
+    if (time == 0)
+    {
+        self.startBtn.enabled = NO;
+    }
+    else
+    {
+        self.startBtn.enabled = YES;
+    }
+
 }
 
 - (void)secondDownBtnClicked:(UIButton *)btn
@@ -418,11 +450,27 @@
         self.secondDownBtn.enabled = NO;
     }
     self.secondL.text = [NSString stringWithFormat:@"%02ld",(long)self.second];
+    NSInteger time = self.minute * 60 + self.second;
+    if (time == 0)
+    {
+        self.startBtn.enabled = NO;
+    }
+    else
+    {
+        self.startBtn.enabled = YES;
+    }
+
 }
 
 - (void)startBtnClicked:(UIButton *)btn
 {
     //开始
+    NSInteger time = self.minute * 60 + self.second;
+    if (time == 0)
+    {
+        btn.enabled = NO;
+        return;
+    }
     if ([self.delegate respondsToSelector:@selector(startWithTime:)])
     {
         NSInteger time = self.minute * 60 + self.second;
