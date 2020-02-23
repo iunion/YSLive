@@ -789,6 +789,7 @@
                     if (self.tCurrentTime != ts)
                     {
                         time = time - (self.tCurrentTime - ts);
+                        time = time < 0 ? 0 : time;
                     }
 
                     /// 开始计时    重置以后直接开始计时
@@ -811,6 +812,7 @@
                     if (self.tCurrentTime != ts)
                     {
                         time = time - (self.tCurrentTime - ts);
+                        time = time < 0 ? 0 : time;
                     }
 
                     /// 继续
@@ -824,6 +826,7 @@
                     if (self.tCurrentTime != ts)
                     {
                         time = time - (self.tCurrentTime - ts);
+                        time = time < 0 ? 0 : time;
                     }
 
                     /// 开始计时    重置以后先暂停开始计时

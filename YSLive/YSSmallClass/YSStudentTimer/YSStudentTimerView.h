@@ -9,12 +9,21 @@
 #import <BMKit/BMKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSInteger, YSStudentTimerViewType)
+{
+    /// 计时中
+    YSStudentTimerViewType_Ing,
+    /// 计时结束
+    YSStudentTimerViewType_End,
+
+};
 
 @interface YSStudentTimerView : BMNoticeView
 - (void)showYSStudentTimerViewInView:(UIView *)inView
                 backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
                          topDistance:(CGFloat)topDistance;
 - (void)showTimeInterval:(NSInteger)timeInterval;
+- (void)showResponderWithType:(YSStudentTimerViewType)timerType;
 @end
 
 NS_ASSUME_NONNULL_END

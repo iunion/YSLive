@@ -27,6 +27,10 @@
 @property (nonatomic, strong) UILabel *secondL;
 
 
+@property (nonatomic, strong) UILabel *endTitleL;
+@property (nonatomic, strong) UIImageView *endImageV;
+
+
 @end
 
 @implementation YSStudentTimerView
@@ -124,6 +128,17 @@
     self.secondL.layer.cornerRadius = 3;
     self.secondL.layer.masksToBounds = YES;
     self.secondL.text = @"00";
+    
+    self.endTitleL = [[UILabel alloc] init];
+    [self.bacImageView addSubview:self.endTitleL];
+    self.endTitleL.textAlignment= NSTextAlignmentCenter;
+    self.endTitleL.textColor = [UIColor bm_colorWithHex:0x6D7278];
+    self.endTitleL.font = [UIFont systemFontOfSize:20.0f];
+    self.endTitleL.text = YSLocalized(@"Timer.lab.end");
+
+    self.endImageV = [[UIImageView alloc] init];
+    [self.endImageV setImage:[UIImage imageNamed:@"teacherTimer_end"]];
+    [self.bacImageView addSubview:self.endImageV];
 
 }
 
@@ -138,4 +153,40 @@
 {
     [self dismiss:nil animated:NO dismissBlock:nil];
 }
+
+- (void)showResponderWithType:(YSStudentTimerViewType)timerType
+{
+    if (timerType == YSStudentTimerViewType_Ing)
+    {
+        //计时中
+
+        [self.bacImageView setImage:[UIImage imageNamed:@"teacherTimer_backimg"]];//teacherTimer_backimg
+        self.endTitleL.hidden = YES;
+        self.endImageV.hidden = YES;
+        
+        self.minuteL.hidden = NO;
+        self.secondL.hidden = NO;
+        self.intervalL.hidden = NO;
+    }
+    else if (timerType == YSStudentTimerViewType_End)
+    {
+        //计时结束
+        [self.bacImageView setImage:[UIImage imageNamed:@"teacherTimer_backimg"]];//teacherTimer_backimg
+        self.endTitleL.hidden = NO;
+        self.endImageV.hidden = NO;
+        self.minuteL.hidden = YES;
+        self.secondL.hidden = YES;
+        self.intervalL.hidden = YES;
+        
+        self.endImageV.frame = CGRectMake(0, 0, 24, 29);
+        self.endImageV.bm_top = self.titleL.bm_bottom + 15;
+        self.endImageV.bm_centerX = self.titleL.bm_centerX;
+        
+        self.endTitleL.frame = CGRectMake(0, 0, 100, 28);
+        self.endTitleL.bm_centerX = self.titleL.bm_centerX;
+        self.endTitleL.bm_top = self.endImageV.bm_bottom + 5;
+    }
+}
+
+
 @end

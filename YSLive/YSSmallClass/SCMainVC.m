@@ -4198,15 +4198,13 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 /// 收到计时器开始计时 或暂停计时
 - (void)handleSignalingTimerWithTime:(NSInteger)time pause:(BOOL)pause defaultTime:(NSInteger)defaultTime
 {
-//    if (self.studentTimerView)
-//    {
-//        [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
-//    }
-    if (!self.studentTimerView)
+    if (self.studentTimerView)
     {
-        self.studentTimerView = [[YSStudentTimerView alloc] init];
-        [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+        [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
+
     }
+    self.studentTimerView = [[YSStudentTimerView alloc] init];
+    [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
 
     [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
     if (!pause)
@@ -4214,15 +4212,28 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
            BMWeakSelf
            [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
                [weakSelf.studentTimerView showTimeInterval:timeInterval];
+               if (timeInterval == 0)
+               {
+                   [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+               }
            }];
 
            [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
        }
        else
        {
+           if (time == 0)
+           {
+               [self.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+           }
+
            BMWeakSelf
            [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
                [weakSelf.studentTimerView showTimeInterval:timeInterval];
+               if (timeInterval == 0)
+               {
+                   [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+               }
            }];
 
        }
@@ -4241,6 +4252,10 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     BMWeakSelf
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         [weakSelf.studentTimerView showTimeInterval:timeInterval];
+        if (timeInterval == 0)
+        {
+            [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+        }
     }];
     [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
 
@@ -4253,9 +4268,18 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         self.studentTimerView = [[YSStudentTimerView alloc] init];
         [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     }
+    if (time == 0)
+    {
+        [self.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+    }
+
     BMWeakSelf
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         [weakSelf.studentTimerView showTimeInterval:timeInterval];
+        if (timeInterval == 0)
+        {
+            [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+        }
     }];
     [[BMCountDownManager manager] continueCountDownIdentifier:YSStudentTimerCountDownKey];
 }
