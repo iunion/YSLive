@@ -254,7 +254,7 @@
                                 liveManager.tServiceTime = serverTime;
                                 NSString *message = @"";
                                 BOOL stop = NO;
-                                if ((liveManager.tCurrentTime - classModel.endTime) <= 30*60)
+                                if ((liveManager.tCurrentTime - classModel.endTime) >= 30*60)
                                 {
                                     stop = YES;
                                     classModel.classState = YSClassState_End;
