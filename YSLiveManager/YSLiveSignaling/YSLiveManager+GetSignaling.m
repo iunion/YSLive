@@ -777,68 +777,85 @@
         
         if ([dataDic bm_isNotEmptyDictionary])
         {
-            
-            
-            
-            
             NSInteger defaultTime = [dataDic bm_intForKey:@"defaultTime"];
             NSInteger time = [dataDic bm_intForKey:@"time"];
-            if ([dataDic bm_containsObjectForKey:@"isShow"])
+            BOOL isShow = [dataDic bm_boolForKey:@"isShow"];
+            BOOL isStatus = [dataDic bm_boolForKey:@"isStatus"];
+            BOOL isRestart = [dataDic bm_boolForKey:@"isRestart"];
+
+            if (isShow)
             {
-                BOOL isShow = [dataDic bm_boolForKey:@"isShow"];
-                if (isShow)
+                if (isStatus && isRestart)
                 {
-                    
-                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentTimerWithTime:)])
+                    /// 开始计时    重置以后直接开始计时
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTimerWithTime:pause:defaultTime:)])
                     {
-                        [self.roomManagerDelegate handleSignalingStudentTimerWithTime:time];
+                        [self.roomManagerDelegate handleSignalingTimerWithTime:time pause:isStatus defaultTime:defaultTime];
                     }
                 }
-                else
+                else if (!isStatus && !isRestart)
                 {
-                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTeacherTimerShow)])
+                    /// 暂停
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingPauseTimerWithTime:)])
                     {
-                        [self.roomManagerDelegate handleSignalingTeacherTimerShow];
+                        [self.roomManagerDelegate handleSignalingPauseTimerWithTime:time];
                     }
+
+                }
+                else if (isStatus && !isRestart)
+                {
+                    /// 继续
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContinueTimerWithTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingContinueTimerWithTime:time];
+                    }
+                }
+            }
+            else
+            {
+                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTeacherTimerShow)])
+                {
+                    [self.roomManagerDelegate handleSignalingTeacherTimerShow];
                 }
             }
             
-            if ([dataDic bm_containsObjectForKey:@"isStatus"])
-            {
-                BOOL isStatus = [dataDic bm_boolForKey:@"isStatus"];
-                if (isStatus)
-                {
-                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentPauseTimerWithTime:)])
-                    {
-                        [self.roomManagerDelegate handleSignalingStudentPauseTimerWithTime:time];
-                    }
-                    
-                }
-                else
-                {
-                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentContinueTimerWithTime:)])
-                    {
-                        [self.roomManagerDelegate handleSignalingStudentContinueTimerWithTime:time];
-                    }
-                }
-            }
             
-            if ([dataDic bm_containsObjectForKey:@"isRestart"])
-            {
-                BOOL isRestart = [dataDic bm_boolForKey:@"isRestart"];
-                if (isRestart)
-                {
-                    //重置
-                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentRestartTimerWithTime:)])
-                    {
-                        [self.roomManagerDelegate handleSignalingStudentRestartTimerWithTime:defaultTime];
-                    }
-                }
-                else
-                {
-                    
-                }
-            }
+//            if ([dataDic bm_containsObjectForKey:@"isStatus"])
+//            {
+//
+//                if (isStatus)
+//                {
+//                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentPauseTimerWithTime:)])
+//                    {
+//                        [self.roomManagerDelegate handleSignalingStudentPauseTimerWithTime:time];
+//                    }
+//
+//                }
+//                else
+//                {
+//                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentContinueTimerWithTime:)])
+//                    {
+//                        [self.roomManagerDelegate handleSignalingStudentContinueTimerWithTime:time];
+//                    }
+//                }
+//            }
+            
+//            if ([dataDic bm_containsObjectForKey:@"isRestart"])
+//            {
+//
+//                if (isRestart)
+//                {
+//                    //重置
+//                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentRestartTimerWithTime:)])
+//                    {
+//                        [self.roomManagerDelegate handleSignalingStudentRestartTimerWithTime:defaultTime];
+//                    }
+//                }
+//                else
+//                {
+//
+//                }
+//            }
 
 
         }

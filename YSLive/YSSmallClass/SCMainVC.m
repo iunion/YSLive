@@ -4194,7 +4194,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 
 #pragma mark - 计时器
 
-- (void)handleSignalingStudentTimerWithTime:(NSInteger)time
+/// 收到计时器开始计时 或暂停计时
+- (void)handleSignalingTimerWithTime:(NSInteger)time pause:(BOOL)pause defaultTime:(NSInteger)defaultTime
 {
     if (self.studentTimerView)
     {
@@ -4203,32 +4204,38 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     
     self.studentTimerView = [[YSStudentTimerView alloc] init];
     [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-    
-    BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
-        [weakSelf.studentTimerView showTimeInterval:timeInterval];
-    }];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
+    if (!pause)
+       {
+           BMWeakSelf
+           [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+               [weakSelf.studentTimerView showTimeInterval:timeInterval];
+           }];
+
+           [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
+       }
+       else
+       {
+           BMWeakSelf
+           [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+               [weakSelf.studentTimerView showTimeInterval:timeInterval];
+           }];
+
+       }
 
 }
 
-- (void)handleSignalingStudentPauseTimerWithTime:(NSInteger)time
+/// 收到暂停信令
+-(void)handleSignalingPauseTimerWithTime:(NSInteger)time
 {
+       
     [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
+
 }
-- (void)handleSignalingStudentContinueTimerWithTime:(NSInteger)time
+/// 收到继续信令
+- (void)handleSignalingContinueTimerWithTime:(NSInteger)time
 {
     [[BMCountDownManager manager] continueCountDownIdentifier:YSStudentTimerCountDownKey];
-}
-
-- (void)handleSignalingStudentRestartTimerWithTime:(NSInteger)time
-{
-    
-    BMWeakSelf
-    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
-        [weakSelf.studentTimerView showTimeInterval:timeInterval];
-    }];
-
 }
 
 - (void)handleSignalingDeleteTimerWithTime

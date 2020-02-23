@@ -399,10 +399,10 @@
     //重置
     if (self.timerType == YSTeacherTimerViewType_Ing)
     {
-        if ([self.delegate respondsToSelector:@selector(resetWithTIme:)])
+        if ([self.delegate respondsToSelector:@selector(resetWithTIme:pasue:)])
         {
             NSInteger time = self.minute * 60 + self.second;
-            [self.delegate resetWithTIme:time];
+            [self.delegate resetWithTIme:time pasue:self.pauseBtn.selected];
         }
     }
     else if (self.timerType == YSTeacherTimerViewType_End)
