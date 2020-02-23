@@ -4264,6 +4264,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
     [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
+    self.studentTimerView = nil;
 }
 
 #pragma mark - 打开相机  UIImagePickerController
