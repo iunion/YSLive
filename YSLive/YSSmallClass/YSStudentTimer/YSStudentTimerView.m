@@ -75,7 +75,7 @@
     self.closeBtn.frame = CGRectMake(0, 0, 25, 25);
     self.closeBtn.bm_right = self.bacView.bm_right - 5;
     self.closeBtn.bm_top = self.bacView.bm_top + 5;
-    
+    self.closeBtn.hidden = YES;
     self.bacImageView = [[UIImageView alloc] init];
     [self.bacImageView setImage:[UIImage imageNamed:@"teacherTimer_backimg"]];//teacherTimer_backimg
     self.bacImageView.userInteractionEnabled = YES;
