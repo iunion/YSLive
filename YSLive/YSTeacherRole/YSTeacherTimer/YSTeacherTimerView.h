@@ -35,7 +35,8 @@ typedef NS_ENUM(NSInteger, YSTeacherTimerViewType)
 
 /// 是否背景蒙版可穿透点击
 @property (nonatomic, assign) BOOL isPenetration;
-
+/// 暂停 继续
+@property (nonatomic, strong) UIButton *pauseBtn;
 - (void)showYSTeacherTimerViewInView:(UIView *)inView
                 backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
                          topDistance:(CGFloat)topDistance;

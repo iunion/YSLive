@@ -42,8 +42,8 @@
 
 /// 重置
 @property (nonatomic, strong) UIButton *resetBtn;
-/// 暂停 继续
-@property (nonatomic, strong) UIButton *pauseBtn;
+///// 暂停 继续
+//@property (nonatomic, strong) UIButton *pauseBtn;
 
 @property (nonatomic, assign) NSInteger minute;
 @property (nonatomic, assign) NSInteger second;
@@ -210,6 +210,7 @@
         
     self.pauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.pauseBtn setImage:[UIImage imageNamed:@"teacherTimer_pause"] forState:UIControlStateNormal];
+    [self.pauseBtn setImage:[UIImage imageNamed:@"teacherTimer_continue"] forState:UIControlStateSelected];
     [self.pauseBtn addTarget:self action:@selector(pauseBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bacImageView addSubview:self.pauseBtn];
     
@@ -452,14 +453,14 @@
 {
     //暂停继续
     btn.selected = !btn.selected;
-    if (btn.selected)
-    {
-        [self.pauseBtn setImage:[UIImage imageNamed:@"teacherTimer_continue"] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [self.pauseBtn setImage:[UIImage imageNamed:@"teacherTimer_pause"] forState:UIControlStateNormal];
-    }
+//    if (btn.selected)
+//    {
+//        [self.pauseBtn setImage:[UIImage imageNamed:@"teacherTimer_continue"] forState:UIControlStateNormal];
+//    }
+//    else
+//    {
+//        [self.pauseBtn setImage:[UIImage imageNamed:@"teacherTimer_pause"] forState:UIControlStateNormal];
+//    }
     if ([self.delegate respondsToSelector:@selector(pasueWithTime:pasue:)])
     {
         NSInteger time = self.minute * 60 + self.second;
