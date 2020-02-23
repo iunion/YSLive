@@ -810,6 +810,15 @@
                         [self.roomManagerDelegate handleSignalingContinueTimerWithTime:time];
                     }
                 }
+                else if (!isStatus && isRestart)
+                {
+                    /// 开始计时    重置以后先暂停开始计时
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTimerWithTime:pause:defaultTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingTimerWithTime:time pause:isStatus defaultTime:defaultTime];
+                    }
+                }
+
             }
             else
             {
