@@ -10,6 +10,11 @@
 #import "YSSchoolAVPlayerView.h"
 
 @interface YSSchoolAVPlayerView()
+
+@property (nonatomic, strong) AVPlayerItem *playerItem;
+@property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) AVPlayer *avPlayer;
+
 @property (nonatomic, strong) id timeObserver;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UIButton *returnBtn;
@@ -175,6 +180,11 @@
 
 - (void)settingPlayerItemWithUrl:(NSURL *)playerUrl
 {
+    if (![playerUrl bm_isNotEmpty])
+    {
+        return;
+    }
+    
     [self settingPlayerItem:[[AVPlayerItem alloc] initWithURL:playerUrl]];
     AVURLAsset *avUrl = [AVURLAsset assetWithURL:playerUrl];
     CMTime time = [avUrl duration];
@@ -184,8 +194,9 @@
 
 - (void)settingPlayerItem:(AVPlayerItem *)playerItem
 {
-    _playerItem = playerItem;
     [self removeObserver];
+
+    _playerItem = playerItem;
     self.playBtn.selected = NO;
     [self.avPlayer pause];
     /*
@@ -206,7 +217,12 @@
     [self.avPlayer.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     // 播放完成
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-    [self.avPlayer removeTimeObserver:self.timeObserver];
+    
+    if (self.timeObserver)
+    {
+        [self.avPlayer removeTimeObserver:self.timeObserver];
+        self.timeObserver = nil;
+    }
 }
 
 - (void)addObserver{

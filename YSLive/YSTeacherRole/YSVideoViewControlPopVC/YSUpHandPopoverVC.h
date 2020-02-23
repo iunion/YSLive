@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YSUpHandPopCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSMutableArray * userArr;
 
 @property(nonatomic,weak)UITableView * tabView;
+
+@property(nonatomic,copy)void(^letStudentUpVideo)(YSUpHandPopCell *cell);
 
 @end
 

@@ -1313,7 +1313,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
     }
     else{
-        [self.progressHUD bm_showAnimated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 ///取消举手上台

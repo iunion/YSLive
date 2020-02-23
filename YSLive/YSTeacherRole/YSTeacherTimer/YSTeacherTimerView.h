@@ -30,7 +30,11 @@ typedef NS_ENUM(NSInteger, YSTeacherTimerViewType)
 @end
 
 @interface YSTeacherTimerView : BMNoticeView
+
 @property(nonatomic,weak) id<YSTeacherTimerViewDelegate> delegate;
+
+/// 是否背景蒙版可穿透点击
+@property (nonatomic, assign) BOOL isPenetration;
 
 - (void)showYSTeacherTimerViewInView:(UIView *)inView
                 backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets

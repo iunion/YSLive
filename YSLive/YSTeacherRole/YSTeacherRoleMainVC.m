@@ -691,6 +691,18 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     popTab.userArr = self.raiseHandArray;
     popTab.preferredContentSize = CGSizeMake(95, 146);
     popTab.modalPresentationStyle = UIModalPresentationPopover;
+    BMWeakSelf
+    popTab.letStudentUpVideo = ^(YSUpHandPopCell *cell) {
+        if (weakSelf.videoViewArray.count < self->maxVideoCount)
+        {
+            [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:cell.userModel withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+            cell.headBtn.selected = YES;
+        }
+        else
+        {
+            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        }
+    };
     self.upHandPopTableView = popTab;
     
     UIPopoverPresentationController *popover = popTab.popoverPresentationController;
@@ -712,7 +724,6 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
 }
-
 
 #pragma mark 内容背景
 - (void)setupContentView
@@ -744,8 +755,6 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     [self.contentView addSubview:videoBackgroud];
     self.videoBackgroud = videoBackgroud;
-//    videoBackgroud.exclusiveTouch = YES;
-    
     
     // 加载白板
     [self.whitebordBackgroud addSubview:self.whiteBordView];
@@ -831,8 +840,6 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         self.mp3ControlView.bm_bottom = self.view.bm_bottom - 20;
         self.mp3ControlView.layer.cornerRadius = 30;
     }
-
-
 
     [self freshContentView];
 }
@@ -931,7 +938,6 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
             count++;
         }
     }
-    
     return count;
 }
 
@@ -945,7 +951,6 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     // 老师没被拖出
     if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
     {
-        //teacherWidth = videoTeacherWidth;
         teacherWidth = videoWidth;
         count--;
     }
@@ -1753,16 +1758,14 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 ///刷新举手上台的人数
 - (void)raiseHandReloadData
 {
-//    NSMutableArray * userList = [NSMutableArray arrayWithArray:self.liveManager.userList];
-    
     NSInteger userNum = self.liveManager.userList.count;
     
     for (YSRoomUser * user in self.liveManager.userList) {
-        if (user.role != YSUserType_Student) {
+        if (user.role != YSUserType_Student)
+        {
             userNum --;
         }
     }
-    
     if (userNum<0)
     {
         userNum = 0;
@@ -1807,10 +1810,12 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
            {//取消举手上台
                [self.raiseHandArray removeObject:user];
                self.upHandPopTableView.userArr = self.raiseHandArray;
+               
+               if (self.raiseHandArray.count<1) {
+                   [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+               }
            }
-           
            self.raiseHandsBtn.selected = [self.raiseHandArray bm_isNotEmpty];
-           
            [self raiseHandReloadData];
        }
     
@@ -3122,9 +3127,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
     [self presentViewController:self.topbarPopoverView animated:YES completion:nil];///present即可
     popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
-
     [self.topbarPopoverView freshUIWithType:type isMeeting:self.appUseTheType == YSAppUseTheTypeMeeting];
-    
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate

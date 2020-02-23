@@ -13,9 +13,11 @@
 typedef void (^YSSchoolAVPlayerViewClose)(void);
 
 @interface YSSchoolAVPlayerView : UIView
-@property (nonatomic, strong) AVPlayerItem *playerItem;
-@property (nonatomic, strong) AVPlayerLayer *playerLayer;
-@property (nonatomic, strong) AVPlayer *avPlayer;
+
+@property (nonatomic, strong, readonly) AVPlayerItem *playerItem;
+@property (nonatomic, strong, readonly) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong, readonly) AVPlayer *avPlayer;
+
 /// 结束答题
 @property (nonatomic, copy) YSSchoolAVPlayerViewClose closeBlock;
 - (void)settingPlayerItemWithUrl:(NSURL *)playerUrl;
