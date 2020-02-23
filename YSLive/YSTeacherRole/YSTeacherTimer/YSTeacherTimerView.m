@@ -215,13 +215,45 @@
     self.endTitleL.font = [UIFont systemFontOfSize:20.0f];
     self.endTitleL.text = YSLocalized(@"Timer.lab.end");
 
-
     self.endImageV = [[UIImageView alloc] init];
     [self.endImageV setImage:[UIImage imageNamed:@"teacherTimer_end"]];
     [self.bacImageView addSubview:self.endImageV];
-
     
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(contentPanGestureAction:)];
+    [self.noticeView addGestureRecognizer:pan];
+}
 
+- (void)contentPanGestureAction:(UIPanGestureRecognizer *)panGesture
+{
+    UIView *panView = panGesture.view;
+    
+    //1、获得拖动位移
+    CGPoint offsetPoint = [panGesture translationInView:panView];
+    //2、清空拖动位移
+    [panGesture setTranslation:CGPointZero inView:panView];
+    //3、重新设置控件位置
+    CGFloat newX = panView.bm_centerX+offsetPoint.x;
+    CGFloat newY = panView.bm_centerY+offsetPoint.y;
+    CGPoint centerPoint = CGPointMake(newX, newY);
+    panView.center = centerPoint;
+    
+    if (panView.bm_top < 0)
+    {
+        panView.bm_top = 0;
+    }
+    if (panView.bm_left < 0)
+    {
+        panView.bm_left = 0;
+    }
+    
+    if (panView.bm_bottom > UI_SCREEN_HEIGHT)
+    {
+        panView.bm_top = UI_SCREEN_HEIGHT - panView.bm_height;
+    }
+    if (panView.bm_right > UI_SCREEN_WIDTH)
+    {
+        panView.bm_left = UI_SCREEN_WIDTH - panView.bm_width;
+    }
 }
 
 - (void)showResponderWithType:(YSTeacherTimerViewType)timerType
@@ -317,9 +349,9 @@
 }
 
 #pragma mark - SEL
+
 - (void)closeBtnClicked:(UIButton *)btn
 {
-    
     if ([self.delegate respondsToSelector:@selector(timerClose)])
     {
         [self.delegate timerClose];
@@ -338,13 +370,11 @@
         self.minuteUpBtn.enabled = NO;
         self.minute = maxMinute;
     }
-    self.minuteL.text = [NSString stringWithFormat:@"%02ld",(long)self.minute];
-    
+    self.minuteL.text = [NSString stringWithFormat:@"%02ld", (long)self.minute];
 }
 
 - (void)minuteDownBtnClicked:(UIButton *)btn
 {
-    
     //分减
     self.minute--;
     self.minuteUpBtn.enabled = YES;
@@ -354,7 +384,6 @@
         self.minuteDownBtn.enabled = NO;
     }
     self.minuteL.text = [NSString stringWithFormat:@"%02ld",(long)self.minute];
-
 }
 
 - (void)secondUpBtnClicked:(UIButton *)btn

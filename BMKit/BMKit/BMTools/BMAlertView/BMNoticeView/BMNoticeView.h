@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly, getter=isVisible) BOOL visible;
 
+@property (nonatomic, strong, readonly) UIView *noticeView;
+
 // 是否响应点击蒙版
 @property (nonatomic, assign) BOOL shouldDismissOnTapOutside;
 // 是否cancel关闭
