@@ -5,7 +5,7 @@
 //  Created by 马迪 on 2019/12/23.
 //  Copyright © 2019 YS. All rights reserved.
 //
-
+#import <AVFoundation/AVFoundation.h>
 #import "TZImagePickerController.h"
 #import "TZPhotoPickerController.h"
 #import "YSTeacherRoleMainVC.h"
@@ -83,6 +83,7 @@ static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 /// 顶部工具条高
 static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
 static const CGFloat kTopToolBar_Height_iPad = 70.0f;
+static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
 
 //聊天视图的高度
@@ -304,6 +305,9 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 @property (nonatomic, strong)YSTeacherResponder *responderView;
 /// 老师计时器
 @property (nonatomic, strong)YSTeacherTimerView *teacherTimerView;
+///音频播放器
+@property(nonatomic, strong) AVAudioPlayer *player;
+@property(nonatomic, strong) AVAudioSession *session;
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -376,6 +380,9 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
     
     self.videoViewArray = [[NSMutableArray alloc] init];
     
+    /// 本地播放 （定时器结束的音效）
+    self.session = [AVAudioSession sharedInstance];
+    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
 //    NSString * jsdkjf = YSLocalized(@"Prompt.ClassEndTeacherLeave10" );
     
     // 顶部工具栏背景
@@ -3655,6 +3662,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 -(void)handleSignalingTimerWithTime:(NSInteger)time pause:(BOOL)pause defaultTime:(NSInteger)defaultTime
 {
     timer_defaultTime = defaultTime;
+
+    playerFirst = 0;
     if (!self.teacherTimerView)
     {
         self.teacherTimerView  = [[YSTeacherTimerView alloc] init];
@@ -3674,10 +3683,27 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
             BMLog(@"%ld", (long)timeInterval);
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
-            
+            if (playerFirst == 1)
+            {
+                return;
+            }
             if (timeInterval == 0)
             {
+                playerFirst = 1;
                 [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
+                NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+                NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+                if (filePath)
+                {
+                    weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                    //                    self.player.delegate = self;
+                    [weakSelf.player setVolume:1.0];
+                    if (playerFirst == 0)
+                    {
+                        [weakSelf.player play];
+                        playerFirst = 1;
+                    }
+                }
             }
         }];
 
@@ -3696,9 +3722,27 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
             
+ 
             if (timeInterval == 0)
             {
+                
                 [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
+                
+                NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+                NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];
+                if (filePath)
+                {
+                    weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                    //                    self.player.delegate = self;
+                    [weakSelf.player setVolume:1.0];
+                    if (playerFirst == 0)
+                    {
+                        [weakSelf.player play];
+                        playerFirst = 1;
+                    }
+                    
+                }
+
             }
         }];
     }
@@ -3708,6 +3752,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 -(void)handleSignalingPauseTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime
 {
     timer_defaultTime = defaultTime;
+    playerFirst = 0;
     if (!self.teacherTimerView)
     {
         self.teacherTimerView  = [[YSTeacherTimerView alloc] init];
@@ -3730,6 +3775,20 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         if (timeInterval == 0)
         {
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
+            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+            NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+            if (filePath)
+            {
+                weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                //                    self.player.delegate = self;
+                [weakSelf.player setVolume:1.0];
+                if (playerFirst == 0)
+                {
+                    [weakSelf.player play];
+                    playerFirst = 1;
+                }
+
+            }
         }
     }];
 
@@ -3738,6 +3797,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 /// 收到继续信令
 - (void)handleSignalingContinueTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime
 {
+    playerFirst = 0;
     if (time == 0)
     {
         [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
@@ -3762,7 +3822,20 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
         if (timeInterval == 0)
         {
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
-            
+            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+            NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+            if (filePath)
+            {
+                weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                //                    self.player.delegate = self;
+                [weakSelf.player setVolume:1.0];
+                if (playerFirst == 0)
+                {
+                    [weakSelf.player play];
+                    playerFirst = 1;
+                }
+
+            }
         }
     }];
 

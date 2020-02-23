@@ -5,6 +5,7 @@
 //  Created by fzxm on 2019/11/6.
 //  Copyright © 2019 YS. All rights reserved.
 //
+#import <AVFoundation/AVFoundation.h>
 #import "TZImagePickerController.h"
 #import "TZPhotoPickerController.h"
 #import "SCMainVC.h"
@@ -79,6 +80,7 @@ static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 
 static const CGFloat kMp3_Width_iPhone = 55.0f;
 static const CGFloat kMp3_Width_iPad = 70.0f;
+static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #define MP3VIEW_WIDTH               ([UIDevice bm_isiPad] ? kMp3_Width_iPad : kMp3_Width_iPhone)
 
 //聊天视图的高度
@@ -253,6 +255,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 
 @property (nonatomic, strong) YSStudentResponder *responderView;
 @property (nonatomic, strong) YSStudentTimerView *studentTimerView;
+///音频播放器
+@property(nonatomic, strong) AVAudioPlayer *player;
+@property(nonatomic, strong) AVAudioSession *session;
 @end
 
 @implementation SCMainVC
@@ -457,7 +462,9 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.videoViewArray = [[NSMutableArray alloc] init];
-    
+    /// 本地播放 （定时器结束的音效）
+    self.session = [AVAudioSession sharedInstance];
+    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     //if (self.userId)
     {
         [self getGiftCount];
@@ -4198,6 +4205,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 /// 收到计时器开始计时 或暂停计时
 - (void)handleSignalingTimerWithTime:(NSInteger)time pause:(BOOL)pause defaultTime:(NSInteger)defaultTime
 {
+    studentPlayerFirst = 0;
     if (self.studentTimerView)
     {
         [self.studentTimerView dismiss:nil animated:NO dismissBlock:nil];
@@ -4215,6 +4223,20 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
                if (timeInterval == 0)
                {
                    [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+                   NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+                   NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+                   if (filePath)
+                   {
+                       weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                       //                    self.player.delegate = self;
+                       [weakSelf.player setVolume:1.0];
+                       if (studentPlayerFirst == 0)
+                       {
+                           [weakSelf.player play];
+                           studentPlayerFirst = 1;
+                       }
+
+                   }
                }
            }];
 
@@ -4233,6 +4255,20 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
                if (timeInterval == 0)
                {
                    [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+                   NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+                   NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+                   if (filePath)
+                   {
+                       weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                       //                    self.player.delegate = self;
+                       [weakSelf.player setVolume:1.0];
+                       if (studentPlayerFirst == 0)
+                       {
+                           [weakSelf.player play];
+                           studentPlayerFirst = 1;
+                       }
+
+                   }
                }
            }];
 
@@ -4243,7 +4279,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 /// 收到暂停信令
 -(void)handleSignalingPauseTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime
 {
-       
+    studentPlayerFirst = 0;
     if (!self.studentTimerView)
     {
         self.studentTimerView = [[YSStudentTimerView alloc] init];
@@ -4255,6 +4291,20 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         if (timeInterval == 0)
         {
             [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+            NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+            if (filePath)
+            {
+                weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                //                    self.player.delegate = self;
+                [weakSelf.player setVolume:1.0];
+                if (studentPlayerFirst == 0)
+                {
+                    [weakSelf.player play];
+                    studentPlayerFirst = 1;
+                }
+
+            }
         }
     }];
     [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
@@ -4263,6 +4313,7 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 /// 收到继续信令
 - (void)handleSignalingContinueTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime
 {
+    studentPlayerFirst = 0;
     if (!self.studentTimerView)
     {
         self.studentTimerView = [[YSStudentTimerView alloc] init];
@@ -4279,6 +4330,20 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
         if (timeInterval == 0)
         {
             [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+            NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+            if (filePath)
+            {
+                weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                //                    self.player.delegate = self;
+                [weakSelf.player setVolume:1.0];
+                if (studentPlayerFirst == 0)
+                {
+                    [weakSelf.player play];
+                    studentPlayerFirst = 1;
+                }
+
+            }
         }
     }];
     [[BMCountDownManager manager] continueCountDownIdentifier:YSStudentTimerCountDownKey];
