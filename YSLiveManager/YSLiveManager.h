@@ -369,9 +369,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 收到计时器开始计时 或暂停计时
 - (void)handleSignalingTimerWithTime:(NSInteger)time pause:(BOOL)pause defaultTime:(NSInteger)defaultTime;
 /// 暂停计时器
-- (void)handleSignalingPauseTimerWithTime:(NSInteger)time;
+- (void)handleSignalingPauseTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime;
 /// 继续计时器
-- (void)handleSignalingContinueTimerWithTime:(NSInteger)time;
+- (void)handleSignalingContinueTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime;
 /// 重置定时器
 //- (void)handleSignalingRestartTimerWithTime:(NSInteger)time;
 /// 关闭计时器

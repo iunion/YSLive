@@ -350,6 +350,8 @@
 {
     NSInteger minute = timeInterval / 60;
     NSInteger second = timeInterval % 60;
+    self.minute = minute;
+    self.second = second;
     self.minuteL.text = [NSString stringWithFormat:@"%02ld",(long)minute];
     self.secondL.text = [NSString stringWithFormat:@"%02ld",(long)second];
 }

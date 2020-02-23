@@ -782,11 +782,15 @@
             BOOL isShow = [dataDic bm_boolForKey:@"isShow"];
             BOOL isStatus = [dataDic bm_boolForKey:@"isStatus"];
             BOOL isRestart = [dataDic bm_boolForKey:@"isRestart"];
-
             if (isShow)
             {
                 if (isStatus && isRestart)
                 {
+                    if (self.tCurrentTime != ts)
+                    {
+                        time = time - (self.tCurrentTime - ts);
+                    }
+
                     /// 开始计时    重置以后直接开始计时
                     if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTimerWithTime:pause:defaultTime:)])
                     {
@@ -796,26 +800,36 @@
                 else if (!isStatus && !isRestart)
                 {
                     /// 暂停
-                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingPauseTimerWithTime:)])
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingPauseTimerWithTime:defaultTime:)])
                     {
-                        [self.roomManagerDelegate handleSignalingPauseTimerWithTime:time];
+                        [self.roomManagerDelegate handleSignalingPauseTimerWithTime:time defaultTime:defaultTime];
                     }
 
                 }
                 else if (isStatus && !isRestart)
                 {
-                    /// 继续
-                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContinueTimerWithTime:)])
+                    if (self.tCurrentTime != ts)
                     {
-                        [self.roomManagerDelegate handleSignalingContinueTimerWithTime:time];
+                        time = time - (self.tCurrentTime - ts);
+                    }
+
+                    /// 继续
+                    if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContinueTimerWithTime:defaultTime:)])
+                    {
+                        [self.roomManagerDelegate handleSignalingContinueTimerWithTime:time defaultTime:defaultTime];
                     }
                 }
                 else if (!isStatus && isRestart)
                 {
+                    if (self.tCurrentTime != ts)
+                    {
+                        time = time - (self.tCurrentTime - ts);
+                    }
+
                     /// 开始计时    重置以后先暂停开始计时
                     if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTimerWithTime:pause:defaultTime:)])
                     {
-                        [self.roomManagerDelegate handleSignalingTimerWithTime:time pause:isStatus defaultTime:defaultTime];
+                        [self.roomManagerDelegate handleSignalingTimerWithTime:defaultTime pause:isStatus defaultTime:defaultTime];
                     }
                 }
 

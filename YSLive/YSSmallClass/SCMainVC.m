@@ -4227,14 +4227,14 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 }
 
 /// 收到暂停信令
--(void)handleSignalingPauseTimerWithTime:(NSInteger)time
+-(void)handleSignalingPauseTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime
 {
        
     [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
 
 }
 /// 收到继续信令
-- (void)handleSignalingContinueTimerWithTime:(NSInteger)time
+- (void)handleSignalingContinueTimerWithTime:(NSInteger)time defaultTime:(NSInteger)defaultTime
 {
     [[BMCountDownManager manager] continueCountDownIdentifier:YSStudentTimerCountDownKey];
 }
