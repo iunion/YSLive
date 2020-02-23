@@ -366,14 +366,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 老师收到计时器显示
 - (void)handleSignalingTeacherTimerShow;
 
-/// 学生收到计时器显示
-- (void)handleSignalingStudentTimerWithTime:(NSInteger)time;
+/// 收到计时器开始计时 或暂停计时
+- (void)handleSignalingTimerWithTime:(NSInteger)time pause:(BOOL)pause defaultTime:(NSInteger)defaultTime;
 /// 暂停计时器
-- (void)handleSignalingStudentPauseTimerWithTime:(NSInteger)time;
+- (void)handleSignalingPauseTimerWithTime:(NSInteger)time;
 /// 继续计时器
-- (void)handleSignalingStudentContinueTimerWithTime:(NSInteger)time;
+- (void)handleSignalingContinueTimerWithTime:(NSInteger)time;
 /// 重置定时器
-- (void)handleSignalingStudentRestartTimerWithTime:(NSInteger)time;
+//- (void)handleSignalingRestartTimerWithTime:(NSInteger)time;
 /// 关闭计时器
 - (void)handleSignalingDeleteTimerWithTime;
 

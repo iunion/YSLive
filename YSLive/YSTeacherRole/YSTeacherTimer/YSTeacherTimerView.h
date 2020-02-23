@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, YSTeacherTimerViewType)
 
 - (void)startWithTime:(NSInteger)time;
 - (void)pasueWithTime:(NSInteger)time pasue:(BOOL)pasue;
-- (void)resetWithTIme:(NSInteger)time;
+- (void)resetWithTIme:(NSInteger)time pasue:(BOOL)pasue;
 - (void)againTimer;
 - (void)timerClose;
 @end
