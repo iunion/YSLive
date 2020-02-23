@@ -176,6 +176,10 @@
      */
 
     BMNavigationController *nav = (BMNavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    if (![nav isKindOfClass:[BMNavigationController class]])
+    {
+        return NO;
+    }
     YSLoginVC *loginVC = (YSLoginVC *)nav.topViewController;
     if (![loginVC isKindOfClass:[YSLoginVC class]])
     {
@@ -220,6 +224,10 @@
     }
     
     BMNavigationController *nav = (BMNavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    if (![nav isKindOfClass:[BMNavigationController class]])
+    {
+        return NO;
+    }
     YSLoginVC *loginVC = (YSLoginVC *)nav.topViewController;
     if (![loginVC isKindOfClass:[YSLoginVC class]])
     {
