@@ -86,7 +86,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(YSUserRoleType)userRoleType toTeachId:(NSString *)toteachid;
 
 ///  修改学生密码
-+ (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass studentid:(NSString *)studentid organid:(NSString *)organid;
++ (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass repass:(NSString *)repass studentid:(NSString *)studentid organid:(NSString *)organid;
 
 ///  修改老师密码
 + (NSMutableURLRequest *)postTeacherNewpass:(NSString *)newpass repass:(NSString *)repass teacherid:(NSString *)teacherid organid:(NSString *)organid;

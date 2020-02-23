@@ -142,7 +142,7 @@
     }
     else
     {
-        request =  [YSLiveApiRequest postStudentUpdatePass:self.againPasswordView.inputTextField.text studentid:schoolUser.userId organid:organId];
+        request =  [YSLiveApiRequest postStudentUpdatePass:self.againPasswordView.inputTextField.text repass:self.againPasswordView.inputTextField.text studentid:schoolUser.userId organid:organId];
     }
     if (request)
     {
