@@ -663,7 +663,8 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 #pragma mark - 举手上台的UI
 - (void)setupHandView
 {
-    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-60, 40, 40)];
+//    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-60, 40, 40)];
+    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, UI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40)];
     [raiseHandsBtn setBackgroundColor: UIColor.clearColor];
     [raiseHandsBtn setImage:[UIImage imageNamed:@"teacherNormalHand"] forState:UIControlStateNormal];
     [raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateSelected];

@@ -1293,7 +1293,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 {
     if (!_raiseHandsBtn)
     {
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-45, 40, 40)];
+//        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-45, 40, 40)];
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, UI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateHighlighted];
