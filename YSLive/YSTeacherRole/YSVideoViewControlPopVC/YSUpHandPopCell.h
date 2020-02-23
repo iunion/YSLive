@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)YSRoomUser *userModel;
 
+///头像按钮
+@property (nonatomic, strong) UIButton * headBtn;
+
 @property(nonatomic,copy)void(^headButtonClick)(void);
 
 @end

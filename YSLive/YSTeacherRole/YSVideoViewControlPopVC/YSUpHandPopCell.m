@@ -12,8 +12,7 @@
 @interface YSUpHandPopCell ()
 ///用户名
 @property (nonatomic, strong) UILabel *nickNameLab;
-///头像按钮
-@property (nonatomic, strong) UIButton * headBtn;
+
 @end
 
 @implementation YSUpHandPopCell
@@ -43,7 +42,6 @@
 
 - (void)setupView
 {
-    
     //昵称
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 95-10-30, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
@@ -51,19 +49,20 @@
     self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
     self.nickNameLab.font = UI_FONT_14;
     [self.contentView addSubview:_nickNameLab];
-        
+            
     //选中标识
-    self.headBtn = [[UIButton alloc] initWithFrame:CGRectMake(95-25, 5, 15,15)];
+    self.headBtn = [[UIButton alloc] initWithFrame:CGRectMake(95-30, 0, 25,25)];
     [self.headBtn addTarget:self action:@selector(buttonclick:) forControlEvents:UIControlEventTouchUpInside];
     [self.headBtn setImage:[UIImage imageNamed:@"downPlatform_hand"] forState:UIControlStateNormal];
     [self.headBtn setImage:[UIImage imageNamed:@"upPlatform_hand"] forState:UIControlStateSelected];
+    self.headBtn.contentMode = UIViewContentModeScaleAspectFit;
     [self.contentView addSubview:self.headBtn];
 }
 
 - (void)buttonclick:(UIButton *)sender
 {
     if (!sender.selected) {
-        sender.selected = !sender.selected;
+//        sender.selected = !sender.selected;
         if (_headButtonClick) {
             _headButtonClick();
         }
@@ -74,7 +73,6 @@
 {
     _userModel = userModel;
     self.nickNameLab.text = userModel.nickName;
-    
     if (userModel.publishState >0)
     {
         self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];

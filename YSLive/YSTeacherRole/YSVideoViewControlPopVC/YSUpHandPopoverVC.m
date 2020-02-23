@@ -7,7 +7,7 @@
 //
 
 #import "YSUpHandPopoverVC.h"
-#import "YSUpHandPopCell.h"
+
 #import "YSLiveManager.h"
 
 @interface YSUpHandPopoverVC ()
@@ -50,11 +50,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     YSUpHandPopCell * cell = [YSUpHandPopCell cellWithTableView:tableView];
-
-    YSRoomUser * user = self.userArr[indexPath.row];
     
     cell.userModel = self.userArr[indexPath.row];
-    
+    __weak __typeof__(cell) weakCell = cell;
     cell.headButtonClick = ^{
         //同意上台
 //        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
@@ -63,8 +61,12 @@
 //        }
 //        else
 //        {
-            [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+//            [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
 //        }
+        
+        if (self->_letStudentUpVideo) {
+            self->_letStudentUpVideo(weakCell);
+        }
     };
 
     return cell;
@@ -84,5 +86,7 @@
 {
     return [UIView new];
 }
+
+
 
 @end
