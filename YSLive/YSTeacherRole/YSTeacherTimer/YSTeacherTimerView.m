@@ -53,6 +53,7 @@
 @end
 
 @implementation YSTeacherTimerView
+
 - (instancetype)init
 {
     NSUInteger noticeViewCount = [[BMNoticeViewStack sharedInstance] getNoticeViewCount];
@@ -60,9 +61,13 @@
     {
         return nil;
     }
+    
     self = [super init];
+    
     if (self)
     {
+        self.isPenetration = YES;
+        
         self.showAnimationType = BMNoticeViewShowAnimationNone;
         self.noticeMaskBgEffect = nil;
         self.shouldDismissOnTapOutside = NO;
@@ -462,15 +467,20 @@
     }
 }
 
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
     CGPoint btnP =  [self convertPoint:point toView:self.bacView];
-    if ( [self.bacView pointInside:btnP withEvent:event]) {
+    
+    if ( [self.bacView pointInside:btnP withEvent:event])
+    {
         return [super hitTest:point withEvent:event];
-    }else{
+    }
+    else if (self.isPenetration)
+    {
         return nil;
     }
+    
+    return [super hitTest:point withEvent:event];
 }
-
 
 @end
