@@ -38,7 +38,9 @@
 ///点击Home键提示蒙版
 @property (nonatomic, strong)UIButton *homeMaskBtn;
 ///没有连摄像头时的蒙版
-@property (nonatomic, strong) UIImageView *maskNoVideo;
+@property (nonatomic, strong) UIView *maskNoVideo;
+///没有连摄像头时的文字
+@property (nonatomic, strong) UILabel *maskNoVideoTitle;
 
 /// 当前设备上次捕捉的音量  音量大小 0 ～ 32670
 @property (nonatomic, assign) NSUInteger lastVolume;
@@ -195,10 +197,23 @@
     [self.backVideoView addSubview:self.homeMaskBtn];
     
     //没有摄像头时的蒙版
-    self.maskNoVideo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noVideo_SCVideoViewImage"]];
-    self.maskNoVideo.contentMode = UIViewContentModeScaleAspectFit;
-    self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#EDEDED"];
+    self.maskNoVideo = [[UIView alloc] init];
+    self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
     [self.backVideoView addSubview:self.maskNoVideo];
+    
+    //设备性能低时的蒙版上的文字
+    UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
+    maskNoVideoTitle.backgroundColor = [UIColor clearColor];
+    maskNoVideoTitle.font = UI_FONT_14;
+    maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+    maskNoVideoTitle.textColor = UIColor.whiteColor;
+    maskNoVideoTitle.adjustsFontSizeToFitWidth = YES;
+    maskNoVideoTitle.minimumScaleFactor = 0.3;
+    maskNoVideoTitle.numberOfLines = 0;
+    maskNoVideoTitle.textAlignment = NSTextAlignmentCenter;
+    [self.maskNoVideo addSubview:maskNoVideoTitle];
+    self.maskNoVideoTitle = maskNoVideoTitle;
+    
     
     //设备性能低时的蒙版
     self.lowDeviceBgView = [[UIView alloc] init];
@@ -341,8 +356,9 @@
     self.maskCloseVideoBgView.frame = self.bounds;
     self.homeMaskBtn.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
+    self.maskNoVideoTitle.frame = CGRectMake(5, 10, self.bm_width-10, self.bm_height-25);
     self.lowDeviceBgView.frame = self.bounds;
-    self.lowDeviceTitle.frame = CGRectMake(5, 10, self.bm_width-10, self.bm_height-25) ;
+    self.lowDeviceTitle.frame = CGRectMake(5, 10, self.bm_width-10, self.bm_height-25);
     
     CGFloat imageWidth = frame.size.height*0.3f;
     if (imageWidth > self.maskCloseVideo.image.size.width)
@@ -433,12 +449,6 @@
     _iHasVadeo = iHasVadeo;
     
     self.maskNoVideo.hidden = iHasVadeo;
-    if (!iHasVadeo)
-    {
-        self.maskNoVideo.image = [UIImage imageNamed:@"noVideo_SCVideoViewImage"];
-        //        [self bringSubviewToFront:self.maskNoVideo];
-        //        [self bringSubviewToFront:self.backVideoView];
-    }
 }
 
 /// 奖杯数

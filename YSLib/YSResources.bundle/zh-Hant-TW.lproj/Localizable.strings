@@ -70,7 +70,7 @@
 "KickOut.ChairmanKick" = "您已被主席請出會議...";
 "KickOut.Repeat" = "有相同身份的用戶進入，您已經離開房間";
 "KickOut.SentOutClassroom" = "您已被老師請出房間！";
-"State.teacherInBackGround" = "該用戶按home鍵啦";
+"State.teacherInBackGround" = "學生把APP切到後臺了";
 
 //role
 "Role.Me" = "我";
