@@ -22,9 +22,6 @@
 #import "FSCalendarWeekdayView.h"
 #import "FSCalendarHeaderView.h"
 
-//#import "FSCalendar.h"
-//#import "FSCalendarCollectionView.h"
-
 //! Project version number for FSCalendar.
 FOUNDATION_EXPORT double FSCalendarVersionNumber;
 
@@ -58,7 +55,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition) {
 NS_ASSUME_NONNULL_BEGIN
 
 @class FSCalendar;
-//#import "FSCalendar.h"
 
 /**
  * FSCalendarDataSource is a source set of FSCalendar. The basic role is to provide event、subtitle and min/max day to display, or customized day cell for the calendar.
@@ -66,8 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol FSCalendarDataSource <NSObject>
 
 @optional
-
-
 
 /**
  * Asks the dataSource for a title for the specific date as a replacement of the day text
@@ -249,7 +243,6 @@ IB_DESIGNABLE
 @interface FSCalendar : UIView
 
 @property (weak  , nonatomic) FSCalendarCollectionView   *collectionView;
-
 /**
  * The object that acts as the delegate of the calendar.
  */

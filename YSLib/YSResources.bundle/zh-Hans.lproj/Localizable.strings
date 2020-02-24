@@ -70,7 +70,7 @@
 "KickOut.ChairmanKick" = "您已被主席请出会议...";
 "KickOut.Repeat" = "有相同身份的用户进入，您已经离开房间";
 "KickOut.SentOutClassroom" = "您已被老师请出房间！";
-"State.teacherInBackGround" = "该用户按home键啦";
+"State.teacherInBackGround" = "学生把APP切到后台了";
 
 
 //role
@@ -401,3 +401,4 @@
 "Prompt.RaiseHand_classBegain" = "上课后才能举手";
 
 "Prompt.LowDeviceTitle" = "设备性能过低，无法显示更多视频";
+"Prompt.NoCamera" = "摄像头被禁用";

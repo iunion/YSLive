@@ -35,13 +35,13 @@
         _weekdayFont = [UIFont systemFontOfSize:FSCalendarStandardWeekdayTextSize];
         _headerTitleFont = [UIFont systemFontOfSize:FSCalendarStandardHeaderTextSize];
         
-//        _headerTitleColor = FSCalendarStandardTitleTextColor;
-        _headerTitleColor = [UIColor grayColor];
-//        _headerDateFormat = @"MMMM yyyy";
-        _headerDateFormat = @"yyyy MMMM";
-        _headerMinimumDissolvedAlpha = 0.2;
-//        _weekdayTextColor = FSCalendarStandardTitleTextColor;
-        _weekdayTextColor = UIColor.grayColor;
+        //        _headerTitleColor = FSCalendarStandardTitleTextColor;
+                _headerTitleColor = [UIColor grayColor];
+        //        _headerDateFormat = @"MMMM yyyy";
+                _headerDateFormat = @"yyyy MMMM";
+                _headerMinimumDissolvedAlpha = 0.2;
+        //        _weekdayTextColor = FSCalendarStandardTitleTextColor;
+                _weekdayTextColor = UIColor.grayColor;
         _caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase|FSCalendarCaseOptionsWeekdayUsesDefaultCase;
         
         _backgroundColors = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -52,12 +52,13 @@
         _backgroundColors[@(FSCalendarCellStateToday)]       = FSCalendarStandardTodayColor;
         
         _titleColors = [NSMutableDictionary dictionaryWithCapacity:5];
-//        _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor blackColor];
+        //        _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor blackColor];
         _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor grayColor];
         _titleColors[@(FSCalendarCellStateSelected)]    = [UIColor grayColor];
         _titleColors[@(FSCalendarCellStateDisabled)]    = [UIColor grayColor];
         _titleColors[@(FSCalendarCellStatePlaceholder)] = [UIColor lightGrayColor];
         _titleColors[@(FSCalendarCellStateToday)]       = [UIColor grayColor];
+        
         
         _subtitleColors = [NSMutableDictionary dictionaryWithCapacity:5];
         _subtitleColors[@(FSCalendarCellStateNormal)]      = [UIColor darkGrayColor];
@@ -159,7 +160,7 @@
 
 - (UIColor *)titleDefaultColor
 {
-    return _titleColors[@(FSCalendarCellStateNormal)];;
+    return _titleColors[@(FSCalendarCellStateNormal)];
 }
 
 - (void)setTitleSelectionColor:(UIColor *)color
@@ -329,8 +330,6 @@
 
 - (void)setTodaySelectionColor:(UIColor *)todaySelectionColor
 {
-    
-    
     if (todaySelectionColor) {
         _backgroundColors[@(FSCalendarCellStateToday|FSCalendarCellStateSelected)] = todaySelectionColor;
     } else {
@@ -487,23 +486,23 @@
 }
 
 - (void)setTitleTextSize:(CGFloat)titleTextSize
-{
-    self.titleFont = [UIFont fontWithName:self.titleFont.fontName size:titleTextSize];
+{//不同
+    self.titleFont = [self.titleFont fontWithSize:titleTextSize];
 }
 
 - (void)setSubtitleTextSize:(CGFloat)subtitleTextSize
-{
-    self.subtitleFont = [UIFont fontWithName:self.subtitleFont.fontName size:subtitleTextSize];
+{//不同
+    self.subtitleFont = [self.subtitleFont fontWithSize:subtitleTextSize];
 }
 
 - (void)setWeekdayTextSize:(CGFloat)weekdayTextSize
-{
-    self.weekdayFont = [UIFont fontWithName:self.weekdayFont.fontName size:weekdayTextSize];
+{//不同
+    self.weekdayFont = [self.weekdayFont fontWithSize:weekdayTextSize];
 }
 
 - (void)setHeaderTitleTextSize:(CGFloat)headerTitleTextSize
-{
-    self.headerTitleFont = [UIFont fontWithName:self.headerTitleFont.fontName size:headerTitleTextSize];
+{//不同
+    self.headerTitleFont = [self.headerTitleFont fontWithSize:headerTitleTextSize];
 }
 
 - (void)invalidateAppearance

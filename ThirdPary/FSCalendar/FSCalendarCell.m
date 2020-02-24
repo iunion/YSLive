@@ -108,11 +108,9 @@
         
         CGFloat height = titleHeight + subtitleHeight;
         _titleLabel.frame = CGRectMake(
-//                                       self.preferredTitleOffset.x+self.contentView.fs_width/2,
-                                      self.preferredTitleOffset.x, (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y,
+                                       self.preferredTitleOffset.x, (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y,
                                        self.contentView.fs_width,
                                        titleHeight-10
-//                                       25
                                        );
         _subtitleLabel.frame = CGRectMake(
                                           self.preferredSubtitleOffset.x,
@@ -122,14 +120,13 @@
                                           );
     } else {
         _titleLabel.frame = CGRectMake(
-//                                       self.preferredTitleOffset.x+self.contentView.fs_width/2,
                                        self.preferredTitleOffset.x,
                                        self.preferredTitleOffset.y,
                                        self.contentView.fs_width,
                                        floor(self.contentView.fs_height*5.0/6.0)-10
-//                                       25
                                        );
     }
+    
     _imageView.frame = CGRectMake(self.preferredImageOffset.x, self.preferredImageOffset.y, self.contentView.fs_width, self.contentView.fs_height);
     
     CGFloat titleHeight = self.bounds.size.height*5.0/6.0;
@@ -195,7 +192,6 @@
 {
     UIColor *textColor = self.colorForTitleLabel;
     if (![textColor isEqual:_titleLabel.textColor]) {
-//        _titleLabel.textColor = textColor;
         _titleLabel.textColor = UIColor.whiteColor;
     }
     UIFont *titleFont = self.calendar.appearance.titleFont;
@@ -287,12 +283,8 @@
 
 - (UIColor *)colorForTitleLabel
 {
-    return self.appearance.titleDefaultColor;// --- MDI ---
-    
     if (self.selected) {
         return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
-        
-        return self.appearance.titleDefaultColor;
     }
     return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
 }
@@ -394,7 +386,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
         self.contentView = view;
         
         self.eventLayers = [NSPointerArray weakObjectsPointerArray];
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < FSCalendarMaximumNumberOfEvents; i++) {
             CALayer *layer = [CALayer layer];
             layer.backgroundColor = [UIColor clearColor].CGColor;
             [self.contentView.layer addSublayer:layer];
@@ -457,7 +449,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 - (void)setNumberOfEvents:(NSInteger)numberOfEvents
 {
     if (_numberOfEvents != numberOfEvents) {
-        _numberOfEvents = MIN(MAX(numberOfEvents,0),3);
+        _numberOfEvents = MIN(MAX(numberOfEvents,0),FSCalendarMaximumNumberOfEvents);
         [self setNeedsLayout];
     }
 }

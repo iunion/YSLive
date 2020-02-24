@@ -70,7 +70,7 @@
 "KickOut.ChairmanKick" = "You have been kicked out of conference by chairman...";
 "KickOut.Repeat" = "User of the same identity has entered the room. You are blocked.";
 "KickOut.SentOutClassroom" = "You have been sent out of the room by the anchor";
-"State.teacherInBackGround" = "User pressed home button";
+"State.teacherInBackGround" = "App is switched to backstage";
 
 //role
 "Role.Me" = "me";
@@ -405,3 +405,4 @@
 "Prompt.RaiseHand_classBegain" = "Hands up after class";
 
 "Prompt.LowDeviceTitle" = "Device not  well enough to display more";
+"Prompt.NoCamera" = "Camera is banned";
