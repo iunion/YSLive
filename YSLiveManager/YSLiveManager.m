@@ -974,10 +974,9 @@ static YSLiveManager *liveManagerSingleton = nil;
         }
         return;
     }
-    
-    if (errorCode > YSErrorCode_ConnectSocketError)
+
+    //if (errorCode > YSErrorCode_ConnectSocketError)
     {
-        
         alertMessage = [self onRoomDidOccuredErrorCode:errorCode];
         if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerReportFail:descript:)])
         {
@@ -985,7 +984,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         }
         return;
     }
-    
+#if 0
     if (!self.viewDidAppear)
     {
         NSMutableArray *parameters = [[NSMutableArray alloc] init];
@@ -1020,7 +1019,7 @@ static YSLiveManager *liveManagerSingleton = nil;
             [self.roomManagerDelegate roomManagerReportFail:errorCode descript:alertMessage];
         }
     }
-    
+#endif
     //    if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomDidOccuredError:)])
     //    {
     //        [self.roomManagerDelegate onRoomDidOccuredError:error];
@@ -2225,7 +2224,11 @@ static YSLiveManager *liveManagerSingleton = nil;
             
         default:
         {
+#ifdef DEBUG
             alertMessage = [NSString stringWithFormat:@"%@(%@)", YSLocalized(@"Error.WaitingForNetwork"), @(errorCode)];
+#else
+            alertMessage = [NSString stringWithFormat:@"%@", YSLocalized(@"Error.WaitingForNetwork")];
+#endif
         }
             break;
     }
