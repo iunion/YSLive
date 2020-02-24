@@ -51,13 +51,9 @@
     for (int i = 0; i < 7; i++) {
         UILabel *weekdayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         weekdayLabel.textAlignment = NSTextAlignmentCenter;
-        
-        
-        
         [self.contentView addSubview:weekdayLabel];
         [_weekdayPointers addPointer:(__bridge void * _Nullable)(weekdayLabel)];
     }
-    
 }
 
 - (void)layoutSubviews
@@ -66,13 +62,11 @@
     
     self.contentView.frame = self.bounds;
     
-    
     for (int i=0; i<_weekdayPointers.count; i++)
-    {
-        UILabel *label = [self.weekdayPointers pointerAtIndex:i];
-        BMLog(@"=======%@",label);
-    }
-    
+       {
+           UILabel *label = [self.weekdayPointers pointerAtIndex:i];
+           BMLog(@"=======%@",label);
+       }
     
     // Position Calculation
     NSInteger count = self.weekdayPointers.count;

@@ -153,7 +153,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     _formatter = [[NSDateFormatter alloc] init];
     _formatter.dateFormat = @"yyyy-MM-dd";
     _locale = [NSLocale currentLocale];
-    _timeZone = [NSTimeZone localTimeZone];
+    _timeZone = [NSTimeZone defaultTimeZone];
     _firstWeekday = 1;
     [self invalidateDateTools];
     
@@ -219,8 +219,9 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     [collectionView registerClass:[FSCalendarBlankCell class] forCellWithReuseIdentifier:FSCalendarBlankCellReuseIdentifier];
     [collectionView registerClass:[FSCalendarStickyHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader"];
-//    [collectionView registerNib:[UINib nibWithNibName:collettionSectionFoot bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:collettionSectionFoot];
+    
     [collectionView registerClass:[UIView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    
     [daysContainer addSubview:collectionView];
     self.collectionView = collectionView;
     self.collectionViewLayout = collectionViewLayout;
@@ -435,25 +436,17 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        if (self.floatingMode) {
-            if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-                FSCalendarStickyHeader *stickyHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-                stickyHeader.calendar = self;
-                stickyHeader.month = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:indexPath.section toDate:[self.gregorian fs_firstDayOfMonth:_minimumDate] options:0];
-                self.visibleSectionHeaders[indexPath] = stickyHeader;
-                [stickyHeader setNeedsLayout];
-                return stickyHeader;
-            }
+    if (self.floatingMode) {
+        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+            FSCalendarStickyHeader *stickyHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+            stickyHeader.calendar = self;
+            stickyHeader.month = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:indexPath.section toDate:[self.gregorian fs_firstDayOfMonth:_minimumDate] options:0];
+            self.visibleSectionHeaders[indexPath] = stickyHeader;
+            [stickyHeader setNeedsLayout];
+            return stickyHeader;
         }
-        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader" forIndexPath:indexPath];
-    }else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-//        UICollectionReusableView* view = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:collettionSectionFoot forIndexPath:indexPath];
-        return nil;
-    }else{
-        return nil;
     }
-    
+    return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader" forIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
@@ -1133,8 +1126,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 - (void)handleScopeGesture:(UIPanGestureRecognizer *)sender
 {
-    return;
-    
     if (self.floatingMode) return;
     [self.transitionCoordinator handleScopeGesture:sender];
 }
@@ -1508,7 +1499,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 - (NSArray *)visibleStickyHeaders
 {
-        
     return [self.visibleSectionHeaders.dictionaryRepresentation allValues];
 }
 
