@@ -24,16 +24,24 @@
 
 #pragma mark 横竖屏
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    if (IOS_VERSION >= 7.0f)
+    {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.extendedLayoutIncludesOpaqueBars = NO;
+        self.modalPresentationCapturesStatusBarAppearance = NO;
+        //self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+
 //    self.bm_NavigationItemTintColor = [UIColor whiteColor];
 //    self.bm_NavigationTitleTintColor = [UIColor whiteColor];
 //    self.bm_NavigationBarTintColor = [UIColor bm_colorWithHex:0x82ABEC];
 //    self.bm_NavigationShadowHidden = YES;
 //    [self bm_setNeedsUpdateNavigationBar];
-//}
+}
 //
 //- (void)viewWillAppear:(BOOL)animated
 //{
