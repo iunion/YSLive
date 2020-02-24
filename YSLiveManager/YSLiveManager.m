@@ -22,6 +22,12 @@
 #endif
 
 #include <sys/sysctl.h>
+
+#ifdef DEBUG
+#define YSADDLOW_IPHONE     1
+#endif
+
+
 @interface YSLiveManager ()
 <
     YSRoomInterfaceDelegate,
@@ -2283,6 +2289,13 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPhone7,1"])    return NO;
     if ([platform isEqualToString:@"iPhone7,2"])    return NO;
     
+#ifdef DEBUG
+#if YSADDLOW_IPHONE
+    // iPhone 8 Plus
+    if ([platform isEqualToString:@"iPhone10,2"])   return NO;
+#endif
+#endif
+
     // iPod
     if ([platform isEqualToString:@"iPod1,1"])      return NO;
     if ([platform isEqualToString:@"iPod2,1"])      return NO;
