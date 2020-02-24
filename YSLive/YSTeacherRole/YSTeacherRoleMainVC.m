@@ -176,6 +176,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     BOOL autoUpPlatform;
     NSInteger timer_defaultTime;
+    BOOL allNoAudio;
 }
 
 /// 原keywindow
@@ -3536,7 +3537,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///全体静音 发言
 - (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
 {
-    
+    allNoAudio = noAudio;
 }
 
 
@@ -3590,15 +3591,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             if (self->contestCommitNumber > 0)
             {
-                YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
+                YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
                 [weakSelf.responderView setPersonName:user.nickName];
                 [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
-                if (self.videoViewArray.count < self->maxVideoCount)
+                if (weakSelf.videoViewArray.count < self->maxVideoCount)
                 {
                     if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
                     {
-                       [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
-                    }                    
+                        if (self->allNoAudio)
+                        {
+                            [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+                        }
+                        else
+                        {
+                            [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                        }
+                       
+                    }
                 }
                 else
                 {

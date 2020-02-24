@@ -54,12 +54,11 @@
         self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.closeBtn setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
         [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        self.closeBtn.hidden = NO;
         [self.bacView addSubview:self.closeBtn];
         self.closeBtn.frame = CGRectMake(0, 0, 25, 25);
         self.closeBtn.bm_right = self.bacView.bm_right - 5;
         self.closeBtn.bm_top = self.bacView.bm_top + 5;
-        
+        self.closeBtn.hidden = YES;
         //抢答器
         self.circleProgress = [[YSCircleProgress alloc] init];
         self.circleProgress.frame = CGRectMake(0, 0, 180, 180);
