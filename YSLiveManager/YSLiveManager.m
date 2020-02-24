@@ -22,6 +22,12 @@
 #endif
 
 #include <sys/sysctl.h>
+
+#ifdef DEBUG
+#define YSADDLOW_IPHONE     1
+#endif
+
+
 @interface YSLiveManager ()
 <
     YSRoomInterfaceDelegate,
@@ -974,10 +980,9 @@ static YSLiveManager *liveManagerSingleton = nil;
         }
         return;
     }
-    
-    if (errorCode > YSErrorCode_ConnectSocketError)
+
+    //if (errorCode > YSErrorCode_ConnectSocketError)
     {
-        
         alertMessage = [self onRoomDidOccuredErrorCode:errorCode];
         if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerReportFail:descript:)])
         {
@@ -985,7 +990,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         }
         return;
     }
-    
+#if 0
     if (!self.viewDidAppear)
     {
         NSMutableArray *parameters = [[NSMutableArray alloc] init];
@@ -1020,7 +1025,7 @@ static YSLiveManager *liveManagerSingleton = nil;
             [self.roomManagerDelegate roomManagerReportFail:errorCode descript:alertMessage];
         }
     }
-    
+#endif
     //    if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomDidOccuredError:)])
     //    {
     //        [self.roomManagerDelegate onRoomDidOccuredError:error];
@@ -2225,7 +2230,11 @@ static YSLiveManager *liveManagerSingleton = nil;
             
         default:
         {
+#ifdef DEBUG
             alertMessage = [NSString stringWithFormat:@"%@(%@)", YSLocalized(@"Error.WaitingForNetwork"), @(errorCode)];
+#else
+            alertMessage = [NSString stringWithFormat:@"%@", YSLocalized(@"Error.WaitingForNetwork")];
+#endif
         }
             break;
     }
@@ -2280,6 +2289,13 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPhone7,1"])    return NO;
     if ([platform isEqualToString:@"iPhone7,2"])    return NO;
     
+#ifdef DEBUG
+#if YSADDLOW_IPHONE
+    // iPhone 8 Plus
+    if ([platform isEqualToString:@"iPhone10,2"])   return NO;
+#endif
+#endif
+
     // iPod
     if ([platform isEqualToString:@"iPod1,1"])      return NO;
     if ([platform isEqualToString:@"iPod2,1"])      return NO;
