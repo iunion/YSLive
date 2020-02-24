@@ -3191,7 +3191,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
             self.topSelectBtn.selected = NO;
         }];
-        [self.liveManager sendSignalingTeacherToStartTimerWithTime:3600 isStatus:false isRestart:false isShow:false defaultTime:3600 completion:nil];
+        [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
         
     }
     else if (sender.tag == 4)
@@ -3876,7 +3876,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 //    [self.liveManager sendSignalingTeacherToDeleteTimerCompletion:nil];
         
-    [self.liveManager sendSignalingTeacherToStartTimerWithTime:3600 isStatus:false isRestart:false isShow:false defaultTime:3600 completion:nil];
+//    [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
+    [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Start];
 }
 
 - (void)timerClose
