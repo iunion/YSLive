@@ -4159,11 +4159,36 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [weakSelf.responderView setProgress:progress];
         [weakSelf.responderView setTitleName:[NSString stringWithFormat:@"%ld",(long)timeInterval]];
         weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:50.0f];
+        
+        CGFloat newX = weakSelf.responderView.noticeView.bm_centerX+arc4random_uniform(2 * UI_SCREEN_WIDTH/2 + 1) - UI_SCREEN_WIDTH/2;
+        CGFloat newY = weakSelf.responderView.noticeView.bm_centerY+arc4random_uniform(2 * UI_SCREEN_HEIGHT/2 + 1) - UI_SCREEN_HEIGHT/2;
+        CGPoint centerPoint = CGPointMake(newX, newY);
+        weakSelf.responderView.noticeView.center = centerPoint;
+        
+        if (weakSelf.responderView.noticeView.bm_top < 0)
+        {
+            weakSelf.responderView.noticeView.bm_top = 0;
+        }
+        if (weakSelf.responderView.noticeView.bm_left < 0)
+        {
+            weakSelf.responderView.noticeView.bm_left = 0;
+        }
+        
+        if (weakSelf.responderView.noticeView.bm_bottom > UI_SCREEN_HEIGHT)
+        {
+            weakSelf.responderView.noticeView.bm_top = UI_SCREEN_HEIGHT - weakSelf.responderView.noticeView.bm_height;
+        }
+        if (weakSelf.responderView.noticeView.bm_right > UI_SCREEN_WIDTH)
+        {
+            weakSelf.responderView.noticeView.bm_left = UI_SCREEN_WIDTH - weakSelf.responderView.noticeView.bm_width;
+        }
+
+        
         if (timeInterval == 0)
         {
             [weakSelf.responderView setTitleName:YSLocalized(@"Res.lab.get")];
             weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:26.0f];
-            
+            weakSelf.responderView.noticeView.center = CGPointMake(UI_SCREEN_WIDTH/2, UI_SCREEN_HEIGHT/2);
             UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:weakSelf action:@selector(getStudentResponder:)];
             weakSelf.responderView.titleL.userInteractionEnabled = YES;
             [weakSelf.responderView.titleL addGestureRecognizer:tap];
