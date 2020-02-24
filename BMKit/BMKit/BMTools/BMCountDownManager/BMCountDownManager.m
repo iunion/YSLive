@@ -188,9 +188,12 @@
     {
         [self.countDownDict removeObjectForKey:identifier];
         
-        if (countDownItem.processBlock)
+        if (stop)
         {
-            countDownItem.processBlock(identifier, countDownItem.timeInterval, stop);
+            if (countDownItem.processBlock)
+            {
+                countDownItem.processBlock(identifier, countDownItem.timeInterval, stop);
+            }
         }
     }
     
