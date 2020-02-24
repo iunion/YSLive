@@ -68,6 +68,8 @@
 		34043C4523EA6514004982E6 /* YSMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C4423EA6514004982E6 /* YSMineViewController.m */; };
 		34043C7023EABA04004982E6 /* YSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C6F23EABA04004982E6 /* YSCalendarCell.m */; };
 		3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
+		3450B13524040AB6006141E5 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13424040AB5006141E5 /* SCVideoView.m */; };
+		3450B13624040AB6006141E5 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13424040AB5006141E5 /* SCVideoView.m */; };
 		3471E28E24039A0100A3BBB4 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E26F24039A0100A3BBB4 /* FSCalendarCollectionView.m */; };
 		3471E28F24039A0100A3BBB4 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E26F24039A0100A3BBB4 /* FSCalendarCollectionView.m */; };
 		3471E29024039A0100A3BBB4 /* FSCalendarDelegationProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E27224039A0100A3BBB4 /* FSCalendarDelegationProxy.m */; };
@@ -966,6 +968,7 @@
 		34043C6E23EABA03004982E6 /* YSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSCalendarCell.h; sourceTree = "<group>"; };
 		34043C6F23EABA04004982E6 /* YSCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCalendarCell.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
+		3450B13424040AB5006141E5 /* SCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoView.m; sourceTree = "<group>"; };
 		3471E26F24039A0100A3BBB4 /* FSCalendarCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionView.m; sourceTree = "<group>"; };
 		3471E27024039A0100A3BBB4 /* FSCalendarWeekdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekdayView.h; sourceTree = "<group>"; };
 		3471E27124039A0100A3BBB4 /* FSCalendarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionViewLayout.h; sourceTree = "<group>"; };
@@ -2649,6 +2652,7 @@
 			children = (
 				875A7202237561E400407A75 /* SCVideoView.h */,
 				CBF1EE3C240407C5009B1E11 /* SCVideoView.m */,
+				3450B13424040AB5006141E5 /* SCVideoView.m */,
 				875A720623758F1900407A75 /* SCVideoGridView.h */,
 				875A720723758F1900407A75 /* SCVideoGridView.m */,
 				04B8C6E323CEECFF0095F880 /* PanGestureControl.h */,
@@ -3821,6 +3825,7 @@
 				872D048523B7362300DAC321 /* FLEXPropertyEditorViewController.m in Sources */,
 				871335A0237270F6006534A4 /* BMTestAlignView.m in Sources */,
 				CBF1EE3D240407C6009B1E11 /* SCVideoView.m in Sources */,
+				3450B13524040AB6006141E5 /* SCVideoView.m in Sources */,
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				871335A2237270F6006534A4 /* SDWebImageDownloaderOperation.m in Sources */,
 				87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */,
@@ -4189,6 +4194,7 @@
 				8717E21E2400DADC008C4CDA /* FLEXArrayExplorerViewController.m in Sources */,
 				8717E21F2400DADC008C4CDA /* FLEXPropertyEditorViewController.m in Sources */,
 				8717E2202400DADC008C4CDA /* BMTestAlignView.m in Sources */,
+				3450B13624040AB6006141E5 /* SCVideoView.m in Sources */,
 				8717E2212400DADC008C4CDA /* YSVoteResultTableCell.m in Sources */,
 				8717E2222400DADC008C4CDA /* SDWebImageDownloaderOperation.m in Sources */,
 				8717E2232400DADC008C4CDA /* YSPermissionsVResultView.m in Sources */,
@@ -4503,7 +4509,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.0.6;
+				CURRENT_PROJECT_VERSION = 2.3.3.6;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4528,7 +4534,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4549,7 +4555,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.0.6;
+				CURRENT_PROJECT_VERSION = 2.3.3.6;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
@@ -4587,7 +4593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.3.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
