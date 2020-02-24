@@ -4506,7 +4506,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.0.4;
+				CURRENT_PROJECT_VERSION = 2.4.0.5;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4526,7 +4526,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = YSLive/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4552,7 +4552,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.0.4;
+				CURRENT_PROJECT_VERSION = 2.4.0.5;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
@@ -4585,7 +4585,7 @@
 					YSCLASS,
 				);
 				INFOPLIST_FILE = YSLive/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4632,7 +4632,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = YSLive/vclass_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4692,7 +4692,7 @@
 					YSCUSTOMIZED_WSKJ,
 				);
 				INFOPLIST_FILE = YSLive/vclass_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

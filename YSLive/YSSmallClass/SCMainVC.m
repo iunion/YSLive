@@ -3316,10 +3316,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 [self.topToolBar selectMicrophoneBtn:NO];
             }
-            if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
+            if (publishState < YSUser_PublishState_AUDIOONLY)
             {
                 [self.topToolBar selectMicrophoneBtn:NO];
                 [self.topToolBar hideMicrophoneBtn:YES];
+            }
+            else if (publishState > YSUser_PublishState_BOTH)
+            {
+                [self.topToolBar selectMicrophoneBtn:YES];
+                [self.topToolBar hideMicrophoneBtn:NO];
             }
             else
             {
