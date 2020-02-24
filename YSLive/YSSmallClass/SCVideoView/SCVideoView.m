@@ -195,6 +195,7 @@
     [self.homeMaskBtn setImage:[UIImage imageNamed:@"homeRemind_SCVideoViewImage"] forState:UIControlStateNormal];
     self.homeMaskBtn.titleLabel.font = UI_FONT_12;
     [self.backVideoView addSubview:self.homeMaskBtn];
+    self.homeMaskBtn.hidden = YES;
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
