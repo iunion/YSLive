@@ -3593,9 +3593,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
                 [weakSelf.responderView setPersonName:user.nickName];
                 [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
-                if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+                if (self.videoViewArray.count < self->maxVideoCount)
                 {
-                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                    if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+                    {
+                       [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                    }                    
+                }
+                else
+                {
+                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
             
