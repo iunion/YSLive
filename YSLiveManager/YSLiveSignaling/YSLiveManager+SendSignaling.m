@@ -356,7 +356,7 @@
     
 //    return ([self.roomManager pubMsg:YSSignalingName_ContestCommit msgID:YSSignalingName_ContestCommit toID:YSRoomPubMsgTellAll data:nil save:NO extensionData:sendDic associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
     
-    return ([self sendPubMsg:YSSignalingName_ContestCommit toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:NO completion:completion]);
+    return ([self sendPubMsg:YSSignalingName_ContestCommit toID:@"__allSuperUsers" data:[sendDic bm_toJSON] save:NO completion:completion]);
 }
 @end
 
