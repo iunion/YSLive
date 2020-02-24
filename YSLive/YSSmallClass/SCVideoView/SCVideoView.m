@@ -201,11 +201,11 @@
     self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
     [self.backVideoView addSubview:self.maskNoVideo];
     
-    //设备性能低时的蒙版上的文字
+    //没有连摄像头时的文字
     UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
     maskNoVideoTitle.backgroundColor = [UIColor clearColor];
     maskNoVideoTitle.font = UI_FONT_14;
-    maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+    maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
     maskNoVideoTitle.textColor = UIColor.whiteColor;
     maskNoVideoTitle.adjustsFontSizeToFitWidth = YES;
     maskNoVideoTitle.minimumScaleFactor = 0.3;
