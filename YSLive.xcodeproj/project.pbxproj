@@ -98,6 +98,8 @@
 		3471E2A924039A0100A3BBB4 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E28C24039A0100A3BBB4 /* FSCalendarTransitionCoordinator.m */; };
 		3471E2AA24039A0100A3BBB4 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E28D24039A0100A3BBB4 /* FSCalendarAppearance.m */; };
 		3471E2AB24039A0100A3BBB4 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E28D24039A0100A3BBB4 /* FSCalendarAppearance.m */; };
+		3471E2AD2403DD7D00A3BBB4 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E2AC2403DD7D00A3BBB4 /* SCVideoView.m */; };
+		3471E2AE2403DD7D00A3BBB4 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E2AC2403DD7D00A3BBB4 /* SCVideoView.m */; };
 		34B8D0EF23FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */; };
 		34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */; };
 		8703620F23F2402E0054E50A /* YSSchoolApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */; };
@@ -452,7 +454,6 @@
 		8717E2852400DADC008C4CDA /* YSCoreStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAFE2351774500C72EAA /* YSCoreStatus.m */; };
 		8717E2862400DADC008C4CDA /* FLEXArgumentInputColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03DB23B7362300DAC321 /* FLEXArgumentInputColorView.m */; };
 		8717E2872400DADC008C4CDA /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881D2350794E00C4C635 /* FMDatabaseAdditions.m */; };
-		8717E2882400DADC008C4CDA /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A7203237561E400407A75 /* SCVideoView.m */; };
 		8717E2892400DADC008C4CDA /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638424237A971700DE7236 /* TZImagePickerController.m */; };
 		8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1823670AB5000859F7 /* YSBarrageManager.m */; };
 		8717E28C2400DADC008C4CDA /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638417237A971700DE7236 /* TZProgressView.m */; };
@@ -747,7 +748,6 @@
 		8745558323B335C200BC6CAB /* YSEyeCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745558223B335C200BC6CAB /* YSEyeCareVC.m */; };
 		874E4F6623B36A1500086B01 /* YSSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6523B36A1500086B01 /* YSSlider.m */; };
 		874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6823B36F0300086B01 /* LMJDropdownMenu.m */; };
-		875A7204237561E400407A75 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A7203237561E400407A75 /* SCVideoView.m */; };
 		875A720823758F1900407A75 /* SCVideoGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720723758F1900407A75 /* SCVideoGridView.m */; };
 		875A720D237A541900407A75 /* YSFloatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720C237A541900407A75 /* YSFloatView.m */; };
 		875A722D238243FA00407A75 /* YSLiveRoomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 870C531E23572DF600BDB1EC /* YSLiveRoomConfiguration.m */; };
@@ -998,6 +998,7 @@
 		3471E28B24039A0100A3BBB4 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
 		3471E28C24039A0100A3BBB4 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
 		3471E28D24039A0100A3BBB4 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
+		3471E2AC2403DD7D00A3BBB4 /* SCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCVideoView.m; path = ../../../../SCVideoView.m; sourceTree = "<group>"; };
 		34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopoverVC.m; sourceTree = "<group>"; };
 		34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopCell.m; sourceTree = "<group>"; };
 		8701B1312371720600A43607 /* testcolorpalette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcolorpalette@2x.png"; sourceTree = "<group>"; };
@@ -1284,7 +1285,6 @@
 		874E4F6823B36F0300086B01 /* LMJDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJDropdownMenu.m; sourceTree = "<group>"; };
 		874E4F6923B36F0300086B01 /* LMJDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJDropdownMenu.h; sourceTree = "<group>"; };
 		875A7202237561E400407A75 /* SCVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCVideoView.h; sourceTree = "<group>"; };
-		875A7203237561E400407A75 /* SCVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCVideoView.m; sourceTree = "<group>"; };
 		875A720623758F1900407A75 /* SCVideoGridView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCVideoGridView.h; sourceTree = "<group>"; };
 		875A720723758F1900407A75 /* SCVideoGridView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCVideoGridView.m; sourceTree = "<group>"; };
 		875A720B237A541900407A75 /* YSFloatView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSFloatView.h; sourceTree = "<group>"; };
@@ -2649,7 +2649,7 @@
 			isa = PBXGroup;
 			children = (
 				875A7202237561E400407A75 /* SCVideoView.h */,
-				875A7203237561E400407A75 /* SCVideoView.m */,
+				3471E2AC2403DD7D00A3BBB4 /* SCVideoView.m */,
 				875A720623758F1900407A75 /* SCVideoGridView.h */,
 				875A720723758F1900407A75 /* SCVideoGridView.m */,
 				04B8C6E323CEECFF0095F880 /* PanGestureControl.h */,
@@ -3821,6 +3821,7 @@
 				872D046823B7362300DAC321 /* FLEXArrayExplorerViewController.m in Sources */,
 				872D048523B7362300DAC321 /* FLEXPropertyEditorViewController.m in Sources */,
 				871335A0237270F6006534A4 /* BMTestAlignView.m in Sources */,
+				3471E2AD2403DD7D00A3BBB4 /* SCVideoView.m in Sources */,
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				871335A2237270F6006534A4 /* SDWebImageDownloaderOperation.m in Sources */,
 				87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */,
@@ -3924,7 +3925,6 @@
 				871335EF237270F6006534A4 /* YSCoreStatus.m in Sources */,
 				872D048B23B7362300DAC321 /* FLEXArgumentInputColorView.m in Sources */,
 				871335F0237270F6006534A4 /* FMDatabaseAdditions.m in Sources */,
-				875A7204237561E400407A75 /* SCVideoView.m in Sources */,
 				0463844D237A971700DE7236 /* TZImagePickerController.m in Sources */,
 				871335F2237270F6006534A4 /* YSBarrageManager.m in Sources */,
 				04638441237A971700DE7236 /* TZProgressView.m in Sources */,
@@ -4190,6 +4190,7 @@
 				8717E21E2400DADC008C4CDA /* FLEXArrayExplorerViewController.m in Sources */,
 				8717E21F2400DADC008C4CDA /* FLEXPropertyEditorViewController.m in Sources */,
 				8717E2202400DADC008C4CDA /* BMTestAlignView.m in Sources */,
+				3471E2AE2403DD7D00A3BBB4 /* SCVideoView.m in Sources */,
 				8717E2212400DADC008C4CDA /* YSVoteResultTableCell.m in Sources */,
 				8717E2222400DADC008C4CDA /* SDWebImageDownloaderOperation.m in Sources */,
 				8717E2232400DADC008C4CDA /* YSPermissionsVResultView.m in Sources */,
@@ -4293,7 +4294,6 @@
 				8717E2852400DADC008C4CDA /* YSCoreStatus.m in Sources */,
 				8717E2862400DADC008C4CDA /* FLEXArgumentInputColorView.m in Sources */,
 				8717E2872400DADC008C4CDA /* FMDatabaseAdditions.m in Sources */,
-				8717E2882400DADC008C4CDA /* SCVideoView.m in Sources */,
 				8717E2892400DADC008C4CDA /* TZImagePickerController.m in Sources */,
 				8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */,
 				8717E28C2400DADC008C4CDA /* TZProgressView.m in Sources */,

@@ -24,7 +24,7 @@
 #include <sys/sysctl.h>
 
 #ifdef DEBUG
-#define YSADDLOW_IPHONE     1
+#define YSADDLOW_IPHONE     0
 #endif
 
 
