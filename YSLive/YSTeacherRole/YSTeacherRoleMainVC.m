@@ -3546,6 +3546,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)startClickedWithUpPlatform:(BOOL)upPlatform
 {
     autoUpPlatform = upPlatform;
+    static int responderFirst = 0;
+    responderFirst = 0;
     BMWeakSelf
     [self.liveManager sendSignalingTeacherToStartResponderCompletion:nil];
     contestCommitNumber = 0;
@@ -3563,10 +3565,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
         NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
-        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];//用于传人数
-//        [weakSelf.responderView setPersonName:@"宁杰英"];
+        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];
         CGFloat progress = (10 - timeInterval) / 10.0f;
         [weakSelf.responderView setProgress:progress];
+
         if (timeInterval == 0)
         {
             [weakSelf.responderView showResponderWithType:YSTeacherResponderType_Result];
@@ -3586,36 +3588,44 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (self->contestCommitNumber == 0)
             {
                 [weakSelf.responderView setPersonName:YSLocalized(@"Res.lab.fail")];
-                
-                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
+                if (responderFirst == 0)
+                {
+                    
+                    [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
+                    responderFirst = 1;
+                }
             }
+            
             if (self->contestCommitNumber > 0)
             {
                 YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
                 [weakSelf.responderView setPersonName:user.nickName];
-                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
-                if (weakSelf.videoViewArray.count < self->maxVideoCount)
+                if (responderFirst == 0)
                 {
-                    if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+                    responderFirst = 1;
+                    [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
+                    if (weakSelf.videoViewArray.count < self->maxVideoCount)
                     {
-                        if (self->allNoAudio)
+                        if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
                         {
-                            [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+                            if (self->allNoAudio)
+                            {
+                                [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+                            }
+                            else
+                            {
+                                [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                            }
+                            
                         }
-                        else
-                        {
-                            [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
-                        }
-                       
                     }
-                }
-                else
-                {
-                    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    else
+                    {
+                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    }
+                    
                 }
             }
-            
-            
         }
     }];
     
