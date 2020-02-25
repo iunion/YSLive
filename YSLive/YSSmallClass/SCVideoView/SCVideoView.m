@@ -58,6 +58,8 @@
 ///设备性能低时的蒙版上的文字
 @property (nonatomic, strong) UILabel *lowDeviceTitle;
 
+///没上课时没有连摄像头时的lab
+@property (nonatomic, strong) UILabel * maskNoVideobgLab;
 
 @end
 
@@ -176,6 +178,20 @@
 
 - (void)setupUIView
 {
+    //没上课时没有连摄像头时的lab
+    UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
+    maskNoVideobgLab.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
+    maskNoVideobgLab.font = UI_FONT_14;
+    maskNoVideobgLab.text = YSLocalized(@"Prompt.NoCamera");
+    maskNoVideobgLab.textColor = UIColor.whiteColor;
+    maskNoVideobgLab.adjustsFontSizeToFitWidth = YES;
+    maskNoVideobgLab.minimumScaleFactor = 0.3;
+    maskNoVideobgLab.numberOfLines = 0;
+    maskNoVideobgLab.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:maskNoVideobgLab];
+    self.maskNoVideobgLab = maskNoVideobgLab;
+    
+    
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
     [self addSubview:self.backVideoView];
@@ -303,10 +319,12 @@
     
     if (self.isForPerch)
     {
+        self.maskNoVideobgLab.hidden = NO;
         self.backVideoView.hidden = YES;
     }
     else
     {
+        self.maskNoVideobgLab.hidden = YES;
         YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
         if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
         {
@@ -352,7 +370,7 @@
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    
+    self.maskNoVideobgLab.frame = self.bounds;
     self.backVideoView.frame = self.bounds;
     self.maskCloseVideoBgView.frame = self.bounds;
     self.homeMaskBtn.frame = self.bounds;
