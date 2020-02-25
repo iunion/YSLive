@@ -4203,7 +4203,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (contestTouchOne == 0)
     {
+        
         [self.liveManager sendSignalingStudentContestCommitCompletion:nil];
+        [self.responderView setTitleName:YSLocalized(@"Res.lab.studenting")];
     }
     contestTouchOne = 1;
 //    [self.responderView setTitleName:[NSString stringWithFormat:@"%@",@"dsffasdf\n抢答成功"]];

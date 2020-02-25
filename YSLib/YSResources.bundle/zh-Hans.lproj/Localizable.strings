@@ -284,6 +284,8 @@
 "Res.lab.get" = "抢答";
 "Res.lab.success" = "抢答成功";
 "Res.lab.fail" = "无人抢答";
+"Res.lab.studenting" = "抢答中";
+
 "Timer.btn.start" = "开始计时";
 "Timer.lab.end" = "计时结束";
 

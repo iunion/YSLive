@@ -282,6 +282,8 @@
 "Res.lab.get" = "get";
 "Res.lab.success" = "Get chance";
 "Res.lab.fail" = "No answer";
+"Res.lab.studenting" = "wait..";
+
 "Timer.btn.start" = "Start";
 "Timer.lab.end" = "Timer end";
 

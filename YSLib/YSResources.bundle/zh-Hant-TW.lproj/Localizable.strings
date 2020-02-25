@@ -280,7 +280,7 @@
 "Res.lab.noget"="無人搶答";
 "Res.lab.getting"="搶答中…";
 "Res.lab.get" = "搶答";
-
+"Res.lab.studenting" = "搶答中";
 "Res.lab.success" = "搶答成功";
 "Res.lab.fail" = "無人搶答";
 "Timer.btn.start" = "開始計時";
