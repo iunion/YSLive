@@ -192,10 +192,11 @@
     ///点击Home键提示蒙版
     self.homeMaskBtn = [[UIButton alloc]init];
     [self.homeMaskBtn setTitle:YSLocalized(@"State.teacherInBackGround") forState:UIControlStateNormal];
-    [self.homeMaskBtn setImage:[UIImage imageNamed:@"homeRemind_SCVideoViewImage"] forState:UIControlStateNormal];
     self.homeMaskBtn.titleLabel.font = UI_FONT_12;
     [self.backVideoView addSubview:self.homeMaskBtn];
     self.homeMaskBtn.hidden = YES;
+    [self.homeMaskBtn.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    self.homeMaskBtn.titleLabel.numberOfLines = 2;
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
@@ -243,7 +244,6 @@
     lowDeviceTitle.textAlignment = NSTextAlignmentCenter;
     [self.lowDeviceBgView addSubview:lowDeviceTitle];
     self.lowDeviceTitle = lowDeviceTitle;
-    
     
     //奖杯
     self.cupImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
