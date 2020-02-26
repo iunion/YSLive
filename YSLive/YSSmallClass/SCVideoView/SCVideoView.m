@@ -319,7 +319,7 @@
     
     if (self.isForPerch)
     {
-        self.maskNoVideobgLab.hidden = NO;
+        self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
         self.backVideoView.hidden = YES;
     }
     else
@@ -347,6 +347,7 @@
         self.canDraw = [self.roomUser.properties bm_boolForKey:sUserCandraw];
         self.giftNumber = [self.roomUser.properties bm_uintForKey:sUserGiftNumber];
         self.isInBackGround = [self.roomUser.properties bm_boolForKey:sUserIsInBackGround];
+        
         self.iHasVadeo = self.roomUser.hasVideo;
         
         NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sUserPrimaryColor];
@@ -417,9 +418,13 @@
     {
         height = 12;
     }
+    
     self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 120*widthScale, height);
     CGFloat soundImageWidth = height*5/3;
     self.soundImage.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
+    
+    
+    
 }
 
 /// 当前设备音量  音量大小 0 ～ 32670
