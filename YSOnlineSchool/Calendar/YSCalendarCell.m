@@ -12,7 +12,7 @@
 
 @interface YSCalendarCell()
 
-@property (weak, nonatomic) UIView *lineView;
+//@property (weak, nonatomic) UIView *lineView;
 
 @end
 
@@ -39,11 +39,13 @@
         circleLab.textColor = UIColor.grayColor;
         self.circleLab = circleLab;
         
-        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-1, self.bm_width, 1)];
-        lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
-        [self.contentView addSubview:lineView];
-        self.lineView = lineView;
+//        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-1, self.bm_width, 1)];
+//        lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
+//        [self.contentView addSubview:lineView];
+//        self.lineView = lineView;
     }
+//    self.backgroundColor = [UIColor bm_randomColor];
+    
     return self;
 }
 - (void)setDateDict:(NSDictionary *)dateDict
@@ -58,7 +60,7 @@
     [super layoutSubviews];
     
     self.backgroundView.frame = CGRectInset(self.bounds, 1, 1);
-    self.selectionLayer.frame = CGRectMake(0, 0, self.bm_width-20, self.bm_height-20) ;
+    self.selectionLayer.frame = CGRectMake(0, 3, self.bm_width-21, self.bm_height-21) ;
     self.selectionLayer.path = [UIBezierPath bezierPathWithRect:self.selectionLayer.bounds].CGPath;
     self.circleLab.frame = CGRectMake(0, self.bm_height-20, self.backgroundView.frame.size.width, 20);
     

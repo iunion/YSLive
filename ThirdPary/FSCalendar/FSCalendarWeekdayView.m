@@ -86,17 +86,17 @@
         NSInteger labelIndex = opposite ? count-1-i : i;
         UILabel *label = [self.weekdayPointers pointerAtIndex:labelIndex];
         label.frame = CGRectMake(x, 0, width, self.contentView.fs_height);
-        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, label.fs_height-1, label.fs_width, 1)];
+        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, label.fs_height-0.5, label.fs_width, 0.5)];
         lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
         [label addSubview:lineView];
         
         if (i == 0)
         {
-            lineView.frame = CGRectMake(10, label.fs_height-1, label.fs_width-10, 1);
+            lineView.frame = CGRectMake(10, label.fs_height-0.5, label.fs_width-10, 0.5);
         }
         else if (i == count-1)
         {
-            lineView.frame = CGRectMake(0, label.fs_height-1, label.fs_width-10, 1);
+            lineView.frame = CGRectMake(0, label.fs_height-0.5, label.fs_width-10, 0.5);
         }
         x = CGRectGetMaxX(label.frame);
     }

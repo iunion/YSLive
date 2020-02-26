@@ -108,7 +108,7 @@
         
         CGFloat height = titleHeight + subtitleHeight;
         _titleLabel.frame = CGRectMake(
-                                       self.preferredTitleOffset.x, (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y,
+                                       self.preferredTitleOffset.x, (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y+3,
                                        self.contentView.fs_width,
                                        titleHeight-10
                                        );
@@ -121,7 +121,7 @@
     } else {
         _titleLabel.frame = CGRectMake(
                                        self.preferredTitleOffset.x,
-                                       self.preferredTitleOffset.y,
+                                       self.preferredTitleOffset.y+3,
                                        self.contentView.fs_width,
                                        floor(self.contentView.fs_height*5.0/6.0)-10
                                        );
@@ -150,7 +150,7 @@
                                        self.fs_width,
                                        eventSize*0.83
                                       );
-    
+
 }
 
 - (void)prepareForReuse
@@ -192,7 +192,7 @@
 {
     UIColor *textColor = self.colorForTitleLabel;
     if (![textColor isEqual:_titleLabel.textColor]) {
-        _titleLabel.textColor = UIColor.whiteColor;
+//        _titleLabel.textColor = UIColor.whiteColor;
     }
     UIFont *titleFont = self.calendar.appearance.titleFont;
     if (![titleFont isEqual:_titleLabel.font]) {

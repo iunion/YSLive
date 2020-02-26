@@ -16,6 +16,11 @@
 
 #import "YSLiveApiRequest.h"
 
+//#import "YSMonthsListTableView.h"
+
+
+#import "YSMonthListView.h"
+
 @interface YSCalendarCurriculumVC ()
 <
     FSCalendarDataSource,
@@ -33,18 +38,23 @@
 
 @property (strong, nonatomic) NSMutableDictionary *dateDict;
 
+
+///切换日期的UI----
+@property (nonatomic, strong) UIButton *lastBtn;
+@property (nonatomic, strong) UIButton *nextBtn;
+@property (nonatomic, strong) UIButton *monthBtn;
+
+///可切换的月份数组
+@property(nonatomic,strong)NSMutableArray *dateArr;
+
+@property (nonatomic, strong) YSMonthListView * monthListTableView;
+
+
 @end
 
 @implementation YSCalendarCurriculumVC
 
 
-- (NSMutableDictionary *)dateDict
-{
-    if (!_dateDict) {
-        self.dateDict = [NSMutableDictionary dictionary];
-    }
-    return _dateDict;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -64,7 +74,13 @@
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(getCalendarDatas)];
     self.title = nil;
     
+    [self selectMonthUI];
+    
+    
+    
     [self setupUI];
+    
+    self.gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
     [self bringSomeViewToFront];
     
@@ -74,28 +90,7 @@
     self.nowDateStr = [dateFormatter stringFromDate:currentDate];
 
     [self getCalendarDatas];
-}
-
-#pragma mark 横竖屏
-
-/// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-/// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
-/// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-/// 3.返回进入界面默认显示方向
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
+    
 }
 
 #warning 测试代码先不要删
@@ -104,9 +99,147 @@
     [GetAppDelegate logoutOnlineSchool];
 }
 
+- (void)backBtnClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)selectMonthUI
+{
+    
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    dateFormatter.dateFormat = @"yyyy MM月";
+    NSString * month = [dateFormatter stringFromDate:currentDate];
+    
+    UIButton *monthBtn = [[UIButton alloc]initWithFrame:CGRectMake((self.view.bm_width - 113)/2, 23, 113, 26)];
+    [monthBtn setBackgroundColor:UIColor.whiteColor];
+    [monthBtn setImage:[UIImage imageNamed:@"onlineSchool_allMonth"] forState:UIControlStateNormal];
+    [monthBtn setTitle:month forState:UIControlStateNormal];
+    [monthBtn setTitleColor:[UIColor bm_colorWithHex:0x828282] forState:UIControlStateNormal];
+    monthBtn.titleLabel.font = UI_FONT_16;
+    monthBtn.layer.cornerRadius = 26/2;
+    monthBtn.layer.masksToBounds = YES;
+    [monthBtn addTarget:self action:@selector(monthButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    monthBtn.tag = 2;
+    [self.view addSubview:monthBtn];
+    self.monthBtn = monthBtn;
+    
+    monthBtn.imageEdgeInsets = UIEdgeInsetsMake(0, monthBtn.frame.size.width - monthBtn.imageView.frame.origin.x - monthBtn.imageView.frame.size.width, 0, 0);
+    monthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, - monthBtn.imageView.frame.size.width-10, 0, 10);
+    
+    UIButton *lastBtn = [[UIButton alloc]init];
+    [lastBtn setBackgroundColor:UIColor.whiteColor];
+    [lastBtn setImage:[UIImage imageNamed:@"onlineSchool_lastNonth_normal"] forState:UIControlStateNormal];
+    [lastBtn setImage:[UIImage imageNamed:@"onlineSchool_lastNonth_select"] forState:UIControlStateSelected];
+    lastBtn.layer.cornerRadius = 26/2;
+    lastBtn.layer.masksToBounds = YES;
+    [lastBtn addTarget:self action:@selector(monthButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    lastBtn.tag = 1;
+    [self.view addSubview:lastBtn];
+    self.lastBtn = lastBtn;
+    
+    UIButton *nextBtn = [[UIButton alloc]init];
+    [nextBtn setBackgroundColor:UIColor.whiteColor];
+    [nextBtn setImage:[UIImage imageNamed:@"onlineSchool_nextNonth_normal"] forState:UIControlStateNormal];
+    [nextBtn setImage:[UIImage imageNamed:@"onlineSchool_nextNonth_select"] forState:UIControlStateSelected];
+    nextBtn.layer.cornerRadius = 26/2;
+    nextBtn.layer.masksToBounds = YES;
+    [nextBtn addTarget:self action:@selector(monthButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    nextBtn.tag = 3;
+    [self.view addSubview:nextBtn];
+    self.nextBtn = nextBtn;
+        
+    [lastBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(23);
+        make.right.equalTo(monthBtn.mas_left).offset(-16);
+        make.width.height.mas_equalTo(26);
+    }];
+    
+    [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(23);
+        make.left.equalTo(monthBtn.mas_right).offset(16);
+        make.width.height.mas_equalTo(26);
+    }];
+}
+
+- (void)monthButtonClick:(UIButton *)sender
+{
+    switch (sender.tag) {
+        case 1:
+        {//上个月
+            NSDate *currentMonth = self.MyCalendar.currentPage;
+            NSDate *previousMonth = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:-1 toDate:currentMonth options:0];
+            [self.MyCalendar setCurrentPage:previousMonth animated:YES];
+        }
+            break;
+        case 3:
+        {//下个月
+            NSDate *currentMonth = self.MyCalendar.currentPage;
+               NSDate *nextMonth = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:1 toDate:currentMonth options:0];
+               [self.MyCalendar setCurrentPage:nextMonth animated:YES];
+        }
+            break;
+        case 2:
+        {//所有月份列表
+            sender.selected = !sender.selected;
+            BMWeakSelf
+            if (sender.selected) {
+                [UIView animateWithDuration:0.25 animations:^{
+                    weakSelf.monthListTableView.bm_height = self.dateArr.count * 33;
+                }];
+            }
+            else
+            {
+              [UIView animateWithDuration:0.25 animations:^{
+                  weakSelf.monthListTableView.bm_height = 0;
+                }];
+            }
+        }
+            break;
+        
+        default:
+            break;
+    }
+}
+
+
+//UI
+- (void)setupUI
+{
+    self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
+    
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  70, self.view.frame.size.width-20, 400)];
+    calendar.dataSource = self;
+    calendar.delegate = self;
+    calendar.swipeToChooseGesture.enabled = NO;
+//    calendar.allowsMultipleSelection = NO;
+    [self.view addSubview:calendar];
+    self.MyCalendar = calendar;
+    calendar.backgroundColor = UIColor.whiteColor;
+    calendar.layer.cornerRadius = 16;
+    calendar.appearance.separators = FSCalendarSeparatorInterRows;
+    calendar.appearance.eventOffset = CGPointMake(0, -7);
+    calendar.today = nil; // Hide the today circle
+    [calendar registerClass:[YSCalendarCell class] forCellReuseIdentifier:@"cell"];
+    
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];//设置为中文
+    calendar.locale = locale;  // 设置周次是中文显示
+    calendar.placeholderType = FSCalendarPlaceholderTypeNone; //月份模式时，只显示当前月份
+    calendar.firstWeekday = 2;     //设置周一为第一天
+    calendar.headerHeight = 60.0f;
+    
+    [self.MyCalendar selectDate:[NSDate date] scrollToDate:NO];
+    self.MyCalendar.accessibilityIdentifier = @"calendar";
+}
+
+
 #pragma mark - 获取学生课程列表当月数据
 - (void)getCalendarDatas
 {
+
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     [self.calendarDataTask cancel];
@@ -155,6 +288,11 @@
                                     }
                                 }
                             }
+                            
+                            [weakSelf.dateDict setValue:@2 forKey:@"2020-03-05"];
+                            [weakSelf.dateDict setValue:@2 forKey:@"2020-03-15"];
+                            [weakSelf.dateDict setValue:@2 forKey:@"2020-03-07"];
+                            
                             [weakSelf.MyCalendar reloadData];
                             return;
                         }
@@ -184,46 +322,6 @@
     }
 }
 
-- (void)backBtnClick
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-//UI
-- (void)setupUI
-{
-    self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
-    
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  50, self.view.frame.size.width-20, 400)];
-    calendar.dataSource = self;
-    calendar.delegate = self;
-    calendar.swipeToChooseGesture.enabled = NO;
-    calendar.allowsMultipleSelection = NO;
-    [self.view addSubview:calendar];
-    calendar.scrollEnabled = NO;
-    self.MyCalendar = calendar;
-    calendar.backgroundColor = UIColor.whiteColor;
-    calendar.layer.cornerRadius = 16;
-    
-    calendar.appearance.eventOffset = CGPointMake(0, -7);
-    calendar.today = nil; // Hide the today circle
-    [calendar registerClass:[YSCalendarCell class] forCellReuseIdentifier:@"cell"];
-    
-    UIPanGestureRecognizer *scopeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:calendar action:@selector(handleScopeGesture:)];
-    [calendar addGestureRecognizer:scopeGesture];
-    
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];//设置为中文
-    calendar.locale = locale;  // 设置周次是中文显示
-    calendar.placeholderType = FSCalendarPlaceholderTypeFillHeadTail; //月份模式时，只显示当前月份
-    calendar.firstWeekday = 2;     //设置周一为第一天
-    calendar.headerHeight = 60.0f;
-    
-    [self.MyCalendar selectDate:[NSDate date] scrollToDate:NO];
-    self.MyCalendar.accessibilityIdentifier = @"calendar";
-}
-
 - (NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date
 {
     if ([self.gregorian isDateInToday:date])
@@ -235,13 +333,7 @@
 
 - (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleSelectionColorForDate:(NSDate *)date
 {
-    
     return UIColor.whiteColor;
-}
-
-- (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date
-{
-    NSLog(@"点击的date %@",date);
 }
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
@@ -255,6 +347,10 @@
         classVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:classVC animated:YES];
     }
+}
+- (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date
+{
+    NSLog(@"点击的date %@",date);
 }
 
 - (FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
@@ -292,5 +388,80 @@
     }
 }
 
+
+#pragma mark - <FSCalendarDataSource>
+
+
+- (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
+{
+    return [self.dateFormatter dateFromString:@"2019/11/01"];
+}
+
+- (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
+{
+    return [self.dateFormatter dateFromString:@"2020/5/01"];
+}
+
+#pragma mark 横竖屏
+
+/// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+/// 2.返回支持的旋转方向
+/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+/// 3.返回进入界面默认显示方向
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+- (NSMutableArray *)dateArr
+{
+    if (!_dateArr) {
+        
+        NSArray * arr = @[@"2019 11月",@"2019 12月",@"2020 01月",@"2020 02月",@"2020 03月",@"2020 04月",@"2020 05月",];
+        
+        _dateArr = [NSMutableArray arrayWithArray:arr];
+        
+    }
+    return _dateArr;
+}
+
+- (YSMonthListView *)monthListTableView
+{
+    if (!_monthListTableView) {
+        
+        self.monthListTableView = [[YSMonthListView alloc]initWithFrame:CGRectMake(self.monthBtn.bm_originX+13, CGRectGetMaxY(self.monthBtn.frame)+2, self.monthBtn.bm_width-2*13, self.dateArr.count * 33)];
+        
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.monthListTableView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(12, 12)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = self.monthListTableView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        self.monthListTableView.layer.mask = maskLayer;
+        self.monthListTableView.layer.masksToBounds = YES;
+        
+        self.monthListTableView.dateArr = self.dateArr;
+        [self.view addSubview:self.monthListTableView];
+//        self.monthListTableView.hidden = YES;
+    }
+    return _monthListTableView;
+}
+
+- (NSMutableDictionary *)dateDict
+{
+    if (!_dateDict) {
+        self.dateDict = [NSMutableDictionary dictionary];
+    }
+    return _dateDict;
+}
 
 @end
