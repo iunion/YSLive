@@ -8,7 +8,10 @@
 
 #import "YSSuperVC.h"
 #import "BMProgressHUD.h"
+#if YSSDK
+#else
 #import "AppDelegate.h"
+#endif
 
 @interface YSSuperVC ()
 
@@ -133,6 +136,8 @@
 {
     switch (statusCode)
     {
+#if YSSDK
+#else
         // 过期 和 挤掉 都是 code==-40666   是：  当前账号在其他设备登录, 请重新登录
         case -40666:
         {
@@ -143,6 +148,7 @@
             
             return YES;
         }
+#endif
 
 /*
         // 未登录

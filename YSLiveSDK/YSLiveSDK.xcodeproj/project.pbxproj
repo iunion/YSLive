@@ -71,80 +71,6 @@
 		877B44E523D03FBB00A88540 /* YSVCProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44DE23D03FBB00A88540 /* YSVCProtocol.h */; };
 		877B44E623D03FBB00A88540 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44DF23D03FBB00A88540 /* YSMainSuperVC.m */; };
 		877B44E723D03FBB00A88540 /* YSSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44E023D03FBB00A88540 /* YSSuperVC.h */; };
-		877B450523D03FC600A88540 /* YSTeacherRoleMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44E923D03FC600A88540 /* YSTeacherRoleMainVC.h */; };
-		877B450623D03FC600A88540 /* YSMp3Controlview.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44EB23D03FC600A88540 /* YSMp3Controlview.h */; };
-		877B450723D03FC600A88540 /* YSMp4ControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44EC23D03FC600A88540 /* YSMp4ControlView.h */; };
-		877B450823D03FC600A88540 /* YSMediaSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44ED23D03FC600A88540 /* YSMediaSlider.h */; };
-		877B450923D03FC600A88540 /* YSMp4ControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44EE23D03FC600A88540 /* YSMp4ControlView.m */; };
-		877B450A23D03FC600A88540 /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44EF23D03FC600A88540 /* YSMp3Controlview.m */; };
-		877B450B23D03FC600A88540 /* YSMediaSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44F023D03FC600A88540 /* YSMediaSlider.m */; };
-		877B450C23D03FC600A88540 /* YSControlPopoverView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44F223D03FC600A88540 /* YSControlPopoverView.h */; };
-		877B450D23D03FC600A88540 /* YSControlPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44F323D03FC600A88540 /* YSControlPopoverView.m */; };
-		877B450E23D03FC600A88540 /* SCTeacherAnswerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44F523D03FC600A88540 /* SCTeacherAnswerView.h */; };
-		877B450F23D03FC600A88540 /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44F623D03FC600A88540 /* SCTeacherAnswerView.m */; };
-		877B451023D03FC600A88540 /* SCTTopPopverViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44F823D03FC600A88540 /* SCTTopPopverViewController.h */; };
-		877B451123D03FC600A88540 /* SCTTopPopverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44F923D03FC600A88540 /* SCTTopPopverViewController.m */; };
-		877B451223D03FC600A88540 /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44FA23D03FC600A88540 /* YSTeacherRoleMainVC.m */; };
-		877B451323D03FC600A88540 /* SCTeacherTopBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44FC23D03FC600A88540 /* SCTeacherTopBar.h */; };
-		877B451423D03FC600A88540 /* SCTeacherTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44FD23D03FC600A88540 /* SCTeacherTopBar.m */; };
-		877B451523D03FC700A88540 /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44FF23D03FC600A88540 /* SCTeacherListView.m */; };
-		877B451623D03FC700A88540 /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B450023D03FC600A88540 /* SCTeacherCoursewareListCell.m */; };
-		877B451723D03FC700A88540 /* SCTeacherPersonListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B450123D03FC600A88540 /* SCTeacherPersonListCell.h */; };
-		877B451823D03FC700A88540 /* SCTeacherCoursewareListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B450223D03FC600A88540 /* SCTeacherCoursewareListCell.h */; };
-		877B451923D03FC700A88540 /* SCTeacherListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B450323D03FC600A88540 /* SCTeacherListView.h */; };
-		877B451A23D03FC700A88540 /* SCTeacherPersonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B450423D03FC600A88540 /* SCTeacherPersonListCell.m */; };
-		877B455723D03FD400A88540 /* SCTopToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B451D23D03FD400A88540 /* SCTopToolBar.h */; };
-		877B455823D03FD400A88540 /* SCTopToolBarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B451E23D03FD400A88540 /* SCTopToolBarModel.h */; };
-		877B455923D03FD400A88540 /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B451F23D03FD400A88540 /* SCTopToolBarModel.m */; };
-		877B455A23D03FD400A88540 /* SCTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B452023D03FD400A88540 /* SCTopToolBar.m */; };
-		877B455B23D03FD400A88540 /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B452223D03FD400A88540 /* SCBrushToolView.m */; };
-		877B455C23D03FD400A88540 /* SCDrawBoardView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B452323D03FD400A88540 /* SCDrawBoardView.h */; };
-		877B455D23D03FD400A88540 /* SCColorSelectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B452523D03FD400A88540 /* SCColorSelectView.h */; };
-		877B455E23D03FD400A88540 /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B452623D03FD400A88540 /* SCColorListView.m */; };
-		877B455F23D03FD400A88540 /* SCColorTipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B452723D03FD400A88540 /* SCColorTipView.h */; };
-		877B456023D03FD400A88540 /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B452823D03FD400A88540 /* SCColorSelectView.m */; };
-		877B456123D03FD400A88540 /* SCColorListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B452923D03FD400A88540 /* SCColorListView.h */; };
-		877B456223D03FD400A88540 /* SCColorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B452A23D03FD400A88540 /* SCColorTipView.m */; };
-		877B456323D03FD400A88540 /* YSSliderSuperView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B452B23D03FD400A88540 /* YSSliderSuperView.h */; };
-		877B456423D03FD400A88540 /* SCBrushToolView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B452C23D03FD400A88540 /* SCBrushToolView.h */; };
-		877B456523D03FD400A88540 /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B452D23D03FD400A88540 /* SCDrawBoardView.m */; };
-		877B456623D03FD400A88540 /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B452E23D03FD400A88540 /* YSSliderSuperView.m */; };
-		877B456723D03FD400A88540 /* SCChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B453023D03FD400A88540 /* SCChatView.m */; };
-		877B456823D03FD400A88540 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B453123D03FD400A88540 /* SCChatToolView.m */; };
-		877B456923D03FD400A88540 /* SCTextMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453223D03FD400A88540 /* SCTextMessageCell.h */; };
-		877B456A23D03FD400A88540 /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B453323D03FD400A88540 /* SCTipsMessageCell.m */; };
-		877B456B23D03FD400A88540 /* SCPictureMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453423D03FD400A88540 /* SCPictureMessageCell.h */; };
-		877B456C23D03FD400A88540 /* SCChatToolView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453523D03FD400A88540 /* SCChatToolView.h */; };
-		877B456D23D03FD400A88540 /* SCChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453623D03FD400A88540 /* SCChatView.h */; };
-		877B456E23D03FD400A88540 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B453723D03FD400A88540 /* SCTextMessageCell.m */; };
-		877B456F23D03FD400A88540 /* SCTipsMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453823D03FD400A88540 /* SCTipsMessageCell.h */; };
-		877B457023D03FD400A88540 /* SCPictureMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B453923D03FD400A88540 /* SCPictureMessageCell.m */; };
-		877B457123D03FD400A88540 /* SCMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B453A23D03FD400A88540 /* SCMainVC.m */; };
-		877B457223D03FD400A88540 /* SCOptionCollectionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453C23D03FD400A88540 /* SCOptionCollectionCell.h */; };
-		877B457323D03FD400A88540 /* SCAnswerStatisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B453D23D03FD400A88540 /* SCAnswerStatisticsModel.m */; };
-		877B457423D03FD400A88540 /* SCAnswerTBHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453E23D03FD400A88540 /* SCAnswerTBHeaderView.h */; };
-		877B457523D03FD400A88540 /* SCAnswerPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B453F23D03FD400A88540 /* SCAnswerPageView.h */; };
-		877B457623D03FD400A88540 /* SCStatisticsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B454023D03FD400A88540 /* SCStatisticsTableViewCell.h */; };
-		877B457723D03FD400A88540 /* SCAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454123D03FD400A88540 /* SCAnswerView.m */; };
-		877B457823D03FD400A88540 /* SCAnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454223D03FD400A88540 /* SCAnswerDetailModel.m */; };
-		877B457923D03FD400A88540 /* SCAnswerDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454323D03FD400A88540 /* SCAnswerDetailTableViewCell.m */; };
-		877B457A23D03FD400A88540 /* SCAnswerTBHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454423D03FD400A88540 /* SCAnswerTBHeaderView.m */; };
-		877B457B23D03FD400A88540 /* SCAnswerStatisticsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B454523D03FD400A88540 /* SCAnswerStatisticsModel.h */; };
-		877B457C23D03FD400A88540 /* SCOptionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454623D03FD400A88540 /* SCOptionCollectionCell.m */; };
-		877B457D23D03FD400A88540 /* SCAnswerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B454723D03FD400A88540 /* SCAnswerView.h */; };
-		877B457E23D03FD400A88540 /* SCStatisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454823D03FD400A88540 /* SCStatisticsTableViewCell.m */; };
-		877B457F23D03FD400A88540 /* SCAnswerPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454923D03FD400A88540 /* SCAnswerPageView.m */; };
-		877B458023D03FD400A88540 /* SCAnswerDetailTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B454A23D03FD400A88540 /* SCAnswerDetailTableViewCell.h */; };
-		877B458123D03FD400A88540 /* SCAnswerDetailModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B454B23D03FD400A88540 /* SCAnswerDetailModel.h */; };
-		877B458223D03FD400A88540 /* SCBoardControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B454D23D03FD400A88540 /* SCBoardControlView.h */; };
-		877B458323D03FD400A88540 /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B454E23D03FD400A88540 /* SCBoardControlView.m */; };
-		877B458423D03FD400A88540 /* SCMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B454F23D03FD400A88540 /* SCMainVC.h */; };
-		877B458523D03FD400A88540 /* SCVideoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B455123D03FD400A88540 /* SCVideoView.h */; };
-		877B458623D03FD400A88540 /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B455223D03FD400A88540 /* PanGestureControl.m */; };
-		877B458723D03FD400A88540 /* SCVideoGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B455323D03FD400A88540 /* SCVideoGridView.m */; };
-		877B458823D03FD400A88540 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B455423D03FD400A88540 /* SCVideoView.m */; };
-		877B458923D03FD400A88540 /* PanGestureControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B455523D03FD400A88540 /* PanGestureControl.h */; };
-		877B458A23D03FD400A88540 /* SCVideoGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B455623D03FD400A88540 /* SCVideoGridView.h */; };
 		877B45CE23D03FDA00A88540 /* YSVoteVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B458D23D03FDA00A88540 /* YSVoteVC.h */; };
 		877B45CF23D03FDA00A88540 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B458F23D03FDA00A88540 /* YSVoteModel.m */; };
 		877B45D023D03FDA00A88540 /* YSVoteModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B459023D03FDA00A88540 /* YSVoteModel.h */; };
@@ -244,6 +170,94 @@
 		87942D89238E6C9C00D6B4B2 /* YSSDKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87942D87238E6C9C00D6B4B2 /* YSSDKManager.m */; };
 		87B7C2A823D1B331009D840A /* BMKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 877B446023D03DF800A88540 /* BMKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87B7C2A923D1B338009D840A /* YSWhiteBoard.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 877B446B23D03E0F00A88540 /* YSWhiteBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		87F527BD240674520040F8FD /* YSTeacherRoleMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F52797240674520040F8FD /* YSTeacherRoleMainVC.h */; };
+		87F527BE240674520040F8FD /* YSMp3Controlview.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F52799240674520040F8FD /* YSMp3Controlview.h */; };
+		87F527BF240674520040F8FD /* YSMp4ControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5279A240674520040F8FD /* YSMp4ControlView.h */; };
+		87F527C0240674520040F8FD /* YSMediaSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5279B240674520040F8FD /* YSMediaSlider.h */; };
+		87F527C1240674520040F8FD /* YSMp4ControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F5279C240674520040F8FD /* YSMp4ControlView.m */; };
+		87F527C2240674520040F8FD /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F5279D240674520040F8FD /* YSMp3Controlview.m */; };
+		87F527C3240674520040F8FD /* YSMediaSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F5279E240674520040F8FD /* YSMediaSlider.m */; };
+		87F527C4240674520040F8FD /* YSUpHandPopoverVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527A0240674520040F8FD /* YSUpHandPopoverVC.h */; };
+		87F527C5240674520040F8FD /* YSUpHandPopCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527A1240674520040F8FD /* YSUpHandPopCell.h */; };
+		87F527C6240674520040F8FD /* YSControlPopoverView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527A2240674520040F8FD /* YSControlPopoverView.h */; };
+		87F527C7240674520040F8FD /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527A3240674520040F8FD /* YSUpHandPopoverVC.m */; };
+		87F527C8240674520040F8FD /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527A4240674520040F8FD /* YSUpHandPopCell.m */; };
+		87F527C9240674520040F8FD /* YSControlPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527A5240674520040F8FD /* YSControlPopoverView.m */; };
+		87F527CA240674520040F8FD /* YSTeacherResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527A7240674520040F8FD /* YSTeacherResponder.h */; };
+		87F527CB240674520040F8FD /* YSTeacherResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527A8240674520040F8FD /* YSTeacherResponder.m */; };
+		87F527CC240674520040F8FD /* SCTeacherAnswerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527AA240674520040F8FD /* SCTeacherAnswerView.h */; };
+		87F527CD240674520040F8FD /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527AB240674520040F8FD /* SCTeacherAnswerView.m */; };
+		87F527CE240674520040F8FD /* SCTTopPopverViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527AD240674520040F8FD /* SCTTopPopverViewController.h */; };
+		87F527CF240674520040F8FD /* SCTTopPopverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527AE240674520040F8FD /* SCTTopPopverViewController.m */; };
+		87F527D0240674520040F8FD /* YSTeacherTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527B0240674520040F8FD /* YSTeacherTimerView.m */; };
+		87F527D1240674520040F8FD /* YSTeacherTimerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527B1240674520040F8FD /* YSTeacherTimerView.h */; };
+		87F527D2240674520040F8FD /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527B2240674520040F8FD /* YSTeacherRoleMainVC.m */; };
+		87F527D3240674520040F8FD /* SCTeacherTopBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527B4240674520040F8FD /* SCTeacherTopBar.h */; };
+		87F527D4240674520040F8FD /* SCTeacherTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527B5240674520040F8FD /* SCTeacherTopBar.m */; };
+		87F527D5240674520040F8FD /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527B7240674520040F8FD /* SCTeacherListView.m */; };
+		87F527D6240674520040F8FD /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527B8240674520040F8FD /* SCTeacherCoursewareListCell.m */; };
+		87F527D7240674520040F8FD /* SCTeacherPersonListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527B9240674520040F8FD /* SCTeacherPersonListCell.h */; };
+		87F527D8240674520040F8FD /* SCTeacherCoursewareListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527BA240674520040F8FD /* SCTeacherCoursewareListCell.h */; };
+		87F527D9240674520040F8FD /* SCTeacherListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527BB240674520040F8FD /* SCTeacherListView.h */; };
+		87F527DA240674520040F8FD /* SCTeacherPersonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527BC240674520040F8FD /* SCTeacherPersonListCell.m */; };
+		87F5281D2406745C0040F8FD /* SCTopToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527DD2406745C0040F8FD /* SCTopToolBar.h */; };
+		87F5281E2406745C0040F8FD /* SCTopToolBarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527DE2406745C0040F8FD /* SCTopToolBarModel.h */; };
+		87F5281F2406745C0040F8FD /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527DF2406745C0040F8FD /* SCTopToolBarModel.m */; };
+		87F528202406745C0040F8FD /* SCTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527E02406745C0040F8FD /* SCTopToolBar.m */; };
+		87F528212406745C0040F8FD /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527E22406745C0040F8FD /* SCBrushToolView.m */; };
+		87F528222406745C0040F8FD /* SCDrawBoardView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527E32406745C0040F8FD /* SCDrawBoardView.h */; };
+		87F528232406745C0040F8FD /* SCColorSelectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527E52406745C0040F8FD /* SCColorSelectView.h */; };
+		87F528242406745C0040F8FD /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527E62406745C0040F8FD /* SCColorListView.m */; };
+		87F528252406745C0040F8FD /* SCColorTipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527E72406745C0040F8FD /* SCColorTipView.h */; };
+		87F528262406745C0040F8FD /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527E82406745C0040F8FD /* SCColorSelectView.m */; };
+		87F528272406745C0040F8FD /* SCColorListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527E92406745C0040F8FD /* SCColorListView.h */; };
+		87F528282406745C0040F8FD /* SCColorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527EA2406745C0040F8FD /* SCColorTipView.m */; };
+		87F528292406745C0040F8FD /* YSSliderSuperView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527EB2406745C0040F8FD /* YSSliderSuperView.h */; };
+		87F5282A2406745C0040F8FD /* SCBrushToolView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527EC2406745C0040F8FD /* SCBrushToolView.h */; };
+		87F5282B2406745C0040F8FD /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527ED2406745C0040F8FD /* SCDrawBoardView.m */; };
+		87F5282C2406745C0040F8FD /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527EE2406745C0040F8FD /* YSSliderSuperView.m */; };
+		87F5282D2406745C0040F8FD /* SCChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527F02406745C0040F8FD /* SCChatView.m */; };
+		87F5282E2406745C0040F8FD /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527F12406745C0040F8FD /* SCChatToolView.m */; };
+		87F5282F2406745C0040F8FD /* SCTextMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527F22406745C0040F8FD /* SCTextMessageCell.h */; };
+		87F528302406745C0040F8FD /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527F32406745C0040F8FD /* SCTipsMessageCell.m */; };
+		87F528312406745C0040F8FD /* SCPictureMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527F42406745C0040F8FD /* SCPictureMessageCell.h */; };
+		87F528322406745C0040F8FD /* SCChatToolView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527F52406745C0040F8FD /* SCChatToolView.h */; };
+		87F528332406745C0040F8FD /* SCChatView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527F62406745C0040F8FD /* SCChatView.h */; };
+		87F528342406745C0040F8FD /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527F72406745C0040F8FD /* SCTextMessageCell.m */; };
+		87F528352406745C0040F8FD /* SCTipsMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527F82406745C0040F8FD /* SCTipsMessageCell.h */; };
+		87F528362406745C0040F8FD /* SCPictureMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527F92406745C0040F8FD /* SCPictureMessageCell.m */; };
+		87F528372406745C0040F8FD /* SCMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527FA2406745C0040F8FD /* SCMainVC.m */; };
+		87F528382406745C0040F8FD /* SCOptionCollectionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527FC2406745C0040F8FD /* SCOptionCollectionCell.h */; };
+		87F528392406745C0040F8FD /* SCAnswerStatisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F527FD2406745C0040F8FD /* SCAnswerStatisticsModel.m */; };
+		87F5283A2406745C0040F8FD /* SCAnswerTBHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527FE2406745C0040F8FD /* SCAnswerTBHeaderView.h */; };
+		87F5283B2406745C0040F8FD /* SCAnswerPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F527FF2406745C0040F8FD /* SCAnswerPageView.h */; };
+		87F5283C2406745C0040F8FD /* SCStatisticsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528002406745C0040F8FD /* SCStatisticsTableViewCell.h */; };
+		87F5283D2406745C0040F8FD /* SCAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528012406745C0040F8FD /* SCAnswerView.m */; };
+		87F5283E2406745C0040F8FD /* SCAnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528022406745C0040F8FD /* SCAnswerDetailModel.m */; };
+		87F5283F2406745C0040F8FD /* SCAnswerDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528032406745C0040F8FD /* SCAnswerDetailTableViewCell.m */; };
+		87F528402406745C0040F8FD /* SCAnswerTBHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528042406745C0040F8FD /* SCAnswerTBHeaderView.m */; };
+		87F528412406745C0040F8FD /* SCAnswerStatisticsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528052406745C0040F8FD /* SCAnswerStatisticsModel.h */; };
+		87F528422406745C0040F8FD /* SCOptionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528062406745C0040F8FD /* SCOptionCollectionCell.m */; };
+		87F528432406745C0040F8FD /* SCAnswerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528072406745C0040F8FD /* SCAnswerView.h */; };
+		87F528442406745C0040F8FD /* SCStatisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528082406745C0040F8FD /* SCStatisticsTableViewCell.m */; };
+		87F528452406745C0040F8FD /* SCAnswerPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528092406745C0040F8FD /* SCAnswerPageView.m */; };
+		87F528462406745C0040F8FD /* SCAnswerDetailTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5280A2406745C0040F8FD /* SCAnswerDetailTableViewCell.h */; };
+		87F528472406745C0040F8FD /* SCAnswerDetailModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5280B2406745C0040F8FD /* SCAnswerDetailModel.h */; };
+		87F528482406745C0040F8FD /* SCBoardControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5280D2406745C0040F8FD /* SCBoardControlView.h */; };
+		87F528492406745C0040F8FD /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F5280E2406745C0040F8FD /* SCBoardControlView.m */; };
+		87F5284A2406745C0040F8FD /* YSStudentTimerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528102406745C0040F8FD /* YSStudentTimerView.h */; };
+		87F5284B2406745C0040F8FD /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528112406745C0040F8FD /* YSStudentTimerView.m */; };
+		87F5284C2406745C0040F8FD /* SCMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528122406745C0040F8FD /* SCMainVC.h */; };
+		87F5284D2406745C0040F8FD /* SCVideoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528142406745C0040F8FD /* SCVideoView.h */; };
+		87F5284E2406745C0040F8FD /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528152406745C0040F8FD /* PanGestureControl.m */; };
+		87F5284F2406745C0040F8FD /* SCVideoGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528162406745C0040F8FD /* SCVideoGridView.m */; };
+		87F528502406745C0040F8FD /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F528172406745C0040F8FD /* SCVideoView.m */; };
+		87F528512406745C0040F8FD /* PanGestureControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528182406745C0040F8FD /* PanGestureControl.h */; };
+		87F528522406745C0040F8FD /* SCVideoGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F528192406745C0040F8FD /* SCVideoGridView.h */; };
+		87F528532406745C0040F8FD /* YSStudentResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F5281B2406745C0040F8FD /* YSStudentResponder.m */; };
+		87F528542406745C0040F8FD /* YSStudentResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5281C2406745C0040F8FD /* YSStudentResponder.h */; };
+		87F52858240675720040F8FD /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F52856240675710040F8FD /* YSCircleProgress.m */; };
+		87F52859240675720040F8FD /* YSCircleProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F52857240675710040F8FD /* YSCircleProgress.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -326,80 +340,6 @@
 		877B44DE23D03FBB00A88540 /* YSVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVCProtocol.h; sourceTree = "<group>"; };
 		877B44DF23D03FBB00A88540 /* YSMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
 		877B44E023D03FBB00A88540 /* YSSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSuperVC.h; sourceTree = "<group>"; };
-		877B44E923D03FC600A88540 /* YSTeacherRoleMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTeacherRoleMainVC.h; sourceTree = "<group>"; };
-		877B44EB23D03FC600A88540 /* YSMp3Controlview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp3Controlview.h; sourceTree = "<group>"; };
-		877B44EC23D03FC600A88540 /* YSMp4ControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp4ControlView.h; sourceTree = "<group>"; };
-		877B44ED23D03FC600A88540 /* YSMediaSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMediaSlider.h; sourceTree = "<group>"; };
-		877B44EE23D03FC600A88540 /* YSMp4ControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMp4ControlView.m; sourceTree = "<group>"; };
-		877B44EF23D03FC600A88540 /* YSMp3Controlview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMp3Controlview.m; sourceTree = "<group>"; };
-		877B44F023D03FC600A88540 /* YSMediaSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMediaSlider.m; sourceTree = "<group>"; };
-		877B44F223D03FC600A88540 /* YSControlPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSControlPopoverView.h; sourceTree = "<group>"; };
-		877B44F323D03FC600A88540 /* YSControlPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSControlPopoverView.m; sourceTree = "<group>"; };
-		877B44F523D03FC600A88540 /* SCTeacherAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherAnswerView.h; sourceTree = "<group>"; };
-		877B44F623D03FC600A88540 /* SCTeacherAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherAnswerView.m; sourceTree = "<group>"; };
-		877B44F823D03FC600A88540 /* SCTTopPopverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTTopPopverViewController.h; sourceTree = "<group>"; };
-		877B44F923D03FC600A88540 /* SCTTopPopverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTTopPopverViewController.m; sourceTree = "<group>"; };
-		877B44FA23D03FC600A88540 /* YSTeacherRoleMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTeacherRoleMainVC.m; sourceTree = "<group>"; };
-		877B44FC23D03FC600A88540 /* SCTeacherTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherTopBar.h; sourceTree = "<group>"; };
-		877B44FD23D03FC600A88540 /* SCTeacherTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherTopBar.m; sourceTree = "<group>"; };
-		877B44FF23D03FC600A88540 /* SCTeacherListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherListView.m; sourceTree = "<group>"; };
-		877B450023D03FC600A88540 /* SCTeacherCoursewareListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherCoursewareListCell.m; sourceTree = "<group>"; };
-		877B450123D03FC600A88540 /* SCTeacherPersonListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherPersonListCell.h; sourceTree = "<group>"; };
-		877B450223D03FC600A88540 /* SCTeacherCoursewareListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherCoursewareListCell.h; sourceTree = "<group>"; };
-		877B450323D03FC600A88540 /* SCTeacherListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherListView.h; sourceTree = "<group>"; };
-		877B450423D03FC600A88540 /* SCTeacherPersonListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherPersonListCell.m; sourceTree = "<group>"; };
-		877B451D23D03FD400A88540 /* SCTopToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTopToolBar.h; sourceTree = "<group>"; };
-		877B451E23D03FD400A88540 /* SCTopToolBarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTopToolBarModel.h; sourceTree = "<group>"; };
-		877B451F23D03FD400A88540 /* SCTopToolBarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBarModel.m; sourceTree = "<group>"; };
-		877B452023D03FD400A88540 /* SCTopToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBar.m; sourceTree = "<group>"; };
-		877B452223D03FD400A88540 /* SCBrushToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBrushToolView.m; sourceTree = "<group>"; };
-		877B452323D03FD400A88540 /* SCDrawBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDrawBoardView.h; sourceTree = "<group>"; };
-		877B452523D03FD400A88540 /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
-		877B452623D03FD400A88540 /* SCColorListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorListView.m; sourceTree = "<group>"; };
-		877B452723D03FD400A88540 /* SCColorTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorTipView.h; sourceTree = "<group>"; };
-		877B452823D03FD400A88540 /* SCColorSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorSelectView.m; sourceTree = "<group>"; };
-		877B452923D03FD400A88540 /* SCColorListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorListView.h; sourceTree = "<group>"; };
-		877B452A23D03FD400A88540 /* SCColorTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorTipView.m; sourceTree = "<group>"; };
-		877B452B23D03FD400A88540 /* YSSliderSuperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSliderSuperView.h; sourceTree = "<group>"; };
-		877B452C23D03FD400A88540 /* SCBrushToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBrushToolView.h; sourceTree = "<group>"; };
-		877B452D23D03FD400A88540 /* SCDrawBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDrawBoardView.m; sourceTree = "<group>"; };
-		877B452E23D03FD400A88540 /* YSSliderSuperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSliderSuperView.m; sourceTree = "<group>"; };
-		877B453023D03FD400A88540 /* SCChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChatView.m; sourceTree = "<group>"; };
-		877B453123D03FD400A88540 /* SCChatToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChatToolView.m; sourceTree = "<group>"; };
-		877B453223D03FD400A88540 /* SCTextMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTextMessageCell.h; sourceTree = "<group>"; };
-		877B453323D03FD400A88540 /* SCTipsMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTipsMessageCell.m; sourceTree = "<group>"; };
-		877B453423D03FD400A88540 /* SCPictureMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPictureMessageCell.h; sourceTree = "<group>"; };
-		877B453523D03FD400A88540 /* SCChatToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChatToolView.h; sourceTree = "<group>"; };
-		877B453623D03FD400A88540 /* SCChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChatView.h; sourceTree = "<group>"; };
-		877B453723D03FD400A88540 /* SCTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
-		877B453823D03FD400A88540 /* SCTipsMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTipsMessageCell.h; sourceTree = "<group>"; };
-		877B453923D03FD400A88540 /* SCPictureMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPictureMessageCell.m; sourceTree = "<group>"; };
-		877B453A23D03FD400A88540 /* SCMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMainVC.m; sourceTree = "<group>"; };
-		877B453C23D03FD400A88540 /* SCOptionCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionCollectionCell.h; sourceTree = "<group>"; };
-		877B453D23D03FD400A88540 /* SCAnswerStatisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerStatisticsModel.m; sourceTree = "<group>"; };
-		877B453E23D03FD400A88540 /* SCAnswerTBHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerTBHeaderView.h; sourceTree = "<group>"; };
-		877B453F23D03FD400A88540 /* SCAnswerPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerPageView.h; sourceTree = "<group>"; };
-		877B454023D03FD400A88540 /* SCStatisticsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCStatisticsTableViewCell.h; sourceTree = "<group>"; };
-		877B454123D03FD400A88540 /* SCAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerView.m; sourceTree = "<group>"; };
-		877B454223D03FD400A88540 /* SCAnswerDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerDetailModel.m; sourceTree = "<group>"; };
-		877B454323D03FD400A88540 /* SCAnswerDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerDetailTableViewCell.m; sourceTree = "<group>"; };
-		877B454423D03FD400A88540 /* SCAnswerTBHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerTBHeaderView.m; sourceTree = "<group>"; };
-		877B454523D03FD400A88540 /* SCAnswerStatisticsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerStatisticsModel.h; sourceTree = "<group>"; };
-		877B454623D03FD400A88540 /* SCOptionCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionCollectionCell.m; sourceTree = "<group>"; };
-		877B454723D03FD400A88540 /* SCAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerView.h; sourceTree = "<group>"; };
-		877B454823D03FD400A88540 /* SCStatisticsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCStatisticsTableViewCell.m; sourceTree = "<group>"; };
-		877B454923D03FD400A88540 /* SCAnswerPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerPageView.m; sourceTree = "<group>"; };
-		877B454A23D03FD400A88540 /* SCAnswerDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerDetailTableViewCell.h; sourceTree = "<group>"; };
-		877B454B23D03FD400A88540 /* SCAnswerDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerDetailModel.h; sourceTree = "<group>"; };
-		877B454D23D03FD400A88540 /* SCBoardControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBoardControlView.h; sourceTree = "<group>"; };
-		877B454E23D03FD400A88540 /* SCBoardControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBoardControlView.m; sourceTree = "<group>"; };
-		877B454F23D03FD400A88540 /* SCMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMainVC.h; sourceTree = "<group>"; };
-		877B455123D03FD400A88540 /* SCVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoView.h; sourceTree = "<group>"; };
-		877B455223D03FD400A88540 /* PanGestureControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanGestureControl.m; sourceTree = "<group>"; };
-		877B455323D03FD400A88540 /* SCVideoGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoGridView.m; sourceTree = "<group>"; };
-		877B455423D03FD400A88540 /* SCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoView.m; sourceTree = "<group>"; };
-		877B455523D03FD400A88540 /* PanGestureControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanGestureControl.h; sourceTree = "<group>"; };
-		877B455623D03FD400A88540 /* SCVideoGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoGridView.h; sourceTree = "<group>"; };
 		877B458D23D03FDA00A88540 /* YSVoteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVoteVC.h; sourceTree = "<group>"; };
 		877B458F23D03FDA00A88540 /* YSVoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSVoteModel.m; sourceTree = "<group>"; };
 		877B459023D03FDA00A88540 /* YSVoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVoteModel.h; sourceTree = "<group>"; };
@@ -499,6 +439,94 @@
 		8790DC15238E3EB0005C0BC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87942D86238E6C9C00D6B4B2 /* YSSDKManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YSSDKManager.h; path = YSLiveSDK/YSSDKManager.h; sourceTree = SOURCE_ROOT; };
 		87942D87238E6C9C00D6B4B2 /* YSSDKManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YSSDKManager.m; path = YSLiveSDK/YSSDKManager.m; sourceTree = SOURCE_ROOT; };
+		87F52797240674520040F8FD /* YSTeacherRoleMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTeacherRoleMainVC.h; sourceTree = "<group>"; };
+		87F52799240674520040F8FD /* YSMp3Controlview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp3Controlview.h; sourceTree = "<group>"; };
+		87F5279A240674520040F8FD /* YSMp4ControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp4ControlView.h; sourceTree = "<group>"; };
+		87F5279B240674520040F8FD /* YSMediaSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMediaSlider.h; sourceTree = "<group>"; };
+		87F5279C240674520040F8FD /* YSMp4ControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMp4ControlView.m; sourceTree = "<group>"; };
+		87F5279D240674520040F8FD /* YSMp3Controlview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMp3Controlview.m; sourceTree = "<group>"; };
+		87F5279E240674520040F8FD /* YSMediaSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMediaSlider.m; sourceTree = "<group>"; };
+		87F527A0240674520040F8FD /* YSUpHandPopoverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopoverVC.h; sourceTree = "<group>"; };
+		87F527A1240674520040F8FD /* YSUpHandPopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
+		87F527A2240674520040F8FD /* YSControlPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSControlPopoverView.h; sourceTree = "<group>"; };
+		87F527A3240674520040F8FD /* YSUpHandPopoverVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopoverVC.m; sourceTree = "<group>"; };
+		87F527A4240674520040F8FD /* YSUpHandPopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSUpHandPopCell.m; sourceTree = "<group>"; };
+		87F527A5240674520040F8FD /* YSControlPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSControlPopoverView.m; sourceTree = "<group>"; };
+		87F527A7240674520040F8FD /* YSTeacherResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTeacherResponder.h; sourceTree = "<group>"; };
+		87F527A8240674520040F8FD /* YSTeacherResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTeacherResponder.m; sourceTree = "<group>"; };
+		87F527AA240674520040F8FD /* SCTeacherAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherAnswerView.h; sourceTree = "<group>"; };
+		87F527AB240674520040F8FD /* SCTeacherAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherAnswerView.m; sourceTree = "<group>"; };
+		87F527AD240674520040F8FD /* SCTTopPopverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTTopPopverViewController.h; sourceTree = "<group>"; };
+		87F527AE240674520040F8FD /* SCTTopPopverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTTopPopverViewController.m; sourceTree = "<group>"; };
+		87F527B0240674520040F8FD /* YSTeacherTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTeacherTimerView.m; sourceTree = "<group>"; };
+		87F527B1240674520040F8FD /* YSTeacherTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTeacherTimerView.h; sourceTree = "<group>"; };
+		87F527B2240674520040F8FD /* YSTeacherRoleMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTeacherRoleMainVC.m; sourceTree = "<group>"; };
+		87F527B4240674520040F8FD /* SCTeacherTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherTopBar.h; sourceTree = "<group>"; };
+		87F527B5240674520040F8FD /* SCTeacherTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherTopBar.m; sourceTree = "<group>"; };
+		87F527B7240674520040F8FD /* SCTeacherListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherListView.m; sourceTree = "<group>"; };
+		87F527B8240674520040F8FD /* SCTeacherCoursewareListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherCoursewareListCell.m; sourceTree = "<group>"; };
+		87F527B9240674520040F8FD /* SCTeacherPersonListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherPersonListCell.h; sourceTree = "<group>"; };
+		87F527BA240674520040F8FD /* SCTeacherCoursewareListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherCoursewareListCell.h; sourceTree = "<group>"; };
+		87F527BB240674520040F8FD /* SCTeacherListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherListView.h; sourceTree = "<group>"; };
+		87F527BC240674520040F8FD /* SCTeacherPersonListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherPersonListCell.m; sourceTree = "<group>"; };
+		87F527DD2406745C0040F8FD /* SCTopToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTopToolBar.h; sourceTree = "<group>"; };
+		87F527DE2406745C0040F8FD /* SCTopToolBarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTopToolBarModel.h; sourceTree = "<group>"; };
+		87F527DF2406745C0040F8FD /* SCTopToolBarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBarModel.m; sourceTree = "<group>"; };
+		87F527E02406745C0040F8FD /* SCTopToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBar.m; sourceTree = "<group>"; };
+		87F527E22406745C0040F8FD /* SCBrushToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBrushToolView.m; sourceTree = "<group>"; };
+		87F527E32406745C0040F8FD /* SCDrawBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDrawBoardView.h; sourceTree = "<group>"; };
+		87F527E52406745C0040F8FD /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
+		87F527E62406745C0040F8FD /* SCColorListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorListView.m; sourceTree = "<group>"; };
+		87F527E72406745C0040F8FD /* SCColorTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorTipView.h; sourceTree = "<group>"; };
+		87F527E82406745C0040F8FD /* SCColorSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorSelectView.m; sourceTree = "<group>"; };
+		87F527E92406745C0040F8FD /* SCColorListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorListView.h; sourceTree = "<group>"; };
+		87F527EA2406745C0040F8FD /* SCColorTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorTipView.m; sourceTree = "<group>"; };
+		87F527EB2406745C0040F8FD /* YSSliderSuperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSliderSuperView.h; sourceTree = "<group>"; };
+		87F527EC2406745C0040F8FD /* SCBrushToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBrushToolView.h; sourceTree = "<group>"; };
+		87F527ED2406745C0040F8FD /* SCDrawBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDrawBoardView.m; sourceTree = "<group>"; };
+		87F527EE2406745C0040F8FD /* YSSliderSuperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSliderSuperView.m; sourceTree = "<group>"; };
+		87F527F02406745C0040F8FD /* SCChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChatView.m; sourceTree = "<group>"; };
+		87F527F12406745C0040F8FD /* SCChatToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChatToolView.m; sourceTree = "<group>"; };
+		87F527F22406745C0040F8FD /* SCTextMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTextMessageCell.h; sourceTree = "<group>"; };
+		87F527F32406745C0040F8FD /* SCTipsMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTipsMessageCell.m; sourceTree = "<group>"; };
+		87F527F42406745C0040F8FD /* SCPictureMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPictureMessageCell.h; sourceTree = "<group>"; };
+		87F527F52406745C0040F8FD /* SCChatToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChatToolView.h; sourceTree = "<group>"; };
+		87F527F62406745C0040F8FD /* SCChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChatView.h; sourceTree = "<group>"; };
+		87F527F72406745C0040F8FD /* SCTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
+		87F527F82406745C0040F8FD /* SCTipsMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTipsMessageCell.h; sourceTree = "<group>"; };
+		87F527F92406745C0040F8FD /* SCPictureMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPictureMessageCell.m; sourceTree = "<group>"; };
+		87F527FA2406745C0040F8FD /* SCMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMainVC.m; sourceTree = "<group>"; };
+		87F527FC2406745C0040F8FD /* SCOptionCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOptionCollectionCell.h; sourceTree = "<group>"; };
+		87F527FD2406745C0040F8FD /* SCAnswerStatisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerStatisticsModel.m; sourceTree = "<group>"; };
+		87F527FE2406745C0040F8FD /* SCAnswerTBHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerTBHeaderView.h; sourceTree = "<group>"; };
+		87F527FF2406745C0040F8FD /* SCAnswerPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerPageView.h; sourceTree = "<group>"; };
+		87F528002406745C0040F8FD /* SCStatisticsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCStatisticsTableViewCell.h; sourceTree = "<group>"; };
+		87F528012406745C0040F8FD /* SCAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerView.m; sourceTree = "<group>"; };
+		87F528022406745C0040F8FD /* SCAnswerDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerDetailModel.m; sourceTree = "<group>"; };
+		87F528032406745C0040F8FD /* SCAnswerDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerDetailTableViewCell.m; sourceTree = "<group>"; };
+		87F528042406745C0040F8FD /* SCAnswerTBHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerTBHeaderView.m; sourceTree = "<group>"; };
+		87F528052406745C0040F8FD /* SCAnswerStatisticsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerStatisticsModel.h; sourceTree = "<group>"; };
+		87F528062406745C0040F8FD /* SCOptionCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOptionCollectionCell.m; sourceTree = "<group>"; };
+		87F528072406745C0040F8FD /* SCAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerView.h; sourceTree = "<group>"; };
+		87F528082406745C0040F8FD /* SCStatisticsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCStatisticsTableViewCell.m; sourceTree = "<group>"; };
+		87F528092406745C0040F8FD /* SCAnswerPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerPageView.m; sourceTree = "<group>"; };
+		87F5280A2406745C0040F8FD /* SCAnswerDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerDetailTableViewCell.h; sourceTree = "<group>"; };
+		87F5280B2406745C0040F8FD /* SCAnswerDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerDetailModel.h; sourceTree = "<group>"; };
+		87F5280D2406745C0040F8FD /* SCBoardControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBoardControlView.h; sourceTree = "<group>"; };
+		87F5280E2406745C0040F8FD /* SCBoardControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBoardControlView.m; sourceTree = "<group>"; };
+		87F528102406745C0040F8FD /* YSStudentTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
+		87F528112406745C0040F8FD /* YSStudentTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSStudentTimerView.m; sourceTree = "<group>"; };
+		87F528122406745C0040F8FD /* SCMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMainVC.h; sourceTree = "<group>"; };
+		87F528142406745C0040F8FD /* SCVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoView.h; sourceTree = "<group>"; };
+		87F528152406745C0040F8FD /* PanGestureControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanGestureControl.m; sourceTree = "<group>"; };
+		87F528162406745C0040F8FD /* SCVideoGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoGridView.m; sourceTree = "<group>"; };
+		87F528172406745C0040F8FD /* SCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoView.m; sourceTree = "<group>"; };
+		87F528182406745C0040F8FD /* PanGestureControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanGestureControl.h; sourceTree = "<group>"; };
+		87F528192406745C0040F8FD /* SCVideoGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoGridView.h; sourceTree = "<group>"; };
+		87F5281B2406745C0040F8FD /* YSStudentResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSStudentResponder.m; sourceTree = "<group>"; };
+		87F5281C2406745C0040F8FD /* YSStudentResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSStudentResponder.h; sourceTree = "<group>"; };
+		87F52856240675710040F8FD /* YSCircleProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCircleProgress.m; sourceTree = "<group>"; };
+		87F52857240675710040F8FD /* YSCircleProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSCircleProgress.h; sourceTree = "<group>"; };
 		C7C512135F086506D3B25E63 /* Pods-YSLiveSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSDK.debug.xcconfig"; path = "Target Support Files/Pods-YSLiveSDK/Pods-YSLiveSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -617,8 +645,8 @@
 		877B449B23D03F0000A88540 /* YSLiveApiRequest */ = {
 			isa = PBXGroup;
 			children = (
-				877B449C23D03F0000A88540 /* YSLiveApiRequest.m */,
 				877B449D23D03F0000A88540 /* YSLiveApiRequest.h */,
+				877B449C23D03F0000A88540 /* YSLiveApiRequest.m */,
 			);
 			path = YSLiveApiRequest;
 			sourceTree = "<group>";
@@ -667,198 +695,6 @@
 				877B44E023D03FBB00A88540 /* YSSuperVC.h */,
 			);
 			path = YSSuperVC;
-			sourceTree = "<group>";
-		};
-		877B44E823D03FC600A88540 /* YSTeacherRole */ = {
-			isa = PBXGroup;
-			children = (
-				877B44EA23D03FC600A88540 /* YSTeacherMediaControl */,
-				877B44F123D03FC600A88540 /* YSVideoViewControlPopVC */,
-				877B44F423D03FC600A88540 /* SCTeacherAnswerView */,
-				877B44F723D03FC600A88540 /* SCTeacherTopPopverView */,
-				877B44E923D03FC600A88540 /* YSTeacherRoleMainVC.h */,
-				877B44FA23D03FC600A88540 /* YSTeacherRoleMainVC.m */,
-				877B44FB23D03FC600A88540 /* SCTeacherTopBar */,
-				877B44FE23D03FC600A88540 /* SCTeacherListView */,
-			);
-			path = YSTeacherRole;
-			sourceTree = "<group>";
-		};
-		877B44EA23D03FC600A88540 /* YSTeacherMediaControl */ = {
-			isa = PBXGroup;
-			children = (
-				877B44EB23D03FC600A88540 /* YSMp3Controlview.h */,
-				877B44EC23D03FC600A88540 /* YSMp4ControlView.h */,
-				877B44ED23D03FC600A88540 /* YSMediaSlider.h */,
-				877B44EE23D03FC600A88540 /* YSMp4ControlView.m */,
-				877B44EF23D03FC600A88540 /* YSMp3Controlview.m */,
-				877B44F023D03FC600A88540 /* YSMediaSlider.m */,
-			);
-			path = YSTeacherMediaControl;
-			sourceTree = "<group>";
-		};
-		877B44F123D03FC600A88540 /* YSVideoViewControlPopVC */ = {
-			isa = PBXGroup;
-			children = (
-				877B44F223D03FC600A88540 /* YSControlPopoverView.h */,
-				877B44F323D03FC600A88540 /* YSControlPopoverView.m */,
-			);
-			path = YSVideoViewControlPopVC;
-			sourceTree = "<group>";
-		};
-		877B44F423D03FC600A88540 /* SCTeacherAnswerView */ = {
-			isa = PBXGroup;
-			children = (
-				877B44F523D03FC600A88540 /* SCTeacherAnswerView.h */,
-				877B44F623D03FC600A88540 /* SCTeacherAnswerView.m */,
-			);
-			path = SCTeacherAnswerView;
-			sourceTree = "<group>";
-		};
-		877B44F723D03FC600A88540 /* SCTeacherTopPopverView */ = {
-			isa = PBXGroup;
-			children = (
-				877B44F823D03FC600A88540 /* SCTTopPopverViewController.h */,
-				877B44F923D03FC600A88540 /* SCTTopPopverViewController.m */,
-			);
-			path = SCTeacherTopPopverView;
-			sourceTree = "<group>";
-		};
-		877B44FB23D03FC600A88540 /* SCTeacherTopBar */ = {
-			isa = PBXGroup;
-			children = (
-				877B44FC23D03FC600A88540 /* SCTeacherTopBar.h */,
-				877B44FD23D03FC600A88540 /* SCTeacherTopBar.m */,
-			);
-			path = SCTeacherTopBar;
-			sourceTree = "<group>";
-		};
-		877B44FE23D03FC600A88540 /* SCTeacherListView */ = {
-			isa = PBXGroup;
-			children = (
-				877B44FF23D03FC600A88540 /* SCTeacherListView.m */,
-				877B450023D03FC600A88540 /* SCTeacherCoursewareListCell.m */,
-				877B450123D03FC600A88540 /* SCTeacherPersonListCell.h */,
-				877B450223D03FC600A88540 /* SCTeacherCoursewareListCell.h */,
-				877B450323D03FC600A88540 /* SCTeacherListView.h */,
-				877B450423D03FC600A88540 /* SCTeacherPersonListCell.m */,
-			);
-			path = SCTeacherListView;
-			sourceTree = "<group>";
-		};
-		877B451B23D03FD400A88540 /* YSSmallClass */ = {
-			isa = PBXGroup;
-			children = (
-				877B451C23D03FD400A88540 /* SCTopToolBar */,
-				877B452123D03FD400A88540 /* BrushToolView */,
-				877B452F23D03FD400A88540 /* SCChat */,
-				877B453B23D03FD400A88540 /* SCAnswerView */,
-				877B454C23D03FD400A88540 /* SCBoardControlView */,
-				877B454F23D03FD400A88540 /* SCMainVC.h */,
-				877B453A23D03FD400A88540 /* SCMainVC.m */,
-				877B455023D03FD400A88540 /* SCVideoView */,
-			);
-			path = YSSmallClass;
-			sourceTree = "<group>";
-		};
-		877B451C23D03FD400A88540 /* SCTopToolBar */ = {
-			isa = PBXGroup;
-			children = (
-				877B451D23D03FD400A88540 /* SCTopToolBar.h */,
-				877B451E23D03FD400A88540 /* SCTopToolBarModel.h */,
-				877B451F23D03FD400A88540 /* SCTopToolBarModel.m */,
-				877B452023D03FD400A88540 /* SCTopToolBar.m */,
-			);
-			path = SCTopToolBar;
-			sourceTree = "<group>";
-		};
-		877B452123D03FD400A88540 /* BrushToolView */ = {
-			isa = PBXGroup;
-			children = (
-				877B452223D03FD400A88540 /* SCBrushToolView.m */,
-				877B452323D03FD400A88540 /* SCDrawBoardView.h */,
-				877B452423D03FD400A88540 /* SCColorSelectView */,
-				877B452B23D03FD400A88540 /* YSSliderSuperView.h */,
-				877B452C23D03FD400A88540 /* SCBrushToolView.h */,
-				877B452D23D03FD400A88540 /* SCDrawBoardView.m */,
-				877B452E23D03FD400A88540 /* YSSliderSuperView.m */,
-			);
-			path = BrushToolView;
-			sourceTree = "<group>";
-		};
-		877B452423D03FD400A88540 /* SCColorSelectView */ = {
-			isa = PBXGroup;
-			children = (
-				877B452523D03FD400A88540 /* SCColorSelectView.h */,
-				877B452623D03FD400A88540 /* SCColorListView.m */,
-				877B452723D03FD400A88540 /* SCColorTipView.h */,
-				877B452823D03FD400A88540 /* SCColorSelectView.m */,
-				877B452923D03FD400A88540 /* SCColorListView.h */,
-				877B452A23D03FD400A88540 /* SCColorTipView.m */,
-			);
-			path = SCColorSelectView;
-			sourceTree = "<group>";
-		};
-		877B452F23D03FD400A88540 /* SCChat */ = {
-			isa = PBXGroup;
-			children = (
-				877B453023D03FD400A88540 /* SCChatView.m */,
-				877B453123D03FD400A88540 /* SCChatToolView.m */,
-				877B453223D03FD400A88540 /* SCTextMessageCell.h */,
-				877B453323D03FD400A88540 /* SCTipsMessageCell.m */,
-				877B453423D03FD400A88540 /* SCPictureMessageCell.h */,
-				877B453523D03FD400A88540 /* SCChatToolView.h */,
-				877B453623D03FD400A88540 /* SCChatView.h */,
-				877B453723D03FD400A88540 /* SCTextMessageCell.m */,
-				877B453823D03FD400A88540 /* SCTipsMessageCell.h */,
-				877B453923D03FD400A88540 /* SCPictureMessageCell.m */,
-			);
-			path = SCChat;
-			sourceTree = "<group>";
-		};
-		877B453B23D03FD400A88540 /* SCAnswerView */ = {
-			isa = PBXGroup;
-			children = (
-				877B453C23D03FD400A88540 /* SCOptionCollectionCell.h */,
-				877B453D23D03FD400A88540 /* SCAnswerStatisticsModel.m */,
-				877B453E23D03FD400A88540 /* SCAnswerTBHeaderView.h */,
-				877B453F23D03FD400A88540 /* SCAnswerPageView.h */,
-				877B454023D03FD400A88540 /* SCStatisticsTableViewCell.h */,
-				877B454123D03FD400A88540 /* SCAnswerView.m */,
-				877B454223D03FD400A88540 /* SCAnswerDetailModel.m */,
-				877B454323D03FD400A88540 /* SCAnswerDetailTableViewCell.m */,
-				877B454423D03FD400A88540 /* SCAnswerTBHeaderView.m */,
-				877B454523D03FD400A88540 /* SCAnswerStatisticsModel.h */,
-				877B454623D03FD400A88540 /* SCOptionCollectionCell.m */,
-				877B454723D03FD400A88540 /* SCAnswerView.h */,
-				877B454823D03FD400A88540 /* SCStatisticsTableViewCell.m */,
-				877B454923D03FD400A88540 /* SCAnswerPageView.m */,
-				877B454A23D03FD400A88540 /* SCAnswerDetailTableViewCell.h */,
-				877B454B23D03FD400A88540 /* SCAnswerDetailModel.h */,
-			);
-			path = SCAnswerView;
-			sourceTree = "<group>";
-		};
-		877B454C23D03FD400A88540 /* SCBoardControlView */ = {
-			isa = PBXGroup;
-			children = (
-				877B454D23D03FD400A88540 /* SCBoardControlView.h */,
-				877B454E23D03FD400A88540 /* SCBoardControlView.m */,
-			);
-			path = SCBoardControlView;
-			sourceTree = "<group>";
-		};
-		877B455023D03FD400A88540 /* SCVideoView */ = {
-			isa = PBXGroup;
-			children = (
-				877B455123D03FD400A88540 /* SCVideoView.h */,
-				877B455223D03FD400A88540 /* PanGestureControl.m */,
-				877B455323D03FD400A88540 /* SCVideoGridView.m */,
-				877B455423D03FD400A88540 /* SCVideoView.m */,
-				877B455523D03FD400A88540 /* PanGestureControl.h */,
-				877B455623D03FD400A88540 /* SCVideoGridView.h */,
-			);
-			path = SCVideoView;
 			sourceTree = "<group>";
 		};
 		877B458B23D03FDA00A88540 /* YSLiveRoom */ = {
@@ -1039,6 +875,7 @@
 				877B466623D03FE300A88540 /* OCBarrage */,
 				877B464A23D03FE300A88540 /* SCEyeCareWindow */,
 				877B465523D03FE300A88540 /* YSAlertView */,
+				87F52855240675710040F8FD /* YSCircleProgress */,
 				877B464723D03FE300A88540 /* YSFloatView */,
 				877B466323D03FE300A88540 /* YSMediaMarkView */,
 				877B465423D03FE300A88540 /* YSUserDefault.h */,
@@ -1202,14 +1039,259 @@
 			children = (
 				877B44BE23D03F9B00A88540 /* appDefine */,
 				877B44D923D03FBB00A88540 /* YSSuperVC */,
-				877B44C923D03FAB00A88540 /* YSNetWorkApi */,
-				877B44E823D03FC600A88540 /* YSTeacherRole */,
-				877B451B23D03FD400A88540 /* YSSmallClass */,
+				87F52796240674520040F8FD /* YSTeacherRole */,
+				87F527DB2406745C0040F8FD /* YSSmallClass */,
 				877B458B23D03FDA00A88540 /* YSLiveRoom */,
+				877B44C923D03FAB00A88540 /* YSNetWorkApi */,
 				877B460223D03FE300A88540 /* YSTools */,
 			);
 			name = YSLive;
 			path = ../../YSLive;
+			sourceTree = "<group>";
+		};
+		87F52796240674520040F8FD /* YSTeacherRole */ = {
+			isa = PBXGroup;
+			children = (
+				87F52797240674520040F8FD /* YSTeacherRoleMainVC.h */,
+				87F52798240674520040F8FD /* YSTeacherMediaControl */,
+				87F5279F240674520040F8FD /* YSVideoViewControlPopVC */,
+				87F527A6240674520040F8FD /* YSTeacherResponder */,
+				87F527A9240674520040F8FD /* SCTeacherAnswerView */,
+				87F527AC240674520040F8FD /* SCTeacherTopPopverView */,
+				87F527AF240674520040F8FD /* YSTeacherTimer */,
+				87F527B2240674520040F8FD /* YSTeacherRoleMainVC.m */,
+				87F527B3240674520040F8FD /* SCTeacherTopBar */,
+				87F527B6240674520040F8FD /* SCTeacherListView */,
+			);
+			path = YSTeacherRole;
+			sourceTree = "<group>";
+		};
+		87F52798240674520040F8FD /* YSTeacherMediaControl */ = {
+			isa = PBXGroup;
+			children = (
+				87F52799240674520040F8FD /* YSMp3Controlview.h */,
+				87F5279A240674520040F8FD /* YSMp4ControlView.h */,
+				87F5279B240674520040F8FD /* YSMediaSlider.h */,
+				87F5279C240674520040F8FD /* YSMp4ControlView.m */,
+				87F5279D240674520040F8FD /* YSMp3Controlview.m */,
+				87F5279E240674520040F8FD /* YSMediaSlider.m */,
+			);
+			path = YSTeacherMediaControl;
+			sourceTree = "<group>";
+		};
+		87F5279F240674520040F8FD /* YSVideoViewControlPopVC */ = {
+			isa = PBXGroup;
+			children = (
+				87F527A0240674520040F8FD /* YSUpHandPopoverVC.h */,
+				87F527A1240674520040F8FD /* YSUpHandPopCell.h */,
+				87F527A2240674520040F8FD /* YSControlPopoverView.h */,
+				87F527A3240674520040F8FD /* YSUpHandPopoverVC.m */,
+				87F527A4240674520040F8FD /* YSUpHandPopCell.m */,
+				87F527A5240674520040F8FD /* YSControlPopoverView.m */,
+			);
+			path = YSVideoViewControlPopVC;
+			sourceTree = "<group>";
+		};
+		87F527A6240674520040F8FD /* YSTeacherResponder */ = {
+			isa = PBXGroup;
+			children = (
+				87F527A7240674520040F8FD /* YSTeacherResponder.h */,
+				87F527A8240674520040F8FD /* YSTeacherResponder.m */,
+			);
+			path = YSTeacherResponder;
+			sourceTree = "<group>";
+		};
+		87F527A9240674520040F8FD /* SCTeacherAnswerView */ = {
+			isa = PBXGroup;
+			children = (
+				87F527AA240674520040F8FD /* SCTeacherAnswerView.h */,
+				87F527AB240674520040F8FD /* SCTeacherAnswerView.m */,
+			);
+			path = SCTeacherAnswerView;
+			sourceTree = "<group>";
+		};
+		87F527AC240674520040F8FD /* SCTeacherTopPopverView */ = {
+			isa = PBXGroup;
+			children = (
+				87F527AD240674520040F8FD /* SCTTopPopverViewController.h */,
+				87F527AE240674520040F8FD /* SCTTopPopverViewController.m */,
+			);
+			path = SCTeacherTopPopverView;
+			sourceTree = "<group>";
+		};
+		87F527AF240674520040F8FD /* YSTeacherTimer */ = {
+			isa = PBXGroup;
+			children = (
+				87F527B0240674520040F8FD /* YSTeacherTimerView.m */,
+				87F527B1240674520040F8FD /* YSTeacherTimerView.h */,
+			);
+			path = YSTeacherTimer;
+			sourceTree = "<group>";
+		};
+		87F527B3240674520040F8FD /* SCTeacherTopBar */ = {
+			isa = PBXGroup;
+			children = (
+				87F527B4240674520040F8FD /* SCTeacherTopBar.h */,
+				87F527B5240674520040F8FD /* SCTeacherTopBar.m */,
+			);
+			path = SCTeacherTopBar;
+			sourceTree = "<group>";
+		};
+		87F527B6240674520040F8FD /* SCTeacherListView */ = {
+			isa = PBXGroup;
+			children = (
+				87F527B7240674520040F8FD /* SCTeacherListView.m */,
+				87F527B8240674520040F8FD /* SCTeacherCoursewareListCell.m */,
+				87F527B9240674520040F8FD /* SCTeacherPersonListCell.h */,
+				87F527BA240674520040F8FD /* SCTeacherCoursewareListCell.h */,
+				87F527BB240674520040F8FD /* SCTeacherListView.h */,
+				87F527BC240674520040F8FD /* SCTeacherPersonListCell.m */,
+			);
+			path = SCTeacherListView;
+			sourceTree = "<group>";
+		};
+		87F527DB2406745C0040F8FD /* YSSmallClass */ = {
+			isa = PBXGroup;
+			children = (
+				87F527DC2406745C0040F8FD /* SCTopToolBar */,
+				87F527E12406745C0040F8FD /* BrushToolView */,
+				87F527EF2406745C0040F8FD /* SCChat */,
+				87F527FA2406745C0040F8FD /* SCMainVC.m */,
+				87F527FB2406745C0040F8FD /* SCAnswerView */,
+				87F5280C2406745C0040F8FD /* SCBoardControlView */,
+				87F5280F2406745C0040F8FD /* YSStudentTimer */,
+				87F528122406745C0040F8FD /* SCMainVC.h */,
+				87F528132406745C0040F8FD /* SCVideoView */,
+				87F5281A2406745C0040F8FD /* YSStudentResponder */,
+			);
+			path = YSSmallClass;
+			sourceTree = "<group>";
+		};
+		87F527DC2406745C0040F8FD /* SCTopToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				87F527DD2406745C0040F8FD /* SCTopToolBar.h */,
+				87F527DE2406745C0040F8FD /* SCTopToolBarModel.h */,
+				87F527DF2406745C0040F8FD /* SCTopToolBarModel.m */,
+				87F527E02406745C0040F8FD /* SCTopToolBar.m */,
+			);
+			path = SCTopToolBar;
+			sourceTree = "<group>";
+		};
+		87F527E12406745C0040F8FD /* BrushToolView */ = {
+			isa = PBXGroup;
+			children = (
+				87F527E22406745C0040F8FD /* SCBrushToolView.m */,
+				87F527E32406745C0040F8FD /* SCDrawBoardView.h */,
+				87F527E42406745C0040F8FD /* SCColorSelectView */,
+				87F527EB2406745C0040F8FD /* YSSliderSuperView.h */,
+				87F527EC2406745C0040F8FD /* SCBrushToolView.h */,
+				87F527ED2406745C0040F8FD /* SCDrawBoardView.m */,
+				87F527EE2406745C0040F8FD /* YSSliderSuperView.m */,
+			);
+			path = BrushToolView;
+			sourceTree = "<group>";
+		};
+		87F527E42406745C0040F8FD /* SCColorSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				87F527E52406745C0040F8FD /* SCColorSelectView.h */,
+				87F527E62406745C0040F8FD /* SCColorListView.m */,
+				87F527E72406745C0040F8FD /* SCColorTipView.h */,
+				87F527E82406745C0040F8FD /* SCColorSelectView.m */,
+				87F527E92406745C0040F8FD /* SCColorListView.h */,
+				87F527EA2406745C0040F8FD /* SCColorTipView.m */,
+			);
+			path = SCColorSelectView;
+			sourceTree = "<group>";
+		};
+		87F527EF2406745C0040F8FD /* SCChat */ = {
+			isa = PBXGroup;
+			children = (
+				87F527F02406745C0040F8FD /* SCChatView.m */,
+				87F527F12406745C0040F8FD /* SCChatToolView.m */,
+				87F527F22406745C0040F8FD /* SCTextMessageCell.h */,
+				87F527F32406745C0040F8FD /* SCTipsMessageCell.m */,
+				87F527F42406745C0040F8FD /* SCPictureMessageCell.h */,
+				87F527F52406745C0040F8FD /* SCChatToolView.h */,
+				87F527F62406745C0040F8FD /* SCChatView.h */,
+				87F527F72406745C0040F8FD /* SCTextMessageCell.m */,
+				87F527F82406745C0040F8FD /* SCTipsMessageCell.h */,
+				87F527F92406745C0040F8FD /* SCPictureMessageCell.m */,
+			);
+			path = SCChat;
+			sourceTree = "<group>";
+		};
+		87F527FB2406745C0040F8FD /* SCAnswerView */ = {
+			isa = PBXGroup;
+			children = (
+				87F527FC2406745C0040F8FD /* SCOptionCollectionCell.h */,
+				87F527FD2406745C0040F8FD /* SCAnswerStatisticsModel.m */,
+				87F527FE2406745C0040F8FD /* SCAnswerTBHeaderView.h */,
+				87F527FF2406745C0040F8FD /* SCAnswerPageView.h */,
+				87F528002406745C0040F8FD /* SCStatisticsTableViewCell.h */,
+				87F528012406745C0040F8FD /* SCAnswerView.m */,
+				87F528022406745C0040F8FD /* SCAnswerDetailModel.m */,
+				87F528032406745C0040F8FD /* SCAnswerDetailTableViewCell.m */,
+				87F528042406745C0040F8FD /* SCAnswerTBHeaderView.m */,
+				87F528052406745C0040F8FD /* SCAnswerStatisticsModel.h */,
+				87F528062406745C0040F8FD /* SCOptionCollectionCell.m */,
+				87F528072406745C0040F8FD /* SCAnswerView.h */,
+				87F528082406745C0040F8FD /* SCStatisticsTableViewCell.m */,
+				87F528092406745C0040F8FD /* SCAnswerPageView.m */,
+				87F5280A2406745C0040F8FD /* SCAnswerDetailTableViewCell.h */,
+				87F5280B2406745C0040F8FD /* SCAnswerDetailModel.h */,
+			);
+			path = SCAnswerView;
+			sourceTree = "<group>";
+		};
+		87F5280C2406745C0040F8FD /* SCBoardControlView */ = {
+			isa = PBXGroup;
+			children = (
+				87F5280D2406745C0040F8FD /* SCBoardControlView.h */,
+				87F5280E2406745C0040F8FD /* SCBoardControlView.m */,
+			);
+			path = SCBoardControlView;
+			sourceTree = "<group>";
+		};
+		87F5280F2406745C0040F8FD /* YSStudentTimer */ = {
+			isa = PBXGroup;
+			children = (
+				87F528102406745C0040F8FD /* YSStudentTimerView.h */,
+				87F528112406745C0040F8FD /* YSStudentTimerView.m */,
+			);
+			path = YSStudentTimer;
+			sourceTree = "<group>";
+		};
+		87F528132406745C0040F8FD /* SCVideoView */ = {
+			isa = PBXGroup;
+			children = (
+				87F528142406745C0040F8FD /* SCVideoView.h */,
+				87F528152406745C0040F8FD /* PanGestureControl.m */,
+				87F528162406745C0040F8FD /* SCVideoGridView.m */,
+				87F528172406745C0040F8FD /* SCVideoView.m */,
+				87F528182406745C0040F8FD /* PanGestureControl.h */,
+				87F528192406745C0040F8FD /* SCVideoGridView.h */,
+			);
+			path = SCVideoView;
+			sourceTree = "<group>";
+		};
+		87F5281A2406745C0040F8FD /* YSStudentResponder */ = {
+			isa = PBXGroup;
+			children = (
+				87F5281B2406745C0040F8FD /* YSStudentResponder.m */,
+				87F5281C2406745C0040F8FD /* YSStudentResponder.h */,
+			);
+			path = YSStudentResponder;
+			sourceTree = "<group>";
+		};
+		87F52855240675710040F8FD /* YSCircleProgress */ = {
+			isa = PBXGroup;
+			children = (
+				87F52856240675710040F8FD /* YSCircleProgress.m */,
+				87F52857240675710040F8FD /* YSCircleProgress.h */,
+			);
+			path = YSCircleProgress;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1219,103 +1301,103 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				877B451023D03FC600A88540 /* SCTTopPopverViewController.h in Headers */,
-				877B458A23D03FD400A88540 /* SCVideoGridView.h in Headers */,
+				87F528482406745C0040F8FD /* SCBoardControlView.h in Headers */,
 				877B46D923D03FE300A88540 /* YSBarrage.h in Headers */,
 				877B45D823D03FDA00A88540 /* YSQuestionModel.h in Headers */,
-				877B457223D03FD400A88540 /* SCOptionCollectionCell.h in Headers */,
 				877B46C623D03FE300A88540 /* YSMediaMarkView.h in Headers */,
+				87F5283B2406745C0040F8FD /* SCAnswerPageView.h in Headers */,
+				87F52859240675720040F8FD /* YSCircleProgress.h in Headers */,
 				877B44C423D03F9B00A88540 /* YSAppUIDef.h in Headers */,
-				877B458523D03FD400A88540 /* SCVideoView.h in Headers */,
 				877B44A423D03F0000A88540 /* YSPermissionsVC.h in Headers */,
 				877B46C923D03FE300A88540 /* CALayer+YSBarrage.h in Headers */,
-				877B458923D03FD400A88540 /* PanGestureControl.h in Headers */,
 				877B45E123D03FDA00A88540 /* YSChatMemberListCell.h in Headers */,
+				87F5282F2406745C0040F8FD /* SCTextMessageCell.h in Headers */,
 				877B45F623D03FDA00A88540 /* YSChatBasicTableViewCell.h in Headers */,
 				87204455238F5C280069761B /* YSSDKDelegate.h in Headers */,
-				877B455723D03FD400A88540 /* SCTopToolBar.h in Headers */,
 				877B45F723D03FDA00A88540 /* YSNewTipMessageCell.h in Headers */,
-				877B450523D03FC600A88540 /* YSTeacherRoleMainVC.h in Headers */,
-				877B456C23D03FD400A88540 /* SCChatToolView.h in Headers */,
+				87F528272406745C0040F8FD /* SCColorListView.h in Headers */,
 				877B45F423D03FDA00A88540 /* YSNewPictureCell.h in Headers */,
 				877B45E223D03FDA00A88540 /* YSChatMemberListVC.h in Headers */,
+				87F5283C2406745C0040F8FD /* SCStatisticsTableViewCell.h in Headers */,
 				877B44AD23D03F0000A88540 /* YSWhiteBordNSURLProtocol.h in Headers */,
 				877B45DC23D03FDA00A88540 /* YSAnswerCell.h in Headers */,
-				877B456923D03FD400A88540 /* SCTextMessageCell.h in Headers */,
+				87F528222406745C0040F8FD /* SCDrawBoardView.h in Headers */,
+				87F528312406745C0040F8FD /* SCPictureMessageCell.h in Headers */,
 				877B46B923D03FE300A88540 /* YSUserDefault.h in Headers */,
 				877B449E23D03F0000A88540 /* YSLiveEnumHeader.h in Headers */,
+				87F5284D2406745C0040F8FD /* SCVideoView.h in Headers */,
+				87F527CA240674520040F8FD /* YSTeacherResponder.h in Headers */,
 				877B44B423D03F0000A88540 /* YSLiveManager.h in Headers */,
-				877B450C23D03FC600A88540 /* YSControlPopoverView.h in Headers */,
+				87F528232406745C0040F8FD /* SCColorSelectView.h in Headers */,
+				87F527C4240674520040F8FD /* YSUpHandPopoverVC.h in Headers */,
+				87F528332406745C0040F8FD /* SCChatView.h in Headers */,
+				87F527C5240674520040F8FD /* YSUpHandPopCell.h in Headers */,
 				877B45DE23D03FDA00A88540 /* YSMainVC.h in Headers */,
 				877B46B323D03FE300A88540 /* SCEyeCareView.h in Headers */,
 				877B460023D03FDA00A88540 /* YSLessonNotifyTableCell.h in Headers */,
 				877B46B023D03FE300A88540 /* YSFloatView.h in Headers */,
 				877B46CE23D03FE300A88540 /* YSBarrageManager.h in Headers */,
-				877B458023D03FD400A88540 /* SCAnswerDetailTableViewCell.h in Headers */,
-				877B456F23D03FD400A88540 /* SCTipsMessageCell.h in Headers */,
 				877B46BD23D03FE300A88540 /* YSPrizeAlertView.h in Headers */,
 				877B44D423D03FAB00A88540 /* YSAPIMacros.h in Headers */,
+				87F5284C2406745C0040F8FD /* SCMainVC.h in Headers */,
+				87F527CC240674520040F8FD /* SCTeacherAnswerView.h in Headers */,
+				87F5281E2406745C0040F8FD /* SCTopToolBarModel.h in Headers */,
 				877B44D623D03FAB00A88540 /* YSApiRequest.h in Headers */,
+				87F527D1240674520040F8FD /* YSTeacherTimerView.h in Headers */,
 				877B44AA23D03F0000A88540 /* YSLiveRoomConfiguration.h in Headers */,
-				877B450823D03FC600A88540 /* YSMediaSlider.h in Headers */,
-				877B450E23D03FC600A88540 /* SCTeacherAnswerView.h in Headers */,
+				87F527C6240674520040F8FD /* YSControlPopoverView.h in Headers */,
 				877B46C523D03FE300A88540 /* BMProgressHUD.h in Headers */,
-				877B451823D03FC700A88540 /* SCTeacherCoursewareListCell.h in Headers */,
+				87F528352406745C0040F8FD /* SCTipsMessageCell.h in Headers */,
 				877B45FD23D03FDA00A88540 /* YSLessonModel.h in Headers */,
 				877B44A323D03F0000A88540 /* YSPermissionsVResultView.h in Headers */,
 				877B45E923D03FDA00A88540 /* YSEmotionCollectionCell.h in Headers */,
-				877B451923D03FC700A88540 /* SCTeacherListView.h in Headers */,
+				87F5281D2406745C0040F8FD /* SCTopToolBar.h in Headers */,
 				877B46CC23D03FE300A88540 /* YSBarrageDescriptor.h in Headers */,
-				877B457523D03FD400A88540 /* SCAnswerPageView.h in Headers */,
 				877B45D223D03FDA00A88540 /* YSVoteResultTableCell.h in Headers */,
-				877B450623D03FC600A88540 /* YSMp3Controlview.h in Headers */,
+				87F527BE240674520040F8FD /* YSMp3Controlview.h in Headers */,
+				87F528522406745C0040F8FD /* SCVideoGridView.h in Headers */,
 				877B45EB23D03FDA00A88540 /* YSEmotionView.h in Headers */,
 				877B45E523D03FDA00A88540 /* PTTextAttachment.h in Headers */,
-				877B456123D03FD400A88540 /* SCColorListView.h in Headers */,
-				877B456423D03FD400A88540 /* SCBrushToolView.h in Headers */,
+				87F527D7240674520040F8FD /* SCTeacherPersonListCell.h in Headers */,
+				87F528432406745C0040F8FD /* SCAnswerView.h in Headers */,
 				877B45D023D03FDA00A88540 /* YSVoteModel.h in Headers */,
 				877B45F823D03FDA00A88540 /* YSTextMessageCell.h in Headers */,
-				877B455D23D03FD400A88540 /* SCColorSelectView.h in Headers */,
 				877B46C023D03FE300A88540 /* YSSignedAlertView.h in Headers */,
+				87F528472406745C0040F8FD /* SCAnswerDetailModel.h in Headers */,
 				877B44B223D03F0000A88540 /* NSURLRequest+YSWhiteBoard.h in Headers */,
 				877B46B223D03FE300A88540 /* SCEyeCareEmptyVC.h in Headers */,
 				877B46D723D03FE300A88540 /* YSBarrageRenderView.h in Headers */,
-				877B451323D03FC600A88540 /* SCTeacherTopBar.h in Headers */,
-				877B450723D03FC600A88540 /* YSMp4ControlView.h in Headers */,
-				877B457D23D03FD400A88540 /* SCAnswerView.h in Headers */,
-				877B456D23D03FD400A88540 /* SCChatView.h in Headers */,
 				877B44A023D03F0000A88540 /* YSLiveUtil.h in Headers */,
 				877B45DD23D03FDA00A88540 /* YSQuestionView.h in Headers */,
-				877B456B23D03FD400A88540 /* SCPictureMessageCell.h in Headers */,
 				877B44C523D03F9B00A88540 /* YSAppInfo.h in Headers */,
-				877B458423D03FD400A88540 /* SCMainVC.h in Headers */,
 				877B46D623D03FE300A88540 /* YSBarrageTextDescriptor.h in Headers */,
-				877B458223D03FD400A88540 /* SCBoardControlView.h in Headers */,
 				877B44C623D03F9B00A88540 /* YSAppMacros.h in Headers */,
+				87F528512406745C0040F8FD /* PanGestureControl.h in Headers */,
 				877B46C823D03FE300A88540 /* YSBarrageTextCell.h in Headers */,
-				877B457623D03FD400A88540 /* SCStatisticsTableViewCell.h in Headers */,
+				87F527BF240674520040F8FD /* YSMp4ControlView.h in Headers */,
+				87F5282A2406745C0040F8FD /* SCBrushToolView.h in Headers */,
 				877B46CF23D03FE300A88540 /* YSBarrageTrackInfo.h in Headers */,
 				877B45D423D03FDA00A88540 /* YSVoteTopView.h in Headers */,
+				87F528292406745C0040F8FD /* YSSliderSuperView.h in Headers */,
 				877B44E123D03FBB00A88540 /* YSMainSuperVC.h in Headers */,
 				877B45CE23D03FDA00A88540 /* YSVoteVC.h in Headers */,
 				877B46BC23D03FE300A88540 /* YSPassWordAlert.h in Headers */,
 				877B44A823D03F0000A88540 /* YSRoomUser+YSLive.h in Headers */,
+				87F527BD240674520040F8FD /* YSTeacherRoleMainVC.h in Headers */,
 				877B46B123D03FE300A88540 /* SCEyeCareWindow.h in Headers */,
 				877B44A723D03F0000A88540 /* YSLiveMediaModel.h in Headers */,
 				87942D88238E6C9C00D6B4B2 /* YSSDKManager.h in Headers */,
+				87F527C0240674520040F8FD /* YSMediaSlider.h in Headers */,
 				877B46D423D03FE300A88540 /* YSBarrageHeader.h in Headers */,
-				877B455C23D03FD400A88540 /* SCDrawBoardView.h in Headers */,
-				877B457B23D03FD400A88540 /* SCAnswerStatisticsModel.h in Headers */,
+				87F527D9240674520040F8FD /* SCTeacherListView.h in Headers */,
 				8790DC16238E3EB0005C0BC7 /* YSLiveSDK.h in Headers */,
+				87F528462406745C0040F8FD /* SCAnswerDetailTableViewCell.h in Headers */,
 				877B45E423D03FDA00A88540 /* YSChatMessageModel.h in Headers */,
-				877B455823D03FD400A88540 /* SCTopToolBarModel.h in Headers */,
+				87F527D8240674520040F8FD /* SCTeacherCoursewareListCell.h in Headers */,
 				877B44E523D03FBB00A88540 /* YSVCProtocol.h in Headers */,
-				877B451723D03FC700A88540 /* SCTeacherPersonListCell.h in Headers */,
 				877B45E823D03FDA00A88540 /* YSChatView.h in Headers */,
 				87204457238F7A210069761B /* YSSDKDefine.h in Headers */,
-				877B457423D03FD400A88540 /* SCAnswerTBHeaderView.h in Headers */,
 				877B45D723D03FDA00A88540 /* YSVotingTableCell.h in Headers */,
-				877B458123D03FD400A88540 /* SCAnswerDetailModel.h in Headers */,
 				877B44B523D03F0000A88540 /* YSLiveMacros.h in Headers */,
 				877B45E723D03FDA00A88540 /* YSChatToolView.h in Headers */,
 				877B45FB23D03FDA00A88540 /* YSLessonDetailHeaderView.h in Headers */,
@@ -1325,13 +1407,20 @@
 				877B45FA23D03FDA00A88540 /* YSLessonView.h in Headers */,
 				877B46C123D03FE300A88540 /* BMAlertView+YSDefaultAlert.h in Headers */,
 				877B44BD23D03F0000A88540 /* YSLiveApiRequest.h in Headers */,
+				87F528322406745C0040F8FD /* SCChatToolView.h in Headers */,
+				87F528412406745C0040F8FD /* SCAnswerStatisticsModel.h in Headers */,
+				87F5283A2406745C0040F8FD /* SCAnswerTBHeaderView.h in Headers */,
 				877B44AE23D03F0000A88540 /* YSWhiteBordHttpDNSUtil.h in Headers */,
+				87F528252406745C0040F8FD /* SCColorTipView.h in Headers */,
+				87F528382406745C0040F8FD /* SCOptionCollectionCell.h in Headers */,
 				877B45EA23D03FDA00A88540 /* YSCommentPopView.h in Headers */,
-				877B455F23D03FD400A88540 /* SCColorTipView.h in Headers */,
+				87F527D3240674520040F8FD /* SCTeacherTopBar.h in Headers */,
+				87F527CE240674520040F8FD /* SCTTopPopverViewController.h in Headers */,
 				877B44E723D03FBB00A88540 /* YSSuperVC.h in Headers */,
+				87F528542406745C0040F8FD /* YSStudentResponder.h in Headers */,
 				877B44E223D03FBB00A88540 /* YSSuperNetVC.h in Headers */,
 				877B44D723D03FAB00A88540 /* YSLocation.h in Headers */,
-				877B456323D03FD400A88540 /* YSSliderSuperView.h in Headers */,
+				87F5284A2406745C0040F8FD /* YSStudentTimerView.h in Headers */,
 				877B44B123D03F0000A88540 /* NSURLProtocol+YSWhiteBoard.h in Headers */,
 				877B44B723D03F0000A88540 /* YSLiveSignaling.h in Headers */,
 			);
@@ -1462,108 +1551,115 @@
 				877B45D923D03FDA00A88540 /* YSAnswerCell.m in Sources */,
 				877B46D823D03FE300A88540 /* YSBarrageTrackInfo.m in Sources */,
 				877B45FC23D03FDA00A88540 /* YSLessonNotifyTableCell.m in Sources */,
-				877B458623D03FD400A88540 /* PanGestureControl.m in Sources */,
 				877B46B623D03FE300A88540 /* SCEyeCareEmptyVC.m in Sources */,
 				877B44BC23D03F0000A88540 /* YSLiveApiRequest.m in Sources */,
 				877B45FE23D03FDA00A88540 /* YSLessonModel.m in Sources */,
-				877B456823D03FD400A88540 /* SCChatToolView.m in Sources */,
+				87F5282C2406745C0040F8FD /* YSSliderSuperView.m in Sources */,
+				87F527CF240674520040F8FD /* SCTTopPopverViewController.m in Sources */,
+				87F527C3240674520040F8FD /* YSMediaSlider.m in Sources */,
 				87942D89238E6C9C00D6B4B2 /* YSSDKManager.m in Sources */,
+				87F528422406745C0040F8FD /* SCOptionCollectionCell.m in Sources */,
 				877B44A123D03F0000A88540 /* YSPermissionsVResultView.m in Sources */,
+				87F527C1240674520040F8FD /* YSMp4ControlView.m in Sources */,
+				87F527CB240674520040F8FD /* YSTeacherResponder.m in Sources */,
 				877B46BF23D03FE300A88540 /* YSPassWordAlert.m in Sources */,
-				877B457F23D03FD400A88540 /* SCAnswerPageView.m in Sources */,
 				877B44C723D03F9B00A88540 /* YSAppInfo.m in Sources */,
 				877B45D123D03FDA00A88540 /* YSVoteVC.m in Sources */,
 				877B45EE23D03FDA00A88540 /* YSEmotionCollectionCell.m in Sources */,
 				877B46B523D03FE300A88540 /* SCEyeCareView.m in Sources */,
 				877B46AF23D03FE300A88540 /* YSFloatView.m in Sources */,
+				87F5283F2406745C0040F8FD /* SCAnswerDetailTableViewCell.m in Sources */,
 				877B46B423D03FE300A88540 /* SCEyeCareWindow.m in Sources */,
-				877B456023D03FD400A88540 /* SCColorSelectView.m in Sources */,
-				877B456223D03FD400A88540 /* SCColorTipView.m in Sources */,
 				877B44E623D03FBB00A88540 /* YSMainSuperVC.m in Sources */,
-				877B450A23D03FC600A88540 /* YSMp3Controlview.m in Sources */,
 				877B44A623D03F0000A88540 /* YSLiveRoomConfiguration.m in Sources */,
-				877B451423D03FC600A88540 /* SCTeacherTopBar.m in Sources */,
 				877B45E023D03FDA00A88540 /* YSChatMemberListVC.m in Sources */,
+				87F5284B2406745C0040F8FD /* YSStudentTimerView.m in Sources */,
+				87F528212406745C0040F8FD /* SCBrushToolView.m in Sources */,
 				877B460123D03FDA00A88540 /* YSLessonDetailHeaderView.m in Sources */,
-				877B458823D03FD400A88540 /* SCVideoView.m in Sources */,
-				877B451223D03FC600A88540 /* YSTeacherRoleMainVC.m in Sources */,
-				877B456523D03FD400A88540 /* SCDrawBoardView.m in Sources */,
-				877B457723D03FD400A88540 /* SCAnswerView.m in Sources */,
+				87F528532406745C0040F8FD /* YSStudentResponder.m in Sources */,
 				877B44A923D03F0000A88540 /* YSLiveMediaModel.m in Sources */,
 				877B44B023D03F0000A88540 /* YSWhiteBordNSURLProtocol.m in Sources */,
 				877B45F523D03FDA00A88540 /* YSNewPictureCell.m in Sources */,
 				877B45EF23D03FDA00A88540 /* YSCommentPopView.m in Sources */,
+				87F527DA240674520040F8FD /* SCTeacherPersonListCell.m in Sources */,
 				877B44B623D03F0000A88540 /* YSLiveManager+GetTeacherSignaling.m in Sources */,
 				877B44BA23D03F0000A88540 /* YSLiveManager+SendSignaling.m in Sources */,
-				877B457823D03FD400A88540 /* SCAnswerDetailModel.m in Sources */,
 				877B45DB23D03FDA00A88540 /* YSQuestionModel.m in Sources */,
+				87F528202406745C0040F8FD /* SCTopToolBar.m in Sources */,
+				87F5284F2406745C0040F8FD /* SCVideoGridView.m in Sources */,
 				877B46CB23D03FE300A88540 /* YSBarrageTextDescriptor.m in Sources */,
 				877B44B923D03F0000A88540 /* YSLiveManager+SendTeacherSignaling.m in Sources */,
 				877B46C423D03FE300A88540 /* BMProgressHUD.m in Sources */,
+				87F5282D2406745C0040F8FD /* SCChatView.m in Sources */,
 				877B45CF23D03FDA00A88540 /* YSVoteModel.m in Sources */,
-				877B450B23D03FC600A88540 /* YSMediaSlider.m in Sources */,
-				877B456723D03FD400A88540 /* SCChatView.m in Sources */,
+				87F528402406745C0040F8FD /* SCAnswerTBHeaderView.m in Sources */,
 				877B46D323D03FE300A88540 /* YSBarrageCell.m in Sources */,
-				877B457A23D03FD400A88540 /* SCAnswerTBHeaderView.m in Sources */,
-				877B457123D03FD400A88540 /* SCMainVC.m in Sources */,
+				87F528302406745C0040F8FD /* SCTipsMessageCell.m in Sources */,
+				87F5281F2406745C0040F8FD /* SCTopToolBarModel.m in Sources */,
 				877B46D023D03FE300A88540 /* CALayer+YSBarrage.m in Sources */,
 				877B44AC23D03F0000A88540 /* NSURLProtocol+YSWhiteBoard.m in Sources */,
+				87F528452406745C0040F8FD /* SCAnswerPageView.m in Sources */,
+				87F528242406745C0040F8FD /* SCColorListView.m in Sources */,
+				87F528392406745C0040F8FD /* SCAnswerStatisticsModel.m in Sources */,
+				87F528362406745C0040F8FD /* SCPictureMessageCell.m in Sources */,
 				877B46C223D03FE300A88540 /* UIAlertController+SCAlertAutorotate.m in Sources */,
 				877B46D523D03FE300A88540 /* YSBarrageDescriptor.m in Sources */,
-				877B456A23D03FD400A88540 /* SCTipsMessageCell.m in Sources */,
-				877B458323D03FD400A88540 /* SCBoardControlView.m in Sources */,
 				877B45F223D03FDA00A88540 /* YSNewTipMessageCell.m in Sources */,
 				877B46CA23D03FE300A88540 /* YSBarrageRenderView.m in Sources */,
+				87F527D2240674520040F8FD /* YSTeacherRoleMainVC.m in Sources */,
 				877B45DA23D03FDA00A88540 /* YSQuestionView.m in Sources */,
 				877B44D523D03FAB00A88540 /* YSApiRequest.m in Sources */,
+				87F527C7240674520040F8FD /* YSUpHandPopoverVC.m in Sources */,
+				87F527D6240674520040F8FD /* SCTeacherCoursewareListCell.m in Sources */,
 				877B45D623D03FDA00A88540 /* YSVoteTopView.m in Sources */,
 				877B449F23D03F0000A88540 /* YSLiveUtil.m in Sources */,
+				87F52858240675720040F8FD /* YSCircleProgress.m in Sources */,
 				877B45ED23D03FDA00A88540 /* YSChatToolView.m in Sources */,
+				87F5283E2406745C0040F8FD /* SCAnswerDetailModel.m in Sources */,
 				877B44AB23D03F0000A88540 /* YSLiveManager.m in Sources */,
 				877B46D223D03FE300A88540 /* YSBarrageManager.m in Sources */,
 				877B45DF23D03FDA00A88540 /* YSMainVC.m in Sources */,
-				877B451A23D03FC700A88540 /* SCTeacherPersonListCell.m in Sources */,
+				87F5282E2406745C0040F8FD /* SCChatToolView.m in Sources */,
 				877B46BA23D03FE300A88540 /* BMAlertView+YSDefaultAlert.m in Sources */,
 				877B44B323D03F0000A88540 /* YSWhiteBordHttpDNSUtil.m in Sources */,
-				877B457923D03FD400A88540 /* SCAnswerDetailTableViewCell.m in Sources */,
-				877B450D23D03FC600A88540 /* YSControlPopoverView.m in Sources */,
-				877B455E23D03FD400A88540 /* SCColorListView.m in Sources */,
-				877B457323D03FD400A88540 /* SCAnswerStatisticsModel.m in Sources */,
+				87F527C8240674520040F8FD /* YSUpHandPopCell.m in Sources */,
 				877B44AF23D03F0000A88540 /* NSURLRequest+YSWhiteBoard.m in Sources */,
+				87F528282406745C0040F8FD /* SCColorTipView.m in Sources */,
 				877B46C323D03FE300A88540 /* YSPrizeAlertView.m in Sources */,
 				877B44D323D03FAB00A88540 /* YSLocation.m in Sources */,
-				877B451623D03FC700A88540 /* SCTeacherCoursewareListCell.m in Sources */,
 				877B45FF23D03FDA00A88540 /* YSLessonView.m in Sources */,
+				87F528492406745C0040F8FD /* SCBoardControlView.m in Sources */,
+				87F528502406745C0040F8FD /* SCVideoView.m in Sources */,
 				877B46C723D03FE300A88540 /* YSMediaMarkView.m in Sources */,
+				87F528342406745C0040F8FD /* SCTextMessageCell.m in Sources */,
+				87F5282B2406745C0040F8FD /* SCDrawBoardView.m in Sources */,
 				877B45F323D03FDA00A88540 /* YSChatBasicTableViewCell.m in Sources */,
 				877B46BB23D03FE300A88540 /* YSSignedAlertView.m in Sources */,
-				877B455923D03FD400A88540 /* SCTopToolBarModel.m in Sources */,
 				877B45D523D03FDA00A88540 /* YSVoteResultTableCell.m in Sources */,
+				87F527C9240674520040F8FD /* YSControlPopoverView.m in Sources */,
 				877B44BB23D03F0000A88540 /* YSLiveManager+message.m in Sources */,
 				877B45F023D03FDA00A88540 /* YSEmotionView.m in Sources */,
+				87F527D5240674520040F8FD /* SCTeacherListView.m in Sources */,
+				87F527D4240674520040F8FD /* SCTeacherTopBar.m in Sources */,
 				877B45E623D03FDA00A88540 /* YSChatMessageModel.m in Sources */,
-				877B451123D03FC600A88540 /* SCTTopPopverViewController.m in Sources */,
 				877B44E423D03FBB00A88540 /* YSSuperNetVC.m in Sources */,
+				87F528262406745C0040F8FD /* SCColorSelectView.m in Sources */,
+				87F528442406745C0040F8FD /* SCStatisticsTableViewCell.m in Sources */,
+				87F527D0240674520040F8FD /* YSTeacherTimerView.m in Sources */,
 				877B45EC23D03FDA00A88540 /* YSChatView.m in Sources */,
-				877B457E23D03FD400A88540 /* SCStatisticsTableViewCell.m in Sources */,
 				877B45E323D03FDA00A88540 /* PTTextAttachment.m in Sources */,
-				877B456623D03FD400A88540 /* YSSliderSuperView.m in Sources */,
-				877B458723D03FD400A88540 /* SCVideoGridView.m in Sources */,
-				877B450923D03FC600A88540 /* YSMp4ControlView.m in Sources */,
 				877B45F123D03FDA00A88540 /* YSTextMessageCell.m in Sources */,
-				877B457C23D03FD400A88540 /* SCOptionCollectionCell.m in Sources */,
+				87F5283D2406745C0040F8FD /* SCAnswerView.m in Sources */,
+				87F527CD240674520040F8FD /* SCTeacherAnswerView.m in Sources */,
 				877B44E323D03FBB00A88540 /* YSSuperVC.m in Sources */,
+				87F5284E2406745C0040F8FD /* PanGestureControl.m in Sources */,
 				877B467923D03FE300A88540 /* YSUserDefault.m in Sources */,
-				877B455A23D03FD400A88540 /* SCTopToolBar.m in Sources */,
-				877B450F23D03FC600A88540 /* SCTeacherAnswerView.m in Sources */,
-				877B455B23D03FD400A88540 /* SCBrushToolView.m in Sources */,
 				877B46D123D03FE300A88540 /* YSBarrageTextCell.m in Sources */,
 				877B45D323D03FDA00A88540 /* YSVotingTableCell.m in Sources */,
-				877B451523D03FC700A88540 /* SCTeacherListView.m in Sources */,
+				87F528372406745C0040F8FD /* SCMainVC.m in Sources */,
 				877B44A223D03F0000A88540 /* YSPermissionsVC.m in Sources */,
-				877B457023D03FD400A88540 /* SCPictureMessageCell.m in Sources */,
+				87F527C2240674520040F8FD /* YSMp3Controlview.m in Sources */,
 				877B45F923D03FDA00A88540 /* YSChatMemberListCell.m in Sources */,
-				877B456E23D03FD400A88540 /* SCTextMessageCell.m in Sources */,
 				877B44A523D03F0000A88540 /* YSRoomUser+YSLive.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

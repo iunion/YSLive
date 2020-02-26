@@ -116,12 +116,12 @@ static NSString *YSSDKVersionString = @"2.2.0.0";
        }
 }
 
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
-    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSSDKSUserType_Student userId:userId userParams:userParams];
+    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSSDKSUserType_Student userId:userId userParams:userParams needCheckPermissions:needCheckPermissions];
 }
 
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
     self.selectRoleType = userRole;
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
@@ -130,7 +130,7 @@ static NSString *YSSDKVersionString = @"2.2.0.0";
     [self.liveManager registerRoomManagerDelegate:self];
     self.liveManager.sdkDelegate = self;
 
-    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:nil userParams:nil];
+    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:nil userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
 }

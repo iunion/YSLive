@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)registerManagerDelegate:(nullable id <YSSDKDelegate>)managerDelegate;
 
 
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams;
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 /// 注意：小班课和会议支持老师和学生身份登入房间，直播只支持学生身份
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams;
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 ///探测房间类型接口  3：小班课  4：直播  6：会议
 /**探测房间类型接口  3：小班课  4：直播  6：会议

@@ -11,9 +11,9 @@
 #if YSSDK
 #else
 #import "YSCoreStatus.h"
+#import "YSSchoolUser.h"
 #endif
 
-#import "YSSchoolUser.h"
 #import "YSLiveUtil.h"
 
 #import "YSAppInfo.h"
@@ -182,6 +182,8 @@
     return [YSApiRequest makeRequestWithURL:URLString parameters:parameters isPost:YES isOnlineSchool:isOnlineSchool];
 }
 
+#if YSSDK
+#else
 + (NSString *)makeOnlineSchooleSignWithParameters:(NSDictionary *)parameters timeInterval:(NSTimeInterval)timeInterval
 {
     NSString *parameterString = [YSLiveUtil makeApiSignWithData:parameters];
@@ -204,6 +206,7 @@
     
     return signMd5;
 }
+#endif
 
 + (NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost isOnlineSchool:(BOOL)isOnlineSchool
 {
@@ -235,6 +238,8 @@
 //    starttime: 1581408462000
 //    token: 360960395426803
     
+#if YSSDK
+#else
     if (isOnlineSchool)
     {
         YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
@@ -251,6 +256,7 @@
             [request setValue:sign forHTTPHeaderField:@"sign"];
         }
     }
+#endif
 
     // 时间戳
 //    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
