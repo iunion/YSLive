@@ -47,7 +47,8 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 @end
 
-
+#if YSSDK
+#else
 @interface YSLiveApiRequest (School)
 
 /// 获取登录密匙
@@ -91,5 +92,6 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 ///  修改老师密码
 + (NSMutableURLRequest *)postTeacherNewpass:(NSString *)newpass repass:(NSString *)repass teacherid:(NSString *)teacherid organid:(NSString *)organid;
 @end
+#endif
 
 NS_ASSUME_NONNULL_END
