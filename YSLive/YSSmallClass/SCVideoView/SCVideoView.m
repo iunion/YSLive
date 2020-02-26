@@ -604,6 +604,8 @@
 - (void)changeRoomUserProperty:(YSRoomUser *)roomUser
 {
     self.roomUser = roomUser;
+    
+    self.iHasVadeo = roomUser.hasVideo;
 }
 
 

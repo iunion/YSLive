@@ -44,6 +44,8 @@
     self = [super init];
     if (self)
     {
+        self.isPenetration = YES;
+        
         self.showAnimationType = BMNoticeViewShowAnimationNone;
         self.noticeMaskBgEffect = nil;
         self.shouldDismissOnTapOutside = NO;
@@ -139,6 +141,41 @@
     [self.endImageV setImage:[UIImage imageNamed:@"teacherTimer_end"]];
     [self.bacImageView addSubview:self.endImageV];
 
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(contentPanGestureAction:)];
+    [self.noticeView addGestureRecognizer:pan];
+}
+
+- (void)contentPanGestureAction:(UIPanGestureRecognizer *)panGesture
+{
+    UIView *panView = panGesture.view;
+    
+    //1、获得拖动位移
+    CGPoint offsetPoint = [panGesture translationInView:panView];
+    //2、清空拖动位移
+    [panGesture setTranslation:CGPointZero inView:panView];
+    //3、重新设置控件位置
+    CGFloat newX = panView.bm_centerX+offsetPoint.x;
+    CGFloat newY = panView.bm_centerY+offsetPoint.y;
+    CGPoint centerPoint = CGPointMake(newX, newY);
+    panView.center = centerPoint;
+    
+    if (panView.bm_top < 0)
+    {
+        panView.bm_top = 0;
+    }
+    if (panView.bm_left < 0)
+    {
+        panView.bm_left = 0;
+    }
+    
+    if (panView.bm_bottom > UI_SCREEN_HEIGHT)
+    {
+        panView.bm_top = UI_SCREEN_HEIGHT - panView.bm_height;
+    }
+    if (panView.bm_right > UI_SCREEN_WIDTH)
+    {
+        panView.bm_left = UI_SCREEN_WIDTH - panView.bm_width;
+    }
 }
 
 - (void)showTimeInterval:(NSInteger)timeInterval
@@ -148,6 +185,7 @@
     self.minuteL.text = [NSString stringWithFormat:@"%02ld",(long)minute];
     self.secondL.text = [NSString stringWithFormat:@"%02ld",(long)second];
 }
+
 - (void)closeBtnClicked:(UIButton *)btn
 {
     [self dismiss:nil animated:NO dismissBlock:nil];
@@ -187,5 +225,20 @@
     }
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    CGPoint btnP =  [self convertPoint:point toView:self.bacView];
+    
+    if ( [self.bacView pointInside:btnP withEvent:event])
+    {
+        return [super hitTest:point withEvent:event];
+    }
+    else if (self.isPenetration)
+    {
+        return nil;
+    }
+    
+    return [super hitTest:point withEvent:event];
+}
 
 @end

@@ -85,6 +85,8 @@
     [super viewWillAppear:animated];
 
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
+    GetAppDelegate.allowRotation = NO;
 }
 
 #pragma mark 横竖屏

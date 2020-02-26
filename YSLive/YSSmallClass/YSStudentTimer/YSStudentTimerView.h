@@ -19,6 +19,10 @@ typedef NS_ENUM(NSInteger, YSStudentTimerViewType)
 };
 
 @interface YSStudentTimerView : BMNoticeView
+
+/// 是否背景蒙版可穿透点击
+@property (nonatomic, assign) BOOL isPenetration;
+
 - (void)showYSStudentTimerViewInView:(UIView *)inView
                 backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
                          topDistance:(CGFloat)topDistance;

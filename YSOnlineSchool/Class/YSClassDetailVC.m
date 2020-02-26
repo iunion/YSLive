@@ -10,6 +10,7 @@
 #import "YSClassCell.h"
 #import "YSClassInstructionCell.h"
 #import "YSClassMediumCell.h"
+#import "AppDelegate.h"
 
 #import "YSLiveApiRequest.h"
 #import "YSSchoolUser.h"
@@ -49,6 +50,13 @@
     [self.dataArray addObject:@"1"];
 
     [self refreshVC];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    GetAppDelegate.allowRotation = NO;
 }
 
 #pragma mark 横竖屏
