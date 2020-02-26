@@ -3227,6 +3227,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 
                 videoView.canDraw = canDraw;
                 self.brushToolView.hidden = !canDraw;
+                if (!canDraw)
+                {
+                    [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
+                }
                 if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
                 {
                     self.drawBoardView.hidden = YES;
