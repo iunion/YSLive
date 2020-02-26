@@ -126,6 +126,8 @@
 
 @property (nonatomic, strong) NSString *randomKey;
 
+@property (nonatomic, assign) BOOL needCheckPermissions;
+
 @end
 
 
@@ -176,8 +178,6 @@
     self.isOnlineSchool = NO;
     // 主题问题
     [self setupUI];
-    
-
     
 #if CLEARCHECK
     UIButton *clearCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1095,6 +1095,8 @@
     }
 #endif
     
+    self.needCheckPermissions = YES;
+
     //检查房间类型
 //    if ([UIDevice bm_isiPad])
 //    {
@@ -1237,13 +1239,15 @@
         
     if ([passWordStr bm_isNotEmpty])
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:YES];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:YES];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
     }
     
+    self.needCheckPermissions = YES;
+
 //    self.passwordTextField.hidden = YES;
     self.passwordTextField.inputTextField.text = nil;
     
@@ -1865,6 +1869,8 @@
 
     [[YSLiveManager shareInstance] destroy];
 
+    self.needCheckPermissions = NO;
+    
     BMWeakSelf
     if (errorCode == YSErrorCode_CheckRoom_PasswordError ||
         errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
