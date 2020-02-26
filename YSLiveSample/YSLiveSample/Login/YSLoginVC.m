@@ -471,6 +471,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         return;
     }
 
+    // 根据实际用户变更用户身份
     userRole = YSSDKUserType_Teacher;
     __weak __typeof(self) weakSelf = self;
     [self.ysSDKManager checkRoomTypeBeforeJoinRoomWithRoomId:roomId success:^(YSSDKUseTheType roomType, BOOL needpassword) {
@@ -572,13 +573,13 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         {
             // 学生登入
             // 注意： 直播只支持学生身份登入房间
-            [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userId:nil userParams:nil];
+            [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userId:nil userParams:nil needCheckPermissions:NO];
         }
         else
         {
             // 老师(会议主持)登入
             // 注意： 小班课和会议支持老师和学生身份登入房间
-            [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userRole:self->userRole userId:nil userParams:nil];
+            [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userRole:self->userRole userId:nil userParams:nil needCheckPermissions:NO];
         }
     }];
     [alertVc addAction:confimAc];
