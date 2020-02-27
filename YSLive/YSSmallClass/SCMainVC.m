@@ -2967,6 +2967,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.boardControlView resetBtnStates];
 
     self.boardControlView.bm_width = 161; //CGRectMake(0, 0, 160, 34);
+    if (file.isGeneralFile)
+    {
+        self.boardControlView.bm_width = 246;
+        
+        NSString *filetype = file.filetype;
+        NSString *path = file.swfpath;
+        if ([filetype isEqualToString:@"gif"] || [filetype isEqualToString:@"svg"])
+        {
+            self.boardControlView.bm_width = 161;
+        }
+        else if ([path hasSuffix:@".gif"] || [path hasSuffix:@".svg"])
+        {
+            self.boardControlView.bm_width = 161;
+        }
+    }
     self.boardControlView.bm_centerX = self.view.bm_centerX;
 
     NSString *totalPage = file.pagenum;
@@ -3557,7 +3572,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     self.boardControlView.allowPaging = NO;
-    
+    //self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag;
+
     if (self.topBarTimer)
     {
         dispatch_source_cancel(self.topBarTimer);
