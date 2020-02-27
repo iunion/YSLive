@@ -12,6 +12,8 @@
 /// 视频间距
 static const CGFloat kVideoGridView_Gap_iPhone = 4.0f;
 static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
+#define VIDEOGRIDVIEW_WIDTH     (80.0f)
+#define VIDEOGRIDVIEW_TOP       (64.0f)
 #define VIDEOGRIDVIEW_GAP       ([UIDevice bm_isiPad] ? kVideoGridView_Gap_iPad : kVideoGridView_Gap_iPhone)
 
 @interface SCVideoGridView ()
@@ -20,6 +22,11 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 @property (nonatomic, assign) BOOL isWideScreen;
 
 @property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoViewArray;
+
+@property (nonatomic, strong) UIView *videosBgView;
+
+@property (nonatomic, assign) CGFloat videoWidth;
+@property (nonatomic, assign) CGFloat videoHeight;
 
 @end
 
@@ -32,76 +39,169 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     if (self)
     {
         self.isWideScreen = isWideScreen;
+        
+        self.videosBgView = [[UIView alloc] init];
+        //self.videosBgView.backgroundColor = [UIColor clearColor];
+        self.videosBgView.backgroundColor = [UIColor redColor];
+        
+        [self addSubview:self.videosBgView];
     }
     return self;
 }
 
 - (void)changeFrame
 {
+    CGFloat top = VIDEOGRIDVIEW_TOP;
+    CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2;
+    CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
+    
+    CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
+    CGFloat videoHeight;
+    if (self.isWideScreen)
+    {
+        videoHeight = ceil(videoWidth / 16) * 9;
+    }
+    else
+    {
+        videoHeight = ceil(videoWidth / 4) * 3;
+    }
+    
+    CGFloat bgWidth = videoWidth;
+    CGFloat bgHeight = videoHeight;
+
+    CGFloat width = videoWidth;
+    CGFloat height = videoHeight;
+
+    CGFloat scale = 1.0f;
+    
     switch (self.videoViewArray.count)
     {
-        case 2:
+        case 1:
         {
-            CGFloat width = self.defaultSize.width*1.42;
+            width = videoWidth;
+            height = videoHeight;
             
-            if ([UIDevice bm_isiPad]) {
-                width = self.defaultSize.width;
-            }
-            
-            self.bm_width = width+VIDEOGRIDVIEW_GAP;
-            self.bm_height = [self getHeightWithWidth:width];
+            CGFloat widthScale = maxWidth/width;
+            CGFloat heightScale = maxHeight/height;
+
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale;
+            bgHeight = height*scale;
         }
             break;
 
+        case 2:
+        {
+            width = videoWidth*2;
+            height = videoHeight;
+            
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP)/width;
+            CGFloat heightScale = maxHeight/height;
+
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP;
+            bgHeight = height*scale;
+        }
+            break;
+            
         case 3:
         case 4:
         {
-            self.bm_width = self.defaultSize.width+VIDEOGRIDVIEW_GAP;
-            self.bm_height = self.defaultSize.height+VIDEOGRIDVIEW_GAP;
+            width = videoWidth*2;
+            height = videoHeight*2;
+            
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP)/width;
+            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP)/height;
+
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP;
+            bgHeight = height*scale+VIDEOGRIDVIEW_GAP;
         }
             break;
             
         case 5:
         case 6:
         {
-            CGFloat width = self.defaultSize.width * 1.42f;
-            self.bm_width = width+VIDEOGRIDVIEW_GAP*2;
-            self.bm_height = [self getHeightWithWidth:width]+VIDEOGRIDVIEW_GAP;
+            width = videoWidth*3;
+            height = videoHeight*2;
+            
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP*2)/width;
+            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP)/height;
+
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP*2;
+            bgHeight = height*scale+VIDEOGRIDVIEW_GAP;
         }
             break;
-            
+
         case 7:
         case 8:
         case 9:
         {
-            self.bm_width = self.defaultSize.width+VIDEOGRIDVIEW_GAP*2;
-            self.bm_height = self.defaultSize.height+VIDEOGRIDVIEW_GAP*2;
+            width = videoWidth*3;
+            height = videoHeight*3;
+            
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP*2)/width;
+            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP*2)/height;
+
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP*2;
+            bgHeight = height*scale+VIDEOGRIDVIEW_GAP*2;
         }
             break;
-            
+
         case 10:
         case 11:
         case 12:
         {
-            CGFloat width = self.defaultSize.width * 1.42f;
-            self.bm_width = width+VIDEOGRIDVIEW_GAP*3;
-            self.bm_height = [self getHeightWithWidth:width]+VIDEOGRIDVIEW_GAP*2;
+            width = videoWidth*4;
+            height = videoHeight*3;
+            
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP*3)/width;
+            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP*2)/height;
+
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP*3;
+            bgHeight = height*scale+VIDEOGRIDVIEW_GAP*2;
         }
             break;
-            
+
         case 13:
         {
-            self.bm_width = self.defaultSize.width+VIDEOGRIDVIEW_GAP*3;
-            self.bm_height = self.defaultSize.height+VIDEOGRIDVIEW_GAP*3;
+            width = videoWidth*4;
+            height = videoHeight*4;
+            
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP*3)/width;
+            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP*3)/height;
+
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP*3;
+            bgHeight = height*scale+VIDEOGRIDVIEW_GAP*3;
         }
             break;
-            
-        case 1:
+
         default:
-            self.bm_size = self.defaultSize;
             break;
     }
-    [self bm_centerInSuperViewWithTopOffset:self.topOffset];
+
+    self.videoWidth = videoWidth*scale;
+    self.videoHeight = videoHeight*scale;
+
+    self.videosBgView.bm_width = bgWidth;
+    self.videosBgView.bm_height = bgHeight;
+
+    CGFloat checktop = maxHeight+top - bgHeight;
+    
+    if (checktop >= top)
+    {
+        CGPoint center = CGPointMake(self.bm_width*0.5, (maxHeight+top)*0.5);
+        self.videosBgView.center = center;
+    }
+    else
+    {
+        CGPoint center = CGPointMake(self.bm_width*0.5, top+maxHeight*0.5);
+        self.videosBgView.center = center;
+    }
 }
 
 - (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray
@@ -109,131 +209,145 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     self.videoViewArray = videoViewArray;
     [self clearView];
     
+    [self changeFrame];
+
     for (SCVideoView *videoView in self.videoViewArray)
     {
         videoView.isDragOut = NO;
         videoView.isFullScreen = NO;
         videoView.isFullMedia = YES;
-        [self addSubview:videoView];
+        [self.videosBgView addSubview:videoView];
+        videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
     }
-    
-    [self changeFrame];
-    
-    
+        
     [self freshView];
-}
-
-- (CGFloat)getHeightWithWidth:(CGFloat)width
-{
-    if (self.isWideScreen)
-    {
-        return width * 9 / 16;
-    }
-    else
-    {
-        return width * 3 / 4;
-    }
 }
 
 - (void)freshView
 {
-    CGFloat width;
-    CGFloat height;
-    
+    CGFloat width = self.videoWidth + VIDEOGRIDVIEW_GAP;
+    CGFloat height = self.videoHeight + VIDEOGRIDVIEW_GAP;
+
     switch (self.videoViewArray.count)
     {
         case 1:
         {
-            width = self.bm_width;
-            height = self.bm_height;
             SCVideoView *videoView = self.videoViewArray[0];
-            videoView.frame = CGRectMake(0, 0, width, height);
+            
+            videoView.bm_top = 0;
+            videoView.bm_left = 0;
         }
             break;
             
         case 2:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP)*0.5;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
-            CGFloat startY = (self.bm_height-height)*0.5;
-            videoView1.frame = CGRectMake(0, startY, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+
         }
             break;
             
         case 3:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP)*0.5;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
-            videoView1.frame = CGRectMake((self.bm_width-width)*0.5, 0, width, height);
-            videoView2.frame = CGRectMake(0, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView3.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, height+VIDEOGRIDVIEW_GAP, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = (self.videosBgView.bm_width-self.videoWidth)*0.5f;
+
+            videoView2.bm_top = height;
+            videoView2.bm_left = 0;
+            
+            videoView3.bm_top = height;
+            videoView3.bm_left = width;
         }
             break;
 
         case 4:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP)*0.5;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
             SCVideoView *videoView4 = self.videoViewArray[3];
-            videoView1.frame = CGRectMake(0, 0, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, 0, width, height);
-            videoView3.frame = CGRectMake(0, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView4.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, height+VIDEOGRIDVIEW_GAP, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = height;
+            videoView3.bm_left = 0;
+            
+            videoView4.bm_top = height;
+            videoView4.bm_left = width;
         }
             break;
 
         case 5:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*2)/3;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
             SCVideoView *videoView4 = self.videoViewArray[3];
             SCVideoView *videoView5 = self.videoViewArray[4];
-            CGFloat startX = (self.bm_width-width*2-VIDEOGRIDVIEW_GAP)*0.5;
-            CGFloat startY = (self.bm_height-height*2-VIDEOGRIDVIEW_GAP)*0.5;
-            videoView1.frame = CGRectMake(startX, startY, width, height);
-            videoView2.frame = CGRectMake(startX+width+VIDEOGRIDVIEW_GAP, startY, width, height);
-            videoView3.frame = CGRectMake(0, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView4.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView5.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY+height+VIDEOGRIDVIEW_GAP, width, height);
+
+            CGFloat left = (self.videosBgView.bm_width - self.videoWidth*2+VIDEOGRIDVIEW_GAP)*0.5f;
+            videoView1.bm_top = 0;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height;
+            videoView3.bm_left = 0;
+            
+            videoView4.bm_top = height;
+            videoView4.bm_left = width;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = width*2;
         }
             break;
 
         case 6:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*2)/3;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
             SCVideoView *videoView4 = self.videoViewArray[3];
             SCVideoView *videoView5 = self.videoViewArray[4];
             SCVideoView *videoView6 = self.videoViewArray[5];
-            CGFloat startY = (self.bm_height-height*2-VIDEOGRIDVIEW_GAP)*0.5;
-            videoView1.frame = CGRectMake(0, startY, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY, width, height);
-            videoView4.frame = CGRectMake(0, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView5.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY+height+VIDEOGRIDVIEW_GAP, width, height);
+
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+
+            videoView4.bm_top = height;
+            videoView4.bm_left = 0;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = width;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width*2;
         }
             break;
 
         case 7:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*2)/3;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
@@ -241,20 +355,32 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView5 = self.videoViewArray[4];
             SCVideoView *videoView6 = self.videoViewArray[5];
             SCVideoView *videoView7 = self.videoViewArray[6];
-            videoView1.frame = CGRectMake(0, 0, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, 0, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, 0, width, height);
-            videoView4.frame = CGRectMake(0, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView5.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView7.frame = CGRectMake(0, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+
+            videoView4.bm_top = height;
+            videoView4.bm_left = 0;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = width;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width*2;
+            
+            videoView7.bm_top = height*2;
+            videoView7.bm_left = 0;
         }
             break;
 
         case 8:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*2)/3;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
@@ -263,21 +389,35 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView6 = self.videoViewArray[5];
             SCVideoView *videoView7 = self.videoViewArray[6];
             SCVideoView *videoView8 = self.videoViewArray[7];
-            videoView1.frame = CGRectMake(0, 0, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, 0, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, 0, width, height);
-            videoView4.frame = CGRectMake(0, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView5.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView7.frame = CGRectMake(0, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView8.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+
+            videoView4.bm_top = height;
+            videoView4.bm_left = 0;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = width;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width*2;
+            
+            videoView7.bm_top = height*2;
+            videoView7.bm_left = 0;
+            
+            videoView8.bm_top = height*2;
+            videoView8.bm_left = width;
         }
             break;
 
         case 9:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*2)/3;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
@@ -287,22 +427,38 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView7 = self.videoViewArray[6];
             SCVideoView *videoView8 = self.videoViewArray[7];
             SCVideoView *videoView9 = self.videoViewArray[8];
-            videoView1.frame = CGRectMake(0, 0, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, 0, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, 0, width, height);
-            videoView4.frame = CGRectMake(0, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView5.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView7.frame = CGRectMake(0, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView8.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView9.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+
+            videoView4.bm_top = height;
+            videoView4.bm_left = 0;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = width;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width*2;
+            
+            videoView7.bm_top = height*2;
+            videoView7.bm_left = 0;
+            
+            videoView8.bm_top = height*2;
+            videoView8.bm_left = width;
+            
+            videoView9.bm_top = height*2;
+            videoView9.bm_left = width*2;
         }
             break;
 
         case 10:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*3)/4;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
@@ -313,24 +469,41 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView8 = self.videoViewArray[7];
             SCVideoView *videoView9 = self.videoViewArray[8];
             SCVideoView *videoView10 = self.videoViewArray[9];
-            CGFloat startY = (self.bm_height-height*3-VIDEOGRIDVIEW_GAP*2)*0.5;
-            videoView1.frame = CGRectMake(0, startY, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY, width, height);
-            videoView4.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, startY, width, height);
-            videoView5.frame = CGRectMake(0, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView7.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView8.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView9.frame = CGRectMake(0, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView10.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
+
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+            
+            videoView4.bm_top = 0;
+            videoView4.bm_left = width*3;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = 0;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width;
+            
+            videoView7.bm_top = height;
+            videoView7.bm_left = width*2;
+            
+            videoView8.bm_top = height;
+            videoView8.bm_left = width*3;
+            
+            videoView9.bm_top = height*2;
+            videoView9.bm_left = 0;
+            
+            videoView10.bm_top = height*2;
+            videoView10.bm_left = width;
         }
             break;
 
         case 11:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*3)/4;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
@@ -342,25 +515,44 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView9 = self.videoViewArray[8];
             SCVideoView *videoView10 = self.videoViewArray[9];
             SCVideoView *videoView11 = self.videoViewArray[10];
-            CGFloat startY = (self.bm_height-height*3-VIDEOGRIDVIEW_GAP*2)*0.5;
-            videoView1.frame = CGRectMake(0, startY, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY, width, height);
-            videoView4.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, startY, width, height);
-            videoView5.frame = CGRectMake(0, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView7.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView8.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView9.frame = CGRectMake(0, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView10.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView11.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+            
+            videoView4.bm_top = 0;
+            videoView4.bm_left = width*3;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = 0;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width;
+            
+            videoView7.bm_top = height;
+            videoView7.bm_left = width*2;
+            
+            videoView8.bm_top = height;
+            videoView8.bm_left = width*3;
+            
+            videoView9.bm_top = height*2;
+            videoView9.bm_left = 0;
+            
+            videoView10.bm_top = height*2;
+            videoView10.bm_left = width;
+            
+            videoView11.bm_top = height*2;
+            videoView11.bm_left = width*2;
         }
             break;
 
         case 12:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*3)/4;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
@@ -373,26 +565,47 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView10 = self.videoViewArray[9];
             SCVideoView *videoView11 = self.videoViewArray[10];
             SCVideoView *videoView12 = self.videoViewArray[11];
-            CGFloat startY = (self.bm_height-height*3-VIDEOGRIDVIEW_GAP*2)*0.5;
-            videoView1.frame = CGRectMake(0, startY, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY, width, height);
-            videoView4.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, startY, width, height);
-            videoView5.frame = CGRectMake(0, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView7.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView8.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, startY+height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView9.frame = CGRectMake(0, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView10.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView11.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView12.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, startY+(height+VIDEOGRIDVIEW_GAP)*2, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+            
+            videoView4.bm_top = 0;
+            videoView4.bm_left = width*3;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = 0;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width;
+            
+            videoView7.bm_top = height;
+            videoView7.bm_left = width*2;
+            
+            videoView8.bm_top = height;
+            videoView8.bm_left = width*3;
+            
+            videoView9.bm_top = height*2;
+            videoView9.bm_left = 0;
+            
+            videoView10.bm_top = height*2;
+            videoView10.bm_left = width;
+            
+            videoView11.bm_top = height*2;
+            videoView11.bm_left = width*2;
+            
+            videoView12.bm_top = height*2;
+            videoView12.bm_left = width*3;
         }
             break;
 
         case 13:
         {
-            width = (self.bm_width - VIDEOGRIDVIEW_GAP*3)/4;
-            height = [self getHeightWithWidth:width];
             SCVideoView *videoView1 = self.videoViewArray[0];
             SCVideoView *videoView2 = self.videoViewArray[1];
             SCVideoView *videoView3 = self.videoViewArray[2];
@@ -406,19 +619,45 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView11 = self.videoViewArray[10];
             SCVideoView *videoView12 = self.videoViewArray[11];
             SCVideoView *videoView13 = self.videoViewArray[12];
-            videoView1.frame = CGRectMake(0, 0, width, height);
-            videoView2.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, 0, width, height);
-            videoView3.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, 0, width, height);
-            videoView4.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, 0, width, height);
-            videoView5.frame = CGRectMake(0, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView6.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView7.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView8.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, height+VIDEOGRIDVIEW_GAP, width, height);
-            videoView9.frame = CGRectMake(0, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView10.frame = CGRectMake(width+VIDEOGRIDVIEW_GAP, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView11.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*2, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView12.frame = CGRectMake((width+VIDEOGRIDVIEW_GAP)*3, (height+VIDEOGRIDVIEW_GAP)*2, width, height);
-            videoView13.frame = CGRectMake(0, (height+VIDEOGRIDVIEW_GAP)*3, width, height);
+            
+            videoView1.bm_top = 0;
+            videoView1.bm_left = 0;
+            
+            videoView2.bm_top = 0;
+            videoView2.bm_left = width;
+            
+            videoView3.bm_top = 0;
+            videoView3.bm_left = width*2;
+            
+            videoView4.bm_top = 0;
+            videoView4.bm_left = width*3;
+            
+            videoView5.bm_top = height;
+            videoView5.bm_left = 0;
+            
+            videoView6.bm_top = height;
+            videoView6.bm_left = width;
+            
+            videoView7.bm_top = height;
+            videoView7.bm_left = width*2;
+            
+            videoView8.bm_top = height;
+            videoView8.bm_left = width*3;
+            
+            videoView9.bm_top = height*2;
+            videoView9.bm_left = 0;
+            
+            videoView10.bm_top = height*2;
+            videoView10.bm_left = width;
+            
+            videoView11.bm_top = height*2;
+            videoView11.bm_left = width*2;
+            
+            videoView12.bm_top = height*2;
+            videoView12.bm_left = width*3;
+
+            videoView13.bm_top = height*0;
+            videoView13.bm_left = 0;
         }
             break;
 
@@ -429,7 +668,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
 - (void)clearView
 {
-    [self bm_removeAllSubviews];
+    [self.videosBgView bm_removeAllSubviews];
 //    
 //    SCVideoView *videoView1 = [self.videoViewArray firstObject];
 //    if (videoView1.superview)

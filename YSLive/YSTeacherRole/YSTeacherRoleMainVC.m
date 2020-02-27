@@ -894,18 +894,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)setupVideoGridView
 {
     SCVideoGridView *videoGridView = [[SCVideoGridView alloc] initWithWideScreen:self.isWideScreen];
-    CGFloat width;
-    CGFloat height;
-    if (self.isWideScreen)
-    {
-        height = (UI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT) * 4 / 5;
-        width = height * 16 / 9;
-    }
-    else
-    {
-        height = (UI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT) * 4 / 5;
-        width = height * 4 / 3;
-    }
+
+    CGFloat width = UI_SCREEN_WIDTH;
+    CGFloat height = UI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT;
+    
     // 初始化尺寸
     videoGridView.defaultSize = CGSizeMake(width, height);
     videoGridView.frame = CGRectMake(0, 0, width, height);
