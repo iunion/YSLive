@@ -2463,7 +2463,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)brushSelectorViewDidSelectDrawType:(YSDrawType)drawType color:(NSString *)hexColor widthProgress:(float)progress
 {
-    [self.liveManager.whiteBoardManager didSelectDrawType:drawType color:hexColor widthProgress:progress];
+
+    if (self.liveManager.localUser.canDraw)
+    {
+        [self.liveManager.whiteBoardManager didSelectDrawType:drawType color:hexColor widthProgress:progress];
+    }
+
 }
 
 
