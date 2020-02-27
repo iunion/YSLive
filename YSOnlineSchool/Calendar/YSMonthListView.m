@@ -25,7 +25,7 @@
         self.backgroundColor = UIColor.clearColor;
         
        self.imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"onlineSchool_allMonthBackView"]];
-        self.imageView.frame = CGRectZero;
+        self.imageView.frame = self.bounds;
         [self addSubview:self.imageView];
         
         [self setTableView];
@@ -35,12 +35,13 @@
 
 - (void)setTableView
 {
-    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.bm_width, self.bm_height-5) style:UITableViewStylePlain];
     [self addSubview:tabView];
     tabView.delegate = self;
     tabView.dataSource = self;
     tabView.backgroundColor = UIColor.clearColor;
     tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tabView.bounces = NO;
     
     self.tabView = tabView;
 }
@@ -61,11 +62,9 @@
     NSString * dateStr = nil;
     if (indexPath.row<self.dateArr.count)
     {
-        NSDate * date1 = [NSDate bm_dateFromString:self.dateArr[indexPath.row] withFormat:@"yyyy-MM-dd"];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy MM";
-        NSString * string1 = [formatter stringFromDate:date1];
-        dateStr = [NSString stringWithFormat:@"%@%@",string1,YSLocalizedSchool(@"Label.Title.Month")];
+        NSDate * date = [NSDate bm_dateFromString:self.dateArr[indexPath.row] withFormat:@"yyyy-MM-dd"];
+        
+        dateStr = [date bm_stringWithFormat:[NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")]];
     }
 
     cell.titleLab.text = dateStr;
@@ -114,9 +113,8 @@
 {
     _dateArr = dateArr;
     
-    self.imageView.bm_height = dateArr.count *33;
-    self.tabView.bm_height = dateArr.count *33;
-    
+//    self.imageView.bm_height = dateArr.count *33+5;
+//    self.tabView.bm_height = dateArr.count *33;
     [self.tabView reloadData];
 }
 

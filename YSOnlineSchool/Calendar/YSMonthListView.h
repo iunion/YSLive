@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)CGFloat viewHeight;
 
 ///选中的月份
-@property(nonatomic,copy)NSString *selectMonth;
+@property(nonatomic,copy,nullable)NSString *selectMonth;
 
 @property(nonatomic,copy)void (^selectMonthCellClick)(NSString *dateStr,NSIndexPath *indexPath);
 

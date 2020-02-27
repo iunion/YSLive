@@ -16,9 +16,9 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = UIColor.clearColor;
+        self.backgroundColor = [UIColor clearColor];
         UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 113-2*13, 33)];
-        titleLab.font = UI_FONT_16;
+        titleLab.font = UI_FONT_15;
         titleLab.textAlignment = NSTextAlignmentCenter;
         self.titleLab = titleLab;
         [self addSubview:titleLab];

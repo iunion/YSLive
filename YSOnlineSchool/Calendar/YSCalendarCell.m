@@ -67,13 +67,12 @@
     if ([self.dateDict bm_isNotEmpty]) {
         self.circleLab.hidden = NO;
         self.selectionLayer.hidden = NO;
-        NSDate *currentDate = [NSDate date];//获取当前时间，日期
+        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
         dateFormatter.dateFormat = @"yyyy-MM-dd";
-        NSString * nowDateStr = [dateFormatter stringFromDate:currentDate];
+        NSString * nowDateStr = [dateFormatter stringFromDate:[NSDate date]];
         NSDate * nowDate = [dateFormatter dateFromString:nowDateStr];
         NSString * key = self.dateDict.allKeys.firstObject;
-        
         NSDate * dateKey = [dateFormatter dateFromString:key];
         self.titleLabel.textColor = UIColor.whiteColor;
         
