@@ -4233,7 +4233,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [weakSelf.responderView setTitleName:YSLocalized(@"Res.lab.get")];
             weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:26.0f];
-            weakSelf.responderView.noticeView.center = CGPointMake(UI_SCREEN_WIDTH/2, UI_SCREEN_HEIGHT/2);
+//            weakSelf.responderView.noticeView.center = CGPointMake(UI_SCREEN_WIDTH/2, UI_SCREEN_HEIGHT/2);
             UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:weakSelf action:@selector(getStudentResponder:)];
             weakSelf.responderView.titleL.userInteractionEnabled = YES;
             [weakSelf.responderView.titleL addGestureRecognizer:tap];
