@@ -12,7 +12,7 @@
 
 @interface YSCalendarCell()
 
-//@property (weak, nonatomic) UIView *lineView;
+@property (weak, nonatomic) UIView *lineView;
 
 @end
 
@@ -39,10 +39,10 @@
         circleLab.textColor = UIColor.grayColor;
         self.circleLab = circleLab;
         
-//        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-1, self.bm_width, 1)];
-//        lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
-//        [self.contentView addSubview:lineView];
-//        self.lineView = lineView;
+        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-1, self.bm_width, 0.5)];
+        lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
+        [self.contentView addSubview:lineView];
+        self.lineView = lineView;
     }
 //    self.backgroundColor = [UIColor bm_randomColor];
     
@@ -76,7 +76,6 @@
         
         NSDate * dateKey = [dateFormatter dateFromString:key];
         self.titleLabel.textColor = UIColor.whiteColor;
-//        self.appearance.selectionColor = UIColor.whiteColor;
         
         //日期比较
         NSComparisonResult result = [dateKey compare:nowDate];
@@ -106,7 +105,6 @@
     else
     {
         self.titleLabel.textColor = UIColor.grayColor;
-//        self.appearance.selectionColor = UIColor.whiteColor;
         self.circleLab.hidden = YES;
         self.selectionLayer.hidden = YES;
     }

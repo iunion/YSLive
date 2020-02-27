@@ -107,6 +107,7 @@
         CGFloat subtitleHeight = self.subtitleLabel.font.lineHeight;
         
         CGFloat height = titleHeight + subtitleHeight;
+        //MDI
         _titleLabel.frame = CGRectMake(
                                        self.preferredTitleOffset.x, (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y+3,
                                        self.contentView.fs_width,
@@ -119,6 +120,7 @@
                                           subtitleHeight
                                           );
     } else {
+        //MDI
         _titleLabel.frame = CGRectMake(
                                        self.preferredTitleOffset.x,
                                        self.preferredTitleOffset.y+3,
@@ -192,7 +194,7 @@
 {
     UIColor *textColor = self.colorForTitleLabel;
     if (![textColor isEqual:_titleLabel.textColor]) {
-//        _titleLabel.textColor = UIColor.whiteColor;
+//        _titleLabel.textColor = UIColor.whiteColor;  //MDI
     }
     UIFont *titleFont = self.calendar.appearance.titleFont;
     if (![titleFont isEqual:_titleLabel.font]) {

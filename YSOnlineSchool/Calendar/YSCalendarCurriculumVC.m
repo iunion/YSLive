@@ -43,7 +43,7 @@
 
 ///可切换的月份数组
 @property(nonatomic,strong)NSMutableArray *chooseDateArr;
-
+///可切换的月份的弹出view
 @property (nonatomic, strong) YSMonthListView * monthListTableView;
 
 
@@ -156,6 +156,7 @@
     }];
 }
 
+#pragma mark - 顶部三个按钮的点击事件
 - (void)monthButtonClick:(UIButton *)sender
 {
     switch (sender.tag) {
@@ -169,19 +170,7 @@
             NSDate *currentMonth = self.MyCalendar.currentPage;
             NSDate *previousMonth = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:-1 toDate:currentMonth options:0];
             [self.MyCalendar setCurrentPage:previousMonth animated:YES];
-            
-//            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//            formatter.dateFormat = [NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")];
-//            NSString * dateStr = [formatter stringFromDate:previousMonth];
-//            [self.monthBtn setTitle:dateStr forState:UIControlStateNormal];
-            
-            //调节箭头按钮的状态
-//            self.nextBtn.selected = NO;
-//            NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-//            formatter1.dateFormat = @"yyyy-MM";
-//            NSString * dateStr1 = [formatter1 stringFromDate:previousMonth];
-//
-//            sender.selected = [self.chooseDateArr.firstObject containsString:dateStr1];
+
         }
             break;
         case 3:
@@ -194,25 +183,11 @@
             NSDate *currentMonth = self.MyCalendar.currentPage;
             NSDate *nextMonth = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:1 toDate:currentMonth options:0];
             [self.MyCalendar setCurrentPage:nextMonth animated:YES];
-            
-//            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//            formatter.dateFormat = [NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")];
-//            NSString * dateStr = [formatter stringFromDate:nextMonth];
-//            [self.monthBtn setTitle:dateStr forState:UIControlStateNormal];
-            
-            //调节箭头按钮的状态
-//            self.lastBtn.selected = NO;
-//            NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-//            formatter1.dateFormat = @"yyyy-MM";
-//            NSString * dateStr1 = [formatter1 stringFromDate:nextMonth];
-//
-//            sender.selected = [self.chooseDateArr.lastObject containsString:dateStr1];
         }
             break;
         case 2:
         {//所有月份列表
             [self hiddenTheMonthListTableView:sender.selected];
-//            sender.selected = !sender.selected;
         }
             break;
         default:
@@ -225,11 +200,9 @@
     [self hiddenTheMonthListTableView:YES];
 }
 
-
-
+//隐藏可切换的月份的弹出view
 - (void)hiddenTheMonthListTableView:(BOOL)isHidden
 {
-    
     self.monthBtn.selected = !isHidden;
     BMWeakSelf
     if (isHidden) {
@@ -244,7 +217,6 @@
         }];
     }
 }
-
 
 
 //UI
@@ -262,7 +234,7 @@
     self.MyCalendar = calendar;
     calendar.backgroundColor = UIColor.whiteColor;
     calendar.layer.cornerRadius = 16;
-    calendar.appearance.separators = FSCalendarSeparatorInterRows;
+//    calendar.appearance.separators = FSCalendarSeparatorInterRows;
     calendar.swipeToChooseGesture.enabled = NO;
     calendar.appearance.eventOffset = CGPointMake(0, -7);
     calendar.today = nil; // Hide the today circle
@@ -352,11 +324,6 @@
                                     }
                                 }
                             }
-                            
-                            [weakSelf.dateDict setValue:@2 forKey:@"2020-03-05"];
-                            [weakSelf.dateDict setValue:@2 forKey:@"2020-03-15"];
-                            [weakSelf.dateDict setValue:@2 forKey:@"2020-03-07"];
-                            
                             [weakSelf.MyCalendar reloadData];
                             return;
                         }
@@ -386,6 +353,7 @@
     }
 }
 
+#pragma mark - 日历滚动的代理
 - (void)calendarScrollViewWithDate:(NSDate *)date
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -483,14 +451,28 @@
 
 #pragma mark - <FSCalendarDataSource>
 
+//可选择的最小日期
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
 {
-    return [self.dateFormatter dateFromString:@"2019/11/01"];
+    
+    NSDate * date = [NSDate bm_dateFromString:self.chooseDateArr.firstObject withFormat:@"yyyy-MM-dd"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy/MM/DD";
+    NSString * string = [formatter stringFromDate:date];
+    
+    return [self.dateFormatter dateFromString:string];
 }
 
+//可选择的最大日期
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
 {
-    return [self.dateFormatter dateFromString:@"2020/5/01"];
+    
+    NSDate * date = [NSDate bm_dateFromString:self.chooseDateArr.lastObject withFormat:@"yyyy-MM-dd"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy/MM/DD";
+    NSString * string = [formatter stringFromDate:date];
+    
+    return [self.dateFormatter dateFromString:string];
 }
 
 - (NSMutableArray *)chooseDateArr
@@ -504,6 +486,8 @@
     return _chooseDateArr;
 }
 
+
+//可切换的月份的弹出view
 - (YSMonthListView *)monthListTableView
 {
     if (!_monthListTableView) {
@@ -568,6 +552,7 @@
     return _monthListTableView;
 }
 
+//yyyy-MM-dd格式日期字符串转成yyyy MM月格式
 - (NSString *)transformationDateWithdateString:(NSString *)dateStr
 {
     NSDate * date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd"];

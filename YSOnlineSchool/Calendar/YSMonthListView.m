@@ -12,7 +12,7 @@
 
 @interface YSMonthListView ()<UITableViewDelegate,UITableViewDataSource>
 
-
+@property(nonatomic,strong)UIImageView *imageView;
 
 @end
 
@@ -24,10 +24,9 @@
         
         self.backgroundColor = UIColor.clearColor;
         
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:self.bounds];
-        imageView.image = [UIImage imageNamed:@"onlineSchool_allMonthBackView"];
-//        imageView.backgroundColor = UIColor.redColor;
-        [self addSubview:imageView];
+       self.imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"onlineSchool_allMonthBackView"]];
+        self.imageView.frame = CGRectZero;
+        [self addSubview:self.imageView];
         
         [self setTableView];
     }
@@ -36,7 +35,7 @@
 
 - (void)setTableView
 {
-    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(1, 0, self.bm_width-2, self.bm_height-10) style:UITableViewStylePlain];
+    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self addSubview:tabView];
     tabView.delegate = self;
     tabView.dataSource = self;
@@ -60,8 +59,8 @@
     }
     
     NSString * dateStr = nil;
-    if (indexPath.row<self.dateArr.count) {
-        
+    if (indexPath.row<self.dateArr.count)
+    {
         NSDate * date1 = [NSDate bm_dateFromString:self.dateArr[indexPath.row] withFormat:@"yyyy-MM-dd"];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyy MM";
@@ -114,16 +113,11 @@
  - (void)setDateArr:(NSMutableArray *)dateArr
 {
     _dateArr = dateArr;
+    
+    self.imageView.bm_height = dateArr.count *33;
+    self.tabView.bm_height = dateArr.count *33;
+    
     [self.tabView reloadData];
-}
-
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSIndexPath * index = [(UITableView *)scrollView indexPathForSelectedRow];
-    
-    BMLog(@"index.row = %ld",index.row);
-    
 }
 
 @end

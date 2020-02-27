@@ -582,13 +582,10 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
                 
                 //++++++++++++++++++++MDI
                 
-//                NSDate *currentPage = _currentPage;
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 formatter.dateFormat = @"yyyy-MM-dd";
                 NSString * dateStr = [formatter stringFromDate:_currentPage];
-                
-//                BMLog(@"dateStr == %@",dateStr);
-                
+                                
                 if ([self.lastDateStr bm_isNotEmpty] && ![self.lastDateStr isEqualToString:dateStr])
                 {
                     if ([self.delegate respondsToSelector:@selector(calendarScrollViewWithDate:)])
@@ -596,7 +593,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
                         [self.delegate calendarScrollViewWithDate:_currentPage];
                     }
                 }
-                
                 self.lastDateStr = dateStr;
                 //++++++++++++++++++++MDI
                 break;
@@ -1148,7 +1144,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 - (void)handleScopeGesture:(UIPanGestureRecognizer *)sender
 {
-    return;
+    return;//MDI
     if (self.floatingMode) return;
     [self.transitionCoordinator handleScopeGesture:sender];
 }
