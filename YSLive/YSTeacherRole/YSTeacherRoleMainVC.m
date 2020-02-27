@@ -1581,6 +1581,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (weakSelf.topBarTimer)
+        {
+            dispatch_source_cancel(weakSelf.topBarTimer);
+            weakSelf.topBarTimer = nil;
+        }
+
         [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
         [weakSelf.liveManager destroy];
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
@@ -1607,6 +1613,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomLeft];
     
+    if (self.topBarTimer)
+    {
+        dispatch_source_cancel(self.topBarTimer);
+        self.topBarTimer = nil;
+    }
+
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self.liveManager destroy];
@@ -2170,6 +2182,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (weakSelf.topBarTimer)
+        {
+            dispatch_source_cancel(weakSelf.topBarTimer);
+            weakSelf.topBarTimer = nil;
+        }
+
         [weakSelf.liveManager destroy];
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -3128,6 +3146,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.Quite") message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (weakSelf.topBarTimer)
+        {
+            dispatch_source_cancel(weakSelf.topBarTimer);
+            weakSelf.topBarTimer = nil;
+        }
+
         [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
         [weakSelf.liveManager destroy];
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
