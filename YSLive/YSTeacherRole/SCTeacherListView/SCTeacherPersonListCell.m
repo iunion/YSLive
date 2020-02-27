@@ -21,6 +21,12 @@
 /// 踢出
 @property (nonatomic, strong) UIButton *outBtn;
 
+/// 奖杯数
+@property (nonatomic, strong) UIView *cupView;
+/// 奖杯图片
+@property (nonatomic, strong) UIImageView *cupImgView;
+/// 奖杯数
+@property (nonatomic, strong) UILabel *cupNumberLabel;
 //@property (nonatomic, strong) YSRoomUser *userModel;
 @end
 
@@ -50,6 +56,25 @@
     nameLabel.font = [UIFont systemFontOfSize:16.0];
     nameLabel.textAlignment = NSTextAlignmentLeft;
     nameLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    
+    UIView *cupView = [[UIView alloc] init];
+    [self.contentView addSubview:cupView];
+    self.cupView = cupView;
+    cupView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    
+    UIImageView *cupImgView = [[UIImageView alloc] init];
+    [self.contentView addSubview:cupImgView];
+    self.cupImgView = cupImgView;
+    [self.cupImgView setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Reward"]];
+    
+    UILabel *cupNumberLabel = [[UILabel alloc] init];
+    [self.contentView addSubview:cupNumberLabel];
+    self.cupNumberLabel = cupNumberLabel;
+    cupNumberLabel.font = [UIFont systemFontOfSize:14.0f];
+    cupNumberLabel.textAlignment = NSTextAlignmentLeft;
+    cupNumberLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+      
+    
     
     UIButton *upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:upPlatformBtn];
@@ -97,14 +122,50 @@
         self.upPlatformBtn.bm_centerY = self.contentView.bm_centerY;
         self.upPlatformBtn.bm_right = self.speakBtn.bm_left - 20;
         
+        
+        self.cupView.frame = CGRectMake(0, 0, 70, 26);
+        self.cupView.bm_centerY = self.contentView.bm_centerY;
+        self.cupView.bm_right = self.upPlatformBtn.bm_left - 10;
+        self.cupView.layer.cornerRadius = 13;
+        
+        self.cupImgView.frame = CGRectMake(6, 0, 16, 16);
+        self.cupImgView.bm_centerY = self.contentView.bm_centerY;
+        self.cupImgView.bm_left = self.cupView.bm_left + 6;
+        
+        self.cupNumberLabel.frame = CGRectMake(0, 0, 65, 22);
+        self.cupNumberLabel.bm_centerY = self.cupView.bm_centerY;
+        self.cupNumberLabel.bm_left = self.cupImgView.bm_right + 4;
+        self.cupNumberLabel.font = [UIFont systemFontOfSize:15.0f];
+        
         self.nameLabel.frame = CGRectMake(0, 0, 10, 26);
-        [self.nameLabel bm_setLeft:self.iconImgView.bm_right + 10 right:self.upPlatformBtn.bm_left - 10];
+        [self.nameLabel bm_setLeft:self.iconImgView.bm_right + 10 right:self.cupView.bm_left - 10];
         self.nameLabel.bm_centerY = self.contentView.bm_centerY;
     }
     else
     {
         self.iconImgView.frame = CGRectMake(10, 0, 20, 20);
         self.iconImgView.bm_centerY = self.contentView.bm_centerY;
+        self.cupNumberLabel.font = [UIFont systemFontOfSize:12.0f];
+        self.nameLabel.font = [UIFont systemFontOfSize:12.0];
+        self.nameLabel.frame = CGRectMake(0, 0, 60, 20);
+//        [self.nameLabel bm_setLeft:self.iconImgView.bm_right + 5 right:self.upPlatformBtn.bm_left - 5];
+        self.nameLabel.bm_centerY = self.contentView.bm_centerY;
+        self.nameLabel.bm_left = self.iconImgView.bm_right + 5;
+        
+        self.cupView.frame = CGRectMake(0, 0, 60, 24);
+        self.cupView.bm_centerY = self.contentView.bm_centerY;
+        self.cupView.bm_left = self.nameLabel.bm_right;
+        self.cupView.layer.cornerRadius = 12;
+        
+        self.cupImgView.frame = CGRectMake(6, 0, 16, 16);
+        self.cupImgView.bm_centerY = self.contentView.bm_centerY;
+        self.cupImgView.bm_left = self.cupView.bm_left + 6;
+        
+        self.cupNumberLabel.frame = CGRectMake(0, 0, 44, 22);
+        self.cupNumberLabel.bm_centerY = self.cupView.bm_centerY;
+        self.cupNumberLabel.bm_left = self.cupImgView.bm_right + 4;
+        self.cupNumberLabel.font = [UIFont systemFontOfSize:14.0f];
+        
         
         self.outBtn.frame = CGRectMake(0, 0, 20, 20);
         self.outBtn.bm_centerY = self.contentView.bm_centerY;
@@ -118,10 +179,7 @@
         self.upPlatformBtn.bm_centerY = self.contentView.bm_centerY;
         self.upPlatformBtn.bm_right = self.speakBtn.bm_left - 10;
         
-        self.nameLabel.font = [UIFont systemFontOfSize:12.0];
-        self.nameLabel.frame = CGRectMake(0, 0, 10, 20);
-        [self.nameLabel bm_setLeft:self.iconImgView.bm_right + 5 right:self.upPlatformBtn.bm_left - 5];
-        self.nameLabel.bm_centerY = self.contentView.bm_centerY;
+
     }
     
 
@@ -182,15 +240,27 @@
     self.speakBtn.selected = disablechat;
     self.nameLabel.text = userModel.nickName;
     [self.iconImgView setImage:[UIImage imageNamed:imageName]];
-    
+    NSInteger giftNumber = [userModel.properties bm_uintForKey:sUserGiftNumber];
+    self.cupNumberLabel.text = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
     if (userModel.role == YSUserType_Assistant )
     {
         self.upPlatformBtn.enabled = NO;
         self.outBtn.enabled = NO;
         self.speakBtn.enabled = NO;
     }
-    
-    
+    if ([YSLiveManager shareInstance].room_UseTheType == YSAppUseTheTypeMeeting)
+    {
+        self.cupView.hidden = YES;
+        self.cupImgView.hidden = YES;
+        self.cupNumberLabel.hidden = YES;
+    }
+    else
+    {
+        self.cupView.hidden = NO;
+        self.cupImgView.hidden = NO;
+        self.cupNumberLabel.hidden = NO;
+    }
+
 }
 
 - (void)upPlatformBtnClicked:(UIButton *)btn
