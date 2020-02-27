@@ -60,3 +60,6 @@
 "Error.ConfirmPwdRmpty" = "确认密码不能为空";
 "Error.PwdFormat" = "密码格式错误";
 "Error.PwdLength" = "新密码和确认密码的不一致";
+
+
+"Label.Title.Month" = "月";

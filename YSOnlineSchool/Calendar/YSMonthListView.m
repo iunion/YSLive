@@ -12,7 +12,7 @@
 
 @interface YSMonthListView ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,weak) UITableView *tabView;
+
 
 @end
 
@@ -22,7 +22,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        self.backgroundColor = UIColor.whiteColor;
+        self.backgroundColor = UIColor.clearColor;
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:self.bounds];
         imageView.image = [UIImage imageNamed:@"onlineSchool_allMonthBackView"];
@@ -36,11 +36,12 @@
 
 - (void)setTableView
 {
-    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(1, 0, self.bm_width-2, self.bm_height-1) style:UITableViewStylePlain];
+    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(1, 0, self.bm_width-2, self.bm_height-10) style:UITableViewStylePlain];
     [self addSubview:tabView];
     tabView.delegate = self;
     tabView.dataSource = self;
-    tabView.backgroundColor = UIColor.whiteColor;
+    tabView.backgroundColor = UIColor.clearColor;
+    tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tabView = tabView;
 }
@@ -60,12 +61,26 @@
     
     NSString * dateStr = nil;
     if (indexPath.row<self.dateArr.count) {
-        dateStr = self.dateArr[indexPath.row];
+        
+        NSDate * date1 = [NSDate bm_dateFromString:self.dateArr[indexPath.row] withFormat:@"yyyy-MM-dd"];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy MM";
+        NSString * string1 = [formatter stringFromDate:date1];
+        dateStr = [NSString stringWithFormat:@"%@%@",string1,YSLocalizedSchool(@"Label.Title.Month")];
+    }
+
+    cell.titleLab.text = dateStr;
+    
+    if ([self.selectMonth isEqualToString:dateStr])
+    {
+        cell.selected = YES;
+        cell.titleLab.textColor = [UIColor bm_colorWithHex:0x82ABEC];
+    }
+    else
+    {
+        cell.titleLab.textColor = [UIColor bm_colorWithHex:0x828282];
     }
         
-    cell.titleLab.text = dateStr;
-    cell.titleLab.textColor = [UIColor bm_colorWithHex:0x828282];
-    
     return cell;
 }
 
@@ -79,6 +94,15 @@
     YSMonthListCell * cell = [self.tabView cellForRowAtIndexPath:indexPath];
     
     cell.titleLab.textColor = [UIColor bm_colorWithHex:0x82ABEC];
+    self.selectMonth = cell.titleLab.text;
+    
+    if (indexPath.row<self.dateArr.count)
+    {
+        if (_selectMonthCellClick)
+        {
+            _selectMonthCellClick(self.dateArr[indexPath.row],indexPath);
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,17 +117,13 @@
     [self.tabView reloadData];
 }
 
-//- (void)setFrame:(CGRect)frame
-//{
-//    [super setFrame:frame];
-//    self.tabView.bm_height = frame.size.height;
-//}
 
-//- (void)setViewHeight:(CGFloat)viewHeight
-//{
-//    _viewHeight = viewHeight;
-//    self.bm_height = viewHeight;
-//    self.tabView.bm_height = viewHeight;
-//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSIndexPath * index = [(UITableView *)scrollView indexPathForSelectedRow];
+    
+    BMLog(@"index.row = %ld",index.row);
+    
+}
 
 @end

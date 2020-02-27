@@ -12,12 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSMonthListView : UIView
 
+@property (nonatomic,weak) UITableView *tabView;
 
 ///可切换的月份数组
 @property(nonatomic,strong)NSMutableArray *dateArr;
 
 
 @property(nonatomic,assign)CGFloat viewHeight;
+
+///选中的月份
+@property(nonatomic,copy)NSString *selectMonth;
+
+@property(nonatomic,copy)void (^selectMonthCellClick)(NSString *dateStr,NSIndexPath *indexPath);
 
 @end
 

@@ -70,8 +70,6 @@
 		3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
 		3450B1382404AA26006141E5 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1372404AA25006141E5 /* SCVideoView.m */; };
 		3450B1392404AA26006141E5 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1372404AA25006141E5 /* SCVideoView.m */; };
-		3450B13C24066979006141E5 /* YSMonthsListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13B24066979006141E5 /* YSMonthsListTableView.m */; };
-		3450B13D24066979006141E5 /* YSMonthsListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13B24066979006141E5 /* YSMonthsListTableView.m */; };
 		3450B140240677A6006141E5 /* YSMonthListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13F240677A6006141E5 /* YSMonthListCell.m */; };
 		3450B141240677A6006141E5 /* YSMonthListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13F240677A6006141E5 /* YSMonthListCell.m */; };
 		3450B1482406805F006141E5 /* YSMonthListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1472406805F006141E5 /* YSMonthListView.m */; };
@@ -974,8 +972,6 @@
 		34043C6F23EABA04004982E6 /* YSCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCalendarCell.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
 		3450B1372404AA25006141E5 /* SCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoView.m; sourceTree = "<group>"; };
-		3450B13A24066979006141E5 /* YSMonthsListTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMonthsListTableView.h; sourceTree = "<group>"; };
-		3450B13B24066979006141E5 /* YSMonthsListTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMonthsListTableView.m; sourceTree = "<group>"; };
 		3450B13E240677A6006141E5 /* YSMonthListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMonthListCell.h; sourceTree = "<group>"; };
 		3450B13F240677A6006141E5 /* YSMonthListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMonthListCell.m; sourceTree = "<group>"; };
 		3450B1462406805F006141E5 /* YSMonthListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMonthListView.h; sourceTree = "<group>"; };
@@ -1973,8 +1969,6 @@
 				34043C3C23EA6179004982E6 /* YSCalendarCurriculumVC.m */,
 				34043C6E23EABA03004982E6 /* YSCalendarCell.h */,
 				34043C6F23EABA04004982E6 /* YSCalendarCell.m */,
-				3450B13A24066979006141E5 /* YSMonthsListTableView.h */,
-				3450B13B24066979006141E5 /* YSMonthsListTableView.m */,
 				3450B1462406805F006141E5 /* YSMonthListView.h */,
 				3450B1472406805F006141E5 /* YSMonthListView.m */,
 				3450B13E240677A6006141E5 /* YSMonthListCell.h */,
@@ -3900,7 +3894,6 @@
 				871335CB237270F6006534A4 /* AFURLRequestSerialization.m in Sources */,
 				871335CC237270F6006534A4 /* YSAppInfo.m in Sources */,
 				871335CD237270F6006534A4 /* BMConsole.m in Sources */,
-				3450B13C24066979006141E5 /* YSMonthsListTableView.m in Sources */,
 				3471E2A424039A0100A3BBB4 /* FSCalendarCalculator.m in Sources */,
 				871335CF237270F6006534A4 /* SDImageCache.m in Sources */,
 				04A479E6239E274D00680D84 /* SCColorListView.m in Sources */,
@@ -4272,7 +4265,6 @@
 				8717E25A2400DADC008C4CDA /* AFURLRequestSerialization.m in Sources */,
 				8717E25B2400DADC008C4CDA /* YSAppInfo.m in Sources */,
 				8717E25C2400DADC008C4CDA /* BMConsole.m in Sources */,
-				3450B13D24066979006141E5 /* YSMonthsListTableView.m in Sources */,
 				3471E2A524039A0100A3BBB4 /* FSCalendarCalculator.m in Sources */,
 				8717E25D2400DADC008C4CDA /* SDImageCache.m in Sources */,
 				8717E25E2400DADC008C4CDA /* SCColorListView.m in Sources */,

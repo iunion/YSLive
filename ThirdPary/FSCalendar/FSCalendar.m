@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     FSCalendarOrientationPortrait
 };
 
-@interface FSCalendar ()<UICollectionViewDataSource,UICollectionViewDelegate,FSCalendarCollectionViewInternalDelegate,UIGestureRecognizerDelegate>
+@interface FSCalendar ()<UICollectionViewDataSource,UICollectionViewDelegate,FSCalendarCollectionViewInternalDelegate>
 {
     NSMutableArray  *_selectedDates;
 }
@@ -81,6 +81,8 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 @property (strong, nonatomic) NSIndexPath *lastPressedIndexPath;
 @property (strong, nonatomic) NSMapTable *visibleSectionHeaders;
+
+@property(nonatomic,copy)NSString *lastDateStr;//MDI
 
 - (void)orientationDidChange:(NSNotification *)notification;
 
@@ -577,6 +579,26 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         switch (_collectionViewLayout.scrollDirection) {
             case UICollectionViewScrollDirectionHorizontal: {
                 scrollOffset = scrollView.contentOffset.x/scrollView.fs_width;
+                
+                //++++++++++++++++++++MDI
+                
+//                NSDate *currentPage = _currentPage;
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = @"yyyy-MM-dd";
+                NSString * dateStr = [formatter stringFromDate:_currentPage];
+                
+//                BMLog(@"dateStr == %@",dateStr);
+                
+                if ([self.lastDateStr bm_isNotEmpty] && ![self.lastDateStr isEqualToString:dateStr])
+                {
+                    if ([self.delegate respondsToSelector:@selector(calendarScrollViewWithDate:)])
+                    {
+                        [self.delegate calendarScrollViewWithDate:_currentPage];
+                    }
+                }
+                
+                self.lastDateStr = dateStr;
+                //++++++++++++++++++++MDI
                 break;
             }
             case UICollectionViewScrollDirectionVertical: {

@@ -16,16 +16,14 @@
 
 #import "YSLiveApiRequest.h"
 
-//#import "YSMonthsListTableView.h"
-
-
 #import "YSMonthListView.h"
 
 @interface YSCalendarCurriculumVC ()
 <
     FSCalendarDataSource,
     FSCalendarDelegate,
-    FSCalendarDelegateAppearance
+    FSCalendarDelegateAppearance,
+    UIGestureRecognizerDelegate
 >
 
 @property (weak, nonatomic) FSCalendar *MyCalendar;
@@ -38,14 +36,13 @@
 
 @property (strong, nonatomic) NSMutableDictionary *dateDict;
 
-
 ///切换日期的UI----
 @property (nonatomic, strong) UIButton *lastBtn;
 @property (nonatomic, strong) UIButton *nextBtn;
 @property (nonatomic, strong) UIButton *monthBtn;
 
 ///可切换的月份数组
-@property(nonatomic,strong)NSMutableArray *dateArr;
+@property(nonatomic,strong)NSMutableArray *chooseDateArr;
 
 @property (nonatomic, strong) YSMonthListView * monthListTableView;
 
@@ -76,8 +73,6 @@
     
     [self selectMonthUI];
     
-    
-    
     [self setupUI];
     
     self.gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -90,7 +85,6 @@
     self.nowDateStr = [dateFormatter stringFromDate:currentDate];
 
     [self getCalendarDatas];
-    
 }
 
 #warning 测试代码先不要删
@@ -106,7 +100,6 @@
 
 - (void)selectMonthUI
 {
-    
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     dateFormatter.dateFormat = @"yyyy MM月";
@@ -168,40 +161,90 @@
     switch (sender.tag) {
         case 1:
         {//上个月
+            [self hiddenTheMonthListTableView:YES];
+            if (sender.selected) {
+                return;
+            }
+            
             NSDate *currentMonth = self.MyCalendar.currentPage;
             NSDate *previousMonth = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:-1 toDate:currentMonth options:0];
             [self.MyCalendar setCurrentPage:previousMonth animated:YES];
+            
+//            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//            formatter.dateFormat = [NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")];
+//            NSString * dateStr = [formatter stringFromDate:previousMonth];
+//            [self.monthBtn setTitle:dateStr forState:UIControlStateNormal];
+            
+            //调节箭头按钮的状态
+//            self.nextBtn.selected = NO;
+//            NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+//            formatter1.dateFormat = @"yyyy-MM";
+//            NSString * dateStr1 = [formatter1 stringFromDate:previousMonth];
+//
+//            sender.selected = [self.chooseDateArr.firstObject containsString:dateStr1];
         }
             break;
         case 3:
         {//下个月
+            
+            [self hiddenTheMonthListTableView:YES];
+            if (sender.selected) {
+                return;
+            }
             NSDate *currentMonth = self.MyCalendar.currentPage;
-               NSDate *nextMonth = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:1 toDate:currentMonth options:0];
-               [self.MyCalendar setCurrentPage:nextMonth animated:YES];
+            NSDate *nextMonth = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:1 toDate:currentMonth options:0];
+            [self.MyCalendar setCurrentPage:nextMonth animated:YES];
+            
+//            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//            formatter.dateFormat = [NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")];
+//            NSString * dateStr = [formatter stringFromDate:nextMonth];
+//            [self.monthBtn setTitle:dateStr forState:UIControlStateNormal];
+            
+            //调节箭头按钮的状态
+//            self.lastBtn.selected = NO;
+//            NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+//            formatter1.dateFormat = @"yyyy-MM";
+//            NSString * dateStr1 = [formatter1 stringFromDate:nextMonth];
+//
+//            sender.selected = [self.chooseDateArr.lastObject containsString:dateStr1];
         }
             break;
         case 2:
         {//所有月份列表
-            sender.selected = !sender.selected;
-            BMWeakSelf
-            if (sender.selected) {
-                [UIView animateWithDuration:0.25 animations:^{
-                    weakSelf.monthListTableView.bm_height = self.dateArr.count * 33;
-                }];
-            }
-            else
-            {
-              [UIView animateWithDuration:0.25 animations:^{
-                  weakSelf.monthListTableView.bm_height = 0;
-                }];
-            }
+            [self hiddenTheMonthListTableView:sender.selected];
+//            sender.selected = !sender.selected;
         }
             break;
-        
         default:
             break;
     }
 }
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self hiddenTheMonthListTableView:YES];
+}
+
+
+
+- (void)hiddenTheMonthListTableView:(BOOL)isHidden
+{
+    
+    self.monthBtn.selected = !isHidden;
+    BMWeakSelf
+    if (isHidden) {
+        [UIView animateWithDuration:0.25 animations:^{
+            weakSelf.monthListTableView.bm_height = 0;
+        }];
+    }
+    else
+    {
+      [UIView animateWithDuration:0.25 animations:^{
+          weakSelf.monthListTableView.bm_height = self.chooseDateArr.count * 33 + 10;
+        }];
+    }
+}
+
 
 
 //UI
@@ -214,13 +257,13 @@
     FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  70, self.view.frame.size.width-20, 400)];
     calendar.dataSource = self;
     calendar.delegate = self;
-    calendar.swipeToChooseGesture.enabled = NO;
-//    calendar.allowsMultipleSelection = NO;
+    
     [self.view addSubview:calendar];
     self.MyCalendar = calendar;
     calendar.backgroundColor = UIColor.whiteColor;
     calendar.layer.cornerRadius = 16;
     calendar.appearance.separators = FSCalendarSeparatorInterRows;
+    calendar.swipeToChooseGesture.enabled = NO;
     calendar.appearance.eventOffset = CGPointMake(0, -7);
     calendar.today = nil; // Hide the today circle
     [calendar registerClass:[YSCalendarCell class] forCellReuseIdentifier:@"cell"];
@@ -233,13 +276,34 @@
     
     [self.MyCalendar selectDate:[NSDate date] scrollToDate:NO];
     self.MyCalendar.accessibilityIdentifier = @"calendar";
+    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(calendarViewClick)];
+    tap.delegate = self;
+    [self.MyCalendar.collectionView addGestureRecognizer:tap];
+    
+}
+- (void)calendarViewClick
+{
+    [self hiddenTheMonthListTableView:YES];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (touch.view != self.MyCalendar.collectionView)
+    {
+        if (self.monthListTableView.bm_height>0)
+        {
+            return YES;
+        }
+        return NO;
+    }else {
+        return YES;
+    }
+}
 
 #pragma mark - 获取学生课程列表当月数据
 - (void)getCalendarDatas
 {
-
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     [self.calendarDataTask cancel];
@@ -322,6 +386,34 @@
     }
 }
 
+- (void)calendarScrollViewWithDate:(NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = [NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")];
+    NSString * dateStr = [formatter stringFromDate:date];
+    [self.monthBtn setTitle:dateStr forState:UIControlStateNormal];
+    
+    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+    formatter1.dateFormat = @"yyyy-MM";
+    NSString * dateStr1 = [formatter1 stringFromDate:date];
+
+    if ([self.chooseDateArr.firstObject containsString:dateStr1])
+    {
+        self.lastBtn.selected = YES;
+        self.nextBtn.selected = NO;
+    }
+    else if ([self.chooseDateArr.lastObject containsString:dateStr1])
+    {
+        self.lastBtn.selected = NO;
+        self.nextBtn.selected = YES;
+    }
+    else
+    {
+        self.lastBtn.selected = NO;
+        self.nextBtn.selected = NO;
+    }
+}
+
 - (NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date
 {
     if ([self.gregorian isDateInToday:date])
@@ -391,7 +483,6 @@
 
 #pragma mark - <FSCalendarDataSource>
 
-
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
 {
     return [self.dateFormatter dateFromString:@"2019/11/01"];
@@ -400,6 +491,100 @@
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
 {
     return [self.dateFormatter dateFromString:@"2020/5/01"];
+}
+
+- (NSMutableArray *)chooseDateArr
+{
+    if (!_chooseDateArr) {
+        
+        NSArray * arr = @[@"2019-11-20",@"2019-12-20",@"2020-01-20",@"2020-02-20",@"2020-03-20",@"2020-04-20",@"2020-05-20"];
+        
+        _chooseDateArr = [NSMutableArray arrayWithArray:arr];
+    }
+    return _chooseDateArr;
+}
+
+- (YSMonthListView *)monthListTableView
+{
+    if (!_monthListTableView) {
+        
+        self.monthListTableView = [[YSMonthListView alloc]initWithFrame:CGRectMake(self.monthBtn.bm_originX+13, CGRectGetMaxY(self.monthBtn.frame)+2, self.monthBtn.bm_width-2*13, self.chooseDateArr.count * 33 +10)];
+        
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.monthListTableView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(12, 12)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = self.monthListTableView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        self.monthListTableView.layer.mask = maskLayer;
+        self.monthListTableView.layer.masksToBounds = YES;
+        self.monthListTableView.selectMonth = [self transformationDateWithdateString:self.nowDateStr];
+        self.monthListTableView.dateArr = self.chooseDateArr;
+        [self.view addSubview:self.monthListTableView];
+        
+        //默认选中当月
+        
+        NSInteger index = 0;
+        NSString * subStr = [self.nowDateStr substringToIndex:7];
+        for (int i = 0; i<self.chooseDateArr.count; i++)
+        {
+            NSString * ii = self.chooseDateArr[i];
+            if ([ii containsString:subStr])
+            {
+                index = i;
+                break;
+            }
+        }
+        
+        if (index>0) {
+            NSIndexPath * selIndex = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.monthListTableView.tabView selectRowAtIndexPath:selIndex animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }
+        
+        BMWeakSelf
+        
+        self.monthListTableView.selectMonthCellClick = ^(NSString * _Nonnull dateStr, NSIndexPath * _Nonnull indexPath) {
+            NSDate * date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd"];
+            [weakSelf.MyCalendar setCurrentPage:date animated:YES];
+            
+            NSString * str = [weakSelf transformationDateWithdateString:dateStr];
+            [weakSelf.monthBtn setTitle:str forState:UIControlStateNormal];
+            
+            if (indexPath.row == 0)
+            {
+                weakSelf.lastBtn.selected = YES;
+                weakSelf.nextBtn.selected = NO;
+            }
+            else if (indexPath.row == weakSelf.chooseDateArr.count-1)
+            {
+                weakSelf.lastBtn.selected = NO;
+                weakSelf.nextBtn.selected = YES;
+            }
+            else
+            {
+                weakSelf.lastBtn.selected = NO;
+                weakSelf.nextBtn.selected = NO;
+            }
+        };
+    }
+    return _monthListTableView;
+}
+
+- (NSString *)transformationDateWithdateString:(NSString *)dateStr
+{
+    NSDate * date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = [NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")];
+    NSString * string = [formatter stringFromDate:date];
+    
+    return string;
+}
+
+
+- (NSMutableDictionary *)dateDict
+{
+    if (!_dateDict) {
+        self.dateDict = [NSMutableDictionary dictionary];
+    }
+    return _dateDict;
 }
 
 #pragma mark 横竖屏
@@ -422,46 +607,6 @@
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationPortrait;
-}
-
-- (NSMutableArray *)dateArr
-{
-    if (!_dateArr) {
-        
-        NSArray * arr = @[@"2019 11月",@"2019 12月",@"2020 01月",@"2020 02月",@"2020 03月",@"2020 04月",@"2020 05月",];
-        
-        _dateArr = [NSMutableArray arrayWithArray:arr];
-        
-    }
-    return _dateArr;
-}
-
-- (YSMonthListView *)monthListTableView
-{
-    if (!_monthListTableView) {
-        
-        self.monthListTableView = [[YSMonthListView alloc]initWithFrame:CGRectMake(self.monthBtn.bm_originX+13, CGRectGetMaxY(self.monthBtn.frame)+2, self.monthBtn.bm_width-2*13, self.dateArr.count * 33)];
-        
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.monthListTableView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(12, 12)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = self.monthListTableView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        self.monthListTableView.layer.mask = maskLayer;
-        self.monthListTableView.layer.masksToBounds = YES;
-        
-        self.monthListTableView.dateArr = self.dateArr;
-        [self.view addSubview:self.monthListTableView];
-//        self.monthListTableView.hidden = YES;
-    }
-    return _monthListTableView;
-}
-
-- (NSMutableDictionary *)dateDict
-{
-    if (!_dateDict) {
-        self.dateDict = [NSMutableDictionary dictionary];
-    }
-    return _dateDict;
 }
 
 @end

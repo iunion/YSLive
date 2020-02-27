@@ -148,6 +148,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)calendarCurrentPageDidChange:(FSCalendar *)calendar;
 
+///MDI  collection滚动的时候传将要滚到的月份的值
+- (void)calendarScrollViewWithDate:(NSDate *)date;
+
+
 @end
 
 /**
@@ -240,7 +244,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Primary
 
 IB_DESIGNABLE
-@interface FSCalendar : UIView
+@interface FSCalendar : UIView<UIGestureRecognizerDelegate>
 
 @property (weak  , nonatomic) FSCalendarCollectionView   *collectionView;
 /**
