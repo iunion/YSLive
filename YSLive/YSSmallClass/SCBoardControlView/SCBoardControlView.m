@@ -134,7 +134,7 @@
     _pageLabel.text = [NSString stringWithFormat:@"%ld / %ld",(long)_currentPage,(long)self.totalPage];
     if (self.allowPaging)
     {
-        self.leftTurnBtn.enabled = _currentPage != 1 ;
+        self.leftTurnBtn.enabled = (_currentPage > 1);
         if (isWhiteBoard)
         {
             self.rightTurnBtn.enabled = YES;
@@ -194,8 +194,16 @@
 - (void)setAllowPaging:(BOOL)allowPaging
 {
     _allowPaging = allowPaging;
-    self.leftTurnBtn.enabled = allowPaging;
-    self.rightTurnBtn.enabled = allowPaging;
+    if (allowPaging)
+    {
+        self.leftTurnBtn.enabled = (_currentPage > 1);
+        self.rightTurnBtn.enabled = _currentPage < _totalPage;
+    }
+    else
+    {
+        self.leftTurnBtn.enabled = NO;
+        self.rightTurnBtn.enabled = NO;
+    }
 }
 
 - (void)setAllowScaling:(BOOL)allowScaling
@@ -220,7 +228,7 @@
 
 - (void)leftTurnBtnClicked:(UIButton *)btn
 {
-    self.leftTurnBtn.enabled = _currentPage != 1 ;
+    self.leftTurnBtn.enabled = (_currentPage > 1);
     self.rightTurnBtn.enabled = _currentPage < _totalPage;
     //左翻页
     if ([self.delegate respondsToSelector:@selector(boardControlProxyPrePage)])
@@ -231,7 +239,7 @@
 
 - (void)rightTurnBtnClicked:(UIButton *)btn
 {
-    self.leftTurnBtn.enabled = _currentPage != 1 ;
+    self.leftTurnBtn.enabled = (_currentPage > 1);
     self.rightTurnBtn.enabled = _currentPage < _totalPage;
     //右翻页
     if ([self.delegate respondsToSelector:@selector(boardControlProxyNextPage)])
