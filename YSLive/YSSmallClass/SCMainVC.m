@@ -497,8 +497,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
 
-    //举手上台的按钮
-    [self.view addSubview:self.raiseHandsBtn];
+    if (self.roomtype == YSRoomType_More) {
+         //举手上台的按钮
+         [self.view addSubview:self.raiseHandsBtn];
+    }
+    
     
     // 会议默认视频布局
     if (self.appUseTheType == YSAppUseTheTypeMeeting)
