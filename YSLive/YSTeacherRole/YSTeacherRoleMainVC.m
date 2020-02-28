@@ -4273,7 +4273,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
 
-        if ([userModel bm_isNotEmpty] && !userModel.role)
+        if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
         {//老师
             self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 147);
             self.controlPopoverView.preferredContentSize = CGSizeMake(64, 147);
@@ -4290,7 +4290,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         if (self.appUseTheType == YSAppUseTheTypeMeeting) {
             if (videoView.isDragOut) {
-                if ([userModel bm_isNotEmpty] && !userModel.role)
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
@@ -4303,7 +4303,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                if ([userModel bm_isNotEmpty] && !userModel.role)
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
@@ -4318,7 +4318,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {
             if (videoView.isDragOut) {
-                if ([userModel bm_isNotEmpty] && !userModel.role)
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
@@ -4331,7 +4331,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                if ([userModel bm_isNotEmpty] && !userModel.role)
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);

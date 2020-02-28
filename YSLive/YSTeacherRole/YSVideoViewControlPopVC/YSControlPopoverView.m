@@ -50,9 +50,10 @@
 {
     _userModel = userModel;
     
-    if (userModel.role == YSUserType_Teacher)
+    if (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant )
     {
         [self setupTearcherUI];
+        
     }
     else if (userModel.role == YSUserType_Student)
     {
@@ -267,7 +268,7 @@
 
 - (void)userBtnsClick:(UIButton *)sender
 {
-    if (self.userModel.role == YSUserType_Teacher) {
+    if (self.userModel.role == YSUserType_Teacher || self.userModel.role == YSUserType_Assistant) {
         if ([self.delegate respondsToSelector:@selector(teacherControlBtnsClick:)]) {
             [self.delegate teacherControlBtnsClick:sender];
         }

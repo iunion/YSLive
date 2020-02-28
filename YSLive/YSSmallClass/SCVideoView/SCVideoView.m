@@ -393,7 +393,7 @@
     self.maskCloseVideo.frame = CGRectMake(0, 0, imageWidth, imageHeight);
     [self.maskCloseVideo bm_centerInSuperView];
     
-    if (self.appUseTheType == YSAppUseTheTypeMeeting || self.roomUser.role == YSUserType_Teacher)
+    if (self.appUseTheType == YSAppUseTheTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
     {
         self.cupImage.hidden = YES;
         self.cupNumLab.hidden = YES;
@@ -478,7 +478,7 @@
 {
     _giftNumber = giftNumber;
     
-    if (self.roomUser.role != YSUserType_Teacher)
+    if (self.roomUser.role != YSUserType_Teacher && self.roomUser.role != YSUserType_Assistant)
     {
         self.cupNumLab.text = [NSString stringWithFormat:@"× %@", @(giftNumber)];
     }
@@ -604,6 +604,7 @@
 - (void)changeRoomUserProperty:(YSRoomUser *)roomUser
 {
     self.roomUser = roomUser;
+    
     
     self.iHasVadeo = roomUser.hasVideo;
 }

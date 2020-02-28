@@ -3291,9 +3291,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
                         
-            YSRoomUser *user = [[YSRoomUser alloc]initWithPeerId:fromId];
+            YSRoomUser *fromUser = [[YSRoomUser alloc]initWithPeerId:fromId];
             
-            if (user.role == YSUserType_Teacher || user.role == YSUserType_Assistant)
+            if (fromUser.role == YSUserType_Teacher || fromUser.role == YSUserType_Assistant)
             {
                 self.rightChatView.allDisabledChat.hidden = !disablechat;
                 self.rightChatView.textBtn.hidden = disablechat;
