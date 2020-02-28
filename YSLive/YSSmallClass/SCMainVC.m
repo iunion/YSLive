@@ -3263,22 +3263,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
             {
                 self.brushToolView.hidden = YES;
+                self.drawBoardView.hidden = YES;
             }
             else
             {
-                // 设置画笔颜色初始值
-                if (canDraw)
-                {
-                    if (![[YSCurrentUser.properties bm_stringTrimForKey:sUserPrimaryColor] bm_isNotEmpty])
-                    {
-                        [self setCurrentUserPrimaryColor];
-                    }
-                    
-                    [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
-                    [self.liveManager.whiteBoardManager freshBrushToolConfig];
-                }
-                
-                videoView.canDraw = canDraw;
                 self.brushToolView.hidden = !canDraw;
                 if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
                 {
@@ -3287,22 +3275,36 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     //self.drawBoardView.brushToolType = YSBrushToolTypeMouse;
                     self.drawBoardView.hidden = NO;
                 }
-                if (self.liveManager.isBeginClass)
+            }
+            
+            // 设置画笔颜色初始值
+            if (canDraw)
+            {
+                if (![[YSCurrentUser.properties bm_stringTrimForKey:sUserPrimaryColor] bm_isNotEmpty])
                 {
-                    self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag && canDraw;
+                    [self setCurrentUserPrimaryColor];
                 }
                 
-                [self.topToolBar hidePhotoBtn:!canDraw];
-                
-                YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
-                if (publishState < YSUser_PublishState_AUDIOONLY)
-                {
-                    [self.topToolBar hideMicrophoneBtn:YES];
-                }
-                else
-                {
-                    [self.topToolBar hideMicrophoneBtn:NO];
-                }
+                [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
+                [self.liveManager.whiteBoardManager freshBrushToolConfig];
+            }
+            
+            videoView.canDraw = canDraw;
+            if (self.liveManager.isBeginClass)
+            {
+                self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag && canDraw;
+            }
+            
+            [self.topToolBar hidePhotoBtn:!canDraw];
+            
+            YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
+            if (publishState < YSUser_PublishState_AUDIOONLY)
+            {
+                [self.topToolBar hideMicrophoneBtn:YES];
+            }
+            else
+            {
+                [self.topToolBar hideMicrophoneBtn:NO];
             }
         }
     }
