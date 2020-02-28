@@ -233,7 +233,6 @@
     if (isBeginClass)
     {
         self.upPlatformBtn.selected = userModel.publishState != 0;
-        
     }
     self.outBtn.enabled = isBeginClass;
     BOOL disablechat = [userModel.properties bm_boolForKey:sUserDisablechat];
@@ -244,7 +243,7 @@
     self.cupNumberLabel.text = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
     if (userModel.role == YSUserType_Assistant )
     {
-//        self.upPlatformBtn.enabled = NO;
+        self.upPlatformBtn.enabled = NO;
 //        self.outBtn.enabled = NO;
 //        self.speakBtn.enabled = NO;
     }
