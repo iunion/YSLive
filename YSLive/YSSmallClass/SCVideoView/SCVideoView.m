@@ -163,9 +163,11 @@
 //视频view点击事件
 - (void)clickToShowControl
 {
-    if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)]) {
-        [self.delegate clickViewToControlWithVideoView:self];
-    }
+    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher) {
+        if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)]) {
+            [self.delegate clickViewToControlWithVideoView:self];
+        }
+    }    
 }
 
 ///视频拖拽事件
