@@ -406,8 +406,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
     
-    //举手上台的按钮
-    [self setupHandView];
+    if (self.roomtype == YSRoomType_More) {
+         //举手上台的按钮
+           [self setupHandView];
+    }   
     
     // 设置花名册 课件表
     [self setupListView];
