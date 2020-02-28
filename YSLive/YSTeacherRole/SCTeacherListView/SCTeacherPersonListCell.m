@@ -241,14 +241,25 @@
     [self.iconImgView setImage:[UIImage imageNamed:imageName]];
     NSInteger giftNumber = [userModel.properties bm_uintForKey:sUserGiftNumber];
     self.cupNumberLabel.text = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
+
+    if ([YSLiveManager shareInstance].room_UseTheType == YSAppUseTheTypeMeeting)
+    {
+        self.cupView.hidden = YES;
+        self.cupImgView.hidden = YES;
+        self.cupNumberLabel.hidden = YES;
+    }
+    else
+    {
+        self.cupView.hidden = NO;
+        self.cupImgView.hidden = NO;
+        self.cupNumberLabel.hidden = NO;
+    }
+
     if (userModel.role == YSUserType_Assistant )
     {
         self.upPlatformBtn.enabled = NO;
         self.outBtn.enabled = NO;
         self.speakBtn.enabled = NO;
-    }
-    if ([YSLiveManager shareInstance].room_UseTheType == YSAppUseTheTypeMeeting)
-    {
         self.cupView.hidden = YES;
         self.cupImgView.hidden = YES;
         self.cupNumberLabel.hidden = YES;
