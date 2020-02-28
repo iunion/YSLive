@@ -41,8 +41,8 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         self.isWideScreen = isWideScreen;
         
         self.videosBgView = [[UIView alloc] init];
-        //self.videosBgView.backgroundColor = [UIColor clearColor];
-        self.videosBgView.backgroundColor = [UIColor redColor];
+        self.videosBgView.backgroundColor = [UIColor clearColor];
+//        self.videosBgView.backgroundColor = [UIColor redColor];
         
         [self addSubview:self.videosBgView];
     }

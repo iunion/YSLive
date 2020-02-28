@@ -874,7 +874,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 1V1 初始学生视频蒙版
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_uservideocover"]];
-    YSRoomUser *roomUser = [[YSRoomUser alloc] initWithPeerId:@"055481"];
+    YSRoomUser *roomUser = [[YSRoomUser alloc] initWithPeerId:@"0"];
     roomUser.role = YSUserType_Student;
     SCVideoView *userVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser isForPerch:YES withDelegate:self];
     userVideoView.appUseTheType = self.appUseTheType;
@@ -4292,7 +4292,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
 
-        if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
+        if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
         {//老师
             self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 147);
             self.controlPopoverView.preferredContentSize = CGSizeMake(64, 147);
@@ -4309,7 +4309,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         if (self.appUseTheType == YSAppUseTheTypeMeeting) {
             if (videoView.isDragOut) {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
@@ -4322,7 +4322,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
@@ -4337,7 +4337,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {
             if (videoView.isDragOut) {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
@@ -4350,7 +4350,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant))
+                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
                     self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);

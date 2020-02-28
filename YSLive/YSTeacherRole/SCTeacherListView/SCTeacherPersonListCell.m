@@ -244,8 +244,8 @@
     if (userModel.role == YSUserType_Assistant )
     {
         self.upPlatformBtn.enabled = NO;
-//        self.outBtn.enabled = NO;
-//        self.speakBtn.enabled = NO;
+        self.outBtn.enabled = NO;
+        self.speakBtn.enabled = NO;
     }
     if ([YSLiveManager shareInstance].room_UseTheType == YSAppUseTheTypeMeeting)
     {
