@@ -2959,33 +2959,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)onWhiteBoardViewStateUpdate:(NSDictionary *)message
 {
-    BMLog(@"-------------------------%@----------------", message);
-    
+    //BMLog(@"-------------------------%@----------------", message);
+    // WebView显示课件刷新回调
+
     YSFileModel *file = self.liveManager.currentFile;
     
     if (!file || file.isMedia.intValue)
     {
         return;
     }
+    
     [self.boardControlView resetBtnStates];
-
-    self.boardControlView.bm_width = 161; //CGRectMake(0, 0, 160, 34);
-    if (file.isGeneralFile)
-    {
-        self.boardControlView.bm_width = 246;
-        
-        NSString *filetype = file.filetype;
-        NSString *path = file.swfpath;
-        if ([filetype isEqualToString:@"gif"] || [filetype isEqualToString:@"svg"])
-        {
-            self.boardControlView.bm_width = 161;
-        }
-        else if ([path hasSuffix:@".gif"] || [path hasSuffix:@".svg"])
-        {
-            self.boardControlView.bm_width = 161;
-        }
-    }
-    self.boardControlView.bm_centerX = self.view.bm_centerX;
 
     NSString *totalPage = file.pagenum;
     NSString *currentPage = file.currpage;
@@ -3001,7 +2985,43 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         prevPage = [dicPage bm_boolForKey:@"prevPage"];
         nextPage = [dicPage bm_boolForKey:@"nextPage"];
     }
-    [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue canPrevPage:prevPage canNextPage:nextPage isWhiteBoard:[file.fileid isEqualToString:@"0"]];
+    
+    BOOL isDynamic = YES;
+    if (file.isGeneralFile)
+    {
+        isDynamic = NO;
+        
+        NSString *filetype = file.filetype;
+        NSString *path = file.swfpath;
+        if ([filetype isEqualToString:@"gif"] || [filetype isEqualToString:@"svg"])
+        {
+            isDynamic = YES;
+        }
+        else if ([path hasSuffix:@".gif"] || [path hasSuffix:@".svg"])
+        {
+            isDynamic = YES;
+        }
+    }
+        
+    if (!isDynamic)
+    {
+        self.boardControlView.bm_width = 246;
+        if (self.boardControlView.bm_right > UI_SCREEN_WIDTH)
+        {
+            self.boardControlView.bm_left = UI_SCREEN_WIDTH - self.boardControlView.bm_width - 2;
+        }
+
+        [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
+    }
+    else
+    {
+        self.boardControlView.bm_width = 161; //CGRectMake(0, 0, 160, 34);
+        
+        [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue canPrevPage:prevPage canNextPage:nextPage isWhiteBoard:[file.fileid isEqualToString:@"0"]];
+    }
+
+    //self.boardControlView.bm_centerX = self.view.bm_centerX;
+
     return;
 }
 
@@ -3987,7 +4007,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!isDynamic)
     {
         self.boardControlView.bm_width = 246;
-        self.boardControlView.bm_centerX = self.view.bm_centerX;
+        if (self.boardControlView.bm_right > UI_SCREEN_WIDTH)
+        {
+            self.boardControlView.bm_left = UI_SCREEN_WIDTH - self.boardControlView.bm_width - 2;
+        }
+        //self.boardControlView.bm_centerX = self.view.bm_centerX;
         
         YSFileModel *file = self.liveManager.currentFile;
         NSString *totalPage = [message objectForKey:@"pagenum"];
