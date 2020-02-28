@@ -641,9 +641,9 @@
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.height.mas_equalTo(kScale_H(17));
-        make.width.mas_equalTo(kScale_W(120));
+        make.left.mas_equalTo(25);
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(kScale_W(180));
         make.top.mas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
     }];
     
@@ -1676,7 +1676,7 @@
         _bottomVersionL = [[UILabel alloc] init];
         _bottomVersionL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
         _bottomVersionL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-        _bottomVersionL.textAlignment = NSTextAlignmentCenter;
+        //_bottomVersionL.textAlignment = NSTextAlignmentCenter;
         
     }
     return _bottomVersionL;
