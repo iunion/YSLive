@@ -641,17 +641,18 @@
     
     [self.backImageView addSubview:self.bottomVersionL];
     [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(25);
+        make.left.mas_equalTo(15);
         make.height.mas_equalTo(kScale_H(17));
-        make.width.mas_equalTo(kScale_W(100));
+        make.width.mas_equalTo(kScale_W(120));
         make.top.mas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
     }];
     
 #ifdef DEBUG
     NSString *string = [NSString stringWithFormat:@"%@: %@", @"buildNO", APP_BUILDNO];
+    //NSString *string = [NSString stringWithFormat:@"V%@", APP_VERSIONNO];
 #else
     //do sth.
-    NSString *string = [NSString stringWithFormat:@"%@: %@", @"releaseNO" , APP_VERSIONNO];
+    NSString *string = [NSString stringWithFormat:@"V%@", APP_VERSIONNO];
 #endif
     
     self.bottomVersionL.text = string;
