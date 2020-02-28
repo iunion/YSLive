@@ -300,7 +300,7 @@
     
     
     //用户名
-    self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
+    self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.font = UI_FONT_16;
     self.nickNameLab.textColor = UIColor.whiteColor;
@@ -415,18 +415,27 @@
     
     self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-(10+25)*widthScale, 5*heightScale, 25*widthScale, 25*widthScale);
     
-    CGFloat height = 20*widthScale;
-    if (height < 12)
+    CGFloat height;
+    if ([UIDevice bm_isiPad])
     {
-        height = 12;
+        height = 24*widthScale;
+        if (height < 16)
+        {
+            height = 16;
+        }
     }
-    
+    else
+    {
+        height = 20*widthScale;
+        if (height < 12)
+        {
+            height = 12;
+        }
+    }
+
     self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 120*widthScale, height);
     CGFloat soundImageWidth = height*5/3;
     self.soundImage.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
-    
-    
-    
 }
 
 /// 当前设备音量  音量大小 0 ～ 32670
