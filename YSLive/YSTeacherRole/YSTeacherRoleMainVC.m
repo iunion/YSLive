@@ -3842,6 +3842,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //        self.teacherTimerView.pauseBtn.selected = YES;
         self.teacherTimerView.pauseBtn.selected = YES;
     }
+    self.teacherTimerView.pauseBtn.selected = YES;
     if (time == 0)
     {
         [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
@@ -3891,6 +3892,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
         self.teacherTimerView.pauseBtn.selected = NO;
     }
+    self.teacherTimerView.pauseBtn.selected = NO;
     BMWeakSelf
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
