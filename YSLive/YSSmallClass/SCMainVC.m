@@ -4280,6 +4280,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingContestResultWithName:(NSString *)name
 {
+    self.responderView.titleL.userInteractionEnabled = NO;
     if ([name bm_isNotEmpty])
     {
         [self.responderView setTitleName:[NSString stringWithFormat:@"%@\n%@",name,YSLocalized(@"Res.lab.success")]];
