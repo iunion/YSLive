@@ -236,7 +236,7 @@
         
     }
     self.outBtn.enabled = isBeginClass;
-    BOOL disablechat = [userModel.properties bm_boolForKey:sUserDisablechat];
+    BOOL disable·chat = [userModel.properties bm_boolForKey:sUserDisablechat];
     self.speakBtn.selected = disablechat;
     self.nameLabel.text = userModel.nickName;
     [self.iconImgView setImage:[UIImage imageNamed:imageName]];
