@@ -397,8 +397,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self setupVideoGridView];
     // 设置左侧工具栏
     [self setupBrushToolView];
-    // 设置花名册 课件表
-    [self setupListView];
+    
     // 翻页控件
     [self setupBoardControlView];
     // 右侧聊天视图
@@ -409,6 +408,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     //举手上台的按钮
     [self setupHandView];
+    
+    // 设置花名册 课件表
+    [self setupListView];
     
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
