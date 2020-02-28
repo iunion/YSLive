@@ -280,9 +280,18 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
     label.textColor = [UIColor bm_colorWithHex:0xFFE895];
     label.font = [UIFont systemFontOfSize:14];
+
     if (self.type == SCTeacherTopBarTypePersonList)
     {
-        NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.UserList"),@(self.dataSource.count)];
+        NSInteger studentNumber = 0;
+        for (YSRoomUser * user in self.dataSource)
+        {
+            if (user.role == YSUserType_Student)
+            {
+                studentNumber++;
+            }
+        }
+        NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.UserList"),@(studentNumber)];
         label.text = str;
     }
     else if (self.type == SCTeacherTopBarTypeCourseware)

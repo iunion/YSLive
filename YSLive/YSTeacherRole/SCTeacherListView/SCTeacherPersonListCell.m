@@ -230,13 +230,18 @@
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
     self.upPlatformBtn.enabled = isBeginClass;
-    if (isBeginClass)
+    if (userModel.role == YSUserType_Student )
     {
-        self.upPlatformBtn.selected = userModel.publishState != 0;
+        if (isBeginClass)
+        {
+            self.upPlatformBtn.selected = userModel.publishState != 0;
+            
+        }
+        BOOL disablechat = [userModel.properties bm_boolForKey:sUserDisablechat];
+        self.speakBtn.selected = disablechat;
     }
+
     self.outBtn.enabled = isBeginClass;
-    BOOL disablechat = [userModel.properties bm_boolForKey:sUserDisablechat];
-    self.speakBtn.selected = disablechat;
     self.nameLabel.text = userModel.nickName;
     [self.iconImgView setImage:[UIImage imageNamed:imageName]];
     NSInteger giftNumber = [userModel.properties bm_uintForKey:sUserGiftNumber];
