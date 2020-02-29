@@ -25,7 +25,7 @@
 /// 老师发起下课
 - (BOOL)sendSignalingTeacherToDismissClassWithCompletion:(completion_block)completion
 {
-    BOOL result = [self deleteMsg:YSSignalingName_TeacherClassBegain toID:YSRoomPubMsgTellAll data:nil completion:completion];
+    BOOL result = [self deleteMsg:YSSignalingName_TeacherClassBegain toID:YSRoomPubMsgTellAll data:@"" completion:completion];
     return result;
 }
 
@@ -53,7 +53,7 @@ WithValue:(NSObject *)value
     {
         if (appUserType == YSAppUseTheTypeMeeting)
         {
-            result = [self deleteMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:nil completion:nil];
+            result = [self deleteMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:@"" completion:nil];
         }
         else
         {
@@ -70,7 +70,7 @@ WithValue:(NSObject *)value
         }
         else
         {
-            result = [self deleteMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:nil completion:nil];
+            result = [self deleteMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:@"" completion:nil];
         }
     }
         return (result == 0);
@@ -133,7 +133,7 @@ WithValue:(NSObject *)value
 /// 解除禁言
 - (BOOL)deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:(nullable completion_block)completion
 {
-    BOOL result = [self deleteMsg:YSSignalingName_EveryoneBanChat toID:YSRoomPubMsgTellAll data:nil completion:completion];
+    BOOL result = [self deleteMsg:YSSignalingName_EveryoneBanChat toID:YSRoomPubMsgTellAll data:@"" completion:completion];
 
     return result;
 }
@@ -268,7 +268,7 @@ WithValue:(NSObject *)value
 /// 获取答题器进行时的结果
 - (BOOL)sendSignalingTeacherToAnswerGetResultWithAnswerID:(NSString *)answerID completion:(nullable completion_block)completion
 {
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_AnswerGetResult msgID:answerID toID:self.localUser.peerID data:nil save:NO extensionData:@{@"type":@"getCount"} associatedMsgID:answerID associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_AnswerGetResult msgID:answerID toID:self.localUser.peerID data:@"" save:NO extensionData:@{@"type":@"getCount"} associatedMsgID:answerID associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 }
@@ -276,7 +276,7 @@ WithValue:(NSObject *)value
 /// 结束答题
 - (BOOL)sendSignalingTeacherToDeleteAnswerWithAnswerID:(NSString *)answerID completion:(nullable completion_block)completion
 {
-    BOOL result = [self.roomManager delMsg:YSSignalingName_Answer msgID:answerID toID:YSRoomPubMsgTellAll data:nil completion:completion] == 0;
+    BOOL result = [self.roomManager delMsg:YSSignalingName_Answer msgID:answerID toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
 
     return result;
 }
@@ -305,7 +305,7 @@ WithValue:(NSObject *)value
 /// 结束答题结果
 - (BOOL)sendSignalingTeacherToDeleteAnswerPublicResultCompletion:(nullable completion_block)completion
 {
-    BOOL result = [self.roomManager delMsg:YSSignalingName_AnswerPublicResult msgID:YSSignalingName_AnswerPublicResult toID:YSRoomPubMsgTellAll data:@{} completion:completion] == 0;
+    BOOL result = [self.roomManager delMsg:YSSignalingName_AnswerPublicResult msgID:YSSignalingName_AnswerPublicResult toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
 
     return result;
 }
@@ -334,7 +334,7 @@ WithValue:(NSObject *)value
 /// 关闭抢答器
 - (BOOL)sendSignalingTeacherToCloseResponderCompletion:(nullable completion_block)completion
 {
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_delContest msgID:YSSignalingName_delContest toID:YSRoomPubMsgTellAllExceptSender data:nil save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_delContest msgID:YSSignalingName_delContest toID:YSRoomPubMsgTellAllExceptSender data:@"" save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 }

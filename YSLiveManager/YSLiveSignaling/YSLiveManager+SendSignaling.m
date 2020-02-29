@@ -144,7 +144,7 @@
 /// 客户端请求关闭信令服务器房间
 - (BOOL)sendSignalingDestroyServerRoomWithCompletion:(completion_block)completion
 {
-    return ([self sendPubMsg:YSSignalingName_Notice_Server_RoomEnd toID:YSRoomPubMsgTellNone data:nil save:NO completion:completion]);
+    return ([self sendPubMsg:YSSignalingName_Notice_Server_RoomEnd toID:YSRoomPubMsgTellNone data:@"" save:NO completion:completion]);
     
     return NO;
 }
@@ -155,7 +155,7 @@
     NSString *peerId = self.localUser.peerID;
     if ([peerId bm_isNotEmpty])
     {
-        return ([self sendPubMsg:YSSignalingName_UpdateTime toID:peerId data:nil save:NO associatedMsgID:nil associatedUserID:nil expires:0 completion:completion]);
+        return ([self sendPubMsg:YSSignalingName_UpdateTime toID:peerId data:@"" save:NO associatedMsgID:nil associatedUserID:nil expires:0 completion:completion]);
     }
     
     return NO;
@@ -183,7 +183,7 @@
         return NO;
     }
     
-    return ([self deleteMsg:YSSignalingName_LiveCallRoll toID:YSRoomPubMsgTellAllExceptSender data:nil completion:completion]);
+    return ([self deleteMsg:YSSignalingName_LiveCallRoll toID:YSRoomPubMsgTellAllExceptSender data:@"" completion:completion]);
 }
 
 // 发起抽奖
@@ -194,7 +194,7 @@
         return NO;
     }
     
-    return ([self sendPubMsg:YSSignalingName_LiveLuckDraw toID:YSRoomPubMsgTellAll data:nil save:YES completion:completion]);
+    return ([self sendPubMsg:YSSignalingName_LiveLuckDraw toID:YSRoomPubMsgTellAll data:@"" save:YES completion:completion]);
 }
 
 
@@ -213,7 +213,7 @@
        
     NSString * UpPlatFormId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UpPlatFormId"];
     
-    return  ([self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:nil save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion] == 0);
+    return  ([self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion] == 0);
     
 }
 
@@ -231,7 +231,7 @@
     
     NSString * UpPlatFormId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UpPlatFormId"];
     
-    int ii = [self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:nil save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion];
+    int ii = [self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion];
     
     return  (ii);
     
@@ -263,7 +263,7 @@
     }
     NSDictionary *extensionData = @{ @"actions" :  actions,@"modify":@(0), @"type":@"count" };
     
-    return ([self.roomManager pubMsg:YSSignalingName_VoteCommit msgID:voteId toID:YSRoomPubMsgTellNone data:nil save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
+    return ([self.roomManager pubMsg:YSSignalingName_VoteCommit msgID:voteId toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
 }
 
 // 通知
@@ -316,7 +316,7 @@
     NSString *mineResultStr = [tempArr componentsJoinedByString:@","];
     NSDictionary *extensionData = @{ @"actions" :  actions,@"modify":@(0), @"type":@"count" ,@"write2DB":@1,@"data":mineResultStr};
     
-    return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:nil save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
+    return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
 }
 
 /// 修改答题卡答案
@@ -346,7 +346,7 @@
     NSDictionary *extensionData = @{ @"actions" :  actions,@"modify":@(1), @"type":@"count" ,@"write2DB":@1,@"data":mineResultStr};
 
 
-    return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:nil save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
+    return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
 }
 
 
