@@ -44,6 +44,11 @@
         return NO;
     }
     
+    if (![data bm_isNotEmpty])
+    {
+        data = @"";
+    }
+
     if ([self.roomManager pubMsg:msgName msgID:msgName toID:toID data:data save:save completion:completion] == 0)
     {
         return YES;
@@ -72,6 +77,11 @@
         return NO;
     }
     
+    if (![data bm_isNotEmpty])
+    {
+        data = @"";
+    }
+
     if ([self.roomManager pubMsg:msgName msgID:msgName toID:toID data:data save:save associatedMsgID:associatedMsgID associatedUserID:associatedUserID expires:expires completion:completion] == 0)
     {
         return YES;
@@ -98,6 +108,11 @@
         return NO;
     }
     
+    if (![data bm_isNotEmpty])
+    {
+        data = @"";
+    }
+
     if ([self.roomManager pubMsg:msgName msgID:msgName toID:toID data:data save:save extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0)
     {
         return YES;
