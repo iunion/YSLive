@@ -143,6 +143,11 @@
         return NO;
     }
     
+    if (![data bm_isNotEmpty])
+    {
+        data = @"";
+    }
+
     if ([self.roomManager delMsg:msgName msgID:msgName toID:toID data:data completion:completion] == 0)
     {
         return YES;
