@@ -17,6 +17,7 @@
 #import "YSLiveApiRequest.h"
 
 #import "YSMonthListView.h"
+#import "YSCoreStatus.h"
 
 @interface YSCalendarCurriculumVC ()
 <
@@ -313,7 +314,17 @@
             
             if (error)
             {
-                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                NSString *errorMessage;
+                if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+                {
+                    errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+                }
+                else
+                {
+                    errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                }
+
+                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
