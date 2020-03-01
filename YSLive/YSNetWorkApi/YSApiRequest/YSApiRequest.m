@@ -52,15 +52,15 @@
         case YSAPI_NET_ERRORCODE:
         {
 #if YSSDK
-            errorMessage = @"网络错误，请稍后再试";
+            errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
 #else
             if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
             {
-                errorMessage = @"网络错误，请稍后再试";
+                errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
             }
             else
             {
-                errorMessage = @"服务器繁忙，请稍后再试";
+                errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
             }
 #endif
         }
@@ -68,9 +68,9 @@
             
         case YSAPI_DATA_ERRORCODE:
         case YSAPI_JSON_ERRORCODE:
-            errorMessage = @"数据错误，请稍后再试";
+            errorMessage = YSLocalized(@"Error.ServerError");//@"数据错误，请稍后再试";
             break;
-            
+
         default:
             errorMessage = @"其他错误";
             break;
