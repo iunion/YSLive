@@ -893,18 +893,26 @@ static YSLiveManager *liveManagerSingleton = nil;
     BMLog(@"onRoomJoined %@", [NSDate bm_stringFromTs:timeInterval]);
     BMLog(@"local %@", [NSDate date]);
         
-    //    if (!self.viewDidAppear)
-    //    {
-    //        [self addMsgCachePoolWithMethodName:@selector(onRoomJoined) parameters:nil];
+    //if (!self.viewDidAppear)
+    //{
+    //    [self addMsgCachePoolWithMethodName:@selector(onRoomJoined) parameters:nil];
     //
-    //        return;
-    //    }
+    //    return;
+    //}
+    
+//    if (self.waitingForReconnect)
+//    {
+//
+//    }
     
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomJoined:)])
     {
         [self.roomManagerDelegate onRoomJoined:ts];
     }
-    
+
+    // 等待重连
+    self.waitingForReconnect = NO;
+
     [self addRoomUser:self.roomManager.localUser showMessge:YES];
 }
 
@@ -949,6 +957,9 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     BMLog(@"onRoomConnectionLost");
     
+    // 等待重连
+    self.waitingForReconnect = YES;
+
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomConnectionLost)])
     {
         [self.roomManagerDelegate onRoomConnectionLost];
@@ -2336,26 +2347,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     return YES;
 }
 
-//判断设备是否是iPhone6以下
-- (BOOL)deviceLessThanIphone6
-{
-    NSString *platform = [self devicePlatform];
-    // iPhone
-    if ([platform isEqualToString:@"iPhone1,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone1,2"])    return YES;
-    if ([platform isEqualToString:@"iPhone2,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone3,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone3,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone3,3"])    return YES;
-    if ([platform isEqualToString:@"iPhone4,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,2"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,3"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,4"])    return YES;
-    if ([platform isEqualToString:@"iPhone6,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone6,2"])    return YES;
-    
-    return NO;
-}
+
     
 @end

@@ -2216,21 +2216,41 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
     
-//    if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
-//    {//老师离开房间时间过长
-//
-//        if (reasonCount == 1)
-//        {
-//            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.TeacherLeave8")];
-//        }
-//    }
-//    else
+    int  classDelay = 30;
+    
+    if ([dataDic bm_containsObjectForKey:@"classDelay"])
+    {
+        classDelay = [[dataDic objectForKey:@"classDelay"] intValue];
+    }
+    
+    
+    if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
+    {//老师离开房间时间过长
+
+        if (reasonCount == 1)
+        {
+            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.TeacherLeave8")];
+        }
+    }
+    else
         if (reason == YSPrepareRoomEndType_RoomTimeOut)
     {//房间预约时间
-               
+        
         if (reasonCount == 2)
         {//表示房间预约时间已到，30分钟后房间即将关闭
-            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
+            if (classDelay == 30)
+            {
+                [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
+            }
+            else if (classDelay > 0)
+            {
+                NSString * string = YSLocalized(@"Prompt.AppointmentN");
+                 [self showSignalingClassEndWithText:[NSString stringWithFormat:string,classDelay]];
+            }
+            else if (classDelay == -1)
+            {
+                [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment_end")];
+            }
         }
         else if(reasonCount == 3)
         {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭

@@ -137,6 +137,7 @@
 "Button.jump" = "跳轉";
 "Button.Sign" = "簽到";
 "Button.vote" = "投票";
+"Button.ReturnRoom" = "返回直播";
 "Button.AnswerSpeak" = "搶到上臺";
 
 "title.ToVote" = "發起投票";
@@ -193,6 +194,8 @@
 "Prompt.ClassEndTime" = "分鐘後課堂結束，請合理安排時間哦";
 "Prompt.ClassEndTimeseconds"= "秒後課堂結束，請合理安排時間哦";
 
+"Prompt.Appointment_end"           = "老師您好，下課時間已到，請您及時結束課程!";
+"Prompt.AppointmentN"           = "房間預約時間已到，%ld分鐘后将关闭後將關閉!";
 "Prompt.Appointment30"           = "房間預約時間已到，30分鐘后将关闭後將關閉!";
 "Prompt.Appointment2"           = "房間預約時間已到，2分鐘后将关闭後將關閉!";
 //"Prompt.TeacherLeave8"           = "老師退出房間達到8分鐘，2分鐘後房間即將關閉!";
@@ -395,7 +398,6 @@
 
 "Permissions.notice" = "提醒";
 "Permissions.KickedOutMembers" = "您確定要將該成員踢出出房間嗎？";
-
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "參會者";
