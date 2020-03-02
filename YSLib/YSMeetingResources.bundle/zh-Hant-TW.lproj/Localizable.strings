@@ -49,7 +49,8 @@
 "Prompt.underPlatformTime" = "點擊過於頻繁";
 
 //login
-"Login.EnterRoom" = "進入房間";
+"Login.Enter" = "登入";
+"Login.EnterRoom" = "進入";
 "Login.RoomIdPlaceHolder"    = "房間號";
 "Login.nickName"  = "昵稱";
 "Login.Role"      = "角色";
@@ -69,7 +70,7 @@
 "KickOut.ChairmanKick" = "您已被主席請出會議...";
 "KickOut.Repeat" = "有相同身份的用戶進入，您已經離開房間";
 "KickOut.SentOutClassroom" = "您已被老師請出房間！";
-"State.teacherInBackGround" = "該用戶按home鍵啦";
+"State.teacherInBackGround" = "⚠️學生把APP切到後臺了";
 
 //role
 "Role.Me" = "我";
@@ -137,6 +138,7 @@
 "Button.Sign" = "簽到";
 "Button.vote" = "投票";
 "Button.ReturnRoom" = "返回直播";
+"Button.AnswerSpeak" = "搶到上臺";
 
 "title.ToVote" = "發起投票";
 "title.Voting" = "投票中";
@@ -156,15 +158,16 @@
 "Alert.UpdateMessage" = "有新版本啦，建議下載安裝，陞級到最新版本，體驗線上實时互動。";
 "Alert.UpdateNow" = "現在陞級";
 "Alert.UpdateAfter" = "稍後再說";
+"Alert.CheckNetMessage" = "請連接網絡 ";
 
 "Action.EnterRoom"          = "加入房間!";
 "Action.ExitRoom"           = "離開房間!";
 
-"Prompt.EndClass1M"         = "5分鐘後會議結束，請合理安排時間哦";
+"Prompt.EndClass1M"         = "距離會議結束還剩1分鐘，請合理安排時間哦~";
 "Prompt.RoomToBeClosed"     = "房間即將關閉。";
-"Prompt.ClassToBegin"       = "距離上課時間還有1分鐘，請做好準備。";
+"Prompt.ClassToBegin"       = "距離會議時間還有1分鐘，請做好準備。";
 "Prompt.timeoutStart.one"   = "已逾時";
-"Prompt.timeoutStart.two"   = "分鐘，請抓緊時間開始上課";
+"Prompt.timeoutStart.two"   = "分鐘，請抓緊時間開始會議";
 "Prompt.timeoutReadyEnd.one" = "您已超時";
 "Prompt.timeoutReadyEnd.two" = "分鐘，房間將於";
 "Prompt.timeoutReadyEnd.three" = "分鐘之後自動關閉！";
@@ -191,11 +194,13 @@
 "Prompt.ClassEndTime" = "分鐘後課堂結束，請合理安排時間哦";
 "Prompt.ClassEndTimeseconds"= "秒後課堂結束，請合理安排時間哦";
 
+"Prompt.Appointment_end"           = "主持人您好，會議時間已到，請您及時結束!";
+"Prompt.AppointmentN"           = "房間預約時間已到，%ld分鐘后将关闭後將關閉!";
 "Prompt.Appointment30"           = "房間預約時間已到，30分鐘后将关闭後將關閉!";
 "Prompt.Appointment2"           = "房間預約時間已到，2分鐘后将关闭後將關閉!";
-//"Prompt.TeacherLeave8"           = "老師退出房間達到8分鐘，2分鐘後房間即將關閉!";
+//"Prompt.TeacherLeave8"           = "主持人退出房間達到8分鐘，2分鐘後房間即將關閉!";
 "Prompt.ClassEndAppointment30"           = "已超預約時間30分鐘，系統結束本次互動";
-"Prompt.ClassEndTeacherLeave10"          = "主持人已離開房間10分鐘,系統結束本次互動";
+"Prompt.ClassEndTeacherLeave10"          = "主持人已離開房間10分鐘，系統結束本次互動";
 "Prompt.ClassEndAnchorLeave10"          = "主播已離開房間10分鐘，系統結束本次互動";
 
 
@@ -260,6 +265,7 @@
 "Label.roomPlaceholder" = "請輸入您的房間號";
 "Label.nicknamePlaceholder" = "請輸入您的昵稱";
 "Label.messageBoard" = "留言板";
+
 "Menu.Copy" = "復制";
 
 "Label.addFile" = "添加課件";
@@ -276,6 +282,12 @@
 "Res.lab.iget"="恭喜您已搶中";
 "Res.lab.noget"="無人搶答";
 "Res.lab.getting"="搶答中…";
+"Res.lab.get" = "搶答";
+"Res.lab.studenting" = "搶答中";
+"Res.lab.success" = "搶答成功";
+"Res.lab.fail" = "無人搶答";
+"Timer.btn.start" = "開始計時";
+"Timer.lab.end" = "計時結束";
 
 "netstate.excellent" = "優";
 "netstate.medium" = "中";
@@ -333,6 +345,7 @@
 "Label.Inspect" = "待审核";
 "Label.Pass" = "通過";
 "Label.Courseware" = "文件夾";
+"Label.Document" = "文檔";
 "Label.Room" = "會 議";
 "Label.RoomName" = "房間名稱";
 "Label.To" = "對:";
@@ -388,3 +401,11 @@
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "參會者";
+
+
+"Prompt.RaiseHand_classBegain" = "會議開始後才能舉手";
+
+
+"Prompt.LowDeviceTitle" = "設備效能過低，無法顯示更多視頻";
+"Prompt.NoCamera" = "攝像頭被禁用";
+"Prompt.NoMicrophone" = "無麥克風";

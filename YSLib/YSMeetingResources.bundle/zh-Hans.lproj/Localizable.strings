@@ -29,6 +29,7 @@
 "Error.CanNotConnectNetworkError" = "无法连接到服务器，请稍后再试";
 "Error.ServerError" = "服务器访问异常";
 "Error.UpPlatformMemberOverRoomLimit" = "上台人数超出最大限制";
+
 //Prompt
 "Prompt.inputPlaceholder" = "请输入房间密码";
 "Prompt.ExceptionReport" = "异常报告";
@@ -47,7 +48,8 @@
 "Prompt.underPlatformTime" = "点击过于频繁";
 
 //login
-"Login.EnterRoom" = "进入房间";
+"Login.Enter" = "登录";
+"Login.EnterRoom" = "进入";
 "Login.RoomIdPlaceHolder"    = "房间号";
 "Login.nickName" = "昵称";
 "Login.Role"      = "角色";
@@ -68,7 +70,7 @@
 "KickOut.ChairmanKick" = "您已被主席请出会议...";
 "KickOut.Repeat" = "有相同身份的用户进入，您已经离开房间";
 "KickOut.SentOutClassroom" = "您已被老师请出房间！";
-"State.teacherInBackGround" = "该用户按home键啦";
+"State.teacherInBackGround" = "⚠️学生把APP切到后台了";
 
 
 //role
@@ -137,6 +139,7 @@
 "Button.Sign" = "签到";
 "Button.vote" = "投票";
 "Button.ReturnRoom" = "返回直播";
+"Button.AnswerSpeak" = "抢到上台";
 
 "title.ToVote" = "发起投票";
 "title.Voting" = "投票中";
@@ -156,15 +159,17 @@
 "Alert.UpdateMessage" = "有新版本啦,建议下载安装,升级到最新版本,体验在线实时互动。";
 "Alert.UpdateNow" = "现在升级";
 "Alert.UpdateAfter" = "稍后再说";
+"Alert.CheckNetMessage" = "请连接网络";
 
 "Action.EnterRoom"          = "加入房间!";
 "Action.ExitRoom"           = "离开房间!";
 
-"Prompt.EndClass1M"         = "5分钟后会议结束，请合理安排时间哦";
+
+"Prompt.EndClass1M"         = "距离会议结束还剩1分钟，请合理安排时间哦~";
 "Prompt.RoomToBeClosed"     = "房间即将关闭。";
-"Prompt.ClassToBegin"       = "距离上课时间还有1分钟，请做好准备。";
+"Prompt.ClassToBegin"       = "距离会议开始时间还有1分钟，请做好准备。";
 "Prompt.timeoutStart.one"   = "已逾时";
-"Prompt.timeoutStart.two"   = "分钟，请抓紧时间开始上课";
+"Prompt.timeoutStart.two"   = "分钟，请抓紧时间开始会议";
 "Prompt.timeoutReadyEnd.one" = "您已超时";
 "Prompt.timeoutReadyEnd.two" = "分钟，房间将于";
 "Prompt.timeoutReadyEnd.three" = "分钟之后自动关闭！";
@@ -192,10 +197,13 @@
 "Prompt.ClassEndTimeseconds"= "秒后课堂结束，请合理安排时间哦";
 
 
+"Prompt.Appointment_end"           = "主持人您好，会议时间已到，请您及时结束会议!";
+"Prompt.AppointmentN"           = "房间预约时间已到，%ld分钟后将关闭!";
 "Prompt.Appointment30"           = "房间预约时间已到，30分钟后将关闭!";
 "Prompt.Appointment28"           = "房间预约时间已到，2分钟后将关闭!";
+
 "Prompt.ClassEndAppointment30"           = "已超预约时间30分钟，系统结束本次互动";
-"Prompt.ClassEndTeacherLeave10"          = "主持人已离开房间10分钟,系统结束本次互动";
+"Prompt.ClassEndTeacherLeave10"          = "主持人已离开房间10分钟，系统结束本次互动";
 "Prompt.ClassEndAnchorLeave10"          = "主播已离开房间10分钟，系统结束本次互动";
 
 
@@ -260,6 +268,7 @@
 "Label.roomPlaceholder" = "请输入您的房间号";
 "Label.nicknamePlaceholder" = "请输入您的昵称";
 "Label.messageBoard" = "留言板";
+
 "Menu.Copy" = "复制";
 
 "Label.addFile" = "添加课件";
@@ -276,6 +285,13 @@
 "Res.lab.iget"  = "恭喜您已抢中";
 "Res.lab.noget"   = "无人抢答";
 "Res.lab.getting" = "抢答中...";
+"Res.lab.get" = "抢答";
+"Res.lab.success" = "抢答成功";
+"Res.lab.fail" = "无人抢答";
+"Res.lab.studenting" = "抢答中";
+
+"Timer.btn.start" = "开始计时";
+"Timer.lab.end" = "计时结束";
 
 "netstate.excellent" = "优";
 "netstate.medium" = "中";
@@ -332,6 +348,7 @@
 "Label.Inspect" = "待审核";
 "Label.Pass" = "通过";
 "Label.Courseware" = "文件夹";
+"Label.Document" = "文档";
 "Label.Room" = "会 议";
 "Label.RoomName" = "房间名称";
 "Label.To" = "对:";
@@ -384,3 +401,11 @@
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "参会者";
+
+
+"Prompt.RaiseHand_classBegain" = "会议开始后才能举手";
+
+"Prompt.LowDeviceTitle" = "设备性能过低，无法显示更多视频";
+"Prompt.NoCamera" = "摄像头被禁用";
+"Prompt.NoMicrophone" = "无麦克风";
+

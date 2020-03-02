@@ -138,6 +138,7 @@
 "Button.jump" = "跳转";
 "Button.Sign" = "签到";
 "Button.vote" = "投票";
+"Button.ReturnRoom" = "返回直播";
 "Button.AnswerSpeak" = "抢到上台";
 
 "title.ToVote" = "发起投票";
@@ -268,8 +269,6 @@
 
 "Menu.Copy" = "复制";
 
-
-
 "Label.addFile" = "添加课件";
 "Label.handsup_tips" = "有人举手";
 
@@ -397,7 +396,6 @@
 
 "Permissions.notice" = "提醒";
 "Permissions.KickedOutMembers" = "您确定要将该成员踢出房间吗？";
-
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "参会者";
