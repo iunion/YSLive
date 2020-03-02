@@ -136,7 +136,9 @@
 "Button.jump" = "Jump";
 "Button.Sign" = "Sign in";
 "Button.vote" = "vote";
+"Button.ReturnRoom" = "Return to live";
 "Button.AnswerSpeak" = "Answer speak";
+
 "title.ToVote" = "Start vote";
 "title.Voting" = "Voting";
 "title.Voted" = "End";
@@ -149,7 +151,7 @@
 "Alert.AllMessage" = "View all chats";
 "Alert.teacherMessage" = "View lecture chats";
 "Alert.OwnMessage" = "View own chats";
-"Alert.BeginClass" = "Class already begin";
+"Alert.BeginClass" = "Class already began";
 "Alert.UpdateTitle" = "New version found";
 "Alert.UpdateForceMessage" = "New version found,please click “update now”,download and install before use it.";
 "Alert.UpdateMessage" = "New version found,recommended to download and install,update to the latest version.";
@@ -161,12 +163,12 @@
 "Action.ExitRoom"           = "Leave room";
 
 "Prompt.EndClass1M"         = "There are 1 minute to finish class. Be remained.";
-"Prompt.RoomToBeClosed"     = "This  class is about to shut down. ";
+"Prompt.RoomToBeClosed"     = "This class is about to shut down. ";
 "Prompt.ClassToBegin"       = "The class will start in 1 minute.";
 "Prompt.timeoutStart.one"   = "You are ";
 "Prompt.timeoutStart.two"   = " minute late already. Time for Class!";
 "Prompt.timeoutReadyEnd.one" = "Your class is";
-"Prompt.timeoutReadyEnd.two" = "minutes overtime now. This  class will end automatically in";
+"Prompt.timeoutReadyEnd.two" = "minutes overtime now. This class will end automatically in";
 "Prompt.timeoutReadyEnd.three" = "minutes.";
 
 "Title.DocumentList"        = "Course Lib";
@@ -198,7 +200,7 @@
 "Prompt.Appointment30"           = "Room reservation time arrived,Will be closed in 30 minutes!";
 "Prompt.Appointment2"           = "Room reservation time arrived,Will be closed in 2 minutes!";
 "Prompt.ClassEndAppointment30"           = "Expired 30 minutes,system ended interaction";
-"Prompt.ClassEndTeacherLeave10"          = "Teacher left the room for 10 minutes，system ended interaction";
+"Prompt.ClassEndTeacherLeave10"          = "Teacher left the room for 10 minutes, system ended interaction";
 "Prompt.ClassEndAnchorLeave10"          = "Lecturer left the room for 10 minutes，system ended interaction";
 
 
@@ -262,8 +264,8 @@
 "Label.roomid" = "room id";
 "Label.roomPlaceholder" = "Please enter your room number";
 "Label.nicknamePlaceholder" = "Please enter your nickname";
-
 "Label.messageBoard" = "message board";
+
 "Menu.Copy" = "copy";
 
 "Label.addFile" = "AddFile";

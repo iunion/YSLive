@@ -137,6 +137,7 @@
 "Button.jump" = "跳轉";
 "Button.Sign" = "簽到";
 "Button.vote" = "投票";
+"Button.ReturnRoom" = "返回直播";
 "Button.AnswerSpeak" = "搶到上臺";
 
 "title.ToVote" = "發起投票";
@@ -397,7 +398,6 @@
 
 "Permissions.notice" = "提醒";
 "Permissions.KickedOutMembers" = "您確定要將該成員踢出出房間嗎？";
-
 
 "Role.Host" = "主持人";
 "Role.Attendee" = "參會者";
