@@ -48,6 +48,9 @@ typedef void (^SCTeacherCloseAnswer)(BOOL isAnswerIng);
 @property (nonatomic, strong) NSArray *answerDetailArr;
 
 
+- (void)hideOpenResult:(BOOL)hide;
+- (void)hideEndAgainBtn:(BOOL)hide;
+- (void)hideCloseBtn:(BOOL)hide;
 - (void)showTeacherAnswerViewType:(SCTeacherAnswerViewType)answerViewType
                            inView:(UIView *)inView
              backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets

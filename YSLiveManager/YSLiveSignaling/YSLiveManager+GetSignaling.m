@@ -573,8 +573,10 @@
             {
                 if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAnswerOccupyedWithAnswerId:startTime:)])
                 {
-                                    
-                    [self.roomManagerDelegate handleSignalingAnswerOccupyedWithAnswerId:answerId startTime:ts];
+                    if ([self.localUser.peerID isEqualToString:fromID])
+                    {
+                        [self.roomManagerDelegate handleSignalingAnswerOccupyedWithAnswerId:answerId startTime:ts];
+                    }
                 }
 
                 return;
@@ -583,9 +585,9 @@
             {
                 
                 NSArray *options = [dataDic bm_arrayForKey:@"options"];
-                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingSendAnswerWithAnswerId:options:startTime:)])
+                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingSendAnswerWithAnswerId:options:startTime:fromID:)])
                 {
-                    [self.roomManagerDelegate handleSignalingSendAnswerWithAnswerId:answerId options:options startTime:ts];
+                    [self.roomManagerDelegate handleSignalingSendAnswerWithAnswerId:answerId options:options startTime:ts fromID:fromID];
                 }
             }
         }

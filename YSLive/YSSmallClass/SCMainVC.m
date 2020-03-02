@@ -4075,7 +4075,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark  答题卡
 
 /// 收到答题卡
-- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(nonnull NSArray *)options startTime:(NSInteger)startTime
+- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(nonnull NSArray *)options startTime:(NSInteger)startTime fromID:(NSString *)fromID
 {
     BMLog(@"%@",options);
     if (self.answerView)
