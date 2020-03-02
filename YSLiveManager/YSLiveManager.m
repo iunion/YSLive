@@ -2165,7 +2165,15 @@ static YSLiveManager *liveManagerSingleton = nil;
         [queryMutableDictionary bm_setUInteger:userrole forKey:@"userrole"];
     }
     
-    return queryMutableDictionary;
+    YSUserRoleType userrole = [queryMutableDictionary bm_uintForKey:@"userrole"];
+    if (userrole == YSUserType_Teacher || userrole == YSUserType_Student)
+    {
+        return queryMutableDictionary;
+    }
+    else
+    {
+        return nil;
+    }
 }
 
 
