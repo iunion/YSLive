@@ -394,6 +394,16 @@
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
 
+    if (![liveManager.room_Id bm_isNotEmpty])
+    {
+        NSString *descript = YSLocalized(@"Error.CanNotConnectNetworkError");
+        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+        
+        [[YSLiveManager shareInstance] destroy];
+        
+        return;
+    }
+    
     YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
 
     // 3: 小班课  4: 直播  6： 会议
