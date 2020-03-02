@@ -72,6 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger iVolume;
 
 
+// 等待重连
+@property (nonatomic, assign) BOOL waitingForReconnect;
+
+
 /// 白板
 
 /// 课件列表
