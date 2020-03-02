@@ -32,7 +32,7 @@
 @property (nonatomic, strong) UILabel *nickNameLab;
 ///声音图标
 @property (nonatomic, strong) UIImageView *soundImage;
-///禁音时的label
+///没有麦克风时的label
 @property (nonatomic, strong) UILabel *silentLab;
 
 
@@ -43,7 +43,7 @@
 @property (nonatomic, strong)UIButton *homeMaskBtn;
 ///没有连摄像头时的蒙版
 @property (nonatomic, strong) UIView *maskNoVideo;
-///没有连摄像头时的文字
+///上课后没有连摄像头时的文字
 @property (nonatomic, strong) UILabel *maskNoVideoTitle;
 
 /// 当前设备上次捕捉的音量  音量大小 0 ～ 32670
@@ -196,7 +196,6 @@
     maskNoVideobgLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:maskNoVideobgLab];
     self.maskNoVideobgLab = maskNoVideobgLab;
-    
     
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
@@ -365,6 +364,7 @@
         self.isInBackGround = [self.roomUser.properties bm_boolForKey:sUserIsInBackGround];
         
         self.iHasVadeo = self.roomUser.hasVideo;
+        self.iHasAudio = self.roomUser.hasAudio;
         
         NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sUserPrimaryColor];
         if ([brushColor bm_isNotEmpty])
@@ -460,14 +460,10 @@
     
     if (self.disableSound)
     {
-//        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
-        self.soundImage.hidden = YES;
-        self.silentLab.hidden = NO;
+        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
         return;
     }
-    
-    self.soundImage.hidden = NO;
-    self.silentLab.hidden = YES;
+
     CGFloat volumeScale = 32670/4;
     
     if (iVolume<1)
@@ -502,6 +498,14 @@
 {
     _iHasVadeo = iHasVadeo;
     self.maskNoVideo.hidden = iHasVadeo;
+}
+
+///该用户有开麦克风
+- (void)setIHasAudio:(BOOL)iHasAudio
+{
+    _iHasAudio = iHasAudio;
+    self.silentLab.hidden = iHasAudio;
+    self.soundImage.hidden = !iHasAudio;
 }
 
 /// 奖杯数
@@ -541,15 +545,11 @@
     _disableSound = disableSound;
     if (disableSound)
     {
-//        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
-        self.soundImage.hidden = YES;
-        self.silentLab.hidden = NO;
+        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
     }
     else
     {
-//        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
-        self.soundImage.hidden = NO;
-        self.silentLab.hidden = YES;
+        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
     }
 }
 
@@ -640,7 +640,7 @@
 {
     self.roomUser = roomUser;
     
-    
+    self.iHasAudio = roomUser.hasAudio;
     self.iHasVadeo = roomUser.hasVideo;
 }
 

@@ -64,6 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIView *backVideoView;
 ///该用户有开摄像
 @property (nonatomic, assign) BOOL iHasVadeo;
+///该用户有开麦克风
+@property (nonatomic, assign) BOOL iHasAudio;
 
 @property (nonatomic, strong) UIPanGestureRecognizer * panGesture;
 

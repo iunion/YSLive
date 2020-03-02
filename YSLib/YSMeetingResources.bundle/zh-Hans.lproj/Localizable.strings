@@ -196,14 +196,16 @@
 "Prompt.ClassEndTime"      = "分钟后课堂结束，请合理安排时间哦";
 "Prompt.ClassEndTimeseconds"= "秒后课堂结束，请合理安排时间哦";
 
+
 "Prompt.Appointment_end"           = "主持人您好，会议时间已到，请您及时结束会议!";
 "Prompt.AppointmentN"           = "房间预约时间已到，%ld分钟后将关闭!";
 "Prompt.Appointment30"           = "房间预约时间已到，30分钟后将关闭!";
 "Prompt.Appointment28"           = "房间预约时间已到，2分钟后将关闭!";
-//"Prompt.TeacherLeave8"           = "主持人退出房间达到8分钟，2分钟后房间即将关闭!";
+
 "Prompt.ClassEndAppointment30"           = "已超预约时间30分钟，系统结束本次互动";
 "Prompt.ClassEndTeacherLeave10"          = "主持人已离开房间10分钟，系统结束本次互动";
 "Prompt.ClassEndAnchorLeave10"          = "主播已离开房间10分钟，系统结束本次互动";
+
 
 "Prompt.NeedCamera.title"   = "无法使用相机";
 "Prompt.NeedCamera"         = "请在iPhone的\"设置-隐私-相机\"选项中，允许APP访问你的相机。";
