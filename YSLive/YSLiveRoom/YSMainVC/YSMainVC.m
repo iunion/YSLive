@@ -1447,35 +1447,36 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
-///// 房间即将关闭消息
-//- (BOOL)handleSignalingPrepareRoomEndWithDataDic:(NSDictionary *)dataDic addReason:(YSPrepareRoomEndType)reason
-//{
-//    NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
-//    
-////    if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
-////    {//老师离开房间时间过长
-////
-////        if (reasonCount == 1)
-////        {
-////            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.TeacherLeave8")];
-////        }
-////    }
-////    else
-//        if (reason == YSPrepareRoomEndType_RoomTimeOut)
-//    {//房间预约时间
-//               
-//        if (reasonCount == 2)
-//        {//表示房间预约时间已到，30分钟后房间即将关闭
-//            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
-//        }
-//        else if(reasonCount == 3)
-//        {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭
-//           [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment28")];
-//        }
-//    }
-//    return YES;
-//}
+/* 学生不需要下课提示
+/// 房间即将关闭消息
+- (BOOL)handleSignalingPrepareRoomEndWithDataDic:(NSDictionary *)dataDic addReason:(YSPrepareRoomEndType)reason
+{
+    NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
+    
+    if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
+    {//老师离开房间时间过长
 
+        if (reasonCount == 1)
+        {
+            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.TeacherLeave8")];
+        }
+    }
+    else
+        if (reason == YSPrepareRoomEndType_RoomTimeOut)
+    {//房间预约时间
+               
+        if (reasonCount == 2)
+        {//表示房间预约时间已到，30分钟后房间即将关闭
+            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
+        }
+        else if(reasonCount == 3)
+        {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭
+           [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment28")];
+        }
+    }
+    return YES;
+}
+*/
 
 ///房间踢除所有用户消息
 - (void)handleSignalingEvictAllRoomUseWithDataDic:(NSDictionary *)dataDic

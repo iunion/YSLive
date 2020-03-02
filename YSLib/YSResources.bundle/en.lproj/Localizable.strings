@@ -193,7 +193,7 @@
 
 "Prompt.leaveRoom"          = "Have entered a room, quit first!";
 
-"Prompt.Appointment_end"           = "Notice：It‘s time to finish class;
+"Prompt.Appointment_end"           = "Notice：It‘s time to finish class";
 "Prompt.AppointmentN"           = "Notice：It‘s time to finish class.Room will be closed in %ld minutes!";
 "Prompt.Appointment30"           = "Room reservation time arrived,Will be closed in 30 minutes!";
 "Prompt.Appointment2"           = "Room reservation time arrived,Will be closed in 2 minutes!";
