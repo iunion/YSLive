@@ -15,9 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
     YSLiveRoomManagerDelegate
 >
 
-// 等待重连
-@property (nonatomic, assign) BOOL waitingForReconnect;
-
 @property (nonatomic, weak, readonly) YSLiveManager *liveManager;
 /// 白板视图whiteBord
 @property (nonatomic, weak, readonly) UIView *whiteBordView;

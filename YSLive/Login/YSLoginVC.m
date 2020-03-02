@@ -1812,6 +1812,17 @@
     [YSUserDefault setLoginNickName:[self.nickNameTextField.inputTextField.text bm_trimAllSpace]];
 
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    
+    if (![liveManager.room_Id bm_isNotEmpty])
+    {
+        NSString *descript = YSLocalized(@"Error.CanNotConnectNetworkError");
+        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+        
+        [[YSLiveManager shareInstance] destroy];
+        
+        return;
+    }
+    
 #if YSCLASS
     
     YSAppUseTheType appUseTheType = liveManager.room_UseTheType;

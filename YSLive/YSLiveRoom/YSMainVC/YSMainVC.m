@@ -71,6 +71,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     CGFloat platformVideoWidth;
     /// 上麦视频高
     CGFloat platformVideoHeight;
+    
+    BOOL needFreshVideoView;
 }
 
 /// 原keywindow
@@ -1287,6 +1289,37 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     }
 }
 
+#pragma mark 切换网络 会收到onRoomJoined
+
+- (void)onRoomJoined:(long)ts
+{
+    [super onRoomJoined:ts];
+    
+    if (self.liveManager.isBeginClass)
+    {
+        needFreshVideoView = YES;
+        
+        // 因为切换网络会先调用classBegin
+        // 所以要在这里刷新VideoAudio
+        [self rePlayVideoAudio];
+    }
+}
+
+- (void)rePlayVideoAudio
+{
+    for (SCVideoView *videoView in self.videoViewArray)
+    {
+        [self stopVideoAudioWithVideoView:videoView];
+        if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {
+            videoView.disableSound = YES;
+            videoView.disableVideo = YES;
+        }
+        
+        [self playVideoAudioWithVideoView:videoView];
+    }
+}
+
 
 #pragma mark 上下课
 
@@ -1321,6 +1354,12 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
+        if (needFreshVideoView)
+        {
+            needFreshVideoView = NO;
+            break;
+        }
+
         if (roomUser.role == YSUserType_Student)
         {
             YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
