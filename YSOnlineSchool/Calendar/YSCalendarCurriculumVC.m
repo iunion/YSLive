@@ -18,6 +18,10 @@
 
 #import "YSMonthListView.h"
 
+#define calendH self.lessIphone6 ? 370 : 400
+
+#define monthBtnY self.lessIphone6 ? 15 : 23
+
 @interface YSCalendarCurriculumVC ()
 <
     FSCalendarDataSource,
@@ -59,6 +63,8 @@
 //可切换的月份的弹出view中当前选中的cell的NSIndexPath
 @property (nonatomic, strong)NSIndexPath *indexPath;
 
+//设备型号是否是iPhone6以下
+@property (assign, nonatomic) BOOL lessIphone6;
 
 @end
 
@@ -83,6 +89,9 @@
     
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refrshMonthClassDate)];
     self.title = nil;
+    
+    
+    self.lessIphone6 = [self.liveManager deviceLessThanIphone6];
     
     [self selectMonthUI];
     
@@ -122,7 +131,7 @@
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSString * month = [currentDate bm_stringWithFormat:[NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")]];
     
-    UIButton *monthBtn = [[UIButton alloc]initWithFrame:CGRectMake((self.view.bm_width - 113)/2, 23, 113, 26)];
+    UIButton *monthBtn = [[UIButton alloc]initWithFrame:CGRectMake((self.view.bm_width - 113)/2, monthBtnY, 113, 26)];
     [monthBtn setBackgroundColor:UIColor.whiteColor];
     [monthBtn setImage:[UIImage imageNamed:@"onlineSchool_allMonth"] forState:UIControlStateNormal];
     [monthBtn setTitle:month forState:UIControlStateNormal];
@@ -161,13 +170,13 @@
     self.nextBtn = nextBtn;
         
     [lastBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(23);
+        make.top.mas_equalTo(monthBtnY);
         make.right.equalTo(monthBtn.mas_left).offset(-16);
         make.width.height.mas_equalTo(26);
     }];
     
     [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(23);
+        make.top.mas_equalTo(monthBtnY);
         make.left.equalTo(monthBtn.mas_right).offset(16);
         make.width.height.mas_equalTo(26);
     }];
@@ -244,7 +253,7 @@
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  70, self.view.frame.size.width-20, 400)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  70, self.view.frame.size.width-20, 350)];
     calendar.dataSource = self;
     calendar.delegate = self;
     

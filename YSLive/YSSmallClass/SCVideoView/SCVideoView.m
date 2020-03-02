@@ -32,6 +32,10 @@
 @property (nonatomic, strong) UILabel *nickNameLab;
 ///声音图标
 @property (nonatomic, strong) UIImageView *soundImage;
+///禁音时的label
+@property (nonatomic, strong) UILabel *silentLab;
+
+
 ///被禁视频时的蒙版
 @property (nonatomic, strong) UIView *maskCloseVideoBgView;
 @property (nonatomic, strong) UIImageView *maskCloseVideo;
@@ -318,6 +322,16 @@
     self.soundImage.contentMode = UIViewContentModeScaleAspectFit;
     [self.backVideoView addSubview:self.soundImage];
     
+    UILabel * silentLab = [[UILabel alloc]init];
+    silentLab.text = YSLocalized(@"Prompt.NoMicrophone");
+    silentLab.font = UI_FONT_16;
+    silentLab.textColor = UIColor.whiteColor;
+    silentLab.adjustsFontSizeToFitWidth = YES;
+    silentLab.minimumScaleFactor = 0.3;
+    silentLab.hidden = NO;
+    [self.backVideoView addSubview:silentLab];
+    self.silentLab = silentLab;
+    
     
     if (self.isForPerch)
     {
@@ -436,6 +450,7 @@
     self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 120*widthScale, height);
     CGFloat soundImageWidth = height*5/3;
     self.soundImage.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
+    self.silentLab.frame = CGRectMake(self.bm_width-120*widthScale, self.bm_height-4-height, 120*widthScale, height);
 }
 
 /// 当前设备音量  音量大小 0 ～ 32670
@@ -445,9 +460,14 @@
     
     if (self.disableSound)
     {
-        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
+//        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
+        self.soundImage.hidden = YES;
+        self.silentLab.hidden = NO;
         return;
     }
+    
+    self.soundImage.hidden = NO;
+    self.silentLab.hidden = YES;
     CGFloat volumeScale = 32670/4;
     
     if (iVolume<1)
@@ -521,11 +541,15 @@
     _disableSound = disableSound;
     if (disableSound)
     {
-        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
+//        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
+        self.soundImage.hidden = YES;
+        self.silentLab.hidden = NO;
     }
     else
     {
-        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
+//        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
+        self.soundImage.hidden = NO;
+        self.silentLab.hidden = YES;
     }
 }
 
