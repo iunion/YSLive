@@ -2336,26 +2336,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     return YES;
 }
 
-//判断设备是否是iPhone6以下
-- (BOOL)deviceLessThanIphone6
-{
-    NSString *platform = [self devicePlatform];
-    // iPhone
-    if ([platform isEqualToString:@"iPhone1,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone1,2"])    return YES;
-    if ([platform isEqualToString:@"iPhone2,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone3,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone3,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone3,3"])    return YES;
-    if ([platform isEqualToString:@"iPhone4,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,2"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,3"])    return YES;
-    if ([platform isEqualToString:@"iPhone5,4"])    return YES;
-    if ([platform isEqualToString:@"iPhone6,1"])    return YES;
-    if ([platform isEqualToString:@"iPhone6,2"])    return YES;
-    
-    return NO;
-}
+
     
 @end

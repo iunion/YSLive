@@ -1318,10 +1318,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
     BMLog(@"举手上台");
-    if (self.liveManager.isBeginClass) {
+    if (self.liveManager.isBeginClass)
+    {
         [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
     }
-    else{
+    else
+    {
         [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
@@ -3708,10 +3710,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 
 /// 房间即将关闭消息
-- (BOOL)handleSignalingPrepareRoomEndWithDataDic:(NSDictionary *)dataDic addReason:(YSPrepareRoomEndType)reason
-{
-    NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
-    
+//- (BOOL)handleSignalingPrepareRoomEndWithDataDic:(NSDictionary *)dataDic addReason:(YSPrepareRoomEndType)reason
+//{
+//    NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
+//
 //    if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
 //    {//老师离开房间时间过长
 //
@@ -3721,20 +3723,20 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //        }
 //    }
 //    else
-        if (reason == YSPrepareRoomEndType_RoomTimeOut)
-    {//房间预约时间
-               
-        if (reasonCount == 2)
-        {//表示房间预约时间已到，30分钟后房间即将关闭
-            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
-        }
-        else if(reasonCount == 3)
-        {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭
-           [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment28")];
-        }
-    }
-    return YES;
-}
+//        if (reason == YSPrepareRoomEndType_RoomTimeOut)
+//    {//房间预约时间
+//
+//        if (reasonCount == 2)
+//        {//表示房间预约时间已到，30分钟后房间即将关闭
+//            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
+//        }
+//        else if(reasonCount == 3)
+//        {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭
+//           [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment28")];
+//        }
+//    }
+//    return YES;
+//}
 
 ///房间踢除所有用户消息
 - (void)handleSignalingEvictAllRoomUseWithDataDic:(NSDictionary *)dataDic

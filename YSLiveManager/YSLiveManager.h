@@ -150,9 +150,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)devicePlatformHighEndEquipment;
 
 
-//判断设备是否是iPhone6以下
-- (BOOL)deviceLessThanIphone6;
-
 #pragma mark - 房间 对外接口
 
 /// 旋转窗口

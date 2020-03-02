@@ -19,9 +19,9 @@
 #import "YSMonthListView.h"
 #import "YSCoreStatus.h"
 
-#define calendH self.lessIphone6 ? 370 : 400
+#define calendH (self.view.bm_height < 667) ? 370 : 400
 
-#define monthBtnY self.lessIphone6 ? 15 : 23
+#define monthBtnY (self.view.bm_height < 667) ? 15 : 23
 
 @interface YSCalendarCurriculumVC ()
 <
@@ -90,9 +90,6 @@
     
     [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refrshMonthClassDate)];
     self.title = nil;
-    
-    
-    self.lessIphone6 = [self.liveManager deviceLessThanIphone6];
     
     [self selectMonthUI];
     
