@@ -109,8 +109,8 @@
 @property (nonatomic, strong) UIButton *studentRoleBtn;
 /// 老师角色button
 @property (nonatomic, strong) UIButton *teacherRoleBtn;
-/// 助教角色button
-@property (nonatomic, strong) UIButton *assistantRoleBtn;
+/// 巡课角色button
+@property (nonatomic, strong) UIButton *patrolRoleBtn;
 
 /// 选中的角色button
 @property (nonatomic, strong) UIButton *selectedRoleBtn;
@@ -1509,9 +1509,10 @@
         [alertView addSubview:self.passwordTextField];
         
         //身份按钮个数
-        NSInteger buttonNum = 2;
+        NSInteger buttonNum = 3;
+        NSInteger leftMargin = 50;
         
-        CGFloat margin = (500-2*76-buttonNum*100)/(buttonNum+1);
+        CGFloat margin = (500-2*leftMargin-buttonNum*100)/(buttonNum+1);
                
         if (![UIDevice bm_isiPad]) {
             
@@ -1528,7 +1529,7 @@
             }
             else
             {
-                button = [[UIButton alloc]initWithFrame:CGRectMake(76+ margin + i*(margin+100), 93, 100, 40)];
+                button = [[UIButton alloc]initWithFrame:CGRectMake(leftMargin + margin + i*(margin+100), 93, 100, 40)];
             }
             
             [alertView addSubview:button];
@@ -1550,7 +1551,7 @@
                 else if (i == 2)
                 {
                     [button setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
-                    self.assistantRoleBtn = button;
+                    self.patrolRoleBtn = button;
                 }
             }
             else
@@ -1570,7 +1571,11 @@
                 else if (i == 2)
                 {
                     [button setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
-                    self.assistantRoleBtn = button;
+                    self.patrolRoleBtn = button;
+                }
+                else if (i == 3)
+                {
+                    
                 }
             }
             
@@ -1610,13 +1615,13 @@
     {
             [self.studentRoleBtn setTitle:YSLocalized(@"Role.Attendee") forState:UIControlStateNormal];
             [self.teacherRoleBtn setTitle:YSLocalized(@"Role.Host") forState:UIControlStateNormal];
-            [self.assistantRoleBtn setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+            [self.patrolRoleBtn setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
     }
     else
     {
         [self.studentRoleBtn setTitle:YSLocalized(@"Role.Student") forState:UIControlStateNormal];
         [self.teacherRoleBtn setTitle:YSLocalized(@"Role.Teacher") forState:UIControlStateNormal];
-        [self.assistantRoleBtn setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+        [self.patrolRoleBtn setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
     }
 }
 
@@ -1625,11 +1630,6 @@
     self.roleSelectView.hidden = YES;
     
     [self joinRoom];
-    
-//    self.selectedRoleBtn = self.studentRoleBtn;
-//    self.studentRoleBtn.selected = YES;
-//    self.teacherRoleBtn.selected = NO;
-    
 }
 
 /// 选择角色的点击事件
@@ -1655,12 +1655,7 @@
     [self.view endEditing:YES];
     
     switch (sender.tag) {
-//        case 0:
-//            self.roleSelectView.hidden = YES;
-//            self.passwordTextField.hidden = YES;
-//            self.passwordTextField.inputTextField.text = nil;
-//            self.selectedRoleBtn = self.studentRoleBtn;
-//            break;
+
         case 1:
             self.selectRoleType = YSUserType_Teacher;
             self.passwordTextField.hidden = NO;
@@ -1678,14 +1673,8 @@
             break;
         case 3:
             self.selectRoleType = YSUserType_Patrol;
-            if (self.needpwd)
-            {
-                self.passwordTextField.hidden = NO;
-            }
-            else
-            {
-                self.passwordTextField.hidden = YES;
-            }
+            self.passwordTextField.hidden = NO;
+
             break;
         default:
             break;
@@ -1777,7 +1766,6 @@
 #endif
         }
     }
-    
     if (textField.tag ==102 )
     {
         NSInteger existTextNum = textField.text.length;
@@ -1858,14 +1846,6 @@
             [YSEyeCareManager shareInstance].showRemindBlock = ^{
                 [mainVC showEyeCareRemind];
             };
-            
-            self.selectedRoleBtn.selected = NO;
-            self.passwordTextField.hidden = YES;
-            self.passwordTextField.inputTextField.text = nil;
-            self.selectedRoleBtn = self.studentRoleBtn;
-            self.selectedRoleBtn.selected = YES;
-            self.roleSelectView.hidden = YES;
-            self.selectRoleType = YSUserType_Student;
         }
         else
         {
@@ -1882,6 +1862,14 @@
                 [mainVC showEyeCareRemind];
             };
         }
+        
+        self.selectedRoleBtn.selected = NO;
+        self.passwordTextField.hidden = YES;
+        self.passwordTextField.inputTextField.text = nil;
+        self.selectedRoleBtn = self.studentRoleBtn;
+        self.selectedRoleBtn.selected = YES;
+        self.roleSelectView.hidden = YES;
+        self.selectRoleType = YSUserType_Student;
     }
     else
 #endif

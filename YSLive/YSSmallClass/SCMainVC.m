@@ -485,19 +485,23 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
     
-    // 设置左侧工具栏
-    [self setupBrushToolView];
-    
-    // 翻页控件
-    [self setupBoardControlView];
-    
-    // 右侧聊天视图
-    [self.view addSubview:self.rightChatView];
-    
-    //弹出聊天框的按钮
-    [self.view addSubview:self.chatBtn];
+    if (YSCurrentUser.role == YSUserType_Student)
+    {
+        // 设置左侧工具栏
+        [self setupBrushToolView];
+        
+        // 翻页控件
+        [self setupBoardControlView];
+        
+        // 右侧聊天视图
+        [self.view addSubview:self.rightChatView];
+        
+        //弹出聊天框的按钮
+        [self.view addSubview:self.chatBtn];
+    }
 
-    if (self.roomtype == YSRoomType_More) {
+    if (self.roomtype == YSRoomType_More && YSCurrentUser.role == YSUserType_Student)
+    {
          //举手上台的按钮
          [self.view addSubview:self.raiseHandsBtn];
     }
