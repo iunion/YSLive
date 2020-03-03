@@ -258,6 +258,8 @@
 		87F528542406745C0040F8FD /* YSStudentResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5281C2406745C0040F8FD /* YSStudentResponder.h */; };
 		87F52858240675720040F8FD /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F52856240675710040F8FD /* YSCircleProgress.m */; };
 		87F52859240675720040F8FD /* YSCircleProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F52857240675710040F8FD /* YSCircleProgress.h */; };
+		87F5285C240DE7DE0040F8FD /* YSCoreStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F5285A240DE7DE0040F8FD /* YSCoreStatus.h */; };
+		87F5285D240DE7DE0040F8FD /* YSCoreStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F5285B240DE7DE0040F8FD /* YSCoreStatus.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -527,6 +529,8 @@
 		87F5281C2406745C0040F8FD /* YSStudentResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSStudentResponder.h; sourceTree = "<group>"; };
 		87F52856240675710040F8FD /* YSCircleProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCircleProgress.m; sourceTree = "<group>"; };
 		87F52857240675710040F8FD /* YSCircleProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSCircleProgress.h; sourceTree = "<group>"; };
+		87F5285A240DE7DE0040F8FD /* YSCoreStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSCoreStatus.h; sourceTree = "<group>"; };
+		87F5285B240DE7DE0040F8FD /* YSCoreStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCoreStatus.m; sourceTree = "<group>"; };
 		C7C512135F086506D3B25E63 /* Pods-YSLiveSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSDK.debug.xcconfig"; path = "Target Support Files/Pods-YSLiveSDK/Pods-YSLiveSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -666,10 +670,12 @@
 		877B44C923D03FAB00A88540 /* YSNetWorkApi */ = {
 			isa = PBXGroup;
 			children = (
-				877B44CB23D03FAB00A88540 /* YSLocation.m */,
-				877B44CC23D03FAB00A88540 /* YSAPIMacros.h */,
 				877B44CD23D03FAB00A88540 /* YSApiRequest */,
+				877B44CC23D03FAB00A88540 /* YSAPIMacros.h */,
 				877B44D023D03FAB00A88540 /* YSLocation.h */,
+				877B44CB23D03FAB00A88540 /* YSLocation.m */,
+				87F5285A240DE7DE0040F8FD /* YSCoreStatus.h */,
+				87F5285B240DE7DE0040F8FD /* YSCoreStatus.m */,
 			);
 			path = YSNetWorkApi;
 			sourceTree = "<group>";
@@ -677,8 +683,8 @@
 		877B44CD23D03FAB00A88540 /* YSApiRequest */ = {
 			isa = PBXGroup;
 			children = (
-				877B44CE23D03FAB00A88540 /* YSApiRequest.m */,
 				877B44CF23D03FAB00A88540 /* YSApiRequest.h */,
+				877B44CE23D03FAB00A88540 /* YSApiRequest.m */,
 			);
 			path = YSApiRequest;
 			sourceTree = "<group>";
@@ -1394,6 +1400,7 @@
 				87F528462406745C0040F8FD /* SCAnswerDetailTableViewCell.h in Headers */,
 				877B45E423D03FDA00A88540 /* YSChatMessageModel.h in Headers */,
 				87F527D8240674520040F8FD /* SCTeacherCoursewareListCell.h in Headers */,
+				87F5285C240DE7DE0040F8FD /* YSCoreStatus.h in Headers */,
 				877B44E523D03FBB00A88540 /* YSVCProtocol.h in Headers */,
 				877B45E823D03FDA00A88540 /* YSChatView.h in Headers */,
 				87204457238F7A210069761B /* YSSDKDefine.h in Headers */,
@@ -1571,6 +1578,7 @@
 				87F5283F2406745C0040F8FD /* SCAnswerDetailTableViewCell.m in Sources */,
 				877B46B423D03FE300A88540 /* SCEyeCareWindow.m in Sources */,
 				877B44E623D03FBB00A88540 /* YSMainSuperVC.m in Sources */,
+				87F5285D240DE7DE0040F8FD /* YSCoreStatus.m in Sources */,
 				877B44A623D03F0000A88540 /* YSLiveRoomConfiguration.m in Sources */,
 				877B45E023D03FDA00A88540 /* YSChatMemberListVC.m in Sources */,
 				87F5284B2406745C0040F8FD /* YSStudentTimerView.m in Sources */,

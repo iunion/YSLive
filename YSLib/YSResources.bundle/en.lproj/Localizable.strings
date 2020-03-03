@@ -6,6 +6,8 @@
  Copyright © 2016年 macmini. All rights reserved.
  */
 
+"SDK.VCError" = "Please create a UIViewcontroller instance";
+
 "HUD.EnteringClass" = "Entering class";
 
 "Error.NoMeeting" = "The room doesn't exist.";

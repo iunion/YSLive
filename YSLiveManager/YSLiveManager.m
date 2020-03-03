@@ -2252,7 +2252,14 @@ static YSLiveManager *liveManagerSingleton = nil;
 #ifdef DEBUG
             alertMessage = [NSString stringWithFormat:@"%@(%@)", YSLocalized(@"Error.WaitingForNetwork"), @(errorCode)];
 #else
-            alertMessage = [NSString stringWithFormat:@"%@", YSLocalized(@"Error.WaitingForNetwork")];
+            if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+            {
+                alertMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+            }
+            else
+            {
+                alertMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+            }
 #endif
         }
             break;

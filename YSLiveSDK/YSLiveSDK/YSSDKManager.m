@@ -9,6 +9,8 @@
 #import "YSSDKManager.h"
 #import "YSLiveApiRequest.h"
 
+#import "YSCoreStatus.h" //网络状态
+
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
@@ -19,7 +21,8 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
 
 @interface YSSDKManager ()
 <
-    YSLiveRoomManagerDelegate
+    YSLiveRoomManagerDelegate,
+    YSCoreNetWorkStatusProtocol
 >
 /// 底部的角色type
 @property (nonatomic, assign) YSUserRoleType selectRoleType;
@@ -47,6 +50,11 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
     return _sharedInstance;
 }
 
+- (void)dealloc
+{
+    [YSCoreStatus endMonitorNetwork:self];
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -56,6 +64,7 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
         NSString *sdkVersion = [NSString stringWithFormat:@"%@", YSSDKVersionString];
         BMLog(@"SDK Version :%@", sdkVersion);
 #endif
+        [YSCoreStatus beginMonitorNetwork:self];
     }
     return self;
 }
@@ -152,11 +161,6 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
 // 成功进入房间
 - (void)onRoomJoined:(long)ts;
 {
-    if ([self.delegate respondsToSelector:@selector(onRoomJoined:)])
-    {
-        [self.delegate onRoomJoined:ts];
-    }
-
     UIViewController *rootVC = nil;
     if ([self.delegate isKindOfClass:[UIViewController class]])
     {
@@ -181,6 +185,17 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
         }
     }
     
+    if ([rootVC isKindOfClass:[UIViewController class]])
+    {
+        NSAssert(NO, @"View must not be nil.");
+        return;
+    }
+
+    if ([self.delegate respondsToSelector:@selector(onRoomJoined:)])
+    {
+        [self.delegate onRoomJoined:ts];
+    }
+
     // 3: 小班课  4: 直播
     NSUInteger roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
     BOOL isSmallClass = (roomtype == YSAppUseTheTypeSmallClass || roomtype == YSAppUseTheTypeMeeting);
