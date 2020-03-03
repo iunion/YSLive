@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///app使用场景  3：小班课  4：直播   6：会议
 @property (nonatomic, assign) YSAppUseTheType appUseTheType;
 
+// 等待重连
+@property (nonatomic, assign) BOOL waitingForReconnect;
+
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 
