@@ -159,7 +159,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isPlayback;
 
 
-- (nullable NSDictionary *)resolveJoinRoomParamsWithUrl:(NSURL *)url;
+/// 浏览器打开app的URL解析
++ (nullable NSDictionary *)resolveJoinRoomParamsWithUrl:(NSURL *)url;
 
 + (instancetype)shareInstance;
 - (void)destroy;
