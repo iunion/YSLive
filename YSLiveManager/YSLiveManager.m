@@ -609,6 +609,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (NSUInteger)userCountWithUserRole:(YSUserRoleType)role
 {
+    // "{"num":2,"rolenums":{"0":0,"1":0,"2":2,"3":0,"4":0,"5":0}}"
     NSUInteger count = [self.userCountDetailDic bm_uintForKey:@(role)];
     
     return count;
@@ -745,7 +746,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         roleName = YSLocalized(@"Role.Student");
     }
     
-    if (showMessge && aRoomUser.role != YSUserType_Patrol)
+    if (!self.isBigRoom && showMessge && aRoomUser.role != YSUserType_Patrol)
     {
         NSString *message = [NSString stringWithFormat:@"%@(%@) %@", aRoomUser.nickName,roleName,YSLocalized(@"Action.EnterRoom")];
         [self sendTipMessage:message tipType:YSChatMessageTypeTips];
@@ -754,24 +755,25 @@ static YSLiveManager *liveManagerSingleton = nil;
 //    [[NSNotificationCenter defaultCenter] postNotificationName:ysUserListNotification object:nil];
 }
 
-- (YSRoomUser *)getRoomUserWithPeerId:(NSString *)peerId
-{
-    for (YSRoomUser *user in self.userList)
-    {
-        if ([user.peerID isEqualToString:peerId])
-        {
-            return user;
-        }
-    }
-    
-    return nil;
-}
+// 内部使用
+//- (YSRoomUser *)getRoomUserWithPeerId:(NSString *)peerId
+//{
+//    for (YSRoomUser *user in self.userList)
+//    {
+//        if ([user.peerID isEqualToString:peerId])
+//        {
+//            return user;
+//        }
+//    }
+//
+//    return nil;
+//}
 
 - (void)delRoomUser:(YSRoomUser *)aRoomUser showMessge:(BOOL)showMessge
 {
     [self.userList removeObject:aRoomUser];
     
-    NSString * roleName = nil;
+    NSString *roleName = nil;
     
     if (aRoomUser.role == YSUserType_Teacher)
     {
@@ -795,10 +797,50 @@ static YSLiveManager *liveManagerSingleton = nil;
         roleName = YSLocalized(@"Role.Student");
     }
     
-    if (showMessge && aRoomUser.role != YSUserType_Patrol)
+    if (!self.isBigRoom && showMessge && aRoomUser.role != YSUserType_Patrol)
     {
         NSString *message = [NSString stringWithFormat:@"%@(%@) %@", aRoomUser.nickName,roleName,YSLocalized(@"Action.ExitRoom")];
         [self sendTipMessage:message tipType:YSChatMessageTypeTips];
+    }
+}
+
+- (void)freshUserList
+{
+    if (!self.isBigRoom)
+    {
+        return;
+    }
+    
+    NSMutableArray *userList = [[NSMutableArray alloc] init];
+    for (YSRoomUser *roomUser in self.userList)
+    {
+        if (roomUser.publishState > YSUser_PublishState_NONE)
+        {
+            [userList addObject:roomUser];
+        }
+    }
+    
+    self.userList = userList;
+}
+
+- (void)removeUserWhenBigRoomWithPeerId:(NSString *)peerId
+{
+    if (!self.isBigRoom)
+    {
+        return;
+    }
+    
+    for (YSRoomUser *roomUser in self.userList)
+    {
+        if ([peerId isEqualToString:roomUser.peerID])
+        {
+            if (roomUser.publishState <= YSUser_PublishState_NONE)
+            {
+                [self.userList removeObject:roomUser];
+            }
+            
+            break;
+        }
     }
 }
 
@@ -1307,6 +1349,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         return;
     }
     
+    [self removeUserWhenBigRoomWithPeerId:peerID];
+    
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomUserPropertyChanged:properties:fromId:)])
     {
         [self.roomManagerDelegate onRoomUserPropertyChanged:peerID properties:properties fromId:fromId];
@@ -1489,13 +1533,17 @@ static YSLiveManager *liveManagerSingleton = nil;
             NSUInteger count = [dataDic bm_uintForKey:@"num"];
             NSDictionary *detailCountDic = [dataDic bm_dictionaryForKey:@"rolenums"];
             
-            self.isBigRoom = YES;
             self.userCount = count;
             self.userCountDetailDic = detailCountDic;
             
-            if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeToBigRoom)])
+            if (!self.isBigRoom)
             {
-                [self.roomManagerDelegate roomManagerChangeToBigRoom];
+                self.isBigRoom = YES;
+                [self freshUserList];
+                if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeToBigRoom)])
+                {
+                    [self.roomManagerDelegate roomManagerChangeToBigRoom];
+                }
             }
         }
         

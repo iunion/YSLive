@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否大房间
 @property (nonatomic, assign, readonly) BOOL isBigRoom;
 
-/// 房间用户列表
+/// 房间用户列表，大房间时只保留上台用户
 @property (nonatomic, strong, readonly) NSMutableArray <YSRoomUser *> *userList;
 
 /// 老师数据
@@ -173,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)doMsgCachePool;
 
-//判断设备是否是高端机型，能否支持多人上台
+/// 判断设备是否是高端机型，能否支持多人上台
 - (BOOL)devicePlatformHighEndEquipment;
 
 
@@ -203,6 +203,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 房间内各身份人数
 - (NSUInteger)userCountWithUserRole:(YSUserRoleType)role;
+/// 大房间时，用户下台需要清理房间用户列表 userList
+- (void)removeUserWhenBigRoomWithPeerId:(NSString *)peerId;
+//- (void)freshUserList;
 
 - (YSFileModel *)getFileWithFileID:(NSString *)fileId;
 
