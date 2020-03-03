@@ -60,12 +60,11 @@
         NSMutableArray *imageArray = [[NSMutableArray alloc] init];
         for (NSUInteger i=1; i<=21; i++)
         {
-            NSString *imageName = [NSString stringWithFormat:@"ysfloatview_loding%lu", (unsigned long)i];
+            NSString *imageName = [NSString stringWithFormat:@"ysfloatview_loding%@", @(i)];
             [imageArray addObject:imageName];
         }
         [imageView bm_animationWithImageArray:imageArray duration:3 repeatCount:0];
         [imageView startAnimating];
-        self.backImageView = imageView;
 
         self.showWaiting = NO;
 
