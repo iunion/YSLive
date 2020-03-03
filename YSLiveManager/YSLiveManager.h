@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if YSSDK
 @property (nullable, nonatomic, weak) id <YSLiveRoomManagerDelegate> sdkDelegate;
+// 区分是否进入教室
+@property (nonatomic, assign) BOOL sdkIsJoinRoom;
 #endif
 
 @property (nullable, nonatomic, weak) id <YSLiveRoomManagerDelegate> roomManagerDelegate;
@@ -84,7 +86,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) YSFileModel *currentFile;
 
 
-/// 房间用户列表
+/// 是否大房间
+@property (nonatomic, assign, readonly) BOOL isBigRoom;
+
+/// 房间用户列表，大房间时只保留上台用户
 @property (nonatomic, strong, readonly) NSMutableArray <YSRoomUser *> *userList;
 
 /// 老师数据
@@ -92,8 +97,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前用户
 @property (nonatomic, strong, readonly) YSRoomUser *localUser;
 
-/// 房间用户数
+/// BigRoom使用 只有超过100人后
+/// 房间用户数(总人数)
 @property (nonatomic, assign, readonly) NSUInteger userCount;
+@property (nonatomic, strong, readonly) NSDictionary *userCountDetailDic;
+
+/// 0老师 普通房间可用
+@property (nonatomic, assign, readonly) NSUInteger teacherCount;
+/// 1助教 普通房间可用
+@property (nonatomic, assign, readonly) NSUInteger assistantCount;
+/// 2学生 普通房间可用
+@property (nonatomic, assign, readonly) NSUInteger studentCount;
+/// 3直播
+@property (nonatomic, assign, readonly) NSUInteger liveCount;
+/// 4巡课
+@property (nonatomic, assign, readonly) NSUInteger patrolCount;
+/// 5班主任
+@property (nonatomic, assign, readonly) NSUInteger masterCount;
+
+
+
 /// 全体禁言
 @property (nonatomic, assign) BOOL isEveryoneBanChat;
 /// 是否打开上麦功能
@@ -150,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)doMsgCachePool;
 
-//判断设备是否是高端机型，能否支持多人上台
+/// 判断设备是否是高端机型，能否支持多人上台
 - (BOOL)devicePlatformHighEndEquipment;
 
 
@@ -180,6 +203,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 房间内各身份人数
 - (NSUInteger)userCountWithUserRole:(YSUserRoleType)role;
+/// 大房间时，用户下台需要清理房间用户列表 userList
+- (void)removeUserWhenBigRoomWithPeerId:(NSString *)peerId;
+//- (void)freshUserList;
 
 - (YSFileModel *)getFileWithFileID:(NSString *)fileId;
 
@@ -206,11 +232,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript;
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode;
 
+#pragma mark 房间状态变为大房间
+- (void)roomManagerChangeToBigRoom;
+
 #pragma mark 网络状态
 /// 自己的网络状态变化
 - (void)roomManagerUserChangeNetStats:(id)stats;
 /// 老师主播的网络状态变化
-- (void)roomManagerTeacherrChangeNetStats:(id)stats;
+- (void)roomManagerTeacherChangeNetStats:(id)stats;
 
 
 #pragma mark get Message
@@ -345,7 +374,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 收到答题卡占位
 - (void)handleSignalingAnswerOccupyedWithAnswerId:(NSString *)answerId startTime:(NSInteger)startTime;
 /// 收到答题卡
-- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(NSArray *)options startTime:(NSInteger)startTime;
+- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(NSArray *)options startTime:(NSInteger)startTime fromID:(NSString *)fromID;
 /// 收到学生的答题情况
 - (void)handleSignalingTeacherAnswerGetResultWithAnswerId:(NSString *)answerId totalUsers:(NSInteger)totalUsers values:(NSDictionary *)values ;
 /// 答题结果

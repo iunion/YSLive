@@ -1672,7 +1672,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 老师主播的网络状态变化
-- (void)roomManagerTeacherrChangeNetStats:(id)stats
+- (void)roomManagerTeacherChangeNetStats:(id)stats
 {
     YSNetQuality netQuality;
     /// 网络延时
@@ -3457,7 +3457,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     };
 }
 #pragma mark 收到答题卡
-- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(NSArray *)options startTime:(NSInteger)startTime
+- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(NSArray *)options startTime:(NSInteger)startTime fromID:(NSString *)fromID
 {
     _isOpenResult = NO;
     _answerStartTime = startTime;
@@ -3492,6 +3492,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.answerResultView = [[SCTeacherAnswerView alloc] init];
     [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     self.answerResultView.isAnswerIng = YES;
+    if (![fromID isEqualToString:self.liveManager.teacher.peerID])
+    {
+        [self.answerResultView hideOpenResult:YES];
+        [self.answerResultView hideEndAgainBtn:YES];
+        [self.answerResultView hideCloseBtn:YES];
+    }
     BMWeakSelf
     self.answerResultView.detailBlock = ^(SCTeacherAnswerViewType type) {
         /// 切换详情统计
@@ -3671,6 +3677,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingAnswerPublicResultWithAnswerId:(NSString *)answerId resault:(NSDictionary *)resault durationStr:(NSString *)durationStr answers:(NSArray *)answers totalUsers:(NSUInteger)totalUsers
 {
     self.answerResultView.isAnswerIng = NO;
+      
+    [self.answerResultView hideEndAgainBtn:NO];
+
     [self.answerResultView setAnswerResultWithStaticsDic:resault detailArr:answers duration:durationStr rightOption:self.rightAnswer totalUsers:totalUsers];
     BMWeakSelf
     self.answerResultView.againBlock = ^{

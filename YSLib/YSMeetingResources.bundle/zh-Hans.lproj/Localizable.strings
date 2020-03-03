@@ -6,6 +6,8 @@
  Copyright © 2016年 macmini. All rights reserved.
  */
 
+"SDK.VCError" = "请创建一个UIViewController";
+
 "HUD.EnteringClass" = "正在进入房间";
 
 "Error.NoMeeting" = "房间号不存在";

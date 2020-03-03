@@ -8,9 +8,9 @@
 
 #import "YSApiRequest.h"
 #import "YSLocation.h"
+#import "YSCoreStatus.h"
 #if YSSDK
 #else
-#import "YSCoreStatus.h"
 #import "YSSchoolUser.h"
 #endif
 
@@ -51,9 +51,9 @@
             break;
         case YSAPI_NET_ERRORCODE:
         {
-#if YSSDK
-            errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
-#else
+//#if YSSDK
+//            errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+//#else
             if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
             {
                 errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
@@ -62,7 +62,7 @@
             {
                 errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
             }
-#endif
+//#endif
         }
             break;
             
