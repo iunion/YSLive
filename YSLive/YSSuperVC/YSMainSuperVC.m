@@ -99,9 +99,6 @@
 /// 失去连接
 - (void)onRoomConnectionLost
 {
-    // 等待重连
-    self.waitingForReconnect = YES;
-
     [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES];
 }
 
@@ -112,9 +109,6 @@
 //onRoomConnectionLost
     BMLog(@"=========== reconnect onRoomJoined");
     [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
-    
-    // 等待重连
-    self.waitingForReconnect = NO;
 }
 
 // 已经离开房间

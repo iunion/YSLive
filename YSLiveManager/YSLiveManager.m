@@ -900,10 +900,18 @@ static YSLiveManager *liveManagerSingleton = nil;
     //    return;
     //}
     
+//    if (self.waitingForReconnect)
+//    {
+//
+//    }
+    
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomJoined:)])
     {
         [self.roomManagerDelegate onRoomJoined:ts];
     }
+
+    // 等待重连
+    self.waitingForReconnect = NO;
 
     [self addRoomUser:self.roomManager.localUser showMessge:YES];
 }
@@ -949,6 +957,9 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     BMLog(@"onRoomConnectionLost");
     
+    // 等待重连
+    self.waitingForReconnect = YES;
+
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomConnectionLost)])
     {
         [self.roomManagerDelegate onRoomConnectionLost];
