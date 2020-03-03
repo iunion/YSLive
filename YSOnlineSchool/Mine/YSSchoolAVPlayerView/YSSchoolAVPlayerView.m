@@ -376,7 +376,7 @@
 {
     [self removeObserver];
     // 注销通知
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    //[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.avPlayer = nil;
 }
