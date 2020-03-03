@@ -276,7 +276,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 {
     UIView * view = [[UIView alloc]init];
     
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 40)];
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ListView_Width, 40)];
     label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
     label.textColor = [UIColor bm_colorWithHex:0xFFE895];
     label.font = [UIFont systemFontOfSize:14];
