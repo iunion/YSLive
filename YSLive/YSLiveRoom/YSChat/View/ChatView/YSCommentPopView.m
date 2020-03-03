@@ -18,7 +18,7 @@
 
 @property(nonatomic,weak)UITableView * tableview;
 
-@property(nonatomic,assign)NSIndexPath * selectIndex;
+@property(nonatomic,strong)NSIndexPath * selectIndex;
 
 @end
 
@@ -62,7 +62,8 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:key];
     }
     
-    if (self.selectIndex == indexPath) {
+    if (self.selectIndex == indexPath)
+    {
         cell.textLabel.textColor = [UIColor bm_colorWithHexString:@"#FFE895"];
     }else{
         cell.textLabel.textColor = [UIColor whiteColor];

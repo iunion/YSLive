@@ -1780,20 +1780,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///刷新举手上台的人数
 - (void)raiseHandReloadData
 {
-    NSInteger userNum = self.liveManager.userList.count;
+    NSInteger userNum = self.liveManager.studentCount;
     
-    for (YSRoomUser * user in self.liveManager.userList) {
-        if (user.role != YSUserType_Student)
-        {
-            userNum --;
-        }
-    }
-    if (userNum<0)
-    {
-        userNum = 0;
-    }
-    
-    self.handNumLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)self.raiseHandArray.count,(long)userNum];
+    self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userNum];
 }
 
 
