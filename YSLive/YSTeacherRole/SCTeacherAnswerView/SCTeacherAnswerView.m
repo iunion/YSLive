@@ -386,12 +386,12 @@
     _isAnswerIng = isAnswerIng;
     if (isAnswerIng)
     {
-        self.openResultBtn.hidden = NO;
+        [self hideOpenResult:NO];
         [self.endAgainBtn setTitle:YSLocalized(@"tool.end") forState:UIControlStateNormal];
     }
     else
     {
-        self.openResultBtn.hidden = YES;
+        [self hideOpenResult:YES];
         [self.endAgainBtn setTitle:YSLocalized(@"tool.restart") forState:UIControlStateNormal];
     }
     
@@ -622,22 +622,22 @@
         case SCTeacherAnswerViewType_Statistics:
         {
             [self.topBtn setTitle:YSLocalized(@"tool.detail") forState:UIControlStateNormal];
-            self.endAgainBtn.hidden = NO;
+            [self hideEndAgainBtn:NO];
             if (self.isAnswerIng)
             {
-                self.openResultBtn.hidden = NO;
+                [self hideOpenResult:NO];
             }
             else
             {
-                self.openResultBtn.hidden = YES;
+                [self hideOpenResult:YES];
             }
 //            self.resultLable.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"tool.zhengquedaan"),self.rightResultStr];
         }
             break;
         case SCTeacherAnswerViewType_Details:
         {
-            self.endAgainBtn.hidden = self.isAnswerIng;
-            self.openResultBtn.hidden = YES;
+            [self hideEndAgainBtn:self.isAnswerIng];
+            [self hideOpenResult:YES];
             [self.topBtn setTitle:YSLocalized(@"tool.tongji") forState:UIControlStateNormal];
 //            self.resultLable.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"tool.zhengquedaan"),self.rightResultStr];
         }
@@ -672,7 +672,18 @@
     }
 }
 
-
+- (void)hideOpenResult:(BOOL)hide
+{
+    self.openResultBtn.hidden = hide;
+}
+- (void)hideEndAgainBtn:(BOOL)hide
+{
+    self.endAgainBtn.hidden = hide;
+}
+- (void)hideCloseBtn:(BOOL)hide
+{
+    self.closeBtn.hidden = hide;
+}
 #pragma mark - Lazy
 
 - (UIView *)bacView

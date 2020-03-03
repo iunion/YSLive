@@ -1460,9 +1460,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser withDelegate:self];
         videoView.appUseTheType = self.appUseTheType;
         newVideoView = videoView;
+        static int upPlatformTag = 0;// 标记上台的人，用于排序
         if (videoView)
         {
+            
             [self.videoViewArray addObject:videoView];
+            videoView.tag = upPlatformTag;
+            upPlatformTag++;
+
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoView = videoView;
@@ -2275,7 +2280,48 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList && self.topSelectBtn.selected)
     {
         //花名册  有用户进入房间调用 上下课调用
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList];
+               //花名册  有用户进入房间调用 上下课调用
+         NSMutableArray *personList = [NSMutableArray arrayWithCapacity:0];
+         NSMutableArray *assistantList = [NSMutableArray arrayWithCapacity:0];
+         NSMutableArray *studentList = [NSMutableArray arrayWithCapacity:0];
+         NSMutableArray *uplatformList = [NSMutableArray arrayWithArray:self.videoViewArray];
+         [uplatformList sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
+             return obj1.tag > obj2.tag;
+         }];
+         
+         for (int i = 0; i < uplatformList.count; i++)
+         {
+             SCVideoView *video = uplatformList[i];
+             if (video.roomUser.role == YSUserType_Assistant)
+             {
+                 [assistantList addObject:video.roomUser];
+             }
+             else if (video.roomUser.role == YSUserType_Student)
+             {
+                 [studentList addObject:video.roomUser];
+             }
+             
+         }
+         
+         for (int i = 0; i < self.liveManager.userList.count; i++)
+         {
+             YSRoomUser *roomUser = self.liveManager.userList[i];
+             if (roomUser.publishState <= YSUser_PublishState_NONE)
+             {
+                 if (roomUser.role == YSUserType_Assistant)
+                 {
+                     [assistantList addObject:roomUser];
+                 }
+                 else if (roomUser.role == YSUserType_Student)
+                 {
+                     [studentList addObject:roomUser];
+                 }
+             }
+         }
+         [personList addObjectsFromArray:assistantList];
+         [personList addObjectsFromArray:studentList];
+         [self.teacherListView setDataSource:personList withType:SCTeacherTopBarTypePersonList];
+    
     }
 
 }
@@ -3062,7 +3108,48 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         //花名册  有用户进入房间调用 上下课调用
         [self freshListViewWithSelect:!btn.selected];
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList];
+        
+        //花名册  有用户进入房间调用 上下课调用
+        NSMutableArray *personList = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *assistantList = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *studentList = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *uplatformList = [NSMutableArray arrayWithArray:self.videoViewArray];
+        [uplatformList sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
+            return obj2.tag > obj1.tag;
+        }];
+        
+        for (int i = 0; i < uplatformList.count; i++)
+        {
+            SCVideoView *video = uplatformList[i];
+            if (video.roomUser.role == YSUserType_Assistant)
+            {
+                [assistantList addObject:video.roomUser];
+            }
+            else if (video.roomUser.role == YSUserType_Student)
+            {
+                [studentList addObject:video.roomUser];
+            }
+            
+        }
+        
+        for (int i = 0; i < self.liveManager.userList.count; i++)
+        {
+            YSRoomUser *roomUser = self.liveManager.userList[i];
+            if (roomUser.publishState <= YSUser_PublishState_NONE)
+            {
+                if (roomUser.role == YSUserType_Assistant)
+                {
+                    [assistantList addObject:roomUser];
+                }
+                else if (roomUser.role == YSUserType_Student)
+                {
+                    [studentList addObject:roomUser];
+                }
+            }
+        }
+        [personList addObjectsFromArray:assistantList];
+        [personList addObjectsFromArray:studentList];
+        [self.teacherListView setDataSource:personList withType:SCTeacherTopBarTypePersonList];
 //        [self freshTeacherPersonListData];
     }
     
@@ -3370,7 +3457,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     };
 }
 #pragma mark 收到答题卡
-- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(NSArray *)options startTime:(NSInteger)startTime
+- (void)handleSignalingSendAnswerWithAnswerId:(NSString *)answerId options:(NSArray *)options startTime:(NSInteger)startTime fromID:(NSString *)fromID
 {
     _isOpenResult = NO;
     _answerStartTime = startTime;
@@ -3405,6 +3492,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.answerResultView = [[SCTeacherAnswerView alloc] init];
     [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     self.answerResultView.isAnswerIng = YES;
+    if (![fromID isEqualToString:self.liveManager.teacher.peerID])
+    {
+        [self.answerResultView hideOpenResult:YES];
+        [self.answerResultView hideEndAgainBtn:YES];
+        [self.answerResultView hideCloseBtn:YES];
+    }
     BMWeakSelf
     self.answerResultView.detailBlock = ^(SCTeacherAnswerViewType type) {
         /// 切换详情统计
@@ -3584,6 +3677,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingAnswerPublicResultWithAnswerId:(NSString *)answerId resault:(NSDictionary *)resault durationStr:(NSString *)durationStr answers:(NSArray *)answers totalUsers:(NSUInteger)totalUsers
 {
     self.answerResultView.isAnswerIng = NO;
+      
+    [self.answerResultView hideEndAgainBtn:NO];
+
     [self.answerResultView setAnswerResultWithStaticsDic:resault detailArr:answers duration:durationStr rightOption:self.rightAnswer totalUsers:totalUsers];
     BMWeakSelf
     self.answerResultView.againBlock = ^{
