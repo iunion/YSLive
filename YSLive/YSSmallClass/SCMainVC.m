@@ -2115,7 +2115,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //        return;
     //    }
     //
-    YSRoomUser *roomUser = [[YSLiveManager shareInstance].roomManager getRoomUserWithUId:peerId];
+    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
     if (!roomUser)
     {
         return;
