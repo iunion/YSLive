@@ -187,7 +187,7 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
     
     if ([rootVC isKindOfClass:[UIViewController class]])
     {
-        NSAssert(NO, @"View must not be nil.");
+        NSAssert(NO, YSLocalized(@"SDK.VCError"));
         return;
     }
 
@@ -196,6 +196,8 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
         [self.delegate onRoomJoined:ts];
     }
 
+    self.liveManager.sdkIsJoinRoom = YES;
+    
     // 3: 小班课  4: 直播
     NSUInteger roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
     BOOL isSmallClass = (roomtype == YSAppUseTheTypeSmallClass || roomtype == YSAppUseTheTypeMeeting);
@@ -273,6 +275,12 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
  */
 - (void)onRoomConnectionLost
 {
+    // 未进入教室需要销毁liveManager
+    if (!self.liveManager.sdkIsJoinRoom)
+    {
+        [self.liveManager destroy];
+    }
+
     if ([self.delegate respondsToSelector:@selector(onRoomConnectionLost)])
     {
         [self.delegate onRoomConnectionLost];
@@ -284,6 +292,7 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
  */
 - (void)onRoomLeft
 {
+    self.liveManager.sdkIsJoinRoom = NO;
     if ([self.delegate respondsToSelector:@selector(onRoomLeft)])
     {
         [self.delegate onRoomLeft];
@@ -296,6 +305,7 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
  */
 - (void)onRoomKickedOut:(NSDictionary *)reason
 {
+    self.liveManager.sdkIsJoinRoom = NO;
     if ([self.delegate respondsToSelector:@selector(onRoomKickedOut:)])
     {
         [self.delegate onRoomKickedOut:reason];

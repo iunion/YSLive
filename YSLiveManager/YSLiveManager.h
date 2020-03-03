@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if YSSDK
 @property (nullable, nonatomic, weak) id <YSLiveRoomManagerDelegate> sdkDelegate;
+// 区分是否进入教室
+@property (nonatomic, assign) BOOL sdkIsJoinRoom;
 #endif
 
 @property (nullable, nonatomic, weak) id <YSLiveRoomManagerDelegate> roomManagerDelegate;
