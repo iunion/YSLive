@@ -1267,7 +1267,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 }
 
 /// 老师主播的网络状态变化
-- (void)roomManagerTeacherrChangeNetStats:(id)stats
+- (void)roomManagerTeacherChangeNetStats:(id)stats
 {
     YSNetQuality netQuality;
 

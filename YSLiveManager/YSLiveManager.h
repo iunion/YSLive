@@ -86,6 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) YSFileModel *currentFile;
 
 
+/// 是否大房间
+@property (nonatomic, assign, readonly) BOOL isBigRoom;
+
 /// 房间用户列表
 @property (nonatomic, strong, readonly) NSMutableArray <YSRoomUser *> *userList;
 
@@ -94,8 +97,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前用户
 @property (nonatomic, strong, readonly) YSRoomUser *localUser;
 
-/// 房间用户数
+/// BigRoom使用 只有超过100人后
+/// 房间用户数(总人数)
 @property (nonatomic, assign, readonly) NSUInteger userCount;
+@property (nonatomic, strong, readonly) NSDictionary *userCountDetailDic;
+
+/// 0老师 普通房间可用
+@property (nonatomic, assign, readonly) NSUInteger teacherCount;
+/// 1助教 普通房间可用
+@property (nonatomic, assign, readonly) NSUInteger assistantCount;
+/// 2学生 普通房间可用
+@property (nonatomic, assign, readonly) NSUInteger studentCount;
+/// 3直播
+@property (nonatomic, assign, readonly) NSUInteger liveCount;
+/// 4巡课
+@property (nonatomic, assign, readonly) NSUInteger patrolCount;
+/// 5班主任
+@property (nonatomic, assign, readonly) NSUInteger masterCount;
+
+
+
 /// 全体禁言
 @property (nonatomic, assign) BOOL isEveryoneBanChat;
 /// 是否打开上麦功能
@@ -208,11 +229,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript;
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode;
 
+#pragma mark 房间状态变为大房间
+- (void)roomManagerChangeToBigRoom;
+
 #pragma mark 网络状态
 /// 自己的网络状态变化
 - (void)roomManagerUserChangeNetStats:(id)stats;
 /// 老师主播的网络状态变化
-- (void)roomManagerTeacherrChangeNetStats:(id)stats;
+- (void)roomManagerTeacherChangeNetStats:(id)stats;
 
 
 #pragma mark get Message

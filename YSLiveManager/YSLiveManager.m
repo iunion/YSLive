@@ -52,6 +52,8 @@
 @property (nonatomic, strong) NSDictionary *roomDic;
 @property (nonatomic, strong) YSLiveRoomConfiguration *roomConfig;
 
+/// 是否大房间
+@property (nonatomic, assign) BOOL isBigRoom;
 
 // 房间用户列表
 @property (nonatomic, strong) NSMutableArray <YSRoomUser *> *userList;
@@ -61,7 +63,7 @@
 
 // 房间用户数
 @property (nonatomic, assign) NSUInteger userCount;
-@property (nonatomic, strong) NSDictionary *userDetailCountDic;
+@property (nonatomic, strong) NSDictionary *userCountDetailDic;
 
 // 全体禁言
 //@property (nonatomic, assign) BOOL isEveryoneBanChat;
@@ -607,9 +609,88 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (NSUInteger)userCountWithUserRole:(YSUserRoleType)role
 {
-    NSUInteger count = [self.userDetailCountDic bm_uintForKey:@(role)];
+    NSUInteger count = [self.userCountDetailDic bm_uintForKey:@(role)];
     
     return count;
+}
+
+- (NSUInteger)teacherCount
+{
+    if (self.isBigRoom)
+    {
+        return [self userCountWithUserRole:YSUserType_Teacher];
+    }
+    else
+    {
+        if (self.teacher)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+}
+
+- (NSUInteger)assistantCount
+{
+    if (self.isBigRoom)
+    {
+        return [self userCountWithUserRole:YSUserType_Assistant];
+    }
+    else
+    {
+        NSInteger userNum = self.userList.count;
+        for (YSRoomUser * user in self.userList)
+        {
+            if (user.role != YSUserType_Assistant)
+            {
+                userNum--;
+            }
+        }
+        if (userNum < 0)
+        {
+            userNum = 0;
+        }
+        
+        return userNum;
+    }
+}
+
+- (NSUInteger)studentCount
+{
+    if (self.isBigRoom)
+    {
+        return [self userCountWithUserRole:YSUserType_Student];
+    }
+    else
+    {
+        NSInteger userNum = self.userList.count;
+        for (YSRoomUser * user in self.userList)
+        {
+            if (user.role != YSUserType_Student)
+            {
+                userNum--;
+            }
+        }
+        if (userNum < 0)
+        {
+            userNum = 0;
+        }
+        
+        return userNum;
+    }
+}
+
+- (NSUInteger)liveCount
+{
+    return [self userCountWithUserRole:YSUserType_Live];
+}
+
+- (NSUInteger)patrolCount
+{
+    return [self userCountWithUserRole:YSUserType_Patrol];
 }
 
 - (void)addRoomUser:(YSRoomUser *)aRoomUser showMessge:(BOOL)showMessge
@@ -1091,8 +1172,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     YSRoomUser *roomUser = [self.roomManager getRoomUserWithUId:peerID];
     [self addRoomUser:roomUser showMessge:!inList];
     
-    
-    
     if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerJoinedUser:inList:)])
     {
         [self.roomManagerDelegate roomManagerJoinedUser:roomUser inList:inList];
@@ -1410,8 +1489,14 @@ static YSLiveManager *liveManagerSingleton = nil;
             NSUInteger count = [dataDic bm_uintForKey:@"num"];
             NSDictionary *detailCountDic = [dataDic bm_dictionaryForKey:@"rolenums"];
             
+            self.isBigRoom = YES;
             self.userCount = count;
-            self.userDetailCountDic = detailCountDic;
+            self.userCountDetailDic = detailCountDic;
+            
+            if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeToBigRoom)])
+            {
+                [self.roomManagerDelegate roomManagerChangeToBigRoom];
+            }
         }
         
         return;
@@ -1537,9 +1622,9 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
     else if ([peerId isEqualToString:self.teacher.peerID])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerTeacherrChangeNetStats:)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerTeacherChangeNetStats:)])
         {
-            [self.roomManagerDelegate roomManagerTeacherrChangeNetStats:stats];
+            [self.roomManagerDelegate roomManagerTeacherChangeNetStats:stats];
         }
     }
     
@@ -1571,9 +1656,9 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
     else if ([peerId isEqualToString:self.teacher.peerID])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerTeacherrChangeNetStats:)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerTeacherChangeNetStats:)])
         {
-            [self.roomManagerDelegate roomManagerTeacherrChangeNetStats:stats];
+            [self.roomManagerDelegate roomManagerTeacherChangeNetStats:stats];
         }
     }
     

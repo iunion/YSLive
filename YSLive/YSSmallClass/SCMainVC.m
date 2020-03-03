@@ -3112,7 +3112,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 老师主播的网络状态变化
-- (void)roomManagerTeacherrChangeNetStats:(id)stats
+- (void)roomManagerTeacherChangeNetStats:(id)stats
 {
     YSNetQuality netQuality;
     /// 网络延时
