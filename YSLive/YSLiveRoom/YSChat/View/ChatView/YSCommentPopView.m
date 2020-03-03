@@ -62,8 +62,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:key];
     }
     
-    if (self.selectIndex == indexPath)
-    {
+    if ([self.selectIndex compare:indexPath] == NSOrderedSame) {
         cell.textLabel.textColor = [UIColor bm_colorWithHexString:@"#FFE895"];
     }else{
         cell.textLabel.textColor = [UIColor whiteColor];

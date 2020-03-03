@@ -953,7 +953,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)addVidoeViewWithPeerId:(NSString *)peerId
 {
-    YSRoomUser *roomUser = [[YSLiveManager shareInstance].roomManager getRoomUserWithUId:peerId];
+    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
     if (!roomUser)
     {
         return;

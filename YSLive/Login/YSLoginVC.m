@@ -221,7 +221,7 @@
     
     if (self.loginUrl)
     {
-        NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:self.loginUrl];
+        NSDictionary *dic = [YSLiveManager resolveJoinRoomParamsWithUrl:self.loginUrl];
         self.loginUrl = nil;
         if (![dic bm_isNotEmptyDictionary])
         {
@@ -255,7 +255,7 @@
     NSString *urlstr =  @"joinroom://?host=demo.roadofcloud.com&domain=xzj&param=yqf-h_RjzTMLh8pbnyIHAoyhaXjcSeaZ2LXK2b7Cadzg2o4NYECOmOxfrjFxVN42yjWfictg5s5pqIxRpJy1Gg26dxosssvbR6A-OLn12TYaWhuBL_kx7o5ZSnPRPCRIAT8qff7E-1Q&timestamp=1583057949&roomtype=3&logintype=4&video=320*240&companyidentify=1&entryUserId=67af2ebd-2321-d387-dfaa-3e08d2ca9151";
     
     NSURL *url = [NSURL URLWithString:urlstr];
-    NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
+    NSDictionary *dic = [YSLiveManager resolveJoinRoomParamsWithUrl:url];
 
     if (![dic bm_isNotEmptyDictionary])
     {

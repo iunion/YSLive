@@ -191,7 +191,7 @@
         return NO;
     }
 
-    NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
+    NSDictionary *dic = [YSLiveManager resolveJoinRoomParamsWithUrl:url];
     if (![dic bm_isNotEmptyDictionary])
     {
         return NO;
@@ -217,7 +217,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation
 {
-    NSDictionary *dic = [[YSLiveManager shareInstance] resolveJoinRoomParamsWithUrl:url];
+    NSDictionary *dic = [YSLiveManager resolveJoinRoomParamsWithUrl:url];
     if (![dic bm_isNotEmptyDictionary])
     {
         return NO;

@@ -171,6 +171,69 @@ static YSLiveManager *liveManagerSingleton = nil;
 #endif
 }
 
+/// 浏览器打开app的URL解析
++ (NSDictionary *)resolveJoinRoomParamsWithUrl:(NSURL *)url
+{
+    NSDictionary *queryDictionary = nil;
+    
+    if (![[url absoluteString] containsString:@"="])
+    {
+        NSString * urlStr = [[url absoluteString] bm_URLDecode];
+        url = [NSURL URLWithString:urlStr];
+        if (![[url absoluteString] containsString:@"="])
+        {
+            return nil;
+        }
+    }
+    
+    queryDictionary = [url bm_queryDictionary];
+    
+    if (![queryDictionary bm_isNotEmptyDictionary])
+    {
+        return nil;
+    }
+    
+    // 有roomId，直接返回
+    if ([queryDictionary bm_containsObjectForKey:@"roomid"])
+    {
+        return queryDictionary;
+    }
+    
+    NSMutableDictionary *queryMutableDictionary = [[NSMutableDictionary alloc] initWithDictionary: queryDictionary];
+    NSString *host = [queryDictionary bm_stringTrimForKey:@"host"];
+    if (!host)
+    {
+        return nil;
+    }
+    [YSLiveManager shareInstance].liveHost = host;
+    
+    NSString *server = @"global";
+    if ([YSLiveUtil isDomain:host] == YES)
+    {
+        NSArray *array = [host componentsSeparatedByString:@"."];
+        server = [NSString stringWithFormat:@"%@", array[0]];
+    }
+    [queryMutableDictionary bm_setString:server forKey:@"server"];
+    [queryMutableDictionary bm_setInteger:3 forKey:@"clientType"];
+    
+    // 链接进入的 角色类型字段 是 logintype 不是 userrole 需要添加  user role
+    if (![queryMutableDictionary bm_containsObjectForKey:@"userrole"])
+    {
+        YSUserRoleType userrole = [queryMutableDictionary bm_uintForKey:@"logintype" withDefault:YSUserType_Student];
+        [queryMutableDictionary bm_setUInteger:userrole forKey:@"userrole"];
+    }
+    
+    YSUserRoleType userrole = [queryMutableDictionary bm_uintForKey:@"userrole"];
+    if (userrole == YSUserType_Teacher || userrole == YSUserType_Student || userrole == YSUserType_Patrol)
+    {
+        return queryMutableDictionary;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
 - (void)initializeManager
 {
     self.viewDidAppear = NO;
@@ -2230,95 +2293,6 @@ static YSLiveManager *liveManagerSingleton = nil;
 //         toID:(NSString *)toID
 //         data:(NSObject * _Nullable)data
 //   completion:(completion_block _Nullable)completion;
-
-//- (void)joinRoomWithUrl:(NSString *)url
-//{
-//    if (![self.roomDic bm_isNotEmptyDictionary])
-//    {
-//        if ([url hasPrefix:@"enterlive://"])
-//        {
-//            NSArray *tParamArray = [url componentsSeparatedByString:@"?"];
-//            NSArray *tParamArray2 = [[tParamArray objectAtIndex:1] componentsSeparatedByString:@"&"];
-//            
-//            NSMutableDictionary *tDic = [NSMutableDictionary dictionary];
-//            
-//            for (int i = 0; i < [tParamArray2 count]; i++)
-//            {
-//                NSArray *tArray = [[tParamArray2 objectAtIndex:i] componentsSeparatedByString:@"="];
-//
-//                NSString *tKey   = [tArray objectAtIndex:0];
-//                NSString *tValue = [tArray objectAtIndex:1];
-//                [tDic setValue:tValue forKey:tKey];
-//            }
-//            
-//            if ([tDic bm_containsObjectForKey:@"path"]) {
-//                
-//            }
-//        }
-//    }
-//}
-
-- (NSDictionary *)resolveJoinRoomParamsWithUrl:(NSURL *)url
-{
-    NSDictionary *queryDictionary = nil;
-    
-    if (![[url absoluteString] containsString:@"="])
-    {
-        NSString * urlStr = [[url absoluteString] bm_URLDecode];
-        url = [NSURL URLWithString:urlStr];
-        if (![[url absoluteString] containsString:@"="])
-        {
-            return nil;
-        }
-    }
-    
-    queryDictionary = [url bm_queryDictionary];
-    
-    if (![queryDictionary bm_isNotEmptyDictionary])
-    {
-        return nil;
-    }
-    
-    // 有roomId，直接返回
-    if ([queryDictionary bm_containsObjectForKey:@"roomid"])
-    {
-        return queryDictionary;
-    }
-    
-    NSMutableDictionary *queryMutableDictionary = [[NSMutableDictionary alloc] initWithDictionary: queryDictionary];
-    NSString *host = [queryDictionary bm_stringTrimForKey:@"host"];
-    if (!host)
-    {
-        return nil;
-    }
-    [YSLiveManager shareInstance].liveHost = host;
-    
-    NSString *server = @"global";
-    if ([YSLiveUtil isDomain:host] == YES)
-    {
-        NSArray *array = [host componentsSeparatedByString:@"."];
-        server = [NSString stringWithFormat:@"%@", array[0]];
-    }
-    [queryMutableDictionary bm_setString:server forKey:@"server"];
-    [queryMutableDictionary bm_setInteger:3 forKey:@"clientType"];
-    
-    // 链接进入的 角色类型字段 是 logintype 不是 userrole 需要添加  user role
-    if (![queryMutableDictionary bm_containsObjectForKey:@"userrole"])
-    {
-        YSUserRoleType userrole = [queryMutableDictionary bm_uintForKey:@"logintype" withDefault:YSUserType_Student];
-        [queryMutableDictionary bm_setUInteger:userrole forKey:@"userrole"];
-    }
-    
-    YSUserRoleType userrole = [queryMutableDictionary bm_uintForKey:@"userrole"];
-    if (userrole == YSUserType_Teacher || userrole == YSUserType_Student)
-    {
-        return queryMutableDictionary;
-    }
-    else
-    {
-        return nil;
-    }
-}
 
 
 /// 发生错误 回调的提示信息

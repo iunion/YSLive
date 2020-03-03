@@ -162,10 +162,17 @@ WithValue:(NSObject *)value
 /// 切换课件
 - (BOOL)sendSignalingTeacherToSwitchDocumentWithFile:(YSFileModel *)fileModel completion:(nullable completion_block)completion
 {
+    if (!fileModel)
+    {
+        return NO;
+    }
+    
     if ([YSLiveUtil checkIsMedia:fileModel.filetype])
     {
         BOOL tIsVideo = [YSLiveUtil checkIsVideo:fileModel.filetype];
-        NSDictionary *sendDic = @{@"filename":fileModel.filename,
+        
+        NSString *filename = fileModel.filename ? fileModel.filename : @"";
+        NSDictionary *sendDic = @{@"filename":filename,
                                   @"fileid":fileModel.fileid,
                                   @"pauseWhenOver":@(true),
                                   @"type": @"media",
@@ -186,17 +193,19 @@ WithValue:(NSObject *)value
         NSNumber *steptotal = [fileModel.steptotal bm_isNotEmpty] ? @(fileModel.steptotal.integerValue) : @(0);
         NSNumber *pagenum = [fileModel.pagenum bm_isNotEmpty] ? @(fileModel.pagenum.integerValue) : @(1);
         NSString *filetype = [fileModel.filetype bm_isNotEmpty] ? fileModel.filetype : @"";
+        NSString *filename = fileModel.filename ? fileModel.filename : @"";
+        NSString *swfpath = fileModel.swfpath ? fileModel.swfpath : @"";
         NSDictionary *fileData = @{@"currpage":currpage,
                                    @"pptslide":pptslide,
                                    @"pptstep":pptstep ,
                                    @"steptotal":steptotal,
                                    @"fileid":fileModel.fileid,
                                    @"pagenum":pagenum,
-                                   @"filename":fileModel.filename,
+                                   @"filename":filename,
                                    @"filetype":filetype,
                                    @"isContentDocument":fileModel.isContentDocument,
                                    @"cospdfpath":@"",
-                                   @"swfpath":fileModel.swfpath
+                                   @"swfpath":swfpath
                                 };
         
         NSDictionary *sendDic = @{@"sourceInstanceId":@"default",
