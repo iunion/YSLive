@@ -184,8 +184,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)setDeviceOrientation:(UIDeviceOrientation)orientation;
 
 /// 退出房间
-- (void)leaveRoom:(void (^_Nullable)(NSError *error))block;
-- (void)leaveRoom:(BOOL)force completion:(void (^_Nullable)(NSError *))block;
+- (void)leaveRoom:(completion_block _Nullable)block;
+- (void)leaveRoom:(BOOL)force completion:(completion_block _Nullable)block;
 
 /// 设置视频分辨率
 - (void)setVideoProfile:(YSVideoProfile *)videoProfile;

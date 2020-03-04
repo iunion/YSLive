@@ -998,12 +998,12 @@ static YSLiveManager *liveManagerSingleton = nil;
 }
 
 // 退出房间
-- (void)leaveRoom:(void (^)(NSError *error))block
+- (void)leaveRoom:(completion_block _Nullable)block
 {
     [self.roomManager leaveRoom:block];
 }
 
-- (void)leaveRoom:(BOOL)force completion:(void (^)(NSError *))block
+- (void)leaveRoom:(BOOL)force completion:(completion_block _Nullable)block
 {
     [self.roomManager leaveRoom:force Completion:block];
 }

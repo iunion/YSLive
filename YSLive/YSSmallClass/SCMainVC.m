@@ -698,15 +698,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.Quite") message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (weakSelf.topBarTimer)
-        {
-            dispatch_source_cancel(weakSelf.topBarTimer);
-            weakSelf.topBarTimer = nil;
-        }
-
-        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-        [weakSelf.liveManager destroy];
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        
+        [weakSelf.liveManager leaveRoom:nil];
+        
     }];
     UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
@@ -3244,15 +3238,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (weakSelf.topBarTimer)
-        {
-            dispatch_source_cancel(weakSelf.topBarTimer);
-            weakSelf.topBarTimer = nil;
-        }
-
-        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
-        [weakSelf.liveManager destroy];
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        
+        [weakSelf.liveManager leaveRoom:nil];
+        
     }];
     [alertVc addAction:confimAc];
     [self presentViewController:alertVc animated:YES completion:nil];
@@ -3724,14 +3712,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (weakSelf.topBarTimer)
-        {
-            dispatch_source_cancel(weakSelf.topBarTimer);
-            weakSelf.topBarTimer = nil;
-        }
-
-        [weakSelf.liveManager destroy];
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        
+        [weakSelf.liveManager leaveRoom:nil];
+        
     }];
     [alertVc addAction:confimAc];
     [self presentViewController:alertVc animated:YES completion:nil];
