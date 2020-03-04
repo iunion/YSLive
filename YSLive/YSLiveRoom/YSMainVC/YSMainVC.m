@@ -413,10 +413,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             // 关闭页面
             if (buttonIndex == 1)
             {
-                [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-                [weakSelf.liveManager destroy];
-//                [weakSelf.navigationController popViewControllerAnimated:YES];
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                [weakSelf.liveManager leaveRoom:nil];
             }
         }];
     }
@@ -1092,11 +1089,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
     BMWeakSelf
     [BMAlertView ys_showAlertWithTitle:reasonString message:nil cancelTitle:YSLocalized(@"Prompt.OK") otherTitle:nil completion:^(BOOL cancelled, NSInteger buttonIndex) {
-        // 关闭页面
-        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-        [weakSelf.liveManager destroy];
-//        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        
+        [weakSelf.liveManager leaveRoom:nil];
+        
     }];
 }
 
@@ -1426,8 +1421,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     BMWeakSelf
     [BMAlertView ys_showAlertWithTitle:text message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
         
-        [weakSelf.liveManager destroy];
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        [weakSelf.liveManager leaveRoom:nil];
         
     }];
 //    if (![YSLiveManager shareInstance].roomConfig.isChatBeforeClass) {
