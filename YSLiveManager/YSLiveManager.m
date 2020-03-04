@@ -652,7 +652,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     [self.cacheMsgPool removeAllObjects];
 }
-   
+
 
 - (NSString *)fileServer
 {
