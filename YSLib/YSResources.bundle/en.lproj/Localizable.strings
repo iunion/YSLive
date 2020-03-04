@@ -132,7 +132,7 @@
 "Button.Recovery"           = "Restore";
 "Button.SwitchVideo"        = "Switch Video";
 "Button.SetFocus"        = "Set focus";
-"Button.CancelFocus"       = "Cancel focus";f
+"Button.CancelFocus"       = "Cancel focus";
 
 "Button.nameSort" = " Name";
 "Button.typeSort" = " Type";
