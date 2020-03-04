@@ -97,7 +97,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #define PlaceholderPTag     10
 
-#define DoubleBtnTag      100
+//#define DoubleTeacherExpandContractBtnTag      100
 
 /// 花名册 课件库
 #define ListView_Width        426.0f
@@ -989,7 +989,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//左右平行关系
             videoWidth = ceil((UI_SCREEN_WIDTH-VIDEOVIEW_GAP*3) / 2);
             videoHeight = ceil(videoWidth*9 / 16);
-        }else
+        }
+        else
         {
             // 在此调整视频大小和屏幕比例关系
             if (self.isWideScreen)
@@ -1152,7 +1153,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     for (SCVideoView *videoView in viewArray)
     {
-        if (videoView.tag != PlaceholderPTag && videoView.tag != DoubleBtnTag)
+        if (videoView.tag != PlaceholderPTag)
         {
             [videoView removeFromSuperview];
         }
@@ -1287,10 +1288,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     for (SCVideoView *videoView in viewArray)
     {
-        if (videoView.tag != DoubleBtnTag)
-        {
+//        if (videoView.tag != DoubleTeacherExpandContractBtnTag)
+//        {
             [videoView removeFromSuperview];
-        }
+//        }
     }
 
     [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray];
@@ -3187,6 +3188,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)exitProxyWithBtn:(UIButton *)btn
 {
     [self backAction:nil];
+}
+
+
+#pragma mark 双击视频切换焦点布局模式
+- (void)doubleClickToChangeLayoutWithVideoView:(SCVideoView *)videoView
+{
+    
 }
 
 #pragma mark 切换布局模式

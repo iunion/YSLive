@@ -80,7 +80,8 @@ typedef NS_ENUM(NSUInteger, YSWhiteBordMediaType)
 typedef NS_ENUM(NSUInteger, YSLiveRoomLayout)
 {
     YSLiveRoomLayout_AroundLayout = 1,  //视频常规
-    YSLiveRoomLayout_VideoLayout = 2    //视频布局
+    YSLiveRoomLayout_VideoLayout = 2,    //视频布局
+    YSLiveRoomLayout_FocusLayout = 3    //焦点布局
 };
 
 
