@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define SCMessageInputViewTag   10
+
 @interface SCChatToolView : UIView
 
 @property(nonatomic,copy)void(^SCChatToolViewButtonsClick)(UIButton *sender);

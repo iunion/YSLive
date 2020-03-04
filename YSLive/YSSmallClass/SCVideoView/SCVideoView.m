@@ -98,12 +98,18 @@
         
         [self setupUIView];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl)];
-        [self addGestureRecognizer:tap];
+        UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl)];
+        oneTap.numberOfTapsRequired = 1;
+        [self addGestureRecognizer:oneTap];
         
         self.panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGestureToMoveView:)];
         [self addGestureRecognizer:self.panGesture];
                 
+        
+        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleClickToChangeLayout)];
+        doubleTap.numberOfTapsRequired = 2;
+        [self addGestureRecognizer:doubleTap];
+        
         self.panGesture.delegate = self;
         self.exclusiveTouch = YES;
     }
@@ -124,6 +130,14 @@
     {
         [[PanGestureControl shareInfo] addPanGestureAction:LONG_PRESS_VIEW_DEMO];
         return YES;
+    }
+}
+
+///双击手势事件 ->焦点视图
+- (void)doubleClickToChangeLayout
+{
+    if ([self.delegate respondsToSelector:@selector(doubleClickToChangeLayoutWithVideoView:)]) {
+        [self.delegate doubleClickToChangeLayoutWithVideoView:self];
     }
 }
 

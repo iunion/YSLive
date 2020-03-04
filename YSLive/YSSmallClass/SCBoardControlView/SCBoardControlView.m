@@ -296,7 +296,7 @@
 {
     self.augmentBtn.enabled = YES;
     self.reduceBtn.enabled = NO;
-    self.zoomScale = YSWHITEBOARD_MINZOOMSCALE;
+    [self changeZoomScale:YSWHITEBOARD_MINZOOMSCALE];
 }
 
 - (void)changeZoomScale:(CGFloat)zoomScale

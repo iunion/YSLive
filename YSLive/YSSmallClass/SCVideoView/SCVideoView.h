@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///拖拽手势事件
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(UIPanGestureRecognizer *)pan;
 
+///双击手势事件 ->焦点视图
+- (void)doubleClickToChangeLayoutWithVideoView:(SCVideoView*)videoView;
 
 @end
 

@@ -21,8 +21,6 @@
 #import "NSURLProtocol+YSWhiteBoard.h"
 #endif
 
-#include <sys/sysctl.h>
-
 #ifdef DEBUG
 #define YSADDLOW_IPHONE     0
 #endif
@@ -2390,21 +2388,10 @@ static YSLiveManager *liveManagerSingleton = nil;
 }
 
 
-- (NSString *)devicePlatform
-{
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = malloc(size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithUTF8String:machine];
-    free(machine);
-    return platform;
-}
-
 //判断设备是否是高端机型，能否支持多人上台
 - (BOOL)devicePlatformHighEndEquipment
 {
-    NSString *platform = [self devicePlatform];
+    NSString *platform = [UIDevice bm_devicePlatform];
     // iPhone
     if ([platform isEqualToString:@"iPhone1,1"])    return NO;
     if ([platform isEqualToString:@"iPhone1,2"])    return NO;
