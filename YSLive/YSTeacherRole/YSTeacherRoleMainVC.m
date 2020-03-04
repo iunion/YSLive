@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
     SCMain_ArrangeContentBackgroudViewType_DragOutFloatViews
 };
 
-//上传图片的用途
+// 上传图片的用途
 typedef NS_ENUM(NSInteger, SCUploadImageUseType)
 {
     /// 作为课件
@@ -70,6 +70,11 @@ typedef NS_ENUM(NSInteger, SCUploadImageUseType)
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
+/// 顶部工具条高
+static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
+static const CGFloat kTopToolBar_Height_iPad = 70.0f;
+#define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
+
 /// 一对一多视频最高尺寸
 static const CGFloat kVideoView_MaxHeight_iPhone = 50.0f;
 static const CGFloat kVideoView_MaxHeight_iPad  = 160.0f;
@@ -80,11 +85,7 @@ static const CGFloat kVideoView_Gap_iPhone = 4.0f;
 static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 #define VIDEOVIEW_GAP               ([UIDevice bm_isiPad] ? kVideoView_Gap_iPad : kVideoView_Gap_iPhone)
 
-/// 顶部工具条高
-static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
-static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 static NSInteger playerFirst = 0; /// 播放器播放次数限制
-#define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
 
 //聊天视图的高度
 #define SCChatViewHeight (UI_SCREEN_HEIGHT-57)
@@ -238,6 +239,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIView *whitebordBackgroud;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
+@property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
 /// 视频View列表
@@ -1084,12 +1086,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//默认上下平行关系
             self.whitebordBackgroud.hidden = NO;
             self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
-            self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
             self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth+VIDEOVIEW_GAP*2, whitebordHeight);
             
             self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
             self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-            [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+            //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
         }
     }
     else
@@ -1097,9 +1099,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.videoBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
         
         self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, UI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
-        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-        [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
     }
+    
+    [self freshWhiteBordViewFrame];
+}
+
+- (void)freshWhiteBordViewFrame
+{
+    if (self.isWhitebordFullScreen)
+    {
+        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+    }
+    else
+    {
+        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+    }
+
+    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
 }
 
 - (void)freshContentView
@@ -1460,13 +1478,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser withDelegate:self];
         videoView.appUseTheType = self.appUseTheType;
         newVideoView = videoView;
-        static int upPlatformTag = 0;// 标记上台的人，用于排序
         if (videoView)
         {
-            
             [self.videoViewArray addObject:videoView];
-            videoView.tag = upPlatformTag;
-            upPlatformTag++;
+           
 
             if (roomUser.role == YSUserType_Teacher)
             {
@@ -2270,46 +2285,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         //花名册  有用户进入房间调用 上下课调用
                //花名册  有用户进入房间调用 上下课调用
-         NSMutableArray *personList = [NSMutableArray arrayWithCapacity:0];
-         NSMutableArray *assistantList = [NSMutableArray arrayWithCapacity:0];
-         NSMutableArray *studentList = [NSMutableArray arrayWithCapacity:0];
-         NSMutableArray *uplatformList = [NSMutableArray arrayWithArray:self.videoViewArray];
-         [uplatformList sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
-             return obj1.tag > obj2.tag;
-         }];
-         
-         for (int i = 0; i < uplatformList.count; i++)
-         {
-             SCVideoView *video = uplatformList[i];
-             if (video.roomUser.role == YSUserType_Assistant)
-             {
-                 [assistantList addObject:video.roomUser];
-             }
-             else if (video.roomUser.role == YSUserType_Student)
-             {
-                 [studentList addObject:video.roomUser];
-             }
-             
-         }
-         
-         for (int i = 0; i < self.liveManager.userList.count; i++)
-         {
-             YSRoomUser *roomUser = self.liveManager.userList[i];
-             if (roomUser.publishState <= YSUser_PublishState_NONE)
-             {
-                 if (roomUser.role == YSUserType_Assistant)
-                 {
-                     [assistantList addObject:roomUser];
-                 }
-                 else if (roomUser.role == YSUserType_Student)
-                 {
-                     [studentList addObject:roomUser];
-                 }
-             }
-         }
-         [personList addObjectsFromArray:assistantList];
-         [personList addObjectsFromArray:studentList];
-         [self.teacherListView setDataSource:personList withType:SCTeacherTopBarTypePersonList];
+        [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList];
     
     }
 
@@ -3098,47 +3074,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //花名册  有用户进入房间调用 上下课调用
         [self freshListViewWithSelect:!btn.selected];
         
-        //花名册  有用户进入房间调用 上下课调用
-        NSMutableArray *personList = [NSMutableArray arrayWithCapacity:0];
-        NSMutableArray *assistantList = [NSMutableArray arrayWithCapacity:0];
-        NSMutableArray *studentList = [NSMutableArray arrayWithCapacity:0];
-        NSMutableArray *uplatformList = [NSMutableArray arrayWithArray:self.videoViewArray];
-        [uplatformList sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
-            return obj2.tag > obj1.tag;
-        }];
-        
-        for (int i = 0; i < uplatformList.count; i++)
-        {
-            SCVideoView *video = uplatformList[i];
-            if (video.roomUser.role == YSUserType_Assistant)
-            {
-                [assistantList addObject:video.roomUser];
-            }
-            else if (video.roomUser.role == YSUserType_Student)
-            {
-                [studentList addObject:video.roomUser];
-            }
-            
-        }
-        
-        for (int i = 0; i < self.liveManager.userList.count; i++)
-        {
-            YSRoomUser *roomUser = self.liveManager.userList[i];
-            if (roomUser.publishState <= YSUser_PublishState_NONE)
-            {
-                if (roomUser.role == YSUserType_Assistant)
-                {
-                    [assistantList addObject:roomUser];
-                }
-                else if (roomUser.role == YSUserType_Student)
-                {
-                    [studentList addObject:roomUser];
-                }
-            }
-        }
-        [personList addObjectsFromArray:assistantList];
-        [personList addObjectsFromArray:studentList];
-        [self.teacherListView setDataSource:personList withType:SCTeacherTopBarTypePersonList];
+        [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList];
 //        [self freshTeacherPersonListData];
     }
     
@@ -3245,9 +3181,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //NO:上下布局  YES:左右布局
     self.roomLayout = roomLayout;
     
-    self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+    if (!self.isWhitebordFullScreen)
+    {
+        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
 
-    self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+    }
     
     if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
     {
@@ -4842,7 +4781,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 全屏 复原 回调
 - (void)boardControlProxyfullScreen:(BOOL)isAllScreen
 {
+    self.isWhitebordFullScreen = isAllScreen;
+    
     [self.boardControlView resetBtnStates];
+    
     if (isAllScreen)
     {
         [self.view endEditing:YES];
@@ -4869,10 +4811,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
+        
+        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
     }
     
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
-    
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 }
 

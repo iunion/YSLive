@@ -13,7 +13,6 @@
 //textView 的X坐标
 #define InputViewX (KIPhoneX?(UI_STATUS_BAR_HEIGHT +20):20)
 
-#define MessageInputViewTag   10
 
 @interface SCChatToolView ()
 
@@ -81,7 +80,7 @@
     //当textview的字符串为0时发送（rerurn）键无效
     self.inputView.enablesReturnKeyAutomatically = YES;
     [self addSubview:self.inputView];
-    self.inputView.tag = MessageInputViewTag;
+    self.inputView.tag = SCMessageInputViewTag;
 }
 
 - (void)buttonsClick:(UIButton *)sender
