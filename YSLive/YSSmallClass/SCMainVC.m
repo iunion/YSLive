@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, SCUploadImageUseType)
 
 #define DoubleTeacherExpandContractBtnTag          100
 
-#define MAXVIDEOCOUNT               12
+//#define MAXVIDEOCOUNT               12
 
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
@@ -98,6 +98,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #define YSStudentResponderCountDownKey @"YSStudentResponderCountDownKey"
 #define YSStudentTimerCountDownKey     @"YSStudentTimerCountDownKey"
+
 @interface SCMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -160,6 +161,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 固定UserId
 @property (nonatomic, strong) NSString *userId;
 
+/// 标识布局变化的值
+@property (nonatomic, assign) YSLiveRoomLayout roomLayout;
+
 /// 奖杯数请求
 @property (nonatomic, strong) NSURLSessionDataTask *giftCountTask;
 
@@ -208,8 +212,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 是否是双师布局信令通知
 @property (nonatomic, assign) BOOL isDoubleType;
 
-/// 标识布局变化的值
-@property (nonatomic, assign) YSLiveRoomLayout roomLayout;
 
 
 /// 拖出视频浮动View列表
@@ -467,6 +469,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.videoViewArray = [[NSMutableArray alloc] init];
+    
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -530,6 +533,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super viewWillAppear:animated];
     
+    // 保证屏幕常亮
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -547,6 +553,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    // 保证屏幕常亮
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -596,7 +605,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
 }
-
 
 - (void)showEyeCareRemind
 {
@@ -704,30 +712,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
     [self presentViewController:alertVc animated:YES completion:nil];
-}
-
-/// 全体禁言通知方法
-//- (void)isEveryoneBanChatChange
-//{
-//    self.rightChatView.allDisabledChat.hidden = ![YSLiveManager shareInstance].isEveryoneBanChat;
-//    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-//    self.rightChatView.textBtn.hidden = [YSLiveManager shareInstance].isEveryoneBanChat;
-//    [self hiddenTheKeyBoard];
-//
-//    //    if (![YSLiveManager shareInstance].isEveryoneBanChat && YSCurrentUser.properties[sUserDisablechat]) {
-//    //        self.rightChatView.allDisabledChat.hidden = NO;
-//    //        self.rightChatView.allDisabledChat.text = @"您已经被禁言";
-//    //        self.rightChatView.textBtn.hidden = YES;
-//    //    }
-//}
-
-///全体禁言
-- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
-{
-    self.rightChatView.allDisabledChat.hidden = !isDisable;
-    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-    self.rightChatView.textBtn.hidden = isDisable;
-    [self hiddenTheKeyBoard];
 }
 
 #pragma mark - 层级管理
@@ -1213,7 +1197,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)setupVideoGridView
 {
     SCVideoGridView *videoGridView = [[SCVideoGridView alloc] initWithWideScreen:self.isWideScreen];
-    
+
     CGFloat width = UI_SCREEN_WIDTH;
     CGFloat height = UI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT;
     
@@ -1336,6 +1320,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
+
 ///取消举手上台
 - (void)downHandsButtonClick:(UIButton *)sender
 {
@@ -1362,7 +1347,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             count++;
         }
     }
-    
     return count;
 }
 
@@ -1502,7 +1486,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-
 - (void)freshContentView
 {
     if (self.roomtype == YSRoomType_One)
@@ -1539,8 +1522,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
 }
-
-
 
 // 刷新content视频布局
 - (void)freshContentVidoeView
@@ -1726,6 +1707,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+/// 刷新白板尺寸
 - (void)freshWhitBordContentView
 {
     if (self.roomtype == YSRoomType_One)
@@ -2087,7 +2069,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH)
         {
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
-
             [videoView bringSubviewToFront:videoView.backVideoView];
         }
         [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
@@ -2126,6 +2107,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
     videoView.publishState = 4;
 }
+
 
 #pragma mark  添加视频窗口
 - (void)addVidoeViewWithPeerId:(NSString *)peerId
@@ -3267,6 +3249,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:confimAc];
     [self presentViewController:alertVc animated:YES completion:nil];
+}
+
+/// 全体禁言
+- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
+{
+    self.rightChatView.allDisabledChat.hidden = !isDisable;
+    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
+    self.rightChatView.textBtn.hidden = isDisable;
+    [self hiddenTheKeyBoard];
 }
 
 #pragma mark 用户属性变化
