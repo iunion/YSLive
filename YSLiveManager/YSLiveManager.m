@@ -14,6 +14,7 @@
 #import "YSPermissionsVC.h"
 
 #import <AVFoundation/AVFoundation.h>
+#import "YSCoreStatus.h"
 
 #if YSWHITEBOARD_USEHTTPDNS
 #import "YSWhiteBordHttpDNSUtil.h"
