@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithRoomType:(YSRoomTypes)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;
 
 // 刷新content视频布局
-- (void)freshContentVidoeView;
+//- (void)freshContentVidoeView;
 // 刷新宫格视频布局
-- (void)freshVidoeGridView;
+//- (void)freshVidoeGridView;
 
 @end
 

@@ -67,6 +67,10 @@ typedef NS_ENUM(NSInteger, SCUploadImageUseType)
     SCUploadImageUseType_Message  = 1,
 };
 
+#define PlaceholderPTag     10
+
+//#define DoubleTeacherExpandContractBtnTag      100
+
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
@@ -96,17 +100,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //右侧聊天视图宽度
 #define ChatViewWidth 284
 
-#define PlaceholderPTag     10
-
-//#define DoubleTeacherExpandContractBtnTag      100
-
 /// 花名册 课件库
 #define ListView_Width        426.0f
 #define ListView_Height        598.0f
 
-
 #define YSTeacherResponderCountDownKey     @"YSTeacherResponderCountDownKey"
 #define YSTeacherTimerCountDownKey         @"YSTeacherTimerCountDownKey"
+
 @interface YSTeacherRoleMainVC ()
 <
     SCEyeCareViewDelegate,
@@ -191,6 +191,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, assign) YSRoomTypes roomtype;
 /// 视频ratio 16:9
 @property (nonatomic, assign) BOOL isWideScreen;
+
 /// 固定UserId
 @property (nonatomic, strong) NSString *userId;
 
@@ -199,6 +200,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 顶部工具条背景
 @property (nonatomic, strong) UIView *topToolBarBackgroud;
+
 /// 顶部工具栏
 @property (nonatomic, strong) SCTeacherTopBar *topToolBar;
 @property (nonatomic, strong) SCTopToolBarModel *topBarModel;
@@ -261,6 +263,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///要拖动的视频view
 @property (nonatomic, strong) SCVideoView *dragingVideoView;
 
+/// 双击放大视频
+@property (nonatomic, strong) YSFloatView *doubleFloatView;
+@property (nonatomic, assign) BOOL isDoubleVideoBig;
+
 /// 共享浮动窗口 视频课件
 @property (nonatomic, strong) YSFloatView *shareVideoFloatView;
 /// 共享视频窗口
@@ -320,6 +326,28 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 @implementation YSTeacherRoleMainVC
 
+- (void)dealloc
+{
+    if (self.topBarTimer)
+    {
+        dispatch_source_cancel(self.topBarTimer);
+        self.topBarTimer = nil;
+    }
+
+    if (self.answerTimer)
+    {
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
+    }
+
+    if (self.answerDetailTimer)
+    {
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
+    }
+
+}
+
 - (instancetype)initWithRoomType:(YSRoomTypes)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
 {
     self = [super initWithWhiteBordView:whiteBordView];
@@ -356,33 +384,51 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return self;
 }
 
-- (void)dealloc
+// 进入全屏
+
+- (void)begainFullScreen
 {
-    if (self.topBarTimer)
-    {
-        dispatch_source_cancel(self.topBarTimer);
-        self.topBarTimer = nil;
-    }
-
-    if (self.answerTimer)
-    {
-        dispatch_source_cancel(self.answerTimer);
-        self.answerTimer = nil;
-    }
-
-    if (self.answerDetailTimer)
-    {
-        dispatch_source_cancel(self.answerDetailTimer);
-        self.answerDetailTimer = nil;
-    }
-
+    NSLog(@"=================================begainFullScreen");
 }
+
+// 退出全屏
+
+- (void)endFullScreen
+{
+    NSLog(@"=================================begainFullScreen");
+
+// 强制
+
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)])
+    {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+
+        [invocation setTarget:[UIDevice currentDevice]];
+
+        int val = UIInterfaceOrientationLandscapeRight; //UIInterfaceOrientationPortrait;
+        [invocation setArgument:&val atIndex:2];
+
+        [invocation invoke];
+    }
+}
+
+
+#pragma mark -
+#pragma mark ViewControllerLife
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    // 进入全屏
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(begainFullScreen) name:UIWindowDidBecomeVisibleNotification object:nil];
+    // 退出全屏
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
     
-    self.view.backgroundColor = UIColor.whiteColor;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     classEndAlertVC = nil;
     
@@ -398,6 +444,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 内容背景
     [self setupContentView];
+    
     // 全屏白板
     [self setupFullBoardView];
     // 隐藏白板视频布局背景
@@ -407,13 +454,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 翻页控件
     [self setupBoardControlView];
+        
     // 右侧聊天视图
     [self.view addSubview:self.rightChatView];
     
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
     
-    if (self.roomtype == YSRoomType_More) {
+    if (self.roomtype == YSRoomType_More)
+    {
          //举手上台的按钮
            [self setupHandView];
     }   
@@ -437,6 +486,39 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.roomLayout = defaultRoomLayout;
     }
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 保证屏幕常亮
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // 保证屏幕常亮
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
 
 - (void)afterDoMsgCachePool
 {
@@ -495,28 +577,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.previousKeyWindow makeKeyWindow];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    // 保证屏幕常亮
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    // 保证屏幕常亮
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
 
 #pragma mark 横竖屏
 
@@ -540,51 +600,106 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return UIInterfaceOrientationLandscapeRight;
 }
 
-
-/// 顶部工具栏背景
-- (void)setupTopToolBar
+- (void)backAction:(id)sender
 {
-    UIView *topToolBarBackGroud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, TOPTOOLBAR_HEIGHT)];
-    topToolBarBackGroud.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-    [self.view addSubview:topToolBarBackGroud];
-    self.topToolBarBackgroud = topToolBarBackGroud;
+    BMWeakSelf
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.Quite") message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    self.topToolBar = [[SCTeacherTopBar alloc] init];
-    self.topToolBar.delegate = self;
-    self.topToolBar.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, TOPTOOLBAR_HEIGHT);
-    [self.topToolBarBackgroud addSubview:self.topToolBar];
-    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_BeforeClass;
-    [self setupTopBarData];
-    
-    self.topbarPopoverView = [[SCTTopPopverViewController alloc]init];
-    self.topbarPopoverView.modalPresentationStyle = UIModalPresentationPopover;
-    self.topbarPopoverView.delegate = self;
+    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (weakSelf.topBarTimer)
+        {
+            dispatch_source_cancel(weakSelf.topBarTimer);
+            weakSelf.topBarTimer = nil;
+        }
+
+        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
+        [weakSelf.liveManager destroy];
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alertVc addAction:cancleAc];
+    [alertVc addAction:confimAc];
+    [self presentViewController:alertVc animated:YES completion:nil];
 }
 
-/// 初始化顶栏数据
-- (void)setupTopBarData
+#pragma mark - 层级管理
+
+// 重新排列VC.View的图层
+- (void)arrangeAllViewInVCView
 {
-    self.topBarModel = [[SCTopToolBarModel alloc] init];
-    self.topBarModel.roomID = [YSLiveManager shareInstance].room_Id;
+    // 全屏白板
+    [self.whitebordFullBackgroud bm_bringToFront];
     
-    self.topToolBar.topToolModel = self.topBarModel;
+    // mp3f动画
+    //    [self.playMp3ImageView bm_bringToFront];
+    
+    // 笔刷工具
+    [self.brushToolView bm_bringToFront];
+    
+    // 翻页
+    [self.boardControlView bm_bringToFront];
+    
+    // 聊天窗口
+    [self.rightChatView bm_bringToFront];
+    
+    // 聊天按钮
+    [self.chatBtn bm_bringToFront];
+    
+    // 信息输入
+    [self.chatToolView bm_bringToFront];
+    
+    // 全屏MP4 共享桌面
+    [self.shareVideoFloatView bm_bringToFront];
+    
+    [self.mp4ControlView bm_bringToFront];
+    [self.closeMp4Btn bm_bringToFront];
+    [self.mp3ControlView bm_bringToFront];
+    
+    // 所有答题卡按顺序放置最上层
+    [[BMNoticeViewStack sharedInstance] bringAllViewsToFront];
 }
 
-/// 设置底部 翻页控件
-- (void)setupBoardControlView
+// 重新排列whiteBordBackgroud的图层
+- (void)arrangeAllViewInWhiteBordBackgroud
 {
-    self.boardControlView = [[SCBoardControlView alloc] init];
-    [self.view addSubview:self.boardControlView];
-    self.boardControlView.frame = CGRectMake(0, 0, 246, 34);
-    self.boardControlView.bm_bottom = self.view.bm_bottom - 20;
-    self.boardControlView.bm_centerX = self.view.bm_centerX;
-    self.boardControlView.delegate = self;
-    self.boardControlView.layer.cornerRadius = self.boardControlView.bm_height/2;
-    self.boardControlView.layer.masksToBounds = YES;
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
-    [self.boardControlView addGestureRecognizer:panGestureRecognizer];
-    self.boardControlView.allowPaging = YES;//self.liveManager.roomConfig.canPageTurningFlag;
+    for (YSFloatView *floatView in self.dragOutFloatViewArray)
+    {
+        [floatView bm_bringToFront];
+    }
+    
+    if (self.doubleFloatView)
+    {
+        [self.doubleFloatView bm_bringToFront];
+    }
 }
+
+// 重新排列ContentBackgroudView的图层
+- (void)arrangeAllViewInContentBackgroudViewWithViewType:(SCMain_ArrangeContentBackgroudViewType)arrangeType index:(NSUInteger)index
+{
+    switch (arrangeType)
+    {
+        case SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView:
+            //[self.shareVideoFloatView bm_bringToFront];
+            break;
+            
+        case SCMain_ArrangeContentBackgroudViewType_VideoGridView:
+            [self.videoGridView bm_bringToFront];
+            break;
+            
+            // 暂时不用 在i响应式直接前移
+        case SCMain_ArrangeContentBackgroudViewType_DragOutFloatViews:
+            [self.dragOutFloatViewArray[index] bm_bringToFront];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+#pragma mark -
+#pragma mark setupUI
 
 /// 按钮的拖拽效果
 - (void)dragReplyButton:(UIPanGestureRecognizer *)recognizer
@@ -643,6 +758,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
                 dragView.frame = currentFrame;
             }];
+            
             return;
         }
         
@@ -667,16 +783,50 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
 }
-/// 全屏白板初始化
-- (void)setupFullBoardView
+
+/// 顶部工具栏背景
+- (void)setupTopToolBar
 {
-    // 白板背景
-    UIView *whitebordFullBackgroud = [[UIView alloc] init];
-    whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-    [self.view addSubview:whitebordFullBackgroud];
-    whitebordFullBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
-    self.whitebordFullBackgroud = whitebordFullBackgroud;
-    self.whitebordFullBackgroud.hidden = YES;
+    UIView *topToolBarBackGroud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, TOPTOOLBAR_HEIGHT)];
+    topToolBarBackGroud.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    [self.view addSubview:topToolBarBackGroud];
+    self.topToolBarBackgroud = topToolBarBackGroud;
+    
+    self.topToolBar = [[SCTeacherTopBar alloc] init];
+    self.topToolBar.delegate = self;
+    self.topToolBar.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, TOPTOOLBAR_HEIGHT);
+    [self.topToolBarBackgroud addSubview:self.topToolBar];
+    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_BeforeClass;
+    [self setupTopBarData];
+    
+    self.topbarPopoverView = [[SCTTopPopverViewController alloc]init];
+    self.topbarPopoverView.modalPresentationStyle = UIModalPresentationPopover;
+    self.topbarPopoverView.delegate = self;
+}
+
+/// 初始化顶栏数据
+- (void)setupTopBarData
+{
+    self.topBarModel = [[SCTopToolBarModel alloc] init];
+    self.topBarModel.roomID = [YSLiveManager shareInstance].room_Id;
+    
+    self.topToolBar.topToolModel = self.topBarModel;
+}
+
+/// 设置底部 翻页控件
+- (void)setupBoardControlView
+{
+    self.boardControlView = [[SCBoardControlView alloc] init];
+    [self.view addSubview:self.boardControlView];
+    self.boardControlView.frame = CGRectMake(0, 0, 246, 34);
+    self.boardControlView.bm_bottom = self.view.bm_bottom - 20;
+    self.boardControlView.bm_centerX = self.view.bm_centerX;
+    self.boardControlView.delegate = self;
+    self.boardControlView.layer.cornerRadius = self.boardControlView.bm_height/2;
+    self.boardControlView.layer.masksToBounds = YES;
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
+    [self.boardControlView addGestureRecognizer:panGestureRecognizer];
+    self.boardControlView.allowPaging = YES;//self.liveManager.roomConfig.canPageTurningFlag;
 }
 
 #pragma mark - 举手上台的UI
@@ -868,6 +1018,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.liveManager.roomManager stopShareMediaFile:nil];
 }
+
 /// 1V1 初始默认视频背景
 - (void)setUp1V1DefaultVideoView
 {
@@ -899,6 +1050,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:userVideoView];
     userVideoView.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
     self.userVideoView = userVideoView;
+}
+
+/// 全屏白板初始化
+- (void)setupFullBoardView
+{
+    // 白板背景
+    UIView *whitebordFullBackgroud = [[UIView alloc] init];
+    whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    [self.view addSubview:whitebordFullBackgroud];
+    whitebordFullBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+    self.whitebordFullBackgroud = whitebordFullBackgroud;
+    self.whitebordFullBackgroud.hidden = YES;
 }
 
 /// 隐藏白板视频布局背景
@@ -1070,59 +1233,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
-    [self freshWhitBordContentView];
-}
-
-///刷新白板尺寸
-- (void)freshWhitBordContentView
-{
-    if (self.roomtype == YSRoomType_One)
-    {
-        if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-        {//左右平行关系
-            self.whitebordBackgroud.hidden = YES;
-            
-            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, UI_SCREEN_WIDTH, videoHeight);
-            
-            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, videoHeight);
-        }
-        else
-        {//默认上下平行关系
-            self.whitebordBackgroud.hidden = NO;
-            self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
-            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth+VIDEOVIEW_GAP*2, whitebordHeight);
-            
-            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
-            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-            //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
-        }
-    }
-    else
-    {
-        self.videoBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
-        
-        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, UI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
-        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
-    }
     
-    [self freshWhiteBordViewFrame];
-}
-
-- (void)freshWhiteBordViewFrame
-{
-    if (self.isWhitebordFullScreen)
-    {
-        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
-    }
-    else
-    {
-        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-    }
-
-    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+    [self freshWhitBordContentView];
 }
 
 - (void)freshContentView
@@ -1294,6 +1406,58 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             index++;
         }
     }
+}
+
+/// 刷新白板尺寸
+- (void)freshWhitBordContentView
+{
+    if (self.roomtype == YSRoomType_One)
+    {
+        if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+        {//左右平行关系
+            self.whitebordBackgroud.hidden = YES;
+            
+            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, UI_SCREEN_WIDTH, videoHeight);
+            
+            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
+            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, videoHeight);
+        }
+        else
+        {//默认上下平行关系
+            self.whitebordBackgroud.hidden = NO;
+            self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
+            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth+VIDEOVIEW_GAP*2, whitebordHeight);
+            
+            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
+            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
+            //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+        }
+    }
+    else
+    {
+        self.videoBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
+        
+        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, UI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
+        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+    }
+    
+    [self freshWhiteBordViewFrame];
+}
+
+- (void)freshWhiteBordViewFrame
+{
+    if (self.isWhitebordFullScreen)
+    {
+        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+    }
+    else
+    {
+        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+    }
+
+    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
 }
 
 // 刷新宫格视频布局
@@ -1484,8 +1648,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (videoView)
         {
             [self.videoViewArray addObject:videoView];
-           
-
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoView = videoView;
@@ -1514,8 +1676,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         [self freshContentView];
     }
+    
     return;
 }
+
 #pragma mark  获取视频窗口
 
 - (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId
@@ -2294,7 +2458,92 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 }
 
-#pragma mark - 播放白板
+/// 双击视频最大化
+- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId isFull:(BOOL)isFull;
+{
+    self.isDoubleVideoBig = isFull;
+    if (isFull)
+    {
+        if (self.doubleFloatView)
+        {
+            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
+        }
+        
+        SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
+        videoView.isFullScreen = isFull;
+        
+        [self freshContentView];
+        
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:self.whitebordBackgroud.bounds];
+        
+        [self.whitebordBackgroud addSubview:floatView];
+        [floatView bm_centerInSuperView];
+        [floatView showWithContentView:videoView];
+        self.doubleFloatView = floatView;
+
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+                
+        YSRoomUser * user = videoView.roomUser;
+        
+        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
+        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        {
+            videoView.disableVideo = YES;
+        }
+        else
+        {
+            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
+            videoView.disableVideo = NO;
+        }
+        [videoView bringSubviewToFront:videoView.backVideoView];
+    }
+    else
+    {
+        SCVideoView *videoView = (SCVideoView *)self.doubleFloatView.contentView;
+        videoView.isFullScreen = NO;
+        YSRoomUser * user = videoView.roomUser;
+        [self.doubleFloatView cleanContent];
+        [self.doubleFloatView removeFromSuperview];
+        [self freshContentView];
+        self.doubleFloatView = nil;
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+        
+        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
+        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        {
+            videoView.disableVideo = YES;
+        }
+        else
+        {
+            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+            videoView.disableVideo = NO;
+        }
+        [videoView bringSubviewToFront:videoView.backVideoView];
+    }
+    
+    if (!self.isWhitebordFullScreen)
+    {
+        self.boardControlView.hidden = isFull;
+        if (YSCurrentUser.canDraw)
+        {
+            self.brushToolView.hidden = isFull;
+        }
+    }
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+    {
+        self.drawBoardView.hidden = YES;
+    }
+    else
+    {
+        self.drawBoardView.hidden = NO;
+    }
+    
+//    [self freshWhiteBordViewFrame];
+}
+
+#pragma mark 白板视频/音频
+
+// 播放白板视频/音频
 - (void)handleWhiteBordPlayMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
     [self freshTeacherCoursewareListDataWithPlay:YES];
@@ -2888,29 +3137,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //}
 
 
-// 重新排列ContentBackgroudView的图层
-- (void)arrangeAllViewInContentBackgroudViewWithViewType:(SCMain_ArrangeContentBackgroudViewType)arrangeType index:(NSUInteger)index
-{
-    switch (arrangeType)
-    {
-        case SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView:
-            //[self.shareVideoFloatView bm_bringToFront];
-            break;
-            
-        case SCMain_ArrangeContentBackgroudViewType_VideoGridView:
-            [self.videoGridView bm_bringToFront];
-            break;
-            
-            // 暂时不用 在i响应式直接前移
-        case SCMain_ArrangeContentBackgroudViewType_DragOutFloatViews:
-            [self.dragOutFloatViewArray[index] bm_bringToFront];
-            break;
-            
-        default:
-            break;
-    }
-}
-
 #pragma mark -
 #pragma mark YSWhiteBoardManagerDelegate
 
@@ -3208,29 +3434,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingDefaultRoomLayout
 {
     [self handleSignalingSetRoomLayout:defaultRoomLayout];
-}
-
-- (void)backAction:(id)sender
-{
-    BMWeakSelf
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.Quite") message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (weakSelf.topBarTimer)
-        {
-            dispatch_source_cancel(weakSelf.topBarTimer);
-            weakSelf.topBarTimer = nil;
-        }
-
-        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-        [weakSelf.liveManager destroy];
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
-    }];
-    UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }];
-    [alertVc addAction:cancleAc];
-    [alertVc addAction:confimAc];
-    [self presentViewController:alertVc animated:YES completion:nil];
 }
 
 
@@ -4274,40 +4477,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self hiddenTheKeyBoard];
 }
 
-#pragma mark 重新排列VC.View的图层
-- (void)arrangeAllViewInVCView
-{
-    // 全屏白板
-    [self.whitebordFullBackgroud bm_bringToFront];
-    
-    // mp3f动画
-    //    [self.playMp3ImageView bm_bringToFront];
-    
-    // 笔刷工具
-    [self.brushToolView bm_bringToFront];
-    
-    // 翻页
-    [self.boardControlView bm_bringToFront];
-    
-    // 聊天窗口
-    [self.rightChatView bm_bringToFront];
-    
-    // 聊天按钮
-    [self.chatBtn bm_bringToFront];
-    
-    // 信息输入
-    [self.chatToolView bm_bringToFront];
-    
-    // 全屏MP4 共享桌面
-    [self.shareVideoFloatView bm_bringToFront];
-    
-    [self.mp4ControlView bm_bringToFront];
-    [self.closeMp4Btn bm_bringToFront];
-    [self.mp3ControlView bm_bringToFront];
-    // 所有答题卡按顺序放置最上层
-    [[BMNoticeViewStack sharedInstance] bringAllViewsToFront];
-}
-
 
 #pragma mark -
 #pragma mark 视频控制popoverView视图
@@ -4879,21 +5048,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
         
-        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
-        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
     }
     
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 }
 
-- (void)arrangeAllViewInWhiteBordBackgroud
-{
-    for (YSFloatView *floatView in self.dragOutFloatViewArray)
-    {
-        [floatView bm_bringToFront];
-    }
-}
 /// 上一页
 - (void)boardControlProxyPrePage
 {
