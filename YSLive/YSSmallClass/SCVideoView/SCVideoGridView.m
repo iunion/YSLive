@@ -28,6 +28,8 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 @property (nonatomic, assign) CGFloat videoWidth;
 @property (nonatomic, assign) CGFloat videoHeight;
 
+@property (nonatomic, strong) UIView *rightVideoBgView;
+
 @end
 
 @implementation SCVideoGridView
@@ -44,7 +46,12 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         self.videosBgView.backgroundColor = [UIColor clearColor];
 //        self.videosBgView.backgroundColor = [UIColor redColor];
         
+        self.rightVideoBgView = [[UIView alloc] init];
+        self.rightVideoBgView.backgroundColor = [UIColor yellowColor];
+        [self.videosBgView addSubview:self.rightVideoBgView];
+        
         [self addSubview:self.videosBgView];
+//        self.backgroundColor = UIColor.greenColor;
     }
     return self;
 }
@@ -204,23 +211,41 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     }
 }
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray
+- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout
 {
     self.videoViewArray = videoViewArray;
     [self clearView];
     
-    [self changeFrame];
-
-    for (SCVideoView *videoView in self.videoViewArray)
+    if (roomLayout == YSLiveRoomLayout_FocusLayout)
     {
-        videoView.isDragOut = NO;
-        videoView.isFullScreen = NO;
-        videoView.isFullMedia = YES;
-        [self.videosBgView addSubview:videoView];
-        videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
-    }
+        [self changeFrameFocus];
         
-    [self freshView];
+        for (SCVideoView *videoView in self.videoViewArray)
+        {
+            videoView.isDragOut = NO;
+            videoView.isFullScreen = NO;
+            videoView.isFullMedia = YES;
+            [self.videosBgView addSubview:videoView];
+            videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
+        }
+        
+        [self freshViewFocusWithFouceVideo:fouceVideo];
+    }
+    else
+    {
+        [self changeFrame];
+
+           for (SCVideoView *videoView in self.videoViewArray)
+           {
+               videoView.isDragOut = NO;
+               videoView.isFullScreen = NO;
+               videoView.isFullMedia = YES;
+               [self.videosBgView addSubview:videoView];
+               videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
+           }
+               
+           [self freshView];
+    }
 }
 
 - (void)freshView
@@ -658,6 +683,501 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
             videoView13.bm_top = height*0;
             videoView13.bm_left = 0;
+        }
+            break;
+
+        default:
+            break;
+    }
+}
+
+- (void)changeFrameFocus
+{
+    self.videosBgView.frame = self.bounds;
+    
+    CGFloat rightVideoBgWidth = 0.0;
+    CGFloat rightVideoBgHeight = self.bm_height;
+    
+    
+//    if (self.videoViewArray.count == 1)
+//    {
+//        CGFloat top = VIDEOGRIDVIEW_TOP;
+//        CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2;
+//        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
+//
+//        CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
+//        CGFloat videoHeight;
+//        if (self.isWideScreen)
+//        {
+//            videoHeight = ceil(videoWidth / 16) * 9;
+//        }
+//        else
+//        {
+//            videoHeight = ceil(videoWidth / 4) * 3;
+//        }
+//
+//        CGFloat widthScale = maxWidth/videoWidth;
+//        CGFloat heightScale = maxHeight/videoHeight;
+//
+//        CGFloat scale = MIN(widthScale, heightScale);
+//        CGFloat bgWidth = videoWidth*scale;
+//        CGFloat bgHeight = videoHeight*scale;
+//
+//        self.videosBgView.frame = CGRectMake((self.bm_width-bgWidth)/2, (self.bm_height-bgHeight)/2, bgWidth, bgHeight);
+//
+//    }
+//    else
+        if (self.videoViewArray.count<= 4)
+    {
+        self.videosBgView.frame = self.bounds;
+        
+        self.videoHeight = ceil((self.bm_height - 5 * VIDEOGRIDVIEW_GAP)/4);
+        
+        if (self.isWideScreen)
+           {
+               self.videoWidth = ceil(self.videoHeight / 9) * 16;
+           }
+           else
+           {
+               self.videoWidth = ceil(self.videoHeight / 3) * 4;
+           }
+        rightVideoBgWidth = self.videoWidth + 2 * VIDEOGRIDVIEW_GAP;
+    }
+    else
+    {
+        self.videosBgView.frame = self.bounds;
+        self.videoHeight = (self.bm_height - 7 * VIDEOGRIDVIEW_GAP)/6;
+        
+        if (self.isWideScreen)
+        {
+            self.videoWidth = ceil(self.videoHeight / 9) * 16;
+        }
+        else
+        {
+            self.videoWidth = ceil(self.videoHeight / 3) * 4;
+        }
+        rightVideoBgWidth = 2 * self.videoWidth + 3 * VIDEOGRIDVIEW_GAP;
+    }
+    
+    self.rightVideoBgView.frame = CGRectMake(self.videosBgView.bm_width - rightVideoBgWidth, 0, rightVideoBgWidth, rightVideoBgHeight);
+}
+
+- (void)freshViewFocusWithFouceVideo:(SCVideoView *)fouceVideo
+{
+    CGFloat width = self.videoWidth + VIDEOGRIDVIEW_GAP;
+    CGFloat height = self.videoHeight + VIDEOGRIDVIEW_GAP;
+    
+    CGFloat left = self.rightVideoBgView.bm_originX + VIDEOGRIDVIEW_GAP;
+
+    NSMutableArray * mutArray = [NSMutableArray arrayWithArray:self.videoViewArray];
+    
+    
+    if (mutArray.count>0)
+    {
+        CGFloat top = VIDEOGRIDVIEW_TOP;
+        
+        CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2 - self.rightVideoBgView.bm_width;
+        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
+        
+        CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
+        CGFloat videoHeight;
+        if (self.isWideScreen)
+        {
+            videoHeight = ceil(videoWidth / 16) * 9;
+        }
+        else
+        {
+            videoHeight = ceil(videoWidth / 4) * 3;
+        }
+        
+        CGFloat widthScale = maxWidth/videoWidth;
+        CGFloat heightScale = maxHeight/videoHeight;
+        
+        CGFloat scale = MIN(widthScale, heightScale);
+        CGFloat bgWidth = videoWidth*scale;
+        CGFloat bgHeight = videoHeight*scale;
+        
+        fouceVideo.bm_top = (maxWidth-bgWidth)/2;
+        fouceVideo.bm_left = (maxHeight-bgHeight)/2;
+        fouceVideo.bm_width = bgWidth;
+        fouceVideo.bm_height = bgHeight;
+        
+        [mutArray removeObject:fouceVideo];
+    }
+    
+    switch (mutArray.count)
+    {
+        case 1:
+        {
+            SCVideoView *videoView = mutArray[0];
+            
+            videoView.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView.bm_left = left;
+        }
+            break;
+            
+        case 2:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left;
+
+        }
+            break;
+            
+        case 3:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left;
+            
+            videoView3.bm_top = 2*height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+        }
+            break;
+
+        case 4:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left;
+            
+            videoView3.bm_top = 2*height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = 3*height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left;
+        }
+            break;
+
+        case 5:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+        }
+            break;
+
+        case 6:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+            SCVideoView *videoView6 = mutArray[5];
+
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+            
+            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView6.bm_left = left+width;
+        }
+            break;
+
+        case 7:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+            SCVideoView *videoView6 = mutArray[5];
+            SCVideoView *videoView7 = mutArray[6];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+            
+            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView6.bm_left = left+width;
+            
+            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView7.bm_left = left;
+        }
+            break;
+
+        case 8:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+            SCVideoView *videoView6 = mutArray[5];
+            SCVideoView *videoView7 = mutArray[6];
+            SCVideoView *videoView8 = mutArray[7];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+            
+            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView6.bm_left = left+width;
+            
+            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView7.bm_left = left;
+            
+            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView8.bm_left = left+width;
+        }
+            break;
+
+        case 9:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+            SCVideoView *videoView6 = mutArray[5];
+            SCVideoView *videoView7 = mutArray[6];
+            SCVideoView *videoView8 = mutArray[7];
+            SCVideoView *videoView9 = mutArray[8];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+            
+            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView6.bm_left = left+width;
+            
+            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView7.bm_left = left;
+            
+            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView8.bm_left = left+width;
+            
+            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
+            videoView9.bm_left = left;
+        }
+            break;
+
+        case 10:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+            SCVideoView *videoView6 = mutArray[5];
+            SCVideoView *videoView7 = mutArray[6];
+            SCVideoView *videoView8 = mutArray[7];
+            SCVideoView *videoView9 = mutArray[8];
+            SCVideoView *videoView10 = mutArray[9];
+
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+            
+            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView6.bm_left = left+width;
+            
+            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView7.bm_left = left;
+            
+            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView8.bm_left = left+width;
+            
+            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
+            videoView9.bm_left = left;
+            
+            videoView10.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
+            videoView10.bm_left = left+width;
+
+        }
+            break;
+
+        case 11:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+            SCVideoView *videoView6 = mutArray[5];
+            SCVideoView *videoView7 = mutArray[6];
+            SCVideoView *videoView8 = mutArray[7];
+            SCVideoView *videoView9 = mutArray[8];
+            SCVideoView *videoView10 = mutArray[9];
+            SCVideoView *videoView11 = mutArray[10];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+            
+            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView6.bm_left = left+width;
+            
+            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView7.bm_left = left;
+            
+            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView8.bm_left = left+width;
+            
+            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
+            videoView9.bm_left = left;
+            
+            videoView10.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
+            videoView10.bm_left = left+width;
+            
+            videoView11.bm_top = 5 * height + VIDEOGRIDVIEW_GAP;
+            videoView11.bm_left = left;
+            
+        }
+            break;
+        case 12:
+        {
+            SCVideoView *videoView1 = mutArray[0];
+            SCVideoView *videoView2 = mutArray[1];
+            SCVideoView *videoView3 = mutArray[2];
+            SCVideoView *videoView4 = mutArray[3];
+            SCVideoView *videoView5 = mutArray[4];
+            SCVideoView *videoView6 = mutArray[5];
+            SCVideoView *videoView7 = mutArray[6];
+            SCVideoView *videoView8 = mutArray[7];
+            SCVideoView *videoView9 = mutArray[8];
+            SCVideoView *videoView10 = mutArray[9];
+            SCVideoView *videoView11 = mutArray[10];
+            SCVideoView *videoView12 = mutArray[11];
+            
+            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView1.bm_left = left;
+            
+            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView2.bm_left = left+width;
+            
+            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView3.bm_left = left;
+            
+            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
+            videoView4.bm_left = left+width;
+            
+            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView5.bm_left = left;
+            
+            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
+            videoView6.bm_left = left+width;
+            
+            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView7.bm_left = left;
+            
+            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
+            videoView8.bm_left = left+width;
+            
+            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
+            videoView9.bm_left = left;
+            
+            videoView10.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
+            videoView10.bm_left = left+width;
+            
+            videoView11.bm_top = 5 * height + VIDEOGRIDVIEW_GAP;
+            videoView11.bm_left = left;
+            
+            videoView12.bm_top = 5 * height + VIDEOGRIDVIEW_GAP;
+            videoView12.bm_left = left+width;
         }
             break;
 

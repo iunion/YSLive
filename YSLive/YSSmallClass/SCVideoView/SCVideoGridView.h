@@ -1,8 +1,7 @@
 //
 //  SCVideoGridView.h
 //  YSLive
-//
-//  Created by jiang deng on 2019/11/8.
+//Created by jiang deng on 2019/11/8.
 //  Copyright © 2019 YS. All rights reserved.
 //
 
@@ -22,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithWideScreen:(BOOL)isWideScreen;
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray;
+//- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray;
+
+- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout;
 
 - (void)clearView;
 

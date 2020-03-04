@@ -132,6 +132,9 @@
 "Button.Recovery"           = "恢復";
 "Button.CancelSplitScreen"  = "取消分屏";
 "Button.SwitchVideo"        = "切換視頻";
+"Button.SetFocus"        = "設為焦點";
+"Button.CancelFocus"       = "取消焦點";
+
 "Button.nameSort" = " 名稱";
 "Button.typeSort" = " 類型";
 "Button.timeSort" = " 時間";

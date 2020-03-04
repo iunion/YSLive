@@ -198,7 +198,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 1V1 存储学生的视频，画中画时用来伸缩
 @property (nonatomic, strong) SCVideoView *studentVideoView;
 
-/// 双师中较小视频左侧伸缩按钮
+/// 双师中较小视频左侧按钮
 @property (nonatomic, strong) UIButton *expandContractBtn;
 /// 双师布局样式
 @property (nonatomic, copy) NSString *doubleType;
@@ -1817,13 +1817,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //            [arr addObject:self.userVideoView];
 //        }
         
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:nil withRoomLayout:self.roomLayout];
         
 //        self.isDoubleType = 0;
     }
     else
     {
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:nil withRoomLayout:self.roomLayout];
     }
     
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];

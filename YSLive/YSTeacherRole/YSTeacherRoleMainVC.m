@@ -1065,6 +1065,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self freshWhitBordContentView];
 }
+
+///刷新白板尺寸
 - (void)freshWhitBordContentView
 {
     if (self.roomtype == YSRoomType_One)
@@ -1125,7 +1127,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+        if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
         {
             [self freshVidoeGridView];
         }
@@ -1288,13 +1290,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     for (SCVideoView *videoView in viewArray)
     {
-//        if (videoView.tag != DoubleTeacherExpandContractBtnTag)
-//        {
-            [videoView removeFromSuperview];
-//        }
+        [videoView removeFromSuperview];
     }
 
-    [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray];
+    [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:nil withRoomLayout:self.roomLayout];
     
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
     self.contentView.hidden = YES;
@@ -3191,11 +3190,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
-#pragma mark 双击视频切换焦点布局模式
-- (void)doubleClickToChangeLayoutWithVideoView:(SCVideoView *)videoView
-{
-    
-}
+#pragma mark - 双击视频切换焦点布局模式
+//- (void)doubleClickToChangeLayoutWithVideoView:(SCVideoView *)videoView
+//{
+//    
+//    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+//    {
+//        self.roomLayout = YSLiveRoomLayout_FocusLayout;
+//        
+////        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
+//        [self freshContentView];
+//    }
+//}
 
 #pragma mark 切换布局模式
 - (void)changeLayoutWithMode:(BOOL)mode
@@ -4429,8 +4435,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
         
-        if (self.appUseTheType == YSAppUseTheTypeMeeting) {
-            if (videoView.isDragOut) {
+        if (self.appUseTheType == YSAppUseTheTypeMeeting)
+        {
+            if (videoView.isDragOut)
+            {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
                     self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
@@ -4458,11 +4466,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            if (videoView.isDragOut) {
+            if (videoView.isDragOut)
+            {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
                 }
                 else
                 {
@@ -4474,8 +4483,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 212, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(212, 50);
                 }
                 else
                 {

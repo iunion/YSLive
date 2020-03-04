@@ -136,9 +136,9 @@
 ///双击手势事件 ->焦点视图
 - (void)doubleClickToChangeLayout
 {
-    if ([self.delegate respondsToSelector:@selector(doubleClickToChangeLayoutWithVideoView:)]) {
-        [self.delegate doubleClickToChangeLayoutWithVideoView:self];
-    }
+//    if ([self.delegate respondsToSelector:@selector(doubleClickToChangeLayoutWithVideoView:)]) {
+//        [self.delegate doubleClickToChangeLayoutWithVideoView:self];
+//    }
 }
 
 ////这个方法返回YES，第一个和第二个互斥时，第二个会失效
