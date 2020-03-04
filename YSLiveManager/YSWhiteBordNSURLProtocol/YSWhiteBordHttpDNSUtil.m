@@ -199,15 +199,6 @@ static YSWhiteBordHttpDNSUtil *httpDNSUtilsharedInstance = nil;
 - (NSString *)getHttpDNSIpWithHost:(NSString *)host;
 {
     NSString *ip = nil;
-#if YSWHITEBOARD_USEHTTPDNS_ADDALI
-    if ([host isEqualToString:YSWhiteBoard_domain_ali] || [host isEqualToString:YSWhiteBoard_domain_demoali])
-    {
-        // 阿里ip
-        HttpDnsService *httpdns = [HttpDnsService sharedInstance];
-        ip = [httpdns getIpByHostAsync:host];
-    }
-    else
-#endif
     if ([host isEqualToString:YSWhiteBoard_domain_ws] || [host isEqualToString:YSWhiteBoard_domain_demows])
     {
         // 网宿ip
@@ -230,7 +221,16 @@ static YSWhiteBordHttpDNSUtil *httpDNSUtilsharedInstance = nil;
             }
         }
     }
-    
+#if YSWHITEBOARD_USEHTTPDNS_ADDALI
+    else
+    if ([host isEqualToString:YSWhiteBoard_domain_ali] || [host isEqualToString:YSWhiteBoard_domain_demoali])
+    {
+        // 阿里ip
+        HttpDnsService *httpdns = [HttpDnsService sharedInstance];
+        ip = [httpdns getIpByHostAsync:host];
+    }
+#endif
+
     return ip;
 }
 
