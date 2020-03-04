@@ -164,16 +164,22 @@
     //横向时按钮高度
     CGFloat width = (self.view.bm_width-5)/7+0.5;
     
-    if (self.roomtype == YSRoomType_One || (self.appUseTheType == YSAppUseTheTypeMeeting && self.isDragOut) || (self.appUseTheType == YSAppUseTheTypeSmallClass && !self.isDragOut))
+    if (self.roomtype == YSRoomType_One || (self.appUseTheType == YSAppUseTheTypeMeeting && self.isDragOut))
     {
         height = (self.view.bm_height-5)/5+0.5;
         width = (self.view.bm_width-5)/5+0.5;
+    }
+    else if (self.appUseTheType == YSAppUseTheTypeSmallClass && !self.isDragOut)
+    {
+        height = (self.view.bm_height-5)/6+0.5;
+        width = (self.view.bm_width-5)/6+0.5;
     }
     else if (self.appUseTheType == YSAppUseTheTypeMeeting && !self.isDragOut)
     {
         height = (self.view.bm_height-5)/4+0.5;
         width = (self.view.bm_width-5)/4+0.5;
     }
+   
     
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
@@ -243,7 +249,7 @@
         {
             //复位控制按钮
             UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
-            restoreBtn.tag = 5;
+            restoreBtn.tag = 6;
             
             if (self.view.bm_width < self.view.bm_height)
             {
@@ -257,12 +263,11 @@
         }
     }
     else
-//        if (self.roomtype == YSRoomType_More)
     {
         //发奖杯按钮
         UIButton * giftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.GiveCup") selectTitle:nil imageName:@"teacher_trophy" selectImageName:nil];
         giftCupBtn.tag = 4;
-        
+
         if (self.view.bm_width < self.view.bm_height)
         {
             giftCupBtn.frame = CGRectMake(0, Margin + 4 * height, self.view.bm_width, height);
@@ -271,14 +276,14 @@
         {
             giftCupBtn.frame = CGRectMake(Margin + 4 * width, 0, width, self.view.bm_height);
         }
-        
+
         [self moveButtonTitleAndImageWithButton:giftCupBtn];
         
         if (self.roomtype == YSRoomType_More)
         {
             //成为焦点按钮
             UIButton * fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") imageName:@"teacher_trophy" selectImageName:nil];
-            fouceBtn.tag = 6;
+            fouceBtn.tag = 5;
             if (self.view.bm_width < self.view.bm_height)
             {
                 fouceBtn.frame = CGRectMake(0, Margin + 5 * height, self.view.bm_width, height);
@@ -293,7 +298,7 @@
             {
                 //复位控制按钮
                 UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
-                restoreBtn.tag = 5;
+                restoreBtn.tag = 6;
                 
                 if (self.view.bm_width < self.view.bm_height)
                 {
