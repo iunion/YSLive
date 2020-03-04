@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
     SCMain_ArrangeContentBackgroudViewType_DragOutFloatViews
 };
 
-//上传图片的用途
+// 上传图片的用途
 typedef NS_ENUM(NSInteger, SCUploadImageUseType)
 {
     /// 作为课件
@@ -70,6 +70,11 @@ typedef NS_ENUM(NSInteger, SCUploadImageUseType)
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
+/// 顶部工具条高
+static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
+static const CGFloat kTopToolBar_Height_iPad = 70.0f;
+#define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
+
 /// 一对一多视频最高尺寸
 static const CGFloat kVideoView_MaxHeight_iPhone = 50.0f;
 static const CGFloat kVideoView_MaxHeight_iPad  = 160.0f;
@@ -80,11 +85,7 @@ static const CGFloat kVideoView_Gap_iPhone = 4.0f;
 static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 #define VIDEOVIEW_GAP               ([UIDevice bm_isiPad] ? kVideoView_Gap_iPad : kVideoView_Gap_iPhone)
 
-/// 顶部工具条高
-static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
-static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 static NSInteger playerFirst = 0; /// 播放器播放次数限制
-#define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
 
 //聊天视图的高度
 #define SCChatViewHeight (UI_SCREEN_HEIGHT-57)

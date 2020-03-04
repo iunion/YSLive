@@ -16,6 +16,7 @@
 #import "SCChatToolView.h"
 #import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
+
 #import "SCTopToolBar.h"
 #import "SCBoardControlView.h"
 #import "SCAnswerView.h"
@@ -37,13 +38,7 @@
 #import "SCEyeCareWindow.h"
 #import "YSStudentResponder.h"
 #import "YSStudentTimerView.h"
-//上传图片的用途
-typedef NS_ENUM(NSInteger, SCUploadImageUseType) {
-    /// 作为课件
-    SCUploadImageUseType_Document = 0,
-    /// 聊天用图
-    SCUploadImageUseType_Message  = 1,
-};
+
 
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
@@ -52,13 +47,20 @@ typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
     SCMain_ArrangeContentBackgroudViewType_DragOutFloatViews
 };
 
+// 上传图片的用途
+typedef NS_ENUM(NSInteger, SCUploadImageUseType)
+{
+    /// 作为课件
+    SCUploadImageUseType_Document = 0,
+    /// 聊天用图
+    SCUploadImageUseType_Message  = 1,
+};
+
 #define SCLessonTimeCountDownKey     @"SCLessonTimeCountDownKey"
 
 #define PlaceholderPTag       10
 
 #define DoubleTeacherExpandContractBtnTag          100
-
-#define MessageInputViewTag   10
 
 #define MAXVIDEOCOUNT               12
 
@@ -2684,7 +2686,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    if (textView.tag == MessageInputViewTag)
+    if (textView.tag == SCMessageInputViewTag)
     {
         NSInteger existTextNum = textView.text.length;
         if (existTextNum == 1 && [textView.text isEqualToString:@" "])
