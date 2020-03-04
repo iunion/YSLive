@@ -4586,26 +4586,26 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
                 }
                 else
                 {
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 453, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(453, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 388, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(388, 50);
                 }
             }
             else
             {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 212, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(212, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
                 }
                 else
                 {
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 390, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(390, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 325, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(325, 50);
                 }
             }
         }
@@ -4649,37 +4649,37 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             sender.selected = !sender.selected;
         }
             break;
+//        case 2:
+//        {//焦点
+//            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+//                {
+////                    sender.selected = !sender.selected;
+//                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+//                    self.fouceView = self.selectControlView;
+//
+//
+//            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
+//                    [self freshContentView];
+//                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+//                }
+//            else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
+//            {
+//               if ([self.selectControlView isEqual:self.fouceView])
+//                {
+//                    self.roomLayout = YSLiveRoomLayout_VideoLayout;
+//                    self.fouceView = nil;
+//                }
+//                else
+//                {
+//                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+//                    self.fouceView = self.selectControlView;
+//                }
+//                [self freshContentView];
+//                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+//            }
+//        }
+//            break;
         case 2:
-        {//焦点
-            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-                {
-//                    sender.selected = !sender.selected;
-                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                    self.fouceView = self.selectControlView;
-
-            
-            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
-                    [self freshContentView];
-                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-                }
-            else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
-            {
-               if ([self.selectControlView isEqual:self.fouceView])
-                {
-                    self.roomLayout = YSLiveRoomLayout_VideoLayout;
-                    self.fouceView = nil;
-                }
-                else
-                {
-                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                    self.fouceView = self.selectControlView;
-                }
-                [self freshContentView];
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-            }
-        }
-            break;
-        case 3:
         {//视频复位
             NSDictionary * data = @{
                        @"isDrag":@0,
@@ -4800,40 +4800,40 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self sendGiftWithRreceiveRoomUser:self.selectControlView.roomUser];
         }
             break;
+//        case 5:
+//        {//焦点
+//
+//            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+//                {
+////                    sender.selected = !sender.selected;
+//                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+//                    self.fouceView = self.selectControlView;
+//
+//            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
+//                    [self freshContentView];
+//                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+//                }
+//            else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
+//            {
+////                sender.selected = !sender.selected;
+//
+//                if ([self.selectControlView isEqual:self.fouceView])
+//                {
+//                    self.roomLayout = YSLiveRoomLayout_VideoLayout;
+//                    self.fouceView = nil;
+//                }
+//                else
+//                {
+//                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+//                    self.fouceView = self.selectControlView;
+//                }
+//
+//                [self freshContentView];
+//                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+//            }
+//        }
+//            break;
         case 5:
-        {//焦点
-            
-            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-                {
-//                    sender.selected = !sender.selected;
-                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                    self.fouceView = self.selectControlView;
-
-            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
-                    [self freshContentView];
-                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-                }
-            else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
-            {
-//                sender.selected = !sender.selected;
-                
-                if ([self.selectControlView isEqual:self.fouceView])
-                {
-                    self.roomLayout = YSLiveRoomLayout_VideoLayout;
-                    self.fouceView = nil;
-                }
-                else
-                {
-                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                    self.fouceView = self.selectControlView;
-                }
-                
-                [self freshContentView];
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-            }
-        }
-            break;
-        case 6:
         {//视频复位
             NSDictionary * data = @{
                        @"isDrag":@0,
