@@ -263,6 +263,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///要拖动的视频view
 @property (nonatomic, strong) SCVideoView *dragingVideoView;
 
+/// 双击放大视频
+@property (nonatomic, strong) YSFloatView *doubleFloatView;
+@property (nonatomic, assign) BOOL isDoubleVideoBig;
+
 /// 共享浮动窗口 视频课件
 @property (nonatomic, strong) YSFloatView *shareVideoFloatView;
 /// 共享视频窗口
@@ -657,6 +661,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     for (YSFloatView *floatView in self.dragOutFloatViewArray)
     {
         [floatView bm_bringToFront];
+    }
+    
+    if (self.doubleFloatView)
+    {
+        [self.doubleFloatView bm_bringToFront];
     }
 }
 
@@ -2446,7 +2455,92 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 }
 
-#pragma mark - 播放白板
+/// 双击视频最大化
+- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId isFull:(BOOL)isFull;
+{
+    self.isDoubleVideoBig = isFull;
+    if (isFull)
+    {
+        if (self.doubleFloatView)
+        {
+            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
+        }
+        
+        SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
+        videoView.isFullScreen = isFull;
+        
+        [self freshContentView];
+        
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:self.whitebordBackgroud.bounds];
+        
+        [self.whitebordBackgroud addSubview:floatView];
+        [floatView bm_centerInSuperView];
+        [floatView showWithContentView:videoView];
+        self.doubleFloatView = floatView;
+
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+                
+        YSRoomUser * user = videoView.roomUser;
+        
+        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
+        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        {
+            videoView.disableVideo = YES;
+        }
+        else
+        {
+            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
+            videoView.disableVideo = NO;
+        }
+        [videoView bringSubviewToFront:videoView.backVideoView];
+    }
+    else
+    {
+        SCVideoView *videoView = (SCVideoView *)self.doubleFloatView.contentView;
+        videoView.isFullScreen = NO;
+        YSRoomUser * user = videoView.roomUser;
+        [self.doubleFloatView cleanContent];
+        [self.doubleFloatView removeFromSuperview];
+        [self freshContentView];
+        self.doubleFloatView = nil;
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+        
+        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
+        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        {
+            videoView.disableVideo = YES;
+        }
+        else
+        {
+            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+            videoView.disableVideo = NO;
+        }
+        [videoView bringSubviewToFront:videoView.backVideoView];
+    }
+    
+    if (!self.isWhitebordFullScreen)
+    {
+        self.boardControlView.hidden = isFull;
+        if (YSCurrentUser.canDraw)
+        {
+            self.brushToolView.hidden = isFull;
+        }
+    }
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+    {
+        self.drawBoardView.hidden = YES;
+    }
+    else
+    {
+        self.drawBoardView.hidden = NO;
+    }
+    
+//    [self freshWhiteBordViewFrame];
+}
+
+#pragma mark 白板视频/音频
+
+// 播放白板视频/音频
 - (void)handleWhiteBordPlayMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
     [self freshTeacherCoursewareListDataWithPlay:YES];
@@ -4887,8 +4981,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
         
-        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
-        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
     }
     
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
