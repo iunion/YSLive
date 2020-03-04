@@ -219,6 +219,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 /// 双击放大视频
 @property (nonatomic, strong) YSFloatView *doubleFloatView;
+@property (nonatomic, assign) BOOL isDoubleVideoBig;
 
 /// 共享浮动窗口 视频课件
 @property (nonatomic, strong) YSFloatView *shareVideoFloatView;
@@ -753,6 +754,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     for (YSFloatView *floatView in self.dragOutFloatViewArray)
     {
         [floatView bm_bringToFront];
+    }
+    
+    if (self.doubleFloatView)
+    {
+        [self.doubleFloatView bm_bringToFront];
     }
 }
 
@@ -2290,6 +2296,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+#pragma mark  删除所有视频窗口
 - (void)removeAllVideoView
 {
     [self hideAllDragOutVidoeView];
@@ -2584,10 +2591,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
         
-        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         if (YSCurrentUser.canDraw)
         {
-            self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+            self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         }
         
         if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
@@ -3877,6 +3884,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 双击视频最大化
 - (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId isFull:(BOOL)isFull;
 {
+    self.isDoubleVideoBig = isFull;
     if (isFull)
     {
         if (self.doubleFloatView)
@@ -3910,7 +3918,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
             videoView.disableVideo = NO;
         }
-         [videoView bringSubviewToFront:videoView.backVideoView];
+        [videoView bringSubviewToFront:videoView.backVideoView];
     }
     else
     {
@@ -3936,10 +3944,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [videoView bringSubviewToFront:videoView.backVideoView];
     }
     
-    self.boardControlView.hidden = isFull;
-    if (YSCurrentUser.canDraw)
+    if (!self.isWhitebordFullScreen)
     {
-        self.brushToolView.hidden = isFull;
+        self.boardControlView.hidden = isFull;
+        if (YSCurrentUser.canDraw)
+        {
+            self.brushToolView.hidden = isFull;
+        }
     }
     if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
     {
@@ -3949,6 +3960,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.drawBoardView.hidden = NO;
     }
+    
+//    [self freshWhiteBordViewFrame];
 }
 
 #pragma mark 白板视频/音频

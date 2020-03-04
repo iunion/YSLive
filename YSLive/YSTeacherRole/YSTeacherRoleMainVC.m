@@ -1219,59 +1219,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
-    [self freshWhitBordContentView];
-}
-
-///刷新白板尺寸
-- (void)freshWhitBordContentView
-{
-    if (self.roomtype == YSRoomType_One)
-    {
-        if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-        {//左右平行关系
-            self.whitebordBackgroud.hidden = YES;
-            
-            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, UI_SCREEN_WIDTH, videoHeight);
-            
-            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, videoHeight);
-        }
-        else
-        {//默认上下平行关系
-            self.whitebordBackgroud.hidden = NO;
-            self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
-            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth+VIDEOVIEW_GAP*2, whitebordHeight);
-            
-            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
-            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-            //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
-        }
-    }
-    else
-    {
-        self.videoBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
-        
-        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, UI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
-        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
-    }
     
-    [self freshWhiteBordViewFrame];
-}
-
-- (void)freshWhiteBordViewFrame
-{
-    if (self.isWhitebordFullScreen)
-    {
-        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
-    }
-    else
-    {
-        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-    }
-
-    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+    [self freshWhitBordContentView];
 }
 
 - (void)freshContentView
@@ -1443,6 +1392,58 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             index++;
         }
     }
+}
+
+/// 刷新白板尺寸
+- (void)freshWhitBordContentView
+{
+    if (self.roomtype == YSRoomType_One)
+    {
+        if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+        {//左右平行关系
+            self.whitebordBackgroud.hidden = YES;
+            
+            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, UI_SCREEN_WIDTH, videoHeight);
+            
+            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
+            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, videoHeight);
+        }
+        else
+        {//默认上下平行关系
+            self.whitebordBackgroud.hidden = NO;
+            self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
+            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth+VIDEOVIEW_GAP*2, whitebordHeight);
+            
+            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
+            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
+            //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+        }
+    }
+    else
+    {
+        self.videoBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
+        
+        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, UI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
+        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+    }
+    
+    [self freshWhiteBordViewFrame];
+}
+
+- (void)freshWhiteBordViewFrame
+{
+    if (self.isWhitebordFullScreen)
+    {
+        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+    }
+    else
+    {
+        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+    }
+
+    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
 }
 
 // 刷新宫格视频布局
@@ -1635,8 +1636,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (videoView)
         {
             [self.videoViewArray addObject:videoView];
-           
-
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoView = videoView;
@@ -1665,8 +1664,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         [self freshContentView];
     }
+    
     return;
 }
+
 #pragma mark  获取视频窗口
 
 - (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId
