@@ -14,8 +14,6 @@
     UITableViewDataSource
 >
 
-
-
 @property(nonatomic,weak)UITableView * tableview;
 
 @property(nonatomic,strong)NSIndexPath * selectIndex;
@@ -23,7 +21,6 @@
 @end
 
 @implementation YSCommentPopView
-
 
 - (void)setTitleArr:(NSArray *)titleArr
 {
@@ -34,7 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     self.view.backgroundColor = [UIColor bm_colorWithHexString:@"#97B7EB" alpha:0.8];
     
     self.selectIndex = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -58,13 +54,17 @@
 {
     static NSString * key = @"popCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:key ];
-    if (!cell) {
+    if (!cell)
+    {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:key];
     }
     
-    if ([self.selectIndex compare:indexPath] == NSOrderedSame) {
+    if ([self.selectIndex compare:indexPath] == NSOrderedSame)
+    {
         cell.textLabel.textColor = [UIColor bm_colorWithHexString:@"#FFE895"];
-    }else{
+    }
+    else
+    {
         cell.textLabel.textColor = [UIColor whiteColor];
     }
     cell.backgroundColor = UIColor.clearColor;
