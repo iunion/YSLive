@@ -238,6 +238,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIView *whitebordBackgroud;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
+@property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
 /// 视频View列表
@@ -1065,6 +1066,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self freshWhitBordContentView];
 }
+
 - (void)freshWhitBordContentView
 {
     if (self.roomtype == YSRoomType_One)
@@ -1082,12 +1084,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//默认上下平行关系
             self.whitebordBackgroud.hidden = NO;
             self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
-            self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
             self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth+VIDEOVIEW_GAP*2, whitebordHeight);
             
             self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
             self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-            [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+            //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
         }
     }
     else
@@ -1095,9 +1097,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.videoBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
         
         self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, UI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
-        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-        [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
     }
+    
+    [self freshWhiteBordViewFrame];
+}
+
+- (void)freshWhiteBordViewFrame
+{
+    if (self.isWhitebordFullScreen)
+    {
+        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+    }
+    else
+    {
+        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+    }
+
+    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
 }
 
 - (void)freshContentView
@@ -3239,9 +3257,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //NO:上下布局  YES:左右布局
     self.roomLayout = roomLayout;
     
-    self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+    if (!self.isWhitebordFullScreen)
+    {
+        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
 
-    self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+    }
     
     if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
     {
@@ -4833,7 +4854,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 全屏 复原 回调
 - (void)boardControlProxyfullScreen:(BOOL)isAllScreen
 {
+    self.isWhitebordFullScreen = isAllScreen;
+    
     [self.boardControlView resetBtnStates];
+    
     if (isAllScreen)
     {
         [self.view endEditing:YES];
@@ -4860,10 +4884,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
+        
+        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
     }
     
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
-    
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 }
 
