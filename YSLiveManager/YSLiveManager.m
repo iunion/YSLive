@@ -222,7 +222,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
     
     YSUserRoleType userrole = [queryMutableDictionary bm_uintForKey:@"userrole"];
-    if (userrole == YSUserType_Teacher || userrole == YSUserType_Student || userrole == YSUserType_Patrol)
+    //if (userrole == YSUserType_Teacher || userrole == YSUserType_Student || userrole == YSUserType_Patrol)
+    if (userrole == YSUserType_Teacher || userrole == YSUserType_Student)
     {
         return queryMutableDictionary;
     }
