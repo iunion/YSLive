@@ -604,7 +604,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark -
-#pragma mark GetTeacherSignaling
+#pragma mark SendTeacherSignaling
 
 @interface YSLiveManager (SendTeacherSignaling)
 /// 老师发起上课
@@ -633,6 +633,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 一V一时改变布局 (会议专用)
 - (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType appUserType:(YSAppUseTheType)appUserType;
+
+/// 发送双击视频放大
+- (BOOL)sendSignalingToDoubleClickVideoViewWithPeerId:(NSString *)peerId;
+/// 取消双击视频放大
+- (BOOL)deleteSignalingToDoubleClickVideoView;
 
 /// 拖出视频/复位视频
 - (BOOL)sendSignalingToDragOutVideoViewWithData:(NSDictionary*)data;

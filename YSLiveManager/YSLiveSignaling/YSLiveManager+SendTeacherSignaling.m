@@ -16,7 +16,7 @@
 /// 老师发起上课
 - (BOOL)sendSignalingTeacherToClassBeginWithCompletion:(completion_block)completion
 {
-    NSDictionary *sendDic = @{@"recordchat":@1};
+    NSDictionary *sendDic = @{ @"recordchat" : @1 };
     BOOL result = [self sendPubMsg:YSSignalingName_TeacherClassBegain toID:YSRoomPubMsgTellAll data:sendDic save:YES completion:completion];
     
     return result;
@@ -30,10 +30,8 @@
 }
 
 /// 修改指定用户的属性
-- (BOOL)sendSignalingToChangePropertyWithRoomUser:(YSRoomUser *)user withKey:(NSString *)key
-WithValue:(NSObject *)value
+- (BOOL)sendSignalingToChangePropertyWithRoomUser:(YSRoomUser *)user withKey:(NSString *)key WithValue:(NSObject *)value
 {
-    
     int result = [[YSRoomInterface instance] changeUserProperty:user.peerID tellWhom:YSRoomPubMsgTellAll key:key value:value completion:nil];
     return (result==0);
 }
@@ -47,7 +45,7 @@ WithValue:(NSObject *)value
 /// 一V一时改变布局
 - (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType appUserType:(YSAppUseTheType)appUserType
 {
-    int result = 0;
+    BOOL result;
 //    data:｛roomLayout : 'defaultLayout'-默认布局/'videoLayout'-视频布局｝
     if (layoutType == YSLiveRoomLayout_VideoLayout)
     {
@@ -73,15 +71,39 @@ WithValue:(NSObject *)value
             result = [self deleteMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:@"" completion:nil];
         }
     }
-        return (result == 0);
+    
+    return result;
 }
 
+/// 发送双击视频放大
+- (BOOL)sendSignalingToDoubleClickVideoViewWithPeerId:(NSString *)peerId
+{
+    if (![peerId bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    NSDictionary *sendDic = @{ @"doubleId" : peerId };
+    
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_DoubleClickVideo msgID:YSSignalingName_DoubleClickVideo toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+    return result;
+}
+
+/// 取消双击视频放大
+- (BOOL)deleteSignalingToDoubleClickVideoView
+{
+    BOOL result = [self deleteMsg:YSSignalingName_DoubleClickVideo toID:YSRoomPubMsgTellAll data:@"" completion:nil];;
+
+    return result;
+}
 
 /// 拖出视频/复位视频
 - (BOOL)sendSignalingToDragOutVideoViewWithData:(NSDictionary*)data
 {
     int result = 0;
-    NSString * msgID = [NSString stringWithFormat:@"VideoDrag_%@",[data bm_stringForKey:@"userId"]];
+    
+    NSString *msgID = [NSString stringWithFormat:@"VideoDrag_%@", [data bm_stringForKey:@"userId"]];
     if ([data bm_boolForKey:@"isDrag"])
     {
         result = [self.roomManager pubMsg:YSSignalingName_VideoDrag msgID:msgID toID:YSRoomPubMsgTellAll data:data save:YES completion:nil];
@@ -96,7 +118,12 @@ WithValue:(NSObject *)value
 /// 拖出视频后捏合动作
 - (BOOL)sendSignalingTopinchVideoViewWithPeerId:(NSString *)peerId scale:(CGFloat)scale
 {
-    BOOL result = [self sendPubMsg:YSSignalingName_VideoChangeSize toID:YSRoomPubMsgTellAll data: @{@"userId":peerId,@"scale":@(scale)} save:YES completion:nil];
+    if (![peerId bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    BOOL result = [self sendPubMsg:YSSignalingName_VideoChangeSize toID:YSRoomPubMsgTellAll data: @{@"userId":peerId, @"scale":@(scale)} save:YES completion:nil];
     return  result;
 }
 
@@ -124,7 +151,7 @@ WithValue:(NSObject *)value
 - (BOOL)sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:(nullable completion_block)completion
 {
     //兼容
-    NSDictionary *sendDic = @{@"isAllBanSpeak":@(true)};
+    NSDictionary *sendDic = @{ @"isAllBanSpeak" : @(true) };
     BOOL result = [self sendPubMsg:YSSignalingName_EveryoneBanChat toID:YSRoomPubMsgTellAll data:sendDic save:YES completion:completion];
 
     return result;
@@ -141,6 +168,10 @@ WithValue:(NSObject *)value
 /// 删除课件
 - (BOOL)sendSignalingTeacherToDeleteDocumentWithFile:(YSFileModel *)fileModel completion:(completion_block)completion
 {
+    if (![fileModel bm_isNotEmpty])
+    {
+        return NO;
+    }
  
     NSDictionary *jsDic = [fileModel bm_toDictionary];
 
@@ -155,14 +186,13 @@ WithValue:(NSObject *)value
 
     BOOL result = [self sendPubMsg:sDocumentChange toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES completion:completion];
   
-
     return result;
 }
 
 /// 切换课件
 - (BOOL)sendSignalingTeacherToSwitchDocumentWithFile:(YSFileModel *)fileModel completion:(nullable completion_block)completion
 {
-    if (!fileModel)
+    if (![fileModel bm_isNotEmpty])
     {
         return NO;
     }
@@ -217,14 +247,15 @@ WithValue:(NSObject *)value
                                   @"mediaType":@"",
                                   @"filedata":fileData
                                 };
-        BOOL result = [self.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES completion:completion];
+        BOOL result = [self.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES completion:completion] == 0;
         return result;
     }
 
     return NO;
 }
--(NSString*)absolutefileUrl:(NSString*)fileUrl{
 
+- (NSString*)absolutefileUrl:(NSString*)fileUrl
+{
     NSString *tUrl = [NSString stringWithFormat:@"%@://%@:%@%@", YSLive_Http, [YSLiveManager shareInstance].liveHost,@(YSLive_Port),fileUrl];
     NSString *tdeletePathExtension = tUrl.stringByDeletingPathExtension;
     NSString *tNewURLString = [NSString stringWithFormat:@"%@-1.%@",tdeletePathExtension,tUrl.pathExtension];
@@ -235,8 +266,9 @@ WithValue:(NSObject *)value
     NSString *tNewURLString2 = [NSString stringWithFormat:@"%@//%@/%@/%@",[tArray objectAtIndex:0],[tArray objectAtIndex:1],[tArray objectAtIndex:2],[tArray objectAtIndex:3]];
     return tNewURLString2;
 }
-- (NSMutableDictionary *)nullDicToDic:(NSDictionary *)dic{
-    
+
+- (NSMutableDictionary *)nullDicToDic:(NSDictionary *)dic
+{
     NSMutableDictionary *resultDic = [@{} mutableCopy];
     if (![dic isKindOfClass:[NSDictionary class]]) {
         return resultDic;
@@ -250,15 +282,16 @@ WithValue:(NSObject *)value
     }
     return resultDic;
 }
+
 /// 答题器占用操作
 - (BOOL)sendSignalingTeacherToAnswerOccupyedCompletion:(completion_block)completion
 {
     NSString *uuid = [YSLiveUtil createUUID];
-    NSString *answerID = [NSString stringWithFormat:@"answer_%@%@",[YSLiveManager shareInstance].room_Id,uuid];
-    NSDictionary *sendDic = @{@"status":@"occupyed",
-                              @"answerId":answerID
+    NSString *answerID = [NSString stringWithFormat:@"answer_%@%@", [YSLiveManager shareInstance].room_Id,uuid];
+    NSDictionary *sendDic = @{@"status" : @"occupyed",
+                              @"answerId" : answerID
                             };
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_Answer msgID:answerID toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:@{@"type":@"useCount"} associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_Answer msgID:answerID toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:@{@"type" : @"useCount"} associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 }
@@ -266,10 +299,20 @@ WithValue:(NSObject *)value
 /// 发布答题器
 - (BOOL)sendSignalingTeacherToAnswerWithOptions:(NSArray *)answers answerID:(NSString *)answerID completion:(nullable completion_block)completion
 {
-    NSDictionary *sendDic = @{@"options":answers,
-                              @"answerId":answerID
+    if (![answers bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    if (![answerID bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    NSDictionary *sendDic = @{@"options" : answers,
+                              @"answerId" : answerID
                             };
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_Answer msgID:answerID toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:@{@"type":@"useCount"} associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_Answer msgID:answerID toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:@{@"type" : @"useCount"} associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 }
@@ -298,7 +341,26 @@ WithValue:(NSObject *)value
 /// @param completion 回调
 - (BOOL)sendSignalingTeacherToAnswerPublicResultWithAnswerID:(NSString *)answerID selecteds:(NSDictionary *)selecteds duration:(NSString *)duration detailData:(NSArray *)detailData totalUsers:(NSInteger)totalUsers completion:(nullable completion_block)completion
 {
+    if (![answerID bm_isNotEmpty])
+    {
+        return NO;
+    }
     
+    if (![selecteds bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    if (![duration bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    if (![detailData bm_isNotEmpty])
+    {
+        return NO;
+    }
+
     NSDictionary *sendDic = @{@"answerId":answerID,
                               @"selecteds":selecteds,
                               @"duration":duration,
@@ -322,8 +384,7 @@ WithValue:(NSObject *)value
 /// 抢答器  开始
 - (BOOL)sendSignalingTeacherToStartResponderCompletion:(nullable completion_block)completion
 {
-    NSDictionary *sendDic = @{@"state":@"starting"
-                            };
+    NSDictionary *sendDic = @{ @"state" : @"starting" };
     BOOL result = [self.roomManager pubMsg:YSSignalingName_Contest msgID:YSSignalingName_Contest toID:YSRoomPubMsgTellAllExceptSender data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
@@ -333,8 +394,12 @@ WithValue:(NSObject *)value
 /// 发布抢答器结果
 - (BOOL)sendSignalingTeacherToContestResultWithName:(NSString *)name completion:(nullable completion_block)completion
 {
-    NSDictionary *sendDic = @{@"nickName": name
-                            };
+    if (![name bm_isNotEmpty])
+    {
+        return NO;
+    }
+
+    NSDictionary *sendDic = @{ @"nickName" : name };
     BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestResult msgID:YSSignalingName_ContestResult toID:YSRoomPubMsgTellAllExceptSender data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
@@ -347,6 +412,7 @@ WithValue:(NSObject *)value
 
     return result;
 }
+
 /// fas计时器
 /// @param time 计时器时间
 /// @param isStatus 当前状态 暂停 继续
@@ -367,6 +433,7 @@ WithValue:(NSObject *)value
 
      return result;
 }
+
 - (BOOL)sendSignalingTeacherToShowTimerCompletion:(nullable completion_block)completion
 {
     NSDictionary *sendDic = @{
@@ -377,6 +444,7 @@ WithValue:(NSObject *)value
      return result;
 
 }
+
 /// 学生计时器显示
 - (BOOL)sendSignalingStudentToShowTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion
 {
@@ -388,6 +456,7 @@ WithValue:(NSObject *)value
      return result;
 
 }
+
 /// 老师计时器暂停
 - (BOOL)sendSignalingTeacherToPauseTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion
 {
@@ -398,6 +467,7 @@ WithValue:(NSObject *)value
 
      return result;
 }
+
 /// 老师计时器继续
 - (BOOL)sendSignalingTeacherToContinueTimerWithTime:(NSInteger)time completion:(nullable completion_block)completion
 {
@@ -408,6 +478,7 @@ WithValue:(NSObject *)value
 
      return result;
 }
+
 /// 计时器中重置
 - (BOOL)sendSignalingTeacherToRestartTimerWithDefaultTime:(NSInteger)defaultTime completion:(nullable completion_block)completion
 {
@@ -418,6 +489,7 @@ WithValue:(NSObject *)value
 
      return result;
 }
+
 /// 结束计时
 - (BOOL)sendSignalingTeacherToDeleteTimerCompletion:(nullable completion_block)completion
 {
@@ -425,4 +497,5 @@ WithValue:(NSObject *)value
 
     return result;
 }
+
 @end

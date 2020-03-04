@@ -221,7 +221,7 @@
 // 上麦申请
 - (BOOL)sendSignalingUpPlatformWithCompletion:(completion_block)completion
 {
-    
+
     long time =1000 * (long)self.tCurrentTime;
     NSDictionary *actions = @{ @"id" : self.localUser.peerID,@"name":self.localUser.nickName,@"time":@(time)};
     NSString * dataStr = [actions bm_toJSON];
@@ -253,8 +253,7 @@
     
     int ii = [self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion];
     
-    return  (ii);
-    
+    return  (ii == 0);
 }
 
 
@@ -294,6 +293,11 @@
 
 - (BOOL)sendSignalingLiveNoticeInfoWithNotice:(NSString *)text toID:(NSString *)peerId completion:(completion_block)completion
 {
+    if (![text bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
     NSDictionary *sendDic = @{ @"text" : text };
     if (![peerId bm_isNotEmpty])
     {
@@ -306,6 +310,11 @@
 // 公告
 - (BOOL)sendSignalingLiveNoticeBoardWithNotice:(NSString *)text completion:(completion_block)completion
 {
+    if (![text bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
     NSDictionary *sendDic = @{ @"text" : text };
     
     return ([self sendPubMsg:YSSignalingName_LiveNoticeBoard toID:YSRoomPubMsgTellAll data:sendDic save:NO completion:completion]);
@@ -314,6 +323,11 @@
 /// 送花
 - (BOOL)sendSignalingLiveNoticesSendFlowerWithSenderName:(NSString *)nickName completion:(completion_block)completion
 {
+    if (![nickName bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
     NSDictionary *sendDic = @{ @"nickname" : nickName, @"num" : @1, @"senderId" : self.localUser.peerID};
     
     return ([self sendPubMsg:YSSignalingName_SendFlower toID:YSRoomPubMsgTellAll data:sendDic save:NO completion:completion]);
@@ -333,6 +347,7 @@
         
         return [obj1 compare:obj2];
     }];
+    
     NSString *mineResultStr = [tempArr componentsJoinedByString:@","];
     NSDictionary *extensionData = @{ @"actions" :  actions,@"modify":@(0), @"type":@"count" ,@"write2DB":@1,@"data":mineResultStr};
     
@@ -362,13 +377,12 @@
         
         return [obj1 compare:obj2];
     }];
+    
     NSString *mineResultStr = [tempArr componentsJoinedByString:@","];
     NSDictionary *extensionData = @{ @"actions" :  actions,@"modify":@(1), @"type":@"count" ,@"write2DB":@1,@"data":mineResultStr};
 
-
     return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
 }
-
 
 - (BOOL)sendSignalingStudentContestCommitCompletion:(completion_block)completion
 {
@@ -378,5 +392,6 @@
     
     return ([self sendPubMsg:YSSignalingName_ContestCommit toID:@"__allSuperUsers" data:[sendDic bm_toJSON] save:NO completion:completion]);
 }
+
 @end
 

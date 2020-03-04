@@ -2521,20 +2521,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (!self.isWhitebordFullScreen)
     {
         self.boardControlView.hidden = isFull;
-        if (YSCurrentUser.canDraw)
-        {
-            self.brushToolView.hidden = isFull;
-        }
+
+        self.brushToolView.hidden = isFull;
     }
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
-    {
-        self.drawBoardView.hidden = YES;
-    }
-    else
-    {
-        self.drawBoardView.hidden = NO;
-    }
-    
+
 //    [self freshWhiteBordViewFrame];
 }
 
@@ -3388,6 +3378,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             roomLayout = YSLiveRoomLayout_AroundLayout;
         }
+        else
+        {
+            if (self.isDoubleVideoBig)
+            {
+                [self.liveManager deleteSignalingToDoubleClickVideoView];
+            }
+        }
         [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout appUserType:YSAppUseTheTypeMeeting];
     }
     else
@@ -3396,6 +3393,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (!mode)
         {
             roomLayout = YSLiveRoomLayout_AroundLayout;
+        }
+        else
+        {
+            if (self.isDoubleVideoBig)
+            {
+                [self.liveManager deleteSignalingToDoubleClickVideoView];
+            }
         }
         [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
     }
