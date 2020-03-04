@@ -317,6 +317,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///音频播放器
 @property(nonatomic, strong) AVAudioPlayer *player;
 @property(nonatomic, strong) AVAudioSession *session;
+
+/// 当前的焦点视图
+@property(nonatomic, strong) SCVideoView *fouceView;
+
+
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -1462,9 +1467,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self hideWhiteBordVidoeViewWithPeerId:nil];
     [self hideAllDragOutVidoeView];
-    
-    //    [self.videoBackgroud bm_removeAllSubviews];
-    
+        
     NSMutableArray *viewArray = [[NSMutableArray alloc] init];
     [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
         [viewArray addObject:childView];
@@ -1475,7 +1478,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [videoView removeFromSuperview];
     }
 
-    [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:nil withRoomLayout:self.roomLayout];
+    [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout];
     
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
     self.contentView.hidden = YES;
@@ -4507,7 +4510,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
-///点击弹出popoview
+#pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
     self.selectControlView = videoView;
@@ -4515,7 +4518,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSRoomUser * userModel = videoView.roomUser;
     
     SCUserPublishState userPublishState = self.selectControlView.roomUser.liveUserPublishState;
-    if (userPublishState == SCUserPublishState_NONE) {
+    if (userPublishState == SCUserPublishState_NONE)
+    {
         return;
     }
     
@@ -4587,8 +4591,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
                 else
                 {
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 388, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(388, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 453, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(453, 50);
                 }
             }
             else
@@ -4600,8 +4604,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
                 else
                 {
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 325, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(325, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 390, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(390, 50);
                 }
             }
         }
@@ -4612,7 +4616,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
-///老师的控制按钮点击事件
+#pragma mark 老师的控制按钮点击事件
 - (void)teacherControlBtnsClick:(UIButton *)sender
 {
     SCUserPublishState userPublishState = self.selectControlView.roomUser.liveUserPublishState;
@@ -4646,6 +4650,36 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
             break;
         case 2:
+        {//焦点
+            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+                {
+//                    sender.selected = !sender.selected;
+                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+                    self.fouceView = self.selectControlView;
+
+            
+            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
+                    [self freshContentView];
+                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                }
+            else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
+            {
+               if ([self.selectControlView isEqual:self.fouceView])
+                {
+                    self.roomLayout = YSLiveRoomLayout_VideoLayout;
+                    self.fouceView = nil;
+                }
+                else
+                {
+                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+                    self.fouceView = self.selectControlView;
+                }
+                [self freshContentView];
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+            break;
+        case 3:
         {//视频复位
             NSDictionary * data = @{
                        @"isDrag":@0,
@@ -4702,7 +4736,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-///学生的控制按钮点击事件
+#pragma mark 学生的控制按钮点击事件
 - (void)studentControlBtnsClick:(UIButton *)sender
 {
     SCUserPublishState userPublishState = self.selectControlView.roomUser.liveUserPublishState;
@@ -4767,6 +4801,39 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
             break;
         case 5:
+        {//焦点
+            
+            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+                {
+//                    sender.selected = !sender.selected;
+                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+                    self.fouceView = self.selectControlView;
+
+            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
+                    [self freshContentView];
+                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                }
+            else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
+            {
+//                sender.selected = !sender.selected;
+                
+                if ([self.selectControlView isEqual:self.fouceView])
+                {
+                    self.roomLayout = YSLiveRoomLayout_VideoLayout;
+                    self.fouceView = nil;
+                }
+                else
+                {
+                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
+                    self.fouceView = self.selectControlView;
+                }
+                
+                [self freshContentView];
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+            break;
+        case 6:
         {//视频复位
             NSDictionary * data = @{
                        @"isDrag":@0,

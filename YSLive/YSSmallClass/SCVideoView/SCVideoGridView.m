@@ -44,14 +44,10 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         
         self.videosBgView = [[UIView alloc] init];
         self.videosBgView.backgroundColor = [UIColor clearColor];
-//        self.videosBgView.backgroundColor = [UIColor redColor];
-        
-        self.rightVideoBgView = [[UIView alloc] init];
-        self.rightVideoBgView.backgroundColor = [UIColor yellowColor];
-        [self.videosBgView addSubview:self.rightVideoBgView];
         
         [self addSubview:self.videosBgView];
-//        self.backgroundColor = UIColor.greenColor;
+        self.rightVideoBgView = [[UIView alloc] init];
+        self.rightVideoBgView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     }
     return self;
 }
@@ -214,6 +210,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 - (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout
 {
     self.videoViewArray = videoViewArray;
+    
     [self clearView];
     
     if (roomLayout == YSLiveRoomLayout_FocusLayout)
@@ -697,37 +694,8 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     
     CGFloat rightVideoBgWidth = 0.0;
     CGFloat rightVideoBgHeight = self.bm_height;
-    
-    
-//    if (self.videoViewArray.count == 1)
-//    {
-//        CGFloat top = VIDEOGRIDVIEW_TOP;
-//        CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2;
-//        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
-//
-//        CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
-//        CGFloat videoHeight;
-//        if (self.isWideScreen)
-//        {
-//            videoHeight = ceil(videoWidth / 16) * 9;
-//        }
-//        else
-//        {
-//            videoHeight = ceil(videoWidth / 4) * 3;
-//        }
-//
-//        CGFloat widthScale = maxWidth/videoWidth;
-//        CGFloat heightScale = maxHeight/videoHeight;
-//
-//        CGFloat scale = MIN(widthScale, heightScale);
-//        CGFloat bgWidth = videoWidth*scale;
-//        CGFloat bgHeight = videoHeight*scale;
-//
-//        self.videosBgView.frame = CGRectMake((self.bm_width-bgWidth)/2, (self.bm_height-bgHeight)/2, bgWidth, bgHeight);
-//
-//    }
-//    else
-        if (self.videoViewArray.count<= 4)
+
+    if (self.videoViewArray.count<= 5)
     {
         self.videosBgView.frame = self.bounds;
         
@@ -759,7 +727,9 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         rightVideoBgWidth = 2 * self.videoWidth + 3 * VIDEOGRIDVIEW_GAP;
     }
     
-    self.rightVideoBgView.frame = CGRectMake(self.videosBgView.bm_width - rightVideoBgWidth, 0, rightVideoBgWidth, rightVideoBgHeight);
+    [self.videosBgView addSubview:self.rightVideoBgView];
+    
+    self.rightVideoBgView.frame = CGRectMake(self.bm_width - rightVideoBgWidth, 0, rightVideoBgWidth, rightVideoBgHeight);
 }
 
 - (void)freshViewFocusWithFouceVideo:(SCVideoView *)fouceVideo
@@ -771,13 +741,13 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
     NSMutableArray * mutArray = [NSMutableArray arrayWithArray:self.videoViewArray];
     
-    
     if (mutArray.count>0)
     {
         CGFloat top = VIDEOGRIDVIEW_TOP;
         
         CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2 - self.rightVideoBgView.bm_width;
-        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
+//        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
+        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2;
         
         CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
         CGFloat videoHeight;
@@ -797,10 +767,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         CGFloat bgWidth = videoWidth*scale;
         CGFloat bgHeight = videoHeight*scale;
         
-        fouceVideo.bm_top = (maxWidth-bgWidth)/2;
-        fouceVideo.bm_left = (maxHeight-bgHeight)/2;
-        fouceVideo.bm_width = bgWidth;
-        fouceVideo.bm_height = bgHeight;
+        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2, bgWidth, bgHeight);
         
         [mutArray removeObject:fouceVideo];
     }
