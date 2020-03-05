@@ -4247,7 +4247,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //    self.answerView.isSingle = NO;
 }
 
-- (void)handleSignalingAnswerEndWithAnswerId:(NSString *)answerId
+- (void)handleSignalingAnswerEndWithAnswerId:(NSString *)answerId fromID:(NSString *)fromID
 {
     
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
