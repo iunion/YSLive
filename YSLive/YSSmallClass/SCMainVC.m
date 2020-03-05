@@ -3074,6 +3074,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self removeAllVideoView];
     
+    if (self.isWhitebordFullScreen)
+    {
+        [self boardControlProxyfullScreen:NO];
+    }
+    
     [self handleSignalingDefaultRoomLayout];
 }
 
