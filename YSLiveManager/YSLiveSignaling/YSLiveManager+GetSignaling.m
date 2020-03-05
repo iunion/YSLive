@@ -1151,22 +1151,6 @@
 
         return;
     }
-    // 答题结果关闭
-    if ([msgName isEqualToString:YSSignalingName_AnswerPublicResult])
-    {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingDelAnswerResultWithAnswerId:)])
-        {
-            NSString *answerId = msgID;
-
-            if ([answerId bm_isNotEmpty])
-            {
-                [self.roomManagerDelegate handleSignalingDelAnswerResultWithAnswerId:answerId];
-            }
-        }
-
-        return;
-    }
-
     
     // 全体禁言
     if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])
