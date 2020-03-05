@@ -46,7 +46,6 @@
 		2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
 		263265E4237900E500605A0E /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 263265E1237900E000605A0E /* SCBoardControlView.m */; };
 		26355BD523B4509D004B8366 /* SCTTopPopverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BD323B45098004B8366 /* SCTTopPopverViewController.m */; };
-		26355BD923B4ACB3004B8366 /* YSControlPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */; };
 		26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE223B4BB9A004B8366 /* SCTeacherListView.m */; };
 		26355BE623B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE523B4C550004B8366 /* SCTeacherPersonListCell.m */; };
 		26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE923B4C58E004B8366 /* SCTeacherCoursewareListCell.m */; };
@@ -74,6 +73,8 @@
 		3450B141240677A6006141E5 /* YSMonthListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13F240677A6006141E5 /* YSMonthListCell.m */; };
 		3450B1482406805F006141E5 /* YSMonthListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1472406805F006141E5 /* YSMonthListView.m */; };
 		3450B1492406805F006141E5 /* YSMonthListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1472406805F006141E5 /* YSMonthListView.m */; };
+		345517262410987D00B1B922 /* YSControlPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 345517252410987D00B1B922 /* YSControlPopoverView.m */; };
+		345517272410987D00B1B922 /* YSControlPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 345517252410987D00B1B922 /* YSControlPopoverView.m */; };
 		3471E28E24039A0100A3BBB4 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E26F24039A0100A3BBB4 /* FSCalendarCollectionView.m */; };
 		3471E28F24039A0100A3BBB4 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E26F24039A0100A3BBB4 /* FSCalendarCollectionView.m */; };
 		3471E29024039A0100A3BBB4 /* FSCalendarDelegationProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3471E27224039A0100A3BBB4 /* FSCalendarDelegationProxy.m */; };
@@ -312,7 +313,6 @@
 		8717E1EE2400DADC008C4CDA /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23242351A8AC00864FA3 /* sha1.c */; };
 		8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039E23B7362300DAC321 /* FLEXSetExplorerViewController.m */; };
 		8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
-		8717E1F12400DADC008C4CDA /* YSControlPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */; };
 		8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041523B7362300DAC321 /* FLEXFileBrowserSearchOperation.m */; };
 		8717E1F42400DADC008C4CDA /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */; };
 		8717E1F52400DADC008C4CDA /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638415237A971700DE7236 /* TZPhotoPreviewController.m */; };
@@ -913,7 +913,6 @@
 		26355BD223B45098004B8366 /* SCTTopPopverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTTopPopverViewController.h; sourceTree = "<group>"; };
 		26355BD323B45098004B8366 /* SCTTopPopverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTTopPopverViewController.m; sourceTree = "<group>"; };
 		26355BD723B4ACB3004B8366 /* YSControlPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSControlPopoverView.h; sourceTree = "<group>"; };
-		26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSControlPopoverView.m; sourceTree = "<group>"; };
 		26355BE123B4BB9A004B8366 /* SCTeacherListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTeacherListView.h; sourceTree = "<group>"; };
 		26355BE223B4BB9A004B8366 /* SCTeacherListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTeacherListView.m; sourceTree = "<group>"; };
 		26355BE423B4C550004B8366 /* SCTeacherPersonListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTeacherPersonListCell.h; sourceTree = "<group>"; };
@@ -976,6 +975,7 @@
 		3450B13F240677A6006141E5 /* YSMonthListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMonthListCell.m; sourceTree = "<group>"; };
 		3450B1462406805F006141E5 /* YSMonthListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMonthListView.h; sourceTree = "<group>"; };
 		3450B1472406805F006141E5 /* YSMonthListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMonthListView.m; sourceTree = "<group>"; };
+		345517252410987D00B1B922 /* YSControlPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSControlPopoverView.m; sourceTree = "<group>"; };
 		3471E26F24039A0100A3BBB4 /* FSCalendarCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionView.m; sourceTree = "<group>"; };
 		3471E27024039A0100A3BBB4 /* FSCalendarWeekdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekdayView.h; sourceTree = "<group>"; };
 		3471E27124039A0100A3BBB4 /* FSCalendarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionViewLayout.h; sourceTree = "<group>"; };
@@ -1790,7 +1790,7 @@
 			isa = PBXGroup;
 			children = (
 				26355BD723B4ACB3004B8366 /* YSControlPopoverView.h */,
-				26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */,
+				345517252410987D00B1B922 /* YSControlPopoverView.m */,
 				CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */,
 				34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */,
 				CBE342D723FAE42C003EA794 /* YSUpHandPopoverVC.h */,
@@ -3786,7 +3786,6 @@
 				87133589237270F6006534A4 /* sha1.c in Sources */,
 				872D047023B7362300DAC321 /* FLEXSetExplorerViewController.m in Sources */,
 				8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */,
-				26355BD923B4ACB3004B8366 /* YSControlPopoverView.m in Sources */,
 				872D04A323B7362300DAC321 /* FLEXFileBrowserSearchOperation.m in Sources */,
 				8713358B237270F6006534A4 /* WebViewJavascriptBridge_JS.m in Sources */,
 				0463843B237A971700DE7236 /* TZPhotoPreviewController.m in Sources */,
@@ -3998,6 +3997,7 @@
 				872D049A23B7362300DAC321 /* FLEXGlobalsEntry.m in Sources */,
 				87133625237270F6006534A4 /* SSZipArchive.m in Sources */,
 				8777C7AB23EA9EA1002002BF /* YSTableView.m in Sources */,
+				345517262410987D00B1B922 /* YSControlPopoverView.m in Sources */,
 				872D046B23B7362300DAC321 /* FLEXBundleExplorerViewController.m in Sources */,
 				87133626237270F6006534A4 /* SDWebImageCompat.m in Sources */,
 				26C1D3852376B2CF007869EA /* SCTopToolBar.m in Sources */,
@@ -4157,7 +4157,6 @@
 				8717E1EE2400DADC008C4CDA /* sha1.c in Sources */,
 				8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */,
 				8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */,
-				8717E1F12400DADC008C4CDA /* YSControlPopoverView.m in Sources */,
 				8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */,
 				8717E1F42400DADC008C4CDA /* WebViewJavascriptBridge_JS.m in Sources */,
 				8717E1F52400DADC008C4CDA /* TZPhotoPreviewController.m in Sources */,
@@ -4369,6 +4368,7 @@
 				8717E2C32400DADC008C4CDA /* FLEXGlobalsEntry.m in Sources */,
 				8717E2C42400DADC008C4CDA /* SSZipArchive.m in Sources */,
 				8717E2C52400DADC008C4CDA /* YSTableView.m in Sources */,
+				345517272410987D00B1B922 /* YSControlPopoverView.m in Sources */,
 				8717E2C62400DADC008C4CDA /* FLEXBundleExplorerViewController.m in Sources */,
 				8717E2C72400DADC008C4CDA /* SDWebImageCompat.m in Sources */,
 				8717E2C82400DADC008C4CDA /* SCTopToolBar.m in Sources */,

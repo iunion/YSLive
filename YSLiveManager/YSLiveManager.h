@@ -426,6 +426,13 @@ NS_ASSUME_NONNULL_BEGIN
 ///允许上麦的申请
 - (void)handleSignalingAllowUpPlatformApplyWithData:(NSDictionary *)data;
 
+///开启举手功能
+- (void)handleSignalingAllowEveryoneRaiseHand;
+
+///所有举手用户的列表
+- (void)handleSignalingRaiseHandUserArray:(NSMutableArray *)raiseHandUserArray;
+
+
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable;
 ///全体静音 发言
@@ -508,7 +515,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上麦申请结果
 - (BOOL)answerSignalingUpPlatformWithCompletion:(nullable completion_block)completion;
 
-
+/// 学生开始/取消举手  modify：0举手  1取消举手
+- (BOOL)sendSignalingsStudentToRaiseHandWithModify:(NSInteger)modify Completion:(nullable completion_block)completion;
 
 
 /// 发送投票
@@ -704,6 +712,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sendSignalingTeacherToStartTimerWithTime:(NSInteger)time isStatus:(BOOL)isStatus isRestart:(BOOL)isRestart isShow:(BOOL)isShow defaultTime:(NSInteger)defaultTime completion:(nullable completion_block)completion;
 /// 结束计时
 - (BOOL)sendSignalingTeacherToDeleteTimerCompletion:(nullable completion_block)completion;
+
+
+/// 通知各端开始举手
+- (BOOL)sendSignalingToLiveAllAllowRaiseHandCompletion:(nullable completion_block)completion;
+
+/// 老师订阅/取消订阅举手列表   type  subSort订阅/  unsubSort取消订阅
+- (BOOL)sendSignalingToSubscribeAllRaiseHandMemberWithType:(NSString*)type Completion:(nullable completion_block)completion;
+
+
+
+
 @end
 
 
