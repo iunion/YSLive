@@ -241,6 +241,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIView *whitebordBackgroud;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
+/// 课件全屏老师 视频
+@property (nonatomic, strong) SCVideoView *whitebordFullTeacherVideoView;
+/// 全屏白板背景
 @property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
@@ -5014,6 +5017,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.whitebordFullBackgroud addSubview:self.whiteBordView];
         self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
         [self arrangeAllViewInVCView];
+        if (self.liveManager.isBeginClass)
+        {
+            [self stopVideoAudioWithVideoView:self.teacherVideoView];
+            
+            if (self.whitebordFullTeacherVideoView)
+            {
+                [self.whitebordFullTeacherVideoView removeFromSuperview];
+            }
+            self.whitebordFullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO];
+            self.whitebordFullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
+            [self.whitebordFullBackgroud addSubview:self.whitebordFullTeacherVideoView];
+            self.whitebordFullTeacherVideoView.appUseTheType = self.appUseTheType;
+            [self playVideoAudioWithVideoView:self.whitebordFullTeacherVideoView];
+//            [self.liveManager playVideoOnView:self.whitebordFullTeacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+//            [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+//            [self.whitebordFullTeacherVideoView bringSubviewToFront:self.whitebordFullTeacherVideoView.backVideoView];
+        }
+        
     }
     else
     {
@@ -5029,6 +5050,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        
+        
+        [self stopVideoAudioWithVideoView:self.whitebordFullTeacherVideoView];
+        [self playVideoAudioWithVideoView:self.teacherVideoView];
+//        [self.liveManager playVideoOnView:self.teacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+//        [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
     }
     
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
