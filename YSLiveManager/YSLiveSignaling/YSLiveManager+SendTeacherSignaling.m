@@ -356,7 +356,7 @@
         return NO;
     }
     
-    if (![detailData bm_isNotEmpty])
+    if (!detailData)
     {
         return NO;
     }

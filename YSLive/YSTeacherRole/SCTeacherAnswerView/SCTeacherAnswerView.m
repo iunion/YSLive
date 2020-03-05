@@ -617,34 +617,47 @@
         }
     }
 
-    switch (self.answerViewType)
-    {
-        case SCTeacherAnswerViewType_Statistics:
+        switch (self.answerViewType)
         {
-            [self.topBtn setTitle:YSLocalized(@"tool.detail") forState:UIControlStateNormal];
-            [self hideEndAgainBtn:NO];
-            if (self.isAnswerIng)
+            case SCTeacherAnswerViewType_Statistics:
             {
-                [self hideOpenResult:NO];
+                [self.topBtn setTitle:YSLocalized(@"tool.detail") forState:UIControlStateNormal];
+                
+
+                if (!self.closeBtn.hidden)
+                {
+                    /// 关闭按钮隐藏 意味着不是老师操作
+                    [self hideEndAgainBtn:NO];
+                    if (self.isAnswerIng)
+                    {
+                        [self hideOpenResult:NO];
+                    }
+                    else
+                    {
+                        [self hideOpenResult:YES];
+                    }
+
+                }
+    //            self.resultLable.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"tool.zhengquedaan"),self.rightResultStr];
             }
-            else
+                break;
+            case SCTeacherAnswerViewType_Details:
             {
-                [self hideOpenResult:YES];
+                if (!self.closeBtn.hidden)
+                {
+           
+                    [self hideEndAgainBtn:self.isAnswerIng];
+                    [self hideOpenResult:YES];
+
+                }
+
+                [self.topBtn setTitle:YSLocalized(@"tool.tongji") forState:UIControlStateNormal];
+    //            self.resultLable.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"tool.zhengquedaan"),self.rightResultStr];
             }
-//            self.resultLable.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"tool.zhengquedaan"),self.rightResultStr];
+                break;
+            default:
+                break;
         }
-            break;
-        case SCTeacherAnswerViewType_Details:
-        {
-            [self hideEndAgainBtn:self.isAnswerIng];
-            [self hideOpenResult:YES];
-            [self.topBtn setTitle:YSLocalized(@"tool.tongji") forState:UIControlStateNormal];
-//            self.resultLable.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"tool.zhengquedaan"),self.rightResultStr];
-        }
-            break;
-        default:
-            break;
-    }
     [self.resultTableView reloadData];
 }
 
