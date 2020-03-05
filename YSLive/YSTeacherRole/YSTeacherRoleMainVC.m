@@ -3798,7 +3798,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 答题结束
-- (void)handleSignalingAnswerEndWithAnswerId:(NSString *)answerId
+- (void)handleSignalingAnswerEndWithAnswerId:(NSString *)answerId fromID:(NSString *)fromID
 {
     if (self.answerTimer)
     {
@@ -3810,21 +3810,44 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
          dispatch_source_cancel(self.answerDetailTimer);
     }
     
-    self.answerResultView.isAnswerIng = NO;
-    [self.answerResultView hideEndAgainBtn:NO];
     BMWeakSelf
-    self.answerResultView.againBlock = ^{
-        [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
-        // 删除答题结果信令
-        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
-        // 重新开始
-        [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
-    };
-    
-    if (_isOpenResult)
+    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
-        //为了处理公布答案的情况
-        [self getAnswerDetailDataWithAnswerID:answerId];
+            
+        self.answerResultView.isAnswerIng = NO;
+        [self.answerResultView hideEndAgainBtn:NO];
+        
+        self.answerResultView.againBlock = ^{
+            [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
+            // 删除答题结果信令
+            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+            // 重新开始
+            [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+        };
+        
+        if (_isOpenResult)
+        {
+            //为了处理公布答案的情况
+            [self getAnswerDetailDataWithAnswerID:answerId];
+        }
+
+    }
+    else
+    {
+        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
+        self.answerResultView = [[SCTeacherAnswerView alloc] init];
+        [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+        [self.answerResultView setAnswerStatistics:self.answerStatistics totalUsers:_totalUsers rightResult:self.rightAnswer];
+        self.answerResultView.isAnswerIng = NO;
+        [self.answerResultView hideEndAgainBtn:NO];
+        self.answerResultView.againBlock = ^{
+            [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
+            // 删除答题结果信令
+            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+            // 重新开始
+            [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+        };
+
     }
 }
 

@@ -1080,13 +1080,13 @@
     // 答题结束
     if ([msgName isEqualToString:YSSignalingName_Answer])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAnswerEndWithAnswerId:)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAnswerEndWithAnswerId:fromID:)])
         {
             NSString *answerId = msgID;
             
             if ([answerId bm_isNotEmpty])
             {
-                [self.roomManagerDelegate handleSignalingAnswerEndWithAnswerId:answerId];
+                [self.roomManagerDelegate handleSignalingAnswerEndWithAnswerId:answerId fromID:fromID];
             }
         }
         
