@@ -109,6 +109,7 @@
     
     NSDictionary *messageDic = [YSLiveUtil convertWithData:message];
     
+    BMWeakSelf
     if ([self.roomManagerDelegate respondsToSelector:@selector(handleMessageWith:)])
     {
         [self.roomManager getRoomUserWithPeerId:peerID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error)
@@ -145,7 +146,7 @@
              }
              else
              {
-                 NSString *server = self.fileServer;
+                 NSString *server = weakSelf.fileServer;
                  NSString *path = [messageDic bm_stringTrimForKey:@"msg"];
                  NSString *baseName = [path stringByDeletingPathExtension];
                  NSString *extension = [path pathExtension];
@@ -155,18 +156,18 @@
              NSString *toUserID = [messageDic bm_stringTrimForKey:@"toUserID"];
              if ([toUserID bm_isNotEmpty])
              {
-                 [self.roomManager getRoomUserWithPeerId:toUserID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
+                 [weakSelf.roomManager getRoomUserWithPeerId:toUserID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
                      if (!error)
                      {
                          messageModel.receiveUser = user;
                          messageModel.isPersonal = YES;
                      }
-                     [self.roomManagerDelegate handleMessageWith:messageModel];
+                     [weakSelf.roomManagerDelegate handleMessageWith:messageModel];
                  }];
              }
              else
              {
-                 [self.roomManagerDelegate handleMessageWith:messageModel];
+                 [weakSelf.roomManagerDelegate handleMessageWith:messageModel];
              }
          }];
     }
