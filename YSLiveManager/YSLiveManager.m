@@ -832,6 +832,11 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)delRoomUser:(YSRoomUser *)aRoomUser showMessge:(BOOL)showMessge
 {
+    if (![aRoomUser bm_isNotEmpty])
+    {
+        return;
+    }
+    
     [self.userList removeObject:aRoomUser];
     
     NSString *roleName = nil;
