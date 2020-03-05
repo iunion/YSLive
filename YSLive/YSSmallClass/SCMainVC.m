@@ -1302,34 +1302,37 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
         
         [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-
+        self.raiseHandsBtn.hidden = YES;
     }
     return _raiseHandsBtn;
 }
 
 ///举手上台
 - (void)raiseHandsButtonClick:(UIButton *)sender
-{
-    BMLog(@"举手上台");
-    if (self.liveManager.isBeginClass)
-    {
-        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
-    }
-    else
-    {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-    }
+{    
+    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
+    
+//    if (self.liveManager.isBeginClass)
+//    {
+//        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+//    }
+//    else
+//    {
+//        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+//    }
 }
 
 ///取消举手上台
 - (void)downHandsButtonClick:(UIButton *)sender
 {
-    BMLog(@"取消举手上台");
-    if (self.liveManager.isBeginClass) {
-        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
-    }
-    else{
-    }
+    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+//    if (self.liveManager.isBeginClass) {
+//        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+//    }
+//    else{
+//    }
+    
+    
 }
 
 
@@ -3730,6 +3733,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [alertVc addAction:confimAc];
     [self presentViewController:alertVc animated:YES completion:nil];
 }
+
+
+///学生收到RaiseHandStart展示举手按钮
+- (void)handleSignalingAllowEveryoneRaiseHand
+{
+    self.raiseHandsBtn.hidden = NO;
+}
+
 
 /* 学生不需要下课提示
 

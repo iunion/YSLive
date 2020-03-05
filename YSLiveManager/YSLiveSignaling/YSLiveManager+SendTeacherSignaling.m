@@ -496,6 +496,29 @@
     BOOL result = [self.roomManager delMsg:YSSignalingName_Timer msgID:YSSignalingName_Timer toID:YSRoomPubMsgTellAll data:@{} completion:completion] == 0;
 
     return result;
+} 
+
+/// 通知各端开始举手
+- (BOOL)sendSignalingToLiveAllAllowRaiseHandCompletion:(nullable completion_block)completion
+{
+    NSString * msgID = [NSString stringWithFormat:@"RaiseHandStart%@_%f",self.room_Id,self.tClassStartTime];
+    
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHandStart msgID:msgID toID:YSRoomPubMsgTellAll data:@{@"maxSort":@300,@"subInterval":@2500} save:YES extensionData:@{@"type":@"useSort"} associatedMsgID:nil associatedUserID:nil expires:0 completion:completion];
+    
+    return (result == 0);
 }
+
+
+/// 老师订阅/取消订阅举手列表   type  subSort订阅/  unsubSort取消订阅
+- (BOOL)sendSignalingToSubscribeAllRaiseHandMemberWithType:(NSString*)type Completion:(nullable completion_block)completion
+{
+    NSString * msgID = [YSLiveUtil createUUID];
+//    NSString *associatedMsgID = [NSString stringWithFormat:@"RaiseHandStart%@_%f",self.room_Id,self.tClassStartTime];
+    NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:sUserRaisehand];
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHandResult msgID:msgID toID:YSRoomPubMsgTellNone data:@{@"min":@1,@"max":@300} save:NO extensionData:@{@"type":type} associatedMsgID:associatedMsgID associatedUserID:nil expires:0 completion:completion];
+    
+    return (result == 0);
+}
+
 
 @end

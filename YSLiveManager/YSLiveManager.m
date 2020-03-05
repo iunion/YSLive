@@ -438,6 +438,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
 }
 
+///用户进教室前的一些信令回调
 - (void)doMsgCachePool
 {
     for (NSDictionary *dic in self.cacheMsgPool)

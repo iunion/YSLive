@@ -32,7 +32,7 @@
     {
         return;
     }
-    
+        
     ///全体静音 全体发言
     if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
     {
@@ -711,6 +711,49 @@
         }
         return;
     }
+    
+    //同意各端开始举手
+    if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
+    {
+        //Server_Sort_Result
+        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:sUserRaisehand];
+
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
+        {
+            [self.roomManagerDelegate handleSignalingAllowEveryoneRaiseHand];
+        }
+        return;
+    }
+        
+    //同意各端开始举手
+    if ([msgName isEqualToString:YSSignalingName_Server_Sort_Result])
+    {
+//        msgBody
+        NSArray * resultArray = [msgBody bm_arrayForKey:@"sortResult"];
+        
+        NSMutableArray * userArray = [NSMutableArray array];
+        if ([resultArray bm_isNotEmpty])
+        {
+            for (NSDictionary * dict in resultArray)
+            {
+                NSString * userId = dict.allKeys.firstObject;
+                YSRoomUser * user = [self.roomManager getRoomUserWithUId:userId];
+                
+                [userArray addObject:user];
+            }
+        }
+        else
+        {
+            
+        }
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
+        {
+            [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
+        }
+        
+        return;
+    }
+    
     
     //双师：老师拖拽视频布局相关信令
     if ([msgName isEqualToString:YSSignalingName_DoubleTeacher])

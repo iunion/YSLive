@@ -96,6 +96,18 @@
 ///申请上麦
 #define YSSignalingName_ApplyUpPlatForm                  @"UpperwheatSortCommit"
 
+///同意各端开始举手
+#define YSSignalingName_RaiseHandStart                  @"RaiseHandStart"
+
+///申请举手上台
+#define YSSignalingName_RaiseHand                  @"RaiseHand"
+
+///老师/助教  订阅/取消订阅举手列表
+#define YSSignalingName_RaiseHandResult                  @"RaiseHandResult"
+
+///老师/助教获取到的举手列表订阅结果
+#define YSSignalingName_Server_Sort_Result                 @"Server_Sort_Result"
+
 ///双师：老师拖拽视频布局相关信令
 #define YSSignalingName_DoubleTeacher                  @"one2oneVideoSwitchLayout"
 

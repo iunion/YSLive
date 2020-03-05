@@ -251,10 +251,27 @@
     
     NSString * UpPlatFormId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UpPlatFormId"];
     
-    int ii = [self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion];
+    int result = [self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion];
     
-    return  (ii == 0);
+    return  (result == 0);
 }
+
+/// 学生开始/取消举手  modify：0举手  1取消举手
+- (BOOL)sendSignalingsStudentToRaiseHandWithModify:(NSInteger)modify Completion:(nullable completion_block)completion
+{
+    NSDictionary * dataDict = @{self.localUser.peerID:@""};
+
+    NSString * msgID = [YSLiveUtil createUUID];
+    
+    NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:sUserRaisehand];
+     
+    NSDictionary * extensionData = @{@"actions":dataDict,@"modify":@(modify),@"type":@"sort"};
+    
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHand msgID:msgID toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:associatedMsgID associatedUserID:self.localUser.peerID expires:0 completion:completion];
+    
+    return (result == 0);
+}
+
 
 
 // 发起投票
