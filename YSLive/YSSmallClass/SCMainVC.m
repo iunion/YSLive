@@ -189,6 +189,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIView *whitebordBackgroud;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
+/// 全屏老师 视频容器
+@property (nonatomic, strong) YSFloatView *fullTeacherFloatView;
+@property (nonatomic, strong) SCVideoView *fullTeacherVideoView;
 @property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
@@ -528,6 +531,31 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         defaultRoomLayout = YSLiveRoomLayout_AroundLayout;
         self.roomLayout = defaultRoomLayout;
     }
+    
+    [self setupFullTeacherView];
+}
+- (void)setupFullTeacherView
+{
+    
+
+    CGFloat fullTeacherVideoHeight = VIDEOVIEW_MAXHEIGHT;
+    CGFloat fullTeacherVideoWidth = 0.0f;
+    if (self.isWideScreen)
+    {
+        fullTeacherVideoWidth = ceil(videoHeight*16 / 9);
+    }
+    else
+    {
+        fullTeacherVideoWidth = ceil(videoHeight*4 / 3);
+    }
+
+    self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 76 - fullTeacherVideoWidth, 20, fullTeacherVideoWidth, fullTeacherVideoHeight)];
+    
+//    self.fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
+//    self.fullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
+//
+//    self.fullTeacherVideoView.appUseTheType = self.appUseTheType;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -1191,6 +1219,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     whitebordFullBackgroud.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
     self.whitebordFullBackgroud = whitebordFullBackgroud;
     self.whitebordFullBackgroud.hidden = YES;
+    
 }
 
 /// 隐藏白板视频布局背景
@@ -2573,6 +2602,25 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.whitebordFullBackgroud addSubview:self.whiteBordView];
         self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
         [self arrangeAllViewInVCView];
+        if (self.liveManager.isBeginClass)
+        {/// 全屏课件老师显示
+            [self stopVideoAudioWithVideoView:self.teacherVideoView];
+            [self.fullTeacherFloatView removeFromSuperview];
+            [self.whitebordFullBackgroud addSubview:self.fullTeacherFloatView];
+            
+            SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
+            fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
+            [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
+            
+            [self playVideoAudioWithVideoView:fullTeacherVideoView];
+            fullTeacherVideoView.appUseTheType = self.appUseTheType;
+            self.fullTeacherVideoView = fullTeacherVideoView;
+            //    self.fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
+            //    self.fullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
+            //
+            //    self.fullTeacherVideoView.appUseTheType = self.appUseTheType;
+        }
+
     }
     else
     {
@@ -2599,10 +2647,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             self.drawBoardView.hidden = NO;
         }
+
+        [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
+        [self playVideoAudioWithVideoView:self.teacherVideoView];
     }
-    
+
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
+
 }
 
 /// 上一页
@@ -3554,6 +3606,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
+    [self setupFullTeacherView];
     self.teacherPlaceLab.hidden = YES;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
     

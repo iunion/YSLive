@@ -3662,7 +3662,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             dispatch_source_cancel(weakSelf.answerTimer);
         }
+       
+        if (!isOpen)
+        {
+            [weakSelf getAnswerDetailDataWithAnswerID:answerId];
+        }
+        
         [weakSelf.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerId completion:nil];//获取结果
+        
         [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId completion:nil];
     };
     
@@ -3779,12 +3786,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [self.answerStatistics setValue:values[key] forKey:key];
     }
-    if (_isOpenResult)
-    {
-        //为了处理公布答案的情况
-        [self getAnswerDetailDataWithAnswerID:answerId ];
-        return;
-    }
+//    if (_isOpenResult)
+//    {
+//        //为了处理公布答案的情况
+//        [self getAnswerDetailDataWithAnswerID:answerId ];
+//        return;
+//    }
     
     [self.answerResultView setAnswerStatistics:self.answerStatistics totalUsers:totalUsers rightResult:self.rightAnswer];
 }
@@ -3801,6 +3808,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
          dispatch_source_cancel(self.answerDetailTimer);
     }
+    self.answerResultView.isAnswerIng = NO;
+    [self.answerResultView hideEndAgainBtn:NO];
+    BMWeakSelf
+    self.answerResultView.againBlock = ^{
+        [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
+        // 删除答题结果信令
+        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+        // 重新开始
+        [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+    };
+    
+    if (_isOpenResult)
+    {
+        //为了处理公布答案的情况
+        [self getAnswerDetailDataWithAnswerID:answerId];
+    }
+
 }
 
 /// 答题结果
@@ -5030,9 +5054,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.whitebordFullBackgroud addSubview:self.whitebordFullTeacherVideoView];
             self.whitebordFullTeacherVideoView.appUseTheType = self.appUseTheType;
             [self playVideoAudioWithVideoView:self.whitebordFullTeacherVideoView];
-//            [self.liveManager playVideoOnView:self.whitebordFullTeacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-//            [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
-//            [self.whitebordFullTeacherVideoView bringSubviewToFront:self.whitebordFullTeacherVideoView.backVideoView];
+
         }
         
     }
