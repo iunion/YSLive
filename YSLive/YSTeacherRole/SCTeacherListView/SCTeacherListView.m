@@ -29,6 +29,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     CGFloat tableHeight;
     NSInteger _currentPage;
     NSInteger _totalPage;
+    NSInteger _userNum;
 }
 @property (nonatomic, strong) UIView *tableBacView;
 @property (nonatomic, strong) UITableView *tableView;
@@ -67,6 +68,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.backgroundColor = [UIColor clearColor];
     _currentPage = 1;
     _totalPage = 1;
+    _userNum = 0;
 //    self.layer.cornerRadius = 10;
 //    self.layer.masksToBounds = YES;
 //
@@ -250,9 +252,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type
+- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum
 {
     self.type = type;
+    _userNum = userNum;
     [self.dataSource removeAllObjects];
     if (self.type == SCTeacherTopBarTypePersonList)
     {
@@ -308,7 +311,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         _currentPage = 1;
     }
     self.pageNumLabel.text = [NSString stringWithFormat:@"%@/%@",@(_currentPage),@(_totalPage)];
-    self.leftPageBtn.enabled = (currentPage > 1);
+    self.leftPageBtn.enabled = (_currentPage > 1);
     self.rightPageBtn.enabled = _currentPage < _totalPage;
 }
 
@@ -327,8 +330,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     if (self.type == SCTeacherTopBarTypePersonList)
     {
         SCTeacherPersonListCell * personCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherPersonListCellID forIndexPath:indexPath];
-        YSRoomUser *user = self.dataSource[indexPath.row];
-        personCell.userModel = user;
+        if (indexPath.row < [self.dataSource count])
+        {
+            YSRoomUser *user = self.dataSource[indexPath.row];
+            personCell.userModel = user;
+        }
+        
         personCell.delegate = self;
         return personCell;
     }
@@ -356,20 +363,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
     if (self.type == SCTeacherTopBarTypePersonList)
     {
-        NSInteger studentNumber = 0;
-        for (YSRoomUser * user in self.dataSource)
-        {
-            if (user.role == YSUserType_Student)
-            {
-                studentNumber++;
-            }
-        }
-        NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.UserList"),@(studentNumber)];
+        NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.UserList"),@(_userNum)];
         label.text = str;
     }
     else if (self.type == SCTeacherTopBarTypeCourseware)
     {
-        NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.DocumentList"),@(self.dataSource.count)];
+        NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.DocumentList"),@(_userNum)];
         label.text = str;
     }
     [view addSubview:label];
@@ -400,45 +399,6 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     return 40;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView * view = [[UIView alloc]init];
-    
-//    UIButton *leftPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [leftPageBtn addTarget:self action:@selector(leftPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_normal"] forState:UIControlStateNormal];
-//    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_disabled"] forState:UIControlStateDisabled];
-//    [view addSubview:leftPageBtn];
-//    leftPageBtn.frame = CGRectMake(0, 0, ListView_Width, 40)];
-//
-//
-//    UIButton *rightPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [rightPageBtn addTarget:self action:@selector(rightPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_normal"] forState:UIControlStateNormal];
-//    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_disabled"] forState:UIControlStateDisabled];
-//    [view addSubview:rightPageBtn];
-
-    
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 32)];
-    label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-    label.textColor = [UIColor bm_colorWithHex:0xFFE895];
-    label.font = [UIFont systemFontOfSize:14];
-    label.text = @"fff";
-    label.bm_centerX = view.bm_centerX;
-    
-    
-    if (self.type == SCTeacherTopBarTypePersonList)
-    {
-
-    }
-    else if (self.type == SCTeacherTopBarTypeCourseware)
-    {
-       
-    }
-    [view addSubview:label];
-    return view;
-}
-
 - (void)leftPageBtnClicked:(UIButton *)btn
 {
     
@@ -462,20 +422,6 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.leftPageBtn.enabled = (_currentPage > 1);
     self.rightPageBtn.enabled = _currentPage < _totalPage;
 
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    
-    if (self.type == SCTeacherTopBarTypePersonList)
-    {
-        return 40;
-    }
-    else if (self.type == SCTeacherTopBarTypeCourseware)
-    {
-        return CGFLOAT_MIN;
-    }
-    return CGFLOAT_MIN;
 }
 
 - (void)cycleTitleBtnClick
