@@ -181,8 +181,10 @@
 //视频view点击事件
 - (void)clickToShowControl
 {
-    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher) {
-        if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)]) {
+    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher)
+    {
+        if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
+        {
             [self.delegate clickViewToControlWithVideoView:self];
         }
     }    
@@ -191,7 +193,8 @@
 ///视频拖拽事件
 - (void)panGestureToMoveView:(UIPanGestureRecognizer *)pan
 {
-    if ([self.delegate respondsToSelector:@selector(panToMoveVideoView:withGestureRecognizer:)]) {
+    if ([self.delegate respondsToSelector:@selector(panToMoveVideoView:withGestureRecognizer:)])
+    {
         [self.delegate panToMoveVideoView:self withGestureRecognizer:pan];
     }
 }
@@ -250,7 +253,6 @@
     maskNoVideoTitle.textAlignment = NSTextAlignmentCenter;
     [self.maskNoVideo addSubview:maskNoVideoTitle];
     self.maskNoVideoTitle = maskNoVideoTitle;
-    
     
     //设备性能低时的蒙版
     self.lowDeviceBgView = [[UIView alloc] init];

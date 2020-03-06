@@ -481,7 +481,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         defaultRoomLayout = YSLiveRoomLayout_VideoLayout;
         self.roomLayout = defaultRoomLayout;
-        [self handleSignalingSetRoomLayout:self.roomLayout];
+        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil];
     }
     else
     {
@@ -1475,7 +1475,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [videoView removeFromSuperview];
     }
 
-    [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout];
+    [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
     
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
     self.contentView.hidden = YES;
@@ -1930,7 +1930,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self freshTeacherPersonListData];
     
-//    [self raiseHandReloadData];
+    //焦点用户退出
+    if ([self.fouceView.roomUser.peerID isEqualToString:user.peerID])
+    {
+        self.roomLayout = YSLiveRoomLayout_VideoLayout;
+        self.fouceView = nil;
+        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
+    }
 }
 
 /// 自己被踢出房间
@@ -3360,20 +3366,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self backAction:nil];
 }
 
-
-#pragma mark - 双击视频切换焦点布局模式
-//- (void)doubleClickToChangeLayoutWithVideoView:(SCVideoView *)videoView
-//{
-//    
-//    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-//    {
-//        self.roomLayout = YSLiveRoomLayout_FocusLayout;
-//        
-////        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
-//        [self freshContentView];
-//    }
-//}
-
 #pragma mark 切换布局模式
 - (void)changeLayoutWithMode:(BOOL)mode
 {
@@ -3402,7 +3394,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             roomLayout = YSLiveRoomLayout_AroundLayout;
         }
-        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout appUserType:YSAppUseTheTypeMeeting];
+        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout appUserType:YSAppUseTheTypeMeeting withFouceUserId:nil];
     }
     else
     {
@@ -3416,7 +3408,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark 窗口布局变化
-- (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout
+- (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout withPeerId:(nullable NSString *)peerId
 {
     //NO:上下布局  YES:左右布局
     self.roomLayout = roomLayout;
@@ -3439,12 +3431,28 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.topToolBar.switchLayoutBtn.selected = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
     
+    if (roomLayout == YSLiveRoomLayout_FocusLayout)
+    {
+        for (SCVideoView *videoView in self.videoViewArray)
+        {
+            if ([videoView.roomUser.peerID isEqualToString: peerId])
+            {
+                self.fouceView = videoView;
+                break;
+            }
+        }
+        if (![self.fouceView bm_isNotEmpty])
+        {
+            self.roomLayout = YSLiveRoomLayout_VideoLayout;
+        }
+    }
+    
     [self freshContentView];
 }
 
 - (void)handleSignalingDefaultRoomLayout
 {
-    [self handleSignalingSetRoomLayout:defaultRoomLayout];
+    [self handleSignalingSetRoomLayout:defaultRoomLayout withPeerId:nil];
 }
 
 
@@ -4659,19 +4667,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case 2:
         {//焦点
             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-                {
-//                    sender.selected = !sender.selected;
-                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                    self.fouceView = self.selectControlView;
-
-
-            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
-                    [self freshContentView];
-                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-                }
+            {
+                //                    sender.selected = !sender.selected;
+                self.roomLayout = YSLiveRoomLayout_FocusLayout;
+                self.fouceView = self.selectControlView;
+                [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
+            }
             else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
             {
-               if ([self.selectControlView isEqual:self.fouceView])
+                if ([self.selectControlView isEqual:self.fouceView])
                 {
                     self.roomLayout = YSLiveRoomLayout_VideoLayout;
                     self.fouceView = nil;
@@ -4681,9 +4685,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     self.roomLayout = YSLiveRoomLayout_FocusLayout;
                     self.fouceView = self.selectControlView;
                 }
-                [self freshContentView];
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
             }
+            
+            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
             break;
         case 3:
@@ -4809,21 +4814,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             break;
         case 5:
         {//焦点
-
-            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-                {
-//                    sender.selected = !sender.selected;
-                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                    self.fouceView = self.selectControlView;
-
-            //        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
-                    [self freshContentView];
-                     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-                }
+             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+             {
+                 //                    sender.selected = !sender.selected;
+                 self.roomLayout = YSLiveRoomLayout_FocusLayout;
+                 self.fouceView = self.selectControlView;
+                 [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
+             }
             else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
             {
-//                sender.selected = !sender.selected;
-
                 if ([self.selectControlView isEqual:self.fouceView])
                 {
                     self.roomLayout = YSLiveRoomLayout_VideoLayout;
@@ -4834,10 +4833,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     self.roomLayout = YSLiveRoomLayout_FocusLayout;
                     self.fouceView = self.selectControlView;
                 }
-
-                [self freshContentView];
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
             }
+            
+            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
             break;
         case 6:

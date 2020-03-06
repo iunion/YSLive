@@ -36,14 +36,14 @@
     return (result==0);
 }
 
-/// 一V一时改变布局
+/// 改变布局
 - (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType
 {
-    return [self sendSignalingToChangeLayoutWithLayoutType:layoutType appUserType:YSAppUseTheTypeSmallClass];
+    return [self sendSignalingToChangeLayoutWithLayoutType:layoutType appUserType:YSAppUseTheTypeSmallClass withFouceUserId:nil];
 }
 
-/// 一V一时改变布局
-- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType appUserType:(YSAppUseTheType)appUserType
+/// 改变布局
+- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType appUserType:(YSAppUseTheType)appUserType withFouceUserId:(NSString *)peerId
 {
     BOOL result;
 //    data:｛roomLayout : 'defaultLayout'-默认布局/'videoLayout'-视频布局｝
@@ -59,7 +59,8 @@
             result = [self sendPubMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:data save:YES completion:nil];
         }
     }
-    else
+    else if (layoutType == YSLiveRoomLayout_AroundLayout)
+//    else
     {
         if (appUserType == YSAppUseTheTypeMeeting)
         {
@@ -71,9 +72,32 @@
             result = [self deleteMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:@"" completion:nil];
         }
     }
+    else
+    {
+        if (appUserType == YSAppUseTheTypeSmallClass)
+        {
+             NSDictionary *data = @{ @"roomLayout" : @"focusLayout",@"focusVideoId":peerId };
+                   BOOL result = [self sendPubMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:data save:YES completion:nil];
+                   return result;
+        }
+        else
+        {
+            return YES;
+        }
+       
+    }
     
+       
     return result;
 }
+
+//- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType withFouceUserId:(NSString *)peerId
+//{
+//    NSDictionary *data = @{ @"roomLayout" : @"focusLayout",@"focusVideoId":peerId };
+//    BOOL result = [self sendPubMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:data save:YES completion:nil];
+//    return result;
+//}
+
 
 /// 发送双击视频放大
 - (BOOL)sendSignalingToDoubleClickVideoViewWithPeerId:(NSString *)peerId
@@ -513,7 +537,6 @@
 - (BOOL)sendSignalingToSubscribeAllRaiseHandMemberWithType:(NSString*)type Completion:(nullable completion_block)completion
 {
     NSString * msgID = [YSLiveUtil createUUID];
-//    NSString *associatedMsgID = [NSString stringWithFormat:@"RaiseHandStart%@_%f",self.room_Id,self.tClassStartTime];
     NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:sUserRaisehand];
     BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHandResult msgID:msgID toID:YSRoomPubMsgTellNone data:@{@"min":@1,@"max":@300} save:NO extensionData:@{@"type":type} associatedMsgID:associatedMsgID associatedUserID:nil expires:0 completion:completion];
     
