@@ -1128,34 +1128,36 @@
     // 答题结束
     if ([msgName isEqualToString:YSSignalingName_Answer])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAnswerEndWithAnswerId:)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAnswerEndWithAnswerId:fromID:)])
         {
             NSString *answerId = msgID;
             
             if ([answerId bm_isNotEmpty])
             {
-                [self.roomManagerDelegate handleSignalingAnswerEndWithAnswerId:answerId];
+                [self.roomManagerDelegate handleSignalingAnswerEndWithAnswerId:answerId fromID:fromID];
             }
         }
         
         return;
     }
     
-    // 答题结果关闭
-    if ([msgName isEqualToString:YSSignalingName_AnswerPublicResult])
-    {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingDelAnswerResultWithAnswerId:)])
-        {
-            NSString *answerId = msgID;
 
-            if ([answerId bm_isNotEmpty])
-            {
-                [self.roomManagerDelegate handleSignalingDelAnswerResultWithAnswerId:answerId];
-            }
-        }
+//    // 答题结果关闭
+//    if ([msgName isEqualToString:YSSignalingName_AnswerPublicResult])
+//    {
+//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingDelAnswerResultWithAnswerId:)])
+//        {
+//            NSString *answerId = msgID;
+//
+//            if ([answerId bm_isNotEmpty])
+//            {
+//                [self.roomManagerDelegate handleSignalingDelAnswerResultWithAnswerId:answerId];
+//            }
+//        }
+//
+//        return;
+//    }
 
-        return;
-    }
     // 答题结果关闭
     if ([msgName isEqualToString:YSSignalingName_AnswerPublicResult])
     {

@@ -24,6 +24,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     SCTeacherCoursewareListCellDelegate,
     UIGestureRecognizerDelegate
 >
+{
+    CGFloat tableWidth;
+    CGFloat tableHeight;
+    NSInteger _currentPage;
+    NSInteger _totalPage;
+}
 @property (nonatomic, strong) UIView *tableBacView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) SCTeacherTopBarType type;
@@ -34,7 +40,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 @property (nonatomic, strong) UIView *cyclePlayView;
 
 @property (nonatomic, strong) UILabel *studentNumLabel;
-
+@property (nonatomic, strong) UIView *tableFooterView;
+@property (nonatomic, strong) UIButton *leftPageBtn;
+@property (nonatomic, strong) UIButton *rightPageBtn;
+@property (nonatomic, strong) UILabel *pageNumLabel;
 @end
 
 @implementation SCTeacherListView
@@ -56,6 +65,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.dataSource = [NSMutableArray arrayWithCapacity:0];
     self.selectArr = [NSMutableArray arrayWithCapacity:0];
     self.backgroundColor = [UIColor clearColor];
+    _currentPage = 1;
+    _totalPage = 1;
 //    self.layer.cornerRadius = 10;
 //    self.layer.masksToBounds = YES;
 //
@@ -64,8 +75,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:tapGesture];
     
-    CGFloat tableWidth = ListView_Width;
-    CGFloat tableHeight = ListView_Height;
+    tableWidth = ListView_Width;
+    tableHeight = ListView_Height;
     if (![UIDevice bm_isiPad])
     {
         tableWidth = 250;
@@ -95,6 +106,47 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [tableView registerClass:[SCTeacherCoursewareListCell class] forCellReuseIdentifier:SCTeacherCoursewareListCellID];
     self.tableView = tableView;
     [tableBacView addSubview:tableView];
+    
+    self.tableFooterView = [[UIView alloc] init];
+    [tableBacView addSubview:self.tableFooterView];
+    self.tableFooterView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    self.tableFooterView.frame = CGRectMake(0, tableHeight - 40, tableWidth, 40);
+    self.tableFooterView.hidden = NO;
+    
+    UILabel * pageNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, 80, 32)];
+    pageNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    pageNumLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    pageNumLabel.font = [UIFont systemFontOfSize:14];
+    pageNumLabel.text = @"fffff";
+    pageNumLabel.textAlignment = NSTextAlignmentCenter;
+    pageNumLabel.bm_centerX = self.tableFooterView.bm_centerX;
+    pageNumLabel.layer.cornerRadius = 6;
+    pageNumLabel.layer.masksToBounds = YES;
+    [self.tableFooterView addSubview:pageNumLabel];
+    self.pageNumLabel = pageNumLabel;
+    
+    UIButton *leftPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftPageBtn addTarget:self action:@selector(leftPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_normal"] forState:UIControlStateNormal];
+    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_disabled"] forState:UIControlStateDisabled];
+    [self.tableFooterView addSubview:leftPageBtn];
+    leftPageBtn.frame = CGRectMake(0, 0, 32, 32);
+    leftPageBtn.bm_right = pageNumLabel.bm_left - 6;
+    leftPageBtn.bm_centerY = pageNumLabel.bm_centerY;
+
+    self.leftPageBtn = leftPageBtn;
+    
+    UIButton *rightPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightPageBtn addTarget:self action:@selector(rightPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_normal"] forState:UIControlStateNormal];
+    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_disabled"] forState:UIControlStateDisabled];
+    [self.tableFooterView addSubview:rightPageBtn];
+    rightPageBtn.frame = CGRectMake(0, 0, 32, 32);
+    rightPageBtn.bm_left = pageNumLabel.bm_right + 6;
+    rightPageBtn.bm_centerY = pageNumLabel.bm_centerY;
+    self.rightPageBtn = rightPageBtn;
+
+    
 }
 
 - (void)cyclePlaySetup
@@ -188,7 +240,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if ([touch.view isDescendantOfView:self.tableView])
+    if ([touch.view isDescendantOfView:self.tableView] || [touch.view isDescendantOfView:self.tableFooterView])
     {
         return NO;
     }
@@ -204,6 +256,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [self.dataSource removeAllObjects];
     if (self.type == SCTeacherTopBarTypePersonList)
     {
+        self.tableView.bm_height = tableHeight - 40;
+        self.tableFooterView.hidden = NO;
         [self.dataSource addObjectsFromArray:dataSource];
         for (YSRoomUser * user in dataSource)
         {
@@ -215,6 +269,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
     if (self.type == SCTeacherTopBarTypeCourseware)
     {
+        self.tableView.bm_height = tableHeight;
+        self.tableFooterView.hidden = YES;
         [self.dataSource addObjectsFromArray:dataSource];
         [self.dataSource sortUsingComparator:^NSComparisonResult(YSFileModel * _Nonnull obj1, YSFileModel * _Nonnull obj2) {
             return [obj2.fileid compare:obj1.fileid];
@@ -238,13 +294,30 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [self.tableView reloadData];
 }
 
+- (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage
+{
+    _totalPage = totalPage + 1;
+    if (_totalPage < 1)
+    {
+        _totalPage = 1;
+    }
+    
+    _currentPage = currentPage + 1;
+    if (_currentPage < 1)
+    {
+        _currentPage = 1;
+    }
+    self.pageNumLabel.text = [NSString stringWithFormat:@"%@/%@",@(_currentPage),@(_totalPage)];
+    self.leftPageBtn.enabled = (currentPage > 1);
+    self.rightPageBtn.enabled = _currentPage < _totalPage;
+}
 
 #pragma mark -
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    self.studentNumLabel.text = [NSString stringWithFormat:@"学生人数：%ld",self.dataSource.count];
+//    self.studentNumLabel.text = [NSString stringWithFormat:@"学生人数：%ld",self.dataSource.count];
     
     return self.dataSource.count;
 }
@@ -325,6 +398,84 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 40;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView * view = [[UIView alloc]init];
+    
+//    UIButton *leftPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [leftPageBtn addTarget:self action:@selector(leftPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_normal"] forState:UIControlStateNormal];
+//    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_disabled"] forState:UIControlStateDisabled];
+//    [view addSubview:leftPageBtn];
+//    leftPageBtn.frame = CGRectMake(0, 0, ListView_Width, 40)];
+//
+//
+//    UIButton *rightPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [rightPageBtn addTarget:self action:@selector(rightPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_normal"] forState:UIControlStateNormal];
+//    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_disabled"] forState:UIControlStateDisabled];
+//    [view addSubview:rightPageBtn];
+
+    
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 32)];
+    label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    label.textColor = [UIColor bm_colorWithHex:0xFFE895];
+    label.font = [UIFont systemFontOfSize:14];
+    label.text = @"fff";
+    label.bm_centerX = view.bm_centerX;
+    
+    
+    if (self.type == SCTeacherTopBarTypePersonList)
+    {
+
+    }
+    else if (self.type == SCTeacherTopBarTypeCourseware)
+    {
+       
+    }
+    [view addSubview:label];
+    return view;
+}
+
+- (void)leftPageBtnClicked:(UIButton *)btn
+{
+    
+    if ([self.delegate respondsToSelector:@selector(leftPageProxyWithPage:)])
+    {
+        [self.delegate leftPageProxyWithPage:_currentPage-1];
+    }
+    self.leftPageBtn.enabled = (_currentPage > 1);
+    self.rightPageBtn.enabled = _currentPage < _totalPage;
+
+}
+
+- (void)rightPageBtnClicked:(UIButton *)btn
+{
+//    self.leftPageBtn.enabled = (_currentPage > 1);
+//    self.rightPageBtn.enabled = _currentPage < _totalPage;
+    if ([self.delegate respondsToSelector:@selector(rightPageProxyWithPage:)])
+    {
+        [self.delegate rightPageProxyWithPage:_currentPage-1];
+    }
+    self.leftPageBtn.enabled = (_currentPage > 1);
+    self.rightPageBtn.enabled = _currentPage < _totalPage;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    
+    if (self.type == SCTeacherTopBarTypePersonList)
+    {
+        return 40;
+    }
+    else if (self.type == SCTeacherTopBarTypeCourseware)
+    {
+        return CGFLOAT_MIN;
+    }
+    return CGFLOAT_MIN;
 }
 
 - (void)cycleTitleBtnClick

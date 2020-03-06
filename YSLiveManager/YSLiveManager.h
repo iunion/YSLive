@@ -382,7 +382,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleSignalingAnswerPublicResultWithAnswerId:(NSString *)answerId resault:(NSDictionary *)resault durationStr:(NSString *)durationStr answers:(NSArray *)answers totalUsers:(NSUInteger)totalUsers;
 /// 答题结束
 /// @param answerId 答题ID
-- (void)handleSignalingAnswerEndWithAnswerId:(NSString *)answerId;
+- (void)handleSignalingAnswerEndWithAnswerId:(NSString *)answerId fromID:(NSString *)fromID;
 
 /// 答题结果关闭
 /// @param answerId 答题ID
