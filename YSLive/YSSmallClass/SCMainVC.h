@@ -6,11 +6,11 @@
 //  Copyright © 2019 YS. All rights reserved.
 //
 
-#import "YSMainSuperVC.h"
+#import "YSClassMainSuperVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SCMainVC : YSMainSuperVC
+@interface SCMainVC : YSClassMainSuperVC
 
 - (instancetype)initWithRoomType:(YSRoomTypes)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;
 

@@ -34,27 +34,8 @@
 
 #import "SCColorSelectView.h"
 
-#import "SCEyeCareView.h"
-#import "SCEyeCareWindow.h"
 #import "YSStudentResponder.h"
 #import "YSStudentTimerView.h"
-
-
-typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
-{
-    SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView,
-    SCMain_ArrangeContentBackgroudViewType_VideoGridView,
-    SCMain_ArrangeContentBackgroudViewType_DragOutFloatViews
-};
-
-// 上传图片的用途
-typedef NS_ENUM(NSInteger, SCUploadImageUseType)
-{
-    /// 作为课件
-    SCUploadImageUseType_Document = 0,
-    /// 聊天用图
-    SCUploadImageUseType_Message  = 1,
-};
 
 #define SCLessonTimeCountDownKey     @"SCLessonTimeCountDownKey"
 
@@ -101,7 +82,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 @interface SCMainVC ()
 <
-    SCEyeCareViewDelegate,
     TZImagePickerControllerDelegate,
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate,
@@ -145,13 +125,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     BOOL needFreshVideoView;
     NSInteger contestTouchOne;
 }
-
-/// 原keywindow
-@property(nonatomic, weak) UIWindow *previousKeyWindow;
-/// 护眼提醒
-@property (nonatomic, strong) SCEyeCareView *eyeCareView;
-/// 护眼提醒window
-@property (nonatomic, strong) SCEyeCareWindow *eyeCareWindow;
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
 @property (nonatomic, assign) YSRoomTypes roomtype;
@@ -421,37 +394,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager changeDefaultPrimaryColor:newColorStr];
 }
 
-// 进入全屏
-
-- (void)begainFullScreen
-{
-    NSLog(@"=================================begainFullScreen");
-}
-
-// 退出全屏
-
-- (void)endFullScreen
-{
-    NSLog(@"=================================begainFullScreen");
-
-// 强制
-
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)])
-    {
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-
-        [invocation setTarget:[UIDevice currentDevice]];
-
-        int val = UIInterfaceOrientationLandscapeRight; //UIInterfaceOrientationPortrait;
-        [invocation setArgument:&val atIndex:2];
-
-        [invocation invoke];
-    }
-}
-
 
 #pragma mark -
 #pragma mark ViewControllerLife
@@ -460,17 +402,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super viewDidLoad];
 
-    // 进入全屏
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(begainFullScreen) name:UIWindowDidBecomeVisibleNotification object:nil];
-    // 退出全屏
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
-
     //    if (@available(iOS 13.0, *))
     //    {
     //        //[self setViewOrientationMask:UIInterfaceOrientationMaskLandscapeRight];
     //    }
-    
-    self.view.backgroundColor = [UIColor whiteColor];
     
     self.videoViewArray = [[NSMutableArray alloc] init];
     
@@ -534,10 +469,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self setupFullTeacherView];
 }
+
 - (void)setupFullTeacherView
 {
-    
-
     CGFloat fullTeacherVideoHeight = VIDEOVIEW_MAXHEIGHT;
     CGFloat fullTeacherVideoWidth = 0.0f;
     if (self.isWideScreen)
@@ -558,41 +492,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    // 保证屏幕常亮
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    // 保证屏幕常亮
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-
 - (void)afterDoMsgCachePool
 {
+    [super afterDoMsgCachePool];
+    
     if (self.appUseTheType == YSAppUseTheTypeSmallClass)
     {
         // 自动上台
@@ -635,43 +538,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (void)showEyeCareRemind
-{
-    if (self.eyeCareWindow)
-    {
-        return;
-    }
-    
-    NSLog(@"小班课护眼模式提醒");
-    
-    self.previousKeyWindow = [UIApplication sharedApplication].keyWindow;
-    
-    CGRect frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
-    SCEyeCareWindow *eyeCareWindow = [[SCEyeCareWindow alloc] initWithFrame:frame];
-    self.eyeCareWindow = eyeCareWindow;
-    [self.eyeCareWindow makeKeyWindow];
-    self.eyeCareWindow.hidden = NO;
-    
-    SCEyeCareView *eyeCareView = [[SCEyeCareView alloc] initWithFrame:frame needRotation:YES];
-    eyeCareView.delegate = self;
-    [eyeCareWindow addSubview:eyeCareView];
-    [eyeCareView bm_centerInSuperView];
-
-    self.eyeCareWindow.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-    eyeCareWindow.frame = CGRectMake(0, 0, UI_SCREEN_HEIGHT, UI_SCREEN_WIDTH);
-}
-
-#pragma mark SCEyeCareViewDelegate
-
-- (void)eyeCareViewClose
-{
-    [self.eyeCareWindow bm_removeAllSubviews];
-    self.eyeCareWindow.hidden = YES;
-    self.eyeCareWindow = nil;
-    
-    [self.previousKeyWindow makeKeyWindow];
-}
-
 
 #pragma mark 隐藏状态栏
 
@@ -698,44 +564,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     return UIStatusBarAnimationNone;
 }
 
-#pragma mark 横竖屏
-
-/// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-/// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
-/// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskLandscape;
-}
-
-/// 3.返回进入界面默认显示方向
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationLandscapeRight;
-}
-
-- (void)backAction:(id)sender
-{
-    BMWeakSelf
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.Quite") message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        [weakSelf.liveManager leaveRoom:nil];
-        
-    }];
-    UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }];
-    [alertVc addAction:cancleAc];
-    [alertVc addAction:confimAc];
-    [self presentViewController:alertVc animated:YES completion:nil];
-}
 
 #pragma mark - 层级管理
 
@@ -2931,6 +2759,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)keyboardWillShow:(NSNotification*)notification
 {
+    [super keyboardWillShow:notification];
+    
     CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     CGRect keyboardF = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.keyBoardH = keyboardF.size.height;//竖屏： 292   横屏 ：232
@@ -2970,6 +2800,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    [super keyboardWillHide:notification];
+    
     double duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     if (self.chatToolView.emojBtn.selected)
     {
