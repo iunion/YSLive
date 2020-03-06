@@ -1602,7 +1602,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else if (delVideoView.isFullScreen)
         {
-//            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
+            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
         }
         else
         {
@@ -2419,43 +2419,44 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [floatView showWithContentView:videoView];
         self.doubleFloatView = floatView;
 
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-                
-        YSRoomUser * user = videoView.roomUser;
-        
-        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
-        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
-        {
-            videoView.disableVideo = YES;
-        }
-        else
-        {
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
-            videoView.disableVideo = NO;
-        }
+//        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+//
+//        YSRoomUser * user = videoView.roomUser;
+//
+//        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
+//        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+//        {
+//            videoView.disableVideo = YES;
+//        }
+//        else
+//        {
+//            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
+//            videoView.disableVideo = NO;
+//        }
         [videoView bringSubviewToFront:videoView.backVideoView];
     }
     else
     {
         SCVideoView *videoView = (SCVideoView *)self.doubleFloatView.contentView;
         videoView.isFullScreen = NO;
-        YSRoomUser * user = videoView.roomUser;
         [self.doubleFloatView cleanContent];
         [self.doubleFloatView removeFromSuperview];
         [self freshContentView];
         self.doubleFloatView = nil;
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
         
-        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
-        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
-        {
-            videoView.disableVideo = YES;
-        }
-        else
-        {
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-            videoView.disableVideo = NO;
-        }
+//        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+//
+//        YSRoomUser * user = videoView.roomUser;
+//        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
+//        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+//        {
+//            videoView.disableVideo = YES;
+//        }
+//        else
+//        {
+//            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+//            videoView.disableVideo = NO;
+//        }
         [videoView bringSubviewToFront:videoView.backVideoView];
     }
     
