@@ -86,6 +86,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #define ListView_Width        426.0f
 #define ListView_Height        598.0f
 
+#define onePageMaxUsers  8
 #define YSTeacherResponderCountDownKey     @"YSTeacherResponderCountDownKey"
 #define YSTeacherTimerCountDownKey         @"YSTeacherTimerCountDownKey"
 
@@ -159,6 +160,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL autoUpPlatform;
     NSInteger timer_defaultTime;
     BOOL allNoAudio;
+    
+    NSInteger _personListCurentPage;
+    NSInteger _personListTotalPage;
+    
 }
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
@@ -201,7 +206,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 上课时间的定时器
 @property (nonatomic, strong) dispatch_source_t topBarTimer;
-
+/// 大并发房间计时器 每两秒获取一次
+@property (nonatomic, strong) dispatch_source_t bigRoomTimer;
 /// 翻页工具
 @property (nonatomic, strong) SCBoardControlView *boardControlView;
 
@@ -323,6 +329,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         dispatch_source_cancel(self.answerDetailTimer);
         self.answerDetailTimer = nil;
     }
+    
+    if (self.bigRoomTimer)
+    {
+        dispatch_source_cancel(self.bigRoomTimer);
+        self.bigRoomTimer = nil;
+    }
 
 }
 
@@ -372,7 +384,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [super viewDidLoad];
     
     classEndAlertVC = nil;
-    
+    _personListCurentPage = 0;
+    _personListTotalPage = 0;
     self.videoViewArray = [[NSMutableArray alloc] init];
     
     /// 本地播放 （定时器结束的音效）
@@ -1628,6 +1641,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark YSLiveRoomManagerDelegate
 
+/// 大并发房间
+- (void)roomManagerChangeToBigRoom
+{
+    BMWeakSelf
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    self.bigRoomTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(self.bigRoomTimer, DISPATCH_TIME_NOW, 2.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    //3.要调用的任务
+    dispatch_source_set_event_handler(self.bigRoomTimer, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf freshTeacherPersonListData];
+        });
+    });
+    //4.开始执行
+    dispatch_resume(self.bigRoomTimer);
+    
+
+}
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
@@ -2328,10 +2359,37 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         //花名册  有用户进入房间调用 上下课调用
                //花名册  有用户进入房间调用 上下课调用
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList];
-    
-    }
+        
+        if (self.liveManager.isBigRoom)
+        {
+            BMWeakSelf
+            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(studentNum + assistantNum)/onePageMaxUsers];
+            [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   // UI更新代码
+                   [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                });
+                
+            }];
+        }
+        else
+        {
+            
+//            NSInteger studentNumber = 0;
+//            for (YSRoomUser * user in self.liveManager.userList)
+//            {
+//                if (user.role == YSUserType_Student)
+//                {
+//                    studentNumber++;
+//                }
+//            }
+            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
+            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
 
+        }
+    }
 }
 
 /// 双击视频最大化
@@ -2562,7 +2620,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         YSFileModel *file = [[YSLiveManager shareInstance] getFileWithFileID:self.liveManager.playMediaModel.fileid];
         file.isPlaying = isPlay;
         
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
     }
 }
 
@@ -3178,13 +3236,45 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //花名册  有用户进入房间调用 上下课调用
         [self freshListViewWithSelect:!btn.selected];
         
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList];
-        [self.teacherListView setPersonListCurrentPage:0 totalPage:100];
-        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:10 search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+        BMWeakSelf
+        if (self.liveManager.isBigRoom)
+        {
+            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            _personListCurentPage = 0;
+            _personListTotalPage = (studentNum + assistantNum)/onePageMaxUsers;
+            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
             
-            BMLog(@"%@",users);
+            [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage maxNumber:onePageMaxUsers search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+                
+                BMLog(@"%@",users);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   // UI更新代码
+                   [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                });
+
+                
+            }];
             
-        }];
+        }
+        else
+        {
+//            NSInteger studentNumber = 0;
+//            for (YSRoomUser * user in self.liveManager.userList)
+//            {
+//                if (user.role == YSUserType_Student)
+//                {
+//                    studentNumber++;
+//                }
+//            }
+
+            _personListCurentPage = 0;
+            _personListTotalPage = self.liveManager.userList.count/onePageMaxUsers;
+            
+            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
+            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
+        }
+        
 //        [self freshTeacherPersonListData];
     }
     
@@ -3192,7 +3282,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [self freshListViewWithSelect:!btn.selected];
         //课件库
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware];
+        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count];
 //        [self freshTeacherCoursewareListData];
     }
     
@@ -4909,24 +4999,29 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)leftPageProxyWithPage:(NSInteger)page
 {
     page--;
-    [self.teacherListView setPersonListCurrentPage:page totalPage:100];
-    [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:page maxNumber:10 search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
-        
-        BMLog(@"%@",users);
-        
-    }];
+    _personListCurentPage = page;
+    [self freshTeacherPersonListData];
+//    [self.teacherListView setPersonListCurrentPage:page totalPage:100];
+//    [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:page maxNumber:10 search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+//
+//        BMLog(@"%@",users);
+//
+//    }];
+    
     
 }
 
 - (void)rightPageProxyWithPage:(NSInteger)page
 {
     page++;
-    [self.teacherListView setPersonListCurrentPage:page totalPage:100];
-    [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:page maxNumber:10 search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
-        
-        BMLog(@"%@",users);
-        
-    }];
+    _personListCurentPage = page;
+    [self freshTeacherPersonListData];
+//    [self.teacherListView setPersonListCurrentPage:page totalPage:100];
+//    [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:page maxNumber:10 search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+//
+//        BMLog(@"%@",users);
+//
+//    }];
 }
 
 #pragma mark -

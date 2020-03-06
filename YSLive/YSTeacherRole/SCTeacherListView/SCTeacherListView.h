@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, weak) id<SCTeacherListViewDelegate> delegate;
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type;
+- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum;
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage;
 @end
 
