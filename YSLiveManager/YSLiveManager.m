@@ -9,6 +9,8 @@
 #import "YSLiveManager.h"
 #import <objc/message.h>
 
+#import "YSCoreStatus.h"
+
 #import "YSLiveMediaModel.h"
 
 #import "YSPermissionsVC.h"
