@@ -186,7 +186,7 @@
 "Title.UserList"            = "花名册";
 "Title.UserList.two"        = "花名册 (1)";
 "Title.AreaList"            = "优选网络";
-
+"Title.StudentNum"            = "学生人数";
 "Button.remindKnow"         = "我知道了";
 "Prompt.timeoutEnd"         = "房间即将关闭";
 
@@ -271,7 +271,7 @@
 "Label.roomPlaceholder" = "请输入您的房间号";
 "Label.nicknamePlaceholder" = "请输入您的昵称";
 "Label.messageBoard" = "留言板";
-
+"Label.searchPlaceholder" = "请输入搜索内容";
 "Menu.Copy" = "复制";
 
 "Label.addFile" = "添加课件";

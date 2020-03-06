@@ -143,6 +143,7 @@
 "Title.TrophySend"          = "賞杯を送る";
 "Title.UserList"            = "名簿";
 "Title.UserList.two"        = "名簿（1）";
+"Title.StudentNum"            = "名簿";
 "Title.AreaList"            = "最適なネットワーク";
 "Button.remindKnow"         = "分かりました";
 "Prompt.timeoutEnd"         = "教室はまもなく閉じられます";
@@ -210,6 +211,7 @@
 "Label.roomid" = "教室番号";
 "Label.roomPlaceholder" = "教室番号を入力してください";
 "Label.nicknamePlaceholder" = "ニックネームを入力してください";
+"Label.searchPlaceholder" = "";
 "Label.messageBoard" = "伝言板";
 "Menu.Copy" = "コピー";
 

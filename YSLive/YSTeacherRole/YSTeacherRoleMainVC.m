@@ -164,6 +164,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSInteger _personListCurentPage;
     NSInteger _personListTotalPage;
     
+    BOOL isSearch;
+    NSMutableArray *searchArr;
+    
 }
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
@@ -387,7 +390,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _personListCurentPage = 0;
     _personListTotalPage = 0;
     self.videoViewArray = [[NSMutableArray alloc] init];
-    
+    searchArr = [[NSMutableArray alloc] init];
+    isSearch = NO;
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -4998,23 +5002,69 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)leftPageProxyWithPage:(NSInteger)page
 {
     page--;
-    _personListCurentPage = page;
-    [self freshTeacherPersonListData];
-//    [self.teacherListView setPersonListCurrentPage:page totalPage:100];
-//    [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:page maxNumber:10 search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
-//
-//        BMLog(@"%@",users);
-//
-//    }];
-    
+//    _personListCurentPage = page;
+//    [self freshTeacherPersonListData];
+
+    if (isSearch)
+    {
+        if (self.liveManager.isBigRoom)
+        {
+            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+//            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            [self.teacherListView setPersonListCurrentPage:page totalPage:searchArr.count/onePageMaxUsers];
+            if (searchArr.count > onePageMaxUsers)
+            {
+                if (page * onePageMaxUsers <= searchArr.count)
+                {
+                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+                else
+                {
+                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, searchArr.count - page * onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+            }
+        }
+    }
+    else
+    {
+        _personListCurentPage = page;
+        [self freshTeacherPersonListData];
+    }
     
 }
 
 - (void)rightPageProxyWithPage:(NSInteger)page
 {
     page++;
-    _personListCurentPage = page;
-    [self freshTeacherPersonListData];
+    if (isSearch)
+    {
+        if (self.liveManager.isBigRoom)
+        {
+            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+//            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            [self.teacherListView setPersonListCurrentPage:page totalPage:searchArr.count/onePageMaxUsers];
+            if (searchArr.count > onePageMaxUsers)
+            {
+                if (searchArr.count - page * onePageMaxUsers > onePageMaxUsers)
+                {
+                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+                else
+                {
+                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, searchArr.count - page * onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+            }
+        }
+    }
+    else
+    {
+        _personListCurentPage = page;
+        [self freshTeacherPersonListData];
+    }
 //    [self.teacherListView setPersonListCurrentPage:page totalPage:100];
 //    [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:page maxNumber:10 search:@"" order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
 //
@@ -5023,6 +5073,73 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    }];
 }
 
+/// 搜索
+- (void)searchProxyWithSearchContent:(NSString *)searchContent
+{
+    isSearch = YES;
+    if (self.liveManager.isBigRoom)
+    {
+        if (self.bigRoomTimer)
+        {
+            dispatch_source_cancel(self.bigRoomTimer);
+            self.bigRoomTimer = nil;
+        }
+        
+        BMWeakSelf
+        NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+        NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+
+        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:nil callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // UI更新代码
+
+                self->searchArr = [NSMutableArray arrayWithArray:users];
+                [weakSelf.teacherListView setPersonListCurrentPage:0 totalPage:users.count/onePageMaxUsers];
+                if (users.count > onePageMaxUsers)
+                {
+                    NSArray *data = [users subarrayWithRange:NSMakeRange(0, onePageMaxUsers)];
+                    [weakSelf.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+                else
+                {
+                    [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+                
+            });
+            
+        }];
+    }
+    else
+    {
+        
+#warning 小房间下的搜索
+//        [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
+//        [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
+        
+    }
+}
+
+/// 取消搜索
+- (void)cancelProxy
+{
+    [self freshTeacherPersonListData];
+    isSearch = NO;
+    if(!self.bigRoomTimer)
+    {
+        BMWeakSelf
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        self.bigRoomTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        dispatch_source_set_timer(self.bigRoomTimer, DISPATCH_TIME_NOW, 2.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+        //3.要调用的任务
+        dispatch_source_set_event_handler(self.bigRoomTimer, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf freshTeacherPersonListData];
+            });
+        });
+        //4.开始执行
+        dispatch_resume(self.bigRoomTimer);
+    }
+}
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
 // 完成图片的选取后调用的方法

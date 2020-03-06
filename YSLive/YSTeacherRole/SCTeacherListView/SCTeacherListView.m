@@ -22,7 +22,9 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     UITableViewDataSource,
     SCTeacherPersonListCellDelegate,
     SCTeacherCoursewareListCellDelegate,
-    UIGestureRecognizerDelegate
+    UIGestureRecognizerDelegate,
+    UITextFieldDelegate
+
 >
 {
     CGFloat tableWidth;
@@ -37,7 +39,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectArr;
 
-
+@property (nonatomic, strong) UITextField *inputTextField;
 @property (nonatomic, strong) UIView *cyclePlayView;
 
 @property (nonatomic, strong) UILabel *studentNumLabel;
@@ -81,7 +83,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     tableHeight = ListView_Height;
     if (![UIDevice bm_isiPad])
     {
-        tableWidth = 250;
+        tableWidth = 280;
         tableHeight = UI_SCREEN_HEIGHT - 80;
     }
     
@@ -234,6 +236,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (void)tapGestureClicked:(UITapGestureRecognizer *)tap
 {
+    [self endEditing:YES];
     if ([self.delegate respondsToSelector:@selector(tapGestureBackListView)])
     {
         [self.delegate tapGestureBackListView];
@@ -244,6 +247,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 {
     if ([touch.view isDescendantOfView:self.tableView] || [touch.view isDescendantOfView:self.tableFooterView])
     {
+        [self endEditing:YES];
         return NO;
     }
     else
@@ -355,23 +359,77 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]init];
-    
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ListView_Width, 40)];
-    label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-    label.textColor = [UIColor bm_colorWithHex:0xFFE895];
-    label.font = [UIFont systemFontOfSize:14];
-
+    view.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    view.userInteractionEnabled = YES;
     if (self.type == SCTeacherTopBarTypePersonList)
     {
-        NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.UserList"),@(_userNum)];
-        label.text = str;
+        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 50, 40)];
+        titleLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+        titleLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
+        titleLabel.font = [UIFont systemFontOfSize:12];
+        NSString * title = YSLocalized(@"Title.UserList");
+        titleLabel.text = title;
+        [view addSubview:titleLabel];
+        
+        UILabel * userNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableWidth - 10 - 80, 0, 80, 40)];
+        userNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+        userNumLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
+        userNumLabel.font = [UIFont systemFontOfSize:12];
+        NSString * userNum = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Title.StudentNum"),@(_userNum)];
+        userNumLabel.text = userNum;
+        [view addSubview:userNumLabel];
+        
+        UITextField *inputTextField = [[UITextField alloc] init];
+//        [inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
+        self.inputTextField = inputTextField;
+        NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:YSLocalized(@"Label.searchPlaceholder") attributes:@{
+                       NSForegroundColorAttributeName:[UIColor bm_colorWithHex:0xFFFFFF],
+                       NSFontAttributeName:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14)
+                   }];
+        inputTextField.attributedPlaceholder = attrString;
+        inputTextField.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+        inputTextField.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+        inputTextField.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14);
+        inputTextField.delegate = self;
+        inputTextField.tintColor = YSColor_LoginTextField;
+        inputTextField.enabled = YES;
+        inputTextField.layer.cornerRadius = 15;
+        inputTextField.layer.masksToBounds = YES;
+        inputTextField.returnKeyType = UIReturnKeySearch;
+      
+        inputTextField.frame = CGRectMake(2, 5, 0, 30);
+        [inputTextField bm_setLeft:titleLabel.bm_right + 5 right:userNumLabel.bm_left - 5];
+        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
+        UIImageView *searchView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 13, 14, 14)];
+        searchView.contentMode = UIViewContentModeCenter;
+        [searchView setImage:[UIImage imageNamed:@"sousuo_huaban"]];
+        [leftView addSubview:searchView];
+        inputTextField.leftView = leftView;
+        inputTextField.leftViewMode = UITextFieldViewModeAlways;
+        
+        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
+
+        UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [rightView addSubview:cancelBtn];
+        cancelBtn.frame = CGRectMake(5, 14, 12, 12);
+        [cancelBtn setImage:[UIImage imageNamed:@"search_cancel"] forState:UIControlStateNormal];
+        [cancelBtn addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        inputTextField.rightView = rightView;
+        inputTextField.rightViewMode = UITextFieldViewModeAlways;
+        
+        [view addSubview:inputTextField];
     }
     else if (self.type == SCTeacherTopBarTypeCourseware)
     {
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 40)];
+        label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+        label.textColor = [UIColor bm_colorWithHex:0xFFE895];
+        label.font = [UIFont systemFontOfSize:14];
         NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.DocumentList"),@(_userNum)];
         label.text = str;
+        [view addSubview:label];
     }
-    [view addSubview:label];
+    
 //
 //    UIButton * cycleTitleBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(label.frame) + 20, 5, 125, 30)];
 //    [cycleTitleBtn setTitle:@"启动视频轮播" forState:UIControlStateNormal];
@@ -422,6 +480,14 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.leftPageBtn.enabled = (_currentPage > 1);
     self.rightPageBtn.enabled = _currentPage < _totalPage;
 
+}
+- (void)cancelBtnClicked:(UIButton *)btn
+{
+    self.inputTextField.text = @"";
+    if ([self.delegate respondsToSelector:@selector(cancelProxy)])
+    {
+        [self.delegate cancelProxy];
+    }
 }
 
 - (void)cycleTitleBtnClick
@@ -479,6 +545,21 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         [self.delegate outProxyWithRoomUser:roomUser];
     }
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    if ([textField.text bm_isNotEmpty])
+    {
+        if ([self.delegate respondsToSelector:@selector(searchProxyWithSearchContent:)])
+        {
+            [self.delegate searchProxyWithSearchContent:textField.text];
+        }
+    }
+    
+    return YES;
 }
 
 #pragma mark -

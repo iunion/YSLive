@@ -27,7 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上一页
 - (void)leftPageProxyWithPage:(NSInteger)page;
 - (void)rightPageProxyWithPage:(NSInteger)page;
-
+- (void)searchProxyWithSearchContent:(NSString *)searchContent;
+- (void)cancelProxy;
 
 @end
 
