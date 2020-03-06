@@ -12,6 +12,8 @@
 #import "YSCoreStatus.h"
 #import "AppDelegate.h"
 
+#import <Bugly/Bugly.h>
+
 #import "YSEyeCareVC.h"
 #import "YSEyeCareManager.h"
 #import "YSPermissionsVC.h"
@@ -860,6 +862,12 @@
         liveManager.schoolHost = YSSchool_Server;
     }
     
+    NSString *account = self.admin_accountTextField.inputTextField.text;
+    [Bugly setUserValue:@"" forKey:@"rommId"];
+    [Bugly setUserValue:@"" forKey:@"userId"];
+    [Bugly setUserValue:@"" forKey:@"nickName"];
+    [Bugly setUserValue:account forKey:@"userAccount"];
+
     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest getSchoolPublicKey];
     if (request)
@@ -1810,6 +1818,17 @@
         
         return;
     }
+
+    NSString *roomId = liveManager.room_Id ? liveManager.room_Id : @"";
+    NSString *userId = liveManager.localUser.peerID ? liveManager.localUser.peerID : @"";
+    NSString *nickName = liveManager.localUser.nickName ? liveManager.localUser.nickName : @"";
+
+    [Bugly setUserValue:roomId forKey:@"rommId"];
+    [Bugly setUserValue:userId forKey:@"userId"];
+    [Bugly setUserValue:nickName forKey:@"nickName"];
+    [Bugly setUserValue:@"NO" forKey:@"userAccount"];
+
+    //NSDictionary *dic = [Bugly allUserValues];
     
 #if YSCLASS
     

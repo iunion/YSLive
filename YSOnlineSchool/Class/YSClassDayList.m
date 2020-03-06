@@ -14,6 +14,8 @@
 
 #import "AppDelegate.h"
 
+#import <Bugly/Bugly.h>
+
 #import "YSLiveApiRequest.h"
 #import "YSMainVC.h"
 #import "SCMainVC.h"
@@ -404,6 +406,18 @@
         return;
     }
     
+    YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
+
+    NSString *roomId = liveManager.room_Id ? liveManager.room_Id : @"";
+    NSString *userId = liveManager.localUser.peerID ? liveManager.localUser.peerID : @"";
+    NSString *nickName = liveManager.localUser.nickName ? liveManager.localUser.nickName : @"";
+    NSString *schoolUserAccount = schoolUser.userAccount;
+
+    [Bugly setUserValue:roomId forKey:@"rommId"];
+    [Bugly setUserValue:userId forKey:@"userId"];
+    [Bugly setUserValue:nickName forKey:@"nickName"];
+    [Bugly setUserValue:schoolUserAccount forKey:@"userAccount"];
+
     YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
 
     // 3: 小班课  4: 直播  6： 会议
