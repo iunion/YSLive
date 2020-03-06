@@ -55,6 +55,7 @@
 "Login.EnterRoom" = "Enter room";
 
 "Error.ServerError" = "Server access exception";
+"Error.TokenError" = "Login info is invalid, please try again";
 "Error.DomainError" = "Domain input error";
 "Error.NewPwdEmpty" = "The new password cannot be empty";
 "Error.ConfirmPwdRmpty" = "Confirm password cannot be empty";
