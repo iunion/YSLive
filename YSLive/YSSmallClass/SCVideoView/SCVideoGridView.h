@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray;
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout;
+- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout withAppUseTheType:(YSAppUseTheType)appUseTheType;
 
 - (void)clearView;
 

@@ -22,8 +22,8 @@
     NSString *reuseIdentifier = NSStringFromClass([self class]);
     
     YSUpHandPopCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (!cell) {
-        
+    if (!cell)
+    {
         cell = [[YSUpHandPopCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -32,7 +32,8 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor             = [UIColor clearColor];
         [self setupView];
@@ -51,19 +52,21 @@
     [self.contentView addSubview:_nickNameLab];
             
     //选中标识
-    self.headBtn = [[UIButton alloc] initWithFrame:CGRectMake(95-30, 0, 25,25)];
+    self.headBtn = [[UIButton alloc] initWithFrame:CGRectMake(95-25, 2, 20,18)];
     [self.headBtn addTarget:self action:@selector(buttonclick:) forControlEvents:UIControlEventTouchUpInside];
     [self.headBtn setImage:[UIImage imageNamed:@"downPlatform_hand"] forState:UIControlStateNormal];
     [self.headBtn setImage:[UIImage imageNamed:@"upPlatform_hand"] forState:UIControlStateSelected];
-    self.headBtn.contentMode = UIViewContentModeScaleAspectFit;
+    self.headBtn.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:self.headBtn];
+//    [self.headBtn setBackgroundColor:UIColor.redColor];
 }
 
 - (void)buttonclick:(UIButton *)sender
 {
-    if (!sender.selected) {
-//        sender.selected = !sender.selected;
-        if (_headButtonClick) {
+    if (!sender.selected)
+    {
+        if (_headButtonClick)
+        {
             _headButtonClick();
         }
     }

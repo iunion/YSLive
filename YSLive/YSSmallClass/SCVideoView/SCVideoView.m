@@ -104,11 +104,6 @@
         
         self.panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGestureToMoveView:)];
         [self addGestureRecognizer:self.panGesture];
-                
-        
-        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleClickToChangeLayout)];
-        doubleTap.numberOfTapsRequired = 2;
-        [self addGestureRecognizer:doubleTap];
         
         self.panGesture.delegate = self;
         self.exclusiveTouch = YES;
@@ -131,14 +126,6 @@
         [[PanGestureControl shareInfo] addPanGestureAction:LONG_PRESS_VIEW_DEMO];
         return YES;
     }
-}
-
-///双击手势事件 ->焦点视图
-- (void)doubleClickToChangeLayout
-{
-//    if ([self.delegate respondsToSelector:@selector(doubleClickToChangeLayoutWithVideoView:)]) {
-//        [self.delegate doubleClickToChangeLayoutWithVideoView:self];
-//    }
 }
 
 ////这个方法返回YES，第一个和第二个互斥时，第二个会失效
@@ -181,8 +168,10 @@
 //视频view点击事件
 - (void)clickToShowControl
 {
-    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher) {
-        if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)]) {
+    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher)
+    {
+        if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
+        {
             [self.delegate clickViewToControlWithVideoView:self];
         }
     }    
@@ -191,7 +180,8 @@
 ///视频拖拽事件
 - (void)panGestureToMoveView:(UIPanGestureRecognizer *)pan
 {
-    if ([self.delegate respondsToSelector:@selector(panToMoveVideoView:withGestureRecognizer:)]) {
+    if ([self.delegate respondsToSelector:@selector(panToMoveVideoView:withGestureRecognizer:)])
+    {
         [self.delegate panToMoveVideoView:self withGestureRecognizer:pan];
     }
 }
@@ -250,7 +240,6 @@
     maskNoVideoTitle.textAlignment = NSTextAlignmentCenter;
     [self.maskNoVideo addSubview:maskNoVideoTitle];
     self.maskNoVideoTitle = maskNoVideoTitle;
-    
     
     //设备性能低时的蒙版
     self.lowDeviceBgView = [[UIView alloc] init];

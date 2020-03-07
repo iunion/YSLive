@@ -90,6 +90,9 @@
 
 #define YSWhiteBoard_HttpDnsService_AccountID   131798
 
+//举手上台信令的msgID
+#define YSDefaultRaiseHandMsgId  @"RaisehandMsgID"
+
 /// 网宿host头
 static NSString *const YSWhiteBoard_domain_ws_header = @"rddoccdnws.roadofcloud";
 static NSString *const YSWhiteBoard_domain_demows_header = @"rddoccdndemows.roadofcloud";
