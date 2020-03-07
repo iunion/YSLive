@@ -3376,6 +3376,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         videoView.disableVideo = !hasVidoe;
     }
     
+    
+    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+    if (user.role == YSUserType_Teacher)
+    {
+        /// 老师中途进入房间上课时的全屏处理
+        if (!self.whitebordFullBackgroud.hidden)
+        {
+            [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+        }
+        if (!self.shareVideoFloatView.hidden)
+        {
+            [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+        }
+
+    }
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
@@ -3633,6 +3648,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
+    
+
     
 }
 
