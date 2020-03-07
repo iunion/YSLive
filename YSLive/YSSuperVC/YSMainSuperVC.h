@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///app使用场景  3：小班课  4：直播   6：会议
 @property (nonatomic, assign) YSAppUseTheType appUseTheType;
 
+///成为焦点的用户的peerID
+@property (nullable,nonatomic, copy) NSString * foucePeerId;
+
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 

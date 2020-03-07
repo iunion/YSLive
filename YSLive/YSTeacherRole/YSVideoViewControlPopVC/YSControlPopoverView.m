@@ -71,12 +71,12 @@
     //横向时按钮高度
     CGFloat width = (self.view.bm_width-5)/4+0.5;
         
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomType_One || (self.roomLayout == YSLiveRoomLayout_AroundLayout && !self.isDragOut))
     {
         height = (self.view.bm_height-5)/2+0.5;
         width = (self.view.bm_width-5)/2+0.5;
     }
-    else if (self.roomtype == YSRoomType_More && !self.isDragOut)
+    else if ((self.appUseTheType == YSAppUseTheTypeSmallClass && self.roomLayout != YSLiveRoomLayout_AroundLayout && !self.isDragOut)||(self.appUseTheType == YSAppUseTheTypeSmallClass  && self.roomLayout == YSLiveRoomLayout_AroundLayout && self.isDragOut) || (self.appUseTheType == YSAppUseTheTypeMeeting && self.isDragOut))
     {
         height = (self.view.bm_height-5)/3+0.5;
         width = (self.view.bm_width-5)/3+0.5;
@@ -122,35 +122,66 @@
     
     if (self.roomtype == YSRoomType_More)
     {
-        
-        //成为焦点按钮
-        UIButton * fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") imageName:@"teacher_trophy" selectImageName:nil];
-        fouceBtn.tag = 2;
-        if (self.view.bm_width < self.view.bm_height)
+        if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
         {
-            fouceBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
+            if (self.isDragOut)
+            {
+                //复位控制按钮
+                UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
+                restoreBtn.tag = 3;
+                
+                if (self.view.bm_width < self.view.bm_height)
+                {
+                    restoreBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
+                }
+                else
+                {
+                    restoreBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
+                }
+                [self moveButtonTitleAndImageWithButton:restoreBtn];
+            }
         }
         else
         {
-            fouceBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
-        }
-        [self moveButtonTitleAndImageWithButton:fouceBtn];
-        
-        if (self.isDragOut)
-        {
-            //复位控制按钮
-            UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
-            restoreBtn.tag = 3;
-            
+            //成为焦点按钮
+            self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") imageName:@"teacherOrStudent_NotFouce" selectImageName:@"teacherOrStudent_IsFouce"];
+            self.fouceBtn.tag = 2;
             if (self.view.bm_width < self.view.bm_height)
             {
-                restoreBtn.frame = CGRectMake(0, Margin + 3 * height, self.view.bm_width, height);
+                self.fouceBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
             }
             else
             {
-                restoreBtn.frame = CGRectMake(Margin + 3 * width, 0, width, self.view.bm_height);
+                self.fouceBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
             }
-            [self moveButtonTitleAndImageWithButton:restoreBtn];
+            
+            if ([self.userModel.peerID isEqualToString:self.foucePeerId])
+            {
+                self.fouceBtn.selected = YES;
+            }
+            else
+            {
+                self.fouceBtn.selected = NO;
+            }
+            
+            [self moveButtonTitleAndImageWithButton:self.fouceBtn];
+            
+            if (self.isDragOut)
+            {
+                //复位控制按钮
+                UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
+                restoreBtn.tag = 3;
+                
+                if (self.view.bm_width < self.view.bm_height)
+                {
+                    restoreBtn.frame = CGRectMake(0, Margin + 3 * height, self.view.bm_width, height);
+                }
+                else
+                {
+                    restoreBtn.frame = CGRectMake(Margin + 3 * width, 0, width, self.view.bm_height);
+                }
+                [self moveButtonTitleAndImageWithButton:restoreBtn];
+            }
         }
     }
 }
@@ -164,12 +195,12 @@
     //横向时按钮高度
     CGFloat width = (self.view.bm_width-5)/7+0.5;
     
-    if (self.roomtype == YSRoomType_One || (self.appUseTheType == YSAppUseTheTypeMeeting && self.isDragOut))
+    if (self.roomtype == YSRoomType_One || (self.appUseTheType == YSAppUseTheTypeMeeting && self.isDragOut) || (self.appUseTheType == YSAppUseTheTypeSmallClass && self.roomLayout == YSLiveRoomLayout_AroundLayout && !self.isDragOut))
     {
         height = (self.view.bm_height-5)/5+0.5;
         width = (self.view.bm_width-5)/5+0.5;
     }
-    else if (self.appUseTheType == YSAppUseTheTypeSmallClass && !self.isDragOut)
+    else if (self.appUseTheType == YSAppUseTheTypeSmallClass && ((!self.isDragOut && self.roomLayout != YSLiveRoomLayout_AroundLayout)||(self.isDragOut && self.roomLayout == YSLiveRoomLayout_AroundLayout)))
     {
         height = (self.view.bm_height-5)/6+0.5;
         width = (self.view.bm_width-5)/6+0.5;
@@ -281,34 +312,66 @@
         
         if (self.roomtype == YSRoomType_More)
         {
-            //成为焦点按钮
-            UIButton * fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") imageName:@"teacher_trophy" selectImageName:nil];
-            fouceBtn.tag = 5;
-            if (self.view.bm_width < self.view.bm_height)
+            if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
             {
-                fouceBtn.frame = CGRectMake(0, Margin + 5 * height, self.view.bm_width, height);
+                if (self.isDragOut)
+                {
+                    //复位控制按钮
+                    UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
+                    restoreBtn.tag = 6;
+                    
+                    if (self.view.bm_width < self.view.bm_height)
+                    {
+                        restoreBtn.frame = CGRectMake(0, Margin + 5 * height, self.view.bm_width, height);
+                    }
+                    else
+                    {
+                        restoreBtn.frame = CGRectMake(Margin + 5 * width, 0, width, self.view.bm_height);
+                    }
+                    [self moveButtonTitleAndImageWithButton:restoreBtn];
+                }
             }
             else
             {
-                fouceBtn.frame = CGRectMake(Margin + 5 * width, 0, width, self.view.bm_height);
-            }
-            [self moveButtonTitleAndImageWithButton:fouceBtn];
-            
-            if (self.isDragOut)
-            {
-                //复位控制按钮
-                UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
-                restoreBtn.tag = 6;
-                
+                //成为焦点按钮
+                self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") imageName:@"teacherOrStudent_NotFouce" selectImageName:@"teacherOrStudent_IsFouce"];
+                self.fouceBtn.tag = 5;
                 if (self.view.bm_width < self.view.bm_height)
                 {
-                    restoreBtn.frame = CGRectMake(0, Margin + 6 * height, self.view.bm_width, height);
+                    self.fouceBtn.frame = CGRectMake(0, Margin + 5 * height, self.view.bm_width, height);
                 }
                 else
                 {
-                    restoreBtn.frame = CGRectMake(Margin + 6 * width, 0, width, self.view.bm_height);
+                    self.fouceBtn.frame = CGRectMake(Margin + 5 * width, 0, width, self.view.bm_height);
                 }
-                [self moveButtonTitleAndImageWithButton:restoreBtn];
+                
+                if ([self.userModel.peerID isEqualToString:self.foucePeerId])
+                {
+                    self.fouceBtn.selected = YES;
+                }
+                else
+                {
+                    self.fouceBtn.selected = NO;
+                }
+                
+                [self moveButtonTitleAndImageWithButton:self.fouceBtn];
+                
+                if (self.isDragOut)
+                {
+                    //复位控制按钮
+                    UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
+                    restoreBtn.tag = 6;
+                    
+                    if (self.view.bm_width < self.view.bm_height)
+                    {
+                        restoreBtn.frame = CGRectMake(0, Margin + 6 * height, self.view.bm_width, height);
+                    }
+                    else
+                    {
+                        restoreBtn.frame = CGRectMake(Margin + 6 * width, 0, width, self.view.bm_height);
+                    }
+                    [self moveButtonTitleAndImageWithButton:restoreBtn];
+                }
             }
         }
     }    

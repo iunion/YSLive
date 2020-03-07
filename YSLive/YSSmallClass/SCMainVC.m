@@ -1340,14 +1340,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     return _raiseHandsBtn;
 }
 
-///举手上台
+///举手
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {    
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
 //    if (self.liveManager.isBeginClass)
 //    {
-//        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
 //    }
 //    else
 //    {
@@ -1355,12 +1355,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    }
 }
 
-///取消举手上台
+///取消举手
 - (void)downHandsButtonClick:(UIButton *)sender
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
 //    if (self.liveManager.isBeginClass) {
-//        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
 //    }
 //    else{
 //    }
