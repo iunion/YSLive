@@ -48,6 +48,7 @@
 #import "YSTeacherResponder.h"
 #import "YSTeacherTimerView.h"
 
+#define USE_YSRenderMode_adaptive   1
 
 #define PlaceholderPTag     10
 
@@ -1205,8 +1206,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     view.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, whitebordHeight);
                 }
                 
+#if USE_YSRenderMode_adaptive
+#else
                 [self.liveManager stopPlayVideo:view.roomUser.peerID completion:nil];
                 [self.liveManager playVideoOnView:view withPeerId:view.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
+#endif
             }
             else
             {//上下平行关系
@@ -1219,8 +1223,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     view.frame = CGRectMake(VIDEOVIEW_GAP, videoHeight+VIDEOVIEW_GAP, videoWidth, videoHeight);
                 }
                 
+#if USE_YSRenderMode_adaptive
+#else
                 [self.liveManager stopPlayVideo:view.roomUser.peerID completion:nil];
                 [self.liveManager playVideoOnView:view withPeerId:view.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+#endif
                 
             }
             [view bringSubviewToFront:view.backVideoView];
@@ -1398,10 +1405,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
     
     YSRenderMode renderType = YSRenderMode_adaptive;
+#if USE_YSRenderMode_adaptive
+    fresh = NO;
+#else
     if (videoView.isFullScreen)
     {
         renderType = YSRenderMode_fit;
     }
+#endif
     
     if (publishState == YSUser_PublishState_VIDEOONLY)
     {
@@ -2433,8 +2444,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [floatView bm_centerInSuperView];
         [floatView showWithContentView:videoView];
         self.doubleFloatView = floatView;
-
+        
+#if USE_YSRenderMode_adaptive
+#else
         [self playVideoAudioWithVideoView:videoView needFreshVideo:YES];
+#endif
     }
     else
     {
@@ -2445,7 +2459,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self freshContentView];
         self.doubleFloatView = nil;
         
+#if USE_YSRenderMode_adaptive
+#else
         [self playVideoAudioWithVideoView:videoView needFreshVideo:YES];
+#endif
     }
     
     if (!self.isWhitebordFullScreen)
