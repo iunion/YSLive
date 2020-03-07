@@ -781,7 +781,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self.topToolBar hidePhotoBtn:YES];
     [self.topToolBar hideMicrophoneBtn:YES];
-    
+    if (self.liveManager.localUser.role == YSUserType_Patrol)
+    {
+        [self.topToolBar hideCameraBtn:YES];
+    }
     [self setupTopBarData];
 }
 
