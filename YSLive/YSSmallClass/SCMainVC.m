@@ -1887,6 +1887,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
     [self stopFullTeacherVideoView];
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
+
 }
 
 // 开始播放课件视频
@@ -1929,6 +1934,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 主动清除白板视频标注 服务端会发送关闭
     [self handleSignalingHideVideoWhiteboard];
     [self stopFullTeacherVideoView];
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
+
 }
 
 

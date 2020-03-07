@@ -2990,7 +2990,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.showWaiting = NO;
     self.shareVideoFloatView.hidden = NO;
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-
     
 }
 
@@ -3004,6 +3003,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
     [self stopFullTeacherVideoView];
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
 }
 
 
@@ -3071,6 +3074,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView.hidden = YES;
     self.closeMp4Btn.hidden = YES;
     [self stopFullTeacherVideoView];
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
+
     // 主动清除白板视频标注 服务端会发送关闭
     //    [self handleSignalingHideVideoWhiteboard];
 }
