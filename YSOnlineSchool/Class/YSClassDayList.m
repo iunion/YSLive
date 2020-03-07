@@ -270,7 +270,7 @@
                         NSDictionary *urlParam = [dataDic bm_dictionaryForKey:@"urlParam"];
                         if ([urlParam bm_isNotEmptyDictionary])
                         {
-#if 1
+#if 0
                             NSTimeInterval serverTime = [urlParam bm_doubleForKey:@"ts" withDefault:0];
                             if (serverTime > 0)
                             {

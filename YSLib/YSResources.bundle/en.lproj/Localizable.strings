@@ -183,7 +183,7 @@
 "Title.UserList"            = "Name List";
 "Title.UserList.two"        = "Name List (1)";
 "Title.AreaList"            = "Optimal server";
-
+"Title.StudentNum"            = "Student number";
 "Button.remindKnow"         = "I got it.";
 "Prompt.timeoutEnd"         = "This class is about to shut down.";
 
@@ -270,7 +270,7 @@
 "Label.roomPlaceholder" = "Please enter your room number";
 "Label.nicknamePlaceholder" = "Please enter your nickname";
 "Label.messageBoard" = "message board";
-
+"Label.searchPlaceholder" = "Please enter the search content";
 "Menu.Copy" = "copy";
 
 "Label.addFile" = "AddFile";

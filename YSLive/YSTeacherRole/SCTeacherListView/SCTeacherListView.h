@@ -27,7 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上一页
 - (void)leftPageProxyWithPage:(NSInteger)page;
 - (void)rightPageProxyWithPage:(NSInteger)page;
-
+- (void)searchProxyWithSearchContent:(NSString *)searchContent;
+- (void)cancelProxy;
 
 @end
 
@@ -36,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, weak) id<SCTeacherListViewDelegate> delegate;
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type;
+- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum;
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage;
 @end
 

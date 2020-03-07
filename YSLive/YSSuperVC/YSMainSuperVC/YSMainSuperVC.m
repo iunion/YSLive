@@ -10,9 +10,7 @@
 //#import <AVFoundation/AVFoundation.h>
 
 @interface YSMainSuperVC ()
-<
-    YSLiveRoomManagerDelegate
->
+
 @property (nonatomic, weak) YSLiveManager *liveManager;
 /// 白板视图whiteBord
 @property (nonatomic, weak) UIView *whiteBordView;
@@ -82,18 +80,24 @@
 {
     [super viewDidAppear:animated];
 
-    // 保证屏幕常亮
+    // 关闭自动锁屏，保证屏幕常亮
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 
     self.liveManager.viewDidAppear = YES;
     [self performSelector:@selector(doMsgCachePool) withObject:nil afterDelay:0.5];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // 自动锁屏
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 /// 失去连接

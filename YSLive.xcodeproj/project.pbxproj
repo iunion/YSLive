@@ -264,7 +264,6 @@
 		871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
 		871336ED237270F6006534A4 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		871338DC2372BE57006534A4 /* SCMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338D02372BE57006534A4 /* SCMainVC.m */; };
-		871338F62373AB72006534A4 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
 		8717E1BF2400DADC008C4CDA /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		8717E1C02400DADC008C4CDA /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
 		8717E1C12400DADC008C4CDA /* YSChatMemberListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13282372647900D642E8 /* YSChatMemberListCell.m */; };
@@ -285,7 +284,6 @@
 		8717E1D02400DADC008C4CDA /* SDWebImageCodersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CD92351B29B00CD4A76 /* SDWebImageCodersManager.m */; };
 		8717E1D12400DADC008C4CDA /* PLDictionaryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687912350794D00C4C635 /* PLDictionaryTableViewController.m */; };
 		8717E1D22400DADC008C4CDA /* FLEXCookiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D043D23B7362300DAC321 /* FLEXCookiesTableViewController.m */; };
-		8717E1D32400DADC008C4CDA /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338F42373A91B006534A4 /* YSMainSuperVC.m */; };
 		8717E1D42400DADC008C4CDA /* BMTestNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B14B2371720600A43607 /* BMTestNSURLProtocol.m */; };
 		8717E1D52400DADC008C4CDA /* SCTeacherTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2600397523B1C1520031CFD9 /* SCTeacherTopBar.m */; };
 		8717E1D62400DADC008C4CDA /* YSLiveUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 874061F4235AA428005D3620 /* YSLiveUtil.m */; };
@@ -799,6 +797,10 @@
 		87AED04B23B5D71000D38129 /* YSPermissionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04723B5D71000D38129 /* YSPermissionsVC.m */; };
 		87AED04E23B5D8F300D38129 /* SCEyeCareEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04D23B5D8F300D38129 /* SCEyeCareEmptyVC.m */; };
 		87AED05123B5F74500D38129 /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */; };
+		87F32D982411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
+		87F32D992411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
+		87F32D9C2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D9B2411F49A00906C20 /* YSClassMainSuperVC.m */; };
+		87F32D9D2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D9B2411F49A00906C20 /* YSClassMainSuperVC.m */; };
 		CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */; };
 		CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */; };
 		CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */; };
@@ -1057,8 +1059,6 @@
 		871336FF237270F6006534A4 /* YSAll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YSAll.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871338D02372BE57006534A4 /* SCMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMainVC.m; sourceTree = "<group>"; };
 		871338D12372BE57006534A4 /* SCMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMainVC.h; sourceTree = "<group>"; };
-		871338F32373A91B006534A4 /* YSMainSuperVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
-		871338F42373A91B006534A4 /* YSMainSuperVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
 		8717E3542400DADC008C4CDA /* vclass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vclass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8717E3562400DB9F008C4CDA /* vclass_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vclass_Info.plist; sourceTree = "<group>"; };
 		8717E36E2400DFD1008C4CDA /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -1612,6 +1612,10 @@
 		87EB133C2372647900D642E8 /* YSLessonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLessonView.m; sourceTree = "<group>"; };
 		87EB133D2372647900D642E8 /* YSLessonNotifyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLessonNotifyTableCell.h; sourceTree = "<group>"; };
 		87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLessonDetailHeaderView.m; sourceTree = "<group>"; };
+		87F32D962411F17200906C20 /* YSMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
+		87F32D972411F17200906C20 /* YSMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
+		87F32D9A2411F49A00906C20 /* YSClassMainSuperVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassMainSuperVC.h; sourceTree = "<group>"; };
+		87F32D9B2411F49A00906C20 /* YSClassMainSuperVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSClassMainSuperVC.m; sourceTree = "<group>"; };
 		87F8D4B22368273D00A888AB /* YSLiveMediaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveMediaModel.h; sourceTree = "<group>"; };
 		87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveMediaModel.m; sourceTree = "<group>"; };
 		CB384CE123FE6C0400DCD1C0 /* YSStudentResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentResponder.h; sourceTree = "<group>"; };
@@ -3085,13 +3089,12 @@
 			isa = PBXGroup;
 			children = (
 				8777C7A823EA762D002002BF /* YSSuperTableVC */,
+				87F32D952411F17200906C20 /* YSMainSuperVC */,
 				879ADAF3235172D900C72EAA /* YSVCProtocol.h */,
 				879ADAF02351708200C72EAA /* YSSuperVC.h */,
 				879ADAF12351708200C72EAA /* YSSuperVC.m */,
 				879ADAF42351734100C72EAA /* YSSuperNetVC.h */,
 				879ADAF52351734100C72EAA /* YSSuperNetVC.m */,
-				871338F32373A91B006534A4 /* YSMainSuperVC.h */,
-				871338F42373A91B006534A4 /* YSMainSuperVC.m */,
 			);
 			path = YSSuperVC;
 			sourceTree = "<group>";
@@ -3445,6 +3448,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		87F32D952411F17200906C20 /* YSMainSuperVC */ = {
+			isa = PBXGroup;
+			children = (
+				87F32D962411F17200906C20 /* YSMainSuperVC.h */,
+				87F32D972411F17200906C20 /* YSMainSuperVC.m */,
+				87F32D9A2411F49A00906C20 /* YSClassMainSuperVC.h */,
+				87F32D9B2411F49A00906C20 /* YSClassMainSuperVC.m */,
+			);
+			path = YSMainSuperVC;
+			sourceTree = "<group>";
+		};
 		CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */ = {
 			isa = PBXGroup;
 			children = (
@@ -3756,7 +3770,6 @@
 				87133577237270F6006534A4 /* SDWebImageCodersManager.m in Sources */,
 				87133579237270F6006534A4 /* PLDictionaryTableViewController.m in Sources */,
 				872D04B523B7362300DAC321 /* FLEXCookiesTableViewController.m in Sources */,
-				871338F62373AB72006534A4 /* YSMainSuperVC.m in Sources */,
 				8713357B237270F6006534A4 /* BMTestNSURLProtocol.m in Sources */,
 				2600397623B1C1520031CFD9 /* SCTeacherTopBar.m in Sources */,
 				3471E2AA24039A0100A3BBB4 /* FSCalendarAppearance.m in Sources */,
@@ -3832,6 +3845,7 @@
 				872D046823B7362300DAC321 /* FLEXArrayExplorerViewController.m in Sources */,
 				872D048523B7362300DAC321 /* FLEXPropertyEditorViewController.m in Sources */,
 				871335A0237270F6006534A4 /* BMTestAlignView.m in Sources */,
+				87F32D9C2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */,
 				3450B1382404AA26006141E5 /* SCVideoView.m in Sources */,
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				871335A2237270F6006534A4 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -3918,6 +3932,7 @@
 				8777C7C423EC31C8002002BF /* YSClassCell.m in Sources */,
 				871335DC237270F6006534A4 /* YSAnswerCell.m in Sources */,
 				87AED05123B5F74500D38129 /* YSTeacherRoleMainVC.m in Sources */,
+				87F32D982411F17200906C20 /* YSMainSuperVC.m in Sources */,
 				34043C7023EABA04004982E6 /* YSCalendarCell.m in Sources */,
 				871335DD237270F6006534A4 /* WebViewJavascriptBridge.m in Sources */,
 				871335DE237270F6006534A4 /* YSBarrageCell.m in Sources */,
@@ -4127,7 +4142,6 @@
 				8717E1D02400DADC008C4CDA /* SDWebImageCodersManager.m in Sources */,
 				8717E1D12400DADC008C4CDA /* PLDictionaryTableViewController.m in Sources */,
 				8717E1D22400DADC008C4CDA /* FLEXCookiesTableViewController.m in Sources */,
-				8717E1D32400DADC008C4CDA /* YSMainSuperVC.m in Sources */,
 				8717E1D42400DADC008C4CDA /* BMTestNSURLProtocol.m in Sources */,
 				8717E1D52400DADC008C4CDA /* SCTeacherTopBar.m in Sources */,
 				3471E2AB24039A0100A3BBB4 /* FSCalendarAppearance.m in Sources */,
@@ -4203,6 +4217,7 @@
 				8717E21E2400DADC008C4CDA /* FLEXArrayExplorerViewController.m in Sources */,
 				8717E21F2400DADC008C4CDA /* FLEXPropertyEditorViewController.m in Sources */,
 				8717E2202400DADC008C4CDA /* BMTestAlignView.m in Sources */,
+				87F32D9D2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */,
 				3450B1392404AA26006141E5 /* SCVideoView.m in Sources */,
 				8717E2212400DADC008C4CDA /* YSVoteResultTableCell.m in Sources */,
 				8717E2222400DADC008C4CDA /* SDWebImageDownloaderOperation.m in Sources */,
@@ -4289,6 +4304,7 @@
 				8717E2722400DADC008C4CDA /* YSClassCell.m in Sources */,
 				8717E2732400DADC008C4CDA /* YSAnswerCell.m in Sources */,
 				8717E2742400DADC008C4CDA /* YSTeacherRoleMainVC.m in Sources */,
+				87F32D992411F17200906C20 /* YSMainSuperVC.m in Sources */,
 				8717E2752400DADC008C4CDA /* YSCalendarCell.m in Sources */,
 				8717E2762400DADC008C4CDA /* WebViewJavascriptBridge.m in Sources */,
 				8717E2772400DADC008C4CDA /* YSBarrageCell.m in Sources */,
@@ -4526,7 +4542,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
 					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
@@ -4587,7 +4602,6 @@
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
 					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
@@ -4631,7 +4645,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
 					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
@@ -4693,7 +4706,6 @@
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ThirdPary/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
 					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
