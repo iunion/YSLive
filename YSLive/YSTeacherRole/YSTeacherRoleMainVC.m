@@ -1385,6 +1385,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
 {
+    [self playVideoAudioWithVideoView:videoView needFreshVideo:NO];
+}
+
+- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh
+{
     if (!videoView)
     {
         return;
@@ -1400,9 +1405,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (publishState == YSUser_PublishState_VIDEOONLY)
     {
-        if (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH)
+        if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
         {
-            //[self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+            if (fresh)
+            {
+                [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+            }
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
             [videoView bringSubviewToFront:videoView.backVideoView];
         }
@@ -1415,9 +1423,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     if (publishState == YSUser_PublishState_BOTH)
     {
-        if (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH)
+        if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
         {
-            //[self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+            if (fresh)
+            {
+                [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+            }
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
             [videoView bringSubviewToFront:videoView.backVideoView];
         }
@@ -2064,6 +2075,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
+        else if (publishState == 4)
+        {
+            [self addVidoeViewWithPeerId:peerID];
+        }
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
@@ -2419,21 +2434,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [floatView showWithContentView:videoView];
         self.doubleFloatView = floatView;
 
-//        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-//
-//        YSRoomUser * user = videoView.roomUser;
-//
-//        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
-//        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
-//        {
-//            videoView.disableVideo = YES;
-//        }
-//        else
-//        {
-//            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
-//            videoView.disableVideo = NO;
-//        }
-        [videoView bringSubviewToFront:videoView.backVideoView];
+        [self playVideoAudioWithVideoView:videoView needFreshVideo:YES];
     }
     else
     {
@@ -2444,20 +2445,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self freshContentView];
         self.doubleFloatView = nil;
         
-//        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-//
-//        YSRoomUser * user = videoView.roomUser;
-//        YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
-//        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
-//        {
-//            videoView.disableVideo = YES;
-//        }
-//        else
-//        {
-//            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-//            videoView.disableVideo = NO;
-//        }
-        [videoView bringSubviewToFront:videoView.backVideoView];
+        [self playVideoAudioWithVideoView:videoView needFreshVideo:YES];
     }
     
     if (!self.isWhitebordFullScreen)
