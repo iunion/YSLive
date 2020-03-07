@@ -306,7 +306,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleSignalingClassEndWithText:(NSString *)text;
 
 /// 窗口布局变化
-- (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout;
+- (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout withPeerId:(nullable NSString *)peerId;
 - (void)handleSignalingDefaultRoomLayout;
 
 /// 拖出/放回视频窗口
@@ -636,11 +636,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 解除禁言
 - (BOOL)deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:(nullable completion_block)completion;
 
-/// 一V一  时改变布局(1:视频布局  0：默认布局)
+///改变布局( 1：默认布局 2:视频布局 3:焦点布局)
 - (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType;
 
-/// 一V一时改变布局 (会议专用)
-- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType appUserType:(YSAppUseTheType)appUserType;
+/// 改变布局
+- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType appUserType:(YSAppUseTheType)appUserType withFouceUserId:(nullable NSString *)peerId;
+
+/// 改变布局 (焦点布局专用)
+//- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSLiveRoomLayout)layoutType withFouceUserId:(NSString*)peerId;
 
 /// 发送双击视频放大
 - (BOOL)sendSignalingToDoubleClickVideoViewWithPeerId:(NSString *)peerId;

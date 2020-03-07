@@ -244,6 +244,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///音频播放器
 @property(nonatomic, strong) AVAudioPlayer *player;
 @property(nonatomic, strong) AVAudioSession *session;
+
+/// 当前的焦点视图
+@property(nonatomic, strong) SCVideoView *fouceView;
+
 @end
 
 @implementation SCMainVC
@@ -461,7 +465,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         defaultRoomLayout = YSLiveRoomLayout_VideoLayout;
         self.roomLayout = defaultRoomLayout;
-        [self handleSignalingSetRoomLayout:self.roomLayout];
+        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil];
     }
     else
     {
@@ -1166,14 +1170,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     return _raiseHandsBtn;
 }
 
-///举手上台
+///举手
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {    
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
 //    if (self.liveManager.isBeginClass)
 //    {
-//        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
 //    }
 //    else
 //    {
@@ -1181,12 +1185,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    }
 }
 
-///取消举手上台
+///取消举手
 - (void)downHandsButtonClick:(UIButton *)sender
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
 //    if (self.liveManager.isBeginClass) {
-//        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
 //    }
 //    else{
 //    }
@@ -1374,7 +1378,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     else
     {
                 
-        if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+        if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
         {
             [self freshVidoeGridView];
         }
@@ -1692,13 +1696,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //            [arr addObject:self.userVideoView];
 //        }
         
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:nil withRoomLayout:self.roomLayout];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:nil withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         
 //        self.isDoubleType = 0;
     }
     else
     {
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:nil withRoomLayout:self.roomLayout];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
     }
     
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
@@ -3704,7 +3708,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark - 窗口布局变化
-- (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout
+- (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout withPeerId:(nullable NSString *)peerId
 {
     self.roomLayout = roomLayout;
 
@@ -3726,12 +3730,28 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.drawBoardView.hidden = NO;
     }
     
+    if (roomLayout == YSLiveRoomLayout_FocusLayout)
+    {
+        for (SCVideoView *videoView in self.videoViewArray)
+        {
+            if ([videoView.roomUser.peerID isEqualToString: peerId])
+            {
+                self.fouceView = videoView;
+                break;
+            }
+        }
+        if (![self.fouceView bm_isNotEmpty])
+        {
+            self.roomLayout = YSLiveRoomLayout_VideoLayout;
+        }
+    }
+    
     [self freshContentView];
 }
 
 - (void)handleSignalingDefaultRoomLayout
 {
-    [self handleSignalingSetRoomLayout:defaultRoomLayout];
+    [self handleSignalingSetRoomLayout:defaultRoomLayout withPeerId:nil];
 }
 
 

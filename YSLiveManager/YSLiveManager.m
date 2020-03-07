@@ -380,7 +380,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     [self.whiteBoardManager changeWhiteBoardBackImage:nil];
     [self.whiteBoardManager changeFileViewBackgroudColor:[UIColor bm_colorWithHex:0xDCE2F1]];
 
-    
     [self.roomManager registerRoomInterfaceDelegate:self];
     
     

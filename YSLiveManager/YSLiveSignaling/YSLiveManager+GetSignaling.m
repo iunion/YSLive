@@ -123,17 +123,22 @@
     // 切换窗口布局
     if ([msgName isEqualToString:YSSignalingName_SetRoomLayout])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingSetRoomLayout:)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingSetRoomLayout:withPeerId:)])
         {
             NSString *roomLayout = [dataDic bm_stringTrimForKey:@"roomLayout"];
+            NSString *peerId = [dataDic bm_stringTrimForKey:@"focusVideoId"];
             
             if ([roomLayout isEqualToString:@"videoLayout"])
             {
-                [self.roomManagerDelegate handleSignalingSetRoomLayout:YSLiveRoomLayout_VideoLayout];
+                [self.roomManagerDelegate handleSignalingSetRoomLayout:YSLiveRoomLayout_VideoLayout withPeerId:peerId];
             }
-            else
+            else if ([roomLayout isEqualToString:@"aroundLayout"])
             {
-                [self.roomManagerDelegate handleSignalingSetRoomLayout:YSLiveRoomLayout_AroundLayout];
+                [self.roomManagerDelegate handleSignalingSetRoomLayout:YSLiveRoomLayout_AroundLayout withPeerId:peerId];
+            }
+            else if ([roomLayout isEqualToString:@"focusLayout"])
+            {
+                [self.roomManagerDelegate handleSignalingSetRoomLayout:YSLiveRoomLayout_FocusLayout withPeerId:peerId];
             }
         }
         
@@ -716,7 +721,7 @@
     if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
     {
         //Server_Sort_Result
-        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:sUserRaisehand];
+        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:YSDefaultRaiseHandMsgId];
 
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
         {
