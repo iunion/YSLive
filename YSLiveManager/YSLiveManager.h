@@ -236,6 +236,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 房间状态变为大房间
 - (void)roomManagerChangeToBigRoom;
 
+#pragma mark 用户网络差，被服务器切换媒体线路
+- (void)roomManagerChangeMediaLine;
+
 #pragma mark 网络状态
 /// 自己的网络状态变化
 - (void)roomManagerUserChangeNetStats:(id)stats;
