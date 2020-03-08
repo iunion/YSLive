@@ -361,7 +361,7 @@
         }
     }
 
-    self.signalStateL.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"State.NetworkState"), netText];
+//    self.signalStateL.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"State.NetworkState"), netText];
 
     self.timeL.text = topToolModel.lessonTime;
 }

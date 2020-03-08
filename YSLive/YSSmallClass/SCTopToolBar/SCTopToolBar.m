@@ -164,7 +164,7 @@
 //    float a = (float)topToolModel.lostRate * 100;
     
 //    self.signalStateL.text = [NSString stringWithFormat:@" 丢包率: %d%%  网络延时: %@ms  网络状态: %@",(int)floor(a),@(topToolModel.netDelay),netText];
-    self.signalStateL.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"State.NetworkState"), netText];
+//    self.signalStateL.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"State.NetworkState"), netText];
 
     
 //    [self.signalLamp setImage:[UIImage imageNamed:netImg]];
