@@ -53,7 +53,6 @@
 #define PlaceholderPTag     10
 
 //#define DoubleTeacherExpandContractBtnTag      100
-//    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:nil detailText:YSLocalized(@"HUD.NetworkPoor") images:@[@"hud_network_poor0", @"hud_network_poor1", @"hud_network_poor2", @"hud_network_poor3"] duration:0.8f delay:5.0f];
 
 
 #define GiftImageView_Width         185.0f

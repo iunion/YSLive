@@ -1618,6 +1618,33 @@ static YSLiveManager *liveManagerSingleton = nil;
         return;
     }
     
+    /// 用户网络差，被服务器切换媒体线路
+    if ([msgName isEqualToString:YSSignalingName_Notice_ChangeMediaLine])
+    {
+        NSDictionary *dataDic = [YSLiveUtil convertWithData:data];
+        
+        // name:"Notice_ChangeMediaLine"
+        // id:"Notice_ChangeMediaLine"
+        // toID:"被切线路的用户id"
+        // do_not_save: ""
+        // data: "{"oldline":"bjct", "line":"cna", "userId":"123456"}"
+        // fromID:"__YSServer"
+        if ([dataDic bm_isNotEmptyDictionary])
+        {
+            NSString *userId = [dataDic bm_stringTrimForKey:@"userId"];
+            
+            if ([userId isEqualToString:self.localUser.peerID])
+            {
+                if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeMediaLine)])
+                {
+                    [self.roomManagerDelegate roomManagerChangeMediaLine];
+                }
+            }
+        }
+        
+        return;
+    }
+    
     [self handleRoomPubMsgWithMsgID:msgID msgName:msgName data:data fromID:fromID inList:inlist ts:ts body:msgBody];
 }
 

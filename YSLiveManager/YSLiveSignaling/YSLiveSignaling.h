@@ -80,6 +80,9 @@
 
 /// 房间用户数
 #define YSSignalingName_Notice_BigRoom_Usernum      @"Notice_BigRoom_Usernum"
+/// 用户网络差，被服务器切换媒体线路
+#define YSSignalingName_Notice_ChangeMediaLine      @"Notice_ChangeMediaLine"
+
 
 /// 提问 确认 回答 删除
 #define YSSignalingName_LiveQuestions               @"LiveQuestions"
