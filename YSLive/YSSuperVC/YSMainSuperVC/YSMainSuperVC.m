@@ -9,6 +9,8 @@
 #import "YSMainSuperVC.h"
 //#import <AVFoundation/AVFoundation.h>
 
+#define YSChangeMediaLine_Delay     5.0f
+
 @interface YSMainSuperVC ()
 
 @property (nonatomic, weak) YSLiveManager *liveManager;
@@ -131,7 +133,7 @@
 
 - (void)roomManagerChangeMediaLine
 {
-    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:nil detailText:YSLocalized(@"HUD.NetworkPoor") images:@[@"hud_network_poor0", @"hud_network_poor1", @"hud_network_poor2", @"hud_network_poor3"] duration:0.8f delay:5.0f];
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:nil detailText:YSLocalized(@"HUD.NetworkPoor") images:@[@"hud_network_poor0", @"hud_network_poor1", @"hud_network_poor2", @"hud_network_poor3"] duration:0.8f delay:YSChangeMediaLine_Delay];
 }
 
 /*
