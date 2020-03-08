@@ -3028,17 +3028,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 进入前台后台
 
+/// 老师不发送进入前台后台
 /// 进入后台
+#if 0
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
 }
+#endif
 
 #pragma mark - 顶部bar 定时操作
 - (void)countDownTime:(NSTimer *)timer
