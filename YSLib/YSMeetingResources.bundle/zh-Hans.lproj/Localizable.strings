@@ -74,7 +74,7 @@
 "KickOut.Repeat" = "有相同身份的用户进入，您已经离开房间";
 "KickOut.SentOutClassroom" = "您已被老师请出房间！";
 
-"State.teacherInBackGround" = "⚠️学生把APP切到后台了";
+"State.teacherInBackGround" = "⚠️用户把APP切到后台了";
 "State.PoorNetWork.self" = "网络差，建议切换Wifi/4G或重启路由器";
 "State.PoorNetWork.other" = "用户网络差";
 
