@@ -176,6 +176,40 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 // add by DJ
++ (instancetype)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withText:(NSString *)text detailText:(NSString *)detailText images:(NSArray *)images duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay
+{
+    // hud_network_poor
+    BMProgressHUD *hud = [[self alloc] initWithView:view];
+    hud.mode = BMProgressHUDModeCustomView;
+    hud.removeFromSuperViewOnHide = YES;
+    [view addSubview:hud];
+    
+    [hud setLabelText:text];
+    [hud setDetailsLabelText:detailText];
+    
+    UIImageView *imageView = [UIImageView bm_imageViewWithImageArray:images duration:duration];
+    if (images.count > 1)
+    {
+        [imageView startAnimating];
+    }
+    UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120.0f, 120.0f)];
+    bgview.backgroundColor = [UIColor clearColor];//[UIColor colorWithWhite:0.6 alpha:0.6];
+    [bgview bm_roundedRect:8.0f];
+    [bgview addSubview:imageView];
+    [imageView bm_centerInSuperView];
+    hud.customView = bgview;
+    
+    hud.color = [UIColor colorWithWhite:0.3f alpha:0.6f];//[UIColor clearColor];
+    [hud oldmb_showAnimated:animated];
+    if (delay > 0)
+    {
+        hud.removeFromSuperViewOnHide = YES;
+        [hud bm_hideAnimated:animated afterDelay:delay];
+    }
+    return BM_AUTORELEASE(hud);
+}
+
+
 + (BOOL)bm_hideHUDForView:(UIView *)view animated:(BOOL)animated delay:(NSTimeInterval)delay
 {
     BMProgressHUD *hud = [self bm_HUDForView:view];

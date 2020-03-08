@@ -53,6 +53,8 @@
 #define PlaceholderPTag     10
 
 //#define DoubleTeacherExpandContractBtnTag      100
+//    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:nil detailText:YSLocalized(@"HUD.NetworkPoor") images:@[@"hud_network_poor0", @"hud_network_poor1", @"hud_network_poor2", @"hud_network_poor3"] duration:0.8f delay:5.0f];
+
 
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
@@ -4006,7 +4008,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     }
                     else
                     {
-                        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     }
                     
                 }
@@ -5240,19 +5242,21 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
      * UIImagePickerControllerMediaMetadata // 当数据来源是相机时，此值才有效
      */
     // 从info中将图片取出，并加载到imageView当中
+    
+    BMWeakSelf
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [YSLiveApiRequest uploadImageWithImage:image withImageUseType:SCUploadImageUseType_Document success:^(NSDictionary * _Nonnull dict) {
         
-        [self sendWhiteBordImageWithDic:dict];
+        [weakSelf sendWhiteBordImageWithDic:dict];
         
     } failure:^(NSInteger errorCode) {
 #if DEBUG
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
 #endif
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [BMProgressHUD bm_hideHUDForView:self.view animated:YES];
+            [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
         });
     }];
     
@@ -5453,21 +5457,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
     imagePickerController.sortAscendingByModificationDate = NO;
     
+    BMWeakSelf
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
             
             if (imageUseType == 0)
             {
-                [self sendWhiteBordImageWithDic:dict];
+                [weakSelf sendWhiteBordImageWithDic:dict];
             }
             else
             {
                 BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageTypeOnlyImage withMemberModel:nil];
                 if (!isSucceed)
                 {
-                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
                     hub.yOffset = -100;
-                    [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
             /*
@@ -5487,12 +5492,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
              */
         } failure:^(NSInteger errorCode) {
 #if DEBUG
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
 #endif
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [BMProgressHUD bm_hideHUDForView:self.view animated:YES];
+                [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
             });
         }];
     }];

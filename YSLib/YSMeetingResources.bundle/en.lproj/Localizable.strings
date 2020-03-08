@@ -9,6 +9,7 @@
 "SDK.VCError" = "Please create a UIViewcontroller instance";
 
 "HUD.EnteringClass" = "Entering class";
+"HUD.NetworkPoor" = "Network poor\nfind better lines";
 
 "Error.NoMeeting" = "The room doesn't exist.";
 "Error.NoLiving" = "Cannot find this Living";
@@ -72,7 +73,10 @@
 "KickOut.ChairmanKick" = "You have been kicked out of conference by chairman...";
 "KickOut.Repeat" = "User of the same identity has entered the room. You are blocked.";
 "KickOut.SentOutClassroom" = "You have been sent out of the room by the anchor";
+
 "State.teacherInBackGround" = "⚠️App is switched to backstage";
+"State.PoorNetWork.self" = "Poor network, Switch WiFi/4G or reset router";
+"State.PoorNetWork.other" = "Poor network";
 
 //role
 "Role.Me" = "me";
@@ -131,6 +135,9 @@
 "Button.RestorePosition"    = "Restore";
 "Button.Recovery"           = "Restore";
 "Button.SwitchVideo"        = "Switch Video";
+"Button.SetFocus"        = "Set focus";
+"Button.CancelFocus"       = "Cancel focus";
+
 "Button.nameSort" = " Name";
 "Button.typeSort" = " Type";
 "Button.timeSort" = " Time";

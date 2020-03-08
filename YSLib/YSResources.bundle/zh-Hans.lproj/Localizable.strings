@@ -9,6 +9,7 @@
 "SDK.VCError" = "请创建一个UIViewController";
 
 "HUD.EnteringClass" = "正在进入房间";
+"HUD.NetworkPoor" = "您的网络较差\n正在尝试寻找更好的线路";
 
 "Error.NoMeeting" = "房间号不存在";
 "Error.NoLiving" = "直播不存在";
@@ -72,8 +73,10 @@
 "KickOut.ChairmanKick" = "您已被主席请出会议...";
 "KickOut.Repeat" = "有相同身份的用户进入，您已经离开房间";
 "KickOut.SentOutClassroom" = "您已被老师请出房间！";
-"State.teacherInBackGround" = "⚠️学生把APP切到后台了";
 
+"State.teacherInBackGround" = "⚠️学生把APP切到后台了";
+"State.PoorNetWork.self" = "网络差，建议切换Wifi/4G或重启路由器";
+"State.PoorNetWork.other" = "用户网络差";
 
 //role
 "Role.Me" = "我";
@@ -205,7 +208,7 @@
 "Prompt.AppointmentN"           = "房间预约时间已到，%ld分钟后将关闭教室!";
 "Prompt.Appointment30"           = "房间预约时间已到，30分钟后将关闭教室!";
 "Prompt.Appointment28"           = "房间预约时间已到，2分钟后将关闭教室!";
-//"Prompt.TeacherLeave8"           = "老师退出房间达到8分钟，2分钟后房间即将关闭!";
+
 "Prompt.ClassEndAppointment30"           = "已超预约时间30分钟，系统结束本次互动";
 "Prompt.ClassEndTeacherLeave10"          = "老师已离开房间10分钟，系统结束本次互动";
 "Prompt.ClassEndAnchorLeave10"          = "主播已离开房间10分钟，系统结束本次互动";

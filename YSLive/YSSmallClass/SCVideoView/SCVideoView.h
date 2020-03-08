@@ -61,12 +61,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isHideCup;
 /// 背景view
 @property (nonatomic, strong) UIView *backVideoView;
-///该用户有开摄像
+/// 该用户有开摄像
 @property (nonatomic, assign) BOOL iHasVadeo;
-///该用户有开麦克风
+/// 该用户有开麦克风
 @property (nonatomic, assign) BOOL iHasAudio;
+/// 该用户网络是否有问题
+@property (nonatomic, assign) BOOL isPoorNetWork;
 
-@property (nonatomic, strong) UIPanGestureRecognizer * panGesture;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;

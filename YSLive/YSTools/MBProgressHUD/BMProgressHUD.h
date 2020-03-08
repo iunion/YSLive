@@ -146,6 +146,7 @@ typedef void (^BMProgressHUDCompletionBlock)(void);
  */
 + (BOOL)bm_hideHUDForView:(UIView *)view animated:(BOOL)animated;
 // add by DJ
++ (instancetype)bm_showHUDAddedTo:(UIView *)view animated:(BOOL)animated withText:(NSString *)text detailText:(NSString *)detailText images:(NSArray *)images duration:(NSTimeInterval)duration delay:(NSTimeInterval)delay;
 + (BOOL)bm_hideHUDForView:(UIView *)view animated:(BOOL)animated delay:(NSTimeInterval)delay;
 
 /**
