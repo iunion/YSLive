@@ -15,10 +15,10 @@
 #import "NSImage+BMWebCache.h"
 
 // See https://github.com/rs/SDWebImage/pull/1141 for discussion
-@interface AutoPurgeCache : NSCache
+@interface BMAutoPurgeCache : NSCache
 @end
 
-@implementation AutoPurgeCache
+@implementation BMAutoPurgeCache
 
 - (nonnull instancetype)init {
     self = [super init];
@@ -93,7 +93,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
         _config = [[BMSDImageCacheConfig alloc] init];
         
         // Init the memory cache
-        _memCache = [[AutoPurgeCache alloc] init];
+        _memCache = [[BMAutoPurgeCache alloc] init];
         _memCache.name = fullNamespace;
 
         // Init the disk cache

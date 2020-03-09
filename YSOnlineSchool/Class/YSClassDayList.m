@@ -253,7 +253,7 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf loadDataResponseFailed:response error:error];
             }
             else
             {
