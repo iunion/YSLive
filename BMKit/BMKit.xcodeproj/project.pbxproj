@@ -127,12 +127,12 @@
 		8701AEAC2371550000A43607 /* BMAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEA72371550000A43607 /* BMAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AEAD2371550000A43607 /* BMTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEA82371550000A43607 /* BMTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF0423715B4D00A43607 /* BMSDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEDF23715B4D00A43607 /* BMSDWebImageDownloaderOperation.m */; };
-		8701AF0523715B4D00A43607 /* UIImage+BMMultiFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE023715B4D00A43607 /* UIImage+BMMultiFormat.h */; };
-		8701AF0623715B4D00A43607 /* BMSDImageCacheConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE123715B4D00A43607 /* BMSDImageCacheConfig.h */; };
-		8701AF0723715B4D00A43607 /* NSData+BMImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE223715B4D00A43607 /* NSData+BMImageContentType.h */; };
+		8701AF0523715B4D00A43607 /* UIImage+BMMultiFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE023715B4D00A43607 /* UIImage+BMMultiFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF0623715B4D00A43607 /* BMSDImageCacheConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE123715B4D00A43607 /* BMSDImageCacheConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF0723715B4D00A43607 /* NSData+BMImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE223715B4D00A43607 /* NSData+BMImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF0823715B4D00A43607 /* UIImageView+BMWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEE323715B4D00A43607 /* UIImageView+BMWebCache.m */; };
 		8701AF0923715B4D00A43607 /* BMSDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEE423715B4D00A43607 /* BMSDWebImageDownloader.m */; };
-		8701AF0A23715B4D00A43607 /* BMSDWebImageOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE523715B4D00A43607 /* BMSDWebImageOperation.h */; };
+		8701AF0A23715B4D00A43607 /* BMSDWebImageOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEE523715B4D00A43607 /* BMSDWebImageOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF0B23715B4D00A43607 /* BMSDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEE623715B4D00A43607 /* BMSDWebImagePrefetcher.m */; };
 		8701AF0C23715B4D00A43607 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEE723715B4D00A43607 /* SDWebImageDecoder.m */; };
 		8701AF0D23715B4D00A43607 /* BMSDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEE823715B4D00A43607 /* BMSDWebImageCompat.m */; };
@@ -141,28 +141,28 @@
 		8701AF1023715B4D00A43607 /* BMSDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEEB23715B4D00A43607 /* BMSDWebImageManager.m */; };
 		8701AF1123715B4D00A43607 /* UIImageView+BMHighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEEC23715B4D00A43607 /* UIImageView+BMHighlightedWebCache.m */; };
 		8701AF1223715B4D00A43607 /* UIButton+BMWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEED23715B4D00A43607 /* UIButton+BMWebCache.m */; };
-		8701AF1323715B4D00A43607 /* NSImage+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEEE23715B4D00A43607 /* NSImage+BMWebCache.h */; };
-		8701AF1423715B4D00A43607 /* UIView+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEEF23715B4D00A43607 /* UIView+BMWebCache.h */; };
-		8701AF1523715B4D00A43607 /* UIImage+BMGIF.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF023715B4D00A43607 /* UIImage+BMGIF.h */; };
+		8701AF1323715B4D00A43607 /* NSImage+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEEE23715B4D00A43607 /* NSImage+BMWebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF1423715B4D00A43607 /* UIView+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEEF23715B4D00A43607 /* UIView+BMWebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF1523715B4D00A43607 /* UIImage+BMGIF.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF023715B4D00A43607 /* UIImage+BMGIF.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF1623715B4D00A43607 /* UIView+BMWebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEF123715B4D00A43607 /* UIView+BMWebCacheOperation.m */; };
-		8701AF1723715B4D00A43607 /* BMSDWebImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF223715B4D00A43607 /* BMSDWebImageDownloader.h */; };
-		8701AF1823715B4D00A43607 /* UIImageView+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF323715B4D00A43607 /* UIImageView+BMWebCache.h */; };
+		8701AF1723715B4D00A43607 /* BMSDWebImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF223715B4D00A43607 /* BMSDWebImageDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF1823715B4D00A43607 /* UIImageView+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF323715B4D00A43607 /* UIImageView+BMWebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF1923715B4D00A43607 /* NSData+BMImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEF423715B4D00A43607 /* NSData+BMImageContentType.m */; };
 		8701AF1A23715B4D00A43607 /* BMSDImageCacheConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEF523715B4D00A43607 /* BMSDImageCacheConfig.m */; };
-		8701AF1B23715B4D00A43607 /* BMSDWebImageDownloaderOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF623715B4D00A43607 /* BMSDWebImageDownloaderOperation.h */; };
+		8701AF1B23715B4D00A43607 /* BMSDWebImageDownloaderOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF623715B4D00A43607 /* BMSDWebImageDownloaderOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF1C23715B4D00A43607 /* UIImage+BMMultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AEF723715B4D00A43607 /* UIImage+BMMultiFormat.m */; };
-		8701AF1D23715B4D00A43607 /* BMSDWebImageCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF823715B4D00A43607 /* BMSDWebImageCompat.h */; };
-		8701AF1E23715B4D00A43607 /* SDWebImageDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF923715B4D00A43607 /* SDWebImageDecoder.h */; };
-		8701AF1F23715B4D00A43607 /* BMSDWebImagePrefetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFA23715B4D00A43607 /* BMSDWebImagePrefetcher.h */; };
-		8701AF2023715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFB23715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h */; };
-		8701AF2123715B4D00A43607 /* BMSDWebImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFC23715B4D00A43607 /* BMSDWebImageManager.h */; };
-		8701AF2223715B4D00A43607 /* BMSDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFD23715B4D00A43607 /* BMSDImageCache.h */; };
-		8701AF2323715B4D00A43607 /* UIImage+BMWebP.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFE23715B4D00A43607 /* UIImage+BMWebP.h */; };
-		8701AF2423715B4D00A43607 /* UIView+BMWebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFF23715B4D00A43607 /* UIView+BMWebCacheOperation.h */; };
+		8701AF1D23715B4D00A43607 /* BMSDWebImageCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF823715B4D00A43607 /* BMSDWebImageCompat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF1E23715B4D00A43607 /* SDWebImageDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEF923715B4D00A43607 /* SDWebImageDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF1F23715B4D00A43607 /* BMSDWebImagePrefetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFA23715B4D00A43607 /* BMSDWebImagePrefetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF2023715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFB23715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF2123715B4D00A43607 /* BMSDWebImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFC23715B4D00A43607 /* BMSDWebImageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF2223715B4D00A43607 /* BMSDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFD23715B4D00A43607 /* BMSDImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF2323715B4D00A43607 /* UIImage+BMWebP.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFE23715B4D00A43607 /* UIImage+BMWebP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8701AF2423715B4D00A43607 /* UIView+BMWebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AEFF23715B4D00A43607 /* UIView+BMWebCacheOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF2523715B4D00A43607 /* NSImage+BMWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AF0023715B4D00A43607 /* NSImage+BMWebCache.m */; };
 		8701AF2623715B4D00A43607 /* UIImage+BMGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AF0123715B4D00A43607 /* UIImage+BMGIF.m */; };
 		8701AF2723715B4D00A43607 /* UIView+BMWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AF0223715B4D00A43607 /* UIView+BMWebCache.m */; };
-		8701AF2823715B4D00A43607 /* UIButton+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AF0323715B4D00A43607 /* UIButton+BMWebCache.h */; };
+		8701AF2823715B4D00A43607 /* UIButton+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AF0323715B4D00A43607 /* UIButton+BMWebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF2C23715B9400A43607 /* BMAlignedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AF2A23715B9400A43607 /* BMAlignedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AF2D23715B9400A43607 /* BMAlignedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AF2B23715B9400A43607 /* BMAlignedImageView.m */; };
 		8701AF3223715C9E00A43607 /* UIView+BMBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701AF2F23715C9D00A43607 /* UIView+BMBadge.m */; };
@@ -328,6 +328,7 @@
 		8777C7BB23EBA9CD002002BF /* BMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B923EBA9CD002002BF /* BMTabBarController.m */; };
 		8779E57A23F2D3FC008E885C /* BMRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E57823F2D3FC008E885C /* BMRSA.m */; };
 		8779E57B23F2D3FC008E885C /* BMRSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 8779E57923F2D3FC008E885C /* BMRSA.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8790199C24163F4C00FF38EC /* BMKitThird.h in Headers */ = {isa = PBXBuildFile; fileRef = 8790199B24163F4C00FF38EC /* BMKitThird.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -649,6 +650,7 @@
 		8777C7B923EBA9CD002002BF /* BMTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMTabBarController.m; sourceTree = "<group>"; };
 		8779E57823F2D3FC008E885C /* BMRSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMRSA.m; sourceTree = "<group>"; };
 		8779E57923F2D3FC008E885C /* BMRSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRSA.h; sourceTree = "<group>"; };
+		8790199B24163F4C00FF38EC /* BMKitThird.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKitThird.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -888,6 +890,7 @@
 			isa = PBXGroup;
 			children = (
 				8701AEDE23715B4D00A43607 /* SDWebImage */,
+				8790199B24163F4C00FF38EC /* BMKitThird.h */,
 			);
 			path = ThirdPary;
 			sourceTree = "<group>";
@@ -1359,6 +1362,26 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8790199C24163F4C00FF38EC /* BMKitThird.h in Headers */,
+				8701AF2223715B4D00A43607 /* BMSDImageCache.h in Headers */,
+				8701AF1723715B4D00A43607 /* BMSDWebImageDownloader.h in Headers */,
+				8701AF1F23715B4D00A43607 /* BMSDWebImagePrefetcher.h in Headers */,
+				8701AF1523715B4D00A43607 /* UIImage+BMGIF.h in Headers */,
+				8701AF2123715B4D00A43607 /* BMSDWebImageManager.h in Headers */,
+				8701AF0723715B4D00A43607 /* NSData+BMImageContentType.h in Headers */,
+				8701AF1423715B4D00A43607 /* UIView+BMWebCache.h in Headers */,
+				8701AF2023715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h in Headers */,
+				8701AF0623715B4D00A43607 /* BMSDImageCacheConfig.h in Headers */,
+				8701AF2423715B4D00A43607 /* UIView+BMWebCacheOperation.h in Headers */,
+				8701AF1323715B4D00A43607 /* NSImage+BMWebCache.h in Headers */,
+				8701AF0523715B4D00A43607 /* UIImage+BMMultiFormat.h in Headers */,
+				8701AF1D23715B4D00A43607 /* BMSDWebImageCompat.h in Headers */,
+				8701AF2823715B4D00A43607 /* UIButton+BMWebCache.h in Headers */,
+				8701AF2323715B4D00A43607 /* UIImage+BMWebP.h in Headers */,
+				8701AF0A23715B4D00A43607 /* BMSDWebImageOperation.h in Headers */,
+				8701AF1B23715B4D00A43607 /* BMSDWebImageDownloaderOperation.h in Headers */,
+				8701AF1823715B4D00A43607 /* UIImageView+BMWebCache.h in Headers */,
+				8701AF1E23715B4D00A43607 /* SDWebImageDecoder.h in Headers */,
 				8779E57B23F2D3FC008E885C /* BMRSA.h in Headers */,
 				8777C7BA23EBA9CD002002BF /* BMTabBarController.h in Headers */,
 				8777C7B623EAC069002002BF /* BMTabItemButton.h in Headers */,
@@ -1387,12 +1410,8 @@
 				8701AF2C23715B9400A43607 /* BMAlignedImageView.h in Headers */,
 				8701AE4E23714E6000A43607 /* NSString+BMFormat.h in Headers */,
 				8701AE0723714E6000A43607 /* BMClassCategory.h in Headers */,
-				8701AF2223715B4D00A43607 /* BMSDImageCache.h in Headers */,
 				8701AE5F23714E6000A43607 /* NSURL+BMParameters.h in Headers */,
 				8701AE1123714E6000A43607 /* UIView+BMSize.h in Headers */,
-				8701AF1723715B4D00A43607 /* BMSDWebImageDownloader.h in Headers */,
-				8701AF1F23715B4D00A43607 /* BMSDWebImagePrefetcher.h in Headers */,
-				8701AF1523715B4D00A43607 /* UIImage+BMGIF.h in Headers */,
 				8701AE2523714E6000A43607 /* CAAnimation+Blocks.h in Headers */,
 				8701AE4123714E6000A43607 /* NSMutableArray+BMCategory.h in Headers */,
 				8701AE0F23714E6000A43607 /* UIView+BMAnimationExtensions.h in Headers */,
@@ -1401,30 +1420,22 @@
 				8701AE3423714E6000A43607 /* CALayer+BMSize.h in Headers */,
 				8701AE4923714E6000A43607 /* NSString+BMCategory.h in Headers */,
 				8701AE1623714E6000A43607 /* UIView+BMAnimation.h in Headers */,
-				8701AF2123715B4D00A43607 /* BMSDWebImageManager.h in Headers */,
 				8701AE6023714E6000A43607 /* NSBundle+BMCategory.h in Headers */,
 				8701AE2F23714E6000A43607 /* UIColor+BMCategory.h in Headers */,
 				8701AE3323714E6000A43607 /* CAAnimation+Animation.h in Headers */,
 				8701AE4823714E6000A43607 /* NSAttributedString+BMCategory.h in Headers */,
 				8701AE3523714E6000A43607 /* UILabel+BMCategory.h in Headers */,
 				8701AE1D23714E6000A43607 /* UIImageView+BMCategory.h in Headers */,
-				8701AF0723715B4D00A43607 /* NSData+BMImageContentType.h in Headers */,
 				8701AE0B23714E6000A43607 /* UIView+BMOutSide.h in Headers */,
 				8701AE6523714E6000A43607 /* BMUICategory.h in Headers */,
 				8701AE3723714E6000A43607 /* UIDevice+BMCategory.h in Headers */,
 				8701AE2023714E6000A43607 /* UIFont+BMCategory.h in Headers */,
 				8701AE4723714E6000A43607 /* NSNumber+BMCategory.h in Headers */,
 				8701AE0823714E6000A43607 /* UIButton+BMContentRect.h in Headers */,
-				8701AF1423715B4D00A43607 /* UIView+BMWebCache.h in Headers */,
 				8701AD9C23714E1500A43607 /* BMKit.h in Headers */,
-				8701AF2023715B4D00A43607 /* UIImageView+BMHighlightedWebCache.h in Headers */,
-				8701AF0623715B4D00A43607 /* BMSDImageCacheConfig.h in Headers */,
 				8701AE5423714E6000A43607 /* NSString+BMMandarinLatin.h in Headers */,
-				8701AF2423715B4D00A43607 /* UIView+BMWebCacheOperation.h in Headers */,
 				8701AE2D23714E6000A43607 /* UIWindow+BMCategory.h in Headers */,
 				8701AE1923714E6000A43607 /* UIView+BMCorner.h in Headers */,
-				8701AF1323715B4D00A43607 /* NSImage+BMWebCache.h in Headers */,
-				8701AF0523715B4D00A43607 /* UIImage+BMMultiFormat.h in Headers */,
 				8701AE5723714E6000A43607 /* NSString+BMRoundNumber.h in Headers */,
 				8701AE4323714E6000A43607 /* NSData+BMEncrypt.h in Headers */,
 				8701AE6323714E6000A43607 /* NSDate+BMCategory.h in Headers */,
@@ -1435,9 +1446,7 @@
 				8701AE4023714E6000A43607 /* NSObject+BMCategory.h in Headers */,
 				8701AE5823714E6000A43607 /* NSString+Emoji.h in Headers */,
 				8701AE0E23714E6000A43607 /* UIView+BMNibLoading.h in Headers */,
-				8701AF1D23715B4D00A43607 /* BMSDWebImageCompat.h in Headers */,
 				8701AE3823714E6000A43607 /* NSArray+BMCategory.h in Headers */,
-				8701AF2823715B4D00A43607 /* UIButton+BMWebCache.h in Headers */,
 				8701AF3423715C9E00A43607 /* UIView+BMBadge.h in Headers */,
 				8701AF3D23715CF900A43607 /* UIView+BMCountDownManager.h in Headers */,
 				8701AF8523715F5500A43607 /* BMNavigationTitleLabel.h in Headers */,
@@ -1497,15 +1506,10 @@
 				8701AE4A23714E6000A43607 /* emojiCodes.h in Headers */,
 				8701AE5223714E6000A43607 /* NSString+BMEncrypt.h in Headers */,
 				8701AE6123714E6000A43607 /* NSBundle+BMResource.h in Headers */,
-				8701AF2323715B4D00A43607 /* UIImage+BMWebP.h in Headers */,
 				8701AE1B23714E6000A43607 /* UITextField+BMCategory.h in Headers */,
 				8701AE2123714E6000A43607 /* UIButton+BMCategory.h in Headers */,
-				8701AF0A23715B4D00A43607 /* BMSDWebImageOperation.h in Headers */,
 				8701AE4423714E6000A43607 /* NSData+BMCategory.h in Headers */,
-				8701AF1B23715B4D00A43607 /* BMSDWebImageDownloaderOperation.h in Headers */,
-				8701AF1823715B4D00A43607 /* UIImageView+BMWebCache.h in Headers */,
 				8701AE5D23714E6000A43607 /* NSRegularExpression+BMRegEx.h in Headers */,
-				8701AF1E23715B4D00A43607 /* SDWebImageDecoder.h in Headers */,
 				8701AFE7237163B100A43607 /* BMVerifyFieldTextRange.h in Headers */,
 				8701AE1F23714E6000A43607 /* UIImage+BMTint.h in Headers */,
 				8701AE6A2371512100A43607 /* BMApp.h in Headers */,

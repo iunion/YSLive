@@ -271,7 +271,7 @@
             if ([self.imageUrl bm_isNotEmpty])
             {
                 BMWeakSelf
-                [self.imageView bm_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:placeholderImage options:SDWebImageRetryFailed|SDWebImageLowPriority completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                [self.imageView bm_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:placeholderImage options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                     if (!error)
                     {
                         if (weakSelf.afterSetimage)
@@ -296,7 +296,7 @@
             imageWidth = imageHeight;
             
             BMWeakSelf
-            [self.imageView bm_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:placeholderImage options:SDWebImageRetryFailed|SDWebImageLowPriority completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [self.imageView bm_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:placeholderImage options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                 if (!error)
                 {
                     if (weakSelf.afterSetimage)

@@ -28,6 +28,8 @@ FOUNDATION_EXPORT const unsigned char BMKitVersionString[];
 #import "BMClassCategory.h"
 #import "BMUICategory.h"
 
+#import "BMKitThird.h"
+
 #import "BMTools.h"
 
 #import "BMApp.h"

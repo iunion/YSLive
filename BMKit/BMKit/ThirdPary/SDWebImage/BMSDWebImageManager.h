@@ -11,29 +11,29 @@
 #import "BMSDWebImageDownloader.h"
 #import "BMSDImageCache.h"
 
-typedef NS_OPTIONS(NSUInteger, SDWebImageOptions) {
+typedef NS_OPTIONS(NSUInteger, BMSDWebImageOptions) {
     /**
      * By default, when a URL fail to be downloaded, the URL is blacklisted so the library won't keep trying.
      * This flag disable this blacklisting.
      */
-    SDWebImageRetryFailed = 1 << 0,
+    BMSDWebImageRetryFailed = 1 << 0,
 
     /**
      * By default, image downloads are started during UI interactions, this flags disable this feature,
      * leading to delayed download on UIScrollView deceleration for instance.
      */
-    SDWebImageLowPriority = 1 << 1,
+    BMSDWebImageLowPriority = 1 << 1,
 
     /**
      * This flag disables on-disk caching
      */
-    SDWebImageCacheMemoryOnly = 1 << 2,
+    BMSDWebImageCacheMemoryOnly = 1 << 2,
 
     /**
      * This flag enables progressive download, the image is displayed progressively during download as a browser would do.
      * By default, the image is only displayed once completely downloaded.
      */
-    SDWebImageProgressiveDownload = 1 << 3,
+    BMSDWebImageProgressiveDownload = 1 << 3,
 
     /**
      * Even if the image is cached, respect the HTTP response cache control, and refresh the image from remote location if needed.
@@ -43,58 +43,58 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageOptions) {
      *
      * Use this flag only if you can't make your URLs static with embedded cache busting parameter.
      */
-    SDWebImageRefreshCached = 1 << 4,
+    BMSDWebImageRefreshCached = 1 << 4,
 
     /**
      * In iOS 4+, continue the download of the image if the app goes to background. This is achieved by asking the system for
      * extra time in background to let the request finish. If the background task expires the operation will be cancelled.
      */
-    SDWebImageContinueInBackground = 1 << 5,
+    BMSDWebImageContinueInBackground = 1 << 5,
 
     /**
      * Handles cookies stored in NSHTTPCookieStore by setting
      * NSMutableURLRequest.HTTPShouldHandleCookies = YES;
      */
-    SDWebImageHandleCookies = 1 << 6,
+    BMSDWebImageHandleCookies = 1 << 6,
 
     /**
      * Enable to allow untrusted SSL certificates.
      * Useful for testing purposes. Use with caution in production.
      */
-    SDWebImageAllowInvalidSSLCertificates = 1 << 7,
+    BMSDWebImageAllowInvalidSSLCertificates = 1 << 7,
 
     /**
      * By default, images are loaded in the order in which they were queued. This flag moves them to
      * the front of the queue.
      */
-    SDWebImageHighPriority = 1 << 8,
+    BMSDWebImageHighPriority = 1 << 8,
     
     /**
      * By default, placeholder images are loaded while the image is loading. This flag will delay the loading
      * of the placeholder image until after the image has finished loading.
      */
-    SDWebImageDelayPlaceholder = 1 << 9,
+    BMSDWebImageDelayPlaceholder = 1 << 9,
 
     /**
      * We usually don't call transformDownloadedImage delegate method on animated images,
      * as most transformation code would mangle it.
      * Use this flag to transform them anyway.
      */
-    SDWebImageTransformAnimatedImage = 1 << 10,
+    BMSDWebImageTransformAnimatedImage = 1 << 10,
     
     /**
      * By default, image is added to the imageView after download. But in some cases, we want to
      * have the hand before setting the image (apply a filter or add it with cross-fade animation for instance)
      * Use this flag if you want to manually set the image in the completion when success
      */
-    SDWebImageAvoidAutoSetImage = 1 << 11,
+    BMSDWebImageAvoidAutoSetImage = 1 << 11,
     
     /**
      * By default, images are decoded respecting their original size. On iOS, this flag will scale down the
      * images to a size compatible with the constrained memory of devices.
      * If `SDWebImageProgressiveDownload` flag is set the scale down is deactivated.
      */
-    SDWebImageScaleDownLargeImages = 1 << 12
+    BMSDWebImageScaleDownLargeImages = 1 << 12
 };
 
 typedef void(^SDExternalCompletionBlock)(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL);
@@ -220,7 +220,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  * @return Returns an NSObject conforming to SDWebImageOperation. Should be an instance of SDWebImageDownloaderOperation
  */
 - (nullable id <BMSDWebImageOperation>)loadImageWithURL:(nullable NSURL *)url
-                                              options:(SDWebImageOptions)options
+                                              options:(BMSDWebImageOptions)options
                                              progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                                             completed:(nullable SDInternalCompletionBlock)completedBlock;
 

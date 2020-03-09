@@ -23,8 +23,8 @@
     }
     
     UIImage *image;
-    SDImageFormat imageFormat = [NSData bm_imageFormatForImageData:data];
-    if (imageFormat == SDImageFormatGIF) {
+    BMSDImageFormat imageFormat = [NSData bm_imageFormatForImageData:data];
+    if (imageFormat == BMSDImageFormatGIF) {
         image = [UIImage bm_animatedGIFWithData:data];
     }
 #ifdef SD_WEBP
@@ -117,10 +117,10 @@
 #endif
 
 - (nullable NSData *)bm_imageData {
-    return [self bm_imageDataAsFormat:SDImageFormatUndefined];
+    return [self bm_imageDataAsFormat:BMSDImageFormatUndefined];
 }
 
-- (nullable NSData *)bm_imageDataAsFormat:(SDImageFormat)imageFormat {
+- (nullable NSData *)bm_imageDataAsFormat:(BMSDImageFormat)imageFormat {
     NSData *imageData = nil;
     if (self) {
 #if SD_UIKIT || SD_WATCH
@@ -132,8 +132,8 @@
         BOOL usePNG = hasAlpha;
         
         // the imageFormat param has priority here. But if the format is undefined, we relly on the alpha channel
-        if (imageFormat != SDImageFormatUndefined) {
-            usePNG = (imageFormat == SDImageFormatPNG);
+        if (imageFormat != BMSDImageFormatUndefined) {
+            usePNG = (imageFormat == BMSDImageFormatPNG);
         }
         
         if (usePNG) {

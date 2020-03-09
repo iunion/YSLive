@@ -69,7 +69,7 @@
 - (void)bm_setImageWithURL:(nullable NSURL *)url
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options NS_REFINED_FOR_SWIFT;
+                   options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -125,7 +125,7 @@
 - (void)bm_setImageWithURL:(nullable NSURL *)url
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options
+                   options:(BMSDWebImageOptions)options
                  completed:(nullable SDExternalCompletionBlock)completedBlock;
 
 #pragma mark - Background image
@@ -180,7 +180,7 @@
 - (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
-                             options:(SDWebImageOptions)options NS_REFINED_FOR_SWIFT;
+                             options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the backgroundImageView `image` with an `url`.
@@ -235,7 +235,7 @@
 - (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
-                             options:(SDWebImageOptions)options
+                             options:(BMSDWebImageOptions)options
                            completed:(nullable SDExternalCompletionBlock)completedBlock;
 
 #pragma mark - Cancel

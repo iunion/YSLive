@@ -71,7 +71,7 @@
     if ((self = [super init])) {
         _operationClass = [BMSDWebImageDownloaderOperation class];
         _shouldDecompressImages = YES;
-        _executionOrder = SDWebImageDownloaderFIFOExecutionOrder;
+        _executionOrder = BMSDWebImageDownloaderFIFOExecutionOrder;
         _downloadQueue = [NSOperationQueue new];
         _downloadQueue.maxConcurrentOperationCount = 6;
         _downloadQueue.name = @"com.hackemist.SDWebImageDownloader";
@@ -153,7 +153,7 @@
 }
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
-                                                   options:(SDWebImageDownloaderOptions)options
+                                                   options:(BMSDWebImageDownloaderOptions)options
                                                   progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock {
     __weak BMSDWebImageDownloader *wself = self;
@@ -167,8 +167,8 @@
 
         // In order to prevent from potential duplicate caching (NSURLCache + SDImageCache) we disable the cache for image requests if told otherwise
         NSURLRequestCachePolicy cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        if (options & SDWebImageDownloaderUseNSURLCache) {
-            if (options & SDWebImageDownloaderIgnoreCachedResponse) {
+        if (options & BMSDWebImageDownloaderUseNSURLCache) {
+            if (options & BMSDWebImageDownloaderIgnoreCachedResponse) {
                 cachePolicy = NSURLRequestReturnCacheDataDontLoad;
             } else {
                 cachePolicy = NSURLRequestUseProtocolCachePolicy;
@@ -177,7 +177,7 @@
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
         
-        request.HTTPShouldHandleCookies = (options & SDWebImageDownloaderHandleCookies);
+        request.HTTPShouldHandleCookies = (options & BMSDWebImageDownloaderHandleCookies);
         request.HTTPShouldUsePipelining = YES;
         if (sself.headersFilter) {
             request.allHTTPHeaderFields = sself.headersFilter(url, [sself.HTTPHeaders copy]);
@@ -194,14 +194,14 @@
             operation.credential = [NSURLCredential credentialWithUser:sself.username password:sself.password persistence:NSURLCredentialPersistenceForSession];
         }
         
-        if (options & SDWebImageDownloaderHighPriority) {
+        if (options & BMSDWebImageDownloaderHighPriority) {
             operation.queuePriority = NSOperationQueuePriorityHigh;
-        } else if (options & SDWebImageDownloaderLowPriority) {
+        } else if (options & BMSDWebImageDownloaderLowPriority) {
             operation.queuePriority = NSOperationQueuePriorityLow;
         }
 
         [sself.downloadQueue addOperation:operation];
-        if (sself.executionOrder == SDWebImageDownloaderLIFOExecutionOrder) {
+        if (sself.executionOrder == BMSDWebImageDownloaderLIFOExecutionOrder) {
             // Emulate LIFO execution order by systematically adding new operations as last operation's dependency
             [sself.lastAddedOperation addDependency:operation];
             sself.lastAddedOperation = operation;

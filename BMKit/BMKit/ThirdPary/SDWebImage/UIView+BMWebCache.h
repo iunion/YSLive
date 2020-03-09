@@ -44,7 +44,7 @@ typedef void(^SDSetImageBlock)(UIImage * _Nullable image, NSData * _Nullable ima
  */
 - (void)bm_internalSetImageWithURL:(nullable NSURL *)url
                   placeholderImage:(nullable UIImage *)placeholder
-                           options:(SDWebImageOptions)options
+                           options:(BMSDWebImageOptions)options
                       operationKey:(nullable NSString *)operationKey
                      setImageBlock:(nullable SDSetImageBlock)setImageBlock
                           progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock

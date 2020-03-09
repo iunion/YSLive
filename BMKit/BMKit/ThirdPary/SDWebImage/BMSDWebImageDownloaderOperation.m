@@ -63,7 +63,7 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
 
 - (nonnull instancetype)initWithRequest:(nullable NSURLRequest *)request
                               inSession:(nullable NSURLSession *)session
-                                options:(SDWebImageDownloaderOptions)options {
+                                options:(BMSDWebImageDownloaderOptions)options {
     if ((self = [super init])) {
         _request = [request copy];
         _shouldDecompressImages = YES;
@@ -301,7 +301,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     [self.imageData appendData:data];
 
-    if ((self.options & SDWebImageDownloaderProgressiveDownload) && self.expectedSize > 0) {
+    if ((self.options & BMSDWebImageDownloaderProgressiveDownload) && self.expectedSize > 0) {
         // The following code is from http://www.cocoaintheshell.com/2011/05/progressive-images-download-imageio/
         // Thanks to the author @Nyx0uf
 
@@ -435,7 +435,7 @@ didReceiveResponse:(NSURLResponse *)response
                 // Do not force decoding animated GIFs
                 if (!image.images) {
                     if (self.shouldDecompressImages) {
-                        if (self.options & SDWebImageDownloaderScaleDownLargeImages) {
+                        if (self.options & BMSDWebImageDownloaderScaleDownLargeImages) {
 #if SD_UIKIT || SD_WATCH
                             image = [UIImage bm_decodedAndScaledDownImageWithImage:image];
                             [self.imageData setData:UIImagePNGRepresentation(image)];
@@ -464,7 +464,7 @@ didReceiveResponse:(NSURLResponse *)response
     __block NSURLCredential *credential = nil;
     
     if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-        if (!(self.options & SDWebImageDownloaderAllowInvalidSSLCertificates)) {
+        if (!(self.options & BMSDWebImageDownloaderAllowInvalidSSLCertificates)) {
             disposition = NSURLSessionAuthChallengePerformDefaultHandling;
         } else {
             credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
@@ -520,7 +520,7 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (BOOL)shouldContinueWhenAppEntersBackground {
-    return self.options & SDWebImageDownloaderContinueInBackground;
+    return self.options & BMSDWebImageDownloaderContinueInBackground;
 }
 
 - (void)callCompletionBlocksWithError:(nullable NSError *)error {

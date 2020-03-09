@@ -7,7 +7,6 @@
 //
 
 #import "YSClassCell.h"
-#import "UIImageView+WebCache.h"
 #import "YSLiveManager.h"
 
 @interface YSClassCell ()
@@ -187,7 +186,7 @@
 
     self.titleLabel.text = classModel.classGist;//classModel.title;
 
-    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:classModel.classImage] placeholderImage:[UIImage imageNamed:@"classdefault_icon"] options:SDWebImageRetryFailed|SDWebImageLowPriority];
+    [self.iconImageView bm_setImageWithURL:[NSURL URLWithString:classModel.classImage] placeholderImage:[UIImage imageNamed:@"classdefault_icon"] options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority];
 
     self.nameLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Teacher"), classModel.teacherName ? classModel.teacherName : @""];
     self.gistLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Class"), classModel.title ? classModel.title : @""];

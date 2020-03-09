@@ -28,7 +28,7 @@
 #import "YSAppUIDef.h"
 
 #import "Masonry.h"
-#import "UIImageView+WebCache.h"
+#import <BMKit/BMKitThird.h>
 
 #import <YSRoomSDK/YSRoomSDK.h>
 #import <YSWhiteBoard/YSWhiteBoard.h>

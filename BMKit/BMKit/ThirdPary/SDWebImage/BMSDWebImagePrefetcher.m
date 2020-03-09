@@ -39,7 +39,7 @@
 - (nonnull instancetype)initWithImageManager:(BMSDWebImageManager *)manager {
     if ((self = [super init])) {
         _manager = manager;
-        _options = SDWebImageLowPriority;
+        _options = BMSDWebImageLowPriority;
         _prefetcherQueue = dispatch_get_main_queue();
         self.maxConcurrentDownloads = 3;
     }

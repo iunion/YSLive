@@ -13,6 +13,6 @@
 
 + (nullable UIImage *)bm_imageWithData:(nullable NSData *)data;
 - (nullable NSData *)bm_imageData;
-- (nullable NSData *)bm_imageDataAsFormat:(SDImageFormat)imageFormat;
+- (nullable NSData *)bm_imageDataAsFormat:(BMSDImageFormat)imageFormat;
 
 @end

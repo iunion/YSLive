@@ -8,7 +8,7 @@
 
 #ifdef SD_WEBP
 
-#import "UIImage+WebP.h"
+#import "UIImage+BMWebP.h"
 #import "webp/decode.h"
 #import "webp/mux_types.h"
 #import "webp/demux.h"

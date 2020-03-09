@@ -24,7 +24,7 @@
     [self bm_setImageWithURL:url placeholderImage:placeholder options:0 progress:nil completed:nil];
 }
 
-- (void)bm_setImageWithURL:(nullable NSURL *)url placeholderImage:(nullable UIImage *)placeholder options:(SDWebImageOptions)options {
+- (void)bm_setImageWithURL:(nullable NSURL *)url placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options {
     [self bm_setImageWithURL:url placeholderImage:placeholder options:options progress:nil completed:nil];
 }
 
@@ -36,13 +36,13 @@
     [self bm_setImageWithURL:url placeholderImage:placeholder options:0 progress:nil completed:completedBlock];
 }
 
-- (void)bm_setImageWithURL:(nullable NSURL *)url placeholderImage:(nullable UIImage *)placeholder options:(SDWebImageOptions)options completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)bm_setImageWithURL:(nullable NSURL *)url placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options completed:(nullable SDExternalCompletionBlock)completedBlock {
     [self bm_setImageWithURL:url placeholderImage:placeholder options:options progress:nil completed:completedBlock];
 }
 
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options
+                   options:(BMSDWebImageOptions)options
                   progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                  completed:(nullable SDExternalCompletionBlock)completedBlock {
     [self bm_internalSetImageWithURL:url
@@ -56,7 +56,7 @@
 
 - (void)bm_setImageWithPreviousCachedImageWithURL:(nullable NSURL *)url
                                  placeholderImage:(nullable UIImage *)placeholder
-                                          options:(SDWebImageOptions)options
+                                          options:(BMSDWebImageOptions)options
                                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                                         completed:(nullable SDExternalCompletionBlock)completedBlock {
     NSString *key = [[BMSDWebImageManager sharedManager] cacheKeyForURL:url];

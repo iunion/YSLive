@@ -79,7 +79,7 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options NS_REFINED_FOR_SWIFT;
+                   options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -129,7 +129,7 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options
+                   options:(BMSDWebImageOptions)options
                  completed:(nullable SDExternalCompletionBlock)completedBlock;
 
 /**
@@ -150,7 +150,7 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options
+                   options:(BMSDWebImageOptions)options
                   progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                  completed:(nullable SDExternalCompletionBlock)completedBlock;
 
@@ -172,7 +172,7 @@
  */
 - (void)bm_setImageWithPreviousCachedImageWithURL:(nullable NSURL *)url
                                  placeholderImage:(nullable UIImage *)placeholder
-                                          options:(SDWebImageOptions)options
+                                          options:(BMSDWebImageOptions)options
                                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                                         completed:(nullable SDExternalCompletionBlock)completedBlock;
 

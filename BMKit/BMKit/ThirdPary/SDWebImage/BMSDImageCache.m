@@ -220,7 +220,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
             @autoreleasepool {
                 NSData *data = imageData;
                 if (!data && image) {
-                    SDImageFormat imageFormatFromData = [NSData bm_imageFormatForImageData:data];
+                    BMSDImageFormat imageFormatFromData = [NSData bm_imageFormatForImageData:data];
                     data = [image bm_imageDataAsFormat:imageFormatFromData];
                 }                
                 [self storeImageDataToDisk:data forKey:key];
@@ -363,7 +363,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 - (nullable NSOperation *)queryCacheOperationForKey:(nullable NSString *)key done:(nullable SDCacheQueryCompletedBlock)doneBlock {
     if (!key) {
         if (doneBlock) {
-            doneBlock(nil, nil, SDImageCacheTypeNone);
+            doneBlock(nil, nil, BMSDImageCacheTypeNone);
         }
         return nil;
     }
@@ -376,7 +376,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
             diskData = [self diskImageDataBySearchingAllPathsForKey:key];
         }
         if (doneBlock) {
-            doneBlock(image, diskData, SDImageCacheTypeMemory);
+            doneBlock(image, diskData, BMSDImageCacheTypeMemory);
         }
         return nil;
     }
@@ -398,7 +398,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 
             if (doneBlock) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    doneBlock(diskImage, diskData, SDImageCacheTypeDisk);
+                    doneBlock(diskImage, diskData, BMSDImageCacheTypeDisk);
                 });
             }
         }

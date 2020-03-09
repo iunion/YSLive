@@ -14,15 +14,15 @@ typedef NS_ENUM(NSInteger, BMSDImageCacheType) {
     /**
      * The image wasn't available the SDWebImage caches, but was downloaded from the web.
      */
-    SDImageCacheTypeNone,
+    BMSDImageCacheTypeNone,
     /**
      * The image was obtained from the disk cache.
      */
-    SDImageCacheTypeDisk,
+    BMSDImageCacheTypeDisk,
     /**
      * The image was obtained from the memory cache.
      */
-    SDImageCacheTypeMemory
+    BMSDImageCacheTypeMemory
 };
 
 typedef void(^SDCacheQueryCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data, BMSDImageCacheType cacheType);
