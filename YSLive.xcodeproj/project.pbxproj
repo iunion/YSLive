@@ -128,11 +128,9 @@
 		87133588237270F6006534A4 /* YSPassWordAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008C2363D5D3009297C2 /* YSPassWordAlert.m */; };
 		87133589237270F6006534A4 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23242351A8AC00864FA3 /* sha1.c */; };
 		8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
-		8713358B237270F6006534A4 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */; };
 		8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8713358E237270F6006534A4 /* YSMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DC2372647800D642E8 /* YSMainVC.m */; };
 		8713358F237270F6006534A4 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CFE2351B29B00CD4A76 /* UIButton+WebCache.m */; };
-		87133590237270F6006534A4 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687822350794D00C4C635 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		87133591237270F6006534A4 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688112350794E00C4C635 /* AFNetworkActivityIndicatorManager.m */; };
 		87133593237270F6006534A4 /* YSVoteTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128A2372647800D642E8 /* YSVoteTopView.m */; };
 		87133594237270F6006534A4 /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
@@ -180,11 +178,9 @@
 		871335CF237270F6006534A4 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CE82351B29B00CD4A76 /* SDImageCache.m */; };
 		871335D3237270F6006534A4 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC231D2351A8AC00864FA3 /* aeskey.c */; };
 		871335D4237270F6006534A4 /* UIImage+MultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CDE2351B29B00CD4A76 /* UIImage+MultiFormat.m */; };
-		871335D6237270F6006534A4 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */; };
 		871335D9237270F6006534A4 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688092350794E00C4C635 /* AFHTTPSessionManager.m */; };
 		871335DB237270F6006534A4 /* YSNewPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13242372647900D642E8 /* YSNewPictureCell.m */; };
 		871335DC237270F6006534A4 /* YSAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128E2372647800D642E8 /* YSAnswerCell.m */; };
-		871335DD237270F6006534A4 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687872350794D00C4C635 /* WebViewJavascriptBridge.m */; };
 		871335DE237270F6006534A4 /* YSBarrageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1423670AB5000859F7 /* YSBarrageCell.m */; };
 		871335DF237270F6006534A4 /* YSCommentPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131D2372647900D642E8 /* YSCommentPopView.m */; };
 		871335E0237270F6006534A4 /* YSLessonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133B2372647900D642E8 /* YSLessonModel.m */; };
@@ -207,7 +203,6 @@
 		8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
 		8713360B237270F6006534A4 /* NSImage+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CF12351B29B00CD4A76 /* NSImage+WebCache.m */; };
 		8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
-		8713360F237270F6006534A4 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */; };
 		87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		87133612237270F6006534A4 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CEE2351B29B00CD4A76 /* NSData+ImageContentType.m */; };
 		87133618237270F6006534A4 /* SDWebImageFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CD52351B29B00CD4A76 /* SDWebImageFrame.m */; };
@@ -312,7 +307,6 @@
 		8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039E23B7362300DAC321 /* FLEXSetExplorerViewController.m */; };
 		8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
 		8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041523B7362300DAC321 /* FLEXFileBrowserSearchOperation.m */; };
-		8717E1F42400DADC008C4CDA /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */; };
 		8717E1F52400DADC008C4CDA /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638415237A971700DE7236 /* TZPhotoPreviewController.m */; };
 		8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D045923B7362300DAC321 /* FLEXColor.m */; };
@@ -323,7 +317,6 @@
 		8717E1FC2400DADC008C4CDA /* FLEXObjectExplorerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038E23B7362300DAC321 /* FLEXObjectExplorerFactory.m */; };
 		8717E1FD2400DADC008C4CDA /* YSOnlineMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */; };
 		8717E1FE2400DADC008C4CDA /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CFE2351B29B00CD4A76 /* UIButton+WebCache.m */; };
-		8717E1FF2400DADC008C4CDA /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687822350794D00C4C635 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8717E2002400DADC008C4CDA /* YSLiveManager+SendTeacherSignaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B73C0123B4855400BFF7BA /* YSLiveManager+SendTeacherSignaling.m */; };
 		8717E2022400DADC008C4CDA /* FLEXNetworkCurlLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03BB23B7362300DAC321 /* FLEXNetworkCurlLogger.m */; };
 		8717E2032400DADC008C4CDA /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688112350794E00C4C635 /* AFNetworkActivityIndicatorManager.m */; };
@@ -424,7 +417,6 @@
 		8717E2652400DADC008C4CDA /* FLEXDefaultsExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039923B7362300DAC321 /* FLEXDefaultsExplorerViewController.m */; };
 		8717E2662400DADC008C4CDA /* YSSetTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B023EAB7A6002002BF /* YSSetTableViewVC.m */; };
 		8717E2672400DADC008C4CDA /* FLEXArgumentInputStructView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03E023B7362300DAC321 /* FLEXArgumentInputStructView.m */; };
-		8717E2682400DADC008C4CDA /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */; };
 		8717E2692400DADC008C4CDA /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638414237A971700DE7236 /* UIView+Layout.m */; };
 		8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040323B7362300DAC321 /* FLEXWebViewController.m */; };
 		8717E26B2400DADC008C4CDA /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638411237A971700DE7236 /* NSBundle+TZImagePicker.m */; };
@@ -438,7 +430,6 @@
 		8717E2732400DADC008C4CDA /* YSAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128E2372647800D642E8 /* YSAnswerCell.m */; };
 		8717E2742400DADC008C4CDA /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */; };
 		8717E2752400DADC008C4CDA /* YSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C6F23EABA04004982E6 /* YSCalendarCell.m */; };
-		8717E2762400DADC008C4CDA /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687872350794D00C4C635 /* WebViewJavascriptBridge.m */; };
 		8717E2772400DADC008C4CDA /* YSBarrageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1423670AB5000859F7 /* YSBarrageCell.m */; };
 		8717E2782400DADC008C4CDA /* YSCommentPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131D2372647900D642E8 /* YSCommentPopView.m */; };
 		8717E2792400DADC008C4CDA /* FLEXObjectRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040223B7362300DAC321 /* FLEXObjectRef.m */; };
@@ -481,7 +472,6 @@
 		8717E2A12400DADC008C4CDA /* NSImage+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE8CF12351B29B00CD4A76 /* NSImage+WebCache.m */; };
 		8717E2A22400DADC008C4CDA /* FLEXASLLogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D042123B7362300DAC321 /* FLEXASLLogController.m */; };
 		8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
-		8717E2A42400DADC008C4CDA /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */; };
 		8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8717E2A62400DADC008C4CDA /* FLEXArgumentInputNotSupportedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03F323B7362300DAC321 /* FLEXArgumentInputNotSupportedView.m */; };
 		8717E2A72400DADC008C4CDA /* YSWhiteBordHttpDNSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DCB23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m */; };
@@ -1315,16 +1305,6 @@
 		8766821D23506EF600C4C635 /* YSLiveUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveUITests.m; sourceTree = "<group>"; };
 		8766821F23506EF600C4C635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		876684B9235077F700C4C635 /* YSLive-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YSLive-Prefix.pch"; sourceTree = "<group>"; };
-		876687822350794D00C4C635 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
-		876687832350794D00C4C635 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
-		876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
-		876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		876687872350794D00C4C635 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		876687882350794D00C4C635 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
-		876687892350794D00C4C635 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
-		8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
-		8766878B2350794D00C4C635 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		8766878C2350794D00C4C635 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		8766878E2350794D00C4C635 /* PLArrayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLArrayTableViewController.m; sourceTree = "<group>"; };
 		8766878F2350794D00C4C635 /* PLDictionaryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDictionaryTableViewController.h; sourceTree = "<group>"; };
 		876687902350794D00C4C635 /* PLArrayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLArrayTableViewController.h; sourceTree = "<group>"; };
@@ -2786,36 +2766,10 @@
 				876688032350794E00C4C635 /* AFNetworking */,
 				876688182350794E00C4C635 /* fmdb */,
 				876687922350794D00C4C635 /* Masonry */,
-				876687812350794D00C4C635 /* OpenUDID */,
 				8766878D2350794D00C4C635 /* PListNavigatorLibs */,
 				87CE8CC72351B29B00CD4A76 /* SDWebImage */,
-				876687842350794D00C4C635 /* WebViewJavascriptBridge */,
 			);
 			path = ThirdPary;
-			sourceTree = "<group>";
-		};
-		876687812350794D00C4C635 /* OpenUDID */ = {
-			isa = PBXGroup;
-			children = (
-				876687822350794D00C4C635 /* OpenUDID.m */,
-				876687832350794D00C4C635 /* OpenUDID.h */,
-			);
-			path = OpenUDID;
-			sourceTree = "<group>";
-		};
-		876687842350794D00C4C635 /* WebViewJavascriptBridge */ = {
-			isa = PBXGroup;
-			children = (
-				876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */,
-				876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */,
-				876687872350794D00C4C635 /* WebViewJavascriptBridge.m */,
-				876687882350794D00C4C635 /* WebViewJavascriptBridge_JS.h */,
-				876687892350794D00C4C635 /* WebViewJavascriptBridgeBase.h */,
-				8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */,
-				8766878B2350794D00C4C635 /* WebViewJavascriptBridge.h */,
-				8766878C2350794D00C4C635 /* WKWebViewJavascriptBridge.h */,
-			);
-			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
 		8766878D2350794D00C4C635 /* PListNavigatorLibs */ = {
@@ -3800,7 +3754,6 @@
 				872D047023B7362300DAC321 /* FLEXSetExplorerViewController.m in Sources */,
 				8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */,
 				872D04A323B7362300DAC321 /* FLEXFileBrowserSearchOperation.m in Sources */,
-				8713358B237270F6006534A4 /* WebViewJavascriptBridge_JS.m in Sources */,
 				0463843B237A971700DE7236 /* TZPhotoPreviewController.m in Sources */,
 				8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				872D04C423B7362300DAC321 /* FLEXColor.m in Sources */,
@@ -3811,7 +3764,6 @@
 				872D046723B7362300DAC321 /* FLEXObjectExplorerFactory.m in Sources */,
 				CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */,
 				8713358F237270F6006534A4 /* UIButton+WebCache.m in Sources */,
-				87133590237270F6006534A4 /* OpenUDID.m in Sources */,
 				04B73C0223B4855400BFF7BA /* YSLiveManager+SendTeacherSignaling.m in Sources */,
 				872D047C23B7362300DAC321 /* FLEXNetworkCurlLogger.m in Sources */,
 				87133591237270F6006534A4 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -3919,7 +3871,6 @@
 				872D046D23B7362300DAC321 /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,
 				872D048E23B7362300DAC321 /* FLEXArgumentInputStructView.m in Sources */,
-				871335D6237270F6006534A4 /* WebViewJavascriptBridgeBase.m in Sources */,
 				04638438237A971700DE7236 /* UIView+Layout.m in Sources */,
 				872D049D23B7362300DAC321 /* FLEXWebViewController.m in Sources */,
 				04638435237A971700DE7236 /* NSBundle+TZImagePicker.m in Sources */,
@@ -3934,7 +3885,6 @@
 				87AED05123B5F74500D38129 /* YSTeacherRoleMainVC.m in Sources */,
 				87F32D982411F17200906C20 /* YSMainSuperVC.m in Sources */,
 				34043C7023EABA04004982E6 /* YSCalendarCell.m in Sources */,
-				871335DD237270F6006534A4 /* WebViewJavascriptBridge.m in Sources */,
 				871335DE237270F6006534A4 /* YSBarrageCell.m in Sources */,
 				871335DF237270F6006534A4 /* YSCommentPopView.m in Sources */,
 				872D049C23B7362300DAC321 /* FLEXObjectRef.m in Sources */,
@@ -3977,7 +3927,6 @@
 				8713360B237270F6006534A4 /* NSImage+WebCache.m in Sources */,
 				872D04A723B7362300DAC321 /* FLEXASLLogController.m in Sources */,
 				8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */,
-				8713360F237270F6006534A4 /* WKWebViewJavascriptBridge.m in Sources */,
 				87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */,
 				872D049623B7362300DAC321 /* FLEXArgumentInputNotSupportedView.m in Sources */,
 				87981DCF23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m in Sources */,
@@ -4172,7 +4121,6 @@
 				8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */,
 				8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */,
 				8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */,
-				8717E1F42400DADC008C4CDA /* WebViewJavascriptBridge_JS.m in Sources */,
 				8717E1F52400DADC008C4CDA /* TZPhotoPreviewController.m in Sources */,
 				8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */,
@@ -4183,7 +4131,6 @@
 				8717E1FC2400DADC008C4CDA /* FLEXObjectExplorerFactory.m in Sources */,
 				8717E1FD2400DADC008C4CDA /* YSOnlineMineTableViewCell.m in Sources */,
 				8717E1FE2400DADC008C4CDA /* UIButton+WebCache.m in Sources */,
-				8717E1FF2400DADC008C4CDA /* OpenUDID.m in Sources */,
 				8717E2002400DADC008C4CDA /* YSLiveManager+SendTeacherSignaling.m in Sources */,
 				8717E2022400DADC008C4CDA /* FLEXNetworkCurlLogger.m in Sources */,
 				8717E2032400DADC008C4CDA /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -4291,7 +4238,6 @@
 				8717E2652400DADC008C4CDA /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8717E2662400DADC008C4CDA /* YSSetTableViewVC.m in Sources */,
 				8717E2672400DADC008C4CDA /* FLEXArgumentInputStructView.m in Sources */,
-				8717E2682400DADC008C4CDA /* WebViewJavascriptBridgeBase.m in Sources */,
 				8717E2692400DADC008C4CDA /* UIView+Layout.m in Sources */,
 				8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */,
 				8717E26B2400DADC008C4CDA /* NSBundle+TZImagePicker.m in Sources */,
@@ -4306,7 +4252,6 @@
 				8717E2742400DADC008C4CDA /* YSTeacherRoleMainVC.m in Sources */,
 				87F32D992411F17200906C20 /* YSMainSuperVC.m in Sources */,
 				8717E2752400DADC008C4CDA /* YSCalendarCell.m in Sources */,
-				8717E2762400DADC008C4CDA /* WebViewJavascriptBridge.m in Sources */,
 				8717E2772400DADC008C4CDA /* YSBarrageCell.m in Sources */,
 				8717E2782400DADC008C4CDA /* YSCommentPopView.m in Sources */,
 				8717E2792400DADC008C4CDA /* FLEXObjectRef.m in Sources */,
@@ -4349,7 +4294,6 @@
 				8717E2A12400DADC008C4CDA /* NSImage+WebCache.m in Sources */,
 				8717E2A22400DADC008C4CDA /* FLEXASLLogController.m in Sources */,
 				8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */,
-				8717E2A42400DADC008C4CDA /* WKWebViewJavascriptBridge.m in Sources */,
 				8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */,
 				8717E2A62400DADC008C4CDA /* FLEXArgumentInputNotSupportedView.m in Sources */,
 				8717E2A72400DADC008C4CDA /* YSWhiteBordHttpDNSUtil.m in Sources */,
