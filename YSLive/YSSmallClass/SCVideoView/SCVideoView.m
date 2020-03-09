@@ -531,7 +531,7 @@
         if (self.isPoorNetWork)
         {//网络差
             self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.other");
+            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.self");
         }
         else if (!self.iHasVadeo)
         {//没摄像头

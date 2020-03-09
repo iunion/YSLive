@@ -881,7 +881,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.mp3ControlView.bm_bottom = self.view.bm_bottom - 20;
         self.mp3ControlView.layer.cornerRadius = 30;
     }
-
     [self freshContentView];
 }
 
@@ -1827,9 +1826,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     [self freshTeacherPersonListData];
-    
-//   [self raiseHandReloadData];
-    
+        
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
@@ -1889,22 +1886,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
        
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)raiseHandUserArray.count,(long)self.liveManager.studentCount];
 }
-//
-/////刷新举手上台的人数
-//- (void)raiseHandReloadData
-//{
-//    NSInteger userNum = self.liveManager.studentCount;
-//
-//    self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userNum];
-//}
-
 
 #pragma mark - 用户属性变化
 
 - (void)onRoomUserPropertyChanged:(NSString *)peerID properties:(NSDictionary *)properties fromId:(NSString *)fromId
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
-
+    
+    // 网络状态
+       if ([properties bm_containsObjectForKey:sUserNetWorkState])
+       {
+           videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+       }
     
     // 举手上台
        if ([properties bm_containsObjectForKey:sUserRaisehand])
@@ -1921,27 +1914,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
            {
                videoView.isRaiseHand = NO;
            }
-           
-//           if (raisehand && ![self.raiseHandArray containsObject:user])
-//           {//举手上台
-//               [self.raiseHandArray addObject:user];
-//               self.upHandPopTableView.userArr = self.raiseHandArray;
-//
-//               if (![self.haveRaiseHandArray containsObject:user]) {
-//                   [self.haveRaiseHandArray addObject:user];
-//               }
-//           }
-//           else if (!raisehand && [self.raiseHandArray containsObject:user])
-//           {//取消举手上台
-//               [self.raiseHandArray removeObject:user];
-//               self.upHandPopTableView.userArr = self.raiseHandArray;
-//
-//               if (self.raiseHandArray.count<1) {
-//                   [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-//               }
-//           }
-//           self.raiseHandsBtn.selected = [self.raiseHandArray bm_isNotEmpty];
-//           [self raiseHandReloadData];
        }
      
     
