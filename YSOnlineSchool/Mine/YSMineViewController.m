@@ -149,18 +149,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             {
                 BMLog(@"Error: %@", error);
                 
-                NSString *errorMessage;
-                if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
-                {
-                    errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
-                }
-                else
-                {
-                    errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
-                }
-
-                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-
+                [weakSelf loadDataResponseFailed:response error:error];
             }
             else
             {
