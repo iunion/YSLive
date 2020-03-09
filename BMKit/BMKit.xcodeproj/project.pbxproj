@@ -329,6 +329,20 @@
 		8779E57A23F2D3FC008E885C /* BMRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E57823F2D3FC008E885C /* BMRSA.m */; };
 		8779E57B23F2D3FC008E885C /* BMRSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 8779E57923F2D3FC008E885C /* BMRSA.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8790199C24163F4C00FF38EC /* BMKitThird.h in Headers */ = {isa = PBXBuildFile; fileRef = 8790199B24163F4C00FF38EC /* BMKitThird.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019BB2416486700FF38EC /* BMAFCompatibilityMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019BA2416486700FF38EC /* BMAFCompatibilityMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019BE2416492100FF38EC /* BMAFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 879019BC2416492100FF38EC /* BMAFHTTPSessionManager.m */; };
+		879019BF2416492100FF38EC /* BMAFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019BD2416492100FF38EC /* BMAFHTTPSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019C12416497F00FF38EC /* BMAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019C02416497F00FF38EC /* BMAFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019C424164B7F00FF38EC /* BMAFNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019C224164B7F00FF38EC /* BMAFNetworkReachabilityManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019C524164B7F00FF38EC /* BMAFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 879019C324164B7F00FF38EC /* BMAFNetworkReachabilityManager.m */; };
+		879019C824164D1F00FF38EC /* BMAFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019C624164D1E00FF38EC /* BMAFSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019C924164D1F00FF38EC /* BMAFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 879019C724164D1E00FF38EC /* BMAFSecurityPolicy.m */; };
+		879019CC2416530A00FF38EC /* BMAFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 879019CA2416530A00FF38EC /* BMAFURLRequestSerialization.m */; };
+		879019CD2416530A00FF38EC /* BMAFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019CB2416530A00FF38EC /* BMAFURLRequestSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019D0241655D000FF38EC /* BMAFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019CE241655CF00FF38EC /* BMAFURLSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019D1241655D000FF38EC /* BMAFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 879019CF241655CF00FF38EC /* BMAFURLSessionManager.m */; };
+		879019D4241657F600FF38EC /* BMAFURLResponseSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019D2241657F500FF38EC /* BMAFURLResponseSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		879019D5241657F600FF38EC /* BMAFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 879019D3241657F600FF38EC /* BMAFURLResponseSerialization.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -651,6 +665,20 @@
 		8779E57823F2D3FC008E885C /* BMRSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMRSA.m; sourceTree = "<group>"; };
 		8779E57923F2D3FC008E885C /* BMRSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRSA.h; sourceTree = "<group>"; };
 		8790199B24163F4C00FF38EC /* BMKitThird.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKitThird.h; sourceTree = "<group>"; };
+		879019BA2416486700FF38EC /* BMAFCompatibilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFCompatibilityMacros.h; sourceTree = "<group>"; };
+		879019BC2416492100FF38EC /* BMAFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAFHTTPSessionManager.m; sourceTree = "<group>"; };
+		879019BD2416492100FF38EC /* BMAFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFHTTPSessionManager.h; sourceTree = "<group>"; };
+		879019C02416497F00FF38EC /* BMAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFNetworking.h; sourceTree = "<group>"; };
+		879019C224164B7F00FF38EC /* BMAFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		879019C324164B7F00FF38EC /* BMAFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		879019C624164D1E00FF38EC /* BMAFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFSecurityPolicy.h; sourceTree = "<group>"; };
+		879019C724164D1E00FF38EC /* BMAFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAFSecurityPolicy.m; sourceTree = "<group>"; };
+		879019CA2416530A00FF38EC /* BMAFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAFURLRequestSerialization.m; sourceTree = "<group>"; };
+		879019CB2416530A00FF38EC /* BMAFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFURLRequestSerialization.h; sourceTree = "<group>"; };
+		879019CE241655CF00FF38EC /* BMAFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFURLSessionManager.h; sourceTree = "<group>"; };
+		879019CF241655CF00FF38EC /* BMAFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAFURLSessionManager.m; sourceTree = "<group>"; };
+		879019D2241657F500FF38EC /* BMAFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFURLResponseSerialization.h; sourceTree = "<group>"; };
+		879019D3241657F600FF38EC /* BMAFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAFURLResponseSerialization.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -889,6 +917,7 @@
 		8701AEDD23715B4D00A43607 /* ThirdPary */ = {
 			isa = PBXGroup;
 			children = (
+				8790199D2416483700FF38EC /* AFNetworking */,
 				8701AEDE23715B4D00A43607 /* SDWebImage */,
 				8790199B24163F4C00FF38EC /* BMKitThird.h */,
 			);
@@ -1355,6 +1384,27 @@
 			path = BMRSA;
 			sourceTree = "<group>";
 		};
+		8790199D2416483700FF38EC /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				879019C02416497F00FF38EC /* BMAFNetworking.h */,
+				879019BA2416486700FF38EC /* BMAFCompatibilityMacros.h */,
+				879019BD2416492100FF38EC /* BMAFHTTPSessionManager.h */,
+				879019BC2416492100FF38EC /* BMAFHTTPSessionManager.m */,
+				879019C224164B7F00FF38EC /* BMAFNetworkReachabilityManager.h */,
+				879019C324164B7F00FF38EC /* BMAFNetworkReachabilityManager.m */,
+				879019C624164D1E00FF38EC /* BMAFSecurityPolicy.h */,
+				879019C724164D1E00FF38EC /* BMAFSecurityPolicy.m */,
+				879019CB2416530A00FF38EC /* BMAFURLRequestSerialization.h */,
+				879019CA2416530A00FF38EC /* BMAFURLRequestSerialization.m */,
+				879019D2241657F500FF38EC /* BMAFURLResponseSerialization.h */,
+				879019D3241657F600FF38EC /* BMAFURLResponseSerialization.m */,
+				879019CE241655CF00FF38EC /* BMAFURLSessionManager.h */,
+				879019CF241655CF00FF38EC /* BMAFURLSessionManager.m */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1362,6 +1412,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				879019C424164B7F00FF38EC /* BMAFNetworkReachabilityManager.h in Headers */,
+				879019D4241657F600FF38EC /* BMAFURLResponseSerialization.h in Headers */,
+				879019CD2416530A00FF38EC /* BMAFURLRequestSerialization.h in Headers */,
+				879019C12416497F00FF38EC /* BMAFNetworking.h in Headers */,
+				879019D0241655D000FF38EC /* BMAFURLSessionManager.h in Headers */,
+				879019BF2416492100FF38EC /* BMAFHTTPSessionManager.h in Headers */,
+				879019C824164D1F00FF38EC /* BMAFSecurityPolicy.h in Headers */,
+				879019BB2416486700FF38EC /* BMAFCompatibilityMacros.h in Headers */,
 				8790199C24163F4C00FF38EC /* BMKitThird.h in Headers */,
 				8701AF2223715B4D00A43607 /* BMSDImageCache.h in Headers */,
 				8701AF1723715B4D00A43607 /* BMSDWebImageDownloader.h in Headers */,
@@ -1633,6 +1691,7 @@
 				8701B10B237165AA00A43607 /* BMSegmentItem.m in Sources */,
 				8777C7B723EAC069002002BF /* BMTabItemButton.m in Sources */,
 				8701AE1723714E6000A43607 /* UIView+BMAnimationExtensions.m in Sources */,
+				879019D1241655D000FF38EC /* BMAFURLSessionManager.m in Sources */,
 				8701AE2C23714E6000A43607 /* UITextField+BMCategory.m in Sources */,
 				8701AF1123715B4D00A43607 /* UIImageView+BMHighlightedWebCache.m in Sources */,
 				8701AEAA2371550000A43607 /* BMNoticeView.m in Sources */,
@@ -1640,6 +1699,7 @@
 				8701B114237165AA00A43607 /* BMImageDetailItem.m in Sources */,
 				8701B08D2371650F00A43607 /* BMCheckBoxGroup.m in Sources */,
 				8777C7BB23EBA9CD002002BF /* BMTabBarController.m in Sources */,
+				879019CC2416530A00FF38EC /* BMAFURLRequestSerialization.m in Sources */,
 				8701AE1523714E6000A43607 /* UIView+BMInnerShadow.m in Sources */,
 				8701AE2423714E6000A43607 /* UIDevice+BMCategory.m in Sources */,
 				8701AE4523714E6000A43607 /* NSData+BMEncrypt.m in Sources */,
@@ -1648,6 +1708,8 @@
 				8701B112237165AA00A43607 /* BMTextItem.m in Sources */,
 				8701B121237165AA00A43607 /* BMInputItem.m in Sources */,
 				8701AE1C23714E6000A43607 /* UILocalNotification+BMCategory.m in Sources */,
+				879019C524164B7F00FF38EC /* BMAFNetworkReachabilityManager.m in Sources */,
+				879019C924164D1F00FF38EC /* BMAFSecurityPolicy.m in Sources */,
 				8701B117237165AA00A43607 /* BMDateTimeItem.m in Sources */,
 				8777C79623EA72A2002002BF /* BMFreshAutoContainerFooterView.m in Sources */,
 				8701B0E9237165AA00A43607 /* BMTableViewSliderCell.m in Sources */,
@@ -1718,8 +1780,10 @@
 				8701B0F8237165AA00A43607 /* BMTableViewCellStyle.m in Sources */,
 				8777C7A423EA7489002002BF /* UIScrollView+BMEmpty.m in Sources */,
 				8701AE3A23714E6000A43607 /* NSAttributedString+BMCategory.m in Sources */,
+				879019BE2416492100FF38EC /* BMAFHTTPSessionManager.m in Sources */,
 				8701B106237165AA00A43607 /* BMTableViewManager.m in Sources */,
 				8701AE6B2371512100A43607 /* BMApp.m in Sources */,
+				879019D5241657F600FF38EC /* BMAFURLResponseSerialization.m in Sources */,
 				8701AE1223714E6000A43607 /* UIView+BMCorner.m in Sources */,
 				8777C78F23EA72A2002002BF /* BMFreshBackNormalFooter.m in Sources */,
 				8777C79A23EA72A3002002BF /* BMFreshFooterView.m in Sources */,

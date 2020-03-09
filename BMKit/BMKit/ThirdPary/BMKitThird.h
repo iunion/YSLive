@@ -32,5 +32,7 @@
 #import "UIView+BMWebCache.h"
 #import "UIView+BMWebCacheOperation.h"
 
+#import "BMAFNetworking.h"
+
 
 #endif /* BMKitThird_h */
