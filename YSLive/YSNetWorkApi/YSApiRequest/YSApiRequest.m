@@ -78,22 +78,22 @@
     return errorMessage;
 }
 
-+ (AFHTTPSessionManager *)makeYSHTTPSessionManager
++ (BMAFHTTPSessionManager *)makeYSHTTPSessionManager
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer = [BMAFHTTPResponseSerializer serializer];
     // 增加application/octet-stream，text/html
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"application/octet-stream", @"text/html", @"audio/mpeg", @"audio/mp3", @"text/plain", nil];
     
     return manager;
 }
 
-+ (AFHTTPSessionManager *)makeYSJSONSessionManager
++ (BMAFHTTPSessionManager *)makeYSJSONSessionManager
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [BMAFJSONResponseSerializer serializer];
     // 增加application/octet-stream，text/html
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"application/octet-stream", @"text/html", @"audio/mpeg", @"audio/mp3", @"text/plain", nil];
     
@@ -108,12 +108,12 @@
 
 // JWTToken
 // timer        当前时间戳
-+ (AFHTTPRequestSerializer *)HTTPRequestSerializer
++ (BMAFHTTPRequestSerializer *)HTTPRequestSerializer
 {
-    static AFHTTPRequestSerializer *YSHTTPRequestSerializer;
+    static BMAFHTTPRequestSerializer *YSHTTPRequestSerializer;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        YSHTTPRequestSerializer = [AFHTTPRequestSerializer serializer];
+        YSHTTPRequestSerializer = [BMAFHTTPRequestSerializer serializer];
         YSHTTPRequestSerializer.timeoutInterval = YSAPI_TIMEOUT_SECONDS;
         
         // 设备号
@@ -135,12 +135,12 @@
     return YSHTTPRequestSerializer;
 }
 
-+ (AFJSONRequestSerializer *)JSONRequestSerializer
++ (BMAFJSONRequestSerializer *)JSONRequestSerializer
 {
-    static AFJSONRequestSerializer *YSJSONRequestSerializer;
+    static BMAFJSONRequestSerializer *YSJSONRequestSerializer;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        YSJSONRequestSerializer = [AFJSONRequestSerializer serializer];
+        YSJSONRequestSerializer = [BMAFJSONRequestSerializer serializer];
         YSJSONRequestSerializer.timeoutInterval = YSAPI_TIMEOUT_SECONDS;
         
     });
@@ -210,7 +210,7 @@
 
 + (NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost isOnlineSchool:(BOOL)isOnlineSchool
 {
-    AFHTTPRequestSerializer *requestSerializer = [YSApiRequest HTTPRequestSerializer];
+    BMAFHTTPRequestSerializer *requestSerializer = [YSApiRequest HTTPRequestSerializer];
     
     NSMutableDictionary *parameterDic;
     if ([parameters bm_isNotEmptyDictionary])

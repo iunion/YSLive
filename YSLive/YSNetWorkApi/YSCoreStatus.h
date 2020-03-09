@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFNetworkReachabilityManager.h"
 
 /** 网络状态 */
 typedef NS_ENUM(NSUInteger, YSCoreNetWorkStatus)

@@ -6,12 +6,6 @@
 //  Copyright © 2019 FS. All rights reserved.
 //
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
-#import <AFNetworking/AFNetworking.h>
-#else
-#import "AFNetworking.h"
-#endif
-
 #import "YSQuestionView.h"
 #import "YSAnswerCell.h"
 #import "BMProgressHUD.h"
@@ -352,7 +346,7 @@
 {
     YSQuestionModel * model = self.questionArr[indexPath.row];
     
-    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",

@@ -136,7 +136,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
     NSString *studentId = [YSSchoolUser shareInstance].userId;
     NSMutableURLRequest *request =
@@ -253,7 +253,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
     NSString *token = [YSSchoolUser shareInstance].token;
     NSMutableURLRequest *request =

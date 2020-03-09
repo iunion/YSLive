@@ -129,7 +129,7 @@
 /// 上传图片
 + (void)uploadImageWithImage:(UIImage *)image withImageUseType:(NSInteger)imageUseType success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/uploaddocument", YSLive_Http, [YSLiveManager shareInstance].liveHost];
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
@@ -152,7 +152,7 @@
     };
     
     NSData *imgData = UIImageJPEGRepresentation(image, 0.5);
-    NSURLSessionTask * task = [manager POST:urlStr parameters:paraDict  constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    NSURLSessionTask * task = [manager POST:urlStr parameters:paraDict  constructingBodyWithBlock:^(id<BMAFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileData:imgData name:@"filedata" fileName:fileName mimeType:@"image/jpge, image/gif, image/jpeg, image/pjpeg, image/pjpeg"];
         

@@ -130,7 +130,6 @@
 		8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8713358E237270F6006534A4 /* YSMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DC2372647800D642E8 /* YSMainVC.m */; };
 		87133590237270F6006534A4 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687822350794D00C4C635 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		87133591237270F6006534A4 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688112350794E00C4C635 /* AFNetworkActivityIndicatorManager.m */; };
 		87133593237270F6006534A4 /* YSVoteTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128A2372647800D642E8 /* YSVoteTopView.m */; };
 		87133594237270F6006534A4 /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
 		87133595237270F6006534A4 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230E2351A8AC00864FA3 /* zip.c */; };
@@ -154,7 +153,6 @@
 		871335B3237270F6006534A4 /* YSLiveManager+message.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF4D2A23619A8E008D9D00 /* YSLiveManager+message.m */; };
 		871335B5237270F6006534A4 /* YSSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAF12351708200C72EAA /* YSSuperVC.m */; };
 		871335B6237270F6006534A4 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AA2350794D00C4C635 /* MASViewConstraint.m */; };
-		871335B7237270F6006534A4 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880F2350794E00C4C635 /* AFSecurityPolicy.m */; };
 		871335B8237270F6006534A4 /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC232B2351A8AC00864FA3 /* pwd2key.c */; };
 		871335BB237270F6006534A4 /* BMTestAlignManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13D2371720600A43607 /* BMTestAlignManager.m */; };
 		871335BD237270F6006534A4 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230C2351A8AC00864FA3 /* crypt.c */; };
@@ -165,12 +163,10 @@
 		871335C5237270F6006534A4 /* BMTestNetFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1462371720600A43607 /* BMTestNetFlowCell.m */; };
 		871335C7237270F6006534A4 /* YSLessonNotifyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13382372647900D642E8 /* YSLessonNotifyTableCell.m */; };
 		871335CA237270F6006534A4 /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1572371720600A43607 /* GTMStackTrace.m */; };
-		871335CB237270F6006534A4 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880C2350794E00C4C635 /* AFURLRequestSerialization.m */; };
 		871335CC237270F6006534A4 /* YSAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB0423517A2600C72EAA /* YSAppInfo.m */; };
 		871335CD237270F6006534A4 /* BMConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13E2371720600A43607 /* BMConsole.m */; };
 		871335D3237270F6006534A4 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC231D2351A8AC00864FA3 /* aeskey.c */; };
 		871335D6237270F6006534A4 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */; };
-		871335D9237270F6006534A4 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688092350794E00C4C635 /* AFHTTPSessionManager.m */; };
 		871335DB237270F6006534A4 /* YSNewPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13242372647900D642E8 /* YSNewPictureCell.m */; };
 		871335DC237270F6006534A4 /* YSAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128E2372647800D642E8 /* YSAnswerCell.m */; };
 		871335DD237270F6006534A4 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687872350794D00C4C635 /* WebViewJavascriptBridge.m */; };
@@ -183,7 +179,6 @@
 		871335F2237270F6006534A4 /* YSBarrageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1823670AB5000859F7 /* YSBarrageManager.m */; };
 		871335FC237270F6006534A4 /* YSChatMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DF2372647800D642E8 /* YSChatMemberListVC.m */; };
 		871335FD237270F6006534A4 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1502371720600A43607 /* YYFPSLabel.m */; };
-		871335FE237270F6006534A4 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688082350794E00C4C635 /* AFURLResponseSerialization.m */; };
 		87133603237270F6006534A4 /* YSBarrageTrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */; };
 		87133604237270F6006534A4 /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23172351A8AC00864FA3 /* minishared.c */; };
 		87133607237270F6006534A4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881E2350794E00C4C635 /* FMDatabase.m */; };
@@ -197,7 +192,6 @@
 		87133621237270F6006534A4 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 260A1A8023507CB300288B01 /* YSLoginVC.m */; };
 		87133622237270F6006534A4 /* YSTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13202372647900D642E8 /* YSTextMessageCell.m */; };
 		87133625237270F6006534A4 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23312351A8AC00864FA3 /* SSZipArchive.m */; };
-		87133627237270F6006534A4 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880B2350794E00C4C635 /* AFURLSessionManager.m */; };
 		87133628237270F6006534A4 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23102351A8AC00864FA3 /* ioapi.c */; };
 		8713362A237270F6006534A4 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A12350794D00C4C635 /* MASCompositeConstraint.m */; };
 		8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
@@ -224,7 +218,6 @@
 		8713364C237270F6006534A4 /* YSTestHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B179237172F200A43607 /* YSTestHelp.m */; };
 		8713364F237270F6006534A4 /* BMTestNetFlowSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B14D2371720600A43607 /* BMTestNetFlowSummaryVC.m */; };
 		87133651237270F6006534A4 /* YSBarrageRenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1D23670AB5000859F7 /* YSBarrageRenderView.m */; };
-		87133653237270F6006534A4 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880E2350794E00C4C635 /* AFNetworkReachabilityManager.m */; };
 		87133656237270F6006534A4 /* YSVotingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12872372647800D642E8 /* YSVotingTableCell.m */; };
 		87133658237270F6006534A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 876681FA23506EF400C4C635 /* AppDelegate.m */; };
 		87133669237270F6006534A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8766820223506EF600C4C635 /* Assets.xcassets */; };
@@ -298,7 +291,6 @@
 		8717E1FF2400DADC008C4CDA /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687822350794D00C4C635 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8717E2002400DADC008C4CDA /* YSLiveManager+SendTeacherSignaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B73C0123B4855400BFF7BA /* YSLiveManager+SendTeacherSignaling.m */; };
 		8717E2022400DADC008C4CDA /* FLEXNetworkCurlLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03BB23B7362300DAC321 /* FLEXNetworkCurlLogger.m */; };
-		8717E2032400DADC008C4CDA /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688112350794E00C4C635 /* AFNetworkActivityIndicatorManager.m */; };
 		8717E2042400DADC008C4CDA /* SCAnswerDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA6792379967A00EC2A64 /* SCAnswerDetailTableViewCell.m */; };
 		8717E2052400DADC008C4CDA /* FLEXMultilineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03AF23B7362300DAC321 /* FLEXMultilineTableViewCell.m */; };
 		8717E2062400DADC008C4CDA /* YSVoteTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128A2372647800D642E8 /* YSVoteTopView.m */; };
@@ -356,7 +348,6 @@
 		8717E23E2400DADC008C4CDA /* YSEyeCareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557A23B3358000BC6CAB /* YSEyeCareManager.m */; };
 		8717E23F2400DADC008C4CDA /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B02322376C48200DE83B0 /* SCTopToolBarModel.m */; };
 		8717E2402400DADC008C4CDA /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AA2350794D00C4C635 /* MASViewConstraint.m */; };
-		8717E2412400DADC008C4CDA /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880F2350794E00C4C635 /* AFSecurityPolicy.m */; };
 		8717E2422400DADC008C4CDA /* FLEXTableLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D042A23B7362300DAC321 /* FLEXTableLeftCell.m */; };
 		8717E2442400DADC008C4CDA /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC232B2351A8AC00864FA3 /* pwd2key.c */; };
 		8717E2462400DADC008C4CDA /* YSRoomUser+YSLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04323B5AC8000D38129 /* YSRoomUser+YSLive.m */; };
@@ -376,7 +367,6 @@
 		8717E2572400DADC008C4CDA /* BMTestNetFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1462371720600A43607 /* BMTestNetFlowCell.m */; };
 		8717E2582400DADC008C4CDA /* YSLessonNotifyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13382372647900D642E8 /* YSLessonNotifyTableCell.m */; };
 		8717E2592400DADC008C4CDA /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1572371720600A43607 /* GTMStackTrace.m */; };
-		8717E25A2400DADC008C4CDA /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880C2350794E00C4C635 /* AFURLRequestSerialization.m */; };
 		8717E25B2400DADC008C4CDA /* YSAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB0423517A2600C72EAA /* YSAppInfo.m */; };
 		8717E25C2400DADC008C4CDA /* BMConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13E2371720600A43607 /* BMConsole.m */; };
 		8717E25E2400DADC008C4CDA /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E1239E274C00680D84 /* SCColorListView.m */; };
@@ -392,7 +382,6 @@
 		8717E2692400DADC008C4CDA /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638414237A971700DE7236 /* UIView+Layout.m */; };
 		8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040323B7362300DAC321 /* FLEXWebViewController.m */; };
 		8717E26B2400DADC008C4CDA /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638411237A971700DE7236 /* NSBundle+TZImagePicker.m */; };
-		8717E26C2400DADC008C4CDA /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688092350794E00C4C635 /* AFHTTPSessionManager.m */; };
 		8717E26D2400DADC008C4CDA /* SCAnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA685237A841C00EC2A64 /* SCAnswerDetailModel.m */; };
 		8717E26E2400DADC008C4CDA /* FLEXMultiColumnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D043123B7362300DAC321 /* FLEXMultiColumnTableView.m */; };
 		8717E26F2400DADC008C4CDA /* YSClassMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7CC23EC336B002002BF /* YSClassMediumCell.m */; };
@@ -428,7 +417,6 @@
 		8717E2932400DADC008C4CDA /* YSChatMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DF2372647800D642E8 /* YSChatMemberListVC.m */; };
 		8717E2942400DADC008C4CDA /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1502371720600A43607 /* YYFPSLabel.m */; };
 		8717E2952400DADC008C4CDA /* YSSkinCoverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */; };
-		8717E2962400DADC008C4CDA /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688082350794E00C4C635 /* AFURLResponseSerialization.m */; };
 		8717E2972400DADC008C4CDA /* YSBarrageTrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */; };
 		8717E2982400DADC008C4CDA /* YSMediaMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A723223824F1B00407A75 /* YSMediaMarkView.m */; };
 		8717E2992400DADC008C4CDA /* FLEXScopeCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038723B7362300DAC321 /* FLEXScopeCarousel.m */; };
@@ -468,7 +456,6 @@
 		8717E2C52400DADC008C4CDA /* YSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AA23EA9EA1002002BF /* YSTableView.m */; };
 		8717E2C62400DADC008C4CDA /* FLEXBundleExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039723B7362300DAC321 /* FLEXBundleExplorerViewController.m */; };
 		8717E2C82400DADC008C4CDA /* SCTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2628F2B72376A53F00425E08 /* SCTopToolBar.m */; };
-		8717E2C92400DADC008C4CDA /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880B2350794E00C4C635 /* AFURLSessionManager.m */; };
 		8717E2CA2400DADC008C4CDA /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23102351A8AC00864FA3 /* ioapi.c */; };
 		8717E2CB2400DADC008C4CDA /* FLEXSystemLogMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041F23B7362300DAC321 /* FLEXSystemLogMessage.m */; };
 		8717E2CC2400DADC008C4CDA /* FLEXDictionaryExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039823B7362300DAC321 /* FLEXDictionaryExplorerViewController.m */; };
@@ -537,7 +524,6 @@
 		8717E3122400DADC008C4CDA /* BMTestNetFlowSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B14D2371720600A43607 /* BMTestNetFlowSummaryVC.m */; };
 		8717E3142400DADC008C4CDA /* SCAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA5FF23794EFD00EC2A64 /* SCAnswerView.m */; };
 		8717E3152400DADC008C4CDA /* YSBarrageRenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1D23670AB5000859F7 /* YSBarrageRenderView.m */; };
-		8717E3162400DADC008C4CDA /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766880E2350794E00C4C635 /* AFNetworkReachabilityManager.m */; };
 		8717E3172400DADC008C4CDA /* SCChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5A4752372E49E00DB2EDC /* SCChatView.m */; };
 		8717E3182400DADC008C4CDA /* SCOptionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA67123797B0000EC2A64 /* SCOptionCollectionCell.m */; };
 		8717E3192400DADC008C4CDA /* SCEyeCareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8765B14323B4A95E004500DE /* SCEyeCareView.m */; };
@@ -1298,22 +1284,6 @@
 		876687A92350794D00C4C635 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		876687AA2350794D00C4C635 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
 		876687AB2350794D00C4C635 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
-		876688042350794E00C4C635 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
-		876688052350794E00C4C635 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		876688062350794E00C4C635 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
-		876688072350794E00C4C635 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		876688082350794E00C4C635 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
-		876688092350794E00C4C635 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
-		8766880A2350794E00C4C635 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
-		8766880B2350794E00C4C635 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		8766880C2350794E00C4C635 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
-		8766880D2350794E00C4C635 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
-		8766880E2350794E00C4C635 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
-		8766880F2350794E00C4C635 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
-		876688112350794E00C4C635 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
-		876688122350794E00C4C635 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
-		876688132350794E00C4C635 /* AFCompatibilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCompatibilityMacros.h; sourceTree = "<group>"; };
-		876688142350794E00C4C635 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		876688162350794E00C4C635 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
 		876688172350794E00C4C635 /* BMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMProgressHUD.h; sourceTree = "<group>"; };
 		876688192350794E00C4C635 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -2668,7 +2638,6 @@
 				04638409237A971700DE7236 /* TZImagePickerController */,
 				872D038123B7362300DAC321 /* FLEX */,
 				87CC23092351A8AC00864FA3 /* SSZipArchive */,
-				876688032350794E00C4C635 /* AFNetworking */,
 				876688182350794E00C4C635 /* fmdb */,
 				876687922350794D00C4C635 /* Masonry */,
 				876687812350794D00C4C635 /* OpenUDID */,
@@ -2743,37 +2712,6 @@
 				876687AB2350794D00C4C635 /* MASViewAttribute.m */,
 			);
 			path = Masonry;
-			sourceTree = "<group>";
-		};
-		876688032350794E00C4C635 /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				876688102350794E00C4C635 /* UIKit+AFNetworking */,
-				876688132350794E00C4C635 /* AFCompatibilityMacros.h */,
-				876688092350794E00C4C635 /* AFHTTPSessionManager.m */,
-				8766880B2350794E00C4C635 /* AFURLSessionManager.m */,
-				8766880D2350794E00C4C635 /* AFNetworking.h */,
-				876688052350794E00C4C635 /* AFNetworkReachabilityManager.h */,
-				8766880E2350794E00C4C635 /* AFNetworkReachabilityManager.m */,
-				876688042350794E00C4C635 /* AFSecurityPolicy.h */,
-				8766880F2350794E00C4C635 /* AFSecurityPolicy.m */,
-				876688072350794E00C4C635 /* AFURLRequestSerialization.h */,
-				8766880C2350794E00C4C635 /* AFURLRequestSerialization.m */,
-				8766880A2350794E00C4C635 /* AFURLResponseSerialization.h */,
-				876688082350794E00C4C635 /* AFURLResponseSerialization.m */,
-				876688062350794E00C4C635 /* AFURLSessionManager.h */,
-				876688142350794E00C4C635 /* AFHTTPSessionManager.h */,
-			);
-			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		876688102350794E00C4C635 /* UIKit+AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				876688112350794E00C4C635 /* AFNetworkActivityIndicatorManager.m */,
-				876688122350794E00C4C635 /* AFNetworkActivityIndicatorManager.h */,
-			);
-			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
 		876688152350794E00C4C635 /* MBProgressHUD */ = {
@@ -3614,7 +3552,6 @@
 				87133590237270F6006534A4 /* OpenUDID.m in Sources */,
 				04B73C0223B4855400BFF7BA /* YSLiveManager+SendTeacherSignaling.m in Sources */,
 				872D047C23B7362300DAC321 /* FLEXNetworkCurlLogger.m in Sources */,
-				87133591237270F6006534A4 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				26EFA67A2379967A00EC2A64 /* SCAnswerDetailTableViewCell.m in Sources */,
 				872D047523B7362300DAC321 /* FLEXMultilineTableViewCell.m in Sources */,
 				87133593237270F6006534A4 /* YSVoteTopView.m in Sources */,
@@ -3677,7 +3614,6 @@
 				8745557F23B3358000BC6CAB /* YSEyeCareManager.m in Sources */,
 				269B023B2376CA0000DE83B0 /* SCTopToolBarModel.m in Sources */,
 				871335B6237270F6006534A4 /* MASViewConstraint.m in Sources */,
-				871335B7237270F6006534A4 /* AFSecurityPolicy.m in Sources */,
 				872D04AC23B7362300DAC321 /* FLEXTableLeftCell.m in Sources */,
 				871335B8237270F6006534A4 /* pwd2key.c in Sources */,
 				87AED04423B5AC8000D38129 /* YSRoomUser+YSLive.m in Sources */,
@@ -3697,7 +3633,6 @@
 				871335C5237270F6006534A4 /* BMTestNetFlowCell.m in Sources */,
 				871335C7237270F6006534A4 /* YSLessonNotifyTableCell.m in Sources */,
 				871335CA237270F6006534A4 /* GTMStackTrace.m in Sources */,
-				871335CB237270F6006534A4 /* AFURLRequestSerialization.m in Sources */,
 				871335CC237270F6006534A4 /* YSAppInfo.m in Sources */,
 				871335CD237270F6006534A4 /* BMConsole.m in Sources */,
 				3471E2A424039A0100A3BBB4 /* FSCalendarCalculator.m in Sources */,
@@ -3714,7 +3649,6 @@
 				04638438237A971700DE7236 /* UIView+Layout.m in Sources */,
 				872D049D23B7362300DAC321 /* FLEXWebViewController.m in Sources */,
 				04638435237A971700DE7236 /* NSBundle+TZImagePicker.m in Sources */,
-				871335D9237270F6006534A4 /* AFHTTPSessionManager.m in Sources */,
 				26EFA686237A841C00EC2A64 /* SCAnswerDetailModel.m in Sources */,
 				872D04B123B7362300DAC321 /* FLEXMultiColumnTableView.m in Sources */,
 				8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */,
@@ -3750,7 +3684,6 @@
 				871335FC237270F6006534A4 /* YSChatMemberListVC.m in Sources */,
 				871335FD237270F6006534A4 /* YYFPSLabel.m in Sources */,
 				8745557C23B3358000BC6CAB /* YSSkinCoverLayer.m in Sources */,
-				871335FE237270F6006534A4 /* AFURLResponseSerialization.m in Sources */,
 				87133603237270F6006534A4 /* YSBarrageTrackInfo.m in Sources */,
 				875A723323824F1B00407A75 /* YSMediaMarkView.m in Sources */,
 				872D046423B7362300DAC321 /* FLEXScopeCarousel.m in Sources */,
@@ -3793,7 +3726,6 @@
 				8777C7AB23EA9EA1002002BF /* YSTableView.m in Sources */,
 				872D046B23B7362300DAC321 /* FLEXBundleExplorerViewController.m in Sources */,
 				26C1D3852376B2CF007869EA /* SCTopToolBar.m in Sources */,
-				87133627237270F6006534A4 /* AFURLSessionManager.m in Sources */,
 				3450B1482406805F006141E5 /* YSMonthListView.m in Sources */,
 				3471E29424039A0100A3BBB4 /* FSCalendarCell.m in Sources */,
 				87133628237270F6006534A4 /* ioapi.c in Sources */,
@@ -3866,7 +3798,6 @@
 				8713364F237270F6006534A4 /* BMTestNetFlowSummaryVC.m in Sources */,
 				26EFA60123795A7100EC2A64 /* SCAnswerView.m in Sources */,
 				87133651237270F6006534A4 /* YSBarrageRenderView.m in Sources */,
-				87133653237270F6006534A4 /* AFNetworkReachabilityManager.m in Sources */,
 				04B5A47E2372E49F00DB2EDC /* SCChatView.m in Sources */,
 				26EFA67223797B0000EC2A64 /* SCOptionCollectionCell.m in Sources */,
 				8765B14423B4A95E004500DE /* SCEyeCareView.m in Sources */,
@@ -3959,7 +3890,6 @@
 				8717E1FF2400DADC008C4CDA /* OpenUDID.m in Sources */,
 				8717E2002400DADC008C4CDA /* YSLiveManager+SendTeacherSignaling.m in Sources */,
 				8717E2022400DADC008C4CDA /* FLEXNetworkCurlLogger.m in Sources */,
-				8717E2032400DADC008C4CDA /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8717E2042400DADC008C4CDA /* SCAnswerDetailTableViewCell.m in Sources */,
 				8717E2052400DADC008C4CDA /* FLEXMultilineTableViewCell.m in Sources */,
 				8717E2062400DADC008C4CDA /* YSVoteTopView.m in Sources */,
@@ -4022,7 +3952,6 @@
 				8717E23E2400DADC008C4CDA /* YSEyeCareManager.m in Sources */,
 				8717E23F2400DADC008C4CDA /* SCTopToolBarModel.m in Sources */,
 				8717E2402400DADC008C4CDA /* MASViewConstraint.m in Sources */,
-				8717E2412400DADC008C4CDA /* AFSecurityPolicy.m in Sources */,
 				8717E2422400DADC008C4CDA /* FLEXTableLeftCell.m in Sources */,
 				8717E2442400DADC008C4CDA /* pwd2key.c in Sources */,
 				8717E2462400DADC008C4CDA /* YSRoomUser+YSLive.m in Sources */,
@@ -4042,7 +3971,6 @@
 				8717E2572400DADC008C4CDA /* BMTestNetFlowCell.m in Sources */,
 				8717E2582400DADC008C4CDA /* YSLessonNotifyTableCell.m in Sources */,
 				8717E2592400DADC008C4CDA /* GTMStackTrace.m in Sources */,
-				8717E25A2400DADC008C4CDA /* AFURLRequestSerialization.m in Sources */,
 				8717E25B2400DADC008C4CDA /* YSAppInfo.m in Sources */,
 				8717E25C2400DADC008C4CDA /* BMConsole.m in Sources */,
 				3471E2A524039A0100A3BBB4 /* FSCalendarCalculator.m in Sources */,
@@ -4059,7 +3987,6 @@
 				8717E2692400DADC008C4CDA /* UIView+Layout.m in Sources */,
 				8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */,
 				8717E26B2400DADC008C4CDA /* NSBundle+TZImagePicker.m in Sources */,
-				8717E26C2400DADC008C4CDA /* AFHTTPSessionManager.m in Sources */,
 				8717E26D2400DADC008C4CDA /* SCAnswerDetailModel.m in Sources */,
 				8717E26E2400DADC008C4CDA /* FLEXMultiColumnTableView.m in Sources */,
 				8717E26F2400DADC008C4CDA /* YSClassMediumCell.m in Sources */,
@@ -4095,7 +4022,6 @@
 				8717E2932400DADC008C4CDA /* YSChatMemberListVC.m in Sources */,
 				8717E2942400DADC008C4CDA /* YYFPSLabel.m in Sources */,
 				8717E2952400DADC008C4CDA /* YSSkinCoverLayer.m in Sources */,
-				8717E2962400DADC008C4CDA /* AFURLResponseSerialization.m in Sources */,
 				8717E2972400DADC008C4CDA /* YSBarrageTrackInfo.m in Sources */,
 				8717E2982400DADC008C4CDA /* YSMediaMarkView.m in Sources */,
 				8717E2992400DADC008C4CDA /* FLEXScopeCarousel.m in Sources */,
@@ -4138,7 +4064,6 @@
 				8717E2C52400DADC008C4CDA /* YSTableView.m in Sources */,
 				8717E2C62400DADC008C4CDA /* FLEXBundleExplorerViewController.m in Sources */,
 				8717E2C82400DADC008C4CDA /* SCTopToolBar.m in Sources */,
-				8717E2C92400DADC008C4CDA /* AFURLSessionManager.m in Sources */,
 				3450B1492406805F006141E5 /* YSMonthListView.m in Sources */,
 				3471E29524039A0100A3BBB4 /* FSCalendarCell.m in Sources */,
 				8717E2CA2400DADC008C4CDA /* ioapi.c in Sources */,
@@ -4211,7 +4136,6 @@
 				8717E3122400DADC008C4CDA /* BMTestNetFlowSummaryVC.m in Sources */,
 				8717E3142400DADC008C4CDA /* SCAnswerView.m in Sources */,
 				8717E3152400DADC008C4CDA /* YSBarrageRenderView.m in Sources */,
-				8717E3162400DADC008C4CDA /* AFNetworkReachabilityManager.m in Sources */,
 				8717E3172400DADC008C4CDA /* SCChatView.m in Sources */,
 				8717E3182400DADC008C4CDA /* SCOptionCollectionCell.m in Sources */,
 				8717E3192400DADC008C4CDA /* SCEyeCareView.m in Sources */,

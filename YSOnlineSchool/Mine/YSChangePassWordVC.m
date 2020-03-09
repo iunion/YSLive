@@ -152,7 +152,7 @@
 
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     // 提交密码
-     AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+     BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
      NSString *organId = [YSSchoolUser shareInstance].organId;
      
     NSString *mobile = [YSSchoolUser shareInstance].mobile;

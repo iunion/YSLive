@@ -6,7 +6,6 @@
 //  Copyright © 2019 马迪. All rights reserved.
 //
 
-#import "AFNetworking.h"
 #import "SCChatView.h"
 #import "SCTipsMessageCell.h"
 #import "SCTextMessageCell.h"
@@ -292,7 +291,7 @@ UITextFieldDelegate
 {
     YSChatMessageModel * model = self.SCMessageList[indexPath.row];
     
-    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",

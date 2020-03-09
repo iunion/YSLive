@@ -7,7 +7,6 @@
 //
 
 #import "YSLessonView.h"
-#import "AFNetworking.h"
 
 #import "YSLessonNotifyTableCell.h"
 #import "YSLessonModel.h"
@@ -119,7 +118,7 @@ static  NSString * const   YSLessonNotifyTableCellID      = @"YSLessonNotifyTabl
 {
     YSLessonModel * model = self.dataSource[row];
     
-    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",

@@ -80,7 +80,7 @@
     //self.m_DataTask = nil;
     
     //AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [self setLoadDataRequest];
     
     if (self.dataTask)

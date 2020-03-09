@@ -228,7 +228,7 @@ UITextViewDelegate
     }
     
     [[YSLiveManager shareInstance] sendSignalingLiveNoticesSendFlowerWithSenderName:YSCurrentUser.nickName completion:nil];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
         @"application/json", @"application/octet-stream"
     ]];

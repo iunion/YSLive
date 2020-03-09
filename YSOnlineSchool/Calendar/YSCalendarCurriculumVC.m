@@ -305,7 +305,7 @@
     [self.calendarDataTask cancel];
     self.calendarDataTask = nil;
     
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
     YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
     NSString * userId = [YSSchoolUser shareInstance].userId;
