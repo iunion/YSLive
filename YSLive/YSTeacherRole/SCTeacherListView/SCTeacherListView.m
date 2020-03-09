@@ -244,7 +244,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    self.studentNumLabel.text = [NSString stringWithFormat:@"学生人数：%ld",self.dataSource.count];
+    self.studentNumLabel.text = [NSString stringWithFormat:@"学生人数：%@", @(self.dataSource.count)];
     
     return self.dataSource.count;
 }

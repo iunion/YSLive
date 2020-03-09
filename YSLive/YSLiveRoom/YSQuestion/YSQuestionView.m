@@ -421,7 +421,7 @@
     BMWeakSelf
     
     
-    [manger GET:YSTRANS_API_HOST parameters:tParamDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manger GET:YSTRANS_API_HOST parameters:tParamDic headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         BMLog(@"%@",responseObject);
         if (responseObject == nil)
         {

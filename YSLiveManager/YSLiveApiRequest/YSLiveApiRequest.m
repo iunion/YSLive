@@ -152,7 +152,7 @@
     };
     
     NSData *imgData = UIImageJPEGRepresentation(image, 0.5);
-    NSURLSessionTask * task = [manager POST:urlStr parameters:paraDict  constructingBodyWithBlock:^(id<BMAFMultipartFormData>  _Nonnull formData) {
+    NSURLSessionTask * task = [manager POST:urlStr parameters:paraDict headers:nil constructingBodyWithBlock:^(id<BMAFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileData:imgData name:@"filedata" fileName:fileName mimeType:@"image/jpge, image/gif, image/jpeg, image/pjpeg, image/pjpeg"];
         
