@@ -2480,7 +2480,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
-            videoView.disableVideo = NO;
         }
         [videoView bringSubviewToFront:videoView.backVideoView];
     }
@@ -2500,7 +2499,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-            videoView.disableVideo = NO;
         }
         [videoView bringSubviewToFront:videoView.backVideoView];
     }
