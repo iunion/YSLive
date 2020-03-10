@@ -20,7 +20,7 @@
 @property (weak, nonatomic, nullable) NSOperation *lastAddedOperation;
 @property (assign, nonatomic, nullable) Class operationClass;
 @property (strong, nonatomic, nonnull) NSMutableDictionary<NSURL *, BMSDWebImageDownloaderOperation *> *URLOperations;
-@property (strong, nonatomic, nullable) SDHTTPHeadersMutableDictionary *HTTPHeaders;
+@property (strong, nonatomic, nullable) BMSDHTTPHeadersMutableDictionary *HTTPHeaders;
 // This queue is used to serialize the handling of the network responses of all the download operation in a single queue
 @property (SDDispatchQueueSetterSementics, nonatomic, nullable) dispatch_queue_t barrierQueue;
 
@@ -154,8 +154,8 @@
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                    options:(BMSDWebImageDownloaderOptions)options
-                                                  progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock {
+                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock {
     __weak BMSDWebImageDownloader *wself = self;
 
     return [self addProgressCallback:progressBlock completedBlock:completedBlock forURL:url createCallback:^BMSDWebImageDownloaderOperation *{
@@ -221,8 +221,8 @@
     });
 }
 
-- (nullable BMSDWebImageDownloadToken *)addProgressCallback:(SDWebImageDownloaderProgressBlock)progressBlock
-                                           completedBlock:(SDWebImageDownloaderCompletedBlock)completedBlock
+- (nullable BMSDWebImageDownloadToken *)addProgressCallback:(BMSDWebImageDownloaderProgressBlock)progressBlock
+                                           completedBlock:(BMSDWebImageDownloaderCompletedBlock)completedBlock
                                                    forURL:(nullable NSURL *)url
                                            createCallback:(BMSDWebImageDownloaderOperation *(^)(void))createCallback {
     // The URL will be used as the key to the callbacks dictionary so it cannot be nil. If it is nil immediately call the completed block with no image or data.

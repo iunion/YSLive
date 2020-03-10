@@ -31,9 +31,9 @@ static char TAG_ACTIVITY_SHOW;
                   placeholderImage:(nullable UIImage *)placeholder
                            options:(BMSDWebImageOptions)options
                       operationKey:(nullable NSString *)operationKey
-                     setImageBlock:(nullable SDSetImageBlock)setImageBlock
-                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                         completed:(nullable SDExternalCompletionBlock)completedBlock {
+                     setImageBlock:(nullable BMSDSetImageBlock)setImageBlock
+                          progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                         completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     NSString *validOperationKey = operationKey ?: NSStringFromClass([self class]);
     [self bm_cancelImageLoadOperationWithKey:validOperationKey];
     objc_setAssociatedObject(self, &imageURLKey, url, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -94,7 +94,7 @@ static char TAG_ACTIVITY_SHOW;
     [self bm_cancelImageLoadOperationWithKey:NSStringFromClass([self class])];
 }
 
-- (void)bm_setImage:(UIImage *)image imageData:(NSData *)imageData basedOnClassOrViaCustomSetImageBlock:(SDSetImageBlock)setImageBlock {
+- (void)bm_setImage:(UIImage *)image imageData:(NSData *)imageData basedOnClassOrViaCustomSetImageBlock:(BMSDSetImageBlock)setImageBlock {
     if (setImageBlock) {
         setImageBlock(image, imageData);
         return;

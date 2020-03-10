@@ -95,7 +95,7 @@
 
 FOUNDATION_EXPORT UIImage *BMSDScaledImageForKey(NSString *key, UIImage *image);
 
-typedef void(^SDWebImageNoParamsBlock)(void);
+typedef void(^BMSDWebImageNoParamsBlock)(void);
 
 FOUNDATION_EXPORT NSString *const BMSDWebImageErrorDomain;
 

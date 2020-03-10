@@ -56,11 +56,11 @@ static inline NSString * backgroundImageURLKeyForState(UIControlState state) {
     [self bm_setImageWithURL:url forState:state placeholderImage:placeholder options:options completed:nil];
 }
 
-- (void)bm_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)bm_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     [self bm_setImageWithURL:url forState:state placeholderImage:nil options:0 completed:completedBlock];
 }
 
-- (void)bm_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)bm_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     [self bm_setImageWithURL:url forState:state placeholderImage:placeholder options:0 completed:completedBlock];
 }
 
@@ -68,7 +68,7 @@ static inline NSString * backgroundImageURLKeyForState(UIControlState state) {
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
-                 completed:(nullable SDExternalCompletionBlock)completedBlock {
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     if (!url) {
         [self.imageURLStorage removeObjectForKey:imageURLKeyForState(state)];
         return;
@@ -116,11 +116,11 @@ static inline NSString * backgroundImageURLKeyForState(UIControlState state) {
     [self bm_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:options completed:nil];
 }
 
-- (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     [self bm_setBackgroundImageWithURL:url forState:state placeholderImage:nil options:0 completed:completedBlock];
 }
 
-- (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     [self bm_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:0 completed:completedBlock];
 }
 
@@ -128,7 +128,7 @@ static inline NSString * backgroundImageURLKeyForState(UIControlState state) {
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                              options:(BMSDWebImageOptions)options
-                           completed:(nullable SDExternalCompletionBlock)completedBlock {
+                           completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     if (!url) {
         [self.imageURLStorage removeObjectForKey:backgroundImageURLKeyForState(state)];
         return;

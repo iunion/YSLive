@@ -23,18 +23,18 @@
     [self bm_setHighlightedImageWithURL:url options:options progress:nil completed:nil];
 }
 
-- (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     [self bm_setHighlightedImageWithURL:url options:0 progress:nil completed:completedBlock];
 }
 
-- (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url options:(BMSDWebImageOptions)options completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url options:(BMSDWebImageOptions)options completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     [self bm_setHighlightedImageWithURL:url options:options progress:nil completed:completedBlock];
 }
 
 - (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url
                               options:(BMSDWebImageOptions)options
-                             progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                            completed:(nullable SDExternalCompletionBlock)completedBlock {
+                             progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                            completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     __weak typeof(self)weakSelf = self;
     [self bm_internalSetImageWithURL:url
                     placeholderImage:nil

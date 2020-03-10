@@ -13,7 +13,7 @@
 @interface BMSDWebImageCombinedOperation : NSObject <BMSDWebImageOperation>
 
 @property (assign, nonatomic, getter = isCancelled) BOOL cancelled;
-@property (copy, nonatomic, nullable) SDWebImageNoParamsBlock cancelBlock;
+@property (copy, nonatomic, nullable) BMSDWebImageNoParamsBlock cancelBlock;
 @property (strong, nonatomic, nullable) NSOperation *cacheOperation;
 
 @end
@@ -67,7 +67,7 @@
 }
 
 - (void)cachedImageExistsForURL:(nullable NSURL *)url
-                     completion:(nullable SDWebImageCheckCacheCompletionBlock)completionBlock {
+                     completion:(nullable BMSDWebImageCheckCacheCompletionBlock)completionBlock {
     NSString *key = [self cacheKeyForURL:url];
     
     BOOL isInMemoryCache = ([self.imageCache imageFromMemoryCacheForKey:key] != nil);
@@ -91,7 +91,7 @@
 }
 
 - (void)diskImageExistsForURL:(nullable NSURL *)url
-                   completion:(nullable SDWebImageCheckCacheCompletionBlock)completionBlock {
+                   completion:(nullable BMSDWebImageCheckCacheCompletionBlock)completionBlock {
     NSString *key = [self cacheKeyForURL:url];
     
     [self.imageCache diskImageExistsWithKey:key completion:^(BOOL isInDiskCache) {
@@ -104,8 +104,8 @@
 
 - (id <BMSDWebImageOperation>)loadImageWithURL:(nullable NSURL *)url
                                      options:(BMSDWebImageOptions)options
-                                    progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                                   completed:(nullable SDInternalCompletionBlock)completedBlock {
+                                    progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                   completed:(nullable BMSDInternalCompletionBlock)completedBlock {
     // Invoking this method without a completedBlock is pointless
     NSAssert(completedBlock != nil, @"If you mean to prefetch the image, use -[SDWebImagePrefetcher prefetchURLs] instead");
 
@@ -280,14 +280,14 @@
 }
 
 - (void)callCompletionBlockForOperation:(nullable BMSDWebImageCombinedOperation*)operation
-                             completion:(nullable SDInternalCompletionBlock)completionBlock
+                             completion:(nullable BMSDInternalCompletionBlock)completionBlock
                                   error:(nullable NSError *)error
                                     url:(nullable NSURL *)url {
     [self callCompletionBlockForOperation:operation completion:completionBlock image:nil data:nil error:error cacheType:BMSDImageCacheTypeNone finished:YES url:url];
 }
 
 - (void)callCompletionBlockForOperation:(nullable BMSDWebImageCombinedOperation*)operation
-                             completion:(nullable SDInternalCompletionBlock)completionBlock
+                             completion:(nullable BMSDInternalCompletionBlock)completionBlock
                                   image:(nullable UIImage *)image
                                    data:(nullable NSData *)data
                                   error:(nullable NSError *)error
@@ -306,7 +306,7 @@
 
 @implementation BMSDWebImageCombinedOperation
 
-- (void)setCancelBlock:(nullable SDWebImageNoParamsBlock)cancelBlock {
+- (void)setCancelBlock:(nullable BMSDWebImageNoParamsBlock)cancelBlock {
     // check if the operation is already cancelled, then we just call the cancelBlock
     if (self.isCancelled) {
         if (cancelBlock) {

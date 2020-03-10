@@ -35,8 +35,8 @@
 
 @end
 
-typedef void(^SDWebImagePrefetcherProgressBlock)(NSUInteger noOfFinishedUrls, NSUInteger noOfTotalUrls);
-typedef void(^SDWebImagePrefetcherCompletionBlock)(NSUInteger noOfFinishedUrls, NSUInteger noOfSkippedUrls);
+typedef void(^BMSDWebImagePrefetcherProgressBlock)(NSUInteger noOfFinishedUrls, NSUInteger noOfTotalUrls);
+typedef void(^BMSDWebImagePrefetcherCompletionBlock)(NSUInteger noOfFinishedUrls, NSUInteger noOfSkippedUrls);
 
 /**
  * Prefetch some URLs in the cache for future use. Images are downloaded in low priority.
@@ -100,8 +100,8 @@ typedef void(^SDWebImagePrefetcherCompletionBlock)(NSUInteger noOfFinishedUrls, 
  *                        second parameter is the number of skipped requests
  */
 - (void)prefetchURLs:(nullable NSArray<NSURL *> *)urls
-            progress:(nullable SDWebImagePrefetcherProgressBlock)progressBlock
-           completed:(nullable SDWebImagePrefetcherCompletionBlock)completionBlock;
+            progress:(nullable BMSDWebImagePrefetcherProgressBlock)progressBlock
+           completed:(nullable BMSDWebImagePrefetcherCompletionBlock)completionBlock;
 
 /**
  * Remove and cancel queued list

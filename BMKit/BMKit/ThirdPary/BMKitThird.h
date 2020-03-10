@@ -36,6 +36,7 @@
 
 #import "BMTZImagePickerController.h"
 #import "BMTZPhotoPreviewController.h"
+#import "BMTZAssetCell.h"
 
 #import "BMMasonry.h"
 

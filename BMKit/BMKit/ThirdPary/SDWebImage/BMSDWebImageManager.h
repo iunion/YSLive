@@ -97,11 +97,11 @@ typedef NS_OPTIONS(NSUInteger, BMSDWebImageOptions) {
     BMSDWebImageScaleDownLargeImages = 1 << 12
 };
 
-typedef void(^SDExternalCompletionBlock)(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL);
+typedef void(^BMSDExternalCompletionBlock)(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL);
 
-typedef void(^SDInternalCompletionBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BMSDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL);
+typedef void(^BMSDInternalCompletionBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BMSDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL);
 
-typedef NSString * _Nullable (^SDWebImageCacheKeyFilterBlock)(NSURL * _Nullable url);
+typedef NSString * _Nullable (^BMSDWebImageCacheKeyFilterBlock)(NSURL * _Nullable url);
 
 
 @class BMSDWebImageManager;
@@ -179,7 +179,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
 
  * @endcode
  */
-@property (nonatomic, copy, nullable) SDWebImageCacheKeyFilterBlock cacheKeyFilter;
+@property (nonatomic, copy, nullable) BMSDWebImageCacheKeyFilterBlock cacheKeyFilter;
 
 /**
  * Returns global SDWebImageManager instance.
@@ -221,8 +221,8 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  */
 - (nullable id <BMSDWebImageOperation>)loadImageWithURL:(nullable NSURL *)url
                                               options:(BMSDWebImageOptions)options
-                                             progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                                            completed:(nullable SDInternalCompletionBlock)completedBlock;
+                                             progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                            completed:(nullable BMSDInternalCompletionBlock)completedBlock;
 
 /**
  * Saves image to cache for given URL
@@ -253,7 +253,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  *  @note the completion block is always executed on the main queue
  */
 - (void)cachedImageExistsForURL:(nullable NSURL *)url
-                     completion:(nullable SDWebImageCheckCacheCompletionBlock)completionBlock;
+                     completion:(nullable BMSDWebImageCheckCacheCompletionBlock)completionBlock;
 
 /**
  *  Async check if image has already been cached on disk only
@@ -264,7 +264,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  *  @note the completion block is always executed on the main queue
  */
 - (void)diskImageExistsForURL:(nullable NSURL *)url
-                   completion:(nullable SDWebImageCheckCacheCompletionBlock)completionBlock;
+                   completion:(nullable BMSDWebImageCheckCacheCompletionBlock)completionBlock;
 
 
 /**

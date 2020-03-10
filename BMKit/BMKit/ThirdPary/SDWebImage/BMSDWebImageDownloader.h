@@ -71,14 +71,14 @@ typedef NS_ENUM(NSInteger, BMSDWebImageDownloaderExecutionOrder) {
 FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadStartNotification;
 FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadStopNotification;
 
-typedef void(^SDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
+typedef void(^BMSDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
 
-typedef void(^SDWebImageDownloaderCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
+typedef void(^BMSDWebImageDownloaderCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
 
-typedef NSDictionary<NSString *, NSString *> SDHTTPHeadersDictionary;
-typedef NSMutableDictionary<NSString *, NSString *> SDHTTPHeadersMutableDictionary;
+typedef NSDictionary<NSString *, NSString *> BMSDHTTPHeadersDictionary;
+typedef NSMutableDictionary<NSString *, NSString *> BMSDHTTPHeadersMutableDictionary;
 
-typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterBlock)(NSURL * _Nullable url, SDHTTPHeadersDictionary * _Nullable headers);
+typedef BMSDHTTPHeadersDictionary * _Nullable (^BMSDWebImageDownloaderHeadersFilterBlock)(NSURL * _Nullable url, BMSDHTTPHeadersDictionary * _Nullable headers);
 
 /**
  *  A token associated with each download. Can be used to cancel a download
@@ -161,7 +161,7 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
  * This block will be invoked for each downloading image request, returned
  * NSDictionary will be used as headers in corresponding HTTP request.
  */
-@property (nonatomic, copy, nullable) SDWebImageDownloaderHeadersFilterBlock headersFilter;
+@property (nonatomic, copy, nullable) BMSDWebImageDownloaderHeadersFilterBlock headersFilter;
 
 /**
  * Creates an instance of a downloader with specified session configuration.
@@ -219,8 +219,8 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
  */
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                    options:(BMSDWebImageDownloaderOptions)options
-                                                  progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
+                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 /**
  * Cancels a download that was previously queued using -downloadImageWithURL:options:progress:completed:

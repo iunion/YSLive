@@ -26,8 +26,8 @@ FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadFinishNotificati
                               inSession:(nullable NSURLSession *)session
                                 options:(BMSDWebImageDownloaderOptions)options;
 
-- (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                            completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
+- (nullable id)addHandlersForProgress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                            completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 - (BOOL)shouldDecompressImages;
 - (void)setShouldDecompressImages:(BOOL)value;
@@ -107,8 +107,8 @@ FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadFinishNotificati
  *
  *  @return the token to use to cancel this set of handlers
  */
-- (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                            completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
+- (nullable id)addHandlersForProgress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                            completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 /**
  *  Cancels a set of callbacks. Once all callbacks are canceled, the operation is cancelled.

@@ -50,7 +50,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url
-                            completed:(nullable SDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
+                            completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `highlightedImage` with an `url` and custom options.
@@ -67,7 +67,7 @@
  */
 - (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url
                               options:(BMSDWebImageOptions)options
-                            completed:(nullable SDExternalCompletionBlock)completedBlock;
+                            completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `highlightedImage` with an `url` and custom options.
@@ -86,8 +86,8 @@
  */
 - (void)bm_setHighlightedImageWithURL:(nullable NSURL *)url
                               options:(BMSDWebImageOptions)options
-                             progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                            completed:(nullable SDExternalCompletionBlock)completedBlock;
+                             progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                            completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 @end
 

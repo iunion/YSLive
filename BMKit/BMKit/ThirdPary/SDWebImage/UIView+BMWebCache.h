@@ -12,7 +12,7 @@
 
 #import "BMSDWebImageManager.h"
 
-typedef void(^SDSetImageBlock)(UIImage * _Nullable image, NSData * _Nullable imageData);
+typedef void(^BMSDSetImageBlock)(UIImage * _Nullable image, NSData * _Nullable imageData);
 
 @interface UIView (BMWebCache)
 
@@ -46,9 +46,9 @@ typedef void(^SDSetImageBlock)(UIImage * _Nullable image, NSData * _Nullable ima
                   placeholderImage:(nullable UIImage *)placeholder
                            options:(BMSDWebImageOptions)options
                       operationKey:(nullable NSString *)operationKey
-                     setImageBlock:(nullable SDSetImageBlock)setImageBlock
-                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                         completed:(nullable SDExternalCompletionBlock)completedBlock;
+                     setImageBlock:(nullable BMSDSetImageBlock)setImageBlock
+                          progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                         completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
  * Cancel the current download
