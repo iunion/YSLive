@@ -374,6 +374,31 @@
 		87901A3324173ACF00FF38EC /* BMTZImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3124173ACF00FF38EC /* BMTZImagePickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87901A3624173E3C00FF38EC /* UIView+BMLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3424173E3C00FF38EC /* UIView+BMLayout.h */; };
 		87901A3724173E3C00FF38EC /* UIView+BMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A3524173E3C00FF38EC /* UIView+BMLayout.m */; };
+		87901A5624176EB500FF38EC /* BMMASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3D24176EB500FF38EC /* BMMASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A5724176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A3E24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m */; };
+		87901A5824176EB500FF38EC /* BMMASConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3F24176EB500FF38EC /* BMMASConstraint+Private.h */; };
+		87901A5924176EB500FF38EC /* BMMASLayoutConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4024176EB500FF38EC /* BMMASLayoutConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A5A24176EB500FF38EC /* NSArray+BMMASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4124176EB500FF38EC /* NSArray+BMMASShorthandAdditions.h */; };
+		87901A5B24176EB500FF38EC /* BMMASConstraintMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4224176EB500FF38EC /* BMMASConstraintMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A5C24176EB500FF38EC /* View+BMMASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4324176EB500FF38EC /* View+BMMASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A5D24176EB500FF38EC /* NSArray+BMMASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4424176EB500FF38EC /* NSArray+BMMASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A5F24176EB500FF38EC /* BMMASViewAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4624176EB500FF38EC /* BMMASViewAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A6024176EB500FF38EC /* ViewController+BMMASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4724176EB500FF38EC /* ViewController+BMMASAdditions.m */; };
+		87901A6124176EB500FF38EC /* BMMASViewConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4824176EB500FF38EC /* BMMASViewConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A6224176EB500FF38EC /* BMMASConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4924176EB500FF38EC /* BMMASConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A6324176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4A24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A6424176EB500FF38EC /* BMMASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4B24176EB500FF38EC /* BMMASCompositeConstraint.m */; };
+		87901A6524176EB500FF38EC /* BMMASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4C24176EB500FF38EC /* BMMASConstraintMaker.m */; };
+		87901A6624176EB500FF38EC /* BMMASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4D24176EB500FF38EC /* BMMASLayoutConstraint.m */; };
+		87901A6724176EB500FF38EC /* NSArray+BMMASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4E24176EB500FF38EC /* NSArray+BMMASAdditions.m */; };
+		87901A6824176EB500FF38EC /* View+BMMASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4F24176EB500FF38EC /* View+BMMASAdditions.m */; };
+		87901A6924176EB500FF38EC /* View+BMMASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A5024176EB500FF38EC /* View+BMMASShorthandAdditions.h */; };
+		87901A6B24176EB500FF38EC /* BMMASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A5224176EB500FF38EC /* BMMASConstraint.m */; };
+		87901A6C24176EB500FF38EC /* ViewController+BMMASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A5324176EB500FF38EC /* ViewController+BMMASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A6D24176EB500FF38EC /* BMMASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A5424176EB500FF38EC /* BMMASViewConstraint.m */; };
+		87901A6E24176EB500FF38EC /* BMMASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A5524176EB500FF38EC /* BMMASViewAttribute.m */; };
+		87901A7324176F1D00FF38EC /* BMMASUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A7124176F1D00FF38EC /* BMMASUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A7424176F1D00FF38EC /* BMMasonry.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A7224176F1D00FF38EC /* BMMasonry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -741,6 +766,31 @@
 		87901A3124173ACF00FF38EC /* BMTZImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTZImagePickerController.h; sourceTree = "<group>"; };
 		87901A3424173E3C00FF38EC /* UIView+BMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BMLayout.h"; sourceTree = "<group>"; };
 		87901A3524173E3C00FF38EC /* UIView+BMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BMLayout.m"; sourceTree = "<group>"; };
+		87901A3D24176EB500FF38EC /* BMMASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASCompositeConstraint.h; sourceTree = "<group>"; };
+		87901A3E24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BMMASDebugAdditions.m"; sourceTree = "<group>"; };
+		87901A3F24176EB500FF38EC /* BMMASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BMMASConstraint+Private.h"; sourceTree = "<group>"; };
+		87901A4024176EB500FF38EC /* BMMASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASLayoutConstraint.h; sourceTree = "<group>"; };
+		87901A4124176EB500FF38EC /* NSArray+BMMASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+BMMASShorthandAdditions.h"; sourceTree = "<group>"; };
+		87901A4224176EB500FF38EC /* BMMASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASConstraintMaker.h; sourceTree = "<group>"; };
+		87901A4324176EB500FF38EC /* View+BMMASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+BMMASAdditions.h"; sourceTree = "<group>"; };
+		87901A4424176EB500FF38EC /* NSArray+BMMASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+BMMASAdditions.h"; sourceTree = "<group>"; };
+		87901A4624176EB500FF38EC /* BMMASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASViewAttribute.h; sourceTree = "<group>"; };
+		87901A4724176EB500FF38EC /* ViewController+BMMASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+BMMASAdditions.m"; sourceTree = "<group>"; };
+		87901A4824176EB500FF38EC /* BMMASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASViewConstraint.h; sourceTree = "<group>"; };
+		87901A4924176EB500FF38EC /* BMMASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASConstraint.h; sourceTree = "<group>"; };
+		87901A4A24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+BMMASDebugAdditions.h"; sourceTree = "<group>"; };
+		87901A4B24176EB500FF38EC /* BMMASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMASCompositeConstraint.m; sourceTree = "<group>"; };
+		87901A4C24176EB500FF38EC /* BMMASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMASConstraintMaker.m; sourceTree = "<group>"; };
+		87901A4D24176EB500FF38EC /* BMMASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMASLayoutConstraint.m; sourceTree = "<group>"; };
+		87901A4E24176EB500FF38EC /* NSArray+BMMASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+BMMASAdditions.m"; sourceTree = "<group>"; };
+		87901A4F24176EB500FF38EC /* View+BMMASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+BMMASAdditions.m"; sourceTree = "<group>"; };
+		87901A5024176EB500FF38EC /* View+BMMASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+BMMASShorthandAdditions.h"; sourceTree = "<group>"; };
+		87901A5224176EB500FF38EC /* BMMASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMASConstraint.m; sourceTree = "<group>"; };
+		87901A5324176EB500FF38EC /* ViewController+BMMASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+BMMASAdditions.h"; sourceTree = "<group>"; };
+		87901A5424176EB500FF38EC /* BMMASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMASViewConstraint.m; sourceTree = "<group>"; };
+		87901A5524176EB500FF38EC /* BMMASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMASViewAttribute.m; sourceTree = "<group>"; };
+		87901A7124176F1D00FF38EC /* BMMASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASUtilities.h; sourceTree = "<group>"; };
+		87901A7224176F1D00FF38EC /* BMMasonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMasonry.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -980,6 +1030,7 @@
 			isa = PBXGroup;
 			children = (
 				8790199D2416483700FF38EC /* AFNetworking */,
+				87901A3C24176EB500FF38EC /* Masonry */,
 				8701AEDE23715B4D00A43607 /* SDWebImage */,
 				879019D9241727BF00FF38EC /* TZImagePickerController */,
 				8790199B24163F4C00FF38EC /* BMKitThird.h */,
@@ -1506,6 +1557,38 @@
 			path = TZImagePickerController;
 			sourceTree = "<group>";
 		};
+		87901A3C24176EB500FF38EC /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				87901A7224176F1D00FF38EC /* BMMasonry.h */,
+				87901A7124176F1D00FF38EC /* BMMASUtilities.h */,
+				87901A3D24176EB500FF38EC /* BMMASCompositeConstraint.h */,
+				87901A4B24176EB500FF38EC /* BMMASCompositeConstraint.m */,
+				87901A4924176EB500FF38EC /* BMMASConstraint.h */,
+				87901A5224176EB500FF38EC /* BMMASConstraint.m */,
+				87901A3F24176EB500FF38EC /* BMMASConstraint+Private.h */,
+				87901A4224176EB500FF38EC /* BMMASConstraintMaker.h */,
+				87901A4C24176EB500FF38EC /* BMMASConstraintMaker.m */,
+				87901A4024176EB500FF38EC /* BMMASLayoutConstraint.h */,
+				87901A4D24176EB500FF38EC /* BMMASLayoutConstraint.m */,
+				87901A4624176EB500FF38EC /* BMMASViewAttribute.h */,
+				87901A5524176EB500FF38EC /* BMMASViewAttribute.m */,
+				87901A4824176EB500FF38EC /* BMMASViewConstraint.h */,
+				87901A5424176EB500FF38EC /* BMMASViewConstraint.m */,
+				87901A4424176EB500FF38EC /* NSArray+BMMASAdditions.h */,
+				87901A4E24176EB500FF38EC /* NSArray+BMMASAdditions.m */,
+				87901A4124176EB500FF38EC /* NSArray+BMMASShorthandAdditions.h */,
+				87901A4A24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h */,
+				87901A3E24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m */,
+				87901A4324176EB500FF38EC /* View+BMMASAdditions.h */,
+				87901A4F24176EB500FF38EC /* View+BMMASAdditions.m */,
+				87901A5024176EB500FF38EC /* View+BMMASShorthandAdditions.h */,
+				87901A5324176EB500FF38EC /* ViewController+BMMASAdditions.h */,
+				87901A4724176EB500FF38EC /* ViewController+BMMASAdditions.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1513,11 +1596,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87901A5F24176EB500FF38EC /* BMMASViewAttribute.h in Headers */,
+				87901A6124176EB500FF38EC /* BMMASViewConstraint.h in Headers */,
+				87901A7324176F1D00FF38EC /* BMMASUtilities.h in Headers */,
+				87901A5C24176EB500FF38EC /* View+BMMASAdditions.h in Headers */,
+				87901A5D24176EB500FF38EC /* NSArray+BMMASAdditions.h in Headers */,
+				87901A6324176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h in Headers */,
+				87901A6224176EB500FF38EC /* BMMASConstraint.h in Headers */,
+				87901A5624176EB500FF38EC /* BMMASCompositeConstraint.h in Headers */,
+				87901A7424176F1D00FF38EC /* BMMasonry.h in Headers */,
+				87901A5924176EB500FF38EC /* BMMASLayoutConstraint.h in Headers */,
+				87901A5B24176EB500FF38EC /* BMMASConstraintMaker.h in Headers */,
+				87901A6C24176EB500FF38EC /* ViewController+BMMASAdditions.h in Headers */,
 				87901A1C241729D800FF38EC /* NSBundle+BMTZImagePicker.h in Headers */,
 				87901A2C2417349D00FF38EC /* BMTZImageManager.h in Headers */,
 				87901A222417308900FF38EC /* BMTZAssetModel.h in Headers */,
 				87901A242417308900FF38EC /* BMTZAssetCell.h in Headers */,
 				87901A3324173ACF00FF38EC /* BMTZImagePickerController.h in Headers */,
+				87901A6924176EB500FF38EC /* View+BMMASShorthandAdditions.h in Headers */,
 				87901A11241727BF00FF38EC /* BMTZPhotoPreviewController.h in Headers */,
 				879019F9241727BF00FF38EC /* BMTZPhotoPreviewCell.h in Headers */,
 				87901A3624173E3C00FF38EC /* UIView+BMLayout.h in Headers */,
@@ -1646,6 +1742,7 @@
 				8701B0EB237165AA00A43607 /* BMTableViewCheckBoxGroupCell.h in Headers */,
 				8701B122237165AA00A43607 /* BMTableViewManagerDefine.h in Headers */,
 				8701B119237165AA00A43607 /* BMSliderItem.h in Headers */,
+				87901A5A24176EB500FF38EC /* NSArray+BMMASShorthandAdditions.h in Headers */,
 				8701B0DF237165AA00A43607 /* BMTableViewSection.h in Headers */,
 				8701B0F7237165AA00A43607 /* BMTableViewBoolCell.h in Headers */,
 				8701B115237165AA00A43607 /* BMMaskTextItem.h in Headers */,
@@ -1674,6 +1771,7 @@
 				8701B107237165AA00A43607 /* BMTableViewCellStyle.h in Headers */,
 				8701AFF22371648200A43607 /* BMDatePicker.h in Headers */,
 				8701AE0923714E6000A43607 /* UIImage+BMCategory.h in Headers */,
+				87901A5824176EB500FF38EC /* BMMASConstraint+Private.h in Headers */,
 				8701AF8423715F5500A43607 /* BMNavigationBarDefine.h in Headers */,
 				8701AE4A23714E6000A43607 /* emojiCodes.h in Headers */,
 				8701AE5223714E6000A43607 /* NSString+BMEncrypt.h in Headers */,
@@ -1807,6 +1905,7 @@
 				8701AE2823714E6000A43607 /* UIButton+BMContentRect.m in Sources */,
 				87901A15241727BF00FF38EC /* BMTZGifPhotoPreviewController.m in Sources */,
 				8701B0F2237165AA00A43607 /* BMTableViewLongTextCell.m in Sources */,
+				87901A6524176EB500FF38EC /* BMMASConstraintMaker.m in Sources */,
 				8701AF0F23715B4D00A43607 /* BMSDImageCache.m in Sources */,
 				8777C78023EA72A2002002BF /* BMFreshTriangleDotHeader.m in Sources */,
 				8701B10B237165AA00A43607 /* BMSegmentItem.m in Sources */,
@@ -1816,6 +1915,7 @@
 				8701AE2C23714E6000A43607 /* UITextField+BMCategory.m in Sources */,
 				8701AF1123715B4D00A43607 /* UIImageView+BMHighlightedWebCache.m in Sources */,
 				8701AEAA2371550000A43607 /* BMNoticeView.m in Sources */,
+				87901A5724176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m in Sources */,
 				8701AF1923715B4D00A43607 /* NSData+BMImageContentType.m in Sources */,
 				8701B114237165AA00A43607 /* BMImageDetailItem.m in Sources */,
 				8701B08D2371650F00A43607 /* BMCheckBoxGroup.m in Sources */,
@@ -1827,6 +1927,7 @@
 				8701B0F4237165AA00A43607 /* BMTableViewCheckBoxGroupCell.m in Sources */,
 				8701AF2623715B4D00A43607 /* UIImage+BMGIF.m in Sources */,
 				8701B112237165AA00A43607 /* BMTextItem.m in Sources */,
+				87901A6624176EB500FF38EC /* BMMASLayoutConstraint.m in Sources */,
 				8701B121237165AA00A43607 /* BMInputItem.m in Sources */,
 				8701AE1C23714E6000A43607 /* UILocalNotification+BMCategory.m in Sources */,
 				879019C524164B7F00FF38EC /* BMAFNetworkReachabilityManager.m in Sources */,
@@ -1836,6 +1937,7 @@
 				8777C79623EA72A2002002BF /* BMFreshAutoContainerFooterView.m in Sources */,
 				87901A252417308900FF38EC /* BMTZAssetCell.m in Sources */,
 				8701B0E9237165AA00A43607 /* BMTableViewSliderCell.m in Sources */,
+				87901A6424176EB500FF38EC /* BMMASCompositeConstraint.m in Sources */,
 				8701AE3B23714E6000A43607 /* NSRegularExpression+BMRegEx.m in Sources */,
 				8701AE6423714E6000A43607 /* NSMutableArray+BMCategory.m in Sources */,
 				8777C79523EA72A2002002BF /* BMFreshAutoFooterView.m in Sources */,
@@ -1860,6 +1962,7 @@
 				8701AE3D23714E6000A43607 /* NSBundle+BMResource.m in Sources */,
 				8777C77F23EA72A2002002BF /* BMFreshDotHeader.m in Sources */,
 				8701AE2E23714E6000A43607 /* UIImage+BMAssets.m in Sources */,
+				87901A6724176EB500FF38EC /* NSArray+BMMASAdditions.m in Sources */,
 				8701AF1623715B4D00A43607 /* UIView+BMWebCacheOperation.m in Sources */,
 				8701AE2623714E6000A43607 /* UILabel+BMCategory.m in Sources */,
 				87901A3724173E3C00FF38EC /* UIView+BMLayout.m in Sources */,
@@ -1868,6 +1971,7 @@
 				8701AF0D23715B4D00A43607 /* BMSDWebImageCompat.m in Sources */,
 				8701B0E0237165AA00A43607 /* BMTableViewDateTimeCell.m in Sources */,
 				8701B11F237165AA00A43607 /* BMPickerItem.m in Sources */,
+				87901A6E24176EB500FF38EC /* BMMASViewAttribute.m in Sources */,
 				8701AF9D2371610D00A43607 /* BMSingleLineView.m in Sources */,
 				8701AE1823714E6000A43607 /* UIView+BMNibLoading.m in Sources */,
 				8701AF1A23715B4D00A43607 /* BMSDImageCacheConfig.m in Sources */,
@@ -1891,6 +1995,7 @@
 				8701AE4623714E6000A43607 /* NSData+BMCategory.m in Sources */,
 				8777C79223EA72A2002002BF /* BMFreshBackFooterView.m in Sources */,
 				8701B0ED237165AA00A43607 /* BMTableViewStepperInputCell.m in Sources */,
+				87901A6024176EB500FF38EC /* ViewController+BMMASAdditions.m in Sources */,
 				8701AE1323714E6000A43607 /* UIView+BMOutSide.m in Sources */,
 				8777C79023EA72A2002002BF /* BMFreshBackContainerFooterView.m in Sources */,
 				8701B0EF237165AA00A43607 /* BMTableViewPickerCell.m in Sources */,
@@ -1898,6 +2003,7 @@
 				8701AE2923714E6000A43607 /* UIImage+BMCategory.m in Sources */,
 				8701AE5323714E6000A43607 /* NSString+BMCategory.m in Sources */,
 				8701AFDA2371624F00A43607 /* BMStepperInputView.m in Sources */,
+				87901A6D24176EB500FF38EC /* BMMASViewConstraint.m in Sources */,
 				87901A292417328F00FF38EC /* BMTZImageCropManager.m in Sources */,
 				8701AE6223714E6000A43607 /* NSNumber+BMCategory.m in Sources */,
 				8701AF0C23715B4D00A43607 /* SDWebImageDecoder.m in Sources */,
@@ -1945,6 +2051,8 @@
 				8701AF3223715C9E00A43607 /* UIView+BMBadge.m in Sources */,
 				8701AE4223714E6000A43607 /* NSDate+BMCategory.m in Sources */,
 				8777C77C23EA72A2002002BF /* BMFreshFiveStarHeader.m in Sources */,
+				87901A6824176EB500FF38EC /* View+BMMASAdditions.m in Sources */,
+				87901A6B24176EB500FF38EC /* BMMASConstraint.m in Sources */,
 				8701AE1A23714E6000A43607 /* UIView+BMSize.m in Sources */,
 				8777C77623EA72A2002002BF /* BMFreshBaseView.m in Sources */,
 				8777C79923EA72A3002002BF /* BMFreshAutoNormalFooter.m in Sources */,
