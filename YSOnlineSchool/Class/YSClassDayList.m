@@ -336,7 +336,11 @@
                             {
                                 message = YSLocalizedSchool(@"ClassListCell.Enter.SysError");
                             }
-                            
+                            else if (statusCode == -1)
+                            {
+                                message = YSLocalizedSchool(@"ClassListCell.Enter.EndError");
+                            }
+
                             [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                         
