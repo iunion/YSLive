@@ -3899,14 +3899,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
                 
         YSRoomUser * user = videoView.roomUser;
-        
         YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
-        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
         {
-            videoView.disableVideo = YES;
-        }
-        else
-        {
+            [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
             videoView.disableVideo = NO;
         }
@@ -3916,20 +3912,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         SCVideoView *videoView = (SCVideoView *)self.doubleFloatView.contentView;
         videoView.isFullScreen = NO;
-        YSRoomUser * user = videoView.roomUser;
         [self.doubleFloatView cleanContent];
         [self.doubleFloatView removeFromSuperview];
         [self freshContentView];
         self.doubleFloatView = nil;
         [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
         
+        YSRoomUser * user = videoView.roomUser;
         YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
-        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
         {
-            videoView.disableVideo = YES;
-        }
-        else
-        {
+            [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
             videoView.disableVideo = NO;
         }
