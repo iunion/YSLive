@@ -386,7 +386,7 @@
 		87901A6024176EB500FF38EC /* ViewController+BMMASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4724176EB500FF38EC /* ViewController+BMMASAdditions.m */; };
 		87901A6124176EB500FF38EC /* BMMASViewConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4824176EB500FF38EC /* BMMASViewConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87901A6224176EB500FF38EC /* BMMASConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4924176EB500FF38EC /* BMMASConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		87901A6324176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4A24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87901A6324176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A4A24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h */; };
 		87901A6424176EB500FF38EC /* BMMASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4B24176EB500FF38EC /* BMMASCompositeConstraint.m */; };
 		87901A6524176EB500FF38EC /* BMMASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4C24176EB500FF38EC /* BMMASConstraintMaker.m */; };
 		87901A6624176EB500FF38EC /* BMMASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A4D24176EB500FF38EC /* BMMASLayoutConstraint.m */; };
@@ -1601,7 +1601,6 @@
 				87901A7324176F1D00FF38EC /* BMMASUtilities.h in Headers */,
 				87901A5C24176EB500FF38EC /* View+BMMASAdditions.h in Headers */,
 				87901A5D24176EB500FF38EC /* NSArray+BMMASAdditions.h in Headers */,
-				87901A6324176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h in Headers */,
 				87901A6224176EB500FF38EC /* BMMASConstraint.h in Headers */,
 				87901A5624176EB500FF38EC /* BMMASCompositeConstraint.h in Headers */,
 				87901A7424176F1D00FF38EC /* BMMasonry.h in Headers */,
@@ -1780,6 +1779,7 @@
 				8701AE2123714E6000A43607 /* UIButton+BMCategory.h in Headers */,
 				8701AE4423714E6000A43607 /* NSData+BMCategory.h in Headers */,
 				8701AE5D23714E6000A43607 /* NSRegularExpression+BMRegEx.h in Headers */,
+				87901A6324176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h in Headers */,
 				8701AFE7237163B100A43607 /* BMVerifyFieldTextRange.h in Headers */,
 				8701AE1F23714E6000A43607 /* UIImage+BMTint.h in Headers */,
 				87901A282417328F00FF38EC /* BMTZImageCropManager.h in Headers */,
