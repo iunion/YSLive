@@ -2071,32 +2071,32 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    // 本人是否被禁言
-    if ([properties bm_containsObjectForKey:sUserDisablechat])
-    {
-        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
-        {
-            BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
-            
-            NSString * teacherId = [YSLiveManager shareInstance].teacher.peerID;
-            
-            if ([fromId isEqualToString:teacherId])
-            {
-                self.rightChatView.allDisabledChat.hidden = !disablechat;
-                self.rightChatView.textBtn.hidden = disablechat;
-                if (disablechat)
-                {
-                    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChat");
-                    [self hiddenTheKeyBoard];
-                    [[YSLiveManager shareInstance] sendTipMessage:YSLocalized(@"Prompt.BanChat") tipType:YSChatMessageTypeTips];
-                }
-                else
-                {
-                    [[YSLiveManager shareInstance] sendTipMessage:YSLocalized(@"Prompt.CancelBanChat") tipType:YSChatMessageTypeTips];
-                }
-            }
-        }
-    }
+//    // 本人是否被禁言
+//    if ([properties bm_containsObjectForKey:sUserDisablechat])
+//    {
+//        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+//        {
+//            BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
+//
+//            NSString * teacherId = [YSLiveManager shareInstance].teacher.peerID;
+//
+//            if ([fromId isEqualToString:teacherId])
+//            {
+//                self.rightChatView.allDisabledChat.hidden = !disablechat;
+//                self.rightChatView.textBtn.hidden = disablechat;
+//                if (disablechat)
+//                {
+//                    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChat");
+//                    [self hiddenTheKeyBoard];
+//                    [[YSLiveManager shareInstance] sendTipMessage:YSLocalized(@"Prompt.BanChat") tipType:YSChatMessageTypeTips];
+//                }
+//                else
+//                {
+//                    [[YSLiveManager shareInstance] sendTipMessage:YSLocalized(@"Prompt.CancelBanChat") tipType:YSChatMessageTypeTips];
+//                }
+//            }
+//        }
+//    }
     
     // 发布媒体状态
     if ([properties bm_containsObjectForKey:sUserPublishstate])
@@ -4488,14 +4488,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
 }
 
-///全体禁言
-- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
-{
-    self.rightChatView.allDisabledChat.hidden = !isDisable;
-    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-    self.rightChatView.textBtn.hidden = isDisable;
-    [self hiddenTheKeyBoard];
-}
+/////全体禁言
+//- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
+//{
+////    self.rightChatView.allDisabledChat.hidden = !isDisable;
+////    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
+////    self.rightChatView.textBtn.hidden = isDisable;
+//    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+//    [self hiddenTheKeyBoard];
+//}
 
 
 #pragma mark -
@@ -4891,7 +4892,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-//禁言
+////对花名册中的成员禁言
 - (void)speakProxyWithRoomUser:(YSRoomUser *)roomUser
 {
 //    if ([roomUser.properties bm_containsObjectForKey:sUserDisablechat])

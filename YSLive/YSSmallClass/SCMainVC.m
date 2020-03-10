@@ -3252,9 +3252,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-    self.rightChatView.allDisabledChat.hidden = !isDisable;
-    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-    self.rightChatView.textBtn.hidden = isDisable;
+//    self.rightChatView.allDisabledChat.hidden = !isDisable;
+//    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
+//    self.rightChatView.textBtn.hidden = isDisable;
+    
+//    BOOL disablechat = [roomUser.properties bm_boolForKey:sUserDisablechat];
+    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+    
     [self hiddenTheKeyBoard];
 }
 
@@ -3355,16 +3359,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
                         
-            YSRoomUser *fromUser = [[YSRoomUser alloc]initWithPeerId:fromId];
             
+            
+            self.rightChatView.allDisabledChat.hidden = !disablechat;
+            self.rightChatView.textBtn.hidden = disablechat;
+            if (disablechat)
+            {
+                self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChat");
+                [self hiddenTheKeyBoard];
+            }
+            
+            YSRoomUser *fromUser = [self.liveManager.roomManager getRoomUserWithUId:fromId];
             if (fromUser.role == YSUserType_Teacher || fromUser.role == YSUserType_Assistant)
             {
-                self.rightChatView.allDisabledChat.hidden = !disablechat;
-                self.rightChatView.textBtn.hidden = disablechat;
                 if (disablechat)
                 {
-                    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChat");
-                    [self hiddenTheKeyBoard];
                     [[YSLiveManager shareInstance] sendTipMessage:YSLocalized(@"Prompt.BanChat") tipType:YSChatMessageTypeTips];
                 }
                 else
