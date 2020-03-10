@@ -242,6 +242,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 老师主播的网络状态变化
 - (void)roomManagerTeacherChangeNetStats:(id)stats;
 
+#pragma mark 用户网络差，被服务器切换媒体线路
+- (void)roomManagerChangeMediaLine;
+
 
 #pragma mark get Message
 /// 收到信息
