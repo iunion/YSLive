@@ -9,6 +9,7 @@
 "SDK.VCError" = "請創建一個UIViewController";
 
 "HUD.EnteringClass" = "正在進入房間";
+"HUD.NetworkPoor" = "您的網絡較差\n正在嘗試尋找更好的線路";
 
 "Error.NoMeeting" = "會議不存在";
 "Error.NoLiving" = "直播不存在";
@@ -72,7 +73,10 @@
 "KickOut.ChairmanKick" = "您已被主席請出會議...";
 "KickOut.Repeat" = "有相同身份的用戶進入，您已經離開房間";
 "KickOut.SentOutClassroom" = "您已被老師請出房間！";
+
 "State.teacherInBackGround" = "⚠️學生把APP切到後臺了";
+"State.PoorNetWork.self" = "網絡差，建議切換Wifi/4G或重啓路由器";
+"State.PoorNetWork.other" = "用戶網絡差";
 
 //role
 "Role.Me" = "我";
@@ -184,7 +188,7 @@
 "Title.UserList"            = "花名册";
 "Title.UserList.two"        = "花名册 (1)";
 "Title.AreaList"            = "優選網路";
-
+"Title.StudentNum"            = "學生人數";
 "Button.remindKnow"         = "我知道了";
 "Prompt.timeoutEnd"         = "房間即將關閉";
 
@@ -270,7 +274,7 @@
 "Label.roomPlaceholder" = "請輸入您的房間號";
 "Label.nicknamePlaceholder" = "請輸入您的昵稱";
 "Label.messageBoard" = "留言板";
-
+"Label.searchPlaceholder" = "請輸入蒐索內容";
 "Menu.Copy" = "復制";
 
 "Label.addFile" = "添加課件";
