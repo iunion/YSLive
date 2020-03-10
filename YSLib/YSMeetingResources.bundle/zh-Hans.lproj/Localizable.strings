@@ -9,6 +9,7 @@
 "SDK.VCError" = "请创建一个UIViewController";
 
 "HUD.EnteringClass" = "正在进入房间";
+"HUD.NetworkPoor" = "您的网络较差\n正在尝试寻找更好的线路";
 
 "Error.NoMeeting" = "房间号不存在";
 "Error.NoLiving" = "直播不存在";
@@ -72,8 +73,10 @@
 "KickOut.ChairmanKick" = "您已被主席请出会议...";
 "KickOut.Repeat" = "有相同身份的用户进入，您已经离开房间";
 "KickOut.SentOutClassroom" = "您已被老师请出房间！";
-"State.teacherInBackGround" = "⚠️学生把APP切到后台了";
 
+"State.teacherInBackGround" = "⚠️学生把APP切到后台了";
+"State.PoorNetWork.self" = "网络差，建议切换Wifi/4G或重启路由器";
+"State.PoorNetWork.other" = "用户网络差";
 
 //role
 "Role.Me" = "我";
@@ -133,6 +136,9 @@
 "Button.Recovery"           = "恢复";
 "Button.CancelSplitScreen"  = "取消分屏";
 "Button.SwitchVideo"        = "切换视频";
+"Button.SetFocus"        = "设为焦点";
+"Button.CancelFocus"       = "取消焦点";
+
 "Button.nameSort" = " 名称";
 "Button.typeSort" = " 类型";
 "Button.timeSort" = " 时间";
@@ -183,7 +189,7 @@
 "Title.UserList"            = "花名册";
 "Title.UserList.two"        = "花名册 (1)";
 "Title.AreaList"            = "优选网络";
-
+"Title.StudentNum"            = "学生人数";
 "Button.remindKnow"         = "我知道了";
 "Prompt.timeoutEnd"         = "房间即将关闭";
 
@@ -207,7 +213,6 @@
 "Prompt.ClassEndAppointment30"           = "已超预约时间30分钟，系统结束本次互动";
 "Prompt.ClassEndTeacherLeave10"          = "主持人已离开房间10分钟，系统结束本次互动";
 "Prompt.ClassEndAnchorLeave10"          = "主播已离开房间10分钟，系统结束本次互动";
-
 
 "Prompt.NeedCamera.title"   = "无法使用相机";
 "Prompt.NeedCamera"         = "请在iPhone的\"设置-隐私-相机\"选项中，允许APP访问你的相机。";
@@ -270,7 +275,7 @@
 "Label.roomPlaceholder" = "请输入您的房间号";
 "Label.nicknamePlaceholder" = "请输入您的昵称";
 "Label.messageBoard" = "留言板";
-
+"Label.searchPlaceholder" = "请输入搜索内容";
 "Menu.Copy" = "复制";
 
 "Label.addFile" = "添加课件";
