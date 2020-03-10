@@ -172,6 +172,9 @@ static  NSString *const sUserGiftinfo               = @"giftinfo";
 /// 是否禁言 YES NO
 static  NSString *const sUserDisablechat            = @"disablechat";
 
+/// 网络状态 0:好 1：差
+static  NSString *const sUserNetWorkState            = @"medialinebad";
+
 
 static  NSString *const sVolume                     = @"volume";
 static  NSString *const sFromId                     = @"fromId";

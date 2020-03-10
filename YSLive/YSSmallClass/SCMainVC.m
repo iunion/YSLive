@@ -3266,6 +3266,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
     
+    // 网络状态
+    if ([properties bm_containsObjectForKey:sUserNetWorkState])
+    {
+        videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+    }
+    
     // 奖杯数
     if ([properties bm_containsObjectForKey:sUserGiftNumber])
     {

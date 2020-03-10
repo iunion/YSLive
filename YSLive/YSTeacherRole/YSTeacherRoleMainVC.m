@@ -1968,6 +1968,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
 
+    // 网络状态
+       if ([properties bm_containsObjectForKey:sUserNetWorkState])
+       {
+           videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+       }
+
     // 举手上台
        if ([properties bm_containsObjectForKey:sUserRaisehand])
        {
@@ -3332,20 +3338,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self backAction:nil];
 }
-
-
-#pragma mark - 双击视频切换焦点布局模式
-//- (void)doubleClickToChangeLayoutWithVideoView:(SCVideoView *)videoView
-//{
-//    
-//    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-//    {
-//        self.roomLayout = YSLiveRoomLayout_FocusLayout;
-//        
-////        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
-//        [self freshContentView];
-//    }
-//}
 
 #pragma mark 切换布局模式
 - (void)changeLayoutWithMode:(BOOL)mode

@@ -23,8 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 ///拖拽手势事件
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(UIPanGestureRecognizer *)pan;
 
-///双击手势事件 ->焦点视图
-- (void)doubleClickToChangeLayoutWithVideoView:(SCVideoView*)videoView;
 
 @end
 
@@ -73,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;
+
+///用户是否网络不好
+@property (nonatomic, assign) BOOL isPoorNetWork;
 
 // 保存发布状态，用于比较是否有变更
 @property (nonatomic, assign) YSPublishState publishState;
