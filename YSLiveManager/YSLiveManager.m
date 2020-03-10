@@ -1613,6 +1613,11 @@ static YSLiveManager *liveManagerSingleton = nil;
                     [self.roomManagerDelegate roomManagerChangeToBigRoom];
                 }
             }
+            
+            if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerBigRoomFreshUserCount)])
+            {
+                [self.roomManagerDelegate roomManagerBigRoomFreshUserCount];
+            }
         }
         
         return;

@@ -234,7 +234,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode;
 
 #pragma mark 房间状态变为大房间
+/// 由小房间变为大房间(只调用一次)
 - (void)roomManagerChangeToBigRoom;
+/// 大房间刷新用户数量
+- (void)roomManagerBigRoomFreshUserCount;
 
 #pragma mark 用户网络差，被服务器切换媒体线路
 - (void)roomManagerChangeMediaLine;
