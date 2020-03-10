@@ -34,5 +34,7 @@
 
 #import "BMAFNetworking.h"
 
+#import "BMTZImagePickerController.h"
+#import "BMTZPhotoPreviewController.h"
 
 #endif /* BMKitThird_h */
