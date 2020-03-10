@@ -110,10 +110,8 @@
 		87133588237270F6006534A4 /* YSPassWordAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008C2363D5D3009297C2 /* YSPassWordAlert.m */; };
 		87133589237270F6006534A4 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23242351A8AC00864FA3 /* sha1.c */; };
 		8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
-		8713358B237270F6006534A4 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */; };
 		8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8713358E237270F6006534A4 /* YSMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DC2372647800D642E8 /* YSMainVC.m */; };
-		87133590237270F6006534A4 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687822350794D00C4C635 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		87133593237270F6006534A4 /* YSVoteTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128A2372647800D642E8 /* YSVoteTopView.m */; };
 		87133594237270F6006534A4 /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
 		87133595237270F6006534A4 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230E2351A8AC00864FA3 /* zip.c */; };
@@ -130,7 +128,6 @@
 		871335A9237270F6006534A4 /* YSChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13142372647900D642E8 /* YSChatMessageModel.m */; };
 		871335AB237270F6006534A4 /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC232C2351A8AC00864FA3 /* aestab.c */; };
 		871335AD237270F6006534A4 /* YSApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB01235178C000C72EAA /* YSApiRequest.m */; };
-		871335AE237270F6006534A4 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688222350794E00C4C635 /* FMDatabasePool.m */; };
 		871335AF237270F6006534A4 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC231E2351A8AC00864FA3 /* hmac.c */; };
 		871335B1237270F6006534A4 /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23222351A8AC00864FA3 /* fileenc.c */; };
 		871335B2237270F6006534A4 /* YSPrizeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */; };
@@ -150,26 +147,20 @@
 		871335CC237270F6006534A4 /* YSAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB0423517A2600C72EAA /* YSAppInfo.m */; };
 		871335CD237270F6006534A4 /* BMConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13E2371720600A43607 /* BMConsole.m */; };
 		871335D3237270F6006534A4 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC231D2351A8AC00864FA3 /* aeskey.c */; };
-		871335D6237270F6006534A4 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */; };
 		871335DB237270F6006534A4 /* YSNewPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13242372647900D642E8 /* YSNewPictureCell.m */; };
 		871335DC237270F6006534A4 /* YSAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128E2372647800D642E8 /* YSAnswerCell.m */; };
-		871335DD237270F6006534A4 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687872350794D00C4C635 /* WebViewJavascriptBridge.m */; };
 		871335DE237270F6006534A4 /* YSBarrageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1423670AB5000859F7 /* YSBarrageCell.m */; };
 		871335DF237270F6006534A4 /* YSCommentPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131D2372647900D642E8 /* YSCommentPopView.m */; };
 		871335E0237270F6006534A4 /* YSLessonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133B2372647900D642E8 /* YSLessonModel.m */; };
-		871335E2237270F6006534A4 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881A2350794E00C4C635 /* FMDatabaseQueue.m */; };
 		871335EF237270F6006534A4 /* YSCoreStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAFE2351774500C72EAA /* YSCoreStatus.m */; };
-		871335F0237270F6006534A4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881D2350794E00C4C635 /* FMDatabaseAdditions.m */; };
 		871335F2237270F6006534A4 /* YSBarrageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1823670AB5000859F7 /* YSBarrageManager.m */; };
 		871335FC237270F6006534A4 /* YSChatMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DF2372647800D642E8 /* YSChatMemberListVC.m */; };
 		871335FD237270F6006534A4 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1502371720600A43607 /* YYFPSLabel.m */; };
 		87133603237270F6006534A4 /* YSBarrageTrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */; };
 		87133604237270F6006534A4 /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23172351A8AC00864FA3 /* minishared.c */; };
-		87133607237270F6006534A4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881E2350794E00C4C635 /* FMDatabase.m */; };
 		87133609237270F6006534A4 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AB2350794D00C4C635 /* MASViewAttribute.m */; };
 		8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
 		8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
-		8713360F237270F6006534A4 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */; };
 		87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8713361D237270F6006534A4 /* BMTestAppInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1522371720600A43607 /* BMTestAppInfoVC.m */; };
 		8713361E237270F6006534A4 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A82350794D00C4C635 /* MASConstraint.m */; };
@@ -185,7 +176,6 @@
 		87133630237270F6006534A4 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A42350794D00C4C635 /* NSArray+MASAdditions.m */; };
 		87133631237270F6006534A4 /* ioapi_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23162351A8AC00864FA3 /* ioapi_mem.c */; };
 		87133632237270F6006534A4 /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23212351A8AC00864FA3 /* aescrypt.c */; };
-		87133636237270F6006534A4 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688232350794E00C4C635 /* FMResultSet.m */; };
 		87133637237270F6006534A4 /* YSVoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12842372647800D642E8 /* YSVoteVC.m */; };
 		87133638237270F6006534A4 /* YSEmotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131E2372647900D642E8 /* YSEmotionView.m */; };
 		87133639237270F6006534A4 /* YSLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133C2372647900D642E8 /* YSLessonView.m */; };
@@ -262,7 +252,6 @@
 		8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
 		8717E1F12400DADC008C4CDA /* YSControlPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BD823B4ACB3004B8366 /* YSControlPopoverView.m */; };
 		8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041523B7362300DAC321 /* FLEXFileBrowserSearchOperation.m */; };
-		8717E1F42400DADC008C4CDA /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */; };
 		8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D045923B7362300DAC321 /* FLEXColor.m */; };
 		8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA6752379963F00EC2A64 /* SCStatisticsTableViewCell.m */; };
@@ -271,7 +260,6 @@
 		8717E1FB2400DADC008C4CDA /* FLEXKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041023B7362300DAC321 /* FLEXKeychainQuery.m */; };
 		8717E1FC2400DADC008C4CDA /* FLEXObjectExplorerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038E23B7362300DAC321 /* FLEXObjectExplorerFactory.m */; };
 		8717E1FD2400DADC008C4CDA /* YSOnlineMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958B23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m */; };
-		8717E1FF2400DADC008C4CDA /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687822350794D00C4C635 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8717E2002400DADC008C4CDA /* YSLiveManager+SendTeacherSignaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B73C0123B4855400BFF7BA /* YSLiveManager+SendTeacherSignaling.m */; };
 		8717E2022400DADC008C4CDA /* FLEXNetworkCurlLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03BB23B7362300DAC321 /* FLEXNetworkCurlLogger.m */; };
 		8717E2042400DADC008C4CDA /* SCAnswerDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA6792379967A00EC2A64 /* SCAnswerDetailTableViewCell.m */; };
@@ -316,7 +304,6 @@
 		8717E2312400DADC008C4CDA /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
 		8717E2322400DADC008C4CDA /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479EF239E276000680D84 /* SCDrawBoardView.m */; };
 		8717E2332400DADC008C4CDA /* UIView+FLEX_Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D045B23B7362300DAC321 /* UIView+FLEX_Layout.m */; };
-		8717E2342400DADC008C4CDA /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688222350794E00C4C635 /* FMDatabasePool.m */; };
 		8717E2352400DADC008C4CDA /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC231E2351A8AC00864FA3 /* hmac.c */; };
 		8717E2362400DADC008C4CDA /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23222351A8AC00864FA3 /* fileenc.c */; };
 		8717E2372400DADC008C4CDA /* YSPrizeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */; };
@@ -358,7 +345,6 @@
 		8717E2652400DADC008C4CDA /* FLEXDefaultsExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039923B7362300DAC321 /* FLEXDefaultsExplorerViewController.m */; };
 		8717E2662400DADC008C4CDA /* YSSetTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B023EAB7A6002002BF /* YSSetTableViewVC.m */; };
 		8717E2672400DADC008C4CDA /* FLEXArgumentInputStructView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03E023B7362300DAC321 /* FLEXArgumentInputStructView.m */; };
-		8717E2682400DADC008C4CDA /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */; };
 		8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040323B7362300DAC321 /* FLEXWebViewController.m */; };
 		8717E26D2400DADC008C4CDA /* SCAnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA685237A841C00EC2A64 /* SCAnswerDetailModel.m */; };
 		8717E26E2400DADC008C4CDA /* FLEXMultiColumnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D043123B7362300DAC321 /* FLEXMultiColumnTableView.m */; };
@@ -369,21 +355,18 @@
 		8717E2732400DADC008C4CDA /* YSAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128E2372647800D642E8 /* YSAnswerCell.m */; };
 		8717E2742400DADC008C4CDA /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */; };
 		8717E2752400DADC008C4CDA /* YSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C6F23EABA04004982E6 /* YSCalendarCell.m */; };
-		8717E2762400DADC008C4CDA /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687872350794D00C4C635 /* WebViewJavascriptBridge.m */; };
 		8717E2772400DADC008C4CDA /* YSBarrageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1423670AB5000859F7 /* YSBarrageCell.m */; };
 		8717E2782400DADC008C4CDA /* YSCommentPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131D2372647900D642E8 /* YSCommentPopView.m */; };
 		8717E2792400DADC008C4CDA /* FLEXObjectRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040223B7362300DAC321 /* FLEXObjectRef.m */; };
 		8717E27A2400DADC008C4CDA /* YSLessonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133B2372647900D642E8 /* YSLessonModel.m */; };
 		8717E27B2400DADC008C4CDA /* YSCalendarCurriculumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C3C23EA6179004982E6 /* YSCalendarCurriculumVC.m */; };
 		8717E27C2400DADC008C4CDA /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE923B4C58E004B8366 /* SCTeacherCoursewareListCell.m */; };
-		8717E27D2400DADC008C4CDA /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881A2350794E00C4C635 /* FMDatabaseQueue.m */; };
 		8717E27F2400DADC008C4CDA /* FLEXToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03C623B7362300DAC321 /* FLEXToolbarItem.m */; };
 		8717E2812400DADC008C4CDA /* YSTeacherResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */; };
 		8717E2822400DADC008C4CDA /* FLEXArgumentInputSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03DF23B7362300DAC321 /* FLEXArgumentInputSwitchView.m */; };
 		8717E2832400DADC008C4CDA /* YSTeacherTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */; };
 		8717E2852400DADC008C4CDA /* YSCoreStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAFE2351774500C72EAA /* YSCoreStatus.m */; };
 		8717E2862400DADC008C4CDA /* FLEXArgumentInputColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03DB23B7362300DAC321 /* FLEXArgumentInputColorView.m */; };
-		8717E2872400DADC008C4CDA /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881D2350794E00C4C635 /* FMDatabaseAdditions.m */; };
 		8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1823670AB5000859F7 /* YSBarrageManager.m */; };
 		8717E28E2400DADC008C4CDA /* FLEXImageExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039423B7362300DAC321 /* FLEXImageExplorerViewController.m */; };
 		8717E2902400DADC008C4CDA /* FLEXCarouselCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038B23B7362300DAC321 /* FLEXCarouselCell.m */; };
@@ -397,12 +380,10 @@
 		8717E2992400DADC008C4CDA /* FLEXScopeCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038723B7362300DAC321 /* FLEXScopeCarousel.m */; };
 		8717E29B2400DADC008C4CDA /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23172351A8AC00864FA3 /* minishared.c */; };
 		8717E29C2400DADC008C4CDA /* FLEXFieldEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D723B7362300DAC321 /* FLEXFieldEditorViewController.m */; };
-		8717E29E2400DADC008C4CDA /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766881E2350794E00C4C635 /* FMDatabase.m */; };
 		8717E29F2400DADC008C4CDA /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AB2350794D00C4C635 /* MASViewAttribute.m */; };
 		8717E2A02400DADC008C4CDA /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
 		8717E2A22400DADC008C4CDA /* FLEXASLLogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D042123B7362300DAC321 /* FLEXASLLogController.m */; };
 		8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
-		8717E2A42400DADC008C4CDA /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */; };
 		8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8717E2A62400DADC008C4CDA /* FLEXArgumentInputNotSupportedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03F323B7362300DAC321 /* FLEXArgumentInputNotSupportedView.m */; };
 		8717E2A72400DADC008C4CDA /* YSWhiteBordHttpDNSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DCB23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m */; };
@@ -461,7 +442,6 @@
 		8717E2E92400DADC008C4CDA /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23212351A8AC00864FA3 /* aescrypt.c */; };
 		8717E2EA2400DADC008C4CDA /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		8717E2ED2400DADC008C4CDA /* SCEyeCareWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8765B14623B4B00B004500DE /* SCEyeCareWindow.m */; };
-		8717E2EE2400DADC008C4CDA /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688232350794E00C4C635 /* FMResultSet.m */; };
 		8717E2EF2400DADC008C4CDA /* FLEXArgumentInputTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03EC23B7362300DAC321 /* FLEXArgumentInputTextView.m */; };
 		8717E2F02400DADC008C4CDA /* YSVoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12842372647800D642E8 /* YSVoteVC.m */; };
 		8717E2F22400DADC008C4CDA /* FLEXClassesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D044023B7362300DAC321 /* FLEXClassesTableViewController.m */; };
@@ -1182,16 +1162,6 @@
 		8766821D23506EF600C4C635 /* YSLiveUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveUITests.m; sourceTree = "<group>"; };
 		8766821F23506EF600C4C635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		876684B9235077F700C4C635 /* YSLive-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YSLive-Prefix.pch"; sourceTree = "<group>"; };
-		876687822350794D00C4C635 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
-		876687832350794D00C4C635 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
-		876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
-		876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		876687872350794D00C4C635 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		876687882350794D00C4C635 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
-		876687892350794D00C4C635 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
-		8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
-		8766878B2350794D00C4C635 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		8766878C2350794D00C4C635 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		8766878E2350794D00C4C635 /* PLArrayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLArrayTableViewController.m; sourceTree = "<group>"; };
 		8766878F2350794D00C4C635 /* PLDictionaryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDictionaryTableViewController.h; sourceTree = "<group>"; };
 		876687902350794D00C4C635 /* PLArrayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLArrayTableViewController.h; sourceTree = "<group>"; };
@@ -1223,17 +1193,6 @@
 		876687AB2350794D00C4C635 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
 		876688162350794E00C4C635 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
 		876688172350794E00C4C635 /* BMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMProgressHUD.h; sourceTree = "<group>"; };
-		876688192350794E00C4C635 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		8766881A2350794E00C4C635 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		8766881B2350794E00C4C635 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		8766881C2350794E00C4C635 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		8766881D2350794E00C4C635 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		8766881E2350794E00C4C635 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		8766881F2350794E00C4C635 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		876688202350794E00C4C635 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		876688212350794E00C4C635 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		876688222350794E00C4C635 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		876688232350794E00C4C635 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		87728F282355CCD800E34916 /* YSLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveManager.h; sourceTree = "<group>"; };
 		87728F292355CCD800E34916 /* YSLiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveManager.m; sourceTree = "<group>"; };
 		87728F2A2355CCD800E34916 /* YSLiveMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveMacros.h; sourceTree = "<group>"; };
@@ -2536,37 +2495,10 @@
 				874E4F6723B36F0300086B01 /* LMJDropdownMenu */,
 				872D038123B7362300DAC321 /* FLEX */,
 				87CC23092351A8AC00864FA3 /* SSZipArchive */,
-				876688182350794E00C4C635 /* fmdb */,
 				876687922350794D00C4C635 /* Masonry */,
-				876687812350794D00C4C635 /* OpenUDID */,
 				8766878D2350794D00C4C635 /* PListNavigatorLibs */,
-				876687842350794D00C4C635 /* WebViewJavascriptBridge */,
 			);
 			path = ThirdPary;
-			sourceTree = "<group>";
-		};
-		876687812350794D00C4C635 /* OpenUDID */ = {
-			isa = PBXGroup;
-			children = (
-				876687822350794D00C4C635 /* OpenUDID.m */,
-				876687832350794D00C4C635 /* OpenUDID.h */,
-			);
-			path = OpenUDID;
-			sourceTree = "<group>";
-		};
-		876687842350794D00C4C635 /* WebViewJavascriptBridge */ = {
-			isa = PBXGroup;
-			children = (
-				876687852350794D00C4C635 /* WebViewJavascriptBridgeBase.m */,
-				876687862350794D00C4C635 /* WKWebViewJavascriptBridge.m */,
-				876687872350794D00C4C635 /* WebViewJavascriptBridge.m */,
-				876687882350794D00C4C635 /* WebViewJavascriptBridge_JS.h */,
-				876687892350794D00C4C635 /* WebViewJavascriptBridgeBase.h */,
-				8766878A2350794D00C4C635 /* WebViewJavascriptBridge_JS.m */,
-				8766878B2350794D00C4C635 /* WebViewJavascriptBridge.h */,
-				8766878C2350794D00C4C635 /* WKWebViewJavascriptBridge.h */,
-			);
-			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
 		8766878D2350794D00C4C635 /* PListNavigatorLibs */ = {
@@ -2619,24 +2551,6 @@
 				876688162350794E00C4C635 /* BMProgressHUD.m */,
 			);
 			path = MBProgressHUD;
-			sourceTree = "<group>";
-		};
-		876688182350794E00C4C635 /* fmdb */ = {
-			isa = PBXGroup;
-			children = (
-				876688192350794E00C4C635 /* FMDatabase.h */,
-				8766881A2350794E00C4C635 /* FMDatabaseQueue.m */,
-				8766881B2350794E00C4C635 /* FMResultSet.h */,
-				8766881C2350794E00C4C635 /* FMDatabasePool.h */,
-				8766881D2350794E00C4C635 /* FMDatabaseAdditions.m */,
-				8766881E2350794E00C4C635 /* FMDatabase.m */,
-				8766881F2350794E00C4C635 /* FMDatabaseQueue.h */,
-				876688202350794E00C4C635 /* FMDB.h */,
-				876688212350794E00C4C635 /* FMDatabaseAdditions.h */,
-				876688222350794E00C4C635 /* FMDatabasePool.m */,
-				876688232350794E00C4C635 /* FMResultSet.m */,
-			);
-			path = fmdb;
 			sourceTree = "<group>";
 		};
 		87728F272355CCD800E34916 /* YSLiveManager */ = {
@@ -3435,7 +3349,6 @@
 				8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */,
 				26355BD923B4ACB3004B8366 /* YSControlPopoverView.m in Sources */,
 				872D04A323B7362300DAC321 /* FLEXFileBrowserSearchOperation.m in Sources */,
-				8713358B237270F6006534A4 /* WebViewJavascriptBridge_JS.m in Sources */,
 				8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				872D04C423B7362300DAC321 /* FLEXColor.m in Sources */,
 				26EFA6762379963F00EC2A64 /* SCStatisticsTableViewCell.m in Sources */,
@@ -3444,7 +3357,6 @@
 				872D04A123B7362300DAC321 /* FLEXKeychainQuery.m in Sources */,
 				872D046723B7362300DAC321 /* FLEXObjectExplorerFactory.m in Sources */,
 				CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */,
-				87133590237270F6006534A4 /* OpenUDID.m in Sources */,
 				04B73C0223B4855400BFF7BA /* YSLiveManager+SendTeacherSignaling.m in Sources */,
 				872D047C23B7362300DAC321 /* FLEXNetworkCurlLogger.m in Sources */,
 				26EFA67A2379967A00EC2A64 /* SCAnswerDetailTableViewCell.m in Sources */,
@@ -3494,7 +3406,6 @@
 				3471E29224039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,
 				872D04C523B7362300DAC321 /* UIView+FLEX_Layout.m in Sources */,
 				3450B140240677A6006141E5 /* YSMonthListCell.m in Sources */,
-				871335AE237270F6006534A4 /* FMDatabasePool.m in Sources */,
 				871335AF237270F6006534A4 /* hmac.c in Sources */,
 				871335B1237270F6006534A4 /* fileenc.c in Sources */,
 				871335B2237270F6006534A4 /* YSPrizeAlertView.m in Sources */,
@@ -3537,7 +3448,6 @@
 				872D046D23B7362300DAC321 /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,
 				872D048E23B7362300DAC321 /* FLEXArgumentInputStructView.m in Sources */,
-				871335D6237270F6006534A4 /* WebViewJavascriptBridgeBase.m in Sources */,
 				872D049D23B7362300DAC321 /* FLEXWebViewController.m in Sources */,
 				26EFA686237A841C00EC2A64 /* SCAnswerDetailModel.m in Sources */,
 				872D04B123B7362300DAC321 /* FLEXMultiColumnTableView.m in Sources */,
@@ -3548,21 +3458,18 @@
 				871335DC237270F6006534A4 /* YSAnswerCell.m in Sources */,
 				87AED05123B5F74500D38129 /* YSTeacherRoleMainVC.m in Sources */,
 				34043C7023EABA04004982E6 /* YSCalendarCell.m in Sources */,
-				871335DD237270F6006534A4 /* WebViewJavascriptBridge.m in Sources */,
 				871335DE237270F6006534A4 /* YSBarrageCell.m in Sources */,
 				871335DF237270F6006534A4 /* YSCommentPopView.m in Sources */,
 				872D049C23B7362300DAC321 /* FLEXObjectRef.m in Sources */,
 				871335E0237270F6006534A4 /* YSLessonModel.m in Sources */,
 				34043C3D23EA6179004982E6 /* YSCalendarCurriculumVC.m in Sources */,
 				26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */,
-				871335E2237270F6006534A4 /* FMDatabaseQueue.m in Sources */,
 				872D048123B7362300DAC321 /* FLEXToolbarItem.m in Sources */,
 				CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */,
 				872D048D23B7362300DAC321 /* FLEXArgumentInputSwitchView.m in Sources */,
 				CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */,
 				871335EF237270F6006534A4 /* YSCoreStatus.m in Sources */,
 				872D048B23B7362300DAC321 /* FLEXArgumentInputColorView.m in Sources */,
-				871335F0237270F6006534A4 /* FMDatabaseAdditions.m in Sources */,
 				871335F2237270F6006534A4 /* YSBarrageManager.m in Sources */,
 				872D046923B7362300DAC321 /* FLEXImageExplorerViewController.m in Sources */,
 				872D046623B7362300DAC321 /* FLEXCarouselCell.m in Sources */,
@@ -3576,12 +3483,10 @@
 				872D046423B7362300DAC321 /* FLEXScopeCarousel.m in Sources */,
 				87133604237270F6006534A4 /* minishared.c in Sources */,
 				872D048923B7362300DAC321 /* FLEXFieldEditorViewController.m in Sources */,
-				87133607237270F6006534A4 /* FMDatabase.m in Sources */,
 				87133609237270F6006534A4 /* MASViewAttribute.m in Sources */,
 				8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */,
 				872D04A723B7362300DAC321 /* FLEXASLLogController.m in Sources */,
 				8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */,
-				8713360F237270F6006534A4 /* WKWebViewJavascriptBridge.m in Sources */,
 				87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */,
 				872D049623B7362300DAC321 /* FLEXArgumentInputNotSupportedView.m in Sources */,
 				87981DCF23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m in Sources */,
@@ -3647,7 +3552,6 @@
 				CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */,
 				3471E29824039A0100A3BBB4 /* FSCalendar.m in Sources */,
 				8765B14723B4B00B004500DE /* SCEyeCareWindow.m in Sources */,
-				87133636237270F6006534A4 /* FMResultSet.m in Sources */,
 				872D049223B7362300DAC321 /* FLEXArgumentInputTextView.m in Sources */,
 				87133637237270F6006534A4 /* YSVoteVC.m in Sources */,
 				872D04B823B7362300DAC321 /* FLEXClassesTableViewController.m in Sources */,
@@ -3758,7 +3662,6 @@
 				8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */,
 				8717E1F12400DADC008C4CDA /* YSControlPopoverView.m in Sources */,
 				8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */,
-				8717E1F42400DADC008C4CDA /* WebViewJavascriptBridge_JS.m in Sources */,
 				8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */,
 				8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */,
@@ -3767,7 +3670,6 @@
 				8717E1FB2400DADC008C4CDA /* FLEXKeychainQuery.m in Sources */,
 				8717E1FC2400DADC008C4CDA /* FLEXObjectExplorerFactory.m in Sources */,
 				8717E1FD2400DADC008C4CDA /* YSOnlineMineTableViewCell.m in Sources */,
-				8717E1FF2400DADC008C4CDA /* OpenUDID.m in Sources */,
 				8717E2002400DADC008C4CDA /* YSLiveManager+SendTeacherSignaling.m in Sources */,
 				8717E2022400DADC008C4CDA /* FLEXNetworkCurlLogger.m in Sources */,
 				8717E2042400DADC008C4CDA /* SCAnswerDetailTableViewCell.m in Sources */,
@@ -3817,7 +3719,6 @@
 				3471E29324039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,
 				8717E2332400DADC008C4CDA /* UIView+FLEX_Layout.m in Sources */,
 				3450B141240677A6006141E5 /* YSMonthListCell.m in Sources */,
-				8717E2342400DADC008C4CDA /* FMDatabasePool.m in Sources */,
 				8717E2352400DADC008C4CDA /* hmac.c in Sources */,
 				8717E2362400DADC008C4CDA /* fileenc.c in Sources */,
 				8717E2372400DADC008C4CDA /* YSPrizeAlertView.m in Sources */,
@@ -3860,7 +3761,6 @@
 				8717E2652400DADC008C4CDA /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8717E2662400DADC008C4CDA /* YSSetTableViewVC.m in Sources */,
 				8717E2672400DADC008C4CDA /* FLEXArgumentInputStructView.m in Sources */,
-				8717E2682400DADC008C4CDA /* WebViewJavascriptBridgeBase.m in Sources */,
 				8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */,
 				8717E26D2400DADC008C4CDA /* SCAnswerDetailModel.m in Sources */,
 				8717E26E2400DADC008C4CDA /* FLEXMultiColumnTableView.m in Sources */,
@@ -3871,21 +3771,18 @@
 				8717E2732400DADC008C4CDA /* YSAnswerCell.m in Sources */,
 				8717E2742400DADC008C4CDA /* YSTeacherRoleMainVC.m in Sources */,
 				8717E2752400DADC008C4CDA /* YSCalendarCell.m in Sources */,
-				8717E2762400DADC008C4CDA /* WebViewJavascriptBridge.m in Sources */,
 				8717E2772400DADC008C4CDA /* YSBarrageCell.m in Sources */,
 				8717E2782400DADC008C4CDA /* YSCommentPopView.m in Sources */,
 				8717E2792400DADC008C4CDA /* FLEXObjectRef.m in Sources */,
 				8717E27A2400DADC008C4CDA /* YSLessonModel.m in Sources */,
 				8717E27B2400DADC008C4CDA /* YSCalendarCurriculumVC.m in Sources */,
 				8717E27C2400DADC008C4CDA /* SCTeacherCoursewareListCell.m in Sources */,
-				8717E27D2400DADC008C4CDA /* FMDatabaseQueue.m in Sources */,
 				8717E27F2400DADC008C4CDA /* FLEXToolbarItem.m in Sources */,
 				8717E2812400DADC008C4CDA /* YSTeacherResponder.m in Sources */,
 				8717E2822400DADC008C4CDA /* FLEXArgumentInputSwitchView.m in Sources */,
 				8717E2832400DADC008C4CDA /* YSTeacherTimerView.m in Sources */,
 				8717E2852400DADC008C4CDA /* YSCoreStatus.m in Sources */,
 				8717E2862400DADC008C4CDA /* FLEXArgumentInputColorView.m in Sources */,
-				8717E2872400DADC008C4CDA /* FMDatabaseAdditions.m in Sources */,
 				8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */,
 				8717E28E2400DADC008C4CDA /* FLEXImageExplorerViewController.m in Sources */,
 				8717E2902400DADC008C4CDA /* FLEXCarouselCell.m in Sources */,
@@ -3899,12 +3796,10 @@
 				8717E2992400DADC008C4CDA /* FLEXScopeCarousel.m in Sources */,
 				8717E29B2400DADC008C4CDA /* minishared.c in Sources */,
 				8717E29C2400DADC008C4CDA /* FLEXFieldEditorViewController.m in Sources */,
-				8717E29E2400DADC008C4CDA /* FMDatabase.m in Sources */,
 				8717E29F2400DADC008C4CDA /* MASViewAttribute.m in Sources */,
 				8717E2A02400DADC008C4CDA /* BMTestColorPickerManager.m in Sources */,
 				8717E2A22400DADC008C4CDA /* FLEXASLLogController.m in Sources */,
 				8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */,
-				8717E2A42400DADC008C4CDA /* WKWebViewJavascriptBridge.m in Sources */,
 				8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */,
 				8717E2A62400DADC008C4CDA /* FLEXArgumentInputNotSupportedView.m in Sources */,
 				8717E2A72400DADC008C4CDA /* YSWhiteBordHttpDNSUtil.m in Sources */,
@@ -3970,7 +3865,6 @@
 				8717E2EA2400DADC008C4CDA /* YSPassWordChangeView.m in Sources */,
 				3471E29924039A0100A3BBB4 /* FSCalendar.m in Sources */,
 				8717E2ED2400DADC008C4CDA /* SCEyeCareWindow.m in Sources */,
-				8717E2EE2400DADC008C4CDA /* FMResultSet.m in Sources */,
 				8717E2EF2400DADC008C4CDA /* FLEXArgumentInputTextView.m in Sources */,
 				8717E2F02400DADC008C4CDA /* YSVoteVC.m in Sources */,
 				8717E2F22400DADC008C4CDA /* FLEXClassesTableViewController.m in Sources */,
