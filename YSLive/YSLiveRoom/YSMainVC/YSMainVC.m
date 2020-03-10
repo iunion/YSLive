@@ -1159,6 +1159,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+    
+    // 网络状态
+    if ([properties bm_containsObjectForKey:sUserNetWorkState])
+    {
+        videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+    }
+    
     // 上麦
     if ([properties bm_containsObjectForKey:sUserPublishstate] && roomUser.role == YSUserType_Student)
     {
