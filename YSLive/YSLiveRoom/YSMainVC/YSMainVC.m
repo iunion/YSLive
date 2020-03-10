@@ -1207,6 +1207,19 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         videoView.disableVideo = !hasVidoe;
     }
     
+    // 本人是否被禁言
+    if ([properties bm_containsObjectForKey:sUserDisablechat])
+    {
+        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        {
+            BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
+            self.chaView.chatToolView.everyoneBanChat = disablechat;
+            if (disablechat)
+            {
+                [self.chaView toHiddenKeyBoard];
+            }
+        }
+    }
 }
 
 #pragma mark 音量变化
@@ -1806,8 +1819,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-   self.chaView.chatToolView.everyoneBanChat = isDisable;
-    [self.chaView toHiddenKeyBoard];
+//   self.chaView.chatToolView.everyoneBanChat = isDisable;
+    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+//    [self.chaView toHiddenKeyBoard];
 }
 #pragma mark 接收消息 弹幕
 

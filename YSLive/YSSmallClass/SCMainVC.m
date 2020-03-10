@@ -3358,9 +3358,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
-                        
-            
-            
+                                    
             self.rightChatView.allDisabledChat.hidden = !disablechat;
             self.rightChatView.textBtn.hidden = disablechat;
             if (disablechat)
