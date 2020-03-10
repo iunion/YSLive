@@ -37,4 +37,6 @@
 #import "BMTZImagePickerController.h"
 #import "BMTZPhotoPreviewController.h"
 
+#import "BMMasonry.h"
+
 #endif /* BMKitThird_h */

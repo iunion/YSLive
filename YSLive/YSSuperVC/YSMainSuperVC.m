@@ -9,6 +9,8 @@
 #import "YSMainSuperVC.h"
 //#import <AVFoundation/AVFoundation.h>
 
+#define YSChangeMediaLine_Delay     5.0f
+
 @interface YSMainSuperVC ()
 <
     YSLiveRoomManagerDelegate
@@ -121,6 +123,15 @@
 {
     
 }
+
+
+#pragma mark 用户网络差，被服务器切换媒体线路
+
+- (void)roomManagerChangeMediaLine
+{
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:nil detailText:YSLocalized(@"HUD.NetworkPoor") images:@[@"hud_network_poor0", @"hud_network_poor1", @"hud_network_poor2", @"hud_network_poor3"] duration:0.8f delay:YSChangeMediaLine_Delay];
+}
+
 
 /*
 - (void)addBaseNotification
