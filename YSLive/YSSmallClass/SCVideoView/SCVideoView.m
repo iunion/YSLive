@@ -25,10 +25,8 @@
 @property (nonatomic, strong) UIImageView *cupImage;
 ///奖杯个数
 @property (nonatomic, strong) UILabel *cupNumLab;
-
 //奖杯个数富文本
 @property (nonatomic, strong) NSMutableAttributedString *cupNumStr;
-
 ///画笔权限
 @property (nonatomic, strong) UIImageView *brushImageView;
 ///用户名
@@ -206,8 +204,6 @@
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
     self.maskNoVideobgLab.hidden = isBeginClass;
-
-    
     
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
@@ -323,6 +319,9 @@
     else
     {
         self.maskNoVideobgLab.hidden = YES;
+        
+       
+        
         YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
         if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
         {
@@ -480,24 +479,23 @@
 - (void)setIsPoorNetWork:(BOOL)isPoorNetWork
 {
     _isPoorNetWork = isPoorNetWork;
-//    [self showOrHiddenTheMaskNoVideoView];
     
     self.homeMaskLab.hidden = !isPoorNetWork;
     
-     if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-       {//本地
-           if (isPoorNetWork)
-           {
-               self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
-               [self.backVideoView bringSubviewToFront:self.homeMaskLab];
-           }
+    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    {//本地
+        if (isPoorNetWork)
+        {
+            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
+            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+        }
     }
     else
     {
-        if (self.disableVideo)
+        if (!self.iHasVadeo)
         {
-            self.maskCloseVideoBgView.hidden = NO;
-            [self.backVideoView bringSubviewToFront:self.maskCloseVideoBgView];
+            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
         }
         else if (isPoorNetWork)
         {
@@ -507,66 +505,18 @@
     }
 }
 
-
 ///该用户有开摄像头
 - (void)setIHasVadeo:(BOOL)iHasVadeo
 {
     _iHasVadeo = iHasVadeo;
-//    [self showOrHiddenTheMaskNoVideoView];
     self.maskNoVideo.hidden = iHasVadeo;
+    
     if (!iHasVadeo)
     {
         self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-        [self.backVideoView bringSubviewToFront:self.maskNoVideoTitle];
+        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
     }
 }
-
-#pragma mark - 几种蒙版的显示和隐藏以及优先级
-//- (void)showOrHiddenTheMaskNoVideoView
-//{
-//    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-//    {//本地
-////        if (self.isPoorNetWork)
-////        {//网络差
-////            self.maskNoVideo.hidden = NO;
-////            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.self");
-////
-////        }
-////        else
-//            if (!self.iHasVadeo)
-//        {//没摄像头
-//            self.maskNoVideo.hidden = NO;
-//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-//        }
-//        else
-//        {
-//            self.maskNoVideo.hidden = YES;
-//        }
-//    }
-//    else
-//    {//远端
-//        if (!self.iHasVadeo)
-//        {//没摄像头
-//            self.maskNoVideo.hidden = NO;
-//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-//        }
-//        else if (self.isPoorNetWork)
-//        {//网络差
-//            self.maskNoVideo.hidden = NO;
-//            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.other");
-//        }
-//        else if (!self.isHighDevice && self.roomUser.role != YSUserType_Teacher)
-//        {//设备版本低
-//            self.maskNoVideo.hidden = NO;
-//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
-//        }
-//        else
-//        {
-//            self.maskNoVideo.hidden = YES;
-//        }
-//    }
-//}
-
 
 ///该用户有开麦克风
 - (void)setIHasAudio:(BOOL)iHasAudio
@@ -628,9 +578,13 @@
     
     self.maskCloseVideoBgView.hidden = !disableVideo;
     
-    if (![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-    {//远端
+    if (self.iHasVadeo)
+    {
         [self.backVideoView bringSubviewToFront:self.maskCloseVideoBgView];
+    }
+    else
+    {
+        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
     }
 }
 

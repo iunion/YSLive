@@ -1650,7 +1650,6 @@ static YSLiveManager *liveManagerSingleton = nil;
                 }
             }
         }
-        
         return;
     }
     

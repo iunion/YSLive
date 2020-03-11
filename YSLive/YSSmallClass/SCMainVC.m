@@ -3278,7 +3278,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark 用户属性变化
-
 - (void)onRoomUserPropertyChanged:(NSString *)peerID properties:(NSDictionary *)properties fromId:(NSString *)fromId
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
