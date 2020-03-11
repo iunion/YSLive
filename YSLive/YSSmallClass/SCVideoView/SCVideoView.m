@@ -283,7 +283,6 @@
     self.raiseHandImage.hidden = YES;
     [self.backVideoView addSubview:self.raiseHandImage];
     
-    
     //用户名
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
@@ -362,7 +361,6 @@
     else
     {
         self.nickNameLab.font = self.cupNumLab.font = self.notDragFont;
-        
     }
 }
 
@@ -590,9 +588,12 @@
 - (void)setDisableVideo:(BOOL)disableVideo
 {
     _disableVideo = disableVideo;
+    
     self.maskCloseVideoBgView.hidden = !disableVideo;
-    if (disableVideo)
-    {
+    
+    if (![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    {//远端
+        [self bringSubviewToFront:self.maskCloseVideoBgView];
     }
 }
 

@@ -3330,7 +3330,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     self.drawBoardView.hidden = YES;
                 }else{
-                    //self.drawBoardView.brushToolType = YSBrushToolTypeMouse;
                     self.drawBoardView.hidden = NO;
                 }
             }
@@ -3342,7 +3341,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     [self setCurrentUserPrimaryColor];
                 }
-                
                 [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
                 [self.liveManager.whiteBoardManager freshBrushToolConfig];
             }
