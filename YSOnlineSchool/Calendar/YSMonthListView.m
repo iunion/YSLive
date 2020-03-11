@@ -69,7 +69,7 @@
 
     cell.titleLab.text = dateStr;
     
-    if ([self.selectMonth isEqualToString:dateStr])
+    if (dateStr && [self.selectMonth isEqualToString:dateStr])
     {
         cell.selected = YES;
         cell.titleLab.textColor = [UIColor bm_colorWithHex:0x82ABEC];
