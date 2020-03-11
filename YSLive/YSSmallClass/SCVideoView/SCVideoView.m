@@ -226,6 +226,7 @@
     self.homeMaskLab = [[UILabel alloc]init];
     self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
     self.homeMaskLab.font = UI_FONT_12;
+    self.homeMaskLab.textColor = UIColor.whiteColor;
     [self.backVideoView addSubview:self.homeMaskLab];
     self.homeMaskLab.hidden = YES;
     [self.homeMaskLab setAdjustsFontSizeToFitWidth:YES];
@@ -312,8 +313,7 @@
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
     
-    //网络状态
-    self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
+    
     
     if (self.isForPerch)
     {
@@ -348,6 +348,9 @@
         
         self.iHasVadeo = self.roomUser.hasVideo;
         self.iHasAudio = self.roomUser.hasAudio;
+        
+        //网络状态
+        self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
         
         NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sUserPrimaryColor];
         if ([brushColor bm_isNotEmpty])
@@ -473,64 +476,96 @@
     }
 }
 
+// 用户是否网络不好
 - (void)setIsPoorNetWork:(BOOL)isPoorNetWork
 {
     _isPoorNetWork = isPoorNetWork;
-    [self showOrHiddenTheMaskNoVideoView];
+//    [self showOrHiddenTheMaskNoVideoView];
+    
+    self.homeMaskLab.hidden = !isPoorNetWork;
+    
+     if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+       {//本地
+           if (isPoorNetWork)
+           {
+               self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
+               [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+           }
+    }
+    else
+    {
+        if (self.disableVideo)
+        {
+            self.maskCloseVideoBgView.hidden = NO;
+            [self.backVideoView bringSubviewToFront:self.maskCloseVideoBgView];
+        }
+        else if (isPoorNetWork)
+        {
+            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
+            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+        }
+    }
 }
 
 
-///该用户有开摄像
+///该用户有开摄像头
 - (void)setIHasVadeo:(BOOL)iHasVadeo
 {
     _iHasVadeo = iHasVadeo;
-    [self showOrHiddenTheMaskNoVideoView];
+//    [self showOrHiddenTheMaskNoVideoView];
+    self.maskNoVideo.hidden = iHasVadeo;
+    if (!iHasVadeo)
+    {
+        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+        [self.backVideoView bringSubviewToFront:self.maskNoVideoTitle];
+    }
 }
 
 #pragma mark - 几种蒙版的显示和隐藏以及优先级
-- (void)showOrHiddenTheMaskNoVideoView
-{
-    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-    {//本地
-        if (self.isPoorNetWork)
-        {//网络差
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.self");
-
-        }
-        else if (!self.iHasVadeo)
-        {//没摄像头
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-        }
-        else
-        {
-            self.maskNoVideo.hidden = YES;
-        }
-    }
-    else
-    {//远端
-        if (!self.iHasVadeo)
-        {//没摄像头
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-        }
-        else if (self.isPoorNetWork)
-        {//网络差
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.other");
-        }
-        else if (!self.isHighDevice && self.roomUser.role != YSUserType_Teacher)
-        {//设备版本低
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
-        }
-        else
-        {
-            self.maskNoVideo.hidden = YES;
-        }
-    }
-}
+//- (void)showOrHiddenTheMaskNoVideoView
+//{
+//    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+//    {//本地
+////        if (self.isPoorNetWork)
+////        {//网络差
+////            self.maskNoVideo.hidden = NO;
+////            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.self");
+////
+////        }
+////        else
+//            if (!self.iHasVadeo)
+//        {//没摄像头
+//            self.maskNoVideo.hidden = NO;
+//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+//        }
+//        else
+//        {
+//            self.maskNoVideo.hidden = YES;
+//        }
+//    }
+//    else
+//    {//远端
+//        if (!self.iHasVadeo)
+//        {//没摄像头
+//            self.maskNoVideo.hidden = NO;
+//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+//        }
+//        else if (self.isPoorNetWork)
+//        {//网络差
+//            self.maskNoVideo.hidden = NO;
+//            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.other");
+//        }
+//        else if (!self.isHighDevice && self.roomUser.role != YSUserType_Teacher)
+//        {//设备版本低
+//            self.maskNoVideo.hidden = NO;
+//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+//        }
+//        else
+//        {
+//            self.maskNoVideo.hidden = YES;
+//        }
+//    }
+//}
 
 
 ///该用户有开麦克风
@@ -604,13 +639,16 @@
 {
     _isInBackGround = isInBackGround;
     
-    if (self.roomUser.role == YSUserType_Student)
+    if (!self.isPoorNetWork)
     {
-        self.homeMaskLab.hidden =!isInBackGround;
-    }
-    else
-    {
-        self.homeMaskLab.hidden = YES;
+        if (self.roomUser.role == YSUserType_Student)
+        {
+            self.homeMaskLab.hidden =!isInBackGround;
+        }
+        else
+        {
+            self.homeMaskLab.hidden = YES;
+        }
     }
 }
 
