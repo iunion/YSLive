@@ -63,5 +63,5 @@
 "Error.PwdLength1" = "The length of the new password and the sure password are inconsistent";
 "Error.PwdLength" = "Inconsistency between new password and confirm password";
 
-"Label.Title.Month" = "month";
-"Title.StudentNum"            = "Student number";
+"Label.Title.Month" = "";
+"Title.StudentNum" = "Student number";

@@ -35,7 +35,7 @@
 
 - (void)setTableView
 {
-    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.bm_width, self.bm_height-5) style:UITableViewStylePlain];
+    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(3, 0, self.bm_width-6, self.bm_height-5) style:UITableViewStylePlain];
     [self addSubview:tabView];
     tabView.delegate = self;
     tabView.dataSource = self;
@@ -64,7 +64,7 @@
     {
         NSDate * date = [NSDate bm_dateFromString:self.dateArr[indexPath.row] withFormat:@"yyyy-MM-dd"];
         
-        dateStr = [date bm_stringWithFormat:[NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")]];
+        dateStr = [NSString stringWithFormat:@"%@%@", [date bm_stringWithFormat:@"yyyy MM"], YSLocalizedSchool(@"Label.Title.Month")] ;
     }
 
     cell.titleLab.text = dateStr;

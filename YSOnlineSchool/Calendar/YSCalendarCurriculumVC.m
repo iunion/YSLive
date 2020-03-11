@@ -127,9 +127,9 @@
 - (void)selectMonthUI
 {
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSString * month = [currentDate bm_stringWithFormat:[NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")]];
-    
-    UIButton *monthBtn = [[UIButton alloc]initWithFrame:CGRectMake((self.view.bm_width - 113)/2, monthBtnY, 113, 26)];
+    NSString * month = [NSString stringWithFormat:@"%@%@", [currentDate bm_stringWithFormat:@"yyyy MM"], YSLocalizedSchool(@"Label.Title.Month")] ;
+
+    UIButton *monthBtn = [[UIButton alloc]initWithFrame:CGRectMake((self.view.bm_width - 120)/2, monthBtnY, 120, 26)];
     [monthBtn setBackgroundColor:UIColor.whiteColor];
     [monthBtn setImage:[UIImage imageNamed:@"onlineSchool_allMonth"] forState:UIControlStateNormal];
     [monthBtn setTitle:month forState:UIControlStateNormal];
@@ -402,7 +402,7 @@
         self.lastBtn.selected = NO;
         self.nextBtn.selected = NO;
     }
-    NSString * dateStr = [date bm_stringWithFormat:[NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")]];
+    NSString * dateStr = [NSString stringWithFormat:@"%@%@", [date bm_stringWithFormat:@"yyyy MM"], YSLocalizedSchool(@"Label.Title.Month")] ;
     [self.monthBtn setTitle:dateStr forState:UIControlStateNormal];
     
     if ([self.chooseMonthDateArr containsObject:dateStr1])
@@ -637,8 +637,8 @@
 {
     NSDate * date = [NSDate bm_dateFromString:dateStr withFormat:@"yyyy-MM-dd"];
 
-    NSString * string = [date bm_stringWithFormat:[NSString stringWithFormat:@"yyyy MM%@",YSLocalizedSchool(@"Label.Title.Month")]];
-    
+    NSString *string = [NSString stringWithFormat:@"%@%@", [date bm_stringWithFormat:@"yyyy MM"], YSLocalizedSchool(@"Label.Title.Month")] ;
+
     return string;
 }
 
