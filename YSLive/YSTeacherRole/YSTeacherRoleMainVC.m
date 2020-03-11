@@ -470,7 +470,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 设置花名册 课件表
     [self setupListView];
     
-    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
+    // 上课前不发送修改画笔权限
+    //[self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
     
     // 会议默认视频布局
