@@ -79,6 +79,17 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
     self.delegate = managerDelegate;
 }
 
+#pragma mark - network status
+
+- (void)coreNetworkChanged:(NSNotification *)noti
+{
+    NSDictionary *userDic = noti.userInfo;
+    
+    BMLog(@"网络环境: %@", [userDic bm_stringForKey:@"currentStatusString"]);
+    BMLog(@"网络运营商: %@", [userDic bm_stringForKey:@"currentBrandName"]);
+}
+
+
 - (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code,NSString *errorStr))failure
 {
        BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
@@ -185,7 +196,7 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
         }
     }
     
-    if ([rootVC isKindOfClass:[UIViewController class]])
+    if (![rootVC isKindOfClass:[UIViewController class]])
     {
         NSAssert(NO, YSLocalized(@"SDK.VCError"));
         return;
