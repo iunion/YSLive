@@ -1073,10 +1073,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
 //    [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:^{
-        [self.liveManager destroy];
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
 #endif
+        [self.liveManager destroy];
     }];
 }
 

@@ -506,7 +506,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     成功进入房间
     @param ts 服务器当前时间戳，以秒为单位，如1572001230
  */
-- (void)onRoomJoined:(NSTimeInterval)ts
+- (void)onRoomJoined:(NSTimeInterval)ts roomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
 {
     NSLog(@"onRoomJoined");
     
