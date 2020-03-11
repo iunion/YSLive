@@ -2425,11 +2425,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     BMWeakSelf
     //小三角
-    [self.drawBoardView.triangleImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.brushToolView.mas_right);
-        make.centerY.mas_equalTo(toolBtn.mas_centerY);
-        make.width.mas_equalTo(13);
-        make.height.mas_equalTo(28);
+    [self.drawBoardView.triangleImgView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.brushToolView.bmmas_right);
+        make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY);
+        make.width.bmmas_equalTo(13);
+        make.height.bmmas_equalTo(28);
     }];
     
     switch (toolViewBtnType) {
@@ -2438,33 +2438,33 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             break;
         case YSBrushToolTypeLine:
         { //笔 划线
-            [self.drawBoardView.backgroundView  mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(weakSelf.drawBoardView.triangleImgView.mas_right).offset(-2);
-                make.centerY.mas_equalTo(toolBtn.mas_centerY);
+            [self.drawBoardView.backgroundView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
+                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY);
             }];
         }
             break;
         case YSBrushToolTypeText:
         { // 文字
-            [self.drawBoardView.backgroundView  mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(weakSelf.drawBoardView.triangleImgView.mas_right).offset(-2);
-                make.centerY.mas_equalTo(toolBtn.mas_centerY);
+            [self.drawBoardView.backgroundView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
+                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY);
             }];
         }
             break;
         case YSBrushToolTypeShape:
         {    // 形状
-            [self.drawBoardView.backgroundView  mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(weakSelf.drawBoardView.triangleImgView.mas_right).offset(-2);
-                make.centerY.mas_equalTo(toolBtn.mas_centerY ).offset(-40);
+            [self.drawBoardView.backgroundView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
+                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY ).bmmas_offset(-40);
             }];
         }
             break;
         case YSBrushToolTypeEraser:
         {    //橡皮擦
-            [self.drawBoardView.backgroundView  mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(weakSelf.drawBoardView.triangleImgView.mas_right).offset(-2);
-                make.centerY.mas_equalTo(toolBtn.mas_centerY).offset(-10);
+            [self.drawBoardView.backgroundView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
+                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY).bmmas_offset(-10);
                 
             }];
         }

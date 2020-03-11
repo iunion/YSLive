@@ -98,42 +98,42 @@
     
     CGFloat btnGap = BrushToolBtnGap;
     BMWeakSelf
-    [self.mouseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
-        make.centerX.mas_equalTo(0);
-        make.width.height.mas_equalTo(BrushToolBtnWidth);
+    [self.mouseBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.bmmas_equalTo(5);
+        make.centerX.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(BrushToolBtnWidth);
     }];
 
-    [self.penBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.mouseBtn.mas_bottom).offset(btnGap);
-        make.centerX.mas_equalTo(0);
-        make.width.height.mas_equalTo(BrushToolBtnWidth);
+    [self.penBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.bmmas_equalTo(weakSelf.mouseBtn.bmmas_bottom).bmmas_offset(btnGap);
+        make.centerX.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(BrushToolBtnWidth);
     }];
     
-    [self.textBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.penBtn.mas_bottom).offset(btnGap);
-        make.centerX.mas_equalTo(0);
-        make.width.height.mas_equalTo(BrushToolBtnWidth);
+    [self.textBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.bmmas_equalTo(weakSelf.penBtn.bmmas_bottom).bmmas_offset(btnGap);
+        make.centerX.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(BrushToolBtnWidth);
     }];
     
-    [self.shapeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.textBtn.mas_bottom).offset(btnGap);
-        make.centerX.mas_equalTo(0);
-        make.width.height.mas_equalTo(BrushToolBtnWidth);
+    [self.shapeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.bmmas_equalTo(weakSelf.textBtn.bmmas_bottom).bmmas_offset(btnGap);
+        make.centerX.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(BrushToolBtnWidth);
     }];
     
-    [self.eraserBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.shapeBtn.mas_bottom).offset(btnGap);
-        make.centerX.mas_equalTo(0);
-        make.width.height.mas_equalTo(BrushToolBtnWidth);
+    [self.eraserBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.bmmas_equalTo(weakSelf.shapeBtn.bmmas_bottom).bmmas_offset(btnGap);
+        make.centerX.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(BrushToolBtnWidth);
     }];
     
     if (self.isTeacher)
     {
-        [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.eraserBtn.mas_bottom).offset(btnGap);
-            make.centerX.mas_equalTo(0);
-            make.width.height.mas_equalTo(BrushToolBtnWidth);
+        [self.clearBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.top.bmmas_equalTo(weakSelf.eraserBtn.bmmas_bottom).bmmas_offset(btnGap);
+            make.centerX.bmmas_equalTo(0);
+            make.width.height.bmmas_equalTo(BrushToolBtnWidth);
         }];
     }
 }

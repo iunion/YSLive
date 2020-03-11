@@ -555,12 +555,12 @@
     [self.backImageView addGestureRecognizer:click];
     
     [self.backImageView addSubview:self.logoImageView];
-    [self.logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(0);
+    [self.logoImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerX.bmmas_equalTo(0);
         //        make.top.mas_equalTo(kScale_H(130));
-        make.top.mas_equalTo(kScale_H(100));
-        make.height.mas_equalTo(kScale_W(153));
-        make.width.mas_equalTo(kScale_W(197));
+        make.top.bmmas_equalTo(kScale_H(100));
+        make.height.bmmas_equalTo(kScale_W(153));
+        make.width.bmmas_equalTo(kScale_W(197));
     }];
     
     
@@ -572,30 +572,30 @@
     onlineSchoolTitle.text = YSLocalizedSchool(@"Label.onlineSchoolSystem");
     self.onlineSchoolTitle = onlineSchoolTitle;
     [self.backImageView addSubview:onlineSchoolTitle];
-    [self.onlineSchoolTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(28));
-        make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(kScale_H(5));
-        make.height.mas_equalTo(30);
+    [self.onlineSchoolTitle bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kScale_W(28));
+        make.right.bmmas_equalTo(-kScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kScale_H(5));
+        make.height.bmmas_equalTo(30);
     }];
     
     [self.backImageView addSubview:self.roomTextField];
-    [self.roomTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(28));
-        make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(kScale_H(60));
-        make.height.mas_equalTo(40);
+    [self.roomTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kScale_W(28));
+        make.right.bmmas_equalTo(-kScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kScale_H(60));
+        make.height.bmmas_equalTo(40);
     }];
     self.roomTextField.layer.cornerRadius = 20;
     self.roomTextField.layer.borderWidth = 1;
     self.roomTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
     [self.backImageView addSubview:self.domainTextField];
-    [self.domainTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(28));
-        make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(kScale_H(60));
-        make.height.mas_equalTo(40);
+    [self.domainTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kScale_W(28));
+        make.right.bmmas_equalTo(-kScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kScale_H(60));
+        make.height.bmmas_equalTo(40);
     }];
     self.domainTextField.hidden = YES;
     self.domainTextField.layer.cornerRadius = 20;
@@ -603,11 +603,11 @@
     self.domainTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
     [self.backImageView addSubview:self.nickNameTextField];
-    [self.nickNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(28));
-        make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.roomTextField.mas_bottom).mas_offset(kScale_H(30));
-        make.height.mas_equalTo(40);
+    [self.nickNameTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kScale_W(28));
+        make.right.bmmas_equalTo(-kScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.roomTextField.bmmas_bottom).bmmas_offset(kScale_H(30));
+        make.height.bmmas_equalTo(40);
     }];
     self.nickNameTextField.layer.cornerRadius = 20;
     self.nickNameTextField.layer.borderWidth = 1;
@@ -615,11 +615,11 @@
     
     
     [self.backImageView addSubview:self.admin_accountTextField];
-    [self.admin_accountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(28));
-        make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.domainTextField.mas_bottom).mas_offset(kScale_H(30));
-        make.height.mas_equalTo(40);
+    [self.admin_accountTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kScale_W(28));
+        make.right.bmmas_equalTo(-kScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.domainTextField.bmmas_bottom).bmmas_offset(kScale_H(30));
+        make.height.bmmas_equalTo(40);
     }];
     self.admin_accountTextField.hidden = YES;
     self.admin_accountTextField.layer.cornerRadius = 20;
@@ -627,29 +627,29 @@
     self.admin_accountTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     
     [self.backImageView addSubview:self.passOnlineTextField];
-    [self.passOnlineTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(28));
-        make.right.mas_equalTo(-kScale_W(28));
-        make.top.mas_equalTo(weakSelf.admin_accountTextField.mas_bottom).mas_offset(kScale_H(30));
-        make.height.mas_equalTo(40);
+    [self.passOnlineTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kScale_W(28));
+        make.right.bmmas_equalTo(-kScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.admin_accountTextField.bmmas_bottom).bmmas_offset(kScale_H(30));
+        make.height.bmmas_equalTo(40);
     }];
     self.passOnlineTextField.layer.cornerRadius = 20;
     self.passOnlineTextField.layer.borderWidth = 1;
     self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     self.passOnlineTextField.hidden = YES;
     
-    [self.passwordEyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-10);
-        make.top.equalTo(self.passOnlineTextField);
-        make.width.height.mas_equalTo(40);
+    [self.passwordEyeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.right.bmmas_equalTo(-10);
+        make.top.bmmas_equalTo(self.passOnlineTextField);
+        make.width.height.bmmas_equalTo(40);
     }];
     
     [self.backImageView addSubview:self.bottomVersionL];
-    [self.bottomVersionL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(25);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(kScale_W(180));
-        make.top.mas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
+    [self.bottomVersionL bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(25);
+        make.height.bmmas_equalTo(30);
+        make.width.bmmas_equalTo(kScale_W(180));
+        make.top.bmmas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
     }];
     
 #ifdef DEBUG
@@ -663,11 +663,11 @@
     self.bottomVersionL.text = string;
     
     [self.backImageView addSubview:self.joinRoomBtn];
-    [self.joinRoomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(43));
-        make.height.mas_equalTo(50);
-        make.width.mas_equalTo(kScale_W(238));
-        make.centerX.mas_equalTo(0);
+    [self.joinRoomBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
+        make.height.bmmas_equalTo(50);
+        make.width.bmmas_equalTo(kScale_W(238));
+        make.centerX.bmmas_equalTo(0);
     }];
     
     UIButton *eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -679,9 +679,9 @@
     [eyeBtn addTarget:self action:@selector(onClickEye:) forControlEvents:UIControlEventTouchUpInside];
     [self.backImageView addSubview:eyeBtn];
 //    [eyeBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:2.0f];
-    [eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-20);
-        make.top.mas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
+    [eyeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.right.bmmas_equalTo(-20);
+        make.top.bmmas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
     }];
 
     self.joinRoomBtn.layer.cornerRadius = 25;
@@ -703,11 +703,11 @@
     onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     onlineSchoolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.onlineSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(-25);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(UI_SCREEN_WIDTH - 60);
-        make.left.mas_equalTo(30);
+    [self.onlineSchoolBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.bottom.bmmas_equalTo(-25);
+        make.height.bmmas_equalTo(30);
+        make.width.bmmas_equalTo(UI_SCREEN_WIDTH - 60);
+        make.left.bmmas_equalTo(30);
     }];
 #endif
 }
@@ -751,12 +751,12 @@
         BMLog(@"进入网校");
         
         [self.logoImageView setImage:[UIImage imageNamed:@"onlineSchool_login_icon"]];
-        [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(0);
+        [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+            make.centerX.bmmas_equalTo(0);
             //        make.top.mas_equalTo(kScale_H(130));
-            make.top.mas_equalTo(kScale_H(50));
-            make.height.mas_equalTo(kScale_W(153));
-            make.width.mas_equalTo(kScale_W(197));
+            make.top.bmmas_equalTo(kScale_H(50));
+            make.height.bmmas_equalTo(kScale_W(153));
+            make.width.bmmas_equalTo(kScale_W(197));
         }];
         self.onlineSchoolTitle.hidden = NO;
         self.passOnlineTextField.hidden = NO;
@@ -767,11 +767,11 @@
         [self.joinRoomBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.EnterRoom") forState:UIControlStateNormal];
         
-        [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.passOnlineTextField.mas_bottom).mas_offset(kScale_H(43));
-            make.height.mas_equalTo(50);
-            make.width.mas_equalTo(kScale_W(238));
-            make.centerX.mas_equalTo(0);
+        [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+            make.top.bmmas_equalTo(weakSelf.passOnlineTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
+            make.height.bmmas_equalTo(50);
+            make.width.bmmas_equalTo(kScale_W(238));
+            make.centerX.bmmas_equalTo(0);
         }];
         
         YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
@@ -800,11 +800,11 @@
         }
 
         [self.logoImageView setImage:[UIImage imageNamed:@"login_icon"]];
-        [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(0);
-            make.top.mas_equalTo(kScale_H(100));
-            make.height.mas_equalTo(kScale_W(153));
-            make.width.mas_equalTo(kScale_W(197));
+        [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+            make.centerX.bmmas_equalTo(0);
+            make.top.bmmas_equalTo(kScale_H(100));
+            make.height.bmmas_equalTo(kScale_W(153));
+            make.width.bmmas_equalTo(kScale_W(197));
         }];
         self.onlineSchoolTitle.hidden = YES;
         self.passOnlineTextField.hidden = YES;
@@ -814,11 +814,11 @@
         self.nickNameTextField.hidden = NO;
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
-        [self.joinRoomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nickNameTextField.mas_bottom).mas_offset(kScale_H(43));
-            make.height.mas_equalTo(50);
-            make.width.mas_equalTo(kScale_W(238));
-            make.centerX.mas_equalTo(0);
+        [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+            make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
+            make.height.bmmas_equalTo(50);
+            make.width.bmmas_equalTo(kScale_W(238));
+            make.centerX.bmmas_equalTo(0);
         }];
 
         roomID = self.roomTextField.inputTextField.text;

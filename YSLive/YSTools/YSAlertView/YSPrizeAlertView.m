@@ -104,11 +104,11 @@
         alert.cancelBtn.bm_size = CGSizeMake(12, 12);
         
         [alert.bacImageView addSubview:alert.tableView];
-        [alert.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(alert.bacImageView.mas_bottom).offset(-15);
-            make.left.mas_equalTo(alert.bacImageView.mas_left).offset(19);
-            make.right.mas_equalTo(alert.bacImageView.mas_right).offset(-19);
-            make.height.mas_equalTo(200);
+        [alert.tableView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.bottom.bmmas_equalTo(alert.bacImageView.bmmas_bottom).bmmas_offset(-15);
+            make.left.bmmas_equalTo(alert.bacImageView.bmmas_left).bmmas_offset(19);
+            make.right.bmmas_equalTo(alert.bacImageView.bmmas_right).bmmas_offset(-19);
+            make.height.bmmas_equalTo(200);
         }];
         
     }

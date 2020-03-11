@@ -62,18 +62,18 @@
 {
     [super layoutSubviews];
     BMWeakSelf
-    [self.exitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.height.width.mas_equalTo(48);
-        make.left.mas_equalTo(10);
+    [self.exitBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.height.width.bmmas_equalTo(48);
+        make.left.bmmas_equalTo(10);
     }];
     
-    [self.roomIDL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.roomIDL bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
        
-        make.centerY.mas_equalTo(0);
-        make.left.mas_equalTo(weakSelf.exitBtn.mas_right).offset(10);
-        make.height.mas_equalTo(26);
-        make.width.mas_equalTo(180);
+        make.centerY.bmmas_equalTo(0);
+        make.left.bmmas_equalTo(weakSelf.exitBtn.bmmas_right).bmmas_offset(10);
+        make.height.bmmas_equalTo(26);
+        make.width.bmmas_equalTo(180);
     }];
 //    self.roomIDL.layer.cornerRadius = 13;
 //    self.roomIDL.layer.masksToBounds = YES;
@@ -84,39 +84,39 @@
 //        make.width.height.mas_equalTo(16);
 //    }];
     
-    [self.signalStateL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.roomIDL.mas_right).mas_offset(5);
-        make.centerY.mas_equalTo(0);
-        make.height.mas_equalTo(26);
-        make.right.mas_equalTo(weakSelf.timeL.mas_left).mas_offset(-5);
+    [self.signalStateL bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.roomIDL.bmmas_right).bmmas_offset(5);
+        make.centerY.bmmas_equalTo(0);
+        make.height.bmmas_equalTo(26);
+        make.right.bmmas_equalTo(weakSelf.timeL.bmmas_left).bmmas_offset(-5);
         
     }];
     
 
     
-    [self.cameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.height.width.mas_equalTo(48);
-        make.right.mas_equalTo(-10);
+    [self.cameraBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.height.width.bmmas_equalTo(48);
+        make.right.bmmas_equalTo(-10);
     }];
     
-    [self.microphoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.height.width.mas_equalTo(48);
-        make.right.mas_equalTo(weakSelf.cameraBtn.mas_left).mas_offset(-10);
+    [self.microphoneBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.height.width.bmmas_equalTo(48);
+        make.right.bmmas_equalTo(weakSelf.cameraBtn.bmmas_left).bmmas_offset(-10);
     }];
     
-    [self.photoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.height.width.mas_equalTo(48);
-        make.right.mas_equalTo(weakSelf.microphoneBtn.mas_left).mas_offset(-10);
+    [self.photoBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.height.width.bmmas_equalTo(48);
+        make.right.bmmas_equalTo(weakSelf.microphoneBtn.bmmas_left).bmmas_offset(-10);
     }];
     
-    [self.timeL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.height.mas_equalTo(26);
-        make.width.mas_equalTo(90);
-        make.right.mas_equalTo(weakSelf.photoBtn.mas_left).mas_offset(-10);
+    [self.timeL bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.height.bmmas_equalTo(26);
+        make.width.bmmas_equalTo(90);
+        make.right.bmmas_equalTo(weakSelf.photoBtn.bmmas_left).bmmas_offset(-10);
     }];
 //    self.timeL.layer.cornerRadius = 13;
 //    self.timeL.layer.masksToBounds = YES;

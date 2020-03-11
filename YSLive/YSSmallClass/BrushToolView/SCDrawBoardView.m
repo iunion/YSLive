@@ -85,10 +85,10 @@
     self.bacContainerView = [[UIView alloc] init];
     self.bacContainerView.backgroundColor = UIColor.clearColor;
     [self.backgroundView addSubview:self.bacContainerView];
-    [self.bacContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.backgroundView.mas_left);
-        make.right.equalTo(weakSelf.backgroundView.mas_right);
-        make.bottom.equalTo(weakSelf.backgroundView.mas_bottom);
+    [self.bacContainerView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.backgroundView.bmmas_left);
+        make.right.bmmas_equalTo(weakSelf.backgroundView.bmmas_right);
+        make.bottom.bmmas_equalTo(weakSelf.backgroundView.bmmas_bottom);
     }];
     
     self.toolOneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,13 +114,13 @@
         UIButton *btn = self.toolBtnArr[i];
         [self.bacContainerView addSubview:btn];
         [btn addTarget:self action:@selector(toolBtnsSelect:) forControlEvents:UIControlEventTouchUpInside];
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.equalTo([NSValue valueWithCGSize:CGSizeMake(30, 30)]);
-            make.left.equalTo(lastBtn ? lastBtn.mas_right : weakSelf.bacContainerView.mas_left).offset(lastBtn ? 30  : 19);
-            make.top.equalTo(weakSelf.bacContainerView.mas_top).offset(21);
+        [btn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.size.bmmas_equalTo([NSValue valueWithCGSize:CGSizeMake(30, 30)]);
+            make.left.bmmas_equalTo(lastBtn ? lastBtn.bmmas_right : weakSelf.bacContainerView.bmmas_left).bmmas_offset(lastBtn ? 30  : 19);
+            make.top.bmmas_equalTo(weakSelf.bacContainerView.bmmas_top).bmmas_offset(21);
             if (i == self.toolBtnArr.count - 1)
             {
-                make.right.equalTo(weakSelf.bacContainerView.mas_right).offset(-19);
+                make.right.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right).bmmas_offset(-19);
             }
         }];
         lastBtn = btn;
@@ -129,21 +129,21 @@
     self.lineView = [[UIView alloc] init];
     self.lineView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
     [self.bacContainerView addSubview:self.lineView];
-    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.bacContainerView).offset(13);
-        make.right.equalTo(weakSelf.bacContainerView).offset(-13);
-        make.top.equalTo(weakSelf.toolOneBtn.mas_bottom).offset(15);
-        make.height.equalTo(@(1));
+    [self.lineView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.bacContainerView).bmmas_offset(13);
+        make.right.bmmas_equalTo(weakSelf.bacContainerView).bmmas_offset(-13);
+        make.top.bmmas_equalTo(weakSelf.toolOneBtn.bmmas_bottom).bmmas_offset(15);
+        make.height.bmmas_equalTo(@(1));
     }];
     
     self.colorSelectView = [[SCColorSelectView alloc] init];
     [self.colorSelectView setCurrentSelectColor:self.selectColor];
     [self.bacContainerView addSubview:self.colorSelectView];
-    [self.colorSelectView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.bacContainerView).offset(20);
-        make.right.equalTo(weakSelf.bacContainerView).offset(-14);
-        make.top.equalTo(weakSelf.lineView.mas_bottom).offset(38);
-        make.height.equalTo(@(20));
+    [self.colorSelectView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.bacContainerView).bmmas_offset(20);
+        make.right.bmmas_equalTo(weakSelf.bacContainerView).bmmas_offset(-14);
+        make.top.bmmas_equalTo(weakSelf.lineView.bmmas_bottom).bmmas_offset(38);
+        make.height.bmmas_equalTo(@(20));
     }];
     self.colorSelectView.chooseBackBlock = ^(NSString * _Nonnull colorStr) {
 
@@ -159,12 +159,12 @@
     self.progressView.layer.masksToBounds = YES;
     self.progressView.layer.cornerRadius = 2.5f;
     [self.bacContainerView addSubview:self.progressView];
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.bacContainerView.mas_left).offset(20);
-        make.right.equalTo(weakSelf.bacContainerView.mas_right).offset(-44);
-        make.height.equalTo(@(10));
-        make.top.equalTo(weakSelf.colorSelectView.mas_bottom).offset(33);
-        make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom).offset(-33);
+    [self.progressView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left).bmmas_offset(20);
+        make.right.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right).bmmas_offset(-44);
+        make.height.bmmas_equalTo(@(10));
+        make.top.bmmas_equalTo(weakSelf.colorSelectView.bmmas_bottom).bmmas_offset(33);
+        make.bottom.bmmas_equalTo(weakSelf.bacContainerView.bmmas_bottom).bmmas_offset(-33);
     }];
     
     self.progressSelectView = [[UIView alloc] init];
@@ -172,11 +172,11 @@
     self.progressSelectView.layer.masksToBounds = YES;
     self.progressSelectView.layer.cornerRadius = 2.5f;
     [self.bacContainerView addSubview:self.progressSelectView];
-    [self.progressSelectView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.bacContainerView.mas_left).offset(20);
-        make.width.mas_equalTo(weakSelf.progressView.mas_width).multipliedBy(weakSelf.progressResult);
-        make.height.equalTo(@(10));
-        make.top.equalTo(weakSelf.colorSelectView.mas_bottom).offset(33);
+    [self.progressSelectView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left).bmmas_offset(20);
+        make.width.bmmas_equalTo(weakSelf.progressView.bmmas_width).multipliedBy(weakSelf.progressResult);
+        make.height.bmmas_equalTo(@(10));
+        make.top.bmmas_equalTo(weakSelf.colorSelectView.bmmas_bottom).bmmas_offset(33);
     }];
     
     self.slider = [[YSSliderSuperView alloc] init];
@@ -190,32 +190,32 @@
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.slider addTarget:self action:@selector(sliderViewEnd:) forControlEvents:UIControlEventTouchUpInside];
     [self.bacContainerView addSubview:self.slider];
-    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(5));
-        make.centerY.equalTo(weakSelf.progressView);
-        make.left.equalTo(weakSelf.progressView.mas_left).offset(-4);
-        make.right.equalTo(weakSelf.progressView.mas_right).offset(4);
+    [self.slider bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.height.bmmas_equalTo(@(5));
+        make.centerY.bmmas_equalTo(weakSelf.progressView);
+        make.left.bmmas_equalTo(weakSelf.progressView.bmmas_left).bmmas_offset(-4);
+        make.right.bmmas_equalTo(weakSelf.progressView.bmmas_right).bmmas_offset(4);
     }];
     
     
     self.weightView = [[UIView alloc] init];
     self.weightView.backgroundColor = [UIColor bm_colorWithHex:0xFFE895];
     [self.bacContainerView addSubview:self.weightView];
-    [self.weightView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.weightView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         
-        make.width.height.equalTo(@(weakSelf.slider.value * WeightViewCoefficient + 5 ));
-        make.centerY.equalTo(weakSelf.progressView);
-        make.centerX.equalTo(weakSelf.bacContainerView.mas_right).offset(-24);
+        make.width.height.bmmas_equalTo(@(weakSelf.slider.value * WeightViewCoefficient + 5 ));
+        make.centerY.bmmas_equalTo(weakSelf.progressView);
+        make.centerX.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right).bmmas_offset(-24);
         
     }];
     self.weightView.layer.cornerRadius = (weakSelf.slider.value * WeightViewCoefficient + 5 ) / 2;
     self.weightView.layer.masksToBounds = YES;
     
-    [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.bacContainerView.mas_left);
-        make.right.equalTo(weakSelf.bacContainerView.mas_right);
-        make.top.equalTo(weakSelf.bacContainerView.mas_top);
-        make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+    [self.backgroundView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left);
+        make.right.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right);
+        make.top.bmmas_equalTo(weakSelf.bacContainerView.bmmas_top);
+        make.bottom.bmmas_equalTo(weakSelf.bacContainerView.bmmas_bottom);
     }];
 }
 
@@ -316,15 +316,15 @@
     self.progressResult = progress;
     [self changeSelectColor:colorHex];
     [self layoutIfNeeded];
-    [self.progressSelectView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.bacContainerView.mas_left).offset(20);
-        make.width.mas_equalTo(progress * self.progressView.frame.size.width);
-        make.height.equalTo(@(10));
-        make.top.equalTo(self.colorSelectView.mas_bottom).offset(33);
+    [self.progressSelectView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(self.bacContainerView.bmmas_left).bmmas_offset(20);
+        make.width.bmmas_equalTo(progress * self.progressView.frame.size.width);
+        make.height.bmmas_equalTo(@(10));
+        make.top.bmmas_equalTo(self.colorSelectView.bmmas_bottom).bmmas_offset(33);
     }];
 //    [self layoutIfNeeded];
-    [self.weightView mas_updateConstraints:^(MASConstraintMaker *make) {        
-        make.width.height.equalTo(@(progress * WeightViewCoefficient + 5));
+    [self.weightView bmmas_updateConstraints:^(BMMASConstraintMaker *make) {
+        make.width.height.bmmas_equalTo(@(progress * WeightViewCoefficient + 5));
     }];
     self.weightView.layer.cornerRadius = (progress * WeightViewCoefficient + 5) / 2;
     self.weightView.layer.masksToBounds = YES;
@@ -439,41 +439,41 @@
     switch (type) {
         case YSSelectorShowType_All:
         {
-            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(weakSelf.bacContainerView.mas_left);
-                make.right.equalTo(weakSelf.bacContainerView.mas_right);
-                make.top.equalTo(weakSelf.bacContainerView.mas_top);
-                make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+            [self.backgroundView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left);
+                make.right.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right);
+                make.top.bmmas_equalTo(weakSelf.bacContainerView.bmmas_top);
+                make.bottom.bmmas_equalTo(weakSelf.bacContainerView.bmmas_bottom);
             }];
             break;
         }
         case YSSelectorShowType_ColorSize:
         {
-            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(weakSelf.bacContainerView.mas_left);
-                make.right.equalTo(weakSelf.bacContainerView.mas_right);
-                make.top.equalTo(weakSelf.lineView.mas_bottom);
-                make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+            [self.backgroundView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left);
+                make.right.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right);
+                make.top.bmmas_equalTo(weakSelf.lineView.bmmas_bottom);
+                make.bottom.bmmas_equalTo(weakSelf.bacContainerView.bmmas_bottom);
             }];
             break;
         }
         case YSSelectorShowType_Color:
         {
-            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(weakSelf.bacContainerView.mas_left);
-                make.right.equalTo(weakSelf.bacContainerView.mas_right);
-                make.top.equalTo(weakSelf.lineView.mas_bottom);
-                make.bottom.equalTo(weakSelf.progressView.mas_top).offset(-12 );
+            [self.backgroundView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left);
+                make.right.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right);
+                make.top.bmmas_equalTo(weakSelf.lineView.bmmas_bottom);
+                make.bottom.bmmas_equalTo(weakSelf.progressView.bmmas_top).bmmas_offset(-12 );
             }];
             break;
         }
         case YSSelectorShowType_Size:
         {
-            [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(weakSelf.bacContainerView.mas_left);
-                make.right.equalTo(weakSelf.bacContainerView.mas_right);
-                make.top.equalTo(weakSelf.progressView.mas_top).offset(-33);
-                make.bottom.equalTo(weakSelf.bacContainerView.mas_bottom);
+            [self.backgroundView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+                make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left);
+                make.right.bmmas_equalTo(weakSelf.bacContainerView.bmmas_right);
+                make.top.bmmas_equalTo(weakSelf.progressView.bmmas_top).bmmas_offset(-33);
+                make.bottom.bmmas_equalTo(weakSelf.bacContainerView.bmmas_bottom);
             }];
             
             break;
@@ -525,19 +525,19 @@
     BMWeakSelf
     self.progressResult = sender.value;
     [self layoutIfNeeded];
-    [self.weightView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.weightView bmmas_updateConstraints:^(BMMASConstraintMaker *make) {
         
-        make.width.height.equalTo(@(sender.value * WeightViewCoefficient + 5));
+        make.width.height.bmmas_equalTo(@(sender.value * WeightViewCoefficient + 5));
 
     }];
     self.weightView.layer.cornerRadius = (sender.value * WeightViewCoefficient + 5) / 2;
     self.weightView.layer.masksToBounds = YES;
     
-    [self.progressSelectView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.bacContainerView.mas_left).offset(20);
-        make.width.mas_equalTo(sender.value * weakSelf.progressView.frame.size.width);
-        make.height.equalTo(@(10));
-        make.top.equalTo(weakSelf.colorSelectView.mas_bottom).offset(33);
+    [self.progressSelectView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.bacContainerView.bmmas_left).bmmas_offset(20);
+        make.width.bmmas_equalTo(sender.value * weakSelf.progressView.frame.size.width);
+        make.height.bmmas_equalTo(@(10));
+        make.top.bmmas_equalTo(weakSelf.colorSelectView.bmmas_bottom).bmmas_offset(33);
     }];
     
 }

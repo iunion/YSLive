@@ -167,16 +167,16 @@
     [self.view addSubview:nextBtn];
     self.nextBtn = nextBtn;
         
-    [lastBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(monthBtnY);
-        make.right.equalTo(monthBtn.mas_left).offset(-16);
-        make.width.height.mas_equalTo(26);
+    [lastBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.bmmas_equalTo(monthBtnY);
+        make.right.bmmas_equalTo(monthBtn.bmmas_left).bmmas_offset(-16);
+        make.width.height.bmmas_equalTo(26);
     }];
     
-    [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(monthBtnY);
-        make.left.equalTo(monthBtn.mas_right).offset(16);
-        make.width.height.mas_equalTo(26);
+    [nextBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.top.bmmas_equalTo(monthBtnY);
+        make.left.bmmas_equalTo(monthBtn.bmmas_right).bmmas_offset(16);
+        make.width.height.bmmas_equalTo(26);
     }];
 }
 
