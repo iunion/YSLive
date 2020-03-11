@@ -1073,7 +1073,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self.liveManager destroy];
 //    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+#if YSSDK
+        [self.liveManager onSDKRoomLeft];
+#endif
+    }];
 }
 
 /// 自己被踢出房间

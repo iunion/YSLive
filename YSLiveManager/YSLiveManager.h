@@ -187,6 +187,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)leaveRoom:(completion_block _Nullable)block;
 - (void)leaveRoom:(BOOL)force completion:(completion_block _Nullable)block;
 
+#if YSSDK
+/// SDK退出房间，需要在房间返回时调用dismissViewControllerAnimated:completion:
+- (void)onSDKRoomLeft;
+#endif
+
 /// 设置视频分辨率
 - (void)setVideoProfile:(YSVideoProfile *)videoProfile;
 

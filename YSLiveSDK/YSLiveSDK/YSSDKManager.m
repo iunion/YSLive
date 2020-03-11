@@ -81,7 +81,7 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
 
 - (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code,NSString *errorStr))failure
 {
-       AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+       BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
        NSMutableURLRequest *request = [YSLiveApiRequest checkRoomTypeWithRoomId:roomId];
        request.timeoutInterval = 30.0f;
        if (request)
@@ -202,6 +202,11 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
     NSUInteger roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
     BOOL isSmallClass = (roomtype == YSAppUseTheTypeSmallClass || roomtype == YSAppUseTheTypeMeeting);
     
+    if ([self.delegate respondsToSelector:@selector(onRoomJoined:roomType:userType:)])
+    {
+        [self.delegate onRoomJoined:ts roomType:roomtype userType:self.liveManager.localUser.role];
+    }
+
     if (isSmallClass)
     {
         NSUInteger maxvideo = [[YSLiveManager shareInstance].roomDic bm_uintForKey:@"maxvideo"];
