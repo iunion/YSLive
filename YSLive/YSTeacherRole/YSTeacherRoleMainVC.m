@@ -49,6 +49,8 @@
 #import "YSTeacherResponder.h"
 #import "YSTeacherTimerView.h"
 
+#define USE_YSRenderMode_adaptive   1
+
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
     SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView,
@@ -1328,8 +1330,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     view.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, whitebordHeight);
                 }
                 
+#if USE_YSRenderMode_adaptive
+#else
                 [self.liveManager stopPlayVideo:view.roomUser.peerID completion:nil];
                 [self.liveManager playVideoOnView:view withPeerId:view.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
+#endif
             }
             else
             {//上下平行关系
@@ -1342,8 +1347,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     view.frame = CGRectMake(VIDEOVIEW_GAP, videoHeight+VIDEOVIEW_GAP, videoWidth, videoHeight);
                 }
                 
+#if USE_YSRenderMode_adaptive
+#else
                 [self.liveManager stopPlayVideo:view.roomUser.peerID completion:nil];
                 [self.liveManager playVideoOnView:view withPeerId:view.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+#endif
                 
             }
             [view bringSubviewToFront:view.backVideoView];
@@ -1516,10 +1524,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
     
     YSRenderMode renderType = YSRenderMode_adaptive;
+#if USE_YSRenderMode_adaptive
+#else
     if (videoView.isFullScreen)
     {
         renderType = YSRenderMode_fit;
     }
+#endif
     
     if (publishState == YSUser_PublishState_VIDEOONLY)
     {
@@ -2474,6 +2485,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [floatView showWithContentView:videoView];
         self.doubleFloatView = floatView;
                 
+#if USE_YSRenderMode_adaptive
+#else
         YSRoomUser * user = videoView.roomUser;
         YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
         if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
@@ -2482,6 +2495,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_fit completion:nil];
         }
         [videoView bringSubviewToFront:videoView.backVideoView];
+#endif
     }
     else
     {
@@ -2491,8 +2505,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.doubleFloatView removeFromSuperview];
         [self freshContentView];
         self.doubleFloatView = nil;
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
         
+#if USE_YSRenderMode_adaptive
+#else
         YSRoomUser * user = videoView.roomUser;
         YSPublishState publishState = [user.properties bm_intForKey:sUserPublishstate];
         if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
@@ -2501,6 +2516,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
         }
         [videoView bringSubviewToFront:videoView.backVideoView];
+#endif
     }
     
     if (!self.isWhitebordFullScreen)
