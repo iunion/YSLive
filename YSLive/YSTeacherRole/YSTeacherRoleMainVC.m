@@ -2061,7 +2061,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                self.brushToolView.hidden = NO;
+                if (self.liveManager.isBeginClass)
+                {
+                    self.brushToolView.hidden = NO;
+                }
+                
                 if (!self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
                 {
                     self.drawBoardView.hidden = YES;
