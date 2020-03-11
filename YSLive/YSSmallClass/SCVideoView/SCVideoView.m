@@ -312,7 +312,6 @@
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
     
-    
     if (self.isForPerch)
     {
         self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
@@ -593,7 +592,7 @@
     
     if (![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
     {//远端
-        [self bringSubviewToFront:self.maskCloseVideoBgView];
+        [self.backVideoView bringSubviewToFront:self.maskCloseVideoBgView];
     }
 }
 

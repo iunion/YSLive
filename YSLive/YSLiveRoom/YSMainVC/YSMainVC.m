@@ -1191,7 +1191,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             }
         }
         
-        
         BOOL hasVidoe = NO;
         BOOL hasAudio = NO;
         if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -1208,6 +1207,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         {
             hasVidoe = YES;
             hasAudio = YES;
+            [self addVidoeViewWithPeerId:peerID];
+        }
+        else if (publishState == 4)
+        {
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState != 4)

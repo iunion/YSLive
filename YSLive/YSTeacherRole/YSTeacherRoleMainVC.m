@@ -2172,6 +2172,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
+        else if (publishState == 4)
+        {
+            [self addVidoeViewWithPeerId:peerID];
+        }
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
