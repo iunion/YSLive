@@ -312,6 +312,9 @@
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
     
+    //网络状态
+    self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
+    
     if (self.isForPerch)
     {
         self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
