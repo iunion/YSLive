@@ -7,6 +7,8 @@
 //
 
 #import "YSLoginVC.h"
+#import "AppDelegate.h"
+
 #import "YSInputView.h"
 #import "Masonry.h"
 #import "YSLoginMacros.h"
@@ -61,6 +63,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    GetAppDelegate.allowRotation = NO;
+
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -506,7 +510,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     成功进入房间
     @param ts 服务器当前时间戳，以秒为单位，如1572001230
  */
-- (void)onRoomJoined:(NSTimeInterval)ts
+- (void)onRoomJoined:(NSTimeInterval)ts roomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
 {
     NSLog(@"onRoomJoined");
     
@@ -514,6 +518,15 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     
     [YSLoginVC setLoginRoomID:self.roomTextField.inputTextField.text];
     [YSLoginVC setLoginNickName:self.nickNameTextField.inputTextField.text];
+    
+    if (roomType == YSSDKUseTheType_LiveRoom)
+    {
+        GetAppDelegate.allowRotation = NO;
+    }
+    else
+    {
+        GetAppDelegate.allowRotation = YES;
+    }
 }
 
 /**
