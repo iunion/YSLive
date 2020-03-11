@@ -1071,9 +1071,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-    [self.liveManager destroy];
 //    [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:^{
+        [self.liveManager destroy];
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
 #endif
