@@ -3196,7 +3196,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
     }
     
-    
     // 奖杯数
     if ([properties bm_containsObjectForKey:sUserGiftNumber])
     {
@@ -3352,10 +3351,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-//                if (publishState != YSUser_PublishState_VIDEOONLY)
-//                {
-                    [self.topToolBar hideMicrophoneBtn:NO];
-//                }
+                [self.topToolBar hideMicrophoneBtn:NO];
             }
         }
         
@@ -3516,76 +3512,61 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.teacherPlaceLab.hidden = YES;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
     
-    //    BOOL needStop = YES;
-    
-    //if (self.roomtype == YSRoomType_More && inlist == YES)
+    for (YSRoomUser *roomUser in self.liveManager.userList)
     {
-        for (YSRoomUser *roomUser in self.liveManager.userList)
+        if (needFreshVideoView)
         {
-            if (needFreshVideoView)
+            needFreshVideoView = NO;
+            break;
+        }
+        
+        BOOL isTeacher = NO;
+        
+        YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
+        NSString *peerID = roomUser.peerID;
+        if ([peerID isEqualToString:self.liveManager.teacher.peerID])
+        {
+            isTeacher = YES;
+        }
+        BOOL hasVidoe = NO;
+        BOOL hasAudio = NO;
+        if (publishState == YSUser_PublishState_VIDEOONLY)
+        {
+            hasVidoe = YES;
+            if (!isTeacher)
             {
-                needFreshVideoView = NO;
-                break;
+                [self addVidoeViewWithPeerId:peerID];
             }
-
-            BOOL isTeacher = NO;
-            
-            YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
-            NSString *peerID = roomUser.peerID;
-            if ([peerID isEqualToString:self.liveManager.teacher.peerID])
+        }
+        else if (publishState == YSUser_PublishState_AUDIOONLY)
+        {
+            hasAudio = YES;
+            if (!isTeacher)
             {
-                isTeacher = YES;
+                [self addVidoeViewWithPeerId:peerID];
             }
-            //            if ([peerID isEqualToString:self.liveManager.localUser.peerID])
-            //            {
-            //                needStop = NO;
-            //            }
-            
-            BOOL hasVidoe = NO;
-            BOOL hasAudio = NO;
-            if (publishState == YSUser_PublishState_VIDEOONLY)
+        }
+        else if (publishState == YSUser_PublishState_BOTH)
+        {
+            hasVidoe = YES;
+            hasAudio = YES;
+            if (!isTeacher)
             {
-                hasVidoe = YES;
-                if (!isTeacher)
-                {
-                    [self addVidoeViewWithPeerId:peerID];
-                }
+                [self addVidoeViewWithPeerId:peerID];
             }
-            else if (publishState == YSUser_PublishState_AUDIOONLY)
+        }
+        else if (publishState == 4)
+        {
+            if (!isTeacher)
             {
-                hasAudio = YES;
-                if (!isTeacher)
-                {
-                    [self addVidoeViewWithPeerId:peerID];
-                }
+                [self addVidoeViewWithPeerId:peerID];
             }
-            else if (publishState == YSUser_PublishState_BOTH)
+        }
+        else
+        {
+            if (!isTeacher)
             {
-                hasVidoe = YES;
-                hasAudio = YES;
-                if (!isTeacher)
-                {
-                    [self addVidoeViewWithPeerId:peerID];
-                }
-            }
-            else if (publishState == 4)
-            {
-                if (!isTeacher)
-                {
-                    [self addVidoeViewWithPeerId:peerID];
-                }
-            }
-            else
-            {
-                if (!isTeacher)
-                {
-                    [self delVidoeViewWithPeerId:peerID];
-                    
-                    //                    if ([peerID isEqualToString:self.liveManager.localUser.peerID])
-                    //                    {
-                    //                        needStop = YES;
-                    //                    }
-                }
+                [self delVidoeViewWithPeerId:peerID];
             }
             
             SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
@@ -3661,8 +3642,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
-    
-
     
 }
 

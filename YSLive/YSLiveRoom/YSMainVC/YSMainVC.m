@@ -1072,7 +1072,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self.liveManager destroy];
-//    [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -1159,6 +1158,27 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+    
+    // 网络状态
+    if ([properties bm_containsObjectForKey:sUserNetWorkState])
+    {
+        videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+    }
+    
+    // 本人是否被禁言
+    if ([properties bm_containsObjectForKey:sUserDisablechat])
+    {
+        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        {
+            BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
+            self.chaView.chatToolView.everyoneBanChat = disablechat;
+            if (disablechat)
+            {
+                [self.chaView toHiddenKeyBoard];
+            }
+        }
+    }
+    
     // 上麦
     if ([properties bm_containsObjectForKey:sUserPublishstate] && roomUser.role == YSUserType_Student)
     {
@@ -1806,8 +1826,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-   self.chaView.chatToolView.everyoneBanChat = isDisable;
-    [self.chaView toHiddenKeyBoard];
+//   self.chaView.chatToolView.everyoneBanChat = isDisable;
+//    [self.chaView toHiddenKeyBoard];
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
 }
 #pragma mark 接收消息 弹幕
 
