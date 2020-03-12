@@ -114,7 +114,9 @@
 
 - (void)configBarButtonItemAppearance {
     UIBarButtonItem *barItem;
-    if (@available(iOS 9, *)) {
+    //if (@available(iOS 9, *)) {
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0)
+    {
         barItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[BMTZImagePickerController class]]];
     } else {
         barItem = [UIBarButtonItem appearanceWhenContainedIn:[BMTZImagePickerController class], nil];
@@ -886,7 +888,9 @@
 }
 
 + (BOOL)tz_isRightToLeftLayout {
-    if (@available(iOS 9.0, *)) {
+    //if (@available(iOS 9.0, *)) {
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0)
+    {
         if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UISemanticContentAttributeUnspecified] == UIUserInterfaceLayoutDirectionRightToLeft) {
             return YES;
         }

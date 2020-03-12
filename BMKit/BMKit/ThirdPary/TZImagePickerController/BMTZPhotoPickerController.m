@@ -61,7 +61,9 @@ static CGFloat itemMargin = 5;
         _imagePickerVc.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
         _imagePickerVc.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
         UIBarButtonItem *tzBarItem, *BarItem;
-        if (@available(iOS 9, *)) {
+        //if (@available(iOS 9, *)) {
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0)
+        {
             tzBarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[BMTZImagePickerController class]]];
             BarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIImagePickerController class]]];
         } else {
