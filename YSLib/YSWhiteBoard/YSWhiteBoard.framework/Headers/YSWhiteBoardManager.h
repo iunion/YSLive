@@ -55,6 +55,8 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
  */
 + (void)destroy;
 
++ (NSString *)whiteBoardVersion;
+
 /**
  注册白板
  */
