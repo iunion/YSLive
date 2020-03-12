@@ -7,6 +7,8 @@
 //
 
 #import "YSLoginVC.h"
+#import "AppDelegate.h"
+
 #import "YSInputView.h"
 #import "Masonry.h"
 #import "YSLoginMacros.h"
@@ -68,6 +70,13 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    GetAppDelegate.allowRotation = NO;
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)even
 {
     [self.view endEditing:YES];
@@ -76,7 +85,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+ 
 //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
 //    {
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -126,6 +135,11 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 - (BOOL)shouldAutorotate
 {
     return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
@@ -506,7 +520,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     成功进入房间
     @param ts 服务器当前时间戳，以秒为单位，如1572001230
  */
-- (void)onRoomJoined:(NSTimeInterval)ts
+- (void)onRoomJoined:(NSTimeInterval)ts roomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
 {
     NSLog(@"onRoomJoined");
     
@@ -514,6 +528,15 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     
     [YSLoginVC setLoginRoomID:self.roomTextField.inputTextField.text];
     [YSLoginVC setLoginNickName:self.nickNameTextField.inputTextField.text];
+    
+    if (roomType == YSSDKUseTheType_LiveRoom)
+    {
+        GetAppDelegate.allowRotation = NO;
+    }
+    else
+    {
+        GetAppDelegate.allowRotation = YES;
+    }
 }
 
 /**
@@ -531,7 +554,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 - (void)onRoomLeft
 {
     NSLog(@"onRoomLeft");
-
+    
+    //GetAppDelegate.allowRotation = NO;
 }
 
 /**
