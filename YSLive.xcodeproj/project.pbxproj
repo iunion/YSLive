@@ -8,22 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045CF51123C828B6008F474E /* YSMeetingResources.bundle */; };
-		04638429237A971700DE7236 /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463840C237A971700DE7236 /* TZImageCropManager.m */; };
-		0463842C237A971700DE7236 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463840E237A971700DE7236 /* TZAssetCell.m */; };
-		0463842F237A971700DE7236 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463840F237A971700DE7236 /* TZVideoPlayerController.m */; };
-		04638432237A971700DE7236 /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638410237A971700DE7236 /* TZAssetModel.m */; };
-		04638435237A971700DE7236 /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638411237A971700DE7236 /* NSBundle+TZImagePicker.m */; };
-		04638438237A971700DE7236 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638414237A971700DE7236 /* UIView+Layout.m */; };
-		0463843B237A971700DE7236 /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638415237A971700DE7236 /* TZPhotoPreviewController.m */; };
-		0463843E237A971700DE7236 /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04638416237A971700DE7236 /* TZImagePickerController.bundle */; };
-		04638441237A971700DE7236 /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638417237A971700DE7236 /* TZProgressView.m */; };
-		04638444237A971700DE7236 /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463841B237A971700DE7236 /* TZImageManager.m */; };
-		04638447237A971700DE7236 /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463841D237A971700DE7236 /* TZPhotoPickerController.m */; };
-		0463844A237A971700DE7236 /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463841E237A971700DE7236 /* TZPhotoPreviewCell.m */; };
-		0463844D237A971700DE7236 /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638424237A971700DE7236 /* TZImagePickerController.m */; };
-		04638450237A971700DE7236 /* TZLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638425237A971700DE7236 /* TZLocationManager.m */; };
-		04638453237A971700DE7236 /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638426237A971700DE7236 /* TZGifPhotoPreviewController.m */; };
-		04638456237A971700DE7236 /* TZImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638427237A971700DE7236 /* TZImageRequestOperation.m */; };
 		0463845F237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */; };
 		046384CA237FA85D00DE7236 /* SCPictureMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384C9237FA85D00DE7236 /* SCPictureMessageCell.m */; };
 		046384CE237FC1AE00DE7236 /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */; };
@@ -273,7 +257,6 @@
 		8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039E23B7362300DAC321 /* FLEXSetExplorerViewController.m */; };
 		8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
 		8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041523B7362300DAC321 /* FLEXFileBrowserSearchOperation.m */; };
-		8717E1F52400DADC008C4CDA /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638415237A971700DE7236 /* TZPhotoPreviewController.m */; };
 		8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D045923B7362300DAC321 /* FLEXColor.m */; };
 		8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA6752379963F00EC2A64 /* SCStatisticsTableViewCell.m */; };
@@ -294,7 +277,6 @@
 		8717E20A2400DADC008C4CDA /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		8717E20B2400DADC008C4CDA /* FLEXSQLiteDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D043823B7362300DAC321 /* FLEXSQLiteDatabaseManager.m */; };
 		8717E20C2400DADC008C4CDA /* YSBarrageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1223670AB5000859F7 /* YSBarrageTextCell.m */; };
-		8717E20D2400DADC008C4CDA /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463841B237A971700DE7236 /* TZImageManager.m */; };
 		8717E20E2400DADC008C4CDA /* ioapi_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23122351A8AC00864FA3 /* ioapi_buf.c */; };
 		8717E20F2400DADC008C4CDA /* FLEXSystemLogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D042423B7362300DAC321 /* FLEXSystemLogTableViewCell.m */; };
 		8717E2102400DADC008C4CDA /* FLEXHierarchyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D044223B7362300DAC321 /* FLEXHierarchyTableViewCell.m */; };
@@ -307,7 +289,6 @@
 		8717E2182400DADC008C4CDA /* FLEXFieldEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03F623B7362300DAC321 /* FLEXFieldEditorView.m */; };
 		8717E2192400DADC008C4CDA /* FLEXArgumentInputNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03EE23B7362300DAC321 /* FLEXArgumentInputNumberView.m */; };
 		8717E21A2400DADC008C4CDA /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23292351A8AC00864FA3 /* prng.c */; };
-		8717E21B2400DADC008C4CDA /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463840C237A971700DE7236 /* TZImageCropManager.m */; };
 		8717E21C2400DADC008C4CDA /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 263265E1237900E000605A0E /* SCBoardControlView.m */; };
 		8717E21D2400DADC008C4CDA /* YSClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D523ED1A46002002BF /* YSClassModel.m */; };
 		8717E21E2400DADC008C4CDA /* FLEXArrayExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039123B7362300DAC321 /* FLEXArrayExplorerViewController.m */; };
@@ -353,7 +334,6 @@
 		8717E24F2400DADC008C4CDA /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230C2351A8AC00864FA3 /* crypt.c */; };
 		8717E2502400DADC008C4CDA /* BMTestColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1332371720600A43607 /* BMTestColorPickerView.m */; };
 		8717E2512400DADC008C4CDA /* YSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAFB2351769900C72EAA /* YSLocation.m */; };
-		8717E2522400DADC008C4CDA /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638410237A971700DE7236 /* TZAssetModel.m */; };
 		8717E2532400DADC008C4CDA /* FLEXKeychainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041123B7362300DAC321 /* FLEXKeychainTableViewController.m */; };
 		8717E2542400DADC008C4CDA /* YSEyeCareMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557823B3358000BC6CAB /* YSEyeCareMaskView.m */; };
 		8717E2552400DADC008C4CDA /* YSInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 260A1A7E23507CB300288B01 /* YSInputView.m */; };
@@ -373,9 +353,7 @@
 		8717E2652400DADC008C4CDA /* FLEXDefaultsExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039923B7362300DAC321 /* FLEXDefaultsExplorerViewController.m */; };
 		8717E2662400DADC008C4CDA /* YSSetTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B023EAB7A6002002BF /* YSSetTableViewVC.m */; };
 		8717E2672400DADC008C4CDA /* FLEXArgumentInputStructView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03E023B7362300DAC321 /* FLEXArgumentInputStructView.m */; };
-		8717E2692400DADC008C4CDA /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638414237A971700DE7236 /* UIView+Layout.m */; };
 		8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040323B7362300DAC321 /* FLEXWebViewController.m */; };
-		8717E26B2400DADC008C4CDA /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638411237A971700DE7236 /* NSBundle+TZImagePicker.m */; };
 		8717E26C2400DADC008C4CDA /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688092350794E00C4C635 /* AFHTTPSessionManager.m */; };
 		8717E26D2400DADC008C4CDA /* SCAnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA685237A841C00EC2A64 /* SCAnswerDetailModel.m */; };
 		8717E26E2400DADC008C4CDA /* FLEXMultiColumnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D043123B7362300DAC321 /* FLEXMultiColumnTableView.m */; };
@@ -398,10 +376,7 @@
 		8717E2832400DADC008C4CDA /* YSTeacherTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */; };
 		8717E2852400DADC008C4CDA /* YSCoreStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAFE2351774500C72EAA /* YSCoreStatus.m */; };
 		8717E2862400DADC008C4CDA /* FLEXArgumentInputColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03DB23B7362300DAC321 /* FLEXArgumentInputColorView.m */; };
-		8717E2892400DADC008C4CDA /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638424237A971700DE7236 /* TZImagePickerController.m */; };
 		8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1823670AB5000859F7 /* YSBarrageManager.m */; };
-		8717E28C2400DADC008C4CDA /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638417237A971700DE7236 /* TZProgressView.m */; };
-		8717E28D2400DADC008C4CDA /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463840E237A971700DE7236 /* TZAssetCell.m */; };
 		8717E28E2400DADC008C4CDA /* FLEXImageExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039423B7362300DAC321 /* FLEXImageExplorerViewController.m */; };
 		8717E2902400DADC008C4CDA /* FLEXCarouselCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038B23B7362300DAC321 /* FLEXCarouselCell.m */; };
 		8717E2912400DADC008C4CDA /* YSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C4023EA62EB004982E6 /* YSTabBarViewController.m */; };
@@ -438,7 +413,6 @@
 		8717E2BA2400DADC008C4CDA /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 260A1A8023507CB300288B01 /* YSLoginVC.m */; };
 		8717E2BC2400DADC008C4CDA /* FLEXDefaultEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D123B7362300DAC321 /* FLEXDefaultEditorViewController.m */; };
 		8717E2BD2400DADC008C4CDA /* YSTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13202372647900D642E8 /* YSTextMessageCell.m */; };
-		8717E2BE2400DADC008C4CDA /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463841E237A971700DE7236 /* TZPhotoPreviewCell.m */; };
 		8717E2BF2400DADC008C4CDA /* FLEXSystemLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041B23B7362300DAC321 /* FLEXSystemLogTableViewController.m */; };
 		8717E2C02400DADC008C4CDA /* YSTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AD23EAA78E002002BF /* YSTableViewVC.m */; };
 		8717E2C12400DADC008C4CDA /* SCEyeCareEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04D23B5D8F300D38129 /* SCEyeCareEmptyVC.m */; };
@@ -463,15 +437,12 @@
 		8717E2D62400DADC008C4CDA /* FLEXHeapEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D044A23B7362300DAC321 /* FLEXHeapEnumerator.m */; };
 		8717E2D72400DADC008C4CDA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A12350794D00C4C635 /* MASCompositeConstraint.m */; };
 		8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
-		8717E2D92400DADC008C4CDA /* TZLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638425237A971700DE7236 /* TZLocationManager.m */; };
 		8717E2DA2400DADC008C4CDA /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A22350794D00C4C635 /* MASConstraintMaker.m */; };
 		8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03E123B7362300DAC321 /* FLEXArgumentInputDateView.m */; };
 		8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D523B7362300DAC321 /* FLEXIvarEditorViewController.m */; };
 		8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
 		8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87728F292355CCD800E34916 /* YSLiveManager.m */; };
 		8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
-		8717E2E02400DADC008C4CDA /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638426237A971700DE7236 /* TZGifPhotoPreviewController.m */; };
-		8717E2E12400DADC008C4CDA /* TZImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04638427237A971700DE7236 /* TZImageRequestOperation.m */; };
 		8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040123B7362300DAC321 /* FLEXGlobalsTableViewController.m */; };
 		8717E2E32400DADC008C4CDA /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A32350794D00C4C635 /* MASLayoutConstraint.m */; };
 		8717E2E42400DADC008C4CDA /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A42350794D00C4C635 /* NSArray+MASAdditions.m */; };
@@ -522,7 +493,6 @@
 		8717E31A2400DADC008C4CDA /* YSBasicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557B23B3358000BC6CAB /* YSBasicAnimation.m */; };
 		8717E31B2400DADC008C4CDA /* YSVotingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12872372647800D642E8 /* YSVotingTableCell.m */; };
 		8717E31C2400DADC008C4CDA /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
-		8717E31D2400DADC008C4CDA /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463840F237A971700DE7236 /* TZVideoPlayerController.m */; };
 		8717E31E2400DADC008C4CDA /* FLEXNetworkSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03B623B7362300DAC321 /* FLEXNetworkSettingsTableViewController.m */; };
 		8717E31F2400DADC008C4CDA /* SCAnswerStatisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA67D23799F0600EC2A64 /* SCAnswerStatisticsModel.m */; };
 		8717E3202400DADC008C4CDA /* FLEXWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03F923B7362300DAC321 /* FLEXWindow.m */; };
@@ -531,7 +501,6 @@
 		8717E3232400DADC008C4CDA /* YSEyeCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745558223B335C200BC6CAB /* YSEyeCareVC.m */; };
 		8717E3242400DADC008C4CDA /* FLEXViewControllerExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039B23B7362300DAC321 /* FLEXViewControllerExplorerViewController.m */; };
 		8717E3252400DADC008C4CDA /* FLEXClassExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039623B7362300DAC321 /* FLEXClassExplorerViewController.m */; };
-		8717E3262400DADC008C4CDA /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463841D237A971700DE7236 /* TZPhotoPickerController.m */; };
 		8717E3272400DADC008C4CDA /* FLEXKeyboardHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D045423B7362300DAC321 /* FLEXKeyboardHelpViewController.m */; };
 		8717E3282400DADC008C4CDA /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479EC239E276000680D84 /* SCBrushToolView.m */; };
 		8717E32A2400DADC008C4CDA /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D983023A0C6530007FBBA /* libresolv.tbd */; };
@@ -557,7 +526,6 @@
 		8717E3452400DADC008C4CDA /* YSClassMediumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7CD23EC336B002002BF /* YSClassMediumCell.xib */; };
 		8717E3462400DADC008C4CDA /* YSWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87981DA823C57CBB00DA0276 /* YSWhiteBoardImage.xcassets */; };
 		8717E3472400DADC008C4CDA /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
-		8717E3482400DADC008C4CDA /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04638416237A971700DE7236 /* TZImagePickerController.bundle */; };
 		8717E3492400DADC008C4CDA /* testcolorpalette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1312371720600A43607 /* testcolorpalette@2x.png */; };
 		8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
 		8717E34B2400DADC008C4CDA /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
@@ -761,37 +729,6 @@
 
 /* Begin PBXFileReference section */
 		045CF51123C828B6008F474E /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
-		0463840A237A971700DE7236 /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
-		0463840B237A971700DE7236 /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
-		0463840C237A971700DE7236 /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
-		0463840D237A971700DE7236 /* TZImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageManager.h; sourceTree = "<group>"; };
-		0463840E237A971700DE7236 /* TZAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetCell.m; sourceTree = "<group>"; };
-		0463840F237A971700DE7236 /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
-		04638410237A971700DE7236 /* TZAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetModel.m; sourceTree = "<group>"; };
-		04638411237A971700DE7236 /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
-		04638412237A971700DE7236 /* TZLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZLocationManager.h; sourceTree = "<group>"; };
-		04638413237A971700DE7236 /* TZImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImagePickerController.h; sourceTree = "<group>"; };
-		04638414237A971700DE7236 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
-		04638415237A971700DE7236 /* TZPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewController.m; sourceTree = "<group>"; };
-		04638416237A971700DE7236 /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
-		04638417237A971700DE7236 /* TZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZProgressView.m; sourceTree = "<group>"; };
-		04638418237A971700DE7236 /* TZGifPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZGifPhotoPreviewController.h; sourceTree = "<group>"; };
-		04638419237A971700DE7236 /* TZImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageRequestOperation.h; sourceTree = "<group>"; };
-		0463841A237A971700DE7236 /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
-		0463841B237A971700DE7236 /* TZImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageManager.m; sourceTree = "<group>"; };
-		0463841C237A971700DE7236 /* TZImageCropManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageCropManager.h; sourceTree = "<group>"; };
-		0463841D237A971700DE7236 /* TZPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPickerController.m; sourceTree = "<group>"; };
-		0463841E237A971700DE7236 /* TZPhotoPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewCell.m; sourceTree = "<group>"; };
-		0463841F237A971700DE7236 /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
-		04638420237A971700DE7236 /* TZAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetModel.h; sourceTree = "<group>"; };
-		04638421237A971700DE7236 /* TZVideoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZVideoPlayerController.h; sourceTree = "<group>"; };
-		04638422237A971700DE7236 /* TZPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewController.h; sourceTree = "<group>"; };
-		04638423237A971700DE7236 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
-		04638424237A971700DE7236 /* TZImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImagePickerController.m; sourceTree = "<group>"; };
-		04638425237A971700DE7236 /* TZLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZLocationManager.m; sourceTree = "<group>"; };
-		04638426237A971700DE7236 /* TZGifPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZGifPhotoPreviewController.m; sourceTree = "<group>"; };
-		04638427237A971700DE7236 /* TZImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageRequestOperation.m; sourceTree = "<group>"; };
-		04638428237A971700DE7236 /* TZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressView.h; sourceTree = "<group>"; };
 		0463845D237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+SCAlertAutorotate.h"; sourceTree = "<group>"; };
 		0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+SCAlertAutorotate.m"; sourceTree = "<group>"; };
 		046384C8237FA85D00DE7236 /* SCPictureMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCPictureMessageCell.h; sourceTree = "<group>"; };
@@ -1540,44 +1477,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04638409237A971700DE7236 /* TZImagePickerController */ = {
-			isa = PBXGroup;
-			children = (
-				0463841F237A971700DE7236 /* NSBundle+TZImagePicker.h */,
-				04638411237A971700DE7236 /* NSBundle+TZImagePicker.m */,
-				0463841A237A971700DE7236 /* TZAssetCell.h */,
-				0463840E237A971700DE7236 /* TZAssetCell.m */,
-				04638420237A971700DE7236 /* TZAssetModel.h */,
-				04638410237A971700DE7236 /* TZAssetModel.m */,
-				04638418237A971700DE7236 /* TZGifPhotoPreviewController.h */,
-				04638426237A971700DE7236 /* TZGifPhotoPreviewController.m */,
-				0463841C237A971700DE7236 /* TZImageCropManager.h */,
-				0463840C237A971700DE7236 /* TZImageCropManager.m */,
-				0463840D237A971700DE7236 /* TZImageManager.h */,
-				0463841B237A971700DE7236 /* TZImageManager.m */,
-				04638416237A971700DE7236 /* TZImagePickerController.bundle */,
-				04638413237A971700DE7236 /* TZImagePickerController.h */,
-				04638424237A971700DE7236 /* TZImagePickerController.m */,
-				04638419237A971700DE7236 /* TZImageRequestOperation.h */,
-				04638427237A971700DE7236 /* TZImageRequestOperation.m */,
-				04638412237A971700DE7236 /* TZLocationManager.h */,
-				04638425237A971700DE7236 /* TZLocationManager.m */,
-				0463840B237A971700DE7236 /* TZPhotoPickerController.h */,
-				0463841D237A971700DE7236 /* TZPhotoPickerController.m */,
-				0463840A237A971700DE7236 /* TZPhotoPreviewCell.h */,
-				0463841E237A971700DE7236 /* TZPhotoPreviewCell.m */,
-				04638422237A971700DE7236 /* TZPhotoPreviewController.h */,
-				04638415237A971700DE7236 /* TZPhotoPreviewController.m */,
-				04638428237A971700DE7236 /* TZProgressView.h */,
-				04638417237A971700DE7236 /* TZProgressView.m */,
-				04638421237A971700DE7236 /* TZVideoPlayerController.h */,
-				0463840F237A971700DE7236 /* TZVideoPlayerController.m */,
-				04638423237A971700DE7236 /* UIView+Layout.h */,
-				04638414237A971700DE7236 /* UIView+Layout.m */,
-			);
-			path = TZImagePickerController;
-			sourceTree = "<group>";
-		};
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
@@ -2628,7 +2527,6 @@
 			children = (
 				3471E26E24039A0100A3BBB4 /* FSCalendar */,
 				874E4F6723B36F0300086B01 /* LMJDropdownMenu */,
-				04638409237A971700DE7236 /* TZImagePickerController */,
 				872D038123B7362300DAC321 /* FLEX */,
 				87CC23092351A8AC00864FA3 /* SSZipArchive */,
 				876688032350794E00C4C635 /* AFNetworking */,
@@ -3377,7 +3275,6 @@
 				8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */,
 				87981DAB23C57CBB00DA0276 /* YSWhiteBoardImage.xcassets in Resources */,
 				3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */,
-				0463843E237A971700DE7236 /* TZImagePickerController.bundle in Resources */,
 				871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */,
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
@@ -3406,7 +3303,6 @@
 				8717E3572400DB9F008C4CDA /* vclass_Info.plist in Resources */,
 				8717E3462400DADC008C4CDA /* YSWhiteBoardImage.xcassets in Resources */,
 				8717E3472400DADC008C4CDA /* OnlineSchool.xcassets in Resources */,
-				8717E3482400DADC008C4CDA /* TZImagePickerController.bundle in Resources */,
 				8717E3492400DADC008C4CDA /* testcolorpalette@2x.png in Resources */,
 				8717E3722400DFD1008C4CDA /* InfoPlist.strings in Resources */,
 				8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */,
@@ -3527,7 +3423,6 @@
 				872D047023B7362300DAC321 /* FLEXSetExplorerViewController.m in Sources */,
 				8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */,
 				872D04A323B7362300DAC321 /* FLEXFileBrowserSearchOperation.m in Sources */,
-				0463843B237A971700DE7236 /* TZPhotoPreviewController.m in Sources */,
 				8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				872D04C423B7362300DAC321 /* FLEXColor.m in Sources */,
 				26EFA6762379963F00EC2A64 /* SCStatisticsTableViewCell.m in Sources */,
@@ -3549,7 +3444,6 @@
 				046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */,
 				872D04B423B7362300DAC321 /* FLEXSQLiteDatabaseManager.m in Sources */,
 				87133596237270F6006534A4 /* YSBarrageTextCell.m in Sources */,
-				04638444237A971700DE7236 /* TZImageManager.m in Sources */,
 				87133597237270F6006534A4 /* ioapi_buf.c in Sources */,
 				872D04AA23B7362300DAC321 /* FLEXSystemLogTableViewCell.m in Sources */,
 				872D04B923B7362300DAC321 /* FLEXHierarchyTableViewCell.m in Sources */,
@@ -3562,7 +3456,6 @@
 				872D049723B7362300DAC321 /* FLEXFieldEditorView.m in Sources */,
 				872D049423B7362300DAC321 /* FLEXArgumentInputNumberView.m in Sources */,
 				8713359E237270F6006534A4 /* prng.c in Sources */,
-				04638429237A971700DE7236 /* TZImageCropManager.m in Sources */,
 				263265E4237900E500605A0E /* SCBoardControlView.m in Sources */,
 				8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */,
 				872D046823B7362300DAC321 /* FLEXArrayExplorerViewController.m in Sources */,
@@ -3613,7 +3506,6 @@
 				871335BD237270F6006534A4 /* crypt.c in Sources */,
 				871335BE237270F6006534A4 /* BMTestColorPickerView.m in Sources */,
 				871335C0237270F6006534A4 /* YSLocation.m in Sources */,
-				04638432237A971700DE7236 /* TZAssetModel.m in Sources */,
 				872D04A223B7362300DAC321 /* FLEXKeychainTableViewController.m in Sources */,
 				8745557E23B3358000BC6CAB /* YSEyeCareMaskView.m in Sources */,
 				871335C2237270F6006534A4 /* YSInputView.m in Sources */,
@@ -3634,9 +3526,7 @@
 				872D046D23B7362300DAC321 /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,
 				872D048E23B7362300DAC321 /* FLEXArgumentInputStructView.m in Sources */,
-				04638438237A971700DE7236 /* UIView+Layout.m in Sources */,
 				872D049D23B7362300DAC321 /* FLEXWebViewController.m in Sources */,
-				04638435237A971700DE7236 /* NSBundle+TZImagePicker.m in Sources */,
 				871335D9237270F6006534A4 /* AFHTTPSessionManager.m in Sources */,
 				26EFA686237A841C00EC2A64 /* SCAnswerDetailModel.m in Sources */,
 				872D04B123B7362300DAC321 /* FLEXMultiColumnTableView.m in Sources */,
@@ -3660,10 +3550,7 @@
 				CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */,
 				871335EF237270F6006534A4 /* YSCoreStatus.m in Sources */,
 				872D048B23B7362300DAC321 /* FLEXArgumentInputColorView.m in Sources */,
-				0463844D237A971700DE7236 /* TZImagePickerController.m in Sources */,
 				871335F2237270F6006534A4 /* YSBarrageManager.m in Sources */,
-				04638441237A971700DE7236 /* TZProgressView.m in Sources */,
-				0463842C237A971700DE7236 /* TZAssetCell.m in Sources */,
 				872D046923B7362300DAC321 /* FLEXImageExplorerViewController.m in Sources */,
 				872D046623B7362300DAC321 /* FLEXCarouselCell.m in Sources */,
 				34043C4223EA62EB004982E6 /* YSTabBarViewController.m in Sources */,
@@ -3702,7 +3589,6 @@
 				87133621237270F6006534A4 /* YSLoginVC.m in Sources */,
 				872D048623B7362300DAC321 /* FLEXDefaultEditorViewController.m in Sources */,
 				87133622237270F6006534A4 /* YSTextMessageCell.m in Sources */,
-				0463844A237A971700DE7236 /* TZPhotoPreviewCell.m in Sources */,
 				872D04A523B7362300DAC321 /* FLEXSystemLogTableViewController.m in Sources */,
 				8777C7AE23EAA78E002002BF /* YSTableViewVC.m in Sources */,
 				87AED04E23B5D8F300D38129 /* SCEyeCareEmptyVC.m in Sources */,
@@ -3731,15 +3617,12 @@
 				872D04BD23B7362300DAC321 /* FLEXHeapEnumerator.m in Sources */,
 				8713362A237270F6006534A4 /* MASCompositeConstraint.m in Sources */,
 				8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */,
-				04638450237A971700DE7236 /* TZLocationManager.m in Sources */,
 				8713362D237270F6006534A4 /* MASConstraintMaker.m in Sources */,
 				872D048F23B7362300DAC321 /* FLEXArgumentInputDateView.m in Sources */,
 				872D048823B7362300DAC321 /* FLEXIvarEditorViewController.m in Sources */,
 				CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */,
 				8713362E237270F6006534A4 /* YSLiveManager.m in Sources */,
 				CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */,
-				04638453237A971700DE7236 /* TZGifPhotoPreviewController.m in Sources */,
-				04638456237A971700DE7236 /* TZImageRequestOperation.m in Sources */,
 				872D049B23B7362300DAC321 /* FLEXGlobalsTableViewController.m in Sources */,
 				8713362F237270F6006534A4 /* MASLayoutConstraint.m in Sources */,
 				87133630237270F6006534A4 /* NSArray+MASAdditions.m in Sources */,
@@ -3792,7 +3675,6 @@
 				8745558023B3358000BC6CAB /* YSBasicAnimation.m in Sources */,
 				87133656237270F6006534A4 /* YSVotingTableCell.m in Sources */,
 				046E68412373E152001CBB27 /* SCChatToolView.m in Sources */,
-				0463842F237A971700DE7236 /* TZVideoPlayerController.m in Sources */,
 				872D047923B7362300DAC321 /* FLEXNetworkSettingsTableViewController.m in Sources */,
 				26EFA67E23799F0600EC2A64 /* SCAnswerStatisticsModel.m in Sources */,
 				872D049923B7362300DAC321 /* FLEXWindow.m in Sources */,
@@ -3801,7 +3683,6 @@
 				8745558323B335C200BC6CAB /* YSEyeCareVC.m in Sources */,
 				872D046E23B7362300DAC321 /* FLEXViewControllerExplorerViewController.m in Sources */,
 				872D046A23B7362300DAC321 /* FLEXClassExplorerViewController.m in Sources */,
-				04638447237A971700DE7236 /* TZPhotoPickerController.m in Sources */,
 				872D04C223B7362300DAC321 /* FLEXKeyboardHelpViewController.m in Sources */,
 				04A479F0239E276100680D84 /* SCBrushToolView.m in Sources */,
 			);
@@ -3863,7 +3744,6 @@
 				8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */,
 				8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */,
 				8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */,
-				8717E1F52400DADC008C4CDA /* TZPhotoPreviewController.m in Sources */,
 				8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */,
 				8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */,
@@ -3885,7 +3765,6 @@
 				8717E20A2400DADC008C4CDA /* SCTextMessageCell.m in Sources */,
 				8717E20B2400DADC008C4CDA /* FLEXSQLiteDatabaseManager.m in Sources */,
 				8717E20C2400DADC008C4CDA /* YSBarrageTextCell.m in Sources */,
-				8717E20D2400DADC008C4CDA /* TZImageManager.m in Sources */,
 				8717E20E2400DADC008C4CDA /* ioapi_buf.c in Sources */,
 				8717E20F2400DADC008C4CDA /* FLEXSystemLogTableViewCell.m in Sources */,
 				8717E2102400DADC008C4CDA /* FLEXHierarchyTableViewCell.m in Sources */,
@@ -3898,7 +3777,6 @@
 				8717E2182400DADC008C4CDA /* FLEXFieldEditorView.m in Sources */,
 				8717E2192400DADC008C4CDA /* FLEXArgumentInputNumberView.m in Sources */,
 				8717E21A2400DADC008C4CDA /* prng.c in Sources */,
-				8717E21B2400DADC008C4CDA /* TZImageCropManager.m in Sources */,
 				8717E21C2400DADC008C4CDA /* SCBoardControlView.m in Sources */,
 				8717E21D2400DADC008C4CDA /* YSClassModel.m in Sources */,
 				8717E21E2400DADC008C4CDA /* FLEXArrayExplorerViewController.m in Sources */,
@@ -3949,7 +3827,6 @@
 				8717E24F2400DADC008C4CDA /* crypt.c in Sources */,
 				8717E2502400DADC008C4CDA /* BMTestColorPickerView.m in Sources */,
 				8717E2512400DADC008C4CDA /* YSLocation.m in Sources */,
-				8717E2522400DADC008C4CDA /* TZAssetModel.m in Sources */,
 				8717E2532400DADC008C4CDA /* FLEXKeychainTableViewController.m in Sources */,
 				8717E2542400DADC008C4CDA /* YSEyeCareMaskView.m in Sources */,
 				8717E2552400DADC008C4CDA /* YSInputView.m in Sources */,
@@ -3970,9 +3847,7 @@
 				8717E2652400DADC008C4CDA /* FLEXDefaultsExplorerViewController.m in Sources */,
 				8717E2662400DADC008C4CDA /* YSSetTableViewVC.m in Sources */,
 				8717E2672400DADC008C4CDA /* FLEXArgumentInputStructView.m in Sources */,
-				8717E2692400DADC008C4CDA /* UIView+Layout.m in Sources */,
 				8717E26A2400DADC008C4CDA /* FLEXWebViewController.m in Sources */,
-				8717E26B2400DADC008C4CDA /* NSBundle+TZImagePicker.m in Sources */,
 				8717E26C2400DADC008C4CDA /* AFHTTPSessionManager.m in Sources */,
 				8717E26D2400DADC008C4CDA /* SCAnswerDetailModel.m in Sources */,
 				8717E26E2400DADC008C4CDA /* FLEXMultiColumnTableView.m in Sources */,
@@ -3996,10 +3871,7 @@
 				8717E2832400DADC008C4CDA /* YSTeacherTimerView.m in Sources */,
 				8717E2852400DADC008C4CDA /* YSCoreStatus.m in Sources */,
 				8717E2862400DADC008C4CDA /* FLEXArgumentInputColorView.m in Sources */,
-				8717E2892400DADC008C4CDA /* TZImagePickerController.m in Sources */,
 				8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */,
-				8717E28C2400DADC008C4CDA /* TZProgressView.m in Sources */,
-				8717E28D2400DADC008C4CDA /* TZAssetCell.m in Sources */,
 				8717E28E2400DADC008C4CDA /* FLEXImageExplorerViewController.m in Sources */,
 				8717E2902400DADC008C4CDA /* FLEXCarouselCell.m in Sources */,
 				8717E2912400DADC008C4CDA /* YSTabBarViewController.m in Sources */,
@@ -4038,7 +3910,6 @@
 				8717E2BA2400DADC008C4CDA /* YSLoginVC.m in Sources */,
 				8717E2BC2400DADC008C4CDA /* FLEXDefaultEditorViewController.m in Sources */,
 				8717E2BD2400DADC008C4CDA /* YSTextMessageCell.m in Sources */,
-				8717E2BE2400DADC008C4CDA /* TZPhotoPreviewCell.m in Sources */,
 				8717E2BF2400DADC008C4CDA /* FLEXSystemLogTableViewController.m in Sources */,
 				8717E2C02400DADC008C4CDA /* YSTableViewVC.m in Sources */,
 				8717E2C12400DADC008C4CDA /* SCEyeCareEmptyVC.m in Sources */,
@@ -4067,15 +3938,12 @@
 				8717E2D62400DADC008C4CDA /* FLEXHeapEnumerator.m in Sources */,
 				8717E2D72400DADC008C4CDA /* MASCompositeConstraint.m in Sources */,
 				8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */,
-				8717E2D92400DADC008C4CDA /* TZLocationManager.m in Sources */,
 				8717E2DA2400DADC008C4CDA /* MASConstraintMaker.m in Sources */,
 				8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */,
 				8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */,
 				8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */,
 				8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */,
 				8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */,
-				8717E2E02400DADC008C4CDA /* TZGifPhotoPreviewController.m in Sources */,
-				8717E2E12400DADC008C4CDA /* TZImageRequestOperation.m in Sources */,
 				8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */,
 				8717E2E32400DADC008C4CDA /* MASLayoutConstraint.m in Sources */,
 				8717E2E42400DADC008C4CDA /* NSArray+MASAdditions.m in Sources */,
@@ -4128,7 +3996,6 @@
 				8717E31A2400DADC008C4CDA /* YSBasicAnimation.m in Sources */,
 				8717E31B2400DADC008C4CDA /* YSVotingTableCell.m in Sources */,
 				8717E31C2400DADC008C4CDA /* SCChatToolView.m in Sources */,
-				8717E31D2400DADC008C4CDA /* TZVideoPlayerController.m in Sources */,
 				8717E31E2400DADC008C4CDA /* FLEXNetworkSettingsTableViewController.m in Sources */,
 				8717E31F2400DADC008C4CDA /* SCAnswerStatisticsModel.m in Sources */,
 				8717E3202400DADC008C4CDA /* FLEXWindow.m in Sources */,
@@ -4137,7 +4004,6 @@
 				8717E3232400DADC008C4CDA /* YSEyeCareVC.m in Sources */,
 				8717E3242400DADC008C4CDA /* FLEXViewControllerExplorerViewController.m in Sources */,
 				8717E3252400DADC008C4CDA /* FLEXClassExplorerViewController.m in Sources */,
-				8717E3262400DADC008C4CDA /* TZPhotoPickerController.m in Sources */,
 				8717E3272400DADC008C4CDA /* FLEXKeyboardHelpViewController.m in Sources */,
 				8717E3282400DADC008C4CDA /* SCBrushToolView.m in Sources */,
 			);

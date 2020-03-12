@@ -6,8 +6,6 @@
 //  Copyright © 2019 YS. All rights reserved.
 //
 #import <AVFoundation/AVFoundation.h>
-#import "TZImagePickerController.h"
-#import "TZPhotoPickerController.h"
 #import "SCMainVC.h"
 #import "SCChatView.h"
 #import "YSChatMessageModel.h"
@@ -84,7 +82,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 @interface SCMainVC ()
 <
-    TZImagePickerControllerDelegate,
+    BMTZImagePickerControllerDelegate,
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate,
     UITextViewDelegate,
@@ -2614,7 +2612,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType{
     
-    TZImagePickerController * imagePickerController = [[TZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
+    BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
     imagePickerController.showSelectedIndex = YES;
     imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -4466,7 +4464,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else if ([PHPhotoLibrary authorizationStatus] == 0)
     { // 未请求过相册权限
-        [[TZImageManager manager] requestAuthorizationWithCompletion:^{
+        [[BMTZImageManager manager] requestAuthorizationWithCompletion:^{
             [self takePhoto];
         }];
     }

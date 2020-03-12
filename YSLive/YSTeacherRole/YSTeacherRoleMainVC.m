@@ -6,8 +6,6 @@
 //  Copyright © 2019 YS. All rights reserved.
 //
 #import <AVFoundation/AVFoundation.h>
-#import "TZImagePickerController.h"
-#import "TZPhotoPickerController.h"
 #import "YSTeacherRoleMainVC.h"
 #import "SCChatView.h"
 #import "YSChatMessageModel.h"
@@ -94,7 +92,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 @interface YSTeacherRoleMainVC ()
 <
-    TZImagePickerControllerDelegate,
+    BMTZImagePickerControllerDelegate,
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate,
     UIPopoverPresentationControllerDelegate,
@@ -5427,7 +5425,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType{
     
-    TZImagePickerController * imagePickerController = [[TZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
+    BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
     imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
     imagePickerController.allowTakeVideo = NO;
