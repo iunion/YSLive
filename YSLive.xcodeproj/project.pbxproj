@@ -111,7 +111,6 @@
 		87133588237270F6006534A4 /* YSPassWordAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008C2363D5D3009297C2 /* YSPassWordAlert.m */; };
 		87133589237270F6006534A4 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23242351A8AC00864FA3 /* sha1.c */; };
 		8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
-		8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8713358E237270F6006534A4 /* YSMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DC2372647800D642E8 /* YSMainVC.m */; };
 		87133593237270F6006534A4 /* YSVoteTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128A2372647800D642E8 /* YSVoteTopView.m */; };
 		87133594237270F6006534A4 /* YSLiveMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F8D4B32368273D00A888AB /* YSLiveMediaModel.m */; };
@@ -134,7 +133,6 @@
 		871335B2237270F6006534A4 /* YSPrizeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */; };
 		871335B3237270F6006534A4 /* YSLiveManager+message.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF4D2A23619A8E008D9D00 /* YSLiveManager+message.m */; };
 		871335B5237270F6006534A4 /* YSSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAF12351708200C72EAA /* YSSuperVC.m */; };
-		871335B6237270F6006534A4 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AA2350794D00C4C635 /* MASViewConstraint.m */; };
 		871335B8237270F6006534A4 /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC232B2351A8AC00864FA3 /* pwd2key.c */; };
 		871335BB237270F6006534A4 /* BMTestAlignManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13D2371720600A43607 /* BMTestAlignManager.m */; };
 		871335BD237270F6006534A4 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230C2351A8AC00864FA3 /* crypt.c */; };
@@ -159,22 +157,16 @@
 		871335FD237270F6006534A4 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1502371720600A43607 /* YYFPSLabel.m */; };
 		87133603237270F6006534A4 /* YSBarrageTrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */; };
 		87133604237270F6006534A4 /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23172351A8AC00864FA3 /* minishared.c */; };
-		87133609237270F6006534A4 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AB2350794D00C4C635 /* MASViewAttribute.m */; };
 		8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
 		8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
 		87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8713361D237270F6006534A4 /* BMTestAppInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1522371720600A43607 /* BMTestAppInfoVC.m */; };
-		8713361E237270F6006534A4 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A82350794D00C4C635 /* MASConstraint.m */; };
 		87133621237270F6006534A4 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 260A1A8023507CB300288B01 /* YSLoginVC.m */; };
 		87133622237270F6006534A4 /* YSTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13202372647900D642E8 /* YSTextMessageCell.m */; };
 		87133625237270F6006534A4 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23312351A8AC00864FA3 /* SSZipArchive.m */; };
 		87133628237270F6006534A4 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23102351A8AC00864FA3 /* ioapi.c */; };
-		8713362A237270F6006534A4 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A12350794D00C4C635 /* MASCompositeConstraint.m */; };
 		8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
-		8713362D237270F6006534A4 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A22350794D00C4C635 /* MASConstraintMaker.m */; };
 		8713362E237270F6006534A4 /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87728F292355CCD800E34916 /* YSLiveManager.m */; };
-		8713362F237270F6006534A4 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A32350794D00C4C635 /* MASLayoutConstraint.m */; };
-		87133630237270F6006534A4 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A42350794D00C4C635 /* NSArray+MASAdditions.m */; };
 		87133631237270F6006534A4 /* ioapi_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23162351A8AC00864FA3 /* ioapi_mem.c */; };
 		87133632237270F6006534A4 /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23212351A8AC00864FA3 /* aescrypt.c */; };
 		87133637237270F6006534A4 /* YSVoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12842372647800D642E8 /* YSVoteVC.m */; };
@@ -185,9 +177,7 @@
 		8713363E237270F6006534A4 /* CALayer+YSBarrage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1723670AB5000859F7 /* CALayer+YSBarrage.m */; };
 		8713363F237270F6006534A4 /* YSChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131C2372647900D642E8 /* YSChatToolView.m */; };
 		87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1492371720600A43607 /* BMTestNetFlowManager.m */; };
-		87133643237270F6006534A4 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A52350794D00C4C635 /* View+MASAdditions.m */; };
 		87133646237270F6006534A4 /* BMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688162350794E00C4C635 /* BMProgressHUD.m */; };
-		87133648237270F6006534A4 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766879D2350794D00C4C635 /* ViewController+MASAdditions.m */; };
 		8713364A237270F6006534A4 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230D2351A8AC00864FA3 /* unzip.c */; };
 		8713364B237270F6006534A4 /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007E2363D5D3009297C2 /* YSSignedAlertView.m */; };
 		8713364C237270F6006534A4 /* YSTestHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B179237172F200A43607 /* YSTestHelp.m */; };
@@ -250,7 +240,6 @@
 		8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039E23B7362300DAC321 /* FLEXSetExplorerViewController.m */; };
 		8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13272372647900D642E8 /* YSNewTipMessageCell.m */; };
 		8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D041523B7362300DAC321 /* FLEXFileBrowserSearchOperation.m */; };
-		8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D045923B7362300DAC321 /* FLEXColor.m */; };
 		8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA6752379963F00EC2A64 /* SCStatisticsTableViewCell.m */; };
 		8717E1F92400DADC008C4CDA /* YSMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12DC2372647800D642E8 /* YSMainVC.m */; };
@@ -313,7 +302,6 @@
 		8717E23D2400DADC008C4CDA /* YSSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAF12351708200C72EAA /* YSSuperVC.m */; };
 		8717E23E2400DADC008C4CDA /* YSEyeCareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557A23B3358000BC6CAB /* YSEyeCareManager.m */; };
 		8717E23F2400DADC008C4CDA /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B02322376C48200DE83B0 /* SCTopToolBarModel.m */; };
-		8717E2402400DADC008C4CDA /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AA2350794D00C4C635 /* MASViewConstraint.m */; };
 		8717E2422400DADC008C4CDA /* FLEXTableLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D042A23B7362300DAC321 /* FLEXTableLeftCell.m */; };
 		8717E2442400DADC008C4CDA /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC232B2351A8AC00864FA3 /* pwd2key.c */; };
 		8717E2462400DADC008C4CDA /* YSRoomUser+YSLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04323B5AC8000D38129 /* YSRoomUser+YSLive.m */; };
@@ -378,7 +366,6 @@
 		8717E2992400DADC008C4CDA /* FLEXScopeCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D038723B7362300DAC321 /* FLEXScopeCarousel.m */; };
 		8717E29B2400DADC008C4CDA /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23172351A8AC00864FA3 /* minishared.c */; };
 		8717E29C2400DADC008C4CDA /* FLEXFieldEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D723B7362300DAC321 /* FLEXFieldEditorViewController.m */; };
-		8717E29F2400DADC008C4CDA /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687AB2350794D00C4C635 /* MASViewAttribute.m */; };
 		8717E2A02400DADC008C4CDA /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
 		8717E2A22400DADC008C4CDA /* FLEXASLLogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D042123B7362300DAC321 /* FLEXASLLogController.m */; };
 		8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
@@ -397,7 +384,6 @@
 		8717E2B42400DADC008C4CDA /* FLEXNetworkHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03BF23B7362300DAC321 /* FLEXNetworkHistoryTableViewController.m */; };
 		8717E2B52400DADC008C4CDA /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */; };
 		8717E2B82400DADC008C4CDA /* BMTestAppInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1522371720600A43607 /* BMTestAppInfoVC.m */; };
-		8717E2B92400DADC008C4CDA /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A82350794D00C4C635 /* MASConstraint.m */; };
 		8717E2BA2400DADC008C4CDA /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 260A1A8023507CB300288B01 /* YSLoginVC.m */; };
 		8717E2BC2400DADC008C4CDA /* FLEXDefaultEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D123B7362300DAC321 /* FLEXDefaultEditorViewController.m */; };
 		8717E2BD2400DADC008C4CDA /* YSTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13202372647900D642E8 /* YSTextMessageCell.m */; };
@@ -422,17 +408,13 @@
 		8717E2D42400DADC008C4CDA /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E58423F7981B008E885C /* YSCircleProgress.m */; };
 		8717E2D52400DADC008C4CDA /* YSPermissionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04723B5D71000D38129 /* YSPermissionsVC.m */; };
 		8717E2D62400DADC008C4CDA /* FLEXHeapEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D044A23B7362300DAC321 /* FLEXHeapEnumerator.m */; };
-		8717E2D72400DADC008C4CDA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A12350794D00C4C635 /* MASCompositeConstraint.m */; };
 		8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
-		8717E2DA2400DADC008C4CDA /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A22350794D00C4C635 /* MASConstraintMaker.m */; };
 		8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03E123B7362300DAC321 /* FLEXArgumentInputDateView.m */; };
 		8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D523B7362300DAC321 /* FLEXIvarEditorViewController.m */; };
 		8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
 		8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87728F292355CCD800E34916 /* YSLiveManager.m */; };
 		8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
 		8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040123B7362300DAC321 /* FLEXGlobalsTableViewController.m */; };
-		8717E2E32400DADC008C4CDA /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A32350794D00C4C635 /* MASLayoutConstraint.m */; };
-		8717E2E42400DADC008C4CDA /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A42350794D00C4C635 /* NSArray+MASAdditions.m */; };
 		8717E2E52400DADC008C4CDA /* FLEXOSLogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D042323B7362300DAC321 /* FLEXOSLogController.m */; };
 		8717E2E62400DADC008C4CDA /* FLEXNetworkTransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03B923B7362300DAC321 /* FLEXNetworkTransactionTableViewCell.m */; };
 		8717E2E72400DADC008C4CDA /* ioapi_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23162351A8AC00864FA3 /* ioapi_mem.c */; };
@@ -460,11 +442,9 @@
 		8717E3022400DADC008C4CDA /* FLEXNetworkTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03B423B7362300DAC321 /* FLEXNetworkTransaction.m */; };
 		8717E3032400DADC008C4CDA /* BMTestNetFlowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1492371720600A43607 /* BMTestNetFlowManager.m */; };
 		8717E3052400DADC008C4CDA /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6823B36F0300086B01 /* LMJDropdownMenu.m */; };
-		8717E3062400DADC008C4CDA /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 876687A52350794D00C4C635 /* View+MASAdditions.m */; };
 		8717E3072400DADC008C4CDA /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE223B4BB9A004B8366 /* SCTeacherListView.m */; };
 		8717E3092400DADC008C4CDA /* BMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688162350794E00C4C635 /* BMProgressHUD.m */; };
 		8717E30A2400DADC008C4CDA /* FLEXArgumentInputFontsPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03ED23B7362300DAC321 /* FLEXArgumentInputFontsPickerView.m */; };
-		8717E30B2400DADC008C4CDA /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766879D2350794D00C4C635 /* ViewController+MASAdditions.m */; };
 		8717E30C2400DADC008C4CDA /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC230D2351A8AC00864FA3 /* unzip.c */; };
 		8717E30D2400DADC008C4CDA /* YSFloatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720C237A541900407A75 /* YSFloatView.m */; };
 		8717E30E2400DADC008C4CDA /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007E2363D5D3009297C2 /* YSSignedAlertView.m */; };
@@ -1166,31 +1146,6 @@
 		8766878F2350794D00C4C635 /* PLDictionaryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDictionaryTableViewController.h; sourceTree = "<group>"; };
 		876687902350794D00C4C635 /* PLArrayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLArrayTableViewController.h; sourceTree = "<group>"; };
 		876687912350794D00C4C635 /* PLDictionaryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLDictionaryTableViewController.m; sourceTree = "<group>"; };
-		876687932350794D00C4C635 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
-		876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
-		876687952350794D00C4C635 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
-		876687962350794D00C4C635 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
-		876687972350794D00C4C635 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		876687982350794D00C4C635 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
-		876687992350794D00C4C635 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
-		8766879A2350794D00C4C635 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
-		8766879B2350794D00C4C635 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
-		8766879C2350794D00C4C635 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
-		8766879D2350794D00C4C635 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
-		8766879E2350794D00C4C635 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
-		8766879F2350794D00C4C635 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
-		876687A02350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
-		876687A12350794D00C4C635 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
-		876687A22350794D00C4C635 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
-		876687A32350794D00C4C635 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
-		876687A42350794D00C4C635 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		876687A52350794D00C4C635 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
-		876687A62350794D00C4C635 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		876687A72350794D00C4C635 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
-		876687A82350794D00C4C635 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
-		876687A92350794D00C4C635 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
-		876687AA2350794D00C4C635 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
-		876687AB2350794D00C4C635 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
 		876688162350794E00C4C635 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
 		876688172350794E00C4C635 /* BMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMProgressHUD.h; sourceTree = "<group>"; };
 		87728F282355CCD800E34916 /* YSLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveManager.h; sourceTree = "<group>"; };
@@ -2499,7 +2454,6 @@
 				874E4F6723B36F0300086B01 /* LMJDropdownMenu */,
 				872D038123B7362300DAC321 /* FLEX */,
 				87CC23092351A8AC00864FA3 /* SSZipArchive */,
-				876687922350794D00C4C635 /* Masonry */,
 				8766878D2350794D00C4C635 /* PListNavigatorLibs */,
 			);
 			path = ThirdPary;
@@ -2514,38 +2468,6 @@
 				876687912350794D00C4C635 /* PLDictionaryTableViewController.m */,
 			);
 			path = PListNavigatorLibs;
-			sourceTree = "<group>";
-		};
-		876687922350794D00C4C635 /* Masonry */ = {
-			isa = PBXGroup;
-			children = (
-				876687932350794D00C4C635 /* MASCompositeConstraint.h */,
-				876687942350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.m */,
-				876687952350794D00C4C635 /* MASConstraint+Private.h */,
-				876687962350794D00C4C635 /* MASLayoutConstraint.h */,
-				876687972350794D00C4C635 /* NSArray+MASShorthandAdditions.h */,
-				876687982350794D00C4C635 /* MASConstraintMaker.h */,
-				876687992350794D00C4C635 /* View+MASAdditions.h */,
-				8766879A2350794D00C4C635 /* NSArray+MASAdditions.h */,
-				8766879B2350794D00C4C635 /* MASUtilities.h */,
-				8766879C2350794D00C4C635 /* MASViewAttribute.h */,
-				8766879D2350794D00C4C635 /* ViewController+MASAdditions.m */,
-				8766879E2350794D00C4C635 /* MASViewConstraint.h */,
-				8766879F2350794D00C4C635 /* MASConstraint.h */,
-				876687A02350794D00C4C635 /* NSLayoutConstraint+MASDebugAdditions.h */,
-				876687A12350794D00C4C635 /* MASCompositeConstraint.m */,
-				876687A22350794D00C4C635 /* MASConstraintMaker.m */,
-				876687A32350794D00C4C635 /* MASLayoutConstraint.m */,
-				876687A42350794D00C4C635 /* NSArray+MASAdditions.m */,
-				876687A52350794D00C4C635 /* View+MASAdditions.m */,
-				876687A62350794D00C4C635 /* View+MASShorthandAdditions.h */,
-				876687A72350794D00C4C635 /* Masonry.h */,
-				876687A82350794D00C4C635 /* MASConstraint.m */,
-				876687A92350794D00C4C635 /* ViewController+MASAdditions.h */,
-				876687AA2350794D00C4C635 /* MASViewConstraint.m */,
-				876687AB2350794D00C4C635 /* MASViewAttribute.m */,
-			);
-			path = Masonry;
 			sourceTree = "<group>";
 		};
 		876688152350794E00C4C635 /* MBProgressHUD */ = {
@@ -3361,7 +3283,6 @@
 				872D047023B7362300DAC321 /* FLEXSetExplorerViewController.m in Sources */,
 				8713358A237270F6006534A4 /* YSNewTipMessageCell.m in Sources */,
 				872D04A323B7362300DAC321 /* FLEXFileBrowserSearchOperation.m in Sources */,
-				8713358D237270F6006534A4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				872D04C423B7362300DAC321 /* FLEXColor.m in Sources */,
 				26EFA6762379963F00EC2A64 /* SCStatisticsTableViewCell.m in Sources */,
 				8713358E237270F6006534A4 /* YSMainVC.m in Sources */,
@@ -3430,7 +3351,6 @@
 				871335B5237270F6006534A4 /* YSSuperVC.m in Sources */,
 				8745557F23B3358000BC6CAB /* YSEyeCareManager.m in Sources */,
 				269B023B2376CA0000DE83B0 /* SCTopToolBarModel.m in Sources */,
-				871335B6237270F6006534A4 /* MASViewConstraint.m in Sources */,
 				872D04AC23B7362300DAC321 /* FLEXTableLeftCell.m in Sources */,
 				871335B8237270F6006534A4 /* pwd2key.c in Sources */,
 				87AED04423B5AC8000D38129 /* YSRoomUser+YSLive.m in Sources */,
@@ -3497,7 +3417,6 @@
 				872D046423B7362300DAC321 /* FLEXScopeCarousel.m in Sources */,
 				87133604237270F6006534A4 /* minishared.c in Sources */,
 				872D048923B7362300DAC321 /* FLEXFieldEditorViewController.m in Sources */,
-				87133609237270F6006534A4 /* MASViewAttribute.m in Sources */,
 				8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */,
 				872D04A723B7362300DAC321 /* FLEXASLLogController.m in Sources */,
 				8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */,
@@ -3518,7 +3437,6 @@
 				872D047E23B7362300DAC321 /* FLEXNetworkHistoryTableViewController.m in Sources */,
 				046384CE237FC1AE00DE7236 /* SCTipsMessageCell.m in Sources */,
 				8713361D237270F6006534A4 /* BMTestAppInfoVC.m in Sources */,
-				8713361E237270F6006534A4 /* MASConstraint.m in Sources */,
 				87133621237270F6006534A4 /* YSLoginVC.m in Sources */,
 				872D048623B7362300DAC321 /* FLEXDefaultEditorViewController.m in Sources */,
 				87133622237270F6006534A4 /* YSTextMessageCell.m in Sources */,
@@ -3547,17 +3465,13 @@
 				8779E58523F7981B008E885C /* YSCircleProgress.m in Sources */,
 				87AED04B23B5D71000D38129 /* YSPermissionsVC.m in Sources */,
 				872D04BD23B7362300DAC321 /* FLEXHeapEnumerator.m in Sources */,
-				8713362A237270F6006534A4 /* MASCompositeConstraint.m in Sources */,
 				8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */,
-				8713362D237270F6006534A4 /* MASConstraintMaker.m in Sources */,
 				872D048F23B7362300DAC321 /* FLEXArgumentInputDateView.m in Sources */,
 				872D048823B7362300DAC321 /* FLEXIvarEditorViewController.m in Sources */,
 				CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */,
 				8713362E237270F6006534A4 /* YSLiveManager.m in Sources */,
 				CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */,
 				872D049B23B7362300DAC321 /* FLEXGlobalsTableViewController.m in Sources */,
-				8713362F237270F6006534A4 /* MASLayoutConstraint.m in Sources */,
-				87133630237270F6006534A4 /* NSArray+MASAdditions.m in Sources */,
 				3471E28E24039A0100A3BBB4 /* FSCalendarCollectionView.m in Sources */,
 				872D04A923B7362300DAC321 /* FLEXOSLogController.m in Sources */,
 				872D047B23B7362300DAC321 /* FLEXNetworkTransactionTableViewCell.m in Sources */,
@@ -3587,11 +3501,9 @@
 				872D047823B7362300DAC321 /* FLEXNetworkTransaction.m in Sources */,
 				87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */,
 				874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */,
-				87133643237270F6006534A4 /* View+MASAdditions.m in Sources */,
 				26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */,
 				87133646237270F6006534A4 /* BMProgressHUD.m in Sources */,
 				872D049323B7362300DAC321 /* FLEXArgumentInputFontsPickerView.m in Sources */,
-				87133648237270F6006534A4 /* ViewController+MASAdditions.m in Sources */,
 				8713364A237270F6006534A4 /* unzip.c in Sources */,
 				875A720D237A541900407A75 /* YSFloatView.m in Sources */,
 				8713364B237270F6006534A4 /* YSSignedAlertView.m in Sources */,
@@ -3675,7 +3587,6 @@
 				8717E1EF2400DADC008C4CDA /* FLEXSetExplorerViewController.m in Sources */,
 				8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */,
 				8717E1F32400DADC008C4CDA /* FLEXFileBrowserSearchOperation.m in Sources */,
-				8717E1F62400DADC008C4CDA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8717E1F72400DADC008C4CDA /* FLEXColor.m in Sources */,
 				8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */,
 				8717E1F92400DADC008C4CDA /* YSMainVC.m in Sources */,
@@ -3744,7 +3655,6 @@
 				8717E23D2400DADC008C4CDA /* YSSuperVC.m in Sources */,
 				8717E23E2400DADC008C4CDA /* YSEyeCareManager.m in Sources */,
 				8717E23F2400DADC008C4CDA /* SCTopToolBarModel.m in Sources */,
-				8717E2402400DADC008C4CDA /* MASViewConstraint.m in Sources */,
 				8717E2422400DADC008C4CDA /* FLEXTableLeftCell.m in Sources */,
 				8717E2442400DADC008C4CDA /* pwd2key.c in Sources */,
 				8717E2462400DADC008C4CDA /* YSRoomUser+YSLive.m in Sources */,
@@ -3811,7 +3721,6 @@
 				8717E2992400DADC008C4CDA /* FLEXScopeCarousel.m in Sources */,
 				8717E29B2400DADC008C4CDA /* minishared.c in Sources */,
 				8717E29C2400DADC008C4CDA /* FLEXFieldEditorViewController.m in Sources */,
-				8717E29F2400DADC008C4CDA /* MASViewAttribute.m in Sources */,
 				8717E2A02400DADC008C4CDA /* BMTestColorPickerManager.m in Sources */,
 				8717E2A22400DADC008C4CDA /* FLEXASLLogController.m in Sources */,
 				8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */,
@@ -3832,7 +3741,6 @@
 				8717E2B42400DADC008C4CDA /* FLEXNetworkHistoryTableViewController.m in Sources */,
 				8717E2B52400DADC008C4CDA /* SCTipsMessageCell.m in Sources */,
 				8717E2B82400DADC008C4CDA /* BMTestAppInfoVC.m in Sources */,
-				8717E2B92400DADC008C4CDA /* MASConstraint.m in Sources */,
 				8717E2BA2400DADC008C4CDA /* YSLoginVC.m in Sources */,
 				8717E2BC2400DADC008C4CDA /* FLEXDefaultEditorViewController.m in Sources */,
 				8717E2BD2400DADC008C4CDA /* YSTextMessageCell.m in Sources */,
@@ -3861,17 +3769,13 @@
 				8717E2D42400DADC008C4CDA /* YSCircleProgress.m in Sources */,
 				8717E2D52400DADC008C4CDA /* YSPermissionsVC.m in Sources */,
 				8717E2D62400DADC008C4CDA /* FLEXHeapEnumerator.m in Sources */,
-				8717E2D72400DADC008C4CDA /* MASCompositeConstraint.m in Sources */,
 				8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */,
-				8717E2DA2400DADC008C4CDA /* MASConstraintMaker.m in Sources */,
 				8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */,
 				8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */,
 				8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */,
 				8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */,
 				8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */,
 				8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */,
-				8717E2E32400DADC008C4CDA /* MASLayoutConstraint.m in Sources */,
-				8717E2E42400DADC008C4CDA /* NSArray+MASAdditions.m in Sources */,
 				3471E28F24039A0100A3BBB4 /* FSCalendarCollectionView.m in Sources */,
 				8717E2E52400DADC008C4CDA /* FLEXOSLogController.m in Sources */,
 				8717E2E62400DADC008C4CDA /* FLEXNetworkTransactionTableViewCell.m in Sources */,
@@ -3901,11 +3805,9 @@
 				8717E3022400DADC008C4CDA /* FLEXNetworkTransaction.m in Sources */,
 				8717E3032400DADC008C4CDA /* BMTestNetFlowManager.m in Sources */,
 				8717E3052400DADC008C4CDA /* LMJDropdownMenu.m in Sources */,
-				8717E3062400DADC008C4CDA /* View+MASAdditions.m in Sources */,
 				8717E3072400DADC008C4CDA /* SCTeacherListView.m in Sources */,
 				8717E3092400DADC008C4CDA /* BMProgressHUD.m in Sources */,
 				8717E30A2400DADC008C4CDA /* FLEXArgumentInputFontsPickerView.m in Sources */,
-				8717E30B2400DADC008C4CDA /* ViewController+MASAdditions.m in Sources */,
 				8717E30C2400DADC008C4CDA /* unzip.c in Sources */,
 				8717E30D2400DADC008C4CDA /* YSFloatView.m in Sources */,
 				8717E30E2400DADC008C4CDA /* YSSignedAlertView.m in Sources */,

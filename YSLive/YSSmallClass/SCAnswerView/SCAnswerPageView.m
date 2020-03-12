@@ -54,21 +54,21 @@
     [super layoutSubviews];
     
     BMWeakSelf
-    [self.leftTurnBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(5);
-        make.centerY.mas_equalTo(0);
-        make.width.height.mas_equalTo(25);
+    [self.leftTurnBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(5);
+        make.centerY.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(25);
     }];
     
-    [self.rightTurnBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.right.mas_equalTo(-5);
-        make.width.height.mas_equalTo(25);
+    [self.rightTurnBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.right.bmmas_equalTo(-5);
+        make.width.height.bmmas_equalTo(25);
     }];
-    [self.pageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.leftTurnBtn.mas_right).offset(5);
-        make.centerY.mas_equalTo(0);
-        make.right.mas_equalTo(weakSelf.rightTurnBtn.mas_left).offset(-5);
+    [self.pageLabel bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.leftTurnBtn.bmmas_right).bmmas_offset(5);
+        make.centerY.bmmas_equalTo(0);
+        make.right.bmmas_equalTo(weakSelf.rightTurnBtn.bmmas_left).bmmas_offset(-5);
     }];
 }
 

@@ -75,43 +75,43 @@
     [super layoutSubviews];
     
     BMWeakSelf
-    [self.allScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(3);
-        make.centerY.mas_equalTo(0);
-        make.width.height.mas_equalTo(30);
+    [self.allScreenBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(3);
+        make.centerY.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(30);
     }];
     
-    [self.leftTurnBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.allScreenBtn.mas_right).offset(8);
-        make.centerY.mas_equalTo(0);
-        make.width.mas_equalTo(17);
-        make.height.mas_equalTo(25);
+    [self.leftTurnBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.allScreenBtn.bmmas_right).bmmas_offset(8);
+        make.centerY.bmmas_equalTo(0);
+        make.width.bmmas_equalTo(17);
+        make.height.bmmas_equalTo(25);
     }];
     
-    [self.pageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.leftTurnBtn.mas_right).offset(5);
-        make.centerY.mas_equalTo(0);
-//        make.right.mas_equalTo(weakSelf.rightTurnBtn.mas_left).offset(-5);
-        make.width.mas_equalTo(70);
+    [self.pageLabel bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.leftTurnBtn.bmmas_right).bmmas_offset(5);
+        make.centerY.bmmas_equalTo(0);
+//        make.right.bmmas_equalTo(weakSelf.rightTurnBtn.mas_left).bmmas_offset(-5);
+        make.width.bmmas_equalTo(70);
     }];
     
-    [self.rightTurnBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.pageLabel.mas_right).offset(5);
-        make.centerY.mas_equalTo(0);
-        make.width.mas_equalTo(17);
-        make.height.mas_equalTo(25);
+    [self.rightTurnBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.pageLabel.bmmas_right).bmmas_offset(5);
+        make.centerY.bmmas_equalTo(0);
+        make.width.bmmas_equalTo(17);
+        make.height.bmmas_equalTo(25);
     }];
     
-    [self.augmentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.rightTurnBtn.mas_right).offset(8);
-        make.centerY.mas_equalTo(0);
-        make.width.height.mas_equalTo(30);
+    [self.augmentBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.rightTurnBtn.bmmas_right).bmmas_offset(8);
+        make.centerY.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(30);
     }];
     
-    [self.reduceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.left.mas_equalTo(weakSelf.augmentBtn.mas_right).offset(20);
-        make.width.height.mas_equalTo(30);
+    [self.reduceBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.left.bmmas_equalTo(weakSelf.augmentBtn.bmmas_right).bmmas_offset(20);
+        make.width.height.bmmas_equalTo(30);
     }];
 }
 

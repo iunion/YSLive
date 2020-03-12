@@ -64,11 +64,11 @@ UITextViewDelegate
         bottomM = kScale_H(10);
     }
     
-    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kScale_W(50));
-        make.top.mas_equalTo(kScale_H(10));
-        make.right.mas_equalTo(kScale_W(-90));
-        make.bottom.mas_equalTo(-bottomM);
+    [self.backView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kScale_W(50));
+        make.top.bmmas_equalTo(kScale_H(10));
+        make.right.bmmas_equalTo(kScale_W(-90));
+        make.bottom.bmmas_equalTo(-bottomM);
     }];
     
     NSString * str = [NSString stringWithFormat:@"%@%@",YSLocalized(@"Label.To"),YSLocalized(@"Label.All")];
@@ -83,10 +83,10 @@ UITextViewDelegate
     [self.placeholder addTarget:self action:@selector(placeholderButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.backView addSubview:self.placeholder];
     
-    [self.placeholder mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.backView).offset(kScale_W(14));
-        make.height.mas_equalTo(kScale_H(25));
-        make.bottom.equalTo(self.backView).offset(kScale_H(-5));
+    [self.placeholder bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(self.backView).bmmas_offset(kScale_W(14));
+        make.height.bmmas_equalTo(kScale_H(25));
+        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(-5));
     }];
     
     //输入框
@@ -100,11 +100,11 @@ UITextViewDelegate
     self.inputView.enablesReturnKeyAutomatically = YES;
     [self.backView addSubview:self.inputView];
     
-    [self.inputView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.placeholder.mas_right);
-        make.top.equalTo(self.backView).offset(kScale_H(8));
-        make.bottom.equalTo(self.backView).offset(kScale_H(-5));
-        make.right.equalTo(self.backView).offset(kScale_H(-5));
+    [self.inputView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(self.placeholder.bmmas_right);
+        make.top.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(8));
+        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(-5));
+        make.right.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(-5));
     }];
     
     _emotionButton = ({
@@ -140,11 +140,11 @@ UITextViewDelegate
     self.allDisabledChat.layer.cornerRadius = (self.bm_height-2*kScale_H(9))/2;
     self.allDisabledChat.layer.masksToBounds = YES;
     
-    [self.allDisabledChat mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(10);
-        make.top.mas_equalTo(kScale_H(9));
-        make.right.mas_equalTo(-10);
-        make.bottom.mas_equalTo(kScale_H(-9));
+    [self.allDisabledChat bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(10);
+        make.top.bmmas_equalTo(kScale_H(9));
+        make.right.bmmas_equalTo(-10);
+        make.bottom.bmmas_equalTo(kScale_H(-9));
     }];
     BOOL everyoneBanChat = [YSLiveManager shareInstance].isEveryoneBanChat;
     self.allDisabledChat.hidden = !everyoneBanChat;

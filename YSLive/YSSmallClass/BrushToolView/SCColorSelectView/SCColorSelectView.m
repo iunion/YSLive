@@ -49,15 +49,15 @@
         self.backgroundColor = UIColor.clearColor;
         
         [self addSubview:self.currentColorView];
-        [self.currentColorView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.bottom.equalTo(self);
-            make.width.equalTo(self.mas_height);
+        [self.currentColorView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.top.right.bottom.bmmas_equalTo(self);
+            make.width.bmmas_equalTo(self.bmmas_height);
         }];
         
         [self addSubview:self.colorListView];
-        [self.colorListView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.left.equalTo(self);
-            make.right.equalTo(self.currentColorView.mas_left).offset(-10);
+        [self.colorListView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.top.bottom.left.bmmas_equalTo(self);
+            make.right.bmmas_equalTo(self.currentColorView.bmmas_left).bmmas_offset(-10);
         }];
         
         [self.colorViewMuArray removeAllObjects];
@@ -69,13 +69,13 @@
             colorView.tag = SCColorViewBaseTag + i;
             [self.colorListView addSubview:colorView];
             [self.colorViewMuArray addObject:colorView];
-            [colorView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.and.bottom.equalTo(self.colorListView);
-                make.width.equalTo(self.colorListView).dividedBy([SCColorSelectView colorArray].count);
+            [colorView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+                make.top.and.bottom.bmmas_equalTo(self.colorListView);
+                make.width.bmmas_equalTo(self.colorListView).dividedBy([SCColorSelectView colorArray].count);
                 if (lastView == nil) {
-                    make.left.offset(0);
+                    make.left.bmmas_offset(0);
                 } else {
-                    make.left.equalTo(lastView.mas_right);
+                    make.left.bmmas_equalTo(lastView.bmmas_right);
                 }
                 lastView = colorView;
             }];
@@ -83,18 +83,18 @@
         
         [self.colorListView addSubview:self.chooseTipView];
         self.chooseTipView.hidden = YES;
-        [self.chooseTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.and.height.equalTo(lastView).offset(4);
-            make.center.equalTo(lastView);
+        [self.chooseTipView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.width.and.height.bmmas_equalTo(lastView).bmmas_offset(4);
+            make.center.bmmas_equalTo(lastView);
         }];
         
         self.colorTipView.hidden = YES;
         [self.colorListView addSubview:self.colorTipView];
-        [self.colorTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.currentColorView);
-            make.height.equalTo(self.colorTipView.mas_width).offset(2);
-            make.bottom.equalTo(lastView.mas_top).offset(-4);
-            make.centerX.equalTo(lastView);
+        [self.colorTipView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.width.bmmas_equalTo(self.currentColorView);
+            make.height.bmmas_equalTo(self.colorTipView.bmmas_width).bmmas_offset(2);
+            make.bottom.bmmas_equalTo(lastView.bmmas_top).bmmas_offset(-4);
+            make.centerX.bmmas_equalTo(lastView);
         }];
     }
     return self;
@@ -191,17 +191,17 @@
     
     
     UIView * colorView = [self.colorListView viewWithTag:SCColorViewBaseTag + index];
-    [self.chooseTipView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.and.height.equalTo(colorView).offset(4);
-        make.center.equalTo(colorView).priorityLow();
+    [self.chooseTipView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+        make.width.and.height.bmmas_equalTo(colorView).bmmas_offset(4);
+        make.center.bmmas_equalTo(colorView).priorityLow();
     }];
     self.chooseTipView.hidden = NO;
     
-    [self.colorTipView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.currentColorView);
-        make.height.equalTo(self.colorTipView.mas_width).offset(2);
-        make.bottom.equalTo(colorView.mas_top).offset(-4);
-        make.centerX.equalTo(colorView);
+    [self.colorTipView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
+        make.width.bmmas_equalTo(self.currentColorView);
+        make.height.bmmas_equalTo(self.colorTipView.bmmas_width).bmmas_offset(2);
+        make.bottom.bmmas_equalTo(colorView.bmmas_top).bmmas_offset(-4);
+        make.centerX.bmmas_equalTo(colorView);
     }];
     self.colorTipView.hidden = NO;
 }

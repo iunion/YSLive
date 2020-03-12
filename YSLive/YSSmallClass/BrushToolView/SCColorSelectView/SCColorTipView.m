@@ -23,9 +23,9 @@
     {
         
         [self addSubview:self.contentView];
-        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.equalTo(self);
-            make.height.equalTo(self.mas_width).offset(-2);
+        [self.contentView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.left.top.right.bmmas_equalTo(self);
+            make.height.bmmas_equalTo(self.bmmas_width).bmmas_offset(-2);
         }];
     }
     return self;
