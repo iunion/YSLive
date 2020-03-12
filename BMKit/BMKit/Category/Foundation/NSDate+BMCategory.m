@@ -14,18 +14,18 @@
 
 #import "NSDate+BMCategory.h"
 
-const long long SECONDS_IN_YEAR = 31557600;
-const long long SECONDS_IN_COMMONYEAR = 31536000;
-const long long SECONDS_IN_LEAPYEAR = 31622400;
-const NSInteger SECONDS_IN_MONTH_28 = 2419200;
-const NSInteger SECONDS_IN_MONTH_29 = 2505600;
-const NSInteger SECONDS_IN_MONTH_30 = 2592000;
-const NSInteger SECONDS_IN_MONTH_31 = 2678400;
-const NSInteger SECONDS_IN_WEEK = 604800;
-const NSInteger SECONDS_IN_DAY = 86400;
-const NSInteger SECONDS_IN_HOUR = 3600;
-const NSInteger SECONDS_IN_MINUTE = 60;
-const NSInteger MILLISECONDS_IN_DAY = 86400000;
+const long long BMSECONDS_IN_YEAR = 31557600;
+const long long BMSECONDS_IN_COMMONYEAR = 31536000;
+const long long BMSECONDS_IN_LEAPYEAR = 31622400;
+const NSInteger BMSECONDS_IN_MONTH_28 = 2419200;
+const NSInteger BMSECONDS_IN_MONTH_29 = 2505600;
+const NSInteger BMSECONDS_IN_MONTH_30 = 2592000;
+const NSInteger BMSECONDS_IN_MONTH_31 = 2678400;
+const NSInteger BMSECONDS_IN_WEEK = 604800;
+const NSInteger BMSECONDS_IN_DAY = 86400;
+const NSInteger BMSECONDS_IN_HOUR = 3600;
+const NSInteger BMSECONDS_IN_MINUTE = 60;
+const NSInteger BMMILLISECONDS_IN_DAY = 86400000;
 
 static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendarUnitQuarter | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitEra | NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear;
 
@@ -91,23 +91,23 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
     {
         return @"刚刚";
     }
-    else if (past < SECONDS_IN_MINUTE)
+    else if (past < BMSECONDS_IN_MINUTE)
     {
         return [NSString stringWithFormat:@"%ld秒前", (long)past];
     }
-    else if(past < SECONDS_IN_HOUR)
+    else if(past < BMSECONDS_IN_HOUR)
     {
-        NSInteger min = past/SECONDS_IN_MINUTE;
+        NSInteger min = past/BMSECONDS_IN_MINUTE;
         return [NSString stringWithFormat:@"%ld分钟前", (long)min];
     }
-    else if (past < SECONDS_IN_DAY)
+    else if (past < BMSECONDS_IN_DAY)
     {
-        NSInteger hour = past/SECONDS_IN_HOUR;
+        NSInteger hour = past/BMSECONDS_IN_HOUR;
         return [NSString stringWithFormat:@"%ld小时前", (long)hour];
     }
-    else if (past < SECONDS_IN_DAY*5)
+    else if (past < BMSECONDS_IN_DAY*5)
     {
-        NSInteger day = past/SECONDS_IN_DAY;
+        NSInteger day = past/BMSECONDS_IN_DAY;
         return [NSString stringWithFormat:@"%ld天前", (long)day];
     }
     
@@ -124,29 +124,29 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
     {
         return @"";
     }
-    else if (count < SECONDS_IN_MINUTE)
+    else if (count < BMSECONDS_IN_MINUTE)
     {
         return [NSString stringWithFormat:@"%ld秒", (long)count];
     }
-    else if(count < SECONDS_IN_HOUR)
+    else if(count < BMSECONDS_IN_HOUR)
     {
-        NSUInteger min = count/SECONDS_IN_MINUTE;
-        NSUInteger second = count%SECONDS_IN_MINUTE;
+        NSUInteger min = count/BMSECONDS_IN_MINUTE;
+        NSUInteger second = count%BMSECONDS_IN_MINUTE;
         return [NSString stringWithFormat:@"%ld分%ld秒", (long)min, (long)second];
     }
-    else if (count < SECONDS_IN_DAY)
+    else if (count < BMSECONDS_IN_DAY)
     {
-        NSUInteger hour = count/SECONDS_IN_HOUR;
-        NSUInteger min = (count%SECONDS_IN_HOUR)/SECONDS_IN_MINUTE;
-        NSUInteger second = count%SECONDS_IN_MINUTE;
+        NSUInteger hour = count/BMSECONDS_IN_HOUR;
+        NSUInteger min = (count%BMSECONDS_IN_HOUR)/BMSECONDS_IN_MINUTE;
+        NSUInteger second = count%BMSECONDS_IN_MINUTE;
         return [NSString stringWithFormat:@"%ld小时%ld分%ld秒", (long)hour, (long)min, (long)second];
     }
     else
     {
-        NSInteger day = count/SECONDS_IN_DAY;
-        NSUInteger hour = (count%SECONDS_IN_DAY)/SECONDS_IN_HOUR;
-        NSUInteger min = (count%SECONDS_IN_HOUR)/SECONDS_IN_MINUTE;
-        NSUInteger second = count%SECONDS_IN_MINUTE;
+        NSInteger day = count/BMSECONDS_IN_DAY;
+        NSUInteger hour = (count%BMSECONDS_IN_DAY)/BMSECONDS_IN_HOUR;
+        NSUInteger min = (count%BMSECONDS_IN_HOUR)/BMSECONDS_IN_MINUTE;
+        NSUInteger second = count%BMSECONDS_IN_MINUTE;
         return [NSString stringWithFormat:@"%ld天%ld小时%ld分%ld秒", (long)day, (long)hour, (long)min, (long)second];
     }
 }
@@ -157,9 +157,9 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
     {
         return @"";
     }
-    NSUInteger hour = count/SECONDS_IN_HOUR;
-    NSUInteger min = (count%SECONDS_IN_HOUR)/SECONDS_IN_MINUTE;
-    NSUInteger second = count%SECONDS_IN_MINUTE;
+    NSUInteger hour = count/BMSECONDS_IN_HOUR;
+    NSUInteger min = (count%BMSECONDS_IN_HOUR)/BMSECONDS_IN_MINUTE;
+    NSUInteger second = count%BMSECONDS_IN_MINUTE;
     return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hour, (long)min, (long)second];
 }
 
@@ -170,8 +170,8 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
         return @"";
     }
 
-    NSUInteger min = timestamp/SECONDS_IN_MINUTE;
-    NSUInteger second = ((NSInteger)timestamp)%SECONDS_IN_MINUTE;
+    NSUInteger min = timestamp/BMSECONDS_IN_MINUTE;
+    NSUInteger second = ((NSInteger)timestamp)%BMSECONDS_IN_MINUTE;
     return [NSString stringWithFormat:@"%02ld’%02ld‘’", (long)min, (long)second];
 }
 
@@ -438,28 +438,28 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
 
 + (NSDate *)bm_dateWithHoursFromNow:(NSInteger)dHours
 {
-    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + SECONDS_IN_HOUR * dHours;
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + BMSECONDS_IN_HOUR * dHours;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
 
 + (NSDate *)bm_dateWithHoursBeforeNow:(NSInteger)dHours
 {
-    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - SECONDS_IN_HOUR * dHours;
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - BMSECONDS_IN_HOUR * dHours;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
 
 + (NSDate *)bm_dateWithMinutesFromNow:(NSInteger)dMinutes
 {
-    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + SECONDS_IN_MINUTE * dMinutes;
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + BMSECONDS_IN_MINUTE * dMinutes;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
 
 + (NSDate *)bm_dateWithMinutesBeforeNow:(NSInteger)dMinutes
 {
-    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - SECONDS_IN_MINUTE * dMinutes;
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - BMSECONDS_IN_MINUTE * dMinutes;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
@@ -558,7 +558,7 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
     if (components1.weekOfYear != components2.weekOfYear) return NO;
     
     // Must have a time interval under 1 week. Thanks @aclark
-    return (abs((int)[self timeIntervalSinceDate:aDate]) < SECONDS_IN_WEEK);
+    return (abs((int)[self timeIntervalSinceDate:aDate]) < BMSECONDS_IN_WEEK);
 }
 
 - (BOOL)bm_isThisWeek
@@ -568,14 +568,14 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
 
 - (BOOL)bm_isNextWeek
 {
-    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + SECONDS_IN_WEEK;
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + BMSECONDS_IN_WEEK;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return [self bm_isSameWeekAsDate:newDate];
 }
 
 - (BOOL)bm_isLastWeek
 {
-    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - SECONDS_IN_WEEK;
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - BMSECONDS_IN_WEEK;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return [self bm_isSameWeekAsDate:newDate];
 }
@@ -802,7 +802,7 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
 
 - (NSDate *)bm_dateByAddingHours:(NSInteger)dHours
 {
-    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + SECONDS_IN_HOUR * dHours;
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + BMSECONDS_IN_HOUR * dHours;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
@@ -814,7 +814,7 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
 
 - (NSDate *)bm_dateByAddingMinutes:(NSInteger)dMinutes
 {
-    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + SECONDS_IN_MINUTE * dMinutes;
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + BMSECONDS_IN_MINUTE * dMinutes;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
@@ -869,37 +869,37 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
 - (NSInteger)bm_minutesAfterDate:(NSDate *)aDate
 {
     NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-    return (NSInteger) (ti / SECONDS_IN_MINUTE);
+    return (NSInteger) (ti / BMSECONDS_IN_MINUTE);
 }
 
 - (NSInteger)bm_minutesBeforeDate:(NSDate *)aDate
 {
     NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
-    return (NSInteger) (ti / SECONDS_IN_MINUTE);
+    return (NSInteger) (ti / BMSECONDS_IN_MINUTE);
 }
 
 - (NSInteger)bm_hoursAfterDate:(NSDate *)aDate
 {
     NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-    return (NSInteger) (ti / SECONDS_IN_HOUR);
+    return (NSInteger) (ti / BMSECONDS_IN_HOUR);
 }
 
 - (NSInteger)bm_hoursBeforeDate:(NSDate *)aDate
 {
     NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
-    return (NSInteger) (ti / SECONDS_IN_HOUR);
+    return (NSInteger) (ti / BMSECONDS_IN_HOUR);
 }
 
 - (NSInteger)bm_daysAfterDate:(NSDate *)aDate
 {
     NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-    return (NSInteger) (ti / SECONDS_IN_DAY);
+    return (NSInteger) (ti / BMSECONDS_IN_DAY);
 }
 
 - (NSInteger)bm_daysBeforeDate:(NSDate *)aDate
 {
     NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
-    return (NSInteger) (ti / SECONDS_IN_DAY);
+    return (NSInteger) (ti / BMSECONDS_IN_DAY);
 }
 
 - (NSTimeInterval)bm_secondsFromDate:(NSDate *)aDate
@@ -970,7 +970,7 @@ static const unsigned int allCalendarUnitFlags = NSCalendarUnitYear | NSCalendar
 
 - (NSInteger)bm_nearestHour
 {
-    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + SECONDS_IN_MINUTE * 30;
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + BMSECONDS_IN_MINUTE * 30;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     NSDateComponents *components = [[NSDate bm_currentCalendar] components:NSCalendarUnitHour fromDate:newDate];
     return components.hour;

@@ -158,7 +158,8 @@ typedef void (^BMAFURLSessionTaskCompletionHandler)(NSURLResponse *response, id 
             [weakTask suspend];
         };
 #if AF_CAN_USE_AT_AVAILABLE
-        if (@available(iOS 9, macOS 10.11, *))
+        //if (@available(iOS 9, macOS 10.11, *))
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0)
 #else
         if ([progress respondsToSelector:@selector(setResumingHandler:)])
 #endif
@@ -218,7 +219,9 @@ didCompleteWithError:(NSError *)error
     }
 
 #if AF_CAN_USE_AT_AVAILABLE && AF_CAN_INCLUDE_SESSION_TASK_METRICS
-    if (@available(iOS 10, macOS 10.12, watchOS 3, tvOS 10, *)) {
+    //if (@available(iOS 10, macOS 10.12, watchOS 3, tvOS 10, *)) {
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 10.0)
+    {
         if (self.sessionTaskMetrics) {
             userInfo[BMAFNetworkingTaskDidCompleteSessionTaskMetrics] = self.sessionTaskMetrics;
         }

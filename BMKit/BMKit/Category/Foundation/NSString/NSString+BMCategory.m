@@ -257,9 +257,9 @@
 // 得到一个时间格式为:02天 14时 49分 16秒
 + (NSString *)bm_dayHourMinuteSecondStringWithSecond:(NSUInteger)second
 {
-    NSUInteger days = second / SECONDS_IN_DAY;
-    NSUInteger hours = (second / SECONDS_IN_HOUR) % 24;
-    NSUInteger minutes = (second / SECONDS_IN_MINUTE) % 60;
+    NSUInteger days = second / BMSECONDS_IN_DAY;
+    NSUInteger hours = (second / BMSECONDS_IN_HOUR) % 24;
+    NSUInteger minutes = (second / BMSECONDS_IN_MINUTE) % 60;
     NSUInteger seconds = second % 60;
     
     return [NSString stringWithFormat:@"%@天 %@时 %@分 %@秒", @(days), @(hours), @(minutes), @(seconds)];
@@ -267,9 +267,9 @@
 
 + (NSString *)bm_secondStringWithSecond:(NSTimeInterval)second
 {
-    NSUInteger days = (NSUInteger)(second) / SECONDS_IN_DAY;
-    NSUInteger hours = ((NSUInteger)(second) / SECONDS_IN_HOUR) % 24;
-    NSUInteger minutes = ((NSUInteger)(second) / SECONDS_IN_MINUTE) % 60;
+    NSUInteger days = (NSUInteger)(second) / BMSECONDS_IN_DAY;
+    NSUInteger hours = ((NSUInteger)(second) / BMSECONDS_IN_HOUR) % 24;
+    NSUInteger minutes = ((NSUInteger)(second) / BMSECONDS_IN_MINUTE) % 60;
     NSUInteger seconds = (NSUInteger)(second) % 60;
     
     NSTimeInterval ms = (second - (NSUInteger)(second)) * 1000.0f;

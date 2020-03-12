@@ -236,9 +236,9 @@ static dispatch_once_t onceToken;
     if (phAsset.mediaType == PHAssetMediaTypeVideo)      type = BMTZAssetModelMediaTypeVideo;
     else if (phAsset.mediaType == PHAssetMediaTypeAudio) type = BMTZAssetModelMediaTypeAudio;
     else if (phAsset.mediaType == PHAssetMediaTypeImage) {
-        if (@available(iOS 9.1, *)) {
-            // if (asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = TZAssetModelMediaTypeLivePhoto;
-        }
+//        if (@available(iOS 9.1, *)) {
+//            // if (asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = TZAssetModelMediaTypeLivePhoto;
+//        }
         // Gif
         if ([[phAsset valueForKey:@"filename"] hasSuffix:@"GIF"]) {
             type = BMTZAssetModelMediaTypePhotoGif;

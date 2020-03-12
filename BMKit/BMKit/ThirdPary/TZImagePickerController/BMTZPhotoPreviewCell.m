@@ -118,7 +118,9 @@
         _scrollView.delaysContentTouches = NO;
         _scrollView.canCancelContentTouches = YES;
         _scrollView.alwaysBounceVertical = NO;
-        if (@available(iOS 11, *)) {
+        //if (@available(iOS 11, *)) {
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0)
+        {
             _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         [self addSubview:_scrollView];
