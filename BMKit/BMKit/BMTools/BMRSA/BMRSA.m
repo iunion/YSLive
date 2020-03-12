@@ -287,6 +287,7 @@ NSString *const kBMRSAPrivKeyTag = @"BMRSA_PrivateKey";
     if (certificate == nil)
     {
         *error = [NSError errorWithRSADescription:@"Can not read certificate"];
+        CFRelease(certificate);
         return nil;
     }
     
@@ -296,6 +297,8 @@ NSString *const kBMRSAPrivKeyTag = @"BMRSA_PrivateKey";
     if (trustStatus != errSecSuccess)
     {
         *error = [NSError errorWithRSAOSStatus:trustStatus];
+        CFRelease(certificate);
+        CFRelease(policy);
         return nil;
     }
     
@@ -304,6 +307,8 @@ NSString *const kBMRSAPrivKeyTag = @"BMRSA_PrivateKey";
     if (trustStatus != errSecSuccess)
     {
         *error = [NSError errorWithRSAOSStatus:trustStatus];
+        CFRelease(certificate);
+        CFRelease(policy);
         return nil;
     }
     
@@ -311,6 +316,8 @@ NSString *const kBMRSAPrivKeyTag = @"BMRSA_PrivateKey";
     if (publicKey == nil)
     {
         *error = [NSError errorWithRSADescription:@"SecTrustCopyPublicKey fail"];
+        CFRelease(certificate);
+        CFRelease(policy);
         return nil;
     }
     

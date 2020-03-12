@@ -16,8 +16,8 @@
 @property (assign, nonatomic) NSUInteger skippedCount;
 @property (assign, nonatomic) NSUInteger finishedCount;
 @property (assign, nonatomic) NSTimeInterval startedTime;
-@property (copy, nonatomic, nullable) SDWebImagePrefetcherCompletionBlock completionBlock;
-@property (copy, nonatomic, nullable) SDWebImagePrefetcherProgressBlock progressBlock;
+@property (copy, nonatomic, nullable) BMSDWebImagePrefetcherCompletionBlock completionBlock;
+@property (copy, nonatomic, nullable) BMSDWebImagePrefetcherProgressBlock progressBlock;
 
 @end
 
@@ -39,7 +39,7 @@
 - (nonnull instancetype)initWithImageManager:(BMSDWebImageManager *)manager {
     if ((self = [super init])) {
         _manager = manager;
-        _options = SDWebImageLowPriority;
+        _options = BMSDWebImageLowPriority;
         _prefetcherQueue = dispatch_get_main_queue();
         self.maxConcurrentDownloads = 3;
     }
@@ -110,8 +110,8 @@
 }
 
 - (void)prefetchURLs:(nullable NSArray<NSURL *> *)urls
-            progress:(nullable SDWebImagePrefetcherProgressBlock)progressBlock
-           completed:(nullable SDWebImagePrefetcherCompletionBlock)completionBlock {
+            progress:(nullable BMSDWebImagePrefetcherProgressBlock)progressBlock
+           completed:(nullable BMSDWebImagePrefetcherCompletionBlock)completionBlock {
     [self cancelPrefetching]; // Prevent duplicate prefetch request
     self.startedTime = CFAbsoluteTimeGetCurrent();
     self.prefetchURLs = urls;

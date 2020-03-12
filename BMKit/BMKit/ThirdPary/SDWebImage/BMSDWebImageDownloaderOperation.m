@@ -63,7 +63,7 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
 
 - (nonnull instancetype)initWithRequest:(nullable NSURLRequest *)request
                               inSession:(nullable NSURLSession *)session
-                                options:(SDWebImageDownloaderOptions)options {
+                                options:(BMSDWebImageDownloaderOptions)options {
     if ((self = [super init])) {
         _request = [request copy];
         _shouldDecompressImages = YES;
@@ -82,8 +82,8 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     SDDispatchQueueRelease(_barrierQueue);
 }
 
-- (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                            completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock {
+- (nullable id)addHandlersForProgress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                            completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock {
     SDCallbacksDictionary *callbacks = [NSMutableDictionary new];
     if (progressBlock) callbacks[kProgressCallbackKey] = [progressBlock copy];
     if (completedBlock) callbacks[kCompletedCallbackKey] = [completedBlock copy];
@@ -166,7 +166,7 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     [self.dataTask resume];
 
     if (self.dataTask) {
-        for (SDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
+        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
             progressBlock(0, NSURLResponseUnknownLength, self.request.URL);
         }
         __weak typeof(self) weakSelf = self;
@@ -263,7 +263,7 @@ didReceiveResponse:(NSURLResponse *)response
         NSInteger expected = (NSInteger)response.expectedContentLength;
         expected = expected > 0 ? expected : 0;
         self.expectedSize = expected;
-        for (SDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
+        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
             progressBlock(0, expected, self.request.URL);
         }
         
@@ -301,7 +301,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     [self.imageData appendData:data];
 
-    if ((self.options & SDWebImageDownloaderProgressiveDownload) && self.expectedSize > 0) {
+    if ((self.options & BMSDWebImageDownloaderProgressiveDownload) && self.expectedSize > 0) {
         // The following code is from http://www.cocoaintheshell.com/2011/05/progressive-images-download-imageio/
         // Thanks to the author @Nyx0uf
 
@@ -382,7 +382,7 @@ didReceiveResponse:(NSURLResponse *)response
         }
     }
 
-    for (SDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
+    for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
         progressBlock(self.imageData.length, self.expectedSize, self.request.URL);
     }
 }
@@ -435,7 +435,7 @@ didReceiveResponse:(NSURLResponse *)response
                 // Do not force decoding animated GIFs
                 if (!image.images) {
                     if (self.shouldDecompressImages) {
-                        if (self.options & SDWebImageDownloaderScaleDownLargeImages) {
+                        if (self.options & BMSDWebImageDownloaderScaleDownLargeImages) {
 #if SD_UIKIT || SD_WATCH
                             image = [UIImage bm_decodedAndScaledDownImageWithImage:image];
                             [self.imageData setData:UIImagePNGRepresentation(image)];
@@ -464,7 +464,7 @@ didReceiveResponse:(NSURLResponse *)response
     __block NSURLCredential *credential = nil;
     
     if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-        if (!(self.options & SDWebImageDownloaderAllowInvalidSSLCertificates)) {
+        if (!(self.options & BMSDWebImageDownloaderAllowInvalidSSLCertificates)) {
             disposition = NSURLSessionAuthChallengePerformDefaultHandling;
         } else {
             credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
@@ -520,7 +520,7 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (BOOL)shouldContinueWhenAppEntersBackground {
-    return self.options & SDWebImageDownloaderContinueInBackground;
+    return self.options & BMSDWebImageDownloaderContinueInBackground;
 }
 
 - (void)callCompletionBlocksWithError:(nullable NSError *)error {
@@ -533,7 +533,7 @@ didReceiveResponse:(NSURLResponse *)response
                              finished:(BOOL)finished {
     NSArray<id> *completionBlocks = [self callbacksForKey:kCompletedCallbackKey];
     dispatch_main_async_safe(^{
-        for (SDWebImageDownloaderCompletedBlock completedBlock in completionBlocks) {
+        for (BMSDWebImageDownloaderCompletedBlock completedBlock in completionBlocks) {
             completedBlock(image, imageData, error, finished);
         }
     });

@@ -10,13 +10,13 @@
 #import <Foundation/Foundation.h>
 #import "BMSDWebImageCompat.h"
 
-typedef NS_ENUM(NSInteger, SDImageFormat) {
-    SDImageFormatUndefined = -1,
-    SDImageFormatJPEG = 0,
-    SDImageFormatPNG,
-    SDImageFormatGIF,
-    SDImageFormatTIFF,
-    SDImageFormatWebP
+typedef NS_ENUM(NSInteger, BMSDImageFormat) {
+    BMSDImageFormatUndefined = -1,
+    BMSDImageFormatJPEG = 0,
+    BMSDImageFormatPNG,
+    BMSDImageFormatGIF,
+    BMSDImageFormatTIFF,
+    BMSDImageFormatWebP
 };
 
 @interface NSData (BMImageContentType)
@@ -28,6 +28,6 @@ typedef NS_ENUM(NSInteger, SDImageFormat) {
  *
  *  @return the image format as `SDImageFormat` (enum)
  */
-+ (SDImageFormat)bm_imageFormatForImageData:(nullable NSData *)data;
++ (BMSDImageFormat)bm_imageFormatForImageData:(nullable NSData *)data;
 
 @end

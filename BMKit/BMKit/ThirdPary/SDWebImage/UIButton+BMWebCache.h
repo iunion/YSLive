@@ -69,7 +69,7 @@
 - (void)bm_setImageWithURL:(nullable NSURL *)url
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options NS_REFINED_FOR_SWIFT;
+                   options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -86,7 +86,7 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
                   forState:(UIControlState)state
-                 completed:(nullable SDExternalCompletionBlock)completedBlock;
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder.
@@ -105,7 +105,7 @@
 - (void)bm_setImageWithURL:(nullable NSURL *)url
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
-                 completed:(nullable SDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -125,8 +125,8 @@
 - (void)bm_setImageWithURL:(nullable NSURL *)url
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options
-                 completed:(nullable SDExternalCompletionBlock)completedBlock;
+                   options:(BMSDWebImageOptions)options
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 #pragma mark - Background image
 
@@ -180,7 +180,7 @@
 - (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
-                             options:(SDWebImageOptions)options NS_REFINED_FOR_SWIFT;
+                             options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the backgroundImageView `image` with an `url`.
@@ -197,7 +197,7 @@
  */
 - (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url
                             forState:(UIControlState)state
-                           completed:(nullable SDExternalCompletionBlock)completedBlock;
+                           completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
  * Set the backgroundImageView `image` with an `url`, placeholder.
@@ -216,7 +216,7 @@
 - (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
-                           completed:(nullable SDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
+                           completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the backgroundImageView `image` with an `url`, placeholder and custom options.
@@ -235,8 +235,8 @@
 - (void)bm_setBackgroundImageWithURL:(nullable NSURL *)url
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
-                             options:(SDWebImageOptions)options
-                           completed:(nullable SDExternalCompletionBlock)completedBlock;
+                             options:(BMSDWebImageOptions)options
+                           completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 #pragma mark - Cancel
 

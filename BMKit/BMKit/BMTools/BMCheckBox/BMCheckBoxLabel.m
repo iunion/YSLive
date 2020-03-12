@@ -177,7 +177,7 @@
     {
         [self.imageView.realImageView bm_setImageWithURL:[NSURL URLWithString:self.labelImageUrl]
                           placeholderImage:self.placeholderLabelImage
-                                   options:SDWebImageRetryFailed | SDWebImageLowPriority
+                                   options:BMSDWebImageRetryFailed | BMSDWebImageLowPriority
                                  completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                                      [self.imageView setNeedsLayout];
                                  }];

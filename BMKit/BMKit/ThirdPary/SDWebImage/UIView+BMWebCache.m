@@ -29,16 +29,16 @@ static char TAG_ACTIVITY_SHOW;
 
 - (void)bm_internalSetImageWithURL:(nullable NSURL *)url
                   placeholderImage:(nullable UIImage *)placeholder
-                           options:(SDWebImageOptions)options
+                           options:(BMSDWebImageOptions)options
                       operationKey:(nullable NSString *)operationKey
-                     setImageBlock:(nullable SDSetImageBlock)setImageBlock
-                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                         completed:(nullable SDExternalCompletionBlock)completedBlock {
+                     setImageBlock:(nullable BMSDSetImageBlock)setImageBlock
+                          progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                         completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     NSString *validOperationKey = operationKey ?: NSStringFromClass([self class]);
     [self bm_cancelImageLoadOperationWithKey:validOperationKey];
     objc_setAssociatedObject(self, &imageURLKey, url, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
-    if (!(options & SDWebImageDelayPlaceholder)) {
+    if (!(options & BMSDWebImageDelayPlaceholder)) {
         dispatch_main_async_safe(^{
             [self bm_setImage:placeholder imageData:nil basedOnClassOrViaCustomSetImageBlock:setImageBlock];
         });
@@ -61,14 +61,14 @@ static char TAG_ACTIVITY_SHOW;
                 if (!sself) {
                     return;
                 }
-                if (image && (options & SDWebImageAvoidAutoSetImage) && completedBlock) {
+                if (image && (options & BMSDWebImageAvoidAutoSetImage) && completedBlock) {
                     completedBlock(image, error, cacheType, url);
                     return;
                 } else if (image) {
                     [sself bm_setImage:image imageData:data basedOnClassOrViaCustomSetImageBlock:setImageBlock];
                     [sself bm_setNeedsLayout];
                 } else {
-                    if ((options & SDWebImageDelayPlaceholder)) {
+                    if ((options & BMSDWebImageDelayPlaceholder)) {
                         [sself bm_setImage:placeholder imageData:nil basedOnClassOrViaCustomSetImageBlock:setImageBlock];
                         [sself bm_setNeedsLayout];
                     }
@@ -84,7 +84,7 @@ static char TAG_ACTIVITY_SHOW;
             [self bm_removeActivityIndicator];
             if (completedBlock) {
                 NSError *error = [NSError errorWithDomain:BMSDWebImageErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey : @"Trying to load a nil url"}];
-                completedBlock(nil, error, SDImageCacheTypeNone, url);
+                completedBlock(nil, error, BMSDImageCacheTypeNone, url);
             }
         });
     }
@@ -94,7 +94,7 @@ static char TAG_ACTIVITY_SHOW;
     [self bm_cancelImageLoadOperationWithKey:NSStringFromClass([self class])];
 }
 
-- (void)bm_setImage:(UIImage *)image imageData:(NSData *)imageData basedOnClassOrViaCustomSetImageBlock:(SDSetImageBlock)setImageBlock {
+- (void)bm_setImage:(UIImage *)image imageData:(NSData *)imageData basedOnClassOrViaCustomSetImageBlock:(BMSDSetImageBlock)setImageBlock {
     if (setImageBlock) {
         setImageBlock(image, imageData);
         return;

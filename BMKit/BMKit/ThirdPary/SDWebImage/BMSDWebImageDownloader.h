@@ -10,75 +10,75 @@
 #import "BMSDWebImageCompat.h"
 #import "BMSDWebImageOperation.h"
 
-typedef NS_OPTIONS(NSUInteger, SDWebImageDownloaderOptions) {
-    SDWebImageDownloaderLowPriority = 1 << 0,
-    SDWebImageDownloaderProgressiveDownload = 1 << 1,
+typedef NS_OPTIONS(NSUInteger, BMSDWebImageDownloaderOptions) {
+    BMSDWebImageDownloaderLowPriority = 1 << 0,
+    BMSDWebImageDownloaderProgressiveDownload = 1 << 1,
 
     /**
      * By default, request prevent the use of NSURLCache. With this flag, NSURLCache
      * is used with default policies.
      */
-    SDWebImageDownloaderUseNSURLCache = 1 << 2,
+    BMSDWebImageDownloaderUseNSURLCache = 1 << 2,
 
     /**
      * Call completion block with nil image/imageData if the image was read from NSURLCache
      * (to be combined with `SDWebImageDownloaderUseNSURLCache`).
      * I think this option should be renamed to 'SDWebImageDownloaderUsingCachedResponseDontLoad'
      */
-    SDWebImageDownloaderIgnoreCachedResponse = 1 << 3,
+    BMSDWebImageDownloaderIgnoreCachedResponse = 1 << 3,
     
     /**
      * In iOS 4+, continue the download of the image if the app goes to background. This is achieved by asking the system for
      * extra time in background to let the request finish. If the background task expires the operation will be cancelled.
      */
-    SDWebImageDownloaderContinueInBackground = 1 << 4,
+    BMSDWebImageDownloaderContinueInBackground = 1 << 4,
 
     /**
      * Handles cookies stored in NSHTTPCookieStore by setting 
      * NSMutableURLRequest.HTTPShouldHandleCookies = YES;
      */
-    SDWebImageDownloaderHandleCookies = 1 << 5,
+    BMSDWebImageDownloaderHandleCookies = 1 << 5,
 
     /**
      * Enable to allow untrusted SSL certificates.
      * Useful for testing purposes. Use with caution in production.
      */
-    SDWebImageDownloaderAllowInvalidSSLCertificates = 1 << 6,
+    BMSDWebImageDownloaderAllowInvalidSSLCertificates = 1 << 6,
 
     /**
      * Put the image in the high priority queue.
      */
-    SDWebImageDownloaderHighPriority = 1 << 7,
+    BMSDWebImageDownloaderHighPriority = 1 << 7,
     
     /**
      * Scale down the image
      */
-    SDWebImageDownloaderScaleDownLargeImages = 1 << 8,
+    BMSDWebImageDownloaderScaleDownLargeImages = 1 << 8,
 };
 
-typedef NS_ENUM(NSInteger, SDWebImageDownloaderExecutionOrder) {
+typedef NS_ENUM(NSInteger, BMSDWebImageDownloaderExecutionOrder) {
     /**
      * Default value. All download operations will execute in queue style (first-in-first-out).
      */
-    SDWebImageDownloaderFIFOExecutionOrder,
+    BMSDWebImageDownloaderFIFOExecutionOrder,
 
     /**
      * All download operations will execute in stack style (last-in-first-out).
      */
-    SDWebImageDownloaderLIFOExecutionOrder
+    BMSDWebImageDownloaderLIFOExecutionOrder
 };
 
 FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadStartNotification;
 FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadStopNotification;
 
-typedef void(^SDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
+typedef void(^BMSDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
 
-typedef void(^SDWebImageDownloaderCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
+typedef void(^BMSDWebImageDownloaderCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
 
-typedef NSDictionary<NSString *, NSString *> SDHTTPHeadersDictionary;
-typedef NSMutableDictionary<NSString *, NSString *> SDHTTPHeadersMutableDictionary;
+typedef NSDictionary<NSString *, NSString *> BMSDHTTPHeadersDictionary;
+typedef NSMutableDictionary<NSString *, NSString *> BMSDHTTPHeadersMutableDictionary;
 
-typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterBlock)(NSURL * _Nullable url, SDHTTPHeadersDictionary * _Nullable headers);
+typedef BMSDHTTPHeadersDictionary * _Nullable (^BMSDWebImageDownloaderHeadersFilterBlock)(NSURL * _Nullable url, BMSDHTTPHeadersDictionary * _Nullable headers);
 
 /**
  *  A token associated with each download. Can be used to cancel a download
@@ -131,7 +131,7 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
 /**
  * Changes download operations execution order. Default value is `SDWebImageDownloaderFIFOExecutionOrder`.
  */
-@property (assign, nonatomic) SDWebImageDownloaderExecutionOrder executionOrder;
+@property (assign, nonatomic) BMSDWebImageDownloaderExecutionOrder executionOrder;
 
 /**
  *  Singleton method, returns the shared instance
@@ -161,7 +161,7 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
  * This block will be invoked for each downloading image request, returned
  * NSDictionary will be used as headers in corresponding HTTP request.
  */
-@property (nonatomic, copy, nullable) SDWebImageDownloaderHeadersFilterBlock headersFilter;
+@property (nonatomic, copy, nullable) BMSDWebImageDownloaderHeadersFilterBlock headersFilter;
 
 /**
  * Creates an instance of a downloader with specified session configuration.
@@ -218,9 +218,9 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
  * @return A token (SDWebImageDownloadToken) that can be passed to -cancel: to cancel this operation
  */
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
-                                                   options:(SDWebImageDownloaderOptions)options
-                                                  progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
+                                                   options:(BMSDWebImageDownloaderOptions)options
+                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 /**
  * Cancels a download that was previously queued using -downloadImageWithURL:options:progress:completed:

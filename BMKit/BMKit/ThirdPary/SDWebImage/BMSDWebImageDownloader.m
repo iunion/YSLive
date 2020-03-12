@@ -20,7 +20,7 @@
 @property (weak, nonatomic, nullable) NSOperation *lastAddedOperation;
 @property (assign, nonatomic, nullable) Class operationClass;
 @property (strong, nonatomic, nonnull) NSMutableDictionary<NSURL *, BMSDWebImageDownloaderOperation *> *URLOperations;
-@property (strong, nonatomic, nullable) SDHTTPHeadersMutableDictionary *HTTPHeaders;
+@property (strong, nonatomic, nullable) BMSDHTTPHeadersMutableDictionary *HTTPHeaders;
 // This queue is used to serialize the handling of the network responses of all the download operation in a single queue
 @property (SDDispatchQueueSetterSementics, nonatomic, nullable) dispatch_queue_t barrierQueue;
 
@@ -71,7 +71,7 @@
     if ((self = [super init])) {
         _operationClass = [BMSDWebImageDownloaderOperation class];
         _shouldDecompressImages = YES;
-        _executionOrder = SDWebImageDownloaderFIFOExecutionOrder;
+        _executionOrder = BMSDWebImageDownloaderFIFOExecutionOrder;
         _downloadQueue = [NSOperationQueue new];
         _downloadQueue.maxConcurrentOperationCount = 6;
         _downloadQueue.name = @"com.hackemist.SDWebImageDownloader";
@@ -153,9 +153,9 @@
 }
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
-                                                   options:(SDWebImageDownloaderOptions)options
-                                                  progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock {
+                                                   options:(BMSDWebImageDownloaderOptions)options
+                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock {
     __weak BMSDWebImageDownloader *wself = self;
 
     return [self addProgressCallback:progressBlock completedBlock:completedBlock forURL:url createCallback:^BMSDWebImageDownloaderOperation *{
@@ -167,8 +167,8 @@
 
         // In order to prevent from potential duplicate caching (NSURLCache + SDImageCache) we disable the cache for image requests if told otherwise
         NSURLRequestCachePolicy cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        if (options & SDWebImageDownloaderUseNSURLCache) {
-            if (options & SDWebImageDownloaderIgnoreCachedResponse) {
+        if (options & BMSDWebImageDownloaderUseNSURLCache) {
+            if (options & BMSDWebImageDownloaderIgnoreCachedResponse) {
                 cachePolicy = NSURLRequestReturnCacheDataDontLoad;
             } else {
                 cachePolicy = NSURLRequestUseProtocolCachePolicy;
@@ -177,7 +177,7 @@
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
         
-        request.HTTPShouldHandleCookies = (options & SDWebImageDownloaderHandleCookies);
+        request.HTTPShouldHandleCookies = (options & BMSDWebImageDownloaderHandleCookies);
         request.HTTPShouldUsePipelining = YES;
         if (sself.headersFilter) {
             request.allHTTPHeaderFields = sself.headersFilter(url, [sself.HTTPHeaders copy]);
@@ -194,14 +194,14 @@
             operation.credential = [NSURLCredential credentialWithUser:sself.username password:sself.password persistence:NSURLCredentialPersistenceForSession];
         }
         
-        if (options & SDWebImageDownloaderHighPriority) {
+        if (options & BMSDWebImageDownloaderHighPriority) {
             operation.queuePriority = NSOperationQueuePriorityHigh;
-        } else if (options & SDWebImageDownloaderLowPriority) {
+        } else if (options & BMSDWebImageDownloaderLowPriority) {
             operation.queuePriority = NSOperationQueuePriorityLow;
         }
 
         [sself.downloadQueue addOperation:operation];
-        if (sself.executionOrder == SDWebImageDownloaderLIFOExecutionOrder) {
+        if (sself.executionOrder == BMSDWebImageDownloaderLIFOExecutionOrder) {
             // Emulate LIFO execution order by systematically adding new operations as last operation's dependency
             [sself.lastAddedOperation addDependency:operation];
             sself.lastAddedOperation = operation;
@@ -221,8 +221,8 @@
     });
 }
 
-- (nullable BMSDWebImageDownloadToken *)addProgressCallback:(SDWebImageDownloaderProgressBlock)progressBlock
-                                           completedBlock:(SDWebImageDownloaderCompletedBlock)completedBlock
+- (nullable BMSDWebImageDownloadToken *)addProgressCallback:(BMSDWebImageDownloaderProgressBlock)progressBlock
+                                           completedBlock:(BMSDWebImageDownloaderCompletedBlock)completedBlock
                                                    forURL:(nullable NSURL *)url
                                            createCallback:(BMSDWebImageDownloaderOperation *(^)(void))createCallback {
     // The URL will be used as the key to the callbacks dictionary so it cannot be nil. If it is nil immediately call the completed block with no image or data.

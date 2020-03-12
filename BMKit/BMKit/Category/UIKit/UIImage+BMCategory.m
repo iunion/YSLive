@@ -185,6 +185,8 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     
     CGFloat clearPercent = clearPixelCount / totalPixelCount;
     NSLog(@"clearPercent: %.2f", clearPercent);
+    CGContextRelease(context);
+    CGColorSpaceRelease(space);
     return clearPercent;
 }
 

@@ -79,7 +79,7 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options NS_REFINED_FOR_SWIFT;
+                   options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -94,7 +94,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
-                 completed:(nullable SDExternalCompletionBlock)completedBlock;
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder.
@@ -111,7 +111,7 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                 completed:(nullable SDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -129,8 +129,8 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options
-                 completed:(nullable SDExternalCompletionBlock)completedBlock;
+                   options:(BMSDWebImageOptions)options
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -150,9 +150,9 @@
  */
 - (void)bm_setImageWithURL:(nullable NSURL *)url
           placeholderImage:(nullable UIImage *)placeholder
-                   options:(SDWebImageOptions)options
-                  progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                 completed:(nullable SDExternalCompletionBlock)completedBlock;
+                   options:(BMSDWebImageOptions)options
+                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                 completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url` and optionally a placeholder image.
@@ -172,9 +172,9 @@
  */
 - (void)bm_setImageWithPreviousCachedImageWithURL:(nullable NSURL *)url
                                  placeholderImage:(nullable UIImage *)placeholder
-                                          options:(SDWebImageOptions)options
-                                         progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                                        completed:(nullable SDExternalCompletionBlock)completedBlock;
+                                          options:(BMSDWebImageOptions)options
+                                         progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                        completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 #if SD_UIKIT
 

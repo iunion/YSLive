@@ -24,10 +24,10 @@ FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadFinishNotificati
 
 - (nonnull instancetype)initWithRequest:(nullable NSURLRequest *)request
                               inSession:(nullable NSURLSession *)session
-                                options:(SDWebImageDownloaderOptions)options;
+                                options:(BMSDWebImageDownloaderOptions)options;
 
-- (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                            completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
+- (nullable id)addHandlersForProgress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                            completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 - (BOOL)shouldDecompressImages;
 - (void)setShouldDecompressImages:(BOOL)value;
@@ -69,7 +69,7 @@ FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadFinishNotificati
 /**
  * The SDWebImageDownloaderOptions for the receiver.
  */
-@property (assign, nonatomic, readonly) SDWebImageDownloaderOptions options;
+@property (assign, nonatomic, readonly) BMSDWebImageDownloaderOptions options;
 
 /**
  * The expected size of data.
@@ -94,7 +94,7 @@ FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadFinishNotificati
  */
 - (nonnull instancetype)initWithRequest:(nullable NSURLRequest *)request
                               inSession:(nullable NSURLSession *)session
-                                options:(SDWebImageDownloaderOptions)options NS_DESIGNATED_INITIALIZER;
+                                options:(BMSDWebImageDownloaderOptions)options NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Adds handlers for progress and completion. Returns a tokent that can be passed to -cancel: to cancel this set of
@@ -107,8 +107,8 @@ FOUNDATION_EXPORT NSString * _Nonnull const BMSDWebImageDownloadFinishNotificati
  *
  *  @return the token to use to cancel this set of handlers
  */
-- (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                            completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
+- (nullable id)addHandlersForProgress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                            completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 /**
  *  Cancels a set of callbacks. Once all callbacks are canceled, the operation is cancelled.
