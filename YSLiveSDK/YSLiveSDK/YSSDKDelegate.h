@@ -17,8 +17,16 @@
 /**
     成功进入房间
     @param ts 服务器当前时间戳，以秒为单位，如1572001230
+    请使用- (void)onRoomReportFail:(YSSDKErrorCode)errorCode descript:(NSString *)descript;
  */
-- (void)onRoomJoined:(NSTimeInterval)ts;
+- (void)onRoomJoined:(NSTimeInterval)ts DEPRECATED_ATTRIBUTE;
+/**
+   成功进入房间
+   @param ts 服务器当前时间戳，以秒为单位，如1572001230
+   @param roomType 房间类型
+   @param userType 登入用户身份
+*/
+- (void)onRoomJoined:(NSTimeInterval)ts roomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType;
 
 /**
     失去连接
@@ -55,13 +63,15 @@
 
 /**
    已经进入直播房间
+    在- (void)onRoomReportFail:(YSSDKErrorCode)errorCode descript:(NSString *)descript;之后同时发送
 */
-- (void)onEnterLiveRoom;
+- (void)onEnterLiveRoom DEPRECATED_ATTRIBUTE;
 
 /**
    已经进入小班课(会议)房间
+    在- (void)onRoomReportFail:(YSSDKErrorCode)errorCode descript:(NSString *)descript;之后同时发送
 */
-- (void)onEnterClassRoom;
+- (void)onEnterClassRoom DEPRECATED_ATTRIBUTE;
 
 @end
 

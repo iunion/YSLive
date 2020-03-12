@@ -90,7 +90,7 @@
 
 #define YSWhiteBoard_HttpDnsService_AccountID   131798
 
-//举手上台信令的msgID
+// 举手上台信令的msgID
 #define YSDefaultRaiseHandMsgId  @"RaisehandMsgID"
 
 /// 网宿host头

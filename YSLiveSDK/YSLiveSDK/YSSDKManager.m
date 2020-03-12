@@ -14,10 +14,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.3.3";
+static NSString *YSAPPVersionString = @"2.4.3";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.4.0.0";
+static NSString *YSSDKVersionString = @"2.4.3.0";
 
 @interface YSSDKManager ()
 <
@@ -79,9 +79,20 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
     self.delegate = managerDelegate;
 }
 
+#pragma mark - network status
+
+- (void)coreNetworkChanged:(NSNotification *)noti
+{
+    NSDictionary *userDic = noti.userInfo;
+    
+    BMLog(@"网络环境: %@", [userDic bm_stringForKey:@"currentStatusString"]);
+    BMLog(@"网络运营商: %@", [userDic bm_stringForKey:@"currentBrandName"]);
+}
+
+
 - (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code,NSString *errorStr))failure
 {
-       AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+       BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
        NSMutableURLRequest *request = [YSLiveApiRequest checkRoomTypeWithRoomId:roomId];
        request.timeoutInterval = 30.0f;
        if (request)
@@ -185,7 +196,7 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
         }
     }
     
-    if ([rootVC isKindOfClass:[UIViewController class]])
+    if (![rootVC isKindOfClass:[UIViewController class]])
     {
         NSAssert(NO, YSLocalized(@"SDK.VCError"));
         return;
@@ -202,6 +213,11 @@ static NSString *YSSDKVersionString = @"2.4.0.0";
     NSUInteger roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
     BOOL isSmallClass = (roomtype == YSAppUseTheTypeSmallClass || roomtype == YSAppUseTheTypeMeeting);
     
+    if ([self.delegate respondsToSelector:@selector(onRoomJoined:roomType:userType:)])
+    {
+        [self.delegate onRoomJoined:ts roomType:roomtype userType:self.liveManager.localUser.role];
+    }
+
     if (isSmallClass)
     {
         NSUInteger maxvideo = [[YSLiveManager shareInstance].roomDic bm_uintForKey:@"maxvideo"];

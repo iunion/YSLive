@@ -439,7 +439,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
 }
 
-///用户进教室前的一些信令回调
+/// 用户进教室前的一些信令回调
 - (void)doMsgCachePool
 {
     for (NSDictionary *dic in self.cacheMsgPool)
@@ -1124,15 +1124,24 @@ static YSLiveManager *liveManagerSingleton = nil;
         [self.roomManagerDelegate onRoomLeft];
     }
     
+//#if YSSDK
+//    [self performSelector:@selector(onSDKRoomLeft) withObject:nil afterDelay:0.5f];
+//#endif
+    
+    //[self delRoomUser:self.localUser showMessge:NO];
+}
+
 #if YSSDK
+- (void)onSDKRoomLeft
+{
+    BMLog(@"onSDKRoomLeft");
+    
     if ([self.sdkDelegate respondsToSelector:@selector(onRoomLeft)])
     {
         [self.sdkDelegate onRoomLeft];
     }
-#endif
-    
-    //[self delRoomUser:self.localUser showMessge:NO];
 }
+#endif
 
 // 送花
 - (void)handleSignalingSendFlowerWithSenderId:(NSString *)senderId senderName:(NSString *)senderName

@@ -1446,7 +1446,6 @@
 				8790DC0E238E3EB0005C0BC7 /* Frameworks */,
 				8790DC0F238E3EB0005C0BC7 /* Resources */,
 				8790F261238E5A17005C0BC7 /* CopyFiles */,
-				23901DF56D885283666A7A55 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1508,23 +1507,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		23901DF56D885283666A7A55 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YSLiveSDK/Pods-YSLiveSDK-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YSLiveSDK/Pods-YSLiveSDK-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YSLiveSDK/Pods-YSLiveSDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5040171CFE45D47E9140D8EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

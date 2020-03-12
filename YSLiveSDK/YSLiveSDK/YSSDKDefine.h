@@ -13,8 +13,10 @@
 typedef NS_ENUM(NSUInteger, YSSDKUserRoleType)
 {
     YSSDKUserType_Teacher = 0,     //老师
-    YSSDKUserType_Assistant,       //助教
-    YSSDKSUserType_Student         //学生
+    //YSSDKUserType_Assistant,       //助教
+    YSSDKSUserType_Student = 2,    //学生
+    //YSSDKSUserType_Live,           //直播
+    //YSSDKSUserType_Patrol = 4      //巡课
 };
 
 /// app使用场景  3：小班课  4：直播   6：会议
