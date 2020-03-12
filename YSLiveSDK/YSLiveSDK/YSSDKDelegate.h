@@ -62,13 +62,13 @@
 
 
 /**
-   已经进入直播房间
+    已经进入直播房间
     在- (void)onRoomReportFail:(YSSDKErrorCode)errorCode descript:(NSString *)descript;之后同时发送
 */
 - (void)onEnterLiveRoom DEPRECATED_ATTRIBUTE;
 
 /**
-   已经进入小班课(会议)房间
+    已经进入小班课(会议)房间
     在- (void)onRoomReportFail:(YSSDKErrorCode)errorCode descript:(NSString *)descript;之后同时发送
 */
 - (void)onEnterClassRoom DEPRECATED_ATTRIBUTE;
