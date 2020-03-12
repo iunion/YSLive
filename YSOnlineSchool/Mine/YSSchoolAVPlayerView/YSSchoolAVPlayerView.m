@@ -367,8 +367,8 @@
     {
         return @"00:00";
     }
-    NSUInteger min = count/SECONDS_IN_MINUTE;
-    NSUInteger second = count%SECONDS_IN_MINUTE;
+    NSUInteger min = count/BMSECONDS_IN_MINUTE;
+    NSUInteger second = count%BMSECONDS_IN_MINUTE;
     return [NSString stringWithFormat:@"%02ld:%02ld", (long)min, (long)second];
 }
 

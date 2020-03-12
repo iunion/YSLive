@@ -66,7 +66,6 @@
 //@property (nonatomic, strong) UIView *lowDeviceBgView;//背景蒙版
 /////设备性能低时的蒙版上的文字
 //@property (nonatomic, strong) UILabel *lowDeviceTitle;
-//马迪测试
 
 
 @end
