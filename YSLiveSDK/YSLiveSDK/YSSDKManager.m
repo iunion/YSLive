@@ -17,7 +17,7 @@
 static NSString *YSAPPVersionString = @"2.4.3";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.4.3.0";
+static NSString *YSSDKVersionString = @"2.4.3.1";
 
 @interface YSSDKManager ()
 <
@@ -160,7 +160,7 @@ static NSString *YSSDKVersionString = @"2.4.3.0";
     [self.liveManager registerRoomManagerDelegate:self];
     self.liveManager.sdkDelegate = self;
 
-    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:nil userParams:nil needCheckPermissions:needCheckPermissions];
+    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
 }

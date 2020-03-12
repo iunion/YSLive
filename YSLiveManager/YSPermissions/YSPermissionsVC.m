@@ -486,12 +486,23 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
             self.permissionsType = YSPermissionsTypeResult;
                 break;
         case YSPermissionsTypeResult:
+        {
             [self.player stop];
+#if YSSDK
+            [self dismissViewControllerAnimated:NO completion:^{
+                if (self->_toJoinRoom)
+                {
+                    self->_toJoinRoom();
+                }
+            }];
+#else
             if (_toJoinRoom)
             {
                 _toJoinRoom();
             }
             [self.navigationController popViewControllerAnimated:NO];
+#endif
+        }
                 break;
         default:
             break;
