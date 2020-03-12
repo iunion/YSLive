@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -64,12 +64,10 @@
 		877B44D523D03FAB00A88540 /* YSApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44CE23D03FAB00A88540 /* YSApiRequest.m */; };
 		877B44D623D03FAB00A88540 /* YSApiRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44CF23D03FAB00A88540 /* YSApiRequest.h */; };
 		877B44D723D03FAB00A88540 /* YSLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44D023D03FAB00A88540 /* YSLocation.h */; };
-		877B44E123D03FBB00A88540 /* YSMainSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44DA23D03FBB00A88540 /* YSMainSuperVC.h */; };
 		877B44E223D03FBB00A88540 /* YSSuperNetVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44DB23D03FBB00A88540 /* YSSuperNetVC.h */; };
 		877B44E323D03FBB00A88540 /* YSSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44DC23D03FBB00A88540 /* YSSuperVC.m */; };
 		877B44E423D03FBB00A88540 /* YSSuperNetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44DD23D03FBB00A88540 /* YSSuperNetVC.m */; };
 		877B44E523D03FBB00A88540 /* YSVCProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44DE23D03FBB00A88540 /* YSVCProtocol.h */; };
-		877B44E623D03FBB00A88540 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B44DF23D03FBB00A88540 /* YSMainSuperVC.m */; };
 		877B44E723D03FBB00A88540 /* YSSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B44E023D03FBB00A88540 /* YSSuperVC.h */; };
 		877B45CE23D03FDA00A88540 /* YSVoteVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 877B458D23D03FDA00A88540 /* YSVoteVC.h */; };
 		877B45CF23D03FDA00A88540 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 877B458F23D03FDA00A88540 /* YSVoteModel.m */; };
@@ -168,6 +166,10 @@
 		8790DC16238E3EB0005C0BC7 /* YSLiveSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8790DC14238E3EB0005C0BC7 /* YSLiveSDK.h */; };
 		87942D88238E6C9C00D6B4B2 /* YSSDKManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 87942D86238E6C9C00D6B4B2 /* YSSDKManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87942D89238E6C9C00D6B4B2 /* YSSDKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87942D87238E6C9C00D6B4B2 /* YSSDKManager.m */; };
+		87A63898241A5EC300CB81E3 /* YSMainSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A63894241A5EC300CB81E3 /* YSMainSuperVC.h */; };
+		87A63899241A5EC300CB81E3 /* YSClassMainSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A63895241A5EC300CB81E3 /* YSClassMainSuperVC.h */; };
+		87A6389A241A5EC300CB81E3 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A63896241A5EC300CB81E3 /* YSMainSuperVC.m */; };
+		87A6389B241A5EC300CB81E3 /* YSClassMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A63897241A5EC300CB81E3 /* YSClassMainSuperVC.m */; };
 		87B7C2A823D1B331009D840A /* BMKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 877B446023D03DF800A88540 /* BMKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87B7C2A923D1B338009D840A /* YSWhiteBoard.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 877B446B23D03E0F00A88540 /* YSWhiteBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87F527BD240674520040F8FD /* YSTeacherRoleMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F52797240674520040F8FD /* YSTeacherRoleMainVC.h */; };
@@ -335,12 +337,10 @@
 		877B44CE23D03FAB00A88540 /* YSApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSApiRequest.m; sourceTree = "<group>"; };
 		877B44CF23D03FAB00A88540 /* YSApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSApiRequest.h; sourceTree = "<group>"; };
 		877B44D023D03FAB00A88540 /* YSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLocation.h; sourceTree = "<group>"; };
-		877B44DA23D03FBB00A88540 /* YSMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
 		877B44DB23D03FBB00A88540 /* YSSuperNetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSuperNetVC.h; sourceTree = "<group>"; };
 		877B44DC23D03FBB00A88540 /* YSSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSuperVC.m; sourceTree = "<group>"; };
 		877B44DD23D03FBB00A88540 /* YSSuperNetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSuperNetVC.m; sourceTree = "<group>"; };
 		877B44DE23D03FBB00A88540 /* YSVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVCProtocol.h; sourceTree = "<group>"; };
-		877B44DF23D03FBB00A88540 /* YSMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
 		877B44E023D03FBB00A88540 /* YSSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSuperVC.h; sourceTree = "<group>"; };
 		877B458D23D03FDA00A88540 /* YSVoteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVoteVC.h; sourceTree = "<group>"; };
 		877B458F23D03FDA00A88540 /* YSVoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSVoteModel.m; sourceTree = "<group>"; };
@@ -441,6 +441,10 @@
 		8790DC15238E3EB0005C0BC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87942D86238E6C9C00D6B4B2 /* YSSDKManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YSSDKManager.h; path = YSLiveSDK/YSSDKManager.h; sourceTree = SOURCE_ROOT; };
 		87942D87238E6C9C00D6B4B2 /* YSSDKManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YSSDKManager.m; path = YSLiveSDK/YSSDKManager.m; sourceTree = SOURCE_ROOT; };
+		87A63894241A5EC300CB81E3 /* YSMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
+		87A63895241A5EC300CB81E3 /* YSClassMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSClassMainSuperVC.h; sourceTree = "<group>"; };
+		87A63896241A5EC300CB81E3 /* YSMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
+		87A63897241A5EC300CB81E3 /* YSClassMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSClassMainSuperVC.m; sourceTree = "<group>"; };
 		87F52797240674520040F8FD /* YSTeacherRoleMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTeacherRoleMainVC.h; sourceTree = "<group>"; };
 		87F52799240674520040F8FD /* YSMp3Controlview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp3Controlview.h; sourceTree = "<group>"; };
 		87F5279A240674520040F8FD /* YSMp4ControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp4ControlView.h; sourceTree = "<group>"; };
@@ -692,13 +696,12 @@
 		877B44D923D03FBB00A88540 /* YSSuperVC */ = {
 			isa = PBXGroup;
 			children = (
-				877B44DA23D03FBB00A88540 /* YSMainSuperVC.h */,
+				87A63893241A5EC300CB81E3 /* YSMainSuperVC */,
 				877B44DB23D03FBB00A88540 /* YSSuperNetVC.h */,
-				877B44DC23D03FBB00A88540 /* YSSuperVC.m */,
 				877B44DD23D03FBB00A88540 /* YSSuperNetVC.m */,
-				877B44DE23D03FBB00A88540 /* YSVCProtocol.h */,
-				877B44DF23D03FBB00A88540 /* YSMainSuperVC.m */,
 				877B44E023D03FBB00A88540 /* YSSuperVC.h */,
+				877B44DC23D03FBB00A88540 /* YSSuperVC.m */,
+				877B44DE23D03FBB00A88540 /* YSVCProtocol.h */,
 			);
 			path = YSSuperVC;
 			sourceTree = "<group>";
@@ -1020,6 +1023,17 @@
 			path = ../YSLib;
 			sourceTree = "<group>";
 		};
+		87A63893241A5EC300CB81E3 /* YSMainSuperVC */ = {
+			isa = PBXGroup;
+			children = (
+				87A63894241A5EC300CB81E3 /* YSMainSuperVC.h */,
+				87A63895241A5EC300CB81E3 /* YSClassMainSuperVC.h */,
+				87A63896241A5EC300CB81E3 /* YSMainSuperVC.m */,
+				87A63897241A5EC300CB81E3 /* YSClassMainSuperVC.m */,
+			);
+			path = YSMainSuperVC;
+			sourceTree = "<group>";
+		};
 		87BC8A3A239754E40057A295 /* YSLiveManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1328,6 +1342,7 @@
 				877B44AD23D03F0000A88540 /* YSWhiteBordNSURLProtocol.h in Headers */,
 				877B45DC23D03FDA00A88540 /* YSAnswerCell.h in Headers */,
 				87F528222406745C0040F8FD /* SCDrawBoardView.h in Headers */,
+				87A63899241A5EC300CB81E3 /* YSClassMainSuperVC.h in Headers */,
 				87F528312406745C0040F8FD /* SCPictureMessageCell.h in Headers */,
 				877B46B923D03FE300A88540 /* YSUserDefault.h in Headers */,
 				877B449E23D03F0000A88540 /* YSLiveEnumHeader.h in Headers */,
@@ -1366,6 +1381,7 @@
 				877B45E523D03FDA00A88540 /* PTTextAttachment.h in Headers */,
 				87F527D7240674520040F8FD /* SCTeacherPersonListCell.h in Headers */,
 				87F528432406745C0040F8FD /* SCAnswerView.h in Headers */,
+				87A63898241A5EC300CB81E3 /* YSMainSuperVC.h in Headers */,
 				877B45D023D03FDA00A88540 /* YSVoteModel.h in Headers */,
 				877B45F823D03FDA00A88540 /* YSTextMessageCell.h in Headers */,
 				877B46C023D03FE300A88540 /* YSSignedAlertView.h in Headers */,
@@ -1385,7 +1401,6 @@
 				877B46CF23D03FE300A88540 /* YSBarrageTrackInfo.h in Headers */,
 				877B45D423D03FDA00A88540 /* YSVoteTopView.h in Headers */,
 				87F528292406745C0040F8FD /* YSSliderSuperView.h in Headers */,
-				877B44E123D03FBB00A88540 /* YSMainSuperVC.h in Headers */,
 				877B45CE23D03FDA00A88540 /* YSVoteVC.h in Headers */,
 				877B46BC23D03FE300A88540 /* YSPassWordAlert.h in Headers */,
 				877B44A823D03F0000A88540 /* YSRoomUser+YSLive.h in Headers */,
@@ -1559,7 +1574,6 @@
 				877B46AF23D03FE300A88540 /* YSFloatView.m in Sources */,
 				87F5283F2406745C0040F8FD /* SCAnswerDetailTableViewCell.m in Sources */,
 				877B46B423D03FE300A88540 /* SCEyeCareWindow.m in Sources */,
-				877B44E623D03FBB00A88540 /* YSMainSuperVC.m in Sources */,
 				87F5285D240DE7DE0040F8FD /* YSCoreStatus.m in Sources */,
 				877B44A623D03F0000A88540 /* YSLiveRoomConfiguration.m in Sources */,
 				877B45E023D03FDA00A88540 /* YSChatMemberListVC.m in Sources */,
@@ -1592,6 +1606,7 @@
 				87F528242406745C0040F8FD /* SCColorListView.m in Sources */,
 				87F528392406745C0040F8FD /* SCAnswerStatisticsModel.m in Sources */,
 				87F528362406745C0040F8FD /* SCPictureMessageCell.m in Sources */,
+				87A6389A241A5EC300CB81E3 /* YSMainSuperVC.m in Sources */,
 				877B46C223D03FE300A88540 /* UIAlertController+SCAlertAutorotate.m in Sources */,
 				877B46D523D03FE300A88540 /* YSBarrageDescriptor.m in Sources */,
 				877B45F223D03FDA00A88540 /* YSNewTipMessageCell.m in Sources */,
@@ -1646,6 +1661,7 @@
 				877B467923D03FE300A88540 /* YSUserDefault.m in Sources */,
 				877B46D123D03FE300A88540 /* YSBarrageTextCell.m in Sources */,
 				877B45D323D03FDA00A88540 /* YSVotingTableCell.m in Sources */,
+				87A6389B241A5EC300CB81E3 /* YSClassMainSuperVC.m in Sources */,
 				87F528372406745C0040F8FD /* SCMainVC.m in Sources */,
 				877B44A223D03F0000A88540 /* YSPermissionsVC.m in Sources */,
 				87F527C2240674520040F8FD /* YSMp3Controlview.m in Sources */,
