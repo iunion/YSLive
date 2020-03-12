@@ -7,7 +7,6 @@
 //
 
 #import "YSUpHandPopCell.h"
-#import "UIButton+WebCache.h"
 
 @interface YSUpHandPopCell ()
 ///用户名
