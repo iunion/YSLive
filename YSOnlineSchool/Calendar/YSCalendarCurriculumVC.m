@@ -264,7 +264,16 @@
     calendar.today = nil; // Hide the today circle
     [calendar registerClass:[YSCalendarCell class] forCellReuseIdentifier:@"cell"];
     
+    // iOS 获取设备当前语言和地区的代码
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];//设置为中文
+    
+    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+
+    if(![currentLanguageRegion bm_containString:@"zh-Hant"] && ![currentLanguageRegion bm_containString:@"zh-Hans"])
+    {
+        locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];//设置为英文
+    }
+        
     calendar.locale = locale;  // 设置周次是中文显示
     calendar.placeholderType = FSCalendarPlaceholderTypeNone; //月份模式时，只显示当前月份
     calendar.firstWeekday = 2;     //设置周一为第一天
@@ -276,7 +285,6 @@
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(calendarViewClick)];
     tap.delegate = self;
     [self.MyCalendar.collectionView addGestureRecognizer:tap];
-    
 }
 - (void)calendarViewClick
 {

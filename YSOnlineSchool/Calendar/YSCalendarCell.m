@@ -94,7 +94,7 @@
         self.selectionLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.contentView.fs_width/2-diameter/2, 0, diameter, diameter)].CGPath;
         if ([self.dateDict bm_uintForKey:key] >0) {
             self.circleLab.hidden = NO;
-            self.circleLab.text = [NSString stringWithFormat:@"共%@节",[self.dateDict bm_stringForKey:key]];
+            self.circleLab.text = [NSString stringWithFormat:YSLocalized(@"Prompt.OnlineSchool_lessons"),[self.dateDict bm_stringForKey:key]];
         }
         else
         {

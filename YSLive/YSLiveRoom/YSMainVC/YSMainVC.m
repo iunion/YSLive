@@ -657,15 +657,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 ///连麦按钮点击事件
 - (void)upPlatformBtnClicked:(UIButton *)sender
 {
-    
-//    if (!sender.selected) {
-        sender.enabled = NO;
-//        sender.userInteractionEnabled = NO;
-        [[YSLiveManager shareInstance] sendSignalingUpPlatformWithCompletion:nil];
-
-//    }
+    sender.enabled = NO;
+    [[YSLiveManager shareInstance] sendSignalingUpPlatformWithCompletion:nil];
 }
-
 
 - (void)makeMp3Animation
 {
@@ -1829,9 +1823,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-//   self.chaView.chatToolView.everyoneBanChat = isDisable;
-//    [self.chaView toHiddenKeyBoard];
-        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
 }
 #pragma mark 接收消息 弹幕
 
