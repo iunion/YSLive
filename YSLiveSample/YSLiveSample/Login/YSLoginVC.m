@@ -63,13 +63,18 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    GetAppDelegate.allowRotation = NO;
-
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    GetAppDelegate.allowRotation = NO;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)even
@@ -80,7 +85,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+ 
 //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
 //    {
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -130,6 +135,11 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 - (BOOL)shouldAutorotate
 {
     return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
@@ -544,7 +554,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 - (void)onRoomLeft
 {
     NSLog(@"onRoomLeft");
-
+    
+    //GetAppDelegate.allowRotation = NO;
 }
 
 /**

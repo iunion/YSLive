@@ -153,8 +153,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    GetAppDelegate.allowRotation = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -163,6 +161,8 @@
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
     [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:YES isRientationPortrait:YES];
+    
+    GetAppDelegate.allowRotation = NO;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)even
