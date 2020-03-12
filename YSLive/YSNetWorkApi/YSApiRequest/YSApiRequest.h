@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFNetworking.h"
 #import "YSAPIMacros.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)publicErrorMessageWithCode:(NSInteger)code;
 
-+ (AFHTTPSessionManager *)makeYSHTTPSessionManager;
-+ (AFHTTPSessionManager *)makeYSJSONSessionManager;
++ (BMAFHTTPSessionManager *)makeYSHTTPSessionManager;
++ (BMAFHTTPSessionManager *)makeYSJSONSessionManager;
 
-+ (AFHTTPRequestSerializer *)HTTPRequestSerializer;
-+ (AFJSONRequestSerializer *)JSONRequestSerializer;
++ (BMAFHTTPRequestSerializer *)HTTPRequestSerializer;
++ (BMAFJSONRequestSerializer *)JSONRequestSerializer;
 
 + (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters;
 + (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost;

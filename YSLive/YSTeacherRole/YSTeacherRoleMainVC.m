@@ -3733,7 +3733,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 获取答题中的 详情数据
 - (void)getAnswerDetailDataWithAnswerID:(NSString *)answerId
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSMutableURLRequest *request = [YSLiveApiRequest getSimplifyAnswerCountWithRoomId:self.liveManager.room_Id answerId:answerId startTime:_answerStartTime endTime:self.liveManager.tCurrentTime];
     if (request)
     {
@@ -4772,7 +4772,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSString *receiveUserId = roomUser.peerID;
     NSString *receiveUserName = roomUser.nickName;
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSString *roomId = self.liveManager.room_Id;
     NSMutableURLRequest *request = [YSLiveApiRequest sendGiftWithRoomId:roomId sendUserId:self.liveManager.localUser.peerID sendUserName:self.liveManager.localUser.nickName receiveUserId:receiveUserId receiveUserName:receiveUserName];
     if (request)
@@ -4985,7 +4985,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 - (void)deleteCoursewareWithFileID:(NSString *)fileid
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSMutableURLRequest *request = [YSLiveApiRequest deleteCoursewareWithRoomId:self.liveManager.room_Id fileId:fileid];
     if (request)
     {

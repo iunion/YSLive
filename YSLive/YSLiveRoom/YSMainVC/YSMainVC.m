@@ -2222,7 +2222,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 /// 点名签到
 - (void)sendLiveCallRollSigninWithCallRollId:(NSString *)callRollId
 {
-    AFHTTPSessionManager *manager = [YSLiveApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSLiveApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest liveCallRollSigninWithCallRollId:callRollId];
     if (request)
     {

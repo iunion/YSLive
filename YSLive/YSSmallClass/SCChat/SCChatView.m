@@ -6,7 +6,6 @@
 //  Copyright © 2019 马迪. All rights reserved.
 //
 
-#import "AFNetworking.h"
 #import "SCChatView.h"
 #import "SCTipsMessageCell.h"
 #import "SCTextMessageCell.h"
@@ -292,7 +291,7 @@ UITextFieldDelegate
 {
     YSChatMessageModel * model = self.SCMessageList[indexPath.row];
     
-    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
@@ -353,7 +352,7 @@ UITextFieldDelegate
         @"sign" : tSign
     };
     BMWeakSelf
-    [manger GET:YSTRANS_API_HOST parameters:tParamDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manger GET:YSTRANS_API_HOST parameters:tParamDic headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         BMLog(@"%@",responseObject);
         if (responseObject == nil)
         {

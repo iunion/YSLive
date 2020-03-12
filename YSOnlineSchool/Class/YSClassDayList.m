@@ -244,7 +244,7 @@
 
     YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
 
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithWithUserType:schoolUserType toTeachId:classModel.toTeachId];
     if (request)
     {

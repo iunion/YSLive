@@ -302,7 +302,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 获取用户奖杯数
 - (void)getGiftCount
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSString *roomId = [YSLiveManager shareInstance].room_Id;
     NSMutableURLRequest *request = [YSLiveApiRequest getGiftCountWithRoomId:roomId peerId:YSCurrentUser.peerID];
     //NSMutableURLRequest *request = [YSLiveApiRequest getGiftCountWithRoomId:roomId peerId:self.userId];

@@ -343,7 +343,7 @@
 - (void)getServerTime
 {
     // 使用的默认host，所以获取的服务器时间是默认标准服务器时间
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSMutableURLRequest *request = [YSLiveApiRequest getServerTime];
     if (request)
     {
@@ -409,7 +409,7 @@
 
 - (void)checkUpdate
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSString *commitVersion = YSAPP_CommitVersion;
     
     [manager.requestSerializer setTimeoutInterval:30];
@@ -868,7 +868,7 @@
     [Bugly setUserValue:@"" forKey:@"nickName"];
     [Bugly setUserValue:account forKey:@"userAccount"];
 
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest getSchoolPublicKey];
     if (request)
     {
@@ -922,7 +922,7 @@
 
 - (void)loginSchoolWithPubKey:(NSString *)key randomKey:(NSString *)randomKey
 {
-    AFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request =
         [YSLiveApiRequest postLoginWithPubKey:key
                                        domain:[self.domainTextField.inputTextField.text bm_trimAllSpace]
@@ -1146,7 +1146,7 @@
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
     BMWeakSelf
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSMutableURLRequest *request = [YSLiveApiRequest checkRoomTypeWithRoomId:self.roomTextField.inputTextField.text];
     request.timeoutInterval = 30.0f;
     if (request)

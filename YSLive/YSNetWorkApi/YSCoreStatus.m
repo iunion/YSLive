@@ -122,28 +122,28 @@ static NSString *const YSCoreStatusChangedNotify = @"YSCoreStatusChangedNotify";
 
 - (YSCoreNetWorkStatus)statusWithRadioAccessTechnology
 {
-    AFNetworkReachabilityStatus networkReachabilityStatus = [[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus];
+    BMAFNetworkReachabilityStatus networkReachabilityStatus = [[BMAFNetworkReachabilityManager sharedManager] networkReachabilityStatus];
     
     YSCoreNetWorkStatus netWorkStatus = YSCoreNetWorkStatusNone;
     
     switch (networkReachabilityStatus)
     {
-        case AFNetworkReachabilityStatusUnknown:
+        case BMAFNetworkReachabilityStatusUnknown:
         {
             netWorkStatus = YSCoreNetWorkStatusUnkhow;
             break;
         }
-        case AFNetworkReachabilityStatusNotReachable:
+        case BMAFNetworkReachabilityStatusNotReachable:
         {
             netWorkStatus = YSCoreNetWorkStatusNone;
             break;
         }
-        case AFNetworkReachabilityStatusReachableViaWiFi:
+        case BMAFNetworkReachabilityStatusReachableViaWiFi:
         {
             netWorkStatus = YSCoreNetWorkStatusWifi;
             break;
         }
-        case AFNetworkReachabilityStatusReachableViaWWAN:
+        case BMAFNetworkReachabilityStatusReachableViaWWAN:
         {
             netWorkStatus = YSCoreNetWorkStatusWWAN;
             break;
@@ -185,11 +185,11 @@ static NSString *const YSCoreStatusChangedNotify = @"YSCoreStatusChangedNotify";
     
     // 注册监听
     [[NSNotificationCenter defaultCenter] addObserver:listener selector:@selector(coreNetworkChanged:) name:YSCoreStatusChangedNotify object:status];
-    [[NSNotificationCenter defaultCenter] addObserver:status selector:@selector(coreNetWorkStatusChanged:) name:AFNetworkingReachabilityDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:status selector:@selector(coreNetWorkStatusChanged:) name:BMAFNetworkingReachabilityDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:status selector:@selector(coreNetWorkStatusChanged:) name:CTRadioAccessTechnologyDidChangeNotification object:nil];
     
     // 开始监测
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[BMAFNetworkReachabilityManager sharedManager] startMonitoring];
 
     // 标记
     status.m_isMonitor = YES;
@@ -207,11 +207,11 @@ static NSString *const YSCoreStatusChangedNotify = @"YSCoreStatusChangedNotify";
     }
     
     // 解除监听
-    [[NSNotificationCenter defaultCenter] removeObserver:status name:AFNetworkingReachabilityDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:status name:BMAFNetworkingReachabilityDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:status name:CTRadioAccessTechnologyDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:listener name:YSCoreStatusChangedNotify object:status];
 
-    [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
+    [[BMAFNetworkReachabilityManager sharedManager] stopMonitoring];
 
     // 标记
     status.m_isMonitor = NO;
