@@ -62,12 +62,6 @@
 ///手机是否是低版本
 @property (nonatomic, assign)BOOL isHighDevice;
 
-///设备性能低时的蒙版
-//@property (nonatomic, strong) UIView *lowDeviceBgView;//背景蒙版
-/////设备性能低时的蒙版上的文字
-//@property (nonatomic, strong) UILabel *lowDeviceTitle;
-
-
 @end
 
 @implementation SCVideoView
@@ -83,6 +77,8 @@
 
     if (self)
     {
+        
+        self.isHighDevice = [[YSLiveManager shareInstance] devicePlatformHighEndEquipment];
         self.delegate = delegate;
         
         self.roomUser = roomUser;
@@ -208,9 +204,7 @@
     self.maskNoVideobgLab = maskNoVideobgLab;
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
-    
     self.maskNoVideobgLab.hidden = isBeginClass;
-    
     
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
@@ -229,6 +223,7 @@
     self.homeMaskLab = [[UILabel alloc]init];
     self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
     self.homeMaskLab.font = UI_FONT_12;
+    self.homeMaskLab.textColor = UIColor.whiteColor;
     [self.backVideoView addSubview:self.homeMaskLab];
     self.homeMaskLab.hidden = YES;
     [self.homeMaskLab setAdjustsFontSizeToFitWidth:YES];
@@ -244,7 +239,6 @@
     UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
     maskNoVideoTitle.backgroundColor = [UIColor clearColor];
     maskNoVideoTitle.font = UI_FONT_14;
-//    maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
     maskNoVideoTitle.textColor = UIColor.whiteColor;
     maskNoVideoTitle.adjustsFontSizeToFitWidth = YES;
     maskNoVideoTitle.minimumScaleFactor = 0.3;
@@ -253,35 +247,6 @@
     [self.maskNoVideo addSubview:maskNoVideoTitle];
     self.maskNoVideoTitle = maskNoVideoTitle;
     self.maskNoVideo.hidden = YES;
-    
-    
-    //设备性能低时的蒙版
-//    self.lowDeviceBgView = [[UIView alloc] init];
-//    self.lowDeviceBgView.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
-//    [self.backVideoView addSubview:self.lowDeviceBgView];
-//
-//    BOOL isHighDevice = [[YSLiveManager shareInstance] devicePlatformHighEndEquipment];
-//    if (isHighDevice || self.roomUser.role == YSUserType_Teacher || [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-//    {
-//        self.lowDeviceBgView.hidden = YES;
-//    }
-//    else
-//    {
-//        self.lowDeviceBgView.hidden = NO;
-//    }
-    
-//    //设备性能低时的蒙版上的文字
-//    UILabel * lowDeviceTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
-//    lowDeviceTitle.backgroundColor = [UIColor clearColor];
-//    lowDeviceTitle.font = UI_FONT_14;
-//    lowDeviceTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
-//    lowDeviceTitle.textColor = UIColor.whiteColor;
-//    lowDeviceTitle.adjustsFontSizeToFitWidth = YES;
-//    lowDeviceTitle.minimumScaleFactor = 0.3;
-//    lowDeviceTitle.numberOfLines = 0;
-//    lowDeviceTitle.textAlignment = NSTextAlignmentCenter;
-//    [self.lowDeviceBgView addSubview:lowDeviceTitle];
-//    self.lowDeviceTitle = lowDeviceTitle;
     
     //奖杯
     self.cupImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
@@ -311,8 +276,6 @@
     
     //举手图标
     self.raiseHandImage = [[UIImageView alloc] init];
-//    UIImage *handImage = [UIImage imageNamed:@"videlHand"];
-//    handImage = [handImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.raiseHandImage.image = [UIImage imageNamed:@"videlHand"];
     
     self.raiseHandImage.hidden = YES;
@@ -383,6 +346,9 @@
         self.iHasVadeo = self.roomUser.hasVideo;
         self.iHasAudio = self.roomUser.hasAudio;
         
+        //网络状态
+        self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
+        
         NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sUserPrimaryColor];
         if ([brushColor bm_isNotEmpty])
         {
@@ -409,8 +375,6 @@
     self.homeMaskLab.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
     self.maskNoVideoTitle.frame = CGRectMake(5, 10, self.bm_width-10, self.bm_height-25);
-//    self.lowDeviceBgView.frame = self.bounds;
-//    self.lowDeviceTitle.frame = CGRectMake(5, 10, self.bm_width-10, self.bm_height-25);
     
     CGFloat imageWidth = frame.size.height*0.3f;
     if (imageWidth > self.maskCloseVideo.image.size.width)
@@ -509,62 +473,48 @@
     }
 }
 
+// 用户是否网络不好
 - (void)setIsPoorNetWork:(BOOL)isPoorNetWork
 {
     _isPoorNetWork = isPoorNetWork;
-    [self showOrHiddenTheMaskNoVideoView];
+    self.homeMaskLab.hidden = !isPoorNetWork;
+    
+    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    {//本地
+        if (isPoorNetWork)
+        {
+            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
+            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+        }
+    }
+    else
+    {
+        if (!self.iHasVadeo)
+        {
+            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+        }
+        else if (isPoorNetWork)
+        {
+            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
+            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+        }
+    }
 }
 
 ///该用户有开摄像
 - (void)setIHasVadeo:(BOOL)iHasVadeo
 {
     _iHasVadeo = iHasVadeo;
-    [self showOrHiddenTheMaskNoVideoView];
+    self.maskNoVideo.hidden = iHasVadeo;
+    
+    if (!iHasVadeo)
+    {
+        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+    }
 }
 
-#pragma mark - 几种蒙版的显示和隐藏以及优先级
-- (void)showOrHiddenTheMaskNoVideoView
-{
-    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-    {//本地
-        if (self.isPoorNetWork)
-        {//网络差
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.self");
-        }
-        else if (!self.iHasVadeo)
-        {//没摄像头
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-        }
-        else
-        {
-            self.maskNoVideo.hidden = YES;
-        }
-    }
-    else
-    {//远端
-        if (!self.iHasVadeo)
-        {//没摄像头
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-        }
-        else if (self.isPoorNetWork)
-        {//网络差
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"State.PoorNetWork.other");
-        }
-        else if (!self.isHighDevice && self.roomUser.role != YSUserType_Teacher)
-        {//设备版本低
-            self.maskNoVideo.hidden = NO;
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
-        }
-        else
-        {
-            self.maskNoVideo.hidden = YES;
-        }
-    }
-}
 
 ///该用户有开麦克风
 - (void)setIHasAudio:(BOOL)iHasAudio
@@ -624,6 +574,15 @@
 {
     _disableVideo = disableVideo;
     self.maskCloseVideoBgView.hidden = !disableVideo;
+    
+    if (self.iHasVadeo)
+    {
+        [self.backVideoView bringSubviewToFront:self.maskCloseVideoBgView];
+    }
+    else
+    {
+        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+    }
 }
 
 /// 是否点击了home键
@@ -631,13 +590,16 @@
 {
     _isInBackGround = isInBackGround;
     
-    if (self.roomUser.role == YSUserType_Student)
+    if (!self.isPoorNetWork)
     {
-        self.homeMaskLab.hidden =!isInBackGround;
-    }
-    else
-    {
-        self.homeMaskLab.hidden = YES;
+        if (self.roomUser.role == YSUserType_Student)
+        {
+            self.homeMaskLab.hidden =!isInBackGround;
+        }
+        else
+        {
+            self.homeMaskLab.hidden = YES;
+        }
     }
 }
 
