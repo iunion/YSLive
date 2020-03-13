@@ -537,7 +537,7 @@
 - (BOOL)sendSignalingToSubscribeAllRaiseHandMemberWithType:(NSString*)type Completion:(nullable completion_block)completion
 {
     NSString * msgID = [YSLiveUtil createUUID];
-    NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:YSDefaultRaiseHandMsgId];
+    NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:UserDefaultRaiseHandMsgId];
     BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHandResult msgID:msgID toID:YSRoomPubMsgTellNone data:@{@"min":@1,@"max":@300} save:NO extensionData:@{@"type":type} associatedMsgID:associatedMsgID associatedUserID:nil expires:0 completion:completion];
     
     return (result == 0);

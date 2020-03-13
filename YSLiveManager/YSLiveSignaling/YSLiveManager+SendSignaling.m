@@ -263,7 +263,7 @@
 
     NSString * msgID = [YSLiveUtil createUUID];
     
-    NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:YSDefaultRaiseHandMsgId];
+    NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:UserDefaultRaiseHandMsgId];
      
     NSDictionary * extensionData = @{@"actions":dataDict,@"modify":@(modify),@"type":@"sort"};
     

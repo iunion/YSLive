@@ -90,8 +90,6 @@
 
 #define YSWhiteBoard_HttpDnsService_AccountID   131798
 
-// 举手上台信令的msgID
-#define YSDefaultRaiseHandMsgId  @"RaisehandMsgID"
 
 /// 网宿host头
 static NSString *const YSWhiteBoard_domain_ws_header = @"rddoccdnws.roadofcloud";
@@ -112,6 +110,8 @@ static NSString *const YSWhiteBoard_domain_ali = @"rddoccdn.roadofcloud.com";
 static NSString *const YSWhiteBoard_domain_demoali = @"rddocdemo.roadofcloud.com";
 #endif
 
+// 缓存的举手上台信令的msgID的Key
+#define UserDefaultRaiseHandMsgId  @"RaisehandMsgID"
 
 #pragma mark - NSDictionary Keys
 

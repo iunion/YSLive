@@ -721,7 +721,7 @@
     if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
     {
         //Server_Sort_Result
-        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:YSDefaultRaiseHandMsgId];
+        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:UserDefaultRaiseHandMsgId];
 
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
         {
