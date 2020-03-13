@@ -489,12 +489,13 @@
     }
     else
     {
-        if (!self.iHasVadeo)
-        {
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
-        }
-        else if (isPoorNetWork)
+//        if (!self.iHasVadeo)
+//        {
+//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+//            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+//        }
+//        else
+            if (self.iHasVadeo && isPoorNetWork)
         {
             self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
             [self.backVideoView bringSubviewToFront:self.homeMaskLab];
