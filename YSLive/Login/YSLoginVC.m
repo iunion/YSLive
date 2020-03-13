@@ -664,7 +664,7 @@
     
     [self.backImageView addSubview:self.joinRoomBtn];
     [self.joinRoomBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
+        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
         make.height.bmmas_equalTo(50);
         make.width.bmmas_equalTo(kScale_W(238));
         make.centerX.bmmas_equalTo(0);
