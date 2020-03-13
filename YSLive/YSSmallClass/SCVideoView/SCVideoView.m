@@ -22,6 +22,9 @@
 ///没上课时没有连摄像头时的lab
 @property (nonatomic, strong) UILabel * maskNoVideobgLab;
 
+///所有蒙版的背景View
+@property (nonatomic, strong) UIView * maskBackView;
+
 ///奖杯
 @property (nonatomic, strong) UIImageView *cupImage;
 ///奖杯个数
@@ -210,10 +213,16 @@
     self.backVideoView.backgroundColor = UIColor.clearColor;
     [self addSubview:self.backVideoView];
     
+    UIView * maskBackView = [[UIView alloc]init];
+    maskBackView.backgroundColor = UIColor.clearColor;
+    [self.backVideoView addSubview:maskBackView];
+    self.maskBackView = maskBackView;
+
+    
     //被禁视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
     self.maskCloseVideoBgView.backgroundColor = [UIColor bm_colorWithHexString:@"#EDEDED"];
-    [self.backVideoView addSubview:self.maskCloseVideoBgView];
+    [maskBackView addSubview:self.maskCloseVideoBgView];
 
     self.maskCloseVideo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"closeVideo_SCVideoViewImage"]];
     self.maskCloseVideo.contentMode = UIViewContentModeScaleAspectFit;
@@ -224,16 +233,17 @@
     self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
     self.homeMaskLab.font = UI_FONT_12;
     self.homeMaskLab.textColor = UIColor.whiteColor;
-    [self.backVideoView addSubview:self.homeMaskLab];
+    [maskBackView addSubview:self.homeMaskLab];
     self.homeMaskLab.hidden = YES;
     [self.homeMaskLab setAdjustsFontSizeToFitWidth:YES];
     self.homeMaskLab.numberOfLines = 2;
     self.homeMaskLab.textAlignment = NSTextAlignmentCenter;
+    self.homeMaskLab.backgroundColor = UIColor.clearColor;
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
     self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
-    [self.backVideoView addSubview:self.maskNoVideo];
+    [maskBackView addSubview:self.maskNoVideo];
     
     //没有连摄像头时的文字
     UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
@@ -270,17 +280,14 @@
     UIImage *image = [UIImage imageNamed:@"brush_SmallClassImage"];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.brushImageView.image = image;
-    
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
     
     //举手图标
     self.raiseHandImage = [[UIImageView alloc] init];
     self.raiseHandImage.image = [UIImage imageNamed:@"videlHand"];
-    
     self.raiseHandImage.hidden = YES;
     [self.backVideoView addSubview:self.raiseHandImage];
-    
     
     //用户名
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
@@ -310,7 +317,6 @@
     silentLab.hidden = NO;
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
-    
     
     if (self.isForPerch)
     {
@@ -371,6 +377,7 @@
     [super setFrame:frame];
     self.maskNoVideobgLab.frame = self.bounds;
     self.backVideoView.frame = self.bounds;
+    self.maskBackView.frame = self.bounds;
     self.maskCloseVideoBgView.frame = self.bounds;
     self.homeMaskLab.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
@@ -448,26 +455,30 @@
     
     if (iVolume<1)
     {
-        if (self.lastVolume>1) {
+        if (self.lastVolume>1)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
         }
         
     }
     else if (iVolume<= volumeScale)
     {
-        if (self.lastVolume>volumeScale || self.lastVolume<1) {
+        if (self.lastVolume>volumeScale || self.lastVolume<1)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_1_SmallClassImage"];
         }
     }
     else if (iVolume<= volumeScale*2)
     {
-        if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale) {
+        if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_2_SmallClassImage"];
         }
     }
     else if (iVolume > volumeScale*2)
     {
-        if (self.lastVolume<=volumeScale*2) {
+        if (self.lastVolume<=volumeScale*2)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_3_SmallClassImage"];
         }
     }
@@ -484,21 +495,15 @@
         if (isPoorNetWork)
         {
             self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
-            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
         }
     }
     else
     {
-//        if (!self.iHasVadeo)
-//        {
-//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-//            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
-//        }
-//        else
-            if (self.iHasVadeo && isPoorNetWork)
+        if (self.iHasVadeo && isPoorNetWork)
         {
             self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
-            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
         }
     }
 }
@@ -511,11 +516,25 @@
     
     if (!iHasVadeo)
     {
-        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {//本地
+            if (self.isPoorNetWork)
+            {
+                [self.maskBackView bringSubviewToFront:self.homeMaskLab];
+            }
+            else
+            {
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+            }
+        }
+        else
+        {
+            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+            [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+        }
     }
 }
-
 
 ///该用户有开麦克风
 - (void)setIHasAudio:(BOOL)iHasAudio
@@ -578,11 +597,11 @@
     
     if (self.iHasVadeo)
     {
-        [self.backVideoView bringSubviewToFront:self.maskCloseVideoBgView];
+        [self.maskBackView bringSubviewToFront:self.maskCloseVideoBgView];
     }
     else
     {
-        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
     }
 }
 
