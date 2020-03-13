@@ -3510,6 +3510,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
+    
+    if (inlist)
+    {
+        
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        if (state == UIApplicationStateActive)
+        {
+          [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
+        }
+    }
+    
     [self setupFullTeacherView];
     self.teacherPlaceLab.hidden = YES;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];

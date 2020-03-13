@@ -262,12 +262,10 @@
     NSDictionary * dataDict = @{self.localUser.peerID:@""};
 
     NSString * msgID = [YSLiveUtil createUUID];
-    
-    NSString *associatedMsgID = [[NSUserDefaults standardUserDefaults] valueForKey:UserDefaultRaiseHandMsgId];
-     
+         
     NSDictionary * extensionData = @{@"actions":dataDict,@"modify":@(modify),@"type":@"sort"};
     
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHand msgID:msgID toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:associatedMsgID associatedUserID:self.localUser.peerID expires:0 completion:completion];
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHand msgID:msgID toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:self.raisehandMsgID associatedUserID:self.localUser.peerID expires:0 completion:completion];
     
     return (result == 0);
 }

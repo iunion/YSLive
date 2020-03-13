@@ -720,8 +720,7 @@
     //同意各端开始举手
     if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
     {
-        //Server_Sort_Result
-        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:UserDefaultRaiseHandMsgId];
+        self.raisehandMsgID = msgID;
 
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
         {

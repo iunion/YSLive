@@ -65,7 +65,7 @@
 // 老师/主播
 @property (nonatomic, strong) YSRoomUser *teacher;
 
-// 房间用户数
+// 房间用户数台
 @property (nonatomic, assign) NSUInteger userCount;
 @property (nonatomic, strong) NSDictionary *userCountDetailDic;
 
@@ -423,7 +423,6 @@ static YSLiveManager *liveManagerSingleton = nil;
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(enterForeground:)
                                                  name:UIApplicationWillEnterForegroundNotification
@@ -434,8 +433,6 @@ static YSLiveManager *liveManagerSingleton = nil;
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
 }
-
-
 
 - (void)checkDevice
 {
