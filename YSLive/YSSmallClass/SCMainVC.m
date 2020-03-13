@@ -3191,7 +3191,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
     
-    
     // 网络状态
     if ([properties bm_containsObjectForKey:sUserNetWorkState])
     {
@@ -3405,7 +3404,23 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
-        videoView.isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+        BOOL isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+        
+        videoView.isInBackGround = isInBackGround;
+        
+        SCVideoView *videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
+        if ([videoView bm_isNotEmpty])
+        {
+            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+            if (state == UIApplicationStateActive && isInBackGround)
+            {
+              [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
+            }
+            else if (state != UIApplicationStateActive && !isInBackGround)
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
+            }
+        }
     }
 }
 
@@ -3509,18 +3524,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 上课
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
-{
-    
-    if (inlist)
-    {
-        
-        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-        if (state == UIApplicationStateActive)
-        {
-          [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
-        }
-    }
-    
+{    
     [self setupFullTeacherView];
     self.teacherPlaceLab.hidden = YES;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
