@@ -23,6 +23,10 @@
 #import "NSURLProtocol+YSWhiteBoard.h"
 #endif
 
+#if YSSDK
+#import "YSSDKManager.h"
+#endif
+
 #ifdef DEBUG
 #define YSADDLOW_IPHONE     0
 #endif
@@ -307,6 +311,38 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     if (needCheckPermissions)
     {
+#if YSSDK
+        UIViewController *rootVC = nil;
+        YSSDKManager *SDKManager = (YSSDKManager *)self.sdkDelegate;
+        if ([SDKManager.delegate isKindOfClass:[UIViewController class]])
+        {
+            rootVC = (UIViewController *)SDKManager.delegate;
+        }
+        else
+        {
+            NSArray *windows = [UIApplication sharedApplication].windows;
+            if ([windows bm_isNotEmpty])
+            {
+                UIWindow *window = [windows firstObject];
+                if (window.rootViewController)
+                {
+                    rootVC = window.rootViewController;
+                }
+                
+                if ([rootVC isKindOfClass:[UINavigationController class]])
+                {
+                    UINavigationController *nav = (UINavigationController *)rootVC;
+                    rootVC = nav.visibleViewController;
+                }
+            }
+        }
+
+        if (![rootVC isKindOfClass:[UIViewController class]])
+        {
+            NSAssert(NO, YSLocalized(@"SDK.VCError"));
+            return NO;
+        }
+#endif
         ///查看摄像头权限
         BOOL isCamera = [self cameraPermissionsService];
         ///查看麦克风权限
@@ -317,9 +353,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     //    isOpenMicrophone = NO;
         if (!isOpenMicrophone || !isCamera || !isReproducer)
         {
-            UIWindow *window = [[UIApplication sharedApplication].delegate window];
-            UIViewController *topViewController = [window rootViewController];
-
             YSPermissionsVC *vc = [[YSPermissionsVC alloc] init];
 
             BMWeakSelf
@@ -329,7 +362,15 @@ static YSLiveManager *liveManagerSingleton = nil;
 
                 [weakSelf.roomManager joinRoomWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams];
             };
+            
+#if YSSDK
+            [rootVC presentViewController:vc animated:YES completion:nil];
+#else
+            UIWindow *window = [[UIApplication sharedApplication].delegate window];
+            UIViewController *topViewController = [window rootViewController];
+
             [(UINavigationController*)topViewController pushViewController:vc animated:NO];
+#endif
             
             return YES;
         }

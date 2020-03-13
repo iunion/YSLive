@@ -880,6 +880,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.mp3ControlView.bm_bottom = self.view.bm_bottom - 20;
         self.mp3ControlView.layer.cornerRadius = 30;
     }
+
     [self freshContentView];
 }
 
@@ -1711,8 +1712,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-    [self.liveManager destroy];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+#if YSSDK
+        [self.liveManager onSDKRoomLeft];
+#endif
+        [self.liveManager destroy];
+    }];
 }
 
 #pragma mark 网络状态

@@ -1173,7 +1173,6 @@
 
         return;
     }
-
     
     // 全体禁言
     if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])

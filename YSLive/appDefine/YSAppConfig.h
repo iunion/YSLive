@@ -27,6 +27,8 @@
 #import "YSAppMacros.h"
 #import "YSAppUIDef.h"
 
+#import <BMKit/BMKitThird.h>
+
 #import <YSRoomSDK/YSRoomSDK.h>
 #import <YSWhiteBoard/YSWhiteBoard.h>
 #import <YSWhiteBoard/YSWhiteBoardManager.h>

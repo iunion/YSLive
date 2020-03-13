@@ -33,7 +33,6 @@
 
 - (void) changeColor:(NSString *)colorString
 {
-    
     self.contentView.backgroundColor = [UIColor bm_colorWithHexString:colorString];
 }
 

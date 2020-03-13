@@ -52,8 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 ///标识布局变化的值
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;
 
-
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -211,7 +211,6 @@
         width = (self.view.bm_width-5)/4+0.5;
     }
    
-    
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
     self.audioBtn.tag = 0;

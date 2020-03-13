@@ -35,12 +35,12 @@
 #if USE_TEST_HELP
 
 // 开发环境
-#define YSLIVE_HOST_DEV         @"demo.roadofcloud.com"
+#define YSLIVE_HOST_DEV         @"demo.roadofcloud.net"
 #define YS_SIGNINADDRESS_DEV    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/addsignin/"
 #define YS_FLOWERADDRESS_DEV    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/sendflowers/"
 
 // 测试环境
-#define YSLIVE_HOST_TEST        @"release.roadofcloud.com"
+#define YSLIVE_HOST_TEST        @"release.roadofcloud.net"
 #define YS_SIGNINADDRESS_TEST   @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/release/addsignin/"
 #define YS_FLOWERADDRESS_TEST   @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/release/sendflowers/"
 
