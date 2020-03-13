@@ -3383,9 +3383,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            videoView = nil;
         }
         videoView.disableSound = !hasAudio;
         videoView.disableVideo = !hasVidoe;
+        
+        // 刷新当前用户前后台状态
+        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        {
+            //videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
+            if ([videoView bm_isNotEmpty])
+            {
+                BOOL isInBackGround = NO;
+                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+                if (state != UIApplicationStateActive)
+                {
+                    isInBackGround = YES;
+                }
+                if (isInBackGround != videoView.isInBackGround)
+                {
+                    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+                }
+            }
+        }
     }
     
     
@@ -3403,26 +3423,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
 
     }
+    
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
         BOOL isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
-        
         videoView.isInBackGround = isInBackGround;
-        
-        SCVideoView *videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
-        if ([videoView bm_isNotEmpty])
-        {
-            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-            if (state == UIApplicationStateActive && isInBackGround)
-            {
-              [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
-            }
-            else if (state != UIApplicationStateActive && !isInBackGround)
-            {
-                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
-            }
-        }
     }
 }
 
@@ -4059,13 +4065,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 进入后台
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
+    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(YES) completion:nil];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
+    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(NO) completion:nil];
 }
 
 #pragma mark  答题卡

@@ -2027,7 +2027,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.raiseHandArray addObject:user];
             self.upHandPopTableView.userArr = self.raiseHandArray;
         }
-        
+#if 0
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
             if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -2054,6 +2054,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
         }
+#endif
         
         //YSRoomUser * user = [[YSLiveManager shareInstance].roomManager getRoomUserWithUId:peerID];
         
@@ -2082,6 +2083,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            videoView = nil;
         }
         
         videoView.disableSound = !hasAudio;
@@ -3015,13 +3017,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if 0
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@0 completion:nil];
 }
 #endif
 
