@@ -1404,6 +1404,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
     
+    NSLog(@"=====================playVideoAudioWithVideoView userId: %@, publishState: %@ ", videoView.roomUser.peerID , @(publishState));
+
     YSRenderMode renderType = YSRenderMode_adaptive;
 #if USE_YSRenderMode_adaptive
     fresh = NO;
