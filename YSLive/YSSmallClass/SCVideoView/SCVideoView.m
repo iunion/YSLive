@@ -19,8 +19,13 @@
 
 @property (nonatomic, strong) YSRoomUser *roomUser;
 
+
 ///没上课时没有连摄像头时的lab
 @property (nonatomic, strong) UILabel * maskNoVideobgLab;
+
+///所以蒙版的背景View
+@property (nonatomic, strong) UIView * maskBackView;
+
 ///奖杯
 @property (nonatomic, strong) UIImageView *cupImage;
 ///奖杯个数
@@ -209,10 +214,15 @@
     self.backVideoView.backgroundColor = UIColor.clearColor;
     [self addSubview:self.backVideoView];
     
+    UIView * maskBackView = [[UIView alloc]init];
+    maskBackView.backgroundColor = UIColor.clearColor;
+    [self.backVideoView addSubview:maskBackView];
+    self.maskBackView = maskBackView;
+    
     //被禁视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
     self.maskCloseVideoBgView.backgroundColor = [UIColor bm_colorWithHexString:@"#EDEDED"];
-    [self.backVideoView addSubview:self.maskCloseVideoBgView];
+    [maskBackView addSubview:self.maskCloseVideoBgView];
 
     self.maskCloseVideo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"closeVideo_SCVideoViewImage"]];
     self.maskCloseVideo.contentMode = UIViewContentModeScaleAspectFit;
@@ -223,17 +233,18 @@
     self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
     self.homeMaskLab.font = UI_FONT_12;
     self.homeMaskLab.textColor = UIColor.whiteColor;
-    [self.backVideoView addSubview:self.homeMaskLab];
+    [maskBackView addSubview:self.homeMaskLab];
     self.homeMaskLab.hidden = YES;
     [self.homeMaskLab setAdjustsFontSizeToFitWidth:YES];
     self.homeMaskLab.numberOfLines = 2;
     self.homeMaskLab.textAlignment = NSTextAlignmentCenter;
+    self.homeMaskLab.backgroundColor = UIColor.clearColor;
 
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
     self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
-    [self.backVideoView addSubview:self.maskNoVideo];
+    [maskBackView addSubview:self.maskNoVideo];
     
     //没有连摄像头时的文字
     UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
@@ -269,14 +280,12 @@
     UIImage *image = [UIImage imageNamed:@"brush_SmallClassImage"];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.brushImageView.image = image;
-    
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
     
     //举手图标
     self.raiseHandImage = [[UIImageView alloc] init];
     self.raiseHandImage.image = [UIImage imageNamed:@"videlHand"];
-    
     self.raiseHandImage.hidden = YES;
     [self.backVideoView addSubview:self.raiseHandImage];
     
@@ -369,6 +378,7 @@
     [super setFrame:frame];
     self.maskNoVideobgLab.frame = self.bounds;
     self.backVideoView.frame = self.bounds;
+    self.maskBackView.frame = self.bounds;
     self.maskCloseVideoBgView.frame = self.bounds;
     self.homeMaskLab.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
@@ -483,7 +493,7 @@
         if (isPoorNetWork)
         {
             self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
-            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
         }
     }
     else
@@ -497,7 +507,7 @@
             if (self.iHasVadeo && isPoorNetWork)
         {
             self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
-            [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
         }
     }
 }
@@ -514,18 +524,18 @@
         {//本地
             if (self.isPoorNetWork)
             {
-                [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+                [self.maskBackView bringSubviewToFront:self.homeMaskLab];
             }
             else
             {
                 self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-                [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
         }
         else
         {
             self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+            [self.maskBackView bringSubviewToFront:self.maskNoVideo];
         }
     }
 }
@@ -592,11 +602,11 @@
     
     if (self.iHasVadeo)
     {
-        [self.backVideoView bringSubviewToFront:self.maskCloseVideoBgView];
+        [self.maskBackView bringSubviewToFront:self.maskCloseVideoBgView];
     }
     else
     {
-        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
     }
 }
 
