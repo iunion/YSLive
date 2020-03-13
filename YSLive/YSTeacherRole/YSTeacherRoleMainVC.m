@@ -2654,7 +2654,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (!giftMp3Playing)
     {
         giftMp3Playing = YES;
+        BMWeakSelf
         [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
+            
+            [weakSelf.liveManager.roomManager setPlayMedia:playID volume:0.5f];
             if (current >= total)
             {
                 giftMp3Playing = NO;
