@@ -308,9 +308,7 @@
     silentLab.hidden = NO;
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
-    
-    
-    
+        
     if (self.isForPerch)
     {
         self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
@@ -319,8 +317,6 @@
     else
     {
         self.maskNoVideobgLab.hidden = YES;
-        
-       
         
         YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
         if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
@@ -492,12 +488,13 @@
     }
     else
     {
-        if (!self.iHasVadeo)
-        {
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
-        }
-        else if (isPoorNetWork)
+//        if (!self.iHasVadeo)
+//        {
+//            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+//            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+//        }
+//        else
+            if (self.iHasVadeo && isPoorNetWork)
         {
             self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
             [self.backVideoView bringSubviewToFront:self.homeMaskLab];
@@ -513,8 +510,23 @@
     
     if (!iHasVadeo)
     {
-        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-        [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {//本地
+            if (self.isPoorNetWork)
+            {
+                [self.backVideoView bringSubviewToFront:self.homeMaskLab];
+            }
+            else
+            {
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+            }
+        }
+        else
+        {
+            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+            [self.backVideoView bringSubviewToFront:self.maskNoVideo];
+        }
     }
 }
 
