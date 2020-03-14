@@ -4285,7 +4285,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
 }
 
--(void)handleSignalingStudentToCloseResponder
+-(void)handleSignalingToCloseResponder
 {
     [self.responderView dismiss:nil animated:NO dismissBlock:nil];
 }

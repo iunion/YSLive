@@ -408,33 +408,81 @@
 /// 抢答器  开始
 - (BOOL)sendSignalingTeacherToStartResponderCompletion:(nullable completion_block)completion
 {
-    NSDictionary *sendDic = @{ @"state" : @"starting" };
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_Contest msgID:YSSignalingName_Contest toID:YSRoomPubMsgTellAllExceptSender data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+//    NSDictionary *sendDic = @{ @"state" : @"starting" };
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_showContest msgID:YSSignalingName_showContest toID:YSRoomPubMsgTellAll data:@{} save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 
+}
+
+/// 助教、老师发起抢答排序
+- (BOOL)sendSignalingTeacherToContestResponderWithMaxSort:(NSInteger)maxSort completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"maxSort" : @(maxSort),
+                              @"subInterval" : @(1000)
+                            };
+    NSDictionary * extensionData = @{@"type":@"useSort"};
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_Contest msgID:YSSignalingName_Contest toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+    return result;
 }
 
 /// 发布抢答器结果
 - (BOOL)sendSignalingTeacherToContestResultWithName:(NSString *)name completion:(nullable completion_block)completion
 {
-    if (![name bm_isNotEmpty])
+    NSString *nickName = @"";
+    if ([name bm_isNotEmpty])
     {
-        return NO;
+        nickName = name;
     }
 
-    NSDictionary *sendDic = @{ @"nickName" : name };
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestResult msgID:YSSignalingName_ContestResult toID:YSRoomPubMsgTellAllExceptSender data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    NSDictionary *sendDic = @{ @"nickName" : nickName };
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestResult msgID:YSSignalingName_ContestResult toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 
 }
+
+/// 订阅抢答排序
+- (BOOL)sendSignalingTeacherToContestSubsortWithMin:(NSInteger)min max:(NSInteger)max completion:(nullable completion_block)completion
+{
+    NSDictionary *sendDic = @{@"min" : @(min),
+                              @"max" : @(max)
+                            };
+    NSDictionary * extensionData = @{@"type":@"subSort"};
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestSubsort msgID:YSSignalingName_ContestSubsort toID:YSRoomPubMsgTellNone data:[sendDic bm_toJSON] save:YES extensionData:extensionData associatedMsgID:YSSignalingName_Contest associatedUserID:nil expires:0 completion:nil] == 0;
+
+    return result;
+
+}
+
+/// 取消订阅抢答排序
+- (BOOL)sendSignalingTeacherToCancelContestSubsortCompletion:(nullable completion_block)completion
+{
+    
+    NSDictionary * extensionData = @{@"type":@"unsubSort"};
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestSubsort msgID:YSSignalingName_ContestSubsort toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:YSSignalingName_Contest associatedUserID:nil expires:0 completion:nil] == 0;
+
+    return result;
+
+}
+
+/// 结束抢答排序
+- (BOOL)sendSignalingTeacherToDeleteContestCompletion:(nullable completion_block)completion
+{
+    BOOL result = [self.roomManager delMsg:YSSignalingName_Contest msgID:YSSignalingName_Contest toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
+
+    return result;
+}
+
+
 /// 关闭抢答器
 - (BOOL)sendSignalingTeacherToCloseResponderCompletion:(nullable completion_block)completion
 {
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_delContest msgID:YSSignalingName_delContest toID:YSRoomPubMsgTellAllExceptSender data:@"" save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager delMsg:YSSignalingName_showContest msgID:YSSignalingName_showContest toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
 
     return result;
+    
 }
 
 /// fas计时器

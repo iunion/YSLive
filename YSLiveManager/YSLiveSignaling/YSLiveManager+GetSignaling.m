@@ -734,27 +734,44 @@
     {
 //        msgBody
         NSArray * resultArray = [msgBody bm_arrayForKey:@"sortResult"];
-        
-        NSMutableArray * userArray = [NSMutableArray array];
-        if ([resultArray bm_isNotEmpty])
+        NSString *type = [msgBody bm_stringForKey:@"id"];
+        if ([type bm_containString:@"Contest"])
         {
-            for (NSDictionary * dict in resultArray)
-            {
-                NSString * userId = dict.allKeys.firstObject;
-                YSRoomUser * user = [self.roomManager getRoomUserWithUId:userId];
-                
-                [userArray addObject:user];
-            }
+            /// 学生抢答
+//            if ([resultArray bm_isNotEmpty])
+//            {
+                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestCommitWithData:)])
+                {
+                    [self.roomManagerDelegate handleSignalingContestCommitWithData:resultArray];
+                }
+
+//            }
+
         }
         else
         {
-            
+            NSMutableArray * userArray = [NSMutableArray array];
+            if ([resultArray bm_isNotEmpty])
+            {
+                for (NSDictionary * dict in resultArray)
+                {
+                    NSString * userId = dict.allKeys.firstObject;
+                    YSRoomUser * user = [self.roomManager getRoomUserWithUId:userId];
+                    
+                    [userArray addObject:user];
+                }
+            }
+            else
+            {
+                
+            }
+            if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
+            {
+                [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
+            }
+
         }
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
-        {
-            [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
-        }
-        
+
         return;
     }
     
@@ -773,6 +790,17 @@
     }
     
     // 收到开始抢答
+    if ([msgName isEqualToString:YSSignalingName_showContest])
+    {
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowContest)])
+        {
+            [self.roomManagerDelegate handleSignalingShowContest];
+        }
+        return;
+    }
+
+    // 收到抢答排序
     if ([msgName isEqualToString:YSSignalingName_Contest])
     {
         
@@ -782,19 +810,18 @@
         }
         return;
     }
-
     
     // 收到学生抢答
-    if ([msgName isEqualToString:YSSignalingName_ContestCommit])
-    {
-        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
-        
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestCommitWithData:)])
-        {
-            [self.roomManagerDelegate handleSignalingContestCommitWithData:dict];
-        }
-        return;
-    }
+//    if ([msgName isEqualToString:YSSignalingName_ContestCommit])
+//    {
+//        NSDictionary *actions = [msgBody bm_dictionaryForKey:@"actions"];
+//
+//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestCommitWithData:)])
+//        {
+//            [self.roomManagerDelegate handleSignalingContestCommitWithData:actions];
+//        }
+//        return;
+//    }
     /// 收到抢答结果
     if ([msgName isEqualToString:YSSignalingName_ContestResult])
     {
@@ -808,15 +835,24 @@
         }
         return;
     }
-
-    // 关闭抢答器
-    if ([msgName isEqualToString:YSSignalingName_delContest])
+    
+    /// 收到取消订阅排序
+    if ([msgName isEqualToString:YSSignalingName_ContestSubsort])
     {
         
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingStudentToCloseResponder)])
+        if ([msgBody bm_isNotEmptyDictionary])
         {
-            [self.roomManagerDelegate handleSignalingStudentToCloseResponder];
+            NSString *type = [msgBody bm_stringTrimForKey:@"type"];
+            if ([type isEqualToString:@"unsubSort"])
+            {
+                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingCancelContestSubsort)])
+                {
+                    [self.roomManagerDelegate handleSignalingCancelContestSubsort];
+                }
+
+            }
         }
+        
         return;
     }
     
@@ -1196,6 +1232,28 @@
             [self.roomManagerDelegate handleSignalingToliveAllNoAudio:NO];
         }
         
+        return;
+    }
+    
+    // 结束抢答排序
+    if ([msgName isEqualToString:YSSignalingName_Contest])
+    {
+        BMLog(@"结束抢答排序");
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingDelContest)])
+        {
+            [self.roomManagerDelegate handleSignalingDelContest];
+        }
+        
+        return;
+    }
+    
+    // 关闭抢答器
+    if ([msgName isEqualToString:YSSignalingName_showContest])
+    {
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToCloseResponder)])
+        {
+            [self.roomManagerDelegate handleSignalingToCloseResponder];
+        }
         return;
     }
     
