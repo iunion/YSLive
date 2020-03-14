@@ -129,7 +129,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)destroy
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    // UIApplicationWillEnterForegroundNotification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     if (liveManagerSingleton)
@@ -423,9 +424,10 @@ static YSLiveManager *liveManagerSingleton = nil;
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
+    // UIApplicationWillEnterForegroundNotification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(enterForeground:)
-                                                 name:UIApplicationWillEnterForegroundNotification
+                                                 name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
