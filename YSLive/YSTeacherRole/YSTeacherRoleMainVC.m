@@ -338,7 +338,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         dispatch_source_cancel(self.bigRoomTimer);
         self.bigRoomTimer = nil;
     }
-
 }
 
 - (instancetype)initWithRoomType:(YSRoomTypes)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
@@ -1670,7 +1669,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSLiveRoomManagerDelegate
 
 /// 大并发房间
-- (void)roomManagerChangeToBigRoom
+- (void)roomManagerChangeToBigRoomInList:(BOOL)inlist
 {
     BMWeakSelf
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -1712,6 +1711,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.topBarTimer = nil;
     }
 
+    if (self.answerTimer)
+    {
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
+    }
+
+    if (self.answerDetailTimer)
+    {
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
+    }
+    
+    if (self.bigRoomTimer)
+    {
+        dispatch_source_cancel(self.bigRoomTimer);
+        self.bigRoomTimer = nil;
+    }
+    
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self dismissViewControllerAnimated:YES completion:^{
@@ -3675,6 +3692,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (weakSelf.answerDetailTimer)
             {
                 dispatch_source_cancel(weakSelf.answerDetailTimer);
+                weakSelf.answerDetailTimer = nil;
             }
         }
     };
@@ -3686,6 +3704,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (weakSelf.answerTimer)
         {
             dispatch_source_cancel(weakSelf.answerTimer);
+            weakSelf.answerTimer = nil;
         }
        
         if (!isOpen)
@@ -3826,12 +3845,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (self.answerTimer)
     {
-         dispatch_source_cancel(self.answerTimer);
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
     }
     
     if (self.answerDetailTimer)
     {
-         dispatch_source_cancel(self.answerDetailTimer);
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
     }
     
     BMWeakSelf
@@ -3900,12 +3921,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
     if (self.answerTimer)
     {
-         dispatch_source_cancel(self.answerTimer);
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
     }
     
     if (self.answerDetailTimer)
     {
-         dispatch_source_cancel(self.answerDetailTimer);
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
     }
 }
 
