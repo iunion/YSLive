@@ -129,7 +129,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)destroy
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    // UIApplicationWillEnterForegroundNotification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     if (liveManagerSingleton)
@@ -423,9 +424,10 @@ static YSLiveManager *liveManagerSingleton = nil;
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
+    // UIApplicationWillEnterForegroundNotification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(enterForeground:)
-                                                 name:UIApplicationWillEnterForegroundNotification
+                                                 name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1648,6 +1650,11 @@ static YSLiveManager *liveManagerSingleton = nil;
             NSUInteger count = [dataDic bm_uintForKey:@"num"];
             NSDictionary *detailCountDic = [dataDic bm_dictionaryForKey:@"rolenums"];
             
+            BOOL freshUserCount = NO;
+            if (count != self.userCount)
+            {
+                freshUserCount = YES;
+            }
             self.userCount = count;
             self.userCountDetailDic = detailCountDic;
             
@@ -1655,15 +1662,20 @@ static YSLiveManager *liveManagerSingleton = nil;
             {
                 self.isBigRoom = YES;
                 [self freshUserList];
-                if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeToBigRoom)])
+                if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeToBigRoomInList:)])
                 {
-                    [self.roomManagerDelegate roomManagerChangeToBigRoom];
+                    [self.roomManagerDelegate roomManagerChangeToBigRoomInList:inlist];
                 }
             }
             
-            if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerBigRoomFreshUserCount)])
+            if (freshUserCount && [self.roomManagerDelegate respondsToSelector:@selector(roomManagerBigRoomFreshUserCountInList:)])
             {
-                [self.roomManagerDelegate roomManagerBigRoomFreshUserCount];
+                [self.roomManagerDelegate roomManagerBigRoomFreshUserCountInList:inlist];
+            }
+
+            if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingBigRoomInList:)])
+            {
+                [self.roomManagerDelegate handleSignalingBigRoomInList:inlist];
             }
         }
         
