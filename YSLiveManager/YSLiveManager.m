@@ -2492,7 +2492,11 @@ static YSLiveManager *liveManagerSingleton = nil;
     NSString *platform = [UIDevice bm_devicePlatform];
     
     // iPhone 8 Plus
-    if ([platform isEqualToString:@"iPhone10,2"]) return YES;        
+    if ([platform isEqualToString:@"iPhone10,2"]) return YES;
+    // iPhone X
+    if ([platform isEqualToString:@"iPhone10,3"]) return YES;
+    if ([platform isEqualToString:@"iPhone10,6"]) return YES;
+    
 #endif
 #endif
 
