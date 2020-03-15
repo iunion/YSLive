@@ -64,7 +64,6 @@
     {
         NSDate * date = [NSDate bm_dateFromString:self.dateArr[indexPath.row] withFormat:@"yyyy-MM-dd"];
         
-        //dateStr = [date bm_stringWithFormat:[NSString stringWithFormat:@"yyyyMM%@", YSLocalizedSchool(@"Label.Title.Month")]];
         dateStr = [NSString stringWithFormat:@"%@%@", [date bm_stringWithFormat:@"yyyy MM"], YSLocalizedSchool(@"Label.Title.Month")] ;
     }
 

@@ -421,3 +421,5 @@
 "Prompt.LowDeviceTitle" = "Device not  well enough to display more";
 "Prompt.NoCamera" = "Camera is banned";
 "Prompt.NoMicrophone" = "No Mic";
+
+"Prompt.OnlineSchool_lessons" = "%@ lessons";
