@@ -65,7 +65,7 @@
 @property (nonatomic, strong) UIImageView *raiseHandImage;
 
 ///手机是否是低版本
-@property (nonatomic, assign)BOOL isHighDevice;
+@property (nonatomic, assign)BOOL isLowDevice;
 
 
 
@@ -84,8 +84,6 @@
 
     if (self)
     {
-        self.isHighDevice = [[YSLiveManager shareInstance] devicePlatformHighEndEquipment];
-
         self.delegate = delegate;
         
         self.roomUser = roomUser;
@@ -151,8 +149,6 @@
     self = [super init];
     if (self)
     {
-        self.isHighDevice = [[YSLiveManager shareInstance] devicePlatformHighEndEquipment];
-
         self.roomUser = roomUser;
         self.isForPerch = isForPerch;
 
@@ -318,6 +314,11 @@
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
         
+    self.isLowDevice = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
+    
+    NSString * djd = self.roomUser.nickName;
+    
+    
     if (self.isForPerch)
     {
         self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
@@ -512,14 +513,34 @@
     }
 }
 
+///低端设备
+- (void)setIsLowDevice:(BOOL)isLowDevice
+{
+    _isLowDevice = isLowDevice;
+        
+    if (isLowDevice && self.roomUser.role != YSUserType_Teacher && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    {
+        self.maskNoVideoTitle.hidden = NO;
+        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+    }
+    else
+    {
+        self.maskNoVideo.hidden = YES;
+        self.maskNoVideoTitle.text = nil;
+    }
+}
+
+
 ///该用户有开摄像头
 - (void)setIHasVadeo:(BOOL)iHasVadeo
 {
     _iHasVadeo = iHasVadeo;
-    self.maskNoVideo.hidden = iHasVadeo;
     
     if (!iHasVadeo)
     {
+        self.maskNoVideo.hidden = NO;
+        
         if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//本地
             if (self.isPoorNetWork)
@@ -534,8 +555,24 @@
         }
         else
         {
-            self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-            [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+            if (self.isLowDevice && self.roomUser.role != YSUserType_Teacher)
+            {
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+            }
+            else
+            {
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+            }
+            
+        }
+    }
+    else
+    {
+        if (!self.isLowDevice)
+        {
+            self.maskNoVideo.hidden = YES;
         }
     }
 }

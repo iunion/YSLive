@@ -40,6 +40,10 @@
 // 是否需要设备检测
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
+// 设备性能是否低
+@property (nonatomic, assign) BOOL devicePerformance_Low;
+
+
 // 房间音视频
 @property (nonatomic, strong) YSRoomInterface *roomManager;
 
@@ -107,6 +111,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         liveManagerSingleton.schoolHost = YSSchool_Server;
         
         [liveManagerSingleton registerURLProtocol:YES];
+        
+        liveManagerSingleton.devicePerformance_Low = NO;
     }
     //    static dispatch_once_t onceToken;
     //    dispatch_once(&onceToken, ^{ liveManagerSingleton = [[YSLiveManager alloc] init]; });
@@ -1065,9 +1071,9 @@ static YSLiveManager *liveManagerSingleton = nil;
 // 打开视频
 - (int)playVideoOnView:(UIView *)view withPeerId:(NSString *)peerID renderType:(YSRenderMode)renderType completion:(completion_block)completion
 {
-    BOOL isHighDevice = [self devicePlatformHighEndEquipment];
+    BOOL isHighDevice = [self devicePlatformLowEndEquipment];
     
-    if (self.room_UseTheType != YSAppUseTheTypeSmallClass || !self.isBeginClass || isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
+    if (self.room_UseTheType != YSAppUseTheTypeSmallClass || !self.isBeginClass || !isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
     {
         return [self.roomManager playVideo:peerID renderType:renderType window:view completion:completion];
     }
@@ -1288,6 +1294,12 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param code 警告码
 - (void)onRoomDidOccuredWaring:(YSRoomWarningCode)code
 {
+    
+    if (code == YSRoomWarning_DevicePerformance_Low)
+    {
+        self.devicePerformance_Low = YES;
+    }
+
     if (!self.viewDidAppear)
     {
         [self addMsgCachePoolWithMethodName:@selector(onRoomDidOccuredWaring:) parameters:@[ @(code) ]];
@@ -2472,9 +2484,36 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 
 //判断设备是否是高端机型，能否支持多人上台
-- (BOOL)devicePlatformHighEndEquipment
+- (BOOL)devicePlatformLowEndEquipment
 {
+    // SDK判断资源不足，视为低端设备
+    
+    BOOL djdj = self.devicePerformance_Low;
+    
+    
+    
+    if (self.devicePerformance_Low)
+    {
+        return YES;
+    }
+    
     NSString *platform = [UIDevice bm_devicePlatform];
+        
+        if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
+        {
+            return YES;
+            if ([platform compare:@"iPhone8"] == NSOrderedDescending)
+            {
+                return NO;
+            }
+            if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
+            {
+                return NO;
+            }
+        }
+        return YES;
+    
+    #if 0
     // iPhone
     if ([platform isEqualToString:@"iPhone1,1"])    return NO;
     if ([platform isEqualToString:@"iPhone1,2"])    return NO;
@@ -2529,6 +2568,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPad2,7"])      return NO;
     
     return YES;
+    #endif
+
 }
 
 

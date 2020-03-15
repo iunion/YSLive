@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 白板视图whiteBord
 @property (nonatomic, strong, readonly) UIView *whiteBordView;
 
+/// 设备性能是否低
+@property (nonatomic, assign, readonly) BOOL devicePerformance_Low;
+
 
 /// 文件服务器地址
 @property (nonatomic, strong, readonly) NSString *fileServer;
@@ -175,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)doMsgCachePool;
 
 /// 判断设备是否是高端机型，能否支持多人上台
-- (BOOL)devicePlatformHighEndEquipment;
+- (BOOL)devicePlatformLowEndEquipment;
 
 
 #pragma mark - 房间 对外接口
