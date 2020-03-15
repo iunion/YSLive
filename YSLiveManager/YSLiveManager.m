@@ -2500,89 +2500,36 @@ static YSLiveManager *liveManagerSingleton = nil;
 // 判断设备是否是低端机型，能否支持多人上台
 - (BOOL)devicePlatformLowEndEquipment
 {
-    // SDK判断资源不足，视为低端设备
-    if (self.devicePerformance_Low)
-    {
-        return YES;
-    }
-    
-    NSString *platform = [UIDevice bm_devicePlatform];
-    
-    if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
-    {
-        if ([platform compare:@"iPhone8"] == NSOrderedDescending)
-        {
-            return NO;
-        }
-        if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
-        {
-            return NO;
-        }
-#ifdef DEBUG
-#if YSADDLOW_IPHONE
+    #ifdef DEBUG
+    #if YSADDLOW_IPHONE
+        NSString *platform = [UIDevice bm_devicePlatform];
+        
         // iPhone 8 Plus
         if ([platform isEqualToString:@"iPhone10,2"]) return YES;
-#endif
-#endif
-    }
-    
-    return YES;
-#if 0
-    // iPhone
-    if ([platform isEqualToString:@"iPhone1,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone1,2"])    return NO;
-    if ([platform isEqualToString:@"iPhone2,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone3,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone3,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone3,3"])    return NO;
-    if ([platform isEqualToString:@"iPhone4,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone5,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone5,2"])    return NO;
-    if ([platform isEqualToString:@"iPhone5,3"])    return NO;
-    if ([platform isEqualToString:@"iPhone5,4"])    return NO;
-    if ([platform isEqualToString:@"iPhone6,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone6,2"])    return NO;
-    if ([platform isEqualToString:@"iPhone7,1"])    return NO;
-    if ([platform isEqualToString:@"iPhone7,2"])    return NO;
-    
-//#ifdef DEBUG
-//#if YSADDLOW_IPHONE
-//    // iPhone 8 Plus
-//    if ([platform isEqualToString:@"iPhone10,2"])   return NO;
-//#endif
-//#endif
+    #endif
+    #endif
 
-    // iPod
-    if ([platform isEqualToString:@"iPod1,1"])      return NO;
-    if ([platform isEqualToString:@"iPod2,1"])      return NO;
-    if ([platform isEqualToString:@"iPod3,1"])      return NO;
-    if ([platform isEqualToString:@"iPod4,1"])      return NO;
-    if ([platform isEqualToString:@"iPod5,1"])      return NO;
-    if ([platform isEqualToString:@"iPod7,1"])      return NO;
-    // iPad
-    if ([platform isEqualToString:@"iPad1,1"])      return NO;
-    if ([platform isEqualToString:@"iPad2,1"])      return NO;
-    if ([platform isEqualToString:@"iPad2,2"])      return NO;
-    if ([platform isEqualToString:@"iPad2,3"])      return NO;
-    if ([platform isEqualToString:@"iPad2,4"])      return NO;
-    if ([platform isEqualToString:@"iPad3,1"])      return NO;
-    if ([platform isEqualToString:@"iPad3,2"])      return NO;
-    if ([platform isEqualToString:@"iPad3,3"])      return NO;
-    if ([platform isEqualToString:@"iPad3,4"])      return NO;
-    if ([platform isEqualToString:@"iPad3,5"])      return NO;
-    if ([platform isEqualToString:@"iPad3,6"])      return NO;
-    if ([platform isEqualToString:@"iPad4,1"])      return NO;
-    if ([platform isEqualToString:@"iPad4,2"])      return NO;
-    if ([platform isEqualToString:@"iPad4,3"])      return NO;
-    if ([platform isEqualToString:@"iPad5,3"])      return NO;
-    if ([platform isEqualToString:@"iPad5,4"])      return NO;
-    // iPad mini
-    if ([platform isEqualToString:@"iPad2,5"])      return NO;
-    if ([platform isEqualToString:@"iPad2,6"])      return NO;
-    if ([platform isEqualToString:@"iPad2,7"])      return NO;
-    
-    return YES;
-#endif
+        // SDK判断资源不足，视为低端设备
+        if (self.devicePerformance_Low)
+        {
+            return YES;
+        }
+        
+    #if (0)
+        if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
+        {
+            if ([platform compare:@"iPhone8"] == NSOrderedDescending)
+            {
+                return NO;
+            }
+            if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
+            {
+                return NO;
+            }
+        }
+    #endif
+        
+        return NO;
 }
 
 @end

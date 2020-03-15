@@ -204,6 +204,7 @@
         scaleCenterPoint = self.center;
         scaleWidth = self.bm_width;
         scaleHeight = self.bm_height;
+        self.lastSize = self.bm_size;
     }
     
     if (!CGSizeEqualToSize(self.defaultSize, CGSizeZero))
@@ -224,9 +225,10 @@
                 weakSelf.center = self->scaleCenterPoint;
             }];
             
-            if (self.lastSize.width>self.defaultSize.width || self.lastSize.height>self.defaultSize.height) {
-                
-                if ((self.lastSize.width/self.defaultSize.width) < (self.lastSize.height/self.defaultSize.height)) {
+            if (self.lastSize.width>self.defaultSize.width || self.lastSize.height>self.defaultSize.height)
+            {
+                if ((self.lastSize.width/self.defaultSize.width) < (self.lastSize.height/self.defaultSize.height))
+                {
                     self.endScale *= self.lastSize.width/self.defaultSize.width;
                 }else
                 {
@@ -250,7 +252,7 @@
                     weakSelf.center = self->scaleCenterPoint;
                 }];
                 
-                self.endScale *= self.lastSize.width/self.maxSize.width;
+                self.endScale *= self.maxSize.width/self.lastSize.width;
             }
             else
             {//高先达到最大
@@ -261,30 +263,8 @@
                     weakSelf.bm_width = weakSelf.maxSize.height * defaultScale;
                     weakSelf.center = self->scaleCenterPoint;
                 }];
-                self.endScale *= self.lastSize.height/self.maxSize.height;
+                self.endScale *= self.maxSize.height/self.lastSize.height;
             }
-
-            
-//            [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
-//                weakSelf.bm_height = weakSelf.maxSize.height;
-//                weakSelf.bm_width = weakSelf.maxSize.width;
-//                weakSelf.center = self->scaleCenterPoint;
-//            }];
-//            if (self.lastSize.width>self.maxSize.width || self.lastSize.height>self.maxSize.height)
-//            {
-//                if ((self.lastSize.width/self.maxSize.width) < (self.lastSize.height/self.maxSize.height))
-//                {
-//                    self.endScale *= self.lastSize.width/self.maxSize.width;
-//                }
-//                else
-//                {
-//                    self.endScale *= self.lastSize.height/self.maxSize.height;
-//                }
-//            }
-//            else
-//            {
-//                self.endScale = self.maxSize.width/self.defaultSize.width;
-//            }
         }
         else
         {
