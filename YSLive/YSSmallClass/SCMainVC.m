@@ -210,8 +210,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 是否是双师布局信令通知
 @property (nonatomic, assign) BOOL isDoubleType;
 
-
-
 /// 拖出视频浮动View列表
 @property (nonatomic, strong) NSMutableArray <YSFloatView *> *dragOutFloatViewArray;
 
@@ -3858,9 +3856,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingDragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
 {
     YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
-    //CGFloat dx = floatVideoDefaultWidth*(1-scale)*0.5;
-    //CGFloat dy = floatVideoDefaultHeight*(1-scale)*0.5;
-    //CGRect frame = CGRectMake(floatView.bm_left+dx, floatView.bm_top+dy, floatVideoDefaultWidth+fabs(dx*2), floatVideoDefaultHeight+fabs(dy*2));// CGRectInset(floatView.frame, dx, dy);
+    CGPoint center = floatView.center;
     
     CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoDefaultWidth;
     CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoDefaultHeight;
@@ -3869,9 +3865,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     minscale = minscale < scale ? minscale : scale;
     CGFloat width = floatVideoDefaultWidth*minscale;
     CGFloat height = floatVideoDefaultHeight*minscale;
-    
-    CGPoint center = floatView.center;
-    
+        
     floatView.bm_size = CGSizeMake(width, height);
     floatView.center = center;
     
@@ -3883,11 +3877,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         floatView.bm_left = 0.0f;
     }
-    if (floatView.bm_top+height < self.whitebordBackgroud.bm_height)
+    if (floatView.bm_top+height > self.whitebordBackgroud.bm_height)
     {
-        [floatView bm_setHeight:width bottom:self.whitebordBackgroud.bm_height];
+        [floatView bm_setHeight:height bottom:self.whitebordBackgroud.bm_height];
     }
-    if (floatView.bm_left+width < self.whitebordBackgroud.bm_width)
+    if (floatView.bm_left+width > self.whitebordBackgroud.bm_width)
     {
         [floatView bm_setWidth:width right:self.whitebordBackgroud.bm_width];
     }

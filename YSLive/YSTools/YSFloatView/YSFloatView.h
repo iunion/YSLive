@@ -31,7 +31,6 @@ typedef void(^YSFloatViewClickBlock)(void);
 //可以放大到的最大尺寸
 @property (nonatomic, assign) CGSize maxSize;
 
-
 @property (nonatomic, copy) NSString *peerId;
 
 // 点击Block

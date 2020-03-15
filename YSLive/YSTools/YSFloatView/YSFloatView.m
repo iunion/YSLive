@@ -28,6 +28,7 @@
 
 ///默认刚拖出来的比例为1
 @property (nonatomic , assign) CGFloat endScale;
+
 ///上次捏合后的尺寸
 @property (nonatomic , assign) CGSize lastSize;
 
@@ -204,6 +205,7 @@
         scaleCenterPoint = self.center;
         scaleWidth = self.bm_width;
         scaleHeight = self.bm_height;
+//        self.lastSize = self.bm_size;
     }
     
     if (!CGSizeEqualToSize(self.defaultSize, CGSizeZero))
@@ -291,7 +293,7 @@
             self.endScale *= pinch.scale;
         }
         [self stayMove];
-        
+                
         [[YSLiveManager shareInstance] sendSignalingTopinchVideoViewWithPeerId:self.peerId scale:self.endScale];
         
     }
