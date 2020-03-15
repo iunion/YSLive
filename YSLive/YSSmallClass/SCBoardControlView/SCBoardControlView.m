@@ -91,7 +91,7 @@
     [self.pageLabel bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(weakSelf.leftTurnBtn.bmmas_right).bmmas_offset(5);
         make.centerY.bmmas_equalTo(0);
-//        make.right.mas_equalTo(weakSelf.rightTurnBtn.mas_left).offset(-5);
+//        make.right.bmmas_equalTo(weakSelf.rightTurnBtn.mas_left).bmmas_offset(-5);
         make.width.bmmas_equalTo(70);
     }];
     

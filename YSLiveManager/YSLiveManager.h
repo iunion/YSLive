@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设备性能是否低
 @property (nonatomic, assign, readonly) BOOL devicePerformance_Low;
 
+
 /// 文件服务器地址
 @property (nonatomic, strong, readonly) NSString *fileServer;
 
@@ -118,7 +119,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) NSUInteger masterCount;
 
 
-
 /// 全体禁言
 @property (nonatomic, assign) BOOL isEveryoneBanChat;
 /// 是否打开上麦功能
@@ -131,6 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 服务器时间与本地时间差
 @property (nonatomic, assign) NSTimeInterval tHowMuchTimeServerFasterThenMe;
 
+
 /// 上课开始时间
 @property (nonatomic, assign) NSTimeInterval tClassStartTime;
 // 矫正过的时间
@@ -138,7 +139,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) NSTimeInterval tCurrentTime;
 /// 开播经过时长
 @property (nonatomic, assign, readonly) NSTimeInterval tPassedTime;
-
 
 /// 视窗准备完毕
 @property (nonatomic, assign) BOOL viewDidAppear;
@@ -156,7 +156,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前共享桌面用户Id
 @property (nonatomic, strong, readonly) NSString *sharePeerId;
 
-
 /// 是否是回放
 @property (nonatomic, assign) BOOL isPlayback;
 
@@ -172,7 +171,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
-
 
 - (void)doMsgCachePool;
 

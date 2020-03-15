@@ -141,7 +141,7 @@
         // 过期 和 挤掉 都是 code==-40666   是：  当前账号在其他设备登录, 请重新登录
         case -40666:
         {
-            [BMProgressHUD bm_showHUDAddedTo:GetAppDelegate.window animated:YES withText:@"登录信息已失效，请重新登录" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [BMProgressHUD bm_showHUDAddedTo:GetAppDelegate.window animated:YES withText:YSLocalizedSchool(@"Error.TokenError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(PROGRESSBOX_DEFAULT_HIDE_DELAY * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [GetAppDelegate logoutOnlineSchool];
             });

@@ -1216,11 +1216,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            videoView = nil;
         }
         videoView.disableSound = !hasAudio;
         videoView.disableVideo = !hasVidoe;
     }
-    
 }
 
 #pragma mark 音量变化

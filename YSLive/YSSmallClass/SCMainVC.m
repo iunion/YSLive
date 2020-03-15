@@ -2711,6 +2711,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
     imagePickerController.sortAscendingByModificationDate = NO;
     
+    BMWeakSelf
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
             
@@ -2722,9 +2723,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageTypeOnlyImage withMemberModel:nil];
                 if (!isSucceed) {
-                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
                     hub.yOffset = -100;
-                    [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
             /*
@@ -2744,12 +2745,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
              */
         } failure:^(NSInteger errorCode) {
 #if DEBUG
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
 #endif
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [BMProgressHUD bm_hideHUDForView:self.view animated:YES];
+                [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
             });
         }];
     }];
@@ -3468,15 +3469,36 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            videoView = nil;
         }
         videoView.disableSound = !hasAudio;
         videoView.disableVideo = !hasVidoe;
+        
+        // 刷新当前用户前后台状态
+        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        {
+            //videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
+            if ([videoView bm_isNotEmpty])
+            {
+                BOOL isInBackGround = NO;
+                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+                if (state != UIApplicationStateActive)
+                {
+                    isInBackGround = YES;
+                }
+                if (isInBackGround != videoView.isInBackGround)
+                {
+                    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+                }
+            }
+        }
     }
     
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
-        videoView.isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+        BOOL isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+        videoView.isInBackGround = isInBackGround;
     }
 }
 
@@ -4113,13 +4135,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 进入后台
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
+    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(YES) completion:nil];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
+    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(NO) completion:nil];
 }
 
 #pragma mark  答题卡

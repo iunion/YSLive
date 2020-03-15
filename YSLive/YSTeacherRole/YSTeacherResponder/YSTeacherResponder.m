@@ -181,7 +181,7 @@
         
         self.titleL.frame = CGRectMake(20, 0, self.circleProgress.bm_width - 40, 22);
         self.titleL.bm_top = self.personNumberL.bm_bottom + 2;
-        self.titleL.text = @"sdfasdf";
+        self.titleL.text = @"";
         
         self.actionBtn.frame = CGRectMake(0, 0, 130, 34);
         self.actionBtn.bm_centerX = self.titleL.bm_centerX;

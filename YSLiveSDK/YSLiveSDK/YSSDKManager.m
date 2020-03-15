@@ -17,7 +17,7 @@
 static NSString *YSAPPVersionString = @"2.4.3";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.4.3.1";
+static NSString *YSSDKVersionString = @"2.4.3.2";
 
 @interface YSSDKManager ()
 <
@@ -32,7 +32,7 @@ static NSString *YSSDKVersionString = @"2.4.3.1";
 
 @property (nonatomic, assign) YSSDKUseTheType roomType;
 
-@property (nonatomic, weak) id <YSSDKDelegate> delegate;
+@property (nonatomic, weak) UIViewController <YSSDKDelegate> *delegate;
 
 @property (nonatomic, weak) YSLiveManager *liveManager;
 
@@ -74,7 +74,7 @@ static NSString *YSSDKVersionString = @"2.4.3.1";
     return YSSDKVersionString;
 }
 
-- (void)registerManagerDelegate:(nullable id <YSSDKDelegate>)managerDelegate
+- (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate
 {
     self.delegate = managerDelegate;
 }

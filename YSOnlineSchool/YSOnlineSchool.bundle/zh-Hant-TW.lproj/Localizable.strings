@@ -55,6 +55,7 @@
 "Login.EnterRoom" = "加入房間";
 
 "Error.ServerError" = "服務器訪問異常";
+"Error.TokenError" = "登入資訊已失效，請重新登入";
 "Error.DomainError" = "域名輸入錯誤";
 "Error.NewPwdEmpty" = "新密碼不能為空";
 "Error.ConfirmPwdRmpty" = "確認密碼不能為空";
@@ -62,3 +63,4 @@
 "Error.PwdLength" = "新密碼和確認密碼的不一致";
 
 "Label.Title.Month" = "月";
+"Title.StudentNum" = "學生人數";
