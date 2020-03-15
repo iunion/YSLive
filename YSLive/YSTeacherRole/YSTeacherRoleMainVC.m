@@ -298,6 +298,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 举手上台的人数
 @property (nonatomic, strong) UILabel *handNumLab;
 
+/// 抢答器
 @property (nonatomic, strong)YSTeacherResponder *responderView;
 /// 老师计时器
 @property (nonatomic, strong)YSTeacherTimerView *teacherTimerView;
@@ -338,7 +339,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         dispatch_source_cancel(self.bigRoomTimer);
         self.bigRoomTimer = nil;
     }
-
 }
 
 - (instancetype)initWithRoomType:(YSRoomTypes)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
@@ -1670,7 +1670,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSLiveRoomManagerDelegate
 
 /// 大并发房间
-- (void)roomManagerChangeToBigRoom
+- (void)roomManagerChangeToBigRoomInList:(BOOL)inlist
 {
     BMWeakSelf
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -1712,6 +1712,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.topBarTimer = nil;
     }
 
+    if (self.answerTimer)
+    {
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
+    }
+
+    if (self.answerDetailTimer)
+    {
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
+    }
+    
+    if (self.bigRoomTimer)
+    {
+        dispatch_source_cancel(self.bigRoomTimer);
+        self.bigRoomTimer = nil;
+    }
+    
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self dismissViewControllerAnimated:YES completion:^{
@@ -2027,7 +2045,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.raiseHandArray addObject:user];
             self.upHandPopTableView.userArr = self.raiseHandArray;
         }
-        
+#if 0
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
             if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -2054,6 +2072,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
         }
+#endif
         
         //YSRoomUser * user = [[YSLiveManager shareInstance].roomManager getRoomUserWithUId:peerID];
         
@@ -2082,6 +2101,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            videoView = nil;
         }
         
         videoView.disableSound = !hasAudio;
@@ -2645,14 +2665,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
-    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.wav"];
+    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
     
     static BOOL giftMp3Playing = NO;
     
     if (!giftMp3Playing)
     {
         giftMp3Playing = YES;
+        BMWeakSelf
         [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
+            
+            [weakSelf.liveManager.roomManager setPlayMedia:playID volume:0.5f];
             if (current >= total)
             {
                 giftMp3Playing = NO;
@@ -3015,13 +3038,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if 0
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@0 completion:nil];
 }
 #endif
 
@@ -3670,6 +3693,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (weakSelf.answerDetailTimer)
             {
                 dispatch_source_cancel(weakSelf.answerDetailTimer);
+                weakSelf.answerDetailTimer = nil;
             }
         }
     };
@@ -3681,6 +3705,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (weakSelf.answerTimer)
         {
             dispatch_source_cancel(weakSelf.answerTimer);
+            weakSelf.answerTimer = nil;
         }
        
         if (!isOpen)
@@ -3821,12 +3846,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (self.answerTimer)
     {
-         dispatch_source_cancel(self.answerTimer);
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
     }
     
     if (self.answerDetailTimer)
     {
-         dispatch_source_cancel(self.answerDetailTimer);
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
     }
     
     BMWeakSelf
@@ -3895,12 +3922,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
     if (self.answerTimer)
     {
-         dispatch_source_cancel(self.answerTimer);
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
     }
     
     if (self.answerDetailTimer)
     {
-         dispatch_source_cancel(self.answerDetailTimer);
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
     }
 }
 
@@ -3917,89 +3946,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)startClickedWithUpPlatform:(BOOL)upPlatform
 {
     autoUpPlatform = upPlatform;
-    static int responderFirst = 0;
-    responderFirst = 0;
-    BMWeakSelf
     [self.liveManager sendSignalingTeacherToStartResponderCompletion:nil];
     contestCommitNumber = 0;
     contestPeerId = @"";
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
-        BMLog(@"%ld", (long)timeInterval);
-        [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
-      
-        NSInteger total = 0;
-        for (YSRoomUser * user in weakSelf.liveManager.userList)
-        {
-            if (user.role == YSUserType_Student)
-            {
-                total++;
-            }
-        }
-        NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
-        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];
-        CGFloat progress = (10 - timeInterval) / 10.0f;
-        [weakSelf.responderView setProgress:progress];
-
-        if (timeInterval == 0)
-        {
-            [weakSelf.responderView showResponderWithType:YSTeacherResponderType_Result];
-            NSInteger total = 0;
-            for (YSRoomUser * user in weakSelf.liveManager.userList)
-            {
-                if (user.role == YSUserType_Student)
-                {
-                    total++;
-                }
-            }
-            NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
-            [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];;//用于传人数
-            CGFloat progress = 1.0f;
-            [weakSelf.responderView setProgress:progress];
-            
-            if (self->contestCommitNumber == 0)
-            {
-                [weakSelf.responderView setPersonName:YSLocalized(@"Res.lab.fail")];
-                if (responderFirst == 0)
-                {
-                    
-                    [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
-                    responderFirst = 1;
-                }
-            }
-            
-            if (self->contestCommitNumber > 0)
-            {
-                YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
-                [weakSelf.responderView setPersonName:user.nickName];
-                if (responderFirst == 0)
-                {
-                    responderFirst = 1;
-                    [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
-                    if (weakSelf.videoViewArray.count < self->maxVideoCount)
-                    {
-                        if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
-                        {
-                            if (self->allNoAudio)
-                            {
-                                [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
-                            }
-                            else
-                            {
-                                [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
-                            }
-                            
-                        }
-                    }
-                    else
-                    {
-                        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-                    }
-                    
-                }
-            }
-        }
-    }];
-    
 }
 
 - (void)againClicked
@@ -4012,31 +3961,181 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)teacherResponderCloseClicked
 {
     [self.liveManager sendSignalingTeacherToCloseResponderCompletion:nil];
-    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherResponderCountDownKey];
+    
 }
 
-- (void)handleSignalingContestCommitWithData:(NSDictionary *)data
+/// 老师/助教收到 showContest
+- (void)handleSignalingShowContest
 {
-    contestCommitNumber++;
-    NSInteger total = 0;
-    for (YSRoomUser * user in self.liveManager.userList)
-    {
-        if (user.role == YSUserType_Student)
+//    老师/助教发起抢答排序 Contest(pubMsg)，并订阅抢答排序ContestSubsort(pubMsg)
+    [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300 completion:nil];
+    
+}
+
+/// 收到抢答排序
+- (void)handleSignalingContest
+{
+    BMWeakSelf
+    [self.responderView setCloseBtnHide:YES];
+    /// 订阅抢答排序
+    [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300 completion:nil];
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
+        
+        NSInteger total = 0;
+        if (weakSelf.liveManager.isBigRoom)
         {
-            total++;
+            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+            total = studentNum;
+        }
+        else
+        {
+            for (YSRoomUser * user in weakSelf.liveManager.userList)
+            {
+                if (user.role == YSUserType_Student)
+                {
+                    total++;
+                }
+            }
+        }
+        
+        NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+        [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];
+        CGFloat progress = (10 - timeInterval) / 10.0f;
+        [weakSelf.responderView setProgress:progress];
+        
+        if (timeInterval == 0)
+        {
+            [weakSelf.responderView showResponderWithType:YSTeacherResponderType_Result];
+            NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
+            [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];;//用于传人数
+            CGFloat progress = 1.0f;
+            [weakSelf.responderView setProgress:progress];
+            
+            if (self->contestCommitNumber == 0)
+            {
+                [weakSelf.responderView setPersonName:YSLocalized(@"Res.lab.fail")];
+                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
+                [weakSelf.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
+                [weakSelf.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
+                
+            }
+            
+            if (self->contestCommitNumber > 0)
+            {
+                if (weakSelf.liveManager.isBigRoom)
+                {
+                    [weakSelf.liveManager.roomManager getRoomUserWithPeerId:self->contestPeerId callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [weakSelf showContestResultWithRoomUser:user];
+                            
+                        });
+                    }];
+                }
+                else
+                {
+                    YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
+                    [weakSelf showContestResultWithRoomUser:user];
+                }
+            }
+       
+            
+        }
+    }];
+}
+
+/// 展示抢答结果 并确定是否自动上台
+- (void)showContestResultWithRoomUser:(YSRoomUser *)user
+{
+    [self.responderView setPersonName:user.nickName];
+    [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
+    if (self.videoViewArray.count < self->maxVideoCount)
+    {
+        if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+        {
+            if (self->allNoAudio)
+            {
+                [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+            }
+            else
+            {
+                [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+            }
         }
     }
+    else
+    {
+        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
+    [self.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
+    [self.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
+
+}
+
+/// 收到学生抢答
+- (void)handleSignalingContestCommitWithData:(NSArray *)data
+{
+// data     @{peerId : nickName}
+    contestCommitNumber = data.count;
+    NSInteger total = 0;
+    if (self.liveManager.isBigRoom)
+    {
+        NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+        total = studentNum;
+    }
+    else
+    {
+        for (YSRoomUser * user in self.liveManager.userList)
+        {
+            if (user.role == YSUserType_Student)
+            {
+                total++;
+            }
+        }
+    }
+
     NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
 
     [self.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(contestCommitNumber)] totalNumber:totalNumber];
-    if (contestCommitNumber == 1)
+    if ([data bm_isNotEmpty])
     {
-        NSString *peerID = [data bm_stringForKey:@"peerId"];
+        NSDictionary *contestUset = data.firstObject;
+        NSString *peerID = contestUset.allKeys.firstObject;
         contestPeerId = peerID;
     }
 
 }
 
+/// 收到抢答结果
+- (void)handleSignalingContestResultWithName:(NSString *)name
+{
+    /// 取消订阅抢答排序
+    [self.responderView setCloseBtnHide:NO];
+//    [self.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
+
+}
+
+/// 收到取消订阅排序
+-(void)handleSignalingCancelContestSubsort
+{
+//    结束抢答排序
+//    [self.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
+}
+// 结束抢答排序
+-(void)handleSignalingDelContest
+{
+    
+}
+
+/// 关闭答题器
+- (void)handleSignalingToCloseResponder
+{
+    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherResponderCountDownKey];
+}
 
 #pragma mark -
 #pragma mark 计时器信令

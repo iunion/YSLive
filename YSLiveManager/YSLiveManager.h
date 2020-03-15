@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 白板视图whiteBord
 @property (nonatomic, strong, readonly) UIView *whiteBordView;
 
+/// 设备性能是否低
+@property (nonatomic, assign, readonly) BOOL devicePerformance_Low;
+
 
 /// 文件服务器地址
 @property (nonatomic, strong, readonly) NSString *fileServer;
@@ -239,9 +242,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 房间状态变为大房间
 /// 由小房间变为大房间(只调用一次)
-- (void)roomManagerChangeToBigRoom;
+- (void)roomManagerChangeToBigRoomInList:(BOOL)inlist;
 /// 大房间刷新用户数量
-- (void)roomManagerBigRoomFreshUserCount;
+- (void)roomManagerBigRoomFreshUserCountInList:(BOOL)inlist;
+/// 大房间刷新数据
+- (void)handleSignalingBigRoomInList:(BOOL)inlist;
 
 #pragma mark 用户网络差，被服务器切换媒体线路
 - (void)roomManagerChangeMediaLine;
@@ -398,15 +403,21 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param answerId 答题ID
 - (void)handleSignalingDelAnswerResultWithAnswerId:(NSString *)answerId;
 
-/// 收到开始抢答 学生
+/// 老师/助教收到 showContest
+- (void)handleSignalingShowContest;
+/// 收到抢答排序
 - (void)handleSignalingContest;
-
 /// 收到抢答学生
-- (void)handleSignalingContestCommitWithData:(NSDictionary *)data;
+- (void)handleSignalingContestCommitWithData:(NSArray *)data;
 /// 关闭抢答器
-- (void)handleSignalingStudentToCloseResponder;
+- (void)handleSignalingToCloseResponder;
 /// 收到抢答结果
 - (void)handleSignalingContestResultWithName:(NSString *)name;
+/// 收到取消订阅排序
+- (void)handleSignalingCancelContestSubsort;
+/// 结束抢答排序
+- (void)handleSignalingDelContest;
+
 
 /// 老师收到计时器显示
 - (void)handleSignalingTeacherTimerShow;
@@ -695,8 +706,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 抢答器  开始
 - (BOOL)sendSignalingTeacherToStartResponderCompletion:(nullable completion_block)completion;
+/// 助教、老师发起抢答排序
+- (BOOL)sendSignalingTeacherToContestResponderWithMaxSort:(NSInteger)maxSort completion:(nullable completion_block)completion;
+/// 订阅抢答排序
+- (BOOL)sendSignalingTeacherToContestSubsortWithMin:(NSInteger)min max:(NSInteger)max completion:(nullable completion_block)completion;
+
 /// 发布抢答器结果
 - (BOOL)sendSignalingTeacherToContestResultWithName:(NSString *)name completion:(nullable completion_block)completion;
+/// 取消订阅抢答排序
+- (BOOL)sendSignalingTeacherToCancelContestSubsortCompletion:(nullable completion_block)completion;
+/// 结束抢答排序
+- (BOOL)sendSignalingTeacherToDeleteContestCompletion:(nullable completion_block)completion;
 /// 关闭抢答器
 - (BOOL)sendSignalingTeacherToCloseResponderCompletion:(nullable completion_block)completion;
 

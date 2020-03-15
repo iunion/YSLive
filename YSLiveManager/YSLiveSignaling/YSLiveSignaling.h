@@ -123,13 +123,17 @@
 /// 公布答题结果
 #define YSSignalingName_AnswerPublicResult          @"AnswerPublicResult"
 /// 老师抢答器
-#define YSSignalingName_Contest          @"Contest"
+#define YSSignalingName_showContest          @"showContest"
+//发起抢答排序
+#define YSSignalingName_Contest              @"Contest"
 /// 收到学生抢答
 #define YSSignalingName_ContestCommit          @"ContestCommit"
 /// 抢答结果
 #define YSSignalingName_ContestResult          @"ContestResult"
-/// 关闭抢答
-#define YSSignalingName_delContest             @"DelContest"
+/// 订阅排序
+#define YSSignalingName_ContestSubsort         @"ContestSubsort"
+
+
 #define YSSignalingName_Timer             @"timer"
 #pragma mark -
 #pragma mark whiteBordSignaling

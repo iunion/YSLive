@@ -649,6 +649,8 @@
 		87981DCD23C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC723C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m */; };
 		87981DCE23C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC823C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m */; };
 		87981DCF23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DCB23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m */; };
+		879EB230241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */; };
+		879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */; };
 		87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 87A014592397CC2F0039B3F3 /* InfoPlist.strings */; };
 		87AED04423B5AC8000D38129 /* YSRoomUser+YSLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04323B5AC8000D38129 /* YSRoomUser+YSLive.m */; };
 		87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04623B5D71000D38129 /* YSPermissionsVResultView.m */; };
@@ -1215,6 +1217,7 @@
 		879ADB01235178C000C72EAA /* YSApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSApiRequest.m; sourceTree = "<group>"; };
 		879ADB0323517A2600C72EAA /* YSAppInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppInfo.h; sourceTree = "<group>"; };
 		879ADB0423517A2600C72EAA /* YSAppInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSAppInfo.m; sourceTree = "<group>"; };
+		879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
 		87A014582397CC2F0039B3F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		87A0145A2397CC320039B3F3 /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		87A0145B2397CC330039B3F3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -2579,6 +2582,7 @@
 		87981DAD23C57CC300DA0276 /* BMKit */ = {
 			isa = PBXGroup;
 			children = (
+				879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */,
 				87981DB623C57FC500DA0276 /* BMKitImage.xcassets */,
 				87981DAE23C57CC300DA0276 /* BMKit.framework */,
 				87981DAF23C57CC300DA0276 /* BMKitResources.bundle */,
@@ -3134,6 +3138,7 @@
 				871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */,
 				8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */,
 				87981DAB23C57CBB00DA0276 /* YSWhiteBoardImage.xcassets in Resources */,
+				879EB230241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
 				3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */,
 				871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */,
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
@@ -3158,6 +3163,7 @@
 				8717E33E2400DADC008C4CDA /* YSWhiteBoardResources.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
 				8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */,
+				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
 				8717E3442400DADC008C4CDA /* testgpsmoker_icon@2x.png in Resources */,
 				8717E3452400DADC008C4CDA /* YSClassMediumCell.xib in Resources */,
 				8717E3572400DB9F008C4CDA /* vclass_Info.plist in Resources */,
@@ -3885,7 +3891,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.1.9;
+				CURRENT_PROJECT_VERSION = 2.5.0.0;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3909,7 +3915,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.5.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -3930,7 +3936,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.1.9;
+				CURRENT_PROJECT_VERSION = 2.5.0.0;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
@@ -3967,7 +3973,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.5.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",

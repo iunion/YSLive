@@ -1719,14 +1719,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
-    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.wav"];
+    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
     
     static BOOL giftMp3Playing = NO;
     
     if (!giftMp3Playing)
     {
         giftMp3Playing = YES;
+        BMWeakSelf
         [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
+            [weakSelf.liveManager.roomManager setPlayMedia:playID volume:0.5f];
             if (current >= total)
             {
                 giftMp3Playing = NO;
@@ -3383,9 +3385,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            videoView = nil;
         }
         videoView.disableSound = !hasAudio;
         videoView.disableVideo = !hasVidoe;
+        
+        // 刷新当前用户前后台状态
+        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        {
+            //videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
+            if ([videoView bm_isNotEmpty])
+            {
+                BOOL isInBackGround = NO;
+                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+                if (state != UIApplicationStateActive)
+                {
+                    isInBackGround = YES;
+                }
+                if (isInBackGround != videoView.isInBackGround)
+                {
+                    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+                }
+            }
+        }
     }
     
     
@@ -3403,26 +3425,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
 
     }
+    
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
         BOOL isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
-        
         videoView.isInBackGround = isInBackGround;
-        
-        SCVideoView *videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
-        if ([videoView bm_isNotEmpty])
-        {
-            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-            if (state == UIApplicationStateActive && isInBackGround)
-            {
-              [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
-            }
-            else if (state != UIApplicationStateActive && !isInBackGround)
-            {
-                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
-            }
-        }
     }
 }
 
@@ -4059,13 +4067,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 进入后台
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
+    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(YES) completion:nil];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
+    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(NO) completion:nil];
 }
 
 #pragma mark  答题卡
@@ -4279,7 +4287,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
 }
 
--(void)handleSignalingStudentToCloseResponder
+-(void)handleSignalingToCloseResponder
 {
     [self.responderView dismiss:nil animated:NO dismissBlock:nil];
 }

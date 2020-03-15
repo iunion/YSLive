@@ -41,6 +41,9 @@
 // 是否需要设备检测
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
+// 设备性能是否低
+@property (nonatomic, assign) BOOL devicePerformance_Low;
+
 // 房间音视频
 @property (nonatomic, strong) YSRoomInterface *roomManager;
 
@@ -108,6 +111,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         liveManagerSingleton.schoolHost = YSSchool_Server;
         
         [liveManagerSingleton registerURLProtocol:YES];
+        
+        liveManagerSingleton.devicePerformance_Low = NO;
     }
     //    static dispatch_once_t onceToken;
     //    dispatch_once(&onceToken, ^{ liveManagerSingleton = [[YSLiveManager alloc] init]; });
@@ -129,8 +134,10 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)destroy
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    // UIApplicationWillEnterForegroundNotification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    // UIApplicationDidEnterBackgroundNotification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     
     if (liveManagerSingleton)
     {
@@ -423,14 +430,16 @@ static YSLiveManager *liveManagerSingleton = nil;
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
+    // UIApplicationWillEnterForegroundNotification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(enterForeground:)
-                                                 name:UIApplicationWillEnterForegroundNotification
+                                                 name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
+    // UIApplicationDidEnterBackgroundNotification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(enterBackground:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
+                                                 name:UIApplicationWillResignActiveNotification
                                                object:nil];
 }
 
@@ -1285,6 +1294,11 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param code 警告码
 - (void)onRoomDidOccuredWaring:(YSRoomWarningCode)code
 {
+    if (code == YSRoomWarning_DevicePerformance_Low)
+    {
+        self.devicePerformance_Low = YES;
+    }
+    
     if (!self.viewDidAppear)
     {
         [self addMsgCachePoolWithMethodName:@selector(onRoomDidOccuredWaring:) parameters:@[ @(code) ]];
@@ -1648,6 +1662,11 @@ static YSLiveManager *liveManagerSingleton = nil;
             NSUInteger count = [dataDic bm_uintForKey:@"num"];
             NSDictionary *detailCountDic = [dataDic bm_dictionaryForKey:@"rolenums"];
             
+            BOOL freshUserCount = NO;
+            if (count != self.userCount)
+            {
+                freshUserCount = YES;
+            }
             self.userCount = count;
             self.userCountDetailDic = detailCountDic;
             
@@ -1655,15 +1674,20 @@ static YSLiveManager *liveManagerSingleton = nil;
             {
                 self.isBigRoom = YES;
                 [self freshUserList];
-                if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeToBigRoom)])
+                if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerChangeToBigRoomInList:)])
                 {
-                    [self.roomManagerDelegate roomManagerChangeToBigRoom];
+                    [self.roomManagerDelegate roomManagerChangeToBigRoomInList:inlist];
                 }
             }
             
-            if ([self.roomManagerDelegate respondsToSelector:@selector(roomManagerBigRoomFreshUserCount)])
+            if (freshUserCount && [self.roomManagerDelegate respondsToSelector:@selector(roomManagerBigRoomFreshUserCountInList:)])
             {
-                [self.roomManagerDelegate roomManagerBigRoomFreshUserCount];
+                [self.roomManagerDelegate roomManagerBigRoomFreshUserCountInList:inlist];
+            }
+
+            if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingBigRoomInList:)])
+            {
+                [self.roomManagerDelegate handleSignalingBigRoomInList:inlist];
             }
         }
         return;
@@ -2473,10 +2497,37 @@ static YSLiveManager *liveManagerSingleton = nil;
 }
 
 
-//判断设备是否是高端机型，能否支持多人上台
+// 判断设备是否是高端机型，能否支持多人上台
 - (BOOL)devicePlatformHighEndEquipment
 {
+    // SDK判断资源不足，视为低端设备
+    if (self.devicePerformance_Low)
+    {
+        return NO;
+    }
+    
     NSString *platform = [UIDevice bm_devicePlatform];
+    
+    if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
+    {
+        if ([platform compare:@"iPhone8"] == NSOrderedDescending)
+        {
+            return YES;
+        }
+        if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
+        {
+            return YES;
+        }
+#ifdef DEBUG
+#if YSADDLOW_IPHONE
+        // iPhone 8 Plus
+        if ([platform isEqualToString:@"iPhone10,2"]) return NO;
+#endif
+#endif
+    }
+    
+    return NO;
+#if 0
     // iPhone
     if ([platform isEqualToString:@"iPhone1,1"])    return NO;
     if ([platform isEqualToString:@"iPhone1,2"])    return NO;
@@ -2494,12 +2545,12 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPhone7,1"])    return NO;
     if ([platform isEqualToString:@"iPhone7,2"])    return NO;
     
-#ifdef DEBUG
-#if YSADDLOW_IPHONE
-    // iPhone 8 Plus
-    if ([platform isEqualToString:@"iPhone10,2"])   return NO;
-#endif
-#endif
+//#ifdef DEBUG
+//#if YSADDLOW_IPHONE
+//    // iPhone 8 Plus
+//    if ([platform isEqualToString:@"iPhone10,2"])   return NO;
+//#endif
+//#endif
 
     // iPod
     if ([platform isEqualToString:@"iPod1,1"])      return NO;
@@ -2531,8 +2582,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPad2,7"])      return NO;
     
     return YES;
+#endif
 }
 
-
-    
 @end

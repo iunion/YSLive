@@ -401,11 +401,14 @@
 
 - (BOOL)sendSignalingStudentContestCommitCompletion:(completion_block)completion
 {
-    NSDictionary *sendDic = @{@"peerId" : self.localUser.peerID};
+    NSDictionary *actions = @{self.localUser.peerID : self.localUser.nickName};
+    NSDictionary *extensionData = @{ @"actions" : actions,
+                                     @"modify":@(0),
+                                     @"type":@"sort"
+    };
+    return ([self.roomManager pubMsg:YSSignalingName_ContestCommit msgID:YSSignalingName_ContestCommit toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:YSSignalingName_Contest associatedUserID:self.localUser.peerID expires:0 completion:completion] == 0);
     
-//    return ([self.roomManager pubMsg:YSSignalingName_ContestCommit msgID:YSSignalingName_ContestCommit toID:YSRoomPubMsgTellAll data:nil save:NO extensionData:sendDic associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
     
-    return ([self sendPubMsg:YSSignalingName_ContestCommit toID:@"__allSuperUsers" data:[sendDic bm_toJSON] save:NO completion:completion]);
 }
 
 @end

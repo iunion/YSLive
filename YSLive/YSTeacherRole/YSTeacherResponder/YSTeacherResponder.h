@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, YSTeacherResponderType)
 - (void)setPersonNumber:(NSString *)person totalNumber:(NSString *)totalNumber;
 - (void)setPersonName:(NSString *)name;
 - (void)setProgress:(CGFloat)progress;
-
+- (void)setCloseBtnHide:(BOOL)hide;
 @end
 
 NS_ASSUME_NONNULL_END
