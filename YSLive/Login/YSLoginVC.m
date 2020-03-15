@@ -547,8 +547,8 @@
     self.backImageView.frame = CGRectMake(0, 0,UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
     self.backImageView.backgroundColor = [UIColor redColor];
     [self.backScrollView addSubview:self.backImageView];
-    //    [self.backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.edges.mas_equalTo(0);
+    //    [self.backImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+    //        make.edges.bmmas_equalTo(0);
     //    }];
     //
     UITapGestureRecognizer *click = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction:)];
@@ -557,7 +557,7 @@
     [self.backImageView addSubview:self.logoImageView];
     [self.logoImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.centerX.bmmas_equalTo(0);
-        //        make.top.mas_equalTo(kScale_H(130));
+        //        make.top.bmmas_equalTo(kScale_H(130));
         make.top.bmmas_equalTo(kScale_H(100));
         make.height.bmmas_equalTo(kScale_W(153));
         make.width.bmmas_equalTo(kScale_W(197));
@@ -753,7 +753,7 @@
         [self.logoImageView setImage:[UIImage imageNamed:@"onlineSchool_login_icon"]];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
-            //        make.top.mas_equalTo(kScale_H(130));
+            //        make.top.bmmas_equalTo(kScale_H(130));
             make.top.bmmas_equalTo(kScale_H(50));
             make.height.bmmas_equalTo(kScale_W(153));
             make.width.bmmas_equalTo(kScale_W(197));
@@ -1825,7 +1825,7 @@
         
         return;
     }
-    
+
     NSString *roomId = liveManager.room_Id ? liveManager.room_Id : @"";
     NSString *userId = liveManager.localUser.peerID ? liveManager.localUser.peerID : @"";
     NSString *nickName = liveManager.localUser.nickName ? liveManager.localUser.nickName : @"";
