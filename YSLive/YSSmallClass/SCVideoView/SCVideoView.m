@@ -545,7 +545,7 @@
         }
         else
         {
-            if (self.isLowDevice)
+            if (self.isLowDevice && self.roomUser.role != YSUserType_Teacher)
             {
                 self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
                 [self.maskBackView bringSubviewToFront:self.maskNoVideo];
