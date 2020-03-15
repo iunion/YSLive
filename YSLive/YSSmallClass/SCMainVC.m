@@ -2577,8 +2577,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self.view endEditing:YES];
         
-        [self.whitebordBackgroud bm_removeAllSubviews];
-        
+        //[self.whitebordBackgroud bm_removeAllSubviews];
+        [self.whiteBordView removeFromSuperview];
+
         self.whitebordFullBackgroud.hidden = NO;
         // 加载白板
         [self.whitebordFullBackgroud addSubview:self.whiteBordView];
@@ -2587,7 +2588,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        [self.whitebordFullBackgroud bm_removeAllSubviews];
+        //[self.whitebordFullBackgroud bm_removeAllSubviews];
+        [self.whiteBordView removeFromSuperview];
+
         self.whitebordFullBackgroud.hidden = YES;
         
         [self.whitebordBackgroud addSubview:self.whiteBordView];
