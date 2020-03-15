@@ -2490,6 +2490,21 @@ static YSLiveManager *liveManagerSingleton = nil;
 - (BOOL)devicePlatformHighEndEquipment
 {
     NSString *platform = [UIDevice bm_devicePlatform];
+    
+    if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
+    {
+        if ([platform compare:@"iPhone8"] == NSOrderedDescending)
+        {
+            return YES;
+        }
+        if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
+        {
+            return YES;
+        }
+    }
+    
+    return NO;
+#if 0
     // iPhone
     if ([platform isEqualToString:@"iPhone1,1"])    return NO;
     if ([platform isEqualToString:@"iPhone1,2"])    return NO;
@@ -2507,12 +2522,12 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPhone7,1"])    return NO;
     if ([platform isEqualToString:@"iPhone7,2"])    return NO;
     
-#ifdef DEBUG
-#if YSADDLOW_IPHONE
-    // iPhone 8 Plus
-    if ([platform isEqualToString:@"iPhone10,2"])   return NO;
-#endif
-#endif
+//#ifdef DEBUG
+//#if YSADDLOW_IPHONE
+//    // iPhone 8 Plus
+//    if ([platform isEqualToString:@"iPhone10,2"])   return NO;
+//#endif
+//#endif
 
     // iPod
     if ([platform isEqualToString:@"iPod1,1"])      return NO;
@@ -2544,8 +2559,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPad2,7"])      return NO;
     
     return YES;
+#endif
 }
 
-
-    
 @end
