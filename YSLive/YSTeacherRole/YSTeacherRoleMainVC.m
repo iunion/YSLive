@@ -2665,7 +2665,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
-    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.wav"];
+    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
     
     static BOOL giftMp3Playing = NO;
     
