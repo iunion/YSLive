@@ -512,13 +512,13 @@
         
     if (isLowDevice && self.roomUser.role != YSUserType_Teacher && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
     {
-        self.maskNoVideoTitle.hidden = NO;
+        self.maskNoVideo.hidden = NO;
         self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
         [self.maskBackView bringSubviewToFront:self.maskNoVideo];
     }
     else
     {
-        self.maskNoVideoTitle.hidden = YES;
+        self.maskNoVideo.hidden = YES;
         self.maskNoVideoTitle.text = nil;
     }
 }
