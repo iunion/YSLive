@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 白板视图whiteBord
 @property (nonatomic, strong, readonly) UIView *whiteBordView;
 
+/// 设备性能是否低
+@property (nonatomic, assign, readonly) BOOL devicePerformance_Low;
+
 
 /// 文件服务器地址
 @property (nonatomic, strong, readonly) NSString *fileServer;

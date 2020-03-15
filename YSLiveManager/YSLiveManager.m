@@ -41,6 +41,9 @@
 // 是否需要设备检测
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
+// 设备性能是否低
+@property (nonatomic, assign) BOOL devicePerformance_Low;
+
 // 房间音视频
 @property (nonatomic, strong) YSRoomInterface *roomManager;
 
@@ -108,6 +111,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         liveManagerSingleton.schoolHost = YSSchool_Server;
         
         [liveManagerSingleton registerURLProtocol:YES];
+        
+        liveManagerSingleton.devicePerformance_Low = NO;
     }
     //    static dispatch_once_t onceToken;
     //    dispatch_once(&onceToken, ^{ liveManagerSingleton = [[YSLiveManager alloc] init]; });
@@ -1289,6 +1294,11 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param code 警告码
 - (void)onRoomDidOccuredWaring:(YSRoomWarningCode)code
 {
+    if (code == YSRoomWarning_DevicePerformance_Low)
+    {
+        self.devicePerformance_Low = YES;
+    }
+    
     if (!self.viewDidAppear)
     {
         [self addMsgCachePoolWithMethodName:@selector(onRoomDidOccuredWaring:) parameters:@[ @(code) ]];
@@ -2488,9 +2498,15 @@ static YSLiveManager *liveManagerSingleton = nil;
 }
 
 
-//判断设备是否是高端机型，能否支持多人上台
+// 判断设备是否是高端机型，能否支持多人上台
 - (BOOL)devicePlatformHighEndEquipment
 {
+    // SDK判断资源不足，视为低端设备
+    if (self.devicePerformance_Low)
+    {
+        return NO;
+    }
+    
     NSString *platform = [UIDevice bm_devicePlatform];
     
     if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
