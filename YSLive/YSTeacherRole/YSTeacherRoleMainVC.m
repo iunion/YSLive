@@ -1805,6 +1805,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.topBarTimer = nil;
     }
 
+    if (self.answerTimer)
+    {
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
+    }
+
+    if (self.answerDetailTimer)
+    {
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
+    }
+    
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self dismissViewControllerAnimated:YES completion:^{
@@ -2124,12 +2136,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
         YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
         
-        if ([self.raiseHandArray containsObject:user]) {
+        if ([self.raiseHandArray containsObject:user])
+        {
             [self.raiseHandArray removeObject:user];
             [self.raiseHandArray addObject:user];
             self.upHandPopTableView.userArr = self.raiseHandArray;
         }
-        
+#if 0
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
             if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -2156,6 +2169,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
         }
+#endif
         
         //YSRoomUser * user = [[YSLiveManager shareInstance].roomManager getRoomUserWithUId:peerID];
         
@@ -2184,6 +2198,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            videoView = nil;
         }
         
         videoView.disableSound = !hasAudio;
@@ -3066,17 +3081,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 进入前台后台
 
+/// 老师不发送进入前台后台
 /// 进入后台
+#if 0
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@1 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [[YSRoomInterface instance]changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:@"isInBackGround" value:@0 completion:nil];
+    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@0 completion:nil];
 }
+#endif
 
 #pragma mark - 顶部bar 定时操作
 - (void)countDownTime:(NSTimer *)timer
@@ -3660,6 +3678,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (weakSelf.answerDetailTimer)
             {
                 dispatch_source_cancel(weakSelf.answerDetailTimer);
+                weakSelf.answerDetailTimer = nil;
             }
         }
     };
@@ -3671,14 +3690,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (weakSelf.answerTimer)
         {
             dispatch_source_cancel(weakSelf.answerTimer);
+            weakSelf.answerTimer = nil;
         }
         
         if (!isOpen)
         {
             [weakSelf getAnswerDetailDataWithAnswerID:answerId];
         }
-
+        
         [weakSelf.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerId completion:nil];//获取结果
+        
         [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId completion:nil];
     };
     
@@ -3811,11 +3832,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.answerTimer)
     {
          dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
     }
     
     if (self.answerDetailTimer)
     {
          dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
     }
     
     BMWeakSelf
@@ -3884,11 +3907,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.answerTimer)
     {
          dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
     }
     
     if (self.answerDetailTimer)
     {
          dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
     }
 }
 
@@ -5023,19 +5048,21 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
      * UIImagePickerControllerMediaMetadata // 当数据来源是相机时，此值才有效
      */
     // 从info中将图片取出，并加载到imageView当中
+    
+    BMWeakSelf
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [YSLiveApiRequest uploadImageWithImage:image withImageUseType:SCUploadImageUseType_Document success:^(NSDictionary * _Nonnull dict) {
         
-        [self sendWhiteBordImageWithDic:dict];
+        [weakSelf sendWhiteBordImageWithDic:dict];
         
     } failure:^(NSInteger errorCode) {
 #if DEBUG
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
 #endif
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [BMProgressHUD bm_hideHUDForView:self.view animated:YES];
+            [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
         });
     }];
     
@@ -5230,21 +5257,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
     imagePickerController.sortAscendingByModificationDate = NO;
     
+    BMWeakSelf
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
             
             if (imageUseType == 0)
             {
-                [self sendWhiteBordImageWithDic:dict];
+                [weakSelf sendWhiteBordImageWithDic:dict];
             }
             else
             {
                 BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageTypeOnlyImage withMemberModel:nil];
                 if (!isSucceed)
                 {
-                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
                     hub.yOffset = -100;
-                    [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
             /*
@@ -5264,12 +5292,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
              */
         } failure:^(NSInteger errorCode) {
 #if DEBUG
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
 #endif
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [BMProgressHUD bm_hideHUDForView:self.view animated:YES];
+                [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
             });
         }];
     }];
