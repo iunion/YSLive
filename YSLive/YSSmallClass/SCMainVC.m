@@ -3845,11 +3845,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         floatView.bm_left = 0.0f;
     }
-    if (floatView.bm_top+height < self.whitebordBackgroud.bm_height)
+    if (floatView.bm_top+height > self.whitebordBackgroud.bm_height)
     {
-        [floatView bm_setHeight:width bottom:self.whitebordBackgroud.bm_height];
+        [floatView bm_setHeight:height bottom:self.whitebordBackgroud.bm_height];
     }
-    if (floatView.bm_left+width < self.whitebordBackgroud.bm_width)
+    if (floatView.bm_left+width > self.whitebordBackgroud.bm_width)
     {
         [floatView bm_setWidth:width right:self.whitebordBackgroud.bm_width];
     }
