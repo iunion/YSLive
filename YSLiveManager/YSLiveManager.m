@@ -1666,7 +1666,6 @@ static YSLiveManager *liveManagerSingleton = nil;
                 [self.roomManagerDelegate roomManagerBigRoomFreshUserCount];
             }
         }
-        
         return;
     }
     

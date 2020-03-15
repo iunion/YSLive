@@ -22,6 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		34497707241D1BD6009E8B3A /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87901A2E2417353800FF38EC /* BMTZImagePickerController.bundle */; };
+		34497708241D1C0E009E8B3A /* NSBundle+BMTZImagePicker.m in Resources */ = {isa = PBXBuildFile; fileRef = 87901A1B241729D800FF38EC /* NSBundle+BMTZImagePicker.m */; };
 		8701AD9C23714E1500A43607 /* BMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AD9A23714E1500A43607 /* BMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AE0723714E6000A43607 /* BMClassCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADA323714E5F00A43607 /* BMClassCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AE0823714E6000A43607 /* UIButton+BMContentRect.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADA523714E5F00A43607 /* UIButton+BMContentRect.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -369,7 +371,6 @@
 		87901A292417328F00FF38EC /* BMTZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A272417328F00FF38EC /* BMTZImageCropManager.m */; };
 		87901A2C2417349D00FF38EC /* BMTZImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A2A2417349D00FF38EC /* BMTZImageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87901A2D2417349D00FF38EC /* BMTZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A2B2417349D00FF38EC /* BMTZImageManager.m */; };
-		87901A2F2417353800FF38EC /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87901A2E2417353800FF38EC /* BMTZImagePickerController.bundle */; };
 		87901A3224173ACF00FF38EC /* BMTZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A3024173ACF00FF38EC /* BMTZImagePickerController.m */; };
 		87901A3324173ACF00FF38EC /* BMTZImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3124173ACF00FF38EC /* BMTZImagePickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87901A3624173E3C00FF38EC /* UIView+BMLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3424173E3C00FF38EC /* UIView+BMLayout.h */; };
@@ -1857,10 +1858,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34497708241D1C0E009E8B3A /* NSBundle+BMTZImagePicker.m in Resources */,
+				34497707241D1BD6009E8B3A /* BMTZImagePickerController.bundle in Resources */,
 				8706C5142395F73000223C87 /* BMKitImage.xcassets in Resources */,
 				8701AFF32371648200A43607 /* BMDatePicker.xib in Resources */,
 				8706C50E2394D67200223C87 /* BMKitResources.bundle in Resources */,
-				87901A2F2417353800FF38EC /* BMTZImagePickerController.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -687,6 +687,8 @@
     
     self.iHasAudio = roomUser.hasAudio;
     self.iHasVadeo = roomUser.hasVideo;
+    //网络状态
+    self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
 }
 
 

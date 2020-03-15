@@ -13,14 +13,16 @@
 
 - (YSRoomUser *)sendUser
 {
-    if (!_sendUser) {
+    if (!_sendUser)
+    {
         _sendUser = [[YSRoomUser alloc]init];
     }
     return _sendUser;
 }
 - (YSRoomUser *)receiveUser
 {
-    if (!_receiveUser) {
+    if (!_receiveUser)
+    {
         _receiveUser = [[YSRoomUser alloc]init];
     }
     return _receiveUser;
