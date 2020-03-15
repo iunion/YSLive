@@ -1071,9 +1071,9 @@ static YSLiveManager *liveManagerSingleton = nil;
 // 打开视频
 - (int)playVideoOnView:(UIView *)view withPeerId:(NSString *)peerID renderType:(YSRenderMode)renderType completion:(completion_block)completion
 {
-    BOOL isHighDevice = [self devicePlatformHighEndEquipment];
+    BOOL isHighDevice = [self devicePlatformLowEndEquipment];
     
-    if (self.room_UseTheType != YSAppUseTheTypeSmallClass || !self.isBeginClass || isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
+    if (self.room_UseTheType != YSAppUseTheTypeSmallClass || !self.isBeginClass || !isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
     {
         return [self.roomManager playVideo:peerID renderType:renderType window:view completion:completion];
     }
@@ -2497,13 +2497,13 @@ static YSLiveManager *liveManagerSingleton = nil;
 }
 
 
-// 判断设备是否是高端机型，能否支持多人上台
-- (BOOL)devicePlatformHighEndEquipment
+// 判断设备是否是低端机型，能否支持多人上台
+- (BOOL)devicePlatformLowEndEquipment
 {
     // SDK判断资源不足，视为低端设备
     if (self.devicePerformance_Low)
     {
-        return NO;
+        return YES;
     }
     
     NSString *platform = [UIDevice bm_devicePlatform];
@@ -2512,21 +2512,21 @@ static YSLiveManager *liveManagerSingleton = nil;
     {
         if ([platform compare:@"iPhone8"] == NSOrderedDescending)
         {
-            return YES;
+            return NO;
         }
         if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
         {
-            return YES;
+            return NO;
         }
 #ifdef DEBUG
 #if YSADDLOW_IPHONE
         // iPhone 8 Plus
-        if ([platform isEqualToString:@"iPhone10,2"]) return NO;
+        if ([platform isEqualToString:@"iPhone10,2"]) return YES;
 #endif
 #endif
     }
     
-    return NO;
+    return YES;
 #if 0
     // iPhone
     if ([platform isEqualToString:@"iPhone1,1"])    return NO;
