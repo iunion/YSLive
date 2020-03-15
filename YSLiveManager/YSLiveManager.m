@@ -2501,7 +2501,6 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
         {
-            return YES;
             if ([platform compare:@"iPhone8"] == NSOrderedDescending)
             {
                 return NO;
