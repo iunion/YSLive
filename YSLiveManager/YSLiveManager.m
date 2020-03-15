@@ -2501,6 +2501,12 @@ static YSLiveManager *liveManagerSingleton = nil;
         {
             return YES;
         }
+#ifdef DEBUG
+#if YSADDLOW_IPHONE
+        // iPhone 8 Plus
+        if ([platform isEqualToString:@"iPhone10,2"]) return NO;
+#endif
+#endif
     }
     
     return NO;
