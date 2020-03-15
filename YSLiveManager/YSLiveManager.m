@@ -2487,11 +2487,6 @@ static YSLiveManager *liveManagerSingleton = nil;
 - (BOOL)devicePlatformLowEndEquipment
 {
     // SDK判断资源不足，视为低端设备
-    
-    BOOL djdj = self.devicePerformance_Low;
-    
-    
-    
     if (self.devicePerformance_Low)
     {
         return YES;
