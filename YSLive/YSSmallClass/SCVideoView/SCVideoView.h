@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 ///拖拽手势事件
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(UIPanGestureRecognizer *)pan;
 
-
 @end
 
 
@@ -62,18 +61,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isHideCup;
 /// 背景view
 @property (nonatomic, strong) UIView *backVideoView;
-///该用户有开摄像
+/// 该用户有开摄像
 @property (nonatomic, assign) BOOL iHasVadeo;
-///该用户有开麦克风
+/// 该用户有开麦克风
 @property (nonatomic, assign) BOOL iHasAudio;
+/// 该用户网络是否有问题
+@property (nonatomic, assign) BOOL isPoorNetWork;
 
-@property (nonatomic, strong) UIPanGestureRecognizer * panGesture;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;
-
-///用户是否网络不好
-@property (nonatomic, assign) BOOL isPoorNetWork;
 
 // 保存发布状态，用于比较是否有变更
 @property (nonatomic, assign) YSPublishState publishState;

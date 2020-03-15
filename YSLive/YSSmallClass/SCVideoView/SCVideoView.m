@@ -19,11 +19,10 @@
 
 @property (nonatomic, strong) YSRoomUser *roomUser;
 
-
 ///没上课时没有连摄像头时的lab
 @property (nonatomic, strong) UILabel * maskNoVideobgLab;
 
-///所以蒙版的背景View
+///所有蒙版的背景View
 @property (nonatomic, strong) UIView * maskBackView;
 
 ///奖杯
@@ -42,14 +41,14 @@
 @property (nonatomic, strong) UILabel *silentLab;
 
 ///被禁视频时的蒙版
-@property (nonatomic, strong) UIView *maskCloseVideoBgView;
+@property (nonatomic, strong) UIView *maskCloseVideoBgView;//背景蒙版
 @property (nonatomic, strong) UIImageView *maskCloseVideo;
 
 ///点击Home键提示蒙版
 @property (nonatomic, strong)UILabel *homeMaskLab;
 
 ///没有连摄像头时的蒙版
-@property (nonatomic, strong) UIView *maskNoVideo;
+@property (nonatomic, strong) UIView *maskNoVideo;//背景蒙版
 ///上课后没有连摄像头时的文字
 @property (nonatomic, strong) UILabel *maskNoVideoTitle;
 
@@ -60,14 +59,11 @@
 @property (nonatomic, strong) UIFont *dragFont;
 ///拖出时的文字字号
 @property (nonatomic, strong)UIFont *notDragFont;
-
 ///举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
 
 ///手机是否是低版本
 @property (nonatomic, assign)BOOL isLowDevice;
-
-
 
 @end
 
@@ -132,7 +128,6 @@
     }
 }
 
-
 ////这个方法返回YES，第一个和第二个互斥时，第二个会失效
 //- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer NS_AVAILABLE_IOS(7_0);
 //{
@@ -166,6 +161,7 @@
         [self setupUIView];
         
         self.exclusiveTouch = YES;
+       
     }
     return self;
 }
@@ -173,8 +169,10 @@
 //视频view点击事件
 - (void)clickToShowControl
 {
-    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher) {
-        if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)]) {
+    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher)
+    {
+        if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
+        {
             [self.delegate clickViewToControlWithVideoView:self];
         }
     }    
@@ -183,7 +181,8 @@
 ///视频拖拽事件
 - (void)panGestureToMoveView:(UIPanGestureRecognizer *)pan
 {
-    if ([self.delegate respondsToSelector:@selector(panToMoveVideoView:withGestureRecognizer:)]) {
+    if ([self.delegate respondsToSelector:@selector(panToMoveVideoView:withGestureRecognizer:)])
+    {
         [self.delegate panToMoveVideoView:self withGestureRecognizer:pan];
     }
 }
@@ -214,6 +213,7 @@
     maskBackView.backgroundColor = UIColor.clearColor;
     [self.backVideoView addSubview:maskBackView];
     self.maskBackView = maskBackView;
+
     
     //被禁视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
@@ -235,7 +235,6 @@
     self.homeMaskLab.numberOfLines = 2;
     self.homeMaskLab.textAlignment = NSTextAlignmentCenter;
     self.homeMaskLab.backgroundColor = UIColor.clearColor;
-
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
@@ -327,7 +326,6 @@
     else
     {
         self.maskNoVideobgLab.hidden = YES;
-        
         YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
         if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
         {
@@ -457,26 +455,30 @@
     
     if (iVolume<1)
     {
-        if (self.lastVolume>1) {
+        if (self.lastVolume>1)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
         }
         
     }
     else if (iVolume<= volumeScale)
     {
-        if (self.lastVolume>volumeScale || self.lastVolume<1) {
+        if (self.lastVolume>volumeScale || self.lastVolume<1)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_1_SmallClassImage"];
         }
     }
     else if (iVolume<= volumeScale*2)
     {
-        if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale) {
+        if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_2_SmallClassImage"];
         }
     }
     else if (iVolume > volumeScale*2)
     {
-        if (self.lastVolume<=volumeScale*2) {
+        if (self.lastVolume<=volumeScale*2)
+        {
             self.soundImage.image = [UIImage imageNamed:@"sound_3_SmallClassImage"];
         }
     }
@@ -486,7 +488,6 @@
 - (void)setIsPoorNetWork:(BOOL)isPoorNetWork
 {
     _isPoorNetWork = isPoorNetWork;
-    
     self.homeMaskLab.hidden = !isPoorNetWork;
     
     if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
@@ -531,8 +532,7 @@
     }
 }
 
-
-///该用户有开摄像头
+///该用户有开摄像
 - (void)setIHasVadeo:(BOOL)iHasVadeo
 {
     _iHasVadeo = iHasVadeo;
@@ -540,7 +540,6 @@
     if (!iHasVadeo)
     {
         self.maskNoVideo.hidden = NO;
-        
         if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//本地
             if (self.isPoorNetWork)
@@ -634,7 +633,6 @@
 - (void)setDisableVideo:(BOOL)disableVideo
 {
     _disableVideo = disableVideo;
-    
     self.maskCloseVideoBgView.hidden = !disableVideo;
     
     if (self.iHasVadeo)
@@ -729,6 +727,8 @@
     
     self.iHasAudio = roomUser.hasAudio;
     self.iHasVadeo = roomUser.hasVideo;
+    //网络状态
+    self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
 }
 
 
