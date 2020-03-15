@@ -87,6 +87,11 @@
     [super viewWillAppear:animated];
 
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     GetAppDelegate.allowRotation = NO;
 }
@@ -253,7 +258,17 @@
             if (error)
             {
                 BMLog(@"Error: %@", error);
-                [weakSelf loadDataResponseFailed:response error:error];
+                NSString *errorMessage;
+                if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+                {
+                    errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+                }
+                else
+                {
+                    errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                }
+
+                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
             else
             {
@@ -341,7 +356,7 @@
                                 message = YSLocalizedSchool(@"ClassListCell.Enter.EndError");
                                 classModel.classState = YSClassState_End;
                             }
-                            
+
                             [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                         
@@ -410,7 +425,7 @@
         
         return;
     }
-    
+
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
 
     NSString *roomId = liveManager.room_Id ? liveManager.room_Id : @"";
