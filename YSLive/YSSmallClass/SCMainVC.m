@@ -1719,14 +1719,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
-    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.wav"];
+    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
     
     static BOOL giftMp3Playing = NO;
     
     if (!giftMp3Playing)
     {
         giftMp3Playing = YES;
+        BMWeakSelf
         [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
+            [weakSelf.liveManager.roomManager setPlayMedia:playID volume:0.5f];
             if (current >= total)
             {
                 giftMp3Playing = NO;
