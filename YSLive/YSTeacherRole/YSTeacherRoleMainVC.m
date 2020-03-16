@@ -1984,7 +1984,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
                         
-            if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+            if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
             {
                 self.brushToolView.hidden = YES;
                 self.drawBoardView.hidden = YES;
@@ -2005,7 +2005,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
 
-//            self.brushToolView.hidden = !canDraw;
             // 设置画笔颜色初始值
             if (canDraw)
             {
@@ -2738,7 +2737,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///长按可以拖动视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
-    if (self.roomtype == YSRoomType_One) {
+    if (self.roomtype == YSRoomType_One || self.roomLayout == YSLiveRoomLayout_FocusLayout)
+    {
         return;
     }
         
@@ -3428,7 +3428,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-#pragma mark 窗口布局变化
+#pragma mark 切换窗口布局变化
 - (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout withPeerId:(nullable NSString *)peerId
 {
     //NO:上下布局  YES:左右布局

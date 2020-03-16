@@ -443,20 +443,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         // 翻页控件
         [self setupBoardControlView];
-        
-        // 右侧聊天视图
-        [self.view addSubview:self.rightChatView];
-        
-        //弹出聊天框的按钮
-        [self.view addSubview:self.chatBtn];
     }
 
+    // 右侧聊天视图
+    [self.view addSubview:self.rightChatView];
+    
+    //弹出聊天框的按钮
+    [self.view addSubview:self.chatBtn];
+    
     if (self.roomtype == YSRoomType_More && YSCurrentUser.role == YSUserType_Student)
     {
          //举手上台的按钮
          [self.view addSubview:self.raiseHandsBtn];
     }
-    
     
     // 会议默认视频布局
     if (self.appUseTheType == YSAppUseTheTypeMeeting)
@@ -2301,8 +2300,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.rightChatView.textBtnClick = ^{
             [weakSelf.chatToolView.inputView becomeFirstResponder];
         };
+        
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenTheKeyBoard)];
         [self.rightChatView addGestureRecognizer:tap];
+        
+        if (YSCurrentUser.role == YSUserType_Patrol)
+        {
+            self.rightChatView.allDisabledChat.hidden = NO;
+            self.rightChatView.textBtn.hidden = YES;
+            self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.CannotInput");
+        }
     }
     return _rightChatView;
 }

@@ -248,6 +248,7 @@
 "Prompt.NotRepeatChat" = "Do not repeat in the chat area";
 "Prompt.AbnormalityReport" = "Does sending an exception report help us do better?";
 
+"Prompt.CannotInput" = "Disable input";
 "Prompt.BanChat" = "you have been banned to chat";
 "Prompt.CancelBanChat" = "allow to chat";
 

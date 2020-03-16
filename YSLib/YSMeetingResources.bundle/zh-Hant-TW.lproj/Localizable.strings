@@ -248,6 +248,7 @@
 "Prompt.NotRepeatChat" = "請勿在聊天區刷屏";
 "Prompt.AbnormalityReport" = "是否發送異常報告，幫助我們做的更好?";
 
+"Prompt.CannotInput" = "禁止輸入";
 "Prompt.BanChat" = "您已被禁言";
 "Prompt.CancelBanChat" = "已經取消對您的禁言";
 
