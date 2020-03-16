@@ -96,14 +96,14 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 + (instancetype)shareInstance
 {
-    BMLog(@"RoomSDKVersion: %@", [NSString stringWithCString:(char *)(YSRoomSDKVersionString) encoding:NSUTF8StringEncoding]);
-    
     if (liveManagerSingleton)
     {
         return liveManagerSingleton;
     }
     else
     {
+        BMLog(@"RoomSDKVersion: %@", [NSString stringWithCString:(char *)(YSRoomSDKVersionString) encoding:NSUTF8StringEncoding]);
+        
         liveManagerSingleton = [[YSLiveManager alloc] init];
         
         liveManagerSingleton.liveHost = YSLIVE_HOST;
