@@ -144,6 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL viewDidAppear;
 /// 消息缓存数据
 @property (nonatomic, strong, readonly) NSMutableArray *cacheMsgPool;
+//@property (nonatomic, strong, readonly) NSMutableArray *cacheLastMsgPool;
 
 /// 记录UI层是否开始上课
 @property (nonatomic, assign) BOOL isBeginClass;

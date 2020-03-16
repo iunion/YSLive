@@ -54,6 +54,7 @@
 
 // 消息缓存数据
 @property (nonatomic, strong) NSMutableArray *cacheMsgPool;
+@property (nonatomic, strong) NSMutableArray *cacheLastMsgPool;
 
 // 房间数据
 @property (nonatomic, strong) NSDictionary *roomDic;
@@ -249,7 +250,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     self.viewDidAppear = NO;
     self.cacheMsgPool = [[NSMutableArray alloc] init];
-    
+    self.cacheLastMsgPool = [[NSMutableArray alloc] init];
+
     self.isEveryoneBanChat = NO;
 //    self.isEveryoneNoAudio = YES;
     self.isEveryoneNoAudio = NO;
@@ -489,11 +491,23 @@ static YSLiveManager *liveManagerSingleton = nil;
 /// 用户进教室前的一些信令回调
 - (void)doMsgCachePool
 {
+    [self doMsgCachePoolWithSort:YES];
+}
+
+- (void)doMsgCachePoolWithSort:(BOOL)sort
+{
     for (NSDictionary *dic in self.cacheMsgPool)
     {
         NSString *methodName = [dic bm_stringForKey:kYSMethodNameKey];
         SEL funcSel = NSSelectorFromString(methodName);
         NSArray *parameters = [dic bm_arrayForKey:kYSParameterKey];
+        
+        if (sort && [methodName isEqualToString:NSStringFromSelector(@selector(onRoomShareScreenState:state:))])
+        {
+            [self.cacheLastMsgPool addObject:dic];
+            
+            continue;
+        }
         
         if ([parameters bm_isNotEmpty])
         {
@@ -700,6 +714,15 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
     
     [self.cacheMsgPool removeAllObjects];
+    
+    if ([self.cacheLastMsgPool bm_isNotEmpty])
+    {
+        self.cacheMsgPool = self.cacheLastMsgPool;
+    
+        self.cacheLastMsgPool = [[NSMutableArray alloc] init];
+        
+        [self doMsgCachePoolWithSort:NO];
+    }
 }
 
 
