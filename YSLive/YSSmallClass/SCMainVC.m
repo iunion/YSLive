@@ -487,7 +487,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         fullTeacherVideoWidth = ceil(videoHeight*4 / 3);
     }
 
-    self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 76 - fullTeacherVideoWidth, 20, fullTeacherVideoWidth, fullTeacherVideoHeight)];
+    self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 76 - fullTeacherVideoWidth, 50, fullTeacherVideoWidth, fullTeacherVideoHeight)];
     
 //    self.fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
 //    self.fullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
@@ -1890,6 +1890,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
     [self stopFullTeacherVideoView];
+    
     if (!self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
@@ -1937,6 +1938,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 主动清除白板视频标注 服务端会发送关闭
     [self handleSignalingHideVideoWhiteboard];
     [self stopFullTeacherVideoView];
+    
     if (!self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
@@ -2496,6 +2498,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
+        
 //        [self.whitebordFullBackgroud bm_removeAllSubviews];
         self.whitebordFullBackgroud.hidden = YES;
         [self.whiteBordView removeFromSuperview];
@@ -4552,6 +4555,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.fullTeacherFloatView removeFromSuperview];
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithVideoView:self.teacherVideoView];
+    self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, UI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40);
 }
 
 /// 播放全屏老师视频流
@@ -4571,6 +4575,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         fullTeacherVideoView.appUseTheType = self.appUseTheType;
         [self playVideoAudioWithVideoView:fullTeacherVideoView];
         self.fullTeacherVideoView = fullTeacherVideoView;
+        [self.raiseHandsBtn bm_bringToFront];
+        self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
     }
     
 }
