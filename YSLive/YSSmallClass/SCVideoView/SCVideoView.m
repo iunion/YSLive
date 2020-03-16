@@ -310,6 +310,7 @@
     silentLab.textColor = UIColor.whiteColor;
     silentLab.adjustsFontSizeToFitWidth = YES;
     silentLab.minimumScaleFactor = 0.3;
+    silentLab.textAlignment = NSTextAlignmentRight;
     silentLab.hidden = NO;
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
@@ -434,7 +435,7 @@
     self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 120*widthScale, height);
     CGFloat soundImageWidth = height*5/3;
     self.soundImage.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
-    self.silentLab.frame = CGRectMake(self.bm_width-120*widthScale, self.bm_height-4-height, 120*widthScale, height);
+    self.silentLab.frame = CGRectMake(self.bm_width-150*widthScale, self.bm_height-4-height, 150*widthScale, height);
 }
 
 /// 当前设备音量  音量大小 0 ～ 32670

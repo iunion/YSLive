@@ -413,6 +413,6 @@
 
 "Prompt.LowDeviceTitle" = "设备性能过低，无法显示更多视频";
 "Prompt.NoCamera" = "摄像头被禁用";
-"Prompt.NoMicrophone" = "无麦克风";
+"Prompt.NoMicrophone" = "麦克风被禁用";
 
 

@@ -417,5 +417,5 @@
 
 "Prompt.LowDeviceTitle" = "設備效能過低，無法顯示更多視頻";
 "Prompt.NoCamera" = "攝像頭被禁用";
-"Prompt.NoMicrophone" = "無麥克風";
+"Prompt.NoMicrophone" = "麥克風被禁用";
 
