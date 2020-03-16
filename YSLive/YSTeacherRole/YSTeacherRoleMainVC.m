@@ -5588,7 +5588,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.topSelectBtn.selected = NO;
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }];
-    
 }
 
 - (void)sendWhiteBordImageWithDic:(NSDictionary *)uplaodDic

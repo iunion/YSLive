@@ -34,7 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<SCVideoViewDelegate> delegate;
 
 @property (nonatomic, strong, readonly) YSRoomUser *roomUser;
-
 /// 是否占位用
 @property (nonatomic, assign) BOOL isForPerch;
 /// 标识布局变化的值 宫格布局标识
@@ -83,7 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch;
 
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser;
-
 
 - (void)changeRoomUserProperty:(YSRoomUser *)roomUser;
 
