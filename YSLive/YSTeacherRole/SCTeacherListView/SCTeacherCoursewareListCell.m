@@ -115,8 +115,16 @@
 
     BOOL isCurrent = [[YSLiveManager shareInstance].currentFile.fileid isEqualToString:fileModel.fileid];
     BOOL isPlayed = [[YSLiveManager shareInstance].playMediaModel.fileid isEqualToString:fileModel.fileid];
-
-    self.nameLabel.text = fileModel.filename;
+    NSString *filename = @"";
+    if (fileModel.fileid.intValue == 0)
+    {
+        filename = YSLocalized(@"Title.whiteBoard");
+    }
+    else
+    {
+        filename = fileModel.filename;
+    }
+    self.nameLabel.text = filename;
     YSClassFiletype type = YSClassFiletype_Other;
     NSString *imageName = nil;
     self.deleteBtn.hidden = NO;
