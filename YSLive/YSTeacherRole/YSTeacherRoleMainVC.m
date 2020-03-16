@@ -1851,6 +1851,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self freshTeacherPersonListData];
         
+    NSInteger userCount = self.liveManager.userList.count;
+    self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
+    
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
@@ -1876,6 +1879,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.fouceView = nil;
         [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
     }
+    
+    NSInteger userCount = self.liveManager.userList.count;
+     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
+}
+
+
+/// 大房间刷新用户数量
+- (void)roomManagerBigRoomFreshUserCountInList:(BOOL)inlist
+{
+    NSInteger userCount = self.liveManager.userCount;
+    self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
 }
 
 /// 自己被踢出房间
@@ -3450,7 +3464,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (![self.fouceView bm_isNotEmpty])
         {
             self.roomLayout = YSLiveRoomLayout_VideoLayout;
+            self.brushToolView.hidden = self.drawBoardView.hidden = NO;
         }
+        else
+        {
+            self.brushToolView.hidden = self.drawBoardView.hidden = YES;
+        }
+    }
+    else
+    {
+        self.brushToolView.hidden = self.drawBoardView.hidden = NO;
     }
     
     [self freshContentView];

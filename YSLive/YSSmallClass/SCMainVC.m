@@ -864,12 +864,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         // 添加浮动视频窗口
         self.dragOutFloatViewArray = [[NSMutableArray alloc] init];
         
-        // 1VN 初始本人视频音频
-        SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
-        videoView.appUseTheType = self.appUseTheType;
-        [self.videoViewArray addObject:videoView];
-        [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-        [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+        if (YSCurrentUser.role != YSUserType_Patrol)
+        {
+            // 1VN 初始本人视频音频
+            SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
+            videoView.appUseTheType = self.appUseTheType;
+            [self.videoViewArray addObject:videoView];
+            [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+            [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+        }
     }
     
     // 共享

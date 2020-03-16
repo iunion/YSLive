@@ -102,7 +102,7 @@
 //Button
 "Button.MuteAudio" = "全体静音";
 "Button.MuteAll" = "全体发言";
-"Button.Reward"    = "全体奖励";
+"Button.Reward"    = "全体奖杯";
 "Button.Reset"    = "全体复位";
 "Button.Audio" = "音频授课";
 "Button.ShutUpAll" = "全体禁言";
