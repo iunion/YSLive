@@ -224,7 +224,7 @@ static NSString *YSSDKVersionString = @"2.4.4.0";
         YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
         BOOL isWideScreen = [YSLiveManager shareInstance].room_IsWideScreen;
         
-        if (self.selectRoleType == YSUserType_Teacher && (roomtype == YSAppUseTheTypeMeeting || ([UIDevice bm_isiPad] && roomtype == YSAppUseTheTypeSmallClass)))
+        if (self.selectRoleType == YSUserType_Teacher)
         {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:self.liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = roomtype;
