@@ -189,6 +189,7 @@
 
 - (void)setupUIView
 {
+    self.backgroundColor = UIColor.blackColor;
     //没上课时没有连摄像头时的lab
     UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
     maskNoVideobgLab.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
