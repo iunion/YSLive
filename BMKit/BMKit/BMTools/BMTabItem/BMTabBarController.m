@@ -111,6 +111,24 @@
     }];
 }
 
+#pragma mark 横竖屏
+
+- (BOOL)shouldAutorotate
+{
+    return [self.selectedViewController shouldAutorotate];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [self.selectedViewController supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [self.selectedViewController preferredInterfaceOrientationForPresentation];
+}
+
+
 - (void)freshTabItemWithArray:(NSArray *)itemArray
 {
     if (self.tab_ItemArray.count != itemArray.count)
