@@ -168,6 +168,7 @@
 		8790DC16238E3EB0005C0BC7 /* YSLiveSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8790DC14238E3EB0005C0BC7 /* YSLiveSDK.h */; };
 		87942D88238E6C9C00D6B4B2 /* YSSDKManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 87942D86238E6C9C00D6B4B2 /* YSSDKManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87942D89238E6C9C00D6B4B2 /* YSSDKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87942D87238E6C9C00D6B4B2 /* YSSDKManager.m */; };
+		879EB233241F05BC0042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB232241F05BC0042F60C /* BMTZImagePickerController.bundle */; };
 		87B7C2A823D1B331009D840A /* BMKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 877B446023D03DF800A88540 /* BMKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87B7C2A923D1B338009D840A /* YSWhiteBoard.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 877B446B23D03E0F00A88540 /* YSWhiteBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87F527BD240674520040F8FD /* YSTeacherRoleMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F52797240674520040F8FD /* YSTeacherRoleMainVC.h */; };
@@ -441,6 +442,7 @@
 		8790DC15238E3EB0005C0BC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87942D86238E6C9C00D6B4B2 /* YSSDKManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YSSDKManager.h; path = YSLiveSDK/YSSDKManager.h; sourceTree = SOURCE_ROOT; };
 		87942D87238E6C9C00D6B4B2 /* YSSDKManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YSSDKManager.m; path = YSLiveSDK/YSSDKManager.m; sourceTree = SOURCE_ROOT; };
+		879EB232241F05BC0042F60C /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
 		87F52797240674520040F8FD /* YSTeacherRoleMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTeacherRoleMainVC.h; sourceTree = "<group>"; };
 		87F52799240674520040F8FD /* YSMp3Controlview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp3Controlview.h; sourceTree = "<group>"; };
 		87F5279A240674520040F8FD /* YSMp4ControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMp4ControlView.h; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				877B446123D03DF800A88540 /* BMKitImage.xcassets */,
 				877B446223D03DF800A88540 /* BMKitResources.bundle */,
 				877B446323D03DF800A88540 /* BMDatePicker.nib */,
+				879EB232241F05BC0042F60C /* BMTZImagePickerController.bundle */,
 			);
 			path = BMKit;
 			sourceTree = "<group>";
@@ -1501,6 +1504,7 @@
 				877B447323D03E3100A88540 /* YSResources.bundle in Resources */,
 				877B447423D03E3100A88540 /* YSMeetingResources.bundle in Resources */,
 				877B447623D03E4C00A88540 /* YSLive.xcassets in Resources */,
+				879EB233241F05BC0042F60C /* BMTZImagePickerController.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
