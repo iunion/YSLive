@@ -315,9 +315,6 @@
         
     self.isLowDevice = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
     
-    NSString * djd = self.roomUser.nickName;
-    
-    
     if (self.isForPerch)
     {
         self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;

@@ -64,3 +64,4 @@
 
 "Label.Title.Month" = "月";
 "Title.StudentNum" = "學生人數";
+"Prompt.OnlineSchool_lessons" = "共%@節";
