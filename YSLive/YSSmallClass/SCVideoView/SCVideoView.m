@@ -725,6 +725,17 @@
 /// 视频状态
 - (void)setVideoState:(SCVideoViewVideoState)videoState
 {
+#if 0
+    // 设置低端设备状态 两种写法
+    self.videoState = self.videoState | SCVideoViewVideoState_Low_end;
+    // 或这么写
+    self.videoState |= SCVideoViewVideoState_Low_end;
+
+    // 取消低端设备状态
+    self.videoState = self.videoState & ~SCVideoViewVideoState_Low_end;
+    self.videoState &= ~SCVideoViewVideoState_Low_end;
+#endif
+    
     _videoState = videoState;
     
     // 低端设备
