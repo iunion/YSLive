@@ -713,6 +713,186 @@
     self.raiseHandImage.hidden = !isRaiseHand;
 }
 
+/// 视频状态
+- (void)setVideoState:(SCVideoViewVideoState)videoState
+{
+    _videoState = videoState;
+    
+    // 低端设备
+    if (videoState & SCVideoViewVideoState_Low_end)
+    {
+        
+        return;
+    }
+    
+    if (videoState & SCVideoViewVideoState_DeviceErroe)
+    {
+        switch (self.videoDeviceState)
+        {
+            // 无设备
+            case SCVideoViewVideoDeviceState_NoDevice:
+            {
+                
+            }
+                break;
+                
+            // 设备被禁用
+            case SCVideoViewVideoDeviceState_Disable:
+            {
+                
+            }
+                break;
+                
+            // 设备被占用
+            case SCVideoViewVideoDeviceState_Busy:
+            {
+                
+            }
+                break;
+                
+            // 设备打开失败
+            case SCVideoViewVideoDeviceState_OpenError:
+            {
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        return;
+    }
+
+    // 视频订阅失败
+    if (videoState & SCVideoViewVideoState_SubscriptionFailed)
+    {
+        
+        return;
+    }
+    
+    // 视频播放失败
+    if (videoState & SCVideoViewVideoState_PlayFailed)
+    {
+        
+        return;
+    }
+    
+    // 用户关闭视频
+    if (videoState & SCVideoViewVideoState_Close)
+    {
+        
+        return;
+    }
+    
+    // 弱网环境
+    if (videoState & SCVideoViewVideoState_PoorInternet)
+    {
+        
+        return;
+    }
+    
+    // 用户进入后台
+    if (videoState & SCVideoViewVideoState_InBackground)
+    {
+        
+        return;
+    }
+    
+    // 正常显示视频
+    if (videoState == SCVideoViewVideoState_Normal)
+    {
+        
+    }
+}
+
+- (void)setVideoDeviceState:(SCVideoViewVideoDeviceState)videoDeviceState
+{
+    _videoDeviceState = videoDeviceState;
+    
+    [self setVideoState:self.videoState];
+}
+
+/// 音频状态
+- (void)setAudioState:(SCVideoViewAudioState)audioState
+{
+    _audioState = audioState;
+    
+    // 设备不可用
+    if (audioState & SCVideoViewAudioState_DeviceErroe)
+    {
+        switch (self.audioDeviceState)
+        {
+            // 无设备
+            case SCVideoViewAudioDeviceState_NoDevice:
+            {
+                
+            }
+                break;
+                
+            // 设备被禁用
+            case SCVideoViewAudioDeviceState_Disable:
+            {
+                
+            }
+                break;
+                
+            // 设备被占用
+            case SCVideoViewAudioDeviceState_Busy:
+            {
+                
+            }
+                break;
+                
+            // 设备打开失败
+            //case SCVideoViewAudioDeviceState_OpenError:
+            //{
+            //
+            //}
+            //    break;
+                
+            default:
+                break;
+        }
+
+        return;
+    }
+    
+    // 音频订阅失败
+    if (audioState & SCVideoViewAudioState_SubscriptionFailed)
+    {
+        
+        return;
+    }
+    
+    // 音频播放失败
+    if (audioState & SCVideoViewAudioState_PlayFailed)
+    {
+        
+        return;
+    }
+    
+    // 用户关闭麦克风
+    if (audioState & SCVideoViewAudioState_Close)
+    {
+        
+        return;
+    }
+
+    // 正常
+    if (audioState == SCVideoViewAudioState_Normal)
+    {
+        
+    }
+}
+
+- (void)setAudioDeviceState:(SCVideoViewAudioDeviceState)audioDeviceState
+{
+    _audioDeviceState = audioDeviceState;
+    
+    [self setAudioState:self.audioState];
+}
+
 
 - (void)changeRoomUserProperty:(YSRoomUser *)roomUser
 {
@@ -723,8 +903,5 @@
     //网络状态
     self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
 }
-
-
-
 
 @end
