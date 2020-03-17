@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/YSRoomDefines.h</key>
 		<data>
-		Fjc66njFqKxrkfBJA8+UFmRNP3g=
+		2+HHptGZOkcFondEs0toZBccf9g=
 		</data>
 		<key>Headers/YSRoomDelegate.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/YSRoomInterface.h</key>
 		<data>
-		zhwqI7bSCt6OvHMIvhAS4QhV3pQ=
+		mWre03q+8ZU8mwD6fHapsSB0gJ8=
 		</data>
 		<key>Headers/YSRoomSDK.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/YSRoomUser.h</key>
 		<data>
-		LlIg+Ckz8csQwhW68FgTJvz1Woo=
+		pqYFaYCSqXrhi0DToaLgqdd4xXI=
 		</data>
 		<key>Headers/YSRoomWhiteBoardNotification.h</key>
 		<data>
@@ -42,7 +42,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		JPab66ZtRNjMtRuuWIeOmDH1UoI=
+		H9XkYzuFIqAFo8pWfbjNe0CQwpY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -81,11 +81,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Fjc66njFqKxrkfBJA8+UFmRNP3g=
+			2+HHptGZOkcFondEs0toZBccf9g=
 			</data>
 			<key>hash2</key>
 			<data>
-			oNbhMmI8n426EWwc5I4ndFwcuOoI0Y951ieCx1xGq7E=
+			+JomUfL3blAZcNHBTbPjQ8mzPR4zIraYGSOBS4dF59I=
 			</data>
 		</dict>
 		<key>Headers/YSRoomDelegate.h</key>
@@ -103,11 +103,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zhwqI7bSCt6OvHMIvhAS4QhV3pQ=
+			mWre03q+8ZU8mwD6fHapsSB0gJ8=
 			</data>
 			<key>hash2</key>
 			<data>
-			5G3ifsdjIlRMPjokNQ9XSXBYySW2H+M8QyVvVORUCfA=
+			ay36wwtqY3BqSnyvygPs9VxLDWifefYHTVNNIgUgpDk=
 			</data>
 		</dict>
 		<key>Headers/YSRoomSDK.h</key>
@@ -125,11 +125,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LlIg+Ckz8csQwhW68FgTJvz1Woo=
+			pqYFaYCSqXrhi0DToaLgqdd4xXI=
 			</data>
 			<key>hash2</key>
 			<data>
-			OMJAN+nJpS0JtqFZXThpeNc/4FwJkuBIljKc3NkCkJw=
+			iszyIuCZeVdSsrig2+T9STwerPLPX4W0goBAM3uEsd4=
 			</data>
 		</dict>
 		<key>Headers/YSRoomWhiteBoardNotification.h</key>

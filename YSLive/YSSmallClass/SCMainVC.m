@@ -2179,7 +2179,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
                 newVideoView = videoView;
                 // property刷新原用户的值没有变化，需要重新赋值user
-                [videoView changeRoomUserProperty:roomUser];
+                [videoView freshWithRoomUserProperty:roomUser];
                 isUserExist = YES;
                 break;
             }
@@ -3664,7 +3664,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 网络状态
     if ([properties bm_containsObjectForKey:sUserNetWorkState])
     {
-        videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+        [videoView freshWithRoomUserProperty:user];
     }
     
     // 奖杯数
@@ -3748,7 +3749,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 本人是否被禁言
     if ([properties bm_containsObjectForKey:sUserDisablechat])
     {
-        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        if ([peerID isEqualToString:YSCurrentUser.peerID])
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
                         
@@ -3826,22 +3827,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
         
-        BOOL hasVidoe = NO;
-        BOOL hasAudio = NO;
         if (publishState == YSUser_PublishState_VIDEOONLY)
         {
-            hasVidoe = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_AUDIOONLY)
         {
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_BOTH)
         {
-            hasVidoe = YES;
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == 4)
@@ -3851,10 +3846,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
-            videoView = nil;
         }
-        videoView.disableSound = !hasAudio;
-        videoView.disableVideo = !hasVidoe;
         
         // 刷新当前用户前后台状态
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
@@ -3897,6 +3889,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         BOOL isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
         videoView.isInBackGround = isInBackGround;
+        
     }
     
     [self freshTeacherPersonListData];
@@ -3991,8 +3984,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self stopVideoAudioWithVideoView:videoView];
         if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
-            videoView.disableSound = YES;
-            videoView.disableVideo = YES;
+            [videoView freshWithRoomUserProperty:YSCurrentUser];
         }
 
         [self playVideoAudioWithVideoView:videoView];
@@ -4033,11 +4025,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             isTeacher = YES;
         }
-        BOOL hasVidoe = NO;
-        BOOL hasAudio = NO;
+
         if (publishState == YSUser_PublishState_VIDEOONLY)
         {
-            hasVidoe = YES;
             if (!isTeacher)
             {
                 [self addVidoeViewWithPeerId:peerID];
@@ -4045,7 +4035,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else if (publishState == YSUser_PublishState_AUDIOONLY)
         {
-            hasAudio = YES;
             if (!isTeacher)
             {
                 [self addVidoeViewWithPeerId:peerID];
@@ -4053,8 +4042,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else if (publishState == YSUser_PublishState_BOTH)
         {
-            hasVidoe = YES;
-            hasAudio = YES;
             if (!isTeacher)
             {
                 [self addVidoeViewWithPeerId:peerID];
@@ -4074,10 +4061,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [self delVidoeViewWithPeerId:peerID];
             }
         }
-        
-        SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
-        videoView.disableSound = !hasAudio;
-        videoView.disableVideo = !hasVidoe;
     }
     
     if (self.appUseTheType != YSAppUseTheTypeMeeting)
@@ -4147,7 +4130,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
-    
+    else
+    {
+        // 刷新当前用户前后台状态
+        NSDictionary *properties = self.liveManager.localUser.properties;
+        BOOL userIsInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        BOOL isInBackGround = NO;
+        if (state != UIApplicationStateActive)
+        {
+            isInBackGround = YES;
+        }
+        
+        if (isInBackGround != userIsInBackGround)
+        {
+#if DEBUG
+            [self bringSomeViewToFront];
+            [self.progressHUD bm_showAnimated:NO withText:@"出现后台问题！！！！！！！！" delay:10];
+#endif
+
+            [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+        }
+    }
 }
 
 /// 下课
