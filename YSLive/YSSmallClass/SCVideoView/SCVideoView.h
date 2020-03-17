@@ -151,9 +151,11 @@ typedef NS_ENUM(NSUInteger, SCVideoViewAudioDeviceState)
 
 /// 视频状态
 @property (nonatomic, assign) SCVideoViewVideoState videoState;
+/// 摄像头设备状态
 @property (nonatomic, assign) SCVideoViewVideoDeviceState videoDeviceState;
 /// 音频状态
 @property (nonatomic, assign) SCVideoViewAudioState audioState;
+/// 麦克风设备状态
 @property (nonatomic, assign) SCVideoViewAudioDeviceState audioDeviceState;
 
 
