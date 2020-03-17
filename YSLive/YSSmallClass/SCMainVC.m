@@ -3714,7 +3714,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
-    
+    else
+    {
+        // 刷新当前用户前后台状态
+        NSDictionary *properties = self.liveManager.localUser.properties;
+        BOOL userIsInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        BOOL isInBackGround = NO;
+        if (state != UIApplicationStateActive)
+        {
+            isInBackGround = YES;
+        }
+        
+        if (isInBackGround != userIsInBackGround)
+        {
+#if DEBUG
+            [self bringSomeViewToFront];
+            [self.progressHUD bm_showAnimated:NO withText:@"出现后台问题！！！！！！！！" delay:10];
+#endif
+
+            [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+        }
+    }
 }
 
 /// 下课
