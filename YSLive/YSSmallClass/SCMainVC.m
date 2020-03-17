@@ -3345,7 +3345,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 本人是否被禁言
     if ([properties bm_containsObjectForKey:sUserDisablechat])
     {
-        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        if ([peerID isEqualToString:YSCurrentUser.peerID])
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
                         
@@ -3485,6 +3485,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         BOOL isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
         videoView.isInBackGround = isInBackGround;
+        
     }
 }
 
