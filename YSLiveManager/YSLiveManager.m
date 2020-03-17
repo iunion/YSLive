@@ -60,6 +60,9 @@
 @property (nonatomic, strong) NSDictionary *roomDic;
 @property (nonatomic, strong) YSLiveRoomConfiguration *roomConfig;
 
+/// 当前本地视频镜像模式
+@property (nonatomic, assign) YSVideoMirrorMode localVideoMirrorMode;
+
 /// 是否大房间
 @property (nonatomic, assign) BOOL isBigRoom;
 
@@ -114,6 +117,9 @@ static YSLiveManager *liveManagerSingleton = nil;
         [liveManagerSingleton registerURLProtocol:YES];
         
         liveManagerSingleton.devicePerformance_Low = NO;
+        
+        // 默认自动镜像
+        liveManagerSingleton.localVideoMirrorMode = YSVideoMirrorModeAuto;
     }
     //    static dispatch_once_t onceToken;
     //    dispatch_once(&onceToken, ^{ liveManagerSingleton = [[YSLiveManager alloc] init]; });
@@ -1068,6 +1074,18 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     if ([self.roomManager setVideoOrientation:orientation] == 0)
     {
+        return YES;
+    }
+    
+    return NO;
+}
+
+/// 设置本地视频镜像
+- (BOOL)changeLocalVideoMirrorMode:(YSVideoMirrorMode)mode
+{
+    if ([self.roomManager setLocalVideoMirrorMode:mode] == 0)
+    {
+        self.localVideoMirrorMode = mode;
         return YES;
     }
     
