@@ -309,12 +309,15 @@
     silentLab.text = YSLocalized(@"Prompt.NoMicrophone");
     silentLab.font = UI_FONT_16;
     silentLab.textColor = UIColor.whiteColor;
+    silentLab.backgroundColor = UIColor.redColor;
     silentLab.adjustsFontSizeToFitWidth = YES;
     silentLab.minimumScaleFactor = 0.3;
-    silentLab.textAlignment = NSTextAlignmentRight;
-    silentLab.hidden = NO;
+    silentLab.textAlignment = NSTextAlignmentCenter;
+    silentLab.layer.cornerRadius = 2;
+    silentLab.layer.masksToBounds = YES;
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
+    
     
     self.isLowDevice = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
     if (self.isForPerch)
@@ -371,6 +374,7 @@
     }
 }
 
+
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
@@ -380,7 +384,7 @@
     self.maskCloseVideoBgView.frame = self.bounds;
     self.homeMaskLab.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
-    self.maskNoVideoTitle.frame = CGRectMake(5, 10, self.bm_width-10, self.bm_height-25);
+    self.maskNoVideoTitle.frame = CGRectMake(5, 5, self.bm_width-10, self.bm_height-22);
     
     CGFloat imageWidth = frame.size.height*0.3f;
     if (imageWidth > self.maskCloseVideo.image.size.width)
