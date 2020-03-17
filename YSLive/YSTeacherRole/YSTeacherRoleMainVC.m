@@ -1456,6 +1456,47 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     videoView.publishState = publishState;
 }
 
+- (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
+{
+    if (!videoView)
+    {
+        return;
+    }
+    
+    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
+    
+    YSRenderMode renderType = YSRenderMode_adaptive;
+    
+    if (publishState == YSUser_PublishState_VIDEOONLY)
+    {
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+        [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
+        [videoView bringSubviewToFront:videoView.backVideoView];
+        
+        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
+    }
+    if (publishState == YSUser_PublishState_AUDIOONLY)
+    {
+        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+    }
+    if (publishState == YSUser_PublishState_BOTH)
+    {
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+        [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
+        [videoView bringSubviewToFront:videoView.backVideoView];
+
+        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
+    }
+    if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
+    {
+        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
+    }
+    
+    videoView.publishState = publishState;
+}
+
 - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
 {
     if (!videoView)
@@ -5724,7 +5765,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.fullTeacherFloatView removeFromSuperview];
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
-    [self playVideoAudioWithVideoView:self.teacherVideoView];
+    [self playVideoAudioWithNewVideoView:self.teacherVideoView];
     self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, UI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40);
     
 }
@@ -5744,7 +5785,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
         
         fullTeacherVideoView.appUseTheType = self.appUseTheType;
-        [self playVideoAudioWithVideoView:fullTeacherVideoView];
+        [self playVideoAudioWithNewVideoView:fullTeacherVideoView];
         self.fullTeacherVideoView = fullTeacherVideoView;
         [self.raiseHandsBtn bm_bringToFront];
         
