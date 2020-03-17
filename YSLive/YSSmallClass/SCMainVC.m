@@ -805,7 +805,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)setupContentView
 {
     [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
-    [[YSLiveManager shareInstance].roomManager setLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
+    //[[YSLiveManager shareInstance].roomManager setLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
     
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
