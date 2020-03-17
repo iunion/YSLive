@@ -76,6 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前设备音量  音量大小 0 ～ 32670
 @property (nonatomic, assign) NSUInteger iVolume;
 
+/// 当前本地视频镜像模式
+@property (nonatomic, assign, readonly) YSVideoMirrorMode localVideoMirrorMode;
+
 
 // 等待重连
 @property (nonatomic, assign) BOOL waitingForReconnect;
@@ -185,6 +188,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 旋转窗口
 - (BOOL)setDeviceOrientation:(UIDeviceOrientation)orientation;
+/// 设置本地视频镜像
+- (BOOL)changeLocalVideoMirrorMode:(YSVideoMirrorMode)mode;
 
 /// 退出房间
 - (void)leaveRoom:(completion_block _Nullable)block;

@@ -804,9 +804,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 内容背景
 - (void)setupContentView
 {
-    [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
-    [[YSLiveManager shareInstance].roomManager setLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
-    
+    [self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
+    // 前后默认开启镜像
+    [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
+
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
     contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
