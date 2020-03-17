@@ -32,6 +32,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     NSInteger _currentPage;
     NSInteger _totalPage;
     NSInteger _userNum;
+    YSUserRoleType _userRoleType;
 }
 @property (nonatomic, strong) UIView *tableBacView;
 @property (nonatomic, strong) UITableView *tableView;
@@ -300,7 +301,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
     [self.tableView reloadData];
 }
-
+- (void)setUserRole:(YSUserRoleType)userRoleType
+{
+    _userRoleType = userRoleType;
+}
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage
 {
     _totalPage = totalPage + 1;
@@ -337,7 +341,13 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         if (indexPath.row < [self.dataSource count])
         {
             YSRoomUser *user = self.dataSource[indexPath.row];
+            
             personCell.userModel = user;
+            if (_userRoleType == YSUserType_Patrol)
+            {
+                [personCell setUserRole:_userRoleType];
+            }
+            
         }
         
         personCell.delegate = self;
@@ -348,6 +358,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         SCTeacherCoursewareListCell * coursewareCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherCoursewareListCellID forIndexPath:indexPath];
         YSFileModel * model = self.dataSource[indexPath.row];
         coursewareCell.fileModel = model;
+        if (_userRoleType == YSUserType_Patrol)
+        {
+            [coursewareCell setUserRole:_userRoleType];
+        }
         coursewareCell.delegate = self;
         return coursewareCell;
     }
@@ -513,6 +527,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 {
     if (self.type == SCTeacherTopBarTypeCourseware)
     {
+        
+        if (_userRoleType == YSUserType_Patrol)
+        {
+            return;
+        }
         YSFileModel * model = self.dataSource[indexPath.row];
         if ([self.delegate respondsToSelector:@selector(selectCoursewareProxyWithFileModel:)])
         {

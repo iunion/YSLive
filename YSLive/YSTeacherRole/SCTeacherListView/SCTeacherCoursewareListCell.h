@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak) id<SCTeacherCoursewareListCellDelegate> delegate;
 @property (nonatomic, strong) YSFileModel *fileModel;
+- (void)setUserRole:(YSUserRoleType)userRoleType;
 
 @end
 

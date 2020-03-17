@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cameraProxyWithBtn:(UIButton *)btn;
 /// 退出
 - (void)exitProxyWithBtn:(UIButton *)btn;
-
+- (void)sc_TopBarProxyWithBtn:(UIButton *)btn;
 @end
 
 @interface SCTopToolBar : UIView
@@ -37,7 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideMicrophoneBtn:(BOOL)hide;
 - (void)hidePhotoBtn:(BOOL)hide;
 - (void)hideCameraBtn:(BOOL)hide;
-
+- (void)hideCoursewareBtn:(BOOL)hide;
+- (void)hidePersonListBtn:(BOOL)hide;
 - (void)selectMicrophoneBtn:(BOOL)select;
 //- (void)selectCameraBtn:(BOOL)select;
 

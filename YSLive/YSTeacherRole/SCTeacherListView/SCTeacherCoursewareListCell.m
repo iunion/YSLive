@@ -109,6 +109,14 @@
 
 }
 
+- (void)setUserRole:(YSUserRoleType)userRoleType
+{
+    if (userRoleType ==  YSUserType_Patrol)
+    {
+        self.deleteBtn.hidden = YES;
+        
+    }
+}
 - (void)setFileModel:(YSFileModel *)fileModel
 {
     _fileModel = fileModel;
