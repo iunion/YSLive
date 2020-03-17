@@ -63,7 +63,7 @@
 @property (nonatomic, strong) UIImageView *raiseHandImage;
 
 ///手机是否是低版本
-@property (nonatomic, assign)BOOL isLowDevice;
+//@property (nonatomic, assign)BOOL isLowDevice;
 
 @end
 
@@ -324,7 +324,18 @@
     self.silentLab = silentLab;
     silentLab.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
     
-    self.isLowDevice = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
+    //低端设备状态
+    if ([[YSLiveManager shareInstance] devicePlatformLowEndEquipment])
+    {
+        // 设置低端设备状态
+        self.videoState = self.videoState | SCVideoViewVideoState_Low_end;
+    }
+    else
+    {
+        // 取消低端设备状态
+        self.videoState = self.videoState & ~SCVideoViewVideoState_Low_end;
+    }
+    
     if (self.isForPerch)
     {
         self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
@@ -334,13 +345,15 @@
     {
         self.maskNoVideobgLab.hidden = YES;
         YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
+        
         if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
         {
-            self.disableSound = NO;
+            // 设置低端设备状态
+            self.videoState = self.videoState | SCVideoViewAudioState_Normal;
         }
         else
         {
-            self.disableSound = YES;
+            self.videoState = self.videoState | SCVideoViewAudioState_Close;
         }
         
         if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
@@ -493,90 +506,90 @@
 }
 
 // 用户是否网络不好
-- (void)setIsPoorNetWork:(BOOL)isPoorNetWork
-{
-    _isPoorNetWork = isPoorNetWork;
-    self.homeMaskLab.hidden = !isPoorNetWork;
-    
-    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-    {//本地
-        if (isPoorNetWork)
-        {
-            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
-            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
-        }
-    }
-    else
-    {
-        if (self.iHasVadeo && isPoorNetWork)
-        {
-            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
-            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
-        }
-    }
-}
-
-///低端设备
-- (void)setIsLowDevice:(BOOL)isLowDevice
-{
-    _isLowDevice = isLowDevice;
-        
-    if (isLowDevice && self.roomUser.role != YSUserType_Teacher && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-    {
-        self.maskNoVideo.hidden = NO;
-        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
-        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
-    }
-    else
-    {
-        self.maskNoVideo.hidden = YES;
-        self.maskNoVideoTitle.text = nil;
-    }
-}
+//- (void)setIsPoorNetWork:(BOOL)isPoorNetWork
+//{
+//    _isPoorNetWork = isPoorNetWork;
+//    self.homeMaskLab.hidden = !isPoorNetWork;
+//
+//    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+//    {//本地
+//        if (isPoorNetWork)
+//        {
+//            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
+//            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
+//        }
+//    }
+//    else
+//    {
+//        if (self.iHasVadeo && isPoorNetWork)
+//        {
+//            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
+//            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
+//        }
+//    }
+//}
+//
+///////低端设备
+//- (void)setIsLowDevice:(BOOL)isLowDevice
+//{
+//    _isLowDevice = isLowDevice;
+//
+//    if (isLowDevice && self.roomUser.role != YSUserType_Teacher && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+//    {
+//        self.maskNoVideo.hidden = NO;
+//        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+//        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+//    }
+//    else
+//    {
+//        self.maskNoVideo.hidden = YES;
+//        self.maskNoVideoTitle.text = nil;
+//    }
+//}
 
 ///该用户有开摄像
-- (void)setIHasVadeo:(BOOL)iHasVadeo
-{
-    _iHasVadeo = iHasVadeo;
-    
-    if (!iHasVadeo)
-    {
-        self.maskNoVideo.hidden = NO;
-        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {//本地
-            if (self.isPoorNetWork)
-            {
-                [self.maskBackView bringSubviewToFront:self.homeMaskLab];
-            }
-            else
-            {
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
-            }
-        }
-        else
-        {
-            if (self.isLowDevice && self.roomUser.role != YSUserType_Teacher)
-            {
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
-                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
-            }
-            else
-            {
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
-            }
-            
-        }
-    }
-    else
-    {
-        if (!self.isLowDevice)
-        {
-            self.maskNoVideo.hidden = YES;
-        }
-    }
-}
+//- (void)setIHasVadeo:(BOOL)iHasVadeo
+//{
+//    _iHasVadeo = iHasVadeo;
+//
+//    if (!iHasVadeo)
+//    {
+//        self.maskNoVideo.hidden = NO;
+//        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+//        {//本地
+//            if (self.isPoorNetWork)
+//            {
+//                [self.maskBackView bringSubviewToFront:self.homeMaskLab];
+//            }
+//            else
+//            {
+//                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+//                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+//            }
+//        }
+//        else
+//        {
+//            if (self.isLowDevice && self.roomUser.role != YSUserType_Teacher)
+//            {
+//                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+//                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+//            }
+//            else
+//            {
+//                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+//                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+//            }
+//
+//        }
+//    }
+//    else
+//    {
+//        if (!self.isLowDevice)
+//        {
+//            self.maskNoVideo.hidden = YES;
+//        }
+//    }
+//}
 
 ///该用户有开麦克风
 - (void)setIHasAudio:(BOOL)iHasAudio
@@ -617,53 +630,53 @@
     self.brushImageView.hidden = !canDraw;
 }
 
-/// 是否被禁音
-- (void)setDisableSound:(BOOL)disableSound
-{
-    _disableSound = disableSound;
-    if (disableSound)
-    {
-        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
-    }
-    else
-    {
-        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
-    }
-}
+///// 是否被禁音
+//- (void)setDisableSound:(BOOL)disableSound
+//{
+//    _disableSound = disableSound;
+//    if (disableSound)
+//    {
+//        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
+//    }
+//    else
+//    {
+//        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
+//    }
+//}
 
 /// 是否被禁视频
-- (void)setDisableVideo:(BOOL)disableVideo
-{
-    _disableVideo = disableVideo;
-    self.maskCloseVideoBgView.hidden = !disableVideo;
-    
-    if (self.iHasVadeo)
-    {
-        [self.maskBackView bringSubviewToFront:self.maskCloseVideoBgView];
-    }
-    else
-    {
-        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
-    }
-}
+//- (void)setDisableVideo:(BOOL)disableVideo
+//{
+//    _disableVideo = disableVideo;
+//    self.maskCloseVideoBgView.hidden = !disableVideo;
+//
+//    if (self.iHasVadeo)
+//    {
+//        [self.maskBackView bringSubviewToFront:self.maskCloseVideoBgView];
+//    }
+//    else
+//    {
+//        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+//    }
+//}
 
 /// 是否点击了home键
-- (void)setIsInBackGround:(BOOL)isInBackGround
-{
-    _isInBackGround = isInBackGround;
-    
-    if (!self.isPoorNetWork)
-    {
-        if (self.roomUser.role == YSUserType_Student)
-        {
-            self.homeMaskLab.hidden =!isInBackGround;
-        }
-        else
-        {
-            self.homeMaskLab.hidden = YES;
-        }
-    }
-}
+//- (void)setIsInBackGround:(BOOL)isInBackGround
+//{
+//    _isInBackGround = isInBackGround;
+//
+//    if (!self.isPoorNetWork)
+//    {
+//        if (self.roomUser.role == YSUserType_Student)
+//        {
+//            self.homeMaskLab.hidden =!isInBackGround;
+//        }
+//        else
+//        {
+//            self.homeMaskLab.hidden = YES;
+//        }
+//    }
+//}
 
 /// 是否隐藏奖杯
 - (void)setIsHideCup:(BOOL)isHideCup
@@ -718,7 +731,6 @@
 - (void)setIsRaiseHand:(BOOL)isRaiseHand
 {
     _isRaiseHand = isRaiseHand;
-    
     self.raiseHandImage.hidden = !isRaiseHand;
 }
 
@@ -741,6 +753,17 @@
     // 低端设备
     if (videoState & SCVideoViewVideoState_Low_end)
     {
+        if (self.roomUser.role != YSUserType_Teacher && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+           {
+               self.maskNoVideo.hidden = NO;
+               self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
+               [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+           }
+           else
+           {
+               self.maskNoVideo.hidden = YES;
+               self.maskNoVideoTitle.text = nil;
+           }
         
         return;
     }
@@ -759,7 +782,9 @@
             // 设备被禁用
             case SCVideoViewVideoDeviceState_Disable:
             {
-                
+                self.maskNoVideo.hidden = NO;
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
                 
@@ -801,13 +826,25 @@
     // 用户关闭视频
     if (videoState & SCVideoViewVideoState_Close)
     {
-        
+        self.maskCloseVideoBgView.hidden = NO;
+        [self.maskBackView bringSubviewToFront:self.maskCloseVideoBgView];
         return;
     }
     
     // 弱网环境
     if (videoState & SCVideoViewVideoState_PoorInternet)
     {
+        self.homeMaskLab.hidden = NO;
+        
+        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {//本地
+            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
+        }
+        else
+        {
+            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
+        }
+        [self.maskBackView bringSubviewToFront:self.homeMaskLab];
         
         return;
     }
@@ -815,14 +852,17 @@
     // 用户进入后台
     if (videoState & SCVideoViewVideoState_InBackground)
     {
-        
+        if (self.roomUser.role == YSUserType_Student)
+        {
+            self.homeMaskLab.hidden = NO;
+        }
         return;
     }
     
     // 正常显示视频
     if (videoState == SCVideoViewVideoState_Normal)
     {
-        
+        self.maskCloseVideoBgView.hidden = YES;
     }
 }
 
@@ -853,7 +893,8 @@
             // 设备被禁用
             case SCVideoViewAudioDeviceState_Disable:
             {
-                
+                self.silentLab.hidden = NO;
+                self.soundImage.hidden = YES;
             }
                 break;
                 
@@ -892,17 +933,20 @@
         return;
     }
     
+    self.silentLab.hidden = YES;
+    self.soundImage.hidden = NO;
+    
     // 用户关闭麦克风
     if (audioState & SCVideoViewAudioState_Close)
     {
-        
+        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
         return;
     }
 
     // 正常
     if (audioState == SCVideoViewAudioState_Normal)
     {
-        
+        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
     }
 }
 
