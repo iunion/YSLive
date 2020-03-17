@@ -125,6 +125,8 @@
 "Button.CloseAudio"         = "关闭音频";
 "Button.OpenVideo"          = "打开视频";
 "Button.CloseVideo"         = "关闭视频";
+"Button.OpenMirror"          = "镜像";
+"Button.CloseMirror"          = "取消镜像";
 "Button.UpPlatform"         = "上发言席";
 "Button.DownPlatform"       = "下发言席";
 "Button.AllowDoodle"        = "已授权";

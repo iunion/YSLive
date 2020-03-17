@@ -125,6 +125,8 @@
 "Button.CloseAudio"         = "關閉音頻";
 "Button.OpenVideo"          = "開啟視頻";
 "Button.CloseVideo"         = "關閉視頻";
+"Button.OpenMirror"          = "鏡像";
+"Button.CloseMirror"          = "取消鏡像";
 "Button.UpPlatform"         = "上發言席";
 "Button.DownPlatform"       = "上發言席";
 "Button.AllowDoodle"        = "已授權";

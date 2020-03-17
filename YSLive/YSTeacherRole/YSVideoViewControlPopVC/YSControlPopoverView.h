@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) UIButton * audioBtn;
 ///视频控制按钮
 @property(nonatomic,strong) UIButton * videoBtn;
+///镜像控制按钮
+@property(nonatomic,strong) UIButton * mirrorBtn;
 ///画笔权限控制按钮
 @property(nonatomic,strong) UIButton * canDrawBtn;
 ///上下台控制按钮
@@ -45,7 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
 ///成为焦点的用户的peerID(必须在userModel前赋值)
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
 
+
 @property(nonatomic,strong) YSRoomUser * userModel;
+
+
+
+
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
 @property (nonatomic, assign) YSRoomTypes roomtype;
 

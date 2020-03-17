@@ -35,6 +35,8 @@
 #import "YSStudentResponder.h"
 #import "YSStudentTimerView.h"
 
+#import "YSControlPopoverView.h"
+
 #define USE_YSRenderMode_adaptive   1
 
 #define SCLessonTimeCountDownKey     @"SCLessonTimeCountDownKey"
@@ -90,7 +92,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     SCBrushToolViewDelegate,
     SCDrawBoardViewDelegate,
     SCTopToolBarDelegate,
-    SCBoardControlViewDelegate
+    SCBoardControlViewDelegate,
+    UIPopoverPresentationControllerDelegate,
+    YSControlPopoverViewDelegate,
+    SCVideoViewDelegate
 >
 {
     /// 最大上台数
@@ -244,6 +249,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 /// 当前的焦点视图
 @property(nonatomic, strong) SCVideoView *fouceView;
+
+/// 视频控制popoverView
+@property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
 
 @end
 
@@ -2098,7 +2106,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     SCVideoView *newVideoView = nil;
-    
     {
         BOOL isUserExist = NO;
         
@@ -2140,6 +2147,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser];
             videoView.appUseTheType = self.appUseTheType;
+            videoView.delegate = self;
             newVideoView = videoView;
             if (videoView)
             {
@@ -4629,6 +4637,134 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
     }
     
+}
+
+#pragma mark -
+#pragma mark 视频控制popoverView视图
+
+- (YSControlPopoverView *)controlPopoverView
+{
+    if (!_controlPopoverView)
+    {
+        self.controlPopoverView = [[YSControlPopoverView alloc]init];
+        self.controlPopoverView.modalPresentationStyle = UIModalPresentationPopover;
+        self.controlPopoverView.delegate = self;
+        self.controlPopoverView.appUseTheType = self.appUseTheType;
+    }
+    return _controlPopoverView;
+}
+
+// 只实现这个代理的话，会有横屏显示不正确的问题。
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
+// 实现下面这个代理方法后，横屏状态下显示正常。解决plus机型横屏显示问题
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection
+{
+    return UIModalPresentationNone;
+}
+
+#pragma mark 点击弹出popoview
+- (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
+{    
+    YSRoomUser * userModel = videoView.roomUser;
+    
+    SCUserPublishState userPublishState = userModel.liveUserPublishState;
+    if (videoView.roomUser.peerID != YSCurrentUser.peerID || userPublishState == SCUserPublishState_NONE)
+    {
+        return;
+    }
+    
+    UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
+    popover.sourceView = videoView;
+    popover.sourceRect = videoView.bounds;
+    popover.delegate = self;
+    popover.backgroundColor =  [UIColor bm_colorWithHex:0x336CC7];
+    self.controlPopoverView.roomLayout = self.roomLayout;
+    [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
+        
+    if (self.roomtype == YSRoomType_One)
+    {
+        popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
+
+        if ([userModel bm_isNotEmpty])
+        {
+            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 215);
+            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 215);
+        }
+    }
+    else if (self.roomtype == YSRoomType_More)
+    {
+        popover.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+        
+        if (self.appUseTheType == YSAppUseTheTypeMeeting)
+        {
+            if ([userModel bm_isNotEmpty])
+            {
+                self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
+                self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
+            }
+        }
+        else
+        {
+            if ([userModel bm_isNotEmpty])
+            {
+                self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
+                self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
+            }
+        }
+    }
+    self.controlPopoverView.roomtype = self.roomtype;
+    self.controlPopoverView.isDragOut = videoView.isDragOut;
+    self.controlPopoverView.foucePeerId = self.foucePeerId;
+    self.controlPopoverView.userModel = userModel;
+}
+
+#pragma mark 老师的控制按钮点击事件
+- (void)teacherControlBtnsClick:(UIButton *)sender
+{
+    SCUserPublishState userPublishState = YSCurrentUser.liveUserPublishState;
+    switch (sender.tag) {
+        case 0:
+        {//关闭音频
+            if (sender.selected)
+            {//当前是打开音频状态
+                userPublishState &= ~SCUserPublishState_AUDIOONLY;
+            }
+            else
+            {//当前是关闭音频状态
+                userPublishState |= SCUserPublishState_AUDIOONLY;
+            }
+            YSCurrentUser.liveUserPublishState = userPublishState;
+            sender.selected = !sender.selected;
+        }
+            break;
+        case 1:
+        {//关闭视频
+            if (sender.selected)
+            {//当前是打开视频状态
+                userPublishState &= ~SCUserPublishState_VIDEOONLY;
+            }
+            else
+            {//当前是关闭视频状态
+                userPublishState |= SCUserPublishState_VIDEOONLY;
+            }
+            YSCurrentUser.liveUserPublishState = userPublishState;
+            sender.selected = !sender.selected;
+        }
+            break;
+        case 2:
+        {//镜像
+            sender.selected = !sender.selected;
+            
+//            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

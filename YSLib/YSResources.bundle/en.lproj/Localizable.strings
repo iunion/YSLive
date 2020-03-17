@@ -125,6 +125,8 @@
 "Button.CloseAudio"         = "Audio off";
 "Button.OpenVideo"          = "Video on";
 "Button.CloseVideo"         = "Video off";
+"Button.OpenMirror"          = "Mirror on";
+"Button.CloseMirror"          = "Mirror off";
 "Button.UpPlatform"         = "On stage";
 "Button.DownPlatform"       = "Stop Interact";
 "Button.AllowDoodle"        = "Authorized";

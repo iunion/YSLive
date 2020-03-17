@@ -160,8 +160,13 @@
         
         [self setupUIView];
         
+        if ([roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {
+            UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl)];
+            oneTap.numberOfTapsRequired = 1;
+            [self addGestureRecognizer:oneTap];
+        }
         self.exclusiveTouch = YES;
-       
     }
     return self;
 }
@@ -317,7 +322,7 @@
     silentLab.layer.masksToBounds = YES;
     [self.backVideoView addSubview:silentLab];
     self.silentLab = silentLab;
-    
+    silentLab.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
     
     self.isLowDevice = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
     if (self.isForPerch)

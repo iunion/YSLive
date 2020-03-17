@@ -50,6 +50,13 @@
 {
     _userModel = userModel;
     
+    if (YSCurrentUser.role == YSUserType_Student)
+    {
+        [self setupStudentSelfUI];
+    }
+    else
+    {
+    
     if (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant )
     {
         [self setupTearcherUI];
@@ -59,6 +66,72 @@
     {
         [self setupStudentUI];
     }
+    }
+}
+
+- (void)setupStudentSelfUI
+{
+    [self.backView bm_removeAllSubviews];
+    YSPublishState publishState = [self.userModel.properties bm_intForKey:sUserPublishstate];
+    
+    //纵向时按钮高度
+    CGFloat height = (self.view.bm_height-5)/3+0.5;
+    //横向时按钮高度
+    CGFloat width = (self.view.bm_width-5)/3+0.5;
+    
+    //音频控制按钮
+    self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
+    self.audioBtn.tag = 0;
+    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
+    {
+        self.audioBtn.selected = YES;
+    }
+    else
+    {
+        self.audioBtn.selected = NO;
+    }
+    
+    //视频控制按钮
+    self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"tearch_openVideo" selectImageName:@"tearch_closeVideo"];
+    self.videoBtn.tag = 1;
+    if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
+    {
+        self.videoBtn.selected = YES;
+    }
+    else
+    {
+        self.videoBtn.selected = NO;
+    }
+    
+    
+    //镜像控制按钮
+    self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.CloseMirror" ) selectTitle:YSLocalized(@"Button.OpenMirror" ) imageName:@"user_CloseMirror" selectImageName:@"user_openMirror"];
+    self.mirrorBtn.tag = 2;
+    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
+    {
+        self.mirrorBtn.selected = YES;
+    }
+    else
+    {
+        self.mirrorBtn.selected = NO;
+    }
+    
+    if (self.view.bm_width < self.view.bm_height)
+    {
+        self.audioBtn.frame = CGRectMake(0, Margin, self.view.bm_width, height);
+        self.videoBtn.frame = CGRectMake(0, Margin + height, self.view.bm_width, height);
+        self.mirrorBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
+    }
+    else
+    {
+        self.audioBtn.frame = CGRectMake(Margin, 0, width, self.view.bm_height);
+        self.videoBtn.frame = CGRectMake(Margin + width, 0, width, self.view.bm_height);
+        self.mirrorBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
+    }
+    
+    [self moveButtonTitleAndImageWithButton:self.audioBtn];
+    [self moveButtonTitleAndImageWithButton:self.videoBtn];
+    [self moveButtonTitleAndImageWithButton:self.mirrorBtn];
 }
 
 - (void)setupTearcherUI
@@ -378,7 +451,7 @@
 
 - (void)userBtnsClick:(UIButton *)sender
 {
-    if (self.userModel.role == YSUserType_Teacher || self.userModel.role == YSUserType_Assistant)
+    if (self.userModel.role == YSUserType_Teacher || self.userModel.role == YSUserType_Assistant || [self.userModel.peerID isEqualToString:YSCurrentUser.peerID])
     {
         if ([self.delegate respondsToSelector:@selector(teacherControlBtnsClick:)])
         {

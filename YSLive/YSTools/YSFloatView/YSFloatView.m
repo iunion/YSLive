@@ -98,10 +98,8 @@
         
         self.exclusiveTouch = YES;
     }
-    
     return self;
 }
-
 
 
 - (void)setContentView:(UIView *)contentView
@@ -181,7 +179,6 @@
 {
     return YES;
 }
-
 
 - (void)pinchView:(UIPinchGestureRecognizer *)pinch
 {
