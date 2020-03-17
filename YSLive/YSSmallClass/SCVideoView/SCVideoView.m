@@ -45,7 +45,7 @@
 @property (nonatomic, strong) UIImageView *maskCloseVideo;
 
 ///点击Home键提示蒙版
-@property (nonatomic, strong)UILabel *homeMaskLab;
+@property (nonatomic, strong) UILabel *homeMaskLab;
 
 ///没有连摄像头时的蒙版
 @property (nonatomic, strong) UIView *maskNoVideo;//背景蒙版
@@ -65,10 +65,21 @@
 ///手机是否是低版本
 //@property (nonatomic, assign)BOOL isLowDevice;
 
+
+/// 视频状态
+@property (nonatomic, assign) SCVideoViewVideoState videoState;
+/// 摄像头设备状态
+@property (nonatomic, assign) SCVideoViewVideoDeviceState videoDeviceState;
+/// 音频状态
+@property (nonatomic, assign) SCVideoViewAudioState audioState;
+/// 麦克风设备状态
+@property (nonatomic, assign) SCVideoViewAudioDeviceState audioDeviceState;
+
 @end
 
 @implementation SCVideoView
 
+// 老师用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withDelegate:(id<SCVideoViewDelegate>)delegate
 {
     return [self initWithRoomUser:roomUser isForPerch:NO withDelegate:delegate];
@@ -134,6 +145,7 @@
 //    return YES;
 //}
 
+// 学生用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser
 {
     return [self initWithRoomUser:roomUser isForPerch:NO];
@@ -195,6 +207,7 @@
 - (void)setupUIView
 {
     self.backgroundColor = UIColor.blackColor;
+    
     //没上课时没有连摄像头时的lab
     UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
     maskNoVideobgLab.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
@@ -300,10 +313,6 @@
     self.nickNameLab.minimumScaleFactor = 0.3;
     self.nickNameLab.hidden = NO;
     [self.backVideoView addSubview:self.nickNameLab];
-    if (![self.roomUser.peerID isEqualToString:@"0"])
-    {
-        self.nickNameLab.text = self.roomUser.nickName;
-    }
     
     //声音图片
     self.soundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beSilent_SmallClassImage"]];
@@ -336,52 +345,6 @@
         self.videoState = self.videoState & ~SCVideoViewVideoState_Low_end;
     }
     
-    if (self.isForPerch)
-    {
-        self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
-        self.backVideoView.hidden = YES;
-    }
-    else
-    {
-        self.maskNoVideobgLab.hidden = YES;
-        YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
-        
-        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
-        {
-            // 设置低端设备状态
-            self.videoState = self.videoState | SCVideoViewAudioState_Normal;
-        }
-        else
-        {
-            self.videoState = self.videoState | SCVideoViewAudioState_Close;
-        }
-        
-        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
-        {
-            self.disableVideo = NO;
-        }
-        else
-        {
-            self.disableVideo = YES;
-        }
-        
-        self.canDraw = [self.roomUser.properties bm_boolForKey:sUserCandraw];
-        self.giftNumber = [self.roomUser.properties bm_uintForKey:sUserGiftNumber];
-        self.isInBackGround = [self.roomUser.properties bm_boolForKey:sUserIsInBackGround];
-        
-        self.iHasVadeo = self.roomUser.hasVideo;
-        self.iHasAudio = self.roomUser.hasAudio;
-        
-        //网络状态
-        self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
-        
-        NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sUserPrimaryColor];
-        if ([brushColor bm_isNotEmpty])
-        {
-            self.brushColor = brushColor;
-        }
-    }
-    
     if (self.isDragOut || self.isFullScreen)
     {
         self.nickNameLab.font = self.cupNumLab.font = self.dragFont;
@@ -390,6 +353,8 @@
     {
         self.nickNameLab.font = self.cupNumLab.font = self.notDragFont;
     }
+    
+    [self freshWithRoomUserProperty:self.roomUser];
 }
 
 
@@ -466,7 +431,7 @@
 {
     _iVolume = iVolume;
     
-    if (self.disableSound)
+    if (self.roomUser.disableAudio)
     {
         self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
         return;
@@ -591,13 +556,13 @@
 //    }
 //}
 
-///该用户有开麦克风
-- (void)setIHasAudio:(BOOL)iHasAudio
-{
-    _iHasAudio = iHasAudio;
-    self.silentLab.hidden = iHasAudio;
-    self.soundImage.hidden = !iHasAudio;
-}
+/////该用户有开麦克风
+//- (void)setIHasAudio:(BOOL)iHasAudio
+//{
+//    _iHasAudio = iHasAudio;
+//    self.silentLab.hidden = iHasAudio;
+//    self.soundImage.hidden = !iHasAudio;
+//}
 
 /// 奖杯数
 - (void)setGiftNumber:(NSUInteger)giftNumber
@@ -768,7 +733,7 @@
         return;
     }
     
-    if (videoState & SCVideoViewVideoState_DeviceErroe)
+    if (videoState & SCVideoViewVideoState_DeviceError)
     {
         switch (self.videoDeviceState)
         {
@@ -879,7 +844,7 @@
     _audioState = audioState;
     
     // 设备不可用
-    if (audioState & SCVideoViewAudioState_DeviceErroe)
+    if (audioState & SCVideoViewAudioState_DeviceError)
     {
         switch (self.audioDeviceState)
         {
@@ -957,15 +922,144 @@
     [self setAudioState:self.audioState];
 }
 
-
-- (void)changeRoomUserProperty:(YSRoomUser *)roomUser
+- (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser
 {
-    self.roomUser = roomUser;
+    if (!roomUser)
+    {
+        return;
+    }
     
-    self.iHasAudio = roomUser.hasAudio;
-    self.iHasVadeo = roomUser.hasVideo;
-    //网络状态
-    self.isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
+    self.roomUser = roomUser;
+
+    if (![self.roomUser.peerID isEqualToString:@"0"])
+    {
+        self.nickNameLab.text = self.roomUser.nickName;
+    }
+    
+    if (self.isForPerch)
+    {
+        self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
+        self.backVideoView.hidden = YES;
+    }
+    else
+    {
+        self.maskNoVideobgLab.hidden = YES;
+        
+        self.canDraw = [self.roomUser.properties bm_boolForKey:sUserCandraw];
+        self.giftNumber = [self.roomUser.properties bm_uintForKey:sUserGiftNumber];
+        
+        NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sUserPrimaryColor];
+        if ([brushColor bm_isNotEmpty])
+        {
+            self.brushColor = brushColor;
+        }
+
+        // 视频相关
+        
+        // 低端设备
+        BOOL low = [[YSLiveManager shareInstance] devicePerformance_Low];
+        if (low)
+        {
+            self.videoState |= SCVideoViewVideoState_Low_end;
+        }
+        else
+        {
+            self.videoState &= ~SCVideoViewVideoState_Low_end;
+        }
+
+        // 设备不可用
+        BOOL deviceError = NO;
+        if (!self.roomUser.disableVideo)
+        {
+            // 设备禁用
+            deviceError = YES;
+            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
+        }
+        if (!self.roomUser.hasVideo)
+        {
+            // 无设备
+            deviceError = YES;
+            self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
+        }
+        if (deviceError)
+        {
+            self.videoState |= SCVideoViewVideoState_DeviceError;
+        }
+        else
+        {
+            self.videoState &= ~SCVideoViewVideoState_DeviceError;
+        }
+
+        YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
+        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        {
+            // 关闭视频
+            self.videoState |= SCVideoViewVideoState_Close;
+        }
+        else
+        {
+            self.videoState &= ~SCVideoViewVideoState_Close;
+        }
+        
+        // 网络状态
+        BOOL isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
+        if (isPoorNetWork)
+        {
+            self.videoState |= SCVideoViewVideoState_PoorInternet;
+        }
+        else
+        {
+            self.videoState &= ~SCVideoViewVideoState_PoorInternet;
+        }
+        
+        // 进入后台
+        BOOL isInBackGround = [self.roomUser.properties bm_boolForKey:sUserIsInBackGround];
+        if (isInBackGround)
+        {
+            self.videoState |= SCVideoViewVideoState_InBackground;
+        }
+        else
+        {
+            self.videoState &= ~SCVideoViewVideoState_InBackground;
+        }
+        
+        // 音频相关
+        
+        // 设备不可用
+        deviceError = NO;
+        if (!self.roomUser.disableAudio)
+        {
+            // 设备禁用
+            deviceError = YES;
+            self.audioDeviceState = SCVideoViewAudioDeviceState_Disable;
+        }
+        if (!self.roomUser.hasAudio)
+        {
+            // 无设备
+            deviceError = YES;
+            self.audioDeviceState = SCVideoViewAudioDeviceState_NoDevice;
+        }
+        if (deviceError)
+        {
+            self.audioState |= SCVideoViewAudioState_DeviceError;
+        }
+        else
+        {
+            self.audioState &= ~SCVideoViewAudioState_DeviceError;
+        }
+
+        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4)
+        {
+            // 关闭音频
+            self.audioState |= SCVideoViewAudioState_Close;
+        }
+        else
+        {
+            self.audioState &= ~SCVideoViewAudioState_Close;
+        }
+    }
 }
+
+
 
 @end

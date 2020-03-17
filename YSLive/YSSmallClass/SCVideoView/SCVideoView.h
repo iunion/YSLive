@@ -22,7 +22,7 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewVideoState)
     SCVideoViewVideoState_Low_end = 1 << 0,
     
     // 设备不可用
-    SCVideoViewVideoState_DeviceErroe = 1 << 1,
+    SCVideoViewVideoState_DeviceError = 1 << 1,
     // 无设备
     //SCVideoViewVideoState_NoDevice = 1 << 1,
     // 设备被禁用
@@ -64,7 +64,7 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
     SCVideoViewAudioState_Normal = 0,
     
     // 设备不可用
-    SCVideoViewAudioState_DeviceErroe = 1 << 0,
+    SCVideoViewAudioState_DeviceError = 1 << 0,
     // 无设备
     //SCVideoViewAudioState_NoDevice = 1 << 0,
     // 设备被禁用
@@ -126,37 +126,29 @@ typedef NS_ENUM(NSUInteger, SCVideoViewAudioDeviceState)
 @property (nonatomic, assign) BOOL isDragOut;
 /// 当前设备音量  音量大小 0 ～ 32670
 @property (nonatomic, assign) NSUInteger iVolume;
+/// 是否隐藏奖杯
+@property (nonatomic, assign) BOOL isHideCup;
 /// 奖杯数
 @property (nonatomic, assign) NSUInteger giftNumber;
 /// 画笔颜色值
 @property (nonatomic, strong) NSString *brushColor;
 /// 画笔权限
 @property (nonatomic, assign) BOOL canDraw;
-/// 是否被禁音
-@property (nonatomic, assign) BOOL disableSound;
-/// 是否被禁视频
-@property (nonatomic, assign) BOOL disableVideo;
+
 /// 是否点击了home键
 @property (nonatomic, assign) BOOL isInBackGround;
-/// 是否隐藏奖杯
-@property (nonatomic, assign) BOOL isHideCup;
+
 /// 背景view
 @property (nonatomic, strong) UIView *backVideoView;
-/// 该用户有开摄像
-@property (nonatomic, assign) BOOL iHasVadeo;
-/// 该用户有开麦克风
-@property (nonatomic, assign) BOOL iHasAudio;
-/// 该用户网络是否有问题
-@property (nonatomic, assign) BOOL isPoorNetWork;
 
 /// 视频状态
-@property (nonatomic, assign) SCVideoViewVideoState videoState;
+@property (nonatomic, assign, readonly) SCVideoViewVideoState videoState;
 /// 摄像头设备状态
-@property (nonatomic, assign) SCVideoViewVideoDeviceState videoDeviceState;
+@property (nonatomic, assign, readonly) SCVideoViewVideoDeviceState videoDeviceState;
 /// 音频状态
-@property (nonatomic, assign) SCVideoViewAudioState audioState;
+@property (nonatomic, assign, readonly) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
-@property (nonatomic, assign) SCVideoViewAudioDeviceState audioDeviceState;
+@property (nonatomic, assign, readonly) SCVideoViewAudioDeviceState audioDeviceState;
 
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
@@ -167,15 +159,15 @@ typedef NS_ENUM(NSUInteger, SCVideoViewAudioDeviceState)
 // 保存发布状态，用于比较是否有变更
 @property (nonatomic, assign) YSPublishState publishState;
 
+// 老师用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
-
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withDelegate:(id<SCVideoViewDelegate>)delegate;
 
+// 学生用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch;
-
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser;
 
-- (void)changeRoomUserProperty:(YSRoomUser *)roomUser;
+- (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser;
 
 @end
 

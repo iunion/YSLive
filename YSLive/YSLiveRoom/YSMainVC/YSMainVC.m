@@ -961,7 +961,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             {
                 newVideoView = videoView;
                 // property刷新原用户的值没有变化，需要重新赋值user
-                [videoView changeRoomUserProperty:roomUser];
+                [videoView freshWithRoomUserProperty:roomUser];
                 isUserExist = YES;
                 break;
             }
@@ -1161,7 +1161,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     // 网络状态
     if ([properties bm_containsObjectForKey:sUserNetWorkState])
     {
-        videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+        [videoView freshWithRoomUserProperty:roomUser];
     }
     
     // 本人是否被禁言
@@ -1199,22 +1199,16 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             }
         }
         
-        BOOL hasVidoe = NO;
-        BOOL hasAudio = NO;
         if (publishState == YSUser_PublishState_VIDEOONLY)
         {
-            hasVidoe = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_AUDIOONLY)
         {
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_BOTH)
         {
-            hasVidoe = YES;
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == 4)
@@ -1224,10 +1218,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
-            videoView = nil;
         }
-        videoView.disableSound = !hasAudio;
-        videoView.disableVideo = !hasVidoe;
     }
 }
 
@@ -1329,8 +1320,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [self stopVideoAudioWithVideoView:videoView];
         if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
-            videoView.disableSound = YES;
-            videoView.disableVideo = YES;
+            [videoView freshWithRoomUserProperty:YSCurrentUser];
         }
         
         [self playVideoAudioWithVideoView:videoView];
@@ -1382,22 +1372,16 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
             NSString *peerID = roomUser.peerID;
             
-            BOOL hasVidoe = NO;
-            BOOL hasAudio = NO;
             if (publishState == YSUser_PublishState_VIDEOONLY)
             {
-                hasVidoe = YES;
                 [self addVidoeViewWithPeerId:peerID];
             }
             else if (publishState == YSUser_PublishState_AUDIOONLY)
             {
-                hasAudio = YES;
                 [self addVidoeViewWithPeerId:peerID];
             }
             else if (publishState == YSUser_PublishState_BOTH)
             {
-                hasVidoe = YES;
-                hasAudio = YES;
                 [self addVidoeViewWithPeerId:peerID];
             }
             else if (publishState == 4)
@@ -1408,10 +1392,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             {
                 [self delVidoeViewWithPeerId:peerID];
             }
-            
-            SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
-            videoView.disableSound = !hasAudio;
-            videoView.disableVideo = !hasVidoe;
         }
     }
     

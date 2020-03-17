@@ -1563,7 +1563,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
             newVideoView = videoView;
             // property刷新原用户的值没有变化，需要重新赋值user
-            [videoView changeRoomUserProperty:roomUser];
+            [videoView freshWithRoomUserProperty:roomUser];
             isUserExist = YES;
             break;
         }
@@ -1976,7 +1976,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 网络状态
        if ([properties bm_containsObjectForKey:sUserNetWorkState])
        {
-           videoView.isPoorNetWork = [properties bm_boolForKey:sUserNetWorkState];
+           YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+           [videoView freshWithRoomUserProperty:user];
        }
     
     // 举手上台
@@ -2131,22 +2132,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         //YSRoomUser * user = [[YSLiveManager shareInstance].roomManager getRoomUserWithUId:peerID];
         
-        BOOL hasVidoe = NO;
-        BOOL hasAudio = NO;
         if (publishState == YSUser_PublishState_VIDEOONLY)
         {
-            hasVidoe = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_AUDIOONLY)
         {
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_BOTH)
         {
-            hasVidoe = YES;
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == 4)
@@ -2156,11 +2151,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
-            videoView = nil;
         }
-        
-        videoView.disableSound = !hasAudio;
-        videoView.disableVideo = !hasVidoe;
     }
     
     YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
@@ -2293,22 +2284,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
         NSString *peerID = roomUser.peerID;
         
-        BOOL hasVidoe = NO;
-        BOOL hasAudio = NO;
         if (publishState == YSUser_PublishState_VIDEOONLY)
         {
-            hasVidoe = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_AUDIOONLY)
         {
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == YSUser_PublishState_BOTH)
         {
-            hasVidoe = YES;
-            hasAudio = YES;
             [self addVidoeViewWithPeerId:peerID];
         }
         else if (publishState == 4)
@@ -2319,10 +2304,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self delVidoeViewWithPeerId:peerID];
         }
-        
-        SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
-        videoView.disableSound = !hasAudio;
-        videoView.disableVideo = !hasVidoe;
     }
 
     self.boardControlView.allowPaging = YES;
