@@ -3450,7 +3450,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
     }
     
-    self.topToolBar.switchLayoutBtn.selected = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+    self.topToolBar.switchLayoutBtn.selected = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
     
     if (roomLayout == YSLiveRoomLayout_FocusLayout)
     {
@@ -3465,16 +3465,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (![self.fouceView bm_isNotEmpty])
         {
             self.roomLayout = YSLiveRoomLayout_VideoLayout;
-            self.brushToolView.hidden = self.drawBoardView.hidden = NO;
+            self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = NO;
         }
         else
         {
-            self.brushToolView.hidden = self.drawBoardView.hidden = YES;
+            self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = YES;
         }
     }
     else
     {
-        self.brushToolView.hidden = self.drawBoardView.hidden = NO;
+        self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = NO;
     }
     
     [self freshContentView];

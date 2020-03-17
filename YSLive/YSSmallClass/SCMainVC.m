@@ -233,7 +233,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///上传图片的用途
 @property (nonatomic, assign)SCUploadImageUseType *uploadImageUseType;
 
-
 /// 举手按钮
 @property(nonatomic,strong)UIButton *raiseHandsBtn;
 
@@ -1161,7 +1160,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (!_raiseHandsBtn)
     {
-//        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-45, 40, 40)];
         self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, UI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
