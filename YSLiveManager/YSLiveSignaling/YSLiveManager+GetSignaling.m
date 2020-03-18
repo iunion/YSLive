@@ -625,7 +625,7 @@
     /// 答题结果
     if ([msgName isEqualToString:YSSignalingName_AnswerPublicResult])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAnswerPublicResultWithAnswerId:resault:durationStr:answers:totalUsers:)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAnswerPublicResultWithAnswerId:resault:durationStr:answers:totalUsers:fromID:)])
         {
             if ([dataDic bm_isNotEmptyDictionary])
             {
@@ -634,7 +634,7 @@
                 NSDictionary *resault = [dataDic bm_dictionaryForKey:@"selecteds"];
                 NSString *durationStr = [dataDic bm_stringTrimForKey:@"duration"];
                 NSArray *answers = [dataDic bm_arrayForKey:@"detailData"];
-                [self.roomManagerDelegate handleSignalingAnswerPublicResultWithAnswerId:answerId resault:resault durationStr:durationStr answers:answers totalUsers:totalUsers];
+                [self.roomManagerDelegate handleSignalingAnswerPublicResultWithAnswerId:answerId resault:resault durationStr:durationStr answers:answers totalUsers:totalUsers fromID:fromID];
             }
         }
         return;
