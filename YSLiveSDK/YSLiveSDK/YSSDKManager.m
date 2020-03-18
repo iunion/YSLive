@@ -8,6 +8,7 @@
 
 #import "YSSDKManager.h"
 #import "YSLiveApiRequest.h"
+#import "BMAlertView+YSDefaultAlert.h"
 
 #import "YSCoreStatus.h" //网络状态
 
@@ -154,6 +155,11 @@ static NSString *YSSDKVersionString = @"2.4.4.0";
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
     self.selectRoleType = userRole;
+    if (![self checkKickTimeWithRoomId:roomId])
+    {
+        return NO;
+    }
+
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     self.liveManager = liveManager;
 
@@ -163,6 +169,37 @@ static NSString *YSSDKVersionString = @"2.4.4.0";
     BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
+}
+
+- (BOOL)checkKickTimeWithRoomId:(NSString *)roomId
+{
+    if (self.selectRoleType == YSUserType_Student)
+    {
+        // 学生被T 3分钟内不能登录
+        NSString *roomIdKey = [NSString stringWithFormat:@"%@_%@", YSKickTime, roomId];
+        
+        id idTime = [[NSUserDefaults standardUserDefaults] objectForKey:roomIdKey];
+        if (idTime && [idTime isKindOfClass:NSDate.class])
+        {
+            NSDate *time = (NSDate *)idTime;
+            NSDate *curTime = [NSDate date];
+            // 计算出相差多少秒
+            NSTimeInterval delta = [curTime timeIntervalSinceDate:time];
+            
+            if (delta < 60 * 3)
+            {
+                NSString *content =  YSLocalized(@"Prompt.kick");
+                [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:nil completion:nil];
+                return NO;
+            }
+            else
+            {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:roomIdKey];
+            }
+        }
+    }
+    
+    return YES;
 }
 
 
