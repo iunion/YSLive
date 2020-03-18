@@ -844,6 +844,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoView = [[UIView alloc] initWithFrame:self.shareVideoFloatView.bounds];
     [self.shareVideoFloatView showWithContentView:self.shareVideoView];
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
+    self.shareVideoFloatView
     
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
@@ -859,7 +860,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.closeMp4Btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:self.closeMp4Btn];
-    self.closeMp4Btn.frame = CGRectMake(UI_SCREEN_WIDTH - 60, 30, 25, 25);
+    self.closeMp4Btn.frame = CGRectMake(UI_SCREEN_WIDTH - 60, 20, 25, 25);
     [self.closeMp4Btn setBackgroundImage:[UIImage imageNamed:@"ysteacher_closemp4_normal"] forState:UIControlStateNormal];
     [self.closeMp4Btn addTarget:self action:@selector(closeMp4BtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.closeMp4Btn.hidden = YES;
