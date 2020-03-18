@@ -1112,9 +1112,9 @@ static YSLiveManager *liveManagerSingleton = nil;
 // 打开视频
 - (int)playVideoOnView:(UIView *)view withPeerId:(NSString *)peerID renderType:(YSRenderMode)renderType completion:(completion_block)completion
 {
-    BOOL isHighDevice = [self devicePlatformLowEndEquipment];
+    BOOL isLowDevice = [self devicePlatformLowEndEquipment];
     
-    if (self.room_UseTheType != YSAppUseTheTypeSmallClass || !self.isBeginClass || !isHighDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
+    if (self.room_UseTheType != YSAppUseTheTypeSmallClass || !self.isBeginClass || !isLowDevice || [peerID isEqualToString:self.localUser.peerID] || [peerID isEqualToString:self.teacher.peerID])
     {
         return [self.roomManager playVideo:peerID renderType:renderType window:view completion:completion];
     }
@@ -2549,7 +2549,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([platform isEqualToString:@"iPhone10,2"]) return YES;
 #endif
 #endif
-
     // SDK判断资源不足，视为低端设备
     if (self.devicePerformance_Low)
     {

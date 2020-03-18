@@ -211,7 +211,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, assign) BOOL isDoubleType;
 
 
-
 /// 拖出视频浮动View列表
 @property (nonatomic, strong) NSMutableArray <YSFloatView *> *dragOutFloatViewArray;
 
@@ -266,9 +265,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 /// 当前的焦点视图
 @property(nonatomic, strong) SCVideoView *fouceView;
-
 /// 视频控制popoverView
 @property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
+/// 当前的用户视频的镜像状态
+@property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
 
 /// 花名册 课件库
 @property(nonatomic, strong) SCTeacherListView *teacherListView;
@@ -854,6 +854,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
     // 前后默认开启镜像
     [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
+    self.videoMirrorMode = YSVideoMirrorModeEnabled;
 
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
@@ -5156,6 +5157,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.foucePeerId = self.foucePeerId;
     self.controlPopoverView.userModel = userModel;
+    self.controlPopoverView.videoMirrorMode = self.videoMirrorMode;
 }
 
 #pragma mark 老师的控制按钮点击事件
@@ -5195,7 +5197,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//镜像
             sender.selected = !sender.selected;
             
-//            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            if (sender.selected)
+            {
+                [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
+                self.videoMirrorMode = YSVideoMirrorModeEnabled;
+            }
+            else
+            {
+                [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
+                self.videoMirrorMode = YSVideoMirrorModeDisabled;
+            }
         }
             break;
         default:
