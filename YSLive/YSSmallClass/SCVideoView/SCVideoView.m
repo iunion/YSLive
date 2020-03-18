@@ -619,7 +619,7 @@
             default:
             {
                 self.maskNoVideo.hidden = NO;
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.Can'tOpenCamera");
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.CanotOpenCamera");
                 [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
@@ -627,6 +627,7 @@
         return;
     }
 
+#if 0
     // 视频订阅失败
     if (videoState & SCVideoViewVideoState_SubscriptionFailed)
     {
@@ -645,6 +646,7 @@
         [self.maskBackView bringSubviewToFront:self.maskNoVideo];
         return;
     }
+#endif
     
     // 用户关闭视频
     if (videoState & SCVideoViewVideoState_Close)
@@ -746,7 +748,7 @@
             default:
             {
                 self.silentLab.hidden = NO;
-                self.silentLab.text = YSLocalized(@"Prompt.Can'tOpenMicrophone");
+                self.silentLab.text = YSLocalized(@"Prompt.CanotOpenMicrophone");
                 self.soundImage.hidden = YES;
             }
                 break;
@@ -755,6 +757,7 @@
         return;
     }
     
+#if 0
     // 音频订阅失败
     if (audioState & SCVideoViewAudioState_SubscriptionFailed)
     {
@@ -772,6 +775,7 @@
         self.soundImage.hidden = YES;
         return;
     }
+#endif
     
     self.silentLab.hidden = YES;
     self.soundImage.hidden = NO;

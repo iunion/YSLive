@@ -422,7 +422,7 @@
 
 "Prompt.NoCamera" = "無攝像頭";
 "Prompt.DisableCamera" = "攝像頭被禁用";
-"Prompt.Can'tOpenCamera" = "無法打開攝像頭";
+"Prompt.CanotOpenCamera" = "無法打開攝像頭";
 "Prompt.CameraOccupied" = "攝像頭被占用";
 "Prompt.VideoLoading" = "視頻加載中";
 "Prompt.VideoBuffering" = "正在緩沖視頻";
@@ -431,7 +431,7 @@
 
 "Prompt.NoMicrophone" = "無麥克風";
 "Prompt.DisableMicrophone" = "麥克風被禁用";
-"Prompt.Can'tOpenMicrophone" = "無法打開麥克風";
+"Prompt.CanotOpenMicrophone" = "無法打開麥克風";
 "Prompt.MicrophoneOccupied" = "麥克風被占用";
 "Prompt.InvalidMicrophone" = "麥克風無效";
 "Prompt.AudioLoading" = "音頻加載中";
