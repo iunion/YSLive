@@ -1220,6 +1220,12 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             [self delVidoeViewWithPeerId:peerID];
         }
     }
+    
+    /// 用户设备状态
+    if ([properties bm_containsObjectForKey:sUserVideoFail] || [properties bm_containsObjectForKey:sUserAudioFail])
+    {
+        [videoView freshWithRoomUserProperty:roomUser];
+    }
 }
 
 #pragma mark 音量变化

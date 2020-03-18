@@ -154,6 +154,12 @@ static  NSString *const sUserDisableAudio           = @"disableaudio";
 /// 是否进入后台 YES NO
 static  NSString *const sUserIsInBackGround         = @"isInBackGround";
 
+/// 用户设备状态
+static  NSString *const sUserVideoFail              = @"vfail";
+static  NSString *const sUserAudioFail              = @"afail";
+
+
+
 /// 用户设备类型
 /// AndroidPad:Android pad；AndroidPhone:Andriod phone；
 /// iPad:iPad；iPhone:iPhone；
