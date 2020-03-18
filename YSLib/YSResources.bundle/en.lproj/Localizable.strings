@@ -425,7 +425,7 @@
 
 "Prompt.NoCamera" = "No Camera";
 "Prompt.DisableCamera" = "Camera is banned";
-"Prompt.Can'tOpenCamera" = "Can't open camera";
+"Prompt.CanotOpenCamera" = "Can't open camera";
 "Prompt.CameraOccupied" = "Camera occupied";
 "Prompt.VideoLoading" = "Video loading";
 "Prompt.VideoBuffering" = "Video buffering";
@@ -434,7 +434,7 @@
 
 "Prompt.NoMicrophone" = "No Mic";
 "Prompt.DisableMicrophone" = "Mic disable";
-"Prompt.Can'tOpenMicrophone" = "Can't open Mic";
+"Prompt.CanotOpenMicrophone" = "Can't open Mic";
 "Prompt.MicrophoneOccupied" = "Mic occupied";
 "Prompt.InvalidMicrophone" = "Invalid Mic";
 "Prompt.AudioLoading" = "Audio loading";

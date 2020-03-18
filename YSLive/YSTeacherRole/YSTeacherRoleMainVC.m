@@ -1753,8 +1753,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //4.开始执行
     dispatch_resume(self.bigRoomTimer);
     
-
+#if DEBUG
+    [self bringSomeViewToFront];
+    [self.progressHUD bm_showAnimated:NO withText:@"变更为大房间" delay:5];
+#endif
 }
+
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
@@ -1949,6 +1953,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     NSInteger userCount = self.liveManager.studentCount;
+
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
 }
 
