@@ -33,6 +33,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     NSInteger _totalPage;
     NSInteger _userNum;
     YSUserRoleType _userRoleType;
+    NSString *_searchString;
 }
 @property (nonatomic, strong) UIView *tableBacView;
 @property (nonatomic, strong) UITableView *tableView;
@@ -72,6 +73,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     _currentPage = 1;
     _totalPage = 1;
     _userNum = 0;
+    _searchString = @"";
 //    self.layer.cornerRadius = 10;
 //    self.layer.masksToBounds = YES;
 //
@@ -410,7 +412,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         inputTextField.layer.cornerRadius = 15;
         inputTextField.layer.masksToBounds = YES;
         inputTextField.returnKeyType = UIReturnKeySearch;
-      
+        if ([_searchString bm_isNotEmpty])
+        {
+            inputTextField.text = _searchString;
+        }
         inputTextField.frame = CGRectMake(2, 5, 0, 30);
         [inputTextField bm_setLeft:titleLabel.bm_right + 5 right:userNumLabel.bm_left - 5];
         UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
@@ -497,7 +502,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 }
 - (void)cancelBtnClicked:(UIButton *)btn
 {
-    self.inputTextField.text = @"";
+    _searchString = @"";
+    self.inputTextField.text = _searchString;
     if ([self.delegate respondsToSelector:@selector(cancelProxy)])
     {
         [self.delegate cancelProxy];
@@ -570,6 +576,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    _searchString = textField.text;
     if ([textField.text bm_isNotEmpty])
     {
         if ([self.delegate respondsToSelector:@selector(searchProxyWithSearchContent:)])
