@@ -631,14 +631,14 @@
     if (videoState & SCVideoViewVideoState_SubscriptionFailed)
     {
         
-        return;
+        //return;
     }
     
     // 视频播放失败
     if (videoState & SCVideoViewVideoState_PlayFailed)
     {
         
-        return;
+        //return;
     }
     
     // 用户关闭视频
@@ -675,8 +675,8 @@
             self.homeMaskLab.hidden = NO;
             self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
             [self.maskBackView bringSubviewToFront:self.homeMaskLab];
+            return;
         }
-        return;
     }
     
     // 正常显示视频
@@ -750,14 +750,14 @@
     if (audioState & SCVideoViewAudioState_SubscriptionFailed)
     {
         
-        return;
+        //return;
     }
     
     // 音频播放失败
     if (audioState & SCVideoViewAudioState_PlayFailed)
     {
         
-        return;
+        //return;
     }
     
     self.silentLab.hidden = YES;
