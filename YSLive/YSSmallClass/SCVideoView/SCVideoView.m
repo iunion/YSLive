@@ -570,14 +570,14 @@
                self.maskNoVideo.hidden = NO;
                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+               
+               return;
            }
            else
            {
                self.maskNoVideo.hidden = YES;
                self.maskNoVideoTitle.text = nil;
            }
-        
-        return;
     }
     
     if (videoState & SCVideoViewVideoState_DeviceError)
