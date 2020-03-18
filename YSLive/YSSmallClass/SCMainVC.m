@@ -3449,7 +3449,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
 #if DEBUG
     [self bringSomeViewToFront];
-    [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"变更为大房间") delay:5];
+    [self.progressHUD bm_showAnimated:NO withText:@"变更为大房间" delay:5];
 #endif
 }
 
