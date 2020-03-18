@@ -616,12 +616,10 @@
                 
             // 设备打开失败
             case SCVideoViewVideoDeviceState_OpenError:
+            default:
             {
                 
             }
-                break;
-                
-            default:
                 break;
         }
         return;
@@ -740,6 +738,10 @@
             //    break;
                 
             default:
+            {
+                self.silentLab.hidden = NO;
+                self.soundImage.hidden = YES;
+            }
                 break;
         }
 
