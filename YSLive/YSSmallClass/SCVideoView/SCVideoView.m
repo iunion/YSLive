@@ -561,6 +561,10 @@
     
     _videoState = videoState;
     
+    self.maskNoVideo.hidden = YES;
+    self.maskCloseVideoBgView.hidden = YES;
+    self.homeMaskLab.hidden = YES;
+    
     // 低端设备
     if (videoState & SCVideoViewVideoState_Low_end)
     {
@@ -669,6 +673,8 @@
         if (self.roomUser.role == YSUserType_Student)
         {
             self.homeMaskLab.hidden = NO;
+            self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
+            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
         }
         return;
     }
@@ -692,6 +698,10 @@
 - (void)setAudioState:(SCVideoViewAudioState)audioState
 {
     _audioState = audioState;
+    
+    self.silentLab.hidden = YES;
+    self.soundImage.hidden = NO;
+    self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
     
     // 设备不可用
     if (audioState & SCVideoViewAudioState_DeviceError)

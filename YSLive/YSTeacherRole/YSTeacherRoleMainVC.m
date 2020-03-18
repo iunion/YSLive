@@ -2167,13 +2167,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
         }
-
     }
 
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
         videoView.isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+        [videoView freshWithRoomUserProperty:roomUser];
     }
     
 //    YSRoomUser *fromUser = [self.liveManager.roomManager getRoomUserWithUId:fromId];
