@@ -159,8 +159,11 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                     errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
+#if YSShowErrorCode
+                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#else
                 [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-
+#endif
             }
             else
             {
@@ -183,6 +186,9 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                     else
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
+#if YSShowErrorCode
+                        message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
+#endif
                         if ([weakSelf checkRequestStatus:statusCode message:message responseDic:responseDic])
                         {
                             [weakSelf.progressHUD bm_hideAnimated:NO];
@@ -276,7 +282,11 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                     errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
+#if YSShowErrorCode
+                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#else
                 [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#endif
             }
             else
             {

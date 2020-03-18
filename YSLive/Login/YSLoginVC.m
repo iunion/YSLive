@@ -887,7 +887,11 @@
                     errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
+#if YSShowErrorCode
+                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#else
                 [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#endif
             }
             else
             {
@@ -907,6 +911,15 @@
                             return;
                         }
                     }
+#if YSShowErrorCode
+                    else
+                    {
+                        NSString *message = [dataDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
+                        message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
+                        [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        return;
+                    }
+#endif
                 }
                 
                 [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
@@ -947,7 +960,11 @@
                     errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
+#if YSShowErrorCode
+                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#else
                 [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#endif
             }
             else
             {
@@ -986,6 +1003,15 @@
                             return;
                         }
                     }
+#if YSShowErrorCode
+                    else
+                    {
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
+                        message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
+                        [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        return;
+                    }
+#endif
 
                     NSString *info = [responseDic bm_stringForKey:@"info"];
                     [weakSelf.progressHUD bm_showAnimated:NO withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
@@ -1176,7 +1202,11 @@
                     errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
+#if YSShowErrorCode
+                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#else
                 [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#endif
             }
             else
             {
@@ -1205,7 +1235,12 @@
                     }
                     else
                     {
-                        [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.CanNotConnectNetworkError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
+#if YSShowErrorCode
+                        message = [NSString stringWithFormat:@"%@: %@", @(result), message];
+#endif
+                        [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+
                         weakSelf.callNum = 0;
                     }
                     return;

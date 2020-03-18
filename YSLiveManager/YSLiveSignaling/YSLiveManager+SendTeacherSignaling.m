@@ -214,11 +214,17 @@
 }
 
 /// 切换课件
-- (BOOL)sendSignalingTeacherToSwitchDocumentWithFile:(YSFileModel *)fileModel completion:(nullable completion_block)completion
+- (BOOL)sendSignalingTeacherToSwitchDocumentWithFile:(YSFileModel *)fileModel isFresh:(BOOL)isFresh completion:(nullable completion_block)completion
 {
     if (![fileModel bm_isNotEmpty])
     {
         return NO;
+    }
+    
+    NSString *toWho = YSRoomPubMsgTellAll;
+    if (isFresh)
+    {
+        toWho = self.localUser.peerID;
     }
     
     if ([YSLiveUtil checkIsMedia:fileModel.filetype])
@@ -235,9 +241,8 @@
                                 };
         
         NSString *url = [self absolutefileUrl:fileModel.swfpath];
-        BOOL result = [self.roomManager startShareMediaFile:url isVideo:tIsVideo toID:YSRoomPubMsgTellAll attributes:sendDic block:completion] == 0;
+        BOOL result = [self.roomManager startShareMediaFile:url isVideo:tIsVideo toID:toWho attributes:sendDic block:completion] == 0;
         return result;
-        
     }
     else
     {
@@ -271,7 +276,7 @@
                                   @"mediaType":@"",
                                   @"filedata":fileData
                                 };
-        BOOL result = [self.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES completion:completion] == 0;
+        BOOL result = [self.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:toWho data:[sendDic bm_toJSON] save:YES completion:completion] == 0;
         return result;
     }
 

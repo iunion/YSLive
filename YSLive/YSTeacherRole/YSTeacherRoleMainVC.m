@@ -5184,7 +5184,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         [self.liveManager.roomManager stopShareMediaFile:nil];
     }
-    [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel completion:nil];
+    [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel isFresh:NO completion:nil];
 
 }
 
@@ -5777,9 +5777,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         fullTeacherVideoView.appUseTheType = self.appUseTheType;
         [self playVideoAudioWithNewVideoView:fullTeacherVideoView];
         self.fullTeacherVideoView = fullTeacherVideoView;
-        [self.raiseHandsBtn bm_bringToFront];
         
-        self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
+        if (view == self.whitebordFullBackgroud)
+        {
+            [self.raiseHandsBtn bm_bringToFront];
+            
+            self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
+        }
+
     }
     
 }

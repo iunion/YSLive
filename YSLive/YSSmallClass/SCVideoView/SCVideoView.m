@@ -616,12 +616,10 @@
                 
             // 设备打开失败
             case SCVideoViewVideoDeviceState_OpenError:
+            default:
             {
                 
             }
-                break;
-                
-            default:
                 break;
         }
         return;
@@ -630,14 +628,14 @@
     // 视频订阅失败
     if (videoState & SCVideoViewVideoState_SubscriptionFailed)
     {
-        return;
+
     }
     
     // 视频播放失败
     if (videoState & SCVideoViewVideoState_PlayFailed)
     {
         
-        return;
+        //return;
     }
     
     // 用户关闭视频
@@ -674,8 +672,8 @@
             self.homeMaskLab.hidden = NO;
             self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
             [self.maskBackView bringSubviewToFront:self.homeMaskLab];
+            return;
         }
-        return;
     }
     
     // 正常显示视频
@@ -739,6 +737,10 @@
             //    break;
                 
             default:
+            {
+                self.silentLab.hidden = NO;
+                self.soundImage.hidden = YES;
+            }
                 break;
         }
 
@@ -749,14 +751,14 @@
     if (audioState & SCVideoViewAudioState_SubscriptionFailed)
     {
         
-        return;
+        //return;
     }
     
     // 音频播放失败
     if (audioState & SCVideoViewAudioState_PlayFailed)
     {
         
-        return;
+        //return;
     }
     
     self.silentLab.hidden = YES;
