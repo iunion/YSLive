@@ -844,7 +844,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoView = [[UIView alloc] initWithFrame:self.shareVideoFloatView.bounds];
     [self.shareVideoFloatView showWithContentView:self.shareVideoView];
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
-    self.shareVideoFloatView
+    
     
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
