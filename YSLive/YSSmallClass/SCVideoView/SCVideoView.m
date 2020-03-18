@@ -591,7 +591,7 @@
             case SCVideoViewDeviceState_NoDevice:
             {
                 self.maskNoVideo.hidden = NO;
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
                 [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
@@ -609,7 +609,7 @@
             case SCVideoViewDeviceState_Busy:
             {
                 self.maskNoVideo.hidden = NO;
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.CameraOccupied");
                 [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
@@ -618,7 +618,9 @@
             case SCVideoViewDeviceState_OpenError:
             default:
             {
-                
+                self.maskNoVideo.hidden = NO;
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.Can'tOpenCamera");
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
         }
@@ -628,14 +630,20 @@
     // 视频订阅失败
     if (videoState & SCVideoViewVideoState_SubscriptionFailed)
     {
-
+        self.maskNoVideo.hidden = NO;
+        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.VideoLoading");
+        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+        return;
     }
     
     // 视频播放失败
     if (videoState & SCVideoViewVideoState_PlayFailed)
     {
         
-        //return;
+        self.maskNoVideo.hidden = NO;
+        self.maskNoVideoTitle.text = YSLocalized(@"Prompt.VideoBuffering");
+        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+        return;
     }
     
     // 用户关闭视频
@@ -697,6 +705,7 @@
     _audioState = audioState;
     
     self.silentLab.hidden = YES;
+    self.silentLab.text = nil;
     self.soundImage.hidden = NO;
     self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
     
@@ -709,6 +718,7 @@
             case SCVideoViewDeviceState_NoDevice:
             {
                 self.silentLab.hidden = NO;
+                self.silentLab.text = YSLocalized(@"Prompt.NoMicrophone");
                 self.soundImage.hidden = YES;
             }
                 break;
@@ -717,6 +727,7 @@
             case SCVideoViewDeviceState_Disable:
             {
                 self.silentLab.hidden = NO;
+                self.silentLab.text = YSLocalized(@"Prompt.DisableMicrophone");
                 self.soundImage.hidden = YES;
             }
                 break;
@@ -725,6 +736,7 @@
             case SCVideoViewDeviceState_Busy:
             {
                 self.silentLab.hidden = NO;
+                self.silentLab.text = YSLocalized(@"Prompt.MicrophoneOccupied");
                 self.soundImage.hidden = YES;
             }
                 break;
@@ -734,6 +746,7 @@
             default:
             {
                 self.silentLab.hidden = NO;
+                self.silentLab.text = YSLocalized(@"Prompt.Can'tOpenMicrophone");
                 self.soundImage.hidden = YES;
             }
                 break;
@@ -745,15 +758,19 @@
     // 音频订阅失败
     if (audioState & SCVideoViewAudioState_SubscriptionFailed)
     {
-        
-        //return;
+        self.silentLab.hidden = NO;
+        self.silentLab.text = YSLocalized(@"Prompt.AudioLoading");
+        self.soundImage.hidden = YES;
+        return;
     }
     
     // 音频播放失败
     if (audioState & SCVideoViewAudioState_PlayFailed)
     {
-        
-        //return;
+        self.silentLab.hidden = NO;
+        self.silentLab.text = YSLocalized(@"Prompt.AudioBuffering");
+        self.soundImage.hidden = YES;
+        return;
     }
     
     self.silentLab.hidden = YES;
