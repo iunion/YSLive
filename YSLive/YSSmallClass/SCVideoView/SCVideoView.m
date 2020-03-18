@@ -212,7 +212,7 @@
     UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
     maskNoVideobgLab.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
     maskNoVideobgLab.font = UI_FONT_14;
-    maskNoVideobgLab.text = YSLocalized(@"Prompt.NoCamera");
+    maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
     maskNoVideobgLab.textColor = UIColor.whiteColor;
     maskNoVideobgLab.adjustsFontSizeToFitWidth = YES;
     maskNoVideobgLab.minimumScaleFactor = 0.3;
@@ -321,7 +321,7 @@
     [self.backVideoView addSubview:self.soundImage];
     
     UILabel * silentLab = [[UILabel alloc]init];
-    silentLab.text = YSLocalized(@"Prompt.NoMicrophone");
+    silentLab.text = YSLocalized(@"Prompt.DisableMicrophone");
     silentLab.font = UI_FONT_16;
     silentLab.textColor = UIColor.whiteColor;
     silentLab.backgroundColor = UIColor.redColor;
@@ -591,7 +591,7 @@
             case SCVideoViewVideoDeviceState_NoDevice:
             {
                 self.maskNoVideo.hidden = NO;
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
                 [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
@@ -600,7 +600,7 @@
             case SCVideoViewVideoDeviceState_Disable:
             {
                 self.maskNoVideo.hidden = NO;
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
                 [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
@@ -609,7 +609,7 @@
             case SCVideoViewVideoDeviceState_Busy:
             {
                 self.maskNoVideo.hidden = NO;
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
                 [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
@@ -630,7 +630,6 @@
     // 视频订阅失败
     if (videoState & SCVideoViewVideoState_SubscriptionFailed)
     {
-        
         return;
     }
     

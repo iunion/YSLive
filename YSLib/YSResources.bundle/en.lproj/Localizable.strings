@@ -125,8 +125,8 @@
 "Button.CloseAudio"         = "Audio off";
 "Button.OpenVideo"          = "Video on";
 "Button.CloseVideo"         = "Video off";
-"Button.OpenMirror"          = "Mirror on";
-"Button.CloseMirror"          = "Mirror off";
+"Button.OpenMirror"          = "Mirror";
+"Button.CloseMirror"          = "No mirror";
 "Button.UpPlatform"         = "On stage";
 "Button.DownPlatform"       = "Stop Interact";
 "Button.AllowDoodle"        = "Authorized";
@@ -422,6 +422,6 @@
 "Prompt.RaiseHand_classBegain" = "Hands up after class";
 
 "Prompt.LowDeviceTitle" = "Device not  well enough to display more";
-"Prompt.NoCamera" = "Camera is banned";
-"Prompt.NoMicrophone" = "Mic disable";
+"Prompt.DisableCamera" = "Camera is banned";
+"Prompt.DisableMicrophone" = "Mic disable";
 

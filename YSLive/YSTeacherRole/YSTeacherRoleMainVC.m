@@ -2153,6 +2153,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else if (publishState != 4)
         {
             [self delVidoeViewWithPeerId:peerID];
+            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
     }
     
