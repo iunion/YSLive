@@ -69,11 +69,11 @@
 /// 视频状态
 @property (nonatomic, assign) SCVideoViewVideoState videoState;
 /// 摄像头设备状态
-@property (nonatomic, assign) SCVideoViewVideoDeviceState videoDeviceState;
+@property (nonatomic, assign) SCVideoViewDeviceState videoDeviceState;
 /// 音频状态
 @property (nonatomic, assign) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
-@property (nonatomic, assign) SCVideoViewAudioDeviceState audioDeviceState;
+@property (nonatomic, assign) SCVideoViewDeviceState audioDeviceState;
 
 @end
 
@@ -588,7 +588,7 @@
         switch (self.videoDeviceState)
         {
             // 无设备
-            case SCVideoViewVideoDeviceState_NoDevice:
+            case SCVideoViewDeviceState_NoDevice:
             {
                 self.maskNoVideo.hidden = NO;
                 self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
@@ -597,7 +597,7 @@
                 break;
                 
             // 设备被禁用
-            case SCVideoViewVideoDeviceState_Disable:
+            case SCVideoViewDeviceState_Disable:
             {
                 self.maskNoVideo.hidden = NO;
                 self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
@@ -606,7 +606,7 @@
                 break;
                 
             // 设备被占用
-            case SCVideoViewVideoDeviceState_Busy:
+            case SCVideoViewDeviceState_Busy:
             {
                 self.maskNoVideo.hidden = NO;
                 self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
@@ -615,7 +615,7 @@
                 break;
                 
             // 设备打开失败
-            case SCVideoViewVideoDeviceState_OpenError:
+            case SCVideoViewDeviceState_OpenError:
             default:
             {
                 
@@ -684,7 +684,7 @@
 }
 
 /// 摄像头设备状态
-- (void)setVideoDeviceState:(SCVideoViewVideoDeviceState)videoDeviceState
+- (void)setVideoDeviceState:(SCVideoViewDeviceState)videoDeviceState
 {
     _videoDeviceState = videoDeviceState;
     
@@ -706,7 +706,7 @@
         switch (self.audioDeviceState)
         {
             // 无设备
-            case SCVideoViewAudioDeviceState_NoDevice:
+            case SCVideoViewDeviceState_NoDevice:
             {
                 self.silentLab.hidden = NO;
                 self.soundImage.hidden = YES;
@@ -714,7 +714,7 @@
                 break;
                 
             // 设备被禁用
-            case SCVideoViewAudioDeviceState_Disable:
+            case SCVideoViewDeviceState_Disable:
             {
                 self.silentLab.hidden = NO;
                 self.soundImage.hidden = YES;
@@ -722,7 +722,7 @@
                 break;
                 
             // 设备被占用
-            case SCVideoViewAudioDeviceState_Busy:
+            case SCVideoViewDeviceState_Busy:
             {
                 self.silentLab.hidden = NO;
                 self.soundImage.hidden = YES;
@@ -730,12 +730,7 @@
                 break;
                 
             // 设备打开失败
-            //case SCVideoViewAudioDeviceState_OpenError:
-            //{
-            //
-            //}
-            //    break;
-                
+            case SCVideoViewDeviceState_OpenError:
             default:
             {
                 self.silentLab.hidden = NO;
@@ -779,7 +774,7 @@
 }
 
 /// 麦克风设备状态
-- (void)setAudioDeviceState:(SCVideoViewAudioDeviceState)audioDeviceState
+- (void)setAudioDeviceState:(SCVideoViewDeviceState)audioDeviceState
 {
     _audioDeviceState = audioDeviceState;
     
@@ -853,24 +848,30 @@
             {
                 // 无设备
                 case YSDeviceFaultNotFind:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
+                    self.videoDeviceState = SCVideoViewDeviceState_NoDevice;
                     break;
                     
                 // 没有授权
                 case YSDeviceFaultNotAuth:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
+                    self.videoDeviceState = SCVideoViewDeviceState_Disable;
                     break;
                         
                 // 占用
                 case YSDeviceFaultOccupied:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_Busy;
+                    self.videoDeviceState = SCVideoViewDeviceState_Busy;
                     break;
                         
+                // 其他打开设备失败
                 default:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_OpenError;
+                    self.videoDeviceState = SCVideoViewDeviceState_OpenError;
                     break;
             }
         }
+        else
+        {
+            self.videoDeviceState = SCVideoViewDeviceState_None;
+        }
+        
         if (deviceError)
         {
             self.videoState |= SCVideoViewVideoState_DeviceError;
@@ -929,31 +930,37 @@
 //            deviceError = YES;
 //            self.audioDeviceState = SCVideoViewAudioDeviceState_NoDevice;
 //        }
-        if (self.roomUser.vfail != YSDeviceFaultNone)
+        if (self.roomUser.afail != YSDeviceFaultNone)
         {
             deviceError = YES;
-            switch (self.roomUser.vfail)
+            switch (self.roomUser.afail)
             {
                 // 无设备
                 case YSDeviceFaultNotFind:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
+                    self.audioDeviceState = SCVideoViewDeviceState_NoDevice;
                     break;
                     
                 // 没有授权
                 case YSDeviceFaultNotAuth:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
+                    self.audioDeviceState = SCVideoViewDeviceState_Disable;
                     break;
                         
                 // 占用
                 case YSDeviceFaultOccupied:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_Busy;
+                    self.audioDeviceState = SCVideoViewDeviceState_Busy;
                     break;
-                        
+                    
+                // 其他打开设备失败
                 default:
-                    self.videoDeviceState = SCVideoViewVideoDeviceState_OpenError;
+                    self.audioDeviceState = SCVideoViewDeviceState_OpenError;
                     break;
             }
         }
+        else
+        {
+            self.audioDeviceState = SCVideoViewDeviceState_None;
+        }
+        
         if (deviceError)
         {
             self.audioState |= SCVideoViewAudioState_DeviceError;
@@ -974,6 +981,7 @@
         }
     }
 }
+
 ///// 是否被禁音
 //- (void)setDisableSound:(BOOL)disableSound
 //{
