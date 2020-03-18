@@ -1923,7 +1923,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self freshTeacherPersonListData];
         
-    NSInteger userCount = self.liveManager.userList.count;
+    NSInteger userCount = self.liveManager.studentCount;
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
     
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
@@ -1952,7 +1952,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
     }
     
-    NSInteger userCount = self.liveManager.userList.count;
+    NSInteger userCount = self.liveManager.studentCount;
      self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
 }
 
@@ -1960,7 +1960,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 大房间刷新用户数量
 - (void)roomManagerBigRoomFreshUserCountInList:(BOOL)inlist
 {
-    NSInteger userCount = self.liveManager.userCount;
+    NSInteger userCount = self.liveManager.studentCount;
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
 }
 
