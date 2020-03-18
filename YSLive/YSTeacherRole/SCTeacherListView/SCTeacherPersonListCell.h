@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) YSRoomUser *userModel;
 @property(nonatomic,weak) id<SCTeacherPersonListCellDelegate> delegate;
-
+- (void)setUserRole:(YSUserRoleType)userRoleType;
 @end
 
 

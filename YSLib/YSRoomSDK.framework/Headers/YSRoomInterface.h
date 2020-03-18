@@ -250,6 +250,15 @@ NS_ASSUME_NONNULL_BEGIN
       completion:(completion_block _Nullable)completion;
 
 /**
+用户视频镜像观看
+
+@param peerID 用户ID
+@param isMirror 是否镜像
+@return 0表示调用成功，非0表示调用失败
+*/
+- (int)mirrorVideo:(NSString *)peerID Mirror:(BOOL)isMirror;
+
+/**
  播放某个用户的音频
  
  @param peerID 用户Peerid

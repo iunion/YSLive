@@ -845,6 +845,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.shareVideoFloatView showWithContentView:self.shareVideoView];
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
+    
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
     
@@ -859,7 +860,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.closeMp4Btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:self.closeMp4Btn];
-    self.closeMp4Btn.frame = CGRectMake(UI_SCREEN_WIDTH - 60, 30, 25, 25);
+    self.closeMp4Btn.frame = CGRectMake(UI_SCREEN_WIDTH - 60, 20, 25, 25);
     [self.closeMp4Btn setBackgroundImage:[UIImage imageNamed:@"ysteacher_closemp4_normal"] forState:UIControlStateNormal];
     [self.closeMp4Btn addTarget:self action:@selector(closeMp4BtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.closeMp4Btn.hidden = YES;
@@ -1973,12 +1974,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomUserPropertyChanged:(NSString *)peerID properties:(NSDictionary *)properties fromId:(NSString *)fromId
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
-    
+    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+
     // 网络状态
        if ([properties bm_containsObjectForKey:sUserNetWorkState])
        {
-           YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-           [videoView freshWithRoomUserProperty:user];
+           [videoView freshWithRoomUserProperty:roomUser];
        }
     
     // 举手上台
@@ -2155,8 +2156,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-    if (user.role == YSUserType_Teacher)
+    if (roomUser.role == YSUserType_Teacher)
     {
         /// 老师中途进入房间上课时的全屏处理
         if (!self.whitebordFullBackgroud.hidden)
@@ -2181,6 +2181,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    {
 //        [videoView changeRoomUserProperty:fromUser];
 //    }
+    
+    /// 用户设备状态
+    if ([properties bm_containsObjectForKey:sUserVideoFail] || [properties bm_containsObjectForKey:sUserAudioFail])
+    {
+        [videoView freshWithRoomUserProperty:roomUser];
+    }
 
     [self freshTeacherPersonListData];
 }

@@ -73,6 +73,16 @@
  用户是否关闭音频
  */
 @property (nonatomic, assign) BOOL disableAudio;
+
+/**
+摄像头故障
+*/
+@property (nonatomic, assign) YSDeviceFaultType vfail;
+
+/**
+麦克风故障
+*/
+@property (nonatomic, assign) YSDeviceFaultType afail;
 /**
  是否开启多码流
  */

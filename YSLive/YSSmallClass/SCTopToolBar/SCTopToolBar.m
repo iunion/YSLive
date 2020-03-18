@@ -22,6 +22,10 @@
 @property (nonatomic, strong) UIButton *cameraBtn;
 
 @property (nonatomic, strong) UIButton *exitBtn;
+/// 课件库
+@property (nonatomic, strong) UIButton *coursewareBtn;
+/// 花名册
+@property (nonatomic, strong) UIButton *personListBtn;
 
 @end
 
@@ -56,6 +60,9 @@
     
     [self addSubview:self.exitBtn];
     [self.exitBtn addTarget:self action:@selector(exitBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:self.personListBtn];
+    [self addSubview:self.coursewareBtn];
 }
 
 - (void)layoutSubviews
@@ -104,6 +111,18 @@
         make.centerY.bmmas_equalTo(0);
         make.height.width.bmmas_equalTo(48);
         make.right.bmmas_equalTo(weakSelf.cameraBtn.bmmas_left).bmmas_offset(-10);
+    }];
+    
+    [self.coursewareBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.height.width.bmmas_equalTo(48);
+        make.right.bmmas_equalTo(-10);
+    }];
+    
+    [self.personListBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.centerY.bmmas_equalTo(0);
+        make.height.width.bmmas_equalTo(48);
+        make.right.bmmas_equalTo(weakSelf.coursewareBtn.bmmas_left).bmmas_offset(-10);
     }];
     
     [self.photoBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
@@ -232,10 +251,39 @@
     self.cameraBtn.hidden = hide;
 }
 
+- (void)hideCoursewareBtn:(BOOL)hide
+{
+    self.coursewareBtn.hidden = hide;
+}
+- (void)hidePersonListBtn:(BOOL)hide
+{
+    self.personListBtn.hidden = hide;
+}
+
 - (void)selectMicrophoneBtn:(BOOL)select
 {
     self.microphoneBtn.selected = select;
 }
+
+/// 花名册
+- (void)personListBtnClicked:(UIButton *)btn
+{
+    if ([self.delegate respondsToSelector:@selector(sc_TopBarProxyWithBtn:)])
+    {
+        [self.delegate sc_TopBarProxyWithBtn:btn];
+    }
+}
+
+/// 课件表
+- (void)coursewareBtnClicked:(UIButton *)btn
+{
+    if ([self.delegate respondsToSelector:@selector(sc_TopBarProxyWithBtn:)])
+    {
+        [self.delegate sc_TopBarProxyWithBtn:btn];
+    }
+    
+}
+
 
 //- (void)selectCameraBtn:(BOOL)select
 //{
@@ -353,5 +401,37 @@
     }
     return _exitBtn;
 }
+
+- (UIButton *)personListBtn
+{
+    if (!_personListBtn)
+    {
+        _personListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_personListBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_personListBtn_Normal"] forState:UIControlStateNormal];
+        [_personListBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_personListBtn_Selected"] forState:UIControlStateSelected];
+        [_personListBtn addTarget:self action:@selector(personListBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        _personListBtn.tag = SCTeacherTopBarTypePersonList;
+        _personListBtn.hidden = YES;
+    }
+    
+    return _personListBtn;
+}
+
+- (UIButton *)coursewareBtn
+{
+    if (!_coursewareBtn)
+    {
+        _coursewareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        
+        [_coursewareBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_coursewareBtn_Normal"] forState:UIControlStateNormal];
+        [_coursewareBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_coursewareBtn_Selected"] forState:UIControlStateSelected];
+        [_coursewareBtn addTarget:self action:@selector(coursewareBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        _coursewareBtn.tag = SCTeacherTopBarTypeCourseware;
+        _coursewareBtn.hidden = YES;
+    }
+    return _coursewareBtn;
+}
+   
 
 @end

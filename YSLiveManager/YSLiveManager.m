@@ -2540,37 +2540,36 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 // 判断设备是否是低端机型，能否支持多人上台
 - (BOOL)devicePlatformLowEndEquipment
-{    
-    #ifdef DEBUG
-    #if YSADDLOW_IPHONE
-        NSString *platform = [UIDevice bm_devicePlatform];
-        
-        // iPhone 8 Plus
-        if ([platform isEqualToString:@"iPhone10,2"]) return YES;
-    #endif
-    #endif
-
-        // SDK判断资源不足，视为低端设备
-        if (self.devicePerformance_Low)
+{
+#ifdef DEBUG
+#if YSADDLOW_IPHONE
+    NSString *platform = [UIDevice bm_devicePlatform];
+    
+    // iPhone 8 Plus
+    if ([platform isEqualToString:@"iPhone10,2"]) return YES;
+#endif
+#endif
+    // SDK判断资源不足，视为低端设备
+    if (self.devicePerformance_Low)
+    {
+        return YES;
+    }
+    
+#if (0)
+    if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
+    {
+        if ([platform compare:@"iPhone8"] == NSOrderedDescending)
         {
-            return YES;
+            return NO;
         }
-        
-    #if (0)
-        if ([platform bm_containString:@"iPhone"] || [platform bm_containString:@"iPad"])
+        if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
         {
-            if ([platform compare:@"iPhone8"] == NSOrderedDescending)
-            {
-                return NO;
-            }
-            if ([platform compare:@"iPad4,4"] != NSOrderedAscending)
-            {
-                return NO;
-            }
+            return NO;
         }
-    #endif
-        
-        return NO;
+    }
+#endif
+    
+    return NO;
 }
 
 @end

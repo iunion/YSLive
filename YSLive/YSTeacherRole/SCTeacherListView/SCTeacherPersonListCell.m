@@ -28,6 +28,7 @@
 /// 奖杯数
 @property (nonatomic, strong) UILabel *cupNumberLabel;
 //@property (nonatomic, strong) YSRoomUser *userModel;
+@property (nonatomic, assign) YSUserRoleType userRoleType;
 @end
 
 @implementation SCTeacherPersonListCell
@@ -81,7 +82,7 @@
     self.upPlatformBtn = upPlatformBtn;
     [upPlatformBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_updown_Normal"] forState:UIControlStateNormal];
     [upPlatformBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_updown_Selected"] forState:UIControlStateSelected];
-    [upPlatformBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_updown_Disabled"] forState:UIControlStateDisabled];
+//    [upPlatformBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_updown_Disabled"] forState:UIControlStateDisabled];
     [upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -91,7 +92,7 @@
     self.speakBtn = speakBtn;
     [speakBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_speak_Normal"] forState:UIControlStateNormal];
     [speakBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_speak_Selected"] forState:UIControlStateSelected];
-    [speakBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_speak_Disabled"] forState:UIControlStateDisabled];
+//    [speakBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_speak_Disabled"] forState:UIControlStateDisabled];
     [speakBtn addTarget:self action:@selector(speakBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *outBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -229,7 +230,7 @@
     }
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
-    self.upPlatformBtn.enabled = isBeginClass;
+    
     if (userModel.role == YSUserType_Student )
     {
         if (isBeginClass)
@@ -240,7 +241,7 @@
         BOOL disablechat = [userModel.properties bm_boolForKey:sUserDisablechat];
         self.speakBtn.selected = disablechat;
     }
-
+    self.upPlatformBtn.enabled = isBeginClass;
     self.outBtn.enabled = isBeginClass;
     self.nameLabel.text = userModel.nickName;
     [self.iconImgView setImage:[UIImage imageNamed:imageName]];
@@ -277,10 +278,20 @@
     }
 
 }
-
+- (void)setUserRole:(YSUserRoleType)userRoleType
+{
+    if (userRoleType ==  YSUserType_Patrol)
+    {
+        _userRoleType = userRoleType;
+    }
+}
 - (void)upPlatformBtnClicked:(UIButton *)btn
 {
 //    btn.selected = !btn.selected;
+    if (_userRoleType ==  YSUserType_Patrol)
+    {
+        return;
+    }
     if ([self.delegate respondsToSelector:@selector(upPlatformBtnProxyClickWithRoomUser:)])
     {
         [self.delegate upPlatformBtnProxyClickWithRoomUser:self.userModel];
@@ -289,6 +300,10 @@
 
 - (void)speakBtnClicked:(UIButton *)btn
 {
+    if (_userRoleType ==  YSUserType_Patrol)
+    {
+        return;
+    }
     btn.selected = !btn.selected;
     if ([self.delegate respondsToSelector:@selector(speakBtnProxyClickWithRoomUser:)])
     {
@@ -298,6 +313,10 @@
 
 - (void)outBtnClicked:(UIButton *)btn
 {
+    if (_userRoleType ==  YSUserType_Patrol)
+    {
+        return;
+    }
     if ([self.delegate respondsToSelector:@selector(outBtnProxyClickWithRoomUser:)])
     {
         [self.delegate outBtnProxyClickWithRoomUser:self.userModel];
