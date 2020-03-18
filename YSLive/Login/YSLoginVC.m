@@ -98,7 +98,7 @@
 /// 进入教室按钮
 @property (nonatomic, strong) UIButton *joinRoomBtn;
 
-@property (nonatomic, assign) NSInteger role;
+//@property (nonatomic, assign) NSInteger role;
 /// 默认服务
 @property (nonatomic, strong) NSString *defaultServer;
 
@@ -1100,7 +1100,24 @@
         return;
     }
     
-    if (self.role == YSUserType_Student)
+#endif
+    
+    self.needCheckPermissions = YES;
+
+    //检查房间类型
+//    if ([UIDevice bm_isiPad])
+//    {
+        [self checkRoomType];
+//    }
+//    else
+//    {
+//        [self joinRoom];
+//    }
+}
+
+- (BOOL)checkKickTimeWithRoomId:(NSString *)roomId
+{
+    if (self.selectRoleType == YSUserType_Student)
     {
         // 学生被T 3分钟内不能登录
         NSString *roomIdKey = [NSString stringWithFormat:@"%@_%@", YSKickTime, roomId];
@@ -1116,8 +1133,8 @@
             if (delta < 60 * 3)
             {
                 NSString *content =  YSLocalized(@"Prompt.kick");
-                [BMAlertView ys_showAlertWithTitle:content message:content cancelTitle:nil completion:nil];
-                return;
+                [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:nil completion:nil];
+                return NO;
             }
             else
             {
@@ -1125,19 +1142,8 @@
             }
         }
     }
-#endif
     
-    self.needCheckPermissions = YES;
-
-    //检查房间类型
-//    if ([UIDevice bm_isiPad])
-//    {
-        [self checkRoomType];
-//    }
-//    else
-//    {
-//        [self joinRoom];
-//    }
+    return YES;
 }
 
 #pragma mark - 检查房间类型
@@ -1271,14 +1277,19 @@
     //进入教室
     [self.view endEditing:YES];
     
+    NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
+    NSString *nickName = self.nickNameTextField.inputTextField.text;
+    NSString *passWordStr = self.passwordTextField.inputTextField.text;
+    
+    if (![self checkKickTimeWithRoomId:roomId])
+    {
+        return;
+    }
+
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     liveManager.liveHost = YSLIVE_HOST;
 
-    NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
-    NSString *nickName = self.nickNameTextField.inputTextField.text;
-    NSString *passWordStr = self.passwordTextField.inputTextField.text;
-        
     if ([passWordStr bm_isNotEmpty])
     {
         [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];

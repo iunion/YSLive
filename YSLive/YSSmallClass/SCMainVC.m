@@ -3633,7 +3633,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");
     if (reasonCode)
     {
-        reasonString = YSLocalized(@"KickOut.SentOutClassroom");//(@"KickOut.SentOutClassroom");
+        reasonString = YSLocalized(@"KickOut.SentOutClassroom");
     }
 
     BMWeakSelf

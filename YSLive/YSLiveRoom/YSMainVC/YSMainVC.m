@@ -1082,7 +1082,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");
     if (reasonCode)
     {
-        reasonString = YSLocalized(@"KickOut.SentOutClassroom");//(@"KickOut.SentOutClassroom");
+        reasonString = YSLocalized(@"KickOut.SentOutClassroom");
     }
 
     BMWeakSelf

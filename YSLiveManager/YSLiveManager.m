@@ -1441,14 +1441,14 @@ static YSLiveManager *liveManagerSingleton = nil;
     NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
     if (reasonCode == 1)
     {
-        NSString *roomId = YSKickTime;
+        NSString *roomIdKey = YSKickTime;
         if ([self.room_Id bm_isNotEmpty])
         {
-            roomId = [NSString stringWithFormat:@"%@_%@", YSKickTime, self.room_Id ];
+            roomIdKey = [NSString stringWithFormat:@"%@_%@", YSKickTime, self.room_Id ];
         }
         
         // 存储被踢时间
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:roomId];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:roomIdKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
