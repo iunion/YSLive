@@ -416,6 +416,6 @@
 "Prompt.RaiseHand_classBegain" = "会议开始后才能举手";
 
 "Prompt.LowDeviceTitle" = "设备性能过低，无法显示更多视频";
-"Prompt.NoCamera" = "摄像头被禁用";
-"Prompt.NoMicrophone" = "麦克风被禁用";
+"Prompt.DisableCamera" = "摄像头被禁用";
+"Prompt.DisableMicrophone" = "麦克风被禁用";
 

@@ -2193,7 +2193,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [self.liveManager stopPlayVideo:peerId completion:nil];
                 [self.liveManager stopPlayAudio:peerId completion:nil];
             }
-            
             SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser];
             videoView.appUseTheType = self.appUseTheType;
             videoView.delegate = self;
@@ -3738,11 +3737,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
             if (publishState < YSUser_PublishState_AUDIOONLY)
             {
-                [self.topToolBar hideMicrophoneBtn:YES];
+//                [self.topToolBar hideMicrophoneBtn:YES];
             }
             else
             {
-                [self.topToolBar hideMicrophoneBtn:NO];
+//                [self.topToolBar hideMicrophoneBtn:NO];
             }
         }
     }
@@ -3802,29 +3801,40 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             if (publishState == YSUser_PublishState_VIDEOONLY)
             {
-                [self.topToolBar selectMicrophoneBtn:YES];
+//                [self.topToolBar selectMicrophoneBtn:YES];
+                self.controlPopoverView.audioBtn.selected = NO;
+                self.controlPopoverView.videoBtn.selected = YES;
             }
             if (publishState == YSUser_PublishState_AUDIOONLY)
             {
-                [self.topToolBar selectMicrophoneBtn:NO];
+//                [self.topToolBar selectMicrophoneBtn:NO];
+                self.controlPopoverView.audioBtn.selected = YES;
+                self.controlPopoverView.videoBtn.selected = NO;
             }
             if (publishState == YSUser_PublishState_BOTH)
             {
-                [self.topToolBar selectMicrophoneBtn:NO];
+//                [self.topToolBar selectMicrophoneBtn:NO];
+                self.controlPopoverView.audioBtn.selected = YES;
+                self.controlPopoverView.videoBtn.selected = YES;
             }
             if (publishState < YSUser_PublishState_AUDIOONLY)
             {
-                [self.topToolBar selectMicrophoneBtn:NO];
-                [self.topToolBar hideMicrophoneBtn:YES];
+//                [self.topToolBar selectMicrophoneBtn:NO];
+//                [self.topToolBar hideMicrophoneBtn:YES];
+                self.controlPopoverView.audioBtn.selected = NO;
+                self.controlPopoverView.videoBtn.selected = NO;
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
             }
             else if (publishState > YSUser_PublishState_BOTH)
             {
-                [self.topToolBar selectMicrophoneBtn:YES];
-                [self.topToolBar hideMicrophoneBtn:NO];
+//                [self.topToolBar selectMicrophoneBtn:YES];
+//                [self.topToolBar hideMicrophoneBtn:NO];
+                self.controlPopoverView.audioBtn.selected = NO;
+                self.controlPopoverView.videoBtn.selected = NO;
             }
             else
             {
-                [self.topToolBar hideMicrophoneBtn:NO];
+//                [self.topToolBar hideMicrophoneBtn:NO];
             }
         }
         

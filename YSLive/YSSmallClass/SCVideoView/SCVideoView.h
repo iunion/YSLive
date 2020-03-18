@@ -46,18 +46,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewVideoState)
     SCVideoViewVideoState_InBackground = 1 << 22
 };
 
-typedef NS_ENUM(NSUInteger, SCVideoViewVideoDeviceState)
-{
-    // 无设备
-    SCVideoViewVideoDeviceState_NoDevice = 0,
-    // 设备被禁用
-    SCVideoViewVideoDeviceState_Disable,
-    // 设备被占用
-    SCVideoViewVideoDeviceState_Busy,
-    // 设备打开失败
-    SCVideoViewVideoDeviceState_OpenError
-};
-
 typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 {
     // 正常
@@ -83,18 +71,19 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
     SCVideoViewAudioState_Close = 1 << 20
 };
 
-typedef NS_ENUM(NSUInteger, SCVideoViewAudioDeviceState)
+typedef NS_ENUM(NSUInteger, SCVideoViewDeviceState)
 {
+    // 正常
+    SCVideoViewDeviceState_None = 0,
     // 无设备
-    SCVideoViewAudioDeviceState_NoDevice = 0,
+    SCVideoViewDeviceState_NoDevice,
     // 设备被禁用
-    SCVideoViewAudioDeviceState_Disable,
+    SCVideoViewDeviceState_Disable,
     // 设备被占用
-    SCVideoViewAudioDeviceState_Busy,
+    SCVideoViewDeviceState_Busy,
     // 设备打开失败
-    //SCVideoViewAudioDeviceState_OpenError
+    SCVideoViewDeviceState_OpenError
 };
-
 
 
 @protocol SCVideoViewDelegate <NSObject>
@@ -144,11 +133,11 @@ typedef NS_ENUM(NSUInteger, SCVideoViewAudioDeviceState)
 /// 视频状态
 @property (nonatomic, assign, readonly) SCVideoViewVideoState videoState;
 /// 摄像头设备状态
-@property (nonatomic, assign, readonly) SCVideoViewVideoDeviceState videoDeviceState;
+@property (nonatomic, assign, readonly) SCVideoViewDeviceState videoDeviceState;
 /// 音频状态
 @property (nonatomic, assign, readonly) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
-@property (nonatomic, assign, readonly) SCVideoViewAudioDeviceState audioDeviceState;
+@property (nonatomic, assign, readonly) SCVideoViewDeviceState audioDeviceState;
 
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
