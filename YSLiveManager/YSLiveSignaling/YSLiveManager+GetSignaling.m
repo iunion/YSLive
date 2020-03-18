@@ -33,6 +33,10 @@
         return;
     }
         
+    
+    
+    
+    
     ///全体静音 全体发言
     if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
     {
@@ -707,7 +711,6 @@
     //是否同意上麦申请
     if ([msgName isEqualToString:YSSignalingName_AllowUpPlatForm])
     {
-        
         NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
         
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowUpPlatformApplyWithData:)])
@@ -721,7 +724,7 @@
     if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
     {
         self.raisehandMsgID = msgID;
-
+        
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
         {
             [self.roomManagerDelegate handleSignalingAllowEveryoneRaiseHand];
@@ -746,7 +749,6 @@
                 }
 
 //            }
-
         }
         else
         {
@@ -757,8 +759,10 @@
                 {
                     NSString * userId = dict.allKeys.firstObject;
                     YSRoomUser * user = [self.roomManager getRoomUserWithUId:userId];
-                    
-                    [userArray addObject:user];
+                    if ([user bm_isNotEmpty])
+                    {
+                        [userArray addObject:user];
+                    }
                 }
             }
             else
