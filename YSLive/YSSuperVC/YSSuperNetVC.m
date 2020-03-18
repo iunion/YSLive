@@ -204,6 +204,9 @@
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:statusCode];
         
         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
+#if YSShowErrorCode
+        message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
+#endif
         if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
         {
             [self.progressHUD bm_hideAnimated:NO];
@@ -226,8 +229,11 @@
     
     if (self.showResultHUD)
     {
-        //[self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#if YSShowErrorCode
         [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), [YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE]] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#else
+        [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+#endif
     }
     else
     {
