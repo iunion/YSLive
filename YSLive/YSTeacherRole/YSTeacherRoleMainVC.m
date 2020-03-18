@@ -167,6 +167,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL isSearch;
     NSMutableArray *searchArr;
     
+    BOOL _isMp4Play;// 是否是MP4全屏播放
+    BOOL _isMp4ControlHide;// MP4控制是否显示 关闭按钮是否显示
+    
 }
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
@@ -389,9 +392,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     classEndAlertVC = nil;
     _personListCurentPage = 0;
     _personListTotalPage = 0;
+    _isMp4Play = NO;
     self.videoViewArray = [[NSMutableArray alloc] init];
     searchArr = [[NSMutableArray alloc] init];
     isSearch = NO;
+    _isMp4ControlHide = NO;
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -842,6 +847,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.view addSubview:self.shareVideoFloatView];
     self.shareVideoFloatView.hidden = YES;
     self.shareVideoView = [[UIView alloc] initWithFrame:self.shareVideoFloatView.bounds];
+    UITapGestureRecognizer * shareVideoViewTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mp4ShareVideoViewClicked:)];
+    shareVideoViewTapGesture.delegate =self;
+    [self.shareVideoView addGestureRecognizer:shareVideoViewTapGesture];
     [self.shareVideoFloatView showWithContentView:self.shareVideoView];
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
@@ -885,6 +893,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     [self freshContentView];
 }
+/// MP4 全屏播放时的点击事件
+- (void)mp4ShareVideoViewClicked:(UITapGestureRecognizer *)tap
+{
+    if (!_isMp4Play)
+    {
+        return;
+    }
+    else
+    {
+        _isMp4ControlHide = !_isMp4ControlHide;
+        self.mp4ControlView.hidden = _isMp4ControlHide;
+        self.closeMp4Btn.hidden = _isMp4ControlHide;
+    }
+    BMLog(@"diandji");
+}
+
 
 - (void)closeMp4BtnClicked:(UIButton *)btn
 {
@@ -3041,7 +3065,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)showShareVidoeViewWithPeerId:(NSString *)peerId
 {
     [self.view endEditing:YES];
-    
+    _isMp4Play = NO;
     //self.shareVideoFloatView.frame = CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight);
     //[self.shareVideoFloatView stayMove];
     
@@ -3061,6 +3085,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 关闭共享桌面
 - (void)hideShareVidoeViewWithPeerId:(NSString *)peerId
 {
+    _isMp4Play = NO;
     [self.liveManager.roomManager unPlayScreen:peerId completion:^(NSError * _Nonnull error) {
     }];
     
@@ -3106,6 +3131,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 开始播放课件视频
 - (void)showWhiteBordVidoeViewWithPeerId:(NSString *)peerId
 {
+    _isMp4Play = YES;
     [self.view endEditing:YES];
     self.mp4ControlView.hidden = NO;
     self.closeMp4Btn.hidden = NO;
@@ -3127,6 +3153,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 关闭课件视频
 - (void)hideWhiteBordVidoeViewWithPeerId:(NSString *)peerId
 {
+    
+    _isMp4Play = NO;
     if (self.liveManager.playMediaModel.video)
     {
         if (!peerId)
