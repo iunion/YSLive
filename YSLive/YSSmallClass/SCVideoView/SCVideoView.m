@@ -40,7 +40,7 @@
 ///没有麦克风时的label
 @property (nonatomic, strong) UILabel *silentLab;
 
-///被禁视频时的蒙版
+///关闭视频时的蒙版
 @property (nonatomic, strong) UIView *maskCloseVideoBgView;//背景蒙版
 @property (nonatomic, strong) UIImageView *maskCloseVideo;
 
@@ -234,10 +234,11 @@
     self.maskBackView = maskBackView;
 
     
-    //被禁视频时的蒙版
+    //关闭视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
     self.maskCloseVideoBgView.backgroundColor = [UIColor bm_colorWithHexString:@"#EDEDED"];
     [maskBackView addSubview:self.maskCloseVideoBgView];
+    self.maskCloseVideoBgView.hidden = YES;
 
     self.maskCloseVideo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"closeVideo_SCVideoViewImage"]];
     self.maskCloseVideo.contentMode = UIViewContentModeScaleAspectFit;
@@ -249,16 +250,17 @@
     self.homeMaskLab.font = UI_FONT_12;
     self.homeMaskLab.textColor = UIColor.whiteColor;
     [maskBackView addSubview:self.homeMaskLab];
-    self.homeMaskLab.hidden = YES;
     [self.homeMaskLab setAdjustsFontSizeToFitWidth:YES];
     self.homeMaskLab.numberOfLines = 2;
     self.homeMaskLab.textAlignment = NSTextAlignmentCenter;
     self.homeMaskLab.backgroundColor = UIColor.clearColor;
+    self.homeMaskLab.hidden = YES;
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
     self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
     [maskBackView addSubview:self.maskNoVideo];
+    self.maskNoVideo.hidden = YES;
     
     //没有连摄像头时的文字
     UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
@@ -271,7 +273,6 @@
     maskNoVideoTitle.textAlignment = NSTextAlignmentCenter;
     [self.maskNoVideo addSubview:maskNoVideoTitle];
     self.maskNoVideoTitle = maskNoVideoTitle;
-    self.maskNoVideo.hidden = YES;
     
     //奖杯
     self.cupImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
@@ -333,7 +334,6 @@
     self.silentLab = silentLab;
     silentLab.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
     
-   
     if (self.isDragOut || self.isFullScreen)
     {
         self.nickNameLab.font = self.cupNumLab.font = self.dragFont;
@@ -346,7 +346,6 @@
     [self freshWithRoomUserProperty:self.roomUser];
 }
 
-
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
@@ -356,7 +355,7 @@
     self.maskCloseVideoBgView.frame = self.bounds;
     self.homeMaskLab.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
-    self.maskNoVideoTitle.frame = CGRectMake(5, 5, self.bm_width-10, self.bm_height-22);
+    self.maskNoVideoTitle.frame = CGRectMake(2, 10, self.bm_width-4, self.bm_height-25);
     
     CGFloat imageWidth = frame.size.height*0.3f;
     if (imageWidth > self.maskCloseVideo.image.size.width)
@@ -576,7 +575,6 @@
                self.maskNoVideo.hidden = YES;
                self.maskNoVideoTitle.text = nil;
            }
-        
         return;
     }
     
@@ -587,7 +585,9 @@
             // 无设备
             case SCVideoViewVideoDeviceState_NoDevice:
             {
-                
+                self.maskNoVideo.hidden = NO;
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
                 
@@ -603,7 +603,9 @@
             // 设备被占用
             case SCVideoViewVideoDeviceState_Busy:
             {
-                
+                self.maskNoVideo.hidden = NO;
+                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                [self.maskBackView bringSubviewToFront:self.maskNoVideo];
             }
                 break;
                 
@@ -617,7 +619,6 @@
             default:
                 break;
         }
-        
         return;
     }
 
@@ -699,7 +700,8 @@
             // 无设备
             case SCVideoViewAudioDeviceState_NoDevice:
             {
-                
+                self.silentLab.hidden = NO;
+                self.soundImage.hidden = YES;
             }
                 break;
                 
@@ -714,7 +716,8 @@
             // 设备被占用
             case SCVideoViewAudioDeviceState_Busy:
             {
-                
+                self.silentLab.hidden = NO;
+                self.soundImage.hidden = YES;
             }
                 break;
                 
@@ -806,7 +809,7 @@
         // 视频相关
         
         // 低端设备
-        BOOL low = [[YSLiveManager shareInstance] devicePerformance_Low];
+        BOOL low = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
         if (low)
         {
             self.videoState |= SCVideoViewVideoState_Low_end;
@@ -818,7 +821,7 @@
 
         // 设备不可用
         BOOL deviceError = NO;
-        if (!self.roomUser.disableVideo)
+        if (self.roomUser.disableVideo)
         {
             // 设备禁用
             deviceError = YES;
@@ -876,7 +879,7 @@
         
         // 设备不可用
         deviceError = NO;
-        if (!self.roomUser.disableAudio)
+        if (self.roomUser.disableAudio)
         {
             // 设备禁用
             deviceError = YES;

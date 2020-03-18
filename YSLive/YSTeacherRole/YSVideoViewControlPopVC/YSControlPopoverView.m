@@ -17,6 +17,11 @@
 
 @property (nonatomic, strong) UIView *backView;
 
+//复位控制按钮
+@property (nonatomic, strong) UIButton * restoreBtn;
+//发奖杯按钮
+@property (nonatomic, strong) UIButton * giftCupBtn;
+
 @end
 
 @implementation YSControlPopoverView
@@ -44,6 +49,47 @@
     {
         self.backView.frame = self.view.frame;
     }
+    
+    if (self.backView.bm_width>self.backView.bm_height)
+    {
+        ///音频控制按钮
+        self.audioBtn.bm_height = self.backView.bm_height;
+        ///视频控制按钮
+        self.videoBtn.bm_height = self.backView.bm_height;
+        ///镜像控制按钮
+        self.mirrorBtn.bm_height = self.backView.bm_height;
+        ///画笔权限控制按钮
+        self.canDrawBtn.bm_height = self.backView.bm_height;
+        ///上下台控制按钮
+        self.onStageBtn.bm_height = self.backView.bm_height;
+        //成为焦点按钮
+        self.fouceBtn.bm_height = self.backView.bm_height;
+        //复位控制按钮
+        self.restoreBtn.bm_height = self.backView.bm_height;
+        //发奖杯按钮
+        self.giftCupBtn.bm_height = self.backView.bm_height;
+    }
+    else
+    {
+        ///音频控制按钮
+        self.audioBtn.bm_width = self.backView.bm_width;
+        ///视频控制按钮
+        self.videoBtn.bm_width = self.backView.bm_width;
+        ///镜像控制按钮
+        self.mirrorBtn.bm_width = self.backView.bm_width;
+        ///画笔权限控制按钮
+        self.canDrawBtn.bm_width = self.backView.bm_width;
+        ///上下台控制按钮
+        self.onStageBtn.bm_width = self.backView.bm_width;
+        //成为焦点按钮
+        self.fouceBtn.bm_width = self.backView.bm_width;
+        //复位控制按钮
+        self.restoreBtn.bm_width = self.backView.bm_width;
+        //发奖杯按钮
+        self.giftCupBtn.bm_width = self.backView.bm_width;
+
+    }
+    
 }
 
 - (void)setUserModel:(YSRoomUser *)userModel
@@ -103,9 +149,8 @@
         self.videoBtn.selected = NO;
     }
     
-    
     //镜像控制按钮
-    self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.CloseMirror" ) selectTitle:YSLocalized(@"Button.OpenMirror" ) imageName:@"user_CloseMirror" selectImageName:@"user_openMirror"];
+    self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenMirror" ) selectTitle:YSLocalized(@"Button.CloseMirror" ) imageName:@"user_openMirror" selectImageName:@"user_CloseMirror"];
     self.mirrorBtn.tag = 2;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -212,6 +257,7 @@
                     restoreBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
                 }
                 [self moveButtonTitleAndImageWithButton:restoreBtn];
+                self.restoreBtn = restoreBtn;
             }
         }
         else
@@ -254,6 +300,7 @@
                     restoreBtn.frame = CGRectMake(Margin + 3 * width, 0, width, self.view.bm_height);
                 }
                 [self moveButtonTitleAndImageWithButton:restoreBtn];
+                self.restoreBtn = restoreBtn;
             }
         }
     }
@@ -363,6 +410,7 @@
                 restoreBtn.frame = CGRectMake(Margin + 4 * width, 0, width, self.view.bm_height);
             }
             [self moveButtonTitleAndImageWithButton:restoreBtn];
+            self.restoreBtn = restoreBtn;
         }
     }
     else
@@ -381,6 +429,7 @@
         }
 
         [self moveButtonTitleAndImageWithButton:giftCupBtn];
+        self.giftCupBtn = giftCupBtn;
         
         if (self.roomtype == YSRoomType_More)
         {
@@ -401,6 +450,7 @@
                         restoreBtn.frame = CGRectMake(Margin + 5 * width, 0, width, self.view.bm_height);
                     }
                     [self moveButtonTitleAndImageWithButton:restoreBtn];
+                    self.restoreBtn = restoreBtn;
                 }
             }
             else
@@ -467,6 +517,19 @@
     }
 }
 
+- (void)setVideoMirrorMode:(YSVideoMirrorMode)videoMirrorMode
+{
+    _videoMirrorMode = videoMirrorMode;
+    if (videoMirrorMode == YSVideoMirrorModeEnabled)
+    {
+        self.mirrorBtn.selected = YES;
+    }
+    else if (videoMirrorMode == YSVideoMirrorModeDisabled)
+    {
+        self.mirrorBtn.selected = NO;
+    }
+}
+
 
 ///创建button
 - (UIButton *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName
@@ -494,7 +557,7 @@
         [button setImage:[UIImage imageNamed:selectImageName] forState:UIControlStateSelected];
     }
     [self.backView addSubview:button];
-    
+        
     return button;
 }
 

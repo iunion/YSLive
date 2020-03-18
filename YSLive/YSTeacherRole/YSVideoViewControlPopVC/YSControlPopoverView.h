@@ -52,12 +52,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
 @property (nonatomic, assign) YSRoomTypes roomtype;
 
 ///标识布局变化的值
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;
+
+/// 当前的用户视频的镜像状态
+@property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
 
 @end
 
