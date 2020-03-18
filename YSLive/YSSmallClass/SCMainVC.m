@@ -4290,7 +4290,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (![self.fouceView bm_isNotEmpty])
         {
             self.roomLayout = YSLiveRoomLayout_VideoLayout;
+            self.boardControlView.hidden = NO;
         }
+        else
+        {
+            self.boardControlView.hidden = YES;
+        }
+    }
+    else
+    {
+        self.boardControlView.hidden = NO;
     }
     
     [self freshContentView];
