@@ -123,7 +123,7 @@
 /// 公布答题结果
 #define YSSignalingName_AnswerPublicResult          @"AnswerPublicResult"
 /// 老师抢答器
-#define YSSignalingName_showContest          @"showContest"
+#define YSSignalingName_showContest          @"ShowContest"
 //发起抢答排序
 #define YSSignalingName_Contest              @"Contest"
 /// 收到学生抢答
