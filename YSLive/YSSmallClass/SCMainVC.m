@@ -3660,12 +3660,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomUserPropertyChanged:(NSString *)peerID properties:(NSDictionary *)properties fromId:(NSString *)fromId
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
-    
+    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+
     // 网络状态
     if ([properties bm_containsObjectForKey:sUserNetWorkState])
     {
-        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-        [videoView freshWithRoomUserProperty:user];
+        [videoView freshWithRoomUserProperty:roomUser];
     }
     
     // 奖杯数
@@ -3868,9 +3868,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    
-    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-    if (user.role == YSUserType_Teacher)
+    if (roomUser.role == YSUserType_Teacher)
     {
         /// 老师中途进入房间上课时的全屏处理
         if (!self.whitebordFullBackgroud.hidden)
@@ -3892,6 +3890,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
     }
     
+    /// 用户设备状态
+    if ([properties bm_containsObjectForKey:sUserVideoFail] || [properties bm_containsObjectForKey:sUserAudioFail])
+    {
+        [videoView freshWithRoomUserProperty:roomUser];
+    }
+
     [self freshTeacherPersonListData];
 }
 

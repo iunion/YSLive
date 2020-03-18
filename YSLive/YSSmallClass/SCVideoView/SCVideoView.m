@@ -818,17 +818,42 @@
 
         // 设备不可用
         BOOL deviceError = NO;
-        if (!self.roomUser.disableVideo)
+//        if (!self.roomUser.disableVideo)
+//        {
+//            // 设备禁用
+//            deviceError = YES;
+//            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
+//        }
+//        if (!self.roomUser.hasVideo)
+//        {
+//            // 无设备
+//            deviceError = YES;
+//            self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
+//        }
+        if (self.roomUser.vfail != YSDeviceFaultNone)
         {
-            // 设备禁用
             deviceError = YES;
-            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
-        }
-        if (!self.roomUser.hasVideo)
-        {
-            // 无设备
-            deviceError = YES;
-            self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
+            switch (self.roomUser.vfail)
+            {
+                // 无设备
+                case YSDeviceFaultNotFind:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
+                    break;
+                    
+                // 没有授权
+                case YSDeviceFaultNotAuth:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
+                    break;
+                        
+                // 占用
+                case YSDeviceFaultOccupied:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_Busy;
+                    break;
+                        
+                default:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_OpenError;
+                    break;
+            }
         }
         if (deviceError)
         {
@@ -876,17 +901,42 @@
         
         // 设备不可用
         deviceError = NO;
-        if (!self.roomUser.disableAudio)
+//        if (!self.roomUser.disableAudio)
+//        {
+//            // 设备禁用
+//            deviceError = YES;
+//            self.audioDeviceState = SCVideoViewAudioDeviceState_Disable;
+//        }
+//        if (!self.roomUser.hasAudio)
+//        {
+//            // 无设备
+//            deviceError = YES;
+//            self.audioDeviceState = SCVideoViewAudioDeviceState_NoDevice;
+//        }
+        if (self.roomUser.vfail != YSDeviceFaultNone)
         {
-            // 设备禁用
             deviceError = YES;
-            self.audioDeviceState = SCVideoViewAudioDeviceState_Disable;
-        }
-        if (!self.roomUser.hasAudio)
-        {
-            // 无设备
-            deviceError = YES;
-            self.audioDeviceState = SCVideoViewAudioDeviceState_NoDevice;
+            switch (self.roomUser.vfail)
+            {
+                // 无设备
+                case YSDeviceFaultNotFind:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
+                    break;
+                    
+                // 没有授权
+                case YSDeviceFaultNotAuth:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
+                    break;
+                        
+                // 占用
+                case YSDeviceFaultOccupied:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_Busy;
+                    break;
+                        
+                default:
+                    self.videoDeviceState = SCVideoViewVideoDeviceState_OpenError;
+                    break;
+            }
         }
         if (deviceError)
         {
