@@ -806,7 +806,7 @@
         // 视频相关
         
         // 低端设备
-        BOOL low = [[YSLiveManager shareInstance] devicePerformance_Low];
+        BOOL low = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
         if (low)
         {
             self.videoState |= SCVideoViewVideoState_Low_end;

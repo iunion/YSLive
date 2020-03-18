@@ -226,7 +226,8 @@
     
     if (self.showResultHUD)
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        //[self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), [YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE]] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     else
     {
