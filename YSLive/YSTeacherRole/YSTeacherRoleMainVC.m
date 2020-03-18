@@ -5183,7 +5183,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         [self.liveManager.roomManager stopShareMediaFile:nil];
     }
-    [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel completion:nil];
+    [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel isFresh:NO completion:nil];
 
 }
 
