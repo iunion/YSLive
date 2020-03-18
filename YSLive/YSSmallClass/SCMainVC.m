@@ -3591,11 +3591,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)roomManagerRoomTeacherEnter
 {
     self.teacherPlaceLab.hidden = self.liveManager.isBeginClass;
+    if (!self.whitebordFullBackgroud.hidden || !self.shareVideoFloatView.hidden)
+    {
+        self.fullTeacherFloatView.hidden = NO;
+    }
+    
 }
 
 - (void)roomManagerRoomTeacherLeft
 {
     self.teacherPlaceLab.hidden = YES;
+    self.fullTeacherFloatView.hidden = YES;
 }
 
 /// 用户进入
