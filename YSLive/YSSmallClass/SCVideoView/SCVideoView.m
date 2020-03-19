@@ -852,10 +852,19 @@
 //        }
         if ([self.roomUser.properties bm_containsObjectForKey:sUserVideoFail])
         {
-            self.videoDeviceState = self.roomUser.vfail;
-            if (self.roomUser.vfail != YSDeviceFaultNone)
+            if (self.roomUser.hasVideo)
+            {
+                self.videoDeviceState = self.roomUser.vfail;
+                if (self.roomUser.vfail != YSDeviceFaultNone)
+                {
+                    deviceError = YES;
+                }
+            }
+            else
             {
                 deviceError = YES;
+                // 设备禁用
+                self.videoDeviceState = YSDeviceFaultNotAuth;
             }
         }
         else
@@ -923,10 +932,18 @@
 //        }
         if ([self.roomUser.properties bm_containsObjectForKey:sUserAudioFail])
         {
-            self.audioDeviceState = self.roomUser.afail;
-            if (self.roomUser.afail != YSDeviceFaultNone)
+            if (self.roomUser.hasAudio)
+            {
+                self.audioDeviceState = self.roomUser.afail;
+                if (self.roomUser.afail != YSDeviceFaultNone)
+                {
+                    deviceError = YES;
+                }
+            }
+            else
             {
                 deviceError = YES;
+                self.audioDeviceState = YSDeviceFaultNotAuth;
             }
         }
         else
