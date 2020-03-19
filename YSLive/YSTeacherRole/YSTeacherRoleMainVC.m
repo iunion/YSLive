@@ -1563,10 +1563,26 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+    
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
     if (!roomUser)
     {
         return;
+    }
+    
+    if ([roomUser.properties bm_containsObjectForKey:sUserVideoFail])
+    {
+        if (roomUser.vfail != YSDeviceFaultNone && roomUser.afail != YSDeviceFaultNone)
+        {
+            return;
+        }
+    }
+    else
+    {
+        if (!roomUser.hasVideo && !roomUser.hasAudio)
+        {
+            return;
+        }
     }
     
     // 删除本人占位视频
