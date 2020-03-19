@@ -418,8 +418,7 @@
 - (void)setIVolume:(NSUInteger)iVolume
 {
     _iVolume = iVolume;
-    
-    if (self.roomUser.disableAudio)
+    if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager shareInstance].isEveryoneNoAudio && self.roomUser.role != YSUserType_Teacher))
     {
         self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
         return;
@@ -935,7 +934,7 @@
             self.audioState &= ~SCVideoViewAudioState_DeviceError;
         }
 
-        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4 || [YSLiveManager shareInstance].isEveryoneNoAudio)
+        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4 || ([YSLiveManager shareInstance].isEveryoneNoAudio && self.roomUser.role != YSUserType_Teacher))
         {
             // 关闭音频
             self.audioState |= SCVideoViewAudioState_Close;
