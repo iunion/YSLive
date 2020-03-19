@@ -546,11 +546,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
             if (autoOpenAudioAndVideoFlag)
             {
-                if (YSCurrentUser.hasVideo)
+                if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.hasAudio)
+                if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
                     if (!isEveryoneNoAudio) {
@@ -566,11 +566,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
         {
-            if (YSCurrentUser.hasVideo)
+            if (YSCurrentUser.vfail == YSDeviceFaultNone)
             {
                 [self.liveManager.roomManager publishVideo:nil];
             }
-            if (YSCurrentUser.hasAudio)
+            if (YSCurrentUser.afail == YSDeviceFaultNone)
             {
                 [self.liveManager.roomManager publishAudio:nil];
             }
@@ -2514,7 +2514,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 麦克风
 - (void)microphoneProxyWithBtn:(UIButton *)btn
 {
-    if (self.liveManager.localUser.hasAudio)
+    if (self.liveManager.localUser.afail != YSDeviceFaultNone)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         
@@ -3953,12 +3953,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
                 if (autoOpenAudioAndVideoFlag)
                 {
-                    if (YSCurrentUser.hasVideo)
+                    if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager unPublishVideo:nil];
                         [self.liveManager.roomManager publishVideo:nil];
                     }
-                    if (YSCurrentUser.hasAudio)
+                    if (YSCurrentUser.afail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager unPublishAudio:nil];
                         [self.liveManager.roomManager publishAudio:nil];
@@ -3970,12 +3970,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//会议，进教室默认上台
             if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
             {
-                if (YSCurrentUser.hasVideo)
+                if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager unPublishVideo:nil];
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.hasAudio)
+                if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager unPublishAudio:nil];
                     [self.liveManager.roomManager publishAudio:nil];
@@ -4124,11 +4124,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
                 if (autoOpenAudioAndVideoFlag)
                 {
-                    if (YSCurrentUser.hasVideo)
+                    if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager publishVideo:nil];
                     }
-                    if (YSCurrentUser.hasAudio)
+                    if (YSCurrentUser.afail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager publishAudio:nil];
                     }
@@ -4139,11 +4139,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//会议，进教室默认上台
             if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
             {
-                if (YSCurrentUser.hasVideo)
+                if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.hasAudio)
+                if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishAudio:nil];
                 }
@@ -4689,7 +4689,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark -全体静音 发言
 - (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
 {
-    if (self.liveManager.localUser.hasAudio)
+    if (self.liveManager.localUser.afail != YSDeviceFaultNone)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         BOOL needsend = NO;

@@ -481,11 +481,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (self.liveManager.isBeginClass)
     {
-        if (YSCurrentUser.hasVideo)
+        if (YSCurrentUser.vfail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.hasAudio)
+        if (YSCurrentUser.afail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager publishAudio:nil];
         }
@@ -2323,12 +2323,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     
-        if (YSCurrentUser.hasVideo)
+        if (YSCurrentUser.vfail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishVideo:nil];
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.hasAudio)
+        if (YSCurrentUser.afail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishAudio:nil];
             [self.liveManager.roomManager publishAudio:nil];
@@ -2442,11 +2442,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     if (!inlist)
     {
-        if (YSCurrentUser.hasVideo)
+        if (YSCurrentUser.vfail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.hasAudio)
+        if (YSCurrentUser.afail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager publishAudio:nil];
         }
