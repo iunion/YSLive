@@ -3552,7 +3552,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-
             _personListCurentPage = 0;
             _personListTotalPage = 0;
             NSInteger studentNum = self.liveManager.studentCount ;
@@ -3605,12 +3604,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, listArr.count - _personListCurentPage * onePageMaxUsers)];
                 [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
             }
-
-            
-//            NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, onePageMaxUsers)];
-//            [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-            
-//            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
         }
         

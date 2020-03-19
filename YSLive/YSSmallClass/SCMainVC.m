@@ -2622,18 +2622,70 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     [weakSelf.teacherListView setUserRole:weakSelf.liveManager.localUser.role];
                     [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
                 });
-                
-                
             }];
-            
         }
         else
         {            
-            _personListCurentPage = 0;
-            _personListTotalPage = self.liveManager.userList.count/onePageMaxUsers;
+//            _personListCurentPage = 0;
+//            _personListTotalPage = self.liveManager.userList.count/onePageMaxUsers;
+//
+//            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
+            //            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
             [self.teacherListView setUserRole:self.liveManager.localUser.role];
-            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
-            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
+            _personListCurentPage = 0;
+            _personListTotalPage = 0;
+            NSInteger studentNum = self.liveManager.studentCount ;
+            NSInteger assistantNum = self.liveManager.assistantCount;
+            NSInteger divide = (studentNum + assistantNum)/onePageMaxUsers;
+            NSInteger remainder = (studentNum + assistantNum)%onePageMaxUsers;
+            if (divide == 1 )
+            {
+                if (remainder == 0)
+                {
+                    _personListTotalPage = 0;
+                }
+                else
+                {
+                    _personListTotalPage = 1;
+                }
+                
+            }
+            else
+            {
+                if (remainder == 0)
+                {
+                    _personListTotalPage = divide - 1;
+                }
+                else
+                {
+                    _personListTotalPage = divide;
+                }
+                
+            }
+            
+            
+            NSMutableArray *listArr = [NSMutableArray arrayWithCapacity:0];
+            for (YSRoomUser *user in self.liveManager.userList)
+            {
+                if (user.role == YSUserType_Assistant || user.role == YSUserType_Student)
+                {
+                    [listArr addObject:user];
+                }
+            }
+            
+            if ((_personListCurentPage + 1) * onePageMaxUsers <= (studentNum + assistantNum))
+            {
+                NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, onePageMaxUsers)];
+                [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+            }
+            else
+            {
+                
+                NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, listArr.count - _personListCurentPage * onePageMaxUsers)];
+                [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+            }
+            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
+            
         }
         
         //        [self freshTeacherPersonListData];
@@ -2708,8 +2760,95 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else
         {
             [self.teacherListView setUserRole:self.liveManager.localUser.role];
-            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
-            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
+//            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
+            //            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
+            NSInteger studentNum = self.liveManager.studentCount ;
+            NSInteger assistantNum = self.liveManager.assistantCount;
+            NSInteger listNumber = studentNum + assistantNum;
+            NSInteger divide = listNumber/onePageMaxUsers;
+            NSInteger remainder = listNumber%onePageMaxUsers;
+            if (divide == 1 )
+            {
+                if (remainder == 0)
+                {
+                    _personListTotalPage = 0;
+                }
+                else
+                {
+                    _personListTotalPage = 1;
+                }
+                
+            }
+            else
+            {
+                if (remainder == 0)
+                {
+                    _personListTotalPage = divide - 1;
+                }
+                else
+                {
+                    _personListTotalPage = divide;
+                }
+                
+            }
+            
+            NSMutableArray *listArr = [NSMutableArray arrayWithCapacity:0];
+            for (YSRoomUser *user in self.liveManager.userList)
+            {
+                if (user.role == YSUserType_Assistant || user.role == YSUserType_Student)
+                {
+                    [listArr addObject:user];
+                }
+            }
+            
+            if (_personListCurentPage + 1 > divide )
+            {
+                if (remainder == 0)
+                {
+                    _personListCurentPage = _personListCurentPage - 1;
+                }
+                else
+                {
+                    //                    _personListCurentPage = _personListCurentPage;
+                }
+                
+            }
+            
+            if (listNumber > onePageMaxUsers)
+            {
+                if ((_personListCurentPage + 1) * onePageMaxUsers <= listNumber)
+                {
+                    NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+                else
+                {
+                    
+                    NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, listArr.count - _personListCurentPage * onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+            }
+            else
+            {
+                //                _personListCurentPage = 0;
+                if ((_personListCurentPage + 1) * onePageMaxUsers <= (studentNum + assistantNum))
+                {
+                    NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+                else
+                {
+                    
+                    NSArray *data = [listArr subarrayWithRange:NSMakeRange(_personListCurentPage * onePageMaxUsers, listArr.count - _personListCurentPage * onePageMaxUsers)];
+                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                }
+                
+            }
+            
+            
+            //            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
+            [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
+
 
         }
     }
