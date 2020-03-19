@@ -546,11 +546,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
             if (autoOpenAudioAndVideoFlag)
             {
-                if (YSCurrentUser.hasVideo)
+                if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.hasAudio)
+                if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
                     if (!isEveryoneNoAudio) {
@@ -566,11 +566,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
         {
-            if (YSCurrentUser.hasVideo)
+            if (YSCurrentUser.vfail == YSDeviceFaultNone)
             {
                 [self.liveManager.roomManager publishVideo:nil];
             }
-            if (YSCurrentUser.hasAudio)
+            if (YSCurrentUser.afail == YSDeviceFaultNone)
             {
                 [self.liveManager.roomManager publishAudio:nil];
             }
@@ -2136,6 +2136,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //        return;
     //    }
     //
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
     if (!roomUser)
     {
@@ -2263,6 +2264,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)delVidoeViewWithPeerId:(NSString *)peerId
 {
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     SCVideoView *delVideoView = nil;
     if ([peerId isEqualToString:self.teacherVideoView.roomUser.peerID])
     {
@@ -2514,7 +2516,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 麦克风
 - (void)microphoneProxyWithBtn:(UIButton *)btn
 {
-    if (self.liveManager.localUser.hasAudio)
+    if (self.liveManager.localUser.afail != YSDeviceFaultNone)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         
@@ -3645,6 +3647,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         reasonString = YSLocalized(@"KickOut.SentOutClassroom");
     }
 
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -3953,12 +3956,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
                 if (autoOpenAudioAndVideoFlag)
                 {
-                    if (YSCurrentUser.hasVideo)
+                    if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager unPublishVideo:nil];
                         [self.liveManager.roomManager publishVideo:nil];
                     }
-                    if (YSCurrentUser.hasAudio)
+                    if (YSCurrentUser.afail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager unPublishAudio:nil];
                         [self.liveManager.roomManager publishAudio:nil];
@@ -3970,12 +3973,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//会议，进教室默认上台
             if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
             {
-                if (YSCurrentUser.hasVideo)
+                if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager unPublishVideo:nil];
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.hasAudio)
+                if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager unPublishAudio:nil];
                     [self.liveManager.roomManager publishAudio:nil];
@@ -4124,11 +4127,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
                 if (autoOpenAudioAndVideoFlag)
                 {
-                    if (YSCurrentUser.hasVideo)
+                    if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager publishVideo:nil];
                     }
-                    if (YSCurrentUser.hasAudio)
+                    if (YSCurrentUser.afail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager publishAudio:nil];
                     }
@@ -4139,11 +4142,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//会议，进教室默认上台
             if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
             {
-                if (YSCurrentUser.hasVideo)
+                if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.hasAudio)
+                if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishAudio:nil];
                 }
@@ -4180,6 +4183,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 下课
 - (void)handleSignalingClassEndWithText:(NSString *)text
 {
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -4195,6 +4200,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 弹框
 - (void)showSignalingClassEndWithText:(NSString *)text
 {
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -4689,7 +4695,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark -全体静音 发言
 - (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
 {
-    if (self.liveManager.localUser.hasAudio)
+    if (self.liveManager.localUser.afail != YSDeviceFaultNone)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         BOOL needsend = NO;
@@ -5026,6 +5032,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         title = YSLocalized(@"Prompt.NeedPhotograph.title" );
         message = YSLocalized(@"Prompt.NeedPhotograph");
     }
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
