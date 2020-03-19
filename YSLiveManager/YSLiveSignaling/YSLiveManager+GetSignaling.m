@@ -34,8 +34,10 @@
     }
         
     
-    
-    
+    if (![msgName isEqualToString:@"Server_Sort_Result"])
+    {
+//        NSLog(@"weee");
+    }
     
     ///全体静音 全体发言
     if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
@@ -724,7 +726,7 @@
     if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
     {
         self.raisehandMsgID = msgID;
-        
+        //RaiseHandStart_1931343076_1584580626
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
         {
             [self.roomManagerDelegate handleSignalingAllowEveryoneRaiseHand];
@@ -753,29 +755,46 @@
         else
         {
             NSMutableArray * userArray = [NSMutableArray array];
-            if ([resultArray bm_isNotEmpty])
-            {
+//            if (self.isBigRoom)
+//            {
+//                NSMutableArray * peerArray = [NSMutableArray array];
                 for (NSDictionary * dict in resultArray)
                 {
                     NSString * userId = dict.allKeys.firstObject;
-                    YSRoomUser * user = [self.roomManager getRoomUserWithUId:userId];
-                    if ([user bm_isNotEmpty])
-                    {
-                        [userArray addObject:user];
-                    }
+                    
+                    NSMutableDictionary * mutDict = [NSMutableDictionary dictionary];
+                    
+                    [mutDict setValue:userId forKey:@"peerId"];
+                    [mutDict setValue:[dict bm_stringForKey:userId] forKey:@"nickName"];
+                    [mutDict setValue:@(YSUser_PublishState_NONE) forKey:@"publishState"];
+                    
+                    [userArray addObject:mutDict];
                 }
-            }
-            else
-            {
-                
-            }
+            
             if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
             {
                 [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
             }
-
+            
+//            }
+//            else
+//            {
+//                for (NSDictionary * dict in resultArray)
+//                {
+//                    NSString * userId = dict.allKeys.firstObject;
+//                    YSRoomUser * user = [self.roomManager getRoomUserWithUId:userId];
+//                    if ([user bm_isNotEmpty])
+//                    {
+//                        [userArray addObject:user];
+//                    }
+//                }
+//                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
+//                {
+//                    [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
+//                }
+//            }
         }
-
+        
         return;
     }
     

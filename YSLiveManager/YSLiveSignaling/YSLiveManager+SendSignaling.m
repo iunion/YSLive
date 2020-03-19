@@ -259,7 +259,7 @@
 /// 学生开始/取消举手  modify：0举手  1取消举手
 - (BOOL)sendSignalingsStudentToRaiseHandWithModify:(NSInteger)modify Completion:(nullable completion_block)completion
 {
-    NSDictionary * dataDict = @{self.localUser.peerID:@""};
+    NSDictionary * dataDict = @{self.localUser.peerID:self.localUser.nickName};
 
     NSString * msgID = [YSLiveUtil createUUID];
          

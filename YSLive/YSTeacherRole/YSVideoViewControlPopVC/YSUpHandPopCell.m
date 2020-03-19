@@ -57,7 +57,6 @@
     [self.headBtn setImage:[UIImage imageNamed:@"upPlatform_hand"] forState:UIControlStateSelected];
     self.headBtn.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:self.headBtn];
-//    [self.headBtn setBackgroundColor:UIColor.redColor];
 }
 
 - (void)buttonclick:(UIButton *)sender
@@ -71,11 +70,28 @@
     }
 }
 
-- (void)setUserModel:(YSRoomUser *)userModel
+//- (void)setUserModel:(YSRoomUser *)userModel
+//{
+//    _userModel = userModel;
+//    self.nickNameLab.text = userModel.nickName;
+//    if (userModel.publishState >0)
+//    {
+//        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+//        self.headBtn.selected = YES;
+//    }
+//    else
+//    {
+//        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
+//        self.headBtn.selected = NO;
+//    }
+//}
+
+- (void)setUserDict:(NSMutableDictionary *)userDict
 {
-    _userModel = userModel;
-    self.nickNameLab.text = userModel.nickName;
-    if (userModel.publishState >0)
+    _userDict = userDict;
+    self.nickNameLab.text = [userDict bm_stringForKey:@"nickName"];
+    YSPublishState publishState = [userDict bm_intForKey:@"publishState"];
+    if (publishState >0)
     {
         self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
         self.headBtn.selected = YES;
@@ -85,6 +101,7 @@
         self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
         self.headBtn.selected = NO;
     }
+    
 }
 
 @end

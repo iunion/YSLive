@@ -295,9 +295,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //举手上台的popOverView列表
 @property (nonatomic,weak)YSUpHandPopoverVC * upHandPopTableView;
 /// 正在举手上台的人员数组
-@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *raiseHandArray;
-/// 举过手的人员数组
-@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *haveRaiseHandArray;
+//@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *raiseHandArray;
+@property (nonatomic, strong) NSMutableArray *raiseHandArray;
+
 /// 举手上台的人数
 @property (nonatomic, strong) UILabel *handNumLab;
 
@@ -740,8 +740,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     popTab.letStudentUpVideo = ^(YSUpHandPopCell *cell) {
         if (weakSelf.videoViewArray.count < self->maxVideoCount)
         {
-            [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:cell.userModel withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
-            cell.headBtn.selected = YES;
+            
+            if (weakSelf.liveManager.isBigRoom)
+            {
+                [weakSelf.liveManager.roomManager getRoomUserWithPeerId:[cell.userDict bm_stringForKey:@"peerId"] callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
+                    [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                    cell.headBtn.selected = YES;
+                }];
+            }
+            else
+            {
+                YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:[cell.userDict bm_stringForKey:@"peerId"]];
+                [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                cell.headBtn.selected = YES;
+            }
         }
         else
         {
@@ -1975,7 +1987,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [classEndAlertVC dismissViewControllerAnimated:YES completion:^{
             [weakSelf kickedOutFromRoom:reasonCode];
         }];
-        
         return;
     }
     
@@ -1985,16 +1996,68 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///所有举手用户的列表,刷新举手的人数
 - (void)handleSignalingRaiseHandUserArray:(NSMutableArray *)raiseHandUserArray
 {
-    self.raiseHandArray = raiseHandUserArray;
+    // 3.GCD
+//    dispatch_async(dispatch_get_main_queue(), ^{
+        // UI更新代码
     
-    self.upHandPopTableView.userArr = self.raiseHandArray;
-    
-    if (self.raiseHandArray.count<1)
+//    for (YSRoomUser *roomUser in <#collection#>)
+//    {
+//
+//    }
+//
+    NSMutableArray * mutArray = nil;
+    if (self.liveManager.isBigRoom)
     {
-        [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+        mutArray = [NSMutableArray arrayWithArray:self.liveManager.userList];
     }
-       
-    self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)raiseHandUserArray.count,(long)self.liveManager.studentCount];
+    else
+    {
+        mutArray = [NSMutableArray array];
+        for (SCVideoView * videoView in self.videoViewArray)
+        {
+            [mutArray addObject:videoView.roomUser];
+        }
+    }
+    if ([mutArray bm_isNotEmpty])
+    {
+        for (int i = 0; i<raiseHandUserArray.count; i++)
+        {
+            NSMutableDictionary * userDict = raiseHandUserArray[i];
+            YSPublishState publishState = YSUser_PublishState_NONE;
+            for (int j = 0; j<mutArray.count; j++)
+            {
+                YSRoomUser * videoUser = mutArray[j];
+                
+                if ([videoUser.peerID isEqualToString:[userDict bm_stringForKey:@"peerId"]])
+                {
+                    publishState = videoUser.publishState;
+                    break;
+                }
+            }
+            if (publishState > YSUser_PublishState_NONE)
+            {
+                [userDict setValue:@(publishState) forKey:@"publishState"];
+                break;
+            }
+        }
+    }
+    
+        self.raiseHandArray = raiseHandUserArray;
+        
+        self.upHandPopTableView.userArr = self.raiseHandArray;
+        
+        if (self.raiseHandArray.count<1)
+        {
+            self.raiseHandsBtn.selected = NO;
+            [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+        }
+        else
+        {
+            self.raiseHandsBtn.selected = YES;
+        }
+        
+        self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)raiseHandUserArray.count,(long)self.liveManager.studentCount];
+//    });
 }
 
 #pragma mark - 用户属性变化
@@ -2123,14 +2186,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if ([properties bm_containsObjectForKey:sUserPublishstate])
     {
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
-        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+//        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
         
-        if ([self.raiseHandArray containsObject:user])
+//        if ([self.raiseHandArray containsObject:user])
+//        {
+//            [self.raiseHandArray removeObject:user];
+//            [self.raiseHandArray addObject:user];
+//            self.upHandPopTableView.userArr = self.raiseHandArray;
+//        }
+        for (NSMutableDictionary *userDict in self.raiseHandArray)
         {
-            [self.raiseHandArray removeObject:user];
-            [self.raiseHandArray addObject:user];
-            self.upHandPopTableView.userArr = self.raiseHandArray;
+            if ([userDict bm_stringForKey:@"peerId"])
+            {
+                [userDict setValue:@(publishState) forKey:@"publishState"];
+                self.upHandPopTableView.userArr = self.raiseHandArray;
+                break;
+            }
         }
+        
+        
 #if 0
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
@@ -5787,17 +5861,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     return _raiseHandArray;
 }
-
-/// 举过手的人员数组
-//- (NSMutableArray<YSRoomUser *> *)haveRaiseHandArray
-//{
-//    if (!_haveRaiseHandArray) {
-//        _haveRaiseHandArray = [NSMutableArray array];
-//    }
-//    return _haveRaiseHandArray;
-//}
-
-
 
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView

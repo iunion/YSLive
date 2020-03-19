@@ -51,7 +51,8 @@
     
     YSUpHandPopCell * cell = [YSUpHandPopCell cellWithTableView:tableView];
     
-    cell.userModel = self.userArr[indexPath.row];
+//    cell.userModel = self.userArr[indexPath.row];
+    cell.userDict = self.userArr[indexPath.row];
     __weak __typeof__(cell) weakCell = cell;
     cell.headButtonClick = ^{
         //同意上台

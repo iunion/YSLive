@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
-@property(nonatomic,strong)YSRoomUser *userModel;
+//@property(nonatomic,strong)YSRoomUser *userModel;
+@property(nonatomic,strong)NSMutableDictionary * userDict;
 
 ///头像按钮
 @property (nonatomic, strong) UIButton * headBtn;

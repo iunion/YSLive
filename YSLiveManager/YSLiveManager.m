@@ -749,7 +749,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 - (NSUInteger)userCountWithUserRole:(YSUserRoleType)role
 {
     // "{"num":2,"rolenums":{"0":0,"1":0,"2":2,"3":0,"4":0,"5":0}}"
-    NSUInteger count = [self.userCountDetailDic bm_uintForKey:@(role)];
+//    NSUInteger count = [self.userCountDetailDic bm_uintForKey:@(role)];
+    NSUInteger count = [self.userCountDetailDic bm_uintForKey:[NSString stringWithFormat:@"%ld",(long)role]];
     
     return count;
 }
