@@ -32,6 +32,26 @@
 /// 修改指定用户的属性
 - (BOOL)sendSignalingToChangePropertyWithRoomUser:(YSRoomUser *)user withKey:(NSString *)key WithValue:(NSObject *)value
 {
+    if (!user)
+    {
+        return NO;
+    }
+    
+    if ([user.properties bm_containsObjectForKey:sUserVideoFail])
+    {
+        if (user.vfail != YSDeviceFaultNone && user.afail != YSDeviceFaultNone)
+        {
+            return NO;
+        }
+    }
+    else
+    {
+        if (!user.hasVideo && !user.hasAudio)
+        {
+            return NO;
+        }
+    }
+    
     int result = [[YSRoomInterface instance] changeUserProperty:user.peerID tellWhom:YSRoomPubMsgTellAll key:key value:value completion:nil];
     return (result==0);
 }
