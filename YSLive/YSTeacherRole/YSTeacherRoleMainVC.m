@@ -4147,22 +4147,44 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 老师/助教收到 showContest
-- (void)handleSignalingShowContest
+- (void)handleSignalingShowContestFromID:(NSString *)fromID
 {
 //    老师/助教发起抢答排序 Contest(pubMsg)，并订阅抢答排序ContestSubsort(pubMsg)
-    [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300 completion:nil];
-    
+//    if (!self.responderView)
+//    {
+//        self.responderView = [[YSTeacherResponder alloc] init];
+//        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+//        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+//        self.responderView.delegate = self;
+//    }
+    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+    {
+         [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300 completion:nil];
+    }
 }
 
 /// 收到抢答排序
-- (void)handleSignalingContest
+- (void)handleSignalingContestFromID:(NSString *)fromID
 {
     BMWeakSelf
-    [self.responderView setCloseBtnHide:YES];
+    if (!self.responderView)
+    {
+        self.responderView = [[YSTeacherResponder alloc] init];
+        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+        self.responderView.delegate = self;
+    }
+
+    
     /// 订阅抢答排序
-    [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300 completion:nil];
+    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+    {
+        [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300 completion:nil];
+    }
+    
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
+        [weakSelf.responderView setCloseBtnHide:YES];
         [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
         
         NSInteger total = 0;
@@ -4190,6 +4212,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (timeInterval == 0)
         {
             [weakSelf.responderView showResponderWithType:YSTeacherResponderType_Result];
+            [weakSelf.responderView setCloseBtnHide:NO];
             NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
             [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];;//用于传人数
             CGFloat progress = 1.0f;
@@ -4197,10 +4220,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (self->contestCommitNumber == 0)
             {
-                [weakSelf.responderView setPersonName:YSLocalized(@"Res.lab.fail")];
-                [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
-                [weakSelf.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
-                [weakSelf.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
+                if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+                 {
+                     [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
+                     [weakSelf.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
+                     [weakSelf.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
+                 }
                 
             }
             
@@ -4212,7 +4237,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
-                            [weakSelf showContestResultWithRoomUser:user];
+                            [weakSelf showContestResultWithRoomUser:user fromID:fromID];
                             
                         });
                     }];
@@ -4220,7 +4245,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 else
                 {
                     YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:self->contestPeerId];
-                    [weakSelf showContestResultWithRoomUser:user];
+                    [weakSelf showContestResultWithRoomUser:user fromID:fromID];
                 }
             }
        
@@ -4230,28 +4255,35 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 展示抢答结果 并确定是否自动上台
-- (void)showContestResultWithRoomUser:(YSRoomUser *)user
+- (void)showContestResultWithRoomUser:(YSRoomUser *)user fromID:(NSString *)fromID
 {
     [self.responderView setPersonName:user.nickName];
-    [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
-    if (self.videoViewArray.count < self->maxVideoCount)
+    
+    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     {
-        if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+        [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
+        if (self.videoViewArray.count < self->maxVideoCount)
         {
-            if (self->allNoAudio)
+            if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
             {
-                [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
-            }
-            else
-            {
-                [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                if (self->allNoAudio)
+                {
+                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+                }
+                else
+                {
+                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                }
             }
         }
+        else
+        {
+            [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        }
+        
     }
-    else
-    {
-        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Error.UpPlatformMemberOverRoomLimit") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-    }
+    
+
     [self.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
     [self.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
 

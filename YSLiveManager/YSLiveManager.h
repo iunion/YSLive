@@ -410,9 +410,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleSignalingDelAnswerResultWithAnswerId:(NSString *)answerId;
 
 /// 老师/助教收到 showContest
-- (void)handleSignalingShowContest;
+- (void)handleSignalingShowContestFromID:(NSString *)fromID;
 /// 收到抢答排序
-- (void)handleSignalingContest;
+- (void)handleSignalingContestFromID:(NSString *)fromID;
 /// 收到抢答学生
 - (void)handleSignalingContestCommitWithData:(NSArray *)data;
 /// 关闭抢答器
