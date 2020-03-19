@@ -2578,15 +2578,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            
-//            NSInteger studentNumber = 0;
-//            for (YSRoomUser * user in self.liveManager.userList)
-//            {
-//                if (user.role == YSUserType_Student)
-//                {
-//                    studentNumber++;
-//                }
-//            }
             [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:(self.liveManager.studentCount + self.liveManager.assistantCount)/onePageMaxUsers];
 
@@ -5886,13 +5877,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         [view addSubview:self.fullTeacherFloatView];
         [self.fullTeacherFloatView cleanContent];
-        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
+        
+        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO];
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
         
         fullTeacherVideoView.appUseTheType = self.appUseTheType;
         [self playVideoAudioWithNewVideoView:fullTeacherVideoView];
         self.fullTeacherVideoView = fullTeacherVideoView;
+        [fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
         
         if (view == self.whitebordFullBackgroud)
         {

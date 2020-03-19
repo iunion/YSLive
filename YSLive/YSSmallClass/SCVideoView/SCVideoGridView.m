@@ -25,8 +25,13 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
 @property (nonatomic, strong) UIView *videosBgView;
 
+//焦点视图左侧每个小视频的宽高
 @property (nonatomic, assign) CGFloat videoWidth;
 @property (nonatomic, assign) CGFloat videoHeight;
+
+//焦点视图右侧的宽高
+@property (nonatomic, assign) CGFloat rightBgWidth;
+@property (nonatomic, assign) CGFloat rightBgHeight;
 
 @property (nonatomic, strong) UIView *rightVideoBgView;
 
@@ -699,12 +704,10 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 {
     self.videosBgView.frame = self.bounds;
     
-    CGFloat rightVideoBgWidth = 0.0;
-    CGFloat rightVideoBgHeight = self.bm_height;
+    self.rightBgWidth = 0.0;
+    self.rightBgHeight = self.bm_height;
     if (self.videoViewArray.count<= 5)
     {
-        self.videosBgView.frame = self.bounds;
-        
         self.videoHeight = ceil((self.bm_height - 5 * VIDEOGRIDVIEW_GAP)/4);
         
         if (self.isWideScreen)
@@ -715,11 +718,10 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
            {
                self.videoWidth = ceil(self.videoHeight / 3) * 4;
            }
-        rightVideoBgWidth = self.videoWidth + 2 * VIDEOGRIDVIEW_GAP;
+        self.rightBgWidth = self.videoWidth + 2 * VIDEOGRIDVIEW_GAP;
     }
     else
     {
-        self.videosBgView.frame = self.bounds;
         self.videoHeight = (self.bm_height - 7 * VIDEOGRIDVIEW_GAP)/6;
         
         if (self.isWideScreen)
@@ -730,20 +732,18 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         {
             self.videoWidth = ceil(self.videoHeight / 3) * 4;
         }
-        rightVideoBgWidth = 2 * self.videoWidth + 3 * VIDEOGRIDVIEW_GAP;
+        self.rightBgWidth = 2 * self.videoWidth + 3 * VIDEOGRIDVIEW_GAP;
     }
     
     [self.videosBgView addSubview:self.rightVideoBgView];
     
-    self.rightVideoBgView.frame = CGRectMake(self.bm_width - rightVideoBgWidth, 0, rightVideoBgWidth, rightVideoBgHeight);
+//    self.rightVideoBgView.frame = CGRectMake(self.bm_width - rightVideoBgWidth, 0, rightVideoBgWidth, rightVideoBgHeight);
 }
 
 - (void)freshViewFocusWithFouceVideo:(SCVideoView *)fouceVideo
 {
     CGFloat width = self.videoWidth + VIDEOGRIDVIEW_GAP;
     CGFloat height = self.videoHeight + VIDEOGRIDVIEW_GAP;
-    
-    CGFloat left = self.rightVideoBgView.bm_originX + VIDEOGRIDVIEW_GAP;
 
     NSMutableArray * mutArray = [NSMutableArray arrayWithArray:self.videoViewArray];
     
@@ -773,11 +773,19 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         CGFloat bgWidth = videoWidth*scale;
         CGFloat bgHeight = videoHeight*scale;
         
-        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+topHeight, bgWidth, bgHeight);
+        fouceVideo.frame = CGRectMake((self.defaultSize.width - bgWidth - self.rightVideoBgView.bm_width)/2, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+topHeight, bgWidth, bgHeight);
+//        fouceVideo.backgroundColor = UIColor.greenColor;
+        
+        self.rightVideoBgView.frame = CGRectMake(fouceVideo.bm_right, 0, self.rightBgWidth, self.rightBgHeight);
+//        self.rightVideoBgView.backgroundColor = UIColor.redColor;
+        
+//        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+topHeight, bgWidth, bgHeight);
 //        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP, bgWidth, bgHeight);
         
         [mutArray removeObject:fouceVideo];
     }
+    
+    CGFloat left = self.rightVideoBgView.bm_originX + VIDEOGRIDVIEW_GAP;
     
     switch (mutArray.count)
     {
