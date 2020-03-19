@@ -3933,17 +3933,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {
                     NSMutableDictionary * tempDic = [NSMutableDictionary dictionaryWithCapacity:0];
                     NSString *userID = [dic bm_stringForKey:@"fromid"];
-                    YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:userID];
-                    NSString *userName = user.nickName;
+//                    YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:userID];
+//                    NSString *userName = user.nickName;
                     NSInteger ts = [dic bm_intForKey:@"ts"];
                     NSTimeInterval time = ts - self->_answerStartTime;
                     NSString *timestr =  [NSDate bm_countDownENStringDateFromTs:time];
                     
-                    NSString *data = [dic bm_stringForKey:@"data"];
-                    
+                    NSDictionary *data = [YSLiveUtil convertWithData:[dic bm_stringForKey:@"data"]];
+//                    NSDictionary *data = [dic bm_dictionaryForKey:@"data"];
+                    NSString *userName = [data bm_stringForKey:@"nickname"];
+                    NSString *selectOpts = [data bm_stringForKey:@"selectOpts"];
                     [tempDic setValue:userName forKey:@"studentname"];
                     [tempDic setValue:timestr forKey:@"timestr"];
-                    [tempDic setValue:data forKey:@"selectOpts"];
+                    [tempDic setValue:selectOpts forKey:@"selectOpts"];
                     [tempDic setValue:userID forKey:@"userId"];
                     [detailArr addObject:tempDic];
                 }
@@ -4001,7 +4003,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.answerDetailTimer = nil;
     }
     BMWeakSelf
-    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
             
         self.answerResultView.isAnswerIng = NO;
@@ -4046,11 +4048,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 答题结果
 - (void)handleSignalingAnswerPublicResultWithAnswerId:(NSString *)answerId resault:(NSDictionary *)resault durationStr:(NSString *)durationStr answers:(NSArray *)answers totalUsers:(NSUInteger)totalUsers fromID:(NSString *)fromID
 {
+    
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
     self.answerResultView = [[SCTeacherAnswerView alloc] init];
     [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     self.answerResultView.isAnswerIng = NO;
-    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
         [self.answerResultView hideEndAgainBtn:NO];
     }

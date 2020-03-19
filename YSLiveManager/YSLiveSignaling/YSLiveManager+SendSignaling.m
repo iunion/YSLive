@@ -364,7 +364,15 @@
     }];
     
     NSString *mineResultStr = [tempArr componentsJoinedByString:@","];
-    NSDictionary *extensionData = @{ @"actions" :  actions,@"modify":@(0), @"type":@"count" ,@"write2DB":@1,@"data":mineResultStr};
+    
+    NSDictionary *dataDic = @{@"selectOpts" : mineResultStr,
+                              @"nickname" : self.localUser.nickName
+                            };
+    NSDictionary *extensionData = @{ @"actions" : actions,
+                                     @"modify":@(0),
+                                     @"type":@"count",
+                                     @"write2DB":@1,
+                                     @"data": dataDic};
     
     return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
 }
@@ -394,7 +402,15 @@
     }];
     
     NSString *mineResultStr = [tempArr componentsJoinedByString:@","];
-    NSDictionary *extensionData = @{ @"actions" :  actions,@"modify":@(1), @"type":@"count" ,@"write2DB":@1,@"data":mineResultStr};
+    NSDictionary *dataDic = @{@"selectOpts" : mineResultStr,
+                              @"nickname" : self.localUser.nickName
+                            };
+    NSDictionary *extensionData = @{ @"actions" : actions,
+                                     @"modify":@(1),
+                                     @"type":@"count",
+                                     @"write2DB":@1,
+                                     @"data": dataDic
+                                    };
 
     return ([self.roomManager pubMsg:YSSignalingName_AnswerCommit msgID:answerId toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:completion] == 0);
 }
