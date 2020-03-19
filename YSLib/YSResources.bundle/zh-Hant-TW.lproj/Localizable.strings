@@ -420,19 +420,23 @@
 
 "Prompt.LowDeviceTitle" = "設備效能過低，無法顯示更多視頻";
 
-"Prompt.NoCamera" = "無攝像頭";
+"Prompt.DeviceUnknownError" = "未知錯誤";
+
+"Prompt.NoCamera" = "未發現攝像頭";
 "Prompt.DisableCamera" = "攝像頭被禁用";
-"Prompt.CanotOpenCamera" = "無法打開攝像頭";
+"Prompt.CanotOpenCamera" = "打開攝像頭失敗";
 "Prompt.CameraOccupied" = "攝像頭被占用";
+
 "Prompt.VideoLoading" = "視頻加載中";
 "Prompt.VideoBuffering" = "正在緩沖視頻";
 "Prompt.UDPBlocking_self" = "UDP不通，請檢查網絡/防火墻";
 "Prompt.UDPBlocking_other" = "用戶網絡/防火墻UDP阻塞";
 
-"Prompt.NoMicrophone" = "無麥克風";
+"Prompt.NoMicrophone" = "未發現麥克風";
 "Prompt.DisableMicrophone" = "麥克風被禁用";
-"Prompt.CanotOpenMicrophone" = "無法打開麥克風";
+"Prompt.CanotOpenMicrophone" = "打開麥克風失敗";
 "Prompt.MicrophoneOccupied" = "麥克風被占用";
+
 "Prompt.InvalidMicrophone" = "麥克風無效";
 "Prompt.AudioLoading" = "音頻加載中";
 "Prompt.AudioBuffering" = "正在緩沖音頻";
