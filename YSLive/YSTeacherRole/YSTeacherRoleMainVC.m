@@ -159,7 +159,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     BOOL autoUpPlatform;
     NSInteger timer_defaultTime;
-    BOOL allNoAudio;
+    BOOL allNoAudio;// 全体静音
     
     NSInteger _personListCurentPage;
     NSInteger _personListTotalPage;
@@ -4242,7 +4242,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.responderView setPersonName:user.nickName];
     
-    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
         [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
         if (self.videoViewArray.count < self->maxVideoCount)
