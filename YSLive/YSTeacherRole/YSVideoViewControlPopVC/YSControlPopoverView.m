@@ -188,23 +188,47 @@
     [self moveButtonTitleAndImageWithButton:self.videoBtn];
     [self moveButtonTitleAndImageWithButton:self.mirrorBtn];
     
-    if (self.userModel.afail == YSDeviceFaultNone || self.userModel.hasAudio)
+    if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
     {
-        self.audioBtn.enabled = YES;
+        if (self.userModel.afail == YSDeviceFaultNone)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.userModel.vfail == YSDeviceFaultNone)
+        {
+            self.videoBtn.enabled = YES;
+            self.mirrorBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+            self.mirrorBtn.enabled = NO;
+        }
     }
     else
     {
-        self.audioBtn.enabled = NO;
-    }
-    if (self.userModel.vfail == YSDeviceFaultNone || self.userModel.hasVideo)
-    {
-        self.videoBtn.enabled = YES;
-        self.mirrorBtn.enabled = YES;
-    }
-    else
-    {
-        self.videoBtn.enabled = NO;
-        self.mirrorBtn.enabled = NO;
+        if (self.userModel.hasAudio)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.userModel.hasVideo)
+        {
+            self.videoBtn.enabled = YES;
+            self.mirrorBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+            self.mirrorBtn.enabled = NO;
+        }
     }
 }
 

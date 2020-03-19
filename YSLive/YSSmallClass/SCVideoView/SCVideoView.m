@@ -850,17 +850,23 @@
 //            deviceError = YES;
 //            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
 //        }
-        self.videoDeviceState = self.roomUser.vfail;
-        if (self.roomUser.vfail != YSDeviceFaultNone)
+        if ([self.roomUser.properties bm_containsObjectForKey:sUserVideoFail])
         {
-            deviceError = YES;
+            self.videoDeviceState = self.roomUser.vfail;
+            if (self.roomUser.vfail != YSDeviceFaultNone)
+            {
+                deviceError = YES;
+            }
         }
-        if (!deviceError && !self.roomUser.hasVideo)
+        else
         {
-            // 无设备
-            deviceError = YES;
-            // 设备禁用
-            self.videoDeviceState = YSDeviceFaultNotAuth;
+            if (!deviceError && !self.roomUser.hasVideo)
+            {
+                // 无设备
+                deviceError = YES;
+                // 设备禁用
+                self.videoDeviceState = YSDeviceFaultNotAuth;
+            }
         }
 
         if (deviceError)
@@ -915,17 +921,23 @@
 //            deviceError = YES;
 //            self.audioDeviceState = SCVideoViewAudioDeviceState_Disable;
 //        }
-        self.audioDeviceState = self.roomUser.afail;
-        if (self.roomUser.afail != YSDeviceFaultNone)
+        if ([self.roomUser.properties bm_containsObjectForKey:sUserAudioFail])
         {
-            deviceError = YES;
+            self.audioDeviceState = self.roomUser.afail;
+            if (self.roomUser.afail != YSDeviceFaultNone)
+            {
+                deviceError = YES;
+            }
         }
-        if (!deviceError && !self.roomUser.hasAudio)
+        else
         {
-            // 无设备
-            deviceError = YES;
-            // 设备禁用
-            self.audioDeviceState = YSDeviceFaultNotAuth;
+            if (!deviceError && !self.roomUser.hasAudio)
+            {
+                // 无设备
+                deviceError = YES;
+                // 设备禁用
+                self.audioDeviceState = YSDeviceFaultNotAuth;
+            }
         }
 
         if (deviceError)
