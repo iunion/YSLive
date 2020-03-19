@@ -423,10 +423,13 @@
 
 "Prompt.LowDeviceTitle" = "Device not  well enough to display more";
 
+"Prompt.DeviceUnknownError" = "Unknown error";
+
 "Prompt.NoCamera" = "No Camera";
-"Prompt.DisableCamera" = "Camera is banned";
-"Prompt.CanotOpenCamera" = "Can't open camera";
+"Prompt.DisableCamera" = "Camera disable";
+"Prompt.CanotOpenCamera" = "Device open error";
 "Prompt.CameraOccupied" = "Camera occupied";
+
 "Prompt.VideoLoading" = "Video loading";
 "Prompt.VideoBuffering" = "Video buffering";
 "Prompt.UDPBlocking_self" = "UDP blocking，check network/firewall";
@@ -434,10 +437,9 @@
 
 "Prompt.NoMicrophone" = "No Mic";
 "Prompt.DisableMicrophone" = "Mic disable";
-"Prompt.CanotOpenMicrophone" = "Can't open Mic";
+"Prompt.CanotOpenMicrophone" = "Device open error";
 "Prompt.MicrophoneOccupied" = "Mic occupied";
+
 "Prompt.InvalidMicrophone" = "Invalid Mic";
 "Prompt.AudioLoading" = "Audio loading";
 "Prompt.AudioBuffering" = "Audio buffering";
-
-

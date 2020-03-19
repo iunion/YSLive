@@ -23,14 +23,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewVideoState)
     
     // 设备不可用
     SCVideoViewVideoState_DeviceError = 1 << 1,
-    // 无设备
-    //SCVideoViewVideoState_NoDevice = 1 << 1,
-    // 设备被禁用
-    //SCVideoViewVideoState_DeviceDisable = 1 << 2,
-    // 设备被占用
-    //SCVideoViewVideoState_DeviceBusy = 1 << 3,
-    // 设备打开失败
-    //SCVideoViewVideoState_DeviceOpenError = 1 << 4,
     
     // 视频订阅失败
     SCVideoViewVideoState_SubscriptionFailed = 1 << 10,
@@ -53,14 +45,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
     
     // 设备不可用
     SCVideoViewAudioState_DeviceError = 1 << 0,
-    // 无设备
-    //SCVideoViewAudioState_NoDevice = 1 << 0,
-    // 设备被禁用
-    //SCVideoViewAudioState_DeviceDisable = 1 << 1,
-    // 设备被占用
-    //SCVideoViewAudioState_DeviceBusy = 1 << 2,
-    // 设备打开失败
-    //SCVideoViewAudioState_DeviceOpenError = 1 << 3,
     
     // 音频订阅失败
     SCVideoViewAudioState_SubscriptionFailed = 1 << 10,
@@ -69,20 +53,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
     
     // 用户关闭麦克风
     SCVideoViewAudioState_Close = 1 << 20
-};
-
-typedef NS_ENUM(NSUInteger, SCVideoViewDeviceState)
-{
-    // 正常
-    SCVideoViewDeviceState_None = 0,
-    // 无设备
-    SCVideoViewDeviceState_NoDevice,
-    // 设备被禁用
-    SCVideoViewDeviceState_Disable,
-    // 设备被占用
-    SCVideoViewDeviceState_Busy,
-    // 设备打开失败
-    SCVideoViewDeviceState_OpenError
 };
 
 
@@ -133,11 +103,11 @@ typedef NS_ENUM(NSUInteger, SCVideoViewDeviceState)
 /// 视频状态
 @property (nonatomic, assign, readonly) SCVideoViewVideoState videoState;
 /// 摄像头设备状态
-@property (nonatomic, assign, readonly) SCVideoViewDeviceState videoDeviceState;
+@property (nonatomic, assign, readonly) YSDeviceFaultType videoDeviceState;
 /// 音频状态
 @property (nonatomic, assign, readonly) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
-@property (nonatomic, assign, readonly) SCVideoViewDeviceState audioDeviceState;
+@property (nonatomic, assign, readonly) YSDeviceFaultType audioDeviceState;
 
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
