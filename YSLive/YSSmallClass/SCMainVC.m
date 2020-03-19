@@ -2516,7 +2516,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 麦克风
 - (void)microphoneProxyWithBtn:(UIButton *)btn
 {
-    if (self.liveManager.localUser.afail != YSDeviceFaultNone)
+    if (self.liveManager.localUser.afail == YSDeviceFaultNone)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         
@@ -4695,7 +4695,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark -全体静音 发言
 - (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
 {
-    if (self.liveManager.localUser.afail != YSDeviceFaultNone)
+    if (self.liveManager.localUser.afail == YSDeviceFaultNone)
     {
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         BOOL needsend = NO;
