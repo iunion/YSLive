@@ -94,9 +94,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 /// 画笔权限
 @property (nonatomic, assign) BOOL canDraw;
 
-/// 是否点击了home键
-@property (nonatomic, assign) BOOL isInBackGround;
-
 /// 背景view
 @property (nonatomic, strong) UIView *backVideoView;
 
