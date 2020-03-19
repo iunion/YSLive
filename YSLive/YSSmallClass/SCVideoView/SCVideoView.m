@@ -935,7 +935,7 @@
             self.audioState &= ~SCVideoViewAudioState_DeviceError;
         }
 
-        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4)
+        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4 || [YSLiveManager shareInstance].isEveryoneNoAudio)
         {
             // 关闭音频
             self.audioState |= SCVideoViewAudioState_Close;
