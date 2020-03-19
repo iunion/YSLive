@@ -812,7 +812,7 @@
     if (self.isForPerch)
     {
 //        self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
-        self.maskNoVideobgLab.hidden = ((self.roomUser.vfail == YSDeviceFaultNone) || self.roomUser.hasVideo);
+        self.maskNoVideobgLab.hidden = (self.roomUser.vfail == YSDeviceFaultNone);
         self.backVideoView.hidden = YES;
     }
     else
