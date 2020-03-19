@@ -2143,6 +2143,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+    if ([roomUser.properties bm_containsObjectForKey:sUserVideoFail])
+    {
+        if (roomUser.vfail != YSDeviceFaultNone && roomUser.afail != YSDeviceFaultNone)
+        {
+            return;
+        }
+    }
+    else
+    {
+        if (!roomUser.hasVideo && !roomUser.hasAudio)
+        {
+            return;
+        }
+    }
+    
     // 删除本人占位视频
     for (SCVideoView *avideoView in self.videoViewArray)
     {
