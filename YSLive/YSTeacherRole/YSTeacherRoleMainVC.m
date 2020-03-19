@@ -4139,7 +4139,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)teacherResponderCloseClicked
 {
     [self.liveManager sendSignalingTeacherToCloseResponderCompletion:nil];
-    
+    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherResponderCountDownKey];
 }
 
 /// 老师/助教收到 showContest
