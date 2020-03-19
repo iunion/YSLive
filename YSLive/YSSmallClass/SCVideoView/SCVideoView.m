@@ -850,18 +850,19 @@
 //            deviceError = YES;
 //            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
 //        }
-//        if (!self.roomUser.hasVideo)
-//        {
-//            // 无设备
-//            deviceError = YES;
-//            self.videoDeviceState = SCVideoViewVideoDeviceState_NoDevice;
-//        }
         self.videoDeviceState = self.roomUser.vfail;
         if (self.roomUser.vfail != YSDeviceFaultNone)
         {
             deviceError = YES;
         }
-        
+        if (!deviceError && !self.roomUser.hasVideo)
+        {
+            // 无设备
+            deviceError = YES;
+            // 设备禁用
+            self.videoDeviceState = YSDeviceFaultNotAuth;
+        }
+
         if (deviceError)
         {
             self.videoState |= SCVideoViewVideoState_DeviceError;
@@ -914,18 +915,19 @@
 //            deviceError = YES;
 //            self.audioDeviceState = SCVideoViewAudioDeviceState_Disable;
 //        }
-//        if (!self.roomUser.hasAudio)
-//        {
-//            // 无设备
-//            deviceError = YES;
-//            self.audioDeviceState = SCVideoViewAudioDeviceState_NoDevice;
-//        }
         self.audioDeviceState = self.roomUser.afail;
         if (self.roomUser.afail != YSDeviceFaultNone)
         {
             deviceError = YES;
         }
-        
+        if (!deviceError && !self.roomUser.hasAudio)
+        {
+            // 无设备
+            deviceError = YES;
+            // 设备禁用
+            self.audioDeviceState = YSDeviceFaultNotAuth;
+        }
+
         if (deviceError)
         {
             self.audioState |= SCVideoViewAudioState_DeviceError;

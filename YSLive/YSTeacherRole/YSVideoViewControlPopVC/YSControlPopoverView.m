@@ -188,7 +188,7 @@
     [self moveButtonTitleAndImageWithButton:self.videoBtn];
     [self moveButtonTitleAndImageWithButton:self.mirrorBtn];
     
-    if (self.userModel.afail == YSDeviceFaultNone)
+    if (self.userModel.afail == YSDeviceFaultNone || self.userModel.hasAudio)
     {
         self.audioBtn.enabled = YES;
     }
@@ -196,7 +196,7 @@
     {
         self.audioBtn.enabled = NO;
     }
-    if (self.userModel.vfail == YSDeviceFaultNone)
+    if (self.userModel.vfail == YSDeviceFaultNone || self.userModel.hasVideo)
     {
         self.videoBtn.enabled = YES;
         self.mirrorBtn.enabled = YES;
