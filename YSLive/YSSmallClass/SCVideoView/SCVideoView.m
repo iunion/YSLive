@@ -754,7 +754,7 @@
             // 设备打开失败
             default:
             {
-                self.silentLab.text = [NSString stringWithFormat:@"%@:%@", @(self.videoDeviceState), YSLocalized(@"Prompt.CanotOpenMicrophone")];
+                self.silentLab.text = [NSString stringWithFormat:@"%@:%@", @(self.audioDeviceState), YSLocalized(@"Prompt.CanotOpenMicrophone")];
             }
                 break;
         }
