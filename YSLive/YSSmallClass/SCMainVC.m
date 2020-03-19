@@ -1240,7 +1240,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    }
 //    else
 //    {
-//        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+//        [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withDetailText:YSLocalized(@"Prompt.RaiseHand_classBegain") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 //    }
 }
 
@@ -3044,7 +3044,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             NSString *s = [textView.text substringToIndex:140];
             [textView setText:s];
             
-            BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:YSLocalized(@"Alert.NumberOfWords.140")];
+            BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withDetailText:YSLocalized(@"Alert.NumberOfWords.140")];
             hub.yOffset = -100;
             [BMProgressHUD bm_hideHUDForView:self.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
@@ -3073,7 +3073,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageTypeOnlyImage withMemberModel:nil];
                 if (!isSucceed) {
-                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
                     hub.yOffset = -100;
                     [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
@@ -3095,9 +3095,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
              */
         } failure:^(NSInteger errorCode) {
 #if DEBUG
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withText:YSLocalized(@"UploadPhoto.Error")];
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
 #endif
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
@@ -3449,7 +3449,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
 #if DEBUG
     [self bringSomeViewToFront];
-    [self.progressHUD bm_showAnimated:NO withText:@"变更为大房间" delay:5];
+    [self.progressHUD bm_showAnimated:NO withDetailText:@"变更为大房间" delay:5];
 #endif
 }
 
@@ -3530,7 +3530,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     
     self.topBarModel.netQuality = netQuality;
@@ -3571,7 +3571,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -3583,7 +3583,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (networkQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -4169,7 +4169,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
 #if DEBUG
             [self bringSomeViewToFront];
-            [self.progressHUD bm_showAnimated:NO withText:@"出现后台问题！！！！！！！！" delay:10];
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"出现后台问题！！！！！！！！" delay:10];
 #endif
 
             [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];

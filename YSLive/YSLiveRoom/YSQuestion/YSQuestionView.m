@@ -117,7 +117,7 @@
 {
     if (![YSLiveManager shareInstance].isBeginClass)
     {
-        BMProgressHUD * hub =[BMProgressHUD bm_showHUDAddedTo:self animated:YES withText:YSLocalized(@"Alert.CanNotQuestion")];
+        BMProgressHUD * hub =[BMProgressHUD bm_showHUDAddedTo:self animated:YES withDetailText:YSLocalized(@"Alert.CanNotQuestion")];
         hub.yOffset = -130;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

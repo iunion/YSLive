@@ -27,7 +27,7 @@
 "Error.pointOverRun" = "企業點數超限";
 "Error.PwdError" = "密碼輸入錯誤，請重新輸入";
 "Error.AuthIncorrect" = "Auth不正確";
-"Error.WaitingForNetwork" = "您的網絡暫時不可用，請稍後重試";
+"Error.WaitingForNetwork" = "當前網絡不可用，請檢查你的網絡設定";
 
 "Error.RoomTypeCheckError" = "房間號錯誤或已過期";
 "Error.CanNotConnectNetworkError" = "無法連接到服務器，請稍後再試";

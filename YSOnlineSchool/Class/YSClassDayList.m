@@ -269,9 +269,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -371,14 +371,14 @@
                     }
                 }
                 
-                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
     else
     {
-         [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+         [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -605,7 +605,7 @@
 
 - (void)onRoomConnectionLost
 {
-    [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 
     [[YSLiveManager shareInstance] destroy];
 }

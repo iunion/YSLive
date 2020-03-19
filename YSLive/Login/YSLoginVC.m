@@ -888,9 +888,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -916,20 +916,20 @@
                     {
                         NSString *message = [dataDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
                         message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
-                        [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         return;
                     }
 #endif
                 }
                 
-                [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -961,9 +961,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -1008,17 +1008,17 @@
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
                         message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
-                        [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         return;
                     }
 #endif
 
                     NSString *info = [responseDic bm_stringForKey:@"info"];
-                    [weakSelf.progressHUD bm_showAnimated:NO withText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
                 else
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
         }];
@@ -1026,7 +1026,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1034,7 +1034,7 @@
 {
     if (![YSCoreStatus isNetworkEnable])
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Alert.CheckNetMessage") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
 
@@ -1203,9 +1203,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -1216,14 +1216,14 @@
 
                 if (![responseDic bm_isNotEmptyDictionary])
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
 
                 NSInteger result = [responseDic bm_intForKey:@"result"];
                 if (result == 4007)
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
@@ -1239,7 +1239,7 @@
 #if YSShowErrorCode
                         message = [NSString stringWithFormat:@"%@: %@", @(result), message];
 #endif
-                        [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 
                         weakSelf.callNum = 0;
                     }
@@ -1303,7 +1303,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1834,7 +1834,7 @@
             NSString *s = [textField.text substringToIndex:10];
             [textField setText:s];
             
-            [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
 }
@@ -2028,7 +2028,7 @@
 
 - (void)onRoomConnectionLost
 {
-    [self.progressHUD bm_showAnimated:NO withText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 
     [[YSLiveManager shareInstance] destroy];
 }
