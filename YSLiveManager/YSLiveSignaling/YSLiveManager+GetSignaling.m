@@ -755,9 +755,7 @@
         else
         {
             NSMutableArray * userArray = [NSMutableArray array];
-//            if (self.isBigRoom)
-//            {
-//                NSMutableArray * peerArray = [NSMutableArray array];
+            
                 for (NSDictionary * dict in resultArray)
                 {
                     NSString * userId = dict.allKeys.firstObject;
@@ -775,26 +773,7 @@
             {
                 [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
             }
-            
-//            }
-//            else
-//            {
-//                for (NSDictionary * dict in resultArray)
-//                {
-//                    NSString * userId = dict.allKeys.firstObject;
-//                    YSRoomUser * user = [self.roomManager getRoomUserWithUId:userId];
-//                    if ([user bm_isNotEmpty])
-//                    {
-//                        [userArray addObject:user];
-//                    }
-//                }
-//                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
-//                {
-//                    [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
-//                }
-//            }
         }
-        
         return;
     }
     

@@ -778,11 +778,11 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     
     if (mutArray.count>0)
     {
-//        CGFloat top = VIDEOGRIDVIEW_TOP;
+        CGFloat topHeight = VIDEOGRIDVIEW_TOP/2;
         
         CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2 - self.rightVideoBgView.bm_width;
-//        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
-        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2;
+        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-topHeight;
+//        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2;
         
         CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
         CGFloat videoHeight;
@@ -802,8 +802,8 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         CGFloat bgWidth = videoWidth*scale;
         CGFloat bgHeight = videoHeight*scale;
         
-//        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+top/2, bgWidth, bgHeight);
-        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP, bgWidth, bgHeight);
+        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+topHeight, bgWidth, bgHeight);
+//        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP, bgWidth, bgHeight);
         
         [mutArray removeObject:fouceVideo];
     }

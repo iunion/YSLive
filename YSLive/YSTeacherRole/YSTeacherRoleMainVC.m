@@ -2005,19 +2005,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //
 //    }
 //
-    NSMutableArray * mutArray = nil;
-    if (self.liveManager.isBigRoom)
-    {
-        mutArray = [NSMutableArray arrayWithArray:self.liveManager.userList];
-    }
-    else
-    {
-        mutArray = [NSMutableArray array];
+//    if (self.liveManager.isBigRoom)
+//    {
+//        mutArray = [NSMutableArray arrayWithArray:self.liveManager.userList];
+//    }
+//    else
+//    {
+        NSMutableArray * mutArray = [NSMutableArray array];
         for (SCVideoView * videoView in self.videoViewArray)
         {
             [mutArray addObject:videoView.roomUser];
         }
-    }
+//    }
+    
+    
     if ([mutArray bm_isNotEmpty])
     {
         for (int i = 0; i<raiseHandUserArray.count; i++)
@@ -2036,7 +2037,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             if (publishState > YSUser_PublishState_NONE)
             {
+                [raiseHandUserArray removeObject:userDict];
                 [userDict setValue:@(publishState) forKey:@"publishState"];
+                [raiseHandUserArray addObject:userDict];
                 break;
             }
         }
@@ -2056,8 +2059,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.raiseHandsBtn.selected = YES;
         }
         
-        self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)raiseHandUserArray.count,(long)self.liveManager.studentCount];
-//    });
+        self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)self.liveManager.studentCount];
 }
 
 #pragma mark - 用户属性变化
@@ -3602,12 +3604,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (![self.fouceView bm_isNotEmpty])
         {
             self.roomLayout = YSLiveRoomLayout_VideoLayout;
-            self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = NO;
         }
-        else
-        {
-            self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = YES;
-        }
+       
+        self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = YES;
+    }
+    else if (roomLayout == YSLiveRoomLayout_VideoLayout)
+    {
+        self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = YES;
     }
     else
     {
