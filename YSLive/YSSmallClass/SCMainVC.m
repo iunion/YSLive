@@ -4262,13 +4262,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingSetRoomLayout:(YSLiveRoomLayout)roomLayout withPeerId:(nullable NSString *)peerId
 {
     self.roomLayout = roomLayout;
-
+    
     if (!self.isWhitebordFullScreen)
     {
-        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         if (YSCurrentUser.canDraw)
         {
-            self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+            self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         }
     }
     
@@ -4295,16 +4295,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             self.roomLayout = YSLiveRoomLayout_VideoLayout;
         }
-        
-        self.boardControlView.hidden = YES;
-    }
-    else if (roomLayout == YSLiveRoomLayout_VideoLayout)
-    {
-        self.boardControlView.hidden = YES;
-    }
-    else
-    {
-        self.boardControlView.hidden = NO;
     }
     
     [self freshContentView];

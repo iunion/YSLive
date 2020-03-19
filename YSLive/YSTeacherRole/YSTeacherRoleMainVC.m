@@ -3565,9 +3565,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (!self.isWhitebordFullScreen)
     {
-        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
 
-        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
     }
     
     if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
@@ -3595,16 +3595,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             self.roomLayout = YSLiveRoomLayout_VideoLayout;
         }
-       
-        self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = YES;
-    }
-    else if (roomLayout == YSLiveRoomLayout_VideoLayout)
-    {
-        self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = YES;
-    }
-    else
-    {
-        self.brushToolView.hidden = self.drawBoardView.hidden = self.boardControlView.hidden = NO;
     }
     
     [self freshContentView];
