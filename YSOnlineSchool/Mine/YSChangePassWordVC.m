@@ -132,20 +132,20 @@
     NSString *confirmPwd = self.againPasswordView.inputTextField.text;
     if (![newPwd bm_isMatchWithPattern:YSSCHOOLPASSWORD_PATTERN])
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         
         return;
     }
     if (![confirmPwd bm_isMatchWithPattern:YSSCHOOLPASSWORD_PATTERN])
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         
         return;
     }
     
     if (![confirmPwd isEqualToString:newPwd])
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.PwdLength") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdLength") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
         
         return;
     }
@@ -186,9 +186,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -219,13 +219,13 @@
                         }
                         else
                         {
-                            [weakSelf.progressHUD bm_showAnimated:NO withText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                            [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                     }
                 }
                 else
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
                 
             }
@@ -234,7 +234,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 

@@ -27,7 +27,7 @@
 "Error.pointOverRun" = "Enterprise point overrun";
 "Error.PwdError" = "Password input error, please re-enter.";
 "Error.AuthIncorrect" = "Authentication Failed";
-"Error.WaitingForNetwork" = "Your network is temporarily unavailable, please try again later";
+"Error.WaitingForNetwork" = "The current network is not available.\nPlease check your network settings";
 "Error.RoomTypeCheckError" = "Room number is incorrect or the room has expired";
 "Error.CanNotConnectNetworkError" = "Unable to connect to the server. Please try again later";
 "Error.ServerError" = "Server access exception";
