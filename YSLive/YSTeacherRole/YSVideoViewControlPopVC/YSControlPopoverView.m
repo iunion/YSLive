@@ -255,6 +255,8 @@
         
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
+    UIImage * audioClose = [[UIImage imageNamed:@"tearch_openSound"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
     self.audioBtn.tag = 0;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -267,6 +269,9 @@
     
     //视频控制按钮
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"tearch_openVideo" selectImageName:@"tearch_closeVideo"];
+    UIImage * videoClose = [[UIImage imageNamed:@"tearch_openVideo"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
+    
     self.videoBtn.tag = 1;
     if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -290,6 +295,49 @@
     
     [self moveButtonTitleAndImageWithButton:self.audioBtn];
     [self moveButtonTitleAndImageWithButton:self.videoBtn];
+    //没有摄像头、麦克风权限时的显示禁用状态
+    if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
+    {
+        if (self.userModel.afail == YSDeviceFaultNone)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.userModel.vfail == YSDeviceFaultNone)
+        {
+            self.videoBtn.enabled = YES;
+            self.mirrorBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+            self.mirrorBtn.enabled = NO;
+        }
+    }
+    else
+    {
+        if (self.userModel.hasAudio)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.userModel.hasVideo)
+        {
+            self.videoBtn.enabled = YES;
+            self.mirrorBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+            self.mirrorBtn.enabled = NO;
+        }
+    }
     
     if (self.roomtype == YSRoomType_More)
     {
@@ -386,6 +434,8 @@
    
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
+    UIImage * audioClose = [[UIImage imageNamed:@"tearch_openSound"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
     self.audioBtn.tag = 0;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -398,6 +448,9 @@
     
     //视频控制按钮
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"tearch_openVideo" selectImageName:@"tearch_closeVideo"];
+    UIImage * videoClose = [[UIImage imageNamed:@"tearch_openVideo"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
+    
     self.videoBtn.tag = 1;
     if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -408,6 +461,49 @@
         self.videoBtn.selected = NO;
     }
     
+    //没有摄像头、麦克风权限时的显示禁用状态
+    if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
+    {
+        if (self.userModel.afail == YSDeviceFaultNone)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.userModel.vfail == YSDeviceFaultNone)
+        {
+            self.videoBtn.enabled = YES;
+            self.mirrorBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+            self.mirrorBtn.enabled = NO;
+        }
+    }
+    else
+    {
+        if (self.userModel.hasAudio)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.userModel.hasVideo)
+        {
+            self.videoBtn.enabled = YES;
+            self.mirrorBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+            self.mirrorBtn.enabled = NO;
+        }
+    }
     //画笔权限控制按钮
     self.canDrawBtn = [self creatButtonWithTitle:YSLocalized(@"Label.Authorized") selectTitle:YSLocalized(@"Label.CancelAuthorized") imageName:@"teacher_authorize" selectImageName:@"teacher_ancelAuthorize"];
     self.canDrawBtn.tag = 2;
