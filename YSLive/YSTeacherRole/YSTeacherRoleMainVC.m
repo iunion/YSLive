@@ -3820,7 +3820,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.answerResultView = [[SCTeacherAnswerView alloc] init];
     [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     self.answerResultView.isAnswerIng = YES;
-    if (![fromID isEqualToString:self.liveManager.teacher.peerID])
+    if (![fromID isEqualToString:self.liveManager.localUser.peerID])
     {
         [self.answerResultView hideOpenResult:YES];
         [self.answerResultView hideEndAgainBtn:YES];
@@ -4011,12 +4011,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.answerDetailTimer = nil;
     }
     BMWeakSelf
-    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
+    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     {
             
-        self.answerResultView.isAnswerIng = YES;
+        self.answerResultView.isAnswerIng = NO;
         [self.answerResultView hideEndAgainBtn:NO];
-        
+        [self.answerResultView hideOpenResult:YES];
         self.answerResultView.againBlock = ^{
             [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
             // 删除答题结果信令
@@ -4060,7 +4060,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.answerResultView = [[SCTeacherAnswerView alloc] init];
     [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     self.answerResultView.isAnswerIng = NO;
-    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
+    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     {
         [self.answerResultView hideEndAgainBtn:NO];
     }
