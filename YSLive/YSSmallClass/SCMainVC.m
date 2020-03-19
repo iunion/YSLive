@@ -4836,6 +4836,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.liveManager.localUser.afail == YSDeviceFaultNone)
     {
+        
+        if (self.liveManager.isEveryoneNoAudio)
+        {
+            self.controlPopoverView.audioBtn.enabled = NO;
+        }
+        else
+        {
+            self.controlPopoverView.audioBtn.enabled = YES;
+        }
+        
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
         BOOL needsend = NO;
         if (noAudio)
