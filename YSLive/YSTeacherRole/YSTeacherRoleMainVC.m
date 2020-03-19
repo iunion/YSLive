@@ -740,7 +740,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     popTab.letStudentUpVideo = ^(YSUpHandPopCell *cell) {
         if (weakSelf.videoViewArray.count < self->maxVideoCount)
         {
-            
             if (weakSelf.liveManager.isBigRoom)
             {
                 [weakSelf.liveManager.roomManager getRoomUserWithPeerId:[cell.userDict bm_stringForKey:@"peerId"] callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
@@ -1407,6 +1406,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         BMWeakType(btn)
         BMWeakSelf
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
         classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1558,6 +1559,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //        return;
     //    }
     //
+    
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
     if (!roomUser)
     {
@@ -1671,6 +1675,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)delVidoeViewWithPeerId:(NSString *)peerId
 {
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     SCVideoView *delVideoView = nil;
     if ([peerId isEqualToString:self.teacherVideoView.roomUser.peerID])
     {
@@ -1733,6 +1739,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");//(@"KickOut.SentOutClassroom");
     
+    
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -2460,7 +2469,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     // 老师取消订阅举手列表
     [self.liveManager sendSignalingToSubscribeAllRaiseHandMemberWithType:@"unsubSort" Completion:nil];
-    
+   
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     BMWeakSelf
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -2476,6 +2487,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 弹框
 - (void)showSignalingClassEndWithText:(NSString *)text
 {
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -5253,6 +5266,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 踢出
 - (void)outProxyWithRoomUser:(YSRoomUser *)roomUser
 {
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Permissions.KickedOutMembers") preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -5268,6 +5283,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 删除课件
 - (void)deleteCoursewareProxyWithFileModel:(YSFileModel *)fileModel
 {
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];
     

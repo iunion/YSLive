@@ -127,6 +127,8 @@
     
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
+    UIImage * audioClose = [[UIImage imageNamed:@"tearch_openSound"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
     self.audioBtn.tag = 0;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -139,6 +141,9 @@
     
     //视频控制按钮
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"tearch_openVideo" selectImageName:@"tearch_closeVideo"];
+    UIImage * videoClose = [[UIImage imageNamed:@"tearch_openVideo"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
+    
     self.videoBtn.tag = 1;
     if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -151,6 +156,11 @@
     
     //镜像控制按钮
     self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenMirror" ) selectTitle:YSLocalized(@"Button.CloseMirror" ) imageName:@"user_openMirror" selectImageName:@"user_CloseMirror"];
+    
+    UIImage * mirrorClose = [[UIImage imageNamed:@"user_openMirror"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.mirrorBtn setImage:mirrorClose forState:UIControlStateDisabled];
+    
+    
     self.mirrorBtn.tag = 2;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -177,6 +187,25 @@
     [self moveButtonTitleAndImageWithButton:self.audioBtn];
     [self moveButtonTitleAndImageWithButton:self.videoBtn];
     [self moveButtonTitleAndImageWithButton:self.mirrorBtn];
+    
+    if (self.userModel.afail == YSDeviceFaultNone)
+    {
+        self.audioBtn.enabled = YES;
+    }
+    else
+    {
+        self.audioBtn.enabled = NO;
+    }
+    if (self.userModel.vfail == YSDeviceFaultNone)
+    {
+        self.videoBtn.enabled = YES;
+        self.mirrorBtn.enabled = YES;
+    }
+    else
+    {
+        self.videoBtn.enabled = NO;
+        self.mirrorBtn.enabled = NO;
+    }
 }
 
 - (void)setupTearcherUI
