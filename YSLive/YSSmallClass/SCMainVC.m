@@ -3905,9 +3905,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
-        BOOL isInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
-        videoView.isInBackGround = isInBackGround;
-        
+        [videoView freshWithRoomUserProperty:roomUser];
     }
     
     /// 用户设备状态
@@ -4743,7 +4741,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark - 抢答器
-- (void)handleSignalingContest
+- (void)handleSignalingContestFromID:(NSString *)fromID
 {
     contestTouchOne = 0;
     if (self.responderView)

@@ -795,9 +795,9 @@
     if ([msgName isEqualToString:YSSignalingName_showContest])
     {
         
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowContest)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowContestFromID:)])
         {
-            [self.roomManagerDelegate handleSignalingShowContest];
+            [self.roomManagerDelegate handleSignalingShowContestFromID:fromID];
         }
         return;
     }
@@ -806,9 +806,9 @@
     if ([msgName isEqualToString:YSSignalingName_Contest])
     {
         
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContest)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestFromID:)])
         {
-            [self.roomManagerDelegate handleSignalingContest];
+            [self.roomManagerDelegate handleSignalingContestFromID:fromID];
         }
         return;
     }
