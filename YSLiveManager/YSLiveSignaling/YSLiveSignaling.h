@@ -115,23 +115,23 @@
 
 
 /// 答题卡
-#define YSSignalingName_Answer                      @"Answer"
+#define YSSignalingName_Answer                      @"Answer_v1"
 /// 答题回答
-#define YSSignalingName_AnswerCommit                @"AnswerCommit"
+#define YSSignalingName_AnswerCommit                @"AnswerCommit_v1"
 /// 老师获取学生的答题情况
-#define YSSignalingName_AnswerGetResult             @"AnswerGetResult"
+#define YSSignalingName_AnswerGetResult             @"AnswerGetResult_v1"
 /// 公布答题结果
-#define YSSignalingName_AnswerPublicResult          @"AnswerPublicResult"
+#define YSSignalingName_AnswerPublicResult          @"AnswerPublicResult_v1"
 /// 老师抢答器
-#define YSSignalingName_showContest          @"ShowContest"
+#define YSSignalingName_showContest          @"ShowContest_v1"
 //发起抢答排序
-#define YSSignalingName_Contest              @"Contest"
+#define YSSignalingName_Contest              @"Contest_v1"
 /// 收到学生抢答
-#define YSSignalingName_ContestCommit          @"ContestCommit"
+#define YSSignalingName_ContestCommit          @"ContestCommit_v1"
 /// 抢答结果
-#define YSSignalingName_ContestResult          @"ContestResult"
+#define YSSignalingName_ContestResult          @"ContestResult_v1"
 /// 订阅排序
-#define YSSignalingName_ContestSubsort         @"ContestSubsort"
+#define YSSignalingName_ContestSubsort         @"ContestSubsort_v1"
 
 
 #define YSSignalingName_Timer             @"timer"
