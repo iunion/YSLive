@@ -792,7 +792,7 @@
     }
     
     // 收到开始抢答
-    if ([msgName isEqualToString:YSSignalingName_showContest])
+    if ([msgName isEqualToString:YSSignalingName_ShowContest])
     {
         
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowContestFromID:)])
@@ -1250,7 +1250,7 @@
     }
     
     // 关闭抢答器
-    if ([msgName isEqualToString:YSSignalingName_showContest])
+    if ([msgName isEqualToString:YSSignalingName_ShowContest])
     {
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToCloseResponder)])
         {

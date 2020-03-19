@@ -422,7 +422,7 @@
                                      @"modify":@(0),
                                      @"type":@"sort"
     };
-    return ([self.roomManager pubMsg:YSSignalingName_ContestCommit msgID:YSSignalingName_ContestCommit toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:YSSignalingName_Contest associatedUserID:self.localUser.peerID expires:0 completion:completion] == 0);
+    return ([self.roomManager pubMsg:YSSignalingName_ContestCommit msgID:@"ContestCommit" toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:@"Contest" associatedUserID:self.localUser.peerID expires:0 completion:completion] == 0);
     
     
 }

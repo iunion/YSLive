@@ -414,7 +414,7 @@
 - (BOOL)sendSignalingTeacherToStartResponderCompletion:(nullable completion_block)completion
 {
 //    NSDictionary *sendDic = @{ @"state" : @"starting" };
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_showContest msgID:YSSignalingName_showContest toID:YSRoomPubMsgTellAll data:@{} save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ShowContest msgID:@"ShowContest" toID:YSRoomPubMsgTellAll data:@{} save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 
@@ -427,7 +427,7 @@
                               @"subInterval" : @(1000)
                             };
     NSDictionary * extensionData = @{@"type":@"useSort"};
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_Contest msgID:YSSignalingName_Contest toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_Contest msgID:@"Contest" toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:extensionData associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 }
@@ -442,7 +442,7 @@
     }
 
     NSDictionary *sendDic = @{ @"nickName" : nickName };
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestResult msgID:YSSignalingName_ContestResult toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestResult msgID:@"ContestResult" toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:NO extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 
@@ -455,7 +455,7 @@
                               @"max" : @(max)
                             };
     NSDictionary * extensionData = @{@"type":@"subSort"};
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestSubsort msgID:YSSignalingName_ContestSubsort toID:YSRoomPubMsgTellNone data:[sendDic bm_toJSON] save:YES extensionData:extensionData associatedMsgID:YSSignalingName_Contest associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestSubsort msgID:@"ContestSubsort" toID:YSRoomPubMsgTellNone data:[sendDic bm_toJSON] save:YES extensionData:extensionData associatedMsgID:@"Contest" associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 
@@ -466,7 +466,7 @@
 {
     
     NSDictionary * extensionData = @{@"type":@"unsubSort"};
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestSubsort msgID:YSSignalingName_ContestSubsort toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:YSSignalingName_Contest associatedUserID:nil expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_ContestSubsort msgID:@"ContestSubsort" toID:YSRoomPubMsgTellNone data:@{} save:NO extensionData:extensionData associatedMsgID:@"Contest" associatedUserID:nil expires:0 completion:nil] == 0;
 
     return result;
 
@@ -475,7 +475,7 @@
 /// 结束抢答排序
 - (BOOL)sendSignalingTeacherToDeleteContestCompletion:(nullable completion_block)completion
 {
-    BOOL result = [self.roomManager delMsg:YSSignalingName_Contest msgID:YSSignalingName_Contest toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
+    BOOL result = [self.roomManager delMsg:YSSignalingName_Contest msgID:@"Contest" toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
 
     return result;
 }
@@ -484,7 +484,7 @@
 /// 关闭抢答器
 - (BOOL)sendSignalingTeacherToCloseResponderCompletion:(nullable completion_block)completion
 {
-    BOOL result = [self.roomManager delMsg:YSSignalingName_showContest msgID:YSSignalingName_showContest toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
+    BOOL result = [self.roomManager delMsg:YSSignalingName_ShowContest msgID:@"ShowContest" toID:YSRoomPubMsgTellAll data:@"" completion:completion] == 0;
 
     return result;
     
