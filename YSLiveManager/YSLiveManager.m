@@ -407,6 +407,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.userList = [[NSMutableArray alloc] init];
     
     self.whiteBoardManager = [YSWhiteBoardManager shareInstance];
+    NSLog(@"WhiteBoard SDK Version: %@", [YSWhiteBoardManager whiteBoardVersion]);
     
     BMWeakSelf
     self.whiteBoardManager.webContentTerminateBlock = ^NSArray *_Nullable {
