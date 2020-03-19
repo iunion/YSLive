@@ -115,13 +115,13 @@
 
 
 /// 答题卡
-#define YSSignalingName_Answer                      @"Answer_v1"
+#define YSSignalingName_Answer                      @"Answer"
 /// 答题回答
-#define YSSignalingName_AnswerCommit                @"AnswerCommit_v1"
+#define YSSignalingName_AnswerCommit                @"AnswerCommit"
 /// 老师获取学生的答题情况
-#define YSSignalingName_AnswerGetResult             @"AnswerGetResult_v1"
+#define YSSignalingName_AnswerGetResult             @"AnswerGetResult"
 /// 公布答题结果
-#define YSSignalingName_AnswerPublicResult          @"AnswerPublicResult_v1"
+#define YSSignalingName_AnswerPublicResult          @"AnswerPublicResult"
 /// 老师抢答器
 #define YSSignalingName_showContest          @"ShowContest_v1"
 //发起抢答排序
