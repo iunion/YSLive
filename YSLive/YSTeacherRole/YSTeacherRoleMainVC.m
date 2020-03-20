@@ -4373,6 +4373,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (self->contestCommitNumber == 0)
             {
+                [self.responderView setPersonName:[NSString stringWithFormat:@"%@",YSLocalized(@"Res.lab.fail")]];
                 if ([fromID isEqualToString:self.liveManager.localUser.peerID])
                  {
                      [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
@@ -4401,8 +4402,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     [weakSelf showContestResultWithRoomUser:user fromID:fromID];
                 }
             }
-       
-            
         }
     }];
 }
