@@ -189,6 +189,7 @@
         [self.actionBtn setTitle:YSLocalized(@"Res.btn.noget") forState:UIControlStateNormal];
         self.actionBtn.hidden = NO;
         self.selectBtn.hidden = YES;
+        self.iconImgV.hidden = NO;
     }
 
 }

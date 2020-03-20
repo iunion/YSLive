@@ -4315,12 +4315,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    老师/助教发起抢答排序 Contest(pubMsg)，并订阅抢答排序ContestSubsort(pubMsg)
 //    if (!self.responderView)
 //    {
-//        self.responderView = [[YSTeacherResponder alloc] init];
-//        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-//        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
-//        self.responderView.delegate = self;
+    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+        self.responderView = [[YSTeacherResponder alloc] init];
+        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+        self.responderView.delegate = self;
 //    }
-    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+//    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     {
          [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300 completion:nil];
     }
@@ -4329,18 +4330,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 收到抢答排序
 - (void)handleSignalingContestFromID:(NSString *)fromID
 {
+    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
     BMWeakSelf
-    if (!self.responderView)
-    {
+//    if (!self.responderView)
+//    {
         self.responderView = [[YSTeacherResponder alloc] init];
         [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
         [self.responderView showResponderWithType:YSTeacherResponderType_Start];
         self.responderView.delegate = self;
-    }
+//    }
 
     
     /// 订阅抢答排序
-    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+//    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     {
         [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300 completion:nil];
     }
@@ -4384,7 +4386,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (self->contestCommitNumber == 0)
             {
                 [self.responderView setPersonName:[NSString stringWithFormat:@"%@",YSLocalized(@"Res.lab.fail")]];
-                if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+//                if ([fromID isEqualToString:self.liveManager.localUser.peerID])
                  {
                      [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
                      [weakSelf.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
