@@ -4154,9 +4154,57 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.answerDetailTimer = nil;
     }
     BMWeakSelf
-    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
+    if (self.liveManager.isBigRoom)
     {
+        [self.liveManager.roomManager getRoomUserWithPeerId:fromID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
             
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [weakSelf answerResultViewWithUser:user answerId:answerId];
+                
+            });
+        }];
+    }
+    else
+    {
+        YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:fromID];
+        [self answerResultViewWithUser:user answerId:answerId];
+        
+    }
+//    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
+//    {
+//
+//
+//    }
+//    else
+//    {
+//
+//        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
+//        self.answerResultView = [[SCTeacherAnswerView alloc] init];
+//        [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+//        [self.answerResultView setAnswerStatistics:self.answerStatistics totalUsers:_totalUsers rightResult:self.rightAnswer];
+//        self.answerResultView.isAnswerIng = NO;
+//        [self.answerResultView hideEndAgainBtn:NO];
+//        self.answerResultView.againBlock = ^{
+//            [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
+//            // 删除答题结果信令
+//            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+//            // 重新开始
+//            [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+//        };
+
+//    }
+
+}
+- (void)answerResultViewWithUser:(YSRoomUser *)user answerId:(NSString *)answerId
+{
+    BMWeakSelf
+    if (user.role == YSUserType_Assistant)
+    {
+        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
+    }
+    else
+    {
         self.answerResultView.isAnswerIng = NO;
         [self.answerResultView hideEndAgainBtn:NO];
         [self.answerResultView hideOpenResult:YES];
@@ -4173,27 +4221,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //为了处理公布答案的情况
             [self getAnswerDetailDataWithAnswerID:answerId];
         }
-
-    }
-    else
-    {
         
-        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
-//        self.answerResultView = [[SCTeacherAnswerView alloc] init];
-//        [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-//        [self.answerResultView setAnswerStatistics:self.answerStatistics totalUsers:_totalUsers rightResult:self.rightAnswer];
-//        self.answerResultView.isAnswerIng = NO;
-//        [self.answerResultView hideEndAgainBtn:NO];
-//        self.answerResultView.againBlock = ^{
-//            [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
-//            // 删除答题结果信令
-//            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
-//            // 重新开始
-//            [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
-//        };
-
     }
-
 }
 
 /// 答题结果
@@ -4393,7 +4422,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.responderView setPersonName:user.nickName];
     
-    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
+//    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
         [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
         if (self.videoViewArray.count < self->maxVideoCount)
