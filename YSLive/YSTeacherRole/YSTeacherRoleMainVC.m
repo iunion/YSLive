@@ -312,6 +312,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 当前的焦点视图
 @property(nonatomic, strong) SCVideoView *fouceView;
 
+/// 当前的用户视频的镜像状态
+@property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
 
 @end
 
@@ -795,6 +797,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
     // 前后默认开启镜像
     [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
+    self.videoMirrorMode = YSVideoMirrorModeEnabled;
 
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
@@ -2015,28 +2018,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///所有举手用户的列表,刷新举手的人数
 - (void)handleSignalingRaiseHandUserArray:(NSMutableArray *)raiseHandUserArray
 {
-    // 3.GCD
-//    dispatch_async(dispatch_get_main_queue(), ^{
-        // UI更新代码
     
-//    for (YSRoomUser *roomUser in <#collection#>)
-//    {
-//
-//    }
-//
-//    if (self.liveManager.isBigRoom)
-//    {
-//        mutArray = [NSMutableArray arrayWithArray:self.liveManager.userList];
-//    }
-//    else
-//    {
-        NSMutableArray * mutArray = [NSMutableArray array];
-        for (SCVideoView * videoView in self.videoViewArray)
-        {
-            [mutArray addObject:videoView.roomUser];
-        }
-//    }
-    
+    NSMutableArray * mutArray = [NSMutableArray array];
+    for (SCVideoView * videoView in self.videoViewArray)
+    {
+        [mutArray addObject:videoView.roomUser];
+    }
     
     if ([mutArray bm_isNotEmpty])
     {
@@ -5065,8 +5052,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
         {//老师
-            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 147);
-            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 147);
+            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 215);
+            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 215);
         }
         else
         {
@@ -5084,8 +5071,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
                 }
                 else
                 {
@@ -5097,8 +5084,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
                 }
                 else
                 {
@@ -5115,8 +5102,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {//老师
                     if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
                     {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
+                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
+                        self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
                     }
                     else
                     {
@@ -5144,8 +5131,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {//老师
                     if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
                     {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
+                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
+                        self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
                     }
                     else
                     {
@@ -5173,6 +5160,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.foucePeerId = self.foucePeerId;
     self.controlPopoverView.userModel = userModel;
+    self.controlPopoverView.videoMirrorMode = self.videoMirrorMode;
 }
 
 
@@ -5210,6 +5198,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
             break;
         case 2:
+        {
+            sender.selected = !sender.selected;
+            
+            if (sender.selected)
+            {
+                [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
+                self.videoMirrorMode = YSVideoMirrorModeEnabled;
+            }
+            else
+            {
+                [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
+                self.videoMirrorMode = YSVideoMirrorModeDisabled;
+            }
+        }
+            break;
+        case 3:
         {//焦点
             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
             {
@@ -5235,7 +5239,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
             break;
-        case 3:
+        
+        case 4:
         {//视频复位
             NSDictionary * data = @{
                        @"isDrag":@0,

@@ -239,19 +239,19 @@
     YSPublishState publishState = [self.userModel.properties bm_intForKey:sUserPublishstate];
     
     //纵向时按钮高度
-    CGFloat height = (self.view.bm_height-5)/4+0.5;
+    CGFloat height = (self.view.bm_height-5)/5+0.5;
     //横向时按钮高度
-    CGFloat width = (self.view.bm_width-5)/4+0.5;
+    CGFloat width = (self.view.bm_width-5)/5+0.5;
         
     if (self.roomtype == YSRoomType_One || (self.roomLayout == YSLiveRoomLayout_AroundLayout && !self.isDragOut))
     {
-        height = (self.view.bm_height-5)/2+0.5;
-        width = (self.view.bm_width-5)/2+0.5;
+        height = (self.view.bm_height-5)/3+0.5;
+        width = (self.view.bm_width-5)/3+0.5;
     }
     else if ((self.appUseTheType == YSAppUseTheTypeSmallClass && self.roomLayout != YSLiveRoomLayout_AroundLayout && !self.isDragOut)||(self.appUseTheType == YSAppUseTheTypeSmallClass  && self.roomLayout == YSLiveRoomLayout_AroundLayout && self.isDragOut) || (self.appUseTheType == YSAppUseTheTypeMeeting && self.isDragOut))
     {
-        height = (self.view.bm_height-5)/3+0.5;
-        width = (self.view.bm_width-5)/3+0.5;
+        height = (self.view.bm_height-5)/4+0.5;
+        width = (self.view.bm_width-5)/4+0.5;
     }
         
     //音频控制按钮
@@ -282,20 +282,42 @@
     {
         self.videoBtn.selected = NO;
     }
+   
     
-    if (self.view.bm_width < self.view.bm_height)
+    //镜像控制按钮
+    self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenMirror" ) selectTitle:YSLocalized(@"Button.CloseMirror" ) imageName:@"user_openMirror" selectImageName:@"user_CloseMirror"];
+    
+    UIImage * mirrorClose = [[UIImage imageNamed:@"user_openMirror"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.mirrorBtn setImage:mirrorClose forState:UIControlStateDisabled];
+    
+    
+    self.mirrorBtn.tag = 2;
+    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
-        self.audioBtn.frame = CGRectMake(0, Margin, self.view.bm_width, height);
-        self.videoBtn.frame = CGRectMake(0, Margin + height, self.view.bm_width, height);
+        self.mirrorBtn.selected = YES;
     }
     else
     {
-        self.audioBtn.frame = CGRectMake(Margin, 0, width, self.view.bm_height);
-        self.videoBtn.frame = CGRectMake(Margin + width, 0, width, self.view.bm_height);
+        self.mirrorBtn.selected = NO;
     }
+    
+    
+       if (self.view.bm_width < self.view.bm_height)
+       {
+           self.audioBtn.frame = CGRectMake(0, Margin, self.view.bm_width, height);
+           self.videoBtn.frame = CGRectMake(0, Margin + height, self.view.bm_width, height);
+           self.mirrorBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
+       }
+       else
+       {
+           self.audioBtn.frame = CGRectMake(Margin, 0, width, self.view.bm_height);
+           self.videoBtn.frame = CGRectMake(Margin + width, 0, width, self.view.bm_height);
+           self.mirrorBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
+       }
     
     [self moveButtonTitleAndImageWithButton:self.audioBtn];
     [self moveButtonTitleAndImageWithButton:self.videoBtn];
+    [self moveButtonTitleAndImageWithButton:self.mirrorBtn];
     //没有摄像头、麦克风权限时的显示禁用状态
     if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
     {
@@ -348,15 +370,15 @@
             {
                 //复位控制按钮
                 UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
-                restoreBtn.tag = 3;
+                restoreBtn.tag = 4;
                 
                 if (self.view.bm_width < self.view.bm_height)
                 {
-                    restoreBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
+                    restoreBtn.frame = CGRectMake(0, Margin + 3 * height, self.view.bm_width, height);
                 }
                 else
                 {
-                    restoreBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
+                    restoreBtn.frame = CGRectMake(Margin + 3 * width, 0, width, self.view.bm_height);
                 }
                 [self moveButtonTitleAndImageWithButton:restoreBtn];
                 self.restoreBtn = restoreBtn;
@@ -366,14 +388,14 @@
         {
             //成为焦点按钮
             self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") imageName:@"teacherOrStudent_NotFouce" selectImageName:@"teacherOrStudent_IsFouce"];
-            self.fouceBtn.tag = 2;
+            self.fouceBtn.tag = 3;
             if (self.view.bm_width < self.view.bm_height)
             {
-                self.fouceBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
+                self.fouceBtn.frame = CGRectMake(0, Margin + 3 * height, self.view.bm_width, height);
             }
             else
             {
-                self.fouceBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
+                self.fouceBtn.frame = CGRectMake(Margin + 3 * width, 0, width, self.view.bm_height);
             }
             
             if ([self.userModel.peerID isEqualToString:self.foucePeerId])
@@ -391,7 +413,7 @@
             {
                 //复位控制按钮
                 UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil imageName:@"videoReset" selectImageName:nil];
-                restoreBtn.tag = 3;
+                restoreBtn.tag = 4;
                 
                 if (self.view.bm_width < self.view.bm_height)
                 {
