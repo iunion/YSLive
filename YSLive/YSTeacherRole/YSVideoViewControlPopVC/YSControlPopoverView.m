@@ -190,7 +190,8 @@
     
     if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
     {
-        if (self.userModel.afail == YSDeviceFaultNone)
+        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+        if (self.userModel.afail == YSDeviceFaultNone && !isEveryoneNoAudio)
         {
             self.audioBtn.enabled = YES;
         }
@@ -211,7 +212,7 @@
     }
     else
     {
-        if (self.userModel.hasAudio)
+        if (self.userModel.hasAudio  && ![YSLiveManager shareInstance].isEveryoneNoAudio)
         {
             self.audioBtn.enabled = YES;
         }

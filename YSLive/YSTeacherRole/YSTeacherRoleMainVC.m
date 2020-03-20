@@ -740,17 +740,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     popTab.letStudentUpVideo = ^(YSUpHandPopCell *cell) {
         if (weakSelf.videoViewArray.count < self->maxVideoCount)
         {
+            YSPublishState publishState = YSUser_PublishState_BOTH;
+            
+            if (weakSelf.liveManager.isEveryoneNoAudio)
+            {
+                publishState = YSUser_PublishState_VIDEOONLY;
+            }
+            
             if (weakSelf.liveManager.isBigRoom)
             {
                 [weakSelf.liveManager.roomManager getRoomUserWithPeerId:[cell.userDict bm_stringForKey:@"peerId"] callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
-                    [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                    
+                    [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(publishState)];
                     cell.headBtn.selected = YES;
                 }];
             }
             else
             {
                 YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:[cell.userDict bm_stringForKey:@"peerId"]];
-                [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(publishState)];
                 cell.headBtn.selected = YES;
             }
         }
@@ -3608,6 +3616,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         
 //        [self freshTeacherPersonListData];
+        [self.teacherListView bm_bringToFront];
     }
     
     if (btn.tag == SCTeacherTopBarTypeCourseware)
@@ -3616,6 +3625,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //课件库
         [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count];
 //        [self freshTeacherCoursewareListData];
+        [self.teacherListView bm_bringToFront];
     }
     
     if (btn.tag != SCTeacherTopBarTypeSwitchLayout)
@@ -5398,7 +5408,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.videoViewArray.count < maxVideoCount)
         {
-            [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+            
+            if (self.liveManager.isEveryoneNoAudio)
+            {
+                [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+            }
+            else
+            {
+                [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+            }
         }
         else
         {
@@ -6062,8 +6080,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.fullTeacherFloatView removeFromSuperview];
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
-    self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, UI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40);
-    
+    self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, UI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+60, 40, 40);
 }
 
 /// 播放全屏老师视频流
@@ -6089,8 +6106,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (view == self.whitebordFullBackgroud)
         {
             [self.raiseHandsBtn bm_bringToFront];
+            [self.handNumLab bm_bringToFront];
             
-            self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
+//            self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
         }
 
     }

@@ -718,7 +718,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
            {
                self.videoWidth = ceil(self.videoHeight / 3) * 4;
            }
-        self.rightBgWidth = self.videoWidth + 2 * VIDEOGRIDVIEW_GAP;
+        self.rightBgWidth = self.videoWidth;
     }
     else
     {
@@ -732,12 +732,10 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         {
             self.videoWidth = ceil(self.videoHeight / 3) * 4;
         }
-        self.rightBgWidth = 2 * self.videoWidth + 3 * VIDEOGRIDVIEW_GAP;
+        self.rightBgWidth = 2 * self.videoWidth + VIDEOGRIDVIEW_GAP;
     }
     
     [self.videosBgView addSubview:self.rightVideoBgView];
-    
-//    self.rightVideoBgView.frame = CGRectMake(self.bm_width - rightVideoBgWidth, 0, rightVideoBgWidth, rightVideoBgHeight);
 }
 
 - (void)freshViewFocusWithFouceVideo:(SCVideoView *)fouceVideo
@@ -751,9 +749,8 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         CGFloat topHeight = VIDEOGRIDVIEW_TOP/2;
         
-        CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2 - self.rightVideoBgView.bm_width;
+        CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2 - self.rightBgWidth;
         CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-topHeight;
-//        CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2;
         
         CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
         CGFloat videoHeight;
@@ -773,19 +770,14 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         CGFloat bgWidth = videoWidth*scale;
         CGFloat bgHeight = videoHeight*scale;
         
-        fouceVideo.frame = CGRectMake((self.defaultSize.width - bgWidth - self.rightVideoBgView.bm_width)/2, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+topHeight, bgWidth, bgHeight);
-//        fouceVideo.backgroundColor = UIColor.greenColor;
+        fouceVideo.frame = CGRectMake((self.defaultSize.width - bgWidth - VIDEOGRIDVIEW_GAP - self.rightBgWidth)/2, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+topHeight, bgWidth, bgHeight);
         
-        self.rightVideoBgView.frame = CGRectMake(fouceVideo.bm_right, 0, self.rightBgWidth, self.rightBgHeight);
-//        self.rightVideoBgView.backgroundColor = UIColor.redColor;
-        
-//        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP+topHeight, bgWidth, bgHeight);
-//        fouceVideo.frame = CGRectMake((maxWidth-bgWidth)/2+VIDEOGRIDVIEW_GAP, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP, bgWidth, bgHeight);
-        
+        self.rightVideoBgView.frame = CGRectMake(fouceVideo.bm_right + VIDEOGRIDVIEW_GAP, 0, self.rightBgWidth, self.rightBgHeight);
+
         [mutArray removeObject:fouceVideo];
     }
     
-    CGFloat left = self.rightVideoBgView.bm_originX + VIDEOGRIDVIEW_GAP;
+    CGFloat left = self.rightVideoBgView.bm_originX;
     
     switch (mutArray.count)
     {
