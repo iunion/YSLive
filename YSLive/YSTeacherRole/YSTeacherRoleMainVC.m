@@ -2015,28 +2015,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///所有举手用户的列表,刷新举手的人数
 - (void)handleSignalingRaiseHandUserArray:(NSMutableArray *)raiseHandUserArray
 {
-    // 3.GCD
-//    dispatch_async(dispatch_get_main_queue(), ^{
-        // UI更新代码
     
-//    for (YSRoomUser *roomUser in <#collection#>)
-//    {
-//
-//    }
-//
-//    if (self.liveManager.isBigRoom)
-//    {
-//        mutArray = [NSMutableArray arrayWithArray:self.liveManager.userList];
-//    }
-//    else
-//    {
-        NSMutableArray * mutArray = [NSMutableArray array];
-        for (SCVideoView * videoView in self.videoViewArray)
-        {
-            [mutArray addObject:videoView.roomUser];
-        }
-//    }
-    
+    NSMutableArray * mutArray = [NSMutableArray array];
+    for (SCVideoView * videoView in self.videoViewArray)
+    {
+        [mutArray addObject:videoView.roomUser];
+    }
     
     if ([mutArray bm_isNotEmpty])
     {
@@ -5064,8 +5048,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
         {//老师
-            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 147);
-            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 147);
+            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 215);
+            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 215);
         }
         else
         {
@@ -5083,8 +5067,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
                 }
                 else
                 {
@@ -5096,8 +5080,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
                 {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
+                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
+                    self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
                 }
                 else
                 {
@@ -5114,8 +5098,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {//老师
                     if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
                     {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
+                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
+                        self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
                     }
                     else
                     {
@@ -5143,8 +5127,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {//老师
                     if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
                     {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 147, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(147, 50);
+                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
+                        self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
                     }
                     else
                     {
