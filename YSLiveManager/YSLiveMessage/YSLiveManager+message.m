@@ -16,7 +16,7 @@
 
 - (BOOL)sendMessageWithText:(NSString *)message withMessageType:(YSChatMessageType)messageType withMemberModel:(YSRoomUser *)memberModel
 {
-    if ([message bm_isNotEmpty])
+    if ([message bm_isNotEmpty] && [self.localUser.peerID bm_isNotEmpty])
     {
         NSTimeInterval timeInterval = self.tCurrentTime;
         NSString *time = [NSDate bm_stringFromTs:timeInterval formatter:@"HH:mm"];

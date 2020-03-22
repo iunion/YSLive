@@ -348,6 +348,10 @@
 
 - (void)sliderViewEnd:(UISlider *)sender
 {
+//    if (self.playerItem.status == AVPlayerItemStatusReadyToPlay)
+//    {
+//        return;
+//    }
     
     CMTime duration = self.playerItem.duration;
     BMWeakSelf

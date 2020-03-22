@@ -455,6 +455,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
      [self.view endEditing:YES];
 }
 
+#if 1
+// 进入房间方法一
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
     NSString *roomId = self.roomTextField.inputTextField.text;
@@ -488,6 +490,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     // 根据实际用户变更用户身份
     userRole = YSSDKUserType_Teacher;
     __weak __typeof(self) weakSelf = self;
+    // 预先获得房间类型和是否需要登入密码
     [self.ysSDKManager checkRoomTypeBeforeJoinRoomWithRoomId:roomId success:^(YSSDKUseTheType roomType, BOOL needpassword) {
         // roomType: 房间类型 3：小班课  4：直播   6：会议
         // needpassword: 参会人员(学生)是否需要密码
@@ -512,6 +515,60 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     [self.progressHUD showAnimated:YES];
 }
 
+#else
+
+// 进入房间方法二
+- (void)joinRoomBtnClicked:(UIButton *)btn
+{
+    NSString *roomId = self.roomTextField.inputTextField.text;
+    NSString *nickName = self.nickNameTextField.inputTextField.text;
+
+    /**信息检查*/
+    if (!roomId.length)
+    {
+        //教室号不能为空
+        NSString *content =  @"房间号不能为空";
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:content message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [alertVc addAction:confimAc];
+        return;
+    }
+
+    if (!nickName.length)
+    {
+        // 昵称不能为空
+        NSString *content =  @"昵称不能为空";
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:content message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [alertVc addAction:confimAc];
+        return;
+    }
+
+    // 根据实际用户变更用户身份
+    // 如果需要密码请添加password
+    userRole = YSSDKUserType_Teacher;
+    if (userRole == YSSDKSUserType_Student)
+    {
+        // 学生登入
+        // 注意： 直播只支持学生身份登入房间
+        [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:nil userId:nil userParams:nil];
+    }
+    else
+    {
+        // 老师(会议主持)登入
+        // 注意： 小班课和会议支持老师和学生身份登入房间
+        [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:nil userRole:userRole userId:nil userParams:nil];
+    }
+    
+    [self.progressHUD showAnimated:YES];
+}
+
+
+#endif
 
 #pragma mark -
 #pragma mark YSLiveSDKDelegate
