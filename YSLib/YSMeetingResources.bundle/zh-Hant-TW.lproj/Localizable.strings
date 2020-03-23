@@ -83,6 +83,7 @@
 "Role.Teacher" = "主持人";
 "Role.Student" = "參會者";
 "Role.Patrol"  = "巡課";
+"Role.PatrolMeeting"  = "巡視";
 "Role.Assistant" = "助教";
 "Role.ToTeacher" = "送給老師";
 

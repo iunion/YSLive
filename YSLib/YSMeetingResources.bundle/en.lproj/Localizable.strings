@@ -83,6 +83,7 @@
 "Role.Teacher" = "Host";
 "Role.Student" = "Attendee";
 "Role.Patrol"  = "patrol";
+"Role.PatrolMeeting"  = "patrol";
 "Role.Assistant" = "assistant";
 "Role.ToTeacher" = "to anchor";
 

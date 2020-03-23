@@ -67,6 +67,7 @@
 "Role.Teacher" = "先生";
 "Role.Student" = "学生";
 "Role.Patrol"  = "巡回";
+"Role.PatrolMeeting"  = "巡视";
 "Role.Assistant" = "助教";
 //say
 "Say.say" = "お話しください";
