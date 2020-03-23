@@ -544,7 +544,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
         {
             BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
-            if (autoOpenAudioAndVideoFlag)
+//            if (autoOpenAudioAndVideoFlag)
+                if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
             {
                 if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
@@ -4093,7 +4094,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             if (self.videoViewArray.count < maxVideoCount)
             {
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
-                if (autoOpenAudioAndVideoFlag)
+//                if (autoOpenAudioAndVideoFlag)
+                if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
                 {
                     if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
@@ -4258,13 +4260,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!inlist)
     {
-        if (self.appUseTheType == YSAppUseTheTypeSmallClass) {
-            
+        if (self.appUseTheType == YSAppUseTheTypeSmallClass)
+        {
             // 自动上台
             if (self.videoViewArray.count < maxVideoCount)
             {
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
-                if (autoOpenAudioAndVideoFlag)
+//                if (autoOpenAudioAndVideoFlag)
+                if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
                 {
                     if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
