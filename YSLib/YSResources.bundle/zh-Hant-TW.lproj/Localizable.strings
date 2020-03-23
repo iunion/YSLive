@@ -440,3 +440,5 @@
 "Prompt.InvalidMicrophone" = "麥克風無效";
 "Prompt.AudioLoading" = "音頻加載中";
 "Prompt.AudioBuffering" = "正在緩沖音頻";
+
+"Prompt.DataLoading" = "數據加載中";

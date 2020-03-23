@@ -216,13 +216,19 @@
     maskNoVideobgLab.textColor = UIColor.whiteColor;
     maskNoVideobgLab.adjustsFontSizeToFitWidth = YES;
     maskNoVideobgLab.minimumScaleFactor = 0.3;
-    maskNoVideobgLab.numberOfLines = 0;
+//    maskNoVideobgLab.numberOfLines = 0;
     maskNoVideobgLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:maskNoVideobgLab];
     self.maskNoVideobgLab = maskNoVideobgLab;
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
-    self.maskNoVideobgLab.hidden = isBeginClass;
+    
+    if (isBeginClass)
+    {
+        maskNoVideobgLab.text = YSLocalized(@"Prompt.DataLoading");
+    }
+    
+//    self.maskNoVideobgLab.hidden = isBeginClass;
     
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
@@ -812,12 +818,12 @@
     if (self.isForPerch)
     {
 //        self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
-        self.maskNoVideobgLab.hidden = (self.roomUser.vfail == YSDeviceFaultNone);
+//        self.maskNoVideobgLab.hidden = (self.roomUser.vfail == YSDeviceFaultNone);
         self.backVideoView.hidden = YES;
     }
     else
     {
-        self.maskNoVideobgLab.hidden = YES;
+//        self.maskNoVideobgLab.hidden = YES;
         
         self.canDraw = [self.roomUser.properties bm_boolForKey:sUserCandraw];
         self.giftNumber = [self.roomUser.properties bm_uintForKey:sUserGiftNumber];

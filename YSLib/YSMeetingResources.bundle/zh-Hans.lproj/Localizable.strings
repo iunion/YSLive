@@ -437,3 +437,5 @@
 "Prompt.InvalidMicrophone" = "麦克风无效";
 "Prompt.AudioLoading" = "音频加载中";
 "Prompt.AudioBuffering" = "正在缓冲音频";
+
+"Prompt.DataLoading" = "数据加载中";
