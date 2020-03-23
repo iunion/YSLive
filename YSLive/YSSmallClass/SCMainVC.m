@@ -565,7 +565,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //会议，进教室默认上台
     if (self.appUseTheType == YSAppUseTheTypeMeeting)
     {
-        if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
+        if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
         {
             if (YSCurrentUser.vfail == YSDeviceFaultNone)
             {
@@ -4112,7 +4112,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else if (self.appUseTheType == YSAppUseTheTypeMeeting)
         {//会议，进教室默认上台
-            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
+            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
                 if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
@@ -4282,7 +4282,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else if (self.appUseTheType == YSAppUseTheTypeMeeting)
         {//会议，进教室默认上台
-            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount)
+            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
                 if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
