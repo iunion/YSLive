@@ -45,7 +45,7 @@
 #import "YSCircleProgress.h"
 #import "YSTeacherResponder.h"
 #import "YSTeacherTimerView.h"
-
+#import "YSPollingView.h"
 #define USE_YSRenderMode_adaptive   1
 
 #define PlaceholderPTag     10
@@ -110,7 +110,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSMp3ControlviewDelegate,
     UIGestureRecognizerDelegate,
     YSTeacherResponderDelegate,
-    YSTeacherTimerViewDelegate
+    YSTeacherTimerViewDelegate,
+    YSPollingViewDelegate
 >
 {
     /// 最大上台数
@@ -305,6 +306,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong)YSTeacherResponder *responderView;
 /// 老师计时器
 @property (nonatomic, strong)YSTeacherTimerView *teacherTimerView;
+/// 轮播
+@property (nonatomic, strong)YSPollingView *teacherPollingView;
+
 ///音频播放器
 @property(nonatomic, strong) AVAudioPlayer *player;
 @property(nonatomic, strong) AVAudioSession *session;
@@ -3657,7 +3661,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 轮询
 - (void)pollingBtnClickedProxyWithBtn:(UIButton *)btn
 {
-    
+    self.teacherPollingView = [[YSPollingView alloc] init];
+    [self.teacherPollingView showTeacherPollingViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+
+    self.teacherPollingView.delegate = self;
 }
 
 
