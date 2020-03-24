@@ -25,7 +25,8 @@ typedef NS_ENUM(NSInteger, SCTeacherTopBarLayoutType)
 
 
 - (void)sc_TeacherTopBarProxyWithBtn:(UIButton *)btn;
-
+/// 轮询
+- (void)pollingBtnClickedProxyWithBtn:(UIButton *)btn;
 ///// 摄像头
 //- (void)cameraProxyWithBtn:(UIButton *)btn;
 ///// 切换布局

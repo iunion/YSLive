@@ -3654,6 +3654,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self backAction:nil];
 }
 
+/// 轮询
+- (void)pollingBtnClickedProxyWithBtn:(UIButton *)btn
+{
+    
+}
+
+
 #pragma mark 切换布局模式
 - (void)changeLayoutWithMode:(BOOL)mode
 {

@@ -115,6 +115,8 @@ typedef NS_ENUM(NSInteger, YSAppUseTheType)
 /// 小班课老师端顶部按钮
 typedef NS_ENUM(NSInteger, SCTeacherTopBarType)
 {
+    /** 轮询 */
+    SCTeacherTopBarTypePolling,
     /** 花名册 */
     SCTeacherTopBarTypePersonList,
     /** 课件库 */

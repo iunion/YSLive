@@ -28,7 +28,8 @@
 @property (nonatomic, strong) UIStackView *btnStackView;
 /// 切换摄像头
 @property (nonatomic, strong) UIButton *cameraBtn;
-
+/// 轮询
+@property (nonatomic, strong) UIButton *pollingBtn;
 /// 全体控制
 @property (nonatomic, strong) UIButton *allControllBtn;
 /// 工具箱
@@ -80,11 +81,11 @@
 {
     [super layoutSubviews];
 
-    CGFloat classBtnWidth = 150;
+    CGFloat classBtnWidth = 2000;
     CGFloat exitBtnWidth = 40;
     if (![UIDevice bm_isiPad])
     {
-        classBtnWidth = 100;
+        classBtnWidth = 140;
         exitBtnWidth = 30;
     }
     self.exitBtn.frame = CGRectMake(10, 0, exitBtnWidth, exitBtnWidth);
@@ -103,17 +104,17 @@
             stackViewWidth = Top_iPadHeight * 3;
             break;
         case SCTeacherTopBarLayoutType_ClassBegin:
+            stackViewWidth = Top_iPadHeight * 7;
+            if (![UIDevice bm_isiPad])
+            {
+                stackViewWidth = Top_iPhoneHeight * 7;
+            }
+            break;
+        case SCTeacherTopBarLayoutType_FullMedia:
             stackViewWidth = Top_iPadHeight * 6;
             if (![UIDevice bm_isiPad])
             {
                 stackViewWidth = Top_iPhoneHeight * 6;
-            }
-            break;
-        case SCTeacherTopBarLayoutType_FullMedia:
-            stackViewWidth = Top_iPadHeight * 5;
-            if (![UIDevice bm_isiPad])
-            {
-                stackViewWidth = Top_iPhoneHeight * 5;
             }
         default:
             break;
@@ -239,6 +240,16 @@
     btnStackView.distribution = UIStackViewDistributionFillEqually;
     btnStackView.spacing = 0;
     
+    /// 轮询
+    UIButton *pollingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.pollingBtn = pollingBtn;
+    [self.btnStackView addArrangedSubview:self.pollingBtn];
+    [pollingBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_personPollingBtn_Normal"] forState:UIControlStateNormal];
+    [pollingBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_personPollingBtn_Selected"] forState:UIControlStateSelected];
+    [pollingBtn addTarget:self action:@selector(pollingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    pollingBtn.tag = SCTeacherTopBarTypePolling;
+    
+    
     ///花名册
     UIButton *personListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.personListBtn = personListBtn;
@@ -308,6 +319,7 @@
             self.switchLayoutBtn.hidden = YES;
             self.toolBoxBtn.hidden = YES;
             self.classBtn.selected = NO;
+            self.pollingBtn.hidden = YES;
             [self.btnStackView removeArrangedSubview:self.toolBoxBtn];
             [self.btnStackView removeArrangedSubview:self.allControllBtn];
             [self.btnStackView removeArrangedSubview:self.switchLayoutBtn];
@@ -318,14 +330,18 @@
             self.toolBoxBtn.hidden = NO;
             self.classBtn.selected = YES;
             self.coursewareBtn.hidden = NO;
+            self.pollingBtn.hidden = NO;
             [self.classBtn setTitle:YSLocalized(@"Button.ClassIsOver") forState:UIControlStateNormal];
-            [self.btnStackView insertArrangedSubview:self.coursewareBtn atIndex:1];
-            [self.btnStackView insertArrangedSubview:self.toolBoxBtn atIndex:2];
-            [self.btnStackView insertArrangedSubview:self.allControllBtn atIndex:3];
+            [self.btnStackView insertArrangedSubview:self.personListBtn atIndex:1];
+            [self.btnStackView insertArrangedSubview:self.coursewareBtn atIndex:2];
+            [self.btnStackView insertArrangedSubview:self.toolBoxBtn atIndex:3];
+            [self.btnStackView insertArrangedSubview:self.allControllBtn atIndex:4];
             [self.btnStackView insertArrangedSubview:self.switchLayoutBtn atIndex:4];
             break;
         case SCTeacherTopBarLayoutType_FullMedia:
             self.coursewareBtn.hidden = YES;
+//            self.pollingBtn.hidden = YES;
+//            [self.btnStackView removeArrangedSubview:self.pollingBtn];
             [self.btnStackView removeArrangedSubview:self.coursewareBtn];
 
         default:
@@ -374,6 +390,15 @@
     if ([self.delegate respondsToSelector:@selector(exitProxyWithBtn:)])
     {
         [self.delegate exitProxyWithBtn:btn];
+    }
+}
+
+/// 轮询
+- (void)pollingBtnClicked:(UIButton *)btn
+{
+    if ([self.delegate respondsToSelector:@selector(pollingBtnClickedProxyWithBtn:)])
+    {
+        [self.delegate pollingBtnClickedProxyWithBtn:btn];
     }
 }
 
