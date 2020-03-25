@@ -1604,7 +1604,7 @@
                 }
                 else if (i == 2)
                 {
-                    [button setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+                    [button setTitle:YSLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
                     self.patrolRoleBtn = button;
                 }
             }
@@ -1669,7 +1669,7 @@
     {
             [self.studentRoleBtn setTitle:YSLocalized(@"Role.Attendee") forState:UIControlStateNormal];
             [self.teacherRoleBtn setTitle:YSLocalized(@"Role.Host") forState:UIControlStateNormal];
-            [self.patrolRoleBtn setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+            [self.patrolRoleBtn setTitle:YSLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
     }
     else
     {

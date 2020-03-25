@@ -47,7 +47,6 @@
         self.canGestureRecognizer = NO;
         self.canZoom = NO;
         self.endScale = 1;
-        
         // 设置默认偏移
         self.edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         self.defaultSize = CGSizeZero;
@@ -268,9 +267,10 @@
             self.endScale *= pinch.scale;
         }
         [self stayMove];
-        
-        [[YSLiveManager shareInstance] sendSignalingTopinchVideoViewWithPeerId:self.peerId scale:self.endScale];
-        
+        if (!self.isFullBackgrond)
+        {
+             [[YSLiveManager shareInstance] sendSignalingTopinchVideoViewWithPeerId:self.peerId scale:self.endScale];
+        }
     }
 }
 

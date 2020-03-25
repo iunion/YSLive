@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.5.0";
+static NSString *YSAPPVersionString = @"2.5.1";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.5.0.0";
+static NSString *YSSDKVersionString = @"2.5.1.0";
 
 @interface YSSDKManager ()
 <
@@ -290,16 +290,24 @@ static NSString *YSSDKVersionString = @"2.5.0.0";
     }
     else
     {
-        BOOL isWideScreen = [YSLiveManager shareInstance].room_IsWideScreen;
-        YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:self.liveManager.whiteBordView userId:nil];
-        BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
-        nav.modalPresentationStyle = UIModalPresentationFullScreen;
-        [rootVC presentViewController:nav animated:YES completion:^{
-            if ([self.delegate respondsToSelector:@selector(onEnterLiveRoom)])
-            {
-                [self.delegate onEnterLiveRoom];
-            }
-        }];
+        if (self.selectRoleType == YSUserType_Student)
+        {
+            BOOL isWideScreen = [YSLiveManager shareInstance].room_IsWideScreen;
+            YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:self.liveManager.whiteBordView userId:nil];
+            BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
+            nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            [rootVC presentViewController:nav animated:YES completion:^{
+                if ([self.delegate respondsToSelector:@selector(onEnterLiveRoom)])
+                {
+                    [self.delegate onEnterLiveRoom];
+                }
+            }];
+            
+            return;
+        }
+        
+        NSLog(@"直播只能学生登入");
+        [self.liveManager destroy];
     }
 }
 

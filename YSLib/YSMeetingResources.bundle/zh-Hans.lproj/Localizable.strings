@@ -82,7 +82,8 @@
 "Role.Me" = "我";
 "Role.Teacher" = "主持人";
 "Role.Student" = "参会者";
-"Role.Patrol"  = "巡课";
+"Role.Patrol"  = "巡视";
+"Role.PatrolMeeting"  = "巡视";
 "Role.Assistant" = "助教";
 "Role.ToTeacher" = "送给老师";
 
@@ -439,3 +440,5 @@
 "Prompt.AudioBuffering" = "正在缓冲音频";
 
 "Prompt.DataLoading" = "数据加载中";
+"Button.Reload" = "加载";
+"Button.Loading" = "加载中";

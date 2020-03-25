@@ -23,6 +23,8 @@ typedef void(^YSFloatViewClickBlock)(void);
 @property (nonatomic, assign) BOOL canZoom;
 
 @property (nonatomic, assign) BOOL showWaiting;
+///是否全屏课件
+@property (nonatomic, assign) BOOL isFullBackgrond;
 
 // 父视图中可移动范围缩进边距 默认为 0 0 0 0 (气泡默认可活动范围为父视图大小)
 @property (nonatomic, assign) UIEdgeInsets edgeInsets;

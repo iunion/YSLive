@@ -83,6 +83,7 @@
 "Role.Teacher" = "anchor";
 "Role.Student" = "student";
 "Role.Patrol"  = "patrol";
+"Role.PatrolMeeting"  = "patrol";
 "Role.Assistant" = "assistant";
 "Role.ToTeacher" = "to anchor";
 
@@ -445,3 +446,5 @@
 "Prompt.AudioBuffering" = "Audio buffering";
 
 "Prompt.DataLoading" = "Data loading";
+"Button.Reload" = "reload";
+"Button.Loading" = "loading";
