@@ -28,6 +28,12 @@ FOUNDATION_EXTERN NSNotificationName const YSRoomInterfaceJoinRoomFailedNotifica
 - (void)onRoomJoined YS_Deprecated("已经弃用");
 
 /**
+    成功重连房间
+    @param ts 服务器当前时间戳，以秒为单位，如1572001230
+ */
+- (void)onRoomReJoined:(long)ts;
+
+/**
     已经离开房间
  */
 - (void)onRoomLeft;

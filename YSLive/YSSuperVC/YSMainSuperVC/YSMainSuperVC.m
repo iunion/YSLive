@@ -116,9 +116,18 @@
 // 成功进入房间
 - (void)onRoomJoined:(long)ts;
 {
-//    断开的时候会发这个
-//onRoomConnectionLost
+    // 断开的时候不再发送这个
+    // onRoomConnectionLost
     BMLog(@"=========== reconnect onRoomJoined");
+    [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
+}
+
+- (void)onRoomReJoined:(long)ts
+{
+    // 断开的时候会发这个
+    // onRoomConnectionLost
+    
+    BMLog(@"=========== reconnect onRoomReJoined");
     [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
 }
 

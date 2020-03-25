@@ -135,7 +135,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     YSLiveRoomLayout defaultRoomLayout;
     
-    BOOL needFreshVideoView;
+    //BOOL needFreshVideoView;
     NSInteger contestTouchOne;
     
     NSInteger _personListCurentPage;
@@ -3599,14 +3599,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomConnectionLost];
     
-    [self removeAllVideoView];
-    
-    if (self.isWhitebordFullScreen)
-    {
-        [self boardControlProxyfullScreen:NO];
-    }
-    
-    [self handleSignalingDefaultRoomLayout];
+//    [self removeAllVideoView];
+//    
+//    if (self.isWhitebordFullScreen)
+//    {
+//        [self boardControlProxyfullScreen:NO];
+//    }
+//    
+//    [self handleSignalingDefaultRoomLayout];
 }
 
 // 已经离开房间
@@ -4078,7 +4078,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomJoined:(long)ts
 {
     [super onRoomJoined:ts];
-    
+
+#if 0
     if (self.liveManager.isBeginClass)
     {
         needFreshVideoView = YES;
@@ -4141,8 +4142,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self freshContentView];
         }
     }
+#endif
 }
 
+#if 0
 - (void)rePlayVideoAudio
 {
     for (SCVideoView *videoView in self.videoViewArray)
@@ -4156,6 +4159,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self playVideoAudioWithVideoView:videoView];
     }
 }
+#endif
 
 #pragma mark 上课
 
@@ -4177,11 +4181,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherPersonListData];
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
+#if 0
         if (needFreshVideoView)
         {
             needFreshVideoView = NO;
             break;
         }
+#endif
         
         BOOL isTeacher = NO;
         

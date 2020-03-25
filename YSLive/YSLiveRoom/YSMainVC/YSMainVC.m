@@ -72,7 +72,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     /// 上麦视频高
     CGFloat platformVideoHeight;
     
-    BOOL needFreshVideoView;
+    //BOOL needFreshVideoView;
 }
 
 /// 原keywindow
@@ -1047,15 +1047,15 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     [super onRoomConnectionLost];
     
-    [self removeAllVideoView];
-    
-    if (self.isFullScreen)
-    {
-        self.isFullScreen = NO;
-        [self changeTopVideoToOriginalFrame];
-    }
-
-    [self freshContentView];
+//    [self removeAllVideoView];
+//    
+//    if (self.isFullScreen)
+//    {
+//        self.isFullScreen = NO;
+//        [self changeTopVideoToOriginalFrame];
+//    }
+//
+//    [self freshContentView];
 }
 
 // 已经离开房间
@@ -1309,6 +1309,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     [super onRoomJoined:ts];
     
+#if 0
     if (self.liveManager.isBeginClass)
     {
         needFreshVideoView = YES;
@@ -1317,8 +1318,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     }
+#endif
 }
 
+#if 0
 - (void)rePlayVideoAudio
 {
     for (SCVideoView *videoView in self.videoViewArray)
@@ -1332,6 +1335,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [self playVideoAudioWithVideoView:videoView];
     }
 }
+#endif
 
 
 #pragma mark 上下课
@@ -1367,11 +1371,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
+#if 0
         if (needFreshVideoView)
         {
             needFreshVideoView = NO;
             break;
         }
+#endif
 
         if (roomUser.role == YSUserType_Student)
         {

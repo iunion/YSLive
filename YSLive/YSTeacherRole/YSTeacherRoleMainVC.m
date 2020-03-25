@@ -151,7 +151,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     YSLiveRoomLayout defaultRoomLayout;
     
-    BOOL needFreshVideoView;
+    //BOOL needFreshVideoView;
     
     NSInteger contestCommitNumber;
     
@@ -1797,14 +1797,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomConnectionLost];
     
-    [self removeAllVideoView];
-    
-    if (self.isWhitebordFullScreen)
-    {
-        [self boardControlProxyfullScreen:NO];
-    }
-    
-    [self handleSignalingDefaultRoomLayout];
+//    [self removeAllVideoView];
+//    
+//    if (self.isWhitebordFullScreen)
+//    {
+//        [self boardControlProxyfullScreen:NO];
+//    }
+//    
+//    [self handleSignalingDefaultRoomLayout];
 }
 
 // 已经离开房间
@@ -2320,7 +2320,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomJoined:(long)ts
 {
     [super onRoomJoined:ts];
-    
+
+#if 0
     if (self.liveManager.isBeginClass)
     {
         needFreshVideoView = YES;
@@ -2354,8 +2355,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self freshContentView];
         }
     }
+#endif
 }
 
+#if 0
 - (void)rePlayVideoAudio
 {
     for (SCVideoView *videoView in self.videoViewArray)
@@ -2364,6 +2367,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self playVideoAudioWithVideoView:videoView];
     }
 }
+#endif
 
 #pragma mark 上课
 //inlist表示在我进房间之前的信令
@@ -2393,11 +2397,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.hidden = NO;
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
+#if 0
         if (needFreshVideoView)
         {
             needFreshVideoView = NO;
             break;
         }
+#endif
         YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
         NSString *peerID = roomUser.peerID;
         
