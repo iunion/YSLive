@@ -440,3 +440,6 @@
 "Prompt.InvalidMicrophone" = "麥克風無效";
 "Prompt.AudioLoading" = "音頻加載中";
 "Prompt.AudioBuffering" = "正在緩沖音頻";
+
+"Button.Reload" = "加載";
+"Button.Loading" = "加載中";

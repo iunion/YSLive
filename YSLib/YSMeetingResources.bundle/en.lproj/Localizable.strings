@@ -443,3 +443,6 @@
 "Prompt.InvalidMicrophone" = "Invalid Mic";
 "Prompt.AudioLoading" = "Audio loading";
 "Prompt.AudioBuffering" = "Audio buffering";
+
+"Button.Reload" = "reload";
+"Button.Loading" = "loading";

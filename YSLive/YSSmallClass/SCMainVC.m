@@ -235,6 +235,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) SCBrushToolView *brushToolView;
 /// 画笔选择 颜色 大小 形状
 @property (nonatomic, strong) SCDrawBoardView *drawBoardView;
+/// 课件刷新按钮
+@property (nonatomic, strong) UIButton *coursewareBtn;
 
 
 /// 答题中
@@ -1179,6 +1181,28 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.bm_centerY = rect.origin.y + rect.size.height/2; //self.whitebordBackgroud.bm_centerY;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
+    
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, UI_SCREEN_HEIGHT-80, 50, 60)];
+    [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
+    [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    coursewareBtn.titleLabel.font = UI_FONT_16;
+    coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:coursewareBtn];
+    self.coursewareBtn = coursewareBtn;
+
+    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,0, coursewareBtn.titleLabel.bounds.size.height, 0);
+    coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
+    coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+}
+
+///刷新课件
+- (void)buttonClickToRefreshCourseware:(UIButton *)sender
+{
+    
 }
 
 /// 设置底部 翻页控件
@@ -4567,7 +4591,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.drawBoardView.hidden = NO;
     }
-    
 //    [self freshWhiteBordViewFrame];
 }
 
@@ -4689,7 +4712,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         NSString *currentPage = [message objectForKey:@"currpage"];
         [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
     }
-    
     return;
 }
 
