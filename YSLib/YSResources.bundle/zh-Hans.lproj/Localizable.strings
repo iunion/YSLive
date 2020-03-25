@@ -83,6 +83,7 @@
 "Role.Teacher" = "老师";
 "Role.Student" = "学生";
 "Role.Patrol"  = "巡课";
+"Role.PatrolMeeting"  = "巡视";
 "Role.Assistant" = "助教";
 "Role.ToTeacher" = "送给老师";
 

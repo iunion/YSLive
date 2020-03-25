@@ -813,7 +813,7 @@
         self.roomTextField.hidden = NO;
         self.nickNameTextField.hidden = NO;
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
-        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.Enter") forState:UIControlStateNormal];
+        [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
         [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
             make.height.bmmas_equalTo(50);
@@ -1604,7 +1604,7 @@
                 }
                 else if (i == 2)
                 {
-                    [button setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+                    [button setTitle:YSLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
                     self.patrolRoleBtn = button;
                 }
             }
@@ -1669,7 +1669,7 @@
     {
             [self.studentRoleBtn setTitle:YSLocalized(@"Role.Attendee") forState:UIControlStateNormal];
             [self.teacherRoleBtn setTitle:YSLocalized(@"Role.Host") forState:UIControlStateNormal];
-            [self.patrolRoleBtn setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+            [self.patrolRoleBtn setTitle:YSLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
     }
     else
     {
