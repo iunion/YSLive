@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSPollingViewDelegate <NSObject>
 
-
-
+- (void)startPollingWithTime:(NSInteger)time;
+- (void)closePollingView;
 @end
 
 @interface YSPollingView : BMNoticeView

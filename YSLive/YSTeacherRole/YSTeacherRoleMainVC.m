@@ -308,6 +308,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong)YSTeacherTimerView *teacherTimerView;
 /// 轮播
 @property (nonatomic, strong)YSPollingView *teacherPollingView;
+/// 轮播的学生数据
+@property (nonatomic, strong) NSMutableArray *pollingArr;
+/// 轮播定时器
+@property (nonatomic, strong) dispatch_source_t pollingTimer;
 
 ///音频播放器
 @property(nonatomic, strong) AVAudioPlayer *player;
@@ -347,6 +351,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         dispatch_source_cancel(self.bigRoomTimer);
         self.bigRoomTimer = nil;
+    }
+    
+    if (self.pollingTimer)
+    {
+        dispatch_source_cancel(self.pollingTimer);
+        self.pollingTimer = nil;
     }
 }
 
@@ -401,6 +411,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isMp4Play = NO;
     self.videoViewArray = [[NSMutableArray alloc] init];
     searchArr = [[NSMutableArray alloc] init];
+    self.pollingArr = [[NSMutableArray alloc] init];
     isSearch = NO;
     _isMp4ControlHide = NO;
     /// 本地播放 （定时器结束的音效）
@@ -1584,6 +1595,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+    ///  轮播 设置上台的人在数组最后
+    if (roomUser.role == YSUserType_Student)
+    {
+        if ([self.pollingArr containsObject:peerId])
+        {
+            [self.pollingArr addObject:peerId];
+        }
+    }
+
+    
     // 删除本人占位视频
     for (SCVideoView *avideoView in self.videoViewArray)
     {
@@ -1840,6 +1861,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.bigRoomTimer = nil;
     }
     
+    if (self.pollingTimer)
+    {
+        dispatch_source_cancel(self.pollingTimer);
+        self.pollingTimer = nil;
+    }
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self dismissViewControllerAnimated:YES completion:^{
@@ -1963,6 +1989,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
     NSInteger userCount = self.liveManager.studentCount;
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
+    for (YSRoomUser *user in self.liveManager.userList)
+    {
+        if (user.role == YSUserType_Student)
+        {
+            if (![self.pollingArr containsObject:user.peerID])
+            {
+                [self.pollingArr addObject:user.peerID];
+            }
+        }
+    }
     
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
@@ -1993,6 +2029,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSInteger userCount = self.liveManager.studentCount;
 
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
+    
+    /// 删除轮播字典里边的该学生
+    if (user.role == YSUserType_Student)
+    {
+        if ([self.pollingArr containsObject:user.peerID])
+        {
+            [self.pollingArr removeObject:user.peerID];
+        }
+    }
+    
+
 }
 
 /// 大房间刷新用户数量
@@ -4764,6 +4811,49 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager sendSignalingTeacherToDeleteTimerCompletion:nil];
 }
 
+
+#pragma mark -
+#pragma mark 轮播
+- (void)closePollingView
+{
+    if (self.pollingTimer)
+    {
+        dispatch_source_cancel(self.pollingTimer);
+        self.pollingTimer = nil;
+    }
+}
+
+- (void)startPollingWithTime:(NSInteger)time
+{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    self.pollingTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    
+    dispatch_source_set_timer(self.pollingTimer, DISPATCH_TIME_NOW, time * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    //3.要调用的任务
+    BMWeakSelf
+    dispatch_source_set_event_handler(self.pollingTimer, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [weakSelf pollingUpPlatform];
+        });
+    });
+    //4.开始执行
+    dispatch_resume(self.pollingTimer);
+#warning 是否隐藏 轮播 view
+}
+
+- (void)pollingUpPlatform
+{
+    for (NSString *peerId in self.pollingArr)
+    {
+        YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
+        if (roomUser.role == YSUserType_Student)
+        {
+            
+        }
+    }
+    
+}
 #pragma mark -
 #pragma mark 聊天相关视图
 

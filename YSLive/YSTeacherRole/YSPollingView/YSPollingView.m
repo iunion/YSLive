@@ -109,7 +109,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.timeLabel.textAlignment= NSTextAlignmentCenter;
     self.timeLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
     self.timeLabel.font = [UIFont systemFontOfSize:21.0f];
-    self.timeLabel.text = @"20";
+    self.timeLabel.text = [NSString stringWithFormat:@"%@",@(_second)];
     self.timeLabel.frame = CGRectMake(40, 8, 30, 25);
 
     self.upBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -139,96 +139,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.secondLabel.bm_centerY = self.titleLabel.bm_centerY;
     self.secondLabel.bm_left = self.timeView.bm_right + 15;
     
-//    self.bacImageView = [[UIImageView alloc] init];
-//    [self.bacImageView setImage:[UIImage imageNamed:@"yslive_sign_backimg"]];//teacherTimer_backimg
-//    self.bacImageView.userInteractionEnabled = YES;
-//    [self.bacView addSubview:self.bacImageView];
-//    self.bacImageView.frame = CGRectMake(0, 0, backImageWidth, backImageHeight);
-//    self.bacImageView.bm_bottom = self.bacView.bm_bottom;
-//    self.bacImageView.bm_centerX = self.bacView.bm_centerX;
-//
-//    self.titleL = [[UILabel alloc] init];
-//    [self.bacImageView addSubview:self.titleL];
-//    self.titleL.textAlignment= NSTextAlignmentCenter;
-//    self.titleL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-//    self.titleL.font = [UIFont systemFontOfSize:16.0f];
-//    self.titleL.text = YSLocalized(@"tool.jishiqi");
-//    self.titleL.frame = CGRectMake(0, 26, self.bacImageView.bm_width, 22);
-//
-//    self.intervalL = [[UILabel alloc] init];
-//    [self.bacImageView addSubview:self.intervalL];
-//    self.intervalL.textAlignment= NSTextAlignmentCenter;
-//    self.intervalL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-//    self.intervalL.font = [UIFont systemFontOfSize:30.0f];
-//    self.intervalL.text = @":";
-//    self.intervalL.frame = CGRectMake(0, 50, 9, 42);
-//    self.intervalL.bm_centerX = self.titleL.bm_centerX;
-//    self.intervalL.bm_top = self.titleL.bm_bottom + 17;
-//
-//    self.minuteL = [[UILabel alloc] init];
-//    [self.bacImageView addSubview:self.minuteL];
-//    self.minuteL.textAlignment= NSTextAlignmentCenter;
-//    self.minuteL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-//    self.minuteL.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
-//    self.minuteL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
-//    self.minuteL.frame = CGRectMake(0, 0, 70, 42);
-//    self.minuteL.bm_right = self.intervalL.bm_left - 18;
-//    self.minuteL.bm_centerY = self.intervalL.bm_centerY;
-//    self.minuteL.layer.cornerRadius = 3;
-//    self.minuteL.layer.masksToBounds = YES;
-//    self.minuteL.text = @"05";
-//
-//
-//    self.minuteUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.minuteUpBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_normal"] forState:UIControlStateNormal];
-//    [self.minuteUpBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_disabled"] forState:UIControlStateDisabled];
-//    [self.minuteUpBtn addTarget:self action:@selector(minuteUpBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bacImageView addSubview:self.minuteUpBtn];
-//    self.minuteUpBtn.frame = CGRectMake(0, 0, 20, 12);
-//    self.minuteUpBtn.bm_centerX = self.minuteL.bm_centerX;
-//    self.minuteUpBtn.bm_bottom = self.minuteL.bm_top - 4;
-//
-//    self.minuteDownBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.minuteDownBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_normal"] forState:UIControlStateNormal];
-//    [self.minuteDownBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_disabled"] forState:UIControlStateDisabled];
-//    [self.minuteDownBtn addTarget:self action:@selector(minuteDownBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bacImageView addSubview:self.minuteDownBtn];
-//    self.minuteDownBtn.frame = CGRectMake(0, 0, 20, 12);
-//    self.minuteDownBtn.bm_centerX = self.minuteL.bm_centerX;
-//    self.minuteDownBtn.bm_top = self.minuteL.bm_bottom + 4;
-//
-//    self.secondL = [[UILabel alloc] init];
-//    [self.bacImageView addSubview:self.secondL];
-//    self.secondL.textAlignment= NSTextAlignmentCenter;
-//    self.secondL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-//    self.secondL.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
-//    self.secondL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
-//    self.secondL.frame = CGRectMake(0, 0, 70, 42);
-//    self.secondL.bm_left = self.intervalL.bm_right + 18;
-//    self.secondL.bm_centerY = self.intervalL.bm_centerY;
-//    self.secondL.layer.cornerRadius = 3;
-//    self.secondL.layer.masksToBounds = YES;
-//    self.secondL.text = @"00";
-//
-//    self.secondUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.secondUpBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_normal"] forState:UIControlStateNormal];
-//    [self.secondUpBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_disabled"] forState:UIControlStateDisabled];
-//    [self.secondUpBtn addTarget:self action:@selector(secondUpBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bacImageView addSubview:self.secondUpBtn];
-//    self.secondUpBtn.frame = CGRectMake(0, 0, 20, 12);
-//    self.secondUpBtn.bm_centerX = self.secondL.bm_centerX;
-//    self.secondUpBtn.bm_bottom = self.secondL.bm_top - 4;
-//
-//    self.secondDownBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.secondDownBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_normal"] forState:UIControlStateNormal];
-//    [self.secondDownBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_disabled"] forState:UIControlStateDisabled];
-//    [self.secondDownBtn addTarget:self action:@selector(secondDownBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bacImageView addSubview:self.secondDownBtn];
-//    self.secondDownBtn.frame = CGRectMake(0, 0, 20, 12);
-//    self.secondDownBtn.bm_centerX = self.secondL.bm_centerX;
-//    self.secondDownBtn.bm_top = self.secondL.bm_bottom + 4;
-//    self.secondDownBtn.enabled = NO;
-//
+
     self.sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.sureBtn setTitle: YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
     [self.sureBtn addTarget:self action:@selector(sureBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -247,17 +158,20 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
 
 - (void)closeBtnClicked:(UIButton *)btn
 {
-//    if ([self.delegate respondsToSelector:@selector(timerClose)])
-//    {
-//        [self.delegate timerClose];
-//    }
+    if ([self.delegate respondsToSelector:@selector(closePollingView)])
+    {
+        [self.delegate closePollingView];
+    }
 
     [self dismiss:nil animated:NO dismissBlock:nil];
 }
 
 - (void)sureBtnClicked:(UIButton *)btn
 {
-    
+    if ([self.delegate respondsToSelector:@selector(startPollingWithTime:)])
+    {
+        [self.delegate startPollingWithTime:_second];
+    }
 }
 
 - (void)upBtnClicked:(UIButton *)btn
