@@ -3608,6 +3608,32 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     [self handleSignalingDefaultRoomLayout];
+    
+    BOOL canDraw = NO;
+    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+    {
+        self.brushToolView.hidden = YES;
+        self.drawBoardView.hidden = YES;
+    }
+    else
+    {
+        self.brushToolView.hidden = !canDraw;
+        if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
+        {
+            self.drawBoardView.hidden = YES;
+        }else{
+            self.drawBoardView.hidden = NO;
+        }
+    }
+    
+    [self resetDrawTools];
+}
+
+- (void)resetDrawTools
+{
+    [self.brushToolView resetTool];
+    self.drawBoardView.brushToolType = YSBrushToolTypeMouse;
+    [self.liveManager.whiteBoardManager freshBrushToolConfig];
 }
 
 // 已经离开房间
@@ -3874,8 +3900,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     [self setCurrentUserPrimaryColor];
                 }
                 
-                [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
-                [self.liveManager.whiteBoardManager freshBrushToolConfig];
+                [self resetDrawTools];
+
             }
             
             videoView.canDraw = canDraw;
