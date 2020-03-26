@@ -32,12 +32,11 @@
     {
         return;
     }
-        
-    
-    if (![msgName isEqualToString:@"Server_Sort_Result"])
-    {
-//        NSLog(@"weee");
-    }
+
+//    if (![msgName isEqualToString:@"Server_Sort_Result"])
+//    {
+////        NSLog(@"weee");
+//    }
     
     ///全体静音 全体发言
     if ([msgName isEqualToString:YSSignalingName_LiveAllNoAudio])
@@ -51,13 +50,22 @@
         return;
     }
         
-    if (![YSLiveUtil checkDataType:data])
-    {
-        return;
-    }
+//    if (![YSLiveUtil checkDataType:data])
+//    {
+//        return;
+//    }
     
     // 转换数据
     NSDictionary *dataDic = [YSLiveUtil convertWithData:data];
+    if (dataDic == nil)
+    {
+//        if ([msgName isEqualToString:YSSignalingName_ClassBegin])
+//        {
+//            NSAssert(NO, @"ClassBegin error");
+//        }
+        return;
+    }
+    
     NSNumber *dataNum = nil;
     if (![dataDic bm_isNotEmptyDictionary])
     {

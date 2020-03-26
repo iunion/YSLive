@@ -160,6 +160,9 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 - (void)changeDefaultPrimaryColor:(NSString *)colorHex;
 
 
+// 刷新当前白板课件
+- (void)freshCurrentCourse;
+
 /**
  课件备注回调
 
