@@ -83,6 +83,7 @@
 "Role.Teacher" = "老師";
 "Role.Student" = "學生";
 "Role.Patrol"  = "巡課";
+"Role.PatrolMeeting"  = "巡視";
 "Role.Assistant" = "助教";
 "Role.ToTeacher" = "送給老師";
 
@@ -442,3 +443,5 @@
 "Prompt.AudioBuffering" = "正在緩沖音頻";
 
 "Prompt.DataLoading" = "數據加載中";
+"Button.Reload" = "加載";
+"Button.Loading" = "加載中";

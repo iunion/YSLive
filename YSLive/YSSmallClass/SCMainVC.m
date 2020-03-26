@@ -39,6 +39,8 @@
 
 #import "YSControlPopoverView.h"
 
+#import "PanGestureControl.h"
+
 #define USE_YSRenderMode_adaptive   1
 
 #define SCLessonTimeCountDownKey     @"SCLessonTimeCountDownKey"
@@ -213,6 +215,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 /// 拖出视频浮动View列表
 @property (nonatomic, strong) NSMutableArray <YSFloatView *> *dragOutFloatViewArray;
+///拖出视频view时的模拟移动图
+@property (nonatomic, strong) UIImageView *dragImageView;
+///刚开始拖动时，videoView的初始坐标（x,y）
+@property (nonatomic, assign) CGPoint videoOriginInSuperview;
+///全屏课件时老师的视频有没有拖拽过
+@property (nonatomic, assign) BOOL isFullTeacherVideoViewDragout;
 
 /// 双击放大视频
 @property (nonatomic, strong) YSFloatView *doubleFloatView;
@@ -235,7 +243,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) SCBrushToolView *brushToolView;
 /// 画笔选择 颜色 大小 形状
 @property (nonatomic, strong) SCDrawBoardView *drawBoardView;
-
+/// 课件刷新按钮
+@property (nonatomic, strong) UIButton *coursewareBtn;
+/// 当前课件的页码
+@property (nonatomic, assign) int coursewareCurrentPage;
 
 /// 答题中
 @property (nonatomic, strong) SCAnswerView *answerView;
@@ -526,6 +537,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 
     self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 76 - fullTeacherVideoWidth, 50, fullTeacherVideoWidth, fullTeacherVideoHeight)];
+    
     
 //    self.fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
 //    self.fullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
@@ -1179,6 +1191,36 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.bm_centerY = rect.origin.y + rect.size.height/2; //self.whitebordBackgroud.bm_centerY;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
+    
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, UI_SCREEN_HEIGHT-80, 50, 60)];
+    [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
+    [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    coursewareBtn.titleLabel.font = UI_FONT_16;
+    coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:coursewareBtn];
+    self.coursewareBtn = coursewareBtn;
+
+    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,0, coursewareBtn.titleLabel.bounds.size.height, 0);
+    coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
+    coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+}
+
+///刷新课件
+- (void)buttonClickToRefreshCourseware:(UIButton *)sender
+{
+    if (!self.coursewareBtn.selected)
+    {
+        [self.liveManager.whiteBoardManager whiteBoardTurnToPage:self.coursewareCurrentPage];
+        self.coursewareBtn.selected = YES;
+        BMWeakSelf
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            weakSelf.coursewareBtn.selected = NO;
+        });
+    }
 }
 
 /// 设置底部 翻页控件
@@ -3057,13 +3099,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.isWhitebordFullScreen = isAllScreen;
     
     [self.boardControlView resetBtnStates];
-    
     if (isAllScreen)
     {
         [self.view endEditing:YES];
         [self.whiteBordView removeFromSuperview];
-//        [self.whitebordBackgroud bm_removeAllSubviews];
         
+        self.fullTeacherFloatView.isFullBackgrond = YES;
         self.whitebordFullBackgroud.hidden = NO;
         // 加载白板
         [self.whitebordFullBackgroud addSubview:self.whiteBordView];
@@ -3071,12 +3112,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInVCView];
         
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-
     }
     else
     {
-        
-//        [self.whitebordFullBackgroud bm_removeAllSubviews];
+        self.fullTeacherFloatView.isFullBackgrond = NO;
         self.whitebordFullBackgroud.hidden = YES;
         [self.whiteBordView removeFromSuperview];
         [self.whitebordBackgroud addSubview:self.whiteBordView];
@@ -3510,6 +3549,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     NSString *totalPage = file.pagenum;
     NSString *currentPage = file.currpage;
+    self.coursewareCurrentPage = currentPage.intValue;
     if (!currentPage)
     {
         currentPage = @"1";
@@ -3522,6 +3562,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         prevPage = [dicPage bm_boolForKey:@"prevPage"];
         nextPage = [dicPage bm_boolForKey:@"nextPage"];
     }
+    
+    
     
     BOOL isDynamic = YES;
     if (file.isGeneralFile)
@@ -4459,6 +4501,133 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self handleSignalingSetRoomLayout:defaultRoomLayout withPeerId:nil];
 }
 
+#pragma mark 全屏课件时可以拖动老师视频
+- (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
+{
+    if (self.roomtype == YSRoomType_One || self.roomLayout == YSLiveRoomLayout_FocusLayout)
+    {
+        return;
+    }
+    
+    CGPoint endPoint = [pan translationInView:videoView];
+    
+    if (!self.dragImageView)
+    {
+        UIImage * img = [self.fullTeacherVideoView bm_screenshot];
+        self.dragImageView = [[UIImageView alloc]initWithImage:img];
+        [self.whitebordFullBackgroud addSubview:self.dragImageView];
+    }
+    
+    if (self.videoOriginInSuperview.x == 0 && self.videoOriginInSuperview.y == 0)
+    {
+        self.videoOriginInSuperview = [self.whitebordFullBackgroud convertPoint:CGPointMake(0, 0) fromView:videoView];
+        [self.whitebordFullBackgroud bringSubviewToFront:self.dragImageView];
+    }
+    self.dragImageView.frame = CGRectMake(self.videoOriginInSuperview.x + endPoint.x, self.videoOriginInSuperview.y + endPoint.y, videoView.bm_width, videoView.bm_height);
+    
+    if (pan.state == UIGestureRecognizerStateEnded)
+    {
+         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+        
+        CGFloat percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(UI_SCREEN_WIDTH - videoView.bm_width);
+        CGFloat percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(self.whitebordFullBackgroud.bm_height - videoView.bm_height);
+        
+        if (percentLeft>1)
+        {
+            percentLeft = 1;
+        }
+        else if (percentLeft<0)
+        {
+            percentLeft = 0;
+        }
+        if (percentTop>1)
+        {
+            percentTop = 1;
+        }
+
+        if (self.whitebordFullBackgroud.hidden)
+        {//课件不全屏
+            if (percentTop<0)
+            {
+                NSDictionary * data = @{
+                           @"isDrag":@0,
+                           @"userId":videoView.roomUser.peerID
+                       };
+                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+                
+                [self.dragImageView removeFromSuperview];
+                self.dragImageView = nil;
+                self.videoOriginInSuperview = CGPointZero;
+                return;
+            }
+            else
+            {
+                NSDictionary * data = @{
+                    @"isDrag":@1,
+                    @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
+                    @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
+                    @"userId":videoView.roomUser.peerID
+                };
+                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+            }
+        }
+        else
+        {
+            if (percentTop<0)
+            {
+                percentTop = 0;
+            }
+            [self showDragOutFullTeacherVidoeViewWithPercentLeft:percentLeft percentTop:percentTop];
+        }
+
+        [self.dragImageView removeFromSuperview];
+        self.dragImageView = nil;
+        self.videoOriginInSuperview = CGPointZero;
+    }
+}
+// 全屏课件时拖拽视频
+- (void)showDragOutFullTeacherVidoeViewWithPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop
+{
+    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+    {
+        return;
+    }
+    
+    SCVideoView *videoView = self.fullTeacherVideoView;
+    if (self.isFullTeacherVideoViewDragout)
+    {
+        CGFloat x = percentLeft * (UI_SCREEN_WIDTH - 2 - videoView.bm_width);
+        CGFloat y = percentTop * (self.whitebordFullBackgroud.bm_height - 2 - videoView.bm_height);
+        if (x <= 0) {
+            x = 1.0;
+        }
+        
+        CGPoint point = CGPointMake(x, y);
+        
+        self.fullTeacherFloatView.frame = CGRectMake(point.x, point.y, videoView.bm_width, videoView.bm_height);
+        [self.fullTeacherFloatView bm_bringToFront];
+        return;
+    }
+    else
+    {
+        self.isFullTeacherVideoViewDragout = YES;
+        
+        CGFloat x = percentLeft * (UI_SCREEN_WIDTH - 2 - floatVideoDefaultWidth);
+        CGFloat y = percentTop * (self.whitebordFullBackgroud.bm_height - 2 - floatVideoDefaultHeight);
+        if (x <= 0) {
+            x = 1.0;
+        }
+        CGPoint point = CGPointMake(x, y);
+        self.fullTeacherFloatView.frame = CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight);
+        
+        // 支持本地拖动缩放
+        self.fullTeacherFloatView.canGestureRecognizer = YES;
+        self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+        [self.fullTeacherFloatView bm_bringToFront];
+        self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
+        self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
+    }
+}
 
 #pragma mark 拖出/放回视频窗口
 
@@ -4573,7 +4742,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.drawBoardView.hidden = NO;
     }
-    
 //    [self freshWhiteBordViewFrame];
 }
 
@@ -4693,9 +4861,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         YSFileModel *file = self.liveManager.currentFile;
         NSString *totalPage = [message objectForKey:@"pagenum"];
         NSString *currentPage = [message objectForKey:@"currpage"];
+        self.coursewareCurrentPage = currentPage.intValue;
         [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
     }
-    
     return;
 }
 
@@ -5244,7 +5412,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         [view addSubview:self.fullTeacherFloatView];
         [self.fullTeacherFloatView cleanContent];
-        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
+        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO withDelegate:self];
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
         
