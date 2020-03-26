@@ -170,6 +170,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     BOOL _isMp4Play;// 是否是MP4全屏播放
     BOOL _isMp4ControlHide;// MP4控制是否显示 关闭按钮是否显示
+    BOOL _isPolling;// 正在轮播
     
 }
 
@@ -310,6 +311,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong)YSPollingView *teacherPollingView;
 /// 轮播的学生数据
 @property (nonatomic, strong) NSMutableArray *pollingArr;
+/// 轮播的上台学生数据
+@property (nonatomic, strong) NSMutableArray *pollingUpPlatformArr;
 /// 轮播定时器
 @property (nonatomic, strong) dispatch_source_t pollingTimer;
 
@@ -412,8 +415,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.videoViewArray = [[NSMutableArray alloc] init];
     searchArr = [[NSMutableArray alloc] init];
     self.pollingArr = [[NSMutableArray alloc] init];
+    self.pollingUpPlatformArr = [[NSMutableArray alloc] init];
     isSearch = NO;
     _isMp4ControlHide = NO;
+    _isPolling = NO;
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -1600,7 +1605,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if ([self.pollingArr containsObject:peerId])
         {
-            [self.pollingArr insertObject:peerId atIndex:self.pollingArr.count - 1];
+            [self.pollingArr removeObject:peerId];
+            [self.pollingArr addObject:peerId];
         }
     }
 
@@ -1661,11 +1667,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         newVideoView = videoView;
         if (videoView)
         {
+            
             [self.videoViewArray addObject:videoView];
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoView = videoView;
             }
+            if (roomUser.role == YSUserType_Student)
+            {
+                [self.pollingUpPlatformArr addObject:peerId];
+            }
+            
         }
         
         if (self.teacherVideoView)
@@ -1728,12 +1740,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
+        
         for (SCVideoView *videoView in self.videoViewArray)
         {
             if ([videoView.roomUser.peerID isEqualToString:peerId])
             {
                 delVideoView = videoView;
                 [self.videoViewArray removeObject:videoView];
+                [self.pollingUpPlatformArr removeObject:peerId];///删除视频的同时删除轮播上台数据
                 break;
             }
         }
@@ -1811,7 +1825,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     });
     //4.开始执行
     dispatch_resume(self.bigRoomTimer);
-    
+    [self topToolBarPollingBtnEnable];
 #if DEBUG
     [self bringSomeViewToFront];
     [self.progressHUD bm_showAnimated:NO withDetailText:@"变更为大房间" delay:5];
@@ -1999,7 +2013,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
-    
+    [self topToolBarPollingBtnEnable];
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
@@ -2421,7 +2435,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
     self.topToolBar.classBtn.userInteractionEnabled = YES;
-    
+    [self topToolBarPollingBtnEnable];
     // 通知各端开始举手
     [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
     
@@ -2454,7 +2468,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         /// 轮播数组数组
         if (roomUser.role == YSUserType_Student)
         {
-            [self.pollingArr addObject:roomUser.peerID];
+            if (![self.pollingArr containsObject:roomUser.peerID])
+            {
+                [self.pollingArr addObject:roomUser.peerID];
+            }
+            
         }
         
         if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -3710,15 +3728,55 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self backAction:nil];
 }
 
-/// 轮询
+/// 轮播
 - (void)pollingBtnClickedProxyWithBtn:(UIButton *)btn
 {
-    self.teacherPollingView = [[YSPollingView alloc] init];
-    [self.teacherPollingView showTeacherPollingViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-
-    self.teacherPollingView.delegate = self;
+    if (_isPolling)
+    {
+        if (self.pollingTimer)
+        {
+            dispatch_source_cancel(self.pollingTimer);
+            self.pollingTimer = nil;
+        }
+        
+        [self topToolBarPollingBtnEnable];
+        if (self.topToolBar.pollingBtn.enabled)
+        {
+            self.topToolBar.pollingBtn.selected = NO;
+        }
+        _isPolling = NO;
+    }
+    else
+    {
+        self.teacherPollingView = [[YSPollingView alloc] init];
+        [self.teacherPollingView showTeacherPollingViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+        self.teacherPollingView.delegate = self;
+    }
+   
 }
 
+/// 顶部轮播按钮 是否可点击  如果教室当前人数小于座位席人数上限（例如1vn教室的n），则轮播功能无法开启,此时轮播按钮置灰色，人数大于等于时可启动；
+- (void)topToolBarPollingBtnEnable
+{
+    
+    /// 1.开始上课  2.用户进入    3.用户离开(是否要在此做判断 例如：轮播过程中用户退出少于最大上台数 是否关闭轮播)
+    /// 大房间的时候一直不能用
+    if (self.liveManager.isBigRoom)
+    {
+        self.topToolBar.pollingBtn.enabled = NO;
+        return;
+    }
+    NSInteger total = 0;
+    for (YSRoomUser * user in self.liveManager.userList)
+    {
+        if (user.role == YSUserType_Student)
+        {
+            total++;
+        }
+    }
+    
+    self.topToolBar.pollingBtn.enabled = total >= maxVideoCount;
+}
 
 #pragma mark 切换布局模式
 - (void)changeLayoutWithMode:(BOOL)mode
@@ -4844,46 +4902,80 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     });
     //4.开始执行
     dispatch_resume(self.pollingTimer);
-#warning 是否隐藏 轮播 view
+    [self.teacherPollingView dismiss:nil animated:NO dismissBlock:nil];
+    self.topToolBar.pollingBtn.selected = YES;
+    _isPolling = YES;
+    
 }
 
 - (void)pollingUpPlatform
 {
     
-    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:self.pollingArr.firstObject];
+    YSRoomUser *roomUser = nil;
+    for (NSString *tempPeerID in self.pollingArr)
+    {
+        SCVideoView *videoView = [self getVideoViewWithPeerId:tempPeerID];
+        if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
+        {
+            
+            roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
+            break;
+        }
+    }
+    
     if (!roomUser)
     {
         return;
     }
     if (roomUser.role == YSUserType_Student)
     {
-        if (roomUser.publishState == YSUser_PublishState_NONE)
+//        if (roomUser.publishState == YSUser_PublishState_NONE)
         {
             if (self.videoViewArray.count < maxVideoCount)
             {
                 
-                if (self.liveManager.isEveryoneNoAudio)
-                {
-                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
-                }
-                else
-                {
-                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
-                }
+                [self changeUpPlatformRoomUser:roomUser];
             }
             else
             {
+                NSString *upPlatformPeerId = @"";
+                for (NSString *peerId in self.pollingUpPlatformArr)
+                {
+                    SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
+                    if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
+                    {
+                        upPlatformPeerId = videoView.roomUser.peerID;
+                        
+                        break;
+                    }
+                    
+                }
+                BMLog(@"----------%@~~~~~%@",upPlatformPeerId,roomUser.peerID);
+                [self.liveManager.roomManager changeUserProperty:upPlatformPeerId tellWhom:YSRoomPubMsgTellAll data:@{sUserPublishstate : @(YSUser_PublishState_NONE),sUserCandraw : @(false)} completion:nil];
+                if ([upPlatformPeerId bm_isNotEmpty])
+                {
+                    [self changeUpPlatformRoomUser:roomUser];
+                }
                 
-                [self.liveManager.roomManager changeUserProperty:roomUser.peerID tellWhom:YSRoomPubMsgTellAll data:@{sUserPublishstate : @(YSUser_PublishState_NONE),sUserCandraw : @(false)} completion:nil];
+                
             }
         }
-        //             else
-        //             {
-        //                 [self.liveManager.roomManager changeUserProperty:roomUser.peerID tellWhom:YSRoomPubMsgTellAll data:@{sUserPublishstate : @(YSUser_PublishState_NONE),sUserCandraw : @(false)} completion:nil];
-        //             }
+
     }
     
-    
+}
+
+/// 上台学生
+- (void)changeUpPlatformRoomUser:(YSRoomUser *)roomUser
+{
+    if (self.liveManager.isEveryoneNoAudio)
+    {
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+    }
+    else
+    {
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+    }
 }
 #pragma mark -
 #pragma mark 聊天相关视图

@@ -246,6 +246,7 @@
     [self.btnStackView addArrangedSubview:self.pollingBtn];
     [pollingBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_personPollingBtn_Normal"] forState:UIControlStateNormal];
     [pollingBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_personPollingBtn_Selected"] forState:UIControlStateSelected];
+    [pollingBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_topbar_personPollingBtn_Disabled"] forState:UIControlStateDisabled];
     [pollingBtn addTarget:self action:@selector(pollingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     pollingBtn.tag = SCTeacherTopBarTypePolling;
     
