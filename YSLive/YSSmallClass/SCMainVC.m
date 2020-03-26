@@ -275,6 +275,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 大并发房间计时器 每两秒获取一次
 @property (nonatomic, strong) dispatch_source_t bigRoomTimer;
 
+@property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
+
 @end
 
 @implementation SCMainVC
@@ -2137,7 +2139,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //        return;
     //    }
     //
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    }
+
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
     if (!roomUser)
     {
@@ -2265,7 +2271,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)delVidoeViewWithPeerId:(NSString *)peerId
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    }
+
     SCVideoView *delVideoView = nil;
     if ([peerId isEqualToString:self.teacherVideoView.roomUser.peerID])
     {
@@ -3246,6 +3256,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             });
         }];
     }];
+    
+    self.imagePickerController = imagePickerController;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
@@ -3652,6 +3664,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.bigRoomTimer = nil;
     }
 
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    }
+
+    [self.imagePickerController cancelButtonClick];
+    
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     [self dismissViewControllerAnimated:YES completion:^{
@@ -3813,7 +3832,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         reasonString = YSLocalized(@"KickOut.SentOutClassroom");
     }
 
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    }
+
+    [self.imagePickerController cancelButtonClick];
+    
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -4005,8 +4030,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     //                [self.topToolBar hideMicrophoneBtn:YES];
                     self.controlPopoverView.audioBtn.selected = NO;
                     self.controlPopoverView.videoBtn.selected = NO;
-                    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-               
+                    if (self.controlPopoverView.presentingViewController)
+                    {
+                        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                    }
             }
             else if (publishState > YSUser_PublishState_BOTH)
             {
@@ -4359,7 +4386,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 下课
 - (void)handleSignalingClassEndWithText:(NSString *)text
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    }
     
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -4376,7 +4406,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 弹框
 - (void)showSignalingClassEndWithText:(NSString *)text
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    }
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -5218,8 +5251,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         title = YSLocalized(@"Prompt.NeedPhotograph.title" );
         message = YSLocalized(@"Prompt.NeedPhotograph");
     }
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    
+
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    }
+
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];

@@ -315,6 +315,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 当前的用户视频的镜像状态
 @property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
 
+@property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
+
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -1755,6 +1757,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+
+    [self.imagePickerController cancelButtonClick];
+
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -1835,6 +1840,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         dispatch_source_cancel(self.bigRoomTimer);
         self.bigRoomTimer = nil;
     }
+
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+
+    [self.imagePickerController cancelButtonClick];
     
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
@@ -2267,7 +2278,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 return;
             }
             [self delVidoeViewWithPeerId:peerID];
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
         }
     }
     
@@ -5388,7 +5402,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
             }
             self.foucePeerId = self.fouceView.roomUser.peerID;
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
         }
             break;
         case 6:
@@ -5398,7 +5415,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                        @"userId":self.selectControlView.roomUser.peerID
                    };
             [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
         }
             break;
             
@@ -5992,6 +6012,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //        [self presentViewController:imagePickerController animated:YES completion:nil];
 //    }];
 
+    self.imagePickerController = imagePickerController;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
