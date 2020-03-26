@@ -3058,7 +3058,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.isWhitebordFullScreen = isAllScreen;
     
     [self.boardControlView resetBtnStates];
-    
+    self.boardControlView.isAllScreen = isAllScreen;
     if (isAllScreen)
     {
         [self.view endEditing:YES];
