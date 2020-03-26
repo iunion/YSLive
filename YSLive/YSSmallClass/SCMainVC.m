@@ -246,7 +246,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 课件刷新按钮
 @property (nonatomic, strong) UIButton *coursewareBtn;
 /// 当前课件的页码
-@property (nonatomic, assign) int coursewareCurrentPage;
+//@property (nonatomic, assign) int coursewareCurrentPage;
 
 /// 答题中
 @property (nonatomic, strong) SCAnswerView *answerView;
@@ -1214,7 +1214,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (!self.coursewareBtn.selected)
     {
-        [self.liveManager.whiteBoardManager whiteBoardTurnToPage:self.coursewareCurrentPage];
+//        [self.liveManager.whiteBoardManager whiteBoardTurnToPage:self.coursewareCurrentPage];
+        [self.liveManager.whiteBoardManager freshCurrentCourse];
         self.coursewareBtn.selected = YES;
         BMWeakSelf
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -3549,7 +3550,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     NSString *totalPage = file.pagenum;
     NSString *currentPage = file.currpage;
-    self.coursewareCurrentPage = currentPage.intValue;
+//    self.coursewareCurrentPage = currentPage.intValue;
     if (!currentPage)
     {
         currentPage = @"1";
@@ -4869,7 +4870,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         YSFileModel *file = self.liveManager.currentFile;
         NSString *totalPage = [message objectForKey:@"pagenum"];
         NSString *currentPage = [message objectForKey:@"currpage"];
-        self.coursewareCurrentPage = currentPage.intValue;
+//        self.coursewareCurrentPage = currentPage.intValue;
         [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
     }
     return;
