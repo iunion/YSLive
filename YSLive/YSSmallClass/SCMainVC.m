@@ -4314,7 +4314,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
 #if DEBUG
             [self bringSomeViewToFront];
-            [self.progressHUD bm_showAnimated:NO withDetailText:@"出现后台问题！！！！！！！！" delay:10];
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"出现后台问题！！！！！！！！" delay:5];
 #endif
 
             [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];

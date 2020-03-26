@@ -817,6 +817,21 @@
     }
     else
     {
+        // 刷新当前用户前后台状态
+        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {
+                BOOL isInBackGround = NO;
+                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+                if (state != UIApplicationStateActive)
+                {
+                    isInBackGround = YES;
+                }
+                if (isInBackGround != [self.roomUser.properties bm_boolForKey:sUserIsInBackGround])
+                {
+                    [[YSLiveManager shareInstance].roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+                }
+        }
+
         self.maskNoVideobgLab.hidden = YES;
         
         self.canDraw = [self.roomUser.properties bm_boolForKey:sUserCandraw];
