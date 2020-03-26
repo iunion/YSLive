@@ -3971,11 +3971,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             if (publishState < YSUser_PublishState_AUDIOONLY)
             {
-//                [self.topToolBar selectMicrophoneBtn:NO];
-//                [self.topToolBar hideMicrophoneBtn:YES];
-                self.controlPopoverView.audioBtn.selected = NO;
-                self.controlPopoverView.videoBtn.selected = NO;
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                if (!self.liveManager.isBeginClass)
+                {
+                    return;
+                }
+                    //                [self.topToolBar selectMicrophoneBtn:NO];
+                    //                [self.topToolBar hideMicrophoneBtn:YES];
+                    self.controlPopoverView.audioBtn.selected = NO;
+                    self.controlPopoverView.videoBtn.selected = NO;
+                    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+               
             }
             else if (publishState > YSUser_PublishState_BOTH)
             {
@@ -4008,6 +4013,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else if (publishState != 4)
         {
+            if (!self.liveManager.isBeginClass)
+            {
+                return;
+            }
             [self delVidoeViewWithPeerId:peerID];
         }
         
