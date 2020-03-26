@@ -4170,7 +4170,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {    
-    [self setupFullTeacherView];
     self.teacherPlaceLab.hidden = YES;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
     if (self.liveManager.localUser.role == YSUserType_Patrol)
