@@ -1217,6 +1217,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         }
         else if (publishState != 4)
         {
+            if (!self.liveManager.isBeginClass)
+            {
+                return;
+            }
             [self delVidoeViewWithPeerId:peerID];
         }
     }
