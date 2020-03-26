@@ -1600,7 +1600,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if ([self.pollingArr containsObject:peerId])
         {
-            [self.pollingArr addObject:peerId];
+            [self.pollingArr insertObject:peerId atIndex:self.pollingArr.count - 1];
         }
     }
 
@@ -2451,6 +2451,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
         NSString *peerID = roomUser.peerID;
+        /// 轮播数组数组
+        if (roomUser.role == YSUserType_Student)
+        {
+            [self.pollingArr addObject:roomUser.peerID];
+        }
         
         if (publishState == YSUser_PublishState_VIDEOONLY)
         {
@@ -4844,14 +4849,40 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)pollingUpPlatform
 {
-    for (NSString *peerId in self.pollingArr)
+    
+    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:self.pollingArr.firstObject];
+    if (!roomUser)
     {
-        YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
-        if (roomUser.role == YSUserType_Student)
-        {
-            
-        }
+        return;
     }
+    if (roomUser.role == YSUserType_Student)
+    {
+        if (roomUser.publishState == YSUser_PublishState_NONE)
+        {
+            if (self.videoViewArray.count < maxVideoCount)
+            {
+                
+                if (self.liveManager.isEveryoneNoAudio)
+                {
+                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+                }
+                else
+                {
+                    [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                }
+            }
+            else
+            {
+                
+                [self.liveManager.roomManager changeUserProperty:roomUser.peerID tellWhom:YSRoomPubMsgTellAll data:@{sUserPublishstate : @(YSUser_PublishState_NONE),sUserCandraw : @(false)} completion:nil];
+            }
+        }
+        //             else
+        //             {
+        //                 [self.liveManager.roomManager changeUserProperty:roomUser.peerID tellWhom:YSRoomPubMsgTellAll data:@{sUserPublishstate : @(YSUser_PublishState_NONE),sUserCandraw : @(false)} completion:nil];
+        //             }
+    }
+    
     
 }
 #pragma mark -
