@@ -25,7 +25,8 @@ typedef NS_ENUM(NSInteger, SCTeacherTopBarLayoutType)
 
 
 - (void)sc_TeacherTopBarProxyWithBtn:(UIButton *)btn;
-
+/// 轮询
+- (void)pollingBtnClickedProxyWithBtn:(UIButton *)btn;
 ///// 摄像头
 //- (void)cameraProxyWithBtn:(UIButton *)btn;
 ///// 切换布局
@@ -56,6 +57,8 @@ typedef NS_ENUM(NSInteger, SCTeacherTopBarLayoutType)
 @property (nonatomic, strong, readonly) UIButton *classBtn;
 /// 切换布局
 @property (nonatomic, strong, readonly) UIButton *switchLayoutBtn;
+/// 轮询按钮
+@property (nonatomic, strong, readonly) UIButton *pollingBtn;
 
 /// 控制全局控制按钮  布局切换按钮 课件表按钮  显示隐藏
 @property (nonatomic, assign)SCTeacherTopBarLayoutType layoutType;

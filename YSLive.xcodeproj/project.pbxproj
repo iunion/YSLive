@@ -668,6 +668,8 @@
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */; };
 		CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
+		CBC14E02242A5BA70052F6EE /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC14E01242A5BA70052F6EE /* YSPollingView.m */; };
+		CBC14E03242A5BA70052F6EE /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC14E01242A5BA70052F6EE /* YSPollingView.m */; };
 		CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
 		CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE342DA23FBA2DA003EA794 /* YSTeacherResponder.m */; };
 /* End PBXBuildFile section */
@@ -1345,6 +1347,8 @@
 		CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolUser.m; sourceTree = "<group>"; };
 		CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSchoolAVPlayerView.m; sourceTree = "<group>"; };
 		CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSchoolAVPlayerView.h; sourceTree = "<group>"; };
+		CBC14E00242A5BA70052F6EE /* YSPollingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSPollingView.h; sourceTree = "<group>"; };
+		CBC14E01242A5BA70052F6EE /* YSPollingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSPollingView.m; sourceTree = "<group>"; };
 		CBCD78B923FF8B6800498742 /* YSStudentTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
 		CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSStudentTimerView.m; sourceTree = "<group>"; };
 		CBE342D623FAE42B003EA794 /* YSUpHandPopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSUpHandPopCell.h; sourceTree = "<group>"; };
@@ -1408,6 +1412,7 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
+				CBC14DFF242A5B610052F6EE /* YSPollingView */,
 				CB384CE423FE7D1100DCD1C0 /* YSTeacherTimer */,
 				CBE342D823FBA286003EA794 /* YSTeacherResponder */,
 				2626447323C5795000317DAE /* YSTeacherMediaControl */,
@@ -2980,6 +2985,15 @@
 			path = YSSchoolAVPlayerView;
 			sourceTree = "<group>";
 		};
+		CBC14DFF242A5B610052F6EE /* YSPollingView */ = {
+			isa = PBXGroup;
+			children = (
+				CBC14E00242A5BA70052F6EE /* YSPollingView.h */,
+				CBC14E01242A5BA70052F6EE /* YSPollingView.m */,
+			);
+			path = YSPollingView;
+			sourceTree = "<group>";
+		};
 		CBCD78B823FF8B4500498742 /* YSStudentTimer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3413,6 +3427,7 @@
 				871335F2237270F6006534A4 /* YSBarrageManager.m in Sources */,
 				872D046923B7362300DAC321 /* FLEXImageExplorerViewController.m in Sources */,
 				872D046623B7362300DAC321 /* FLEXCarouselCell.m in Sources */,
+				CBC14E02242A5BA70052F6EE /* YSPollingView.m in Sources */,
 				34043C4223EA62EB004982E6 /* YSTabBarViewController.m in Sources */,
 				871338DC2372BE57006534A4 /* SCMainVC.m in Sources */,
 				871335FC237270F6006534A4 /* YSChatMemberListVC.m in Sources */,
@@ -3717,6 +3732,7 @@
 				8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */,
 				8717E28E2400DADC008C4CDA /* FLEXImageExplorerViewController.m in Sources */,
 				8717E2902400DADC008C4CDA /* FLEXCarouselCell.m in Sources */,
+				CBC14E03242A5BA70052F6EE /* YSPollingView.m in Sources */,
 				8717E2912400DADC008C4CDA /* YSTabBarViewController.m in Sources */,
 				8717E2922400DADC008C4CDA /* SCMainVC.m in Sources */,
 				8717E2932400DADC008C4CDA /* YSChatMemberListVC.m in Sources */,
