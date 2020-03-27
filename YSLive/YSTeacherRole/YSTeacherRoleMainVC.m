@@ -1795,7 +1795,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //3.要调用的任务
     dispatch_source_set_event_handler(self.bigRoomTimer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf freshTeacherPersonListData];
+            BMStrongSelf
+            [strongSelf freshTeacherPersonListData];
         });
     });
     //4.开始执行
@@ -4058,7 +4059,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //3.要调用的任务
     dispatch_source_set_event_handler(self.answerTimer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self answer_countDownTime:nil answerID:answerId];
+            BMStrongSelf
+            [strongSelf answer_countDownTime:nil answerID:answerId];
         });
     });
     //4.开始执行
@@ -5732,7 +5734,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //3.要调用的任务
             dispatch_source_set_event_handler(self.bigRoomTimer, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf freshTeacherPersonListData];
+                    BMStrongSelf
+                    [strongSelf freshTeacherPersonListData];
                 });
             });
             //4.开始执行

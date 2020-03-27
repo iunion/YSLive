@@ -3060,7 +3060,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             //3.要调用的任务
             dispatch_source_set_event_handler(self.bigRoomTimer, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf freshTeacherPersonListData];
+                    BMStrongSelf
+                    [strongSelf freshTeacherPersonListData];
                 });
             });
             //4.开始执行
