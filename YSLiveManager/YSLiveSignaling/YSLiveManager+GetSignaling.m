@@ -49,7 +49,198 @@
         }
         return;
     }
+    
+    // 不是备份信令时同步服务器时间
+    if (!inlist && [msgName isEqualToString:YSSignalingName_UpdateTime])
+    {
+        NSTimeInterval timeInterval = ts;
+        self.tServiceTime = timeInterval;
         
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingUpdateTimeWithTimeInterval:)])
+        {
+            [self.roomManagerDelegate handleSignalingUpdateTimeWithTimeInterval:timeInterval];
+        }
+        
+        return;
+    }
+    
+    // 上课
+    if ([msgName isEqualToString:YSSignalingName_ClassBegin])
+    {
+        NSTimeInterval timeInterval = ts;
+        self.tClassStartTime = timeInterval;
+        self.isBeginClass = YES;
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingClassBeginWihInList:)])
+        {
+            [self.roomManagerDelegate handleSignalingClassBeginWihInList:inlist];
+        }
+        
+        return;
+    }
+
+    // 全体禁言
+    if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])
+    {
+        [self sendTipMessage:YSLocalized(@"Prompt.BanChatInView") tipType:YSChatMessageTypeTips];
+        
+        self.isEveryoneBanChat = YES;
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToDisAbleEveryoneBanChatWithIsDisable:)])
+        {
+            [self.roomManagerDelegate handleSignalingToDisAbleEveryoneBanChatWithIsDisable:YES];
+        }
+        return;
+    }
+    
+    //是否开启上麦功能
+    if ([msgName isEqualToString:YSSignalingName_UpPlatForm])
+    {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:@"UpPlatFormId"];
+        
+        if (self.localUser.publishState > YSUser_PublishState_NONE)
+        {
+            return;
+        }
+        
+        self.allowEveryoneUpPlatform = YES;
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneUpPlatformWithIsAllow:)])
+        {
+            [self.roomManagerDelegate handleSignalingAllowEveryoneUpPlatformWithIsAllow:YES];
+        }
+        return;
+    }
+    
+    //是否同意上麦申请
+    if ([msgName isEqualToString:YSSignalingName_AllowUpPlatForm])
+    {
+        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowUpPlatformApplyWithData:)])
+        {
+            [self.roomManagerDelegate handleSignalingAllowUpPlatformApplyWithData:dict];
+        }
+        return;
+    }
+    
+    //同意各端开始举手
+    if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
+    {
+        self.raisehandMsgID = msgID;
+        //RaiseHandStart_1931343076_1584580626
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
+        {
+            [self.roomManagerDelegate handleSignalingAllowEveryoneRaiseHand];
+        }
+        return;
+    }
+        
+    //同意各端开始举手
+    if ([msgName isEqualToString:YSSignalingName_Server_Sort_Result])
+    {
+//        msgBody
+        NSArray * resultArray = [msgBody bm_arrayForKey:@"sortResult"];
+        NSString *type = [msgBody bm_stringForKey:@"id"];
+        if ([type bm_containString:@"Contest"])
+        {
+            /// 学生抢答
+//            if ([resultArray bm_isNotEmpty])
+//            {
+                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestCommitWithData:)])
+                {
+                    [self.roomManagerDelegate handleSignalingContestCommitWithData:resultArray];
+                }
+
+//            }
+        }
+        else
+        {
+            NSMutableArray * userArray = [NSMutableArray array];
+            
+            
+                for (NSDictionary * dict in resultArray)
+                {
+                    NSString * userId = dict.allKeys.firstObject;
+                    
+                    NSMutableDictionary * mutDict = [NSMutableDictionary dictionary];
+                    
+                    [mutDict setValue:userId forKey:@"peerId"];
+                    [mutDict setValue:[dict bm_stringForKey:userId] forKey:@"nickName"];
+                    [mutDict setValue:@(YSUser_PublishState_NONE) forKey:@"publishState"];
+                    
+                    [userArray addObject:mutDict];
+                }
+            
+            if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
+            {
+                [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
+            }
+        }
+        return;
+    }
+    
+    /// 老师获取学生的答题情况
+    if ([msgName isEqualToString:YSSignalingName_AnswerGetResult])
+    {
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTeacherAnswerGetResultWithAnswerId:totalUsers:values:)])
+        {
+            if ([msgBody bm_isNotEmptyDictionary])
+            {
+                NSString *answerId = [msgBody bm_stringTrimForKey:@"id"];
+                NSInteger totalUsers = [msgBody bm_intForKey:@"answerCount"];
+
+                NSDictionary *answers = [msgBody bm_dictionaryForKey:@"values"];
+                
+                [self.roomManagerDelegate handleSignalingTeacherAnswerGetResultWithAnswerId:answerId totalUsers:totalUsers values:answers];
+            }
+        }
+        return;
+    }
+    
+    // 收到开始抢答
+    if ([msgName isEqualToString:YSSignalingName_ShowContest])
+    {
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowContestFromID:)])
+        {
+            [self.roomManagerDelegate handleSignalingShowContestFromID:fromID];
+        }
+        return;
+    }
+
+    // 收到抢答排序
+    if ([msgName isEqualToString:YSSignalingName_Contest])
+    {
+        
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestFromID:)])
+        {
+            [self.roomManagerDelegate handleSignalingContestFromID:fromID];
+        }
+        return;
+    }
+
+    /// 收到取消订阅排序
+    if ([msgName isEqualToString:YSSignalingName_ContestSubsort])
+    {
+        
+        if ([msgBody bm_isNotEmptyDictionary])
+        {
+            NSString *type = [msgBody bm_stringTrimForKey:@"type"];
+            if ([type isEqualToString:@"unsubSort"])
+            {
+                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingCancelContestSubsort)])
+                {
+                    [self.roomManagerDelegate handleSignalingCancelContestSubsort];
+                }
+
+            }
+        }
+        
+        return;
+    }
+    
+#pragma mark 以下需要check data数据
+    
 //    if (![YSLiveUtil checkDataType:data])
 //    {
 //        return;
@@ -75,20 +266,6 @@
     
     // 处理所有Pub信令
     
-    // 不是备份信令时同步服务器时间
-    if (!inlist && [msgName isEqualToString:YSSignalingName_UpdateTime])
-    {
-        NSTimeInterval timeInterval = ts;
-        self.tServiceTime = timeInterval;
-        
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingUpdateTimeWithTimeInterval:)])
-        {
-            [self.roomManagerDelegate handleSignalingUpdateTimeWithTimeInterval:timeInterval];
-        }
-        
-        return;
-    }
-    
     // 房间即将关闭消息
     if ([msgName isEqualToString:YSSignalingName_Notice_PrepareRoomEnd])
     {
@@ -113,22 +290,6 @@
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingEvictAllRoomUseWithDataDic:)])
         {
             [self.roomManagerDelegate handleSignalingEvictAllRoomUseWithDataDic:dataDic];
-        }
-        
-        return;
-    }
-    
-    
-    // 上课
-    if ([msgName isEqualToString:YSSignalingName_ClassBegin])
-    {
-        NSTimeInterval timeInterval = ts;
-        self.tClassStartTime = timeInterval;
-        self.isBeginClass = YES;
-        
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingClassBeginWihInList:)])
-        {
-            [self.roomManagerDelegate handleSignalingClassBeginWihInList:inlist];
         }
         
         return;
@@ -614,24 +775,6 @@
         return;
     }
     
-    /// 老师获取学生的答题情况
-    if ([msgName isEqualToString:YSSignalingName_AnswerGetResult])
-    {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTeacherAnswerGetResultWithAnswerId:totalUsers:values:)])
-        {
-            if ([msgBody bm_isNotEmptyDictionary])
-            {
-                NSString *answerId = [msgBody bm_stringTrimForKey:@"id"];
-                NSInteger totalUsers = [msgBody bm_intForKey:@"answerCount"];
-
-                NSDictionary *answers = [msgBody bm_dictionaryForKey:@"values"];
-                
-                [self.roomManagerDelegate handleSignalingTeacherAnswerGetResultWithAnswerId:answerId totalUsers:totalUsers values:answers];
-            }
-        }
-        return;
-    }
-    
     /// 答题结果
     if ([msgName isEqualToString:YSSignalingName_AnswerPublicResult])
     {
@@ -685,108 +828,6 @@
         return;
     }
     
-    
-    // 全体禁言
-    if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])
-    {
-        [self sendTipMessage:YSLocalized(@"Prompt.BanChatInView") tipType:YSChatMessageTypeTips];
-        
-        self.isEveryoneBanChat = YES;
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToDisAbleEveryoneBanChatWithIsDisable:)])
-        {
-            [self.roomManagerDelegate handleSignalingToDisAbleEveryoneBanChatWithIsDisable:YES];
-        }
-        return;
-    }
-    
-    //是否开启上麦功能
-    if ([msgName isEqualToString:YSSignalingName_UpPlatForm])
-    {
-        
-        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:@"UpPlatFormId"];
-        
-        if (self.localUser.publishState > YSUser_PublishState_NONE)
-        {
-            return;
-        }
-        
-        self.allowEveryoneUpPlatform = YES;
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneUpPlatformWithIsAllow:)])
-        {
-            [self.roomManagerDelegate handleSignalingAllowEveryoneUpPlatformWithIsAllow:YES];
-        }
-        return;
-    }
-    
-    //是否同意上麦申请
-    if ([msgName isEqualToString:YSSignalingName_AllowUpPlatForm])
-    {
-        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
-        
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowUpPlatformApplyWithData:)])
-        {
-            [self.roomManagerDelegate handleSignalingAllowUpPlatformApplyWithData:dict];
-        }
-        return;
-    }
-    
-    //同意各端开始举手
-    if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
-    {
-        self.raisehandMsgID = msgID;
-        //RaiseHandStart_1931343076_1584580626
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneRaiseHand)])
-        {
-            [self.roomManagerDelegate handleSignalingAllowEveryoneRaiseHand];
-        }
-        return;
-    }
-        
-    //同意各端开始举手
-    if ([msgName isEqualToString:YSSignalingName_Server_Sort_Result])
-    {
-//        msgBody
-        NSArray * resultArray = [msgBody bm_arrayForKey:@"sortResult"];
-        NSString *type = [msgBody bm_stringForKey:@"id"];
-        if ([type bm_containString:@"Contest"])
-        {
-            /// 学生抢答
-//            if ([resultArray bm_isNotEmpty])
-//            {
-                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestCommitWithData:)])
-                {
-                    [self.roomManagerDelegate handleSignalingContestCommitWithData:resultArray];
-                }
-
-//            }
-        }
-        else
-        {
-            NSMutableArray * userArray = [NSMutableArray array];
-            
-            
-                for (NSDictionary * dict in resultArray)
-                {
-                    NSString * userId = dict.allKeys.firstObject;
-                    
-                    NSMutableDictionary * mutDict = [NSMutableDictionary dictionary];
-                    
-                    [mutDict setValue:userId forKey:@"peerId"];
-                    [mutDict setValue:[dict bm_stringForKey:userId] forKey:@"nickName"];
-                    [mutDict setValue:@(YSUser_PublishState_NONE) forKey:@"publishState"];
-                    
-                    [userArray addObject:mutDict];
-                }
-            
-            if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingRaiseHandUserArray:)])
-            {
-                [self.roomManagerDelegate handleSignalingRaiseHandUserArray:userArray];
-            }
-        }
-        return;
-    }
-    
-    
     //双师：老师拖拽视频布局相关信令
     if ([msgName isEqualToString:YSSignalingName_DoubleTeacher])
     {
@@ -799,29 +840,7 @@
         }
         return;
     }
-    
-    // 收到开始抢答
-    if ([msgName isEqualToString:YSSignalingName_ShowContest])
-    {
         
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowContestFromID:)])
-        {
-            [self.roomManagerDelegate handleSignalingShowContestFromID:fromID];
-        }
-        return;
-    }
-
-    // 收到抢答排序
-    if ([msgName isEqualToString:YSSignalingName_Contest])
-    {
-        
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingContestFromID:)])
-        {
-            [self.roomManagerDelegate handleSignalingContestFromID:fromID];
-        }
-        return;
-    }
-    
     // 收到学生抢答
 //    if ([msgName isEqualToString:YSSignalingName_ContestCommit])
 //    {
@@ -844,26 +863,6 @@
 
             [self.roomManagerDelegate handleSignalingContestResultWithName:name];
         }
-        return;
-    }
-    
-    /// 收到取消订阅排序
-    if ([msgName isEqualToString:YSSignalingName_ContestSubsort])
-    {
-        
-        if ([msgBody bm_isNotEmptyDictionary])
-        {
-            NSString *type = [msgBody bm_stringTrimForKey:@"type"];
-            if ([type isEqualToString:@"unsubSort"])
-            {
-                if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingCancelContestSubsort)])
-                {
-                    [self.roomManagerDelegate handleSignalingCancelContestSubsort];
-                }
-
-            }
-        }
-        
         return;
     }
     

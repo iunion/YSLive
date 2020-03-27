@@ -243,6 +243,7 @@
             [self joinRoomWithRoomParams:dic userParams:nil];
         }
     }
+    
 }
 
 #if CLEARCHECK
