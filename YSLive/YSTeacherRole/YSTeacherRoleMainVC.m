@@ -2051,6 +2051,29 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self.pollingArr removeObject:user.peerID];
         }
+        if ([self.pollingUpPlatformArr containsObject:user.peerID])
+        {
+            [self.pollingUpPlatformArr removeObject:user.peerID];
+        }
+    }
+ 
+    
+    NSInteger total = 0;
+    for (YSRoomUser * user in self.liveManager.userList)
+    {
+        if (user.role == YSUserType_Student || user.role == YSUserType_Teacher)
+        {
+            total++;
+        }
+    }
+    if (total < maxVideoCount)
+    {
+        self.topToolBar.pollingBtn.enabled = NO;
+        if (self.pollingTimer)
+        {
+            dispatch_source_cancel(self.pollingTimer);
+            self.pollingTimer = nil;
+        }
     }
     
 
