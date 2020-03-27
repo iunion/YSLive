@@ -303,6 +303,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
     {
+        [self.liveManager serverLog:[NSString stringWithFormat:@"studentvcinit %p", self]];
+
         maxVideoCount = maxCount;
         
         self.roomtype = roomType;
@@ -2238,6 +2240,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self freshContentView];
     }
     
+    [self.liveManager serverLog:[NSString stringWithFormat:@"studentaddVidoeViewWithPeerId count %@", @(self.videoViewArray.count)]];
+
     return;
 }
 
@@ -3612,6 +3616,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomConnectionLost];
     
+    [self.liveManager serverLog:@"studentonRoomConnectionLost"];
+
     [self removeAllVideoView];
     
     if (self.isWhitebordFullScreen)
@@ -3653,6 +3659,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomLeft];
     
+    [self.liveManager serverLog:@"studentonRoomLeft"];
+
     if (self.topBarTimer)
     {
         dispatch_source_cancel(self.topBarTimer);
@@ -4142,6 +4150,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomJoined:ts];
     
+    [self.liveManager serverLog:[NSString stringWithFormat:@"studentonRoomJoined isBeginClass %@  topBarTimer %p", @(self.liveManager.isBeginClass), self.topBarTimer]];
+
     if (self.liveManager.isBeginClass)
     {
         needFreshVideoView = YES;
@@ -4222,7 +4232,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 上课
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
-{    
+{
+    [self.liveManager serverLog:[NSString stringWithFormat:@"studenthandleSignalingClassBeginWihInList isBeginClass %@", @(self.liveManager.isBeginClass)]];
+
     self.teacherPlaceLab.hidden = YES;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
     if (self.liveManager.localUser.role == YSUserType_Patrol)
@@ -4318,7 +4330,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     });
     //4.开始执行
     dispatch_resume(self.topBarTimer);
-    
+
+    [self.liveManager serverLog:[NSString stringWithFormat:@"topBarTimer %p", self.topBarTimer]];
+
     if (!inlist)
     {
         if (self.appUseTheType == YSAppUseTheTypeSmallClass)

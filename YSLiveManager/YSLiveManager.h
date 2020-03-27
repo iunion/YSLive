@@ -183,6 +183,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 判断设备是否是高端机型，能否支持多人上台
 - (BOOL)devicePlatformLowEndEquipment;
 
+- (void)serverLog:(NSString *)log;
+
 
 #pragma mark - 房间 对外接口
 
