@@ -827,14 +827,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
     
-    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, UI_SCREEN_HEIGHT-80, 50, 60)];
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, UI_SCREEN_HEIGHT-70, 50, 60)];
     [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
     [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
     [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
     [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    coursewareBtn.titleLabel.font = UI_FONT_16;
+    coursewareBtn.titleLabel.font = UI_FONT_14;
     coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:coursewareBtn];
     self.coursewareBtn = coursewareBtn;
