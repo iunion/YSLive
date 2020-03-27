@@ -47,7 +47,7 @@
 #import "YSTeacherTimerView.h"
 #import "YSPollingView.h"
 #define USE_YSRenderMode_adaptive   1
-#define UES_FullTeacher             0
+#define USE_FullTeacher             1
 
 #define PlaceholderPTag     10
 
@@ -235,7 +235,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
 /// 全屏老师 视频容器
-#if UES_FullTeacher
+#if USE_FullTeacher
 @property (nonatomic, strong) YSFloatView *fullTeacherFloatView;
 @property (nonatomic, strong) SCVideoView *fullTeacherVideoView;
 #endif
@@ -485,12 +485,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.roomLayout = defaultRoomLayout;
     }
     
-#if UES_FullTeacher
+#if USE_FullTeacher
     [self setupFullTeacherView];
 #endif
 }
 
-#if UES_FullTeacher
+#if USE_FullTeacher
 - (void)setupFullTeacherView
 {
     CGFloat fullTeacherVideoHeight = VIDEOVIEW_MAXHEIGHT;
@@ -2420,7 +2420,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-#if UES_FullTeacher
+#if USE_FullTeacher
     if (roomUser.role == YSUserType_Teacher)
     {
         /// 老师中途进入房间上课时的全屏处理
@@ -3121,7 +3121,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return imageView;
 }
 
-#if UES_FullTeacher
+#if USE_FullTeacher
 
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
@@ -3484,7 +3484,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.canZoom = YES;
     self.shareVideoFloatView.showWaiting = NO;
     self.shareVideoFloatView.hidden = NO;
-#if UES_FullTeacher
+#if USE_FullTeacher
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
 #endif
 }
@@ -3499,7 +3499,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
-#if UES_FullTeacher
+#if USE_FullTeacher
     [self stopFullTeacherVideoView];
     
     if (self.whitebordFullBackgroud.hidden)
@@ -3555,7 +3555,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.showWaiting = YES;
     self.shareVideoFloatView.hidden = NO;
     
-#if UES_FullTeacher
+#if USE_FullTeacher
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
 #endif
 }
@@ -3580,7 +3580,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.hidden = YES;
     self.mp4ControlView.hidden = YES;
     self.closeMp4Btn.hidden = YES;
-#if UES_FullTeacher
+#if USE_FullTeacher
     [self stopFullTeacherVideoView];
     if (!self.whitebordFullBackgroud.hidden)
     {
@@ -6179,7 +6179,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
         [self arrangeAllViewInVCView];
         
-#if UES_FullTeacher
+#if USE_FullTeacher
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
 #endif
     }
@@ -6198,7 +6198,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
-#if UES_FullTeacher
+#if USE_FullTeacher
         [self stopFullTeacherVideoView];
 #endif
 //        [self.liveManager playVideoOnView:self.teacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
@@ -6488,7 +6488,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return _raiseHandArray;
 }
 
-#if UES_FullTeacher
+#if USE_FullTeacher
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
