@@ -3164,7 +3164,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
         
-        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.coursewareBtn.hidden = self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
@@ -3697,13 +3697,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self handleSignalingDefaultRoomLayout];
     
     BOOL canDraw = NO;
-    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+    if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
     {
-        self.brushToolView.hidden = YES;
+        self.coursewareBtn.hidden = self.brushToolView.hidden = YES;
         self.drawBoardView.hidden = YES;
     }
     else
     {
+        self.coursewareBtn.hidden = YES;
         self.brushToolView.hidden = !canDraw;
         if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
         {
@@ -4584,7 +4585,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!self.isWhitebordFullScreen)
     {
-        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+        self.coursewareBtn.hidden = self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
@@ -4855,7 +4856,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!self.isWhitebordFullScreen)
     {
-        self.boardControlView.hidden = isFull;
+        self.coursewareBtn.hidden = self.boardControlView.hidden = isFull;
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = isFull;
