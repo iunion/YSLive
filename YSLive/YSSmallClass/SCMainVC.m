@@ -40,6 +40,7 @@
 #import "YSControlPopoverView.h"
 
 #define USE_YSRenderMode_adaptive   1
+#define UES_FullTeacher             0
 
 #define SCLessonTimeCountDownKey     @"SCLessonTimeCountDownKey"
 
@@ -185,8 +186,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
 /// 全屏老师 视频容器
+#if UES_FullTeacher
 @property (nonatomic, strong) YSFloatView *fullTeacherFloatView;
 @property (nonatomic, strong) SCVideoView *fullTeacherVideoView;
+#endif
 @property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
@@ -513,9 +516,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.roomLayout = defaultRoomLayout;
     }
     
+#if UES_FullTeacher
     [self setupFullTeacherView];
+#endif
 }
 
+#if UES_FullTeacher
 - (void)setupFullTeacherView
 {
     CGFloat fullTeacherVideoHeight = VIDEOVIEW_MAXHEIGHT;
@@ -537,6 +543,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    self.fullTeacherVideoView.appUseTheType = self.appUseTheType;
 
 }
+#endif
 
 - (void)afterDoMsgCachePool
 {
@@ -1940,7 +1947,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.showWaiting = NO;
     self.shareVideoFloatView.hidden = NO;
     
+#if UES_FullTeacher
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+#endif
 }
 
 // 关闭共享桌面
@@ -1952,13 +1961,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
+#if UES_FullTeacher
     [self stopFullTeacherVideoView];
     
     if (!self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
     }
-
+#endif
 }
 
 // 开始播放课件视频
@@ -1977,8 +1987,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.showWaiting = YES;
     self.shareVideoFloatView.hidden = NO;
     
+#if UES_FullTeacher
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-
+#endif
 }
 
 // 关闭课件视频
@@ -2000,13 +2011,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 主动清除白板视频标注 服务端会发送关闭
     [self handleSignalingHideVideoWhiteboard];
+#if UES_FullTeacher
     [self stopFullTeacherVideoView];
     
     if (!self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
     }
-
+#endif
 }
 
 
@@ -3085,7 +3097,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
         [self arrangeAllViewInVCView];
         
+#if UES_FullTeacher
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+#endif
 
     }
     else
@@ -3114,7 +3128,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             self.drawBoardView.hidden = NO;
         }
+#if UES_FullTeacher
         [self stopFullTeacherVideoView];
+#endif
     }
 
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
@@ -3785,18 +3801,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 用户进入
 - (void)roomManagerRoomTeacherEnter
 {
+#if UES_FullTeacher
     self.teacherPlaceLab.hidden = self.liveManager.isBeginClass;
     if (!self.whitebordFullBackgroud.hidden || !self.shareVideoFloatView.hidden)
     {
         self.fullTeacherFloatView.hidden = NO;
     }
-    
+#endif
 }
 
 - (void)roomManagerRoomTeacherLeft
 {
+#if UES_FullTeacher
     self.teacherPlaceLab.hidden = YES;
     self.fullTeacherFloatView.hidden = YES;
+#endif
 }
 
 /// 用户进入
@@ -4101,6 +4120,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //        }
     }
     
+#if UES_FullTeacher
     if (roomUser.role == YSUserType_Teacher)
     {
         /// 老师中途进入房间上课时的全屏处理
@@ -4112,8 +4132,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
         }
-
     }
+#endif
     
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
@@ -5303,7 +5323,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-
+#if UES_FullTeacher
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
@@ -5341,6 +5361,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
 }
+#endif
+
 
 #pragma mark -
 #pragma mark 视频控制popoverView视图
