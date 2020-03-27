@@ -2469,7 +2469,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     dispatch_source_set_event_handler(self.topBarTimer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf countDownTime:nil];
+            BMStrongSelf
+            [strongSelf countDownTime:nil];
         });
     });
     //4.开始执行
