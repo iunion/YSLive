@@ -734,7 +734,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)serverLog:(NSString *)log
 {
-    [self.roomManager serverLog:log];
+    //[self.roomManager serverLog:log];
 }
 
 - (NSString *)fileServer
