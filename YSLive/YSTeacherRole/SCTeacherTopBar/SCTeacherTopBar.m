@@ -81,7 +81,7 @@
 {
     [super layoutSubviews];
 
-    CGFloat classBtnWidth = 2000;
+    CGFloat classBtnWidth = 200;
     CGFloat exitBtnWidth = 40;
     if (![UIDevice bm_isiPad])
     {
@@ -145,7 +145,7 @@
         self.roomIDL.bm_centerY = self.bm_centerY;
         self.roomIDL.bm_left = self.exitBtn.bm_right + 10;
         
-        self.signalStateL.frame = CGRectMake(0, 0, 170, 26);
+        self.signalStateL.frame = CGRectMake(0, 0, 100, 26);
         self.signalStateL.bm_centerY = self.bm_centerY;
         self.signalStateL.bm_left = self.roomIDL.bm_right + 10;
         
