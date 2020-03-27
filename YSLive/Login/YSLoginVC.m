@@ -77,6 +77,8 @@
 @property (nonatomic, strong) YSInputView *nickNameTextField;
 /// 密码输入框
 @property (nonatomic, strong) YSInputView *passwordTextField;
+/// 密码输入框上蒙版
+@property (nonatomic, strong) UIView * passwordMask;
 
 /// 域名输入框
 @property (nonatomic, strong) YSInputView *domainTextField;
@@ -1255,11 +1257,11 @@
                 
                 if (weakSelf.needpwd)
                 {
-                    weakSelf.passwordTextField.hidden = NO;
+                    self.passwordMask.hidden = YES;
                 }
                 else
                 {
-                    weakSelf.passwordTextField.hidden = YES;
+                    self.passwordMask.hidden = NO;
                 }
                 
                 switch (weakSelf.room_UseTheType)
@@ -1438,7 +1440,8 @@
         _passwordTextField.layer.cornerRadius = 20;
         _passwordTextField.layer.borderWidth = 1;
         _passwordTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-
+        _passwordTextField.delegate = self;
+        
         if (![UIDevice bm_isiPad]) {
             self.passwordTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
@@ -1448,6 +1451,11 @@
         [eyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
         [eyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
         [_passwordTextField addSubview:eyeBtn];
+        
+        UIView * passwordMask = [[UIView alloc]initWithFrame:_passwordTextField.bounds];
+        passwordMask.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.8];
+        self.passwordMask = passwordMask;
+        [_passwordTextField addSubview:passwordMask];
     }
     return _passwordTextField;
 }
@@ -1662,6 +1670,13 @@
 }
 
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSLog(@"这里返回为NO。则为禁止编辑");
+
+    return self.passwordTextField.userInteractionEnabled;
+}
+
 - (void)showRoleSelectView
 {
     self.roleSelectView.hidden = NO;
@@ -1693,7 +1708,7 @@
     if (sender.tag == 0)
     {
         self.selectedRoleBtn.selected = NO;
-        self.passwordTextField.hidden = YES;
+        self.passwordMask.hidden = NO;
         self.passwordTextField.inputTextField.text = nil;
         self.selectedRoleBtn = self.studentRoleBtn;
         self.selectedRoleBtn.selected = YES;
@@ -1713,22 +1728,22 @@
 
         case 1:
             self.selectRoleType = YSUserType_Teacher;
-            self.passwordTextField.hidden = NO;
+            self.passwordMask.hidden = YES;
             break;
         case 2:
             self.selectRoleType = YSUserType_Student;
             if (self.needpwd)
             {
-                self.passwordTextField.hidden = NO;
+                self.passwordMask.hidden = YES;
             }
             else
             {
-                self.passwordTextField.hidden = YES;
+                self.passwordMask.hidden = NO;
             }
             break;
         case 3:
             self.selectRoleType = YSUserType_Patrol;
-            self.passwordTextField.hidden = NO;
+            self.passwordMask.hidden = YES;
 
             break;
         default:
@@ -1932,7 +1947,7 @@
         }
         
         self.selectedRoleBtn.selected = NO;
-        self.passwordTextField.hidden = YES;
+        self.passwordMask.hidden = NO;
         self.passwordTextField.inputTextField.text = nil;
         self.selectedRoleBtn = self.studentRoleBtn;
         self.selectedRoleBtn.selected = YES;
