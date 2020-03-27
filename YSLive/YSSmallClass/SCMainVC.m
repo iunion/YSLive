@@ -4600,11 +4600,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.drawBoardView.hidden = NO;
     }
     
-    if (roomLayout == YSLiveRoomLayout_FocusLayout)
+    if (roomLayout == YSLiveRoomLayout_FocusLayout && peerId)
     {
         for (SCVideoView *videoView in self.videoViewArray)
         {
-            if ([videoView.roomUser.peerID isEqualToString: peerId])
+            if ([videoView.roomUser.peerID isEqualToString:peerId])
             {
                 self.fouceView = videoView;
                 break;

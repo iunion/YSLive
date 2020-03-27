@@ -4012,11 +4012,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.topToolBar.switchLayoutBtn.selected = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
     
-    if (roomLayout == YSLiveRoomLayout_FocusLayout)
+    if (roomLayout == YSLiveRoomLayout_FocusLayout && peerId)
     {
         for (SCVideoView *videoView in self.videoViewArray)
         {
-            if ([videoView.roomUser.peerID isEqualToString: peerId])
+            if ([videoView.roomUser.peerID isEqualToString:peerId])
             {
                 self.fouceView = videoView;
                 break;
