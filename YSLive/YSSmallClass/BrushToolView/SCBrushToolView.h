@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTeacher:(BOOL)isTeacher;
 
+- (void)resetTool;
+
 @end
 
 NS_ASSUME_NONNULL_END

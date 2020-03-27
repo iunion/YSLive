@@ -47,6 +47,7 @@
 #import "YSTeacherTimerView.h"
 #import "YSPollingView.h"
 #define USE_YSRenderMode_adaptive   1
+#define UES_FullTeacher             0
 
 #define PlaceholderPTag     10
 
@@ -234,8 +235,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
 /// 全屏老师 视频容器
+#if UES_FullTeacher
 @property (nonatomic, strong) YSFloatView *fullTeacherFloatView;
 @property (nonatomic, strong) SCVideoView *fullTeacherVideoView;
+#endif
 /// 全屏白板背景
 @property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
@@ -332,6 +335,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 当前的用户视频的镜像状态
 @property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
 
+@property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
+
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -374,6 +379,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
     {
+        [self.liveManager serverLog:[NSString stringWithFormat:@"teachervcinit %p", self]];
+
         maxVideoCount = maxCount;
         
         self.roomtype = roomType;
@@ -478,9 +485,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.roomLayout = defaultRoomLayout;
     }
     
+#if UES_FullTeacher
     [self setupFullTeacherView];
+#endif
 }
 
+#if UES_FullTeacher
 - (void)setupFullTeacherView
 {
     CGFloat fullTeacherVideoHeight = VIDEOVIEW_MAXHEIGHT;
@@ -502,6 +512,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    self.fullTeacherVideoView.appUseTheType = self.appUseTheType;
 
 }
+#endif
 
 - (void)afterDoMsgCachePool
 {
@@ -1831,6 +1842,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+
+    [self.imagePickerController cancelButtonClick];
+
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -1857,7 +1871,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //3.要调用的任务
     dispatch_source_set_event_handler(self.bigRoomTimer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf freshTeacherPersonListData];
+            BMStrongSelf
+            [strongSelf freshTeacherPersonListData];
         });
     });
     //4.开始执行
@@ -1911,6 +1926,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         dispatch_source_cancel(self.bigRoomTimer);
         self.bigRoomTimer = nil;
     }
+
+    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+
+    [self.imagePickerController cancelButtonClick];
     
     if (self.pollingTimer)
     {
@@ -2392,10 +2413,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 return;
             }
             [self delVidoeViewWithPeerId:peerID];
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
         }
     }
     
+#if UES_FullTeacher
     if (roomUser.role == YSUserType_Teacher)
     {
         /// 老师中途进入房间上课时的全屏处理
@@ -2408,6 +2433,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
         }
     }
+#endif
 
     //进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
@@ -2584,7 +2610,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     dispatch_source_set_event_handler(self.topBarTimer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf countDownTime:nil];
+            BMStrongSelf
+            [strongSelf countDownTime:nil];
         });
     });
     //4.开始执行
@@ -3095,6 +3122,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return imageView;
 }
 
+#if UES_FullTeacher
+
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
@@ -3235,6 +3264,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
     }
 }
+#endif
 
 #pragma mark 拖出/放回视频窗口
 - (void)handleSignalingDragOutVideoWithPeerId:(NSString *)peerId atPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop isDragOut:(BOOL)isDragOut
@@ -3455,8 +3485,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.canZoom = YES;
     self.shareVideoFloatView.showWaiting = NO;
     self.shareVideoFloatView.hidden = NO;
+#if UES_FullTeacher
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-    
+#endif
 }
 
 // 关闭共享桌面
@@ -3469,12 +3500,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
+#if UES_FullTeacher
     [self stopFullTeacherVideoView];
     
     if (self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
     }
+#endif
 }
 
 
@@ -3523,8 +3556,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.showWaiting = YES;
     self.shareVideoFloatView.hidden = NO;
     
+#if UES_FullTeacher
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-
+#endif
 }
 
 // 关闭课件视频
@@ -3547,12 +3581,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.hidden = YES;
     self.mp4ControlView.hidden = YES;
     self.closeMp4Btn.hidden = YES;
+#if UES_FullTeacher
     [self stopFullTeacherVideoView];
     if (!self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
     }
-
+#endif
     // 主动清除白板视频标注 服务端会发送关闭
     //    [self handleSignalingHideVideoWhiteboard];
 }
@@ -4282,7 +4317,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //3.要调用的任务
     dispatch_source_set_event_handler(self.answerTimer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self answer_countDownTime:nil answerID:answerId];
+            BMStrongSelf
+            [strongSelf answer_countDownTime:nil answerID:answerId];
         });
     });
     //4.开始执行
@@ -5746,7 +5782,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
             }
             self.foucePeerId = self.fouceView.roomUser.peerID;
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
         }
             break;
         case 6:
@@ -5756,7 +5795,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                        @"userId":self.selectControlView.roomUser.peerID
                    };
             [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
         }
             break;
             
@@ -6053,7 +6095,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //3.要调用的任务
             dispatch_source_set_event_handler(self.bigRoomTimer, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf freshTeacherPersonListData];
+                    BMStrongSelf
+                    [strongSelf freshTeacherPersonListData];
                 });
             });
             //4.开始执行
@@ -6137,8 +6180,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
         [self arrangeAllViewInVCView];
         
+#if UES_FullTeacher
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-        
+#endif
     }
     else
     {
@@ -6155,8 +6199,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+#if UES_FullTeacher
         [self stopFullTeacherVideoView];
-        
+#endif
 //        [self.liveManager playVideoOnView:self.teacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
 //        [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
     }
@@ -6350,6 +6395,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //        [self presentViewController:imagePickerController animated:YES completion:nil];
 //    }];
 
+    self.imagePickerController = imagePickerController;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
@@ -6443,6 +6489,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return _raiseHandArray;
 }
 
+#if UES_FullTeacher
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
@@ -6484,6 +6531,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
 }
-
+#endif
 
 @end

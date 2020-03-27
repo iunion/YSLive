@@ -243,6 +243,7 @@
             [self joinRoomWithRoomParams:dic userParams:nil];
         }
     }
+    
 }
 
 #if CLEARCHECK
@@ -1889,6 +1890,8 @@
            
     // 3: 小班课  4: 直播  6： 会议
     BOOL isSmallClass = (self.room_UseTheType == YSAppUseTheTypeSmallClass || self.room_UseTheType == YSAppUseTheTypeMeeting);
+    
+    [liveManager serverLog:[NSString stringWithFormat:@"onRoomJoinedRoomType %@", @(self.room_UseTheType)]];
     
     if (isSmallClass)
     {

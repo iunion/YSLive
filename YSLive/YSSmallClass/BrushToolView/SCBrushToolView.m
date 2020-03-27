@@ -67,6 +67,10 @@
     [super setFrame:frame];
 }
 
+- (void)resetTool
+{
+    [self sc_toolButtonListClicked:self.mouseBtn];
+}
 
 - (void)setup
 {
