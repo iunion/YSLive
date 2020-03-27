@@ -647,6 +647,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 笔刷工具
     [self.brushToolView bm_bringToFront];
     
+    // 课件刷新按钮
+    [self.coursewareBtn bm_bringToFront];
+    
     // 翻页
     [self.boardControlView bm_bringToFront];
     
