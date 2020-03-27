@@ -561,6 +561,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super afterDoMsgCachePool];
     
+#if 0
     if (self.appUseTheType == YSAppUseTheTypeSmallClass)
     {
         // 自动上台
@@ -602,6 +603,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserCandraw WithValue:@(true)];
         }
     }
+#endif
 }
 
 
@@ -4412,7 +4414,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     [self.liveManager serverLog:[NSString stringWithFormat:@"topBarTimer %p", self.topBarTimer]];
 
-    if (!inlist)
+    //if (!inlist)
     {
         if (self.appUseTheType == YSAppUseTheTypeSmallClass)
         {
@@ -4423,13 +4425,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //                if (autoOpenAudioAndVideoFlag)
                 if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
                 {
-                    if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                    //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager publishVideo:nil];
                     }
-                    if (YSCurrentUser.afail == YSDeviceFaultNone)
+                    //if (YSCurrentUser.afail == YSDeviceFaultNone)
                     {
-                        [self.liveManager.roomManager publishAudio:nil];
+                        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                        if (!isEveryoneNoAudio)
+                        {
+                            [self.liveManager.roomManager publishAudio:nil];
+                        }
                     }
                 }
             }
@@ -4438,20 +4444,25 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//会议，进教室默认上台
             if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
-                if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.afail == YSDeviceFaultNone)
+                //if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
-                    [self.liveManager.roomManager publishAudio:nil];
+                    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                    if (!isEveryoneNoAudio)
+                    {
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
                 }
                 
                 [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserCandraw WithValue:@(true)];
             }
         }
     }
-    else
+    
+    if (inlist)
     {
         // 刷新当前用户前后台状态
         NSDictionary *properties = self.liveManager.localUser.properties;

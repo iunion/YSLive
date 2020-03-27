@@ -518,17 +518,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super afterDoMsgCachePool];
     
-    if (self.liveManager.isBeginClass)
-    {
-        if (YSCurrentUser.vfail == YSDeviceFaultNone)
-        {
-            [self.liveManager.roomManager publishVideo:nil];
-        }
-        if (YSCurrentUser.afail == YSDeviceFaultNone)
-        {
-            [self.liveManager.roomManager publishAudio:nil];
-        }
-    }
+//    if (self.liveManager.isBeginClass)
+//    {
+//        if (YSCurrentUser.vfail == YSDeviceFaultNone)
+//        {
+//            [self.liveManager.roomManager publishVideo:nil];
+//        }
+//        if (YSCurrentUser.afail == YSDeviceFaultNone)
+//        {
+//            [self.liveManager.roomManager publishAudio:nil];
+//        }
+//    }
     //会议默认上课
     if (self.appUseTheType == YSAppUseTheTypeMeeting && !self.liveManager.isBeginClass)
     {
@@ -2547,7 +2547,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
     [self freshTeacherPersonListData];
     self.brushToolView.hidden = NO;
     for (YSRoomUser *roomUser in self.liveManager.userList)
@@ -2617,13 +2616,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //4.开始执行
     dispatch_resume(self.topBarTimer);
 
-    if (!inlist)
+    //if (!inlist)
     {
-        if (YSCurrentUser.vfail == YSDeviceFaultNone || YSCurrentUser.hasVideo)
+        //if (YSCurrentUser.vfail == YSDeviceFaultNone || YSCurrentUser.hasVideo)
         {
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.afail == YSDeviceFaultNone || YSCurrentUser.hasAudio)
+        //if (YSCurrentUser.afail == YSDeviceFaultNone || YSCurrentUser.hasAudio)
         {
             [self.liveManager.roomManager publishAudio:nil];
         }
