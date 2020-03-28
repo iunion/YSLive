@@ -1649,6 +1649,11 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param inlist 是否是inlist中的信息
 - (void)onRoomRemotePubMsgWithMsgID:(NSString *)msgID msgName:(NSString *)msgName data:(NSObject *)data fromID:(NSString *)fromID inList:(BOOL)inlist ts:(long)ts body:(NSDictionary *)msgBody
 {
+    if ([msgName isEqualToString:YSSignalingName_ClassBegin])
+    {
+        [self serverLog:[NSString stringWithFormat:@"YSSignalingName_ClassBegin viewDidAppear %@", @(self.viewDidAppear)]];
+    }
+    
     if (!self.viewDidAppear)
     {
         NSMutableArray *parameters = [[NSMutableArray alloc] init];
