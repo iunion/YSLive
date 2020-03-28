@@ -4087,27 +4087,27 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
     }
     else if (sender.tag == 1)
-    {
-        //拍照上传
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        // 设置照片来源为相机
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        // 设置进入相机时使用前置或后置摄像头
-        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-        // 展示选取照片控制器
-        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-            self.topSelectBtn.selected = NO;
-            [self presentViewController:imagePickerController animated:YES completion:nil];
-        }];
-        
-    }
-    else if (sender.tag == 2)
+//    {
+//        //拍照上传
+//        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+//        imagePickerController.delegate = self;
+//        // 设置照片来源为相机
+//        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        // 设置进入相机时使用前置或后置摄像头
+//        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+//        // 展示选取照片控制器
+//        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
+//            self.topSelectBtn.selected = NO;
+//            [self presentViewController:imagePickerController animated:YES completion:nil];
+//        }];
+//
+//    }
+//    else if (sender.tag == 2)
     {
         //相册上传
         [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
     }
-    else if (sender.tag == 3)
+    else if (sender.tag == 2)
     {
         //计时器
         
@@ -4117,7 +4117,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
         
     }
-    else if (sender.tag == 4)
+    else if (sender.tag == 3)
     {
         //抢答器
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
@@ -6355,7 +6355,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
-    imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
+//    imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
     imagePickerController.allowTakeVideo = NO;
     imagePickerController.allowPickingVideo = NO;
     imagePickerController.showSelectedIndex = YES;
