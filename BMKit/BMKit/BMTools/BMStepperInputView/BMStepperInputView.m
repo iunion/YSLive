@@ -204,6 +204,27 @@
 {
     _stepStatus = BMStepperInputViewStepStatus_None;
     
+    self.isKeyBoardInput = YES;
+    
+    NSString *text = textField.text;
+    if (textField.text.length > 0)
+    {
+        NSDecimalNumber *num = [[NSDecimalNumber alloc] initWithString:textField.text];
+        self.numberValue = num;
+    }
+    else
+    {
+        if (self.autoChangeWhenUseKeyBord)
+        {
+            self.numberValue = self.minNumberValue;
+        }
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    _stepStatus = BMStepperInputViewStepStatus_None;
+    
     if (textField.text.length > 0)
     {
         NSDecimalNumber *num = [[NSDecimalNumber alloc] initWithString:textField.text];
@@ -260,6 +281,7 @@
 {
     if (!numberValue)
     {
+        self.isKeyBoardInput = NO;
         return;
     }
     
@@ -288,6 +310,8 @@
     }
     
     BMStepperInputViewStepStatus backStepStatus = _stepStatus;
+    if (!self.isKeyBoardInput || (self.isKeyBoardInput && self.autoChangeWhenUseKeyBord))
+    {
     if ([numberValue compare:self.minNumberValue] == NSOrderedAscending)
     {
         numberValue = self.minNumberValue;
@@ -310,6 +334,9 @@
             [self shakeAnimationMethod];
         }
     }
+    }
+
+    self.isKeyBoardInput = NO;
 
     self.textField.text = [numberValue bm_stringWithNoStyleDecimalNozeroScale:2];
     
