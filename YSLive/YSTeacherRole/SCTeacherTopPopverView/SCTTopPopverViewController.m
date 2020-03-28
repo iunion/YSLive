@@ -65,10 +65,10 @@
     if (self.isMeeting)
     {
         // 会议
-        CGFloat viewWidth = TopBarButtonWidth * 2;
+        CGFloat viewWidth = TopBarButtonWidth * 1;
         self.view.frame = CGRectMake(0, 0, viewWidth, TopBarButtonHeight);
         self.preferredContentSize = CGSizeMake(viewWidth, TopBarButtonHeight);
-        for (int i = 0; i<2; i++)
+        for (int i = 0; i<1; i++)
         {
             UIButton * button = [[UIButton alloc] init];
             CGFloat width = TopBarButtonWidth;
@@ -79,11 +79,11 @@
             button.titleLabel.font = UI_FONT_10;
 
             if(i == 0)
-            {
-                [button setTitle:YSLocalized(@"UploadPhoto.TakePhoto") forState:UIControlStateNormal];
-                [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Photo"] forState:UIControlStateNormal];
-            }
-            else if(i == 1)
+//            {
+//                [button setTitle:YSLocalized(@"UploadPhoto.TakePhoto") forState:UIControlStateNormal];
+//                [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Photo"] forState:UIControlStateNormal];
+//            }
+//            else if(i == 1)
             {
                 [button setTitle:YSLocalized(@"UploadPhoto.FromGallery") forState:UIControlStateNormal];
                 [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Album"] forState:UIControlStateNormal];
@@ -96,10 +96,10 @@
         return;
     }
     
-    CGFloat viewWidth = TopBarButtonWidth * 5;
+    CGFloat viewWidth = TopBarButtonWidth * 4;
     self.view.frame = CGRectMake(0, 0, viewWidth, TopBarButtonHeight);
     self.preferredContentSize = CGSizeMake(viewWidth, TopBarButtonHeight);
-    for (int i = 0; i<5; i++)
+    for (int i = 0; i<4; i++)
     {
         UIButton * button = [[UIButton alloc] init];
         CGFloat width = TopBarButtonWidth;
@@ -114,21 +114,21 @@
             [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Answer"] forState:UIControlStateNormal];
         }
         else if(i == 1)
-        {
-            [button setTitle:YSLocalized(@"UploadPhoto.TakePhoto") forState:UIControlStateNormal];
-            [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Photo"] forState:UIControlStateNormal];
-        }
-        else if(i == 2)
+//        {
+//            [button setTitle:YSLocalized(@"UploadPhoto.TakePhoto") forState:UIControlStateNormal];
+//            [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Photo"] forState:UIControlStateNormal];
+//        }
+//        else if(i == 2)
         {
             [button setTitle:YSLocalized(@"UploadPhoto.FromGallery") forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Album"] forState:UIControlStateNormal];
         }
-        else if(i == 3)
+        else if(i == 2)
         {
             [button setTitle:YSLocalized(@"tool.jishiqi") forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_timer"] forState:UIControlStateNormal];
         }
-        else if(i == 4)
+        else if(i == 3)
         {
             [button setTitle:YSLocalized(@"tool.qiangdaqi") forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_responder"] forState:UIControlStateNormal];

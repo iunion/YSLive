@@ -494,11 +494,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (self.liveManager.isBeginClass)
     {
-        if (YSCurrentUser.vfail == YSDeviceFaultNone)
+        //if (YSCurrentUser.vfail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.afail == YSDeviceFaultNone)
+        //if (YSCurrentUser.afail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager publishAudio:nil];
         }
@@ -1428,9 +1428,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         BMWeakType(btn)
         BMWeakSelf
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-        [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+        [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+        [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+        self.topSelectBtn.selected = NO;
+
         classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1762,10 +1764,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");//(@"KickOut.SentOutClassroom");
     
-    
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
 
@@ -1851,9 +1852,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.bigRoomTimer = nil;
     }
 
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
     
@@ -2024,6 +2025,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
 
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+
+    [self.imagePickerController cancelButtonClick];
+    
     if (classEndAlertVC)
     {
         BMWeakSelf
@@ -2359,12 +2366,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     
-        if (YSCurrentUser.vfail == YSDeviceFaultNone)
+        //if (YSCurrentUser.vfail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishVideo:nil];
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.afail == YSDeviceFaultNone)
+        //if (YSCurrentUser.afail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishAudio:nil];
             [self.liveManager.roomManager publishAudio:nil];
@@ -2479,11 +2486,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     if (!inlist)
     {
-        if (YSCurrentUser.vfail == YSDeviceFaultNone || YSCurrentUser.hasVideo)
+        //if (YSCurrentUser.vfail == YSDeviceFaultNone || YSCurrentUser.hasVideo)
         {
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.afail == YSDeviceFaultNone || YSCurrentUser.hasAudio)
+        //if (YSCurrentUser.afail == YSDeviceFaultNone || YSCurrentUser.hasAudio)
         {
             [self.liveManager.roomManager publishAudio:nil];
         }
@@ -2501,6 +2508,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.imagePickerController cancelButtonClick];
+
     BMWeakSelf
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -2516,9 +2526,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 弹框
 - (void)showSignalingClassEndWithText:(NSString *)text
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+    
+    [self.imagePickerController cancelButtonClick];
+
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -3820,27 +3834,27 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
     }
     else if (sender.tag == 1)
-    {
-        //拍照上传
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        // 设置照片来源为相机
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        // 设置进入相机时使用前置或后置摄像头
-        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-        // 展示选取照片控制器
-        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-            self.topSelectBtn.selected = NO;
-            [self presentViewController:imagePickerController animated:YES completion:nil];
-        }];
-        
-    }
-    else if (sender.tag == 2)
+//    {
+//        //拍照上传
+//        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+//        imagePickerController.delegate = self;
+//        // 设置照片来源为相机
+//        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        // 设置进入相机时使用前置或后置摄像头
+//        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+//        // 展示选取照片控制器
+//        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
+//            self.topSelectBtn.selected = NO;
+//            [self presentViewController:imagePickerController animated:YES completion:nil];
+//        }];
+//
+//    }
+//    else if (sender.tag == 2)
     {
         //相册上传
         [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
     }
-    else if (sender.tag == 3)
+    else if (sender.tag == 2)
     {
         //计时器
         
@@ -3850,7 +3864,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
         
     }
-    else if (sender.tag == 4)
+    else if (sender.tag == 3)
     {
         //抢答器
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
@@ -5493,9 +5507,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 踢出
 - (void)outProxyWithRoomUser:(YSRoomUser *)roomUser
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Permissions.KickedOutMembers") preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -5511,9 +5526,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 删除课件
 - (void)deleteCoursewareProxyWithFileModel:(YSFileModel *)fileModel
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];
     
@@ -5976,9 +5993,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType{
     
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+
     BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
-    imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
+//    imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
     imagePickerController.allowTakeVideo = NO;
     imagePickerController.allowPickingVideo = NO;
     imagePickerController.showSelectedIndex = YES;

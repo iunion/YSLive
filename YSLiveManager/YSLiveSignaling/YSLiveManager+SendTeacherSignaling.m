@@ -76,6 +76,10 @@
     {
         if (appUserType == YSAppUseTheTypeSmallClass)
         {
+            if (![peerId bm_isNotEmpty])
+            {
+                return NO;
+            }
             NSDictionary *data = @{ @"roomLayout" : @"focusLayout",@"focusVideoId":peerId };
             BOOL result = [self sendPubMsg:YSSignalingName_SetRoomLayout toID:YSRoomPubMsgTellAll data:data save:YES completion:nil];
             return result;

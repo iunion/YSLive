@@ -1668,7 +1668,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         {
             [parameters addObject:[NSNull null]];
         }
-        if ([data bm_isNotEmpty])
+        if (data)
         {
             [parameters addObject:data];
         }

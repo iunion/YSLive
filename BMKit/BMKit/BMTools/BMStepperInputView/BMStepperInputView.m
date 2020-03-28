@@ -44,6 +44,9 @@
 @property (nonatomic, assign) CGFloat firstFloatMultiple;
 @property (nonatomic, assign) CGFloat secondFloatMultiple;
 
+// 是否是键盘输入
+@property (nonatomic, assign) BOOL isKeyBoardInput;
+
 @end
 
 @implementation BMStepperInputView

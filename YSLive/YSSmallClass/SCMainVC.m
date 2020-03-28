@@ -558,11 +558,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //            if (autoOpenAudioAndVideoFlag)
                 if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
             {
-                if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.afail == YSDeviceFaultNone)
+                //if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
                     if (!isEveryoneNoAudio) {
@@ -578,13 +578,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
         {
-            if (YSCurrentUser.vfail == YSDeviceFaultNone)
+            //if (YSCurrentUser.vfail == YSDeviceFaultNone)
             {
                 [self.liveManager.roomManager publishVideo:nil];
             }
-            if (YSCurrentUser.afail == YSDeviceFaultNone)
+            //if (YSCurrentUser.afail == YSDeviceFaultNone)
             {
-                [self.liveManager.roomManager publishAudio:nil];
+                BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                if (!isEveryoneNoAudio)
+                {
+                    [self.liveManager.roomManager publishAudio:nil];
+                }
             }
             
             [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserCandraw WithValue:@(true)];
@@ -2155,7 +2159,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
@@ -2289,7 +2293,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     SCVideoView *delVideoView = nil;
@@ -3691,7 +3695,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     [self.imagePickerController cancelButtonClick];
@@ -3862,7 +3866,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     [self.imagePickerController cancelButtonClick];
@@ -4054,13 +4058,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     return;
                 }
-                    //                [self.topToolBar selectMicrophoneBtn:NO];
-                    //                [self.topToolBar hideMicrophoneBtn:YES];
+//                [self.topToolBar selectMicrophoneBtn:NO];
+//                [self.topToolBar hideMicrophoneBtn:YES];
                     self.controlPopoverView.audioBtn.selected = NO;
                     self.controlPopoverView.videoBtn.selected = NO;
                     if (self.controlPopoverView.presentingViewController)
                     {
-                        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
                     }
             }
             else if (publishState > YSUser_PublishState_BOTH)
@@ -4190,15 +4194,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //                if (autoOpenAudioAndVideoFlag)
                 if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
                 {
-                    if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                    //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager unPublishVideo:nil];
                         [self.liveManager.roomManager publishVideo:nil];
                     }
-                    if (YSCurrentUser.afail == YSDeviceFaultNone)
+                    //if (YSCurrentUser.afail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager unPublishAudio:nil];
-                        [self.liveManager.roomManager publishAudio:nil];
+                        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                        if (!isEveryoneNoAudio)
+                        {
+                            [self.liveManager.roomManager publishAudio:nil];
+                        }
                     }
                 }
             }
@@ -4207,15 +4215,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//会议，进教室默认上台
             if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
-                if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager unPublishVideo:nil];
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.afail == YSDeviceFaultNone)
+                //if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager unPublishAudio:nil];
-                    [self.liveManager.roomManager publishAudio:nil];
+                    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                    if (!isEveryoneNoAudio)
+                    {
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
                 }
             }
         }
@@ -4366,13 +4378,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //                if (autoOpenAudioAndVideoFlag)
                 if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
                 {
-                    if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                    //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                     {
                         [self.liveManager.roomManager publishVideo:nil];
                     }
-                    if (YSCurrentUser.afail == YSDeviceFaultNone)
+                    //if (YSCurrentUser.afail == YSDeviceFaultNone)
                     {
-                        [self.liveManager.roomManager publishAudio:nil];
+                        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                        if (!isEveryoneNoAudio)
+                        {
+                            [self.liveManager.roomManager publishAudio:nil];
+                        }
                     }
                 }
             }
@@ -4381,13 +4397,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//会议，进教室默认上台
             if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
-                if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
                 }
-                if (YSCurrentUser.afail == YSDeviceFaultNone)
+                //if (YSCurrentUser.afail == YSDeviceFaultNone)
                 {
-                    [self.liveManager.roomManager publishAudio:nil];
+                    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+                    if (!isEveryoneNoAudio)
+                    {
+                        [self.liveManager.roomManager publishAudio:nil];
+                    }
                 }
                 
                 [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserCandraw WithValue:@(true)];
@@ -4424,8 +4444,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
+    
+    [self.imagePickerController cancelButtonClick];
     
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -4444,8 +4466,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
+    
+    [self.imagePickerController cancelButtonClick];
+    
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -4532,11 +4557,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.drawBoardView.hidden = NO;
     }
     
-    if (roomLayout == YSLiveRoomLayout_FocusLayout)
+    if (roomLayout == YSLiveRoomLayout_FocusLayout && peerId)
     {
         for (SCVideoView *videoView in self.videoViewArray)
         {
-            if ([videoView.roomUser.peerID isEqualToString: peerId])
+            if ([videoView.roomUser.peerID isEqualToString:peerId])
             {
                 self.fouceView = videoView;
                 break;
@@ -4670,7 +4695,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.drawBoardView.hidden = NO;
     }
-    
 //    [self freshWhiteBordViewFrame];
 }
 
@@ -5290,7 +5314,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];

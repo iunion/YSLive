@@ -398,10 +398,13 @@
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
             NSString *newVersion = [result[@"results"] firstObject][@"version"];
-            NSString *oldVersion = APP_VERSIONNO;
-            if ([newVersion compare: oldVersion] == NSOrderedDescending)
+            if ([newVersion bm_isNotEmpty])
             {
-                [self checkUpdate];
+                NSString *oldVersion = APP_VERSIONNO;
+                if ([newVersion compare: oldVersion] == NSOrderedDescending)
+                {
+                    [self checkUpdate];
+                }
             }
         }
     }];
