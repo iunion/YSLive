@@ -40,6 +40,7 @@
 "Prompt.kick" = "Please come into the room in three minutes";
 "Prompt.stuHasKicked" = "You have been invited to the room. Please come back in three minutes.";
 "Prompt.inputPwd" = "A password is required for this rooom";
+"Prompt.noneedPwd" = "Not need password";
 "Prompt.OK" = "Confirm";
 "Prompt.Cancel" = "Cancel";
 "Prompt.Know" = "Yes,I know";

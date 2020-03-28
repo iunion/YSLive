@@ -1260,10 +1260,12 @@
                 
                 if (weakSelf.needpwd)
                 {
+                    self.passwordTextField.placeholder = YSLocalized(@"Prompt.inputPwd");
                     self.passwordMask.hidden = YES;
                 }
                 else
                 {
+                    self.passwordTextField.placeholder = YSLocalized(@"Prompt.noneedPwd");
                     self.passwordMask.hidden = NO;
                 }
                 
@@ -1727,6 +1729,8 @@
     
     [self.view endEditing:YES];
     
+    self.passwordTextField.placeholder = YSLocalized(@"Prompt.inputPwd");
+    
     switch (sender.tag) {
 
         case 1:
@@ -1741,6 +1745,7 @@
             }
             else
             {
+                self.passwordTextField.placeholder = YSLocalized(@"Prompt.noneedPwd");
                 self.passwordMask.hidden = NO;
             }
             break;

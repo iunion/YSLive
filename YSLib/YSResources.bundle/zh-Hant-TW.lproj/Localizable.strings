@@ -41,6 +41,7 @@
 "Prompt.kick" = "請您三分鐘以後進入房間";
 "Prompt.stuHasKicked" = "您已被請出房間，請三分鐘之後再進入房間!";
 "Prompt.inputPwd" = "請輸入密碼";
+"Prompt.noneedPwd" = "無需密碼請直接進入";
 "Prompt.OK" = "確定";
 "Prompt.Cancel" = "取消";
 "Prompt.Know" = "知道啦";
