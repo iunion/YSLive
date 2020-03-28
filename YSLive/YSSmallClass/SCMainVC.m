@@ -2203,7 +2203,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
@@ -2337,7 +2337,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     SCVideoView *delVideoView = nil;
@@ -3747,7 +3747,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     [self.imagePickerController cancelButtonClick];
@@ -3918,7 +3918,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     [self.imagePickerController cancelButtonClick];
@@ -4116,7 +4116,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     self.controlPopoverView.videoBtn.selected = NO;
                     if (self.controlPopoverView.presentingViewController)
                     {
-                        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+                        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
                     }
             }
             else if (publishState > YSUser_PublishState_BOTH)
@@ -4496,7 +4496,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
     
     BMWeakSelf
@@ -4516,7 +4516,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -5492,7 +5492,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if (self.controlPopoverView.presentingViewController)
     {
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
