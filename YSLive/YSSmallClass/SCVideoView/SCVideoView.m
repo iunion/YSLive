@@ -890,7 +890,7 @@
             {
                 deviceError = YES;
                 // 设备禁用
-                self.videoDeviceState = YSDeviceFaultNotAuth;
+                self.videoDeviceState = YSDeviceFaultNotFind;
             }
         }
         else
@@ -900,7 +900,7 @@
                 // 无设备
                 deviceError = YES;
                 // 设备禁用
-                self.videoDeviceState = YSDeviceFaultNotAuth;
+                self.videoDeviceState = YSDeviceFaultNotFind;
             }
         }
 
@@ -969,7 +969,7 @@
             else
             {
                 deviceError = YES;
-                self.audioDeviceState = YSDeviceFaultNotAuth;
+                self.audioDeviceState = YSDeviceFaultNotFind;
             }
         }
         else
@@ -979,7 +979,7 @@
                 // 无设备
                 deviceError = YES;
                 // 设备禁用
-                self.audioDeviceState = YSDeviceFaultNotAuth;
+                self.audioDeviceState = YSDeviceFaultNotFind;
             }
         }
 

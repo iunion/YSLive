@@ -2153,6 +2153,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
 
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+
+    [self.imagePickerController cancelButtonClick];
+    
     if (classEndAlertVC)
     {
         BMWeakSelf
@@ -2489,12 +2495,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     
-        if (YSCurrentUser.vfail == YSDeviceFaultNone)
+        //if (YSCurrentUser.vfail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishVideo:nil];
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.afail == YSDeviceFaultNone)
+        //if (YSCurrentUser.afail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishAudio:nil];
             [self.liveManager.roomManager publishAudio:nil];
@@ -2667,6 +2673,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
     self.topSelectBtn.selected = NO;
+    
+    [self.imagePickerController cancelButtonClick];
 
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -5058,7 +5066,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)startPollingWithTime:(NSInteger)time
 {
-    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.pollingTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     
