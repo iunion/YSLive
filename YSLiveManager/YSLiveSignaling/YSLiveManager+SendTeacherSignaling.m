@@ -603,4 +603,19 @@
 }
 
 
+/// 老师发起轮播
+- (BOOL)sendSignalingTeacherToStartVideoPollingCompletion:(nullable completion_block)completion
+{
+
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_VideoPolling msgID:YSSignalingName_VideoPolling toID:YSRoomPubMsgTellAll data:@{} save:YES extensionData:nil associatedMsgID:nil associatedUserID:nil expires:0 completion:nil] == 0;
+
+     return result;
+}
+/// 老师停止轮播
+- (BOOL)sendSignalingTeacherToStopVideoPollingCompletion:(nullable completion_block)completion
+{
+    BOOL result = [self.roomManager delMsg:YSSignalingName_VideoPolling msgID:YSSignalingName_VideoPolling toID:YSRoomPubMsgTellAll data:@{} completion:completion] == 0;
+
+    return result;
+}
 @end

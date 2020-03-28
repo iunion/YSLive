@@ -3912,18 +3912,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (_isPolling)
     {
-        if (self.pollingTimer)
-        {
-            dispatch_source_cancel(self.pollingTimer);
-            self.pollingTimer = nil;
-        }
-        
-        [self topToolBarPollingBtnEnable];
-        if (self.topToolBar.pollingBtn.enabled)
-        {
-            self.topToolBar.pollingBtn.selected = NO;
-        }
-        _isPolling = NO;
+
+        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
     }
     else
     {
@@ -5068,6 +5058,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)startPollingWithTime:(NSInteger)time
 {
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.pollingTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     
@@ -5083,8 +5074,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //4.开始执行
     dispatch_resume(self.pollingTimer);
     [self.teacherPollingView dismiss:nil animated:NO dismissBlock:nil];
-    self.topToolBar.pollingBtn.selected = YES;
     _isPolling = YES;
+    
+    [self.liveManager sendSignalingTeacherToStartVideoPollingCompletion:nil];
     
 }
 
@@ -5157,6 +5149,30 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
     }
 }
+
+/// 收到轮播
+- (void)handleSignalingToStartVideoPolling
+{
+    _isPolling = YES;
+    self.topToolBar.pollingBtn.selected = YES;
+}
+///结束轮播
+- (void)handleSignalingToStopVideoPolling
+{
+    if (self.pollingTimer)
+    {
+        dispatch_source_cancel(self.pollingTimer);
+        self.pollingTimer = nil;
+    }
+    
+    [self topToolBarPollingBtnEnable];
+    if (self.topToolBar.pollingBtn.enabled)
+    {
+        self.topToolBar.pollingBtn.selected = NO;
+    }
+    _isPolling = NO;
+}
+
 #pragma mark -
 #pragma mark 聊天相关视图
 

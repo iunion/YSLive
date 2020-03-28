@@ -865,6 +865,17 @@
         }
         return;
     }
+    /// 收到轮播
+    if ([msgName isEqualToString:YSSignalingName_VideoPolling])
+    {
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToStartVideoPolling)])
+        {
+            [self.roomManagerDelegate handleSignalingToStartVideoPolling];
+        }
+        return;
+    }
+
+    
     
     // 计时器
     if ([msgName isEqualToString:YSSignalingName_Timer])
@@ -1218,6 +1229,17 @@
 
         return;
     }
+    
+    /// 结束轮播
+    if ([msgName isEqualToString:YSSignalingName_VideoPolling])
+    {
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToStopVideoPolling)])
+        {
+            [self.roomManagerDelegate handleSignalingToStopVideoPolling];
+        }
+        return;
+    }
+
     
     // 全体禁言
     if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])
