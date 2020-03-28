@@ -15,6 +15,10 @@
 #define maxSecond 90
 #define minSecond 10
 @interface YSPollingView()
+<
+    BMStepperInputViewDelegate,
+    UIGestureRecognizerDelegate
+>
 {
     NSInteger _second;
 }
@@ -38,6 +42,9 @@
 @property (nonatomic, strong) UILabel *secondLabel;
 /// 确定
 @property (nonatomic, strong) UIButton *sureBtn;
+
+
+@property(nonatomic, strong) BMStepperInputView *stepperInputView;
 @end
 
 
@@ -70,6 +77,12 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     _second = 20;
     self.topDistance = topDistance;
     self.backgroundEdgeInsets = backgroundEdgeInsets;
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
+    tapGesture.delegate =self;
+    self.userInteractionEnabled = YES;
+    [self addGestureRecognizer:tapGesture];
+    
+    
     
     self.bacView = [[UIView alloc] init];
     self.bacView.backgroundColor = [UIColor whiteColor];
@@ -93,53 +106,110 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.titleLabel.textAlignment= NSTextAlignmentLeft;
     self.titleLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
     self.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-    self.titleLabel.text = YSLocalized(@"轮播时间");
+    self.titleLabel.text = YSLocalized(@"Polling.Time");
     self.titleLabel.frame = CGRectMake(30, 80, 70, 25);
+    self.titleLabel.adjustsFontSizeToFitWidth = YES;
     
-    self.timeView = [[UIView alloc] init];
-    [self.bacView addSubview:self.timeView];
-    self.timeView.frame = CGRectMake(0, 0, 120, 42);
-    self.timeView.bm_centerY = self.titleLabel.bm_centerY;
-    self.timeView.bm_left = self.titleLabel.bm_right + 8;
-    self.timeView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF alpha:0.5];
-    [self.timeView bm_addShadow:1 Radius:21 BorderColor:[UIColor bm_colorWithHex:0x5A8CDC] ShadowColor:[UIColor whiteColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+    self.stepperInputView = [[BMStepperInputView alloc] initWithFrame:CGRectMake(100, 100, 120.0f, 42.0f)];
+    [self.bacView addSubview:self.stepperInputView];
     
-    self.timeLabel = [[UILabel alloc] init];
-    [self.timeView addSubview:self.timeLabel];
-    self.timeLabel.textAlignment= NSTextAlignmentCenter;
-    self.timeLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-    self.timeLabel.font = [UIFont systemFontOfSize:21.0f];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@",@(_second)];
-    self.timeLabel.frame = CGRectMake(40, 8, 30, 25);
-
-    self.upBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.upBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_normal"] forState:UIControlStateNormal];
-    [self.upBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_disabled"] forState:UIControlStateDisabled];
-    [self.upBtn addTarget:self action:@selector(upBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.timeView addSubview:self.upBtn];
-    self.upBtn.frame = CGRectMake(0, 6, 14, 10);
-    self.upBtn.bm_left = self.timeLabel.bm_right + 14;
+    self.stepperInputView.bm_centerY = self.titleLabel.bm_centerY;
+    self.stepperInputView.bm_left = self.titleLabel.bm_right + 8;
+    self.stepperInputView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF alpha:0.5];
     
-    self.downBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.downBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_normal"] forState:UIControlStateNormal];
-    [self.downBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_disabled"] forState:UIControlStateDisabled];
-    [self.downBtn addTarget:self action:@selector(downBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.timeView addSubview:self.downBtn];
-    self.downBtn.frame = CGRectMake(0, 0, 14, 10);
-    self.downBtn.bm_left = self.timeLabel.bm_right + 14;
-    self.downBtn.bm_top = self.upBtn.bm_bottom + 10;
-
+    
+    
+    self.stepperInputView.delegate = self;
+    
+    self.stepperInputView.minNumberValue = [[NSDecimalNumber alloc] initWithString:[NSString stringWithFormat:@"%@",@(minSecond)]];
+    self.stepperInputView.maxNumberValue = [[NSDecimalNumber alloc] initWithString:[NSString stringWithFormat:@"%@",@(maxSecond)]];
+    self.stepperInputView.numberValue = [[NSDecimalNumber alloc] initWithString:[NSString stringWithFormat:@"%@",@(_second)]];;
+    
+    // 递增步长，默认步长为1
+    //        self.stepperInputView.stepNumberValue = self.item.stepNumberValue;
+    
+    // 是否可以使用键盘输入，默认YES
+    self.stepperInputView.useKeyBord = YES;
+    
+    // 数字颜色
+    self.stepperInputView.numberColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    // 数字字体
+    self.stepperInputView.numberFont = [UIFont systemFontOfSize:21.0f];
+    
+    // 边框颜色
+    self.stepperInputView.borderColor = [UIColor clearColor];
+    //            // 边框线宽
+    self.stepperInputView.borderWidth = 1;
+    [self.stepperInputView bm_addShadow:1 Radius:21 BorderColor:[UIColor bm_colorWithHex:0x5A8CDC] ShadowColor:[UIColor whiteColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+    // 加按钮背景图片
+    self.stepperInputView.increaseImage = [UIImage imageNamed:@"teacherTimer_add"];
+    // 减按钮背景图片
+    self.stepperInputView.decreaseImage = [UIImage imageNamed:@"teacherTimer_subtract"];
+    
+    // 长按加减的触发时间间隔,默认0.2s
+    //               self.stepperInputView.longPressSpaceTime = 10;
+    
+    // 第一阶段加速倍数，默认1，加速值为firstMultiple*stepNumberValue
+    //           self.stepperInputView.firstMultiple = self.item.firstMultiple;
+    // 开始第二阶段加速倍数计数点，默认10
+    self.stepperInputView.secondTimeCount = 5;
+    // 第二阶段加速倍数，默认10，一般大于firstMultiple
+    //           self.stepperInputView.secondMultiple = self.item.secondMultiple;
+    
+    // 最小值时隐藏减号按钮，默认NO
+    //           self.stepperInputView.minHideDecrease = self.item.minHideDecrease;
+    // 是否开启抖动动画，默认NO，minHideDecrease为YES时不执行动画
+    //           self.stepperInputView.limitShakeAnimation = self.item.limitShakeAnimation;
+    
+    //           self.enabled = self.item.enabled;
+    //               self.stepperable = self.item.stepperable;
+    
+    
+    //
+    //    self.timeView = [[UIView alloc] init];
+    //    [self.bacView addSubview:self.timeView];
+    //    self.timeView.frame = CGRectMake(0, 0, 120, 42);
+    //    self.timeView.bm_centerY = self.titleLabel.bm_centerY;
+    //    self.timeView.bm_left = self.titleLabel.bm_right + 8;
+    //    self.timeView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF alpha:0.5];
+    //    [self.timeView bm_addShadow:1 Radius:21 BorderColor:[UIColor bm_colorWithHex:0x5A8CDC] ShadowColor:[UIColor whiteColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+    //
+    //    self.timeLabel = [[UILabel alloc] init];
+    //    [self.timeView addSubview:self.timeLabel];
+    //    self.timeLabel.textAlignment= NSTextAlignmentCenter;
+    //    self.timeLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    //    self.timeLabel.font = [UIFont systemFontOfSize:21.0f];
+    //    self.timeLabel.text = [NSString stringWithFormat:@"%@",@(_second)];
+    //    self.timeLabel.frame = CGRectMake(40, 8, 30, 25);
+    //
+    //    self.upBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [self.upBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_normal"] forState:UIControlStateNormal];
+    //    [self.upBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_up_disabled"] forState:UIControlStateDisabled];
+    //    [self.upBtn addTarget:self action:@selector(upBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.timeView addSubview:self.upBtn];
+    //    self.upBtn.frame = CGRectMake(0, 6, 14, 10);
+    //    self.upBtn.bm_left = self.timeLabel.bm_right + 14;
+    //
+    //    self.downBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [self.downBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_normal"] forState:UIControlStateNormal];
+    //    [self.downBtn setBackgroundImage:[UIImage imageNamed:@"teacherTimer_down_disabled"] forState:UIControlStateDisabled];
+    //    [self.downBtn addTarget:self action:@selector(downBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.timeView addSubview:self.downBtn];
+    //    self.downBtn.frame = CGRectMake(0, 0, 14, 10);
+    //    self.downBtn.bm_left = self.timeLabel.bm_right + 14;
+    //    self.downBtn.bm_top = self.upBtn.bm_bottom + 10;
+    //
     self.secondLabel = [[UILabel alloc] init];
     [self.bacView addSubview:self.secondLabel];
     self.secondLabel.textAlignment= NSTextAlignmentLeft;
     self.secondLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
     self.secondLabel.font = [UIFont systemFontOfSize:16.0f];
-    self.secondLabel.text = YSLocalized(@"秒/次");
-    self.secondLabel.frame = CGRectMake(0, 0, 42, 25);
+    self.secondLabel.text = YSLocalized(@"Polling.second");
+    self.secondLabel.frame = CGRectMake(0, 0, 80, 25);
     self.secondLabel.bm_centerY = self.titleLabel.bm_centerY;
-    self.secondLabel.bm_left = self.timeView.bm_right + 15;
+    self.secondLabel.bm_left = self.stepperInputView.bm_right + 15;
+    self.secondLabel.adjustsFontSizeToFitWidth = YES;
     
-
     self.sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.sureBtn setTitle: YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
     [self.sureBtn addTarget:self action:@selector(sureBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -170,33 +240,75 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
 {
     if ([self.delegate respondsToSelector:@selector(startPollingWithTime:)])
     {
+        if (_second < minSecond)
+        {
+            _second = minSecond;
+        }
+        if (_second > maxSecond)
+        {
+            _second = maxSecond;
+        }
         [self.delegate startPollingWithTime:_second];
     }
 }
 
-- (void)upBtnClicked:(UIButton *)btn
-{
-    _second++;
-    self.downBtn.enabled = YES;
-    if (_second >= maxSecond)
-    {
-        self.upBtn.enabled = NO;
-        _second = maxSecond;
-    }
-    self.timeLabel.text = [NSString stringWithFormat:@"%02ld", (long)_second];
-}
+//- (void)upBtnClicked:(UIButton *)btn
+//{
+//    _second++;
+//    self.downBtn.enabled = YES;
+//    if (_second >= maxSecond)
+//    {
+//        self.upBtn.enabled = NO;
+//        _second = maxSecond;
+//    }
+//    self.timeLabel.text = [NSString stringWithFormat:@"%02ld", (long)_second];
+//}
+//
+//- (void)downBtnClicked:(UIButton *)btn
+//{
+//    //减
+//    _second--;
+//    self.upBtn.enabled = YES;
+//    if (_second <= minSecond)
+//    {
+//        _second = minSecond;
+//        self.downBtn.enabled = NO;
+//    }
+//    self.timeLabel.text = [NSString stringWithFormat:@"%02ld",(long)_second];
+//
+//}
 
-- (void)downBtnClicked:(UIButton *)btn
+
+
+
+- (void)stepperInputView:(BMStepperInputView *)stepperInputView changeToNumber:(NSDecimalNumber *)number stepStatus:(BMStepperInputViewStepStatus)stepStatus
 {
-    //减
-    _second--;
-    self.upBtn.enabled = YES;
-    if (_second <= minSecond)
+    _second = [number integerValue];
+    if ([number integerValue] < minSecond)
     {
         _second = minSecond;
-        self.downBtn.enabled = NO;
     }
-    self.timeLabel.text = [NSString stringWithFormat:@"%02ld",(long)_second];
-     
+    if ([number integerValue] > maxSecond)
+    {
+        _second = maxSecond;
+    }
+}
+
+- (void)tapGestureClicked:(UITapGestureRecognizer *)tap
+{
+    [self endEditing:YES];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.bacView] )
+    {
+        [self endEditing:YES];
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
 }
 @end

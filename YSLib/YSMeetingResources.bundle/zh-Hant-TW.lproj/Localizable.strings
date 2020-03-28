@@ -445,3 +445,5 @@
 "Prompt.DataLoading" = "數據加載中";
 "Button.Reload" = "加載";
 "Button.Loading" = "加載中";
+"Polling.Time" = "輪播時間";
+"Polling.second" = "秒/次";

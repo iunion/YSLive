@@ -448,3 +448,5 @@
 "Prompt.DataLoading" = "Data loading";
 "Button.Reload" = "reload";
 "Button.Loading" = "loading";
+"Polling.Time" = "rotation time";
+"Polling.second" = "Seconds / times";
