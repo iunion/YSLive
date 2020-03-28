@@ -50,6 +50,8 @@
 
 - (void)doMsgCachePool
 {
+    self.liveManager.viewDidAppear = YES;
+
     [self beforeDoMsgCachePool];
     
     [self.liveManager doMsgCachePool];
@@ -85,7 +87,6 @@
     // 关闭自动锁屏，保证屏幕常亮
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 
-    self.liveManager.viewDidAppear = YES;
     [self performSelector:@selector(doMsgCachePool) withObject:nil afterDelay:0.5];
 }
 
