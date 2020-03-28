@@ -3948,7 +3948,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSInteger total = 0;
     for (YSRoomUser * user in self.liveManager.userList)
     {
-        if (user.role == YSUserType_Student)
+        if (user.role == YSUserType_Student || user.role == YSUserType_Teacher)
         {
             total++;
         }
