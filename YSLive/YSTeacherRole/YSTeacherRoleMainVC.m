@@ -1488,9 +1488,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         BMWeakType(btn)
         BMWeakSelf
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-        [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+        [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+        [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+        self.topSelectBtn.selected = NO;
+
         classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1841,10 +1843,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");//(@"KickOut.SentOutClassroom");
     
-    
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
 
@@ -1930,9 +1931,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.bigRoomTimer = nil;
     }
 
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
     
@@ -2644,6 +2645,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.imagePickerController cancelButtonClick];
+
     BMWeakSelf
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -2659,9 +2663,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 弹框
 - (void)showSignalingClassEndWithText:(NSString *)text
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -5857,9 +5863,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 踢出
 - (void)outProxyWithRoomUser:(YSRoomUser *)roomUser
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Permissions.KickedOutMembers") preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -5875,9 +5882,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 删除课件
 - (void)deleteCoursewareProxyWithFileModel:(YSFileModel *)fileModel
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];
     
@@ -6341,6 +6350,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType{
     
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+
     BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
     imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
@@ -6394,10 +6406,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             });
         }];
     }];
-//    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-//        self.topSelectBtn.selected = NO;
-//        [self presentViewController:imagePickerController animated:YES completion:nil];
-//    }];
 
     self.imagePickerController = imagePickerController;
     [self presentViewController:imagePickerController animated:YES completion:nil];
