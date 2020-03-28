@@ -212,20 +212,25 @@
     UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
     maskNoVideobgLab.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
     maskNoVideobgLab.font = UI_FONT_14;
-    maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
     maskNoVideobgLab.textColor = UIColor.whiteColor;
     maskNoVideobgLab.adjustsFontSizeToFitWidth = YES;
     maskNoVideobgLab.minimumScaleFactor = 0.3;
-//    maskNoVideobgLab.numberOfLines = 0;
     maskNoVideobgLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:maskNoVideobgLab];
     self.maskNoVideobgLab = maskNoVideobgLab;
+    maskNoVideobgLab.hidden = YES;
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
     
     if (isBeginClass)
     {
+        maskNoVideobgLab.hidden = NO;
         maskNoVideobgLab.text = YSLocalized(@"Prompt.DataLoading");
+    }
+    else if (self.videoDeviceState & SCVideoViewVideoState_DeviceError)
+    {
+        maskNoVideobgLab.hidden = NO;
+        maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
     }
     
 //    self.maskNoVideobgLab.hidden = isBeginClass;
