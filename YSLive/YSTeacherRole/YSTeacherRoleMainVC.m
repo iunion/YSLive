@@ -3512,7 +3512,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
     [self stopFullTeacherVideoView];
     
-    if (self.whitebordFullBackgroud.hidden)
+    if (!self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
     }
