@@ -800,5 +800,6 @@ associatedUserID:(NSString * _Nullable)associatedUserID
                        property:(NSDictionary *)properties
                      completion:(completion_block _Nullable)completion;
 
+- (void)serverLog:(NSString*)log;
 @end
 NS_ASSUME_NONNULL_END
