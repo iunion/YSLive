@@ -32,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *schoolHost;
 
 #if YSSDK
-@property (nullable, nonatomic, weak) id <YSLiveRoomManagerDelegate> sdkDelegate;
+@property (nullable, nonatomic, weak) volatile id <YSLiveRoomManagerDelegate> sdkDelegate;
 // 区分是否进入教室
 @property (nonatomic, assign) BOOL sdkIsJoinRoom;
 #endif
 
-@property (nullable, nonatomic, weak) id <YSLiveRoomManagerDelegate> roomManagerDelegate;
+@property (nullable, nonatomic, weak) volatile id <YSLiveRoomManagerDelegate> roomManagerDelegate;
 //@property (nullable, nonatomic, weak) id <YSWhiteBoardManagerDelegate> whiteBoardManagerDelegate;
 
 /// 房间音视频管理
