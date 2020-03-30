@@ -12,7 +12,7 @@
 #define backViewWidth 333
 #define backViewHeight 229
 
-#define maxSecond 90
+#define maxSecond 99
 #define minSecond 10
 @interface YSPollingView()
 <
