@@ -332,9 +332,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 当前的焦点视图
 @property(nonatomic, strong) SCVideoView *fouceView;
 
-/// 当前的用户视频的镜像状态
-@property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
-
 @property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
 
 @end
@@ -877,7 +874,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
     // 前后默认开启镜像
     [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
-    self.videoMirrorMode = YSVideoMirrorModeEnabled;
 
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
@@ -2454,10 +2450,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 #endif
 
-    //进入前后台
+    // 进入前后台
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
         [videoView freshWithRoomUserProperty:roomUser];
+    }
+    
+    // 视频镜像
+    if ([properties bm_containsObjectForKey:sUserIsVideoMirror])
+    {
+        BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+        [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
     }
     
 //    YSRoomUser *fromUser = [self.liveManager.roomManager getRoomUserWithUId:fromId];
@@ -5628,7 +5631,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.foucePeerId = self.foucePeerId;
     self.controlPopoverView.userModel = userModel;
-    self.controlPopoverView.videoMirrorMode = self.videoMirrorMode;
+    self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }
 
 
@@ -5672,12 +5675,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (sender.selected)
             {
                 [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
-                self.videoMirrorMode = YSVideoMirrorModeEnabled;
             }
             else
             {
                 [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
-                self.videoMirrorMode = YSVideoMirrorModeDisabled;
             }
         }
             break;

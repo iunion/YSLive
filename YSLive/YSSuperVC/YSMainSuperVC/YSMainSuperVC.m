@@ -146,6 +146,34 @@
     [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withText:nil detailText:YSLocalized(@"HUD.NetworkPoor") images:@[@"hud_network_poor0", @"hud_network_poor1", @"hud_network_poor2", @"hud_network_poor3"] duration:0.8f delay:YSChangeMediaLine_Delay];
 }
 
+#pragma mark 用户视频状态变化的通知
+
+- (void)onRoomUserVideoStatus:(NSString *)peerID state:(YSMediaState)state
+{
+    if (state == YSMedia_Pulished)
+    {
+        YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+        NSDictionary *properties = roomUser.properties;
+        if ([properties bm_isNotEmptyDictionary])
+        {
+            BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+            [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
+        }
+    }
+}
+
+/// 镜像视频模式改变
+- (void)handleChangeVideoMirrorMode:(YSVideoMirrorMode)mode
+{
+    BOOL mirror = YES;
+    if (mode == YSVideoMirrorModeDisabled)
+    {
+        mirror = NO;
+    }
+    
+    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsVideoMirror value:@(mirror) completion:nil];
+}
+
 /*
 - (void)addBaseNotification
 {

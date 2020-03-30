@@ -1092,6 +1092,25 @@ static YSLiveManager *liveManagerSingleton = nil;
     if ([self.roomManager setLocalVideoMirrorMode:mode] == 0)
     {
         self.localVideoMirrorMode = mode;
+        
+        if (self.roomConfig.isMirrorVideo)
+        {
+            if ([self.roomManagerDelegate respondsToSelector:@selector(handleChangeVideoMirrorMode:)])
+            {
+                [self.roomManagerDelegate handleChangeVideoMirrorMode:mode];
+            }
+        }
+        return YES;
+    }
+    
+    return NO;
+}
+
+/// 用户视频镜像观看
+- (BOOL)changeVideoMirrorWithPeerId:(NSString *)peerID mirror:(BOOL)isMirror
+{
+    if ([self.roomManager mirrorVideo:peerID Mirror:isMirror] == 0)
+    {
         return YES;
     }
     
