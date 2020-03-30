@@ -477,7 +477,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 ///收到轮播
-- (void)handleSignalingToStartVideoPolling;
+- (void)handleSignalingToStartVideoPollingFromID:(NSString *)fromID;
 ///结束轮播
 - (void)handleSignalingToStopVideoPolling;
 
