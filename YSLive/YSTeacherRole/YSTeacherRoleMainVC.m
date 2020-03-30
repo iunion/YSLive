@@ -827,7 +827,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
     
-    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 50, 60)];
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 60, 60)];
     [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
@@ -839,9 +839,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     coursewareBtn.hidden = YES;
     [self.view addSubview:coursewareBtn];
     self.coursewareBtn = coursewareBtn;
-
     
-    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,0, coursewareBtn.titleLabel.bounds.size.height, 0);
+    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
     coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
     coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 }
