@@ -6276,8 +6276,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             self.coursewareBtn.hidden =  self.brushToolView.hidden;
         }
-#if UES_FullTeacher
-
+        
+#if USE_FullTeacher
         [self stopFullTeacherVideoView];
 #endif
 //        [self.liveManager playVideoOnView:self.teacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
@@ -6573,6 +6573,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.fullTeacherFloatView removeFromSuperview];
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
+    [self.teacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
     self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+60, 40, 40);
 }
 
