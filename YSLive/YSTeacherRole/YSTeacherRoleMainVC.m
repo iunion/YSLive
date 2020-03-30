@@ -5134,6 +5134,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSRoomUser *roomUser = nil;
     for (NSString *tempPeerID in self.pollingArr)
     {
+        
         SCVideoView *videoView = [self getVideoViewWithPeerId:tempPeerID];
         if (videoView)
         {
@@ -5143,6 +5144,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
                 break;
             }
+        }
+        else
+        {
+            roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
+            break;
         }
 
     }
