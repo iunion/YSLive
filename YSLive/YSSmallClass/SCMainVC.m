@@ -1208,7 +1208,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
     
-    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 50, 60)];
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 60, 60)];
     [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
@@ -1221,7 +1221,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.view addSubview:coursewareBtn];
     self.coursewareBtn = coursewareBtn;
 
-    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,0, coursewareBtn.titleLabel.bounds.size.height, 0);
+    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
     coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
     coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 }
@@ -3918,7 +3918,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.roomtype == YSRoomType_More)
     {
         [self delVidoeViewWithPeerId:user.peerID];
-        
     }
 }
 
@@ -4025,9 +4024,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     [self setCurrentUserPrimaryColor];
                 }
-                
                 [self resetDrawTools];
-
             }
             
             videoView.canDraw = canDraw;
@@ -4099,8 +4096,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 发布媒体状态
     if ([properties bm_containsObjectForKey:sUserPublishstate])
     {
-        YSRoomUser *fromUser = [self.liveManager.roomManager getRoomUserWithUId:fromId];
-        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
         
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
