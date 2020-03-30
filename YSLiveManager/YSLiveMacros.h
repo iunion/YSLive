@@ -154,6 +154,9 @@ static  NSString *const sUserDisableAudio           = @"disableaudio";
 /// 是否进入后台 YES NO
 static  NSString *const sUserIsInBackGround         = @"isInBackGround";
 
+/// 是否视频镜像 YES NO
+static  NSString *const sUserIsVideoMirror          = @"isVideoMirror";
+
 /// 用户设备状态
 static  NSString *const sUserVideoFail              = @"vfail";
 static  NSString *const sUserAudioFail              = @"afail";

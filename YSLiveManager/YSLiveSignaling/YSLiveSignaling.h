@@ -136,6 +136,10 @@
 #define YSSignalingName_VideoPolling         @"VideoPolling"
 
 #define YSSignalingName_Timer             @"timer"
+
+/// 助教刷新课件
+#define YSSignalingName_refeshCourseware          @"RemoteControlCourseware"
+
 #pragma mark -
 #pragma mark whiteBordSignaling
 

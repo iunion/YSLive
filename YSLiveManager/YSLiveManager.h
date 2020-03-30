@@ -193,6 +193,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置本地视频镜像
 - (BOOL)changeLocalVideoMirrorMode:(YSVideoMirrorMode)mode;
 
+/// 用户视频镜像观看
+- (BOOL)changeVideoMirrorWithPeerId:(NSString *)peerID mirror:(BOOL)isMirror;
+
 /// 退出房间
 - (void)leaveRoom:(completion_block _Nullable)block;
 - (void)leaveRoom:(BOOL)force completion:(completion_block _Nullable)block;
@@ -247,6 +250,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript;
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode;
+
+/// 镜像视频模式改变
+- (void)handleChangeVideoMirrorMode:(YSVideoMirrorMode)mode;
 
 #pragma mark 房间状态变为大房间
 /// 由小房间变为大房间(只调用一次)
@@ -474,6 +480,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleSignalingToStartVideoPolling;
 ///结束轮播
 - (void)handleSignalingToStopVideoPolling;
+
+///助教刷新课件
+- (void)handleSignalingTorefeshCourseware;
 
 
 #pragma mark 白板 YSWhiteBoardManagerDelegate

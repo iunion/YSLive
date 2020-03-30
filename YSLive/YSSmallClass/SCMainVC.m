@@ -281,8 +281,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property(nonatomic, strong) SCVideoView *fouceView;
 /// 视频控制popoverView
 @property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
-/// 当前的用户视频的镜像状态
-@property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
 
 /// 花名册 课件库
 @property(nonatomic, strong) SCTeacherListView *teacherListView;
@@ -886,7 +884,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
     // 前后默认开启镜像
     [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
-    self.videoMirrorMode = YSVideoMirrorModeEnabled;
 
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
@@ -1211,7 +1208,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
     
-    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 50, 60)];
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 60, 60)];
     [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
     [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
@@ -1224,7 +1221,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.view addSubview:coursewareBtn];
     self.coursewareBtn = coursewareBtn;
 
-    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,0, coursewareBtn.titleLabel.bounds.size.height, 0);
+    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
     coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
     coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 }
@@ -1242,6 +1239,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             weakSelf.coursewareBtn.selected = NO;
         });
     }
+}
+
+/// 助教网络刷新所有人课件
+- (void)handleSignalingTorefeshCourseware
+{
+    [self buttonClickToRefreshCourseware:self.coursewareBtn];
 }
 
 /// 设置底部 翻页控件
@@ -3915,7 +3918,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.roomtype == YSRoomType_More)
     {
         [self delVidoeViewWithPeerId:user.peerID];
-        
     }
 }
 
@@ -4022,9 +4024,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     [self setCurrentUserPrimaryColor];
                 }
-                
                 [self resetDrawTools];
-
             }
             
             videoView.canDraw = canDraw;
@@ -4210,6 +4210,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if ([properties bm_containsObjectForKey:sUserIsInBackGround])
     {
         [videoView freshWithRoomUserProperty:roomUser];
+    }
+    
+    // 视频镜像
+    if ([properties bm_containsObjectForKey:sUserIsVideoMirror])
+    {
+        BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+        [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
     }
     
     /// 用户设备状态
@@ -5698,7 +5705,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.foucePeerId = self.foucePeerId;
     self.controlPopoverView.userModel = userModel;
-    self.controlPopoverView.videoMirrorMode = self.videoMirrorMode;
+    self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }
 
 #pragma mark 老师的控制按钮点击事件
@@ -5741,12 +5748,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             if (sender.selected)
             {
                 [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
-                self.videoMirrorMode = YSVideoMirrorModeEnabled;
             }
             else
             {
                 [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
-                self.videoMirrorMode = YSVideoMirrorModeDisabled;
             }
         }
             break;
