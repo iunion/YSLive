@@ -4102,6 +4102,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 发布媒体状态
     if ([properties bm_containsObjectForKey:sUserPublishstate])
     {
+        YSRoomUser *fromUser = [self.liveManager.roomManager getRoomUserWithUId:fromId];
+        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
         
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
