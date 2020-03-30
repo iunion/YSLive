@@ -222,15 +222,21 @@
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
     
-    if (isBeginClass)
-    {
-        maskNoVideobgLab.hidden = NO;
-        maskNoVideobgLab.text = YSLocalized(@"Prompt.DataLoading");
-    }
-    else if (self.videoDeviceState & SCVideoViewVideoState_DeviceError)
+//    if (isBeginClass)
+//    {
+//        maskNoVideobgLab.hidden = NO;
+//        maskNoVideobgLab.text = YSLocalized(@"Prompt.DataLoading");
+//    }
+//    else
+        if (self.videoDeviceState & SCVideoViewVideoState_DeviceError)
     {
         maskNoVideobgLab.hidden = NO;
         maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
+    }
+    else
+    {
+        maskNoVideobgLab.hidden = NO;
+        maskNoVideobgLab.text = YSLocalized(@"Prompt.DataLoading");
     }
     
 //    self.maskNoVideobgLab.hidden = isBeginClass;

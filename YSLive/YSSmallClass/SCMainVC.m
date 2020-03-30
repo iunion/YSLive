@@ -1217,6 +1217,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     coursewareBtn.titleLabel.font = UI_FONT_14;
     coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    coursewareBtn.hidden = YES;
     [self.view addSubview:coursewareBtn];
     self.coursewareBtn = coursewareBtn;
 
@@ -3167,7 +3168,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
         
-        self.coursewareBtn.hidden = self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden = self.boardControlView.hidden;
+        }
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
@@ -3628,7 +3633,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             isDynamic = YES;
         }
     }
-        
+    if ([file.fileid isEqualToString:@"0"])
+    {
+        self.coursewareBtn.hidden = YES;
+    }
+    else
+    {
+        self.coursewareBtn.hidden = NO;
+    }
     if (!isDynamic)
     {
         self.boardControlView.bm_width = 246;
@@ -4395,6 +4407,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.boardControlView.allowPaging = NO;
     //self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag;
 
+    if ([self.liveManager.currentFile.fileid isEqualToString:@"0"])
+    {
+        self.coursewareBtn.hidden = YES;
+    }
+    else
+    {
+        self.coursewareBtn.hidden = NO;
+    }
     if (self.topBarTimer)
     {
         dispatch_source_cancel(self.topBarTimer);
@@ -4588,7 +4608,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!self.isWhitebordFullScreen)
     {
-        self.coursewareBtn.hidden = self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden = self.boardControlView.hidden;
+        }
+        
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
@@ -4859,7 +4884,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!self.isWhitebordFullScreen)
     {
-        self.coursewareBtn.hidden = self.boardControlView.hidden = isFull;
+        self.boardControlView.hidden = isFull;
+        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden = isFull;
+        }
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = isFull;
@@ -4994,6 +5023,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         NSString *currentPage = [message objectForKey:@"currpage"];
 //        self.coursewareCurrentPage = currentPage.intValue;
         [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
+        if ([file.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden = YES;
+        }
+        else
+        {
+            self.coursewareBtn.hidden = NO;
+        }
     }
     return;
 }
@@ -5561,9 +5598,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
         }
-        
     }
-    
 }
 #endif
 

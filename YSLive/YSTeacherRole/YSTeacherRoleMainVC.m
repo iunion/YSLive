@@ -839,8 +839,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     coursewareBtn.titleLabel.font = UI_FONT_14;
     coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    coursewareBtn.hidden = YES;
     [self.view addSubview:coursewareBtn];
     self.coursewareBtn = coursewareBtn;
+
     
     coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,0, coursewareBtn.titleLabel.bounds.size.height, 0);
     coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
@@ -2551,7 +2553,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     [self freshTeacherPersonListData];
-    self.coursewareBtn.hidden = self.brushToolView.hidden = NO;
+    self.brushToolView.hidden = NO;
     
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
@@ -2596,6 +2598,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
 //    self.coursewareCurrentPage = self.liveManager.currentFile.pagenum.intValue;
+    if ([self.liveManager.currentFile.fileid isEqualToString:@"0"])
+    {
+        self.coursewareBtn.hidden = YES;
+    }
+    else
+    {
+        self.coursewareBtn.hidden = NO;
+    }
     self.boardControlView.allowPaging = YES;
     [self.boardControlView sc_setTotalPage:self.liveManager.currentFile.pagenum.integerValue currentPage:self.liveManager.currentFile.currpage.integerValue isWhiteBoard:[self.liveManager.currentFile.fileid isEqualToString:@"0"]];
     
@@ -2900,8 +2910,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (!self.isWhitebordFullScreen)
     {
         self.boardControlView.hidden = isFull;
-
-        self.coursewareBtn.hidden = self.brushToolView.hidden = isFull;
+        self.brushToolView.hidden = isFull;
+        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden = isFull;
+        }
     }
 
 //    [self freshWhiteBordViewFrame];
@@ -3638,6 +3651,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         nextPage = [dicPage bm_boolForKey:@"nextPage"];
     }
     
+    if ([file.fileid isEqualToString:@"0"])
+    {
+        self.coursewareBtn.hidden = YES;
+    }
+    else
+    {
+        self.coursewareBtn.hidden = NO;
+    }
+    
     BOOL isDynamic = YES;
     if (file.isGeneralFile)
     {
@@ -3707,7 +3729,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         NSString *currentPage = [message objectForKey:@"currpage"];
         [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
         
-//         self.coursewareCurrentPage = currentPage.intValue;
+        if ([file.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden = YES;
+        }
+        else
+        {
+            self.coursewareBtn.hidden = NO;
+        }
     }
     
     return;
@@ -4001,8 +4030,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (!self.isWhitebordFullScreen)
     {
         self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
-
-        self.coursewareBtn.hidden = self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+        self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden = self.brushToolView.hidden;
+        }
     }
     
     if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
@@ -4094,7 +4126,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.topSelectBtn.selected = NO;
             [self presentViewController:imagePickerController animated:YES completion:nil];
         }];
-        
     }
     else if (sender.tag == 2)
     {
@@ -5256,7 +5287,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {//弹出
         tempRect.origin.x = UI_SCREEN_WIDTH-tempRect.size.width;
         
-        
         //收回 课件表 以及 花名册
         [self freshListViewWithSelect:NO];
         if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
@@ -5884,7 +5914,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf.liveManager sendSignalingTeacherToDeleteDocumentWithFile:fileModel completion:nil];
         [weakSelf deleteCoursewareWithFileID:fileModel.fileid];
-
     }];
     UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
@@ -6201,7 +6230,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //        [self freshContentView];
         
         self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
-        self.coursewareBtn.hidden =  self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
+        {
+            self.coursewareBtn.hidden =  self.brushToolView.hidden;
+        }
 #if UES_FullTeacher
 
         [self stopFullTeacherVideoView];
