@@ -475,6 +475,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///结束轮播
 - (void)handleSignalingToStopVideoPolling;
 
+///助教刷新课件
+- (void)handleSignalingTorefeshCourseware;
+
 
 #pragma mark 白板 YSWhiteBoardManagerDelegate
 

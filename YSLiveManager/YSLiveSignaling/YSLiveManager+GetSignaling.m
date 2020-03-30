@@ -1001,6 +1001,16 @@
         return;
     }
     
+    /// 助教刷新课件
+    if ([msgName isEqualToString:YSSignalingName_refeshCourseware])
+    {
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTorefeshCourseware)])
+        {
+            [self.roomManagerDelegate handleSignalingTorefeshCourseware];
+        }
+        return;
+    }
+    
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomRemotePubMsgWithMsgID:msgName:data:fromID:inList:ts:body:)])
     {
         [self.roomManagerDelegate onRoomRemotePubMsgWithMsgID:msgID msgName:msgName data:dataDic fromID:fromID inList:inlist ts:ts body:msgBody];

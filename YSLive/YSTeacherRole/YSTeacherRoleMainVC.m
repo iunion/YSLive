@@ -864,6 +864,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+/// 助教网络刷新所有人课件
+- (void)handleSignalingTorefeshCourseware
+{
+    [self buttonClickToRefreshCourseware:self.coursewareBtn];
+}
+
+
 #pragma mark 内容背景
 - (void)setupContentView
 {

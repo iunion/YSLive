@@ -1244,6 +1244,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+/// 助教网络刷新所有人课件
+- (void)handleSignalingTorefeshCourseware
+{
+    [self buttonClickToRefreshCourseware:self.coursewareBtn];
+}
+
 /// 设置底部 翻页控件
 - (void)setupBoardControlView
 {
