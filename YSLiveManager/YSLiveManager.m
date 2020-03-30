@@ -1158,6 +1158,21 @@ static YSLiveManager *liveManagerSingleton = nil;
 #pragma mark -
 #pragma mark YSRoomInterfaceDelegate
 
+// 成功重连房间
+- (void)onRoomReJoined:(long)ts
+{
+    NSTimeInterval timeInterval = ts;
+    self.tServiceTime = timeInterval;
+
+    BMLog(@"onRoomReJoined %@", [NSDate bm_stringFromTs:timeInterval]);
+    BMLog(@"local %@", [NSDate date]);
+    
+    if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomReJoined:)])
+    {
+        [self.roomManagerDelegate onRoomReJoined:ts];
+    }
+}
+
 // 成功进入房间
 - (void)onRoomJoined:(long)ts
 {
@@ -1668,7 +1683,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         {
             [parameters addObject:[NSNull null]];
         }
-        if ([data bm_isNotEmpty])
+        if (data)
         {
             [parameters addObject:data];
         }

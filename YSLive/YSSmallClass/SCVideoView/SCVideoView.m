@@ -598,27 +598,55 @@
             // 无设备
             case YSDeviceFaultNotFind:
             {
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                if (self.isForPerch)
+                {
+                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.NoCamera");
+                }
+                else
+                {
+                    self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
+                }
             }
                 break;
                 
             // 设备被禁用
             case YSDeviceFaultNotAuth:
             {
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
+                if (self.isForPerch)
+                {
+                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
+                }
+                else
+                {
+                    self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
+                }
             }
                 break;
                 
             // 设备被占用
             case YSDeviceFaultOccupied:
             {
-                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.CameraOccupied");
+                if (self.isForPerch)
+                {
+                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.CameraOccupied");
+                }
+                else
+                {
+                    self.maskNoVideoTitle.text = YSLocalized(@"Prompt.CameraOccupied");
+                }
             }
                 break;
                 
             case YSDeviceFaultUnknown:
             {
-                 self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DeviceUnknownError");
+                 if (self.isForPerch)
+                 {
+                     self.maskNoVideobgLab.text = YSLocalized(@"Prompt.DeviceUnknownError");
+                 }
+                 else
+                 {
+                     self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DeviceUnknownError");
+                 }
             }
                 break;
 
@@ -630,7 +658,14 @@
 //                YSDeviceFaultStreamEmpty    = 8 //设备流没有数据
             default:
             {
-                self.maskNoVideoTitle.text = [NSString stringWithFormat:@"%@:%@", @(self.videoDeviceState), YSLocalized(@"Prompt.CanotOpenCamera")];
+                if (self.isForPerch)
+                {
+                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.CanotOpenCamera");
+                }
+                else
+                {
+                    self.maskNoVideoTitle.text = [NSString stringWithFormat:@"%@:%@", @(self.videoDeviceState), YSLocalized(@"Prompt.CanotOpenCamera")];
+                }
             }
                 break;
         }
@@ -829,8 +864,27 @@
     if (self.isForPerch)
     {
 //        self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
-//        self.maskNoVideobgLab.hidden = (self.roomUser.vfail == YSDeviceFaultNone);
+        self.maskNoVideobgLab.hidden = (self.roomUser.vfail == YSDeviceFaultNone);
         self.backVideoView.hidden = YES;
+        
+        BOOL deviceError = NO;
+        if ([self.roomUser.properties bm_containsObjectForKey:sUserVideoFail])
+        {
+            self.videoDeviceState = self.roomUser.vfail;
+            if (self.roomUser.vfail != YSDeviceFaultNone)
+            {
+                deviceError = YES;
+            }
+        }
+
+        if (deviceError)
+        {
+            self.videoState |= SCVideoViewVideoState_DeviceError;
+        }
+        else
+        {
+            self.videoState &= ~SCVideoViewVideoState_DeviceError;
+        }
     }
     else
     {
@@ -896,7 +950,7 @@
             {
                 deviceError = YES;
                 // 设备禁用
-                self.videoDeviceState = YSDeviceFaultNotAuth;
+                self.videoDeviceState = YSDeviceFaultNotFind;
             }
         }
         else
@@ -906,7 +960,7 @@
                 // 无设备
                 deviceError = YES;
                 // 设备禁用
-                self.videoDeviceState = YSDeviceFaultNotAuth;
+                self.videoDeviceState = YSDeviceFaultNotFind;
             }
         }
 
@@ -975,7 +1029,7 @@
             else
             {
                 deviceError = YES;
-                self.audioDeviceState = YSDeviceFaultNotAuth;
+                self.audioDeviceState = YSDeviceFaultNotFind;
             }
         }
         else
@@ -985,7 +1039,7 @@
                 // 无设备
                 deviceError = YES;
                 // 设备禁用
-                self.audioDeviceState = YSDeviceFaultNotAuth;
+                self.audioDeviceState = YSDeviceFaultNotFind;
             }
         }
 

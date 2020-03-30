@@ -132,7 +132,8 @@
 #define YSSignalingName_ContestResult          @"ContestResult_v1"
 /// 订阅排序
 #define YSSignalingName_ContestSubsort         @"ContestSubsort_v1"
-
+/// 轮播
+#define YSSignalingName_VideoPolling         @"VideoPolling"
 
 #define YSSignalingName_Timer             @"timer"
 #pragma mark -

@@ -65,3 +65,5 @@
 "Label.Title.Month" = "月";
 
 "Prompt.OnlineSchool_lessons" = "共%@節";
+"Polling.Time" = "輪播時間";
+"Polling.second" = "秒/次";

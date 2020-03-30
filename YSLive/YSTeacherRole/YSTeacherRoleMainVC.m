@@ -1490,9 +1490,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         BMWeakType(btn)
         BMWeakSelf
-        [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-        [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+        [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+        [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+        self.topSelectBtn.selected = NO;
+
         classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1843,10 +1845,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");//(@"KickOut.SentOutClassroom");
     
-    
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
 
@@ -1932,9 +1933,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.bigRoomTimer = nil;
     }
 
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
     
@@ -2154,6 +2155,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
 
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+
+    [self.imagePickerController cancelButtonClick];
+    
     if (classEndAlertVC)
     {
         BMWeakSelf
@@ -2490,12 +2497,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         // 所以要在这里刷新VideoAudio
         [self rePlayVideoAudio];
     
-        if (YSCurrentUser.vfail == YSDeviceFaultNone)
+        //if (YSCurrentUser.vfail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishVideo:nil];
             [self.liveManager.roomManager publishVideo:nil];
         }
-        if (YSCurrentUser.afail == YSDeviceFaultNone)
+        //if (YSCurrentUser.afail == YSDeviceFaultNone)
         {
             [self.liveManager.roomManager unPublishAudio:nil];
             [self.liveManager.roomManager publishAudio:nil];
@@ -2598,14 +2605,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
 //    self.coursewareCurrentPage = self.liveManager.currentFile.pagenum.intValue;
-    if ([self.liveManager.currentFile.fileid isEqualToString:@"0"])
-    {
-        self.coursewareBtn.hidden = YES;
-    }
-    else
-    {
-        self.coursewareBtn.hidden = NO;
-    }
+//    if ([self.liveManager.currentFile.fileid isEqualToString:@"0"])
+//    {
+//        self.coursewareBtn.hidden = YES;
+//    }
+//    else
+//    {
+//        self.coursewareBtn.hidden = NO;
+//    }
     self.boardControlView.allowPaging = YES;
     [self.boardControlView sc_setTotalPage:self.liveManager.currentFile.pagenum.integerValue currentPage:self.liveManager.currentFile.currpage.integerValue isWhiteBoard:[self.liveManager.currentFile.fileid isEqualToString:@"0"]];
     
@@ -2654,6 +2661,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.imagePickerController cancelButtonClick];
+
     BMWeakSelf
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -2669,9 +2679,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 弹框
 - (void)showSignalingClassEndWithText:(NSString *)text
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+    
+    [self.imagePickerController cancelButtonClick];
+
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -3519,7 +3533,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
     [self stopFullTeacherVideoView];
     
-    if (self.whitebordFullBackgroud.hidden)
+    if (!self.whitebordFullBackgroud.hidden)
     {
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
     }
@@ -3935,18 +3949,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (_isPolling)
     {
-        if (self.pollingTimer)
-        {
-            dispatch_source_cancel(self.pollingTimer);
-            self.pollingTimer = nil;
-        }
-        
-        [self topToolBarPollingBtnEnable];
-        if (self.topToolBar.pollingBtn.enabled)
-        {
-            self.topToolBar.pollingBtn.selected = NO;
-        }
-        _isPolling = NO;
+
+        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
     }
     else
     {
@@ -3971,7 +3975,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSInteger total = 0;
     for (YSRoomUser * user in self.liveManager.userList)
     {
-        if (user.role == YSUserType_Student)
+        if (user.role == YSUserType_Student || user.role == YSUserType_Teacher)
         {
             total++;
         }
@@ -4113,26 +4117,27 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
     }
     else if (sender.tag == 1)
-    {
-        //拍照上传
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        // 设置照片来源为相机
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        // 设置进入相机时使用前置或后置摄像头
-        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-        // 展示选取照片控制器
-        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-            self.topSelectBtn.selected = NO;
-            [self presentViewController:imagePickerController animated:YES completion:nil];
-        }];
-    }
-    else if (sender.tag == 2)
+//    {
+//        //拍照上传
+//        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+//        imagePickerController.delegate = self;
+//        // 设置照片来源为相机
+//        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        // 设置进入相机时使用前置或后置摄像头
+//        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+//        // 展示选取照片控制器
+//        [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
+//            self.topSelectBtn.selected = NO;
+//            [self presentViewController:imagePickerController animated:YES completion:nil];
+//        }];
+//
+//    }
+//    else if (sender.tag == 2)
     {
         //相册上传
         [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
     }
-    else if (sender.tag == 3)
+    else if (sender.tag == 2)
     {
         //计时器
         
@@ -4142,7 +4147,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
         
     }
-    else if (sender.tag == 4)
+    else if (sender.tag == 3)
     {
         //抢答器
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
@@ -5108,8 +5113,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //4.开始执行
     dispatch_resume(self.pollingTimer);
     [self.teacherPollingView dismiss:nil animated:NO dismissBlock:nil];
-    self.topToolBar.pollingBtn.selected = YES;
     _isPolling = YES;
+    
+    [self.liveManager sendSignalingTeacherToStartVideoPollingCompletion:nil];
     
 }
 
@@ -5182,6 +5188,30 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
     }
 }
+
+/// 收到轮播
+- (void)handleSignalingToStartVideoPolling
+{
+    _isPolling = YES;
+    self.topToolBar.pollingBtn.selected = YES;
+}
+///结束轮播
+- (void)handleSignalingToStopVideoPolling
+{
+    if (self.pollingTimer)
+    {
+        dispatch_source_cancel(self.pollingTimer);
+        self.pollingTimer = nil;
+    }
+    
+    [self topToolBarPollingBtnEnable];
+    if (self.topToolBar.pollingBtn.enabled)
+    {
+        self.topToolBar.pollingBtn.selected = NO;
+    }
+    _isPolling = NO;
+}
+
 #pragma mark -
 #pragma mark 聊天相关视图
 
@@ -5887,9 +5917,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 踢出
 - (void)outProxyWithRoomUser:(YSRoomUser *)roomUser
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Permissions.KickedOutMembers") preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -5905,9 +5936,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 删除课件
 - (void)deleteCoursewareProxyWithFileModel:(YSFileModel *)fileModel
 {
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];
     
@@ -6374,9 +6407,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType{
     
+    [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+    self.topSelectBtn.selected = NO;
+
     BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
-    imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
+//    imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
     imagePickerController.allowTakeVideo = NO;
     imagePickerController.allowPickingVideo = NO;
     imagePickerController.showSelectedIndex = YES;
@@ -6427,10 +6463,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             });
         }];
     }];
-//    [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-//        self.topSelectBtn.selected = NO;
-//        [self presentViewController:imagePickerController animated:YES completion:nil];
-//    }];
 
     self.imagePickerController = imagePickerController;
     [self presentViewController:imagePickerController animated:YES completion:nil];
