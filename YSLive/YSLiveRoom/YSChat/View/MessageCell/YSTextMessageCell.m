@@ -49,7 +49,7 @@
     //    self.nickNameLab.font = UI_FONT_14;
     //    [self.contentView addSubview:self.nickNameLab];
     
-    self.nickNameBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(12), 0, UI_SCREEN_WIDTH-2*kScale_W(12), kScale_H(12))];
+    self.nickNameBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(12), 0, BMUI_SCREEN_WIDTH-2*kBMScale_W(12), kBMScale_H(12))];
     [self.nickNameBtn setBackgroundColor:[UIColor clearColor]];
     self.nickNameBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.nickNameBtn addTarget:self action:@selector(nickNameBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -88,9 +88,9 @@
     NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
     
     NSMutableAttributedString * att = [model emojiViewWithMessage:model.message font:15];
-    CGSize size = [att bm_sizeToFitWidth:kScale_W(300)];
+    CGSize size = [att bm_sizeToFitWidth:kBMScale_W(300)];
     
-    CGFloat bubbleW = size.width + kScale_W(22)+kScale_W(20);
+    CGFloat bubbleW = size.width + kBMScale_W(22)+kBMScale_W(20);
     
     CGFloat bubbleX = 0;
     self.msgLab.attributedText = att;
@@ -117,7 +117,7 @@
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
             self.msgLab.textColor = [UIColor whiteColor];
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#82ABEC"];
-            bubbleX = UI_SCREEN_WIDTH-kScale_W(10)-bubbleW;
+            bubbleX = BMUI_SCREEN_WIDTH-kBMScale_W(10)-bubbleW;
             
             NSMutableAttributedString * mutAtt = [[NSMutableAttributedString alloc]initWithString:nameTimeStr];
             [mutAtt addAttributes:@{NSForegroundColorAttributeName:[UIColor bm_colorWithHexString:@"#5A8CDC"]} range:NSMakeRange(nameTimeStr.length-model.receiveUser.nickName.length-3, model.receiveUser.nickName.length+3)];
@@ -131,7 +131,7 @@
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             self.msgLab.textColor = [UIColor bm_colorWithHexString:@"#345376"];
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
-            bubbleX = kScale_W(10);
+            bubbleX = kBMScale_W(10);
             
             NSMutableAttributedString * mutAtt = [[NSMutableAttributedString alloc]initWithString:nameTimeStr];
             [mutAtt addAttributes:@{NSForegroundColorAttributeName:[UIColor bm_colorWithHexString:@"#5A8CDC"]} range:NSMakeRange(0, model.sendUser.nickName.length+2)];
@@ -149,14 +149,14 @@
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
             self.msgLab.textColor = [UIColor whiteColor];
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#82ABEC"];
-            bubbleX = UI_SCREEN_WIDTH-kScale_W(10)-bubbleW;
+            bubbleX = BMUI_SCREEN_WIDTH-kBMScale_W(10)-bubbleW;
         }
         else
         {//别人的消息
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             self.msgLab.textColor = [UIColor bm_colorWithHexString:@"#345376"];
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
-            bubbleX = kScale_W(10);
+            bubbleX = kBMScale_W(10);
         }
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.sendUser.nickName,model.timeStr];
         [self.nickNameBtn setAttributedTitle:nil forState:UIControlStateNormal];
@@ -172,15 +172,15 @@
     self.bubbleView.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right) resizingMode:UIImageResizingModeStretch];
     
     
-    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame)+kScale_H(12), bubbleW, size.height+kScale_H(20));
-    _msgLab.frame = CGRectMake(kScale_W(20), kScale_H(10), size.width , size.height);
+    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame)+kBMScale_H(12), bubbleW, size.height+kBMScale_H(20));
+    _msgLab.frame = CGRectMake(kBMScale_W(20), kBMScale_H(10), size.width , size.height);
     
     
     NSAttributedString * test = [[NSAttributedString alloc]initWithString:@"你好吗"];
     
-    CGSize testSize = [test bm_sizeToFitWidth:kScale_W(300)];
+    CGSize testSize = [test bm_sizeToFitWidth:kBMScale_W(300)];
     
-    CGFloat textH = (testSize.height+ kScale_H(20))/2;
+    CGFloat textH = (testSize.height+ kBMScale_H(20))/2;
     
     if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
     {//我的消息

@@ -45,19 +45,19 @@
 {
     [super layoutSubviews];
     
-    self.backView.frame = CGRectMake(20, 35, UI_SCREEN_WIDTH - 40, self.lessonModel.nameHeight + 52);
+    self.backView.frame = CGRectMake(20, 35, BMUI_SCREEN_WIDTH - 40, self.lessonModel.nameHeight + 52);
     self.backView.layer.cornerRadius = self.backView.bm_height/2;
     self.backView.layer.masksToBounds = YES;
     
     self.iconImgV.frame = CGRectMake(40, 0, 20, 20);
     self.iconImgV.bm_centerY = self.backView.bm_centerY;
     
-    self.roomIDL.frame = CGRectMake(CGRectGetMaxX(self.iconImgV.frame) + 10, 0, UI_SCREEN_WIDTH - 72 - 62, 20);
+    self.roomIDL.frame = CGRectMake(CGRectGetMaxX(self.iconImgV.frame) + 10, 0, BMUI_SCREEN_WIDTH - 72 - 62, 20);
     self.roomIDL.bm_top = self.backView.bm_top + 10;
     
-    self.lineView.frame = CGRectMake(CGRectGetMaxX(self.iconImgV.frame) + 10, CGRectGetMaxY(self.roomIDL.frame) + 5, UI_SCREEN_WIDTH - 72 - 36, 1);
+    self.lineView.frame = CGRectMake(CGRectGetMaxX(self.iconImgV.frame) + 10, CGRectGetMaxY(self.roomIDL.frame) + 5, BMUI_SCREEN_WIDTH - 72 - 36, 1);
     
-    self.lessonTitleL.frame = CGRectMake(72, CGRectGetMaxY(self.lineView.frame) + 5, UI_SCREEN_WIDTH - 72 - 62, self.lessonModel.nameHeight);
+    self.lessonTitleL.frame = CGRectMake(72, CGRectGetMaxY(self.lineView.frame) + 5, BMUI_SCREEN_WIDTH - 72 - 62, self.lessonModel.nameHeight);
     
 }
 

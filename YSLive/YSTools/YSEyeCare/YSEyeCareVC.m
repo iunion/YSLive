@@ -73,14 +73,14 @@
 
 - (void)setupUI
 {
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH-40.0f, 50.0f)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH-40.0f, 50.0f)];
     label1.text = YSLocalized(@"EyeProtection.Title");
     label1.font = UI_FONT_18;
     label1.numberOfLines = 0;
     label1.textColor = [UIColor bm_colorWithHex:0x828282];
     label1.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label1];
-    [label1 bm_centerHorizontallyInSuperViewWithTop:kScale_H(60.0f)];
+    [label1 bm_centerHorizontallyInSuperViewWithTop:kBMScale_H(60.0f)];
     
     UISwitch *switchView = [[UISwitch alloc] init];
     switchView.exclusiveTouch = YES;
@@ -101,16 +101,16 @@
     view.bm_width = switchView.bm_width + 6.0f + width;
 
     [self.view addSubview:view];
-    [view bm_centerHorizontallyInSuperViewWithTop:label1.bm_bottom+kScale_H(20.0f)];
+    [view bm_centerHorizontallyInSuperViewWithTop:label1.bm_bottom+kBMScale_H(20.0f)];
 
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH-40.0f, 50.0f)];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH-40.0f, 50.0f)];
     label3.text = YSLocalized(@"EyeProtection.NightTitle");
     label3.font = UI_FONT_18;
     label3.numberOfLines = 0;
     label3.textColor = [UIColor bm_colorWithHex:0x828282];
     label3.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label3];
-    [label3 bm_centerHorizontallyInSuperViewWithTop:view.bm_bottom + kScale_H(50.0f)];
+    [label3 bm_centerHorizontallyInSuperViewWithTop:view.bm_bottom + kBMScale_H(50.0f)];
 
     UISwitch *switchView1 = [[UISwitch alloc] init];
     switchView1.exclusiveTouch = YES;
@@ -131,25 +131,25 @@
     view1.bm_width = switchView1.bm_width + 6.0f + width;
 
     [self.view addSubview:view1];
-    [view1 bm_centerHorizontallyInSuperViewWithTop:label3.bm_bottom+kScale_H(10.0f)];
+    [view1 bm_centerHorizontallyInSuperViewWithTop:label3.bm_bottom+kBMScale_H(10.0f)];
     
-    YSSlider *sliderView = [[YSSlider alloc] initWithFrame:CGRectMake(0, 0, kScale_W(200.0f), 24.0f)];
+    YSSlider *sliderView = [[YSSlider alloc] initWithFrame:CGRectMake(0, 0, kBMScale_W(200.0f), 24.0f)];
     [sliderView addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
     sliderView.maximumValue = 100.0f;
     sliderView.minimumValue = 0.0f;
     sliderView.tintColor = [UIColor bm_colorWithHex:0x97B7EB];
     [sliderView setThumbImage:[UIImage imageNamed:@"eyecareslider"] forState:UIControlStateNormal];
     [self.view addSubview:sliderView];
-    [sliderView bm_centerHorizontallyInSuperViewWithTop:view1.bm_bottom + kScale_H(20.0f)];
+    [sliderView bm_centerHorizontallyInSuperViewWithTop:view1.bm_bottom + kBMScale_H(20.0f)];
     sliderView.value = ceil([UIScreen mainScreen].brightness * 100);
 
-    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH-40.0f, 40.0f)];
+    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH-40.0f, 40.0f)];
     label4.text = [NSString stringWithFormat:@"%@: %@%%", YSLocalized(@"EyeProtection.ScreenBrightness"), @(ceil([UIScreen mainScreen].brightness * 100))];
     label4.font = UI_FONT_14;
     label4.textColor = [UIColor bm_colorWithHex:0x828282];
     label4.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label4];
-    [label4 bm_centerHorizontallyInSuperViewWithTop:sliderView.bm_bottom + kScale_H(10.0f)];
+    [label4 bm_centerHorizontallyInSuperViewWithTop:sliderView.bm_bottom + kBMScale_H(10.0f)];
     self.brightnessLabel = label4;
     
     UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400.0f, 40.0f)];
@@ -159,7 +159,7 @@
     [self.view addSubview:label5];
     width = [label5 bm_labelSizeToFitHeight:label5.bm_height].width;
     label5.bm_width = width+120.0f+4.0f;
-    [label5 bm_centerHorizontallyInSuperViewWithTop:label4.bm_bottom + kScale_H(50.0f)];
+    [label5 bm_centerHorizontallyInSuperViewWithTop:label4.bm_bottom + kBMScale_H(50.0f)];
 
     LMJDropdownMenu *menu = [[LMJDropdownMenu alloc] init];
     [menu setFrame:CGRectMake(0, 0, 120.0f, 40.0f)];

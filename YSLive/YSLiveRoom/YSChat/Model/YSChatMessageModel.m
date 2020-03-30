@@ -38,7 +38,7 @@
 {
     if (!_messageHeight)
     {
-        _messageHeight = [self.message bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_15].height;
+        _messageHeight = [self.message bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_15].height;
         
     }
     return _messageHeight;
@@ -49,7 +49,7 @@
 {
     if (!_translatHeight)
     {
-        _translatHeight = [_detailTrans bm_sizeToFitWidth:UI_SCREEN_WIDTH - 50 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14)].height;
+        _translatHeight = [_detailTrans bm_sizeToFitWidth:BMUI_SCREEN_WIDTH - 50 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14)].height;
     }
     return _translatHeight;
 }

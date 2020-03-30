@@ -15,7 +15,7 @@
 {
     if (CGSizeEqualToSize(_questDetailsSize, CGSizeZero))
     {
-        self.questDetailsSize = [_questDetails bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+        self.questDetailsSize = [_questDetails bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
     }
     return _questDetailsSize;
 }
@@ -24,7 +24,7 @@
 {
     if (CGSizeEqualToSize(_answerDetailsSize, CGSizeZero))
     {
-        _answerDetailsSize = [_answerDetails bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+        _answerDetailsSize = [_answerDetails bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
     }
     return _answerDetailsSize;
 }
@@ -34,7 +34,7 @@
 {
     if (CGSizeEqualToSize(_translatSize, CGSizeZero))
     {
-        self.translatSize = [self.detailTrans bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+        self.translatSize = [self.detailTrans bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
     }
     return _translatSize;
 }

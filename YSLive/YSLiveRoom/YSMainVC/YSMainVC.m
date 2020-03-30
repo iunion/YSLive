@@ -293,7 +293,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     {
         self.isWideScreen = isWideScreen;
         self.userId = userId;
-        platformVideoWidth = (UI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 5) / 4;
+        platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 5) / 4;
         if (self.isWideScreen)
         {
             platformVideoHeight = platformVideoWidth * 9 / 16;
@@ -439,7 +439,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     self.previousKeyWindow = [UIApplication sharedApplication].keyWindow;
     
-    CGRect frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+    CGRect frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
     SCEyeCareWindow *eyeCareWindow = [[SCEyeCareWindow alloc] initWithFrame:frame];
     self.eyeCareWindow = eyeCareWindow;
     [self.eyeCareWindow makeKeyWindow];
@@ -509,7 +509,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)setupUI
 {
     // 切换视图
-    self.m_SegmentBar = [[BMScrollPageSegment alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT, UI_SCREEN_WIDTH, PAGESEGMENT_HEIGHT)];
+    self.m_SegmentBar = [[BMScrollPageSegment alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT, BMUI_SCREEN_WIDTH, PAGESEGMENT_HEIGHT)];
     [self.view addSubview:_m_SegmentBar];
     self.m_SegmentBar.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
     self.m_SegmentBar.showMore = NO;
@@ -520,7 +520,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.m_SegmentBar.titleSelectedColor = [UIColor bm_colorWithHex:0xFFE895];
     self.m_SegmentBar.showGapLine = NO;
     // 内容视图
-    self.m_ScrollPageView = [[BMScrollPageView alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - VIDEOVIEW_HEIGHT - PAGESEGMENT_HEIGHT) withScrollPageSegment:self.m_SegmentBar];
+    self.m_ScrollPageView = [[BMScrollPageView alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT - VIDEOVIEW_HEIGHT - PAGESEGMENT_HEIGHT) withScrollPageSegment:self.m_SegmentBar];
     [self.view addSubview:self.m_ScrollPageView];
     self.m_ScrollPageView.datasource = self;
     self.m_ScrollPageView.delegate = self;
@@ -540,7 +540,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.returnBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_return_normal"] forState:UIControlStateNormal];
     [self.returnBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_return_highlight"] forState:UIControlStateHighlighted];
-    self.returnBtn.frame = CGRectMake(10, UI_STATUS_BAR_HEIGHT, 40, 40);
+    self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
     [self.view addSubview:self.returnBtn];
     [self.view bringSubviewToFront:self.returnBtn];
     [self.returnBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -553,7 +553,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.view addSubview:self.roomIDLabel];
     [self.view bringSubviewToFront:self.roomIDLabel];
     self.roomIDLabel.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Label.roomid"),self.liveManager.room_Id];
-    self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, UI_STATUS_BAR_HEIGHT, UI_SCREEN_WIDTH * 0.5, 26);
+    self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, BMUI_SCREEN_WIDTH * 0.5, 26);
     self.roomIDLabel.adjustsFontSizeToFitWidth = YES;
     self.roomIDLabel.minimumScaleFactor = 0.5f;
     self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
@@ -561,11 +561,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)setupLiveUI
 {
-    self.allVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
+    self.allVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
     self.allVideoBgView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     [self.view addSubview:self.allVideoBgView];
     
-    self.liveBgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
+    self.liveBgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
     self.liveBgView.backgroundColor = [UIColor blackColor];
     self.liveBgView.showWaiting = NO;
     self.liveBgView.bm_centerX = self.allVideoBgView.bm_centerX;
@@ -608,7 +608,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.view bringSubviewToFront:self.fullScreenBtn];
     [self.fullScreenBtn setBackgroundImage:[UIImage imageNamed:@"play_fullScreen"] forState:UIControlStateNormal];
     [self.fullScreenBtn setBackgroundImage:[UIImage imageNamed:@"play_original"] forState:UIControlStateHighlighted];
-    self.fullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
+    self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
     [self.fullScreenBtn addTarget:self action:@selector(fullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -638,7 +638,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom_EN"] forState:UIControlStateNormal];
         [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom_EN"] forState:UIControlStateDisabled];
     }
-    self.upPlatformBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom+15, 50, 50);
+    self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom+15, 50, 50);
     [self.upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.upPlatformBtn.layer.cornerRadius = 10;
     self.upPlatformBtn.hidden = YES;
@@ -650,7 +650,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.videoBackgroud = [[UIView alloc] init];
     self.videoBackgroud.backgroundColor = [UIColor clearColor];//[UIColor bm_colorWithHex:0x5A8CDC];
     [self.allVideoBgView addSubview:self.videoBackgroud];
-    self.videoBackgroud.frame = CGRectMake(0, VIDEOVIEW_HEIGHT - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , UI_SCREEN_WIDTH, platformVideoHeight);
+    self.videoBackgroud.frame = CGRectMake(0, VIDEOVIEW_HEIGHT - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
     //    self.videoBackgroud.bm_bottom = self.liveBgView.bm_bottom - 2;
 }
 
@@ -684,7 +684,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
      /// 是否mp4全屏
     self.isMp4FullScreen = NO;
 
-    self.mp4BgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, self.view.bm_height-self.m_ScrollPageView.bm_height, UI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+    self.mp4BgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, self.view.bm_height-self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
     self.mp4BgView.backgroundColor = [UIColor blackColor];
     self.mp4BgView.showWaiting = YES;
     //[self.view addSubview:self.mp4BgView];
@@ -706,7 +706,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.mp4FullScreenBtn setBackgroundImage:[UIImage imageNamed:@"play_mp4fullScreen"] forState:UIControlStateNormal];
     [self.mp4FullScreenBtn setBackgroundImage:[UIImage imageNamed:@"play_mp4original"] forState:UIControlStateSelected];
     //self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
-    self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
+    self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
     [self.mp4FullScreenBtn addTarget:self action:@selector(mp4FullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -800,7 +800,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     if (self.videoViewArray.count <= 2)
     {
         teacherH = VIDEOVIEW_HEIGHT;
-        teacherW = UI_SCREEN_WIDTH;
+        teacherW = BMUI_SCREEN_WIDTH;
         for (NSInteger i = 1; i <= self.videoViewArray.count; i++)
         {
             SCVideoView *videoView = self.videoViewArray[i-1];
@@ -1280,7 +1280,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Prompt.NetworkChanged") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Prompt.NetworkChanged") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1303,7 +1303,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Prompt.NetworkChanged") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Prompt.NetworkChanged") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1369,7 +1369,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     if (!inlist)
     {
         [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Alert.BeginClass") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Alert.BeginClass") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     
     
@@ -1802,14 +1802,14 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     {//移除抽奖中view
         [self.prizeAlert dismiss:nil animated:YES dismissBlock:^(id  _Nullable sender, NSUInteger index) {
             
-            weakSelf.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:YES inView:weakSelf.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) topDistance:(UI_SCREEN_HEIGHT - 200)/2];
+            weakSelf.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:YES inView:weakSelf.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) topDistance:(BMUI_SCREEN_HEIGHT - 200)/2];
             weakSelf.prizeAlert.endTime = endTime;
             weakSelf.prizeAlert.dataSource = nameList;
         }];
     }
     else
     {
-        self.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:YES inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) topDistance:(UI_SCREEN_HEIGHT - 200)/2];
+        self.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:YES inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) topDistance:(BMUI_SCREEN_HEIGHT - 200)/2];
         self.prizeAlert.endTime = endTime;
         self.prizeAlert.dataSource = nameList;
     }
@@ -2096,7 +2096,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 //            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
             
-            self.whiteBordView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
+            self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
             
             return self.whiteBordView;
@@ -2104,7 +2104,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         case 1:
         {
             //房间
-            YSLessonView * view = [[YSLessonView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 100)];
+            YSLessonView * view = [[YSLessonView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100)];
             view.backgroundColor = [UIColor whiteColor];
             self.lessonView = view;
             view.dataSource = self.lessonDataSource;
@@ -2113,7 +2113,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         case 2:
         {//聊天
             //2074197451
-            self.chaView = [[YSChatView alloc]initWithFrame:CGRectMake(0, 0 , UI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+            self.chaView = [[YSChatView alloc]initWithFrame:CGRectMake(0, 0 , BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
             self.chaView.chatToolView.memberDelegate = self;
             BMWeakSelf
             self.chaView.chatToolView.pushPopooverView = ^(UIButton * _Nonnull popoBtn) {
@@ -2146,7 +2146,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         }
         default:
         {//提问
-            self.questionaView = [[YSQuestionView alloc]initWithFrame:CGRectMake(0, 0 , UI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+            self.questionaView = [[YSQuestionView alloc]initWithFrame:CGRectMake(0, 0 , BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
             self.questionaView.backgroundColor = [UIColor whiteColor];
             if (self.questionBeforeArr.count)
             {
@@ -2417,31 +2417,31 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
                 self.barrageStart = NO;
                 self.allVideoBgView.transform = CGAffineTransformMakeRotation(0);
-                self.allVideoBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
+                self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
                 
 //                self.liveBgView.transform = CGAffineTransformMakeRotation(0);
 //                self.liveBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
                 
-                self.videoBackgroud.frame = CGRectMake(0, VIDEOVIEW_HEIGHT - (self->platformVideoHeight) - VIDEOVIEW_VERTICAL_GAP , UI_SCREEN_WIDTH, (self->platformVideoHeight));
+                self.videoBackgroud.frame = CGRectMake(0, VIDEOVIEW_HEIGHT - (self->platformVideoHeight) - VIDEOVIEW_VERTICAL_GAP , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
                 
                 self.returnBtn.transform = CGAffineTransformMakeRotation(0);
-                self.returnBtn.frame = CGRectMake(10, UI_STATUS_BAR_HEIGHT, 40, 40);
+                self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 
                 self.roomIDLabel.transform = CGAffineTransformMakeRotation(0);
-                self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, UI_STATUS_BAR_HEIGHT, 120, 26);
+                self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, 120, 26);
                 self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
                 //self.barrageManager.renderView.transform = CGAffineTransformMakeRotation(0);
                 self.barrageManager.renderView.frame = CGRectZero;
                 //self.barrageManager.renderView.hidden = YES;
                 
                 self.fullScreenBtn.transform = CGAffineTransformMakeRotation(0);
-                self.fullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
+                self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(0);
                 self.barrageBtn.frame = CGRectZero;
                 
                 self.upPlatformBtn.transform = CGAffineTransformMakeRotation(0);
-                self.upPlatformBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom + 15, 50, 50);
+                self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom + 15, 50, 50);
                 
                 self.playMp3ImageView.bm_origin = CGPointMake(15, self.liveBgView.bm_bottom - 70);
                 
@@ -2459,30 +2459,30 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.isFullScreen = YES;//通过set 方法刷新了视频布局
                 self.barrageStart = YES;
                 self.allVideoBgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.allVideoBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+                self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
 //                self.liveBgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.liveBgView.frame = CGRectMake(0, 0, UI_SCREEN_HEIGHT, UI_SCREEN_WIDTH);
+                self.liveBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH);
                 
 //                self.videoBackgroud.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.videoBackgroud.frame = CGRectMake(0, UI_SCREEN_WIDTH - (self->platformVideoHeight) - 7 , UI_SCREEN_WIDTH, (self->platformVideoHeight));
+                self.videoBackgroud.frame = CGRectMake(0, BMUI_SCREEN_WIDTH - (self->platformVideoHeight) - 7 , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
                 self.videoBackgroud.bm_centerX = self.allVideoBgView.bm_centerY;
 //                self.videoBackgroud.bm_bottom = self.liveBgView.bm_bottom - 7;
                 
                 self.returnBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.returnBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 25 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
+                self.returnBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 
                 self.roomIDLabel.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.roomIDLabel.frame = CGRectMake(UI_SCREEN_WIDTH - 25 - 40, UI_STATUS_BAR_HEIGHT + 40 + 7, 26, 120);
+                self.roomIDLabel.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT + 40 + 7, 26, 120);
                 self.roomIDLabel.bm_centerX = self.returnBtn.bm_centerX;
                 
                 
-                self.barrageManager.renderView.frame = CGRectMake(0, 70, UI_SCREEN_HEIGHT, UI_SCREEN_WIDTH-70-(self->platformVideoHeight) - 10);
+                self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-(self->platformVideoHeight) - 10);
 
                 self.fullScreenBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.fullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 25 - 40 ,UI_SCREEN_HEIGHT - UI_HOME_INDICATOR_HEIGHT - 40 - 10 , 40, 40);
+                self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40 ,BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10 , 40, 40);
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.barrageBtn.frame = CGRectMake(10, UI_SCREEN_HEIGHT - UI_HOME_INDICATOR_HEIGHT - 40 - 10, 40, 40);
+                self.barrageBtn.frame = CGRectMake(10, BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10, 40, 40);
 
                 self.upPlatformBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.upPlatformBtn.frame = CGRectMake(self.fullScreenBtn.bm_left - 50 - 20, self.fullScreenBtn.bm_top -10, 50, 50);
@@ -2503,10 +2503,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.isFullScreen = YES;
                 self.barrageStart = YES;
                 self.liveBgView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.liveBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+                self.liveBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
                 
                 self.returnBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.returnBtn.frame = CGRectMake(25, UI_SCREEN_HEIGHT -  UI_HOME_INDICATOR_HEIGHT - 10 - 40, 40, 40);
+                self.returnBtn.frame = CGRectMake(25, BMUI_SCREEN_HEIGHT -  BMUI_HOME_INDICATOR_HEIGHT - 10 - 40, 40, 40);
                 
                 self.roomIDLabel.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 self.roomIDLabel.frame = CGRectMake(25, 0, 26, 120);
@@ -2515,19 +2515,19 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 //self.barrageManager.renderView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 //self.barrageManager.renderView.frame = CGRectMake(55, 0, UI_SCREEN_WIDTH - 70 - 55, UI_SCREEN_HEIGHT);
-                self.barrageManager.renderView.frame = CGRectMake(0, 70, UI_SCREEN_HEIGHT, UI_SCREEN_WIDTH-70-55);
+                self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-55);
                 //self.barrageManager.renderView.hidden = NO;
 
                 self.fullScreenBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.fullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 20 - 40 ,UI_STATUS_BAR_HEIGHT + 10 , 40, 40);
+                self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 ,BMUI_STATUS_BAR_HEIGHT + 10 , 40, 40);
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.barrageBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 20 - 40, CGRectGetMaxY(self.fullScreenBtn.frame) + 10, 40, 40);
+                self.barrageBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40, CGRectGetMaxY(self.fullScreenBtn.frame) + 10, 40, 40);
                 
                 self.upPlatformBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.upPlatformBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 20 - 40 - 20 ,self.fullScreenBtn.bm_bottom + 15 , 40, 40);
+                self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 - 20 ,self.fullScreenBtn.bm_bottom + 15 , 40, 40);
                 
-                self.playMp3ImageView.bm_origin = CGPointMake(UI_SCREEN_WIDTH - 70 , UI_SCREEN_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_HOME_INDICATOR_HEIGHT - 15);
+                self.playMp3ImageView.bm_origin = CGPointMake(BMUI_SCREEN_WIDTH - 70 , BMUI_SCREEN_HEIGHT - BMUI_STATUS_BAR_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 15);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-80];
                 
@@ -2559,7 +2559,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.mp4BgView.frame = self.m_ScrollPageView.bounds;
 
                 self.mediaMarkView.frame = self.mp4BgView.bounds;
-                self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
+                self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
                 self.mp4FullScreenBtn.selected = NO;
 
 
@@ -2576,10 +2576,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 [self.mp4BgView removeFromSuperview];
                 [self.view addSubview:self.mp4BgView];
-                self.mp4BgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+                self.mp4BgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
                 
                 self.mediaMarkView.frame = self.mp4BgView.bounds;
-                self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
+                self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
                 self.mp4FullScreenBtn.selected = YES;
 
                 [self setNeedsStatusBarAppearanceUpdate];
@@ -2595,10 +2595,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 [self.mp4BgView removeFromSuperview];
                 [self.view addSubview:self.mp4BgView];
-                self.mp4BgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+                self.mp4BgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
 
                 self.mediaMarkView.frame = self.mp4BgView.bounds;
-                self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
+                self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
                 self.mp4FullScreenBtn.selected = YES;
 
                 [self setNeedsStatusBarAppearanceUpdate];

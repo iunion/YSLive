@@ -114,8 +114,8 @@
     }
     else
     {
-        self.bacView.bm_width = UI_SCREEN_WIDTH - 100;
-        self.bacView.bm_height = UI_SCREEN_HEIGHT - 80;
+        self.bacView.bm_width = BMUI_SCREEN_WIDTH - 100;
+        self.bacView.bm_height = BMUI_SCREEN_HEIGHT - 80;
     }
     [self.bacView bm_roundedRect:10.0f];
     

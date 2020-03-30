@@ -154,7 +154,7 @@
         self.answerTransBtn.frame = CGRectMake(self.answerLab.bm_right + 5, self.answerLab.bm_top-5, 14+10, 14+10);
          
         NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
-        CGSize questStrSize = [questStr bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+        CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
         self.questLab.text = questStr;
                 
         if (![model.detailTrans bm_isNotEmpty])
@@ -210,19 +210,19 @@
         
         CGSize tagSize = [self.tagLab.text bm_sizeToFitWidth:100 withFont:UI_FONT_12];
         
-        self.nickNameLab.frame = CGRectMake(UI_SCREEN_WIDTH-20-nameSize.width, 10, nameSize.width, nameSize.height);
+        self.nickNameLab.frame = CGRectMake(BMUI_SCREEN_WIDTH-20-nameSize.width, 10, nameSize.width, nameSize.height);
         self.tagLab.frame = CGRectMake(self.nickNameLab.bm_left-10-10-tagSize.width, 10, tagSize.width+10, tagSize.height);
 
         self.questLab.text = model.questDetails;
         if (![model.detailTrans bm_isNotEmpty])
         {//没有翻译
             
-            bubbleW = model.questDetailsSize.width + kScale_W(17) + kScale_W(19) + 14;
-            bubbleX = UI_SCREEN_WIDTH - 20 - bubbleW;
+            bubbleW = model.questDetailsSize.width + kBMScale_W(17) + kBMScale_W(19) + 14;
+            bubbleX = BMUI_SCREEN_WIDTH - 20 - bubbleW;
             bubbleH = model.questDetailsSize.height + 2 * 10;
             
             self.bubbleView.frame = CGRectMake(bubbleX, 10 + tagSize.height + 5, bubbleW, bubbleH);
-            self.questLab.frame = CGRectMake(kScale_W(17), 10, model.questDetailsSize.width, model.questDetailsSize.height);
+            self.questLab.frame = CGRectMake(kBMScale_W(17), 10, model.questDetailsSize.width, model.questDetailsSize.height);
             
         }
         else
@@ -232,18 +232,18 @@
             
             if (model.questDetailsSize.width >= model.translatSize.width)
             {
-                bubbleW = model.questDetailsSize.width + kScale_W(17) + kScale_W(19) + 14;
+                bubbleW = model.questDetailsSize.width + kBMScale_W(17) + kBMScale_W(19) + 14;
             }
             else
             {
-                bubbleW = model.translatSize.width + kScale_W(17)+kScale_W(19) + 14;
+                bubbleW = model.translatSize.width + kBMScale_W(17)+kBMScale_W(19) + 14;
             }
-            bubbleX = UI_SCREEN_WIDTH-20- bubbleW;
+            bubbleX = BMUI_SCREEN_WIDTH-20- bubbleW;
             bubbleH = 10 + model.questDetailsSize.height + 4 + 1 + 4 + model.translatSize.height + 10;
             
             self.bubbleView.frame = CGRectMake(bubbleX, self.tagLab.bm_bottom + 5, bubbleW, bubbleH);
             
-            self.questLab.frame = CGRectMake(kScale_W(17), 10, model.questDetailsSize.width, model.questDetailsSize.height);
+            self.questLab.frame = CGRectMake(kBMScale_W(17), 10, model.questDetailsSize.width, model.questDetailsSize.height);
 //            self.questTransBtn.frame = CGRectMake(self.bubbleView.bm_width-15-14, self.questLab.bm_top, 14, 14);
             self.questLine.frame = CGRectMake(13, self.questLab.bm_bottom+4, self.bubbleView.bm_width-13*2, 1);
             self.questTransLab.frame = CGRectMake(13, self.questLine.bm_bottom+4, model.translatSize.width, model.translatSize.height);

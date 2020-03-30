@@ -48,7 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if (IOS_VERSION >= 7.0f)
+    if (BMIOS_VERSION >= 7.0f)
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.extendedLayoutIncludesOpaqueBars = NO;
@@ -85,7 +85,7 @@
 
 - (void)makeUI
 {
-    self.operatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 120.0f)];
+    self.operatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 120.0f)];
     [self.view addSubview:self.operatorView];
 
     self.tipLabel = [[UILabel alloc] init];
@@ -137,7 +137,7 @@
     [self requestUserLocationAuthor];
 
     // 初始化地图
-    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 100.0f, UI_SCREEN_WIDTH, UI_MAINSCREEN_HEIGHT-UI_NAVIGATION_BAR_HEIGHT-100.0f)];
+    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 100.0f, BMUI_SCREEN_WIDTH, BMUI_MAINSCREEN_HEIGHT-BMUI_NAVIGATION_BAR_HEIGHT-100.0f)];
     mapView.mapType = MKMapTypeStandard;
     mapView.delegate = self;
     [self.view addSubview:mapView];

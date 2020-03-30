@@ -34,7 +34,7 @@
     NSString *urlString = model.url;
     if ([urlString bm_isNotEmpty])
     {
-        CGSize size = [urlString bm_sizeToFitWidth:UI_SCREEN_WIDTH-30.0f withFont:[UIFont systemFontOfSize:15.0f]];
+        CGSize size = [urlString bm_sizeToFitWidth:BMUI_SCREEN_WIDTH-30.0f withFont:[UIFont systemFontOfSize:15.0f]];
         CGFloat height = size.height;
         if (height > 64.0f)
         {
@@ -76,7 +76,7 @@
     if ([urlString bm_isNotEmpty])
     {
         self.urlLabel.text = urlString;
-        CGSize size = [self.urlLabel sizeThatFits:CGSizeMake(UI_SCREEN_WIDTH-30.0f, CGFLOAT_MAX)];
+        CGSize size = [self.urlLabel sizeThatFits:CGSizeMake(BMUI_SCREEN_WIDTH-30.0f, CGFLOAT_MAX)];
         CGFloat height = size.height;
         if (height > 64.0f)
         {

@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if (IOS_VERSION >= 7.0f)
+    if (BMIOS_VERSION >= 7.0f)
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.extendedLayoutIncludesOpaqueBars = NO;
@@ -74,11 +74,11 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
 
 - (void)makeUI
 {
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, UI_MAINSCREEN_HEIGHT-UI_NAVIGATION_BAR_HEIGHT-40, UI_SCREEN_WIDTH, 40.0f)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, BMUI_MAINSCREEN_HEIGHT-BMUI_NAVIGATION_BAR_HEIGHT-40, BMUI_SCREEN_WIDTH, 40.0f)];
     self.headerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.headerView];
     
-    self.requestControl = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH*0.5, 40.0f)];
+    self.requestControl = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH*0.5, 40.0f)];
     self.requestControl.backgroundColor = [UIColor clearColor];
     self.requestLabel = [[UILabel alloc] initWithFrame:self.requestControl.bounds];
     self.requestLabel.backgroundColor = [UIColor clearColor];
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
     [self.headerView addSubview:self.requestControl];
     [self.requestControl addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.responseControl = [[UIControl alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH*0.5, 0, UI_SCREEN_WIDTH*0.5, 40.0f)];
+    self.responseControl = [[UIControl alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH*0.5, 0, BMUI_SCREEN_WIDTH*0.5, 40.0f)];
     self.responseControl.backgroundColor = [UIColor clearColor];
     self.responseLabel = [[UILabel alloc] initWithFrame:self.responseControl.bounds];
     self.responseLabel.backgroundColor = [UIColor clearColor];
@@ -105,9 +105,9 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
     self.selectLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60.0f, 2.0f)];
     self.selectLine.backgroundColor = [UIColor blueColor];
     [self.headerView addSubview:self.selectLine];
-    self.selectLine.center = CGPointMake(UI_SCREEN_WIDTH*0.25, self.headerView.bm_height-3.0f);
+    self.selectLine.center = CGPointMake(BMUI_SCREEN_WIDTH*0.25, self.headerView.bm_height-3.0f);
 
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_MAINSCREEN_HEIGHT-UI_NAVIGATION_BAR_HEIGHT-self.headerView.bm_height)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_MAINSCREEN_HEIGHT-BMUI_NAVIGATION_BAR_HEIGHT-self.headerView.bm_height)];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
         self.responseLabel.textColor = [UIColor blackColor];
         
         [UIView animateWithDuration:0.25f animations:^{
-            self.selectLine.center = CGPointMake(UI_SCREEN_WIDTH*0.25, self.headerView.bm_height-3.0f);
+            self.selectLine.center = CGPointMake(BMUI_SCREEN_WIDTH*0.25, self.headerView.bm_height-3.0f);
         } completion:^(BOOL finished) {
         }];
         
@@ -142,7 +142,7 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
         self.responseLabel.textColor = [UIColor blueColor];
         
         [UIView animateWithDuration:0.25f animations:^{
-            self.selectLine.center = CGPointMake(UI_SCREEN_WIDTH*0.75, self.headerView.bm_height-3.0f);
+            self.selectLine.center = CGPointMake(BMUI_SCREEN_WIDTH*0.75, self.headerView.bm_height-3.0f);
         } completion:^(BOOL finished) {
         }];
         
@@ -263,7 +263,7 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
     item.cellStyle = UITableViewCellStyleValue1;
     item.cellHeight = 40.0f;
     item.detailTextAlignment = NSTextAlignmentRight;
-    item.underLineColor = UI_DEFAULT_LINECOLOR;
+    item.underLineColor = BMUI_DEFAULT_LINECOLOR;
     if (last)
     {
         item.underLineDrawType = BMTableViewCell_UnderLineDrawType_None;
@@ -279,7 +279,7 @@ typedef NS_ENUM(NSUInteger, NetFlowSelectState)
     item.titleNumberOfLines = 0;
     item.contentMiddleGap = 0.0f;
     item.enabled = NO;
-    item.underLineColor = UI_DEFAULT_LINECOLOR;
+    item.underLineColor = BMUI_DEFAULT_LINECOLOR;
     if (last)
     {
         item.underLineDrawType = BMTableViewCell_UnderLineDrawType_None;

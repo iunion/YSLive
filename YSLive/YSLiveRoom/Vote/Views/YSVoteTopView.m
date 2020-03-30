@@ -58,7 +58,7 @@
     
     self.statusBtn.frame = CGRectMake(20, 14, 46, 24);
        self.statusBtn.bm_centerY = self.bm_centerY;
-    self.nameAndTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.statusBtn.frame) + 10, 0, UI_SCREEN_WIDTH - 20 - 46 - 10 - 10, self.voteModel.topViewHeight);
+    self.nameAndTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.statusBtn.frame) + 10, 0, BMUI_SCREEN_WIDTH - 20 - 46 - 10 - 10, self.voteModel.topViewHeight);
      
     self.nameAndTimeLabel.bm_centerY = self.statusBtn.bm_centerY;
 
@@ -89,7 +89,7 @@
     NSString *time =[voteModel.timeStr substringFromIndex:5];
     
     self.nameAndTimeLabel.attributedText = [self dealStrWithName:voteModel.teacherName andTime:time];
-    CGSize size = [self.nameAndTimeLabel bm_attribSizeToFitWidth:UI_SCREEN_WIDTH - 20 - 46 - 10 - 10];
+    CGSize size = [self.nameAndTimeLabel bm_attribSizeToFitWidth:BMUI_SCREEN_WIDTH - 20 - 46 - 10 - 10];
     _voteModel.topViewHeight = size.height;
 //    self.bm_height = 28 +  size.height + 30;
 //    self.backImgV.frame = CGRectMake(0, 0, self.bm_width, self.bm_height);

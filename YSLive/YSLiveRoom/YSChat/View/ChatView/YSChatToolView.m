@@ -41,7 +41,7 @@ UITextViewDelegate
 
 - (void)setupUIView
 {
-    self.flowerColourBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(13), kScale_H(14), kScale_W(28), kScale_W(28))];
+    self.flowerColourBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(13), kBMScale_H(14), kBMScale_W(28), kBMScale_W(28))];
     [self.flowerColourBtn addTarget:self action:@selector(flowerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.flowerColourBtn setImage:[UIImage imageNamed:@"flowerGray"] forState:UIControlStateSelected];
     [self.flowerColourBtn setImage:[UIImage imageNamed:@"flower"] forState:UIControlStateNormal];
@@ -49,25 +49,25 @@ UITextViewDelegate
     
     self.backView = [[UIView alloc]init];
     self.backView.backgroundColor = [UIColor whiteColor];
-    self.backView.layer.cornerRadius = kScale_H(39)/2;
+    self.backView.layer.cornerRadius = kBMScale_H(39)/2;
     self.backView.layer.masksToBounds = YES;
     self.backView.layer.borderColor = UIColor.clearColor.CGColor;
     [self addSubview:self.backView];
     
     CGFloat bottomM = 0.f;
-    if (self.bm_height > kScale_H(56))
+    if (self.bm_height > kBMScale_H(56))
     {
-        bottomM = kScale_H(10)+10;
+        bottomM = kBMScale_H(10)+10;
     }
     else
     {
-        bottomM = kScale_H(10);
+        bottomM = kBMScale_H(10);
     }
     
     [self.backView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kScale_W(50));
-        make.top.bmmas_equalTo(kScale_H(10));
-        make.right.bmmas_equalTo(kScale_W(-90));
+        make.left.bmmas_equalTo(kBMScale_W(50));
+        make.top.bmmas_equalTo(kBMScale_H(10));
+        make.right.bmmas_equalTo(kBMScale_W(-90));
         make.bottom.bmmas_equalTo(-bottomM);
     }];
     
@@ -84,13 +84,13 @@ UITextViewDelegate
     [self.backView addSubview:self.placeholder];
     
     [self.placeholder bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(self.backView).bmmas_offset(kScale_W(14));
-        make.height.bmmas_equalTo(kScale_H(25));
-        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(-5));
+        make.left.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_W(14));
+        make.height.bmmas_equalTo(kBMScale_H(25));
+        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(-5));
     }];
     
     //输入框
-    self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_placeholder.frame), kScale_H(5), kScale_W(236)-CGRectGetMaxX(_placeholder.frame)-kScale_W(9), kScale_H(25))];
+    self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_placeholder.frame), kBMScale_H(5), kBMScale_W(236)-CGRectGetMaxX(_placeholder.frame)-kBMScale_W(9), kBMScale_H(25))];
     self.inputView.backgroundColor = [UIColor whiteColor];
     self.inputView.returnKeyType = UIReturnKeySend;
     self.inputView.font = UI_FONT_15;
@@ -102,13 +102,13 @@ UITextViewDelegate
     
     [self.inputView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(self.placeholder.bmmas_right);
-        make.top.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(8));
-        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(-5));
-        make.right.bmmas_equalTo(self.backView).bmmas_offset(kScale_H(-5));
+        make.top.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(8));
+        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(-5));
+        make.right.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(-5));
     }];
     
     _emotionButton = ({
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(298), kScale_H(14), kScale_W(27), kScale_W(27))];
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(298), kBMScale_H(14), kBMScale_W(27), kBMScale_W(27))];
         [button setImage:[UIImage imageNamed:@"emotionYS"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"emotionYS_push"] forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(emotionButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -119,7 +119,7 @@ UITextViewDelegate
     
     //显示消息类型选择按钮
     _msgTypeBtn = ({
-        UIButton * msgTypeBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(336), kScale_H(14), kScale_W(27), kScale_W(27))];
+        UIButton * msgTypeBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(336), kBMScale_H(14), kBMScale_W(27), kBMScale_W(27))];
         [msgTypeBtn addTarget:self action:@selector(msgTypeBtnBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [msgTypeBtn setImage:[UIImage imageNamed:@"messagePersonal"] forState:UIControlStateNormal];
         [msgTypeBtn setImage:[UIImage imageNamed:@"messagePersonal_push"] forState:UIControlStateHighlighted];
@@ -137,14 +137,14 @@ UITextViewDelegate
     [self addSubview:self.allDisabledChat];
     
     self.allDisabledChat.userInteractionEnabled = NO;
-    self.allDisabledChat.layer.cornerRadius = (self.bm_height-2*kScale_H(9))/2;
+    self.allDisabledChat.layer.cornerRadius = (self.bm_height-2*kBMScale_H(9))/2;
     self.allDisabledChat.layer.masksToBounds = YES;
     
     [self.allDisabledChat bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(10);
-        make.top.bmmas_equalTo(kScale_H(9));
+        make.top.bmmas_equalTo(kBMScale_H(9));
         make.right.bmmas_equalTo(-10);
-        make.bottom.bmmas_equalTo(kScale_H(-9));
+        make.bottom.bmmas_equalTo(kBMScale_H(-9));
     }];
     BOOL everyoneBanChat = [YSLiveManager shareInstance].isEveryoneBanChat;
     self.allDisabledChat.hidden = !everyoneBanChat;
@@ -297,7 +297,7 @@ UITextViewDelegate
     [self.placeholder setAttributedTitle:mutAttrStr forState:UIControlStateNormal];
     CGSize size = [str bm_sizeToFitWidth:200 withFont:UI_FONT_13];
     self.placeholder.bm_width = size.width;
-    self.inputView.frame = CGRectMake(CGRectGetMaxX(_placeholder.frame), kScale_H(10), kScale_W(236)-CGRectGetMaxX(_placeholder.frame)-kScale_W(9), kScale_H(20));
+    self.inputView.frame = CGRectMake(CGRectGetMaxX(_placeholder.frame), kBMScale_H(10), kBMScale_W(236)-CGRectGetMaxX(_placeholder.frame)-kBMScale_W(9), kBMScale_H(20));
 }
 
 

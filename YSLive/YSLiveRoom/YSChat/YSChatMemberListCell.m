@@ -34,7 +34,7 @@
     [self.contentView addSubview:_selectImg];
     
     //昵称
-    self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(self.selectImg.bm_right+14, 15, UI_SCREEN_WIDTH-self.selectImg.bm_right-20, 22)];
+    self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(self.selectImg.bm_right+14, 15, BMUI_SCREEN_WIDTH-self.selectImg.bm_right-20, 22)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.lineBreakMode = NSLineBreakByTruncatingTail;
     self.nickNameLab.textColor =[UIColor bm_colorWithHexString:@"#828282"];
@@ -42,7 +42,7 @@
     [self.contentView addSubview:_nickNameLab];
     
     
-    BMSingleLineView * line = [[BMSingleLineView alloc]initWithFrame:CGRectMake(56, 52-1, UI_SCREEN_WIDTH-56-20, 1) direction:SingleLineDirectionLandscape];
+    BMSingleLineView * line = [[BMSingleLineView alloc]initWithFrame:CGRectMake(56, 52-1, BMUI_SCREEN_WIDTH-56-20, 1) direction:SingleLineDirectionLandscape];
     line.needGap = YES;
     [self.contentView addSubview:line];
     

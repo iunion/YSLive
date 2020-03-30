@@ -13,7 +13,7 @@
 - (CGSize)subjectSize
 {
     NSString * str = [NSString stringWithFormat:@"%@",_subject];
-    _subjectSize = [str bm_sizeToFitWidth:UI_SCREEN_WIDTH-30 - 30 - 36 - 3 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 18)];
+    _subjectSize = [str bm_sizeToFitWidth:BMUI_SCREEN_WIDTH-30 - 30 - 36 - 3 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 18)];
 
     return _subjectSize;
 }
@@ -22,7 +22,7 @@
 {
    
     NSString * str = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"tool.zhengquedaan"),_rightAnswer];
-    _rightAnswerHeight = [str bm_sizeToFitWidth:UI_SCREEN_WIDTH - 20 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12)].height;
+    _rightAnswerHeight = [str bm_sizeToFitWidth:BMUI_SCREEN_WIDTH - 20 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12)].height;
     return _rightAnswerHeight;
 }
 - (NSString *)desc
@@ -41,7 +41,7 @@
 {
     if (!_endCellHeight)
     {
-        _endCellHeight = [_title bm_sizeToFitWidth:UI_SCREEN_WIDTH - 30 - 30 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12)].height + 5;
+        _endCellHeight = [_title bm_sizeToFitWidth:BMUI_SCREEN_WIDTH - 30 - 30 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12)].height + 5;
     }
     return _endCellHeight;
 }
@@ -50,7 +50,7 @@
 {
     if (!_ingCellHeight)
     {
-        _ingCellHeight = [_title bm_sizeToFitWidth:UI_SCREEN_WIDTH - 22 - 17 - 22 - 5 - 10 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16)].height + 5;
+        _ingCellHeight = [_title bm_sizeToFitWidth:BMUI_SCREEN_WIDTH - 22 - 17 - 22 - 5 - 10 withFont:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16)].height + 5;
     }
     return _ingCellHeight;
 }

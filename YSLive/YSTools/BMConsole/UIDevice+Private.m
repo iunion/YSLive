@@ -138,7 +138,7 @@
 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    if (IOS_VERSION >= 8.0)
+    if (BMIOS_VERSION >= 8.0)
     { // iOS8以上包含iOS8
         if ([[UIApplication sharedApplication] currentUserNotificationSettings].types  == UIRemoteNotificationTypeNone)
         {

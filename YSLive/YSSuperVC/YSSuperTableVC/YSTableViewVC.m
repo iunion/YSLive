@@ -54,7 +54,7 @@
     
     s_IsNoMorePage = NO;
     
-    self.tableView = [[YSTableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_MAINSCREEN_HEIGHT-UI_NAVIGATION_BAR_HEIGHT) style:self.tableViewStyle freshViewType:self.freshViewType];
+    self.tableView = [[YSTableView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_MAINSCREEN_HEIGHT-BMUI_NAVIGATION_BAR_HEIGHT) style:self.tableViewStyle freshViewType:self.freshViewType];
     self.tableView.backgroundColor = [UIColor clearColor];
     
     self.tableView.dataSource = self;
@@ -426,7 +426,7 @@
         
         if (self.showResultHUD)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         [self showEmptyViewWithType:BMEmptyViewType_DataError];
@@ -526,7 +526,7 @@
 
         if (self.showResultHUD)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         [self showEmptyViewWithType:BMEmptyViewType_DataError];
@@ -547,9 +547,9 @@
         else if (self.showResultHUD)
         {
 #ifdef DEBUG
-            [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-            [self.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
         }
 

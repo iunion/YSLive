@@ -50,7 +50,7 @@ static  NSString * const   YSLessonNotifyTableCellID      = @"YSLessonNotifyTabl
 - (void)layoutSubviews
 {
     YSLessonModel * model = self.dataSource[0];
-    self.headerView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, model.nameHeight + 52 + 35 + 10);
+    self.headerView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, model.nameHeight + 52 + 35 + 10);
     self.headerView.lessonModel = model;
     self.lessonTableView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame)+ 10, self.bm_width, self.bm_height - 10 - model.nameHeight - 90);
 }

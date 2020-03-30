@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
 
-    if (IOS_VERSION >= 7.0f)
+    if (BMIOS_VERSION >= 7.0f)
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.extendedLayoutIncludesOpaqueBars = NO;

@@ -23,7 +23,7 @@
 
 - (void)setupUI
 {
-    self.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+    self.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
     self.backgroundColor = [UIColor blackColor];
     self.alpha = 0.5f;
 }

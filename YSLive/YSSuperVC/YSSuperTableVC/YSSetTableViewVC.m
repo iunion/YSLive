@@ -185,7 +185,7 @@
     {
         if (showMessage)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入手机号码" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入手机号码" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return NO;
@@ -194,7 +194,7 @@
     {
         if (showMessage)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入正确的手机号码" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入正确的手机号码" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return NO;
@@ -215,7 +215,7 @@
     {
         if (showMessage)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入账户密码(8~16位)" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入账户密码(8~16位)" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return NO;
@@ -224,7 +224,7 @@
     {
         if (showMessage)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"请输入%@-%@位字母+数字，字母区分大小写", @(YSPASSWORD_MINLENGTH), @(YSPASSWORD_MAXLENGTH)] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"请输入%@-%@位字母+数字，字母区分大小写", @(YSPASSWORD_MINLENGTH), @(YSPASSWORD_MAXLENGTH)] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return NO;
@@ -245,7 +245,7 @@
     {
         if (showMessage)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入身份证号码" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入身份证号码" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return NO;
@@ -254,7 +254,7 @@
     {
         if (showMessage)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入正确的身份证号码" delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"请输入正确的身份证号码" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return NO;

@@ -38,7 +38,7 @@
         self.bubbleView.userInteractionEnabled = YES;
         [self.contentView addSubview:self.bubbleView];
 
-        self.nickNameBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(12), 10, UI_SCREEN_WIDTH-2*kScale_W(12), kScale_H(12))];
+        self.nickNameBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(12), 10, BMUI_SCREEN_WIDTH-2*kBMScale_W(12), kBMScale_H(12))];
         [self.nickNameBtn setBackgroundColor:[UIColor clearColor]];
         self.nickNameBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.nickNameBtn addTarget:self action:@selector(nickNameBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -69,7 +69,7 @@
         {//我的消息
             nameTimeStr = [NSString stringWithFormat:@"%@ 我对”%@”说",model.timeStr,model.receiveUser.nickName];
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-            bubbleX = UI_SCREEN_WIDTH-kScale_W(108)-kScale_W(19);
+            bubbleX = BMUI_SCREEN_WIDTH-kBMScale_W(108)-kBMScale_W(19);
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#82ABEC"];
             
             NSMutableAttributedString * mutAtt = [[NSMutableAttributedString alloc]initWithString:nameTimeStr];
@@ -84,7 +84,7 @@
             nameTimeStr = [NSString stringWithFormat:@"”%@“ %@ %@",model.sendUser.nickName,YSLocalized(@"Label.ChatToMe"),model.timeStr];
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
-            bubbleX = kScale_W(19);
+            bubbleX = kBMScale_W(19);
             
             NSMutableAttributedString * mutAtt = [[NSMutableAttributedString alloc]initWithString:nameTimeStr];
             [mutAtt addAttributes:@{NSForegroundColorAttributeName:[UIColor bm_colorWithHexString:@"#5A8CDC"]} range:NSMakeRange(0, model.sendUser.nickName.length+2)];
@@ -101,14 +101,14 @@
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#82ABEC"];
             [self.nickNameBtn setTitleColor:[UIColor bm_colorWithHexString:@"#5A8CDC"] forState:UIControlStateNormal];
-            bubbleX = UI_SCREEN_WIDTH-kScale_W(108)-kScale_W(19);
+            bubbleX = BMUI_SCREEN_WIDTH-kBMScale_W(108)-kBMScale_W(19);
         }
         else
         {//别人的消息
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
             [self.nickNameBtn setTitleColor:[UIColor bm_colorWithHexString:@"#828282"] forState:UIControlStateNormal];
-            bubbleX = kScale_W(19);
+            bubbleX = kBMScale_W(19);
         }
         
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.sendUser.nickName,model.timeStr];
@@ -126,8 +126,8 @@
     
     self.bubbleView.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right) resizingMode:UIImageResizingModeStretch];
     
-    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + kScale_H(12), kScale_W(108), kScale_H(88));
-    _msgImageView.frame = CGRectMake(0, 0, kScale_W(108), kScale_H(88));
+    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + kBMScale_H(12), kBMScale_W(108), kBMScale_H(88));
+    _msgImageView.frame = CGRectMake(0, 0, kBMScale_W(108), kBMScale_H(88));
     
     [_msgImageView bm_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"tk_login_logo_black"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         [self setNeedsLayout];
@@ -160,20 +160,20 @@
     {
         CGFloat bubbleX = 0;
         CGFloat bubbleW = 0;
-        CGFloat bubbleH = kScale_H(88);
+        CGFloat bubbleH = kBMScale_H(88);
         
         CGSize size = [_msgImageView.image size];
         bubbleW = size.width *(88/size.height);
         
         if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//我的消息
-            bubbleX = UI_SCREEN_WIDTH-bubbleW-kScale_W(19);
+            bubbleX = BMUI_SCREEN_WIDTH-bubbleW-kBMScale_W(19);
         }
         else
         {//别人的消息
-            bubbleX = kScale_W(19);
+            bubbleX = kBMScale_W(19);
         }
-        _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + kScale_H(12), bubbleW, bubbleH);
+        _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + kBMScale_H(12), bubbleW, bubbleH);
         _msgImageView.frame = CGRectMake(0, 0, bubbleW, bubbleH);
     }
     
@@ -208,7 +208,7 @@
     _bigImageView.image = [_msgImageView.image copy];
     _bigImageView.backgroundColor = UIColor.whiteColor;
     CGSize size = [_bigImageView.image size];
-    if (size.width >= UI_SCREEN_WIDTH || size.height >= UI_SCREEN_HEIGHT)
+    if (size.width >= BMUI_SCREEN_WIDTH || size.height >= BMUI_SCREEN_HEIGHT)
     {
         _bigImageView.contentMode = UIViewContentModeScaleAspectFit;
     }

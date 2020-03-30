@@ -13,7 +13,7 @@
 {
     if (!_nameHeight)
     {
-        _nameHeight = [_name bm_sizeToFitWidth:UI_SCREEN_WIDTH - 72 - 62 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14)].height + 5;
+        _nameHeight = [_name bm_sizeToFitWidth:BMUI_SCREEN_WIDTH - 72 - 62 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14)].height + 5;
     }
     return _nameHeight;
 }
@@ -21,7 +21,7 @@
 {
     if (!_detailsHeight)
     {
-        _detailsHeight = [_details bm_sizeToFitWidth:UI_SCREEN_WIDTH - 62 - 72 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14)].height;
+        _detailsHeight = [_details bm_sizeToFitWidth:BMUI_SCREEN_WIDTH - 62 - 72 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14)].height;
     }
     return _detailsHeight;
 }
@@ -30,7 +30,7 @@
 {
     if (!_translatHeight)
     {
-        _translatHeight = [_detailTrans bm_sizeToFitWidth:UI_SCREEN_WIDTH - 62 - 72 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14)].height;
+        _translatHeight = [_detailTrans bm_sizeToFitWidth:BMUI_SCREEN_WIDTH - 62 - 72 withFont:UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14)].height;
     }
     return _translatHeight;
 }

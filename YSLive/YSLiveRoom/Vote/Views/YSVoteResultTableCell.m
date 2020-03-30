@@ -55,9 +55,9 @@
     }
     
     
-    self.titleL.frame = CGRectMake(30, 8, UI_SCREEN_WIDTH - 30 - 30, _resultModel.endCellHeight);
+    self.titleL.frame = CGRectMake(30, 8, BMUI_SCREEN_WIDTH - 30 - 30, _resultModel.endCellHeight);
     
-    self.backView.frame = CGRectMake(30, CGRectGetMaxY(self.titleL.frame) + 5 , UI_SCREEN_WIDTH - 30 - 30, 18);
+    self.backView.frame = CGRectMake(30, CGRectGetMaxY(self.titleL.frame) + 5 , BMUI_SCREEN_WIDTH - 30 - 30, 18);
     self.backView.layer.cornerRadius = 9;
     self.backView.layer.masksToBounds = YES;
     

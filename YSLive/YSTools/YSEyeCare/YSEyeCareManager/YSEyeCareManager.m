@@ -146,7 +146,7 @@ static NSInteger const kYSSkinCoverWindowLevel = 2099;
 
 - (void)makeSkinCoverWindow
 {
-    YSSkinCoverWindow *skinCoverWindow = [[YSSkinCoverWindow alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT)];
+    YSSkinCoverWindow *skinCoverWindow = [[YSSkinCoverWindow alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT)];
     skinCoverWindow.windowLevel = kYSSkinCoverWindowLevel;
     skinCoverWindow.userInteractionEnabled = NO;
     

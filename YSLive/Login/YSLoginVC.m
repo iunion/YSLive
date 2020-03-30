@@ -402,7 +402,7 @@
             NSString *newVersion = [result[@"results"] firstObject][@"version"];
             if ([newVersion bm_isNotEmpty])
             {
-                NSString *oldVersion = APP_VERSIONNO;
+                NSString *oldVersion = BMAPP_VERSIONNO;
                 if ([newVersion compare: oldVersion] == NSOrderedDescending)
                 {
                     [self checkUpdate];
@@ -537,8 +537,8 @@
 {
     BMWeakSelf
     [self.view addSubview:self.backScrollView];
-    self.backScrollView.frame = CGRectMake(0, 0,UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
-    self.backScrollView.contentSize = CGSizeMake(UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+    self.backScrollView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
+    self.backScrollView.contentSize = CGSizeMake(BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
     
     if (@available(iOS 11.0, *))
     //if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0)
@@ -550,7 +550,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    self.backImageView.frame = CGRectMake(0, 0,UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+    self.backImageView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
     self.backImageView.backgroundColor = [UIColor redColor];
     [self.backScrollView addSubview:self.backImageView];
     //    [self.backImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
@@ -564,9 +564,9 @@
     [self.logoImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.centerX.bmmas_equalTo(0);
         //        make.top.bmmas_equalTo(kScale_H(130));
-        make.top.bmmas_equalTo(kScale_H(100));
-        make.height.bmmas_equalTo(kScale_W(153));
-        make.width.bmmas_equalTo(kScale_W(197));
+        make.top.bmmas_equalTo(kBMScale_H(100));
+        make.height.bmmas_equalTo(kBMScale_W(153));
+        make.width.bmmas_equalTo(kBMScale_W(197));
     }];
     
     
@@ -579,17 +579,17 @@
     self.onlineSchoolTitle = onlineSchoolTitle;
     [self.backImageView addSubview:onlineSchoolTitle];
     [self.onlineSchoolTitle bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kScale_W(28));
-        make.right.bmmas_equalTo(-kScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kScale_H(5));
+        make.left.bmmas_equalTo(kBMScale_W(28));
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(5));
         make.height.bmmas_equalTo(30);
     }];
     
     [self.backImageView addSubview:self.roomTextField];
     [self.roomTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kScale_W(28));
-        make.right.bmmas_equalTo(-kScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kScale_H(60));
+        make.left.bmmas_equalTo(kBMScale_W(28));
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(60));
         make.height.bmmas_equalTo(40);
     }];
     self.roomTextField.layer.cornerRadius = 20;
@@ -598,9 +598,9 @@
     
     [self.backImageView addSubview:self.domainTextField];
     [self.domainTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kScale_W(28));
-        make.right.bmmas_equalTo(-kScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kScale_H(60));
+        make.left.bmmas_equalTo(kBMScale_W(28));
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(60));
         make.height.bmmas_equalTo(40);
     }];
     self.domainTextField.hidden = YES;
@@ -610,9 +610,9 @@
     
     [self.backImageView addSubview:self.nickNameTextField];
     [self.nickNameTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kScale_W(28));
-        make.right.bmmas_equalTo(-kScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.roomTextField.bmmas_bottom).bmmas_offset(kScale_H(30));
+        make.left.bmmas_equalTo(kBMScale_W(28));
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.roomTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(40);
     }];
     self.nickNameTextField.layer.cornerRadius = 20;
@@ -622,9 +622,9 @@
     
     [self.backImageView addSubview:self.admin_accountTextField];
     [self.admin_accountTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kScale_W(28));
-        make.right.bmmas_equalTo(-kScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.domainTextField.bmmas_bottom).bmmas_offset(kScale_H(30));
+        make.left.bmmas_equalTo(kBMScale_W(28));
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.domainTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(40);
     }];
     self.admin_accountTextField.hidden = YES;
@@ -634,9 +634,9 @@
     
     [self.backImageView addSubview:self.passOnlineTextField];
     [self.passOnlineTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kScale_W(28));
-        make.right.bmmas_equalTo(-kScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.admin_accountTextField.bmmas_bottom).bmmas_offset(kScale_H(30));
+        make.left.bmmas_equalTo(kBMScale_W(28));
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.admin_accountTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(40);
     }];
     self.passOnlineTextField.layer.cornerRadius = 20;
@@ -654,25 +654,25 @@
     [self.bottomVersionL bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(25);
         make.height.bmmas_equalTo(30);
-        make.width.bmmas_equalTo(kScale_W(180));
-        make.top.bmmas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
+        make.width.bmmas_equalTo(kBMScale_W(180));
+        make.top.bmmas_equalTo(kBMScale_H(18) + BMUI_STATUS_BAR_HEIGHT);
     }];
     
 #ifdef DEBUG
-    NSString *string = [NSString stringWithFormat:@"%@: %@", @"buildNO", APP_BUILDNO];
+    NSString *string = [NSString stringWithFormat:@"%@: %@", @"buildNO", BMAPP_BUILDNO];
     //NSString *string = [NSString stringWithFormat:@"V%@", APP_VERSIONNO];
 #else
     //do sth.
-    NSString *string = [NSString stringWithFormat:@"V%@", APP_VERSIONNO];
+    NSString *string = [NSString stringWithFormat:@"V%@", BMAPP_VERSIONNO];
 #endif
     
     self.bottomVersionL.text = string;
     
     [self.backImageView addSubview:self.joinRoomBtn];
     [self.joinRoomBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
+        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(43));
         make.height.bmmas_equalTo(50);
-        make.width.bmmas_equalTo(kScale_W(238));
+        make.width.bmmas_equalTo(kBMScale_W(238));
         make.centerX.bmmas_equalTo(0);
     }];
     
@@ -687,7 +687,7 @@
 //    [eyeBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:2.0f];
     [eyeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.right.bmmas_equalTo(-20);
-        make.top.bmmas_equalTo(kScale_H(18) + UI_STATUS_BAR_HEIGHT);
+        make.top.bmmas_equalTo(kBMScale_H(18) + BMUI_STATUS_BAR_HEIGHT);
     }];
 
     self.joinRoomBtn.layer.cornerRadius = 25;
@@ -712,7 +712,7 @@
     [self.onlineSchoolBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.bottom.bmmas_equalTo(-25);
         make.height.bmmas_equalTo(30);
-        make.width.bmmas_equalTo(UI_SCREEN_WIDTH - 60);
+        make.width.bmmas_equalTo(BMUI_SCREEN_WIDTH - 60);
         make.left.bmmas_equalTo(30);
     }];
 #endif
@@ -760,9 +760,9 @@
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
             //        make.top.bmmas_equalTo(kScale_H(130));
-            make.top.bmmas_equalTo(kScale_H(50));
-            make.height.bmmas_equalTo(kScale_W(153));
-            make.width.bmmas_equalTo(kScale_W(197));
+            make.top.bmmas_equalTo(kBMScale_H(50));
+            make.height.bmmas_equalTo(kBMScale_W(153));
+            make.width.bmmas_equalTo(kBMScale_W(197));
         }];
         self.onlineSchoolTitle.hidden = NO;
         self.passOnlineTextField.hidden = NO;
@@ -774,9 +774,9 @@
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.EnterRoom") forState:UIControlStateNormal];
         
         [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
-            make.top.bmmas_equalTo(weakSelf.passOnlineTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
+            make.top.bmmas_equalTo(weakSelf.passOnlineTextField.bmmas_bottom).bmmas_offset(kBMScale_H(43));
             make.height.bmmas_equalTo(50);
-            make.width.bmmas_equalTo(kScale_W(238));
+            make.width.bmmas_equalTo(kBMScale_W(238));
             make.centerX.bmmas_equalTo(0);
         }];
         
@@ -808,9 +808,9 @@
         [self.logoImageView setImage:[UIImage imageNamed:@"login_icon"]];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
-            make.top.bmmas_equalTo(kScale_H(100));
-            make.height.bmmas_equalTo(kScale_W(153));
-            make.width.bmmas_equalTo(kScale_W(197));
+            make.top.bmmas_equalTo(kBMScale_H(100));
+            make.height.bmmas_equalTo(kBMScale_W(153));
+            make.width.bmmas_equalTo(kBMScale_W(197));
         }];
         self.onlineSchoolTitle.hidden = YES;
         self.passOnlineTextField.hidden = YES;
@@ -821,9 +821,9 @@
         [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
         [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
-            make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kScale_H(43));
+            make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(43));
             make.height.bmmas_equalTo(50);
-            make.width.bmmas_equalTo(kScale_W(238));
+            make.width.bmmas_equalTo(kBMScale_W(238));
             make.centerX.bmmas_equalTo(0);
         }];
 
@@ -894,9 +894,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -922,20 +922,20 @@
                     {
                         NSString *message = [dataDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
                         message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
-                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                         return;
                     }
 #endif
                 }
                 
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -967,9 +967,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -1014,17 +1014,17 @@
                     {
                         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalizedSchool(@"Error.ServerError")];
                         message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
-                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                         return;
                     }
 #endif
 
                     NSString *info = [responseDic bm_stringForKey:@"info"];
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:info delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:info delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
                 else
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
         }];
@@ -1032,7 +1032,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1040,7 +1040,7 @@
 {
     if (![YSCoreStatus isNetworkEnable])
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
 
@@ -1209,9 +1209,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -1222,14 +1222,14 @@
 
                 if (![responseDic bm_isNotEmptyDictionary])
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
 
                 NSInteger result = [responseDic bm_intForKey:@"result"];
                 if (result == 4007)
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.RoomTypeCheckError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.RoomTypeCheckError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
@@ -1245,7 +1245,7 @@
 #if YSShowErrorCode
                         message = [NSString stringWithFormat:@"%@: %@", @(result), message];
 #endif
-                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 
                         weakSelf.callNum = 0;
                     }
@@ -1311,7 +1311,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1545,7 +1545,7 @@
         [self.backImageView addSubview:_roleSelectView];
         
         //弹框
-        UIImageView * alertView = [[UIImageView alloc]initWithFrame:CGRectMake((UI_SCREEN_WIDTH-500)/2, (UI_SCREEN_HEIGHT-330)/2, 500, 330)];
+        UIImageView * alertView = [[UIImageView alloc]initWithFrame:CGRectMake((BMUI_SCREEN_WIDTH-500)/2, (BMUI_SCREEN_HEIGHT-330)/2, 500, 330)];
         alertView.image = [UIImage imageNamed:@"roleAlertBackImage"];
         alertView.layer.cornerRadius = 26;
         alertView.layer.masksToBounds = YES;
@@ -1554,7 +1554,7 @@
         
         
         if (![UIDevice bm_isiPad]) {
-            alertView.frame = CGRectMake((UI_SCREEN_WIDTH-350)/2, 100, 350, 330);
+            alertView.frame = CGRectMake((BMUI_SCREEN_WIDTH-350)/2, 100, 350, 330);
         }
         
         //删除按钮
@@ -1858,7 +1858,7 @@
             NSString *s = [textField.text substringToIndex:10];
             [textField setText:s];
             
-            [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Alert.NumberOfWords.10") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Alert.NumberOfWords.10") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
 }
@@ -2021,7 +2021,7 @@
     else
     {
         BMWeakSelf
-        [YSPassWordAlert showPassWordInputAlerWithTopDistance:(UI_SCREEN_HEIGHT - 210)/2 inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) sureBlock:^(NSString * _Nonnull passWord) {
+        [YSPassWordAlert showPassWordInputAlerWithTopDistance:(BMUI_SCREEN_HEIGHT - 210)/2 inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) sureBlock:^(NSString * _Nonnull passWord) {
             BMLog(@"%@",passWord);
             [[YSLiveManager shareInstance] destroy];
             
@@ -2054,7 +2054,7 @@
 
 - (void)onRoomConnectionLost
 {
-    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 
     [[YSLiveManager shareInstance] destroy];
 }

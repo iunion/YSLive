@@ -8,10 +8,10 @@
 
 #import "SCChatToolView.h"
 
-#define KIPhoneX  ((UI_SCREEN_HEIGHT >= (375.0) && UI_SCREEN_WIDTH >= (812.0)) || (UI_SCREEN_HEIGHT >= (414.0) && UI_SCREEN_WIDTH >= (896)) ?YES:NO)
+#define KIPhoneX  ((BMUI_SCREEN_HEIGHT >= (375.0) && BMUI_SCREEN_WIDTH >= (812.0)) || (BMUI_SCREEN_HEIGHT >= (414.0) && BMUI_SCREEN_WIDTH >= (896)) ?YES:NO)
 
 //textView 的X坐标
-#define InputViewX (KIPhoneX?(UI_STATUS_BAR_HEIGHT +20):20)
+#define InputViewX (KIPhoneX?(BMUI_STATUS_BAR_HEIGHT +20):20)
 
 
 @interface SCChatToolView ()
@@ -41,7 +41,7 @@
 - (void)setupUIView
 {
     //发送按钮
-    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-20-92, 13, 92, 34)];
+    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-20-92, 13, 92, 34)];
 //    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton"] forState:UIControlStateNormal];
 //    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
@@ -53,7 +53,7 @@
     [self addSubview:self.sendBtn];
     
     //图片按钮
-    self.imageBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-31-142, 15, 31, 30)];
+    self.imageBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-31-142, 15, 31, 30)];
     [self.imageBtn setImage:[UIImage imageNamed:@"SCChatImage"] forState:UIControlStateNormal];
     [self.imageBtn setImage:[UIImage imageNamed:@"SCChatImage_push"] forState:UIControlStateHighlighted];
     [self.imageBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -62,7 +62,7 @@
     [self addSubview:self.imageBtn];
     
     //表情按钮
-    self.emojBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-31-204, 15, 31, 30)];
+    self.emojBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-31-204, 15, 31, 30)];
     [self.emojBtn setImage:[UIImage imageNamed:@"SCChatEmotion"] forState:UIControlStateNormal];
     [self.emojBtn setImage:[UIImage imageNamed:@"SCChatEmotion_push"] forState:UIControlStateHighlighted];
     [self.emojBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];

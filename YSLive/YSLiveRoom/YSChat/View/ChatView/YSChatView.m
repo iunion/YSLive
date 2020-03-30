@@ -16,15 +16,15 @@
 #import "BMProgressHUD.h"
 
 //输入框高度
-#define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+10):kScale_H(56))
+#define ToolHeight (BMIS_IPHONEXANDP?(kBMScale_H(56)+10):kBMScale_H(56))
 //键盘的基础高度
-#define BasicToolH kScale_H(56)
+#define BasicToolH kBMScale_H(56)
 //iphoneX的时候键盘多出的高度
 #define BottomH (20)
 //自定义表情键盘高度
-#define EmotionBtnH (IS_IPHONEXANDP?(kScale_H(150)+10):kScale_H(150))
+#define EmotionBtnH (BMIS_IPHONEXANDP?(kBMScale_H(150)+10):kBMScale_H(150))
 //顶部频道的高度
-#define TopToolH (kScale_H(44))
+#define TopToolH (kBMScale_H(44))
 
 @interface YSChatView()
 <
@@ -91,11 +91,11 @@ UITableViewDataSource
 
 - (void)creatChatTableView
 {
-    self.chatTableView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, self.bm_height-ToolHeight);
+    self.chatTableView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.bm_height-ToolHeight);
     [self addSubview:self.chatTableView];
     BMWeakSelf
     //表情view
-    self.emotionView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, self.bm_height, UI_SCREEN_WIDTH, kScale_W(150))];
+    self.emotionView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, self.bm_height, BMUI_SCREEN_WIDTH, kBMScale_W(150))];
     //把表情添加到输入框
     self.emotionView.addEmotionToTextView = ^(NSString * _Nonnull emotionName) {
         [weakSelf.chatToolView.inputView insertText:[NSString stringWithFormat:@"[%@]",emotionName]];
@@ -119,7 +119,7 @@ UITableViewDataSource
         if (emotionBtn.selected)
         {
             // 2.动画
-            [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+            [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
                 weakSelf.chatToolView.bm_originY= weakSelf.bm_height - EmotionBtnH - BasicToolH;
                 weakSelf.chatTableView.bm_originY = -EmotionBtnH+BottomH;
                 weakSelf.emotionView.bm_originY = weakSelf.bm_height - EmotionBtnH;
@@ -250,8 +250,8 @@ UITableViewDataSource
             }
             else
             {
-                CGSize size = [model.message bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_15];
-                CGFloat height = kScale_H(12)+kScale_H(12)+size.height+kScale_H(20) + kScale_H(18);
+                CGSize size = [model.message bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_15];
+                CGFloat height = kBMScale_H(12)+kBMScale_H(12)+size.height+kBMScale_H(20) + kBMScale_H(18);
                 model.cellHeight = height;
                 return height;
             }
@@ -259,17 +259,17 @@ UITableViewDataSource
         }
         case YSChatMessageTypeOnlyImage:
         {
-            return kScale_H(12)+kScale_H(12)+kScale_H(88)+ kScale_H(18);
+            return kBMScale_H(12)+kBMScale_H(12)+kBMScale_H(88)+ kBMScale_H(18);
             break;
         }
         case YSChatMessageTypeTips:
         {
-            return kScale_H(10)+kScale_H(25)+ kScale_H(10);
+            return kBMScale_H(10)+kBMScale_H(25)+ kBMScale_H(10);
             break;
         }
         default:
         {
-            return kScale_H(20)+ kScale_H(18);
+            return kBMScale_H(20)+ kBMScale_H(18);
         }
     }
 }
@@ -280,7 +280,7 @@ UITableViewDataSource
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 10.0)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 10.0)];
     view.backgroundColor = [UIColor whiteColor];
     return view;
 }
@@ -353,8 +353,8 @@ UITableViewDataSource
     CAKeyframeAnimation * animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     
     CGMutablePathRef curvedPath = CGPathCreateMutable();
-    CGPathMoveToPoint(curvedPath, NULL, kScale_W(28), self.bm_height- kScale_H(42));//起始位置
-    CGPathAddQuadCurveToPoint(curvedPath, NULL,kScale_W(83) , self.bm_height- kScale_H(79), kScale_W(83), self.bm_height- kScale_H(79));
+    CGPathMoveToPoint(curvedPath, NULL, kBMScale_W(28), self.bm_height- kBMScale_H(42));//起始位置
+    CGPathAddQuadCurveToPoint(curvedPath, NULL,kBMScale_W(83) , self.bm_height- kBMScale_H(79), kBMScale_W(83), self.bm_height- kBMScale_H(79));
     animation.path = curvedPath;
     CGPathRelease(curvedPath);
     
@@ -377,7 +377,7 @@ UITableViewDataSource
         }];
     });
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.flowerAnimationBtn.frame = CGRectMake(kScale_W(13), kScale_H(360), kScale_W(28), kScale_W(28));
+        self.flowerAnimationBtn.frame = CGRectMake(kBMScale_W(13), kBMScale_H(360), kBMScale_W(28), kBMScale_W(28));
         self.flowerAnimationBtn.alpha = 1;
         self.flowerAnimationBtn.hidden = YES;
         [self.flowerAnimationBtn.layer removeAllAnimations];
@@ -466,7 +466,7 @@ UITableViewDataSource
 {
     if (!_chatToolView)
     {
-        self.chatToolView = [[YSChatToolView alloc] initWithFrame:CGRectMake(0,self.bm_height-ToolHeight ,UI_SCREEN_WIDTH,ToolHeight)];
+        self.chatToolView = [[YSChatToolView alloc] initWithFrame:CGRectMake(0, self.bm_height-ToolHeight, BMUI_SCREEN_WIDTH, ToolHeight)];
         
     }
     return _chatToolView;
@@ -476,7 +476,7 @@ UITableViewDataSource
 {
     if (!_flowerAnimationBtn)
     {
-        self.flowerAnimationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(13), self.bm_height-kScale_H(42), kScale_W(28), kScale_W(28))];
+        self.flowerAnimationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(13), self.bm_height-kBMScale_H(42), kBMScale_W(28), kBMScale_W(28))];
         [self.flowerAnimationBtn setImage:[UIImage imageNamed:@"flower"] forState:UIControlStateNormal];
         self.flowerAnimationBtn.hidden = YES;
         self.flowerAnimationBtn.userInteractionEnabled = NO;
@@ -495,7 +495,7 @@ UITableViewDataSource
         [_chatToolView.inputView resignFirstResponder];
         if (self.emotionView.bm_originY < self.bm_height)
         {
-            [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+            [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
                 self.chatToolView.bm_originY= self.bm_height - ToolHeight;
                 self.chatTableView.bm_originY = 0;
                 self.emotionView.bm_originY = self.bm_height;

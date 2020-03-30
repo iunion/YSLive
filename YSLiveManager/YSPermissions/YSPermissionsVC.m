@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     self.whiteView = whiteView;
 
     /// 提示动画
-    UIImageView *animateView = [[UIImageView alloc]initWithFrame:CGRectMake(19, UI_SCREEN_HEIGHT-284-143, 91, 143)];
+    UIImageView *animateView = [[UIImageView alloc]initWithFrame:CGRectMake(19, BMUI_SCREEN_HEIGHT-284-143, 91, 143)];
     [self.view addSubview:animateView];
     animateView.animationImages = @[[UIImage imageNamed:@"Permissions1"],[UIImage imageNamed:@"Permissions2"],[UIImage imageNamed:@"Permissions3"],[UIImage imageNamed:@"Permissions4"]];
     animateView.animationDuration = 1.0;
@@ -369,7 +369,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
 - (void)setPermissionsMessage:(NSString *)permissionsMessage
 {
     _permissionsMessage = permissionsMessage;
-    self.whiteView.frame = CGRectMake(49, 0, UI_SCREEN_WIDTH - 49 - 49, 200);
+    self.whiteView.frame = CGRectMake(49, 0, BMUI_SCREEN_WIDTH - 49 - 49, 200);
     self.whiteView.bm_bottom = self.view.bm_bottom - 300;
     CGSize maxSize = CGSizeMake(self.whiteView.bm_width-60-25, CGFLOAT_MAX);
     CGSize size = [permissionsMessage bm_sizeToFit:maxSize withFont:UI_FONT_14 lineBreakMode:NSLineBreakByWordWrapping];

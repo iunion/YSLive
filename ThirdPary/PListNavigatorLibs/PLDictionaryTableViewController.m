@@ -94,7 +94,7 @@
         NSString *content = [item description];
         if ([content bm_isNotEmpty])
         {
-            [self.m_ProgressHUD bm_showAnimated:YES withDetailText:[item description] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.m_ProgressHUD bm_showAnimated:YES withDetailText:[item description] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
             [[UIPasteboard generalPasteboard] setString:[item description]];
         }
         return;

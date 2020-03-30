@@ -24,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if (IOS_VERSION >= 7.0f)
+    if (BMIOS_VERSION >= 7.0f)
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.extendedLayoutIncludesOpaqueBars = NO;
@@ -141,8 +141,8 @@
         // 过期 和 挤掉 都是 code==-40666   是：  当前账号在其他设备登录, 请重新登录
         case -40666:
         {
-            [BMProgressHUD bm_showHUDAddedTo:GetAppDelegate.window animated:YES withDetailText:YSLocalizedSchool(@"Error.TokenError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(PROGRESSBOX_DEFAULT_HIDE_DELAY * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [BMProgressHUD bm_showHUDAddedTo:GetAppDelegate.window animated:YES withDetailText:YSLocalizedSchool(@"Error.TokenError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(BMPROGRESSBOX_DEFAULT_HIDE_DELAY * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [GetAppDelegate logoutOnlineSchool];
             });
             

@@ -67,9 +67,9 @@
 {
     [super layoutSubviews];
     
-    self.timeL.frame = CGRectMake(0, 5, UI_SCREEN_WIDTH, 17);
+    self.timeL.frame = CGRectMake(0, 5, BMUI_SCREEN_WIDTH, 17);
     
-    self.bacView.frame = CGRectMake(20, 25, UI_SCREEN_WIDTH - 20 - 20, self.contentView.bm_height-25  - 10);
+    self.bacView.frame = CGRectMake(20, 25, BMUI_SCREEN_WIDTH - 20 - 20, self.contentView.bm_height-25  - 10);
     self.bacView.layer.cornerRadius = self.bacView.bm_height/2 > 29 ? 16 : self.bacView.bm_height/2;
     self.bacView.layer.masksToBounds = YES;
     
@@ -80,7 +80,7 @@
     self.translatBtn.frame = CGRectMake(0, 0, 14, 14);
     self.translatBtn.bm_right = self.bacView.bm_right - 20;
     
-    self.originalL.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH - 72 - 62, self.lessonModel.detailsHeight);
+    self.originalL.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH - 72 - 62, self.lessonModel.detailsHeight);
     self.originalL.bm_left = self.typeView.bm_right + 20 ;
     self.originalL.bm_top = self.bacView.bm_top + 10 ;
     
@@ -91,7 +91,7 @@
     self.lineView.bm_left = self.bacView.bm_left + 10;
     self.lineView.bm_right = self.bacView.bm_right - 10;
     
-    self.translatL.frame = CGRectMake(0, CGRectGetMaxY(self.lineView.frame) + 8, UI_SCREEN_WIDTH - 72 - 62, self.lessonModel.translatHeight);
+    self.translatL.frame = CGRectMake(0, CGRectGetMaxY(self.lineView.frame) + 8, BMUI_SCREEN_WIDTH - 72 - 62, self.lessonModel.translatHeight);
     self.translatL.bm_left = self.typeView.bm_right + 20 ;
     
     self.openBtn.bm_width = 10;

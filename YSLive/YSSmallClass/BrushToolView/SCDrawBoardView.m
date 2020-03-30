@@ -222,7 +222,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.frame = CGRectMake(73, 0, UI_SCREEN_WIDTH-73, UI_SCREEN_HEIGHT);
+    self.frame = CGRectMake(73, 0, BMUI_SCREEN_WIDTH-73, BMUI_SCREEN_HEIGHT);
 }
 
 - (void)tapGestureClicked:(UITapGestureRecognizer *)tap

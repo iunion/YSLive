@@ -253,13 +253,13 @@
         panView.bm_left = 0;
     }
     
-    if (panView.bm_bottom > UI_SCREEN_HEIGHT)
+    if (panView.bm_bottom > BMUI_SCREEN_HEIGHT)
     {
-        panView.bm_top = UI_SCREEN_HEIGHT - panView.bm_height;
+        panView.bm_top = BMUI_SCREEN_HEIGHT - panView.bm_height;
     }
-    if (panView.bm_right > UI_SCREEN_WIDTH)
+    if (panView.bm_right > BMUI_SCREEN_WIDTH)
     {
-        panView.bm_left = UI_SCREEN_WIDTH - panView.bm_width;
+        panView.bm_left = BMUI_SCREEN_WIDTH - panView.bm_width;
     }
 }
 

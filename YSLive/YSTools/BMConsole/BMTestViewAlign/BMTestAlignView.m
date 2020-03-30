@@ -35,7 +35,7 @@ static const CGFloat kImageIconSize = 32.0f;
 {
     if (self = [super initWithFrame:frame])
     {
-        self.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+        self.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
         self.backgroundColor = [UIColor clearColor];
         self.layer.zPosition = FLT_MAX;
         //self.userInteractionEnabled = NO;

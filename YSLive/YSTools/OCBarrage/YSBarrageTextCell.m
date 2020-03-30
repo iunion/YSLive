@@ -57,7 +57,7 @@
 //    NSRange range=NSMakeRange(0, self.textDescriptor.attributedText.string.length);
 //    NSDictionary *attribute=[self.textDescriptor.attributedText attributesAtIndex:0 effectiveRange:&range];
 //    CGRect textFrame = [self.textDescriptor.attributedText.string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil];
-    CGSize size = [self.textDescriptor.attributedText bm_sizeToFitWidth:UI_SCREEN_HEIGHT];
+    CGSize size = [self.textDescriptor.attributedText bm_sizeToFitWidth:BMUI_SCREEN_HEIGHT];
     self.textLabel.frame = CGRectMake(0, 0, size.width, size.height);
     //UIImage *contentImage = [self convertViewToImage:self.textLabel];
     

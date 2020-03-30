@@ -66,7 +66,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
 {
     [self.view addSubview:self.topView];
     
-    self.topView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, 55);
+    self.topView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 55);
     if (self.voteType == YSVoteVCType_Result)
     {
         self.topView.isEnd = YES;
@@ -106,7 +106,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
 {
     [super viewWillLayoutSubviews];
     
-    self.topView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, self.voteModel.topViewHeight + 30);
+    self.topView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.voteModel.topViewHeight + 30);
     
     self.voteNameLabel.frame = CGRectMake(30, CGRectGetMaxY(self.topView.frame) + 25, self.voteModel.subjectSize.width, self.voteModel.subjectSize.height);
     
@@ -114,9 +114,9 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     self.voteTypeLabel.layer.cornerRadius = 10;
     self.voteTypeLabel.layer.masksToBounds = YES;
     
-    self.voteDescLabel.frame = CGRectMake(30, CGRectGetMaxY(self.voteNameLabel.frame) + 6, UI_SCREEN_WIDTH-30 - 30 , 40);
+    self.voteDescLabel.frame = CGRectMake(30, CGRectGetMaxY(self.voteNameLabel.frame) + 6, BMUI_SCREEN_WIDTH-30 - 30 , 40);
     
-    self.voteTableView.frame = CGRectMake(0, CGRectGetMaxY(self.voteDescLabel.frame), UI_SCREEN_WIDTH, 300);
+    self.voteTableView.frame = CGRectMake(0, CGRectGetMaxY(self.voteDescLabel.frame), BMUI_SCREEN_WIDTH, 300);
    
     CGFloat tableH = 0.0;
     for (int i = 0; i < self.dataSource.count; i++)
@@ -133,9 +133,9 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     }
     
     CGFloat answerH =  self.voteType == YSVoteVCType_Result ? self.voteModel.rightAnswerHeight : 0.0;
-    if (UI_MAINSCREEN_HEIGHT - UI_HOME_INDICATOR_HEIGHT - self.voteTableView.bm_top - 140 - answerH < tableH)
+    if (BMUI_MAINSCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - self.voteTableView.bm_top - 140 - answerH < tableH)
     {
-        self.voteTableView.bm_height = UI_MAINSCREEN_HEIGHT- UI_HOME_INDICATOR_HEIGHT - self.voteTableView.bm_top - 140 - answerH;
+        self.voteTableView.bm_height = BMUI_MAINSCREEN_HEIGHT- BMUI_HOME_INDICATOR_HEIGHT - self.voteTableView.bm_top - 140 - answerH;
         self.voteTableView.scrollEnabled = YES;
     }
     else
@@ -144,8 +144,8 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
         self.voteTableView.scrollEnabled = NO;
     }
     
-    self.bottomView.frame = CGRectMake(0, CGRectGetMaxY(self.voteTableView.frame),UI_SCREEN_WIDTH ,140 + self.voteModel.rightAnswerHeight);
-    self.rightAnswerLabel.frame = CGRectMake(10, 10, UI_SCREEN_WIDTH - 20, self.voteModel.rightAnswerHeight);
+    self.bottomView.frame = CGRectMake(0, CGRectGetMaxY(self.voteTableView.frame),BMUI_SCREEN_WIDTH ,140 + self.voteModel.rightAnswerHeight);
+    self.rightAnswerLabel.frame = CGRectMake(10, 10, BMUI_SCREEN_WIDTH - 20, self.voteModel.rightAnswerHeight);
     self.rightAnswerLabel.bm_top = self.bottomView.bm_top + 10;
     
     self.bottomBtn.frame = CGRectMake(0, 0, 262, 44);

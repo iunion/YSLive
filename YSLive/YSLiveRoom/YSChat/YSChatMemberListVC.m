@@ -52,24 +52,24 @@
 - (void)setupUI
 {
     CGFloat decideBtnY = 0.f;
-    if (IS_IPHONEXANDP)
+    if (BMIS_IPHONEXANDP)
     {
-        decideBtnY = UI_SCREEN_HEIGHT-kScale_H(50)-UI_NAVIGATION_BAR_HEIGHT-UI_STATUS_BAR_HEIGHT-12-15;
+        decideBtnY = BMUI_SCREEN_HEIGHT-kBMScale_H(50)-BMUI_NAVIGATION_BAR_HEIGHT-BMUI_STATUS_BAR_HEIGHT-12-15;
     }
     else
     {
-        decideBtnY = UI_SCREEN_HEIGHT-kScale_H(50)-UI_NAVIGATION_BAR_HEIGHT-UI_STATUS_BAR_HEIGHT-12;
+        decideBtnY = BMUI_SCREEN_HEIGHT-kBMScale_H(50)-BMUI_NAVIGATION_BAR_HEIGHT-BMUI_STATUS_BAR_HEIGHT-12;
     }
     
-    UIButton * decideBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(30), decideBtnY, kScale_W(316), kScale_H(50))];
+    UIButton * decideBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(30), decideBtnY, kBMScale_W(316), kBMScale_H(50))];
     [decideBtn setTintColor:[UIColor whiteColor]];
     [decideBtn setTitle:YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
     [decideBtn setBackgroundColor:[UIColor bm_colorWithHexString:@"#306FFF"]];
-    decideBtn.layer.cornerRadius = kScale_H(50)/2;
+    decideBtn.layer.cornerRadius = kBMScale_H(50)/2;
     [decideBtn addTarget:self action:@selector(decideBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:decideBtn];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, decideBtnY) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, decideBtnY) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

@@ -172,7 +172,7 @@
     _bigImageView.image = [_msgImageView.image copy];
     _bigImageView.backgroundColor = UIColor.whiteColor;
     CGSize size = [_bigImageView.image size];
-    if (size.width >= UI_SCREEN_WIDTH || size.height >= UI_SCREEN_HEIGHT)
+    if (size.width >= BMUI_SCREEN_WIDTH || size.height >= BMUI_SCREEN_HEIGHT)
     {
         _bigImageView.contentMode = UIViewContentModeScaleAspectFit;
     }

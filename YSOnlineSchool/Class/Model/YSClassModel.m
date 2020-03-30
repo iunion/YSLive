@@ -220,7 +220,7 @@
 
 - (CGFloat)calculateInstructionTextCellHeight
 {
-    CGFloat height = [self.classInstruction bm_heightToFitWidth:(UI_SCREEN_WIDTH-15.0f*2.0f) withFont:[UIFont systemFontOfSize:12.0f]];
+    CGFloat height = [self.classInstruction bm_heightToFitWidth:(BMUI_SCREEN_WIDTH-15.0f*2.0f) withFont:[UIFont systemFontOfSize:12.0f]];
     
     return height+50.0f+10.0f;
 }

@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if (IOS_VERSION >= 7.0f)
+    if (BMIOS_VERSION >= 7.0f)
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.extendedLayoutIncludesOpaqueBars = NO;
@@ -72,7 +72,7 @@
 
 - (void)makeUI
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_MAINSCREEN_HEIGHT-UI_NAVIGATION_BAR_HEIGHT)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_MAINSCREEN_HEIGHT-BMUI_NAVIGATION_BAR_HEIGHT)];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
@@ -232,7 +232,7 @@
     item.cellStyle = UITableViewCellStyleValue1;
     item.cellHeight = 50.0f;
     item.detailTextAlignment = NSTextAlignmentRight;
-    item.underLineColor = UI_DEFAULT_LINECOLOR;
+    item.underLineColor = BMUI_DEFAULT_LINECOLOR;
     if (last)
     {
         item.underLineDrawType = BMTableViewCell_UnderLineDrawType_None;

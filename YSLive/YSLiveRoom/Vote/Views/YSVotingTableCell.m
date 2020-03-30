@@ -43,11 +43,10 @@
     self.selectImageV.frame = CGRectMake(22, 0, 17, 17);
     self.selectImageV.bm_centerY = self.contentView.bm_centerY;
 
-    self.titleL.frame = CGRectMake(CGRectGetMaxX(self.selectImageV.frame) + 22 , 0, UI_SCREEN_WIDTH - CGRectGetMaxX(self.selectImageV.frame) - 22 - 5 - 10, _votingModel.ingCellHeight);
+    self.titleL.frame = CGRectMake(CGRectGetMaxX(self.selectImageV.frame) + 22 , 0, BMUI_SCREEN_WIDTH - CGRectGetMaxX(self.selectImageV.frame) - 22 - 5 - 10, _votingModel.ingCellHeight);
     self.titleL.bm_centerY = self.contentView.bm_centerY;
-    self.lineView.frame = CGRectMake(56, 0, UI_SCREEN_WIDTH - 56 - 20, 1);
+    self.lineView.frame = CGRectMake(56, 0, BMUI_SCREEN_WIDTH - 56 - 20, 1);
     self.lineView.bm_bottom = self.contentView.bm_bottom;
-   
 }
 
 

@@ -87,10 +87,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     if (![UIDevice bm_isiPad])
     {
         tableWidth = 280;
-        tableHeight = UI_SCREEN_HEIGHT - 80;
+        tableHeight = BMUI_SCREEN_HEIGHT - 80;
     }
     
-    UIView *tableBacView = [[UIView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - tableWidth, 0, tableWidth, tableHeight)];
+    UIView *tableBacView = [[UIView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - tableWidth, 0, tableWidth, tableHeight)];
     tableBacView.bm_centerY = self.bm_centerY;
     self.tableBacView = tableBacView;
     [self addSubview:tableBacView];

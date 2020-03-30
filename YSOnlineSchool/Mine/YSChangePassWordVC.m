@@ -89,12 +89,12 @@
 //    self.oldPasswordView = oldPasswordView;
 //    [self.view addSubview:self.oldPasswordView];
     
-    YSPassWordChangeView *changePasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.NewPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.changePassword")];
+    YSPassWordChangeView *changePasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, 40, BMUI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.NewPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.changePassword")];
     self.changePasswordView = changePasswordView;
     changePasswordView.delegate = self;
     [self.view addSubview:self.changePasswordView];
     
-    YSPassWordChangeView *againPasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(changePasswordView.frame) + 15, UI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.againPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.againPassword")];
+    YSPassWordChangeView *againPasswordView = [[YSPassWordChangeView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(changePasswordView.frame) + 15, BMUI_SCREEN_WIDTH, 40) withTitle:YSLocalizedSchool(@"Title.OnlineSchool.againPassword") placeholder:YSLocalizedSchool(@"Prompt.OnlineSchool.againPassword")];
     againPasswordView.delegate = self;
     self.againPasswordView = againPasswordView;
     [self.view addSubview:self.againPasswordView];
@@ -119,8 +119,8 @@
 }
 - (void)viewWillLayoutSubviews
 {
-    self.changePasswordView.frame = CGRectMake(0, 40, UI_SCREEN_WIDTH, 40);
-    self.againPasswordView.frame = CGRectMake(0, CGRectGetMaxY(self.changePasswordView.frame) + 15, UI_SCREEN_WIDTH, 40);
+    self.changePasswordView.frame = CGRectMake(0, 40, BMUI_SCREEN_WIDTH, 40);
+    self.againPasswordView.frame = CGRectMake(0, CGRectGetMaxY(self.changePasswordView.frame) + 15, BMUI_SCREEN_WIDTH, 40);
     self.submitBtn.frame = CGRectMake(0, 0, 224, 34);
     self.submitBtn.bm_centerX = self.view.bm_centerX;
     self.submitBtn.bm_top = self.againPasswordView.bm_bottom + 50;
@@ -132,20 +132,20 @@
     NSString *confirmPwd = self.againPasswordView.inputTextField.text;
     if (![newPwd bm_isMatchWithPattern:YSSCHOOLPASSWORD_PATTERN])
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdFormat") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         
         return;
     }
     if (![confirmPwd bm_isMatchWithPattern:YSSCHOOLPASSWORD_PATTERN])
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdFormat") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdFormat") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         
         return;
     }
     
     if (![confirmPwd isEqualToString:newPwd])
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdLength") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.PwdLength") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         
         return;
     }
@@ -186,9 +186,9 @@
                 }
 
 #if YSShowErrorCode
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), errorMessage] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
             }
             else
@@ -219,13 +219,13 @@
                         }
                         else
                         {
-                            [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                            [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                         }
                     }
                 }
                 else
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
                 
             }
@@ -234,7 +234,7 @@
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.ServerError") delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalizedSchool(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 

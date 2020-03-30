@@ -89,8 +89,8 @@
     {
         width = [self.iMessageLabel.text bm_sizeToFitWidth:self.bm_width - 20 withFont:UI_FONT_12].width;
     }
-    self.backView.frame = CGRectMake((UI_SCREEN_WIDTH-width - kScale_W(20))/2, kScale_H(10), width + kScale_W(20), kScale_H(25));
-    self.iMessageLabel.frame = CGRectMake(kScale_W(10), 0, width, kScale_H(25));
+    self.backView.frame = CGRectMake((BMUI_SCREEN_WIDTH-width - kBMScale_W(20))/2, kBMScale_H(10), width + kBMScale_W(20), kBMScale_H(25));
+    self.iMessageLabel.frame = CGRectMake(kBMScale_W(10), 0, width, kBMScale_H(25));
     
     
 }

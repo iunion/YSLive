@@ -132,7 +132,7 @@
     // 双击恢复默认尺寸
     if (!CGSizeEqualToSize(self.defaultSize, CGSizeZero))
     {
-        [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+        [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
             CGPoint center = self.center;
             self.bm_width = self.defaultSize.width;
             self.bm_height = self.defaultSize.height;
@@ -215,7 +215,7 @@
         // 尺寸小于默认恢复默认 只能放大
         if (self.bm_width <= self.defaultSize.width || self.bm_height <= self.defaultSize.height)
         {//小于默认最小时
-            [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+            [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
                 weakSelf.bm_width = weakSelf.defaultSize.width;
                 weakSelf.bm_height = weakSelf.defaultSize.height;
                 weakSelf.center = self->scaleCenterPoint;
@@ -242,7 +242,7 @@
             {//宽先达到最大
                 CGFloat defaultScale = self.defaultSize.height/self.defaultSize.width;
                 
-                [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+                [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
                     weakSelf.bm_width = weakSelf.maxSize.width;
                     weakSelf.bm_height = weakSelf.maxSize.width * defaultScale;
                     weakSelf.center = self->scaleCenterPoint;
@@ -254,7 +254,7 @@
             {//高先达到最大
                 
                 CGFloat defaultScale = self.defaultSize.width/self.defaultSize.height;
-                [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+                [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
                     weakSelf.bm_height = weakSelf.maxSize.height;
                     weakSelf.bm_width = weakSelf.maxSize.height * defaultScale;
                     weakSelf.center = self->scaleCenterPoint;
@@ -316,21 +316,21 @@
         {
             currentFrame.origin.y = self.superview.bounds.size.height - currentFrame.size.height - self.edgeInsets.bottom;
         }
-        [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+        [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
             self.frame = currentFrame;
         }];
     }
     else if (topRange < 0)
     {
         currentFrame.origin.y = self.edgeInsets.top;
-        [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+        [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
             self.frame = currentFrame;
         }];
     }
     else if (bottomRange < 0)
     {
         currentFrame.origin.y = self.superview.bounds.size.height - currentFrame.size.height - self.edgeInsets.bottom;
-        [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+        [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
             self.frame = currentFrame;
         }];
     }

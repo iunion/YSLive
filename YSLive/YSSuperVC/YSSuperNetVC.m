@@ -143,7 +143,7 @@
         
         if (self.showResultHUD)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_JSON_ERRORCODE] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
         
         return;
@@ -196,7 +196,7 @@
         
         if (self.showResultHUD)
         {
-            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
     else
@@ -214,9 +214,9 @@
         else if (self.showResultHUD)
         {
 #ifdef DEBUG
-            [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@:%@", @(statusCode), message] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-            [self.progressHUD bm_showAnimated:NO withDetailText:message delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
         }
     }
@@ -230,9 +230,9 @@
     if (self.showResultHUD)
     {
 #if YSShowErrorCode
-        [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), [YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE]] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), [YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE]] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
-        [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:PROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif
     }
     else

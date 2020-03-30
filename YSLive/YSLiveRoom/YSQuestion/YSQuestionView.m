@@ -11,7 +11,7 @@
 #import "BMProgressHUD.h"
 
 //输入框高度
-#define ToolHeight (IS_IPHONEXANDP?(50+20):50)
+#define ToolHeight (BMIS_IPHONEXANDP?(50+20):50)
 //iphoneX的时候键盘多出的高度
 #define BottomH 20
 //输入框的初始位置
@@ -60,19 +60,19 @@
 
 - (void)setupUI{
     
-    self.questTableView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, self.bm_height-ToolHeight);
+    self.questTableView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.bm_height-ToolHeight);
     [self addSubview:self.questTableView];
     
-    self.bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ToolOriginalY, UI_SCREEN_WIDTH, ToolHeight)];
+    self.bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ToolOriginalY, BMUI_SCREEN_WIDTH, ToolHeight)];
     self.bottomView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
     [self addSubview:self.bottomView];
     
-    self.backView = [[UIView alloc]initWithFrame:CGRectMake(kScale_W(20), 10, kScale_W(230), 30)];
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(kBMScale_W(20), 10, kBMScale_W(230), 30)];
     self.backView.layer.cornerRadius = 30/2;
     self.backView.backgroundColor = [UIColor whiteColor];
     [self.bottomView addSubview:self.backView];
     
-    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScale_W(271), 8, kScale_W(96), 34)];
+    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(271), 8, kBMScale_W(96), 34)];
 //    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton"] forState:UIControlStateNormal];
 //    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
     
@@ -234,7 +234,7 @@
             if (model.state == YSQuestionState_Answer)
             {//回复
                 NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
-                CGSize questStrSize = [questStr bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+                CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
                 
                 model.cellHeight = cellTopHeight +  model.answerDetailsSize.height + 5 + model.translatSize.height + 5 + questStrSize.height + 2*10 + 10;
             }
@@ -252,7 +252,7 @@
             if (model.state == YSQuestionState_Answer)
             {//回复
                 NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
-                CGSize questStrSize = [questStr bm_sizeToFitWidth:kScale_W(300) withFont:UI_FONT_14];
+                CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
                 model.cellHeight = cellTopHeight +  model.answerDetailsSize.height + 5 + questStrSize.height + 2*10 + 10;
             }
             else
@@ -309,7 +309,7 @@
     if (self.questTableView.bm_originY<0)
     {
         [self.inputView resignFirstResponder];
-        [UIView animateWithDuration:DEFAULT_DELAY_TIME animations:^{
+        [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
             self.bottomView.bm_originY = ToolOriginalY;
             self.questTableView.bm_originY = 0;
         }];

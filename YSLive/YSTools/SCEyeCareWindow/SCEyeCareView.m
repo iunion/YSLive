@@ -41,27 +41,27 @@
 {
     if (self.needRotation)
     {
-        CGFloat maxWidth = UI_SCREEN_HEIGHT;
-        CGFloat maxHeight = UI_SCREEN_WIDTH;
+        CGFloat maxWidth = BMUI_SCREEN_HEIGHT;
+        CGFloat maxHeight = BMUI_SCREEN_WIDTH;
 
         if (maxWidth > maxHeight)
         {
-            return (UI_SCREEN_HEIGHT/667) * (width);
+            return (BMUI_SCREEN_HEIGHT/667) * (width);
         }
         
-        return (UI_SCREEN_HEIGHT/375) * (width);
+        return (BMUI_SCREEN_HEIGHT/375) * (width);
     }
     else
     {
-        CGFloat maxWidth = UI_SCREEN_WIDTH;
-        CGFloat maxHeight = UI_SCREEN_HEIGHT;
+        CGFloat maxWidth = BMUI_SCREEN_WIDTH;
+        CGFloat maxHeight = BMUI_SCREEN_HEIGHT;
 
         if (maxWidth > maxHeight)
         {
-            return (UI_SCREEN_WIDTH/667) * (width);
+            return (BMUI_SCREEN_WIDTH/667) * (width);
         }
         
-        return (UI_SCREEN_WIDTH/375) * (width);
+        return (BMUI_SCREEN_WIDTH/375) * (width);
     }
 }
 
@@ -69,27 +69,27 @@
 {
     if (self.needRotation)
     {
-        CGFloat maxWidth = UI_SCREEN_HEIGHT;
-        CGFloat maxHeight = UI_SCREEN_WIDTH;
+        CGFloat maxWidth = BMUI_SCREEN_HEIGHT;
+        CGFloat maxHeight = BMUI_SCREEN_WIDTH;
         
         if (maxWidth > maxHeight)
         {
-            return (UI_SCREEN_WIDTH/335) * (height);
+            return (BMUI_SCREEN_WIDTH/335) * (height);
         }
         
-        return (UI_SCREEN_WIDTH/667) * (height);
+        return (BMUI_SCREEN_WIDTH/667) * (height);
     }
     else
     {
-        CGFloat maxWidth = UI_SCREEN_WIDTH;
-        CGFloat maxHeight = UI_SCREEN_HEIGHT;
+        CGFloat maxWidth = BMUI_SCREEN_WIDTH;
+        CGFloat maxHeight = BMUI_SCREEN_HEIGHT;
 
         if (maxWidth > maxHeight)
         {
-            return (UI_SCREEN_HEIGHT/335) * (height);
+            return (BMUI_SCREEN_HEIGHT/335) * (height);
         }
         
-        return (UI_SCREEN_HEIGHT/667) * (height);
+        return (BMUI_SCREEN_HEIGHT/667) * (height);
     }
 }
 

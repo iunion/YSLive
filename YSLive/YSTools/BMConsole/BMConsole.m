@@ -572,7 +572,7 @@ static void exceptionHandler(NSException *exception)
     
     if (!self.environmentBgView)
     {
-        self.environmentBgView = [[UIView alloc] initWithFrame:CGRectMake(0, UI_SCREEN_HEIGHT, UI_SCREEN_WIDTH, 300)];
+        self.environmentBgView = [[UIView alloc] initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH, 300)];
         self.environmentBgView.backgroundColor = [UIColor bm_colorWithHex:0x333333];
         [self.view addSubview:self.environmentBgView];
 
@@ -580,8 +580,8 @@ static void exceptionHandler(NSException *exception)
         self.environmentToolBar.backgroundColor = [UIColor bm_colorWithHex:0x666666];
         [self.environmentBgView addSubview:self.environmentToolBar];
 
-        self.environmentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, UI_SCREEN_WIDTH, 270)];
-        self.environmentScrollView.contentSize = CGSizeMake(UI_SCREEN_WIDTH, 1);
+        self.environmentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, BMUI_SCREEN_WIDTH, 270)];
+        self.environmentScrollView.contentSize = CGSizeMake(BMUI_SCREEN_WIDTH, 1);
         self.environmentScrollView.delegate = self;
         self.environmentScrollView.showsVerticalScrollIndicator = NO;
         [self.environmentBgView addSubview:self.environmentScrollView];
@@ -721,18 +721,18 @@ static void exceptionHandler(NSException *exception)
     switchView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     switchView.on = [BMConsole isMonitorNet];
 
-    self.environmentScrollView.contentSize =  CGSizeMake(UI_SCREEN_WIDTH, netLabel.bm_bottom+10.0f);
+    self.environmentScrollView.contentSize =  CGSizeMake(BMUI_SCREEN_WIDTH, netLabel.bm_bottom+10.0f);
                                                          
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.25f];
-    self.environmentBgView.bm_top = UI_SCREEN_HEIGHT-300;
+    self.environmentBgView.bm_top = BMUI_SCREEN_HEIGHT-300;
     [UIView commitAnimations];
 }
 
 - (void)environmentCloseAction:(id)sender
 {
     [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionTransitionNone animations:^{
-        self.environmentBgView.bm_top = UI_SCREEN_HEIGHT;
+        self.environmentBgView.bm_top = BMUI_SCREEN_HEIGHT;
     } completion:^(BOOL finished) {
         [self.environmentScrollView bm_removeAllSubviews];
     }];
@@ -846,7 +846,7 @@ static void exceptionHandler(NSException *exception)
 {
 //    [self.inputField resignFirstResponder];
     
-    self.colorSetView = [[UIView alloc]initWithFrame:CGRectMake(-UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT-(EDITFIELD_HEIGHT + 10 + TOOL_BUTTON_HEIGHT), UI_SCREEN_WIDTH, EDITFIELD_HEIGHT + 10 + TOOL_BUTTON_HEIGHT)];
+    self.colorSetView = [[UIView alloc]initWithFrame:CGRectMake(-BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT-(EDITFIELD_HEIGHT + 10 + TOOL_BUTTON_HEIGHT), BMUI_SCREEN_WIDTH, EDITFIELD_HEIGHT + 10 + TOOL_BUTTON_HEIGHT)];
     self.colorSetView.backgroundColor =  [UIColor bm_colorWithHex:0x999999];
     [self.view addSubview:self.colorSetView];
     
@@ -918,7 +918,7 @@ static void exceptionHandler(NSException *exception)
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.2];
     CGRect  rect = self.colorSetView.frame;
-    rect.origin.x += UI_SCREEN_WIDTH;
+    rect.origin.x += BMUI_SCREEN_WIDTH;
     self.colorSetView.frame = rect;
     [UIView commitAnimations];
 }
@@ -927,7 +927,7 @@ static void exceptionHandler(NSException *exception)
 {
     [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionTransitionNone animations:^{
         CGRect  rect = self.colorSetView.frame;
-        rect.origin.x -= UI_SCREEN_WIDTH;
+        rect.origin.x -= BMUI_SCREEN_WIDTH;
         self.colorSetView.frame = rect;
     } completion:^(BOOL finished) {
         [self.colorSetView removeFromSuperview];
@@ -1678,7 +1678,7 @@ static void exceptionHandler(NSException *exception)
         [self addSubview:fpsLabel];
         
         fpsLabel.bm_left = self.bm_left + 6;
-        fpsLabel.bm_top = self.bm_top + 6 + UI_NAVIGATION_BAR_HEIGHT + UI_STATUS_BAR_HEIGHT;
+        fpsLabel.bm_top = self.bm_top + 6 + BMUI_NAVIGATION_BAR_HEIGHT + BMUI_STATUS_BAR_HEIGHT;
         //fpsLabel.center = self.center;
         self.fpsLabel = fpsLabel;
         

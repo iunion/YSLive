@@ -431,7 +431,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     };
     [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
     
-    self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
+    self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
 
     }];
     [self.whiteBoardManager changeWhiteBoardBackImage:nil];

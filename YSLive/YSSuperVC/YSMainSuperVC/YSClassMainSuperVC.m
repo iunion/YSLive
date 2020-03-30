@@ -166,7 +166,7 @@
     
     self.previousKeyWindow = [UIApplication sharedApplication].keyWindow;
     
-    CGRect frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+    CGRect frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
     SCEyeCareWindow *eyeCareWindow = [[SCEyeCareWindow alloc] initWithFrame:frame];
     self.eyeCareWindow = eyeCareWindow;
     [self.eyeCareWindow makeKeyWindow];
@@ -178,7 +178,7 @@
     [eyeCareView bm_centerInSuperView];
 
     self.eyeCareWindow.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-    eyeCareWindow.frame = CGRectMake(0, 0, UI_SCREEN_HEIGHT, UI_SCREEN_WIDTH);
+    eyeCareWindow.frame = CGRectMake(0, 0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH);
 }
 
 #pragma mark SCEyeCareViewDelegate

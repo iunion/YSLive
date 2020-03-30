@@ -91,7 +91,7 @@
     }
     else
     {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, UI_SCREEN_WIDTH-60.0f, YSClassReplayView_NoDateHeight)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, BMUI_SCREEN_WIDTH-60.0f, YSClassReplayView_NoDateHeight)];
         label.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
         label.font = UI_FONT_12;
         label.text = YSLocalizedSchool(@"ClassMediumCell.NoTitle");
@@ -153,7 +153,7 @@
 
 - (void)creatUI
 {
-    self.bm_size = CGSizeMake(UI_SCREEN_WIDTH-YSClassReplayView_LeftGap*4.0f, YSClassReplayView_Height);
+    self.bm_size = CGSizeMake(BMUI_SCREEN_WIDTH-YSClassReplayView_LeftGap*4.0f, YSClassReplayView_Height);
     [self bm_roundedRect:10.0f];
     
     CGFloat maxWidth = self.bm_width - YSClassReplayView_LeftGap*2.0f - YSClassReplayView_IconWidth - YSClassReplayView_IconGap - YSClassReplayView_TextGap*2.0f;
