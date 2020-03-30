@@ -5126,12 +5126,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     for (NSString *tempPeerID in self.pollingArr)
     {
         SCVideoView *videoView = [self getVideoViewWithPeerId:tempPeerID];
-        if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
+        if (videoView)
         {
-            
-            roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
-            break;
+            if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
+            {
+                
+                roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
+                break;
+            }
         }
+
     }
     
     if (!roomUser)
@@ -5153,13 +5157,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 for (NSString *peerId in self.pollingUpPlatformArr)
                 {
                     SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
-                    if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
+                    if (videoView)
                     {
-                        upPlatformPeerId = videoView.roomUser.peerID;
-                        
-                        break;
+                        if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
+                        {
+                            upPlatformPeerId = videoView.roomUser.peerID;
+                            
+                            break;
+                        }
                     }
-                    
+
                 }
                 BMLog(@"----------%@~~~~~%@",upPlatformPeerId,roomUser.peerID);
                 [self.liveManager.roomManager changeUserProperty:upPlatformPeerId tellWhom:YSRoomPubMsgTellAll data:@{sUserPublishstate : @(YSUser_PublishState_NONE),sUserCandraw : @(false)} completion:nil];
@@ -5167,8 +5174,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {
                     [self changeUpPlatformRoomUser:roomUser];
                 }
-                
-                
             }
         }
 
