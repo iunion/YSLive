@@ -152,12 +152,15 @@
 {
     if (state == YSMedia_Pulished)
     {
-        YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-        NSDictionary *properties = roomUser.properties;
-        if ([properties bm_isNotEmptyDictionary])
+        if (self.liveManager.roomConfig.isMirrorVideo)
         {
-            BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
-            [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
+            YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+            NSDictionary *properties = roomUser.properties;
+            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+            {
+                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
+            }
         }
     }
 }
