@@ -53,14 +53,12 @@
         
 //        self.closeBtn.frame = CGRectMake(0, 25, 25, 25);
         self.closeBtn.bm_right = self.bm_width - 20;
-        
     }
     else
     {
         self.playBtn.frame = CGRectMake(15, 20, 20, 20);
         
         self.closeBtn.frame = CGRectMake(self.bm_width - 30, 20, 20, 20);
-//        self.closeBtn.bm_right = self.bm_right + 25;
         
         self.timeLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
         self.timeLabel.frame = CGRectMake( 0, 10, 65, 17);
@@ -73,9 +71,7 @@
         self.sliderView.frame = CGRectMake(0, 0,self.bm_width - 45 - 30, 5);
         self.sliderView.bm_top = self.nameLabel.bm_bottom + 10;
         self.sliderView.bm_left = self.playBtn.bm_right + 5;
-
     }
-
 }
 
 - (void)setup
