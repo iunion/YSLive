@@ -1954,6 +1954,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
 }
 
+- (void)handleSignalingToForceRefresh
+{
+    [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+    if (self.pollingTimer)
+    {
+        dispatch_source_cancel(self.pollingTimer);
+        self.pollingTimer = nil;
+    }
+    
+    [self topToolBarPollingBtnEnable];
+    if (self.topToolBar.pollingBtn.enabled)
+    {
+        self.topToolBar.pollingBtn.selected = NO;
+    }
+    _isPolling = NO;
+}
+
 #pragma mark 网络状态
 
 /// 自己的网络状态变化

@@ -139,7 +139,8 @@
 
 /// 助教刷新课件
 #define YSSignalingName_refeshCourseware          @"RemoteControlCourseware"
-
+/// 助教强制刷新
+#define YSSignalingName_RemoteControl   @"RemoteControl"
 #pragma mark -
 #pragma mark whiteBordSignaling
 

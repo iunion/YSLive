@@ -218,6 +218,15 @@
         }
         return;
     }
+    /// 助教强制刷新
+    if ([msgName isEqualToString:YSSignalingName_RemoteControl])
+    {
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToForceRefresh)])
+        {
+            [self.roomManagerDelegate handleSignalingToForceRefresh];
+        }
+        return;
+    }
 
     /// 收到取消订阅排序
     if ([msgName isEqualToString:YSSignalingName_ContestSubsort])
