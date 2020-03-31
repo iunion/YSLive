@@ -154,7 +154,7 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 - (void)didSelectDrawType:(YSDrawType)type color:(NSString *)hexColor widthProgress:(float)progress;
 // 恢复默认工具配置设置
 - (void)freshBrushToolConfig;
-// 获取当前工具配置设置
+// 获取当前工具配置设置 drawType: YSBrushToolType类型  colorHex: RGB颜色  progress: 值
 - (NSDictionary *)getBrushToolConfigWithToolType:(YSBrushToolType)BrushToolType;
 // 改变默认画笔颜色
 - (void)changeDefaultPrimaryColor:(NSString *)colorHex;
