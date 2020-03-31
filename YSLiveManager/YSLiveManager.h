@@ -484,6 +484,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///助教刷新课件
 - (void)handleSignalingTorefeshCourseware;
 
+/// 助教强制刷新
+- (void)handleSignalingToForceRefresh;
 
 #pragma mark 白板 YSWhiteBoardManagerDelegate
 
