@@ -37,6 +37,8 @@
     {
         self.playBtn.frame = CGRectMake(30, 20, 26, 33);
         
+        self.closeBtn.frame = CGRectMake(self.bm_width - 30, 25, 25, 25);
+        
         self.nameLabel.frame = CGRectMake(CGRectGetMaxX(self.playBtn.frame) + 12, 18, self.bm_width - 220, 17);
         //    self.nameLabel.bm_left = self.playBtn.bm_right + 12;
         
@@ -49,8 +51,8 @@
         self.sliderView.bm_top = self.nameLabel.bm_bottom + 10;
         self.sliderView.bm_left = self.playBtn.bm_right + 12;
         
-        self.closeBtn.frame = CGRectMake(0, 25, 25, 25);
-        self.closeBtn.bm_right = self.bm_right - 20;
+//        self.closeBtn.frame = CGRectMake(0, 25, 25, 25);
+//        self.closeBtn.bm_right = self.bm_right - 20;
     }
     else
     {

@@ -200,8 +200,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property(nonatomic, strong) SCTeacherListView *teacherListView;
 /// 课件刷新按钮
 @property (nonatomic, strong) UIButton *coursewareBtn;
-/// 当前课件的页码
-//@property (nonatomic, assign) int coursewareCurrentPage;
 
 /// 开始答题
 @property (nonatomic, strong) SCTeacherAnswerView *answerView;
@@ -252,8 +250,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 拖出视频浮动View列表
 @property (nonatomic, strong) NSMutableArray <YSFloatView *> *dragOutFloatViewArray;
-/// 长按手势的坐标
-//@property (nonatomic, assign) CGPoint startPoint;
 ///拖出视频view时的模拟移动图
 @property (nonatomic, strong) UIImageView *dragImageView;
 ///刚开始拖动时，videoView的初始坐标（x,y）
@@ -733,7 +729,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.boardControlView = [[SCBoardControlView alloc] init];
     [self.view addSubview:self.boardControlView];
     self.boardControlView.frame = CGRectMake(0, 0, 246, 34);
-    self.boardControlView.bm_bottom = self.view.bm_bottom - 20;
+    self.boardControlView.bm_bottom = self.view.bm_bottom - 25;
     self.boardControlView.bm_centerX = self.view.bm_centerX;
     self.boardControlView.delegate = self;
     self.boardControlView.layer.cornerRadius = self.boardControlView.bm_height/2;
@@ -741,6 +737,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
     [self.boardControlView addGestureRecognizer:panGestureRecognizer];
     self.boardControlView.allowPaging = YES;//self.liveManager.roomConfig.canPageTurningFlag;
+    
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, self.boardControlView.bm_originY, 60, 60)];
+    [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
+    [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    coursewareBtn.titleLabel.font = UI_FONT_14;
+    coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    coursewareBtn.hidden = YES;
+    [self.view addSubview:coursewareBtn];
+    self.coursewareBtn = coursewareBtn;
+
+    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
+    coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width), 0, 0);
+    coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 }
 
 #pragma mark - 举手上台的UI
@@ -827,22 +840,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
     
-    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 60, 60)];
-    [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
-    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
-    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
-    [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
-    [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
-    [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    coursewareBtn.titleLabel.font = UI_FONT_14;
-    coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    coursewareBtn.hidden = YES;
-    [self.view addSubview:coursewareBtn];
-    self.coursewareBtn = coursewareBtn;
     
-    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
-    coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
-    coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 }
 
 ///刷新课件
@@ -977,14 +975,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.view addSubview:self.mp3ControlView];
     if ([UIDevice bm_isiPad])
     {
-        self.mp3ControlView.frame = CGRectMake(10, 0, 386, 74);
+        self.mp3ControlView.frame = CGRectMake(100, 0, 386, 74);
         self.mp3ControlView.bm_bottom = self.view.bm_bottom - 123;
         self.mp3ControlView.layer.cornerRadius = 37;
     }
     else
     {
         self.mp3ControlView.frame = CGRectMake(80, 0, 300, 60);
-        self.mp3ControlView.bm_bottom = self.view.bm_bottom - 20;
+        self.mp3ControlView.bm_bottom = self.view.bm_bottom - 70;
         self.mp3ControlView.layer.cornerRadius = 30;
     }
 

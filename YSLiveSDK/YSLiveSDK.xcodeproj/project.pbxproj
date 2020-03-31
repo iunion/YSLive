@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044C17562431E75200579E02 /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C17542431E75200579E02 /* YSPollingView.m */; };
+		044C17572431E75200579E02 /* YSPollingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 044C17552431E75200579E02 /* YSPollingView.h */; };
 		8732B8BC241F58C2005BEB99 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8732B8BB241F58C2005BEB99 /* BMKit.framework */; };
 		8732B8C2241F73A2005BEB99 /* YSMainSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 8732B8BE241F73A2005BEB99 /* YSMainSuperVC.h */; };
 		8732B8C3241F73A2005BEB99 /* YSClassMainSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 8732B8BF241F73A2005BEB99 /* YSClassMainSuperVC.h */; };
@@ -269,6 +271,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044C17542431E75200579E02 /* YSPollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSPollingView.m; sourceTree = "<group>"; };
+		044C17552431E75200579E02 /* YSPollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSPollingView.h; sourceTree = "<group>"; };
 		8732B8BB241F58C2005BEB99 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
 		8732B8BE241F73A2005BEB99 /* YSMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
 		8732B8BF241F73A2005BEB99 /* YSClassMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSClassMainSuperVC.h; sourceTree = "<group>"; };
@@ -546,6 +550,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		044C17532431E75200579E02 /* YSPollingView */ = {
+			isa = PBXGroup;
+			children = (
+				044C17542431E75200579E02 /* YSPollingView.m */,
+				044C17552431E75200579E02 /* YSPollingView.h */,
+			);
+			path = YSPollingView;
+			sourceTree = "<group>";
+		};
 		8732B8BD241F73A2005BEB99 /* YSMainSuperVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -732,16 +745,17 @@
 		87DBE9C3241F52BC000C1FB5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
-				87DBE9C4241F52BC000C1FB5 /* YSTeacherRoleMainVC.h */,
-				87DBE9C5241F52BC000C1FB5 /* YSTeacherMediaControl */,
-				87DBE9CC241F52BC000C1FB5 /* YSVideoViewControlPopVC */,
-				87DBE9D3241F52BC000C1FB5 /* YSTeacherResponder */,
+				044C17532431E75200579E02 /* YSPollingView */,
 				87DBE9D6241F52BC000C1FB5 /* SCTeacherAnswerView */,
-				87DBE9D9241F52BC000C1FB5 /* SCTeacherTopPopverView */,
-				87DBE9DC241F52BC000C1FB5 /* YSTeacherTimer */,
-				87DBE9DF241F52BC000C1FB5 /* YSTeacherRoleMainVC.m */,
-				87DBE9E0241F52BC000C1FB5 /* SCTeacherTopBar */,
 				87DBE9E3241F52BC000C1FB5 /* SCTeacherListView */,
+				87DBE9E0241F52BC000C1FB5 /* SCTeacherTopBar */,
+				87DBE9D9241F52BC000C1FB5 /* SCTeacherTopPopverView */,
+				87DBE9C5241F52BC000C1FB5 /* YSTeacherMediaControl */,
+				87DBE9D3241F52BC000C1FB5 /* YSTeacherResponder */,
+				87DBE9DC241F52BC000C1FB5 /* YSTeacherTimer */,
+				87DBE9CC241F52BC000C1FB5 /* YSVideoViewControlPopVC */,
+				87DBE9C4241F52BC000C1FB5 /* YSTeacherRoleMainVC.h */,
+				87DBE9DF241F52BC000C1FB5 /* YSTeacherRoleMainVC.m */,
 			);
 			path = YSTeacherRole;
 			sourceTree = "<group>";
@@ -1376,6 +1390,7 @@
 				87DBE982241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.h in Headers */,
 				87DBEC00241F52BD000C1FB5 /* YSSignedAlertView.h in Headers */,
 				87DBEC10241F52BD000C1FB5 /* YSBarrageManager.h in Headers */,
+				044C17572431E75200579E02 /* YSPollingView.h in Headers */,
 				87DBE97C241F51AA000C1FB5 /* YSPermissionsVC.h in Headers */,
 				87DBEBF2241F52BD000C1FB5 /* SCEyeCareEmptyVC.h in Headers */,
 				87DBEBB7241F52BC000C1FB5 /* YSStudentResponder.h in Headers */,
@@ -1640,6 +1655,7 @@
 				87DBEB89241F52BC000C1FB5 /* SCColorSelectView.m in Sources */,
 				8732B8C5241F73A2005BEB99 /* YSClassMainSuperVC.m in Sources */,
 				87DBEB5C241F52BC000C1FB5 /* YSChatMessageModel.m in Sources */,
+				044C17562431E75200579E02 /* YSPollingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

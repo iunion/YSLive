@@ -1207,23 +1207,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.bm_centerY = rect.origin.y + rect.size.height/2; //self.whitebordBackgroud.bm_centerY;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
-    
-    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, BMUI_SCREEN_HEIGHT-70, 60, 60)];
-    [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
-    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
-    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
-    [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
-    [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
-    [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    coursewareBtn.titleLabel.font = UI_FONT_14;
-    coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    coursewareBtn.hidden = YES;
-    [self.view addSubview:coursewareBtn];
-    self.coursewareBtn = coursewareBtn;
-
-    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
-    coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width)+5, 0, 0);
-    coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 }
 
 ///刷新课件
@@ -1261,6 +1244,23 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
     [self.boardControlView addGestureRecognizer:panGestureRecognizer];
     self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag;
+    
+    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, self.boardControlView.bm_originY, 60, 60)];
+    [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
+    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
+    [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
+    [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    coursewareBtn.titleLabel.font = UI_FONT_14;
+    coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    coursewareBtn.hidden = YES;
+    [self.view addSubview:coursewareBtn];
+    self.coursewareBtn = coursewareBtn;
+    
+    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
+    coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width), 0, 0);
+    coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 }
 
 
