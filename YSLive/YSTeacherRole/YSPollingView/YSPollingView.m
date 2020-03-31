@@ -82,8 +82,6 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:tapGesture];
     
-    
-    
     self.bacView = [[UIView alloc] init];
     self.bacView.backgroundColor = [UIColor whiteColor];
     self.bacView.bm_width = backViewWidth;

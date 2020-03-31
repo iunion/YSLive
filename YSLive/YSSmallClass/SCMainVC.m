@@ -3643,7 +3643,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        self.coursewareBtn.hidden = NO;
+        self.coursewareBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
     }
     if (!isDynamic)
     {
@@ -5044,13 +5044,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         NSString *currentPage = [message objectForKey:@"currpage"];
 //        self.coursewareCurrentPage = currentPage.intValue;
         [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
+        
         if ([file.fileid isEqualToString:@"0"])
         {
             self.coursewareBtn.hidden = YES;
         }
         else
         {
-            self.coursewareBtn.hidden = NO;
+            self.coursewareBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         }
     }
     return;

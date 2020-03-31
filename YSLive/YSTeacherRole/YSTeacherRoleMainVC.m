@@ -3678,7 +3678,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        self.coursewareBtn.hidden = NO;
+        self.coursewareBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
     }
     
     BOOL isDynamic = YES;
@@ -3756,7 +3756,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            self.coursewareBtn.hidden = NO;
+            self.coursewareBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         }
     }
     
@@ -4044,7 +4044,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
         {
-            self.coursewareBtn.hidden = self.brushToolView.hidden;
+            self.coursewareBtn.hidden = self.boardControlView.hidden;
+        }
+        else
+        {
+            self.coursewareBtn.hidden = YES;
         }
     }
     
