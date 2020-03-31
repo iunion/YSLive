@@ -424,6 +424,7 @@
 "Prompt.DisableCamera" = "摄像头被禁用";
 "Prompt.CanotOpenCamera" = "打开摄像头失败";
 "Prompt.CameraOccupied" = "摄像头被占用";
+"Prompt.BrowserCanotSupport" = "浏览器不支持";
 
 "Prompt.VideoLoading" = "视频加载中";
 "Prompt.VideoBuffering" = "正在缓冲视频";

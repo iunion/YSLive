@@ -784,13 +784,21 @@
                 self.silentLab.text = YSLocalized(@"Prompt.MicrophoneOccupied");
             }
                 break;
-                
+               
+            // 未知错误
             case YSDeviceFaultUnknown:
             {
                 self.silentLab.text = YSLocalized(@"Prompt.DeviceUnknownError");
             }
                 break;
 
+            // 浏览器不支持
+            case YSDeviceFaulRemoteDescriptionFail:
+            {
+                self.silentLab.text = YSLocalized(@"Prompt.BrowserCanotSupport");
+            }
+                break;
+                
             // 设备打开失败
             default:
             {
