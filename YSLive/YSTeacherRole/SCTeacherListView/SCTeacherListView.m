@@ -309,7 +309,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 }
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage
 {
-    _totalPage = totalPage + 1;
+    _totalPage = totalPage;
     if (_totalPage < 1)
     {
         _totalPage = 1;
