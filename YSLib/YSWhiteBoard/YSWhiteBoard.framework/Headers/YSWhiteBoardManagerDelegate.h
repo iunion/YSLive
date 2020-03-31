@@ -48,6 +48,7 @@ PubMsg消息
 
 
 /// 本地操作，缩放课件比例变化
+/// 动态ppt，H5课件，GIF动图，SVG图不支持放大缩小
 - (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale;
 
 
