@@ -431,6 +431,7 @@
 "Prompt.DisableCamera" = "Camera disable";
 "Prompt.CanotOpenCamera" = "Device open error";
 "Prompt.CameraOccupied" = "Camera occupied";
+"Prompt.BrowserCanotSupport" = "Invalid browser";
 
 "Prompt.VideoLoading" = "Video loading";
 "Prompt.VideoBuffering" = "Video buffering";
