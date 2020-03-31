@@ -37,13 +37,13 @@
     {
         self.playBtn.frame = CGRectMake(30, 20, 26, 33);
         
-        self.closeBtn.frame = CGRectMake(self.bm_width - 30, 25, 25, 25);
+//        self.closeBtn.frame = CGRectMake(self.bm_width - 30, 25, 25, 25);
         
         self.nameLabel.frame = CGRectMake(CGRectGetMaxX(self.playBtn.frame) + 12, 18, self.bm_width - 220, 17);
         //    self.nameLabel.bm_left = self.playBtn.bm_right + 12;
         
         self.timeLabel.frame = CGRectMake( 0, 18, 100, 17);
-        self.timeLabel.bm_right = self.bm_right - 60;
+        self.timeLabel.bm_right = self.bm_width - 60;
         
         [self.nameLabel bm_setLeft:self.playBtn.bm_right + 12 right:self.timeLabel.bm_left - 5];
         
@@ -52,7 +52,8 @@
         self.sliderView.bm_left = self.playBtn.bm_right + 12;
         
 //        self.closeBtn.frame = CGRectMake(0, 25, 25, 25);
-//        self.closeBtn.bm_right = self.bm_right - 20;
+        self.closeBtn.bm_right = self.bm_width - 20;
+        
     }
     else
     {
@@ -120,7 +121,7 @@
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.closeBtn = closeBtn;
     [self addSubview:self.closeBtn];
-    self.closeBtn.frame = CGRectMake(0, 0, 25, 25);
+    self.closeBtn.frame = CGRectMake(0, 25, 25, 25);
     [self.closeBtn setBackgroundImage:[UIImage imageNamed:@"ysteacher_closemp4_normal"] forState:UIControlStateNormal];
     [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -148,7 +149,6 @@
 {
     _isPlay = isPlay;
     self.playBtn.selected = !isPlay;
-    
 }
 
 - (void)sliderViewChange:(YSMediaSlider *)sender
@@ -156,7 +156,6 @@
     NSString *currentTime = [self countDownStringDateFromTs:self.duration * sender.value/1000];
     NSString *totalTime = [self countDownStringDateFromTs:self.duration/1000];
     self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",currentTime,totalTime];
-    
 }
 
 - (void)sliderViewStart:(YSMediaSlider *)sender
