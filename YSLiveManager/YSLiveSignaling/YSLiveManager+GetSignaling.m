@@ -868,9 +868,9 @@
     /// 收到轮播
     if ([msgName isEqualToString:YSSignalingName_VideoPolling])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToStartVideoPolling)])
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToStartVideoPollingFromID:)])
         {
-            [self.roomManagerDelegate handleSignalingToStartVideoPolling];
+            [self.roomManagerDelegate handleSignalingToStartVideoPollingFromID:fromID];
         }
         return;
     }

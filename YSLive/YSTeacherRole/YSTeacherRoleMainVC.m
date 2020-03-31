@@ -5132,6 +5132,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSRoomUser *roomUser = nil;
     for (NSString *tempPeerID in self.pollingArr)
     {
+        
         SCVideoView *videoView = [self getVideoViewWithPeerId:tempPeerID];
         if (videoView)
         {
@@ -5141,6 +5142,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
                 break;
             }
+        }
+        else
+        {
+            roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
+            break;
         }
 
     }
@@ -5202,10 +5208,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 收到轮播
-- (void)handleSignalingToStartVideoPolling
+- (void)handleSignalingToStartVideoPollingFromID:(NSString *)fromID
 {
     _isPolling = YES;
     self.topToolBar.pollingBtn.selected = YES;
+    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:fromID];
+    if (!user)
+    {
+        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+        return;
+    }
+    if (user.role == YSUserType_Assistant)
+    {
+        return;
+    }
+    if (![fromID isEqualToString:self.liveManager.localUser.peerID])
+    {
+        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+    }
+
 }
 ///结束轮播
 - (void)handleSignalingToStopVideoPolling

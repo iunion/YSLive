@@ -117,6 +117,25 @@ static YSLiveManager *liveManagerSingleton = nil;
         [liveManagerSingleton registerURLProtocol:YES];
         
         liveManagerSingleton.devicePerformance_Low = NO;
+
+        liveManagerSingleton.isBigRoom = NO;
+        liveManagerSingleton.viewDidAppear = NO;
+        liveManagerSingleton.waitingForReconnect = NO;
+        /// 全体禁言
+        liveManagerSingleton.isEveryoneBanChat = NO;
+        /// 是否打开上麦功能
+        liveManagerSingleton.allowEveryoneUpPlatform = NO;
+        /// 全体禁音
+        liveManagerSingleton.isEveryoneNoAudio = NO;
+        liveManagerSingleton.isBeginClass = NO;
+        liveManagerSingleton.playingMedia = NO;
+        
+#if YSSDK
+        // 区分是否进入教室
+        liveManagerSingleton.sdkIsJoinRoom = NO;
+#endif
+        
+        liveManagerSingleton.whiteBordView = nil;
         
         // 默认自动镜像
         liveManagerSingleton.localVideoMirrorMode = YSVideoMirrorModeAuto;
