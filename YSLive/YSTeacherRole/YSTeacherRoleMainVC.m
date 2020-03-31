@@ -1728,11 +1728,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 self.teacherVideoView = videoView;
             }
+            /// 轮播相关逻辑
             if (roomUser.role == YSUserType_Student)
             {
                 [self.pollingUpPlatformArr addObject:peerId];
             }
-            
+            if (_isPolling)
+            {
+                /// 台下无人时 停止轮播
+                if (self.pollingUpPlatformArr.count == self.liveManager.studentCount)
+                {
+                    [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+                }
+            }
         }
         
         if (self.teacherVideoView)
@@ -2139,23 +2147,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
  
     
-    NSInteger total = 0;
-    for (YSRoomUser * user in self.liveManager.userList)
+    if (_isPolling)
     {
-        if (user.role == YSUserType_Student || user.role == YSUserType_Teacher)
+        NSInteger total = 0;
+        for (YSRoomUser * user in self.liveManager.userList)
         {
-            total++;
+            if (user.role == YSUserType_Student || user.role == YSUserType_Teacher)
+            {
+                total++;
+            }
+        }
+        if (total < maxVideoCount)
+        {
+            [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
         }
     }
-    if (total < maxVideoCount)
-    {
-        self.topToolBar.pollingBtn.enabled = NO;
-        if (self.pollingTimer)
-        {
-            dispatch_source_cancel(self.pollingTimer);
-            self.pollingTimer = nil;
-        }
-    }
+
     
 
 }
