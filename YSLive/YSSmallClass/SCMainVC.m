@@ -2115,6 +2115,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
             [videoView bringSubviewToFront:videoView.backVideoView];
+
+            if (self.liveManager.roomConfig.isMirrorVideo)
+            {
+                // 视频镜像要在play之后
+                NSDictionary *properties = videoView.roomUser.properties;
+                if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+                {
+                    BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                    [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+                }
+            }
         }
         [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
     }
@@ -2133,6 +2144,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
             [videoView bringSubviewToFront:videoView.backVideoView];
+            
+            if (self.liveManager.roomConfig.isMirrorVideo)
+            {
+                NSDictionary *properties = videoView.roomUser.properties;
+                if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+                {
+                    BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                    [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+                }
+            }
         }
         [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
     }
@@ -2162,6 +2183,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
         [videoView bringSubviewToFront:videoView.backVideoView];
         
+        if (self.liveManager.roomConfig.isMirrorVideo)
+        {
+            NSDictionary *properties = videoView.roomUser.properties;
+            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+            {
+                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+            }
+        }
+        
         [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
     }
     if (publishState == YSUser_PublishState_AUDIOONLY)
@@ -2175,6 +2206,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
         [videoView bringSubviewToFront:videoView.backVideoView];
 
+        if (self.liveManager.roomConfig.isMirrorVideo)
+        {
+            NSDictionary *properties = videoView.roomUser.properties;
+            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+            {
+                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+            }
+        }
+        
         [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
     }
     if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
