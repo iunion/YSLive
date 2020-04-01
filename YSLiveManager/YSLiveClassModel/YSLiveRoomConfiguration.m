@@ -61,7 +61,7 @@
         self.isShowUserNum                      = [self cutOutStringWithIndex: 200];
         self.isChatBeforeClass                  = [self cutOutStringWithIndex: 201];
         self.isDisablePrivateChat               = [self cutOutStringWithIndex: 202];
-        self.isMirrorVideo                      = [self cutOutStringWithIndex: 203];
+        self.isMirrorVideo                      = [self cutOutStringWithIndex: 148];
     }
     
     return self;

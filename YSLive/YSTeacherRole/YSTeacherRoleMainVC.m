@@ -1551,6 +1551,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
             [videoView bringSubviewToFront:videoView.backVideoView];
+
+            if (self.liveManager.roomConfig.isMirrorVideo)
+            {
+                // 视频镜像要在play之后
+                NSDictionary *properties = videoView.roomUser.properties;
+                if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+                {
+                    BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                    [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+                }
+            }
         }
         [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
     }
@@ -1569,6 +1580,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
             [videoView bringSubviewToFront:videoView.backVideoView];
+
+            if (self.liveManager.roomConfig.isMirrorVideo)
+            {
+                NSDictionary *properties = videoView.roomUser.properties;
+                if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+                {
+                    BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                    [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+                }
+            }
         }
         [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
     }
@@ -1598,6 +1619,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
         [videoView bringSubviewToFront:videoView.backVideoView];
         
+        if (self.liveManager.roomConfig.isMirrorVideo)
+        {
+            NSDictionary *properties = videoView.roomUser.properties;
+            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+            {
+                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+            }
+        }
+        
         [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
     }
     if (publishState == YSUser_PublishState_AUDIOONLY)
@@ -1611,6 +1642,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
         [videoView bringSubviewToFront:videoView.backVideoView];
 
+        if (self.liveManager.roomConfig.isMirrorVideo)
+        {
+            NSDictionary *properties = videoView.roomUser.properties;
+            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+            {
+                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+                [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
+            }
+        }
+        
         [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
     }
     if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
@@ -1726,11 +1767,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 self.teacherVideoView = videoView;
             }
+            /// 轮播相关逻辑
             if (roomUser.role == YSUserType_Student)
             {
                 [self.pollingUpPlatformArr addObject:peerId];
             }
-            
+            if (_isPolling)
+            {
+                /// 台下无人时 停止轮播
+                if (self.pollingUpPlatformArr.count == self.liveManager.studentCount)
+                {
+                    [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+                }
+            }
         }
         
         if (self.teacherVideoView)
@@ -2137,23 +2186,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
  
     
-    NSInteger total = 0;
-    for (YSRoomUser * user in self.liveManager.userList)
+    if (_isPolling)
     {
-        if (user.role == YSUserType_Student || user.role == YSUserType_Teacher)
+        NSInteger total = 0;
+        for (YSRoomUser * user in self.liveManager.userList)
         {
-            total++;
+            if (user.role == YSUserType_Student || user.role == YSUserType_Teacher)
+            {
+                total++;
+            }
+        }
+        if (total < maxVideoCount)
+        {
+            [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
         }
     }
-    if (total < maxVideoCount)
-    {
-        self.topToolBar.pollingBtn.enabled = NO;
-        if (self.pollingTimer)
-        {
-            dispatch_source_cancel(self.pollingTimer);
-            self.pollingTimer = nil;
-        }
-    }
+
     
 
 }
@@ -2163,8 +2211,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSInteger userCount = self.liveManager.studentCount;
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
-    
-    [self freshTeacherPersonListData];
 }
 
 /// 自己被踢出房间
@@ -2489,7 +2535,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [videoView freshWithRoomUserProperty:roomUser];
     }
 
-    [self freshTeacherPersonListData];
+    if ([properties bm_containsObjectForKey:sUserPublishstate] || [properties bm_containsObjectForKey:sUserGiftNumber] || [properties bm_containsObjectForKey:sUserDisablechat])
+    {
+        if ((roomUser.role = YSUserType_Student) || (roomUser.role == YSUserType_Assistant))
+        {
+            [self freshTeacherPersonListData];
+        }
+    }
 }
 
 #pragma mark 音量变化
@@ -2801,8 +2853,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (self.liveManager.isBigRoom)
         {
             BMWeakSelf
-            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
-            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            NSInteger studentNum = self.liveManager.studentCount;
+            NSInteger assistantNum = self.liveManager.assistantCount;
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:ceil((CGFloat)(studentNum + assistantNum)/(CGFloat)onePageMaxUsers)];
             [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -2830,20 +2882,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
              
-            NSArray *ddd = [listArr bm_divisionWithCount:onePageMaxUsers];
-            NSArray *data = nil;
-            if (_personListCurentPage >= ddd.count)
-            {
-                data = ddd.lastObject;
-            }
-            else
-            {
-                data = ddd[_personListCurentPage];
-            }
+            NSArray *data = [listArr bm_divisionWithCount:onePageMaxUsers atIndex:_personListCurentPage appoint:NO];
             
             [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
 
-//            [self.teacherListView setDataSource:[YSLiveManager shareInstance].userList withType:SCTeacherTopBarTypePersonList userNum:self.liveManager.studentCount];
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
         }
     }
@@ -2927,10 +2969,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp3ControlView.hidden = NO;
     [self arrangeAllViewInVCView];
 }
+
 - (void)onStopMp3
 {
     self.mp3ControlView.hidden = YES;
 }
+
 // 停止白板视频/音频
 - (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
@@ -2950,18 +2994,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 继续播放白板视频/音频
 - (void)handleWhiteBordPlayMediaStream
 {
-     if (self.liveManager.playMediaModel.video)
+    if (self.liveManager.playMediaModel.video)
     {
-        
+        if (!self.mp4ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:YES];
+        }
         self.mp4ControlView.isPlay = YES;
     }
     else if (self.liveManager.playMediaModel.audio)
     {
-
         [self onPlayMp3];
+        if (!self.mp3ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:YES];
+        }
         self.mp3ControlView.isPlay = YES;
     }
-    [self freshTeacherCoursewareListDataWithPlay:YES];
 }
 
 /// 暂停播放白板视频/音频
@@ -2969,14 +3018,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (self.liveManager.playMediaModel.video)
     {
+        if (self.mp4ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:NO];
+        }
         self.mp4ControlView.isPlay = NO;
     }
     else if (self.liveManager.playMediaModel.audio)
     {
+        if (self.mp3ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:NO];
+        }
         self.mp3ControlView.isPlay = NO;
     }
-    [self freshTeacherCoursewareListDataWithPlay:NO];
-
 }
  
 - (void)onRoomUpdateMediaStream:(NSTimeInterval)duration
@@ -3056,9 +3111,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected )
     {
         YSFileModel *file = [[YSLiveManager shareInstance] getFileWithFileID:self.liveManager.playMediaModel.fileid];
-        file.isPlaying = isPlay;
+        if (file.isPlaying != isPlay)
+        {
+            file.isPlaying = isPlay;
         
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+            [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+        }
     }
 }
 
@@ -4573,7 +4631,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         NSInteger total = 0;
         if (weakSelf.liveManager.isBigRoom)
         {
-            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+            NSInteger studentNum = self.liveManager.studentCount;
             total = studentNum;
         }
         else
@@ -4679,7 +4737,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSInteger total = 0;
     if (self.liveManager.isBigRoom)
     {
-        NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
+        NSInteger studentNum = self.liveManager.studentCount;
         total = studentNum;
     }
     else
@@ -5939,22 +5997,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.liveManager.isBigRoom)
         {
-            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
-//            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            NSInteger studentNum = self.liveManager.studentCount;
             [self.teacherListView setPersonListCurrentPage:page totalPage:ceil((CGFloat)searchArr.count/(CGFloat)onePageMaxUsers)];
-            if (searchArr.count > onePageMaxUsers)
-            {
-                if (page * onePageMaxUsers <= searchArr.count)
-                {
-                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, onePageMaxUsers)];
-                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-                }
-                else
-                {
-                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, searchArr.count - page * onePageMaxUsers)];
-                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-                }
-            }
+            
+            NSArray *data = [searchArr bm_divisionWithCount:onePageMaxUsers atIndex:page appoint:NO];
+            [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
         }
     }
     else
@@ -5970,30 +6017,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     page++;
     if (isSearch)
     {
-        NSInteger studentNum  = 0;
-        if (self.liveManager.isBigRoom)
-        {
-            studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
-        }
-        else
-        {
-            studentNum = self.liveManager.studentCount;
-        }
+        NSInteger studentNum = self.liveManager.studentCount;
         [self.teacherListView setPersonListCurrentPage:page totalPage:ceil((CGFloat)searchArr.count/(CGFloat)onePageMaxUsers)];
-        if (searchArr.count > onePageMaxUsers)
-        {
-            if (searchArr.count - page * onePageMaxUsers > onePageMaxUsers)
-            {
-                NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, onePageMaxUsers)];
-                [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-            }
-            else
-            {
-                NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, searchArr.count - page * onePageMaxUsers)];
-                [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-            }
-        }
         
+        NSArray *data = [searchArr bm_divisionWithCount:onePageMaxUsers atIndex:page appoint:NO];
+        [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
     }
     else
     {
@@ -6033,7 +6061,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {
                     [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
                 }
-                
             });
             
         }];

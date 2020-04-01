@@ -208,7 +208,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否禁止观众私聊 202
 @property (nonatomic, assign) BOOL isDisablePrivateChat;
 
-/// 是否同步镜像视频
+/// 是否同步镜像视频 148
 @property (nonatomic, assign) BOOL isMirrorVideo;
 
 - (instancetype)initWithConfigurationString:(NSString *)configurationString;
