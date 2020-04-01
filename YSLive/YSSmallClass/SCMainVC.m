@@ -4094,7 +4094,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [videoView freshWithRoomUserProperty:roomUser];
     }
     
-//    [self freshTeacherPersonListData];
+    if ([properties bm_containsObjectForKey:sUserPublishstate] || [properties bm_containsObjectForKey:sUserGiftNumber] || [properties bm_containsObjectForKey:sUserDisablechat])
+    {
+        if ((roomUser.role = YSUserType_Student) || (roomUser.role == YSUserType_Assistant))
+        {
+            [self freshTeacherPersonListData];
+        }
+    }
 }
 
 #pragma mark 音量变化
