@@ -150,19 +150,19 @@
 
 - (void)onRoomUserVideoStatus:(NSString *)peerID state:(YSMediaState)state
 {
-    if (state == YSMedia_Pulished)
-    {
-        if (self.liveManager.roomConfig.isMirrorVideo)
-        {
-            YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-            NSDictionary *properties = roomUser.properties;
-            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
-            {
-                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
-                [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
-            }
-        }
-    }
+//    if (state == YSMedia_Pulished)
+//    {
+//        if (self.liveManager.roomConfig.isMirrorVideo)
+//        {
+//            YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+//            NSDictionary *properties = roomUser.properties;
+//            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
+//            {
+//                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
+//                [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
+//            }
+//        }
+//    }
 }
 
 /// 镜像视频模式改变
