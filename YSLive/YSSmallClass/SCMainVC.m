@@ -2103,7 +2103,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         renderType = YSRenderMode_fit;
     }
 #endif
-        
+    
     if (publishState == YSUser_PublishState_VIDEOONLY)
     {
         if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
@@ -4234,6 +4234,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.topToolBar hidePersonListBtn:YES];
     }
     [self freshTeacherPersonListData];
+    
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
 #if 0
@@ -4288,12 +4289,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [self delVidoeViewWithPeerId:peerID];
             }
         }
-    }
-    
-    if (self.appUseTheType != YSAppUseTheTypeMeeting)
-    {
-        [self.liveManager stopPlayVideo:YSCurrentUser.peerID completion:nil];
-        [self.liveManager stopPlayAudio:YSCurrentUser.peerID completion:nil];
     }
     
     self.boardControlView.allowPaging = NO;
