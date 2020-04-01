@@ -2143,6 +2143,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     [self topToolBarPollingBtnEnable];
+    self.topToolBar.pollingBtn.selected = _isPolling;
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
@@ -2205,6 +2206,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         /// 如果轮播发起者退出房间 则停止轮播
         if ([_pollingFromID isEqualToString:user.peerID])
         {
+            _isPolling = NO;
             if (self.pollingTimer)
             {
                 dispatch_source_cancel(self.pollingTimer);
@@ -2216,9 +2218,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 self.topToolBar.pollingBtn.selected = NO;
             }
-            _isPolling = NO;
+            
         }
         
+    }
+    else
+    {
+        [self topToolBarPollingBtnEnable];
     }
 
     
@@ -3954,6 +3960,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     self.topToolBar.pollingBtn.enabled = total >= maxVideoCount;
+    
 }
 
 #pragma mark 切换布局模式
@@ -5074,6 +5081,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)startPollingWithTime:(NSInteger)time
 {
+    _isPolling = YES;
+    [self.liveManager sendSignalingTeacherToStartVideoPollingWithUserID:self.liveManager.localUser.peerID completion:nil];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.pollingTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     
@@ -5089,9 +5098,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //4.开始执行
     dispatch_resume(self.pollingTimer);
     [self.teacherPollingView dismiss:nil animated:NO dismissBlock:nil];
-    _isPolling = YES;
-    
-    [self.liveManager sendSignalingTeacherToStartVideoPollingCompletion:nil];
+
     
 }
 
@@ -5178,6 +5185,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 收到轮播
 - (void)handleSignalingToStartVideoPollingFromID:(NSString *)fromID
 {
+    
     _isPolling = YES;
     self.topToolBar.pollingBtn.selected = YES;
     _pollingFromID = fromID;
@@ -5205,13 +5213,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         dispatch_source_cancel(self.pollingTimer);
         self.pollingTimer = nil;
     }
-    
+    _isPolling = NO;
     [self topToolBarPollingBtnEnable];
     if (self.topToolBar.pollingBtn.enabled)
     {
         self.topToolBar.pollingBtn.selected = NO;
     }
-    _isPolling = NO;
+    
 }
 
 #pragma mark -

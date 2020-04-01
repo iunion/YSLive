@@ -604,12 +604,10 @@
 
 
 /// 老师发起轮播
-- (BOOL)sendSignalingTeacherToStartVideoPollingCompletion:(nullable completion_block)completion
+- (BOOL)sendSignalingTeacherToStartVideoPollingWithUserID:(NSString *)peerId completion:(nullable completion_block)completion;
 {
     
-    NSDictionary *sendDic = @{@"assID": self.localUser.peerID
-    };
-    BOOL result = [self.roomManager pubMsg:YSSignalingName_VideoPolling msgID:YSSignalingName_VideoPolling toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES extensionData:nil associatedMsgID:nil associatedUserID:self.localUser.peerID expires:0 completion:nil] == 0;
+    BOOL result = [self.roomManager pubMsg:YSSignalingName_VideoPolling msgID:YSSignalingName_VideoPolling toID:YSRoomPubMsgTellAll data:@{} save:YES extensionData:nil associatedMsgID:nil associatedUserID:peerId expires:0 completion:nil] == 0;
     
     return result;
 }

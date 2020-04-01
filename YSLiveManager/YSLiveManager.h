@@ -778,7 +778,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 老师订阅/取消订阅举手列表   type  subSort订阅/  unsubSort取消订阅
 - (BOOL)sendSignalingToSubscribeAllRaiseHandMemberWithType:(NSString*)type Completion:(nullable completion_block)completion;
 /// 老师发起轮播
-- (BOOL)sendSignalingTeacherToStartVideoPollingCompletion:(nullable completion_block)completion;
+- (BOOL)sendSignalingTeacherToStartVideoPollingWithUserID:(NSString *)peerId completion:(nullable completion_block)completion;
 /// 老师停止轮播
 - (BOOL)sendSignalingTeacherToStopVideoPollingCompletion:(nullable completion_block)completion;
 
