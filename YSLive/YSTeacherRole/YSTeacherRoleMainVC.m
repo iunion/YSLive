@@ -172,6 +172,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL _isMp4Play;// 是否是MP4全屏播放
     BOOL _isMp4ControlHide;// MP4控制是否显示 关闭按钮是否显示
     BOOL _isPolling;// 正在轮播
+    NSString *_pollingFromID;/// 轮播发起者ID
     
 }
 
@@ -2200,6 +2201,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
         }
+        
+        /// 如果轮播发起者退出房间 则停止轮播
+        if ([_pollingFromID isEqualToString:user.peerID])
+        {
+            if (self.pollingTimer)
+            {
+                dispatch_source_cancel(self.pollingTimer);
+                self.pollingTimer = nil;
+            }
+            
+            [self topToolBarPollingBtnEnable];
+            if (self.topToolBar.pollingBtn.enabled)
+            {
+                self.topToolBar.pollingBtn.selected = NO;
+            }
+            _isPolling = NO;
+        }
+        
     }
 
     
@@ -5159,20 +5178,21 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     _isPolling = YES;
     self.topToolBar.pollingBtn.selected = YES;
-    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:fromID];
-    if (!user)
-    {
-        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
-        return;
-    }
-    if (user.role == YSUserType_Assistant)
-    {
-        return;
-    }
-    if (![fromID isEqualToString:self.liveManager.localUser.peerID])
-    {
-        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
-    }
+    _pollingFromID = fromID;
+//    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:fromID];
+//    if (!user)
+//    {
+//        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+//        return;
+//    }
+//    if (user.role == YSUserType_Assistant)
+//    {
+//        return;
+//    }
+//    if (![fromID isEqualToString:self.liveManager.localUser.peerID])
+//    {
+//        [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+//    }
 
 }
 ///结束轮播

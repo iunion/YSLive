@@ -877,9 +877,12 @@
     /// 收到轮播
     if ([msgName isEqualToString:YSSignalingName_VideoPolling])
     {
+               
+        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingToStartVideoPollingFromID:)])
         {
-            [self.roomManagerDelegate handleSignalingToStartVideoPollingFromID:fromID];
+            NSString *pollingID = [dict bm_stringForKey:@"assID"];
+            [self.roomManagerDelegate handleSignalingToStartVideoPollingFromID:pollingID];
         }
         return;
     }
