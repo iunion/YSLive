@@ -86,6 +86,8 @@
 {
     [super viewWillAppear:animated];
 
+    [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
+    
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 

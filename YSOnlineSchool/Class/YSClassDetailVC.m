@@ -56,6 +56,13 @@
 {
     [super viewWillAppear:animated];
 
+    [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
     GetAppDelegate.allowRotation = NO;
 }
 
