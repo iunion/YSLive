@@ -1481,13 +1481,30 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.roomtype == YSRoomType_One)
     {
-        if(self.videoViewArray.count>1)
+        if (self.videoViewArray.count>1)
         {
             self.userVideoView.hidden = YES;
         }
         else
         {
             self.userVideoView.hidden = NO;
+            if (self.videoViewArray.count == 1)
+            {
+                SCVideoView *videoView = self.videoViewArray.firstObject;
+                if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+                {
+                    [self.liveManager stopPlayVideo:YSCurrentUser.peerID completion:nil];
+                    [self.liveManager stopPlayAudio:YSCurrentUser.peerID completion:nil];
+                    if (videoView.roomUser.role == YSUserType_Student)
+                    {
+                        self.userVideoView.hidden = YES;
+                    }
+                }
+                else
+                {
+                    self.userVideoView.hidden = YES;
+                }
+            }
         }
         
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
