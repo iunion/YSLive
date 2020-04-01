@@ -2750,8 +2750,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (self.liveManager.isBigRoom)
         {
             BMWeakSelf
-            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
-            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            NSInteger studentNum = self.liveManager.userCount;
+            NSInteger assistantNum = self.liveManager.assistantCount;
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:ceil((CGFloat)(studentNum + assistantNum)/(CGFloat)onePageMaxUsers)];
             [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -2782,17 +2782,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 }
             }
             
-            NSArray *ddd = [listArr bm_divisionWithCount:onePageMaxUsers];
-            NSArray *data = nil;
-            if (_personListCurentPage >= ddd.count)
-            {
-                data = ddd.lastObject;
-            }
-            else
-            {
-                data = ddd[_personListCurentPage];
-            }
-            
+            NSArray *data = [listArr bm_divisionWithCount:onePageMaxUsers atIndex:_personListCurentPage appoint:NO];
               [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
             
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
@@ -2838,22 +2828,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (self.liveManager.isBigRoom)
         {
-            NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
-//            NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+            NSInteger studentNum = self.liveManager.studentCount;
             [self.teacherListView setPersonListCurrentPage:page totalPage:ceil((CGFloat)searchArr.count/(CGFloat)onePageMaxUsers)];
-            if (searchArr.count > onePageMaxUsers)
-            {
-                if (page * onePageMaxUsers <= searchArr.count)
-                {
-                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, onePageMaxUsers)];
-                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-                }
-                else
-                {
-                    NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, searchArr.count - page * onePageMaxUsers)];
-                    [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-                }
-            }
+            NSArray *data = [searchArr bm_divisionWithCount:onePageMaxUsers atIndex:page appoint:NO];
+            [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
         }
     }
     else
@@ -2861,7 +2839,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         _personListCurentPage = page;
         [self freshTeacherPersonListData];
     }
-    
 }
 
 - (void)rightPageProxyWithPage:(NSInteger)page
@@ -2869,30 +2846,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     page++;
     if (isSearch)
     {
-        NSInteger studentNum  = 0;
-        if (self.liveManager.isBigRoom)
-        {
-            studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
-        }
-        else
-        {
-            studentNum = self.liveManager.studentCount;
-        }
+        NSInteger studentNum = self.liveManager.studentCount;
         [self.teacherListView setPersonListCurrentPage:page totalPage:ceil((CGFloat)searchArr.count/(CGFloat)onePageMaxUsers)];
-        if (searchArr.count > onePageMaxUsers)
-        {
-            if (searchArr.count - page * onePageMaxUsers > onePageMaxUsers)
-            {
-                NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, onePageMaxUsers)];
-                [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-            }
-            else
-            {
-                NSArray *data = [searchArr subarrayWithRange:NSMakeRange(page * onePageMaxUsers, searchArr.count - page * onePageMaxUsers)];
-                [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
-            }
-        }
-        
+        NSArray *data = [searchArr bm_divisionWithCount:onePageMaxUsers atIndex:page appoint:NO];
+        [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
     }
     else
     {
@@ -2914,8 +2871,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         
         BMWeakSelf
-        NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
-        NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
+        NSInteger studentNum = self.liveManager.studentCount;
+        NSInteger assistantNum = self.liveManager.assistantCount;
 
         [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -3787,7 +3744,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)roomManagerBigRoomFreshUserCountInList:(BOOL)inlist
 {
-    [self freshTeacherPersonListData];
 }
 
 /// 自己被踢出房间
