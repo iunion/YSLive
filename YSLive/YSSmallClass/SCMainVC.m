@@ -2837,10 +2837,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected)
     {
         YSFileModel *file = [[YSLiveManager shareInstance] getFileWithFileID:self.liveManager.playMediaModel.fileid];
-        file.isPlaying = isPlay;
-        [self.teacherListView setUserRole:self.liveManager.localUser.role];
+        if (file.isPlaying != isPlay)
+        {
+            file.isPlaying = isPlay;
+            [self.teacherListView setUserRole:self.liveManager.localUser.role];
 
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+            [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+        }
     }
 }
 

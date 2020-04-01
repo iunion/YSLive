@@ -2975,10 +2975,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp3ControlView.hidden = NO;
     [self arrangeAllViewInVCView];
 }
+
 - (void)onStopMp3
 {
     self.mp3ControlView.hidden = YES;
 }
+
 // 停止白板视频/音频
 - (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
@@ -2998,19 +3000,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 继续播放白板视频/音频
 - (void)handleWhiteBordPlayMediaStream
 {
-    
     if (self.liveManager.playMediaModel.video)
     {
-        
+        if (!self.mp4ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:YES];
+        }
         self.mp4ControlView.isPlay = YES;
     }
     else if (self.liveManager.playMediaModel.audio)
     {
-
         [self onPlayMp3];
+        if (!self.mp3ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:YES];
+        }
         self.mp3ControlView.isPlay = YES;
     }
-    [self freshTeacherCoursewareListDataWithPlay:YES];
 }
 
 /// 暂停播放白板视频/音频
@@ -3018,14 +3024,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (self.liveManager.playMediaModel.video)
     {
+        if (self.mp4ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:NO];
+        }
         self.mp4ControlView.isPlay = NO;
     }
     else if (self.liveManager.playMediaModel.audio)
     {
+        if (self.mp3ControlView.isPlay)
+        {
+            [self freshTeacherCoursewareListDataWithPlay:NO];
+        }
         self.mp3ControlView.isPlay = NO;
     }
-    [self freshTeacherCoursewareListDataWithPlay:NO];
-
 }
  
 - (void)onRoomUpdateMediaStream:(NSTimeInterval)duration
@@ -3105,9 +3117,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected)
     {
         YSFileModel *file = [[YSLiveManager shareInstance] getFileWithFileID:self.liveManager.playMediaModel.fileid];
-        file.isPlaying = isPlay;
+        if (file.isPlaying != isPlay)
+        {
+            file.isPlaying = isPlay;
         
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+            [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+        }
     }
 }
 
