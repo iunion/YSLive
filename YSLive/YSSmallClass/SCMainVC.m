@@ -3570,6 +3570,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self.liveManager serverLog:@"studentonRoomConnectionLost"];
 
+#if 0
     [self removeAllVideoView];
     
     if (self.isWhitebordFullScreen)
@@ -3599,6 +3600,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     [self resetDrawTools];
+#endif
 }
 
 - (void)resetDrawTools
