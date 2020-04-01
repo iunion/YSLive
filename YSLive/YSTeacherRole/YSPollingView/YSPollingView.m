@@ -116,7 +116,6 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.stepperInputView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF alpha:0.5];
     
     
-    
     self.stepperInputView.delegate = self;
     
     self.stepperInputView.minNumberValue = [[NSDecimalNumber alloc] initWithString:[NSString stringWithFormat:@"%@",@(minSecond)]];

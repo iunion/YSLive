@@ -839,8 +839,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.bm_centerY = rect.origin.y + rect.size.height/2;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
-    
-    
 }
 
 ///刷新课件
@@ -2852,8 +2850,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (fresh || (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList && self.topSelectBtn.selected))
     {
         //花名册  有用户进入房间调用 上下课调用
-               //花名册  有用户进入房间调用 上下课调用
-        
         if (self.liveManager.isBigRoom)
         {
             BMWeakSelf
@@ -2865,7 +2861,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                    // UI更新代码
                    [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
                 });
-                
             }];
         }
         else
@@ -2892,7 +2887,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
 
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
-
         }
     }
 }
@@ -3114,7 +3108,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -刷新课件库数据
 - (void)freshTeacherCoursewareListDataWithPlay:(BOOL)isPlay
 {
-    if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected)
+    if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected )
     {
         YSFileModel *file = [[YSLiveManager shareInstance] getFileWithFileID:self.liveManager.playMediaModel.fileid];
         if (file.isPlaying != isPlay)
@@ -3837,7 +3831,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         //全局控制
         [self popoverToolSenderWithType:SCTeacherTopBarTypeAllControll sender:btn];
-        
     }
     
     if (btn.tag == SCTeacherTopBarTypeToolBox)
@@ -3868,7 +3861,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         btn.selected = !btn.selected;
     }
-    
     self.topSelectBtn = btn;
 }
 
@@ -5088,7 +5080,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSRoomUser *roomUser = nil;
     for (NSString *tempPeerID in self.pollingArr)
     {
-        
         SCVideoView *videoView = [self getVideoViewWithPeerId:tempPeerID];
         if (videoView)
         {

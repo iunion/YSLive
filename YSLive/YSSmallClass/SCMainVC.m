@@ -146,7 +146,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     BOOL isSearch;
     NSMutableArray *searchArr;
-
 }
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
@@ -4093,7 +4092,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [videoView freshWithRoomUserProperty:roomUser];
     }
-    
+
     if ([properties bm_containsObjectForKey:sUserPublishstate] || [properties bm_containsObjectForKey:sUserGiftNumber] || [properties bm_containsObjectForKey:sUserDisablechat])
     {
         if ((roomUser.role = YSUserType_Student) || (roomUser.role == YSUserType_Assistant))
