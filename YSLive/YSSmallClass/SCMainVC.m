@@ -1490,11 +1490,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.userVideoView.hidden = NO;
             if (self.videoViewArray.count == 1)
             {
-                SCVideoView *videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
-                if (!videoView)
+                SCVideoView *videoView = self.videoViewArray.firstObject;
+                if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
                     [self.liveManager stopPlayVideo:YSCurrentUser.peerID completion:nil];
                     [self.liveManager stopPlayAudio:YSCurrentUser.peerID completion:nil];
+                    if (videoView.roomUser.role == YSUserType_Student)
+                    {
+                        self.userVideoView.hidden = YES;
+                    }
                 }
                 else
                 {
