@@ -248,6 +248,17 @@
         return;
     }
     
+    /// 助教刷新课件
+    if ([msgName isEqualToString:YSSignalingName_refeshCourseware])
+    {
+        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTorefeshCourseware)])
+        {
+            [self.roomManagerDelegate handleSignalingTorefeshCourseware];
+        }
+        return;
+    }
+    
+
 #pragma mark 以下需要check data数据
     
 //    if (![YSLiveUtil checkDataType:data])
@@ -1010,16 +1021,6 @@
     //老师处理的接收信令
     BOOL isTrue = [self handleRoomTeacherPubMsgWithMsgID:msgID msgName:msgName data:data fromID:fromID inList:inlist ts:ts];
     if (isTrue) {
-        return;
-    }
-    
-    /// 助教刷新课件
-    if ([msgName isEqualToString:YSSignalingName_refeshCourseware])
-    {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTorefeshCourseware)])
-        {
-            [self.roomManagerDelegate handleSignalingTorefeshCourseware];
-        }
         return;
     }
     
