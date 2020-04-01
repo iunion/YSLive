@@ -426,7 +426,7 @@
 
 "Prompt.NoCamera" = "未發現攝像頭";
 "Prompt.DisableCamera" = "攝像頭被禁用";
-"Prompt.CanotOpenCamera" = "打開攝像頭失敗";
+"Prompt.CanotOpenCamera" = "設備打開失敗";
 "Prompt.CameraOccupied" = "攝像頭被占用";
 "Prompt.BrowserCanotSupport" = "瀏覽器不支持";
 
