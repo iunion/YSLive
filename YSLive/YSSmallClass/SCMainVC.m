@@ -1223,7 +1223,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-/// 助教网络刷新所有人课件
+/// 助教网络刷新课件
 - (void)handleSignalingTorefeshCourseware
 {
     [self buttonClickToRefreshCourseware:self.coursewareBtn];
@@ -4097,7 +4097,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if ([properties bm_containsObjectForKey:sUserPublishstate] || [properties bm_containsObjectForKey:sUserGiftNumber] || [properties bm_containsObjectForKey:sUserDisablechat])
     {
-        if ((roomUser.role = YSUserType_Student) || (roomUser.role == YSUserType_Assistant))
+        if ((roomUser.role == YSUserType_Student) || (roomUser.role == YSUserType_Assistant))
         {
             [self freshTeacherPersonListData];
         }

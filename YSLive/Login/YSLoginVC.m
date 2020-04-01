@@ -1346,9 +1346,13 @@
     }
     
     self.needCheckPermissions = YES;
-
-//    self.passwordTextField.hidden = YES;
+    
+    self.selectedRoleBtn.selected = NO;
+    self.passwordMask.hidden = NO;
     self.passwordTextField.inputTextField.text = nil;
+    self.selectedRoleBtn = self.studentRoleBtn;
+    self.selectedRoleBtn.selected = YES;
+    self.selectRoleType = YSUserType_Student;
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
@@ -1706,7 +1710,7 @@
 - (void)okBtnClick
 {
     self.roleSelectView.hidden = YES;
-    
+
     [self joinRoom];
 }
 

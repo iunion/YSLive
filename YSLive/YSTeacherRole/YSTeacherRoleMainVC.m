@@ -2556,7 +2556,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     if ([properties bm_containsObjectForKey:sUserPublishstate] || [properties bm_containsObjectForKey:sUserGiftNumber] || [properties bm_containsObjectForKey:sUserDisablechat])
     {
-        if ((roomUser.role = YSUserType_Student) || (roomUser.role == YSUserType_Assistant))
+        if ((roomUser.role == YSUserType_Student) || (roomUser.role == YSUserType_Assistant))
         {
             [self freshTeacherPersonListData];
         }
@@ -2892,6 +2892,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             _personListTotalPage = divide;
             NSLog(@"_personListTotalPage: %@", @(_personListTotalPage));
 
+            YSRoomUser * curr = YSCurrentUser;
+            
             NSMutableArray *listArr = [NSMutableArray arrayWithCapacity:0];
             for (YSRoomUser *user in self.liveManager.userList)
             {
@@ -2900,7 +2902,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     [listArr addObject:user];
                 }
             }
-             
+                         
             NSArray *data = [listArr bm_divisionWithCount:onePageMaxUsers atIndex:_personListCurentPage appoint:NO];
             
             [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
