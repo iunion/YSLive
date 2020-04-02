@@ -1,10 +1,13 @@
 //
-//  YSWhiteBroadDelegate.h
-//  YSWhiteBroad
+//  YSWhiteBoardManagerDelegate.h
+//  YSWhiteBoard
 //
-//  Created by MAC-MiNi on 2018/4/9.
-//  Copyright © 2018年 MAC-MiNi. All rights reserved.
+//  Created by jiang deng on 2020/3/23.
+//  Copyright © 2020 jiang deng. All rights reserved.
 //
+
+#ifndef YSWhiteBoardManagerDelegate_h
+#define YSWhiteBoardManagerDelegate_h
 
 #import <Foundation/Foundation.h>
 
@@ -47,10 +50,13 @@ PubMsg消息
 - (void)onWhiteBoardLoadedState:(NSDictionary *)message;
 
 
-/// 本地操作，缩放课件比例变化
-/// 动态ppt，H5课件，GIF动图，SVG图不支持放大缩小
+/**
+ 本地操作，缩放课件比例变化
+
+*/
 - (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale;
 
 
 @end
 
+#endif /* YSWhiteBoardManagerDelegate_h */
