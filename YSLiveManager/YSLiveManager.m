@@ -167,11 +167,11 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     if (liveManagerSingleton)
     {
-        [liveManagerSingleton.whiteBoardManager resetWhiteBoardAllData];
-        [liveManagerSingleton.whiteBoardManager clearAllData];
-
+        //[liveManagerSingleton.whiteBoardManager resetWhiteBoardAllData];
+        //[liveManagerSingleton.whiteBoardManager clearAllData];
+ 
         [YSRoomInterface destory];
-        [YSWhiteBoardManager destroy];
+        //[YSWhiteBoardManager destroy];
         
         liveManagerSingleton.roomManager = nil;
         liveManagerSingleton.whiteBoardManager = nil;
@@ -430,19 +430,19 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.whiteBoardManager = [YSWhiteBoardManager shareInstance];
     NSLog(@"WhiteBoard SDK Version: %@", [YSWhiteBoardManager whiteBoardVersion]);
     
-    BMWeakSelf
-    self.whiteBoardManager.webContentTerminateBlock = ^NSArray *_Nullable {
-        NSMutableArray *userArray = [NSMutableArray array];
-        for (YSRoomUser *user in weakSelf.userList)
-        {
-            NSDictionary *dic = [user bm_toDictionary];
-            if ([dic bm_isNotEmptyDictionary])
-            {
-                [userArray addObject:dic];
-            }
-        }
-        return userArray;
-    };
+//    BMWeakSelf
+//    self.whiteBoardManager.webContentTerminateBlock = ^NSArray *_Nullable {
+//        NSMutableArray *userArray = [NSMutableArray array];
+//        for (YSRoomUser *user in weakSelf.userList)
+//        {
+//            NSDictionary *dic = [user bm_toDictionary];
+//            if ([dic bm_isNotEmptyDictionary])
+//            {
+//                [userArray addObject:dic];
+//            }
+//        }
+//        return userArray;
+//    };
     
     NSDictionary *whiteBoardConfig = @{
         YSWhiteBoardWebProtocolKey : YSLive_Http,
@@ -452,10 +452,10 @@ static YSLiveManager *liveManagerSingleton = nil;
     };
     [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
     
-    self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
-
-    }];
-    [self.whiteBoardManager changeWhiteBoardBackImage:nil];
+//    self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
+//
+//    }];
+    //[self.whiteBoardManager changeWhiteBoardBackImage:nil];
     [self.whiteBoardManager changeFileViewBackgroudColor:[UIColor bm_colorWithHex:0xDCE2F1]];
 
     [self.roomManager registerRoomInterfaceDelegate:self];
@@ -760,7 +760,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (NSString *)fileServer
 {
-    return self.whiteBoardManager.address;
+    return self.whiteBoardManager.serverDocAddrKey;
 }
 
 
@@ -2340,8 +2340,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     BMLog(@"onWhiteBroadFileList");
 
     // 添加一个白板 只用于文件列表显示
-    NSNumber *companyid = @([self.room_Companyid integerValue]);
-    [self.whiteBoardManager createWhiteBoard:companyid];
+    //NSNumber *companyid = @([self.room_Companyid integerValue]);
+    //[self.whiteBoardManager createWhiteBoard:companyid];
 }
 
 // PubMsg消息
@@ -2418,18 +2418,19 @@ static YSLiveManager *liveManagerSingleton = nil;
 // 记录UI层是否开始上课
 - (void)setIsBeginClass:(BOOL)isBeginClass
 {
-    self.whiteBoardManager.isBeginClass = isBeginClass;
+    //self.whiteBoardManager.isBeginClass = isBeginClass;
 }
 
 - (BOOL)playingMedia
 {
-    return self.whiteBoardManager.playingMedia;
+    return NO;
+    //return self.whiteBoardManager.playingMedia;
 }
 
 // 记录UI层是否正在播放媒体
 - (void)setPlayingMedia:(BOOL)playingMedia
 {
-    self.whiteBoardManager.playingMedia = playingMedia;
+    //self.whiteBoardManager.playingMedia = playingMedia;
 }
 
 
