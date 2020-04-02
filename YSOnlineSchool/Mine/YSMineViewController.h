@@ -6,11 +6,11 @@
 //  Copyright © 2020 YS. All rights reserved.
 //
 
-#import "YSMainSuperVC.h"
+#import "YSSuperNetVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSMineViewController : YSMainSuperVC
+@interface YSMineViewController : YSSuperNetVC
 
 @end
 

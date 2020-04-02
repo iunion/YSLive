@@ -8,11 +8,11 @@
 
 
 //日历课程表
-#import "YSMainSuperVC.h"
+#import "YSSuperNetVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSCalendarCurriculumVC : YSMainSuperVC
+@interface YSCalendarCurriculumVC : YSSuperNetVC
 
 @end
 
