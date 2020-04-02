@@ -3242,7 +3242,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [docDic setObject:action forKey:@"action"];
     [docDic setObject:filetype forKey:@"filetype"];
     
-    [self.liveManager.whiteBoardManager addDocumentWithFile:docDic];
+    [self.liveManager.whiteBoardManager addDocumentWithFileDic:docDic];
     
     NSString *fileid = [docDic bm_stringTrimForKey:@"fileid" withDefault:@""];
     NSString *filename = [docDic bm_stringTrimForKey:@"filename" withDefault:@""];
