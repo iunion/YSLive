@@ -47,6 +47,9 @@
 #endif
 
 
+#import <YSWhiteBoard/YSCoursewareControlView.h>
+
+
 #define YSONLINESCHOOL 1
 
 /// 每次打包的递增版本号 +1
@@ -719,7 +722,18 @@
         make.left.bmmas_equalTo(30);
     }];
 #endif
+    
+//    [self pageControlView];
 }
+
+/////白板控制view
+//- (void)pageControlView
+//{
+//    YSCoursewareControlView * controlView = [[YSCoursewareControlView alloc]initWithFrame:CGRectMake(100, self.view.bm_height-100, 246, 34)];
+//
+//    [self.view addSubview:controlView];
+//}
+
 
 #pragma mark --键盘弹出收起管理
 
