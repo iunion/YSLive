@@ -1335,6 +1335,14 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     liveManager.liveHost = YSLIVE_HOST;
+    if (BMIS_IPHONE)
+    {
+       [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+    }
+    else
+    {
+        [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+    }
 
     if ([passWordStr bm_isNotEmpty])
     {
@@ -1988,7 +1996,7 @@
     }
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
-    if(0) //([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
