@@ -18,7 +18,7 @@
 static NSString *YSAPPVersionString = @"2.6.0";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.6.0.0";
+static NSString *YSSDKVersionString = @"2.6.0.1";
 
 @interface YSSDKManager ()
 <
@@ -36,6 +36,9 @@ static NSString *YSSDKVersionString = @"2.6.0.0";
 @property (nonatomic, weak) UIViewController <YSSDKDelegate> *delegate;
 
 @property (nonatomic, weak) YSLiveManager *liveManager;
+
+@property (nonatomic, strong) UIColor *whiteBordBgColor;
+@property (nonatomic, strong) UIImage *whiteBordMaskImage;
 
 @end
 
@@ -78,6 +81,13 @@ static NSString *YSSDKVersionString = @"2.6.0.0";
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate
 {
     self.delegate = managerDelegate;
+}
+
+/// 改变白板背景颜色和水印底图
+- (void)setWhiteBoardBackGroundColor:(UIColor *)color maskImage:(UIImage *)image
+{
+    self.whiteBordBgColor = color;
+    self.whiteBordMaskImage = image;
 }
 
 #pragma mark - network status
@@ -165,6 +175,7 @@ static NSString *YSSDKVersionString = @"2.6.0.0";
 
     [self.liveManager registerRoomManagerDelegate:self];
     self.liveManager.sdkDelegate = self;
+    [self.liveManager setWhiteBoardBackGroundColor:self.whiteBordBgColor maskImage:self.whiteBordMaskImage];
 
     BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 

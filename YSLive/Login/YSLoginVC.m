@@ -48,6 +48,7 @@
 
 
 #define YSONLINESCHOOL 1
+#define YS_CHANGE_WHITEBOARD_BACKGROUND 1
 
 /// 每次打包的递增版本号 +1
 #define YSAPP_CommitVersion [[NSBundle mainBundle] infoDictionary][@"YSAppCommitVersion"]
@@ -1335,6 +1336,16 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     liveManager.liveHost = YSLIVE_HOST;
+#if YS_CHANGE_WHITEBOARD_BACKGROUND
+    if (BMIS_IPHONE)
+    {
+       [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+    }
+    else
+    {
+        [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+    }
+#endif
 
     if ([passWordStr bm_isNotEmpty])
     {
@@ -1370,7 +1381,17 @@
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
-    
+#if YS_CHANGE_WHITEBOARD_BACKGROUND
+    if (BMIS_IPHONE)
+    {
+        [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+    }
+    else
+    {
+        [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+    }
+#endif
+
     [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams needCheckPermissions:YES];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
@@ -1988,7 +2009,7 @@
     }
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
-    if(0) //([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
@@ -2034,7 +2055,17 @@
             
             YSLiveManager *liveManager = [YSLiveManager shareInstance];
             [liveManager registerRoomManagerDelegate:self];
-            
+#if YS_CHANGE_WHITEBOARD_BACKGROUND
+            if (BMIS_IPHONE)
+            {
+                [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+            }
+            else
+            {
+                [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+            }
+#endif
+
             [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
             
             [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];

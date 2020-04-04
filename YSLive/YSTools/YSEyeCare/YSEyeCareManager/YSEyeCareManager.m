@@ -119,7 +119,7 @@ static NSInteger const kYSSkinCoverWindowLevel = 2099;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(remind) object:nil];
     NSUInteger remindTime = [self getEyeCareModeRemindTime];
 #if USE_TEST_HELP
-    [self performSelector:@selector(remind) withObject:nil afterDelay:remindTime*1.0f];
+    [self performSelector:@selector(remind) withObject:nil afterDelay:remindTime*10.0f];
 #else
     [self performSelector:@selector(remind) withObject:nil afterDelay:remindTime*60.0f];
 #endif
@@ -138,7 +138,7 @@ static NSInteger const kYSSkinCoverWindowLevel = 2099;
     }
     NSUInteger remindTime = [self getEyeCareModeRemindTime];
 #if USE_TEST_HELP
-    [self performSelector:@selector(remind) withObject:nil afterDelay:remindTime*1.0f];
+    [self performSelector:@selector(remind) withObject:nil afterDelay:remindTime*10.0f];
 #else
     [self performSelector:@selector(remind) withObject:nil afterDelay:remindTime*60.0f];
 #endif
