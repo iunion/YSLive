@@ -760,7 +760,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark - 举手上台的UI
 - (void)setupHandView
 {
-//    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH-40-26, self.chatBtn.bm_originY-60, 40, 40)];
     UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+60, 40, 40)];
     [raiseHandsBtn setBackgroundColor: UIColor.clearColor];
     [raiseHandsBtn setImage:[UIImage imageNamed:@"teacherNormalHand"] forState:UIControlStateNormal];
@@ -768,9 +767,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.raiseHandsBtn = raiseHandsBtn;
      [self.view addSubview:raiseHandsBtn];
-    
-    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, CGRectGetMaxY(raiseHandsBtn.frame), 40, 15)];
 
+    
+    CGFloat handNumLabY = raiseHandsBtn.bm_originY + raiseHandsBtn.bm_height;
+    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(raiseHandsBtn.bm_originX, handNumLabY, 40, 15)];
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = UIColor.whiteColor;
     handNumLab.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
@@ -1349,12 +1349,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self.liveManager stopPlayVideo:view.roomUser.peerID completion:nil];
                 [self.liveManager playVideoOnView:view withPeerId:view.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
 #endif
-                
             }
             [view bringSubviewToFront:view.backVideoView];
-            
-            
-            
+                        
 //            if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
 //            {
 //                view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
@@ -3212,8 +3209,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
-    if (self.roomtype == YSRoomType_One || self.roomLayout == YSLiveRoomLayout_FocusLayout)
+    if (self.roomtype == YSRoomType_One || self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
     {
+        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         return;
     }
         
@@ -3244,7 +3242,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
-        
          [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         
         CGFloat percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(BMUI_SCREEN_WIDTH - videoView.bm_width);
@@ -6543,7 +6540,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
     [self.teacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
-    self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+60, 40, 40);
+//    self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+60, 40, 40);
 }
 
 /// 播放全屏老师视频流
