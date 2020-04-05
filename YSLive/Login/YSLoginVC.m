@@ -48,7 +48,7 @@
 
 
 #define YSONLINESCHOOL 1
-#define YS_CHANGE_WHITEBOARD_BACKGROUND 1
+#define YS_CHANGE_WHITEBOARD_BACKGROUND 0
 
 /// 每次打包的递增版本号 +1
 #define YSAPP_CommitVersion [[NSBundle mainBundle] infoDictionary][@"YSAppCommitVersion"]

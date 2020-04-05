@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.6.0";
+static NSString *YSAPPVersionString = @"2.6.1";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.6.0.1";
+static NSString *YSSDKVersionString = @"2.6.1.1";
 
 @interface YSSDKManager ()
 <
