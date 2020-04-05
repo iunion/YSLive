@@ -361,6 +361,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             @"text/xml", @"image/jpeg", @"image/*"
         ]];
         
+        [self.giftCountTask cancel];
         self.giftCountTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {

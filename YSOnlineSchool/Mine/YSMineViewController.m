@@ -24,9 +24,22 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 @property (nonatomic, strong)UITableView *mineTableView;
 @property (nonatomic, strong)UIImageView *userIconImg;
 @property (nonatomic, strong)UILabel *userNameL;
+
+@property (nonatomic, strong) NSURLSessionDataTask *mineTask;
+@property (nonatomic, strong) NSURLSessionDataTask *signOutTask;
+
 @end
 
 @implementation YSMineViewController
+
+- (void)dealloc
+{
+    [_mineTask cancel];
+    _mineTask = nil;
+    
+    [_signOutTask cancel];
+    _signOutTask = nil;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -131,7 +144,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     return cell;
 }
 
-//刷新
+// 刷新
 - (void)refreshBtnClick
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
@@ -143,8 +156,11 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     [YSLiveApiRequest getStudentInfoWithfStudentId:studentId];
     if (request)
     {
+        [self.mineTask cancel];
+        self.mineTask = nil;
+        
         BMWeakSelf
-        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        self.mineTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
@@ -205,7 +221,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                 }
             }
         }];
-        [task resume];
+        [self.mineTask resume];
     }
     else
     {
@@ -266,8 +282,11 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     [YSLiveApiRequest postExitLoginWithToken:token];
     if (request)
     {
+        [self.signOutTask cancel];
+        self.signOutTask = nil;
+        
         BMWeakSelf
-        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        self.signOutTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
@@ -297,7 +316,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
                 [[YSSchoolUser shareInstance] clearUserdata];
             }
         }];
-        [task resume];
+        [self.signOutTask resume];
     }
     else
     {

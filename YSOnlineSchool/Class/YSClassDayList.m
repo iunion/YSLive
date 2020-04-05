@@ -37,10 +37,18 @@
 @property (nonatomic, strong) NSString *roomId;
 @property (nonatomic, strong) NSString *userName;
 
+@property (nonatomic, strong) NSURLSessionDataTask *enterRoomTask;
+
 @end
 
 @implementation YSClassDayList
 @synthesize freshViewType = _freshViewType;
+
+- (void)dealloc
+{
+    [_enterRoomTask cancel];
+    _enterRoomTask = nil;
+}
 
 - (void)viewDidLoad
 {
@@ -255,8 +263,10 @@
     NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithWithUserType:schoolUserType toTeachId:classModel.toTeachId];
     if (request)
     {
+        [self.enterRoomTask cancel];
+        self.enterRoomTask = nil;
         BMWeakSelf
-        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        self.enterRoomTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
@@ -376,7 +386,7 @@
                 [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
-        [task resume];
+        [self.enterRoomTask resume];
     }
     else
     {

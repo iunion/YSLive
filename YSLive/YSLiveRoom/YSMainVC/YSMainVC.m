@@ -421,8 +421,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)dealloc
 {
-    [self.liveCallRollSigninTask cancel];
-    self.liveCallRollSigninTask = nil;
+    [_liveCallRollSigninTask cancel];
+    _liveCallRollSigninTask = nil;
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(creatbuttonHide) object:nil];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMp4FullScreenBtn) object:nil];
