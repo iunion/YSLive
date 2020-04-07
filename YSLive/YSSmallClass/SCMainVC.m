@@ -361,6 +361,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             @"text/xml", @"image/jpeg", @"image/*"
         ]];
         
+        [self.giftCountTask cancel];
         self.giftCountTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
@@ -5481,7 +5482,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.fullTeacherFloatView removeFromSuperview];
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
-    self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40);
+//    self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40);
 }
 
 /// 播放全屏老师视频流

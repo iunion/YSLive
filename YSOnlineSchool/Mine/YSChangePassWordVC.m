@@ -29,9 +29,19 @@
 @property (nonatomic, strong)YSPassWordChangeView *againPasswordView;
 
 @property (nonatomic, strong)UIButton *submitBtn;
+
+@property (nonatomic, strong) NSURLSessionDataTask *changePassWordTask;
+
 @end
 
 @implementation YSChangePassWordVC
+
+- (void)dealloc
+{
+    [_changePassWordTask cancel];
+    _changePassWordTask = nil;
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)even
 {
     [self.view endEditing:YES];
@@ -117,6 +127,7 @@
     [submitBtn addTarget:self action:@selector(submitBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
 }
+
 - (void)viewWillLayoutSubviews
 {
     self.changePasswordView.frame = CGRectMake(0, 40, BMUI_SCREEN_WIDTH, 40);
@@ -169,8 +180,11 @@
     }
     if (request)
     {
+        [self.changePassWordTask cancel];
+        self.changePassWordTask = nil;
+        
         BMWeakSelf
-        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        self.changePassWordTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
@@ -230,7 +244,7 @@
                 
             }
         }];
-        [task resume];
+        [self.changePassWordTask resume];
     }
     else
     {

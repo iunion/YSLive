@@ -76,8 +76,8 @@
 #endif
     }
     
-    //[self.m_DataTask cancel];
-    //self.m_DataTask = nil;
+    [self.dataTask cancel];
+    self.dataTask = nil;
     
     //AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];

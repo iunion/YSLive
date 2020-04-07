@@ -71,7 +71,11 @@
 
 @implementation YSCalendarCurriculumVC
 
-
+- (void)dealloc
+{
+    [_calendarDataTask cancel];
+    _calendarDataTask = nil;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {

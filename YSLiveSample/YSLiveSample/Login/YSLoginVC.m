@@ -127,6 +127,14 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     NSLog(@"%@", [YSSDKManager SDKVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
     [self.ysSDKManager registerManagerDelegate:self];
+    if (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
+    {
+        [self.ysSDKManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+    }
+    else
+    {
+        [self.ysSDKManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+    }
 }
 
 
