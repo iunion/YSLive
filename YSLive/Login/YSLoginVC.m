@@ -416,6 +416,7 @@
     [task resume];
 }
 
+///检查版本升级
 - (void)checkUpdate
 {
     BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
@@ -485,7 +486,6 @@
         }
     }];
     [task resume];
-    
 }
 
 - (void)showUpdateAlertWithTitle:(NSString *)title downLink:(NSString *)downLink needUpdata:(BOOL)needUpdata
@@ -519,20 +519,17 @@
         {
             [self showUpdateAlertWithTitle:title downLink:downLink needUpdata:needUpdata];
         }
-        
     }];
     [alertVc addAction:confimAc];
     
     if (!needUpdata)
     {
         UIAlertAction *ccc = [UIAlertAction actionWithTitle:YSLocalized(@"Alert.UpdateAfter") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
         }];
         [alertVc addAction:ccc];
     }
     [self presentViewController:alertVc animated:YES completion:nil];
 }
-
 
 #pragma mark - UI
 
@@ -556,17 +553,13 @@
     self.backImageView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
     self.backImageView.backgroundColor = [UIColor redColor];
     [self.backScrollView addSubview:self.backImageView];
-    //    [self.backImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-    //        make.edges.bmmas_equalTo(0);
-    //    }];
-    //
+
     UITapGestureRecognizer *click = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction:)];
     [self.backImageView addGestureRecognizer:click];
     
     [self.backImageView addSubview:self.logoImageView];
     [self.logoImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.centerX.bmmas_equalTo(0);
-        //        make.top.bmmas_equalTo(kScale_H(130));
         make.top.bmmas_equalTo(kBMScale_H(100));
         make.height.bmmas_equalTo(kBMScale_W(153));
         make.width.bmmas_equalTo(kBMScale_W(197));
@@ -1988,7 +1981,7 @@
     }
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
-    if(0) //([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
