@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 白板管理
 @property (nonatomic, strong, readonly) YSWhiteBoardManager *whiteBoardManager;
 /// 白板视图whiteBord
-@property (nonatomic, strong, readonly) UIView *whiteBordView;
+@property (nonatomic, weak, readonly) UIView *whiteBordView;
 
 /// 设备性能是否低
 @property (nonatomic, assign, readonly) BOOL devicePerformance_Low;

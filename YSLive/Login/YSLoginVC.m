@@ -2023,7 +2023,6 @@
         [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Error.PwdError") message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
              [weakSelf theRoomNeedPassword];
         }];
-        [[YSLiveManager shareInstance] destroy];
     }
     else
     {

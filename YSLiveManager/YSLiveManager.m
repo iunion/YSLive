@@ -50,7 +50,7 @@
 // 白板
 @property (nonatomic, strong) YSWhiteBoardManager *whiteBoardManager;
 /// 白板视图whiteBord
-@property (nonatomic, strong) UIView *whiteBordView;
+@property (nonatomic, weak) UIView *whiteBordView;
 
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
 @property (nonatomic, strong) UIImage *whiteBordMaskImage;
