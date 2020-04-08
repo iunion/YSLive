@@ -4576,17 +4576,30 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     CGPoint endPoint = [pan translationInView:videoView];
     
+    UIView * background = nil;
+    
+    if (self.isWhitebordFullScreen)
+    {//课件全屏
+        background = self.whitebordFullBackgroud;
+    }
+    else if (!self.shareVideoFloatView.hidden)
+    {
+        background = self.shareVideoFloatView;
+    }
+    
+    
     if (!self.dragImageView)
     {
         UIImage * img = [self.fullTeacherVideoView bm_screenshot];
         self.dragImageView = [[UIImageView alloc]initWithImage:img];
-        [self.whitebordFullBackgroud addSubview:self.dragImageView];
+        [background addSubview:self.dragImageView];
     }
     
     if (self.videoOriginInSuperview.x == 0 && self.videoOriginInSuperview.y == 0)
     {
-        self.videoOriginInSuperview = [self.whitebordFullBackgroud convertPoint:CGPointMake(0, 0) fromView:videoView];
-        [self.whitebordFullBackgroud bringSubviewToFront:self.dragImageView];
+        self.videoOriginInSuperview = [background convertPoint:CGPointMake(0, 0) fromView:videoView];
+//        [self.whitebordFullBackgroud bringSubviewToFront:self.dragImageView];
+        [self.dragImageView bm_bringToFront];
     }
     self.dragImageView.frame = CGRectMake(self.videoOriginInSuperview.x + endPoint.x, self.videoOriginInSuperview.y + endPoint.y, videoView.bm_width, videoView.bm_height);
     
@@ -4600,8 +4613,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(BMUI_SCREEN_WIDTH - videoView.bm_width);
         }
         CGFloat percentTop = 0;
-        if (self.whitebordFullBackgroud.bm_height != videoView.bm_height) {
-            percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(self.whitebordFullBackgroud.bm_height - videoView.bm_height);
+        if (background.bm_height != videoView.bm_height) {
+            percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(background.bm_height - videoView.bm_height);
         }
         
         if (percentLeft>1)
@@ -4617,14 +4630,22 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             percentTop = 1;
         }
 
-        if (self.whitebordFullBackgroud.hidden)
-        {//课件不全屏
+        if (self.isWhitebordFullScreen || !self.shareVideoFloatView.hidden)
+        {//课件全屏
+            if (percentTop<0)
+            {
+                percentTop = 0;
+            }
+            [self showDragOutFullTeacherVidoeViewWithPercentLeft:percentLeft percentTop:percentTop];
+        }
+        else
+        {//不全屏
             if (percentTop<0)
             {
                 NSDictionary * data = @{
-                           @"isDrag":@0,
-                           @"userId":videoView.roomUser.peerID
-                       };
+                    @"isDrag":@0,
+                    @"userId":videoView.roomUser.peerID
+                };
                 [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
                 
                 [self.dragImageView removeFromSuperview];
@@ -4643,14 +4664,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
             }
         }
-        else
-        {
-            if (percentTop<0)
-            {
-                percentTop = 0;
-            }
-            [self showDragOutFullTeacherVidoeViewWithPercentLeft:percentLeft percentTop:percentTop];
-        }
 
         [self.dragImageView removeFromSuperview];
         self.dragImageView = nil;
@@ -4666,11 +4679,22 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+    UIView * background = nil;
+    
+    if (self.isWhitebordFullScreen)
+    {//课件全屏
+        background = self.whitebordFullBackgroud;
+    }
+    else if (!self.shareVideoFloatView.hidden)
+    {
+        background = self.shareVideoFloatView;
+    }
+    
     SCVideoView *videoView = self.fullTeacherVideoView;
     if (self.isFullTeacherVideoViewDragout)
     {
         CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - videoView.bm_width);
-        CGFloat y = percentTop * (self.whitebordFullBackgroud.bm_height - 2 - videoView.bm_height);
+        CGFloat y = percentTop * (background.bm_height - 2 - videoView.bm_height);
         if (x <= 0)
         {
             x = 1.0;
@@ -4687,7 +4711,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.isFullTeacherVideoViewDragout = YES;
         
         CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordFullBackgroud.bm_height - 2 - floatVideoDefaultHeight);
+        CGFloat y = percentTop * (background.bm_height - 2 - floatVideoDefaultHeight);
         if (x <= 0) {
             x = 1.0;
         }
@@ -4698,7 +4722,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.fullTeacherFloatView.canGestureRecognizer = YES;
         self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
         [self.fullTeacherFloatView bm_bringToFront];
-        self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
+        self.fullTeacherFloatView.maxSize = background.bm_size;
         self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
     }
 }
@@ -4993,6 +5017,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleEnterBackground
 {
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(YES) completion:nil];
+    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
 }
 
 /// 进入前台
@@ -5509,8 +5534,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.fullTeacherFloatView removeFromSuperview];
         }
                 
-        if ([self.liveManager.teacher.peerID bm_isNotEmpty])
-        {
+        
+        if ([self.liveManager.teacher.peerID bm_isNotEmpty]) {
             self.fullTeacherFloatView.hidden = NO;
         }
         

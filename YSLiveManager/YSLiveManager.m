@@ -554,7 +554,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         SEL funcSel = NSSelectorFromString(methodName);
         NSArray *parameters = [dic bm_arrayForKey:kYSParameterKey];
         
-        if (sort && [methodName isEqualToString:NSStringFromSelector(@selector(onRoomShareScreenState:state:))])
+        if (sort && ([methodName isEqualToString:NSStringFromSelector(@selector(onRoomShareScreenState:state:))] || [methodName isEqualToString:NSStringFromSelector(@selector(onRoomShareMediaState:state:extensionMessage:))]))
         {
             [self.cacheLastMsgPool addObject:dic];
             

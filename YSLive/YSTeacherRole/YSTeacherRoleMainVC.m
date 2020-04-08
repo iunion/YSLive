@@ -1678,13 +1678,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark  添加视频窗口
 - (void)addVidoeViewWithPeerId:(NSString *)peerId
 {
-    //    if ([peerId isEqualToString:self.teacherVideoView.roomUser.peerID])
-    //    {
-    //        [self playVideoAudioWithVideoView:self.teacherVideoView];
-    //        return;
-    //    }
-    //
-    
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
     YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
@@ -3222,6 +3215,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {//课件全屏
         background = self.whitebordFullBackgroud;
     }
+    else if (!self.shareVideoFloatView.hidden)
+    {
+        background = self.shareVideoFloatView;
+    }
     
     self.dragingVideoView = videoView;
     
@@ -3275,11 +3272,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             videoEndY = background.bm_height - 2 - videoView.bm_height;
         }
 
-        if (self.isWhitebordFullScreen)
+        if (self.isWhitebordFullScreen || !self.shareVideoFloatView.hidden)
         {//课件全屏
             if (percentTop<0)
             {
                 percentTop = 0;
+                videoEndY = 1;
             }
             [self showDragOutFullTeacherVidoeViewWithPeerId:nil videoX:videoEndX videoY:videoEndY];
         }
@@ -3329,11 +3327,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL dragOut = 0;
     CGFloat whitebordH = 0;
     
-    if (self.isWhitebordFullScreen)
+    if (self.isWhitebordFullScreen || !self.shareVideoFloatView.hidden)
     {
         videoView = self.fullTeacherVideoView;
         dragOut = self.isFullTeacherVideoViewDragout;
-        whitebordH = self.whitebordFullBackgroud.bm_height;
+//        whitebordH = self.whitebordFullBackgroud.bm_height;
+        whitebordH = BMUI_SCREEN_HEIGHT;
     }
     else
     {
@@ -3352,7 +3351,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        if (self.isWhitebordFullScreen)
+        if (self.isWhitebordFullScreen || !self.shareVideoFloatView.hidden)
         {
             self.isFullTeacherVideoViewDragout = YES;
             self.fullTeacherFloatView.frame = CGRectMake(videoX, videoY, floatVideoDefaultWidth, floatVideoDefaultHeight);
@@ -3568,12 +3567,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 老师不发送进入前台后台
 /// 进入后台
-#if 0
+//
 - (void)handleEnterBackground
 {
-    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
+//    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
+    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
 }
 
+#if 0
 /// 进入前台
 - (void)handleEnterForeground
 {
