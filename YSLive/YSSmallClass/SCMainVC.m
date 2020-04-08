@@ -3041,6 +3041,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
 #if USE_FullTeacher
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+        [self.fullTeacherFloatView bm_bringToFront];
 #endif
     }
     else
@@ -5518,6 +5519,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
         }
+        
+        
+        
     }
 }
 #endif

@@ -133,7 +133,7 @@
     NSString *msgID = [NSString stringWithFormat:@"VideoDrag_%@", [data bm_stringForKey:@"userId"]];
     if ([data bm_boolForKey:@"isDrag"])
     {
-        result = [self.roomManager pubMsg:YSSignalingName_VideoDrag msgID:msgID toID:YSRoomPubMsgTellAll data:data save:YES completion:nil];
+        result = [self.roomManager pubMsg:YSSignalingName_VideoDrag msgID:msgID toID:YSRoomPubMsgTellAllExceptSender data:data save:YES completion:nil];
     }
     else
     {

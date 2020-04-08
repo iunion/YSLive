@@ -3218,7 +3218,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
     UIView * background = self.whitebordBackgroud;
     
-    if (!self.whitebordFullBackgroud.hidden)
+    if (self.isWhitebordFullScreen)
     {//课件全屏
         background = self.whitebordFullBackgroud;
     }
@@ -3248,34 +3248,49 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         CGFloat percentLeft = 0;
         if (BMUI_SCREEN_WIDTH != videoView.bm_width)
         {
-            percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(BMUI_SCREEN_WIDTH - videoView.bm_width);
+            percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(BMUI_SCREEN_WIDTH - 2 - videoView.bm_width);
         }
         CGFloat percentTop = 0;
-        if (self.whitebordFullBackgroud.bm_height != videoView.bm_height) {
-            percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(self.whitebordFullBackgroud.bm_height - videoView.bm_height);
+        if (background.bm_height != videoView.bm_height) {
+            percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(background.bm_height - 2 - videoView.bm_height);
         }
+        
+        
+        CGFloat videoEndX = self.videoOriginInSuperview.x+endPoint.x;
+        CGFloat videoEndY = self.videoOriginInSuperview.y+endPoint.y;
         
         if (percentLeft>1)
         {
-            percentLeft = 1;
+            percentLeft = 1.00;
+            videoEndX = BMUI_SCREEN_WIDTH - 2 - videoView.bm_width;
         }
         else if (percentLeft<0)
         {
-            percentLeft = 0;
+            percentLeft = 0.00;
+            videoEndX = 1;
         }
         if (percentTop>1)
         {
-            percentTop = 1;
+            percentTop = 1.00;
+            videoEndY = background.bm_height - 2 - videoView.bm_height;
         }
 
-        if (self.whitebordFullBackgroud.hidden)
-        {//课件不全屏
+        if (self.isWhitebordFullScreen)
+        {//课件全屏
+            if (percentTop<0)
+            {
+                percentTop = 0;
+            }
+            [self showDragOutFullTeacherVidoeViewWithPeerId:nil videoX:videoEndX videoY:videoEndY];
+        }
+        else
+        {//不全屏
             if (percentTop<0)
             {
                 NSDictionary * data = @{
-                           @"isDrag":@0,
-                           @"userId":videoView.roomUser.peerID
-                       };
+                    @"isDrag":@0,
+                    @"userId":videoView.roomUser.peerID
+                };
                 [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
                 
                 [self.dragImageView removeFromSuperview];
@@ -3292,66 +3307,81 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"userId":videoView.roomUser.peerID
                 };
                 [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+                [self showDragOutFullTeacherVidoeViewWithPeerId:videoView.roomUser.peerID videoX:videoEndX videoY:videoEndY];
             }
         }
-        else
-        {
-            if (percentTop<0)
-            {
-                percentTop = 0;
-            }
-            [self showDragOutFullTeacherVidoeViewWithPercentLeft:percentLeft percentTop:percentTop];
-        }
-
+        
         [self.dragImageView removeFromSuperview];
         self.dragImageView = nil;
         self.videoOriginInSuperview = CGPointZero;
     }
 }
 
-// 全屏课件时拖拽视频
-- (void)showDragOutFullTeacherVidoeViewWithPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop
+// 拖拽视频（包括全屏课件时拖老师）
+- (void)showDragOutFullTeacherVidoeViewWithPeerId:(NSString *)peerId videoX:(CGFloat)videoX videoY:(CGFloat)videoY
 {
     if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
     {
         return;
     }
 
-    SCVideoView *videoView = self.fullTeacherVideoView;
-    if (self.isFullTeacherVideoViewDragout)
+    SCVideoView *videoView = nil;
+    BOOL dragOut = 0;
+    CGFloat whitebordH = 0;
+    
+    if (self.isWhitebordFullScreen)
     {
-        CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - videoView.bm_width);
-        CGFloat y = percentTop * (self.whitebordFullBackgroud.bm_height - 2 - videoView.bm_height);
-        if (x <= 0) {
-            x = 1.0;
-        }
-        CGPoint point = CGPointMake(x, y);
-        
+        videoView = self.fullTeacherVideoView;
+        dragOut = self.isFullTeacherVideoViewDragout;
+        whitebordH = self.whitebordFullBackgroud.bm_height;
+    }
+    else
+    {
+        videoView = [self getVideoViewWithPeerId:peerId];
+        dragOut = videoView.isDragOut;
+        whitebordH = self.whitebordBackgroud.bm_height;
+    }
+
+    if (dragOut)
+    {
         YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
-        floatView.frame = CGRectMake(point.x, point.y, videoView.bm_width, videoView.bm_height);
+        floatView.frame = CGRectMake(videoX, videoY, videoView.bm_width, videoView.bm_height);
         [floatView bm_bringToFront];
         
         return;
     }
     else
     {
-        self.isFullTeacherVideoViewDragout = YES;
-        [self freshContentVidoeView];
-        
-        CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordFullBackgroud.bm_height - 2 - floatVideoDefaultHeight);
-        if (x <= 0) {
-            x = 1.0;
+        if (self.isWhitebordFullScreen)
+        {
+            self.isFullTeacherVideoViewDragout = YES;
+            self.fullTeacherFloatView.frame = CGRectMake(videoX, videoY, floatVideoDefaultWidth, floatVideoDefaultHeight);
+            
+            // 支持本地拖动缩放
+            self.fullTeacherFloatView.canGestureRecognizer = YES;
+            self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+            [self.fullTeacherFloatView bm_bringToFront];
+            self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
+            self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
         }
-        CGPoint point = CGPointMake(x, y);
-        self.fullTeacherFloatView.frame = CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight);
-        
-        // 支持本地拖动缩放
-        self.fullTeacherFloatView.canGestureRecognizer = YES;
-        self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
-        [self.fullTeacherFloatView bm_bringToFront];
-        self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
-        self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
+        else
+        {
+            videoView.isDragOut = YES;
+            [self freshContentVidoeView];
+            YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(videoX, videoY, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+            // 暂时不支持本地拖动缩放
+            floatView.canGestureRecognizer = YES;
+            floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+            //[floatView showWithContentView:videoView];
+            [self.dragOutFloatViewArray addObject:floatView];
+            [self.whitebordBackgroud addSubview:floatView];
+            
+            [floatView showWithContentView:videoView];
+            //[floatView stayMove];
+            [floatView bm_bringToFront];
+            floatView.maxSize = self.whitebordBackgroud.bm_size;
+            floatView.peerId = peerId;
+        }
     }
 }
 #endif
@@ -3359,11 +3389,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 - (void)handleSignalingDragOutVideoWithPeerId:(NSString *)peerId atPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop isDragOut:(BOOL)isDragOut
 {
-    if (isDragOut)
-    {
-        [self showDragOutVidoeViewWithPeerId:peerId percentLeft:percentLeft percentTop:percentTop];
-    }
-    else
+    if (!isDragOut)
     {
         [self hideDragOutVidoeViewWithPeerId:peerId];
     }
@@ -3394,61 +3420,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     floatVideoDefaultWidth = width;
     /// 悬浮默认视频高(拖出和共享)
     floatVideoDefaultHeight = height;
-}
-
-// 拖出视频
-- (void)showDragOutVidoeViewWithPeerId:(NSString *)peerId percentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop
-{
-    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-    {
-        return;
-    }
-    
-    SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
-    if (videoView.isDragOut)
-    {
-
-        CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - videoView.bm_width);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - 2 - videoView.bm_height);
-        if (x <= 0) {
-            x = 1.0;
-        }
-        
-        CGPoint point = CGPointMake(x, y);
-        
-        YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
-        floatView.frame = CGRectMake(point.x, point.y, videoView.bm_width, videoView.bm_height);
-        [floatView bm_bringToFront];
-        
-        return;
-    }
-    else
-    {
-        videoView.isDragOut = YES;
-        [self freshContentVidoeView];
-        
-        CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - 2 - floatVideoDefaultHeight);
-        if (x <= 0)
-        {
-            x = 1.0;
-        }
-        CGPoint point = CGPointMake(x, y);
-        
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
-        // 暂时不支持本地拖动缩放
-        floatView.canGestureRecognizer = YES;
-        floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
-        //[floatView showWithContentView:videoView];
-        [self.dragOutFloatViewArray addObject:floatView];
-        [self.whitebordBackgroud addSubview:floatView];
-        
-        [floatView showWithContentView:videoView];
-        //[floatView stayMove];
-        [floatView bm_bringToFront];
-        floatView.maxSize = self.whitebordBackgroud.bm_size;
-        floatView.peerId = peerId;
-    }
 }
 
 // 放回视频
