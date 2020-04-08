@@ -3041,7 +3041,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
 #if USE_FullTeacher
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-        [self.fullTeacherFloatView bm_bringToFront];
+//        [self.fullTeacherFloatView bm_bringToFront];
 #endif
     }
     else
@@ -5501,8 +5501,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.liveManager.isBeginClass)
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoView];
-        [self.fullTeacherFloatView removeFromSuperview];
         
+        if (self.fullTeacherFloatView.superview)
+        {
+            [self.fullTeacherFloatView removeFromSuperview];
+        }
+                
         [view addSubview:self.fullTeacherFloatView];
         [self.fullTeacherFloatView cleanContent];
         SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO withDelegate:self];
