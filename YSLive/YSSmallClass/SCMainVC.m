@@ -3504,7 +3504,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     BOOL isDynamic = YES;
-    if (file.isGeneralFile)
+    if (file.isGeneralFile.boolValue)
     {
         isDynamic = NO;
         
@@ -4593,8 +4593,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
          [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         
-        CGFloat percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(BMUI_SCREEN_WIDTH - videoView.bm_width);
-        CGFloat percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(self.whitebordFullBackgroud.bm_height - videoView.bm_height);
+        CGFloat percentLeft = 0;
+        if (BMUI_SCREEN_WIDTH != videoView.bm_width)
+        {
+            percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(BMUI_SCREEN_WIDTH - videoView.bm_width);
+        }
+        CGFloat percentTop = 0;
+        if (self.whitebordFullBackgroud.bm_height != videoView.bm_height) {
+            percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(self.whitebordFullBackgroud.bm_height - videoView.bm_height);
+        }
         
         if (percentLeft>1)
         {
@@ -4663,13 +4670,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - videoView.bm_width);
         CGFloat y = percentTop * (self.whitebordFullBackgroud.bm_height - 2 - videoView.bm_height);
-        if (x <= 0) {
+        if (x <= 0)
+        {
             x = 1.0;
         }
         
         CGPoint point = CGPointMake(x, y);
         
         self.fullTeacherFloatView.frame = CGRectMake(point.x, point.y, videoView.bm_width, videoView.bm_height);
+                
         [self.fullTeacherFloatView bm_bringToFront];
         return;
     }
