@@ -130,10 +130,12 @@
 {
     int result = 0;
     
-    NSString *msgID = [NSString stringWithFormat:@"VideoDrag_%@", [data bm_stringForKey:@"userId"]];
+    NSString * userId = [data bm_stringForKey:@"userId"];
+    
+    NSString *msgID = [NSString stringWithFormat:@"VideoDrag_%@", userId];
     if ([data bm_boolForKey:@"isDrag"])
     {
-        result = [self.roomManager pubMsg:YSSignalingName_VideoDrag msgID:msgID toID:YSRoomPubMsgTellAllExceptSender data:data save:YES completion:nil];
+        result = [self.roomManager pubMsg:YSSignalingName_VideoDrag msgID:msgID toID:YSRoomPubMsgTellAllExceptSender data:data save:YES associatedMsgID:nil associatedUserID:userId expires:0 completion:nil];
     }
     else
     {
