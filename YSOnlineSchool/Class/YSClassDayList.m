@@ -422,6 +422,12 @@
     }
     YSUserRoleType userRoleType = schoolUser.userRoleType;
 
+    if (![nickName bm_isNotEmpty])
+    {
+        nickName = userId;
+        self.userName = nickName;
+    }
+    
     [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
