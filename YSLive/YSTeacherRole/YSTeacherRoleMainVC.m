@@ -6192,6 +6192,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
 #if USE_FullTeacher
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+        
 //        [self.fullTeacherFloatView bm_bringToFront];
 #endif
     }
@@ -6508,11 +6509,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
-    [self.fullTeacherFloatView removeFromSuperview];
+    if (self.fullTeacherFloatView.superview)
+    {
+        [self.fullTeacherFloatView removeFromSuperview];
+    }
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
     [self.teacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
-//    self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+60, 40, 40);
 }
 
 /// 播放全屏老师视频流
