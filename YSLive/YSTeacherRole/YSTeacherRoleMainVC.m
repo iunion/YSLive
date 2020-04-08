@@ -499,6 +499,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 
     self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - 76 - fullTeacherVideoWidth, 50, fullTeacherVideoWidth, fullTeacherVideoHeight)];
+    self.fullTeacherFloatView.isFullBackgrond = YES;
     
 //    self.fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
 //    self.fullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
@@ -3406,15 +3407,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
     if (videoView.isDragOut)
     {
-//        if (percentTop<0) {
-//            NSDictionary * data = @{
-//                       @"isDrag":@0,
-//                       @"userId":peerId
-//                   };
-//            [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-//            return;
-//        }
-               
+
         CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - 2 - videoView.bm_width);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - 2 - videoView.bm_height);
         if (x <= 0) {
