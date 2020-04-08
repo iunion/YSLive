@@ -4681,7 +4681,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.fullTeacherFloatView.frame = CGRectMake(point.x, point.y, videoView.bm_width, videoView.bm_height);
                 
         [self.fullTeacherFloatView bm_bringToFront];
-        return;
     }
     else
     {
@@ -5489,7 +5488,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
-    [self.fullTeacherFloatView removeFromSuperview];
+    if (self.fullTeacherFloatView.superview)
+    {
+        [self.fullTeacherFloatView removeFromSuperview];
+    }
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
 //    self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40);
@@ -5507,6 +5509,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.fullTeacherFloatView removeFromSuperview];
         }
                 
+        if ([self.liveManager.teacher.peerID bm_isNotEmpty])
+        {
+            self.fullTeacherFloatView.hidden = NO;
+        }
+        
         [view addSubview:self.fullTeacherFloatView];
         [self.fullTeacherFloatView cleanContent];
         SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO withDelegate:self];
@@ -5523,9 +5530,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
         }
-        
-        
-        
     }
 }
 #endif
