@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 白板管理
 @property (nonatomic, strong, readonly) YSWhiteBoardManager *whiteBoardManager;
 /// 白板视图whiteBord
-@property (nonatomic, strong, readonly) UIView *whiteBordView;
+@property (nonatomic, weak, readonly) UIView *whiteBordView;
 
 /// 设备性能是否低
 @property (nonatomic, assign, readonly) BOOL devicePerformance_Low;
@@ -173,6 +173,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)destroy;
 
 - (void)registerRoomManagerDelegate:(nullable id <YSLiveRoomManagerDelegate>)RoomManagerDelegate;
+/// 改变白板背景颜色和水印底图
+- (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 

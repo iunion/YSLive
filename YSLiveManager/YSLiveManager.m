@@ -50,7 +50,10 @@
 // 白板
 @property (nonatomic, strong) YSWhiteBoardManager *whiteBoardManager;
 /// 白板视图whiteBord
-@property (nonatomic, strong) UIView *whiteBordView;
+@property (nonatomic, weak) UIView *whiteBordView;
+
+@property (nonatomic, strong) UIColor *whiteBordBgColor;
+@property (nonatomic, strong) UIImage *whiteBordMaskImage;
 
 // 消息缓存数据
 @property (nonatomic, strong) NSMutableArray *cacheMsgPool;
@@ -280,6 +283,9 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.isEveryoneBanChat = NO;
 //    self.isEveryoneNoAudio = YES;
     self.isEveryoneNoAudio = NO;
+    
+    self.whiteBordBgColor = [UIColor bm_colorWithHex:0xDCE2F1];
+    self.whiteBordMaskImage = nil;
 }
 
 - (void)initializeSDK
@@ -309,6 +315,21 @@ static YSLiveManager *liveManagerSingleton = nil;
 
     self.roomManagerDelegate = RoomManagerDelegate;
 }
+
+- (void)setWhiteBoardBackGroundColor:(UIColor *)color maskImage:(UIImage *)image
+{
+    if (color)
+    {
+        self.whiteBordBgColor = color;
+    }
+    else
+    {
+        self.whiteBordBgColor = [UIColor bm_colorWithHex:0xDCE2F1];
+    }
+    
+    self.whiteBordMaskImage = image;
+}
+
 
 //- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
@@ -460,8 +481,9 @@ static YSLiveManager *liveManagerSingleton = nil;
     }];
     self.whiteBordView.backgroundColor = [UIColor redColor];
 
-    //[self.whiteBoardManager changeWhiteBoardBackImage:nil];
-    [self.whiteBoardManager changeFileViewBackgroudColor:[UIColor bm_colorWithHex:0xDCE2F1]];
+    [self.whiteBoardManager changeWhiteBoardBackImage:self.whiteBordMaskImage];
+    [self.whiteBoardManager changeWhiteBoardBackgroudColor:self.whiteBordBgColor];
+    //[self.whiteBoardManager changeFileViewBackgroudColor:[UIColor clearColor]];
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
@@ -535,7 +557,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         SEL funcSel = NSSelectorFromString(methodName);
         NSArray *parameters = [dic bm_arrayForKey:kYSParameterKey];
         
-        if (sort && [methodName isEqualToString:NSStringFromSelector(@selector(onRoomShareScreenState:state:))])
+        if (sort && ([methodName isEqualToString:NSStringFromSelector(@selector(onRoomShareScreenState:state:))] || [methodName isEqualToString:NSStringFromSelector(@selector(onRoomShareMediaState:state:extensionMessage:))]))
         {
             [self.cacheLastMsgPool addObject:dic];
             

@@ -180,10 +180,10 @@ static NSString * const YSWhiteBordNSURLProtocolKey = @"yswhitebord_protocol_key
 {
     if (error)
     {
-        NSLog(@"=======================================");
-        NSLog(@"%@", error);
-        NSLog(@"=======================================");
-        NSLog(@"%@", self.request.allHTTPHeaderFields);
+//        NSLog(@"=======================================");
+//        NSLog(@"%@", error);
+//        NSLog(@"=======================================");
+//        NSLog(@"%@", self.request.allHTTPHeaderFields);
 
         [self.client URLProtocol:self didFailWithError:error];
     }

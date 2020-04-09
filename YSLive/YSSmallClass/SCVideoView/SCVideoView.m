@@ -220,7 +220,7 @@
     self.maskNoVideobgLab = maskNoVideobgLab;
     maskNoVideobgLab.hidden = YES;
     
-    BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
+//    BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
     
 //    if (isBeginClass)
 //    {

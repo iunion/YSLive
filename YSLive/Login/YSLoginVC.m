@@ -51,6 +51,7 @@
 
 
 #define YSONLINESCHOOL 1
+#define YS_CHANGE_WHITEBOARD_BACKGROUND 0
 
 /// 每次打包的递增版本号 +1
 #define YSAPP_CommitVersion [[NSBundle mainBundle] infoDictionary][@"YSAppCommitVersion"]
@@ -419,6 +420,7 @@
     [task resume];
 }
 
+///检查版本升级
 - (void)checkUpdate
 {
     BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
@@ -488,7 +490,6 @@
         }
     }];
     [task resume];
-    
 }
 
 - (void)showUpdateAlertWithTitle:(NSString *)title downLink:(NSString *)downLink needUpdata:(BOOL)needUpdata
@@ -522,20 +523,17 @@
         {
             [self showUpdateAlertWithTitle:title downLink:downLink needUpdata:needUpdata];
         }
-        
     }];
     [alertVc addAction:confimAc];
     
     if (!needUpdata)
     {
         UIAlertAction *ccc = [UIAlertAction actionWithTitle:YSLocalized(@"Alert.UpdateAfter") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
         }];
         [alertVc addAction:ccc];
     }
     [self presentViewController:alertVc animated:YES completion:nil];
 }
-
 
 #pragma mark - UI
 
@@ -559,17 +557,13 @@
     self.backImageView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
     self.backImageView.backgroundColor = [UIColor redColor];
     [self.backScrollView addSubview:self.backImageView];
-    //    [self.backImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-    //        make.edges.bmmas_equalTo(0);
-    //    }];
-    //
+
     UITapGestureRecognizer *click = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction:)];
     [self.backImageView addGestureRecognizer:click];
     
     [self.backImageView addSubview:self.logoImageView];
     [self.logoImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.centerX.bmmas_equalTo(0);
-        //        make.top.bmmas_equalTo(kScale_H(130));
         make.top.bmmas_equalTo(kBMScale_H(100));
         make.height.bmmas_equalTo(kBMScale_W(153));
         make.width.bmmas_equalTo(kBMScale_W(197));
@@ -1349,6 +1343,16 @@
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     liveManager.liveHost = YSLIVE_HOST;
+#if YS_CHANGE_WHITEBOARD_BACKGROUND
+    if (BMIS_IPHONE)
+    {
+       [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+    }
+    else
+    {
+        [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+    }
+#endif
 
     if ([passWordStr bm_isNotEmpty])
     {
@@ -1384,7 +1388,17 @@
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
-    
+#if YS_CHANGE_WHITEBOARD_BACKGROUND
+    if (BMIS_IPHONE)
+    {
+        [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+    }
+    else
+    {
+        [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+    }
+#endif
+
     [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams needCheckPermissions:YES];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
@@ -2002,7 +2016,7 @@
     }
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
-    if(0) //([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
@@ -2023,7 +2037,6 @@
         [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Error.PwdError") message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
              [weakSelf theRoomNeedPassword];
         }];
-        [[YSLiveManager shareInstance] destroy];
     }
     else
     {
@@ -2048,7 +2061,17 @@
             
             YSLiveManager *liveManager = [YSLiveManager shareInstance];
             [liveManager registerRoomManagerDelegate:self];
-            
+#if YS_CHANGE_WHITEBOARD_BACKGROUND
+            if (BMIS_IPHONE)
+            {
+                [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
+            }
+            else
+            {
+                [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
+            }
+#endif
+
             [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
             
             [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];

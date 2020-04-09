@@ -7,7 +7,7 @@
 //
 
 #import "YSFloatView.h"
-//#import "YSPanGesture.h"
+#import "PanGestureControl.h"
 
 @interface YSFloatView ()
 <
@@ -176,6 +176,11 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
+    if ([[PanGestureControl shareInfo] isExistPanGestureAction:LONG_PRESS_VIEW_DEMO])
+    {
+        return NO;
+    }
+
     return YES;
 }
 

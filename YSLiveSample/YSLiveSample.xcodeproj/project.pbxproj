@@ -43,6 +43,8 @@
 		87096FDA2418C16E00A0A33B /* YSRoomSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 87096FC22418C13600A0A33B /* YSRoomSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8720446B238F80090069761B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8720446A238F80090069761B /* libc++.tbd */; };
 		8729D64523B08D06004CE7B7 /* YSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8729D64423B08D06004CE7B7 /* YSNavigationController.m */; };
+		872F13F4243820E300A487CE /* whiteboardmask_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 872F13F2243820E200A487CE /* whiteboardmask_iphone@2x.png */; };
+		872F13F5243820E300A487CE /* whiteboardmask_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 872F13F3243820E300A487CE /* whiteboardmask_ipad@2x.png */; };
 		926517E1FCB92E8FD17CD1DD /* libPods-YSLiveSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A21B588866A9AF7C49AFFD54 /* libPods-YSLiveSample.a */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +107,8 @@
 		8720446A238F80090069761B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8729D64323B08D06004CE7B7 /* YSNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSNavigationController.h; sourceTree = "<group>"; };
 		8729D64423B08D06004CE7B7 /* YSNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSNavigationController.m; sourceTree = "<group>"; };
+		872F13F2243820E200A487CE /* whiteboardmask_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteboardmask_iphone@2x.png"; sourceTree = "<group>"; };
+		872F13F3243820E300A487CE /* whiteboardmask_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteboardmask_ipad@2x.png"; sourceTree = "<group>"; };
 		A21B588866A9AF7C49AFFD54 /* libPods-YSLiveSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YSLiveSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94BEC376F8AB5C8C3268CB7 /* Pods-YSLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLogin.release.xcconfig"; path = "Target Support Files/Pods-YSLogin/Pods-YSLogin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,6 +172,8 @@
 				26FD3B3A238D2D0F005CABAC /* Views */,
 				26FD3B39238D2D0F005CABAC /* YSLoginVC.h */,
 				26FD3B28238D2D0F005CABAC /* YSLoginVC.m */,
+				872F13F3243820E300A487CE /* whiteboardmask_ipad@2x.png */,
+				872F13F2243820E200A487CE /* whiteboardmask_iphone@2x.png */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -322,6 +328,7 @@
 				87096FD62418C13700A0A33B /* YSLive.xcassets in Resources */,
 				26FD3B43238D2D0F005CABAC /* btn_close@3x.png in Resources */,
 				87096FD42418C13700A0A33B /* YSResources.bundle in Resources */,
+				872F13F4243820E300A487CE /* whiteboardmask_iphone@2x.png in Resources */,
 				87096FD72418C13700A0A33B /* YSWhiteBoardImage.xcassets in Resources */,
 				26FD3AFF238D2A4E005CABAC /* Assets.xcassets in Resources */,
 				26FD3B4C238D2D0F005CABAC /* login_join_disabled@3x.png in Resources */,
@@ -330,6 +337,7 @@
 				26FD3B49238D2D0F005CABAC /* login_join_highlight@2x.png in Resources */,
 				26FD3B45238D2D0F005CABAC /* login_room@3x.png in Resources */,
 				26FD3B44238D2D0F005CABAC /* login_join_disabled@2x.png in Resources */,
+				872F13F5243820E300A487CE /* whiteboardmask_ipad@2x.png in Resources */,
 				26FD3B3E238D2D0F005CABAC /* login_join_normal@2x.png in Resources */,
 				26FD3B48238D2D0F005CABAC /* login_icon@2x.png in Resources */,
 				26FD3B4A238D2D0F005CABAC /* login_room@2x.png in Resources */,

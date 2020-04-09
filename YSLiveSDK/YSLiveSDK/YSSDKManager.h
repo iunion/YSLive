@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate;
 
+/// 改变白板背景颜色和水印底图
+- (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
+
 /// needCheckPermissions设置是否检测设备权限
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams;
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;

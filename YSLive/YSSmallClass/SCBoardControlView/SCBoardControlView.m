@@ -68,13 +68,15 @@
     
     self.augmentBtn.enabled = YES;
     self.reduceBtn.enabled  = NO;
+    
+    [self makeLayout];
 }
 
-- (void)layoutSubviews
+//- (void)layoutSubviews
+- (void)makeLayout
 {
-    [super layoutSubviews];
+//    [super layoutSubviews];
     
-    BMWeakSelf
     [self.allScreenBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(3);
         make.centerY.bmmas_equalTo(0);
@@ -82,35 +84,34 @@
     }];
     
     [self.leftTurnBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.allScreenBtn.bmmas_right).bmmas_offset(8);
+        make.left.bmmas_equalTo(self.allScreenBtn.bmmas_right).bmmas_offset(8);
         make.centerY.bmmas_equalTo(0);
         make.width.bmmas_equalTo(17);
         make.height.bmmas_equalTo(25);
     }];
     
     [self.pageLabel bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.leftTurnBtn.bmmas_right).bmmas_offset(5);
+        make.left.bmmas_equalTo(self.leftTurnBtn.bmmas_right).bmmas_offset(5);
         make.centerY.bmmas_equalTo(0);
-//        make.right.bmmas_equalTo(weakSelf.rightTurnBtn.mas_left).bmmas_offset(-5);
         make.width.bmmas_equalTo(70);
     }];
     
     [self.rightTurnBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.pageLabel.bmmas_right).bmmas_offset(5);
+        make.left.bmmas_equalTo(self.pageLabel.bmmas_right).bmmas_offset(5);
         make.centerY.bmmas_equalTo(0);
         make.width.bmmas_equalTo(17);
         make.height.bmmas_equalTo(25);
     }];
     
     [self.augmentBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.rightTurnBtn.bmmas_right).bmmas_offset(8);
+        make.left.bmmas_equalTo(self.rightTurnBtn.bmmas_right).bmmas_offset(8);
         make.centerY.bmmas_equalTo(0);
         make.width.height.bmmas_equalTo(30);
     }];
     
     [self.reduceBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.centerY.bmmas_equalTo(0);
-        make.left.bmmas_equalTo(weakSelf.augmentBtn.bmmas_right).bmmas_offset(20);
+        make.left.bmmas_equalTo(self.augmentBtn.bmmas_right).bmmas_offset(20);
         make.width.height.bmmas_equalTo(30);
     }];
 }
