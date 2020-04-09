@@ -341,16 +341,16 @@ typedef NS_ENUM(NSInteger, YSSampleFormat) {
 #pragma mark - YSDeviceFaultType 设备故障类型
 #
 typedef NS_ENUM(NSInteger, YSDeviceFaultType) {
-    YSDeviceFaultNone                       = 0, //设备流正常
-    YSDeviceFaultUnknown                    = 1, //未知错误
-    YSDeviceFaultNotFind                    = 2, //没找到设备
-    YSDeviceFaultNotAuth                    = 3, //没有授权
-    YSDeviceFaultOccupied                   = 4, //设备占用
-    YSDeviceFaultConError                   = 5, //约束无法获取设备流
-    YSDeviceFaultConFalse                   = 6, //约束都为false
-    YSDeviceFaultStreamOverTime             = 7, //获取设备流超时
-    YSDeviceFaultStreamEmpty                = 8, //设备流没有数据
-    YSDeviceFaulRemoteDescriptionFail       = 9  //浏览器不支持
+    YSDeviceFaultNone           = 0, //设备流正常
+    YSDeviceFaultUnknown        = 1, //未知错误
+    YSDeviceFaultNotFind        = 2, //没找到设备
+    YSDeviceFaultNotAuth        = 3, //没有授权
+    YSDeviceFaultOccupied       = 4, //设备占用
+    YSDeviceFaultConError       = 5, //约束无法获取设备流
+    YSDeviceFaultConFalse       = 6, //约束都为false
+    YSDeviceFaultStreamOverTime = 7, //获取设备流超时
+    YSDeviceFaultStreamEmpty    = 8, //设备流没有数据
+    YSDeviceFaultSDPFail = 9 //协商不成功
 };
 
 #

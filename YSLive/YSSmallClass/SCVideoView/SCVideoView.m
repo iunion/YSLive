@@ -793,7 +793,7 @@
                 break;
 
             // 浏览器不支持
-            case YSDeviceFaulRemoteDescriptionFail:
+            case YSDeviceFaultSDPFail:
             {
                 self.silentLab.text = YSLocalized(@"Prompt.BrowserCanotSupport");
             }
