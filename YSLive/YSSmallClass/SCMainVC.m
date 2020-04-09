@@ -444,7 +444,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [[YSLiveManager shareInstance].roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserPrimaryColor value:newColorStr completion:nil];
     }
     
-    [self.liveManager.whiteBoardManager changeDefaultPrimaryColor:newColorStr];
+    [self.liveManager.whiteBoardManager changePrimaryColor:newColorStr];
 }
 
 

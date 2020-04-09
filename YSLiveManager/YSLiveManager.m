@@ -481,8 +481,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     }];
     self.whiteBordView.backgroundColor = [UIColor redColor];
 
-    [self.whiteBoardManager changeWhiteBoardBackImage:self.whiteBordMaskImage];
-    [self.whiteBoardManager changeWhiteBoardBackgroudColor:self.whiteBordBgColor];
+    //[self.whiteBoardManager changeWhiteBoardBackImage:self.whiteBordMaskImage];
+    //[self.whiteBoardManager changeWhiteBoardBackgroudColor:self.whiteBordBgColor];
     //[self.whiteBoardManager changeFileViewBackgroudColor:[UIColor clearColor]];
 
     [self.roomManager registerRoomInterfaceDelegate:self];
