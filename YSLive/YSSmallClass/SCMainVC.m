@@ -3660,7 +3660,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
 #endif
-        [self.liveManager destroy];
+        [YSLiveManager destroy];
     }];
 }
 

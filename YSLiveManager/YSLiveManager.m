@@ -161,7 +161,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     return self;
 }
 
-- (void)destroy
++ (void)destroy
 {
     // UIApplicationWillEnterForegroundNotification
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];

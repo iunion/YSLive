@@ -1905,7 +1905,7 @@
         NSString *descript = YSLocalized(@"Error.CanNotConnectNetworkError");
         [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
         
-        [[YSLiveManager shareInstance] destroy];
+        [YSLiveManager destroy];
         
         return;
     }
@@ -2012,7 +2012,7 @@
 {
     [self.progressHUD bm_hideAnimated:NO];
 
-    [[YSLiveManager shareInstance] destroy];
+    [YSLiveManager destroy];
 
     self.needCheckPermissions = NO;
     
@@ -2043,7 +2043,7 @@
         BMWeakSelf
         [YSPassWordAlert showPassWordInputAlerWithTopDistance:(BMUI_SCREEN_HEIGHT - 210)/2 inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) sureBlock:^(NSString * _Nonnull passWord) {
             BMLog(@"%@",passWord);
-            [[YSLiveManager shareInstance] destroy];
+            [YSLiveManager destroy];
             
             YSLiveManager *liveManager = [YSLiveManager shareInstance];
             [liveManager registerRoomManagerDelegate:self];
@@ -2064,7 +2064,7 @@
         } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
             if (index == 0)
             {
-                [[YSLiveManager shareInstance] destroy];
+                [YSLiveManager destroy];
             }
         }];
     }
@@ -2079,14 +2079,14 @@
     }
     [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
     
-    [[YSLiveManager shareInstance] destroy];
+    [YSLiveManager destroy];
 }
 
 - (void)onRoomConnectionLost
 {
     [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 
-    [[YSLiveManager shareInstance] destroy];
+    [YSLiveManager destroy];
 }
 
 - (void)logoutOnlineSchool

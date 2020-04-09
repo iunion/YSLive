@@ -170,7 +170,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSDictionary *)resolveJoinRoomParamsWithUrl:(NSURL *)url;
 
 + (instancetype)shareInstance;
-- (void)destroy;
++ (void)destroy;
 
 - (void)registerRoomManagerDelegate:(nullable id <YSLiveRoomManagerDelegate>)RoomManagerDelegate;
 /// 改变白板背景颜色和水印底图
