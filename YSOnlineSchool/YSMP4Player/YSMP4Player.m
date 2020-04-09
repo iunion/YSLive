@@ -1,14 +1,14 @@
 //
-//  ZQPlayer.m
-//  ZQPlayer
+//  YSMP4Player.m
+//  YSMP4Player
 //
 //  Created by wang on 2018/3/30.
 //  Copyright © 2018年 qigge. All rights reserved.
 //
 
-#import "ZQPlayer.h"
+#import "YSMP4Player.h"
 
-@interface ZQPlayer ()
+@interface YSMP4Player ()
 
 // 是否正在播放
 @property (nonatomic, assign) BOOL isPlaying;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation ZQPlayer
+@implementation YSMP4Player
 
 #pragma mark - Public Method
 - (instancetype)init {
@@ -113,8 +113,8 @@
         }
         [_player play];
         _isPlaying = YES;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-            [self.delegate ZQPlayerStateChange:self state:ZQPlayerStatePlaying];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+            [self.delegate playerStateChange:self state:YSMP4PlayerStatePlaying];
         }
     }
 }
@@ -122,8 +122,8 @@
     if (_isPlaying) {
         _isPlaying = NO;
         [_player pause];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-            [self.delegate ZQPlayerStateChange:self state:ZQPlayerStatePause];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+            [self.delegate playerStateChange:self state:YSMP4PlayerStatePause];
         }
     }
 }
@@ -143,8 +143,8 @@
         _playerItme = nil;
     }
     [_player replaceCurrentItemWithPlayerItem:_playerItme];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-        [self.delegate ZQPlayerStateChange:self state:ZQPlayerStateStop];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+        [self.delegate playerStateChange:self state:YSMP4PlayerStateStop];
     }
 }
 
@@ -154,16 +154,16 @@
 //设置播放进度和时间
 -(void)setTheProgressOfPlayTime {
     self.timeInterval   = CMTimeGetSeconds(_playerItme.asset.duration);
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerTotalTime:totalTime:)]) {
-        [self.delegate ZQPlayerTotalTime:self totalTime:self.timeInterval];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerTotalTime:totalTime:)]) {
+        [self.delegate playerTotalTime:self totalTime:self.timeInterval];
     }
     [self removeTimeObserver];
      __weak typeof(self) weakSelf = self;
     _playerTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 10) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         if (weakSelf.isPlaying) {
             CGFloat currentTime = CMTimeGetSeconds(time);
-            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(ZQPlayerCurrentTime:currentTime:)]) {
-                [weakSelf.delegate ZQPlayerCurrentTime:weakSelf currentTime:currentTime];
+            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(playerCurrentTime:currentTime:)]) {
+                [weakSelf.delegate playerCurrentTime:weakSelf currentTime:currentTime];
             }
         }
     }];
@@ -191,8 +191,8 @@
 - (void)moviePlayDidEnd:(NSNotification *)noti {
     [_player seekToTime:kCMTimeZero];
     _isPlaying = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-        [self.delegate ZQPlayerStateChange:self state:ZQPlayerStateStop];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+        [self.delegate playerStateChange:self state:YSMP4PlayerStateStop];
     }
 }
 // 应用退到后台
@@ -210,20 +210,20 @@
         if ([keyPath isEqualToString:@"status"]) {
             if (_playerItme.status == AVPlayerStatusReadyToPlay) {
                 [self setTheProgressOfPlayTime];
-                if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-                    [self.delegate ZQPlayerStateChange:self state:ZQPlayerStateReadyToPlay];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+                    [self.delegate playerStateChange:self state:YSMP4PlayerStateReadyToPlay];
                 }
             }else if (_playerItme.status == AVPlayerStatusFailed) {
-                if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-                    [self.delegate ZQPlayerStateChange:self state:ZQPlayerStateFailed];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+                    [self.delegate playerStateChange:self state:YSMP4PlayerStateFailed];
                 }
                 [self stop];
             }
         } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
             CMTimeRange range = [_playerItme.loadedTimeRanges.firstObject CMTimeRangeValue];
             CGFloat loadSeconds = CMTimeGetSeconds(range.start) + CMTimeGetSeconds(range.duration);
-            if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerLoadTime:loadTime:)]) {
-                [self.delegate ZQPlayerLoadTime:self loadTime:loadSeconds];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(playerLoadTime:loadTime:)]) {
+                [self.delegate playerLoadTime:self loadTime:loadSeconds];
             }
         }else if ([keyPath isEqualToString:@"playbackBufferEmpty"]) {
             // 当缓冲是空的时候
@@ -233,8 +233,8 @@
             }else {
                 _isBuffering = NO;
             }
-            if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-                [self.delegate ZQPlayerStateChange:self state:_isBuffering?ZQPlayerStateBufferEmpty:ZQPlayerStateKeepUp];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+                [self.delegate playerStateChange:self state:_isBuffering?YSMP4PlayerStateBufferEmpty:YSMP4PlayerStateKeepUp];
             }
         }
     }

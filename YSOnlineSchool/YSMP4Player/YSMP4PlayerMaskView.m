@@ -1,16 +1,16 @@
 //
-//  ZQPlayerMaskView.m
-//  ZQPlayer
+//  YSMP4PlayerMaskView.m
+//  YSMP4Player
 //
 //  Created by wang on 2018/3/16.
 //  Copyright © 2018年 qigge. All rights reserved.
 //
 
-#import "ZQPlayerMaskView.h"
+#import "YSMP4PlayerMaskView.h"
 
 #import <BMKit/BMMasonry.h>
 
-@interface ZQPlayerMaskView ()<ZQPlayerDelegate,UIGestureRecognizerDelegate> {
+@interface YSMP4PlayerMaskView ()<YSMP4PlayerDelegate,UIGestureRecognizerDelegate> {
     BOOL _isDragSlider;
 }
 
@@ -34,7 +34,7 @@
 @end
 
 
-@implementation ZQPlayerMaskView
+@implementation YSMP4PlayerMaskView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -218,9 +218,9 @@
 }
 
 #pragma mark - private method
-// 从ZQPlayerImage.bundle 中加载图片
+// 从YSMP4PlayerImage.bundle 中加载图片
 - (UIImage *)imagesNamedFromCustomBundle:(NSString *)imgName {
-    NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"ZQPlayerImage.bundle"];
+    NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"YSMP4PlayerImage.bundle"];
     NSString *img_path = [bundlePath stringByAppendingPathComponent:imgName];
     return [UIImage imageWithContentsOfFile:img_path];
 }
@@ -312,17 +312,17 @@
     [self progressSliderTouchEnded:self.videoSlider];
 }
 
-#pragma mark - ZQPlayerDelegate
+#pragma mark - YSMP4PlayerDelegate
 /**
  播放器状态变化
  @param player 播放器
  @param state 状态
  */
-- (void)ZQPlayerStateChange:(ZQPlayer *)player state:(ZQPlayerState)state {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerStateChange:state:)]) {
-        [self.delegate ZQPlayerStateChange:player state:state];
+- (void)playerStateChange:(YSMP4Player *)player state:(YSMP4PlayerState)state {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerStateChange:state:)]) {
+        [self.delegate playerStateChange:player state:state];
     }
-    if (state == ZQPlayerStatePlaying) {
+    if (state == YSMP4PlayerStatePlaying) {
         _playBtn.selected = YES;
         self.backgroundImage.image = nil;
         if (_player.isBuffering) {
@@ -332,18 +332,18 @@
             [self hidePlayerSubviewWithTimer];
         }
     }
-    else if (state == ZQPlayerStatePause) {
+    else if (state == YSMP4PlayerStatePause) {
         _playBtn.selected = NO;
         [self showPlayerSubview];
         [self stopLoading];
     }
-    else if (state == ZQPlayerStateBufferEmpty) {
+    else if (state == YSMP4PlayerStateBufferEmpty) {
         [self startLoading];
     }
-    else if (state == ZQPlayerStateKeepUp) {
+    else if (state == YSMP4PlayerStateKeepUp) {
         [self stopLoading];
     }
-    else if (state == ZQPlayerStateStop || state == ZQPlayerStateFailed) {
+    else if (state == YSMP4PlayerStateStop || state == YSMP4PlayerStateFailed) {
         [self stopLoading];
         _playBtn.selected = NO;
         _currentTimeLabel.text = @"00:00";
@@ -351,7 +351,7 @@
         
         [self showPlayerSubview];
     }
-    else if (state == ZQPlayerStateReadyToPlay) {
+    else if (state == YSMP4PlayerStateReadyToPlay) {
         
     }
 }
@@ -359,9 +359,9 @@
 /**
  视频源开始加载后调用 ，返回视频的长度
  */
-- (void)ZQPlayerTotalTime:(ZQPlayer *)player totalTime:(CGFloat)time {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerTotalTime:totalTime:)]) {
-        [self.delegate ZQPlayerTotalTime:player totalTime:time];
+- (void)playerTotalTime:(YSMP4Player *)player totalTime:(CGFloat)time {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerTotalTime:totalTime:)]) {
+        [self.delegate playerTotalTime:player totalTime:time];
     }
     //秒数
     NSInteger proSec = (NSInteger)time%60;
@@ -373,9 +373,9 @@
 /**
  视频源加载时调用 ，返回视频的缓冲长度
  */
-- (void)ZQPlayerLoadTime:(ZQPlayer *)player loadTime:(CGFloat)time {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerLoadTime:loadTime:)]) {
-        [self.delegate ZQPlayerLoadTime:player loadTime:time];
+- (void)playerLoadTime:(YSMP4Player *)player loadTime:(CGFloat)time {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerLoadTime:loadTime:)]) {
+        [self.delegate playerLoadTime:player loadTime:time];
     }
     // 判断视频长度
     if (player.timeInterval > 0) {
@@ -386,9 +386,9 @@
 /**
  播放时调用，返回当前时间
  */
-- (void)ZQPlayerCurrentTime:(ZQPlayer *)player currentTime:(CGFloat)time {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ZQPlayerCurrentTime:currentTime:)]) {
-        [self.delegate ZQPlayerCurrentTime:player currentTime:time];
+- (void)playerCurrentTime:(YSMP4Player *)player currentTime:(CGFloat)time {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerCurrentTime:currentTime:)]) {
+        [self.delegate playerCurrentTime:player currentTime:time];
     }
     [self.videoSlider setValue:time/player.timeInterval animated:YES];
     //秒数
@@ -700,9 +700,9 @@
     return _backgroundImage;
 }
 
-- (ZQPlayer *)player {
+- (YSMP4Player *)player {
     if (!_player) {
-        _player = [[ZQPlayer alloc] init];
+        _player = [[YSMP4Player alloc] init];
         _player.delegate = self;
     }
     return _player;

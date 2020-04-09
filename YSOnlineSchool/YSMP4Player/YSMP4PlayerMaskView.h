@@ -1,6 +1,6 @@
 //
-//  ZQPlayerMaskView.h
-//  ZQPlayer
+//  YSMP4PlayerMaskView.h
+//  YSMP4Player
 //
 //  Created by wang on 2018/3/16.
 //  Copyright © 2018年 qigge. All rights reserved.
@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ZQPlayer.h"
+#import "YSMP4Player.h"
 typedef void (^YSSchoolAVPlayerViewClose)(void);
-@interface ZQPlayerMaskView : UIView
+@interface YSMP4PlayerMaskView : UIView
 
-@property (nonatomic, weak) id <ZQPlayerDelegate> delegate;
+@property (nonatomic, weak) id <YSMP4PlayerDelegate> delegate;
 /** 播放器 */
-@property (nonatomic, strong) ZQPlayer *player;
+@property (nonatomic, strong) YSMP4Player *player;
 /** 背景图片 */
 @property (nonatomic, strong) UIImageView *backgroundImage;
 

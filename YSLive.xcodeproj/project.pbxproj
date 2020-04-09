@@ -35,12 +35,12 @@
 		26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE923B4C58E004B8366 /* SCTeacherCoursewareListCell.m */; };
 		269B023B2376CA0000DE83B0 /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B02322376C48200DE83B0 /* SCTopToolBarModel.m */; };
 		26C1D3852376B2CF007869EA /* SCTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2628F2B72376A53F00425E08 /* SCTopToolBar.m */; };
-		26D07C1D243F03B2002B1B60 /* ZQPlayerImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26D07C16243F03B2002B1B60 /* ZQPlayerImage.bundle */; };
-		26D07C1E243F03B2002B1B60 /* ZQPlayerImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26D07C16243F03B2002B1B60 /* ZQPlayerImage.bundle */; };
-		26D07C1F243F03B2002B1B60 /* ZQPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* ZQPlayer.m */; };
-		26D07C20243F03B2002B1B60 /* ZQPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* ZQPlayer.m */; };
-		26D07C23243F03B2002B1B60 /* ZQPlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* ZQPlayerMaskView.m */; };
-		26D07C24243F03B2002B1B60 /* ZQPlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* ZQPlayerMaskView.m */; };
+		26D07C1D243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */; };
+		26D07C1E243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */; };
+		26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
+		26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
+		26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
+		26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
 		26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		26EFA60123795A7100EC2A64 /* SCAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA5FF23794EFD00EC2A64 /* SCAnswerView.m */; };
 		26EFA67223797B0000EC2A64 /* SCOptionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA67123797B0000EC2A64 /* SCOptionCollectionCell.m */; };
@@ -778,11 +778,11 @@
 		2661FB1F23670AB5000859F7 /* YSBarrageDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSBarrageDescriptor.h; sourceTree = "<group>"; };
 		269B02312376C48200DE83B0 /* SCTopToolBarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTopToolBarModel.h; sourceTree = "<group>"; };
 		269B02322376C48200DE83B0 /* SCTopToolBarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBarModel.m; sourceTree = "<group>"; };
-		26D07C16243F03B2002B1B60 /* ZQPlayerImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZQPlayerImage.bundle; sourceTree = "<group>"; };
-		26D07C17243F03B2002B1B60 /* ZQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQPlayer.h; sourceTree = "<group>"; };
-		26D07C19243F03B2002B1B60 /* ZQPlayerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQPlayerMaskView.h; sourceTree = "<group>"; };
-		26D07C1A243F03B2002B1B60 /* ZQPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQPlayer.m; sourceTree = "<group>"; };
-		26D07C1C243F03B2002B1B60 /* ZQPlayerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQPlayerMaskView.m; sourceTree = "<group>"; };
+		26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMP4PlayerImage.bundle; sourceTree = "<group>"; };
+		26D07C17243F03B2002B1B60 /* YSMP4Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4Player.h; sourceTree = "<group>"; };
+		26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4PlayerMaskView.h; sourceTree = "<group>"; };
+		26D07C1A243F03B2002B1B60 /* YSMP4Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4Player.m; sourceTree = "<group>"; };
+		26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4PlayerMaskView.m; sourceTree = "<group>"; };
 		26D5405D23BDD7060064FB84 /* SCTeacherAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherAnswerView.h; sourceTree = "<group>"; };
 		26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherAnswerView.m; sourceTree = "<group>"; };
 		26E6401723699700000D9CEC /* YSUserDefault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUserDefault.h; sourceTree = "<group>"; };
@@ -1618,16 +1618,16 @@
 			path = OCBarrage;
 			sourceTree = "<group>";
 		};
-		26D07C15243F03B2002B1B60 /* ZQPlayer */ = {
+		26D07C15243F03B2002B1B60 /* YSMP4Player */ = {
 			isa = PBXGroup;
 			children = (
-				26D07C17243F03B2002B1B60 /* ZQPlayer.h */,
-				26D07C1A243F03B2002B1B60 /* ZQPlayer.m */,
-				26D07C16243F03B2002B1B60 /* ZQPlayerImage.bundle */,
-				26D07C19243F03B2002B1B60 /* ZQPlayerMaskView.h */,
-				26D07C1C243F03B2002B1B60 /* ZQPlayerMaskView.m */,
+				26D07C17243F03B2002B1B60 /* YSMP4Player.h */,
+				26D07C1A243F03B2002B1B60 /* YSMP4Player.m */,
+				26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */,
+				26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */,
+				26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */,
 			);
-			path = ZQPlayer;
+			path = YSMP4Player;
 			sourceTree = "<group>";
 		};
 		26EFA5FD23794C4B00EC2A64 /* SCAnswerView */ = {
@@ -1656,7 +1656,7 @@
 		34043C3A23EA60B4004982E6 /* YSOnlineSchool */ = {
 			isa = PBXGroup;
 			children = (
-				26D07C15243F03B2002B1B60 /* ZQPlayer */,
+				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */,
 				3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */,
 				34043C4123EA62EB004982E6 /* YSTabBarViewController.h */,
@@ -3184,7 +3184,7 @@
 				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
 				871336ED237270F6006534A4 /* (null) in Resources */,
 				87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */,
-				26D07C1D243F03B2002B1B60 /* ZQPlayerImage.bundle in Resources */,
+				26D07C1D243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3215,7 +3215,7 @@
 				8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */,
 				8717E34D2400DADC008C4CDA /* (null) in Resources */,
 				8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */,
-				26D07C1E243F03B2002B1B60 /* ZQPlayerImage.bundle in Resources */,
+				26D07C1E243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3372,7 +3372,7 @@
 				872D046F23B7362300DAC321 /* FLEXColorExplorerViewController.m in Sources */,
 				872D04A023B7362300DAC321 /* FLEXKeychain.m in Sources */,
 				872D048423B7362300DAC321 /* FLEXMutableFieldEditorViewController.m in Sources */,
-				26D07C1F243F03B2002B1B60 /* ZQPlayer.m in Sources */,
+				26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */,
 				871335A3237270F6006534A4 /* YSQuestionView.m in Sources */,
 				871335A5237270F6006534A4 /* YSUserDefault.m in Sources */,
 				871335A6237270F6006534A4 /* YSLessonDetailHeaderView.m in Sources */,
@@ -3445,7 +3445,7 @@
 				871335E0237270F6006534A4 /* YSLessonModel.m in Sources */,
 				34043C3D23EA6179004982E6 /* YSCalendarCurriculumVC.m in Sources */,
 				26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */,
-				26D07C23243F03B2002B1B60 /* ZQPlayerMaskView.m in Sources */,
+				26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */,
 				872D048123B7362300DAC321 /* FLEXToolbarItem.m in Sources */,
 				CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */,
 				872D048D23B7362300DAC321 /* FLEXArgumentInputSwitchView.m in Sources */,
@@ -3679,7 +3679,7 @@
 				8717E2242400DADC008C4CDA /* FLEXColorExplorerViewController.m in Sources */,
 				8717E2252400DADC008C4CDA /* FLEXKeychain.m in Sources */,
 				8717E2262400DADC008C4CDA /* FLEXMutableFieldEditorViewController.m in Sources */,
-				26D07C20243F03B2002B1B60 /* ZQPlayer.m in Sources */,
+				26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */,
 				8717E2272400DADC008C4CDA /* YSQuestionView.m in Sources */,
 				8717E2282400DADC008C4CDA /* YSUserDefault.m in Sources */,
 				8717E2292400DADC008C4CDA /* YSLessonDetailHeaderView.m in Sources */,
@@ -3752,7 +3752,7 @@
 				8717E27A2400DADC008C4CDA /* YSLessonModel.m in Sources */,
 				8717E27B2400DADC008C4CDA /* YSCalendarCurriculumVC.m in Sources */,
 				8717E27C2400DADC008C4CDA /* SCTeacherCoursewareListCell.m in Sources */,
-				26D07C24243F03B2002B1B60 /* ZQPlayerMaskView.m in Sources */,
+				26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */,
 				8717E27F2400DADC008C4CDA /* FLEXToolbarItem.m in Sources */,
 				8717E2812400DADC008C4CDA /* YSTeacherResponder.m in Sources */,
 				8717E2822400DADC008C4CDA /* FLEXArgumentInputSwitchView.m in Sources */,

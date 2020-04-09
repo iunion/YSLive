@@ -15,7 +15,7 @@
 #import "YSLiveApiRequest.h"
 #import "YSSchoolUser.h"
 #import "YSSchoolAVPlayerView.h"
-#import "ZQPlayerMaskView.h"
+#import "YSMP4PlayerMaskView.h"
 @interface YSClassDetailVC ()
 <
     YSClassCellDelegate,
@@ -23,7 +23,7 @@
 >
 
 @property (nonatomic, strong) YSClassReplayListModel *classReplayListModel;
-@property (nonatomic, strong) ZQPlayerMaskView *playerMaskView;
+@property (nonatomic, strong) YSMP4PlayerMaskView *playerMaskView;
 @property (nonatomic, assign) BOOL statusHiden;
 @end
 
@@ -286,7 +286,7 @@
     self.statusHiden = YES;
     [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
     
-    _playerMaskView = [[ZQPlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height )];
+    _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height )];
     _playerMaskView.isWiFi = YES;
     _playerMaskView.titleLab.text = [NSString stringWithFormat:@"%@_%@", self.classReplayListModel.lessonsName, classReviewModel.part];;
     [self.view addSubview:_playerMaskView];
