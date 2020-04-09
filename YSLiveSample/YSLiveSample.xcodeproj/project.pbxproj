@@ -149,8 +149,8 @@
 		0455F0A5243EB90D00468853 /* YSLiveSample */ = {
 			isa = PBXGroup;
 			children = (
-				0455F0D0243EB96F00468853 /* Login */,
 				0455F0C1243EB96F00468853 /* YSLib */,
+				0455F0D0243EB96F00468853 /* Login */,
 				0455F0E9243EB96F00468853 /* AppDelegate.h */,
 				0455F0C0243EB96E00468853 /* AppDelegate.m */,
 				0455F0EA243EB96F00468853 /* YSLoginMacros.h */,
@@ -194,12 +194,12 @@
 		0455F0D0243EB96F00468853 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				0455F0D1243EB96F00468853 /* YSLoginVC.m */,
 				0455F0D2243EB96F00468853 /* Images */,
-				0455F0E2243EB96F00468853 /* whiteboardmask_ipad@2x.png */,
-				0455F0E3243EB96F00468853 /* YSLoginVC.h */,
 				0455F0E4243EB96F00468853 /* Views */,
+				0455F0E2243EB96F00468853 /* whiteboardmask_ipad@2x.png */,
 				0455F0E7243EB96F00468853 /* whiteboardmask_iphone@2x.png */,
+				0455F0E3243EB96F00468853 /* YSLoginVC.h */,
+				0455F0D1243EB96F00468853 /* YSLoginVC.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -229,8 +229,8 @@
 		0455F0E4243EB96F00468853 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0455F0E5243EB96F00468853 /* YSInputView.m */,
 				0455F0E6243EB96F00468853 /* YSInputView.h */,
+				0455F0E5243EB96F00468853 /* YSInputView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
