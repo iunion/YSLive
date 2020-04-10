@@ -14,7 +14,6 @@
 
 #import "YSLiveApiRequest.h"
 #import "YSSchoolUser.h"
-#import "YSSchoolAVPlayerView.h"
 #import "YSMP4PlayerMaskView.h"
 #import "YSCoreStatus.h"
 
