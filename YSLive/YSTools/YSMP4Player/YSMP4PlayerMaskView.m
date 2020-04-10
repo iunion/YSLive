@@ -198,14 +198,14 @@
     if (_isWiFi) {
         [_player play];
     }else {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                        message:@"您正处于移动网络环境下，是否要使用流量播放"
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.prompt")
+                                                                        message:YSLocalized(@"Prompt.networkWIFI")
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-        [alertC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertC addAction:[UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self.isWiFi = YES;
             [self.player play];
         }]];
-        [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alertC addAction:[UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             self.playBtn.selected = NO;
         }]];
         [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:alertC animated:YES completion:nil];

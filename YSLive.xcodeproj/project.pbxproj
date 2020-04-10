@@ -1652,7 +1652,6 @@
 		34043C3A23EA60B4004982E6 /* YSOnlineSchool */ = {
 			isa = PBXGroup;
 			children = (
-				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */,
 				3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */,
 				34043C4123EA62EB004982E6 /* YSTabBarViewController.h */,
@@ -2658,6 +2657,7 @@
 		879ADAEA23516D4400C72EAA /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
+				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8779E58223F79803008E885C /* YSCircleProgress */,
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
 				8745556123B309CE00BC6CAB /* YSEyeCare */,
