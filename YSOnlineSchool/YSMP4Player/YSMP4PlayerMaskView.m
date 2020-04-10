@@ -42,6 +42,7 @@
         
         _isDragSlider = NO;
         _isWiFi = YES;
+        _showFullBtn = YES;
         
         [self setUI];
         
@@ -57,6 +58,29 @@
     
     _topGradientLayer.frame = self.topView.bounds;
     _bottomGradientLayer.frame = self.bottomView.bounds;
+    _backgroundImage.frame = self.bounds;
+    
+    _loadingView.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5);
+    _loadingImage.center = CGPointMake(_loadingView.bounds.size.width * 0.5, _loadingView.bounds.size.height * 0.5);
+    
+    _topView.frame = CGRectMake(0, 4, self.bounds.size.width, 30);
+
+    _backBtn.frame = CGRectMake(30, 0, 30, 30);
+    _titleLab.frame = CGRectMake(66, 0, _topView.bounds.size.width-70, 30);
+
+    _bottomView.frame = CGRectMake(0, self.bounds.size.height-44, self.bounds.size.width, 40);
+    
+    _playBtn.frame = CGRectMake(40, 5, 30, 30);
+    _currentTimeLabel.frame = CGRectMake(80, 0, 60, 40);
+
+    _fullBtn.frame = CGRectMake(_bottomView.bounds.size.width-50, 5, 30, 30);
+    _totalTimeLabel.frame = CGRectMake(_bottomView.bounds.size.width-120, 0, 60, 40);
+
+    _progressView.frame = CGRectMake(140, 18, _bottomView.bounds.size.width-260, 20);
+    _videoSlider.frame = _progressView.frame;
+    _videoSlider.bm_left -= 1;
+    _videoSlider.bm_top += 1;
+    _videoSlider.bm_width += 2;
 }
 
 - (void)awakeFromNib {
@@ -89,75 +113,19 @@
     [self addSubview:self.bottomView];
     [_bottomView addSubview:self.playBtn];
     [_bottomView addSubview:self.currentTimeLabel];
-//    [_bottomView addSubview:self.fullBtn];
+    [_bottomView addSubview:self.fullBtn];
     [_bottomView addSubview:self.progressView];
     [_bottomView addSubview:self.videoSlider];
     [_bottomView addSubview:self.totalTimeLabel];
     [self addSubview:self.loadingView];
     
-    [_backgroundImage bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.edges.bmmas_equalTo(self);
-    }];
-    
-    [_topView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.right.top.bmmas_equalTo(self);
-        make.height.bmmas_equalTo(30);
-    }];
-    
-    [_backBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(self).with.bmmas_offset(30);
-        make.top.bmmas_equalTo(self).with.bmmas_offset(4);
-        make.width.bmmas_equalTo(30);
-        make.height.bmmas_equalTo(30);
-    }];
-    [_titleLab bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.right.top.bottom.bmmas_equalTo(self.topView);
-    }];
-    
-    [_bottomView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.right.bottom.bmmas_equalTo(self);
-        make.height.bmmas_equalTo(40);
-    }];
-    
-    [_playBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(self.bottomView).with.bmmas_offset(40);
-        make.bottom.bmmas_equalTo(self.bottomView).with.bmmas_offset(-10);
+    self.fullBtn.hidden = !_showFullBtn;
+}
 
-        make.width.bmmas_equalTo(30);
-        make.height.bmmas_equalTo(30);
-    }];
-    [_currentTimeLabel bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(self.playBtn.bmmas_right).with.bmmas_offset(10);
-        make.centerY.bmmas_equalTo(self.playBtn);
-        make.width.bmmas_equalTo(38);
-    }];
-    
-//    [_fullBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-//        make.right.equalTo(self.bottomView).with.offset(-20);
-//        make.centerY.equalTo(self.playBtn);
-//        make.width.mas_equalTo(@(25));
-//        make.height.mas_equalTo(@(25));
-//    }];
-    [_totalTimeLabel bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.right.bmmas_equalTo(self).with.bmmas_offset(-20);
-        make.centerY.bmmas_equalTo(self.playBtn);
-    }];
-    [_progressView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(self.currentTimeLabel.bmmas_right).with.bmmas_offset(10);
-        make.right.bmmas_equalTo(self.totalTimeLabel.bmmas_left).with.bmmas_offset(-10);
-        make.centerY.bmmas_equalTo(self.playBtn);
-    }];
-    [_videoSlider bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(self.currentTimeLabel.bmmas_right).with.bmmas_offset(10);
-        make.right.bmmas_equalTo(self.totalTimeLabel.bmmas_left).with.bmmas_offset(-10);
-        make.centerY.bmmas_equalTo(self.playBtn).with.bmmas_offset(-1);
-    }];
-    [_loadingView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.centerX.bmmas_equalTo(self);
-        make.centerY.bmmas_equalTo(self).with.bmmas_offset(10);
-        make.width.bmmas_equalTo(90);
-        make.height.bmmas_equalTo(70);
-    }];
+- (void)setShowFullBtn:(BOOL)showFullBtn
+{
+    _showFullBtn = showFullBtn;
+    self.fullBtn.hidden = !_showFullBtn;
 }
 
 - (void)cofigGestureRecognizer {
@@ -219,11 +187,12 @@
 
 #pragma mark - private method
 // 从YSMP4PlayerImage.bundle 中加载图片
-- (UIImage *)imagesNamedFromCustomBundle:(NSString *)imgName {
-    NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"YSMP4PlayerImage.bundle"];
-    NSString *img_path = [bundlePath stringByAppendingPathComponent:imgName];
-    return [UIImage imageWithContentsOfFile:img_path];
-}
+//- (UIImage *)imagesNamedFromCustomBundle:(NSString *)imgName {
+//    NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"YSMP4PlayerImage.bundle"];
+//    NSString *img_path = [bundlePath stringByAppendingPathComponent:imgName];
+//    return [UIImage imageWithContentsOfFile:img_path];
+//}
+
 // 播放视频，判断用户网络来
 - (void)playWithJudgeNet {
     if (_isWiFi) {
@@ -426,7 +395,8 @@
     [self showOrHideWith:YES]; // 显示控件
     
     self.loadingView.hidden = NO;
-    self.loadingImage.image = [self imagesNamedFromCustomBundle:@"icon_video_loading"];
+    //self.loadingImage.image = [self imagesNamedFromCustomBundle:@"icon_video_loading"];
+    self.loadingImage.image = [UIImage imageNamed:@"mp4plarer_icon_video_loading"];
     if (![self.loadingImage.layer animationForKey:@"loading"]) {
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
@@ -541,13 +511,18 @@
         [self playWithJudgeNet];
     }
 }
-/** 全屏 和退出全屏 */
-- (void)videoFullAction {
+
+- (void)backAction {
     
     if (self.closeBlock)
     {
         self.closeBlock();
     }
+}
+
+/** 全屏 和退出全屏 */
+- (void)videoFullAction {
+    
 //    UIDeviceOrientation orientation;
 //
 //    UIInterfaceOrientation orgOrientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -583,7 +558,7 @@
         _titleLab = [[UILabel alloc]init];
         _titleLab.text = @"";
         _titleLab.textColor = [UIColor whiteColor];
-        _titleLab.textAlignment = NSTextAlignmentCenter;
+        //_titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.font = [UIFont systemFontOfSize:14];
     }
     return _titleLab;
@@ -594,8 +569,9 @@
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _backBtn.hidden = NO;
         _backBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-        [_backBtn setImage:[self imagesNamedFromCustomBundle:@"icon_back_white"] forState:UIControlStateNormal];
-        [_backBtn addTarget:self action:@selector(videoFullAction) forControlEvents:UIControlEventTouchUpInside];
+        //[_backBtn setImage:[self imagesNamedFromCustomBundle:@"icon_back_white"] forState:UIControlStateNormal];
+        [_backBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_back_white"] forState:UIControlStateNormal];
+        [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
 }
@@ -603,21 +579,24 @@
     if (!_playBtn) {
         _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _playBtn.frame = CGRectMake(0, 0, 21, 21);
-        [_playBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_play"] forState:UIControlStateNormal];
-        [_playBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_stop"] forState:UIControlStateSelected];
+        //[_playBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_play"] forState:UIControlStateNormal];
+        [_playBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_video_play"] forState:UIControlStateNormal];
+        //[_playBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_stop"] forState:UIControlStateSelected];
+        [_playBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_video_stop"] forState:UIControlStateSelected];
         [_playBtn addTarget:self action:@selector(startAndPause:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _playBtn;
 }
-//- (UIButton *)fullBtn {
-//    if (!_fullBtn) {
-//        _fullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _fullBtn.frame = CGRectMake(0, 0, 21, 21);
-//        [_fullBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_fullscreen"] forState:UIControlStateNormal];
-//        [_fullBtn addTarget:self action:@selector(videoFullAction) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _fullBtn;
-//}
+- (UIButton *)fullBtn {
+    if (!_fullBtn) {
+        _fullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _fullBtn.frame = CGRectMake(0, 0, 21, 21);
+        //[_fullBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_fullscreen"] forState:UIControlStateNormal];
+        [_fullBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_video_fullscreen"] forState:UIControlStateNormal];
+        [_fullBtn addTarget:self action:@selector(videoFullAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _fullBtn;
+}
 
 - (UIView *)bottomView {
     if (!_bottomView) {
@@ -656,7 +635,8 @@
 - (UISlider *)videoSlider {
     if (!_videoSlider) {
         _videoSlider = [[UISlider alloc]init];
-        [_videoSlider setThumbImage:[self imagesNamedFromCustomBundle:@"icon_video_spot"] forState:UIControlStateNormal];
+        //[_videoSlider setThumbImage:[self imagesNamedFromCustomBundle:@"icon_video_spot"] forState:UIControlStateNormal];
+        [_videoSlider setThumbImage:[UIImage imageNamed:@"mp4plarer_icon_video_spot"] forState:UIControlStateNormal];
         _videoSlider.minimumTrackTintColor = [UIColor colorWithWhite:1 alpha:0.6];
         _videoSlider.maximumTrackTintColor = [UIColor clearColor];
         // slider开始滑动事件
@@ -674,11 +654,6 @@
         _loadingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         _loadingView.layer.cornerRadius = 7;
         [_loadingView addSubview:self.loadingImage];
-        [_loadingImage bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.center.equalTo(self->_loadingView);
-            make.width.mas_equalTo(@(31));
-            make.height.mas_equalTo(@(31));
-        }];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(play)];
         [_loadingView addGestureRecognizer:tap];
     }
@@ -686,8 +661,9 @@
 }
 - (UIImageView *)loadingImage {
     if (!_loadingImage ){
-        _loadingImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 31, 31)];
-        _loadingImage.image = [self imagesNamedFromCustomBundle:@"icon_video_play"];
+        _loadingImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        //_loadingImage.image = [self imagesNamedFromCustomBundle:@"icon_video_play"];
+        _loadingImage.image = [UIImage imageNamed:@"mp4plarer_icon_video_play"];
         _loadingImage.userInteractionEnabled = YES;
     }
     return _loadingImage;

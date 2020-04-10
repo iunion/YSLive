@@ -35,8 +35,6 @@
 		26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE923B4C58E004B8366 /* SCTeacherCoursewareListCell.m */; };
 		269B023B2376CA0000DE83B0 /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B02322376C48200DE83B0 /* SCTopToolBarModel.m */; };
 		26C1D3852376B2CF007869EA /* SCTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2628F2B72376A53F00425E08 /* SCTopToolBar.m */; };
-		26D07C1D243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */; };
-		26D07C1E243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */; };
 		26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
 		26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
 		26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
@@ -778,7 +776,6 @@
 		2661FB1F23670AB5000859F7 /* YSBarrageDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSBarrageDescriptor.h; sourceTree = "<group>"; };
 		269B02312376C48200DE83B0 /* SCTopToolBarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTopToolBarModel.h; sourceTree = "<group>"; };
 		269B02322376C48200DE83B0 /* SCTopToolBarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBarModel.m; sourceTree = "<group>"; };
-		26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMP4PlayerImage.bundle; sourceTree = "<group>"; };
 		26D07C17243F03B2002B1B60 /* YSMP4Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4Player.h; sourceTree = "<group>"; };
 		26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4PlayerMaskView.h; sourceTree = "<group>"; };
 		26D07C1A243F03B2002B1B60 /* YSMP4Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4Player.m; sourceTree = "<group>"; };
@@ -1623,7 +1620,6 @@
 			children = (
 				26D07C17243F03B2002B1B60 /* YSMP4Player.h */,
 				26D07C1A243F03B2002B1B60 /* YSMP4Player.m */,
-				26D07C16243F03B2002B1B60 /* YSMP4PlayerImage.bundle */,
 				26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */,
 				26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */,
 			);
@@ -3184,7 +3180,6 @@
 				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
 				871336ED237270F6006534A4 /* (null) in Resources */,
 				87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */,
-				26D07C1D243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3215,7 +3210,6 @@
 				8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */,
 				8717E34D2400DADC008C4CDA /* (null) in Resources */,
 				8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */,
-				26D07C1E243F03B2002B1B60 /* YSMP4PlayerImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

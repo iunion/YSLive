@@ -182,7 +182,9 @@
 - (NSURL *)translateIllegalCharacterWtihUrlStr:(NSString *)yourUrl{
     //如果链接中存在中文或某些特殊字符，需要通过以下代码转译
     yourUrl = [yourUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSString *encodedString = [yourUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //NSString *encodedString = [yourUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedString = [yourUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+
     return [NSURL URLWithString:encodedString];
 }
 
