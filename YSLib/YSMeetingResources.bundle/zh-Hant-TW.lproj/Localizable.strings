@@ -51,7 +51,7 @@
 "Prompt.devicetPrompt" = "當前的設備配置較低，僅提供兩路視頻";
 "Prompt.onlyNumber" = "房間號只能是數字";
 "Prompt.underPlatformTime" = "點擊過於頻繁";
-"Prompt.networkWIFI" = "您正處於移動網路環境下，是否要使用流量播放";
+"Prompt.networkWIFI" = "您正處於移動網路環境下，將要使用流量播放";
 //login
 "Login.Enter" = "登入";
 "Login.EnterRoom" = "進入";

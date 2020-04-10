@@ -50,7 +50,7 @@
 "Prompt.devicetPrompt" = "The current device is low, providing only two video.";
 "Prompt.onlyNumber" = "The RoomId only be number";
 "Prompt.underPlatformTime" = "Clicked so faster";
-"Prompt.networkWIFI" = "You are in the mobile network environment, do you want to use traffic playback";
+"Prompt.networkWIFI" = "You are in the mobile network environment, and will use traffic to play";
 //login
 "Login.Enter" = "Enter";
 "Login.EnterRoom" = "Enter";

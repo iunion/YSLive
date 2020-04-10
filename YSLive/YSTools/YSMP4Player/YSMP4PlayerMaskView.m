@@ -7,7 +7,7 @@
 //
 
 #import "YSMP4PlayerMaskView.h"
-
+#import "BMProgressHUD.h"
 #import <BMKit/BMMasonry.h>
 
 @interface YSMP4PlayerMaskView ()<YSMP4PlayerDelegate,UIGestureRecognizerDelegate> {
@@ -198,17 +198,13 @@
     if (_isWiFi) {
         [_player play];
     }else {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.prompt")
-                                                                        message:YSLocalized(@"Prompt.networkWIFI")
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alertC addAction:[UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            self.isWiFi = YES;
-            [self.player play];
-        }]];
-        [alertC addAction:[UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            self.playBtn.selected = NO;
-        }]];
-        [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:alertC animated:YES completion:nil];
+        static BOOL showHUD = YES;
+        if (showHUD)
+        {
+            [BMProgressHUD bm_showHUDAddedTo:self animated:YES withDetailText:YSLocalized(@"Prompt.networkWIFI") delay:1.0f];
+            showHUD = NO;
+        }
+        [_player play];
     }
 }
 
