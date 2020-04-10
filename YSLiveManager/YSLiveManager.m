@@ -1285,12 +1285,12 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     BMLog(@"onRoomLeft");
     
-    if (!self.viewDidAppear)
-    {
-        [self addMsgCachePoolWithMethodName:@selector(onRoomLeft) parameters:nil];
-        
-        return;
-    }
+//    if (!self.viewDidAppear)
+//    {
+//        [self addMsgCachePoolWithMethodName:@selector(onRoomLeft) parameters:nil];
+//        
+//        return;
+//    }
     
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomLeft)])
     {
