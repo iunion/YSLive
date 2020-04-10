@@ -47,7 +47,8 @@
 #endif
 
 
-#import <YSWhiteBoard/YSCoursewareControlView.h>
+//#import <YSWhiteBoard/YSCoursewareControlView.h>
+#import <YSWhiteBoard/YSWhiteBoardTopBar.h>
 
 
 #define YSONLINESCHOOL 1
@@ -720,13 +721,41 @@
 //    [self pageControlView];
 }
 
-/////白板控制view
-//- (void)pageControlView
-//{
+///白板SDK  UI测试
+- (void)pageControlView
+{
+    //课件控制条
 //    YSCoursewareControlView * controlView = [[YSCoursewareControlView alloc]initWithFrame:CGRectMake(100, self.view.bm_height-100, 246, 34)];
-//
-//    [self.view addSubview:controlView];
-//}
+    
+    //分屏课件的topBar
+    YSWhiteBoardTopBar * top = [[YSWhiteBoardTopBar alloc]initWithFrame:CGRectMake(100, self.view.bm_height-200, 390, 56)];
+    
+    __weak __typeof(top) weakTop = top;
+    top.barButtonsClick = ^(UIButton * _Nonnull sender) {
+        
+        switch (sender.tag) {
+            case 1:
+                BMLog(@"点击了最小化按钮");
+                weakTop.bm_width = 300;
+                
+                break;
+            case 2:
+                BMLog(@"点击了全屏按钮");
+                weakTop.bm_width = 500;
+                
+                break;
+            case 3:
+                BMLog(@"点击了删除按钮");
+                
+                break;
+            default:
+                break;
+        }
+    };
+
+    top.titleString = @"课件标题课件标题课件标题课件标题课件标题课件标题课件标题.pdf";
+    [self.view addSubview:top];
+}
 
 
 #pragma mark --键盘弹出收起管理
