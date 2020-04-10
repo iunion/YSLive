@@ -14,7 +14,6 @@
 
 #import "YSLiveApiRequest.h"
 #import "YSSchoolUser.h"
-#import "YSSchoolAVPlayerView.h"
 #import "YSMP4PlayerMaskView.h"
 #import "YSCoreStatus.h"
 
@@ -288,13 +287,13 @@
     self.statusHiden = YES;
     [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
     
-    _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width)];
     _playerMaskView.isWiFi = [YSCoreStatus isWifiEnable];
     _playerMaskView.titleLab.text = [NSString stringWithFormat:@"%@_%@", self.classReplayListModel.lessonsName, classReviewModel.part];
     [self.view addSubview:_playerMaskView];
     //@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"
-    //[_playerMaskView playWithVideoUrl:classReviewModel.linkUrl];
-    [_playerMaskView playWithVideoUrl:@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"];
+    [_playerMaskView playWithVideoUrl:classReviewModel.linkUrl];
+//    [_playerMaskView playWithVideoUrl:@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"];
     [_playerMaskView.player play];
     _playerMaskView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
     _playerMaskView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);

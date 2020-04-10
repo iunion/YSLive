@@ -1697,18 +1697,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return _roleSelectView;
 }
 
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    NSLog(@"这里返回为NO。则为禁止编辑");
-
-    return self.passwordTextField.userInteractionEnabled;
-}
-
 - (void)showRoleSelectView
 {
     self.roleSelectView.hidden = NO;
-    
     if (self.room_UseTheType == YSAppUseTheTypeMeeting)
     {
             [self.studentRoleBtn setTitle:YSLocalized(@"Role.Attendee") forState:UIControlStateNormal];

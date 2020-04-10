@@ -50,7 +50,7 @@
 "Prompt.devicetPrompt" = "当前的设备配置较低，仅提供两路视频";
 "Prompt.onlyNumber" = "房间号只能是数字";
 "Prompt.underPlatformTime" = "点击过于频繁";
-
+"Prompt.networkWIFI" = "您正处于移动网络环境下，将要使用流量播放";
 //login
 "Login.Enter" = "登录";
 "Login.EnterRoom" = "进入";

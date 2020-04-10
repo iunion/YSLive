@@ -415,7 +415,6 @@
 		8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
 		8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03E123B7362300DAC321 /* FLEXArgumentInputDateView.m */; };
 		8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D523B7362300DAC321 /* FLEXIvarEditorViewController.m */; };
-		8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
 		8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87728F292355CCD800E34916 /* YSLiveManager.m */; };
 		8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
 		8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040123B7362300DAC321 /* FLEXGlobalsTableViewController.m */; };
@@ -671,7 +670,6 @@
 		CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */; };
-		CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
 		CBC14E02242A5BA70052F6EE /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC14E01242A5BA70052F6EE /* YSPollingView.m */; };
 		CBC14E03242A5BA70052F6EE /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC14E01242A5BA70052F6EE /* YSPollingView.m */; };
 		CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
@@ -1353,8 +1351,6 @@
 		CB3D959723EEF39E00A0DEC4 /* YSPassWordChangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSPassWordChangeView.h; sourceTree = "<group>"; };
 		CB3D95AB23F2EC0300A0DEC4 /* YSSchoolUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSchoolUser.h; sourceTree = "<group>"; };
 		CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolUser.m; sourceTree = "<group>"; };
-		CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSchoolAVPlayerView.m; sourceTree = "<group>"; };
-		CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSchoolAVPlayerView.h; sourceTree = "<group>"; };
 		CBC14E00242A5BA70052F6EE /* YSPollingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSPollingView.h; sourceTree = "<group>"; };
 		CBC14E01242A5BA70052F6EE /* YSPollingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSPollingView.m; sourceTree = "<group>"; };
 		CBCD78B923FF8B6800498742 /* YSStudentTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
@@ -1652,7 +1648,6 @@
 		34043C3A23EA60B4004982E6 /* YSOnlineSchool */ = {
 			isa = PBXGroup;
 			children = (
-				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */,
 				3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */,
 				34043C4123EA62EB004982E6 /* YSTabBarViewController.h */,
@@ -1684,7 +1679,6 @@
 		34043C3F23EA623C004982E6 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				CB3D963823F43E6000A0DEC4 /* YSSchoolAVPlayerView */,
 				34043C4323EA6514004982E6 /* YSMineViewController.h */,
 				34043C4423EA6514004982E6 /* YSMineViewController.m */,
 				CB3D958A23ED925800A0DEC4 /* YSOnlineMineTableViewCell.h */,
@@ -2658,6 +2652,7 @@
 		879ADAEA23516D4400C72EAA /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
+				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8779E58223F79803008E885C /* YSCircleProgress */,
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
 				8745556123B309CE00BC6CAB /* YSEyeCare */,
@@ -2994,15 +2989,6 @@
 				CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */,
 			);
 			path = YSTeacherTimer;
-			sourceTree = "<group>";
-		};
-		CB3D963823F43E6000A0DEC4 /* YSSchoolAVPlayerView */ = {
-			isa = PBXGroup;
-			children = (
-				CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */,
-				CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */,
-			);
-			path = YSSchoolAVPlayerView;
 			sourceTree = "<group>";
 		};
 		CBC14DFF242A5B610052F6EE /* YSPollingView */ = {
@@ -3511,7 +3497,6 @@
 				8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */,
 				872D048F23B7362300DAC321 /* FLEXArgumentInputDateView.m in Sources */,
 				872D048823B7362300DAC321 /* FLEXIvarEditorViewController.m in Sources */,
-				CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */,
 				8713362E237270F6006534A4 /* YSLiveManager.m in Sources */,
 				CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */,
 				872D049B23B7362300DAC321 /* FLEXGlobalsTableViewController.m in Sources */,
@@ -3818,7 +3803,6 @@
 				8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */,
 				8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */,
 				8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */,
-				8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */,
 				8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */,
 				8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */,
 				8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */,
