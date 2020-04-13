@@ -35,6 +35,10 @@
 		26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE923B4C58E004B8366 /* SCTeacherCoursewareListCell.m */; };
 		269B023B2376CA0000DE83B0 /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B02322376C48200DE83B0 /* SCTopToolBarModel.m */; };
 		26C1D3852376B2CF007869EA /* SCTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2628F2B72376A53F00425E08 /* SCTopToolBar.m */; };
+		26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
+		26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
+		26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
+		26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
 		26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		26EFA60123795A7100EC2A64 /* SCAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA5FF23794EFD00EC2A64 /* SCAnswerView.m */; };
 		26EFA67223797B0000EC2A64 /* SCOptionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA67123797B0000EC2A64 /* SCOptionCollectionCell.m */; };
@@ -411,7 +415,6 @@
 		8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
 		8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03E123B7362300DAC321 /* FLEXArgumentInputDateView.m */; };
 		8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D523B7362300DAC321 /* FLEXIvarEditorViewController.m */; };
-		8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
 		8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87728F292355CCD800E34916 /* YSLiveManager.m */; };
 		8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
 		8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D040123B7362300DAC321 /* FLEXGlobalsTableViewController.m */; };
@@ -667,7 +670,6 @@
 		CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		CB3D959823EEF39E00A0DEC4 /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */; };
-		CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */; };
 		CBC14E02242A5BA70052F6EE /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC14E01242A5BA70052F6EE /* YSPollingView.m */; };
 		CBC14E03242A5BA70052F6EE /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC14E01242A5BA70052F6EE /* YSPollingView.m */; };
 		CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
@@ -772,6 +774,10 @@
 		2661FB1F23670AB5000859F7 /* YSBarrageDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSBarrageDescriptor.h; sourceTree = "<group>"; };
 		269B02312376C48200DE83B0 /* SCTopToolBarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTopToolBarModel.h; sourceTree = "<group>"; };
 		269B02322376C48200DE83B0 /* SCTopToolBarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBarModel.m; sourceTree = "<group>"; };
+		26D07C17243F03B2002B1B60 /* YSMP4Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4Player.h; sourceTree = "<group>"; };
+		26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4PlayerMaskView.h; sourceTree = "<group>"; };
+		26D07C1A243F03B2002B1B60 /* YSMP4Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4Player.m; sourceTree = "<group>"; };
+		26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4PlayerMaskView.m; sourceTree = "<group>"; };
 		26D5405D23BDD7060064FB84 /* SCTeacherAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherAnswerView.h; sourceTree = "<group>"; };
 		26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherAnswerView.m; sourceTree = "<group>"; };
 		26E6401723699700000D9CEC /* YSUserDefault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUserDefault.h; sourceTree = "<group>"; };
@@ -1345,8 +1351,6 @@
 		CB3D959723EEF39E00A0DEC4 /* YSPassWordChangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSPassWordChangeView.h; sourceTree = "<group>"; };
 		CB3D95AB23F2EC0300A0DEC4 /* YSSchoolUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSchoolUser.h; sourceTree = "<group>"; };
 		CB3D95AC23F2EC0300A0DEC4 /* YSSchoolUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolUser.m; sourceTree = "<group>"; };
-		CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSchoolAVPlayerView.m; sourceTree = "<group>"; };
-		CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSchoolAVPlayerView.h; sourceTree = "<group>"; };
 		CBC14E00242A5BA70052F6EE /* YSPollingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSPollingView.h; sourceTree = "<group>"; };
 		CBC14E01242A5BA70052F6EE /* YSPollingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSPollingView.m; sourceTree = "<group>"; };
 		CBCD78B923FF8B6800498742 /* YSStudentTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
@@ -1607,6 +1611,17 @@
 			path = OCBarrage;
 			sourceTree = "<group>";
 		};
+		26D07C15243F03B2002B1B60 /* YSMP4Player */ = {
+			isa = PBXGroup;
+			children = (
+				26D07C17243F03B2002B1B60 /* YSMP4Player.h */,
+				26D07C1A243F03B2002B1B60 /* YSMP4Player.m */,
+				26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */,
+				26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */,
+			);
+			path = YSMP4Player;
+			sourceTree = "<group>";
+		};
 		26EFA5FD23794C4B00EC2A64 /* SCAnswerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1664,7 +1679,6 @@
 		34043C3F23EA623C004982E6 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				CB3D963823F43E6000A0DEC4 /* YSSchoolAVPlayerView */,
 				34043C4323EA6514004982E6 /* YSMineViewController.h */,
 				34043C4423EA6514004982E6 /* YSMineViewController.m */,
 				CB3D958A23ED925800A0DEC4 /* YSOnlineMineTableViewCell.h */,
@@ -2638,6 +2652,7 @@
 		879ADAEA23516D4400C72EAA /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
+				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8779E58223F79803008E885C /* YSCircleProgress */,
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
 				8745556123B309CE00BC6CAB /* YSEyeCare */,
@@ -2974,15 +2989,6 @@
 				CB384CE623FE7D3100DCD1C0 /* YSTeacherTimerView.m */,
 			);
 			path = YSTeacherTimer;
-			sourceTree = "<group>";
-		};
-		CB3D963823F43E6000A0DEC4 /* YSSchoolAVPlayerView */ = {
-			isa = PBXGroup;
-			children = (
-				CB3D963C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.h */,
-				CB3D963923F43E6000A0DEC4 /* YSSchoolAVPlayerView.m */,
-			);
-			path = YSSchoolAVPlayerView;
 			sourceTree = "<group>";
 		};
 		CBC14DFF242A5B610052F6EE /* YSPollingView */ = {
@@ -3346,6 +3352,7 @@
 				872D046F23B7362300DAC321 /* FLEXColorExplorerViewController.m in Sources */,
 				872D04A023B7362300DAC321 /* FLEXKeychain.m in Sources */,
 				872D048423B7362300DAC321 /* FLEXMutableFieldEditorViewController.m in Sources */,
+				26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */,
 				871335A3237270F6006534A4 /* YSQuestionView.m in Sources */,
 				871335A5237270F6006534A4 /* YSUserDefault.m in Sources */,
 				871335A6237270F6006534A4 /* YSLessonDetailHeaderView.m in Sources */,
@@ -3418,6 +3425,7 @@
 				871335E0237270F6006534A4 /* YSLessonModel.m in Sources */,
 				34043C3D23EA6179004982E6 /* YSCalendarCurriculumVC.m in Sources */,
 				26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */,
+				26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */,
 				872D048123B7362300DAC321 /* FLEXToolbarItem.m in Sources */,
 				CBE342DB23FBA2DA003EA794 /* YSTeacherResponder.m in Sources */,
 				872D048D23B7362300DAC321 /* FLEXArgumentInputSwitchView.m in Sources */,
@@ -3489,7 +3497,6 @@
 				8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */,
 				872D048F23B7362300DAC321 /* FLEXArgumentInputDateView.m in Sources */,
 				872D048823B7362300DAC321 /* FLEXIvarEditorViewController.m in Sources */,
-				CB3D964C23F43E6000A0DEC4 /* YSSchoolAVPlayerView.m in Sources */,
 				8713362E237270F6006534A4 /* YSLiveManager.m in Sources */,
 				CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */,
 				872D049B23B7362300DAC321 /* FLEXGlobalsTableViewController.m in Sources */,
@@ -3651,6 +3658,7 @@
 				8717E2242400DADC008C4CDA /* FLEXColorExplorerViewController.m in Sources */,
 				8717E2252400DADC008C4CDA /* FLEXKeychain.m in Sources */,
 				8717E2262400DADC008C4CDA /* FLEXMutableFieldEditorViewController.m in Sources */,
+				26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */,
 				8717E2272400DADC008C4CDA /* YSQuestionView.m in Sources */,
 				8717E2282400DADC008C4CDA /* YSUserDefault.m in Sources */,
 				8717E2292400DADC008C4CDA /* YSLessonDetailHeaderView.m in Sources */,
@@ -3723,6 +3731,7 @@
 				8717E27A2400DADC008C4CDA /* YSLessonModel.m in Sources */,
 				8717E27B2400DADC008C4CDA /* YSCalendarCurriculumVC.m in Sources */,
 				8717E27C2400DADC008C4CDA /* SCTeacherCoursewareListCell.m in Sources */,
+				26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */,
 				8717E27F2400DADC008C4CDA /* FLEXToolbarItem.m in Sources */,
 				8717E2812400DADC008C4CDA /* YSTeacherResponder.m in Sources */,
 				8717E2822400DADC008C4CDA /* FLEXArgumentInputSwitchView.m in Sources */,
@@ -3794,7 +3803,6 @@
 				8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */,
 				8717E2DB2400DADC008C4CDA /* FLEXArgumentInputDateView.m in Sources */,
 				8717E2DC2400DADC008C4CDA /* FLEXIvarEditorViewController.m in Sources */,
-				8717E2DD2400DADC008C4CDA /* YSSchoolAVPlayerView.m in Sources */,
 				8717E2DE2400DADC008C4CDA /* YSLiveManager.m in Sources */,
 				8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */,
 				8717E2E22400DADC008C4CDA /* FLEXGlobalsTableViewController.m in Sources */,
@@ -3907,7 +3915,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.3.1;
+				CURRENT_PROJECT_VERSION = 2.6.4.0;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3931,7 +3939,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -3952,7 +3960,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.3.1;
+				CURRENT_PROJECT_VERSION = 2.6.4.0;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
@@ -3989,7 +3997,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",

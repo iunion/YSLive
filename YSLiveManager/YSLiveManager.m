@@ -161,7 +161,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     return self;
 }
 
-- (void)destroy
++ (void)destroy
 {
     // UIApplicationWillEnterForegroundNotification
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -1288,12 +1288,12 @@ static YSLiveManager *liveManagerSingleton = nil;
 {
     BMLog(@"onRoomLeft");
     
-    if (!self.viewDidAppear)
-    {
-        [self addMsgCachePoolWithMethodName:@selector(onRoomLeft) parameters:nil];
-        
-        return;
-    }
+//    if (!self.viewDidAppear)
+//    {
+//        [self addMsgCachePoolWithMethodName:@selector(onRoomLeft) parameters:nil];
+//        
+//        return;
+//    }
     
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomLeft)])
     {

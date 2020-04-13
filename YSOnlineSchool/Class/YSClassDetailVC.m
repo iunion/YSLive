@@ -14,7 +14,9 @@
 
 #import "YSLiveApiRequest.h"
 #import "YSSchoolUser.h"
-#import "YSSchoolAVPlayerView.h"
+#import "YSMP4PlayerMaskView.h"
+#import "YSCoreStatus.h"
+
 @interface YSClassDetailVC ()
 <
     YSClassCellDelegate,
@@ -22,7 +24,8 @@
 >
 
 @property (nonatomic, strong) YSClassReplayListModel *classReplayListModel;
-
+@property (nonatomic, strong) YSMP4PlayerMaskView *playerMaskView;
+@property (nonatomic, assign) BOOL statusHiden;
 @end
 
 @implementation YSClassDetailVC
@@ -279,22 +282,35 @@
 
 - (void)playReviewClassWithClassReviewModel:(YSClassReviewModel *)classReviewModel index:(NSUInteger)replayIndex
 {
-    self.navigationController.navigationBarHidden = YES;
-    YSSchoolAVPlayerView *playerView = [[YSSchoolAVPlayerView alloc] init];
-    playerView.backgroundColor = [UIColor blackColor];
-    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height );
-    [self.view addSubview:playerView];
-    [playerView settingPlayerItemWithUrl:[NSURL URLWithString:classReviewModel.linkUrl]];
-    playerView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-    playerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height);
     
+    self.navigationController.navigationBarHidden = YES;
+    self.statusHiden = YES;
+    [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    
+    _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width)];
+    _playerMaskView.isWiFi = [YSCoreStatus isWifiEnable];
+    _playerMaskView.titleLab.text = [NSString stringWithFormat:@"%@_%@", self.classReplayListModel.lessonsName, classReviewModel.part];
+    [self.view addSubview:_playerMaskView];
+    //@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"
+    [_playerMaskView playWithVideoUrl:classReviewModel.linkUrl];
+//    [_playerMaskView playWithVideoUrl:@"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"];
+    [_playerMaskView.player play];
+    _playerMaskView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+    _playerMaskView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    _playerMaskView.showFullBtn = NO;
     BMWeakSelf
-    playerView.closeBlock = ^{
+    _playerMaskView.closeBlock = ^{
         weakSelf.navigationController.navigationBarHidden = NO;
+        weakSelf.statusHiden = NO;
+        [weakSelf performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        [weakSelf.playerMaskView removeFromSuperview];
     };
-
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return self.statusHiden;
+}
 
 #pragma mark - YSClassCellDelegate
 

@@ -1989,7 +1989,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
 #endif
-        [self.liveManager destroy];
+        [YSLiveManager destroy];
     }];
 }
 
@@ -3132,9 +3132,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (file.isPlaying != isPlay)
         {
             file.isPlaying = isPlay;
-        
-            [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
         }
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
     }
 }
 

@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.6.1";
+static NSString *YSAPPVersionString = @"2.6.3";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.6.1.1";
+static NSString *YSSDKVersionString = @"2.6.3.0";
 
 @interface YSSDKManager ()
 <
@@ -217,6 +217,11 @@ static NSString *YSSDKVersionString = @"2.6.1.1";
 #pragma mark -
 #pragma mark YSRoomInterfaceDelegate
 
+- (void)waitRoomLeft
+{
+    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
+}
+
 // 成功进入房间
 - (void)onRoomJoined:(long)ts;
 {
@@ -318,13 +323,14 @@ static NSString *YSSDKVersionString = @"2.6.1.1";
         }
         
         NSLog(@"直播只能学生登入");
-        [self.liveManager destroy];
+        //[self.liveManager destroy];
+        [self waitRoomLeft];
     }
 }
 
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
 {
-    [self.liveManager destroy];
+    [YSLiveManager destroy];
     
     if ([self.delegate respondsToSelector:@selector(onRoomNeedEnterPassWord:)])
     {
@@ -334,8 +340,9 @@ static NSString *YSSDKVersionString = @"2.6.1.1";
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
-    [self.liveManager destroy];
- 
+    //[self.liveManager destroy];
+    [self waitRoomLeft];
+
     if ([self.delegate respondsToSelector:@selector(onRoomReportFail:descript:)])
     {
         [self.delegate onRoomReportFail:(YSSDKErrorCode)errorCode descript:descript];
@@ -350,7 +357,7 @@ static NSString *YSSDKVersionString = @"2.6.1.1";
     // 未进入教室需要销毁liveManager
     if (!self.liveManager.sdkIsJoinRoom)
     {
-        [self.liveManager destroy];
+        [YSLiveManager destroy];
     }
 
     if ([self.delegate respondsToSelector:@selector(onRoomConnectionLost)])
@@ -364,6 +371,8 @@ static NSString *YSSDKVersionString = @"2.6.1.1";
  */
 - (void)onRoomLeft
 {
+    [YSLiveManager destroy];
+
     self.liveManager.sdkIsJoinRoom = NO;
     if ([self.delegate respondsToSelector:@selector(onRoomLeft)])
     {

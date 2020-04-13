@@ -27,6 +27,8 @@
 
 #import "YSTeacherRoleMainVC.h"
 
+typedef void (^YSRoomLeftDoBlock)(void);
+
 @interface YSClassDayList ()
 <
     YSClassCellDelegate,
@@ -427,7 +429,13 @@
         nickName = userId;
         self.userName = nickName;
     }
-    
+
+    NSString *schoolUserAccount = schoolUser.userAccount;
+    [Bugly setUserValue:roomId forKey:@"rommId"];
+    [Bugly setUserValue:userId forKey:@"userId"];
+    [Bugly setUserValue:nickName forKey:@"nickName"];
+    [Bugly setUserValue:schoolUserAccount forKey:@"userAccount"];
+
     [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
@@ -469,6 +477,16 @@
 #pragma mark -
 #pragma mark YSRoomInterfaceDelegate
 
+- (void)waitRoomLeft:(YSRoomLeftDoBlock)doSometing
+{
+    [self.progressHUD bm_showAnimated:NO showBackground:YES];
+    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
+    if (doSometing)
+    {
+        doSometing();
+    }
+}
+
 // 成功进入房间
 - (void)onRoomJoined:(long)ts;
 {
@@ -480,10 +498,11 @@
 
     if (![liveManager.room_Id bm_isNotEmpty])
     {
+        BMWeakSelf
         NSString *descript = YSLocalized(@"Error.CanNotConnectNetworkError");
-        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
-        
-        [[YSLiveManager shareInstance] destroy];
+        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+            [weakSelf waitRoomLeft:nil];
+        }];
         
         return;
     }
@@ -571,7 +590,7 @@
 {
     [self.progressHUD bm_hideAnimated:NO];
 
-    [[YSLiveManager shareInstance] destroy];
+    [YSLiveManager destroy];
 
     BMWeakSelf
     if (errorCode == YSErrorCode_CheckRoom_PasswordError ||
@@ -592,7 +611,7 @@
     BMWeakSelf
     [YSPassWordAlert showPassWordInputAlerWithTopDistance:(BMUI_SCREEN_HEIGHT - 210)/2 inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0) sureBlock:^(NSString * _Nonnull passWord) {
         BMLog(@"%@",passWord);
-        [[YSLiveManager shareInstance] destroy];
+        //[YSLiveManager destroy];
         
         YSLiveManager *liveManager = [YSLiveManager shareInstance];
         [liveManager registerRoomManagerDelegate:self];
@@ -601,30 +620,50 @@
         
         [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
     } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
-        if (index == 0)
-        {
-            [[YSLiveManager shareInstance] destroy];
-        }
+        //if (index == 0)
+        //{
+        //    [YSLiveManager destroy];
+        //}
     }];
 }
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
-    [self.progressHUD bm_hideAnimated:NO];
-    if (![YSCoreStatus isNetworkEnable])
-    {
-        descript = YSLocalized(@"Prompt.NetworkChanged");
-    }
-    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+    [self waitRoomLeft:nil];
     
-    [[YSLiveManager shareInstance] destroy];
+//    [self.progressHUD bm_hideAnimated:NO];
+//    if (![YSCoreStatus isNetworkEnable])
+//    {
+//        descript = YSLocalized(@"Prompt.NetworkChanged");
+//    }
+//    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+//
+//    [YSLiveManager destroy];
 }
 
-- (void)onRoomConnectionLost
-{
-    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+//- (void)onRoomConnectionLost
+//{
+//    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+//
+//    [YSLiveManager destroy];
+//}
 
-    [[YSLiveManager shareInstance] destroy];
+// 已经离开房间
+- (void)onRoomLeft
+{
+    NSString *errorMessage;
+    if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+    {
+        errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+    }
+    else
+    {
+        errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+    }
+
+    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+
+    [YSLiveManager destroy];
 }
 
 @end

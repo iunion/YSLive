@@ -1,9 +1,9 @@
 //
 //  main.m
-//  YSLogin
+//  YSLiveSample
 //
-//  Created by fzxm on 2019/11/26.
-//  Copyright © 2019 ysxl. All rights reserved.
+//  Created by 马迪 on 2020/4/9.
+//  Copyright © 2020 yunshuxunlian. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

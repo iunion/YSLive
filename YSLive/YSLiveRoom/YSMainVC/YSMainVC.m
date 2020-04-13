@@ -1070,7 +1070,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
 #endif
-        [self.liveManager destroy];
+        [YSLiveManager destroy];
     }];
 }
 

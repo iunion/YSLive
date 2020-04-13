@@ -41,6 +41,7 @@
 "Prompt.devicetPrompt" = "デバイス設定が低いため双方向ビデオのみの提供となります";
 "Prompt.onlyNumber" = "教室番号は数字のみです";
 "Prompt.underPlatformTime" = "クリックしすぎて";
+"Prompt.networkWIFI" = "您正处于移动网络环境下，将要使用流量播放";
 
 "Login.EnterRoom" = "入室";
 "Login.RoomIdPlaceHolder"    = "教室番号";
