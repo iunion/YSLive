@@ -21,7 +21,7 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 
 @interface YSWhiteBoardManager : NSObject
 
-@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong, readonly) UIView *contentView;
 
 @property (nonatomic, assign) BOOL isBeginClass;// 是否已上课
 @property (nonatomic, assign) BOOL preloadingFished;//预加载文档标识
@@ -37,8 +37,8 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 @property (nonatomic, copy) NSString *currentFileId;//当前文档id
 @property (nonatomic, copy) NSString *address; // 文档服务器地址
 
-@property (nonatomic, strong) NSMutableArray *cacheMsgPool;//缓存数据
-@property (nonatomic, strong) NSMutableArray *preLoadingFileCacheMsgPool;//预加载文档缓存数据
+@property (nullable, nonatomic, strong) NSMutableArray *cacheMsgPool;//缓存数据
+@property (nullable, nonatomic, strong) NSMutableArray *preLoadingFileCacheMsgPool;//预加载文档缓存数据
 @property (nonatomic, strong) NSDictionary *configration;//配置项
 
 @property (nonatomic, strong) UIColor * whiteBoardBgColor;//白板背景色
@@ -100,8 +100,8 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
  */
 - (void)delDocumentFile:(NSDictionary *)file;
 
-- (YSFileModel *)currentFile;
-- (YSFileModel *)getDocumentWithFileID:(NSString *)fileId;
+- (nullable YSFileModel *)currentFile;
+- (nullable YSFileModel *)getDocumentWithFileID:(NSString *)fileId;
 
 /**
  设置默认文档ID
