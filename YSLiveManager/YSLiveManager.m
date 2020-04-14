@@ -17,12 +17,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#if YSWHITEBOARD_USEHTTPDNS1
-#import "YSWhiteBordHttpDNSUtil.h"
-#import "YSWhiteBordNSURLProtocol.h"
-#import "NSURLProtocol+YSWhiteBoard.h"
-#endif
-
 #if YSSDK
 #import "YSSDKManager.h"
 #endif
@@ -117,8 +111,6 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.schoolHost = YSSchool_Server;
         
-        [liveManagerSingleton registerURLProtocol:YES];
-        
         liveManagerSingleton.devicePerformance_Low = NO;
 
         liveManagerSingleton.isBigRoom = NO;
@@ -178,36 +170,9 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.roomManager = nil;
         liveManagerSingleton.whiteBoardManager = nil;
-
-        [liveManagerSingleton registerURLProtocol:NO];
     }
     
     liveManagerSingleton = nil;
-}
-
-// 拦截网络请求
-- (void)registerURLProtocol:(BOOL)isRegister
-{
-#if YSWHITEBOARD_USEHTTPDNS1
-    if (isRegister)
-    {
-        [NSURLProtocol registerClass:[YSWhiteBordNSURLProtocol class]];
-        for (NSString* scheme in @[@"http", @"https"])
-        {
-            [NSURLProtocol ys_registerScheme:scheme];
-        }
-        [YSWhiteBordHttpDNSUtil sharedInstanceWithLiveManager:self];
-    }
-    else
-    {
-        [NSURLProtocol unregisterClass:[YSWhiteBordNSURLProtocol class]];
-        for (NSString* scheme in @[@"http", @"https"])
-        {
-            [NSURLProtocol ys_unregisterScheme:scheme];
-        }
-        [YSWhiteBordHttpDNSUtil destroy];
-    }
-#endif
 }
 
 /// 浏览器打开app的URL解析
