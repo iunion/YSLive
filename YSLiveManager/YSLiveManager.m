@@ -17,7 +17,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#if YSWHITEBOARD_USEHTTPDNS
+#if YSWHITEBOARD_USEHTTPDNS1
 #import "YSWhiteBordHttpDNSUtil.h"
 #import "YSWhiteBordNSURLProtocol.h"
 #import "NSURLProtocol+YSWhiteBoard.h"
@@ -188,7 +188,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 // 拦截网络请求
 - (void)registerURLProtocol:(BOOL)isRegister
 {
-#if YSWHITEBOARD_USEHTTPDNS
+#if YSWHITEBOARD_USEHTTPDNS1
     if (isRegister)
     {
         [NSURLProtocol registerClass:[YSWhiteBordNSURLProtocol class]];
@@ -196,7 +196,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         {
             [NSURLProtocol ys_registerScheme:scheme];
         }
-        [YSWhiteBordHttpDNSUtil sharedInstance];
+        [YSWhiteBordHttpDNSUtil sharedInstanceWithLiveManager:self];
     }
     else
     {
@@ -205,8 +205,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         {
             [NSURLProtocol ys_unregisterScheme:scheme];
         }
-        YSWhiteBordHttpDNSUtil *httpDNSUtil = [YSWhiteBordHttpDNSUtil sharedInstance];
-        [httpDNSUtil cancelGetHttpDNSIp];
+        [YSWhiteBordHttpDNSUtil destroy];
     }
 #endif
 }
@@ -311,8 +310,6 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)registerRoomManagerDelegate:(id <YSLiveRoomManagerDelegate>)RoomManagerDelegate
 {
-    [self serverLog:[NSString stringWithFormat:@"registerRoomManagerDelegate %p", RoomManagerDelegate]];
-
     self.roomManagerDelegate = RoomManagerDelegate;
 }
 
@@ -779,7 +776,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)serverLog:(NSString *)log
 {
-    //[self.roomManager serverLog:log];
+    [self.roomManager serverLog:log];
 }
 
 - (NSString *)fileServer
@@ -1728,11 +1725,6 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param inlist 是否是inlist中的信息
 - (void)onRoomRemotePubMsgWithMsgID:(NSString *)msgID msgName:(NSString *)msgName data:(NSObject *)data fromID:(NSString *)fromID inList:(BOOL)inlist ts:(long)ts body:(NSDictionary *)msgBody
 {
-    if ([msgName isEqualToString:YSSignalingName_ClassBegin])
-    {
-        [self serverLog:[NSString stringWithFormat:@"YSSignalingName_ClassBegin viewDidAppear %@, %p", @(self.viewDidAppear), self.roomManagerDelegate]];
-    }
-    
     if (!self.viewDidAppear)
     {
         NSMutableArray *parameters = [[NSMutableArray alloc] init];

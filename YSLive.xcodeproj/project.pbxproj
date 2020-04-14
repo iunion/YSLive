@@ -232,7 +232,6 @@
 		8717E1E22400DADC008C4CDA /* aes_ni.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23272351A8AC00864FA3 /* aes_ni.c */; };
 		8717E1E32400DADC008C4CDA /* BMTestNetFlowHttpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1412371720600A43607 /* BMTestNetFlowHttpModel.m */; };
 		8717E1E42400DADC008C4CDA /* FLEXLiveObjectsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D043F23B7362300DAC321 /* FLEXLiveObjectsTableViewController.m */; };
-		8717E1E52400DADC008C4CDA /* NSURLProtocol+YSWhiteBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC423C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m */; };
 		8717E1E62400DADC008C4CDA /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */; };
 		8717E1E82400DADC008C4CDA /* FLEXNetworkObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03C423B7362300DAC321 /* FLEXNetworkObserver.m */; };
 		8717E1E92400DADC008C4CDA /* FLEXLayerExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039F23B7362300DAC321 /* FLEXLayerExplorerViewController.m */; };
@@ -268,7 +267,6 @@
 		8717E2112400DADC008C4CDA /* YSClassDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D123EC3409002002BF /* YSClassDetailVC.m */; };
 		8717E2122400DADC008C4CDA /* UIDevice+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B174237172B700A43607 /* UIDevice+Private.m */; };
 		8717E2132400DADC008C4CDA /* SCVideoGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720723758F1900407A75 /* SCVideoGridView.m */; };
-		8717E2142400DADC008C4CDA /* YSWhiteBordNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC823C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m */; };
 		8717E2152400DADC008C4CDA /* YSChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131B2372647900D642E8 /* YSChatView.m */; };
 		8717E2162400DADC008C4CDA /* YSMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C4423EA6514004982E6 /* YSMineViewController.m */; };
 		8717E2182400DADC008C4CDA /* FLEXFieldEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03F623B7362300DAC321 /* FLEXFieldEditorView.m */; };
@@ -375,11 +373,9 @@
 		8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
 		8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8717E2A62400DADC008C4CDA /* FLEXArgumentInputNotSupportedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03F323B7362300DAC321 /* FLEXArgumentInputNotSupportedView.m */; };
-		8717E2A72400DADC008C4CDA /* YSWhiteBordHttpDNSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DCB23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m */; };
 		8717E2A92400DADC008C4CDA /* FLEXImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D044323B7362300DAC321 /* FLEXImagePreviewViewController.m */; };
 		8717E2AA2400DADC008C4CDA /* FLEXObjcInternal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 872D046123B7362300DAC321 /* FLEXObjcInternal.mm */; };
 		8717E2AB2400DADC008C4CDA /* UIAlertController+SCAlertAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */; };
-		8717E2AC2400DADC008C4CDA /* NSURLRequest+YSWhiteBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC723C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m */; };
 		8717E2AD2400DADC008C4CDA /* YSMp4ControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAD7223C4616100FC90EF /* YSMp4ControlView.m */; };
 		8717E2AE2400DADC008C4CDA /* YSLiveRoomConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 870C531E23572DF600BDB1EC /* YSLiveRoomConfiguration.m */; };
 		8717E2AF2400DADC008C4CDA /* FLEXSubtitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03AE23B7362300DAC321 /* FLEXSubtitleTableViewCell.m */; };
@@ -648,10 +644,6 @@
 		87981DC023C5809F00DA0276 /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */; };
 		87981DC123C5809F00DA0276 /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBC23C5809F00DA0276 /* UTMini.framework */; };
 		87981DC223C5809F00DA0276 /* AlicloudHttpDNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */; };
-		87981DCC23C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC423C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m */; };
-		87981DCD23C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC723C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m */; };
-		87981DCE23C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DC823C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m */; };
-		87981DCF23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87981DCB23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m */; };
 		879EB230241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */; };
 		879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */; };
 		87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 87A014592397CC2F0039B3F3 /* InfoPlist.strings */; };
@@ -1200,14 +1192,6 @@
 		87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
 		87981DBC23C5809F00DA0276 /* UTMini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTMini.framework; sourceTree = "<group>"; };
 		87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudHttpDNS.framework; sourceTree = "<group>"; };
-		87981DC423C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+YSWhiteBoard.m"; sourceTree = "<group>"; };
-		87981DC523C580AC00DA0276 /* YSWhiteBordNSURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSWhiteBordNSURLProtocol.h; sourceTree = "<group>"; };
-		87981DC623C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSWhiteBordHttpDNSUtil.h; sourceTree = "<group>"; };
-		87981DC723C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+YSWhiteBoard.m"; sourceTree = "<group>"; };
-		87981DC823C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSWhiteBordNSURLProtocol.m; sourceTree = "<group>"; };
-		87981DC923C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+YSWhiteBoard.h"; sourceTree = "<group>"; };
-		87981DCA23C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+YSWhiteBoard.h"; sourceTree = "<group>"; };
-		87981DCB23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSWhiteBordHttpDNSUtil.m; sourceTree = "<group>"; };
 		879ADAE7235164B100C72EAA /* YSAppUIDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppUIDef.h; sourceTree = "<group>"; };
 		879ADAE8235164B200C72EAA /* YSAppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppConfig.h; sourceTree = "<group>"; };
 		879ADAE92351654E00C72EAA /* YSAppMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppMacros.h; sourceTree = "<group>"; };
@@ -2504,7 +2488,6 @@
 		87728F272355CCD800E34916 /* YSLiveManager */ = {
 			isa = PBXGroup;
 			children = (
-				87981DC323C580AC00DA0276 /* YSWhiteBordNSURLProtocol */,
 				87AF4D2223602337008D9D00 /* YSLiveApiRequest */,
 				87AF4D1B235FEC0E008D9D00 /* YSLiveSignaling */,
 				87AF4D2823619A71008D9D00 /* YSLiveMessage */,
@@ -2620,21 +2603,6 @@
 				87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */,
 			);
 			path = OneSDK;
-			sourceTree = "<group>";
-		};
-		87981DC323C580AC00DA0276 /* YSWhiteBordNSURLProtocol */ = {
-			isa = PBXGroup;
-			children = (
-				87981DC923C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.h */,
-				87981DC423C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m */,
-				87981DCA23C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.h */,
-				87981DC723C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m */,
-				87981DC623C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.h */,
-				87981DCB23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m */,
-				87981DC523C580AC00DA0276 /* YSWhiteBordNSURLProtocol.h */,
-				87981DC823C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m */,
-			);
-			path = YSWhiteBordNSURLProtocol;
 			sourceTree = "<group>";
 		};
 		879ADAE62351647B00C72EAA /* appDefine */ = {
@@ -3296,7 +3264,6 @@
 				87133582237270F6006534A4 /* aes_ni.c in Sources */,
 				87133586237270F6006534A4 /* BMTestNetFlowHttpModel.m in Sources */,
 				872D04B723B7362300DAC321 /* FLEXLiveObjectsTableViewController.m in Sources */,
-				87981DCC23C580AC00DA0276 /* NSURLProtocol+YSWhiteBoard.m in Sources */,
 				34B8D0EF23FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */,
 				872D048023B7362300DAC321 /* FLEXNetworkObserver.m in Sources */,
 				872D047123B7362300DAC321 /* FLEXLayerExplorerViewController.m in Sources */,
@@ -3334,7 +3301,6 @@
 				8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */,
 				87133598237270F6006534A4 /* UIDevice+Private.m in Sources */,
 				875A720823758F1900407A75 /* SCVideoGridView.m in Sources */,
-				87981DCE23C580AC00DA0276 /* YSWhiteBordNSURLProtocol.m in Sources */,
 				87133599237270F6006534A4 /* YSChatView.m in Sources */,
 				34043C4523EA6514004982E6 /* YSMineViewController.m in Sources */,
 				872D049723B7362300DAC321 /* FLEXFieldEditorView.m in Sources */,
@@ -3451,11 +3417,9 @@
 				8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */,
 				87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */,
 				872D049623B7362300DAC321 /* FLEXArgumentInputNotSupportedView.m in Sources */,
-				87981DCF23C580AC00DA0276 /* YSWhiteBordHttpDNSUtil.m in Sources */,
 				872D04BA23B7362300DAC321 /* FLEXImagePreviewViewController.m in Sources */,
 				872D04C823B7362300DAC321 /* FLEXObjcInternal.mm in Sources */,
 				0463845F237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */,
-				87981DCD23C580AC00DA0276 /* NSURLRequest+YSWhiteBoard.m in Sources */,
 				3471E29E24039A0100A3BBB4 /* FSCalendarSeparatorDecorationView.m in Sources */,
 				26FCAD7323C4616100FC90EF /* YSMp4ControlView.m in Sources */,
 				875A722D238243FA00407A75 /* YSLiveRoomConfiguration.m in Sources */,
@@ -3602,7 +3566,6 @@
 				8717E1E22400DADC008C4CDA /* aes_ni.c in Sources */,
 				8717E1E32400DADC008C4CDA /* BMTestNetFlowHttpModel.m in Sources */,
 				8717E1E42400DADC008C4CDA /* FLEXLiveObjectsTableViewController.m in Sources */,
-				8717E1E52400DADC008C4CDA /* NSURLProtocol+YSWhiteBoard.m in Sources */,
 				8717E1E62400DADC008C4CDA /* YSUpHandPopoverVC.m in Sources */,
 				8717E1E82400DADC008C4CDA /* FLEXNetworkObserver.m in Sources */,
 				8717E1E92400DADC008C4CDA /* FLEXLayerExplorerViewController.m in Sources */,
@@ -3640,7 +3603,6 @@
 				8717E2112400DADC008C4CDA /* YSClassDetailVC.m in Sources */,
 				8717E2122400DADC008C4CDA /* UIDevice+Private.m in Sources */,
 				8717E2132400DADC008C4CDA /* SCVideoGridView.m in Sources */,
-				8717E2142400DADC008C4CDA /* YSWhiteBordNSURLProtocol.m in Sources */,
 				8717E2152400DADC008C4CDA /* YSChatView.m in Sources */,
 				8717E2162400DADC008C4CDA /* YSMineViewController.m in Sources */,
 				8717E2182400DADC008C4CDA /* FLEXFieldEditorView.m in Sources */,
@@ -3757,11 +3719,9 @@
 				8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */,
 				8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */,
 				8717E2A62400DADC008C4CDA /* FLEXArgumentInputNotSupportedView.m in Sources */,
-				8717E2A72400DADC008C4CDA /* YSWhiteBordHttpDNSUtil.m in Sources */,
 				8717E2A92400DADC008C4CDA /* FLEXImagePreviewViewController.m in Sources */,
 				8717E2AA2400DADC008C4CDA /* FLEXObjcInternal.mm in Sources */,
 				8717E2AB2400DADC008C4CDA /* UIAlertController+SCAlertAutorotate.m in Sources */,
-				8717E2AC2400DADC008C4CDA /* NSURLRequest+YSWhiteBoard.m in Sources */,
 				3471E29F24039A0100A3BBB4 /* FSCalendarSeparatorDecorationView.m in Sources */,
 				8717E2AD2400DADC008C4CDA /* YSMp4ControlView.m in Sources */,
 				8717E2AE2400DADC008C4CDA /* YSLiveRoomConfiguration.m in Sources */,

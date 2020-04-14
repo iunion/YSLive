@@ -46,6 +46,10 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 @property (nonatomic, assign, readonly) CGRect drawRect;
 @property (nonatomic, assign) BOOL playingMedia;// 记录UI层是否正在播放媒体
 
+@property (nonatomic, strong) NSString *ipFileUrl;
+@property (nonatomic, strong) NSString *ipFileId;
+@property (nonatomic, strong) NSString *ipFilePage;
+
 /**
  单例
  */

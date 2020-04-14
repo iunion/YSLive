@@ -9,11 +9,13 @@
 #ifndef YSLiveMacros_h
 #define YSLiveMacros_h
 
-#define YSWHITEBOARD_USEHTTPDNS 1
+#define YSWHITEBOARD_USEHTTPDNS1 0
+#if YSWHITEBOARD_USEHTTPDNS1
 #if YSSDK
 #define YSWHITEBOARD_USEHTTPDNS_ADDALI 0
 #else
 #define YSWHITEBOARD_USEHTTPDNS_ADDALI 1
+#endif
 #endif
 
 /// 当前用户的model
@@ -90,7 +92,7 @@
 
 #define YSWhiteBoard_HttpDnsService_AccountID   131798
 
-
+#if YSWHITEBOARD_USEHTTPDNS1
 /// 网宿host头
 static NSString *const YSWhiteBoard_domain_ws_header = @"rddoccdnws.roadofcloud";
 static NSString *const YSWhiteBoard_domain_demows_header = @"rddoccdndemows.roadofcloud";
@@ -108,6 +110,7 @@ static NSString *const YSWhiteBoard_domain_demoali_header = @"rddocdemo.roadofcl
 /// 阿里host
 static NSString *const YSWhiteBoard_domain_ali = @"rddoccdn.roadofcloud.com";
 static NSString *const YSWhiteBoard_domain_demoali = @"rddocdemo.roadofcloud.com";
+#endif
 #endif
 
 #pragma mark - NSDictionary Keys

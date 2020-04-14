@@ -71,11 +71,8 @@
         self.tClassStartTime = timeInterval;
         self.isBeginClass = YES;
 
-        [self serverLog:@"get YSSignalingName_ClassBegin"];
-
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingClassBeginWihInList:)])
         {
-            [self serverLog:@"check handleSignalingClassBeginWihInList"];
             [self.roomManagerDelegate handleSignalingClassBeginWihInList:inlist];
         }
         

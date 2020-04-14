@@ -1,6 +1,0 @@
-framework module YSWhiteBoard {
-  umbrella header "YSWhiteBoard.h"
-
-  export *
-  module * { export * }
-}
