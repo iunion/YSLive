@@ -127,7 +127,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         /// 全体禁言
         liveManagerSingleton.isEveryoneBanChat = NO;
         /// 是否打开上麦功能
-        liveManagerSingleton.allowEveryoneUpPlatform = NO;
+//        liveManagerSingleton.allowEveryoneUpPlatform = NO;
         /// 全体禁音
         liveManagerSingleton.isEveryoneNoAudio = NO;
         liveManagerSingleton.isBeginClass = NO;

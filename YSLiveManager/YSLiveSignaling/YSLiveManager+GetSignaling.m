@@ -96,35 +96,35 @@
     }
     
     //是否开启上麦功能
-    if ([msgName isEqualToString:YSSignalingName_UpPlatForm])
-    {
-        
-        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:@"UpPlatFormId"];
-        
-        if (self.localUser.publishState > YSUser_PublishState_NONE)
-        {
-            return;
-        }
-        
-        self.allowEveryoneUpPlatform = YES;
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneUpPlatformWithIsAllow:)])
-        {
-            [self.roomManagerDelegate handleSignalingAllowEveryoneUpPlatformWithIsAllow:YES];
-        }
-        return;
-    }
+//    if ([msgName isEqualToString:YSSignalingName_UpPlatForm])
+//    {
+//
+//        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:@"UpPlatFormId"];
+//
+//        if (self.localUser.publishState > YSUser_PublishState_NONE)
+//        {
+//            return;
+//        }
+//
+//        self.allowEveryoneUpPlatform = YES;
+//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneUpPlatformWithIsAllow:)])
+//        {
+//            [self.roomManagerDelegate handleSignalingAllowEveryoneUpPlatformWithIsAllow:YES];
+//        }
+//        return;
+//    }
     
     //是否同意上麦申请
-    if ([msgName isEqualToString:YSSignalingName_AllowUpPlatForm])
-    {
-        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
-        
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowUpPlatformApplyWithData:)])
-        {
-            [self.roomManagerDelegate handleSignalingAllowUpPlatformApplyWithData:dict];
-        }
-        return;
-    }
+//    if ([msgName isEqualToString:YSSignalingName_AllowUpPlatForm])
+//    {
+//        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
+//
+//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowUpPlatformApplyWithData:)])
+//        {
+//            [self.roomManagerDelegate handleSignalingAllowUpPlatformApplyWithData:dict];
+//        }
+//        return;
+//    }
     
     //同意各端开始举手
     if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
@@ -138,7 +138,7 @@
         return;
     }
         
-    //同意各端开始举手
+    //老师/助教获取到的举手列表订阅结果
     if ([msgName isEqualToString:YSSignalingName_Server_Sort_Result])
     {
 //        msgBody
@@ -1312,17 +1312,17 @@
     }
     
     //是否开启上麦功能
-    if ([msgName isEqualToString:YSSignalingName_UpPlatForm])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:@"UpPlatFormId"];
-        
-        self.allowEveryoneUpPlatform = NO;
-        
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneUpPlatformWithIsAllow:)]) {
-            [self.roomManagerDelegate handleSignalingAllowEveryoneUpPlatformWithIsAllow:NO];
-        }
-        return;
-    }
+//    if ([msgName isEqualToString:YSSignalingName_UpPlatForm])
+//    {
+//        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:@"UpPlatFormId"];
+//
+//        self.allowEveryoneUpPlatform = NO;
+//
+//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneUpPlatformWithIsAllow:)]) {
+//            [self.roomManagerDelegate handleSignalingAllowEveryoneUpPlatformWithIsAllow:NO];
+//        }
+//        return;
+//    }
     //关闭计时器
     if ([msgName isEqualToString:YSSignalingName_Timer])
     {

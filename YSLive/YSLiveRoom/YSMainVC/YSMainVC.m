@@ -162,10 +162,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 /// 是否正在播放视频
 @property (nonatomic, assign) BOOL showRoomVideo;
 /// 上麦按钮
-@property (nonatomic, strong) UIButton *upPlatformBtn;
+//@property (nonatomic, strong) UIButton *upPlatformBtn;
 
 ///私聊列表
 @property (nonatomic, strong) NSMutableArray<YSRoomUser *>  *memberList;
+
+/// 举手按钮
+@property(nonatomic,strong)UIButton *raiseHandsBtn;
 
 
 @end
@@ -334,6 +337,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     [self setupVideoBackgroud];
     [self performSelector:@selector(creatbuttonHide) withObject:nil afterDelay:5.0f];
+    
+    [self.view addSubview:self.raiseHandsBtn];
+    
 }
 
 ///是否打开上麦功能的通知方法
@@ -349,33 +355,33 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 //}
 
 ///是否打开上麦功能
-- (void)handleSignalingAllowEveryoneUpPlatformWithIsAllow:(BOOL)isAllow
-{
-      self.upPlatformBtn.hidden = !isAllow;
-       if (!isAllow)
-       {
-           self.upPlatformBtn.enabled = YES;
-       }
-}
+//- (void)handleSignalingAllowEveryoneUpPlatformWithIsAllow:(BOOL)isAllow
+//{
+//      self.upPlatformBtn.hidden = !isAllow;
+//       if (!isAllow)
+//       {
+//           self.upPlatformBtn.enabled = YES;
+//       }
+//}
 
 
 ///是否同意上麦申请
-- (void)handleSignalingAllowUpPlatformApplyWithData:(NSDictionary *)data
-{
-    BOOL isAllow = [data bm_boolForKey:@"isAllow"];
-        NSString * userId = [data bm_stringForKey:@"id"];
-    //    NSString * userName = [dict bm_stringForKey:@"name"];
-        
-        self.upPlatformBtn.enabled = YES;
-        
-        if ([userId isEqualToString:self.liveManager.localUser.peerID]) {
-            if (isAllow)
-            {//同意
-                self.upPlatformBtn.hidden = YES;
-            }
-            [self.liveManager answerSignalingUpPlatformWithCompletion:nil];
-        }
-}
+//- (void)handleSignalingAllowUpPlatformApplyWithData:(NSDictionary *)data
+//{
+//    BOOL isAllow = [data bm_boolForKey:@"isAllow"];
+//        NSString * userId = [data bm_stringForKey:@"id"];
+//    //    NSString * userName = [dict bm_stringForKey:@"name"];
+//
+//        self.upPlatformBtn.enabled = YES;
+//
+//        if ([userId isEqualToString:self.liveManager.localUser.peerID]) {
+//            if (isAllow)
+//            {//同意
+//                self.upPlatformBtn.hidden = YES;
+//            }
+//            [self.liveManager answerSignalingUpPlatformWithCompletion:nil];
+//        }
+//}
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -620,28 +626,28 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     //上麦按钮
-    self.upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:self.upPlatformBtn];
-    [self.view bringSubviewToFront:self.upPlatformBtn];
-    
-    // iOS 获取设备当前语言和地区的代码
-    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
-    
-    if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
-    {        
-        
-        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom"] forState:UIControlStateNormal];
-        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom"] forState:UIControlStateDisabled];
-    }
-    else
-    {
-        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom_EN"] forState:UIControlStateNormal];
-        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom_EN"] forState:UIControlStateDisabled];
-    }
-    self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom+15, 50, 50);
-    [self.upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    self.upPlatformBtn.layer.cornerRadius = 10;
-    self.upPlatformBtn.hidden = YES;
+//    self.upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.view addSubview:self.upPlatformBtn];
+//    [self.view bringSubviewToFront:self.upPlatformBtn];
+//
+//    // iOS 获取设备当前语言和地区的代码
+//    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+//
+//    if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+//    {
+//
+//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom"] forState:UIControlStateNormal];
+//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom"] forState:UIControlStateDisabled];
+//    }
+//    else
+//    {
+//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom_EN"] forState:UIControlStateNormal];
+//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom_EN"] forState:UIControlStateDisabled];
+//    }
+//    self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom+15, 50, 50);
+//    [self.upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    self.upPlatformBtn.layer.cornerRadius = 10;
+//    self.upPlatformBtn.hidden = YES;
 }
 
 - (void)setupVideoBackgroud
@@ -655,11 +661,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 }
 
 ///连麦按钮点击事件
-- (void)upPlatformBtnClicked:(UIButton *)sender
-{
-    sender.enabled = NO;
-    [[YSLiveManager shareInstance] sendSignalingUpPlatformWithCompletion:nil];
-}
+//- (void)upPlatformBtnClicked:(UIButton *)sender
+//{
+//    sender.enabled = NO;
+//    [[YSLiveManager shareInstance] sendSignalingUpPlatformWithCompletion:nil];
+//}
 
 - (void)makeMp3Animation
 {
@@ -1015,11 +1021,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     if (delVideoView)
     {
-        if ([self.liveManager.localUser.peerID isEqualToString:peerId] && self.liveManager.allowEveryoneUpPlatform)
-        {
-            self.upPlatformBtn.hidden = NO;
-            self.upPlatformBtn.enabled = YES;
-        }
+//        if ([self.liveManager.localUser.peerID isEqualToString:peerId] && self.liveManager.allowEveryoneUpPlatform)
+//        {
+//            self.upPlatformBtn.hidden = NO;
+//            self.upPlatformBtn.enabled = YES;
+//        }
         
         [self stopVideoAudioWithVideoView:delVideoView];
         
@@ -1178,7 +1184,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         }
     }
     
-    // 上麦
+    // 上台
     if ([properties bm_containsObjectForKey:sUserPublishstate] && roomUser.role == YSUserType_Student)
     {
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
@@ -2439,10 +2445,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(0);
                 self.barrageBtn.frame = CGRectZero;
-                
-                self.upPlatformBtn.transform = CGAffineTransformMakeRotation(0);
-                self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom + 15, 50, 50);
-                
+
+                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(0);
+                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, VIDEOVIEW_HEIGHT - 60, 40, 40);
                 self.playMp3ImageView.bm_origin = CGPointMake(15, self.liveBgView.bm_bottom - 70);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-50];
@@ -2484,9 +2489,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.barrageBtn.frame = CGRectMake(10, BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10, 40, 40);
 
-                self.upPlatformBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.upPlatformBtn.frame = CGRectMake(self.fullScreenBtn.bm_left - 50 - 20, self.fullScreenBtn.bm_top -10, 50, 50);
-                
+                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                self.raiseHandsBtn.frame = CGRectMake(CGRectGetMaxX(self.barrageBtn.frame)+20, self.barrageBtn.bm_originY, 40, 40);
+                                        
                 self.playMp3ImageView.bm_origin = CGPointMake(15, 70);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-80];
@@ -2523,10 +2528,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 self.barrageBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40, CGRectGetMaxY(self.fullScreenBtn.frame) + 10, 40, 40);
-                
-                self.upPlatformBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 - 20 ,self.fullScreenBtn.bm_bottom + 15 , 40, 40);
-                
+
+//                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
+//                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, VIDEOVIEW_HEIGHT - 60, 40, 40);
+                                
                 self.playMp3ImageView.bm_origin = CGPointMake(BMUI_SCREEN_WIDTH - 70 , BMUI_SCREEN_HEIGHT - BMUI_STATUS_BAR_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 15);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-80];
@@ -2610,5 +2615,46 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             break;
     }
 }
+
+#pragma mark -
+#pragma mark  举手相关
+
+- (UIButton *)raiseHandsBtn
+{
+    if (!_raiseHandsBtn)
+    {
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-26, VIDEOVIEW_HEIGHT - 60, 40, 40)];
+        [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
+        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
+        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateHighlighted];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
+        
+        [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+//        self.raiseHandsBtn.hidden = YES;
+    }
+    return _raiseHandsBtn;
+}
+
+///学生收到RaiseHandStart展示举手按钮
+- (void)handleSignalingAllowEveryoneRaiseHand
+{
+    self.raiseHandsBtn.hidden = NO;
+}
+
+///举手
+- (void)raiseHandsButtonClick:(UIButton *)sender
+{
+    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
+
+    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+}
+
+///取消举手
+- (void)downHandsButtonClick:(UIButton *)sender
+{
+    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+}
+
 
 @end

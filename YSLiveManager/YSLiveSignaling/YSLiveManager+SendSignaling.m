@@ -219,42 +219,42 @@
 
 
 // 上麦申请
-- (BOOL)sendSignalingUpPlatformWithCompletion:(completion_block)completion
-{
-
-    long time =1000 * (long)self.tCurrentTime;
-    NSDictionary *actions = @{ @"id" : self.localUser.peerID,@"name":self.localUser.nickName,@"time":@(time)};
-    NSString * dataStr = [actions bm_toJSON];
-    NSDictionary * dataDict = @{self.localUser.peerID:dataStr};
-    
-    NSDictionary * extensionData = @{@"actions":dataDict,@"modify":@0,@"type":@"sort"};
-    
-    NSString * msgID = [NSString stringWithFormat:@"TestSortCommitId_%@",self.localUser.peerID];
-       
-    NSString * UpPlatFormId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UpPlatFormId"];
-    
-    return  ([self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion] == 0);
-    
-}
+//- (BOOL)sendSignalingUpPlatformWithCompletion:(completion_block)completion
+//{
+//
+//    long time =1000 * (long)self.tCurrentTime;
+//    NSDictionary *actions = @{ @"id" : self.localUser.peerID,@"name":self.localUser.nickName,@"time":@(time)};
+//    NSString * dataStr = [actions bm_toJSON];
+//    NSDictionary * dataDict = @{self.localUser.peerID:dataStr};
+//
+//    NSDictionary * extensionData = @{@"actions":dataDict,@"modify":@0,@"type":@"sort"};
+//
+//    NSString * msgID = [NSString stringWithFormat:@"TestSortCommitId_%@",self.localUser.peerID];
+//
+//    NSString * UpPlatFormId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UpPlatFormId"];
+//
+//    return  ([self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion] == 0);
+//
+//}
 
 /// 上麦申请结果
-- (BOOL)answerSignalingUpPlatformWithCompletion:(completion_block)completion
-{
-    NSDictionary *actions = @{ @"id" : self.localUser.peerID,@"name":self.localUser.nickName,@"time":@(self.tCurrentTime)};
-    NSString * dataStr = [actions bm_toJSON];
-    NSDictionary * dataDict = @{self.localUser.peerID:dataStr};
-    
-    NSDictionary * extensionData = @{@"actions":dataDict,@"modify":@1,@"type":@"sort"};
-    
-    
-    NSString * msgID = [NSString stringWithFormat:@"TestSortCommitId_%@",self.localUser.peerID];
-    
-    NSString * UpPlatFormId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UpPlatFormId"];
-    
-    int result = [self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion];
-    
-    return  (result == 0);
-}
+//- (BOOL)answerSignalingUpPlatformWithCompletion:(completion_block)completion
+//{
+//    NSDictionary *actions = @{ @"id" : self.localUser.peerID,@"name":self.localUser.nickName,@"time":@(self.tCurrentTime)};
+//    NSString * dataStr = [actions bm_toJSON];
+//    NSDictionary * dataDict = @{self.localUser.peerID:dataStr};
+//
+//    NSDictionary * extensionData = @{@"actions":dataDict,@"modify":@1,@"type":@"sort"};
+//
+//
+//    NSString * msgID = [NSString stringWithFormat:@"TestSortCommitId_%@",self.localUser.peerID];
+//
+//    NSString * UpPlatFormId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UpPlatFormId"];
+//
+//    int result = [self.roomManager pubMsg:YSSignalingName_ApplyUpPlatForm msgID:msgID toID:YSRoomPubMsgTellNone data:@"" save:NO extensionData:extensionData associatedMsgID:UpPlatFormId associatedUserID:self.localUser.peerID expires:0 completion:completion];
+//
+//    return  (result == 0);
+//}
 
 /// 学生开始/取消举手  modify：0举手  1取消举手
 - (BOOL)sendSignalingsStudentToRaiseHandWithModify:(NSInteger)modify Completion:(nullable completion_block)completion
