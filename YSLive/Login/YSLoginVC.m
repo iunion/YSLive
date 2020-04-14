@@ -334,13 +334,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if ((currentHour >= 0 && currentHour < 6) || (currentHour >= 22 && currentHour <= 23))
     {
         BMWeakSelf
-        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"EyeProtection.AlertTitle") message:YSLocalized(@"EyeProtection.AlertMsg") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLoginLocalized(@"EyeProtection.AlertTitle") message:YSLoginLocalized(@"EyeProtection.AlertMsg") preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"EyeProtection.Btnsetup") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLoginLocalized(@"EyeProtection.Btnsetup") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             YSEyeCareVC *eyeCareVC = [[YSEyeCareVC alloc] init];
             [weakSelf.navigationController pushViewController:eyeCareVC animated:YES];
         }];
-        UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"EyeProtection.BtnKnow") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLoginLocalized(@"EyeProtection.BtnKnow") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         }];
         [alertVc addAction:cancleAc];
         [alertVc addAction:confimAc];
@@ -480,7 +480,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         {
             needUpdata = NO;
         }
-        [self showUpdateAlertWithTitle:YSLocalized(@"Alert.UpdateTitle") downLink:downString needUpdata:needUpdata];
+        [self showUpdateAlertWithTitle:YSLoginLocalized(@"Alert.UpdateTitle") downLink:downString needUpdata:needUpdata];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (error)
@@ -498,18 +498,18 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     if (needUpdata)
     {
-        message = YSLocalized(@"Alert.UpdateForceMessage");
+        message = YSLoginLocalized(@"Alert.UpdateForceMessage");
         style = UIAlertActionStyleDestructive;
     }
     else
     {
-        message = YSLocalized(@"Alert.UpdateMessage");
+        message = YSLoginLocalized(@"Alert.UpdateMessage");
         style = UIAlertActionStyleDefault;
     }
     
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Alert.UpdateNow") style:style handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLoginLocalized(@"Alert.UpdateNow") style:style handler:^(UIAlertAction * _Nonnull action) {
         if (@available(iOS 10.0, *))
         {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downLink] options:@{} completionHandler:nil];
@@ -527,7 +527,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     if (!needUpdata)
     {
-        UIAlertAction *ccc = [UIAlertAction actionWithTitle:YSLocalized(@"Alert.UpdateAfter") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *ccc = [UIAlertAction actionWithTitle:YSLoginLocalized(@"Alert.UpdateAfter") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         }];
         [alertVc addAction:ccc];
     }
@@ -678,7 +678,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     UIButton *eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     eyeBtn.frame = CGRectMake(0, 0, 100, 40);
                         //bm_buttonWithFrame:CGRectMake(0, 0, 100, 40) image:[UIImage imageNamed:@"eyecaresetup"]];
-    [eyeBtn setTitle:YSLocalized(@"EyeProtection.Btnsetup") forState:UIControlStateNormal];
+    [eyeBtn setTitle:YSLoginLocalized(@"EyeProtection.Btnsetup") forState:UIControlStateNormal];
     eyeBtn.titleLabel.font = UI_FONT_12;
     [eyeBtn setTitleColor:[UIColor bm_colorWithHex:0x878E95] forState:UIControlStateNormal];
     [eyeBtn addTarget:self action:@selector(onClickEye:) forControlEvents:UIControlEventTouchUpInside];
@@ -817,7 +817,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         self.admin_accountTextField.hidden = YES;
         self.roomTextField.hidden = NO;
         self.nickNameTextField.hidden = NO;
-        [self.joinRoomBtn setTitle:YSLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
+        [self.joinRoomBtn setTitle:YSLoginLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
         [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(43));
@@ -885,11 +885,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 NSString *errorMessage;
                 if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
                 {
-                    errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
                 }
                 else
                 {
-                    errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
 #if YSShowErrorCode
@@ -927,14 +927,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
 #endif
                 }
                 
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [task resume];
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -958,11 +958,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 NSString *errorMessage;
                 if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
                 {
-                    errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
                 }
                 else
                 {
-                    errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
 #if YSShowErrorCode
@@ -1023,7 +1023,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 }
                 else
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
         }];
@@ -1031,7 +1031,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1039,7 +1039,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (![YSCoreStatus isNetworkEnable])
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
 
@@ -1118,16 +1118,16 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (![roomId bm_isNotEmpty])
     {
         //教室号不能为空
-        NSString *content =  YSLocalized(@"Prompt.RoomIDNotNull");
-        [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+        NSString *content =  YSLoginLocalized(@"Prompt.RoomIDNotNull");
+        [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:nil];
         return;
     }
     
     if (![nickName bm_isNotEmpty])
     {
         // 昵称不能为空
-        NSString *content = YSLocalized(@"Prompt.nicknameNotNull");
-        [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+        NSString *content = YSLoginLocalized(@"Prompt.nicknameNotNull");
+        [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:nil];
         return;
     }
     
@@ -1163,7 +1163,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             
             if (delta < 60 * 3)
             {
-                NSString *content =  YSLocalized(@"Prompt.kick");
+                NSString *content =  YSLoginLocalized(@"Prompt.kick");
                 [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:nil completion:nil];
                 return NO;
             }
@@ -1200,11 +1200,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 NSString *errorMessage;
                 if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
                 {
-                    errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
                 }
                 else
                 {
-                    errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
 #if YSShowErrorCode
@@ -1221,14 +1221,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
                 if (![responseDic bm_isNotEmptyDictionary])
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
 
                 NSInteger result = [responseDic bm_intForKey:@"result"];
                 if (result == 4007)
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.RoomTypeCheckError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.RoomTypeCheckError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
@@ -1259,12 +1259,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 
                 if (weakSelf.needpwd)
                 {
-                    self.passwordTextField.placeholder = YSLocalized(@"Prompt.inputPwd");
+                    self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.inputPwd");
                     self.passwordMask.hidden = YES;
                 }
                 else
                 {
-                    self.passwordTextField.placeholder = YSLocalized(@"Prompt.noneedPwd");
+                    self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.noneedPwd");
                     self.passwordMask.hidden = NO;
                 }
                 
@@ -1310,7 +1310,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
     else
     {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -1434,7 +1434,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_roomTextField)
     {
-        _roomTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalized(@"Label.roomPlaceholder") withImageName:@"login_room"];
+        _roomTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLoginLocalized(@"Label.roomPlaceholder") withImageName:@"login_room"];
         _roomTextField.inputTextField.delegate = self;
         _roomTextField.inputTextField.tag = 101;
         _roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -1448,7 +1448,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_nickNameTextField)
     {
-        _nickNameTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalized(@"Label.nicknamePlaceholder") withImageName:@"login_name"];
+        _nickNameTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLoginLocalized(@"Label.nicknamePlaceholder") withImageName:@"login_name"];
         _nickNameTextField.inputTextField.delegate = self;
         _nickNameTextField.inputTextField.tag = 102;
         _nickNameTextField.delegate = self;
@@ -1461,7 +1461,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_passwordTextField)
     {
-        _passwordTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
+        _passwordTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLoginLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
         _passwordTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passwordTextField.inputTextField.secureTextEntry = YES;
         _passwordTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
@@ -1521,7 +1521,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_passOnlineTextField)
     {
-        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
+        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLoginLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
         _passOnlineTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passOnlineTextField.inputTextField.secureTextEntry = YES;
         _passOnlineTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
@@ -1589,7 +1589,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [alertView addSubview:cancelBtn];
         
         UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 50)];
-        titleLab.text = YSLocalized(@"Label.choiceIdentity");
+        titleLab.text = YSLoginLocalized(@"Label.choiceIdentity");
         titleLab.font = UI_FONT_18;
         titleLab.textColor = UIColor.whiteColor;
         titleLab.textAlignment = NSTextAlignmentCenter;
@@ -1628,20 +1628,20 @@ typedef void (^YSRoomLeftDoBlock)(void);
             if (self.room_UseTheType == YSAppUseTheTypeMeeting) {
                 if (i == 0)
                 {
-                    [button setTitle:YSLocalized(@"Role.Host") forState:UIControlStateNormal];
+                    [button setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
                     self.teacherRoleBtn = button;
                 }
                 else if (i == 1)
                 {
                     
-                    [button setTitle:YSLocalized(@"Role.Attendee") forState:UIControlStateNormal];
+                    [button setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
                     button.selected = YES;
                     self.selectedRoleBtn = button;
                     self.studentRoleBtn = button;
                 }
                 else if (i == 2)
                 {
-                    [button setTitle:YSLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
+                    [button setTitle:YSLoginLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
                     self.patrolRoleBtn = button;
                 }
             }
@@ -1649,19 +1649,19 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 if (i == 0)
                 {
-                    [button setTitle:YSLocalized(@"Role.Teacher") forState:UIControlStateNormal];
+                    [button setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
                     self.teacherRoleBtn = button;
                 }
                 else if (i == 1)
                 {
-                    [button setTitle:YSLocalized(@"Role.Student") forState:UIControlStateNormal];
+                    [button setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
                     button.selected = YES;
                     self.selectedRoleBtn = button;
                     self.studentRoleBtn = button;
                 }
                 else if (i == 2)
                 {
-                    [button setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+                    [button setTitle:YSLoginLocalized(@"Role.Patrol") forState:UIControlStateNormal];
                     self.patrolRoleBtn = button;
                 }
                 else if (i == 3)
@@ -1686,7 +1686,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         okBtn.bm_centerX = alertView.bm_width/2;
         [okBtn setBackgroundImage:[UIImage imageNamed:@"login_join_normal"] forState:UIControlStateNormal];
         [okBtn setBackgroundImage:[UIImage imageNamed:@"login_join_disabled"] forState:UIControlStateSelected];
-        [okBtn setTitle:YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
+        [okBtn setTitle:YSLoginLocalized(@"Prompt.OK") forState:UIControlStateNormal];
         okBtn.titleLabel.font = UI_FONT_18;
         okBtn.layer.cornerRadius = 25;
         okBtn.layer.masksToBounds = YES;
@@ -1702,15 +1702,15 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.roleSelectView.hidden = NO;
     if (self.room_UseTheType == YSAppUseTheTypeMeeting)
     {
-            [self.studentRoleBtn setTitle:YSLocalized(@"Role.Attendee") forState:UIControlStateNormal];
-            [self.teacherRoleBtn setTitle:YSLocalized(@"Role.Host") forState:UIControlStateNormal];
-            [self.patrolRoleBtn setTitle:YSLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
+            [self.studentRoleBtn setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
+            [self.teacherRoleBtn setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
+            [self.patrolRoleBtn setTitle:YSLoginLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
     }
     else
     {
-        [self.studentRoleBtn setTitle:YSLocalized(@"Role.Student") forState:UIControlStateNormal];
-        [self.teacherRoleBtn setTitle:YSLocalized(@"Role.Teacher") forState:UIControlStateNormal];
-        [self.patrolRoleBtn setTitle:YSLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+        [self.studentRoleBtn setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
+        [self.teacherRoleBtn setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
+        [self.patrolRoleBtn setTitle:YSLoginLocalized(@"Role.Patrol") forState:UIControlStateNormal];
     }
 }
 
@@ -1743,7 +1743,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     [self.view endEditing:YES];
     
-    self.passwordTextField.placeholder = YSLocalized(@"Prompt.inputPwd");
+    self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.inputPwd");
     
     switch (sender.tag) {
 
@@ -1759,7 +1759,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             }
             else
             {
-                self.passwordTextField.placeholder = YSLocalized(@"Prompt.noneedPwd");
+                self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.noneedPwd");
                 self.passwordMask.hidden = NO;
             }
             break;
@@ -1801,7 +1801,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (!_joinRoomBtn)
     {
         _joinRoomBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 50) color:[UIColor bm_colorWithHex:0x648CD6] highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
-        [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
+        [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSLoginLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
         [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
         [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0x999999] forState:UIControlStateDisabled];
@@ -1872,7 +1872,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             NSString *s = [textField.text substringToIndex:10];
             [textField setText:s];
             
-            [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Alert.NumberOfWords.10") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+            [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Alert.NumberOfWords.10") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         }
     }
 }
@@ -1906,8 +1906,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (![liveManager.room_Id bm_isNotEmpty])
     {
         BMWeakSelf
-        NSString *descript = YSLocalized(@"Error.CanNotConnectNetworkError");
-        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+        NSString *descript = YSLoginLocalized(@"Error.CanNotConnectNetworkError");
+        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
             [weakSelf waitRoomLeft:nil];
         }];
         
@@ -2024,7 +2024,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (errorCode == YSErrorCode_CheckRoom_PasswordError ||
         errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
     {
-        [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Error.PwdError") message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+        [BMAlertView ys_showAlertWithTitle:YSLoginLocalized(@"Error.PwdError") message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
              [weakSelf theRoomNeedPassword];
         }];
     }
@@ -2083,9 +2083,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    [self.progressHUD bm_hideAnimated:NO];
 //    if (![YSCoreStatus isNetworkEnable])
 //    {
-//        descript = YSLocalized(@"Prompt.NetworkChanged");
+//        descript = YSLoginLocalized(@"Prompt.NetworkChanged");
 //    }
-//    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+//    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:nil];
 //
 //    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
 }
@@ -2093,7 +2093,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)onRoomConnectionLost
 {
     NSLog(@"================================== onRoomConnectionLost");
-//    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+//    [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 //
 //    [YSLiveManager destroy];
 }
@@ -2104,11 +2104,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     NSString *errorMessage;
     if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
     {
-        errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+        errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
     }
     else
     {
-        errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+        errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
     }
 
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];

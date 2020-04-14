@@ -16,6 +16,8 @@
 #define YS_BUNDLE_NAME      ([YSLiveManager shareInstance].room_UseTheType == YSAppUseTheTypeMeeting) ? YS_MEETINGBUNDLE_NAME : YS_SCBUNDLE_NAME
 #define YSAPP_Localized     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_BUNDLE_NAME]]
 #define YSLocalized(s)      [YSAPP_Localized localizedStringForKey:s value:@"" table:nil]
+/// 登录单独使用
+#define YSLoginLocalized(s)      [YSAPP_Localized localizedStringForKey:s value:@"" table:nil]
 
 #define YS_ONLINESCHOOL_NAME       @ "YSOnlineSchool.bundle"
 
