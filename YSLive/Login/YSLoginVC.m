@@ -746,7 +746,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 #pragma mark -
 #pragma mark SEL
-
+#pragma mark 教室，网校切换
 - (void)onlineSchoolBtnClicked:(UIButton *)btn
 {
     self.isOnlineSchool = !_isOnlineSchool;
