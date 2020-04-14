@@ -10,6 +10,7 @@
 #import "YSLiveMacros.h"
 #import "YSWhiteBordHttpDNSUtil.h"
 #import "NSURLRequest+YSWhiteBoard.h"
+#import "YSLiveManager.h"
 
 static NSString * const YSWhiteBordNSURLProtocolKey = @"yswhitebord_protocol_key";
 
@@ -135,6 +136,12 @@ static NSString * const YSWhiteBordNSURLProtocolKey = @"yswhitebord_protocol_key
         }
     }
 
+    NSDictionary *queryDictionary = [url bm_queryDictionary];
+    if ([queryDictionary bm_containsObjectForKey:@"fileid"])
+    {
+        NSLog(@"=================fileId: %@  ip: %@  host: %@", [queryDictionary bm_stringForKey:@"fileid"], ip, host);
+    }
+
     return mutableReqeust;
 }
 
@@ -184,6 +191,14 @@ static NSString * const YSWhiteBordNSURLProtocolKey = @"yswhitebord_protocol_key
 //        NSLog(@"%@", error);
 //        NSLog(@"=======================================");
 //        NSLog(@"%@", self.request.allHTTPHeaderFields);
+
+        NSURL *url = self.request.URL;
+        NSString *host = url.host;
+        NSDictionary *queryDictionary = [url bm_queryDictionary];
+        if ([queryDictionary bm_containsObjectForKey:@"fileid"])
+        {
+            NSLog(@"=================fileId: %@  host: %@", [queryDictionary bm_stringForKey:@"fileid"], host);
+        }
 
         [self.client URLProtocol:self didFailWithError:error];
     }

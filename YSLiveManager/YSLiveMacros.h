@@ -9,13 +9,6 @@
 #ifndef YSLiveMacros_h
 #define YSLiveMacros_h
 
-#define YSWHITEBOARD_USEHTTPDNS 1
-#if YSSDK
-#define YSWHITEBOARD_USEHTTPDNS_ADDALI 0
-#else
-#define YSWHITEBOARD_USEHTTPDNS_ADDALI 1
-#endif
-
 /// 当前用户的model
 #define YSCurrentUser [YSLiveManager shareInstance].localUser
 
@@ -88,27 +81,6 @@
 //#define YSLive_RoomId       @"1672617739" //小班课IOS_1V1_  4:3
 //#define YSLive_RoomId       @"1011757934"  //直播
 
-#define YSWhiteBoard_HttpDnsService_AccountID   131798
-
-
-/// 网宿host头
-static NSString *const YSWhiteBoard_domain_ws_header = @"rddoccdnws.roadofcloud";
-static NSString *const YSWhiteBoard_domain_demows_header = @"rddoccdndemows.roadofcloud";
-/// 网宿host
-static NSString *const YSWhiteBoard_domain_ws = @"rddoccdnws.roadofcloud.com";
-static NSString *const YSWhiteBoard_domain_demows = @"rddoccdndemows.roadofcloud.com";
-
-/// 网宿dns解析
-static NSString *const YSWhiteBoard_wshttpdnsurl = @"http://edge.wshttpdns.com/v1/httpdns/clouddns";
-
-#if YSWHITEBOARD_USEHTTPDNS_ADDALI
-/// 阿里host头
-static NSString *const YSWhiteBoard_domain_ali_header = @"rddoccdn.roadofcloud";
-static NSString *const YSWhiteBoard_domain_demoali_header = @"rddocdemo.roadofcloud";
-/// 阿里host
-static NSString *const YSWhiteBoard_domain_ali = @"rddoccdn.roadofcloud.com";
-static NSString *const YSWhiteBoard_domain_demoali = @"rddocdemo.roadofcloud.com";
-#endif
 
 #pragma mark - NSDictionary Keys
 

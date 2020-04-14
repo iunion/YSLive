@@ -13,6 +13,8 @@
 #import <AlicloudHttpDNS/AlicloudHttpDNS.h>
 #endif
 
+#import "YSLiveManager.h"
+
 #define WsHttpDNSIP_KEY     @"ysWhiteBoard_wsHttpDNSIP"
 
 @interface YSWhiteBordHttpDNSUtil ()
@@ -20,13 +22,15 @@
 //    HttpDNSDegradationDelegate
 //>
 
+@property (nonatomic, weak) YSLiveManager *liveManager;
+
 @end
 
 @implementation YSWhiteBordHttpDNSUtil
 
 static YSWhiteBordHttpDNSUtil *httpDNSUtilsharedInstance = nil;
 
-+ (instancetype)sharedInstance
++ (instancetype)sharedInstanceWithLiveManager:(YSLiveManager *)liveManager
 {
     if (httpDNSUtilsharedInstance)
     {
@@ -35,9 +39,25 @@ static YSWhiteBordHttpDNSUtil *httpDNSUtilsharedInstance = nil;
     else
     {
         httpDNSUtilsharedInstance = [[YSWhiteBordHttpDNSUtil alloc] init];
+        httpDNSUtilsharedInstance.liveManager = liveManager;
     }
     
     return httpDNSUtilsharedInstance;
+}
+
++ (instancetype)sharedInstance
+{
+    return httpDNSUtilsharedInstance;
+}
+
++ (void)destroy
+{
+    if (httpDNSUtilsharedInstance)
+    {
+        [httpDNSUtilsharedInstance cancelGetHttpDNSIp];
+    }
+    
+    httpDNSUtilsharedInstance = nil;
 }
 
 + (NSDictionary *)convertWithData:(id)data
@@ -160,6 +180,8 @@ static YSWhiteBordHttpDNSUtil *httpDNSUtilsharedInstance = nil;
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                             [defaults setObject:ip forKey:key];
                             [defaults synchronize];
+                            
+                            [self.liveManager serverLog:[NSString stringWithFormat:@"host: %@", ip]];
                             
                             NSNumber *countNumber = [domain objectForKey:@"ttl"];
                             NSTimeInterval expireCount = ceil(countNumber.doubleValue * 0.75f);

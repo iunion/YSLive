@@ -373,8 +373,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
     {
-        [self.liveManager serverLog:[NSString stringWithFormat:@"teachervcinit %p", self]];
-
         maxVideoCount = maxCount;
         
         self.roomtype = roomType;

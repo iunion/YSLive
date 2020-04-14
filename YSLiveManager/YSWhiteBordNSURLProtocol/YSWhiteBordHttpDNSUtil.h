@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class YSLiveManager;
 @interface YSWhiteBordHttpDNSUtil : NSObject
 
++ (instancetype)sharedInstanceWithLiveManager:(YSLiveManager *)liveManager;
 + (instancetype)sharedInstance;
+
++ (void)destroy;
 
 /// 获取host的ip地址
 - (nullable NSString *)getHttpDNSIpWithHost:(NSString *)host;

@@ -25,3 +25,32 @@ extern NSString *const YSWBMainContentComponent;// 主白板程序
 extern NSNotificationName const YSWhiteBoardRemoteSelectTool;// 是否选择画笔工具 鼠标
 extern NSString *const YSWhiteBoardPreloadExit;// 预加载过程退出教室
 
+
+#define YSWhiteBoard_HttpDnsService_AccountID   131798
+
+/// 网宿host头
+static NSString *const YSWhiteBoard_domain_ws_header = @"rddoccdnws.roadofcloud";
+static NSString *const YSWhiteBoard_domain_demows_header = @"rddoccdndemows.roadofcloud";
+/// 网宿host
+static NSString *const YSWhiteBoard_domain_ws = @"rddoccdnws.roadofcloud.net";
+static NSString *const YSWhiteBoard_domain_demows = @"rddoccdndemows.roadofcloud.net";
+
+/// 网宿dns解析
+static NSString *const YSWhiteBoard_wshttpdnsurl = @"http://edge.wshttpdns.com/v1/httpdns/clouddns";
+
+#define YSWHITEBOARD_USEHTTPDNS 1
+#define YSWHITEBOARD_NORMALUSEHTTPDNS 1
+//#if YSSDK
+#define YSWHITEBOARD_USEHTTPDNS_ADDALI 0
+//#else
+//#define YSWHITEBOARD_USEHTTPDNS_ADDALI 1
+//#endif
+
+#if YSWHITEBOARD_USEHTTPDNS_ADDALI
+/// 阿里host头
+static NSString *const YSWhiteBoard_domain_ali_header = @"rddoccdn.roadofcloud";
+static NSString *const YSWhiteBoard_domain_demoali_header = @"rddocdemo.roadofcloud";
+/// 阿里host
+static NSString *const YSWhiteBoard_domain_ali = @"rddoccdn.roadofcloud.net";
+static NSString *const YSWhiteBoard_domain_demoali = @"rddocdemo.roadofcloud.net";
+#endif
