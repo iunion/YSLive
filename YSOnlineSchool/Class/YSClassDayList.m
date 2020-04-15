@@ -641,12 +641,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    [YSLiveManager destroy];
 }
 
-//- (void)onRoomConnectionLost
-//{
+- (void)onRoomConnectionLost
+{
+    [self waitRoomLeft:nil];
 //    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 //
 //    [YSLiveManager destroy];
-//}
+}
 
 // 已经离开房间
 - (void)onRoomLeft
