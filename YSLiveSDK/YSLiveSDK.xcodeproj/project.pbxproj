@@ -35,14 +35,6 @@
 		87DBE97A241F51AA000C1FB5 /* YSPermissionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBE954241F51AA000C1FB5 /* YSPermissionsVC.m */; };
 		87DBE97B241F51AA000C1FB5 /* YSPermissionsVResultView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE955241F51AA000C1FB5 /* YSPermissionsVResultView.h */; };
 		87DBE97C241F51AA000C1FB5 /* YSPermissionsVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE956241F51AA000C1FB5 /* YSPermissionsVC.h */; };
-		87DBE97D241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBE958241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.m */; };
-		87DBE97E241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE959241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.h */; };
-		87DBE97F241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE95A241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.h */; };
-		87DBE980241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBE95B241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.m */; };
-		87DBE981241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBE95C241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.m */; };
-		87DBE982241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE95D241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.h */; };
-		87DBE983241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE95E241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.h */; };
-		87DBE984241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBE95F241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.m */; };
 		87DBE985241F51AA000C1FB5 /* YSLiveUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE960241F51AA000C1FB5 /* YSLiveUtil.h */; };
 		87DBE986241F51AA000C1FB5 /* YSLiveManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBE961241F51AA000C1FB5 /* YSLiveManager.h */; };
 		87DBE987241F51AA000C1FB5 /* YSRoomUser+YSLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBE963241F51AA000C1FB5 /* YSRoomUser+YSLive.m */; };
@@ -301,14 +293,6 @@
 		87DBE954241F51AA000C1FB5 /* YSPermissionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSPermissionsVC.m; sourceTree = "<group>"; };
 		87DBE955241F51AA000C1FB5 /* YSPermissionsVResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSPermissionsVResultView.h; sourceTree = "<group>"; };
 		87DBE956241F51AA000C1FB5 /* YSPermissionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSPermissionsVC.h; sourceTree = "<group>"; };
-		87DBE958241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+YSWhiteBoard.m"; sourceTree = "<group>"; };
-		87DBE959241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSWhiteBordNSURLProtocol.h; sourceTree = "<group>"; };
-		87DBE95A241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSWhiteBordHttpDNSUtil.h; sourceTree = "<group>"; };
-		87DBE95B241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+YSWhiteBoard.m"; sourceTree = "<group>"; };
-		87DBE95C241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSWhiteBordNSURLProtocol.m; sourceTree = "<group>"; };
-		87DBE95D241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+YSWhiteBoard.h"; sourceTree = "<group>"; };
-		87DBE95E241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+YSWhiteBoard.h"; sourceTree = "<group>"; };
-		87DBE95F241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSWhiteBordHttpDNSUtil.m; sourceTree = "<group>"; };
 		87DBE960241F51AA000C1FB5 /* YSLiveUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		87DBE961241F51AA000C1FB5 /* YSLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveManager.h; sourceTree = "<group>"; };
 		87DBE963241F51AA000C1FB5 /* YSRoomUser+YSLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YSRoomUser+YSLive.m"; sourceTree = "<group>"; };
@@ -646,7 +630,6 @@
 				87DBE962241F51AA000C1FB5 /* YSLiveClassModel */,
 				87DBE972241F51AA000C1FB5 /* YSLiveMessage */,
 				87DBE952241F51AA000C1FB5 /* YSPermissions */,
-				87DBE957241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol */,
 				87DBE951241F51AA000C1FB5 /* YSLiveEnumHeader.h */,
 				87DBE970241F51AA000C1FB5 /* YSLiveMacros.h */,
 				87DBE961241F51AA000C1FB5 /* YSLiveManager.h */,
@@ -661,27 +644,12 @@
 		87DBE952241F51AA000C1FB5 /* YSPermissions */ = {
 			isa = PBXGroup;
 			children = (
-				87DBE953241F51AA000C1FB5 /* YSPermissionsVResultView.m */,
+				87DBE956241F51AA000C1FB5 /* YSPermissionsVC.h */,
 				87DBE954241F51AA000C1FB5 /* YSPermissionsVC.m */,
 				87DBE955241F51AA000C1FB5 /* YSPermissionsVResultView.h */,
-				87DBE956241F51AA000C1FB5 /* YSPermissionsVC.h */,
+				87DBE953241F51AA000C1FB5 /* YSPermissionsVResultView.m */,
 			);
 			path = YSPermissions;
-			sourceTree = "<group>";
-		};
-		87DBE957241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol */ = {
-			isa = PBXGroup;
-			children = (
-				87DBE958241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.m */,
-				87DBE959241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.h */,
-				87DBE95A241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.h */,
-				87DBE95B241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.m */,
-				87DBE95C241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.m */,
-				87DBE95D241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.h */,
-				87DBE95E241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.h */,
-				87DBE95F241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.m */,
-			);
-			path = YSWhiteBordNSURLProtocol;
 			sourceTree = "<group>";
 		};
 		87DBE962241F51AA000C1FB5 /* YSLiveClassModel */ = {
@@ -1343,7 +1311,6 @@
 				87DBEB36241F52BC000C1FB5 /* YSTeacherTimerView.h in Headers */,
 				87DBEC19241F52BD000C1FB5 /* YSBarrageRenderView.h in Headers */,
 				87DBEB61241F52BC000C1FB5 /* YSEmotionView.h in Headers */,
-				87DBE97F241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.h in Headers */,
 				87DBEC0E241F52BD000C1FB5 /* YSBarrageDescriptor.h in Headers */,
 				87DBEBAB241F52BC000C1FB5 /* SCBoardControlView.h in Headers */,
 				87DBEB22241F52BC000C1FB5 /* YSTeacherRoleMainVC.h in Headers */,
@@ -1360,7 +1327,6 @@
 				87DBEB81241F52BC000C1FB5 /* SCTopToolBarModel.h in Headers */,
 				87DBEB8A241F52BC000C1FB5 /* SCColorListView.h in Headers */,
 				87DBEBF3241F52BD000C1FB5 /* SCEyeCareView.h in Headers */,
-				87DBE983241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.h in Headers */,
 				87DBEBF0241F52BD000C1FB5 /* YSFloatView.h in Headers */,
 				87DBEB98241F52BC000C1FB5 /* SCTipsMessageCell.h in Headers */,
 				87DBEB7D241F52BC000C1FB5 /* YSApiRequest.h in Headers */,
@@ -1380,14 +1346,12 @@
 				87DBEB5F241F52BC000C1FB5 /* YSEmotionCollectionCell.h in Headers */,
 				87DBEB2A241F52BC000C1FB5 /* YSUpHandPopCell.h in Headers */,
 				87DBEBAF241F52BC000C1FB5 /* SCMainVC.h in Headers */,
-				87DBE97E241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.h in Headers */,
 				87DBEB5E241F52BC000C1FB5 /* YSChatView.h in Headers */,
 				8732B8C2241F73A2005BEB99 /* YSMainSuperVC.h in Headers */,
 				87DBEB3D241F52BC000C1FB5 /* SCTeacherCoursewareListCell.h in Headers */,
 				87DBEB4E241F52BC000C1FB5 /* YSQuestionModel.h in Headers */,
 				87DBEBAA241F52BC000C1FB5 /* SCAnswerDetailModel.h in Headers */,
 				87DBEB94241F52BC000C1FB5 /* SCPictureMessageCell.h in Headers */,
-				87DBE982241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.h in Headers */,
 				87DBEC00241F52BD000C1FB5 /* YSSignedAlertView.h in Headers */,
 				87DBEC10241F52BD000C1FB5 /* YSBarrageManager.h in Headers */,
 				044C17572431E75200579E02 /* YSPollingView.h in Headers */,
@@ -1548,7 +1512,6 @@
 				87DBE929241F510E000C1FB5 /* YSSDKManager.m in Sources */,
 				87DBEB32241F52BC000C1FB5 /* SCTeacherAnswerView.m in Sources */,
 				87DBEB27241F52BC000C1FB5 /* YSMp3Controlview.m in Sources */,
-				87DBE97D241F51AA000C1FB5 /* NSURLProtocol+YSWhiteBoard.m in Sources */,
 				87DBEC13241F52BD000C1FB5 /* YSBarrageTextCell.m in Sources */,
 				87DBEB8B241F52BC000C1FB5 /* SCColorTipView.m in Sources */,
 				87DBEBB1241F52BC000C1FB5 /* PanGestureControl.m in Sources */,
@@ -1556,7 +1519,6 @@
 				87DBEB64241F52BC000C1FB5 /* YSEmotionCollectionCell.m in Sources */,
 				87DBE995241F51AA000C1FB5 /* YSLiveManager+message.m in Sources */,
 				87DBEB4C241F52BC000C1FB5 /* YSVoteTopView.m in Sources */,
-				87DBE984241F51AA000C1FB5 /* YSWhiteBordHttpDNSUtil.m in Sources */,
 				87DBEB51241F52BC000C1FB5 /* YSQuestionModel.m in Sources */,
 				87DBEB45241F52BC000C1FB5 /* YSVoteModel.m in Sources */,
 				87DBEB83241F52BC000C1FB5 /* SCTopToolBar.m in Sources */,
@@ -1626,7 +1588,6 @@
 				87DBEB3A241F52BC000C1FB5 /* SCTeacherListView.m in Sources */,
 				87DBEB79241F52BC000C1FB5 /* YSCoreStatus.m in Sources */,
 				87DBEC1F241F52BD000C1FB5 /* YSAppInfo.m in Sources */,
-				87DBE980241F51AA000C1FB5 /* NSURLRequest+YSWhiteBoard.m in Sources */,
 				87DBEC24241F52BD000C1FB5 /* YSTableView.m in Sources */,
 				87DBE996241F51AA000C1FB5 /* YSLiveApiRequest.m in Sources */,
 				87DBEBA8241F52BC000C1FB5 /* SCAnswerPageView.m in Sources */,
@@ -1648,7 +1609,6 @@
 				87DBEB26241F52BC000C1FB5 /* YSMp4ControlView.m in Sources */,
 				87DBEB2E241F52BC000C1FB5 /* YSControlPopoverView.m in Sources */,
 				87DBEBEF241F52BD000C1FB5 /* YSFloatView.m in Sources */,
-				87DBE981241F51AA000C1FB5 /* YSWhiteBordNSURLProtocol.m in Sources */,
 				87DBEBFB241F52BD000C1FB5 /* YSSignedAlertView.m in Sources */,
 				8732B8C4241F73A2005BEB99 /* YSMainSuperVC.m in Sources */,
 				87DBEB6B241F52BC000C1FB5 /* YSNewPictureCell.m in Sources */,

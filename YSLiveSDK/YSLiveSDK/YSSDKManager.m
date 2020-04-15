@@ -357,7 +357,7 @@ static NSString *YSSDKVersionString = @"2.6.3.0";
     // 未进入教室需要销毁liveManager
     if (!self.liveManager.sdkIsJoinRoom)
     {
-        [YSLiveManager destroy];
+        [self waitRoomLeft];
     }
 
     if ([self.delegate respondsToSelector:@selector(onRoomConnectionLost)])
