@@ -300,6 +300,7 @@
     _playerMaskView.showFullBtn = NO;
     BMWeakSelf
     _playerMaskView.closeBlock = ^{
+        [weakSelf.playerMaskView.player stop];
         weakSelf.navigationController.navigationBarHidden = NO;
         weakSelf.statusHiden = NO;
         [weakSelf performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
