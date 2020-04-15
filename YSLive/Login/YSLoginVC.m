@@ -2076,6 +2076,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     NSLog(@"================================== roomManagerReportFail: %@, %@", @(errorCode), descript);
     
+    //[self performSelector:@selector(waitRoomLeft:) withObject:nil afterDelay:1];
     [self waitRoomLeft:nil];
     
 //    [self.progressHUD bm_hideAnimated:NO];
@@ -2091,6 +2092,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)onRoomConnectionLost
 {
     NSLog(@"================================== onRoomConnectionLost");
+
+    [self waitRoomLeft:nil];
+
 //    [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 //
 //    [YSLiveManager destroy];
@@ -2099,6 +2103,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 // 已经离开房间
 - (void)onRoomLeft
 {
+    NSLog(@"================================== onRoomLeft");
+    
     NSString *errorMessage;
     if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
     {
