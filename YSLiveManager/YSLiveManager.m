@@ -17,12 +17,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#if YSWHITEBOARD_USEHTTPDNS
-#import "YSWhiteBordHttpDNSUtil.h"
-#import "YSWhiteBordNSURLProtocol.h"
-#import "NSURLProtocol+YSWhiteBoard.h"
-#endif
-
 #if YSSDK
 #import "YSSDKManager.h"
 #endif
@@ -117,8 +111,6 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.schoolHost = YSSchool_Server;
         
-        [liveManagerSingleton registerURLProtocol:YES];
-        
         liveManagerSingleton.devicePerformance_Low = NO;
 
         liveManagerSingleton.isBigRoom = NO;
@@ -178,37 +170,9 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.roomManager = nil;
         liveManagerSingleton.whiteBoardManager = nil;
-
-        [liveManagerSingleton registerURLProtocol:NO];
     }
     
     liveManagerSingleton = nil;
-}
-
-// 拦截网络请求
-- (void)registerURLProtocol:(BOOL)isRegister
-{
-#if YSWHITEBOARD_USEHTTPDNS
-    if (isRegister)
-    {
-        [NSURLProtocol registerClass:[YSWhiteBordNSURLProtocol class]];
-        for (NSString* scheme in @[@"http", @"https"])
-        {
-            [NSURLProtocol ys_registerScheme:scheme];
-        }
-        [YSWhiteBordHttpDNSUtil sharedInstance];
-    }
-    else
-    {
-        [NSURLProtocol unregisterClass:[YSWhiteBordNSURLProtocol class]];
-        for (NSString* scheme in @[@"http", @"https"])
-        {
-            [NSURLProtocol ys_unregisterScheme:scheme];
-        }
-        YSWhiteBordHttpDNSUtil *httpDNSUtil = [YSWhiteBordHttpDNSUtil sharedInstance];
-        [httpDNSUtil cancelGetHttpDNSIp];
-    }
-#endif
 }
 
 /// 浏览器打开app的URL解析
@@ -311,8 +275,6 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)registerRoomManagerDelegate:(id <YSLiveRoomManagerDelegate>)RoomManagerDelegate
 {
-    [self serverLog:[NSString stringWithFormat:@"registerRoomManagerDelegate %p", RoomManagerDelegate]];
-
     self.roomManagerDelegate = RoomManagerDelegate;
 }
 
@@ -421,6 +383,7 @@ static YSLiveManager *liveManagerSingleton = nil;
             };
             
 #if YSSDK
+            vc.modalPresentationStyle = UIModalPresentationFullScreen;
             [rootVC presentViewController:vc animated:YES completion:nil];
 #else
             UIWindow *window = [[UIApplication sharedApplication].delegate window];
@@ -782,7 +745,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)serverLog:(NSString *)log
 {
-    //[self.roomManager serverLog:log];
+    [self.roomManager serverLog:log];
 }
 
 - (NSString *)fileServer
@@ -1731,11 +1694,6 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param inlist 是否是inlist中的信息
 - (void)onRoomRemotePubMsgWithMsgID:(NSString *)msgID msgName:(NSString *)msgName data:(NSObject *)data fromID:(NSString *)fromID inList:(BOOL)inlist ts:(long)ts body:(NSDictionary *)msgBody
 {
-    if ([msgName isEqualToString:YSSignalingName_ClassBegin])
-    {
-        [self serverLog:[NSString stringWithFormat:@"YSSignalingName_ClassBegin viewDidAppear %@, %p", @(self.viewDidAppear), self.roomManagerDelegate]];
-    }
-    
     if (!self.viewDidAppear)
     {
         NSMutableArray *parameters = [[NSMutableArray alloc] init];

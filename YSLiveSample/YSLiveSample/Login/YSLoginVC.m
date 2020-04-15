@@ -124,7 +124,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         self.joinRoomBtn.enabled = NO;
     }
 
-    NSLog(@"SDK version: %@", [YSSDKManager SDKVersion]);
+    NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
     [self.ysSDKManager registerManagerDelegate:self];
     if (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
@@ -650,7 +650,14 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     __block UITextField *passwordTextField;
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         passwordTextField = textField;
-        textField.placeholder = YSSLocalized(@"Error.NeedPwd.student");
+        if (self->userRole == YSSDKUserType_Teacher)
+        {
+            textField.placeholder = YSSLocalized(@"Error.NeedPwd.teacher");
+        }
+        else
+        {
+            textField.placeholder = YSSLocalized(@"Error.NeedPwd.student");
+        }
     }];
 
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

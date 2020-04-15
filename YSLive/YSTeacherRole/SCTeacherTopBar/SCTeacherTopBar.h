@@ -62,7 +62,8 @@ typedef NS_ENUM(NSInteger, SCTeacherTopBarLayoutType)
 
 /// 控制全局控制按钮  布局切换按钮 课件表按钮  显示隐藏
 @property (nonatomic, assign)SCTeacherTopBarLayoutType layoutType;
-
+/// 除退出按钮以外 其他按钮是否可以点击
+@property (nonatomic, assign) BOOL userEnable;
 @end
 
 NS_ASSUME_NONNULL_END

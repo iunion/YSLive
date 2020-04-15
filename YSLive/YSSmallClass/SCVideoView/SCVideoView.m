@@ -22,6 +22,9 @@
 ///没上课时没有连摄像头时的lab
 @property (nonatomic, strong) UILabel * maskNoVideobgLab;
 
+///正在加载中
+@property (nonatomic, strong) UIImageView *loadingImg;
+
 ///所有蒙版的背景View
 @property (nonatomic, strong) UIView * maskBackView;
 
@@ -61,10 +64,6 @@
 @property (nonatomic, strong)UIFont *notDragFont;
 ///举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
-
-///手机是否是低版本
-//@property (nonatomic, assign)BOOL isLowDevice;
-
 
 /// 视频状态
 @property (nonatomic, assign) SCVideoViewVideoState videoState;
@@ -218,28 +217,24 @@
     maskNoVideobgLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:maskNoVideobgLab];
     self.maskNoVideobgLab = maskNoVideobgLab;
-    maskNoVideobgLab.hidden = YES;
     
-//    BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
+    ///正在加载中
+    UIImageView * loadingImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"videoView_Loading"]];
+    [loadingImg setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC ]];
+    loadingImg.contentMode = UIViewContentModeCenter;
+    [self addSubview:loadingImg];
+    self.loadingImg = loadingImg;
     
-//    if (isBeginClass)
-//    {
-//        maskNoVideobgLab.hidden = NO;
-//        maskNoVideobgLab.text = YSLocalized(@"Prompt.DataLoading");
-//    }
-//    else
-        if (self.videoDeviceState & SCVideoViewVideoState_DeviceError)
+    if (self.videoDeviceState & SCVideoViewVideoState_DeviceError)
     {
-        maskNoVideobgLab.hidden = NO;
         maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
+        loadingImg.hidden = YES;
     }
     else
     {
-        maskNoVideobgLab.hidden = NO;
-        maskNoVideobgLab.text = YSLocalized(@"Prompt.DataLoading");
+        loadingImg.hidden = NO;
     }
     
-//    self.maskNoVideobgLab.hidden = isBeginClass;
     
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
@@ -367,6 +362,7 @@
 {
     [super setFrame:frame];
     self.maskNoVideobgLab.frame = self.bounds;
+    self.loadingImg.frame = self.bounds;
     self.backVideoView.frame = self.bounds;
     self.maskBackView.frame = self.bounds;
     self.maskCloseVideoBgView.frame = self.bounds;
@@ -590,6 +586,7 @@
     
     if (videoState & SCVideoViewVideoState_DeviceError)
     {
+        self.loadingImg.hidden = YES;
         self.maskNoVideo.hidden = NO;
         [self.maskBackView bringSubviewToFront:self.maskNoVideo];
         
@@ -612,6 +609,7 @@
             // 设备被禁用
             case YSDeviceFaultNotAuth:
             {
+                
                 if (self.isForPerch)
                 {
                     self.maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
@@ -670,6 +668,10 @@
                 break;
         }
         return;
+    }
+    else
+    {
+        self.loadingImg.hidden = NO;
     }
 
 #if 0
@@ -871,8 +873,7 @@
     
     if (self.isForPerch)
     {
-//        self.maskNoVideobgLab.hidden = self.roomUser.hasVideo;
-        self.maskNoVideobgLab.hidden = (self.roomUser.vfail == YSDeviceFaultNone);
+        self.loadingImg.hidden = (self.roomUser.vfail != YSDeviceFaultNone);
         self.backVideoView.hidden = YES;
         
         BOOL deviceError = NO;
@@ -910,8 +911,6 @@
                     [[YSLiveManager shareInstance].roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
                 }
         }
-
-//        self.maskNoVideobgLab.hidden = YES;
         
         self.canDraw = [self.roomUser.properties bm_boolForKey:sUserCandraw];
         self.giftNumber = [self.roomUser.properties bm_uintForKey:sUserGiftNumber];

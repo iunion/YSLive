@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIViewController <YSSDKDelegate> * delegate;
 
 + (NSString *)SDKVersion;
++ (NSString *)SDKDetailVersion;
 
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate;
 

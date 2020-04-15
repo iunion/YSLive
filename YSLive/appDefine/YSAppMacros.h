@@ -17,6 +17,10 @@
 #define YSAPP_Localized     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_BUNDLE_NAME]]
 #define YSLocalized(s)      [YSAPP_Localized localizedStringForKey:s value:@"" table:nil]
 
+#define YSAPPLogin_Localized    [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_SCBUNDLE_NAME]]
+/// 登录单独使用
+#define YSLoginLocalized(s)      [YSAPPLogin_Localized localizedStringForKey:s value:@"" table:nil]
+
 #define YS_ONLINESCHOOL_NAME       @ "YSOnlineSchool.bundle"
 
 #define YSAPP_LocalizedSchool     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_ONLINESCHOOL_NAME]]

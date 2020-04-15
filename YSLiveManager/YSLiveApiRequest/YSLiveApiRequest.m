@@ -28,7 +28,8 @@
 /// 获取服务器时间
 + (NSMutableURLRequest *)getServerTime
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/systemtime", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    //NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/systemtime", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/systemtime", YSLive_Http, YSLIVE_HOST];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
