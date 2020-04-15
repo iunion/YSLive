@@ -59,6 +59,7 @@
 
 - (void)setup
 {
+    self.userEnable = YES;
     /// 退出
     UIButton *exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.exitBtn = exitBtn;
@@ -349,6 +350,12 @@
             break;
     }
     [self setNeedsLayout];
+}
+
+- (void)setUserEnable:(BOOL)userEnable
+{
+    self.btnStackView.userInteractionEnabled = userEnable;
+    self.classBtn.userInteractionEnabled = userEnable;
 }
 
 - (void)setTopToolModel:(SCTopToolBarModel *)topToolModel

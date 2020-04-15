@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIButton *microphoneBtn;
 @property (nonatomic, strong, readonly) UIButton *photoBtn;
 @property (nonatomic, strong, readonly) UIButton *cameraBtn;
-
+/// 除退出按钮以外 其他按钮是否可以点击
+@property (nonatomic, assign) BOOL userEnable;
 
 - (void)hideMicrophoneBtn:(BOOL)hide;
 - (void)hidePhotoBtn:(BOOL)hide;

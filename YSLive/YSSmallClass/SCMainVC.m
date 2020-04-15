@@ -3582,7 +3582,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
-    
+    self.topToolBar.userEnable = NO;
+    [self.view bringSubviewToFront:self.topToolBarBackgroud];
 #if 0
     [self removeAllVideoView];
     
@@ -3615,6 +3616,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self resetDrawTools];
 #endif
 }
+
+- (void)onRoomReJoined:(long)ts
+{
+    [super onRoomReJoined:ts];
+    self.topToolBar.userEnable = YES;
+}
+
 
 - (void)resetDrawTools
 {

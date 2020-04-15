@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.6.3";
+static NSString *YSAPPVersionString = @"2.6.5";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.6.3.0";
+static NSString *YSSDKVersionString = @"2.6.5.0";
 
 @interface YSSDKManager ()
 <
@@ -76,6 +76,15 @@ static NSString *YSSDKVersionString = @"2.6.3.0";
 + (NSString *)SDKVersion
 {
     return YSSDKVersionString;
+}
+
++ (NSString *)SDKDetailVersion
+{
+    NSString *roomSDKVersion = [NSString stringWithFormat:@"%s", YSRoomSDKVersionString];
+    NSString *whiteBoardSDKVersion = [YSWhiteBoardManager whiteBoardVersion];
+    
+    NSString *version = [NSString stringWithFormat:@"roomSDKVersion: %@\nwhiteBoardSDKVersion: %@\nYSSDKVersion: %@", roomSDKVersion, whiteBoardSDKVersion, YSSDKVersionString];
+    return version;
 }
 
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate
@@ -357,7 +366,7 @@ static NSString *YSSDKVersionString = @"2.6.3.0";
     // 未进入教室需要销毁liveManager
     if (!self.liveManager.sdkIsJoinRoom)
     {
-        [YSLiveManager destroy];
+        [self waitRoomLeft];
     }
 
     if ([self.delegate respondsToSelector:@selector(onRoomConnectionLost)])

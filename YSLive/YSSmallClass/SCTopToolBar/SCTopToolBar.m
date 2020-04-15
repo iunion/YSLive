@@ -43,6 +43,7 @@
 
 - (void)setup
 {
+    self.userEnable = YES;
     [self addSubview:self.roomIDL];
 //    [self addSubview:self.signalLamp];
     [self addSubview:self.signalStateL];
@@ -145,6 +146,15 @@
 //        make.height.width.bmmas_equalTo(22);
 //        make.right.bmmas_equalTo(weakSelf.timeL.mas_left).mas_offset(-5);
 //    }];
+}
+
+- (void)setUserEnable:(BOOL)userEnable
+{
+    self.microphoneBtn.userInteractionEnabled = userEnable;
+    self.photoBtn.userInteractionEnabled = userEnable;
+    self.cameraBtn.userInteractionEnabled = userEnable;
+    self.personListBtn.userInteractionEnabled = userEnable;
+    self.coursewareBtn.userInteractionEnabled = userEnable;
 }
 
 #pragma mark - topToolModel

@@ -383,6 +383,7 @@ static YSLiveManager *liveManagerSingleton = nil;
             };
             
 #if YSSDK
+            vc.modalPresentationStyle = UIModalPresentationFullScreen;
             [rootVC presentViewController:vc animated:YES completion:nil];
 #else
             UIWindow *window = [[UIApplication sharedApplication].delegate window];

@@ -1930,7 +1930,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
-    
+    self.topToolBar.userEnable = NO;
+    [self.view bringSubviewToFront:self.topToolBarBackgroud];
 //    [self removeAllVideoView];
 //    
 //    if (self.isWhitebordFullScreen)
@@ -1940,6 +1941,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    
 //    [self handleSignalingDefaultRoomLayout];
 }
+
+- (void)onRoomReJoined:(long)ts
+{
+    [super onRoomReJoined:ts];
+    self.topToolBar.userEnable = YES;
+}
+
 
 // 已经离开房间
 - (void)onRoomLeft
