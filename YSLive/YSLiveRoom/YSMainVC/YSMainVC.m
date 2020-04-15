@@ -1046,7 +1046,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
-    
+    [self.view bringSubviewToFront:self.returnBtn];
 //    [self removeAllVideoView];
 //    
 //    if (self.isFullScreen)
@@ -1058,6 +1058,12 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 //    [self freshContentView];
 }
 
+
+- (void)onRoomReJoined:(long)ts
+{
+    [super onRoomReJoined:ts];
+    
+}
 // 已经离开房间
 - (void)onRoomLeft
 {

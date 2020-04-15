@@ -111,7 +111,8 @@
 /// 失去连接
 - (void)onRoomConnectionLost
 {
-    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES];
+//    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES];
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES];
 }
 
 // 成功进入房间
@@ -129,7 +130,8 @@
     // onRoomConnectionLost
     
     BMLog(@"=========== reconnect onRoomReJoined");
-    [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
+//    [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
+    [BMProgressHUD bm_hideAllHUDsForView:self.view animated:YES];
 }
 
 // 已经离开房间

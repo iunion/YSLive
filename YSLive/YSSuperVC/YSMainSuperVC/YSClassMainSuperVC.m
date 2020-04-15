@@ -192,25 +192,4 @@
     [self.previousKeyWindow makeKeyWindow];
 }
 
-// 断开的时候会发这个
-- (void)onRoomConnectionLost
-{
-    [super onRoomConnectionLost];
-    
-    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES];
-}
-
-// 重连的时候会发这个
-- (void)onRoomReJoined:(long)ts
-{
-    
-    [super onRoomReJoined:ts];
-    
-    BMLog(@"=========== reconnect onRoomReJoined");
-//    [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
-    [BMProgressHUD bm_hideAllHUDsForView:self.view animated:YES];
-}
-
-
-
 @end
