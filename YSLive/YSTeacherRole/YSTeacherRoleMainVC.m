@@ -485,7 +485,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
 - (void)setupFullTeacherView
 {
-    CGFloat fullTeacherVideoHeight = VIDEOVIEW_MAXHEIGHT;
+    CGFloat fullTeacherVideoHeight = videoHeight;
     CGFloat fullTeacherVideoWidth = 0.0f;
     if (self.isWideScreen)
     {
