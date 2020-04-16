@@ -2447,7 +2447,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.barrageBtn.frame = CGRectZero;
 
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(0);
-                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, VIDEOVIEW_HEIGHT - 60, 40, 40);
+                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
+                
                 self.playMp3ImageView.bm_origin = CGPointMake(15, self.liveBgView.bm_bottom - 70);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-50];
@@ -2490,7 +2491,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.barrageBtn.frame = CGRectMake(10, BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10, 40, 40);
 
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.raiseHandsBtn.frame = CGRectMake(CGRectGetMaxX(self.barrageBtn.frame)+20, self.barrageBtn.bm_originY, 40, 40);
+                self.raiseHandsBtn.frame = CGRectMake(self.fullScreenBtn.bm_left - 40 - 20, self.fullScreenBtn.bm_top, 40, 40);
                                         
                 self.playMp3ImageView.bm_origin = CGPointMake(15, 70);
                 
@@ -2530,7 +2531,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.barrageBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40, CGRectGetMaxY(self.fullScreenBtn.frame) + 10, 40, 40);
 
 //                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-//                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, VIDEOVIEW_HEIGHT - 60, 40, 40);
+//                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 - 20 ,self.fullScreenBtn.bm_bottom + 15, 40, 40);
                                 
                 self.playMp3ImageView.bm_origin = CGPointMake(BMUI_SCREEN_WIDTH - 70 , BMUI_SCREEN_HEIGHT - BMUI_STATUS_BAR_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 15);
                 
@@ -2623,7 +2624,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     if (!_raiseHandsBtn)
     {
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-26, VIDEOVIEW_HEIGHT - 60, 40, 40)];
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom+15, 40, 40)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateHighlighted];
