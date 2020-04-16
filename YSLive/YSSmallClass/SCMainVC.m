@@ -339,8 +339,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             videoTeacherWidth = videoWidth;
             videoTeacherHeight = videoHeight;
             
-            [self calculateFloatVideoSize];
         }
+        [self calculateFloatVideoSize];
     }
     return self;
 }
@@ -531,24 +531,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
 - (void)setupFullTeacherView
 {
-    CGFloat fullTeacherVideoHeight = videoHeight;
-    CGFloat fullTeacherVideoWidth = 0.0f;
-    if (self.isWideScreen)
-    {
-        fullTeacherVideoWidth = ceil(videoHeight*16 / 9);
-    }
-    else
-    {
-        fullTeacherVideoWidth = ceil(videoHeight*4 / 3);
-    }
-
-    self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - 76 - fullTeacherVideoWidth, 50, fullTeacherVideoWidth, fullTeacherVideoHeight)];
-    
-//    self.fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
-//    self.fullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
-//
-//    self.fullTeacherVideoView.appUseTheType = self.appUseTheType;
-
+    self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight)];
 }
 #endif
 
@@ -4563,7 +4546,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
-    if (self.roomtype == YSRoomType_One || self.roomLayout == YSLiveRoomLayout_FocusLayout)
+    if ((self.roomtype == YSRoomType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == YSLiveRoomLayout_FocusLayout)
     {
         return;
     }

@@ -140,6 +140,7 @@
     [parameters bm_setString:starttime forKey:@"starttime"];
     [parameters bm_setString:endtime forKey:@"endtime"];
     [parameters bm_setString:date forKey:@"date"];
+    [parameters bm_setInteger:2 forKey:@"type"];
 
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
