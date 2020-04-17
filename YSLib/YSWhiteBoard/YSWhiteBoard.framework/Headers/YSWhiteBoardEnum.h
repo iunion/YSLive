@@ -2,22 +2,21 @@
 //  YSWhiteBoardEnum.h
 //  YSWhiteBoard
 //
-//  Created by jiang deng on 2020/3/24.
-//  Copyright © 2020 jiang deng. All rights reserved.
+//  Created by Yi on 2019/3/17.
+//  Copyright © 2019年 MAC-MiNi. All rights reserved.
 //
 
 #ifndef YSWhiteBoardEnum_h
 #define YSWhiteBoardEnum_h
 
-typedef NS_ENUM(NSInteger, YSEvent)
+typedef enum
 {
     YSEventShowPage        = 0,    //增加文档
     YSEventShapeAdd        = 2,    //增加画笔
     YSEventShapeClean      = 5,    //清屏
     YSEventShapeUndo       = 6,    //撤回
     YSEventShapeRedo       = 7,    //重做
-};
-
+} YSEvent;
 typedef NS_ENUM(NSInteger, YSNativeToolType)
 {
     YSNativeToolTypeMouse   = 100,
@@ -26,8 +25,7 @@ typedef NS_ENUM(NSInteger, YSNativeToolType)
     YSNativeToolTypeShape   = 30,
     YSNativeToolTypeEraser  = 50,
 };
-
-typedef NS_ENUM(NSInteger, YSToolSelectButtonIndex)
+enum selectButtonIndex
 {
     Draw_Pen            = 10,       //画笔
     Draw_MarkPen        = 11,       //记号笔
@@ -54,11 +52,11 @@ typedef NS_ENUM(NSInteger, YSToolSelectButtonIndex)
     Draw_Redo           = 27,       //重做
 };
 
-typedef NS_ENUM(NSUInteger, YSWorkMode)
+typedef enum
 {
     YSWorkModeViewer = 0,       //只能观看 不能标记 隐藏工具条
     YSWorkModeControllor = 1,   //操作状态
-};
+} YSWorkMode;
 
 typedef NS_ENUM(NSInteger, YSDrawType)
 {
@@ -90,10 +88,8 @@ typedef NS_ENUM(NSInteger, YSBrushToolType)
     YSBrushToolTypeEraser  = 50,
 };
 
-typedef NS_ENUM(NSUInteger, YSWhiteBoardErrorCode)
-{
+typedef NS_ENUM(NSUInteger, YSWhiteBoardErrorCode) {
     YSError_OK,
     YSError_Bad_Parameters,
 };
-
 #endif /* YSWhiteBoardEnum_h */

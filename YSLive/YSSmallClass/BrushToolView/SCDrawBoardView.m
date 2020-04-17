@@ -271,11 +271,11 @@
     _brushToolType = brushToolType;
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
-    YSBrushToolsConfigs *config = [liveManager.whiteBoardManager getCurrentBrushToolConfig];
+    NSDictionary *config = [liveManager.whiteBoardManager getBrushToolConfigWithToolType:brushToolType];
     
-    YSDrawType drawType = config.drawType;
-    NSString *colorHex = config.colorHex;
-    CGFloat progress = config.progress;
+    YSDrawType drawType = [config bm_uintForKey:@"drawType"];
+    NSString *colorHex = [config bm_stringForKey:@"colorHex"];
+    CGFloat progress = [config bm_doubleForKey:@"progress"];
 
     switch (brushToolType)
     {

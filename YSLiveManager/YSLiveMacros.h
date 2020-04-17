@@ -85,8 +85,8 @@
 #pragma mark - NSDictionary Keys
 
 // 缓存数据key
-//static NSString *const kYSMethodNameKey = @"YSCacheMsg_MethodName"; // 缓存函数名
-//static NSString *const kYSParameterKey = @"YSCacheMsg_Parameter";  // 缓存参数
+static NSString *const kYSMethodNameKey = @"YSCacheMsg_MethodName"; // 缓存函数名
+static NSString *const kYSParameterKey = @"YSCacheMsg_Parameter";  // 缓存参数
 
 
 // 起始请小写

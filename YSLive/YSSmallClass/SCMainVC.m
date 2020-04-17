@@ -442,7 +442,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [[YSLiveManager shareInstance].roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserPrimaryColor value:newColorStr completion:nil];
     }
     
-    [self.liveManager.whiteBoardManager changePrimaryColor:newColorStr];
+    [self.liveManager.whiteBoardManager changeDefaultPrimaryColor:newColorStr];
 }
 
 
@@ -3223,7 +3223,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [docDic setObject:action forKey:@"action"];
     [docDic setObject:filetype forKey:@"filetype"];
     
-    [self.liveManager.whiteBoardManager addDocumentWithFileDic:docDic];
+    [self.liveManager.whiteBoardManager addDocumentWithFile:docDic];
     
     NSString *fileid = [docDic bm_stringTrimForKey:@"fileid" withDefault:@""];
     NSString *filename = [docDic bm_stringTrimForKey:@"filename" withDefault:@""];
