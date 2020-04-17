@@ -398,8 +398,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             videoTeacherWidth = videoWidth;
             videoTeacherHeight = videoHeight;
             
-            [self calculateFloatVideoSize];
         }
+        [self calculateFloatVideoSize];
     }
     return self;
 }
@@ -485,25 +485,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
 - (void)setupFullTeacherView
 {
-    CGFloat fullTeacherVideoHeight = VIDEOVIEW_MAXHEIGHT;
-    CGFloat fullTeacherVideoWidth = 0.0f;
-    if (self.isWideScreen)
-    {
-        fullTeacherVideoWidth = ceil(videoHeight*16 / 9);
-    }
-    else
-    {
-        fullTeacherVideoWidth = ceil(videoHeight*4 / 3);
-    }
-
-    self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - 76 - fullTeacherVideoWidth, 50, fullTeacherVideoWidth, fullTeacherVideoHeight)];
+    self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight)];
     self.fullTeacherFloatView.isFullBackgrond = YES;
-    
-//    self.fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO];
-//    self.fullTeacherVideoView.frame = CGRectMake(UI_SCREEN_WIDTH - 76 - 140, 20, 140, 105);
-//
-//    self.fullTeacherVideoView.appUseTheType = self.appUseTheType;
-
 }
 #endif
 
@@ -3208,7 +3191,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
-    if (self.roomtype == YSRoomType_One || self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
+    if ((self.roomtype == YSRoomType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
     {
         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         return;
@@ -6496,9 +6479,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     };
     
-    [self.liveManager.whiteBoardManager showDocumentWithFileID:fileid
-                                                    isBeginClass:self.liveManager.isBeginClass
-                                                        isPubMsg:NO];
+//    [self.liveManager.whiteBoardManager changeDocumentWithFileID:fileid
+//                                                    isBeginClass:self.liveManager.isBeginClass
+//                                                        isPubMsg:NO];
     [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[tDataDic1 bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
 }
 
