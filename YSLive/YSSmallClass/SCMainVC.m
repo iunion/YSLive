@@ -3295,10 +3295,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 @"swfpath" : swfpath
         }
     };
-    
-    [self.liveManager.whiteBoardManager showDocumentWithFileID:fileid
-                                                    isBeginClass:self.liveManager.isBeginClass
-                                                        isPubMsg:NO];
+
     [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[tDataDic1 bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
 }
 
