@@ -439,10 +439,10 @@ static YSLiveManager *liveManagerSingleton = nil;
 //    self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
 //
 //    }];
-    self.whiteBordView = [self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadFinishedBlock:^{
+    self.whiteBordView = [self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 300) loadFinishedBlock:^{
 
     }];
-    self.whiteBordView.backgroundColor = [UIColor redColor];
+    self.whiteBordView.backgroundColor = [UIColor orangeColor];
 
     //[self.whiteBoardManager changeWhiteBoardBackImage:self.whiteBordMaskImage];
     //[self.whiteBoardManager changeWhiteBoardBackgroudColor:self.whiteBordBgColor];
