@@ -226,7 +226,7 @@ static  NSString *const sBlackBoardState            = @"blackBoardState";
 static  NSString *const sCurrentTapKey              = @"currentTapKey";
 static  NSString *const sBlackBoard_new             = @"BlackBoard_new";
 static  NSString *const sUserHasNewBlackBoard       = @"UserHasNewBlackBoard";
-static  NSString *const sWhiteboardID               = @"whiteboardID";
+//static  NSString *const sWhiteboardID               = @"whiteboardID";
 
 static  NSString *const sBlackBoardCommon           = @"blackBoardCommon";
 

@@ -585,7 +585,7 @@
 {
     NSInteger classStartTime = self.tClassStartTime;//1584526733
     
-    NSString * msgID = [NSString stringWithFormat:@"RaiseHandStart_%@_%ld",self.room_Id,classStartTime];
+    NSString * msgID = [NSString stringWithFormat:@"RaiseHandStart_%@_%ld",self.room_Id,(long)classStartTime];
     //RaiseHandStart_1931343076_1584526733.000000
     
     BOOL result = [self.roomManager pubMsg:YSSignalingName_RaiseHandStart msgID:msgID toID:YSRoomPubMsgTellAll data:@{@"maxSort":@300,@"subInterval":@2500} save:YES extensionData:@{@"type":@"useSort"} associatedMsgID:nil associatedUserID:nil expires:0 completion:completion];

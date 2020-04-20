@@ -230,7 +230,7 @@
     if (self.showResultHUD)
     {
 #if YSShowErrorCode
-        [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), [YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE]] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        [self.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), error.localizedDescription] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #else
         [self.progressHUD bm_showAnimated:NO withDetailText:[YSApiRequest publicErrorMessageWithCode:YSAPI_NET_ERRORCODE] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 #endif

@@ -10,13 +10,6 @@
 #import "YSPermissionsVResultView.h"
 #import <AVFoundation/AVFoundation.h>
 
-#ifdef YSLIVE
-#import "YSMainVC.h"
-#endif
-#if YSCLASS
-#import "SCMainVC.h"
-#endif
-
 #import <AVFoundation/AVFoundation.h> //音频视频框架
 
 /// 检测类型

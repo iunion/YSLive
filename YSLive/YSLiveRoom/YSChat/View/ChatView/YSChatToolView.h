@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///不允许课前互动的蒙版
 @property (nonatomic, strong) UIView *maskView;
 
+//全体禁言
+@property (nonatomic, strong) UILabel *allDisabledChat;
+
 ///ToolView上PopooverView按钮的点击事件
 @property(nonatomic,copy)void(^pushPopooverView)(UIButton*popoBtn);
 ///ToolView上表情按钮的点击事件

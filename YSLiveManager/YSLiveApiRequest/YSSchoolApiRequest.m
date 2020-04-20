@@ -110,7 +110,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/getLessonsByDate", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:userId forKey:@"teacherid"];
-    [parameters bm_setInteger:pagesize forKey:@"pagesize"];
+//    [parameters bm_setInteger:pagesize forKey:@"pagesize"];
     [parameters bm_setString:date forKey:@"date"];
     [parameters bm_setInteger:pagenum forKey:@"pagenum"];
 
@@ -123,7 +123,7 @@
     // student/Mycourse/getLessonsPlayback
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/getLessonsPlayback", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters bm_setString:organid forKey:@"organid"];
+//    [parameters bm_setString:organid forKey:@"organid"];
     [parameters bm_setString:toteachid forKey:@"toteachid"];
 
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
@@ -140,6 +140,7 @@
     [parameters bm_setString:starttime forKey:@"starttime"];
     [parameters bm_setString:endtime forKey:@"endtime"];
     [parameters bm_setString:date forKey:@"date"];
+    [parameters bm_setInteger:2 forKey:@"type"];
 
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
 }
