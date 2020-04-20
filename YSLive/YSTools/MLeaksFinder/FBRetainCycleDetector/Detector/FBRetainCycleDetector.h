@@ -28,7 +28,7 @@ FOUNDATION_EXPORT const unsigned char FBRetainCycleDetectorVersionString[];
  */
 #ifdef DEBUG
 
-#define RETAIN_CYCLE_DETECTOR_ENABLED 1
+#define RETAIN_CYCLE_DETECTOR_ENABLED LEAKS_ENABLED
 
 #endif
 

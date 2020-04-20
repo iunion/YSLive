@@ -30,8 +30,6 @@
 		2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
 		26324460244D442E0022E086 /* UINavigationController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324449244D442E0022E086 /* UINavigationController+MemoryLeak.m */; };
 		26324461244D442E0022E086 /* UINavigationController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324449244D442E0022E086 /* UINavigationController+MemoryLeak.m */; };
-		26324462244D442E0022E086 /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444D244D442E0022E086 /* MLeakedObjectProxy.m */; };
-		26324463244D442E0022E086 /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444D244D442E0022E086 /* MLeakedObjectProxy.m */; };
 		26324464244D442E0022E086 /* UIView+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444F244D442E0022E086 /* UIView+MemoryLeak.m */; };
 		26324465244D442E0022E086 /* UIView+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444F244D442E0022E086 /* UIView+MemoryLeak.m */; };
 		26324466244D442E0022E086 /* UITouch+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324452244D442E0022E086 /* UITouch+MemoryLeak.m */; };
@@ -58,8 +56,6 @@
 		263244B7244D46BC0022E086 /* FBStandardGraphEdgeFilters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26324480244D46BC0022E086 /* FBStandardGraphEdgeFilters.mm */; };
 		263244B8244D46BC0022E086 /* FBBlockStrongRelationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324485244D46BC0022E086 /* FBBlockStrongRelationDetector.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		263244B9244D46BC0022E086 /* FBBlockStrongRelationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324485244D46BC0022E086 /* FBBlockStrongRelationDetector.m */; };
-		263244BA244D46BC0022E086 /* Circle-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 26324486244D46BC0022E086 /* Circle-LICENSE */; };
-		263244BB244D46BC0022E086 /* Circle-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 26324486244D46BC0022E086 /* Circle-LICENSE */; };
 		263244BC244D46BC0022E086 /* FBBlockStrongLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324488244D46BC0022E086 /* FBBlockStrongLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		263244BD244D46BC0022E086 /* FBBlockStrongLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324488244D46BC0022E086 /* FBBlockStrongLayout.m */; };
 		263244BE244D46BC0022E086 /* Struct.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2632448E244D46BC0022E086 /* Struct.mm */; };
@@ -90,6 +86,8 @@
 		263244D7244D46BC0022E086 /* FBRetainCycleDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 263244AF244D46BC0022E086 /* FBRetainCycleDetector.mm */; };
 		263244D8244D46BC0022E086 /* FBRetainCycleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 263244B1244D46BC0022E086 /* FBRetainCycleUtils.m */; };
 		263244D9244D46BC0022E086 /* FBRetainCycleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 263244B1244D46BC0022E086 /* FBRetainCycleUtils.m */; };
+		263244DA244D74540022E086 /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444D244D442E0022E086 /* MLeakedObjectProxy.m */; };
+		263244DB244D74550022E086 /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444D244D442E0022E086 /* MLeakedObjectProxy.m */; };
 		263265E4237900E500605A0E /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 263265E1237900E000605A0E /* SCBoardControlView.m */; };
 		26355BD523B4509D004B8366 /* SCTTopPopverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BD323B45098004B8366 /* SCTTopPopverViewController.m */; };
 		26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE223B4BB9A004B8366 /* SCTeacherListView.m */; };
@@ -829,7 +827,6 @@
 		26324481244D46BC0022E086 /* FBStandardGraphEdgeFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBStandardGraphEdgeFilters.h; sourceTree = "<group>"; };
 		26324484244D46BC0022E086 /* FBBlockStrongLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBlockStrongLayout.h; sourceTree = "<group>"; };
 		26324485244D46BC0022E086 /* FBBlockStrongRelationDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBBlockStrongRelationDetector.m; sourceTree = "<group>"; };
-		26324486244D46BC0022E086 /* Circle-LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Circle-LICENSE"; sourceTree = "<group>"; };
 		26324487244D46BC0022E086 /* FBBlockStrongRelationDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBlockStrongRelationDetector.h; sourceTree = "<group>"; };
 		26324488244D46BC0022E086 /* FBBlockStrongLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBBlockStrongLayout.m; sourceTree = "<group>"; };
 		26324489244D46BC0022E086 /* FBBlockInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBlockInterface.h; sourceTree = "<group>"; };
@@ -1755,7 +1752,6 @@
 		26324483244D46BC0022E086 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				26324486244D46BC0022E086 /* Circle-LICENSE */,
 				26324489244D46BC0022E086 /* FBBlockInterface.h */,
 				26324484244D46BC0022E086 /* FBBlockStrongLayout.h */,
 				26324488244D46BC0022E086 /* FBBlockStrongLayout.m */,
@@ -3432,7 +3428,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				263244BA244D46BC0022E086 /* Circle-LICENSE in Resources */,
 				87133669237270F6006534A4 /* Assets.xcassets in Resources */,
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
@@ -3462,7 +3457,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				263244BB244D46BC0022E086 /* Circle-LICENSE in Resources */,
 				8717E3382400DADC008C4CDA /* YSResources.bundle in Resources */,
 				8717E3392400DADC008C4CDA /* BMTestNetFlowCell.xib in Resources */,
 				8717E33A2400DADC008C4CDA /* BMDatePicker.nib in Resources */,
@@ -3758,7 +3752,7 @@
 				8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */,
 				87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */,
 				872D049623B7362300DAC321 /* FLEXArgumentInputNotSupportedView.m in Sources */,
-				26324462244D442E0022E086 /* MLeakedObjectProxy.m in Sources */,
+				263244DA244D74540022E086 /* MLeakedObjectProxy.m in Sources */,
 				872D04BA23B7362300DAC321 /* FLEXImagePreviewViewController.m in Sources */,
 				872D04C823B7362300DAC321 /* FLEXObjcInternal.mm in Sources */,
 				0463845F237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */,
@@ -4090,7 +4084,7 @@
 				8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */,
 				8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */,
 				8717E2A62400DADC008C4CDA /* FLEXArgumentInputNotSupportedView.m in Sources */,
-				26324463244D442E0022E086 /* MLeakedObjectProxy.m in Sources */,
+				263244DB244D74550022E086 /* MLeakedObjectProxy.m in Sources */,
 				8717E2A92400DADC008C4CDA /* FLEXImagePreviewViewController.m in Sources */,
 				8717E2AA2400DADC008C4CDA /* FLEXObjcInternal.mm in Sources */,
 				8717E2AB2400DADC008C4CDA /* UIAlertController+SCAlertAutorotate.m in Sources */,
@@ -4319,7 +4313,7 @@
 					"UIView+FLEX_Layout*",
 					"NSArray+Functional*",
 					"ActivityStreamAPI*",
-					"MLeakedObjectProxy*",
+					"rcd_fishhook*",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4424,6 +4418,7 @@
 					"UIView+FLEX_Layout*",
 					"NSArray+Functional*",
 					"ActivityStreamAPI*",
+					"rcd_fishhook*",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
