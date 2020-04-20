@@ -2639,7 +2639,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
         
         [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-//        self.raiseHandsBtn.hidden = YES;
+        self.raiseHandsBtn.hidden = YES;
     }
     return _raiseHandsBtn;
 }
