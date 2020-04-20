@@ -439,7 +439,15 @@ static YSLiveManager *liveManagerSingleton = nil;
 //    self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
 //
 //    }];
-    self.whiteBordView = [self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 300) loadFinishedBlock:^{
+    
+    
+    CGFloat whiteBordViewH = 500;
+    if (BMIS_IPHONE)
+    {
+        whiteBordViewH = 300;
+    }
+    
+    self.whiteBordView = [self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
 
     }];
     self.whiteBordView.backgroundColor = [UIColor orangeColor];
