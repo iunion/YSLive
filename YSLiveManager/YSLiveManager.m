@@ -119,7 +119,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         /// 全体禁言
         liveManagerSingleton.isEveryoneBanChat = NO;
         /// 是否打开上麦功能
-        liveManagerSingleton.allowEveryoneUpPlatform = NO;
+//        liveManagerSingleton.allowEveryoneUpPlatform = NO;
         /// 全体禁音
         liveManagerSingleton.isEveryoneNoAudio = NO;
         liveManagerSingleton.isBeginClass = NO;
@@ -2322,8 +2322,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     BMLog(@"onWhiteBroadFileList");
 
     // 添加一个白板 只用于文件列表显示
-    NSNumber *companyid = @([self.room_Companyid integerValue]);
-    [self.whiteBoardManager createWhiteBoard:companyid];
+//    NSNumber *companyid = @([self.room_Companyid integerValue]);
+//    [self.whiteBoardManager createWhiteBoard:companyid];
 }
 
 // PubMsg消息

@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 全体禁言
 @property (nonatomic, assign) BOOL isEveryoneBanChat;
 /// 是否打开上麦功能
-@property (nonatomic, assign) BOOL allowEveryoneUpPlatform;
+//@property (nonatomic, assign) BOOL allowEveryoneUpPlatform;
 /// 全体禁音
 @property (nonatomic, assign) BOOL isEveryoneNoAudio;
 
@@ -457,11 +457,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 收到添加删除文件
 - (void)handleSignalingWhiteBroadDocumentChange;
 
-///开启上麦功能
-- (void)handleSignalingAllowEveryoneUpPlatformWithIsAllow:(BOOL)isAllow;
-
-///允许上麦的申请
-- (void)handleSignalingAllowUpPlatformApplyWithData:(NSDictionary *)data;
+/////开启上麦功能
+//- (void)handleSignalingAllowEveryoneUpPlatformWithIsAllow:(BOOL)isAllow;
+//
+/////允许上麦的申请
+//- (void)handleSignalingAllowUpPlatformApplyWithData:(NSDictionary *)data;
 
 ///开启举手功能
 - (void)handleSignalingAllowEveryoneRaiseHand;
@@ -559,9 +559,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sendSignalingLiveLuckDrawWithCompletion:(nullable completion_block)completion;
 
 /// 上麦申请
-- (BOOL)sendSignalingUpPlatformWithCompletion:(nullable completion_block)completion;
-/// 上麦申请结果
-- (BOOL)answerSignalingUpPlatformWithCompletion:(nullable completion_block)completion;
+//- (BOOL)sendSignalingUpPlatformWithCompletion:(nullable completion_block)completion;
+///// 上麦申请结果
+//- (BOOL)answerSignalingUpPlatformWithCompletion:(nullable completion_block)completion;
 
 /// 学生开始/取消举手  modify：0举手  1取消举手
 - (BOOL)sendSignalingsStudentToRaiseHandWithModify:(NSInteger)modify Completion:(nullable completion_block)completion;
