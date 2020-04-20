@@ -51,13 +51,13 @@
 		263244B2244D46BC0022E086 /* rcd_fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 26324477244D46BC0022E086 /* rcd_fishhook.c */; };
 		263244B3244D46BC0022E086 /* rcd_fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 26324477244D46BC0022E086 /* rcd_fishhook.c */; };
 		263244B4244D46BC0022E086 /* FBAssociationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2632447E244D46BC0022E086 /* FBAssociationManager.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		263244B5244D46BC0022E086 /* FBAssociationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2632447E244D46BC0022E086 /* FBAssociationManager.mm */; };
+		263244B5244D46BC0022E086 /* FBAssociationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2632447E244D46BC0022E086 /* FBAssociationManager.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		263244B6244D46BC0022E086 /* FBStandardGraphEdgeFilters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26324480244D46BC0022E086 /* FBStandardGraphEdgeFilters.mm */; };
 		263244B7244D46BC0022E086 /* FBStandardGraphEdgeFilters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26324480244D46BC0022E086 /* FBStandardGraphEdgeFilters.mm */; };
 		263244B8244D46BC0022E086 /* FBBlockStrongRelationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324485244D46BC0022E086 /* FBBlockStrongRelationDetector.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		263244B9244D46BC0022E086 /* FBBlockStrongRelationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324485244D46BC0022E086 /* FBBlockStrongRelationDetector.m */; };
+		263244B9244D46BC0022E086 /* FBBlockStrongRelationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324485244D46BC0022E086 /* FBBlockStrongRelationDetector.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		263244BC244D46BC0022E086 /* FBBlockStrongLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324488244D46BC0022E086 /* FBBlockStrongLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		263244BD244D46BC0022E086 /* FBBlockStrongLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324488244D46BC0022E086 /* FBBlockStrongLayout.m */; };
+		263244BD244D46BC0022E086 /* FBBlockStrongLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324488244D46BC0022E086 /* FBBlockStrongLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		263244BE244D46BC0022E086 /* Struct.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2632448E244D46BC0022E086 /* Struct.mm */; };
 		263244BF244D46BC0022E086 /* Struct.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2632448E244D46BC0022E086 /* Struct.mm */; };
 		263244C0244D46BC0022E086 /* FBStructEncodingParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26324491244D46BC0022E086 /* FBStructEncodingParser.mm */; };
@@ -65,7 +65,7 @@
 		263244C2244D46BC0022E086 /* FBClassStrongLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26324493244D46BC0022E086 /* FBClassStrongLayout.mm */; };
 		263244C3244D46BC0022E086 /* FBClassStrongLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26324493244D46BC0022E086 /* FBClassStrongLayout.mm */; };
 		263244C4244D46BC0022E086 /* FBClassStrongLayoutHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324495244D46BC0022E086 /* FBClassStrongLayoutHelpers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		263244C5244D46BC0022E086 /* FBClassStrongLayoutHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324495244D46BC0022E086 /* FBClassStrongLayoutHelpers.m */; };
+		263244C5244D46BC0022E086 /* FBClassStrongLayoutHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324495244D46BC0022E086 /* FBClassStrongLayoutHelpers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		263244C6244D46BC0022E086 /* FBObjectInStructReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324497244D46BC0022E086 /* FBObjectInStructReference.m */; };
 		263244C7244D46BC0022E086 /* FBObjectInStructReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 26324497244D46BC0022E086 /* FBObjectInStructReference.m */; };
 		263244C8244D46BC0022E086 /* FBIvarReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632449B244D46BC0022E086 /* FBIvarReference.m */; };
