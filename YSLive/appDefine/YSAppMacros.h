@@ -57,5 +57,5 @@ static NSString *const YSTRANS_API_HOST = @"http://api.fanyi.baidu.com/api/trans
 #define YSPASSWORD_MINLENGTH            8
 #define YSPASSWORD_MAXLENGTH            16
 
-
+#define LEAKS_ENABLED                   1
 #endif /* YSAppMacros_h */
