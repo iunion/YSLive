@@ -38,17 +38,22 @@ static NSMutableSet *leakedObjectPtrs;
         leakedObjectPtrs = [[NSMutableSet alloc] init];
     });
     
-    if (!ptrs.count) {
+    if (!ptrs.count)
+    {
         return NO;
     }
-    if ([leakedObjectPtrs intersectsSet:ptrs]) {
+    if ([leakedObjectPtrs intersectsSet:ptrs])
+    {
         return YES;
-    } else {
+    }
+    else
+    {
         return NO;
     }
 }
 
-+ (void)addLeakedObject:(id)object {
++ (void)addLeakedObject:(id)object
+{
     NSAssert([NSThread isMainThread], @"Must be in main thread.");
     MLeakedObjectProxy *proxy = [[MLeakedObjectProxy alloc] init];
     proxy.object = object;
@@ -71,37 +76,43 @@ static NSMutableSet *leakedObjectPtrs;
     // check for file exist
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSLog(@"leaksClassName: %@",fileName);
-    if (![fileManager fileExistsAtPath:fileName]) {
+    if (![fileManager fileExistsAtPath:fileName])
+    {
         // the file doesn't exist,we can write out the text using the  NSString convenience method
         NSError *error = noErr;
         BOOL success = [str writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:&error];
-        if (!success) {
+        if (!success)
+        {
             // handle the error
             NSLog(@"%@", error);
         }
-         
-    } else {
-         
+        
+    }
+    else
+    {
+        
         // the file already exists, append the text to the end
-     
+        
         // get a handle
         NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:fileName];
-         
+        
         // move to the end of the file
         [fileHandle seekToEndOfFile];
-         
+        
         // convert the string to an NSData object
         NSString *content = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:nil];
-        if (![content containsString: str]){
+        if (![content containsString: str])
+        {
             NSData *textData = [str dataUsingEncoding:NSUTF8StringEncoding];
-               // write the data to the end of the file
-               [fileHandle writeData:textData];
+            // write the data to the end of the file
+            [fileHandle writeData:textData];
         }
         
         // clean up
         [fileHandle closeFile];
     }
-        [MLeaksMessenger alertWithTitle:@"Memory Leak"
+       
+    [MLeaksMessenger alertWithTitle:@"Memory Leak"
                                 message:[NSString stringWithFormat:@"%@", proxy.viewStack]];
 }
 
