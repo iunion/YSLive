@@ -356,7 +356,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)addControlMainVideoAudioView
 {
     UIView * controlBackMaskView = [[UIView alloc]initWithFrame:self.view.bounds];
-    controlBackMaskView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.2];
+    controlBackMaskView.backgroundColor = UIColor.clearColor;
     self.controlBackMaskView = controlBackMaskView;
     [self.view addSubview:controlBackMaskView];
     controlBackMaskView.hidden = YES;
@@ -365,9 +365,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [controlBackMaskView addGestureRecognizer:oneTap];
     
     UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 40)];
-    controlBackView.backgroundColor = UIColor.clearColor;
+    controlBackView.backgroundColor = [UIColor bm_colorWithHex:0x336CC7 alpha:0.6f];
     self.controlBackView = controlBackView;
     [controlBackMaskView addSubview:controlBackView];
+    [controlBackView bm_roundedRect:controlBackView.bm_height*0.5f borderWidth:0 borderColor:nil];
 
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
@@ -375,7 +376,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
     self.audioBtn.tag = 0;
     [controlBackView addSubview:self.audioBtn];
-    self.audioBtn.frame = CGRectMake(0, 0, 40, 35);
+    self.audioBtn.frame = CGRectMake(2, 4, 36, 32);
     
     //视频控制按钮
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"tearch_openVideo" selectImageName:@"tearch_closeVideo"];
@@ -383,7 +384,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
     [controlBackView addSubview:self.videoBtn];
     self.videoBtn.tag = 1;
-    self.videoBtn.frame = CGRectMake(40, 0, 40, 35);
+    self.videoBtn.frame = CGRectMake(42, 4, 36, 32);
     
 
 }
