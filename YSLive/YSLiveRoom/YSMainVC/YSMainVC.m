@@ -2115,8 +2115,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         {
 //            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
-            
-            self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
+            CGRect frme = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
+            self.whiteBordView.frame = frme;
             [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
             
             return self.whiteBordView;
