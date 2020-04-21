@@ -184,13 +184,22 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         {
             width = videoWidth*4;
             height = videoHeight*4;
+            NSInteger widthGapNum = 3;//横排空隙个数
+            NSInteger heightGapNum = 3;//竖排空隙个数
+            if (![UIDevice bm_isiPad])
+            {
+                width = videoWidth*5;
+                height = videoHeight*3;
+                widthGapNum = 4;
+                heightGapNum = 2;
+            }
             
-            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP*3)/width;
-            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP*3)/height;
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP*widthGapNum)/width;
+            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP*heightGapNum)/height;
 
             scale = MIN(widthScale, heightScale);
-            bgWidth = width*scale+VIDEOGRIDVIEW_GAP*3;
-            bgHeight = height*scale+VIDEOGRIDVIEW_GAP*3;
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP*widthGapNum;
+            bgHeight = height*scale+VIDEOGRIDVIEW_GAP*heightGapNum;
         }
             break;
 
@@ -659,44 +668,91 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             SCVideoView *videoView12 = self.videoViewArray[11];
             SCVideoView *videoView13 = self.videoViewArray[12];
             
-            videoView1.bm_top = 0;
-            videoView1.bm_left = 0;
-            
-            videoView2.bm_top = 0;
-            videoView2.bm_left = width;
-            
-            videoView3.bm_top = 0;
-            videoView3.bm_left = width*2;
-            
-            videoView4.bm_top = 0;
-            videoView4.bm_left = width*3;
-            
-            videoView5.bm_top = height;
-            videoView5.bm_left = 0;
-            
-            videoView6.bm_top = height;
-            videoView6.bm_left = width;
-            
-            videoView7.bm_top = height;
-            videoView7.bm_left = width*2;
-            
-            videoView8.bm_top = height;
-            videoView8.bm_left = width*3;
-            
-            videoView9.bm_top = height*2;
-            videoView9.bm_left = 0;
-            
-            videoView10.bm_top = height*2;
-            videoView10.bm_left = width;
-            
-            videoView11.bm_top = height*2;
-            videoView11.bm_left = width*2;
-            
-            videoView12.bm_top = height*2;
-            videoView12.bm_left = width*3;
+            if ([UIDevice bm_isiPad])
+            {
+                videoView1.bm_top = 0;
+                videoView1.bm_left = 0;
+                
+                videoView2.bm_top = 0;
+                videoView2.bm_left = width;
+                
+                videoView3.bm_top = 0;
+                videoView3.bm_left = width*2;
+                
+                videoView4.bm_top = 0;
+                videoView4.bm_left = width*3;
+                
+                videoView5.bm_top = height;
+                videoView5.bm_left = 0;
+                
+                videoView6.bm_top = height;
+                videoView6.bm_left = width;
+                
+                videoView7.bm_top = height;
+                videoView7.bm_left = width*2;
+                
+                videoView8.bm_top = height;
+                videoView8.bm_left = width*3;
+                
+                videoView9.bm_top = height*2;
+                videoView9.bm_left = 0;
+                
+                videoView10.bm_top = height*2;
+                videoView10.bm_left = width;
+                
+                videoView11.bm_top = height*2;
+                videoView11.bm_left = width*2;
+                
+                videoView12.bm_top = height*2;
+                videoView12.bm_left = width*3;
 
-            videoView13.bm_top = height*3;
-            videoView13.bm_left = 0;
+                videoView13.bm_top = height*3;
+                videoView13.bm_left = 0;
+            }
+            else
+            {
+                videoView1.bm_top = 0;
+                videoView1.bm_left = 0;
+                
+                videoView2.bm_top = 0;
+                videoView2.bm_left = width;
+                
+                videoView3.bm_top = 0;
+                videoView3.bm_left = width*2;
+                
+                videoView4.bm_top = 0;
+                videoView4.bm_left = width*3;
+                
+                videoView5.bm_top = 0;
+                videoView5.bm_left = width*4;
+                
+                videoView6.bm_top = height;
+                videoView6.bm_left = 0;
+                
+                videoView7.bm_top = height;
+                videoView7.bm_left = width;
+                
+                videoView8.bm_top = height;
+                videoView8.bm_left = width*2;
+                
+                videoView9.bm_top = height;
+                videoView9.bm_left = width*3;
+                
+                videoView10.bm_top = height;
+                videoView10.bm_left = width*4;
+                
+                videoView11.bm_top = height*2;
+                videoView11.bm_left = 0;
+                
+                videoView12.bm_top = height*2;
+                videoView12.bm_left = width;
+
+                videoView13.bm_top = height*2;
+                videoView13.bm_left = width*2;
+            }
+
+            
+            
         }
             break;
 
