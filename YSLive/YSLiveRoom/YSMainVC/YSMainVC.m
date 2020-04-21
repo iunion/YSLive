@@ -64,7 +64,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     BMScrollPageViewDelegate,
     BMScrollPageViewDataSource,
     UIPopoverPresentationControllerDelegate,
-    YSChatToolViewMemberDelegate
+    YSChatToolViewMemberDelegate,
+    SCVideoViewDelegate
 >
 {
     /// 上麦视频宽
@@ -168,9 +169,16 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 @property (nonatomic, strong) NSMutableArray<YSRoomUser *>  *memberList;
 
 /// 举手按钮
-@property(nonatomic,strong)UIButton *raiseHandsBtn;
+@property(nonatomic,strong) UIButton *raiseHandsBtn;
 
-
+/// 控制自己音视频的按钮的蒙版
+@property(nonatomic,strong) UIView * controlBackMaskView ;
+/// 控制自己音视频的按钮的背景View
+@property(nonatomic,strong) UIView * controlBackView;
+///音频控制按钮
+@property(nonatomic,strong) UIButton * audioBtn;
+///视频控制按钮
+@property(nonatomic,strong) UIButton * videoBtn;
 @end
 
 @implementation YSMainVC
@@ -278,7 +286,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             [weakMenuVc dismissViewControllerAnimated:YES completion:nil];
         };
         
-//        self.menuVc.view.backgroundColor = [UIColor whiteColor];
+        //        self.menuVc.view.backgroundColor = [UIColor whiteColor];
         self.menuVc.preferredContentSize = CGSizeMake(160, 135);
         self.menuVc.modalPresentationStyle = UIModalPresentationPopover;
     }
@@ -300,7 +308,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         if (self.isWideScreen)
         {
             platformVideoHeight = platformVideoWidth * 9 / 16;
-
+            
         }
         else
         {
@@ -312,7 +320,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
+    [super viewDidLoad];
     
     self.isFullScreen = NO;
     self.buttonHide = NO;
@@ -339,6 +347,192 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self performSelector:@selector(creatbuttonHide) withObject:nil afterDelay:5.0f];
     
     [self.view addSubview:self.raiseHandsBtn];
+    
+    
+    [self addControlMainVideoAudioView];
+    
+}
+
+- (void)addControlMainVideoAudioView
+{
+    UIView * controlBackMaskView = [[UIView alloc]initWithFrame:self.view.bounds];
+    controlBackMaskView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.2];
+    self.controlBackMaskView = controlBackMaskView;
+    [self.view addSubview:controlBackMaskView];
+    controlBackMaskView.hidden = YES;
+    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl111)];
+    oneTap.numberOfTapsRequired = 1;
+    [controlBackMaskView addGestureRecognizer:oneTap];
+    
+    UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 40)];
+    controlBackView.backgroundColor = UIColor.clearColor;
+    self.controlBackView = controlBackView;
+    [controlBackMaskView addSubview:controlBackView];
+
+    //音频控制按钮
+    self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
+    UIImage * audioClose = [[UIImage imageNamed:@"tearch_openSound"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
+    self.audioBtn.tag = 0;
+    [controlBackView addSubview:self.audioBtn];
+    self.audioBtn.frame = CGRectMake(0, 0, 40, 35);
+    
+    //视频控制按钮
+    self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"tearch_openVideo" selectImageName:@"tearch_closeVideo"];
+    UIImage * videoClose = [[UIImage imageNamed:@"tearch_openVideo"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
+    [controlBackView addSubview:self.videoBtn];
+    self.videoBtn.tag = 1;
+    self.videoBtn.frame = CGRectMake(40, 0, 40, 35);
+    
+
+}
+
+/// 刷新视频控制按钮状态
+- (void)updataVideoPopViewState
+{
+    YSPublishState userPublishState = YSCurrentUser.publishState;
+    
+    if (userPublishState == YSUser_PublishState_AUDIOONLY || userPublishState == YSUser_PublishState_BOTH)
+    {
+        self.audioBtn.selected = YES;
+    }
+    else
+    {
+        self.audioBtn.selected = NO;
+    }
+    if (userPublishState == YSUser_PublishState_VIDEOONLY || userPublishState == YSUser_PublishState_BOTH)
+    {
+        self.videoBtn.selected = YES;
+    }
+    else
+    {
+        self.videoBtn.selected = NO;
+    }
+    
+    //没有摄像头、麦克风权限时的显示禁用状态
+    if ([self.liveManager.localUser.properties bm_containsObjectForKey:sUserVideoFail])
+    {
+        if (self.liveManager.localUser.afail == YSDeviceFaultNone)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.liveManager.localUser.vfail == YSDeviceFaultNone)
+        {
+            self.videoBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+        }
+    }
+    else
+    {
+        if (self.liveManager.localUser.hasAudio)
+        {
+            self.audioBtn.enabled = YES;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
+        if (self.liveManager.localUser.hasVideo)
+        {
+            self.videoBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+        }
+    }
+}
+///创建button
+- (UIButton *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName
+{
+    UIButton * button = [[UIButton alloc]init];
+    [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+    //    button.titleLabel.font = UI_FONT_10;
+    //
+    //    [button setTitle:title forState:UIControlStateNormal];
+    //    if (selectTitle.length)
+    //    {
+    //        [button setTitle:selectTitle forState:UIControlStateSelected];
+    //    }
+    
+    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    if (selectImageName.length)
+    {
+        [button setImage:[UIImage imageNamed:selectImageName] forState:UIControlStateSelected];
+    }
+    
+    return button;
+}
+
+- (void)clickToShowControl111
+{
+    self.controlBackMaskView.hidden = YES;
+}
+
+- (void)userBtnsClick:(UIButton *)sender
+{
+    SCUserPublishState userPublishState = self.liveManager.localUser.liveUserPublishState;
+    switch (sender.tag) {
+        case 0:
+        {//关闭音频
+            if (sender.selected)
+            {//当前是打开音频状态
+                userPublishState &= ~SCUserPublishState_AUDIOONLY;
+            }
+            else
+            {//当前是关闭音频状态
+                userPublishState |= SCUserPublishState_AUDIOONLY;
+            }
+            self.liveManager.localUser.liveUserPublishState = userPublishState;
+            sender.selected = !sender.selected;
+        }
+            break;
+        case 1:
+        {//关闭视频
+            if (sender.selected)
+            {//当前是打开视频状态
+                userPublishState &= ~SCUserPublishState_VIDEOONLY;
+            }
+            else
+            {//当前是关闭视频状态
+                userPublishState |= SCUserPublishState_VIDEOONLY;
+            }
+            self.liveManager.localUser.liveUserPublishState = userPublishState;
+            sender.selected = !sender.selected;
+        }
+            break;
+        default:
+            break;
+    }
+}
+#pragma mark 点击弹出popoview
+- (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
+{
+    
+    CGRect frame = [self.videoBackgroud convertRect:videoView.frame toView:self.controlBackMaskView];
+    
+    self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.size.height/2 + frame.origin.y);
+    self.controlBackMaskView.hidden = NO;
+    [self updataVideoPopViewState];
+    [self.view bringSubviewToFront:self.controlBackView];
+    
+    if (self.isFullScreen)
+    {
+        self.controlBackView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+    }
+    else
+    {
+        self.controlBackView.transform = CGAffineTransformMakeRotation(0);
+    }
     
 }
 
@@ -496,13 +690,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 //iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-     return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskAll;
 }
 
 //3.返回进入界面默认显示方向
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-     return UIInterfaceOrientationPortrait;
+    return UIInterfaceOrientationPortrait;
 }
 
 //设置隐藏动画
@@ -555,7 +749,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.roomIDLabel = [[UILabel alloc] init];
     self.roomIDLabel.font = [UIFont systemFontOfSize:14];
     self.roomIDLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
-
+    
     [self.view addSubview:self.roomIDLabel];
     [self.view bringSubviewToFront:self.roomIDLabel];
     self.roomIDLabel.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Label.roomid"),self.liveManager.room_Id];
@@ -576,7 +770,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.liveBgView.showWaiting = NO;
     self.liveBgView.bm_centerX = self.allVideoBgView.bm_centerX;
     [self.allVideoBgView addSubview:self.liveBgView];
-
+    
     self.liveView = [[UIView alloc] initWithFrame:self.liveBgView.bounds];
     self.liveView.backgroundColor = [UIColor clearColor];
     //self.liveBgView.canZoom = YES;
@@ -626,28 +820,28 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     //上麦按钮
-//    self.upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.view addSubview:self.upPlatformBtn];
-//    [self.view bringSubviewToFront:self.upPlatformBtn];
-//
-//    // iOS 获取设备当前语言和地区的代码
-//    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
-//
-//    if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
-//    {
-//
-//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom"] forState:UIControlStateNormal];
-//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom"] forState:UIControlStateDisabled];
-//    }
-//    else
-//    {
-//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom_EN"] forState:UIControlStateNormal];
-//        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom_EN"] forState:UIControlStateDisabled];
-//    }
-//    self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom+15, 50, 50);
-//    [self.upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    self.upPlatformBtn.layer.cornerRadius = 10;
-//    self.upPlatformBtn.hidden = YES;
+    //    self.upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [self.view addSubview:self.upPlatformBtn];
+    //    [self.view bringSubviewToFront:self.upPlatformBtn];
+    //
+    //    // iOS 获取设备当前语言和地区的代码
+    //    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+    //
+    //    if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+    //    {
+    //
+    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom"] forState:UIControlStateNormal];
+    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom"] forState:UIControlStateDisabled];
+    //    }
+    //    else
+    //    {
+    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom_EN"] forState:UIControlStateNormal];
+    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom_EN"] forState:UIControlStateDisabled];
+    //    }
+    //    self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom+15, 50, 50);
+    //    [self.upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //    self.upPlatformBtn.layer.cornerRadius = 10;
+    //    self.upPlatformBtn.hidden = YES;
 }
 
 - (void)setupVideoBackgroud
@@ -687,9 +881,9 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)setupMp4UI
 {
-     /// 是否mp4全屏
+    /// 是否mp4全屏
     self.isMp4FullScreen = NO;
-
+    
     self.mp4BgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, self.view.bm_height-self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
     self.mp4BgView.backgroundColor = [UIColor blackColor];
     self.mp4BgView.showWaiting = YES;
@@ -699,7 +893,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mp4ViewClicked:)];
     [self.mp4BgView addGestureRecognizer:tapGesture];
-
+    
     self.mp4View = [[UIView alloc] initWithFrame:self.mp4BgView.bounds];
     self.mp4View.backgroundColor = [UIColor clearColor];
     [self.mp4BgView showWithContentView:self.mp4View];
@@ -816,13 +1010,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     }
     else
     {
-
-
+        
+        
         teacherH = ceil(VIDEOVIEW_HEIGHT - platformVideoHeight - VIDEOVIEW_HORIZON_GAP * 2) ;
         if (self.isWideScreen)
         {
             teacherW = ceil(teacherH * 16 / 9);
-
+            
         }
         else
         {
@@ -849,11 +1043,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)playVideoWithRoomUserId:(NSString *)userId orMediaFile:(YSLiveMediaModel *)mediaModel orShareDesktopUserId:(NSString *)shareUserId isClassBegin:(BOOL)isClassBegin
 {
-//    /// 当前房间播放视频Id
-//    @property (nonatomic, strong) NSString *roomVideoPeerID;
-//    /// 当前房间播放视频User是否开放视频
-//    @property (nonatomic, assign) BOOL canPlayRoomVideo;
-
+    //    /// 当前房间播放视频Id
+    //    @property (nonatomic, strong) NSString *roomVideoPeerID;
+    //    /// 当前房间播放视频User是否开放视频
+    //    @property (nonatomic, assign) BOOL canPlayRoomVideo;
+    
 }
 
 
@@ -979,6 +1173,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             videoView.appUseTheType = self.appUseTheType;
             newVideoView = videoView;
             videoView.isHideCup = YES;
+            videoView.delegate = self;
             if (videoView)
             {
                 [self.videoViewArray bm_addObject:videoView withMaxCount:PLATFPRM_VIDEO_MAXCOUNT];
@@ -1021,11 +1216,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     if (delVideoView)
     {
-//        if ([self.liveManager.localUser.peerID isEqualToString:peerId] && self.liveManager.allowEveryoneUpPlatform)
-//        {
-//            self.upPlatformBtn.hidden = NO;
-//            self.upPlatformBtn.enabled = YES;
-//        }
+        //        if ([self.liveManager.localUser.peerID isEqualToString:peerId] && self.liveManager.allowEveryoneUpPlatform)
+        //        {
+        //            self.upPlatformBtn.hidden = NO;
+        //            self.upPlatformBtn.enabled = YES;
+        //        }
         
         [self stopVideoAudioWithVideoView:delVideoView];
         
@@ -1053,15 +1248,15 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     [super onRoomConnectionLost];
     [self.view bringSubviewToFront:self.returnBtn];
-//    [self removeAllVideoView];
-//    
-//    if (self.isFullScreen)
-//    {
-//        self.isFullScreen = NO;
-//        [self changeTopVideoToOriginalFrame];
-//    }
-//
-//    [self freshContentView];
+    //    [self removeAllVideoView];
+    //
+    //    if (self.isFullScreen)
+    //    {
+    //        self.isFullScreen = NO;
+    //        [self changeTopVideoToOriginalFrame];
+    //    }
+    //
+    //    [self freshContentView];
 }
 
 
@@ -1077,7 +1272,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-//    [self.navigationController popToRootViewControllerAnimated:YES];
+    //    [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:^{
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
@@ -1090,18 +1285,17 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)onRoomKickedOut:(NSDictionary *)reason
 {
     NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
-
+    
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");
     if (reasonCode)
     {
         reasonString = YSLocalized(@"KickOut.SentOutClassroom");
     }
-
+    
     BMWeakSelf
     [BMAlertView ys_showAlertWithTitle:reasonString message:nil cancelTitle:YSLocalized(@"Prompt.OK") otherTitle:nil completion:^(BOOL cancelled, NSInteger buttonIndex) {
         
         [weakSelf.liveManager leaveRoom:nil];
-        
     }];
 }
 
@@ -1238,6 +1432,12 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         }
     }
     
+    if ([peerID isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
+    {
+        /// 更新用户的视频按钮状态
+        [self updataVideoPopViewState];
+    }
+    
     /// 用户设备状态
     if ([properties bm_containsObjectForKey:sUserVideoFail] || [properties bm_containsObjectForKey:sUserAudioFail])
     {
@@ -1270,7 +1470,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     CGFloat totalPackets;
     NSInteger lostPacketsLost;
     CGFloat lostRate;
-
+    
     if ([stats isKindOfClass:[YSAudioStats class]])
     {
         YSAudioStats *status = (YSAudioStats *)stats;
@@ -1289,7 +1489,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         lostPacketsLost = [status packetsLost];
         lostRate = (totalPackets > 0) ? (lostPacketsLost/totalPackets) : 0.00f;
     }
-
+    
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
@@ -1301,7 +1501,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)roomManagerTeacherChangeNetStats:(id)stats
 {
     YSNetQuality netQuality;
-
+    
     if ([stats isKindOfClass:[YSAudioStats class]])
     {
         YSAudioStats *status = (YSAudioStats *)stats;
@@ -1312,7 +1512,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         YSVideoStats *status = (YSVideoStats *)stats;
         netQuality = [status netLevel];
     }
-
+    
     if (netQuality>YSNetQuality_VeryBad)
     {
         [self bringSomeViewToFront];
@@ -1395,7 +1595,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             break;
         }
 #endif
-
+        
         if (roomUser.role == YSUserType_Student)
         {
             YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
@@ -1444,7 +1644,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     }];
     [self.liveManager stopPlayAudio:self.roomVideoPeerID completion:^(NSError *error) {
     }];
-
+    
     self.roomVideoPeerID = nil;
     
     [self freshMediaView];
@@ -1455,10 +1655,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [weakSelf.liveManager leaveRoom:nil];
         
     }];
-//    if (![YSLiveManager shareInstance].roomConfig.isChatBeforeClass) {
-//        self.chaView.chatToolView.maskView.hidden = NO;
-//        self.questionaView.maskView.hidden = NO;
-//    }
+    //    if (![YSLiveManager shareInstance].roomConfig.isChatBeforeClass) {
+    //        self.chaView.chatToolView.maskView.hidden = NO;
+    //        self.questionaView.maskView.hidden = NO;
+    //    }
 }
 
 /// 弹框
@@ -1473,35 +1673,35 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 }
 
 /* 学生不需要下课提示
-/// 房间即将关闭消息
-- (BOOL)handleSignalingPrepareRoomEndWithDataDic:(NSDictionary *)dataDic addReason:(YSPrepareRoomEndType)reason
-{
-    NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
-    
-    if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
-    {//老师离开房间时间过长
-
-        if (reasonCount == 1)
-        {
-            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.TeacherLeave8")];
-        }
-    }
-    else
-        if (reason == YSPrepareRoomEndType_RoomTimeOut)
-    {//房间预约时间
-               
-        if (reasonCount == 2)
-        {//表示房间预约时间已到，30分钟后房间即将关闭
-            [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
-        }
-        else if(reasonCount == 3)
-        {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭
-           [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment28")];
-        }
-    }
-    return YES;
-}
-*/
+ /// 房间即将关闭消息
+ - (BOOL)handleSignalingPrepareRoomEndWithDataDic:(NSDictionary *)dataDic addReason:(YSPrepareRoomEndType)reason
+ {
+ NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
+ 
+ if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
+ {//老师离开房间时间过长
+ 
+ if (reasonCount == 1)
+ {
+ [self showSignalingClassEndWithText:YSLocalized(@"Prompt.TeacherLeave8")];
+ }
+ }
+ else
+ if (reason == YSPrepareRoomEndType_RoomTimeOut)
+ {//房间预约时间
+ 
+ if (reasonCount == 2)
+ {//表示房间预约时间已到，30分钟后房间即将关闭
+ [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
+ }
+ else if(reasonCount == 3)
+ {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭
+ [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment28")];
+ }
+ }
+ return YES;
+ }
+ */
 
 ///房间踢除所有用户消息
 - (void)handleSignalingEvictAllRoomUseWithDataDic:(NSDictionary *)dataDic
@@ -1528,11 +1728,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     }
     self.liveBgView.canZoom = NO;
     self.liveBgView.backScrollView.zoomScale = 1.0;
-
+    
     self.showRoomVideo = YES;
     [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
     }];
-
+    
     [self freshMediaView];
 }
 
@@ -1591,8 +1791,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     {
         if (self.isFullScreen)
         {
-          // 如果是全屏，点击按钮进入小屏状态
-          [self changeTopVideoToOriginalFrame];
+            // 如果是全屏，点击按钮进入小屏状态
+            [self changeTopVideoToOriginalFrame];
         }
         self.fullScreenBtn.enabled = NO;
         self.mp4BgView.hidden = NO;
@@ -1688,7 +1888,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.roomVideoPeerID = nil;
     [self.liveManager.roomManager playScreen:peerID renderType:YSRenderMode_fit window:self.liveView completion:^(NSError *error) {
     }];
-
+    
     self.liveBgView.canZoom = YES;
     [self freshMediaView];
 }
@@ -1698,7 +1898,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     [self.liveManager.roomManager unPlayScreen:peerID completion:^(NSError *error) {
     }];
-
+    
     self.roomVideoPeerID = self.liveManager.teacher.peerID;
     [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
     }];
@@ -1715,8 +1915,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     if (self.isFullScreen)
     {
-      // 如果是全屏，点击按钮进入小屏状态
-      [self changeTopVideoToOriginalFrame];
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
     }
     
     if (self.signedAlert)
@@ -1756,7 +1956,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     // UI更新代码
     BMWeakSelf
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3* NSEC_PER_SEC));
-
+    
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
         weakSelf.signedAlert = [YSSignedAlertView showWithTime:time inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0 signedBlock:^{
             [weakSelf sendLiveCallRollSigninWithCallRollId:callRollId];
@@ -1777,12 +1977,12 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)handleSignalingLiveLuckDraw
 {
     BMLog(@"抽奖中");
-
-   
+    
+    
     if (self.isFullScreen)
     {
-      // 如果是全屏，点击按钮进入小屏状态
-      [self changeTopVideoToOriginalFrame];
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
     }
     
     [self.view endEditing:YES];
@@ -1796,7 +1996,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     }
     else
     {
-
+        
         self.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:NO inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0];
     }
 }
@@ -1806,8 +2006,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     if (self.isFullScreen)
     {
-      // 如果是全屏，点击按钮进入小屏状态
-      [self changeTopVideoToOriginalFrame];
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
     }
     
     BMWeakSelf
@@ -1826,7 +2026,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         self.prizeAlert.endTime = endTime;
         self.prizeAlert.dataSource = nameList;
     }
-
+    
 }
 
 // 抽奖结束
@@ -1837,7 +2037,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-//    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+    //    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
     
     self.chaView.chatToolView.everyoneBanChat = isDisable;
     if (isDisable)
@@ -1850,21 +2050,21 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)handleMessageWith:(YSChatMessageModel *)message
 {
-      if (self.isFullScreen)
-      {
-          YSBarrageTextDescriptor *textDescriptor = [[YSBarrageTextDescriptor alloc] init];
-
-//          textDescriptor.text = message.message;
-          textDescriptor.attributedText = [message emojiViewWithMessage:message.message font:16];
-          textDescriptor.textColor = [UIColor whiteColor];
-          textDescriptor.positionPriority = YSBarragePositionLow;
-          textDescriptor.textFont = [UIFont systemFontOfSize:16.0];
-          textDescriptor.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-          textDescriptor.strokeWidth = -1;
-          textDescriptor.animationDuration = arc4random()%5 + 5;
-          textDescriptor.barrageCellClass = [YSBarrageTextCell class];
-          [self.barrageManager renderBarrageDescriptor:textDescriptor];
-      }
+    if (self.isFullScreen)
+    {
+        YSBarrageTextDescriptor *textDescriptor = [[YSBarrageTextDescriptor alloc] init];
+        
+        //          textDescriptor.text = message.message;
+        textDescriptor.attributedText = [message emojiViewWithMessage:message.message font:16];
+        textDescriptor.textColor = [UIColor whiteColor];
+        textDescriptor.positionPriority = YSBarragePositionLow;
+        textDescriptor.textFont = [UIFont systemFontOfSize:16.0];
+        textDescriptor.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        textDescriptor.strokeWidth = -1;
+        textDescriptor.animationDuration = arc4random()%5 + 5;
+        textDescriptor.barrageCellClass = [YSBarrageTextCell class];
+        [self.barrageManager renderBarrageDescriptor:textDescriptor];
+    }
     
     if (self.m_SegmentBar.currentIndex != 2 && message.chatMessageType != YSChatMessageTypeTips && message.chatMessageType != YSChatMessageTypeImageTips)
     {
@@ -1976,8 +2176,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.navigationController popToViewController:self animated:NO];
     if (self.isFullScreen)
     {
-      // 如果是全屏，点击按钮进入小屏状态
-      [self changeTopVideoToOriginalFrame];
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
     }
     
     YSVoteModel *voteModel = [[YSVoteModel alloc] init];
@@ -2010,8 +2210,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [self.navigationController popToViewController:self animated:NO];
     if (self.isFullScreen)
     {
-      // 如果是全屏，点击按钮进入小屏状态
-      [self changeTopVideoToOriginalFrame];
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
     }
     
     YSVoteModel *voteModel = [[YSVoteModel alloc] init];
@@ -2042,7 +2242,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     {
         voteModel.rightAnswer = [rightaAnswer substringWithRange:NSMakeRange(0, rightaAnswer.length - 1)];//正确答案
     }
-
+    
     for (int i = 0; i < voteResult.count; i++)
     {
         YSVoteResultModel * resultModel = [[YSVoteResultModel alloc] init];
@@ -2113,10 +2313,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     {
         case 0:
         {
-//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
-            CGRect frme = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
-            self.whiteBordView.frame = frme;
+            //            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
+            
+            self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
             
             return self.whiteBordView;
@@ -2332,13 +2532,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     if (self.isFullScreen)
     {
-      // 如果是全屏，点击按钮进入小屏状态
-      [self changeTopVideoToOriginalFrame];
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
     }
     else
     {
-      // 不是全屏，点击按钮进入全屏状态
-      [self changeTopVideoToFullScreen];
+        // 不是全屏，点击按钮进入全屏状态
+        [self changeTopVideoToFullScreen];
         
     }
 }
@@ -2356,7 +2556,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)mp4ViewClicked:(UITapGestureRecognizer *)sender
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMp4FullScreenBtn) object:nil];
-
+    
     if (self.mp4FullScreenBtn.hidden)
     {
         self.mp4FullScreenBtn.hidden = NO;
@@ -2382,13 +2582,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     if (self.isMp4FullScreen)
     {
-      // 如果是全屏，点击按钮进入小屏状态
-      [self changeMp4VideoToOriginalFrame];
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeMp4VideoToOriginalFrame];
     }
     else
     {
-      // 不是全屏，点击按钮进入全屏状态
-      [self changeMp4VideoToFullScreen];
+        // 不是全屏，点击按钮进入全屏状态
+        [self changeMp4VideoToFullScreen];
     }
 }
 
@@ -2432,15 +2632,15 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         case UIDeviceOrientationPortrait:
         {
             [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationPortrait];
-
+            
             [UIView animateWithDuration:0.25 animations:^{
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
                 self.barrageStart = NO;
                 self.allVideoBgView.transform = CGAffineTransformMakeRotation(0);
                 self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
                 
-//                self.liveBgView.transform = CGAffineTransformMakeRotation(0);
-//                self.liveBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
+                //                self.liveBgView.transform = CGAffineTransformMakeRotation(0);
+                //                self.liveBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
                 
                 self.videoBackgroud.frame = CGRectMake(0, VIDEOVIEW_HEIGHT - (self->platformVideoHeight) - VIDEOVIEW_VERTICAL_GAP , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
                 
@@ -2459,7 +2659,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(0);
                 self.barrageBtn.frame = CGRectZero;
-
+                
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(0);
                 self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
                 
@@ -2473,20 +2673,20 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         case UIDeviceOrientationLandscapeLeft:
         {
             [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
-
+            
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isFullScreen = YES;//通过set 方法刷新了视频布局
                 self.barrageStart = YES;
                 self.allVideoBgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-//                self.liveBgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                //                self.liveBgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.liveBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH);
                 
-//                self.videoBackgroud.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                //                self.videoBackgroud.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.videoBackgroud.frame = CGRectMake(0, BMUI_SCREEN_WIDTH - (self->platformVideoHeight) - 7 , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
                 self.videoBackgroud.bm_centerX = self.allVideoBgView.bm_centerY;
-//                self.videoBackgroud.bm_bottom = self.liveBgView.bm_bottom - 7;
+                //                self.videoBackgroud.bm_bottom = self.liveBgView.bm_bottom - 7;
                 
                 self.returnBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.returnBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
@@ -2497,16 +2697,16 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 
                 self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-(self->platformVideoHeight) - 10);
-
+                
                 self.fullScreenBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40 ,BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10 , 40, 40);
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.barrageBtn.frame = CGRectMake(10, BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10, 40, 40);
-
+                
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.raiseHandsBtn.frame = CGRectMake(self.fullScreenBtn.bm_left - 40 - 20, self.fullScreenBtn.bm_top, 40, 40);
-                                        
+                
                 self.playMp3ImageView.bm_origin = CGPointMake(15, 70);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-80];
@@ -2537,16 +2737,16 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 //self.barrageManager.renderView.frame = CGRectMake(55, 0, UI_SCREEN_WIDTH - 70 - 55, UI_SCREEN_HEIGHT);
                 self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-55);
                 //self.barrageManager.renderView.hidden = NO;
-
+                
                 self.fullScreenBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 ,BMUI_STATUS_BAR_HEIGHT + 10 , 40, 40);
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 self.barrageBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40, CGRectGetMaxY(self.fullScreenBtn.frame) + 10, 40, 40);
-
-//                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-//                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 - 20 ,self.fullScreenBtn.bm_bottom + 15, 40, 40);
-                                
+                
+                //                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
+                //                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 - 20 ,self.fullScreenBtn.bm_bottom + 15, 40, 40);
+                
                 self.playMp3ImageView.bm_origin = CGPointMake(BMUI_SCREEN_WIDTH - 70 , BMUI_SCREEN_HEIGHT - BMUI_STATUS_BAR_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 15);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-80];
@@ -2573,16 +2773,16 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.isMp4FullScreen = NO;
                 self.mp4BgView.transform = CGAffineTransformMakeRotation(0);
                 //self.mp4BgView.frame = CGRectMake(0, self.view.bm_height-self.m_ScrollPageView.bm_height, UI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
-
+                
                 [self.mp4BgView removeFromSuperview];
                 [self.m_ScrollPageView.scrollView addSubview:self.mp4BgView];
                 self.mp4BgView.frame = self.m_ScrollPageView.bounds;
-
+                
                 self.mediaMarkView.frame = self.mp4BgView.bounds;
                 self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
                 self.mp4FullScreenBtn.selected = NO;
-
-
+                
+                
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
         }
@@ -2601,7 +2801,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.mediaMarkView.frame = self.mp4BgView.bounds;
                 self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
                 self.mp4FullScreenBtn.selected = YES;
-
+                
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
         }
@@ -2616,11 +2816,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 [self.mp4BgView removeFromSuperview];
                 [self.view addSubview:self.mp4BgView];
                 self.mp4BgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-
+                
                 self.mediaMarkView.frame = self.mp4BgView.bounds;
                 self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
                 self.mp4FullScreenBtn.selected = YES;
-
+                
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
         }
@@ -2660,7 +2860,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
-
+    
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
 }
 
