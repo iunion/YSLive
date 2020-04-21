@@ -162,11 +162,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     if (liveManagerSingleton)
     {
-        //[liveManagerSingleton.whiteBoardManager resetWhiteBoardAllData];
-        //[liveManagerSingleton.whiteBoardManager clearAllData];
- 
         [YSRoomInterface destory];
-        //[YSWhiteBoardManager destroy];
+        [YSWhiteBoardManager destroy];
         
         liveManagerSingleton.roomManager = nil;
         liveManagerSingleton.whiteBoardManager = nil;
