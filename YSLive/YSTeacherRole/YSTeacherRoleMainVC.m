@@ -5546,8 +5546,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
-    popover.sourceView = videoView;
-    popover.sourceRect = videoView.bounds;
+    if (self.videoViewArray.count <= 2)
+    {
+        popover.sourceView = videoView.sourceView;
+        popover.sourceRect = videoView.sourceView.bounds;
+    }
+    else
+    {
+        popover.sourceView = videoView;
+        popover.sourceRect = videoView.bounds;
+    }
+    
     popover.delegate = self;
     popover.backgroundColor =  [UIColor bm_colorWithHex:0x336CC7];
     self.controlPopoverView.roomLayout = self.roomLayout;
