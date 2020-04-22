@@ -275,11 +275,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 NSString *errorMessage;
                 if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
                 {
-                    errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
                 }
                 else
                 {
-                    errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                    errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
                 }
 
 #if YSShowErrorCode
@@ -353,7 +353,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                     }
                     else
                     {
-                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLocalized(@"Error.ServerError")];
+                        NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLoginLocalized(@"Error.ServerError")];
 #if YSShowErrorCode
                         message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
 #endif
@@ -385,14 +385,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
                     }
                 }
                 
-                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
             }
         }];
         [self.enterRoomTask resume];
     }
     else
     {
-         [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+         [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
 }
 
@@ -459,7 +459,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             
             if (delta < 60 * 3)
             {
-                NSString *content =  YSLocalized(@"Prompt.kick");
+                NSString *content =  YSLoginLocalized(@"Prompt.kick");
                 [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:nil completion:nil];
                 return NO;
             }
@@ -499,8 +499,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (![liveManager.room_Id bm_isNotEmpty])
     {
         BMWeakSelf
-        NSString *descript = YSLocalized(@"Error.CanNotConnectNetworkError");
-        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+        NSString *descript = YSLoginLocalized(@"Error.CanNotConnectNetworkError");
+        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
             [weakSelf waitRoomLeft:nil];
         }];
         
@@ -525,7 +525,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (appUseTheType == YSAppUseTheTypeSmallClass || appUseTheType == YSAppUseTheTypeMeeting)
     {
         GetAppDelegate.allowRotation = YES;
-        NSUInteger maxvideo = [[YSLiveManager shareInstance].roomDic bm_uintForKey:@"maxvideo"];
+        NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
         YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
@@ -580,7 +580,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
-    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    if (liveManager.roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
@@ -596,7 +596,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (errorCode == YSErrorCode_CheckRoom_PasswordError ||
         errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
     {
-        [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Error.PwdError") message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+        [BMAlertView ys_showAlertWithTitle:YSLoginLocalized(@"Error.PwdError") message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
              [weakSelf theRoomNeedPassword];
         }];
     }
@@ -616,7 +616,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         YSLiveManager *liveManager = [YSLiveManager shareInstance];
         [liveManager registerRoomManagerDelegate:self];
         
-        [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
         
         [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
     } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
@@ -634,9 +634,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    [self.progressHUD bm_hideAnimated:NO];
 //    if (![YSCoreStatus isNetworkEnable])
 //    {
-//        descript = YSLocalized(@"Prompt.NetworkChanged");
+//        descript = YSLoginLocalized(@"Prompt.NetworkChanged");
 //    }
-//    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
+//    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:nil];
 //
 //    [YSLiveManager destroy];
 }
@@ -644,7 +644,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)onRoomConnectionLost
 {
     [self waitRoomLeft:nil];
-//    [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+//    [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 //
 //    [YSLiveManager destroy];
 }
@@ -655,11 +655,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     NSString *errorMessage;
     if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
     {
-        errorMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+        errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
     }
     else
     {
-        errorMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+        errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
     }
 
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];

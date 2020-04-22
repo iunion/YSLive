@@ -2322,8 +2322,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     BMLog(@"onWhiteBroadFileList");
 
     // 添加一个白板 只用于文件列表显示
-    NSNumber *companyid = @([self.room_Companyid integerValue]);
-    [self.whiteBoardManager createWhiteBoard:companyid];
+//    NSNumber *companyid = @([self.room_Companyid integerValue]);
+//    [self.whiteBoardManager createWhiteBoard:companyid];
 }
 
 // PubMsg消息

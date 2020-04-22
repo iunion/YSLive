@@ -19,8 +19,7 @@ UITextViewDelegate
 @property (nonatomic, strong) UIButton *flowerColourBtn;
 ///输入框背景View
 @property (nonatomic, strong) UIView *backView;
-//全体禁言
-@property (nonatomic, strong) UILabel *allDisabledChat;
+
 
 @property(nonatomic, strong) NSURLSessionDataTask *liveCallRollSigninTask;
 
@@ -147,8 +146,11 @@ UITextViewDelegate
         make.bottom.bmmas_equalTo(kBMScale_H(-9));
     }];
     BOOL everyoneBanChat = [YSLiveManager shareInstance].isEveryoneBanChat;
-    self.allDisabledChat.hidden = !everyoneBanChat;
-    self.userInteractionEnabled = !everyoneBanChat;
+    self.everyoneBanChat = everyoneBanChat;
+    if (everyoneBanChat)
+    {
+        self.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
+    }
     
     self.maskView = [[UIView alloc]initWithFrame:self.bounds];
     self.maskView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC  alpha:0.6];
@@ -323,7 +325,7 @@ UITextViewDelegate
     sender.selected = !sender.selected;
 }
 
-//全体禁言
+//禁言时控件的响应 (全体禁言和个人禁言)
 - (void)setEveryoneBanChat:(BOOL)everyoneBanChat
 {
     _everyoneBanChat = everyoneBanChat;

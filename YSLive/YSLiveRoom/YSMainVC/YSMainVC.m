@@ -1095,7 +1095,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     [BMAlertView ys_showAlertWithTitle:reasonString message:nil cancelTitle:YSLocalized(@"Prompt.OK") otherTitle:nil completion:^(BOOL cancelled, NSInteger buttonIndex) {
         
         [weakSelf.liveManager leaveRoom:nil];
-        
     }];
 }
 
@@ -1179,6 +1178,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
             self.chaView.chatToolView.everyoneBanChat = disablechat;
             if (disablechat)
             {
+                self.chaView.chatToolView.allDisabledChat.text = YSLocalized(@"Prompt.BanChat");
                 [self.chaView toHiddenKeyBoard];
             }
         }
@@ -1830,7 +1830,14 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+    //    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+    
+    self.chaView.chatToolView.everyoneBanChat = isDisable;
+    if (isDisable)
+    {
+        self.chaView.chatToolView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
+        [self.chaView toHiddenKeyBoard];
+    }
 }
 #pragma mark 接收消息 弹幕
 

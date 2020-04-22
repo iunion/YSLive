@@ -1991,6 +1991,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         GetAppDelegate.allowRotation = NO;
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:liveManager.whiteBordView userId:nil];
+        mainVC.appUseTheType = self.room_UseTheType;
         BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
         nav.modalPresentationStyle = UIModalPresentationFullScreen;
         nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];

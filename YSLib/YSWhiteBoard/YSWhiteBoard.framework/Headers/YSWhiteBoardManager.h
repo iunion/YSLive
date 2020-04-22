@@ -113,7 +113,7 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 - (void)setTheCurrentDocumentFileID:(NSString *)fileId;
 
 //切换文档
-- (int)changeDocumentWithFileID:(NSString *)fileId isBeginClass:(BOOL)isBeginClass isPubMsg:(BOOL)isPubMsg;
+//- (int)changeDocumentWithFileID:(NSString *)fileId isBeginClass:(BOOL)isBeginClass isPubMsg:(BOOL)isPubMsg;
 
 /**
  重置白板所有的数据

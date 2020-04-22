@@ -5511,7 +5511,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.fullTeacherFloatView removeFromSuperview];
         }
                 
-        
         if ([self.liveManager.teacher.peerID bm_isNotEmpty]) {
             self.fullTeacherFloatView.hidden = NO;
         }

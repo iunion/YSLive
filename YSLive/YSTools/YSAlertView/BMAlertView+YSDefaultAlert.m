@@ -55,7 +55,16 @@
 
 + (void)ys_showAlertWithTitle:(id)title message:(id)message cancelTitle:(NSString *)cancelTitle otherTitle:(NSString *)otherTitle completion:(BMAlertViewCompletionBlock)completion
 {
-    BMAlertView * alert = [BMAlertView creatAlertWithIcon:nil title:title message:message contentView:nil cancelTitle:cancelTitle otherTitles:@[otherTitle] buttonsShouldStack:NO completion:completion];
+    BMAlertView * alert;
+    if ([otherTitle bm_isNotEmpty])
+    {
+        alert = [BMAlertView creatAlertWithIcon:nil title:title message:message contentView:nil cancelTitle:cancelTitle otherTitles:@[otherTitle] buttonsShouldStack:NO completion:completion];
+    }
+    else
+    {
+        alert = [BMAlertView creatAlertWithIcon:nil title:title message:message contentView:nil cancelTitle:cancelTitle otherTitles:nil buttonsShouldStack:NO completion:completion];
+    }
+    
     [alert showAlertView];
 }
 @end
