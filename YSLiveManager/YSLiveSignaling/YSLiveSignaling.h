@@ -146,6 +146,7 @@
 
 /// 更新白板数据(更换文档，翻页)
 #define YSSignalingName_ShowPage                    @"ShowPage"
+#define YSSignalingName_ExtendShowPage              @"ExtendShowPage"
 
 
 #pragma mark -

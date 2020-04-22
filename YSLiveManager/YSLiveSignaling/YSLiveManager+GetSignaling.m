@@ -813,7 +813,7 @@
         return;
     }
     
-    if ([msgName isEqualToString:YSSignalingName_ShowPage])
+    if ([msgName isEqualToString:YSSignalingName_ShowPage] || [msgName isEqualToString:YSSignalingName_ExtendShowPage])
     {
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingWhiteBroadShowPageMessage:isDynamic:)])
         {
