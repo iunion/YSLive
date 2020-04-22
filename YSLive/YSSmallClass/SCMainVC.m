@@ -981,36 +981,36 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     btn.selected = !btn.selected;
     [self.videoGridView removeFromSuperview];
-    if (btn.selected)
+    [self fullVideoGridView:btn.selected];
+  
+}
+
+- (void)fullVideoGridView:(BOOL)isFull
+{
+    if (isFull)
     {
         CGFloat width = BMUI_SCREEN_WIDTH;
         CGFloat height = BMUI_SCREEN_HEIGHT;
-        
-        // 初始化尺寸
         self.videoGridView.defaultSize = CGSizeMake(width, height);
         self.videoGridView.frame = CGRectMake(0, 0, width, height);
-        
-        //[self.view addSubview:videoGridView];
         [self.view addSubview:self.videoGridView];
         [self.videoGridView bm_centerInSuperView];
-        //    videoGridView.topOffset = TOPTOOLBAR_HEIGHT*0.5;
         self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         [self.videoFullScreenBtn bm_bringToFront];
+        [self.chatBtn bm_bringToFront];
+        [self.raiseHandsBtn bm_bringToFront	];
     }
     else
     {
         CGFloat width = BMUI_SCREEN_WIDTH;
         CGFloat height = BMUI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT;
-        
-        // 初始化尺寸
         self.videoGridView.defaultSize = CGSizeMake(width, height);
         self.videoGridView.frame = CGRectMake(0, 0, width, height);
-        
-        //[self.view addSubview:videoGridView];
         [self.contentBackgroud addSubview:self.videoGridView];
         [self.videoGridView bm_centerInSuperView];
-        //    videoGridView.topOffset = TOPTOOLBAR_HEIGHT*0.5;
         self.videoGridView.backgroundColor = [UIColor clearColor];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         [self.videoFullScreenBtn bm_bringToFront];
     }
 }
@@ -1566,11 +1566,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [self freshVidoeGridView];
             self.videoFullScreenBtn.hidden = NO;
+            [self.videoFullScreenBtn bm_bringToFront];
         }
         else
         {
-            [self freshContentVidoeView];
+            
+            CGFloat width = BMUI_SCREEN_WIDTH;
+            CGFloat height = BMUI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT;
+            self.videoGridView.defaultSize = CGSizeMake(width, height);
+            self.videoGridView.frame = CGRectMake(0, 0, width, height);
+            [self.contentBackgroud addSubview:self.videoGridView];
+            [self.videoGridView bm_centerInSuperView];
+            self.videoGridView.backgroundColor = [UIColor clearColor];
             self.videoFullScreenBtn.hidden = YES;
+            self.videoFullScreenBtn.selected = NO;
+            [self freshContentVidoeView];
         }
     }
 }
