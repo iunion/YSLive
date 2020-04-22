@@ -1561,12 +1561,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-                
+        
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
         {
             [self freshVidoeGridView];
             self.videoFullScreenBtn.hidden = NO;
             [self.videoFullScreenBtn bm_bringToFront];
+            [self.raiseHandsBtn bm_bringToFront];
+            [self.chatBtn bm_bringToFront];
         }
         else
         {
