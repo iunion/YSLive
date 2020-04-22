@@ -3350,9 +3350,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.fullTeacherFloatView bm_bringToFront];
             self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
             self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
-            
-            self.fullTeacherFloatView.backgroundColor = UIColor.redColor;
-            
         }
         else
         {
