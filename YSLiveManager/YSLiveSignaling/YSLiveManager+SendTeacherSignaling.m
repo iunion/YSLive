@@ -251,38 +251,8 @@
     }
     else
     {
-        NSNumber *currpage = [fileModel.currpage bm_isNotEmpty] ? @(fileModel.currpage.integerValue) : @(1);
-        NSNumber *pptslide = [fileModel.pptslide bm_isNotEmpty] ? @(fileModel.pptslide.integerValue) : @(1);
-        NSNumber *pptstep = [fileModel.pptstep bm_isNotEmpty] ? @(fileModel.pptstep.integerValue) : @(0);
-        NSNumber *steptotal = [fileModel.steptotal bm_isNotEmpty] ? @(fileModel.steptotal.integerValue) : @(0);
-        NSNumber *pagenum = [fileModel.pagenum bm_isNotEmpty] ? @(fileModel.pagenum.integerValue) : @(1);
-        NSString *filetype = [fileModel.filetype bm_isNotEmpty] ? fileModel.filetype : @"";
-        NSString *filename = fileModel.filename ? fileModel.filename : @"";
-        NSString *swfpath = fileModel.swfpath ? fileModel.swfpath : @"";
-        NSDictionary *fileData = @{@"currpage":currpage,
-                                   @"pptslide":pptslide,
-                                   @"pptstep":pptstep ,
-                                   @"steptotal":steptotal,
-                                   @"fileid":fileModel.fileid,
-                                   @"pagenum":pagenum,
-                                   @"filename":filename,
-                                   @"filetype":filetype,
-                                   @"isContentDocument":fileModel.isContentDocument,
-                                   @"cospdfpath":@"",
-                                   @"swfpath":swfpath
-                                };
-        
-        NSDictionary *sendDic = @{@"sourceInstanceId":@"default",
-                                  @"isGeneralFile":@(fileModel.isGeneralFile.boolValue),
-                                  @"isMedia": @(fileModel.isMedia.boolValue),
-                                  @"isDynamicPPT": @(fileModel.isDynamicPPT.boolValue),
-                                  @"isH5Document": @(fileModel.isH5Document.boolValue),
-                                  @"action":@"show",
-                                  @"mediaType":@"",
-                                  @"filedata":fileData
-                                };
-        BOOL result = [self.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:toWho data:[sendDic bm_toJSON] save:YES completion:completion] == 0;
-        return result;
+        [self.whiteBoardManager changeCourseWithFileId:fileModel.fileid];
+        return YES;
     }
 
     return NO;

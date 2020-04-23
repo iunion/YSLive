@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SCTeacherCoursewareListCell : UITableViewCell
 
 @property(nonatomic,weak) id<SCTeacherCoursewareListCellDelegate> delegate;
-@property (nonatomic, strong) YSFileModel *fileModel;
+
+- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent;
 - (void)setUserRole:(YSUserRoleType)userRoleType;
 
 @end

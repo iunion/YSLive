@@ -278,6 +278,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) dispatch_source_t bigRoomTimer;
 
 @property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
+/// 当前展示课件数组
+@property (nonatomic, strong) NSMutableArray *currentFileList;
 
 @end
 
@@ -454,6 +456,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     _personListTotalPage = 0;
     isSearch = NO;
     searchArr = [[NSMutableArray alloc] init];
+    self.currentFileList = [[NSMutableArray alloc] init];
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -2665,7 +2668,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self freshListViewWithSelect:!btn.selected];
         //课件库
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count];
+        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList];
         //        [self freshTeacherCoursewareListData];
     }
     
@@ -2770,10 +2773,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (file.isPlaying != isPlay)
         {
             file.isPlaying = isPlay;
-            [self.teacherListView setUserRole:self.liveManager.localUser.role];
-
-            [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+            
         }
+        [self.teacherListView setUserRole:self.liveManager.localUser.role];
+
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList];
     }
 }
 
@@ -4728,7 +4732,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark 白板翻页 换课件
-
+/// 当前展示的课件列表（fileid）
+- (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList
+{
+    BMLog(@"%@",fileList);
+    [self.currentFileList removeAllObjects];
+    [self.currentFileList addObjectsFromArray:fileList];
+    [self freshTeacherCoursewareListDataWithPlay:NO];
+    
+}
 - (void)onWhiteBoardChangedFileWithFileList:(NSString *)fileId
 {
     

@@ -324,7 +324,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property(nonatomic, strong) SCVideoView *fouceView;
 
 @property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
-
+/// 当前展示课件数组
+@property (nonatomic, strong) NSMutableArray *currentFileList;
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -415,6 +416,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     searchArr = [[NSMutableArray alloc] init];
     self.pollingArr = [[NSMutableArray alloc] init];
     self.pollingUpPlatformArr = [[NSMutableArray alloc] init];
+    self.currentFileList = [[NSMutableArray alloc] init];
     isSearch = NO;
     _isMp4ControlHide = NO;
     _isPolling = NO;
@@ -3051,7 +3053,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             file.isPlaying = isPlay;
         }
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList];
     }
 }
 
@@ -3579,9 +3581,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 
 #pragma mark 白板翻页 换课件
-
-- (void)onWhiteBoardChangedFileWithFileList:(NSString *)fileId
+/// 当前展示的课件列表（fileid）
+- (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList
 {
+    BMLog(@"%@",fileList);
+    [self.currentFileList removeAllObjects];
+    [self.currentFileList addObjectsFromArray:fileList];
+    [self freshTeacherCoursewareListDataWithPlay:NO];
     
 }
 
@@ -3658,7 +3664,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [self freshListViewWithSelect:!btn.selected];
         //课件库
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count];
+        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList];
 //        [self freshTeacherCoursewareListData];
         [self.teacherListView bm_bringToFront];
     }
