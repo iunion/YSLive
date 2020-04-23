@@ -2324,6 +2324,13 @@ static YSLiveManager *liveManagerSingleton = nil;
     //[self.whiteBoardManager createWhiteBoard:companyid];
 }
 
+- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
+{
+    if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardChangedFileWithFileList:)])
+    {
+        [self.roomManagerDelegate handleonWhiteBoardChangedFileWithFileList:fileList];
+    }
+}
 
 #pragma mark -
 #pragma mark setter/getter

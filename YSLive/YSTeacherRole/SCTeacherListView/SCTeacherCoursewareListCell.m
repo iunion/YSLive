@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UIImageView *openImageView;
 /// 删除
 @property (nonatomic, strong) UIButton *deleteBtn;
-
+@property (nonatomic, strong) YSFileModel *fileModel;
 
 @end
 
@@ -117,11 +117,11 @@
         
     }
 }
-- (void)setFileModel:(YSFileModel *)fileModel
+- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent
 {
     _fileModel = fileModel;
 
-    BOOL isCurrent = [[YSLiveManager shareInstance].currentFile.fileid isEqualToString:fileModel.fileid];
+//    BOOL isCurrent = [[YSLiveManager shareInstance].currentFile.fileid isEqualToString:fileModel.fileid];
     BOOL isPlayed = [[YSLiveManager shareInstance].playMediaModel.fileid isEqualToString:fileModel.fileid];
     NSString *filename = @"";
     if (fileModel.fileid.intValue == 0)

@@ -49,6 +49,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 @property (nonatomic, strong) UIButton *leftPageBtn;
 @property (nonatomic, strong) UIButton *rightPageBtn;
 @property (nonatomic, strong) UILabel *pageNumLabel;
+/// 当前展示课件数组
+@property (nonatomic, strong) NSArray *currentFileList;
 @end
 
 @implementation SCTeacherListView
@@ -259,6 +261,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
+- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList
+{
+    self.currentFileList = currentFileList;
+    [self setDataSource:dataSource withType:type userNum:userNum];
+}
+
 - (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum
 {
     self.type = type;
@@ -359,7 +367,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         SCTeacherCoursewareListCell * coursewareCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherCoursewareListCellID forIndexPath:indexPath];
         YSFileModel * model = self.dataSource[indexPath.row];
-        coursewareCell.fileModel = model;
+        BOOL isCurrent = [self.currentFileList containsObject:model.fileid];
+        
+        [coursewareCell setFileModel:model isCurrent:isCurrent];
+        
         if (_userRoleType == YSUserType_Patrol)
         {
             [coursewareCell setUserRole:_userRoleType];
