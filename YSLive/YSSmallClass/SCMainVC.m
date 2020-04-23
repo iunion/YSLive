@@ -3274,10 +3274,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.emotionListView.bm_originY = self.view.bm_height;
         }];
 
-#warning self.boardControlView.zoomScale
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
         CGFloat keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-        CGFloat actualHeight = 0;//CGRectGetHeight(firstResponder.frame)*self.boardControlView.zoomScale + relativePoint.y + keyboardHeight;
+        CGFloat zoomScale = [self.liveManager.whiteBoardManager currentDocumentZoomScale];
+        CGFloat actualHeight = CGRectGetHeight(firstResponder.frame)*zoomScale + relativePoint.y + keyboardHeight;
         CGFloat overstep = actualHeight - CGRectGetHeight([UIScreen mainScreen].bounds);// + 5;
         if (overstep > 1)
         {
