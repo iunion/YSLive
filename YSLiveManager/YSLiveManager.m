@@ -719,6 +719,16 @@ static YSLiveManager *liveManagerSingleton = nil;
                 
                 ((void (*)(id, SEL, NSString *, YSMediaState, NSDictionary *))objc_msgSend)(self, funcSel, peerId, state, message);
             }
+            else if ([methodName isEqualToString:NSStringFromSelector(@selector(onWhiteBoardChangedFileWithFileList:))])
+            {
+                if (parameters.count != 1)
+                {
+                    continue;
+                }
+                
+                NSArray *fileList = parameters[0];
+                ((void (*)(id, SEL, NSArray *))objc_msgSend)(self, funcSel, fileList);
+            }
         }
         else
         {
@@ -2326,6 +2336,15 @@ static YSLiveManager *liveManagerSingleton = nil;
 
 - (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
 {
+    if (!self.viewDidAppear)
+    {
+        NSMutableArray *parameters = [[NSMutableArray alloc] init];
+        [parameters addObject:fileList];
+        [self addMsgCachePoolWithMethodName:@selector(onWhiteBoardChangedFileWithFileList:) parameters:parameters];
+        
+        return;
+    }
+    
     if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardChangedFileWithFileList:)])
     {
         [self.roomManagerDelegate handleonWhiteBoardChangedFileWithFileList:fileList];
