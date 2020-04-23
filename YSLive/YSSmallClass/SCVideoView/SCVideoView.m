@@ -185,13 +185,23 @@
 //视频view点击事件
 - (void)clickToShowControl
 {
-    if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher)
+    if (self.appUseTheType == YSAppUseTheTypeLiveRoom && [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
     {
         if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
         {
             [self.delegate clickViewToControlWithVideoView:self];
         }
-    }    
+    }
+    else
+    {
+        if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher)
+        {
+            if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
+            {
+                [self.delegate clickViewToControlWithVideoView:self];
+            }
+        }
+    }
 }
 
 ///视频拖拽事件
@@ -369,6 +379,7 @@
     self.homeMaskLab.frame = self.bounds;
     self.maskNoVideo.frame = self.bounds;
     self.maskNoVideoTitle.frame = CGRectMake(2, 10, self.bm_width-4, self.bm_height-25);
+
     
     CGFloat imageWidth = frame.size.height*0.3f;
     if (imageWidth > self.maskCloseVideo.image.size.width)

@@ -98,27 +98,30 @@
     [self.classBtn bm_addShadow:3 Radius:20 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
 
     CGFloat stackViewWidth = Top_iPadHeight * 3;
-    
+    NSInteger multiple = 0;
     switch (self.layoutType)
     {
         case SCTeacherTopBarLayoutType_BeforeClass:
-            stackViewWidth = Top_iPadHeight * 3;
+            multiple = 3;
+            
             break;
         case SCTeacherTopBarLayoutType_ClassBegin:
-            stackViewWidth = Top_iPadHeight * 7;
-            if (![UIDevice bm_isiPad])
-            {
-                stackViewWidth = Top_iPhoneHeight * 7;
-            }
+            multiple = 7;
+            
             break;
         case SCTeacherTopBarLayoutType_FullMedia:
-            stackViewWidth = Top_iPadHeight * 6;
-            if (![UIDevice bm_isiPad])
-            {
-                stackViewWidth = Top_iPhoneHeight * 6;
-            }
+            multiple = 6;
         default:
             break;
+    }
+    
+    if ([UIDevice bm_isiPad])
+    {
+        stackViewWidth = Top_iPadHeight * multiple;
+    }
+    else
+    {
+        stackViewWidth = Top_iPhoneHeight * multiple;
     }
     
     CGFloat h = Top_iPadHeight;
