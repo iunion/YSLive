@@ -88,7 +88,6 @@
 		263244D9244D46BC0022E086 /* FBRetainCycleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 263244B1244D46BC0022E086 /* FBRetainCycleUtils.m */; };
 		263244DA244D74540022E086 /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444D244D442E0022E086 /* MLeakedObjectProxy.m */; };
 		263244DB244D74550022E086 /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2632444D244D442E0022E086 /* MLeakedObjectProxy.m */; };
-		263265E4237900E500605A0E /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 263265E1237900E000605A0E /* SCBoardControlView.m */; };
 		26355BD523B4509D004B8366 /* SCTTopPopverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BD323B45098004B8366 /* SCTTopPopverViewController.m */; };
 		26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE223B4BB9A004B8366 /* SCTeacherListView.m */; };
 		26355BE623B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE523B4C550004B8366 /* SCTeacherPersonListCell.m */; };
@@ -332,7 +331,6 @@
 		8717E2182400DADC008C4CDA /* FLEXFieldEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03F623B7362300DAC321 /* FLEXFieldEditorView.m */; };
 		8717E2192400DADC008C4CDA /* FLEXArgumentInputNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03EE23B7362300DAC321 /* FLEXArgumentInputNumberView.m */; };
 		8717E21A2400DADC008C4CDA /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CC23292351A8AC00864FA3 /* prng.c */; };
-		8717E21C2400DADC008C4CDA /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 263265E1237900E000605A0E /* SCBoardControlView.m */; };
 		8717E21D2400DADC008C4CDA /* YSClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D523ED1A46002002BF /* YSClassModel.m */; };
 		8717E21E2400DADC008C4CDA /* FLEXArrayExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D039123B7362300DAC321 /* FLEXArrayExplorerViewController.m */; };
 		8717E21F2400DADC008C4CDA /* FLEXPropertyEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872D03D023B7362300DAC321 /* FLEXPropertyEditorViewController.m */; };
@@ -863,8 +861,6 @@
 		263244AF244D46BC0022E086 /* FBRetainCycleDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBRetainCycleDetector.mm; sourceTree = "<group>"; };
 		263244B0244D46BC0022E086 /* FBRetainCycleDetector+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBRetainCycleDetector+Internal.h"; sourceTree = "<group>"; };
 		263244B1244D46BC0022E086 /* FBRetainCycleUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRetainCycleUtils.m; sourceTree = "<group>"; };
-		263265E0237900E000605A0E /* SCBoardControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCBoardControlView.h; sourceTree = "<group>"; };
-		263265E1237900E000605A0E /* SCBoardControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCBoardControlView.m; sourceTree = "<group>"; };
 		26355BD223B45098004B8366 /* SCTTopPopverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTTopPopverViewController.h; sourceTree = "<group>"; };
 		26355BD323B45098004B8366 /* SCTTopPopverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTTopPopverViewController.m; sourceTree = "<group>"; };
 		26355BD723B4ACB3004B8366 /* YSControlPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSControlPopoverView.h; sourceTree = "<group>"; };
@@ -1845,15 +1841,6 @@
 			path = Detector;
 			sourceTree = "<group>";
 		};
-		263265DF237900A100605A0E /* SCBoardControlView */ = {
-			isa = PBXGroup;
-			children = (
-				263265E0237900E000605A0E /* SCBoardControlView.h */,
-				263265E1237900E000605A0E /* SCBoardControlView.m */,
-			);
-			path = SCBoardControlView;
-			sourceTree = "<group>";
-		};
 		26355BD123B45040004B8366 /* SCTeacherTopPopverView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2204,7 +2191,6 @@
 				CBCD78B823FF8B4500498742 /* YSStudentTimer */,
 				CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */,
 				26EFA5FD23794C4B00EC2A64 /* SCAnswerView */,
-				263265DF237900A100605A0E /* SCBoardControlView */,
 				04A479DE239E274C00680D84 /* BrushToolView */,
 				875A7201237561CC00407A75 /* SCVideoView */,
 				2628F2B92376B08600425E08 /* SCTopToolBar */,
@@ -3630,7 +3616,6 @@
 				872D049723B7362300DAC321 /* FLEXFieldEditorView.m in Sources */,
 				872D049423B7362300DAC321 /* FLEXArgumentInputNumberView.m in Sources */,
 				8713359E237270F6006534A4 /* prng.c in Sources */,
-				263265E4237900E500605A0E /* SCBoardControlView.m in Sources */,
 				8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */,
 				872D046823B7362300DAC321 /* FLEXArrayExplorerViewController.m in Sources */,
 				263244BE244D46BC0022E086 /* Struct.mm in Sources */,
@@ -3962,7 +3947,6 @@
 				8717E2182400DADC008C4CDA /* FLEXFieldEditorView.m in Sources */,
 				8717E2192400DADC008C4CDA /* FLEXArgumentInputNumberView.m in Sources */,
 				8717E21A2400DADC008C4CDA /* prng.c in Sources */,
-				8717E21C2400DADC008C4CDA /* SCBoardControlView.m in Sources */,
 				8717E21D2400DADC008C4CDA /* YSClassModel.m in Sources */,
 				8717E21E2400DADC008C4CDA /* FLEXArrayExplorerViewController.m in Sources */,
 				263244BF244D46BC0022E086 /* Struct.mm in Sources */,

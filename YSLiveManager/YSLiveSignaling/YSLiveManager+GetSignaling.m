@@ -815,35 +815,35 @@
     
     if ([msgName isEqualToString:YSSignalingName_ShowPage] || [msgName isEqualToString:YSSignalingName_ExtendShowPage])
     {
-        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingWhiteBroadShowPageMessage:isDynamic:)])
-        {
-            NSDictionary *resault = [dataDic bm_dictionaryForKey:@"filedata"];
-            
-            if ([resault bm_isNotEmptyDictionary])
-            {
-                BOOL isDynamic = NO;
-                if ([dataDic bm_boolForKey:@"isDynamicPPT"] || [dataDic bm_boolForKey:@"isH5Document"])
-                {
-                    isDynamic = YES;
-                }
-                else if ([dataDic bm_boolForKey:@"isGeneralFile"])
-                {
-                    NSString *filetype = [[resault bm_stringForKey:@"filetype"] lowercaseString];
-                    NSString *path = [[resault bm_stringForKey:@"swfpath"] lowercaseString];
-                    if ([filetype isEqualToString:@"gif"] || [filetype isEqualToString:@"svg"])
-                    {
-                        isDynamic = YES;
-                    }
-                    else if ([path hasSuffix:@".gif"] || [path hasSuffix:@".svg"])
-                    {
-                        isDynamic = YES;
-                    }
-                }
-                
-                [self.roomManagerDelegate handleSignalingWhiteBroadShowPageMessage:resault isDynamic:isDynamic];
-                
-            }
-        }
+//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingWhiteBroadShowPageMessage:isDynamic:)])
+//        {
+//            NSDictionary *resault = [dataDic bm_dictionaryForKey:@"filedata"];
+//            
+//            if ([resault bm_isNotEmptyDictionary])
+//            {
+//                BOOL isDynamic = NO;
+//                if ([dataDic bm_boolForKey:@"isDynamicPPT"] || [dataDic bm_boolForKey:@"isH5Document"])
+//                {
+//                    isDynamic = YES;
+//                }
+//                else if ([dataDic bm_boolForKey:@"isGeneralFile"])
+//                {
+//                    NSString *filetype = [[resault bm_stringForKey:@"filetype"] lowercaseString];
+//                    NSString *path = [[resault bm_stringForKey:@"swfpath"] lowercaseString];
+//                    if ([filetype isEqualToString:@"gif"] || [filetype isEqualToString:@"svg"])
+//                    {
+//                        isDynamic = YES;
+//                    }
+//                    else if ([path hasSuffix:@".gif"] || [path hasSuffix:@".svg"])
+//                    {
+//                        isDynamic = YES;
+//                    }
+//                }
+//                
+//                [self.roomManagerDelegate handleSignalingWhiteBroadShowPageMessage:resault isDynamic:isDynamic];
+//                
+//            }
+//        }
         
         return;
     }

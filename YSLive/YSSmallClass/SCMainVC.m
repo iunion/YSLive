@@ -18,7 +18,6 @@
 #import "SCTopToolBar.h"
 #import "SCTeacherListView.h"
 
-#import "SCBoardControlView.h"
 #import "SCAnswerView.h"
 
 #import "YSLiveMediaModel.h"
@@ -102,7 +101,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     SCBrushToolViewDelegate,
     SCDrawBoardViewDelegate,
     SCTopToolBarDelegate,
-    SCBoardControlViewDelegate,
     UIPopoverPresentationControllerDelegate,
     YSControlPopoverViewDelegate,
     SCVideoViewDelegate,
@@ -173,9 +171,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 上课时间的定时器
 @property (nonatomic, strong) dispatch_source_t topBarTimer;
 
-/// 翻页工具
-@property (nonatomic, strong) SCBoardControlView *boardControlView;
-
 /// 内容背景
 @property (nonatomic, strong) UIView *contentBackgroud;
 /// 内容
@@ -245,10 +240,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) SCBrushToolView *brushToolView;
 /// 画笔选择 颜色 大小 形状
 @property (nonatomic, strong) SCDrawBoardView *drawBoardView;
-/// 课件刷新按钮
-@property (nonatomic, strong) UIButton *coursewareBtn;
-/// 当前课件的页码
-//@property (nonatomic, assign) int coursewareCurrentPage;
 
 /// 答题中
 @property (nonatomic, strong) SCAnswerView *answerView;
@@ -493,9 +484,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         // 设置左侧工具栏
         [self setupBrushToolView];
-        
-        // 翻页控件
-        [self setupBoardControlView];
     }
 
     // 右侧聊天视图
@@ -628,12 +616,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 笔刷工具
     [self.brushToolView bm_bringToFront];
-    
-    // 课件刷新按钮
-    [self.coursewareBtn bm_bringToFront];
-    
-    // 翻页
-    [self.boardControlView bm_bringToFront];
     
     // 聊天窗口
     [self.rightChatView bm_bringToFront];
@@ -1190,58 +1172,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.hidden = YES;
 }
 
-///刷新课件
-- (void)buttonClickToRefreshCourseware:(UIButton *)sender
-{
-    if (!self.coursewareBtn.selected)
-    {
-//        [self.liveManager.whiteBoardManager whiteBoardTurnToPage:self.coursewareCurrentPage];
-        [self.liveManager.whiteBoardManager freshCurrentCourse];
-        self.coursewareBtn.selected = YES;
-        BMWeakSelf
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            weakSelf.coursewareBtn.selected = NO;
-        });
-    }
-}
-
 /// 助教网络刷新课件
 - (void)handleSignalingTorefeshCourseware
 {
-    [self buttonClickToRefreshCourseware:self.coursewareBtn];
-}
-
-/// 设置底部 翻页控件
-- (void)setupBoardControlView
-{
-    self.boardControlView = [[SCBoardControlView alloc] init];
-    [self.view addSubview:self.boardControlView];
-    self.boardControlView.frame = CGRectMake(0, 0, 246, 34);
-    self.boardControlView.bm_bottom = self.view.bm_bottom - 20;
-    self.boardControlView.bm_centerX = self.view.bm_centerX;
-    self.boardControlView.delegate = self;
-    self.boardControlView.layer.cornerRadius = self.boardControlView.bm_height/2;
-    self.boardControlView.layer.masksToBounds = YES;
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
-    [self.boardControlView addGestureRecognizer:panGestureRecognizer];
-    self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag;
-    
-    UIButton * coursewareBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, self.boardControlView.bm_originY, 60, 60)];
-    [coursewareBtn addTarget:self action:@selector(buttonClickToRefreshCourseware:) forControlEvents:UIControlEventTouchUpInside];
-    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Normal"] forState:UIControlStateNormal];
-    [coursewareBtn setImage:[UIImage imageNamed:@"Courseware_Refresh_Loading"] forState:UIControlStateSelected];
-    [coursewareBtn setTitle:YSLocalized(@"Button.Reload") forState:UIControlStateNormal];
-    [coursewareBtn setTitle:YSLocalized(@"Button.Loading") forState:UIControlStateSelected];
-    [coursewareBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    coursewareBtn.titleLabel.font = UI_FONT_14;
-    coursewareBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    coursewareBtn.hidden = YES;
-    [self.view addSubview:coursewareBtn];
-    self.coursewareBtn = coursewareBtn;
-    
-    coursewareBtn.imageEdgeInsets = UIEdgeInsetsMake(0,3, coursewareBtn.titleLabel.bounds.size.height, 0);
-    coursewareBtn.titleEdgeInsets = UIEdgeInsetsMake(coursewareBtn.currentImage.size.width-20, -(coursewareBtn.currentImage.size.width), 0, 0);
-    coursewareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+#warning handleSignalingTorefeshCourseware
 }
 
 
@@ -2995,6 +2929,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark SCBoardControlViewDelegate
 
+#warning WhitebordFullScreen
+/*
 /// 全屏 复原 回调
 - (void)boardControlProxyfullScreen:(BOOL)isAllScreen
 {
@@ -3037,10 +2973,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         //        [self freshContentView];
         
         self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
-        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
-        {
-            self.coursewareBtn.hidden = self.boardControlView.hidden;
-        }
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
@@ -3063,34 +2995,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 
 }
-
-/// 上一页
-- (void)boardControlProxyPrePage
-{
-    //- (void)whiteBoardPrePage;
-    [self.liveManager.whiteBoardManager whiteBoardPrePage];
-}
-
-/// 下一页
-- (void)boardControlProxyNextPage
-{
-    //- (void)whiteBoardNextPage;
-    [self.liveManager.whiteBoardManager whiteBoardNextPage];
-}
-
-/// 放大
-- (void)boardControlProxyEnlarge
-{
-    //    - (void)whiteBoardEnlarge;
-    [self.liveManager.whiteBoardManager whiteBoardEnlarge];
-}
-
-/// 缩小
-- (void)boardControlProxyNarrow
-{
-    //- (void)whiteBoardNarrow;
-    [self.liveManager.whiteBoardManager whiteBoardNarrow];
-}
+*/
 
 
 #pragma mark -聊天输入框工具栏
@@ -3369,9 +3274,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.emotionListView.bm_originY = self.view.bm_height;
         }];
 
+#warning self.boardControlView.zoomScale
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
         CGFloat keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-        CGFloat actualHeight = CGRectGetHeight(firstResponder.frame)*self.boardControlView.zoomScale + relativePoint.y + keyboardHeight;
+        CGFloat actualHeight = 0;//CGRectGetHeight(firstResponder.frame)*self.boardControlView.zoomScale + relativePoint.y + keyboardHeight;
         CGFloat overstep = actualHeight - CGRectGetHeight([UIScreen mainScreen].bounds);// + 5;
         if (overstep > 1)
         {
@@ -3450,87 +3356,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark YSWhiteBoardManagerDelegate
 
-- (void)onWhiteBoardViewStateUpdate:(NSDictionary *)message
-{
-    //BMLog(@"-------------------------%@----------------", message);
-    // WebView显示课件刷新回调
-
-    YSFileModel *file = self.liveManager.currentFile;
-    
-    if (!file || file.isMedia.intValue)
-    {
-        return;
-    }
-    
-    [self.boardControlView resetBtnStates];
-
-    NSString *totalPage = file.pagenum;
-    NSString *currentPage = file.currpage;
-//    self.coursewareCurrentPage = currentPage.intValue;
-    if (!currentPage)
-    {
-        currentPage = @"1";
-    }
-    BOOL prevPage = NO;
-    BOOL nextPage = NO;
-    if ([message bm_containsObjectForKey:@"page"])
-    {
-        NSDictionary *dicPage = message[@"page"];
-        prevPage = [dicPage bm_boolForKey:@"prevPage"];
-        nextPage = [dicPage bm_boolForKey:@"nextPage"];
-    }
-    
-    BOOL isDynamic = YES;
-    if (file.isGeneralFile.boolValue)
-    {
-        isDynamic = NO;
-        
-        NSString *filetype = file.filetype;
-        NSString *path = file.swfpath;
-        if ([filetype isEqualToString:@"gif"] || [filetype isEqualToString:@"svg"])
-        {
-            isDynamic = YES;
-        }
-        else if ([path hasSuffix:@".gif"] || [path hasSuffix:@".svg"])
-        {
-            isDynamic = YES;
-        }
-    }
-    if ([file.fileid isEqualToString:@"0"])
-    {
-        self.coursewareBtn.hidden = YES;
-    }
-    else
-    {
-        self.coursewareBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
-    }
-    if (!isDynamic)
-    {
-        self.boardControlView.bm_width = 246;
-        if (self.boardControlView.bm_right > BMUI_SCREEN_WIDTH)
-        {
-            self.boardControlView.bm_left = BMUI_SCREEN_WIDTH - self.boardControlView.bm_width - 2;
-        }
-
-        [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
-    }
-    else
-    {
-        self.boardControlView.bm_width = 161; //CGRectMake(0, 0, 160, 34);
-        
-        [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue canPrevPage:prevPage canNextPage:nextPage isWhiteBoard:[file.fileid isEqualToString:@"0"]];
-    }
-
-    //self.boardControlView.bm_centerX = self.view.bm_centerX;
-
-    return;
-}
-
-/// 本地操作，缩放课件比例变化
-- (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale
-{
-    [self.boardControlView changeZoomScale:zoomScale];
-}
 
 
 #pragma mark -
@@ -3897,10 +3722,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             
             videoView.canDraw = canDraw;
-            if (self.liveManager.isBeginClass)
-            {
-                self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag && canDraw;
-            }
             
             [self.topToolBar hidePhotoBtn:!canDraw];
             
@@ -4286,7 +4107,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    self.boardControlView.allowPaging = NO;
     //self.boardControlView.allowPaging = self.liveManager.roomConfig.canPageTurningFlag;
 
 //    if ([self.liveManager.currentFile.fileid isEqualToString:@"0"])
@@ -4493,12 +4313,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!self.isWhitebordFullScreen)
     {
-        self.boardControlView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
-        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
-        {
-            self.coursewareBtn.hidden = self.boardControlView.hidden;
-        }
-        
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
@@ -4801,11 +4615,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!self.isWhitebordFullScreen)
     {
-        self.boardControlView.hidden = isFull;
-        if (![self.liveManager.currentFile.fileid isEqualToString:@"0"])
-        {
-            self.coursewareBtn.hidden = isFull;
-        }
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = isFull;
@@ -4920,37 +4729,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 白板翻页 换课件
 
+- (void)onWhiteBoardChangedFileWithFileList:(NSString *)fileId
+{
+    
+}
+
 - (void)handleSignalingWhiteBroadShowPageMessage:(NSDictionary *)message isDynamic:(BOOL)isDynamic
 {
-    [self.boardControlView resetBtnStates];
     [self freshTeacherCoursewareListDataWithPlay:NO];
-    // 只处理白板显示课件刷新回调
-
-    if (!isDynamic)
-    {
-        self.boardControlView.bm_width = 246;
-        if (self.boardControlView.bm_right > BMUI_SCREEN_WIDTH)
-        {
-            self.boardControlView.bm_left = BMUI_SCREEN_WIDTH - self.boardControlView.bm_width - 2;
-        }
-        //self.boardControlView.bm_centerX = self.view.bm_centerX;
-        
-        YSFileModel *file = self.liveManager.currentFile;
-        NSString *totalPage = [message objectForKey:@"pagenum"];
-        NSString *currentPage = [message objectForKey:@"currpage"];
-//        self.coursewareCurrentPage = currentPage.intValue;
-        [self.boardControlView sc_setTotalPage:totalPage.integerValue currentPage:currentPage.integerValue isWhiteBoard:[file.fileid isEqualToString:@"0"]];
-        
-        if ([file.fileid isEqualToString:@"0"])
-        {
-            self.coursewareBtn.hidden = YES;
-        }
-        else
-        {
-            self.coursewareBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
-        }
-    }
-    return;
 }
 
 /// 收到添加删除文件信令

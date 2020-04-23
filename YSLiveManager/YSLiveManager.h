@@ -492,11 +492,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 白板 YSWhiteBoardManagerDelegate
 
 /// 界面更新
-- (void)onWhiteBoardViewStateUpdate:(NSDictionary *)message;
+//- (void)onWhiteBoardViewStateUpdate:(NSDictionary *)message;
 /// 教室加载状态
-- (void)onWhiteBoardLoadedState:(NSDictionary *)message;
+//- (void)onWhiteBoardLoadedState:(NSDictionary *)message;
 /// 本地操作，缩放课件比例变化
-- (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale;
+//- (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale;
 
 
 @end

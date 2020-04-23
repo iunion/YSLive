@@ -719,16 +719,6 @@ static YSLiveManager *liveManagerSingleton = nil;
                 
                 ((void (*)(id, SEL, NSString *, YSMediaState, NSDictionary *))objc_msgSend)(self, funcSel, peerId, state, message);
             }
-            else if ([methodName isEqualToString:NSStringFromSelector(@selector(onWhiteBoardViewStateUpdate:))])
-            {
-                if (parameters.count != 1)
-                {
-                    continue;
-                }
-                
-                NSDictionary *message = parameters[0];
-                ((void (*)(id, SEL, NSDictionary *))objc_msgSend)(self, funcSel, message);
-            }
         }
         else
         {
@@ -2332,68 +2322,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     // 添加一个白板 只用于文件列表显示
     //NSNumber *companyid = @([self.room_Companyid integerValue]);
     //[self.whiteBoardManager createWhiteBoard:companyid];
-}
-
-// PubMsg消息
-- (void)onWhiteBroadPubMsgWithMsgID:(NSString *)msgID
-                            msgName:(NSString *)msgName
-                               data:(NSObject *)data
-                             fromID:(NSString *)fromID
-                             inList:(BOOL)inlist
-                                 ts:(long)ts
-{
-    [self handleWhiteBroadPubMsgWithMsgID:msgID msgName:msgName data:data fromID:fromID inList:inlist ts:ts];
-}
-
-// msglist消息
-// @param msgList 消息
-- (void)onWhiteBoardOnRoomConnectedMsglist:(NSDictionary *)msgList
-{
-    BMLog(@"onWhiteBoardOnRoomConnectedMsglist");
-    BMLog(@"%@", msgList);
-}
-
-// 界面更新
-- (void)onWhiteBoardViewStateUpdate:(NSDictionary *)message
-{
-    if (!self.viewDidAppear)
-    {
-        NSMutableArray *parameters = [[NSMutableArray alloc] init];
-        if ([message bm_isNotEmpty])
-        {
-            [parameters addObject:message];
-        }
-        else
-        {
-            [parameters addObject:[NSNull null]];
-        }
-        [self addMsgCachePoolWithMethodName:@selector(onWhiteBoardViewStateUpdate:) parameters:parameters];
-        
-        return;
-    }
-
-    if (self.roomManagerDelegate && [self.roomManagerDelegate respondsToSelector:@selector(onWhiteBoardViewStateUpdate:)])
-    {
-        [self.roomManagerDelegate onWhiteBoardViewStateUpdate:message];
-    }
-}
-
-// 教室加载状态
-- (void)onWhiteBoardLoadedState:(NSDictionary *)message
-{
-    if (self.roomManagerDelegate && [self.roomManagerDelegate respondsToSelector:@selector(onWhiteBoardLoadedState:)])
-    {
-        [self.roomManagerDelegate onWhiteBoardLoadedState:message];
-    }
-}
-
-// 本地操作，缩放课件比例变化
-- (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale
-{
-    if (self.roomManagerDelegate && [self.roomManagerDelegate respondsToSelector:@selector(onWhiteBoardFileViewZoomScaleChanged:)])
-    {
-        [self.roomManagerDelegate onWhiteBoardFileViewZoomScaleChanged:zoomScale];
-    }
 }
 
 
