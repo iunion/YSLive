@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.6.5";
+static NSString *YSAPPVersionString = @"2.7.1";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.6.5.0";
+static NSString *YSSDKVersionString = @"2.7.1.0";
 
 @interface YSSDKManager ()
 <
@@ -134,12 +134,12 @@ static NSString *YSSDKVersionString = @"2.6.5.0";
                    NSInteger result = [responseDic bm_intForKey:@"result"];
                    if (result == 4007)
                    {
-                       failure(result, YSLocalized(@"Error.RoomTypeCheckError"));
+                       failure(result, YSLoginLocalized(@"Error.RoomTypeCheckError"));
                        return;
                    }
                    else if (result != 0)
                    {
-                       failure(result, YSLocalized(@"Error.CanNotConnectNetworkError"));
+                       failure(result, YSLoginLocalized(@"Error.CanNotConnectNetworkError"));
                        return;
                    }
                                                          
@@ -208,7 +208,7 @@ static NSString *YSSDKVersionString = @"2.6.5.0";
             
             if (delta < 60 * 3)
             {
-                NSString *content =  YSLocalized(@"Prompt.kick");
+                NSString *content =  YSLoginLocalized(@"Prompt.kick");
                 [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:nil completion:nil];
                 return NO;
             }
@@ -228,7 +228,7 @@ static NSString *YSSDKVersionString = @"2.6.5.0";
 
 - (void)waitRoomLeft
 {
-    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
+    [self.liveManager.roomManager leaveRoom:nil];
 }
 
 // 成功进入房间
@@ -260,7 +260,7 @@ static NSString *YSSDKVersionString = @"2.6.5.0";
     
     if (![rootVC isKindOfClass:[UIViewController class]])
     {
-        NSAssert(NO, YSLocalized(@"SDK.VCError"));
+        NSAssert(NO, YSLoginLocalized(@"SDK.VCError"));
         return;
     }
 
@@ -282,9 +282,9 @@ static NSString *YSSDKVersionString = @"2.6.5.0";
 
     if (isSmallClass)
     {
-        NSUInteger maxvideo = [[YSLiveManager shareInstance].roomDic bm_uintForKey:@"maxvideo"];
+        NSUInteger maxvideo = [self.liveManager.roomDic bm_uintForKey:@"maxvideo"];
         YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
-        BOOL isWideScreen = [YSLiveManager shareInstance].room_IsWideScreen;
+        BOOL isWideScreen = self.liveManager.room_IsWideScreen;
         
         if (self.selectRoleType == YSUserType_Teacher)
         {
@@ -317,7 +317,7 @@ static NSString *YSSDKVersionString = @"2.6.5.0";
     {
         if (self.selectRoleType == YSUserType_Student)
         {
-            BOOL isWideScreen = [YSLiveManager shareInstance].room_IsWideScreen;
+            BOOL isWideScreen = self.liveManager.room_IsWideScreen;
             YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:self.liveManager.whiteBordView userId:nil];
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
