@@ -59,15 +59,8 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
 - (void)changeFrame
 {
-    CGFloat top = VIDEOGRIDVIEW_TOP;
     CGFloat maxWidth = self.defaultSize.width-VIDEOGRIDVIEW_GAP*2;
-    CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2-top;
-    
-    if (self.videoViewArray.count > 2)
-    {
-        maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2;
-    }
-    
+    CGFloat maxHeight = self.defaultSize.height-VIDEOGRIDVIEW_GAP*2;
     
     CGFloat videoWidth = VIDEOGRIDVIEW_WIDTH;
     CGFloat videoHeight;
@@ -212,18 +205,9 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
     self.videosBgView.bm_width = bgWidth;
     self.videosBgView.bm_height = bgHeight;
-
-    if (self.videoViewArray.count > 2)
-    {
-        CGPoint center = CGPointMake(self.bm_width*0.5, maxHeight*0.5 + VIDEOGRIDVIEW_GAP);
-        self.videosBgView.center = center;
-    }
-    else
-    {
-        CGPoint center = CGPointMake(self.bm_width*0.5, (maxHeight+top)*0.5);
-        self.videosBgView.center = center;
-    }
-        
+    
+    CGPoint center = CGPointMake(self.bm_width*0.5, maxHeight*0.5 + VIDEOGRIDVIEW_GAP);
+    self.videosBgView.center = center;
 }
 
 - (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout withAppUseTheType:(YSAppUseTheType)appUseTheType
