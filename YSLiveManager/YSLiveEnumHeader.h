@@ -69,13 +69,13 @@ typedef NS_ENUM(NSUInteger, YSWhiteBordDocType)
 };
 
 /// 白板文档媒体类型
-typedef NS_ENUM(NSUInteger, YSWhiteBordMediaType)
-{
-    /// 普通文档
-    YSWhiteBordMediaType_Video = 0,
-    /// 动态ppt
-    YSWhiteBordMediaType_Audio
-};
+//typedef NS_ENUM(NSUInteger, YSWhiteBordMediaType)
+//{
+//    /// 普通文档
+//    YSWhiteBordMediaType_Video = 0,
+//    /// 动态ppt
+//    YSWhiteBordMediaType_Audio
+//};
 
 typedef NS_ENUM(NSUInteger, YSLiveRoomLayout)
 {
