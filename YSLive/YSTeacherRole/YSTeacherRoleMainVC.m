@@ -5234,16 +5234,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
 }
 
-///全体禁言
-//- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
-//{
-//    self.rightChatView.allDisabledChat.hidden = !isDisable;
-//    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-//    self.rightChatView.textBtn.hidden = isDisable;
-//    [self hiddenTheKeyBoard];
-//}
-
-
 #pragma mark -
 #pragma mark 视频控制popoverView视图
 
