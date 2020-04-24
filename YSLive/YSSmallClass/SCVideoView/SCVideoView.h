@@ -96,6 +96,8 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 
 /// 背景view
 @property (nonatomic, strong) UIView *backVideoView;
+/// popView的基准View
+@property (nonatomic, strong) UIView *sourceView;
 
 /// 视频状态
 @property (nonatomic, assign, readonly) SCVideoViewVideoState videoState;
