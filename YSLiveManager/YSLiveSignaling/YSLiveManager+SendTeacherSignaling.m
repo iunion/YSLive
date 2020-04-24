@@ -227,9 +227,11 @@
     }
     
     NSString *toWho = YSRoomPubMsgTellAll;
+    BOOL save = YES;
     if (isFresh)
     {
         toWho = self.localUser.peerID;
+        save = NO;
     }
     
     if ([YSLiveUtil checkIsMedia:fileModel.filetype])
@@ -281,7 +283,7 @@
                                   @"mediaType":@"",
                                   @"filedata":fileData
                                 };
-        BOOL result = [self.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:toWho data:[sendDic bm_toJSON] save:YES completion:completion] == 0;
+        BOOL result = [self.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:toWho data:[sendDic bm_toJSON] save:save completion:completion] == 0;
         return result;
     }
 

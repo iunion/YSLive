@@ -2806,6 +2806,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.liveManager.roomManager publishAudio:nil];
         }
     }
+    
+    if (!inlist)
+    {
+        if (self.liveManager.playMediaModel)
+        {
+            [self.liveManager.roomManager stopShareMediaFile:nil];
+        }
+        [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:self.liveManager.currentFile isFresh:NO completion:nil];
+    }
 }
 
 /// 下课
@@ -6046,7 +6055,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         [self.liveManager.roomManager stopShareMediaFile:nil];
     }
-    [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel isFresh:NO completion:nil];
+    [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel isFresh:!self.liveManager.isBeginClass completion:nil];
 
 }
 
