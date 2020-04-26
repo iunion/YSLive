@@ -156,6 +156,18 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         }
             break;
         case 9:
+        {
+            width = videoWidth*3;
+            height = videoHeight*3;
+            
+            CGFloat widthScale = (maxWidth-VIDEOGRIDVIEW_GAP*2)/width;
+            CGFloat heightScale = (maxHeight-VIDEOGRIDVIEW_GAP*2)/height;
+            
+            scale = MIN(widthScale, heightScale);
+            bgWidth = width*scale+VIDEOGRIDVIEW_GAP*2;
+            bgHeight = height*scale+VIDEOGRIDVIEW_GAP*2;
+        }
+            break;
         case 10:
         case 11:
         case 12:
@@ -468,23 +480,23 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             videoView3.bm_top = 0;
             videoView3.bm_left = width*2;
 
-            videoView4.bm_top = 0;
-            videoView4.bm_left = width*3;
+            videoView4.bm_top = height;
+            videoView4.bm_left = 0;
             
             videoView5.bm_top = height;
-            videoView5.bm_left = 0;
+            videoView5.bm_left = width;
             
             videoView6.bm_top = height;
-            videoView6.bm_left = width;
+            videoView6.bm_left = width*2;
             
-            videoView7.bm_top = height;
-            videoView7.bm_left = width*2;
+            videoView7.bm_top = height*2;
+            videoView7.bm_left = 0;
             
-            videoView8.bm_top = height;
-            videoView8.bm_left = width*3;
+            videoView8.bm_top = height*2;
+            videoView8.bm_left = width;
             
             videoView9.bm_top = height*2;
-            videoView9.bm_left = 0;
+            videoView9.bm_left = width*2;
         }
             break;
 
