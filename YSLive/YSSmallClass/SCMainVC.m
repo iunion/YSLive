@@ -2934,15 +2934,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark SCBoardControlViewDelegate
 
 #warning WhitebordFullScreen
-/*
+
 /// 全屏 复原 回调
-- (void)boardControlProxyfullScreen:(BOOL)isAllScreen
+//- (void)boardControlProxyfullScreen:(BOOL)isAllScreen
+ - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen
 {
     self.isWhitebordFullScreen = isAllScreen;
     
-    [self.boardControlView resetBtnStates];
+//    [self.boardControlView resetBtnStates];
     
-    self.boardControlView.isAllScreen = isAllScreen;
+//    self.boardControlView.isAllScreen = isAllScreen;
 
     if (isAllScreen)
     {
@@ -2976,7 +2977,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInWhiteBordBackgroud];
         //        [self freshContentView];
         
-        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+//        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
@@ -2999,7 +3000,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 
 }
-*/
+
 
 
 #pragma mark -聊天输入框工具栏
