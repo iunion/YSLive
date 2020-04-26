@@ -46,8 +46,24 @@ UITextFieldDelegate
         
         self.SCMessageList = [NSMutableArray array];
         
-        self.allDisabledChat.hidden = ![YSLiveManager shareInstance].isEveryoneBanChat;
-        self.textBtn.hidden = [YSLiveManager shareInstance].isEveryoneBanChat;
+        if (YSCurrentUser.role == YSUserType_Teacher)
+        {
+            self.allDisabledChat.hidden = YES;
+            self.textBtn.hidden = NO;
+        }
+        else
+        {
+            if ([YSLiveManager shareInstance].isBeginClass)
+            {
+                self.allDisabledChat.hidden = ![YSLiveManager shareInstance].isEveryoneBanChat;
+                self.textBtn.hidden = [YSLiveManager shareInstance].isEveryoneBanChat;;
+            }
+            else
+            {
+                self.allDisabledChat.hidden = [YSLiveManager shareInstance].roomConfig.isChatBeforeClass;
+                self.textBtn.hidden = ![YSLiveManager shareInstance].roomConfig.isChatBeforeClass;
+            }
+        }
     }
     return self;
 }

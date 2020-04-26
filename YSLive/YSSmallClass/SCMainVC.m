@@ -4293,6 +4293,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
+    
+    if (YSCurrentUser.role != YSUserType_Patrol)
+    {
+        self.rightChatView.allDisabledChat.hidden = ![YSLiveManager shareInstance].isEveryoneBanChat;
+        self.rightChatView.textBtn.hidden = [YSLiveManager shareInstance].isEveryoneBanChat;
+    }
+    else
+    {
+        self.rightChatView.allDisabledChat.hidden = NO;
+        self.rightChatView.textBtn.hidden = YES;
+    }
+    
     self.teacherPlaceLab.hidden = YES;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
     if (self.liveManager.localUser.role == YSUserType_Patrol)
