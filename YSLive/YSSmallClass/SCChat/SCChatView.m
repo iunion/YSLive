@@ -60,8 +60,8 @@ UITextFieldDelegate
             }
             else
             {
-                self.allDisabledChat.hidden = [YSLiveManager shareInstance].roomConfig.isChatBeforeClass;
-                self.textBtn.hidden = ![YSLiveManager shareInstance].roomConfig.isChatBeforeClass;
+                self.allDisabledChat.hidden = ![YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
+                self.textBtn.hidden = [YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
             }
         }
     }

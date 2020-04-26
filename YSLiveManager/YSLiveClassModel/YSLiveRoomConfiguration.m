@@ -52,7 +52,7 @@
         self.shouldHideFontOnDrawSelectorView   = [self cutOutStringWithIndex: 115];
         self.sortSmallVideo                     = [self cutOutStringWithIndex: 116];
         self.unShowStudentNetState              = [self cutOutStringWithIndex: 117];
-        self.onlyMeAndTeacherVideo              = [self cutOutStringWithIndex: 119];
+        self.isBeforeClassBanChat               = [self cutOutStringWithIndex: 119];
         self.isChineseJapaneseTranslation       = [self cutOutStringWithIndex: 122];
         self.isPenCanPenetration                = [self cutOutStringWithIndex: 131];
         self.isHiddenKickOutStudentBtn          = [self cutOutStringWithIndex: 135];
