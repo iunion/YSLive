@@ -1699,6 +1699,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)showRoleSelectView
 {
+    self.passwordMask.hidden = self.needpwd;
+    
     self.roleSelectView.hidden = NO;
     if (self.room_UseTheType == YSAppUseTheTypeMeeting)
     {
