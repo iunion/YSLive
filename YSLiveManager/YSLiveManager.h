@@ -355,6 +355,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleSignalingHideVideoWhiteboard;
 /// 当前展示的课件列表（fileid）
 - (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
+/// 课件全屏
+- (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen;
+
 // stateType    0--1分钟  1--3分钟  2--5分钟  3--10分钟  4--30分钟
 /// 收到点名
 - (void)handleSignalingLiveCallRollWithStateType:(NSUInteger)stateType callRollId:(NSString *)callRollId apartTimeInterval:(NSTimeInterval)apartTimeInterval;

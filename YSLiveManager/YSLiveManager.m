@@ -2323,6 +2323,13 @@ static YSLiveManager *liveManagerSingleton = nil;
 #pragma mark -
 #pragma mark YSWhiteBoardManagerDelegate
 
+- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
+{
+    if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardFullScreen:)])
+    {
+        [self.roomManagerDelegate handleonWhiteBoardFullScreen:isAllScreen];
+    }
+}
 // 文件列表回调
 // @param fileList 文件列表 是一个NSArray类型的数据
 - (void)onWhiteBroadFileList:(NSArray *)fileList

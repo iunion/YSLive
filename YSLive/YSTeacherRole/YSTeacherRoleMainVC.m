@@ -3590,7 +3590,57 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListDataWithPlay:NO];
     
 }
-
+- (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen
+{
+    self.isWhitebordFullScreen = isAllScreen;
+    
+    if (isAllScreen)
+    {
+        [self.view endEditing:YES];
+        
+        //        [self.whitebordBackgroud bm_removeAllSubviews];
+        
+        [self.whiteBordView removeFromSuperview];
+        
+        self.whitebordFullBackgroud.hidden = NO;
+        //        self.whitebordFullBackgroud.backgroundColor = [UIColor redColor];
+        // 加载白板
+        [self.whitebordFullBackgroud addSubview:self.whiteBordView];
+        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+        [self arrangeAllViewInVCView];
+        
+#if USE_FullTeacher
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+        
+        //        [self.fullTeacherFloatView bm_bringToFront];
+#endif
+    }
+    else
+    {
+        //        [self.whitebordFullBackgroud bm_removeAllSubviews];
+        
+        [self.whiteBordView removeFromSuperview];
+        self.whitebordFullBackgroud.hidden = YES;
+        
+        [self.whitebordBackgroud addSubview:self.whiteBordView];
+        self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+        
+        [self arrangeAllViewInWhiteBordBackgroud];
+        //        [self freshContentView];
+        
+        self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        
+#if USE_FullTeacher
+        [self stopFullTeacherVideoView];
+#endif
+        //        [self.liveManager playVideoOnView:self.teacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
+        //        [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+    }
+    
+    [self.liveManager.whiteBoardManager refreshWhiteBoard];
+    [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
+    
+}
 - (void)handleSignalingWhiteBroadShowPageMessage:(NSDictionary *)message isDynamic:(BOOL)isDynamic
 {
     [self freshTeacherCoursewareListDataWithPlay:NO];
