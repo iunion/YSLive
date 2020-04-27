@@ -232,24 +232,24 @@
         toWho = self.localUser.peerID;
     }
     
-    if ([YSLiveUtil checkIsMedia:fileModel.filetype])
-    {
-        BOOL tIsVideo = [YSLiveUtil checkIsVideo:fileModel.filetype];
-        
-        NSString *filename = fileModel.filename ? fileModel.filename : @"";
-        NSDictionary *sendDic = @{@"filename":filename,
-                                  @"fileid":fileModel.fileid,
-                                  @"pauseWhenOver":@(true),
-                                  @"type": @"media",
-                                  @"source": @"mediaFileList"
-                                
-                                };
-        
-        NSString *url = [self absolutefileUrl:fileModel.swfpath];
-        BOOL result = [self.roomManager startShareMediaFile:url isVideo:tIsVideo toID:toWho attributes:sendDic block:completion] == 0;
-        return result;
-    }
-    else
+//    if ([YSLiveUtil checkIsMedia:fileModel.filetype])
+//    {
+//        BOOL tIsVideo = [YSLiveUtil checkIsVideo:fileModel.filetype];
+//        
+//        NSString *filename = fileModel.filename ? fileModel.filename : @"";
+//        NSDictionary *sendDic = @{@"filename":filename,
+//                                  @"fileid":fileModel.fileid,
+//                                  @"pauseWhenOver":@(true),
+//                                  @"type": @"media",
+//                                  @"source": @"mediaFileList"
+//                                
+//                                };
+//        
+//        NSString *url = [self absolutefileUrl:fileModel.swfpath];
+//        BOOL result = [self.roomManager startShareMediaFile:url isVideo:tIsVideo toID:toWho attributes:sendDic block:completion] == 0;
+//        return result;
+//    }
+//    else
     {
         [self.whiteBoardManager changeCourseWithFileId:fileModel.fileid];
         return YES;
