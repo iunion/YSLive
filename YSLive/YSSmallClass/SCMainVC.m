@@ -1210,7 +1210,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 音频播放动画
 - (void)makeMp3Animation
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.view.bm_bottom - (MP3VIEW_WIDTH+15), MP3VIEW_WIDTH, MP3VIEW_WIDTH)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.view.bm_height - (MP3VIEW_WIDTH+15), MP3VIEW_WIDTH, MP3VIEW_WIDTH)];
     
     NSMutableArray *imageArray = [[NSMutableArray alloc] init];
     for (NSUInteger i=1; i<=50; i++)
