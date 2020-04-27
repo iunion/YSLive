@@ -231,7 +231,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 
-@property (nonatomic, strong) UIImageView *playMp3ImageView;
 /// 聊天的View
 @property(nonatomic,strong)SCChatView *rightChatView;
 /// 弹出聊天View的按钮
@@ -475,8 +474,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 全屏白板
     [self setupFullBoardView];
     
-    [self makeMp3Animation];
-    
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
     
@@ -613,9 +610,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     // 全屏白板
     [self.whitebordFullBackgroud bm_bringToFront];
-    
-    // mp3f动画
-    [self.playMp3ImageView bm_bringToFront];
     
     // 笔刷工具
     [self.brushToolView bm_bringToFront];
@@ -1132,24 +1126,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.videoGridView = videoGridView;
 }
 
-/// 音频播放动画
-- (void)makeMp3Animation
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.view.bm_bottom - (MP3VIEW_WIDTH+15), MP3VIEW_WIDTH, MP3VIEW_WIDTH)];
-    
-    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-    for (NSUInteger i=1; i<=50; i++)
-    {
-        NSString *imageName = [NSString stringWithFormat:@"main_playmp3_%02lu", (unsigned long)i];
-        [imageArray addObject:imageName];
-    }
-    
-    [imageView bm_animationWithImageArray:imageArray duration:2 repeatCount:0];
-    
-    imageView.hidden = YES;
-    self.playMp3ImageView = imageView;
-    [self.view addSubview:self.playMp3ImageView];
-}
 
 - (UIImageView *)makeGiftImageView
 {
@@ -2392,29 +2368,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     return nil;
 }
-
-
-#pragma mark -
-#pragma mark Mp3Func
-
-- (void)onPlayMp3
-{
-    [self arrangeAllViewInVCView];
-    self.playMp3ImageView.hidden = NO;
-    [self.playMp3ImageView startAnimating];
-}
-
-- (void)onPauseMp3
-{
-    [self.playMp3ImageView stopAnimating];
-}
-
-- (void)onStopMp3
-{
-    self.playMp3ImageView.hidden = YES;
-    [self.playMp3ImageView stopAnimating];
-}
-
 
 //聊天按钮点击事件
 - (void)chatButtonClick:(UIButton *)sender
@@ -4646,12 +4599,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self showWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
     }
-    else if (mediaModel.audio)
-    {
-        [self.liveManager.roomManager playMediaFile:mediaModel.user_peerId renderType:YSRenderMode_fit window:self.teacherVideoView completion:^(NSError *error) {
-        }];
-        [self onPlayMp3];
-    }
 }
 
 // 停止白板视频/音频
@@ -4662,31 +4609,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
     }
-    else if (mediaModel.audio)
-    {
-        [self.liveManager.roomManager unPlayMediaFile:mediaModel.user_peerId completion:^(NSError *error) {
-        }];
-        [self onStopMp3];
-    }
 }
 
 /// 继续播放白板视频/音频
 - (void)handleWhiteBordPlayMediaStream
 {
-    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
-    {
-        [self onPlayMp3];
-    }
      [self freshTeacherCoursewareListDataWithPlay:YES];
 }
 
 /// 暂停播放白板视频/音频
 - (void)handleWhiteBordPauseMediaStream
 {
-    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
-    {
-        [self onPauseMp3];
-    }
     [self freshTeacherCoursewareListDataWithPlay:NO];
 }
 
