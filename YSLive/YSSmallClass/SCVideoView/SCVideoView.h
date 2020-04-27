@@ -58,6 +58,8 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 
 @protocol SCVideoViewDelegate <NSObject>
 
+@optional
+
 ///点击手势事件
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView;
 
