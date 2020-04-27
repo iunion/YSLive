@@ -51,6 +51,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 @property (nonatomic, strong) UILabel *pageNumLabel;
 /// 当前展示课件数组
 @property (nonatomic, strong) NSArray *currentFileList;
+@property (nonatomic, strong) NSString *mediaFileID;
+@property (nonatomic, assign) YSWhiteBordMediaState mediaState;
 @end
 
 @implementation SCTeacherListView
@@ -261,9 +263,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList
+- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state
 {
     self.currentFileList = currentFileList;
+    self.mediaFileID = mediaFileID;
+    self.mediaState = state;
     [self setDataSource:dataSource withType:type userNum:userNum];
 }
 
@@ -369,7 +373,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         YSFileModel * model = self.dataSource[indexPath.row];
         BOOL isCurrent = [self.currentFileList containsObject:model.fileid];
         
-        [coursewareCell setFileModel:model isCurrent:isCurrent];
+        [coursewareCell setFileModel:model isCurrent:isCurrent mediaFileID:self.mediaFileID mediaState:self.mediaState];
         
         if (_userRoleType == YSUserType_Patrol)
         {

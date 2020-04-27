@@ -2323,6 +2323,14 @@ static YSLiveManager *liveManagerSingleton = nil;
 #pragma mark -
 #pragma mark YSWhiteBoardManagerDelegate
 
+/// 流媒体状态
+- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state
+{
+    if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardMediaFileStateWithFileId:state:)])
+    {
+        [self.roomManagerDelegate handleonWhiteBoardMediaFileStateWithFileId:fileId state:state];
+    }
+}
 - (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
 {
     if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardFullScreen:)])

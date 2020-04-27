@@ -38,7 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak) id<SCTeacherListViewDelegate> delegate;
 
 - (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum;
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum currentFileList:(NSArray *)currentFileList;
+/// 主要用于展示 多课件 媒体课件的状态
+/// @param dataSource 课件列表
+/// @param type 课件列表
+/// @param userNum 课件个数
+/// @param currentFileList 当前展示的课件数组
+/// @param mediaFileID 当前展示的媒体课件
+/// @param state 当前媒体课件状态
+- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum currentFileList:(NSArray *)currentFileList mediaFileID:(NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state;
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage;
 - (void)setUserRole:(YSUserRoleType)userRoleType;
 @end

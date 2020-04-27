@@ -279,6 +279,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
 /// 当前展示课件数组
 @property (nonatomic, strong) NSMutableArray *currentFileList;
+/// 当前展示媒体课件
+@property (nonatomic, strong) NSString *currentMediaFileID;
+@property (nonatomic, assign) YSWhiteBordMediaState currentMediaState;
 
 @end
 
@@ -456,6 +459,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     isSearch = NO;
     searchArr = [[NSMutableArray alloc] init];
     self.currentFileList = [[NSMutableArray alloc] init];
+    self.currentMediaFileID = @"";
+    self.currentMediaState = YSWhiteBordMediaState_Stop;
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -1696,7 +1701,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     //[self hideShareVidoeView];
     
-    [self hideWhiteBordVidoeViewWithPeerId:nil];
     [self hideAllDragOutVidoeView];
     
     //    [self.videoBackgroud bm_removeAllSubviews];
@@ -1936,57 +1940,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 #endif
 }
-
-// 开始播放课件视频
-- (void)showWhiteBordVidoeViewWithPeerId:(NSString *)peerId
-{
-    [self.view endEditing:YES];
-    
-    [self.liveManager.roomManager playMediaFile:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
-    }];
-    
-    //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
-    
-    [self arrangeAllViewInVCView];
-    self.shareVideoFloatView.canZoom = NO;
-    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
-    self.shareVideoFloatView.showWaiting = YES;
-    self.shareVideoFloatView.hidden = NO;
-    
-#if USE_FullTeacher
-    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-#endif
-}
-
-// 关闭课件视频
-- (void)hideWhiteBordVidoeViewWithPeerId:(NSString *)peerId
-{
-    if (self.liveManager.playMediaModel.video)
-    {
-        if (!peerId)
-        {
-            peerId = self.liveManager.playMediaModel.user_peerId;
-        }
-        [self.liveManager.roomManager unPlayMediaFile:peerId completion:^(NSError *error) {
-        }];
-    }
-    
-    self.shareVideoFloatView.canZoom = NO;
-    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
-    self.shareVideoFloatView.hidden = YES;
-    
-    // 主动清除白板视频标注 服务端会发送关闭
-    [self handleSignalingHideVideoWhiteboard];
-#if USE_FullTeacher
-    [self stopFullTeacherVideoView];
-    
-    if (!self.whitebordFullBackgroud.hidden)
-    {
-        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-    }
-#endif
-}
-
 
 #pragma mark - videoViewArray
 
@@ -2621,7 +2574,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self freshListViewWithSelect:!btn.selected];
         //课件库
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
-        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList];
+        [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
         //        [self freshTeacherCoursewareListData];
     }
     
@@ -2718,19 +2671,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark -刷新课件库数据
-- (void)freshTeacherCoursewareListDataWithPlay:(BOOL)isPlay
+- (void)freshTeacherCoursewareListData
 {
     if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected)
     {
-        YSFileModel *file = [[YSLiveManager shareInstance] getFileWithFileID:self.liveManager.playMediaModel.fileid];
-        if (file.isPlaying != isPlay)
-        {
-            file.isPlaying = isPlay;
-            
-        }
+
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
 
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
     }
 }
 
@@ -4589,39 +4537,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    [self freshWhiteBordViewFrame];
 }
 
-#pragma mark 白板视频/音频
-
-// 播放白板视频/音频
-- (void)handleWhiteBordPlayMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
-{
-    [self freshTeacherCoursewareListDataWithPlay:YES];
-    if (mediaModel.video)
-    {
-        [self showWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
-    }
-}
-
-// 停止白板视频/音频
-- (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
-{
-    [self freshTeacherCoursewareListDataWithPlay:NO];
-    if (mediaModel.video)
-    {
-        [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
-    }
-}
-
-/// 继续播放白板视频/音频
-- (void)handleWhiteBordPlayMediaStream
-{
-     [self freshTeacherCoursewareListDataWithPlay:YES];
-}
-
-/// 暂停播放白板视频/音频
-- (void)handleWhiteBordPauseMediaStream
-{
-    [self freshTeacherCoursewareListDataWithPlay:NO];
-}
 
 /// 显示白板视频标注
 - (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
@@ -4666,13 +4581,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark 白板翻页 换课件
+
+/// 媒体课件状态
+- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state
+{
+    self.currentMediaFileID = fileId;
+    self.currentMediaState = state;
+    [self freshTeacherCoursewareListData];
+}
 /// 当前展示的课件列表（fileid）
 - (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList
 {
     BMLog(@"%@",fileList);
     [self.currentFileList removeAllObjects];
     [self.currentFileList addObjectsFromArray:fileList];
-    [self freshTeacherCoursewareListDataWithPlay:NO];
+    [self freshTeacherCoursewareListData];
     
 }
 - (void)onWhiteBoardChangedFileWithFileList:(NSString *)fileId
@@ -4682,13 +4605,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingWhiteBroadShowPageMessage:(NSDictionary *)message isDynamic:(BOOL)isDynamic
 {
-    [self freshTeacherCoursewareListDataWithPlay:NO];
+    [self freshTeacherCoursewareListData];
 }
 
 /// 收到添加删除文件信令
 - (void)handleSignalingWhiteBroadDocumentChange
 {
-    [self freshTeacherCoursewareListDataWithPlay:NO];
+    [self freshTeacherCoursewareListData];
 }
 
 

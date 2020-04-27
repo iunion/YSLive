@@ -117,12 +117,11 @@
         
     }
 }
-- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent
+- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state
 {
     _fileModel = fileModel;
 
 //    BOOL isCurrent = [[YSLiveManager shareInstance].currentFile.fileid isEqualToString:fileModel.fileid];
-    BOOL isPlayed = [[YSLiveManager shareInstance].playMediaModel.fileid isEqualToString:fileModel.fileid];
     NSString *filename = @"";
     if (fileModel.fileid.intValue == 0)
     {
@@ -164,15 +163,19 @@
     
     if (type == YSClassFiletype_Mp3 || type == YSClassFiletype_Mp4)
     {
-        if (isPlayed)
+        if (mediaFileID && [mediaFileID isEqualToString:fileModel.fileid])
         {
-            if (fileModel.isPlaying)
+            if (state == YSWhiteBordMediaState_Play)
             {
                 [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Selected"]];
             }
-            else
+            else if (state == YSWhiteBordMediaState_Pause)
             {
                 [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Normal"]];
+            }
+            else if (state == YSWhiteBordMediaState_Stop)
+            {
+                [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Disabled"]];
             }
         }
         else
