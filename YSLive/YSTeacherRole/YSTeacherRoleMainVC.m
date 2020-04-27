@@ -3190,12 +3190,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)sliderYSMp4ControlView:(NSInteger)value
 {
     isDrag = YES;
-    [self.liveManager.roomManager pauseMediaFile:YES];
-    BOOL success = [self.liveManager.roomManager seekMediaFile:value] == 0;
-    if (success)
-    {
-        [self.liveManager.roomManager pauseMediaFile:NO];
-    }
+    [self.liveManager.roomManager seekMediaFile:value];
 }
 
 #pragma mark -刷新课件库数据
