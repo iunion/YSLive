@@ -88,7 +88,7 @@
 /// 当前共享桌面用户Id
 @property (nonatomic, strong) NSString *sharePeerId;
 
-@property (nonatomic, strong) NSString *serverName;
+//@property (nonatomic, strong) NSString *serverName;
 
 @end
 
@@ -134,7 +134,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.whiteBordView = nil;
         
-        liveManagerSingleton.serverName = [[NSUserDefaults standardUserDefaults] objectForKey:YSServerName];
+        //liveManagerSingleton.serverName = [[NSUserDefaults standardUserDefaults] objectForKey:YSServerName];
         
         // 默认自动镜像
         liveManagerSingleton.localVideoMirrorMode = YSVideoMirrorModeAuto;
@@ -223,10 +223,10 @@ static YSLiveManager *liveManagerSingleton = nil;
         server = [NSString stringWithFormat:@"%@", array[0]];
     }
     
-    if ([liveManager.serverName bm_isNotEmpty] && ![server isEqualToString:liveManager.serverName])
-    {
-        server = liveManager.serverName;
-    }
+//    if ([liveManager.serverName bm_isNotEmpty] && ![server isEqualToString:liveManager.serverName])
+//    {
+//        server = liveManager.serverName;
+//    }
     
     [queryMutableDictionary bm_setString:server forKey:@"server"];
     [queryMutableDictionary bm_setInteger:3 forKey:@"clientType"];
@@ -316,10 +316,10 @@ static YSLiveManager *liveManagerSingleton = nil;
         server = [NSString stringWithFormat:@"%@", array[0]];
     }
     
-    if ([self.serverName bm_isNotEmpty] && ![server isEqualToString:self.serverName])
-    {
-        server = self.serverName;
-    }
+//    if ([self.serverName bm_isNotEmpty] && ![server isEqualToString:self.serverName])
+//    {
+//        server = self.serverName;
+//    }
     
     NSMutableDictionary *parameters = @{
         YSJoinRoomParamsRoomIDKey : roomId,
@@ -1585,20 +1585,20 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     [self removeUserWhenBigRoomWithPeerId:peerID];
     
-    if ([properties bm_containsObjectForKey:sServerName])
-    {
-        if ([peerID isEqualToString:self.localUser.peerID] &&
-            ![fromId isEqualToString:self.localUser.peerID])
-        {
-            // 其他用户修改自己的服务器
-            NSString *serverName = [NSString stringWithFormat:@"%@", [properties objectForKey:sServerName]];
-            if ([serverName bm_isNotEmpty])
-            {
-                BMLog(@"助教协助修改了服务器地址:%@", serverName);
-                [self changeServer:serverName];
-            }
-        }
-    }
+//    if ([properties bm_containsObjectForKey:sServerName])
+//    {
+//        if ([peerID isEqualToString:self.localUser.peerID] &&
+//            ![fromId isEqualToString:self.localUser.peerID])
+//        {
+//            // 其他用户修改自己的服务器
+//            NSString *serverName = [NSString stringWithFormat:@"%@", [properties objectForKey:sServerName]];
+//            if ([serverName bm_isNotEmpty])
+//            {
+//                BMLog(@"助教协助修改了服务器地址:%@", serverName);
+//                [self changeServer:serverName];
+//            }
+//        }
+//    }
     
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomUserPropertyChanged:properties:fromId:)])
     {
@@ -1606,18 +1606,18 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
 }
 
-- (void)changeServer:(NSString *)server
-{
-    if ([server isEqualToString:self.serverName])
-    {
-        return;
-    }
-    
-    self.serverName = server;
-    
-    [[NSUserDefaults standardUserDefaults] setObject:server forKey:YSServerName];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+//- (void)changeServer:(NSString *)server
+//{
+//    if ([server isEqualToString:self.serverName])
+//    {
+//        return;
+//    }
+//
+//    self.serverName = server;
+//
+//    [[NSUserDefaults standardUserDefaults] setObject:server forKey:YSServerName];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
 
 
 // 用户视频状态变化的通知
