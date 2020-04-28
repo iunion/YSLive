@@ -26,8 +26,6 @@
 #import "SCVideoView.h"
 #import "SCVideoGridView.h"
 
-#import "YSMediaMarkView.h"
-
 #import "UIAlertController+SCAlertAutorotate.h"
 #import "YSLiveApiRequest.h"
 

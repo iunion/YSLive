@@ -26,8 +26,6 @@
 #import "SCVideoView.h"
 #import "SCVideoGridView.h"
 
-#import "YSMediaMarkView.h"
-
 #import "UIAlertController+SCAlertAutorotate.h"
 #import "YSLiveApiRequest.h"
 
@@ -227,9 +225,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) YSFloatView *shareVideoFloatView;
 /// 共享视频窗口
 @property (nonatomic, strong) UIView *shareVideoView;
-/// 白板视频标注视图
-@property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
-@property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 
 /// 聊天的View
 @property(nonatomic,strong)SCChatView *rightChatView;
@@ -318,8 +313,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.isWideScreen = isWideScreen;
         
         self.userId = userId;
-        
-        self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
         
         if (self.roomtype == YSRoomType_More)
         {
@@ -4620,49 +4613,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.drawBoardView.hidden = NO;
     }
 //    [self freshWhiteBordViewFrame];
-}
-
-
-/// 显示白板视频标注
-- (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
-{
-    if (self.shareVideoFloatView.hidden)
-    {
-        return;
-    }
-    
-    if (self.mediaMarkView.superview)
-    {
-        [self.mediaMarkView removeFromSuperview];
-    }
-    
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds];
-    [self.shareVideoFloatView addSubview:self.mediaMarkView];
-    
-    [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];
-}
-
-/// 绘制白板视频标注
-- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
-{
-    if (inlist)
-    {
-        [self.mediaMarkSharpsDatas addObject:data];
-    }
-    else
-    {
-        [self.mediaMarkView freshViewWithData:data savedSharpsData:self.mediaMarkSharpsDatas];
-        [self.mediaMarkSharpsDatas removeAllObjects];
-    }
-}
-
-/// 隐藏白板视频标注
-- (void)handleSignalingHideVideoWhiteboard
-{
-    if (self.mediaMarkView.superview)
-    {
-        [self.mediaMarkView removeFromSuperview];
-    }
 }
 
 #pragma mark 白板翻页 换课件
