@@ -152,9 +152,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL unShowStudentNetState;
 
 /**
- 只看老师和自己的视频
+ 课前是否全体禁言
  */
-@property (nonatomic, assign) BOOL onlyMeAndTeacherVideo;
+@property (nonatomic, assign) BOOL isBeforeClassBanChat;
 
 /**
  禁用翻页

@@ -217,6 +217,12 @@
 {
     self.backgroundColor = UIColor.blackColor;
     
+    UIView *sourceView = [[UIView alloc] init];
+    sourceView.backgroundColor = UIColor.clearColor;
+    sourceView.hidden = YES;
+    [self addSubview:sourceView];
+    self.sourceView = sourceView;
+    
     //没上课时没有连摄像头时的lab
     UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
     maskNoVideobgLab.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
@@ -380,7 +386,7 @@
     self.maskNoVideo.frame = self.bounds;
     self.maskNoVideoTitle.frame = CGRectMake(2, 10, self.bm_width-4, self.bm_height-25);
 
-    
+    self.sourceView.frame = CGRectMake((self.bounds.size.width - 50)/2	, (self.bounds.size.height - 50)/2, 50, 50);
     CGFloat imageWidth = frame.size.height*0.3f;
     if (imageWidth > self.maskCloseVideo.image.size.width)
     {

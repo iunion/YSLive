@@ -315,6 +315,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 当前展示媒体课件
 @property (nonatomic, strong) NSString *currentMediaFileID;
 @property (nonatomic, assign) YSWhiteBordMediaState currentMediaState;
+
+/// 视频布局时全屏按钮（隐藏顶部工具栏）
+@property(nonatomic,strong)UIButton *videoFullScreenBtn;
+
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -436,9 +440,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (self.roomtype == YSRoomType_More)
     {
-         //举手上台的按钮
-           [self setupHandView];
-    }   
+        //举手上台的按钮
+        [self setupHandView];
+        /// 视频布局时的全屏按钮 （只在 1VN 房间）
+        [self setupVideoFullBtn];
+    }
     
     // 设置花名册 课件表
     [self setupListView];
@@ -678,6 +684,61 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.topToolBar.topToolModel = self.topBarModel;
 }
+
+/// 视频布局全屏按钮的创建
+- (void)setupVideoFullBtn
+{
+    UIButton *videoFullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    videoFullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26-20-40, BMUI_SCREEN_HEIGHT-40-2, 40, 40);
+    [videoFullScreenBtn setBackgroundColor: UIColor.clearColor];
+    [videoFullScreenBtn setImage:[UIImage imageNamed:@"sc_pagecontrol_allScreen_normal"] forState:UIControlStateNormal];
+    [videoFullScreenBtn setImage:[UIImage imageNamed:@"sc_pagecontrol_normalScreen_highlighted"] forState:UIControlStateSelected];
+    [videoFullScreenBtn addTarget:self action:@selector(videoFullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    videoFullScreenBtn.hidden = YES;
+    self.videoFullScreenBtn = videoFullScreenBtn;
+    
+    [self.view addSubview:self.videoFullScreenBtn];
+
+}
+- (void)videoFullScreenBtnClick:(UIButton *)btn
+{
+    btn.selected = !btn.selected;
+    [self.videoGridView removeFromSuperview];
+    [self fullVideoGridView:btn.selected];
+  
+}
+
+- (void)fullVideoGridView:(BOOL)isFull
+{
+    if (isFull)
+    {
+        CGFloat width = BMUI_SCREEN_WIDTH;
+        CGFloat height = BMUI_SCREEN_HEIGHT;
+        self.videoGridView.defaultSize = CGSizeMake(width, height);
+        self.videoGridView.frame = CGRectMake(0, 0, width, height);
+        [self.view addSubview:self.videoGridView];
+        [self.videoGridView bm_centerInSuperView];
+        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
+        [self.videoFullScreenBtn bm_bringToFront];
+        [self.chatBtn bm_bringToFront];
+        [self.raiseHandsBtn bm_bringToFront];
+        [self.handNumLab bm_bringToFront];
+    }
+    else
+    {
+        CGFloat width = BMUI_SCREEN_WIDTH;
+        CGFloat height = BMUI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT;
+        self.videoGridView.defaultSize = CGSizeMake(width, height);
+        self.videoGridView.frame = CGRectMake(0, 0, width, height);
+        [self.contentBackgroud addSubview:self.videoGridView];
+        [self.videoGridView bm_centerInSuperView];
+        self.videoGridView.backgroundColor = [UIColor clearColor];
+        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
+        [self.videoFullScreenBtn bm_bringToFront];
+    }
+}
+
 
 #pragma mark - 举手上台的UI
 - (void)setupHandView
@@ -1103,10 +1164,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
         {
+            self.videoFullScreenBtn.hidden = NO;
             [self freshVidoeGridView];
+            [self.videoFullScreenBtn bm_bringToFront];
+            [self.chatBtn bm_bringToFront];
+            [self.raiseHandsBtn bm_bringToFront];
+            [self.handNumLab bm_bringToFront];
+
         }
         else
         {
+            CGFloat width = BMUI_SCREEN_WIDTH;
+            CGFloat height = BMUI_SCREEN_HEIGHT-TOPTOOLBAR_HEIGHT;
+            self.videoGridView.defaultSize = CGSizeMake(width, height);
+            self.videoGridView.frame = CGRectMake(0, 0, width, height);
+            [self.contentBackgroud addSubview:self.videoGridView];
+            [self.videoGridView bm_centerInSuperView];
+            self.videoGridView.backgroundColor = [UIColor clearColor];
+            self.videoFullScreenBtn.hidden = YES;
+            self.videoFullScreenBtn.selected = NO;
             [self freshContentVidoeView];
         }
     }
@@ -2592,6 +2668,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self.liveManager.roomManager publishAudio:nil];
         }
+    }
+    
+    if (!inlist)
+    {
+        if (self.liveManager.playMediaModel)
+        {
+            [self.liveManager.roomManager stopShareMediaFile:nil];
+        }
+        [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:self.liveManager.currentFile isFresh:NO completion:nil];
     }
 }
 
@@ -5044,8 +5129,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
-    popover.sourceView = videoView;
-    popover.sourceRect = videoView.bounds;
+    if (self.videoViewArray.count <= 2 || [self.foucePeerId isEqualToString:videoView.roomUser.peerID])
+    {
+        /// 1.视频数小于等于2  2.videoView为焦点视频时
+        popover.sourceView = videoView.sourceView;
+        popover.sourceRect = videoView.sourceView.bounds;
+    }
+    else
+    {
+        popover.sourceView = videoView;
+        popover.sourceRect = videoView.bounds;
+    }
+    
     popover.delegate = self;
     popover.backgroundColor =  [UIColor bm_colorWithHex:0x336CC7];
     self.controlPopoverView.roomLayout = self.roomLayout;
@@ -5525,9 +5620,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 课件点击
 - (void)selectCoursewareProxyWithFileModel:(YSFileModel *)fileModel
 {
-
     [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel isFresh:NO completion:nil];
-
 }
 
 ///收回列表
