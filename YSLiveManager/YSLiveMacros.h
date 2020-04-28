@@ -92,6 +92,9 @@ static NSString *const kYSParameterKey = @"YSCacheMsg_Parameter";  // 缓存参�
 // 起始请小写
 #pragma mark - NSUserDefaults Keys
 
+// serverName
+static NSString *const YSServerName = @"ysServerName";
+
 // 被T时间
 static NSString *const YSKickTime = @"ysKickTime";
 static NSString *const TKKickRoom = @"TKKickRoom";
@@ -167,6 +170,9 @@ static  NSString *const sUserUpPlatform            = @"isAllowUpPlatForm";
 // 全体静音
 static  NSString *const sMuteAudio                  = @"MuteAudio";
 
+// 助教协助切换服务器（优选网络）
+static  NSString *const sServerName                 = @"servername";
+
 
 #pragma mark - 待删除
 
@@ -181,7 +187,6 @@ static  NSString *const sVideoSplitScreen           = @"VideoSplitScreen";//分�
 static  NSString *const sDoubleClickVideo           = @"doubleClickVideo";//双击视频
 static  NSString *const sVideoZoom                  = @"VideoChangeSize";//视频缩放
 static  NSString *const sChangeServerArea           = @"RemoteControl";// 助教协助切换服务器（课件服务器）
-static  NSString *const sServerName                 = @"servername";//助教协助切换服务器（优选网络）
 static  NSString *const sUpdateTime                 = @"UpdateTime";
 
 static  NSString *const sEveryoneBanChat            = @"EveryoneBanChat";//全体禁言
