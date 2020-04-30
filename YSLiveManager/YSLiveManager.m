@@ -90,6 +90,8 @@
 
 //@property (nonatomic, strong) NSString *serverName;
 
+@property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
+
 @end
 
 
@@ -452,6 +454,11 @@ static YSLiveManager *liveManagerSingleton = nil;
     };
     [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
     
+    if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
+    {
+        [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:self.connectH5CoursewareUrlParameters];
+    }
+
     self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
 
     }];
@@ -755,6 +762,44 @@ static YSLiveManager *liveManagerSingleton = nil;
         [self doMsgCachePoolWithSort:NO];
     }
 }
+
+/// 添加H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)addConnectH5CoursewareUrlParameters:(NSDictionary *)parameters
+{
+    if (!self.connectH5CoursewareUrlParameters)
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionary];
+    }
+    
+    if ([parameters bm_isNotEmptyDictionary])
+    {
+        [self.connectH5CoursewareUrlParameters addEntriesFromDictionary:parameters];
+    }
+    
+    if (self.whiteBoardManager)
+    {
+        [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:parameters];
+    }
+}
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters
+{
+    if ([parameters bm_isNotEmptyDictionary])
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    }
+    else
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionary];
+    }
+    
+    if (self.whiteBoardManager)
+    {
+        [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:parameters];
+    }
+}
+
 
 - (void)serverLog:(NSString *)log
 {

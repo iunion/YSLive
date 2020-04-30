@@ -127,6 +127,10 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
     [self.ysSDKManager registerManagerDelegate:self];
+    
+    // 设置H5课件扩展参数
+    [self.ysSDKManager changeConnectH5CoursewareUrlParameters:@{@"token" : @"1234567"}];
+    
     if (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
     {
         [self.ysSDKManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];

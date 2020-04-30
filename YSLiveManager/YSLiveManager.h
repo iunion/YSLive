@@ -180,6 +180,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
+/// 添加H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)addConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+
 - (void)doMsgCachePool;
 
 /// 判断设备是否是高端机型，能否支持多人上台

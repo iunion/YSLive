@@ -44,6 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code, NSString *errorStr))failure;
 
+/// 添加H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)addConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -91,6 +91,12 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 - (void)changeWhiteBoardBackImage:(nullable UIImage *)image;
 
 
+/// 添加H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)addConnectH5CoursewareUrlParameters:(nullable NSDictionary *)parameters;
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(nullable NSDictionary *)parameters;
+
+
 /**
  添加文档
  

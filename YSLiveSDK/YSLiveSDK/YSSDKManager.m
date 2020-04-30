@@ -18,7 +18,7 @@
 static NSString *YSAPPVersionString = @"2.7.2";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.7.2.0";
+static NSString *YSSDKVersionString = @"2.7.2.1";
 
 @interface YSSDKManager ()
 <
@@ -39,6 +39,8 @@ static NSString *YSSDKVersionString = @"2.7.2.0";
 
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
 @property (nonatomic, strong) UIImage *whiteBordMaskImage;
+
+@property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
 
 @end
 
@@ -181,6 +183,11 @@ static NSString *YSSDKVersionString = @"2.7.2.0";
 
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     self.liveManager = liveManager;
+    
+    if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
+    {
+        [self.liveManager changeConnectH5CoursewareUrlParameters:self.connectH5CoursewareUrlParameters];
+    }
 
     [self.liveManager registerRoomManagerDelegate:self];
     self.liveManager.sdkDelegate = self;
@@ -189,6 +196,43 @@ static NSString *YSSDKVersionString = @"2.7.2.0";
     BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
+}
+
+/// 添加H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)addConnectH5CoursewareUrlParameters:(NSDictionary *)parameters
+{
+    if (!self.connectH5CoursewareUrlParameters)
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionary];
+    }
+    
+    if ([parameters bm_isNotEmptyDictionary])
+    {
+        [self.connectH5CoursewareUrlParameters addEntriesFromDictionary:parameters];
+    }
+    
+    if (self.liveManager)
+    {
+        [self.liveManager changeConnectH5CoursewareUrlParameters:parameters];
+    }
+}
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters
+{
+    if ([parameters bm_isNotEmptyDictionary])
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    }
+    else
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionary];
+    }
+    
+    if (self.liveManager)
+    {
+        [self.liveManager changeConnectH5CoursewareUrlParameters:parameters];
+    }
 }
 
 - (BOOL)checkKickTimeWithRoomId:(NSString *)roomId
