@@ -711,7 +711,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// 删除课件
-- (BOOL)sendSignalingTeacherToDeleteDocumentWithFile:(YSFileModel *)fileModel completion:(nullable completion_block)completion;
+//- (BOOL)sendSignalingTeacherToDeleteDocumentWithFile:(YSFileModel *)fileModel completion:(nullable completion_block)completion;
 
 /// 切换课件
 - (BOOL)sendSignalingTeacherToSwitchDocumentWithFile:(YSFileModel *)fileModel isFresh:(BOOL)isFresh completion:(nullable completion_block)completion;

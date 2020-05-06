@@ -3043,7 +3043,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             if (imageUseType == 0)
             {
-                [self sendWhiteBordImageWithDic:dict];
+                [self.liveManager.whiteBoardManager addWhiteBordImageCourseWithDic:dict];
             }
             else
             {
@@ -3085,80 +3085,80 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
-- (void)sendWhiteBordImageWithDic:(NSDictionary *)uplaodDic
-{
-    NSMutableDictionary *docDic = [[NSMutableDictionary alloc] initWithDictionary:uplaodDic];
-    
-    // 0:表示普通文档　１－２动态ppt(1: 第一版动态ppt 2: 新版动态ppt ）  3:h5文档
-    NSUInteger fileprop = [docDic bm_uintForKey:@"fileprop"];
-    BOOL isGeneralFile = fileprop == 0 ? YES : NO;
-    BOOL isDynamicPPT = fileprop == 1 || fileprop == 2 ? YES : NO;
-    BOOL isH5Document = fileprop == 3 ? YES : NO;
-    NSString *action = isDynamicPPT ? sActionShow : @"";
-    NSString *mediaType = @"";
-    NSString *filetype = @"jpeg";
-    
-    [docDic setObject:action forKey:@"action"];
-    [docDic setObject:filetype forKey:@"filetype"];
-    
-    [self.liveManager.whiteBoardManager addDocumentWithFileDic:docDic];
-    
-    NSString *fileid = [docDic bm_stringTrimForKey:@"fileid" withDefault:@""];
-    NSString *filename = [docDic bm_stringTrimForKey:@"filename" withDefault:@""];
-    NSUInteger pagenum = [docDic bm_uintForKey:@"pagenum"];
-    NSString *swfpath = [docDic bm_stringTrimForKey:@"swfpath" withDefault:@""];
-    
-    NSDictionary *tDataDic = @{
-        @"isDel" : @(false),
-        @"isGeneralFile" : @(isGeneralFile),
-        @"isDynamicPPT" : @(isDynamicPPT),
-        @"isH5Document" : @(isH5Document),
-        @"action" : action,
-        @"mediaType" : mediaType,
-        @"isMedia" : @(false),
-        @"filedata" : @{
-                @"fileid" : fileid,
-                @"filename" : filename,
-                @"filetype" : filetype,
-                @"currpage" : @(1),
-                @"pagenum" : @(pagenum),
-                @"pptslide" : @(1),
-                @"pptstep" : @(0),
-                @"steptotal" : @(0),
-                @"swfpath" : swfpath
-        }
-    };
-    
-    [self.liveManager sendPubMsg:sDocumentChange toID:YSRoomPubMsgTellAllExceptSender data:[tDataDic bm_toJSON] save:NO associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
-    
-    NSString *downloadpath = [docDic bm_stringTrimForKey:@"downloadpath"];
-    BOOL isContentDocument = [docDic bm_boolForKey:@"isContentDocument"];
-    
-    NSDictionary *tDataDic1 = @{
-        @"isGeneralFile" : @(isGeneralFile),
-        @"isDynamicPPT" : @(isDynamicPPT),
-        @"isH5Document" : @(isH5Document),
-        @"action" : action,
-        @"downloadpath" : downloadpath,
-        @"fileid" : fileid,
-        @"mediaType" : mediaType,
-        @"isMedia" : @(false),
-        @"filedata" : @{
-                @"fileid" : fileid ,
-                @"filename" : filename,
-                @"filetype" : filetype,
-                @"currpage" : @(1),
-                @"pagenum" : @(pagenum),
-                @"pptslide" : @(1),
-                @"pptstep" : @(0),
-                @"steptotal" : @(0),
-                @"isContentDocument" : @(isContentDocument),
-                @"swfpath" : swfpath
-        }
-    };
-
-    [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[tDataDic1 bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
-}
+//- (void)sendWhiteBordImageWithDic:(NSDictionary *)uplaodDic
+//{
+//    NSMutableDictionary *docDic = [[NSMutableDictionary alloc] initWithDictionary:uplaodDic];
+//
+//    // 0:表示普通文档　１－２动态ppt(1: 第一版动态ppt 2: 新版动态ppt ）  3:h5文档
+//    NSUInteger fileprop = [docDic bm_uintForKey:@"fileprop"];
+//    BOOL isGeneralFile = fileprop == 0 ? YES : NO;
+//    BOOL isDynamicPPT = fileprop == 1 || fileprop == 2 ? YES : NO;
+//    BOOL isH5Document = fileprop == 3 ? YES : NO;
+//    NSString *action = isDynamicPPT ? sActionShow : @"";
+//    NSString *mediaType = @"";
+//    NSString *filetype = @"jpeg";
+//
+//    [docDic setObject:action forKey:@"action"];
+//    [docDic setObject:filetype forKey:@"filetype"];
+//
+//    [self.liveManager.whiteBoardManager addDocumentWithFileDic:docDic];
+//
+//    NSString *fileid = [docDic bm_stringTrimForKey:@"fileid" withDefault:@""];
+//    NSString *filename = [docDic bm_stringTrimForKey:@"filename" withDefault:@""];
+//    NSUInteger pagenum = [docDic bm_uintForKey:@"pagenum"];
+//    NSString *swfpath = [docDic bm_stringTrimForKey:@"swfpath" withDefault:@""];
+//
+//    NSDictionary *tDataDic = @{
+//        @"isDel" : @(false),
+//        @"isGeneralFile" : @(isGeneralFile),
+//        @"isDynamicPPT" : @(isDynamicPPT),
+//        @"isH5Document" : @(isH5Document),
+//        @"action" : action,
+//        @"mediaType" : mediaType,
+//        @"isMedia" : @(false),
+//        @"filedata" : @{
+//                @"fileid" : fileid,
+//                @"filename" : filename,
+//                @"filetype" : filetype,
+//                @"currpage" : @(1),
+//                @"pagenum" : @(pagenum),
+//                @"pptslide" : @(1),
+//                @"pptstep" : @(0),
+//                @"steptotal" : @(0),
+//                @"swfpath" : swfpath
+//        }
+//    };
+//
+//    [self.liveManager sendPubMsg:sDocumentChange toID:YSRoomPubMsgTellAllExceptSender data:[tDataDic bm_toJSON] save:NO associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
+//
+//    NSString *downloadpath = [docDic bm_stringTrimForKey:@"downloadpath"];
+//    BOOL isContentDocument = [docDic bm_boolForKey:@"isContentDocument"];
+//
+//    NSDictionary *tDataDic1 = @{
+//        @"isGeneralFile" : @(isGeneralFile),
+//        @"isDynamicPPT" : @(isDynamicPPT),
+//        @"isH5Document" : @(isH5Document),
+//        @"action" : action,
+//        @"downloadpath" : downloadpath,
+//        @"fileid" : fileid,
+//        @"mediaType" : mediaType,
+//        @"isMedia" : @(false),
+//        @"filedata" : @{
+//                @"fileid" : fileid ,
+//                @"filename" : filename,
+//                @"filetype" : filetype,
+//                @"currpage" : @(1),
+//                @"pagenum" : @(pagenum),
+//                @"pptslide" : @(1),
+//                @"pptstep" : @(0),
+//                @"steptotal" : @(0),
+//                @"isContentDocument" : @(isContentDocument),
+//                @"swfpath" : swfpath
+//        }
+//    };
+//
+//    [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[tDataDic1 bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
+//}
 
 //输入框条上表情按钮的点击事件
 - (void)toolEmotionBtnClick:(UIButton *)sender

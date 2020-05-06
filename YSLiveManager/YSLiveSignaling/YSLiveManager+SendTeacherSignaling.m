@@ -195,28 +195,28 @@
 }
 
 /// 删除课件
-- (BOOL)sendSignalingTeacherToDeleteDocumentWithFile:(YSFileModel *)fileModel completion:(completion_block)completion
-{
-    if (![fileModel bm_isNotEmpty])
-    {
-        return NO;
-    }
- 
-    NSDictionary *jsDic = [fileModel bm_toDictionary];
-
-    NSDictionary *sendDic = @{@"isDel":@(true),
-                              @"isGeneralFile":@(fileModel.isGeneralFile.boolValue),
-                              @"isMedia": @(fileModel.isMedia.boolValue),
-                              @"isDynamicPPT": @(fileModel.isDynamicPPT.boolValue),
-                              @"isH5Document": @(fileModel.isH5Document.boolValue),
-                              @"fileid" : fileModel.fileid,
-                              @"filedata":[self nullDicToDic:jsDic]
-                            };
-
-    BOOL result = [self sendPubMsg:sDocumentChange toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:YES completion:completion];
-  
-    return result;
-}
+//- (BOOL)sendSignalingTeacherToDeleteDocumentWithFile:(YSFileModel *)fileModel completion:(completion_block)completion
+//{
+//    if (![fileModel bm_isNotEmpty])
+//    {
+//        return NO;
+//    }
+// 
+//    NSDictionary *jsDic = [fileModel bm_toDictionary];
+//
+//    NSDictionary *sendDic = @{@"isDel":@(true),
+//                              @"isGeneralFile":@(fileModel.isGeneralFile.boolValue),
+//                              @"isMedia": @(fileModel.isMedia.boolValue),
+//                              @"isDynamicPPT": @(fileModel.isDynamicPPT.boolValue),
+//                              @"isH5Document": @(fileModel.isH5Document.boolValue),
+//                              @"fileid" : fileModel.fileid,
+//                              @"filedata":[self nullDicToDic:jsDic]
+//                            };
+//
+//    BOOL result = [self sendPubMsg:sDocumentChange toID:YSRoomPubMsgTellAll data:[sendDic bm_toJSON] save:NO completion:completion];
+//  
+//    return result;
+//}
 
 /// 切换课件
 - (BOOL)sendSignalingTeacherToSwitchDocumentWithFile:(YSFileModel *)fileModel isFresh:(BOOL)isFresh completion:(nullable completion_block)completion

@@ -89,7 +89,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 <
     BMTZImagePickerControllerDelegate,
     UINavigationControllerDelegate,
-    UIImagePickerControllerDelegate,
+    //UIImagePickerControllerDelegate,
     UIPopoverPresentationControllerDelegate,
     UITextViewDelegate,
     YSLiveRoomManagerDelegate,
@@ -5581,7 +5581,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf.liveManager sendSignalingTeacherToDeleteDocumentWithFile:fileModel completion:nil];
+        //[weakSelf.liveManager sendSignalingTeacherToDeleteDocumentWithFile:fileModel completion:nil];
+        [weakSelf.liveManager.whiteBoardManager deleteCourseWithFile:fileModel];
         [weakSelf deleteCoursewareWithFileID:fileModel.fileid];
     }];
     UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -5768,47 +5769,47 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
-// 完成图片的选取后调用的方法
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    // 选取完图片后跳转回原控制器
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    /* 此处参数 info 是一个字典，下面是字典中的键值 （从相机获取的图片和相册获取的图片时，两者的info值不尽相同）
-     * UIImagePickerControllerMediaType; // 媒体类型
-     * UIImagePickerControllerOriginalImage; // 原始图片
-     * UIImagePickerControllerEditedImage; // 裁剪后图片
-     * UIImagePickerControllerCropRect; // 图片裁剪区域（CGRect）
-     * UIImagePickerControllerMediaURL; // 媒体的URL
-     * UIImagePickerControllerReferenceURL // 原件的URL
-     * UIImagePickerControllerMediaMetadata // 当数据来源是相机时，此值才有效
-     */
-    // 从info中将图片取出，并加载到imageView当中
-    
-    BMWeakSelf
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [YSLiveApiRequest uploadImageWithImage:image withImageUseType:SCUploadImageUseType_Document success:^(NSDictionary * _Nonnull dict) {
-        
-        [weakSelf sendWhiteBordImageWithDic:dict];
-        
-    } failure:^(NSInteger errorCode) {
-#if DEBUG
-        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
-#else
-        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
-#endif
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
-        });
-    }];
-    
-}
-
-// 取消选取调用的方法
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    self.topSelectBtn.selected = NO;
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//// 完成图片的选取后调用的方法
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+//{
+//    // 选取完图片后跳转回原控制器
+//    [picker dismissViewControllerAnimated:YES completion:nil];
+//    /* 此处参数 info 是一个字典，下面是字典中的键值 （从相机获取的图片和相册获取的图片时，两者的info值不尽相同）
+//     * UIImagePickerControllerMediaType; // 媒体类型
+//     * UIImagePickerControllerOriginalImage; // 原始图片
+//     * UIImagePickerControllerEditedImage; // 裁剪后图片
+//     * UIImagePickerControllerCropRect; // 图片裁剪区域（CGRect）
+//     * UIImagePickerControllerMediaURL; // 媒体的URL
+//     * UIImagePickerControllerReferenceURL // 原件的URL
+//     * UIImagePickerControllerMediaMetadata // 当数据来源是相机时，此值才有效
+//     */
+//    // 从info中将图片取出，并加载到imageView当中
+//
+//    BMWeakSelf
+//    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//    [YSLiveApiRequest uploadImageWithImage:image withImageUseType:SCUploadImageUseType_Document success:^(NSDictionary * _Nonnull dict) {
+//
+//        [weakSelf sendWhiteBordImageWithDic:dict];
+//
+//    } failure:^(NSInteger errorCode) {
+//#if DEBUG
+//        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+//#else
+//        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+//#endif
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
+//        });
+//    }];
+//
+//}
+//
+//// 取消选取调用的方法
+//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+//{
+//    self.topSelectBtn.selected = NO;
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 
 #pragma mark -
@@ -5986,7 +5987,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (imageUseType == 0)
             {
-                [weakSelf sendWhiteBordImageWithDic:dict];
+                [weakSelf.liveManager.whiteBoardManager addWhiteBordImageCourseWithDic:dict];
             }
             else
             {
@@ -6029,83 +6030,85 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
-- (void)sendWhiteBordImageWithDic:(NSDictionary *)uplaodDic
-{
-    NSMutableDictionary *docDic = [[NSMutableDictionary alloc] initWithDictionary:uplaodDic];
-    
-    // 0:表示普通文档　１－２动态ppt(1: 第一版动态ppt 2: 新版动态ppt ）  3:h5文档
-    NSUInteger fileprop = [docDic bm_uintForKey:@"fileprop"];
-    BOOL isGeneralFile = fileprop == 0 ? YES : NO;
-    BOOL isDynamicPPT = fileprop == 1 || fileprop == 2 ? YES : NO;
-    BOOL isH5Document = fileprop == 3 ? YES : NO;
-    NSString *action = isDynamicPPT ? sActionShow : @"";
-    NSString *mediaType = @"";
-    NSString *filetype = @"jpg";
-    
-    [docDic setObject:action forKey:@"action"];
-    [docDic setObject:filetype forKey:@"filetype"];
-    
-    [self.liveManager.whiteBoardManager addDocumentWithFileDic:docDic];
-    
-    NSString *fileid = [docDic bm_stringTrimForKey:@"fileid" withDefault:@""];
-    NSString *filename = [docDic bm_stringTrimForKey:@"filename" withDefault:@""];
-    NSUInteger pagenum = [docDic bm_uintForKey:@"pagenum"];
-    NSString *swfpath = [docDic bm_stringTrimForKey:@"swfpath" withDefault:@""];
-    
-    NSDictionary *tDataDic = @{
-        @"isDel" : @(false),
-        @"isGeneralFile" : @(isGeneralFile),
-        @"isDynamicPPT" : @(isDynamicPPT),
-        @"isH5Document" : @(isH5Document),
-        @"action" : action,
-        @"mediaType" : mediaType,
-        @"isMedia" : @(false),
-        @"filedata" : @{
-                @"fileid" : fileid,
-                @"currpage" : @(1),
-                @"pagenum" : @(pagenum),
-                @"filetype" : filetype,
-                @"filename" : filename,
-                @"swfpath" : swfpath,
-                @"pptslide" : @(1),
-                @"pptstep" : @(0),
-                @"steptotal" : @(0),
-                @"filecategory":@(0)
-        }
-    };
-
-    [self.liveManager sendPubMsg:sDocumentChange toID:YSRoomPubMsgTellAllExceptSender data:[tDataDic bm_toJSON] save:NO associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
-    
-    NSString *downloadpath = [docDic bm_stringTrimForKey:@"downloadpath"];
-    NSInteger isContentDocument = [docDic bm_intForKey:@"isContentDocument"];
-//    data: "{"sourceInstanceId":"default","isGeneralFile":true,"isMedia":false,"isDynamicPPT":false,"isH5Document":false,"action":"show","mediaType":"","filedata":{"currpage":1,"pptslide":1,"pptstep":0,"steptotal":0,"fileid":1701,"pagenum":1,"filename":"老师_qr_2020-01-14_15_59_24.png","filetype":"png","isContentDocument":0,"swfpath":"/upload/20200114_155926_dwbudtjw.png"}}"
-
-    NSDictionary *tDataDic1 = @{
-        @"sourceInstanceId":@"default",
-        @"isGeneralFile" : @(isGeneralFile),
-        @"isDynamicPPT" : @(isDynamicPPT),
-        @"isH5Document" : @(isH5Document),
-        @"action" : sActionShow,
-        @"downloadpath" : downloadpath,
-        @"fileid" : fileid,
-        @"mediaType" : mediaType,
-        @"isMedia" : @(false),
-        @"filedata" : @{
-                @"fileid" : fileid ,
-                @"filename" : filename,
-                @"filetype" : filetype,
-                @"currpage" : @(1),
-                @"pagenum" : @(pagenum),
-                @"pptslide" : @(1),
-                @"pptstep" : @(0),
-                @"steptotal" : @(0),
-                @"isContentDocument" : @(isContentDocument),
-                @"swfpath" : swfpath
-        }
-    };
-
-    [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:[tDataDic1 bm_toJSON] save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
-}
+//- (void)sendWhiteBordImageWithDic:(NSDictionary *)uplaodDic
+//{
+//    NSMutableDictionary *docDic = [[NSMutableDictionary alloc] initWithDictionary:uplaodDic];
+//
+//    // 0:表示普通文档　１－２动态ppt(1: 第一版动态ppt 2: 新版动态ppt ）  3:h5文档
+//    NSUInteger fileprop = [docDic bm_uintForKey:@"fileprop"];
+//    BOOL isGeneralFile = fileprop == 0 ? YES : NO;
+//    BOOL isDynamicPPT = fileprop == 1 || fileprop == 2 ? YES : NO;
+//    BOOL isH5Document = fileprop == 3 ? YES : NO;
+//    //NSString *action = isDynamicPPT ? sActionShow : @"";
+//    NSString *mediaType = @"";
+//    NSString *filetype = @"jpg";
+//
+//    //[docDic setObject:action forKey:@"action"];
+//    [docDic setObject:filetype forKey:@"filetype"];
+//
+//    [self.liveManager.whiteBoardManager addDocumentWithFileDic:docDic];
+//
+//    NSString *fileid = [docDic bm_stringTrimForKey:@"fileid" withDefault:@""];
+//    NSString *filename = [docDic bm_stringTrimForKey:@"filename" withDefault:@""];
+//    NSUInteger pagenum = [docDic bm_uintForKey:@"pagenum"];
+//    NSString *swfpath = [docDic bm_stringTrimForKey:@"swfpath" withDefault:@""];
+//
+//    NSInteger isContentDocument = [docDic bm_intForKey:@"isContentDocument"];
+//
+//    NSDictionary *tDataDic = @{
+//        @"isDel" : @(false),
+//        @"isGeneralFile" : @(isGeneralFile),
+//        @"isDynamicPPT" : @(isDynamicPPT),
+//        @"isH5Document" : @(isH5Document),
+//        //@"action" : action,
+//        @"mediaType" : mediaType,
+//        @"isMedia" : @(false),
+//        @"filedata" : @{
+//                @"fileid" : fileid,
+//                @"currpage" : @(1),
+//                @"pagenum" : @(pagenum),
+//                @"filetype" : filetype,
+//                @"filename" : filename,
+//                @"swfpath" : swfpath,
+//                @"pptslide" : @(1),
+//                @"pptstep" : @(0),
+//                @"steptotal" : @(0),
+//                @"filecategory":@(0),
+//                @"isContentDocument" : @(isContentDocument)
+//        }
+//    };
+//
+//    [self.liveManager sendPubMsg:sDocumentChange toID:YSRoomPubMsgTellAllExceptSender data:tDataDic save:NO associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
+//
+//    NSString *downloadpath = [docDic bm_stringTrimForKey:@"downloadpath"];
+////    data: "{"sourceInstanceId":"default","isGeneralFile":true,"isMedia":false,"isDynamicPPT":false,"isH5Document":false,"action":"show","mediaType":"","filedata":{"currpage":1,"pptslide":1,"pptstep":0,"steptotal":0,"fileid":1701,"pagenum":1,"filename":"老师_qr_2020-01-14_15_59_24.png","filetype":"png","isContentDocument":0,"swfpath":"/upload/20200114_155926_dwbudtjw.png"}}"
+//
+//    NSDictionary *tDataDic1 = @{
+//        @"sourceInstanceId":@"default",
+//        @"isGeneralFile" : @(isGeneralFile),
+//        @"isDynamicPPT" : @(isDynamicPPT),
+//        @"isH5Document" : @(isH5Document),
+//        @"action" : sActionShow,
+//        @"downloadpath" : downloadpath,
+//        @"fileid" : fileid,
+//        @"mediaType" : mediaType,
+//        @"isMedia" : @(false),
+//        @"filedata" : @{
+//                @"fileid" : fileid ,
+//                @"filename" : filename,
+//                @"filetype" : filetype,
+//                @"currpage" : @(1),
+//                @"pagenum" : @(pagenum),
+//                @"pptslide" : @(1),
+//                @"pptstep" : @(0),
+//                @"steptotal" : @(0),
+//                @"isContentDocument" : @(isContentDocument),
+//                @"swfpath" : swfpath
+//        }
+//    };
+//
+//    [self.liveManager.roomManager pubMsg:sShowPage msgID:sDocumentFilePage_ShowPage toID:YSRoomPubMsgTellAll data:tDataDic save:YES associatedMsgID:nil associatedUserID:nil expires:0 completion:nil];
+//}
 
 /// 正在举手上台的人员数组
 - (NSMutableArray<YSRoomUser *> *)raiseHandArray
