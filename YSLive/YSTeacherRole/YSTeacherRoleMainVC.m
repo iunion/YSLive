@@ -3443,16 +3443,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
     
 }
-- (void)handleSignalingWhiteBroadShowPageMessage:(NSDictionary *)message isDynamic:(BOOL)isDynamic
-{
-    [self freshTeacherCoursewareListData];
-}
 
-/// 收到添加删除文件信令
-- (void)handleSignalingWhiteBroadDocumentChange
-{
-    [self freshTeacherCoursewareListData];
-}
 
 #pragma mark -
 #pragma mark 顶部Bar -- SCTeacherTopBarDelegate
@@ -5575,7 +5566,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
-    self.topSelectBtn.selected = NO;
+    self.topSelectBtn.selected = YES;
 
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];
@@ -5602,7 +5593,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
             @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",@"text/xml"
         ]];
-        
+        BMWeakSelf
         NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
@@ -5610,6 +5601,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
+//                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+//
+//                if ([responseDic bm_containsObjectForKey:@"result"])
+//                {
+//                    NSInteger result = [responseDic bm_intForKey:@"result"];
+//                    if (result == 0)
+//                    {
+//                        [weakSelf freshTeacherCoursewareListData];
+//                    }
+//                }
                 BMLog(@"%@--------%@", response,responseObject);
             }
         }];
