@@ -141,7 +141,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     NSInteger _personListCurentPage;
     NSInteger _personListTotalPage;
-    
+    BOOL isMediaPause;
+    BOOL isMediaStop;
     BOOL isSearch;
     NSMutableArray *searchArr;
 }
@@ -2745,6 +2746,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self freshListViewWithSelect:!btn.selected];
         //课件库
+        if (!self.liveManager.roomConfig.isMultiCourseware)
+        {
+            self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
+            if (self.liveManager.playMediaModel)
+            {
+                self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
+            }
+            else
+            {
+                self.currentMediaState = YSWhiteBordMediaState_Stop;
+            }
+            
+        }
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
         [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
         //        [self freshTeacherCoursewareListData];
@@ -2848,6 +2862,23 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected)
     {
 
+        if (!self.liveManager.roomConfig.isMultiCourseware)
+        {
+            self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
+            if (isMediaStop)
+            {
+                self.currentMediaState = YSWhiteBordMediaState_Stop;
+            }
+            else if (self.liveManager.playMediaModel)
+            {
+                self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
+            }
+            else
+            {
+                self.currentMediaState = YSWhiteBordMediaState_Stop;
+            }
+  
+        }
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
 
         [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
@@ -4724,8 +4755,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 // 播放白板视频/音频
 - (void)handleWhiteBordPlayMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
-
-    [self freshTeacherCoursewareListData];
+    isMediaPause = YES;
+    
     if (mediaModel.video)
     {
         [self showWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
@@ -4736,13 +4767,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }];
         [self onPlayMp3];
     }
+    [self freshTeacherCoursewareListData];
 }
 
 // 停止白板视频/音频
 - (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
 
-    [self freshTeacherCoursewareListData];
+    isMediaStop = YES;
     if (mediaModel.video)
     {
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
@@ -4753,12 +4785,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }];
         [self onStopMp3];
     }
+    [self freshTeacherCoursewareListData];
 }
 
 /// 继续播放白板视频/音频
 - (void)handleWhiteBordPlayMediaStream
 {
-
+    isMediaPause = NO;
     if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
     {
         [self onPlayMp3];
@@ -4769,7 +4802,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 暂停播放白板视频/音频
 - (void)handleWhiteBordPauseMediaStream
 {
-
+    isMediaPause = YES;
     if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
     {
         [self onPauseMp3];

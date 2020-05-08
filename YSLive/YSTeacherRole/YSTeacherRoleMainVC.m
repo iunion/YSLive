@@ -3140,7 +3140,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected )
     {
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.playMediaModel.fileid mediaState:self.currentMediaState];
+        if (!self.liveManager.roomConfig.isMultiCourseware)
+        {
+            self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
+            if (self.liveManager.playMediaModel)
+            {
+                self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
+            }
+            else
+            {
+                self.currentMediaState = YSWhiteBordMediaState_Stop;
+            }
+        }
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
     }
 }
 
