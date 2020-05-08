@@ -2118,6 +2118,12 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param message 扩展消息
 - (void)onRoomShareMediaState:(NSString *)peerId state:(YSMediaState)state extensionMessage:(NSDictionary *)message
 {
+    
+    if (self.roomConfig.isMultiCourseware)
+    {
+        /// 多课件不做处理
+        return;
+    }
     if (!self.viewDidAppear)
     {
         NSMutableArray *parameters = [[NSMutableArray alloc] init];
@@ -2142,7 +2148,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         return;
     }
-    
+
     if (state == YSMedia_Pulished)
     {
         YSLiveMediaModel *mediaModel = [YSLiveMediaModel mediaModelWithDic:message];
@@ -2179,6 +2185,11 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param isPlay 播放（YES）暂停（NO）
 - (void)onRoomUpdateMediaStream:(NSTimeInterval)duration pos:(NSTimeInterval)pos isPlay:(BOOL)isPlay
 {
+    if (self.roomConfig.isMultiCourseware)
+    {
+        /// 多课件不做处理
+        return;
+    }
     if (!self.viewDidAppear)
     {
         [self addMsgCachePoolWithMethodName:@selector(onRoomUpdateMediaStream:pos:isPlay:) parameters:@[ @(duration), @(pos), @(isPlay)]];

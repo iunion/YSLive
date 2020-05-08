@@ -211,6 +211,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否同步镜像视频 148
 @property (nonatomic, assign) BOOL isMirrorVideo;
 
+/// 是否多课件 150
+@property (nonatomic, assign) BOOL isMultiCourseware;
+
 - (instancetype)initWithConfigurationString:(NSString *)configurationString;
 
 @end

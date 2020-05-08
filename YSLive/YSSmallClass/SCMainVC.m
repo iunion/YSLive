@@ -26,6 +26,8 @@
 #import "SCVideoView.h"
 #import "SCVideoGridView.h"
 
+#import "YSMediaMarkView.h"
+
 #import "UIAlertController+SCAlertAutorotate.h"
 #import "YSLiveApiRequest.h"
 
@@ -225,7 +227,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) YSFloatView *shareVideoFloatView;
 /// 共享视频窗口
 @property (nonatomic, strong) UIView *shareVideoView;
+/// 白板视频标注视图
+@property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
+@property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 
+@property (nonatomic, strong) UIImageView *playMp3ImageView;
 /// 聊天的View
 @property(nonatomic,strong)SCChatView *rightChatView;
 /// 弹出聊天View的按钮
@@ -313,6 +319,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.isWideScreen = isWideScreen;
         
         self.userId = userId;
+        
+        self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
         
         if (self.roomtype == YSRoomType_More)
         {
@@ -475,6 +483,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 全屏白板
     [self setupFullBoardView];
     
+    [self makeMp3Animation];
+   
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
     
@@ -614,6 +624,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     // 全屏白板
     [self.whitebordFullBackgroud bm_bringToFront];
+    
+    // mp3f动画
+    [self.playMp3ImageView bm_bringToFront];
     
     // 笔刷工具
     [self.brushToolView bm_bringToFront];
@@ -1184,6 +1197,24 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.videoGridView = videoGridView;
 }
 
+/// 音频播放动画
+- (void)makeMp3Animation
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.view.bm_height - (MP3VIEW_WIDTH+15), MP3VIEW_WIDTH, MP3VIEW_WIDTH)];
+    
+    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    for (NSUInteger i=1; i<=50; i++)
+    {
+        NSString *imageName = [NSString stringWithFormat:@"main_playmp3_%02lu", (unsigned long)i];
+        [imageArray addObject:imageName];
+    }
+    
+    [imageView bm_animationWithImageArray:imageArray duration:2 repeatCount:0];
+    
+    imageView.hidden = YES;
+    self.playMp3ImageView = imageView;
+    [self.view addSubview:self.playMp3ImageView];
+}
 
 - (UIImageView *)makeGiftImageView
 {
@@ -2008,6 +2039,57 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
 }
 
+// 开始播放课件视频
+- (void)showWhiteBordVidoeViewWithPeerId:(NSString *)peerId
+{
+    [self.view endEditing:YES];
+    
+    [self.liveManager.roomManager playMediaFile:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
+    }];
+    
+    //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
+    
+    [self arrangeAllViewInVCView];
+    self.shareVideoFloatView.canZoom = NO;
+    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
+    self.shareVideoFloatView.showWaiting = YES;
+    self.shareVideoFloatView.hidden = NO;
+    
+#if USE_FullTeacher
+    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+#endif
+}
+
+// 关闭课件视频
+- (void)hideWhiteBordVidoeViewWithPeerId:(NSString *)peerId
+{
+    if (self.liveManager.playMediaModel.video)
+    {
+        if (!peerId)
+        {
+            peerId = self.liveManager.playMediaModel.user_peerId;
+        }
+        [self.liveManager.roomManager unPlayMediaFile:peerId completion:^(NSError *error) {
+        }];
+    }
+    
+    self.shareVideoFloatView.canZoom = NO;
+    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
+    self.shareVideoFloatView.hidden = YES;
+    
+    // 主动清除白板视频标注 服务端会发送关闭
+    [self handleSignalingHideVideoWhiteboard];
+#if USE_FullTeacher
+    [self stopFullTeacherVideoView];
+    
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
+#endif
+}
+
+
 #pragma mark - videoViewArray
 
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
@@ -2388,6 +2470,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     return nil;
 }
+
+
+#pragma mark -
+#pragma mark Mp3Func
+
+- (void)onPlayMp3
+{
+    [self arrangeAllViewInVCView];
+    self.playMp3ImageView.hidden = NO;
+    [self.playMp3ImageView startAnimating];
+}
+
+- (void)onPauseMp3
+{
+    [self.playMp3ImageView stopAnimating];
+}
+
+- (void)onStopMp3
+{
+    self.playMp3ImageView.hidden = YES;
+    [self.playMp3ImageView stopAnimating];
+}
+
 
 //聊天按钮点击事件
 - (void)chatButtonClick:(UIButton *)sender
@@ -4616,6 +4721,105 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark 白板翻页 换课件
+// 播放白板视频/音频
+- (void)handleWhiteBordPlayMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
+{
+
+    [self freshTeacherCoursewareListData];
+    if (mediaModel.video)
+    {
+        [self showWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
+    }
+    else if (mediaModel.audio)
+    {
+        [self.liveManager.roomManager playMediaFile:mediaModel.user_peerId renderType:YSRenderMode_fit window:self.teacherVideoView completion:^(NSError *error) {
+        }];
+        [self onPlayMp3];
+    }
+}
+
+// 停止白板视频/音频
+- (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
+{
+
+    [self freshTeacherCoursewareListData];
+    if (mediaModel.video)
+    {
+        [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
+    }
+    else if (mediaModel.audio)
+    {
+        [self.liveManager.roomManager unPlayMediaFile:mediaModel.user_peerId completion:^(NSError *error) {
+        }];
+        [self onStopMp3];
+    }
+}
+
+/// 继续播放白板视频/音频
+- (void)handleWhiteBordPlayMediaStream
+{
+
+    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
+    {
+        [self onPlayMp3];
+    }
+     [self freshTeacherCoursewareListData];
+}
+
+/// 暂停播放白板视频/音频
+- (void)handleWhiteBordPauseMediaStream
+{
+
+    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
+    {
+        [self onPauseMp3];
+    }
+    [self freshTeacherCoursewareListData];
+}
+
+/// 显示白板视频标注
+- (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
+{
+
+    if (self.shareVideoFloatView.hidden)
+    {
+        return;
+    }
+    
+    if (self.mediaMarkView.superview)
+    {
+        [self.mediaMarkView removeFromSuperview];
+    }
+    
+    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds];
+    [self.shareVideoFloatView addSubview:self.mediaMarkView];
+    
+    [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];
+}
+
+/// 绘制白板视频标注
+- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
+{
+
+    if (inlist)
+    {
+        [self.mediaMarkSharpsDatas addObject:data];
+    }
+    else
+    {
+        [self.mediaMarkView freshViewWithData:data savedSharpsData:self.mediaMarkSharpsDatas];
+        [self.mediaMarkSharpsDatas removeAllObjects];
+    }
+}
+
+/// 隐藏白板视频标注
+- (void)handleSignalingHideVideoWhiteboard
+{
+    if (self.mediaMarkView.superview)
+    {
+        [self.mediaMarkView removeFromSuperview];
+    }
+}
 
 /// 媒体课件状态
 - (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state
