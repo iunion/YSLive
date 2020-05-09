@@ -48,6 +48,7 @@
 
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
 @property (nonatomic, strong) UIImage *whiteBordMaskImage;
+@property (nonatomic, strong) UIColor *whiteBordDrawBgColor;
 
 // 消息缓存数据
 @property (nonatomic, strong) NSMutableArray *cacheMsgPool;
@@ -245,7 +246,8 @@ static YSLiveManager *liveManagerSingleton = nil;
 //    self.isEveryoneNoAudio = YES;
     self.isEveryoneNoAudio = NO;
     
-    self.whiteBordBgColor = [UIColor bm_colorWithHex:0xDCE2F1];
+    self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
+    self.whiteBordDrawBgColor = YSWhiteBoard_MainBackDrawBoardBgColor;
     self.whiteBordMaskImage = nil;
 }
 
@@ -283,7 +285,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
     else
     {
-        self.whiteBordBgColor = [UIColor bm_colorWithHex:0xDCE2F1];
+        self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
     }
     
     self.whiteBordMaskImage = image;
@@ -451,7 +453,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 
     [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
     [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
-    [self.whiteBoardManager changeMainCourseViewBackgroudColor:[UIColor clearColor]];
+    [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
