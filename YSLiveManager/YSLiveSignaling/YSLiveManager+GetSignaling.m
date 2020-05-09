@@ -418,6 +418,10 @@
     /// 白板视频标注
     if ([msgName isEqualToString:YSSignalingName_VideoWhiteboard])
     {
+        if (self.roomConfig.isMultiCourseware)
+        {
+            return;
+        }
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowVideoWhiteboardWithData:videoRatio:)])
         {
             if ([dataDic bm_isNotEmptyDictionary])
@@ -436,6 +440,10 @@
     
     if ([msgName isEqualToString:YSSignaling_Whiteboard_SharpsChange])
     {
+        if (self.roomConfig.isMultiCourseware)
+        {
+            return;
+        }
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingDrawVideoWhiteboardWithData:inList:)])
         {
             if ([dataDic bm_isNotEmptyDictionary])
@@ -1148,6 +1156,10 @@
     {
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowVideoWhiteboardWithData:videoRatio:)])
         {
+            if (self.roomConfig.isMultiCourseware)
+            {
+                return;
+            }
             //if ([dataDic bm_isNotEmptyDictionary])
             {
                 //NSString *whiteboardID = [dataDic bm_stringTrimForKey:@"whiteboardID"];
