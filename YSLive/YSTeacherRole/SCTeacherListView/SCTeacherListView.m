@@ -307,10 +307,20 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
                 break;
             }
         }
+        
         if (whiteBoardFile)
         {
-            [self.dataSource removeObject:whiteBoardFile];
-            [self.dataSource insertObject:whiteBoardFile atIndex:0];
+            
+            if ([YSLiveManager shareInstance].roomConfig.isMultiCourseware)
+            {
+                [self.dataSource removeObject:whiteBoardFile];
+            }
+            else
+            {
+                [self.dataSource removeObject:whiteBoardFile];
+                [self.dataSource insertObject:whiteBoardFile atIndex:0];
+            }
+            
         }
     }
     [self.tableView reloadData];
