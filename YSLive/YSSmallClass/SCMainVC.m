@@ -866,6 +866,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     whitebordBackgroud.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
+    whitebordBackgroud.layer.masksToBounds = YES;
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
