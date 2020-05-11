@@ -63,8 +63,8 @@
 - (void)setup
 {
     self.drawType = YSDrawTypePen;
-    self.selectColor = @"#000000";
-    self.progressResult = [self setDefaultProgress];
+    self.selectColor = [[YSLiveManager shareInstance].whiteBoardManager getPrimaryColorHex];
+    self.progressResult = 0.5f;
     BMWeakSelf
     self.backgroundColor = [UIColor clearColor];
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
@@ -80,7 +80,6 @@
     self.backgroundView.layer.masksToBounds = YES;
     self.backgroundView.layer.cornerRadius = 20;
     [self addSubview:self.backgroundView];
-    
     
     self.bacContainerView = [[UIView alloc] init];
     self.bacContainerView.backgroundColor = UIColor.clearColor;
@@ -274,7 +273,9 @@
     YSBrushToolsConfigs *config = [liveManager.whiteBoardManager getCurrentBrushToolConfig];
     
     YSDrawType drawType = config.drawType;
-    NSString *colorHex = config.colorHex;
+    // 工具颜色各自配置
+    //NSString *colorHex = config.colorHex;
+    NSString *colorHex = [[YSLiveManager shareInstance].whiteBoardManager getPrimaryColorHex];
     CGFloat progress = config.progress;
 
     switch (brushToolType)
@@ -316,6 +317,7 @@
     self.progressResult = progress;
     [self changeSelectColor:colorHex];
     [self layoutIfNeeded];
+    
     [self.progressSelectView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(self.bacContainerView.bmmas_left).bmmas_offset(20);
         make.width.bmmas_equalTo(progress * self.progressView.frame.size.width);
@@ -335,7 +337,6 @@
             [self.delegate brushSelectorViewDidSelectDrawType:_drawType color:self.selectColor widthProgress:progress];
         }
     }
-
 }
 
 - (void)setDrawType:(YSDrawType)drawType
@@ -369,38 +370,8 @@
     }
 }
 
-#pragma mark -UISel
-- (CGFloat)setDefaultProgress
-{
-    CGFloat progress = 0.03f;
-    switch (self.brushToolType) {
-        case YSBrushToolTypeMouse:
-            break;
-          
-        case YSBrushToolTypeLine:
-
-            progress = 0.03f;
-            break;
-            
-        case YSBrushToolTypeText:
-            progress = 0.3f;
-            break;
-        case YSBrushToolTypeShape:
-            progress = 0.03f;
-            break;
-            
-        case YSBrushToolTypeEraser:
-            progress = 0.03f;
-            break;
-        default:
-            break;
-    }
-    return progress;
-}
-
 - (void)creatToolBtnWithBrushToolType:(YSBrushToolType)brushToolType
 {
-    
     if (brushToolType == YSBrushToolTypeLine)
     {
         [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_drawpen_normal"] forState:UIControlStateNormal];
