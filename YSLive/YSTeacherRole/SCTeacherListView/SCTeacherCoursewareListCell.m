@@ -203,7 +203,7 @@
 {
     YSClassFiletype type;
     
-    NSString *fileType = [filepath pathExtension];
+    NSString *fileType = [[filepath pathExtension] lowercaseString];
     if ([fileType isEqualToString:YSLocalized(@"Title.whiteBoard")])
     {
         type = YSClassFiletype_WhiteBoard;
