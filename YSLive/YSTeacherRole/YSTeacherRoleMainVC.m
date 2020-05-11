@@ -331,14 +331,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, assign) YSWhiteBordMediaState currentMediaState;
 
 /// 视频布局时全屏按钮（隐藏顶部工具栏）
-@property(nonatomic,strong)UIButton *videoFullScreenBtn;
+@property(nonatomic, strong) UIButton *videoFullScreenBtn;
+
+/// 课件删除
+@property(nonatomic, strong) NSURLSessionDataTask *deleteTask;
 
 @end
+
+
 
 @implementation YSTeacherRoleMainVC
 
 - (void)dealloc
 {
+    [self.deleteTask cancel];
+    self.deleteTask = nil;
+    
     if (self.topBarTimer)
     {
         dispatch_source_cancel(self.topBarTimer);
@@ -5893,7 +5901,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //[weakSelf.liveManager sendSignalingTeacherToDeleteDocumentWithFile:fileModel completion:nil];
-        [weakSelf.liveManager.whiteBoardManager deleteCourseWithFile:fileModel];
         [weakSelf deleteCoursewareWithFileID:fileModel.fileid];
     }];
     UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -5903,24 +5910,27 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self presentViewController:alertVc animated:YES completion:nil];
     
 }
+
 - (void)deleteCoursewareWithFileID:(NSString *)fileid
 {
     BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSMutableURLRequest *request = [YSLiveApiRequest deleteCoursewareWithRoomId:self.liveManager.room_Id fileId:fileid];
     if (request)
     {
-
+        [self.deleteTask cancel];
+        
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
             @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",@"text/xml"
         ]];
         BMWeakSelf
-        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        self.deleteTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error)
             {
                 BMLog(@"Error: %@", error);
             }
             else
             {
+                [weakSelf.liveManager.whiteBoardManager deleteCourseWithFileId:fileid];
 //                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 //
 //                if ([responseDic bm_containsObjectForKey:@"result"])
@@ -5934,7 +5944,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 BMLog(@"%@--------%@", response,responseObject);
             }
         }];
-        [task resume];
+        [self.deleteTask resume];
     }
 }
 /// 课件点击
