@@ -467,6 +467,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     [self.whiteBoardManager changeWhiteBoardBackgroudColor:self.whiteBordBgColor];
     //[self.whiteBoardManager changeFileViewBackgroudColor:[UIColor clearColor]];
     
+    [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:@{ @"app_token" : @"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYWRhbmFtdSBhcHAiLCJleHAiOjE1OTE0MjcyOTMsImlhdCI6MTU4ODgzNTI2MywiaXNzIjoiS2lkc0xvb3BDaGluYVVzZXIiLCJzdWIiOiJhdXRob3JpemF0aW9uIiwiVG9rZW5UeXBlIjowLCJEYXRhIjoiSE9HdE1Ub3dsVVhyeGRQdlFmYXNKRHIvK3k0OWhQU2Q1ajVrblFEMEViV3g0d202L3dsYkdWS0NicjZoeU90WUpPQlRjVmJvK2NUbXNySVhSV0s1amQ4bVRkOXNnN253RlAzZGFQajZjV3FjTzdrMEMxNDNYQlV6YmJ1bEFHVHVJWFpKYy9Fa2p2am43c0Z4OGNGLyJ9.HCRjxXuE9wU_ingpplY88Zl9O-TyvxgZ1H5yoOxEtNFPfZ1-tllQ-RZfMH5mX5zEWx1WI6TbKr_jPVN4j73aJYUC90hPmXG4VZLVQgt9ffVEnheKc8_ZATSF0LD0P8pERUjnqXp4cMPcEk37VSAZcOzdySdgR8_ac1FPfZV9eL8" }];
+    
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
