@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)SDKDetailVersion;
 
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate;
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard;
 
 /// 改变白板背景颜色和水印底图
 - (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
@@ -48,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
 /// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
 - (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+
+/// 设置H5课件Cookies
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
 @end
 

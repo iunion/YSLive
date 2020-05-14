@@ -65,6 +65,7 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
  注册白板
  */
 - (void)registerDelegate:(id<YSWhiteBoardManagerDelegate>)delegate configration:(NSDictionary *)config;
+- (void)registerDelegate:(id<YSWhiteBoardManagerDelegate>)delegate configration:(NSDictionary *)config useHttpDNS:(BOOL)useHttpDNS;
 
 
 //创建白板组件
@@ -95,6 +96,9 @@ typedef NSArray* _Nullable (^WebContentTerminateBlock)(void);
 - (void)addConnectH5CoursewareUrlParameters:(nullable NSDictionary *)parameters;
 /// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
 - (void)changeConnectH5CoursewareUrlParameters:(nullable NSDictionary *)parameters;
+
+/// 设置H5课件Cookies
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
 
 /**

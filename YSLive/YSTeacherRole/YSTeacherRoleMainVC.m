@@ -46,6 +46,7 @@
 #import "YSTeacherResponder.h"
 #import "YSTeacherTimerView.h"
 #import "YSPollingView.h"
+
 #define USE_YSRenderMode_adaptive   1
 #define USE_FullTeacher             1
 
