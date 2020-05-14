@@ -119,7 +119,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.schoolHost = YSSchool_Server;
         
-        liveManagerSingleton.needUseHttpDNSForWhiteBoard = NO;
+        liveManagerSingleton.needUseHttpDNSForWhiteBoard = YES;
         
         liveManagerSingleton.devicePerformance_Low = NO;
 

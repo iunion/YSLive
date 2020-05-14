@@ -75,6 +75,8 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
         BMLog(@"SDK Version :%@", sdkVersion);
 #endif
         [YSCoreStatus beginMonitorNetwork:self];
+        
+        self.needUseHttpDNSForWhiteBoard = YES;
     }
     return self;
 }

@@ -127,6 +127,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
     [self.ysSDKManager registerManagerDelegate:self];
+    
     [self.ysSDKManager registerUseHttpDNSForWhiteBoard:NO];
     
     NSDictionary *cookieDic = @{NSHTTPCookieDomain:@".kidsloop.4mvlbg6o.badanamu.com.cn", NSHTTPCookiePath:@"/", NSHTTPCookieName:@"username", NSHTTPCookieValue:@"world", NSHTTPCookieExpires:[NSDate dateWithTimeIntervalSinceNow:24*60*60]};
