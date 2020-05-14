@@ -32,6 +32,9 @@
     YSWhiteBoardManagerDelegate
 >
 
+// 是否需要使用HttpDNS
+@property (nonatomic, assign) BOOL needUseHttpDNSForWhiteBoard;
+
 // 是否需要设备检测
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
@@ -91,6 +94,7 @@
 //@property (nonatomic, strong) NSString *serverName;
 
 @property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
+@property (nonatomic, strong) NSArray <NSDictionary *> *connectH5CoursewareUrlCookies;
 
 @end
 
@@ -114,6 +118,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         liveManagerSingleton.liveHost = YSLIVE_HOST;
         
         liveManagerSingleton.schoolHost = YSSchool_Server;
+        
+        liveManagerSingleton.needUseHttpDNSForWhiteBoard = NO;
         
         liveManagerSingleton.devicePerformance_Low = NO;
 
@@ -291,6 +297,13 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.roomManagerDelegate = RoomManagerDelegate;
 }
 
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard
+{
+#if YSSDK
+    self.needUseHttpDNSForWhiteBoard = needUseHttpDNSForWhiteBoard;
+#endif
+}
+
 - (void)setWhiteBoardBackGroundColor:(UIColor *)color maskImage:(UIImage *)image
 {
     if (color)
@@ -452,8 +465,15 @@ static YSLiveManager *liveManagerSingleton = nil;
         YSWhiteBoardWebPortKey : @(port),
         YSWhiteBoardPlayBackKey : @(NO),
     };
-    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
+
+#if YSSDK
+    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig useHttpDNS:self.needUseHttpDNSForWhiteBoard];
     
+    [self.whiteBoardManager setConnectH5CoursewareUrlCookies:self.connectH5CoursewareUrlCookies];
+#else
+    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
+#endif
+        
     if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
     {
         [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:self.connectH5CoursewareUrlParameters];
@@ -466,7 +486,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     [self.whiteBoardManager changeWhiteBoardBackImage:self.whiteBordMaskImage];
     [self.whiteBoardManager changeWhiteBoardBackgroudColor:self.whiteBordBgColor];
     //[self.whiteBoardManager changeFileViewBackgroudColor:[UIColor clearColor]];
-    
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
@@ -800,6 +819,10 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
 }
 
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
+{
+    _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
+}
 
 - (void)serverLog:(NSString *)log
 {

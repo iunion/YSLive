@@ -1288,7 +1288,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //                        }
                         
                         [weakSelf.view endEditing:YES];
-                        weakSelf.passwordTextField.inputTextField.text = nil;
+                        weakSelf.passwordTextField.inputTextField.text = @"94Y620EE";
                         return;
                     // 直播
                     case 4:

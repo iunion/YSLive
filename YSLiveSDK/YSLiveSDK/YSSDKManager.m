@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.7.2";
+static NSString *YSAPPVersionString = @"2.7.3";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.7.2.1";
+static NSString *YSSDKVersionString = @"2.7.3.0";
 
 @interface YSSDKManager ()
 <
@@ -40,7 +40,11 @@ static NSString *YSSDKVersionString = @"2.7.2.1";
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
 @property (nonatomic, strong) UIImage *whiteBordMaskImage;
 
+// 是否需要使用HttpDNS
+@property (nonatomic, assign) BOOL needUseHttpDNSForWhiteBoard;
 @property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
+
+@property (nonatomic, strong) NSArray <NSDictionary *> *connectH5CoursewareUrlCookies;
 
 @end
 
@@ -92,6 +96,11 @@ static NSString *YSSDKVersionString = @"2.7.2.1";
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate
 {
     self.delegate = managerDelegate;
+}
+
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard
+{
+    self.needUseHttpDNSForWhiteBoard = needUseHttpDNSForWhiteBoard;
 }
 
 /// 改变白板背景颜色和水印底图
@@ -184,13 +193,17 @@ static NSString *YSSDKVersionString = @"2.7.2.1";
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     self.liveManager = liveManager;
     
+    [self.liveManager registerRoomManagerDelegate:self];
+    [self.liveManager registerUseHttpDNSForWhiteBoard:self.needUseHttpDNSForWhiteBoard];
+    self.liveManager.sdkDelegate = self;
+    
+    [self.liveManager setConnectH5CoursewareUrlCookies:self.connectH5CoursewareUrlCookies];
+
     if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
     {
         [self.liveManager changeConnectH5CoursewareUrlParameters:self.connectH5CoursewareUrlParameters];
     }
 
-    [self.liveManager registerRoomManagerDelegate:self];
-    self.liveManager.sdkDelegate = self;
     [self.liveManager setWhiteBoardBackGroundColor:self.whiteBordBgColor maskImage:self.whiteBordMaskImage];
 
     BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
@@ -233,6 +246,11 @@ static NSString *YSSDKVersionString = @"2.7.2.1";
     {
         [self.liveManager changeConnectH5CoursewareUrlParameters:parameters];
     }
+}
+
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
+{
+    _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
 
 - (BOOL)checkKickTimeWithRoomId:(NSString *)roomId
