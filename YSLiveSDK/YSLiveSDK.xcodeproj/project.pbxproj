@@ -187,8 +187,6 @@
 		87DBEBA8241F52BC000C1FB5 /* SCAnswerPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBEA6C241F52BC000C1FB5 /* SCAnswerPageView.m */; };
 		87DBEBA9241F52BC000C1FB5 /* SCAnswerDetailTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBEA6D241F52BC000C1FB5 /* SCAnswerDetailTableViewCell.h */; };
 		87DBEBAA241F52BC000C1FB5 /* SCAnswerDetailModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBEA6E241F52BC000C1FB5 /* SCAnswerDetailModel.h */; };
-		87DBEBAB241F52BC000C1FB5 /* SCBoardControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBEA70241F52BC000C1FB5 /* SCBoardControlView.h */; };
-		87DBEBAC241F52BC000C1FB5 /* SCBoardControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBEA71241F52BC000C1FB5 /* SCBoardControlView.m */; };
 		87DBEBAD241F52BC000C1FB5 /* YSStudentTimerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBEA73241F52BC000C1FB5 /* YSStudentTimerView.h */; };
 		87DBEBAE241F52BC000C1FB5 /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DBEA74241F52BC000C1FB5 /* YSStudentTimerView.m */; };
 		87DBEBAF241F52BC000C1FB5 /* SCMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBEA75241F52BC000C1FB5 /* SCMainVC.h */; };
@@ -445,8 +443,6 @@
 		87DBEA6C241F52BC000C1FB5 /* SCAnswerPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAnswerPageView.m; sourceTree = "<group>"; };
 		87DBEA6D241F52BC000C1FB5 /* SCAnswerDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerDetailTableViewCell.h; sourceTree = "<group>"; };
 		87DBEA6E241F52BC000C1FB5 /* SCAnswerDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAnswerDetailModel.h; sourceTree = "<group>"; };
-		87DBEA70241F52BC000C1FB5 /* SCBoardControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBoardControlView.h; sourceTree = "<group>"; };
-		87DBEA71241F52BC000C1FB5 /* SCBoardControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBoardControlView.m; sourceTree = "<group>"; };
 		87DBEA73241F52BC000C1FB5 /* YSStudentTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
 		87DBEA74241F52BC000C1FB5 /* YSStudentTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSStudentTimerView.m; sourceTree = "<group>"; };
 		87DBEA75241F52BC000C1FB5 /* SCMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMainVC.h; sourceTree = "<group>"; };
@@ -1013,7 +1009,6 @@
 				87DBEA52241F52BC000C1FB5 /* SCChat */,
 				87DBEA5D241F52BC000C1FB5 /* SCMainVC.m */,
 				87DBEA5E241F52BC000C1FB5 /* SCAnswerView */,
-				87DBEA6F241F52BC000C1FB5 /* SCBoardControlView */,
 				87DBEA72241F52BC000C1FB5 /* YSStudentTimer */,
 				87DBEA75241F52BC000C1FB5 /* SCMainVC.h */,
 				87DBEA76241F52BC000C1FB5 /* SCVideoView */,
@@ -1098,15 +1093,6 @@
 				87DBEA6E241F52BC000C1FB5 /* SCAnswerDetailModel.h */,
 			);
 			path = SCAnswerView;
-			sourceTree = "<group>";
-		};
-		87DBEA6F241F52BC000C1FB5 /* SCBoardControlView */ = {
-			isa = PBXGroup;
-			children = (
-				87DBEA70241F52BC000C1FB5 /* SCBoardControlView.h */,
-				87DBEA71241F52BC000C1FB5 /* SCBoardControlView.m */,
-			);
-			path = SCBoardControlView;
 			sourceTree = "<group>";
 		};
 		87DBEA72241F52BC000C1FB5 /* YSStudentTimer */ = {
@@ -1312,7 +1298,6 @@
 				87DBEC19241F52BD000C1FB5 /* YSBarrageRenderView.h in Headers */,
 				87DBEB61241F52BC000C1FB5 /* YSEmotionView.h in Headers */,
 				87DBEC0E241F52BD000C1FB5 /* YSBarrageDescriptor.h in Headers */,
-				87DBEBAB241F52BC000C1FB5 /* SCBoardControlView.h in Headers */,
 				87DBEB22241F52BC000C1FB5 /* YSTeacherRoleMainVC.h in Headers */,
 				87DBE978241F51AA000C1FB5 /* YSLiveEnumHeader.h in Headers */,
 				87DBEC08241F52BD000C1FB5 /* YSMediaMarkView.h in Headers */,
@@ -1529,7 +1514,6 @@
 				87DBEC22241F52BD000C1FB5 /* YSSetTableViewVC.m in Sources */,
 				87DBEBB2241F52BC000C1FB5 /* SCVideoGridView.m in Sources */,
 				87DBEBB6241F52BC000C1FB5 /* YSStudentResponder.m in Sources */,
-				87DBEBAC241F52BC000C1FB5 /* SCBoardControlView.m in Sources */,
 				87DBEB4F241F52BC000C1FB5 /* YSAnswerCell.m in Sources */,
 				87DBEB7A241F52BC000C1FB5 /* YSLocation.m in Sources */,
 				87DBEB72241F52BC000C1FB5 /* YSLessonNotifyTableCell.m in Sources */,

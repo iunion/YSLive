@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.7.1";
+static NSString *YSAPPVersionString = @"2.7.3";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.7.1.0";
+static NSString *YSSDKVersionString = @"2.7.3.0";
 
 @interface YSSDKManager ()
 <
@@ -39,6 +39,12 @@ static NSString *YSSDKVersionString = @"2.7.1.0";
 
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
 @property (nonatomic, strong) UIImage *whiteBordMaskImage;
+
+// 是否需要使用HttpDNS
+@property (nonatomic, assign) BOOL needUseHttpDNSForWhiteBoard;
+@property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
+
+@property (nonatomic, strong) NSArray <NSDictionary *> *connectH5CoursewareUrlCookies;
 
 @end
 
@@ -69,6 +75,8 @@ static NSString *YSSDKVersionString = @"2.7.1.0";
         BMLog(@"SDK Version :%@", sdkVersion);
 #endif
         [YSCoreStatus beginMonitorNetwork:self];
+        
+        self.needUseHttpDNSForWhiteBoard = YES;
     }
     return self;
 }
@@ -90,6 +98,11 @@ static NSString *YSSDKVersionString = @"2.7.1.0";
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate
 {
     self.delegate = managerDelegate;
+}
+
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard
+{
+    self.needUseHttpDNSForWhiteBoard = needUseHttpDNSForWhiteBoard;
 }
 
 /// 改变白板背景颜色和水印底图
@@ -181,14 +194,50 @@ static NSString *YSSDKVersionString = @"2.7.1.0";
 
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     self.liveManager = liveManager;
-
+    
     [self.liveManager registerRoomManagerDelegate:self];
+    [self.liveManager registerUseHttpDNSForWhiteBoard:self.needUseHttpDNSForWhiteBoard];
     self.liveManager.sdkDelegate = self;
+    
+    if ([self.connectH5CoursewareUrlCookies bm_isNotEmpty])
+    {
+        [self.liveManager registerUseHttpDNSForWhiteBoard:NO];
+        [self.liveManager setConnectH5CoursewareUrlCookies:self.connectH5CoursewareUrlCookies];
+    }
+
+    if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
+    {
+        [self.liveManager changeConnectH5CoursewareUrlParameters:self.connectH5CoursewareUrlParameters];
+    }
+
     [self.liveManager setWhiteBoardBackGroundColor:self.whiteBordBgColor maskImage:self.whiteBordMaskImage];
 
     BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
+}
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters
+{
+    if ([parameters bm_isNotEmptyDictionary])
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    }
+    else
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionary];
+    }
+    
+    if (self.liveManager)
+    {
+        [self.liveManager changeConnectH5CoursewareUrlParameters:parameters];
+    }
+}
+
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
+{
+    _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
 
 - (BOOL)checkKickTimeWithRoomId:(NSString *)roomId

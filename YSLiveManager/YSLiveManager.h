@@ -152,16 +152,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 记录UI层是否开始上课
 @property (nonatomic, assign) BOOL isBeginClass;
 
-/// 记录UI层是否正在播放媒体
-@property (nonatomic, assign) BOOL playingMedia;
 /// 当前播放课件媒体
 @property (nonatomic, strong, readonly) YSLiveMediaModel *playMediaModel;
 
 /// 当前共享桌面用户Id
 @property (nonatomic, strong, readonly) NSString *sharePeerId;
-
-/// 是否是回放
-@property (nonatomic, assign) BOOL isPlayback;
 
 /// 举手上台信令的msgID的Key
 @property (nonatomic, copy) NSString *raisehandMsgID;
@@ -173,12 +168,20 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)destroy;
 
 - (void)registerRoomManagerDelegate:(nullable id <YSLiveRoomManagerDelegate>)RoomManagerDelegate;
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard;
+
 /// 改变白板背景颜色和水印底图
 - (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+
+/// 设置H5课件Cookies
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
 - (void)doMsgCachePool;
 

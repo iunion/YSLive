@@ -32,6 +32,9 @@
     YSWhiteBoardManagerDelegate
 >
 
+// 是否需要使用HttpDNS
+@property (nonatomic, assign) BOOL needUseHttpDNSForWhiteBoard;
+
 // 是否需要设备检测
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
@@ -89,6 +92,11 @@
 /// 当前共享桌面用户Id
 @property (nonatomic, strong) NSString *sharePeerId;
 
+//@property (nonatomic, strong) NSString *serverName;
+
+@property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
+@property (nonatomic, strong) NSArray <NSDictionary *> *connectH5CoursewareUrlCookies;
+
 @end
 
 
@@ -112,6 +120,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         liveManagerSingleton.schoolHost = YSSchool_Server;
         
+        liveManagerSingleton.needUseHttpDNSForWhiteBoard = YES;
+        
         liveManagerSingleton.devicePerformance_Low = NO;
 
         liveManagerSingleton.isBigRoom = NO;
@@ -124,7 +134,6 @@ static YSLiveManager *liveManagerSingleton = nil;
         /// 全体禁音
         liveManagerSingleton.isEveryoneNoAudio = NO;
         liveManagerSingleton.isBeginClass = NO;
-        liveManagerSingleton.playingMedia = NO;
         
 #if YSSDK
         // 区分是否进入教室
@@ -275,6 +284,13 @@ static YSLiveManager *liveManagerSingleton = nil;
 - (void)registerRoomManagerDelegate:(id <YSLiveRoomManagerDelegate>)RoomManagerDelegate
 {
     self.roomManagerDelegate = RoomManagerDelegate;
+}
+
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard
+{
+#if YSSDK
+    self.needUseHttpDNSForWhiteBoard = needUseHttpDNSForWhiteBoard;
+#endif
 }
 
 - (void)setWhiteBoardBackGroundColor:(UIColor *)color maskImage:(UIImage *)image
@@ -433,12 +449,23 @@ static YSLiveManager *liveManagerSingleton = nil;
         YSWhiteBoardWebPortKey : @(port),
         YSWhiteBoardPlayBackKey : @(NO),
     };
-    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
     
+#if YSSDK
+    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig useHttpDNS:self.needUseHttpDNSForWhiteBoard];
+    
+    [self.whiteBoardManager setConnectH5CoursewareUrlCookies:self.connectH5CoursewareUrlCookies];
+#else
+    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
+#endif
+        
+    if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
+    {
+        [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:self.connectH5CoursewareUrlParameters];
+    }
+
 //    self.whiteBordView = [self.whiteBoardManager createWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100) loadComponentName:YSWBMainContentComponent loadFinishedBlock:^{
 //
 //    }];
-    
     
     CGFloat whiteBordViewH = 500;
     if (BMIS_IPHONE)
@@ -748,6 +775,29 @@ static YSLiveManager *liveManagerSingleton = nil;
         
         [self doMsgCachePoolWithSort:NO];
     }
+}
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters
+{
+    if ([parameters bm_isNotEmptyDictionary])
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    }
+    else
+    {
+        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionary];
+    }
+    
+    if (self.whiteBoardManager)
+    {
+        [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:parameters];
+    }
+}
+
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
+{
+    _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
 
 - (void)serverLog:(NSString *)log
@@ -2158,7 +2208,6 @@ static YSLiveManager *liveManagerSingleton = nil;
         {
             mediaModel.user_peerId = peerId;
             self.playMediaModel = mediaModel;
-            self.playingMedia = YES;
             if ([self.roomManagerDelegate respondsToSelector:@selector(handleWhiteBordPlayMediaFileWithMedia:)])
             {
                 [self.roomManagerDelegate handleWhiteBordPlayMediaFileWithMedia:mediaModel];
@@ -2176,8 +2225,6 @@ static YSLiveManager *liveManagerSingleton = nil;
             }
             self.playMediaModel = nil;
         }
-        
-        self.playingMedia = NO;
     }
 }
 
@@ -2344,6 +2391,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         [self.roomManagerDelegate handleonWhiteBoardMediaFileStateWithFileId:fileId state:state];
     }
 }
+
 - (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
 {
     if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardFullScreen:)])
@@ -2351,6 +2399,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         [self.roomManagerDelegate handleonWhiteBoardFullScreen:isAllScreen];
     }
 }
+
 // 文件列表回调
 // @param fileList 文件列表 是一个NSArray类型的数据
 - (void)onWhiteBroadFileList:(NSArray *)fileList
@@ -2377,32 +2426,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     {
         [self.roomManagerDelegate handleonWhiteBoardChangedFileWithFileList:fileList];
     }
-}
-
-#pragma mark -
-#pragma mark setter/getter
-
-- (BOOL)isBeginClass
-{
-    return self.whiteBoardManager.isBeginClass;
-}
-
-// 记录UI层是否开始上课
-- (void)setIsBeginClass:(BOOL)isBeginClass
-{
-    //self.whiteBoardManager.isBeginClass = isBeginClass;
-}
-
-- (BOOL)playingMedia
-{
-    return NO;
-    //return self.whiteBoardManager.playingMedia;
-}
-
-// 记录UI层是否正在播放媒体
-- (void)setPlayingMedia:(BOOL)playingMedia
-{
-    //self.whiteBoardManager.playingMedia = playingMedia;
 }
 
 

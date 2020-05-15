@@ -16,6 +16,8 @@
 #import <YSSDK/YSSDKManager.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 
+#define USE_COOKIES     0
+
 /// 登录时 输入框记录的房间号
 static NSString *const YSLOGIN_USERDEFAULT_ROOMID = @"ysLOGIN_USERDEFAULT_ROOMID";
 /// 登录时 输入框记录的昵称
@@ -127,6 +129,19 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
     [self.ysSDKManager registerManagerDelegate:self];
+    
+#if USE_COOKIES
+    // 如果使用cookie请关闭HttpDNS
+    [self.ysSDKManager registerUseHttpDNSForWhiteBoard:NO];
+    
+    NSDictionary *cookieDic = @{NSHTTPCookieDomain:@".kidsloop.4mvlbg6o.badanamu.com.cn", NSHTTPCookiePath:@"/", NSHTTPCookieName:@"username", NSHTTPCookieValue:@"world", NSHTTPCookieExpires:[NSDate dateWithTimeIntervalSinceNow:24*60*60]};
+    // 设置cookie，只在初始化使用，后期设置无效
+    [self.ysSDKManager setConnectH5CoursewareUrlCookies:@[cookieDic]];
+#endif
+    
+    // 设置H5课件扩展参数
+    [self.ysSDKManager changeConnectH5CoursewareUrlParameters:@{@"app_token" : @"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYWRhbmFtdSBhcHAiLCJleHAiOjE1OTE0MjcyOTMsImlhdCI6MTU4ODgzNTI2MywiaXNzIjoiS2lkc0xvb3BDaGluYVVzZXIiLCJzdWIiOiJhdXRob3JpemF0aW9uIiwiVG9rZW5UeXBlIjowLCJEYXRhIjoiSE9HdE1Ub3dsVVhyeGRQdlFmYXNKRHIvK3k0OWhQU2Q1ajVrblFEMEViV3g0d202L3dsYkdWS0NicjZoeU90WUpPQlRjVmJvK2NUbXNySVhSV0s1amQ4bVRkOXNnN253RlAzZGFQajZjV3FjTzdrMEMxNDNYQlV6YmJ1bEFHVHVJWFpKYy9Fa2p2am43c0Z4OGNGLyJ9.HCRjxXuE9wU_ingpplY88Zl9O-TyvxgZ1H5yoOxEtNFPfZ1-tllQ-RZfMH5mX5zEWx1WI6TbKr_jPVN4j73aJYUC90hPmXG4VZLVQgt9ffVEnheKc8_ZATSF0LD0P8pERUjnqXp4cMPcEk37VSAZcOzdySdgR8_ac1FPfZV9eL8"}];
+    
     if (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
     {
         [self.ysSDKManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];

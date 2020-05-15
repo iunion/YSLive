@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)SDKDetailVersion;
 
 - (void)registerManagerDelegate:(nullable UIViewController <YSSDKDelegate> *)managerDelegate;
+/// 是否白板课件使用HttpDNS
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard;
 
 /// 改变白板背景颜色和水印底图
 - (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
@@ -43,6 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
    2、needpassword: BOOL类型，参会人员(学生)是否需要密码
  */
 - (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code, NSString *errorStr))failure;
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+
+/// 设置H5课件Cookies 如果使用Cookie,请先设置[manager registerUseHttpDNSForWhiteBoard:NO]
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
 @end
 
