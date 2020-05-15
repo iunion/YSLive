@@ -41,6 +41,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, strong) NSURLSessionDataTask *enterRoomTask;
 
+@property (nonatomic, strong) NSString *leftHUDmessage;
+
 @end
 
 @implementation YSClassDayList
@@ -496,17 +498,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
 
-    if (![liveManager.room_Id bm_isNotEmpty])
-    {
-        BMWeakSelf
-        NSString *descript = YSLoginLocalized(@"Error.CanNotConnectNetworkError");
-        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
-            [weakSelf waitRoomLeft:nil];
-        }];
-        
-        return;
-    }
-
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
 
     NSString *roomId = liveManager.room_Id ? liveManager.room_Id : @"";
@@ -629,6 +620,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
+#if YSShowErrorCode
+    self.leftHUDmessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
+#else
+    self.leftHUDmessage = descript;
+#endif
+    
     [self waitRoomLeft:nil];
     
 //    [self.progressHUD bm_hideAnimated:NO];
@@ -653,16 +650,25 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)onRoomLeft
 {
     NSString *errorMessage;
-    if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+    if (self.leftHUDmessage)
     {
-        errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+        errorMessage = self.leftHUDmessage;
     }
     else
     {
-        errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+        if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+        {
+            errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+        }
+        else
+        {
+            errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+        }
     }
 
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    
+    self.leftHUDmessage = nil;
 
     [YSLiveManager destroy];
 }

@@ -135,6 +135,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
+@property (nonatomic, strong) NSString *leftHUDmessage;
+
 @end
 
 
@@ -1905,17 +1907,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     
-    if (![liveManager.room_Id bm_isNotEmpty])
-    {
-        BMWeakSelf
-        NSString *descript = YSLoginLocalized(@"Error.CanNotConnectNetworkError");
-        [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
-            [weakSelf waitRoomLeft:nil];
-        }];
-        
-        return;
-    }
-
     NSString *roomId = liveManager.room_Id ? liveManager.room_Id : @"";
     NSString *userId = liveManager.localUser.peerID ? liveManager.localUser.peerID : @"";
     NSString *nickName = liveManager.localUser.nickName ? liveManager.localUser.nickName : @"";
@@ -2079,6 +2070,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     NSLog(@"================================== roomManagerReportFail: %@, %@", @(errorCode), descript);
     
+#if YSShowErrorCode
+    self.leftHUDmessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
+#else
+    self.leftHUDmessage = descript;
+#endif
+    
     //[self performSelector:@selector(waitRoomLeft:) withObject:nil afterDelay:1];
     [self waitRoomLeft:nil];
     
@@ -2109,17 +2106,26 @@ typedef void (^YSRoomLeftDoBlock)(void);
     NSLog(@"================================== onRoomLeft");
     
     NSString *errorMessage;
-    if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+    if (self.leftHUDmessage)
     {
-        errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+        errorMessage = self.leftHUDmessage;
     }
     else
     {
-        errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+        if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+        {
+            errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+        }
+        else
+        {
+            errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+        }
     }
 
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 
+    self.leftHUDmessage = nil;
+    
     [YSLiveManager destroy];
 }
 
