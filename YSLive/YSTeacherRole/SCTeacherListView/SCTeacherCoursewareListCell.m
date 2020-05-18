@@ -138,17 +138,17 @@
     /// 关联课件的情况下处理
     type = [self creatFileTypeWithFilePath:fileModel.filename];
     
-    if (fileModel.isDynamicPPT.boolValue)
+    if (fileModel.isDynamicPPT)
     {
         type = YSClassFiletype_PPT;
     }
     
-    if (fileModel.isH5Document.boolValue )
+    if (fileModel.isH5Document )
     {
         type = YSClassFiletype_H5;
     }
     
-    if (fileModel.isGeneralFile.boolValue)
+    if (fileModel.isGeneralFile)
     {
         if (fileModel.fileid.intValue == 0)
         {
