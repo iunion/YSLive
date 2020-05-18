@@ -83,18 +83,12 @@
     }
 }
 
-- (void)freshViewWithSavedSharpsData:(NSArray <NSDictionary *> *)sharpsDataArray videoRatio:(CGFloat)videoRatio
+- (void)setVideoRatio:(CGFloat)videoRatio
 {
-    if (self.superview)
-    {
-        self.frame = self.superview.bounds;
-    }
-    
-    self.videoRatio = videoRatio;
+    _videoRatio = videoRatio;
     
     CGFloat width;
     CGFloat height;
-
     if (self.videoRatio > 0)
     {
         width = self.bm_height*self.videoRatio;
@@ -110,15 +104,19 @@
         
         self.drawView.bm_size = CGSizeMake(width, height);
         [self.drawView bm_centerInSuperView];
-        
-        [self.drawView switchToFileID:YSSignaling_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
-        //[self.drawView addDrawData:data refreshImmediately:YES];
     }
     else
     {
         self.drawView.frame = self.bounds;
     }
-    
+}
+
+- (void)freshViewWithSavedSharpsData:(NSArray <NSDictionary *> *)sharpsDataArray videoRatio:(CGFloat)videoRatio
+{
+    self.videoRatio = videoRatio;
+
+    [self.drawView switchToFileID:YSVideoWhiteboard_Id pageID:1 refreshImmediately:YES];
+
     for (NSDictionary *dic in sharpsDataArray)
     {
         [self.drawView addDrawData:dic refreshImmediately:YES];
@@ -151,23 +149,24 @@
 
 - (void)addSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeData:(NSData *)shapeData
 {
-    if ([YSLiveManager shareInstance].localUser.role != YSUserType_Teacher)
+    if ([YSRoomInterface instance].localUser.role != YSUserType_Teacher)
     {
         return;
     }
     
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:shapeData options:NSJSONReadingMutableContainers error:nil];
     
-    [dic setObject:self.drawView.fileid forKey:@"whiteboardID"];
+    NSString *whiteboardID = [YSRoomUtil getwhiteboardIDFromFileId:self.drawView.fileid];
+    [dic setObject:whiteboardID forKey:@"whiteboardID"];
     [dic setObject:@(false) forKey:@"isBaseboard"];
     
-    [dic setObject:[YSLiveManager shareInstance].localUser.nickName forKey:@"nickname"];
+    [dic setObject:[YSRoomInterface instance].localUser.nickName forKey:@"nickname"];
     
-    NSData *newData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *newData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
     NSString *data = [[NSString alloc] initWithData:newData encoding:NSUTF8StringEncoding];
     NSString *dataString = [data stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
-    [[YSLiveManager shareInstance].roomManager pubMsg:sSharpsChange msgID:shapeID toID:YSRoomPubMsgTellAll data:dataString save:YES associatedMsgID:sVideoWhiteboard associatedUserID:nil expires:0 completion:nil];
+    [[YSRoomInterface instance] pubMsg:sYSSignalSharpsChange msgID:shapeID toID:YSRoomPubMsgTellAll data:dataString save:YES associatedMsgID:sYSSignalVideoWhiteboard associatedUserID:nil expires:0 completion:nil];
 }
 
 - (void)handleSignal:(NSDictionary *)dictionary isDel:(BOOL)isDel
@@ -181,17 +180,17 @@
 //    NSString *associatedMsgID = [dictionary objectForKey:sAssociatedMsgID];
     
     // 信令名
-    NSString *msgName = [dictionary objectForKey:sName];
+    NSString *msgName = [dictionary objectForKey:@"name"];
     
     // 信令内容
     id dataObject = [dictionary objectForKey:@"data"];
-    NSDictionary *data = [YSLiveUtil convertWithData:dataObject];
+    NSDictionary *data = [YSRoomUtil convertWithData:dataObject];
     if (![data bm_isNotEmptyDictionary])
     {
         return;
     }
 
-    if ([msgName isEqualToString:sVideoWhiteboard])
+    if ([msgName isEqualToString:sYSSignalVideoWhiteboard])
     {
         if (!isDel)
         {
@@ -210,5 +209,4 @@
         }
     }
 }
-
 @end
