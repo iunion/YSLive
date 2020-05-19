@@ -60,7 +60,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 #define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
 
 /// 一对一多视频最高尺寸
-static const CGFloat kVideoView_MaxHeight_iPhone = 50.0f;
+static const CGFloat kVideoView_MaxHeight_iPhone = 100.0f;
 static const CGFloat kVideoView_MaxHeight_iPad  = 160.0f;
 #define VIDEOVIEW_MAXHEIGHT         ([UIDevice bm_isiPad] ? kVideoView_MaxHeight_iPad : kVideoView_MaxHeight_iPhone)
 
@@ -1334,12 +1334,22 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     NSUInteger count = [self getVideoViewCount];
     
-    // 老师没被拖出
-    if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+    if (count < 10)
     {
-        //teacherWidth = videoTeacherWidth;
-        teacherWidth = videoWidth;
-        count--;
+        // 老师没被拖出
+        if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+        {
+            teacherWidth = videoWidth;
+            count--;
+        }
+    }
+    else
+    {
+        if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+        {
+            teacherWidth = videoTeacherWidth;
+        }
+        count = 8;
     }
     
     CGFloat totalWidth = teacherWidth + count*(videoWidth+VIDEOVIEW_GAP*0.5);
@@ -1421,44 +1431,63 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        if ([self checkVideoSize])
+        NSUInteger count = [self getVideoViewCount];
+        if (count < 10)
         {
-            //floor((UI_SCREEN_WIDTH+VIDEOVIEW_GAP*0.5)/self.videoViewArray.count-VIDEOVIEW_GAP*0.5);
-            
-            NSUInteger count = [self getVideoViewCount];
-            /// 老师视频是否被拖出
-            //            if (self.teacherVideoView && !self.teacherVideoView.isDragOut)
-            //            {
-            //                videoWidth = floor((UI_SCREEN_WIDTH-videoTeacherWidth)/(count-1)-VIDEOVIEW_GAP*0.5);
-            //            }
-            //            else
+            if ([self checkVideoSize])
             {
-                videoWidth = floor(BMUI_SCREEN_WIDTH/count-VIDEOVIEW_GAP*0.5);
-            }
-            
-            if (self.isWideScreen)
-            {
-                videoHeight = ceil(videoWidth* 9 / 16);
+                //floor((UI_SCREEN_WIDTH+VIDEOVIEW_GAP*0.5)/self.videoViewArray.count-VIDEOVIEW_GAP*0.5);
+                
+                /// 老师视频是否被拖出
+                //            if (self.teacherVideoView && !self.teacherVideoView.isDragOut)
+                //            {
+                //                videoWidth = floor((UI_SCREEN_WIDTH-videoTeacherWidth)/(count-1)-VIDEOVIEW_GAP*0.5);
+                //            }
+                //            else
+                {
+                    videoWidth = floor(BMUI_SCREEN_WIDTH/count-VIDEOVIEW_GAP*0.5);
+                }
+                
+                if (self.isWideScreen)
+                {
+                    videoHeight = ceil(videoWidth* 9 / 16);
+                }
+                else
+                {
+                    videoHeight = ceil(videoWidth* 3 / 4);
+                }
             }
             else
             {
-                videoHeight = ceil(videoWidth* 3 / 4);
+                videoHeight = VIDEOVIEW_MAXHEIGHT;
+                
+                if (self.isWideScreen)
+                {
+                    videoWidth = ceil(videoHeight* 16 / 9);
+                }
+                else
+                {
+                    videoWidth = ceil(videoHeight* 4 / 3);
+                }
             }
         }
         else
         {
-            videoHeight = VIDEOVIEW_MAXHEIGHT;
+            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
+            
+            videoHeight = (VIDEOVIEW_MAXHEIGHT - VIDEOVIEW_GAP*0.5)/2;
             
             if (self.isWideScreen)
             {
-                videoWidth = ceil(videoHeight* 16 / 9);
+                videoTeacherWidth = ceil(videoTeacherHeight * 16/9);
+                videoWidth = ceil(videoHeight * 16/9);
             }
             else
             {
-                videoWidth = ceil(videoHeight* 4 / 3);
+                videoTeacherWidth = ceil(videoTeacherHeight * 4/3);
+                videoWidth = ceil(videoHeight * 4/3);
             }
         }
-        
         [self freshWhitBordContentView];
     }
 }
@@ -1697,31 +1726,51 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         CGFloat totalWidth = [self getVideoTotalWidth];
         videoStartX = (BMUI_SCREEN_WIDTH-totalWidth)*0.5;
         
+        NSInteger count = [self getVideoViewCount];
         NSUInteger index = 0;
-        for (SCVideoView *view in self.videoViewArray)
+        for (int i = 0; i < self.videoViewArray.count; i++)
         {
+            SCVideoView *view = self.videoViewArray[i];
+
             if (view.isDragOut || view.isFullScreen)
             {
                 continue;
             }
             
-            // 老师视频是否被拖出
-            //            if (self.teacherVideoView && !self.teacherVideoView.isDragOut)
-            //            {
-            //                if (index==0)
-            //                {
-            //                    view.frame = CGRectMake(videoStartX, VIDEOVIEW_GAP*0.5, videoTeacherWidth, videoTeacherHeight);
-            //                }
-            //                else
-            //                {
-            //                    view.frame = CGRectMake(videoStartX+videoTeacherWidth+VIDEOVIEW_GAP*0.5+(videoWidth+VIDEOVIEW_GAP*0.5)*(index-1), VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
-            //                }
-            //            }
-            //            else
+            if (count < 10)
+             {
+                 view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
+             }
+            else if (count < 17)
             {
-                view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
+                // 老师没被拖出
+                if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+                {
+                    if (i == 0)
+                    {
+                        view.frame = CGRectMake(videoStartX, VIDEOVIEW_GAP*0.5, videoTeacherWidth, videoTeacherHeight);
+                    }
+                    else if (index < 9)
+                    {
+                        view.frame = CGRectMake(videoStartX + videoTeacherWidth + VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * (index - 1), VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
+                    }
+                    else
+                    {
+                        view.frame = CGRectMake(videoStartX + videoTeacherWidth + VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * (index - 9), videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+                    }
+                }
+                else
+                {
+                    if (index < 8)
+                    {
+                        view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
+                    }
+                    else
+                    {
+                        view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * (index - 8), videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+                    }
+                }
             }
-            
             index++;
         }
     }
@@ -1772,11 +1821,20 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
-        
+        NSUInteger count = [self getVideoViewCount];
+        if (count < 10)
+        {
+            self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
+            
+//            self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
+            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+        }
+        else
+        {
+            self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoTeacherHeight + VIDEOVIEW_GAP);
+            
+        }
         self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
-        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
     }
     
     [self freshWhiteBordViewFrame];

@@ -1107,18 +1107,27 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (CGFloat)getVideoTotalWidth
 {
     CGFloat teacherWidth = 0;
-    
     NSUInteger count = [self getVideoViewCount];
     
-    // 老师没被拖出
-    if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+    if (count < 10)
     {
-        teacherWidth = videoWidth;
-        count--;
+        // 老师没被拖出
+        if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+        {
+            teacherWidth = videoWidth;
+            count--;
+        }
+    }
+    else
+    {
+        if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+        {
+            teacherWidth = videoTeacherWidth;
+        }
+        count = 8;
     }
     
     CGFloat totalWidth = teacherWidth + count*(videoWidth+VIDEOVIEW_GAP*0.5);
-    
     return totalWidth;
 }
 
@@ -1197,16 +1206,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 //            }
                 //            else
                 {
-                    videoWidth = floor(BMUI_SCREEN_WIDTH/count-VIDEOVIEW_GAP*0.5);
+                    videoWidth = floor(BMUI_SCREEN_WIDTH / count - VIDEOVIEW_GAP * 0.5);
                 }
                 
                 if (self.isWideScreen)
                 {
-                    videoHeight = ceil(videoWidth* 9 / 16);
+                    videoHeight = ceil(videoWidth * 9 /16);
                 }
                 else
                 {
-                    videoHeight = ceil(videoWidth* 3 / 4);
+                    videoHeight = ceil(videoWidth * 3/4);
                 }
             }
             else
@@ -1215,11 +1224,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 
                 if (self.isWideScreen)
                 {
-                    videoWidth = ceil(videoHeight* 16 / 9);
+                    videoWidth = ceil(videoHeight * 16/9);
                 }
                 else
                 {
-                    videoWidth = ceil(videoHeight* 4 / 3);
+                    videoWidth = ceil(videoHeight * 4/3);
                 }
             }
         }
@@ -1231,13 +1240,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (self.isWideScreen)
             {
-                videoTeacherWidth = ceil(videoHeight* 16 / 9);
-                videoWidth = ceil(videoHeight* 16 / 9);
+                videoTeacherWidth = ceil(videoTeacherHeight * 16/9);
+                videoWidth = ceil(videoHeight * 16/9);
             }
             else
             {
-                videoTeacherWidth = ceil(videoHeight* 4 / 3);
-                videoWidth = ceil(videoHeight* 4 / 3);
+                videoTeacherWidth = ceil(videoTeacherHeight * 4/3);
+                videoWidth = ceil(videoHeight * 4/3);
             }
         }
     }
@@ -1405,31 +1414,52 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         CGFloat totalWidth = [self getVideoTotalWidth];
         videoStartX = (BMUI_SCREEN_WIDTH-totalWidth)*0.5;
         
+        NSInteger count = [self getVideoViewCount];
+        
         NSUInteger index = 0;
-        for (SCVideoView *view in self.videoViewArray)
+        
+        for (int i = 0; i < self.videoViewArray.count; i++)
         {
+            SCVideoView *view = self.videoViewArray[i];
+
             if (view.isDragOut || view.isFullScreen)
             {
                 continue;
             }
-            
-// 老师视频是否被拖出
-//            if (self.teacherVideoView && !self.teacherVideoView.isDragOut)
-//            {
-//                if (index==0)
-//                {
-//                    view.frame = CGRectMake(videoStartX, VIDEOVIEW_GAP*0.5, videoTeacherWidth, videoTeacherHeight);
-//                }
-//                else
-//                {
-//                    view.frame = CGRectMake(videoStartX+videoTeacherWidth+VIDEOVIEW_GAP*0.5+(videoWidth+VIDEOVIEW_GAP*0.5)*(index-1), VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
-//                }
-//            }
-//            else
+            if (count < 10)
+             {
+                 view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
+             }
+            else if (count < 17)
             {
-                view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
+                // 老师没被拖出
+                if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
+                {
+                    if (i == 0)
+                    {
+                        view.frame = CGRectMake(videoStartX, VIDEOVIEW_GAP*0.5, videoTeacherWidth, videoTeacherHeight);
+                    }
+                    else if (index < 9)
+                    {
+                        view.frame = CGRectMake(videoStartX + videoTeacherWidth + VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * (index - 1), VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
+                    }
+                    else
+                    {
+                        view.frame = CGRectMake(videoStartX + videoTeacherWidth + VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * (index - 9), videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+                    }
+                }
+                else
+                {
+                    if (index < 8)
+                    {
+                        view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
+                    }
+                    else
+                    {
+                        view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * (index - 8), videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+                    }
+                }
             }
-            
             index++;
         }
     }
@@ -1463,23 +1493,21 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        
         NSUInteger count = [self getVideoViewCount];
         
         if (count < 10)
         {
             self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
             
-            self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
+//            self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
             //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
         }
         else
         {
             self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoTeacherHeight + VIDEOVIEW_GAP);
             
-            self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
         }
-        
+        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
     }
     
     [self freshWhiteBordViewFrame];
@@ -1516,17 +1544,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [videoView removeFromSuperview];
     }
-    if (self.videoViewArray.count<16)
-    {
-        for (int i = 0; i<5; i++)
-        {
-            YSRoomUser * user = [[YSRoomUser alloc]initWithPeerId:[NSString stringWithFormat:@"%d",i+10]];
-            
-            SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:user withDelegate:self];
-            
-            [self.videoViewArray addObject:videoView];
-        }
-    }
+
     [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];

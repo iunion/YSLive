@@ -338,7 +338,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         [parameters setObject:userId forKey:YSJoinRoomParamsUserIDKey];
     }
     
-    return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters userParams:nil needCheckPermissions:needCheckPermissions];
+    return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters userParams:userParams needCheckPermissions:needCheckPermissions];
 }
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
