@@ -10,22 +10,32 @@
 
 @implementation GraphCodeView
 
-- (instancetype)initWithFrame:(CGRect)frame{
-    self=[super initWithFrame:frame];
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
     if (self) {
-        //设置随机背景颜色
+        // 设置随机背景颜色
         self.backgroundColor =[UIColor colorWithRed:210.0/255 green:210.0/255 blue:210.0/255 alpha:1];
         ;
     }
     return self;
 }
 
+- (void)setCodeStr:(NSString *)codeStr
+{
+    _codeStr = codeStr;
+    
+    // setNeedsDisplay调用drawRect方法来实现view的绘制
+    [self setNeedsDisplay];
+}
+
 //根据服务器返回的或者自己设置的codeStr绘制图形验证码
-- (void)drawRect:(CGRect)rect{
+- (void)drawRect:(CGRect)rect
+{
     [super drawRect:rect];
     
-    //根据要显示的验证码字符串，根据长度，计算每个字符串显示的位置
-    NSString *text = [NSString stringWithFormat:@"%@",_codeStr];
+    // 根据要显示的验证码字符串，根据长度，计算每个字符串显示的位置
+    NSString *text = [NSString stringWithFormat:@"%@", self.codeStr];
     
     CGSize cSize = [@"A" sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]}];
     
@@ -34,7 +44,7 @@
     
     CGPoint point;
     
-    //依次绘制每一个字符,可以设置显示的每个字符的字体大小、颜色、样式等
+    // 依次绘制每一个字符,可以设置显示的每个字符的字体大小、颜色、样式等
     float pX,pY;
     for ( int i = 0; i<text.length; i++)
     {
@@ -48,9 +58,9 @@
         [textC drawAtPoint:point withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }
     
-    //调用drawRect：之前，系统会向栈中压入一个CGContextRef，调用UIGraphicsGetCurrentContext()会取栈顶的CGContextRef
+    // 调用drawRect：之前，系统会向栈中压入一个CGContextRef，调用UIGraphicsGetCurrentContext()会取栈顶的CGContextRef
     CGContextRef context = UIGraphicsGetCurrentContext();
-    //设置线条宽度
+    // 设置线条宽度
     CGContextSetLineWidth(context, 1.0);
     
     //绘制干扰线
@@ -73,12 +83,16 @@
     }
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (_delegate&&[_delegate respondsToSelector:@selector(didTapGraphCodeView:)]) {
-        [_delegate didTapGraphCodeView:self];
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didTapGraphCodeView:)])
+    {
+        [self.delegate didTapGraphCodeView:self];
     }
-    //setNeedsDisplay调用drawRect方法来实现view的绘制
-    [self setNeedsDisplay];
+    else
+    {
+        self.codeStr = [NSString bm_randomStringWithLength:4];
+    }
 }
 
 @end
