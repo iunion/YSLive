@@ -17,6 +17,10 @@
         // 设置随机背景颜色
         self.backgroundColor =[UIColor colorWithRed:210.0/255 green:210.0/255 blue:210.0/255 alpha:1];
         ;
+        
+        UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
+        oneTap.numberOfTapsRequired = 1;
+        [self addGestureRecognizer:oneTap];
     }
     return self;
 }
@@ -83,7 +87,19 @@
     }
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(didTapGraphCodeView:)])
+//    {
+//        [self.delegate didTapGraphCodeView:self];
+//    }
+//    else
+//    {
+//        self.codeStr = [NSString bm_randomStringWithLength:4];
+//    }
+//}
+
+- (void)click:(UITapGestureRecognizer *)tapGesture
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(didTapGraphCodeView:)])
     {

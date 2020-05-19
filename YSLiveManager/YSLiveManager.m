@@ -354,7 +354,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         [parameters setObject:userId forKey:YSJoinRoomParamsUserIDKey];
     }
     
-    return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters userParams:nil needCheckPermissions:needCheckPermissions];
+    return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters userParams:userParams needCheckPermissions:needCheckPermissions];
 }
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
@@ -2624,7 +2624,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         case YSErrorCode_CheckRoom_RoomDeleteOrOrverdue: // 3003  房间被删除或过期
         case YSErrorCode_CheckRoom_RoomNonExistent:
         { // 4007 房间不存在 房间被删除或者过期
-            alertMessage = YSLocalized(@"Error.RoomDeletedOrExpired");
+            alertMessage = @"房间号或密码错误"; //  YSLocalized(@"Error.RoomDeletedOrExpired");
         }
             break;
         case YSErrorCode_CheckRoom_RequestFailed:
@@ -2634,12 +2634,12 @@ static YSLiveManager *liveManagerSingleton = nil;
             break;
         case YSErrorCode_CheckRoom_PasswordError:
         { // 4008  房间密码错误
-            alertMessage = YSLocalized(@"Error.PwdError");
+            alertMessage = @"房间号或密码错误"; //  YSLocalized(@"Error.PwdError");
         }
             break;
         case YSErrorCode_CheckRoom_WrongPasswordForRole:
         { // 4012  密码与角色不符
-            alertMessage = YSLocalized(@"Error.PwdError");
+            alertMessage = @"房间号或密码错误"; // YSLocalized(@"Error.PwdError");
         }
             break;
         case YSErrorCode_CheckRoom_RoomNumberOverRun:

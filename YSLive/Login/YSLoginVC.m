@@ -61,8 +61,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 <
     YSLiveRoomManagerDelegate,
     UITextFieldDelegate,
-    YSInputViewDelegate,
-    GraphCodeViewDelegate
+    YSInputViewDelegate
+    //GraphCodeViewDelegate
 >
 
 @property (nonatomic, assign) YSAppUseTheType room_UseTheType;
@@ -651,28 +651,27 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     self.passOnlineTextField.hidden = YES;
     
+    self.graphCodeView = [[GraphCodeView alloc] init];
+    [self.backImageView addSubview:self.graphCodeView];
+    [self.graphCodeView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.width.bmmas_equalTo(100);
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
+        make.height.bmmas_equalTo(40);
+    }];
+    [_graphCodeView setCodeStr:[NSString bm_randomStringWithLength:4]];//设置验证码
+    //[_graphCodeView setDelegate:self];
+
     [self.backImageView addSubview:self.graphCodeTextField];
     [self.graphCodeTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(kBMScale_W(28));
-        make.right.bmmas_equalTo(-kBMScale_W(130));
+        make.right.bmmas_equalTo(weakSelf.graphCodeView.bmmas_left).bmmas_offset(-5);
         make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(40);
     }];
     self.graphCodeTextField.layer.cornerRadius = 20;
     self.graphCodeTextField.layer.borderWidth = 1;
     self.graphCodeTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-      
-    self.graphCodeView = [[GraphCodeView alloc] init];
-    [self.backImageView addSubview:self.graphCodeView];
-    [self.graphCodeView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.graphCodeTextField.bmmas_right).bmmas_offset(kBMScale_W(5));
-        make.right.bmmas_equalTo(-kBMScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
-        make.height.bmmas_equalTo(40);
-    }];
-    [_graphCodeView setCodeStr:[NSString bm_randomStringWithLength:4]];//设置验证码
-    [_graphCodeView setDelegate:self];
-
     
     [self.passwordEyeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.right.bmmas_equalTo(-10);
@@ -749,11 +748,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
 }
 
 
-#pragma mark - GraphCodeView delegate
-- (void)didTapGraphCodeView:(GraphCodeView *)graphCodeView{
-    NSLog(@"点击了图形验证码");
-    
-}
+//#pragma mark - GraphCodeView delegate
+//- (void)didTapGraphCodeView:(GraphCodeView *)graphCodeView{
+//    NSLog(@"点击了图形验证码");
+//    
+//}
 
 #pragma mark --键盘弹出收起管理
 
@@ -1151,7 +1150,16 @@ typedef void (^YSRoomLeftDoBlock)(void);
         self.nickNameTextField.inputTextField.text = nickName;
     }
 #else
-    
+
+    NSString *graphCode = [[self.graphCodeTextField.inputTextField.text bm_trimAllSpace] lowercaseString];
+    if (![graphCode isEqualToString:[self.graphCodeView.codeStr lowercaseString]])
+    {
+        // 教室号不能为空
+        NSString *content = @"验证码错误";
+        [BMAlertView ys_showAlertWithTitle:content message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:nil];
+        return;
+    }
+
     /**信息检查*/
     if (![roomId bm_isNotEmpty])
     {
@@ -1360,7 +1368,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     NSString *roomId = [self.roomTextField.inputTextField.text bm_trimAllSpace];
     NSString *nickName = self.nickNameTextField.inputTextField.text;
     NSString *passWordStr = self.passwordTextField.inputTextField.text;
-    
+    NSString *graphCode = self.graphCodeView.codeStr;
+
     if (![self checkKickTimeWithRoomId:roomId])
     {
         return;
@@ -1379,14 +1388,27 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [liveManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
     }
 #endif
-
-    if ([passWordStr bm_isNotEmpty])
+    
+    NSDictionary *userParams = @{@"graphcode" : graphCode};
+    
+#warning publicPemKey
+    NSString *publicPemKey = nil;
+    NSString *encodePassWordStr = passWordStr;
+    if (publicPemKey)
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
+        NSError *error = nil;
+        encodePassWordStr = [BMRSA encryptString:passWordStr publicPemKey:publicPemKey error:&error];
+    }
+
+    NSLog(@"%@", encodePassWordStr);
+
+    if ([encodePassWordStr bm_isNotEmpty])
+    {
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:encodePassWordStr userRole:self.selectRoleType userId:nil userParams:userParams needCheckPermissions:self.needCheckPermissions];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:userParams needCheckPermissions:self.needCheckPermissions];
     }
     
     self.needCheckPermissions = YES;

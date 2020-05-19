@@ -12,6 +12,7 @@
 
 @protocol GraphCodeViewDelegate <NSObject>
 
+@optional
 // 点击图形验证码
 - (void)didTapGraphCodeView:(GraphCodeView *)graphCodeView;
 
