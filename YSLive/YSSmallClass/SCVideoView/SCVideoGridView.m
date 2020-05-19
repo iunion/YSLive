@@ -1009,7 +1009,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
                     videoView14.bm_top = height*2;
                     videoView14.bm_left = width*3;
                     
-                    videoView15.bm_top = height*3;
+                    videoView15.bm_top = height*2;
                     videoView15.bm_left = width*4;
                 }
             }
