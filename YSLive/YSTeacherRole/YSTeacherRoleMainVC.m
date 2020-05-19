@@ -1483,9 +1483,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [videoView removeFromSuperview];
     }
-
+    if (self.videoViewArray.count<16)
+    {
+        for (int i = 0; i<5; i++)
+        {
+            YSRoomUser * user = [[YSRoomUser alloc]initWithPeerId:[NSString stringWithFormat:@"%d",i+10]];
+            
+            SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:user withDelegate:self];
+            
+            [self.videoViewArray addObject:videoView];
+        }
+    }
     [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-    
+        
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
     self.contentView.hidden = YES;
     self.videoGridView.hidden = NO;
