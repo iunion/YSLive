@@ -40,14 +40,14 @@
 #import "BMAlertView+YSDefaultAlert.h"
 
 #import "YSLiveUtil.h"
-
+#import "GraphCodeView.h"
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
 #endif
 
 
-#define YSONLINESCHOOL 1
+#define YSONLINESCHOOL 0
 #define YS_CHANGE_WHITEBOARD_BACKGROUND 0
 
 /// 每次打包的递增版本号 +1
@@ -61,7 +61,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 <
     YSLiveRoomManagerDelegate,
     UITextFieldDelegate,
-    YSInputViewDelegate
+    YSInputViewDelegate,
+    GraphCodeViewDelegate
 >
 
 @property (nonatomic, assign) YSAppUseTheType room_UseTheType;
@@ -136,6 +137,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
 @property (nonatomic, strong) NSString *leftHUDmessage;
+
+/// 验证码输入框
+@property (nonatomic, strong) YSInputView *graphCodeTextField;
+/// 验证码提示
+@property (nonatomic, strong) GraphCodeView *graphCodeView;
 
 @end
 
@@ -645,6 +651,29 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     self.passOnlineTextField.hidden = YES;
     
+    [self.backImageView addSubview:self.graphCodeTextField];
+    [self.graphCodeTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(kBMScale_W(28));
+        make.right.bmmas_equalTo(-kBMScale_W(130));
+        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
+        make.height.bmmas_equalTo(40);
+    }];
+    self.graphCodeTextField.layer.cornerRadius = 20;
+    self.graphCodeTextField.layer.borderWidth = 1;
+    self.graphCodeTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+      
+    self.graphCodeView = [[GraphCodeView alloc] init];
+    [self.backImageView addSubview:self.graphCodeView];
+    [self.graphCodeView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.graphCodeTextField.bmmas_right).bmmas_offset(kBMScale_W(5));
+        make.right.bmmas_equalTo(-kBMScale_W(28));
+        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
+        make.height.bmmas_equalTo(40);
+    }];
+    [_graphCodeView setCodeStr:[NSString bm_randomStringWithLength:4]];//设置验证码
+    [_graphCodeView setDelegate:self];
+
+    
     [self.passwordEyeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.right.bmmas_equalTo(-10);
         make.top.bmmas_equalTo(self.passOnlineTextField);
@@ -671,7 +700,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     [self.backImageView addSubview:self.joinRoomBtn];
     [self.joinRoomBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(43));
+        make.top.bmmas_equalTo(weakSelf.graphCodeTextField.bmmas_bottom).bmmas_offset(kBMScale_H(43));
         make.height.bmmas_equalTo(50);
         make.width.bmmas_equalTo(kBMScale_W(238));
         make.centerX.bmmas_equalTo(0);
@@ -694,7 +723,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.joinRoomBtn.layer.cornerRadius = 25;
     self.joinRoomBtn.layer.masksToBounds = YES;
     [self.joinRoomBtn addTarget:self action:@selector(joinRoomBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
+ 
     //    NSString *bundleVersionCode = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     //    NSString *string = [NSString stringWithFormat:@"buildNO: %@", bundleVersionCode];
     //    UILabel *label = [UILabel bm_labelWithFrame:CGRectMake(20, 40, 200, 30) text:string fontSize:14.0 color:[UIColor bm_colorWithHex:0x999999] alignment:NSTextAlignmentLeft lines:1];
@@ -719,11 +748,18 @@ typedef void (^YSRoomLeftDoBlock)(void);
 #endif
 }
 
+
+#pragma mark - GraphCodeView delegate
+- (void)didTapGraphCodeView:(GraphCodeView *)graphCodeView{
+    NSLog(@"点击了图形验证码");
+    
+}
+
 #pragma mark --键盘弹出收起管理
 
 - (void)keyboardWillShow:(NSNotification *)note
 {
-    CGRect frame = self.nickNameTextField.frame;
+    CGRect frame = self.joinRoomBtn.frame;
     //获取键盘高度
     NSDictionary* info = [note userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
@@ -1518,6 +1554,20 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return _admin_accountTextField;
 }
 
+- (YSInputView *)graphCodeTextField
+{
+    if (!_graphCodeTextField)
+    {
+         if (!_graphCodeTextField)
+         {
+             _graphCodeTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalizedSchool(@"请输入验证码") withImageName:@""];
+             _graphCodeTextField.inputTextField.delegate = self;
+             _graphCodeTextField.inputTextField.tag = 10010;
+             _graphCodeTextField.delegate = self;
+         }
+    }
+    return _graphCodeTextField;
+}
 
 - (YSInputView *)passOnlineTextField
 {
