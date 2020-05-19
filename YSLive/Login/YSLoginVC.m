@@ -1072,6 +1072,89 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 }
 
+- (void)getRoomPublicKey
+{
+    BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
+    NSMutableURLRequest *request = [YSLiveApiRequest getRoomPublicKey];
+    if (request)
+    {
+        BMWeakSelf
+        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+            if (error)
+            {
+                BMLog(@"Error: %@", error);
+                NSString *errorMessage;
+                if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+                {
+                    errorMessage = YSLoginLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+                }
+                else
+                {
+                    errorMessage = YSLoginLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                }
+
+#if YSShowErrorCode
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:[NSString stringWithFormat:@"%@: %@", @(error.code), error.localizedDescription] delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+#else
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+#endif
+            }
+            else
+            {
+                NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
+                if ([dataDic bm_isNotEmptyDictionary])
+                {
+                    NSInteger statusCode = [dataDic bm_intForKey:YSSuperVC_StatusCode_Key];
+                    if (statusCode == YSSuperVC_StatusCode_Succeed)
+                    {
+                        NSString *key = [dataDic bm_stringForKey:@"key"];
+                        if ([key bm_isNotEmpty])
+                        {
+                            [weakSelf saveRoomPubKey:key];
+                            [weakSelf checkRoomType];
+                            return;
+                        }
+                    }
+#if YSShowErrorCode
+                    else
+                    {
+                        NSString *message = [dataDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:YSLoginLocalized(@"Error.ServerError")];
+                        message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
+                        [weakSelf.progressHUD bm_showAnimated:NO withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                        return;
+                    }
+#endif
+                }
+                
+                [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+            }
+        }];
+        [task resume];
+    }
+    else
+    {
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    }
+}
+
+- (void)saveRoomPubKey:(NSString *)key
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([key bm_isNotEmpty])
+    {
+        [defaults setObject:key forKey:@"ysRoomWithPubKey"];
+    }
+    
+    [defaults synchronize];
+}
+
+- (NSString *)getSavedRoomPubKey
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [defaults objectForKey:@"ysRoomWithPubKey"];
+    return key;
+}
+
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
     if (![YSCoreStatus isNetworkEnable])
@@ -1184,7 +1267,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     //检查房间类型
 //    if ([UIDevice bm_isiPad])
 //    {
-        [self checkRoomType];
+        [self getRoomPublicKey];
+        //[self checkRoomType];
 //    }
 //    else
 //    {
@@ -1391,24 +1475,32 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     NSDictionary *userParams = @{@"graphcode" : graphCode};
     
-#warning publicPemKey
-    NSString *publicPemKey = nil;
+    NSString *publicPemKey = [self getSavedRoomPubKey];
+    
+    if (![publicPemKey bm_isNotEmpty])
+    {
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.ServerError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        return;
+    }
+    
     NSString *encodePassWordStr = passWordStr;
+    NSString *encodeRoomId = roomId;
     if (publicPemKey)
     {
         NSError *error = nil;
         encodePassWordStr = [BMRSA encryptString:passWordStr publicPemKey:publicPemKey error:&error];
+        encodeRoomId = [BMRSA encryptString:roomId publicPemKey:publicPemKey error:&error];
     }
 
     NSLog(@"%@", encodePassWordStr);
 
     if ([encodePassWordStr bm_isNotEmpty])
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:encodePassWordStr userRole:self.selectRoleType userId:nil userParams:userParams needCheckPermissions:self.needCheckPermissions];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:encodeRoomId roomPassword:encodePassWordStr userRole:self.selectRoleType userId:nil userParams:userParams needCheckPermissions:self.needCheckPermissions];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:userParams needCheckPermissions:self.needCheckPermissions];
+        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:encodeRoomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:userParams needCheckPermissions:self.needCheckPermissions];
     }
     
     self.needCheckPermissions = YES;

@@ -13,6 +13,16 @@
 
 @implementation YSLiveApiRequest
 
+/// 获取登录密匙
++ (NSMutableURLRequest *)getRoomPublicKey
+{
+    //https://demo.roadofcloud.net/ClientAPI/getEntryPubKey
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getEntryPubKey", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+}
+
 /// 获取升级信息
 + (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum
 {

@@ -15,6 +15,8 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 @interface YSLiveApiRequest : YSApiRequest
 
+/// 获取登录密匙
++ (NSMutableURLRequest *)getRoomPublicKey;
 
 /// 获取升级信息 versionNum  发版的年月日 加上 版本递增的两位整数  例子：2019122201
 + (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum;

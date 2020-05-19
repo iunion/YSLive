@@ -341,7 +341,8 @@ static YSLiveManager *liveManagerSingleton = nil;
         //YSJoinRoomParamsPasswordKey : [roomPassword bm_isNotEmpty] ? roomPassword : @"",
         YSJoinRoomParamsUserRoleKey : @(userRole),
         @"server" : server,
-        @"clientType" : @(3)
+        @"clientType" : @(3),
+        @"issafe" : @(1)
     }.mutableCopy;
     
     if ([roomPassword bm_isNotEmpty])
