@@ -1182,40 +1182,61 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        if ([self checkVideoSize])
+        NSUInteger count = [self getVideoViewCount];
+        if (count < 10)
         {
-            //floor((UI_SCREEN_WIDTH+VIDEOVIEW_GAP*0.5)/self.videoViewArray.count-VIDEOVIEW_GAP*0.5);
-            
-            NSUInteger count = [self getVideoViewCount];
-            /// 老师视频是否被拖出
-            //            if (self.teacherVideoView && !self.teacherVideoView.isDragOut)
-            //            {
-            //                videoWidth = floor((UI_SCREEN_WIDTH-videoTeacherWidth)/(count-1)-VIDEOVIEW_GAP*0.5);
-            //            }
-            //            else
+            if ([self checkVideoSize])
             {
-                videoWidth = floor(BMUI_SCREEN_WIDTH/count-VIDEOVIEW_GAP*0.5);
-            }
-            
-            if (self.isWideScreen)
-            {
-                videoHeight = ceil(videoWidth* 9 / 16);
+                //floor((UI_SCREEN_WIDTH+VIDEOVIEW_GAP*0.5)/self.videoViewArray.count-VIDEOVIEW_GAP*0.5);
+                
+                
+                /// 老师视频是否被拖出
+                //            if (self.teacherVideoView && !self.teacherVideoView.isDragOut)
+                //            {
+                //                videoWidth = floor((UI_SCREEN_WIDTH-videoTeacherWidth)/(count-1)-VIDEOVIEW_GAP*0.5);
+                //            }
+                //            else
+                {
+                    videoWidth = floor(BMUI_SCREEN_WIDTH/count-VIDEOVIEW_GAP*0.5);
+                }
+                
+                if (self.isWideScreen)
+                {
+                    videoHeight = ceil(videoWidth* 9 / 16);
+                }
+                else
+                {
+                    videoHeight = ceil(videoWidth* 3 / 4);
+                }
             }
             else
             {
-                videoHeight = ceil(videoWidth* 3 / 4);
+                videoHeight = VIDEOVIEW_MAXHEIGHT;
+                
+                if (self.isWideScreen)
+                {
+                    videoWidth = ceil(videoHeight* 16 / 9);
+                }
+                else
+                {
+                    videoWidth = ceil(videoHeight* 4 / 3);
+                }
             }
         }
         else
         {
-            videoHeight = VIDEOVIEW_MAXHEIGHT;
+            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
+            
+            videoHeight = (VIDEOVIEW_MAXHEIGHT - VIDEOVIEW_GAP*0.5)/2;
             
             if (self.isWideScreen)
             {
+                videoTeacherWidth = ceil(videoHeight* 16 / 9);
                 videoWidth = ceil(videoHeight* 16 / 9);
             }
             else
             {
+                videoTeacherWidth = ceil(videoHeight* 4 / 3);
                 videoWidth = ceil(videoHeight* 4 / 3);
             }
         }
@@ -1442,11 +1463,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
         
-        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
-        //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-        //[[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+        NSUInteger count = [self getVideoViewCount];
+        
+        if (count < 10)
+        {
+            self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
+            
+            self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
+            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+        }
+        else
+        {
+            self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoTeacherHeight + VIDEOVIEW_GAP);
+            
+            self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
+        }
+        
     }
     
     [self freshWhiteBordViewFrame];
