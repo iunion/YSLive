@@ -745,9 +745,6 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
                 videoView13.bm_top = height*2;
                 videoView13.bm_left = width*2;
             }
-
-            
-            
         }
             break;
 
@@ -758,6 +755,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
 #pragma mark - 焦点布局（17路视频）
 
+//计算各控件的尺寸
 - (void)changeFrameFocus
 {
     self.videosBgView.frame = self.bounds;
@@ -774,11 +772,29 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     }
     
     self.rightBgHeight = self.bm_height;
-    self.rightBgWidth = 2 * self.videoWidth + VIDEOGRIDVIEW_GAP;
     
+    if (self.videoViewArray.count < 2)
+    {
+        self.rightBgWidth = 0.0;
+    }
+    else if (self.videoViewArray.count < 8)
+    {
+        self.rightBgWidth = self.videoWidth;
+    }
+    else if (self.videoViewArray.count < 14)
+    {
+        self.rightBgWidth = 2 * self.videoWidth + VIDEOGRIDVIEW_GAP;
+    }
+    else
+    {
+        self.rightBgWidth = 3 * self.videoWidth + 2 * VIDEOGRIDVIEW_GAP;
+    }
+        
     [self.videosBgView addSubview:self.rightVideoBgView];
 }
 
+
+//布局
 - (void)freshViewFocusWithFouceVideo:(SCVideoView *)fouceVideo
 {
     CGFloat width = self.videoWidth + VIDEOGRIDVIEW_GAP;
@@ -817,385 +833,25 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     }
     
     CGFloat left = self.rightVideoBgView.bm_originX;
-    
-    switch (mutArray.count)
+        
+    for (int i = 0; i< mutArray.count; i++)
     {
-        case 1:
+        SCVideoView *videoView = mutArray[i];
+        if (i < 6)
         {
-            SCVideoView *videoView = mutArray[0];
-            
-            videoView.bm_top = VIDEOGRIDVIEW_GAP;
+            videoView.bm_top = i * height + VIDEOGRIDVIEW_GAP;
             videoView.bm_left = left;
         }
-            break;
-            
-        case 2:
+        else if (i >= 6 && i<12)
         {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left;
-
+            videoView.bm_top = (i - 6) * height + VIDEOGRIDVIEW_GAP;
+            videoView.bm_left = left + width;;
         }
-            break;
-            
-        case 3:
+        else
         {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left;
-            
-            videoView3.bm_top = 2*height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
+            videoView.bm_top = (i - 12) * height + VIDEOGRIDVIEW_GAP;
+            videoView.bm_left = left + 2 * width;;
         }
-            break;
-
-        case 4:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left;
-            
-            videoView3.bm_top = 2*height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = 3*height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left;
-        }
-            break;
-
-        case 5:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-        }
-            break;
-
-        case 6:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-            SCVideoView *videoView6 = mutArray[5];
-
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-            
-            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView6.bm_left = left+width;
-        }
-            break;
-
-        case 7:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-            SCVideoView *videoView6 = mutArray[5];
-            SCVideoView *videoView7 = mutArray[6];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-            
-            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView6.bm_left = left+width;
-            
-            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView7.bm_left = left;
-        }
-            break;
-
-        case 8:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-            SCVideoView *videoView6 = mutArray[5];
-            SCVideoView *videoView7 = mutArray[6];
-            SCVideoView *videoView8 = mutArray[7];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-            
-            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView6.bm_left = left+width;
-            
-            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView7.bm_left = left;
-            
-            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView8.bm_left = left+width;
-        }
-            break;
-
-        case 9:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-            SCVideoView *videoView6 = mutArray[5];
-            SCVideoView *videoView7 = mutArray[6];
-            SCVideoView *videoView8 = mutArray[7];
-            SCVideoView *videoView9 = mutArray[8];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-            
-            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView6.bm_left = left+width;
-            
-            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView7.bm_left = left;
-            
-            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView8.bm_left = left+width;
-            
-            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
-            videoView9.bm_left = left;
-        }
-            break;
-
-        case 10:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-            SCVideoView *videoView6 = mutArray[5];
-            SCVideoView *videoView7 = mutArray[6];
-            SCVideoView *videoView8 = mutArray[7];
-            SCVideoView *videoView9 = mutArray[8];
-            SCVideoView *videoView10 = mutArray[9];
-
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-            
-            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView6.bm_left = left+width;
-            
-            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView7.bm_left = left;
-            
-            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView8.bm_left = left+width;
-            
-            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
-            videoView9.bm_left = left;
-            
-            videoView10.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
-            videoView10.bm_left = left+width;
-
-        }
-            break;
-
-        case 11:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-            SCVideoView *videoView6 = mutArray[5];
-            SCVideoView *videoView7 = mutArray[6];
-            SCVideoView *videoView8 = mutArray[7];
-            SCVideoView *videoView9 = mutArray[8];
-            SCVideoView *videoView10 = mutArray[9];
-            SCVideoView *videoView11 = mutArray[10];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-            
-            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView6.bm_left = left+width;
-            
-            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView7.bm_left = left;
-            
-            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView8.bm_left = left+width;
-            
-            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
-            videoView9.bm_left = left;
-            
-            videoView10.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
-            videoView10.bm_left = left+width;
-            
-            videoView11.bm_top = 5 * height + VIDEOGRIDVIEW_GAP;
-            videoView11.bm_left = left;
-            
-        }
-            break;
-        case 12:
-        {
-            SCVideoView *videoView1 = mutArray[0];
-            SCVideoView *videoView2 = mutArray[1];
-            SCVideoView *videoView3 = mutArray[2];
-            SCVideoView *videoView4 = mutArray[3];
-            SCVideoView *videoView5 = mutArray[4];
-            SCVideoView *videoView6 = mutArray[5];
-            SCVideoView *videoView7 = mutArray[6];
-            SCVideoView *videoView8 = mutArray[7];
-            SCVideoView *videoView9 = mutArray[8];
-            SCVideoView *videoView10 = mutArray[9];
-            SCVideoView *videoView11 = mutArray[10];
-            SCVideoView *videoView12 = mutArray[11];
-            
-            videoView1.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView1.bm_left = left;
-            
-            videoView2.bm_top = VIDEOGRIDVIEW_GAP;
-            videoView2.bm_left = left+width;
-            
-            videoView3.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView3.bm_left = left;
-            
-            videoView4.bm_top = height + VIDEOGRIDVIEW_GAP;
-            videoView4.bm_left = left+width;
-            
-            videoView5.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView5.bm_left = left;
-            
-            videoView6.bm_top = 2 * height + VIDEOGRIDVIEW_GAP;
-            videoView6.bm_left = left+width;
-            
-            videoView7.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView7.bm_left = left;
-            
-            videoView8.bm_top = 3 * height + VIDEOGRIDVIEW_GAP;
-            videoView8.bm_left = left+width;
-            
-            videoView9.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
-            videoView9.bm_left = left;
-            
-            videoView10.bm_top = 4 * height + VIDEOGRIDVIEW_GAP;
-            videoView10.bm_left = left+width;
-            
-            videoView11.bm_top = 5 * height + VIDEOGRIDVIEW_GAP;
-            videoView11.bm_left = left;
-            
-            videoView12.bm_top = 5 * height + VIDEOGRIDVIEW_GAP;
-            videoView12.bm_left = left+width;
-        }
-            break;
-
-        default:
-            break;
     }
 }
 
