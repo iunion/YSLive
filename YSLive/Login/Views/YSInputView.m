@@ -13,7 +13,7 @@
 @property (nonatomic, strong) UIView *bacView;
 /// icon
 @property (nonatomic, strong) UIImageView *iconImageView;
-
+@property (nonatomic, copy) NSString *imageName;
 @end
 
 @implementation YSInputView
@@ -33,7 +33,7 @@
         _inputTextField = [[UITextField alloc] init];
         [self addSubview:_inputTextField];
         [_inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
-        
+        self.imageName = imageName;
         [self setViewWithPlaceholderText:placeholder setImageName:imageName];
     }
     return self;
@@ -44,7 +44,7 @@
     _bacView.backgroundColor = [UIColor whiteColor];
     _bacView.layer.cornerRadius = 20;
     _bacView.layer.masksToBounds = YES;
-    
+    self.imageName = imageName;
     if (placeholder)
     {
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:placeholder attributes:@{
@@ -80,7 +80,14 @@
     
     _bacView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     
-    _iconImageView.frame = CGRectMake(25, 0, 15,CGRectGetHeight(_bacView.frame));
+    if ([self.imageName bm_isNotEmpty])
+    {
+        _iconImageView.frame = CGRectMake(25, 0, 15,CGRectGetHeight(_bacView.frame));
+    }
+    else
+    {
+        _iconImageView.frame = CGRectMake(0, 0, 0,CGRectGetHeight(_bacView.frame));
+    }
     
     _inputTextField.frame = CGRectMake(CGRectGetMaxX(_iconImageView.frame)+ 18, 0, CGRectGetWidth(_bacView.frame) - 70, CGRectGetHeight(_bacView.frame));
     
