@@ -1234,9 +1234,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
+            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT - VIDEOVIEW_GAP;
             
-            videoHeight = (VIDEOVIEW_MAXHEIGHT - VIDEOVIEW_GAP*0.5)/2;
+            videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
             
             if (self.isWideScreen)
             {
@@ -1248,6 +1248,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 videoTeacherWidth = ceil(videoTeacherHeight * 4/3);
                 videoWidth = ceil(videoHeight * 4/3);
             }
+            
+            CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
+            
+            
+//            if (totalW > BMUI_SCREEN_WIDTH)
+//            {
+//                <#statements#>
+//            }
+            
         }
     }
     
@@ -1412,6 +1421,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         
         CGFloat totalWidth = [self getVideoTotalWidth];
+        
+        CGFloat ddd = BMUI_SCREEN_WIDTH;
+        
         videoStartX = (BMUI_SCREEN_WIDTH-totalWidth)*0.5;
         
         NSInteger count = [self getVideoViewCount];
