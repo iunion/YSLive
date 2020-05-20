@@ -1145,7 +1145,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-
 // 计算视频尺寸，除老师视频
 - (void)calculateVideoSize
 {
@@ -1192,6 +1191,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     else
     {
         NSUInteger count = [self getVideoViewCount];
+        
         if (count < 10)
         {
             if ([self checkVideoSize])
@@ -1237,9 +1237,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 scale = 4.0/3.0;
             }
-//            videoWidth = ceil(videoHeight * scale);
             videoWidth = videoHeight * scale;
-//            videoTeacherWidth = ceil(videoTeacherHeight * scale);
             videoTeacherWidth = videoTeacherHeight * scale;
             
             CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
@@ -1503,15 +1501,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (count < 10)
         {
             self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoHeight+VIDEOVIEW_GAP);
-            
-//            self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
-            //self.whiteBordView.frame = self.whitebordBackgroud.bounds;
         }
         else
         {
             self.videoBackgroud.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, videoTeacherHeight + VIDEOVIEW_GAP);
-            
         }
+        
         self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_height, BMUI_SCREEN_WIDTH, self.contentView.bm_height-self.videoBackgroud.bm_height);
     }
     
@@ -1535,9 +1530,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 刷新宫格视频布局
 - (void)freshVidoeGridView
 {
-    //[self hideShareVidoeView];
-    
-//    [self hideWhiteBordVidoeViewWithPeerId:nil];
+
     [self hideAllDragOutVidoeView];
         
     NSMutableArray *viewArray = [[NSMutableArray alloc] init];
@@ -1605,8 +1598,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
     
-    NSLog(@"=====================playVideoAudioWithVideoView userId: %@, publishState: %@ ", videoView.roomUser.peerID , @(publishState));
-
     YSRenderMode renderType = YSRenderMode_adaptive;
 #if USE_YSRenderMode_adaptive
     fresh = NO;
