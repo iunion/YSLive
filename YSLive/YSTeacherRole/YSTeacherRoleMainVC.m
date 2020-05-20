@@ -1196,18 +1196,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             if ([self checkVideoSize])
             {
-                //floor((UI_SCREEN_WIDTH+VIDEOVIEW_GAP*0.5)/self.videoViewArray.count-VIDEOVIEW_GAP*0.5);
-                
-                
-                /// 老师视频是否被拖出
-                //            if (self.teacherVideoView && !self.teacherVideoView.isDragOut)
-                //            {
-                //                videoWidth = floor((UI_SCREEN_WIDTH-videoTeacherWidth)/(count-1)-VIDEOVIEW_GAP*0.5);
-                //            }
-                //            else
-                {
-                    videoWidth = floor(BMUI_SCREEN_WIDTH / count - VIDEOVIEW_GAP * 0.5);
-                }
+                videoWidth = floor(BMUI_SCREEN_WIDTH / count - VIDEOVIEW_GAP * 0.5);
                 
                 if (self.isWideScreen)
                 {
@@ -1234,29 +1223,33 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT - VIDEOVIEW_GAP;
+            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
             
             videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
             
+            CGFloat scale = 0;
+            
             if (self.isWideScreen)
             {
-                videoTeacherWidth = ceil(videoTeacherHeight * 16/9);
-                videoWidth = ceil(videoHeight * 16/9);
+                scale = 16.0/9.0;
             }
             else
             {
-                videoTeacherWidth = ceil(videoTeacherHeight * 4/3);
-                videoWidth = ceil(videoHeight * 4/3);
+                scale = 4.0/3.0;
             }
+//            videoWidth = ceil(videoHeight * scale);
+            videoWidth = videoHeight * scale;
+//            videoTeacherWidth = ceil(videoTeacherHeight * scale);
+            videoTeacherWidth = videoTeacherHeight * scale;
             
             CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
-            
-            
-//            if (totalW > BMUI_SCREEN_WIDTH)
-//            {
-//                <#statements#>
-//            }
-            
+            if (totalW > BMUI_SCREEN_WIDTH)
+            {
+                videoTeacherHeight = (BMUI_SCREEN_WIDTH - (10 - 4 * scale) * VIDEOVIEW_GAP*0.5)/(5 * scale);
+                videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
+                videoWidth = videoHeight * scale;
+                videoTeacherWidth = videoTeacherHeight * scale;
+            }
         }
     }
     
