@@ -1,10 +1,13 @@
 //
-//  YSWhiteBroadDelegate.h
-//  YSWhiteBroad
+//  YSWhiteBoardManagerDelegate.h
+//  YSWhiteBoard
 //
-//  Created by MAC-MiNi on 2018/4/9.
-//  Copyright © 2018年 MAC-MiNi. All rights reserved.
+//  Created by jiang deng on 2020/3/23.
+//  Copyright © 2020 jiang deng. All rights reserved.
 //
+
+#ifndef YSWhiteBoardManagerDelegate_h
+#define YSWhiteBoardManagerDelegate_h
 
 #import <Foundation/Foundation.h>
 
@@ -14,43 +17,35 @@
 
 /**
  文件列表回调
- @param fileList 文件列表 是一个NSArray类型的数据
+ @param fileList 文件NSDictionary列表
  */
 - (void)onWhiteBroadFileList:(NSArray *)fileList;
 
-/**
-PubMsg消息
- */
-- (void)onWhiteBroadPubMsgWithMsgID:(NSString *)msgID
-                            msgName:(NSString *)msgName
-                               data:(NSObject *)data
-                             fromID:(NSString *)fromID
-                             inList:(BOOL)inlist
-                                 ts:(long)ts;
+/// H5脚本文件加载初始化完成
+- (void)onWhiteBoardPageFinshed:(NSString *)fileId;
 
-/**
- msglist消息
+/// 切换Web课件加载状态
+- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic;
 
- @param msgList 消息
- */
-- (void)onWhiteBoardOnRoomConnectedMsglist:(NSDictionary *)msgList;
-
-/**
- 界面更新
- */
-- (void)onWhiteBoardViewStateUpdate:(NSDictionary *)message;
-
-/**
- 教室加载状态
- 
- */
-- (void)onWhiteBoardLoadedState:(NSDictionary *)message;
+/// Web课件翻页结果
+- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic;
+/// 翻页超时
+- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic;
+/// 课件缩放
+- (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale;
+/// 课件全屏
+- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen;
 
 
-/// 本地操作，缩放课件比例变化
-/// 动态ppt，H5课件，GIF动图，SVG图不支持放大缩小
-- (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale;
+#pragma mark - 课件事件
+
+/// 切换课件
+- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
+/// 媒体播放状态
+- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state;
+
 
 
 @end
 
+#endif /* YSWhiteBoardManagerDelegate_h */

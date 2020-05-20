@@ -12,6 +12,7 @@
 #import "YSWBWebViewManager.h"
 #import "YSWhiteBoardTopBar.h"
 #import "YSCoursewareControlView.h"
+#import "YSWhiteBoardControlView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSString *whiteBoardId;
 @property (nonatomic, strong, readonly) NSString *fileId;
+
+/// 媒体课件窗口
+@property (nonatomic, assign, readonly) BOOL isMediaView;
+@property (nonatomic, assign, readonly) YSWhiteBordMediaType mediaType;
+/// H5脚本加载视频
+@property (nonatomic, assign) BOOL isH5LoadMedia;
 
 /// 当前页码
 @property (nonatomic, assign, readonly) NSUInteger currentPage;
@@ -46,14 +53,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// 翻页工具条
 @property (nonatomic, strong) YSCoursewareControlView *pageControlView;
 
-/// 主白板的bounce
-@property (nonatomic, assign)CGRect mainWhiteBoardBounce;
+/// 小白板全屏时的复原，删除的工具条
+@property (nonatomic, strong) YSWhiteBoardControlView *whiteBoardControlView;
 
+/// 主白板的
+@property (nonatomic, strong)YSWhiteBoardView *mainWhiteBoard;
+
+///最小化时的收藏夹按钮
+@property (nonatomic, strong) UIButton * collectBtn;
+
+///当前的位置信令的值
+@property (nonatomic, strong) NSDictionary * positionData;
+
+/// 是否属于当前激活课件
+@property (nonatomic, assign) BOOL isCurrent;
 
 - (void)destroy;
 
 
 - (instancetype)initWithFrame:(CGRect)frame fileId:(NSString *)fileId loadFinishedBlock:(nullable  wbLoadFinishedBlock)loadFinishedBlock;
+- (instancetype)initWithFrame:(CGRect)frame fileId:(NSString *)fileId isMedia:(BOOL)isMedia mediaType:(YSWhiteBordMediaType)mediaType loadFinishedBlock:(nullable  wbLoadFinishedBlock)loadFinishedBlock;
 
 /// 更新服务器地址
 - (void)updateWebAddressInfo:(NSDictionary *)message;
@@ -119,6 +138,28 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)freshBrushToolConfigs;
 
 
+#pragma -
+#pragma mark 音视频控制
+
+- (void)setMediaStream:(NSTimeInterval)duration pos:(NSTimeInterval)pos isPlay:(BOOL)isPlay fileName:(nonnull NSString *)fileName;
+
+
+#pragma -
+#pragma mark 白板视频标注
+
+/// 显示白板视频标注
+- (void)showVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio;
+/// 绘制白板视频标注
+- (void)drawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist;
+/// 隐藏白板视频标注
+- (void)hideVideoWhiteboard;
+
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(nullable NSDictionary *)parameters;
+
+/// 设置H5课件Cookies
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
 @end
 
@@ -140,9 +181,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 课件缩放
 - (void)onWWBViewDrawViewManagerZoomScaleChanged:(YSWhiteBoardView *)whiteBoardView zoomScale:(CGFloat)zoomScale;
-
-///拖拽手势事件  拖拽右下角缩放View
+/// 课件全屏
+- (void)onWBViewFullScreen:(BOOL)isAllScreen wbView:(YSWhiteBoardView *)whiteBoardView;
+/// 拖拽手势事件  拖拽右下角缩放View
 - (void)panToZoomWhiteBoardView:(YSWhiteBoardView *)whiteBoard withGestureRecognizer:(UIPanGestureRecognizer *)pan;
+
+/// 拖拽Mp3手势事件
+- (void)moveMp3ViewWithGestureRecognizer:(UIPanGestureRecognizer *)panGesture;
 
 @end
 

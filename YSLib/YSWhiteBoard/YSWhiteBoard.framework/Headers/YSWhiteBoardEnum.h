@@ -2,21 +2,53 @@
 //  YSWhiteBoardEnum.h
 //  YSWhiteBoard
 //
-//  Created by Yi on 2019/3/17.
-//  Copyright © 2019年 MAC-MiNi. All rights reserved.
+//  Created by jiang deng on 2020/3/24.
+//  Copyright © 2020 jiang deng. All rights reserved.
 //
 
 #ifndef YSWhiteBoardEnum_h
 #define YSWhiteBoardEnum_h
 
-typedef enum
+/// app使用场景  3：小班课  4：直播   6：会议
+typedef NS_ENUM(NSUInteger, YSRoomUseType)
+{
+    /** 小班课 */
+    YSRoomUseTypeSmallClass = 3,
+    /** 直播 */
+    YSRoomUseTypeLiveRoom = 4,
+    /** 会议*/
+    YSRoomUseTypeMeeting = 6
+};
+
+/// 白板文档媒体类型
+typedef NS_ENUM(NSUInteger, YSWhiteBordMediaType)
+{
+    /// 视频
+    YSWhiteBordMediaType_Video = 0,
+    /// 音频
+    YSWhiteBordMediaType_Audio
+};
+
+// 白板文档媒体类型
+typedef NS_ENUM(NSUInteger, YSWhiteBordMediaState)
+{
+    /// 停止
+    YSWhiteBordMediaState_Stop = 0,
+    /// 播放
+    YSWhiteBordMediaState_Play,
+    /// 暂停
+    YSWhiteBordMediaState_Pause,
+};
+
+typedef NS_ENUM(NSInteger, YSEvent)
 {
     YSEventShowPage        = 0,    //增加文档
     YSEventShapeAdd        = 2,    //增加画笔
     YSEventShapeClean      = 5,    //清屏
     YSEventShapeUndo       = 6,    //撤回
     YSEventShapeRedo       = 7,    //重做
-} YSEvent;
+};
+
 typedef NS_ENUM(NSInteger, YSNativeToolType)
 {
     YSNativeToolTypeMouse   = 100,
@@ -25,7 +57,8 @@ typedef NS_ENUM(NSInteger, YSNativeToolType)
     YSNativeToolTypeShape   = 30,
     YSNativeToolTypeEraser  = 50,
 };
-enum selectButtonIndex
+
+typedef NS_ENUM(NSInteger, YSToolSelectButtonIndex)
 {
     Draw_Pen            = 10,       //画笔
     Draw_MarkPen        = 11,       //记号笔
@@ -52,11 +85,11 @@ enum selectButtonIndex
     Draw_Redo           = 27,       //重做
 };
 
-typedef enum
+typedef NS_ENUM(NSUInteger, YSWorkMode)
 {
     YSWorkModeViewer = 0,       //只能观看 不能标记 隐藏工具条
     YSWorkModeControllor = 1,   //操作状态
-} YSWorkMode;
+};
 
 typedef NS_ENUM(NSInteger, YSDrawType)
 {
@@ -81,15 +114,18 @@ typedef NS_ENUM(NSInteger, YSDrawType)
 
 typedef NS_ENUM(NSInteger, YSBrushToolType)
 {
-    YSBrushToolTypeMouse   = 100,
-    YSBrushToolTypeLine    = 10,
-    YSBrushToolTypeText    = 20,
-    YSBrushToolTypeShape   = 30,
-    YSBrushToolTypeEraser  = 50,
+    YSBrushToolTypeMouse   = 100,//箭头
+    YSBrushToolTypeLine    = 10, //划线类型
+    YSBrushToolTypeText    = 20, //文字类型
+    YSBrushToolTypeShape   = 30, //框类型
+    YSBrushToolTypeEraser  = 50, //橡皮擦
+    YSBrushToolTypeClear  = 60,  //删除
 };
 
-typedef NS_ENUM(NSUInteger, YSWhiteBoardErrorCode) {
+typedef NS_ENUM(NSUInteger, YSWhiteBoardErrorCode)
+{
     YSError_OK,
     YSError_Bad_Parameters,
 };
+
 #endif /* YSWhiteBoardEnum_h */
