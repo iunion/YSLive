@@ -500,6 +500,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight)];
     self.fullTeacherFloatView.isFullBackgrond = YES;
+    [self.view addSubview:self.fullTeacherFloatView];
+    self.fullTeacherFloatView.hidden = YES;
 }
 #endif
 
@@ -3382,7 +3384,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             self.isFullTeacherVideoViewDragout = YES;
             self.fullTeacherFloatView.frame = CGRectMake(videoX, videoY, floatVideoDefaultWidth, floatVideoDefaultHeight);
-            
+            self.fullTeacherFloatView.hidden = NO;
             // 支持本地拖动缩放
             self.fullTeacherFloatView.canGestureRecognizer = YES;
             self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
@@ -6469,10 +6471,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
-    if (self.fullTeacherFloatView.superview)
-    {
-        [self.fullTeacherFloatView removeFromSuperview];
-    }
+    self.fullTeacherFloatView.hidden = YES;
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
     [self.teacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
@@ -6484,15 +6483,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.liveManager.isBeginClass)
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoView];
-        
-        if (self.fullTeacherFloatView.superview)
-        {
-            [self.fullTeacherFloatView removeFromSuperview];
-        }
-        
-        [view addSubview:self.fullTeacherFloatView];
+
         [self.fullTeacherFloatView cleanContent];
-        
+        self.fullTeacherFloatView.hidden = NO;
+        self.fullTeacherFloatView.frame = CGRectMake(BMUI_SCREEN_WIDTH - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
+        [self.fullTeacherFloatView bm_bringToFront];
 //        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO];
         SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO withDelegate:self];
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
