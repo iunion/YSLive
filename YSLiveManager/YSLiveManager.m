@@ -476,7 +476,6 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.whiteBordView = [self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
 
     }];
-    self.whiteBordView.backgroundColor = [UIColor orangeColor];
 
     [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
     [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
