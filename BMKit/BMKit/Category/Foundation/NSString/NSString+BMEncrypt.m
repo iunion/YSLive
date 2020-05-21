@@ -13,6 +13,12 @@
 
 @implementation NSString (BMEncrypt)
 
++ (NSString *)bm_base64EncodeString:(NSString *)string
+{
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSString bm_base64EncodeData:data];
+}
+
 + (NSString *)bm_base64EncodeData:(NSData *)data
 {
     NSData *encodeData = [data base64EncodedDataWithOptions:0];

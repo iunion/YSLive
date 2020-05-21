@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns a NSString for base64 encoded.
  */
++ (NSString *)bm_base64EncodeString:(NSString *)string;
 + (NSString *)bm_base64EncodeData:(NSData *)data;
 
 /**

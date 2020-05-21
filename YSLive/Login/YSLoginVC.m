@@ -1489,7 +1489,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         NSError *error = nil;
         encodePassWordStr = [BMRSA encryptString:passWordStr publicPemKey:publicPemKey error:&error];
+        encodePassWordStr = [NSString bm_base64EncodeString:encodePassWordStr];
         encodeRoomId = [BMRSA encryptString:roomId publicPemKey:publicPemKey error:&error];
+        encodeRoomId = [NSString bm_base64EncodeString:encodeRoomId];
     }
 
     NSLog(@"%@", encodePassWordStr);
