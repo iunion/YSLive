@@ -1275,18 +1275,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
                     // 小班课
                     case 3:
                         weakSelf.room_UseTheType = YSAppUseTheTypeSmallClass;
-                        
-//                        if ([UIDevice bm_isiPad])
-//                        {
-                            [weakSelf showRoleSelectView];
-                            
-//                        }
-//                        else
-//                        {
-//                            self.roleSelectView.hidden = YES;
-//                            [self joinRoom];
-//                        }
-                        
+
+                        [weakSelf showRoleSelectView];
+
                         [weakSelf.view endEditing:YES];
                         weakSelf.passwordTextField.inputTextField.text = nil;
                         return;
