@@ -3023,7 +3023,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (mediaModel.video)
     {
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
-        [YSRoomUtil delWhiteBoardMsg:sYSSignalVideoWhiteboard msgID:sYSSignalVideoWhiteboard data:nil completion:nil];
+        if (self.liveManager.isBeginClass)
+        {
+            [YSRoomUtil delWhiteBoardMsg:sYSSignalVideoWhiteboard msgID:sYSSignalVideoWhiteboard data:nil completion:nil];
+        }
+
     }
     else if (mediaModel.audio)
     {
@@ -3142,13 +3146,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (isPlay)
     {
-        [self.liveManager sendPubMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:@{@"videoRatio":@(self.liveManager.playMediaModel.width/self.liveManager.playMediaModel.height)} save:YES extensionData:nil completion:nil];
-//        [self.liveManager pubWhiteBoardMsg:sYSSignalVideoWhiteboard msgID:sYSSignalVideoWhiteboard data:@{@"videoRatio":@(self.liveManager.playMediaModel.width/self.liveManager.playMediaModel.height)} extensionData:nil associatedMsgID:@"" expires:0 completion:nil];
+        if (self.liveManager.isBeginClass)
+        {
+            [self.liveManager sendPubMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:@{@"videoRatio":@(self.liveManager.playMediaModel.width/self.liveManager.playMediaModel.height)} save:YES extensionData:nil completion:nil];
+        }
         
     }
     else
     {
-        [YSRoomUtil delWhiteBoardMsg:sYSSignalVideoWhiteboard msgID:sYSSignalVideoWhiteboard data:nil completion:nil];
+        if (self.liveManager.isBeginClass)
+        {
+            [YSRoomUtil delWhiteBoardMsg:sYSSignalVideoWhiteboard msgID:sYSSignalVideoWhiteboard data:nil completion:nil];
+        }
     }
 }
 
