@@ -3025,7 +3025,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
         if (self.liveManager.isBeginClass)
         {
-            [YSRoomUtil delWhiteBoardMsg:sYSSignalVideoWhiteboard msgID:sYSSignalVideoWhiteboard data:nil completion:nil];
+            [self.liveManager deleteMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:nil completion:nil];
         }
 
     }
@@ -3156,7 +3156,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.liveManager.isBeginClass)
         {
-            [YSRoomUtil delWhiteBoardMsg:sYSSignalVideoWhiteboard msgID:sYSSignalVideoWhiteboard data:nil completion:nil];
+            [self.liveManager deleteMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:nil completion:nil];
         }
     }
 }
