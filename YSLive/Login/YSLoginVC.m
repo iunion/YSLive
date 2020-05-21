@@ -1275,18 +1275,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
                     // 小班课
                     case 3:
                         weakSelf.room_UseTheType = YSAppUseTheTypeSmallClass;
-                        
-//                        if ([UIDevice bm_isiPad])
-//                        {
-                            [weakSelf showRoleSelectView];
-                            
-//                        }
-//                        else
-//                        {
-//                            self.roleSelectView.hidden = YES;
-//                            [self joinRoom];
-//                        }
-                        
+
+                        [weakSelf showRoleSelectView];
+
                         [weakSelf.view endEditing:YES];
                         weakSelf.passwordTextField.inputTextField.text = nil;
                         return;
@@ -1578,7 +1569,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [self.roleSelectView addSubview:alertView];
         
         
-        if (![UIDevice bm_isiPad]) {
+        if (![UIDevice bm_isiPad])
+        {
             alertView.frame = CGRectMake((BMUI_SCREEN_WIDTH-350)/2, 100, 350, 330);
         }
         
@@ -1732,7 +1724,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         self.selectedRoleBtn.selected = NO;
         self.passwordMask.hidden = NO;
-        self.passwordTextField.inputTextField.text = nil;
+//        self.passwordTextField.inputTextField.text = nil;
         self.selectedRoleBtn = self.studentRoleBtn;
         self.selectedRoleBtn.selected = YES;
         self.roleSelectView.hidden = YES;
@@ -1747,9 +1739,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     [self.view endEditing:YES];
     
+    self.passwordTextField.inputTextField.text = nil;
     self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.inputPwd");
     
-    switch (sender.tag) {
+    switch (sender.tag)
+    {
 
         case 1:
             self.selectRoleType = YSUserType_Teacher;

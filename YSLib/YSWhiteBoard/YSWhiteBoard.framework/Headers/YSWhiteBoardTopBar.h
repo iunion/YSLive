@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///拖拽手势事件
 - (void)panToMoveWhiteBoardView:(UIView *)whiteBoard withGestureRecognizer:(UIPanGestureRecognizer *)pan;
 
-- (void)clickToBringVideoToFont:(UIView *)whiteBoard;
+- (void)clickToBringVideoToFront:(UIView *)whiteBoard;
 
 @end
 
@@ -32,8 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 课件 title
 @property (nonatomic, copy) NSString  *titleString;
 
-/// 自身对应的YSWhiteBoardView
-//@property (nonatomic, weak) YSWhiteBoardView  *whiteBoardView;
+/// 是否属于当前激活课件
+@property (nonatomic, assign) BOOL isCurrent;
 
 @end
 

@@ -535,6 +535,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)setupFullTeacherView
 {
     self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+    [self.view addSubview:self.fullTeacherFloatView];
+    self.fullTeacherFloatView.hidden = YES;
 }
 #endif
 
@@ -5473,10 +5475,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
-    if (self.fullTeacherFloatView.superview)
-    {
-        [self.fullTeacherFloatView removeFromSuperview];
-    }
+    self.fullTeacherFloatView.hidden = YES;
     [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
     [self playVideoAudioWithNewVideoView:self.teacherVideoView];
 //    self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40);
@@ -5489,18 +5488,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoView];
         
-        if (self.fullTeacherFloatView.superview)
-        {
-            [self.fullTeacherFloatView removeFromSuperview];
-        }
-        
         if ([self.liveManager.teacher.peerID bm_isNotEmpty])
         {
             self.fullTeacherFloatView.hidden = NO;
         }
-        
-        [view addSubview:self.fullTeacherFloatView];
         [self.fullTeacherFloatView cleanContent];
+        
+        self.fullTeacherFloatView.frame = CGRectMake(BMUI_SCREEN_WIDTH - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
+        [self.fullTeacherFloatView bm_bringToFront];
+        
         SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher isForPerch:NO withDelegate:self];
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
