@@ -62,7 +62,7 @@ static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 #define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
 
 /// 一对一多视频最高尺寸
-static const CGFloat kVideoView_MaxHeight_iPhone = 50.0f;
+static const CGFloat kVideoView_MaxHeight_iPhone = 80.0f;
 static const CGFloat kVideoView_MaxHeight_iPad  = 160.0f;
 #define VIDEOVIEW_MAXHEIGHT         ([UIDevice bm_isiPad] ? kVideoView_MaxHeight_iPad : kVideoView_MaxHeight_iPhone)
 
@@ -1435,7 +1435,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
              {
                  view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
              }
-            else if (count < 17)
+            else if (count < 18)
             {
                 // 老师没被拖出
                 if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)

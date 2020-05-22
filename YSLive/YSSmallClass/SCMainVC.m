@@ -1479,15 +1479,26 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             videoHeight = (VIDEOVIEW_MAXHEIGHT - VIDEOVIEW_GAP*0.5)/2;
             
+           CGFloat scale = 0;
+            
             if (self.isWideScreen)
             {
-                videoTeacherWidth = ceil(videoTeacherHeight * 16/9);
-                videoWidth = ceil(videoHeight * 16/9);
+                scale = 16.0/9.0;
             }
             else
             {
-                videoTeacherWidth = ceil(videoTeacherHeight * 4/3);
-                videoWidth = ceil(videoHeight * 4/3);
+                scale = 4.0/3.0;
+            }
+            videoWidth = videoHeight * scale;
+            videoTeacherWidth = videoTeacherHeight * scale;
+            
+            CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
+            if (totalW > BMUI_SCREEN_WIDTH)
+            {
+                videoTeacherHeight = (BMUI_SCREEN_WIDTH - (10 - 4 * scale) * VIDEOVIEW_GAP*0.5)/(5 * scale);
+                videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
+                videoWidth = videoHeight * scale;
+                videoTeacherWidth = videoTeacherHeight * scale;
             }
         }
         [self freshWhitBordContentView];
@@ -1743,7 +1754,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
              {
                  view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
              }
-            else if (count < 17)
+            else if (count < 18)
             {
                 // 老师没被拖出
                 if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
