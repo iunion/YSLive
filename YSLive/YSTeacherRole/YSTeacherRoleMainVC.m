@@ -3495,9 +3495,54 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 - (void)handleSignalingDragOutVideoWithPeerId:(NSString *)peerId atPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop isDragOut:(BOOL)isDragOut
 {
-    if (!isDragOut)
+    if (isDragOut)
+    {
+        [self showDragOutVidoeViewWithPeerId:peerId percentLeft:percentLeft percentTop:percentTop];
+    }
+    else
     {
         [self hideDragOutVidoeViewWithPeerId:peerId];
+    }
+}
+
+
+// 拖出视频
+- (void)showDragOutVidoeViewWithPeerId:(NSString *)peerId percentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop
+{
+    if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
+    {
+        return;
+    }
+    
+    SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
+    if (videoView.isDragOut)
+    {
+        CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - videoView.bm_width);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - videoView.bm_height);
+        CGPoint point = CGPointMake(x, y);
+        
+        YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
+        floatView.frame = CGRectMake(point.x, point.y, videoView.bm_width, videoView.bm_height);
+        [floatView bm_bringToFront];
+        return;
+    }
+    else
+    {
+        videoView.isDragOut = YES;
+        [self freshContentVidoeView];
+        
+        CGFloat x = percentLeft * (BMUI_SCREEN_WIDTH - floatVideoDefaultWidth);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
+        CGPoint point = CGPointMake(x, y);
+        
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+        // 暂时不支持本地拖动缩放
+        floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+        [self.dragOutFloatViewArray addObject:floatView];
+        [self.whitebordBackgroud addSubview:floatView];
+        
+        [floatView showWithContentView:videoView];
+        [floatView bm_bringToFront];
     }
 }
 
