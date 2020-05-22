@@ -3192,7 +3192,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)closeMp3ControlView
 {
-      
+
     [self.liveManager.roomManager stopShareMediaFile:nil];
 }
 #pragma mark -YSMp4ControlViewDelegate
@@ -3201,6 +3201,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.liveManager.roomManager pauseMediaFile:isPlay];
     
+    if (self.liveManager.playMediaModel.audio)
+    {
+        return;
+    }
     if (isPlay)
     {
         if (self.liveManager.isBeginClass)
