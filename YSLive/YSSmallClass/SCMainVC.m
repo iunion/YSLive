@@ -4649,6 +4649,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.dragImageView = nil;
         self.videoOriginInSuperview = CGPointZero;
     }
+    else if (pan.state == UIGestureRecognizerStateCancelled || pan.state == UIGestureRecognizerStateFailed || pan.state == UIGestureRecognizerStateRecognized)
+    {
+        [self.dragImageView removeFromSuperview];
+        self.dragImageView = nil;
+        self.videoOriginInSuperview = CGPointZero;
+    }
 }
 
 // 全屏课件时拖拽视频
