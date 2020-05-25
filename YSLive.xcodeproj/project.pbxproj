@@ -1526,6 +1526,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0464CEA1247B9BFA001532A3 /* YSSkinManager */ = {
+			isa = PBXGroup;
+			children = (
+				0464CE9C247B563C001532A3 /* YSSkinManager.h */,
+				0464CE9D247B563C001532A3 /* YSSkinManager.m */,
+				0464CE962477CD35001532A3 /* YSSkinRsource.bundle */,
+			);
+			path = YSSkinManager;
+			sourceTree = "<group>";
+		};
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
@@ -2696,6 +2706,7 @@
 				870C56FC2358577B00BDB1EC /* YSLib */,
 				87728F272355CCD800E34916 /* YSLiveManager */,
 				34043C3A23EA60B4004982E6 /* YSOnlineSchool */,
+				0464CEA1247B9BFA001532A3 /* YSSkinManager */,
 				876681F823506EF400C4C635 /* YSLive */,
 				876681F723506EF400C4C635 /* Products */,
 				8766821123506EF600C4C635 /* YSLiveTests */,
@@ -2737,9 +2748,6 @@
 				8717E3562400DB9F008C4CDA /* vclass_Info.plist */,
 				876684B9235077F700C4C635 /* YSLive-Prefix.pch */,
 				8766820823506EF600C4C635 /* main.m */,
-				0464CE9C247B563C001532A3 /* YSSkinManager.h */,
-				0464CE9D247B563C001532A3 /* YSSkinManager.m */,
-				0464CE962477CD35001532A3 /* YSSkinRsource.bundle */,
 			);
 			path = YSLive;
 			sourceTree = "<group>";

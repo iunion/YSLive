@@ -25,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIColor *)getDefaultColorWithKey:(NSString *)key;
 - (UIImage *)getDefaultImageWithKey:(NSString *)key;
 
-- (UIColor *)getElementColorOrImageWithName:(NSString *)name andKey:(NSString *)key;
+- (UIColor *)getElementColorWithName:(NSString *)name andKey:(NSString *)key;
+- (UIImage *)getElementImageWithName:(NSString *)name andKey:(NSString *)key;
 
 @end
 

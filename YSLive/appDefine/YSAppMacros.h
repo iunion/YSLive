@@ -28,10 +28,10 @@
 
 //换肤
 #define YSSkinDefineColor(s) [[YSSkinManager shareInstance] getDefaultColorWithKey:(s)]
-
-#define YSSkinElement(z , s) [[YSSkinManager shareInstance] getElementColorOrImageWithName:(z) andKey:(s)]
-
 #define YSSkinDefineImage(s) [[YSSkinManager shareInstance] getDefaultImageWithKey:(s)]
+
+#define YSSkinElementColor(z , s) [[YSSkinManager shareInstance] getElementColorWithName:(z) andKey:(s)]
+#define YSSkinElementImage(z , s) [[YSSkinManager shareInstance] getElementImageWithName:(z) andKey:(s)]
 
 // 苹果AppID
 #if YSCUSTOMIZED_WSKJ

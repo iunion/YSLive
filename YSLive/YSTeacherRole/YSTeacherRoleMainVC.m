@@ -188,6 +188,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 顶部工具条背景
 @property (nonatomic, strong) UIView *topToolBarBackgroud;
 
+
+///底部导航条伸缩的按钮
+@property (nonatomic, strong) UIButton *barScaleBtn;
+
 /// 顶部工具栏
 @property (nonatomic, strong) SCTeacherTopBar *topToolBar;
 @property (nonatomic, strong) SCTopToolBarModel *topBarModel;
@@ -462,6 +466,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //弹出聊天框的按钮
     [self.view addSubview:self.chatBtn];
     
+    //底部伸缩的导航工具条 + 按钮
+    [self setupBottomToolBarScaleButton];
+        
     if (self.roomtype == YSRoomType_More)
     {
         //举手上台的按钮
@@ -855,6 +862,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.hidden = YES;
 }
 
+///底部伸缩的导航工具条 + 按钮
+- (void)setupBottomToolBarScaleButton
+{
+    CGFloat buttonWH = 36.0;
+    UIButton * barScaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-buttonWH-10, BMUI_SCREEN_HEIGHT-buttonWH-14, buttonWH, buttonWH)];
+    [barScaleBtn setBackgroundColor: YSSkinElementColor(@"barScaleBtn", @"bgColor")];
+    [barScaleBtn setImage:YSSkinElementImage(@"barScaleBtn", @"iconNor") forState:UIControlStateNormal];
+    [barScaleBtn setImage:YSSkinElementImage(@"barScaleBtn", @"iconSel") forState:UIControlStateSelected];
+    [barScaleBtn addTarget:self action:@selector(barScaleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    barScaleBtn.layer.cornerRadius = buttonWH/2;
+    
+    [self.view addSubview:barScaleBtn];
+    self.barScaleBtn = barScaleBtn;
+}
+
+
 /// 助教网络刷新所有人课件
 - (void)handleSignalingTorefeshCourseware
 {
@@ -871,7 +894,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
-    contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+//    contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.view addSubview:contentBackgroud];
     self.contentBackgroud = contentBackgroud;
     
@@ -884,14 +908,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 白板背景
     UIView *whitebordBackgroud = [[UIView alloc] init];
-    whitebordBackgroud.backgroundColor = [UIColor clearColor];
+    whitebordBackgroud.backgroundColor = [UIColor clearColor];;
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+//    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.contentView addSubview:videoBackgroud];
     self.videoBackgroud = videoBackgroud;
     
@@ -5300,12 +5325,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark 聊天相关视图
 
+- (void)barScaleButtonClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+}
+
 /// 弹出聊天View的按钮
 - (UIButton *)chatBtn
 {
     if (!_chatBtn)
     {
-        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT-40-2, 40, 40)];
+        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT-40-2-100, 40, 40)];
         [self.chatBtn setBackgroundColor: UIColor.clearColor];
         [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
         [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];

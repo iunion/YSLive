@@ -17,18 +17,16 @@
 		<key>ToolBgColor</key>
 		<string>#1C1D20</string>
 	</dict>
-	<key>CommonImage</key>
-	<dict/>
-	<key>cancelButton_login</key>
+	<key>barScaleBtn</key>
 	<dict>
 		<key>tittleColor</key>
 		<string>#</string>
-		<key>backgroundColor</key>
-		<string> </string>
-		<key>iconNormal</key>
+		<key>bgColor</key>
 		<string></string>
-		<key>iconSelected</key>
-		<string></string>
+		<key>iconNor</key>
+		<string>studentNormalHand</string>
+		<key>iconSel</key>
+		<string>videlHand</string>
 	</dict>
 </dict>
 </plist>

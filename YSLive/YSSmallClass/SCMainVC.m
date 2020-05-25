@@ -867,7 +867,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     // 整体背景
     UIView *contentBackgroud = [[UIView alloc] init];
-    contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+//    contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.view addSubview:contentBackgroud];
     self.contentBackgroud = contentBackgroud;
     
@@ -886,7 +887,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+//    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    [self.view addSubview:contentBackgroud];
     [self.contentView addSubview:videoBackgroud];
     self.videoBackgroud = videoBackgroud;
     
