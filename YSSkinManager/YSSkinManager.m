@@ -33,7 +33,7 @@ static YSSkinManager *skinManager = nil;
         {
             skinManager = [[YSSkinManager alloc] init];
             
-            skinManager.skinType = YSSkinType_original;
+            skinManager.skinType = YSSkinType_black;
         }
     }
     return skinManager;

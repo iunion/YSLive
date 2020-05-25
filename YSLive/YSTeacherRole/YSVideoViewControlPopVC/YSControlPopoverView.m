@@ -30,7 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x336CC7];
+//    self.view.backgroundColor = [UIColor bm_colorWithHex:0x336CC7];
+    self.view.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     
     self.backView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.backView.backgroundColor = [UIColor clearColor];
