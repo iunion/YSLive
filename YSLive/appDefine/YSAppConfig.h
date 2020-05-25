@@ -35,6 +35,7 @@
 
 #import "YSLiveManager.h"
 #import "YSUserDefault.h"
+#import "YSSkinManager.h"
 #if YSSDK
 #else
 #import "YSSchoolUser.h"
