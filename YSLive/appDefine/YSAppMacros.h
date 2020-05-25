@@ -26,6 +26,10 @@
 #define YSAPP_LocalizedSchool     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_ONLINESCHOOL_NAME]]
 #define YSLocalizedSchool(s)      [YSAPP_LocalizedSchool localizedStringForKey:s value:@"" table:nil]
 
+//换肤
+#define YSSkinDefineColor(s) [[YSSkinManager shareInstance] getDefaultColorWithKey:(s)]
+
+#define YSSkinElementColor(z , s) [[YSSkinManager shareInstance] getElementColorWithName:(z) andKey:(s)]
 
 // 苹果AppID
 #if YSCUSTOMIZED_WSKJ
