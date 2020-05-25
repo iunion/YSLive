@@ -23,8 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)shareInstance;
 
 - (UIColor *)getDefaultColorWithKey:(NSString *)key;
+- (UIImage *)getDefaultImageWithKey:(NSString *)key;
 
-- (UIColor *)getElementColorWithName:(NSString *)name andKey:(NSString *)key;
+- (UIColor *)getElementColorOrImageWithName:(NSString *)name andKey:(NSString *)key;
 
 @end
 

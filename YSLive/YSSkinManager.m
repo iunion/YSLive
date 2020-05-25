@@ -49,11 +49,22 @@ static YSSkinManager *skinManager = nil;
 
 - (UIColor *)getDefaultColorWithKey:(NSString *)key
 {
-    NSString * colorStr = [[self getPliatDictionary] bm_stringForKey:key];
+    NSDictionary * colorDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonColor"];
+    
+    NSString * colorStr = [colorDict bm_stringForKey:key];
     
     UIColor * color = [UIColor bm_colorWithHexString:colorStr];
     
     return color;
+}
+
+- (UIImage *)getDefaultImageWithKey:(NSString *)key
+{
+    NSDictionary * imageDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonImage"];
+    NSString * imageName = [imageDict bm_stringForKey:key];
+    
+    UIImage * image = [UIImage imageNamed:imageName];
+    return image;
 }
 
 
@@ -71,5 +82,10 @@ static YSSkinManager *skinManager = nil;
     }
     return nil;
 }
+
+
+
+
+
 
 @end

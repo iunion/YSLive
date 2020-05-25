@@ -708,7 +708,8 @@
 {
     UIButton * button = [[UIButton alloc]init];
     [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+//    [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+    [button setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
     button.titleLabel.font = UI_FONT_10;
     if (![UIDevice bm_isiPad] && self.roomLayout == YSLiveRoomLayout_VideoLayout)
     {

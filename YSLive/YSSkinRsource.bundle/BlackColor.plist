@@ -2,18 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>blackColor </key>
-	<string>#000000</string>
-	<key>defaultTitleColor</key>
-	<string>#ffffff</string>
-	<key>defaultBgColor</key>
-	<string>#24262C</string>
-	<key>WhiteBoardBgColor</key>
-	<string>#2E3037</string>
-	<key>PopViewBgColor</key>
-	<string>#212121</string>
-	<key>ToolBgColor</key>
-	<string>#1C1D20</string>
+	<key>CommonColor</key>
+	<dict>
+		<key>blackColor </key>
+		<string>#000000</string>
+		<key>defaultTitleColor</key>
+		<string>#ffffff</string>
+		<key>defaultBgColor</key>
+		<string>#24262C</string>
+		<key>WhiteBoardBgColor</key>
+		<string>#2E3037</string>
+		<key>PopViewBgColor</key>
+		<string>#212121</string>
+		<key>ToolBgColor</key>
+		<string>#1C1D20</string>
+	</dict>
+	<key>CommonImage</key>
+	<dict/>
 	<key>cancelButton_login</key>
 	<dict>
 		<key>tittleColor</key>
