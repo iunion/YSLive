@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef enum : NSUInteger {
-    YSSkinType_original,
     YSSkinType_black,
+    YSSkinType_original,
 } YSSkinType;
 
 
