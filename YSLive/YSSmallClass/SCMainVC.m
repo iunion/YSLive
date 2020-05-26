@@ -4854,8 +4854,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 // 停止白板视频/音频
 - (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
-
     isMediaStop = YES;
+    
     if (mediaModel.video)
     {
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
