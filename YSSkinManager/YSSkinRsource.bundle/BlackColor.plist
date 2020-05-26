@@ -37,9 +37,9 @@
 		<key>bgColor</key>
 		<string>#18191D</string>
 		<key>iconNor</key>
-		<string>studentNormalHand</string>
+		<string>barScale_normal_skin</string>
 		<key>iconSel</key>
-		<string>videlHand</string>
+		<string>barScale_selected_skin</string>
 	</dict>
 </dict>
 </plist>
