@@ -4652,6 +4652,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.dragImageView = nil;
         self.videoOriginInSuperview = CGPointZero;
     }
+    else if (pan.state == UIGestureRecognizerStateCancelled || pan.state == UIGestureRecognizerStateFailed || pan.state == UIGestureRecognizerStateRecognized)
+    {
+        [self.dragImageView removeFromSuperview];
+        self.dragImageView = nil;
+        self.videoOriginInSuperview = CGPointZero;
+    }
 }
 
 // 全屏课件时拖拽视频
@@ -4848,8 +4854,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 // 停止白板视频/音频
 - (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
 {
-
     isMediaStop = YES;
+    
     if (mediaModel.video)
     {
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];

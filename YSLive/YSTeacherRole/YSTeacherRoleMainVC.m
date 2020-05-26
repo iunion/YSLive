@@ -339,7 +339,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 课件删除
 @property(nonatomic, strong) NSURLSessionDataTask *deleteTask;
-
+/// 白板视频标注视图
+@property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
+@property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 @end
 
 
@@ -394,7 +396,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         self.userId = userId;
         
-        //        self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
+        self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
         
         if (self.roomtype == YSRoomType_More)
         {
@@ -3107,9 +3109,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
         if (self.liveManager.isBeginClass)
         {
+            [self.liveManager.whiteBoardManager clearVideoMark];
             [self.liveManager deleteMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:nil completion:nil];
         }
-
     }
     else if (mediaModel.audio)
     {
@@ -3226,22 +3228,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.liveManager.roomManager pauseMediaFile:isPlay];
     
-    if (self.liveManager.playMediaModel.audio)
-    {
-        return;
-    }
     if (isPlay)
     {
         if (self.liveManager.isBeginClass)
         {
             [self.liveManager sendPubMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:@{@"videoRatio":@(self.liveManager.playMediaModel.width/self.liveManager.playMediaModel.height)} save:YES extensionData:nil completion:nil];
         }
-        
     }
     else
     {
         if (self.liveManager.isBeginClass)
         {
+            [self.liveManager.whiteBoardManager clearVideoMark];
             [self.liveManager deleteMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:nil completion:nil];
         }
     }
@@ -3251,8 +3249,57 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     isDrag = YES;
     [self.liveManager.roomManager seekMediaFile:value];
+    if (self.liveManager.isBeginClass)
+    {
+        [self.liveManager.whiteBoardManager clearVideoMark];
+        [self.liveManager deleteMsg:sYSSignalVideoWhiteboard toID:YSRoomPubMsgTellAll data:nil completion:nil];
+    }
 }
 
+/// 显示白板视频标注
+- (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
+{
+    if (self.shareVideoFloatView.hidden)
+    {
+        return;
+    }
+    
+    if (self.mediaMarkView.superview)
+    {
+        [self.mediaMarkView removeFromSuperview];
+    }
+    
+    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds];
+    [self.shareVideoFloatView addSubview:self.mediaMarkView];
+    
+    [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];
+    [self.mediaMarkSharpsDatas removeAllObjects];
+}
+
+/// 绘制白板视频标注
+- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
+{
+    if (inlist)
+    {
+        [self.mediaMarkSharpsDatas addObject:data];
+    }
+    else
+    {
+        [self.mediaMarkView freshViewWithData:data savedSharpsData:self.mediaMarkSharpsDatas];
+        [self.mediaMarkSharpsDatas removeAllObjects];
+    }
+}
+
+/// 隐藏白板视频标注
+- (void)handleSignalingHideVideoWhiteboard
+{
+    [self.mediaMarkSharpsDatas removeAllObjects];
+    
+    if (self.mediaMarkView.superview)
+    {
+        [self.mediaMarkView removeFromSuperview];
+    }
+}
 #pragma mark -刷新课件库数据
 - (void)freshTeacherCoursewareListData
 {
@@ -3445,6 +3492,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
         
+        [self.dragImageView removeFromSuperview];
+        self.dragImageView = nil;
+        self.videoOriginInSuperview = CGPointZero;
+    }
+    else if (pan.state == UIGestureRecognizerStateCancelled || pan.state == UIGestureRecognizerStateFailed || pan.state == UIGestureRecognizerStateRecognized)
+    {
         [self.dragImageView removeFromSuperview];
         self.dragImageView = nil;
         self.videoOriginInSuperview = CGPointZero;
@@ -3827,14 +3880,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //    [self handleSignalingHideVideoWhiteboard];
 }
 
-/// 隐藏白板视频标注
-//- (void)handleSignalingHideVideoWhiteboard
-//{
-//    if (self.mediaMarkView.superview)
-//    {
-//        [self.mediaMarkView removeFromSuperview];
-//    }
-//}
+
 
 
 #pragma mark -
