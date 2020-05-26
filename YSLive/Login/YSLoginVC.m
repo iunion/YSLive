@@ -1360,7 +1360,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 NSInteger result = [responseDic bm_intForKey:@"result"];
                 if (result == 4007)
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.RoomTypeCheckError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:@"房间号或密码错误"//YSLoginLocalized(@"Error.RoomTypeCheckError")
+                        delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
@@ -2184,7 +2185,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (errorCode == YSErrorCode_CheckRoom_PasswordError ||
         errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
     {
-        [BMAlertView ys_showAlertWithTitle:YSLoginLocalized(@"Error.PwdError") message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
+        [BMAlertView ys_showAlertWithTitle:@"房间号或密码错误" message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
              [weakSelf theRoomNeedPassword];
         }];
     }

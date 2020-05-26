@@ -2614,12 +2614,12 @@ static YSLiveManager *liveManagerSingleton = nil;
     {
         case YSErrorCode_CheckRoom_ServerOverdue:
         { // 3001  服务器过期
-            alertMessage = YSLocalized(@"Error.ServerExpired");
+            alertMessage = @"房间号或密码错误";//YSLocalized(@"Error.ServerExpired");
         }
             break;
         case YSErrorCode_CheckRoom_RoomFreeze:
         { // 3002  公司被冻结
-            alertMessage = YSLocalized(@"Error.CompanyFreeze");
+            alertMessage = @"房间号或密码错误";//YSLocalized(@"Error.CompanyFreeze");
         }
             break;
         case YSErrorCode_CheckRoom_RoomDeleteOrOrverdue: // 3003  房间被删除或过期
