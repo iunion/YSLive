@@ -111,4 +111,9 @@
     }
 }
 
+- (void)changeCode
+{
+    self.codeStr = [NSString bm_randomStringWithLength:4];
+}
+
 @end

@@ -190,7 +190,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     [super viewDidLoad];
     
-    [self getAppStoreNewVersion];
+    //[self getAppStoreNewVersion];
     
     self.selectRoleType = YSUserType_Student;
     self.isOnlineSchool = NO;
@@ -1274,6 +1274,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    {
 //        [self joinRoom];
 //    }
+    
+    [self.graphCodeView changeCode];
 }
 
 - (BOOL)checkKickTimeWithRoomId:(NSString *)roomId

@@ -62,10 +62,16 @@
 
 //#define YSLIVE_HOST_INIT        @"api.roadofcloud.com"
 //#define YSLIVE_HOST_KEY         (@"release_roomhost")
-#define YSLIVE_HOST             @"api.roadofcloud.net"
 
-#define YS_SIGNINADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/addsignin/"
-#define YS_FLOWERADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/sendflowers/"
+
+//#define YSLIVE_HOST             @"api.roadofcloud.net"
+//
+//#define YS_SIGNINADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/addsignin/"
+//#define YS_FLOWERADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/sendflowers/"
+
+#define YSLIVE_HOST         @"demo.roadofcloud.net"
+#define YS_SIGNINADDRESS    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/addsignin/"
+#define YS_FLOWERADDRESS    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/sendflowers/"
 
 #endif
 

@@ -24,4 +24,7 @@
 
 @property (nonatomic, strong) NSString *codeStr;
 
+- (void)changeCode;
+
 @end
+
