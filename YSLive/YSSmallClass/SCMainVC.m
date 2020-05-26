@@ -173,7 +173,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) dispatch_source_t topBarTimer;
 
 /// 内容背景
-@property (nonatomic, strong) UIView *contentBackgroud;
+//@property (nonatomic, strong) UIView *contentBackgroud;
 /// 内容
 @property (nonatomic, strong) UIView *contentView;
 /// 视频背景
@@ -476,7 +476,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //[self setCurrentUserPrimaryColor];
     
     // 顶部工具栏背景
-    [self setupTopToolBar];
+//    [self setupTopToolBar];
     
     // 内容背景
     [self setupContentView];
@@ -866,11 +866,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
 
     // 整体背景
-    UIView *contentBackgroud = [[UIView alloc] init];
-//    contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-    contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-    [self.view addSubview:contentBackgroud];
-    self.contentBackgroud = contentBackgroud;
+//    UIView *contentBackgroud = [[UIView alloc] init];
+////    contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+//    contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+//    [self.view addSubview:contentBackgroud];
+//    self.contentBackgroud = contentBackgroud;
     
     // 视频+白板背景
     UIView *contentView = [[UIView alloc] init];
@@ -889,7 +889,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIView *videoBackgroud = [[UIView alloc] init];
 //    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-    [self.view addSubview:contentBackgroud];
+    [self.view addSubview:self.contentBackgroud];
     [self.contentView addSubview:videoBackgroud];
     self.videoBackgroud = videoBackgroud;
     
@@ -897,7 +897,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.whitebordBackgroud addSubview:self.whiteBordView];
     
     /// 设置尺寸
-    self.contentBackgroud.frame = CGRectMake(0, self.topToolBarBackgroud.bm_bottom, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT-self.topToolBarBackgroud.bm_bottom);
+//    self.contentBackgroud.frame = CGRectMake(0, self.topToolBarBackgroud.bm_bottom, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT-self.topToolBarBackgroud.bm_bottom);
     
     if (self.roomtype == YSRoomType_One)
     {

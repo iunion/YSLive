@@ -11,6 +11,10 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
+
+/// 顶部状态栏高度
+#define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
+
 @interface YSClassMainSuperVC ()
 <
     SCEyeCareViewDelegate
@@ -22,6 +26,9 @@
 @property (nonatomic, strong) SCEyeCareView *eyeCareView;
 /// 护眼提醒window
 @property (nonatomic, strong) SCEyeCareWindow *eyeCareWindow;
+/// 所有内容的背景contentBackgroud的尺寸
+@property(nonatomic, assign) CGFloat contentWidth;
+@property(nonatomic, assign) CGFloat contentHeight;
 
 @end
 
@@ -40,7 +47,50 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    //创建一个16：9的背景view
+    [self setupBottomBackgroundView];
+    
+    //顶部状态栏
+    [self setupstateToolBar];
+    
 }
+
+///创建一个16：9的背景view
+- (void)setupBottomBackgroundView
+{
+    if (BMUI_SCREEN_WIDTH/BMUI_SCREEN_HEIGHT >= (16.0/9.0))
+    {
+        self.contentHeight = BMUI_SCREEN_HEIGHT;
+        self.contentWidth = self.contentHeight * 16.0 / 9.0;
+    }
+    else if (BMUI_SCREEN_WIDTH/BMUI_SCREEN_HEIGHT < (16.0/9.0))
+    {
+        self.contentWidth = BMUI_SCREEN_WIDTH;
+        self.contentHeight = self.contentWidth * 9.0 / 16.0;
+    }
+    
+    CGFloat bgX = (BMUI_SCREEN_WIDTH - self.contentWidth)/2;
+    CGFloat bgY = (BMUI_SCREEN_HEIGHT - self.contentHeight)/2;
+    
+    UIView * contentBackgroud = [[UIView alloc]initWithFrame:CGRectMake(bgX, bgY, self.contentWidth, self.contentHeight)];
+    contentBackgroud.backgroundColor = UIColor.clearColor;
+    [self.view addSubview:contentBackgroud];
+    self.contentBackgroud = contentBackgroud;
+}
+
+
+///顶部状态栏
+- (void)setupstateToolBar
+{
+    UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
+    stateToolView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    [self.contentBackgroud addSubview:stateToolView];
+    
+    
+    
+}
+
 
 /// 进入全屏
 - (void)begainFullScreen
