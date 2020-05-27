@@ -94,11 +94,10 @@
 ///顶部状态栏
 - (void)setupstateToolBar
 {
-    
-    
     UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
     stateToolView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.contentBackgroud addSubview:stateToolView];
+    self.stateToolView = stateToolView;
     
     
 }

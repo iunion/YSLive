@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign, readonly) CGFloat contentWidth;
 @property(nonatomic, assign, readonly) CGFloat contentHeight;
 
+///状态栏
+@property(nonatomic, strong) UIView *stateToolView;
 
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
