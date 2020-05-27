@@ -186,6 +186,19 @@
 "Prompt.timeoutReadyEnd.three" = "分鐘之後自動關閉！";
 
 "Title.DocumentList"        = "課件庫";
+"Title.ToolBox"             = "工具箱";
+"Title.AroundLayout"        = "平鋪佈局";
+"Title.VideoLayout"         = "綜合佈局";
+"Title.Polling"             = "輪播";
+"Title.AllNoAudio"          = "全體禁音";
+"Title.AllAudio"            = "取消靜音";
+"Title.Message"             = "消息";
+"Title.Exit"                = "退出";
+"Title.ChangeCamera"        = "翻轉攝像頭";;
+
+
+
+
 "Title.MediaList"           = "媒體庫";
 "Title.ControlList"         = "操作";
 "Title.TrophySend"          = "發送獎杯";

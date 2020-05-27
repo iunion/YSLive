@@ -187,6 +187,22 @@
 "Prompt.timeoutReadyEnd.three" = "分钟之后自动关闭！";
 
 "Title.DocumentList"        = "课件库";
+"Title.ToolBox"             = "工具箱";
+"Title.AroundLayout"        = "平铺布局";
+"Title.VideoLayout"         = "综合布局";
+"Title.Polling"             = "轮播";
+"Title.AllNoAudio"          = "全体禁音";
+"Title.AllAudio"            = "取消静音";
+"Title.Message"             = "消息";
+"Title.Exit"                = "退出";
+"Title.ChangeCamera"        = "切换摄像头";
+
+
+
+
+
+
+
 "Title.MediaList"           = "媒体库";
 "Title.ControlList"         = "操作";
 "Title.TrophySend"          = "发送奖杯";

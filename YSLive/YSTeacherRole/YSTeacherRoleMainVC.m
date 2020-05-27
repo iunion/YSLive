@@ -45,6 +45,7 @@
 #import "YSTeacherResponder.h"
 #import "YSTeacherTimerView.h"
 #import "YSPollingView.h"
+#import "YSBottomToolBar.h"
 #define USE_YSRenderMode_adaptive   1
 #define USE_FullTeacher             1
 
@@ -60,6 +61,23 @@
 static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
 static const CGFloat kTopToolBar_Height_iPad = 70.0f;
 #define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
+
+/// 底部部工具条高
+static const CGFloat kBottomToolBar_Height_iPhone = 44.0f;
+static const CGFloat kBottomToolBar_Height_iPad = 50.0f;
+#define BOTTOMTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kBottomToolBar_Height_iPad : kBottomToolBar_Height_iPhone)
+/// 底部部工具条宽
+static const CGFloat kBottomToolBar_Width_iPhone = 572.0f;
+static const CGFloat kBottomToolBar_Width_iPad = 744.0f;
+#define BOTTOMTOOLBAR_WIDTH           ([UIDevice bm_isiPad] ? kBottomToolBar_Width_iPad : kBottomToolBar_Width_iPhone)
+/// 底部工具栏右边距
+static const CGFloat kBottomToolBar_rightGap_iPhone = 7.0f;
+static const CGFloat kBottomToolBar_rightGap_iPad = 16.0f ;
+#define BOTTOMTOOLBAR_rightGap        ([UIDevice bm_isiPad] ? kBottomToolBar_rightGap_iPad : kBottomToolBar_rightGap_iPhone)
+/// 底部工具栏下边距
+static const CGFloat kBottomToolBar_bottomGap_iPhone = 10.0f;
+static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
+#define BOTTOMTOOLBAR_bottomGap       ([UIDevice bm_isiPad] ? kBottomToolBar_bottomGap_iPad : kBottomToolBar_bottomGap_iPhone)
 
 /// 一对一多视频最高尺寸
 static const CGFloat kVideoView_MaxHeight_iPhone = 80.0f;
@@ -110,7 +128,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIGestureRecognizerDelegate,
     YSTeacherResponderDelegate,
     YSTeacherTimerViewDelegate,
-    YSPollingViewDelegate
+    YSPollingViewDelegate,
+    YSBottomToolBarDelegate
 >
 {
     /// 最大上台数
@@ -184,17 +203,21 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 ///标识布局变化的值
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;
-
-/// 顶部工具条背景
-@property (nonatomic, strong) UIView *topToolBarBackgroud;
-
-
 ///底部导航条伸缩的按钮
 @property (nonatomic, strong) UIButton *barScaleBtn;
 
+/// 底部工具条背景
+@property (nonatomic, strong) UIView *bottomBarBackgroudView;
+/// 底部工具栏
+@property (nonatomic, strong) YSBottomToolBar *bottomToolBar;
+
+/// 顶部工具条背景
+@property (nonatomic, strong) UIView *topToolBarBackgroud;
 /// 顶部工具栏
 @property (nonatomic, strong) SCTeacherTopBar *topToolBar;
 @property (nonatomic, strong) SCTopToolBarModel *topBarModel;
+
+
 /// 记录顶部工具栏上次选中的按钮
 @property (nonatomic, strong) UIButton *topSelectBtn;
 /// 顶部按钮popoverView
@@ -456,6 +479,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 顶部工具栏背景
     [self setupTopToolBar];
     
+
     // 内容背景
     [self setupContentView];
     
@@ -474,7 +498,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     //底部伸缩的导航工具条 + 按钮
     [self setupBottomToolBarScaleButton];
-        
+    // 底部工具栏
+    [self setupBottomToolBarView];
+    
     if (self.roomtype == YSRoomType_More)
     {
         //举手上台的按钮
@@ -727,6 +753,26 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.topToolBar.topToolModel = self.topBarModel;
 }
+
+/// 底部工具栏
+- (void)setupBottomToolBarView
+{
+    
+    UIView *bottomBarBackgroudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BOTTOMTOOLBAR_WIDTH, BOTTOMTOOLBAR_HEIGHT)];
+    bottomBarBackgroudView.backgroundColor =  YSSkinDefineColor(@"PopViewBgColor");
+    [self.view addSubview:bottomBarBackgroudView];
+    self.bottomBarBackgroudView = bottomBarBackgroudView;
+    self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
+    self.bottomBarBackgroudView.bm_bottom = self.view.bm_bottom - BOTTOMTOOLBAR_bottomGap;
+    self.bottomBarBackgroudView.layer.cornerRadius = BOTTOMTOOLBAR_HEIGHT/2.0f;
+    [self.bottomBarBackgroudView.layer masksToBounds];
+    
+    self.bottomToolBar = [[YSBottomToolBar alloc] init];
+    self.bottomToolBar.delegate = self;
+    self.bottomToolBar.frame = self.bottomBarBackgroudView.bounds;
+    [self.bottomBarBackgroudView addSubview:self.bottomToolBar];
+}
+
 
 /// 视频布局全屏按钮的创建
 - (void)setupVideoFullBtn
@@ -3920,6 +3966,191 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
+#pragma mark -
+#pragma mark 底部Bar -- SCTeacherTopBarDelegate
+- (void)sc_bottomToolBarProxyWithBtn:(UIButton *)btn
+{
+    
+    if (self.topSelectBtn != btn)
+    {
+        if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout || self.topSelectBtn.tag == SCTeacherTopBarTypeAllNoAudio || self.topSelectBtn.tag == SCTeacherTopBarTypePolling || self.topSelectBtn.tag == SCTeacherTopBarTypeChat))
+        {
+            self.topSelectBtn.selected = NO;
+        }
+        
+        if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware || self.topSelectBtn.tag ==
+            SCTeacherTopBarTypePersonList)
+        {
+            [self freshListViewWithSelect:NO];
+            
+        }
+        
+//        if (self.topSelectBtn.tag == SCTeacherTopBarTypeChat && (btn.tag == SCTeacherTopBarTypeCourseware || btn.tag == SCTeacherTopBarTypePersonList))
+//        {
+//            self.topSelectBtn.selected = NO;
+//        }
+    }
+    
+    switch (btn.tag)
+    {
+        case SCTeacherTopBarTypePersonList:
+        {
+            [self.bottomToolBar setMessageOpen:NO];
+            [self freshListViewWithSelect:!btn.selected];
+             //课件库
+             if (!self.liveManager.roomConfig.isMultiCourseware)
+             {
+                 self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
+                 if (self.liveManager.playMediaModel)
+                 {
+                     self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
+                 }
+                 else
+                 {
+                     self.currentMediaState = YSWhiteBordMediaState_Stop;
+                 }
+             }
+             [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+             
+             [self.teacherListView bm_bringToFront];
+        }
+            break;
+            
+        case SCTeacherTopBarTypeCourseware:
+        {
+            [self.bottomToolBar setMessageOpen:NO];
+            [self freshListViewWithSelect:!btn.selected];
+            //课件库
+            if (!self.liveManager.roomConfig.isMultiCourseware)
+            {
+                self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
+                if (self.liveManager.playMediaModel)
+                {
+                    self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
+                }
+                else
+                {
+                    self.currentMediaState = YSWhiteBordMediaState_Stop;
+                }
+            }
+            [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+            
+            [self.teacherListView bm_bringToFront];
+        }
+            break;
+        case SCTeacherTopBarTypeToolBox:
+        {
+            //工具箱
+            [self popoverToolSenderWithType:SCTeacherTopBarTypeToolBox sender:btn];
+        }
+            break;
+        case SCTeacherTopBarTypeSwitchLayout:
+        {
+            //切换布局
+            [self changeLayoutWithMode:!btn.selected];
+        }
+            break;
+        case SCTeacherTopBarTypePolling:
+        {
+            //轮播
+            if (_isPolling)
+            {
+
+                [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+            }
+            else
+            {
+                self.teacherPollingView = [[YSPollingView alloc] init];
+                [self.teacherPollingView showTeacherPollingViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+                self.teacherPollingView.delegate = self;
+            }
+        }
+            break;
+        case SCTeacherTopBarTypeAllNoAudio:
+        {
+            if (btn.selected)
+            {
+                // 全体静音
+                [self.liveManager sendSignalingTeacherToLiveAllNoAudioCompletion:nil];
+            }
+            else
+            {
+                // 全体发言
+                [self.liveManager deleteSignalingTeacherToLiveAllNoAudioCompletion:nil];
+            }
+        }
+            break;
+        case SCTeacherTopBarTypeCamera:
+        {
+            //摄像头
+            [self.liveManager.roomManager selectCameraPosition:btn.selected];
+        }
+            break;
+        case SCTeacherTopBarTypeChat:
+        {
+            //消息
+            CGRect tempRect = self.rightChatView.frame;
+            if (!btn.selected)
+            {//弹出
+                tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
+                
+                //收回 课件表 以及 花名册
+                [self freshListViewWithSelect:NO];
+                if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
+                {
+                    self.topSelectBtn.selected = NO;
+                }
+            }
+            else
+            {//收回
+                tempRect.origin.x = BMUI_SCREEN_WIDTH;
+            }
+            [UIView animateWithDuration:0.25 animations:^{
+                self.rightChatView.frame = tempRect;
+            }];
+            [self arrangeAllViewInVCView];
+        }
+            break;
+        case SCTeacherTopBarTypeExit:
+        {
+            //退出
+            [self backAction:nil];
+        }
+            break;
+        case SCTeacherTopBarTypeOnOff:
+        {
+            //展开收起
+            if (btn.selected)
+            {
+                self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_WIDTH;
+
+                self.bottomToolBar.open = YES;
+            }
+            else
+            {
+                self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_HEIGHT;
+//                self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
+                self.bottomToolBar.open = NO;
+            }
+
+                self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
+                
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if ( btn.tag != SCTeacherTopBarTypeExit)
+    {
+        btn.selected = !btn.selected;
+    }
+//    if (btn.tag != SCTeacherTopBarTypeOnOff)
+//    {
+        self.topSelectBtn = btn;
+//    }
+    
+}
 #pragma mark -
 #pragma mark 顶部Bar -- SCTeacherTopBarDelegate
 
