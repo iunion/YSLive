@@ -142,6 +142,24 @@
 		<key>iconSel</key>
 		<string>videoPop_IsFouce_skin</string>
 	</dict>
+	<key>raiseHand_teacherBtn</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>raiseHand_teacherNo_skin</string>
+		<key>iconSel</key>
+		<string>raiseHand_teacher_skin</string>
+	</dict>
+	<key>raiseHand_studentBtn</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>raiseHand_teacher_skin</string>
+		<key>iconSel</key>
+		<string>raiseHand_student_skin</string>
+	</dict>
 	<key>personList_bottombar</key>
 	<dict>
 		<key>tittleColor</key>

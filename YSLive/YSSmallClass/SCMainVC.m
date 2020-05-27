@@ -1274,10 +1274,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (!_raiseHandsBtn)
     {
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(YSUI_contentWidth-40-26, YSUI_contentHeight - self.whitebordBackgroud.bm_height+20, 40, 40)];
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
-        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
-        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateHighlighted];
+        [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconNor") forState:UIControlStateNormal];
+        [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateHighlighted];
         [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
         
         [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
