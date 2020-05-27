@@ -62,9 +62,12 @@
 //    BMIS_IPHONEXANDP
     NSInteger WIDTH = BMUI_SCREEN_WIDTH;
     
+    NSInteger top = 0;
+    
     if (BMIS_IPHONEXANDP)
     {
-        WIDTH = BMUI_SCREEN_WIDTH - BMUI_NAVIGATION_BAR_FRIMGEHEIGHT;
+        top = BMUI_NAVIGATION_BAR_FRIMGEHEIGHT;
+        WIDTH = BMUI_SCREEN_WIDTH - top;
     }
     
     if (WIDTH/BMUI_SCREEN_HEIGHT >= (16.0/9.0))
@@ -78,7 +81,7 @@
         self.contentHeight = ceil(self.contentWidth * 9.0 / 16.0);
     }
     
-    CGFloat bgX = BMUI_NAVIGATION_BAR_FRIMGEHEIGHT + (WIDTH - self.contentWidth)/2;
+    CGFloat bgX = top + (WIDTH - self.contentWidth)/2;
     CGFloat bgY = (BMUI_SCREEN_HEIGHT - self.contentHeight)/2;
     
     UIView * contentBackgroud = [[UIView alloc]initWithFrame:CGRectMake(bgX, bgY, self.contentWidth, self.contentHeight)];
@@ -96,7 +99,6 @@
     UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
     stateToolView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.contentBackgroud addSubview:stateToolView];
-    
     
     
 }

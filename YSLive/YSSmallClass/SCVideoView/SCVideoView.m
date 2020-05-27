@@ -329,7 +329,8 @@
     
     //举手图标
     self.raiseHandImage = [[UIImageView alloc] init];
-    self.raiseHandImage.image = [UIImage imageNamed:@"videlHand"];
+//    self.raiseHandImage.image = [UIImage imageNamed:@"videlHand"];
+    self.raiseHandImage.image = YSSkinElementImage(@"video_handImageView", @"iconNor");
     self.raiseHandImage.hidden = YES;
     [self.backVideoView addSubview:self.raiseHandImage];
     
