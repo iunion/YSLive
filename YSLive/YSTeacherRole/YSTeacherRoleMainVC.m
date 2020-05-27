@@ -1217,18 +1217,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {
             // 在此调整视频大小和屏幕比例关系
-            
             videoWidth = ceil((YSUI_contentWidth - VIDEOVIEW_GAP * 3)/3);
             if (self.isWideScreen)
             {
-//                videoWidth = ceil(YSUI_contentWidth/25) * 9;
-//                videoHeight = ceil(videoWidth * 9/16);
                 videoHeight = ceil(videoWidth * 9/16);
-                
             }
             else
             {
-//                videoWidth = ceil(YSUI_contentWidth * 5/21);
                 videoHeight = ceil(videoWidth * 3/4);
             }
             whitebordWidth = 2 * videoWidth;
@@ -1269,66 +1264,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             whitebordHeight = ceil(YSUI_contentHeight - STATETOOLBAR_HEIGHT - videoTeacherHeight - VIDEOVIEW_GAP);
             whitebordWidth = ceil(whitebordHeight * 2);
         }
-        
-        /*
-        if (count < 10)
-        {
-            if ([self checkVideoSize])
-            {
-                videoWidth = floor(YSUI_contentWidth / count - VIDEOVIEW_GAP * 0.5);
-
-                if (self.isWideScreen)
-                {
-                    videoHeight = ceil(videoWidth * 9 /16);
-                }
-                else
-                {
-                    videoHeight = ceil(videoWidth * 3/4);
-                }
-            }
-            else
-            {
-                videoHeight = VIDEOVIEW_MAXHEIGHT;
-
-                if (self.isWideScreen)
-                {
-                    videoWidth = ceil(videoHeight * 16/9);
-                }
-                else
-                {
-                    videoWidth = ceil(videoHeight * 4/3);
-                }
-            }
-        }
-        else
-        {
-            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
-
-            videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
-
-            CGFloat scale = 0;
-
-            if (self.isWideScreen)
-            {
-                scale = 16.0/9.0;
-            }
-            else
-            {
-                scale = 4.0/3.0;
-            }
-            videoWidth = videoHeight * scale;
-            videoTeacherWidth = videoTeacherHeight * scale;
-
-            CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
-            if (totalW > YSUI_contentWidth)
-            {
-                videoTeacherHeight = (YSUI_contentWidth - (10 - 4 * scale) * VIDEOVIEW_GAP*0.5)/(5 * scale);
-                videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
-                videoWidth = videoHeight * scale;
-                videoTeacherWidth = videoTeacherHeight * scale;
-            }
-        }
-         */
     }
     
     [self freshWhitBordContentView];
@@ -1441,11 +1376,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {//左右平行关系
                 if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
                 {
-                    view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, whitebordHeight);
+                    view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
                 }
                 else
                 {
-                    view.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, whitebordHeight);
+                    view.frame = CGRectMake(VIDEOVIEW_GAP * 2 + videoWidth, 0, videoWidth, videoHeight);
                 }
                 
 #if USE_YSRenderMode_adaptive
@@ -1456,7 +1391,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {//上下平行关系
-//                if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
                 if (view.roomUser.role == YSUserType_Teacher)
                 {
                     view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
@@ -1557,7 +1491,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//左右平行关系
             self.whitebordBackgroud.hidden = YES;
             
-//            self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, YSUI_contentWidth, videoHeight);
             self.videoBackgroud.frame = CGRectMake(0, 0, YSUI_contentWidth, videoHeight);
             
             self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
