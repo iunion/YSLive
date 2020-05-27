@@ -8,9 +8,12 @@
 
 #import "YSMainSuperVC.h"
 
-
+//16：9的背景view尺寸
 #define YSUI_contentWidth self.contentWidth
 #define YSUI_contentHeight self.contentHeight
+
+/// 顶部状态栏高度
+#define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
 
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {

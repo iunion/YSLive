@@ -12,8 +12,7 @@
 #import "SCEyeCareWindow.h"
 
 
-/// 顶部状态栏高度
-#define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
+
 
 @interface YSClassMainSuperVC ()
 <

@@ -448,7 +448,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isPolling = NO;
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
-    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];    
+    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     // 顶部工具栏背景
 //    [self setupTopToolBar];
@@ -908,14 +908,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 前后默认开启镜像
     [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
 
-    // 整体背景
-//    UIView *contentBackgroud = [[UIView alloc] init];
-////    contentBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-//    contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-//    [self.view addSubview:contentBackgroud];
-//    self.contentBackgroud = contentBackgroud;
-    
-    
     // 视频+白板背景
     UIView *contentView = [[UIView alloc] init];
     contentView.backgroundColor = [UIColor clearColor];
@@ -940,13 +932,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.whitebordBackgroud addSubview:self.whiteBordView];
     
     /// 设置尺寸
-//    self.contentBackgroud.frame = CGRectMake(0, self.topToolBarBackgroud.bm_bottom, YSUI_contentWidth, YSUI_contentHeight-self.topToolBarBackgroud.bm_bottom);
-    
     if (self.roomtype == YSRoomType_One)
     {
         [self calculateVideoSize];
         
-        self.contentView.frame = CGRectMake(0, 0, YSUI_contentWidth, whitebordHeight);
+        self.contentView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, YSUI_contentWidth, whitebordHeight);
         [self.contentView bm_centerInSuperView];
         
         self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
@@ -1194,78 +1184,71 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
         {//左右平行关系
-            videoWidth = ceil((YSUI_contentWidth-VIDEOVIEW_GAP*3) / 2);
-            videoHeight = ceil(videoWidth*9 / 16);
+            videoWidth = ceil((YSUI_contentWidth - VIDEOVIEW_GAP * 3) / 2);
+            videoHeight = ceil(videoWidth * 9/16);
         }
         else
         {
             // 在此调整视频大小和屏幕比例关系
+            
+            videoWidth = ceil((YSUI_contentWidth - VIDEOVIEW_GAP * 3)/3);
             if (self.isWideScreen)
             {
-                videoWidth = ceil(YSUI_contentWidth / 25) * 9;
-                videoHeight = ceil(videoWidth*9 / 16);
+//                videoWidth = ceil(YSUI_contentWidth/25) * 9;
+//                videoHeight = ceil(videoWidth * 9/16);
+                videoHeight = ceil(videoWidth * 9/16);
+                
             }
             else
             {
-                videoWidth = ceil(YSUI_contentWidth*5 / 21);
-                videoHeight = ceil(videoWidth*3 / 4);
+//                videoWidth = ceil(YSUI_contentWidth * 5/21);
+                videoHeight = ceil(videoWidth * 3/4);
             }
             
-            whitebordWidth = YSUI_contentWidth - (videoWidth+VIDEOVIEW_GAP*2);
-            whitebordHeight = VIDEOVIEW_GAP + videoHeight * 2;
-            if ((whitebordHeight+TOPTOOLBAR_HEIGHT)>YSUI_contentHeight)
-            {
-                BMLog(@"UI_SCREEN_HEIGHT: %@", @(YSUI_contentHeight));
-                
-                whitebordHeight = YSUI_contentHeight-TOPTOOLBAR_HEIGHT-VIDEOVIEW_GAP;
-                videoHeight = (whitebordHeight - VIDEOVIEW_GAP)*0.5;
-                if (self.isWideScreen)
-                {
-                    videoWidth = ceil(videoHeight*16 / 9);
-                }
-                else
-                {
-                    videoWidth = ceil(videoHeight*4 / 3);
-                }
-            }
+//            whitebordWidth = YSUI_contentWidth - (videoWidth + VIDEOVIEW_GAP * 2);
+//            whitebordHeight = VIDEOVIEW_GAP + videoHeight * 2;
+            
+            whitebordWidth = 2 * videoWidth;
+            whitebordHeight = whitebordWidth * 3/4;
+            
+//            if ((whitebordHeight+TOPTOOLBAR_HEIGHT) > YSUI_contentHeight)
+//            {
+//                BMLog(@"UI_SCREEN_HEIGHT: %@", @(YSUI_contentHeight));
+//
+//                whitebordHeight = YSUI_contentHeight-TOPTOOLBAR_HEIGHT-VIDEOVIEW_GAP;
+//                videoHeight = (whitebordHeight - VIDEOVIEW_GAP)*0.5;
+//                if (self.isWideScreen)
+//                {
+//                    videoWidth = ceil(videoHeight*16 / 9);
+//                }
+//                else
+//                {
+//                    videoWidth = ceil(videoHeight*4 / 3);
+//                }
+//            }
         }
     }
     else
     {
         NSUInteger count = [self getVideoViewCount];
         
-        if (count < 10)
+        
+        if (count < 8)
         {
-            if ([self checkVideoSize])
+            videoWidth = (YSUI_contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7;
+            
+            if (self.isWideScreen)
             {
-                videoWidth = floor(YSUI_contentWidth / count - VIDEOVIEW_GAP * 0.5);
-                
-                if (self.isWideScreen)
-                {
-                    videoHeight = ceil(videoWidth * 9 /16);
-                }
-                else
-                {
-                    videoHeight = ceil(videoWidth * 3/4);
-                }
+                videoHeight = ceil(videoWidth * 9/16);
             }
             else
             {
-                videoHeight = VIDEOVIEW_MAXHEIGHT;
-                
-                if (self.isWideScreen)
-                {
-                    videoWidth = ceil(videoHeight * 16/9);
-                }
-                else
-                {
-                    videoWidth = ceil(videoHeight * 4/3);
-                }
+                videoWidth = ceil(videoWidth * 3/4);
             }
         }
         else
         {
-            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
+            videoTeacherHeight = (YSUI_contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7;
             
             videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
             
@@ -1282,15 +1265,74 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             videoWidth = videoHeight * scale;
             videoTeacherWidth = videoTeacherHeight * scale;
             
-            CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
-            if (totalW > YSUI_contentWidth)
-            {
-                videoTeacherHeight = (YSUI_contentWidth - (10 - 4 * scale) * VIDEOVIEW_GAP*0.5)/(5 * scale);
-                videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
-                videoWidth = videoHeight * scale;
-                videoTeacherWidth = videoTeacherHeight * scale;
-            }
+//            CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
+//            if (totalW > YSUI_contentWidth)
+//            {
+//                videoTeacherHeight = (YSUI_contentWidth - (10 - 4 * scale) * VIDEOVIEW_GAP*0.5)/(5 * scale);
+//                videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
+//                videoWidth = videoHeight * scale;
+//                videoTeacherWidth = videoTeacherHeight * scale;
+//            }
         }
+        
+        
+//        if (count < 10)
+//        {
+//            if ([self checkVideoSize])
+//            {
+//                videoWidth = floor(YSUI_contentWidth / count - VIDEOVIEW_GAP * 0.5);
+//
+//                if (self.isWideScreen)
+//                {
+//                    videoHeight = ceil(videoWidth * 9 /16);
+//                }
+//                else
+//                {
+//                    videoHeight = ceil(videoWidth * 3/4);
+//                }
+//            }
+//            else
+//            {
+//                videoHeight = VIDEOVIEW_MAXHEIGHT;
+//
+//                if (self.isWideScreen)
+//                {
+//                    videoWidth = ceil(videoHeight * 16/9);
+//                }
+//                else
+//                {
+//                    videoWidth = ceil(videoHeight * 4/3);
+//                }
+//            }
+//        }
+//        else
+//        {
+//            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
+//
+//            videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
+//
+//            CGFloat scale = 0;
+//
+//            if (self.isWideScreen)
+//            {
+//                scale = 16.0/9.0;
+//            }
+//            else
+//            {
+//                scale = 4.0/3.0;
+//            }
+//            videoWidth = videoHeight * scale;
+//            videoTeacherWidth = videoTeacherHeight * scale;
+//
+//            CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
+//            if (totalW > YSUI_contentWidth)
+//            {
+//                videoTeacherHeight = (YSUI_contentWidth - (10 - 4 * scale) * VIDEOVIEW_GAP*0.5)/(5 * scale);
+//                videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
+//                videoWidth = videoHeight * scale;
+//                videoTeacherWidth = videoTeacherHeight * scale;
+//            }
+//        }
     }
     
     [self freshWhitBordContentView];
