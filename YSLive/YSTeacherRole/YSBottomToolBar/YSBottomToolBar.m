@@ -322,7 +322,25 @@ static const CGFloat kBarBtn_gap_iPad = 5.0f;
 
 - (void)setUserEnable:(BOOL)userEnable
 {
-    
+    _userEnable = userEnable;
+    ///花名册
+    self.personListBtn.enabled = userEnable;
+    ///课件库
+    self.coursewareBtn.enabled = userEnable;
+    ///工具箱
+    self.toolBoxBtn.enabled = userEnable;
+    ///切换布局
+    self.switchLayoutBtn.enabled = userEnable;
+    /// 轮询
+    self.pollingBtn.enabled = userEnable;
+    /// 全体禁音
+    self.allNoAudioBtn.enabled = userEnable;
+    ///切换摄像头
+    self.cameraBtn.enabled = userEnable;
+    /// 消息
+    self.chatBtn.enabled = userEnable;
+
+
 }
 
 - (void)setOpen:(BOOL)open
