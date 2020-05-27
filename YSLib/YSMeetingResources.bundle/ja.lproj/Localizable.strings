@@ -140,6 +140,19 @@
 "Prompt.timeoutReadyEnd.two" = "分です、教室は間もなく";
 "Prompt.timeoutReadyEnd.three" = "分後に自動的に閉じられます";
 "Title.DocumentList"        = "教材ファイル";
+"Title.ToolBox"             = "工具箱";
+"Title.AroundLayout"        = "平铺布局";
+"Title.VideoLayout"         = "综合布局";
+"Title.Polling"             = "轮播";
+"Title.AllNoAudio"          = "全体禁音";
+"Title.AllAudio"            = "取消静音";
+"Title.Message"             = "消息";
+"Title.Exit"                = "退出";
+"Title.ChangeCamera"        = "切换摄像头";
+
+
+
+
 "Title.MediaList"           = "メディアファイル";
 "Title.ControlList"         = "操作";
 "Title.TrophySend"          = "賞杯を送る";

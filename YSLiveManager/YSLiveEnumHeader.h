@@ -127,8 +127,16 @@ typedef NS_ENUM(NSInteger, SCTeacherTopBarType)
     SCTeacherTopBarTypeAllControll,
     /** 切换布局 */
     SCTeacherTopBarTypeSwitchLayout,
-    /** 切换布局 */
-    SCTeacherTopBarTypeCamera
+    /** 切换摄像头 */
+    SCTeacherTopBarTypeCamera,
+    /** 全体禁音 */
+    SCTeacherTopBarTypeAllNoAudio,
+    /** 消息 */
+    SCTeacherTopBarTypeChat,
+    /** 退出 */
+    SCTeacherTopBarTypeExit,
+    /** 展开收起 */
+    SCTeacherTopBarTypeOnOff
 };
 
 //typedef NS_ENUM(NSInteger, PublishState) {

@@ -100,6 +100,8 @@
 		26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
 		26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
 		26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
+		26D201D4247CCC3C00631F8F /* YSBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D201D3247CCC3C00631F8F /* YSBottomToolBar.m */; };
+		26D201D5247CCC3C00631F8F /* YSBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D201D3247CCC3C00631F8F /* YSBottomToolBar.m */; };
 		26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		26EFA60123795A7100EC2A64 /* SCAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA5FF23794EFD00EC2A64 /* SCAnswerView.m */; };
 		26EFA67223797B0000EC2A64 /* SCOptionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA67123797B0000EC2A64 /* SCOptionCollectionCell.m */; };
@@ -899,6 +901,8 @@
 		26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4PlayerMaskView.h; sourceTree = "<group>"; };
 		26D07C1A243F03B2002B1B60 /* YSMP4Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4Player.m; sourceTree = "<group>"; };
 		26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4PlayerMaskView.m; sourceTree = "<group>"; };
+		26D201D2247CCC3C00631F8F /* YSBottomToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSBottomToolBar.h; sourceTree = "<group>"; };
+		26D201D3247CCC3C00631F8F /* YSBottomToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSBottomToolBar.m; sourceTree = "<group>"; };
 		26D5405D23BDD7060064FB84 /* SCTeacherAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherAnswerView.h; sourceTree = "<group>"; };
 		26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherAnswerView.m; sourceTree = "<group>"; };
 		26E6401723699700000D9CEC /* YSUserDefault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUserDefault.h; sourceTree = "<group>"; };
@@ -1539,6 +1543,7 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
+				26D201D1247CCC0D00631F8F /* YSBottomToolBar */,
 				CBC14DFF242A5B610052F6EE /* YSPollingView */,
 				CB384CE423FE7D1100DCD1C0 /* YSTeacherTimer */,
 				CBE342D823FBA286003EA794 /* YSTeacherResponder */,
@@ -1921,6 +1926,15 @@
 				26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */,
 			);
 			path = YSMP4Player;
+			sourceTree = "<group>";
+		};
+		26D201D1247CCC0D00631F8F /* YSBottomToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				26D201D2247CCC3C00631F8F /* YSBottomToolBar.h */,
+				26D201D3247CCC3C00631F8F /* YSBottomToolBar.m */,
+			);
+			path = YSBottomToolBar;
 			sourceTree = "<group>";
 		};
 		26EFA5FD23794C4B00EC2A64 /* SCAnswerView */ = {
@@ -3836,6 +3850,7 @@
 				872D049823B7362300DAC321 /* FLEXExplorerViewController.m in Sources */,
 				8713363F237270F6006534A4 /* YSChatToolView.m in Sources */,
 				872D047823B7362300DAC321 /* FLEXNetworkTransaction.m in Sources */,
+				26D201D4247CCC3C00631F8F /* YSBottomToolBar.m in Sources */,
 				87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */,
 				874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */,
 				26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */,
@@ -3935,6 +3950,7 @@
 				8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */,
 				8717E1F92400DADC008C4CDA /* YSMainVC.m in Sources */,
 				8717E1FA2400DADC008C4CDA /* FLEXKeyboardShortcutManager.m in Sources */,
+				26D201D5247CCC3C00631F8F /* YSBottomToolBar.m in Sources */,
 				8717E1FB2400DADC008C4CDA /* FLEXKeychainQuery.m in Sources */,
 				8717E1FC2400DADC008C4CDA /* FLEXObjectExplorerFactory.m in Sources */,
 				8717E1FD2400DADC008C4CDA /* YSOnlineMineTableViewCell.m in Sources */,

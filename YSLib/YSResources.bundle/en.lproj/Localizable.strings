@@ -186,6 +186,18 @@
 "Prompt.timeoutReadyEnd.three" = "minutes.";
 
 "Title.DocumentList"        = "Course Lib";
+"Title.ToolBox"             = "Tools";
+"Title.AroundLayout"        = "Tile";
+"Title.VideoLayout"         = "Synthetical";
+"Title.Polling"             = "Carousel";
+"Title.AllNoAudio"          = "Mute all";
+"Title.AllAudio"            = "Unmute all";
+"Title.Message"             = "Messages";
+"Title.Exit"                = "Quit";
+"Title.ChangeCamera"        = "Reverse camera";
+
+
+
 "Title.MediaList"           = "Media";
 "Title.ControlList"         = "Operation";
 "Title.TrophySend"          = "Send Cup";
