@@ -8,6 +8,13 @@
 
 #import "YSMainSuperVC.h"
 
+//16：9的背景view尺寸
+#define YSUI_contentWidth self.contentWidth
+#define YSUI_contentHeight self.contentHeight
+
+/// 顶部状态栏高度
+#define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
+
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
     SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView,
@@ -28,8 +35,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSClassMainSuperVC : YSMainSuperVC
 
+/// 所有内容的背景
+@property (nonatomic, strong) UIView *contentBackgroud;
+
+/// 所有内容的背景contentBackgroud的尺寸
+@property(nonatomic, assign, readonly) CGFloat contentWidth;
+@property(nonatomic, assign, readonly) CGFloat contentHeight;
+
+
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
+
 
 @end
 

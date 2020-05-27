@@ -24,7 +24,7 @@
 	<key>cancelButton_login</key>
 	<dict>
 		<key>tittleColor</key>
-		<string>#</string>
+		<string></string>
 		<key>backgroundColor</key>
 		<string> </string>
 		<key>iconNormal</key>
@@ -35,13 +35,112 @@
 	<key>barScaleBtn</key>
 	<dict>
 		<key>tittleColor</key>
-		<string>#</string>
+		<string></string>
 		<key>bgColor</key>
 		<string>#18191D</string>
 		<key>iconNor</key>
-		<string>studentNormalHand</string>
+		<string>barScale_normal_skin</string>
 		<key>iconSel</key>
-		<string>videlHand</string>
+		<string>barScale_selected_skin</string>
+	</dict>
+	<key>video_authorizeLab</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>video_authorize_skin</string>
+		<key>iconSel</key>
+		<string>video_authorizeCancel_skin</string>
+	</dict>
+	<key>videoPop_soundButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_soundOpen_Skin</string>
+		<key>iconSel</key>
+		<string>videoPop_soundClose_Skin</string>
+	</dict>
+	<key>videoPop_authorizeButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_authorizeCancel_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_authorize_skin</string>
+	</dict>
+	<key>videoPop_videoButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_videoOpen_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_videoClose_skin</string>
+	</dict>
+	<key>videoPop_trophyButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_trophyNo_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_trophy_skin</string>
+	</dict>
+	<key>videoPop_resetButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_videoReset_selected_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_videoReset_skin</string>
+	</dict>
+	<key>videoPop_seatButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_seatdown_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_seatOn_skin</string>
+	</dict>
+	<key>videoPop_mirrorButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_mirrorOpen_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_mirrorClose_skin</string>
+	</dict>
+	<key>videoPop_fouceButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_IsFouceNo_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_IsFouce_skin</string>
 	</dict>
 	<key>personList_bottombar</key>
 	<dict>

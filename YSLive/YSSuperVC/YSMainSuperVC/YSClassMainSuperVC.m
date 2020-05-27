@@ -11,6 +11,9 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
+
+
+
 @interface YSClassMainSuperVC ()
 <
     SCEyeCareViewDelegate
@@ -22,6 +25,9 @@
 @property (nonatomic, strong) SCEyeCareView *eyeCareView;
 /// 护眼提醒window
 @property (nonatomic, strong) SCEyeCareWindow *eyeCareWindow;
+/// 所有内容的背景contentBackgroud的尺寸
+@property(nonatomic, assign) CGFloat contentWidth;
+@property(nonatomic, assign) CGFloat contentHeight;
 
 @end
 
@@ -39,8 +45,62 @@
     // 退出全屏
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = YSSkinDefineColor(@"blackColor ");
+    
+    //创建一个16：9的背景view
+    [self setupBottomBackgroundView];
+    
+    //顶部状态栏
+    [self setupstateToolBar];
+    
 }
+
+///创建一个16：9的背景view
+- (void)setupBottomBackgroundView
+{
+//    BMIS_IPHONEXANDP
+    NSInteger WIDTH = BMUI_SCREEN_WIDTH;
+    
+    if (BMIS_IPHONEXANDP)
+    {
+        WIDTH = BMUI_SCREEN_WIDTH - BMUI_NAVIGATION_BAR_FRIMGEHEIGHT;
+    }
+    
+    if (WIDTH/BMUI_SCREEN_HEIGHT >= (16.0/9.0))
+    {
+        self.contentHeight = BMUI_SCREEN_HEIGHT;
+        self.contentWidth = ceil(self.contentHeight * 16.0 / 9.0);
+    }  
+    else
+    {
+        self.contentWidth = WIDTH;
+        self.contentHeight = ceil(self.contentWidth * 9.0 / 16.0);
+    }
+    
+    CGFloat bgX = BMUI_NAVIGATION_BAR_FRIMGEHEIGHT + (WIDTH - self.contentWidth)/2;
+    CGFloat bgY = (BMUI_SCREEN_HEIGHT - self.contentHeight)/2;
+    
+    UIView * contentBackgroud = [[UIView alloc]initWithFrame:CGRectMake(bgX, bgY, self.contentWidth, self.contentHeight)];
+    contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    [self.view addSubview:contentBackgroud];
+    self.contentBackgroud = contentBackgroud;
+}
+
+
+///顶部状态栏
+- (void)setupstateToolBar
+{
+    
+    
+    UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
+    stateToolView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    [self.contentBackgroud addSubview:stateToolView];
+    
+    
+    
+}
+
 
 /// 进入全屏
 - (void)begainFullScreen

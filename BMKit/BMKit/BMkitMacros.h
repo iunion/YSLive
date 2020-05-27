@@ -19,7 +19,7 @@
 #define BMIS_IPHONEX  (CGSizeEqualToSize(CGSizeMake(375.0f, 812.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
 #define BMIS_IPHONEXP (CGSizeEqualToSize(CGSizeMake(414.0f, 896.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
 
-#define BMIS_IPHONEXANDP (BMIS_IPHONEX | BMIS_IPHONEXP)
+#define BMIS_IPHONEXANDP (BMIS_IPHONEX || BMIS_IPHONEXP)
 
 //iphone
 #define BMIS_IPHONE         (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -136,6 +136,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark -
 #pragma mark - UI macro
 
+#define BMUI_NAVIGATION_BAR_FRIMGEHEIGHT  44 //刘海高度
 #define BMUI_NAVIGATION_BAR_DEFAULTHEIGHT 44
 #define BMUI_NAVIGATION_BAR_HEIGHT        44
 #define BMUI_TOOL_BAR_HEIGHT              44

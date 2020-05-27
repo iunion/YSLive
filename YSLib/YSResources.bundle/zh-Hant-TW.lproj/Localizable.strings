@@ -130,7 +130,7 @@
 "Button.OpenMirror"          = "鏡像";
 "Button.CloseMirror"          = "取消鏡像";
 "Button.UpPlatform"         = "上發言席";
-"Button.DownPlatform"       = "上發言席";
+"Button.DownPlatform"       = "下發言席";
 "Button.AllowDoodle"        = "已授權";
 "Button.CancelDoodle"       = "未授權";
 "Button.GiveCup"            = "發送獎杯";

@@ -45,11 +45,11 @@ static YSSkinManager *skinManager = nil;
     if (self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
     {
         NSString *path = nil;
-        if (self.skinType == YSSkinType_original)
-        {//原始颜色背景 （蓝）
-            path = [YSSkinBundle pathForResource:@"OriginalColor" ofType:@"plist"];
-        }
-        else if (self.skinType == YSSkinType_black)
+//        if (self.skinType == YSSkinType_original)
+//        {//原始颜色背景 （蓝）
+//            path = [YSSkinBundle pathForResource:@"OriginalColor" ofType:@"plist"];
+//        }
+//        else if (self.skinType == YSSkinType_black)
         {//黑色背景
             path = [YSSkinBundle pathForResource:@"BlackColor" ofType:@"plist"];
         }
@@ -116,11 +116,11 @@ static YSSkinManager *skinManager = nil;
 - (UIImage *)getBundleImageWithImageName:(NSString *)imageName
 {
     NSString *imageFolder = nil;
-    if (self.skinType == YSSkinType_original)
-    {//原始颜色背景 （蓝）
-        imageFolder = @"YSSkinOriginal";
-    }
-    else if (self.skinType == YSSkinType_black)
+//    if (self.skinType == YSSkinType_original)
+//    {//原始颜色背景 （蓝）
+//        imageFolder = @"YSSkinOriginal";
+//    }
+//    else if (self.skinType == YSSkinType_black)
     {//黑色背景
         imageFolder = @"YSSkinBlack";
     }
