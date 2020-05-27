@@ -1412,11 +1412,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {//左右平行关系
                 if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
                 {
-                    view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, whitebordHeight);
+                    view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
                 }
                 else
                 {
-                    view.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, whitebordHeight);
+                    view.frame = CGRectMake(VIDEOVIEW_GAP * 2 + videoWidth, 0, videoWidth, videoHeight);
                 }
                 
 #if USE_YSRenderMode_adaptive
@@ -1427,7 +1427,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {//上下平行关系
-//                if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
                 if (view.roomUser.role == YSUserType_Teacher)
                 {
                     view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
