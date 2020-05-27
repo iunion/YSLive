@@ -94,7 +94,7 @@ static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 //聊天视图的高度
-#define SCChatViewHeight (YSUI_contentHeight-57)
+#define SCChatViewHeight (BMUI_SCREEN_HEIGHT-57)
 //聊天输入框工具栏高度
 #define SCChatToolHeight  60
 //聊天表情列表View高度
@@ -475,19 +475,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 初始化顶栏数据
     [self setupStateBarData];
     
-
     // 内容背景
     [self setupContentView];
     
     // 全屏白板
     [self setupFullBoardView];
+    
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
+    
     // 设置左侧工具栏
     [self setupBrushToolView];
     
     // 右侧聊天视图
-    [self.contentBackgroud addSubview:self.rightChatView];
+    [self.view addSubview:self.rightChatView];
     
     //弹出聊天框的按钮
     [self.contentBackgroud addSubview:self.chatBtn];
@@ -1142,7 +1143,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.teacherListView = [[SCTeacherListView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, 0, BMUI_SCREEN_WIDTH, tableHeight)];
     self.teacherListView.bm_centerY = self.view.bm_centerY;
     self.teacherListView.delegate = self;
-    [self.contentBackgroud addSubview:self.teacherListView];
+    [self.view addSubview:self.teacherListView];
 }
 
 #pragma mark -
@@ -3964,11 +3965,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self freshListViewWithSelect:NO];
             
         }
-        
-//        if (self.topSelectBtn.tag == SCTeacherTopBarTypeChat && (btn.tag == SCTeacherTopBarTypeCourseware || btn.tag == SCTeacherTopBarTypePersonList))
-//        {
-//            self.topSelectBtn.selected = NO;
-//        }
+
     }
     
     switch (btn.tag)
@@ -4228,14 +4225,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //收回聊天
         self.chatBtn.selected = NO;
         CGRect chatViewRect = self.rightChatView.frame;
-        chatViewRect.origin.x = YSUI_contentWidth;
+        chatViewRect.origin.x = BMUI_SCREEN_WIDTH;
         [UIView animateWithDuration:0.25 animations:^{
             self.rightChatView.frame = chatViewRect;
         }];
     }
     else
     {//收回
-        tempRect.origin.x = YSUI_contentWidth;
+        tempRect.origin.x = BMUI_SCREEN_WIDTH;
     }
     [UIView animateWithDuration:0.25 animations:^{
         self.teacherListView.frame = tempRect;
@@ -5544,18 +5541,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 
 /// 弹出聊天View的按钮
-- (UIButton *)chatBtn
-{
-    if (!_chatBtn)
-    {
-        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(YSUI_contentWidth-40-26, YSUI_contentHeight-40-2-100, 40, 40)];
-        [self.chatBtn setBackgroundColor: UIColor.clearColor];
-        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-        [self.chatBtn addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _chatBtn;
-}
+//- (UIButton *)chatBtn
+//{
+//    if (!_chatBtn)
+//    {
+//        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(YSUI_contentWidth-40-26, YSUI_contentHeight-40-2-100, 40, 40)];
+//        [self.chatBtn setBackgroundColor: UIColor.clearColor];
+//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
+//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
+//        [self.chatBtn addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _chatBtn;
+//}
 
 /// 右侧聊天视图
 - (SCChatView *)rightChatView
@@ -5579,7 +5576,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (!_chatToolView)
     {
-        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, YSUI_contentHeight, YSUI_contentWidth, SCChatToolHeight)];
+        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH, SCChatToolHeight)];
         self.chatToolView.inputView.delegate = self;
         BMWeakSelf
         //点击视图收起键盘
@@ -5598,7 +5595,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [weakSelf toolEmotionBtnClick:sender];
             }
         };
-        [self.contentBackgroud addSubview:self.chatToolView];
+        [self.view addSubview:self.chatToolView];
     }
     return _chatToolView;
 }
@@ -5608,7 +5605,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (!_emotionListView)
     {
-        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, YSUI_contentHeight, YSUI_contentWidth, SCChateEmotionHeight)];
+        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_WIDTH, SCChateEmotionHeight)];
         
         BMWeakSelf
         //把表情添加到输入框
@@ -5622,7 +5619,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.emotionListView.deleteEmotionBtnClick = ^{
             [weakSelf.chatToolView.inputView deleteBackward];
         };
-        [self.contentBackgroud addSubview:self.emotionListView];
+        [self.view addSubview:self.emotionListView];
     }
     [self.view bringSubviewToFront:_emotionListView];
     return _emotionListView;
@@ -5633,35 +5630,35 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 
 ///聊天按钮点击事件
-- (void)chatButtonClick:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-    
-    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-    
-    CGRect tempRect = self.rightChatView.frame;
-    if (sender.selected)
-    {//弹出
-        tempRect.origin.x = YSUI_contentWidth-tempRect.size.width;
-        
-        //收回 课件表 以及 花名册
-        [self freshListViewWithSelect:NO];
-        if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-        {
-            self.topSelectBtn.selected = NO;
-        }
-    }
-    else
-    {//收回
-        tempRect.origin.x = YSUI_contentWidth;
-    }
-    [UIView animateWithDuration:0.25 animations:^{
-        self.rightChatView.frame = tempRect;
-    }];
-    
-    [self arrangeAllViewInVCView];
-}
+//- (void)chatButtonClick:(UIButton *)sender
+//{
+//    sender.selected = !sender.selected;
+//
+//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
+//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
+//
+//    CGRect tempRect = self.rightChatView.frame;
+//    if (sender.selected)
+//    {//弹出
+//        tempRect.origin.x = YSUI_contentWidth-tempRect.size.width;
+//
+//        //收回 课件表 以及 花名册
+//        [self freshListViewWithSelect:NO];
+//        if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
+//        {
+//            self.topSelectBtn.selected = NO;
+//        }
+//    }
+//    else
+//    {//收回
+//        tempRect.origin.x = YSUI_contentWidth;
+//    }
+//    [UIView animateWithDuration:0.25 animations:^{
+//        self.rightChatView.frame = tempRect;
+//    }];
+//
+//    [self arrangeAllViewInVCView];
+//}
 
 ///输入框条上表情按钮的点击事件
 - (void)toolEmotionBtnClick:(UIButton *)sender
