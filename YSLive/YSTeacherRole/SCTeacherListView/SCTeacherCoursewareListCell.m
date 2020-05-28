@@ -47,22 +47,23 @@
     UILabel *nameLabel = [[UILabel alloc] init];
     [self.contentView addSubview:nameLabel];
     self.nameLabel = nameLabel;
-    nameLabel.font = [UIFont systemFontOfSize:16.0];
+    nameLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_12;
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    nameLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
     
     UIImageView *openImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:openImageView];
     self.openImageView = openImageView;
-    [openImageView setImage:[UIImage imageNamed:@"scteacher_personList_open_Normal"]];
-//    [openBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_open_Selected"] forState:UIControlStateSelected];
-//    [openBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_open_Disabled"] forState:UIControlStateDisabled];
+    openImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [openImageView setImage:YSSkinElementImage(@"coursewareList_open", @"iconNor")];
+
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:deleteBtn];
     self.deleteBtn = deleteBtn;
-    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_delete_Normal"] forState:UIControlStateNormal];
-    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_delete_Disabled"] forState:UIControlStateDisabled];
+    [deleteBtn setBackgroundImage:YSSkinElementImage(@"coursewareList_delete", @"iconNor") forState:UIControlStateNormal];
+    UIImage * deleteDisImage = [YSSkinElementImage(@"coursewareList_out", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [deleteBtn setImage:deleteDisImage forState:UIControlStateDisabled];
     [deleteBtn addTarget:self action:@selector(deleteBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -75,11 +76,11 @@
         self.iconImgView.frame = CGRectMake(35, 0, 40, 40);
         self.iconImgView.bm_centerY = self.contentView.bm_centerY;
         
-        self.deleteBtn.frame = CGRectMake(0, 0, 26, 26);
+        self.deleteBtn.frame = CGRectMake(0, 0, 20, 20);
         self.deleteBtn.bm_centerY = self.contentView.bm_centerY;
         self.deleteBtn.bm_right = self.contentView.bm_right - 20;
         
-        self.openImageView.frame = CGRectMake(0, 0, 26, 26);
+        self.openImageView.frame = CGRectMake(0, 0, 20, 20);
         self.openImageView.bm_centerY = self.contentView.bm_centerY;
         self.openImageView.bm_right = self.deleteBtn.bm_left - 20;
 
@@ -93,13 +94,13 @@
         self.iconImgView.frame = CGRectMake(10, 0, 20, 20);
         self.iconImgView.bm_centerY = self.contentView.bm_centerY;
         
-        self.deleteBtn.frame = CGRectMake(0, 0, 20, 20);
+        self.deleteBtn.frame = CGRectMake(0, 0, 15, 15);
         self.deleteBtn.bm_centerY = self.contentView.bm_centerY;
         self.deleteBtn.bm_right = self.contentView.bm_right - 10;
         
-        self.openImageView.frame = CGRectMake(0, 0, 20, 20);
+        self.openImageView.frame = CGRectMake(0, 0, 15, 15);
         self.openImageView.bm_centerY = self.contentView.bm_centerY;
-        self.openImageView.bm_right = self.deleteBtn.bm_left - 10;
+        self.openImageView.bm_right = self.deleteBtn.bm_left - 15;
 
         self.nameLabel.font = [UIFont systemFontOfSize:12.0];
         self.nameLabel.frame = CGRectMake(0, 0, 10, 20);
@@ -163,35 +164,39 @@
     
     if (type == YSClassFiletype_Mp3 || type == YSClassFiletype_Mp4)
     {
+        UIImage * playDisImage = [YSSkinElementImage(@"coursewareList_play", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+        
         if (mediaFileID && [mediaFileID isEqualToString:fileModel.fileid])
         {
             if (state == YSWhiteBordMediaState_Play)
             {
-                [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Selected"]];
+                [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconSel")];
             }
             else if (state == YSWhiteBordMediaState_Pause)
             {
-                [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Normal"]];
+                [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconNor")];
             }
             else if (state == YSWhiteBordMediaState_Stop)
             {
-                [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Disabled"]];
+                [self.openImageView setImage:playDisImage];
             }
         }
         else
         {
-            [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Disabled"]];
+            [self.openImageView setImage:playDisImage];
         }
     }
     else
     {
         if (isCurrent)
         {
-            [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_open_Selected"]];
+            [self.openImageView setImage:YSSkinElementImage(@"coursewareList_open", @"iconSel")];
+            
         }
         else
         {
-            [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_open_Normal"]];
+            [self.openImageView setImage:YSSkinElementImage(@"coursewareList_open", @"iconNor")];
+            
         }
     }
     

@@ -517,5 +517,44 @@
 		<key>iconDis</key>
 		<string>nameList_out_dis_skin</string>
 	</dict>
+	<key>coursewareList_open</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>coursewareList_open_nor_skin</string>
+		<key>iconSel</key>
+		<string>coursewareList_open_sel_skin</string>
+		<key>iconDis</key>
+		<string>coursewareList_open_dis_skin</string>
+	</dict>
+	<key>coursewareList_delete</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>coursewareList_delete_nor_skin</string>
+		<key>iconSel</key>
+		<string>coursewareList_delete_sel_skin</string>
+		<key>iconDis</key>
+		<string>coursewareList_delete_dis_skin</string>
+	</dict>
+	<key>coursewareList_play</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>coursewareList_play_nor_skin</string>
+		<key>iconSel</key>
+		<string>coursewareList_play_sel_skin</string>
+		<key>iconDis</key>
+		<string>coursewareList_play_dis_skin</string>
+	</dict>
 </dict>
 </plist>
