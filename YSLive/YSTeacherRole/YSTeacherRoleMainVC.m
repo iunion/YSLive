@@ -3973,23 +3973,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case SCTeacherTopBarTypePersonList:
         {
             [self.bottomToolBar setMessageOpen:NO];
+            //花名册  有用户进入房间调用 上下课调用
             [self freshListViewWithSelect:!btn.selected];
-             //课件库
-             if (!self.liveManager.roomConfig.isMultiCourseware)
-             {
-                 self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
-                 if (self.liveManager.playMediaModel)
-                 {
-                     self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
-                 }
-                 else
-                 {
-                     self.currentMediaState = YSWhiteBordMediaState_Stop;
-                 }
-             }
-             [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
-             
-             [self.teacherListView bm_bringToFront];
+            
+            [self freshTeacherPersonListDataNeedFesh:YES];
+            [self.teacherListView bm_bringToFront];
         }
             break;
             
