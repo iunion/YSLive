@@ -127,7 +127,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         tableView.insetsContentViewsToSafeArea = NO;
     }
-    tableView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    tableView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -139,36 +139,37 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     
     self.tableFooterView = [[UIView alloc] init];
     [tableBacView addSubview:self.tableFooterView];
-    self.tableFooterView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    self.tableFooterView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     self.tableFooterView.hidden = NO;
     
     UILabel * pageNumLabel = [[UILabel alloc] init];
-    pageNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-    pageNumLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
-    pageNumLabel.font = [UIFont systemFontOfSize:14];
-    pageNumLabel.text = @"fffff";
+    pageNumLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    pageNumLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    pageNumLabel.font = [UIFont systemFontOfSize:16];
+    pageNumLabel.text = @"";
     pageNumLabel.textAlignment = NSTextAlignmentCenter;
     [self.tableFooterView addSubview:pageNumLabel];
     self.pageNumLabel = pageNumLabel;
     
     UIButton *leftPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftPageBtn addTarget:self action:@selector(leftPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_normal"] forState:UIControlStateNormal];
-    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_disabled"] forState:UIControlStateDisabled];
+    [leftPageBtn setImage:YSSkinElementImage(@"leftPage_nameList", @"iconNor") forState:UIControlStateNormal];
+    UIImage * leftIconDisImage = [YSSkinElementImage(@"leftPage_nameList", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [leftPageBtn setImage:leftIconDisImage forState:UIControlStateDisabled];
     [self.tableFooterView addSubview:leftPageBtn];
-
-
     self.leftPageBtn = leftPageBtn;
+    
     
     UIButton *rightPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightPageBtn addTarget:self action:@selector(rightPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_normal"] forState:UIControlStateNormal];
-    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_disabled"] forState:UIControlStateDisabled];
+    [rightPageBtn setImage:YSSkinElementImage(@"rightPage_nameList", @"iconNor") forState:UIControlStateNormal];
+    UIImage * rightIconDisImage = [YSSkinElementImage(@"rightPage_nameList", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [rightPageBtn setImage:rightIconDisImage forState:UIControlStateDisabled];
     [self.tableFooterView addSubview:rightPageBtn];
     self.rightPageBtn = rightPageBtn;
 
-    
 }
+
 
 - (void)setTopGap:(CGFloat)topGap
 {
@@ -420,66 +421,79 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    view.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     view.userInteractionEnabled = YES;
     if (self.type == SCTeacherTopBarTypePersonList)
     {
-        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 50, 40)];
-        titleLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-        titleLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
-        titleLabel.font = [UIFont systemFontOfSize:12];
+        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 40)];
+        titleLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        titleLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
         NSString * title = YSLocalized(@"Title.UserList");
         titleLabel.text = title;
         [view addSubview:titleLabel];
         
-        UILabel * userNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableWidth - 10 - 80, 0, 80, 40)];
-        userNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-        userNumLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
-        userNumLabel.font = [UIFont systemFontOfSize:12];
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+        lineView.frame = CGRectMake(0, CGRectGetMaxY(titleLabel.frame), tableWidth, 1);
+        [view addSubview:lineView];
+        
+        
+        CGFloat userNumGap = [UIDevice bm_isiPad] ? 17.0f : 8.0f;
+        CGFloat userNumHeight = [UIDevice bm_isiPad] ? 40.0f : 26.0f;
+        UILabel * userNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableWidth - 10 - 80, CGRectGetMaxY(lineView.frame) + userNumGap, 80, userNumHeight)];
+        userNumLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        userNumLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        userNumLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10;
         NSString * userNum = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Title.StudentNum"),@(_userNum)];
         userNumLabel.text = userNum;
+        userNumLabel.textAlignment = NSTextAlignmentRight;
         [view addSubview:userNumLabel];
         
         UITextField *inputTextField = [[UITextField alloc] init];
 //        [inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
         self.inputTextField = inputTextField;
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:YSLocalized(@"Label.searchPlaceholder") attributes:@{
-                       NSForegroundColorAttributeName:[UIColor bm_colorWithHex:0xFFFFFF],
-                       NSFontAttributeName:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14)
+                       NSForegroundColorAttributeName:YSSkinDefineColor(@"placeholderColor"),
+                       NSFontAttributeName:[UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10
                    }];
         inputTextField.attributedPlaceholder = attrString;
-        inputTextField.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-        inputTextField.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        inputTextField.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14);
+        inputTextField.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        inputTextField.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        inputTextField.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10;
         inputTextField.delegate = self;
         inputTextField.tintColor = YSColor_LoginTextField;
         inputTextField.enabled = YES;
-        inputTextField.layer.cornerRadius = 15;
-        inputTextField.layer.masksToBounds = YES;
+
+        [inputTextField bm_addShadow:1 Radius:userNumHeight/2.0f BorderColor:YSSkinDefineColor(@"placeholderColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+        
         inputTextField.returnKeyType = UIReturnKeySearch;
         if ([_searchString bm_isNotEmpty])
         {
             inputTextField.text = _searchString;
         }
-        inputTextField.frame = CGRectMake(2, 5, 0, 30);
-        [inputTextField bm_setLeft:titleLabel.bm_right + 5 right:userNumLabel.bm_left - 5];
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
-        UIImageView *searchView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 13, 14, 14)];
+        inputTextField.frame = CGRectMake(2, CGRectGetMaxY(lineView.frame) + userNumGap, 0, userNumHeight);
+        [inputTextField bm_setLeft:15 right:userNumLabel.bm_left - 5];
+        
+        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, userNumHeight, userNumHeight)];
+        UIImageView *searchView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, userNumHeight - 10, userNumHeight - 10)];
         searchView.contentMode = UIViewContentModeCenter;
-        [searchView setImage:[UIImage imageNamed:@"sousuo_huaban"]];
+        [searchView setImage:YSSkinElementImage(@"searchbar_search_nameList", @"iconNor")];
         [leftView addSubview:searchView];
         inputTextField.leftView = leftView;
         inputTextField.leftViewMode = UITextFieldViewModeAlways;
         
-        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
-
+        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, userNumHeight, userNumHeight)];
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [rightView addSubview:cancelBtn];
-        cancelBtn.frame = CGRectMake(5, 14, 12, 12);
-        [cancelBtn setImage:[UIImage imageNamed:@"search_cancel"] forState:UIControlStateNormal];
+        cancelBtn.frame = CGRectMake(8, 8, userNumHeight - 16, userNumHeight - 16);
+        [cancelBtn setImage:YSSkinElementImage(@"searchbar_cancel_nameList", @"iconNor") forState:UIControlStateNormal];
         [cancelBtn addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         inputTextField.rightView = rightView;
         inputTextField.rightViewMode = UITextFieldViewModeAlways;
+        
+        
         
         [view addSubview:inputTextField];
     }
@@ -518,6 +532,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (self.type == SCTeacherTopBarTypePersonList)
+    {
+        CGFloat headerHeight = [UIDevice bm_isiPad] ? 110.0f : 80.0f;
+        return headerHeight;
+    }
     return 40;
 }
 

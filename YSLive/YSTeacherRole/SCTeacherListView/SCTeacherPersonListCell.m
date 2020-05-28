@@ -54,52 +54,52 @@
     UILabel *nameLabel = [[UILabel alloc] init];
     [self.contentView addSubview:nameLabel];
     self.nameLabel = nameLabel;
-    nameLabel.font = [UIFont systemFontOfSize:16.0];
+    nameLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_12;
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    nameLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
     
     UIView *cupView = [[UIView alloc] init];
     [self.contentView addSubview:cupView];
     self.cupView = cupView;
-    cupView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    cupView.backgroundColor = YSSkinDefineColor(@"placeholderColor");
     
     UIImageView *cupImgView = [[UIImageView alloc] init];
     [self.contentView addSubview:cupImgView];
     self.cupImgView = cupImgView;
-    [self.cupImgView setImage:[UIImage imageNamed:@"scteacher_topbar_toolBox_Reward"]];
+    [self.cupImgView setImage:YSSkinElementImage(@"nameList_cup", @"iconNor")];
     
     UILabel *cupNumberLabel = [[UILabel alloc] init];
     [self.contentView addSubview:cupNumberLabel];
     self.cupNumberLabel = cupNumberLabel;
-    cupNumberLabel.font = [UIFont systemFontOfSize:14.0f];
+    cupNumberLabel.font = [UIDevice bm_isiPad] ? UI_FONT_12 : UI_FONT_8;
     cupNumberLabel.textAlignment = NSTextAlignmentLeft;
-    cupNumberLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    cupNumberLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
       
-    
-    
     UIButton *upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:upPlatformBtn];
     self.upPlatformBtn = upPlatformBtn;
-    [upPlatformBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_updown_Normal"] forState:UIControlStateNormal];
-    [upPlatformBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_updown_Selected"] forState:UIControlStateSelected];
-//    [upPlatformBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_updown_Disabled"] forState:UIControlStateDisabled];
+    [upPlatformBtn setBackgroundImage:YSSkinElementImage(@"nameList_updown", @"iconNor") forState:UIControlStateNormal];
+    [upPlatformBtn setBackgroundImage:YSSkinElementImage(@"nameList_updown", @"iconSel") forState:UIControlStateSelected];
+    UIImage * upPlatformDisImage = [YSSkinElementImage(@"nameList_updown", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [upPlatformBtn setImage:upPlatformDisImage forState:UIControlStateDisabled];
     [upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
     
     UIButton *speakBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:speakBtn];
     self.speakBtn = speakBtn;
-    [speakBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_speak_Normal"] forState:UIControlStateNormal];
-    [speakBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_speak_Selected"] forState:UIControlStateSelected];
-//    [speakBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_speak_Disabled"] forState:UIControlStateDisabled];
+    [speakBtn setBackgroundImage:YSSkinElementImage(@"nameList_speak", @"iconNor") forState:UIControlStateNormal];
+    [speakBtn setBackgroundImage:YSSkinElementImage(@"nameList_speak", @"iconSel") forState:UIControlStateSelected];
+    UIImage * speakDisImage = [YSSkinElementImage(@"nameList_speak", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [speakBtn setImage:speakDisImage forState:UIControlStateDisabled];
     [speakBtn addTarget:self action:@selector(speakBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *outBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:outBtn];
     self.outBtn = outBtn;
-    [outBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_out_Normal"] forState:UIControlStateNormal];
-    [outBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_out_Disabled"] forState:UIControlStateDisabled];
+    [outBtn setBackgroundImage:YSSkinElementImage(@"nameList_out", @"iconNor") forState:UIControlStateNormal];
+    [outBtn setBackgroundImage:YSSkinElementImage(@"nameList_out", @"iconSel") forState:UIControlStateSelected];
+    UIImage * outDisImage = [YSSkinElementImage(@"nameList_out", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [outBtn setImage:outDisImage forState:UIControlStateDisabled];
     [outBtn addTarget:self action:@selector(outBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -108,7 +108,7 @@
     [super layoutSubviews];
     if ([UIDevice bm_isiPad])
     {
-        self.iconImgView.frame = CGRectMake(35, 0, 40, 40);
+        self.iconImgView.frame = CGRectMake(20, 0, 36, 36);
         self.iconImgView.bm_centerY = self.contentView.bm_centerY;
         
         self.outBtn.frame = CGRectMake(0, 0, 26, 26);
@@ -144,7 +144,7 @@
     }
     else
     {
-        self.iconImgView.frame = CGRectMake(10, 0, 20, 20);
+        self.iconImgView.frame = CGRectMake(12, 0, 24, 24);
         self.iconImgView.bm_centerY = self.contentView.bm_centerY;
         self.cupNumberLabel.font = [UIFont systemFontOfSize:12.0f];
         self.nameLabel.font = [UIFont systemFontOfSize:12.0];
@@ -194,39 +194,39 @@
     /// iPad:iPad；iPhone:iPhone；
     /// MacPC:mac explorer；MacClient:mac client；
     /// WindowPC:windows explorer；WindowClient:windows client
-    NSString *imageName = @"scteacher_personList_icon_OtherDevice";
+    NSString *imageName = @"nameList_OtherDevice";
     NSString *devicetype = [[userModel.properties bm_stringTrimForKey:sUserDevicetype] lowercaseString];
     if ([devicetype isEqualToString:@"androidpad"])
     {
-        imageName = @"scteacher_personList_icon_AndroidPad";
+        imageName = @"nameList_AndroidPad";
     }
     else if ([devicetype isEqualToString:@"androidphone"])
     {
-        imageName = @"scteacher_personList_icon_AndroidPhone";
+        imageName = @"nameList_AndroidPhone";
     }
     else if ([devicetype isEqualToString:@"ipad"])
     {
-        imageName = @"scteacher_personList_icon_ipad";
+        imageName = @"nameList_ipad";
     }
     else if ([devicetype isEqualToString:@"iphone"])
     {
-        imageName = @"scteacher_personList_icon_iphone";
+        imageName = @"nameList_iphone";
     }
     else if ([devicetype isEqualToString:@"macpc"])
     {
-        imageName = @"scteacher_personList_icon_MacExplorer";
+        imageName = @"nameList_MacExplorer";
     }
     else if ([devicetype isEqualToString:@"macclient"])
     {
-        imageName = @"scteacher_personList_icon_MacClient";
+        imageName = @"nameList_MacClient";
     }
     else if ([devicetype isEqualToString:@"windowpc"])
     {
-        imageName = @"scteacher_personList_icon_WindowsExplorer";
+        imageName = @"nameList_WindowsExplorer";
     }
     else if ([devicetype isEqualToString:@"windowclient"])
     {
-        imageName = @"scteacher_personList_icon_WindowsClient";
+        imageName = @"nameList_WindowsClient";
     }
     
     BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
@@ -244,7 +244,8 @@
     self.upPlatformBtn.enabled = isBeginClass;
     self.outBtn.enabled = isBeginClass;
     self.nameLabel.text = userModel.nickName;
-    [self.iconImgView setImage:[UIImage imageNamed:imageName]];
+    [self.iconImgView setImage:YSSkinElementImage(imageName, @"iconNor")];
+    
     NSInteger giftNumber = [userModel.properties bm_uintForKey:sUserGiftNumber];
     self.cupNumberLabel.text = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
 
