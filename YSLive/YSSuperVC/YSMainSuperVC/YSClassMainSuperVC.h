@@ -7,10 +7,7 @@
 //
 
 #import "YSMainSuperVC.h"
-
-//16：9的背景view尺寸
-#define YSUI_contentWidth self.contentWidth
-#define YSUI_contentHeight self.contentHeight
+#import "SCVideoView.h"
 
 /// 顶部状态栏高度
 #define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
@@ -41,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 所有内容的背景contentBackgroud的尺寸
 @property(nonatomic, assign, readonly) CGFloat contentWidth;
 @property(nonatomic, assign, readonly) CGFloat contentHeight;
+
+/// 视频View列表
+@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoViewArray;
+
 /// 房间号
 @property(nonatomic, copy) NSString *roomID;
 /// 上课时间
@@ -49,6 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 
+// 横排视频最大宽度计算
+- (CGFloat)getVideoTotalWidth;
+
+- (NSUInteger)getVideoViewCount;
 
 @end
 

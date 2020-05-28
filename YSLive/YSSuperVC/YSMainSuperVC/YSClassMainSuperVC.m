@@ -40,6 +40,18 @@
 
 @implementation YSClassMainSuperVC
 
+- (instancetype)initWithWhiteBordView:(UIView *)whiteBordView
+{
+    self = [super initWithWhiteBordView:whiteBordView];
+    if (self)
+    {
+        //创建一个16：9的背景view
+        [self setupBottomBackgroundView];
+    }
+    return self;
+}
+
+
 #pragma mark -
 #pragma mark ViewControllerLife
 
@@ -56,7 +68,7 @@
     self.view.backgroundColor = YSSkinDefineColor(@"blackColor ");
     
     //创建一个16：9的背景view
-    [self setupBottomBackgroundView];
+    [self.view addSubview:self.contentBackgroud];
     
     //顶部状态栏
     [self setupstateToolBar];
@@ -67,19 +79,19 @@
 - (void)setupBottomBackgroundView
 {
 //    BMIS_IPHONEXANDP
-    NSInteger WIDTH = BMUI_SCREEN_WIDTH;
+    NSInteger WIDTH = BMUI_SCREEN_WIDTH_ROTATE;
     
     NSInteger top = 0;
     
     if (BMIS_IPHONEXANDP)
     {
         top = BMUI_NAVIGATION_BAR_FRIMGEHEIGHT;
-        WIDTH = BMUI_SCREEN_WIDTH - top;
+        WIDTH = BMUI_SCREEN_WIDTH_ROTATE - top;
     }
     
-    if (WIDTH/BMUI_SCREEN_HEIGHT >= (16.0/9.0))
+    if (WIDTH/BMUI_SCREEN_HEIGHT_ROTATE >= (16.0/9.0))
     {
-        self.contentHeight = BMUI_SCREEN_HEIGHT;
+        self.contentHeight = BMUI_SCREEN_HEIGHT_ROTATE;
         self.contentWidth = ceil(self.contentHeight * 16.0 / 9.0);
     }  
     else
@@ -89,11 +101,10 @@
     }
     
     CGFloat bgX = top + (WIDTH - self.contentWidth)/2;
-    CGFloat bgY = (BMUI_SCREEN_HEIGHT - self.contentHeight)/2;
+    CGFloat bgY = (BMUI_SCREEN_HEIGHT_ROTATE - self.contentHeight)/2;
     
     UIView * contentBackgroud = [[UIView alloc]initWithFrame:CGRectMake(bgX, bgY, self.contentWidth, self.contentHeight)];
     contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-    [self.view addSubview:contentBackgroud];
     self.contentBackgroud = contentBackgroud;
 }
 
@@ -158,6 +169,20 @@
     }
 }
 
+
+- (NSUInteger)getVideoViewCount
+{
+    NSUInteger count = 0;
+    
+    for (SCVideoView *videoView in self.videoViewArray)
+    {
+        if (!videoView.isDragOut && !videoView.isFullScreen)
+        {
+            count++;
+        }
+    }
+    return count;
+}
 
 /// 进入全屏
 - (void)begainFullScreen
