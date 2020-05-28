@@ -1420,63 +1420,36 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     else
     {
         NSUInteger count = [self getVideoViewCount];
-        if (count < 10)
+        videoTeacherWidth = ceil((YSUI_contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
+        if (count < 8)
         {
-            if ([self checkVideoSize])
-            {
-
-                videoWidth = floor(YSUI_contentWidth/count-VIDEOVIEW_GAP*0.5);
-                
-                if (self.isWideScreen)
-                {
-                    videoHeight = ceil(videoWidth* 9 / 16);
-                }
-                else
-                {
-                    videoHeight = ceil(videoWidth* 3 / 4);
-                }
-            }
-            else
-            {
-                videoHeight = VIDEOVIEW_MAXHEIGHT;
-                
-                if (self.isWideScreen)
-                {
-                    videoWidth = ceil(videoHeight* 16 / 9);
-                }
-                else
-                {
-                    videoWidth = ceil(videoHeight* 4 / 3);
-                }
-            }
+            videoWidth = ceil((YSUI_contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7.0);
         }
         else
         {
-            videoTeacherHeight = VIDEOVIEW_MAXHEIGHT;
-            
-            videoHeight = (VIDEOVIEW_MAXHEIGHT - VIDEOVIEW_GAP*0.5)/2;
-            
-           CGFloat scale = 0;
-            
-            if (self.isWideScreen)
-            {
-                scale = 16.0/9.0;
-            }
-            else
-            {
-                scale = 4.0/3.0;
-            }
-            videoWidth = videoHeight * scale;
-            videoTeacherWidth = videoTeacherHeight * scale;
-            
-            CGFloat totalW = 2 * VIDEOVIEW_GAP*0.5 + videoTeacherWidth + 8 * (videoWidth + VIDEOVIEW_GAP*0.5);
-            if (totalW > YSUI_contentWidth)
-            {
-                videoTeacherHeight = (YSUI_contentWidth - (10 - 4 * scale) * VIDEOVIEW_GAP*0.5)/(5 * scale);
-                videoHeight = (videoTeacherHeight - VIDEOVIEW_GAP*0.5)/2;
-                videoWidth = videoHeight * scale;
-                videoTeacherWidth = videoTeacherHeight * scale;
-            }
+            videoWidth = ceil((videoTeacherWidth - VIDEOVIEW_GAP*0.5)/2.0);
+        }
+        CGFloat scale = 0;
+        if (self.isWideScreen)
+        {
+            scale = 16.0/9.0;
+        }
+        else
+        {
+            scale = 4.0/3.0;
+        }
+        videoHeight = ceil(videoWidth / scale);
+        videoTeacherHeight = ceil(videoTeacherWidth / scale);
+        
+        if ((YSUI_contentHeight - STATETOOLBAR_HEIGHT - videoTeacherHeight - VIDEOVIEW_GAP) * 2 >= YSUI_contentWidth)
+        {
+            whitebordWidth = YSUI_contentWidth;
+            whitebordHeight = ceil(whitebordWidth/2);
+        }
+        else
+        {
+            whitebordHeight = ceil(YSUI_contentHeight - STATETOOLBAR_HEIGHT - videoTeacherHeight - VIDEOVIEW_GAP);
+            whitebordWidth = ceil(whitebordHeight * 2);
         }
     }
     [self freshWhitBordContentView];

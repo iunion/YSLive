@@ -12,6 +12,8 @@
 		<string>#ffffff</string>
 		<key>defaultBgColor</key>
 		<string>#24262C</string>
+		<key>defaultSelectedBgColor</key>
+		<string>#82ABEC</string>
 		<key>WhiteBoardBgColor</key>
 		<string>#2E3037</string>
 		<key>PopViewBgColor</key>

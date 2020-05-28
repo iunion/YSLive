@@ -204,8 +204,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 ///标识布局变化的值
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;
-///底部导航条伸缩的按钮
-@property (nonatomic, strong) UIButton *barScaleBtn;
 
 /// 底部工具条背景
 @property (nonatomic, strong) UIView *bottomBarBackgroudView;
@@ -324,6 +322,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 举手上台的人数
 @property (nonatomic, strong) UILabel *handNumLab;
+
+/// 上下课按钮
+@property (nonatomic, strong) UIButton *classBeginBtn;
 
 /// 抢答器
 @property (nonatomic, strong)YSTeacherResponder *responderView;
@@ -492,7 +493,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     //弹出聊天框的按钮
     [self.contentBackgroud addSubview:self.chatBtn];
-    
+
     // 底部工具栏
     [self setupBottomToolBarView];
     
@@ -506,6 +507,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 设置花名册 课件表
     [self setupListView];
+    
+    
+    //创建上下课按钮
+    [self setupClassBeginButton];
     
     // 上课前不发送修改画笔权限
     //[self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
@@ -919,14 +924,70 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.hidden = YES;
 }
 
-
-
 /// 助教网络刷新所有人课件
 - (void)handleSignalingTorefeshCourseware
 {
 #warning handleSignalingTorefeshCourseware
 }
 
+
+/// 创建上下课按钮
+- (void)setupClassBeginButton
+{
+    CGFloat buttonWH = 36;
+    CGFloat buttonLeft = 10;
+    
+    CGFloat buttonBottom = 14;
+    if ([UIDevice bm_isiPad])
+    {
+        buttonWH = 40;
+        buttonLeft = 20;
+        buttonBottom = 50;
+    }
+    
+    UIButton * classBeginBtn = [[UIButton alloc]initWithFrame:CGRectMake(buttonLeft, BMUI_SCREEN_HEIGHT - buttonBottom - buttonWH, buttonWH, buttonWH)];
+    [classBeginBtn addTarget:self action:@selector(classBeginBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [classBeginBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    classBeginBtn.titleLabel.font = UI_FONT_10;
+    [classBeginBtn setTitle:YSLocalized(@"Button.ClassBegin") forState:UIControlStateNormal];
+    [classBeginBtn setTitle:YSLocalized(@"Button.ClassIsOver") forState:UIControlStateSelected];
+    [classBeginBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+    classBeginBtn.layer.cornerRadius = buttonWH/2;
+    self.classBeginBtn = classBeginBtn;
+    [self.view addSubview:classBeginBtn];
+}
+
+
+- (void)classBeginBtnClick:(UIButton *)sender
+{
+    if (sender.selected)
+    {
+        BMWeakType(sender)
+        BMWeakSelf
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+        [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+        [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
+        self.topSelectBtn.selected = NO;
+
+        classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            weaksender.userInteractionEnabled = NO;
+            [weakSelf.liveManager sendSignalingTeacherToDismissClassWithCompletion:nil];
+        }];
+        UIAlertAction *cancle = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [classEndAlertVC addAction:confimAc];
+        [classEndAlertVC addAction:cancle];
+        
+        [self presentViewController:classEndAlertVC animated:YES completion:nil];
+    }
+    else
+    {
+        sender.userInteractionEnabled = NO;
+        [self.liveManager sendSignalingTeacherToClassBeginWithCompletion:nil];
+    }
+}
 
 #pragma mark 内容背景
 - (void)setupContentView
@@ -1407,24 +1468,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
             }
             [view bringSubviewToFront:view.backVideoView];
-                        
-//            if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
-//            {
-//                view.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-//            }
-//            else
-//            {
-//                view.frame = CGRectMake(VIDEOVIEW_GAP, (videoHeight+VIDEOVIEW_GAP)*1, videoWidth, videoHeight);
-//            }
         }
     }
     else
     {
-        if ([self checkVideoSize])
-        {
-            [self calculateVideoSize];
-        }
-        
+
         CGFloat totalWidth = [self getVideoTotalWidth];
         
         CGFloat ddd = YSUI_contentWidth;
@@ -1443,7 +1491,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 continue;
             }
-            if (count < 10)
+            if (count < 8)
              {
                  view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
              }
@@ -1456,7 +1504,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     {
                         view.frame = CGRectMake(videoStartX, VIDEOVIEW_GAP*0.5, videoTeacherWidth, videoTeacherHeight);
                     }
-                    else if (index < 9)
+                    else if (index < 7)
                     {
                         view.frame = CGRectMake(videoStartX + videoTeacherWidth + VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * (index - 1), VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
                     }
@@ -1564,38 +1612,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
     self.contentView.hidden = YES;
     self.videoGridView.hidden = NO;
-}
-
-/// 上下课按钮点击事件
-- (void)classBeginEndProxyWithBtn:(UIButton *)btn
-{
-    if (btn.selected)
-    {
-        BMWeakType(btn)
-        BMWeakSelf
-        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
-        [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
-        [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
-        self.topSelectBtn.selected = NO;
-
-        classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            weakbtn.userInteractionEnabled = NO;
-            [weakSelf.liveManager sendSignalingTeacherToDismissClassWithCompletion:nil];
-        }];
-        UIAlertAction *cancle = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        }];
-        [classEndAlertVC addAction:confimAc];
-        [classEndAlertVC addAction:cancle];
-        
-        [self presentViewController:classEndAlertVC animated:YES completion:nil];
-    }
-    else
-    {
-        btn.userInteractionEnabled = NO;
-        [self.liveManager sendSignalingTeacherToClassBeginWithCompletion:nil];
-    }
 }
 
 #pragma mark - videoViewArray
@@ -2723,12 +2739,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //inlist表示在我进房间之前的信令
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
-//    self.topToolBar.classBtn.userInteractionEnabled = YES;
+    self.classBeginBtn.userInteractionEnabled = YES;
+
     [self topToolBarPollingBtnEnable];
     // 通知各端开始举手
     [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
     
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
+    
+    self.classBeginBtn.selected = YES;
+
 //    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
     if (self.appUseTheType == YSAppUseTheTypeMeeting)
     {
@@ -2836,14 +2856,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self.liveManager.roomManager stopShareMediaFile:nil];
         }
-//        [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:self.liveManager.currentFile isFresh:NO completion:nil];
     }
 }
 
 /// 下课
 - (void)handleSignalingClassEndWithText:(NSString *)text
 {
-//    self.topToolBar.classBtn.userInteractionEnabled = YES;
+    self.classBeginBtn.userInteractionEnabled = YES;
 
     // 老师取消订阅举手列表
     [self.liveManager sendSignalingToSubscribeAllRaiseHandMemberWithType:@"unsubSort" Completion:nil];
@@ -4324,7 +4343,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
     }
-    
+
     if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
     {
 //        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_FullMedia;
