@@ -3319,7 +3319,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         return;
     }
-        
+
     UIView * background = self.whitebordBackgroud;
     
     if (self.isWhitebordFullScreen)
@@ -3352,7 +3352,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (pan.state == UIGestureRecognizerStateEnded)
     {
          [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
-        
+
         CGFloat percentLeft = 0;
         if (BMUI_SCREEN_WIDTH != videoView.bm_width)
         {
@@ -3517,7 +3517,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         return;
     }
-    
+
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
     if (videoView.isDragOut)
     {
@@ -3544,6 +3544,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
         [self.dragOutFloatViewArray addObject:floatView];
         [self.whitebordBackgroud addSubview:floatView];
+        floatView.maxSize = self.whitebordBackgroud.bm_size;
+        floatView.canGestureRecognizer = YES;
+        
         
         [floatView showWithContentView:videoView];
         [floatView bm_bringToFront];
