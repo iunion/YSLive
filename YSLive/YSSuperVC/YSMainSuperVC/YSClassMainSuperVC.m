@@ -25,6 +25,13 @@
 @property (nonatomic, strong) SCEyeCareView *eyeCareView;
 /// 护眼提醒window
 @property (nonatomic, strong) SCEyeCareWindow *eyeCareWindow;
+/// 房间号
+@property (nonatomic, strong) UILabel *roomIDL;
+/// 信号
+@property (nonatomic, strong) UILabel *signalStateL;
+/// 时间
+@property (nonatomic, strong) UILabel *timeL;
+
 /// 所有内容的背景contentBackgroud的尺寸
 @property(nonatomic, assign) CGFloat contentWidth;
 @property(nonatomic, assign) CGFloat contentHeight;
@@ -97,9 +104,58 @@
     UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
     stateToolView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.contentBackgroud addSubview:stateToolView];
-    self.stateToolView = stateToolView;
+    CGFloat fontSize = 12;
+    if (![UIDevice bm_isiPad])
+    {
+        fontSize = 8;
+    }
+    /// 房间号
+    UILabel *roomIDL = [[UILabel alloc] init];
+    roomIDL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    roomIDL.textAlignment = NSTextAlignmentLeft;
+    roomIDL.font = [UIFont systemFontOfSize:fontSize];
+    self.roomIDL = roomIDL;
+    [stateToolView addSubview:roomIDL];
+    roomIDL.adjustsFontSizeToFitWidth = YES;
+    self.roomIDL.frame = CGRectMake(10, 0, 150, STATETOOLBAR_HEIGHT);
     
+    /// 信号
+//    UILabel *signalStateL = [[UILabel alloc] init];
+//    signalStateL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+//    signalStateL.textAlignment = NSTextAlignmentLeft;
+//    signalStateL.font = [UIFont systemFontOfSize:fontSize];
+//    self.signalStateL = signalStateL;
+//    [stateToolView addSubview:signalStateL];
+//    signalStateL.adjustsFontSizeToFitWidth = YES;
     
+    /// time
+    UILabel *timeL = [[UILabel alloc] init];
+    timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    timeL.textAlignment = NSTextAlignmentCenter;
+    timeL.font = [UIFont fontWithName:@"Helvetica" size:fontSize];
+    self.timeL = timeL;
+    [stateToolView addSubview:timeL];
+    timeL.adjustsFontSizeToFitWidth = YES;
+    self.timeL.frame = CGRectMake(0, 0, 90, STATETOOLBAR_HEIGHT);
+    self.timeL.bm_centerX = stateToolView.bm_centerX;
+    
+}
+
+- (void)setRoomID:(NSString *)roomID
+{
+    self.roomIDL.text = [NSString stringWithFormat:@"  %@：%@",YSLocalized(@"Label.roomid"),roomID];
+}
+
+- (void)setLessonTime:(NSString *)lessonTime
+{
+    if ([lessonTime bm_isNotEmpty])
+    {
+        self.timeL.text = lessonTime;
+    }
+    else
+    {
+        self.timeL.text = @"00:00:00";
+    }
 }
 
 

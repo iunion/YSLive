@@ -41,9 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 所有内容的背景contentBackgroud的尺寸
 @property(nonatomic, assign, readonly) CGFloat contentWidth;
 @property(nonatomic, assign, readonly) CGFloat contentHeight;
-
-///状态栏
-@property(nonatomic, strong) UIView *stateToolView;
+/// 房间号
+@property(nonatomic, copy) NSString *roomID;
+/// 上课时间
+@property(nonatomic, copy) NSString *lessonTime;
 
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;

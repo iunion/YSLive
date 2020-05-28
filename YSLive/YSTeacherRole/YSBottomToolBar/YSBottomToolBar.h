@@ -39,12 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 ///// 切换布局
-//@property (nonatomic, strong, readonly) UIButton *switchLayoutBtn;
-///// 轮询按钮
-//@property (nonatomic, strong, readonly) UIButton *pollingBtn;
+@property (nonatomic, strong, readonly) UIButton *switchLayoutBtn;
+/// 轮播按钮
+@property (nonatomic, strong, readonly) UIButton *pollingBtn;
 
-/// 除退出按钮以外 其他按钮是否可以点击
-//@property (nonatomic, assign) BOOL userEnable;
+
+
+// 除退出 收放 按钮以外 其他按钮是否可以点击
+@property (nonatomic, assign) BOOL userEnable;
 @property (nonatomic, assign) BOOL open;
 
 /// 消息按钮的选中与否

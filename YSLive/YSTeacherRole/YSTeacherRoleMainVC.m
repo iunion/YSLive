@@ -15,7 +15,7 @@
 #import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
 
-#import "SCTeacherTopBar.h"
+
 #import "SCTTopPopverViewController.h"
 #import "SCTeacherListView.h"
 #import "SCTeacherAnswerView.h"
@@ -94,7 +94,7 @@ static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 //聊天视图的高度
-#define SCChatViewHeight (YSUI_contentHeight-57)
+#define SCChatViewHeight (BMUI_SCREEN_HEIGHT-57)
 //聊天输入框工具栏高度
 #define SCChatToolHeight  60
 //聊天表情列表View高度
@@ -122,7 +122,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     SCDrawBoardViewDelegate,
     SCVideoViewDelegate,
     YSControlPopoverViewDelegate,
-    SCTeacherTopBarDelegate,
     SCTTopPopverViewControllerDelegate,
     SCTeacherListViewDelegate,
     YSMp4ControlViewDelegate,
@@ -210,12 +209,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIView *bottomBarBackgroudView;
 /// 底部工具栏
 @property (nonatomic, strong) YSBottomToolBar *bottomToolBar;
-
-/// 顶部工具条背景
-@property (nonatomic, strong) UIView *topToolBarBackgroud;
-/// 顶部工具栏
-@property (nonatomic, strong) SCTeacherTopBar *topToolBar;
-@property (nonatomic, strong) SCTopToolBarModel *topBarModel;
 
 
 /// 记录顶部工具栏上次选中的按钮
@@ -479,19 +472,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 本地播放 （定时器结束的音效）
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
-
+    
+    /// 初始化顶栏数据
+    [self setupStateBarData];
+    
     // 内容背景
     [self setupContentView];
     
     // 全屏白板
     [self setupFullBoardView];
+    
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
+    
     // 设置左侧工具栏
     [self setupBrushToolView];
     
     // 右侧聊天视图
-    [self.contentBackgroud addSubview:self.rightChatView];
+    [self.view addSubview:self.rightChatView];
     
     //弹出聊天框的按钮
     [self.contentBackgroud addSubview:self.chatBtn];
@@ -731,39 +729,36 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-/// 顶部工具栏背景
-- (void)setupTopToolBar
-{
-    UIView *topToolBarBackGroud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, YSUI_contentWidth, TOPTOOLBAR_HEIGHT)];
-    topToolBarBackGroud.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-    [self.contentBackgroud addSubview:topToolBarBackGroud];
-    self.topToolBarBackgroud = topToolBarBackGroud;
-    
-    self.topToolBar = [[SCTeacherTopBar alloc] init];
-    self.topToolBar.delegate = self;
-    self.topToolBar.frame = CGRectMake(0, 0, YSUI_contentWidth, TOPTOOLBAR_HEIGHT);
-    [self.topToolBarBackgroud addSubview:self.topToolBar];
-    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_BeforeClass;
-    [self setupTopBarData];
-    
-    self.topbarPopoverView = [[SCTTopPopverViewController alloc]init];
-    self.topbarPopoverView.modalPresentationStyle = UIModalPresentationPopover;
-    self.topbarPopoverView.delegate = self;
-}
+///// 顶部工具栏背景
+//- (void)setupTopToolBar
+//{
+//    UIView *topToolBarBackGroud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, YSUI_contentWidth, TOPTOOLBAR_HEIGHT)];
+//    topToolBarBackGroud.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+//    [self.contentBackgroud addSubview:topToolBarBackGroud];
+//    self.topToolBarBackgroud = topToolBarBackGroud;
+//
+//    self.topToolBar = [[SCTeacherTopBar alloc] init];
+//    self.topToolBar.delegate = self;
+//    self.topToolBar.frame = CGRectMake(0, 0, YSUI_contentWidth, TOPTOOLBAR_HEIGHT);
+//    [self.topToolBarBackgroud addSubview:self.topToolBar];
+//    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_BeforeClass;
+////    [self setupTopBarData];
+//
+//    self.topbarPopoverView = [[SCTTopPopverViewController alloc]init];
+//    self.topbarPopoverView.modalPresentationStyle = UIModalPresentationPopover;
+//    self.topbarPopoverView.delegate = self;
+//}
 
 /// 初始化顶栏数据
-- (void)setupTopBarData
+- (void)setupStateBarData
 {
-    self.topBarModel = [[SCTopToolBarModel alloc] init];
-    self.topBarModel.roomID = [YSLiveManager shareInstance].room_Id;
-    
-    self.topToolBar.topToolModel = self.topBarModel;
+    self.roomID = [YSLiveManager shareInstance].room_Id;
+    self.lessonTime = @"00:00:00";
 }
 
 /// 底部工具栏
 - (void)setupBottomToolBarView
 {
-    
     UIView *bottomBarBackgroudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BOTTOMTOOLBAR_WIDTH, BOTTOMTOOLBAR_HEIGHT)];
     bottomBarBackgroudView.backgroundColor =  YSSkinDefineColor(@"PopViewBgColor");
     [self.view addSubview:bottomBarBackgroudView];
@@ -961,6 +956,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.classBeginBtn = classBeginBtn;
     [self.view addSubview:classBeginBtn];
 }
+
 
 - (void)classBeginBtnClick:(UIButton *)sender
 {
@@ -1208,7 +1204,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.teacherListView = [[SCTeacherListView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, 0, BMUI_SCREEN_WIDTH, tableHeight)];
     self.teacherListView.bm_centerY = self.view.bm_centerY;
     self.teacherListView.delegate = self;
-    [self.contentBackgroud addSubview:self.teacherListView];
+    [self.view addSubview:self.teacherListView];
 }
 
 #pragma mark -
@@ -2037,8 +2033,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
-    self.topToolBar.userEnable = NO;
-    [self.view bringSubviewToFront:self.topToolBarBackgroud];
+    self.bottomToolBar.userEnable = NO;
+    [self.view bringSubviewToFront:self.bottomBarBackgroudView];
 //    [self removeAllVideoView];
 //    
 //    if (self.isWhitebordFullScreen)
@@ -2052,7 +2048,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomReJoined:(long)ts
 {
     [super onRoomReJoined:ts];
-    self.topToolBar.userEnable = YES;
+    self.bottomToolBar.userEnable = YES;
 }
 
 
@@ -2116,9 +2112,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     [self topToolBarPollingBtnEnable];
-    if (self.topToolBar.pollingBtn.enabled)
+    if (self.bottomToolBar.pollingBtn.enabled)
     {
-        self.topToolBar.pollingBtn.selected = NO;
+        self.bottomToolBar.pollingBtn.selected = NO;
     }
     _isPolling = NO;
 }
@@ -2203,10 +2199,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     }
     
-    self.topBarModel.netQuality = netQuality;
-    self.topBarModel.netDelay = netDelay;
-    self.topBarModel.lostRate = lostRate;
-    self.topToolBar.topToolModel = self.topBarModel;
+//    self.topBarModel.netQuality = netQuality;
+//    self.topBarModel.netDelay = netDelay;
+//    self.topBarModel.lostRate = lostRate;
+//    self.topToolBar.topToolModel = self.topBarModel;
 }
 
 // 网络测速回调
@@ -2247,7 +2243,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     [self topToolBarPollingBtnEnable];
-    self.topToolBar.pollingBtn.selected = _isPolling;
+    self.bottomToolBar.pollingBtn.selected = _isPolling;
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
@@ -2318,9 +2314,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             
             [self topToolBarPollingBtnEnable];
-            if (self.topToolBar.pollingBtn.enabled)
+            if (self.bottomToolBar.pollingBtn.enabled)
             {
-                self.topToolBar.pollingBtn.selected = NO;
+                self.bottomToolBar.pollingBtn.selected = NO;
             }
             
         }
@@ -2745,6 +2741,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
     self.classBeginBtn.userInteractionEnabled = YES;
+
     [self topToolBarPollingBtnEnable];
     // 通知各端开始举手
     [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
@@ -2752,19 +2749,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     
     self.classBeginBtn.selected = YES;
-    
+
 //    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-//    if (self.appUseTheType == YSAppUseTheTypeMeeting)
-//    {
-//        if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
-//        {
+    if (self.appUseTheType == YSAppUseTheTypeMeeting)
+    {
+        if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
+        {
 //            self.topToolBar.layoutType = SCTeacherTopBarLayoutType_FullMedia;
-//        }
-//        else
-//        {
+        }
+        else
+        {
 //            self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-//        }
-//    }
+        }
+    }
     
     [self freshTeacherPersonListData];
     self.brushToolView.hidden = NO;
@@ -3831,8 +3828,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSTimeInterval time = self.liveManager.tCurrentTime - self.liveManager.tClassStartTime;
     NSString *str =  [NSDate bm_countDownENStringDateFromTs:time];
-    self.topBarModel.lessonTime = str;
-    self.topToolBar.topToolModel = self.topBarModel;
+    self.lessonTime = str;
 }
 
 
@@ -3988,11 +3984,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self freshListViewWithSelect:NO];
             
         }
-        
-//        if (self.topSelectBtn.tag == SCTeacherTopBarTypeChat && (btn.tag == SCTeacherTopBarTypeCourseware || btn.tag == SCTeacherTopBarTypePersonList))
-//        {
-//            self.topSelectBtn.selected = NO;
-//        }
+
     }
     
     switch (btn.tag)
@@ -4252,14 +4244,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //收回聊天
         self.chatBtn.selected = NO;
         CGRect chatViewRect = self.rightChatView.frame;
-        chatViewRect.origin.x = YSUI_contentWidth;
+        chatViewRect.origin.x = BMUI_SCREEN_WIDTH;
         [UIView animateWithDuration:0.25 animations:^{
             self.rightChatView.frame = chatViewRect;
         }];
     }
     else
     {//收回
-        tempRect.origin.x = YSUI_contentWidth;
+        tempRect.origin.x = BMUI_SCREEN_WIDTH;
     }
     [UIView animateWithDuration:0.25 animations:^{
         self.teacherListView.frame = tempRect;
@@ -4297,7 +4289,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 大房间的时候一直不能用
     if (self.liveManager.isBigRoom)
     {
-        self.topToolBar.pollingBtn.enabled = NO;
+        self.bottomToolBar.pollingBtn.enabled = NO;
         return;
     }
     NSInteger total = 0;
@@ -4309,7 +4301,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    self.topToolBar.pollingBtn.enabled = total >= maxVideoCount;
+    self.bottomToolBar.pollingBtn.enabled = total >= maxVideoCount;
     
 }
 
@@ -4364,19 +4356,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
     }
-    
-    
-    
-//    if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
-//    {
+
+    if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
+    {
 //        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_FullMedia;
-//    }
-//    else
-//    {
+    }
+    else
+    {
 //        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-//    }
+    }
     
-    self.topToolBar.switchLayoutBtn.selected = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
+    self.bottomToolBar.switchLayoutBtn.selected = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
     
     if (roomLayout == YSLiveRoomLayout_FocusLayout && peerId)
     {
@@ -5530,7 +5520,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     
     _isPolling = YES;
-    self.topToolBar.pollingBtn.selected = YES;
+    self.bottomToolBar.pollingBtn.selected = YES;
     _pollingFromID = fromID;
 //    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:fromID];
 //    if (!user)
@@ -5558,9 +5548,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     _isPolling = NO;
     [self topToolBarPollingBtnEnable];
-    if (self.topToolBar.pollingBtn.enabled)
+    if (self.bottomToolBar.pollingBtn.enabled)
     {
-        self.topToolBar.pollingBtn.selected = NO;
+        self.bottomToolBar.pollingBtn.selected = NO;
     }
     
 }
@@ -5568,24 +5558,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark 聊天相关视图
 
-- (void)barScaleButtonClick:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-}
 
 /// 弹出聊天View的按钮
-- (UIButton *)chatBtn
-{
-    if (!_chatBtn)
-    {
-        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(YSUI_contentWidth-40-26, YSUI_contentHeight-40-2-100, 40, 40)];
-        [self.chatBtn setBackgroundColor: UIColor.clearColor];
-        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-        [self.chatBtn addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _chatBtn;
-}
+//- (UIButton *)chatBtn
+//{
+//    if (!_chatBtn)
+//    {
+//        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(YSUI_contentWidth-40-26, YSUI_contentHeight-40-2-100, 40, 40)];
+//        [self.chatBtn setBackgroundColor: UIColor.clearColor];
+//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
+//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
+//        [self.chatBtn addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _chatBtn;
+//}
 
 /// 右侧聊天视图
 - (SCChatView *)rightChatView
@@ -5609,7 +5595,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (!_chatToolView)
     {
-        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, YSUI_contentHeight, YSUI_contentWidth, SCChatToolHeight)];
+        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH, SCChatToolHeight)];
         self.chatToolView.inputView.delegate = self;
         BMWeakSelf
         //点击视图收起键盘
@@ -5628,7 +5614,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [weakSelf toolEmotionBtnClick:sender];
             }
         };
-        [self.contentBackgroud addSubview:self.chatToolView];
+        [self.view addSubview:self.chatToolView];
     }
     return _chatToolView;
 }
@@ -5638,7 +5624,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (!_emotionListView)
     {
-        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, YSUI_contentHeight, YSUI_contentWidth, SCChateEmotionHeight)];
+        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_WIDTH, SCChateEmotionHeight)];
         
         BMWeakSelf
         //把表情添加到输入框
@@ -5652,7 +5638,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.emotionListView.deleteEmotionBtnClick = ^{
             [weakSelf.chatToolView.inputView deleteBackward];
         };
-        [self.contentBackgroud addSubview:self.emotionListView];
+        [self.view addSubview:self.emotionListView];
     }
     [self.view bringSubviewToFront:_emotionListView];
     return _emotionListView;
@@ -5663,35 +5649,35 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 
 ///聊天按钮点击事件
-- (void)chatButtonClick:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-    
-    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-    
-    CGRect tempRect = self.rightChatView.frame;
-    if (sender.selected)
-    {//弹出
-        tempRect.origin.x = YSUI_contentWidth-tempRect.size.width;
-        
-        //收回 课件表 以及 花名册
-        [self freshListViewWithSelect:NO];
-        if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-        {
-            self.topSelectBtn.selected = NO;
-        }
-    }
-    else
-    {//收回
-        tempRect.origin.x = YSUI_contentWidth;
-    }
-    [UIView animateWithDuration:0.25 animations:^{
-        self.rightChatView.frame = tempRect;
-    }];
-    
-    [self arrangeAllViewInVCView];
-}
+//- (void)chatButtonClick:(UIButton *)sender
+//{
+//    sender.selected = !sender.selected;
+//
+//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
+//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
+//
+//    CGRect tempRect = self.rightChatView.frame;
+//    if (sender.selected)
+//    {//弹出
+//        tempRect.origin.x = YSUI_contentWidth-tempRect.size.width;
+//
+//        //收回 课件表 以及 花名册
+//        [self freshListViewWithSelect:NO];
+//        if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
+//        {
+//            self.topSelectBtn.selected = NO;
+//        }
+//    }
+//    else
+//    {//收回
+//        tempRect.origin.x = YSUI_contentWidth;
+//    }
+//    [UIView animateWithDuration:0.25 animations:^{
+//        self.rightChatView.frame = tempRect;
+//    }];
+//
+//    [self arrangeAllViewInVCView];
+//}
 
 ///输入框条上表情按钮的点击事件
 - (void)toolEmotionBtnClick:(UIButton *)sender
