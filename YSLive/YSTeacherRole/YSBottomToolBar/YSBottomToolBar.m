@@ -176,12 +176,15 @@ static const CGFloat kBarBtn_gap_iPad = 5.0f;
     UIButton *toolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [toolBtn setImage:YSSkinElementImage(pathName, @"iconNor") forState:UIControlStateNormal];
     [toolBtn setImage:YSSkinElementImage(pathName, @"iconSel") forState:UIControlStateSelected];
-    [toolBtn setImage:YSSkinElementImage(pathName, @"iconDis") forState:UIControlStateDisabled];
+    
+    UIImage * iconDisImage = [YSSkinElementImage(pathName, @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [toolBtn setImage:iconDisImage forState:UIControlStateDisabled];
     
     if ([norTitle bm_isNotEmpty])
     {
         [toolBtn setTitle:YSLocalized(norTitle) forState:UIControlStateNormal];
-        toolBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 8, toolBtn.titleLabel.bounds.size.height - 5, 0);
+        CGFloat tempGap = [UIDevice bm_isiPad] ? 18.0f : 8.0f;
+        toolBtn.imageEdgeInsets = UIEdgeInsetsMake(0, tempGap, toolBtn.titleLabel.bounds.size.height - 5, 0);
         toolBtn.titleEdgeInsets = UIEdgeInsetsMake(toolBtn.currentImage.size.width, -(toolBtn.currentImage.size.width), 0, 0);
         toolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     }
