@@ -260,7 +260,6 @@
     maskBackView.backgroundColor = UIColor.clearColor;
     [self.backVideoView addSubview:maskBackView];
     self.maskBackView = maskBackView;
-
     
     //关闭视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
