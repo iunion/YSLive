@@ -69,6 +69,37 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     return self;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    tableWidth = ListView_Width;
+    tableHeight = self.bm_height - self.topGap - self.bottomGap;
+    
+    if (![UIDevice bm_isiPad])
+    {
+        tableWidth = 280;
+        
+    }
+    self.tableBacView.frame = CGRectMake(self.bm_width - tableWidth, self.topGap, tableWidth, tableHeight);
+    [self.tableBacView bm_connerWithRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
+    self.tableView.frame = CGRectMake(0, 0, tableWidth, tableHeight);
+    self.tableFooterView.frame = CGRectMake(0, tableHeight - 40, tableWidth, 40);
+    
+    self.pageNumLabel.frame = CGRectMake(0, 4, 80, 32);
+    self.pageNumLabel.bm_centerX = self.tableFooterView.bm_centerX;
+    self.pageNumLabel.layer.cornerRadius = 6;
+    self.pageNumLabel.layer.masksToBounds = YES;
+    
+    self.leftPageBtn.frame = CGRectMake(0, 0, 32, 32);
+    self.leftPageBtn.bm_right = self.pageNumLabel.bm_left - 6;
+    self.leftPageBtn.bm_centerY = self.pageNumLabel.bm_centerY;
+    
+    self.rightPageBtn.frame = CGRectMake(0, 0, 32, 32);
+    self.rightPageBtn.bm_left = self.pageNumLabel.bm_right + 6;
+    self.rightPageBtn.bm_centerY = self.pageNumLabel.bm_centerY;
+}
+
 - (void)setup
 {
     self.dataSource = [NSMutableArray arrayWithCapacity:0];
@@ -78,31 +109,19 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     _totalPage = 1;
     _userNum = 0;
     _searchString = @"";
-//    self.layer.cornerRadius = 10;
-//    self.layer.masksToBounds = YES;
-//
+
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
     tapGesture.delegate =self;
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:tapGesture];
     
-    tableWidth = ListView_Width;
-    tableHeight = ListView_Height;
-    if (![UIDevice bm_isiPad])
-    {
-        tableWidth = 280;
-        tableHeight = BMUI_SCREEN_HEIGHT - 80;
-    }
-    
-    UIView *tableBacView = [[UIView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - tableWidth, 0, tableWidth, tableHeight)];
-    tableBacView.bm_centerY = self.bm_centerY;
+    UIView *tableBacView = [[UIView alloc] init];
     self.tableBacView = tableBacView;
     [self addSubview:tableBacView];
     tableBacView.backgroundColor = [UIColor clearColor];
-    [tableBacView bm_connerWithRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
+
     
-    
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, tableHeight) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
     tableView.bounces = NO;
     if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0)
     {
@@ -121,18 +140,14 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.tableFooterView = [[UIView alloc] init];
     [tableBacView addSubview:self.tableFooterView];
     self.tableFooterView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-    self.tableFooterView.frame = CGRectMake(0, tableHeight - 40, tableWidth, 40);
     self.tableFooterView.hidden = NO;
     
-    UILabel * pageNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, 80, 32)];
+    UILabel * pageNumLabel = [[UILabel alloc] init];
     pageNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
     pageNumLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
     pageNumLabel.font = [UIFont systemFontOfSize:14];
     pageNumLabel.text = @"fffff";
     pageNumLabel.textAlignment = NSTextAlignmentCenter;
-    pageNumLabel.bm_centerX = self.tableFooterView.bm_centerX;
-    pageNumLabel.layer.cornerRadius = 6;
-    pageNumLabel.layer.masksToBounds = YES;
     [self.tableFooterView addSubview:pageNumLabel];
     self.pageNumLabel = pageNumLabel;
     
@@ -141,9 +156,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_normal"] forState:UIControlStateNormal];
     [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_disabled"] forState:UIControlStateDisabled];
     [self.tableFooterView addSubview:leftPageBtn];
-    leftPageBtn.frame = CGRectMake(0, 0, 32, 32);
-    leftPageBtn.bm_right = pageNumLabel.bm_left - 6;
-    leftPageBtn.bm_centerY = pageNumLabel.bm_centerY;
+
 
     self.leftPageBtn = leftPageBtn;
     
@@ -152,12 +165,19 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_normal"] forState:UIControlStateNormal];
     [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_disabled"] forState:UIControlStateDisabled];
     [self.tableFooterView addSubview:rightPageBtn];
-    rightPageBtn.frame = CGRectMake(0, 0, 32, 32);
-    rightPageBtn.bm_left = pageNumLabel.bm_right + 6;
-    rightPageBtn.bm_centerY = pageNumLabel.bm_centerY;
     self.rightPageBtn = rightPageBtn;
 
     
+}
+
+- (void)setTopGap:(CGFloat)topGap
+{
+    _topGap = topGap;
+}
+
+- (void)setBottomGap:(CGFloat)bottomGap
+{
+    _bottomGap = bottomGap;
 }
 
 - (void)cyclePlaySetup

@@ -1134,15 +1134,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)setupListView
 {
-    CGFloat tableHeight = ListView_Height;
-    if (![UIDevice bm_isiPad])
-    {
-        
-        tableHeight = YSUI_contentHeight;
-    }
-    self.teacherListView = [[SCTeacherListView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, 0, BMUI_SCREEN_WIDTH, tableHeight)];
-    self.teacherListView.bm_centerY = self.view.bm_centerY;
+    CGFloat tableHeight = BMUI_SCREEN_HEIGHT;
+    self.teacherListView = [[SCTeacherListView alloc] init];
+
     self.teacherListView.delegate = self;
+    self.teacherListView.topGap = self.contentBackgroud.bm_top + STATETOOLBAR_HEIGHT;
+    BMLog(@"%f",self.contentBackgroud.bm_top);
+    self.teacherListView.bottomGap = BMUI_SCREEN_HEIGHT - self.bottomBarBackgroudView.bm_top + 5;
+    self.teacherListView.frame = CGRectMake(BMUI_SCREEN_WIDTH, 0, BMUI_SCREEN_WIDTH, tableHeight);
     [self.view addSubview:self.teacherListView];
 }
 

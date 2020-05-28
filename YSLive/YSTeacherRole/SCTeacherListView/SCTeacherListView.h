@@ -36,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SCTeacherListView : UIView
 
 @property(nonatomic, weak) id<SCTeacherListViewDelegate> delegate;
-
+@property(nonatomic, assign) CGFloat bottomGap;
+@property(nonatomic, assign) CGFloat topGap;
 - (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum;
 /// 主要用于展示 多课件 媒体课件的状态
 /// @param dataSource 课件列表
