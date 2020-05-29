@@ -73,7 +73,7 @@
     [self addGestureRecognizer:tapGesture];
     
     self.backgroundView = [[UIView alloc] init];
-    self.backgroundView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    self.backgroundView.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
     self.backgroundView.layer.masksToBounds = YES;
     self.backgroundView.layer.cornerRadius = 20;
     [self addSubview:self.backgroundView];
@@ -88,20 +88,13 @@
     }];
     
     self.toolOneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_pen_selected"] forState:UIControlStateNormal];
-    [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_pen_selected"] forState:UIControlStateSelected];
     
     self.toolTwoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_text_selected"] forState:UIControlStateNormal];
-    [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_text_selected"] forState:UIControlStateSelected];
     
     self.toolThreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_shape_selected"] forState:UIControlStateNormal];
-    [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_shape_selected"] forState:UIControlStateSelected];
     
     self.toolFourBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_eraser_selected"] forState:UIControlStateNormal];
-    [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_eraser_selected"] forState:UIControlStateSelected];
+
     self.toolBtnArr = @[self.toolOneBtn,self.toolTwoBtn,self.toolThreeBtn,self.toolFourBtn];
     
     UIButton *lastBtn = nil;
@@ -123,7 +116,7 @@
     }
     
     self.lineView = [[UIView alloc] init];
-    self.lineView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
     [self.bacContainerView addSubview:self.lineView];
     [self.lineView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(weakSelf.bacContainerView).bmmas_offset(13);
@@ -151,7 +144,7 @@
     };
     
     self.progressView = [[UIView alloc] init];
-    self.progressView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.progressView.backgroundColor =YSSkinElementColor(@"brushTool_slider", @"bgColor");
     self.progressView.layer.masksToBounds = YES;
     self.progressView.layer.cornerRadius = 2.5f;
     [self.bacContainerView addSubview:self.progressView];
@@ -164,7 +157,7 @@
     }];
     
     self.progressSelectView = [[UIView alloc] init];
-    self.progressSelectView.backgroundColor = [UIColor bm_colorWithHex:0xFFE895];
+    self.progressSelectView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     self.progressSelectView.layer.masksToBounds = YES;
     self.progressSelectView.layer.cornerRadius = 2.5f;
     [self.bacContainerView addSubview:self.progressSelectView];
@@ -179,7 +172,7 @@
     self.slider.minimumTrackTintColor = [UIColor clearColor];
     self.slider.maximumTrackTintColor = [UIColor clearColor];
     [self.slider setThumbImage:[UIImage imageNamed:@"sc_brush_board_slider"] forState:UIControlStateNormal];
-
+ [self.slider setThumbImage:YSSkinElementImage(@"brushTool_slider", @"iconNor") forState:UIControlStateNormal];
     self.slider.minimumValue = 0.03f;
     self.slider.maximumValue = 1.0;
     self.slider.value = self.progressResult;
@@ -195,7 +188,7 @@
     
     
     self.weightView = [[UIView alloc] init];
-    self.weightView.backgroundColor = [UIColor bm_colorWithHex:0xFFE895];
+    self.weightView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     [self.bacContainerView addSubview:self.weightView];
     [self.weightView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         
@@ -371,32 +364,35 @@
 {
     if (brushToolType == YSBrushToolTypeLine)
     {
-        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_drawpen_normal"] forState:UIControlStateNormal];
-        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_drawpen_selected"] forState:UIControlStateSelected];
+
+        [self.toolOneBtn setImage:YSSkinElementImage(@"brushTool_drawpen", @"iconNor") forState:UIControlStateNormal];
+        [self.toolOneBtn setImage:YSSkinElementImage(@"brushTool_drawpen", @"iconSel") forState:UIControlStateSelected];
         
-        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_markpen_normal"] forState:UIControlStateNormal];
-        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_markpen_selected"] forState:UIControlStateSelected];
+        [self.toolTwoBtn setImage:YSSkinElementImage(@"brushTool_markpen", @"iconNor") forState:UIControlStateNormal];
+        [self.toolTwoBtn setImage:YSSkinElementImage(@"brushTool_markpen", @"iconSel") forState:UIControlStateSelected];
         
-        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_line_normal"] forState:UIControlStateNormal];
-        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_line_selected"] forState:UIControlStateSelected];
+        [self.toolThreeBtn setImage:YSSkinElementImage(@"brushTool_line", @"iconNor") forState:UIControlStateNormal];
+        [self.toolThreeBtn setImage:YSSkinElementImage(@"brushTool_line", @"iconSel") forState:UIControlStateSelected];
         
-        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_arrowline_normal"] forState:UIControlStateNormal];
-        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_arrowline_selected"] forState:UIControlStateSelected];
+        [self.toolFourBtn setImage:YSSkinElementImage(@"brushTool_arrowline", @"iconNor") forState:UIControlStateNormal];
+        [self.toolFourBtn setImage:YSSkinElementImage(@"brushTool_arrowline", @"iconSel") forState:UIControlStateSelected];
+        
     }
     
     if (brushToolType == YSBrushToolTypeShape)
     {
-        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_emptyrectangle_normal"] forState:UIControlStateNormal];
-        [self.toolOneBtn setImage:[UIImage imageNamed:@"sc_brush_emptyrectangle_selected"] forState:UIControlStateSelected];
+
+        [self.toolOneBtn setImage:YSSkinElementImage(@"brushTool_emptyrectangle", @"iconNor") forState:UIControlStateNormal];
+        [self.toolOneBtn setImage:YSSkinElementImage(@"brushTool_emptyrectangle", @"iconSel") forState:UIControlStateSelected];
         
-        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_filledrectangle_normal"] forState:UIControlStateNormal];
-        [self.toolTwoBtn setImage:[UIImage imageNamed:@"sc_brush_filledrectangle_selected"] forState:UIControlStateSelected];
+        [self.toolTwoBtn setImage:YSSkinElementImage(@"brushTool_filledrectangle", @"iconNor") forState:UIControlStateNormal];
+        [self.toolTwoBtn setImage:YSSkinElementImage(@"brushTool_filledrectangle", @"iconSel") forState:UIControlStateSelected];
         
-        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_emptyellipse_normal"] forState:UIControlStateNormal];
-        [self.toolThreeBtn setImage:[UIImage imageNamed:@"sc_brush_emptyellipse_selected"] forState:UIControlStateSelected];
+        [self.toolThreeBtn setImage:YSSkinElementImage(@"brushTool_emptyellipse", @"iconNor") forState:UIControlStateNormal];
+        [self.toolThreeBtn setImage:YSSkinElementImage(@"brushTool_emptyellipse", @"iconSel") forState:UIControlStateSelected];
         
-        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_filledellipse_normal"] forState:UIControlStateNormal];
-        [self.toolFourBtn setImage:[UIImage imageNamed:@"sc_brush_filledellipse_selected"] forState:UIControlStateSelected];
+        [self.toolFourBtn setImage:YSSkinElementImage(@"brushTool_filledellipse", @"iconNor") forState:UIControlStateNormal];
+        [self.toolFourBtn setImage:YSSkinElementImage(@"brushTool_filledellipse", @"iconSel") forState:UIControlStateSelected];
     }
     
 }
