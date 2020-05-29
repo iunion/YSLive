@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak)id <SCBrushToolViewDelegate>delegate;
 
-@property (nonatomic, strong, readonly) UIButton *toolsBtn;
 @property (nonatomic, strong, readonly) UIButton *mouseBtn;
 
 - (instancetype)initWithTeacher:(BOOL)isTeacher;

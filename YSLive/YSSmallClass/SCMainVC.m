@@ -236,6 +236,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property(nonatomic,strong)UIButton *chatBtn;
 /// 左侧工具栏
 @property (nonatomic, strong) SCBrushToolView *brushToolView;
+/// 画笔工具按钮（控制工具条的展开收起）
+@property (nonatomic, strong) UIButton *brushToolOpenBtn;
 /// 画笔选择 颜色 大小 形状
 @property (nonatomic, strong) SCDrawBoardView *drawBoardView;
 
@@ -1185,13 +1187,42 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:NO];
     [self.view addSubview:self.brushToolView];
-    CGRect rect =  [self.view convertRect:self.whitebordBackgroud.frame fromView:self.whitebordBackgroud.superview];
-    self.brushToolView.bm_left = BMUI_STATUS_BAR_HEIGHT + 5;
-    self.brushToolView.bm_centerY = rect.origin.y + rect.size.height/2; //self.whitebordBackgroud.bm_centerY;
+
+    CGFloat laftGap = 10;
+    if (BMIS_IPHONEXANDP)
+    {
+        laftGap = BMUI_HOME_INDICATOR_HEIGHT;
+    }
+    self.brushToolView.bm_left = laftGap;
+    self.brushToolView.bm_centerY = self.view.bm_centerY;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
+    
+    UIButton *brushToolOpenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [brushToolOpenBtn addTarget:self action:@selector(brushToolOpenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
+    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
+    brushToolOpenBtn.frame = CGRectMake(0, 0, 25, 37);
+    brushToolOpenBtn.bm_centerY = self.brushToolView.bm_centerY;
+    brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
+    self.brushToolOpenBtn = brushToolOpenBtn;
+    [self.view addSubview:brushToolOpenBtn];
 }
 
+#pragma mark 画笔工具展开收起
+- (void)brushToolOpenBtnClick:(UIButton *)btn
+{
+    btn.selected = !btn.selected;
+    if (btn.selected)
+    {
+        self.drawBoardView.hidden = YES;
+        self.brushToolView.hidden = YES;
+    }
+    else
+    {
+        self.brushToolView.hidden = NO;
+    }
+}
 /// 助教网络刷新课件
 - (void)handleSignalingTorefeshCourseware
 {
@@ -3001,7 +3032,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         }
         
-        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
         {
             self.drawBoardView.hidden = YES;
         }
@@ -3725,7 +3756,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             else
             {
                 self.brushToolView.hidden = !canDraw;
-                if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
+                if (!canDraw || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
                 {
                     self.drawBoardView.hidden = YES;
                 }else{
@@ -4353,7 +4384,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
     {
         self.drawBoardView.hidden = YES;
     }
@@ -4650,7 +4681,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.brushToolView.hidden = isFull;
         }
     }
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
     {
         self.drawBoardView.hidden = YES;
     }

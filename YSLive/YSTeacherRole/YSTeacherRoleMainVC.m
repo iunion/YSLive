@@ -299,6 +299,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 左侧工具栏
 @property (nonatomic, strong) SCBrushToolView *brushToolView;
+/// 画笔工具按钮（控制工具条的展开收起）
+@property (nonatomic, strong) UIButton *brushToolOpenBtn;
 /// 画笔选择 颜色 大小 形状
 @property (nonatomic, strong) SCDrawBoardView *drawBoardView;
 
@@ -914,7 +916,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:YES];
     [self.view addSubview:self.brushToolView];
-    CGRect rect =  [self.view convertRect:self.whitebordBackgroud.frame fromView:self.whitebordBackgroud.superview];
     CGFloat laftGap = 10;
     if (BMIS_IPHONEXANDP)
     {
@@ -924,6 +925,32 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.bm_centerY = self.view.bm_centerY;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
+    
+    
+    UIButton *brushToolOpenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [brushToolOpenBtn addTarget:self action:@selector(brushToolOpenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
+    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
+    brushToolOpenBtn.frame = CGRectMake(0, 0, 25, 37);
+    brushToolOpenBtn.bm_centerY = self.brushToolView.bm_centerY;
+    brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
+    self.brushToolOpenBtn = brushToolOpenBtn;
+    [self.view addSubview:brushToolOpenBtn];
+}
+
+#pragma mark 画笔工具展开收起
+- (void)brushToolOpenBtnClick:(UIButton *)btn
+{
+    btn.selected = !btn.selected;
+    if (btn.selected)
+    {
+        self.drawBoardView.hidden = YES;
+        self.brushToolView.hidden = YES;
+    }
+    else
+    {
+        self.brushToolView.hidden = NO;
+    }
 }
 
 /// 助教网络刷新所有人课件
@@ -2454,7 +2481,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     self.brushToolView.hidden = NO;
                 }
 
-                if (!self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
+                if (self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
                 {
                     self.drawBoardView.hidden = YES;
                 }else
