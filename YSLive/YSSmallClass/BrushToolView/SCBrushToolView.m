@@ -155,16 +155,6 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 
 #pragma mark -
 #pragma mark SEL
-- (void)toolBtnClicked:(UIButton *)btn
-{
-    btn.selected = !btn.selected;
-    self.toolBacView.hidden = !btn.selected;
-    if ([self.delegate respondsToSelector:@selector(toolBtnClickedSeleted:)])
-    {
-        //type传-1  只是为了控制显示隐藏
-        [self.delegate toolBtnClickedSeleted:btn.selected];
-    }
-}
 
 - (void)sc_toolButtonListClicked:(UIButton *)btn
 {

@@ -71,9 +71,6 @@
     tapGesture.delegate =self;
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:tapGesture];
-    self.triangleImgView = [[UIImageView alloc] init];
-    [self.triangleImgView setImage:[UIImage imageNamed:@"sc_brush_board_triangle"]];
-    [self addSubview:self.triangleImgView];
     
     self.backgroundView = [[UIView alloc] init];
     self.backgroundView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];

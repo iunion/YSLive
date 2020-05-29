@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, YSSelectorShowType)
 @property (nonatomic, assign) YSDrawType drawType;
 @property (nonatomic, strong) UIView *backgroundView;
 //小三角
-@property (nonatomic, strong) UIImageView *triangleImgView;
+//@property (nonatomic, strong) UIImageView *triangleImgView;
 
 - (void)changeSelectColor:(NSString *)selectColor;
 

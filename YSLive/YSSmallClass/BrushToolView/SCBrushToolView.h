@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SCBrushToolViewDelegate <NSObject>
 
-/// 总按钮的点击 回调
-- (void)toolBtnClickedSeleted:(BOOL)seleted;
 /// 工具类型回调
 /// @param toolViewBtnType 工具类型
 - (void)brushToolViewType:(YSBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn;
