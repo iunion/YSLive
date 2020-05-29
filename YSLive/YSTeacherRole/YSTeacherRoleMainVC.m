@@ -913,10 +913,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)setupBrushToolView
 {
     self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:YES];
-    [self.contentBackgroud addSubview:self.brushToolView];
+    [self.view addSubview:self.brushToolView];
     CGRect rect =  [self.view convertRect:self.whitebordBackgroud.frame fromView:self.whitebordBackgroud.superview];
-    self.brushToolView.bm_left = BMUI_STATUS_BAR_HEIGHT + 5;
-    self.brushToolView.bm_centerY = rect.origin.y + rect.size.height/2;
+    CGFloat laftGap = 10;
+    if (BMIS_IPHONEXANDP)
+    {
+        laftGap = BMUI_HOME_INDICATOR_HEIGHT;
+    }
+    self.brushToolView.bm_left = laftGap;
+    self.brushToolView.bm_centerY = self.view.bm_centerY;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
 }
