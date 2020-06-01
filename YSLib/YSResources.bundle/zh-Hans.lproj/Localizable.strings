@@ -57,6 +57,7 @@
 "Login.RoomIdPlaceHolder"    = "房间号";
 "Login.nickName" = "昵称";
 "Login.Role"      = "角色";
+"Login.Seting"      = "设置";
 
 // State
 "State.NoNetwork" = "无网络连接";

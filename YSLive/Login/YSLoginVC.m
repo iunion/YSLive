@@ -14,6 +14,7 @@
 
 #import <Bugly/Bugly.h>
 
+#import "YSSetViewController.h"
 #import "YSEyeCareVC.h"
 #import "YSEyeCareManager.h"
 #import "YSPermissionsVC.h"
@@ -573,7 +574,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     UILabel *onlineSchoolTitle = [[UILabel alloc] init];
     onlineSchoolTitle.font = [UIFont systemFontOfSize:16];
-    onlineSchoolTitle.textColor = [UIColor bm_colorWithHex:0x6D7278];
+    onlineSchoolTitle.textColor = YSSkinDefineColor(@"login_placeholderColor");
     onlineSchoolTitle.textAlignment = NSTextAlignmentCenter;
     onlineSchoolTitle.hidden = YES;
     onlineSchoolTitle.text = YSLocalizedSchool(@"Label.onlineSchoolSystem");
@@ -588,61 +589,45 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     [self.backImageView addSubview:self.roomTextField];
     [self.roomTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kBMScale_W(28));
-        make.right.bmmas_equalTo(-kBMScale_W(28));
         make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(60));
         make.height.bmmas_equalTo(40);
+        make.width.bmmas_equalTo(kBMScale_W(210));
+        make.centerX.bmmas_equalTo(0);
     }];
-    self.roomTextField.layer.cornerRadius = 20;
-    self.roomTextField.layer.borderWidth = 1;
-    self.roomTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-    
+
     [self.backImageView addSubview:self.domainTextField];
     [self.domainTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kBMScale_W(28));
-        make.right.bmmas_equalTo(-kBMScale_W(28));
         make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(60));
         make.height.bmmas_equalTo(40);
+        make.width.bmmas_equalTo(kBMScale_W(210));
+        make.centerX.bmmas_equalTo(0);
     }];
     self.domainTextField.hidden = YES;
-    self.domainTextField.layer.cornerRadius = 20;
-    self.domainTextField.layer.borderWidth = 1;
-    self.domainTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-    
+
     [self.backImageView addSubview:self.nickNameTextField];
     [self.nickNameTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kBMScale_W(28));
-        make.right.bmmas_equalTo(-kBMScale_W(28));
         make.top.bmmas_equalTo(weakSelf.roomTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(40);
+        make.width.bmmas_equalTo(kBMScale_W(210));
+        make.centerX.bmmas_equalTo(0);
     }];
-    self.nickNameTextField.layer.cornerRadius = 20;
-    self.nickNameTextField.layer.borderWidth = 1;
-    self.nickNameTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-    
     
     [self.backImageView addSubview:self.admin_accountTextField];
     [self.admin_accountTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kBMScale_W(28));
-        make.right.bmmas_equalTo(-kBMScale_W(28));
         make.top.bmmas_equalTo(weakSelf.domainTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(40);
+        make.width.bmmas_equalTo(kBMScale_W(210));
+        make.centerX.bmmas_equalTo(0);
     }];
     self.admin_accountTextField.hidden = YES;
-    self.admin_accountTextField.layer.cornerRadius = 20;
-    self.admin_accountTextField.layer.borderWidth = 1;
-    self.admin_accountTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
-    
+
     [self.backImageView addSubview:self.passOnlineTextField];
     [self.passOnlineTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kBMScale_W(28));
-        make.right.bmmas_equalTo(-kBMScale_W(28));
         make.top.bmmas_equalTo(weakSelf.admin_accountTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(40);
+        make.width.bmmas_equalTo(kBMScale_W(210));
+        make.centerX.bmmas_equalTo(0);
     }];
-    self.passOnlineTextField.layer.cornerRadius = 20;
-    self.passOnlineTextField.layer.borderWidth = 1;
-    self.passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
     self.passOnlineTextField.hidden = YES;
     
     [self.passwordEyeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
@@ -679,13 +664,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     UIButton *eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     eyeBtn.frame = CGRectMake(0, 0, 100, 40);
-                        //bm_buttonWithFrame:CGRectMake(0, 0, 100, 40) image:[UIImage imageNamed:@"eyecaresetup"]];
-    [eyeBtn setTitle:YSLoginLocalized(@"EyeProtection.Btnsetup") forState:UIControlStateNormal];
+    [eyeBtn setTitle:YSLoginLocalized(@"Login.Seting") forState:UIControlStateNormal];
     eyeBtn.titleLabel.font = UI_FONT_12;
     [eyeBtn setTitleColor:[UIColor bm_colorWithHex:0x878E95] forState:UIControlStateNormal];
     [eyeBtn addTarget:self action:@selector(onClickEye:) forControlEvents:UIControlEventTouchUpInside];
     [self.backImageView addSubview:eyeBtn];
-//    [eyeBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:2.0f];
     [eyeBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.right.bmmas_equalTo(-20);
         make.top.bmmas_equalTo(kBMScale_H(18) + BMUI_STATUS_BAR_HEIGHT);
@@ -694,18 +677,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.joinRoomBtn.layer.cornerRadius = 25;
     self.joinRoomBtn.layer.masksToBounds = YES;
     [self.joinRoomBtn addTarget:self action:@selector(joinRoomBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //    NSString *bundleVersionCode = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    //    NSString *string = [NSString stringWithFormat:@"buildNO: %@", bundleVersionCode];
-    //    UILabel *label = [UILabel bm_labelWithFrame:CGRectMake(20, 40, 200, 30) text:string fontSize:14.0 color:[UIColor bm_colorWithHex:0x999999] alignment:NSTextAlignmentLeft lines:1];
-    //    [self.backImageView addSubview:label];
         
 #if YSONLINESCHOOL
     UIButton *onlineSchoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
     [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
-    [onlineSchoolBtn setTitleColor:[UIColor bm_colorWithHex:0x4A4A4A] forState:UIControlStateNormal];
+    [onlineSchoolBtn setTitleColor:YSSkinDefineColor(@"login_placeholderColor") forState:UIControlStateNormal];
     onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:22];
     onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -757,7 +735,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         BMLog(@"进入网校");
         
-        [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconNor")];
+        [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconOnlineSchool")];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
             //        make.top.bmmas_equalTo(kScale_H(130));
@@ -777,7 +755,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.top.bmmas_equalTo(weakSelf.passOnlineTextField.bmmas_bottom).bmmas_offset(kBMScale_H(43));
             make.height.bmmas_equalTo(50);
-            make.width.bmmas_equalTo(kBMScale_W(238));
+            make.width.bmmas_equalTo(kBMScale_W(210));
             make.centerX.bmmas_equalTo(0);
         }];
         
@@ -806,7 +784,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             self.nickNameTextField.inputTextField.text = nickName;
         }
 
-        [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconOnlineSchool")];
+        [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconNor")];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
             make.top.bmmas_equalTo(kBMScale_H(100));
@@ -1389,8 +1367,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)onClickEye:(UIButton*)sender
 {
-    YSEyeCareVC *eyeCareVC = [[YSEyeCareVC alloc] init];
-    [self.navigationController pushViewController:eyeCareVC animated:YES];
+//    YSEyeCareVC *eyeCareVC = [[YSEyeCareVC alloc] init];
+//    [self.navigationController pushViewController:eyeCareVC animated:YES];
+    YSSetViewController * setViewController = [[YSSetViewController alloc]init];
+    [self.navigationController pushViewController:setViewController animated:YES];
 }
 
 
@@ -1427,7 +1407,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_roomTextField)
     {
-        _roomTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLoginLocalized(@"Label.roomPlaceholder") withImageName:@"login_room"];
+        _roomTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLoginLocalized(@"Label.roomPlaceholder") withImage:YSSkinElementImage(@"login_roomNum", @"iconNor")];
         _roomTextField.inputTextField.delegate = self;
         _roomTextField.inputTextField.tag = 101;
         _roomTextField.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -1441,7 +1421,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_nickNameTextField)
     {
-        _nickNameTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLoginLocalized(@"Label.nicknamePlaceholder") withImageName:@"login_name"];
+        _nickNameTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLoginLocalized(@"Label.nicknamePlaceholder") withImage:YSSkinElementImage(@"login_userName", @"iconNor")];
         _nickNameTextField.inputTextField.delegate = self;
         _nickNameTextField.inputTextField.tag = 102;
         _nickNameTextField.delegate = self;
@@ -1454,7 +1434,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_passwordTextField)
     {
-        _passwordTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLoginLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
+        _passwordTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLoginLocalized(@"Prompt.inputPwd") withImage:YSSkinElementImage(@"login_password", @"iconNor")];
         _passwordTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passwordTextField.inputTextField.secureTextEntry = YES;
         _passwordTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
@@ -1486,7 +1466,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_domainTextField)
     {
-        _domainTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalizedSchool(@"Label.onlineSchoolPlaceholder") withImageName:@"login_room"];
+        _domainTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalizedSchool(@"Label.onlineSchoolPlaceholder") withImage:YSSkinElementImage(@"login_roomNum", @"iconNor")];
         _domainTextField.inputTextField.delegate = self;
         _domainTextField.inputTextField.tag = 1001;
         _domainTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
@@ -1501,7 +1481,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_admin_accountTextField)
     {
-        _admin_accountTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalizedSchool(@"Label.accountNumberPlaceholder") withImageName:@"login_name"];
+        _admin_accountTextField = [[YSInputView alloc] initWithFrame:CGRectZero withPlaceholder:YSLocalizedSchool(@"Label.accountNumberPlaceholder") withImage:YSSkinElementImage(@"login_userName", @"iconNor")];
         _admin_accountTextField.inputTextField.delegate = self;
         _admin_accountTextField.inputTextField.tag = 1002;
         _admin_accountTextField.delegate = self;
@@ -1514,13 +1494,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_passOnlineTextField)
     {
-        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLoginLocalized(@"Prompt.inputPwd") withImageName:@"login_password"];
+        _passOnlineTextField = [[YSInputView alloc] initWithFrame:CGRectMake(76, 171, 348, 40) withPlaceholder:YSLoginLocalized(@"Prompt.inputPwd") withImage:YSSkinElementImage(@"login_password", @"iconNor")];
         _passOnlineTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passOnlineTextField.inputTextField.secureTextEntry = YES;
         _passOnlineTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
-        _passOnlineTextField.layer.cornerRadius = 20;
-        _passOnlineTextField.layer.borderWidth = 1;
-        _passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
+//        _passOnlineTextField.layer.cornerRadius = 20;
+//        _passOnlineTextField.layer.borderWidth = 1;
+//        _passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
 
         if (![UIDevice bm_isiPad]) {
             self.passOnlineTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
@@ -1684,7 +1664,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         okBtn.titleLabel.font = UI_FONT_18;
         okBtn.layer.cornerRadius = 25;
         okBtn.layer.masksToBounds = YES;
-        [okBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+        [okBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
         [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [alertView addSubview:okBtn];
     }
@@ -1801,11 +1781,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
         _joinRoomBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 50) color:[UIColor bm_colorWithHex:0x648CD6] highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
         [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSLoginLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
-        [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+        [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
         [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0x999999] forState:UIControlStateDisabled];
         _joinRoomBtn.titleLabel.textAlignment =  NSTextAlignmentCenter;
-        _joinRoomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16);//UI_FSFONT_MAKE(FontNamePFSCMedium, 18);//(@"PingFang-SC-Medium", 18);
-        
+        _joinRoomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16);
         [_joinRoomBtn bm_addShadow:4.0f Radius:25.0f BorderColor:[UIColor bm_colorWithHex:0x9DB7E7] ShadowColor:[UIColor lightGrayColor]];
 
 #if USE_YSLIVE_ROOMID

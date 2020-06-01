@@ -58,6 +58,7 @@
 "Login.RoomIdPlaceHolder"    = "Room ID";
 "Login.nickName"  = "Name";
 "Login.Role"      = "Role";
+"Login.Seting"      = "Set up";
 
 // State
 "State.NoNetwork" = "No network connection";

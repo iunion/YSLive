@@ -36,9 +36,14 @@
     [self setupUI];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+//}
+
+-(void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 

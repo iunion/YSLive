@@ -57,6 +57,7 @@
 "Login.RoomIdPlaceHolder"    = "房间号";
 "Login.nickName" = "昵称";
 "Login.Role"      = "角色";
+"Login.Seting"      = "设置";
 
 // State
 "State.NoNetwork" = "无网络连接";
@@ -285,6 +286,7 @@
 "Label.Authorized" = "授权";
 "Label.CancelAuthorized" = "取消授权";
 "Label.RaisingHands" = "举手";
+"Label.RaisingHandsTip" = "举手请长按";
 "Label.Ban" = "禁言";
 "Label.Remove" = "移除";
 
