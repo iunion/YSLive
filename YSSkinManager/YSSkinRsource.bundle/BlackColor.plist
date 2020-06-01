@@ -2,180 +2,167 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CommonColor</key>
-    <dict>
-        <key>placeholderColor</key>
-        <string>#828282</string>
-        <key>lineColor</key>
-        <string>#313131</string>
-        <key>disableColor</key>
-        <string>#888888</string>
-        <key>blackColor </key>
-        <string>#000000</string>
-        <key>defaultTitleColor</key>
-        <string>#ffffff</string>
-        <key>defaultBgColor</key>
-        <string>#24262C</string>
-        <key>defaultSelectedBgColor</key>
-        <string>#82ABEC</string>
-        <key>WhiteBoardBgColor</key>
-        <string>#2E3037</string>
-        <key>PopViewBgColor</key>
-        <string>#212121</string>
-        <key>ToolBgColor</key>
-        <string>#1C1D20</string>
-    </dict>
-
-    <key>cancelButton_login</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>backgroundColor</key>
-        <string> </string>
-        <key>iconNormal</key>
-        <string></string>
-        <key>iconSelected</key>
-        <string></string>
-    </dict>
-    
-    <key>barScaleBtn</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string>#18191D</string>
-        <key>iconNor</key>
-        <string>barScale_normal_skin</string>
-        <key>iconSel</key>
-        <string>barScale_selected_skin</string>
-    </dict>
-    
-    <key>videoView_authorizeLab</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoView_authorize_skin</string>
-        <key>iconSel</key>
-        <string></string>
-    </dict>
-    
-    <key>videoView_trophyImage</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoView_trophy_skin</string>
-        <key>iconSel</key>
-        <string></string>
-    </dict>
-    
-    <key>videoView_handImageView</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoView_handImage_skin</string>
-        <key>iconSel</key>
-        <string></string>
-    </dict>
-    
-    <key>videoView_soundImageView</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>icon_selientSound</key>
-        <string>videoView_beSilent_skin</string>
-        <key>icon_noSound</key>
-        <string>videoView_sound_no_skin</string>
-        <key>icon_1Sound</key>
-        <string>videoView_sound_1_skin</string>
-        <key>icon_2Sound</key>
-        <string>videoView_sound_2_skin</string>
-        <key>icon_3Sound</key>
-        <string>videoView_sound_3_skin</string>
-    </dict>
-    
-    <key>videoPop_soundButton</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoPop_soundOpen_Skin</string>
-        <key>iconSel</key>
-        <string>videoPop_soundClose_Skin</string>
-    </dict>
-    
-    <key>videoPop_authorizeButton</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoPop_authorizeCancel_skin</string>
-        <key>iconSel</key>
-        <string>videoPop_authorize_skin</string>
-    </dict>
-    
-    <key>videoPop_videoButton</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoPop_videoOpen_skin</string>
-        <key>iconSel</key>
-        <string>videoPop_videoClose_skin</string>
-    </dict>
-    
-    <key>videoPop_trophyButton</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoPop_trophyNo_skin</string>
-        <key>iconSel</key>
-        <string>videoPop_trophy_skin</string>
-    </dict>
-    
-    <key>videoPop_resetButton</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoPop_videoReset_selected_skin</string>
-        <key>iconSel</key>
-        <string>videoPop_videoReset_skin</string>
-    </dict>
-    
-    <key>videoPop_seatButton</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>videoPop_seatdown_skin</string>
-        <key>iconSel</key>
-        <string>videoPop_seatOn_skin</string>
-    </dict>
-    
+	<key>CommonColor</key>
+	<dict>
+		<key>placeholderColor</key>
+		<string>#828282</string>
+		<key>lineColor</key>
+		<string>#313131</string>
+		<key>disableColor</key>
+		<string>#888888</string>
+		<key>blackColor </key>
+		<string>#000000</string>
+		<key>defaultTitleColor</key>
+		<string>#ffffff</string>
+		<key>defaultBgColor</key>
+		<string>#24262C</string>
+		<key>defaultSelectedBgColor</key>
+		<string>#82ABEC</string>
+		<key>WhiteBoardBgColor</key>
+		<string>#2E3037</string>
+		<key>PopViewBgColor</key>
+		<string>#212121</string>
+		<key>ToolBgColor</key>
+		<string>#1C1D20</string>
+	</dict>
+	<key>cancelButton_login</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>backgroundColor</key>
+		<string> </string>
+		<key>iconNormal</key>
+		<string></string>
+		<key>iconSelected</key>
+		<string></string>
+	</dict>
+	<key>barScaleBtn</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string>#18191D</string>
+		<key>iconNor</key>
+		<string>barScale_normal_skin</string>
+		<key>iconSel</key>
+		<string>barScale_selected_skin</string>
+	</dict>
+	<key>videoView_authorizeLab</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoView_authorize_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>videoView_trophyImage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoView_trophy_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>videoView_handImageView</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoView_handImage_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>videoView_soundImageView</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>icon_selientSound</key>
+		<string>videoView_beSilent_skin</string>
+		<key>icon_noSound</key>
+		<string>videoView_sound_no_skin</string>
+		<key>icon_1Sound</key>
+		<string>videoView_sound_1_skin</string>
+		<key>icon_2Sound</key>
+		<string>videoView_sound_2_skin</string>
+		<key>icon_3Sound</key>
+		<string>videoView_sound_3_skin</string>
+	</dict>
+	<key>videoPop_soundButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_soundOpen_Skin</string>
+		<key>iconSel</key>
+		<string>videoPop_soundClose_Skin</string>
+	</dict>
+	<key>videoPop_authorizeButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_authorizeCancel_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_authorize_skin</string>
+	</dict>
+	<key>videoPop_videoButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_videoOpen_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_videoClose_skin</string>
+	</dict>
+	<key>videoPop_trophyButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_trophyNo_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_trophy_skin</string>
+	</dict>
+	<key>videoPop_resetButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_videoReset_selected_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_videoReset_skin</string>
+	</dict>
+	<key>videoPop_seatButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_seatdown_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_seatOn_skin</string>
+	</dict>
 	<key>videoPop_mirrorButton</key>
 	<dict>
 		<key>tittleColor</key>
@@ -187,7 +174,6 @@
 		<key>iconSel</key>
 		<string>videoPop_mirrorClose_skin</string>
 	</dict>
-    
 	<key>videoPop_fouceButton</key>
 	<dict>
 		<key>tittleColor</key>
@@ -199,7 +185,6 @@
 		<key>iconSel</key>
 		<string>videoPop_IsFouce_skin</string>
 	</dict>
-    
 	<key>raiseHand_teacherBtn</key>
 	<dict>
 		<key>bgColor</key>
@@ -209,17 +194,15 @@
 		<key>iconSel</key>
 		<string>raiseHand_teacher_skin</string>
 	</dict>
-    
-    <key>raiseHand_studentBtn</key>
-    <dict>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>raiseHand_teacher_skin</string>
-        <key>iconSel</key>
-        <string>raiseHand_student_skin</string>
-    </dict>
-    
+	<key>raiseHand_studentBtn</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>raiseHand_teacher_skin</string>
+		<key>iconSel</key>
+		<string>raiseHand_student_skin</string>
+	</dict>
 	<key>raiseHand_time_1</key>
 	<dict>
 		<key>bgColor</key>
@@ -229,7 +212,6 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
-    
 	<key>raiseHand_time_2</key>
 	<dict>
 		<key>bgColor</key>
@@ -239,7 +221,6 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
-    
 	<key>raiseHand_time_3</key>
 	<dict>
 		<key>bgColor</key>
@@ -249,7 +230,6 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
-    
 	<key>personList_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -263,21 +243,19 @@
 		<key>iconDis</key>
 		<string>bottombar_perList_dis_skin</string>
 	</dict>
-    
-    <key>courseware_bottombar</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>bottombar_courseware_nor_skin</string>
-        <key>iconSel</key>
-        <string>bottombar_courseware_sel_skin</string>
-        <key>iconDis</key>
-        <string>bottombar_courseware_dis_skin</string>
-    </dict>
-    
+	<key>courseware_bottombar</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>bottombar_courseware_nor_skin</string>
+		<key>iconSel</key>
+		<string>bottombar_courseware_sel_skin</string>
+		<key>iconDis</key>
+		<string>bottombar_courseware_dis_skin</string>
+	</dict>
 	<key>toolBox_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -291,7 +269,6 @@
 		<key>iconDis</key>
 		<string>bottombar_toolbox_dis_skin</string>
 	</dict>
-    
 	<key>layout_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -305,7 +282,6 @@
 		<key>iconDis</key>
 		<string>bottombar_layout_dis_skin</string>
 	</dict>
-    
 	<key>polling_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -319,7 +295,6 @@
 		<key>iconDis</key>
 		<string>bottombar_polling_dis_skin</string>
 	</dict>
-    
 	<key>allNoAudio_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -333,7 +308,6 @@
 		<key>iconDis</key>
 		<string>bottombar_allNoAudio_dis_skin</string>
 	</dict>
-    
 	<key>camera_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -347,7 +321,6 @@
 		<key>iconDis</key>
 		<string>bottombar_camera_dis_skin</string>
 	</dict>
-    
 	<key>message_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -361,7 +334,6 @@
 		<key>iconDis</key>
 		<string>bottombar_message_dis_skin</string>
 	</dict>
-    
 	<key>exit_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -375,7 +347,6 @@
 		<key>iconDis</key>
 		<string>bottombar_exit_dis_skin</string>
 	</dict>
-    
 	<key>onOff_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
@@ -389,7 +360,6 @@
 		<key>iconDis</key>
 		<string>bottombar_onOff_dis_skin</string>
 	</dict>
-    
 	<key>leftPage_nameList</key>
 	<dict>
 		<key>tittleColor</key>
@@ -403,7 +373,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>rightPage_nameList</key>
 	<dict>
 		<key>tittleColor</key>
@@ -417,7 +386,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>searchbar_search_nameList</key>
 	<dict>
 		<key>tittleColor</key>
@@ -431,7 +399,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>searchbar_cancel_nameList</key>
 	<dict>
 		<key>tittleColor</key>
@@ -445,21 +412,19 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
-    <key>nameList_OtherDevice</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>nameList_OtherDevice_nor_skin</string>
-        <key>iconSel</key>
-        <string></string>
-        <key>iconDis</key>
-        <string></string>
-    </dict>
-    
+	<key>nameList_OtherDevice</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>nameList_OtherDevice_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
 	<key>nameList_AndroidPad</key>
 	<dict>
 		<key>tittleColor</key>
@@ -473,7 +438,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_AndroidPhone</key>
 	<dict>
 		<key>tittleColor</key>
@@ -487,7 +451,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_ipad</key>
 	<dict>
 		<key>tittleColor</key>
@@ -501,7 +464,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_iphone</key>
 	<dict>
 		<key>tittleColor</key>
@@ -515,7 +477,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_MacExplorer</key>
 	<dict>
 		<key>tittleColor</key>
@@ -529,7 +490,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_MacClient</key>
 	<dict>
 		<key>tittleColor</key>
@@ -543,7 +503,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_WindowsExplorer</key>
 	<dict>
 		<key>tittleColor</key>
@@ -557,7 +516,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_WindowsClient</key>
 	<dict>
 		<key>tittleColor</key>
@@ -571,7 +529,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_cup</key>
 	<dict>
 		<key>tittleColor</key>
@@ -585,7 +542,6 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
-    
 	<key>nameList_updown</key>
 	<dict>
 		<key>tittleColor</key>
@@ -599,7 +555,6 @@
 		<key>iconDis</key>
 		<string>nameList_updown_dis_skin</string>
 	</dict>
-    
 	<key>nameList_speak</key>
 	<dict>
 		<key>tittleColor</key>
@@ -613,92 +568,84 @@
 		<key>iconDis</key>
 		<string>nameList_speak_dis_skin</string>
 	</dict>
-    
-    <key>nameList_out</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>nameList_out_nor_skin</string>
-        <key>iconSel</key>
-        <string>nameList_out_sel_skin</string>
-        <key>iconDis</key>
-        <string>nameList_out_dis_skin</string>
-    </dict>
-
-	
-    <key>chatView_allDisableBtn</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>chat_allDisableNo_skin</string>
-        <key>iconSel</key>
-        <string>chat_allDisable_skin</string>
-        <key>iconDis</key>
-        <string></string>
-    </dict>
-    
-    <key>chatView_tipsMessage</key>
-    <dict>
-        <key>tittleColor</key>
-        <string>#FF7D7D</string>
-        <key>bgColor</key>
-        <string>#333436 </string>
-        <key>iconNor</key>
-        <string></string>
-        <key>iconSel</key>
-        <string></string>
-        <key>iconDis</key>
-        <string></string>
-    </dict>
-	
-    <key>coursewareList_open</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>coursewareList_open_nor_skin</string>
-        <key>iconSel</key>
-        <string>coursewareList_open_sel_skin</string>
-        <key>iconDis</key>
-        <string>coursewareList_open_dis_skin</string>
-    </dict>
-
-    <key>coursewareList_delete</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>coursewareList_delete_nor_skin</string>
-        <key>iconSel</key>
-        <string>coursewareList_delete_sel_skin</string>
-        <key>iconDis</key>
-        <string>coursewareList_delete_dis_skin</string>
-    </dict>
-    
-    <key>coursewareList_play</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>coursewareList_play_nor_skin</string>
-        <key>iconSel</key>
-        <string>coursewareList_play_sel_skin</string>
-        <key>iconDis</key>
-        <string>coursewareList_play_dis_skin</string>
-    </dict>
-    
+	<key>nameList_out</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>nameList_out_nor_skin</string>
+		<key>iconSel</key>
+		<string>nameList_out_sel_skin</string>
+		<key>iconDis</key>
+		<string>nameList_out_dis_skin</string>
+	</dict>
+	<key>chatView_allDisableBtn</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>chat_allDisableNo_skin</string>
+		<key>iconSel</key>
+		<string>chat_allDisable_skin</string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>chatView_tipsMessage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string>#FF7D7D</string>
+		<key>bgColor</key>
+		<string>#333436 </string>
+		<key>iconNor</key>
+		<string></string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>coursewareList_open</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>coursewareList_open_nor_skin</string>
+		<key>iconSel</key>
+		<string>coursewareList_open_sel_skin</string>
+		<key>iconDis</key>
+		<string>coursewareList_open_dis_skin</string>
+	</dict>
+	<key>coursewareList_delete</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>coursewareList_delete_nor_skin</string>
+		<key>iconSel</key>
+		<string>coursewareList_delete_sel_skin</string>
+		<key>iconDis</key>
+		<string>coursewareList_delete_dis_skin</string>
+	</dict>
+	<key>coursewareList_play</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>coursewareList_play_nor_skin</string>
+		<key>iconSel</key>
+		<string>coursewareList_play_sel_skin</string>
+		<key>iconDis</key>
+		<string>coursewareList_play_dis_skin</string>
+	</dict>
 	<key>brushTool_open</key>
 	<dict>
 		<key>tittleColor</key>
@@ -712,7 +659,6 @@
 		<key>iconDis</key>
 		<string>brushTool_open_dis_skin</string>
 	</dict>
-    
 	<key>brushTool_mouse</key>
 	<dict>
 		<key>tittleColor</key>
@@ -830,46 +776,65 @@
 		<key>iconDis</key>
 		<string>brushTool_line_dis_skin</string>
 	</dict>
-    <key>brushTool_arrowline</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
+	<key>brushTool_arrowline</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
 		<string>brushTool_arrowline_nor_skin</string>
 		<key>iconSel</key>
 		<string>brushTool_arrowline_sel_skin</string>
 		<key>iconDis</key>
 		<string>brushTool_arrowline_dis_skin</string>
 	</dict>
-	
-    <key>login_topImage</key>
-    <dict>
-        <key>tittleColor</key>
-        <string></string>
-        <key>bgColor</key>
-        <string></string>
-        <key>iconNor</key>
-        <string>login_icon_skin</string>
-        <key>iconOnlineSchool</key>
-        <string>login_iconOnlineSchool_skin</string>
-    </dict>
-    
-<key>brushTool_emptyrectangle</key>
-<dict>
-    <key>tittleColor</key>
-    <string></string>
-    <key>bgColor</key>
-    <string></string>
-    <key>iconNor</key>
-    <string>brushTool_emptyrectangle_nor_skin</string>
-    <key>iconSel</key>
-    <string>brushTool_emptyrectangle_sel_skin</string>
-    <key>iconDis</key>
-    <string>brushTool_emptyrectangle_dis_skin</string>
-</dict>
-
+	<key>login_topImage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_icon_skin</string>
+		<key>iconOnlineSchool</key>
+		<string>login_iconOnlineSchool_skin</string>
+	</dict>
+	<key>login_roomNum</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_roomNum_skin</string>
+		<key>iconOnlineSchool</key>
+		<string></string>
+	</dict>
+	<key>login_userName</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_userName_skin</string>
+		<key>iconOnlineSchool</key>
+		<string></string>
+	</dict>
+	<key>brushTool_emptyrectangle</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>brushTool_emptyrectangle_nor_skin</string>
+		<key>iconSel</key>
+		<string>brushTool_emptyrectangle_sel_skin</string>
+		<key>iconDis</key>
+		<string>brushTool_emptyrectangle_dis_skin</string>
+	</dict>
 	<key>brushTool_filledrectangle</key>
 	<dict>
 		<key>tittleColor</key>
@@ -883,7 +848,6 @@
 		<key>iconDis</key>
 		<string>brushTool_filledrectangle_dis_skin</string>
 	</dict>
-    
 	<key>brushTool_emptyellipse</key>
 	<dict>
 		<key>tittleColor</key>
@@ -897,7 +861,6 @@
 		<key>iconDis</key>
 		<string>brushTool_emptyellipse_dis_skin</string>
 	</dict>
-    
 	<key>brushTool_filledellipse</key>
 	<dict>
 		<key>tittleColor</key>
@@ -911,7 +874,6 @@
 		<key>iconDis</key>
 		<string>brushTool_filledellipse_dis_skin</string>
 	</dict>
-    
 	<key>brushTool_slider</key>
 	<dict>
 		<key>tittleColor</key>
@@ -927,4 +889,3 @@
 	</dict>
 </dict>
 </plist>
-
