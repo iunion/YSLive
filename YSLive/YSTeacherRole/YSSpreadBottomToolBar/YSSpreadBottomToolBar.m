@@ -72,7 +72,7 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
 {
     /// 收起展开
     self.spreadBtn = [self creatButtonWithNormalTitle:@"" selectedTitle:@"" pathName:@"onOff_bottombar"];
-    self.spreadBtn.backgroundColor = [UIColor redColor];
+    
     [self addSubview:self.spreadBtn];
     self.spreadBtn.tag = SCTeacherTopBarTypeOnOff;
 
@@ -208,7 +208,7 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     {
         [toolBtn setTitle:YSLocalized(selTitle) forState:UIControlStateSelected];
     }
-    
+
     [toolBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
     [toolBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
     
@@ -218,17 +218,37 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     toolBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
     toolBtn.titleLabel.minimumScaleFactor = 0.5f;
     
-    [toolBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageTop imageTitleGap:3.0f];
+    [self layoutButton:toolBtn withImageTitleSpace:2.0f];
 
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     return toolBtn;
 }
 
+- (void)layoutButton:(UIButton *)btn withImageTitleSpace:(CGFloat)space
+{
+    CGFloat imageWith = btn.imageView.image.size.width;
+    CGFloat imageHeight = btn.imageView.image.size.height;
+    CGFloat labelWidth = btn.titleLabel.intrinsicContentSize.width;
+    CGFloat labelHeight = btn.titleLabel.intrinsicContentSize.height;
+    
+    if (labelWidth > btn.bounds.size.width)
+    {
+        labelWidth = btn.bounds.size.width;
+    }
+
+    UIEdgeInsets imageEdgeInsets = UIEdgeInsetsMake(-labelHeight-space/2.0, 0, 0, -labelWidth);
+    UIEdgeInsets labelEdgeInsets = UIEdgeInsetsMake(0, -imageWith, -imageHeight-space/2.0, 0);
+    btn.titleEdgeInsets = labelEdgeInsets;
+    btn.imageEdgeInsets = imageEdgeInsets;
+}
+
 - (void)bottomToolBarClicked:(UIButton *)btn
 {
+    
     if (btn == self.spreadBtn)
     {
+        btn.selected = !btn.selected;
         self.spreadOut = !self.spreadOut;
         
         if (self.spreadOut)
