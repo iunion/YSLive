@@ -3548,6 +3548,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.dragOutFloatViewArray addObject:floatView];
             [self.whitebordBackgroud addSubview:floatView];
             
+            
             [floatView showWithContentView:videoView];
             //[floatView stayMove];
             [floatView bm_bringToFront];
@@ -3606,6 +3607,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
         [self.dragOutFloatViewArray addObject:floatView];
         [self.whitebordBackgroud addSubview:floatView];
+        floatView.maxSize = self.whitebordBackgroud.bm_size;
+        floatView.canGestureRecognizer = YES;
+
         
         [floatView showWithContentView:videoView];
         [floatView bm_bringToFront];
