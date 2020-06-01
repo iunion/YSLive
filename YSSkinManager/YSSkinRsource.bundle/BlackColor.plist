@@ -25,8 +25,6 @@
 		<key>ToolBgColor</key>
 		<string>#1C1D20</string>
 	</dict>
-	<key>CommonImage</key>
-	<dict/>
 	<key>cancelButton_login</key>
 	<dict>
 		<key>tittleColor</key>
@@ -49,16 +47,55 @@
 		<key>iconSel</key>
 		<string>barScale_selected_skin</string>
 	</dict>
-	<key>video_authorizeLab</key>
+	<key>videoView_authorizeLab</key>
 	<dict>
 		<key>tittleColor</key>
 		<string></string>
 		<key>bgColor</key>
 		<string></string>
 		<key>iconNor</key>
-		<string>video_authorize_skin</string>
+		<string>videoView_authorize_skin</string>
 		<key>iconSel</key>
-		<string>video_authorizeCancel_skin</string>
+		<string></string>
+	</dict>
+	<key>videoView_trophyImage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoView_trophy_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>videoView_handImageView</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoView_handImage_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>videoView_soundImageView</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>icon_selientSound</key>
+		<string>videoView_beSilent_skin</string>
+		<key>icon_noSound</key>
+		<string>videoView_sound_no_skin</string>
+		<key>icon_1Sound</key>
+		<string>videoView_sound_1_skin</string>
+		<key>icon_2Sound</key>
+		<string>videoView_sound_2_skin</string>
+		<key>icon_3Sound</key>
+		<string>videoView_sound_3_skin</string>
 	</dict>
 	<key>videoPop_soundButton</key>
 	<dict>
@@ -165,6 +202,33 @@
 		<string>raiseHand_teacher_skin</string>
 		<key>iconSel</key>
 		<string>raiseHand_student_skin</string>
+	</dict>
+	<key>raiseHand_time_1</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>raiseHand_Time _1_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>raiseHand_time_2</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>raiseHand_Time _2_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>raiseHand_time_3</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>raiseHand_Time _3_skin</string>
+		<key>iconSel</key>
+		<string></string>
 	</dict>
 	<key>personList_bottombar</key>
 	<dict>
@@ -517,6 +581,32 @@
 		<key>iconDis</key>
 		<string>nameList_out_dis_skin</string>
 	</dict>
+	<key>chatView_allDisableBtn</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>chat_allDisableNo_skin</string>
+		<key>iconSel</key>
+		<string>chat_allDisable_skin</string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>chatView_tipsMessage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string>#FF7D7D</string>
+		<key>bgColor</key>
+		<string>#333436 </string>
+		<key>iconNor</key>
+		<string></string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
 	<key>coursewareList_open</key>
 	<dict>
 		<key>tittleColor</key>
@@ -698,6 +788,39 @@
 		<string>brushTool_arrowline_sel_skin</string>
 		<key>iconDis</key>
 		<string>brushTool_arrowline_dis_skin</string>
+	</dict>
+	<key>login_topImage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_icon_skin</string>
+		<key>iconOnlineSchool</key>
+		<string>login_iconOnlineSchool_skin</string>
+	</dict>
+	<key>login_roomNum</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_roomNum_skin</string>
+		<key>iconOnlineSchool</key>
+		<string></string>
+	</dict>
+	<key>login_userName</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_userName_skin</string>
+		<key>iconOnlineSchool</key>
+		<string></string>
 	</dict>
 	<key>brushTool_emptyrectangle</key>
 	<dict>
