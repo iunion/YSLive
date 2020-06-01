@@ -29,6 +29,11 @@
 		<key>login_placeholderColor</key>
 		<string>#6D7278</string>
 	</dict>
+	<key>CommonImage</key>
+	<dict>
+		<key>close_btn_icon</key>
+		<string>close_btn_icon_skin</string>
+	</dict>
 	<key>cancelButton_login</key>
 	<dict>
 		<key>tittleColor</key>
@@ -901,6 +906,32 @@
 		<string>brushTool_slider_sel_skin</string>
 		<key>iconDis</key>
 		<string>brushTool_slider_dis_skin</string>
+	</dict>
+	<key>polling_add</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>polling_add_nor_skin</string>
+		<key>iconSel</key>
+		<string>polling_add_sel_skin</string>
+		<key>iconDis</key>
+		<string>polling_add_dis_skin</string>
+	</dict>
+	<key>polling_subtract</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>polling_subtract_nor_skin</string>
+		<key>iconSel</key>
+		<string>polling_subtract_sel_skin</string>
+		<key>iconDis</key>
+		<string>polling_subtract_dis_skin</string>
 	</dict>
 </dict>
 </plist>

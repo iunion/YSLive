@@ -161,6 +161,8 @@
 		34B8D0EF23FA854800EDBCBF /* YSUpHandPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0EE23FA854800EDBCBF /* YSUpHandPopoverVC.m */; };
 		34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */; };
 		8703620F23F2402E0054E50A /* YSSchoolApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */; };
+		8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
+		8709FEB52484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
 		87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		87133568237270F6006534A4 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
 		87133569237270F6006534A4 /* YSChatMemberListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13282372647900D642E8 /* YSChatMemberListCell.m */; };
@@ -1021,6 +1023,8 @@
 		8701B178237172F200A43607 /* YSTestHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTestHelp.h; sourceTree = "<group>"; };
 		8701B179237172F200A43607 /* YSTestHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTestHelp.m; sourceTree = "<group>"; };
 		8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolApiRequest.m; sourceTree = "<group>"; };
+		8709FEB22484D2A000CC8BEA /* YSSpreadBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSpreadBottomToolBar.h; sourceTree = "<group>"; };
+		8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSpreadBottomToolBar.m; sourceTree = "<group>"; };
 		870C531C23572DF100BDB1EC /* YSLiveEnumHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveEnumHeader.h; sourceTree = "<group>"; };
 		870C531E23572DF600BDB1EC /* YSLiveRoomConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveRoomConfiguration.m; sourceTree = "<group>"; };
 		870C532123572DF600BDB1EC /* YSLiveRoomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveRoomConfiguration.h; sourceTree = "<group>"; };
@@ -1549,6 +1553,7 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
+				8709FEB12484D2A000CC8BEA /* YSSpreadBottomToolBar */,
 				26D201D1247CCC0D00631F8F /* YSBottomToolBar */,
 				CBC14DFF242A5B610052F6EE /* YSPollingView */,
 				CB384CE423FE7D1100DCD1C0 /* YSTeacherTimer */,
@@ -2195,6 +2200,15 @@
 				8701B179237172F200A43607 /* YSTestHelp.m */,
 			);
 			path = YSTestHelp;
+			sourceTree = "<group>";
+		};
+		8709FEB12484D2A000CC8BEA /* YSSpreadBottomToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				8709FEB22484D2A000CC8BEA /* YSSpreadBottomToolBar.h */,
+				8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */,
+			);
+			path = YSSpreadBottomToolBar;
 			sourceTree = "<group>";
 		};
 		870C531D23572DF600BDB1EC /* YSLiveClassModel */ = {
@@ -3866,6 +3880,7 @@
 				87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */,
 				874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */,
 				26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */,
+				8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */,
 				87133646237270F6006534A4 /* BMProgressHUD.m in Sources */,
 				872D049323B7362300DAC321 /* FLEXArgumentInputFontsPickerView.m in Sources */,
 				263244D8244D46BC0022E086 /* FBRetainCycleUtils.m in Sources */,
@@ -4002,6 +4017,7 @@
 				3450B1392404AA26006141E5 /* SCVideoView.m in Sources */,
 				8717E2212400DADC008C4CDA /* YSVoteResultTableCell.m in Sources */,
 				8717E2232400DADC008C4CDA /* YSPermissionsVResultView.m in Sources */,
+				8709FEB52484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */,
 				8717E2242400DADC008C4CDA /* FLEXColorExplorerViewController.m in Sources */,
 				8717E2252400DADC008C4CDA /* FLEXKeychain.m in Sources */,
 				8717E2262400DADC008C4CDA /* FLEXMutableFieldEditorViewController.m in Sources */,

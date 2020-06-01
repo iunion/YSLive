@@ -44,7 +44,10 @@
 #import "YSTeacherResponder.h"
 #import "YSTeacherTimerView.h"
 #import "YSPollingView.h"
+
 #import "YSBottomToolBar.h"
+#import "YSSpreadBottomToolBar.h"
+
 #define USE_FullTeacher             1
 
 #define PlaceholderPTag     10
@@ -201,7 +204,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIView *bottomBarBackgroudView;
 /// 底部工具栏
 @property (nonatomic, strong) YSBottomToolBar *bottomToolBar;
-
+@property (nonatomic, strong) YSSpreadBottomToolBar *spreadBottomToolBar;
 
 /// 记录顶部工具栏上次选中的按钮
 @property (nonatomic, strong) UIButton *topSelectBtn;
@@ -761,6 +764,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.bottomToolBar.delegate = self;
     self.bottomToolBar.frame = self.bottomBarBackgroudView.bounds;
     [self.bottomBarBackgroudView addSubview:self.bottomToolBar];
+    self.bottomBarBackgroudView.hidden = YES;
+    
+    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 100, BMUI_SCREEN_HEIGHT- 80)];
+    [self.view addSubview:spreadBottomToolBar];
 }
 
 
