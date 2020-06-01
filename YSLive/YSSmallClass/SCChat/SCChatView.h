@@ -13,8 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SCChatView : UIView
 
+
+//@property(nonatomic,assign)CGSize contentSize;
+
 /// 聊天tableView
 @property (nonatomic, strong) UITableView *SCChatTableView;
+
+///全体禁言的按钮
+@property(nonatomic,strong)UIButton * allDisableBtn;
+
 ///弹起输入框的按钮
 @property(nonatomic,strong)UIButton * textBtn;
 ///全体禁言

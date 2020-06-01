@@ -72,8 +72,25 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #define MP3VIEW_WIDTH               ([UIDevice bm_isiPad] ? kMp3_Width_iPad : kMp3_Width_iPhone)
 
+/// 底部部工具条高
+static const CGFloat kBottomToolBar_Height_iPhone = 44.0f;
+static const CGFloat kBottomToolBar_Height_iPad = 50.0f;
+#define BOTTOMTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kBottomToolBar_Height_iPad : kBottomToolBar_Height_iPhone)
+/// 底部部工具条宽
+static const CGFloat kBottomToolBar_Width_iPhone = 572.0f;
+static const CGFloat kBottomToolBar_Width_iPad = 744.0f;
+#define BOTTOMTOOLBAR_WIDTH           ([UIDevice bm_isiPad] ? kBottomToolBar_Width_iPad : kBottomToolBar_Width_iPhone)
+/// 底部工具栏右边距
+static const CGFloat kBottomToolBar_rightGap_iPhone = 7.0f;
+static const CGFloat kBottomToolBar_rightGap_iPad = 16.0f ;
+#define BOTTOMTOOLBAR_rightGap        ([UIDevice bm_isiPad] ? kBottomToolBar_rightGap_iPad : kBottomToolBar_rightGap_iPhone)
+/// 底部工具栏下边距
+static const CGFloat kBottomToolBar_bottomGap_iPhone = 10.0f;
+static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
+#define BOTTOMTOOLBAR_bottomGap       ([UIDevice bm_isiPad] ? kBottomToolBar_bottomGap_iPad : kBottomToolBar_bottomGap_iPhone)
+
 //聊天视图的高度
-#define SCChatViewHeight (self.contentHeight-57)
+#define SCChatViewHeight (BMUI_SCREEN_HEIGHT - self.contentBackgroud.bm_originY - STATETOOLBAR_HEIGHT - BOTTOMTOOLBAR_bottomGap - BOTTOMTOOLBAR_HEIGHT)
 //聊天输入框工具栏高度
 #define SCChatToolHeight  60
 //聊天表情列表View高度
@@ -258,6 +275,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 /// 举手按钮
 @property(nonatomic,strong)UIButton *raiseHandsBtn;
+/// 举手按钮上的倒计时蒙版
+@property(nonatomic,strong)UIImageView * raiseMaskImage;
+/// 举手请长按的提示
+@property(nonatomic,strong)UILabel *remarkLab;
 
 @property (nonatomic, strong) YSStudentResponder *responderView;
 @property (nonatomic, strong) YSStudentTimerView *studentTimerView;
@@ -1219,20 +1240,92 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (!_raiseHandsBtn)
     {
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-26, BMUI_SCREEN_HEIGHT - self.whitebordBackgroud.bm_height+20, 40, 40)];
+        
+        CGFloat raiseHandWH = 30;
+        CGFloat raiseHandRight = 10;
+        
+        CGFloat labBottom = 12;
+        if ([UIDevice bm_isiPad])
+        {
+            raiseHandWH = 40;
+            raiseHandRight = 20;
+            labBottom = 20;
+        }
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, BMUI_SCREEN_HEIGHT - raiseHandWH - 100, raiseHandWH, raiseHandWH)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconNor") forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateHighlighted];
-        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
-        
-        [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.raiseHandsBtn.hidden = YES;
+        
+        
+        //button长按事件
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLong:)];
+        longPress.minimumPressDuration = 0.5; //定义按的时间
+        [self.raiseHandsBtn addGestureRecognizer:longPress];
+        
+
+        UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, raiseHandWH, raiseHandWH)];
+        raiseMaskImage.animationImages = @[YSSkinElementImage(@"raiseHand_time_3", @"iconNor"),YSSkinElementImage(@"raiseHand_time_2", @"iconNor"),YSSkinElementImage(@"raiseHand_time_1", @"iconNor")];
+        raiseMaskImage.animationDuration = 3.0;
+        raiseMaskImage.animationRepeatCount = 0;
+        self.raiseMaskImage = raiseMaskImage;
+        [self.raiseHandsBtn addSubview:raiseMaskImage];
+        raiseMaskImage.userInteractionEnabled = NO;
+        raiseMaskImage.hidden = YES;
+        
+        
+        NSString * tipStr = YSLocalized(@"Label.RaisingHandsTip");
+        CGFloat tipStrWidth=[tipStr boundingRectWithSize:CGSizeMake(1000, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10]} context:nil].size.width;
+        
+        UILabel * remarkLab = [[UILabel alloc]initWithFrame:CGRectMake(self.raiseHandsBtn.bm_originX - tipStrWidth - 15 - 5, 0, tipStrWidth + 15, 16)];
+        remarkLab.bm_centerY = self.raiseHandsBtn.bm_centerY;
+        remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
+        remarkLab.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        remarkLab.font = UI_FONT_10;
+        remarkLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        remarkLab.textAlignment = NSTextAlignmentCenter;
+        remarkLab.layer.cornerRadius = 16/2;
+        remarkLab.layer.masksToBounds = YES;
+        remarkLab.hidden = YES;
+        [self.view addSubview:remarkLab];
+        self.remarkLab = remarkLab;
     }
     return _raiseHandsBtn;
 }
 
-///举手
+//长按
+- (void)raiseHandsBtnLong:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
+        [self raiseHandsButtonTouchDown];
+    }
+    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        [self raiseHandsButtonTouchUp];
+    }
+}
+///点击
 - (void)raiseHandsButtonClick:(UIButton *)sender
+{
+    [self raiseHandsButtonTouchDown];
+    self.remarkLab.hidden = NO;
+    self.raiseMaskImage.hidden = NO;
+    [self.raiseMaskImage startAnimating];
+    self.raiseHandsBtn.userInteractionEnabled = NO;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.raiseMaskImage stopAnimating];
+        self.remarkLab.hidden = YES;
+        self.raiseMaskImage.hidden = YES;
+        self.raiseHandsBtn.userInteractionEnabled = YES;
+        [self raiseHandsButtonTouchUp];
+    });
+}
+
+///举手
+- (void)raiseHandsButtonTouchDown
 {    
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
@@ -1240,7 +1333,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 ///取消举手
-- (void)downHandsButtonClick:(UIButton *)sender
+- (void)raiseHandsButtonTouchUp
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
         [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
@@ -1266,7 +1359,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         NSInteger num = count/2 + count%2;
         if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
         {
-            
             totalWidth = videoTeacherWidth + num*(videoWidth+VIDEOVIEW_GAP*0.5);
         }
         else
@@ -2420,7 +2512,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     CGRect tempRect = self.rightChatView.frame;
     if (sender.selected)
     {//弹出
-        tempRect.origin.x = self.contentWidth-tempRect.size.width;
+        tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
         //收回 课件表 以及 花名册
         [self freshListViewWithSelect:NO];
         if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
@@ -2430,7 +2522,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {//收回
-        tempRect.origin.x = self.contentWidth;
+        tempRect.origin.x = BMUI_SCREEN_WIDTH;
     }
     [UIView animateWithDuration:0.25 animations:^{
         self.rightChatView.frame = tempRect;
@@ -2446,7 +2538,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (!_rightChatView)
     {
-        self.rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(self.contentWidth, 0, ChatViewWidth, SCChatViewHeight)];
+        self.rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, self.contentBackgroud.bm_originY + STATETOOLBAR_HEIGHT, ChatViewWidth, SCChatViewHeight)];
         BMWeakSelf
         //点击底部输入按钮，弹起键盘
         self.rightChatView.textBtnClick = ^{
@@ -2698,7 +2790,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         //收回聊天
         self.chatBtn.selected = NO;
         CGRect chatViewRect = self.rightChatView.frame;
-        chatViewRect.origin.x = self.contentWidth;
+        chatViewRect.origin.x = BMUI_SCREEN_WIDTH;
         [UIView animateWithDuration:0.25 animations:^{
             self.rightChatView.frame = chatViewRect;
         }];
@@ -3027,7 +3119,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (!_chatToolView)
     {
-        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, self.contentHeight, self.contentWidth, SCChatToolHeight)];
+        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, self.contentWidth, SCChatToolHeight)];
         self.chatToolView.inputView.delegate = self;
         BMWeakSelf
         //点击视图收起键盘
@@ -3218,8 +3310,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (sender.selected)
     {
         [UIView animateWithDuration:0.25 animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height-SCChateEmotionHeight-SCChatToolHeight;
-            self.emotionListView.bm_originY = self.view.bm_height-SCChateEmotionHeight;
+            self.chatToolView.bm_originY = BMUI_SCREEN_HEIGHT - SCChateEmotionHeight - SCChatToolHeight;
+            self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT - SCChateEmotionHeight;
         }];
     }
     sender.selected = !sender.selected;
@@ -3285,16 +3377,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (firstResponder.tag == PlaceholderPTag)
     {//调用聊天键盘
         [UIView animateWithDuration:duration animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height-keyboardF.size.height-SCChatToolHeight;
-            self.emotionListView.bm_originY = self.view.bm_height;
+            self.chatToolView.bm_originY = BMUI_SCREEN_HEIGHT - keyboardF.size.height - SCChatToolHeight;
+            self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT;
         }];
         self.chatToolView.emojBtn.selected = NO;
     }
     else if (firstResponder.tag == YSWHITEBOARD_TEXTVIEWTAG)
     {//调用白板键盘
         [UIView animateWithDuration:duration animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height;
-            self.emotionListView.bm_originY = self.view.bm_height;
+            self.chatToolView.bm_originY = self.emotionListView.bm_height = BMUI_SCREEN_HEIGHT;
         }];
 
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
@@ -3322,15 +3413,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.chatToolView.emojBtn.selected)
     {
         [UIView animateWithDuration:0.25 animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height-SCChateEmotionHeight-SCChatToolHeight;
-            self.emotionListView.bm_originY = self.view.bm_height-SCChateEmotionHeight;
+            self.chatToolView.bm_originY = BMUI_SCREEN_HEIGHT-SCChateEmotionHeight-SCChatToolHeight;
+            self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT-SCChateEmotionHeight;
         }];
     }
     else
     {
         [UIView animateWithDuration:duration animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height;
-            self.emotionListView.bm_originY = self.view.bm_height;
+            self.chatToolView.bm_originY = self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT;
         }];
     }
         
@@ -3344,8 +3434,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
     [UIView animateWithDuration:0.25 animations:^{
-        self.chatToolView.bm_originY = self.view.bm_height;
-        self.emotionListView.bm_originY = self.view.bm_height;
+        self.chatToolView.bm_originY = self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT;
     }];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -3358,7 +3447,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.chatBtn.selected = NO;
         CGRect tempRect = self.rightChatView.frame;
-        tempRect.origin.x = self.contentWidth;
+        tempRect.origin.x = BMUI_SCREEN_WIDTH;
         [UIView animateWithDuration:0.25 animations:^{
             self.rightChatView.frame = tempRect;
         }];

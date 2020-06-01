@@ -49,13 +49,8 @@
 
 #define PlaceholderPTag     10
 
-//#define DoubleTeacherExpandContractBtnTag      100
-
-
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
-
-
 
 /// 顶部工具条高
 static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
@@ -92,7 +87,7 @@ static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 //聊天视图的高度
-#define SCChatViewHeight (BMUI_SCREEN_HEIGHT-57)
+#define SCChatViewHeight (BMUI_SCREEN_HEIGHT - self.contentBackgroud.bm_originY - STATETOOLBAR_HEIGHT - BOTTOMTOOLBAR_bottomGap - BOTTOMTOOLBAR_HEIGHT)
 //聊天输入框工具栏高度
 #define SCChatToolHeight  60
 //聊天表情列表View高度
@@ -189,7 +184,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL _isMp4ControlHide;// MP4控制是否显示 关闭按钮是否显示
     BOOL _isPolling;// 正在轮播
     NSString *_pollingFromID;/// 轮播发起者ID
-    
 }
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
@@ -229,14 +223,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 答题器统计
 @property (nonatomic, strong) NSMutableDictionary *answerStatistics;
 
-
 /// 上课时间的定时器
 @property (nonatomic, strong) dispatch_source_t topBarTimer;
 /// 大并发房间计时器 每两秒获取一次
 @property (nonatomic, strong) dispatch_source_t bigRoomTimer;
 
-/// 所有内容背景
-//@property (nonatomic, strong) UIView *contentBackgroud;
 /// 内容
 @property (nonatomic, strong) UIView *contentView;
 /// 视频背景
@@ -311,10 +302,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 举手按钮
 @property(nonatomic,strong)UIButton *raiseHandsBtn;
+
 //举手上台的popOverView列表
 @property (nonatomic,weak)YSUpHandPopoverVC * upHandPopTableView;
+
 /// 正在举手上台的人员数组
-//@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *raiseHandArray;
 @property (nonatomic, strong) NSMutableArray *raiseHandArray;
 
 /// 举手上台的人数
@@ -359,7 +351,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 @end
-
 
 
 @implementation YSTeacherRoleMainVC
@@ -437,7 +428,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
-
 #pragma mark -
 #pragma mark ViewControllerLife
 
@@ -485,14 +475,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 设置左侧工具栏
     [self setupBrushToolView];
     
+    // 底部工具栏
+    [self setupBottomToolBarView];
+    
     // 右侧聊天视图
     [self.view addSubview:self.rightChatView];
     
     //弹出聊天框的按钮
     [self.contentBackgroud addSubview:self.chatBtn];
-
-    // 底部工具栏
-    [self setupBottomToolBarView];
     
     if (self.roomtype == YSRoomType_More)
     {
@@ -841,7 +831,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         labBottom = 20;
     }
     
-    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.bottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
+    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.bottomBarBackgroudView.bm_originY - labBottom - 18, raiseHandWH, 18)];
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     handNumLab.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
@@ -853,13 +843,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)self.liveManager.studentCount];
     
     UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(handNumLab.bm_originX, handNumLab.bm_originY - raiseHandWH, raiseHandWH, raiseHandWH)];
-    [raiseHandsBtn setBackgroundColor: UIColor.clearColor];
     [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconNor") forState:UIControlStateNormal];
     [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconSel") forState:UIControlStateSelected];
+    
+    [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconSel") forState:UIControlStateSelected];
+    
     [raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.raiseHandsBtn = raiseHandsBtn;
-    [self.view addSubview:raiseHandsBtn];    
-    
+    [self.view addSubview:raiseHandsBtn];
 }
 
 - (void)raiseHandsButtonClick:(UIButton *)sender
@@ -926,7 +917,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
 #warning handleSignalingTorefeshCourseware
 }
-
 
 /// 创建上下课按钮
 - (void)setupClassBeginButton
@@ -2471,45 +2461,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    // 本人是否被禁言
-//    if ([properties bm_containsObjectForKey:sUserDisablechat])
-//    {
-//        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
-//        {
-//            BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
-//
-//            NSString * teacherId = [YSLiveManager shareInstance].teacher.peerID;
-//
-//            if ([fromId isEqualToString:teacherId])
-//            {
-//                self.rightChatView.allDisabledChat.hidden = !disablechat;
-//                self.rightChatView.textBtn.hidden = disablechat;
-//                if (disablechat)
-//                {
-//                    self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChat");
-//                    [self hiddenTheKeyBoard];
-//                    [[YSLiveManager shareInstance] sendTipMessage:YSLocalized(@"Prompt.BanChat") tipType:YSChatMessageTypeTips];
-//                }
-//                else
-//                {
-//                    [[YSLiveManager shareInstance] sendTipMessage:YSLocalized(@"Prompt.CancelBanChat") tipType:YSChatMessageTypeTips];
-//                }
-//            }
-//        }
-//    }
-    
     // 发布媒体状态
     if ([properties bm_containsObjectForKey:sUserPublishstate])
     {
         YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
 //        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-        
-//        if ([self.raiseHandArray containsObject:user])
-//        {
-//            [self.raiseHandArray removeObject:user];
-//            [self.raiseHandArray addObject:user];
-//            self.upHandPopTableView.userArr = self.raiseHandArray;
-//        }
+
         for (NSMutableDictionary *userDict in self.raiseHandArray)
         {
             if ([userDict bm_stringForKey:@"peerId"])
@@ -2519,8 +2476,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 break;
             }
         }
-        
-        
+                
 #if 0
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
@@ -2884,7 +2840,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         classDelay = [[dataDic objectForKey:@"classDelay"] intValue];
     }
-    
     
     if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
     {//老师离开房间时间过长
@@ -3584,7 +3539,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
         [self.dragOutFloatViewArray addObject:floatView];
         [self.whitebordBackgroud addSubview:floatView];
-        
+        floatView.maxSize = self.whitebordBackgroud.bm_size;
+        floatView.canGestureRecognizer = YES;
+
         [floatView showWithContentView:videoView];
         [floatView bm_bringToFront];
     }
@@ -5521,7 +5478,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (!_rightChatView)
     {
-        self.rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, 0, ChatViewWidth, SCChatViewHeight)];
+        self.rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, self.contentBackgroud.bm_originY + STATETOOLBAR_HEIGHT, ChatViewWidth, SCChatViewHeight)];
         BMWeakSelf
         //点击底部输入按钮，弹起键盘
         self.rightChatView.textBtnClick = ^{
@@ -5529,6 +5486,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         };
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenTheKeyBoard)];
         [self.rightChatView addGestureRecognizer:tap];
+//        self.rightChatView.contentSize = CGSizeMake(self.contentWidth, self.contentHeight);
     }
     return _rightChatView;
 }

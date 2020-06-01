@@ -757,7 +757,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         BMLog(@"进入网校");
         
-        [self.logoImageView setImage:[UIImage imageNamed:@"onlineSchool_login_icon"]];
+        [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconNor")];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
             //        make.top.bmmas_equalTo(kScale_H(130));
@@ -806,7 +806,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             self.nickNameTextField.inputTextField.text = nickName;
         }
 
-        [self.logoImageView setImage:[UIImage imageNamed:@"login_icon"]];
+        [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconOnlineSchool")];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
             make.top.bmmas_equalTo(kBMScale_H(100));
