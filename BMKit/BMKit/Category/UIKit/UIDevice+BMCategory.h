@@ -100,6 +100,11 @@
 
 #pragma mark - CPU
 
+// 获取CPU类型
++ (NSString *)bm_cpuType;
+// 获取CPU使用率 -1:获取失败
++ (CGFloat)bm_cpuUsage;
+
 /**
  *  获取CPU频率
  *  Returns the current device CPU frequency

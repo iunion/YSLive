@@ -19,6 +19,7 @@
     SCEyeCareViewDelegate
 >
 
+
 /// 原keywindow
 @property(nonatomic, weak) UIWindow *previousKeyWindow;
 /// 护眼提醒
@@ -74,6 +75,7 @@
     [self setupstateToolBar];
     
 }
+
 
 ///创建一个16：9的背景view
 - (void)setupBottomBackgroundView

@@ -102,22 +102,24 @@
     {//我的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",YSLocalized(@"Role.Me"),model.timeStr];
         self.nickNameLab.textAlignment = NSTextAlignmentRight;
-        self.nickNameLab.textColor = [UIColor bm_colorWithHexString:@"#5A8CDC"];
-        self.msgLab.textColor = [UIColor whiteColor];
-        self.translationText.textColor = [UIColor whiteColor];
-        self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#82ABEC"];
+        self.nickNameLab.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.msgLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.translationText.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
         [self.translateBtn setImage:[UIImage imageNamed:@"myTranslate"] forState:UIControlStateNormal];
+        self.lineView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
         bubbleX = ChatViewWidth-10-bubbleW;
     }
     else
     {//别人的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.sendUser.nickName,model.timeStr];
         self.nickNameLab.textAlignment = NSTextAlignmentLeft;;
-        self.nickNameLab.textColor = [UIColor bm_colorWithHexString:@"#828282"];
-        self.msgLab.textColor = [UIColor bm_colorWithHexString:@"#828282"];
-        self.translationText.textColor = [UIColor bm_colorWithHexString:@"#828282"];
-        self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
+        self.nickNameLab.textColor = YSSkinDefineColor(@"placeholderColor");
+        self.msgLab.textColor = YSSkinDefineColor(@"placeholderColor");
+        self.translationText.textColor = YSSkinDefineColor(@"placeholderColor");
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
         [self.translateBtn setImage:[UIImage imageNamed:@"translate"] forState:UIControlStateNormal];
+        self.lineView.backgroundColor = YSSkinDefineColor(@"placeholderColor");
         bubbleX = 10;
     }
     

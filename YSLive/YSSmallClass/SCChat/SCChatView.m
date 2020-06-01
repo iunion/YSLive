@@ -12,7 +12,7 @@
 #import "SCPictureMessageCell.h"
 
 //底部View的高
-#define BottomH 82
+#define BottomH ([UIDevice bm_isiPad] ? 70 : 50)
 
 @interface SCChatView()
 <
@@ -33,8 +33,8 @@ UITextFieldDelegate
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = UIColor.whiteColor;
-        self.alpha = 0.95;
+        self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+//        self.alpha = 0.95;
         
         UIBezierPath *maskBottomPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft  cornerRadii:CGSizeMake(30, 30)];
         CAShapeLayer *maskBottomLayer = [[CAShapeLayer alloc] init];
@@ -77,6 +77,7 @@ UITextFieldDelegate
     self.bubbleView = [[UIImageView alloc]initWithFrame:self.bounds];
     self.bubbleView.alpha = 0.9;
     self.bubbleView.image = [UIImage imageNamed:@"SCChatBubble"];
+//    self.bubbleView.tintColor = YSSkinDefineColor(@"PopViewBgColor");
     self.bubbleView.userInteractionEnabled = YES;
 //    [self addSubview:self.bubbleView];
     
@@ -90,13 +91,35 @@ UITextFieldDelegate
     // 阴影透明度，默认0
     self.bubbleView.layer.shadowOpacity = 0.9f;
     
+    CGFloat titleLabH = 29;
+    
+    UIFont * titleLabFont = UI_FONT_12;
+    
+    if ([UIDevice bm_isiPad])
+    {
+        titleLabH = 44;
+        titleLabFont = UI_FONT_16;
+    }
+    
+    UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, self.bm_width - 2 * 20, titleLabH)];
+    titleLab.text = @"消息";
+    titleLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    titleLab.textAlignment = NSTextAlignmentCenter;
+    titleLab.font = titleLabFont;
+    [self addSubview:titleLab];
+    
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, titleLab.bm_bottom, self.bm_width, 1.0)];
+    lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+    [self addSubview:lineView];
+    
+    
     //添加聊天tabView
-    self.SCChatTableView.frame = CGRectMake(0, 0, self.bm_width, self.bm_height-BottomH);
+    self.SCChatTableView.frame = CGRectMake(0, lineView.bm_bottom, self.bm_width, self.bm_height - lineView.bm_bottom - BottomH);
     [self addSubview:self.SCChatTableView];
     
     
-    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-BottomH, self.bm_width, BottomH)];
-    bottomView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF" alpha:0.95];
+    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height - BottomH, self.bm_width, BottomH)];
+    bottomView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     [self addSubview:bottomView];
     
     UIBezierPath *maskBottomPath = [UIBezierPath bezierPathWithRoundedRect:bottomView.bounds byRoundingCorners:UIRectCornerBottomLeft  cornerRadii:CGSizeMake(30, 30)];
@@ -105,33 +128,63 @@ UITextFieldDelegate
     maskBottomLayer.path = maskBottomPath.CGPath;
     bottomView.layer.mask = maskBottomLayer;
     
-    //弹起输入框的按钮
-    self.textBtn = [[UIButton alloc]initWithFrame:CGRectMake(8, 20, 270, 34)];
-    self.textBtn.titleLabel.font = UI_FONT_14;
-    [self.textBtn setTitleColor:[UIColor bm_colorWithHexString:@"#828282"] forState:UIControlStateNormal];
-    [self.textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
-    self.textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.textBtn addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventTouchUpInside];
-    [self.textBtn setBackgroundColor:UIColor.whiteColor];
-    [bottomView addSubview:self.textBtn];
     
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.textBtn.bounds byRoundingCorners:UIRectCornerBottomLeft cornerRadii:CGSizeMake(17, 17)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = self.textBtn.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.textBtn.layer.mask = maskLayer;
+    CGFloat allDisableBtnX = 16;
+    CGFloat allDisableBtnWH = 26;
+    
+    if ([UIDevice bm_isiPad])
+    {
+        allDisableBtnX = 26;
+        allDisableBtnWH = 40;
+    }
+    
+    //全体禁言的按钮
+    UIButton * allDisableBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtnX, 10, allDisableBtnWH-5, allDisableBtnWH-5)];
+    [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconNor") forState:UIControlStateNormal];
+    [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconSel") forState:UIControlStateSelected];
+    [allDisableBtn addTarget:self action:@selector(allDisableButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [allDisableBtn setBackgroundColor:UIColor.whiteColor];
+    [bottomView addSubview:allDisableBtn];
+    self.allDisableBtn = allDisableBtn;
+    
+    //弹起输入框的按钮
+    UIButton * textBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtn.bm_right + 15, 10, self.bm_width - allDisableBtn.bm_right - 15 - 15, allDisableBtnWH)];
+    textBtn.titleLabel.font = UI_FONT_14;
+    [textBtn setTitleColor:YSSkinDefineColor(@"placeholderColor") forState:UIControlStateNormal];
+    [textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
+    textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [textBtn addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventTouchUpInside];
+    [textBtn setBackgroundColor:UIColor.clearColor];
+    [bottomView addSubview:textBtn];
+    self.textBtn = textBtn;
+    
+    textBtn.layer.cornerRadius = allDisableBtnWH/2;
+    textBtn.layer.borderWidth = 1;  // 给图层添加一个有色边框
+    textBtn.layer.borderColor = YSSkinDefineColor(@"placeholderColor").CGColor;
+    textBtn.layer.shadowColor = YSSkinDefineColor(@"placeholderColor").CGColor;
+    textBtn.layer.shadowOffset = CGSizeMake(0,2);
+    textBtn.layer.shadowOpacity = 1;
+    textBtn.layer.shadowRadius = 4;
+    
+
     
     //群体禁言
-    self.allDisabledChat = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.bm_width-20, 35)];
-    self.allDisabledChat.backgroundColor = UIColor.whiteColor;
-    self.allDisabledChat.textAlignment = NSTextAlignmentCenter;
-    [self.allDisabledChat setFont:UI_FONT_13];
-    self.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-    self.allDisabledChat.textColor = [UIColor bm_colorWithHexString:@"#738395"];
-    self.allDisabledChat.layer.cornerRadius = self.allDisabledChat.bm_height/2;
-    self.allDisabledChat.layer.masksToBounds = YES;
-    [bottomView addSubview:self.allDisabledChat];
+//    self.allDisabledChat = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.bm_width-20, 35)];
+//    self.allDisabledChat.backgroundColor = UIColor.whiteColor;
+//    self.allDisabledChat.textAlignment = NSTextAlignmentCenter;
+//    [self.allDisabledChat setFont:UI_FONT_13];
+//    self.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
+//    self.allDisabledChat.textColor = [UIColor bm_colorWithHexString:@"#738395"];
+//    self.allDisabledChat.layer.cornerRadius = self.allDisabledChat.bm_height/2;
+//    self.allDisabledChat.layer.masksToBounds = YES;
+//    [bottomView addSubview:self.allDisabledChat];
 }
+
+- (void)allDisableButtonClick:(UIButton *)sender
+{
+    
+}
+
 
 - (void)textFieldDidChange
 {

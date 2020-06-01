@@ -303,7 +303,7 @@
     
     //奖杯
     self.cupImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
-    self.cupImage.image = [UIImage imageNamed:@"cup_SmallClassImage"];
+    self.cupImage.image = YSSkinElementImage(@"videoView_trophyImage", @"iconNor");
     self.cupImage.hidden = NO;
     [self.backVideoView addSubview:self.cupImage];
     
@@ -312,7 +312,7 @@
     self.cupNumLab.backgroundColor = [UIColor clearColor];
     self.cupNumLab.font = UI_FONT_14;
     self.cupNumLab.text = @"× 0";
-    self.cupNumLab.textColor = [UIColor bm_colorWithHexString:@"#FFE895"];
+    self.cupNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.cupNumLab.adjustsFontSizeToFitWidth = YES;
     self.cupNumLab.minimumScaleFactor = 0.3;
     self.cupNumLab.hidden = NO;
@@ -320,18 +320,18 @@
     
     //画笔权限
     self.brushImageView = [[UIImageView alloc] init];
-    UIImage *image = [UIImage imageNamed:@"brush_SmallClassImage"];
-    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *image = YSSkinElementImage(@"videoView_authorizeLab", @"iconNor");
+//    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.brushImageView.image = image;
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
     
     //举手图标
     self.raiseHandImage = [[UIImageView alloc] init];
-//    self.raiseHandImage.image = [UIImage imageNamed:@"videlHand"];
-    self.raiseHandImage.image = YSSkinElementImage(@"video_handImageView", @"iconNor");
+    self.raiseHandImage.image = YSSkinElementImage(@"videoView_handImageView", @"iconNor");
     self.raiseHandImage.hidden = YES;
     [self.backVideoView addSubview:self.raiseHandImage];
+    self.raiseHandImage.backgroundColor = UIColor.clearColor;
     
     //用户名
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
@@ -409,16 +409,15 @@
     {
         self.cupImage.hidden = NO;
         self.cupNumLab.hidden = NO;
-        self.cupImage.bm_width = 20*widthScale;
-        self.cupImage.bm_height = 20*widthScale;
-        self.cupNumLab.bm_centerY = self.cupImage.bm_centerY;
-        self.cupNumLab.bm_left = self.cupImage.bm_right + 4;
-        self.cupNumLab.bm_width = 100*widthScale;
     }
    
-    self.brushImageView.frame = CGRectMake(self.bm_width-(8+20)*widthScale, 5*heightScale, 20*widthScale, 20*widthScale);
+    self.cupNumLab.bm_width = 100*widthScale;
+    self.cupImage.bm_width = self.cupImage.bm_height = self.cupNumLab.bm_height * 3/4;
+     self.cupNumLab.bm_centerY = self.cupImage.bm_centerY;
+    self.cupNumLab.bm_left = self.cupImage.bm_right + 4;
     
-    self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-(10+25)*widthScale, 5*heightScale, 25*widthScale, 25*widthScale);
+    self.brushImageView.frame = CGRectMake(self.bm_width - self.cupImage.bm_width - 4, self.cupImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+    self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
     
     CGFloat height;
     if ([UIDevice bm_isiPad])
@@ -450,7 +449,7 @@
     _iVolume = iVolume;
     if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager shareInstance].isEveryoneNoAudio && self.roomUser.role != YSUserType_Teacher))
     {
-        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
+        self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
     }
 
@@ -460,29 +459,28 @@
     {
         if (self.lastVolume>1)
         {
-            self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
+            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
         }
-        
     }
     else if (iVolume<= volumeScale)
     {
         if (self.lastVolume>volumeScale || self.lastVolume<1)
         {
-            self.soundImage.image = [UIImage imageNamed:@"sound_1_SmallClassImage"];
+            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_1Sound");
         }
     }
     else if (iVolume<= volumeScale*2)
     {
         if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale)
         {
-            self.soundImage.image = [UIImage imageNamed:@"sound_2_SmallClassImage"];
+            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_2Sound");
         }
     }
     else if (iVolume > volumeScale*2)
     {
         if (self.lastVolume<=volumeScale*2)
         {
-            self.soundImage.image = [UIImage imageNamed:@"sound_3_SmallClassImage"];
+            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_3Sound");
         }
     }
 }
@@ -773,7 +771,7 @@
     self.silentLab.hidden = YES;
     self.silentLab.text = nil;
     self.soundImage.hidden = NO;
-    self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
+    self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
     
     // 设备不可用
     if (audioState & SCVideoViewAudioState_DeviceError)
@@ -855,14 +853,14 @@
     // 用户关闭麦克风
     if (audioState & SCVideoViewAudioState_Close)
     {
-        self.soundImage.image = [UIImage imageNamed:@"beSilent_SmallClassImage"];
+        self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
     }
 
     // 正常
     if (audioState == SCVideoViewAudioState_Normal)
     {
-        self.soundImage.image = [UIImage imageNamed:@"sound_no_SmallClassImage"];
+        self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
     }
 }
 
