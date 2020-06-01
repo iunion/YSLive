@@ -253,6 +253,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 @property(nonatomic,strong)UIButton *chatBtn;
 /// 左侧工具栏
 @property (nonatomic, strong) SCBrushToolView *brushToolView;
+/// 画笔工具按钮（控制工具条的展开收起）
+@property (nonatomic, strong) UIButton *brushToolOpenBtn;
 /// 画笔选择 颜色 大小 形状
 @property (nonatomic, strong) SCDrawBoardView *drawBoardView;
 
@@ -1206,12 +1208,29 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 {
     self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:NO];
     [self.view addSubview:self.brushToolView];
-    CGRect rect =  [self.view convertRect:self.whitebordBackgroud.frame fromView:self.whitebordBackgroud.superview];
-    self.brushToolView.bm_left = BMUI_STATUS_BAR_HEIGHT + 5;
-    self.brushToolView.bm_centerY = rect.origin.y + rect.size.height/2; //self.whitebordBackgroud.bm_centerY;
+
+    CGFloat laftGap = 10;
+    if (BMIS_IPHONEXANDP)
+    {
+        laftGap = BMUI_HOME_INDICATOR_HEIGHT;
+    }
+    self.brushToolView.bm_left = laftGap;
+    self.brushToolView.bm_centerY = self.view.bm_centerY;
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
+    
+    UIButton *brushToolOpenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [brushToolOpenBtn addTarget:self action:@selector(brushToolOpenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
+    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
+    brushToolOpenBtn.frame = CGRectMake(0, 0, 25, 37);
+    brushToolOpenBtn.bm_centerY = self.brushToolView.bm_centerY;
+    brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
+    self.brushToolOpenBtn = brushToolOpenBtn;
+    self.brushToolOpenBtn.hidden = YES;
+    [self.view addSubview:brushToolOpenBtn];
 }
+
 
 /// 助教网络刷新课件
 - (void)handleSignalingTorefeshCourseware
@@ -2558,17 +2577,38 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     return _rightChatView;
 }
 
+#pragma mark 画笔工具展开收起
+- (void)brushToolOpenBtnClick:(UIButton *)btn
+{
+//    if (self.liveManager.isBeginClass)
+       {
+           btn.selected = !btn.selected;
+           CGFloat leftGap = 10;
+           if (BMIS_IPHONEXANDP)
+           {
+               leftGap = BMUI_HOME_INDICATOR_HEIGHT;
+           }
+           CGFloat tempWidth = [UIDevice bm_isiPad] ? 50.0f : 36.0f;
+           if (btn.selected)
+           {
+               self.drawBoardView.hidden = YES;
+               [UIView animateWithDuration:0.3 animations:^{
+                   self.brushToolView.bm_left = -tempWidth;
+                   self.brushToolOpenBtn.bm_left = leftGap;
+               }];
+           }
+           else
+           {
+               [UIView animateWithDuration:0.3 animations:^{
+                   self.brushToolView.bm_left = leftGap;
+                   self.brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
+               }];
+           }
+       }
+}
 
 #pragma mark -
 #pragma mark SCBrushToolViewDelegate
-
-- (void)toolBtnClickedSeleted:(BOOL)seleted
-{
-    if (!seleted)
-    {
-        self.drawBoardView.hidden = YES;
-    }
-}
 
 - (void)brushToolViewType:(YSBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn
 {
@@ -2585,55 +2625,11 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     [self.view addSubview:self.drawBoardView];
     
     BMWeakSelf
-    //小三角
-    [self.drawBoardView.triangleImgView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.brushToolView.bmmas_right);
-        make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY);
-        make.width.bmmas_equalTo(13);
-        make.height.bmmas_equalTo(28);
+    [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
+        make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
     }];
-    
-    switch (toolViewBtnType) {
-        case YSBrushToolTypeMouse:
-            //鼠标
-            break;
-        case YSBrushToolTypeLine:
-        { //笔 划线
-            [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
-                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY);
-            }];
-        }
-            break;
-        case YSBrushToolTypeText:
-        { // 文字
-            [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
-                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY);
-            }];
-        }
-            break;
-        case YSBrushToolTypeShape:
-        {    // 形状
-            [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
-                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY ).bmmas_offset(-40);
-            }];
-        }
-            break;
-        case YSBrushToolTypeEraser:
-        {    //橡皮擦
-            [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-                make.left.bmmas_equalTo(weakSelf.drawBoardView.triangleImgView.bmmas_right).bmmas_offset(-2);
-                make.centerY.bmmas_equalTo(toolBtn.bmmas_centerY).bmmas_offset(-10);
-                
-            }];
-        }
-            break;
-        default:
-            break;
-    }
-    //    self.drawBoardView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT);
+
 }
 
 
@@ -3093,7 +3089,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         }
         
-        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
         {
             self.drawBoardView.hidden = YES;
         }
@@ -3809,12 +3805,14 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
             {
                 self.brushToolView.hidden = YES;
+                self.brushToolOpenBtn.hidden = YES;
                 self.drawBoardView.hidden = YES;
             }
             else
             {
                 self.brushToolView.hidden = !canDraw;
-                if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
+                self.brushToolOpenBtn.hidden = !canDraw;
+                if (!canDraw || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
                 {
                     self.drawBoardView.hidden = YES;
                 }else{
@@ -4439,10 +4437,11 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+            self.brushToolOpenBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         }
     }
     
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
     {
         self.drawBoardView.hidden = YES;
     }
@@ -4737,9 +4736,10 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         if (YSCurrentUser.canDraw)
         {
             self.brushToolView.hidden = isFull;
+            self.brushToolOpenBtn.hidden = isFull;
         }
     }
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected )
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
     {
         self.drawBoardView.hidden = YES;
     }

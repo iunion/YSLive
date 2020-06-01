@@ -82,9 +82,7 @@
 {
 //    BMIS_IPHONEXANDP
     NSInteger WIDTH = BMUI_SCREEN_WIDTH_ROTATE;
-    
     NSInteger top = 0;
-    
     if (BMIS_IPHONEXANDP)
     {
         top = BMUI_NAVIGATION_BAR_FRIMGEHEIGHT;

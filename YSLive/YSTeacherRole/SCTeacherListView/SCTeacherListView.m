@@ -499,13 +499,20 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
     else if (self.type == SCTeacherTopBarTypeCourseware)
     {
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 40)];
-        label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-        label.textColor = [UIColor bm_colorWithHex:0xFFE895];
-        label.font = [UIFont systemFontOfSize:14];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 39)];
+        label.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        label.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        label.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
         NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.DocumentList"),@(_userNum)];
         label.text = str;
+        label.textAlignment = NSTextAlignmentCenter;
         [view addSubview:label];
+        
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+        lineView.frame = CGRectMake(0, CGRectGetMaxY(label.frame), tableWidth, 1);
+        [view addSubview:lineView];
+        
     }
     
 //
