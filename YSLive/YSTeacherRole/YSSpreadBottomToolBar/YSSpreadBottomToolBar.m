@@ -204,7 +204,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     if (norTitle)
     {
         toolBtn.normalText = YSLocalized(norTitle);
-toolBtn.disabledText = YSLocalized(norTitle);
+        toolBtn.disabledText = YSLocalized(norTitle);
     }
     if (selTitle)
     {
@@ -235,30 +235,48 @@ toolBtn.disabledText = YSLocalized(norTitle);
             CGFloat left = self.topLeftpoint.x - ((BarBtnWidth+BarBtnGap) * self.btnArray.count + BarSpreadBtnGap-BarBtnGap);
             CGFloat width = (BarBtnWidth+BarBtnGap) * (self.btnArray.count+1) + BarSpreadBtnGap;
             CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
+            self.spreadBtn.alpha = 0.0f;
 
-            [UIView animateWithDuration:0.1f animations:^{
-                
+            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.frame = CGRectMake(left, top, width, height);
-                
+
                 self.spreadBtn.bm_top = BarBtnGap;
                 self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
-            } completion:^(BOOL finished) {
-                CGFloat index = 1.0f;
-                NSTimeInterval ts = 0.3f;
-                if ([self.btnArray bm_isNotEmpty])
+                for (UIButton *btn in self.btnArray)
                 {
-                    ts = 0.5f / self.btnArray.count;
-                    for (UIButton *btn in self.btnArray)
-                    {
-                        [UIView animateWithDuration:(index * ts) animations:^{
-                            btn.alpha = 1.0f;
-                        } completion:^(BOOL finished) {
-                            
-                        }];
-                        index = index + 1.0f;
-                    }
+                    btn.alpha = 1.0f;
                 }
+            } completion:^(BOOL finished) {
+                self.spreadBtn.alpha = 1.0f;
             }];
+
+//            [UIView animateWithDuration:0.1f animations:^{
+//
+//                self.frame = CGRectMake(left, top, width, height);
+//
+//                self.spreadBtn.bm_top = BarBtnGap;
+//                self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
+//            } completion:^(BOOL finished) {
+//                CGFloat index = 1.0f;
+//                NSTimeInterval ts = 0.3f;
+//                if ([self.btnArray bm_isNotEmpty])
+//                {
+//                    ts = 0.5f / self.btnArray.count;
+//                    for (UIButton *btn in self.btnArray)
+//                    {
+//                        [UIView animateWithDuration:(index * ts) delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//                            btn.alpha = 1.0f;
+//                        } completion:^(BOOL finished) {
+//                        }];
+////                        [UIView animateWithDuration:(index * ts) animations:^{
+////                            btn.alpha = 1.0f;
+////                        } completion:^(BOOL finished) {
+////
+////                        }];
+//                        index = index + 1.0f;
+//                    }
+//                }
+//            }];
         }
         else
         {
@@ -266,8 +284,9 @@ toolBtn.disabledText = YSLocalized(norTitle);
             CGFloat left = self.topLeftpoint.x;
             CGFloat width = BarBtnWidth + BarBtnGap*2.0f;
             CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
+            self.spreadBtn.alpha = 0.0f;
 
-            [UIView animateWithDuration:0.1f animations:^{
+            [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.frame = CGRectMake(left, top, width, height);
                 self.spreadBtn.bm_top = BarBtnGap;
                 self.spreadBtn.bm_left = BarBtnGap;
@@ -277,7 +296,7 @@ toolBtn.disabledText = YSLocalized(norTitle);
                     btn.alpha = 0.0f;
                 }
             } completion:^(BOOL finished) {
-                
+                self.spreadBtn.alpha = 1.0f;
             }];
         }
         
@@ -353,28 +372,36 @@ toolBtn.disabledText = YSLocalized(norTitle);
 - (void)setIsPollingEnable:(BOOL)isPollingEnable
 {
     _isPollingEnable = isPollingEnable;
-    self.pollingBtn.enabled = isPollingEnable;
+    if (self.isBeginClass)
+    {
+        self.pollingBtn.enabled = isPollingEnable;
+    }
+    else
+    {
+        self.pollingBtn.enabled = NO;
+    }
+    
 }
 
 - (void)setUserEnable:(BOOL)userEnable
 {
-//    _userEnable = userEnable;
-//    ///花名册
-//    self.personListBtn.enabled = userEnable;
-//    ///课件库
-//    self.coursewareBtn.enabled = userEnable;
-//    ///工具箱
-//    self.toolBoxBtn.enabled = userEnable;
-//    ///切换布局
-//    self.switchLayoutBtn.enabled = userEnable;
-//    /// 轮询
-//    self.pollingBtn.enabled = userEnable;
-//    /// 全体禁音
-//    self.allNoAudioBtn.enabled = userEnable;
-//    ///切换摄像头
-//    self.cameraBtn.enabled = userEnable;
-//    /// 消息
-//    self.chatBtn.enabled = userEnable;
+    _userEnable = userEnable;
+    ///花名册
+    self.personListBtn.enabled = userEnable;
+    ///课件库
+    self.coursewareBtn.enabled = userEnable;
+    ///工具箱
+    self.toolBoxBtn.enabled = userEnable;
+    ///切换布局
+    self.switchLayoutBtn.enabled = userEnable;
+    /// 轮询
+    self.pollingBtn.enabled = userEnable;
+    /// 全体禁音
+    self.allNoAudioBtn.enabled = userEnable;
+    ///切换摄像头
+    self.cameraBtn.enabled = userEnable;
+    /// 消息
+    self.chatBtn.enabled = userEnable;
     
 }
 
@@ -384,4 +411,12 @@ toolBtn.disabledText = YSLocalized(norTitle);
     self.switchLayoutBtn.selected = !isAroundLayout;
 }
 
+- (void)setIsBeginClass:(BOOL)isBeginClass
+{
+    _isBeginClass = isBeginClass;
+    self.allNoAudioBtn.enabled = isBeginClass;
+    self.switchLayoutBtn.enabled = isBeginClass;
+    self.toolBoxBtn.enabled = isBeginClass;
+
+}
 @end
