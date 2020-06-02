@@ -7,7 +7,6 @@
 //
 
 #import "YSSpreadBottomToolBar.h"
-#import "BMImageTitleButtonView.h"
 
 static const CGFloat kBarBtnWidth_iPhone = 44.0f;
 static const CGFloat kBarBtnWidth_iPad = 52.0f;

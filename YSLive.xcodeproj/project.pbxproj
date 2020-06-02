@@ -103,7 +103,6 @@
 		8703620F23F2402E0054E50A /* YSSchoolApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */; };
 		8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
 		8709FEB52484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
-		8709FEC52484F71B00CC8BEA /* BMImageTitleButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */; };
 		8709FF192485F7CB00CC8BEA /* UINavigationController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEC72485F7CB00CC8BEA /* UINavigationController+MemoryLeak.m */; };
 		8709FF1A2485F7CB00CC8BEA /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FECB2485F7CB00CC8BEA /* MLeakedObjectProxy.m */; };
 		8709FF1B2485F7CB00CC8BEA /* UIView+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FECD2485F7CB00CC8BEA /* UIView+MemoryLeak.m */; };
@@ -134,7 +133,6 @@
 		8709FF342485F7CB00CC8BEA /* FBRetainCycleDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF142485F7CB00CC8BEA /* FBRetainCycleDetector.mm */; };
 		8709FF352485F7CB00CC8BEA /* FBRetainCycleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF162485F7CB00CC8BEA /* FBRetainCycleUtils.m */; };
 		8709FF362485F7CB00CC8BEA /* NSObject+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF172485F7CB00CC8BEA /* NSObject+MemoryLeak.m */; };
-		8709FF372485FEA400CC8BEA /* BMImageTitleButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */; };
 		8709FF382485FEBA00CC8BEA /* YSSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSSkinManager.m */; };
 		8709FF392485FEBC00CC8BEA /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinRsource.bundle */; };
 		8709FF3A2485FEE900CC8BEA /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
@@ -899,8 +897,6 @@
 		8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolApiRequest.m; sourceTree = "<group>"; };
 		8709FEB22484D2A000CC8BEA /* YSSpreadBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSpreadBottomToolBar.h; sourceTree = "<group>"; };
 		8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSpreadBottomToolBar.m; sourceTree = "<group>"; };
-		8709FEC32484F71B00CC8BEA /* BMImageTitleButtonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMImageTitleButtonView.h; sourceTree = "<group>"; };
-		8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMImageTitleButtonView.m; sourceTree = "<group>"; };
 		8709FEC72485F7CB00CC8BEA /* UINavigationController+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MemoryLeak.m"; sourceTree = "<group>"; };
 		8709FEC82485F7CB00CC8BEA /* MLeaksMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLeaksMessenger.h; sourceTree = "<group>"; };
 		8709FEC92485F7CB00CC8BEA /* UITabBarController+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+MemoryLeak.h"; sourceTree = "<group>"; };
@@ -1930,15 +1926,6 @@
 			path = YSSpreadBottomToolBar;
 			sourceTree = "<group>";
 		};
-		8709FEC22484F6F900CC8BEA /* BMImageTitleButtonView */ = {
-			isa = PBXGroup;
-			children = (
-				8709FEC32484F71B00CC8BEA /* BMImageTitleButtonView.h */,
-				8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */,
-			);
-			path = BMImageTitleButtonView;
-			sourceTree = "<group>";
-		};
 		8709FEC62485F7CB00CC8BEA /* MLeaksFinder */ = {
 			isa = PBXGroup;
 			children = (
@@ -2890,7 +2877,6 @@
 		879ADAEA23516D4400C72EAA /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
-				8709FEC22484F6F900CC8BEA /* BMImageTitleButtonView */,
 				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8779E58223F79803008E885C /* YSCircleProgress */,
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
@@ -3568,7 +3554,6 @@
 				87AED04423B5AC8000D38129 /* YSRoomUser+YSLive.m in Sources */,
 				874E4F6623B36A1500086B01 /* YSSlider.m in Sources */,
 				872D047223B7362300DAC321 /* FLEXViewExplorerViewController.m in Sources */,
-				8709FEC52484F71B00CC8BEA /* BMImageTitleButtonView.m in Sources */,
 				872D04A423B7362300DAC321 /* FLEXFileBrowserTableViewController.m in Sources */,
 				872D048223B7362300DAC321 /* FLEXExplorerToolbar.m in Sources */,
 				871335BB237270F6006534A4 /* BMTestAlignManager.m in Sources */,
@@ -4006,7 +3991,6 @@
 				8717E2FB2400DADC008C4CDA /* FLEXRealmDatabaseManager.m in Sources */,
 				8717E2FC2400DADC008C4CDA /* PLArrayTableViewController.m in Sources */,
 				8717E2FD2400DADC008C4CDA /* SCTTopPopverViewController.m in Sources */,
-				8709FF372485FEA400CC8BEA /* BMImageTitleButtonView.m in Sources */,
 				8717E2FE2400DADC008C4CDA /* CALayer+YSBarrage.m in Sources */,
 				8717E2FF2400DADC008C4CDA /* FLEXArgumentInputView.m in Sources */,
 				8717E3002400DADC008C4CDA /* FLEXExplorerViewController.m in Sources */,
