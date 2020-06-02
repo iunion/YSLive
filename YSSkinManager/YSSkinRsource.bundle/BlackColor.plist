@@ -8,6 +8,8 @@
 		<string>#828282</string>
 		<key>lineColor</key>
 		<string>#313131</string>
+		<key>login_lineColor</key>
+		<string>#979797</string>
 		<key>disableColor</key>
 		<string>#888888</string>
 		<key>blackColor </key>
@@ -24,8 +26,6 @@
 		<string>#212121</string>
 		<key>ToolBgColor</key>
 		<string>#1C1D20</string>
-		<key>login_lineColor</key>
-		<string>#979797</string>
 		<key>login_placeholderColor</key>
 		<string>#6D7278</string>
 	</dict>
@@ -33,6 +33,8 @@
 	<dict>
 		<key>close_btn_icon</key>
 		<string>close_btn_icon_skin</string>
+		<key>cancel_btn_icon_select</key>
+		<string>cancel_skin</string>
 	</dict>
 	<key>cancelButton_login</key>
 	<dict>
@@ -842,6 +844,39 @@
 		<key>iconOnlineSchool</key>
 		<string></string>
 	</dict>
+	<key>login_background</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_backgroundImage_skin</string>
+		<key>iconOnlineSchool</key>
+		<string></string>
+	</dict>
+	<key>login_roleBtn</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_roleBtnBackImage_skin</string>
+		<key>iconSel</key>
+		<string>login_roleBtnBackImage_select_skin</string>
+	</dict>
+	<key>login_rowPassword</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_showPassword_no_skin</string>
+		<key>iconSel</key>
+		<string>login_showPassword_yes_skin</string>
+	</dict>
 	<key>brushTool_emptyrectangle</key>
 	<dict>
 		<key>tittleColor</key>
@@ -932,6 +967,11 @@
 		<string>polling_subtract_sel_skin</string>
 		<key>iconDis</key>
 		<string>polling_subtract_dis_skin</string>
+	</dict>
+	<key>set_arrow</key>
+	<dict>
+		<key>iconNor</key>
+		<string>set_cellArrow_skin</string>
 	</dict>
 </dict>
 </plist>

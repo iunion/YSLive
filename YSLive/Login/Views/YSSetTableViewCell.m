@@ -53,7 +53,6 @@
 
 - (void)createSubViews
 {
-    
     UIView *bgView = [[UIView alloc]init];
     self.bgView = bgView;
     bgView.backgroundColor = [UIColor whiteColor];
@@ -71,8 +70,8 @@
     self.cellTitleLab = cellTitleLab;
     [bgView addSubview:cellTitleLab];
         
-    //屏蔽标识
-    UIImageView * arrowImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sc_brush_arrowline_selected"]];
+    //右箭头
+    UIImageView * arrowImg = [[UIImageView alloc]initWithImage:YSSkinElementImage(@"set_arrow", @"iconNor")];
     self.arrowImg = arrowImg;
     [bgView addSubview:arrowImg];
 //    arrowImg.hidden = YES;

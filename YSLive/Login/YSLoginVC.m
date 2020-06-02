@@ -557,7 +557,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
     
     self.backImageView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-    self.backImageView.backgroundColor = [UIColor redColor];
+    self.backImageView.backgroundColor = [UIColor clearColor];
     [self.backScrollView addSubview:self.backImageView];
 
     UITapGestureRecognizer *click = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction:)];
@@ -1396,7 +1396,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         _backImageView = [[UIImageView alloc] init];
         _backImageView.backgroundColor = [UIColor whiteColor];
-        [_backImageView setImage:[UIImage imageNamed:@"ysall_login_background"]];
+        [_backImageView setImage:YSSkinElementImage(@"login_background", @"iconNor")];
         _backImageView.userInteractionEnabled = YES;
     }
     return _backImageView;
@@ -1442,7 +1442,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         _passwordTextField.layer.borderWidth = 1;
         _passwordTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
         _passwordTextField.delegate = self;
-        
+        _passwordTextField.lineView.hidden = YES;
         if (![UIDevice bm_isiPad]) {
             self.passwordTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
@@ -1498,9 +1498,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
         _passOnlineTextField.inputTextField.keyboardType = UIKeyboardTypeDefault;
         _passOnlineTextField.inputTextField.secureTextEntry = YES;
         _passOnlineTextField.inputTextField.clearButtonMode = UITextFieldViewModeNever;
-//        _passOnlineTextField.layer.cornerRadius = 20;
-//        _passOnlineTextField.layer.borderWidth = 1;
-//        _passOnlineTextField.layer.borderColor = [UIColor bm_colorWithHex:0x82ABEC].CGColor;
 
         if (![UIDevice bm_isiPad]) {
             self.passOnlineTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
@@ -1541,12 +1538,20 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [self.backImageView addSubview:_roleSelectView];
         
         //弹框
-        UIImageView * alertView = [[UIImageView alloc]initWithFrame:CGRectMake((BMUI_SCREEN_WIDTH-500)/2, (BMUI_SCREEN_HEIGHT-330)/2, 500, 330)];
-        alertView.image = [UIImage imageNamed:@"roleAlertBackImage"];
+//        UIImageView * alertView = [[UIImageView alloc]initWithFrame:CGRectMake((BMUI_SCREEN_WIDTH-500)/2, (BMUI_SCREEN_HEIGHT-330)/2, 500, 330)];
+//      alertView.image = [UIImage imageNamed:@"roleAlertBackImage"];
+//        alertView.layer.cornerRadius = 26;
+//        alertView.layer.masksToBounds = YES;
+//        alertView.userInteractionEnabled = YES;
+//        [self.roleSelectView addSubview:alertView];
+        
+        UIView * alertView = [[UIView alloc]initWithFrame:CGRectMake((BMUI_SCREEN_WIDTH-500)/2, (BMUI_SCREEN_HEIGHT-330)/2, 500, 330)];
+        alertView.backgroundColor = UIColor.whiteColor;
         alertView.layer.cornerRadius = 26;
         alertView.layer.masksToBounds = YES;
         alertView.userInteractionEnabled = YES;
         [self.roleSelectView addSubview:alertView];
+        
         
         
         if (![UIDevice bm_isiPad])
@@ -1557,7 +1562,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         //删除按钮
         UIButton * cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(alertView.bm_width-50, 0, 50, 50)];
         cancelBtn.tag = 0;
-        [cancelBtn setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
+        [cancelBtn setImage:YSSkinDefineImage(@"cancel_btn_icon_select") forState:UIControlStateNormal];
         [cancelBtn setBackgroundColor:UIColor.clearColor];
         [cancelBtn addTarget:self action:@selector(roleViewBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
         [alertView addSubview:cancelBtn];
@@ -1565,10 +1570,15 @@ typedef void (^YSRoomLeftDoBlock)(void);
         UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 50)];
         titleLab.text = YSLoginLocalized(@"Label.choiceIdentity");
         titleLab.font = UI_FONT_18;
-        titleLab.textColor = UIColor.whiteColor;
+        titleLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
         titleLab.textAlignment = NSTextAlignmentCenter;
         [alertView addSubview:titleLab];
         titleLab.bm_centerX = alertView.bm_width/2;
+        
+        UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, titleLab.bm_bottom, alertView.bm_width, 0.8)];
+        lineView.backgroundColor = YSSkinDefineColor(@"login_lineColor");
+        lineView.alpha = 0.14;
+        [alertView addSubview:lineView];
         
         //密码输入框
         [alertView addSubview:self.passwordTextField];
@@ -1599,19 +1609,20 @@ typedef void (^YSRoomLeftDoBlock)(void);
             
             [alertView addSubview:button];
             
-            if (self.room_UseTheType == YSAppUseTheTypeMeeting) {
+            if (self.room_UseTheType == YSAppUseTheTypeMeeting)
+            {
                 if (i == 0)
                 {
-                    [button setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
-                    self.teacherRoleBtn = button;
+                   [button setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
+                   button.selected = YES;
+                   self.selectedRoleBtn = button;
+                   self.studentRoleBtn = button;
                 }
                 else if (i == 1)
                 {
+                    [button setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
+                    self.teacherRoleBtn = button;
                     
-                    [button setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
-                    button.selected = YES;
-                    self.selectedRoleBtn = button;
-                    self.studentRoleBtn = button;
                 }
                 else if (i == 2)
                 {
@@ -1623,15 +1634,15 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 if (i == 0)
                 {
-                    [button setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
-                    self.teacherRoleBtn = button;
-                }
-                else if (i == 1)
-                {
                     [button setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
                     button.selected = YES;
                     self.selectedRoleBtn = button;
                     self.studentRoleBtn = button;
+                }
+                else if (i == 1)
+                {
+                    [button setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
+                    self.teacherRoleBtn = button;
                 }
                 else if (i == 2)
                 {
@@ -1645,10 +1656,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
             }
             
             button.titleLabel.font = UI_FONT_14;
-            [button setTitleColor:[UIColor bm_colorWithHex:0x5A8CDC] forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateSelected];
-            [button setBackgroundImage:[UIImage imageNamed:@"roleBtnBackImage"] forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage imageNamed:@"roleBtnBackImage_select"] forState:UIControlStateSelected];
+            [button setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+            [button setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateSelected];
+            [button setBackgroundImage:YSSkinElementImage(@"login_roleBtn", @"iconNor") forState:UIControlStateNormal];
+            [button setBackgroundImage:YSSkinElementImage(@"login_roleBtn", @"iconSel") forState:UIControlStateSelected];
             button.titleLabel.font = UI_FONT_18;
             button.layer.cornerRadius = 20;
             button.tag = i+1;
@@ -1656,17 +1667,18 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }
             
         //确定按钮
-        UIButton * okBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, alertView.bm_height-77, 147, 50)];
+        UIButton * okBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, alertView.bm_height-77, 147, 40)];
         okBtn.bm_centerX = alertView.bm_width/2;
-        [okBtn setBackgroundImage:[UIImage imageNamed:@"login_join_normal"] forState:UIControlStateNormal];
-        [okBtn setBackgroundImage:[UIImage imageNamed:@"login_join_disabled"] forState:UIControlStateSelected];
+        
         [okBtn setTitle:YSLoginLocalized(@"Prompt.OK") forState:UIControlStateNormal];
         okBtn.titleLabel.font = UI_FONT_18;
-        okBtn.layer.cornerRadius = 25;
-        okBtn.layer.masksToBounds = YES;
         [okBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
         [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [alertView addSubview:okBtn];
+        
+        [okBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        okBtn.layer.cornerRadius = 20;
+        okBtn.layer.masksToBounds = YES;
     }
     return _roleSelectView;
 }
@@ -1726,10 +1738,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
 
         case 1:
-            self.selectRoleType = YSUserType_Teacher;
-            self.passwordMask.hidden = YES;
-            break;
-        case 2:
             self.selectRoleType = YSUserType_Student;
             if (self.needpwd)
             {
@@ -1740,6 +1748,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.noneedPwd");
                 self.passwordMask.hidden = NO;
             }
+            break;
+        case 2:
+            self.selectRoleType = YSUserType_Teacher;
+            self.passwordMask.hidden = YES;
+            
             break;
         case 3:
             self.selectRoleType = YSUserType_Patrol;

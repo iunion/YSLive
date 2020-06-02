@@ -654,7 +654,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     {
         _backImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
         _backImageView.backgroundColor = [UIColor whiteColor];
-        [_backImageView setImage:[UIImage imageNamed:@"ysall_login_background"]];
+        [_backImageView setImage:YSSkinElementImage(@"login_background", @"iconNor")];
         _backImageView.userInteractionEnabled = YES;
     }
     return _backImageView;

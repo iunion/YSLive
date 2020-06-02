@@ -9,12 +9,9 @@
 #import "YSInputView.h"
 
 @interface YSInputView()<UITextFieldDelegate>
-/// 底部视图容器
-//@property (nonatomic, strong) UIView *bacView;
+
 /// icon
 @property (nonatomic, strong) UIImageView *iconImageView;
-
-@property (nonatomic, strong) UIView *lineView;
 
 @end
 

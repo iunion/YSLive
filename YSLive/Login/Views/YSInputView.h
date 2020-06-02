@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <YSInputViewDelegate> delegate;
 
+@property (nonatomic, strong) UIView *lineView;
+
 @property (nonatomic, strong) UITextField * inputTextField;
 @property (nonatomic, strong) NSString *placeholder;
 //- (instancetype)initWithFrame:(CGRect)frame withPlaceholder:(NSString *)placeholder withImageName:(NSString *)imageName;
