@@ -3749,6 +3749,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 /// 全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
+//    self.rightChatView.allDisabled = isDisable;
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
     [self hiddenTheKeyBoard];
 }

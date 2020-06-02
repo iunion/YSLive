@@ -2396,6 +2396,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)self.liveManager.studentCount];
 }
 
+/// 全体禁言
+- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
+{
+    self.rightChatView.allDisabled = isDisable;
+}
+
 #pragma mark - 用户属性变化
 
 - (void)onRoomUserPropertyChanged:(NSString *)peerID properties:(NSDictionary *)properties fromId:(NSString *)fromId
@@ -4560,16 +4566,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     else if (sender.tag == 1)
     {
 
-        if (sender.selected)
-        {
-            // 全体禁言
-            [self.liveManager sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
-        }
-        else
-        {
-            // 解除禁言
-            [self.liveManager deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
-        }
+//        if (sender.selected)
+//        {
+//            // 全体禁言
+//            [self.liveManager sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+//        }
+//        else
+//        {
+//            // 解除禁言
+//            [self.liveManager deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+//        }
     }
     else if (sender.tag == 2)
     {

@@ -192,7 +192,11 @@ UITextFieldDelegate
     _allDisabled = allDisabled;
    
     self.allDisableBtn.selected = allDisabled;
-    self.textBtn.userInteractionEnabled = !allDisabled;
+    
+    if (YSCurrentUser.role != YSUserType_Teacher)
+    {
+        self.textBtn.userInteractionEnabled = !allDisabled;
+    }
 }
 
 - (void)textFieldDidChange
