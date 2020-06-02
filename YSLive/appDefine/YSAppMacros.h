@@ -34,7 +34,7 @@
 #define YSSkinElementImage(z , s) [[YSSkinManager shareInstance] getElementImageWithName:(z) andKey:(s)]
 
 // 苹果AppID
-#if YSCUSTOMIZED_WSKJ
+#ifdef YSCUSTOMIZED_WSKJ
 
 #define YS_APPSTORE_DOWNLOADAPP_ADDRESS     @"itms-apps://itunes.apple.com/app/id1463540096"
 #define YS_APPID                            @"1463540096"
@@ -63,5 +63,9 @@ static NSString *const YSTRANS_API_HOST = @"http://api.fanyi.baidu.com/api/trans
 #define YSPASSWORD_MINLENGTH            8
 #define YSPASSWORD_MAXLENGTH            16
 
+#ifdef YSCUSTOMIZED_WSKJ
 #define YSLEAKS_ENABLED                 0
+#else
+#define YSLEAKS_ENABLED                 0
+#endif
 #endif /* YSAppMacros_h */

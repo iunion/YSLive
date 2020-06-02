@@ -134,6 +134,11 @@
 		8709FF342485F7CB00CC8BEA /* FBRetainCycleDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF142485F7CB00CC8BEA /* FBRetainCycleDetector.mm */; };
 		8709FF352485F7CB00CC8BEA /* FBRetainCycleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF162485F7CB00CC8BEA /* FBRetainCycleUtils.m */; };
 		8709FF362485F7CB00CC8BEA /* NSObject+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF172485F7CB00CC8BEA /* NSObject+MemoryLeak.m */; };
+		8709FF372485FEA400CC8BEA /* BMImageTitleButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */; };
+		8709FF382485FEBA00CC8BEA /* YSSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSSkinManager.m */; };
+		8709FF392485FEBC00CC8BEA /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinRsource.bundle */; };
+		8709FF3A2485FEE900CC8BEA /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
+		8709FF3B2485FEFB00CC8BEA /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
 		87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		87133568237270F6006534A4 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
 		87133569237270F6006534A4 /* YSChatMemberListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13282372647900D642E8 /* YSChatMemberListCell.m */; };
@@ -3347,6 +3352,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8709FF392485FEBC00CC8BEA /* YSSkinRsource.bundle in Resources */,
 				8717E3382400DADC008C4CDA /* YSResources.bundle in Resources */,
 				8717E3392400DADC008C4CDA /* BMTestNetFlowCell.xib in Resources */,
 				8717E33A2400DADC008C4CDA /* BMDatePicker.nib in Resources */,
@@ -3777,6 +3783,7 @@
 				8717E1D52400DADC008C4CDA /* SCTeacherTopBar.m in Sources */,
 				3471E2AB24039A0100A3BBB4 /* FSCalendarAppearance.m in Sources */,
 				8717E1D62400DADC008C4CDA /* YSLiveUtil.m in Sources */,
+				8709FF382485FEBA00CC8BEA /* YSSkinManager.m in Sources */,
 				8717E1D72400DADC008C4CDA /* SCAnswerPageView.m in Sources */,
 				8717E1D82400DADC008C4CDA /* BMTestNetFlowDetailVC.m in Sources */,
 				8717E1D92400DADC008C4CDA /* FLEXInstancesTableViewController.m in Sources */,
@@ -3817,6 +3824,7 @@
 				3471E29724039A0100A3BBB4 /* FSCalendarStickyHeader.m in Sources */,
 				8717E2082400DADC008C4CDA /* FLEXArgumentInputFontView.m in Sources */,
 				8717E20A2400DADC008C4CDA /* SCTextMessageCell.m in Sources */,
+				8709FF3A2485FEE900CC8BEA /* YSSetViewController.m in Sources */,
 				8717E20B2400DADC008C4CDA /* FLEXSQLiteDatabaseManager.m in Sources */,
 				8717E20C2400DADC008C4CDA /* YSBarrageTextCell.m in Sources */,
 				8717E20F2400DADC008C4CDA /* FLEXSystemLogTableViewCell.m in Sources */,
@@ -3943,6 +3951,7 @@
 				8717E2B22400DADC008C4CDA /* SCTeacherPersonListCell.m in Sources */,
 				3471E2A924039A0100A3BBB4 /* FSCalendarTransitionCoordinator.m in Sources */,
 				8717E2B42400DADC008C4CDA /* FLEXNetworkHistoryTableViewController.m in Sources */,
+				8709FF3B2485FEFB00CC8BEA /* YSSetTableViewCell.m in Sources */,
 				8717E2B52400DADC008C4CDA /* SCTipsMessageCell.m in Sources */,
 				8717E2B82400DADC008C4CDA /* BMTestAppInfoVC.m in Sources */,
 				8717E2BA2400DADC008C4CDA /* YSLoginVC.m in Sources */,
@@ -3997,6 +4006,7 @@
 				8717E2FB2400DADC008C4CDA /* FLEXRealmDatabaseManager.m in Sources */,
 				8717E2FC2400DADC008C4CDA /* PLArrayTableViewController.m in Sources */,
 				8717E2FD2400DADC008C4CDA /* SCTTopPopverViewController.m in Sources */,
+				8709FF372485FEA400CC8BEA /* BMImageTitleButtonView.m in Sources */,
 				8717E2FE2400DADC008C4CDA /* CALayer+YSBarrage.m in Sources */,
 				8717E2FF2400DADC008C4CDA /* FLEXArgumentInputView.m in Sources */,
 				8717E3002400DADC008C4CDA /* FLEXExplorerViewController.m in Sources */,
