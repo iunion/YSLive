@@ -42,8 +42,7 @@
 {
     //发送按钮
     self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-20-92, 13, 92, 34)];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton"] forState:UIControlStateNormal];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
+
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
     [self.sendBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
     [self.sendBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];

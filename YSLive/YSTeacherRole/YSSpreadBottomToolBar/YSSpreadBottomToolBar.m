@@ -213,6 +213,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     
     toolBtn.frame = CGRectMake(0, 0, BarBtnWidth, BarBtnWidth);
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
+
     return toolBtn;
 }
 
@@ -235,14 +236,29 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
             CGFloat width = (BarBtnWidth+BarBtnGap) * (self.btnArray.count+1) + BarSpreadBtnGap;
             CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
 
-            self.frame = CGRectMake(left, top, width, height);
-            self.spreadBtn.bm_top = BarBtnGap;
-            self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
-            
-            for (UIButton *btn in self.btnArray)
-            {
-                btn.hidden = NO;
-            }
+            [UIView animateWithDuration:0.1f animations:^{
+                
+                self.frame = CGRectMake(left, top, width, height);
+                
+                self.spreadBtn.bm_top = BarBtnGap;
+                self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
+            } completion:^(BOOL finished) {
+                CGFloat index = 1.0f;
+                NSTimeInterval ts = 0.3f;
+                if ([self.btnArray bm_isNotEmpty])
+                {
+                    ts = 0.5f / self.btnArray.count;
+                    for (UIButton *btn in self.btnArray)
+                    {
+                        [UIView animateWithDuration:(index * ts) animations:^{
+                            btn.alpha = 1.0f;
+                        } completion:^(BOOL finished) {
+                            
+                        }];
+                        index = index + 1.0f;
+                    }
+                }
+            }];
         }
         else
         {
@@ -251,16 +267,19 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
             CGFloat width = BarBtnWidth + BarBtnGap*2.0f;
             CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
 
-            self.frame = CGRectMake(left, top, width, height);
-            self.spreadBtn.bm_top = BarBtnGap;
-            self.spreadBtn.bm_left = BarBtnGap;
-            
-            for (UIButton *btn in self.btnArray)
-            {
-                btn.hidden = YES;
-            }
+            [UIView animateWithDuration:0.1f animations:^{
+                self.frame = CGRectMake(left, top, width, height);
+                self.spreadBtn.bm_top = BarBtnGap;
+                self.spreadBtn.bm_left = BarBtnGap;
+                
+                for (UIButton *btn in self.btnArray)
+                {
+                    btn.alpha = 0.0f;
+                }
+            } completion:^(BOOL finished) {
+                
+            }];
         }
-        
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarSpreadOut:)])
         {
@@ -268,6 +287,10 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
         }
         
         return;
+    }
+    else
+    {
+        [btn bm_shakeDuration:0.3f];
     }
     
     if (btn == self.chatBtn)
@@ -289,6 +312,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     self.personListBtn.selected = NO;
     self.coursewareBtn.selected = NO;
 }
+
 /// 隐藏消息界面
 - (void)hideMessageView
 {

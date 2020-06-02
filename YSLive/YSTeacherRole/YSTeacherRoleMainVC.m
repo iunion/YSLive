@@ -801,33 +801,33 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)fullVideoGridView:(BOOL)isFull
 {
-    if (isFull)
-    {
-        CGFloat width = self.contentWidth;
-        CGFloat height = self.contentHeight;
-        self.videoGridView.defaultSize = CGSizeMake(width, height);
-        self.videoGridView.frame = CGRectMake(0, 0, width, height);
-        [self.contentBackgroud addSubview:self.videoGridView];
-        [self.videoGridView bm_centerInSuperView];
-        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-        [self.videoFullScreenBtn bm_bringToFront];
-        [self.chatBtn bm_bringToFront];
-        [self.raiseHandsBtn bm_bringToFront];
-        [self.handNumLab bm_bringToFront];
-    }
-    else
-    {
+//    if (isFull)
+//    {
+//        CGFloat width = self.contentWidth;
+//        CGFloat height = self.contentHeight - STATETOOLBAR_HEIGHT;
+//        self.videoGridView.defaultSize = CGSizeMake(width, height);
+//        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
+//        [self.contentBackgroud addSubview:self.videoGridView];
+////        [self.videoGridView bm_centerInSuperView];
+//        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+//        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
+//        [self.videoFullScreenBtn bm_bringToFront];
+//        [self.chatBtn bm_bringToFront];
+//        [self.raiseHandsBtn bm_bringToFront];
+//        [self.handNumLab bm_bringToFront];
+//    }
+//    else
+//    {
         CGFloat width = self.contentWidth;
         CGFloat height = self.contentHeight-TOPTOOLBAR_HEIGHT;
         self.videoGridView.defaultSize = CGSizeMake(width, height);
-        self.videoGridView.frame = CGRectMake(0, 0, width, height);
+        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
         [self.contentBackgroud addSubview:self.videoGridView];
-        [self.videoGridView bm_centerInSuperView];
+//        [self.videoGridView bm_centerInSuperView];
         self.videoGridView.backgroundColor = [UIColor clearColor];
         [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         [self.videoFullScreenBtn bm_bringToFront];
-    }
+//    } 
 }
 
 
@@ -1228,10 +1228,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 初始化尺寸
     videoGridView.defaultSize = CGSizeMake(width, height);
-    videoGridView.frame = CGRectMake(0, 0, width, height);
+    videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
     
     [self.contentBackgroud addSubview:videoGridView];
-    [videoGridView bm_centerInSuperView];
+//    [videoGridView bm_centerInSuperView];
 //    videoGridView.topOffset = TOPTOOLBAR_HEIGHT*0.5;
     videoGridView.backgroundColor = [UIColor clearColor];
     videoGridView.hidden = YES;
@@ -1367,7 +1367,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.videoGridView.defaultSize = CGSizeMake(width, height);
             self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
             [self.contentBackgroud addSubview:self.videoGridView];
-            [self.videoGridView bm_centerInSuperView];
+//            [self.videoGridView bm_centerInSuperView];
             self.videoGridView.backgroundColor = [UIColor clearColor];
             self.videoFullScreenBtn.hidden = YES;
             self.videoFullScreenBtn.selected = NO;
@@ -2396,6 +2396,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         
         self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)self.liveManager.studentCount];
+}
+
+/// 全体禁言
+- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
+{
+    self.rightChatView.allDisabled = isDisable;
 }
 
 #pragma mark - 用户属性变化
@@ -4542,16 +4548,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     else if (sender.tag == 1)
     {
 
-        if (sender.selected)
-        {
-            // 全体禁言
-            [self.liveManager sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
-        }
-        else
-        {
-            // 解除禁言
-            [self.liveManager deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
-        }
+//        if (sender.selected)
+//        {
+//            // 全体禁言
+//            [self.liveManager sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+//        }
+//        else
+//        {
+//            // 解除禁言
+//            [self.liveManager deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+//        }
     }
     else if (sender.tag == 2)
     {

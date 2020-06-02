@@ -175,7 +175,16 @@ UITextFieldDelegate
 
 - (void)allDisableButtonClick:(UIButton *)sender
 {
-    
+    if (!sender.selected)
+    {
+        // 全体禁言
+        [[YSLiveManager shareInstance] sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+    }
+    else
+    {
+        // 解除禁言
+        [[YSLiveManager shareInstance] deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+    }
 }
 
 - (void)setAllDisabled:(BOOL)allDisabled
@@ -183,7 +192,11 @@ UITextFieldDelegate
     _allDisabled = allDisabled;
    
     self.allDisableBtn.selected = allDisabled;
-    self.textBtn.userInteractionEnabled = !allDisabled;
+    
+    if (YSCurrentUser.role != YSUserType_Teacher)
+    {
+        self.textBtn.userInteractionEnabled = !allDisabled;
+    }
 }
 
 - (void)textFieldDidChange
