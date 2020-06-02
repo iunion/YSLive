@@ -24,6 +24,10 @@
 		<string>#212121</string>
 		<key>ToolBgColor</key>
 		<string>#1C1D20</string>
+		<key>login_lineColor</key>
+		<string>#979797</string>
+		<key>login_placeholderColor</key>
+		<string>#6D7278</string>
 	</dict>
 	<key>CommonImage</key>
 	<dict>
@@ -824,6 +828,17 @@
 		<string></string>
 		<key>iconNor</key>
 		<string>login_userName_skin</string>
+		<key>iconOnlineSchool</key>
+		<string></string>
+	</dict>
+	<key>login_password</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_password_skin</string>
 		<key>iconOnlineSchool</key>
 		<string></string>
 	</dict>

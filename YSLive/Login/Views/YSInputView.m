@@ -10,45 +10,44 @@
 
 @interface YSInputView()<UITextFieldDelegate>
 /// 底部视图容器
-@property (nonatomic, strong) UIView *bacView;
+//@property (nonatomic, strong) UIView *bacView;
 /// icon
 @property (nonatomic, strong) UIImageView *iconImageView;
+
+@property (nonatomic, strong) UIView *lineView;
 
 @end
 
 @implementation YSInputView
 
-- (instancetype)initWithFrame:(CGRect)frame withPlaceholder:(NSString *)placeholder withImageName:(NSString *)imageName
+- (instancetype)initWithFrame:(CGRect)frame withPlaceholder:(NSString *)placeholder withImage:(UIImage *)image
 {
-
     if (self = [super initWithFrame:frame])
     {
-        _bacView = [[UIView alloc] init];
-        [self addSubview:_bacView];
-        [self sendSubviewToBack:_bacView];
-        
-        _iconImageView = [[UIImageView alloc] init];
+        _iconImageView = [[UIImageView alloc] initWithImage:image];
+        _iconImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_iconImageView];
         
         _inputTextField = [[UITextField alloc] init];
         [self addSubview:_inputTextField];
         [_inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
         
-        [self setViewWithPlaceholderText:placeholder setImageName:imageName];
+        UIView * lineView = [[UIView alloc]init];
+        lineView.backgroundColor = YSSkinDefineColor(@"login_lineColor");
+        [self addSubview:lineView];
+        self.lineView = lineView;
+        
+        [self setViewWithPlaceholderText:placeholder];
     }
     return self;
 }
 
-- (void)setViewWithPlaceholderText:(NSString *)placeholder setImageName:(NSString *)imageName
+- (void)setViewWithPlaceholderText:(NSString *)placeholder
 {
-    _bacView.backgroundColor = [UIColor whiteColor];
-    _bacView.layer.cornerRadius = 20;
-    _bacView.layer.masksToBounds = YES;
-    
     if (placeholder)
     {
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:placeholder attributes:@{
-            NSForegroundColorAttributeName:YSColor_LoginPlaceholder,
+            NSForegroundColorAttributeName:YSSkinDefineColor(@"login_placeholderColor"),
             NSFontAttributeName:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 15)
         }];
         _inputTextField.attributedPlaceholder = attrString;
@@ -60,9 +59,6 @@
     _inputTextField.delegate = self;
     _inputTextField.tintColor = YSColor_LoginTextField;
     _inputTextField.enabled = YES;
-    
-    _iconImageView.image = [UIImage imageNamed:imageName];
-    _iconImageView.contentMode = UIViewContentModeCenter;
 }
 
 - (void)setPlaceholder:(NSString *)placeholder
@@ -77,13 +73,12 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+
+    _iconImageView.frame = CGRectMake(10, 0, 15,self.bm_height);
     
-    _bacView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    _inputTextField.frame = CGRectMake(CGRectGetMaxX(_iconImageView.frame)+ 18, 0, self.bm_width - 70, self.bm_height);
     
-    _iconImageView.frame = CGRectMake(25, 0, 15,CGRectGetHeight(_bacView.frame));
-    
-    _inputTextField.frame = CGRectMake(CGRectGetMaxX(_iconImageView.frame)+ 18, 0, CGRectGetWidth(_bacView.frame) - 70, CGRectGetHeight(_bacView.frame));
-    
+    self.lineView.frame = CGRectMake(0, self.bm_height - 1.0, self.bm_width, 0.5);
 }
 
 
@@ -97,24 +92,5 @@
     }
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    // 准备开始输入 文本字段将成为第一响应者
-    _bacView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-    //剪切边界 如果视图上的子视图layer超出视图layer部分就截取掉 如果添加阴影这个属性必须是NO 不然会把阴影切掉
-    _bacView.layer.masksToBounds = NO;
-    //阴影半径，默认3
-    _bacView.layer.shadowRadius = 3;
-    //shadowOffset阴影偏移，默认(0, -3),这个跟shadowRadius配合使用
-    _bacView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
-    // 阴影透明度，默认0
-    _bacView.layer.shadowOpacity = 0.5f;
-
-}
-
--(void)textFieldDidEndEditing:(UITextField *)textField
-{
-    _bacView.layer.masksToBounds = YES;
-}
 
 @end
