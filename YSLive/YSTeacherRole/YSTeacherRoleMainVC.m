@@ -769,6 +769,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 60, BMUI_SCREEN_HEIGHT - BOTTOMTOOLBAR_bottomGap - 50)];
     spreadBottomToolBar.delegate = self;
+    spreadBottomToolBar.isBeginClass = self.liveManager.isBeginClass;
+    spreadBottomToolBar.isPollingEnable = NO;
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
 }
@@ -799,33 +801,33 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)fullVideoGridView:(BOOL)isFull
 {
-    if (isFull)
-    {
-        CGFloat width = self.contentWidth;
-        CGFloat height = self.contentHeight;
-        self.videoGridView.defaultSize = CGSizeMake(width, height);
-        self.videoGridView.frame = CGRectMake(0, 0, width, height);
-        [self.contentBackgroud addSubview:self.videoGridView];
-        [self.videoGridView bm_centerInSuperView];
-        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-        [self.videoFullScreenBtn bm_bringToFront];
-        [self.chatBtn bm_bringToFront];
-        [self.raiseHandsBtn bm_bringToFront];
-        [self.handNumLab bm_bringToFront];
-    }
-    else
-    {
+//    if (isFull)
+//    {
+//        CGFloat width = self.contentWidth;
+//        CGFloat height = self.contentHeight - STATETOOLBAR_HEIGHT;
+//        self.videoGridView.defaultSize = CGSizeMake(width, height);
+//        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
+//        [self.contentBackgroud addSubview:self.videoGridView];
+////        [self.videoGridView bm_centerInSuperView];
+//        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+//        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
+//        [self.videoFullScreenBtn bm_bringToFront];
+//        [self.chatBtn bm_bringToFront];
+//        [self.raiseHandsBtn bm_bringToFront];
+//        [self.handNumLab bm_bringToFront];
+//    }
+//    else
+//    {
         CGFloat width = self.contentWidth;
         CGFloat height = self.contentHeight-TOPTOOLBAR_HEIGHT;
         self.videoGridView.defaultSize = CGSizeMake(width, height);
-        self.videoGridView.frame = CGRectMake(0, 0, width, height);
+        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
         [self.contentBackgroud addSubview:self.videoGridView];
-        [self.videoGridView bm_centerInSuperView];
+//        [self.videoGridView bm_centerInSuperView];
         self.videoGridView.backgroundColor = [UIColor clearColor];
         [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         [self.videoFullScreenBtn bm_bringToFront];
-    }
+//    } 
 }
 
 
@@ -1226,10 +1228,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 初始化尺寸
     videoGridView.defaultSize = CGSizeMake(width, height);
-    videoGridView.frame = CGRectMake(0, 0, width, height);
+    videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
     
     [self.contentBackgroud addSubview:videoGridView];
-    [videoGridView bm_centerInSuperView];
+//    [videoGridView bm_centerInSuperView];
 //    videoGridView.topOffset = TOPTOOLBAR_HEIGHT*0.5;
     videoGridView.backgroundColor = [UIColor clearColor];
     videoGridView.hidden = YES;
@@ -1244,7 +1246,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.teacherListView.delegate = self;
     self.teacherListView.topGap = self.contentBackgroud.bm_top + STATETOOLBAR_HEIGHT;
     BMLog(@"%f",self.contentBackgroud.bm_top);
-    self.teacherListView.bottomGap = BMUI_SCREEN_HEIGHT - self.bottomBarBackgroudView.bm_top + 5;
+    self.teacherListView.bottomGap = BMUI_SCREEN_HEIGHT - self.spreadBottomToolBar.bm_top + 5;
     self.teacherListView.frame = CGRectMake(BMUI_SCREEN_WIDTH, 0, BMUI_SCREEN_WIDTH, tableHeight);
     [self.view addSubview:self.teacherListView];
 }
@@ -1365,7 +1367,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.videoGridView.defaultSize = CGSizeMake(width, height);
             self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
             [self.contentBackgroud addSubview:self.videoGridView];
-            [self.videoGridView bm_centerInSuperView];
+//            [self.videoGridView bm_centerInSuperView];
             self.videoGridView.backgroundColor = [UIColor clearColor];
             self.videoFullScreenBtn.hidden = YES;
             self.videoFullScreenBtn.selected = NO;
@@ -2705,19 +2707,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     
     self.classBeginBtn.selected = YES;
-
-//    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-    if (self.appUseTheType == YSAppUseTheTypeMeeting)
-    {
-        if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
-        {
-//            self.topToolBar.layoutType = SCTeacherTopBarLayoutType_FullMedia;
-        }
-        else
-        {
-//            self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-        }
-    }
+    self.spreadBottomToolBar.isBeginClass = YES;
     
     [self freshTeacherPersonListData];
     self.brushToolView.hidden = NO;
@@ -4174,7 +4164,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeCamera:
             {
                 //摄像头
-                [self.liveManager.roomManager selectCameraPosition:select];
+                [self.liveManager.roomManager selectCameraPosition:!select];
             }
                 break;
             case SCTeacherTopBarTypeChat:
@@ -4422,17 +4412,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         self.brushToolOpenBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
     }
-
-    if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
-    {
-//        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_FullMedia;
-    }
-    else
-    {
-//        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-    }
+    self.spreadBottomToolBar.isBeginClass = YES;
     
-    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
+    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout == YSLiveRoomLayout_AroundLayout);
     
     if (roomLayout == YSLiveRoomLayout_FocusLayout && peerId)
     {

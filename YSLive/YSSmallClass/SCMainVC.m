@@ -974,30 +974,29 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 
 - (void)fullVideoGridView:(BOOL)isFull
 {
-    if (isFull)
-    {
-        self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight);
-        self.videoGridView.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight);
-        [self.view addSubview:self.videoGridView];
-        [self.videoGridView bm_centerInSuperView];
-        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-        [self.videoFullScreenBtn bm_bringToFront];
-        [self.chatBtn bm_bringToFront];
-        [self.raiseHandsBtn bm_bringToFront	];
-    }
-    else
-    {
-//        CGFloat width = self.contentWidth;
-//        CGFloat height = self.contentHeight-TOPTOOLBAR_HEIGHT;
+//    if (isFull)
+//    {
+//        self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight - STATETOOLBAR_HEIGHT);
+//        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight - STATETOOLBAR_HEIGHT);
+//        [self.view addSubview:self.videoGridView];
+//        [self.videoGridView bm_centerInSuperView];
+//        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+//        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
+//        [self.videoFullScreenBtn bm_bringToFront];
+//        [self.chatBtn bm_bringToFront];
+//        [self.raiseHandsBtn bm_bringToFront	];
+//    }
+//    else
+//    {
+
         self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
-        self.videoGridView.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
+        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
         [self.contentBackgroud addSubview:self.videoGridView];
-        [self.videoGridView bm_centerInSuperView];
+//        [self.videoGridView bm_centerInSuperView];
         self.videoGridView.backgroundColor = [UIColor clearColor];
         [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         [self.videoFullScreenBtn bm_bringToFront];
-    }
+//    }
 }
 
 - (void)doubleBtnClick:(UIButton *)sender
@@ -1163,10 +1162,12 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     
     // 初始化尺寸
     videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
-    videoGridView.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
+    videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
+    
+    CGFloat sss = STATETOOLBAR_HEIGHT;
     
     [self.contentBackgroud addSubview:videoGridView];
-    [videoGridView bm_centerInSuperView];
+//    [videoGridView bm_centerInSuperView];
     videoGridView.backgroundColor = [UIColor clearColor];
     videoGridView.hidden = YES;
     self.videoGridView = videoGridView;
@@ -1538,9 +1539,9 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         else
         {
             self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
-            self.videoGridView.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
+            self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
             [self.contentBackgroud addSubview:self.videoGridView];
-            [self.videoGridView bm_centerInSuperView];
+//            [self.videoGridView bm_centerInSuperView];
             self.videoGridView.backgroundColor = [UIColor clearColor];
             self.videoFullScreenBtn.hidden = YES;
             self.videoFullScreenBtn.selected = NO;
