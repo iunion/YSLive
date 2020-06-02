@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#define YSSpreadBottomToolBar_BtnWidth_iPhone   (44.0f)
+#define YSSpreadBottomToolBar_BtnWidth_iPad     (52.0f)
+
+#define YSSpreadBottomToolBar_BtnWidth          ([UIDevice bm_isiPad] ? YSSpreadBottomToolBar_BtnWidth_iPad : YSSpreadBottomToolBar_BtnWidth_iPhone)
+#define YSSpreadBottomToolBar_BtnGap            (4.0f)
+#define YSSpreadBottomToolBar_SpreadBtnGap      (6.0f)
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSSpreadBottomToolBarDelegate <NSObject>

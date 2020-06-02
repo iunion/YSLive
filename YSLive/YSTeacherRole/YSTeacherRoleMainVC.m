@@ -767,7 +767,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    [self.bottomBarBackgroudView addSubview:self.bottomToolBar];
 //    self.bottomBarBackgroudView.hidden = YES;
     
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 60, BMUI_SCREEN_HEIGHT - BOTTOMTOOLBAR_bottomGap - 50)];
+    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*2.0f, BMUI_SCREEN_HEIGHT - BOTTOMTOOLBAR_bottomGap - 50)];
     spreadBottomToolBar.delegate = self;
     spreadBottomToolBar.isBeginClass = self.liveManager.isBeginClass;
     spreadBottomToolBar.isPollingEnable = NO;
