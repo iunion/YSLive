@@ -218,7 +218,7 @@
 
 - (void)bottomToolBarClicked:(BMImageTitleButtonView *)btn
 {
-    if (btn != self.pollingBtn)
+    if (btn != self.pollingBtn && btn != self.exitBtn)
     {
         btn.selected = !btn.selected;
     }
