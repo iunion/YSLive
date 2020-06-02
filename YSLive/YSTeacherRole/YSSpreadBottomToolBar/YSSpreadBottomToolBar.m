@@ -171,7 +171,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
 
     self.frame = CGRectMake(left, top, width, height);
-    CGFloat btnLeft = BarBtnGap;
+    CGFloat btnLeft = BarBtnGap + 5;
     for (NSUInteger index=0; index<self.btnArray.count; index++)
     {
         BMImageTitleButtonView *btn = self.btnArray[index];
@@ -220,7 +220,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
 
 - (void)bottomToolBarClicked:(BMImageTitleButtonView *)btn
 {
-    if (btn != self.pollingBtn)
+    if (btn != self.pollingBtn && btn != self.exitBtn)
     {
         btn.selected = !btn.selected;
     }
