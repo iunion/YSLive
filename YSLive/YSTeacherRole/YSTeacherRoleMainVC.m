@@ -5747,11 +5747,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleMessageWith:(YSChatMessageModel *)message
 {
-    if (!self.chatBtn.selected && message.chatMessageType != YSChatMessageTypeTips) {
-        [self.chatBtn setImage:[UIImage imageNamed:@"chat_newMsg_SmallClassImage"] forState:UIControlStateNormal];
-        [self.chatBtn setImage:[UIImage imageNamed:@"chat_newMsg_SmallClassImage_push"] forState:UIControlStateHighlighted];
-    }
-    
+    self.spreadBottomToolBar.isNewMessage = YES;
     [self.rightChatView.SCMessageList addObject:message];
     [self.rightChatView.SCChatTableView reloadData];
     
