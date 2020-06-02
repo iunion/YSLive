@@ -204,7 +204,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     if (norTitle)
     {
         toolBtn.normalText = YSLocalized(norTitle);
-toolBtn.disabledText = YSLocalized(norTitle);
+        toolBtn.disabledText = YSLocalized(norTitle);
     }
     if (selTitle)
     {
@@ -213,7 +213,6 @@ toolBtn.disabledText = YSLocalized(norTitle);
     
     toolBtn.frame = CGRectMake(0, 0, BarBtnWidth, BarBtnWidth);
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
-    toolBtn.backgroundColor = [UIColor redColor];
     return toolBtn;
 }
 
@@ -227,7 +226,6 @@ toolBtn.disabledText = YSLocalized(norTitle);
     
     if (btn == self.spreadBtn)
     {
-        btn.selected = !btn.selected;
         self.spreadOut = !self.spreadOut;
         
         if (self.spreadOut)
@@ -331,28 +329,36 @@ toolBtn.disabledText = YSLocalized(norTitle);
 - (void)setIsPollingEnable:(BOOL)isPollingEnable
 {
     _isPollingEnable = isPollingEnable;
-    self.pollingBtn.enabled = isPollingEnable;
+    if (self.isBeginClass)
+    {
+        self.pollingBtn.enabled = isPollingEnable;
+    }
+    else
+    {
+        self.pollingBtn.enabled = NO;
+    }
+    
 }
 
 - (void)setUserEnable:(BOOL)userEnable
 {
-//    _userEnable = userEnable;
-//    ///花名册
-//    self.personListBtn.enabled = userEnable;
-//    ///课件库
-//    self.coursewareBtn.enabled = userEnable;
-//    ///工具箱
-//    self.toolBoxBtn.enabled = userEnable;
-//    ///切换布局
-//    self.switchLayoutBtn.enabled = userEnable;
-//    /// 轮询
-//    self.pollingBtn.enabled = userEnable;
-//    /// 全体禁音
-//    self.allNoAudioBtn.enabled = userEnable;
-//    ///切换摄像头
-//    self.cameraBtn.enabled = userEnable;
-//    /// 消息
-//    self.chatBtn.enabled = userEnable;
+    _userEnable = userEnable;
+    ///花名册
+    self.personListBtn.enabled = userEnable;
+    ///课件库
+    self.coursewareBtn.enabled = userEnable;
+    ///工具箱
+    self.toolBoxBtn.enabled = userEnable;
+    ///切换布局
+    self.switchLayoutBtn.enabled = userEnable;
+    /// 轮询
+    self.pollingBtn.enabled = userEnable;
+    /// 全体禁音
+    self.allNoAudioBtn.enabled = userEnable;
+    ///切换摄像头
+    self.cameraBtn.enabled = userEnable;
+    /// 消息
+    self.chatBtn.enabled = userEnable;
     
 }
 
@@ -360,5 +366,14 @@ toolBtn.disabledText = YSLocalized(norTitle);
 {
     _isAroundLayout = isAroundLayout;
     self.switchLayoutBtn.selected = !isAroundLayout;
+}
+
+- (void)setIsBeginClass:(BOOL)isBeginClass
+{
+    _isBeginClass = isBeginClass;
+    self.allNoAudioBtn.enabled = isBeginClass;
+    self.switchLayoutBtn.enabled = isBeginClass;
+    self.toolBoxBtn.enabled = isBeginClass;
+
 }
 @end

@@ -769,6 +769,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 60, BMUI_SCREEN_HEIGHT - BOTTOMTOOLBAR_bottomGap - 50)];
     spreadBottomToolBar.delegate = self;
+    spreadBottomToolBar.isBeginClass = self.liveManager.isBeginClass;
+    spreadBottomToolBar.isPollingEnable = NO;
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
 }
@@ -1244,7 +1246,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.teacherListView.delegate = self;
     self.teacherListView.topGap = self.contentBackgroud.bm_top + STATETOOLBAR_HEIGHT;
     BMLog(@"%f",self.contentBackgroud.bm_top);
-    self.teacherListView.bottomGap = BMUI_SCREEN_HEIGHT - self.bottomBarBackgroudView.bm_top + 5;
+    self.teacherListView.bottomGap = BMUI_SCREEN_HEIGHT - self.spreadBottomToolBar.bm_top + 5;
     self.teacherListView.frame = CGRectMake(BMUI_SCREEN_WIDTH, 0, BMUI_SCREEN_WIDTH, tableHeight);
     [self.view addSubview:self.teacherListView];
 }
@@ -2699,19 +2701,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     
     self.classBeginBtn.selected = YES;
-
-//    self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-    if (self.appUseTheType == YSAppUseTheTypeMeeting)
-    {
-        if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
-        {
-//            self.topToolBar.layoutType = SCTeacherTopBarLayoutType_FullMedia;
-        }
-        else
-        {
-//            self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-        }
-    }
+    self.spreadBottomToolBar.isBeginClass = YES;
     
     [self freshTeacherPersonListData];
     self.brushToolView.hidden = NO;
@@ -4168,7 +4158,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeCamera:
             {
                 //摄像头
-                [self.liveManager.roomManager selectCameraPosition:select];
+                [self.liveManager.roomManager selectCameraPosition:!select];
             }
                 break;
             case SCTeacherTopBarTypeChat:
@@ -4416,17 +4406,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         self.brushToolOpenBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
     }
-
-    if ((self.roomLayout == YSLiveRoomLayout_VideoLayout))
-    {
-//        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_FullMedia;
-    }
-    else
-    {
-//        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
-    }
+    self.spreadBottomToolBar.isBeginClass = YES;
     
-    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
+    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout == YSLiveRoomLayout_AroundLayout);
     
     if (roomLayout == YSLiveRoomLayout_FocusLayout && peerId)
     {

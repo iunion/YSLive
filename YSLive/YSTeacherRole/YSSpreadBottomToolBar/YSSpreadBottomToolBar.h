@@ -37,6 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL userEnable;
 /// 视频布局
 @property (nonatomic, assign) BOOL isAroundLayout;
+/// 是否上课
+@property (nonatomic, assign) BOOL isBeginClass;
+
+
 - (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point;
 
 /// 花名册 课件库按钮的非选中
