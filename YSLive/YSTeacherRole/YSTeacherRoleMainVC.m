@@ -46,7 +46,6 @@
 #import "YSPollingView.h"
 
 //#import "YSBottomToolBar.h"
-#import "YSSpreadBottomToolBar.h"
 
 #define USE_FullTeacher             1
 
@@ -125,9 +124,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIGestureRecognizerDelegate,
     YSTeacherResponderDelegate,
     YSTeacherTimerViewDelegate,
-    YSPollingViewDelegate,
+    YSPollingViewDelegate
 //    YSBottomToolBarDelegate,
-    YSSpreadBottomToolBarDelegate
 >
 {
     /// 最大上台数
@@ -200,8 +198,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 ///标识布局变化的值
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;
-/// 底部工具栏
-@property (nonatomic, strong) YSSpreadBottomToolBar *spreadBottomToolBar;
 
 /// 记录顶部工具栏上次选中的按钮
 //@property (nonatomic, strong) UIButton *topSelectBtn;
@@ -477,9 +473,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 设置左侧工具栏
     [self setupBrushToolView];
     
-    // 底部工具栏
-    [self setupBottomToolBarView];
-    
     // 右侧聊天视图
     [self.view addSubview:self.rightChatView];
     
@@ -744,33 +737,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.roomID = [YSLiveManager shareInstance].room_Id;
     self.lessonTime = @"00:00:00";
 }
-
-/// 底部工具栏
-- (void)setupBottomToolBarView
-{
-//    UIView *bottomBarBackgroudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BOTTOMTOOLBAR_WIDTH, BOTTOMTOOLBAR_HEIGHT)];
-//    bottomBarBackgroudView.backgroundColor =  YSSkinDefineColor(@"PopViewBgColor");
-//    [self.view addSubview:bottomBarBackgroudView];
-//    self.bottomBarBackgroudView = bottomBarBackgroudView;
-//    self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
-//    self.bottomBarBackgroudView.bm_bottom = self.view.bm_bottom - BOTTOMTOOLBAR_bottomGap;
-//    self.bottomBarBackgroudView.layer.cornerRadius = BOTTOMTOOLBAR_HEIGHT/2.0f;
-//    [self.bottomBarBackgroudView.layer masksToBounds];
-    
-//    self.bottomToolBar = [[YSBottomToolBar alloc] init];
-//    self.bottomToolBar.delegate = self;
-//    self.bottomToolBar.frame = self.bottomBarBackgroudView.bounds;
-//    [self.bottomBarBackgroudView addSubview:self.bottomToolBar];
-//    self.bottomBarBackgroudView.hidden = YES;
-    
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*2.0f, BMUI_SCREEN_HEIGHT - BOTTOMTOOLBAR_bottomGap - 50)];
-    spreadBottomToolBar.delegate = self;
-    spreadBottomToolBar.isBeginClass = self.liveManager.isBeginClass;
-    spreadBottomToolBar.isPollingEnable = NO;
-    self.spreadBottomToolBar = spreadBottomToolBar;
-    [self.view addSubview:spreadBottomToolBar];
-}
-
 
 /// 视频布局全屏按钮的创建
 - (void)setupVideoFullBtn
