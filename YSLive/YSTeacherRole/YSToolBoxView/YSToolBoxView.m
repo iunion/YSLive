@@ -16,16 +16,17 @@ static const CGFloat kToolBoxHeight_iPhone = 146.0f;
 static const CGFloat kToolBoxHeight_iPad = 208.0f;
 #define ToolBoxHeight       ([UIDevice bm_isiPad] ? kToolBoxHeight_iPad : kToolBoxHeight_iPhone)
 
-
-static const CGFloat kToolBoxBtnWidth_iPhone = 44.0f;
-static const CGFloat kToolBoxBtnWidth_iPad = 52.0f;
-#define toolBoxBtnWidth     ([UIDevice bm_isiPad] ? kToolBoxBtnWidth_iPad : kToolBoxBtnWidth_iPhone)
+#define toolBoxBtnWidth     YSToolBar_BtnWidth
 
 
 #define toolBoxBtnGap       (6.0f)
 @interface YSToolBoxView()
 /// 底部view
 @property (nonatomic, strong) UIView *bacView;
+
+/// 标题
+@property (nonatomic, strong) UILabel *titleL;
+
 /// 答题器
 @property (nonatomic, strong) BMImageTitleButtonView *answerBtn;
 /// 上传图片
@@ -83,6 +84,22 @@ static const CGFloat kToolBoxBtnWidth_iPad = 52.0f;
     self.bacView.layer.masksToBounds = YES;
     [self showWithView:self.bacView inView:inView];
     
+    UILabel *titleL = [[UILabel alloc] init];
+    self.titleL = titleL;
+    titleL.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
+    titleL.textAlignment = NSTextAlignmentCenter;
+    titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    titleL.text = YSLocalized(@"Title.ToolBox");
+    [self.bacView addSubview:titleL];
+    titleL.frame = CGRectMake(0, 0, ToolBoxWidth, 40);
+    
+    
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+    lineView.frame = CGRectMake(0, CGRectGetMaxY(titleL.frame), ToolBoxWidth, 1);
+    [self.bacView addSubview:lineView];
+    
+    
     /// 答题器
     BMImageTitleButtonView *answerBtn = [self creatButtonWithNormalTitle:@"Title.AllNoAudio" selectedTitle:@"Title.AllAudio" pathName:@"allNoAudio_bottombar"];
     answerBtn.tag = SCToolBoxTypeAnswer;
@@ -121,14 +138,14 @@ static const CGFloat kToolBoxBtnWidth_iPad = 52.0f;
     }
     
     CGFloat tempWidthGap = (ToolBoxWidth - toolBoxBtnWidth * 3.0f) / 6.0f;
-    CGFloat tempHeightGap = (ToolBoxHeight - toolBoxBtnWidth * 2.0f) / 3.0f;
+    CGFloat tempHeightGap = (ToolBoxHeight - toolBoxBtnWidth * 2.0f - 40) / 3.0f;
     for (NSUInteger index=0; index<self.btnArray.count; index++)
     {
         NSInteger column = index % 3;
         NSInteger row = index / 3;
         BMImageTitleButtonView *btn = self.btnArray[index];
-        [self addSubview:btn];
-        CGRect frame = CGRectMake(tempWidthGap+(toolBoxBtnWidth+tempWidthGap*2)*index, tempHeightGap, toolBoxBtnWidth, toolBoxBtnWidth);
+        [self.bacView addSubview:btn];
+        CGRect frame = CGRectMake(tempWidthGap+(toolBoxBtnWidth+tempWidthGap*2)*column, 40 + tempHeightGap + (toolBoxBtnWidth+tempWidthGap)*row, toolBoxBtnWidth, toolBoxBtnWidth);
         btn.frame = frame;
     }
     
