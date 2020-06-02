@@ -19,13 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 聊天tableView
 @property (nonatomic, strong) UITableView *SCChatTableView;
 
-///全体禁言的按钮
-@property(nonatomic,strong)UIButton * allDisableBtn;
+///是否禁言
+@property(nonatomic,assign)BOOL allDisabled;
 
-///弹起输入框的按钮
-@property(nonatomic,strong)UIButton * textBtn;
+
 ///全体禁言
-@property (nonatomic, strong) UILabel *allDisabledChat;
+//@property (nonatomic, strong) UILabel *allDisabledChat;
 ///聊天列表数组(全部的)
 @property (nonatomic, strong) NSMutableArray<YSChatMessageModel *>  *SCMessageList;
 ///点击底部输入按钮，弹起键盘

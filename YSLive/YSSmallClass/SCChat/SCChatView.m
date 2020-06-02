@@ -24,6 +24,12 @@ UITextFieldDelegate
 ///有投影的底部View
 @property(nonatomic,strong)UIImageView *bubbleView;
 
+///全体禁言的按钮
+@property(nonatomic,strong)UIButton * allDisableBtn;
+
+///弹起输入框的按钮
+@property(nonatomic,strong)UIButton * textBtn;
+
 @end
 
 @implementation SCChatView
@@ -46,24 +52,21 @@ UITextFieldDelegate
         
         self.SCMessageList = [NSMutableArray array];
         
-        if (YSCurrentUser.role == YSUserType_Teacher)
-        {
-            self.allDisabledChat.hidden = YES;
-            self.textBtn.hidden = NO;
-        }
-        else
-        {
+//        if (YSCurrentUser.role == YSUserType_Teacher)
+//        {
+//            self.allDisableBtn.userInteractionEnabled = NO;
+//        }
+//        else
+//        {
             if ([YSLiveManager shareInstance].isBeginClass)
             {
-                self.allDisabledChat.hidden = ![YSLiveManager shareInstance].isEveryoneBanChat;
-                self.textBtn.hidden = [YSLiveManager shareInstance].isEveryoneBanChat;;
+                self.allDisabled = [YSLiveManager shareInstance].isEveryoneBanChat;
             }
             else
             {
-                self.allDisabledChat.hidden = ![YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
-                self.textBtn.hidden = [YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
+                self.allDisabled = [YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
             }
-        }
+//        }
     }
     return self;
 }
@@ -77,9 +80,7 @@ UITextFieldDelegate
     self.bubbleView = [[UIImageView alloc]initWithFrame:self.bounds];
     self.bubbleView.alpha = 0.9;
     self.bubbleView.image = [UIImage imageNamed:@"SCChatBubble"];
-//    self.bubbleView.tintColor = YSSkinDefineColor(@"PopViewBgColor");
     self.bubbleView.userInteractionEnabled = YES;
-//    [self addSubview:self.bubbleView];
     
     self.bubbleView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     //剪切边界 如果视图上的子视图layer超出视图layer部分就截取掉 如果添加阴影这个属性必须是NO 不然会把阴影切掉
@@ -117,7 +118,11 @@ UITextFieldDelegate
     self.SCChatTableView.frame = CGRectMake(0, lineView.bm_bottom, self.bm_width, self.bm_height - lineView.bm_bottom - BottomH);
     [self addSubview:self.SCChatTableView];
     
-    
+    if (YSCurrentUser.role == YSUserType_Patrol)
+    {
+        self.SCChatTableView.bm_height = self.bm_height - lineView.bm_bottom;
+        return;
+    }
     UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height - BottomH, self.bm_width, BottomH)];
     bottomView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     [self addSubview:bottomView];
@@ -147,6 +152,7 @@ UITextFieldDelegate
     [bottomView addSubview:allDisableBtn];
     self.allDisableBtn = allDisableBtn;
     
+    
     //弹起输入框的按钮
     UIButton * textBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtn.bm_right + 15, 10, self.bm_width - allDisableBtn.bm_right - 15 - 15, allDisableBtnWH)];
     textBtn.titleLabel.font = UI_FONT_14;
@@ -165,19 +171,6 @@ UITextFieldDelegate
     textBtn.layer.shadowOffset = CGSizeMake(0,2);
     textBtn.layer.shadowOpacity = 1;
     textBtn.layer.shadowRadius = 4;
-    
-
-    
-    //群体禁言
-//    self.allDisabledChat = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.bm_width-20, 35)];
-//    self.allDisabledChat.backgroundColor = UIColor.whiteColor;
-//    self.allDisabledChat.textAlignment = NSTextAlignmentCenter;
-//    [self.allDisabledChat setFont:UI_FONT_13];
-//    self.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-//    self.allDisabledChat.textColor = [UIColor bm_colorWithHexString:@"#738395"];
-//    self.allDisabledChat.layer.cornerRadius = self.allDisabledChat.bm_height/2;
-//    self.allDisabledChat.layer.masksToBounds = YES;
-//    [bottomView addSubview:self.allDisabledChat];
 }
 
 - (void)allDisableButtonClick:(UIButton *)sender
@@ -185,6 +178,13 @@ UITextFieldDelegate
     
 }
 
+- (void)setAllDisabled:(BOOL)allDisabled
+{
+    _allDisabled = allDisabled;
+   
+    self.allDisableBtn.selected = allDisabled;
+    self.textBtn.userInteractionEnabled = !allDisabled;
+}
 
 - (void)textFieldDidChange
 {
@@ -213,7 +213,6 @@ UITextFieldDelegate
     {
         SCTipsMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCTipsMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
-//        cell.contentView.bm_width = self.bm_width;
         return cell;
     }
     else if (model.chatMessageType == YSChatMessageTypeText)
@@ -224,14 +223,12 @@ UITextFieldDelegate
         cell.translationBtnClick = ^{
             [weakSelf getBaiduTranslateWithIndexPath:indexPath];
         };
-//        cell.contentView.bm_width = self.bm_width;
         return cell;
     }
     else if (model.chatMessageType == YSChatMessageTypeOnlyImage)
     {
         SCPictureMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCPictureMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
-//        cell.contentView.bm_width = self.bm_width;
         return cell;
     }
     
