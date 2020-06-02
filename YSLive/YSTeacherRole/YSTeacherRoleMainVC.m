@@ -200,15 +200,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 ///标识布局变化的值
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;
-
-/// 底部工具条背景
-@property (nonatomic, strong) UIView *bottomBarBackgroudView;
 /// 底部工具栏
-//@property (nonatomic, strong) YSBottomToolBar *bottomToolBar;
 @property (nonatomic, strong) YSSpreadBottomToolBar *spreadBottomToolBar;
 
 /// 记录顶部工具栏上次选中的按钮
-@property (nonatomic, strong) UIButton *topSelectBtn;
+//@property (nonatomic, strong) UIButton *topSelectBtn;
 /// 顶部按钮popoverView
 @property(nonatomic, strong) SCTTopPopverViewController *topbarPopoverView;
 /// 花名册 课件库
@@ -845,7 +841,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         labBottom = 20;
     }
     
-    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.bottomBarBackgroudView.bm_originY - labBottom - 18, raiseHandWH, 18)];
+    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     handNumLab.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
@@ -985,7 +981,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
         [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
         [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
-        self.topSelectBtn.selected = NO;
 
         classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
         
@@ -2018,7 +2013,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomConnectionLost];
     self.spreadBottomToolBar.userEnable = NO;
-    [self.view bringSubviewToFront:self.bottomBarBackgroudView];
+    [self.view bringSubviewToFront:self.spreadBottomToolBar];
 //    [self removeAllVideoView];
 //    
 //    if (self.isWhitebordFullScreen)
@@ -2838,7 +2833,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
-    self.topSelectBtn.selected = NO;
+//    self.topSelectBtn.selected = NO;
     
     [self.imagePickerController cancelButtonClick];
 
@@ -2926,7 +2921,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)freshTeacherPersonListDataNeedFesh:(BOOL)fresh
 {
-    if (fresh || (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList && self.topSelectBtn.selected))
+    if (fresh)
     {
         //花名册  有用户进入房间调用 上下课调用
         if (self.liveManager.isBigRoom)
@@ -3248,7 +3243,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -刷新课件库数据
 - (void)freshTeacherCoursewareListData
 {
-    if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected )
+//    if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected )
     {
         if (!self.liveManager.roomConfig.isMultiCourseware)
         {
@@ -3910,173 +3905,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 #pragma mark 底部Bar -- SCTeacherTopBarDelegate
-- (void)sc_bottomToolBarProxyWithBtn:(UIButton *)btn
-{
-    
-    if (self.topSelectBtn != btn)
-    {
-        if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout || self.topSelectBtn.tag == SCTeacherTopBarTypeAllNoAudio || self.topSelectBtn.tag == SCTeacherTopBarTypePolling || self.topSelectBtn.tag == SCTeacherTopBarTypeChat))
-        {
-            self.topSelectBtn.selected = NO;
-        }
-        
-        if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware || self.topSelectBtn.tag ==
-            SCTeacherTopBarTypePersonList)
-        {
-            [self freshListViewWithSelect:NO];
-            
-        }
-
-    }
-    
-    switch (btn.tag)
-    {
-        case SCTeacherTopBarTypePersonList:
-        {
-//            [self.bottomToolBar setMessageOpen:NO];
-            //花名册  有用户进入房间调用 上下课调用
-            [self freshListViewWithSelect:!btn.selected];
-            
-            [self freshTeacherPersonListDataNeedFesh:YES];
-            [self.teacherListView bm_bringToFront];
-        }
-            break;
-            
-        case SCTeacherTopBarTypeCourseware:
-        {
-//            [self.bottomToolBar setMessageOpen:NO];
-            [self freshListViewWithSelect:!btn.selected];
-            //课件库
-            if (!self.liveManager.roomConfig.isMultiCourseware)
-            {
-                self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
-                if (self.liveManager.playMediaModel)
-                {
-                    self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
-                }
-                else
-                {
-                    self.currentMediaState = YSWhiteBordMediaState_Stop;
-                }
-            }
-            [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
-            
-            [self.teacherListView bm_bringToFront];
-        }
-            break;
-        case SCTeacherTopBarTypeToolBox:
-        {
-            //工具箱
-            [self popoverToolSenderWithType:SCTeacherTopBarTypeToolBox sender:btn];
-        }
-            break;
-        case SCTeacherTopBarTypeSwitchLayout:
-        {
-            //切换布局
-            [self changeLayoutWithMode:!btn.selected];
-        }
-            break;
-        case SCTeacherTopBarTypePolling:
-        {
-            //轮播
-            if (_isPolling)
-            {
-
-                [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
-            }
-            else
-            {
-                self.teacherPollingView = [[YSPollingView alloc] init];
-                [self.teacherPollingView showTeacherPollingViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-                self.teacherPollingView.delegate = self;
-            }
-        }
-            break;
-        case SCTeacherTopBarTypeAllNoAudio:
-        {
-            if (btn.selected)
-            {
-                // 全体静音
-                [self.liveManager sendSignalingTeacherToLiveAllNoAudioCompletion:nil];
-            }
-            else
-            {
-                // 全体发言
-                [self.liveManager deleteSignalingTeacherToLiveAllNoAudioCompletion:nil];
-            }
-        }
-            break;
-        case SCTeacherTopBarTypeCamera:
-        {
-            //摄像头
-            [self.liveManager.roomManager selectCameraPosition:btn.selected];
-        }
-            break;
-        case SCTeacherTopBarTypeChat:
-        {
-            //消息
-            CGRect tempRect = self.rightChatView.frame;
-            if (!btn.selected)
-            {//弹出
-                tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
-                
-                //收回 课件表 以及 花名册
-                [self freshListViewWithSelect:NO];
-                if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-                {
-                    self.topSelectBtn.selected = NO;
-                }
-            }
-            else
-            {//收回
-                tempRect.origin.x = BMUI_SCREEN_WIDTH;
-            }
-            [UIView animateWithDuration:0.25 animations:^{
-                self.rightChatView.frame = tempRect;
-            }];
-            [self arrangeAllViewInVCView];
-        }
-            break;
-        case SCTeacherTopBarTypeExit:
-        {
-            //退出
-            [self backAction:nil];
-        }
-            break;
-        case SCTeacherTopBarTypeOnOff:
-        {
-            //展开收起
-            if (btn.selected)
-            {
-                self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_WIDTH;
-
-//                self.bottomToolBar.open = YES;
-            }
-            else
-            {
-                self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_HEIGHT;
-//                self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
-//                self.bottomToolBar.open = NO;
-            }
-
-                self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
-                
-        }
-            break;
-        default:
-            break;
-    }
-    
-    if ( btn.tag != SCTeacherTopBarTypeExit)
-    {
-        btn.selected = !btn.selected;
-    }
-//    if (btn.tag != SCTeacherTopBarTypeOnOff)
-//    {
-        self.topSelectBtn = btn;
-//    }
-    
-}
 
 - (void)bottomToolBarSpreadOut:(BOOL)spreadOut
 {
@@ -4206,24 +4034,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 顶部工具栏
 - (void)sc_TeacherTopBarProxyWithBtn:(UIButton *)btn
 {
-    BMLog(@"%@",@(self.topSelectBtn.selected));
-    
-    if (self.topSelectBtn == btn)
-    {
-        
-    }
-    else
-    {
-        if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout))
-        {
-            self.topSelectBtn.selected = NO;
-        }
-        
-        if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware || self.topSelectBtn.tag == SCTeacherTopBarTypePersonList)
-        {
-            [self freshListViewWithSelect:NO];
-        }
-    }
+//    BMLog(@"%@",@(self.topSelectBtn.selected));
+//
+//    if (self.topSelectBtn == btn)
+//    {
+//
+//    }
+//    else
+//    {
+//        if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout))
+//        {
+//            self.topSelectBtn.selected = NO;
+//        }
+//
+//        if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware || self.topSelectBtn.tag == SCTeacherTopBarTypePersonList)
+//        {
+//            [self freshListViewWithSelect:NO];
+//        }
+//    }
     
     if (btn.tag == SCTeacherTopBarTypeCamera)
     {
@@ -4283,7 +4111,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         btn.selected = !btn.selected;
     }
-    self.topSelectBtn = btn;
+//    self.topSelectBtn = btn;
 }
 
 // 是否弹出课件库 以及 花名册  select  yes--弹出  no--收回
@@ -4458,10 +4286,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark - UIPopoverPresentationControllerDelegate
 - (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
 {
-    if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout))
-    {
-        self.topSelectBtn.selected = NO;
-    }
+//    if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout))
+//    {
+//        self.topSelectBtn.selected = NO;
+//    }
     return YES;
 }
 
@@ -4475,7 +4303,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (sender.tag == 0)
     {
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-            self.topSelectBtn.selected = NO;
+//            self.topSelectBtn.selected = NO;
         }];
         
         [self.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
@@ -4506,7 +4334,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //计时器
         
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-            self.topSelectBtn.selected = NO;
+//            self.topSelectBtn.selected = NO;
         }];
         [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
         
@@ -4515,7 +4343,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         //抢答器
         [self.topbarPopoverView dismissViewControllerAnimated:YES completion:^{
-            self.topSelectBtn.selected = NO;
+//            self.topSelectBtn.selected = NO;
         }];
 
         self.responderView = [[YSTeacherResponder alloc] init];
@@ -6324,7 +6152,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
-    self.topSelectBtn.selected = YES;
+//    self.topSelectBtn.selected = YES;
 
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];
@@ -6733,7 +6561,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType{
     
     [self.topbarPopoverView dismissViewControllerAnimated:NO completion:nil];
-    self.topSelectBtn.selected = NO;
+//    self.topSelectBtn.selected = NO;
 
     BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
