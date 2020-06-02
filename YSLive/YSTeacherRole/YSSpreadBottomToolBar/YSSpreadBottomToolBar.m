@@ -283,17 +283,44 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
         return;
     }
     
+   
     
     
     
     
     
-    
-    if (self.delegate && [self.delegate performSelector:@selector(bottomToolBarClickAtIndex:)])
+    if (self.delegate && [self.delegate performSelector:@selector(bottomToolBarClickAtIndex:select:)])
     {
-        [self.delegate bottomToolBarClickAtIndex:btn.tag];
+        [self.delegate bottomToolBarClickAtIndex:btn.tag select:btn.selected];
     }
 }
 
+- (void)hideListView
+{
+    self.personListBtn.selected = NO;
+    self.coursewareBtn.selected = NO;
+}
+/// 隐藏消息界面
+- (void)hideMessageView
+{
+    self.chatBtn.selected = NO;
+}
+
+- (void)setIsNewMessage:(BOOL)isNewMessage
+{
+    if (isNewMessage)
+    {
+//        self.chatBtn.badgeStyle = BMBadgeStyleRedDot;
+        self.chatBtn.badgeRadius = 2.0f;
+        self.chatBtn.badgeCenterOffset = CGPointMake(-12, 9);
+        self.chatBtn.badgeBorderColor = [UIColor redColor];
+        [self.chatBtn showRedDotBadge];
+        
+    }
+    else
+    {
+        [self.chatBtn clearBadge];
+    }
+}
 
 @end

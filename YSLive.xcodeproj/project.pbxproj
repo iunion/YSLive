@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045CF51123C828B6008F474E /* YSMeetingResources.bundle */; };
+		045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
+		045F76092484E00300A34F76 /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
 		0463845F237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */; };
 		046384CA237FA85D00DE7236 /* SCPictureMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384C9237FA85D00DE7236 /* SCPictureMessageCell.m */; };
 		046384CE237FC1AE00DE7236 /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */; };
@@ -758,6 +760,10 @@
 
 /* Begin PBXFileReference section */
 		045CF51123C828B6008F474E /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
+		045F76042484DD2800A34F76 /* YSSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSetViewController.h; sourceTree = "<group>"; };
+		045F76052484DD2800A34F76 /* YSSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSetViewController.m; sourceTree = "<group>"; };
+		045F76072484E00300A34F76 /* YSSetTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSetTableViewCell.h; sourceTree = "<group>"; };
+		045F76082484E00300A34F76 /* YSSetTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSetTableViewCell.m; sourceTree = "<group>"; };
 		0463845D237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+SCAlertAutorotate.h"; sourceTree = "<group>"; };
 		0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+SCAlertAutorotate.m"; sourceTree = "<group>"; };
 		046384C8237FA85D00DE7236 /* SCPictureMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCPictureMessageCell.h; sourceTree = "<group>"; };
@@ -1645,6 +1651,8 @@
 				260A1A7D23507CB300288B01 /* Views */,
 				260A1A7C23507CB300288B01 /* YSLoginVC.h */,
 				260A1A8023507CB300288B01 /* YSLoginVC.m */,
+				045F76042484DD2800A34F76 /* YSSetViewController.h */,
+				045F76052484DD2800A34F76 /* YSSetViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1654,6 +1662,8 @@
 			children = (
 				260A1A7F23507CB300288B01 /* YSInputView.h */,
 				260A1A7E23507CB300288B01 /* YSInputView.m */,
+				045F76072484E00300A34F76 /* YSSetTableViewCell.h */,
+				045F76082484E00300A34F76 /* YSSetTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3595,6 +3605,7 @@
 				8713356C237270F6006534A4 /* YSBarrageDescriptor.m in Sources */,
 				872D046523B7362300DAC321 /* FLEXTableViewSection.m in Sources */,
 				3471E2A224039A0100A3BBB4 /* FSCalendarConstants.m in Sources */,
+				045F76092484E00300A34F76 /* YSSetTableViewCell.m in Sources */,
 				26FCAD7623C477D300FC90EF /* YSMediaSlider.m in Sources */,
 				8713356D237270F6006534A4 /* BMTestGPSMocker.m in Sources */,
 				872D047723B7362300DAC321 /* FLEXTableView.m in Sources */,
@@ -3697,6 +3708,7 @@
 				872D04B623B7362300DAC321 /* FLEXLibrariesTableViewController.m in Sources */,
 				871335AD237270F6006534A4 /* YSApiRequest.m in Sources */,
 				3471E29C24039A0100A3BBB4 /* FSCalendarWeekdayView.m in Sources */,
+				045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */,
 				2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */,
 				04A479F2239E276100680D84 /* SCDrawBoardView.m in Sources */,
 				3471E29224039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,

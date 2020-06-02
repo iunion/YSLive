@@ -57,6 +57,8 @@
 "Login.RoomIdPlaceHolder"    = "Room ID";
 "Login.nickName"  = "Name";
 "Login.Role"      = "Role";
+"Login.Seting"      = "Set up";
+
 
 // State
 "State.NoNetwork" = "No network connection";
@@ -282,6 +284,7 @@
 "Label.Authorized" = "Operation";
 "Label.CancelAuthorized" = "No Operation";
 "Label.RaisingHands" = "Raising hands";
+"Label.RaisingHandsTip" = "hold on for rise hand";
 "Label.Ban" = "Ban";
 "Label.Remove" = "Remove";
 

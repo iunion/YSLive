@@ -2566,13 +2566,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenTheKeyBoard)];
         [self.rightChatView addGestureRecognizer:tap];
-        
-        if (YSCurrentUser.role == YSUserType_Patrol)
-        {
-            self.rightChatView.allDisabledChat.hidden = NO;
-            self.rightChatView.textBtn.hidden = YES;
-            self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.CannotInput");
-        }
     }
     return _rightChatView;
 }
@@ -3319,7 +3312,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 {
     if (!_emotionListView)
     {
-        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, self.contentHeight, self.contentWidth, SCChateEmotionHeight)];
+        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, self.contentWidth, SCChateEmotionHeight)];
         
         BMWeakSelf
         //把表情添加到输入框
@@ -3854,11 +3847,10 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         {
             BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
                         
-            self.rightChatView.allDisabledChat.hidden = !disablechat;
-            self.rightChatView.textBtn.hidden = disablechat;
+//            self.rightChatView.allDisabledChat.hidden = !disablechat;
+            self.rightChatView.allDisabled = disablechat;
             if (disablechat)
             {
-                self.rightChatView.allDisabledChat.text = YSLocalized(@"Prompt.BanChat");
                 [self hiddenTheKeyBoard];
             }
             
@@ -4147,18 +4139,10 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
-    if (YSCurrentUser.role != YSUserType_Patrol)
-    {
-        self.rightChatView.allDisabledChat.hidden = ![YSLiveManager shareInstance].isEveryoneBanChat;
-        self.rightChatView.textBtn.hidden = [YSLiveManager shareInstance].isEveryoneBanChat;
-    }
-    else
-    {
-        self.rightChatView.allDisabledChat.hidden = NO;
-        self.rightChatView.textBtn.hidden = YES;
-    }
-    
+    self.rightChatView.allDisabled = NO;
+
     self.teacherPlaceLab.hidden = YES;
+    
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
     if (self.liveManager.localUser.role == YSUserType_Patrol)
     {
