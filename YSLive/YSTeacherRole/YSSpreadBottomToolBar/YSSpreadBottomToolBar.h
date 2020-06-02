@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSSpreadBottomToolBarDelegate <NSObject>
 
+@optional
+
 /// 展开关闭
 - (void)bottomToolBarSpreadOut:(BOOL)spreadOut;
 /// 功能点击

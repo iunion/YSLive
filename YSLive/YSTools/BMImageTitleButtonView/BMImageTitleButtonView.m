@@ -48,11 +48,13 @@
     
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
+    view.userInteractionEnabled = NO;
     [self addSubview:view];
     self.contentView = view;
 
     UILabel *textLabel = [[UILabel alloc] init];
     textLabel.backgroundColor = [UIColor clearColor];
+    textLabel.userInteractionEnabled = NO;
     textLabel.hidden = YES;
     textLabel.textAlignment = self.textAlignment;
     textLabel.adjustsFontSizeToFitWidth = self.textAdjustsFontSizeToFitWidth;
@@ -63,7 +65,7 @@
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.hidden = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.userInteractionEnabled = YES;
+    imageView.userInteractionEnabled = NO;
     [view addSubview:imageView];
     self.imageView = imageView;    
 }

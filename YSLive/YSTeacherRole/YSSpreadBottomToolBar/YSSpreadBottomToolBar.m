@@ -9,8 +9,8 @@
 #import "YSSpreadBottomToolBar.h"
 #import "BMImageTitleButtonView.h"
 
-static const CGFloat kBarBtnWidth_iPhone = 40.0f;
-static const CGFloat kBarBtnWidth_iPad = 46.0f;
+static const CGFloat kBarBtnWidth_iPhone = 44.0f;
+static const CGFloat kBarBtnWidth_iPad = 52.0f;
 
 #define BarBtnWidth     ([UIDevice bm_isiPad] ? kBarBtnWidth_iPad : kBarBtnWidth_iPhone)
 #define BarBtnGap       (4.0f)
@@ -72,7 +72,7 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
 - (void)setupView
 {
     /// 收起展开
-    self.spreadBtn = [self creatButtonWithNormalTitle:@"" selectedTitle:@"" pathName:@"onOff_bottombar"];
+    self.spreadBtn = [self creatButtonWithNormalTitle:nil selectedTitle:nil pathName:@"onOff_bottombar"];
     
     [self addSubview:self.spreadBtn];
     self.spreadBtn.tag = SCTeacherTopBarTypeOnOff;
@@ -193,30 +193,6 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     UIImage *selectedImage = YSSkinElementImage(pathName, @"iconSel");
     UIImage *disabledImage = [normalImage bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
 
-//    [toolBtn setImage:normalImage forState:UIControlStateNormal];
-//    [toolBtn setImage:selectedImage forState:UIControlStateSelected];
-//    [toolBtn setImage:disabledImage forState:UIControlStateDisabled];
-    
-//    if ([norTitle bm_isNotEmpty])
-//    {
-//        [toolBtn setTitle:YSLocalized(norTitle) forState:UIControlStateNormal];
-//    }
-//    if ([selTitle bm_isNotEmpty])
-//    {
-//        [toolBtn setTitle:YSLocalized(selTitle) forState:UIControlStateSelected];
-//    }
-
-//    [toolBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-//    [toolBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
-//
-//    toolBtn.titleLabel.font = UI_FONT_10;
-//    toolBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-//
-//    toolBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-//    toolBtn.titleLabel.minimumScaleFactor = 0.5f;
-    
-//    [self layoutButton:toolBtn withImageTitleSpace:2.0f];
-
     BMImageTitleButtonView *toolBtn = [[BMImageTitleButtonView alloc] init];
     toolBtn.type = BMImageTitleButtonView_ImageTop;
     toolBtn.textFont = UI_FONT_10;
@@ -224,10 +200,15 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     toolBtn.normalImage = normalImage;
     toolBtn.selectedImage = selectedImage;
     toolBtn.disabledImage = disabledImage;
-    toolBtn.normalText = YSLocalized(norTitle);
-    toolBtn.selectedText = YSLocalized(selTitle);
+    if (norTitle)
+    {
+        toolBtn.normalText = YSLocalized(norTitle);
+    }
+    if (selTitle)
+    {
+        toolBtn.selectedText = YSLocalized(selTitle);
+    }
     
-
     toolBtn.frame = CGRectMake(0, 0, BarBtnWidth, BarBtnWidth);
     
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -275,7 +256,7 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
             }
         }
         
-        if (self.delegate && [self.delegate performSelector:@selector(bottomToolBarSpreadOut:)])
+        if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarSpreadOut:)])
         {
             [self.delegate bottomToolBarSpreadOut:self.spreadOut];
         }
@@ -289,7 +270,7 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     
     
     
-    if (self.delegate && [self.delegate performSelector:@selector(bottomToolBarClickAtIndex:select:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarClickAtIndex:select:)])
     {
         [self.delegate bottomToolBarClickAtIndex:btn.tag select:btn.selected];
     }
