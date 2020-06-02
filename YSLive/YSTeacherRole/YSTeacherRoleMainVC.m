@@ -126,7 +126,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSTeacherResponderDelegate,
     YSTeacherTimerViewDelegate,
     YSPollingViewDelegate,
-    YSBottomToolBarDelegate
+    YSBottomToolBarDelegate,
+    YSSpreadBottomToolBarDelegate
 >
 {
     /// 最大上台数
@@ -767,6 +768,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.bottomBarBackgroudView.hidden = YES;
     
     YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 100, BMUI_SCREEN_HEIGHT- 80)];
+    spreadBottomToolBar.delegate = self;
+    self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
 }
 
@@ -4078,6 +4081,176 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    }
     
 }
+
+
+/// 功能点击
+- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType select:(BOOL)select
+{
+//      if (self.topSelectBtn != btn)
+//        {
+//            if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout || self.topSelectBtn.tag == SCTeacherTopBarTypeAllNoAudio || self.topSelectBtn.tag == SCTeacherTopBarTypePolling || self.topSelectBtn.tag == SCTeacherTopBarTypeChat))
+//            {
+//                self.topSelectBtn.selected = NO;
+//            }
+//
+//            if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware || self.topSelectBtn.tag ==
+//                SCTeacherTopBarTypePersonList)
+//            {
+//                [self freshListViewWithSelect:NO];
+//
+//            }
+//
+//        }
+        
+        switch (teacherTopBarType)
+        {
+            case SCTeacherTopBarTypePersonList:
+            {
+                [self.spreadBottomToolBar setIsNewMessage:YES];
+//                [self.bottomToolBar setMessageOpen:NO];
+                //花名册  有用户进入房间调用 上下课调用
+                [self freshListViewWithSelect:select];
+                [self freshTeacherPersonListDataNeedFesh:YES];
+                [self.teacherListView bm_bringToFront];
+            }
+                break;
+                
+            case SCTeacherTopBarTypeCourseware:
+            {
+//                [self.bottomToolBar setMessageOpen:NO];
+                [self freshListViewWithSelect:select];
+                //课件库
+                if (!self.liveManager.roomConfig.isMultiCourseware)
+                {
+                    self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
+                    if (self.liveManager.playMediaModel)
+                    {
+                        self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
+                    }
+                    else
+                    {
+                        self.currentMediaState = YSWhiteBordMediaState_Stop;
+                    }
+                }
+                [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+                
+                [self.teacherListView bm_bringToFront];
+            }
+                break;
+            case SCTeacherTopBarTypeToolBox:
+            {
+                //工具箱
+//                [self popoverToolSenderWithType:SCTeacherTopBarTypeToolBox sender:btn];
+            }
+                break;
+            case SCTeacherTopBarTypeSwitchLayout:
+            {
+                //切换布局
+                [self changeLayoutWithMode:select];
+            }
+                break;
+            case SCTeacherTopBarTypePolling:
+            {
+                //轮播
+                if (_isPolling)
+                {
+
+                    [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+                }
+                else
+                {
+                    self.teacherPollingView = [[YSPollingView alloc] init];
+                    [self.teacherPollingView showTeacherPollingViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+                    self.teacherPollingView.delegate = self;
+                }
+            }
+                break;
+            case SCTeacherTopBarTypeAllNoAudio:
+            {
+                if (select)
+                {
+                    // 全体静音
+                    [self.liveManager sendSignalingTeacherToLiveAllNoAudioCompletion:nil];
+                }
+                else
+                {
+                    // 全体发言
+                    [self.liveManager deleteSignalingTeacherToLiveAllNoAudioCompletion:nil];
+                }
+            }
+                break;
+            case SCTeacherTopBarTypeCamera:
+            {
+                //摄像头
+                [self.liveManager.roomManager selectCameraPosition:select];
+            }
+                break;
+            case SCTeacherTopBarTypeChat:
+            {
+                //消息
+                CGRect tempRect = self.rightChatView.frame;
+                if (select)
+                {//弹出
+                    tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
+                    
+                    //收回 课件表 以及 花名册
+                    [self freshListViewWithSelect:NO];
+//                    if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
+//                    {
+//                        self.topSelectBtn.selected = NO;
+//                    }
+//                    [self.spreadBottomToolBar hideListView];
+                }
+                else
+                {//收回
+                    tempRect.origin.x = BMUI_SCREEN_WIDTH;
+                }
+                [UIView animateWithDuration:0.25 animations:^{
+                    self.rightChatView.frame = tempRect;
+                }];
+                [self arrangeAllViewInVCView];
+            }
+                break;
+            case SCTeacherTopBarTypeExit:
+            {
+                //退出
+                [self backAction:nil];
+            }
+                break;
+//            case SCTeacherTopBarTypeOnOff:
+//            {
+//                //展开收起
+//                if (btn.selected)
+//                {
+//                    self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_WIDTH;
+//
+//                    self.bottomToolBar.open = YES;
+//                }
+//                else
+//                {
+//                    self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_HEIGHT;
+//    //                self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
+//                    self.bottomToolBar.open = NO;
+//                }
+//
+//                    self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
+//
+//            }
+//                break;
+            default:
+                break;
+        }
+        
+//        if ( btn.tag != SCTeacherTopBarTypeExit)
+//        {
+//            btn.selected = !btn.selected;
+//        }
+//    //    if (btn.tag != SCTeacherTopBarTypeOnOff)
+//    //    {
+//            self.topSelectBtn = btn;
+    //    }
+}
+
 #pragma mark -
 #pragma mark 顶部Bar -- SCTeacherTopBarDelegate
 
@@ -4173,7 +4346,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         tempRect.origin.x = 0;
         
         //收回聊天
-        self.chatBtn.selected = NO;
+//        self.chatBtn.selected = NO;
+        [self.spreadBottomToolBar hideMessageView];
         CGRect chatViewRect = self.rightChatView.frame;
         chatViewRect.origin.x = BMUI_SCREEN_WIDTH;
         [UIView animateWithDuration:0.25 animations:^{
@@ -4183,6 +4357,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     else
     {//收回
         tempRect.origin.x = BMUI_SCREEN_WIDTH;
+        [self.spreadBottomToolBar hideListView];
     }
     [UIView animateWithDuration:0.25 animations:^{
         self.teacherListView.frame = tempRect;
@@ -6293,10 +6468,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)tapGestureBackListView
 {
     [self freshListViewWithSelect:NO];
-    if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-    {
-        self.topSelectBtn.selected = NO;
-    }
+//    if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
+//    {
+//        self.topSelectBtn.selected = NO;
+//    }
+//    [self.spreadBottomToolBar hideListView];
 }
 
 - (void)leftPageProxyWithPage:(NSInteger)page

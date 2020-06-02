@@ -200,14 +200,7 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     [toolBtn setImage:selectedImage forState:UIControlStateSelected];
     [toolBtn setImage:disabledImage forState:UIControlStateDisabled];
     
-    if ([norTitle bm_isNotEmpty])
-    {
-        [toolBtn setTitle:YSLocalized(norTitle) forState:UIControlStateNormal];
-    }
-    if ([selTitle bm_isNotEmpty])
-    {
-        [toolBtn setTitle:YSLocalized(selTitle) forState:UIControlStateSelected];
-    }
+ 
 
     [toolBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
     [toolBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
@@ -217,9 +210,18 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     
     toolBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
     toolBtn.titleLabel.minimumScaleFactor = 0.5f;
+    if ([norTitle bm_isNotEmpty])
+    {
+        [toolBtn setTitle:YSLocalized(norTitle) forState:UIControlStateNormal];
+        [self layoutButton:toolBtn withImageTitleSpace:2.0f];
+        
+    }
+    if ([selTitle bm_isNotEmpty])
+    {
+        [toolBtn setTitle:YSLocalized(selTitle) forState:UIControlStateSelected];
+        
+    }
     
-    [self layoutButton:toolBtn withImageTitleSpace:2.0f];
-
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     return toolBtn;
@@ -245,10 +247,9 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
 
 - (void)bottomToolBarClicked:(UIButton *)btn
 {
-    
+    btn.selected = !btn.selected;
     if (btn == self.spreadBtn)
     {
-        btn.selected = !btn.selected;
         self.spreadOut = !self.spreadOut;
         
         if (self.spreadOut)
@@ -292,17 +293,44 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
         return;
     }
     
+   
     
     
     
     
     
-    
-    if (self.delegate && [self.delegate performSelector:@selector(bottomToolBarClickAtIndex:)])
+    if (self.delegate && [self.delegate performSelector:@selector(bottomToolBarClickAtIndex:select:)])
     {
-        [self.delegate bottomToolBarClickAtIndex:btn.tag];
+        [self.delegate bottomToolBarClickAtIndex:btn.tag select:btn.selected];
     }
 }
 
+- (void)hideListView
+{
+    self.personListBtn.selected = NO;
+    self.coursewareBtn.selected = NO;
+}
+/// 隐藏消息界面
+- (void)hideMessageView
+{
+    self.chatBtn.selected = NO;
+}
+
+- (void)setIsNewMessage:(BOOL)isNewMessage
+{
+    if (isNewMessage)
+    {
+//        self.chatBtn.badgeStyle = BMBadgeStyleRedDot;
+        self.chatBtn.badgeRadius = 2.0f;
+        self.chatBtn.badgeCenterOffset = CGPointMake(-12, 9);
+        self.chatBtn.badgeBorderColor = [UIColor redColor];
+        [self.chatBtn showRedDotBadge];
+        
+    }
+    else
+    {
+        [self.chatBtn clearBadge];
+    }
+}
 
 @end
