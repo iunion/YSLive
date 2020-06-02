@@ -25,6 +25,7 @@
 #import "UIView+BMCountDownManager.h"
 
 #import "BMImageTextView.h"
+#import "BMImageTitleButtonView.h"
 
 #import "BMScrollPageSegment.h"
 #import "BMScrollPageView.h"
