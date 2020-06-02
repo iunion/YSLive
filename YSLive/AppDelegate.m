@@ -20,7 +20,7 @@
 
 #define Ues_Bugly   1
 
-#if YSCUSTOMIZED_WSKJ
+#ifdef YSCUSTOMIZED_WSKJ
 #undef Ues_Bugly
 #define Ues_Bugly   0
 #endif

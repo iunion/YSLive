@@ -438,7 +438,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     // 默认是自己的标准app，传值是其他公司定制
     //[parameters bm_setString:@"" forKey:@"companydomain"];
-#if YSCUSTOMIZED_WSKJ
+#ifdef YSCUSTOMIZED_WSKJ
     // 网宿科技
     [parameters bm_setString:@"wskj" forKey:@"companydomain"];
 #endif
