@@ -8,13 +8,6 @@
 
 #import "YSSpreadBottomToolBar.h"
 
-static const CGFloat kBarBtnWidth_iPhone = 44.0f;
-static const CGFloat kBarBtnWidth_iPad = 52.0f;
-
-#define BarBtnWidth     ([UIDevice bm_isiPad] ? kBarBtnWidth_iPad : kBarBtnWidth_iPhone)
-#define BarBtnGap       (4.0f)
-#define BarSpreadBtnGap (6.0f)
-
 
 @interface YSSpreadBottomToolBar ()
 
@@ -165,24 +158,28 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     [self.btnArray addObject:self.exitBtn];
     
     CGFloat top = self.topLeftpoint.y;
-    CGFloat left = self.topLeftpoint.x - ((BarBtnWidth+BarBtnGap) * self.btnArray.count + BarSpreadBtnGap-BarBtnGap);
-    CGFloat width = (BarBtnWidth+BarBtnGap) * (self.btnArray.count+1) + BarSpreadBtnGap;
-    CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
+    NSUInteger count = self.btnArray.count;
+    CGFloat height = YSSpreadBottomToolBar_BtnWidth + YSSpreadBottomToolBar_BtnGap*2.0f;
+    CGFloat width = height*0.5 + (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_BtnGap) * count + YSSpreadBottomToolBar_SpreadBtnGap + YSSpreadBottomToolBar_BtnWidth;
+    CGFloat left = self.topLeftpoint.x - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_BtnGap) * count - height*0.5 - YSSpreadBottomToolBar_SpreadBtnGap + YSSpreadBottomToolBar_BtnGap;
 
     self.frame = CGRectMake(left, top, width, height);
-    CGFloat btnLeft = BarBtnGap + 5;
+    
+    CGFloat btnLeft = height*0.5;
     for (NSUInteger index=0; index<self.btnArray.count; index++)
     {
         BMImageTitleButtonView *btn = self.btnArray[index];
         [self addSubview:btn];
-        CGRect frame = CGRectMake(btnLeft+(BarBtnWidth+BarBtnGap)*index, BarBtnGap, BarBtnWidth, BarBtnWidth);
+        CGRect frame = CGRectMake(btnLeft+(YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_BtnGap)*index, YSSpreadBottomToolBar_BtnGap, YSSpreadBottomToolBar_BtnWidth, YSSpreadBottomToolBar_BtnWidth);
         btn.frame = frame;
     }
     
-    self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
-    self.spreadBtn.bm_top = BarBtnGap;
+    self.spreadBtn.bm_left = width-(YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_BtnGap);
+    self.spreadBtn.bm_top = YSSpreadBottomToolBar_BtnGap;
 
-    [self bm_addShadow:0.0f Radius:self.bm_height*0.5f BorderColor:nil ShadowColor:[UIColor grayColor]];
+    //[self bm_addShadow:0.0f Radius:self.bm_height*0.5f BorderColor:nil ShadowColor:[UIColor grayColor]];
+    [self bm_roundedRect:height*0.5f];
+    
     self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
 }
 
@@ -210,7 +207,9 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
         toolBtn.selectedText = YSLocalized(selTitle);
     }
     
-    toolBtn.frame = CGRectMake(0, 0, BarBtnWidth, BarBtnWidth);
+    toolBtn.frame = CGRectMake(0, 0, YSSpreadBottomToolBar_BtnWidth, YSSpreadBottomToolBar_BtnWidth);
+    //toolBtn.backgroundColor = [UIColor redColor];
+    
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     return toolBtn;
@@ -231,16 +230,18 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
         if (self.spreadOut)
         {
             CGFloat top = self.topLeftpoint.y;
-            CGFloat left = self.topLeftpoint.x - ((BarBtnWidth+BarBtnGap) * self.btnArray.count + BarSpreadBtnGap-BarBtnGap);
-            CGFloat width = (BarBtnWidth+BarBtnGap) * (self.btnArray.count+1) + BarSpreadBtnGap;
-            CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
+            NSUInteger count = self.btnArray.count;
+            CGFloat height = YSSpreadBottomToolBar_BtnWidth + YSSpreadBottomToolBar_BtnGap*2.0f;
+            CGFloat width = height*0.5 + (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_BtnGap) * count + YSSpreadBottomToolBar_SpreadBtnGap + YSSpreadBottomToolBar_BtnWidth;
+            CGFloat left = self.topLeftpoint.x - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_BtnGap) * count - height*0.5 - YSSpreadBottomToolBar_SpreadBtnGap + YSSpreadBottomToolBar_BtnGap;
+
             self.spreadBtn.alpha = 0.0f;
 
             [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.frame = CGRectMake(left, top, width, height);
 
-                self.spreadBtn.bm_top = BarBtnGap;
-                self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
+                self.spreadBtn.bm_top = YSSpreadBottomToolBar_BtnGap;
+                self.spreadBtn.bm_left = width-(YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_BtnGap);
                 for (UIButton *btn in self.btnArray)
                 {
                     btn.alpha = 1.0f;
@@ -280,15 +281,15 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
         else
         {
             CGFloat top = self.topLeftpoint.y;
-            CGFloat left = self.topLeftpoint.x;
-            CGFloat width = BarBtnWidth + BarBtnGap*2.0f;
-            CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
+            CGFloat left = self.topLeftpoint.x-YSSpreadBottomToolBar_BtnGap;
+            CGFloat height = YSSpreadBottomToolBar_BtnWidth + YSSpreadBottomToolBar_BtnGap*2.0f;
+            CGFloat width = height;
             self.spreadBtn.alpha = 0.0f;
 
             [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.frame = CGRectMake(left, top, width, height);
-                self.spreadBtn.bm_top = BarBtnGap;
-                self.spreadBtn.bm_left = BarBtnGap;
+                self.spreadBtn.bm_top = YSSpreadBottomToolBar_BtnGap;
+                self.spreadBtn.bm_left = YSSpreadBottomToolBar_BtnGap;
                 
                 for (UIButton *btn in self.btnArray)
                 {

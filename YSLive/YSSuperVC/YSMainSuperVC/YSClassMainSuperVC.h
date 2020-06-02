@@ -8,6 +8,7 @@
 
 #import "YSMainSuperVC.h"
 #import "SCVideoView.h"
+#import "YSSpreadBottomToolBar.h"
 
 /// 顶部状态栏高度
 #define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
@@ -31,6 +32,9 @@ typedef NS_ENUM(NSInteger, SCUploadImageUseType)
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSClassMainSuperVC : YSMainSuperVC
+<
+    YSSpreadBottomToolBarDelegate
+>
 
 /// 所有内容的背景
 @property (nonatomic, strong) UIView *contentBackgroud;
@@ -46,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString *roomID;
 /// 上课时间
 @property(nonatomic, copy) NSString *lessonTime;
+
+/// 底部工具栏
+@property (nonatomic, strong, readonly) YSSpreadBottomToolBar *spreadBottomToolBar;
 
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#define YSSpreadBottomToolBar_BtnWidth          YSToolBar_BtnWidth
+#define YSSpreadBottomToolBar_BtnGap            (4.0f)
+#define YSSpreadBottomToolBar_SpreadBtnGap      (6.0f)
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSSpreadBottomToolBarDelegate <NSObject>

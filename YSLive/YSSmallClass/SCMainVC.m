@@ -39,8 +39,6 @@
 
 #import "PanGestureControl.h"
 
-#import "YSSpreadBottomToolBar.h"
-
 #define USE_FullTeacher             1
 
 #define SCLessonTimeCountDownKey     @"SCLessonTimeCountDownKey"
@@ -121,8 +119,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     UIPopoverPresentationControllerDelegate,
     YSControlPopoverViewDelegate,
     SCVideoViewDelegate,
-    SCTeacherListViewDelegate,
-    YSSpreadBottomToolBarDelegate
+    SCTeacherListViewDelegate
 >
 {
     /// 最大上台数
@@ -178,9 +175,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 
 /// 奖杯数请求
 @property (nonatomic, strong) NSURLSessionDataTask *giftCountTask;
-
-/// 底部工具栏
-@property (nonatomic, strong) YSSpreadBottomToolBar *spreadBottomToolBar;
 
 /// 上课时间的定时器
 @property (nonatomic, strong) dispatch_source_t topBarTimer;
@@ -500,10 +494,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
     
-    // 底部工具栏
-    [self setupBottomToolBarView];
-    
-    
     // 设置花名册 课件表
     [self setupListView];
     
@@ -749,17 +739,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 
 #pragma mark -
 #pragma mark setupUI
-
-/// 底部工具栏
-- (void)setupBottomToolBarView
-{
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 60, BMUI_SCREEN_HEIGHT - BOTTOMTOOLBAR_bottomGap - 50)];
-    spreadBottomToolBar.delegate = self;
-    spreadBottomToolBar.isBeginClass = self.liveManager.isBeginClass;
-    spreadBottomToolBar.isPollingEnable = NO;
-    self.spreadBottomToolBar = spreadBottomToolBar;
-    [self.view addSubview:spreadBottomToolBar];
-}
 
 /// 列表
 - (void)setupListView
