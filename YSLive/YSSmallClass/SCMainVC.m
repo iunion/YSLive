@@ -3312,7 +3312,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 {
     if (!_emotionListView)
     {
-        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, self.contentHeight, self.contentWidth, SCChateEmotionHeight)];
+        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, self.contentWidth, SCChateEmotionHeight)];
         
         BMWeakSelf
         //把表情添加到输入框

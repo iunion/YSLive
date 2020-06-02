@@ -5732,7 +5732,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (!_emotionListView)
     {
-        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_WIDTH, SCChateEmotionHeight)];
+        self.emotionListView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH, SCChateEmotionHeight)];
         
         BMWeakSelf
         //把表情添加到输入框
@@ -5795,8 +5795,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (sender.selected)
     {
         [UIView animateWithDuration:0.25 animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height-SCChateEmotionHeight-SCChatToolHeight;
-            self.emotionListView.bm_originY = self.view.bm_height-SCChateEmotionHeight;
+            self.chatToolView.bm_originY = BMUI_SCREEN_HEIGHT - SCChateEmotionHeight - SCChatToolHeight;
+            self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT - SCChateEmotionHeight;
         }];
     }
     sender.selected = !sender.selected;
@@ -5836,16 +5836,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (firstResponder.tag == PlaceholderPTag)
     {//调用聊天键盘
         [UIView animateWithDuration:duration animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height-keyboardF.size.height-SCChatToolHeight;
-            self.emotionListView.bm_originY = self.view.bm_height;
+            self.chatToolView.bm_originY = BMUI_SCREEN_HEIGHT-keyboardF.size.height-SCChatToolHeight;
+            self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT;
         }];
         self.chatToolView.emojBtn.selected = NO;
     }
     else if (firstResponder.tag == YSWHITEBOARD_TEXTVIEWTAG)
     {//调用白板键盘
         [UIView animateWithDuration:duration animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height;
-            self.emotionListView.bm_originY = self.view.bm_height;
+            self.chatToolView.bm_originY = self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT;
         }];
 
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
@@ -5873,15 +5872,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.chatToolView.emojBtn.selected)
     {
         [UIView animateWithDuration:0.25 animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height-SCChateEmotionHeight-SCChatToolHeight;
-            self.emotionListView.bm_originY = self.view.bm_height-SCChateEmotionHeight;
+            self.chatToolView.bm_originY = BMUI_SCREEN_HEIGHT - SCChateEmotionHeight - SCChatToolHeight;
+            self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT - SCChateEmotionHeight;
         }];
     }
     else
     {
         [UIView animateWithDuration:duration animations:^{
-            self.chatToolView.bm_originY = self.view.bm_height;
-            self.emotionListView.bm_originY = self.view.bm_height;
+            self.chatToolView.bm_originY = self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT;
         }];
     }
     
@@ -5895,8 +5893,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
     [UIView animateWithDuration:0.25 animations:^{
-        self.chatToolView.bm_originY = self.view.bm_height;
-        self.emotionListView.bm_originY = self.view.bm_height;
+        self.chatToolView.bm_originY = self.emotionListView.bm_originY = BMUI_SCREEN_HEIGHT;
     }];
 }
 
