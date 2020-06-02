@@ -825,7 +825,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.videoGridView.backgroundColor = [UIColor clearColor];
         [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         [self.videoFullScreenBtn bm_bringToFront];
-//    } 
+//    }
 }
 
 
