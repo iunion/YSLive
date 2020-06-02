@@ -79,7 +79,7 @@
         return;
     }
 
-    // 全体禁言
+    // 解除全体禁言
     if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])
     {
         [self sendTipMessage:YSLocalized(@"Prompt.BanChatInView") tipType:YSChatMessageTypeTips];
@@ -91,38 +91,7 @@
         }
         return;
     }
-    
-    //是否开启上麦功能
-//    if ([msgName isEqualToString:YSSignalingName_UpPlatForm])
-//    {
-//
-//        [[NSUserDefaults standardUserDefaults] setObject:msgID forKey:@"UpPlatFormId"];
-//
-//        if (self.localUser.publishState > YSUser_PublishState_NONE)
-//        {
-//            return;
-//        }
-//
-//        self.allowEveryoneUpPlatform = YES;
-//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowEveryoneUpPlatformWithIsAllow:)])
-//        {
-//            [self.roomManagerDelegate handleSignalingAllowEveryoneUpPlatformWithIsAllow:YES];
-//        }
-//        return;
-//    }
-    
-    //是否同意上麦申请
-//    if ([msgName isEqualToString:YSSignalingName_AllowUpPlatForm])
-//    {
-//        NSDictionary * dict = [NSDictionary bm_dictionaryWithJsonString:(NSString*)data];
-//
-//        if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingAllowUpPlatformApplyWithData:)])
-//        {
-//            [self.roomManagerDelegate handleSignalingAllowUpPlatformApplyWithData:dict];
-//        }
-//        return;
-//    }
-    
+
     //同意各端开始举手
     if ([msgName isEqualToString:YSSignalingName_RaiseHandStart])
     {
