@@ -618,6 +618,24 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
+	<key>chatTool_emijeBtn</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>chat_SCChatEmotion_skin</string>
+		<key>iconSel</key>
+		<string>chat_SCChatEmotion_push_skin</string>
+	</dict>
+	<key>chatTool_imageBtn</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>chat_SCChatImage_skin</string>
+		<key>iconSel</key>
+		<string>chat_SCChatImage_push_skin</string>
+	</dict>
 	<key>coursewareList_open</key>
 	<dict>
 		<key>tittleColor</key>
