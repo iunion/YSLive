@@ -214,5 +214,10 @@
 
 #define YS_Localized(locaString)  NSLocalizedString(locaString, nil)
 
+#define YSToolBar_BtnWidth_iPhone   (44.0f)
+#define YSToolBar_BtnWidth_iPad     (52.0f)
+
+#define YSToolBar_BtnWidth          ([UIDevice bm_isiPad] ? YSToolBar_BtnWidth_iPad : YSToolBar_BtnWidth_iPhone)
+
 
 #endif /* YSAppUIDef_h */
