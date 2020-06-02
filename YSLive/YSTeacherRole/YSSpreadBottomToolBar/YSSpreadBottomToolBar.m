@@ -235,30 +235,48 @@ toolBtn.disabledText = YSLocalized(norTitle);
             CGFloat left = self.topLeftpoint.x - ((BarBtnWidth+BarBtnGap) * self.btnArray.count + BarSpreadBtnGap-BarBtnGap);
             CGFloat width = (BarBtnWidth+BarBtnGap) * (self.btnArray.count+1) + BarSpreadBtnGap;
             CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
+            self.spreadBtn.alpha = 0.0f;
 
-            [UIView animateWithDuration:0.1f animations:^{
-                
+            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.frame = CGRectMake(left, top, width, height);
-                
+
                 self.spreadBtn.bm_top = BarBtnGap;
                 self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
-            } completion:^(BOOL finished) {
-                CGFloat index = 1.0f;
-                NSTimeInterval ts = 0.3f;
-                if ([self.btnArray bm_isNotEmpty])
+                for (UIButton *btn in self.btnArray)
                 {
-                    ts = 0.5f / self.btnArray.count;
-                    for (UIButton *btn in self.btnArray)
-                    {
-                        [UIView animateWithDuration:(index * ts) animations:^{
-                            btn.alpha = 1.0f;
-                        } completion:^(BOOL finished) {
-                            
-                        }];
-                        index = index + 1.0f;
-                    }
+                    btn.alpha = 1.0f;
                 }
+            } completion:^(BOOL finished) {
+                self.spreadBtn.alpha = 1.0f;
             }];
+
+//            [UIView animateWithDuration:0.1f animations:^{
+//
+//                self.frame = CGRectMake(left, top, width, height);
+//
+//                self.spreadBtn.bm_top = BarBtnGap;
+//                self.spreadBtn.bm_left = self.bm_width-(BarBtnWidth+BarBtnGap);
+//            } completion:^(BOOL finished) {
+//                CGFloat index = 1.0f;
+//                NSTimeInterval ts = 0.3f;
+//                if ([self.btnArray bm_isNotEmpty])
+//                {
+//                    ts = 0.5f / self.btnArray.count;
+//                    for (UIButton *btn in self.btnArray)
+//                    {
+//                        [UIView animateWithDuration:(index * ts) delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//                            btn.alpha = 1.0f;
+//                        } completion:^(BOOL finished) {
+//                        }];
+////                        [UIView animateWithDuration:(index * ts) animations:^{
+////                            btn.alpha = 1.0f;
+////                        } completion:^(BOOL finished) {
+////
+////                        }];
+//                        index = index + 1.0f;
+//                    }
+//                }
+//            }];
         }
         else
         {
@@ -266,8 +284,9 @@ toolBtn.disabledText = YSLocalized(norTitle);
             CGFloat left = self.topLeftpoint.x;
             CGFloat width = BarBtnWidth + BarBtnGap*2.0f;
             CGFloat height = BarBtnWidth + BarBtnGap*2.0f;
+            self.spreadBtn.alpha = 0.0f;
 
-            [UIView animateWithDuration:0.1f animations:^{
+            [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.frame = CGRectMake(left, top, width, height);
                 self.spreadBtn.bm_top = BarBtnGap;
                 self.spreadBtn.bm_left = BarBtnGap;
@@ -277,7 +296,7 @@ toolBtn.disabledText = YSLocalized(norTitle);
                     btn.alpha = 0.0f;
                 }
             } completion:^(BOOL finished) {
-                
+                self.spreadBtn.alpha = 1.0f;
             }];
         }
         
