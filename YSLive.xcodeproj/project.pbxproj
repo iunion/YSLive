@@ -161,6 +161,7 @@
 		8703620F23F2402E0054E50A /* YSSchoolApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */; };
 		8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
 		8709FEB52484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
+		8709FEC52484F71B00CC8BEA /* BMImageTitleButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */; };
 		87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		87133568237270F6006534A4 /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
 		87133569237270F6006534A4 /* YSChatMemberListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13282372647900D642E8 /* YSChatMemberListCell.m */; };
@@ -1019,6 +1020,8 @@
 		8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolApiRequest.m; sourceTree = "<group>"; };
 		8709FEB22484D2A000CC8BEA /* YSSpreadBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSpreadBottomToolBar.h; sourceTree = "<group>"; };
 		8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSpreadBottomToolBar.m; sourceTree = "<group>"; };
+		8709FEC32484F71B00CC8BEA /* BMImageTitleButtonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMImageTitleButtonView.h; sourceTree = "<group>"; };
+		8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMImageTitleButtonView.m; sourceTree = "<group>"; };
 		870C531C23572DF100BDB1EC /* YSLiveEnumHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveEnumHeader.h; sourceTree = "<group>"; };
 		870C531E23572DF600BDB1EC /* YSLiveRoomConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveRoomConfiguration.m; sourceTree = "<group>"; };
 		870C532123572DF600BDB1EC /* YSLiveRoomConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveRoomConfiguration.h; sourceTree = "<group>"; };
@@ -2201,6 +2204,15 @@
 			path = YSSpreadBottomToolBar;
 			sourceTree = "<group>";
 		};
+		8709FEC22484F6F900CC8BEA /* BMImageTitleButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				8709FEC32484F71B00CC8BEA /* BMImageTitleButtonView.h */,
+				8709FEC42484F71B00CC8BEA /* BMImageTitleButtonView.m */,
+			);
+			path = BMImageTitleButtonView;
+			sourceTree = "<group>";
+		};
 		870C531D23572DF600BDB1EC /* YSLiveClassModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2965,6 +2977,7 @@
 		879ADAEA23516D4400C72EAA /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
+				8709FEC22484F6F900CC8BEA /* BMImageTitleButtonView */,
 				26324448244D442E0022E086 /* MLeaksFinder */,
 				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8779E58223F79803008E885C /* YSCircleProgress */,
@@ -3706,6 +3719,7 @@
 				87AED04423B5AC8000D38129 /* YSRoomUser+YSLive.m in Sources */,
 				874E4F6623B36A1500086B01 /* YSSlider.m in Sources */,
 				872D047223B7362300DAC321 /* FLEXViewExplorerViewController.m in Sources */,
+				8709FEC52484F71B00CC8BEA /* BMImageTitleButtonView.m in Sources */,
 				872D04A423B7362300DAC321 /* FLEXFileBrowserTableViewController.m in Sources */,
 				872D048223B7362300DAC321 /* FLEXExplorerToolbar.m in Sources */,
 				871335BB237270F6006534A4 /* BMTestAlignManager.m in Sources */,

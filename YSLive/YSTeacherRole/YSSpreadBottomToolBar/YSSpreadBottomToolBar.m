@@ -7,6 +7,7 @@
 //
 
 #import "YSSpreadBottomToolBar.h"
+#import "BMImageTitleButtonView.h"
 
 static const CGFloat kBarBtnWidth_iPhone = 40.0f;
 static const CGFloat kBarBtnWidth_iPad = 46.0f;
@@ -24,27 +25,27 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
 
 @property (nonatomic, assign) BOOL spreadOut;
 
-@property (nonatomic, strong) UIButton *spreadBtn;
-@property (nonatomic, strong) NSMutableArray <UIButton *> *btnArray;
+@property (nonatomic, strong) BMImageTitleButtonView *spreadBtn;
+@property (nonatomic, strong) NSMutableArray <BMImageTitleButtonView *> *btnArray;
 
 /// 花名册
-@property (nonatomic, strong) UIButton *personListBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *personListBtn;
 /// 课件库
-@property (nonatomic, strong) UIButton *coursewareBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *coursewareBtn;
 /// 工具箱
-@property (nonatomic, strong) UIButton *toolBoxBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *toolBoxBtn;
 /// 切换布局
-@property (nonatomic, strong) UIButton *switchLayoutBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *switchLayoutBtn;
 /// 轮询
-@property (nonatomic, strong) UIButton *pollingBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *pollingBtn;
 /// 全体静音
-@property (nonatomic, strong) UIButton *allNoAudioBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *allNoAudioBtn;
 /// 切换摄像头
-@property (nonatomic, strong) UIButton *cameraBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *cameraBtn;
 /// 聊天按钮
-@property (nonatomic, strong) UIButton *chatBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *chatBtn;
 /// 退出房间
-@property (nonatomic, strong) UIButton *exitBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *exitBtn;
 
 @end
 
@@ -77,41 +78,40 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     self.spreadBtn.tag = SCTeacherTopBarTypeOnOff;
 
     /// 花名册
-    UIButton *personListBtn = [self creatButtonWithNormalTitle:@"Title.UserList" selectedTitle:@"Title.UserList" pathName:@"personList_bottombar"];
+    BMImageTitleButtonView *personListBtn = [self creatButtonWithNormalTitle:@"Title.UserList" selectedTitle:@"Title.UserList" pathName:@"personList_bottombar"];
     personListBtn.tag = SCTeacherTopBarTypePersonList;
     
     /// 课件库
-    UIButton *coursewareBtn = [self creatButtonWithNormalTitle:@"Title.DocumentList" selectedTitle:@"Title.DocumentList" pathName:@"courseware_bottombar"];
+    BMImageTitleButtonView *coursewareBtn = [self creatButtonWithNormalTitle:@"Title.DocumentList" selectedTitle:@"Title.DocumentList" pathName:@"courseware_bottombar"];
     coursewareBtn.tag = SCTeacherTopBarTypeCourseware;
     
     /// 工具箱
-    UIButton *toolBoxBtn = [self creatButtonWithNormalTitle:@"Title.ToolBox" selectedTitle:@"Title.ToolBox" pathName:@"toolBox_bottombar"];
+    BMImageTitleButtonView *toolBoxBtn = [self creatButtonWithNormalTitle:@"Title.ToolBox" selectedTitle:@"Title.ToolBox" pathName:@"toolBox_bottombar"];
     toolBoxBtn.tag = SCTeacherTopBarTypeToolBox;
     
     /// 切换布局
-    UIButton *switchLayoutBtn = [self creatButtonWithNormalTitle:@"Title.AroundLayout" selectedTitle:@"Title.VideoLayout" pathName:@"layout_bottombar"];
+    BMImageTitleButtonView *switchLayoutBtn = [self creatButtonWithNormalTitle:@"Title.AroundLayout" selectedTitle:@"Title.VideoLayout" pathName:@"layout_bottombar"];
     switchLayoutBtn.tag = SCTeacherTopBarTypeSwitchLayout;
     
     /// 轮询
-    UIButton *pollingBtn = [self creatButtonWithNormalTitle:@"Title.Polling" selectedTitle:@"Title.Polling" pathName:@"polling_bottombar"];
+    BMImageTitleButtonView *pollingBtn = [self creatButtonWithNormalTitle:@"Title.Polling" selectedTitle:@"Title.Polling" pathName:@"polling_bottombar"];
     pollingBtn.tag = SCTeacherTopBarTypePolling;
     
     /// 全体禁音
-    UIButton *allNoAudioBtn = [self creatButtonWithNormalTitle:@"Title.AllNoAudio" selectedTitle:@"Title.AllAudio" pathName:@"allNoAudio_bottombar"];
+    BMImageTitleButtonView *allNoAudioBtn = [self creatButtonWithNormalTitle:@"Title.AllNoAudio" selectedTitle:@"Title.AllAudio" pathName:@"allNoAudio_bottombar"];
     allNoAudioBtn.tag = SCTeacherTopBarTypeAllNoAudio;
     
     /// 切换摄像头
-    UIButton *cameraBtn = [self creatButtonWithNormalTitle:@"Title.ChangeCamera" selectedTitle:@"Title.ChangeCamera" pathName:@"camera_bottombar"];
+    BMImageTitleButtonView *cameraBtn = [self creatButtonWithNormalTitle:@"Title.ChangeCamera" selectedTitle:@"Title.ChangeCamera" pathName:@"camera_bottombar"];
     cameraBtn.tag = SCTeacherTopBarTypeCamera;
     
     /// 消息
-    UIButton *chatBtn = [self creatButtonWithNormalTitle:@"Title.Message" selectedTitle:@"Title.Message" pathName:@"message_bottombar"];
+    BMImageTitleButtonView *chatBtn = [self creatButtonWithNormalTitle:@"Title.Message" selectedTitle:@"Title.Message" pathName:@"message_bottombar"];
     chatBtn.tag = SCTeacherTopBarTypeChat;
     
     /// 退出
-    UIButton *exitBtn = [self creatButtonWithNormalTitle:@"Title.Exit" selectedTitle:@"Title.Exit" pathName:@"exit_bottombar"];
+    BMImageTitleButtonView *exitBtn = [self creatButtonWithNormalTitle:@"Title.Exit" selectedTitle:@"Title.Exit" pathName:@"exit_bottombar"];
     exitBtn.tag = SCTeacherTopBarTypeExit;
-    
     
     if (self.roleType == YSUserType_Teacher)
     {
@@ -174,7 +174,7 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     CGFloat btnLeft = BarBtnGap;
     for (NSUInteger index=0; index<self.btnArray.count; index++)
     {
-        UIButton *btn = self.btnArray[index];
+        BMImageTitleButtonView *btn = self.btnArray[index];
         [self addSubview:btn];
         CGRect frame = CGRectMake(btnLeft+(BarBtnWidth+BarBtnGap)*index, BarBtnGap, BarBtnWidth, BarBtnWidth);
         btn.frame = frame;
@@ -187,65 +187,56 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
     self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
 }
 
-- (UIButton *)creatButtonWithNormalTitle:(NSString *)norTitle selectedTitle:(NSString *)selTitle pathName:(NSString *)pathName
+- (BMImageTitleButtonView *)creatButtonWithNormalTitle:(NSString *)norTitle selectedTitle:(NSString *)selTitle pathName:(NSString *)pathName
 {
-    UIButton *toolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    toolBtn.frame = CGRectMake(0, 0, BarBtnWidth, BarBtnWidth);
-    
     UIImage *normalImage = YSSkinElementImage(pathName, @"iconNor");
     UIImage *selectedImage = YSSkinElementImage(pathName, @"iconSel");
     UIImage *disabledImage = [normalImage bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
 
-    [toolBtn setImage:normalImage forState:UIControlStateNormal];
-    [toolBtn setImage:selectedImage forState:UIControlStateSelected];
-    [toolBtn setImage:disabledImage forState:UIControlStateDisabled];
+//    [toolBtn setImage:normalImage forState:UIControlStateNormal];
+//    [toolBtn setImage:selectedImage forState:UIControlStateSelected];
+//    [toolBtn setImage:disabledImage forState:UIControlStateDisabled];
     
-    if ([norTitle bm_isNotEmpty])
-    {
-        [toolBtn setTitle:YSLocalized(norTitle) forState:UIControlStateNormal];
-    }
-    if ([selTitle bm_isNotEmpty])
-    {
-        [toolBtn setTitle:YSLocalized(selTitle) forState:UIControlStateSelected];
-    }
+//    if ([norTitle bm_isNotEmpty])
+//    {
+//        [toolBtn setTitle:YSLocalized(norTitle) forState:UIControlStateNormal];
+//    }
+//    if ([selTitle bm_isNotEmpty])
+//    {
+//        [toolBtn setTitle:YSLocalized(selTitle) forState:UIControlStateSelected];
+//    }
 
-    [toolBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-    [toolBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
+//    [toolBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+//    [toolBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
+//
+//    toolBtn.titleLabel.font = UI_FONT_10;
+//    toolBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+//
+//    toolBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//    toolBtn.titleLabel.minimumScaleFactor = 0.5f;
     
-    toolBtn.titleLabel.font = UI_FONT_10;
-    toolBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    
-    toolBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-    toolBtn.titleLabel.minimumScaleFactor = 0.5f;
-    
-    [self layoutButton:toolBtn withImageTitleSpace:2.0f];
+//    [self layoutButton:toolBtn withImageTitleSpace:2.0f];
 
+    BMImageTitleButtonView *toolBtn = [[BMImageTitleButtonView alloc] init];
+    toolBtn.type = BMImageTitleButtonView_ImageTop;
+    toolBtn.textFont = UI_FONT_10;
+    toolBtn.imageTextGap = 2.0f;
+    toolBtn.normalImage = normalImage;
+    toolBtn.selectedImage = selectedImage;
+    toolBtn.disabledImage = disabledImage;
+    toolBtn.normalText = YSLocalized(norTitle);
+    toolBtn.selectedText = YSLocalized(selTitle);
+    
+
+    toolBtn.frame = CGRectMake(0, 0, BarBtnWidth, BarBtnWidth);
+    
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     return toolBtn;
 }
 
-- (void)layoutButton:(UIButton *)btn withImageTitleSpace:(CGFloat)space
+- (void)bottomToolBarClicked:(BMImageTitleButtonView *)btn
 {
-    CGFloat imageWith = btn.imageView.image.size.width;
-    CGFloat imageHeight = btn.imageView.image.size.height;
-    CGFloat labelWidth = btn.titleLabel.intrinsicContentSize.width;
-    CGFloat labelHeight = btn.titleLabel.intrinsicContentSize.height;
-    
-    if (labelWidth > btn.bounds.size.width)
-    {
-        labelWidth = btn.bounds.size.width;
-    }
-
-    UIEdgeInsets imageEdgeInsets = UIEdgeInsetsMake(-labelHeight-space/2.0, 0, 0, -labelWidth);
-    UIEdgeInsets labelEdgeInsets = UIEdgeInsetsMake(0, -imageWith, -imageHeight-space/2.0, 0);
-    btn.titleEdgeInsets = labelEdgeInsets;
-    btn.imageEdgeInsets = imageEdgeInsets;
-}
-
-- (void)bottomToolBarClicked:(UIButton *)btn
-{
-    
     if (btn == self.spreadBtn)
     {
         btn.selected = !btn.selected;
@@ -284,11 +275,11 @@ static const CGFloat kBarBtnWidth_iPad = 46.0f;
             }
         }
         
-        
         if (self.delegate && [self.delegate performSelector:@selector(bottomToolBarSpreadOut:)])
         {
             [self.delegate bottomToolBarSpreadOut:self.spreadOut];
         }
+        
         return;
     }
     
