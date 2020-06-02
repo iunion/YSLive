@@ -45,7 +45,7 @@
 #import "YSTeacherTimerView.h"
 #import "YSPollingView.h"
 
-#import "YSBottomToolBar.h"
+//#import "YSBottomToolBar.h"
 #import "YSSpreadBottomToolBar.h"
 
 #define USE_FullTeacher             1
@@ -126,7 +126,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSTeacherResponderDelegate,
     YSTeacherTimerViewDelegate,
     YSPollingViewDelegate,
-    YSBottomToolBarDelegate,
+//    YSBottomToolBarDelegate,
     YSSpreadBottomToolBarDelegate
 >
 {
@@ -204,7 +204,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 底部工具条背景
 @property (nonatomic, strong) UIView *bottomBarBackgroudView;
 /// 底部工具栏
-@property (nonatomic, strong) YSBottomToolBar *bottomToolBar;
+//@property (nonatomic, strong) YSBottomToolBar *bottomToolBar;
 @property (nonatomic, strong) YSSpreadBottomToolBar *spreadBottomToolBar;
 
 /// 记录顶部工具栏上次选中的按钮
@@ -752,22 +752,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 底部工具栏
 - (void)setupBottomToolBarView
 {
-    UIView *bottomBarBackgroudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BOTTOMTOOLBAR_WIDTH, BOTTOMTOOLBAR_HEIGHT)];
-    bottomBarBackgroudView.backgroundColor =  YSSkinDefineColor(@"PopViewBgColor");
-    [self.view addSubview:bottomBarBackgroudView];
-    self.bottomBarBackgroudView = bottomBarBackgroudView;
-    self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
-    self.bottomBarBackgroudView.bm_bottom = self.view.bm_bottom - BOTTOMTOOLBAR_bottomGap;
-    self.bottomBarBackgroudView.layer.cornerRadius = BOTTOMTOOLBAR_HEIGHT/2.0f;
-    [self.bottomBarBackgroudView.layer masksToBounds];
+//    UIView *bottomBarBackgroudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BOTTOMTOOLBAR_WIDTH, BOTTOMTOOLBAR_HEIGHT)];
+//    bottomBarBackgroudView.backgroundColor =  YSSkinDefineColor(@"PopViewBgColor");
+//    [self.view addSubview:bottomBarBackgroudView];
+//    self.bottomBarBackgroudView = bottomBarBackgroudView;
+//    self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
+//    self.bottomBarBackgroudView.bm_bottom = self.view.bm_bottom - BOTTOMTOOLBAR_bottomGap;
+//    self.bottomBarBackgroudView.layer.cornerRadius = BOTTOMTOOLBAR_HEIGHT/2.0f;
+//    [self.bottomBarBackgroudView.layer masksToBounds];
     
-    self.bottomToolBar = [[YSBottomToolBar alloc] init];
-    self.bottomToolBar.delegate = self;
-    self.bottomToolBar.frame = self.bottomBarBackgroudView.bounds;
-    [self.bottomBarBackgroudView addSubview:self.bottomToolBar];
-    self.bottomBarBackgroudView.hidden = YES;
+//    self.bottomToolBar = [[YSBottomToolBar alloc] init];
+//    self.bottomToolBar.delegate = self;
+//    self.bottomToolBar.frame = self.bottomBarBackgroudView.bounds;
+//    [self.bottomBarBackgroudView addSubview:self.bottomToolBar];
+//    self.bottomBarBackgroudView.hidden = YES;
     
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 100, BMUI_SCREEN_HEIGHT- 80)];
+    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:YSUserType_Teacher topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - 60, BMUI_SCREEN_HEIGHT - BOTTOMTOOLBAR_bottomGap - 50)];
     spreadBottomToolBar.delegate = self;
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
@@ -2015,7 +2015,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
-    self.bottomToolBar.userEnable = NO;
+    self.spreadBottomToolBar.userEnable = NO;
     [self.view bringSubviewToFront:self.bottomBarBackgroudView];
 //    [self removeAllVideoView];
 //    
@@ -2030,7 +2030,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomReJoined:(long)ts
 {
     [super onRoomReJoined:ts];
-    self.bottomToolBar.userEnable = YES;
+    self.spreadBottomToolBar.userEnable = YES;
 }
 
 
@@ -2094,9 +2094,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     [self topToolBarPollingBtnEnable];
-    if (self.bottomToolBar.pollingBtn.enabled)
+//    if (self.spreadBottomToolBar.isPollingEnable)
     {
-        self.bottomToolBar.pollingBtn.selected = NO;
+        self.spreadBottomToolBar.isPolling = NO;
     }
     _isPolling = NO;
 }
@@ -2225,7 +2225,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     [self topToolBarPollingBtnEnable];
-    self.bottomToolBar.pollingBtn.selected = _isPolling;
+    self.spreadBottomToolBar.isPolling = _isPolling;
 //    if (self.appUseTheType == YSAppUseTheTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
@@ -2296,9 +2296,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             
             [self topToolBarPollingBtnEnable];
-            if (self.bottomToolBar.pollingBtn.enabled)
+//            if (self.spreadBottomToolBar.isPollingEnable)
             {
-                self.bottomToolBar.pollingBtn.selected = NO;
+                self.spreadBottomToolBar.isPolling = NO;
             }
             
         }
@@ -3937,7 +3937,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         case SCTeacherTopBarTypePersonList:
         {
-            [self.bottomToolBar setMessageOpen:NO];
+//            [self.bottomToolBar setMessageOpen:NO];
             //花名册  有用户进入房间调用 上下课调用
             [self freshListViewWithSelect:!btn.selected];
             
@@ -3948,7 +3948,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
         case SCTeacherTopBarTypeCourseware:
         {
-            [self.bottomToolBar setMessageOpen:NO];
+//            [self.bottomToolBar setMessageOpen:NO];
             [self freshListViewWithSelect:!btn.selected];
             //课件库
             if (!self.liveManager.roomConfig.isMultiCourseware)
@@ -4054,13 +4054,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_WIDTH;
 
-                self.bottomToolBar.open = YES;
+//                self.bottomToolBar.open = YES;
             }
             else
             {
                 self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_HEIGHT;
 //                self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
-                self.bottomToolBar.open = NO;
+//                self.bottomToolBar.open = NO;
             }
 
                 self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
@@ -4082,31 +4082,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 }
 
-
+- (void)bottomToolBarSpreadOut:(BOOL)spreadOut
+{
+    
+}
 /// 功能点击
 - (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType select:(BOOL)select
 {
-//      if (self.topSelectBtn != btn)
-//        {
-//            if (!(self.topSelectBtn.tag == SCTeacherTopBarTypeCamera || self.topSelectBtn.tag == SCTeacherTopBarTypeSwitchLayout || self.topSelectBtn.tag == SCTeacherTopBarTypeAllNoAudio || self.topSelectBtn.tag == SCTeacherTopBarTypePolling || self.topSelectBtn.tag == SCTeacherTopBarTypeChat))
-//            {
-//                self.topSelectBtn.selected = NO;
-//            }
-//
-//            if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware || self.topSelectBtn.tag ==
-//                SCTeacherTopBarTypePersonList)
-//            {
-//                [self freshListViewWithSelect:NO];
-//
-//            }
-//
-//        }
-        
         switch (teacherTopBarType)
         {
             case SCTeacherTopBarTypePersonList:
             {
-                [self.spreadBottomToolBar setIsNewMessage:YES];
+                
 //                [self.bottomToolBar setMessageOpen:NO];
                 //花名册  有用户进入房间调用 上下课调用
                 [self freshListViewWithSelect:select];
@@ -4117,9 +4104,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 
             case SCTeacherTopBarTypeCourseware:
             {
-//                [self.bottomToolBar setMessageOpen:NO];
-                [self freshListViewWithSelect:select];
                 //课件库
+                [self freshListViewWithSelect:select];
                 if (!self.liveManager.roomConfig.isMultiCourseware)
                 {
                     self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
@@ -4192,14 +4178,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 if (select)
                 {//弹出
                     tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
-                    
                     //收回 课件表 以及 花名册
                     [self freshListViewWithSelect:NO];
-//                    if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-//                    {
-//                        self.topSelectBtn.selected = NO;
-//                    }
-//                    [self.spreadBottomToolBar hideListView];
                 }
                 else
                 {//收回
@@ -4217,38 +4197,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self backAction:nil];
             }
                 break;
-//            case SCTeacherTopBarTypeOnOff:
-//            {
-//                //展开收起
-//                if (btn.selected)
-//                {
-//                    self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_WIDTH;
-//
-//                    self.bottomToolBar.open = YES;
-//                }
-//                else
-//                {
-//                    self.bottomBarBackgroudView.bm_width = BOTTOMTOOLBAR_HEIGHT;
-//    //                self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
-//                    self.bottomToolBar.open = NO;
-//                }
-//
-//                    self.bottomBarBackgroudView.bm_right = self.view.bm_right - BOTTOMTOOLBAR_rightGap;
-//
-//            }
-//                break;
+
             default:
                 break;
         }
         
-//        if ( btn.tag != SCTeacherTopBarTypeExit)
-//        {
-//            btn.selected = !btn.selected;
-//        }
-//    //    if (btn.tag != SCTeacherTopBarTypeOnOff)
-//    //    {
-//            self.topSelectBtn = btn;
-    //    }
 }
 
 #pragma mark -
@@ -4395,7 +4348,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 大房间的时候一直不能用
     if (self.liveManager.isBigRoom)
     {
-        self.bottomToolBar.pollingBtn.enabled = NO;
+        self.spreadBottomToolBar.isPollingEnable = NO;
         return;
     }
     NSInteger total = 0;
@@ -4407,7 +4360,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    self.bottomToolBar.pollingBtn.enabled = total >= maxVideoCount;
+    self.spreadBottomToolBar.isPollingEnable = total >= maxVideoCount;
     
 }
 
@@ -4473,7 +4426,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //        self.topToolBar.layoutType = SCTeacherTopBarLayoutType_ClassBegin;
     }
     
-    self.bottomToolBar.switchLayoutBtn.selected = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
+    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout != YSLiveRoomLayout_AroundLayout);
     
     if (roomLayout == YSLiveRoomLayout_FocusLayout && peerId)
     {
@@ -5627,7 +5580,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     
     _isPolling = YES;
-    self.bottomToolBar.pollingBtn.selected = YES;
+    self.spreadBottomToolBar.isPolling = YES;
     _pollingFromID = fromID;
 //    YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:fromID];
 //    if (!user)
@@ -5655,9 +5608,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     _isPolling = NO;
     [self topToolBarPollingBtnEnable];
-    if (self.bottomToolBar.pollingBtn.enabled)
+//    if (self.spreadBottomToolBar.isPollingEnable)
     {
-        self.bottomToolBar.pollingBtn.selected = NO;
+        self.spreadBottomToolBar.isPolling = NO;
     }
     
 }

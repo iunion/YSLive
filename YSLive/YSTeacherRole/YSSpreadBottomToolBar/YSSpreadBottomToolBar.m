@@ -194,6 +194,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     UIImage *disabledImage = [normalImage bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
 
     BMImageTitleButtonView *toolBtn = [[BMImageTitleButtonView alloc] init];
+    toolBtn.userInteractionEnabled = YES;
     toolBtn.type = BMImageTitleButtonView_ImageTop;
     toolBtn.textFont = UI_FONT_10;
     toolBtn.imageTextGap = 2.0f;
@@ -203,6 +204,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     if (norTitle)
     {
         toolBtn.normalText = YSLocalized(norTitle);
+toolBtn.disabledText = YSLocalized(norTitle);
     }
     if (selTitle)
     {
@@ -210,14 +212,19 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     }
     
     toolBtn.frame = CGRectMake(0, 0, BarBtnWidth, BarBtnWidth);
-    
     [toolBtn addTarget:self action:@selector(bottomToolBarClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
+    toolBtn.backgroundColor = [UIColor redColor];
     return toolBtn;
 }
 
+
 - (void)bottomToolBarClicked:(BMImageTitleButtonView *)btn
 {
+    if (btn != self.pollingBtn)
+    {
+        btn.selected = !btn.selected;
+    }
+    
     if (btn == self.spreadBtn)
     {
         btn.selected = !btn.selected;
@@ -256,6 +263,7 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
             }
         }
         
+        
         if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarSpreadOut:)])
         {
             [self.delegate bottomToolBarSpreadOut:self.spreadOut];
@@ -264,11 +272,13 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
         return;
     }
     
-   
-    
-    
-    
-    
+    if (btn == self.chatBtn)
+    {
+        if (btn.selected)
+        {
+            self.isNewMessage = NO;
+        }
+    }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarClickAtIndex:select:)])
     {
@@ -291,12 +301,13 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
 {
     if (isNewMessage)
     {
-//        self.chatBtn.badgeStyle = BMBadgeStyleRedDot;
-        self.chatBtn.badgeRadius = 2.0f;
-        self.chatBtn.badgeCenterOffset = CGPointMake(-12, 9);
-        self.chatBtn.badgeBorderColor = [UIColor redColor];
-        [self.chatBtn showRedDotBadge];
-        
+        if (!self.chatBtn.selected)
+        {
+            self.chatBtn.badgeRadius = 2.0f;
+            self.chatBtn.badgeCenterOffset = CGPointMake(-12, 5);
+            self.chatBtn.badgeBorderColor = [UIColor redColor];
+            [self.chatBtn showRedDotBadge];
+        }
     }
     else
     {
@@ -304,4 +315,50 @@ static const CGFloat kBarBtnWidth_iPad = 52.0f;
     }
 }
 
+- (void)setIsPolling:(BOOL)isPolling
+{
+    _isPolling = isPolling;
+    if (self.isPollingEnable)
+    {
+        self.pollingBtn.selected = isPolling;
+    }
+    else
+    {
+//        self.pollingBtn.selected = NO;
+    }
+}
+
+- (void)setIsPollingEnable:(BOOL)isPollingEnable
+{
+    _isPollingEnable = isPollingEnable;
+    self.pollingBtn.enabled = isPollingEnable;
+}
+
+- (void)setUserEnable:(BOOL)userEnable
+{
+//    _userEnable = userEnable;
+//    ///花名册
+//    self.personListBtn.enabled = userEnable;
+//    ///课件库
+//    self.coursewareBtn.enabled = userEnable;
+//    ///工具箱
+//    self.toolBoxBtn.enabled = userEnable;
+//    ///切换布局
+//    self.switchLayoutBtn.enabled = userEnable;
+//    /// 轮询
+//    self.pollingBtn.enabled = userEnable;
+//    /// 全体禁音
+//    self.allNoAudioBtn.enabled = userEnable;
+//    ///切换摄像头
+//    self.cameraBtn.enabled = userEnable;
+//    /// 消息
+//    self.chatBtn.enabled = userEnable;
+    
+}
+
+- (void)setIsAroundLayout:(BOOL)isAroundLayout
+{
+    _isAroundLayout = isAroundLayout;
+    self.switchLayoutBtn.selected = !isAroundLayout;
+}
 @end

@@ -29,13 +29,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL spreadOut;
 /// 是否有新的消息
 @property (nonatomic, assign) BOOL isNewMessage;
-
+/// 是否正在轮播
+@property (nonatomic, assign) BOOL isPolling;
+/// 是否可以轮播
+@property (nonatomic, assign) BOOL isPollingEnable;
+// 除退出 收放 按钮以外 其他按钮是否可以点击
+@property (nonatomic, assign) BOOL userEnable;
+/// 视频布局
+@property (nonatomic, assign) BOOL isAroundLayout;
 - (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point;
 
 /// 花名册 课件库按钮的非选中
 - (void)hideListView;
 /// 隐藏消息界面
 - (void)hideMessageView;
+
+
 
 @end
 
