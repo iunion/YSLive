@@ -215,7 +215,7 @@
 
 - (void)setupUIView
 {
-    self.backgroundColor = UIColor.blackColor;
+    self.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     
     UIView *sourceView = [[UIView alloc] init];
     sourceView.backgroundColor = UIColor.clearColor;

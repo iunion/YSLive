@@ -175,7 +175,16 @@ UITextFieldDelegate
 
 - (void)allDisableButtonClick:(UIButton *)sender
 {
-    
+    if (!sender.selected)
+    {
+        // 全体禁言
+        [[YSLiveManager shareInstance] sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+    }
+    else
+    {
+        // 解除禁言
+        [[YSLiveManager shareInstance] deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+    }
 }
 
 - (void)setAllDisabled:(BOOL)allDisabled

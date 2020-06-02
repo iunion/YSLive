@@ -113,7 +113,7 @@
 - (void)setupstateToolBar
 {
     UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
-    stateToolView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    stateToolView.backgroundColor = YSSkinDefineColor(@"WhiteBoardBgColor");
     [self.contentBackgroud addSubview:stateToolView];
     CGFloat fontSize = 12;
     if (![UIDevice bm_isiPad])
