@@ -9,21 +9,25 @@
 #import <BMKit/BMKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
 @protocol YSToolBoxViewDelegate <NSObject>
+
 - (void)closeToolBoxView;
 /// 点击
 - (void)toolBoxViewClickAtToolBoxType:(SCToolBoxType)toolBoxType;
+
 @end
 
 
 @interface YSToolBoxView : BMNoticeView
 
-@property(nonatomic,weak) id<YSToolBoxViewDelegate> delegate;
+@property (nullable, nonatomic, weak) id<YSToolBoxViewDelegate> delegate;
 
 - (void)showToolBoxViewInView:(UIView *)inView
-                backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
-                         topDistance:(CGFloat)topDistance
-                            userRole:(YSUserRoleType)roleType;
+         backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
+                  topDistance:(CGFloat)topDistance
+                     userRole:(YSUserRoleType)roleType;
+
 @end
 
 NS_ASSUME_NONNULL_END

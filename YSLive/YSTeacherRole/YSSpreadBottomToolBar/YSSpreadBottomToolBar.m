@@ -21,23 +21,23 @@
 @property (nonatomic, strong) NSMutableArray <BMImageTitleButtonView *> *btnArray;
 
 /// 花名册
-@property (nonatomic, strong) BMImageTitleButtonView *personListBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *personListBtn;
 /// 课件库
-@property (nonatomic, strong) BMImageTitleButtonView *coursewareBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *coursewareBtn;
 /// 工具箱
-@property (nonatomic, strong) BMImageTitleButtonView *toolBoxBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *toolBoxBtn;
 /// 切换布局
-@property (nonatomic, strong) BMImageTitleButtonView *switchLayoutBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *switchLayoutBtn;
 /// 轮询
-@property (nonatomic, strong) BMImageTitleButtonView *pollingBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *pollingBtn;
 /// 全体静音
-@property (nonatomic, strong) BMImageTitleButtonView *allNoAudioBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *allNoAudioBtn;
 /// 切换摄像头
-@property (nonatomic, strong) BMImageTitleButtonView *cameraBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *cameraBtn;
 /// 聊天按钮
-@property (nonatomic, strong) BMImageTitleButtonView *chatBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *chatBtn;
 /// 退出房间
-@property (nonatomic, strong) BMImageTitleButtonView *exitBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *exitBtn;
 
 @end
 
@@ -215,7 +215,6 @@
     return toolBtn;
 }
 
-
 - (void)bottomToolBarClicked:(BMImageTitleButtonView *)btn
 {
     if (btn != self.pollingBtn && btn != self.exitBtn)
@@ -320,9 +319,9 @@
         }
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarClickAtIndex:select:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarClickAtIndex:isSelected:)])
     {
-        [self.delegate bottomToolBarClickAtIndex:btn.tag select:btn.selected];
+        [self.delegate bottomToolBarClickAtIndex:btn.tag isSelected:btn.selected];
     }
 }
 
@@ -380,7 +379,6 @@
     {
         self.pollingBtn.enabled = NO;
     }
-    
 }
 
 - (void)setUserEnable:(BOOL)userEnable
@@ -402,7 +400,6 @@
     self.cameraBtn.enabled = userEnable;
     /// 消息
     self.chatBtn.enabled = userEnable;
-    
 }
 
 - (void)setIsAroundLayout:(BOOL)isAroundLayout
@@ -417,20 +414,17 @@
     self.allNoAudioBtn.enabled = isBeginClass;
     self.switchLayoutBtn.enabled = isBeginClass;
     self.toolBoxBtn.enabled = isBeginClass;
-
 }
 
 - (BOOL)nameListIsShow
 {
-    BOOL nameLiseShow = NO;
-    nameLiseShow = self.personListBtn.selected;
+    BOOL nameLiseShow = self.personListBtn.selected;
     return nameLiseShow;
 }
 
 - (BOOL)coursewareListIsShow
 {
-    BOOL coursewareLiseShow = NO;
-    coursewareLiseShow = self.coursewareBtn.selected;
+    BOOL coursewareLiseShow = self.coursewareBtn.selected;
     return coursewareLiseShow;
 }
 
@@ -439,4 +433,5 @@
 {
     self.toolBoxBtn.selected = NO;
 }
+
 @end

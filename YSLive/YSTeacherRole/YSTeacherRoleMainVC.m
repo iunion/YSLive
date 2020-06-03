@@ -3883,7 +3883,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 }
 /// 功能点击
-- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType select:(BOOL)select
+- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType isSelected:(BOOL)isSelected
 {
         switch (teacherTopBarType)
         {
@@ -3892,7 +3892,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 
 //                [self.bottomToolBar setMessageOpen:NO];
                 //花名册  有用户进入房间调用 上下课调用
-                [self freshListViewWithSelect:select];
+                [self freshListViewWithSelect:isSelected];
                 [self freshTeacherPersonListDataNeedFesh:YES];
                 [self.teacherListView bm_bringToFront];
             }
@@ -3901,7 +3901,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeCourseware:
             {
                 //课件库
-                [self freshListViewWithSelect:select];
+                [self freshListViewWithSelect:isSelected];
                 if (!self.liveManager.roomConfig.isMultiCourseware)
                 {
                     self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
@@ -3933,7 +3933,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeSwitchLayout:
             {
                 //切换布局
-                [self changeLayoutWithMode:select];
+                [self changeLayoutWithMode:isSelected];
             }
                 break;
             case SCTeacherTopBarTypePolling:
@@ -3954,7 +3954,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCTeacherTopBarTypeAllNoAudio:
             {
-                if (select)
+                if (isSelected)
                 {
                     // 全体静音
                     [self.liveManager sendSignalingTeacherToLiveAllNoAudioCompletion:nil];
@@ -3969,14 +3969,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeCamera:
             {
                 //摄像头
-                [self.liveManager.roomManager selectCameraPosition:!select];
+                [self.liveManager.roomManager selectCameraPosition:!isSelected];
             }
                 break;
             case SCTeacherTopBarTypeChat:
             {
                 //消息
                 CGRect tempRect = self.rightChatView.frame;
-                if (select)
+                if (isSelected)
                 {//弹出
                     tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
                     //收回 课件表 以及 花名册

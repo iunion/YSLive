@@ -16,7 +16,9 @@ static const CGFloat kToolBoxHeight_iPhone = 150.0f;
 static const CGFloat kToolBoxHeight_iPad = 215.0f;
 #define ToolBoxHeight       ([UIDevice bm_isiPad] ? kToolBoxHeight_iPad : kToolBoxHeight_iPhone)
 
-#define toolBoxBtnWidth     YSToolBar_BtnWidth
+#define ToolBoxBtnWidth     YSToolBar_BtnWidth
+
+#define ToolBoxTitleHeight  (40.0f)
 
 @interface YSToolBoxView()
 <
@@ -29,17 +31,18 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
 @property (nonatomic, strong) UILabel *titleL;
 
 /// 答题器
-@property (nonatomic, strong) BMImageTitleButtonView *answerBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *answerBtn;
 /// 上传图片
-@property (nonatomic, strong) BMImageTitleButtonView *albumBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *albumBtn;
 /// 计时器
-@property (nonatomic, strong) BMImageTitleButtonView *timerBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *timerBtn;
 /// 抢答器
-@property (nonatomic, strong) BMImageTitleButtonView *responderBtn;
+@property (nonatomic, weak) BMImageTitleButtonView *responderBtn;
 
 @property (nonatomic, strong) NSMutableArray <BMImageTitleButtonView *> *btnArray;
 
 @property (nonatomic, assign) YSUserRoleType roleType;
+
 @end
 
 @implementation YSToolBoxView
@@ -59,10 +62,11 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
         self.showAnimationType = BMNoticeViewShowAnimationNone;
         self.noticeMaskBgEffect = nil;
         self.shouldDismissOnTapOutside = NO;
-        self.noticeMaskBgEffectView.alpha = 1;
-        self.noticeMaskBgColor = [UIColor bm_colorWithHex:0x000000 alpha:0.6];
+        self.noticeMaskBgEffectView.alpha = 1.0f;
+        self.noticeMaskBgColor = [UIColor bm_colorWithHex:0x000000 alpha:0.6f];
         self.btnArray = [[NSMutableArray alloc] init];
     }
+    
     return self;
 }
 
@@ -74,8 +78,8 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     self.roleType = roleType;
     self.topDistance = topDistance;
     self.backgroundEdgeInsets = backgroundEdgeInsets;
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
-    tapGesture.delegate =self;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
+    tapGesture.delegate = self;
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:tapGesture];
     
@@ -83,7 +87,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     self.bacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     self.bacView.bm_width = ToolBoxWidth;
     self.bacView.bm_height = ToolBoxHeight;
-    self.bacView.layer.cornerRadius = 26;
+    self.bacView.layer.cornerRadius = 24.0f;
     self.bacView.layer.masksToBounds = YES;
     [self showWithView:self.bacView inView:inView];
     
@@ -94,14 +98,12 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     titleL.text = YSLocalized(@"Title.ToolBox");
     [self.bacView addSubview:titleL];
-    titleL.frame = CGRectMake(0, 0, ToolBoxWidth, 40);
-    
+    titleL.frame = CGRectMake(0, 0, ToolBoxWidth, ToolBoxTitleHeight);
     
     UIView *lineView = [[UIView alloc] init];
     lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
-    lineView.frame = CGRectMake(0, CGRectGetMaxY(titleL.frame), ToolBoxWidth, 1);
+    lineView.frame = CGRectMake(0, CGRectGetMaxY(titleL.frame), ToolBoxWidth, 1.0f);
     [self.bacView addSubview:lineView];
-    
     
     /// 答题器
     BMImageTitleButtonView *answerBtn = [self creatButtonWithNormalTitle:@"tool.datiqiqi" selectedTitle:@"tool.datiqiqi" pathName:@"toolBox_answer"];
@@ -137,21 +139,20 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     {
         self.albumBtn = albumBtn;
         [self.btnArray addObject:self.albumBtn];
-
     }
-    
-    CGFloat tempWidthGap = (ToolBoxWidth - toolBoxBtnWidth * 3.0f) / 6.0f;
-    CGFloat tempHeightGap = (ToolBoxHeight - toolBoxBtnWidth * 2.0f - 40) / 3.0f;
+    /// 1-2-2-1
+    CGFloat tempWidthGap = (ToolBoxWidth - ToolBoxBtnWidth * 3.0f) / 6.0f;
+    /// 1-1-1
+    CGFloat tempHeightGap = (ToolBoxHeight - ToolBoxBtnWidth * 2.0f - ToolBoxTitleHeight) / 3.0f;
     for (NSUInteger index=0; index<self.btnArray.count; index++)
     {
-        NSInteger column = index % 3;
-        NSInteger row = index / 3;
+        NSUInteger column = index % 3;
+        NSUInteger row = index / 3;
         BMImageTitleButtonView *btn = self.btnArray[index];
         [self.bacView addSubview:btn];
-        CGRect frame = CGRectMake(tempWidthGap+(toolBoxBtnWidth+tempWidthGap*2)*column, 40 + tempHeightGap + (toolBoxBtnWidth+tempHeightGap)*row, toolBoxBtnWidth, toolBoxBtnWidth);
+        CGRect frame = CGRectMake(tempWidthGap+(ToolBoxBtnWidth+tempWidthGap*2)*column, ToolBoxTitleHeight + tempHeightGap + (ToolBoxBtnWidth+tempHeightGap)*row, ToolBoxBtnWidth, ToolBoxBtnWidth);
         btn.frame = frame;
     }
-    
 }
 
 - (BMImageTitleButtonView *)creatButtonWithNormalTitle:(NSString *)norTitle selectedTitle:(NSString *)selTitle pathName:(NSString *)pathName
@@ -177,12 +178,11 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     {
         toolBtn.selectedText = YSLocalized(selTitle);
     }
-    toolBtn.frame = CGRectMake(0, 0, toolBoxBtnWidth, toolBoxBtnWidth);
+    toolBtn.frame = CGRectMake(0, 0, ToolBoxBtnWidth, ToolBoxBtnWidth);
     [toolBtn addTarget:self action:@selector(toolBoxBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     return toolBtn;
 }
-
 
 - (void)toolBoxBtnClicked:(BMImageTitleButtonView *)btn
 {
@@ -213,4 +213,5 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
         return YES;
     }
 }
+
 @end
