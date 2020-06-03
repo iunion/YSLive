@@ -89,7 +89,6 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     self.bacView.bm_height = ToolBoxHeight;
     self.bacView.layer.cornerRadius = 24.0f;
     self.bacView.layer.masksToBounds = YES;
-    [self showWithView:self.bacView inView:inView];
     
     UILabel *titleL = [[UILabel alloc] init];
     self.titleL = titleL;
@@ -140,6 +139,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
         self.albumBtn = albumBtn;
         [self.btnArray addObject:self.albumBtn];
     }
+    
     /// 1-2-2-1
     CGFloat tempWidthGap = (ToolBoxWidth - ToolBoxBtnWidth * 3.0f) / 6.0f;
     /// 1-1-1
@@ -153,6 +153,8 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
         CGRect frame = CGRectMake(tempWidthGap+(ToolBoxBtnWidth+tempWidthGap*2)*column, ToolBoxTitleHeight + tempHeightGap + (ToolBoxBtnWidth+tempHeightGap)*row, ToolBoxBtnWidth, ToolBoxBtnWidth);
         btn.frame = frame;
     }
+    
+    [self showWithView:self.bacView inView:inView];
 }
 
 - (BMImageTitleButtonView *)creatButtonWithNormalTitle:(NSString *)norTitle selectedTitle:(NSString *)selTitle pathName:(NSString *)pathName
@@ -189,8 +191,9 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     if ([self.delegate respondsToSelector:@selector(toolBoxViewClickAtToolBoxType:)])
     {
         [self.delegate toolBoxViewClickAtToolBoxType:btn.tag];
-        [self dismiss:nil animated:NO dismissBlock:nil];
     }
+    
+    [self dismiss:nil animated:NO dismissBlock:nil];
 }
 
 - (void)tapGestureClicked:(UITapGestureRecognizer *)tap
@@ -199,6 +202,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     {
         [self.delegate closeToolBoxView];
     }
+    
     [self dismiss:nil animated:NO dismissBlock:nil];
 }
 

@@ -301,7 +301,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         self.tableView.bm_height = tableHeight - 40;
         self.tableFooterView.hidden = NO;
-        [self.dataSource addObjectsFromArray:dataSource];
+        if ([dataSource bm_isNotEmpty])
+        {
+            [self.dataSource addObjectsFromArray:dataSource];
+        }
         for (YSRoomUser * user in dataSource)
         {
             if (!(user.role == YSUserType_Student || user.role == YSUserType_Assistant))
@@ -314,7 +317,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         self.tableView.bm_height = tableHeight;
         self.tableFooterView.hidden = YES;
-        [self.dataSource addObjectsFromArray:dataSource];
+        if ([dataSource bm_isNotEmpty])
+        {
+            [self.dataSource addObjectsFromArray:dataSource];
+        }
         [self.dataSource sortUsingComparator:^NSComparisonResult(YSFileModel * _Nonnull obj1, YSFileModel * _Nonnull obj2) {
             return [obj2.fileid compare:obj1.fileid];
         }];
@@ -346,10 +352,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
     [self.tableView reloadData];
 }
+
 - (void)setUserRole:(YSUserRoleType)userRoleType
 {
     _userRoleType = userRoleType;
 }
+
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage
 {
     _totalPage = totalPage;
@@ -367,6 +375,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.leftPageBtn.enabled = (_currentPage > 1);
     self.rightPageBtn.enabled = _currentPage < _totalPage;
 }
+
 
 #pragma mark -
 #pragma mark UITableViewDataSource

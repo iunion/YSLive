@@ -496,6 +496,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 设置花名册 课件表
     [self setupListView];
     
+    [self.spreadBottomToolBar bm_bringToFront];
     
     //创建上下课按钮
     [self setupClassBeginButton];

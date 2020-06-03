@@ -497,6 +497,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     // 设置花名册 课件表
     [self setupListView];
     
+    [self.spreadBottomToolBar bm_bringToFront];
+
     if (YSCurrentUser.role == YSUserType_Student)
     {
         // 设置左侧工具栏
