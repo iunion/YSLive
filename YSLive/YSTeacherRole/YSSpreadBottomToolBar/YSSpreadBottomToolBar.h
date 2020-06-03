@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#define YSSpreadBottomToolBar_BtnWidth          YSToolBar_BtnWidth
+#define YSSpreadBottomToolBar_BtnGap            (4.0f)
+#define YSSpreadBottomToolBar_SpreadBtnGap      (6.0f)
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSSpreadBottomToolBarDelegate <NSObject>
@@ -47,9 +52,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideListView;
 /// 隐藏消息界面
 - (void)hideMessageView;
-
-
-
+/// 获取当前花名册是否展示
+- (BOOL)nameListIsShow;
+/// 获取当前课件库是否展示
+- (BOOL)coursewareListIsShow;
+/// 隐藏工具箱
+- (void)hideToolBoxView;
 @end
 
 NS_ASSUME_NONNULL_END

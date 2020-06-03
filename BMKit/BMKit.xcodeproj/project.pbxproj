@@ -330,6 +330,8 @@
 		8777C7BB23EBA9CD002002BF /* BMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B923EBA9CD002002BF /* BMTabBarController.m */; };
 		8779E57A23F2D3FC008E885C /* BMRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E57823F2D3FC008E885C /* BMRSA.m */; };
 		8779E57B23F2D3FC008E885C /* BMRSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 8779E57923F2D3FC008E885C /* BMRSA.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87832D9124863E8700F1178E /* BMImageTitleButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87832D8F24863E8700F1178E /* BMImageTitleButtonView.m */; };
+		87832D9224863E8700F1178E /* BMImageTitleButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87832D9024863E8700F1178E /* BMImageTitleButtonView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8790199C24163F4C00FF38EC /* BMKitThird.h in Headers */ = {isa = PBXBuildFile; fileRef = 8790199B24163F4C00FF38EC /* BMKitThird.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		879019BB2416486700FF38EC /* BMAFCompatibilityMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 879019BA2416486700FF38EC /* BMAFCompatibilityMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		879019BE2416492100FF38EC /* BMAFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 879019BC2416492100FF38EC /* BMAFHTTPSessionManager.m */; };
@@ -721,6 +723,8 @@
 		8777C7B923EBA9CD002002BF /* BMTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMTabBarController.m; sourceTree = "<group>"; };
 		8779E57823F2D3FC008E885C /* BMRSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMRSA.m; sourceTree = "<group>"; };
 		8779E57923F2D3FC008E885C /* BMRSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRSA.h; sourceTree = "<group>"; };
+		87832D8F24863E8700F1178E /* BMImageTitleButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMImageTitleButtonView.m; sourceTree = "<group>"; };
+		87832D9024863E8700F1178E /* BMImageTitleButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMImageTitleButtonView.h; sourceTree = "<group>"; };
 		8790199B24163F4C00FF38EC /* BMKitThird.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKitThird.h; sourceTree = "<group>"; };
 		879019BA2416486700FF38EC /* BMAFCompatibilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAFCompatibilityMacros.h; sourceTree = "<group>"; };
 		879019BC2416492100FF38EC /* BMAFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAFHTTPSessionManager.m; sourceTree = "<group>"; };
@@ -994,6 +998,7 @@
 				8701AFED2371648100A43607 /* BMDatePicker */,
 				8777C79E23EA7489002002BF /* BMEmptyView */,
 				8701AF3E23715DF800A43607 /* BMImageTextView */,
+				87832D8E24863E8700F1178E /* BMImageTitleButtonView */,
 				8701AF4323715F5500A43607 /* BMNavigationBar */,
 				8701AFA82371623600A43607 /* BMPlaceholderTextView */,
 				8777C74223EA72A2002002BF /* BMRefreshView */,
@@ -1499,6 +1504,15 @@
 			path = BMRSA;
 			sourceTree = "<group>";
 		};
+		87832D8E24863E8700F1178E /* BMImageTitleButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				87832D9024863E8700F1178E /* BMImageTitleButtonView.h */,
+				87832D8F24863E8700F1178E /* BMImageTitleButtonView.m */,
+			);
+			path = BMImageTitleButtonView;
+			sourceTree = "<group>";
+		};
 		8790199D2416483700FF38EC /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1597,6 +1611,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87832D9224863E8700F1178E /* BMImageTitleButtonView.h in Headers */,
 				87901A5F24176EB500FF38EC /* BMMASViewAttribute.h in Headers */,
 				87901A6124176EB500FF38EC /* BMMASViewConstraint.h in Headers */,
 				87901A7324176F1D00FF38EC /* BMMASUtilities.h in Headers */,
@@ -1943,6 +1958,7 @@
 				8701AE3B23714E6000A43607 /* NSRegularExpression+BMRegEx.m in Sources */,
 				8701AE6423714E6000A43607 /* NSMutableArray+BMCategory.m in Sources */,
 				8777C79523EA72A2002002BF /* BMFreshAutoFooterView.m in Sources */,
+				87832D9124863E8700F1178E /* BMImageTitleButtonView.m in Sources */,
 				8701B118237165AA00A43607 /* BMNumberTextItem.m in Sources */,
 				8701AE4B23714E6000A43607 /* NSString+BMEncrypt.m in Sources */,
 				8701B108237165AA00A43607 /* BMMaskTextItem.m in Sources */,

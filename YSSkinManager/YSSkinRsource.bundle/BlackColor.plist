@@ -1004,5 +1004,57 @@
 		<key>iconSel</key>
 		<string>videoPop_IsFouce_skin</string>
 	</dict>
+	<key>toolBox_answer</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>toolBox_answer_nor_skin</string>
+		<key>iconSel</key>
+		<string>toolBox_answer_sel_skin</string>
+		<key>iconDis</key>
+		<string>toolBox_answer_dis_skin</string>
+	</dict>
+	<key>toolBox_album</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>toolBox_album_nor_skin</string>
+		<key>iconSel</key>
+		<string>toolBox_album_sel_skin</string>
+		<key>iconDis</key>
+		<string>toolBox_album_dis_skin</string>
+	</dict>
+	<key>toolBox_timer</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>toolBox_timer_nor_skin</string>
+		<key>iconSel</key>
+		<string>toolBox_timer_sel_skin</string>
+		<key>iconDis</key>
+		<string>toolBox_timer_dis_skin</string>
+	</dict>
+	<key>toolBox_responder</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>toolBox_responder_nor_skin</string>
+		<key>iconSel</key>
+		<string>toolBox_responder_sel_skin</string>
+		<key>iconDis</key>
+		<string>toolBox_responder_dis_skin</string>
+	</dict>
 </dict>
 </plist>

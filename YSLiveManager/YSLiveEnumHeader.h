@@ -139,6 +139,19 @@ typedef NS_ENUM(NSInteger, SCTeacherTopBarType)
     SCTeacherTopBarTypeOnOff
 };
 
+typedef NS_ENUM(NSInteger, SCToolBoxType)
+{
+    /** 答题器 */
+    SCToolBoxTypeAnswer,
+    /** 花名册 */
+    SCToolBoxTypeAlbum,
+    /** 计时器 */
+    SCToolBoxTypeTimer,
+    /** 抢答器 */
+    SCToolBoxTypeResponder,
+
+};
+
 //typedef NS_ENUM(NSInteger, PublishState) {
 //    YSPublishStateNONE           = 0,            //没有
 //    YSPublishStateAUDIOONLY      = 1,            //只有音频

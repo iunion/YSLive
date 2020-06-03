@@ -64,7 +64,7 @@ static NSMutableSet *leakedObjectPtrs;
     [leakedObjectPtrs addObject:proxy.objectPtr];
     NSString *string = [NSString stringWithFormat:@"%@\n",object];
     NSString *strFileName = [[[string componentsSeparatedByString:@":"] objectAtIndex:0] substringFromIndex:1];
-    NSMutableString *str = [proxy.viewStack componentsJoinedByString:@"."];
+    NSString *str = [proxy.viewStack componentsJoinedByString:@"."];
     str = [NSString stringWithFormat:@"%@\n",str];
    // NSString *str = [NSString stringWithFormat:@"%@\n",strFileName];
     NSArray *paths = NSSearchPathForDirectoriesInDomains
