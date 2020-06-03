@@ -19,6 +19,9 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
 #define toolBoxBtnWidth     YSToolBar_BtnWidth
 
 @interface YSToolBoxView()
+<
+    UIGestureRecognizerDelegate
+>
 /// 底部view
 @property (nonatomic, strong) UIView *bacView;
 
@@ -72,6 +75,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     self.topDistance = topDistance;
     self.backgroundEdgeInsets = backgroundEdgeInsets;
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
+    tapGesture.delegate =self;
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:tapGesture];
     
@@ -182,7 +186,11 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
 
 - (void)toolBoxBtnClicked:(BMImageTitleButtonView *)btn
 {
-    
+    if ([self.delegate respondsToSelector:@selector(toolBoxViewClickAtToolBoxType:)])
+    {
+        [self.delegate toolBoxViewClickAtToolBoxType:btn.tag];
+        [self dismiss:nil animated:NO dismissBlock:nil];
+    }
 }
 
 - (void)tapGestureClicked:(UITapGestureRecognizer *)tap
@@ -194,4 +202,15 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     [self dismiss:nil animated:NO dismissBlock:nil];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.bacView] )
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
 @end

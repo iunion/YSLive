@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol YSToolBoxViewDelegate <NSObject>
 - (void)closeToolBoxView;
-
+/// 点击
+- (void)toolBoxViewClickAtToolBoxType:(SCToolBoxType)toolBoxType;
 @end
 
 
