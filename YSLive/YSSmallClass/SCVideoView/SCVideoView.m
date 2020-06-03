@@ -225,9 +225,9 @@
     
     //没上课时没有连摄像头时的lab
     UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
-    maskNoVideobgLab.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
+    maskNoVideobgLab.backgroundColor = YSSkinDefineColor(@"videoMaskBack_color");
     maskNoVideobgLab.font = UI_FONT_14;
-    maskNoVideobgLab.textColor = UIColor.whiteColor;
+    maskNoVideobgLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     maskNoVideobgLab.adjustsFontSizeToFitWidth = YES;
     maskNoVideobgLab.minimumScaleFactor = 0.3;
     maskNoVideobgLab.textAlignment = NSTextAlignmentCenter;
@@ -236,7 +236,7 @@
     
     ///正在加载中
     UIImageView * loadingImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"videoView_Loading"]];
-    [loadingImg setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC ]];
+    [loadingImg setBackgroundColor:YSSkinDefineColor(@"videoMaskBack_color")];
     loadingImg.contentMode = UIViewContentModeCenter;
     [self addSubview:loadingImg];
     self.loadingImg = loadingImg;
@@ -251,7 +251,6 @@
         loadingImg.hidden = NO;
     }
     
-    
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
     [self addSubview:self.backVideoView];
@@ -263,7 +262,7 @@
     
     //关闭视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
-    self.maskCloseVideoBgView.backgroundColor = [UIColor bm_colorWithHexString:@"#EDEDED"];
+    self.maskCloseVideoBgView.backgroundColor = YSSkinDefineColor(@"videoMaskBack_color");
     [maskBackView addSubview:self.maskCloseVideoBgView];
     self.maskCloseVideoBgView.hidden = YES;
 
@@ -275,7 +274,7 @@
     self.homeMaskLab = [[UILabel alloc]init];
     self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
     self.homeMaskLab.font = UI_FONT_12;
-    self.homeMaskLab.textColor = UIColor.whiteColor;
+    self.homeMaskLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     [maskBackView addSubview:self.homeMaskLab];
     [self.homeMaskLab setAdjustsFontSizeToFitWidth:YES];
     self.homeMaskLab.numberOfLines = 2;
@@ -285,7 +284,7 @@
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
-    self.maskNoVideo.backgroundColor = [UIColor bm_colorWithHexString:@"#6D7278"];
+    self.maskNoVideo.backgroundColor = YSSkinDefineColor(@"videoMaskBack_color");;
     [maskBackView addSubview:self.maskNoVideo];
     self.maskNoVideo.hidden = YES;
     
@@ -293,7 +292,7 @@
     UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
     maskNoVideoTitle.backgroundColor = [UIColor clearColor];
     maskNoVideoTitle.font = UI_FONT_14;
-    maskNoVideoTitle.textColor = UIColor.whiteColor;
+    maskNoVideoTitle.textColor = YSSkinDefineColor(@"defaultTitleColor");
     maskNoVideoTitle.adjustsFontSizeToFitWidth = YES;
     maskNoVideoTitle.minimumScaleFactor = 0.3;
     maskNoVideoTitle.numberOfLines = 0;
@@ -337,7 +336,7 @@
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.font = UI_FONT_16;
-    self.nickNameLab.textColor = UIColor.whiteColor;
+    self.nickNameLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.nickNameLab.adjustsFontSizeToFitWidth = YES;
     self.nickNameLab.minimumScaleFactor = 0.3;
     self.nickNameLab.hidden = NO;
@@ -349,9 +348,8 @@
     [self.backVideoView addSubview:self.soundImage];
     
     UILabel * silentLab = [[UILabel alloc]init];
-//    silentLab.text = YSLocalized(@"Prompt.DisableMicrophone");
     silentLab.font = UI_FONT_16;
-    silentLab.textColor = UIColor.whiteColor;
+    silentLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     silentLab.backgroundColor = UIColor.redColor;
     silentLab.adjustsFontSizeToFitWidth = YES;
     silentLab.minimumScaleFactor = 0.3;

@@ -48,11 +48,11 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         self.isWideScreen = isWideScreen;
         
         self.videosBgView = [[UIView alloc] init];
-        self.videosBgView.backgroundColor = [UIColor bm_colorWithHex:0x72A2EE];
+        self.videosBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
         
         [self addSubview:self.videosBgView];
         self.rightVideoBgView = [[UIView alloc] init];
-        self.rightVideoBgView.backgroundColor = [UIColor bm_colorWithHex:0x72A2EE];
+        self.rightVideoBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     }
     return self;
 }
@@ -277,7 +277,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         if (appUseTheType == YSAppUseTheTypeSmallClass)
         {
-            self.videosBgView.backgroundColor = [UIColor bm_colorWithHex:0x72A2EE];
+            self.videosBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
             
             [self changeFrameFocus];
             

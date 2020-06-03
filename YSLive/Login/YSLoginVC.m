@@ -732,8 +732,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.isOnlineSchool = !_isOnlineSchool;
     BMWeakSelf
     if (self.isOnlineSchool)
-    {
-        BMLog(@"进入网校");
+    {//进入网校
         
         [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconOnlineSchool")];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
@@ -771,8 +770,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         self.joinRoomBtn.enabled = YES;
     }
     else
-    {
-        BMLog(@"进入教室");
+    {//进入教室
         NSString * roomID = [YSUserDefault getLoginRoomID];
         if ([roomID bm_isNotEmpty])
         {
@@ -783,7 +781,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         {
             self.nickNameTextField.inputTextField.text = nickName;
         }
-
+        
         [self.logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconNor")];
         [self.logoImageView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
             make.centerX.bmmas_equalTo(0);
@@ -1769,7 +1767,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (!_logoImageView)
     {
         _logoImageView = [[UIImageView alloc] init];
-        [_logoImageView setImage:[UIImage imageNamed:@"login_icon"]];
+        [_logoImageView setImage:YSSkinElementImage(@"login_topImage", @"iconNor")];
     }
     return _logoImageView;
 }
@@ -1791,14 +1789,15 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_joinRoomBtn)
     {
-        _joinRoomBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 50) color:[UIColor bm_colorWithHex:0x648CD6] highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
+        _joinRoomBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 50) color:YSSkinDefineColor(@"defaultSelectedBgColor") highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
         [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSLoginLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
         [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-        [_joinRoomBtn setTitleColor:[UIColor bm_colorWithHex:0x999999] forState:UIControlStateDisabled];
+        [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
         _joinRoomBtn.titleLabel.textAlignment =  NSTextAlignmentCenter;
         _joinRoomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16);
-        [_joinRoomBtn bm_addShadow:4.0f Radius:25.0f BorderColor:[UIColor bm_colorWithHex:0x9DB7E7] ShadowColor:[UIColor lightGrayColor]];
+//        [_joinRoomBtn bm_addShadow:4.0f Radius:25.0f BorderColor:[UIColor bm_colorWithHex:0x9DB7E7] ShadowColor:[UIColor lightGrayColor]];
+        
 
 #if USE_YSLIVE_ROOMID
         _joinRoomBtn.enabled = YES;

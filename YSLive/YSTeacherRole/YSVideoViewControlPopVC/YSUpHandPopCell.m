@@ -46,15 +46,15 @@
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 95-10-30, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.lineBreakMode = NSLineBreakByTruncatingTail;
-    self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
+    self.nickNameLab.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     self.nickNameLab.font = UI_FONT_14;
     [self.contentView addSubview:_nickNameLab];
             
     //选中标识
     self.headBtn = [[UIButton alloc] initWithFrame:CGRectMake(95-25, 2, 20,18)];
     [self.headBtn addTarget:self action:@selector(buttonclick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.headBtn setImage:[UIImage imageNamed:@"downPlatform_hand"] forState:UIControlStateNormal];
-    [self.headBtn setImage:[UIImage imageNamed:@"upPlatform_hand"] forState:UIControlStateSelected];
+    [self.headBtn setImage:YSSkinElementImage(@"raiseHand_platform", @"iconNor") forState:UIControlStateNormal];
+    [self.headBtn setImage:YSSkinElementImage(@"raiseHand_platform", @"iconSel") forState:UIControlStateSelected];
     self.headBtn.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:self.headBtn];
 }
@@ -70,38 +70,21 @@
     }
 }
 
-//- (void)setUserModel:(YSRoomUser *)userModel
-//{
-//    _userModel = userModel;
-//    self.nickNameLab.text = userModel.nickName;
-//    if (userModel.publishState >0)
-//    {
-//        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-//        self.headBtn.selected = YES;
-//    }
-//    else
-//    {
-//        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
-//        self.headBtn.selected = NO;
-//    }
-//}
-
 - (void)setUserDict:(NSMutableDictionary *)userDict
 {
     _userDict = userDict;
     self.nickNameLab.text = [userDict bm_stringForKey:@"nickName"];
     YSPublishState publishState = [userDict bm_intForKey:@"publishState"];
-    if (publishState >0)
+    if (publishState > 0)
     {
-        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+        self.nickNameLab.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
         self.headBtn.selected = YES;
     }
     else
     {
-        self.nickNameLab.textColor = [UIColor bm_colorWithHex:0x828282];
+        self.nickNameLab.textColor = YSSkinDefineColor(@"raiseHandTitleDefaultColor");
         self.headBtn.selected = NO;
     }
-    
 }
 
 @end
