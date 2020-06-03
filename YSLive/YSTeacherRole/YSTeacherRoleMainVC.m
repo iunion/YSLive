@@ -4281,6 +4281,43 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.spreadBottomToolBar hideToolBoxView];
 }
+- (void)toolBoxViewClickAtToolBoxType:(SCToolBoxType)toolBoxType
+{
+    [self.spreadBottomToolBar hideToolBoxView];
+    switch (toolBoxType)
+    {
+        case SCToolBoxTypeAnswer:
+        {
+            /// 答题器
+            [self.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+        }
+            break;
+        case SCToolBoxTypeAlbum:
+        {
+            /// 上传图片
+            [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
+        }
+            break;
+        case SCToolBoxTypeTimer:
+        {
+            /// 计时器
+            [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
+        }
+            break;
+        case SCToolBoxTypeResponder:
+        {
+            /// 抢答器
+            self.responderView = [[YSTeacherResponder alloc] init];
+            [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
+            [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+            self.responderView.delegate = self;
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 
 - (void)toolboxBtnsClick:(UIButton*)sender
 {
