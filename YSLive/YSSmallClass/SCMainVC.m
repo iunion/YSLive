@@ -2810,7 +2810,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 //- (void)freshTeacherPersonListData
 - (void)freshTeacherPersonListDataNeedFesh:(BOOL)fresh
 {
-    if (fresh)
+    if (fresh || [self.spreadBottomToolBar nameListIsShow])
     {
         //花名册  有用户进入房间调用 上下课调用
                //花名册  有用户进入房间调用 上下课调用
@@ -2861,7 +2861,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 #pragma mark -刷新课件库数据
 - (void)freshTeacherCoursewareListData
 {
-   // if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected)
+    if ([self.spreadBottomToolBar coursewareListIsShow])
     {
 
         if (!self.liveManager.roomConfig.isMultiCourseware)

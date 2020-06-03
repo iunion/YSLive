@@ -52,9 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideListView;
 /// 隐藏消息界面
 - (void)hideMessageView;
-
-
-
+/// 获取当前花名册是否展示
+- (BOOL)nameListIsShow;
+/// 获取当前课件库是否展示
+- (BOOL)coursewareListIsShow;
 @end
 
 NS_ASSUME_NONNULL_END

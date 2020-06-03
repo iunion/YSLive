@@ -2887,7 +2887,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)freshTeacherPersonListDataNeedFesh:(BOOL)fresh
 {
-    if (fresh)
+    if (fresh || [self.spreadBottomToolBar nameListIsShow])
     {
         //花名册  有用户进入房间调用 上下课调用
         if (self.liveManager.isBigRoom)
@@ -3209,7 +3209,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -刷新课件库数据
 - (void)freshTeacherCoursewareListData
 {
-//    if (self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware && self.topSelectBtn.selected )
+    if ([self.spreadBottomToolBar coursewareListIsShow])
     {
         if (!self.liveManager.roomConfig.isMultiCourseware)
         {

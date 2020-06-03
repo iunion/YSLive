@@ -419,4 +419,18 @@
     self.toolBoxBtn.enabled = isBeginClass;
 
 }
+
+- (BOOL)nameListIsShow
+{
+    BOOL nameLiseShow = NO;
+    nameLiseShow = self.personListBtn.selected;
+    return nameLiseShow;
+}
+
+- (BOOL)coursewareListIsShow
+{
+    BOOL coursewareLiseShow = NO;
+    coursewareLiseShow = self.coursewareBtn.selected;
+    return coursewareLiseShow;
+}
 @end
