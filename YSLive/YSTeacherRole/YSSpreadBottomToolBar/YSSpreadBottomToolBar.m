@@ -133,6 +133,9 @@
     }
     else if (self.roleType == YSUserType_Student)
     {
+        self.toolBoxBtn = toolBoxBtn;
+        [self.btnArray addObject:self.toolBoxBtn];
+        
         self.cameraBtn = cameraBtn;
         [self.btnArray addObject:self.cameraBtn];
         
