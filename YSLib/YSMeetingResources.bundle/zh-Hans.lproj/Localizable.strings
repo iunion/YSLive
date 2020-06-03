@@ -335,8 +335,8 @@
 "tool.xiaobaiban"   = "小白板";
 
 "tool.fabudati"   = "发布答题";
-"tool.tianjia"   = "添加答案";
-"tool.shanchu"   = "删除答案";
+"tool.tianjia"   = "添加选项";
+"tool.shanchu"   = "删除选项";
 "tool.zhengquedaan"   = "正确答案";
 "tool.datirenshu"   = "答题人数";
 "tool.ren"   = "人";

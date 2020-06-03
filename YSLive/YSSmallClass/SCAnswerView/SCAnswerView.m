@@ -15,8 +15,14 @@
 #import "SCAnswerDetailModel.h"
 #import "SCAnswerTBHeaderView.h"
 
-#define ViewHeight      (222)
-#define ViewWidth       (407)
+static const CGFloat kAnswerViewWidth_iPhone = 240.0f;
+static const CGFloat kAnswerViewWidth_iPad = 308.0f;
+#define AnswerViewWidth        ([UIDevice bm_isiPad] ? kAnswerViewWidth_iPad : kAnswerViewWidth_iPhone)
+
+static const CGFloat kAnswerViewHeight_iPhone = 162.0f;
+static const CGFloat kAnswerViewHeight_iPad = 226.0f;
+#define AnswerViewHeight       ([UIDevice bm_isiPad] ? kAnswerViewHeight_iPad : kAnswerViewHeight_iPhone)
+
 //#define ViewBottomGap   (30)
 @interface SCAnswerView ()
 <
@@ -105,8 +111,8 @@
     self.rightResultStr = @"";
     self.myResultStr = @"";
     
-    self.bacView.bm_height = ViewHeight;
-    self.bacView.bm_width = ViewWidth;
+    self.bacView.bm_height = AnswerViewHeight;
+    self.bacView.bm_width = AnswerViewWidth;
     [self.bacView bm_roundedRect:10.0f];
     
     [self.bacView addSubview:self.topView];
