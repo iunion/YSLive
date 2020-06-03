@@ -44,7 +44,7 @@
 #import "YSTeacherResponder.h"
 #import "YSTeacherTimerView.h"
 #import "YSPollingView.h"
-
+#import "YSToolBoxView.h"
 //#import "YSBottomToolBar.h"
 
 #define USE_FullTeacher             1
@@ -124,7 +124,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIGestureRecognizerDelegate,
     YSTeacherResponderDelegate,
     YSTeacherTimerViewDelegate,
-    YSPollingViewDelegate
+    YSPollingViewDelegate,
+    YSToolBoxViewDelegate
 //    YSBottomToolBarDelegate,
 >
 {
@@ -203,6 +204,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //@property (nonatomic, strong) UIButton *topSelectBtn;
 /// 顶部按钮popoverView
 @property(nonatomic, strong) SCTTopPopverViewController *topbarPopoverView;
+/// 工具箱
+@property(nonatomic, strong) YSToolBoxView *toolBoxView;
 /// 花名册 课件库
 @property(nonatomic, strong) SCTeacherListView *teacherListView;
 
@@ -348,6 +351,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 白板视频标注视图
 @property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
+
+
+
 @end
 
 
@@ -3916,7 +3922,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeToolBox:
             {
                 //工具箱
+                
 //                [self popoverToolSenderWithType:SCTeacherTopBarTypeToolBox sender:btn];
+                self.toolBoxView = [[YSToolBoxView alloc] init];
+                [self.toolBoxView showToolBoxViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0 userRole:self.liveManager.localUser.role];
+                self.toolBoxView.delegate = self;
+                
             }
                 break;
             case SCTeacherTopBarTypeSwitchLayout:
@@ -4264,6 +4275,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark SCTTopPopverViewControllerDelegate
 
 #pragma mark 工具箱
+
+/// 关闭工具箱
+- (void)closeToolBoxView
+{
+    [self.spreadBottomToolBar hideToolBoxView];
+}
+
 - (void)toolboxBtnsClick:(UIButton*)sender
 {
     if (sender.tag == 0)

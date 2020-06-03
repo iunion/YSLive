@@ -12,14 +12,12 @@ static const CGFloat kToolBoxWidth_iPhone = 240.0f;
 static const CGFloat kToolBoxWidth_iPad = 308.0f;
 #define ToolBoxWidth        ([UIDevice bm_isiPad] ? kToolBoxWidth_iPad : kToolBoxWidth_iPhone)
 
-static const CGFloat kToolBoxHeight_iPhone = 146.0f;
-static const CGFloat kToolBoxHeight_iPad = 208.0f;
+static const CGFloat kToolBoxHeight_iPhone = 150.0f;
+static const CGFloat kToolBoxHeight_iPad = 215.0f;
 #define ToolBoxHeight       ([UIDevice bm_isiPad] ? kToolBoxHeight_iPad : kToolBoxHeight_iPhone)
 
 #define toolBoxBtnWidth     YSToolBar_BtnWidth
 
-
-#define toolBoxBtnGap       (6.0f)
 @interface YSToolBoxView()
 /// 底部view
 @property (nonatomic, strong) UIView *bacView;
@@ -60,6 +58,7 @@ static const CGFloat kToolBoxHeight_iPad = 208.0f;
         self.shouldDismissOnTapOutside = NO;
         self.noticeMaskBgEffectView.alpha = 1;
         self.noticeMaskBgColor = [UIColor bm_colorWithHex:0x000000 alpha:0.6];
+        self.btnArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -101,19 +100,19 @@ static const CGFloat kToolBoxHeight_iPad = 208.0f;
     
     
     /// 答题器
-    BMImageTitleButtonView *answerBtn = [self creatButtonWithNormalTitle:@"Title.AllNoAudio" selectedTitle:@"Title.AllAudio" pathName:@"allNoAudio_bottombar"];
+    BMImageTitleButtonView *answerBtn = [self creatButtonWithNormalTitle:@"tool.datiqiqi" selectedTitle:@"tool.datiqiqi" pathName:@"toolBox_answer"];
     answerBtn.tag = SCToolBoxTypeAnswer;
     
     /// 上传照片
-    BMImageTitleButtonView *albumBtn = [self creatButtonWithNormalTitle:@"Title.ChangeCamera" selectedTitle:@"Title.ChangeCamera" pathName:@"camera_bottombar"];
+    BMImageTitleButtonView *albumBtn = [self creatButtonWithNormalTitle:@"UploadPhoto.FromGallery" selectedTitle:@"UploadPhoto.FromGallery" pathName:@"toolBox_album"];
     albumBtn.tag = SCToolBoxTypeAlbum;
     
     /// 计时器
-    BMImageTitleButtonView *timerBtn = [self creatButtonWithNormalTitle:@"Title.Message" selectedTitle:@"Title.Message" pathName:@"message_bottombar"];
+    BMImageTitleButtonView *timerBtn = [self creatButtonWithNormalTitle:@"tool.jishiqi" selectedTitle:@"tool.jishiqi" pathName:@"toolBox_timer"];
     timerBtn.tag = SCToolBoxTypeTimer;
     
     /// 抢答器
-    BMImageTitleButtonView *responderBtn = [self creatButtonWithNormalTitle:@"Title.Exit" selectedTitle:@"Title.Exit" pathName:@"exit_bottombar"];
+    BMImageTitleButtonView *responderBtn = [self creatButtonWithNormalTitle:@"tool.qiangdaqi" selectedTitle:@"tool.qiangdaqi" pathName:@"toolBox_responder"];
     responderBtn.tag = SCToolBoxTypeResponder;
     
     if (self.roleType == YSUserType_Teacher)
@@ -145,7 +144,7 @@ static const CGFloat kToolBoxHeight_iPad = 208.0f;
         NSInteger row = index / 3;
         BMImageTitleButtonView *btn = self.btnArray[index];
         [self.bacView addSubview:btn];
-        CGRect frame = CGRectMake(tempWidthGap+(toolBoxBtnWidth+tempWidthGap*2)*column, 40 + tempHeightGap + (toolBoxBtnWidth+tempWidthGap)*row, toolBoxBtnWidth, toolBoxBtnWidth);
+        CGRect frame = CGRectMake(tempWidthGap+(toolBoxBtnWidth+tempWidthGap*2)*column, 40 + tempHeightGap + (toolBoxBtnWidth+tempHeightGap)*row, toolBoxBtnWidth, toolBoxBtnWidth);
         btn.frame = frame;
     }
     
@@ -186,10 +185,13 @@ static const CGFloat kToolBoxHeight_iPad = 208.0f;
     
 }
 
-
 - (void)tapGestureClicked:(UITapGestureRecognizer *)tap
 {
-    [self endEditing:YES];
+    if ([self.delegate respondsToSelector:@selector(closeToolBoxView)])
+    {
+        [self.delegate closeToolBoxView];
+    }
+    [self dismiss:nil animated:NO dismissBlock:nil];
 }
 
 @end

@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)nameListIsShow;
 /// 获取当前课件库是否展示
 - (BOOL)coursewareListIsShow;
+/// 隐藏工具箱
+- (void)hideToolBoxView;
 @end
 
 NS_ASSUME_NONNULL_END

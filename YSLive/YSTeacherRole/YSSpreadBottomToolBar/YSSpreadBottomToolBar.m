@@ -433,4 +433,10 @@
     coursewareLiseShow = self.coursewareBtn.selected;
     return coursewareLiseShow;
 }
+
+/// 隐藏工具箱
+- (void)hideToolBoxView
+{
+    self.toolBoxBtn.selected = NO;
+}
 @end
