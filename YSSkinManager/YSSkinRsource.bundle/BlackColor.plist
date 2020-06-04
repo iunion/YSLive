@@ -4,6 +4,8 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
+		<key>timer_timeBgColor</key>
+		<string>#DEEAFF</string>
 		<key>placeholderColor</key>
 		<string>#828282</string>
 		<key>lineColor</key>
@@ -1068,6 +1070,71 @@
 		<string>answer_openResult_sel_skin</string>
 		<key>iconDis</key>
 		<string>answer_openResult_dis_skin</string>
+	</dict>
+	<key>timer_up</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>timer_up_nor_skin</string>
+		<key>iconSel</key>
+		<string>timer_up_sel_skin</string>
+		<key>iconHigh</key>
+		<string>timer_up_high_skin</string>
+	</dict>
+	<key>timer_down</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>timer_down_nor_skin</string>
+		<key>iconSel</key>
+		<string>timer_down_sel_skin</string>
+		<key>iconHigh</key>
+		<string>timer_down_high_skin</string>
+	</dict>
+	<key>timer_reset</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>timer_reset_nor_skin</string>
+		<key>iconSel</key>
+		<string>timer_reset_sel_skin</string>
+		<key>iconDis</key>
+		<string>timer_reset_dis_skin</string>
+	</dict>
+	<key>timer_pause</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>timer_pause_nor_skin</string>
+		<key>iconSel</key>
+		<string>timer_pause_sel_skin</string>
+		<key>iconDis</key>
+		<string>timer_pause_dis_skin</string>
+	</dict>
+	<key>timer_end</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>timer_end_nor_skin</string>
+		<key>iconSel</key>
+		<string>timer_end_sel_skin</string>
+		<key>iconDis</key>
+		<string>timer_end_dis_skin</string>
 	</dict>
 </dict>
 </plist>
