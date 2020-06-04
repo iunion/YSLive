@@ -986,6 +986,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     contentView.backgroundColor = [UIColor clearColor];
     [self.contentBackgroud addSubview:contentView];
     self.contentView = contentView;
+    contentView.layer.masksToBounds = YES;
     
     // 白板背景
     UIView *whitebordBackgroud = [[UIView alloc] init];
@@ -1178,11 +1179,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     // 白板背景
     UIView *whitebordFullBackgroud = [[UIView alloc] init];
-    whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+//    whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    whitebordFullBackgroud.backgroundColor = UIColor.redColor;
     [self.contentBackgroud addSubview:whitebordFullBackgroud];
     whitebordFullBackgroud.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight);
     self.whitebordFullBackgroud = whitebordFullBackgroud;
     self.whitebordFullBackgroud.hidden = YES;
+    whitebordFullBackgroud.layer.masksToBounds = YES;
 }
 
 /// 隐藏白板视频布局背景
@@ -1457,7 +1460,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
             }
-            else if (count < 18)
+            else
             {
                 // 老师没被拖出
                 if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
@@ -1541,7 +1544,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (self.isWhitebordFullScreen)
     {
-        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+//        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+        self.whiteBordView.frame = CGRectMake(0, 0, self.whitebordFullBackgroud.bm_width, self.whitebordFullBackgroud.bm_height);
     }
     else
     {
@@ -3828,28 +3832,22 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (isAllScreen)
     {
         [self.view endEditing:YES];
-        
-        //        [self.whitebordBackgroud bm_removeAllSubviews];
-        
+                
         [self.whiteBordView removeFromSuperview];
         
         self.whitebordFullBackgroud.hidden = NO;
-        //        self.whitebordFullBackgroud.backgroundColor = [UIColor redColor];
         // 加载白板
         [self.whitebordFullBackgroud addSubview:self.whiteBordView];
-        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+        self.whiteBordView.frame = CGRectMake(0, 0, self.whitebordFullBackgroud.bm_width, self.whitebordFullBackgroud.bm_height );
         [self arrangeAllViewInVCView];
         
 #if USE_FullTeacher
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
         
-        //        [self.fullTeacherFloatView bm_bringToFront];
 #endif
     }
     else
     {
-        //        [self.whitebordFullBackgroud bm_removeAllSubviews];
-        
         [self.whiteBordView removeFromSuperview];
         self.whitebordFullBackgroud.hidden = YES;
         
@@ -3857,7 +3855,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordBackgroud.bounds;
         
         [self arrangeAllViewInWhiteBordBackgroud];
-        //        [self freshContentView];
         
         self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
         self.brushToolOpenBtn.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);;
@@ -3865,13 +3862,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
         [self stopFullTeacherVideoView];
 #endif
-        //        [self.liveManager playVideoOnView:self.teacherVideoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-        //        [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+
     }
     
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
-    
 }
 
 

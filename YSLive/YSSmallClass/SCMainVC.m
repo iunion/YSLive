@@ -872,6 +872,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     contentView.backgroundColor = [UIColor clearColor];
     [self.contentBackgroud addSubview:contentView];
     self.contentView = contentView;
+
     
     // 白板背景
     UIView *whitebordBackgroud = [[UIView alloc] init];
@@ -1140,10 +1141,11 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     // 白板背景
     UIView *whitebordFullBackgroud = [[UIView alloc] init];
     whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-    [self.view addSubview:whitebordFullBackgroud];
+    [self.contentBackgroud addSubview:whitebordFullBackgroud];
     whitebordFullBackgroud.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight);
     self.whitebordFullBackgroud = whitebordFullBackgroud;
     self.whitebordFullBackgroud.hidden = YES;
+    whitebordFullBackgroud.layer.masksToBounds = YES;
     
 }
 
@@ -1735,7 +1737,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
              {
                  view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
              }
-            else if (count < 18)
+            else
             {
                 // 老师没被拖出
                 if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
@@ -1837,7 +1839,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 {
     if (self.isWhitebordFullScreen)
     {
-        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+        self.whiteBordView.frame = CGRectMake(0, 0, self.whitebordFullBackgroud.bm_width, self.whitebordFullBackgroud.bm_height);
     }
     else
     {
@@ -3062,7 +3064,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         self.whitebordFullBackgroud.hidden = NO;
         // 加载白板
         [self.whitebordFullBackgroud addSubview:self.whiteBordView];
-        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
+        self.whiteBordView.frame = CGRectMake(0, 0, self.whitebordFullBackgroud.bm_width, self.whitebordFullBackgroud.bm_height);
         [self arrangeAllViewInVCView];
         
 #if USE_FullTeacher
