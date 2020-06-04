@@ -87,7 +87,7 @@
     self.second = 0;
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");//[YSSkinDefineColor(@"PopViewBgColor") changeAlpha:0.6f];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:0.6f];
     
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
@@ -108,7 +108,7 @@
     [self.bacView addSubview:self.titleL];
     self.titleL.textAlignment= NSTextAlignmentCenter;
     self.titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
-    self.titleL.font = UI_FONT_12;
+    self.titleL.font = UI_FONT_16;
     self.titleL.text = YSLocalized(@"tool.jishiqi");
     self.titleL.frame = CGRectMake(30, 10, self.bacView.bm_width - 60, 40);
     

@@ -15,15 +15,24 @@
 #import "SCAnswerDetailModel.h"
 #import "SCAnswerTBHeaderView.h"
 
-static const CGFloat kAnswerViewWidth_iPhone = 240.0f;
+static const CGFloat kAnswerViewWidth_iPhone = 300.0f;
 static const CGFloat kAnswerViewWidth_iPad = 308.0f;
 #define AnswerViewWidth        ([UIDevice bm_isiPad] ? kAnswerViewWidth_iPad : kAnswerViewWidth_iPhone)
 
-static const CGFloat kAnswerViewHeight_iPhone = 162.0f;
+static const CGFloat kAnswerViewHeight_iPhone = 180.0f;
 static const CGFloat kAnswerViewHeight_iPad = 226.0f;
 #define AnswerViewHeight       ([UIDevice bm_isiPad] ? kAnswerViewHeight_iPad : kAnswerViewHeight_iPhone)
 
-//#define ViewBottomGap   (30)
+static const CGFloat kCollectionViewHeight_iPhone = 80.0f;
+static const CGFloat kCollectionViewHeight_iPad = 120.0f;
+#define AnswerCollectionViewHeight       ([UIDevice bm_isiPad] ? kCollectionViewHeight_iPad : kCollectionViewHeight_iPhone)
+
+#define AnswerCollectionCellHeight       (50.0f)
+
+#define ViewHeight      AnswerViewHeight
+#define ViewWidth       AnswerViewWidth
+
+#define answerTitleHeight     (30.0f)
 @interface SCAnswerView ()
 <
     UICollectionViewDelegate,
@@ -111,53 +120,61 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     self.rightResultStr = @"";
     self.myResultStr = @"";
     
-    self.bacView.bm_height = AnswerViewHeight;
-    self.bacView.bm_width = AnswerViewWidth;
+    self.bacView.bm_width = ViewWidth;
+    self.bacView.bm_height = ViewHeight;
     [self.bacView bm_roundedRect:10.0f];
     
     [self.bacView addSubview:self.topView];
-    self.topView.frame = CGRectMake(0, 0, self.bacView.bm_width, 30);
+    self.topView.frame = CGRectMake(0, 0, self.bacView.bm_width, answerTitleHeight);
     
     [self.bacView addSubview:self.closeBtn];
-    self.closeBtn.frame = CGRectMake(0, 0, 18, 18);
-    self.closeBtn.bm_right = self.topView.bm_right - 15;
+    self.closeBtn.frame = CGRectMake(0, 0, 10, 10);
+    self.closeBtn.bm_right = self.topView.bm_right - 10;
     self.closeBtn.bm_centerY = self.topView.bm_centerY;
     
     if (answerViewType == SCAnswerViewType_AnswerIng)
     {
         
         [self.bacView addSubview:self.optionCollectionView];
-        self.optionCollectionView.frame = CGRectMake(0, 30, self.bacView.bm_width, self.bacView.bm_height - 30 - 80);
+        self.optionCollectionView.frame = CGRectMake(0, answerTitleHeight, self.bacView.bm_width, AnswerCollectionViewHeight);
 
         [self.bacView addSubview:self.promptL];
-        self.promptL.frame = CGRectMake(40, CGRectGetMaxY(self.optionCollectionView.frame) + 5, self.bacView.bm_width - 80, 25);
+        self.promptL.frame = CGRectMake(10, CGRectGetMaxY(self.optionCollectionView.frame) + 5, self.bacView.bm_width - 120, 15);
 
         [self.bacView addSubview:self.putBtn];
-        self.putBtn.frame = CGRectMake(0, 0, 96, 34);
-        self.putBtn.bm_right = self.bacView.bm_right - 14;
-        self.putBtn.bm_top = self.promptL.bm_top + 24;
+        self.putBtn.frame = CGRectMake(0, 0, 85, 28);
+        self.putBtn.bm_right = self.bacView.bm_right - 15;
+        self.putBtn.bm_bottom = self.bacView.bm_bottom - 7;
+        self.putBtn.layer.cornerRadius = 14;
     }
     else
     {
         [self.bacView addSubview:self.personNumL];
-        self.personNumL.frame = CGRectMake(15, CGRectGetMaxY(self.topView.frame) + 24, 130, 25);
+        self.personNumL.frame = CGRectMake(10, CGRectGetMaxY(self.topView.frame) + 10, 80, 15);
         
         [self.bacView addSubview:self.timeL];
-        self.timeL.frame = CGRectMake(CGRectGetMaxX(self.personNumL.frame) + 5, CGRectGetMaxY(self.topView.frame) + 24, 100, 25);
-
+//        self.timeL.frame = CGRectMake(CGRectGetMaxX(self.personNumL.frame) + 5, CGRectGetMaxY(self.topView.frame) + 24, 100, 25);
+        self.timeL.frame = CGRectMake(0, 0, 80, 15);
+        self.timeL.bm_centerY = self.personNumL.bm_centerY;
+        self.timeL.bm_centerX = self.bacView.bm_centerX;
         
         [self.bacView addSubview:self.topBtn];
-        self.topBtn.frame = CGRectMake(0, 48, 80, 26);
+        self.topBtn.frame = CGRectMake(0, 0, 60, 24);
+        self.topBtn.bm_top = self.topView.bm_bottom + 7;
         self.topBtn.bm_right = self.bacView.bm_right - 10;
-        self.topBtn.layer.cornerRadius = 13;
+        self.topBtn.layer.cornerRadius = 12;
         self.topBtn.layer.masksToBounds = YES;
 
+        [self.bacView addSubview:self.resultLable];
+        self.resultLable.frame = CGRectMake(10, 0, self.bacView.bm_width - 30 , 15);
+        self.resultLable.bm_bottom = self.bacView.bm_bottom - 10;
+        
         [self.bacView addSubview:self.resultTableView];
         self.resultTableView.frame = CGRectMake(0, CGRectGetMaxY(self.timeL.frame) + 10 ,self.bacView.bm_width , 90);
+        self.resultTableView.frame = CGRectMake(0, 0 ,self.bacView.bm_width , 0);
+        [self.resultTableView bm_setTop:self.timeL.bm_bottom + 5 bottom:self.resultLable.bm_top - 5];
         
-        [self.bacView addSubview:self.resultLable];
-
-        self.resultLable.frame = CGRectMake(15, CGRectGetMaxY(self.resultTableView.frame) + 5, self.bacView.bm_width - 30 , 26);
+        
         if (answerViewType == SCAnswerViewType_Statistics)
         {
             [self.topBtn setTitle:YSLocalized(@"tool.detail") forState:UIControlStateNormal];
@@ -223,7 +240,7 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(20 , 40, 20, 40);
+    return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
 
@@ -525,7 +542,7 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = [UIColor whiteColor];
+        _bacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     }
     return _bacView;
 }
@@ -537,9 +554,9 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
         _topView = [[UILabel alloc] init];
         _topView.textAlignment = NSTextAlignmentCenter;
 //        _topView.lineBreakMode = NSLineBreakByCharWrapping;
-        _topView.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        _topView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-        _topView.font = [UIFont systemFontOfSize:16];
+        _topView.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _topView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _topView.font = UI_FONT_12;
         _topView.text = YSLocalized(@"tool.datiqiqi");
     }
     
@@ -551,7 +568,7 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     if (!_closeBtn)
     {
         _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeBtn setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
+        [_closeBtn setImage:YSSkinDefineImage(@"close_btn_icon") forState:UIControlStateNormal];
         [_closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         _closeBtn.hidden = YES;
     }
@@ -563,15 +580,15 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     if (!_optionCollectionView)
     {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumLineSpacing = 30;
-        layout.minimumInteritemSpacing = 42;
-        layout.itemSize = CGSizeMake(50, 50);
+        layout.minimumLineSpacing = 10;
+        layout.minimumInteritemSpacing = 10;
+        layout.itemSize = CGSizeMake(AnswerCollectionCellHeight, AnswerCollectionCellHeight);
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _optionCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _optionCollectionView.delegate = self; //设置代理
         _optionCollectionView.dataSource = self;   //设置数据来源
-        _optionCollectionView.backgroundColor = [UIColor whiteColor];
+        _optionCollectionView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
 //        _optionCollectionView.bounces = YES;
         _optionCollectionView.alwaysBounceVertical = YES;
         _optionCollectionView.showsVerticalScrollIndicator = NO;
@@ -587,9 +604,9 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     {
         _promptL = [[UILabel alloc] init];
         _promptL.textAlignment = NSTextAlignmentLeft;
-        _promptL.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-        _promptL.backgroundColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        _promptL.font = [UIFont systemFontOfSize:12];
+        _promptL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _promptL.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _promptL.font = UI_FONT_8;
         _promptL.text = YSLocalized(@"tool.leastanswer");
     }
     
@@ -601,14 +618,12 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     if (!_putBtn)
     {
         _putBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_putBtn setBackgroundImage:[UIImage imageNamed:@"sc_answer_submit_normal"] forState:UIControlStateNormal];
-        [_putBtn setBackgroundImage:[UIImage imageNamed:@"sc_answer_submit_highlighted"] forState:UIControlStateHighlighted];
-        [_putBtn setBackgroundImage:[UIImage imageNamed:@"sc_answer_submit_normal"] forState:UIControlStateSelected];
+        [_putBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
         [_putBtn setTitle:YSLocalized(@"tool.submit") forState:UIControlStateNormal];
         [_putBtn setTitle:YSLocalized(@"tool.modify") forState:UIControlStateSelected];
-        [_putBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-        [_putBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateHighlighted];
-        _putBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_putBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+        [_putBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateHighlighted];
+        _putBtn.titleLabel.font = UI_FONT_12;
         [_putBtn addTarget:self action:@selector(putBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _putBtn;
@@ -620,9 +635,9 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     {
         _personNumL = [[UILabel alloc] init];
         _personNumL.textAlignment = NSTextAlignmentLeft;
-        _personNumL.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-        _personNumL.backgroundColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        _personNumL.font = [UIFont systemFontOfSize:12];
+        _personNumL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _personNumL.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _personNumL.font = UI_FONT_10;
     }
 
     return _personNumL;
@@ -633,10 +648,10 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     if (!_timeL)
     {
         _timeL = [[UILabel alloc] init];
-        _timeL.textAlignment = NSTextAlignmentLeft;
-        _timeL.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-        _timeL.backgroundColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        _timeL.font = [UIFont systemFontOfSize:12];
+        _timeL.textAlignment = NSTextAlignmentCenter;
+        _timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _timeL.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _timeL.font = UI_FONT_10;
     }
     return _timeL;
 }
@@ -646,9 +661,9 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     if (!_topBtn)
     {
         _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_topBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_topBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
-        _topBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_topBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+        [_topBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        _topBtn.titleLabel.font = UI_FONT_10;
         _topBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_topBtn addTarget:self action:@selector(topBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -666,7 +681,7 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
          _resultTableView.showsVerticalScrollIndicator = YES;
          _resultTableView.alwaysBounceVertical = NO;
     
-         _resultTableView.backgroundColor = [UIColor whiteColor];
+         _resultTableView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
          [_resultTableView registerClass:[SCAnswerDetailTableViewCell class] forCellReuseIdentifier:@"SCAnswerDetailTableViewCell"];
          [_resultTableView registerClass:[SCStatisticsTableViewCell class] forCellReuseIdentifier:@"SCStatisticsTableViewCell"];
          [_resultTableView registerClass:[SCAnswerTBHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCAnswerTBHeaderView"];
@@ -681,9 +696,9 @@ static const CGFloat kAnswerViewHeight_iPad = 226.0f;
     {
         _resultLable = [[UILabel alloc] init];
         _resultLable.textAlignment = NSTextAlignmentLeft;
-        _resultLable.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-        _resultLable.backgroundColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        _resultLable.font = [UIFont systemFontOfSize:12];
+        _resultLable.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _resultLable.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _resultLable.font = UI_FONT_8;
     }
     return _resultLable;
 }
