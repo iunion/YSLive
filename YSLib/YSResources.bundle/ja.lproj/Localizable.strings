@@ -268,8 +268,8 @@
 "tool.datirenshu"   = "問題数";
 "tool.ren"   = "人";
 "tool.time"   = "まで";
-"tool.detail"   = "详细 >";
-"tool.tongji"   = "統計 >";
+"tool.detail"   = "详细";
+"tool.tongji"   = "統計";
 
 "tool.end"   = "問題を解く";
 "tool.nodata"   = "データがない！";

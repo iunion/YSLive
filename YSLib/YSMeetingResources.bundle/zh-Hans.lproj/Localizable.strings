@@ -341,8 +341,8 @@
 "tool.datirenshu"   = "答题人数";
 "tool.ren"   = "人";
 "tool.time"   = "用时";
-"tool.detail"   = "详情 >";
-"tool.tongji"   = "统计 >";
+"tool.detail"   = "查看详情";
+"tool.tongji"   = "统计";
 
 "tool.end"   = "结束答题";
 "tool.nodata"   = "暂无数据！";

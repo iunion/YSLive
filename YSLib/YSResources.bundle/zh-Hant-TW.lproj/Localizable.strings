@@ -340,8 +340,8 @@
 "tool.datirenshu"   = "答題人數";
 "tool.ren"   = "人";
 "tool.time"   = "用時";
-"tool.detail"   = "詳情 >";
-"tool.tongji"   = "統計 >";
+"tool.detail"   = "查看詳情";
+"tool.tongji"   = "統計";
 
 "tool.end"   = "結束答題";
 "tool.nodata"   = "暫無數據！";
