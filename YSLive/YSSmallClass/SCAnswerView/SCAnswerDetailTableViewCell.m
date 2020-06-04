@@ -33,7 +33,8 @@
 
 - (void)setup
 {
-    self.contentView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.backView];
     [self.contentView addSubview:self.nameL];
@@ -94,7 +95,7 @@
     if (!_backView)
     {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _backView.backgroundColor = [UIColor clearColor];
     }
     return _backView;
 }

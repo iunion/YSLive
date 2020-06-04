@@ -717,7 +717,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
     }
     return _bacView;
 }
@@ -730,7 +730,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _topView.textAlignment = NSTextAlignmentCenter;
 //        _topView.lineBreakMode = NSLineBreakByCharWrapping;
         _topView.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        _topView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _topView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"PopViewBgColor");
         _topView.font = UI_FONT_12;
         _topView.text = YSLocalized(@"tool.datiqiqi");
     }
@@ -765,7 +765,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _optionCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _optionCollectionView.delegate = self; //设置代理
         _optionCollectionView.dataSource = self;   //设置数据来源
-        _optionCollectionView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _optionCollectionView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"PopViewBgColor");
 //        _optionCollectionView.bounces = YES;
         _optionCollectionView.alwaysBounceVertical = YES;
         _optionCollectionView.showsVerticalScrollIndicator = NO;
@@ -782,7 +782,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _promptL = [[UILabel alloc] init];
         _promptL.textAlignment = NSTextAlignmentLeft;
         _promptL.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        _promptL.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _promptL.backgroundColor = [UIColor clearColor];
         _promptL.font = UI_FONT_8;
         _promptL.text = YSLocalized(@"tool.leastanswer");
     }
@@ -796,7 +796,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_addBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
-        [_addBtn setBackgroundColor:YSSkinDefineColor(@"PopViewBgColor")];
+        [_addBtn setBackgroundColor:[UIColor clearColor]];
         _addBtn.titleLabel.font = UI_FONT_10;
         _addBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_addBtn setTitle:YSLocalized(@"tool.tianjia") forState:UIControlStateNormal];
@@ -812,7 +812,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_delBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
-        [_delBtn setBackgroundColor:YSSkinDefineColor(@"PopViewBgColor")];
+        [_delBtn setBackgroundColor:[UIColor clearColor]];
         _delBtn.titleLabel.font = UI_FONT_10;
         _delBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_delBtn setTitle:YSLocalized(@"tool.shanchu") forState:UIControlStateNormal];
@@ -842,7 +842,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _personNumL = [[UILabel alloc] init];
         _personNumL.textAlignment = NSTextAlignmentLeft;
         _personNumL.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        _personNumL.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _personNumL.backgroundColor = [UIColor clearColor];
         _personNumL.font = UI_FONT_10;
     }
 
@@ -856,7 +856,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _timeL = [[UILabel alloc] init];
         _timeL.textAlignment = NSTextAlignmentCenter;
         _timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        _timeL.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _timeL.backgroundColor = [UIColor clearColor];
         _timeL.font = UI_FONT_10;
     }
     return _timeL;
@@ -918,7 +918,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
          _resultTableView.showsVerticalScrollIndicator = YES;
          _resultTableView.alwaysBounceVertical = NO;
     
-         _resultTableView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+         _resultTableView.backgroundColor = [UIColor clearColor];
          [_resultTableView registerClass:[SCAnswerDetailTableViewCell class] forCellReuseIdentifier:@"SCAnswerDetailTableViewCell"];
          [_resultTableView registerClass:[SCStatisticsTableViewCell class] forCellReuseIdentifier:@"SCStatisticsTableViewCell"];
          [_resultTableView registerClass:[SCAnswerTBHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCAnswerTBHeaderView"];
@@ -934,7 +934,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _resultLable = [[UILabel alloc] init];
         _resultLable.textAlignment = NSTextAlignmentLeft;
         _resultLable.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        _resultLable.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _resultLable.backgroundColor = [UIColor clearColor];
         _resultLable.font = UI_FONT_8;
     }
     return _resultLable;
