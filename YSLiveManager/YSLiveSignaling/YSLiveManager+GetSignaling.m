@@ -923,10 +923,15 @@
                 {
                     if (self.tCurrentTime != ts)
                     {
-                        time = time - (self.tCurrentTime - ts);
+                        NSInteger temp = self.tCurrentTime - ts;
+                        BMLog(@"=====================%@",@(temp));
+                        if (temp < 0)
+                        {
+                            temp = 0;
+                        }
+                        time = time - temp;
                         time = time < 0 ? 0 : time;
                     }
-
                     /// 开始计时    重置以后直接开始计时
                     if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingTimerWithTime:pause:defaultTime:)])
                     {
