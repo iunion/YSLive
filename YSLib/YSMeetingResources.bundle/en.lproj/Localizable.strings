@@ -333,8 +333,8 @@
 "tool.xiaobaiban"   = "Whiteboard";
 
 "tool.fabudati"   = "Release";
-"tool.tianjia"   = "Add";
-"tool.shanchu"   = "Delete";
+"tool.tianjia"   = "add option";
+"tool.shanchu"   = "reduce option";
 "tool.zhengquedaan"   = "Correct";
 "tool.datirenshu"   = "Answer number";
 "tool.ren"   = "";
