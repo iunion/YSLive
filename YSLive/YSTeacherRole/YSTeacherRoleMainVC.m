@@ -1030,7 +1030,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     // 共享
-    self.shareVideoFloatView = [[YSFloatView alloc] initWithFrame:self.view.bounds];
+    self.shareVideoFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, self.contentWidth, self.contentHeight)];
     [self.contentBackgroud addSubview:self.shareVideoFloatView];
     self.shareVideoFloatView.hidden = YES;
     self.shareVideoView = [[UIView alloc] initWithFrame:self.shareVideoFloatView.bounds];
@@ -1046,8 +1046,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.mp4ControlView = [[YSMp4ControlView alloc] init];
     [self.contentBackgroud addSubview:self.mp4ControlView];
-    self.mp4ControlView.frame = CGRectMake(30, 0, self.contentWidth - 60, 74);
-    self.mp4ControlView.bm_bottom = self.view.bm_bottom - 23;
+    self.mp4ControlView.frame = CGRectMake(30, self.contentHeight - 100, self.contentWidth - 60, 74);
+//    self.mp4ControlView.bm_bottom = self.view.bm_bottom - 23;
     self.mp4ControlView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278 alpha:0.39];
     self.mp4ControlView.layer.cornerRadius = 37;
     self.mp4ControlView.hidden = YES;
@@ -1068,13 +1068,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if ([UIDevice bm_isiPad])
     {
         self.mp3ControlView.frame = CGRectMake(100, 0, 386, 74);
-        self.mp3ControlView.bm_bottom = self.view.bm_bottom - 123;
+        self.mp3ControlView.bm_bottom = self.contentView.bm_bottom - 123;
         self.mp3ControlView.layer.cornerRadius = 37;
     }
     else
     {
         self.mp3ControlView.frame = CGRectMake(80, 0, 300, 60);
-        self.mp3ControlView.bm_bottom = self.view.bm_bottom - 70;
+        self.mp3ControlView.bm_bottom = self.contentView.bm_bottom - 70;
         self.mp3ControlView.layer.cornerRadius = 30;
     }
 
@@ -2997,6 +2997,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (mediaModel.video)
     {
         [self showWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
+        self.spreadBottomToolBar.hidden = YES;
+        self.brushToolView.hidden = YES ;
+        self.brushToolOpenBtn.hidden = YES;
     }
     else if (mediaModel.audio)
     {
@@ -3021,6 +3024,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (mediaModel.video)
     {
+        self.spreadBottomToolBar.hidden = NO;
+        if (self.liveManager.isBeginClass)
+        {
+            self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+            self.brushToolOpenBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
+        }
+
         [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
         if (self.liveManager.isBeginClass)
         {
