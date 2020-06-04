@@ -21,7 +21,8 @@ static const CGFloat kBrushTool_width_iPad = 50.0f ;
 static const CGFloat kBrushToolBtn_width_iPhone = 26.0f;
 static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 #define BRUSHTOOL_BTN_WIDTH        ([UIDevice bm_isiPad] ? kBrushToolBtn_width_iPad : kBrushToolBtn_width_iPhone)
-@interface SCBrushToolView()
+
+@interface SCBrushToolView ()
 
 @property (nonatomic, assign) BOOL isTeacher;
 
@@ -60,7 +61,6 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 
 - (void)setFrame:(CGRect)frame
 {
-
     frame.size.width = BRUSHTOOL_WIDTH;
     if (self.isTeacher)
     {
@@ -84,7 +84,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 //    [self addSubview:self.toolsBtn];
     [self addSubview:self.toolBacView];
     
-    self.toolBacView.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+    self.toolBacView.backgroundColor = [YSSkinDefineColor(@"ToolBgColor") changeAlpha:0.6f];
     self.toolBacView.layer.cornerRadius = BRUSHTOOL_WIDTH*0.5f;
     self.toolBacView.layer.shadowColor = YSSkinDefineColor(@"ToolBgColor").CGColor;
     self.toolBacView.layer.shadowOffset = CGSizeMake(0,2);

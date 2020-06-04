@@ -814,7 +814,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         labBottom = 20;
     }
     
-    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
+    UILabel *handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     handNumLab.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
@@ -825,7 +825,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.view addSubview:handNumLab];
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)self.liveManager.studentCount];
     
-    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(handNumLab.bm_originX, handNumLab.bm_originY - raiseHandWH, raiseHandWH, raiseHandWH)];
+    UIButton *raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(handNumLab.bm_originX, handNumLab.bm_originY - raiseHandWH, raiseHandWH, raiseHandWH)];
     [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconNor") forState:UIControlStateNormal];
     [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconSel") forState:UIControlStateSelected];
     
@@ -838,7 +838,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
-    YSUpHandPopoverVC * popTab = [[YSUpHandPopoverVC alloc]init];
+    YSUpHandPopoverVC *popTab = [[YSUpHandPopoverVC alloc]init];
     popTab.userArr = self.raiseHandArray;
     popTab.preferredContentSize = CGSizeMake(95, 146);
     popTab.modalPresentationStyle = UIModalPresentationPopover;
@@ -898,19 +898,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
     
-    
     UIButton *brushToolOpenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [brushToolOpenBtn addTarget:self action:@selector(brushToolOpenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
     [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
-    brushToolOpenBtn.frame = CGRectMake(0, 0, 25, 37);
+    brushToolOpenBtn.frame = CGRectMake(0, 0, 24, 36);
     brushToolOpenBtn.bm_centerY = self.brushToolView.bm_centerY;
     brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
     self.brushToolOpenBtn = brushToolOpenBtn;
     self.brushToolOpenBtn.hidden = YES;
     [self.view addSubview:brushToolOpenBtn];
 }
-
 
 /// 助教网络刷新所有人课件
 - (void)handleSignalingTorefeshCourseware
@@ -6498,8 +6496,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 */
 
 
-
 #pragma mark 画笔工具展开收起
+
 - (void)brushToolOpenBtnClick:(UIButton *)btn
 {
 //    if (self.liveManager.isBeginClass)
@@ -6510,7 +6508,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             leftGap = BMUI_HOME_INDICATOR_HEIGHT;
         }
-        CGFloat tempWidth = [UIDevice bm_isiPad] ? 50.0f : 36.0f;
+        CGFloat tempWidth = self.brushToolView.bm_width;
         if (btn.selected)
         {
             self.drawBoardView.hidden = YES;
@@ -6519,7 +6517,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 self.brushToolOpenBtn.bm_left = leftGap;
 
             }];
-            
         }
         else
         {

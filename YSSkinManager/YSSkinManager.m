@@ -10,18 +10,16 @@
 
 static YSSkinManager *skinManager = nil;
 
-#define YSSkinBundleName  @"YSSkinRsource.bundle"
-
-#define YSSkinBundle                 [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
+#define YSSkinBundleName    @"YSSkinRsource.bundle"
+#define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
 
 @interface YSSkinManager ()
 
-@property(nonatomic ,assign)YSSkinType lastSkinType;
+@property (nonatomic, assign) YSSkinType lastSkinType;
 
-@property(nonatomic ,strong) NSDictionary * plictDict;
+@property (nonatomic, strong) NSDictionary *plictDict;
 
 @end
-
 
 @implementation YSSkinManager
 
@@ -39,7 +37,7 @@ static YSSkinManager *skinManager = nil;
     return skinManager;
 }
 
-///获取plist文件中的数据
+/// 获取plist文件中的数据
 - (NSDictionary *)getPliatDictionary
 {
     if (self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
@@ -56,60 +54,59 @@ static YSSkinManager *skinManager = nil;
             
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
+    
     self.lastSkinType = self.skinType;
     
     return self.plictDict;
 }
 
-
 - (UIColor *)getDefaultColorWithKey:(NSString *)key
 {
-    NSDictionary * colorDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonColor"];
-    
-    NSString * colorStr = [colorDict bm_stringForKey:key];
-    
-    UIColor * color = [UIColor bm_colorWithHexString:colorStr];
+    NSDictionary *colorDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonColor"];
+    NSString *colorStr = [colorDict bm_stringForKey:key];
+
+    UIColor *color = [UIColor bm_colorWithHexString:colorStr];
     
     return color;
 }
 
 - (UIImage *)getDefaultImageWithKey:(NSString *)key
 {
-    NSDictionary * imageDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonImage"];
-    NSString * imageName = [imageDict bm_stringForKey:key];
+    NSDictionary *imageDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonImage"];
+    NSString *imageName = [imageDict bm_stringForKey:key];
     
-    UIImage * image =  [self getBundleImageWithImageName:imageName];
+    UIImage *image = [self getBundleImageWithImageName:imageName];
     
     return image;
 }
 
-
 - (UIColor *)getElementColorWithName:(NSString *)name andKey:(NSString *)key
 {
-    NSDictionary * elementDict = [[self getPliatDictionary] bm_dictionaryForKey:name];
+    NSDictionary *elementDict = [[self getPliatDictionary] bm_dictionaryForKey:name];
     
     if ([elementDict bm_isNotEmpty])
     {
-        NSString * colorStr = [elementDict bm_stringForKey:key];
+        NSString *colorStr = [elementDict bm_stringForKey:key];
         
-        UIColor * color = [UIColor bm_colorWithHexString:colorStr];
-        
+        UIColor *color = [UIColor bm_colorWithHexString:colorStr];
         return color;
     }
+    
     return nil;
 }
 
 - (UIImage *)getElementImageWithName:(NSString *)name andKey:(NSString *)key
 {
-    NSDictionary * elementDict = [[self getPliatDictionary] bm_dictionaryForKey:name];
+    NSDictionary *elementDict = [[self getPliatDictionary] bm_dictionaryForKey:name];
     
     if ([elementDict bm_isNotEmpty])
     {
-        NSString * imageName = [elementDict bm_stringForKey:key];
+        NSString *imageName = [elementDict bm_stringForKey:key];
         
-        UIImage * image =  [self getBundleImageWithImageName:imageName];
+        UIImage *image =  [self getBundleImageWithImageName:imageName];
         return image;
     }
+    
     return nil;
 }
 
@@ -125,10 +122,8 @@ static YSSkinManager *skinManager = nil;
         imageFolder = @"YSSkinBlack";
     }
     
-    
-    UIImage * image = [YSSkinBundle bm_imageWithAssetsName:imageFolder imageName:imageName];
+    UIImage *image = [YSSkinBundle bm_imageWithAssetsName:imageFolder imageName:imageName];
     return image;
 }
-
 
 @end

@@ -183,7 +183,7 @@
     //[self bm_addShadow:0.0f Radius:self.bm_height*0.5f BorderColor:nil ShadowColor:[UIColor grayColor]];
     [self bm_roundedRect:height*0.5f];
     
-    self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:0.6f];
 }
 
 - (BMImageTitleButtonView *)creatButtonWithNormalTitle:(NSString *)norTitle selectedTitle:(NSString *)selTitle pathName:(NSString *)pathName

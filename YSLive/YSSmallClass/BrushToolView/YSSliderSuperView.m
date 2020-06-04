@@ -7,17 +7,16 @@
 //
 
 #import "YSSliderSuperView.h"
-#define thumbBound_x 10
-#define thumbBound_y 20
+
+#define thumbBound_x 10.0f
+#define thumbBound_y 20.0f
 
 @interface YSSliderSuperView ()
-
 {
     CGRect lastBounds;
 }
 
 @end
-
 
 @implementation YSSliderSuperView
 
@@ -32,7 +31,6 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    
     UIView *result = [super hitTest:point withEvent:event];
     if (point.x < 0 || point.x > self.bounds.size.width)
     {
@@ -41,7 +39,7 @@
 
     if ((point.y >= -thumbBound_y) && (point.y < lastBounds.size.height + thumbBound_y))
     {
-        float value = 0.0;
+        float value = 0.0f;
         value = point.x - self.bounds.origin.x;
         value = value/self.bounds.size.width;
         value = value < 0 ? 0 : value;
@@ -55,10 +53,9 @@
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    
     BOOL result = [super pointInside:point withEvent:event];
     
-    if (!result && point.y > -10)
+    if (!result && point.y > -10.0f)
     {
         if ((point.x >= lastBounds.origin.x - thumbBound_x) && (point.x <= (lastBounds.origin.x + lastBounds.size.width + thumbBound_x)) && (point.y < (lastBounds.size.height + thumbBound_y)))
         {
