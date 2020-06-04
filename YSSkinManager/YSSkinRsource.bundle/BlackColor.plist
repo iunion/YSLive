@@ -1136,5 +1136,31 @@
 		<key>iconDis</key>
 		<string>timer_end_dis_skin</string>
 	</dict>
+	<key>responder_logo</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>responder_logo_nor_skin</string>
+		<key>iconSel</key>
+		<string>responder_logo_sel_skin</string>
+		<key>iconDis</key>
+		<string>responder_logo_dis_skin</string>
+	</dict>
+	<key>responder_upPlatform</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>responder_upPlatform_nor_skin</string>
+		<key>iconSel</key>
+		<string>responder_upPlatform_sel_skin</string>
+		<key>iconDis</key>
+		<string>responder_upPlatform_dis_skin</string>
+	</dict>
 </dict>
 </plist>

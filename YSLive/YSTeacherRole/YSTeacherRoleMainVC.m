@@ -4913,7 +4913,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [weakSelf.responderView setCloseBtnHide:NO];
             NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
             [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];;//用于传人数
-            CGFloat progress = 1.0f;
+            CGFloat progress = 0.0f;
             [weakSelf.responderView setProgress:progress];
             
             if (self->contestCommitNumber == 0)
