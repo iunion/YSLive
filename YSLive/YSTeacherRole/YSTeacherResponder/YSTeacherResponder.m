@@ -19,7 +19,7 @@
 /// 关闭按钮
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, strong) YSCircleProgress *circleProgress;
-
+@property (nonatomic, strong) UIView *circleBacView;
 
 @property (nonatomic, strong) UILabel *titleL;
 @property (nonatomic, strong) UILabel *personNumberL;
@@ -68,7 +68,7 @@
     
     
     self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.closeBtn setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
+    [self.closeBtn setImage:YSSkinDefineImage(@"close_btn_icon") forState:UIControlStateNormal];
     [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.closeBtn.hidden = NO;
     [self.bacView addSubview:self.closeBtn];
@@ -79,34 +79,38 @@
     //抢答器
     self.circleProgress = [[YSCircleProgress alloc] init];
     self.circleProgress.frame = CGRectMake(0, 0, 180, 180);
-//    self.circleProgress.progress = 0.5;
-    self.circleProgress.lineWidth = 7;
+    self.circleProgress.lineWidth = 5;
     self.circleProgress.isClockwise = YES;
-    self.circleProgress.innerColor = [UIColor bm_colorWithHex:0x82ABEC];
-    self.circleProgress.lineBgColor = [UIColor bm_colorWithHex:0x5A8CDC];
-    self.circleProgress.lineProgressColor = [UIColor bm_colorWithHex:0xFFFFFF];
-    self.circleProgress.bm_centerX = self.bacView.bm_centerX;
-    self.circleProgress.bm_centerY = self.bacView.bm_centerY;
+    self.circleProgress.innerColor = YSSkinDefineColor(@"defaultBgColor");
+    self.circleProgress.lineBgColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    self.circleProgress.lineProgressColor = YSSkinDefineColor(@"PopViewBgColor");
     [self.bacView addSubview:self.circleProgress];
-    
+    [self.circleProgress bm_centerInSuperView];
+   
+    self.circleBacView = [[UIView alloc] init];
+    [self.circleProgress addSubview:self.circleBacView];
+    self.circleBacView.frame = CGRectMake(0, 0, 160, 160);
+    self.circleBacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    [self.circleBacView bm_centerInSuperView];
+    [self.circleBacView bm_roundedRect:80];
     
     self.titleL = [[UILabel alloc] init];
     [self.circleProgress addSubview:self.titleL];
     
     self.titleL.textAlignment= NSTextAlignmentCenter;
-    self.titleL.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    self.titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.titleL.font = [UIFont systemFontOfSize:16.0f];
     self.titleL.numberOfLines = 0;
     
     self.iconImgV = [[UIImageView alloc] init];
-    [self.iconImgV setImage:[UIImage imageNamed:@"teacher_responder_title"]];
+    [self.iconImgV setImage:YSSkinElementImage(@"responder_logo", @"iconNor")];
     [self.circleProgress addSubview:self.iconImgV];
     
     self.personNumberL = [[UILabel alloc] init];
     [self.circleProgress addSubview:self.personNumberL];
     self.personNumberL.text = YSLocalized(@"tool.qiangdaqi");
     self.personNumberL.textAlignment= NSTextAlignmentCenter;
-    self.personNumberL.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    self.personNumberL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.personNumberL.font = [UIFont systemFontOfSize:16.0f];
     self.personNumberL.numberOfLines = 0;
     
@@ -115,20 +119,20 @@
 
     [self.actionBtn addTarget:self action:@selector(actionBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.actionBtn.hidden = NO;
-    self.actionBtn.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
-    [self.actionBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    self.actionBtn.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    self.actionBtn.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    [self.actionBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    self.actionBtn.titleLabel.font = UI_FONT_16;
     [self.circleProgress addSubview:self.actionBtn];
-    [self.actionBtn bm_addShadow:3 Radius:17 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 2) Opacity:0.5];
+    [self.actionBtn bm_roundedRect:17];
     
     
     self.selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.selectBtn setTitle:YSLocalized(@"Button.AnswerSpeak") forState:UIControlStateNormal];
-    [self.selectBtn setImage:[UIImage imageNamed:@"teacher_responder_up_normal"] forState:UIControlStateNormal];
-    [self.selectBtn setImage:[UIImage imageNamed:@"teacher_responder_up_selected"] forState:UIControlStateSelected];
+    [self.selectBtn setImage:YSSkinElementImage(@"responder_upPlatform", @"iconNor") forState:UIControlStateNormal];
+    [self.selectBtn setImage:YSSkinElementImage(@"responder_upPlatform", @"iconSel") forState:UIControlStateSelected];
     [self.selectBtn addTarget:self action:@selector(selectBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.selectBtn.hidden = NO;
-    [self.selectBtn setTitleColor:[UIColor bm_colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+    [self.selectBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
     self.selectBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     [self.circleProgress addSubview:self.selectBtn];
     [self.selectBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:4];
@@ -144,17 +148,17 @@
     if (responderType == YSTeacherResponderType_Start)
     {
         self.personNumberL.hidden = YES;
-        self.titleL.frame = CGRectMake(20, 10, self.circleProgress.bm_width - 40, 22);
+        self.titleL.frame = CGRectMake(20, 15, self.circleProgress.bm_width - 40, 22);
         self.titleL.text = YSLocalized(@"tool.qiangdaqi");
         self.iconImgV.frame = CGRectMake(0, 0, 30, 30);
         self.iconImgV.bm_centerX = self.titleL.bm_centerX;
         self.iconImgV.bm_top = self.titleL.bm_bottom + 10;
-        self.actionBtn.frame = CGRectMake(0, 0, 130, 34);
+        self.actionBtn.frame = CGRectMake(0, 0, 100, 34);
         self.actionBtn.bm_centerX = self.titleL.bm_centerX;
-        self.actionBtn.bm_top = self.iconImgV.bm_bottom + 10;
-    [self.actionBtn setTitle:YSLocalized(@"tool.start") forState:UIControlStateNormal];
+        self.actionBtn.bm_top = self.iconImgV.bm_bottom + 5;
+        [self.actionBtn setTitle:YSLocalized(@"tool.start") forState:UIControlStateNormal];
         self.selectBtn.frame = CGRectMake(10, 0, self.circleProgress.bm_width - 20, 20);
-        self.selectBtn.bm_top = self.actionBtn.bm_bottom + 15;
+        self.selectBtn.bm_top = self.actionBtn.bm_bottom + 18;
         self.actionBtn.hidden = NO;
         self.selectBtn.hidden = NO;
         self.iconImgV.hidden = NO;
@@ -183,7 +187,7 @@
         self.titleL.bm_top = self.personNumberL.bm_bottom + 2;
         self.titleL.text = @"";
         
-        self.actionBtn.frame = CGRectMake(0, 0, 130, 34);
+        self.actionBtn.frame = CGRectMake(0, 0, 100, 34);
         self.actionBtn.bm_centerX = self.titleL.bm_centerX;
         self.actionBtn.bm_top = self.titleL.bm_bottom + 5;
         [self.actionBtn setTitle:YSLocalized(@"Res.btn.noget") forState:UIControlStateNormal];

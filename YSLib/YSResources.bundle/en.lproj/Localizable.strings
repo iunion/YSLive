@@ -340,8 +340,8 @@
 "tool.datirenshu"   = "Answer number";
 "tool.ren"   = "";
 "tool.time"   = "Time";
-"tool.detail"   = "Detail >";
-"tool.tongji"   = "statistical >";
+"tool.detail"   = "Detail";
+"tool.tongji"   = "Statistical";
 
 "tool.end"   = "End";
 "tool.nodata"   = "No Data！";

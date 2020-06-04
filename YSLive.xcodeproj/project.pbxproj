@@ -221,7 +221,6 @@
 		871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B15A2371720600A43607 /* testgpsmoker_icon@2x.png */; };
 		871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1312371720600A43607 /* testcolorpalette@2x.png */; };
 		871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
-		871336ED237270F6006534A4 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		871338DC2372BE57006534A4 /* SCMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871338D02372BE57006534A4 /* SCMainVC.m */; };
 		8717E1BF2400DADC008C4CDA /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
 		8717E1C02400DADC008C4CDA /* YSVoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12772372647800D642E8 /* YSVoteModel.m */; };
@@ -406,10 +405,8 @@
 		8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
 		8717E34B2400DADC008C4CDA /* testcolorpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1322371720600A43607 /* testcolorpicker@2x.png */; };
 		8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C323EC31C8002002BF /* YSClassCell.xib */; };
-		8717E34D2400DADC008C4CDA /* (null) in Resources */ = {isa = PBXBuildFile; };
 		8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
 		8717E3502400DADC008C4CDA /* YSRoomSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 877CCBC92389479B00584E65 /* YSRoomSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8717E3572400DB9F008C4CDA /* vclass_Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8717E3562400DB9F008C4CDA /* vclass_Info.plist */; };
 		8717E3722400DFD1008C4CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8717E36D2400DFD1008C4CDA /* InfoPlist.strings */; };
 		8717E3732400DFD1008C4CDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717E3712400DFD1008C4CDA /* Assets.xcassets */; };
 		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
@@ -3873,7 +3870,6 @@
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
 				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
-				871336ED237270F6006534A4 /* (null) in Resources */,
 				87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3896,7 +3892,6 @@
 				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
 				8717E3442400DADC008C4CDA /* testgpsmoker_icon@2x.png in Resources */,
 				8717E3452400DADC008C4CDA /* YSClassMediumCell.xib in Resources */,
-				8717E3572400DB9F008C4CDA /* vclass_Info.plist in Resources */,
 				8717E3462400DADC008C4CDA /* YSWhiteBoardImage.xcassets in Resources */,
 				8717E3472400DADC008C4CDA /* OnlineSchool.xcassets in Resources */,
 				8717E3492400DADC008C4CDA /* testcolorpalette@2x.png in Resources */,
@@ -3904,7 +3899,6 @@
 				8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */,
 				8717E34B2400DADC008C4CDA /* testcolorpicker@2x.png in Resources */,
 				8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */,
-				8717E34D2400DADC008C4CDA /* (null) in Resources */,
 				8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

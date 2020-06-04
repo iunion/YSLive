@@ -8,17 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, YSSkinType)
+{
     YSSkinType_black,
     YSSkinType_original,
-} YSSkinType;
+};
 
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSSkinManager : NSObject
 
-@property(nonatomic ,assign)YSSkinType skinType;
+@property (nonatomic, assign)YSSkinType skinType;
 
 + (instancetype)shareInstance;
 

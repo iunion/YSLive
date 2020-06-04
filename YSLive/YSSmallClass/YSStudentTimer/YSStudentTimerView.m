@@ -8,17 +8,17 @@
 
 #import "YSStudentTimerView.h"
 
-#define backViewWidth 320
-#define backViewHeight 220
+//#define backViewWidth 320
+//#define backViewHeight 220
 
+#define backViewWidth 268
+#define backViewHeight 180
 #define backImageWidth 268
 #define backImageHeight 180
 @interface YSStudentTimerView()
 
 /// 底部view
 @property (nonatomic, strong) UIView *bacView;
-/// 底部ImageView
-@property (nonatomic, strong) UIImageView *bacImageView;
 /// 关闭按钮
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, strong) UILabel *titleL;
@@ -64,50 +64,44 @@
 //    self.second = 0;
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = [UIColor clearColor];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:0.6f];
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
+    [self.bacView bm_roundedRect:10.0f];
     [self showWithView:self.bacView inView:inView];
     
     self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.closeBtn setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
+    [self.closeBtn setImage:YSSkinDefineImage(@"close_btn_icon") forState:UIControlStateNormal];
     [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bacView addSubview:self.closeBtn];
     self.closeBtn.frame = CGRectMake(0, 0, 25, 25);
     self.closeBtn.bm_right = self.bacView.bm_right - 5;
     self.closeBtn.bm_top = self.bacView.bm_top + 5;
     self.closeBtn.hidden = YES;
-    self.bacImageView = [[UIImageView alloc] init];
-    [self.bacImageView setImage:[UIImage imageNamed:@"teacherTimer_backimg"]];//teacherTimer_backimg
-    self.bacImageView.userInteractionEnabled = YES;
-    [self.bacView addSubview:self.bacImageView];
-    self.bacImageView.frame = CGRectMake(0, 0, backImageWidth, backImageHeight);
-    self.bacImageView.bm_bottom = self.bacView.bm_bottom;
-    self.bacImageView.bm_centerX = self.bacView.bm_centerX;
     
     self.titleL = [[UILabel alloc] init];
-    [self.bacImageView addSubview:self.titleL];
+    [self.bacView addSubview:self.titleL];
     self.titleL.textAlignment= NSTextAlignmentCenter;
-    self.titleL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-    self.titleL.font = [UIFont systemFontOfSize:16.0f];
+    self.titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.titleL.font = UI_FONT_16;
     self.titleL.text = YSLocalized(@"tool.jishiqi");
-    self.titleL.frame = CGRectMake(0, 26, self.bacImageView.bm_width, 22);
+    self.titleL.frame = CGRectMake(30, 10, self.bacView.bm_width-60, 40);
     
     self.intervalL = [[UILabel alloc] init];
-    [self.bacImageView addSubview:self.intervalL];
+    [self.bacView addSubview:self.intervalL];
     self.intervalL.textAlignment= NSTextAlignmentCenter;
-    self.intervalL.textColor = [UIColor bm_colorWithHex:0x6D7278];
+    self.intervalL.textColor = YSSkinDefineColor(@"login_placeholderColor");
     self.intervalL.font = [UIFont systemFontOfSize:30.0f];
     self.intervalL.text = @":";
     self.intervalL.frame = CGRectMake(0, 50, 9, 42);
     self.intervalL.bm_centerX = self.titleL.bm_centerX;
-    self.intervalL.bm_top = self.titleL.bm_bottom + 17;
+    self.intervalL.bm_top = self.titleL.bm_bottom + 20;
     
     self.minuteL = [[UILabel alloc] init];
-    [self.bacImageView addSubview:self.minuteL];
+    [self.bacView addSubview:self.minuteL];
     self.minuteL.textAlignment= NSTextAlignmentCenter;
-    self.minuteL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-    self.minuteL.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.minuteL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.minuteL.backgroundColor = YSSkinDefineColor(@"login_placeholderColor");
     self.minuteL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
     self.minuteL.frame = CGRectMake(0, 0, 70, 42);
     self.minuteL.bm_right = self.intervalL.bm_left - 18;
@@ -118,10 +112,10 @@
     
 
     self.secondL = [[UILabel alloc] init];
-    [self.bacImageView addSubview:self.secondL];
+    [self.bacView addSubview:self.secondL];
     self.secondL.textAlignment= NSTextAlignmentCenter;
-    self.secondL.textColor = [UIColor bm_colorWithHex:0x6D7278];
-    self.secondL.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.secondL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.secondL.backgroundColor = YSSkinDefineColor(@"login_placeholderColor");
     self.secondL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
     self.secondL.frame = CGRectMake(0, 0, 70, 42);
     self.secondL.bm_left = self.intervalL.bm_right + 18;
@@ -131,15 +125,15 @@
     self.secondL.text = @"00";
     
     self.endTitleL = [[UILabel alloc] init];
-    [self.bacImageView addSubview:self.endTitleL];
+    [self.bacView addSubview:self.endTitleL];
     self.endTitleL.textAlignment= NSTextAlignmentCenter;
-    self.endTitleL.textColor = [UIColor bm_colorWithHex:0x6D7278];
+    self.endTitleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.endTitleL.font = [UIFont systemFontOfSize:20.0f];
     self.endTitleL.text = YSLocalized(@"Timer.lab.end");
 
     self.endImageV = [[UIImageView alloc] init];
-    [self.endImageV setImage:[UIImage imageNamed:@"teacherTimer_end"]];
-    [self.bacImageView addSubview:self.endImageV];
+    [self.endImageV setImage:YSSkinElementImage(@"timer_end", @"iconNor")];
+    [self.bacView addSubview:self.endImageV];
 
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(contentPanGestureAction:)];
     [self.noticeView addGestureRecognizer:pan];
@@ -197,7 +191,6 @@
     {
         //计时中
 
-        [self.bacImageView setImage:[UIImage imageNamed:@"teacherTimer_backimg"]];//teacherTimer_backimg
         self.endTitleL.hidden = YES;
         self.endImageV.hidden = YES;
         
@@ -208,15 +201,15 @@
     else if (timerType == YSStudentTimerViewType_End)
     {
         //计时结束
-        [self.bacImageView setImage:[UIImage imageNamed:@"teacherTimer_backimg"]];//teacherTimer_backimg
+        
         self.endTitleL.hidden = NO;
         self.endImageV.hidden = NO;
         self.minuteL.hidden = YES;
         self.secondL.hidden = YES;
         self.intervalL.hidden = YES;
         
-        self.endImageV.frame = CGRectMake(0, 0, 24, 29);
-        self.endImageV.bm_top = self.titleL.bm_bottom + 15;
+        self.endImageV.frame = CGRectMake(0, 0, 30, 30);
+        self.endImageV.bm_top = self.titleL.bm_bottom + 20;
         self.endImageV.bm_centerX = self.titleL.bm_centerX;
         
         self.endTitleL.frame = CGRectMake(0, 0, 100, 28);

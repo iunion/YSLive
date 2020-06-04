@@ -38,6 +38,7 @@
 #import "YSControlPopoverView.h"
 
 #import "PanGestureControl.h"
+#import "YSToolBoxView.h"
 
 #define USE_FullTeacher             1
 
@@ -119,7 +120,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     UIPopoverPresentationControllerDelegate,
     YSControlPopoverViewDelegate,
     SCVideoViewDelegate,
-    SCTeacherListViewDelegate
+    SCTeacherListViewDelegate,
+    YSToolBoxViewDelegate
 >
 {
     /// 最大上台数
@@ -299,7 +301,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 
 /// 视频布局时全屏按钮（隐藏顶部工具栏）
 @property(nonatomic,strong)UIButton *videoFullScreenBtn;
-
+/// 工具箱
+@property(nonatomic, strong) YSToolBoxView *toolBoxView;
 @end
 
 @implementation SCMainVC
@@ -497,6 +500,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     // 设置花名册 课件表
     [self setupListView];
     
+    [self.spreadBottomToolBar bm_bringToFront];
+
     if (YSCurrentUser.role == YSUserType_Student)
     {
         // 设置左侧工具栏
@@ -2700,14 +2705,14 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     
 }
 /// 功能点击
-- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType select:(BOOL)select
+- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType isSelected:(BOOL)isSelected
 {
         switch (teacherTopBarType)
         {
             case SCTeacherTopBarTypePersonList:
             {
                 //花名册  有用户进入房间调用 上下课调用
-                [self freshListViewWithSelect:select];
+                [self freshListViewWithSelect:isSelected];
                 [self freshTeacherPersonListDataNeedFesh:YES];
                 [self.teacherListView bm_bringToFront];
 
@@ -2736,17 +2741,24 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                 
             }
                 break;
+            case SCTeacherTopBarTypeToolBox:
+            {
+                self.toolBoxView = [[YSToolBoxView alloc] init];
+                [self.toolBoxView showToolBoxViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0 userRole:self.liveManager.localUser.role];
+                self.toolBoxView.delegate = self;
+            }
+                break;
             case SCTeacherTopBarTypeCamera:
             {
                 //摄像头
-                [self.liveManager.roomManager selectCameraPosition:!select];
+                [self.liveManager.roomManager selectCameraPosition:!isSelected];
             }
                 break;
             case SCTeacherTopBarTypeChat:
             {
                 //消息
                 CGRect tempRect = self.rightChatView.frame;
-                if (select)
+                if (isSelected)
                 {//弹出
                     tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
                     //收回 课件表 以及 花名册
@@ -2774,7 +2786,29 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         }
         
 }
+#pragma mark 工具箱
 
+/// 关闭工具箱
+- (void)closeToolBoxView
+{
+    [self.spreadBottomToolBar hideToolBoxView];
+}
+- (void)toolBoxViewClickAtToolBoxType:(SCToolBoxType)toolBoxType
+{
+    [self.spreadBottomToolBar hideToolBoxView];
+    switch (toolBoxType)
+    {
+        case SCToolBoxTypeAlbum:
+        {
+            /// 上传图片
+            [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
+        }
+            break;
+
+        default:
+            break;
+    }
+}
 // 是否弹出课件库 以及 花名册  select  yes--弹出  no--收回
 - (void)freshListViewWithSelect:(BOOL)select
 {

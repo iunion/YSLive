@@ -496,6 +496,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 设置花名册 课件表
     [self setupListView];
     
+    [self.spreadBottomToolBar bm_bringToFront];
     
     //创建上下课按钮
     [self setupClassBeginButton];
@@ -813,7 +814,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         labBottom = 20;
     }
     
-    UILabel * handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
+    UILabel *handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     handNumLab.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
@@ -824,7 +825,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.view addSubview:handNumLab];
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)self.liveManager.studentCount];
     
-    UIButton * raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(handNumLab.bm_originX, handNumLab.bm_originY - raiseHandWH, raiseHandWH, raiseHandWH)];
+    UIButton *raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(handNumLab.bm_originX, handNumLab.bm_originY - raiseHandWH, raiseHandWH, raiseHandWH)];
     [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconNor") forState:UIControlStateNormal];
     [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconSel") forState:UIControlStateSelected];
     
@@ -837,7 +838,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
-    YSUpHandPopoverVC * popTab = [[YSUpHandPopoverVC alloc]init];
+    YSUpHandPopoverVC *popTab = [[YSUpHandPopoverVC alloc]init];
     popTab.userArr = self.raiseHandArray;
     popTab.preferredContentSize = CGSizeMake(95, 146);
     popTab.modalPresentationStyle = UIModalPresentationPopover;
@@ -897,19 +898,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolView.delegate = self;
     self.brushToolView.hidden = YES;
     
-    
     UIButton *brushToolOpenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [brushToolOpenBtn addTarget:self action:@selector(brushToolOpenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
     [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
-    brushToolOpenBtn.frame = CGRectMake(0, 0, 25, 37);
+    brushToolOpenBtn.frame = CGRectMake(0, 0, 24, 36);
     brushToolOpenBtn.bm_centerY = self.brushToolView.bm_centerY;
     brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
     self.brushToolOpenBtn = brushToolOpenBtn;
     self.brushToolOpenBtn.hidden = YES;
     [self.view addSubview:brushToolOpenBtn];
 }
-
 
 /// 助教网络刷新所有人课件
 - (void)handleSignalingTorefeshCourseware
@@ -3878,7 +3877,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 }
 /// 功能点击
-- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType select:(BOOL)select
+- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType isSelected:(BOOL)isSelected
 {
         switch (teacherTopBarType)
         {
@@ -3887,7 +3886,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 
 //                [self.bottomToolBar setMessageOpen:NO];
                 //花名册  有用户进入房间调用 上下课调用
-                [self freshListViewWithSelect:select];
+                [self freshListViewWithSelect:isSelected];
                 [self freshTeacherPersonListDataNeedFesh:YES];
                 [self.teacherListView bm_bringToFront];
             }
@@ -3896,7 +3895,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeCourseware:
             {
                 //课件库
-                [self freshListViewWithSelect:select];
+                [self freshListViewWithSelect:isSelected];
                 if (!self.liveManager.roomConfig.isMultiCourseware)
                 {
                     self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
@@ -3928,7 +3927,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeSwitchLayout:
             {
                 //切换布局
-                [self changeLayoutWithMode:select];
+                [self changeLayoutWithMode:isSelected];
             }
                 break;
             case SCTeacherTopBarTypePolling:
@@ -3949,7 +3948,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCTeacherTopBarTypeAllNoAudio:
             {
-                if (select)
+                if (isSelected)
                 {
                     // 全体静音
                     [self.liveManager sendSignalingTeacherToLiveAllNoAudioCompletion:nil];
@@ -3964,14 +3963,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             case SCTeacherTopBarTypeCamera:
             {
                 //摄像头
-                [self.liveManager.roomManager selectCameraPosition:!select];
+                [self.liveManager.roomManager selectCameraPosition:!isSelected];
             }
                 break;
             case SCTeacherTopBarTypeChat:
             {
                 //消息
                 CGRect tempRect = self.rightChatView.frame;
-                if (select)
+                if (isSelected)
                 {//弹出
                     tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
                     //收回 课件表 以及 花名册
@@ -4909,7 +4908,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [weakSelf.responderView setCloseBtnHide:NO];
             NSString *totalNumber = [NSString stringWithFormat:@"%@",@(total)];
             [weakSelf.responderView setPersonNumber:[NSString stringWithFormat:@"%@",@(self->contestCommitNumber)] totalNumber:totalNumber];;//用于传人数
-            CGFloat progress = 1.0f;
+            CGFloat progress = 0.0f;
             [weakSelf.responderView setProgress:progress];
             
             if (self->contestCommitNumber == 0)
@@ -6492,8 +6491,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 */
 
 
-
 #pragma mark 画笔工具展开收起
+
 - (void)brushToolOpenBtnClick:(UIButton *)btn
 {
 //    if (self.liveManager.isBeginClass)
@@ -6504,7 +6503,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             leftGap = BMUI_HOME_INDICATOR_HEIGHT;
         }
-        CGFloat tempWidth = [UIDevice bm_isiPad] ? 50.0f : 36.0f;
+        CGFloat tempWidth = self.brushToolView.bm_width;
         if (btn.selected)
         {
             self.drawBoardView.hidden = YES;
@@ -6513,7 +6512,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 self.brushToolOpenBtn.bm_left = leftGap;
 
             }];
-            
         }
         else
         {

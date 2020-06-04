@@ -275,7 +275,6 @@
             break;
           
         case YSBrushToolTypeLine:
-        
             self.drawType = drawType;
             [self creatToolBtnWithBrushToolType:YSBrushToolTypeLine];
             [self showType:YSSelectorShowType_All];

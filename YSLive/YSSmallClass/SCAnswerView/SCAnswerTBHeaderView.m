@@ -33,7 +33,7 @@
 
 - (void)setup
 {
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     [self.contentView addSubview:self.backView];
     [self.contentView addSubview:self.nameL];
     [self.contentView addSubview:self.resultL];
@@ -43,18 +43,18 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.backView.frame = CGRectMake(15 ,0, self.bm_width - 30, 22);
+    self.backView.frame = CGRectMake(10 ,0, self.bm_width - 20, 22);
     self.backView.bm_centerY = self.contentView.bm_centerY;
-    self.backView.layer.cornerRadius = 5;
-    self.backView.layer.masksToBounds = YES;
-    
-    self.nameL.frame = CGRectMake(40, 0, 130, 15);
+//    self.backView.layer.cornerRadius = 5;
+//    self.backView.layer.masksToBounds = YES;
+    CGFloat tempWidth = (self.backView.bm_width - 25) / 3;
+    self.nameL.frame = CGRectMake(15, 0, tempWidth, 15);
     self.nameL.bm_centerY = self.contentView.bm_centerY;
     
-    self.resultL.frame = CGRectMake(CGRectGetMaxX(self.nameL.frame) + 10, 0, 110, 15);
-    self.resultL.bm_centerY = self.contentView.bm_centerY;\
+    self.resultL.frame = CGRectMake(CGRectGetMaxX(self.nameL.frame) + 5, 0, tempWidth, 15);
+    self.resultL.bm_centerY = self.contentView.bm_centerY;
     
-    self.timeL.frame = CGRectMake(CGRectGetMaxX(self.resultL.frame) + 10, 0, self.contentView.bm_width - self.timeL.bm_left - 5 - 10, 15);
+    self.timeL.frame = CGRectMake(CGRectGetMaxX(self.resultL.frame) + 5, 0, self.contentView.bm_width - self.timeL.bm_left - 5 - 15, 15);
     self.timeL.bm_centerY = self.contentView.bm_centerY;
 }
 
@@ -78,7 +78,7 @@
     if (!_backView)
     {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+        _backView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     }
     return _backView;
 }
@@ -89,9 +89,9 @@
     {
         _nameL = [[UILabel alloc] init];
         _nameL.textAlignment = NSTextAlignmentLeft;
-        _nameL.font = [UIFont systemFontOfSize:12];
+        _nameL.font = UI_FONT_10;
         _nameL.numberOfLines = 0;
-        _nameL.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+        _nameL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     return _nameL;
 }
@@ -100,10 +100,10 @@
     if (!_resultL)
     {
         _resultL = [[UILabel alloc] init];
-        _resultL.textAlignment = NSTextAlignmentLeft;
-        _resultL.font = [UIFont systemFontOfSize:12];
+        _resultL.textAlignment = NSTextAlignmentCenter;
+        _resultL.font = UI_FONT_10;
         _resultL.numberOfLines = 0;
-        _resultL.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+        _resultL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     return _resultL;
 }
@@ -112,10 +112,10 @@
     if (!_timeL)
     {
         _timeL = [[UILabel alloc] init];
-        _timeL.textAlignment = NSTextAlignmentLeft;
-        _timeL.font = [UIFont systemFontOfSize:12];
+        _timeL.textAlignment = NSTextAlignmentRight;
+        _timeL.font = UI_FONT_10;
         _timeL.numberOfLines = 0;
-        _timeL.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+        _timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     return _timeL;
 }

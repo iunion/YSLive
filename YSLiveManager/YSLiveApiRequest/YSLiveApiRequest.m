@@ -184,7 +184,7 @@
     [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
     [parameters bm_setString:answerId forKey:@"id"];
     [parameters bm_setDouble:startTime forKey:@"starttime"];
-    [parameters bm_setDouble:endTime forKey:@"endtime"];
+    [parameters bm_setDouble:(int)endTime forKey:@"endtime"];
     [parameters bm_setInteger:0 forKey:@"page"];
     [parameters bm_setInteger:200 forKey:@"pageNum"];
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];

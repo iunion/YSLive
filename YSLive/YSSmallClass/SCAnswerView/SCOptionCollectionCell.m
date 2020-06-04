@@ -9,7 +9,7 @@
 #import "SCOptionCollectionCell.h"
 
 @interface SCOptionCollectionCell ()
-@property (nonatomic, strong) UIImageView *optionImg;
+@property (nonatomic, strong) UILabel *optionLabel;
 @end
 
 @implementation SCOptionCollectionCell
@@ -25,33 +25,39 @@
 
 - (void)setup
 {
-    [self.contentView addSubview:self.optionImg];
-    self.optionImg.frame = CGRectMake(0, 0, self.contentView.bm_width, self.contentView.bm_height);
+    [self.contentView addSubview:self.optionLabel];
+    self.optionLabel.frame = CGRectMake(0, 0, self.contentView.bm_width, self.contentView.bm_height);
+    [self.optionLabel bm_roundedRect:4.0f];
 }
 
 - (void)setDataDic:(NSDictionary *)dataDic
 {
     _dataDic = dataDic;
-    NSString *normalImg = dataDic[@"normalImgs"];
-    NSString *selectedImg = dataDic[@"selectedImgs"];
-    
+
+    self.optionLabel.text = dataDic[@"option"];
     if ([_dataDic[@"isselect"] intValue] == 0)
     {
-        [self.optionImg setImage:[UIImage imageNamed:normalImg]];
+        self.optionLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     }
     else
     {
-        [self.optionImg setImage:[UIImage imageNamed:selectedImg]];
+        self.optionLabel.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     }
 }
 
-- (UIImageView *)optionImg
+- (UILabel *)optionLabel
 {
-    if (!_optionImg)
+    if (!_optionLabel)
     {
-        _optionImg = [[UIImageView alloc]init];
+        _optionLabel = [[UILabel alloc]init];
+        _optionLabel.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        _optionLabel.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _optionLabel.textAlignment = NSTextAlignmentCenter;
+        _optionLabel.font = [UIFont systemFontOfSize:40.0f];
     }
     
-    return _optionImg;
+    return _optionLabel;
 }
 @end
