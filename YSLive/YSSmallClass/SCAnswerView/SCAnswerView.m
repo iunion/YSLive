@@ -128,7 +128,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     self.topView.frame = CGRectMake(0, 0, self.bacView.bm_width, answerTitleHeight);
     
     [self.bacView addSubview:self.closeBtn];
-    self.closeBtn.frame = CGRectMake(0, 0, 10, 10);
+    self.closeBtn.frame = CGRectMake(0, 0, 15, 15);
     self.closeBtn.bm_right = self.topView.bm_right - 10;
     self.closeBtn.bm_centerY = self.topView.bm_centerY;
     
@@ -172,7 +172,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         [self.bacView addSubview:self.resultTableView];
         self.resultTableView.frame = CGRectMake(0, CGRectGetMaxY(self.timeL.frame) + 10 ,self.bacView.bm_width , 90);
         self.resultTableView.frame = CGRectMake(0, 0 ,self.bacView.bm_width , 0);
-        [self.resultTableView bm_setTop:self.timeL.bm_bottom + 5 bottom:self.resultLable.bm_top - 5];
+        [self.resultTableView bm_setTop:self.topBtn.bm_bottom + 5 bottom:self.resultLable.bm_top - 5];
         
         
         if (answerViewType == SCAnswerViewType_Statistics)

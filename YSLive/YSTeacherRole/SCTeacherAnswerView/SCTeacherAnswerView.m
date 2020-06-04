@@ -140,7 +140,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     self.topView.frame = CGRectMake(0, 0, self.bacView.bm_width, answerTitleHeight);
     
     [self.bacView addSubview:self.closeBtn];
-    self.closeBtn.frame = CGRectMake(0, 0, 10, 10);
+    self.closeBtn.frame = CGRectMake(0, 0, 15, 15);
     self.closeBtn.bm_right = self.topView.bm_right - 10;
     self.closeBtn.bm_centerY = self.topView.bm_centerY;
     
