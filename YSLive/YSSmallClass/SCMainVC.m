@@ -1373,16 +1373,19 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     {
         totalWidth = count*(videoWidth+VIDEOVIEW_GAP*0.5);
     }
-    else
+    else if (count < 26)
     {
-        NSInteger num = count/2 + count%2;
+        NSInteger num = 0;
         if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
         {
-            totalWidth = videoTeacherWidth + num*(videoWidth+VIDEOVIEW_GAP*0.5);
+            num = (count - 1)/2 + (count - 1)%2;
+            totalWidth = videoTeacherWidth + num * (videoWidth + VIDEOVIEW_GAP/2);
         }
         else
         {
-            totalWidth = num*(videoWidth+VIDEOVIEW_GAP*0.5);
+            
+            num = count/2 + count%2;
+            totalWidth = num * (videoWidth + VIDEOVIEW_GAP/2);
         }
     }
     return totalWidth;
@@ -1448,16 +1451,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     }
     else
     {
-        NSUInteger count = [self getVideoViewCount];
-        videoTeacherWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
-        if (count < 8)
-        {
-            videoWidth = videoTeacherWidth;
-        }
-        else
-        {
-            videoWidth = ceil((videoTeacherWidth - VIDEOVIEW_GAP*0.5)/2.0);
-        }
         CGFloat scale = 0;
         if (self.isWideScreen)
         {
@@ -1467,9 +1460,21 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         {
             scale = 4.0/3.0;
         }
-        videoHeight = ceil(videoWidth / scale);
-        videoTeacherHeight = ceil(videoTeacherWidth / scale);
         
+        NSUInteger count = [self getVideoViewCount];
+        videoTeacherWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
+        videoTeacherHeight = ceil(videoTeacherWidth / scale);
+        if (count < 8)
+        {
+            videoWidth = videoTeacherWidth;
+            videoHeight = videoTeacherHeight;
+        }
+        else
+        {
+            videoHeight = ceil((videoTeacherHeight - VIDEOVIEW_GAP * 0.5)/2.0);
+            videoWidth = ceil(videoHeight * scale);
+        }
+       
         if ((self.contentHeight - STATETOOLBAR_HEIGHT - videoTeacherHeight - VIDEOVIEW_GAP) * 2 >= self.contentWidth)
         {
             whitebordWidth = self.contentWidth;
@@ -1742,7 +1747,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
              {
                  view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
              }
-            else
+            else if (count < 26)
             {
                 // 老师没被拖出
                 if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)

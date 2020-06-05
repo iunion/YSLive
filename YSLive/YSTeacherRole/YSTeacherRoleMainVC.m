@@ -788,7 +788,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    else
 //    {
         CGFloat width = self.contentWidth;
-        CGFloat height = self.contentHeight-TOPTOOLBAR_HEIGHT;
+        CGFloat height = self.contentHeight-STATETOOLBAR_HEIGHT;
         self.videoGridView.defaultSize = CGSizeMake(width, height);
         self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
         [self.contentBackgroud addSubview:self.videoGridView];
@@ -1156,18 +1156,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (count < 8)
     {
-        totalWidth = count*(videoWidth+VIDEOVIEW_GAP*0.5);
+        totalWidth = count * (videoWidth + VIDEOVIEW_GAP/2);
     }
-    else
+    else if (count < 26)
     {
-        NSInteger num = count/2 + count%2;
+        NSInteger num = 0;
         if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
         {
-            totalWidth = videoTeacherWidth + num*(videoWidth+VIDEOVIEW_GAP*0.5);
+            num = (count - 1)/2 + (count - 1)%2;
+            totalWidth = videoTeacherWidth + num * (videoWidth + VIDEOVIEW_GAP/2);
         }
         else
         {
-            totalWidth = num*(videoWidth+VIDEOVIEW_GAP*0.5);
+            num = count/2 + count%2;
+            totalWidth = num * (videoWidth + VIDEOVIEW_GAP/2);
         }
     }
     return totalWidth;
@@ -1193,15 +1195,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     SCVideoGridView *videoGridView = [[SCVideoGridView alloc] initWithWideScreen:self.isWideScreen];
 
     CGFloat width = self.contentWidth;
-    CGFloat height = self.contentHeight-TOPTOOLBAR_HEIGHT;
+    CGFloat height = self.contentHeight-STATETOOLBAR_HEIGHT;
     
     // 初始化尺寸
     videoGridView.defaultSize = CGSizeMake(width, height);
     videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
     
     [self.contentBackgroud addSubview:videoGridView];
-//    [videoGridView bm_centerInSuperView];
-//    videoGridView.topOffset = TOPTOOLBAR_HEIGHT*0.5;
     videoGridView.backgroundColor = [UIColor clearColor];
     videoGridView.hidden = YES;
     self.videoGridView = videoGridView;
@@ -1258,16 +1258,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        NSUInteger count = [self getVideoViewCount];
-        videoTeacherWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
-        if (count < 8)
-        {
-            videoWidth = videoTeacherWidth;
-        }
-        else
-        {
-            videoWidth = ceil((videoTeacherWidth - VIDEOVIEW_GAP*0.5)/2.0);
-        }
         CGFloat scale = 0;
         if (self.isWideScreen)
         {
@@ -1277,8 +1267,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             scale = 4.0/3.0;
         }
-        videoHeight = ceil(videoWidth / scale);
+        
+        NSUInteger count = [self getVideoViewCount];
+        videoTeacherWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
         videoTeacherHeight = ceil(videoTeacherWidth / scale);
+        if (count < 8)
+        {
+            videoWidth = videoTeacherWidth;
+            videoHeight = videoTeacherHeight;
+        }
+        else
+        {
+            videoHeight = ceil((videoTeacherHeight - VIDEOVIEW_GAP * 0.5)/2.0);
+            videoWidth = ceil(videoHeight * scale);
+        }
         
         if ((self.contentHeight - STATETOOLBAR_HEIGHT - videoTeacherHeight - VIDEOVIEW_GAP) * 2 >= self.contentWidth)
         {
@@ -1332,7 +1334,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {
             CGFloat width = self.contentWidth;
-            CGFloat height = self.contentHeight-TOPTOOLBAR_HEIGHT;
+            CGFloat height = self.contentHeight-STATETOOLBAR_HEIGHT;
             self.videoGridView.defaultSize = CGSizeMake(width, height);
             self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
             [self.contentBackgroud addSubview:self.videoGridView];
@@ -1459,7 +1461,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 view.frame = CGRectMake(videoStartX+(videoWidth+VIDEOVIEW_GAP*0.5)*index, VIDEOVIEW_GAP*0.5, videoWidth, videoHeight);
             }
-            else
+            else if (count < 26)
             {
                 // 老师没被拖出
                 if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
@@ -1568,7 +1570,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [videoView removeFromSuperview];
     }
+    
+    if (self.videoViewArray.count<22)
+    {
+        for (int i = 0; i<22; i++)
+        {
 
+            YSRoomUser * user = [[YSRoomUser alloc]initWithPeerId:[NSString stringWithFormat:@"jjj%d",i]];
+            SCVideoView * video = [[SCVideoView alloc]initWithRoomUser:user];
+            [self.videoViewArray addObject:video];
+        }
+    }
+    
     [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
