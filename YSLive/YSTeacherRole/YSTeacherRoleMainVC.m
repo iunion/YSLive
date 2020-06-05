@@ -5833,6 +5833,34 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
             break;
+        case 7:
+        {
+            // 全体复位
+            for (YSRoomUser * user in [YSLiveManager shareInstance].userList)
+            {
+                NSDictionary * data = @{
+                    @"isDrag":@0,
+                    @"userId":user.peerID
+                };
+                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+                
+            }
+        }
+            break;
+        case 8:
+        {
+            //全体奖杯
+            for (SCVideoView *videoView in self.videoViewArray)
+            {
+                YSRoomUser *user = videoView.roomUser;
+                
+                if (user.role == YSUserType_Student)
+                {
+                    [self sendGiftWithRreceiveRoomUser:user];
+                }
+            }
+        }
+            break;
         default:
             break;
     }
