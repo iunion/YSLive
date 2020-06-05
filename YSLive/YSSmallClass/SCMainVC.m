@@ -545,7 +545,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 - (void)setupFullTeacherView
 {
     self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight)];
-    [self.view addSubview:self.fullTeacherFloatView];
+    [self.contentBackgroud addSubview:self.fullTeacherFloatView];
     self.fullTeacherFloatView.hidden = YES;
 }
 #endif
@@ -935,8 +935,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     }
     
     // 共享
-    self.shareVideoFloatView = [[YSFloatView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.shareVideoFloatView];
+    self.shareVideoFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, self.contentWidth, self.contentHeight)];
+    [self.contentBackgroud addSubview:self.shareVideoFloatView];
     self.shareVideoFloatView.hidden = YES;
     self.shareVideoView = [[UIView alloc] initWithFrame:self.shareVideoFloatView.bounds];
     [self.shareVideoFloatView showWithContentView:self.shareVideoView];
@@ -5465,8 +5465,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         if (view == self.whitebordFullBackgroud)
         {
             [self.raiseHandsBtn bm_bringToFront];
-            
-            self.raiseHandsBtn.frame = CGRectMake(self.contentWidth-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
         }
     }
 }
