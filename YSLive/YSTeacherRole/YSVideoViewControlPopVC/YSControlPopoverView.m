@@ -113,40 +113,20 @@
 {
     _userModel = userModel;
     
-    if (YSCurrentUser.role == YSUserType_Student)
-    {
-        [self setupStudentSelfUI];
-    }
-    else
-    {
-        
-        if (userModel.role == YSUserType_Teacher || userModel.role == YSUserType_Assistant )
-        {
-            [self setupTearcherUI];
-            
-        }
-        else if (userModel.role == YSUserType_Student)
-        {
-            [self setupStudentUI];
-        }
-    }
+    [self setupUI];
+
 }
 
-- (void)setupStudentSelfUI
+- (void)setupUI
 {
     [self.backView bm_removeAllSubviews];
     YSPublishState publishState = [self.userModel.properties bm_intForKey:sUserPublishstate];
-    
-    //纵向时按钮高度
-    CGFloat height = (self.view.bm_height-5)/3+0.5;
-    //横向时按钮高度
-    CGFloat width = (self.view.bm_width-5)/3+0.5;
     
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
     UIImage * audioClose = [YSSkinElementImage(@"videoPop_soundButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
-    self.audioBtn.tag = 0;
+    self.audioBtn.tag = SCVideoViewControlTypeAudio;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
         self.audioBtn.selected = YES;
@@ -160,8 +140,7 @@
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") image:YSSkinElementImage(@"videoPop_videoButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_videoButton", @"iconSel")];
     UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
-    
-    self.videoBtn.tag = 1;
+    self.videoBtn.tag = SCVideoViewControlTypeVideo;
     if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
     {
         self.videoBtn.selected = YES;
@@ -171,123 +150,29 @@
         self.videoBtn.selected = NO;
     }
     
-    //镜像控制按钮
-    self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenMirror" ) selectTitle:YSLocalized(@"Button.CloseMirror" ) image:YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_mirrorButton", @"iconSel")];
-    
-    UIImage * mirrorClose = [YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.mirrorBtn setImage:mirrorClose forState:UIControlStateDisabled];
-    
-    
-    self.mirrorBtn.tag = 2;
-    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
+    //画笔权限控制按钮
+    self.canDrawBtn = [self creatButtonWithTitle:YSLocalized(@"Label.Authorized") selectTitle:YSLocalized(@"Label.CancelAuthorized") image:YSSkinElementImage(@"videoPop_authorizeButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_authorizeButton", @"iconSel")];
+    self.canDrawBtn.tag = SCVideoViewControlTypeCanDraw;
+    BOOL canDraw = [self.userModel.properties bm_boolForKey:sUserCandraw];
+    if (canDraw)
     {
-        self.mirrorBtn.selected = YES;
+        self.canDrawBtn.selected = YES;
     }
     else
     {
-        self.mirrorBtn.selected = NO;
+        self.canDrawBtn.selected = NO;
     }
     
-    if (self.view.bm_width < self.view.bm_height)
-    {
-        self.audioBtn.frame = CGRectMake(0, Margin, self.view.bm_width, height);
-        self.videoBtn.frame = CGRectMake(0, Margin + height, self.view.bm_width, height);
-        self.mirrorBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
-    }
-    else
-    {
-        self.audioBtn.frame = CGRectMake(Margin, 0, width, self.view.bm_height);
-        self.videoBtn.frame = CGRectMake(Margin + width, 0, width, self.view.bm_height);
-        self.mirrorBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
-    }
+    //上下台控制按钮
+    self.onStageBtn = [self creatButtonWithTitle:YSLocalized(@"Button.DownPlatform") selectTitle:YSLocalized(@"Button.DownPlatform") image:YSSkinElementImage(@"videoPop_seatButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_seatButton", @"iconNor")];
+    self.onStageBtn.tag = SCVideoViewControlTypeOnStage;
     
-    [self moveButtonTitleAndImageWithButton:self.audioBtn];
-    [self moveButtonTitleAndImageWithButton:self.videoBtn];
-    [self moveButtonTitleAndImageWithButton:self.mirrorBtn];
-    
-    if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
-    {
-        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
-        if (self.userModel.afail == YSDeviceFaultNone && !isEveryoneNoAudio)
-        {
-            self.audioBtn.enabled = YES;
-        }
-        else
-        {
-            self.audioBtn.enabled = NO;
-        }
-        if (self.userModel.vfail == YSDeviceFaultNone)
-        {
-            self.videoBtn.enabled = YES;
-            self.mirrorBtn.enabled = YES;
-        }
-        else
-        {
-            self.videoBtn.enabled = NO;
-            self.mirrorBtn.enabled = NO;
-        }
-    }
-    else
-    {
-        if (self.userModel.hasAudio  && ![YSLiveManager shareInstance].isEveryoneNoAudio)
-        {
-            self.audioBtn.enabled = YES;
-        }
-        else
-        {
-            self.audioBtn.enabled = NO;
-        }
-        if (self.userModel.hasVideo)
-        {
-            self.videoBtn.enabled = YES;
-            self.mirrorBtn.enabled = YES;
-        }
-        else
-        {
-            self.videoBtn.enabled = NO;
-            self.mirrorBtn.enabled = NO;
-        }
-    }
-}
-
-- (void)setupTearcherUI
-{
-    [self.backView bm_removeAllSubviews];
-    YSPublishState publishState = [self.userModel.properties bm_intForKey:sUserPublishstate];
-    
-    //音频控制按钮
-    self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
-    UIImage * audioClose = [YSSkinElementImage(@"videoPop_soundButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
-    self.audioBtn.tag = 0;
-    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
-    {
-        self.audioBtn.selected = YES;
-    }
-    else
-    {
-        self.audioBtn.selected = NO;
-    }
-    
-    //视频控制按钮
-    self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") image:YSSkinElementImage(@"videoPop_videoButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_videoButton", @"iconSel")];
-    UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
-    self.videoBtn.tag = 1;
-    if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
-    {
-        self.videoBtn.selected = YES;
-    }
-    else
-    {
-        self.videoBtn.selected = NO;
-    }
     
     //镜像控制按钮
     self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenMirror" ) selectTitle:YSLocalized(@"Button.CloseMirror" ) image:YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_mirrorButton", @"iconSel")];
     UIImage * mirrorClose = [YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     [self.mirrorBtn setImage:mirrorClose forState:UIControlStateDisabled];
-    self.mirrorBtn.tag = 2;
+    self.mirrorBtn.tag = SCVideoViewControlTypeMirror;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
         self.mirrorBtn.selected = YES;
@@ -299,12 +184,12 @@
     
     //复位控制按钮
     UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
-    restoreBtn.tag = 4;
+    restoreBtn.tag = SCVideoViewControlTypeRestore;
     self.restoreBtn = restoreBtn;
     
     //成为焦点按钮
     self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") image:YSSkinElementImage(@"videoPop_fouceButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_fouceButton", @"iconSel")];
-    self.fouceBtn.tag = 3;
+    self.fouceBtn.tag = SCVideoViewControlTypeFouce;
     if ([self.userModel.peerID isEqualToString:self.foucePeerId])
     {
         self.fouceBtn.selected = YES;
@@ -314,74 +199,160 @@
         self.fouceBtn.selected = NO;
     }
     
+    //发奖杯按钮
+    UIButton * giftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.GiveCup") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
+    giftCupBtn.tag = SCVideoViewControlTypeGiftCup;
+    self.giftCupBtn = giftCupBtn;
+    
     //全体复位按钮
     UIButton * allRestoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reset") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
-    restoreBtn.tag = 7;
+    allRestoreBtn.tag = SCVideoViewControlTypeAllRestore;
     self.allRestoreBtn = allRestoreBtn;
     
     //全体奖杯按钮
     UIButton * allGiftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reward") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
-    allGiftCupBtn.tag = 8;
+    allGiftCupBtn.tag = SCVideoViewControlTypeAllGiftCup;
     self.allGiftCupBtn = allGiftCupBtn;
     [self.btnArray removeAllObjects];
-    if (self.roomtype == YSRoomType_One)
+    
+    
+    if (YSCurrentUser.role == YSUserType_Student)
     {
-        if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-        {
-            //音频 视频 镜像 全体奖杯
-            [self.btnArray addObject:self.audioBtn];
-            [self.btnArray addObject:self.videoBtn];
-            [self.btnArray addObject:self.mirrorBtn];
-            [self.btnArray addObject:self.allGiftCupBtn];
-        }
-        else
-        {
-            //音频 视频 镜像 全体奖杯 焦点
-            [self.btnArray addObject:self.audioBtn];
-            [self.btnArray addObject:self.videoBtn];
-            [self.btnArray addObject:self.mirrorBtn];
-            [self.btnArray addObject:self.allGiftCupBtn];
-            [self.btnArray addObject:self.fouceBtn];
-        }
+        //音频 视频 镜像
+        [self.btnArray addObject:self.audioBtn];
+        [self.btnArray addObject:self.videoBtn];
+        [self.btnArray addObject:self.mirrorBtn];
     }
     else
     {
-        if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+        if (self.userModel.role == YSUserType_Teacher || self.userModel.role == YSUserType_Assistant )
         {
-            if (self.isDragOut)
+            if (self.roomtype == YSRoomType_One)
             {
-                //音频 视频 镜像 复位 全体奖杯 全体复位
-                [self.btnArray addObject:self.audioBtn];
-                [self.btnArray addObject:self.videoBtn];
-                [self.btnArray addObject:self.mirrorBtn];
-                [self.btnArray addObject:self.restoreBtn];
-                [self.btnArray addObject:self.allGiftCupBtn];
-                [self.btnArray addObject:self.allRestoreBtn];
+                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+                {
+                    //音频 视频 镜像 全体奖杯
+                    [self.btnArray addObject:self.audioBtn];
+                    [self.btnArray addObject:self.videoBtn];
+                    [self.btnArray addObject:self.mirrorBtn];
+                    [self.btnArray addObject:self.allGiftCupBtn];
+                }
+                else
+                {
+                    //音频 视频 镜像 全体奖杯 焦点
+                    [self.btnArray addObject:self.audioBtn];
+                    [self.btnArray addObject:self.videoBtn];
+                    [self.btnArray addObject:self.mirrorBtn];
+                    [self.btnArray addObject:self.allGiftCupBtn];
+                    [self.btnArray addObject:self.fouceBtn];
+                }
             }
             else
             {
-                //音频 视频 镜像 全体奖杯 全体复位
-                [self.btnArray addObject:self.audioBtn];
-                [self.btnArray addObject:self.videoBtn];
-                [self.btnArray addObject:self.mirrorBtn];
-                [self.btnArray addObject:self.allGiftCupBtn];
-                [self.btnArray addObject:self.allRestoreBtn];
+                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+                {
+                    if (self.isDragOut)
+                    {
+                        //音频 视频 镜像 复位 全体奖杯 全体复位
+                        [self.btnArray addObject:self.audioBtn];
+                        [self.btnArray addObject:self.videoBtn];
+                        [self.btnArray addObject:self.mirrorBtn];
+                        [self.btnArray addObject:self.restoreBtn];
+                        [self.btnArray addObject:self.allGiftCupBtn];
+                        [self.btnArray addObject:self.allRestoreBtn];
+                    }
+                    else
+                    {
+                        //音频 视频 镜像 全体奖杯 全体复位
+                        [self.btnArray addObject:self.audioBtn];
+                        [self.btnArray addObject:self.videoBtn];
+                        [self.btnArray addObject:self.mirrorBtn];
+                        [self.btnArray addObject:self.allGiftCupBtn];
+                        [self.btnArray addObject:self.allRestoreBtn];
+                    }
+                }
+                else
+                {
+                    //音频 视频 镜像 全体奖杯 全体复位 焦点
+                    [self.btnArray addObject:self.audioBtn];
+                    [self.btnArray addObject:self.videoBtn];
+                    [self.btnArray addObject:self.mirrorBtn];
+                    [self.btnArray addObject:self.allGiftCupBtn];
+                    [self.btnArray addObject:self.fouceBtn];
+                }
+                
             }
+            
         }
-        else
+        else if (self.userModel.role == YSUserType_Student)
         {
-            //音频 视频 镜像 全体奖杯 全体复位 焦点
-            [self.btnArray addObject:self.audioBtn];
-            [self.btnArray addObject:self.videoBtn];
-            [self.btnArray addObject:self.mirrorBtn];
-            [self.btnArray addObject:self.allGiftCupBtn];
-            [self.btnArray addObject:self.fouceBtn];
+            if (self.roomtype == YSRoomType_One)
+            {
+                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+                {
+                    //音频 视频 画笔 上下台 奖杯
+                    [self.btnArray addObject:self.audioBtn];
+                    [self.btnArray addObject:self.videoBtn];
+                    [self.btnArray addObject:self.canDrawBtn];
+                    [self.btnArray addObject:self.onStageBtn];
+                    [self.btnArray addObject:self.giftCupBtn];
+                }
+                else
+                {
+                    //音频 视频 画笔 上下台 奖杯 焦点
+                    [self.btnArray addObject:self.audioBtn];
+                    [self.btnArray addObject:self.videoBtn];
+                    [self.btnArray addObject:self.canDrawBtn];
+                    [self.btnArray addObject:self.onStageBtn];
+                    [self.btnArray addObject:self.giftCupBtn];
+                    [self.btnArray addObject:self.fouceBtn];
+                }
+            }
+            else
+            {
+                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+                {
+                    if (self.isDragOut)
+                    {
+                        //音频 视频 画笔 上下台 奖杯 复位
+                        [self.btnArray addObject:self.audioBtn];
+                        [self.btnArray addObject:self.videoBtn];
+                        [self.btnArray addObject:self.canDrawBtn];
+                        [self.btnArray addObject:self.onStageBtn];
+                        [self.btnArray addObject:self.giftCupBtn];
+                        [self.btnArray addObject:self.restoreBtn];
+                        
+                    }
+                    else
+                    {
+                        //音频 视频 画笔 上下台 奖杯
+                        [self.btnArray addObject:self.audioBtn];
+                        [self.btnArray addObject:self.videoBtn];
+                        [self.btnArray addObject:self.canDrawBtn];
+                        [self.btnArray addObject:self.onStageBtn];
+                        [self.btnArray addObject:self.giftCupBtn];
+                    
+                    }
+                }
+                else
+                {
+                    //音频 视频 画笔 上下台 奖杯 焦点
+                    [self.btnArray addObject:self.audioBtn];
+                    [self.btnArray addObject:self.videoBtn];
+                    [self.btnArray addObject:self.canDrawBtn];
+                    [self.btnArray addObject:self.onStageBtn];
+                    [self.btnArray addObject:self.giftCupBtn];
+                    [self.btnArray addObject:self.fouceBtn];
+                }
+                
+            }
+            
         }
-        
     }
     
     if (self.appUseTheType == YSAppUseTheTypeMeeting)
     {
+        /// 会议将奖杯移除
         [self.btnArray removeObject:self.allGiftCupBtn];
         [self.btnArray removeObject:self.giftCupBtn];
     }
@@ -466,265 +437,17 @@
     
 }
 
-- (void)setupStudentUI
-{
-    [self.backView bm_removeAllSubviews];
-    YSPublishState publishState = [self.userModel.properties bm_intForKey:sUserPublishstate];
-    //纵向时按钮高度
-    CGFloat height = (self.view.bm_height-5)/7+0.5;
-    //横向时按钮高度
-    CGFloat width = (self.view.bm_width-5)/7+0.5;
-    
-    if (self.roomtype == YSRoomType_One || (self.appUseTheType == YSAppUseTheTypeMeeting && self.isDragOut) || (self.appUseTheType == YSAppUseTheTypeSmallClass && self.roomLayout == YSLiveRoomLayout_AroundLayout && !self.isDragOut))
-    {
-        height = (self.view.bm_height-5)/5+0.5;
-        width = (self.view.bm_width-5)/5+0.5;
-    }
-    else if (self.appUseTheType == YSAppUseTheTypeSmallClass && ((!self.isDragOut && self.roomLayout != YSLiveRoomLayout_AroundLayout)||(self.isDragOut && self.roomLayout == YSLiveRoomLayout_AroundLayout)))
-    {
-        height = (self.view.bm_height-5)/6+0.5;
-        width = (self.view.bm_width-5)/6+0.5;
-    }
-    else if (self.appUseTheType == YSAppUseTheTypeMeeting && !self.isDragOut)
-    {
-        height = (self.view.bm_height-5)/4+0.5;
-        width = (self.view.bm_width-5)/4+0.5;
-    }
-   
-    //音频控制按钮
-    self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
-    UIImage * audioClose = [[UIImage imageNamed:@"tearch_openSound"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    
-    
-    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
-    self.audioBtn.tag = 0;
-    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
-    {
-        self.audioBtn.selected = YES;
-    }
-    else
-    {
-        self.audioBtn.selected = NO;
-    }
-    
-    //视频控制按钮
-    self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") image:YSSkinElementImage(@"videoPop_videoButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_videoButton", @"iconSel")];
-    UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
-    
-    self.videoBtn.tag = 1;
-    if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
-    {
-        self.videoBtn.selected = YES;
-    }
-    else
-    {
-        self.videoBtn.selected = NO;
-    }
-    
-    //没有摄像头、麦克风权限时的显示禁用状态
-    if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
-    {
-        if (self.userModel.afail == YSDeviceFaultNone)
-        {
-            self.audioBtn.enabled = YES;
-        }
-        else
-        {
-            self.audioBtn.enabled = NO;
-        }
-        if (self.userModel.vfail == YSDeviceFaultNone)
-        {
-            self.videoBtn.enabled = YES;
-            self.mirrorBtn.enabled = YES;
-        }
-        else
-        {
-            self.videoBtn.enabled = NO;
-            self.mirrorBtn.enabled = NO;
-        }
-    }
-    else
-    {
-        if (self.userModel.hasAudio)
-        {
-            self.audioBtn.enabled = YES;
-        }
-        else
-        {
-            self.audioBtn.enabled = NO;
-        }
-        if (self.userModel.hasVideo)
-        {
-            self.videoBtn.enabled = YES;
-            self.mirrorBtn.enabled = YES;
-        }
-        else
-        {
-            self.videoBtn.enabled = NO;
-            self.mirrorBtn.enabled = NO;
-        }
-    }
-    //画笔权限控制按钮
-    self.canDrawBtn = [self creatButtonWithTitle:YSLocalized(@"Label.Authorized") selectTitle:YSLocalized(@"Label.CancelAuthorized") image:YSSkinElementImage(@"videoPop_authorizeButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_authorizeButton", @"iconSel")];
-    self.canDrawBtn.tag = 2;
-    
-    BOOL canDraw = [self.userModel.properties bm_boolForKey:sUserCandraw];
-    if (canDraw)
-    {
-        self.canDrawBtn.selected = YES;
-    }
-    else
-    {
-        self.canDrawBtn.selected = NO;
-    }
-    
-    //上下台控制按钮
-    self.onStageBtn = [self creatButtonWithTitle:YSLocalized(@"Button.DownPlatform") selectTitle:YSLocalized(@"Button.DownPlatform") image:YSSkinElementImage(@"videoPop_seatButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_seatButton", @"iconNor")];
-    self.onStageBtn.tag = 3;
-    
-    if (self.view.bm_width < self.view.bm_height)
-    {
-        self.audioBtn.frame = CGRectMake(0, Margin, self.view.bm_width, height);
-        self.videoBtn.frame = CGRectMake(0, Margin + height, self.view.bm_width, height);
-        self.canDrawBtn.frame = CGRectMake(0, Margin + 2 * height, self.view.bm_width, height);
-        self.onStageBtn.frame = CGRectMake(0, Margin + 3 * height, self.view.bm_width, height);
-    }
-    else
-    {
-        self.audioBtn.frame = CGRectMake(Margin , 0, width, self.view.bm_height);
-        self.videoBtn.frame = CGRectMake(Margin + width, 0, width, self.view.bm_height);
-        self.canDrawBtn.frame = CGRectMake(Margin + 2 * width, 0, width, self.view.bm_height);
-        self.onStageBtn.frame = CGRectMake(Margin + 3 * width, 0, width, self.view.bm_height);
-    }
-    
-    [self moveButtonTitleAndImageWithButton:self.audioBtn];
-    [self moveButtonTitleAndImageWithButton:self.videoBtn];
-    [self moveButtonTitleAndImageWithButton:self.canDrawBtn];
-    [self moveButtonTitleAndImageWithButton:self.onStageBtn];
-    
-    if (self.appUseTheType == YSAppUseTheTypeMeeting)
-    {
-        if (self.isDragOut)
-        {
-            //复位控制按钮
-            UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
-            restoreBtn.tag = 6;
-            
-            if (self.view.bm_width < self.view.bm_height)
-            {
-                restoreBtn.frame = CGRectMake(0, Margin + 4 * height, self.view.bm_width, height);
-            }
-            else
-            {
-                restoreBtn.frame = CGRectMake(Margin + 4 * width, 0, width, self.view.bm_height);
-            }
-            [self moveButtonTitleAndImageWithButton:restoreBtn];
-            self.restoreBtn = restoreBtn;
-        }
-    }
-    else
-    {
-        //发奖杯按钮
-        UIButton * giftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.GiveCup") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
-        giftCupBtn.tag = 4;
 
-        if (self.view.bm_width < self.view.bm_height)
-        {
-            giftCupBtn.frame = CGRectMake(0, Margin + 4 * height, self.view.bm_width, height);
-        }
-        else
-        {
-            giftCupBtn.frame = CGRectMake(Margin + 4 * width, 0, width, self.view.bm_height);
-        }
-
-        [self moveButtonTitleAndImageWithButton:giftCupBtn];
-        self.giftCupBtn = giftCupBtn;
-        
-        if (self.roomtype == YSRoomType_More)
-        {
-            if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-            {
-                if (self.isDragOut)
-                {
-                    //复位控制按钮
-                    UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
-                    restoreBtn.tag = 6;
-                    
-                    if (self.view.bm_width < self.view.bm_height)
-                    {
-                        restoreBtn.frame = CGRectMake(0, Margin + 5 * height, self.view.bm_width, height);
-                    }
-                    else
-                    {
-                        restoreBtn.frame = CGRectMake(Margin + 5 * width, 0, width, self.view.bm_height);
-                    }
-                    [self moveButtonTitleAndImageWithButton:restoreBtn];
-                    self.restoreBtn = restoreBtn;
-                }
-            }
-            else
-            {
-                //成为焦点按钮
-                self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") image:YSSkinElementImage(@"videoPop_fouceButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_fouceButton", @"iconSel")];
-                self.fouceBtn.tag = 5;
-                if (self.view.bm_width < self.view.bm_height)
-                {
-                    self.fouceBtn.frame = CGRectMake(0, Margin + 5 * height, self.view.bm_width, height);
-                }
-                else
-                {
-                    self.fouceBtn.frame = CGRectMake(Margin + 5 * width, 0, width, self.view.bm_height);
-                }
-                
-                if ([self.userModel.peerID isEqualToString:self.foucePeerId])
-                {
-                    self.fouceBtn.selected = YES;
-                }
-                else
-                {
-                    self.fouceBtn.selected = NO;
-                }
-                
-                [self moveButtonTitleAndImageWithButton:self.fouceBtn];
-                
-                if (self.isDragOut)
-                {
-                    //复位控制按钮
-                    UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
-                    restoreBtn.tag = 6;
-                    
-                    if (self.view.bm_width < self.view.bm_height)
-                    {
-                        restoreBtn.frame = CGRectMake(0, Margin + 6 * height, self.view.bm_width, height);
-                    }
-                    else
-                    {
-                        restoreBtn.frame = CGRectMake(Margin + 6 * width, 0, width, self.view.bm_height);
-                    }
-                    [self moveButtonTitleAndImageWithButton:restoreBtn];
-                }
-            }
-        }
-    }    
-}
 
 - (void)userBtnsClick:(UIButton *)sender
 {
-    if (self.userModel.role == YSUserType_Teacher || self.userModel.role == YSUserType_Assistant || [self.userModel.peerID isEqualToString:YSCurrentUser.peerID])
+    
+    
+    if ([self.delegate respondsToSelector:@selector(videoViewControlBtnsClick:videoViewControlType:)])
     {
-        if ([self.delegate respondsToSelector:@selector(teacherControlBtnsClick:)])
-        {
-            [self.delegate teacherControlBtnsClick:sender];
-        }
+        [self.delegate videoViewControlBtnsClick:sender videoViewControlType:sender.tag];
     }
-    else if(self.userModel.role == YSUserType_Student)
-    {
-        if ([self.delegate respondsToSelector:@selector(studentControlBtnsClick:)])
-        {
-            [self.delegate studentControlBtnsClick:sender];
-        }
-    }
+    
 }
 
 - (void)setVideoMirrorMode:(YSVideoMirrorMode)videoMirrorMode
@@ -749,11 +472,11 @@
 //    [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
     [button setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
     button.titleLabel.font = UI_FONT_10;
-    if (![UIDevice bm_isiPad] && self.roomLayout == YSLiveRoomLayout_VideoLayout)
-    {
-
-
-    }else
+//    if (![UIDevice bm_isiPad] && self.roomLayout == YSLiveRoomLayout_VideoLayout)
+//    {
+//
+//
+//    }else
     {
         [button setTitle:title forState:UIControlStateNormal];
         if (selectTitle.length)
@@ -767,22 +490,6 @@
     {
         [button setImage:selectImage forState:UIControlStateSelected];
     }
-    
-    
-    
-    if (YSCurrentUser.role != YSUserType_Student && (_userModel.role == YSUserType_Teacher || _userModel.role == YSUserType_Assistant))
-    {
-        
-    }
-    else
-    {
-        [self.backView addSubview:button];
-    }
-
-    
-    
-    
-        
     return button;
 }
 

@@ -5643,116 +5643,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.controlPopoverView.roomLayout = self.roomLayout;
     [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
 
-        
     if (self.roomtype == YSRoomType_One)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
-
-        if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
-        {//老师
-            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 215);
-            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 215);
-        }
-        else
-        {
-            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 325);
-            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 325);
-        }
     }
     else if (self.roomtype == YSRoomType_More)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
-        
-        if (self.appUseTheType == YSAppUseTheTypeMeeting)
-        {
-            if (videoView.isDragOut)
-            {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
-                {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
-                }
-                else
-                {
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 325, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(325, 50);
-                }
-            }
-            else
-            {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
-                {//老师
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
-                }
-                else
-                {
-                    self.controlPopoverView.view.frame = CGRectMake(0, 0, 262, 50);
-                    self.controlPopoverView.preferredContentSize = CGSizeMake(262, 50);
-                }
-            }
-        }
-        else
-        {
-            if (videoView.isDragOut)
-            {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
-                {//老师
-                    if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
-                    }
-                    else
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 280, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(280, 50);
-                    }
-                }
-                else
-                {
-                    if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 388, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(388, 50);
-                    }
-                    else
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 453, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(453, 50);
-                    }
-                }
-            }
-            else
-            {
-                if ([userModel bm_isNotEmpty] && (userModel.role == YSUserType_Teacher))
-                {//老师
-                    if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
-                    }
-                    else
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 212, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(212, 50);
-                    }
-                }
-                else
-                {
-                    if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 325, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(325, 50);
-                    }
-                    else
-                    {
-                        self.controlPopoverView.view.frame = CGRectMake(0, 0, 390, 50);
-                        self.controlPopoverView.preferredContentSize = CGSizeMake(390, 50);
-                    }
-                }
-            }
-        }
     }
     self.controlPopoverView.roomtype = self.roomtype;
     self.controlPopoverView.isDragOut = videoView.isDragOut;
@@ -5762,12 +5659,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
-#pragma mark 老师的控制按钮点击事件
-- (void)teacherControlBtnsClick:(UIButton *)sender
+#pragma mark -
+#pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
+- (void)videoViewControlBtnsClick:(UIButton *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
 {
     SCUserPublishState userPublishState = self.selectControlView.roomUser.liveUserPublishState;
-    switch (sender.tag) {
-        case 0:
+    switch (videoViewControlType) {
+        case SCVideoViewControlTypeAudio:
         {//关闭音频
             if (sender.selected)
             {//当前是打开音频状态
@@ -5781,7 +5679,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             sender.selected = !sender.selected;
         }
             break;
-        case 1:
+        case SCVideoViewControlTypeVideo:
         {//关闭视频
             if (sender.selected)
             {//当前是打开视频状态
@@ -5795,8 +5693,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             sender.selected = !sender.selected;
         }
             break;
-        case 2:
+        case SCVideoViewControlTypeMirror:
         {
+            //镜像
             sender.selected = !sender.selected;
             
             if (sender.selected)
@@ -5809,7 +5708,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
             break;
-        case 3:
+        case SCVideoViewControlTypeFouce:
         {//焦点
             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
             {
@@ -5835,18 +5734,27 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
             break;
-        
-        case 4:
+            
+        case SCVideoViewControlTypeRestore:
         {//视频复位
             NSDictionary * data = @{
-                       @"isDrag":@0,
-                       @"userId":self.selectControlView.roomUser.peerID
-                   };
+                @"isDrag":@0,
+                @"userId":self.selectControlView.roomUser.peerID
+            };
             [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            
+            
+            
+            
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            }
+            
+            
         }
             break;
-        case 7:
+        case SCVideoViewControlTypeAllRestore:
         {
             // 全体复位
             for (YSRoomUser * user in [YSLiveManager shareInstance].userList)
@@ -5860,7 +5768,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
             break;
-        case 8:
+        case SCVideoViewControlTypeAllGiftCup:
         {
             //全体奖杯
             for (SCVideoView *videoView in self.videoViewArray)
@@ -5872,6 +5780,37 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     [self sendGiftWithRreceiveRoomUser:user];
                 }
             }
+        }
+            break;
+        case SCVideoViewControlTypeCanDraw:
+        {// 画笔权限
+            
+            BOOL candraw = [self.selectControlView.roomUser.properties bm_boolForKey:sUserCandraw];
+            // 兼容安卓bool
+            bool bCandraw = true;
+            if (candraw)
+            {
+                bCandraw = false;
+            }
+            BOOL isSucceed = [self.liveManager sendSignalingToChangePropertyWithRoomUser:self.selectControlView.roomUser withKey:sUserCandraw WithValue:@(bCandraw)];
+            if (isSucceed)
+            {
+                sender.selected = !sender.selected;
+            }
+        }
+            break;
+        case SCVideoViewControlTypeOnStage:
+        {//下台
+            self.selectControlView.roomUser.liveUserPublishState = SCUserPublishState_NONE;
+            
+            [self.liveManager sendSignalingToChangePropertyWithRoomUser:self.selectControlView.roomUser withKey:sUserCandraw WithValue:@(false)];
+            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
+            
+        }
+            break;
+        case SCVideoViewControlTypeGiftCup:
+        {//发奖杯
+            [self sendGiftWithRreceiveRoomUser:self.selectControlView.roomUser];
         }
             break;
         default:
@@ -5921,117 +5860,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-#pragma mark 学生的控制按钮点击事件
-- (void)studentControlBtnsClick:(UIButton *)sender
-{
-    SCUserPublishState userPublishState = self.selectControlView.roomUser.liveUserPublishState;
-    switch (sender.tag) {
-        case 0:
-        {//关闭音频
-            if (sender.selected)
-            {//当前是打开音频状态
-                userPublishState &= ~SCUserPublishState_AUDIOONLY;
-            }
-            else
-            {//当前是关闭音频状态
-                userPublishState |= SCUserPublishState_AUDIOONLY;
-            }
-            self.selectControlView.roomUser.liveUserPublishState = userPublishState;
-            sender.selected = !sender.selected;
-        }
-            break;
-        case 1:
-        {//关闭视频
-            if (sender.selected)
-            {//当前是打开视频状态
-                userPublishState &= ~SCUserPublishState_VIDEOONLY;
-            }
-            else
-            {//当前是关闭视频状态
-                userPublishState |= SCUserPublishState_VIDEOONLY;
-            }
-            self.selectControlView.roomUser.liveUserPublishState = userPublishState;
-            sender.selected = !sender.selected;
-        }
-            break;
-        case 2:
-        {// 画笔权限
-            
-            BOOL candraw = [self.selectControlView.roomUser.properties bm_boolForKey:sUserCandraw];
-            // 兼容安卓bool
-            bool bCandraw = true;
-            if (candraw)
-            {
-                bCandraw = false;
-            }
-            BOOL isSucceed = [self.liveManager sendSignalingToChangePropertyWithRoomUser:self.selectControlView.roomUser withKey:sUserCandraw WithValue:@(bCandraw)];
-            if (isSucceed)
-            {
-                sender.selected = !sender.selected;
-            }
-        }
-            break;
-        case 3:
-        {//下台
-            self.selectControlView.roomUser.liveUserPublishState = SCUserPublishState_NONE;
-            
-            [self.liveManager sendSignalingToChangePropertyWithRoomUser:self.selectControlView.roomUser withKey:sUserCandraw WithValue:@(false)];
-            [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-            
-        }
-            break;
-        case 4:
-        {//发奖杯
-            [self sendGiftWithRreceiveRoomUser:self.selectControlView.roomUser];
-        }
-            break;
-        case 5:
-        {//焦点
-             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
-             {
-                 self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                 self.fouceView = self.selectControlView;
-                 [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
-             }
-            else if (self.roomLayout == YSLiveRoomLayout_FocusLayout)
-            {
-                if ([self.selectControlView isEqual:self.fouceView])
-                {
-                    self.roomLayout = YSLiveRoomLayout_VideoLayout;
-                    self.fouceView = nil;
-                }
-                else
-                {
-                    self.roomLayout = YSLiveRoomLayout_FocusLayout;
-                    self.fouceView = self.selectControlView;
-                }
-                [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
-            }
-            self.foucePeerId = self.fouceView.roomUser.peerID;
-            if (self.controlPopoverView.presentingViewController)
-            {
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-            }
-        }
-            break;
-        case 6:
-        {//视频复位
-            NSDictionary * data = @{
-                       @"isDrag":@0,
-                       @"userId":self.selectControlView.roomUser.peerID
-                   };
-            [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-            if (self.controlPopoverView.presentingViewController)
-            {
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-            }
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
 
 
 #pragma mark -

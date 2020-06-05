@@ -12,10 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSControlPopoverViewDelegate <NSObject>
 
-- (void)teacherControlBtnsClick:(UIButton*)sender;
-
-- (void)studentControlBtnsClick:(UIButton*)sender;
-
+- (void)videoViewControlBtnsClick:(UIButton*)sender videoViewControlType:(SCVideoViewControlType)videoViewControlType;
 @end
 
 

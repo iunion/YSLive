@@ -164,6 +164,31 @@ typedef NS_ENUM(NSInteger, SCBottomToolBarType)
     SCBottomToolBarTypeOnOff
 };
 
+/// 小班课视频弹出工具类型
+typedef NS_ENUM(NSInteger, SCVideoViewControlType)
+{
+    /** 音频控制 */
+    SCVideoViewControlTypeAudio,
+    /** 视频控制 */
+    SCVideoViewControlTypeVideo,
+    /** 镜像控制 */
+    SCVideoViewControlTypeMirror,
+    /** 画笔权限 */
+    SCVideoViewControlTypeCanDraw,
+    /** 上下台控制 */
+    SCVideoViewControlTypeOnStage,
+    /** 焦点 */
+    SCVideoViewControlTypeFouce,
+    /** 复位控制 */
+    SCVideoViewControlTypeRestore,
+    /** 奖杯 */
+    SCVideoViewControlTypeGiftCup,
+    /** 全体复位 */
+    SCVideoViewControlTypeAllRestore,
+    /** 全体奖杯 */
+    SCVideoViewControlTypeAllGiftCup
+};
+
 
 typedef NS_ENUM(NSInteger, SCToolBoxType)
 {

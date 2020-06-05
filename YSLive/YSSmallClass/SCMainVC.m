@@ -5364,12 +5364,14 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }
 
-#pragma mark 老师的控制按钮点击事件
-- (void)teacherControlBtnsClick:(UIButton *)sender
+
+#pragma mark -
+#pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
+- (void)videoViewControlBtnsClick:(UIButton *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
 {
     SCUserPublishState userPublishState = YSCurrentUser.liveUserPublishState;
-    switch (sender.tag) {
-        case 0:
+    switch (videoViewControlType) {
+        case SCVideoViewControlTypeAudio:
         {//关闭音频
             if (sender.selected)
             {//当前是打开音频状态
@@ -5383,7 +5385,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             sender.selected = !sender.selected;
         }
             break;
-        case 1:
+        case SCVideoViewControlTypeVideo:
         {//关闭视频
             if (sender.selected)
             {//当前是打开视频状态
@@ -5397,7 +5399,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             sender.selected = !sender.selected;
         }
             break;
-        case 2:
+        case SCVideoViewControlTypeMirror:
         {//镜像
             sender.selected = !sender.selected;
             
