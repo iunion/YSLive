@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 展开关闭
 - (void)bottomToolBarSpreadOut:(BOOL)spreadOut;
 /// 功能点击
-- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType isSelected:(BOOL)isSelected;
+- (void)bottomToolBarClickAtIndex:(SCBottomToolBarType)teacherTopBarType isSelected:(BOOL)isSelected;
 
 @end
 

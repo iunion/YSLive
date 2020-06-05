@@ -3819,11 +3819,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 }
 /// 功能点击
-- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType isSelected:(BOOL)isSelected
+- (void)bottomToolBarClickAtIndex:(SCBottomToolBarType)teacherTopBarType isSelected:(BOOL)isSelected
 {
         switch (teacherTopBarType)
         {
-            case SCTeacherTopBarTypePersonList:
+            case SCBottomToolBarTypePersonList:
             {
                 
 //                [self.bottomToolBar setMessageOpen:NO];
@@ -3834,7 +3834,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
                 break;
                 
-            case SCTeacherTopBarTypeCourseware:
+            case SCBottomToolBarTypeCourseware:
             {
                 //课件库
                 [self freshListViewWithSelect:isSelected];
@@ -3855,7 +3855,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self.teacherListView bm_bringToFront];
             }
                 break;
-            case SCTeacherTopBarTypeToolBox:
+            case SCBottomToolBarTypeToolBox:
             {
                 //工具箱
                 
@@ -3866,13 +3866,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 
             }
                 break;
-            case SCTeacherTopBarTypeSwitchLayout:
+            case SCBottomToolBarTypeSwitchLayout:
             {
                 //切换布局
                 [self changeLayoutWithMode:isSelected];
             }
                 break;
-            case SCTeacherTopBarTypePolling:
+            case SCBottomToolBarTypePolling:
             {
                 //轮播
                 if (_isPolling)
@@ -3888,7 +3888,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
                 break;
-            case SCTeacherTopBarTypeAllNoAudio:
+            case SCBottomToolBarTypeAllNoAudio:
             {
                 if (isSelected)
                 {
@@ -3902,13 +3902,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
                 break;
-            case SCTeacherTopBarTypeCamera:
+            case SCBottomToolBarTypeCamera:
             {
                 //摄像头
                 [self.liveManager.roomManager selectCameraPosition:!isSelected];
             }
                 break;
-            case SCTeacherTopBarTypeChat:
+            case SCBottomToolBarTypeChat:
             {
                 //消息
                 CGRect tempRect = self.rightChatView.frame;
@@ -3928,7 +3928,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self arrangeAllViewInVCView];
             }
                 break;
-            case SCTeacherTopBarTypeExit:
+            case SCBottomToolBarTypeExit:
             {
                 //退出
                 [self backAction:nil];

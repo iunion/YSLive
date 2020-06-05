@@ -67,43 +67,43 @@
     self.spreadBtn = [self creatButtonWithNormalTitle:nil selectedTitle:nil pathName:@"onOff_bottombar"];
     
     [self addSubview:self.spreadBtn];
-    self.spreadBtn.tag = SCTeacherTopBarTypeOnOff;
+    self.spreadBtn.tag = SCBottomToolBarTypeOnOff;
 
     /// 花名册
     BMImageTitleButtonView *personListBtn = [self creatButtonWithNormalTitle:@"Title.UserList" selectedTitle:@"Title.UserList" pathName:@"personList_bottombar"];
-    personListBtn.tag = SCTeacherTopBarTypePersonList;
+    personListBtn.tag = SCBottomToolBarTypePersonList;
     
     /// 课件库
     BMImageTitleButtonView *coursewareBtn = [self creatButtonWithNormalTitle:@"Title.DocumentList" selectedTitle:@"Title.DocumentList" pathName:@"courseware_bottombar"];
-    coursewareBtn.tag = SCTeacherTopBarTypeCourseware;
+    coursewareBtn.tag = SCBottomToolBarTypeCourseware;
     
     /// 工具箱
     BMImageTitleButtonView *toolBoxBtn = [self creatButtonWithNormalTitle:@"Title.ToolBox" selectedTitle:@"Title.ToolBox" pathName:@"toolBox_bottombar"];
-    toolBoxBtn.tag = SCTeacherTopBarTypeToolBox;
+    toolBoxBtn.tag = SCBottomToolBarTypeToolBox;
     
     /// 切换布局
     BMImageTitleButtonView *switchLayoutBtn = [self creatButtonWithNormalTitle:@"Title.AroundLayout" selectedTitle:@"Title.VideoLayout" pathName:@"layout_bottombar"];
-    switchLayoutBtn.tag = SCTeacherTopBarTypeSwitchLayout;
+    switchLayoutBtn.tag = SCBottomToolBarTypeSwitchLayout;
     
     /// 轮询
     BMImageTitleButtonView *pollingBtn = [self creatButtonWithNormalTitle:@"Title.Polling" selectedTitle:@"Title.Polling" pathName:@"polling_bottombar"];
-    pollingBtn.tag = SCTeacherTopBarTypePolling;
+    pollingBtn.tag = SCBottomToolBarTypePolling;
     
     /// 全体禁音
     BMImageTitleButtonView *allNoAudioBtn = [self creatButtonWithNormalTitle:@"Title.AllNoAudio" selectedTitle:@"Title.AllAudio" pathName:@"allNoAudio_bottombar"];
-    allNoAudioBtn.tag = SCTeacherTopBarTypeAllNoAudio;
+    allNoAudioBtn.tag = SCBottomToolBarTypeAllNoAudio;
     
     /// 切换摄像头
     BMImageTitleButtonView *cameraBtn = [self creatButtonWithNormalTitle:@"Title.ChangeCamera" selectedTitle:@"Title.ChangeCamera" pathName:@"camera_bottombar"];
-    cameraBtn.tag = SCTeacherTopBarTypeCamera;
+    cameraBtn.tag = SCBottomToolBarTypeCamera;
     
     /// 消息
     BMImageTitleButtonView *chatBtn = [self creatButtonWithNormalTitle:@"Title.Message" selectedTitle:@"Title.Message" pathName:@"message_bottombar"];
-    chatBtn.tag = SCTeacherTopBarTypeChat;
+    chatBtn.tag = SCBottomToolBarTypeChat;
     
     /// 退出
     BMImageTitleButtonView *exitBtn = [self creatButtonWithNormalTitle:@"Title.Exit" selectedTitle:@"Title.Exit" pathName:@"exit_bottombar"];
-    exitBtn.tag = SCTeacherTopBarTypeExit;
+    exitBtn.tag = SCBottomToolBarTypeExit;
     
     if (self.roleType == YSUserType_Teacher)
     {

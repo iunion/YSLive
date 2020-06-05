@@ -139,6 +139,32 @@ typedef NS_ENUM(NSInteger, SCTeacherTopBarType)
     SCTeacherTopBarTypeOnOff
 };
 
+/// 小班课底部工具按钮
+typedef NS_ENUM(NSInteger, SCBottomToolBarType)
+{
+    /** 轮询 */
+    SCBottomToolBarTypePolling,
+    /** 花名册 */
+    SCBottomToolBarTypePersonList,
+    /** 课件库 */
+    SCBottomToolBarTypeCourseware,
+    /** 工具箱 */
+    SCBottomToolBarTypeToolBox,
+    /** 切换布局 */
+    SCBottomToolBarTypeSwitchLayout,
+    /** 切换摄像头 */
+    SCBottomToolBarTypeCamera,
+    /** 全体禁音 */
+    SCBottomToolBarTypeAllNoAudio,
+    /** 消息 */
+    SCBottomToolBarTypeChat,
+    /** 退出 */
+    SCBottomToolBarTypeExit,
+    /** 展开收起 */
+    SCBottomToolBarTypeOnOff
+};
+
+
 typedef NS_ENUM(NSInteger, SCToolBoxType)
 {
     /** 答题器 */
