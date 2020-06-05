@@ -58,7 +58,7 @@
     self.resultL.frame = CGRectMake(CGRectGetMaxX(self.nameL.frame) + 5, 0, tempWidth, 15);
     self.resultL.bm_centerY = self.contentView.bm_centerY;\
     
-    self.timeL.frame = CGRectMake(CGRectGetMaxX(self.resultL.frame) + 5, 0, self.contentView.bm_width - self.timeL.bm_left - 5 - 15, 15);
+    self.timeL.frame = CGRectMake(CGRectGetMaxX(self.resultL.frame) + 5, 0, tempWidth, 15);
     self.timeL.bm_centerY = self.contentView.bm_centerY;
     
 }
