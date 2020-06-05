@@ -36,6 +36,8 @@
 		<string>#6D7278</string>
 		<key>raiseHandTitleDefaultColor</key>
 		<string>#66676B</string>
+		<key>jurisdictionCheckFail</key>
+		<string>#FF7D7D</string>
 	</dict>
 	<key>CommonImage</key>
 	<dict>
@@ -343,6 +345,24 @@
 		<string>chat_SCChatImage_skin</string>
 		<key>iconSel</key>
 		<string>chat_SCChatImage_push_skin</string>
+	</dict>
+	<key>checkSoundPermissionImage</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>permissions_NoSound_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>checkCameraPermissionImage</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>permissions_NoCamera_skin</string>
+		<key>iconSel</key>
+		<string></string>
 	</dict>
 	<key>courseware_bottombar</key>
 	<dict>
