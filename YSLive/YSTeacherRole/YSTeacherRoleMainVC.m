@@ -1040,7 +1040,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.shareVideoFloatView showWithContentView:self.shareVideoView];
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
-    
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
     
@@ -3865,8 +3864,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         [self arrangeAllViewInWhiteBordBackgroud];
         
-        self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
-        self.brushToolOpenBtn.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);;
+        if (self.liveManager.isBeginClass)
+        {
+            self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+            self.brushToolOpenBtn.hidden = self.isDoubleVideoBig || (self.roomLayout == YSLiveRoomLayout_VideoLayout);
+        }
+
         
 #if USE_FullTeacher
         [self stopFullTeacherVideoView];
@@ -4216,7 +4219,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //NO:上下布局  YES:左右布局
     self.roomLayout = roomLayout;
     
-    if (!self.isWhitebordFullScreen)
+    if (!self.isWhitebordFullScreen && self.liveManager.isBeginClass)
     {
         self.brushToolView.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
         self.brushToolOpenBtn.hidden = (self.roomLayout == YSLiveRoomLayout_VideoLayout) || (self.roomLayout == YSLiveRoomLayout_FocusLayout);
