@@ -116,7 +116,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     YSLiveRoomManagerDelegate,
     SCBrushToolViewDelegate,
     SCDrawBoardViewDelegate,
-//    SCTopToolBarDelegate,
     UIPopoverPresentationControllerDelegate,
     YSControlPopoverViewDelegate,
     SCVideoViewDelegate,
@@ -243,8 +242,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 @property (nonatomic, strong) UIImageView *playMp3ImageView;
 /// 聊天的View
 @property(nonatomic,strong)SCChatView *rightChatView;
-/// 弹出聊天View的按钮
-//@property(nonatomic,strong)UIButton *chatBtn;
 /// 左侧工具栏
 @property (nonatomic, strong) SCBrushToolView *brushToolView;
 /// 画笔工具按钮（控制工具条的展开收起）
@@ -298,9 +295,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 /// 当前展示媒体课件
 @property (nonatomic, strong) NSString *currentMediaFileID;
 @property (nonatomic, assign) YSWhiteBordMediaState currentMediaState;
-
-/// 视频布局时全屏按钮（隐藏顶部工具栏）
-@property(nonatomic,strong)UIButton *videoFullScreenBtn;
 /// 工具箱
 @property(nonatomic, strong) YSToolBoxView *toolBoxView;
 @end
@@ -481,9 +475,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 
     [self getGiftCount];
     
-    // 顶部工具栏背景
-//    [self setupTopToolBar];
-    
     /// 初始化顶栏数据
     [self setupStateBarData];
     // 内容背景
@@ -511,16 +502,10 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     // 右侧聊天视图
     [self.view addSubview:self.rightChatView];
     
-    //弹出聊天框的按钮
-//    [self.view addSubview:self.chatBtn];
-    
     if (self.roomtype == YSRoomType_More && YSCurrentUser.role == YSUserType_Student)
     {
         //举手上台的按钮
         [self.view addSubview:self.raiseHandsBtn];
-        /// 设置视频布局全屏按钮
-        [self setupVideoFullBtn];
-        
     }
     
     // 会议默认视频布局
@@ -653,9 +638,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     // 聊天窗口
     [self.rightChatView bm_bringToFront];
     
-    // 聊天按钮
-//    [self.chatBtn bm_bringToFront];
-    
     // 信息输入
     [self.chatToolView bm_bringToFront];
     
@@ -721,8 +703,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
  self.boardControlView;
  // 聊天窗口
  self.rightChatView;
- // 聊天按钮
- self.chatBtn;
  
  self.chatToolView;
  
@@ -782,7 +762,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
     {
-        CGRect currentFrame = dragView.frame;//self.chatBtn.frame;
+        CGRect currentFrame = dragView.frame;
         
         if (currentFrame.origin.x < 0) {
             
@@ -841,28 +821,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         }
     }
 }
-
-/// 顶部工具栏背景
-//- (void)setupTopToolBar
-//{
-//    UIView *topToolBarBackGroud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentWidth, 0)];
-//    topToolBarBackGroud.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-//    [self.view addSubview:topToolBarBackGroud];
-//    self.topToolBarBackgroud = topToolBarBackGroud;
-//
-//    self.topToolBar = [[SCTopToolBar alloc] init];
-//    self.topToolBar.delegate = self;
-//    self.topToolBar.frame = CGRectMake(0, 0, self.contentWidth, 0);
-//    [self.topToolBarBackgroud addSubview:self.topToolBar];
-//
-//    [self.topToolBar hidePhotoBtn:YES];
-//    [self.topToolBar hideMicrophoneBtn:YES];
-//    if (self.liveManager.localUser.role == YSUserType_Patrol)
-//    {
-//        [self.topToolBar hideCameraBtn:YES];
-//    }
-//    [self setupTopBarData];
-//}
 
 
 #pragma mark 内容背景
@@ -948,54 +906,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     [self freshContentView];
 }
 
-- (void)setupVideoFullBtn
-{
-    UIButton *videoFullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    videoFullScreenBtn.frame = CGRectMake(self.contentWidth-40-26-20-40, self.contentHeight-40-2, 40, 40);
-    [videoFullScreenBtn setBackgroundColor: UIColor.clearColor];
-    [videoFullScreenBtn setImage:[UIImage imageNamed:@"sc_pagecontrol_allScreen_normal"] forState:UIControlStateNormal];
-    [videoFullScreenBtn setImage:[UIImage imageNamed:@"sc_pagecontrol_normalScreen_highlighted"] forState:UIControlStateSelected];
-    [videoFullScreenBtn addTarget:self action:@selector(videoFullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    videoFullScreenBtn.hidden = YES;
-    self.videoFullScreenBtn = videoFullScreenBtn;
-    
-    [self.view addSubview:self.videoFullScreenBtn];
-}
-
-- (void)videoFullScreenBtnClick:(UIButton *)btn
-{
-    btn.selected = !btn.selected;
-    [self.videoGridView removeFromSuperview];
-    [self fullVideoGridView:btn.selected];
-  
-}
-
-- (void)fullVideoGridView:(BOOL)isFull
-{
-//    if (isFull)
-//    {
-//        self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight - STATETOOLBAR_HEIGHT);
-//        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight - STATETOOLBAR_HEIGHT);
-//        [self.view addSubview:self.videoGridView];
-//        [self.videoGridView bm_centerInSuperView];
-//        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-//        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-//        [self.videoFullScreenBtn bm_bringToFront];
-//        [self.chatBtn bm_bringToFront];
-//        [self.raiseHandsBtn bm_bringToFront	];
-//    }
-//    else
-//    {
-
-        self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
-        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
-        [self.contentBackgroud addSubview:self.videoGridView];
-//        [self.videoGridView bm_centerInSuperView];
-        self.videoGridView.backgroundColor = [UIColor clearColor];
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-        [self.videoFullScreenBtn bm_bringToFront];
-//    }
-}
 
 - (void)doubleBtnClick:(UIButton *)sender
 {
@@ -1238,22 +1148,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 #warning handleSignalingTorefeshCourseware
 }
 
-
-//- (UIButton *)chatBtn
-//{
-//    if (!_chatBtn)
-//    {
-//        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.contentWidth-40-26, self.contentHeight-40-2, 40, 40)];
-//        [self.chatBtn setBackgroundColor: UIColor.clearColor];
-//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-//        [self.chatBtn addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//        //拖拽
-//        //        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragReplyButton:)];
-//        //        [self.chatBtn addGestureRecognizer:panGestureRecognizer];
-//    }
-//    return _chatBtn;
-//}
 
 - (UIButton *)raiseHandsBtn
 {
@@ -1530,10 +1424,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
         {
             [self freshVidoeGridView];
-            self.videoFullScreenBtn.hidden = NO;
-            [self.videoFullScreenBtn bm_bringToFront];
             [self.raiseHandsBtn bm_bringToFront];
-//            [self.chatBtn bm_bringToFront];
         }
         else
         {
@@ -1542,8 +1433,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             [self.contentBackgroud addSubview:self.videoGridView];
 //            [self.videoGridView bm_centerInSuperView];
             self.videoGridView.backgroundColor = [UIColor clearColor];
-            self.videoFullScreenBtn.hidden = YES;
-            self.videoFullScreenBtn.selected = NO;
             [self freshContentVidoeView];
         }
     }
@@ -2520,37 +2409,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 }
 
 
-//聊天按钮点击事件
-- (void)chatButtonClick:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-    
-//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-    
-    CGRect tempRect = self.rightChatView.frame;
-    if (sender.selected)
-    {//弹出
-        tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
-        //收回 课件表 以及 花名册
-        [self freshListViewWithSelect:NO];
-//        if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-//        {
-//            self.topSelectBtn.selected = NO;
-//        }
-    }
-    else
-    {//收回
-        tempRect.origin.x = BMUI_SCREEN_WIDTH;
-    }
-    [UIView animateWithDuration:0.25 animations:^{
-        self.rightChatView.frame = tempRect;
-    }];
-    
-    [self arrangeAllViewInVCView];
-}
-
-
 #pragma mark - 右侧聊天视图
 
 - (SCChatView *)rightChatView
@@ -2641,64 +2499,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 
 
 #pragma mark -
-#pragma mark SCTopToolBarDelegate
-
-/// 麦克风
-//- (void)microphoneProxyWithBtn:(UIButton *)btn
-//{
-//    if (self.liveManager.localUser.afail == YSDeviceFaultNone)
-//    {
-//        YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
-//
-//        // selected在回调前变化过了
-//        if (self.topToolBar.microphoneBtn.selected)
-//        {
-//            // 关闭音频
-//
-//            if (publishState == YSUser_PublishState_AUDIOONLY)
-//            {
-//                publishState = 4;
-//            }
-//            else if (publishState == YSUser_PublishState_BOTH)
-//            {
-//                publishState = YSUser_PublishState_VIDEOONLY;
-//            }
-//
-//            if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4)
-//            {
-//                [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserPublishstate value:@(publishState) completion:nil];
-//            }
-//        }
-//        else
-//        {
-//            // 打开音频
-//
-//            if (publishState == 4)
-//            {
-//                publishState = YSUser_PublishState_AUDIOONLY;
-//            }
-//            else if (publishState == YSUser_PublishState_VIDEOONLY)
-//            {
-//                publishState = YSUser_PublishState_BOTH;
-//            }
-//
-//            if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
-//            {
-//                [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserPublishstate value:@(publishState) completion:nil];
-//            }
-//        }
-//    }
-//    else
-//    {
-//        return;
-//    }
-//}
-
-/// 照片
-- (void)photoProxyWithBtn:(UIButton *)btn
-{
-    [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
-}
+#pragma mark YSSpreadBottomToolBarDelegate 底部工具栏
 
 - (void)bottomToolBarSpreadOut:(BOOL)spreadOut
 {
@@ -2786,8 +2587,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         }
         
 }
-#pragma mark 工具箱
 
+#pragma mark YSToolBoxViewDelegate 工具箱
 /// 关闭工具箱
 - (void)closeToolBoxView
 {
@@ -2809,7 +2610,10 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             break;
     }
 }
-// 是否弹出课件库 以及 花名册  select  yes--弹出  no--收回
+
+
+#pragma mark 是否弹出课件库 以及 花名册  select  yes--弹出  no--收回
+
 - (void)freshListViewWithSelect:(BOOL)select
 {
     CGRect tempRect = self.teacherListView.frame;
@@ -2818,7 +2622,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         tempRect.origin.x = 0;
         
         //收回聊天
-//        self.chatBtn.selected = NO;
         [self.spreadBottomToolBar hideMessageView];
         CGRect chatViewRect = self.rightChatView.frame;
         chatViewRect.origin.x = BMUI_SCREEN_WIDTH;
@@ -2931,18 +2734,12 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 - (void)tapGestureBackListView
 {
     [self freshListViewWithSelect:NO];
-//    if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-//    {
-//        self.topSelectBtn.selected = NO;
-//    }
 }
 
 
 - (void)leftPageProxyWithPage:(NSInteger)page
 {
     page--;
-//    _personListCurentPage = page;
-//    [self freshTeacherPersonListData];
 
     if (isSearch)
     {
@@ -3474,7 +3271,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     }
     else
     {
-//        self.chatBtn.selected = NO;
         CGRect tempRect = self.rightChatView.frame;
         tempRect.origin.x = BMUI_SCREEN_WIDTH;
         [UIView animateWithDuration:0.25 animations:^{

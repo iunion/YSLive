@@ -278,8 +278,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 /// 聊天的View
 @property(nonatomic,strong)SCChatView *rightChatView;
-/// 弹出聊天View的按钮
-@property(nonatomic,strong)UIButton *chatBtn;
 /// 聊天输入框工具栏
 @property (nonatomic, strong) SCChatToolView *chatToolView;
 /// 聊天表情列表View
@@ -342,9 +340,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 当前展示媒体课件
 @property (nonatomic, strong) NSString *currentMediaFileID;
 @property (nonatomic, assign) YSWhiteBordMediaState currentMediaState;
-
-/// 视频布局时全屏按钮（隐藏顶部工具栏）
-@property(nonatomic, strong) UIButton *videoFullScreenBtn;
 
 /// 课件删除
 @property(nonatomic, strong) NSURLSessionDataTask *deleteTask;
@@ -482,15 +477,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 右侧聊天视图
     [self.view addSubview:self.rightChatView];
     
-    //弹出聊天框的按钮
-    [self.contentBackgroud addSubview:self.chatBtn];
-    
     if (self.roomtype == YSRoomType_More)
     {
         //举手上台的按钮
         [self setupHandView];
         /// 视频布局时的全屏按钮 （只在 1VN 房间）
-        [self setupVideoFullBtn];
+        
     }
     
     // 设置花名册 课件表
@@ -577,9 +569,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 聊天窗口
     [self.rightChatView bm_bringToFront];
     
-    // 聊天按钮
-    [self.chatBtn bm_bringToFront];
-    
     // 信息输入
     [self.chatToolView bm_bringToFront];
     
@@ -658,7 +647,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
     {
-        CGRect currentFrame = dragView.frame;//self.chatBtn.frame;
+        CGRect currentFrame = dragView.frame;
         
         if (currentFrame.origin.x < 0) {
             
@@ -744,61 +733,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.roomID = [YSLiveManager shareInstance].room_Id;
     self.lessonTime = @"00:00:00";
 }
-
-/// 视频布局全屏按钮的创建
-- (void)setupVideoFullBtn
-{
-    UIButton *videoFullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    videoFullScreenBtn.frame = CGRectMake(self.contentWidth-40-26-20-40, self.contentHeight-40-2, 40, 40);
-    [videoFullScreenBtn setBackgroundColor: UIColor.clearColor];
-    [videoFullScreenBtn setImage:[UIImage imageNamed:@"sc_pagecontrol_allScreen_normal"] forState:UIControlStateNormal];
-    [videoFullScreenBtn setImage:[UIImage imageNamed:@"sc_pagecontrol_normalScreen_highlighted"] forState:UIControlStateSelected];
-    [videoFullScreenBtn addTarget:self action:@selector(videoFullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    videoFullScreenBtn.hidden = YES;
-    self.videoFullScreenBtn = videoFullScreenBtn;
-    
-    [self.contentBackgroud addSubview:self.videoFullScreenBtn];
-
-}
-- (void)videoFullScreenBtnClick:(UIButton *)btn
-{
-    btn.selected = !btn.selected;
-    [self.videoGridView removeFromSuperview];
-    [self fullVideoGridView:btn.selected];
-  
-}
-
-- (void)fullVideoGridView:(BOOL)isFull
-{
-//    if (isFull)
-//    {
-//        CGFloat width = self.contentWidth;
-//        CGFloat height = self.contentHeight - STATETOOLBAR_HEIGHT;
-//        self.videoGridView.defaultSize = CGSizeMake(width, height);
-//        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
-//        [self.contentBackgroud addSubview:self.videoGridView];
-////        [self.videoGridView bm_centerInSuperView];
-//        self.videoGridView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-//        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-//        [self.videoFullScreenBtn bm_bringToFront];
-//        [self.chatBtn bm_bringToFront];
-//        [self.raiseHandsBtn bm_bringToFront];
-//        [self.handNumLab bm_bringToFront];
-//    }
-//    else
-//    {
-        CGFloat width = self.contentWidth;
-        CGFloat height = self.contentHeight-TOPTOOLBAR_HEIGHT;
-        self.videoGridView.defaultSize = CGSizeMake(width, height);
-        self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, width, height);
-        [self.contentBackgroud addSubview:self.videoGridView];
-//        [self.videoGridView bm_centerInSuperView];
-        self.videoGridView.backgroundColor = [UIColor clearColor];
-        [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
-        [self.videoFullScreenBtn bm_bringToFront];
-//    }
-}
-
 
 #pragma mark - 举手上台的UI
 - (void)setupHandView
@@ -1320,10 +1254,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout || self.roomLayout == YSLiveRoomLayout_FocusLayout)
         {
-            self.videoFullScreenBtn.hidden = NO;
             [self freshVidoeGridView];
-            [self.videoFullScreenBtn bm_bringToFront];
-            [self.chatBtn bm_bringToFront];
             [self.raiseHandsBtn bm_bringToFront];
             [self.handNumLab bm_bringToFront];
 
@@ -1337,8 +1268,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.contentBackgroud addSubview:self.videoGridView];
 //            [self.videoGridView bm_centerInSuperView];
             self.videoGridView.backgroundColor = [UIColor clearColor];
-            self.videoFullScreenBtn.hidden = YES;
-            self.videoFullScreenBtn.selected = NO;
             [self freshContentVidoeView];
         }
     }
@@ -4107,7 +4036,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         tempRect.origin.x = 0;
         
         //收回聊天
-//        self.chatBtn.selected = NO;
         [self.spreadBottomToolBar hideMessageView];
         CGRect chatViewRect = self.rightChatView.frame;
         chatViewRect.origin.x = BMUI_SCREEN_WIDTH;
@@ -5462,21 +5390,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark 聊天相关视图
 
-
-/// 弹出聊天View的按钮
-//- (UIButton *)chatBtn
-//{
-//    if (!_chatBtn)
-//    {
-//        self.chatBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.contentWidth-40-26, self.contentHeight-40-2-100, 40, 40)];
-//        [self.chatBtn setBackgroundColor: UIColor.clearColor];
-//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-//        [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-//        [self.chatBtn addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _chatBtn;
-//}
-
 /// 右侧聊天视图
 - (SCChatView *)rightChatView
 {
@@ -5551,38 +5464,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 #pragma mark 聊天相关点击事件
-
-
-///聊天按钮点击事件
-//- (void)chatButtonClick:(UIButton *)sender
-//{
-//    sender.selected = !sender.selected;
-//
-//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage"] forState:UIControlStateNormal];
-//    [self.chatBtn setImage:[UIImage imageNamed:@"chat_SmallClassImage_push"] forState:UIControlStateHighlighted];
-//
-//    CGRect tempRect = self.rightChatView.frame;
-//    if (sender.selected)
-//    {//弹出
-//        tempRect.origin.x = self.contentWidth-tempRect.size.width;
-//
-//        //收回 课件表 以及 花名册
-//        [self freshListViewWithSelect:NO];
-//        if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-//        {
-//            self.topSelectBtn.selected = NO;
-//        }
-//    }
-//    else
-//    {//收回
-//        tempRect.origin.x = self.contentWidth;
-//    }
-//    [UIView animateWithDuration:0.25 animations:^{
-//        self.rightChatView.frame = tempRect;
-//    }];
-//
-//    [self arrangeAllViewInVCView];
-//}
 
 ///输入框条上表情按钮的点击事件
 - (void)toolEmotionBtnClick:(UIButton *)sender
@@ -6258,18 +6139,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)tapGestureBackListView
 {
     [self freshListViewWithSelect:NO];
-//    if (self.topSelectBtn.tag == SCTeacherTopBarTypePersonList || self.topSelectBtn.tag == SCTeacherTopBarTypeCourseware)
-//    {
-//        self.topSelectBtn.selected = NO;
-//    }
-//    [self.spreadBottomToolBar hideListView];
 }
 
 - (void)leftPageProxyWithPage:(NSInteger)page
 {
     page--;
-//    _personListCurentPage = page;
-//    [self freshTeacherPersonListData];
 
     if (isSearch)
     {
