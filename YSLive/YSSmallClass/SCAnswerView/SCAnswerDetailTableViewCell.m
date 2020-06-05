@@ -49,8 +49,7 @@
     
     self.backView.frame = CGRectMake(10 ,0, self.bm_width - 20, 22);
     self.backView.bm_centerY = self.contentView.bm_centerY;
-//    self.backView.layer.cornerRadius = 5;
-//    self.backView.layer.masksToBounds = YES;
+
     CGFloat tempWidth = (self.backView.bm_width - 25) / 3;
     self.nameL.frame = CGRectMake(15, 0, tempWidth, 15);
     self.nameL.bm_centerY = self.contentView.bm_centerY;
@@ -107,7 +106,6 @@
         _nameL = [[UILabel alloc] init];
         _nameL.textAlignment = NSTextAlignmentLeft;
         _nameL.font = UI_FONT_10;
-        _nameL.numberOfLines = 0;
         _nameL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     return _nameL;
@@ -119,7 +117,6 @@
         _resultL = [[UILabel alloc] init];
         _resultL.textAlignment = NSTextAlignmentCenter;
         _resultL.font = UI_FONT_10;
-        _resultL.numberOfLines = 0;
         _resultL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     return _resultL;
@@ -131,7 +128,6 @@
         _timeL = [[UILabel alloc] init];
         _timeL.textAlignment = NSTextAlignmentRight;
         _timeL.font = UI_FONT_10;
-        _timeL.numberOfLines = 0;
         _timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     return _timeL;
