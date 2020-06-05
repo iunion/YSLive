@@ -22,7 +22,7 @@
 #import "BMTZImageManager.h"
 #import "BMTZVideoPlayerController.h"
 #import "BMTZGifPhotoPreviewController.h"
-#import "BMTZLocationManager.h"
+//#import "BMTZLocationManager.h"
 #import "BMTZPhotoPreviewController.h"
 #import "BMTZPhotoPreviewCell.h"
 
