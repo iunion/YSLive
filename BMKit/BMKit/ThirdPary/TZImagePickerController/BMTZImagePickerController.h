@@ -22,7 +22,9 @@
 #import "BMTZImageManager.h"
 #import "BMTZVideoPlayerController.h"
 #import "BMTZGifPhotoPreviewController.h"
+#if BMBasekit_Use_CoreLocation
 #import "BMTZLocationManager.h"
+#endif
 #import "BMTZPhotoPreviewController.h"
 #import "BMTZPhotoPreviewCell.h"
 

@@ -6,6 +6,7 @@
 //  Copyright © 2017年 谭真. All rights reserved.
 //  定位管理类
 
+#if BMBasekit_Use_CoreLocation
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
@@ -25,3 +26,4 @@
 
 @end
 
+#endif
