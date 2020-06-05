@@ -33,9 +33,11 @@
 
 - (void)setup
 {
-    self.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
-    self.contentView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
-//    self.backgroundView.backgroundColor = [UIColor redColor];
+    self.backgroundColor = [UIColor clearColor];//[YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+    self.contentView.backgroundColor = [UIColor clearColor];//[YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+    UIView *bacView = [UIView new];
+    bacView.backgroundColor = [UIColor clearColor];
+    self.backgroundView = bacView;
     [self.contentView addSubview:self.backView];
     [self.contentView addSubview:self.nameL];
     [self.contentView addSubview:self.resultL];
