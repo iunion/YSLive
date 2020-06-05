@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
 @class SCAnswerDetailModel;
 
 @interface SCAnswerTBHeaderView : UITableViewHeaderFooterView
 
-@property (nonatomic, strong)SCAnswerDetailModel *detailModel;
+@property (nonatomic, strong) SCAnswerDetailModel *detailModel;
 
 @end
 

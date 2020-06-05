@@ -1076,6 +1076,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
 @end
 
 
+#if BMBasekit_Use_CoreLocation
 @implementation UIImage (BMImageMetadata)
 
 - (NSMutableDictionary *)getImageMetadata
@@ -1232,8 +1233,8 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
     return dest_data;
 }
 
-
 @end
+#endif
 
 
 @implementation UIImage (BMClip)

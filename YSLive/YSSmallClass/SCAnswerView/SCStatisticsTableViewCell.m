@@ -34,7 +34,8 @@
 
 - (void)setup
 {
-    self.contentView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.backView];
     [self.contentView addSubview:self.selectView];
@@ -105,7 +106,7 @@
     if (!_titleL)
     {
         _titleL = [[UILabel alloc] init];
-        _titleL.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _titleL.backgroundColor = [UIColor clearColor];
         _titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
         _titleL.textAlignment = NSTextAlignmentLeft;
         _titleL.font = UI_FONT_10;
@@ -141,7 +142,7 @@
     if (!_numPersonLabel)
     {
         _numPersonLabel = [[UILabel alloc] init];
-        _numPersonLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _numPersonLabel.backgroundColor = [UIColor clearColor];
         _numPersonLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
         _numPersonLabel.textAlignment = NSTextAlignmentLeft;
         _numPersonLabel.font = UI_FONT_10;

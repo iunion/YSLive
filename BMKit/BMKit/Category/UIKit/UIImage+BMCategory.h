@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#if BMBasekit_Use_CoreLocation
 #import <CoreLocation/CLLocation.h>
+#endif
 
 
 #define ROUNDEDRECT_PERCENTAGE 10
@@ -112,12 +114,14 @@ typedef NS_ENUM(NSUInteger, BMImageResizingMethod)
 - (UIImage *)boxblurImageWithBlur:(CGFloat)blur;
 @end
 
+#if BMBasekit_Use_CoreLocation
 @interface UIImage (BMImageMetadata)
 - (nullable NSMutableDictionary *)getImageMetadata;
 - (nullable NSData *)setImageDateTime:(NSDate *)date latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude withCompressionQuality:(CGFloat)compressionQuality;
 - (nullable NSData *)setImageMetadata:(NSMutableDictionary *)metaData;
 - (nullable NSData *)setImageMetadata:(NSMutableDictionary *)metaData withCompressionQuality:(CGFloat)compressionQuality;
 @end
+#endif
 
 // https://www.jb51.net/article/142139.htm
 @interface UIImage (BMClip)

@@ -15,7 +15,9 @@
 #import "BMTZImageManager.h"
 #import "BMTZVideoPlayerController.h"
 #import "BMTZGifPhotoPreviewController.h"
+#if BMBasekit_Use_CoreLocation
 #import "BMTZLocationManager.h"
+#endif
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "BMTZImageRequestOperation.h"
 
@@ -679,6 +681,7 @@ static CGFloat itemMargin = 5;
 - (void)pushImagePickerController {
     // 提前定位
     BMTZImagePickerController *tzImagePickerVc = (BMTZImagePickerController *)self.navigationController;
+#if BMBasekit_Use_CoreLocation
     if (tzImagePickerVc.allowCameraLocation) {
         __weak typeof(self) weakSelf = self;
         [[BMTZLocationManager manager] startLocationWithSuccessBlock:^(NSArray<CLLocation *> *locations) {
@@ -689,6 +692,7 @@ static CGFloat itemMargin = 5;
             strongSelf.location = nil;
         }];
     }
+#endif
     
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
     if ([UIImagePickerController isSourceTypeAvailable: sourceType]) {

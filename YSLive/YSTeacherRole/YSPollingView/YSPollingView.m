@@ -83,7 +83,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     [self addGestureRecognizer:tapGesture];
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
     self.bacView.layer.cornerRadius = 26;
