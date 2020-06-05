@@ -2663,8 +2663,8 @@
 				87728F2A2355CCD800E34916 /* YSLiveMacros.h */,
 				870C531C23572DF100BDB1EC /* YSLiveEnumHeader.h */,
 				87728F282355CCD800E34916 /* YSLiveManager.h */,
-				87728F292355CCD800E34916 /* YSLiveManager.m */,
 				874061F3235AA428005D3620 /* YSLiveUtil.h */,
+				87728F292355CCD800E34916 /* YSLiveManager.m */,
 				874061F4235AA428005D3620 /* YSLiveUtil.m */,
 			);
 			path = YSLiveManager;
