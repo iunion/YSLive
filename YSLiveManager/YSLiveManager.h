@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上课开始时间
 @property (nonatomic, assign) NSTimeInterval tClassStartTime;
 // 矫正过的时间
-/// 当前时间 now-tHowMuchTimeServerFasterThenMe
+/// 当前时间 now+tHowMuchTimeServerFasterThenMe
 @property (nonatomic, assign, readonly) NSTimeInterval tCurrentTime;
 /// 开播经过时长
 @property (nonatomic, assign, readonly) NSTimeInterval tPassedTime;
