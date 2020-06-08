@@ -192,8 +192,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     _isFullScreen = isFullScreen;
     if (isFullScreen)
     {
-        [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_yes_normal"] forState:UIControlStateNormal];
-        [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_yes_highlight"] forState:UIControlStateHighlighted];
+        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
         self.barrageBtn.hidden = NO;
     }
     else
@@ -210,14 +209,12 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     _barrageStart = barrageStart;
     if (barrageStart)
     {
-        [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_yes_normal"] forState:UIControlStateNormal];
-        [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_yes_highlight"] forState:UIControlStateHighlighted];
+        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
         [self.barrageManager start];
     }
     else
     {
-        [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_no_normal"] forState:UIControlStateNormal];
-        [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_no_highlight"] forState:UIControlStateHighlighted];
+        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
         [self.barrageManager stop];
     }
 }
@@ -739,8 +736,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)setupReturnBar
 {
     self.returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.returnBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_return_normal"] forState:UIControlStateNormal];
-    [self.returnBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_return_highlight"] forState:UIControlStateHighlighted];
+    [self.returnBtn setImage:YSSkinElementImage(@"live_lesson_return", @"iconNor") forState:UIControlStateNormal];
     self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
     [self.view addSubview:self.returnBtn];
     [self.view bringSubviewToFront:self.returnBtn];
@@ -748,8 +744,8 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.returnBtn.bm_ActionEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
     
     self.roomIDLabel = [[UILabel alloc] init];
-    self.roomIDLabel.font = [UIFont systemFontOfSize:14];
-    self.roomIDLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
+    self.roomIDLabel.font = [UIFont systemFontOfSize:12];
+    self.roomIDLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
     
     [self.view addSubview:self.roomIDLabel];
     [self.view bringSubviewToFront:self.roomIDLabel];
@@ -763,11 +759,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)setupLiveUI
 {
     self.allVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
-    self.allVideoBgView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    self.allVideoBgView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.allVideoBgView];
     
     self.liveBgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
-    self.liveBgView.backgroundColor = [UIColor blackColor];
+    self.liveBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     self.liveBgView.showWaiting = NO;
     self.liveBgView.bm_centerX = self.allVideoBgView.bm_centerX;
     [self.allVideoBgView addSubview:self.liveBgView];
@@ -807,16 +803,14 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:self.fullScreenBtn];
     [self.view bringSubviewToFront:self.fullScreenBtn];
-    [self.fullScreenBtn setBackgroundImage:[UIImage imageNamed:@"play_fullScreen"] forState:UIControlStateNormal];
-    [self.fullScreenBtn setBackgroundImage:[UIImage imageNamed:@"play_original"] forState:UIControlStateHighlighted];
+    [self.fullScreenBtn setImage:YSSkinElementImage(@"live_lesson_full", @"iconNor") forState:UIControlStateNormal];
     self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
     [self.fullScreenBtn addTarget:self action:@selector(fullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:self.barrageBtn];
     [self.view bringSubviewToFront:self.barrageBtn];
-    [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_yes_normal"] forState:UIControlStateNormal];
-    [self.barrageBtn setBackgroundImage:[UIImage imageNamed:@"ysmain_barrage_yes_highlight"] forState:UIControlStateHighlighted];
+    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
     self.barrageBtn.frame = CGRectZero;
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
