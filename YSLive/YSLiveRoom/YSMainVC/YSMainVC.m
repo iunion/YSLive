@@ -2326,7 +2326,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         {
             //房间
             YSLessonView * view = [[YSLessonView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 100)];
-            view.backgroundColor = [UIColor whiteColor];
             self.lessonView = view;
             view.dataSource = self.lessonDataSource;
             return view;

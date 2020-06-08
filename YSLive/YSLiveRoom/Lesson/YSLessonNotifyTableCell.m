@@ -44,6 +44,7 @@
 
 - (void)setup
 {
+    self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.timeL];
     
@@ -70,7 +71,7 @@
     self.timeL.frame = CGRectMake(0, 5, BMUI_SCREEN_WIDTH, 17);
     
     self.bacView.frame = CGRectMake(20, 25, BMUI_SCREEN_WIDTH - 20 - 20, self.contentView.bm_height-25  - 10);
-    self.bacView.layer.cornerRadius = self.bacView.bm_height/2 > 29 ? 16 : self.bacView.bm_height/2;
+    self.bacView.layer.cornerRadius = 4.0f;
     self.bacView.layer.masksToBounds = YES;
     
     self.typeView.frame = CGRectMake(0, 0, 19, 23);
@@ -112,11 +113,11 @@
     {
         case YSLessonNotifyType_Message:
             //公告
-            [self.typeView setImage:[UIImage imageNamed:@"yslive_lesson_message"]];
+            [self.typeView setImage:YSSkinElementImage(@"live_lesson_message", @"iconNor")];
             break;
         case YSLessonNotifyType_Status:
             //通知
-            [self.typeView setImage:[UIImage imageNamed:@"yslive_lesson_status"]];
+            [self.typeView setImage:YSSkinElementImage(@"live_lesson_status", @"iconNor")];
             break;
         default:
             break;
@@ -177,7 +178,7 @@
         _timeL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
         _timeL.numberOfLines = 1;
         _timeL.lineBreakMode = NSLineBreakByCharWrapping;
-        _timeL.textColor = [UIColor bm_colorWithHex:0x818181];
+        _timeL.textColor = YSSkinDefineColor(@"liveTimeTextColor");
     }
     return _timeL;
 }
@@ -187,7 +188,7 @@
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+        _bacView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     
     return _bacView;
@@ -208,7 +209,7 @@
     if (!_translatBtn)
     {
         _translatBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_translatBtn setImage:[UIImage imageNamed:@"lesson_translate"] forState:UIControlStateNormal];
+        [_translatBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
     }
     
     return _translatBtn;
@@ -220,8 +221,8 @@
        {
            _originalL = [[UILabel alloc] init];
            _originalL.textAlignment = NSTextAlignmentLeft;
-           _originalL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14);
-           _originalL.textColor = [UIColor bm_colorWithHex:0x828282];
+           _originalL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
+           _originalL.textColor = YSSkinDefineColor(@"placeholderColor");
            _originalL.numberOfLines = 0;
            _originalL.lineBreakMode = NSLineBreakByCharWrapping;
        }
@@ -234,7 +235,7 @@
     if (!_lineView)
     {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
+        _lineView.backgroundColor = [YSSkinDefineColor(@"login_placeholderColor") changeAlpha:0.24f];
         _lineView.hidden = YES;
     }
     
@@ -247,9 +248,9 @@
        {
            _translatL = [[UILabel alloc] init];
            _translatL.textAlignment = NSTextAlignmentLeft;
-           _translatL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14);
+           _translatL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
            _translatL.numberOfLines = 0;
-           _translatL.textColor = [UIColor bm_colorWithHex:0x828282];
+           _translatL.textColor = YSSkinDefineColor(@"placeholderColor");
            _translatL.lineBreakMode = NSLineBreakByCharWrapping;
            _translatL.hidden = YES;
        }

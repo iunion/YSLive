@@ -32,7 +32,7 @@
 }
 
 - (void)setup
-{
+{   self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.backView];
     [self addSubview:self.iconImgV];
     [self addSubview:self.lessonTitleL];
@@ -46,7 +46,7 @@
     [super layoutSubviews];
     
     self.backView.frame = CGRectMake(20, 35, BMUI_SCREEN_WIDTH - 40, self.lessonModel.nameHeight + 52);
-    self.backView.layer.cornerRadius = self.backView.bm_height/2;
+    self.backView.layer.cornerRadius = 4.0f;
     self.backView.layer.masksToBounds = YES;
     
     self.iconImgV.frame = CGRectMake(40, 0, 20, 20);
@@ -80,7 +80,7 @@
     if (!_backView)
     {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+        _backView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     return _backView;
 }
@@ -90,9 +90,9 @@
     if (!_lessonTitleL)
     {
         _lessonTitleL = [[UILabel alloc] init];
-        _lessonTitleL.textColor = [UIColor bm_colorWithHex:0x828282];
+        _lessonTitleL.textColor = YSSkinDefineColor(@"placeholderColor");
         _lessonTitleL.textAlignment = NSTextAlignmentLeft;
-        _lessonTitleL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14);
+        _lessonTitleL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
         _lessonTitleL.numberOfLines = 0;
         _lessonTitleL.lineBreakMode = NSLineBreakByCharWrapping;
     }
@@ -106,7 +106,7 @@
     if (!_iconImgV)
     {
         _iconImgV = [[UIImageView alloc] init];
-        [_iconImgV setImage:[UIImage imageNamed:@"ysmain_lesson_detail"]];
+        [_iconImgV setImage:YSSkinElementImage(@"live_lesson_header", @"iconNor")];
     }
     
     return _iconImgV;
@@ -117,9 +117,9 @@
     if (!_roomIDL)
     {
         _roomIDL = [[UILabel alloc] init];
-        _roomIDL.textColor = [UIColor bm_colorWithHex:0x828282];
+        _roomIDL.textColor = YSSkinDefineColor(@"placeholderColor");
         _roomIDL.textAlignment = NSTextAlignmentLeft;
-        _roomIDL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14);
+        _roomIDL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
     }
     
     return _roomIDL;
@@ -130,7 +130,7 @@
     if (!_lineView)
     {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
+        _lineView.backgroundColor = [YSSkinDefineColor(@"login_placeholderColor") changeAlpha:0.24f];
     }
     
     return _lineView;
