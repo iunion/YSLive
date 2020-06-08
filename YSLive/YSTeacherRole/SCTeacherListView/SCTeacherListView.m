@@ -37,7 +37,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 }
 @property (nonatomic, strong) UIView *tableBacView;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) SCTeacherTopBarType type;
+@property (nonatomic, assign) SCBottomToolBarType type;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectArr;
 
@@ -284,7 +284,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state
+- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state
 {
     self.currentFileList = currentFileList;
     self.mediaFileID = mediaFileID;
@@ -292,12 +292,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [self setDataSource:dataSource withType:type userNum:userNum];
 }
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum
+- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum
 {
     self.type = type;
     _userNum = userNum;
     [self.dataSource removeAllObjects];
-    if (self.type == SCTeacherTopBarTypePersonList)
+    if (self.type == SCBottomToolBarTypePersonList)
     {
         self.tableView.bm_height = tableHeight - 40;
         self.tableFooterView.hidden = NO;
@@ -313,7 +313,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
             }
         }
     }
-    if (self.type == SCTeacherTopBarTypeCourseware)
+    if (self.type == SCBottomToolBarTypeCourseware)
     {
         self.tableView.bm_height = tableHeight;
         self.tableFooterView.hidden = YES;
@@ -389,7 +389,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.type == SCTeacherTopBarTypePersonList)
+    if (self.type == SCBottomToolBarTypePersonList)
     {
         SCTeacherPersonListCell * personCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherPersonListCellID forIndexPath:indexPath];
         if (indexPath.row < [self.dataSource count])
@@ -407,7 +407,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         personCell.delegate = self;
         return personCell;
     }
-    else if (self.type == SCTeacherTopBarTypeCourseware)
+    else if (self.type == SCBottomToolBarTypeCourseware)
     {
         SCTeacherCoursewareListCell * coursewareCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherCoursewareListCellID forIndexPath:indexPath];
         YSFileModel * model = self.dataSource[indexPath.row];
@@ -432,7 +432,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     UIView * view = [[UIView alloc]init];
     view.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     view.userInteractionEnabled = YES;
-    if (self.type == SCTeacherTopBarTypePersonList)
+    if (self.type == SCBottomToolBarTypePersonList)
     {
         UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 40)];
         titleLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
@@ -506,7 +506,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         
         [view addSubview:inputTextField];
     }
-    else if (self.type == SCTeacherTopBarTypeCourseware)
+    else if (self.type == SCBottomToolBarTypeCourseware)
     {
         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 39)];
         label.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
@@ -548,7 +548,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (self.type == SCTeacherTopBarTypePersonList)
+    if (self.type == SCBottomToolBarTypePersonList)
     {
         CGFloat headerHeight = [UIDevice bm_isiPad] ? 110.0f : 80.0f;
         return headerHeight;
@@ -611,7 +611,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.type == SCTeacherTopBarTypeCourseware)
+    if (self.type == SCBottomToolBarTypeCourseware)
     {
         
         if (_userRoleType == YSUserType_Patrol)

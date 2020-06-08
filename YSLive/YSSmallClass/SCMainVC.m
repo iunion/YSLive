@@ -15,7 +15,6 @@
 #import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
 
-//#import "SCTopToolBar.h"
 #import "SCTeacherListView.h"
 
 #import "SCAnswerView.h"
@@ -2511,11 +2510,11 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     
 }
 /// 功能点击
-- (void)bottomToolBarClickAtIndex:(SCTeacherTopBarType)teacherTopBarType isSelected:(BOOL)isSelected
+- (void)bottomToolBarClickAtIndex:(SCBottomToolBarType)teacherTopBarType isSelected:(BOOL)isSelected
 {
         switch (teacherTopBarType)
         {
-            case SCTeacherTopBarTypePersonList:
+            case SCBottomToolBarTypePersonList:
             {
                 //花名册  有用户进入房间调用 上下课调用
                 [self freshListViewWithSelect:isSelected];
@@ -2525,7 +2524,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             }
                 break;
                 
-            case SCTeacherTopBarTypeCourseware:
+            case SCBottomToolBarTypeCourseware:
             {
                 //课件库
                 if (!self.liveManager.roomConfig.isMultiCourseware)
@@ -2542,25 +2541,25 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                     
                 }
                 [self.teacherListView setUserRole:self.liveManager.localUser.role];
-                [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCTeacherTopBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+                [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCBottomToolBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
                 [self.teacherListView bm_bringToFront];
                 
             }
                 break;
-            case SCTeacherTopBarTypeToolBox:
+            case SCBottomToolBarTypeToolBox:
             {
                 self.toolBoxView = [[YSToolBoxView alloc] init];
                 [self.toolBoxView showToolBoxViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0 userRole:self.liveManager.localUser.role];
                 self.toolBoxView.delegate = self;
             }
                 break;
-            case SCTeacherTopBarTypeCamera:
+            case SCBottomToolBarTypeCamera:
             {
                 //摄像头
                 [self.liveManager.roomManager selectCameraPosition:!isSelected];
             }
                 break;
-            case SCTeacherTopBarTypeChat:
+            case SCBottomToolBarTypeChat:
             {
                 //消息
                 CGRect tempRect = self.rightChatView.frame;
@@ -2580,7 +2579,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                 [self arrangeAllViewInVCView];
             }
                 break;
-            case SCTeacherTopBarTypeExit:
+            case SCBottomToolBarTypeExit:
             {
                 //退出
                 [self backAction:nil];
@@ -2669,7 +2668,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                 dispatch_async(dispatch_get_main_queue(), ^{
                    // UI更新代码
                     [weakSelf.teacherListView setUserRole:weakSelf.liveManager.localUser.role];
-                   [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                   [weakSelf.teacherListView setDataSource:users withType:SCBottomToolBarTypePersonList userNum:studentNum];
                 });
                 
             }];
@@ -2695,7 +2694,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             }
             
             NSArray *data = [listArr bm_divisionWithCount:onePageMaxUsers atIndex:_personListCurentPage appoint:NO];
-              [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+              [self.teacherListView setDataSource:data withType:SCBottomToolBarTypePersonList userNum:studentNum];
             
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:_personListTotalPage];
         }
@@ -2727,7 +2726,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         }
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
 
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCTeacherTopBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
     }
 }
 
@@ -2753,7 +2752,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             NSInteger studentNum = self.liveManager.studentCount;
             [self.teacherListView setPersonListCurrentPage:page totalPage:ceil((CGFloat)searchArr.count/(CGFloat)onePageMaxUsers)];
             NSArray *data = [searchArr bm_divisionWithCount:onePageMaxUsers atIndex:page appoint:NO];
-            [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+            [self.teacherListView setDataSource:data withType:SCBottomToolBarTypePersonList userNum:studentNum];
         }
     }
     else
@@ -2771,7 +2770,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         NSInteger studentNum = self.liveManager.studentCount;
         [self.teacherListView setPersonListCurrentPage:page totalPage:ceil((CGFloat)searchArr.count/(CGFloat)onePageMaxUsers)];
         NSArray *data = [searchArr bm_divisionWithCount:onePageMaxUsers atIndex:page appoint:NO];
-        [self.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+        [self.teacherListView setDataSource:data withType:SCBottomToolBarTypePersonList userNum:studentNum];
     }
     else
     {
@@ -2805,11 +2804,11 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                 if (users.count > onePageMaxUsers)
                 {
                     NSArray *data = [users subarrayWithRange:NSMakeRange(0, onePageMaxUsers)];
-                    [weakSelf.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                    [weakSelf.teacherListView setDataSource:data withType:SCBottomToolBarTypePersonList userNum:studentNum];
                 }
                 else
                 {
-                    [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                    [weakSelf.teacherListView setDataSource:users withType:SCBottomToolBarTypePersonList userNum:studentNum];
                 }
                 
             });
@@ -2830,11 +2829,11 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                 if (users.count > onePageMaxUsers)
                 {
                     NSArray *data = [users subarrayWithRange:NSMakeRange(0, onePageMaxUsers)];
-                    [weakSelf.teacherListView setDataSource:data withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                    [weakSelf.teacherListView setDataSource:data withType:SCBottomToolBarTypePersonList userNum:studentNum];
                 }
                 else
                 {
-                    [weakSelf.teacherListView setDataSource:users withType:SCTeacherTopBarTypePersonList userNum:studentNum];
+                    [weakSelf.teacherListView setDataSource:users withType:SCBottomToolBarTypePersonList userNum:studentNum];
                 }
                 
             });
@@ -3662,17 +3661,10 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             
             videoView.canDraw = canDraw;
             
-//            [self.topToolBar hidePhotoBtn:!canDraw];
+
             
             YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
-            if (publishState < YSUser_PublishState_AUDIOONLY)
-            {
-//                [self.topToolBar hideMicrophoneBtn:YES];
-            }
-            else
-            {
-//                [self.topToolBar hideMicrophoneBtn:NO];
-            }
+
         }
     }
     
@@ -3730,19 +3722,19 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         {
             if (publishState == YSUser_PublishState_VIDEOONLY)
             {
-//                [self.topToolBar selectMicrophoneBtn:YES];
+
                 self.controlPopoverView.audioBtn.selected = NO;
                 self.controlPopoverView.videoBtn.selected = YES;
             }
             if (publishState == YSUser_PublishState_AUDIOONLY)
             {
-//                [self.topToolBar selectMicrophoneBtn:NO];
+
                 self.controlPopoverView.audioBtn.selected = YES;
                 self.controlPopoverView.videoBtn.selected = NO;
             }
             if (publishState == YSUser_PublishState_BOTH)
             {
-//                [self.topToolBar selectMicrophoneBtn:NO];
+
                 self.controlPopoverView.audioBtn.selected = YES;
                 self.controlPopoverView.videoBtn.selected = YES;
             }
@@ -3752,8 +3744,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                 {
                     return;
                 }
-//                [self.topToolBar selectMicrophoneBtn:NO];
-//                [self.topToolBar hideMicrophoneBtn:YES];
                     self.controlPopoverView.audioBtn.selected = NO;
                     self.controlPopoverView.videoBtn.selected = NO;
                     if (self.controlPopoverView.presentingViewController)
@@ -3763,14 +3753,12 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             }
             else if (publishState > YSUser_PublishState_BOTH)
             {
-//                [self.topToolBar selectMicrophoneBtn:YES];
-//                [self.topToolBar hideMicrophoneBtn:NO];
+
                 self.controlPopoverView.audioBtn.selected = NO;
                 self.controlPopoverView.videoBtn.selected = NO;
             }
             else
             {
-//                [self.topToolBar hideMicrophoneBtn:NO];
             }
         }
         
@@ -3980,16 +3968,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     self.teacherPlaceLab.hidden = YES;
     
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
-    if (self.liveManager.localUser.role == YSUserType_Patrol)
-    {
-//        [self.topToolBar hideCoursewareBtn:NO];
-//        [self.topToolBar hidePersonListBtn:NO];
-    }
-    else
-    {
-//        [self.topToolBar hideCoursewareBtn:YES];
-//        [self.topToolBar hidePersonListBtn:YES];
-    }
+
     [self freshTeacherPersonListData];
     
     for (YSRoomUser *roomUser in self.liveManager.userList)

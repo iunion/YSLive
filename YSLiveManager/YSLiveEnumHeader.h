@@ -112,32 +112,32 @@ typedef NS_ENUM(NSInteger, YSAppUseTheType)
     YSAppUseTheTypeMeeting = 6
 };
 
-/// 小班课老师端顶部按钮
-typedef NS_ENUM(NSInteger, SCTeacherTopBarType)
-{
-    /** 轮询 */
-    SCTeacherTopBarTypePolling,
-    /** 花名册 */
-    SCTeacherTopBarTypePersonList,
-    /** 课件库 */
-    SCTeacherTopBarTypeCourseware,
-    /** 工具箱 */
-    SCTeacherTopBarTypeToolBox,
-    /** 全体控制 */
-    SCTeacherTopBarTypeAllControll,
-    /** 切换布局 */
-    SCTeacherTopBarTypeSwitchLayout,
-    /** 切换摄像头 */
-    SCTeacherTopBarTypeCamera,
-    /** 全体禁音 */
-    SCTeacherTopBarTypeAllNoAudio,
-    /** 消息 */
-    SCTeacherTopBarTypeChat,
-    /** 退出 */
-    SCTeacherTopBarTypeExit,
-    /** 展开收起 */
-    SCTeacherTopBarTypeOnOff
-};
+///// 小班课老师端顶部按钮
+//typedef NS_ENUM(NSInteger, SCTeacherTopBarType)
+//{
+//    /** 轮询 */
+//    SCTeacherTopBarTypePolling,
+//    /** 花名册 */
+//    SCTeacherTopBarTypePersonList,
+//    /** 课件库 */
+//    SCTeacherTopBarTypeCourseware,
+//    /** 工具箱 */
+//    SCTeacherTopBarTypeToolBox,
+//    /** 全体控制 */
+//    SCTeacherTopBarTypeAllControll,
+//    /** 切换布局 */
+//    SCTeacherTopBarTypeSwitchLayout,
+//    /** 切换摄像头 */
+//    SCTeacherTopBarTypeCamera,
+//    /** 全体禁音 */
+//    SCTeacherTopBarTypeAllNoAudio,
+//    /** 消息 */
+//    SCTeacherTopBarTypeChat,
+//    /** 退出 */
+//    SCTeacherTopBarTypeExit,
+//    /** 展开收起 */
+//    SCTeacherTopBarTypeOnOff
+//};
 
 /// 小班课底部工具按钮
 typedef NS_ENUM(NSInteger, SCBottomToolBarType)
