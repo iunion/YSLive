@@ -712,13 +712,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     // 切换视图
     self.m_SegmentBar = [[BMScrollPageSegment alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT, BMUI_SCREEN_WIDTH, PAGESEGMENT_HEIGHT)];
     [self.view addSubview:_m_SegmentBar];
-    self.m_SegmentBar.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    self.m_SegmentBar.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     self.m_SegmentBar.showMore = NO;
     self.m_SegmentBar.equalDivide = YES;
-    self.m_SegmentBar.moveLineColor = [UIColor bm_colorWithHex:0xFFE895];
+    self.m_SegmentBar.moveLineColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     self.m_SegmentBar.showBottomLine = NO;
-    self.m_SegmentBar.titleColor = [UIColor bm_colorWithHex:0xFFE895];
-    self.m_SegmentBar.titleSelectedColor = [UIColor bm_colorWithHex:0xFFE895];
+    self.m_SegmentBar.titleColor = YSSkinDefineColor(@"login_placeholderColor");
+    self.m_SegmentBar.titleSelectedColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     self.m_SegmentBar.showGapLine = NO;
     // 内容视图
     self.m_ScrollPageView = [[BMScrollPageView alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT - VIDEOVIEW_HEIGHT - PAGESEGMENT_HEIGHT) withScrollPageSegment:self.m_SegmentBar];
@@ -2280,7 +2280,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     switch (index)
     {
         case 0:
-            return YSLocalized(@"Label.Document");
+            return YSLocalized(@"Label.Courseware");
             break;
         case 1:
             return YSLocalized(@"Label.Room");
