@@ -491,7 +491,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     [self setupListView];
     
     [self.spreadBottomToolBar bm_bringToFront];
-
+    self.spreadBottomToolBar.isCameraEnable = YES;// 学生上课前
+    
     if (YSCurrentUser.role == YSUserType_Student)
     {
         // 设置左侧工具栏
@@ -3632,6 +3633,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         {
             BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
             //canDraw = [properties bm_boolForKey:sUserCandraw];
+            self.spreadBottomToolBar.isToolBoxEnable = canDraw;
             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
             {
                 self.brushToolView.hidden = YES;
@@ -3662,11 +3664,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
             }
             
             videoView.canDraw = canDraw;
-            
-
-            
-            YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
-
         }
     }
     
@@ -3722,21 +3719,29 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
         
         if ([peerID isEqualToString:self.liveManager.localUser.peerID])
         {
+            /// 学生上课后 切换摄像头按钮不可点击（有视频流以后才可以切换）
+            if (self.liveManager.isBeginClass)
+            {
+                ///
+                self.spreadBottomToolBar.isCameraEnable = (publishState == YSUser_PublishState_VIDEOONLY) || (publishState == YSUser_PublishState_BOTH);
+            }
+            else
+            {
+                self.spreadBottomToolBar.isCameraEnable = YES;
+            }
+            
             if (publishState == YSUser_PublishState_VIDEOONLY)
             {
-
                 self.controlPopoverView.audioBtn.selected = NO;
                 self.controlPopoverView.videoBtn.selected = YES;
             }
             if (publishState == YSUser_PublishState_AUDIOONLY)
             {
-
                 self.controlPopoverView.audioBtn.selected = YES;
                 self.controlPopoverView.videoBtn.selected = NO;
             }
             if (publishState == YSUser_PublishState_BOTH)
             {
-
                 self.controlPopoverView.audioBtn.selected = YES;
                 self.controlPopoverView.videoBtn.selected = YES;
             }
@@ -3746,16 +3751,15 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
                 {
                     return;
                 }
-                    self.controlPopoverView.audioBtn.selected = NO;
-                    self.controlPopoverView.videoBtn.selected = NO;
-                    if (self.controlPopoverView.presentingViewController)
-                    {
-                        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
-                    }
+                self.controlPopoverView.audioBtn.selected = NO;
+                self.controlPopoverView.videoBtn.selected = NO;
+                if (self.controlPopoverView.presentingViewController)
+                {
+                    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+                }
             }
             else if (publishState > YSUser_PublishState_BOTH)
             {
-
                 self.controlPopoverView.audioBtn.selected = NO;
                 self.controlPopoverView.videoBtn.selected = NO;
             }
@@ -3972,6 +3976,9 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
 
     [self freshTeacherPersonListData];
+    
+    /// 学生上课后 切换摄像头按钮不可点击（有视频流以后才可以切换）
+    self.spreadBottomToolBar.isCameraEnable = NO;
     
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {

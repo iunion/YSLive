@@ -63,7 +63,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
         self.noticeMaskBgEffect = nil;
         self.shouldDismissOnTapOutside = NO;
         self.noticeMaskBgEffectView.alpha = 1.0f;
-        self.noticeMaskBgColor = [UIColor bm_colorWithHex:0x000000 alpha:0.6f];
+        self.noticeMaskBgColor = [UIColor clearColor];
         self.btnArray = [[NSMutableArray alloc] init];
     }
     

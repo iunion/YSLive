@@ -389,7 +389,7 @@
     ///课件库
     self.coursewareBtn.enabled = userEnable;
     ///工具箱
-    self.toolBoxBtn.enabled = userEnable;
+    self.toolBoxBtn.enabled = userEnable ? self.isToolBoxEnable : NO;
     ///切换布局
     self.switchLayoutBtn.enabled = userEnable;
     /// 轮询
@@ -397,7 +397,7 @@
     /// 全体禁音
     self.allNoAudioBtn.enabled = userEnable;
     ///切换摄像头
-    self.cameraBtn.enabled = userEnable;
+    self.cameraBtn.enabled = userEnable ? self.isCameraEnable : NO;
     /// 消息
     self.chatBtn.enabled = userEnable;
 }
@@ -414,6 +414,25 @@
     self.allNoAudioBtn.enabled = isBeginClass;
     self.switchLayoutBtn.enabled = isBeginClass;
     self.toolBoxBtn.enabled = isBeginClass;
+}
+
+- (void)setIsToolBoxEnable:(BOOL)isToolBoxEnable
+{
+    _isToolBoxEnable = isToolBoxEnable;
+    if (self.isBeginClass)
+    {
+        self.toolBoxBtn.enabled = isToolBoxEnable;
+    }
+    else
+    {
+        self.toolBoxBtn.enabled = NO;
+    }
+}
+
+- (void)setIsCameraEnable:(BOOL)isCameraEnable
+{
+    _isCameraEnable = isCameraEnable;
+    self.cameraBtn.enabled = isCameraEnable;
 }
 
 - (BOOL)nameListIsShow
