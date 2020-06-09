@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL spreadOut;
 /// 是否有新的消息
 @property (nonatomic, assign) BOOL isNewMessage;
+///// 聊天窗口是否展开
+//@property (nonatomic, assign) BOOL isChating;
 /// 是否正在轮播
 @property (nonatomic, assign) BOOL isPolling;
 /// 是否可以轮播

@@ -52,12 +52,15 @@ UITextFieldDelegate
         
         self.SCMessageList = [NSMutableArray array];
         
-//        if (YSCurrentUser.role == YSUserType_Teacher)
-//        {
-//            self.allDisableBtn.userInteractionEnabled = NO;
-//        }
-//        else
-//        {
+        if (YSCurrentUser.role == YSUserType_Teacher)
+        {
+            self.allDisableBtn.userInteractionEnabled = YES;
+        }
+        else
+        {
+            self.allDisableBtn.userInteractionEnabled = NO;
+            self.allDisableBtn.alpha = 0.4;
+            
             if ([YSLiveManager shareInstance].isBeginClass)
             {
                 self.allDisabled = [YSLiveManager shareInstance].isEveryoneBanChat;
@@ -66,7 +69,7 @@ UITextFieldDelegate
             {
                 self.allDisabled = [YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
             }
-//        }
+        }
     }
     return self;
 }
@@ -144,7 +147,7 @@ UITextFieldDelegate
     }
     
     //全体禁言的按钮
-    UIButton * allDisableBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtnX, 10, allDisableBtnWH-5, allDisableBtnWH-5)];
+    UIButton * allDisableBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtnX, 10, allDisableBtnWH+10, allDisableBtnWH+10)];
     [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconNor") forState:UIControlStateNormal];
     [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconSel") forState:UIControlStateSelected];
     [allDisableBtn addTarget:self action:@selector(allDisableButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -171,6 +174,9 @@ UITextFieldDelegate
     textBtn.layer.shadowOffset = CGSizeMake(0,2);
     textBtn.layer.shadowOpacity = 1;
     textBtn.layer.shadowRadius = 4;
+        
+    allDisableBtn.bm_centerY = textBtn.bm_centerY;
+    
 }
 
 - (void)allDisableButtonClick:(UIButton *)sender
@@ -192,10 +198,19 @@ UITextFieldDelegate
     _allDisabled = allDisabled;
    
     self.allDisableBtn.selected = allDisabled;
-    
+        
     if (YSCurrentUser.role != YSUserType_Teacher)
     {
         self.textBtn.userInteractionEnabled = !allDisabled;
+        if (allDisabled)
+        {
+            self.textBtn.alpha = 0.4;
+        }
+        else
+        {
+            self.textBtn.alpha = 1.0;
+        }
+        
     }
 }
 
