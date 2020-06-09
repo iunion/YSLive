@@ -2560,7 +2560,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist
 {
     self.classBeginBtn.userInteractionEnabled = YES;
-
+    self.spreadBottomToolBar.isBeginClass = YES;
     [self bottomToolBarPollingBtnEnable];
     // 通知各端开始举手
     [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
@@ -2568,7 +2568,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
     
     self.classBeginBtn.selected = YES;
-    self.spreadBottomToolBar.isBeginClass = YES;
+
     
     [self freshTeacherPersonListData];
     self.brushToolView.hidden = NO;
