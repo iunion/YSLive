@@ -46,7 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isAroundLayout;
 /// 是否上课
 @property (nonatomic, assign) BOOL isBeginClass;
-
+/// 工具箱可否点击
+@property (nonatomic, assign) BOOL isToolBoxEnable;
+/// 切换摄像头可否点击
+@property (nonatomic, assign) BOOL isCameraEnable;
 
 - (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point;
 
