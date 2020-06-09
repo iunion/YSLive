@@ -229,23 +229,13 @@
         {
             if (self.roomtype == YSRoomType_One)
             {
-                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-                {
-                    //音频 视频 镜像 全体奖杯
-                    [self.btnArray addObject:self.audioBtn];
-                    [self.btnArray addObject:self.videoBtn];
-                    [self.btnArray addObject:self.mirrorBtn];
-                    [self.btnArray addObject:self.allGiftCupBtn];
-                }
-                else
-                {
-                    //音频 视频 镜像 全体奖杯 焦点
-                    [self.btnArray addObject:self.audioBtn];
-                    [self.btnArray addObject:self.videoBtn];
-                    [self.btnArray addObject:self.mirrorBtn];
-                    [self.btnArray addObject:self.allGiftCupBtn];
-                    [self.btnArray addObject:self.fouceBtn];
-                }
+                
+                //音频 视频 镜像 全体奖杯
+                [self.btnArray addObject:self.audioBtn];
+                [self.btnArray addObject:self.videoBtn];
+                [self.btnArray addObject:self.mirrorBtn];
+                [self.btnArray addObject:self.allGiftCupBtn];
+
             }
             else
             {
@@ -288,6 +278,15 @@
         {
             if (self.roomtype == YSRoomType_One)
             {
+                //音频 视频 画笔 上下台 奖杯
+                [self.btnArray addObject:self.audioBtn];
+                [self.btnArray addObject:self.videoBtn];
+                [self.btnArray addObject:self.canDrawBtn];
+                [self.btnArray addObject:self.onStageBtn];
+                [self.btnArray addObject:self.giftCupBtn];
+            }
+            else
+            {
                 if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
                 {
                     //音频 视频 画笔 上下台 奖杯
@@ -296,43 +295,13 @@
                     [self.btnArray addObject:self.canDrawBtn];
                     [self.btnArray addObject:self.onStageBtn];
                     [self.btnArray addObject:self.giftCupBtn];
-                }
-                else
-                {
-                    //音频 视频 画笔 上下台 奖杯 焦点
-                    [self.btnArray addObject:self.audioBtn];
-                    [self.btnArray addObject:self.videoBtn];
-                    [self.btnArray addObject:self.canDrawBtn];
-                    [self.btnArray addObject:self.onStageBtn];
-                    [self.btnArray addObject:self.giftCupBtn];
-                    [self.btnArray addObject:self.fouceBtn];
-                }
-            }
-            else
-            {
-                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
-                {
+                    
                     if (self.isDragOut)
                     {
                         //音频 视频 画笔 上下台 奖杯 复位
-                        [self.btnArray addObject:self.audioBtn];
-                        [self.btnArray addObject:self.videoBtn];
-                        [self.btnArray addObject:self.canDrawBtn];
-                        [self.btnArray addObject:self.onStageBtn];
-                        [self.btnArray addObject:self.giftCupBtn];
                         [self.btnArray addObject:self.restoreBtn];
-                        
                     }
-                    else
-                    {
-                        //音频 视频 画笔 上下台 奖杯
-                        [self.btnArray addObject:self.audioBtn];
-                        [self.btnArray addObject:self.videoBtn];
-                        [self.btnArray addObject:self.canDrawBtn];
-                        [self.btnArray addObject:self.onStageBtn];
-                        [self.btnArray addObject:self.giftCupBtn];
                     
-                    }
                 }
                 else
                 {
