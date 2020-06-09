@@ -2550,7 +2550,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.classBeginBtn.selected = YES;
 
-    
     [self freshTeacherPersonListData];
     self.brushToolView.hidden = NO;
     self.brushToolOpenBtn.hidden = NO;

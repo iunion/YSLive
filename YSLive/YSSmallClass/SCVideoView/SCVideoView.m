@@ -320,7 +320,7 @@
     //画笔权限
     self.brushImageView = [[UIImageView alloc] init];
     UIImage *image = YSSkinElementImage(@"videoView_authorizeLab", @"iconNor");
-//    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.brushImageView.image = image;
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
