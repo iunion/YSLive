@@ -43,6 +43,7 @@
     
     
     BMSingleLineView * line = [[BMSingleLineView alloc]initWithFrame:CGRectMake(56, 52-1, BMUI_SCREEN_WIDTH-56-20, 1) direction:SingleLineDirectionLandscape];
+    line.lineColor = [UIColor bm_colorWithHexString:@"#EEEEEE"];
     line.needGap = YES;
     [self.contentView addSubview:line];
     

@@ -52,7 +52,7 @@ UITableViewDataSource
     {
         self.layer.cornerRadius = 12;
         self.layer.masksToBounds = YES;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
         
         self.messageList = [NSMutableArray array];
         self.anchorMessageList = [NSMutableArray array];
@@ -281,7 +281,7 @@ UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 10.0)];
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
     return view;
 }
 
@@ -439,7 +439,7 @@ UITableViewDataSource
         self.chatTableView.dataSource = self;
         self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         
-        self.chatTableView.backgroundColor = [UIColor whiteColor];
+        self.chatTableView.backgroundColor = [UIColor clearColor];
         self.chatTableView.separatorColor  = [UIColor clearColor];
         self.chatTableView.showsHorizontalScrollIndicator = NO;
         self.chatTableView.showsVerticalScrollIndicator = NO;

@@ -92,7 +92,7 @@
     }
     
     // 设置富文本属性
-    [emojiAttributedString addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:font],NSFontAttributeName, [UIColor whiteColor],NSForegroundColorAttributeName,nil] range:NSMakeRange(0, emojiAttributedString.length)];
+    [emojiAttributedString addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:font],NSFontAttributeName, YSSkinDefineColor(@"placeholderColor"),NSForegroundColorAttributeName,nil] range:NSMakeRange(0, emojiAttributedString.length)];
     
     return emojiAttributedString;
 }

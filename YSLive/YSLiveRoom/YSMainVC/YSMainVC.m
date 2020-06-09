@@ -703,7 +703,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     return UIStatusBarAnimationNone;
 }
 
-
 - (void)setupUI
 {
     // 切换视图
@@ -2021,7 +2020,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         self.prizeAlert.endTime = endTime;
         self.prizeAlert.dataSource = nameList;
     }
-    
 }
 
 // 抽奖结束
@@ -2032,8 +2030,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-    //    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
-    
     self.chaView.chatToolView.everyoneBanChat = isDisable;
     if (isDisable)
     {

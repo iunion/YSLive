@@ -42,6 +42,8 @@
 		<string>#F1F6FF</string>
 		<key>liveTimeTextColor</key>
 		<string>#818181</string>
+		<key>liveChatBgColor</key>
+		<string>#F6F8FA</string>
 	</dict>
 	<key>CommonImage</key>
 	<dict>

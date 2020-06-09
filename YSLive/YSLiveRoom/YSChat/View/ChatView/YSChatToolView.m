@@ -32,7 +32,7 @@ UITextViewDelegate
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
+        self.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
         [self setupUIView];
     }
     return self;
@@ -47,8 +47,8 @@ UITextViewDelegate
     [self addSubview:self.flowerColourBtn];
     
     self.backView = [[UIView alloc]init];
-    self.backView.backgroundColor = [UIColor whiteColor];
-    self.backView.layer.cornerRadius = kBMScale_H(39)/2;
+    self.backView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
+    self.backView.layer.cornerRadius = 4;
     self.backView.layer.masksToBounds = YES;
     self.backView.layer.borderColor = UIColor.clearColor.CGColor;
     [self addSubview:self.backView];
@@ -90,7 +90,7 @@ UITextViewDelegate
     
     //输入框
     self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_placeholder.frame), kBMScale_H(5), kBMScale_W(236)-CGRectGetMaxX(_placeholder.frame)-kBMScale_W(9), kBMScale_H(25))];
-    self.inputView.backgroundColor = [UIColor whiteColor];
+    self.inputView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
     self.inputView.returnKeyType = UIReturnKeySend;
     self.inputView.font = UI_FONT_15;
     self.inputView.textColor = [UIColor bm_colorWithHexString:@"#2F2F2F"];
