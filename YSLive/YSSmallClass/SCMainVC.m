@@ -1136,24 +1136,22 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!_raiseHandsBtn)
     {
         
-        CGFloat raiseHandWH = 30;
+        CGFloat raiseHandWH = 35;
         CGFloat raiseHandRight = 10;
         
         CGFloat labBottom = 12;
         if ([UIDevice bm_isiPad])
         {
-            raiseHandWH = 40;
             raiseHandRight = 20;
             labBottom = 20;
         }
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, BMUI_SCREEN_HEIGHT - raiseHandWH - 100, raiseHandWH, raiseHandWH)];
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - raiseHandWH - 20, raiseHandWH, raiseHandWH)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconNor") forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateHighlighted];
         [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.raiseHandsBtn.hidden = YES;
-        
-        
+                
         //button长按事件
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLong:)];
         longPress.minimumPressDuration = 0.5; //定义按的时间
