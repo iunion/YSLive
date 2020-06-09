@@ -461,6 +461,39 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
+	<key>live_chatEmotionBtn</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>liveChat_emotionYS_skin</string>
+		<key>iconSel</key>
+		<string>liveChat_emotionYSPush_skin</string>
+	</dict>
+	<key>live_chatMessagePersional</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>liveChat_messagePersonal_skin</string>
+		<key>iconSel</key>
+		<string>liveChat_messagePersonalPush_skin</string>
+	</dict>
+	<key>live_chatdeleteBtn</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>liveChat_emotionDelete_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
 	<key>login_topImage</key>
 	<dict>
 		<key>tittleColor</key>
