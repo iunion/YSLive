@@ -36,8 +36,7 @@
     {
         self.showAnimationType = BMNoticeViewShowAnimationSlideInFromBottom;
         self.noticeMaskBgEffectView.alpha = 1.0;
-        self.noticeMaskBgEffect = nil;//[UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-//        self.noticeMaskBgColor = [UIColor blackColor];
+        self.noticeMaskBgEffect = nil;
         self.noticeMaskBgColor = [UIColor bm_colorWithHex:0x000000 alpha:0.6];
         self.shouldDismissOnTapOutside = NO;
 //        self.notDismissOnCancel = YES;
@@ -93,7 +92,7 @@
     alert.backgroundEdgeInsets = backgroundEdgeInsets;
     if (isResult)
     {//YES 中奖名单
-        [alert.bacImageView setImage:[UIImage imageNamed:@"prizeAlert_result"]];
+        [alert.bacImageView setImage:YSSkinElementImage(@"live_prizeAlert_result", @"iconNor")];
 //        alert.topDistance = topDistance;//UI_SCREEN_HEIGHT - ViewBottomGap - ViewHeight;
         alert.bacImageView.bm_height = ViewHeight;
         alert.bacImageView.bm_width = ViewWidth;
@@ -114,18 +113,17 @@
     }
     else
     {
-        [alert.bacImageView setImage:[UIImage imageNamed:@"prizeAlert_waiting"]];
-//        alert.topDistance = topDistance;
-        alert.bacImageView.bm_height = 196;
-        alert.bacImageView.bm_width = 224;
+        [alert.bacImageView setImage:YSSkinElementImage(@"live_prizeAlert_waiting", @"iconNor")];
+        alert.bacImageView.bm_height = 150;
+        alert.bacImageView.bm_width = 150;
         UILabel * ingLabel = [[UILabel alloc] init];
         ingLabel.text = YSLocalized(@"Label.Lucky");
-        ingLabel.font = [UIFont boldSystemFontOfSize:23];
-        ingLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
+        ingLabel.font = [UIFont boldSystemFontOfSize:20];
+        ingLabel.textColor = YSSkinElementColor(@"live_prizeAlert_waiting", @"tittleColor");
         ingLabel.textAlignment = NSTextAlignmentCenter;
         [alert.bacImageView addSubview:ingLabel];
-        ingLabel.frame = CGRectMake(0, 35, 92, 32);
-        ingLabel.bm_centerX = alert.bacImageView.bm_centerX + 15;
+        ingLabel.frame = CGRectMake(0, 15, 92, 32);
+        ingLabel.bm_centerX = alert.bacImageView.bm_centerX;
         
         
     }

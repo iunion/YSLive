@@ -149,10 +149,7 @@
 
         self.coursewareBtn = personListBtn;
         [self.btnArray addObject:self.coursewareBtn];
-        
-        self.cameraBtn = cameraBtn;
-        [self.btnArray addObject:self.cameraBtn];
-        
+
         self.chatBtn = chatBtn;
         [self.btnArray addObject:self.chatBtn];
     }
