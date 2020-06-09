@@ -343,8 +343,15 @@
     {
         if (!self.chatBtn.selected)
         {
-            self.chatBtn.badgeRadius = 2.0f;
-            self.chatBtn.badgeCenterOffset = CGPointMake(-12, 5);
+            self.chatBtn.badgeRadius = 3.0f;
+            if ([UIDevice bm_isiPad])
+            {
+                self.chatBtn.badgeCenterOffset = CGPointMake(-16, 10);
+            }
+            else
+            {
+                self.chatBtn.badgeCenterOffset = CGPointMake(-14, 8);
+            }
             self.chatBtn.badgeBorderColor = [UIColor redColor];
             [self.chatBtn showRedDotBadge];
         }

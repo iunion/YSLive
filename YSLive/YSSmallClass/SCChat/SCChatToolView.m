@@ -53,16 +53,16 @@
     
     //图片按钮
     self.imageBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-31-142, 15, 31, 30)];
-    [self.imageBtn setImage:YSSkinElementImage(@"chatTool_emijeBtn", @"iconNor") forState:UIControlStateNormal];
-    [self.imageBtn setImage:YSSkinElementImage(@"chatTool_emijeBtn", @"iconSel") forState:UIControlStateHighlighted];
+    [self.imageBtn setImage:YSSkinElementImage(@"chatTool_imageBtn", @"iconNor") forState:UIControlStateNormal];
+    [self.imageBtn setImage:YSSkinElementImage(@"chatTool_imageBtn", @"iconSel") forState:UIControlStateHighlighted];
     [self.imageBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     self.imageBtn.tag = 2;
     [self addSubview:self.imageBtn];
     
     //表情按钮
     UIButton * emojBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-31-204, 15, 31, 30)];
-    [emojBtn setImage:YSSkinElementImage(@"chatTool_imageBtn", @"iconNor") forState:UIControlStateNormal];
-    [emojBtn setImage:YSSkinElementImage(@"chatTool_imageBtn", @"iconSel") forState:UIControlStateHighlighted];
+    [emojBtn setImage:YSSkinElementImage(@"chatTool_emijeBtn", @"iconNor") forState:UIControlStateNormal];
+    [emojBtn setImage:YSSkinElementImage(@"chatTool_emijeBtn", @"iconSel") forState:UIControlStateHighlighted];
     [emojBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     emojBtn.tag = 3;
     [self addSubview:emojBtn];

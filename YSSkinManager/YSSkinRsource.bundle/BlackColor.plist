@@ -994,6 +994,15 @@
 		<key>icon_3Sound</key>
 		<string>videoView_sound_3_skin</string>
 	</dict>
+	<key>videoView_loadingImage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>icon_normal</key>
+		<string>videoView_Loading_skin</string>
+	</dict>
 	<key>videoPop_soundButton</key>
 	<dict>
 		<key>tittleColor</key>

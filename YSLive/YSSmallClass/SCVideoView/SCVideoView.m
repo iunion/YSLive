@@ -235,7 +235,7 @@
     self.maskNoVideobgLab = maskNoVideobgLab;
     
     ///正在加载中
-    UIImageView * loadingImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"videoView_Loading"]];
+    UIImageView * loadingImg = [[UIImageView alloc]initWithImage:YSSkinElementImage(@"videoView_loadingImage", @"icon_normal")];
     [loadingImg setBackgroundColor:YSSkinDefineColor(@"videoMaskBack_color")];
     loadingImg.contentMode = UIViewContentModeCenter;
     [self addSubview:loadingImg];
@@ -305,10 +305,11 @@
     self.cupImage.image = YSSkinElementImage(@"videoView_trophyImage", @"iconNor");
     self.cupImage.hidden = NO;
     [self.backVideoView addSubview:self.cupImage];
+//    self.cupImage.backgroundColor = UIColor.redColor;
     
     //奖杯个数
-    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
-    self.cupNumLab.backgroundColor = [UIColor clearColor];
+    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 10)];
+//    self.cupNumLab.backgroundColor = UIColor.greenColor;
     self.cupNumLab.font = UI_FONT_14;
     self.cupNumLab.text = @"× 0";
     self.cupNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
@@ -320,7 +321,7 @@
     //画笔权限
     self.brushImageView = [[UIImageView alloc] init];
     UIImage *image = YSSkinElementImage(@"videoView_authorizeLab", @"iconNor");
-//    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.brushImageView.image = image;
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
@@ -375,12 +376,12 @@
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    self.maskNoVideobgLab.frame = self.bounds;
+    self.maskNoVideobgLab.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
     self.loadingImg.frame = self.bounds;
     self.backVideoView.frame = self.bounds;
     self.maskBackView.frame = self.bounds;
     self.maskCloseVideoBgView.frame = self.bounds;
-    self.homeMaskLab.frame = self.bounds;
+    self.homeMaskLab.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
     self.maskNoVideo.frame = self.bounds;
     self.maskNoVideoTitle.frame = CGRectMake(2, 10, self.bm_width-4, self.bm_height-25);
 
@@ -410,8 +411,8 @@
     }
    
     self.cupNumLab.bm_width = 100*widthScale;
-    self.cupImage.bm_width = self.cupImage.bm_height = self.cupNumLab.bm_height * 3/4;
-     self.cupNumLab.bm_centerY = self.cupImage.bm_centerY;
+    self.cupImage.bm_width = self.cupImage.bm_height = 15;
+     self.cupNumLab.bm_originY = self.cupImage.bm_originY;
     self.cupNumLab.bm_left = self.cupImage.bm_right + 4;
     
     self.brushImageView.frame = CGRectMake(self.bm_width - self.cupImage.bm_width - 4, self.cupImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
