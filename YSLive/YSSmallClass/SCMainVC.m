@@ -994,7 +994,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [teacherVideoView addSubview:imageView];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     imageView.contentMode = UIViewContentModeCenter;
-    imageView.backgroundColor = [UIColor bm_colorWithHex:0xEDEDED];
+    imageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [self.videoBackgroud addSubview:teacherVideoView];
     teacherVideoView.frame = CGRectMake(0, 0, videoWidth, videoHeight);
     self.teacherPlacehold = teacherVideoView;
@@ -1023,7 +1023,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     userImageView.frame = videoView.bounds;
     userImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     userImageView.contentMode = UIViewContentModeCenter;
-    userImageView.backgroundColor = [UIColor bm_colorWithHex:0xEDEDED];
+    userImageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [videoView addSubview:userImageView];
     [self.videoBackgroud addSubview:videoView];
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
@@ -1684,11 +1684,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
                     
                     self.teacherVideoView.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
+                    self.teacherPlacehold.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
                     self.userVideoView.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
                 }
                 else
                 {//4:3
                     self.teacherVideoView.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+                    self.teacherPlacehold.frame = CGRectMake(0, 0, videoWidth, videoHeight);
                     self.userVideoView.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
                 }
             }

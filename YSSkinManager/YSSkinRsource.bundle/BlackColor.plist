@@ -4,6 +4,8 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
+		<key>noVideoMaskBgColor</key>
+		<string>#40424A</string>
 		<key>timer_timeBgColor</key>
 		<string>#DEEAFF</string>
 		<key>placeholderColor</key>
