@@ -78,17 +78,17 @@
     UIButton *upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:upPlatformBtn];
     self.upPlatformBtn = upPlatformBtn;
-    [upPlatformBtn setBackgroundImage:YSSkinElementImage(@"nameList_updown", @"iconNor") forState:UIControlStateNormal];
-    [upPlatformBtn setBackgroundImage:YSSkinElementImage(@"nameList_updown", @"iconSel") forState:UIControlStateSelected];
-    UIImage * upPlatformDisImage = [YSSkinElementImage(@"nameList_updown", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [upPlatformBtn setImage:YSSkinElementImage(@"nameList_updown", @"iconNor") forState:UIControlStateNormal];
+    [upPlatformBtn setImage:YSSkinElementImage(@"nameList_updown", @"iconSel") forState:UIControlStateSelected];
+    UIImage * upPlatformDisImage = [YSSkinElementImage(@"nameList_updown", @"iconSel") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     [upPlatformBtn setImage:upPlatformDisImage forState:UIControlStateDisabled];
     [upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *speakBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:speakBtn];
     self.speakBtn = speakBtn;
-    [speakBtn setBackgroundImage:YSSkinElementImage(@"nameList_speak", @"iconNor") forState:UIControlStateNormal];
-    [speakBtn setBackgroundImage:YSSkinElementImage(@"nameList_speak", @"iconSel") forState:UIControlStateSelected];
+    [speakBtn setImage:YSSkinElementImage(@"nameList_speak", @"iconNor") forState:UIControlStateNormal];
+    [speakBtn setImage:YSSkinElementImage(@"nameList_speak", @"iconSel") forState:UIControlStateSelected];
     UIImage * speakDisImage = [YSSkinElementImage(@"nameList_speak", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     [speakBtn setImage:speakDisImage forState:UIControlStateDisabled];
     [speakBtn addTarget:self action:@selector(speakBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -96,8 +96,8 @@
     UIButton *outBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:outBtn];
     self.outBtn = outBtn;
-    [outBtn setBackgroundImage:YSSkinElementImage(@"nameList_out", @"iconNor") forState:UIControlStateNormal];
-    [outBtn setBackgroundImage:YSSkinElementImage(@"nameList_out", @"iconSel") forState:UIControlStateSelected];
+    [outBtn setImage:YSSkinElementImage(@"nameList_out", @"iconNor") forState:UIControlStateNormal];
+    [outBtn setImage:YSSkinElementImage(@"nameList_out", @"iconSel") forState:UIControlStateSelected];
     UIImage * outDisImage = [YSSkinElementImage(@"nameList_out", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     [outBtn setImage:outDisImage forState:UIControlStateDisabled];
     [outBtn addTarget:self action:@selector(outBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -236,7 +236,10 @@
         if (isBeginClass)
         {
             self.upPlatformBtn.selected = userModel.publishState != 0;
-            
+        }
+        else
+        {
+//            self.upPlatformBtn.selected = NO;
         }
         BOOL disablechat = [userModel.properties bm_boolForKey:sUserDisablechat];
         self.speakBtn.selected = disablechat;
