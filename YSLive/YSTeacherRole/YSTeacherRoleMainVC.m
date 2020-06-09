@@ -721,6 +721,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
+    if (!self.raiseHandArray.count)
+    {
+        return;
+    }
+    
     YSUpHandPopoverVC *popTab = [[YSUpHandPopoverVC alloc]init];
     popTab.userArr = self.raiseHandArray;
     popTab.preferredContentSize = CGSizeMake(95, 146);
