@@ -72,25 +72,8 @@ static const CGFloat kMp3_Width_iPad = 70.0f;
 static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #define MP3VIEW_WIDTH               ([UIDevice bm_isiPad] ? kMp3_Width_iPad : kMp3_Width_iPhone)
 
-/// 底部部工具条高
-static const CGFloat kBottomToolBar_Height_iPhone = 44.0f;
-static const CGFloat kBottomToolBar_Height_iPad = 50.0f;
-#define BOTTOMTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kBottomToolBar_Height_iPad : kBottomToolBar_Height_iPhone)
-/// 底部部工具条宽
-static const CGFloat kBottomToolBar_Width_iPhone = 572.0f;
-static const CGFloat kBottomToolBar_Width_iPad = 744.0f;
-#define BOTTOMTOOLBAR_WIDTH           ([UIDevice bm_isiPad] ? kBottomToolBar_Width_iPad : kBottomToolBar_Width_iPhone)
-/// 底部工具栏右边距
-static const CGFloat kBottomToolBar_rightGap_iPhone = 7.0f;
-static const CGFloat kBottomToolBar_rightGap_iPad = 16.0f ;
-#define BOTTOMTOOLBAR_rightGap        ([UIDevice bm_isiPad] ? kBottomToolBar_rightGap_iPad : kBottomToolBar_rightGap_iPhone)
-/// 底部工具栏下边距
-static const CGFloat kBottomToolBar_bottomGap_iPhone = 10.0f;
-static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
-#define BOTTOMTOOLBAR_bottomGap       ([UIDevice bm_isiPad] ? kBottomToolBar_bottomGap_iPad : kBottomToolBar_bottomGap_iPhone)
-
 //聊天视图的高度
-#define SCChatViewHeight (BMUI_SCREEN_HEIGHT - self.contentBackgroud.bm_originY - STATETOOLBAR_HEIGHT - BOTTOMTOOLBAR_bottomGap - BOTTOMTOOLBAR_HEIGHT)
+#define SCChatViewHeight (self.spreadBottomToolBar.bm_originY - self.contentBackgroud.bm_originY - STATETOOLBAR_HEIGHT)
 //聊天输入框工具栏高度
 #define SCChatToolHeight  60
 //聊天表情列表View高度
@@ -499,7 +482,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     }
 
     // 右侧聊天视图
-    [self.view addSubview:self.rightChatView];
+    [self creatRightChatView];
     
     if (self.roomtype == YSRoomType_More && YSCurrentUser.role == YSUserType_Student)
     {
@@ -2412,24 +2395,20 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     [self.playMp3ImageView stopAnimating];
 }
 
-
 #pragma mark - 右侧聊天视图
-
-- (SCChatView *)rightChatView
+- (void)creatRightChatView
 {
-    if (!_rightChatView)
-    {
-        self.rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, self.contentBackgroud.bm_originY + STATETOOLBAR_HEIGHT, ChatViewWidth, SCChatViewHeight)];
-        BMWeakSelf
-        //点击底部输入按钮，弹起键盘
-        self.rightChatView.textBtnClick = ^{
-            [weakSelf.chatToolView.inputView becomeFirstResponder];
-        };
-        
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenTheKeyBoard)];
-        [self.rightChatView addGestureRecognizer:tap];
-    }
-    return _rightChatView;
+    SCChatView * rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, self.contentBackgroud.bm_originY + STATETOOLBAR_HEIGHT, ChatViewWidth, SCChatViewHeight)];
+    BMWeakSelf
+    //点击底部输入按钮，弹起键盘
+    rightChatView.textBtnClick = ^{
+        [weakSelf.chatToolView.inputView becomeFirstResponder];
+    };
+    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenTheKeyBoard)];
+    [rightChatView addGestureRecognizer:tap];
+    self.rightChatView = rightChatView;
+    [self.view addSubview:rightChatView];
 }
 
 #pragma mark 画笔工具展开收起
@@ -2952,7 +2931,7 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 {
     if (!_chatToolView)
     {
-        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, self.contentWidth, SCChatToolHeight)];
+        self.chatToolView = [[SCChatToolView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH, SCChatToolHeight)];
         self.chatToolView.inputView.delegate = self;
         BMWeakSelf
         //点击视图收起键盘
@@ -3585,7 +3564,6 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
 /// 全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
-//    self.rightChatView.allDisabled = isDisable;
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
     [self hiddenTheKeyBoard];
 }

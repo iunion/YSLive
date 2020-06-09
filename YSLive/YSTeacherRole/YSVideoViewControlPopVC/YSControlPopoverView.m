@@ -438,11 +438,8 @@
 }
 
 
-
 - (void)userBtnsClick:(UIButton *)sender
 {
-    
-    
     if ([self.delegate respondsToSelector:@selector(videoViewControlBtnsClick:videoViewControlType:)])
     {
         [self.delegate videoViewControlBtnsClick:sender videoViewControlType:sender.tag];
@@ -496,10 +493,10 @@
 ///移动button上图片和文字的位置（图片在上，文字在下）
 - (void)moveButtonTitleAndImageWithButton:(UIButton *)button
 {
-    CGFloat margin = 25;
+    CGFloat margin = 18;
     if ([UIDevice bm_isiPad])
     {
-        margin = 20;
+        margin = 13;
     }
 
     button.imageEdgeInsets = UIEdgeInsetsMake(0,margin, button.titleLabel.bounds.size.height + 10.0f, 0);

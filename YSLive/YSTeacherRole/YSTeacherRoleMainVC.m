@@ -52,28 +52,6 @@
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
-/// 顶部工具条高
-static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
-static const CGFloat kTopToolBar_Height_iPad = 70.0f;
-#define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
-
-/// 底部部工具条高
-static const CGFloat kBottomToolBar_Height_iPhone = 44.0f;
-static const CGFloat kBottomToolBar_Height_iPad = 50.0f;
-#define BOTTOMTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kBottomToolBar_Height_iPad : kBottomToolBar_Height_iPhone)
-/// 底部部工具条宽
-static const CGFloat kBottomToolBar_Width_iPhone = 572.0f;
-static const CGFloat kBottomToolBar_Width_iPad = 744.0f;
-#define BOTTOMTOOLBAR_WIDTH           ([UIDevice bm_isiPad] ? kBottomToolBar_Width_iPad : kBottomToolBar_Width_iPhone)
-/// 底部工具栏右边距
-static const CGFloat kBottomToolBar_rightGap_iPhone = 7.0f;
-static const CGFloat kBottomToolBar_rightGap_iPad = 16.0f ;
-#define BOTTOMTOOLBAR_rightGap        ([UIDevice bm_isiPad] ? kBottomToolBar_rightGap_iPad : kBottomToolBar_rightGap_iPhone)
-/// 底部工具栏下边距
-static const CGFloat kBottomToolBar_bottomGap_iPhone = 10.0f;
-static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
-#define BOTTOMTOOLBAR_bottomGap       ([UIDevice bm_isiPad] ? kBottomToolBar_bottomGap_iPad : kBottomToolBar_bottomGap_iPhone)
-
 /// 一对一多视频最高尺寸
 static const CGFloat kVideoView_MaxHeight_iPhone = 80.0f;
 static const CGFloat kVideoView_MaxHeight_iPad  = 160.0f;
@@ -87,7 +65,7 @@ static const CGFloat kVideoView_Gap_iPad  = 6.0f;
 static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 //聊天视图的高度
-#define SCChatViewHeight (BMUI_SCREEN_HEIGHT - self.contentBackgroud.bm_originY - STATETOOLBAR_HEIGHT - BOTTOMTOOLBAR_bottomGap - BOTTOMTOOLBAR_HEIGHT)
+#define SCChatViewHeight (self.spreadBottomToolBar.bm_originY - self.contentBackgroud.bm_originY - STATETOOLBAR_HEIGHT)
 //聊天输入框工具栏高度
 #define SCChatToolHeight  60
 //聊天表情列表View高度
@@ -465,9 +443,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 设置左侧工具栏
     [self setupBrushToolView];
     
-    // 右侧聊天视图
-    [self.view addSubview:self.rightChatView];
-    
     if (self.roomtype == YSRoomType_More)
     {
         //举手上台的按钮
@@ -480,6 +455,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self setupListView];
     
     [self.spreadBottomToolBar bm_bringToFront];
+    
+    // 右侧聊天视图
+    [self creatRightChatView];
+    
     
     //创建上下课按钮
     [self setupClassBeginButton];
@@ -1469,17 +1448,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [videoView removeFromSuperview];
     }
     
-    if (self.videoViewArray.count<22)
-    {
-        for (int i = 0; i<22; i++)
-        {
-
-            YSRoomUser * user = [[YSRoomUser alloc]initWithPeerId:[NSString stringWithFormat:@"jjj%d",i]];
-            SCVideoView * video = [[SCVideoView alloc]initWithRoomUser:user];
-            [self.videoViewArray addObject:video];
-        }
-    }
-    
+//    if (self.videoViewArray.count<22)
+//    {
+//        for (int i = 0; i<22; i++)
+//        {
+//
+//            YSRoomUser * user = [[YSRoomUser alloc]initWithPeerId:[NSString stringWithFormat:@"jjj%d",i]];
+//            SCVideoView * video = [[SCVideoView alloc]initWithRoomUser:user];
+//            [self.videoViewArray addObject:video];
+//        }
+//    }
+//
     [self.videoGridView freshViewWithVideoViewArray:self.videoViewArray withFouceVideo:self.fouceView withRoomLayout:self.roomLayout withAppUseTheType:self.appUseTheType];
         
     [self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_VideoGridView index:0];
@@ -2561,6 +2540,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     self.classBeginBtn.userInteractionEnabled = YES;
 
+    self.rightChatView.allDisabled = [YSLiveManager shareInstance].isEveryoneBanChat;
+    
     [self bottomToolBarPollingBtnEnable];
     // 通知各端开始举手
     [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
@@ -2591,7 +2572,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 [self.pollingArr addObject:roomUser.peerID];
             }
-            
         }
         
         if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -5097,23 +5077,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 #pragma mark 聊天相关视图
-
 /// 右侧聊天视图
-- (SCChatView *)rightChatView
+- (void)creatRightChatView
 {
-    if (!_rightChatView)
-    {
-        self.rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, self.contentBackgroud.bm_originY + STATETOOLBAR_HEIGHT, ChatViewWidth, SCChatViewHeight)];
-        BMWeakSelf
-        //点击底部输入按钮，弹起键盘
-        self.rightChatView.textBtnClick = ^{
-            [weakSelf.chatToolView.inputView becomeFirstResponder];
-        };
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenTheKeyBoard)];
-        [self.rightChatView addGestureRecognizer:tap];
-//        self.rightChatView.contentSize = CGSizeMake(self.contentWidth, self.contentHeight);
-    }
-    return _rightChatView;
+    SCChatView * rightChatView = [[SCChatView alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH, self.contentBackgroud.bm_originY + STATETOOLBAR_HEIGHT, ChatViewWidth, SCChatViewHeight)];
+    
+    BMWeakSelf
+    //点击底部输入按钮，弹起键盘
+    rightChatView.textBtnClick = ^{
+        [weakSelf.chatToolView.inputView becomeFirstResponder];
+    };
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenTheKeyBoard)];
+    [rightChatView addGestureRecognizer:tap];
+    self.rightChatView = rightChatView;
+    [self.view addSubview:rightChatView];
 }
 
 ///  聊天输入框工具栏
@@ -5340,7 +5317,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     if (self.roomtype == YSRoomType_One)
     {
-        popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionRight;
     }
     else if (self.roomtype == YSRoomType_More)
     {
@@ -6208,7 +6185,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
 //            self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
         }
-
     }
     
 }

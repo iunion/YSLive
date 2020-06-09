@@ -52,14 +52,15 @@ UITextFieldDelegate
         
         self.SCMessageList = [NSMutableArray array];
         
-        if (YSCurrentUser.role == YSUserType_Teacher)
-        {
-            self.allDisableBtn.userInteractionEnabled = YES;
-        }
-        else
-        {
-            self.allDisableBtn.userInteractionEnabled = NO;
-            self.allDisableBtn.alpha = 0.4;
+//        if (YSCurrentUser.role == YSUserType_Teacher)
+//        {
+//            self.allDisableBtn.userInteractionEnabled = YES;
+//        }
+//        else
+//        {
+//            self.allDisableBtn.userInteractionEnabled = NO;
+        
+//            self.allDisableBtn.alpha = 0.4;
             
             if ([YSLiveManager shareInstance].isBeginClass)
             {
@@ -69,7 +70,7 @@ UITextFieldDelegate
             {
                 self.allDisabled = [YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
             }
-        }
+//        }
     }
     return self;
 }
@@ -146,18 +147,26 @@ UITextFieldDelegate
         allDisableBtnWH = 40;
     }
     
-    //全体禁言的按钮
-    UIButton * allDisableBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtnX, 10, allDisableBtnWH+10, allDisableBtnWH+10)];
-    [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconNor") forState:UIControlStateNormal];
-    [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconSel") forState:UIControlStateSelected];
-    [allDisableBtn addTarget:self action:@selector(allDisableButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [allDisableBtn setBackgroundColor:UIColor.whiteColor];
-    [bottomView addSubview:allDisableBtn];
-    self.allDisableBtn = allDisableBtn;
+    CGFloat textBtnX = 15;
+    CGFloat textBtnW = self.bm_width - 15;
     
+    if (YSCurrentUser.role == YSUserType_Teacher)
+    {
+        //全体禁言的按钮
+        UIButton * allDisableBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtnX, 10, allDisableBtnWH+10, allDisableBtnWH+10)];
+        [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconNor") forState:UIControlStateNormal];
+        [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconSel") forState:UIControlStateSelected];
+        [allDisableBtn addTarget:self action:@selector(allDisableButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        //    [allDisableBtn setBackgroundColor:UIColor.whiteColor];
+        [bottomView addSubview:allDisableBtn];
+        self.allDisableBtn = allDisableBtn;
+        
+        textBtnX = allDisableBtn.bm_right + 15;
+        textBtnW = self.bm_width - allDisableBtn.bm_right - 15 - 15;
+    }
     
     //弹起输入框的按钮
-    UIButton * textBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtn.bm_right + 15, 10, self.bm_width - allDisableBtn.bm_right - 15 - 15, allDisableBtnWH)];
+    UIButton * textBtn = [[UIButton alloc]initWithFrame:CGRectMake(textBtnX, 10, textBtnW, allDisableBtnWH)];
     textBtn.titleLabel.font = UI_FONT_14;
     [textBtn setTitleColor:YSSkinDefineColor(@"placeholderColor") forState:UIControlStateNormal];
     [textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
@@ -175,8 +184,7 @@ UITextFieldDelegate
     textBtn.layer.shadowOpacity = 1;
     textBtn.layer.shadowRadius = 4;
         
-    allDisableBtn.bm_centerY = textBtn.bm_centerY;
-    
+    self.allDisableBtn.bm_centerY = textBtn.bm_centerY;
 }
 
 - (void)allDisableButtonClick:(UIButton *)sender
@@ -196,9 +204,7 @@ UITextFieldDelegate
 - (void)setAllDisabled:(BOOL)allDisabled
 {
     _allDisabled = allDisabled;
-   
-    self.allDisableBtn.selected = allDisabled;
-        
+           
     if (YSCurrentUser.role != YSUserType_Teacher)
     {
         self.textBtn.userInteractionEnabled = !allDisabled;
@@ -210,7 +216,10 @@ UITextFieldDelegate
         {
             self.textBtn.alpha = 1.0;
         }
-        
+    }
+    else
+    {
+        self.allDisableBtn.selected = allDisabled;
     }
 }
 
