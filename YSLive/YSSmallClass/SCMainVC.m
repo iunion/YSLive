@@ -3275,6 +3275,8 @@ static const CGFloat kBottomToolBar_bottomGap_iPad = 46.0f;
     }
     else
     {
+        //收回聊天
+        [self.spreadBottomToolBar hideMessageView];
         CGRect tempRect = self.rightChatView.frame;
         tempRect.origin.x = BMUI_SCREEN_WIDTH;
         [UIView animateWithDuration:0.25 animations:^{

@@ -6214,4 +6214,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 #endif
 
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    if (self.chatToolView.bm_originY<self.contentHeight-10)
+    {
+        [self hiddenTheKeyBoard];
+    }
+    else
+    {
+        //收回聊天
+        [self.spreadBottomToolBar hideMessageView];
+        CGRect tempRect = self.rightChatView.frame;
+        tempRect.origin.x = BMUI_SCREEN_WIDTH;
+        [UIView animateWithDuration:0.25 animations:^{
+            self.rightChatView.frame = tempRect;
+        }];
+    }
+}
+
 @end

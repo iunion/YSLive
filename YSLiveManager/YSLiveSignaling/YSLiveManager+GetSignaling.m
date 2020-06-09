@@ -1277,7 +1277,7 @@
     }
 
     
-    // 全体禁言
+    // 取消全体禁言
     if ([msgName isEqualToString:YSSignalingName_EveryoneBanChat])
     {
         [self sendTipMessage:YSLocalized(@"Prompt.CancelBanChatInView") tipType:YSChatMessageTypeTips];
