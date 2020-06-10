@@ -47,6 +47,10 @@
 	</dict>
 	<key>CommonImage</key>
 	<dict>
+		<key>navigationbar_refresh_icon</key>
+		<string>onlineSchool_navigationbar_refresh_icon_skin</string>
+		<key>navigationbar_back_icon</key>
+		<string>onlineSchool_navigationbar_back_icon_skin</string>
 		<key>close_btn_icon</key>
 		<string>close_btn_icon_skin</string>
 		<key>cancel_btn_icon_select</key>
