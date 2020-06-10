@@ -5,18 +5,18 @@
       "scale" : "1x"
     },
     {
+      "filename" : "timeTable_highLight_skin@2x.png",
       "idiom" : "universal",
-      "filename" : "me_sel@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "timeTable_highLight_skin@3x.png",
       "idiom" : "universal",
-      "filename" : "me_sel@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

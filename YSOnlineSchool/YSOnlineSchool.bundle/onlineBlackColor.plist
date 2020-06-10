@@ -66,6 +66,13 @@
 		<key>iconSel</key>
 		<string>onlineSchool_lastMonth_select_skin</string>
 	</dict>
+	<key>mine_refreshBtn</key>
+	<dict>
+		<key>iconNor</key>
+		<string>onlineSchool_refresh_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
 	<key>tabbar_timeTable</key>
 	<dict>
 		<key>iconNor</key>

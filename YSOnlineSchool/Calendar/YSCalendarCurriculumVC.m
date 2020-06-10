@@ -92,7 +92,7 @@
     self.bm_NavigationTitleTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
     self.bm_NavigationItemTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
     
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refrshMonthClassDate)];
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:YSSkinOnlineElementImage(@"mine_refreshBtn", @"iconNor") rightToucheEvent:@selector(refrshMonthClassDate)];
     self.title = nil;
     
     [self selectMonthUI];
@@ -255,7 +255,7 @@
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(10,  70, self.view.frame.size.width-20, 350)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(20,  70, self.view.bm_width-40, 350)];
     calendar.dataSource = self;
     calendar.delegate = self;
     
