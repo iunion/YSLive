@@ -144,7 +144,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+        self.backgroundColor = YSSkinOnlineDefineColor(@"timer_timeBgColor");;
         [self creatUI];
     }
     
@@ -159,24 +159,24 @@
     CGFloat maxWidth = self.bm_width - YSClassReplayView_LeftGap*2.0f - YSClassReplayView_IconWidth - YSClassReplayView_IconGap - YSClassReplayView_TextGap*2.0f;
 
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(YSClassReplayView_LeftGap, 8, maxWidth, 20.0f)];
-    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.textColor = YSSkinOnlineDefineColor(@"placeholderColor");
     self.titleLabel.font = UI_BOLDFONT_12;
     [self addSubview:self.titleLabel];
 
     CGFloat timeWidth = maxWidth * 0.25f;
     self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(YSClassReplayView_LeftGap, self.titleLabel.bm_bottom+4.0f, timeWidth, 20.0f)];
-    self.timeLabel.textColor = [UIColor whiteColor];
+    self.timeLabel.textColor = YSSkinOnlineDefineColor(@"placeholderColor");
     self.timeLabel.font = UI_FONT_12;
     [self addSubview:self.timeLabel];
     
     timeWidth = maxWidth * 0.35f;
     self.sizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.timeLabel.bm_right+YSClassReplayView_TextGap, self.titleLabel.bm_bottom+4.0f, timeWidth, 20.0f)];
-    self.sizeLabel.textColor = [UIColor whiteColor];
+    self.sizeLabel.textColor = YSSkinOnlineDefineColor(@"placeholderColor");
     self.sizeLabel.font = UI_FONT_12;
     [self addSubview:self.sizeLabel];
 
     self.playImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bm_width-YSClassReplayView_LeftGap-YSClassReplayView_IconGap-YSClassReplayView_IconWidth, (self.bm_height-YSClassReplayView_IconWidth)*0.5, YSClassReplayView_IconWidth, YSClassReplayView_IconWidth)];
-    self.playImageView.image = [UIImage imageNamed:@"classReplayView_playIcon"];
+    self.playImageView.image = YSSkinOnlineElementImage(@"classReplayView_playIcon", @"iconNor");
     [self addSubview:self.playImageView];
     
     self.clickControl = [[UIControl alloc] initWithFrame:self.bounds];
