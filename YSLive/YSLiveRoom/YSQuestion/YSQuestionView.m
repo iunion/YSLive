@@ -47,7 +47,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
         self.questionArr = [NSMutableArray array];
         
         [self setupUI];
@@ -64,12 +64,12 @@
     [self addSubview:self.questTableView];
     
     self.bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ToolOriginalY, BMUI_SCREEN_WIDTH, ToolHeight)];
-    self.bottomView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.bottomView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     [self addSubview:self.bottomView];
     
     self.backView = [[UIView alloc]initWithFrame:CGRectMake(kBMScale_W(20), 10, kBMScale_W(230), 30)];
-    self.backView.layer.cornerRadius = 30/2;
-    self.backView.backgroundColor = [UIColor whiteColor];
+    self.backView.layer.cornerRadius = 4;
+    self.backView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
     [self.bottomView addSubview:self.backView];
     
     self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(271), 8, kBMScale_W(96), 34)];
@@ -77,9 +77,10 @@
 //    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
     
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
-    [self.sendBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
-    [self.sendBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    [self.sendBtn bm_roundedRect:17.0f borderWidth:3.0f borderColor:[UIColor bm_colorWithHex:0x97B7EB]];
+    [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+    [self.sendBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    self.sendBtn.layer.cornerRadius = 4;
+//    [self.sendBtn bm_roundedRect:17.0f borderWidth:3.0f borderColor:[UIColor bm_colorWithHex:0x97B7EB]];
     [self.sendBtn addTarget:self action:@selector(sendButtonClick) forControlEvents:(UIControlEventTouchUpInside)];
     [self.bottomView addSubview:self.sendBtn];
     
@@ -327,7 +328,7 @@
         self.questTableView.delegate   = self;
         self.questTableView.dataSource = self;
         self.questTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        self.questTableView.backgroundColor = [UIColor clearColor];
+        self.questTableView.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
         self.questTableView.separatorColor  = [UIColor clearColor];
         self.questTableView.showsHorizontalScrollIndicator = NO;
         self.questTableView.showsVerticalScrollIndicator = NO;

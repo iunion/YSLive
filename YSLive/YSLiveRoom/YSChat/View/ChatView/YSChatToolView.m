@@ -40,35 +40,39 @@ UITextViewDelegate
 
 - (void)setupUIView
 {
-    self.flowerColourBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(13), kBMScale_H(14), kBMScale_W(28), kBMScale_W(28))];
+    self.flowerColourBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 10, 25, 25)];
     [self.flowerColourBtn addTarget:self action:@selector(flowerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.flowerColourBtn setImage:[UIImage imageNamed:@"flowerGray"] forState:UIControlStateSelected];
     [self.flowerColourBtn setImage:[UIImage imageNamed:@"flower"] forState:UIControlStateNormal];
     [self addSubview:self.flowerColourBtn];
     
-    self.backView = [[UIView alloc]init];
+    //显示消息类型选择按钮
+    _msgTypeBtn = ({
+        UIButton * msgTypeBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 15 - 24 , 15, 24, 24)];
+        [msgTypeBtn addTarget:self action:@selector(msgTypeBtnBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessagePersional", @"iconNor") forState:UIControlStateNormal];
+        [msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessagePersional", @"iconSel") forState:UIControlStateHighlighted];
+        msgTypeBtn;
+    });
+    [self addSubview:_msgTypeBtn];
+    
+    _emotionButton = ({
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(_msgTypeBtn.bm_originX - 20 - 24, 15, 24, 24)];
+        [button setImage:YSSkinElementImage(@"live_chatEmotionBtn", @"iconNor") forState:UIControlStateNormal];
+        [button setImage:YSSkinElementImage(@"live_chatEmotionBtn", @"iconSel") forState:UIControlStateHighlighted];
+        [button addTarget:self action:@selector(emotionButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
+        //        [button setBackgroundColor:[UIColor greenColor]];
+        button;
+    });
+    [self addSubview:_emotionButton];
+ 
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(self.flowerColourBtn.bm_right + 10, 10, _emotionButton.bm_originX - 10 - self.flowerColourBtn.bm_right - 10, 34)];
     self.backView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
     self.backView.layer.cornerRadius = 4;
     self.backView.layer.masksToBounds = YES;
     self.backView.layer.borderColor = UIColor.clearColor.CGColor;
     [self addSubview:self.backView];
-    
-    CGFloat bottomM = 0.f;
-    if (self.bm_height > kBMScale_H(56))
-    {
-        bottomM = kBMScale_H(10)+10;
-    }
-    else
-    {
-        bottomM = kBMScale_H(10);
-    }
-    
-    [self.backView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kBMScale_W(50));
-        make.top.bmmas_equalTo(kBMScale_H(10));
-        make.right.bmmas_equalTo(kBMScale_W(-90));
-        make.bottom.bmmas_equalTo(-bottomM);
-    }];
+
     
     NSString * str = [NSString stringWithFormat:@"%@%@",YSLocalized(@"Label.To"),YSLocalized(@"Label.All")];
     self.placeholder = [[UIButton alloc]init];
@@ -83,13 +87,13 @@ UITextViewDelegate
     [self.backView addSubview:self.placeholder];
     
     [self.placeholder bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_W(14));
-        make.height.bmmas_equalTo(kBMScale_H(25));
-        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(-5));
+        make.left.bmmas_equalTo(self.backView).bmmas_offset(14);
+        make.height.bmmas_equalTo(25);
+        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(-5);
     }];
     
     //输入框
-    self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_placeholder.frame), kBMScale_H(5), kBMScale_W(236)-CGRectGetMaxX(_placeholder.frame)-kBMScale_W(9), kBMScale_H(25))];
+    self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_placeholder.frame), 5, 236-CGRectGetMaxX(_placeholder.frame) - 9, 25)];
     self.inputView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
     self.inputView.returnKeyType = UIReturnKeySend;
     self.inputView.font = UI_FONT_15;
@@ -101,30 +105,11 @@ UITextViewDelegate
     
     [self.inputView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(self.placeholder.bmmas_right);
-        make.top.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(8));
-        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(-5));
-        make.right.bmmas_equalTo(self.backView).bmmas_offset(kBMScale_H(-5));
+        make.top.bmmas_equalTo(self.backView).bmmas_offset(8);
+        make.bottom.bmmas_equalTo(self.backView).bmmas_offset(-5);
+        make.right.bmmas_equalTo(self.backView).bmmas_offset(-5);
     }];
     
-    _emotionButton = ({
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(298), kBMScale_H(14), kBMScale_W(27), kBMScale_W(27))];
-        [button setImage:[UIImage imageNamed:@"emotionYS"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"emotionYS_push"] forState:UIControlStateHighlighted];
-        [button addTarget:self action:@selector(emotionButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
-        //        [button setBackgroundColor:[UIColor greenColor]];
-        button;
-    });
-    [self addSubview:_emotionButton];
-    
-    //显示消息类型选择按钮
-    _msgTypeBtn = ({
-        UIButton * msgTypeBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(336), kBMScale_H(14), kBMScale_W(27), kBMScale_W(27))];
-        [msgTypeBtn addTarget:self action:@selector(msgTypeBtnBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [msgTypeBtn setImage:[UIImage imageNamed:@"messagePersonal"] forState:UIControlStateNormal];
-        [msgTypeBtn setImage:[UIImage imageNamed:@"messagePersonal_push"] forState:UIControlStateHighlighted];
-        msgTypeBtn;
-    });
-    [self addSubview:_msgTypeBtn];
     
     //群体禁言
     self.allDisabledChat = [[UILabel alloc] init];
@@ -141,9 +126,9 @@ UITextViewDelegate
     
     [self.allDisabledChat bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(10);
-        make.top.bmmas_equalTo(kBMScale_H(9));
+        make.top.bmmas_equalTo(9);
         make.right.bmmas_equalTo(-10);
-        make.bottom.bmmas_equalTo(kBMScale_H(-9));
+        make.bottom.bmmas_equalTo(-9);
     }];
     BOOL everyoneBanChat = [YSLiveManager shareInstance].isEveryoneBanChat;
     self.everyoneBanChat = everyoneBanChat;
@@ -171,6 +156,8 @@ UITextViewDelegate
     {
         self.maskView.hidden = YES;
     }
+        
+    self.flowerColourBtn.bm_centerY = self.emotionButton.bm_centerY = self.msgTypeBtn.bm_centerY = self.backView.bm_centerY;
 }
 
 #pragma mark - 发送消息（键盘的return按钮点击事件）

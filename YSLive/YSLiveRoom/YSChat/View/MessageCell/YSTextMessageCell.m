@@ -64,7 +64,7 @@
     self.msgLab.font = UI_FONT_15;
     self.msgLab.numberOfLines = 0;
     [self.bubbleView addSubview:self.msgLab];
-    self.msgLab.backgroundColor = UIColor.yellowColor;
+//    self.msgLab.backgroundColor = UIColor.w;
 }
 
 - (void)setModel:(YSChatMessageModel *)model
