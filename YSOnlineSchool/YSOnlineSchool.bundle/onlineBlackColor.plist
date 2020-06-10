@@ -4,6 +4,16 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
+		<key>onlineSchoolStateWaitingColor</key>
+		<string>#5ABEDC</string>
+		<key>onlineSchoolStateBeginColor</key>
+		<string>#EA7676</string>
+		<key>onlineSchoolStateEndColor</key>
+		<string>#A2A2A2</string>
+		<key>onlineSchoolTimeColor</key>
+		<string>#E5E7EC</string>
+		<key>onlineSchoolSubTextColor</key>
+		<string>#9F9F9F</string>
 		<key>timer_timeBgColor</key>
 		<string>#DEEAFF</string>
 		<key>placeholderColor</key>
@@ -48,7 +58,7 @@
 	<key>CommonImage</key>
 	<dict>
 		<key>navigationbar_refresh_icon</key>
-		<string>onlineSchool_navigationbar_refresh_icon_skin</string>
+		<string>onlineSchool_refresh_skin</string>
 		<key>navigationbar_back_icon</key>
 		<string>onlineSchool_navigationbar_back_icon_skin</string>
 		<key>close_btn_icon</key>

@@ -81,7 +81,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     self.bm_NavigationTitleTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
     self.bm_NavigationItemTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
-    [self bm_setNavigationWithTitle:title barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:YSSkinOnlineDefineImage(@"navigationbar_back_icon") leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshVC)];
+    [self bm_setNavigationWithTitle:title barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:YSSkinOnlineDefineImage(@"navigationbar_back_icon") leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:YSSkinOnlineDefineImage(@"navigationbar_refresh_icon") rightToucheEvent:@selector(refreshVC)];
 
     
     self.loadDataType = YSAPILoadDataType_Page;
