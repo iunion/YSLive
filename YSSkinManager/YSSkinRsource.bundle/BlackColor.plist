@@ -4,6 +4,8 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
+		<key>noVideoMaskBgColor</key>
+		<string>#40424A</string>
 		<key>timer_timeBgColor</key>
 		<string>#DEEAFF</string>
 		<key>placeholderColor</key>
@@ -44,6 +46,8 @@
 		<string>#818181</string>
 		<key>liveChatBgColor</key>
 		<string>#F6F8FA</string>
+		<key>liveVoteNameTextColor</key>
+		<string>#5A8CDC</string>
 	</dict>
 	<key>CommonImage</key>
 	<dict>
@@ -1334,13 +1338,78 @@
 	<key>live_prizeAlert_result</key>
 	<dict>
 		<key>tittleColor</key>
-		<string></string>
+		<string>#FFE895</string>
 		<key>bgColor</key>
 		<string></string>
 		<key>iconNor</key>
 		<string>live_prizeAlert_result_nor_skin</string>
 		<key>iconSel</key>
 		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>live_prizeAlert_close</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_prizeAlert_close_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>live_vote_topback</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_vote_topback_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>live_vote_end</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_vote_end_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>live_vote_ing</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_vote_ing_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>live_vote_single</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_vote_single_nor_skin</string>
+		<key>iconSel</key>
+		<string>live_vote_single_sel_skin</string>
 		<key>iconDis</key>
 		<string></string>
 	</dict>

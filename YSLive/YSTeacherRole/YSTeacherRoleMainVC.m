@@ -1014,7 +1014,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [userVideoView addSubview:imageView];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     imageView.contentMode = UIViewContentModeCenter;
-    imageView.backgroundColor = [UIColor bm_colorWithHex:0xEDEDED];
+    imageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [self.videoBackgroud addSubview:userVideoView];
     
     if (self.isWideScreen)
