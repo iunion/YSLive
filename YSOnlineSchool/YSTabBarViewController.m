@@ -84,6 +84,8 @@
     tab1.selectedColor = ITEM_SEL_COLOR;
     tab1.normalIcon = @"live";
     tab1.selectedIcon = @"live_sel";
+    //    tab1.normalIcon = YSSkinOnlineElementImage(@"tabbar_timeTable", @"iconNor");
+    //    tab1.selectedIcon = YSSkinOnlineElementImage(@"tabbar_timeTable", @"iconNor");
 
     BMTabItemClass *tab2 = [[BMTabItemClass alloc] init];
     tab2.title = YSLocalizedSchool(@"Title.OnlineSchool.Mine");

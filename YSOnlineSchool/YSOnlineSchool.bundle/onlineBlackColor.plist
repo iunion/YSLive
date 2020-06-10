@@ -66,5 +66,19 @@
 		<key>iconSel</key>
 		<string>onlineSchool_lastMonth_select_skin</string>
 	</dict>
+	<key>tabbar_timeTable</key>
+	<dict>
+		<key>iconNor</key>
+		<string>timeTable_normal_skin</string>
+		<key>iconSel</key>
+		<string>timeTable_highLight_skin</string>
+	</dict>
+	<key>tabbar_personal</key>
+	<dict>
+		<key>iconNor</key>
+		<string>personal_normal_skin</string>
+		<key>iconSel</key>
+		<string>personal_high_skin</string>
+	</dict>
 </dict>
 </plist>

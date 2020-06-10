@@ -17,6 +17,8 @@ static YSSkinManager *skinManager = nil;
 
 @property (nonatomic, assign) YSSkinType lastSkinType;
 
+@property (nonatomic, assign) YSSkinClassOrOnline lastClassOrOnline;
+
 @property (nonatomic, strong) NSDictionary *plictDict;
 
 @end
@@ -40,7 +42,8 @@ static YSSkinManager *skinManager = nil;
 /// 获取plist文件中的数据
 - (NSDictionary *)getPliatDictionaryWithType:(YSSkinClassOrOnline)classOrOnline
 {
-    if (self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
+    
+    if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
     {
         NSString *path = nil;
         
@@ -61,10 +64,13 @@ static YSSkinManager *skinManager = nil;
             path = [YSSkinBundle pathForResource:@"onlineBlackColor" ofType:@"plist"];
         }
             
+        NSString * sss = YSSkinBundleName;
+        
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     
     self.lastSkinType = self.skinType;
+    self.lastClassOrOnline = self.classOrOnline;
     
     return self.plictDict;
 }
