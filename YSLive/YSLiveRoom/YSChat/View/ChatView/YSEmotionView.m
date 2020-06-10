@@ -50,7 +50,7 @@
 {
     self.deleteBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width-20-40,self.bm_height-15-22, 40, 22)];
     [self.deleteBtn setImage:YSSkinElementImage(@"live_chatdeleteBtn", @"iconNor") forState:UIControlStateNormal];
-//    [self.deleteBtn setImage:[UIImage imageNamed:@"emotionDelete_push"] forState:UIControlStateHighlighted];
+    [self.deleteBtn setImage:YSSkinElementImage(@"live_chatdeleteBtn", @"iconSel") forState:UIControlStateHighlighted];
     [self.deleteBtn addTarget:self action:@selector(deleteEmotionButtons) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.deleteBtn];
 }

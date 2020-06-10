@@ -138,7 +138,7 @@ UITextViewDelegate
     }
     
     self.maskView = [[UIView alloc]initWithFrame:self.bounds];
-    self.maskView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC  alpha:0.6];
+    self.maskView.backgroundColor = [YSSkinDefineColor(@"blackColor ") changeAlpha:0.3];
     [self addSubview:self.maskView];
   
     if (![YSLiveManager shareInstance].isBeginClass)
