@@ -6,6 +6,8 @@
 	<dict>
 		<key>onlineSchoolStateWaitingColor</key>
 		<string>#5ABEDC</string>
+		<key>onlineSchoolClassIconColor</key>
+		<string>#9DBEF3</string>
 		<key>onlineSchoolStateBeginColor</key>
 		<string>#EA7676</string>
 		<key>onlineSchoolStateEndColor</key>
@@ -100,6 +102,13 @@
 		<string>personal_normal_skin</string>
 		<key>iconSel</key>
 		<string>personal_high_skin</string>
+	</dict>
+	<key>classReplayView_playIcon</key>
+	<dict>
+		<key>iconNor</key>
+		<string>classReplayView_playIcon_normal_skin</string>
+		<key>iconSel</key>
+		<string></string>
 	</dict>
 </dict>
 </plist>

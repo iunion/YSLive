@@ -63,7 +63,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     self.bm_CanBackInteractive = NO;
 
-    self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");//[UIColor bm_colorWithHex:0x9DBEF3];
+    self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");
     
     // iOS 获取设备当前语言和地区的代码
     NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
