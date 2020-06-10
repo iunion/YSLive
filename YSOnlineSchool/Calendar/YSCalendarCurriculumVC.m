@@ -87,12 +87,12 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.view.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
     
-    self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    self.bm_NavigationItemTintColor = UIColor.whiteColor;
+    self.bm_NavigationTitleTintColor = YSSkinDefineColor(@"login_placeholderColor");
+    self.bm_NavigationItemTintColor = YSSkinDefineColor(@"login_placeholderColor");
     
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refrshMonthClassDate)];
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") barTintColor:YSSkinDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refrshMonthClassDate)];
     self.title = nil;
     
     [self selectMonthUI];
@@ -139,7 +139,7 @@
     [monthBtn setTitle:month forState:UIControlStateNormal];
     [monthBtn setTitleColor:[UIColor bm_colorWithHex:0x828282] forState:UIControlStateNormal];
     monthBtn.titleLabel.font = UI_FONT_16;
-    monthBtn.layer.cornerRadius = 26/2;
+    monthBtn.layer.cornerRadius = 4;
     monthBtn.layer.masksToBounds = YES;
     [monthBtn addTarget:self action:@selector(monthButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     monthBtn.tag = 2;
@@ -153,7 +153,7 @@
     [lastBtn setBackgroundColor:UIColor.whiteColor];
     [lastBtn setImage:[UIImage imageNamed:@"onlineSchool_lastNonth_normal"] forState:UIControlStateNormal];
     [lastBtn setImage:[UIImage imageNamed:@"onlineSchool_lastNonth_select"] forState:UIControlStateSelected];
-    lastBtn.layer.cornerRadius = 26/2;
+    lastBtn.layer.cornerRadius = 4;
     lastBtn.layer.masksToBounds = YES;
     [lastBtn addTarget:self action:@selector(monthButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     lastBtn.tag = 1;
@@ -164,7 +164,7 @@
     [nextBtn setBackgroundColor:UIColor.whiteColor];
     [nextBtn setImage:[UIImage imageNamed:@"onlineSchool_nextNonth_normal"] forState:UIControlStateNormal];
     [nextBtn setImage:[UIImage imageNamed:@"onlineSchool_nextNonth_select"] forState:UIControlStateSelected];
-    nextBtn.layer.cornerRadius = 26/2;
+    nextBtn.layer.cornerRadius = 4;
     nextBtn.layer.masksToBounds = YES;
     [nextBtn addTarget:self action:@selector(monthButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     nextBtn.tag = 3;

@@ -26,12 +26,20 @@
 #define YSAPP_LocalizedSchool     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_ONLINESCHOOL_NAME]]
 #define YSLocalizedSchool(s)      [YSAPP_LocalizedSchool localizedStringForKey:s value:@"" table:nil]
 
-//换肤
-#define YSSkinDefineColor(s) [[YSSkinManager shareInstance] getDefaultColorWithKey:(s)]
-#define YSSkinDefineImage(s) [[YSSkinManager shareInstance] getDefaultImageWithKey:(s)]
+//小班课 + 直播 换肤
+#define YSSkinDefineColor(s) [[YSSkinManager shareInstance] getDefaultColorWithType:YSSkinClassOrOnline_class WithKey:(s)]
+#define YSSkinDefineImage(s) [[YSSkinManager shareInstance] getDefaultImageWithType:YSSkinClassOrOnline_class WithKey:(s)]
 
-#define YSSkinElementColor(z , s) [[YSSkinManager shareInstance] getElementColorWithName:(z) andKey:(s)]
-#define YSSkinElementImage(z , s) [[YSSkinManager shareInstance] getElementImageWithName:(z) andKey:(s)]
+#define YSSkinElementColor(z , s) [[YSSkinManager shareInstance] getElementColorWithType:YSSkinClassOrOnline_class WithName:(z) andKey:(s)]
+#define YSSkinElementImage(z , s) [[YSSkinManager shareInstance] getElementImageWithType:YSSkinClassOrOnline_class WithName:(z) andKey:(s)]
+
+//网校 换肤
+#define YSSkinOnlineDefineColor(s) [[YSSkinManager shareInstance] getDefaultColorWithType:YSSkinClassOrOnline_online WithKey:(s)]
+#define YSSkinOnlineDefineImage(s) [[YSSkinManager shareInstance] getDefaultImageWithType:YSSkinClassOrOnline_online WithKey:(s)]
+
+#define YSSkinOnlineElementColor(z , s) [[YSSkinManager shareInstance] getElementColorWithType:YSSkinClassOrOnline_online WithName:(z) andKey:(s)]
+#define YSSkinOnlineElementImage(z , s) [[YSSkinManager shareInstance] getElementImageWithType:YSSkinClassOrOnline_online WithName:(z) andKey:(s)]
+
 
 // 苹果AppID
 #ifdef YSCUSTOMIZED_WSKJ
