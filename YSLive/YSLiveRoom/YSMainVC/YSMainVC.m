@@ -357,7 +357,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.controlBackMaskView = controlBackMaskView;
     [self.view addSubview:controlBackMaskView];
     controlBackMaskView.hidden = YES;
-    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl111)];
+    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl)];
     oneTap.numberOfTapsRequired = 1;
     [controlBackMaskView addGestureRecognizer:oneTap];
     
@@ -471,7 +471,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     return button;
 }
 
-- (void)clickToShowControl111
+- (void)clickToShowControl
 {
     self.controlBackMaskView.hidden = YES;
 }

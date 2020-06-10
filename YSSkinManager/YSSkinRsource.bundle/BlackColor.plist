@@ -1306,11 +1306,24 @@
 	<key>live_prizeAlert_result</key>
 	<dict>
 		<key>tittleColor</key>
-		<string></string>
+		<string>#FFE895</string>
 		<key>bgColor</key>
 		<string></string>
 		<key>iconNor</key>
 		<string>live_prizeAlert_result_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>live_prizeAlert_close</key>
+	<dict>
+		<key>tittleColor</key>
+		<string>#FFE895</string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_prizeAlert_close_nor_skin</string>
 		<key>iconSel</key>
 		<string></string>
 		<key>iconDis</key>
