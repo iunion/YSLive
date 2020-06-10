@@ -1003,7 +1003,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
     
     // 1V1 初始学生视频蒙版
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_uservideocover"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:YSSkinDefineImage(@"main_uservideocover")];
     YSRoomUser *roomUser = [[YSRoomUser alloc] initWithPeerId:@"0"];
     roomUser.role = YSUserType_Student;
     SCVideoView *userVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser isForPerch:YES withDelegate:self];
@@ -3171,7 +3171,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (UIImageView *)makeGiftImageView
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, GiftImageView_Width*0.5, GiftImageView_Height*0.5)];
-    imageView.image = [UIImage imageNamed:@"main_giftshow"];
+    imageView.image = YSSkinDefineImage(@"main_giftshow");
     [self.contentView addSubview:imageView];
     [imageView bm_centerInSuperView];
     

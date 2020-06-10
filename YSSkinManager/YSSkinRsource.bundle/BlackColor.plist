@@ -51,6 +51,16 @@
 	</dict>
 	<key>CommonImage</key>
 	<dict>
+		<key>main_uservideocover</key>
+		<string>main_uservideocover_skin</string>
+		<key>main_teachervideocover4v3</key>
+		<string>main_teachervideocover4v3_skin</string>
+		<key>main_teachervideocover16v9</key>
+		<string>main_teachervideocover16v9_skin</string>
+		<key>main_giftshow</key>
+		<string>main_giftshow_skin</string>
+		<key>live_main_notclassbeging</key>
+		<string>live_main_notclassbeging_skin</string>
 		<key>close_btn_icon</key>
 		<string>close_btn_icon_skin</string>
 		<key>cancel_btn_icon_select</key>
