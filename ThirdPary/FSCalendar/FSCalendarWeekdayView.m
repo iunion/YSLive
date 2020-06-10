@@ -81,22 +81,28 @@
         opposite = (direction == UIUserInterfaceLayoutDirectionRightToLeft);
     }
     CGFloat x = 0;
-    for (NSInteger i = 0; i < count; i++) {
+    for (NSInteger i = 0; i < count; i++)
+    {
         CGFloat width = widths[i];
         NSInteger labelIndex = opposite ? count-1-i : i;
         UILabel *label = [self.weekdayPointers pointerAtIndex:labelIndex];
         label.frame = CGRectMake(x, 0, width, self.contentView.fs_height);
-        UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, label.fs_height-0.5, label.fs_width, 0.5)];
-        lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
-        [label addSubview:lineView];
         
-        if (i == 0)
+        if (!label.subviews.count)
         {
-            lineView.frame = CGRectMake(10, label.fs_height-0.5, label.fs_width-10, 0.5);
-        }
-        else if (i == count-1)
-        {
-            lineView.frame = CGRectMake(0, label.fs_height-0.5, label.fs_width-10, 0.5);
+            UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, label.fs_height-1.0, label.fs_width, 1.0)];
+            lineView.backgroundColor = [[UIColor bm_colorWithHex:0x6D7278] changeAlpha:0.24];
+            
+            [label addSubview:lineView];
+
+            if (i == 0)
+            {
+                lineView.frame = CGRectMake(10, label.fs_height-1.0, label.fs_width-10, 1.0);
+            }
+            else if (i == count-1)
+            {
+                lineView.frame = CGRectMake(0, label.fs_height-1.0, label.fs_width-10, 1.0);
+            }
         }
         x = CGRectGetMaxX(label.frame);
     }

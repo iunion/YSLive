@@ -25,7 +25,7 @@
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.font = [UIFont systemFontOfSize:14.0f];
         titleLabel.textAlignment = NSTextAlignmentRight;
-        titleLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+        titleLabel.textColor = YSSkinOnlineDefineColor(@"placeholderColor");
         self.titleLabel = titleLabel;
         [self addSubview:self.titleLabel];
         self.titleLabel.text = title;

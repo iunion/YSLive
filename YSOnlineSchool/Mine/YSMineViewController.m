@@ -51,11 +51,11 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");
     
-    self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    self.bm_NavigationItemTintColor = [UIColor whiteColor];
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
+    self.bm_NavigationTitleTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    self.bm_NavigationItemTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
     
     self.title = nil;
     
