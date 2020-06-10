@@ -1154,13 +1154,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.raiseHandsBtn.hidden = YES;
                 
         //button长按事件
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLong:)];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLongTouch:)];
         longPress.minimumPressDuration = 0.5; //定义按的时间
         [self.raiseHandsBtn addGestureRecognizer:longPress];
         
 
         UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, raiseHandWH, raiseHandWH)];
-        raiseMaskImage.animationImages = @[YSSkinElementImage(@"raiseHand_time_3", @"iconNor"),YSSkinElementImage(@"raiseHand_time_2", @"iconNor"),YSSkinElementImage(@"raiseHand_time_1", @"iconNor")];
+        raiseMaskImage.animationImages = @[YSSkinElementImage(@"raiseHand_time", @"iconNor3"),YSSkinElementImage(@"raiseHand_time", @"iconNor2"),YSSkinElementImage(@"raiseHand_time", @"iconNor1")];
         raiseMaskImage.animationDuration = 3.0;
         raiseMaskImage.animationRepeatCount = 0;
         self.raiseMaskImage = raiseMaskImage;
@@ -1189,7 +1189,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 //长按
-- (void)raiseHandsBtnLong:(UILongPressGestureRecognizer *)gestureRecognizer
+- (void)raiseHandsBtnLongTouch:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
