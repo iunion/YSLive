@@ -984,7 +984,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     // 1V1 初始老师视频蒙版
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:YSSkinDefineImage(imageName)];
     YSRoomUser *roomUser = [[YSRoomUser alloc] initWithPeerId:@"0"];
     SCVideoView *teacherVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser isForPerch:YES];
     teacherVideoView.appUseTheType = self.appUseTheType;
@@ -1019,7 +1019,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
     videoView.appUseTheType = self.appUseTheType;
     videoView.tag = PlaceholderPTag;
-    UIImageView *userImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_uservideocover"]];
+    UIImageView *userImageView = [[UIImageView alloc] initWithImage:YSSkinDefineImage(@"main_uservideocover")];
     userImageView.frame = videoView.bounds;
     userImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     userImageView.contentMode = UIViewContentModeCenter;
@@ -1087,7 +1087,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (UIImageView *)makeGiftImageView
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, GiftImageView_Width*0.5, GiftImageView_Height*0.5)];
-    imageView.image = [UIImage imageNamed:@"main_giftshow"];
+    imageView.image = YSSkinDefineImage(@"main_giftshow");
     [self.view addSubview:imageView];
     [imageView bm_centerInSuperView];
     
