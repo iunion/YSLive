@@ -67,3 +67,6 @@
 "Prompt.OnlineSchool_lessons" = "共%@節";
 "Polling.Time" = "輪播時間";
 "Polling.second" = "秒/次";
+
+"Alert.prompt" = "溫馨提示";
+"Alert.passwordSucceed" = "密碼修改成功，請重新登錄賬號";

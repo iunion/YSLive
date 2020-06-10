@@ -69,3 +69,6 @@
 
 "Polling.Time" = "rotation time";
 "Polling.second" = "Seconds / times";
+
+"Alert.prompt" = "Prompt";
+"Alert.passwordSucceed" = "Password changed successfully, please login again";
