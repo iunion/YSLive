@@ -14,22 +14,21 @@
 @property (nonatomic, strong) UIImageView *backImgV;
 /// 名字以及 发布时间 label
 @property (nonatomic, strong) UILabel * nameAndTimeLabel;
-
 /// 投票状态图片
 @property (nonatomic, strong) UIButton *statusBtn;
+
 @end
 
 @implementation YSVoteTopView
 
 - (instancetype)initWithFrame:(CGRect)frame withVoteStatus:(BOOL)isEnd
 {
-    
     if (self = [super initWithFrame:frame])
     {
         self.isEnd = isEnd;
-//        self.backgroundColor = [UIColor whiteColor];
         [self setup];
     }
+    
     return self;
 }
 
@@ -37,19 +36,16 @@
 {
     [self addSubview:self.backImgV];
     
-    
     [self addSubview:self.statusBtn];
    
-    
     [self addSubview:self.nameAndTimeLabel];
-    
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     self.backImgV.frame = CGRectMake(0, 0, self.bm_width, self.bm_height);
-    UIImage *image = [UIImage imageNamed:@"yslive_vote_topbackimage"];
+    UIImage *image = YSSkinElementImage(@"live_vote_topback", @"iconNor");
     CGFloat top = image.size.height/2.0;
     CGFloat left = image.size.width/2.0;
     CGFloat bottom = image.size.height/2.0;
@@ -57,11 +53,12 @@
     self.backImgV.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right) resizingMode:UIImageResizingModeStretch];
     
     self.statusBtn.frame = CGRectMake(20, 14, 46, 24);
-       self.statusBtn.bm_centerY = self.bm_centerY;
+    self.statusBtn.bm_centerY = self.bm_centerY;
+    
     self.nameAndTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.statusBtn.frame) + 10, 0, BMUI_SCREEN_WIDTH - 20 - 46 - 10 - 10, self.voteModel.topViewHeight);
-     
+    
     self.nameAndTimeLabel.bm_centerY = self.statusBtn.bm_centerY;
-
+    
 }
 
 #pragma mark -
@@ -72,13 +69,13 @@
     if (isEnd)
        {
            //投票结束
-           [self.statusBtn setBackgroundImage:[UIImage imageNamed:@"yslive_vote_end"] forState:UIControlStateNormal];
+           [self.statusBtn setBackgroundImage:YSSkinElementImage(@"live_vote_end", @"iconNor") forState:UIControlStateNormal];
            [self.statusBtn setTitle:YSLocalized(@"title.Voted") forState:UIControlStateNormal];
        }
     else
        {
            //投票中
-           [self.statusBtn setBackgroundImage:[UIImage imageNamed:@"yslive_vote_ing"] forState:UIControlStateNormal];
+           [self.statusBtn setBackgroundImage:YSSkinElementImage(@"live_vote_ing", @"iconNor") forState:UIControlStateNormal];
            [self.statusBtn setTitle:YSLocalized(@"title.Voting") forState:UIControlStateNormal];
        }
 }
@@ -91,8 +88,6 @@
     self.nameAndTimeLabel.attributedText = [self dealStrWithName:voteModel.teacherName andTime:time];
     CGSize size = [self.nameAndTimeLabel bm_attribSizeToFitWidth:BMUI_SCREEN_WIDTH - 20 - 46 - 10 - 10];
     _voteModel.topViewHeight = size.height;
-//    self.bm_height = 28 +  size.height + 30;
-//    self.backImgV.frame = CGRectMake(0, 0, self.bm_width, self.bm_height);
     [self.nameAndTimeLabel sizeToFit];
     
 }
@@ -105,8 +100,6 @@
     if (!_backImgV)
     {
         _backImgV = [[UIImageView alloc] init];
-//        _backImgV.backgroundColor = [UIColor bm_randomColor];
-//        [_backImgV setImage:[UIImage imageNamed:@"yslive_vote_topbackimage"]];
     }
     return _backImgV;
 }
@@ -130,7 +123,7 @@
         _statusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _statusBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         _statusBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_statusBtn setTitleColor:[UIColor bm_colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+        [_statusBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
         _statusBtn.userInteractionEnabled = NO;
         
     }
@@ -148,13 +141,13 @@
 {
     NSMutableAttributedString * nameString = [[NSMutableAttributedString alloc] initWithString:name attributes:@{
         NSFontAttributeName: UI_FSFONT_MAKE(FontNamePingFangSCRegular, 16),
-        NSForegroundColorAttributeName: [UIColor bm_colorWithHex:0x5A8CDC]
+        NSForegroundColorAttributeName:YSSkinDefineColor(@"liveVoteNameTextColor")
     }];
     
     NSString * timeStr = [NSString stringWithFormat:@" %@ %@ ",time,YSLocalized(@"title.ToVote")];
     NSMutableAttributedString * timeAttString = [[NSMutableAttributedString alloc] initWithString:timeStr attributes:@{
         NSFontAttributeName: UI_FSFONT_MAKE(FontNamePingFangSCRegular, 16),
-        NSForegroundColorAttributeName: [UIColor bm_colorWithHex:0x6D7278]
+        NSForegroundColorAttributeName: YSSkinDefineColor(@"login_placeholderColor")
     }];
     
     [nameString appendAttributedString:timeAttString];
