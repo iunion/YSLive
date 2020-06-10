@@ -27,9 +27,12 @@
 ///回复的内容
 @property (nonatomic, strong) UILabel * answerLab;
 ///回复的翻译按钮
-@property (nonatomic, strong) UIButton *answerTransBtn;
+//@property (nonatomic, strong) UIButton *answerTransBtn;
 ///回复的翻译内容
-@property (nonatomic, strong) UILabel *answerTransLab;
+//@property (nonatomic, strong) UILabel *answerTransLab;
+
+/// 回复的分割线
+@property (nonatomic, strong) UIView *answerLine;
 
 @end
 
@@ -102,20 +105,22 @@
     [self.contentView addSubview:self.answerLab];
     
     //回复翻译按钮
-    self.answerTransBtn = [[UIButton alloc]init];
-    self.answerTransBtn.tag = 2;
-    [self.answerTransBtn addTarget:self action:@selector(translateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.answerTransBtn setImage:[UIImage imageNamed:@"translate"] forState:UIControlStateNormal];
-    [self.answerTransBtn setBackgroundColor:[UIColor clearColor]];
-    [self.contentView addSubview:self.answerTransBtn];
-//    [self.answerTransBtn setBackgroundColor:UIColor.redColor];
+//    self.answerTransBtn = [[UIButton alloc]init];
+//    self.answerTransBtn.tag = 2;
+//    [self.answerTransBtn addTarget:self action:@selector(translateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.answerTransBtn setImage:[UIImage imageNamed:@"translate"] forState:UIControlStateNormal];
+//    [self.answerTransBtn setBackgroundColor:[UIColor clearColor]];
+//    [self.contentView addSubview:self.answerTransBtn];
     
     //回复的翻译内容
-    self.answerTransLab = [[UILabel alloc]init];
-    self.answerTransLab.font = UI_FONT_14;
-    self.answerTransLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
-    self.answerTransLab.numberOfLines = 0;
-    [self.contentView addSubview:self.answerTransLab];
+//    self.answerTransLab = [[UILabel alloc]init];
+//    self.answerTransLab.font = UI_FONT_14;
+//    self.answerTransLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+//    self.answerTransLab.numberOfLines = 0;
+//    [self.contentView addSubview:self.answerTransLab];
+    
+    
+    
 }
 
 - (void)setModel:(YSQuestionModel *)model
@@ -126,15 +131,10 @@
     CGFloat bubbleW = 0;
     CGFloat bubbleH = 0;
     
+    self.questLine.hidden = self.questTransLab.hidden = ![model.detailTrans bm_isNotEmpty];
     if (model.state == YSQuestionState_Answer)
     {//回复
-        self.questTransBtn.hidden = YES;
-        self.questTransLab.hidden = YES;
-        self.questLine.hidden = YES;
         self.answerLab.hidden = NO;
-        self.answerTransBtn.hidden = NO;
-        self.answerTransLab.hidden = NO;
-        self.answerTransLab.hidden = ![model.detailTrans bm_isNotEmpty];
         
         NSString * nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.nickName,model.timeStr];
         CGSize nameSize = [nameTimeStr bm_sizeToFitWidth:150 withFont:UI_FONT_12];
@@ -147,36 +147,53 @@
         self.nickNameLab.frame = CGRectMake(20, 10, nameSize.width, nameSize.height);
         self.tagLab.frame = CGRectMake(self.nickNameLab.bm_right+10, 10, tagSize.width+10, tagSize.height);
 
-        self.answerLab.text = model.answerDetails;
-        self.answerLab.frame = CGRectMake(20, 10 + tagSize.height + 5, model.answerDetailsSize.width, model.answerDetailsSize.height);
-        self.answerTransBtn.frame = CGRectMake(self.answerLab.bm_right + 5, self.answerLab.bm_top-5, 14+10, 14+10);
-         
-        NSString * kkk = YSLocalized(@"Label.Question");
+        //问题模块放答案的文字
+        self.questLab.text = model.answerDetails;
+        self.bubbleView.frame = CGRectMake(20, 10 + tagSize.height + 5, 5 + model.answerDetailsSize.width + 10 , 10 + model.answerDetailsSize.height + 10);
+        self.questLab.frame = CGRectMake(5, 10, model.answerDetailsSize.width, model.answerDetailsSize.height);
         
-        NSString * questStr = [NSString stringWithFormat:@"%@：%@",kkk,model.questDetails];
-        CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
-        self.questLab.text = questStr;
-                
         if (![model.detailTrans bm_isNotEmpty])
         {//没有翻译
-            self.bubbleView.frame = CGRectMake(20, self.answerLab.bm_bottom + 5, 5 + questStrSize.width + 10 , 10 + questStrSize.height + 10);
+            
+            bubbleW = model.answerDetailsSize.width + 15 + 25;
+            bubbleH = model.answerDetailsSize.height + 2 * 10;
+            
+            self.bubbleView.frame = CGRectMake(20, 10 + tagSize.height + 5, bubbleW, bubbleH);
+            self.questLab.frame = CGRectMake(5, 10, model.answerDetailsSize.width, model.answerDetailsSize.height);
         }
         else
         {//有翻译
-            self.answerTransLab.text = model.detailTrans;
-            self.answerTransLab.frame = CGRectMake(20, self.answerLab.bm_bottom+5, model.translatSize.width, model.translatSize.height);
-            self.bubbleView.frame = CGRectMake(20, self.answerTransLab.bm_bottom + 5, 5 + questStrSize.width + 10 , 10 + questStrSize.height + 10);
+            
+            self.questTransLab.text = model.detailTrans;
+            
+            if (model.answerDetailsSize.width + 25 >= model.translatSize.width)
+            {
+                bubbleW = model.answerDetailsSize.width + 15 + 25;
+            }
+            else
+            {
+                bubbleW = model.translatSize.width + 15;
+            }
+            bubbleH = 10 + model.answerDetailsSize.height + 4 + 1 + 4 + model.translatSize.height + 10;
+            
+            self.bubbleView.frame = CGRectMake(20, self.tagLab.bm_bottom + 5, bubbleW, bubbleH);
+            
+            self.questLab.frame = CGRectMake(5, 10, model.answerDetailsSize.width, model.answerDetailsSize.height);
+            self.questLine.frame = CGRectMake(5, self.questLab.bm_bottom+4, self.bubbleView.bm_width-13*2, 1);
+            self.questTransLab.frame = CGRectMake(5, self.questLine.bm_bottom+4, model.translatSize.width, model.translatSize.height);
         }
-        self.questLab.frame = CGRectMake(5, 10, questStrSize.width, questStrSize.height);
+        self.questTransBtn.frame = CGRectMake(self.bubbleView.bm_width-15-15, self.questLab.bm_top-5, 25, 25);
+        
+        //答案模块放问题的文字
+        NSString * kkk = YSLocalized(@"Label.Question");
+        NSString * questStr = [NSString stringWithFormat:@"%@：%@",kkk,model.questDetails];
+        CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
+        self.answerLab.text = questStr;
+        self.answerLab.frame = CGRectMake(20, self.bubbleView.bm_bottom + 10, questStrSize.width, questStrSize.height);
     }
     else
     {//提问和审核
-        self.questTransBtn.hidden = NO;
         self.answerLab.hidden = YES;
-        self.answerTransBtn.hidden = YES;
-        self.answerTransLab.hidden = YES;
-        self.questLine.hidden = ![model.detailTrans bm_isNotEmpty];
-        self.questTransLab.hidden = ![model.detailTrans bm_isNotEmpty];
         
         NSString * nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.nickName,model.timeStr];
         
@@ -211,7 +228,7 @@
         if (![model.detailTrans bm_isNotEmpty])
         {//没有翻译
             
-            bubbleW = model.questDetailsSize.width + 5 + 35;
+            bubbleW = model.questDetailsSize.width + 15 + 25;
             bubbleX = BMUI_SCREEN_WIDTH - 20 - bubbleW;
             bubbleH = model.questDetailsSize.height + 2 * 10;
             
@@ -223,13 +240,13 @@
             
             self.questTransLab.text = model.detailTrans;
             
-            if (model.questDetailsSize.width >= model.translatSize.width)
+            if (model.questDetailsSize.width + 25 >= model.translatSize.width)
             {
-                bubbleW = model.questDetailsSize.width + 10 + 5;
+                bubbleW = model.questDetailsSize.width + 15 + 25;
             }
             else
             {
-                bubbleW = model.translatSize.width + 10 + 5;
+                bubbleW = model.translatSize.width + 15;
             }
             bubbleX = BMUI_SCREEN_WIDTH-20- bubbleW;
             bubbleH = 10 + model.questDetailsSize.height + 4 + 1 + 4 + model.translatSize.height + 10;
@@ -237,10 +254,10 @@
             self.bubbleView.frame = CGRectMake(bubbleX, self.tagLab.bm_bottom + 5, bubbleW, bubbleH);
             
             self.questLab.frame = CGRectMake(5, 10, model.questDetailsSize.width, model.questDetailsSize.height);
-            self.questLine.frame = CGRectMake(13, self.questLab.bm_bottom+4, self.bubbleView.bm_width-13*2, 1);
+            self.questLine.frame = CGRectMake(5, self.questLab.bm_bottom+4, self.bubbleView.bm_width-13*2, 1);
             self.questTransLab.frame = CGRectMake(5, self.questLine.bm_bottom+4, model.translatSize.width, model.translatSize.height);
         }
-        self.questTransBtn.frame = CGRectMake(self.bubbleView.bm_width-15-15, self.questLab.bm_top-5, 14+10, 14+10);
+        self.questTransBtn.frame = CGRectMake(self.bubbleView.bm_width-15-15, self.questLab.bm_top-5, 25, 25);
     }
 }
 
@@ -263,6 +280,17 @@
         [self.bubbleView addSubview:self.questLine];
     }
     return _questLine;
+}
+
+- (UIView *)answerLine
+{
+    if (!_answerLine)
+    {
+        self.answerLine = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(self.questLab.frame)+4, self.bubbleView.bm_width-2*13, 1.0)];
+        self.answerLine.backgroundColor = [UIColor bm_colorWithHexString:@"#EEEEEE"];
+        [self addSubview:self.questLine];
+    }
+    return _answerLine;
 }
 
 @end

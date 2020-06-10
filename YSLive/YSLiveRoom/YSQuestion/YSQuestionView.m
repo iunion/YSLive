@@ -67,23 +67,21 @@
     self.bottomView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     [self addSubview:self.bottomView];
     
-    self.backView = [[UIView alloc]initWithFrame:CGRectMake(kBMScale_W(20), 10, kBMScale_W(230), 30)];
-    self.backView.layer.cornerRadius = 4;
-    self.backView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
-    [self.bottomView addSubview:self.backView];
-    
-    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(271), 8, kBMScale_W(96), 34)];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton"] forState:UIControlStateNormal];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
-    
+    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 70 - 20, 10, 70, 34)];
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
     [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
     [self.sendBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    self.sendBtn.titleLabel.font = UI_FONT_14;
     self.sendBtn.layer.cornerRadius = 4;
-//    [self.sendBtn bm_roundedRect:17.0f borderWidth:3.0f borderColor:[UIColor bm_colorWithHex:0x97B7EB]];
     [self.sendBtn addTarget:self action:@selector(sendButtonClick) forControlEvents:(UIControlEventTouchUpInside)];
     [self.bottomView addSubview:self.sendBtn];
     
+    
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(20, 10, self.sendBtn.bm_originX - 20 - 15, 34)];
+    self.backView.layer.cornerRadius = 4;
+    self.backView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
+    [self.bottomView addSubview:self.backView];
+        
     self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(5, 0, self.backView.bm_width-10, 30)];
     self.inputView.backgroundColor = UIColor.clearColor;
     self.inputView.textColor = [UIColor bm_colorWithHex:0x828282];
@@ -94,11 +92,10 @@
     self.placeholdLab.text = YSLocalized(@"Alert.WriteQuest");
     self.placeholdLab.textColor = [UIColor bm_colorWithHex:0x828282];
     self.placeholdLab.font = UI_FONT_14;
-    //    self.placeholdLab.backgroundColor = UIColor.redColor;
     [self.inputView addSubview:self.placeholdLab];
     
     self.maskView = [[UIView alloc]initWithFrame:self.bottomView.bounds];
-    self.maskView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC  alpha:0.6];
+    self.maskView.backgroundColor = [YSSkinDefineColor(@"blackColor ") changeAlpha:0.3];
     [self.bottomView addSubview:self.maskView];
     
     if (![YSLiveManager shareInstance].isBeginClass)

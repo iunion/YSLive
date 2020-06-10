@@ -494,7 +494,7 @@
 		<key>iconNor</key>
 		<string>liveChat_emotionDelete_skin</string>
 		<key>iconSel</key>
-		<string></string>
+		<string>liveChat_emotionDeletePush_skin</string>
 	</dict>
 	<key>login_topImage</key>
 	<dict>
