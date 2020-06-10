@@ -218,16 +218,15 @@
                     {
                         
                         BMWeakSelf
-                        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLoginLocalized(@"EyeProtection.AlertTitle") message:YSLoginLocalized(@"EyeProtection.AlertMsg") preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalizedSchool(@"Alert.prompt") message:YSLocalizedSchool(@"Alert.passwordSucceed") preferredStyle:UIAlertControllerStyleAlert];
                         
-                        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLoginLocalized(@"EyeProtection.Btnsetup") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalizedSchool(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             [[YSSchoolUser shareInstance] clearUserdata];
                             [GetAppDelegate logoutOnlineSchool];
                         }];
 
                         [alertVc addAction:confimAc];
                         [self presentViewController:alertVc animated:YES completion:nil];
-                        
                         
                     }
                     else
