@@ -508,6 +508,19 @@
 		<key>iconSel</key>
 		<string>liveChat_emotionDeletePush_skin</string>
 	</dict>
+	<key>live_raiseHand_time</key>
+	<dict>
+		<key>iconNor</key>
+		<string>live_raiseHand_student_skin</string>
+		<key>iconSel</key>
+		<string>live_raiseHand_studentDown_skin</string>
+		<key>iconNor1</key>
+		<string>live_raiseHand_Time _1_skin</string>
+		<key>iconNor2</key>
+		<string>live_raiseHand_Time _2_skin</string>
+		<key>iconNor3</key>
+		<string>live_raiseHand_Time _3_skin</string>
+	</dict>
 	<key>login_topImage</key>
 	<dict>
 		<key>tittleColor</key>
@@ -861,32 +874,16 @@
 		<key>iconSel</key>
 		<string>raiseHand_student_skin</string>
 	</dict>
-	<key>raiseHand_time_1</key>
+	<key>raiseHand_time</key>
 	<dict>
 		<key>bgColor</key>
 		<string></string>
-		<key>iconNor</key>
+		<key>iconNor1</key>
 		<string>raiseHand_Time _1_skin</string>
-		<key>iconSel</key>
-		<string></string>
-	</dict>
-	<key>raiseHand_time_2</key>
-	<dict>
-		<key>bgColor</key>
-		<string></string>
-		<key>iconNor</key>
+		<key>iconNor2</key>
 		<string>raiseHand_Time _2_skin</string>
-		<key>iconSel</key>
-		<string></string>
-	</dict>
-	<key>raiseHand_time_3</key>
-	<dict>
-		<key>bgColor</key>
-		<string></string>
-		<key>iconNor</key>
+		<key>iconNor3</key>
 		<string>raiseHand_Time _3_skin</string>
-		<key>iconSel</key>
-		<string></string>
 	</dict>
 	<key>raiseHand_platform</key>
 	<dict>

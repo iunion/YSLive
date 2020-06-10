@@ -107,7 +107,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 /// 视频View列表
 @property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoViewArray;
 
-
 /// 返回按钮
 @property (nonatomic, strong) UIButton *returnBtn;
 /// 房间号
@@ -124,7 +123,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 /// 白板视频标注视图
 @property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
-
 
 @property (nonatomic, strong) YSLessonView *lessonView;
 @property (nonatomic, strong) NSMutableArray *lessonDataSource;
@@ -162,14 +160,17 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 @property (nonatomic, strong) NSString *roomVideoPeerID;
 /// 是否正在播放视频
 @property (nonatomic, assign) BOOL showRoomVideo;
-/// 上麦按钮
-//@property (nonatomic, strong) UIButton *upPlatformBtn;
 
 ///私聊列表
 @property (nonatomic, strong) NSMutableArray<YSRoomUser *>  *memberList;
 
 /// 举手按钮
 @property(nonatomic,strong) UIButton *raiseHandsBtn;
+
+/// 举手按钮上的倒计时蒙版
+@property(nonatomic,strong)UIImageView * raiseMaskImage;
+/// 举手请长按的提示
+@property(nonatomic,strong)UILabel *remarkLab;
 
 /// 控制自己音视频的按钮的蒙版
 @property(nonatomic,strong) UIView * controlBackMaskView ;
@@ -2722,9 +2723,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.roomIDLabel.frame = CGRectMake(25, 0, 26, 120);
                 self.roomIDLabel.bm_bottom = self.returnBtn.bm_top - 7;
                 
-                
-                //self.barrageManager.renderView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                //self.barrageManager.renderView.frame = CGRectMake(55, 0, UI_SCREEN_WIDTH - 70 - 55, UI_SCREEN_HEIGHT);
                 self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-55);
                 //self.barrageManager.renderView.hidden = NO;
                 
@@ -2733,10 +2731,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 
                 self.barrageBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 self.barrageBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40, CGRectGetMaxY(self.fullScreenBtn.frame) + 10, 40, 40);
-                
-                //                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                //                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 - 20 ,self.fullScreenBtn.bm_bottom + 15, 40, 40);
-                
+
                 self.playMp3ImageView.bm_origin = CGPointMake(BMUI_SCREEN_WIDTH - 70 , BMUI_SCREEN_HEIGHT - BMUI_STATUS_BAR_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 15);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-80];
@@ -2828,14 +2823,44 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     if (!_raiseHandsBtn)
     {
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom+15, 40, 40)];
+        CGFloat raiseHandWH = 40;
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom+15, raiseHandWH, raiseHandWH)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
-        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"studentNormalHand"] forState:UIControlStateNormal];
-        [self.raiseHandsBtn setImage:[UIImage imageNamed:@"handSelected"] forState:UIControlStateHighlighted];
-        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchDown];
+        [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconNor") forState:UIControlStateNormal];
+        [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconSel") forState:UIControlStateHighlighted];
+
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        [self.raiseHandsBtn addTarget:self action:@selector(downHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-        self.raiseHandsBtn.hidden = YES;
+        //button长按事件
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLongTouch:)];
+        longPress.minimumPressDuration = 0.5; //定义按的时间
+        [self.raiseHandsBtn addGestureRecognizer:longPress];
+
+        UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:self.raiseHandsBtn.frame];
+        raiseMaskImage.animationImages = @[YSSkinElementImage(@"live_raiseHand_time", @"iconNor3"),YSSkinElementImage(@"live_raiseHand_time", @"iconNor2"),YSSkinElementImage(@"live_raiseHand_time", @"iconNor1")];
+        raiseMaskImage.animationDuration = 3.0;
+        raiseMaskImage.animationRepeatCount = 0;
+        self.raiseMaskImage = raiseMaskImage;
+        [self.view addSubview:raiseMaskImage];
+        raiseMaskImage.userInteractionEnabled = NO;
+        raiseMaskImage.hidden = YES;
+        
+        NSString * tipStr = YSLocalized(@"Label.RaisingHandsTip");
+        CGFloat tipStrWidth=[tipStr boundingRectWithSize:CGSizeMake(1000, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10]} context:nil].size.width;
+        
+        UILabel * remarkLab = [[UILabel alloc]initWithFrame:CGRectMake(self.raiseHandsBtn.bm_originX - tipStrWidth - 15 - 5, 0, tipStrWidth + 15, 16)];
+        remarkLab.bm_centerY = self.raiseHandsBtn.bm_centerY;
+        remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
+        remarkLab.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        remarkLab.font = UI_FONT_10;
+        remarkLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+        remarkLab.textAlignment = NSTextAlignmentCenter;
+        remarkLab.layer.cornerRadius = 16/2;
+        remarkLab.layer.masksToBounds = YES;
+        remarkLab.hidden = YES;
+        [self.view addSubview:remarkLab];
+        self.remarkLab = remarkLab;
+        
     }
     return _raiseHandsBtn;
 }
@@ -2846,8 +2871,40 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.raiseHandsBtn.hidden = NO;
 }
 
-///举手
+
+///点击举手按钮
 - (void)raiseHandsButtonClick:(UIButton *)sender
+{
+    [self raiseHandsButtonTouchDown];
+    self.remarkLab.hidden = NO;
+    self.raiseMaskImage.hidden = NO;
+    [self.raiseMaskImage startAnimating];
+    self.raiseHandsBtn.hidden = YES;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.raiseMaskImage stopAnimating];
+        self.remarkLab.hidden = YES;
+        self.raiseMaskImage.hidden = YES;
+        self.raiseHandsBtn.hidden = NO;
+        [self raiseHandsButtonTouchUp];
+    });
+}
+
+//长按举手按钮
+- (void)raiseHandsBtnLongTouch:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
+        [self raiseHandsButtonTouchDown];
+    }
+    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        [self raiseHandsButtonTouchUp];
+    }
+}
+
+///举手
+- (void)raiseHandsButtonTouchDown
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
@@ -2855,7 +2912,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 }
 
 ///取消举手
-- (void)downHandsButtonClick:(UIButton *)sender
+- (void)raiseHandsButtonTouchUp
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];

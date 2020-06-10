@@ -10,12 +10,14 @@
 
 static YSSkinManager *skinManager = nil;
 
-#define YSSkinBundleName    @"YSSkinRsource.bundle"
+#define YSSkinBundleName    (self.classOrOnline == YSSkinClassOrOnline_class)?@"YSSkinRsource.bundle": @"YSOnlineSchool.bundle"
 #define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
 
 @interface YSSkinManager ()
 
 @property (nonatomic, assign) YSSkinType lastSkinType;
+
+@property (nonatomic, assign) YSSkinClassOrOnline lastClassOrOnline;
 
 @property (nonatomic, strong) NSDictionary *plictDict;
 
@@ -38,31 +40,45 @@ static YSSkinManager *skinManager = nil;
 }
 
 /// 获取plist文件中的数据
-- (NSDictionary *)getPliatDictionary
+- (NSDictionary *)getPliatDictionaryWithType:(YSSkinClassOrOnline)classOrOnline
 {
-    if (self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
+    
+    if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
     {
         NSString *path = nil;
-//        if (self.skinType == YSSkinType_original)
-//        {//原始颜色背景 （蓝）
-//            path = [YSSkinBundle pathForResource:@"OriginalColor" ofType:@"plist"];
-//        }
-//        else if (self.skinType == YSSkinType_black)
-        {//黑色背景
-            path = [YSSkinBundle pathForResource:@"BlackColor" ofType:@"plist"];
+        
+        if (classOrOnline == YSSkinClassOrOnline_class)
+        {
+            //        if (self.skinType == YSSkinType_original)
+            //        {//原始颜色背景 （蓝）
+            //            path = [YSSkinBundle pathForResource:@"OriginalColor" ofType:@"plist"];
+            //        }
+            //        else if (self.skinType == YSSkinType_black)
+                    {//黑色背景
+                        path = [YSSkinBundle pathForResource:@"BlackColor" ofType:@"plist"];
+                    }
+        }
+        else
+        {
+            //黑色背景
+            path = [YSSkinBundle pathForResource:@"onlineBlackColor" ofType:@"plist"];
         }
             
+        NSString * sss = YSSkinBundleName;
+        
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     
     self.lastSkinType = self.skinType;
+    self.lastClassOrOnline = self.classOrOnline;
     
     return self.plictDict;
 }
 
-- (UIColor *)getDefaultColorWithKey:(NSString *)key
+///默认颜色
+- (UIColor *)getDefaultColorWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
 {
-    NSDictionary *colorDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonColor"];
+    NSDictionary *colorDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonColor"];
     NSString *colorStr = [colorDict bm_stringForKey:key];
 
     UIColor *color = [UIColor bm_colorWithHexString:colorStr];
@@ -70,19 +86,23 @@ static YSSkinManager *skinManager = nil;
     return color;
 }
 
-- (UIImage *)getDefaultImageWithKey:(NSString *)key
+//默认图片
+- (UIImage *)getDefaultImageWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
 {
-    NSDictionary *imageDict = [[self getPliatDictionary] bm_dictionaryForKey:@"CommonImage"];
+    self.classOrOnline = classOrOnline;
+    NSDictionary *imageDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonImage"];
     NSString *imageName = [imageDict bm_stringForKey:key];
     
-    UIImage *image = [self getBundleImageWithImageName:imageName];
+    UIImage *image = [self getBundleImageWithType:classOrOnline WithImageName:imageName];
     
     return image;
 }
 
-- (UIColor *)getElementColorWithName:(NSString *)name andKey:(NSString *)key
+///控件颜色
+- (UIColor *)getElementColorWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
 {
-    NSDictionary *elementDict = [[self getPliatDictionary] bm_dictionaryForKey:name];
+    self.classOrOnline = classOrOnline;
+    NSDictionary *elementDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:name];
     
     if ([elementDict bm_isNotEmpty])
     {
@@ -95,33 +115,45 @@ static YSSkinManager *skinManager = nil;
     return nil;
 }
 
-- (UIImage *)getElementImageWithName:(NSString *)name andKey:(NSString *)key
+///控件图片
+- (UIImage *)getElementImageWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
 {
-    NSDictionary *elementDict = [[self getPliatDictionary] bm_dictionaryForKey:name];
+    self.classOrOnline = classOrOnline;
+    
+    NSDictionary *elementDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:name];
     
     if ([elementDict bm_isNotEmpty])
     {
         NSString *imageName = [elementDict bm_stringForKey:key];
         
-        UIImage *image =  [self getBundleImageWithImageName:imageName];
+        UIImage *image =  [self getBundleImageWithType:classOrOnline  WithImageName:imageName];
         return image;
     }
     
     return nil;
 }
 
-- (UIImage *)getBundleImageWithImageName:(NSString *)imageName
+- (UIImage *)getBundleImageWithType:(YSSkinClassOrOnline)classOrOnline WithImageName:(NSString *)imageName
 {
     NSString *imageFolder = nil;
-//    if (self.skinType == YSSkinType_original)
-//    {//原始颜色背景 （蓝）
-//        imageFolder = @"YSSkinOriginal";
-//    }
-//    else if (self.skinType == YSSkinType_black)
-    {//黑色背景
-        imageFolder = @"YSSkinBlack";
-    }
     
+    if (classOrOnline == YSSkinClassOrOnline_class)
+    {
+        //    if (self.skinType == YSSkinType_original)
+        //    {//原始颜色背景 （蓝）
+        //        imageFolder = @"YSSkinOriginal";
+        //    }
+        //    else if (self.skinType == YSSkinType_black)
+            {//黑色背景
+                imageFolder = @"YSSkinBlack";
+            }
+    }
+    else
+    {
+        //黑色背景
+        imageFolder = @"onLineSkinBlack";
+    }
+        
     UIImage *image = [YSSkinBundle bm_imageWithAssetsName:imageFolder imageName:imageName];
     return image;
 }
