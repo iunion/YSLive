@@ -147,7 +147,7 @@
         self.personListBtn = personListBtn;
         [self.btnArray addObject:self.personListBtn];
 
-        self.coursewareBtn = personListBtn;
+        self.coursewareBtn = coursewareBtn;
         [self.btnArray addObject:self.coursewareBtn];
 
         self.chatBtn = chatBtn;

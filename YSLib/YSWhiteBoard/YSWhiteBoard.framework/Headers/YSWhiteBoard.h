@@ -19,6 +19,8 @@ FOUNDATION_EXPORT const unsigned char YSWhiteBoardVersionString[];
 #import <BMKit/BMKit.h>
 #import <YSRoomSDK/YSRoomSDK.h>
 
+#import "YSWhiteBoardSkinManager.h"
+
 #import "YSWhiteBoardMacro.h"
 #import "YSWhiteBoardDefines.h"
 #import "YSWhiteBoardEnum.h"

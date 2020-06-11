@@ -191,7 +191,7 @@
 "Title.AroundLayout"        = "平鋪佈局";
 "Title.VideoLayout"         = "綜合佈局";
 "Title.Polling"             = "輪播";
-"Title.AllNoAudio"          = "全體禁音";
+"Title.AllNoAudio"          = "全體静音";
 "Title.AllAudio"            = "取消靜音";
 "Title.Message"             = "消息";
 "Title.Exit"                = "退出";

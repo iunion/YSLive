@@ -50,8 +50,8 @@
     [self addSubview:playBtn];
 
     self.playBtn = playBtn;
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_media_play_Selected"] forState:UIControlStateNormal];
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_media_play_Normal"] forState:UIControlStateSelected];
+    [playBtn setBackgroundImage:YSSkinElementImage(@"media_play", @"iconNor") forState:UIControlStateNormal];
+    [playBtn setBackgroundImage:YSSkinElementImage(@"media_play", @"iconSel") forState:UIControlStateSelected];
     [playBtn addTarget:self action:@selector(playBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -59,7 +59,7 @@
     [self addSubview:nameLabel];
     self.nameLabel = nameLabel;
     nameLabel.font = [UIFont systemFontOfSize:12];
-    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
     nameLabel.textAlignment = NSTextAlignmentLeft;
 
     
@@ -67,7 +67,7 @@
     [self addSubview:timeLabel];
     self.timeLabel = timeLabel;
     timeLabel.font = [UIFont systemFontOfSize:12];
-    timeLabel.textColor = [UIColor whiteColor];
+    timeLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
     timeLabel.textAlignment = NSTextAlignmentRight;
 
     
@@ -75,10 +75,10 @@
     [self addSubview:sliderView];
     self.sliderView = sliderView;
 //    sliderView.continuous = NO;
-    sliderView.minimumTrackTintColor = [UIColor bm_colorWithHex:0xFFE895];
-    sliderView.maximumTrackTintColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    sliderView.minimumTrackTintColor = YSSkinDefineColor(@"defaultTitleColor");
+    sliderView.maximumTrackTintColor = YSSkinDefineColor(@"mediaSliderBgColor");
 //    sliderView.thumbTintColor = [UIColor bm_colorWithHex:0x9DBEF3];
-    [sliderView setThumbImage:[UIImage imageNamed:@"scteacher_sliderView_Normal"] forState:UIControlStateNormal];
+    [sliderView setThumbImage:YSSkinElementImage(@"media_slider", @"iconNor") forState:UIControlStateNormal];
     [sliderView addTarget:self action:@selector(sliderViewChange:) forControlEvents:UIControlEventValueChanged];
     [sliderView addTarget:self action:@selector(sliderViewStart:) forControlEvents:UIControlEventTouchDown];
     [sliderView addTarget:self action:@selector(sliderViewEnd:) forControlEvents:UIControlEventTouchUpInside];

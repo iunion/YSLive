@@ -2511,6 +2511,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             case SCBottomToolBarTypeCourseware:
             {
                 //课件库
+                [self freshListViewWithSelect:isSelected];
                 if (!self.liveManager.roomConfig.isMultiCourseware)
                 {
                     self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
@@ -3958,10 +3959,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
 
     [self freshTeacherPersonListData];
-    
+       
+    self.spreadBottomToolBar.isBeginClass = YES;
     /// 学生上课后 切换摄像头按钮不可点击（有视频流以后才可以切换）
     self.spreadBottomToolBar.isCameraEnable = NO;
-    
+
     for (YSRoomUser *roomUser in self.liveManager.userList)
     {
 #if 0
@@ -5285,6 +5287,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         popover.sourceView = videoView.sourceView;
         popover.sourceRect = videoView.sourceView.bounds;
+        if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+        {
+            popover.sourceView = videoView;
+            popover.sourceRect = videoView.bounds;
+        }
     }
     else
     {

@@ -5310,11 +5310,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
-    if (self.videoViewArray.count <= 2 || [self.foucePeerId isEqualToString:videoView.roomUser.peerID])
+    if ( self.videoViewArray.count <= 2 || [self.foucePeerId isEqualToString:videoView.roomUser.peerID])
     {
         /// 1.视频数小于等于2  2.videoView为焦点视频时
         popover.sourceView = videoView.sourceView;
         popover.sourceRect = videoView.sourceView.bounds;
+        if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+        {
+            popover.sourceView = videoView;
+            popover.sourceRect = videoView.bounds;
+        }
     }
     else
     {

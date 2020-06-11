@@ -31,6 +31,10 @@
 		26215A7623C7130600D6730B /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26215A7523C7130600D6730B /* YSSliderSuperView.m */; };
 		26262AF22386972C005B9F27 /* SCAnswerTBHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26262AF12386972C005B9F27 /* SCAnswerTBHeaderView.m */; };
 		2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
+		263023792491E11900D7BB73 /* YSWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 263023772491E11900D7BB73 /* YSWhiteBoardSkin.bundle */; };
+		2630237A2491E11900D7BB73 /* YSWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 263023772491E11900D7BB73 /* YSWhiteBoardSkin.bundle */; };
+		2630237B2491E11900D7BB73 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 263023782491E11900D7BB73 /* YSWhiteBoardResources.bundle */; };
+		2630237C2491E11900D7BB73 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 263023782491E11900D7BB73 /* YSWhiteBoardResources.bundle */; };
 		26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE223B4BB9A004B8366 /* SCTeacherListView.m */; };
 		26355BE623B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE523B4C550004B8366 /* SCTeacherPersonListCell.m */; };
 		26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE923B4C58E004B8366 /* SCTeacherCoursewareListCell.m */; };
@@ -386,7 +390,6 @@
 		8717E33B2400DADC008C4CDA /* YSOnlineSchool.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */; };
 		8717E33C2400DADC008C4CDA /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045CF51123C828B6008F474E /* YSMeetingResources.bundle */; };
 		8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87981DB623C57FC500DA0276 /* BMKitImage.xcassets */; };
-		8717E33E2400DADC008C4CDA /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DA723C57CBB00DA0276 /* YSWhiteBoardResources.bundle */; };
 		8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B13A2371720600A43607 /* testalignsight_icon@2x.png */; };
 		8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7C823EC32F2002002BF /* YSClassInstructionCell.xib */; };
 		8717E3442400DADC008C4CDA /* testgpsmoker_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8701B15A2371720600A43607 /* testgpsmoker_icon@2x.png */; };
@@ -759,7 +762,6 @@
 		8783304B24874C4400F1178E /* FLEXKeyboardHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87832F0624874C4300F1178E /* FLEXKeyboardHelpViewController.m */; };
 		878D983123A0C6530007FBBA /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D983023A0C6530007FBBA /* libresolv.tbd */; };
 		8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8790DBEB238D282A005C0BC7 /* YSResources.bundle */; };
-		87981DAA23C57CBB00DA0276 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DA723C57CBB00DA0276 /* YSWhiteBoardResources.bundle */; };
 		87981DAB23C57CBB00DA0276 /* YSWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87981DA823C57CBB00DA0276 /* YSWhiteBoardImage.xcassets */; };
 		87981DAC23C57CBB00DA0276 /* YSWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DA923C57CBB00DA0276 /* YSWhiteBoard.framework */; };
 		87981DB123C57CC300DA0276 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DAE23C57CC300DA0276 /* BMKit.framework */; };
@@ -865,6 +867,8 @@
 		26262AF12386972C005B9F27 /* SCAnswerTBHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAnswerTBHeaderView.m; sourceTree = "<group>"; };
 		2626447423C57AC300317DAE /* YSMp3Controlview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMp3Controlview.h; sourceTree = "<group>"; };
 		2626447523C57AC300317DAE /* YSMp3Controlview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMp3Controlview.m; sourceTree = "<group>"; };
+		263023772491E11900D7BB73 /* YSWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		263023782491E11900D7BB73 /* YSWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardResources.bundle; sourceTree = "<group>"; };
 		26355BD723B4ACB3004B8366 /* YSControlPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSControlPopoverView.h; sourceTree = "<group>"; };
 		26355BE123B4BB9A004B8366 /* SCTeacherListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTeacherListView.h; sourceTree = "<group>"; };
 		26355BE223B4BB9A004B8366 /* SCTeacherListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTeacherListView.m; sourceTree = "<group>"; };
@@ -1514,7 +1518,6 @@
 		87832F0724874C4300F1178E /* FLEXKeyboardShortcutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXKeyboardShortcutManager.h; sourceTree = "<group>"; };
 		878D983023A0C6530007FBBA /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		8790DBEB238D282A005C0BC7 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
-		87981DA723C57CBB00DA0276 /* YSWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardResources.bundle; sourceTree = "<group>"; };
 		87981DA823C57CBB00DA0276 /* YSWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSWhiteBoardImage.xcassets; sourceTree = "<group>"; };
 		87981DA923C57CBB00DA0276 /* YSWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSWhiteBoard.framework; sourceTree = "<group>"; };
 		87981DAE23C57CC300DA0276 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
@@ -3324,7 +3327,8 @@
 		87981DA623C57CBB00DA0276 /* YSWhiteBoard */ = {
 			isa = PBXGroup;
 			children = (
-				87981DA723C57CBB00DA0276 /* YSWhiteBoardResources.bundle */,
+				263023782491E11900D7BB73 /* YSWhiteBoardResources.bundle */,
+				263023772491E11900D7BB73 /* YSWhiteBoardSkin.bundle */,
 				87981DA823C57CBB00DA0276 /* YSWhiteBoardImage.xcassets */,
 				87981DA923C57CBB00DA0276 /* YSWhiteBoard.framework */,
 			);
@@ -3804,12 +3808,12 @@
 				87133669237270F6006534A4 /* Assets.xcassets in Resources */,
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
+				2630237B2491E11900D7BB73 /* YSWhiteBoardResources.bundle in Resources */,
 				87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */,
 				8777C7DA23EE96EC002002BF /* YSOnlineSchool.bundle in Resources */,
 				0464CE972477CD35001532A3 /* YSSkinRsource.bundle in Resources */,
 				045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */,
 				87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */,
-				87981DAA23C57CBB00DA0276 /* YSWhiteBoardResources.bundle in Resources */,
 				87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */,
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
 				8777C7CA23EC32F2002002BF /* YSClassInstructionCell.xib in Resources */,
@@ -3821,6 +3825,7 @@
 				871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */,
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
+				263023792491E11900D7BB73 /* YSWhiteBoardSkin.bundle in Resources */,
 				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
 				87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */,
 			);
@@ -3833,12 +3838,12 @@
 				8709FF392485FEBC00CC8BEA /* YSSkinRsource.bundle in Resources */,
 				8717E3382400DADC008C4CDA /* YSResources.bundle in Resources */,
 				8717E3392400DADC008C4CDA /* BMTestNetFlowCell.xib in Resources */,
+				2630237C2491E11900D7BB73 /* YSWhiteBoardResources.bundle in Resources */,
 				8717E33A2400DADC008C4CDA /* BMDatePicker.nib in Resources */,
 				8717E33B2400DADC008C4CDA /* YSOnlineSchool.bundle in Resources */,
 				8717E33C2400DADC008C4CDA /* YSMeetingResources.bundle in Resources */,
 				8717E3732400DFD1008C4CDA /* Assets.xcassets in Resources */,
 				8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */,
-				8717E33E2400DADC008C4CDA /* YSWhiteBoardResources.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
 				8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */,
 				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
@@ -3850,6 +3855,7 @@
 				8717E3722400DFD1008C4CDA /* InfoPlist.strings in Resources */,
 				8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */,
 				8717E34B2400DADC008C4CDA /* testcolorpicker@2x.png in Resources */,
+				2630237A2491E11900D7BB73 /* YSWhiteBoardSkin.bundle in Resources */,
 				8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */,
 				8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */,
 			);
@@ -4691,7 +4697,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.9.0.1;
+				CURRENT_PROJECT_VERSION = 2.9.0.2;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4736,7 +4742,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.9.0.1;
+				CURRENT_PROJECT_VERSION = 2.9.0.2;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
