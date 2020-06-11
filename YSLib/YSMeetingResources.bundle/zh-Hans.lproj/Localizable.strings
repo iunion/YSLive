@@ -385,6 +385,7 @@
 "Label.ChatToMe" = "对我说";
 "Label.ChatList" = "私聊名单";
 "Label.Lucky" = "抽奖中...";
+"Label.LuckyResult" = "获奖名单";
 "Label.TeacherState" = "主持人已进入房间，请稍候";
 "Label.AnchorState" = "主播已进入房间，请稍候";
 
