@@ -5285,6 +5285,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         popover.sourceView = videoView.sourceView;
         popover.sourceRect = videoView.sourceView.bounds;
+        if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+        {
+            popover.sourceView = videoView;
+            popover.sourceRect = videoView.bounds;
+        }
     }
     else
     {
