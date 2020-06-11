@@ -216,8 +216,6 @@
                     NSInteger resquestCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
                     if (resquestCode == YSSuperVC_StatusCode_Succeed)
                     {
-                        
-                        BMWeakSelf
                         UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalizedSchool(@"Alert.prompt") message:YSLocalizedSchool(@"Alert.passwordSucceed") preferredStyle:UIAlertControllerStyleAlert];
                         
                         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalizedSchool(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -227,7 +225,6 @@
 
                         [alertVc addAction:confimAc];
                         [self presentViewController:alertVc animated:YES completion:nil];
-                        
                     }
                     else
                     {
