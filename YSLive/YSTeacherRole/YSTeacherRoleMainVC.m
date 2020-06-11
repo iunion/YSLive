@@ -3432,27 +3432,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)calculateFloatVideoSize
 {
-    CGFloat width;
-    CGFloat height;
-    
     // 在此调整视频大小和屏幕比例关系
+    CGFloat scale = 0.0;
     if (self.isWideScreen)
     {
-        width = ceil(self.contentWidth / 25) * 9;
-        NSString *heightStr = [NSString stringWithFormat:@"%.2f",width*9 / 16];
-        height = [heightStr floatValue];
+        scale = 16.0/9.0;
     }
     else
     {
-        width = ceil(self.contentWidth*5 / 21);
-        NSString *heightStr = [NSString stringWithFormat:@"%.2f",width*3 / 4];
-        height = [heightStr floatValue];
+        scale = 4.0/3.0;
     }
-    
     /// 悬浮默认视频宽(拖出和共享)
-    floatVideoDefaultWidth = width;
+    floatVideoDefaultWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
     /// 悬浮默认视频高(拖出和共享)
-    floatVideoDefaultHeight = height;
+    floatVideoDefaultHeight = ceil(floatVideoDefaultWidth / scale);
 }
 
 // 放回视频
@@ -3559,13 +3552,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
     _isMp4Play = NO;
-    //self.shareVideoFloatView.frame = CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight);
-    //[self.shareVideoFloatView stayMove];
     
     [self.liveManager.roomManager playScreen:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
     }];
-    
-    //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;
