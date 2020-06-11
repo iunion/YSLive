@@ -1137,7 +1137,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!_raiseHandsBtn)
     {
         
-        CGFloat raiseHandWH = 35;
+        CGFloat raiseHandWH = 40;
         CGFloat raiseHandRight = 10;
         
         CGFloat labBottom = 12;
@@ -1149,6 +1149,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - raiseHandWH - 20, raiseHandWH, raiseHandWH)];
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconNor") forState:UIControlStateNormal];
+        [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateSelected];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateHighlighted];
         [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.raiseHandsBtn.hidden = YES;
@@ -1194,16 +1195,20 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
         [self raiseHandsButtonTouchDown];
+        self.remarkLab.text  = YSLocalized(@"Label.RaisingHandsClickTip");
+        self.remarkLab.hidden = NO;
     }
     else if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
         [self raiseHandsButtonTouchUp];
+        self.remarkLab.hidden = YES;
     }
 }
 ///点击
 - (void)raiseHandsButtonClick:(UIButton *)sender
 {
     [self raiseHandsButtonTouchDown];
+    self.remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
     self.remarkLab.hidden = NO;
     self.raiseMaskImage.hidden = NO;
     [self.raiseMaskImage startAnimating];
@@ -1224,6 +1229,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+    
+    self.raiseHandsBtn.selected = YES;
 }
 
 ///取消举手
@@ -1231,6 +1238,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
         [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    self.raiseHandsBtn.selected = NO;
 }
 
 
@@ -1258,7 +1266,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            
             num = count/2 + count%2;
             totalWidth = num * (videoWidth + VIDEOVIEW_GAP/2);
         }

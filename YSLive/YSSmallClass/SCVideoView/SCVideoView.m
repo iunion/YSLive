@@ -308,7 +308,7 @@
 //    self.cupImage.backgroundColor = UIColor.redColor;
     
     //奖杯个数
-    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 10)];
+    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 15)];
 //    self.cupNumLab.backgroundColor = UIColor.greenColor;
     self.cupNumLab.font = UI_FONT_14;
     self.cupNumLab.text = @"× 0";

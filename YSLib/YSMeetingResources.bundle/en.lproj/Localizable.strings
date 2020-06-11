@@ -284,7 +284,8 @@
 "Label.Authorized" = "Operation";
 "Label.CancelAuthorized" = "No Operation";
 "Label.RaisingHands" = "Raising hands";
-"Label.RaisingHandsTip" = "hold on for rise hand";
+"Label.RaisingHandsTip" = "Hold on for rise hand";
+"Label.RaisingHandsClickTip" = "Raising Hands";
 "Label.Ban" = "Ban";
 "Label.Remove" = "Remove";
 

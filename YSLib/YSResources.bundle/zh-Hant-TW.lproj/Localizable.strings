@@ -286,6 +286,7 @@
 "Label.CancelAuthorized" = "取消授權";
 "Label.RaisingHands" = "舉手";
 "Label.RaisingHandsTip" = "舉手請長按";
+"Label.RaisingHandsClickTip" = "舉手中";
 "Label.Ban" = "禁言";
 "Label.Remove" = "移除";
 
