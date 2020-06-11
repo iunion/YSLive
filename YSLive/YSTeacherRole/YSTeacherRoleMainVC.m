@@ -687,12 +687,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark - 举手上台的UI
 - (void)setupHandView
 {
-    CGFloat raiseHandWH = 35;
+    CGFloat raiseHandWH = 30;
     CGFloat raiseHandRight = 10;
     
     CGFloat labBottom = 12;
     if ([UIDevice bm_isiPad])
     {
+        raiseHandWH = 40;
         raiseHandRight = 20;
         labBottom = 20;
     }

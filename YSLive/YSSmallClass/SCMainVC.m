@@ -1137,12 +1137,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!_raiseHandsBtn)
     {
         
-        CGFloat raiseHandWH = 40;
+        CGFloat raiseHandWH = 30;
         CGFloat raiseHandRight = 10;
         
         CGFloat labBottom = 12;
         if ([UIDevice bm_isiPad])
         {
+            raiseHandWH = 40;
             raiseHandRight = 20;
             labBottom = 20;
         }
@@ -1154,13 +1155,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.raiseHandsBtn.hidden = YES;
                 
+                
         //button长按事件
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLongTouch:)];
         longPress.minimumPressDuration = 0.5; //定义按的时间
         [self.raiseHandsBtn addGestureRecognizer:longPress];
         
 
-        UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, raiseHandWH, raiseHandWH)];
+        UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:self.raiseHandsBtn.bounds];
         raiseMaskImage.animationImages = @[YSSkinElementImage(@"raiseHand_time", @"iconNor3"),YSSkinElementImage(@"raiseHand_time", @"iconNor2"),YSSkinElementImage(@"raiseHand_time", @"iconNor1")];
         raiseMaskImage.animationDuration = 3.0;
         raiseMaskImage.animationRepeatCount = 0;
@@ -1168,7 +1170,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.raiseHandsBtn addSubview:raiseMaskImage];
         raiseMaskImage.userInteractionEnabled = NO;
         raiseMaskImage.hidden = YES;
-        
+        self.raiseMaskImage;
         
         NSString * tipStr = YSLocalized(@"Label.RaisingHandsTip");
         CGFloat tipStrWidth=[tipStr boundingRectWithSize:CGSizeMake(1000, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10]} context:nil].size.width;
