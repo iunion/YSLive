@@ -3224,12 +3224,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
          [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         
         CGFloat percentLeft = 0;
-        if (self.contentWidth != videoView.bm_width)
+        if (background.bm_width != videoView.bm_width && background.bm_width != (videoView.bm_width + 2) )
         {
-            percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(self.contentWidth - 2 - videoView.bm_width);
+            percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(background.bm_width - 2 - videoView.bm_width);
+        }
+        else
+        {
+            percentLeft = 0.00;
         }
         CGFloat percentTop = 0;
-        if (background.bm_height != videoView.bm_height)
+        if (background.bm_height != videoView.bm_height && background.bm_height != (videoView.bm_height + 2))
         {
             if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
             {
@@ -3248,24 +3252,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                percentTop = (self.videoOriginInSuperview.y+endPoint.y)/background.bm_height;
+                percentTop = 0;
             }
         }
         
         CGFloat videoEndX = self.videoOriginInSuperview.x+endPoint.x;
         CGFloat videoEndY = self.videoOriginInSuperview.y+endPoint.y;
         
-        if (percentLeft>1)
+        if (percentLeft > 1)
         {
             percentLeft = 1.00;
-            videoEndX = self.contentWidth - 2 - videoView.bm_width;
+            videoEndX = background.bm_width - 2 - videoView.bm_width;
         }
         else if (percentLeft<0)
         {
             percentLeft = 0.00;
             videoEndX = 1;
         }
-        if (percentTop>1)
+        if (percentTop > 1)
         {
             percentTop = 1.00;
             videoEndY = background.bm_height - 2 - videoView.bm_height;
@@ -3273,16 +3277,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         if (self.isWhitebordFullScreen || !self.shareVideoFloatView.hidden)
         {//课件全屏
-            if (percentTop<0)
+            if (percentTop <= 0)
             {
-                percentTop = 0;
+                percentTop = 0.;
                 videoEndY = 1;
             }
             [self showDragOutFullTeacherVidoeViewWithPeerId:nil videoX:videoEndX videoY:videoEndY];
         }
         else
         {//不全屏
-            if (percentTop<0)
+            if (percentTop < 0)
             {
                 NSDictionary * data = @{
                     @"isDrag":@0,
@@ -3297,6 +3301,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
+                if (percentTop == 0)
+                {
+                    videoEndY = 1;
+                }
+                if (percentLeft == 0)
+                {
+                    videoEndX = 1;
+                }
+                                
                 NSDictionary * data = @{
                     @"isDrag":@1,
                     @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
