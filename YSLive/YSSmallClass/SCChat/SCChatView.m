@@ -148,7 +148,7 @@ UITextFieldDelegate
     }
     
     CGFloat textBtnX = 15;
-    CGFloat textBtnW = self.bm_width - 15;
+    CGFloat textBtnW = self.bm_width - 15 - 15;
     
     if (YSCurrentUser.role == YSUserType_Teacher)
     {
@@ -207,14 +207,15 @@ UITextFieldDelegate
            
     if (YSCurrentUser.role != YSUserType_Teacher)
     {
-        self.textBtn.userInteractionEnabled = !allDisabled;
         if (allDisabled)
         {
             self.textBtn.alpha = 0.4;
+            [self.textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Prompt.BanChat")] forState:UIControlStateNormal];
         }
         else
         {
             self.textBtn.alpha = 1.0;
+            [self.textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
         }
     }
     else
@@ -225,6 +226,11 @@ UITextFieldDelegate
 
 - (void)textFieldDidChange
 {
+    if (self.allDisabled)
+    {
+        return;
+    }
+    
     if (_textBtnClick)
     {
         _textBtnClick();
