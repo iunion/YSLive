@@ -381,6 +381,7 @@
 "Label.ChatToMe" = "chat to me";
 "Label.ChatList" = "Private chat list";
 "Label.Lucky" = "Luckying...";
+"Label.LuckyResult" = "List of awards";
 "Label.TeacherState" = "Host entered room, please wait";
 "Label.AnchorState" = "Lecturer entered room, please wait";
 
