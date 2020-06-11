@@ -2509,6 +2509,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             case SCBottomToolBarTypeCourseware:
             {
                 //课件库
+                [self freshListViewWithSelect:isSelected];
                 if (!self.liveManager.roomConfig.isMultiCourseware)
                 {
                     self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
