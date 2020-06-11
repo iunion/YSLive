@@ -131,16 +131,7 @@
     [stateToolView addSubview:roomIDL];
     roomIDL.adjustsFontSizeToFitWidth = YES;
     self.roomIDL.frame = CGRectMake(10, 0, 150, STATETOOLBAR_HEIGHT);
-    
-    /// 信号
-//    UILabel *signalStateL = [[UILabel alloc] init];
-//    signalStateL.textColor = YSSkinDefineColor(@"defaultTitleColor");
-//    signalStateL.textAlignment = NSTextAlignmentLeft;
-//    signalStateL.font = [UIFont systemFontOfSize:fontSize];
-//    self.signalStateL = signalStateL;
-//    [stateToolView addSubview:signalStateL];
-//    signalStateL.adjustsFontSizeToFitWidth = YES;
-    
+
     /// time
     UILabel *timeL = [[UILabel alloc] init];
     timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
@@ -151,7 +142,6 @@
     timeL.adjustsFontSizeToFitWidth = YES;
     self.timeL.frame = CGRectMake(0, 0, 90, STATETOOLBAR_HEIGHT);
     self.timeL.bm_centerX = stateToolView.bm_centerX;
-    
 }
 
 // 底部工具栏

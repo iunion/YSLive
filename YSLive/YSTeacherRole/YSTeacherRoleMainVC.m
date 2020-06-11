@@ -3228,10 +3228,28 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(self.contentWidth - 2 - videoView.bm_width);
         }
         CGFloat percentTop = 0;
-        if (background.bm_height != videoView.bm_height) {
-            percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(background.bm_height - 2 - videoView.bm_height);
+        if (background.bm_height != videoView.bm_height)
+        {
+            if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
+            {
+                percentTop = -1;
+            }
+            else
+            {
+                percentTop = (self.videoOriginInSuperview.y+endPoint.y)/(background.bm_height - 2 - videoView.bm_height);
+            }
         }
-        
+        else
+        {
+            if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
+            {
+                percentTop = -1;
+            }
+            else
+            {
+                percentTop = (self.videoOriginInSuperview.y+endPoint.y)/background.bm_height;
+            }
+        }
         
         CGFloat videoEndX = self.videoOriginInSuperview.x+endPoint.x;
         CGFloat videoEndY = self.videoOriginInSuperview.y+endPoint.y;
