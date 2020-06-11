@@ -54,15 +54,15 @@ static NSString *const YSWhiteBoard_domain_demoali = @"rddocdemo.roadofcloud.net
 static  NSString *const sWhiteboardID           = @"whiteboardID";
 #define YSDefaultWhiteBoardId                   @"default"
 
-#define YSWhiteBoard_MainBackGroudColor         [UIColor bm_colorWithHex:0xDCE2F1]
-#define YSWhiteBoard_MainBackDrawBoardBgColor   [UIColor bm_colorWithHex:0xDEEAFF]
+#define YSWhiteBoard_MainBackGroudColor         YSSkinWhiteDefineColor(@"WhiteBoardBgColor")
+#define YSWhiteBoard_MainBackDrawBoardBgColor   YSSkinWhiteDefineColor(@"WhiteBoardDrawBoardBgColor")
 
 //#define YSWhiteBoard_BackGroudColor             [UIColor bm_colorWithHex:0x6D7278]
-#define YSWhiteBoard_BackGroudColor             [UIColor bm_colorWithHex:0xDCE2F1]
-#define YSWhiteBoard_TopBarBackGroudColor       [UIColor bm_colorWithHex:0x82ABEC]
-#define YSWhiteBoard_BorderColor                [UIColor bm_colorWithHex:0x82ABEC alpha:0.8f]
-#define YSWhiteBoard_UnTopBarBackGroudColor     [UIColor bm_colorWithHex:0xB6C5EB]
-#define YSWhiteBoard_UnBorderColor              [UIColor bm_colorWithHex:0xB6C5EB alpha:0.8f]
+#define YSWhiteBoard_BackGroudColor             YSSkinWhiteDefineColor(@"WhiteBoardBgColor")
+#define YSWhiteBoard_TopBarBackGroudColor       YSSkinWhiteDefineColor(@"videoBackColor")
+#define YSWhiteBoard_BorderColor                [YSSkinWhiteDefineColor(@"videoBackColor") changeAlpha:0.8f]
+#define YSWhiteBoard_UnTopBarBackGroudColor     YSSkinWhiteDefineColor(@"whiteBoardTopbar_noCurrent")
+#define YSWhiteBoard_UnBorderColor              [YSSkinWhiteDefineColor(@"whiteBoardTopbar_noCurrent") changeAlpha:0.8f]
 
 
 #pragma - mark 用户属性

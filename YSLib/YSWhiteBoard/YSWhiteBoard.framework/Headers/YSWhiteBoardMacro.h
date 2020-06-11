@@ -13,6 +13,14 @@
 #define YSWBBUNDLE          [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:YSWBBUNDLE_NAME]]
 #define YSWBLocalized(s)    [YSWBBUNDLE localizedStringForKey:s value:@"" table:nil]
 
+//换肤
+#define YSSkinWhiteDefineColor(s) [[YSWhiteBoardSkinManager shareInstance] getDefaultColorWithKey:(s)]
+#define YSSkinWhiteDefineImage(s) [[YSWhiteBoardSkinManager shareInstance] getDefaultImageWithKey:(s)]
+
+#define YSSkinWhiteElementColor(z , s) [[YSWhiteBoardSkinManager shareInstance] getElementColorWithName:(z) andKey:(s)]
+#define YSSkinWhiteElementImage(z , s) [[YSWhiteBoardSkinManager shareInstance] getElementImageWithName:(z) andKey:(s)]
+
+
 #ifndef __OPTIMIZE__
 #define NSLog(...) NSLog(__VA_ARGS__)
 #else

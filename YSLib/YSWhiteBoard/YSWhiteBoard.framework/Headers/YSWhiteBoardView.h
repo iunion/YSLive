@@ -12,7 +12,7 @@
 #import "YSWBWebViewManager.h"
 #import "YSWhiteBoardTopBar.h"
 #import "YSCoursewareControlView.h"
-#import "YSWhiteBoardControlView.h"
+//#import "YSWhiteBoardControlView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,22 +48,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) YSWBDrawViewManager *drawViewManager;
 
 /// 小白板的topBar
-@property (nonatomic, strong)YSWhiteBoardTopBar * topBar;
+@property (nonatomic, strong) YSWhiteBoardTopBar *topBar;
 
 /// 翻页工具条
 @property (nonatomic, strong) YSCoursewareControlView *pageControlView;
 
 /// 小白板全屏时的复原，删除的工具条
-@property (nonatomic, strong) YSWhiteBoardControlView *whiteBoardControlView;
+//@property (nonatomic, strong) YSWhiteBoardControlView *whiteBoardControlView;
 
 /// 主白板的
-@property (nonatomic, strong)YSWhiteBoardView *mainWhiteBoard;
+@property (nonatomic, strong) YSWhiteBoardView *mainWhiteBoard;
 
 ///最小化时的收藏夹按钮
-@property (nonatomic, strong) UIButton * collectBtn;
+@property (nonatomic, strong) UIButton *collectBtn;
 
 ///当前的位置信令的值
-@property (nonatomic, strong) NSDictionary * positionData;
+@property (nonatomic, strong) NSDictionary *positionData;
 
 /// 是否属于当前激活课件
 @property (nonatomic, assign) BOOL isCurrent;

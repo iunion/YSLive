@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)coursewareToEnlarge;
 /// 缩小
 - (void)coursewareToNarrow;
+/// 由全屏还原的按钮
+- (void)whiteBoardfullScreenReturn;
+/// 删除按钮
+- (void)deleteWhiteBoardView;
 
 @end
 
@@ -37,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 是否全屏
 @property (nonatomic, assign) BOOL isAllScreen;
+
+/// 是否最大化
+@property (nonatomic, assign) BOOL isBoardMax;
 
 /// 是否可以翻页  (未开课前通过权限判断是否可以翻页  上课后永久不可以翻页)
 @property (nonatomic, assign) BOOL allowTurnPage;
