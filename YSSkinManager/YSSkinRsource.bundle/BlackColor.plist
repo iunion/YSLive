@@ -4,6 +4,8 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
+		<key>mediaSliderBgColor</key>
+		<string>#545454</string>
 		<key>noVideoMaskBgColor</key>
 		<string>#40424A</string>
 		<key>timer_timeBgColor</key>
@@ -1420,6 +1422,24 @@
 		<string>live_vote_single_nor_skin</string>
 		<key>iconSel</key>
 		<string>live_vote_single_sel_skin</string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>media_slider</key>
+	<dict>
+		<key>iconNor</key>
+		<string>media_slider_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>media_play</key>
+	<dict>
+		<key>iconNor</key>
+		<string>media_play_nor_skin</string>
+		<key>iconSel</key>
+		<string>media_play_sel_skin</string>
 		<key>iconDis</key>
 		<string></string>
 	</dict>
