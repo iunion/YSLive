@@ -179,10 +179,10 @@ UITextFieldDelegate
     textBtn.layer.cornerRadius = allDisableBtnWH/2;
     textBtn.layer.borderWidth = 1;  // 给图层添加一个有色边框
     textBtn.layer.borderColor = YSSkinDefineColor(@"placeholderColor").CGColor;
-    textBtn.layer.shadowColor = YSSkinDefineColor(@"placeholderColor").CGColor;
-    textBtn.layer.shadowOffset = CGSizeMake(0,2);
-    textBtn.layer.shadowOpacity = 1;
-    textBtn.layer.shadowRadius = 4;
+//    textBtn.layer.shadowColor = YSSkinDefineColor(@"placeholderColor").CGColor;
+//    textBtn.layer.shadowOffset = CGSizeMake(0,2);
+//    textBtn.layer.shadowOpacity = 1;
+//    textBtn.layer.shadowRadius = 4;
         
     self.allDisableBtn.bm_centerY = textBtn.bm_centerY;
 }

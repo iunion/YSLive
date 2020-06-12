@@ -210,7 +210,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         self.roomTextField.inputTextField.text = roomID;
     }
+    
     NSString * nickName = [YSUserDefault getLoginNickName];
+    
     if ([nickName bm_isNotEmpty])
     {
         self.nickNameTextField.inputTextField.text = nickName;
@@ -221,10 +223,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty])
     {
         self.joinRoomBtn.enabled = YES;
+        self.joinRoomBtn.alpha = 1.0;
     }
     else
     {
         self.joinRoomBtn.enabled = NO;
+        self.joinRoomBtn.alpha = 0.3;
     }
 #endif
 
@@ -768,6 +772,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         self.passOnlineTextField.inputTextField.text = @"";
         
         self.joinRoomBtn.enabled = YES;
+        self.joinRoomBtn.alpha = 1.0;
     }
     else
     {//进入教室
@@ -809,10 +814,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
         if ([roomID bm_isNotEmpty] && [nickName bm_isNotEmpty])
         {
             self.joinRoomBtn.enabled = YES;
+            self.joinRoomBtn.alpha = 1.0;
         }
         else
         {
             self.joinRoomBtn.enabled = NO;
+            self.joinRoomBtn.alpha = 0.3;
         }
     }
 }
@@ -1793,7 +1800,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSLoginLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
         [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-        [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
+//        [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
         _joinRoomBtn.titleLabel.textAlignment =  NSTextAlignmentCenter;
         _joinRoomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16);
 //        [_joinRoomBtn bm_addShadow:4.0f Radius:25.0f BorderColor:[UIColor bm_colorWithHex:0x9DB7E7] ShadowColor:[UIColor lightGrayColor]];
@@ -1801,8 +1808,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 #if USE_YSLIVE_ROOMID
         _joinRoomBtn.enabled = YES;
+        _joinRoomBtn.alpha = 1.0;
+        
 #else
         _joinRoomBtn.enabled = NO;
+        _joinRoomBtn.alpha = 0.3;
 #endif
     }
     return _joinRoomBtn;
@@ -1837,13 +1847,16 @@ typedef void (^YSRoomLeftDoBlock)(void);
         if (self.roomTextField.inputTextField.text.length > 0 && self.nickNameTextField.inputTextField.text.length > 0)
         {
             self.joinRoomBtn.enabled = YES;
+            self.joinRoomBtn.alpha = 1.0;
         }
         else
         {
 #if USE_YSLIVE_ROOMID
             self.joinRoomBtn.enabled = YES;
+            self.joinRoomBtn.alpha = 1.0;
 #else
             self.joinRoomBtn.enabled = NO;
+            self.joinRoomBtn.alpha = 0.3;
 #endif
         }
     }
