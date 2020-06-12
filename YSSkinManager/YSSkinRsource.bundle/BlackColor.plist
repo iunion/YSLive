@@ -63,6 +63,8 @@
 		<string>main_giftshow_skin</string>
 		<key>live_main_notclassbeging</key>
 		<string>live_main_notclassbeging_skin</string>
+		<key>live_main_stopvideo</key>
+		<string>live_main_stopvideo_skin</string>
 		<key>close_btn_icon</key>
 		<string>close_btn_icon_skin</string>
 		<key>cancel_btn_icon_select</key>

@@ -370,14 +370,10 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
                                 @{@"content":@"C",@"isRight":@(NO)},
                                 @{@"content":@"D",@"isRight":@(NO)}
                                 ];
-        NSArray * answerNormalImgs = @[@"sc_answer_a_normal",@"sc_answer_b_normal",@"sc_answer_c_normal",@"sc_answer_d_normal"];
-        NSArray * answerSelectedImgs = @[@"sc_answer_a_selected",@"sc_answer_b_selected",@"sc_answer_c_selected",@"sc_answer_d_selected"];
-
+        
         for (int i = 0; i < dataSource.count; i++)
         {
             NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
-            [dic setValue:answerNormalImgs[i] forKey:@"normalImgs"];
-            [dic setValue:answerSelectedImgs[i] forKey:@"selectedImgs"];
             [dic setValue:@"0" forKey:@"isselect"];
             NSString *option = dataSource[i][@"content"];
             NSString *isRight = dataSource[i][@"isRight"];
@@ -531,14 +527,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         return;
     }
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
-   
-    NSString *normalImgs  = [NSString stringWithFormat:@"sc_answer_%c_normal",(int)self.answerIngArr.count + 97];
-    [dic setValue:normalImgs forKey:@"normalImgs"];
-    
-    NSString *selectedImgs  = [NSString stringWithFormat:@"sc_answer_%c_selected",(int)self.answerIngArr.count + 97];
-    [dic setValue:selectedImgs forKey:@"selectedImgs"];
     [dic setValue:@"0" forKey:@"isselect"];
-
     NSString *option = [NSString stringWithFormat:@"%c",(int)self.answerIngArr.count + 65];
     [dic setValue:option forKey:@"option"];
     [dic setValue:@(NO) forKey:@"isRight"];

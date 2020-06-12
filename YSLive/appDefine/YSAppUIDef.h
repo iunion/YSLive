@@ -219,5 +219,5 @@
 
 #define YSToolBar_BtnWidth          ([UIDevice bm_isiPad] ? YSToolBar_BtnWidth_iPad : YSToolBar_BtnWidth_iPhone)
 
-#define YSPopViewDefaultAlpha       (0.8f)
+#define YSPopViewDefaultAlpha       (1.0f)
 #endif /* YSAppUIDef_h */

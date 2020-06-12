@@ -946,7 +946,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     }
     else
     {
-        self.liveImageView.image = [UIImage imageNamed:@"main_notclassbeging"];
+        self.liveImageView.image = YSSkinDefineImage(@"live_main_notclassbeging");
         self.liveImageView.hidden = NO;
     }
 }
