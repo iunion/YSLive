@@ -30,7 +30,7 @@
 {
     //选中标识
     self.selectImg = [[UIImageView alloc] initWithFrame:CGRectMake(30, 17, 20,20)];
-    self.selectImg.image = [UIImage imageNamed:@"member_noSelected"];
+    self.selectImg.image = YSSkinElementImage(@"chat_memberSelectBtn", @"iconNor");
     [self.contentView addSubview:_selectImg];
     
     //昵称
@@ -61,11 +61,11 @@
     _isSelected = isSelected;
     if (isSelected)
     {
-        self.selectImg.image = [UIImage imageNamed:@"member_selected"];
+        self.selectImg.image = YSSkinElementImage(@"chat_memberSelectBtn", @"iconSel");
     }
     else
     {
-        self.selectImg.image = [UIImage imageNamed:@"member_noSelected"];
+        self.selectImg.image = YSSkinElementImage(@"chat_memberSelectBtn", @"iconNor");
     }
 }
 

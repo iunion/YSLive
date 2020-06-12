@@ -168,7 +168,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 @property(nonatomic,strong) UIButton *raiseHandsBtn;
 
 /// 举手按钮上的倒计时蒙版
-@property(nonatomic,strong)UIImageView * raiseMaskImage;
+@property(nonatomic,strong)UIImageView *raiseMaskImage;
 /// 举手请长按的提示
 @property(nonatomic,strong)UILabel *remarkLab;
 
@@ -346,9 +346,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     
     [self.view addSubview:self.raiseHandsBtn];
     
-    
     [self addControlMainVideoAudioView];
-    
 }
 
 - (void)addControlMainVideoAudioView
@@ -2830,6 +2828,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconSel") forState:UIControlStateHighlighted];
 
         [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        self.raiseHandsBtn.hidden = YES;
         
         //button长按事件
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLongTouch:)];
@@ -2860,7 +2859,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         remarkLab.hidden = YES;
         [self.view addSubview:remarkLab];
         self.remarkLab = remarkLab;
-        
     }
     return _raiseHandsBtn;
 }

@@ -3279,7 +3279,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//课件全屏
             if (percentTop <= 0)
             {
-                percentTop = 0.;
+                percentTop = 0;
                 videoEndY = 1;
             }
             [self showDragOutFullTeacherVidoeViewWithPeerId:nil videoX:videoEndX videoY:videoEndY];
@@ -5420,6 +5420,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//焦点
             if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
             {
+//                if (self.videoViewArray.count < 2)
+//                {
+//                    return;
+//                }
+                
                 self.roomLayout = YSLiveRoomLayout_FocusLayout;
                 self.fouceView = self.selectControlView;
                 [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
