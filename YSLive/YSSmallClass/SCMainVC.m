@@ -255,6 +255,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 举手请长按的提示
 @property(nonatomic,strong)UILabel *remarkLab;
 
+///举手按下的时间
+@property (nonatomic, assign)double downTime;
+///举手抬起的时间
+@property (nonatomic, assign)double upTime;
+
 @property (nonatomic, strong) YSStudentResponder *responderView;
 @property (nonatomic, strong) YSStudentTimerView *studentTimerView;
 ///音频播放器
@@ -1153,15 +1158,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconNor") forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateSelected];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateHighlighted];
-        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonTouchDown) forControlEvents:UIControlEventTouchDown];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonTouchUp) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
         self.raiseHandsBtn.hidden = YES;
-                
-                
-        //button长按事件
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLongTouch:)];
-        longPress.minimumPressDuration = 0.5; //定义按的时间
-        [self.raiseHandsBtn addGestureRecognizer:longPress];
-        
 
         UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:self.raiseHandsBtn.bounds];
         raiseMaskImage.animationImages = @[YSSkinElementImage(@"raiseHand_time", @"iconNor3"),YSSkinElementImage(@"raiseHand_time", @"iconNor2"),YSSkinElementImage(@"raiseHand_time", @"iconNor1")];
@@ -1171,7 +1170,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.raiseHandsBtn addSubview:raiseMaskImage];
         raiseMaskImage.userInteractionEnabled = NO;
         raiseMaskImage.hidden = YES;
-        self.raiseMaskImage;
         
         NSString * tipStr = YSLocalized(@"Label.RaisingHandsTip");
         CGFloat tipStrWidth=[tipStr boundingRectWithSize:CGSizeMake(1000, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10]} context:nil].size.width;
@@ -1192,43 +1190,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     return _raiseHandsBtn;
 }
 
-//长按
-- (void)raiseHandsBtnLongTouch:(UILongPressGestureRecognizer *)gestureRecognizer
-{
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self raiseHandsButtonTouchDown];
-        self.remarkLab.text  = YSLocalized(@"Label.RaisingHandsClickTip");
-        self.remarkLab.hidden = NO;
-    }
-    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
-    {
-        [self raiseHandsButtonTouchUp];
-        self.remarkLab.hidden = YES;
-    }
-}
-///点击
-- (void)raiseHandsButtonClick:(UIButton *)sender
-{
-    [self raiseHandsButtonTouchDown];
-    self.remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
-    self.remarkLab.hidden = NO;
-    self.raiseMaskImage.hidden = NO;
-    [self.raiseMaskImage startAnimating];
-    self.raiseHandsBtn.userInteractionEnabled = NO;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.raiseMaskImage stopAnimating];
-        self.remarkLab.hidden = YES;
-        self.raiseMaskImage.hidden = YES;
-        self.raiseHandsBtn.userInteractionEnabled = YES;
-        [self raiseHandsButtonTouchUp];
-    });
-}
-
 ///举手
 - (void)raiseHandsButtonTouchDown
-{    
+{
+    self.remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
+    self.remarkLab.hidden = NO;
+    
+    self.downTime = [NSDate date].timeIntervalSince1970;
+    
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
@@ -1241,6 +1210,27 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
         [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    
+    self.upTime = [NSDate date].timeIntervalSince1970;
+    
+    if (self.upTime - self.downTime <= 2)
+    {
+        self.raiseMaskImage.hidden = NO;
+        [self.raiseMaskImage startAnimating];
+        self.raiseHandsBtn.userInteractionEnabled = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.raiseMaskImage stopAnimating];
+            self.remarkLab.hidden = YES;
+            self.raiseMaskImage.hidden = YES;
+            self.raiseHandsBtn.userInteractionEnabled = YES;
+        });
+    }
+    else
+    {
+        self.remarkLab.hidden = YES;
+        self.raiseMaskImage.hidden = YES;
+        self.raiseHandsBtn.userInteractionEnabled = YES;
+    }
     self.raiseHandsBtn.selected = NO;
 }
 

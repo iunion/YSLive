@@ -344,7 +344,7 @@
     [self.backVideoView addSubview:self.nickNameLab];
     
     //声音图片
-    self.soundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beSilent_SmallClassImage"]];
+    self.soundImage = [[UIImageView alloc] init];
     self.soundImage.contentMode = UIViewContentModeScaleAspectFit;
     [self.backVideoView addSubview:self.soundImage];
     
