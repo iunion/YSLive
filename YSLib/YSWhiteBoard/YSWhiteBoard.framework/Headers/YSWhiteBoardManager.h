@@ -62,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 更新服务器地址
 @property (nonatomic, assign, readonly) BOOL isUpdateWebAddressInfo;
 
+/// 白板背景色
+@property (nonatomic, strong, readonly) UIColor *whiteBordBgColor;
+
 /// 课件窗口列表
 @property (nullable, nonatomic, strong) NSMutableArray <YSWhiteBoardView *> *coursewareViewList;
 
@@ -97,10 +100,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 变更白板窗口背景色
 - (void)changeAllWhiteBoardBackgroudColor:(UIColor *)color;
-/// 变更白板画板背景色
-- (void)changeAllCourseViewBackgroudColor:(UIColor *)color;
-/// 变更白板背景图
-- (void)changeAllWhiteBoardBackImage:(nullable UIImage *)image;
 
 
 /// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
