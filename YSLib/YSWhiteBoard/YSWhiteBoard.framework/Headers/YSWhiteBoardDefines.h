@@ -54,11 +54,16 @@ static NSString *const YSWhiteBoard_domain_demoali = @"rddocdemo.roadofcloud.net
 static  NSString *const sWhiteboardID           = @"whiteboardID";
 #define YSDefaultWhiteBoardId                   @"default"
 
+/// 默认小班课白板背景颜色
 #define YSWhiteBoard_MainBackGroudColor         YSSkinWhiteDefineColor(@"WhiteBoardBgColor")
 #define YSWhiteBoard_MainBackDrawBoardBgColor   YSSkinWhiteDefineColor(@"WhiteBoardDrawBoardBgColor")
-
-//#define YSWhiteBoard_BackGroudColor             [UIColor bm_colorWithHex:0x6D7278]
 #define YSWhiteBoard_BackGroudColor             YSSkinWhiteDefineColor(@"WhiteBoardBgColor")
+
+/// 默认直播白板背景颜色
+#define YSWhiteBoard_LiveMainBackGroudColor         YSSkinWhiteDefineColor(@"LiveWhiteBoardBgColor")
+#define YSWhiteBoard_LiveMainBackDrawBoardBgColor   YSSkinWhiteDefineColor(@"LiveWhiteBoardDrawBoardBgColor")
+#define YSWhiteBoard_LiveBackGroudColor             YSSkinWhiteDefineColor(@"LiveWhiteBoardBgColor")
+
 #define YSWhiteBoard_TopBarBackGroudColor       YSSkinWhiteDefineColor(@"videoBackColor")
 #define YSWhiteBoard_BorderColor                [YSSkinWhiteDefineColor(@"videoBackColor") changeAlpha:0.8f]
 #define YSWhiteBoard_UnTopBarBackGroudColor     YSSkinWhiteDefineColor(@"whiteBoardTopbar_noCurrent")
