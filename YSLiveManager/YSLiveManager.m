@@ -2170,7 +2170,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 - (void)onRoomShareMediaState:(NSString *)peerId state:(YSMediaState)state extensionMessage:(NSDictionary *)message
 {
     
-    if (self.roomConfig.isMultiCourseware)
+    if (![self.whiteBoardManager isOneWhiteBoardView])
     {
         /// 多课件不做处理
         return;
@@ -2233,7 +2233,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 // @param isPlay 播放（YES）暂停（NO）
 - (void)onRoomUpdateMediaStream:(NSTimeInterval)duration pos:(NSTimeInterval)pos isPlay:(BOOL)isPlay
 {
-    if (self.roomConfig.isMultiCourseware)
+    if (![self.whiteBoardManager isOneWhiteBoardView])
     {
         /// 多课件不做处理
         return;

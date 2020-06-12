@@ -1425,6 +1425,19 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
+	<key>live_mp4_full</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_mp4_full_nor_skin</string>
+		<key>iconSel</key>
+		<string>live_mp4_full_sel_skin</string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
 	<key>media_slider</key>
 	<dict>
 		<key>iconNor</key>
