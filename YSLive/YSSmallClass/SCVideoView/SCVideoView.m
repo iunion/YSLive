@@ -266,7 +266,7 @@
     [maskBackView addSubview:self.maskCloseVideoBgView];
     self.maskCloseVideoBgView.hidden = YES;
 
-    self.maskCloseVideo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"closeVideo_SCVideoViewImage"]];
+    self.maskCloseVideo = [[UIImageView alloc] initWithImage:YSSkinElementImage(@"videoView_closeVideo", @"iconNor")];
     self.maskCloseVideo.contentMode = UIViewContentModeScaleAspectFit;
     [self.maskCloseVideoBgView addSubview:self.maskCloseVideo];
 

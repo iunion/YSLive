@@ -1025,6 +1025,17 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
+	<key>videoView_closeVideo</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoView_closeVideo_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
 	<key>videoView_trophyImage</key>
 	<dict>
 		<key>tittleColor</key>
@@ -1495,6 +1506,19 @@
 		<string>media_play_nor_skin</string>
 		<key>iconSel</key>
 		<string>media_play_sel_skin</string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>doubleTeacher_littleView</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>doubleTeacher_littleView_nor_skin</string>
+		<key>iconSel</key>
+		<string>doubleTeacher_littleView_sel_skin</string>
 		<key>iconDis</key>
 		<string></string>
 	</dict>

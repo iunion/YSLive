@@ -850,11 +850,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
         self.expandContractBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         [self.expandContractBtn addTarget:self action:@selector(doubleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.expandContractBtn setBackgroundImage:[UIImage imageNamed:@"LittleView_out"] forState:UIControlStateNormal];
-        [self.expandContractBtn setBackgroundImage:[UIImage imageNamed:@"LittleView_input"] forState:UIControlStateSelected];
+        [self.expandContractBtn setBackgroundImage:YSSkinElementImage(@"doubleTeacher_littleView", @"iconNor") forState:UIControlStateNormal];
+        [self.expandContractBtn setBackgroundImage:YSSkinElementImage(@"doubleTeacher_littleView", @"iconSel") forState:UIControlStateSelected];
         [self.videoBackgroud addSubview:self.expandContractBtn];
         self.expandContractBtn.tag = DoubleTeacherExpandContractBtnTag;
         self.expandContractBtn.hidden = YES;
+        
         
         [self setUp1V1DefaultVideoView];
     }
