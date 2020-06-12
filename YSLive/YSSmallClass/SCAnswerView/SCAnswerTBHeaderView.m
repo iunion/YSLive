@@ -34,8 +34,8 @@
 
 - (void)setup
 {
-    self.backgroundColor = [UIColor clearColor];
-    self.contentView.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.contentView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     
     UIView *bacView = [UIView new];
     bacView.backgroundColor = [UIColor clearColor];
