@@ -123,7 +123,7 @@ FOUNDATION_EXTERN NSNotificationName const YSRoomInterfaceJoinRoomFailedNotifica
     @param data 消息数据，可以是Number、String、NSDictionary或NSArray
     @param fromID  消息发布者的ID
     @param inlist 是否是inlist中的信息
-    @param body 消息整体
+
  */
 - (void)onRoomRemotePubMsgWithMsgID:(NSString *)msgID
                                    msgName:(NSString *)msgName
