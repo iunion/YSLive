@@ -418,7 +418,7 @@
     /// 白板视频标注
     if ([msgName isEqualToString:YSSignalingName_VideoWhiteboard])
     {
-        if (self.roomConfig.isMultiCourseware)
+        if (![self.whiteBoardManager isOneWhiteBoardView])
         {
             return;
         }
@@ -440,7 +440,7 @@
     
     if ([msgName isEqualToString:YSSignaling_Whiteboard_SharpsChange])
     {
-        if (self.roomConfig.isMultiCourseware)
+        if (![self.whiteBoardManager isOneWhiteBoardView])
         {
             return;
         }
@@ -1161,7 +1161,7 @@
     {
         if ([self.roomManagerDelegate respondsToSelector:@selector(handleSignalingShowVideoWhiteboardWithData:videoRatio:)])
         {
-            if (self.roomConfig.isMultiCourseware)
+            if (![self.whiteBoardManager isOneWhiteBoardView])
             {
                 return;
             }
