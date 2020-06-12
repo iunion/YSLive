@@ -364,6 +364,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
 /// 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen;
+/// 课件最大化
+- (void)handleonWhiteBoardMaximizeView;
 /// 媒体课件状态
 - (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state;
 // stateType    0--1分钟  1--3分钟  2--5分钟  3--10分钟  4--30分钟
