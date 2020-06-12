@@ -171,7 +171,6 @@
     self.slider = [[YSSliderSuperView alloc] init];
     self.slider.minimumTrackTintColor = [UIColor clearColor];
     self.slider.maximumTrackTintColor = [UIColor clearColor];
-    [self.slider setThumbImage:[UIImage imageNamed:@"sc_brush_board_slider"] forState:UIControlStateNormal];
  [self.slider setThumbImage:YSSkinElementImage(@"brushTool_slider", @"iconNor") forState:UIControlStateNormal];
     self.slider.minimumValue = 0.03f;
     self.slider.maximumValue = 1.0;

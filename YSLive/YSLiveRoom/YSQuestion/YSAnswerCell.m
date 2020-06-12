@@ -85,7 +85,7 @@
     self.questTransBtn = [[UIButton alloc]init];
     self.questTransBtn.tag = 1;
     [self.questTransBtn addTarget:self action:@selector(translateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.questTransBtn setImage:[UIImage imageNamed:@"translate"] forState:UIControlStateNormal];
+    [self.questTransBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
     [self.questTransBtn setBackgroundColor:[UIColor clearColor]];
     [self.bubbleView addSubview:self.questTransBtn];
 //    [self.questTransBtn setBackgroundColor:UIColor.redColor];

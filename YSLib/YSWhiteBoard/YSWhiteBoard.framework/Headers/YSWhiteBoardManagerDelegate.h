@@ -33,18 +33,20 @@
 - (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic;
 /// 课件缩放
 - (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale;
-/// 课件全屏
-- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen;
 
 
 #pragma mark - 课件事件
+
+/// 课件全屏
+- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen;
 
 /// 切换课件
 - (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
 /// 媒体播放状态
 - (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state;
 
-
+/// 课件窗口最大化事件
+- (void)onWhiteBoardMaximizeView;
 
 @end
 

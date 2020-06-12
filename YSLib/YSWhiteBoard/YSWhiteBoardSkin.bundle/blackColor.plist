@@ -26,6 +26,10 @@
 		<string>#24262C</string>
 		<key>WhiteBoardDrawBoardBgColor</key>
 		<string>#2E3037</string>
+		<key>LiveWhiteBoardBgColor</key>
+		<string>#F1F6FF</string>
+		<key>LiveWhiteBoardDrawBoardBgColor</key>
+		<string>#DCE2F1</string>
 		<key>whiteBoardTopbar_noCurrent</key>
 		<string>#282A30</string>
 		<key>PopViewBgColor</key>

@@ -368,6 +368,15 @@
 		<key>iconSel</key>
 		<string>chat_SCChatImage_push_skin</string>
 	</dict>
+	<key>chat_memberSelectBtn</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>chat_member_noSelected_skin</string>
+		<key>iconSel</key>
+		<string>chat_member_selected_skin</string>
+	</dict>
 	<key>checkSoundPermissionImage</key>
 	<dict>
 		<key>bgColor</key>
@@ -509,6 +518,17 @@
 		<string>liveChat_emotionDelete_skin</string>
 		<key>iconSel</key>
 		<string>liveChat_emotionDeletePush_skin</string>
+	</dict>
+	<key>live_chat_flowerBtn</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_chat_flower_skin</string>
+		<key>iconSel</key>
+		<string>live_chat_flowerGray_skin</string>
 	</dict>
 	<key>live_raiseHand_time</key>
 	<dict>
@@ -1333,6 +1353,26 @@
 		<string></string>
 		<key>iconDis</key>
 		<string></string>
+	</dict>
+	<key>live_lesson_close</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_lesson_close_skin</string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
+	<key>live_lesson_open</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_lesson_open_skin</string>
 	</dict>
 	<key>live_prizeAlert_waiting</key>
 	<dict>

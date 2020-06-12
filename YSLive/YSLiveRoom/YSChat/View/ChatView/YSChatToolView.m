@@ -42,8 +42,8 @@ UITextViewDelegate
 {
     self.flowerColourBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 10, 25, 25)];
     [self.flowerColourBtn addTarget:self action:@selector(flowerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.flowerColourBtn setImage:[UIImage imageNamed:@"flowerGray"] forState:UIControlStateSelected];
-    [self.flowerColourBtn setImage:[UIImage imageNamed:@"flower"] forState:UIControlStateNormal];
+    [self.flowerColourBtn setImage:YSSkinElementImage(@"live_chat_flowerBtn", @"iconSel") forState:UIControlStateSelected];
+    [self.flowerColourBtn setImage:YSSkinElementImage(@"live_chat_flowerBtn", @"iconNor") forState:UIControlStateNormal];
     [self addSubview:self.flowerColourBtn];
     
     //显示消息类型选择按钮

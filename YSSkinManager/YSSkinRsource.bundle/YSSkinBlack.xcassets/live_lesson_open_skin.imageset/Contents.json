@@ -1,16 +1,15 @@
 {
   "images" : [
     {
+      "filename" : "live_lesson_open_skin.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "navigationBackImage@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "navigationBackImage@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

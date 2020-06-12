@@ -136,13 +136,13 @@
     {
         self.lineView.hidden = NO;
         self.translatL.hidden = NO;
-        [_openBtn setImage:[UIImage imageNamed:@"lesson_close"] forState:UIControlStateNormal];
+        [_openBtn setImage:YSSkinElementImage(@"live_lesson_close", @"iconNor") forState:UIControlStateNormal];
     }
     else
     {
         self.lineView.hidden = YES;
         self.translatL.hidden = YES;
-        [_openBtn setImage:[UIImage imageNamed:@"lesson_open"] forState:UIControlStateNormal];
+        [_openBtn setImage:YSSkinElementImage(@"live_lesson_open", @"iconNor") forState:UIControlStateNormal];
     }
  
 }
