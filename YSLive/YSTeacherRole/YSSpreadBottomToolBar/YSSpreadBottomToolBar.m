@@ -460,4 +460,33 @@
     self.toolBoxBtn.selected = NO;
 }
 
+///  收起工具栏
+- (void)closeToolBar
+{
+    self.spreadOut = NO;
+    CGFloat top = self.topLeftpoint.y;
+    CGFloat left = self.topLeftpoint.x-YSSpreadBottomToolBar_BtnGap;
+    CGFloat height = YSSpreadBottomToolBar_BtnWidth + YSSpreadBottomToolBar_BtnGap*2.0f;
+    CGFloat width = height;
+    self.spreadBtn.alpha = 0.0f;
+    
+    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.frame = CGRectMake(left, top, width, height);
+        self.spreadBtn.bm_top = YSSpreadBottomToolBar_BtnGap;
+        self.spreadBtn.bm_left = YSSpreadBottomToolBar_BtnGap;
+        
+        for (UIButton *btn in self.btnArray)
+        {
+            btn.alpha = 0.0f;
+        }
+    } completion:^(BOOL finished) {
+        self.spreadBtn.alpha = 1.0f;
+    }];
+    
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(bottomToolBarSpreadOut:)])
+    {
+        [self.delegate bottomToolBarSpreadOut:self.spreadOut];
+    }
+}
 @end

@@ -3727,6 +3727,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListData];
     
 }
+
+// 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen
 {
     self.isWhitebordFullScreen = isAllScreen;
@@ -3775,7 +3777,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 }
 
-
+// 课件最大化
+- (void)handleonWhiteBoardMaximizeView
+{
+    [self.spreadBottomToolBar closeToolBar];
+}
 #pragma mark -
 #pragma mark 底部Bar -- SCTeacherTopBarDelegate
 

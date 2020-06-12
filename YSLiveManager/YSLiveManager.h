@@ -170,8 +170,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)registerRoomManagerDelegate:(nullable id <YSLiveRoomManagerDelegate>)RoomManagerDelegate;
 - (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard;
 
-/// 改变白板背景颜色和水印底图
+/// 改变小班课白板背景颜色和水印底图
 - (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
+- (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color drawBackGroundColor:(nullable UIColor *)drawBgColor maskImage:(nullable UIImage *)image;
+
+/// 改变直播白板背景颜色
+- (void)setWhiteBoardLivrBackGroundColor:(nullable UIColor *)color drawBackGroundColor:(nullable UIColor *)drawBgColor;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
@@ -360,6 +364,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
 /// 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen;
+/// 课件最大化
+- (void)handleonWhiteBoardMaximizeView;
 /// 媒体课件状态
 - (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state;
 // stateType    0--1分钟  1--3分钟  2--5分钟  3--10分钟  4--30分钟

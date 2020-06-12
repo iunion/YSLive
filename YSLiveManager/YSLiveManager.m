@@ -49,9 +49,17 @@
 /// 白板视图whiteBord
 @property (nonatomic, weak) UIView *whiteBordView;
 
+/// 白板背景色
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
+/// 白板背景图
 @property (nonatomic, strong) UIImage *whiteBordMaskImage;
+/// 白板画板背景色
 @property (nonatomic, strong) UIColor *whiteBordDrawBgColor;
+
+/// 直播白板背景色
+@property (nonatomic, strong) UIColor *whiteBordLiveBgColor;
+/// 直播白板画板背景色
+@property (nonatomic, strong) UIColor *whiteBordLiveDrawBgColor;
 
 // 消息缓存数据
 @property (nonatomic, strong) NSMutableArray *cacheMsgPool;
@@ -258,6 +266,9 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
     self.whiteBordDrawBgColor = YSWhiteBoard_MainBackDrawBoardBgColor;
     self.whiteBordMaskImage = nil;
+
+    self.whiteBordLiveBgColor = YSWhiteBoard_LiveMainBackGroudColor;
+    self.whiteBordLiveDrawBgColor = YSWhiteBoard_LiveMainBackDrawBoardBgColor;
 }
 
 - (void)initializeSDK
@@ -293,6 +304,7 @@ static YSLiveManager *liveManagerSingleton = nil;
 #endif
 }
 
+/// 改变小班课白板背景颜色和水印底图
 - (void)setWhiteBoardBackGroundColor:(UIColor *)color maskImage:(UIImage *)image
 {
     if (color)
@@ -303,10 +315,54 @@ static YSLiveManager *liveManagerSingleton = nil;
     {
         self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
     }
-    
+
     self.whiteBordMaskImage = image;
 }
 
+- (void)setWhiteBoardBackGroundColor:(UIColor *)color drawBackGroundColor:(UIColor *)drawBgColor maskImage:(UIImage *)image
+{
+    if (color)
+    {
+        self.whiteBordBgColor = color;
+    }
+    else
+    {
+        self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
+    }
+
+    if (drawBgColor)
+    {
+        self.whiteBordDrawBgColor = drawBgColor;
+    }
+    else
+    {
+        self.whiteBordDrawBgColor = YSWhiteBoard_MainBackDrawBoardBgColor;
+    }
+
+    self.whiteBordMaskImage = image;
+}
+
+/// 改变直播白板背景颜色
+- (void)setWhiteBoardLivrBackGroundColor:(UIColor *)color drawBackGroundColor:(UIColor *)drawBgColor
+{
+    if (color)
+    {
+        self.whiteBordLiveBgColor = color;
+    }
+    else
+    {
+        self.whiteBordLiveBgColor = YSWhiteBoard_MainBackGroudColor;
+    }
+
+    if (drawBgColor)
+    {
+        self.whiteBordLiveDrawBgColor = drawBgColor;
+    }
+    else
+    {
+        self.whiteBordLiveDrawBgColor = YSWhiteBoard_MainBackDrawBoardBgColor;
+    }
+}
 
 //- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
@@ -480,6 +536,8 @@ static YSLiveManager *liveManagerSingleton = nil;
     [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
     [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
     [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
+
+    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
 
     [self.roomManager registerRoomInterfaceDelegate:self];
     
@@ -1278,7 +1336,14 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     BMLog(@"onRoomJoined %@", [NSDate bm_stringFromTs:timeInterval]);
     BMLog(@"local %@", [NSDate date]);
-        
+    
+    if (self.room_UseTheType == YSAppUseTheTypeLiveRoom)
+    {
+        [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordLiveBgColor];
+        [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordLiveDrawBgColor];
+    }
+
+    
     //if (!self.viewDidAppear)
     //{
     //    [self addMsgCachePoolWithMethodName:@selector(onRoomJoined) parameters:nil];
@@ -2399,6 +2464,13 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
 }
 
+- (void)onWhiteBoardMaximizeView
+{
+    if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardMaximizeView)])
+    {
+        [self.roomManagerDelegate handleonWhiteBoardMaximizeView];
+    }
+}
 // 文件列表回调
 // @param fileList 文件列表 是一个NSArray类型的数据
 - (void)onWhiteBroadFileList:(NSArray *)fileList
