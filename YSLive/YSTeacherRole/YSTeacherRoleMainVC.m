@@ -943,7 +943,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.closeMp4Btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentBackgroud addSubview:self.closeMp4Btn];
     self.closeMp4Btn.frame = CGRectMake(self.contentWidth - 60, 20, 25, 25);
-    [self.closeMp4Btn setBackgroundImage:[UIImage imageNamed:@"ysteacher_closemp4_normal"] forState:UIControlStateNormal];
+    [self.closeMp4Btn setBackgroundImage:YSSkinElementImage(@"media_close", @"iconNor") forState:UIControlStateNormal];
     [self.closeMp4Btn addTarget:self action:@selector(closeMp4BtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.closeMp4Btn.hidden = YES;
     
