@@ -2399,6 +2399,13 @@ static YSLiveManager *liveManagerSingleton = nil;
     }
 }
 
+- (void)onWhiteBoardMaximizeView
+{
+    if ([self.roomManagerDelegate respondsToSelector:@selector(handleonWhiteBoardMaximizeView)])
+    {
+        [self.roomManagerDelegate handleonWhiteBoardMaximizeView];
+    }
+}
 // 文件列表回调
 // @param fileList 文件列表 是一个NSArray类型的数据
 - (void)onWhiteBroadFileList:(NSArray *)fileList

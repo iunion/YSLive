@@ -64,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 隐藏工具箱
 - (void)hideToolBoxView;
 
+///  收起工具栏
+- (void)closeToolBar;
+
 @end
 
 NS_ASSUME_NONNULL_END
