@@ -1822,7 +1822,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (videoView.isDragOut)
     {
         // percentLeft = x / ( width - videowidth )
-        CGFloat x = percentLeft * (self.contentWidth - videoView.bm_width);
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - videoView.bm_width);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - videoView.bm_height);
         CGPoint point = CGPointMake(x, y);
         

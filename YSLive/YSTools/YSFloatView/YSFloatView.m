@@ -226,7 +226,7 @@
                 weakSelf.center = self->scaleCenterPoint;
             }];
             
-            if (self.lastSize.width>self.defaultSize.width || self.lastSize.height>self.defaultSize.height)
+            if (self.lastSize.width > self.defaultSize.width || self.lastSize.height > self.defaultSize.height)
             {
                 if ((self.lastSize.width/self.defaultSize.width) < (self.lastSize.height/self.defaultSize.height))
                 {

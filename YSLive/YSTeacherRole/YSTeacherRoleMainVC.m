@@ -3286,7 +3286,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {//不全屏
-            if (percentTop < 0)
+            
+            if (percentTop < 0 && abs((int)videoEndY) > videoView.bm_height * 0.3)
             {
                 NSDictionary * data = @{
                     @"isDrag":@0,
@@ -3301,7 +3302,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                if (percentTop == 0)
+                if (percentTop <= 0)
                 {
                     videoEndY = 1;
                 }
@@ -3429,7 +3430,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
     if (videoView.isDragOut)
     {
-        CGFloat x = percentLeft * (self.contentWidth - videoView.bm_width);
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - videoView.bm_width);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - videoView.bm_height);
         CGPoint point = CGPointMake(x, y);
         
@@ -3457,6 +3458,46 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         [floatView showWithContentView:videoView];
         [floatView bm_bringToFront];
+    }
+}
+
+
+/// 拖出视频窗口拉伸 根据本地默认尺寸scale
+- (void)handleSignalingDragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
+{
+    YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
+    //CGFloat dx = floatVideoDefaultWidth*(1-scale)*0.5;
+    //CGFloat dy = floatVideoDefaultHeight*(1-scale)*0.5;
+    //CGRect frame = CGRectMake(floatView.bm_left+dx, floatView.bm_top+dy, floatVideoDefaultWidth+fabs(dx*2), floatVideoDefaultHeight+fabs(dy*2));// CGRectInset(floatView.frame, dx, dy);
+    
+    CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoDefaultWidth;
+    CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoDefaultHeight;
+    
+    CGFloat minscale = widthScale < heightScale ? widthScale : heightScale;
+    minscale = minscale < scale ? minscale : scale;
+    CGFloat width = floatVideoDefaultWidth*minscale;
+    CGFloat height = floatVideoDefaultHeight*minscale;
+    
+    CGPoint center = floatView.center;
+    
+    floatView.bm_size = CGSizeMake(width, height);
+    floatView.center = center;
+    
+    if (floatView.bm_top < 0.0f)
+    {
+        floatView.bm_top = 0.0f;
+    }
+    if (floatView.bm_left < 0.0f)
+    {
+        floatView.bm_left = 0.0f;
+    }
+    if (floatView.bm_top+height > self.whitebordBackgroud.bm_height)
+    {
+        [floatView bm_setHeight:height bottom:self.whitebordBackgroud.bm_height];
+    }
+    if (floatView.bm_left+width > self.whitebordBackgroud.bm_width)
+    {
+        [floatView bm_setWidth:width right:self.whitebordBackgroud.bm_width];
     }
 }
 
