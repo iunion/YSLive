@@ -939,6 +939,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView.layer.cornerRadius = 37;
     self.mp4ControlView.hidden = YES;
     self.mp4ControlView.delegate = self;
+    UIPanGestureRecognizer *mp4PanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureToMoveMp3View:)];
+    [self.mp4ControlView addGestureRecognizer:mp4PanGesture];
+    
+    
     
     self.closeMp4Btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentBackgroud addSubview:self.closeMp4Btn];
@@ -965,8 +969,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.mp3ControlView.layer.cornerRadius = 30;
     }
     
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureToMoveMp3View:)];
-    [self.mp3ControlView addGestureRecognizer:panGesture];
+    UIPanGestureRecognizer *mp3PanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureToMoveMp3View:)];
+    [self.mp3ControlView addGestureRecognizer:mp3PanGesture];
     [self freshContentView];
 }
 

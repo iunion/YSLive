@@ -37,7 +37,7 @@
 //    self.nameLabel.bm_left = self.playBtn.bm_right + 12;
     
     self.timeLabel.frame = CGRectMake( 0, 18, 100, 17);
-    self.timeLabel.bm_right = self.bm_right - 60;
+    self.timeLabel.bm_right = self.bm_width - 30;
     
     self.sliderView.frame = CGRectMake(0, 0,self.bm_width - 120, 10);
     self.sliderView.bm_top = self.nameLabel.bm_bottom + 10;
