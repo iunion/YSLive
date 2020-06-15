@@ -3477,8 +3477,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 - (void)handleSignalingDragOutVideoWithPeerId:(NSString *)peerId atPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop isDragOut:(BOOL)isDragOut
 {
-    
-    
     if (isDragOut)
     {
         [self showDragOutVidoeViewWithPeerId:peerId percentLeft:percentLeft percentTop:percentTop];

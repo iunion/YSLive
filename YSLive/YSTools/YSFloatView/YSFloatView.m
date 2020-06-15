@@ -371,11 +371,4 @@
     return nil;
 }
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
-{
-//    self.bm_width = self.bm_width*scale;
-//    self.bm_height = self.bm_height*scale;
-}
-
-
 @end
