@@ -167,7 +167,6 @@
 
 ///私聊列表
 @property (nonatomic, strong) NSMutableArray<YSRoomUser *>  *memberList;
-
 /// 举手按钮
 @property(nonatomic,strong) UIButton *raiseHandsBtn;
 
@@ -175,6 +174,10 @@
 @property(nonatomic,strong)UIImageView *raiseMaskImage;
 /// 举手请长按的提示
 @property(nonatomic,strong)UILabel *remarkLab;
+///举手按下的时间
+@property (nonatomic, assign)double downTime;
+///举手抬起的时间
+@property (nonatomic, assign)double upTime;
 
 /// 控制自己音视频的按钮的蒙版
 @property(nonatomic,strong) UIView * controlBackMaskView ;
@@ -2840,13 +2843,10 @@
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconNor") forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconSel") forState:UIControlStateHighlighted];
 
-        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.raiseHandsBtn.hidden = YES;
         
-        //button长按事件
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLongTouch:)];
-        longPress.minimumPressDuration = 0.5; //定义按的时间
-        [self.raiseHandsBtn addGestureRecognizer:longPress];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonTouchDown) forControlEvents:UIControlEventTouchDown];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonTouchUp) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 
         UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:self.raiseHandsBtn.frame];
         raiseMaskImage.animationImages = @[YSSkinElementImage(@"live_raiseHand_time", @"iconNor3"),YSSkinElementImage(@"live_raiseHand_time", @"iconNor2"),YSSkinElementImage(@"live_raiseHand_time", @"iconNor1")];
@@ -2882,44 +2882,19 @@
     self.raiseHandsBtn.hidden = NO;
 }
 
-
-///点击举手按钮
-- (void)raiseHandsButtonClick:(UIButton *)sender
-{
-    [self raiseHandsButtonTouchDown];
-    self.remarkLab.hidden = NO;
-    self.raiseMaskImage.hidden = NO;
-    [self.raiseMaskImage startAnimating];
-    self.raiseHandsBtn.hidden = YES;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.raiseMaskImage stopAnimating];
-        self.remarkLab.hidden = YES;
-        self.raiseMaskImage.hidden = YES;
-        self.raiseHandsBtn.hidden = NO;
-        [self raiseHandsButtonTouchUp];
-    });
-}
-
-//长按举手按钮
-- (void)raiseHandsBtnLongTouch:(UILongPressGestureRecognizer *)gestureRecognizer
-{
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self raiseHandsButtonTouchDown];
-    }
-    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
-    {
-        [self raiseHandsButtonTouchUp];
-    }
-}
-
 ///举手
 - (void)raiseHandsButtonTouchDown
 {
+    self.remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
+    self.remarkLab.hidden = NO;
+    
+    self.downTime = [NSDate date].timeIntervalSince1970;
+    
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+    
+    self.raiseHandsBtn.selected = YES;
 }
 
 ///取消举手
@@ -2927,6 +2902,30 @@
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    
+    self.upTime = [NSDate date].timeIntervalSince1970;
+    
+    if (self.upTime - self.downTime <= 2)
+    {
+        self.raiseMaskImage.hidden = NO;
+        [self.raiseMaskImage startAnimating];
+        self.raiseHandsBtn.userInteractionEnabled = NO;
+        self.raiseHandsBtn.hidden = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.raiseMaskImage stopAnimating];
+            self.remarkLab.hidden = YES;
+            self.raiseMaskImage.hidden = YES;
+            self.raiseHandsBtn.hidden = NO;
+            self.raiseHandsBtn.userInteractionEnabled = YES;
+        });
+    }
+    else
+    {
+        self.remarkLab.hidden = YES;
+        self.raiseMaskImage.hidden = YES;
+        self.raiseHandsBtn.userInteractionEnabled = YES;
+    }
+    self.raiseHandsBtn.selected = NO;
 }
 
 
