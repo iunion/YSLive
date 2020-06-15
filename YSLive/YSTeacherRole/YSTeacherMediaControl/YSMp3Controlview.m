@@ -118,7 +118,7 @@
     self.closeBtn = closeBtn;
     [self addSubview:self.closeBtn];
     self.closeBtn.frame = CGRectMake(0, 25, 25, 25);
-    [self.closeBtn setBackgroundImage:[UIImage imageNamed:@"ysteacher_closemp4_normal"] forState:UIControlStateNormal];
+    [self.closeBtn setBackgroundImage:YSSkinElementImage(@"media_close", @"iconNor") forState:UIControlStateNormal];
     [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 
 }

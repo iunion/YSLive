@@ -769,11 +769,8 @@
 
 - (void)setupLiveUI
 {
-    
-    
-    
     self.allVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.liveViewHeight)];
-    self.allVideoBgView.backgroundColor = [UIColor clearColor];
+    self.allVideoBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.view addSubview:self.allVideoBgView];
     
     self.liveBgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.liveViewHeight)];

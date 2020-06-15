@@ -1509,6 +1509,15 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
+	<key>media_close</key>
+	<dict>
+		<key>iconNor</key>
+		<string>media_close_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+		<key>iconDis</key>
+		<string></string>
+	</dict>
 	<key>doubleTeacher_littleView</key>
 	<dict>
 		<key>tittleColor</key>

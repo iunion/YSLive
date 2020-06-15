@@ -26,7 +26,7 @@
 /// 翻译后的文字
 @property (nonatomic, strong) UILabel *translatL;
 /// 展开
-@property (nonatomic, strong) UIButton *openBtn;
+//@property (nonatomic, strong) UIButton *openBtn;
 
 @end
 
@@ -59,8 +59,8 @@
     [self.contentView addSubview:self.lineView];
     [self.contentView addSubview:self.translatL];
     
-    [self.contentView addSubview:self.openBtn];
-    [self.openBtn addTarget:self action:@selector(openBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:self.openBtn];
+//    [self.openBtn addTarget:self action:@selector(openBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 
@@ -95,11 +95,11 @@
     self.translatL.frame = CGRectMake(0, CGRectGetMaxY(self.lineView.frame) + 8, BMUI_SCREEN_WIDTH - 72 - 62, self.lessonModel.translatHeight);
     self.translatL.bm_left = self.typeView.bm_right + 20 ;
     
-    self.openBtn.bm_width = 10;
-    self.openBtn.bm_height = 5;
-    self.openBtn.bm_bottom = self.bacView.bm_bottom - 10;
-    self.openBtn.bm_centerX = self.contentView.bm_centerX;
-    self.openBtn.bm_ActionEdgeInsets =UIEdgeInsetsMake(-5, -5, -5, -5);
+//    self.openBtn.bm_width = 10;
+//    self.openBtn.bm_height = 5;
+//    self.openBtn.bm_bottom = self.bacView.bm_bottom - 10;
+//    self.openBtn.bm_centerX = self.contentView.bm_centerX;
+//    self.openBtn.bm_ActionEdgeInsets =UIEdgeInsetsMake(-5, -5, -5, -5);
     
 }
 
@@ -123,26 +123,26 @@
             break;
     }
     
-    if ([lessonModel.detailTrans bm_isNotEmpty])
-    {
-        self.openBtn.hidden = NO;
-    }
-    else
-    {
-        self.openBtn.hidden = YES;
-    }
+//    if ([lessonModel.detailTrans bm_isNotEmpty])
+//    {
+//        self.openBtn.hidden = NO;
+//    }
+//    else
+//    {
+//        self.openBtn.hidden = YES;
+//    }
 
     if (lessonModel.isOpen)
     {
         self.lineView.hidden = NO;
         self.translatL.hidden = NO;
-        [_openBtn setImage:YSSkinElementImage(@"live_lesson_close", @"iconNor") forState:UIControlStateNormal];
+//        [_openBtn setImage:YSSkinElementImage(@"live_lesson_close", @"iconNor") forState:UIControlStateNormal];
     }
     else
     {
         self.lineView.hidden = YES;
         self.translatL.hidden = YES;
-        [_openBtn setImage:YSSkinElementImage(@"live_lesson_open", @"iconNor") forState:UIControlStateNormal];
+//        [_openBtn setImage:YSSkinElementImage(@"live_lesson_open", @"iconNor") forState:UIControlStateNormal];
     }
  
 }
@@ -258,17 +258,17 @@
        return _translatL;
 }
 
-- (UIButton *)openBtn
-{
-    if (!_openBtn)
-    {
-        _openBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_openBtn setImage:[UIImage imageNamed:@"lesson_open"] forState:UIControlStateNormal];
-        _openBtn.hidden = YES;
-    }
-    
-    return _openBtn;
-}
+//- (UIButton *)openBtn
+//{
+//    if (!_openBtn)
+//    {
+//        _openBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_openBtn setImage:[UIImage imageNamed:@"lesson_open"] forState:UIControlStateNormal];
+//        _openBtn.hidden = YES;
+//    }
+//
+//    return _openBtn;
+//}
 
 - (void)awakeFromNib
 {
