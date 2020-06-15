@@ -114,7 +114,7 @@
 /// 返回按钮
 @property (nonatomic, strong) UIButton *returnBtn;
 /// 房间号
-@property (nonatomic, strong) UILabel *roomIDLabel;
+//@property (nonatomic, strong) UILabel *roomIDLabel;
 @property (nonatomic, strong) UIImageView *playMp3ImageView;
 
 @property (nonatomic, strong) YSFloatView *mp4BgView;
@@ -232,7 +232,7 @@
     _buttonHide = buttonHide;
     self.returnBtn.hidden = buttonHide;
     self.fullScreenBtn.hidden = buttonHide;
-    self.roomIDLabel.hidden = buttonHide;
+//    self.roomIDLabel.hidden = buttonHide;
     if (self.isFullScreen)
     {
         self.barrageBtn.hidden = buttonHide;
@@ -757,17 +757,19 @@
     [self.returnBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     self.returnBtn.bm_ActionEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
     
-    self.roomIDLabel = [[UILabel alloc] init];
-    self.roomIDLabel.font = [UIFont systemFontOfSize:12];
-    self.roomIDLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
-    
-    [self.view addSubview:self.roomIDLabel];
-    [self.view bringSubviewToFront:self.roomIDLabel];
-    self.roomIDLabel.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Label.roomid"),self.liveManager.room_Id];
-    self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, BMUI_SCREEN_WIDTH * 0.5, 26);
-    self.roomIDLabel.adjustsFontSizeToFitWidth = YES;
-    self.roomIDLabel.minimumScaleFactor = 0.5f;
-    self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
+//    self.roomIDLabel = [[UILabel alloc] init];
+//    self.roomIDLabel.font = [UIFont systemFontOfSize:12];
+//    self.roomIDLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+//
+//    [self.view addSubview:self.roomIDLabel];
+//    [self.view bringSubviewToFront:self.roomIDLabel];
+//    self.roomIDLabel.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Label.roomid"),self.liveManager.room_Id];
+//    self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, BMUI_SCREEN_WIDTH * 0.5, 26);
+//    self.roomIDLabel.adjustsFontSizeToFitWidth = YES;
+//    self.roomIDLabel.minimumScaleFactor = 0.5f;
+//    self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
+//    /// 隐藏房间号
+//    self.roomIDLabel.hidden = YES;
 }
 
 - (void)setupLiveUI
@@ -2652,9 +2654,9 @@
                 self.returnBtn.transform = CGAffineTransformMakeRotation(0);
                 self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 
-                self.roomIDLabel.transform = CGAffineTransformMakeRotation(0);
-                self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, 120, 26);
-                self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
+//                self.roomIDLabel.transform = CGAffineTransformMakeRotation(0);
+//                self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, 120, 26);
+//                self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
                 //self.barrageManager.renderView.transform = CGAffineTransformMakeRotation(0);
                 self.barrageManager.renderView.frame = CGRectZero;
                 //self.barrageManager.renderView.hidden = YES;
@@ -2696,10 +2698,10 @@
                 self.returnBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.returnBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 
-                self.roomIDLabel.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.roomIDLabel.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT + 40 + 7, 26, 120);
-                self.roomIDLabel.bm_centerX = self.returnBtn.bm_centerX;
-                
+//                self.roomIDLabel.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+//                self.roomIDLabel.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT + 40 + 7, 26, 120);
+//                self.roomIDLabel.bm_centerX = self.returnBtn.bm_centerX;
+//
                 
                 self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-(self->platformVideoHeight) - 10);
                 
@@ -2733,9 +2735,9 @@
                 self.returnBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 self.returnBtn.frame = CGRectMake(25, BMUI_SCREEN_HEIGHT -  BMUI_HOME_INDICATOR_HEIGHT - 10 - 40, 40, 40);
                 
-                self.roomIDLabel.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.roomIDLabel.frame = CGRectMake(25, 0, 26, 120);
-                self.roomIDLabel.bm_bottom = self.returnBtn.bm_top - 7;
+//                self.roomIDLabel.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
+//                self.roomIDLabel.frame = CGRectMake(25, 0, 26, 120);
+//                self.roomIDLabel.bm_bottom = self.returnBtn.bm_top - 7;
                 
                 self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-55);
                 //self.barrageManager.renderView.hidden = NO;
