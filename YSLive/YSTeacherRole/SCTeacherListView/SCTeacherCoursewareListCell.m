@@ -201,7 +201,7 @@
     }
     
     imageName = [self imageNameWithFileType:type];
-    self.iconImgView.image = [UIImage imageNamed:imageName];
+    self.iconImgView.image = YSSkinElementImage(imageName, @"iconNor");
 }
 
 - (YSClassFiletype)creatFileTypeWithFilePath:(NSString *)filepath
@@ -264,37 +264,37 @@
     switch (type)
     {
         case YSClassFiletype_WhiteBoard:
-            imageName = @"scteacher_personList_icon_WhiteBoard";
+            imageName = @"coursewareList_WhiteBoard";
             break;
         case YSClassFiletype_PPT:
-            imageName = @"scteacher_personList_icon_PPT";
+            imageName = @"coursewareList_PPT";
             break;
         case YSClassFiletype_Excel:
-            imageName = @"scteacher_personList_icon_Excel";
+            imageName = @"coursewareList_Excel";
             break;
         case YSClassFiletype_Word:
-            imageName = @"scteacher_personList_icon_Word";
+            imageName = @"coursewareList_Word";
             break;
         case YSClassFiletype_JPG:
-            imageName = @"scteacher_personList_icon_JPG";
+            imageName = @"coursewareList_JPG";
             break;
         case YSClassFiletype_Txt:
-            imageName = @"scteacher_personList_icon_Txt";
+            imageName = @"coursewareList_Txt";
             break;
         case YSClassFiletype_Mp4:
-            imageName = @"scteacher_personList_icon_Mp4";
+            imageName = @"coursewareList_Mp4";
             break;
         case YSClassFiletype_Mp3:
-            imageName = @"scteacher_personList_icon_Mp3";
+            imageName = @"coursewareList_Mp3";
             break;
         case YSClassFiletype_PDF:
-            imageName = @"scteacher_personList_icon_PDF";
+            imageName = @"coursewareList_PDF";
             break;
         case YSClassFiletype_H5:
-            imageName = @"scteacher_personList_icon_H5";
+            imageName = @"coursewareList_H5";
             break;
         default:
-            imageName = @"scteacher_personList_icon_OtherFile";
+            imageName = @"coursewareList_OtherFile";
             break;
     }
     return imageName;
