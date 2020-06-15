@@ -964,9 +964,74 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.mp3ControlView.bm_bottom = self.contentView.bm_bottom - 70;
         self.mp3ControlView.layer.cornerRadius = 30;
     }
-
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureToMoveMp3View:)];
+    [self.mp3ControlView addGestureRecognizer:panGesture];
     [self freshContentView];
 }
+
+- (void)panGestureToMoveMp3View:(UIPanGestureRecognizer *)panGesture
+{
+    UIView *panView = panGesture.view;
+
+    //1、获得拖动位移
+    CGPoint offsetPoint = [panGesture translationInView:panView];
+    //2、清空拖动位移
+    [panGesture setTranslation:CGPointZero inView:panView];
+    //3、重新设置控件位置
+    CGFloat newX = panView.bm_centerX+offsetPoint.x;
+    CGFloat newY = panView.bm_centerY+offsetPoint.y;
+
+    if ([YSRoomInterface instance].localUser.role == YSUserType_Teacher)
+    {
+        CGFloat viewWidth = panView.bm_width;
+        CGFloat viewHeight = panView.bm_height;
+        
+        if (newX < 1 + viewWidth/2)
+        {
+            newX = 1 + viewWidth/2 ;
+        }
+        else if (newX > self.contentBackgroud.bm_width - viewWidth/2 - 1)
+        {
+            newX = self.contentBackgroud.bm_width - viewWidth/2 - 1;
+        }
+        
+        if (newY <= 1 + viewHeight/2)
+        {
+            newY = 1 + viewHeight/2;
+        }
+        else if (newY > self.contentBackgroud.bm_height - viewHeight/2 - 1)
+        {
+            newY = self.contentBackgroud.bm_height - viewHeight/2 - 1;
+        }
+    }
+    else
+    {
+       CGFloat viewWidth = panView.bm_width;
+        
+        if (newX < 1 + viewWidth/2)
+        {
+            newX = 1 + viewWidth/2 ;
+        }
+        else if (newX > self.contentBackgroud.bm_width - viewWidth/2 - 1)
+        {
+            newX = self.contentBackgroud.bm_width - viewWidth/2 - 1;
+        }
+        
+        if (newY <= 1 + viewWidth/2)
+        {
+            newY = 1 + viewWidth/2;
+        }
+        else if (newY > self.contentBackgroud.bm_height - viewWidth/2 - 1)
+        {
+            newY = self.contentBackgroud.bm_height - viewWidth/2 - 1;
+        }
+    }
+        
+    CGPoint centerPoint = CGPointMake(newX, newY);
+    panView.center = centerPoint;
+}
+
 /// MP4 全屏播放时的点击事件
 - (void)mp4ShareVideoViewClicked:(UITapGestureRecognizer *)tap
 {
