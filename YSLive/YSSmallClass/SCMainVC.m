@@ -1209,7 +1209,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)raiseHandsButtonTouchUp
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
-        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
     
     self.upTime = [NSDate date].timeIntervalSince1970;
     

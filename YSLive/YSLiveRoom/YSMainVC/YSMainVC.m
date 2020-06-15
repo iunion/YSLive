@@ -46,9 +46,9 @@
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
 // 视频高度
-static const CGFloat kVideo_Height_iPhone = 240.0f;
-static const CGFloat kVideo_Height_iPad = 360.0f;
-#define VIDEOVIEW_HEIGHT            ([UIDevice bm_isiPad] ? kVideo_Height_iPad : kVideo_Height_iPhone)
+//static const CGFloat kVideo_Height_iPhone = 240.0f;
+//static const CGFloat kVideo_Height_iPad = 360.0f;
+//#define VIDEOVIEW_HEIGHT            ([UIDevice bm_isiPad] ? kVideo_Height_iPad : kVideo_Height_iPhone)
 // 上麦视频间隔
 #define VIDEOVIEW_HORIZON_GAP 1
 #define VIDEOVIEW_VERTICAL_GAP 1
@@ -100,6 +100,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 @property (nonatomic, strong) YSFloatView *liveBgView;
 @property (nonatomic, strong) UIView *liveView;
 @property (nonatomic, strong) UIImageView *liveImageView;
+/// 主播的视频view的高度
+@property (nonatomic, assign) CGFloat liveViewHeight;
+
+
 /// 老师占位图中是否上课的提示
 @property (nonatomic, strong) UILabel *teacherPlaceLab ;
 /// 学生视频容器
@@ -163,7 +167,6 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 ///私聊列表
 @property (nonatomic, strong) NSMutableArray<YSRoomUser *>  *memberList;
-
 /// 举手按钮
 @property(nonatomic,strong) UIButton *raiseHandsBtn;
 
@@ -171,6 +174,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 @property(nonatomic,strong)UIImageView *raiseMaskImage;
 /// 举手请长按的提示
 @property(nonatomic,strong)UILabel *remarkLab;
+///举手按下的时间
+@property (nonatomic, assign)double downTime;
+///举手抬起的时间
+@property (nonatomic, assign)double upTime;
 
 /// 控制自己音视频的按钮的蒙版
 @property(nonatomic,strong) UIView * controlBackMaskView ;
@@ -319,6 +326,15 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (self.isWideScreen)
+    {
+        self.liveViewHeight = BMUI_SCREEN_WIDTH * 9/16;
+    }
+    else
+    {
+        self.liveViewHeight = BMUI_SCREEN_WIDTH * 3/4;
+    }
     
     self.isFullScreen = NO;
     self.buttonHide = NO;
@@ -705,7 +721,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 - (void)setupUI
 {
     // 切换视图
-    self.m_SegmentBar = [[BMScrollPageSegment alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT, BMUI_SCREEN_WIDTH, PAGESEGMENT_HEIGHT)];
+    self.m_SegmentBar = [[BMScrollPageSegment alloc] initWithFrame:CGRectMake(0, self.liveViewHeight, BMUI_SCREEN_WIDTH, PAGESEGMENT_HEIGHT)];
     [self.view addSubview:_m_SegmentBar];
     self.m_SegmentBar.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     self.m_SegmentBar.showMore = NO;
@@ -716,7 +732,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.m_SegmentBar.titleSelectedColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     self.m_SegmentBar.showGapLine = NO;
     // 内容视图
-    self.m_ScrollPageView = [[BMScrollPageView alloc] initWithFrame:CGRectMake(0, VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT - VIDEOVIEW_HEIGHT - PAGESEGMENT_HEIGHT) withScrollPageSegment:self.m_SegmentBar];
+    self.m_ScrollPageView = [[BMScrollPageView alloc] initWithFrame:CGRectMake(0, self.liveViewHeight + PAGESEGMENT_HEIGHT, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT - self.liveViewHeight - PAGESEGMENT_HEIGHT) withScrollPageSegment:self.m_SegmentBar];
     [self.view addSubview:self.m_ScrollPageView];
     self.m_ScrollPageView.datasource = self;
     self.m_ScrollPageView.delegate = self;
@@ -758,11 +774,11 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 
 - (void)setupLiveUI
 {
-    self.allVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
+    self.allVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.liveViewHeight)];
     self.allVideoBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.view addSubview:self.allVideoBgView];
     
-    self.liveBgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT)];
+    self.liveBgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.liveViewHeight)];
     self.liveBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     self.liveBgView.showWaiting = NO;
     self.liveBgView.bm_centerX = self.allVideoBgView.bm_centerX;
@@ -845,7 +861,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.videoBackgroud = [[UIView alloc] init];
     self.videoBackgroud.backgroundColor = [UIColor clearColor];//[UIColor bm_colorWithHex:0x5A8CDC];
     [self.allVideoBgView addSubview:self.videoBackgroud];
-    self.videoBackgroud.frame = CGRectMake(0, VIDEOVIEW_HEIGHT - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
+    self.videoBackgroud.frame = CGRectMake(0, self.liveViewHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
     //    self.videoBackgroud.bm_bottom = self.liveBgView.bm_bottom - 2;
 }
 
@@ -994,7 +1010,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     CGFloat teacherW = 0.0;
     if (self.videoViewArray.count <= 2)
     {
-        teacherH = VIDEOVIEW_HEIGHT;
+        teacherH = self.liveViewHeight;
         teacherW = BMUI_SCREEN_WIDTH;
         for (NSInteger i = 1; i <= self.videoViewArray.count; i++)
         {
@@ -1007,7 +1023,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     {
         
         
-        teacherH = ceil(VIDEOVIEW_HEIGHT - platformVideoHeight - VIDEOVIEW_HORIZON_GAP * 2) ;
+        teacherH = ceil(self.liveViewHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP * 2) ;
         if (self.isWideScreen)
         {
             teacherW = ceil(teacherH * 16 / 9);
@@ -1953,7 +1969,7 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3* NSEC_PER_SEC));
     
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-        weakSelf.signedAlert = [YSSignedAlertView showWithTime:time inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0 signedBlock:^{
+        weakSelf.signedAlert = [YSSignedAlertView showWithTime:time inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(self.liveViewHeight + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0 signedBlock:^{
             [weakSelf sendLiveCallRollSigninWithCallRollId:callRollId];
         }];
     });
@@ -1986,13 +2002,13 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     {
         [self.prizeAlert dismiss:nil dismissBlock:^(id  _Nullable sender, NSUInteger index) {
             
-            weakSelf.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:NO inView:weakSelf.view backgroundEdgeInsets:UIEdgeInsetsMake(VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0];
+            weakSelf.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:NO inView:weakSelf.view backgroundEdgeInsets:UIEdgeInsetsMake(self.liveViewHeight + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0];
         }];
     }
     else
     {
         
-        self.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:NO inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(VIDEOVIEW_HEIGHT + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0];
+        self.prizeAlert = [YSPrizeAlertView showPrizeWithStatus:NO inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(self.liveViewHeight + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0];
     }
 }
 
@@ -2628,12 +2644,12 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
                 self.barrageStart = NO;
                 self.allVideoBgView.transform = CGAffineTransformMakeRotation(0);
-                self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
+                self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.liveViewHeight);
                 
                 //                self.liveBgView.transform = CGAffineTransformMakeRotation(0);
                 //                self.liveBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
                 
-                self.videoBackgroud.frame = CGRectMake(0, VIDEOVIEW_HEIGHT - (self->platformVideoHeight) - VIDEOVIEW_VERTICAL_GAP , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
+                self.videoBackgroud.frame = CGRectMake(0, self.liveViewHeight - (self->platformVideoHeight) - VIDEOVIEW_VERTICAL_GAP , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
                 
                 self.returnBtn.transform = CGAffineTransformMakeRotation(0);
                 self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
@@ -2829,13 +2845,10 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconNor") forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconSel") forState:UIControlStateHighlighted];
 
-        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.raiseHandsBtn.hidden = YES;
         
-        //button长按事件
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(raiseHandsBtnLongTouch:)];
-        longPress.minimumPressDuration = 0.5; //定义按的时间
-        [self.raiseHandsBtn addGestureRecognizer:longPress];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonTouchDown) forControlEvents:UIControlEventTouchDown];
+        [self.raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonTouchUp) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 
         UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:self.raiseHandsBtn.frame];
         raiseMaskImage.animationImages = @[YSSkinElementImage(@"live_raiseHand_time", @"iconNor3"),YSSkinElementImage(@"live_raiseHand_time", @"iconNor2"),YSSkinElementImage(@"live_raiseHand_time", @"iconNor1")];
@@ -2871,44 +2884,19 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
     self.raiseHandsBtn.hidden = NO;
 }
 
-
-///点击举手按钮
-- (void)raiseHandsButtonClick:(UIButton *)sender
-{
-    [self raiseHandsButtonTouchDown];
-    self.remarkLab.hidden = NO;
-    self.raiseMaskImage.hidden = NO;
-    [self.raiseMaskImage startAnimating];
-    self.raiseHandsBtn.hidden = YES;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.raiseMaskImage stopAnimating];
-        self.remarkLab.hidden = YES;
-        self.raiseMaskImage.hidden = YES;
-        self.raiseHandsBtn.hidden = NO;
-        [self raiseHandsButtonTouchUp];
-    });
-}
-
-//长按举手按钮
-- (void)raiseHandsBtnLongTouch:(UILongPressGestureRecognizer *)gestureRecognizer
-{
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self raiseHandsButtonTouchDown];
-    }
-    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
-    {
-        [self raiseHandsButtonTouchUp];
-    }
-}
-
 ///举手
 - (void)raiseHandsButtonTouchDown
 {
+    self.remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
+    self.remarkLab.hidden = NO;
+    
+    self.downTime = [NSDate date].timeIntervalSince1970;
+    
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+    
+    self.raiseHandsBtn.selected = YES;
 }
 
 ///取消举手
@@ -2916,6 +2904,30 @@ static const CGFloat kVideo_Height_iPad = 360.0f;
 {
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    
+    self.upTime = [NSDate date].timeIntervalSince1970;
+    
+    if (self.upTime - self.downTime <= 2)
+    {
+        self.raiseMaskImage.hidden = NO;
+        [self.raiseMaskImage startAnimating];
+        self.raiseHandsBtn.userInteractionEnabled = NO;
+        self.raiseHandsBtn.hidden = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.raiseMaskImage stopAnimating];
+            self.remarkLab.hidden = YES;
+            self.raiseMaskImage.hidden = YES;
+            self.raiseHandsBtn.hidden = NO;
+            self.raiseHandsBtn.userInteractionEnabled = YES;
+        });
+    }
+    else
+    {
+        self.remarkLab.hidden = YES;
+        self.raiseMaskImage.hidden = YES;
+        self.raiseHandsBtn.userInteractionEnabled = YES;
+    }
+    self.raiseHandsBtn.selected = NO;
 }
 
 
