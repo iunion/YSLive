@@ -1462,6 +1462,33 @@ typedef void (^YSRoomLeftDoBlock)(void);
         return;
     }
 
+    [self.progressHUD bm_showAnimated:NO withDetailText:@"密码输入错误超过5次账号被锁定，请与客服联系" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    
+    return;
+
+    if ([passWordStr bm_isNotEmpty])
+    {
+        if (passWordStr.length < 8)
+        {
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"密码至少需要8位字符和数字" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+            
+            return;
+        }
+        
+        NSString *pattern = @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![\\x21-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\x7e]+$)(?![\\x21-\\x40\\x5b-\\x60\\x7b-\\x7e]+$)(?![\\x21-\\x2f\\x3a-\\x7e]+$)[\\x21-\\x7e]{8,16}$";
+        if (![passWordStr bm_isMatchWithPattern:pattern])
+        {
+            [self.progressHUD bm_showAnimated:NO withDetailText:@"密码中字母数字特殊字符至少有2种" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+            
+            return;
+        }
+        
+        [self.progressHUD bm_showAnimated:NO withDetailText:@"密码有效期已过，请更改密码" delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        
+        return;
+
+    }
+    
     YSLiveManager *liveManager = [YSLiveManager shareInstance];
     [liveManager registerRoomManagerDelegate:self];
     liveManager.liveHost = YSLIVE_HOST;
