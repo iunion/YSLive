@@ -183,13 +183,22 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     width = videoWidth * widthNum;
     height = videoHeight * heightNum;
 
-    CGFloat widthScale = (maxWidth - VIDEOGRIDVIEW_GAP/2 * (widthNum - 1))/width;
-    CGFloat heightScale = (maxHeight - VIDEOGRIDVIEW_GAP/2 * (heightNum - 1))/height;
-    
-    scale = MIN(widthScale, heightScale);
-    bgWidth = width*scale + VIDEOGRIDVIEW_GAP/2 * (widthNum - 1);
-    bgHeight = height*scale + VIDEOGRIDVIEW_GAP /2 * (heightNum - 1);
-    
+    if (width == 0 || height == 0)
+    {
+        scale = 1.0f;
+        bgWidth = 0;
+        bgHeight = 0;
+    }
+    else
+    {
+        CGFloat widthScale = (maxWidth - VIDEOGRIDVIEW_GAP/2 * (widthNum - 1))/width;
+        CGFloat heightScale = (maxHeight - VIDEOGRIDVIEW_GAP/2 * (heightNum - 1))/height;
+        
+        scale = MIN(widthScale, heightScale);
+        
+        bgWidth = width*scale + VIDEOGRIDVIEW_GAP/2 * (widthNum - 1);
+        bgHeight = height*scale + VIDEOGRIDVIEW_GAP /2 * (heightNum - 1);
+    }
     
     self.videoWidth = videoWidth*scale;
     self.videoHeight = videoHeight*scale;
