@@ -1824,7 +1824,9 @@
     {
         self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;
+        [self handleSignalingHideVideoWhiteboard];
     }
+    
 }
 
 /// 继续播放白板视频/音频
