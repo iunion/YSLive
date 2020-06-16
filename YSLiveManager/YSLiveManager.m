@@ -482,7 +482,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     self.userList = [[NSMutableArray alloc] init];
     
-    self.whiteBoardManager = [YSWhiteBoardManager shareInstance];
+    self.whiteBoardManager = [YSWhiteBoardManager sharedInstance];
     NSLog(@"WhiteBoard SDK Version: %@", [YSWhiteBoardManager whiteBoardVersion]);
     
 //    BMWeakSelf
