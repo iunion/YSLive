@@ -151,6 +151,7 @@
     spreadBottomToolBar.delegate = self;
     spreadBottomToolBar.isBeginClass = self.liveManager.isBeginClass;
     spreadBottomToolBar.isPollingEnable = NO;
+    spreadBottomToolBar.isToolBoxEnable = NO;
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
 }

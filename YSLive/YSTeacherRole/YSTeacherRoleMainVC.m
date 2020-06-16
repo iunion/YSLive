@@ -2618,6 +2618,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.spreadBottomToolBar.isBeginClass = YES;
     [self bottomToolBarPollingBtnEnable];
+    self.spreadBottomToolBar.isToolBoxEnable = YES;
     // 通知各端开始举手
     [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
     

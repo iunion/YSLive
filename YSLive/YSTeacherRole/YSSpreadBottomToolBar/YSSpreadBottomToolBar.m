@@ -420,7 +420,7 @@
     _isBeginClass = isBeginClass;
     self.allNoAudioBtn.enabled = isBeginClass;
     self.switchLayoutBtn.enabled = isBeginClass;
-    self.toolBoxBtn.enabled = isBeginClass;
+//    self.toolBoxBtn.enabled = isBeginClass;
 }
 
 - (void)setIsToolBoxEnable:(BOOL)isToolBoxEnable
