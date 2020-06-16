@@ -37,13 +37,14 @@
     self.optionLabel.text = dataDic[@"option"];
     if ([_dataDic[@"isselect"] intValue] == 0)
     {
-        self.optionLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.optionLabel.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
     }
     else
     {
-        self.optionLabel.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
-        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+
+        self.optionLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     }
 }
 
