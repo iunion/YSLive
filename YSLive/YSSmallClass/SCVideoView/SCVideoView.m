@@ -454,9 +454,9 @@
 
     CGFloat volumeScale = 32670/4;
     
-    if (iVolume<1)
+    if (iVolume < 1)
     {
-        if (self.lastVolume>1)
+        if (self.lastVolume > 1)
         {
             self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
         }

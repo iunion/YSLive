@@ -2895,16 +2895,11 @@
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
-    
-    self.raiseHandsBtn.selected = YES;
 }
 
 ///取消举手
 - (void)raiseHandsButtonTouchUp
 {
-    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
-    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
-    
     self.upTime = [NSDate date].timeIntervalSince1970;
     
     if (self.upTime - self.downTime <= 2)
@@ -2919,6 +2914,8 @@
             self.raiseMaskImage.hidden = YES;
             self.raiseHandsBtn.hidden = NO;
             self.raiseHandsBtn.userInteractionEnabled = YES;
+            [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+            [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
         });
     }
     else
@@ -2926,8 +2923,9 @@
         self.remarkLab.hidden = YES;
         self.raiseMaskImage.hidden = YES;
         self.raiseHandsBtn.userInteractionEnabled = YES;
+        [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
     }
-    self.raiseHandsBtn.selected = NO;
 }
 
 
