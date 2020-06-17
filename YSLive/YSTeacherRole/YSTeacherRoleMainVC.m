@@ -128,6 +128,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 悬浮默认视频高(拖出和共享)
     CGFloat floatVideoDefaultHeight;
 
+    /// 悬浮视频宽最小值(拖出和共享)
+    CGFloat floatVideoMinWidth;
+    /// 悬浮视频高最小值(拖出和共享)
+    CGFloat floatVideoMinHeight;
+    
     /// 答题时间
     NSInteger _answerStartTime;
     /// 答题人数
@@ -3447,7 +3452,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.fullTeacherFloatView.hidden = NO;
             // 支持本地拖动缩放
             self.fullTeacherFloatView.canGestureRecognizer = YES;
-            self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+            self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
             [self.fullTeacherFloatView bm_bringToFront];
             self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
             self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
@@ -3459,7 +3464,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(videoX, videoY, floatVideoDefaultWidth, floatVideoDefaultHeight)];
             // 暂时不支持本地拖动缩放
             floatView.canGestureRecognizer = YES;
-            floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+            floatView.defaultSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
             //[floatView showWithContentView:videoView];
             [self.dragOutFloatViewArray addObject:floatView];
             [self.whitebordBackgroud addSubview:floatView];
@@ -3502,10 +3507,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - videoView.bm_width);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - videoView.bm_height);
-        CGPoint point = CGPointMake(x, y);
         
         YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
-        floatView.frame = CGRectMake(point.x, point.y, videoView.bm_width, videoView.bm_height);
+        floatView.frame = CGRectMake(x, y, videoView.bm_width, videoView.bm_height);
         [floatView bm_bringToFront];
         return;
     }
@@ -3514,14 +3518,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         videoView.isDragOut = YES;
         [self freshContentVidoeView];
         
-        CGFloat x = percentLeft * (self.contentWidth - floatVideoDefaultWidth);
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoDefaultWidth);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
-        CGPoint point = CGPointMake(x, y);
         
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
         floatView.peerId = peerId;
         // 暂时不支持本地拖动缩放
-        floatView.defaultSize = CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+        floatView.defaultSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
         [self.dragOutFloatViewArray addObject:floatView];
         [self.whitebordBackgroud addSubview:floatView];
         floatView.maxSize = self.whitebordBackgroud.bm_size;
@@ -3537,17 +3540,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingDragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
 {
     YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
-    //CGFloat dx = floatVideoDefaultWidth*(1-scale)*0.5;
-    //CGFloat dy = floatVideoDefaultHeight*(1-scale)*0.5;
-    //CGRect frame = CGRectMake(floatView.bm_left+dx, floatView.bm_top+dy, floatVideoDefaultWidth+fabs(dx*2), floatVideoDefaultHeight+fabs(dy*2));// CGRectInset(floatView.frame, dx, dy);
-    
-    CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoDefaultWidth;
-    CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoDefaultHeight;
+
+    CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoMinWidth;
+    CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoMinHeight;
     
     CGFloat minscale = widthScale < heightScale ? widthScale : heightScale;
     minscale = minscale < scale ? minscale : scale;
-    CGFloat width = floatVideoDefaultWidth*minscale;
-    CGFloat height = floatVideoDefaultHeight*minscale;
+    CGFloat width = floatVideoMinWidth * minscale;
+    CGFloat height = floatVideoMinHeight * minscale;
     
     CGPoint center = floatView.center;
     
@@ -3586,10 +3586,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         scale = 4.0/3.0;
     }
-    /// 悬浮默认视频宽(拖出和共享)
-    floatVideoDefaultWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
+    
     /// 悬浮默认视频高(拖出和共享)
-    floatVideoDefaultHeight = ceil(floatVideoDefaultWidth / scale);
+    floatVideoDefaultHeight = ceil(self.whiteBordView.bm_height / 3);
+    /// 悬浮默认视频宽(拖出和共享)
+    floatVideoDefaultWidth = ceil(floatVideoDefaultHeight * scale);
+    
+    floatVideoMinHeight = ceil(self.whiteBordView.bm_height / 6);
+    floatVideoMinWidth = ceil(floatVideoMinHeight * scale);
 }
 
 // 放回视频

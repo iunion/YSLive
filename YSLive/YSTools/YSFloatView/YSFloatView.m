@@ -15,6 +15,7 @@
     UIGestureRecognizerDelegate
 >
 {
+    //缩放开始时的数据
     CGPoint scaleCenterPoint;
     CGFloat scaleWidth;
     CGFloat scaleHeight;
@@ -78,10 +79,6 @@
         scrollView.maximumZoomScale = 3.0;
         scrollView.zoomScale = 1.0;
         self.backScrollView = scrollView;
-
-        // 移动手势
-//        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragView:)];
-//        [self addGestureRecognizer:panGestureRecognizer];
         
         // 双击手势
         UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
@@ -142,37 +139,6 @@
     
     [self stayMove];
 }
-
-//- (void)dragView:(UIPanGestureRecognizer *)recognizer
-//{
-//    if (!self.canGestureRecognizer)
-//    {
-//        return;
-//    }
-//
-//    UIView *dragView = recognizer.view;
-//    if (recognizer.state == UIGestureRecognizerStateBegan)
-//    {
-//
-//    }
-//    else if (recognizer.state == UIGestureRecognizerStateChanged)
-//    {
-//        CGPoint location = [recognizer locationInView:self.superview];
-//
-//        if (location.y < 0 || location.y > UI_SCREEN_HEIGHT)
-//        {
-//            return;
-//        }
-//        CGPoint translation = [recognizer translationInView:self.superview];
-//
-//        dragView.center = CGPointMake(dragView.center.x + translation.x, dragView.center.y + translation.y);
-//        [recognizer setTranslation:CGPointZero inView:self.superview];
-//    }
-//    else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
-//    {
-//        [self stayMove];
-//    }
-//}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
