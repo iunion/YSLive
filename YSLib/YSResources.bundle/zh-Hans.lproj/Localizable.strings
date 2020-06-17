@@ -214,7 +214,7 @@
 "Button.remindKnow"         = "我知道了";
 "Prompt.timeoutEnd"         = "房间即将关闭";
 
-"Title.whiteBoard"          = "白板";
+"Title.whiteBoard"          = "黑板";
 "Prompt.CanotOn"            = "该学生的音视频设备不可用。有可能是自行禁用了设备。请提醒学生启用设备。";
 
 "Prompt.FinishClass"        = "您确定要下课吗?";
@@ -335,7 +335,7 @@
 "tool.zhuanpan"   = "转盘";
 "tool.jishiqi"   = "计时器";
 "tool.qiangdaqi"   = "抢答器";
-"tool.xiaobaiban"   = "小白板";
+"tool.xiaobaiban"   = "小黑板";
 
 "tool.fabudati"   = "发布答题";
 "tool.tianjia"   = "添加选项";

@@ -66,7 +66,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
     
 //    self.view.backgroundColor = [UIColor whiteColor];
-    self.view.backgroundColor = YSSkinDefineColor(@"blackColor ");
+    self.view.backgroundColor = YSSkinDefineColor(@"blackColor");
     
     //创建一个16：9的背景view
     [self.view addSubview:self.contentBackgroud];
@@ -77,7 +77,6 @@
     // 底部工具栏
     [self setupBottomToolBarView];
 }
-
 
 ///创建一个16：9的背景view
 - (void)setupBottomBackgroundView

@@ -95,7 +95,7 @@
     [self.inputView addSubview:self.placeholdLab];
     
     self.maskView = [[UIView alloc]initWithFrame:self.bottomView.bounds];
-    self.maskView.backgroundColor = [YSSkinDefineColor(@"blackColor ") changeAlpha:0.3];
+    self.maskView.backgroundColor = [YSSkinDefineColor(@"blackColor") changeAlpha:0.1];
     [self.bottomView addSubview:self.maskView];
     
     if (![YSLiveManager shareInstance].isBeginClass)

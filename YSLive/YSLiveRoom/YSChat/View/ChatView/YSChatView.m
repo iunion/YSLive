@@ -47,8 +47,8 @@ UITableViewDataSource
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.layer.cornerRadius = 12;
-        self.layer.masksToBounds = YES;
+//        self.layer.cornerRadius = 12;
+//        self.layer.masksToBounds = YES;
         self.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
         
         self.messageList = [NSMutableArray array];
