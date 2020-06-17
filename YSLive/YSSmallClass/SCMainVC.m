@@ -199,7 +199,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 是否是双师布局信令通知
 @property (nonatomic, assign) BOOL isDoubleType;
 
-
 /// 拖出视频浮动View列表
 @property (nonatomic, strong) NSMutableArray <YSFloatView *> *dragOutFloatViewArray;
 ///拖出视频view时的模拟移动图
@@ -1455,10 +1454,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.videoBackgroud addSubview:videoView];
     }
     
-    if (self.isDoubleType && self.roomtype == YSRoomType_One) {
+    if (self.isDoubleType && self.roomtype == YSRoomType_One)
+    {
         [self doubleTeacherCalculateVideoSize];
         [self doubleTeacherArrangeVidoeView];
-//        self.isDoubleType = 0;
     }
     else
     {
