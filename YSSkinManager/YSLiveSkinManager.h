@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, YSSkinClassOrOnline)
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSSkinManager : NSObject
+@interface YSLiveSkinManager : NSObject
 
 @property (nonatomic, assign)YSSkinType skinType;
 

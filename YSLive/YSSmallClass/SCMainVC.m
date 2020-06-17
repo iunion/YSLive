@@ -1667,7 +1667,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
             {//默认上下平行关系
-
                 self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
 
                 self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, 0, videoWidth, whitebordHeight);
@@ -4445,10 +4444,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingDragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
 {
     YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
-    //CGFloat dx = floatVideoDefaultWidth*(1-scale)*0.5;
-    //CGFloat dy = floatVideoDefaultHeight*(1-scale)*0.5;
-    //CGRect frame = CGRectMake(floatView.bm_left+dx, floatView.bm_top+dy, floatVideoDefaultWidth+fabs(dx*2), floatVideoDefaultHeight+fabs(dy*2));// CGRectInset(floatView.frame, dx, dy);
-    
+
     CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoDefaultWidth;
     CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoDefaultHeight;
     

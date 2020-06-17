@@ -14,7 +14,7 @@
 		046384CA237FA85D00DE7236 /* SCPictureMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384C9237FA85D00DE7236 /* SCPictureMessageCell.m */; };
 		046384CE237FC1AE00DE7236 /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */; };
 		0464CE972477CD35001532A3 /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinRsource.bundle */; };
-		0464CE9E247B563C001532A3 /* YSSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSSkinManager.m */; };
+		0464CE9E247B563C001532A3 /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */; };
 		046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
@@ -134,7 +134,7 @@
 		8709FF342485F7CB00CC8BEA /* FBRetainCycleDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF142485F7CB00CC8BEA /* FBRetainCycleDetector.mm */; };
 		8709FF352485F7CB00CC8BEA /* FBRetainCycleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF162485F7CB00CC8BEA /* FBRetainCycleUtils.m */; };
 		8709FF362485F7CB00CC8BEA /* NSObject+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FF172485F7CB00CC8BEA /* NSObject+MemoryLeak.m */; };
-		8709FF382485FEBA00CC8BEA /* YSSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSSkinManager.m */; };
+		8709FF382485FEBA00CC8BEA /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */; };
 		8709FF392485FEBC00CC8BEA /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinRsource.bundle */; };
 		8709FF3A2485FEE900CC8BEA /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
 		8709FF3B2485FEFB00CC8BEA /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
@@ -833,8 +833,8 @@
 		046384CC237FC1AE00DE7236 /* SCTipsMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTipsMessageCell.h; sourceTree = "<group>"; };
 		046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTipsMessageCell.m; sourceTree = "<group>"; };
 		0464CE962477CD35001532A3 /* YSSkinRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinRsource.bundle; sourceTree = "<group>"; };
-		0464CE9C247B563C001532A3 /* YSSkinManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSkinManager.h; sourceTree = "<group>"; };
-		0464CE9D247B563C001532A3 /* YSSkinManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSkinManager.m; sourceTree = "<group>"; };
+		0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveSkinManager.h; sourceTree = "<group>"; };
+		0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveSkinManager.m; sourceTree = "<group>"; };
 		046E683B2373CF73001CBB27 /* SCTextMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTextMessageCell.h; sourceTree = "<group>"; };
 		046E683C2373CF73001CBB27 /* SCTextMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
 		046E683F2373E152001CBB27 /* SCChatToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCChatToolView.h; sourceTree = "<group>"; };
@@ -1699,8 +1699,8 @@
 		0464CEA1247B9BFA001532A3 /* YSSkinManager */ = {
 			isa = PBXGroup;
 			children = (
-				0464CE9C247B563C001532A3 /* YSSkinManager.h */,
-				0464CE9D247B563C001532A3 /* YSSkinManager.m */,
+				0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */,
+				0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */,
 				0464CE962477CD35001532A3 /* YSSkinRsource.bundle */,
 			);
 			path = YSSkinManager;
@@ -4100,7 +4100,7 @@
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,
 				26EFA686237A841C00EC2A64 /* SCAnswerDetailModel.m in Sources */,
 				8783302624874C4400F1178E /* UIGestureRecognizer+Blocks.m in Sources */,
-				0464CE9E247B563C001532A3 /* YSSkinManager.m in Sources */,
+				0464CE9E247B563C001532A3 /* YSLiveSkinManager.m in Sources */,
 				87832F1424874C4300F1178E /* FLEXCodeFontCell.m in Sources */,
 				8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */,
 				871335DB237270F6006534A4 /* YSNewPictureCell.m in Sources */,
@@ -4330,7 +4330,7 @@
 				8717E1D42400DADC008C4CDA /* BMTestNSURLProtocol.m in Sources */,
 				3471E2AB24039A0100A3BBB4 /* FSCalendarAppearance.m in Sources */,
 				8717E1D62400DADC008C4CDA /* YSLiveUtil.m in Sources */,
-				8709FF382485FEBA00CC8BEA /* YSSkinManager.m in Sources */,
+				8709FF382485FEBA00CC8BEA /* YSLiveSkinManager.m in Sources */,
 				8717E1D72400DADC008C4CDA /* SCAnswerPageView.m in Sources */,
 				87832FBD24874C4300F1178E /* FLEXSQLResult.m in Sources */,
 				8717E1D82400DADC008C4CDA /* BMTestNetFlowDetailVC.m in Sources */,

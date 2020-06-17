@@ -484,21 +484,7 @@ static YSLiveManager *liveManagerSingleton = nil;
     
     self.whiteBoardManager = [YSWhiteBoardManager sharedInstance];
     NSLog(@"WhiteBoard SDK Version: %@", [YSWhiteBoardManager whiteBoardVersion]);
-    
-//    BMWeakSelf
-//    self.whiteBoardManager.webContentTerminateBlock = ^NSArray *_Nullable {
-//        NSMutableArray *userArray = [NSMutableArray array];
-//        for (YSRoomUser *user in weakSelf.userList)
-//        {
-//            NSDictionary *dic = [user bm_toDictionary];
-//            if ([dic bm_isNotEmptyDictionary])
-//            {
-//                [userArray addObject:dic];
-//            }
-//        }
-//        return userArray;
-//    };
-    
+
     NSDictionary *whiteBoardConfig = @{
         YSWhiteBoardWebProtocolKey : YSLive_Http,
         YSWhiteBoardWebHostKey : host,
