@@ -6,14 +6,14 @@
 //  Copyright © 2020 YS. All rights reserved.
 //
 
-#import "YSSkinManager.h"
+#import "YSLiveSkinManager.h"
 
-static YSSkinManager *skinManager = nil;
+static YSLiveSkinManager *skinManager = nil;
 
 #define YSSkinBundleName    (self.classOrOnline == YSSkinClassOrOnline_class)?@"YSSkinRsource.bundle": @"YSOnlineSchool.bundle"
 #define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
 
-@interface YSSkinManager ()
+@interface YSLiveSkinManager ()
 
 @property (nonatomic, assign) YSSkinType lastSkinType;
 
@@ -23,7 +23,7 @@ static YSSkinManager *skinManager = nil;
 
 @end
 
-@implementation YSSkinManager
+@implementation YSLiveSkinManager
 
 + (instancetype)shareInstance
 {
@@ -31,7 +31,7 @@ static YSSkinManager *skinManager = nil;
     {
         if (!skinManager)
         {
-            skinManager = [[YSSkinManager alloc] init];
+            skinManager = [[YSLiveSkinManager alloc] init];
             
             skinManager.skinType = YSSkinType_black;
         }

@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)destroy;
 
-+ (instancetype)shareInstance;
++ (instancetype)sharedInstance;
 + (NSString *)whiteBoardVersion;
 
 - (void)registerDelegate:(id <YSWhiteBoardManagerDelegate>)delegate configration:(NSDictionary *)config;

@@ -27,18 +27,18 @@
 #define YSLocalizedSchool(s)      [YSAPP_LocalizedSchool localizedStringForKey:s value:@"" table:nil]
 
 //小班课 + 直播 换肤
-#define YSSkinDefineColor(s) [[YSSkinManager shareInstance] getDefaultColorWithType:YSSkinClassOrOnline_class WithKey:(s)]
-#define YSSkinDefineImage(s) [[YSSkinManager shareInstance] getDefaultImageWithType:YSSkinClassOrOnline_class WithKey:(s)]
+#define YSSkinDefineColor(s) [[YSLiveSkinManager shareInstance] getDefaultColorWithType:YSSkinClassOrOnline_class WithKey:(s)]
+#define YSSkinDefineImage(s) [[YSLiveSkinManager shareInstance] getDefaultImageWithType:YSSkinClassOrOnline_class WithKey:(s)]
 
-#define YSSkinElementColor(z , s) [[YSSkinManager shareInstance] getElementColorWithType:YSSkinClassOrOnline_class WithName:(z) andKey:(s)]
-#define YSSkinElementImage(z , s) [[YSSkinManager shareInstance] getElementImageWithType:YSSkinClassOrOnline_class WithName:(z) andKey:(s)]
+#define YSSkinElementColor(z , s) [[YSLiveSkinManager shareInstance] getElementColorWithType:YSSkinClassOrOnline_class WithName:(z) andKey:(s)]
+#define YSSkinElementImage(z , s) [[YSLiveSkinManager shareInstance] getElementImageWithType:YSSkinClassOrOnline_class WithName:(z) andKey:(s)]
 
 //网校 换肤
-#define YSSkinOnlineDefineColor(s) [[YSSkinManager shareInstance] getDefaultColorWithType:YSSkinClassOrOnline_online WithKey:(s)]
-#define YSSkinOnlineDefineImage(s) [[YSSkinManager shareInstance] getDefaultImageWithType:YSSkinClassOrOnline_online WithKey:(s)]
+#define YSSkinOnlineDefineColor(s) [[YSLiveSkinManager shareInstance] getDefaultColorWithType:YSSkinClassOrOnline_online WithKey:(s)]
+#define YSSkinOnlineDefineImage(s) [[YSLiveSkinManager shareInstance] getDefaultImageWithType:YSSkinClassOrOnline_online WithKey:(s)]
 
-#define YSSkinOnlineElementColor(z , s) [[YSSkinManager shareInstance] getElementColorWithType:YSSkinClassOrOnline_online WithName:(z) andKey:(s)]
-#define YSSkinOnlineElementImage(z , s) [[YSSkinManager shareInstance] getElementImageWithType:YSSkinClassOrOnline_online WithName:(z) andKey:(s)]
+#define YSSkinOnlineElementColor(z , s) [[YSLiveSkinManager shareInstance] getElementColorWithType:YSSkinClassOrOnline_online WithName:(z) andKey:(s)]
+#define YSSkinOnlineElementImage(z , s) [[YSLiveSkinManager shareInstance] getElementImageWithType:YSSkinClassOrOnline_online WithName:(z) andKey:(s)]
 
 
 // 苹果AppID
