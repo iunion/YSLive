@@ -110,5 +110,40 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
+	<key>online_video_loding</key>
+	<dict>
+		<key>iconNor</key>
+		<string>online_video_loding_normal_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>online_video_back</key>
+	<dict>
+		<key>iconNor</key>
+		<string>online_video_back_normal_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>online_video_play</key>
+	<dict>
+		<key>iconNor</key>
+		<string>online_video_play_normal_skin</string>
+		<key>iconSel</key>
+		<string>online_video_stop_normal_skin</string>
+	</dict>
+	<key>online_video_fullscreen</key>
+	<dict>
+		<key>iconNor</key>
+		<string>online_video_fullscreen_normal_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
+	<key>online_video_spot</key>
+	<dict>
+		<key>iconNor</key>
+		<string>online_video_spot_normal_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
 </dict>
 </plist>
