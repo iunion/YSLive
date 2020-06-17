@@ -1674,5 +1674,16 @@
 		<key>iconDis</key>
 		<string></string>
 	</dict>
+	<key>Permissions_animation</key>
+	<dict>
+		<key>animation1</key>
+		<string>permissions_animation1_skin</string>
+		<key>animation2</key>
+		<string>permissions_animation2_skin</string>
+		<key>animation3</key>
+		<string>permissions_animation3_skin</string>
+		<key>animation4</key>
+		<string>permissions_animation4_skin</string>
+	</dict>
 </dict>
 </plist>

@@ -107,7 +107,7 @@
     UIImageView *animateView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 90, 145)];
     [self addSubview:animateView];
     animateView.bm_top = whiteView.bm_height*0.5f;
-    animateView.animationImages = @[[UIImage imageNamed:@"Permissions1"],[UIImage imageNamed:@"Permissions2"],[UIImage imageNamed:@"Permissions3"],[UIImage imageNamed:@"Permissions4"]];
+    animateView.animationImages = @[YSSkinElementImage(@"Permissions_animation", @"animation1"),YSSkinElementImage(@"Permissions_animation", @"animation2"),YSSkinElementImage(@"Permissions_animation", @"animation3"),YSSkinElementImage(@"Permissions_animation", @"animation4")];
     animateView.animationDuration = 1.0;
     animateView.animationRepeatCount = 0;
     [animateView startAnimating];

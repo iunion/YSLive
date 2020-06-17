@@ -120,7 +120,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     /// 提示动画
     UIImageView *animateView = [[UIImageView alloc]initWithFrame:CGRectMake(19, BMUI_SCREEN_HEIGHT-284-143, 91, 143)];
     [self.view addSubview:animateView];
-    animateView.animationImages = @[[UIImage imageNamed:@"Permissions1"],[UIImage imageNamed:@"Permissions2"],[UIImage imageNamed:@"Permissions3"],[UIImage imageNamed:@"Permissions4"]];
+    animateView.animationImages = @[YSSkinElementImage(@"Permissions_animation", @"animation1"),YSSkinElementImage(@"Permissions_animation", @"animation2"),YSSkinElementImage(@"Permissions_animation", @"animation3"),YSSkinElementImage(@"Permissions_animation", @"animation4")];
     animateView.animationDuration = 1.0;
     animateView.animationRepeatCount = 0;
     [animateView startAnimating];
