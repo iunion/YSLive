@@ -840,6 +840,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIView *videoBackgroud = [[UIView alloc] init];
 //    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    
+    videoBackgroud.backgroundColor = UIColor.yellowColor;
+    
+    
     [self.view addSubview:self.contentBackgroud];
     [self.contentView addSubview:videoBackgroud];
     self.videoBackgroud = videoBackgroud;
@@ -1702,7 +1706,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 CGFloat whitebordY = (self.contentHeight - STATETOOLBAR_HEIGHT - whitebordHeight)/2;
                 
                 self.whitebordBackgroud.frame = CGRectMake(0, whitebordY, whitebordWidth, whitebordHeight);
-                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, whitebordY, videoWidth, whitebordHeight);
+                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, whitebordY, videoTeacherWidth, whitebordHeight);
                 
                 self.teacherPlacehold.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
                 self.userVideoView.frame = CGRectMake(CGRectGetMaxX(self.teacherPlacehold.frame)-videoWidth, 0, videoWidth, videoHeight);
@@ -1715,7 +1719,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
     }
-    
     
     if (!floatVideoDefaultHeight)
     {
