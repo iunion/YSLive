@@ -146,11 +146,15 @@
 // 底部工具栏
 - (void)setupBottomToolBarView
 {
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*2.0f, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f)];
+    NSUInteger maxvideo = [self.liveManager.roomDic bm_uintForKey:@"maxvideo"];
+    YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
+    
+    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*2.0f, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f) roomType:roomusertype];
     spreadBottomToolBar.delegate = self;
     spreadBottomToolBar.isBeginClass = self.liveManager.isBeginClass;
     spreadBottomToolBar.isPollingEnable = NO;
     spreadBottomToolBar.isToolBoxEnable = NO;
+    
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
 }

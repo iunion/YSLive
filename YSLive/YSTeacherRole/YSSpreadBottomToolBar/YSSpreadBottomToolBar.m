@@ -38,19 +38,20 @@
 @property (nonatomic, weak) BMImageTitleButtonView *chatBtn;
 /// 退出房间
 @property (nonatomic, weak) BMImageTitleButtonView *exitBtn;
-
+/// 房间类型 0:表示一对一教室  非0:表示一多教室
+@property (nonatomic, assign) YSRoomTypes roomtype;
 @end
 
 @implementation YSSpreadBottomToolBar
 
-- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point
+- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomTypes)roomType
 {
     self = [super init];
     if (self)
     {
         self.roleType = roleType;
         self.topLeftpoint = point;
-        
+        self.roomtype = roomType;
         self.btnArray = [[NSMutableArray alloc] init];
         
         self.spreadOut = YES;
@@ -121,10 +122,12 @@
 
         self.pollingBtn = pollingBtn;
         [self.btnArray addObject:self.pollingBtn];
+        if (self.roomtype == YSRoomType_More)
+        {
+            self.allNoAudioBtn = allNoAudioBtn;
+            [self.btnArray addObject:self.allNoAudioBtn];
+        }
 
-        self.allNoAudioBtn = allNoAudioBtn;
-        [self.btnArray addObject:self.allNoAudioBtn];
-        
         self.cameraBtn = cameraBtn;
         [self.btnArray addObject:self.cameraBtn];
         

@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 切换摄像头可否点击
 @property (nonatomic, assign) BOOL isCameraEnable;
 
-- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point;
+- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomTypes)roomType;
 
 /// 花名册 课件库按钮的非选中
 - (void)hideListView;
