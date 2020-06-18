@@ -4429,6 +4429,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     BMLog(@"%@",answerId);
     _totalUsers = totalUsers;
+    for (NSString *key in self.answerStatistics.allKeys)
+    {
+        [self.answerStatistics setValue:@"0" forKey:key];
+    }
     for (NSString *key in values)
     {
         [self.answerStatistics setValue:values[key] forKey:key];
