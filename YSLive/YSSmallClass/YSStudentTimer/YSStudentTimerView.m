@@ -22,6 +22,7 @@
 /// 关闭按钮
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, strong) UILabel *titleL;
+@property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) UILabel *intervalL;
 @property (nonatomic, strong) UILabel *minuteL;
 @property (nonatomic, strong) UILabel *secondL;
@@ -86,6 +87,12 @@
     self.titleL.font = UI_FONT_16;
     self.titleL.text = YSLocalized(@"tool.jishiqi");
     self.titleL.frame = CGRectMake(30, 10, self.bacView.bm_width-60, 40);
+    
+    UIView *lineView = [[UIView alloc] init];
+    [self.bacView addSubview:lineView];
+    lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+    lineView.frame = CGRectMake(0, CGRectGetMaxY(self.titleL.frame), self.bacView.bm_width, 1);
+    self.lineView = lineView;
     
     self.intervalL = [[UILabel alloc] init];
     [self.bacView addSubview:self.intervalL];
