@@ -116,6 +116,11 @@
     [self setupUI];
 
 }
+- (void)setIsAllNoAudio:(BOOL)isAllNoAudio
+{
+    _isAllNoAudio = isAllNoAudio;
+    self.audioBtn.enabled = !isAllNoAudio;
+}
 
 - (void)setupUI
 {
@@ -365,7 +370,7 @@
     {
         if (self.userModel.afail == YSDeviceFaultNone)
         {
-            self.audioBtn.enabled = YES;
+            self.audioBtn.enabled = !self.isAllNoAudio;
         }
         else
         {
@@ -386,7 +391,7 @@
     {
         if (self.userModel.hasAudio)
         {
-            self.audioBtn.enabled = YES;
+            self.audioBtn.enabled = !self.isAllNoAudio;
         }
         else
         {

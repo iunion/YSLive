@@ -4821,11 +4821,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         if (self.liveManager.isEveryoneNoAudio)
         {
-            self.controlPopoverView.audioBtn.enabled = NO;
+            self.controlPopoverView.isAllNoAudio = YES;
         }
         else
         {
-            self.controlPopoverView.audioBtn.enabled = YES;
+            self.controlPopoverView.isAllNoAudio = NO;
         }
         
         YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
