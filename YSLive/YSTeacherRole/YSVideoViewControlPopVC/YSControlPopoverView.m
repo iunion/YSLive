@@ -230,11 +230,11 @@
             if (self.roomtype == YSRoomType_One)
             {
                 
-                //音频 视频 镜像 全体奖杯
+                //音频 视频 镜像
                 [self.btnArray addObject:self.audioBtn];
                 [self.btnArray addObject:self.videoBtn];
                 [self.btnArray addObject:self.mirrorBtn];
-                [self.btnArray addObject:self.allGiftCupBtn];
+//                [self.btnArray addObject:self.allGiftCupBtn];
 
             }
             else
