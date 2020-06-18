@@ -40,7 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 是否被拖出
 @property (nonatomic, assign) BOOL isDragOut;
-
+/// 是否全体静音
+@property (nonatomic, assign) BOOL isAllNoAudio;
 ///成为焦点的用户的peerID(必须在userModel前赋值)
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
 
