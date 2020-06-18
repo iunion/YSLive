@@ -1618,15 +1618,16 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 if (i == 0)
                 {
-                   [button setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
-                   button.selected = YES;
-                   self.selectedRoleBtn = button;
-                   self.studentRoleBtn = button;
+                    [button setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
+                    self.teacherRoleBtn = button;
+                    
                 }
                 else if (i == 1)
                 {
-                    [button setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
-                    self.teacherRoleBtn = button;
+                    [button setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
+                    button.selected = YES;
+                    self.selectedRoleBtn = button;
+                    self.studentRoleBtn = button;
                     
                 }
                 else if (i == 2)
@@ -1639,15 +1640,15 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 if (i == 0)
                 {
+                    [button setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
+                    self.teacherRoleBtn = button;
+                }
+                else if (i == 1)
+                {
                     [button setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
                     button.selected = YES;
                     self.selectedRoleBtn = button;
                     self.studentRoleBtn = button;
-                }
-                else if (i == 1)
-                {
-                    [button setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
-                    self.teacherRoleBtn = button;
                 }
                 else if (i == 2)
                 {
@@ -1743,6 +1744,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
 
         case 1:
+            self.selectRoleType = YSUserType_Teacher;
+            self.passwordMask.hidden = YES;
+            break;
+        case 2:
+
             self.selectRoleType = YSUserType_Student;
             if (self.needpwd)
             {
@@ -1753,11 +1759,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.noneedPwd");
                 self.passwordMask.hidden = NO;
             }
-            break;
-        case 2:
-            self.selectRoleType = YSUserType_Teacher;
-            self.passwordMask.hidden = YES;
-            
             break;
         case 3:
             self.selectRoleType = YSUserType_Patrol;
