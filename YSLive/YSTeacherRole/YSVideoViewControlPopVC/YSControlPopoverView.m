@@ -210,7 +210,7 @@
     self.giftCupBtn = giftCupBtn;
     
     //全体复位按钮
-    UIButton * allRestoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reset") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
+    UIButton * allRestoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reset") selectTitle:nil image:YSSkinElementImage(@"videoPop_allResetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_allResetButton", @"iconSel")];
     allRestoreBtn.tag = SCVideoViewControlTypeAllRestore;
     self.allRestoreBtn = allRestoreBtn;
     

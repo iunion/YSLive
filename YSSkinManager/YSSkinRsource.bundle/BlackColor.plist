@@ -1278,9 +1278,9 @@
 		<key>bgColor</key>
 		<string></string>
 		<key>iconNor</key>
-		<string>videoPop_videoReset_selected_skin</string>
-		<key>iconSel</key>
 		<string>videoPop_videoReset_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_videoReset_selected_skin</string>
 	</dict>
 	<key>videoPop_seatButton</key>
 	<dict>
@@ -1314,6 +1314,17 @@
 		<string>videoPop_IsFouceNo_skin</string>
 		<key>iconSel</key>
 		<string>videoPop_IsFouce_skin</string>
+	</dict>
+	<key>videoPop_allResetButton</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoPop_allResetNo_skin</string>
+		<key>iconSel</key>
+		<string>videoPop_allReset_skin</string>
 	</dict>
 	<key>answer_openResult</key>
 	<dict>
