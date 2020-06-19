@@ -1084,23 +1084,35 @@ static YSLiveManager *liveManagerSingleton = nil;
     self.userList = userList;
 }
 
-- (void)removeUserWhenBigRoomWithPeerId:(NSString *)peerId
+- (void)freshListUserWhenBigRoomWithPeerId:(NSString *)peerId properties:(NSDictionary *)properties
 {
     if (!self.isBigRoom)
     {
         return;
     }
-    
-    for (YSRoomUser *roomUser in self.userList)
+
+    if ([properties bm_containsObjectForKey:sUserPublishstate])
     {
-        if ([peerId isEqualToString:roomUser.peerID])
+        for (YSRoomUser *roomUser in self.userList)
         {
-            if (roomUser.publishState <= YSUser_PublishState_NONE)
+            if ([peerId isEqualToString:roomUser.peerID])
             {
-                [self.userList removeObject:roomUser];
+                if (roomUser.publishState <= YSUser_PublishState_NONE)
+                {
+                    [self.userList removeObject:roomUser];
+                }
+                
+                break;
             }
-            
-            break;
+        }
+
+        YSRoomUser *roomUser = [self.roomManager getRoomUserWithUId:peerId];
+        if (roomUser)
+        {
+            if (roomUser.publishState > YSUser_PublishState_NONE)
+            {
+                [self addRoomUser:roomUser showMessge:NO];
+            }
         }
     }
 }
@@ -1677,7 +1689,7 @@ static YSLiveManager *liveManagerSingleton = nil;
         return;
     }
     
-    [self removeUserWhenBigRoomWithPeerId:peerID];
+    [self freshListUserWhenBigRoomWithPeerId:peerID properties:properties];
     
     if ([self.roomManagerDelegate respondsToSelector:@selector(onRoomUserPropertyChanged:properties:fromId:)])
     {
