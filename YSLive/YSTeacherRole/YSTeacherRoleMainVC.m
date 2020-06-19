@@ -3234,7 +3234,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                             options:UIViewAnimationOptionCurveLinear
                          animations:^{
             giftImageView.bm_size = CGSizeMake(GiftImageView_Width*0.1, GiftImageView_Height*0.1);
-            CGPoint center = [self.view convertPoint:videoView.center fromView:videoView.superview];
+            CGPoint center = [self.contentBackgroud convertPoint:videoView.center fromView:videoView.superview];
             giftImageView.center = center;
         }
                          completion:^(BOOL finished) {
@@ -3248,7 +3248,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, GiftImageView_Width*0.5, GiftImageView_Height*0.5)];
     imageView.image = YSSkinDefineImage(@"main_giftshow");
-    [self.contentView addSubview:imageView];
+    [self.contentBackgroud addSubview:imageView];
     [imageView bm_centerInSuperView];
     
     return imageView;
