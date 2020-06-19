@@ -838,7 +838,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-//    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.view addSubview:self.contentBackgroud];
     [self.contentView addSubview:videoBackgroud];

@@ -899,14 +899,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-//    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-    [self.contentView addSubview:videoBackgroud];
-    self.videoBackgroud = videoBackgroud;
     videoBackgroud.layer.shadowColor = [UIColor bm_colorWithHex:0x000000 alpha:0.5].CGColor;
     videoBackgroud.layer.shadowOffset = CGSizeMake(0,2);
     videoBackgroud.layer.shadowOpacity = 1;
     videoBackgroud.layer.shadowRadius = 4;
+    self.videoBackgroud = videoBackgroud;
+    [self.contentView addSubview:videoBackgroud];
     
     // 加载白板
     [self.whitebordBackgroud addSubview:self.whiteBordView];
@@ -921,10 +920,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.expandContractBtn addTarget:self action:@selector(doubleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.expandContractBtn setBackgroundImage:YSSkinElementImage(@"doubleTeacher_littleView", @"iconNor") forState:UIControlStateNormal];
         [self.expandContractBtn setBackgroundImage:YSSkinElementImage(@"doubleTeacher_littleView", @"iconSel") forState:UIControlStateSelected];
-        [self.videoBackgroud addSubview:self.expandContractBtn];
         self.expandContractBtn.tag = DoubleTeacherExpandContractBtnTag;
         self.expandContractBtn.hidden = YES;
+//        [self.expandContractBtn setBackgroundColor:UIColor.greenColor];
+        [self.videoBackgroud addSubview:self.expandContractBtn];
         [self setUp1V1DefaultVideoView];
+        
+        
     }
     else
     {
@@ -1434,7 +1436,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     for (SCVideoView *videoView in viewArray)
     {
-        if (videoView.tag != PlaceholderPTag)
+        if (videoView.tag != PlaceholderPTag && videoView.tag != DoubleTeacherExpandContractBtnTag)
         {
             [videoView removeFromSuperview];
         }
@@ -1451,9 +1453,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         [self.videoBackgroud addSubview:videoView];
     }
-    
-//    [self calculateVideoSize];
-//    [self arrangeVidoeView];
     
     if (self.isDoubleType && self.roomtype == YSRoomType_One)
     {
@@ -1477,9 +1476,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             continue;
         }
-        self.expandContractBtn.hidden = YES;
+        
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
         {//左右平行关系
+            self.expandContractBtn.hidden = YES;
             if ([view.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
             {
                 view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
@@ -1493,6 +1493,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
             {//上下平行关系
+                self.expandContractBtn.hidden = YES;
                 if ([view.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
                     view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
@@ -1544,8 +1545,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     self.studentVideoView = view;
                     self.expandContractBtn.selected = NO;
                     self.expandContractBtn.frame = CGRectMake(view.bm_originX-23, view.bm_originY, 23, videoHeight);
-                    [self.videoBackgroud bringSubviewToFront:view];
-                    [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
+                    self.expandContractBtn.bm_right = view.bm_left;
+
+                    [view bm_bringToFront];
+                    [self.expandContractBtn bm_bringToFront];
                 }
             }
         }
@@ -1676,11 +1679,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//左右平行关系
             self.whitebordBackgroud.hidden = YES;
             
-//            self.videoBackgroud.frame = CGRectMake(0, 0, self.contentWidth, videoHeight);
-//
-//            self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
-//            self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, videoHeight);
-            
             self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth, videoHeight);
             
             self.teacherVideoView.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
@@ -1724,22 +1722,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 self.teacherVideoView.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
                 self.userVideoView.frame = CGRectMake(CGRectGetMaxX(self.teacherVideoView.frame)-videoWidth, 0, videoWidth, videoHeight);
             }
-            
-//            self.whitebordBackgroud.frame = CGRectMake(VIDEOVIEW_GAP, 0, whitebordWidth, whitebordHeight);
-//            self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP * 2, 0, videoWidth, whitebordHeight);
-//
-//            if (self.isWideScreen)
-//            {//16:9
-//                CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
-//
-//                self.teacherVideoView.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
-//                self.userVideoView.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
-//            }
-//            else
-//            {//4:3
-//                self.teacherVideoView.frame = CGRectMake(0, 0, videoWidth, videoHeight);
-//                self.userVideoView.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
-//            }
         }
     }
     else
