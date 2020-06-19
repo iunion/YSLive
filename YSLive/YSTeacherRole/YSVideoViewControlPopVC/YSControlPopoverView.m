@@ -331,8 +331,8 @@
         [self.btnArray removeObject:self.giftCupBtn];
     }
     
-    if (self.roomtype == YSRoomType_One)
-    {
+    if (self.roomtype == YSRoomType_One && !self.isNested)
+    {// 1V1 且 画中画的情况下老师视频是 竖排的
         
         self.view.frame = CGRectMake(0, 0, 50, 50 *self.btnArray.count);
         self.preferredContentSize = CGSizeMake(50, 50 *self.btnArray.count);

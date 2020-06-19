@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isDragOut;
 /// 是否全体静音
 @property (nonatomic, assign) BOOL isAllNoAudio;
+/// 是否是画中画的非老师视频
+@property (nonatomic, assign) BOOL isNested;
 ///成为焦点的用户的peerID(必须在userModel前赋值)
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
 

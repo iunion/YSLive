@@ -906,13 +906,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     sender.selected = !sender.selected;
     if (sender.selected)
     {
-        self.studentVideoView.bm_originX = self.videoBackgroud.bm_width;
+        self.studentVideoView.bm_originX = BMUI_SCREEN_WIDTH;
+        self.expandContractBtn.bm_originX = self.videoBackgroud.bm_width-23;
     }
     else
     {
         self.studentVideoView.bm_originX = VIDEOVIEW_GAP + videoTeacherWidth - videoWidth;
+        self.expandContractBtn.bm_originX = self.studentVideoView.bm_originX-23;
     }
-    self.expandContractBtn.bm_originX = self.studentVideoView.bm_originX-23;
+    
 }
 
 ///双师：老师拖拽视频布局
@@ -5302,37 +5304,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    popover.backgroundColor =  [UIColor bm_colorWithHex:0x336CC7];
     self.controlPopoverView.roomLayout = self.roomLayout;
     [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
+    self.controlPopoverView.isNested = NO;
     
     if (self.roomtype == YSRoomType_One)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
-
-        if ([userModel bm_isNotEmpty])
+        if ([self.doubleType isEqualToString:@"nested"] && userModel.role != YSUserType_Teacher)
         {
-            self.controlPopoverView.view.frame = CGRectMake(0, 0, 50, 215);
-            self.controlPopoverView.preferredContentSize = CGSizeMake(64, 215);
+            popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+            self.controlPopoverView.isNested = YES;
         }
     }
     else if (self.roomtype == YSRoomType_More)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
-        
-        if (self.appUseTheType == YSAppUseTheTypeMeeting)
-        {
-            if ([userModel bm_isNotEmpty])
-            {
-                self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
-            }
-        }
-        else
-        {
-            if ([userModel bm_isNotEmpty])
-            {
-                self.controlPopoverView.view.frame = CGRectMake(0, 0, 215, 50);
-                self.controlPopoverView.preferredContentSize = CGSizeMake(215, 50);
-            }
-        }
+
     }
     self.controlPopoverView.roomtype = self.roomtype;
     self.controlPopoverView.isDragOut = videoView.isDragOut;

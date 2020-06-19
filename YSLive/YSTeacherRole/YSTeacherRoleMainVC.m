@@ -5723,10 +5723,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    popover.backgroundColor =  [UIColor bm_colorWithHex:0x336CC7];
     self.controlPopoverView.roomLayout = self.roomLayout;
     [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
-
+    self.controlPopoverView.isNested = NO;
     if (self.roomtype == YSRoomType_One)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight;
+        if ([self.doubleType isEqualToString:@"nested"] && userModel.role != YSUserType_Teacher)
+        {
+            popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+            self.controlPopoverView.isNested = YES;
+        }
     }
     else if (self.roomtype == YSRoomType_More)
     {
