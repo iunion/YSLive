@@ -13,6 +13,8 @@
 /// 顶部状态栏高度
 #define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
 
+#define DoubleTeacherExpandContractBtnTag          100
+
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
     SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView,

@@ -45,7 +45,7 @@
 
 #define PlaceholderPTag       10
 
-#define DoubleTeacherExpandContractBtnTag          100
+
 
 //#define MAXVIDEOCOUNT               12
 
@@ -838,7 +838,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-//    videoBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
     videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     
     videoBackgroud.backgroundColor = UIColor.yellowColor;
@@ -860,7 +859,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     /// 设置尺寸
     if (self.roomtype == YSRoomType_One)
     {
-
         self.expandContractBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         [self.expandContractBtn addTarget:self action:@selector(doubleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.expandContractBtn setBackgroundImage:YSSkinElementImage(@"doubleTeacher_littleView", @"iconNor") forState:UIControlStateNormal];
@@ -868,7 +866,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.videoBackgroud addSubview:self.expandContractBtn];
         self.expandContractBtn.tag = DoubleTeacherExpandContractBtnTag;
         self.expandContractBtn.hidden = YES;
-        
         
         [self setUp1V1DefaultVideoView];
     }
@@ -1665,8 +1662,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.roomtype == YSRoomType_One)
     {
-        self.whitebordBackgroud.hidden = NO;
-        
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
         {//左右平行关系
             self.whitebordBackgroud.hidden = YES;
@@ -1678,6 +1673,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
+            self.whitebordBackgroud.hidden = NO;
+            
             if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
             {//默认上下平行关系
                 self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
