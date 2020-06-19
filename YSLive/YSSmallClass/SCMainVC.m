@@ -840,9 +840,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIView *videoBackgroud = [[UIView alloc] init];
     videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     
-    videoBackgroud.backgroundColor = UIColor.yellowColor;
-    
-    
     [self.view addSubview:self.contentBackgroud];
     [self.contentView addSubview:videoBackgroud];
     self.videoBackgroud = videoBackgroud;
@@ -1213,8 +1210,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///取消举手
 - (void)raiseHandsButtonTouchUp
 {
-    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
-    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+    
     
     self.upTime = [NSDate date].timeIntervalSince1970;
     
@@ -1228,6 +1224,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.remarkLab.hidden = YES;
             self.raiseMaskImage.hidden = YES;
             self.raiseHandsBtn.userInteractionEnabled = YES;
+            
+            [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+            [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+            
         });
     }
     else
@@ -1235,6 +1235,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.remarkLab.hidden = YES;
         self.raiseMaskImage.hidden = YES;
         self.raiseHandsBtn.userInteractionEnabled = YES;
+        
+        [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
     }
     self.raiseHandsBtn.selected = NO;
 }
