@@ -402,13 +402,14 @@
 "Permissions.SpeakerCheck" = "扬声器检测";
 "Permissions.CameraCheck" = "摄像头检测";
 "Permissions.MicrophoneCheck" = "麦克风检测";
-"Permissions.CanHear" = "听的见";
+"Permissions.CanHear" = "听得见";
 "Permissions.CanNotHear" = "听不见";
 "Permissions.ListenAgain" = "再听一遍";
 "Permissions.Continue" = "继续";
 "Permissions.Report" = "设备报告";
 "Permissions.Again" = "重新检测";
-"Permissions.Normal" = "正常";
+"Permissions.Normal" = "听得见";
+"Permissions.SpeakNo" = "听不见";
 "Permissions.Allow" = "允许";
 "Permissions.Ban" = "禁止";
 
