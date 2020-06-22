@@ -1237,6 +1237,8 @@
 		<string>videoPop_soundOpen_Skin</string>
 		<key>iconSel</key>
 		<string>videoPop_soundClose_Skin</string>
+		<key>iconDis</key>
+		<string>videoPop_soundDis_Skin</string>
 	</dict>
 	<key>videoPop_authorizeButton</key>
 	<dict>
