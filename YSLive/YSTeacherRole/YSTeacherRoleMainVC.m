@@ -702,7 +702,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark - 举手上台的UI
 - (void)setupHandView
 {
-    CGFloat raiseHandWH = 30;
+    CGFloat raiseHandWH = 40;
     CGFloat raiseHandRight = 10;
     
     CGFloat labBottom = 12;
@@ -712,8 +712,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         raiseHandRight = 20;
         labBottom = 20;
     }
-    
+//    BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*2.0f
     UILabel *handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
+    handNumLab.bm_centerX = self.spreadBottomToolBar.bm_right - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;  //(YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;
     handNumLab.font = UI_FONT_13;
     handNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     handNumLab.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
@@ -731,6 +732,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_teacherBtn", @"iconSel") forState:UIControlStateSelected];
     
     [raiseHandsBtn addTarget:self action:@selector(raiseHandsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    raiseHandsBtn.bm_centerX = self.spreadBottomToolBar.bm_right - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;
     self.raiseHandsBtn = raiseHandsBtn;
     [self.view addSubview:raiseHandsBtn];
 }

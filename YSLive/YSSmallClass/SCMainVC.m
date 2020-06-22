@@ -1147,7 +1147,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!_raiseHandsBtn)
     {
         
-        CGFloat raiseHandWH = 30;
+        CGFloat raiseHandWH = 40;
         CGFloat raiseHandRight = 10;
         
         CGFloat labBottom = 12;
@@ -1158,6 +1158,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             labBottom = 20;
         }
         self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - raiseHandWH - 20, raiseHandWH, raiseHandWH)];
+        self.raiseHandsBtn.bm_centerX = self.spreadBottomToolBar.bm_right - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconNor") forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"raiseHand_studentBtn", @"iconSel") forState:UIControlStateSelected];
