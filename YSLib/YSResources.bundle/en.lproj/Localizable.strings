@@ -127,6 +127,7 @@
 "Button.CancleHandsup"= "Cancel your hands";
 "Button.OpenAudio"          = "Audio on";
 "Button.CloseAudio"         = "Audio off";
+"Button.MutingAudio"        = "Muting";
 "Button.OpenVideo"          = "Video on";
 "Button.CloseVideo"         = "Video off";
 "Button.OpenMirror"          = "Mirror";

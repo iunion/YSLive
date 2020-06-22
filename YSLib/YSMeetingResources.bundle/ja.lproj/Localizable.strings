@@ -108,6 +108,7 @@
 
 "Button.OpenAudio"          = "オーディオ";
 "Button.CloseAudio"         = "オーディオ";
+"Button.MutingAudio"        = "静音中";
 "Button.OpenVideo"          = "ビデオ";
 "Button.CloseVideo"         = "ビデオ";
 "Button.UpPlatform"         = "発言席を上下する";

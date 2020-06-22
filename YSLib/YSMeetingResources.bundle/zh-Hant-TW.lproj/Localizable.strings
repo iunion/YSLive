@@ -126,6 +126,7 @@
 "Button.CancleHandsup"= "取消舉手";
 "Button.OpenAudio"          = "開啟音頻";
 "Button.CloseAudio"         = "關閉音頻";
+"Button.MutingAudio"        = "靜音中";
 "Button.OpenVideo"          = "開啟視頻";
 "Button.CloseVideo"         = "關閉視頻";
 "Button.OpenMirror"          = "鏡像";

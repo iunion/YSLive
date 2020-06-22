@@ -129,8 +129,8 @@
     
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
-    UIImage * audioClose = [YSSkinElementImage(@"videoPop_soundButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
+    [self.audioBtn setImage:YSSkinElementImage(@"videoPop_soundButton", @"iconDis") forState:UIControlStateDisabled];
+    [self.audioBtn setTitle:YSLocalized(@"Button.MutingAudio") forState:UIControlStateDisabled];
     self.audioBtn.tag = SCVideoViewControlTypeAudio;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
