@@ -1385,7 +1385,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //                }
 //                else
 //                {
-                    self.userVideoView.hidden = YES;
+//                    self.userVideoView.hidden = YES;
 //                }
             }
         }
@@ -1430,6 +1430,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.videoGridView clearView];
     
+    [self.userVideoView removeFromSuperview];
     [self.videoBackgroud addSubview:self.userVideoView];
     NSMutableArray *viewArray = [[NSMutableArray alloc] init];
     [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -1723,6 +1724,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 
                 self.teacherVideoView.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
                 self.userVideoView.frame = CGRectMake(CGRectGetMaxX(self.teacherVideoView.frame)-videoWidth, 0, videoWidth, videoHeight);
+                self.studentVideoView = self.userVideoView;
+                
+                self.expandContractBtn.selected = NO;
+                self.expandContractBtn.frame = CGRectMake(self.userVideoView.bm_originX-23, self.userVideoView.bm_originY, 23, videoHeight);
+                self.expandContractBtn.bm_right = self.userVideoView.bm_left;
+
+                [self.userVideoView bm_bringToFront];
+                [self.expandContractBtn bm_bringToFront];
+                
             }
         }
     }
