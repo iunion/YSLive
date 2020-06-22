@@ -32,6 +32,7 @@
     typeLabel.font = UI_FONT_14;
     typeLabel.textColor = [UIColor bm_colorWithHex:0x82ABEC];
     [self addSubview:typeLabel];
+    typeLabel.adjustsFontSizeToFitWidth = YES;
     self.typeLabel = typeLabel;
    
     UILabel *resultLabel = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -39,6 +40,7 @@
     resultLabel.font = UI_FONT_14;
     resultLabel.textColor = [UIColor bm_colorWithHex:0x82ABEC];
     [self addSubview:resultLabel];
+    resultLabel.adjustsFontSizeToFitWidth = YES;
     self.resultLabel = resultLabel;
 }
 

@@ -356,7 +356,7 @@
 "tool.leastanswer"   = "Please set at least 1 correct answer!";
 "tool.chooseanswer"   = "Please choose your answer";
 
-"tool.start"   = "Start";
+"tool.start"   = "Go";
 
 "MiniWB.Dispense"   = "Dispense";
 "MiniWB.Recycle"    = "Recycle";
@@ -388,7 +388,7 @@
 "Label.AnchorState" = "Lecturer entered room, please wait";
 
 
-"Permissions.TotalTitle" = "In order to ensure a good audio and video interaction effect, please check the device authority first.Remember to open the recording and camera permission of this App in the system-settings-application-permission!";
+"Permissions.TotalTitle" = "For a better experience, please follow me to do a device test.";
 
 "Permissions.checkTitle_Sound" = "Hi, I'm your device assistant. Can you hear me now? If you can't hear or not clearly, turn up the volume of the device";
 
@@ -396,24 +396,25 @@
 
 "Permissions.checkTitle_Microphone" = "Uh oh, your micphone permission is forbidden. Please go to system- settings-application permission and open the camera permission of this app!";
 
-"Permissions.checkTitle_Accomplish" = "Congratulations! Your device permissions are set correctly. You can click continue” to join online interaction!";
-"Permissions.checkTitle_Fail" = "Uh oh，the device permission is forbidden，Please open the recording and camera permission of this App in the system-settings-application-permission!";
+"Permissions.checkTitle_Accomplish" = "Congratulations! You’ve passed the test. All your devices are working fine. Now you can choose “Enter” and try the online audio and video interaction.";
+"Permissions.checkTitle_Fail" = "Oops! Something is wrong. Please adjust your devices according to the test report, or the user experience may be affected.";
 
-"Permissions.Speaker" = "Speaker";
-"Permissions.Camera" = "Camera";
-"Permissions.Microphone" = "Mic";
-"Permissions.SpeakerCheck" = "Speaker Detect";
+"Permissions.Speaker" = "Speaker Test";
+"Permissions.Camera" = "Camera Test";
+"Permissions.Microphone" = "Mic Test";
+"Permissions.SpeakerCheck" = "Speaker Test";
 "Permissions.CameraCheck" = "Camera Detect";
 "Permissions.MicrophoneCheck" = "Mic Detect";
-"Permissions.CanHear" = "Can hear";
-"Permissions.CanNotHear" = "Can’t hear";
+"Permissions.CanHear" = "Yes, I can.";
+"Permissions.CanNotHear" = "No, I can't";
 "Permissions.ListenAgain" = "Play again";
-"Permissions.Continue" = "Continue";
-"Permissions.Report" = "Device Report";
-"Permissions.Again" = "Retest";
-"Permissions.Normal" = "Correct";
-"Permissions.Allow" = "Allow";
-"Permissions.Ban" = "Forbid";
+"Permissions.Continue" = "Enter";
+"Permissions.Report" = "Equipment Report";
+"Permissions.Again" = "Test Again";
+"Permissions.Normal" = "Normal";
+"Permissions.SpeakNo" = "Abnormal";
+"Permissions.Allow" = "Normal";
+"Permissions.Ban" = "Abnormal";
 
 "EyeProtection.Title" = "In order to avoid the damage to eyes caused by staring at the screen for a long time, please set the eye protection function";
 "EyeProtection.Open" = "Set eye protection function";

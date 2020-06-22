@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
 /// 开始/继续按钮
 @property (nonatomic, strong) UIButton *continueBtn;
 /// 播放按钮
-@property (nonatomic, strong) UIButton *playAudioBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *playAudioBtn;
 /// 再次按钮
 @property (nonatomic, strong) UIButton *againBtn;
 /// 检测类型
@@ -158,7 +158,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     reproducerLab.noPermissionColor = YSSkinDefineColor(@"jurisdictionCheckFail");
     reproducerLab.title = YSLocalized(@"Permissions.Speaker");
     reproducerLab.permissionText = YSLocalized(@"Permissions.Normal");
-    reproducerLab.noPermissionText = YSLocalized(@"Permissions.CanNotHear");
+    reproducerLab.noPermissionText = YSLocalized(@"Permissions.SpeakNo");
 
     self.reproducerLab = reproducerLab;
     reproducerLab.hidden = YES;
@@ -200,24 +200,19 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     continueBtn.layer.cornerRadius = 34/2;
     
     /// 播放音频
-    UIButton *playAudioBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+    BMImageTitleButtonView *playAudioBtn = [[BMImageTitleButtonView alloc]init];
+    playAudioBtn.frame = CGRectMake(0, 0, 80, 80);
+    playAudioBtn.userInteractionEnabled = YES;
+    playAudioBtn.type = BMImageTitleButtonView_ImageTop;
+    playAudioBtn.textFont = UI_FONT_14;
+    playAudioBtn.imageTextGap = 2.0f;
+    playAudioBtn.normalImage = YSSkinElementImage(@"timer_pause", @"iconSel");
     playAudioBtn.bm_centerX = self.view.bm_centerX;
-    [playAudioBtn setImage:YSSkinElementImage(@"timer_pause", @"iconSel") forState:UIControlStateNormal];
-    [playAudioBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
-    [playAudioBtn setTitle:YSLocalized(@"Permissions.ListenAgain") forState:UIControlStateNormal];
-    playAudioBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    playAudioBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    float  spacing = 5;//图片和文字的上下间距
-    CGSize imageSize = playAudioBtn.imageView.frame.size;
-    CGSize titleSize = playAudioBtn.titleLabel.frame.size;
-    CGSize textSize = [playAudioBtn.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : playAudioBtn.titleLabel.font}];
-    CGSize frameSize = CGSizeMake(ceilf(textSize.width), ceilf(textSize.height));
-    if (titleSize.width + 0.5 < frameSize.width) {
-        titleSize.width = frameSize.width;
-    }
-    CGFloat totalHeight = (imageSize.height + titleSize.height + spacing);
-    playAudioBtn.imageEdgeInsets = UIEdgeInsetsMake(- (totalHeight - imageSize.height), 0.0, 0.0, - titleSize.width);
-    playAudioBtn.titleEdgeInsets = UIEdgeInsetsMake(0, - imageSize.width, - (totalHeight - titleSize.height), 0);
+    playAudioBtn.textNormalColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    playAudioBtn.normalText = YSLocalized(@"Permissions.ListenAgain");
+    playAudioBtn.textAlignment = NSTextAlignmentCenter;
+    playAudioBtn.textAdjustsFontSizeToFitWidth = YES;
+
     [playAudioBtn addTarget:self action:@selector(playAudioBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:playAudioBtn];
     self.playAudioBtn = playAudioBtn;

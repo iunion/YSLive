@@ -409,7 +409,8 @@
 "Permissions.Continue" = "繼續";
 "Permissions.Report" = "設備報告";
 "Permissions.Again" = "重新檢測";
-"Permissions.Normal" = "正常";
+"Permissions.Normal" = "聽得見";
+"Permissions.SpeakNo" = "聽不見";
 "Permissions.Allow" = "允許";
 "Permissions.Ban" = "禁止";
 
