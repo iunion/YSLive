@@ -226,7 +226,7 @@ UITextFieldDelegate
 
 - (void)textFieldDidChange
 {
-    if (self.allDisabled)
+    if (self.allDisabled && YSCurrentUser.role != YSUserType_Teacher)
     {
         return;
     }
