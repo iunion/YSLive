@@ -26,7 +26,8 @@
 @property (nonatomic, strong) UIButton * allRestoreBtn;
 //全体奖杯按钮
 @property (nonatomic, strong) UIButton * allGiftCupBtn;
-
+//线
+@property (nonatomic, strong) UIView * lineView;
 @property (nonatomic, strong) NSMutableArray *btnArray;
 
 @end
@@ -209,6 +210,11 @@
     giftCupBtn.tag = SCVideoViewControlTypeGiftCup;
     self.giftCupBtn = giftCupBtn;
     
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = YSSkinDefineColor(@"login_lineColor");
+    self.lineView = lineView;
+    lineView.hidden = YES;
+    
     //全体复位按钮
     UIButton * allRestoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reset") selectTitle:nil image:YSSkinElementImage(@"videoPop_allResetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_allResetButton", @"iconSel")];
     allRestoreBtn.tag = SCVideoViewControlTypeAllRestore;
@@ -221,6 +227,7 @@
     [self.btnArray removeAllObjects];
     
     
+    BOOL isShowLine = NO;
     if (YSCurrentUser.role == YSUserType_Student)
     {
         //音频 视频 镜像
@@ -244,11 +251,14 @@
             }
             else
             {
+                isShowLine = YES;
                 if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
                 {
+                    
                     if (self.isDragOut)
                     {
                         //音频 视频 镜像 复位 全体奖杯 全体复位
+                        
                         [self.btnArray addObject:self.audioBtn];
                         [self.btnArray addObject:self.videoBtn];
                         [self.btnArray addObject:self.mirrorBtn];
@@ -268,12 +278,13 @@
                 }
                 else
                 {
-                    //音频 视频 镜像 全体奖杯 全体复位 焦点
+                    //音频 视频 镜像 焦点 全体奖杯
                     [self.btnArray addObject:self.audioBtn];
                     [self.btnArray addObject:self.videoBtn];
                     [self.btnArray addObject:self.mirrorBtn];
-                    [self.btnArray addObject:self.allGiftCupBtn];
                     [self.btnArray addObject:self.fouceBtn];
+                    [self.btnArray addObject:self.allGiftCupBtn];
+                    
                 }
                 
             }
@@ -363,6 +374,26 @@
             btn.frame = frame;
         }
         [self moveButtonTitleAndImageWithButton:btn];
+    }
+    if (isShowLine)
+    {
+        self.lineView.hidden = NO;
+        [self.backView addSubview:self.lineView];
+        self.lineView.frame = CGRectZero;
+        if (self.view.bm_width < self.view.bm_height)
+        {
+            self.lineView.bm_height = 1.0f;
+            self.lineView.bm_bottom = self.allGiftCupBtn.bm_top;
+            self.lineView.bm_width = 20.0f;
+            self.lineView.bm_centerX = self.view.bm_width*0.5f;
+        }
+        else
+        {
+            self.lineView.bm_width = 1.0f;
+            self.lineView.bm_right = self.allGiftCupBtn.bm_left;
+            self.lineView.bm_height = 20.0f;
+            self.lineView.bm_centerY = self.view.bm_height*0.5f;
+        }
     }
 
     //没有摄像头、麦克风权限时的显示禁用状态
