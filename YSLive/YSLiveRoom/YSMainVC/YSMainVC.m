@@ -377,22 +377,21 @@
     [controlBackMaskView addGestureRecognizer:oneTap];
     
     UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 40)];
-    controlBackView.backgroundColor = [UIColor bm_colorWithHex:0x336CC7 alpha:0.6f];
+    controlBackView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     self.controlBackView = controlBackView;
     [controlBackMaskView addSubview:controlBackView];
     [controlBackView bm_roundedRect:controlBackView.bm_height*0.5f borderWidth:0 borderColor:nil];
 
     //音频控制按钮
-    self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"tearch_openSound" selectImageName:@"tearch_closeSound"];
-    UIImage * audioClose = [[UIImage imageNamed:@"tearch_openSound"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.audioBtn setImage:audioClose forState:UIControlStateDisabled];
+    self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"videoPop_soundButton" selectImageName:@"videoPop_soundButton"];
+    [self.audioBtn setImage:YSSkinElementImage(@"videoPop_soundButton", @"iconDis") forState:UIControlStateDisabled];
     self.audioBtn.tag = 0;
     [controlBackView addSubview:self.audioBtn];
     self.audioBtn.frame = CGRectMake(2, 4, 36, 32);
     
     //视频控制按钮
-    self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"tearch_openVideo" selectImageName:@"tearch_closeVideo"];
-    UIImage * videoClose = [[UIImage imageNamed:@"tearch_openVideo"] bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"videoPop_videoButton" selectImageName:@"videoPop_videoButton"];
+    UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
     [controlBackView addSubview:self.videoBtn];
     self.videoBtn.tag = 1;
@@ -477,10 +476,10 @@
     //        [button setTitle:selectTitle forState:UIControlStateSelected];
     //    }
     
-    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button setImage:YSSkinElementImage(imageName, @"iconNor") forState:UIControlStateNormal];
     if (selectImageName.length)
     {
-        [button setImage:[UIImage imageNamed:selectImageName] forState:UIControlStateSelected];
+        [button setImage:YSSkinElementImage(imageName, @"iconSel") forState:UIControlStateSelected];
     }
     
     return button;
