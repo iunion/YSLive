@@ -1359,7 +1359,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self freshWhitBordContentView];
 }
-////fvsdjaskfk
+
 - (void)freshContentView
 {
     if (self.roomtype == YSRoomType_One)
