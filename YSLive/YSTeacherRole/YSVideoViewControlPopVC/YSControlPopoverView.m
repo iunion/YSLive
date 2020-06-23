@@ -384,14 +384,14 @@
         {
             self.lineView.bm_height = 1.0f;
             self.lineView.bm_bottom = self.allGiftCupBtn.bm_top;
-            self.lineView.bm_width = 20.0f;
+            self.lineView.bm_width = 30.0f;
             self.lineView.bm_centerX = self.view.bm_width*0.5f;
         }
         else
         {
             self.lineView.bm_width = 1.0f;
             self.lineView.bm_right = self.allGiftCupBtn.bm_left;
-            self.lineView.bm_height = 20.0f;
+            self.lineView.bm_height = 30.0f;
             self.lineView.bm_centerY = self.view.bm_height*0.5f;
         }
     }
