@@ -65,7 +65,8 @@
     BMScrollPageViewDataSource,
     UIPopoverPresentationControllerDelegate,
     YSChatToolViewMemberDelegate,
-    SCVideoViewDelegate
+    SCVideoViewDelegate,
+    UIGestureRecognizerDelegate
 >
 {
     /// 上麦视频宽
@@ -184,9 +185,9 @@
 /// 控制自己音视频的按钮的背景View
 @property(nonatomic,strong) UIView * controlBackView;
 ///音频控制按钮
-@property(nonatomic,strong) UIButton * audioBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * audioBtn;
 ///视频控制按钮
-@property(nonatomic,strong) UIButton * videoBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
 @end
 
 @implementation YSMainVC
@@ -364,7 +365,17 @@
     
     [self addControlMainVideoAudioView];
 }
-
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.controlBackView])
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
 - (void)addControlMainVideoAudioView
 {
     UIView * controlBackMaskView = [[UIView alloc]initWithFrame:self.view.bounds];
@@ -375,27 +386,30 @@
     UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl)];
     oneTap.numberOfTapsRequired = 1;
     [controlBackMaskView addGestureRecognizer:oneTap];
+    oneTap.delegate = self;
     
-    UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 40)];
+    UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
     controlBackView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     self.controlBackView = controlBackView;
     [controlBackMaskView addSubview:controlBackView];
-    [controlBackView bm_roundedRect:controlBackView.bm_height*0.5f borderWidth:0 borderColor:nil];
+    [controlBackView bm_roundedRect:5.0f borderWidth:0 borderColor:nil];
 
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"videoPop_soundButton" selectImageName:@"videoPop_soundButton"];
-    [self.audioBtn setImage:YSSkinElementImage(@"videoPop_soundButton", @"iconDis") forState:UIControlStateDisabled];
+    self.audioBtn.disabledImage = YSSkinElementImage(@"videoPop_soundButton", @"iconDis");
+    self.audioBtn.disabledText = YSLocalized(@"Button.OpenAudio");
     self.audioBtn.tag = 0;
     [controlBackView addSubview:self.audioBtn];
-    self.audioBtn.frame = CGRectMake(2, 4, 36, 32);
+    self.audioBtn.frame = CGRectMake(5, 4, 36, 32);
     
     //视频控制按钮
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"videoPop_videoButton" selectImageName:@"videoPop_videoButton"];
     UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
+    self.videoBtn.disabledImage = videoClose;
+    self.videoBtn.disabledText = YSLocalized(@"Button.OpenVideo");
     [controlBackView addSubview:self.videoBtn];
     self.videoBtn.tag = 1;
-    self.videoBtn.frame = CGRectMake(42, 4, 36, 32);
+    self.videoBtn.frame = CGRectMake(45, 4, 36, 32);
     
 
 }
@@ -463,23 +477,23 @@
     }
 }
 ///创建button
-- (UIButton *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName
+- (BMImageTitleButtonView *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName
 {
-    UIButton * button = [[UIButton alloc]init];
+    BMImageTitleButtonView * button = [[BMImageTitleButtonView alloc]init];
     [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-    //    [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    //    button.titleLabel.font = UI_FONT_10;
-    //
-    //    [button setTitle:title forState:UIControlStateNormal];
-    //    if (selectTitle.length)
-    //    {
-    //        [button setTitle:selectTitle forState:UIControlStateSelected];
-    //    }
+    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
+    button.textFont = UI_FONT_10;
+    button.normalText = title;
     
-    [button setImage:YSSkinElementImage(imageName, @"iconNor") forState:UIControlStateNormal];
+    if (selectTitle.length)
+    {
+        button.selectedText = selectTitle;
+    }
+    button.normalImage = YSSkinElementImage(imageName, @"iconNor");
+
     if (selectImageName.length)
     {
-        [button setImage:YSSkinElementImage(imageName, @"iconSel") forState:UIControlStateSelected];
+        button.selectedImage = YSSkinElementImage(imageName, @"iconSel");
     }
     
     return button;
@@ -532,19 +546,22 @@
     
     CGRect frame = [self.videoBackgroud convertRect:videoView.frame toView:self.controlBackMaskView];
     
-    self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.size.height/2 + frame.origin.y);
+//    self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.size.height/2 + frame.origin.y);
     self.controlBackMaskView.hidden = NO;
     [self updataVideoPopViewState];
     [self.view bringSubviewToFront:self.controlBackView];
     
     if (self.isFullScreen)
     {
+        self.controlBackView.center = CGPointMake(frame.size.width + 30, frame.size.height/2 + frame.origin.y);
         self.controlBackView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
     }
     else
     {
+        self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.origin.y - self.controlBackView.bounds.size.height*0.5f);
         self.controlBackView.transform = CGAffineTransformMakeRotation(0);
     }
+
     
 }
 
@@ -1438,7 +1455,9 @@
             {
                 return;
             }
+            
             [self delVidoeViewWithPeerId:peerID];
+            [self clickToShowControl];// 隐藏控制按钮
         }
     }
     
