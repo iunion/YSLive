@@ -66,7 +66,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");
     
     // iOS 获取设备当前语言和地区的代码
-    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+    NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
     NSString *time;
     if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
     {

@@ -106,7 +106,7 @@
         self.msgLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
         self.translationText.textColor = YSSkinDefineColor(@"defaultTitleColor");
         self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
-        [self.translateBtn setImage:[UIImage imageNamed:@"myTranslate"] forState:UIControlStateNormal];
+        [self.translateBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
         self.lineView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
         bubbleX = ChatViewWidth-10-bubbleW;
     }

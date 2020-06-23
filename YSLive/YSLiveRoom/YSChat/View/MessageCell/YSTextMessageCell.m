@@ -73,7 +73,7 @@
     NSString * nameTimeStr = nil;
     
     // iOS 获取设备当前语言和地区的代码
-    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+    NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
     
     NSMutableAttributedString * att = [model emojiViewWithMessage:model.message font:15];
     CGSize size = [att bm_sizeToFitWidth:kBMScale_W(300)];

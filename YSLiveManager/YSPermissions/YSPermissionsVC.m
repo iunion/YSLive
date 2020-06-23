@@ -509,7 +509,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     BOOL isReproducer = [YSUserDefault getReproducerPermission];
     
     // iOS 获取设备当前语言和地区的代码
-    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+    NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
     NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
     NSString *filePath = nil;
     
