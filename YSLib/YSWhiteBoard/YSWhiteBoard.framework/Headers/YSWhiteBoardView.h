@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 断开连接
 - (void)disconnect:(NSDictionary *)message;
 /// 用户属性改变通知
-- (void)userPropertyChanged:(NSDictionary *)message;
+- (void)userPropertyChanged:(NSDictionary *)properties;
 
 /// 收到远端pubMsg消息通知
 - (void)remotePubMsg:(NSDictionary *)message;

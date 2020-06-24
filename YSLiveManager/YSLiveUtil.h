@@ -12,18 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSLiveUtil : NSObject
 
-+ (BOOL)isDomain:(NSString *)host;
-
-+ (BOOL)checkDataType:(nullable id)data;
-
-+ (nullable NSDictionary *)convertWithData:(nullable id)data;
-
-/// 生成UUID
-+ (NSString *)createUUID;
-
-+ (BOOL)checkIsMedia:(NSString *)filetype;
-+ (BOOL)checkIsVideo:(NSString *)filetype;
-
 + (NSString *)makeApiSignWithData:(NSObject *)data;
 
 @end

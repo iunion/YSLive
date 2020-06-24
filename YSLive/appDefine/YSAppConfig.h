@@ -29,17 +29,23 @@
 
 #import <BMKit/BMKitThird.h>
 
-#import <YSRoomSDK/YSRoomSDK.h>
+#import <YSSession/YSSession.h>
 #import <YSWhiteBoard/YSWhiteBoard.h>
 #import <YSWhiteBoard/YSWhiteBoardManager.h>
 
+#import "YSLiveMacros.h"
+#import "YSAppMacros.h"
+
 #import "YSLiveManager.h"
+
 #import "YSUserDefault.h"
 #import "YSLiveSkinManager.h"
+
 #if YSSDK
 #else
 #import "YSSchoolUser.h"
 #endif
+
 #define YSKeyWindow [UIApplication sharedApplication].keyWindow
 
 

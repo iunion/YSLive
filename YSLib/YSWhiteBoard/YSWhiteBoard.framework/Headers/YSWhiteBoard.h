@@ -17,7 +17,7 @@ FOUNDATION_EXPORT const unsigned char YSWhiteBoardVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <YSWhiteBoard/PublicHeader.h>
 
 #import <BMKit/BMKit.h>
-#import <YSRoomSDK/YSRoomSDK.h>
+#import <YSSession/YSSession.h>
 
 #import "YSWhiteBoardSkinManager.h"
 

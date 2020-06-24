@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)clearAfterClass;
 
-- (void)updateProperty:(NSDictionary *)dictionary;
+- (void)updateProperty:(NSDictionary *)properties;
 - (void)receiveWhiteBoardMessage:(NSDictionary *)dictionary isDelMsg:(BOOL)isDel;
 //- (void)whiteBoardOnRoomConnectedUserlist:(NSNumber *)code response:(NSDictionary *)response;
 

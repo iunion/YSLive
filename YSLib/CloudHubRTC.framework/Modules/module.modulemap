@@ -1,0 +1,6 @@
+framework module CloudHubRTC {
+  umbrella header "CloudHubRTC.h"
+
+  export *
+  module * { export * }
+}

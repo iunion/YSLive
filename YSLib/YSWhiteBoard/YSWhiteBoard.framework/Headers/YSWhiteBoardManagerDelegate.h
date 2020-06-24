@@ -43,7 +43,7 @@
 /// 切换课件
 - (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
 /// 媒体播放状态
-- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state;
+- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(YSMediaState)state;
 
 /// 课件窗口最大化事件
 - (void)onWhiteBoardMaximizeView;

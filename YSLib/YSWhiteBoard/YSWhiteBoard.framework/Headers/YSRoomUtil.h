@@ -31,14 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
                   msgID:(NSString *)msgID
                    data:(NSDictionary * _Nullable)dataDic
           extensionData:(NSDictionary * _Nullable)extensionData
-        associatedMsgID:(NSString * _Nullable)associatedMsgID
-                expires:(NSTimeInterval)expires
-             completion:(completion_block _Nullable)completion;
+        associatedMsgID:(NSString * _Nullable)associatedMsgID;
 
 + (int)delWhiteBoardMsg:(NSString *)msgName
                   msgID:(NSString *)msgID
-                   data:(NSObject * _Nullable)data
-             completion:(completion_block _Nullable)completion;
+                   data:(NSObject * _Nullable)data;
 
 + (NSString *)absoluteFileUrl:(NSString*)fileUrl withServerDic:(NSDictionary *)serverDic;
 

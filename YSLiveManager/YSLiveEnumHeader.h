@@ -55,27 +55,6 @@ typedef NS_ENUM(NSUInteger, YSQuestionState)
     YSQuestionState_Answer
 };
 
-/// 白板文档格式类型
-typedef NS_ENUM(NSUInteger, YSWhiteBordDocType)
-{
-    /// 普通文档
-    YSWhiteBordDocType_GeneralFile = 0,
-    /// 动态ppt
-    YSWhiteBordDocType_DynamicPPT,
-    /// 新版动态ppt
-    YSWhiteBordDocType_NewDynamicPPT,
-    /// h5文档
-    YSWhiteBordDocType_H5Document
-};
-
-/// 白板文档媒体类型
-//typedef NS_ENUM(NSUInteger, YSWhiteBordMediaType)
-//{
-//    /// 普通文档
-//    YSWhiteBordMediaType_Video = 0,
-//    /// 动态ppt
-//    YSWhiteBordMediaType_Audio
-//};
 
 typedef NS_ENUM(NSUInteger, YSLiveRoomLayout)
 {
@@ -83,61 +62,6 @@ typedef NS_ENUM(NSUInteger, YSLiveRoomLayout)
     YSLiveRoomLayout_VideoLayout = 2,    //视频布局
     YSLiveRoomLayout_FocusLayout = 3    //焦点布局
 };
-
-
-/// 房间布局（51，52，53一对一布局，1，2，3，4，6，7一对多布局）
-//typedef NS_ENUM(NSUInteger, YSLiveRoomLayout)
-//{
-//    RoomLayout_CoursewareDown = 1,      //视频置顶
-//    RoomLayout_VideoDown = 2,           //视频置底
-//    RoomLayout_Encompassment,           //视频围绕
-//    RoomLayout_Bilateral,               //多人模式
-//    RoomLayout_MainPeople = 6,          //主讲排列
-//    RoomLayout_OnlyVideo = 7,           //自由视频
-//
-//    RoomLayout_oneToOne = 51,                   //常规布局(一对一)
-//    RoomLayout_oneToOneDoubleDivision = 52,     //双师布局(一对一)
-//    RoomLayout_oneToOneDoubleVideo = 53         //视频布局(一对一)
-//};
-
-
-/// app使用场景  3：小班课  4：直播   6：会议
-typedef NS_ENUM(NSInteger, YSAppUseTheType)
-{
-    /** 小班课 */
-    YSAppUseTheTypeSmallClass = 3,
-    /** 直播 */
-    YSAppUseTheTypeLiveRoom = 4,
-    /** 会议*/
-    YSAppUseTheTypeMeeting = 6
-};
-
-///// 小班课老师端顶部按钮
-//typedef NS_ENUM(NSInteger, SCTeacherTopBarType)
-//{
-//    /** 轮询 */
-//    SCTeacherTopBarTypePolling,
-//    /** 花名册 */
-//    SCTeacherTopBarTypePersonList,
-//    /** 课件库 */
-//    SCTeacherTopBarTypeCourseware,
-//    /** 工具箱 */
-//    SCTeacherTopBarTypeToolBox,
-//    /** 全体控制 */
-//    SCTeacherTopBarTypeAllControll,
-//    /** 切换布局 */
-//    SCTeacherTopBarTypeSwitchLayout,
-//    /** 切换摄像头 */
-//    SCTeacherTopBarTypeCamera,
-//    /** 全体禁音 */
-//    SCTeacherTopBarTypeAllNoAudio,
-//    /** 消息 */
-//    SCTeacherTopBarTypeChat,
-//    /** 退出 */
-//    SCTeacherTopBarTypeExit,
-//    /** 展开收起 */
-//    SCTeacherTopBarTypeOnOff
-//};
 
 /// 小班课底部工具按钮
 typedef NS_ENUM(NSInteger, SCBottomToolBarType)
@@ -203,23 +127,6 @@ typedef NS_ENUM(NSInteger, SCToolBoxType)
 
 };
 
-//typedef NS_ENUM(NSInteger, PublishState) {
-//    YSPublishStateNONE           = 0,            //没有
-//    YSPublishStateAUDIOONLY      = 1,            //只有音频
-//    YSPublishStateVIDEOONLY      = 2,            //只有视频
-//    YSPublishStateBOTH           = 3,            //都有
-//    YSPublishStateNONEONSTAGE    = 4,            //音视频都没有 但还在台上
-//    YSPublishStateLocalNONE      = 5             //本地显示流
-//};
-
-typedef NS_OPTIONS(NSInteger, SCUserPublishState)
-{
-    SCUserPublishState_NONE         = 0,            // 没有
-    SCUserPublishState_NONEONSTAGE  = 1 << 0,       // 在台上
-    SCUserPublishState_AUDIOONLY    = 1 << 1,       // 在台上只有音频
-    SCUserPublishState_VIDEOONLY    = 1 << 2,       // 在台上只有视频
-    SCUserPublishState_BOTH         = SCUserPublishState_AUDIOONLY | SCUserPublishState_VIDEOONLY
-};
 
 /// 1:Android pad；2:Andriod phone；3:ipad；4:iphone；5:mac explorer；6:mac client；7:windows explorer；8:windows client
 /// 用户设备类型

@@ -1,6 +1,0 @@
-framework module YSRoomSDK {
-  umbrella header "YSRoomSDK.h"
-
-  export *
-  module * { export * }
-}

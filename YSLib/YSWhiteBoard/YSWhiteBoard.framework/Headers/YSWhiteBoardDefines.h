@@ -15,10 +15,6 @@ typedef void(^wbLoadFinishedBlock) (void);
 /// webview崩溃回调
 typedef void(^wbWebViewTerminateBlock)(void);
 
-/// 缓存数据key
-static NSString *const kYSMethodNameKey = @"YSCacheMsg_MethodName";
-static NSString *const kYSParameterKey = @"YSCacheMsg_Parameter";
-
 
 #define YSWhiteBoard_HttpDnsService_AccountID   131798
 
@@ -55,7 +51,7 @@ static  NSString *const sWhiteboardID           = @"whiteboardID";
 #define YSDefaultWhiteBoardId                   @"default"
 
 /// 默认小班课白板背景颜色
-#define YSWhiteBoard_MainBackGroudColor         YSSkinWhiteDefineColor(@"WhiteBoardBgColor")
+#define YSWhiteBoard_MainBackGroudColor         YSSkinWhiteDefineColor(@"WhiteBoardDrawBoardBgColor")
 #define YSWhiteBoard_MainBackDrawBoardBgColor   YSSkinWhiteDefineColor(@"WhiteBoardDrawBoardBgColor")
 #define YSWhiteBoard_BackGroudColor             YSSkinWhiteDefineColor(@"WhiteBoardBgColor")
 
@@ -72,23 +68,6 @@ static  NSString *const sWhiteboardID           = @"whiteboardID";
 
 #pragma - mark 用户属性
 
-/// 用户属性
-static  NSString *const sYSUserProperties           = @"properties";
-
-/// 发布状态
-static  NSString *const sYSUserPublishstate         = @"publishstate";
-/// 画笔权限 YES NO
-static  NSString *const sYSUserCandraw              = @"candraw";
-
-/// 是否进入后台 YES NO
-static  NSString *const sYSUserIsInBackGround       = @"isInBackGround";
-
-/// 用户设备状态
-static  NSString *const sYSUserVideoFail            = @"vfail";
-static  NSString *const sYSUserAudioFail            = @"afail";
-
-/// 画笔颜色值
-static  NSString *const sYSUserPrimaryColor         = @"primaryColor";
 /// 奖杯数
 static  NSString *const sYSUserGiftNumber           = @"giftnumber";
 static  NSString *const sYSUserGiftinfo             = @"giftinfo";
@@ -97,29 +76,11 @@ static  NSString *const sYSUserGiftinfo             = @"giftinfo";
 
 #pragma - mark 信令
 
-static  NSString *const sYSSignalUpdateTime             = @"UpdateTime";
-
-/// 发送消息
-static  NSString *const sYSSignalPubMsg                 = @"pubMsg";
-/// 删除消息
-static  NSString *const sYSSignalDelMsg                 = @"delMsg";
-
-/// 大房间
-static  NSString *const sYSSignalNotice_BigRoom_Usernum = @"Notice_BigRoom_Usernum";
-
 /// 白板加载完成回调
 static  NSString *const sYSSignalOnPageFinished         = @"onPageFinished";
 
 /// 打印h5日志
 static  NSString *const sYSSignalPrintLogMessage        = @"printLogMessage";
-
-/// 发布网络文件流的方法
-static  NSString *const sYSSignalPublishNetworkMedia    = @"publishNetworkMedia";
-/// 取消发布网络文件流
-static  NSString *const sYSSignalUnpublishNetworkMedia  = @"unpublishNetworkMedia";
-
-/// 新添加接口设置属性
-static  NSString *const sYSSignalSetProperty            = @"setProperty";
 
 /// 白板放大事件
 static  NSString *const sYSSignalChangeWebPageFullScreen = @"changeWebPageFullScreen";
@@ -159,8 +120,6 @@ static  NSString *const sYSSignalVideoWhiteboard        = @"VideoWhiteboard";
 
 static  NSString *const sYSSignalH5DocumentAction       = @"H5DocumentAction";
 static  NSString *const sYSSignalNewPptTriggerActionClick = @"NewPptTriggerActionClick";
-
-static  NSString *const sYSSignalClassBegin             = @"ClassBegin";
 
 /// 单窗口位置、大小、最小化、最大化数据
 static  NSString *const sYSSignalMoreWhiteboardState    = @"MoreWhiteboardState";

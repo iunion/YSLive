@@ -9,16 +9,6 @@
 #ifndef YSWhiteBoardEnum_h
 #define YSWhiteBoardEnum_h
 
-/// app使用场景  3：小班课  4：直播   6：会议
-typedef NS_ENUM(NSUInteger, YSRoomUseType)
-{
-    /** 小班课 */
-    YSRoomUseTypeSmallClass = 3,
-    /** 直播 */
-    YSRoomUseTypeLiveRoom = 4,
-    /** 会议*/
-    YSRoomUseTypeMeeting = 6
-};
 
 /// 白板文档媒体类型
 typedef NS_ENUM(NSUInteger, YSWhiteBordMediaType)
@@ -27,17 +17,6 @@ typedef NS_ENUM(NSUInteger, YSWhiteBordMediaType)
     YSWhiteBordMediaType_Video = 0,
     /// 音频
     YSWhiteBordMediaType_Audio
-};
-
-// 白板文档媒体类型
-typedef NS_ENUM(NSUInteger, YSWhiteBordMediaState)
-{
-    /// 停止
-    YSWhiteBordMediaState_Stop = 0,
-    /// 播放
-    YSWhiteBordMediaState_Play,
-    /// 暂停
-    YSWhiteBordMediaState_Pause,
 };
 
 typedef NS_ENUM(NSInteger, YSEvent)
