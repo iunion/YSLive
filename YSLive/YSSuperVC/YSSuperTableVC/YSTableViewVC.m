@@ -417,7 +417,7 @@
     
     if (![responseDic bm_isNotEmptyDictionary])
     {
-        responseDic = [YSLiveUtil convertWithData:responseDic];
+        responseDic = [YSSessionUtil convertWithData:responseDic];
     }
     
     if (![responseDic bm_isNotEmptyDictionary])

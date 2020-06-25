@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YSControlPopoverView : UIViewController
 
 ///app使用场景  3：小班课  4：直播   5：会议
-@property (nonatomic, assign) YSAppUseTheType appUseTheType;
+@property (nonatomic, assign) YSRoomUseType appUseTheType;
 
 @property(nonatomic,weak) id<YSControlPopoverViewDelegate> delegate;
 
@@ -51,9 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) YSRoomUser * userModel;
 
 
-
-/// 房间类型 0:表示一对一教室  非0:表示一多教室
-@property (nonatomic, assign) YSRoomTypes roomtype;
+/// 房间类型
+@property (nonatomic, assign) YSRoomUserType roomtype;
 
 ///标识布局变化的值
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;

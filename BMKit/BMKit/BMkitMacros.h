@@ -136,13 +136,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark -
 #pragma mark - UI macro
 
-#define BMUI_NAVIGATION_BAR_FRIMGEHEIGHT  44 //刘海高度
-#define BMUI_NAVIGATION_BAR_DEFAULTHEIGHT 44
-#define BMUI_NAVIGATION_BAR_HEIGHT        44
-#define BMUI_TOOL_BAR_HEIGHT              44
-#define BMUI_HOME_INDICATOR_HEIGHT        (BMIS_IPHONEXANDP ? 34 : 0.0f)
-#define BMUI_TAB_BAR_HEIGHT               (BMIS_IPHONEXANDP ? (49+BMUI_HOME_INDICATOR_HEIGHT) : 49)
-#define BMUI_STATUS_BAR_HEIGHT            (BMIS_IPHONEXANDP ? 44 : 20)
+#define BMUI_NAVIGATION_BAR_FRIMGEHEIGHT  44.0f //刘海高度
+#define BMUI_NAVIGATION_BAR_DEFAULTHEIGHT 44.0f
+#define BMUI_NAVIGATION_BAR_HEIGHT        44.0f
+#define BMUI_TOOL_BAR_HEIGHT              44.0f
+#define BMUI_HOME_INDICATOR_HEIGHT        (BMIS_IPHONEXANDP ? 34.0f : 0.0f)
+#define BMUI_TAB_BAR_HEIGHT               (BMIS_IPHONEXANDP ? (49.0f+BMUI_HOME_INDICATOR_HEIGHT) : 49.0f)
+#define BMUI_STATUS_BAR_HEIGHT            (BMIS_IPHONEXANDP ? 44.0f : 20.0f)
 
 #define BMUI_SCREEN_WIDTH                 ([[UIScreen mainScreen] bounds].size.width)
 #define BMUI_SCREEN_HEIGHT                ([[UIScreen mainScreen] bounds].size.height)
@@ -166,12 +166,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define BMUI_IPHONE6P_SCREEN_HEIGHT       736.0f
 
 //6为标准适配的,如果需要其他标准可以修改
-#define kBMScale_W(w) ((BMUI_SCREEN_WIDTH)/375) * (w)
-#define kBMScale_H(h) ((BMUI_SCREEN_HEIGHT)/667) * (h)
+#define kBMScale_W(w) ((BMUI_SCREEN_WIDTH)/375.0f) * (w)
+#define kBMScale_H(h) ((BMUI_SCREEN_HEIGHT)/667.0f) * (h)
 
 // 单像素
-#define BMSINGLE_LINE_WIDTH           (1 / [UIScreen mainScreen].scale)
-#define BMSINGLE_LINE_ADJUST_OFFSET   ((1 / [UIScreen mainScreen].scale) / 2)
+#define BMSINGLE_LINE_WIDTH           (1.0f / [UIScreen mainScreen].scale)
+#define BMSINGLE_LINE_ADJUST_OFFSET   ((1.0f / [UIScreen mainScreen].scale) / 2.0f)
 // UIView *view = [[UIView alloc] initWithFrame:CGrect(x - SINGLE_LINE_ADJUST_OFFSET, 0, SINGLE_LINE_WIDTH, 100)];
 
 

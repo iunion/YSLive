@@ -10,7 +10,7 @@
 #define YSLiveMacros_h
 
 /// 当前用户的model
-#define YSCurrentUser [YSLiveManager shareInstance].localUser
+#define YSCurrentUser [YSLiveManager sharedInstance].localUser
 
 #define YSLive_AppKey       @""
 

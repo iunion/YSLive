@@ -72,9 +72,9 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 @interface SCVideoView : UIView
 
 ///app使用场景  3：小班课  4：直播   6：会议
-@property (nonatomic, assign) YSAppUseTheType appUseTheType;
+@property (nonatomic, assign) YSRoomUseType appUseTheType;
 
-@property (nonatomic, weak) id<SCVideoViewDelegate> delegate;
+@property (nonatomic, weak) id <SCVideoViewDelegate> delegate;
 
 @property (nonatomic, strong, readonly) YSRoomUser *roomUser;
 /// 是否占位用

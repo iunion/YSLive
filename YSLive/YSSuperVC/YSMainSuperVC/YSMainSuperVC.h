@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSMainSuperVC : YSSuperNetVC
 <
-    YSLiveRoomManagerDelegate
+    YSSessionDelegate,
+    YSLiveForWhiteBoardDelegate
 >
 
 @property (nonatomic, weak, readonly) YSLiveManager *liveManager;
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIView *whiteBordView;
 
 ///app使用场景  3：小班课  4：直播   6：会议
-@property (nonatomic, assign) YSAppUseTheType appUseTheType;
+@property (nonatomic, assign) YSRoomUseType appUseTheType;
 
 ///成为焦点的用户的peerID
 @property (nullable,nonatomic, copy) NSString * foucePeerId;

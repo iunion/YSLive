@@ -19,8 +19,6 @@
 #import "SCTeacherListView.h"
 #import "SCTeacherAnswerView.h"
 
-#import "YSLiveMediaModel.h"
-
 #import "YSFloatView.h"
 #import "SCVideoGridView.h"
 
@@ -88,7 +86,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //UIImagePickerControllerDelegate,
     UIPopoverPresentationControllerDelegate,
     UITextViewDelegate,
-    YSLiveRoomManagerDelegate,
     SCBrushToolViewDelegate,
     SCDrawBoardViewDelegate,
     SCVideoViewDelegate,
@@ -169,7 +166,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
-@property (nonatomic, assign) YSRoomTypes roomtype;
+@property (nonatomic, assign) YSRoomUserType roomtype;
 /// 视频ratio 16:9
 @property (nonatomic, assign) BOOL isWideScreen;
 
@@ -322,9 +319,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
 /// 当前展示课件数组
 @property (nonatomic, strong) NSMutableArray *currentFileList;
-/// 当前展示媒体课件
-@property (nonatomic, strong) NSString *currentMediaFileID;
-@property (nonatomic, assign) YSWhiteBordMediaState currentMediaState;
 
 /// 课件删除
 @property(nonatomic, strong) NSURLSessionDataTask *deleteTask;
@@ -374,7 +368,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (instancetype)initWithRoomType:(YSRoomTypes)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
+- (instancetype)initWithRoomType:(YSRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
 {
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)

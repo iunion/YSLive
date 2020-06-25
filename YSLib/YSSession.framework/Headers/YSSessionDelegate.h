@@ -14,8 +14,9 @@
 
 @protocol YSSessionForUserDelegate;
 @protocol YSSessionForBigRoomDelegate;
+@protocol YSSessionForMessageDelegate;
 
-@protocol YSSessionDelegate <YSSessionForUserDelegate, YSSessionForBigRoomDelegate, YSSessionForSignalingDelegate>
+@protocol YSSessionDelegate <YSSessionForUserDelegate, YSSessionForBigRoomDelegate, YSSessionForSignalingDelegate, YSSessionForMessageDelegate>
 
 /**
  发生错误 回调
@@ -63,6 +64,15 @@
 - (void)onRoomBigRoomFreshInList:(BOOL)inlist;
 
 @end
+
+#pragma mark 消息
+@protocol YSSessionForMessageDelegate <NSObject>
+
+/// 收到信息
+- (void)handleMessageWith:(YSChatMessageModel *)message;
+
+@end
+
 
 
 #endif /* YSSessionDelegate_h */

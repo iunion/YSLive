@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YSChatMessageModel.h"
 //#import "SCChatBottomToolView.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)BOOL allDisabled;
 
 ///聊天列表数组(全部的)
-@property (nonatomic, strong) NSMutableArray<YSChatMessageModel *>  *SCMessageList;
+@property (nonatomic, strong) NSMutableArray <YSChatMessageModel *> *SCMessageList;
 
 ///点击底部输入按钮，弹起键盘
 @property (nonatomic, copy)void(^textBtnClick)(void);

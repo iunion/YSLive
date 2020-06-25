@@ -31,6 +31,8 @@ FOUNDATION_EXPORT const unsigned char YSSessionVersionString[];
 #import "YSRoomUser.h"
 #import "YSSharedMediaFileModel.h"
 
+#import "YSChatMessageModel.h"
+
 #import "YSSessionForSignalingDelegate.h"
 #import "YSSessionDelegate.h"
 

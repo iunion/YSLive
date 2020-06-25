@@ -27,9 +27,9 @@ FOUNDATION_EXTERN NSString * const YSJoinRoomParamsRoomIDKey;
 FOUNDATION_EXTERN NSString * const YSJoinRoomParamsPasswordKey;
 
 /// server
-FOUNDATION_EXTERN NSString *const YSJoinRoomParamsServerKey;
+FOUNDATION_EXTERN NSString * const YSJoinRoomParamsServerKey;
 /// 客户端类型
-FOUNDATION_EXTERN NSString *const YSJoinRoomParamsClientTypeKey;
+FOUNDATION_EXTERN NSString * const YSJoinRoomParamsClientTypeKey;
 
 /// 用户角色key值 @optional
 FOUNDATION_EXTERN NSString * const YSJoinRoomParamsUserRoleKey;
@@ -130,6 +130,12 @@ static NSString *const sYSSignalPublishNetworkMedia     = @"publishNetworkMedia"
 /// 取消发布网络文件流
 static NSString *const sYSSignalUnpublishNetworkMedia   = @"unpublishNetworkMedia";
 
+/// 投票
+static NSString *const sYSSignalVoteStart = @"VoteStart";
+/// 发送投票
+static NSString *const sYSSignalVoteCommit  = @"voteCommit";
+/// 投票结果
+static NSString *const sYSSignalPublicVoteResult = @"PublicVoteResult";
 
 
 #endif /* YSSessionDefines_h */

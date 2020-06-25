@@ -12,7 +12,7 @@
 /**
  *  图片的名字 作为id
  */
-@property (nonatomic,assign) int emojiName;
+@property (nonatomic, assign) int emojiName;
 /// 表情尺寸
 @property(nonatomic, assign) CGSize   emojiSize;
 @end

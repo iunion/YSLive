@@ -98,7 +98,7 @@
     self.maskView.backgroundColor = [YSSkinDefineColor(@"blackColor") changeAlpha:0.1];
     [self.bottomView addSubview:self.maskView];
     
-    if (![YSLiveManager shareInstance].isBeginClass)
+    if (![YSLiveManager sharedInstance].isClassBegin)
     {
         self.maskView.hidden = NO;
     }
@@ -113,7 +113,7 @@
 
 - (void)sendButtonClick
 {
-    if (![YSLiveManager shareInstance].isBeginClass)
+    if (![YSLiveManager sharedInstance].isClassBegin)
     {
         BMProgressHUD * hub =[BMProgressHUD bm_showHUDAddedTo:self animated:YES withDetailText:YSLocalized(@"Alert.CanNotQuestion")];
         hub.yOffset = -130;
@@ -124,12 +124,12 @@
         return ;
     }
     
-    NSString * questionId =  [[YSLiveManager shareInstance] sendQuestionWithText:self.inputView.text];
+    NSString *questionId = [[YSLiveManager sharedInstance] sendQuestionWithText:self.inputView.text];
     if ([questionId bm_isNotEmpty])
     {
         YSQuestionModel * model = [[YSQuestionModel alloc]init];
         model.nickName = YSCurrentUser.nickName;
-        model.timeInterval = [YSLiveManager shareInstance].tCurrentTime;
+        model.timeInterval = [YSLiveManager sharedInstance].tCurrentTime;
         model.questDetails = self.inputView.text;
         model.state = YSQuestionState_Question;
         model.questionId = questionId;

@@ -9,16 +9,6 @@
 #ifndef YSLiveEnumHeader_h
 #define YSLiveEnumHeader_h
 
-/// 消息类型
-typedef NS_ENUM(NSInteger, YSChatMessageType)
-{
-    YSChatMessageTypeText,          /** 聊天文字消息 */
-    YSChatMessageTypeOnlyImage,     /** 聊天图片消息 */
-    
-    YSChatMessageTypeTips,          /** 提示信息： */
-    YSChatMessageTypeImageTips,     /** 撒花提示信息： */
-};
-
 /// 房间即将关闭消息原因类型
 typedef NS_OPTIONS(NSInteger, YSPrepareRoomEndType)
 {

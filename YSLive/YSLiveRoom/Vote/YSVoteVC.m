@@ -306,9 +306,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
             }
         }
         
-        [[YSLiveManager sharedInstance] sendSignalingVoteCommitWithVoteId:self.voteModel.voteId voteResault:voteResault completion:^(NSError *error) {
-            BMLog(@"%@",error);
-        }];
+        [[YSLiveManager sharedInstance] sendSignalingVoteCommitWithVoteId:self.voteModel.voteId voteResault:voteResault];
         
         [self.navigationController popViewControllerAnimated:YES];
     }

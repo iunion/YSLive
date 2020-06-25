@@ -290,4 +290,21 @@ typedef NS_ENUM(NSUInteger, YSMediaState)
     YSMediaState_Pause
 };
 
+
+#pragma mark - 消息相关
+
+/// 消息类型
+typedef NS_ENUM(NSInteger, YSChatMessageType)
+{
+    /// 聊天文字消息
+    YSChatMessageType_Text,
+    /// 图片消息
+    YSChatMessageType_OnlyImage,
+    
+    /// 提示信息
+    YSChatMessageType_Tips,
+    /// 撒花提示信息
+    YSChatMessageType_ImageTips
+};
+
 #endif /* YSSessionEnum_h */

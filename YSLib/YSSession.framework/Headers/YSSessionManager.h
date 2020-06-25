@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) id <YSSessionDelegate> roomDelegate;
 
+@property (nonatomic, strong, readonly) NSString *webServerIP;
+@property (nonatomic, assign, readonly) int webServerPort;
 
 #pragma mark - 房间相关
 
@@ -158,14 +160,18 @@ NS_ASSUME_NONNULL_BEGIN
               roomParams:(NSDictionary *)roomParams
               userParams:(nullable NSDictionary *)userParams;
 
+- (BOOL)leaveRoom:(void(^ _Nullable)(void))leaveChannelBlock;
 
 - (void)serverLog:(NSString *)log;
 
-- (BOOL)leaveRoom:(void(^ _Nullable)(void))leaveChannelBlock;
 
 - (void)addMsgCachePoolWithMethodName:(SEL)selector parameters:(NSArray *)parameters;
 
-- (YSRoomUser *)getRoomUserWithId:(NSString *)peerId;
+- (NSString *)getProtocol;
+
+
+- (YSRoomUser *)getRoomUserWithId:(NSString *)userId;
+- (BOOL)getRoomUserWithId:(NSString *)userId callback:(void (^)(YSRoomUser *user, NSError *error))callback;
 
 
 
@@ -216,6 +222,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 #pragma mark -
 #pragma mark SendSignaling
 
@@ -253,6 +260,43 @@ associatedWithMsg:(nullable NSString *)assMsgID
          msgId:(NSString *)msgId
             to:(nullable NSString *)whom
       withData:(nullable NSDictionary *)data;
+
+
+#pragma mark - 投票
+
+// 发送投票
+- (BOOL)sendSignalingVoteCommitWithVoteId:(NSString *)voteId voteResault:(NSArray *)voteResault;
+
+
+@end
+
+
+#pragma mark -
+#pragma mark 即时消息相关操作
+
+@interface YSSessionManager (Message)
+
+/// 发送消息数据
+- (BOOL)sendMessage:(NSString *)message to:(NSString *)whom withExtraData:(NSDictionary *)extraData;
+
+/// 发送文本消息
+- (BOOL)sendMessageWithText:(NSString *)message withMessageType:(YSChatMessageType)messageType withMemberModel:(nullable YSRoomUser *)memberModel;
+
+/// 收到聊天消息
+// @param message 聊天消息内容
+// @param peerID 发送者用户ID
+// @param extension 消息扩展信息（用户昵称、用户角色等等）
+- (void)handleMessageReceived:(NSString *)message fromID:(NSString *)peerID extension:(NSDictionary *)extension;
+
+/// 系统配置提示消息
+// @param message 消息内容
+// @param peerID 发送者用户ID
+// @param tipType 提示类型
+- (void)sendTipMessage:(NSString *)message tipType:(YSChatMessageType)tipType;
+
+/// 发送提问
+// @return  QuestionID问题唯一标识 非nil表示调用成功，nil表示调用失败
+- (nullable NSString *)sendQuestionWithText:(NSString *)textMessage;
 
 @end
 
