@@ -7,6 +7,7 @@
 //
 
 #import <YSSession/YSSession.h>
+#import "YSLiveForWhiteBoardDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 网校api请求host
 @property (nonatomic, strong) NSString *schoolApiHost;
+
+
+@property (nonatomic, weak) id <YSLiveForWhiteBoardDelegate> whiteBoardDelegate;
+/// 白板管理
+@property (nonatomic, strong, readonly) YSWhiteBoardManager *whiteBoardManager;
+/// 白板视图whiteBord
+@property (nonatomic, weak, readonly) UIView *whiteBordView;
+
+
++ (void)destory;
+
+
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
+
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
+
+
+/// 改变小班课白板背景颜色和水印底图
+- (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
+- (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color drawBackGroundColor:(nullable UIColor *)drawBgColor maskImage:(nullable UIImage *)image;
+
+/// 改变直播白板背景颜色
+- (void)setWhiteBoardLivrBackGroundColor:(nullable UIColor *)color drawBackGroundColor:(nullable UIColor *)drawBgColor;
+
+/// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
+- (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
+
+/// 设置H5课件Cookies
+- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
+
 
 @end
 

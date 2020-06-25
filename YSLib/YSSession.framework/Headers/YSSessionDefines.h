@@ -26,6 +26,11 @@ FOUNDATION_EXTERN NSString * const YSJoinRoomParamsRoomIDKey;
 /// 密码key值 @required，如果该房间或者该用户角色没有密码，value：@""
 FOUNDATION_EXTERN NSString * const YSJoinRoomParamsPasswordKey;
 
+/// server
+FOUNDATION_EXTERN NSString *const YSJoinRoomParamsServerKey;
+/// 客户端类型
+FOUNDATION_EXTERN NSString *const YSJoinRoomParamsClientTypeKey;
+
 /// 用户角色key值 @optional
 FOUNDATION_EXTERN NSString * const YSJoinRoomParamsUserRoleKey;
 /// 用户ID的key值 @optional，如果不传用户ID，sdk会自动生成用户ID

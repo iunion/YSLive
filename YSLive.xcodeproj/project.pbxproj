@@ -1106,6 +1106,7 @@
 		87517E3924A354310094E2B3 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
 		87517E3C24A35C870094E2B3 /* YSLiveManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveManager.h; sourceTree = "<group>"; };
 		87517E3D24A35C870094E2B3 /* YSLiveManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveManager.m; sourceTree = "<group>"; };
+		87517E4024A453A70094E2B3 /* YSLiveForWhiteBoardDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveForWhiteBoardDelegate.h; sourceTree = "<group>"; };
 		875A7202237561E400407A75 /* SCVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCVideoView.h; sourceTree = "<group>"; };
 		875A720623758F1900407A75 /* SCVideoGridView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCVideoGridView.h; sourceTree = "<group>"; };
 		875A720723758F1900407A75 /* SCVideoGridView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCVideoGridView.m; sourceTree = "<group>"; };
@@ -2575,6 +2576,7 @@
 				87AED04523B5D71000D38129 /* YSPermissions */,
 				87728F2A2355CCD800E34916 /* YSLiveMacros.h */,
 				870C531C23572DF100BDB1EC /* YSLiveEnumHeader.h */,
+				87517E4024A453A70094E2B3 /* YSLiveForWhiteBoardDelegate.h */,
 				87517E3C24A35C870094E2B3 /* YSLiveManager.h */,
 				87517E3D24A35C870094E2B3 /* YSLiveManager.m */,
 				874061F3235AA428005D3620 /* YSLiveUtil.h */,

@@ -306,7 +306,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
             }
         }
         
-        [[YSLiveManager shareInstance] sendSignalingVoteCommitWithVoteId:self.voteModel.voteId voteResault:voteResault completion:^(NSError *error) {
+        [[YSLiveManager sharedInstance] sendSignalingVoteCommitWithVoteId:self.voteModel.voteId voteResault:voteResault completion:^(NSError *error) {
             BMLog(@"%@",error);
         }];
         

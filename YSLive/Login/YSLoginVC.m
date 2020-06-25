@@ -60,12 +60,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @interface YSLoginVC ()
 <
-    YSLiveRoomManagerDelegate,
+    YSSessionDelegate,
     UITextFieldDelegate,
     YSInputViewDelegate
 >
 
-@property (nonatomic, assign) YSAppUseTheType room_UseTheType;
+@property (nonatomic, assign) YSRoomUseType room_UseTheType;
 
 @property (nonatomic, strong) NSURL *loginUrl;
 
@@ -380,7 +380,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 BMLog(@"%@ %@", response, responseStr);
 #endif
 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
                 if ([responseDic bm_containsObjectForKey:@"time"])
                 {
                     NSTimeInterval timeInterval = [responseDic bm_doubleForKey:@"time"];
@@ -437,7 +437,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
         @"text/xml"
     ]];
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     // 默认是自己的标准app，传值是其他公司定制
@@ -459,7 +459,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         {
             return ;
         }
-        NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+        NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
         NSString *downString;
         NSString *httpLink = [responseDic bm_stringTrimForKey:@"setupaddr"];
         //NSString *appId = [responseDic bm_stringTrimForKey:@"appId"];
@@ -843,13 +843,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
             return;
         }
         
-        YSLiveManager *liveManager = [YSLiveManager shareInstance];
-        liveManager.schoolHost = domain;
+        YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+        liveManager.schoolApiHost = domain;
     }
     else
     {
-        YSLiveManager *liveManager = [YSLiveManager shareInstance];
-        liveManager.schoolHost = YSSchool_Server;
+        YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+        liveManager.schoolApiHost = YSSchool_Server;
     }
     
     NSString *account = self.admin_accountTextField.inputTextField.text;
@@ -885,7 +885,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             }
             else
             {
-                NSDictionary *dataDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *dataDic = [YSSessionUtil convertWithData:responseObject];
                 if ([dataDic bm_isNotEmptyDictionary])
                 {
                     NSInteger statusCode = [dataDic bm_intForKey:YSSuperVC_StatusCode_Key];
@@ -960,7 +960,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
                 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
                 
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
@@ -1202,7 +1202,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 [self.progressHUD bm_hideAnimated:NO];
                 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
 
                 if (![responseDic bm_isNotEmptyDictionary])
                 {
@@ -1257,7 +1257,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 {
                     // 小班课
                     case 3:
-                        weakSelf.room_UseTheType = YSAppUseTheTypeSmallClass;
+                        weakSelf.room_UseTheType = YSRoomUseTypeSmallClass;
 
                         [weakSelf showRoleSelectView];
 
@@ -1266,12 +1266,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
                         return;
                     // 直播
                     case 4:
-                        weakSelf.room_UseTheType = YSAppUseTheTypeLiveRoom;
+                        weakSelf.room_UseTheType = YSRoomUseTypeLiveRoom;
                         [weakSelf joinRoom];
                         return;
                     // 会议室
                     case 6:
-                        weakSelf.room_UseTheType = YSAppUseTheTypeMeeting;
+                        weakSelf.room_UseTheType = YSRoomUseTypeMeeting;
                         [weakSelf showRoleSelectView];
                         [weakSelf.view endEditing:YES];
                         weakSelf.passwordTextField.inputTextField.text = nil;
@@ -1304,9 +1304,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
         return;
     }
 
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
-    [liveManager registerRoomManagerDelegate:self];
-    liveManager.liveHost = YSLIVE_HOST;
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+    [liveManager registerRoomDelegate:self];
+    liveManager.apiHost = YSLIVE_HOST;
 #if YS_CHANGE_WHITEBOARD_BACKGROUND
     if (BMIS_IPHONE)
     {
@@ -1320,11 +1320,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     if ([passWordStr bm_isNotEmpty])
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
+        [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
+        [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
     }
     
     self.needCheckPermissions = YES;
@@ -1350,8 +1350,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     [self.view endEditing:YES];
     
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
-    [liveManager registerRoomManagerDelegate:self];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+    [liveManager registerRoomDelegate:self];
 #if YS_CHANGE_WHITEBOARD_BACKGROUND
     if (BMIS_IPHONE)
     {
@@ -1363,7 +1363,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 #endif
 
-    [[YSLiveManager shareInstance] joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams needCheckPermissions:YES];
+    [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams needCheckPermissions:YES];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
@@ -1614,7 +1614,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             
             [alertView addSubview:button];
             
-            if (self.room_UseTheType == YSAppUseTheTypeMeeting)
+            if (self.room_UseTheType == YSRoomUseTypeMeeting)
             {
                 if (i == 0)
                 {
@@ -1694,7 +1694,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.passwordMask.hidden = self.needpwd;
     
     self.roleSelectView.hidden = NO;
-    if (self.room_UseTheType == YSAppUseTheTypeMeeting)
+    if (self.room_UseTheType == YSRoomUseTypeMeeting)
     {
             [self.studentRoleBtn setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
             [self.teacherRoleBtn setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
@@ -1887,7 +1887,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)waitRoomLeft:(YSRoomLeftDoBlock)doSometing
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
-    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
+    [[YSLiveManager sharedInstance] leaveRoom:nil];
     if (doSometing)
     {
         doSometing();
@@ -1904,7 +1904,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [YSUserDefault setLoginRoomID:[self.roomTextField.inputTextField.text bm_trimAllSpace]];
     [YSUserDefault setLoginNickName:[self.nickNameTextField.inputTextField.text bm_trimAllSpace]];
 
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     
     NSString *roomId = liveManager.room_Id ? liveManager.room_Id : @"";
     NSString *userId = liveManager.localUser.peerID ? liveManager.localUser.peerID : @"";
@@ -1919,7 +1919,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
 #if YSCLASS
     
-    YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
+    YSRoomUseType appUseTheType = liveManager.room_UseType;
     // 未通过check进入房间时
     if (self.room_UseTheType == 0)
     {
@@ -1929,13 +1929,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
     YSUserRoleType roleType = liveManager.localUser.role;
            
     // 3: 小班课  4: 直播  6： 会议
-    BOOL isSmallClass = (self.room_UseTheType == YSAppUseTheTypeSmallClass || self.room_UseTheType == YSAppUseTheTypeMeeting);
+    BOOL isSmallClass = (self.room_UseTheType == YSRoomUseTypeSmallClass || self.room_UseTheType == YSRoomUseTypeMeeting);
     
     if (isSmallClass)
     {
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
-        YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
+        YSRoomUserType roomusertype = maxvideo > 2 ? YSRoomUserType_More : YSRoomUserType_One;
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
@@ -1997,7 +1997,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
-    if ([YSLiveManager shareInstance].roomConfig.isRemindEyeCare)
+    if ([YSLiveManager sharedInstance].roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
@@ -2028,7 +2028,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)theRoomNeedPassword
 {
     // 需要密码
-     if ( self.room_UseTheType == YSAppUseTheTypeMeeting || self.room_UseTheType == YSAppUseTheTypeSmallClass)
+     if ( self.room_UseTheType == YSRoomUseTypeMeeting || self.room_UseTheType == YSRoomUseTypeSmallClass)
     {
 //        self.roleSelectView.hidden = NO;
         [self showRoleSelectView];
@@ -2040,8 +2040,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
             BMLog(@"%@",passWord);
             //[YSLiveManager destroy];
             
-            YSLiveManager *liveManager = [YSLiveManager shareInstance];
-            [liveManager registerRoomManagerDelegate:self];
+            YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+            [liveManager registerRoomDelegate:self];
 #if YS_CHANGE_WHITEBOARD_BACKGROUND
             if (BMIS_IPHONE)
             {
@@ -2053,7 +2053,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             }
 #endif
 
-            [liveManager joinRoomWithHost:[YSLiveManager shareInstance].liveHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
+            [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
             
             [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
         } dismissBlock:^(id  _Nullable sender, NSUInteger index) {

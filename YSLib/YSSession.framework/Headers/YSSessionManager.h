@@ -161,6 +161,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)serverLog:(NSString *)log;
 
+- (BOOL)leaveRoom:(void(^ _Nullable)(void))leaveChannelBlock;
+
+- (void)addMsgCachePoolWithMethodName:(SEL)selector parameters:(NSArray *)parameters;
 
 - (YSRoomUser *)getRoomUserWithId:(NSString *)peerId;
 

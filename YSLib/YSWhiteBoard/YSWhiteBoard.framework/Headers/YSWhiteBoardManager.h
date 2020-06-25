@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSWhiteBoardManager : NSObject
 <
-    YSWBMediaControlviewDelegate
+    YSWBMediaControlviewDelegate,
+    YSSessionForWhiteBoardDelegate
 >
 
 @property (nonatomic, weak, readonly) id <YSWhiteBoardManagerDelegate> wbDelegate;
