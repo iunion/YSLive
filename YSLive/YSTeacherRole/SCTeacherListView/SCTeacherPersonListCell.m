@@ -252,7 +252,7 @@
     NSInteger giftNumber = [userModel.properties bm_uintForKey:sUserGiftNumber];
     self.cupNumberLabel.text = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
 
-    if ([YSLiveManager shareInstance].room_UseTheType == YSAppUseTheTypeMeeting)
+    if ([YSLiveManager shareInstance].room_UseTheType == YSRoomUseTypeMeeting)
     {
         self.cupView.hidden = YES;
         self.cupImgView.hidden = YES;

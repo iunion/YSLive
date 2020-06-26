@@ -53,8 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 视频比例 ratio 16:9
 @property (nonatomic, assign, readonly) BOOL room_IsWideScreen;
-/// 当前本地视频镜像模式
-@property (nonatomic, assign, readonly) YSVideoMirrorMode localVideoMirrorMode;
 
 /// 是否大房间
 @property (nonatomic, assign, readonly) BOOL isBigRoom;
@@ -84,6 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) YSRoomUser *teacher;
 /// 当前用户数据
 @property (nonatomic, strong, readonly) YSRoomUser *localUser;
+
+/// 当前本地视频镜像模式
+@property (nonatomic, assign, readonly) CloudHubVideoMirrorMode localVideoMirrorMode;
+
 
 /// BigRoom使用 只有超过100人后
 /// 房间用户数(总人数)
@@ -192,8 +194,14 @@ NS_ASSUME_NONNULL_BEGIN
                    sourceId:(nullable NSString *)sourceId;
 
 
+#pragma mark - setUserProperty
+
+- (BOOL)setPropertyOfUid:(NSString *)uid tell:(nullable NSString *)whom propertyKey:(NSString *)key value:(id)value;
+
 - (BOOL)setPropertyOfUid:(NSString *)uid tell:(nullable NSString *)whom properties:(NSDictionary *)prop;
 
+/// 设置本地视频镜像
+- (BOOL)changeLocalVideoMirrorMode:(CloudHubVideoMirrorMode)mode;
 
 
 @end

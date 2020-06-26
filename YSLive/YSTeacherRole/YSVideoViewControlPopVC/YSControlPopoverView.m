@@ -335,7 +335,7 @@
         }
     }
     
-    if (self.appUseTheType == YSAppUseTheTypeMeeting)
+    if (self.appUseTheType == YSRoomUseTypeMeeting)
     {
         /// 会议将奖杯移除
         [self.btnArray removeObject:self.allGiftCupBtn];

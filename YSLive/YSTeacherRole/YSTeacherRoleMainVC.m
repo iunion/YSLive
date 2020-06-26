@@ -382,7 +382,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
         
-        if (self.roomtype == YSRoomType_More)
+        if (self.roomtype == YSRoomUserType_More)
         {
             videoHeight = VIDEOVIEW_MAXHEIGHT;
             
@@ -428,8 +428,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.pollingArr = [[NSMutableArray alloc] init];
     self.pollingUpPlatformArr = [[NSMutableArray alloc] init];
     self.currentFileList = [[NSMutableArray alloc] init];
-    self.currentMediaFileID = @"";
-    self.currentMediaState = YSWhiteBordMediaState_Stop;
     isSearch = NO;
     
     _isPolling = NO;
@@ -452,7 +450,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 设置左侧工具栏
     [self setupBrushToolView];
     
-    if (self.roomtype == YSRoomType_More)
+    if (self.roomtype == YSRoomUserType_More)
     {
         //举手上台的按钮
         [self setupHandView];
@@ -477,7 +475,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
     
     // 会议默认视频布局
-    if (self.appUseTheType == YSAppUseTheTypeMeeting)
+    if (self.appUseTheType == YSRoomUseTypeMeeting)
     {
         defaultRoomLayout = YSLiveRoomLayout_VideoLayout;
         self.roomLayout = defaultRoomLayout;
@@ -524,7 +522,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //        }
 //    }
     //会议默认上课
-    if (self.appUseTheType == YSAppUseTheTypeMeeting && !self.liveManager.isBeginClass)
+    if (self.appUseTheType == YSRoomUseTypeMeeting && !self.liveManager.isClassBegin)
     {
         [[YSLiveManager shareInstance] sendSignalingTeacherToClassBeginWithCompletion:nil];
     }
@@ -875,9 +873,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 内容背景
 - (void)setupContentView
 {
-    [self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
+    //[self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
     // 前后默认开启镜像
-    [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
+    [self.liveManager changeLocalVideoMirrorMode:CloudHubVideoMirrorModeEnabled];
 
     // 视频+白板背景
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight - STATETOOLBAR_HEIGHT)];
@@ -2414,7 +2412,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self bottomToolBarPollingBtnEnable];
     self.spreadBottomToolBar.isPolling = _isPolling;
-//    if (self.appUseTheType == YSAppUseTheTypeMeeting)
+//    if (self.appUseTheType == YSRoomUseTypeMeeting)
 //    {
 //        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
 //            [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
@@ -2425,7 +2423,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 用户退出
 - (void)roomManagerLeftUser:(YSRoomUser *)user
 {
-    if (self.roomtype == YSRoomType_More)
+    if (self.roomtype == YSRoomUserType_More)
     {
         [self delVidoeViewWithPeerId:user.peerID];
     }
@@ -2846,7 +2844,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        if (self.roomtype == YSRoomType_More)
+        if (self.roomtype == YSRoomUserType_More)
         {
             // 1VN 初始本人视频音频
             SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
@@ -4356,14 +4354,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     //NO:上下布局  YES:左右布局
-    if (self.appUseTheType == YSAppUseTheTypeMeeting)
+    if (self.appUseTheType == YSRoomUseTypeMeeting)
     {
         YSLiveRoomLayout roomLayout = YSLiveRoomLayout_VideoLayout;
         if (!mode)
         {
             roomLayout = YSLiveRoomLayout_AroundLayout;
         }
-        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout appUserType:YSAppUseTheTypeMeeting withFouceUserId:nil];
+        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout appUserType:YSRoomUseTypeMeeting withFouceUserId:nil];
     }
     else
     {
@@ -5739,7 +5737,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.controlPopoverView.isNested = YES;
         }
     }
-    else if (self.roomtype == YSRoomType_More)
+    else if (self.roomtype == YSRoomUserType_More)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
     }
@@ -5792,11 +5790,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (sender.selected)
             {
-                [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeEnabled];
+                [self.liveManager changeLocalVideoMirrorMode:CloudHubVideoMirrorModeEnabled];
             }
             else
             {
-                [self.liveManager changeLocalVideoMirrorMode:YSVideoMirrorModeDisabled];
+                [self.liveManager changeLocalVideoMirrorMode:CloudHubVideoMirrorModeDisabled];
             }
         }
             break;

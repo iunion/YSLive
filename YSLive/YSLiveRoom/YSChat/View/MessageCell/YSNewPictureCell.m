@@ -220,7 +220,7 @@
 {
     if (![self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
     {
-        if (![YSLiveManager shareInstance].roomConfig.isDisablePrivateChat)
+        if (![YSLiveManager sharedInstance].roomConfig.isDisablePrivateChat)
         {
             if (self.nickNameBtnClick)
             {

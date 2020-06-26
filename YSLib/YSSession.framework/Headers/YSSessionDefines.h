@@ -79,13 +79,13 @@ static NSString *const sYSUserAudioFail             = @"afail";
 static NSString *const sYSUserPrimaryColor          = @"primaryColor";
 
 /// 举手 YES NO 允许上台
-static  NSString *const sUserRaisehand              = @"raisehand";
+static  NSString *const sYSUserRaisehand            = @"raisehand";
 
 /// 是否禁言 YES NO
-static  NSString *const sUserDisablechat            = @"disablechat";
+static  NSString *const sYSUserDisablechat          = @"disablechat";
 
 /// 奖杯数
-static  NSString *const sUserGiftNumber             = @"giftnumber";
+static  NSString *const sYSUserGiftNumber           = @"giftnumber";
 
 
 #pragma - mark 信令Key

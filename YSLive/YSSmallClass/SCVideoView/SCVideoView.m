@@ -185,7 +185,7 @@
 //视频view点击事件
 - (void)clickToShowControl
 {
-    if (self.appUseTheType == YSAppUseTheTypeLiveRoom && [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    if (self.appUseTheType == YSRoomUseTypeLiveRoom && [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
     {
         if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
         {
@@ -399,7 +399,7 @@
     self.maskCloseVideo.frame = CGRectMake(0, 0, imageWidth, imageHeight);
     [self.maskCloseVideo bm_centerInSuperView];
     
-    if (self.appUseTheType == YSAppUseTheTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
+    if (self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
     {
         self.cupImage.hidden = YES;
         self.cupNumLab.hidden = YES;

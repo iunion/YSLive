@@ -510,14 +510,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [Bugly setUserValue:nickName forKey:@"nickName"];
     [Bugly setUserValue:schoolUserAccount forKey:@"userAccount"];
 
-    YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
+    YSRoomUseType appUseTheType = liveManager.room_UseType;
 
     // 3: 小班课  4: 直播  6： 会议
-    if (appUseTheType == YSAppUseTheTypeSmallClass || appUseTheType == YSAppUseTheTypeMeeting)
+    if (appUseTheType == YSRoomUseTypeSmallClass || appUseTheType == YSRoomUseTypeMeeting)
     {
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
-        YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
+        YSRoomUserType roomusertype = maxvideo > 2 ? YSRoomUserType_More : YSRoomUserType_One;
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         

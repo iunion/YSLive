@@ -268,16 +268,16 @@ typedef NS_ENUM(NSUInteger, YSDeviceFaultType)
     YSDeviceFaultSDPFail        = 9
 };
 
-/// YSVideoMirrorMode 视频渲染镜像模式
-typedef NS_ENUM(NSUInteger, YSVideoMirrorMode)
-{
-    /// 前置摄像头时开启镜像模式，后置摄像头时不开启镜像
-    YSVideoMirrorModeAuto       = 0,
-    /// 默认设置，前置和后置均开启镜像模式
-    YSVideoMirrorModeEnabled    = 1,
-    /// 前置和后置均不开启镜像模式
-    YSVideoMirrorModeDisabled   = 2,
-};
+///// YSVideoMirrorMode 视频渲染镜像模式
+//typedef NS_ENUM(NSUInteger, YSVideoMirrorMode)
+//{
+//    /// 前置摄像头时开启镜像模式，后置摄像头时不开启镜像
+//    YSVideoMirrorModeAuto       = 0,
+//    /// 默认设置，前置和后置均开启镜像模式
+//    YSVideoMirrorModeEnabled    = 1,
+//    /// 前置和后置均不开启镜像模式
+//    YSVideoMirrorModeDisabled   = 2,
+//};
 
 /// YSMediaState 媒体流发布状态
 typedef NS_ENUM(NSUInteger, YSMediaState)
