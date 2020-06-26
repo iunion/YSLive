@@ -8,7 +8,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "YSTeacherRoleMainVC.h"
 #import "SCChatView.h"
-#import "YSChatMessageModel.h"
 #import "SCBrushToolView.h"
 #import "SCDrawBoardView.h"
 #import "SCChatToolView.h"
@@ -751,20 +750,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 publishState = YSUser_PublishState_VIDEOONLY;
             }
             
-            if (weakSelf.liveManager.isBigRoom)
-            {
-                [weakSelf.liveManager.roomManager getRoomUserWithPeerId:[cell.userDict bm_stringForKey:@"peerId"] callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
-                    
-                    [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(publishState)];
-                    cell.headBtn.selected = YES;
-                }];
-            }
-            else
-            {
-                YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:[cell.userDict bm_stringForKey:@"peerId"]];
-                [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sYSUserPublishstate WithValue:@(publishState)];
-                cell.headBtn.selected = YES;
-            }
+            NSString *peerId = [cell.userDict bm_stringForKey:@"peerId"];
+            [weakSelf.liveManager setPropertyOfUid:peerId tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
+            cell.headBtn.selected = YES;
         }
         else
         {
@@ -1074,7 +1062,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)closeMp4BtnClicked:(UIButton *)btn
 {
-    [self.liveManager.roomManager stopShareMediaFile:nil];
+    [self.liveManager stopShareOneMediaFile];
 }
 
 - (void)doubleBtnClick:(UIButton *)sender
@@ -1798,10 +1786,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
-
-
-
-
 #pragma mark - videoViewArray
 
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
@@ -1811,6 +1795,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh
 {
+#warning eeeeeeeeeeee
+#if 0
     if (!videoView)
     {
         return;
@@ -1881,6 +1867,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     videoView.publishState = publishState;
+#endif
 }
 
 - (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
@@ -1890,7 +1877,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
-    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
+    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sYSUserPublishstate];
     
     YSRenderMode renderType = YSRenderMode_adaptive;
     
@@ -4843,7 +4830,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 ///全体静音 发言
-- (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
+- (void)handleSignalingliveAllNoAudio:(BOOL)noAudio
 {
     allNoAudio = noAudio;
 }

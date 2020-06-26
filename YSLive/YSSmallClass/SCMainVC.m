@@ -4836,7 +4836,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark -全体静音 发言
-- (void)handleSignalingToliveAllNoAudio:(BOOL)noAudio
+- (void)handleSignalingliveAllNoAudio:(BOOL)noAudio
 {
     if (self.liveManager.localUser.afail == YSDeviceFaultNone)
     {

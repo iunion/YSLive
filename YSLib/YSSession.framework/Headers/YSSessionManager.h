@@ -123,12 +123,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSMutableArray *cacheMsgPool;
 
 
-
-#pragma mark - ClassBegin
-
 /// 是否开始上课
 @property (nonatomic, assign) BOOL isClassBegin;
 
+/// 全体禁音
+@property (nonatomic, assign) BOOL isEveryoneNoAudio;
 
 
 #pragma mark - ShareMediaFile
@@ -227,6 +226,7 @@ NS_ASSUME_NONNULL_BEGIN
                            fromID:(NSString *)fromID
                            inList:(BOOL)inlist
                                ts:(long)ts;
+
 
 @end
 
@@ -328,13 +328,13 @@ associatedWithMsg:(nullable NSString *)assMsgID
 
 - (BOOL)stopShareMediaFile:(NSString *)mediaPath;
 
-- (BOOL)pauseShareMediaFile:(NSString *)mediaPath isPause:(BOOL)isPause;
-- (BOOL)seekShareMediaFile:(NSString *)mediaPath positionByMS:(NSUInteger)position;
+- (void)pauseShareMediaFile:(NSString *)mediaPath isPause:(BOOL)isPause;
+- (void)seekShareMediaFile:(NSString *)mediaPath positionByMS:(NSUInteger)position;
 
 - (BOOL)stopShareOneMediaFile;
 
-- (BOOL)pauseShareOneMediaFile:(BOOL)isPause;
-- (BOOL)seekShareOneMediaFile:(NSUInteger)position;
+- (void)pauseShareOneMediaFile:(BOOL)isPause;
+- (void)seekShareOneMediaFile:(NSUInteger)position;
 
 @end
 

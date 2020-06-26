@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YSChatMessageModel.h"
 //#import "SCChatBottomToolView.h"
 
 NS_ASSUME_NONNULL_BEGIN

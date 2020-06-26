@@ -75,7 +75,7 @@
     // iOS 获取设备当前语言和地区的代码
     NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
     
-    NSMutableAttributedString * att = [model emojiViewWithMessage:model.message font:15];
+    NSMutableAttributedString * att = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
     CGSize size = [att bm_sizeToFitWidth:kBMScale_W(300)];
     
     CGFloat bubbleW = size.width + kBMScale_W(5)+kBMScale_W(5);

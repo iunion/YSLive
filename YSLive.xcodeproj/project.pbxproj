@@ -161,7 +161,6 @@
 		871335A3237270F6006534A4 /* YSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12902372647800D642E8 /* YSQuestionView.m */; };
 		871335A5237270F6006534A4 /* YSUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E6401823699700000D9CEC /* YSUserDefault.m */; };
 		871335A6237270F6006534A4 /* YSLessonDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */; };
-		871335A9237270F6006534A4 /* YSChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13142372647900D642E8 /* YSChatMessageModel.m */; };
 		871335AD237270F6006534A4 /* YSApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB01235178C000C72EAA /* YSApiRequest.m */; };
 		871335B2237270F6006534A4 /* YSPrizeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */; };
 		871335B5237270F6006534A4 /* YSSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADAF12351708200C72EAA /* YSSuperVC.m */; };
@@ -185,7 +184,6 @@
 		871335FD237270F6006534A4 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1502371720600A43607 /* YYFPSLabel.m */; };
 		87133603237270F6006534A4 /* YSBarrageTrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */; };
 		8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
-		8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
 		87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8713361D237270F6006534A4 /* BMTestAppInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1522371720600A43607 /* BMTestAppInfoVC.m */; };
 		87133621237270F6006534A4 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 260A1A8023507CB300288B01 /* YSLoginVC.m */; };
@@ -254,7 +252,6 @@
 		8717E2272400DADC008C4CDA /* YSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12902372647800D642E8 /* YSQuestionView.m */; };
 		8717E2282400DADC008C4CDA /* YSUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E6401823699700000D9CEC /* YSUserDefault.m */; };
 		8717E2292400DADC008C4CDA /* YSLessonDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */; };
-		8717E22A2400DADC008C4CDA /* YSChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13142372647900D642E8 /* YSChatMessageModel.m */; };
 		8717E2302400DADC008C4CDA /* YSApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB01235178C000C72EAA /* YSApiRequest.m */; };
 		8717E2312400DADC008C4CDA /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
 		8717E2322400DADC008C4CDA /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479EF239E276000680D84 /* SCDrawBoardView.m */; };
@@ -306,7 +303,6 @@
 		8717E2972400DADC008C4CDA /* YSBarrageTrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */; };
 		8717E2982400DADC008C4CDA /* YSMediaMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A723223824F1B00407A75 /* YSMediaMarkView.m */; };
 		8717E2A02400DADC008C4CDA /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
-		8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13112372647900D642E8 /* PTTextAttachment.m */; };
 		8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8717E2AB2400DADC008C4CDA /* UIAlertController+SCAlertAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */; };
 		8717E2AD2400DADC008C4CDA /* YSMp4ControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAD7223C4616100FC90EF /* YSMp4ControlView.m */; };
@@ -1561,10 +1557,6 @@
 		87EB12DF2372647800D642E8 /* YSChatMemberListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSChatMemberListVC.m; sourceTree = "<group>"; };
 		87EB12E02372647800D642E8 /* YSChatMemberListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSChatMemberListCell.h; sourceTree = "<group>"; };
 		87EB130F2372647800D642E8 /* YSChatMemberListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSChatMemberListVC.h; sourceTree = "<group>"; };
-		87EB13112372647900D642E8 /* PTTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTextAttachment.m; sourceTree = "<group>"; };
-		87EB13122372647900D642E8 /* YSChatMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSChatMessageModel.h; sourceTree = "<group>"; };
-		87EB13132372647900D642E8 /* PTTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTextAttachment.h; sourceTree = "<group>"; };
-		87EB13142372647900D642E8 /* YSChatMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSChatMessageModel.m; sourceTree = "<group>"; };
 		87EB13172372647900D642E8 /* YSChatToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSChatToolView.h; sourceTree = "<group>"; };
 		87EB13182372647900D642E8 /* YSChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSChatView.h; sourceTree = "<group>"; };
 		87EB13192372647900D642E8 /* YSCommentPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSCommentPopView.h; sourceTree = "<group>"; };
@@ -3478,7 +3470,6 @@
 		87EB12DD2372647800D642E8 /* YSChat */ = {
 			isa = PBXGroup;
 			children = (
-				87EB13102372647800D642E8 /* Model */,
 				87EB13152372647900D642E8 /* View */,
 				87EB12E02372647800D642E8 /* YSChatMemberListCell.h */,
 				87EB13282372647900D642E8 /* YSChatMemberListCell.m */,
@@ -3486,17 +3477,6 @@
 				87EB12DF2372647800D642E8 /* YSChatMemberListVC.m */,
 			);
 			path = YSChat;
-			sourceTree = "<group>";
-		};
-		87EB13102372647800D642E8 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				87EB13132372647900D642E8 /* PTTextAttachment.h */,
-				87EB13112372647900D642E8 /* PTTextAttachment.m */,
-				87EB13122372647900D642E8 /* YSChatMessageModel.h */,
-				87EB13142372647900D642E8 /* YSChatMessageModel.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		87EB13152372647900D642E8 /* View */ = {
@@ -3972,7 +3952,6 @@
 				871335A5237270F6006534A4 /* YSUserDefault.m in Sources */,
 				87832F2C24874C4300F1178E /* FLEXShortcutsSection.m in Sources */,
 				871335A6237270F6006534A4 /* YSLessonDetailHeaderView.m in Sources */,
-				871335A9237270F6006534A4 /* YSChatMessageModel.m in Sources */,
 				8709FF342485F7CB00CC8BEA /* FBRetainCycleDetector.mm in Sources */,
 				871335AD237270F6006534A4 /* YSApiRequest.m in Sources */,
 				87832F7C24874C4300F1178E /* FLEXArgumentInputFontsPickerView.m in Sources */,
@@ -4096,7 +4075,6 @@
 				87133603237270F6006534A4 /* YSBarrageTrackInfo.m in Sources */,
 				875A723323824F1B00407A75 /* YSMediaMarkView.m in Sources */,
 				8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */,
-				8713360E237270F6006534A4 /* PTTextAttachment.m in Sources */,
 				8783300024874C4400F1178E /* FLEXRuntimeUtility.m in Sources */,
 				87133611237270F6006534A4 /* YSBarrageTextDescriptor.m in Sources */,
 				0463845F237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */,
@@ -4327,7 +4305,6 @@
 				8717E2282400DADC008C4CDA /* YSUserDefault.m in Sources */,
 				87832F6124874C4300F1178E /* FLEXManager+Networking.m in Sources */,
 				8717E2292400DADC008C4CDA /* YSLessonDetailHeaderView.m in Sources */,
-				8717E22A2400DADC008C4CDA /* YSChatMessageModel.m in Sources */,
 				8717E2302400DADC008C4CDA /* YSApiRequest.m in Sources */,
 				3471E29D24039A0100A3BBB4 /* FSCalendarWeekdayView.m in Sources */,
 				8717E2312400DADC008C4CDA /* YSMp3Controlview.m in Sources */,
@@ -4454,7 +4431,6 @@
 				8783300124874C4400F1178E /* FLEXRuntimeUtility.m in Sources */,
 				87832FD524874C4300F1178E /* FLEXRuntimeKeyPath.m in Sources */,
 				8717E2A02400DADC008C4CDA /* BMTestColorPickerManager.m in Sources */,
-				8717E2A32400DADC008C4CDA /* PTTextAttachment.m in Sources */,
 				8783300724874C4400F1178E /* FLEXTypeEncodingParser.m in Sources */,
 				8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */,
 				87832F7924874C4300F1178E /* FLEXArgumentInputFontView.m in Sources */,

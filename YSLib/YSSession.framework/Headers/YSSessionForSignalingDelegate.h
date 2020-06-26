@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上课
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist;
 
+/// 全体静音
+- (void)handleSignalingliveAllNoAudio:(BOOL)noAudio;
+
 @end
 
 NS_ASSUME_NONNULL_END

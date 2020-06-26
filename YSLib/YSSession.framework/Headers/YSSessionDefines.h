@@ -130,6 +130,9 @@ static NSString *const sYSSignalPublishNetworkMedia     = @"publishNetworkMedia"
 /// 取消发布网络文件流
 static NSString *const sYSSignalUnpublishNetworkMedia   = @"unpublishNetworkMedia";
 
+/// 全体静音
+static NSString *const sYSSignalLiveAllNoAudio          = @"LiveAllNoAudio";
+
 /// 投票
 static NSString *const sYSSignalVoteStart = @"VoteStart";
 /// 发送投票
