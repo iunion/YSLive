@@ -66,14 +66,6 @@ static  NSString *const sWhiteboardID           = @"whiteboardID";
 #define YSWhiteBoard_UnBorderColor              [YSSkinWhiteDefineColor(@"whiteBoardTopbar_noCurrent") changeAlpha:0.8f]
 
 
-#pragma - mark 用户属性
-
-/// 奖杯数
-static  NSString *const sYSUserGiftNumber           = @"giftnumber";
-static  NSString *const sYSUserGiftinfo             = @"giftinfo";
-
-
-
 #pragma - mark 信令
 
 /// 白板加载完成回调

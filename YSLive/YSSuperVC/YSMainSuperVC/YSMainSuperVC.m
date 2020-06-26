@@ -46,14 +46,14 @@
 
 - (void)setRoomManagerDelegate
 {
-    self.liveManager = [YSLiveManager shareInstance];
+    self.liveManager = [YSLiveManager sharedInstance];
     [self.liveManager registerRoomManagerDelegate:self];
 }
 
 - (void)doMsgCachePool
 {
     [self.liveManager serverLog:@"doMsgCachePool"];
-    self.liveManager.viewDidAppear = YES;
+    self.liveManager.readyToHandleMsg = YES;
 
     [self beforeDoMsgCachePool];
     
@@ -168,18 +168,6 @@
 //            }
 //        }
 //    }
-}
-
-/// 镜像视频模式改变
-- (void)handleChangeVideoMirrorMode:(YSVideoMirrorMode)mode
-{
-    BOOL mirror = YES;
-    if (mode == YSVideoMirrorModeDisabled)
-    {
-        mirror = NO;
-    }
-    
-    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsVideoMirror value:@(mirror) completion:nil];
 }
 
 /*

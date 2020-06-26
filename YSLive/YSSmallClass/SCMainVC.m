@@ -384,7 +384,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                                 }
                             }
                         }
-                        [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll  propertyKey:sUserGiftNumber value:@(giftCount)];
+                        [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll  propertyKey:sYSUserGiftNumber value:@(giftCount)];
                     }
                 }
             }
@@ -849,7 +849,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self calculateVideoSize];
     
     /// 设置尺寸
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomUserType_One)
     {
         self.expandContractBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         [self.expandContractBtn addTarget:self action:@selector(doubleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -1311,7 +1311,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 // 计算视频尺寸，除老师视频
 - (void)calculateVideoSize
 {
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomUserType_One)
     {
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
         {//左右平行关系
@@ -1384,7 +1384,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)freshContentView
 {
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomUserType_One)
     {
         if (self.videoViewArray.count>1)
         {
@@ -1478,7 +1478,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.videoBackgroud addSubview:videoView];
     }
     
-    if (self.isDoubleType && self.roomtype == YSRoomType_One)
+    if (self.isDoubleType && self.roomtype == YSRoomUserType_One)
     {
         [self doubleTeacherCalculateVideoSize];
         [self doubleTeacherArrangeVidoeView];
@@ -1579,7 +1579,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///排布视图
 - (void)arrangeVidoeView
 {
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomUserType_One)
     {
         for (NSUInteger i=0; i<self.videoViewArray.count; i++)
         {
@@ -1674,7 +1674,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 刷新白板尺寸
 - (void)freshWhitBordContentView
 {
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomUserType_One)
     {
         if (self.roomLayout == YSLiveRoomLayout_VideoLayout)
         {//左右平行关系
@@ -2227,7 +2227,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
 #if (0)
                 // 删除本人占位视频
-                if (self.roomtype == YSRoomType_One)
+                if (self.roomtype == YSRoomUserType_One)
                 {
                     if (videoView.isForPerch)
                     {
@@ -2337,7 +2337,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         delVideoView = self.teacherVideoView;
         [self.videoViewArray removeObject:self.teacherVideoView];
         self.teacherVideoView = nil;
-        //        if (self.roomtype == YSRoomType_One)
+        //        if (self.roomtype == YSRoomUserType_One)
         //        {
         //            // 1V1 初始老师视频蒙版
         //            [self addTeacherVideoViewForPerch];
@@ -3535,7 +3535,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherPersonListData];
     // 不做互踢
 #if 0
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomUserType_One)
     {
         if (inList == YES)
         {
@@ -4296,7 +4296,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
-    if ((self.roomtype == YSRoomType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == YSLiveRoomLayout_FocusLayout)
+    if ((self.roomtype == YSRoomUserType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == YSLiveRoomLayout_FocusLayout)
     {
         return;
     }
@@ -5326,7 +5326,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
     self.controlPopoverView.isNested = NO;
     
-    if (self.roomtype == YSRoomType_One)
+    if (self.roomtype == YSRoomUserType_One)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
         if ([self.doubleType isEqualToString:@"nested"] && userModel.role != YSUserType_Teacher)

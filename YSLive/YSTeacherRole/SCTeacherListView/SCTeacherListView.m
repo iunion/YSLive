@@ -338,7 +338,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         if (whiteBoardFile)
         {
             
-            if ([YSLiveManager shareInstance].roomConfig.isMultiCourseware)
+            if ([YSLiveManager sharedInstance].roomConfig.isMultiCourseware)
             {
                 [self.dataSource removeObject:whiteBoardFile];
             }

@@ -122,7 +122,7 @@
 {
     _fileModel = fileModel;
 
-//    BOOL isCurrent = [[YSLiveManager shareInstance].currentFile.fileid isEqualToString:fileModel.fileid];
+//    BOOL isCurrent = [[YSLiveManager sharedInstance].currentFile.fileid isEqualToString:fileModel.fileid];
     NSString *filename = @"";
     if (fileModel.fileid.intValue == 0)
     {

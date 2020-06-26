@@ -56,13 +56,13 @@
     __weak __typeof__(cell) weakCell = cell;
     cell.headButtonClick = ^{
         //同意上台
-//        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
+//        BOOL isEveryoneNoAudio = [YSLiveManager sharedInstance].isEveryoneNoAudio;
 //        if (isEveryoneNoAudio) {
-//            [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+//            [[YSLiveManager sharedInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
 //        }
 //        else
 //        {
-//            [[YSLiveManager shareInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+//            [[YSLiveManager sharedInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
 //        }
         
         if (self->_letStudentUpVideo) {

@@ -229,7 +229,7 @@
         imageName = @"nameList_WindowsClient";
     }
     
-    BOOL isBeginClass = [YSLiveManager shareInstance].isBeginClass;
+    BOOL isBeginClass = [YSLiveManager sharedInstance].isClassBegin;
     
     if (userModel.role == YSUserType_Student )
     {
@@ -241,7 +241,7 @@
         {
 //            self.upPlatformBtn.selected = NO;
         }
-        BOOL disablechat = [userModel.properties bm_boolForKey:sUserDisablechat];
+        BOOL disablechat = [userModel.properties bm_boolForKey:sYSUserDisablechat];
         self.speakBtn.selected = disablechat;
     }
     self.upPlatformBtn.enabled = isBeginClass;
@@ -249,10 +249,10 @@
     self.nameLabel.text = userModel.nickName;
     [self.iconImgView setImage:YSSkinElementImage(imageName, @"iconNor")];
     
-    NSInteger giftNumber = [userModel.properties bm_uintForKey:sUserGiftNumber];
+    NSInteger giftNumber = [userModel.properties bm_uintForKey:sYSUserGiftNumber];
     self.cupNumberLabel.text = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
 
-    if ([YSLiveManager shareInstance].room_UseTheType == YSRoomUseTypeMeeting)
+    if ([YSLiveManager sharedInstance].room_UseType == YSRoomUseTypeMeeting)
     {
         self.cupView.hidden = YES;
         self.cupImgView.hidden = YES;

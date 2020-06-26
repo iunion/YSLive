@@ -16,7 +16,7 @@
 /// 获取升级信息
 + (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 //    NSString *nowStr = [NSDate bm_stringFromDate:[NSDate date] formatter:@"yyyyMMdd"];
 //    NSString *version = [NSString stringWithFormat:@"%@%@",nowStr,versionNum];
@@ -43,7 +43,7 @@
 //    * 参数： serial ： 房间号
 //    * 返回： ['result'=>'0 正常返回有data数据，4007 房间号异常','data'=>['roomtype'=>房间类型3小班课，4直播，6会议]]
 
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/checkroomtype", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/checkroomtype", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:roomId forKey:@"serial"];
     
@@ -55,7 +55,7 @@
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@", YS_SIGNINADDRESS];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     [parameters bm_setString:liveManager.room_Id forKey:@"serial"];
     [parameters bm_setString:liveManager.localUser.peerID forKey:@"userId"];
     [parameters bm_setString:liveManager.localUser.nickName forKey:@"nickname"];
@@ -67,7 +67,7 @@
 /// 获取用户奖杯数
 + (NSMutableURLRequest *)getGiftCountWithRoomId:(NSString *)roomId peerId:(NSString *)peerId
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getgiftinfo", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getgiftinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
@@ -87,7 +87,7 @@
 /// 给用户发送奖杯
 + (NSMutableURLRequest *)sendGiftWithRoomId:(NSString *)roomId sendUserId:(NSString *)sendUserId sendUserName:(NSString *)sendUserName receiveUserId:(NSString *)receiveUserId receiveUserName:(NSString *)receiveUserName
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/sendgift", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/sendgift", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
@@ -104,7 +104,7 @@
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@", YS_FLOWERADDRESS];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     [parameters bm_setString:liveManager.room_Id forKey:@"serial"];
     [parameters bm_setString:liveManager.localUser.peerID forKey:@"senderid"];
     [parameters bm_setString:liveManager.localUser.nickName forKey:@"sendername"];
@@ -121,7 +121,7 @@
 /// 上传图片
 + (NSMutableURLRequest *)uploadImage
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/uploaddocument", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/uploaddocument", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
@@ -131,7 +131,7 @@
 + (void)uploadImageWithImage:(UIImage *)image withImageUseType:(NSInteger)imageUseType success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure
 {
     BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/uploaddocument", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/uploaddocument", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
@@ -141,7 +141,7 @@
     NSString *fileName  = [NSString stringWithFormat:@"%@_mobile_%@.jpg",YSCurrentUser.nickName, [NSDate bm_stringFromDate:[NSDate date] formatter:@"yyyy-MM-dd_HH_mm_ss"]];
     
     NSDictionary * paraDict = @{
-        @"serial" : [YSLiveManager shareInstance].room_Id,
+        @"serial" : [YSLiveManager sharedInstance].room_Id,
         @"userid" : YSCurrentUser.peerID,
         @"sender" : YSCurrentUser.nickName ? YSCurrentUser.nickName : @"",
         @"conversion" : @1,
@@ -160,7 +160,7 @@
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = [YSLiveUtil convertWithData:responseObject];
+        NSDictionary *dict = [YSSessionUtil convertWithData:responseObject];
         if ([dict bm_uintForKey:@"result" withDefault:-1] == 0) {
             success(dict);
         }
@@ -178,7 +178,7 @@
 
 + (NSMutableURLRequest *)getSimplifyAnswerCountWithRoomId:(NSString *)roomId answerId:(NSString *)answerId startTime:(NSTimeInterval)startTime endTime:(NSTimeInterval)endTime
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/simplifyAnswer", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/simplifyAnswer", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
@@ -228,7 +228,7 @@
 + (NSMutableURLRequest *)deleteCoursewareWithRoomId:(NSString *)roomId fileId:(NSString *)fileId
 {
     //https://demo.roadofcloud.com/ClientAPI/delroomfile?ts=1578305280751
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/delroomfile", YSLive_Http, [YSLiveManager shareInstance].liveHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/delroomfile", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
     [parameters bm_setString:fileId forKey:@"fileid"];

@@ -125,7 +125,7 @@
         {
 #if 0
             self.enterBtn.hidden = YES;
-            YSLiveManager *liveManager = [YSLiveManager shareInstance];
+            YSLiveManager *liveManager = [YSLiveManager sharedInstance];
             if (liveManager.tServiceTime)
             {
                 CGFloat timecount = self.classModel.startTime - liveManager.tCurrentTime;

@@ -311,7 +311,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                             {
                                 //serverTime = serverTime / 1000;
                                 //NSString *str = [NSDate bm_stringFromTs:serverTime];
-                                YSLiveManager *liveManager = [YSLiveManager shareInstance];
+                                YSLiveManager *liveManager = [YSLiveManager sharedInstance];
                                 liveManager.tServiceTime = serverTime;
                                 NSString *message = @"";
                                 BOOL stop = NO;
@@ -406,7 +406,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 
     //[[YSLiveManager shareInstance] destroy];
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     [liveManager registerRoomManagerDelegate:self];
     
     if (![passWord bm_isNotEmpty])
@@ -482,7 +482,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)waitRoomLeft:(YSRoomLeftDoBlock)doSometing
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
-    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
+    [[YSLiveManager sharedInstance] leaveRoom:nil];
     if (doSometing)
     {
         doSometing();
@@ -496,7 +496,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     [self.progressHUD bm_hideAnimated:NO];
     
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
 
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
 
@@ -604,10 +604,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
         BMLog(@"%@",passWord);
         //[YSLiveManager destroy];
         
-        YSLiveManager *liveManager = [YSLiveManager shareInstance];
+        YSLiveManager *liveManager = [YSLiveManager sharedInstance];
         [liveManager registerRoomManagerDelegate:self];
         
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
+        [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
         
         [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
     } dismissBlock:^(id  _Nullable sender, NSUInteger index) {

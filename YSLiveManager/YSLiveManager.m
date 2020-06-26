@@ -313,6 +313,23 @@
     _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
 
+- (NSArray <YSFileModel *> *)fileList
+{
+    return [self.whiteBoardManager.docmentList copy];
+}
+
+- (YSFileModel *)currentFile
+{
+    return [self.whiteBoardManager currentFile];
+}
+
+- (YSFileModel *)getFileWithFileID:(NSString *)fileId;
+{
+    YSFileModel *file = [self.whiteBoardManager getDocumentWithFileID:fileId];
+    return file;
+}
+
+
 ///查看摄像头权限
 - (BOOL)cameraPermissionsService
 {

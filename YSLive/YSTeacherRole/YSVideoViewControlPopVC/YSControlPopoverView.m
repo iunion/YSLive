@@ -239,7 +239,7 @@
     {
         if (self.userModel.role == YSUserType_Teacher || self.userModel.role == YSUserType_Assistant )
         {
-            if (self.roomtype == YSRoomType_One)
+            if (self.roomtype == YSRoomUserType_One)
             {
                 
                 //音频 视频 镜像
@@ -292,7 +292,7 @@
         }
         else if (self.userModel.role == YSUserType_Student)
         {
-            if (self.roomtype == YSRoomType_One)
+            if (self.roomtype == YSRoomUserType_One)
             {
                 //音频 视频 画笔 上下台 奖杯
                 [self.btnArray addObject:self.audioBtn];
@@ -342,7 +342,7 @@
         [self.btnArray removeObject:self.giftCupBtn];
     }
     
-    if (self.roomtype == YSRoomType_One && !self.isNested)
+    if (self.roomtype == YSRoomUserType_One && !self.isNested)
     {// 1V1 且 画中画的情况下老师视频是 竖排的
         
         self.view.frame = CGRectMake(0, 0, 50, 50 *self.btnArray.count);
@@ -452,14 +452,14 @@
     
 }
 
-- (void)setVideoMirrorMode:(YSVideoMirrorMode)videoMirrorMode
+- (void)setVideoMirrorMode:(CloudHubVideoMirrorMode)videoMirrorMode
 {
     _videoMirrorMode = videoMirrorMode;
-    if (videoMirrorMode == YSVideoMirrorModeEnabled)
+    if (videoMirrorMode == CloudHubVideoMirrorModeEnabled)
     {
         self.mirrorBtn.selected = YES;
     }
-    else if (videoMirrorMode == YSVideoMirrorModeDisabled)
+    else if (videoMirrorMode == CloudHubVideoMirrorModeDisabled)
     {
         self.mirrorBtn.selected = NO;
     }

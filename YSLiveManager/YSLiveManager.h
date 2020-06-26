@@ -17,11 +17,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *schoolApiHost;
 
 
+
+
+#pragma mark - 白板
+
 @property (nonatomic, weak) id <YSLiveForWhiteBoardDelegate> whiteBoardDelegate;
 /// 白板管理
 @property (nonatomic, strong, readonly) YSWhiteBoardManager *whiteBoardManager;
 /// 白板视图whiteBord
 @property (nonatomic, weak, readonly) UIView *whiteBordView;
+
+/// 课件列表
+@property (nonatomic, strong, readonly) NSArray <YSFileModel *> *fileList;
+/// 当前课件数据
+@property (nonatomic, strong, readonly) YSFileModel *currentFile;
 
 
 + (void)destory;
@@ -45,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置H5课件Cookies
 - (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
+/// 获取课件数据
+- (YSFileModel *)getFileWithFileID:(NSString *)fileId;
 
 @end
 

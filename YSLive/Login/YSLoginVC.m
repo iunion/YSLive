@@ -385,7 +385,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 {
                     NSTimeInterval timeInterval = [responseDic bm_doubleForKey:@"time"];
 #if (0)
-                    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+                    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
                     if (liveManager.tServiceTime == 0)
                     {
                         liveManager.tServiceTime = timeInterval;
@@ -2085,7 +2085,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    }
 //    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:nil];
 //
-//    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
+//    [[YSLiveManager sharedInstance].roomManager leaveRoom:nil];
 }
 
 - (void)onRoomConnectionLost

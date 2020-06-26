@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) YSLiveRoomLayout roomLayout;
 
 /// 当前的用户视频的镜像状态
-@property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
+@property(nonatomic, assign) CloudHubVideoMirrorMode videoMirrorMode;
 
 @end
 

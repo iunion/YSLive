@@ -119,7 +119,7 @@
 
 - (void)sliderViewStart:(YSMediaSlider *)sender
 {
-    [[YSLiveManager shareInstance].roomManager pauseMediaFile:YES];
+    [[YSLiveManager sharedInstance].roomManager pauseMediaFile:YES];
 }
 
 - (void)sliderViewEnd:(YSMediaSlider *)sender
@@ -131,7 +131,7 @@
         [self.delegate sliderYSMp4ControlView:sender.value * self.duration];
     }
     
-    [[YSLiveManager shareInstance].roomManager pauseMediaFile:NO];
+    [[YSLiveManager sharedInstance].roomManager pauseMediaFile:NO];
 }
 
 - (void)playBtnClicked:(UIButton *)btn
