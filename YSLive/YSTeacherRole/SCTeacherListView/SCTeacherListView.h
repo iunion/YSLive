@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param currentFileList 当前展示的课件数组
 /// @param mediaFileID 当前展示的媒体课件
 /// @param state 当前媒体课件状态
-- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(NSArray *)currentFileList mediaFileID:(NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state;
+- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(NSArray *)currentFileList mediaFileID:(NSString *)mediaFileID mediaState:(YSMediaState)state;
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage;
 - (void)setUserRole:(YSUserRoleType)userRoleType;
 @end

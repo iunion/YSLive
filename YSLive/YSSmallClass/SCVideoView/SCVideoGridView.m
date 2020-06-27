@@ -210,13 +210,13 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     self.videosBgView.center = center;
 }
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout withAppUseTheType:(YSRoomUseType)appUseTheType
+- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSRoomLayoutType)roomLayout withAppUseTheType:(YSRoomUseType)appUseTheType
 {
     self.videoViewArray = videoViewArray;
     
     [self clearView];
     
-    if (roomLayout == YSLiveRoomLayout_FocusLayout)
+    if (roomLayout == YSRoomLayoutType_FocusLayout)
     {
         if (appUseTheType == YSAppUseTheTypeSmallClass)
         {

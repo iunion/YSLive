@@ -45,14 +45,6 @@ typedef NS_ENUM(NSUInteger, YSQuestionState)
     YSQuestionState_Answer
 };
 
-
-typedef NS_ENUM(NSUInteger, YSLiveRoomLayout)
-{
-    YSLiveRoomLayout_AroundLayout = 1,  //视频常规
-    YSLiveRoomLayout_VideoLayout = 2,    //视频布局
-    YSLiveRoomLayout_FocusLayout = 3    //焦点布局
-};
-
 /// 小班课底部工具按钮
 typedef NS_ENUM(NSInteger, SCBottomToolBarType)
 {

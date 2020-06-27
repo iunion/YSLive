@@ -252,7 +252,7 @@
             else
             {
                 isShowLine = YES;
-                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+                if (self.roomLayout == YSRoomLayoutType_AroundLayout)
                 {
                     
                     if (self.isDragOut)
@@ -303,7 +303,7 @@
             }
             else
             {
-                if (self.roomLayout == YSLiveRoomLayout_AroundLayout)
+                if (self.roomLayout == YSRoomLayoutType_AroundLayout)
                 {
                     //音频 视频 画笔 上下台 奖杯
                     [self.btnArray addObject:self.audioBtn];
@@ -474,7 +474,7 @@
 //    [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
     [button setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
     button.titleLabel.font = UI_FONT_10;
-//    if (![UIDevice bm_isiPad] && self.roomLayout == YSLiveRoomLayout_VideoLayout)
+//    if (![UIDevice bm_isiPad] && self.roomLayout == YSRoomLayoutType_VideoLayout)
 //    {
 //
 //
