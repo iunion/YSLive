@@ -2529,7 +2529,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromId];
         if (fromUser.role != YSUserType_Student)
         {
-            videoView.giftNumber =  [properties bm_uintForKey:sUserGiftNumber];
+            videoView.giftNumber =  [properties bm_uintForKey:sYSUserGiftNumber];
             [self showGiftAnimationWithVideoView:videoView];
         }
     }
@@ -2560,7 +2560,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                if (self.liveManager.isBeginClass)
+                if (self.liveManager.isClassBegin)
                 {
                     self.brushToolView.hidden = NO;
                     self.brushToolOpenBtn.hidden = NO;
@@ -2653,7 +2653,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else if (publishState != 4)
         {
-            if (!self.liveManager.isBeginClass)
+            if (!self.liveManager.isClassBegin)
             {
                 return;
             }
@@ -2796,7 +2796,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 通知各端开始举手
     [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
     
-    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSCurrentUser.peerID propertyKey:sYSUserCandraw value:@(true)];
     
     self.classBeginBtn.selected = YES;
 
@@ -2812,7 +2812,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             break;
         }
 #endif
-        YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
+        YSPublishState publishState = roomUser.publishState];
         NSString *peerID = roomUser.peerID;
         /// 轮播数组数组
         if (roomUser.role == YSUserType_Student)

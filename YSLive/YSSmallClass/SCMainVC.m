@@ -8,7 +8,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SCMainVC.h"
 #import "SCChatView.h"
-#import "YSChatMessageModel.h"
 #import "SCBrushToolView.h"
 #import "SCDrawBoardView.h"
 #import "SCChatToolView.h"
@@ -1074,8 +1073,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
     videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
     
-    CGFloat sss = STATETOOLBAR_HEIGHT;
-    
     [self.contentBackgroud addSubview:videoGridView];
 //    [videoGridView bm_centerInSuperView];
     videoGridView.backgroundColor = [UIColor clearColor];
@@ -1211,9 +1208,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     self.downTime = [NSDate date].timeIntervalSince1970;
     
-    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
+    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0];
     
-    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(true)];
     
     self.raiseHandsBtn.selected = YES;
 }
@@ -1236,9 +1233,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.raiseMaskImage.hidden = YES;
             self.raiseHandsBtn.userInteractionEnabled = YES;
             
-            [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
-            [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
-            
+            [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1l];
+            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(false)];
         });
     }
     else
@@ -1247,8 +1243,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.raiseMaskImage.hidden = YES;
         self.raiseHandsBtn.userInteractionEnabled = YES;
         
-        [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
-        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+        [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1];
+        [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(false)];
     }
     self.raiseHandsBtn.selected = NO;
 }
