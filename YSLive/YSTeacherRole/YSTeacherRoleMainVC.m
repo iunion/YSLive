@@ -4121,10 +4121,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCBottomToolBarTypeCamera:
             {
-                #if YSAPP_NEWERROR
                 //摄像头
-                [self.liveManager.roomManager selectCameraPosition:!isSelected];
-                #endif
+                [self.liveManager useFrontCamera:!isSelected];
             }
                 break;
             case SCBottomToolBarTypeChat:
