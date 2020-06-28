@@ -7,6 +7,7 @@
 //
 
 #import "YSSuperNetVC.h"
+#import "SCVideoView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) YSRoomUseType appUseTheType;
 
 ///成为焦点的用户的peerID
-@property (nullable,nonatomic, copy) NSString * foucePeerId;
+@property (nullable,nonatomic, copy) NSString *foucePeerId;
+
+/// 视频View列表
+@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoViewArray;
+/// 老师视频
+@property (nullable, nonatomic, strong) SCVideoView *teacherVideoView;
+/// 自己视频
+@property (nullable, nonatomic, strong) SCVideoView *myVideoView;
 
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
@@ -34,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)afterDoMsgCachePool;
 
 - (void)showEyeCareRemind;
+
+- (NSUInteger)getVideoViewCount;
 
 @end
 

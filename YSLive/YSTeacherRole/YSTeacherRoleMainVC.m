@@ -216,7 +216,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
 
 /// 默认老师 视频
-@property (nonatomic, strong) SCVideoView *teacherVideoView;
+//@property (nonatomic, strong) SCVideoView *teacherVideoView;
 /// 1V1 默认用户占位
 @property (nonatomic, strong) SCVideoView *userVideoView;
 
@@ -422,7 +422,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _personListTotalPage = 0;
     _isMp4Play = NO;
     _isMp4ControlHide = NO;
-    self.videoViewArray = [[NSMutableArray alloc] init];
     searchArr = [[NSMutableArray alloc] init];
     self.pollingArr = [[NSMutableArray alloc] init];
     self.pollingUpPlatformArr = [[NSMutableArray alloc] init];
