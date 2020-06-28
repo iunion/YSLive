@@ -298,13 +298,13 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message font:15];
+                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 
                 if (!model.translatSize.width)
                 {
-                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans font:15];
+                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"placeholderColor") font:15];
                     model.translatSize = [attTranslation bm_sizeToFitWidth:200];
                 }
                 model.transCellHeight = 10 + 20 + 5 +  5 + model.messageSize.height + 5 + 1 + 5 + model.translatSize.height + 5 + 5;
@@ -317,7 +317,7 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message font:15];
+                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 model.cellHeight = 10 + 20 + 5 + 5 + model.messageSize.height + 5 + 5;

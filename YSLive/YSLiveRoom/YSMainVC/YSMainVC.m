@@ -410,8 +410,6 @@
     [controlBackView addSubview:self.videoBtn];
     self.videoBtn.tag = 1;
     self.videoBtn.frame = CGRectMake(45, 4, 36, 32);
-    
-
 }
 
 /// 刷新视频控制按钮状态
@@ -437,7 +435,7 @@
     }
     
     //没有摄像头、麦克风权限时的显示禁用状态
-    if ([self.liveManager.localUser.properties bm_containsObjectForKey:sUserVideoFail])
+    if ([self.liveManager.localUser.properties bm_containsObjectForKey:sYSUserVideoFail])
     {
         if (self.liveManager.localUser.afail == YSDeviceFaultNone)
         {
@@ -476,6 +474,7 @@
         }
     }
 }
+
 ///创建button
 - (BMImageTitleButtonView *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName
 {
@@ -506,19 +505,19 @@
 
 - (void)userBtnsClick:(UIButton *)sender
 {
-    SCUserPublishState userPublishState = self.liveManager.localUser.liveUserPublishState;
+    YSUserMediaPublishState userPublishState = self.liveManager.localUser.mediaPublishState;
     switch (sender.tag) {
         case 0:
         {//关闭音频
             if (sender.selected)
             {//当前是打开音频状态
-                userPublishState &= ~SCUserPublishState_AUDIOONLY;
+                userPublishState &= ~YSUserMediaPublishState_AUDIOONLY;
             }
             else
             {//当前是关闭音频状态
-                userPublishState |= SCUserPublishState_AUDIOONLY;
+                userPublishState |= YSUserMediaPublishState_AUDIOONLY;
             }
-            self.liveManager.localUser.liveUserPublishState = userPublishState;
+            self.liveManager.localUser.mediaPublishState = userPublishState;
             sender.selected = !sender.selected;
         }
             break;
@@ -526,13 +525,13 @@
         {//关闭视频
             if (sender.selected)
             {//当前是打开视频状态
-                userPublishState &= ~SCUserPublishState_VIDEOONLY;
+                userPublishState &= ~YSUserMediaPublishState_VIDEOONLY;
             }
             else
             {//当前是关闭视频状态
-                userPublishState |= SCUserPublishState_VIDEOONLY;
+                userPublishState |= YSUserMediaPublishState_VIDEOONLY;
             }
-            self.liveManager.localUser.liveUserPublishState = userPublishState;
+            self.liveManager.localUser.mediaPublishState = userPublishState;
             sender.selected = !sender.selected;
         }
             break;
@@ -540,6 +539,7 @@
             break;
     }
 }
+
 #pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
@@ -561,8 +561,6 @@
         self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.origin.y - self.controlBackView.bounds.size.height*0.5f);
         self.controlBackView.transform = CGAffineTransformMakeRotation(0);
     }
-
-    
 }
 
 ///是否打开上麦功能的通知方法
@@ -961,7 +959,7 @@
 
 - (void)freshMediaView
 {
-    if (self.liveManager.isBeginClass)
+    if (self.liveManager.isClassBegin)
     {
         
         if (self.liveManager.sharePeerId)
@@ -1037,8 +1035,6 @@
     }
     else
     {
-        
-        
         teacherH = ceil(self.liveViewHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP * 2) ;
         if (self.isWideScreen)
         {
@@ -1061,19 +1057,6 @@
     
     self.liveBgView.frame = CGRectMake(0, 0, teacherW, teacherH);
     self.liveBgView.bm_centerX = self.allVideoBgView.bm_centerX;
-    
-}
-
-
-#pragma mark -
-#pragma mark MediaFunc
-
-- (void)playVideoWithRoomUserId:(NSString *)userId orMediaFile:(YSLiveMediaModel *)mediaModel orShareDesktopUserId:(NSString *)shareUserId isClassBegin:(BOOL)isClassBegin
-{
-    //    /// 当前房间播放视频Id
-    //    @property (nonatomic, strong) NSString *roomVideoPeerID;
-    //    /// 当前房间播放视频User是否开放视频
-    //    @property (nonatomic, assign) BOOL canPlayRoomVideo;
     
 }
 
@@ -1108,7 +1091,8 @@
         return;
     }
     
-    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
+#if YSAPP_NEWERROR
+    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sYSUserPublishstate];
     
     if (publishState == YSUser_PublishState_VIDEOONLY)
     {
@@ -1141,14 +1125,17 @@
     }
     
     videoView.publishState = publishState;
+#endif
 }
 
 - (void)removeAllVideoView
 {
+#if YSAPP_NEWERROR
     for (SCVideoView *videoView in self.videoViewArray)
     {
         [self stopVideoAudioWithVideoView:videoView];
     }
+#endif
     
     [self.videoViewArray removeAllObjects];
 }
@@ -1171,7 +1158,7 @@
 
 - (void)addVidoeViewWithPeerId:(NSString *)peerId
 {
-    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
+    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
     {
         return;
@@ -1262,8 +1249,10 @@
         return;
     }
     
+#if YSAPP_NEWERROR
     [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
+#endif
     videoView.publishState = 4;
 }
 
@@ -1330,7 +1319,7 @@
 {
     BMLog(@"roomManagerRoomTeacherEnter %@", self.liveManager.teacher.nickName);
     
-    self.teacherPlaceLab.hidden = self.liveManager.isBeginClass;
+    self.teacherPlaceLab.hidden = self.liveManager.isClassBegin;
 }
 
 - (void)roomManagerRoomTeacherLeft
@@ -1343,8 +1332,9 @@
 
 - (void)roomManagerJoinedUser:(YSRoomUser *)user inList:(BOOL)inList
 {
-    if (inList == NO && self.liveManager.isBeginClass && user.role == YSUserType_Teacher)
+    if (inList == NO && self.liveManager.isClassBegin && user.role == YSUserType_Teacher)
     {
+#if YSAPP_NEWERROR
         self.roomVideoPeerID = user.peerID;
         if (user.publishState >= YSUser_PublishState_VIDEOONLY && user.publishState != 4)
         {
@@ -1357,6 +1347,7 @@
             [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
             }];
         }
+#endif
         
         [self freshMediaView];
     }
@@ -1368,8 +1359,10 @@
 {
     if (user.role == YSUserType_Teacher)
     {
+#if YSAPP_NEWERROR
         [self.liveManager stopPlayVideo:user.peerID completion:nil];
         [self.liveManager stopPlayAudio:user.peerID completion:nil];
+#endif
     }
     
 #if 0
@@ -1483,66 +1476,6 @@
 }
 
 
-#pragma mark 网络状态
-
-/// 自己的网络状态变化
-- (void)roomManagerUserChangeNetStats:(id)stats
-{
-    YSNetQuality netQuality;
-    NSInteger netDelay;
-    CGFloat totalPackets;
-    NSInteger lostPacketsLost;
-    CGFloat lostRate;
-    
-    if ([stats isKindOfClass:[YSAudioStats class]])
-    {
-        YSAudioStats *status = (YSAudioStats *)stats;
-        netQuality = [stats netLevel];
-        netDelay = [status currentDelay];
-        totalPackets = [status totalPackets];
-        lostPacketsLost = [status packetsLost];
-        lostRate = (totalPackets > 0) ? (lostPacketsLost/totalPackets) : 0.00f;
-    }
-    else
-    {
-        YSVideoStats *status = (YSVideoStats *)stats;
-        netQuality = [stats netLevel];
-        netDelay = [status currentDelay];
-        totalPackets = [status totalPackets];
-        lostPacketsLost = [status packetsLost];
-        lostRate = (totalPackets > 0) ? (lostPacketsLost/totalPackets) : 0.00f;
-    }
-    
-    if (netQuality>YSNetQuality_VeryBad)
-    {
-        [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Prompt.NetworkChanged") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-    }
-}
-
-/// 老师主播的网络状态变化
-- (void)roomManagerTeacherChangeNetStats:(id)stats
-{
-    YSNetQuality netQuality;
-    
-    if ([stats isKindOfClass:[YSAudioStats class]])
-    {
-        YSAudioStats *status = (YSAudioStats *)stats;
-        netQuality = [status netLevel];
-    }
-    else
-    {
-        YSVideoStats *status = (YSVideoStats *)stats;
-        netQuality = [status netLevel];
-    }
-    
-    if (netQuality>YSNetQuality_VeryBad)
-    {
-        [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Prompt.NetworkChanged") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-    }
-}
-
 #pragma mark 切换网络 会收到onRoomJoined
 
 - (void)onRoomJoined:(long)ts
@@ -1585,9 +1518,10 @@
 {
     self.teacherPlaceLab.hidden = YES;
     NSString *teacherPeerID = self.liveManager.teacher.peerID;
-    YSRoomUser *teacher = [self.liveManager.roomManager getRoomUserWithUId:teacherPeerID];
+    YSRoomUser *teacher = [self.liveManager getRoomUserWithId:teacherPeerID];
     
     self.roomVideoPeerID = self.liveManager.teacher.peerID;
+#if YSAPP_NEWERROR
     if (teacher.publishState >= YSUser_PublishState_VIDEOONLY && teacher.publishState != 4)
     {
         self.showRoomVideo = YES;
@@ -1599,6 +1533,7 @@
         [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
         }];
     }
+#endif
     
     [self freshMediaView];
     
@@ -1621,7 +1556,7 @@
         
         if (roomUser.role == YSUserType_Student)
         {
-            YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
+            YSPublishState publishState = [roomUser.properties bm_intForKey:sYSUserPublishstate];
             NSString *peerID = roomUser.peerID;
             
             if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -1654,19 +1589,14 @@
 // 下课
 - (void)handleSignalingClassEndWithText:(NSString *)text
 {
-    YSLiveMediaModel *playMediaModel = [YSLiveManager shareInstance].playMediaModel;
-    if (playMediaModel)
+    YSSharedMediaFileModel *playMediaModel = self.liveManager.mediaFileModel;
+    if (!playMediaModel.isVideo)
     {
-        [self.liveManager.roomManager unPlayMediaFile:playMediaModel.user_peerId completion:^(NSError *error) {
-        }];
         [self onStopMp3];
     }
     
     self.showRoomVideo = NO;
-    [self.liveManager stopPlayVideo:self.liveManager.teacher.peerID completion:^(NSError * _Nonnull error) {
-    }];
-    [self.liveManager stopPlayAudio:self.roomVideoPeerID completion:^(NSError *error) {
-    }];
+    [self.liveManager stopShareOneMediaFile];
     
     self.roomVideoPeerID = nil;
     
@@ -1753,8 +1683,10 @@
     self.liveBgView.backScrollView.zoomScale = 1.0;
     
     self.showRoomVideo = YES;
+#if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
     }];
+#endif
     
     [self freshMediaView];
 }
@@ -1768,8 +1700,10 @@
     }
     
     self.showRoomVideo = NO;
+#if YSAPP_NEWERROR
     [self.liveManager stopPlayVideo:self.liveManager.teacher.peerID completion:^(NSError * _Nonnull error) {
     }];
+#endif
     
     [self freshMediaView];
 }
@@ -1782,8 +1716,10 @@
         return;
     }
     
+#if YSAPP_NEWERROR
     [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
     }];
+#endif
 }
 
 /// 暂停房间音频
@@ -1794,8 +1730,10 @@
         return;
     }
     
+#if YSAPP_NEWERROR
     [self.liveManager stopPlayAudio:self.roomVideoPeerID completion:^(NSError *error) {
     }];
+#endif
     [self freshMediaView];
 }
 
@@ -1906,12 +1844,14 @@
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
 - (void)handleRoomStartShareDesktopWithPeerID:(NSString *)peerID
 {
+#if YSAPP_NEWERROR
     //BMWeakSelf
     [self.liveManager stopPlayVideo:self.roomVideoPeerID completion:^(NSError * _Nonnull error) {
     }];
     self.roomVideoPeerID = nil;
     [self.liveManager.roomManager playScreen:peerID renderType:YSRenderMode_fit window:self.liveView completion:^(NSError *error) {
     }];
+#endif
     
     self.liveBgView.canZoom = YES;
     [self freshMediaView];
@@ -2078,7 +2018,7 @@
         YSBarrageTextDescriptor *textDescriptor = [[YSBarrageTextDescriptor alloc] init];
         
         //          textDescriptor.text = message.message;
-        textDescriptor.attributedText = [message emojiViewWithMessage:message.message font:16];
+        textDescriptor.attributedText = [message emojiViewWithMessage:message.message color:YSSkinDefineColor(@"placeholderColor") font:16.0f];
         textDescriptor.textColor = [UIColor whiteColor];
         textDescriptor.positionPriority = YSBarragePositionLow;
         textDescriptor.textFont = [UIFont systemFontOfSize:16.0];
@@ -2089,7 +2029,7 @@
         [self.barrageManager renderBarrageDescriptor:textDescriptor];
     }
     
-    if (self.m_SegmentBar.currentIndex != 2 && message.chatMessageType != YSChatMessageTypeTips && message.chatMessageType != YSChatMessageTypeImageTips)
+    if (self.m_SegmentBar.currentIndex != 2 && message.chatMessageType != YSChatMessageType_Tips && message.chatMessageType != YSChatMessageType_ImageTips)
     {
         UIView *segmentView = [self.m_SegmentBar segmentViewAtIndex:2];
         segmentView.badgeCenterOffset = CGPointMake(-20, 15);
@@ -2104,7 +2044,7 @@
     
     [self.chaView.messageList addObject:message];
     
-    if (message.chatMessageType != YSChatMessageTypeTips && message.chatMessageType != YSChatMessageTypeImageTips) {
+    if (message.chatMessageType != YSChatMessageType_Tips && message.chatMessageType != YSChatMessageType_ImageTips) {
         if (message.sendUser.role == YSUserType_Teacher)
         {
             [self.chaView.anchorMessageList addObject:message];
@@ -2340,7 +2280,7 @@
             //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
             
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
-            [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+            [self.liveManager.whiteBoardManager refreshWhiteBoard];
             
             return self.whiteBordView;
         }
@@ -2474,7 +2414,7 @@
             }
             else
             {
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
                 
 #ifdef DEBUG
                 NSString *responseStr = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
@@ -2653,7 +2593,8 @@
     {
         case UIDeviceOrientationPortrait:
         {
-            [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationPortrait];
+#warning setDeviceOrientation
+            //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationPortrait];
             
             [UIView animateWithDuration:0.25 animations:^{
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
@@ -2694,7 +2635,8 @@
             break;
         case UIDeviceOrientationLandscapeLeft:
         {
-            [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
+#warning setDeviceOrientation
+            //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
             
             [UIView animateWithDuration:0.25 animations:^{
                 
@@ -2739,7 +2681,8 @@
             break;
         case UIDeviceOrientationLandscapeRight:
         {
-            [[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeRight];
+#warning setDeviceOrientation
+            //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeRight];
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isFullScreen = YES;
@@ -2909,7 +2852,7 @@
     
     [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
     
-    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(true)];
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(true)];
 }
 
 ///取消举手
@@ -2930,7 +2873,7 @@
             self.raiseHandsBtn.hidden = NO;
             self.raiseHandsBtn.userInteractionEnabled = YES;
             [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
-            [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(false)];
         });
     }
     else
@@ -2939,7 +2882,7 @@
         self.raiseMaskImage.hidden = YES;
         self.raiseHandsBtn.userInteractionEnabled = YES;
         [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
-        [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserRaisehand WithValue:@(false)];
+        [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(false)];
     }
 }
 

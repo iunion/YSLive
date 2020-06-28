@@ -75,13 +75,13 @@
     
     NSString * nameTimeStr = nil;
         
-    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message font:15];
+    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
     if (!model.messageSize.width && [model.message bm_isNotEmpty]) {
         
         model.messageSize = [attMessage bm_sizeToFitWidth:200];
     }
     
-    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans font:15];
+    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"placeholderColor") font:15];
     
     if (!model.translatSize.width && [model.detailTrans bm_isNotEmpty]) {
         model.translatSize = [attTranslation bm_sizeToFitWidth:200];
