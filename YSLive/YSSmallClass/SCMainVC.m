@@ -872,8 +872,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
             videoView.appUseTheType = self.appUseTheType;
             [self.videoViewArray addObject:videoView];
+#if YSAPP_NEWERROR
             [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
             [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+#endif
         }
     }
     
@@ -886,7 +888,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+    [self.liveManager.whiteBoardManager refreshWhiteBoard];
     
     [self freshContentView];
 }
@@ -896,7 +898,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     sender.selected = !sender.selected;
     
-    SCVideoView * videoView = nil;
+    SCVideoView *videoView = nil;
     
 //    if ([self.studentVideoView.roomUser.peerID bm_isNotEmpty])
 //    {
@@ -1045,9 +1047,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:videoView];
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
     self.userVideoView = videoView;
-    
+
+#if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
+#endif
 }
 
 /// 全屏白板初始化
@@ -1151,7 +1155,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (!_raiseHandsBtn)
     {
-        
         CGFloat raiseHandWH = 40;
         CGFloat raiseHandRight = 10;
         
@@ -1218,8 +1221,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///取消举手
 - (void)raiseHandsButtonTouchUp
 {
-    
-    
     self.upTime = [NSDate date].timeIntervalSince1970;
     
     if (self.upTime - self.downTime <= 2)
@@ -1394,8 +1395,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 SCVideoView *videoView = self.videoViewArray.firstObject;
                 if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
+#if YSAPP_NEWERROR
                     [self.liveManager stopPlayVideo:YSCurrentUser.peerID completion:nil];
                     [self.liveManager stopPlayAudio:YSCurrentUser.peerID completion:nil];
+#endif
                     if (videoView.roomUser.role == YSUserType_Student)
                     {
                         self.userVideoView.hidden = YES;
@@ -1752,12 +1755,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     else
     {
         self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-        
-        
-        
     }
 
-    [[YSLiveManager shareInstance].whiteBoardManager refreshWhiteBoard];
+    [self.liveManager.whiteBoardManager refreshWhiteBoard];
 }
 
 // 刷新宫格视频布局
@@ -1807,6 +1807,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!giftMp3Playing)
     {
         giftMp3Playing = YES;
+#if YSAPP_NEWERROR
         BMWeakSelf
         [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
             [weakSelf.liveManager.roomManager setPlayMedia:playID volume:0.5f];
@@ -1815,6 +1816,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 giftMp3Playing = NO;
             }
         }];
+#endif
     }
     
     UIImageView *giftImageView = [self makeGiftImageView];
@@ -1941,8 +1943,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
     
+#if YSAPP_NEWERROR
     [self.liveManager.roomManager playScreen:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
     }];
+#endif
         
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;
@@ -1957,8 +1961,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 // 关闭共享桌面
 - (void)hideShareVidoeViewWithPeerId:(NSString *)peerId
 {
+#if YSAPP_NEWERROR
     [self.liveManager.roomManager unPlayScreen:peerId completion:^(NSError * _Nonnull error) {
     }];
+#endif
     
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
@@ -2032,6 +2038,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+#if YSAPP_NEWERROR
     YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
     
     NSLog(@"=====================playVideoAudioWithVideoView userId: %@, publishState: %@ ", videoView.roomUser.peerID , @(publishState));
@@ -2099,6 +2106,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     videoView.publishState = publishState;
+#endif
 }
 
 - (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
@@ -2108,6 +2116,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+#if YSAPP_NEWERROR
     YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sUserPublishstate];
     
     YSRenderMode renderType = YSRenderMode_adaptive;
@@ -2160,6 +2169,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     videoView.publishState = publishState;
+#endif
 }
 
 - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
@@ -2169,9 +2179,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+#if YSAPP_NEWERROR
     [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
     videoView.publishState = 4;
+#endif
 }
 
 
@@ -2189,7 +2201,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
 
-    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerId];
+    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
     {
         return;
@@ -2243,8 +2255,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             if ([peerId isEqualToString:self.liveManager.localUser.peerID])
             {
+#if YSAPP_NEWERROR
                 [self.liveManager stopPlayVideo:peerId completion:nil];
                 [self.liveManager stopPlayAudio:peerId completion:nil];
+#endif
             }
             SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser];
             videoView.appUseTheType = self.appUseTheType;
@@ -2527,21 +2541,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 //课件库
                 [self freshListViewWithSelect:isSelected];
-                if (!self.liveManager.roomConfig.isMultiCourseware)
-                {
-                    self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
-                    if (self.liveManager.playMediaModel)
-                    {
-                        self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
-                    }
-                    else
-                    {
-                        self.currentMediaState = YSWhiteBordMediaState_Stop;
-                    }
-                    
-                }
                 [self.teacherListView setUserRole:self.liveManager.localUser.role];
-                [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCBottomToolBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+                [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
                 [self.teacherListView bm_bringToFront];
                 
             }
@@ -2706,27 +2707,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if ([self.spreadBottomToolBar coursewareListIsShow])
     {
-
-        if (!self.liveManager.roomConfig.isMultiCourseware)
-        {
-            self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
-            if (isMediaStop)
-            {
-                self.currentMediaState = YSWhiteBordMediaState_Stop;
-            }
-            else if (self.liveManager.playMediaModel)
-            {
-                self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
-            }
-            else
-            {
-                self.currentMediaState = YSWhiteBordMediaState_Stop;
-            }
-  
-        }
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
 
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
     }
 }
 
@@ -2941,9 +2924,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
-
 }
-
 
 
 #pragma mark -聊天输入框工具栏
@@ -3022,7 +3003,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageTypeOnlyImage withMemberModel:nil];
+                BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"] withMessageType:YSChatMessageType_OnlyImage withMemberModel:nil];
                 if (!isSucceed) {
                     BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
                     hub.yOffset = -100;
@@ -3289,7 +3270,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark - 顶部bar 定时操作
 - (void)countDownTime:(NSTimer *)timer
 {
-    NSTimeInterval time = self.liveManager.tCurrentTime - self.liveManager.tClassStartTime;
+    NSTimeInterval time = self.liveManager.tCurrentTime - self.liveManager.tClassBeginTime;
     NSString *str =  [NSDate bm_countDownENStringDateFromTs:time];
     self.lessonTime = str;
 }
@@ -3411,99 +3392,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }];
 }
 
-#pragma mark 网络状态
-
-/// 自己的网络状态变化
-- (void)roomManagerUserChangeNetStats:(id)stats
-{
-    /// 网络质量
-    YSNetQuality netQuality;
-    /// 网络延时
-    NSInteger netDelay;
-    CGFloat totalPackets;
-    NSInteger lostPacketsLost;
-    /// 丢包率
-    CGFloat lostRate;
-    
-    if ([stats isKindOfClass:[YSAudioStats class]])
-    {
-        YSAudioStats *status = (YSAudioStats *)stats;
-        netQuality = [stats netLevel];
-        netDelay = [status currentDelay];
-        totalPackets = [status totalPackets];
-        lostPacketsLost = [status packetsLost];
-        lostRate = (totalPackets > 0) ? (lostPacketsLost/totalPackets) : 0.00f;
-    }
-    else
-    {
-        YSVideoStats *status = (YSVideoStats *)stats;
-        netQuality = [stats netLevel];
-        netDelay = [status currentDelay];
-        totalPackets = [status totalPackets];
-        lostPacketsLost = [status packetsLost];
-        lostRate = (totalPackets > 0) ? (lostPacketsLost/totalPackets) : 0.00f;
-    }
-    
-    if (netQuality>YSNetQuality_VeryBad)
-    {
-        [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-    }
-}
-
-/// 老师主播的网络状态变化
-- (void)roomManagerTeacherChangeNetStats:(id)stats
-{
-    YSNetQuality netQuality;
-    /// 网络延时
-    NSInteger netDelay;
-    CGFloat totalPackets;
-    NSInteger lostPacketsLost;
-    /// 丢包率
-    CGFloat lostRate;
-    if ([stats isKindOfClass:[YSAudioStats class]])
-    {
-        YSAudioStats *status = (YSAudioStats *)stats;
-        netQuality = [status netLevel];
-        netDelay = [status currentDelay];
-        totalPackets = [status totalPackets];
-        lostPacketsLost = [status packetsLost];
-        lostRate = (totalPackets > 0) ? (lostPacketsLost/totalPackets) : 0.00f;
-    }
-    else
-    {
-        YSVideoStats *status = (YSVideoStats *)stats;
-        netQuality = [status netLevel];
-        netDelay = [status currentDelay];
-        totalPackets = [status totalPackets];
-        lostPacketsLost = [status packetsLost];
-        lostRate = (totalPackets > 0) ? (lostPacketsLost/totalPackets) : 0.00f;
-    }
-    
-    if (netQuality>YSNetQuality_VeryBad)
-    {
-        [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-    }
-}
-
-// 网络测速回调
-// @param networkQuality 网速质量 (TKNetQuality_Down 测速失败)
-// @param delay 延迟(毫秒)
-- (void)onRoomNetworkQuality:(YSNetQuality)networkQuality delay:(NSInteger)delay
-{
-    if (networkQuality>YSNetQuality_VeryBad)
-    {
-        [self bringSomeViewToFront];
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-    }
-}
-
 /// 用户进入
 - (void)roomManagerRoomTeacherEnter
 {
 #if USE_FullTeacher
-    self.teacherPlaceLab.hidden = self.liveManager.isBeginClass;
+    self.teacherPlaceLab.hidden = self.liveManager.isClassBegin;
     if (!self.whitebordFullBackgroud.hidden || !self.shareVideoFloatView.hidden)
     {
         self.fullTeacherFloatView.hidden = NO;
@@ -3587,7 +3480,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super handleSignalingToDisAbleEveryoneBanChatWithIsDisable:isDisable];
     
-    [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserDisablechat value:@(isDisable)];
     [self hiddenTheKeyBoard];
 }
 
@@ -3607,7 +3500,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 奖杯数
     if ([properties bm_containsObjectForKey:sYSUserGiftNumber])
     {
-        YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromId];
+        YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
         if (fromUser.role != YSUserType_Student)
         {
             videoView.giftNumber =  [properties bm_uintForKey:sYSUserGiftNumber];
@@ -3720,7 +3613,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if ([userId isEqualToString:self.liveManager.localUser.peerID])
         {
             /// 学生上课后 切换摄像头按钮不可点击（有视频流以后才可以切换）
-            if ([self.liveManager.isClassBegin])
+            if (self.liveManager.isClassBegin)
             {
                 ///
                 self.spreadBottomToolBar.isCameraEnable = (publishState == YSUser_PublishState_VIDEOONLY) || (publishState == YSUser_PublishState_BOTH);
@@ -3837,8 +3730,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 视频镜像
     if ([properties bm_containsObjectForKey:sYSUserIsVideoMirror])
     {
+#if YSAPP_NEWERROR
         BOOL isVideoMirror = [properties bm_boolForKey:sYSUserIsVideoMirror];
         [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
+#endif
     }
     
     /// 用户设备状态
@@ -3987,7 +3882,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         BOOL isTeacher = NO;
         
-        YSPublishState publishState = [roomUser.properties bm_intForKey:sUserPublishstate];
+        YSPublishState publishState = [roomUser.properties bm_intForKey:sYSUserPublishstate];
         NSString *peerID = roomUser.peerID;
         if ([peerID isEqualToString:self.liveManager.teacher.peerID])
         {
@@ -4069,6 +3964,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             // 自动上台
             if (self.videoViewArray.count < maxVideoCount)
             {
+#if YSAPP_NEWERROR
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
 //                if (autoOpenAudioAndVideoFlag)
                 if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
@@ -4086,12 +3982,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                         }
                     }
                 }
+#endif
             }
         }
         else if (self.appUseTheType == YSRoomUseTypeMeeting)
         {//会议，进教室默认上台
-            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
+            if (self.liveManager.isClassBegin && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
+#if YSAPP_NEWERROR
                 //if (YSCurrentUser.vfail == YSDeviceFaultNone)
                 {
                     [self.liveManager.roomManager publishVideo:nil];
@@ -4104,8 +4002,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                         [self.liveManager.roomManager publishAudio:nil];
                     }
                 }
-                
-                [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserCandraw WithValue:@(true)];
+#endif
+                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(true)];
             }
         }
     }
@@ -4114,7 +4012,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         // 刷新当前用户前后台状态
         NSDictionary *properties = self.liveManager.localUser.properties;
-        BOOL userIsInBackGround = [properties bm_boolForKey:sUserIsInBackGround];
+        BOOL userIsInBackGround = [properties bm_boolForKey:sYSUserIsInBackGround];
 
         UIApplicationState state = [[UIApplication sharedApplication] applicationState];
         BOOL isInBackGround = NO;
@@ -4130,7 +4028,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.progressHUD bm_showAnimated:NO withDetailText:@"出现后台问题！！！！！！！！" delay:5];
 #endif
 
-            [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(isInBackGround)];
         }
     }
 }
@@ -4576,7 +4474,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self hideWhiteBordVidoeViewWithMediaModel:mediaModel];
     }
-    else if (mediaModel.audio)
+    else
     {
         [self onStopMp3];
     }
@@ -4652,10 +4550,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 媒体课件状态
 - (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSMediaState)state
 {
-    self.currentMediaFileID = fileId;
-    self.currentMediaState = state;
     [self freshTeacherCoursewareListData];
 }
+
 /// 当前展示的课件列表（fileid）
 - (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList
 {
@@ -4665,6 +4562,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListData];
     
 }
+
 - (void)onWhiteBoardChangedFileWithFileList:(NSString *)fileId
 {
     
@@ -4712,14 +4610,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 进入后台
 - (void)handleEnterBackground
 {
-    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(YES) completion:nil];
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(YES)];
     [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(NO) completion:nil];
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(NO)];
 }
 
 #pragma mark  答题卡
@@ -4832,7 +4730,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.controlPopoverView.isAllNoAudio = NO;
         }
         
-        YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sUserPublishstate];
+        YSPublishState publishState = [YSCurrentUser.properties bm_intForKey:sYSUserPublishstate];
         BOOL needsend = NO;
         if (noAudio)
         {
@@ -4865,7 +4763,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         if (needsend)
         {
-            [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserPublishstate value:@(publishState) completion:nil];
+            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
         }
     }
 }
@@ -5218,7 +5116,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 播放全屏老师视频流
 - (void)playFullTeacherVideoViewInView:(UIView *)view
 {
-    if (self.liveManager.isBeginClass)
+    if (self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoView];
         
@@ -5280,8 +5178,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {    
     YSRoomUser * userModel = videoView.roomUser;
     
-    SCUserPublishState userPublishState = userModel.liveUserPublishState;
-    if (videoView.roomUser.peerID != YSCurrentUser.peerID || userPublishState == SCUserPublishState_NONE)
+    YSUserMediaPublishState userPublishState = userModel.mediaPublishState;
+    if (videoView.roomUser.peerID != YSCurrentUser.peerID || userPublishState == YSUserMediaPublishState_NONE)
     {
         return;
     }
@@ -5334,19 +5232,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
 - (void)videoViewControlBtnsClick:(UIButton *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
 {
-    SCUserPublishState userPublishState = YSCurrentUser.liveUserPublishState;
+    YSUserMediaPublishState userPublishState = YSCurrentUser.mediaPublishState;
     switch (videoViewControlType) {
         case SCVideoViewControlTypeAudio:
         {//关闭音频
             if (sender.selected)
             {//当前是打开音频状态
-                userPublishState &= ~SCUserPublishState_AUDIOONLY;
+                userPublishState &= ~YSUserMediaPublishState_AUDIOONLY;
             }
             else
             {//当前是关闭音频状态
-                userPublishState |= SCUserPublishState_AUDIOONLY;
+                userPublishState |= YSUserMediaPublishState_AUDIOONLY;
             }
-            YSCurrentUser.liveUserPublishState = userPublishState;
+            YSCurrentUser.mediaPublishState = userPublishState;
             sender.selected = !sender.selected;
         }
             break;
@@ -5354,13 +5252,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//关闭视频
             if (sender.selected)
             {//当前是打开视频状态
-                userPublishState &= ~SCUserPublishState_VIDEOONLY;
+                userPublishState &= ~YSUserMediaPublishState_VIDEOONLY;
             }
             else
             {//当前是关闭视频状态
-                userPublishState |= SCUserPublishState_VIDEOONLY;
+                userPublishState |= YSUserMediaPublishState_VIDEOONLY;
             }
-            YSCurrentUser.liveUserPublishState = userPublishState;
+            YSCurrentUser.mediaPublishState = userPublishState;
             sender.selected = !sender.selected;
         }
             break;
