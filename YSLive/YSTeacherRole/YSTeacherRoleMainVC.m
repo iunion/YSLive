@@ -2492,6 +2492,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
+    [super handleSignalingToDisAbleEveryoneBanChatWithIsDisable:isDisable];
+    
     self.rightChatView.allDisabled = isDisable;
 }
 
@@ -2812,7 +2814,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             break;
         }
 #endif
-        YSPublishState publishState = roomUser.publishState];
+        YSPublishState publishState = roomUser.publishState;
         NSString *peerID = roomUser.peerID;
         /// 轮播数组数组
         if (roomUser.role == YSUserType_Student)
@@ -2889,9 +2891,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (!inlist)
     {
-        if (self.liveManager.playMediaModel)
+        if (self.liveManager.mediaFileModel)
         {
-            [self.liveManager.roomManager stopShareMediaFile:nil];
+            [self.liveManager stopShareOneMediaFile];
         }
     }
 }
@@ -2902,7 +2904,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.classBeginBtn.userInteractionEnabled = YES;
 
     // 老师取消订阅举手列表
-    [self.liveManager sendSignalingToSubscribeAllRaiseHandMemberWithType:@"unsubSort" Completion:nil];
+    [self.liveManager sendSignalingToSubscribeAllRaiseHandMemberWithType:@"unsubSort"];
    
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
@@ -2940,7 +2942,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///老师订阅举手列表
 - (void)handleSignalingAllowEveryoneRaiseHand
 {
-    [self.liveManager sendSignalingToSubscribeAllRaiseHandMemberWithType:@"subSort" Completion:nil];
+    [self.liveManager sendSignalingToSubscribeAllRaiseHandMemberWithType:@"subSort"];
 }
 
 /// 房间即将关闭消息
@@ -3239,7 +3241,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -YSMp3ControlViewDelegate
 - (void)playMp3ControlViewPlay:(BOOL)isPlay
 {
-    [self.liveManager.roomManager pauseMediaFile:isPlay];
+    [self.liveManager pauseShareOneMediaFile:isPlay];
     isMediaPause = isPlay;
     [self freshTeacherCoursewareListData];
 }
@@ -3339,19 +3341,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if ([self.spreadBottomToolBar coursewareListIsShow])
     {
-        if (!self.liveManager.roomConfig.isMultiCourseware)
-        {
-            self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
-            if (self.liveManager.playMediaModel)
-            {
-                self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
-            }
-            else
-            {
-                self.currentMediaState = YSWhiteBordMediaState_Stop;
-            }
-        }
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
     }
 }
 

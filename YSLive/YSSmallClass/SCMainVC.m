@@ -3585,6 +3585,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
+    [super handleSignalingToDisAbleEveryoneBanChatWithIsDisable:isDisable];
+    
     [self.liveManager sendSignalingToChangePropertyWithRoomUser:YSCurrentUser withKey:sUserDisablechat WithValue:@(isDisable)];
     [self hiddenTheKeyBoard];
 }

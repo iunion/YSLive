@@ -2066,6 +2066,8 @@
 ///全体禁言
 - (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
 {
+    [super handleSignalingToDisAbleEveryoneBanChatWithIsDisable:isDisable];
+    
     self.chaView.chatToolView.everyoneBanChat = isDisable;
     if (isDisable)
     {

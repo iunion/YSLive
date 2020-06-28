@@ -170,6 +170,19 @@
 //    }
 }
 
+/// 全体禁言
+- (void)handleSignalingToDisAbleEveryoneBanChatWithIsDisable:(BOOL)isDisable
+{
+    if (isDisable)
+    {
+        [self.liveManager sendTipMessage:YSLocalized(@"Prompt.BanChatInView") tipType:YSChatMessageType_Tips];
+    }
+    else
+    {
+        [self.liveManager sendTipMessage:YSLocalized(@"Prompt.CancelBanChatInView") tipType:YSChatMessageType_Tips];
+    }
+}
+
 #pragma mark meidia
 
 /// 媒体流发布状态
