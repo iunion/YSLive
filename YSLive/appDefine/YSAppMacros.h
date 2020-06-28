@@ -9,6 +9,9 @@
 #ifndef YSAppMacros_h
 #define YSAppMacros_h
 
+#define YSAPP_NEWERROR              0
+
+
 #define YSAPP_APPNAME               @"YSLive"
 #define YS_SCBUNDLE_NAME            @ "YSResources.bundle"
 #define YS_MEETINGBUNDLE_NAME       @ "YSMeetingResources.bundle"
