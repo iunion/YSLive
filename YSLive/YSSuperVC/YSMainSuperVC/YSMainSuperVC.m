@@ -131,12 +131,12 @@
 
 #pragma mark  添加视频窗口
 
-- (void)addVidoeViewWithPeerId:(NSString *)peerId
+- (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
 {
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
     {
-        return;
+        return nil;
     }
     
     // 删除本人占位视频
@@ -149,13 +149,13 @@
         }
     }
     
-    SCVideoView *newVideoView = nil;
     BOOL isUserExist = NO;
+    SCVideoView *theVideoView = nil;
     for (SCVideoView *videoView in self.videoViewArray)
     {
         if ([videoView.roomUser.peerID isEqualToString:peerId])
         {
-            newVideoView = videoView;
+            theVideoView = videoView;
             // property刷新原用户的值没有变化，需要重新赋值user
             [videoView freshWithRoomUserProperty:roomUser];
             isUserExist = YES;
@@ -163,18 +163,19 @@
         }
     }
     
+    SCVideoView *newVideoView = nil;
     if (!isUserExist)
     {
-        SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser withDelegate:self];
-        videoView.appUseTheType = self.appUseTheType;
-        newVideoView = videoView;
-        if (videoView)
+        newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withDelegate:self];
+        newVideoView.appUseTheType = self.appUseTheType;
+        theVideoView = newVideoView;
+        if (newVideoView)
         {
             
-            [self.videoViewArray addObject:videoView];
+            [self.videoViewArray addObject:newVideoView];
             if (roomUser.role == YSUserType_Teacher)
             {
-                self.teacherVideoView = videoView;
+                self.teacherVideoView = newVideoView;
             }
         }
         
@@ -192,12 +193,9 @@
         }
     }
     
-    if (newVideoView)
-    {
-        [newVideoView bringSubviewToFront:newVideoView.backVideoView];
-    }
+    [theVideoView bringSubviewToFront:newVideoView.backVideoView];
     
-    return;
+    return newVideoView;
 }
 
 #pragma mark  获取视频窗口
@@ -211,6 +209,7 @@
             return videoView;
         }
     }
+    
     return nil;
 }
 
@@ -282,6 +281,41 @@
     [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
 }
 
+#pragma mark 用户流
+
+/// 用户流音量变化
+- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
+{
+    SCVideoView *view = [self getVideoViewWithPeerId:userId];
+    view.iVolume = volume;
+}
+
+/// 开关摄像头
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID
+{
+    
+}
+
+/// 开关麦克风
+- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
+{
+    
+}
+
+/// 收到音视频流
+- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+{
+    SCVideoView *view = [self getVideoViewWithPeerId:uid];
+    YSRoomUser *roomUser = view.roomUser;
+    
+    [self.liveManager playVideoWithUserId:uid sourceId:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:view];
+}
+
+/// 停止音视频流
+- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+{
+    [self.liveManager stopVideoWithUserId:uid sourceId:sourceID];
+}
 
 #pragma mark 用户网络差，被服务器切换媒体线路
 
@@ -380,20 +414,6 @@
 {
     
 }
-
-///// 用户流音量变化
-//- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume;
-//
-///// 是否关闭摄像头
-//- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID;
-///// 是否关闭麦克风
-//- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid;
-//
-///// 收到音视频流
-//- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID;
-///// 停止音视频流
-//- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID;
-
 
 /*
 - (void)addBaseNotification

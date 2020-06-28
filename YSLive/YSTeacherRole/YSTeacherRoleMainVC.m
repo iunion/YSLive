@@ -1788,6 +1788,31 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark - videoViewArray
 
+/// 开关摄像头
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID
+{
+    [super onRoomCloseVideo:close withUid:uid sourceID:sourceID];
+}
+
+/// 开关麦克风
+- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
+{
+    [super onRoomCloseAudio:close withUid:uid];
+}
+
+/// 收到音视频流
+- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+{
+    [super onRoomStartVideoOfUid:uid sourceID:sourceID];
+}
+
+/// 停止音视频流
+- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+{
+    [super onRoomStopVideoOfUid:uid sourceID:sourceID];
+}
+
+/*
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
 {
     [self playVideoAudioWithVideoView:videoView needFreshVideo:NO];
@@ -1945,17 +1970,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     videoView.publishState = 4;
 #endif
 }
-
+*/
 
 #pragma mark  添加视频窗口
-- (void)addVidoeViewWithPeerId:(NSString *)peerId
+- (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
 {
+    SCVideoView *newVideoView = [super addVidoeViewWithPeerId:peerId];
+    
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+    
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
     {
-        return;
+        return nil;
     }
     
     ///  轮播 设置上台的人在数组最后
@@ -1968,162 +1996,41 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    // 删除本人占位视频
-    for (SCVideoView *avideoView in self.videoViewArray)
-    {
-        if (avideoView.isForPerch)
-        {
-            [self stopVideoAudioWithVideoView:avideoView];
-            [self.videoViewArray removeObject:avideoView];
-            break;
-        }
-    }
-    
-    SCVideoView *newVideoView = nil;
-    
-    BOOL isUserExist = NO;
-    
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        if ([videoView.roomUser.peerID isEqualToString:peerId])
-        {
-#if (0)
-            // 删除本人占位视频
-            if (self.roomtype == YSRoomUserType_One)
-            {
-                if (videoView.isForPerch)
-                {
-                    [self stopVideoAudioWithVideoView:videoView];
-                    [self.videoViewArray removeObject:videoView];
-                    if (self.userVideoCoverView.superview)
-                    {
-                        [self.userVideoCoverView removeFromSuperview];
-                    }
-                    break;
-                }
-            }
-#endif
-            newVideoView = videoView;
-            // property刷新原用户的值没有变化，需要重新赋值user
-            [videoView freshWithRoomUserProperty:roomUser];
-            isUserExist = YES;
-            break;
-        }
-    }
-    
-    if (!isUserExist)
-    {
-        if ([peerId isEqualToString:self.liveManager.localUser.peerID])
-        {
-#if YSAPP_NEWERROR
-            [self.liveManager stopPlayVideo:peerId completion:nil];
-            [self.liveManager stopPlayAudio:peerId completion:nil];
-#endif
-        }
-        
-        SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser withDelegate:self];
-        videoView.appUseTheType = self.appUseTheType;
-        newVideoView = videoView;
-        if (videoView)
-        {
-            
-            [self.videoViewArray addObject:videoView];
-            if (roomUser.role == YSUserType_Teacher)
-            {
-                self.teacherVideoView = videoView;
-            }
-            /// 轮播相关逻辑
-            if (roomUser.role == YSUserType_Student)
-            {
-                [self.pollingUpPlatformArr addObject:peerId];
-            }
-            if (_isPolling)
-            {
-                /// 台下无人时 停止轮播
-                if (self.pollingUpPlatformArr.count == self.liveManager.studentCount)
-                {
-                    [self.liveManager sendSignalingTeacherToStopVideoPolling];
-                }
-            }
-        }
-        
-        if (self.teacherVideoView)
-        {
-            [self.videoViewArray removeObject:self.teacherVideoView];
-        }
-        // id正序排序
-        [self.videoViewArray sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
-            return [obj1.roomUser.peerID compare:obj2.roomUser.peerID];
-        }];
-        if (self.teacherVideoView)
-        {
-            [self.videoViewArray insertObject:self.teacherVideoView atIndex:0];
-        }
-    }
-    
     if (newVideoView)
     {
-        [self playVideoAudioWithVideoView:newVideoView];
-        
-        [newVideoView bringSubviewToFront:newVideoView.backVideoView];
-        
-        [self freshContentView];
-    }
-    
-    return;
-}
-
-#pragma mark  获取视频窗口
-
-- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId
-{
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        if ([videoView.roomUser.peerID isEqualToString:peerId])
+        /// 轮播相关逻辑
+        if (roomUser.role == YSUserType_Student)
         {
-            return videoView;
+            [self.pollingUpPlatformArr addObject:peerId];
+        }
+        if (_isPolling)
+        {
+            /// 台下无人时 停止轮播
+            if (self.pollingUpPlatformArr.count == self.liveManager.studentCount)
+            {
+                [self.liveManager sendSignalingTeacherToStopVideoPolling];
+            }
         }
     }
-    return nil;
+    
+    [self freshContentView];
+    
+    return newVideoView;
 }
 
 #pragma mark  删除视频窗口
 
-- (void)delVidoeViewWithPeerId:(NSString *)peerId
+- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId
 {
+    SCVideoView *delVideoView = [super delVidoeViewWithPeerId:peerId];
+
     [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
-    SCVideoView *delVideoView = nil;
-    if ([peerId isEqualToString:self.teacherVideoView.roomUser.peerID])
-    {
-        delVideoView = self.teacherVideoView;
-        [self.videoViewArray removeObject:self.teacherVideoView];
-        self.teacherVideoView = nil;
-        //        if (self.roomtype == YSRoomUserType_One)
-        //        {
-        //            // 1V1 初始老师视频蒙版
-        //            [self addTeacherVideoViewForPerch];
-        //        }
-    }
-    else
-    {
-        
-        for (SCVideoView *videoView in self.videoViewArray)
-        {
-            if ([videoView.roomUser.peerID isEqualToString:peerId])
-            {
-                delVideoView = videoView;
-                [self.videoViewArray removeObject:videoView];
-                [self.pollingUpPlatformArr removeObject:peerId];///删除视频的同时删除轮播上台数据
-                break;
-            }
-        }
-    }
     
     if (delVideoView)
     {
-        [self stopVideoAudioWithVideoView:delVideoView];
-        
+        [self.pollingUpPlatformArr removeObject:peerId];///删除视频的同时删除轮播上台数据
+
         if (delVideoView.isDragOut)
         {
             [self hideDragOutVidoeViewWithPeerId:peerId];
@@ -2137,20 +2044,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self freshContentView];
         }
     }
+    
+    return delVideoView;
 }
 
 #pragma mark  删除所有视频窗口
 - (void)removeAllVideoView
 {
+    [super removeAllVideoView];
+    
     [self hideAllDragOutVidoeView];
-//    [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
-    
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        [self stopVideoAudioWithVideoView:videoView];
-    }
-    
-    [self.videoViewArray removeAllObjects];
 }
 
 - (void)kickedOutFromRoom:(NSUInteger)reasonCode
@@ -2718,14 +2621,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self freshTeacherPersonListData];
         }
     }
-}
-
-#pragma mark 音量变化
-
-- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
-{
-    SCVideoView *view = [self getVideoViewWithPeerId:userId];
-    view.iVolume = volume;
 }
 
 #pragma mark 切换网络 会收到onRoomJoined
@@ -3573,7 +3468,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 
     SCVideoView *videoView = nil;
-    BOOL dragOut = 0;
+    BOOL dragOut = NO;
     CGFloat whitebordH = 0;
     
     if (self.isWhitebordFullScreen || !self.shareVideoFloatView.hidden)

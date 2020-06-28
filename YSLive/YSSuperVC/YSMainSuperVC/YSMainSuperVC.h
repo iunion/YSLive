@@ -44,6 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showEyeCareRemind;
 
 - (NSUInteger)getVideoViewCount;
+- (nullable SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId;
+- (nullable SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId;
+- (nullable SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId;
+- (void)removeAllVideoView;
 
 @end
 

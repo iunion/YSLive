@@ -1464,15 +1464,6 @@
     }
 }
 
-#pragma mark 音量变化
-
-- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
-{
-    SCVideoView *view = [self getVideoViewWithPeerId:userId];
-    view.iVolume = volume;
-}
-
-
 #pragma mark 切换网络 会收到onRoomJoined
 
 - (void)onRoomJoined:(long)ts
