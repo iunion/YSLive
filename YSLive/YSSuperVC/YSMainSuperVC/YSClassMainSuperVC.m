@@ -176,21 +176,6 @@
     }
 }
 
-
-- (NSUInteger)getVideoViewCount
-{
-    NSUInteger count = 0;
-    
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        if (!videoView.isDragOut && !videoView.isFullScreen)
-        {
-            count++;
-        }
-    }
-    return count;
-}
-
 /// 进入全屏
 - (void)begainFullScreen
 {

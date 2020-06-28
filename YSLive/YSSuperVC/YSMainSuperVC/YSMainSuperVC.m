@@ -30,6 +30,8 @@
         [self setRoomManagerDelegate];
         
         [self.liveManager serverLog:[NSString stringWithFormat:@"YSMainSuperVC init with class %@", NSStringFromClass([self class])]];
+        
+        self.videoViewArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -47,7 +49,7 @@
 - (void)setRoomManagerDelegate
 {
     self.liveManager = [YSLiveManager sharedInstance];
-    [self.liveManager registerRoomManagerDelegate:self];
+    [self.liveManager registerRoomDelegate:self];
 }
 
 - (void)doMsgCachePool
@@ -56,8 +58,8 @@
     self.liveManager.readyToHandleMsg = YES;
 
     [self beforeDoMsgCachePool];
-    
-    [self.liveManager doMsgCachePool];
+#warning doMsgCachePool
+    //[self.liveManager doMsgCachePool];
     
     [self afterDoMsgCachePool];
 }
@@ -110,6 +112,143 @@
 {
     
 }
+
+#pragma mark - videoViewArray
+
+- (NSUInteger)getVideoViewCount
+{
+    NSUInteger count = 0;
+    
+    for (SCVideoView *videoView in self.videoViewArray)
+    {
+        if (!videoView.isDragOut && !videoView.isFullScreen)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+#pragma mark  添加视频窗口
+
+- (void)addVidoeViewWithPeerId:(NSString *)peerId
+{
+    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
+    if (!roomUser)
+    {
+        return;
+    }
+    
+    // 删除本人占位视频
+    for (SCVideoView *avideoView in self.videoViewArray)
+    {
+        if (avideoView.isForPerch)
+        {
+            [self.videoViewArray removeObject:avideoView];
+            break;
+        }
+    }
+    
+    SCVideoView *newVideoView = nil;
+    BOOL isUserExist = NO;
+    for (SCVideoView *videoView in self.videoViewArray)
+    {
+        if ([videoView.roomUser.peerID isEqualToString:peerId])
+        {
+            newVideoView = videoView;
+            // property刷新原用户的值没有变化，需要重新赋值user
+            [videoView freshWithRoomUserProperty:roomUser];
+            isUserExist = YES;
+            break;
+        }
+    }
+    
+    if (!isUserExist)
+    {
+        SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser withDelegate:self];
+        videoView.appUseTheType = self.appUseTheType;
+        newVideoView = videoView;
+        if (videoView)
+        {
+            
+            [self.videoViewArray addObject:videoView];
+            if (roomUser.role == YSUserType_Teacher)
+            {
+                self.teacherVideoView = videoView;
+            }
+        }
+        
+        if (self.teacherVideoView)
+        {
+            [self.videoViewArray removeObject:self.teacherVideoView];
+        }
+        // id正序排序
+        [self.videoViewArray sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
+            return [obj1.roomUser.peerID compare:obj2.roomUser.peerID];
+        }];
+        if (self.teacherVideoView)
+        {
+            [self.videoViewArray insertObject:self.teacherVideoView atIndex:0];
+        }
+    }
+    
+    if (newVideoView)
+    {
+        [newVideoView bringSubviewToFront:newVideoView.backVideoView];
+    }
+    
+    return;
+}
+
+#pragma mark  获取视频窗口
+
+- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId
+{
+    for (SCVideoView *videoView in self.videoViewArray)
+    {
+        if ([videoView.roomUser.peerID isEqualToString:peerId])
+        {
+            return videoView;
+        }
+    }
+    return nil;
+}
+
+#pragma mark  删除视频窗口
+
+- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId
+{
+    SCVideoView *delVideoView = nil;
+    if ([peerId isEqualToString:self.teacherVideoView.roomUser.peerID])
+    {
+        delVideoView = self.teacherVideoView;
+        [self.videoViewArray removeObject:self.teacherVideoView];
+        self.teacherVideoView = nil;
+    }
+    else
+    {
+        for (SCVideoView *videoView in self.videoViewArray)
+        {
+            if ([videoView.roomUser.peerID isEqualToString:peerId])
+            {
+                delVideoView = videoView;
+                [self.videoViewArray removeObject:videoView];
+                break;
+            }
+        }
+    }
+    
+    return delVideoView;
+}
+
+#pragma mark  删除所有视频窗口
+
+- (void)removeAllVideoView
+{
+    [self.videoViewArray removeAllObjects];
+}
+
+
 
 /// 失去连接
 - (void)onRoomConnectionLost
@@ -241,6 +380,20 @@
 {
     
 }
+
+///// 用户流音量变化
+//- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume;
+//
+///// 是否关闭摄像头
+//- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID;
+///// 是否关闭麦克风
+//- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid;
+//
+///// 收到音视频流
+//- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID;
+///// 停止音视频流
+//- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID;
+
 
 /*
 - (void)addBaseNotification

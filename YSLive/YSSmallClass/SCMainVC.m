@@ -183,7 +183,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
 
 /// 默认老师 视频
-@property (nonatomic, strong) SCVideoView *teacherVideoView;
+//@property (nonatomic, strong) SCVideoView *teacherVideoView;
 /// 1V1 默认老师占位
 @property (nonatomic, strong) SCVideoView *teacherPlacehold;
 /// 1V1 老师占位图中是否上课的提示
@@ -446,7 +446,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [super viewDidLoad];
 
-    self.videoViewArray = [[NSMutableArray alloc] init];
     _personListCurentPage = 0;
     _personListTotalPage = 0;
     isSearch = NO;
@@ -2556,10 +2555,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCBottomToolBarTypeCamera:
             {
-                 #if YSAPP_NEWERROR
                 //摄像头
-                [self.liveManager.roomManager selectCameraPosition:!isSelected];
-                #endif
+                [self.liveManager useFrontCamera:!isSelected];
             }
                 break;
             case SCBottomToolBarTypeChat:

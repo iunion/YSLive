@@ -7,7 +7,6 @@
 //
 
 #import "YSMainSuperVC.h"
-#import "SCVideoView.h"
 #import "YSSpreadBottomToolBar.h"
 
 /// 顶部状态栏高度
@@ -45,9 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign, readonly) CGFloat contentWidth;
 @property(nonatomic, assign, readonly) CGFloat contentHeight;
 
-/// 视频View列表
-@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoViewArray;
-
 /// 房间号
 @property(nonatomic, copy) NSString *roomID;
 /// 上课时间
@@ -62,7 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 // 横排视频最大宽度计算
 - (CGFloat)getVideoTotalWidth;
 
-- (NSUInteger)getVideoViewCount;
 
 @end
 

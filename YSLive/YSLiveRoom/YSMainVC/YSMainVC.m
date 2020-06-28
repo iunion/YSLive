@@ -109,8 +109,6 @@
 @property (nonatomic, strong) UILabel *teacherPlaceLab ;
 /// 学生视频容器
 @property (nonatomic, strong) UIView *videoBackgroud;
-/// 视频View列表
-@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoViewArray;
 
 /// 返回按钮
 @property (nonatomic, strong) UIButton *returnBtn;
@@ -344,7 +342,6 @@
     self.lessonDataSource = [[NSMutableArray alloc] initWithCapacity:0];
     self.questionBeforeArr = [NSMutableArray array];
     self.messageBeforeList = [NSMutableArray array];
-    self.videoViewArray = [[NSMutableArray alloc] init];
     
     self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
     
