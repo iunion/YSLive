@@ -959,7 +959,7 @@
 //        }
         if ([self.roomUser.properties bm_containsObjectForKey:sUserVideoFail])
         {
-            if (self.roomUser.hasVideo)
+            if ([self.userModel.properties bm_boolForKey:sYSUserHasVideo])
             {
                 self.videoDeviceState = self.roomUser.vfail;
                 if (self.roomUser.vfail != YSDeviceFaultNone)
@@ -976,7 +976,7 @@
         }
         else
         {
-            if (!deviceError && !self.roomUser.hasVideo)
+            if (!deviceError && ![self.userModel.properties bm_boolForKey:sYSUserHasVideo])
             {
                 // 无设备
                 deviceError = YES;
@@ -1039,7 +1039,7 @@
 //        }
         if ([self.roomUser.properties bm_containsObjectForKey:sUserAudioFail])
         {
-            if (self.roomUser.hasAudio)
+            if ([self.userModel.properties bm_boolForKey:sYSUserHasAudio])
             {
                 self.audioDeviceState = self.roomUser.afail;
                 if (self.roomUser.afail != YSDeviceFaultNone)
@@ -1055,7 +1055,8 @@
         }
         else
         {
-            if (!deviceError && !self.roomUser.hasAudio)
+            
+            if (!deviceError && ![self.userModel.properties bm_boolForKey:sYSUserHasAudio])
             {
                 // 无设备
                 deviceError = YES;

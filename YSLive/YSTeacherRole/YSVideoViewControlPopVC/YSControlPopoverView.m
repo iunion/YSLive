@@ -126,7 +126,7 @@
 - (void)setupUI
 {
     [self.backView bm_removeAllSubviews];
-    YSPublishState publishState = [self.userModel.properties bm_intForKey:sUserPublishstate];
+    YSPublishState publishState = [self.userModel.properties bm_intForKey:sYSUserPublishstate];
     
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
@@ -159,7 +159,7 @@
     //画笔权限控制按钮
     self.canDrawBtn = [self creatButtonWithTitle:YSLocalized(@"Label.Authorized") selectTitle:YSLocalized(@"Label.CancelAuthorized") image:YSSkinElementImage(@"videoPop_authorizeButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_authorizeButton", @"iconSel")];
     self.canDrawBtn.tag = SCVideoViewControlTypeCanDraw;
-    BOOL canDraw = [self.userModel.properties bm_boolForKey:sUserCandraw];
+    BOOL canDraw = [self.userModel.properties bm_boolForKey:sYSUserCandraw];
     if (canDraw)
     {
         self.canDrawBtn.selected = YES;
@@ -397,7 +397,7 @@
     }
 
     //没有摄像头、麦克风权限时的显示禁用状态
-    if ([self.userModel.properties bm_containsObjectForKey:sUserVideoFail])
+    if ([self.userModel.properties bm_containsObjectForKey:sYSUserVideoFail])
     {
         if (self.userModel.afail == YSDeviceFaultNone)
         {
@@ -420,7 +420,9 @@
     }
     else
     {
-        if (self.userModel.hasAudio)
+        
+        
+        if ([self.userModel.properties bm_boolForKey:sYSUserHasAudio])
         {
             self.audioBtn.enabled = !self.isAllNoAudio;
         }
@@ -428,7 +430,7 @@
         {
             self.audioBtn.enabled = NO;
         }
-        if (self.userModel.hasVideo)
+        if ([self.userModel.properties bm_boolForKey:sYSUserHasVideo])
         {
             self.videoBtn.enabled = YES;
             self.mirrorBtn.enabled = YES;
