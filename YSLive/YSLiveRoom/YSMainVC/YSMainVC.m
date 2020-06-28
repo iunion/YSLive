@@ -1476,15 +1476,9 @@
 
 #pragma mark 音量变化
 
-- (void)handleSelfAudioVolumeChanged
+- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
 {
-    SCVideoView *view = [self getVideoViewWithPeerId:self.liveManager.localUser.peerID];
-    view.iVolume = self.liveManager.iVolume;
-}
-
-- (void)handleOtherAudioVolumeChangedWithPeerID:(NSString *)peeID volume:(NSUInteger)volume
-{
-    SCVideoView *view = [self getVideoViewWithPeerId:peeID];
+    SCVideoView *view = [self getVideoViewWithPeerId:userId];
     view.iVolume = volume;
 }
 
