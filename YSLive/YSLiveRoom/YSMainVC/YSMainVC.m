@@ -456,7 +456,8 @@
     }
     else
     {
-        if (self.liveManager.localUser.hasAudio)
+        
+        if ([self.liveManager.localUser.properties bm_boolForKey:sYSUserHasAudio])
         {
             self.audioBtn.enabled = YES;
         }
@@ -464,7 +465,7 @@
         {
             self.audioBtn.enabled = NO;
         }
-        if (self.liveManager.localUser.hasVideo)
+        if ([self.liveManager.localUser.properties bm_boolForKey:sYSUserHasVideo])
         {
             self.videoBtn.enabled = YES;
         }
