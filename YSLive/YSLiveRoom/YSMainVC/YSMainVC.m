@@ -1386,23 +1386,23 @@
 
 #pragma mark 用户属性变化
 
-- (void)onRoomUserPropertyChanged:(NSString *)peerID properties:(NSDictionary *)properties fromId:(NSString *)fromId
+- (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties
 {
-    SCVideoView *videoView = [self getVideoViewWithPeerId:peerID];
-    YSRoomUser *roomUser = [self.liveManager.roomManager getRoomUserWithUId:peerID];
+    SCVideoView *videoView = [self getVideoViewWithPeerId:userId];
+    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:userId];
     
     // 网络状态
-    if ([properties bm_containsObjectForKey:sUserNetWorkState])
+    if ([properties bm_containsObjectForKey:sYSUserNetWorkState])
     {
         [videoView freshWithRoomUserProperty:roomUser];
     }
     
     // 本人是否被禁言
-    if ([properties bm_containsObjectForKey:sUserDisablechat])
+    if ([properties bm_containsObjectForKey:sYSUserDisablechat])
     {
-        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        if ([userId isEqualToString:self.liveManager.localUser.peerID])
         {
-            BOOL disablechat = [properties bm_boolForKey:sUserDisablechat];
+            BOOL disablechat = [properties bm_boolForKey:sYSUserDisablechat];
             self.chaView.chatToolView.everyoneBanChat = disablechat;
             if (disablechat)
             {
@@ -1413,11 +1413,11 @@
     }
     
     // 上台
-    if ([properties bm_containsObjectForKey:sUserPublishstate] && roomUser.role == YSUserType_Student)
+    if ([properties bm_containsObjectForKey:sYSUserPublishstate] && roomUser.role == YSUserType_Student)
     {
-        YSPublishState publishState = [properties bm_intForKey:sUserPublishstate];
+        YSPublishState publishState = [properties bm_intForKey:sYSUserPublishstate];
         
-        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
+        if ([userId isEqualToString:self.liveManager.localUser.peerID])
         {
             if (publishState == YSUser_PublishState_VIDEOONLY)
             {
@@ -1435,40 +1435,40 @@
         
         if (publishState == YSUser_PublishState_VIDEOONLY)
         {
-            [self addVidoeViewWithPeerId:peerID];
+            [self addVidoeViewWithPeerId:userId];
         }
         else if (publishState == YSUser_PublishState_AUDIOONLY)
         {
-            [self addVidoeViewWithPeerId:peerID];
+            [self addVidoeViewWithPeerId:userId];
         }
         else if (publishState == YSUser_PublishState_BOTH)
         {
-            [self addVidoeViewWithPeerId:peerID];
+            [self addVidoeViewWithPeerId:userId];
         }
         else if (publishState == 4)
         {
-            [self addVidoeViewWithPeerId:peerID];
+            [self addVidoeViewWithPeerId:userId];
         }
         else if (publishState != 4)
         {
-            if (!self.liveManager.isBeginClass)
+            if (!self.liveManager.isClassBegin)
             {
                 return;
             }
             
-            [self delVidoeViewWithPeerId:peerID];
+            [self delVidoeViewWithPeerId:userId];
             [self clickToShowControl];// 隐藏控制按钮
         }
     }
     
-    if ([peerID isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
+    if ([userId isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
     {
         /// 更新用户的视频按钮状态
         [self updataVideoPopViewState];
     }
     
     /// 用户设备状态
-    if ([properties bm_containsObjectForKey:sUserVideoFail] || [properties bm_containsObjectForKey:sUserAudioFail])
+    if ([properties bm_containsObjectForKey:sYSUserVideoFail] || [properties bm_containsObjectForKey:sYSUserAudioFail])
     {
         [videoView freshWithRoomUserProperty:roomUser];
     }
