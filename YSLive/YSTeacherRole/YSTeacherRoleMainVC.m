@@ -4077,19 +4077,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 //课件库
                 [self freshListViewWithSelect:isSelected];
 
-                if (!self.liveManager.roomConfig.isMultiCourseware)
-                {
-                    self.currentMediaFileID = self.liveManager.playMediaModel.fileid;
-                    if (self.liveManager.playMediaModel)
-                    {
-                        self.currentMediaState = isMediaPause ? YSWhiteBordMediaState_Pause : YSWhiteBordMediaState_Play;
-                    }
-                    else
-                    {
-                        self.currentMediaState = YSWhiteBordMediaState_Stop;
-                    }
-                }
-                [self.teacherListView setDataSource:[YSLiveManager shareInstance].fileList withType:SCBottomToolBarTypeCourseware userNum:[YSLiveManager shareInstance].fileList.count currentFileList:self.currentFileList mediaFileID:self.currentMediaFileID mediaState:self.currentMediaState];
+                [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
                 
                 [self.teacherListView bm_bringToFront];
             }
