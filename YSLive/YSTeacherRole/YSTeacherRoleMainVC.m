@@ -2383,7 +2383,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         if (total < maxVideoCount)
         {
-            [self.liveManager sendSignalingTeacherToStopVideoPollingCompletion:nil];
+            [self.liveManager sendSignalingTeacherToStopVideoPolling];
         }
         
         /// 如果轮播发起者退出房间 则停止轮播
@@ -2796,7 +2796,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self bottomToolBarPollingBtnEnable];
     self.spreadBottomToolBar.isToolBoxEnable = YES;
     // 通知各端开始举手
-    [self.liveManager sendSignalingToLiveAllAllowRaiseHandCompletion:nil];
+    [self.liveManager sendSignalingToLiveAllAllowRaiseHand];
     
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSCurrentUser.peerID propertyKey:sYSUserCandraw value:@(true)];
     
