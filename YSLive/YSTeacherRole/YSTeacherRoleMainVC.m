@@ -4115,16 +4115,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCBottomToolBarTypeAllNoAudio:
             {
-                if (isSelected)
-                {
-                    // 全体静音
-                    [self.liveManager sendSignalingTeacherToLiveAllNoAudio:YES];
-                }
-                else
-                {
-                    // 全体发言
-                    [self.liveManager sendSignalingTeacherToLiveAllNoAudio:NO];
-                }
+                // 全体静音
+                [self.liveManager sendSignalingTeacherToLiveAllNoAudio:isSelected];
+
             }
                 break;
             case SCBottomToolBarTypeCamera:
