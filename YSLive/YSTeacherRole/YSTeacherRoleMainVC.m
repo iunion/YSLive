@@ -4122,8 +4122,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCBottomToolBarTypeCamera:
             {
+                #if YSAPP_NEWERROR
                 //摄像头
                 [self.liveManager.roomManager selectCameraPosition:!isSelected];
+                #endif
             }
                 break;
             case SCBottomToolBarTypeChat:
@@ -4214,7 +4216,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (mode) {
         //全体复位
-        for (YSRoomUser * user in [YSLiveManager shareInstance].userList)
+        for (YSRoomUser * user in self.liveManager.userList)
         {
             NSDictionary * data = @{
                 @"isDrag":@0,
