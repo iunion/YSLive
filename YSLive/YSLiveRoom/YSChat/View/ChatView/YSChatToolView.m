@@ -216,7 +216,9 @@ UITextViewDelegate
         return;
     }
     
-    [[YSLiveManager shareInstance] sendSignalingLiveNoticesSendFlowerWithSenderName:YSCurrentUser.nickName completion:nil];
+    //送花
+    [[YSLiveManager sharedInstance]sendSignalingLiveNoticesSendFlower];
+    
     BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
         @"application/json", @"application/octet-stream"
