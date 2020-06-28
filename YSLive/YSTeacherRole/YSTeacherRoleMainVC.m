@@ -4118,12 +4118,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 if (isSelected)
                 {
                     // 全体静音
-                    [self.liveManager sendSignalingTeacherToLiveAllNoAudioCompletion:nil];
+                    [self.liveManager sendSignalingTeacherToLiveAllNoAudio:YES];
                 }
                 else
                 {
                     // 全体发言
-                    [self.liveManager deleteSignalingTeacherToLiveAllNoAudioCompletion:nil];
+                    [self.liveManager sendSignalingTeacherToLiveAllNoAudio:NO];
                 }
             }
                 break;
