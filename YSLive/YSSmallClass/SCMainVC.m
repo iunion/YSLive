@@ -1974,12 +1974,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 开始播放课件视频
-- (void)showWhiteBordVidoeViewWithPeerId:(NSString *)peerId
+- (void)showWhiteBordVidoeViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
 {
     [self.view endEditing:YES];
     
-    [self.liveManager.roomManager playMediaFile:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
-    }];
+    [self.liveManager playVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
     
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
@@ -1995,16 +1994,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 关闭课件视频
-- (void)hideWhiteBordVidoeViewWithPeerId:(NSString *)peerId
+- (void)hideWhiteBordVidoeViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
 {
-    if (self.liveManager.playMediaModel.video)
+    if (mediaModel.isVideo)
     {
-        if (!peerId)
-        {
-            peerId = self.liveManager.playMediaModel.user_peerId;
-        }
-        [self.liveManager.roomManager unPlayMediaFile:peerId completion:^(NSError *error) {
-        }];
+        [[YSSessionManager sharedInstance] stopVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId];
     }
     
     self.shareVideoFloatView.canZoom = NO;
@@ -4562,46 +4556,42 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 白板翻页 换课件
 // 播放白板视频/音频
-- (void)handleWhiteBordPlayMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
+- (void)handleWhiteBordPlayMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
 {
     isMediaPause = YES;
     
-    if (mediaModel.video)
+    if (mediaModel.isVideo)
     {
-        [self showWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
+        [self showWhiteBordVidoeViewWithMediaModel:mediaModel];
     }
-    else if (mediaModel.audio)
+    else
     {
-        [self.liveManager.roomManager playMediaFile:mediaModel.user_peerId renderType:YSRenderMode_fit window:self.teacherVideoView completion:^(NSError *error) {
-        }];
         [self onPlayMp3];
     }
     [self freshTeacherCoursewareListData];
 }
 
 // 停止白板视频/音频
-- (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
 {
     isMediaStop = YES;
     
-    if (mediaModel.video)
+    if (mediaModel.isVideo)
     {
-        [self hideWhiteBordVidoeViewWithPeerId:mediaModel.user_peerId];
+        [self hideWhiteBordVidoeViewWithMediaModel:mediaModel];
     }
     else if (mediaModel.audio)
     {
-        [self.liveManager.roomManager unPlayMediaFile:mediaModel.user_peerId completion:^(NSError *error) {
-        }];
         [self onStopMp3];
     }
     [self freshTeacherCoursewareListData];
 }
 
 /// 继续播放白板视频/音频
-- (void)handleWhiteBordPlayMediaStream
+- (void)handleWhiteBordPlayMediaStream:(YSSharedMediaFileModel *)mediaFileModel
 {
     isMediaPause = NO;
-    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
+    if (!mediaFileModel.isVideo)
     {
         [self onPlayMp3];
     }
@@ -4609,10 +4599,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 暂停播放白板视频/音频
-- (void)handleWhiteBordPauseMediaStream
+- (void)handleWhiteBordPauseMediaStream:(YSSharedMediaFileModel *)mediaFileModel
 {
     isMediaPause = YES;
-    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
+    if (!mediaFileModel.isVideo)
     {
         [self onPauseMp3];
     }
@@ -4664,7 +4654,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 媒体课件状态
-- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSWhiteBordMediaState)state
+- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSMediaState)state
 {
     self.currentMediaFileID = fileId;
     self.currentMediaState = state;

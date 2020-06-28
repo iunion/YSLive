@@ -170,6 +170,65 @@
 //    }
 }
 
+#pragma mark meidia
+
+/// 媒体流发布状态
+- (void)onRoomShareMediaFile:(YSSharedMediaFileModel *)mediaFileModel
+{
+    if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
+    {
+        /// 多课件不做处理
+        return;
+    }
+
+    if (mediaFileModel.state == YSMediaState_Play)
+    {
+        [self handleWhiteBordPlayMediaFileWithMedia:mediaFileModel];
+    }
+    else
+    {
+        [self handleWhiteBordStopMediaFileWithMedia:mediaFileModel];
+    }
+}
+
+/// 更新媒体流的信息
+- (void)roomWhiteBoardOnUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel
+{
+    if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
+    {
+        return;
+    }
+    
+    if (mediaFileModel.state == YSMediaState_Play)
+    {
+        [self handleWhiteBordPlayMediaStream:mediaFileModel];
+    }
+    else
+    {
+        [self handleWhiteBordPauseMediaStream:mediaFileModel];
+    }
+}
+
+- (void)handleWhiteBordPlayMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
+{
+    
+}
+
+- (void)handleWhiteBordStopMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
+{
+    
+}
+
+- (void)handleWhiteBordPlayMediaStream:(YSSharedMediaFileModel *)mediaFileModel
+{
+    
+}
+
+- (void)handleWhiteBordPauseMediaStream:(YSSharedMediaFileModel *)mediaFileModel
+{
+    
+}
+
 /*
 - (void)addBaseNotification
 {

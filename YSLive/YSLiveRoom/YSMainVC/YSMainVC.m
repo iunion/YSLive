@@ -1808,16 +1808,16 @@
 #pragma mark 白板视频/音频
 
 // 播放白板视频/音频
-- (void)handleWhiteBordPlayMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
+- (void)handleWhiteBordPlayMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
 {
-    [self.liveManager.roomManager playMediaFile:mediaModel.user_peerId renderType:YSRenderMode_fit window:self.mp4View completion:^(NSError *error) {
-    }];
-    if (!mediaModel.video && mediaModel.audio)
+    if (!mediaModel.isVideo)
     {
         [self onPlayMp3];
     }
-    if (mediaModel.video)
+    else
     {
+        [self.liveManager playVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+        
         if (self.isFullScreen)
         {
             // 如果是全屏，点击按钮进入小屏状态
@@ -1831,15 +1831,14 @@
 }
 
 // 停止白板视频/音频
-- (void)handleWhiteBordStopMediaFileWithMedia:(YSLiveMediaModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
 {
-    [self.liveManager.roomManager unPlayMediaFile:mediaModel.user_peerId completion:^(NSError *error) {
-    }];
-    
     [self onStopMp3];
     
-    if (mediaModel.video)
+    if (mediaModel.isVideo)
     {
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId];
+
         self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;
         [self handleSignalingHideVideoWhiteboard];
@@ -1848,18 +1847,18 @@
 }
 
 /// 继续播放白板视频/音频
-- (void)handleWhiteBordPlayMediaStream
+- (void)handleWhiteBordPlayMediaStream:(YSSharedMediaFileModel *)mediaFileModel
 {
-    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
+    if (!mediaFileModel.isVideo)
     {
         [self onPlayMp3];
     }
 }
 
 /// 暂停播放白板视频/音频
-- (void)handleWhiteBordPauseMediaStream
+- (void)handleWhiteBordPauseMediaStream:(YSSharedMediaFileModel *)mediaFileModel
 {
-    if (!self.liveManager.playMediaModel.video && self.liveManager.playMediaModel.audio)
+    if (!mediaFileModel.isVideo)
     {
         [self onPauseMp3];
     }
