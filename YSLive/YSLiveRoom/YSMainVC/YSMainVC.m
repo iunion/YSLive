@@ -1082,6 +1082,31 @@
 
 #pragma mark - videoViewArray
 
+/// 开关摄像头
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID
+{
+    [super onRoomCloseVideo:close withUid:uid sourceID:sourceID];
+}
+
+/// 开关麦克风
+- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
+{
+    [super onRoomCloseAudio:close withUid:uid];
+}
+
+/// 收到音视频流
+- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+{
+    [super onRoomStartVideoOfUid:uid sourceID:sourceID];
+}
+
+/// 停止音视频流
+- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+{
+    [super onRoomStopVideoOfUid:uid sourceID:sourceID];
+}
+
+/*
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
 {
     if (!videoView)
@@ -1125,133 +1150,51 @@
     videoView.publishState = publishState;
 #endif
 }
+ 
+ - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
+ {
+     if (!videoView)
+     {
+         return;
+     }
+     
+ #if YSAPP_NEWERROR
+     [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
+     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
+ #endif
+     videoView.publishState = 4;
+ }
+
+ */
 
 - (void)removeAllVideoView
 {
-#if YSAPP_NEWERROR
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        [self stopVideoAudioWithVideoView:videoView];
-    }
-#endif
-    
-    [self.videoViewArray removeAllObjects];
-}
-
-#pragma mark  获取视频窗口
-
-- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId
-{
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        if ([videoView.roomUser.peerID isEqualToString:peerId])
-        {
-            return videoView;
-        }
-    }
-    return nil;
+    [super removeAllVideoView];
 }
 
 #pragma mark  添加视频窗口
 
-- (void)addVidoeViewWithPeerId:(NSString *)peerId
+- (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
 {
-    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
-    if (!roomUser)
-    {
-        return;
-    }
+    SCVideoView *newVideoView = [super addVidoeViewWithPeerId:peerId withMaxCount:PLATFPRM_VIDEO_MAXCOUNT];
+
+    [self freshContentView];
     
-    SCVideoView *newVideoView = nil;
-    
-    {
-        BOOL isUserExist = NO;
-        
-        for (SCVideoView *videoView in self.videoViewArray)
-        {
-            if ([videoView.roomUser.peerID isEqualToString:peerId])
-            {
-                newVideoView = videoView;
-                // property刷新原用户的值没有变化，需要重新赋值user
-                [videoView freshWithRoomUserProperty:roomUser];
-                isUserExist = YES;
-                break;
-            }
-        }
-        
-        if (!isUserExist)
-        {
-            SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:roomUser];
-            videoView.appUseTheType = self.appUseTheType;
-            newVideoView = videoView;
-            videoView.isHideCup = YES;
-            videoView.delegate = self;
-            if (videoView)
-            {
-                [self.videoViewArray bm_addObject:videoView withMaxCount:PLATFPRM_VIDEO_MAXCOUNT];
-            }
-            // id正序排序
-            [self.videoViewArray sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
-                return [obj1.roomUser.peerID compare:obj2.roomUser.peerID];
-            }];
-        }
-    }
-    
-    if (newVideoView)
-    {
-        [self playVideoAudioWithVideoView:newVideoView];
-        
-        [newVideoView bringSubviewToFront:newVideoView.backVideoView];
-        
-        [self freshContentView];
-    }
-    
-    return;
+    return newVideoView;
 }
 
 #pragma mark  删除视频窗口
 
-- (void)delVidoeViewWithPeerId:(NSString *)peerId
+- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId
 {
-    
-    SCVideoView *delVideoView = nil;
-    
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        if ([videoView.roomUser.peerID isEqualToString:peerId])
-        {
-            delVideoView = videoView;
-            [self.videoViewArray removeObject:videoView];
-            break;
-        }
-    }
+    SCVideoView *delVideoView = [super delVidoeViewWithPeerId:peerId];
     
     if (delVideoView)
     {
-        //        if ([self.liveManager.localUser.peerID isEqualToString:peerId] && self.liveManager.allowEveryoneUpPlatform)
-        //        {
-        //            self.upPlatformBtn.hidden = NO;
-        //            self.upPlatformBtn.enabled = YES;
-        //        }
-        
-        [self stopVideoAudioWithVideoView:delVideoView];
-        
         [self freshContentView];
     }
-}
-
-- (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
-{
-    if (!videoView)
-    {
-        return;
-    }
     
-#if YSAPP_NEWERROR
-    [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-    [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-#endif
-    videoView.publishState = 4;
+    return delVideoView;
 }
 
 

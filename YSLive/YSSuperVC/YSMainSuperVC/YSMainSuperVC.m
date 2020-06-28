@@ -133,6 +133,11 @@
 
 - (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
 {
+    return [self addVidoeViewWithPeerId:peerId withMaxCount:0];
+}
+
+- (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count
+{
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
     {
@@ -171,8 +176,14 @@
         theVideoView = newVideoView;
         if (newVideoView)
         {
-            
-            [self.videoViewArray addObject:newVideoView];
+            if (count == 0)
+            {
+                [self.videoViewArray addObject:newVideoView];
+            }
+            else
+            {
+                [self.videoViewArray bm_addObject:newVideoView withMaxCount:count];
+            }
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoView = newVideoView;
@@ -246,7 +257,6 @@
 {
     [self.videoViewArray removeAllObjects];
 }
-
 
 
 /// 失去连接
