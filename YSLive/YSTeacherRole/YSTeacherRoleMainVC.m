@@ -5079,13 +5079,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
             {
                 
-                roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
+                roomUser = [self.liveManager getRoomUserWithId:tempPeerID];
                 break;
             }
         }
         else
         {
-            roomUser = [self.liveManager.roomManager getRoomUserWithUId:tempPeerID];
+            roomUser = [self.liveManager getRoomUserWithId:tempPeerID];
             break;
         }
 
@@ -5403,8 +5403,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     YSRoomUser * userModel = videoView.roomUser;
     
-    SCUserPublishState userPublishState = self.selectControlView.roomUser.liveUserPublishState;
-    if (userPublishState == SCUserPublishState_NONE)
+    YSUserMediaPublishState userPublishState = self.selectControlView.roomUser.mediaPublishState;
+    if (userPublishState == YSUserMediaPublishState_NONE)
     {
         return;
     }
@@ -5457,19 +5457,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
 - (void)videoViewControlBtnsClick:(UIButton *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
 {
-    SCUserPublishState userPublishState = self.selectControlView.roomUser.liveUserPublishState;
+    YSUserMediaPublishState userPublishState = self.selectControlView.roomUser.mediaPublishState;
     switch (videoViewControlType) {
         case SCVideoViewControlTypeAudio:
         {//关闭音频
             if (sender.selected)
             {//当前是打开音频状态
-                userPublishState &= ~SCUserPublishState_AUDIOONLY;
+                userPublishState &= ~YSUserMediaPublishState_AUDIOONLY;
             }
             else
             {//当前是关闭音频状态
-                userPublishState |= SCUserPublishState_AUDIOONLY;
+                userPublishState |= YSUserMediaPublishState_AUDIOONLY;
             }
-            self.selectControlView.roomUser.liveUserPublishState = userPublishState;
+            self.selectControlView.roomUser.mediaPublishState = userPublishState;
             sender.selected = !sender.selected;
         }
             break;
@@ -5477,13 +5477,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//关闭视频
             if (sender.selected)
             {//当前是打开视频状态
-                userPublishState &= ~SCUserPublishState_VIDEOONLY;
+                userPublishState &= ~YSUserMediaPublishState_VIDEOONLY;
             }
             else
             {//当前是关闭视频状态
-                userPublishState |= SCUserPublishState_VIDEOONLY;
+                userPublishState |= YSUserMediaPublishState_VIDEOONLY;
             }
-            self.selectControlView.roomUser.liveUserPublishState = userPublishState;
+            self.selectControlView.roomUser.mediaPublishState = userPublishState;
             sender.selected = !sender.selected;
         }
             break;
@@ -5584,14 +5584,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case SCVideoViewControlTypeCanDraw:
         {// 画笔权限
             
-            BOOL candraw = [self.selectControlView.roomUser.properties bm_boolForKey:sUserCandraw];
+            BOOL candraw = self.selectControlView.roomUser.canDraw;
             // 兼容安卓bool
             bool bCandraw = true;
             if (candraw)
             {
                 bCandraw = false;
             }
-            BOOL isSucceed = [self.liveManager sendSignalingToChangePropertyWithRoomUser:self.selectControlView.roomUser withKey:sUserCandraw WithValue:@(bCandraw)];
+            BOOL isSucceed = [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(bCandraw)];
             if (isSucceed)
             {
                 sender.selected = !sender.selected;
@@ -5600,11 +5600,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             break;
         case SCVideoViewControlTypeOnStage:
         {//下台
-            self.selectControlView.roomUser.liveUserPublishState = SCUserPublishState_NONE;
+            self.selectControlView.roomUser.mediaPublishState = YSUserMediaPublishState_NONE;
             
-            [self.liveManager sendSignalingToChangePropertyWithRoomUser:self.selectControlView.roomUser withKey:sUserCandraw WithValue:@(false)];
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(false)];
+
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-            
         }
             break;
         case SCVideoViewControlTypeGiftCup:
@@ -5641,15 +5641,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
                 
                 if ([responseDic bm_containsObjectForKey:@"result"])
                 {
                     NSInteger result = [responseDic bm_intForKey:@"result"];
                     if (result == 0)
                     {
-                        NSUInteger giftnumber = [roomUser.properties bm_uintForKey:sUserGiftNumber];
-                        [weakSelf.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserGiftNumber WithValue:@(giftnumber+1)];
+                        NSUInteger giftnumber = [roomUser.properties bm_uintForKey:sYSUserGiftNumber];
+                        [weakSelf.liveManager setPropertyOfUid:roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserGiftNumber value:@(giftnumber+1)];
                     }
                 }
             }
@@ -5672,14 +5672,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.videoViewArray.count < maxVideoCount)
         {
-            
             if (self.liveManager.isEveryoneNoAudio)
             {
-                [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
+                [self.liveManager setPropertyOfUid:roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_VIDEOONLY)];
             }
             else
             {
-                [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
+                [self.liveManager setPropertyOfUid:roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
             }
         }
         else
@@ -5690,7 +5689,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        [self.liveManager.roomManager changeUserProperty:roomUser.peerID tellWhom:YSRoomPubMsgTellAll data:@{sUserPublishstate : @(YSUser_PublishState_NONE),sUserCandraw : @(false)} completion:nil];
+        [self.liveManager setPropertyOfUid:roomUser.peerID tell:YSRoomPubMsgTellAll properties:@{sYSUserPublishstate : @(YSUser_PublishState_NONE), sYSUserCandraw : @(false)}];
     }
 }
 
@@ -5699,8 +5698,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
 //    if ([roomUser.properties bm_containsObjectForKey:sUserDisablechat])
 //    {
-        BOOL disablechat = [roomUser.properties bm_boolForKey:sUserDisablechat];
-        [self.liveManager sendSignalingToChangePropertyWithRoomUser:roomUser withKey:sUserDisablechat WithValue:@(!disablechat)];
+        BOOL disablechat = [roomUser.properties bm_boolForKey:sYSUserDisablechat];
+    
+        [self.liveManager setPropertyOfUid:roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserDisablechat value:@(!disablechat)];
 //    }
 }
 
