@@ -3733,27 +3733,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 共享桌面
 
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)handleRoomStartShareDesktopWithPeerID:(NSString *)peerID
-{
-    [self showShareVidoeViewWithPeerId:peerID];
-}
-
-/// 停止桌面共享
-- (void)handleRoomStopShareDesktopWithPeerID:(NSString *)peerID
-{
-    [self hideShareVidoeViewWithPeerId:peerID];
-}
-
-// 开始共享桌面
-- (void)showShareVidoeViewWithPeerId:(NSString *)peerId
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
 {
     [self.view endEditing:YES];
     _isMp4Play = NO;
-
-#if YSAPP_NEWERROR
-    [self.liveManager.roomManager playScreen:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
-    }];
-#endif
+    
+    [self.liveManager playVideoWithUserId:userId sourceId:sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
     
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;
@@ -3764,14 +3749,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 }
 
-// 关闭共享桌面
-- (void)hideShareVidoeViewWithPeerId:(NSString *)peerId
+/// 停止桌面共享
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
 {
     _isMp4Play = NO;
-#if YSAPP_NEWERROR
-    [self.liveManager.roomManager unPlayScreen:peerId completion:^(NSError * _Nonnull error) {
-    }];
-#endif
+    [self.liveManager stopVideoWithUserId:userId sourceId:sourceID];
     
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;

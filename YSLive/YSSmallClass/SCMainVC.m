@@ -1937,47 +1937,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.dragOutFloatViewArray removeAllObjects];
 }
 
-// 开始共享桌面
-- (void)showShareVidoeViewWithPeerId:(NSString *)peerId
-{
-    [self.view endEditing:YES];
-    
-#if YSAPP_NEWERROR
-    [self.liveManager.roomManager playScreen:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
-    }];
-#endif
-        
-    [self arrangeAllViewInVCView];
-    self.shareVideoFloatView.canZoom = YES;
-    self.shareVideoFloatView.showWaiting = NO;
-    self.shareVideoFloatView.hidden = NO;
-    
-#if USE_FullTeacher
-    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-#endif
-}
-
-// 关闭共享桌面
-- (void)hideShareVidoeViewWithPeerId:(NSString *)peerId
-{
-#if YSAPP_NEWERROR
-    [self.liveManager.roomManager unPlayScreen:peerId completion:^(NSError * _Nonnull error) {
-    }];
-#endif
-    
-    self.shareVideoFloatView.canZoom = NO;
-    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
-    self.shareVideoFloatView.hidden = YES;
-#if USE_FullTeacher
-    [self stopFullTeacherVideoView];
-    
-    if (!self.whitebordFullBackgroud.hidden)
-    {
-        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-    }
-#endif
-}
-
 // 开始播放课件视频
 - (void)showWhiteBordVidoeViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
 {
@@ -4468,28 +4427,41 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 共享桌面
 
-/// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)handleRoomStartShareDesktopWithPeerID:(NSString *)peerID
+// 开始共享桌面
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
 {
-// 取消共享限制老师
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
+    [self.view endEditing:YES];
     
-    [self showShareVidoeViewWithPeerId:peerID];
+    [self.liveManager playVideoWithUserId:userId sourceId:sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+
+    [self arrangeAllViewInVCView];
+    self.shareVideoFloatView.canZoom = YES;
+    self.shareVideoFloatView.showWaiting = NO;
+    self.shareVideoFloatView.hidden = NO;
+    
+#if USE_FullTeacher
+    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+#endif
 }
 
-/// 停止桌面共享
-- (void)handleRoomStopShareDesktopWithPeerID:(NSString *)peerID
+// 关闭共享桌面
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
 {
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
+    [self.liveManager stopVideoWithUserId:userId sourceId:sourceID];
+
+    self.shareVideoFloatView.canZoom = NO;
+    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
+    self.shareVideoFloatView.hidden = YES;
+#if USE_FullTeacher
+    [self stopFullTeacherVideoView];
     
-    [self hideShareVidoeViewWithPeerId:peerID];
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
+#endif
 }
+
 
 #pragma mark 进入前台后台
 

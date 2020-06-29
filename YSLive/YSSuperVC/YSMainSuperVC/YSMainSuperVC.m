@@ -259,6 +259,25 @@
 }
 
 
+#pragma -
+#pragma mark SCVideoViewDelegate
+
+///点击手势事件
+- (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
+{
+    
+}
+
+///拖拽手势事件
+- (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(UIPanGestureRecognizer *)pan
+{
+    
+}
+
+
+#pragma -
+#pragma mark YSSessionDelegate
+
 /// 失去连接
 - (void)onRoomConnectionLost
 {

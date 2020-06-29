@@ -186,6 +186,9 @@
 @property(nonatomic,strong) BMImageTitleButtonView * audioBtn;
 ///视频控制按钮
 @property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
+
+@property (nonatomic, assign) BOOL shareDesktop;
+
 @end
 
 @implementation YSMainVC
@@ -539,9 +542,9 @@
 }
 
 #pragma mark 点击弹出popoview
+
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
-    
     CGRect frame = [self.videoBackgroud convertRect:videoView.frame toView:self.controlBackMaskView];
     
 //    self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.size.height/2 + frame.origin.y);
@@ -959,8 +962,7 @@
 {
     if (self.liveManager.isClassBegin)
     {
-        
-        if (self.liveManager.sharePeerId)
+        if (self.shareDesktop)
         {
             self.liveImageView.hidden = YES;
         }
@@ -1453,19 +1455,15 @@
     YSRoomUser *teacher = [self.liveManager getRoomUserWithId:teacherPeerID];
     
     self.roomVideoPeerID = self.liveManager.teacher.peerID;
-#if YSAPP_NEWERROR
     if (teacher.publishState >= YSUser_PublishState_VIDEOONLY && teacher.publishState != 4)
     {
         self.showRoomVideo = YES;
-        [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
-        }];
+        NSString *sourceId = [self.liveManager getUserSourceIdWithUserId:self.roomVideoPeerID];
+        if (sourceId)
+        {
+            [self.liveManager playVideoWithUserId:self.roomVideoPeerID sourceId:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+        }
     }
-    if (teacher.publishState == YSUser_PublishState_AUDIOONLY || teacher.publishState == YSUser_PublishState_BOTH)
-    {
-        [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
-        }];
-    }
-#endif
     
     [self freshMediaView];
     
@@ -1774,30 +1772,29 @@
 #pragma mark 共享桌面
 
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)handleRoomStartShareDesktopWithPeerID:(NSString *)peerID
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
 {
-#if YSAPP_NEWERROR
-    //BMWeakSelf
-    [self.liveManager stopPlayVideo:self.roomVideoPeerID completion:^(NSError * _Nonnull error) {
-    }];
+    self.shareDesktop = YES;
+    NSString *userSourceId = [self.liveManager getUserSourceIdWithUserId:self.roomVideoPeerID];
+    [self.liveManager stopVideoWithUserId:self.roomVideoPeerID sourceId:userSourceId];
     self.roomVideoPeerID = nil;
-    [self.liveManager.roomManager playScreen:peerID renderType:YSRenderMode_fit window:self.liveView completion:^(NSError *error) {
-    }];
-#endif
+    
+    [self.liveManager playVideoWithUserId:userId sourceId:sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
     
     self.liveBgView.canZoom = YES;
     [self freshMediaView];
 }
 
 /// 停止桌面共享
-- (void)handleRoomStopShareDesktopWithPeerID:(NSString *)peerID
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
 {
-    [self.liveManager.roomManager unPlayScreen:peerID completion:^(NSError *error) {
-    }];
+    self.shareDesktop = NO;
+    [self.liveManager stopVideoWithUserId:userId sourceId:sourceID];
     
     self.roomVideoPeerID = self.liveManager.teacher.peerID;
-    [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
-    }];
+    NSString *userSourceId = [self.liveManager getUserSourceIdWithUserId:self.liveManager.teacher.peerID];
+    
+    [self.liveManager playVideoWithUserId:userId sourceId:userSourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
     
     self.liveBgView.canZoom = NO;
     self.liveBgView.backScrollView.zoomScale = 1.0;
