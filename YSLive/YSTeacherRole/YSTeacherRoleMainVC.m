@@ -6145,7 +6145,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageTypeOnlyImage withMemberModel:nil];
+                BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageType_OnlyImage withMemberModel:nil];
                 if (!isSucceed)
                 {
                     BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
@@ -6286,7 +6286,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 播放全屏老师视频流
 - (void)playFullTeacherVideoViewInView:(UIView *)view
 {
-    if (self.liveManager.isBeginClass)
+    if (self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoView];
 
