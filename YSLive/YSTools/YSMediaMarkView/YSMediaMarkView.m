@@ -51,7 +51,7 @@
     //drawView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     //drawView.delegate = self;
-    [drawView switchToFileID:YSSignaling_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
+    [drawView switchToFileID:sYSSignaling_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
     self.drawView = drawView;
 }
 
@@ -149,7 +149,7 @@
 
 - (void)addSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeData:(NSData *)shapeData
 {
-    if ([YSRoomInterface instance].localUser.role != YSUserType_Teacher)
+    if ([YSLiveManager sharedInstance].localUser.role != YSUserType_Teacher)
     {
         return;
     }
@@ -160,7 +160,7 @@
     [dic setObject:whiteboardID forKey:@"whiteboardID"];
     [dic setObject:@(false) forKey:@"isBaseboard"];
     
-    [dic setObject:[YSRoomInterface instance].localUser.nickName forKey:@"nickname"];
+    [dic setObject:[YSLiveManager sharedInstance].localUser.nickName forKey:@"nickname"];
     
     NSData *newData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
     NSString *data = [[NSString alloc] initWithData:newData encoding:NSUTF8StringEncoding];

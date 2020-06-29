@@ -22,7 +22,6 @@
 #import "YSCommentPopView.h"
 #import "YSChatMemberListVC.h"
 
-#import "YSQuestionModel.h"
 #import "YSLiveMediaModel.h"
 
 #import "YSQuestionView.h"
@@ -2694,7 +2693,7 @@
     
     self.downTime = [NSDate date].timeIntervalSince1970;
     
-    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0 Completion:nil];
+    [self.liveManager sendSignalingsStudentToRaiseHandWithModify:0];
     
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(true)];
 }
@@ -2716,7 +2715,7 @@
             self.raiseMaskImage.hidden = YES;
             self.raiseHandsBtn.hidden = NO;
             self.raiseHandsBtn.userInteractionEnabled = YES;
-            [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+            [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1];
             [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(false)];
         });
     }
@@ -2725,7 +2724,7 @@
         self.remarkLab.hidden = YES;
         self.raiseMaskImage.hidden = YES;
         self.raiseHandsBtn.userInteractionEnabled = YES;
-        [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1 Completion:nil];
+        [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1];
         [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserRaisehand value:@(false)];
     }
 }
