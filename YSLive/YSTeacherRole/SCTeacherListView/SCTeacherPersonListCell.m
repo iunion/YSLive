@@ -189,13 +189,9 @@
 - (void)setUserModel:(YSRoomUser *)userModel
 {
     _userModel = userModel;
-    
-    /// AndroidPad:Android pad；AndroidPhone:Andriod phone；
-    /// iPad:iPad；iPhone:iPhone；
-    /// MacPC:mac explorer；MacClient:mac client；
-    /// WindowPC:windows explorer；WindowClient:windows client
+
     NSString *imageName = @"nameList_OtherDevice";
-    NSString *devicetype = [[userModel.properties bm_stringTrimForKey:sYSUserDevicetype] lowercaseString];
+    NSString *devicetype = [[userModel.properties bm_stringTrimForKey:@"devicetype"] lowercaseString];
     if ([devicetype isEqualToString:@"androidpad"])
     {
         imageName = @"nameList_AndroidPad";
