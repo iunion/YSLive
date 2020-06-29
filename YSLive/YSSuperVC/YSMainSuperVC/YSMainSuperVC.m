@@ -315,6 +315,11 @@
     
     [theVideoView bringSubviewToFront:newVideoView.backVideoView];
     
+    if (theVideoView)
+    {
+        [self playVideoAudioWithVideoView:theVideoView];
+    }
+    
     return newVideoView;
 }
 
@@ -355,6 +360,11 @@
                 break;
             }
         }
+    }
+    
+    if (delVideoView)
+    {
+        [self stopVideoAudioWithVideoView:delVideoView];
     }
     
     return delVideoView;
