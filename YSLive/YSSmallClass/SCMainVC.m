@@ -4280,7 +4280,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     self.answerView.firstSubmitBlock = ^(NSArray * _Nonnull submitArr) {
         
-        [weakSelf.liveManager sendSignalingAnwserCommitWithAnswerId:answerId anwserResault:submitArr completion:nil];
+        [weakSelf.liveManager sendSignalingAnwserCommitWithAnswerId:answerId anwserResault:submitArr];
         NSMutableArray *tempArr = [NSMutableArray arrayWithArray:submitArr];
         [tempArr sortUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
             
@@ -4291,7 +4291,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     };
     
     self.answerView.nextSubmitBlock = ^(NSArray * _Nonnull addAnwserResault, NSArray * _Nonnull delAnwserResault, NSArray * _Nonnull notChangeAnwserResault) {
-        [weakSelf.liveManager sendSignalingAnwserModifyWithAnswerId:answerId addAnwserResault:addAnwserResault delAnwserResault:delAnwserResault notChangeAnwserResault:notChangeAnwserResault completion:nil];
+        [weakSelf.liveManager sendSignalingAnwserModifyWithAnswerId:answerId addAnwserResault:addAnwserResault delAnwserResault:delAnwserResault notChangeAnwserResault:notChangeAnwserResault];
         
         /// 自己所选的答案  就是 未改变的 加上新添加的  （需要排序）
         NSArray *myResulst = [notChangeAnwserResault arrayByAddingObjectsFromArray:addAnwserResault];
@@ -4449,7 +4449,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (contestTouchOne == 0)
     {
         
-        [self.liveManager sendSignalingStudentContestCommitCompletion:nil];
+        [self.liveManager sendSignalingStudentContestCommit];
         [self.responderView setTitleName:YSLocalized(@"Res.lab.studenting")];
     }
     contestTouchOne = 1;
