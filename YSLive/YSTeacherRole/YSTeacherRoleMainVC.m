@@ -4427,14 +4427,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     if (self.liveManager.isBigRoom)
     {
-        [self.liveManager.roomManager getRoomUserWithPeerId:fromID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [weakSelf answerResultViewWithUser:user answerId:answerId];
-                
-            });
-        }];
+#warning BigRoom
+//        [self.liveManager getRoomUserWithPeerId:fromID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//
+//                [weakSelf answerResultViewWithUser:user answerId:answerId];
+//
+//            });
+//        }];
     }
     else
     {
@@ -4670,14 +4671,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if (weakSelf.liveManager.isBigRoom)
                 {
-                    [weakSelf.liveManager.roomManager getRoomUserWithPeerId:self->contestPeerId callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            
-                            [weakSelf showContestResultWithRoomUser:user fromID:fromID];
-                            
-                        });
-                    }];
+#warning BigRoom
+//                    [weakSelf.liveManager getRoomUserWithPeerId:self->contestPeerId callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
+//
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//                            [weakSelf showContestResultWithRoomUser:user fromID:fromID];
+//
+//                        });
+//                    }];
                 }
                 else
                 {
