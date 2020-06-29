@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak) id<SCTeacherCoursewareListCellDelegate> delegate;
 
-- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state;
+- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(NSString *)mediaFileID mediaState:(YSMediaState)state;
 - (void)setUserRole:(YSUserRoleType)userRoleType;
 
 @end

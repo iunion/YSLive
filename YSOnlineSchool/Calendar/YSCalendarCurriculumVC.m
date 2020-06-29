@@ -352,7 +352,7 @@
             {
                 [self.progressHUD bm_hideAnimated:NO];
                 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
                 if ([responseDic bm_isNotEmptyDictionary])
                 {
                     

@@ -240,7 +240,7 @@
         [self stayMove];
         if (!self.isFullBackgrond)
         {
-             [[YSLiveManager shareInstance] sendSignalingTopinchVideoViewWithPeerId:self.peerId scale:self.endScale];
+             [[YSLiveManager sharedInstance] sendSignalingTopinchVideoViewWithPeerId:self.peerId scale:self.endScale];
         }
     }
 }

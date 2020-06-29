@@ -206,7 +206,7 @@
             else
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
                 NSLog(@"%@", str);

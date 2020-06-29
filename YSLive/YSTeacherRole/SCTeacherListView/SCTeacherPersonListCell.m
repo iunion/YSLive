@@ -195,7 +195,7 @@
     /// MacPC:mac explorer；MacClient:mac client；
     /// WindowPC:windows explorer；WindowClient:windows client
     NSString *imageName = @"nameList_OtherDevice";
-    NSString *devicetype = [[userModel.properties bm_stringTrimForKey:sUserDevicetype] lowercaseString];
+    NSString *devicetype = [[userModel.properties bm_stringTrimForKey:sYSUserDevicetype] lowercaseString];
     if ([devicetype isEqualToString:@"androidpad"])
     {
         imageName = @"nameList_AndroidPad";

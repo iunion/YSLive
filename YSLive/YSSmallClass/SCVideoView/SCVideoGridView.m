@@ -218,7 +218,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     
     if (roomLayout == YSRoomLayoutType_FocusLayout)
     {
-        if (appUseTheType == YSAppUseTheTypeSmallClass)
+        if (appUseTheType == YSRoomUseTypeSmallClass)
         {
             self.videosBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
             
