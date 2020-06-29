@@ -5796,7 +5796,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         [self.liveManager stopShareOneMediaFile];
     }
-    [self.liveManager sendSignalingTeacherToSwitchDocumentWithFile:fileModel isFresh:!self.liveManager.isClassBegin completion:nil];
+    
+    if (![fileModel bm_isNotEmpty])
+    {
+        return;
+    }
+    [self.liveManager.whiteBoardManager changeCourseWithFileId:fileModel.fileid];
 
 }
 
