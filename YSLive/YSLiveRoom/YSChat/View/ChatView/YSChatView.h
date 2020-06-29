@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 //#import "TKChatToolView.h"
 #import "YSChatToolView.h"
-#import "YSChatMessageModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

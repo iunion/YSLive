@@ -22,9 +22,6 @@
 #import "YSCommentPopView.h"
 #import "YSChatMemberListVC.h"
 
-#import "YSQuestionModel.h"
-#import "YSLiveMediaModel.h"
-
 #import "YSQuestionView.h"
 #import "YSSignedAlertView.h"
 #import "YSPrizeAlertView.h"
