@@ -2889,8 +2889,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //NSInteger remainder = listNumber % onePageMaxUsers;
             _personListTotalPage = divide;
             NSLog(@"_personListTotalPage: %@", @(_personListTotalPage));
-
-            YSRoomUser * curr = YSCurrentUser;
             
             NSMutableArray *listArr = [NSMutableArray arrayWithCapacity:0];
             for (YSRoomUser *user in self.liveManager.userList)
