@@ -2735,8 +2735,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //NSInteger remainder = listNumber % onePageMaxUsers;
             _personListTotalPage = divide;
             NSLog(@"_personListTotalPage: %@", @(_personListTotalPage));
-
-            YSRoomUser * curr = YSCurrentUser;
             
             NSMutableArray *listArr = [NSMutableArray arrayWithCapacity:0];
             for (YSRoomUser *user in self.liveManager.userList)
@@ -4273,6 +4271,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     if (self.liveManager.isBigRoom)
     {
+
 #warning BigRoom
 //        [self.liveManager getRoomUserWithPeerId:fromID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
 //
@@ -4517,6 +4516,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if (weakSelf.liveManager.isBigRoom)
                 {
+
 #warning BigRoom
 //                    [weakSelf.liveManager getRoomUserWithPeerId:self->contestPeerId callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
 //

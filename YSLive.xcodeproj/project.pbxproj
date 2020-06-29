@@ -188,7 +188,6 @@
 		8713361D237270F6006534A4 /* BMTestAppInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1522371720600A43607 /* BMTestAppInfoVC.m */; };
 		87133621237270F6006534A4 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 260A1A8023507CB300288B01 /* YSLoginVC.m */; };
 		87133622237270F6006534A4 /* YSTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13202372647900D642E8 /* YSTextMessageCell.m */; };
-		8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
 		87133637237270F6006534A4 /* YSVoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12842372647800D642E8 /* YSVoteVC.m */; };
 		87133638237270F6006534A4 /* YSEmotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131E2372647900D642E8 /* YSEmotionView.m */; };
 		87133639237270F6006534A4 /* YSLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133C2372647900D642E8 /* YSLessonView.m */; };
@@ -321,7 +320,6 @@
 		8717E2D32400DADC008C4CDA /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		8717E2D42400DADC008C4CDA /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E58423F7981B008E885C /* YSCircleProgress.m */; };
 		8717E2D52400DADC008C4CDA /* YSPermissionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04723B5D71000D38129 /* YSPermissionsVC.m */; };
-		8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB12922372647800D642E8 /* YSQuestionModel.m */; };
 		8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD78BA23FF8B6800498742 /* YSStudentTimerView.m */; };
 		8717E2EA2400DADC008C4CDA /* YSPassWordChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D959623EEF39E00A0DEC4 /* YSPassWordChangeView.m */; };
 		8717E2ED2400DADC008C4CDA /* SCEyeCareWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8765B14623B4B00B004500DE /* SCEyeCareWindow.m */; };
@@ -1546,10 +1544,8 @@
 		87EB12892372647800D642E8 /* YSVoteResultTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSVoteResultTableCell.m; sourceTree = "<group>"; };
 		87EB128A2372647800D642E8 /* YSVoteTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSVoteTopView.m; sourceTree = "<group>"; };
 		87EB128B2372647800D642E8 /* YSVotingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVotingTableCell.h; sourceTree = "<group>"; };
-		87EB128D2372647800D642E8 /* YSQuestionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSQuestionModel.h; sourceTree = "<group>"; };
 		87EB128E2372647800D642E8 /* YSAnswerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSAnswerCell.m; sourceTree = "<group>"; };
 		87EB12902372647800D642E8 /* YSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSQuestionView.m; sourceTree = "<group>"; };
-		87EB12922372647800D642E8 /* YSQuestionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSQuestionModel.m; sourceTree = "<group>"; };
 		87EB12942372647800D642E8 /* YSAnswerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSAnswerCell.h; sourceTree = "<group>"; };
 		87EB12952372647800D642E8 /* YSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSQuestionView.h; sourceTree = "<group>"; };
 		87EB12972372647800D642E8 /* YSMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainVC.h; sourceTree = "<group>"; };
@@ -3450,8 +3446,6 @@
 			children = (
 				87EB12942372647800D642E8 /* YSAnswerCell.h */,
 				87EB128E2372647800D642E8 /* YSAnswerCell.m */,
-				87EB128D2372647800D642E8 /* YSQuestionModel.h */,
-				87EB12922372647800D642E8 /* YSQuestionModel.m */,
 				87EB12952372647800D642E8 /* YSQuestionView.h */,
 				87EB12902372647800D642E8 /* YSQuestionView.m */,
 			);
@@ -4130,7 +4124,6 @@
 				26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */,
 				8779E58523F7981B008E885C /* YSCircleProgress.m in Sources */,
 				87AED04B23B5D71000D38129 /* YSPermissionsVC.m in Sources */,
-				8713362B237270F6006534A4 /* YSQuestionModel.m in Sources */,
 				CBCD78BB23FF8B6800498742 /* YSStudentTimerView.m in Sources */,
 				8783300224874C4400F1178E /* FLEXRuntimeSafety.m in Sources */,
 				3471E28E24039A0100A3BBB4 /* FSCalendarCollectionView.m in Sources */,
@@ -4476,7 +4469,6 @@
 				87832FBF24874C4300F1178E /* FLEXTableContentViewController.m in Sources */,
 				87832F8324874C4300F1178E /* FLEXArgumentInputViewFactory.m in Sources */,
 				8783304724874C4400F1178E /* UIFont+FLEX.m in Sources */,
-				8717E2D82400DADC008C4CDA /* YSQuestionModel.m in Sources */,
 				87832F5524874C4300F1178E /* FLEXNetworkCurlLogger.m in Sources */,
 				87832FDB24874C4300F1178E /* FLEXKBToolbarButton.m in Sources */,
 				8717E2DF2400DADC008C4CDA /* YSStudentTimerView.m in Sources */,

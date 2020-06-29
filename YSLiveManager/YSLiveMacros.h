@@ -99,16 +99,11 @@ static NSString *const TKKickRoom = @"TKKickRoom";
 
 #pragma mark - NSNotificationName Keys
 
-//static NSNotificationName const ysPluggInMicrophoneNotification = @"ysPluggInMicrophone";
-//static NSNotificationName const ysUnunpluggingHeadsetNotification = @"ysUnunpluggingHeadset";
-
 // 接收聊天消息通知
 static NSNotificationName const ysReceiveMessageNotification = @"ysReceiveMessageNotification";
-// 人员更新通知
-//static NSNotificationName const ysUserListNotification = @"ysUserListNotification";
+
 
 static NSNotificationName const ysClassBeginNotification = @"ysCeacherControlClassBegin";
-
 
 //static  NSString *const sWhiteboardID               = @"whiteboardID";
 
