@@ -4103,7 +4103,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 显示白板视频标注
 - (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
 {
-
+    if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
+    {
+        return;
+    }
     if (self.shareVideoFloatView.hidden)
     {
         return;
@@ -4124,6 +4127,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
 {
 
+    if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
+    {
+        return;
+    }
     if (inlist)
     {
         [self.mediaMarkSharpsDatas addObject:data];
