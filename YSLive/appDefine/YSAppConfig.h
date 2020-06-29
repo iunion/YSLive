@@ -29,6 +29,7 @@
 
 #import <BMKit/BMKitThird.h>
 
+#import <CloudHubRTC/CloudHubRTC.h>
 #import <YSSession/YSSession.h>
 #import <YSWhiteBoard/YSWhiteBoard.h>
 #import <YSWhiteBoard/YSWhiteBoardManager.h>

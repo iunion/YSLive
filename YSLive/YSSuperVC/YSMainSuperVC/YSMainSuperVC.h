@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YSMainSuperVC : YSSuperNetVC
 <
     YSSessionDelegate,
-    YSLiveForWhiteBoardDelegate
+    YSLiveForWhiteBoardDelegate,
+    SCVideoViewDelegate
 >
 
 @property (nonatomic, weak, readonly) YSLiveManager *liveManager;

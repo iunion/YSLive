@@ -1806,6 +1806,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!giftMp3Playing)
     {
         giftMp3Playing = YES;
+        [self.liveManager.cloudHubRtcEngineKit startPlayMovie:filePath];
 #if YSAPP_NEWERROR
         BMWeakSelf
         [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
@@ -1937,53 +1938,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.dragOutFloatViewArray removeAllObjects];
 }
 
-// 开始共享桌面
-- (void)showShareVidoeViewWithPeerId:(NSString *)peerId
-{
-    [self.view endEditing:YES];
-    
-#if YSAPP_NEWERROR
-    [self.liveManager.roomManager playScreen:peerId renderType:YSRenderMode_fit window:self.shareVideoView completion:^(NSError *error) {
-    }];
-#endif
-        
-    [self arrangeAllViewInVCView];
-    self.shareVideoFloatView.canZoom = YES;
-    self.shareVideoFloatView.showWaiting = NO;
-    self.shareVideoFloatView.hidden = NO;
-    
-#if USE_FullTeacher
-    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-#endif
-}
-
-// 关闭共享桌面
-- (void)hideShareVidoeViewWithPeerId:(NSString *)peerId
-{
-#if YSAPP_NEWERROR
-    [self.liveManager.roomManager unPlayScreen:peerId completion:^(NSError * _Nonnull error) {
-    }];
-#endif
-    
-    self.shareVideoFloatView.canZoom = NO;
-    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
-    self.shareVideoFloatView.hidden = YES;
-#if USE_FullTeacher
-    [self stopFullTeacherVideoView];
-    
-    if (!self.whitebordFullBackgroud.hidden)
-    {
-        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-    }
-#endif
-}
-
 // 开始播放课件视频
 - (void)showWhiteBordVidoeViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
 {
     [self.view endEditing:YES];
     
-    [self.liveManager playVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
     
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
@@ -2003,7 +1963,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (mediaModel.isVideo)
     {
-        [[YSSessionManager sharedInstance] stopVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId];
+        [[YSSessionManager sharedInstance] stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID];
     }
     
     self.shareVideoFloatView.canZoom = NO;
@@ -2026,9 +1986,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark - videoViewArray
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    [super onRoomCloseVideo:close withUid:uid sourceID:sourceID];
+    [super onRoomCloseVideo:close withUid:uid streamID:streamID];
 }
 
 /// 开关麦克风
@@ -2038,15 +1998,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+- (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    [super onRoomStartVideoOfUid:uid sourceID:sourceID];
+    [super onRoomStartVideoOfUid:uid streamID:streamID];
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+- (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    [super onRoomStopVideoOfUid:uid sourceID:sourceID];
+    [super onRoomStopVideoOfUid:uid streamID:streamID];
 }
 
 /*
@@ -2559,7 +2519,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             NSInteger studentNum = self.liveManager.userCount;
             NSInteger assistantNum = self.liveManager.assistantCount;
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:ceil((CGFloat)(studentNum + assistantNum)/(CGFloat)onePageMaxUsers)];
-            [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+            [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                    // UI更新代码
                     [weakSelf.teacherListView setUserRole:weakSelf.liveManager.localUser.role];
@@ -2672,7 +2632,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         NSInteger studentNum = self.liveManager.studentCount;
         NSInteger assistantNum = self.liveManager.assistantCount;
 
-        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+        [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // UI更新代码
 
@@ -2697,7 +2657,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         BMWeakSelf
         NSInteger studentNum = self.liveManager.studentCount ;
         NSInteger assistantNum = self.liveManager.assistantCount;
-        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+        [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // UI更新代码
                 
@@ -3650,95 +3610,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomJoined:(long)ts
 {
     [super onRoomJoined:ts];
-    
-#if 0
-    if (self.liveManager.isBeginClass)
-    {
-        needFreshVideoView = YES;
-        
-        // 因为切换网络会先调用classBegin
-        // 所以要在这里刷新VideoAudio
-        [self rePlayVideoAudio];
-    
-        if (self.appUseTheType == YSRoomUseTypeSmallClass)
-        {
-            // 自动上台
-            if (self.videoViewArray.count < maxVideoCount)
-            {
-                BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
-//                if (autoOpenAudioAndVideoFlag)
-                if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
-                {
-                    //if (YSCurrentUser.vfail == YSDeviceFaultNone)
-                    {
-                        [self.liveManager.roomManager unPublishVideo:nil];
-                        [self.liveManager.roomManager publishVideo:nil];
-                    }
-                    //if (YSCurrentUser.afail == YSDeviceFaultNone)
-                    {
-                        [self.liveManager.roomManager unPublishAudio:nil];
-                        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
-                        if (!isEveryoneNoAudio)
-                        {
-                            [self.liveManager.roomManager publishAudio:nil];
-                        }
-                    }
-                }
-            }
-        }
-        else if (self.appUseTheType == YSRoomUseTypeMeeting)
-        {//会议，进教室默认上台
-            if (self.liveManager.isBeginClass && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
-            {
-                //if (YSCurrentUser.vfail == YSDeviceFaultNone)
-                {
-                    [self.liveManager.roomManager unPublishVideo:nil];
-                    [self.liveManager.roomManager publishVideo:nil];
-                }
-                //if (YSCurrentUser.afail == YSDeviceFaultNone)
-                {
-                    [self.liveManager.roomManager unPublishAudio:nil];
-                    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
-                    if (!isEveryoneNoAudio)
-                    {
-                        [self.liveManager.roomManager publishAudio:nil];
-                    }
-                }
-            }
-        }
-    }
-    else
-    {
-        if (self.roomtype == YSRoomUserType_More)
-        {
-            // 1VN 初始本人视频音频
-            SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
-            videoView.appUseTheType = self.appUseTheType;
-            [self.videoViewArray addObject:videoView];
-            [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-            [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
-            
-            [self freshContentView];
-        }
-    }
-#endif
 }
 
-#if 0
-- (void)rePlayVideoAudio
-{
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        [self stopVideoAudioWithVideoView:videoView];
-        if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {
-            [videoView freshWithRoomUserProperty:YSCurrentUser];
-        }
-
-        [self playVideoAudioWithVideoView:videoView];
-    }
-}
-#endif
 
 #pragma mark 上课
 
@@ -4468,28 +4341,41 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 共享桌面
 
-/// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)handleRoomStartShareDesktopWithPeerID:(NSString *)peerID
+// 开始共享桌面
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
-// 取消共享限制老师
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
+    [self.view endEditing:YES];
     
-    [self showShareVidoeViewWithPeerId:peerID];
+    [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+
+    [self arrangeAllViewInVCView];
+    self.shareVideoFloatView.canZoom = YES;
+    self.shareVideoFloatView.showWaiting = NO;
+    self.shareVideoFloatView.hidden = NO;
+    
+#if USE_FullTeacher
+    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+#endif
 }
 
-/// 停止桌面共享
-- (void)handleRoomStopShareDesktopWithPeerID:(NSString *)peerID
+// 关闭共享桌面
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
+    [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+
+    self.shareVideoFloatView.canZoom = NO;
+    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
+    self.shareVideoFloatView.hidden = YES;
+#if USE_FullTeacher
+    [self stopFullTeacherVideoView];
     
-    [self hideShareVidoeViewWithPeerId:peerID];
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
+#endif
 }
+
 
 #pragma mark 进入前台后台
 
