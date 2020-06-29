@@ -62,13 +62,13 @@ UITextFieldDelegate
         
 //            self.allDisableBtn.alpha = 0.4;
             
-            if ([YSLiveManager shareInstance].isBeginClass)
+            if ([YSLiveManager sharedInstance].isClassBegin)
             {
-                self.allDisabled = [YSLiveManager shareInstance].isEveryoneBanChat;
+                self.allDisabled = [YSLiveManager sharedInstance].isEveryoneBanChat;
             }
             else
             {
-                self.allDisabled = [YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
+                self.allDisabled = [YSLiveManager sharedInstance].roomConfig.isBeforeClassBanChat;
             }
 //        }
     }
@@ -192,12 +192,12 @@ UITextFieldDelegate
     if (!sender.selected)
     {
         // 全体禁言
-        [[YSLiveManager shareInstance] sendSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+        [[YSLiveManager sharedInstance] sendSignalingTeacherToLiveAllNoAudio:YES];
     }
     else
     {
         // 解除禁言
-        [[YSLiveManager shareInstance] deleteSignalingTeacherToLiveAllNoChatSpeakingCompletion:nil];
+        [[YSLiveManager sharedInstance] sendSignalingTeacherToLiveAllNoAudio:NO];
     }
 }
 
@@ -252,13 +252,13 @@ UITextFieldDelegate
 {
     YSChatMessageModel *model = _SCMessageList[indexPath.row];
     
-    if (model.chatMessageType == YSChatMessageTypeTips)
+    if (model.chatMessageType == YSChatMessageType_Tips)
     {
         SCTipsMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCTipsMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
         return cell;
     }
-    else if (model.chatMessageType == YSChatMessageTypeText)
+    else if (model.chatMessageType == YSChatMessageType_Text)
     {
         SCTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCTextMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
@@ -268,7 +268,7 @@ UITextFieldDelegate
         };
         return cell;
     }
-    else if (model.chatMessageType == YSChatMessageTypeOnlyImage)
+    else if (model.chatMessageType == YSChatMessageType_OnlyImage)
     {
         SCPictureMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCPictureMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
@@ -282,7 +282,7 @@ UITextFieldDelegate
 {
     YSChatMessageModel * model = _SCMessageList[indexPath.row];
     
-    if (model.chatMessageType == YSChatMessageTypeTips)
+    if (model.chatMessageType == YSChatMessageType_Tips)
     {
         if (!model.cellHeight)
         {
@@ -290,7 +290,7 @@ UITextFieldDelegate
         }
         return model.cellHeight;
     }
-    else if (model.chatMessageType == YSChatMessageTypeText)
+    else if (model.chatMessageType == YSChatMessageType_Text)
     {
         if ([model.detailTrans bm_isNotEmpty])
         {//有翻译
@@ -325,7 +325,7 @@ UITextFieldDelegate
             return model.cellHeight;
         }
     }
-    else if (model.chatMessageType == YSChatMessageTypeOnlyImage)
+    else if (model.chatMessageType == YSChatMessageType_OnlyImage)
     {
         if (!model.cellHeight)
         {
