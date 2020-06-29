@@ -1812,167 +1812,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [super onRoomStopVideoOfUid:uid streamID:streamID];
 }
 
-/*
-- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
-{
-    [self playVideoAudioWithVideoView:videoView needFreshVideo:NO];
-}
-
-- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh
-{
-    if (!videoView)
-    {
-        return;
-    }
-    
-    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sYSUserPublishstate];
-    
-#if YSAPP_NEWERROR
-    YSRenderMode renderType = YSRenderMode_adaptive;
-
-    fresh = NO;
-
-    if (publishState == YSUser_PublishState_VIDEOONLY)
-    {
-        if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
-        {
-            if (fresh)
-            {
-                [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-            }
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
-            [videoView bringSubviewToFront:videoView.backVideoView];
-
-            if (self.liveManager.roomConfig.isMirrorVideo)
-            {
-                // 视频镜像要在play之后
-                NSDictionary *properties = videoView.roomUser.properties;
-                if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sYSUserIsVideoMirror])
-                {
-                    BOOL isVideoMirror = [properties bm_boolForKey:sYSUserIsVideoMirror];
-                    [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
-                }
-            }
-        }
-        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState == YSUser_PublishState_AUDIOONLY)
-    {
-        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState == YSUser_PublishState_BOTH)
-    {
-        if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
-        {
-            if (fresh)
-            {
-                [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-            }
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
-            [videoView bringSubviewToFront:videoView.backVideoView];
-
-            if (self.liveManager.roomConfig.isMirrorVideo)
-            {
-                NSDictionary *properties = videoView.roomUser.properties;
-                if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
-                {
-                    BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
-                    [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
-                }
-            }
-        }
-        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
-    {
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-    }
-    
-    videoView.publishState = publishState;
-#endif
-}
-
-- (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
-{
-    if (!videoView)
-    {
-        return;
-    }
-
-#if YSAPP_NEWERROR
-    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sYSUserPublishstate];
-    
-    YSRenderMode renderType = YSRenderMode_adaptive;
-    
-    if (publishState == YSUser_PublishState_VIDEOONLY)
-    {
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-        [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
-        [videoView bringSubviewToFront:videoView.backVideoView];
-        
-        if (self.liveManager.roomConfig.isMirrorVideo)
-        {
-            NSDictionary *properties = videoView.roomUser.properties;
-            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
-            {
-                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
-                [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
-            }
-        }
-        
-        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState == YSUser_PublishState_AUDIOONLY)
-    {
-        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState == YSUser_PublishState_BOTH)
-    {
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-        [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:renderType completion:nil];
-        [videoView bringSubviewToFront:videoView.backVideoView];
-
-        if (self.liveManager.roomConfig.isMirrorVideo)
-        {
-            NSDictionary *properties = videoView.roomUser.properties;
-            if ([properties bm_isNotEmptyDictionary] && [properties bm_containsObjectForKey:sUserIsVideoMirror])
-            {
-                BOOL isVideoMirror = [properties bm_boolForKey:sUserIsVideoMirror];
-                [self.liveManager changeVideoMirrorWithPeerId:videoView.roomUser.peerID mirror:isVideoMirror];
-            }
-        }
-        
-        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
-    {
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-    }
-    
-    videoView.publishState = publishState;
-#endif
-}
-
-- (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
-{
-    if (!videoView)
-    {
-        return;
-    }
-
-#if YSAPP_NEWERROR
-    [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-    [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-    videoView.publishState = 4;
-#endif
-}
-*/
-
 #pragma mark  添加视频窗口
+
 - (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
 {
     SCVideoView *newVideoView = [super addVidoeViewWithPeerId:peerId];
@@ -2596,10 +2437,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 视频镜像
     if ([properties bm_containsObjectForKey:sYSUserIsVideoMirror])
     {
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
         BOOL isVideoMirror = [properties bm_boolForKey:sYSUserIsVideoMirror];
-#if YSAPP_NEWERROR
-        [self.liveManager changeVideoMirrorWithPeerId:userId mirror:isVideoMirror];
-#endif
+        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        if (isVideoMirror)
+        {
+            videoMirrorMode = CloudHubVideoMirrorModeEnabled;
+        }
+        
+        [self.liveManager changeVideoWithUserId:userId streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
     }
     
 //    YSRoomUser *fromUser = [self.liveManager.roomManager getRoomUserWithUId:fromId];
@@ -5713,7 +5559,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Permissions.KickedOutMembers") preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[YSRoomInterface instance] evictUser:roomUser.peerID evictReason:@(1) completion:nil];
+        [self.liveManager evictUser:roomUser.peerID reason:1];
 
     }];
     UIAlertAction *cancleAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

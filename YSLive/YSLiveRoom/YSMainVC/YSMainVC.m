@@ -1085,9 +1085,9 @@
 #pragma mark - videoViewArray
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    [super onRoomCloseVideo:close withUid:uid sourceID:sourceID];
+    [super onRoomCloseVideo:close withUid:uid streamID:streamID];
 }
 
 /// 开关麦克风
@@ -1097,77 +1097,17 @@
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+- (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    [super onRoomStartVideoOfUid:uid sourceID:sourceID];
+    [super onRoomStartVideoOfUid:uid streamID:streamID];
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+- (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    [super onRoomStopVideoOfUid:uid sourceID:sourceID];
+    [super onRoomStopVideoOfUid:uid streamID:streamID];
 }
 
-/*
-- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
-{
-    if (!videoView)
-    {
-        return;
-    }
-    
-#if YSAPP_NEWERROR
-    YSPublishState publishState = [videoView.roomUser.properties bm_intForKey:sYSUserPublishstate];
-    
-    if (publishState == YSUser_PublishState_VIDEOONLY)
-    {
-        if (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH)
-        {
-            //[self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-            [videoView bringSubviewToFront:videoView.backVideoView];
-        }
-        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState == YSUser_PublishState_AUDIOONLY)
-    {
-        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState == YSUser_PublishState_BOTH)
-    {
-        if (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH)
-        {
-            [self.liveManager playVideoOnView:videoView withPeerId:videoView.roomUser.peerID renderType:YSRenderMode_adaptive completion:nil];
-            [videoView bringSubviewToFront:videoView.backVideoView];
-        }
-        [self.liveManager playAudio:videoView.roomUser.peerID completion:nil];
-    }
-    if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
-    {
-        [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-        [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
-    }
-    
-    videoView.publishState = publishState;
-#endif
-}
- 
- - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
- {
-     if (!videoView)
-     {
-         return;
-     }
-     
- #if YSAPP_NEWERROR
-     [self.liveManager stopPlayVideo:videoView.roomUser.peerID completion:nil];
-     [self.liveManager stopPlayAudio:videoView.roomUser.peerID completion:nil];
- #endif
-     videoView.publishState = 4;
- }
-
- */
 
 - (void)removeAllVideoView
 {
@@ -1180,6 +1120,7 @@
 {
     SCVideoView *newVideoView = [super addVidoeViewWithPeerId:peerId withMaxCount:PLATFPRM_VIDEO_MAXCOUNT];
 
+    
     [self freshContentView];
     
     return newVideoView;
