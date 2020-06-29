@@ -129,6 +129,115 @@
     return count;
 }
 
+
+#pragma mark - 视频窗口
+
+- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
+{
+    [self playVideoAudioWithVideoView:videoView needFreshVideo:NO];
+}
+
+- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh
+{
+    if (!videoView)
+    {
+        return;
+    }
+    
+    YSUserMediaPublishState publishState = videoView.roomUser.mediaPublishState;
+    CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
+
+    fresh = NO;
+    
+    NSString *userId = videoView.roomUser.peerID;
+    NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
+    
+    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+    if (self.appUseTheType != YSRoomUseTypeLiveRoom)
+    {
+        if (self.liveManager.roomConfig.isMirrorVideo)
+        {
+            if ([videoView.roomUser.properties bm_boolForKey:sYSUserIsVideoMirror])
+            {
+                videoMirrorMode = CloudHubVideoMirrorModeEnabled;
+            }
+        }
+    }
+
+    if (publishState & YSUserMediaPublishState_VIDEOONLY)
+    {
+        if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
+        {
+            if (fresh)
+            {
+                [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+            }
+            [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+
+            [videoView bringSubviewToFront:videoView.backVideoView];
+        }
+    }
+    else
+    {
+        [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+    }
+    
+    videoView.publishState = publishState;
+}
+
+- (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
+{
+    if (!videoView)
+    {
+        return;
+    }
+
+    YSUserMediaPublishState publishState = videoView.roomUser.mediaPublishState;
+    CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
+
+    NSString *userId = videoView.roomUser.peerID;
+    NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
+    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+    if (self.appUseTheType != YSRoomUseTypeLiveRoom)
+    {
+        if (self.liveManager.roomConfig.isMirrorVideo)
+        {
+            if ([videoView.roomUser.properties bm_boolForKey:sYSUserIsVideoMirror])
+            {
+                videoMirrorMode = CloudHubVideoMirrorModeEnabled;
+            }
+        }
+    }
+
+    if (publishState & YSUserMediaPublishState_VIDEOONLY)
+    {
+        [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+        [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+
+        [videoView bringSubviewToFront:videoView.backVideoView];
+    }
+    else
+    {
+        [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+    }
+    
+    videoView.publishState = publishState;
+}
+
+- (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
+{
+    if (!videoView)
+    {
+        return;
+    }
+    
+    NSString *userId = videoView.roomUser.peerID;
+    NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
+    
+    [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+    videoView.publishState = 4;
+}
+
 #pragma mark  添加视频窗口
 
 - (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
