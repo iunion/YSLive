@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设备型号性能判断
 + (BOOL)deviceisConform;
 
+/// 生成UUID
++ (NSString *)createUUID;
+
 @end
 
 NS_ASSUME_NONNULL_END

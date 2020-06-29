@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 发送者Id
 @property (nonatomic, strong) NSString *senderId;
 /// 媒体流Id
-@property (nonatomic, strong) NSString *sourceId;
+@property (nonatomic, strong) NSString *streamID;
 
 /// 是否视频
 @property (nonatomic, assign) BOOL isVideo;

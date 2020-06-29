@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否禁止观众私聊 202
 @property (nonatomic, assign) BOOL isDisablePrivateChat;
 
+/// 课前是否全体禁言
+@property (nonatomic, assign) BOOL isBeforeClassBanChat;
+
 
 - (instancetype)initWithConfigurationString:(NSString *)configurationString;
 

@@ -11,6 +11,7 @@
 #import "YSRoomConfiguration.h"
 #import "YSRoomUser.h"
 #import "YSSharedMediaFileModel.h"
+#import "YSQuestionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL room_IsWideScreen;
 
 /// 是否大房间
-@property (nonatomic, assign, readonly) BOOL isBigRoom;
+@property (nonatomic, assign) BOOL isBigRoom;
 
 
 #pragma mark - 时间相关
@@ -75,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 用户相关
 
 /// 房间用户列表，大房间时只保留上台用户
-@property (nonatomic, strong, readonly) NSMutableArray <YSRoomUser *> *userList;
+@property (nonatomic, strong) NSMutableArray <YSRoomUser *> *userList;
 @property (nonatomic, strong, readonly) NSMutableDictionary <NSString *,YSRoomUser *>*roomUsers;
 
 /// 老师用户数据
@@ -89,8 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// BigRoom使用 只有超过100人后
 /// 房间用户数(总人数)
-@property (nonatomic, assign, readonly) NSUInteger userCount;
-@property (nonatomic, strong, readonly) NSDictionary *userCountDetailDic;
+@property (nonatomic, assign) NSUInteger userCount;
+@property (nonatomic, strong) NSDictionary *userCountDetailDic;
 
 /// 0老师 普通房间可用
 @property (nonatomic, assign, readonly) NSUInteger teacherCount;
@@ -128,6 +129,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 全体禁音
 @property (nonatomic, assign) BOOL isEveryoneNoAudio;
+/// 全体禁言
+@property (nonatomic, assign) BOOL isEveryoneBanChat;
+
+/// 举手上台信令的msgID的Key
+@property (nonatomic, strong) NSString *raisehandMsgID;
 
 
 #pragma mark - ShareMediaFile
@@ -137,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (instancetype)sharedInstance;
-+ (void)destory;
++ (void)destroy;
 
 - (void)registWithAppId:(NSString *)appId settingOptional:(nullable NSDictionary *)optional;
 - (void)registerRoomDelegate:(nullable id <YSSessionDelegate>)roomDelegate;
@@ -172,25 +178,46 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (YSRoomUser *)getRoomUserWithId:(NSString *)userId;
-- (BOOL)getRoomUserWithId:(NSString *)userId callback:(void (^)(YSRoomUser *user, NSError *error))callback;
 
+- (void)getRoomUserCountWithRole:(NSArray *_Nullable)role
+                          search:(NSString *)search
+                        callback:(void (^)(NSUInteger num, NSError *error))callback;
+
+- (void)getRoomUsersWithRole:(NSArray *_Nullable)role
+                  startIndex:(NSInteger)start
+                   maxNumber:(NSInteger)max
+                      search:(NSString *)search
+                       order:(NSDictionary *)order
+                    callback:(void (^)(NSArray<YSRoomUser *> *_Nonnull users, NSError *error))callback;
+
+
+- (nullable NSString *)getUserStreamIdWithUserId:(NSString *)userId;
+- (nullable NSString *)getShareStreamIdWithUserId:(NSString *)userId;
+- (nullable YSSharedMediaFileModel *)getMediaFileModelWithUserId:(NSString *)userId;
+- (nullable NSString *)getMediaStreamIdWithUserId:(NSString *)userId;
 
 
 #pragma mark - 接收流操作 上台流 媒体流 共享流
 
+/// 切换前后摄像头
+- (BOOL)useFrontCamera:(BOOL)front;
+
+/// 播放新视频流changeVideoWithUserId
 - (BOOL)playVideoWithUserId:(NSString *)userId
-                   sourceId:(nullable NSString *)sourceId
+                   streamID:(nullable NSString *)streamID
                  renderMode:(CloudHubVideoRenderMode)renderMode
                  mirrorMode:(CloudHubVideoMirrorMode)mirrorMode
                      inView:(UIView *)view;
 
+/// 设置音视频流
 - (BOOL)changeVideoWithUserId:(NSString *)userId
-                     sourceID:(NSString* _Nullable)sourceID
+                     streamID:(nullable NSString *)streamID
                    renderMode:(CloudHubVideoRenderMode)renderMode
                    mirrorMode:(CloudHubVideoMirrorMode)mirrorMode;
 
+/// 停止音视频流
 - (BOOL)stopVideoWithUserId:(NSString *)userId
-                   sourceId:(nullable NSString *)sourceId;
+                   streamID:(nullable NSString *)streamID;
 
 
 #pragma mark - setUserProperty
@@ -202,6 +229,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置本地视频镜像
 - (BOOL)changeLocalVideoMirrorMode:(CloudHubVideoMirrorMode)mode;
 
+/// 踢人
+- (BOOL)evictUser:(NSString *)uid reason:(NSInteger)reasonCode;
+
+/// 改变自己的音视频状态，并管理音视频流
+- (void)changeMyPublishState:(YSUserMediaPublishState)mediaPublishState;
 
 @end
 
@@ -216,6 +248,7 @@ NS_ASSUME_NONNULL_BEGIN
                           msgName:(NSString *)msgName
                           dataDic:(nullable NSDictionary *)dataDic
                            fromID:(NSString *)fromID
+                    extensionData:(nullable NSDictionary *)extensionData
                            inList:(BOOL)inlist
                                ts:(long)ts;
 
@@ -223,9 +256,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleRoomDelMsgWithMsgID:(NSString *)msgID
                           msgName:(NSString *)msgName
                           dataDic:(nullable NSDictionary *)dataDic
-                           fromID:(NSString *)fromID
-                           inList:(BOOL)inlist
-                               ts:(long)ts;
+                           fromID:(NSString *)fromID;
 
 
 @end
@@ -241,6 +272,13 @@ NS_ASSUME_NONNULL_BEGIN
             to:(nullable NSString *)whom
       withData:(nullable NSDictionary *)data
           save:(BOOL)save;
+
+- (BOOL)pubMsg:(NSString *)msgName
+        msgId:(NSString *)msgId
+           to:(NSString *)whom
+     withData:(NSDictionary *)data
+extensionData:(NSDictionary *)extensionData
+         save:(BOOL)save;
 
 - (BOOL)pubMsg:(NSString *)msgName
          msgId:(NSString *)msgId
@@ -270,12 +308,133 @@ associatedWithMsg:(nullable NSString *)assMsgID
       withData:(nullable NSDictionary *)data;
 
 
+#pragma mark - 同步服务器时间
+
+- (BOOL)sendSignalingUpdateTime;
+
+#pragma -
+#pragma mark 老师相关
+
+#pragma mark - 上下课
+
+/// 老师发起上课
+- (BOOL)sendSignalingTeacherToClassBegin;
+
+/// 老师发起下课
+- (BOOL)sendSignalingTeacherToDismissClass;
+
+#pragma mark - 轮播
+
+/// 老师发起轮播
+- (BOOL)sendSignalingTeacherToStartVideoPollingWithUserID:(NSString *)peerId;
+/// 老师停止轮播
+- (BOOL)sendSignalingTeacherToStopVideoPolling;
+
+#pragma mark - 举手
+
+/// 通知各端开始举手
+- (BOOL)sendSignalingToLiveAllAllowRaiseHand;
+
+/// 老师订阅/取消订阅举手列表   type  subSort订阅/  unsubSort取消订阅
+- (BOOL)sendSignalingToSubscribeAllRaiseHandMemberWithType:(NSString*)type;
+
+/// 学生开始/取消举手  modify：0举手  1取消举手
+- (BOOL)sendSignalingsStudentToRaiseHandWithModify:(NSInteger)modify;
+
+#pragma mark - 布局
+
+/// 改变布局
+- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSRoomLayoutType)layoutType;
+- (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSRoomLayoutType)layoutType appUserType:(YSRoomUseType)appUserType withFouceUserId:(nullable NSString *)peerId;
+
+/// 拖出视频/复位视频
+- (BOOL)sendSignalingToDragOutVideoViewWithData:(NSDictionary*)data;
+
+/// 拖出视频后捏合动作
+- (BOOL)sendSignalingTopinchVideoViewWithPeerId:(NSString *)peerId scale:(CGFloat)scale;
+
+/// 发送双击视频放大
+- (BOOL)sendSignalingToDoubleClickVideoViewWithPeerId:(NSString *)peerId;
+
+/// 取消双击视频放大
+- (BOOL)deleteSignalingToDoubleClickVideoView;
+
+
 #pragma mark - 投票
 
 // 发送投票
 - (BOOL)sendSignalingVoteCommitWithVoteId:(NSString *)voteId voteResault:(NSArray *)voteResault;
 
 
+#pragma mark - 答题器
+
+/// 答题器占用
+- (BOOL)sendSignalingTeacherToAnswerOccupyed;
+
+/// 发布答题器 
+- (BOOL)sendSignalingTeacherToAnswerWithOptions:(NSArray *)answers answerID:(NSString *)answerID;
+
+/// 发送答题卡答案（学生）
+- (BOOL)sendSignalingAnwserCommitWithAnswerId:(NSString *)answerId anwserResault:(NSArray *)answerResault;
+
+/// 修改答题卡答案（学生）
+- (BOOL)sendSignalingAnwserModifyWithAnswerId:(NSString *)answerId addAnwserResault:(nullable NSArray *)addAnwserResault  delAnwserResault:(nullable NSArray *)delAnwserResault notChangeAnwserResault:(nullable NSArray *)notChangeAnwserResault;
+
+/// 获取答题器进行时的结果
+- (BOOL)sendSignalingTeacherToAnswerGetResultWithAnswerID:(NSString *)answerID;
+
+/// 结束答题
+- (BOOL)sendSignalingTeacherToDeleteAnswerWithAnswerID:(NSString *)answerID;
+
+/// 发布答题结果
+/// @param answerID 答题ID
+/// @param selecteds 统计数据
+/// @param duration 答题时间
+/// @param detailData 详情数据
+- (BOOL)sendSignalingTeacherToAnswerPublicResultWithAnswerID:(NSString *)answerID selecteds:(NSDictionary *)selecteds duration:(NSString *)duration detailData:(NSArray *)detailData totalUsers:(NSInteger)totalUsers;
+
+/// 结束答题结果
+- (BOOL)sendSignalingTeacherToDeleteAnswerPublicResult;
+
+
+#pragma mark - 抢答器
+
+/// 抢答器  开始
+- (BOOL)sendSignalingTeacherToStartResponder;
+
+/// 关闭抢答器
+- (BOOL)sendSignalingTeacherToCloseResponder;
+
+/// 助教、老师发起抢答排序
+- (BOOL)sendSignalingTeacherToContestResponderWithMaxSort:(NSInteger)maxSort;
+
+/// 结束抢答排序
+- (BOOL)sendSignalingTeacherToDeleteContest;
+
+/// 学生抢答
+- (BOOL)sendSignalingStudentContestCommit;
+
+/// 发布抢答器结果
+- (BOOL)sendSignalingTeacherToContestResultWithName:(NSString *)name;
+
+/// 订阅抢答排序
+- (BOOL)sendSignalingTeacherToContestSubsortWithMin:(NSInteger)min max:(NSInteger)max;
+
+/// 取消订阅抢答排序
+- (BOOL)sendSignalingTeacherToCancelContestSubsort;
+
+
+#pragma mark - 计时器
+/// 计时器
+/// @param time 计时器时间
+/// @param isStatus 当前状态 暂停 继续
+/// @param isRestart 重置是否
+/// @param isShow 是否显示弹窗  老师第一次点击计时器传false  老师显示，老师点击开始计时，传true ，学生显示
+/// @param defaultTime 开始计时时间
+- (BOOL)sendSignalingTeacherToStartTimerWithTime:(NSInteger)time isStatus:(BOOL)isStatus isRestart:(BOOL)isRestart isShow:(BOOL)isShow defaultTime:(NSInteger)defaultTime;
+
+/// 结束计时
+- (BOOL)sendSignalingTeacherToDeleteTimer;
 @end
 
 
@@ -306,6 +465,9 @@ associatedWithMsg:(nullable NSString *)assMsgID
 // @return  QuestionID问题唯一标识 非nil表示调用成功，nil表示调用失败
 - (nullable NSString *)sendQuestionWithText:(NSString *)textMessage;
 
+/// 送花
+- (BOOL)sendSignalingLiveNoticesSendFlower;
+
 @end
 
 
@@ -335,6 +497,11 @@ associatedWithMsg:(nullable NSString *)assMsgID
 
 - (void)pauseShareOneMediaFile:(BOOL)isPause;
 - (void)seekShareOneMediaFile:(NSUInteger)position;
+
+
+/// 全体静音 isNoAudio:YES 静音  NO：不静音
+- (BOOL)sendSignalingTeacherToLiveAllNoAudio:(BOOL)isNoAudio;
+
 
 @end
 

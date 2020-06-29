@@ -19,36 +19,6 @@ typedef NSView VIEW_CLASS;
 typedef NSColor COLOR_CLASS;
 #endif
 
-/** Properties of the video canvas object.
- */
-__attribute__((visibility("default"))) @interface CloudHubRtcVideoCanvas : NSObject
-/** The video display view.
-
- VIEW_CLASS is a general name for this property. See the following definitions for iOS and macOS:
-
- - iOS: UIView
- - MacOS: NSView
- */
-@property (strong, nonatomic) VIEW_CLASS* _Nullable view;
-/** The rendering mode of the video view. See [CloudHubVideoRenderMode](CloudHubVideoRenderMode).
- */
-@property (assign, nonatomic) CloudHubVideoRenderMode renderMode;
-/** User ID of the view.
- */
-@property (copy, nonatomic) NSString* _Nullable uid;
-/** Divice ID of the view.
-*/
-@property (copy, nonatomic) NSString* _Nullable sourceId;
-/** The mirror mode of the video view. See [CloudHubVideoMirrorMode](CloudHubVideoMirrorMode).
- 
- **Note**
- 
- - For the mirror mode of the local video view: If you use a front camera, the SDK enables the mirror mode by default; if you use a rear camera, the SDK disables the mirror mode by default.
- - For the mirror mode of the remote video view: The SDK disables the mirror mode by default.
- */
-@property (assign, nonatomic) CloudHubVideoMirrorMode mirrorMode;
-@end
-
 /** Statistics of the local video stream.
  */
 __attribute__((visibility("default"))) @interface CloudHubRtcLocalVideoStats : NSObject
@@ -377,3 +347,8 @@ __attribute__((visibility("default"))) @interface CloudHubRtcChannelMediaOptions
 
 @end
 
+__attribute__((visibility("default"))) @interface CloudHubLocalMovieInfo: NSObject
+@property (nonatomic, assign) BOOL hasAudio;
+@property (nonatomic, assign) BOOL hasVideo;
+@property (nonatomic, assign) NSUInteger duration;
+@end

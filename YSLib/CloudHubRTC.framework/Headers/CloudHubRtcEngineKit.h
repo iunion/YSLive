@@ -6,18 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "CloudHubConstants.h"
 #import "CloudHubObjects.h"
 #import "CloudHubRtcEngineDelegate.h"
-//#import "CloudHubMediaIO.h"
-//#import "CloudHubMediaMetadata.h"
 
 /** CloudHub provides ensured quality of experience (QoE) for worldwide Internet-based voice and video communications through a virtual global network optimized for real-time web and mobile-to-mobile applications.
 
  The CloudHubRtcEngineKit class is the entry point of the SDK providing API methods for apps to easily start voice and video communication.
  */
 @class CloudHubRtcEngineKit;
-@class CloudHubRtcChannel;
 
 #pragma mark - CloudHubRtcEngineKit
 
@@ -47,7 +43,7 @@ __attribute__((visibility("default"))) @interface CloudHubRtcEngineKit : NSObjec
 
  @return An object of the CloudHubRtcEngineKit class.
  */
-+ (instancetype _Nonnull)sharedEngineWithAppId:(NSString * _Nonnull)appId;
++ (instancetype _Nonnull)sharedEngineWithAppId:(NSString * _Nonnull)appId config:(NSString * _Nullable)config;
 
 /** Sets the channel profile of the CloudHubRtcEngineKit.
 
@@ -65,25 +61,6 @@ The CloudHubRtcEngineKit differentiates channel profiles and applies optimizatio
  */
 - (int)setChannelProfile:(CloudHubChannelProfile)profile;
 
-/** Sets the role of a user.
-
-This method is applicable only to the Live-broadcast profile.
-
-Sets the role of a user, such as a host or an audience (default), before joining a channel.
-
-This method can be used to switch the user role after a user joins a channel.
-
-When a user switches user roles after joining a channel, a successful method call triggers the following callback:
-
-- The local client: [didClientRoleChanged]([CloudHubRtcEngineDelegate rtcEngine:didClientRoleChanged:newRole:])
-- Remote clients: [didJoinedOfUid]([CloudHubRtcEngineDelegate rtcEngine:didJoinedOfUid:elapsed:]) or [didOfflineOfUid(CloudHubUserOfflineReasonBecomeAudience)]([CloudHubRtcEngineDelegate rtcEngine:didOfflineOfUid:reason:])
-
- @param role Role of the client: CloudHubClientRole.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)setClientRole:(CloudHubClientRole)role;
 
 /** Joins a channel with the user ID.
 
@@ -139,35 +116,7 @@ When the connection between the client and CloudHub's server is interrupted due 
                 channelId:(NSString * _Nonnull)channelId
                properties:(NSString * _Nullable)properties
                       uid:(NSString * _Nullable)uid
-              joinSuccess:(void(^ _Nullable)(NSString * _Nonnull channel, NSString * _Nonnull uid, NSInteger elapsed))joinSuccessBlock;
-
-/** Switches to a different channel.
-
- This method allows the audience of a Live-broadcast channel to switch to a different channel.
-
- After the user successfully switches to another channel, the [didLeaveChannelWithStats]([CloudHubRtcEngineDelegate rtcEngine:didLeaveChannelWithStats:]) and [didJoinChannel]([CloudHubRtcEngineDelegate rtcEngine:didJoinChannel:withUid:elapsed:]) callbacks are triggered to indicate that the user has left the original channel and joined a new one.
-
- @param token The token generated at your server:
-
- - For low-security requirements: You can use the temporary token generated in Console. For details, see [Get a temporary token](https://docs.CloudHub.io/en/CloudHub%20Platform/token?platform=All%20Platforms#get-a-temporary-token).
- - For high-security requirements: Use the token generated at your server. For details, see [Get a token](https://docs.CloudHub.io/en/CloudHub%20Platform/token?platform=All%20Platforms#get-a-token).
- @param channelId Unique channel name for the CloudHubRTC session in the string format. The string length must be less than 64 bytes. Supported character scopes are:
-
- - The 26 lowercase English letters: a to z.
- - The 26 uppercase English letters: A to Z.
- - The 10 numbers: 0 to 9.
- - The space.
- - "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
- @param joinSuccessBlock Returns that the user joins the specified channel. Same as [didJoinChannel]([CloudHubRtcEngineDelegate rtcEngine:didJoinChannel:withUid:elapsed:]). If `joinSuccessBlock` is nil, the SDK triggers the [didJoinChannel]([CloudHubRtcEngineDelegate rtcEngine:didJoinChannel:withUid:elapsed:]) callback.
- 
- @note This method applies to the audience role in a Live-broadcast channel only.
-
- @return - 0: Success.
- - <0: Failure.
- */
-- (int)switchChannelByToken:(NSString * _Nullable)token
-                  channelId:(NSString * _Nonnull)channelId
-                joinSuccess:(void(^ _Nullable)(NSString * _Nonnull channel, NSString * _Nonnull uid, NSInteger elapsed))joinSuccessBlock;
+              joinSuccess:(void(^ _Nullable)(NSString * _Nonnull channel, NSString * _Nonnull uid, NSUInteger serverts, NSInteger elapsed))joinSuccessBlock;
 
 /** Allows a user to leave a channel, such as hanging up or exiting a call.
 
@@ -233,86 +182,6 @@ The `token` expires after a period of time once the token schema is enabled when
  * @name Core Audio
  * -----------------------------------------------------------------------------
  */
-
-/** Enables the audio module.
-
- The audio module is enabled by default.
-
- **Note:**
-
-- This method affects the internal engine and can be called after the [leaveChannel]([CloudHubRtcEngineKit leaveChannel:]) method. You can call this method either before or after joining a channel.
-- This method resets the internal engine and takes some time to take effect. CloudHub recommends using the following API methods to control the audio engine modules separately:
-
-    * [enableLocalAudio]([CloudHubRtcEngineKit enableLocalAudio:]): Whether to enable the microphone to create the local audio stream.
-    * [muteLocalAudioStream]([CloudHubRtcEngineKit muteLocalAudioStream:]): Whether to publish the local audio stream.
-    * [muteRemoteAudioStream]([CloudHubRtcEngineKit muteRemoteAudioStream:mute:]): Whether to subscribe to and play the remote audio stream.
-    * [muteAllRemoteAudioStreams]([CloudHubRtcEngineKit muteAllRemoteAudioStreams:]): Whether to subscribe to and play all remote audio streams.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)enableAudio;
-
-/** Disables the audio module.
-
- **Note:**
-
-- This method affects the internal engine and can be called after the [leaveChannel]([CloudHubRtcEngineKit leaveChannel:]) method. You can call this method either before or after joining a channel.
-- This method resets the internal engine and takes some time to take effect. CloudHub recommends using the following API methods to control the audio engine modules separately:
-
-    * [enableLocalAudio]([CloudHubRtcEngineKit enableLocalAudio:]): Whether to enable the microphone to create the local audio stream.
-    * [muteLocalAudioStream]([CloudHubRtcEngineKit muteLocalAudioStream:]): Whether to publish the local audio stream.
-    * [muteRemoteAudioStream]([CloudHubRtcEngineKit muteRemoteAudioStream:mute:]): Whether to subscribe to and play the remote audio stream.
-    * [muteAllRemoteAudioStreams]([CloudHubRtcEngineKit muteAllRemoteAudioStreams:]): Whether to subscribe to and play all remote audio streams.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)disableAudio;
-
-/** Adjusts the recording volume.
-
- @param volume Recording volume. The value ranges between 0 and 400:
-
- * 0: Mute.
- * 100: Original volume.
- * 400: (Maximum) Four times the original volume with signal clipping protection.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)adjustRecordingSignalVolume:(NSInteger)volume;
-
-/** Adjusts the playback volume of all remote users.
- 
- **Note**
-
- - This method adjusts the playback volume which is mixed volume of all remote users.
- - Since v2.3.2, to mute the local audio playback, call both `adjustPlaybackSignalVolume` and [adjustAudioMixingVolume]([CloudHubRtcEngineKit adjustAudioMixingVolume:]), and set `volume` as 0.
-
- @param volume The playback volume of all remote users. The value ranges from 0 to 400:
-
- * 0: Mute.
- * 100: Original volume.
- * 400: (Maximum) Four times the original volume with signal clipping protection.
-
- @return * 0: Success.
- * < 0: Failure.
- */
-- (int)adjustPlaybackSignalVolume:(NSInteger)volume;
-
-/** Enables the SDK to regularly report to the app on which users are speaking and the speakers' volume.
-
- @param interval Sets the time interval between two consecutive volume indications:
-
- * &le; 0: Disables the volume indication.
- * &gt; 0: The time interval (ms) between two consecutive volume indications. CloudHub recommends setting `interval` &ge; 200 ms. Once this method is enabled, the SDK returns the volume indications at the set time interval in the [reportAudioVolumeIndicationOfSpeakers]([CloudHubRtcEngineDelegate rtcEngine:reportAudioVolumeIndicationOfSpeakers:totalVolume:]) and [audioVolumeIndicationBlock](audioVolumeIndicationBlock:) callbacks, regardless of whether any user is speaking in the channel.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)enableAudioVolumeIndication:(NSInteger)interval;
-
 /** Enables/Disables the local audio capture.
 
 When an app joins a channel, the audio module is enabled by default. This method disables or re-enables the local audio capture, that is, to stop or restart local audio capturing and processing.
@@ -511,35 +380,19 @@ The parameters specified in this method are the maximum values under ideal netwo
  @return * 0: Success.
 * < 0: Failure.
  */
-- (int)setupLocalVideo:(CloudHubRtcVideoCanvas * _Nonnull)local;
+- (int)startPlayingLocalVideo:(VIEW_CLASS * _Nonnull)view
+                   renderMode:(CloudHubVideoRenderMode) renderMode
+                   mirrorMode:(CloudHubVideoMirrorMode) mirrorMode;//cyjtodo comments
+- (int)stopPlayingLocalVideo;//cyjtodo comments
 
-/** Initializes the video view of a remote user.
+- (int)startPlayingRemoteVideo:(VIEW_CLASS * _Nonnull)view
+                  withStreamID:(NSString * _Nonnull)streamID
+                    renderMode:(CloudHubVideoRenderMode) renderMode
+                    mirrorMode:(CloudHubVideoMirrorMode) mirrorMode;//cyjtodo comments
 
- This method initializes the video view of a remote stream on the local device. It affects only the video view that the local user sees.
-
- Call this method to bind the remote video stream to a video view and to set the rendering and mirror modes of the video view.
-
- The app specifies the `uid` of the remote video in this method call before the user joins a channel.
-
- If the remote `uid` is unknown to the app, set it after the app receives the [userJoinedBlock]([CloudHubRtcEngineKit userJoinedBlock:]) callback.
-
- If the Video Recording function is enabled, the Video Recording Service joins the channel as a dummy client, causing other clients to also receive the [didJoinedOfUid]([CloudHubRtcEngineDelegate rtcEngine:didJoinedOfUid:elapsed:]) callback. Do not bind the dummy client to the app view because the dummy client does not send any video streams. If your app does not recognize the dummy client, bind the remote user to the view when the SDK triggers the [firstRemoteVideoDecodedOfUid]([CloudHubRtcEngineDelegate rtcEngine:firstRemoteVideoDecodedOfUid:size:elapsed:]) callback.
-
- To unbind the remote user from the view, set the `view` in CloudHubRtcVideoCanvas as nil. Once the remote user leaves the channel, the SDK unbinds the remote user.
-
- @note To update the rendering or mirror mode of the remote video view during a call, use [setRemoteRenderMode]([CloudHubRtcEngineKit setRemoteRenderMode:renderMode:mirrorMode:]).
- 
- @param remote Sets the remote video view and settings. See CloudHubRtcVideoCanvas.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)setupRemoteVideo:(CloudHubRtcVideoCanvas * _Nonnull)remote;
-
+- (int)stopPlayingRemoteVideo:(NSString * _Nonnull)streamID;//cyjtodo comments
 
 /** Updates the display mode of the local video view.
-
- **Since** v3.0.0.
 
  After initializing the local video view, you can call this method to update its rendering and mirror modes. It affects only the video view that the local user sees, not the published local video stream.
  
@@ -572,7 +425,7 @@ The parameters specified in this method are the maximum values under ideal netwo
  - Ensure that you have called [setupRemoteVideo]([CloudHubRtcEngineKit setupRemoteVideo:]) to initialize the remote video view before calling this method.
  - During a call, you can call this method as many times as necessary to update the display mode of the video view of a remote user.
 
- @param uid The ID of the remote user.
+ @param streamID The ID of the remote stream.
  @param renderMode The rendering mode of the remote video view. See [CloudHubVideoRenderMode](CloudHubVideoRenderMode).
  @param mirrorMode The mirror mode of the remote video view. See [CloudHubVideoMirrorMode](CloudHubVideoMirrorMode).
 
@@ -583,35 +436,9 @@ The parameters specified in this method are the maximum values under ideal netwo
  @return * 0: Success.
  * < 0: Failure.
  */
-- (int)setRemoteRenderMode:(NSString* _Nonnull)uid
-                  sourceID:(NSString* _Nullable)sourceID
+- (int)setRemoteRenderMode:(NSString* _Nonnull)streamID
                 renderMode:(CloudHubVideoRenderMode) renderMode
                 mirrorMode:(CloudHubVideoMirrorMode) mirrorMode;
-
-/** Starts the local video preview before joining a channel.
-
-By default, the local preview enables the mirror mode.
-
-Before calling this method, you must:
-
- - Call the [setupLocalVideo]([CloudHubRtcEngineKit setupLocalVideo:]) method to set up the local preview window and configure the attributes.
- - Call the [enableVideo]([CloudHubRtcEngineKit enableVideo]) method to enable video.
-
-**Note:**
-
- Once you call this method to start the local video preview, if you leave the channel by calling the [leaveChannel]([CloudHubRtcEngineKit leaveChannel:]) method, the local video preview remains until you call the stopPreview method to disable it.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)startPreview;
-
-/** Stops the local video preview and the video.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)stopPreview;
 
 /** Disables the local video.
  
@@ -684,7 +511,7 @@ Before calling this method, you must:
 * < 0: Failure.
  */
 - (int)muteRemoteVideoStream:(NSString* _Nonnull)uid
-                    sourceID:(NSString* _Nullable)sourceID
+                    streamID:(NSString* _Nullable)streamID
                         mute:(BOOL)mute;
 
 /** Sets whether to receive all remote video streams by default.
@@ -764,315 +591,27 @@ Before calling this method, you must:
 - (BOOL)isSpeakerphoneEnabled;
 #endif
 
-#pragma mark Music File Playback and Mixing
+#pragma mark Remote File Playing
 
 /**-----------------------------------------------------------------------------
- * @name Music File Playback and Mixing
+ * @name Remote File Playing
  * -----------------------------------------------------------------------------
  */
 
 //cyjtodo comments
 - (int) addInjectStreamUrl:(NSString * _Nonnull)url attributes:(NSString* _Nullable)attributes;
 - (int) removeInjectStreamUrl:(NSString *_Nonnull)url;
-- (int) seekInjectStreamUrl:(NSString *_Nonnull)url positionByMS:(NSUInteger)position;
-- (int) pauseInjectStreamUrl:(NSString *_Nonnull)url pause:(BOOL)pause;
-
-
-/** Starts audio mixing.
-
-  This method mixes the specified local audio file with the audio stream from the microphone, or replaces the microphone's audio stream with the specified local audio file. You can choose whether the other user can hear the local audio playback and specify the number of playback loops. This method also supports online music playback.
-
- A successful startAudioMixing method call triggers the [localAudioMixingStateDidChanged]([CloudHubRtcEngineDelegate rtcEngine:localAudioMixingStateDidChanged:errorCode:])(CloudHubAudioMixingStatePlaying) callback on the local client.
-
- When the audio mixing file playback finishes, the SDK triggers the [localAudioMixingStateDidChanged]([CloudHubRtcEngineDelegate rtcEngine:localAudioMixingStateDidChanged:errorCode:])(CloudHubAudioMixingStateStopped) callback on the local client.
-
- **Note:**
-
- * To use this method, ensure that the iOS device version is 8.0 and later.
- * Call this method when you are in a channel.
- * If you want to play an online music file, ensure that the time interval between playing the online music file and calling this method is greater than 100 ms, or the AudioFileOpenTooFrequent(702) warning occurs.
- * If the local audio mixing file does not exist, or if the SDK does not support the file format or cannot access the music file URL, the SDK returns CloudHubWarningCodeAudioMixingOpenError(701).
-
- @param filePath The absolute path of the local or online audio file to be mixed. Supported audio formats: mp3, aac, m4a, 3gp, and wav.
-
- @param loopback Sets which user can hear the audio mixing:
-
- * YES: Only the local user can hear the audio mixing.
- * NO: Both users can hear the audio mixing.
-
- @param replace Sets the audio mixing content:
-
- * YES: Only the specified audio file is published; the audio stream received by the microphone is not published.
- * NO: The local audio file mixed with the audio stream from the microphone.
-
- @param cycle Sets the number of playback loops:
-
- * Positive integer: Number of playback loops.
- * -1：Infinite playback loops.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)startAudioMixing:(NSString *  _Nonnull)filePath
-               loopback:(BOOL)loopback
-                replace:(BOOL)replace
-                  cycle:(NSInteger)cycle;
-
-/** Stops audio mixing.
-
- Call this method when you are in a channel.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)stopAudioMixing;
-
-/** Pauses audio mixing.
-
- Call this method when you are in a channel.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)pauseAudioMixing;
-
-/** Resumes audio mixing.
-
- Call this method when you are in a channel.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)resumeAudioMixing;
-
-/** Adjusts the volume of audio mixing.
-
- Call this method when you are in a channel.
- 
- **Note:**
- 
- Calling this method does not affect the volume of audio effect file playback invoked by the [playEffect]([CloudHubRtcEngineKit playEffect:filePath:loopCount:pitch:pan:gain:publish:]) method.
-
- @param volume Audio mixing volume. The value ranges between 0 and 100 (default).
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)adjustAudioMixingVolume:(NSInteger)volume;
-
-/** Adjusts the volume of audio mixing for local playback.
-
- Call this method when you are in a channel.
-
- @param volume Audio mixing volume for local playback. The value ranges between 0 and 100 (default).
- @return * 0: Success.
- * < 0: Failure.
- */
-- (int)adjustAudioMixingPlayoutVolume:(NSInteger)volume;
-
-/** Adjusts the volume of audio mixing for publishing (sending to other users).
-
- Call this method when you are in a channel.
-
- @param volume Audio mixing volume for publishing. The value ranges between 0 and 100 (default).
- @return * 0: Success.
- * < 0: Failure.
- */
-- (int)adjustAudioMixingPublishVolume:(NSInteger)volume;
-
-/** Gets the audio mixing volume for publishing.
-
-This method helps troubleshoot audio volume related issues.
-*/
-- (int)getAudioMixingPublishVolume;
-
-/** Gets the audio mixing volume for local playback.
-
-This method helps troubleshoot audio volume related issues.
-*/
-- (int)getAudioMixingPlayoutVolume;
-
-/** Retrieves the duration (ms) of audio mixing.
-
- Call this method when you are in a channel.
-
- @return * &ge; 0: The audio mixing duration, if this method call is successful.
-
-* < 0: Failure.
- */
-
-- (int)getAudioMixingDuration;
-
-/** Retrieves the playback position (ms) of the audio mixing file.
-
- Call this method when you are in a channel.
-
- @return * &ge; 0: The current playback position of the audio mixing file, if this method call is successful.
-
-* < 0: Failure.
- */
-- (int)getAudioMixingCurrentPosition;
-
-/** Sets the playback position of the audio mixing file to a different starting position (the default plays from the beginning).
-
- @param pos The playback starting position (ms) of the audio mixing file.
-
- @return * 0: Success.
-* < 0: Failure.
-
- */
-- (int)setAudioMixingPosition:(NSInteger)pos;
-
-
-#pragma mark Audio Effect File Playback
-
-/**-----------------------------------------------------------------------------
- * @name Audio Effect File Playback
- * -----------------------------------------------------------------------------
- */
-
-/** Retrieves the volume of the audio effects.
-
-The value ranges between 0.0 and 100.0.
-
-@return * &ge; 0: Volume of the audio effects, if this method call is successful.
-
-* < 0: Failure.
- */
-- (double)getEffectsVolume;
-
-/** Sets the volume of the audio effects.
-
- @param volume Volume of the audio effects. The value ranges between 0.0 and 100.0 (default).
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)setEffectsVolume:(double)volume;
-
-/** Sets the volume of a specified audio effect.
-
- @param soundId ID of the audio effect. Each audio effect has a unique ID.
- @param volume Volume of the audio effect. The value ranges between 0.0 and 100.0 (default).
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)setVolumeOfEffect:(int)soundId
-              withVolume:(double)volume;
-
-/** Plays a specified audio effect.
-
-You can use this method to add specific audio effects for specific scenarios, for example, gaming.
-
-With this method, you can set the loop count, pitch, pan, and gain of the audio effect file and whether the remote user can hear the audio effect.
-
-To play multiple audio effect files simultaneously, call this method multiple times with different soundIds and filePaths. We recommend playing no more than three audio effect files at the same time.
-
-When the audio effect file playback is finished, the SDK triggers the [rtcEngineDidAudioEffectFinish]([CloudHubRtcEngineDelegate rtcEngineDidAudioEffectFinish:soundId:]) callback.
-
-@note Playing multiple online audio effect files simultaneously is not supported on macOS.
- @param soundId ID of the specified audio effect. Each audio effect has a unique ID.
- If the audio effect is preloaded into the memory through the [preloadEffect](preloadEffect:filePath:) method, ensure that the `soundId` value is set to the same value as in [preloadEffect](preloadEffect:filePath:).
- @param filePath The absolute path of the local audio effect file or the URL of the online audio effect file.
- @param loopCount Sets the number of times the audio effect loops:
-
- * 0: Plays the audio effect once.
- * 1: Plays the audio effect twice.
- * -1: Plays the audio effect in an indefinite loop until you call the [stopEffect](stopEffect:) or [stopAllEffects](stopAllEffects) method.
-
- @param pitch Sets the pitch of the audio effect. The value ranges between 0.5 and 2. The default value is 1 (no change to the pitch). The lower the value, the lower the pitch.
- @param pan Sets the spatial position of the audio effect. The value ranges between -1.0 and 1.0.
-
- * 0.0: The audio effect displays ahead.
- * 1.0: The audio effect displays to the right.
- * -1.0: The audio effect displays to the left.
-
- @param gain Sets the volume of the audio effect. The value ranges between 0.0 and 100.0 (default). The lower the value, the lower the volume of the audio effect.
- @param publish Sets whether or not to publish the specified audio effect to the remote stream:
-
- * YES: The played audio effect is published to the CloudHub Cloud and the remote users can hear it.
- * NO: The played audio effect is not published to the CloudHub Cloud and the remote users cannot hear it.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)playEffect:(int)soundId
-         filePath:(NSString * _Nullable)filePath
-        loopCount:(int)loopCount
-            pitch:(double)pitch
-              pan:(double)pan
-             gain:(double)gain
-          publish:(BOOL)publish;
-
-/** Stops playing a specified audio effect.
-
- @param soundId ID of the audio effect. Each audio effect has a unique ID.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)stopEffect:(int)soundId;
-
-/** Stops playing all audio effects.
- */
-- (int)stopAllEffects;
-
-/** Preloads a specified audio effect file into the memory.
-
- To ensure smooth communication, limit the size of the audio effect file. CloudHub recommends using this method to preload the audio effect before calling the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.
-
- Supported audio formats: mp3, aac, m4a, 3gp, and wav.
-
- @note This method does not support online audio effect files.
- @param soundId  ID of the audio effect. Each audio effect has a unique ID.
- @param filePath Absolute path of the audio effect file.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)preloadEffect:(int)soundId
-            filePath:(NSString * _Nullable)filePath;
-
-/** Releases a specified preloaded audio effect from the memory.
-
- @param soundId ID of the audio effect. Each audio effect has a unique ID.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)unloadEffect:(int)soundId;
-
-/** Pauses a specified audio effect.
-
- @param soundId ID of the audio effect. Each audio effect has a unique ID.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)pauseEffect:(int)soundId;
-
-/** Pauses all audio effects.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)pauseAllEffects;
-
-/** Resumes playing a specified audio effect.
-
- @param soundId ID of the audio effect. Each audio effect has a unique ID.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)resumeEffect:(int)soundId;
-
-/** Resumes playing all audio effects.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)resumeAllEffects;
+- (void) seekInjectStreamUrl:(NSString *_Nonnull)url positionByMS:(NSUInteger)position;
+- (void) pauseInjectStreamUrl:(NSString *_Nonnull)url pause:(BOOL)pause;
+
+#pragma mark Local Movie File Playback
+- (int) startPlayMovie:(NSString * _Nonnull)filepath;
+- (int) stopPlayMovie:(NSString * _Nonnull)filepath;
+- (int) pausePlayMovie:(NSString * _Nonnull)filepath;
+- (int) resumePlayMovie:(NSString * _Nonnull)filepath;
+- (CloudHubLocalMovieInfo * _Nullable) getMovieInfo:(NSString * _Nonnull)filepath;
+- (NSUInteger) getMovieCurrentPosition:(NSString * _Nonnull)filepath;
+- (int) setMoviePosition:(NSUInteger)pos withFile:(NSString * _Nonnull)filepath;
 
 #if TARGET_OS_IPHONE
 #pragma mark Camera Control
@@ -1114,6 +653,7 @@ extraData:(NSString * _Nullable)extra;//cyjtodo comments
            to:(NSString * _Nullable)whom
      withData:(NSString * _Nullable)data;//cyjtodo comments
 
+- (int)evictUser:(NSString * _Nonnull)uid reason:(NSInteger)reason;//cyjtodo comments
 #pragma mark Miscellaneous Methods
 
 /**-----------------------------------------------------------------------------

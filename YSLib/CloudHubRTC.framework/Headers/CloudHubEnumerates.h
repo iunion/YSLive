@@ -251,27 +251,27 @@ typedef NS_ENUM(NSInteger, CloudHubErrorCode) {
 };
 
 /** The state of the audio mixing file. */
-typedef NS_ENUM(NSInteger, CloudHubAudioMixingStateCode){
-    /** The audio mixing file is playing. */
-    CloudHubAudioMixingStatePlaying = 710,
-    /** The audio mixing file pauses playing. */
-    CloudHubAudioMixingStatePaused = 711,
-    /** The audio mixing file stops playing. */
-    CloudHubAudioMixingStateStopped = 713,
-    /** An exception occurs when playing the audio mixing file. */
-    CloudHubAudioMixingStateFailed = 714,
+typedef NS_ENUM(NSInteger, CloudHubMovieStateCode){
+    /** The movie file is playing. */
+    CloudHubMovieStatePlaying = 710,
+    /** The movie file pauses playing. */
+    CloudHubMovieStatePaused = 711,
+    /** The movie file stops playing. */
+    CloudHubMovieStateStopped = 713,
+    /** An exception occurs when playing the movie file. */
+    CloudHubMovieStateFailed = 714,
 };
 
 /**  The error code of the audio mixing file. */
-typedef NS_ENUM(NSInteger, CloudHubAudioMixingErrorCode){
-    /** The SDK cannot open the audio mixing file. */
-   CloudHubAudioMixingErrorCanNotOpen = 701,
-   /** The SDK opens the audio mixing file too frequently. */
-   CloudHubAudioMixingErrorTooFrequentCall = 702,
-   /** The opening of the audio mixing file is interrupted. */
-   CloudHubAudioMixingErrorInterruptedEOF = 703,
+typedef NS_ENUM(NSInteger, CloudHubMovieErrorCode){
+    /** The SDK cannot open the movie file. */
+   CloudHubMovieErrorCanNotOpen = 701,
+   /** The SDK opens the movie file too frequently. */
+   CloudHubMovieErrorTooFrequentCall = 702,
+   /** The opening of the movie file is interrupted. */
+   CloudHubMovieErrorInterruptedEOF = 703,
    /** No error. */
-   CloudHubAudioMixingErrorOK = 0,
+   CloudHubMovieErrorOK = 0,
 };
 
 /** Video profile.
@@ -1334,4 +1334,11 @@ typedef NS_ENUM(NSInteger, CloudHubStreamInjectStatus) {
     /** 10: The external video stream is corrupted. */
     CloudHub_INJECT_STREAM_STATUS_PAUSE = 9,
     CloudHub_INJECT_STREAM_STATUS_POSITION = 10
+};
+
+typedef NS_ENUM(NSInteger, CloudHubVideoType) {
+    CloudHub_VIDEO_CAMERA =0,
+    CloudHub_VIDEO_VOD_MOVIE=1,
+    CloudHub_VIDEO_LOCAL_MOVIE=2,
+    CloudHub_VIDEO_SCREEN=3,
 };

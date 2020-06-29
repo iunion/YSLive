@@ -15,14 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 用户Id
 @property (nonatomic, strong) NSString *peerID;
 
-/// 用户视频流
-@property (nonatomic, strong) NSString *videoSourceID;
-/// 用户屏幕共享视频流
-@property (nonatomic, strong) NSString *shareSourceID;
-/// 用户媒体课件视频流
-@property (nonatomic, strong) NSString *mediaSourceID;
-/// 用户本地媒体文件视频流
-@property (nonatomic, strong) NSString *fileSourceID;
+///// 用户视频流
+//@property (nonatomic, strong) NSString *videoSourceID;
+///// 用户屏幕共享视频流
+//@property (nonatomic, strong) NSString *shareSourceID;
+///// 用户媒体课件视频流
+//@property (nonatomic, strong) NSString *mediaSourceID;
+///// 用户本地媒体文件视频流
+//@property (nonatomic, strong) NSString *fileSourceID;
 
 
 #pragma mark - 用户属性

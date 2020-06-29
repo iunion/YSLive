@@ -79,13 +79,26 @@ static NSString *const sYSUserAudioFail             = @"afail";
 static NSString *const sYSUserPrimaryColor          = @"primaryColor";
 
 /// 举手 YES NO 允许上台
-static  NSString *const sYSUserRaisehand            = @"raisehand";
+static NSString *const sYSUserRaisehand             = @"raisehand";
 
 /// 是否禁言 YES NO
-static  NSString *const sYSUserDisablechat          = @"disablechat";
+static NSString *const sYSUserDisablechat           = @"disablechat";
 
 /// 奖杯数
-static  NSString *const sYSUserGiftNumber           = @"giftnumber";
+static NSString *const sYSUserGiftNumber            = @"giftnumber";
+
+/// 网络状态 0:好 1：差
+static NSString *const sYSUserNetWorkState          = @"medialinebad";
+
+/// 用户设备类型
+/// AndroidPad:Android pad；AndroidPhone:Andriod phone；
+/// iPad:iPad；iPhone:iPhone；
+/// MacPC:mac explorer；MacClient:mac client；
+/// WindowPC:windows explorer；WindowClient:windows client
+static NSString *const sYSUserDevicetype            = @"devicetype";
+static NSString *const sYSUserSDKVersion            = @"version";
+static NSString *const sYSUserSystemVersion         = @"systemversion";
+static NSString *const sYSUserAppType               = @"appType";
 
 
 #pragma - mark 信令Key
@@ -116,6 +129,14 @@ static NSString *const YSRoomPubMsgTellNone                = @"__None";
 /// 服务器时间同步
 static NSString *const sYSSignalUpdateTime              = @"UpdateTime";
 
+/// 房间即将关闭消息
+static NSString *const sYSSignalName_Notice_PrepareRoomEnd   = @"Notice_PrepareRoomEnd";
+
+static NSString *const sYSSignalId_Notice_PrepareRoomEnd   = @"Notice_PrepareRoomEnd";
+
+///房间踢除所有用户消息
+static NSString *const sYSSignalNotice_EvictAllRoomUse  = @"Notice_EvictAllRoomUser";
+
 /// 上课
 static NSString *const sYSSignalClassBegin              = @"ClassBegin";
 
@@ -133,12 +154,102 @@ static NSString *const sYSSignalUnpublishNetworkMedia   = @"unpublishNetworkMedi
 /// 全体静音
 static NSString *const sYSSignalLiveAllNoAudio          = @"LiveAllNoAudio";
 
+/// 全体禁言
+static NSString *const sYSSignalEveryoneBanChat         = @"LiveAllNoChatSpeaking";
+
+/// 轮播
+static NSString *const sYSSignalVideoPolling            = @"VideoPolling";
+
+/// 切换窗口布局
+static NSString *const sYSSignalSetRoomLayout           = @"SetRoomLayout";
+
+/// 拖出视频
+static NSString *const sYSSignalVideoDrag               = @"VideoDrag";
+
+/// 拖出视频拉伸
+static NSString *const sYSSignalVideoChangeSize         = @"VideoChangeSize";
+
+/// 双击视频最大化
+static NSString *const sYSSignalDoubleClickVideo        = @"doubleClickVideo";
+
+///双师：老师拖拽视频布局相关信令
+static NSString *const sYSSignalDoubleTeacher           = @"one2oneVideoSwitchLayout";
+
+/// 助教刷新课件
+static NSString *const sYSSignalRefeshCourseware =      @"RemoteControlCourseware";
+
+/// 助教强制刷新
+static NSString *const sYSSignalRemoteControl    = @"RemoteControl";
+
+
+
 /// 投票
-static NSString *const sYSSignalVoteStart = @"VoteStart";
+static NSString *const sYSSignalVoteStart               = @"VoteStart";
 /// 发送投票
-static NSString *const sYSSignalVoteCommit  = @"voteCommit";
+static NSString *const sYSSignalVoteCommit              = @"voteCommit";
 /// 投票结果
-static NSString *const sYSSignalPublicVoteResult = @"PublicVoteResult";
+static NSString *const sYSSignalPublicVoteResult        = @"PublicVoteResult";
 
 
+///同意各端开始举手
+static NSString *const sYSSignalRaiseHandStart          = @"RaiseHandStart";
+/// 申请举手上台
+static NSString *const sYSSignalRaiseHand               = @"RaiseHand";
+///老师/助教  订阅/取消订阅举手列表
+static NSString *const sYSSignalRaiseHandResult         = @"RaiseHandResult";
+///老师/助教获取到的举手列表订阅结果
+static NSString *const sYSSignalServer_Sort_Result      = @"Server_Sort_Result";
+
+
+/// 提问 确认 回答 删除
+static NSString *const sYSSignalLiveQuestions            = @"LiveQuestions";
+///聊天中的送花
+static NSString *const sYSSignaSendFlower               = @"LiveGivigGifts";
+
+/// 答题卡
+static NSString *const sYSSignaling_Answer              = @"Answer";
+/// 答题卡提交选项
+static NSString *const sYSSignaling_AnswerCommit        = @"AnswerCommit";
+/// 老师获取学生的答题情况
+static NSString *const sYSSignaling_AnswerGetResult     = @"AnswerGetResult";
+/// 公布答题结果
+static NSString *const sYSSignaling_AnswerPublicResult  = @"AnswerPublicResult";
+
+
+/// 老师抢答器
+static NSString *const sYSSignaling_ShowContest         = @"ShowContest_v1";
+//发起抢答排序
+static NSString *const sYSSignaling_Contest             = @"Contest_v1";
+/// 收到学生抢答
+static NSString *const sYSSignaling_ContestCommit       = @"ContestCommit_v1";
+/// 抢答结果
+static NSString *const sYSSignaling_ContestResult       = @"ContestResult_v1";
+/// 订阅排序
+static NSString *const sYSSignaling_ContestSubsort      = @"ContestSubsort_v1";
+
+
+/// 计时器
+static NSString *const sYSSignaling_Timer               = @"timer";
+
+
+/// 点名 签到
+static NSString *const sYSSignaling_LiveCallRoll        = @"LiveCallRoll";
+
+
+/// 抽奖
+static NSString *const sYSSignaling_LiveLuckDraw        = @"LiveLuckDraw";
+/// 抽奖结果
+static NSString *const sYSSignaling_LiveLuckDrawResult  = @"LiveLuckDrawResult";
+
+/// 通知
+static NSString *const sYSSignaling_LiveNoticeInform    = @"LiveNoticeInform";
+/// 公告
+static NSString *const sYSSignaling_LiveNoticeBoard     = @"LiveNoticeBoard";
+
+
+#pragma mark -白板
+/// 白板视频标注
+static NSString *const sYSSignaling_VideoWhiteboard     = @"VideoWhiteboard";
+static NSString *const sYSSignaling_VideoWhiteboard_Id  = @"videoDrawBoard";
+static NSString *const sYSSignaling_Whiteboard_SharpsChange = @"SharpsChange";
 #endif /* YSSessionDefines_h */

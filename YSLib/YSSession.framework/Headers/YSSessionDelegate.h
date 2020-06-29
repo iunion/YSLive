@@ -12,11 +12,19 @@
 #import "YSRoomUser.h"
 #import "YSSessionForSignalingDelegate.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol YSSessionForUserDelegate;
 @protocol YSSessionForBigRoomDelegate;
 @protocol YSSessionForMessageDelegate;
 
 @protocol YSSessionDelegate <YSSessionForUserDelegate, YSSessionForBigRoomDelegate, YSSessionForSignalingDelegate, YSSessionForMessageDelegate>
+
+/// 进入前台
+- (void)handleEnterForeground;
+
+/// 进入后台
+- (void)handleEnterBackground;
 
 /**
  发生错误 回调
@@ -34,6 +42,55 @@
 
 /// 进入房间失败
 - (void)onRoomJoinFailed:(NSDictionary *)errorDic;
+
+/**
+    成功进入房间
+    @param ts 服务器当前时间戳，以秒为单位，如1572001230
+ */
+- (void)onRoomJoined:(long)ts;
+
+/**
+    成功重连房间
+    @param ts 服务器当前时间戳，以秒为单位，如1572001230
+ */
+- (void)onRoomReJoined:(long)ts;
+
+/**
+    已经离开房间
+ */
+- (void)onRoomLeft;
+
+
+/// 失去连接
+- (void)onRoomConnectionLost;
+
+
+/// 用户属性改变
+- (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties;
+
+/// 媒体流发布状态
+- (void)onRoomShareMediaFile:(YSSharedMediaFileModel *)mediaFileModel;
+/// 更新媒体流的信息
+- (void)onRoomUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel;
+
+/// 收到开始共享桌面
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID;
+/// 收到结束共享桌面
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID;
+
+
+/// 用户流音量变化
+- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume;
+
+/// 是否关闭摄像头
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID;
+/// 是否关闭麦克风
+- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid;
+
+/// 收到音视频流
+- (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID;
+/// 停止音视频流
+- (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID;
 
 @end
 
@@ -73,6 +130,7 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
 
 
 #endif /* YSSessionDelegate_h */

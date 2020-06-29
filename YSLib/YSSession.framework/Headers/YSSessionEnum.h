@@ -12,6 +12,15 @@
 
 #pragma mark - 房间相关
 
+/// 房间即将关闭消息原因类型
+typedef NS_OPTIONS(NSInteger, YSPrepareRoomEndType)
+{
+    /// 已经上课了但是老师退出房间达到10分钟
+    YSPrepareRoomEndType_TeacherLeaveTimeout = 1 << 0,
+    /// 房间预约结束时间超出30分钟
+    YSPrepareRoomEndType_RoomTimeOut = 1 << 1
+};
+
 /// YSRoomWarningCode 警告码
 typedef NS_ENUM(NSInteger, YSRoomWarningCode)
 {
@@ -306,5 +315,32 @@ typedef NS_ENUM(NSInteger, YSChatMessageType)
     /// 撒花提示信息
     YSChatMessageType_ImageTips
 };
+
+/// 通知类型
+typedef NS_ENUM(NSUInteger, YSQuestionState)
+{
+    /// 提问
+    YSQuestionState_Question = 0,
+    /// 审核的问题
+    YSQuestionState_Responed,
+    /// 回复
+    YSQuestionState_Answer
+};
+
+#pragma mark - UI布局相关
+
+/// 视频布局
+typedef NS_ENUM(NSUInteger, YSRoomLayoutType)
+{
+    /// 视频常规
+    YSRoomLayoutType_AroundLayout = 1,
+    /// 视频布局
+    YSRoomLayoutType_VideoLayout = 2,
+    /// 焦点布局
+    YSRoomLayoutType_FocusLayout = 3
+};
+
+
+
 
 #endif /* YSSessionEnum_h */

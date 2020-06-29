@@ -395,6 +395,7 @@
 		87517E3B24A354310094E2B3 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87517E3924A354310094E2B3 /* CloudHubRTC.framework */; };
 		87517E3E24A35C870094E2B3 /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87517E3D24A35C870094E2B3 /* YSLiveManager.m */; };
 		87517E3F24A35C870094E2B3 /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87517E3D24A35C870094E2B3 /* YSLiveManager.m */; };
+		87517E4F24A9F9290094E2B3 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 87517E3924A354310094E2B3 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		875A720823758F1900407A75 /* SCVideoGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720723758F1900407A75 /* SCVideoGridView.m */; };
 		875A720D237A541900407A75 /* YSFloatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720C237A541900407A75 /* YSFloatView.m */; };
 		875A723323824F1B00407A75 /* YSMediaMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A723223824F1B00407A75 /* YSMediaMarkView.m */; };
@@ -782,6 +783,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				87517E4F24A9F9290094E2B3 /* CloudHubRTC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4590,6 +4592,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.9.0.11;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4635,6 +4638,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.9.0.11;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (

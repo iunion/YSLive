@@ -64,18 +64,7 @@ See [CloudHubErrorCode](CloudHubErrorCode).
  @param uid     User ID. If the `uid` is specified in the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, the specified user ID is returned. If the user ID is not specified when the joinChannel method is called, the server automatically assigns a `uid`.
  @param elapsed Time elapsed (ms) from the user calling the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinChannel:(NSString * _Nonnull)channel withUid:(NSString * _Nonnull)uid elapsed:(NSInteger) elapsed;
-
-/** Occurs when the local user rejoins a channel.
-
- If the client loses connection with the server because of network problems, the SDK automatically attempts to reconnect and then triggers this callback upon reconnection, indicating that the user rejoins the channel with the assigned channel ID and user ID.
-
- @param engine  CloudHubRtcEngineKit object.
- @param channel Channel name.
- @param uid     User ID. If the `uid` is specified in the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, the specified user ID is returned. If the user ID is not specified when the joinChannel method is called, the server automatically assigns a `uid`.
- @param elapsed Time elapsed (ms) from starting to reconnect to a successful reconnection.
- */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didRejoinChannel:(NSString * _Nonnull)channel withUid:(NSUInteger)uid elapsed:(NSInteger) elapsed;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinChannel:(NSString * _Nonnull)channel withUid:(NSString * _Nonnull)uid serverTS:(NSUInteger)serverts elapsed:(NSInteger) elapsed;
 
 /** Occurs when the local user leaves a channel.
 
@@ -249,7 +238,7 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 @param size    Size of the first local video frame (width and height).
 @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK calls this callback.
 */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstRemoteVideoDecodedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nullable)sourceID Size:(CGSize)size elapsed:(NSInteger)elapsed;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstRemoteVideoDecodedOfSID:(NSString * _Nonnull)streamID Size:(CGSize)size elapsed:(NSInteger)elapsed;
 
 /** Occurs when a remote user's video stream playback pauses/resumes.
 
@@ -274,7 +263,7 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 
  @param uid    User ID of the remote user.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onVideoMuted:(BOOL)muted withUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onVideoMuted:(BOOL)muted withUid:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID;
 
 
 /** Occurs when a remote user's audio stream playback pauses/resumes.
@@ -304,7 +293,7 @@ The SDK triggers this callback when the remote user stops or resumes sending the
  @param uid      User ID of the remote user or local user (0) whose video size or rotation changes.
  @param size     New video size.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine videoSizeChangedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nullable)sourceID size:(CGSize)size;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine videoSizeChangedOfSID:(NSString * _Nonnull)streamID size:(CGSize)size;
 
 /** Occurs when the remote video state changes.
  
@@ -314,7 +303,7 @@ The SDK triggers this callback when the remote user stops or resumes sending the
  @param reason The reason of the remote video state change. See [CloudHubVideoRemoteStateReason](CloudHubVideoRemoteStateReason).
  @param elapsed The time elapsed (ms) from the local user calling the [joinChannel]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID type:(CloudHubVideoType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason;
 
 /** Occurs when the local video stream state changes.
 
@@ -351,11 +340,11 @@ The SDK reports the current video state in this callback.
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine localAudioStateChange:(CloudHubAudioLocalState)state error:(CloudHubAudioLocalError)error;
 
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onStreamInjectedStatus:(NSString * _Nonnull)url uid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID attributes:(NSString * _Nonnull)attributes status:(CloudHubStreamInjectStatus)status pos:(NSUInteger)pos;//cyjtodo comment
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onStreamInjectedStatus:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID attributes:(NSString * _Nonnull)attributes status:(CloudHubStreamInjectStatus)status pos:(NSUInteger)pos;//cyjtodo comment
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteScreenStartOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID;//cyjtodo comment
-
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteScreenStopOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID;//cyjtodo comment
+//- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteScreenStartOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID;//cyjtodo comment
+//
+//- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteScreenStopOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID;//cyjtodo comment
 
 #pragma mark Device Delegate Methods
 
@@ -373,19 +362,6 @@ The SDK triggers this callback when the local audio route switches to an earpiec
  */
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didAudioRouteChanged:(CloudHubAudioOutputRouting)routing;//cyjtodo
 
-#if TARGET_OS_IPHONE
-
-/** Occurs when a camera focus area changes. (iOS only.)
-
-The SDK triggers this callback when the local user changes the camera focus position by calling the [setCameraFocusPositionInPreview](setCameraFocusPositionInPreview:) method.
-
- @param engine CloudHubRtcEngineKit object.
- @param rect   Rectangular area in the camera zoom specifying the focus area.
- */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine cameraFocusDidChangedToRect:(CGRect)rect;
-#endif
-
-
 #pragma mark Statistics Delegate Methods
 
 /**-----------------------------------------------------------------------------
@@ -398,7 +374,7 @@ The SDK triggers this callback when the local user changes the camera focus posi
  @param engine CloudHubRtcEngineKit object.
  @param stats  Statistics of the CloudHubRtcEngineKit: [CloudHubChannelStats](CloudHubChannelStats).
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine reportRtcStats:(CloudHubChannelStats * _Nonnull)stats;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine reportRtcStats:(CloudHubChannelStats * _Nonnull)stats;//cyjtodo
 
 /** Reports the last mile network quality of the local user once every two seconds before the user joins a channel.
 
@@ -407,7 +383,7 @@ Last mile refers to the connection between the local device and CloudHub's edge 
  @param engine  CloudHubRtcEngineKit object.
  @param quality The last mile network quality based on the uplink and dowlink packet loss rate and jitter. See CloudHubNetworkQuality.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine lastmileQuality:(CloudHubNetworkQuality)quality;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine lastmileQuality:(CloudHubNetworkQuality)quality;//cyjtodo
 
 /** Reports the last mile network quality of each user in the channel once every two seconds.
 
@@ -418,7 +394,7 @@ Last mile refers to the connection between the local device and CloudHub's edge 
  @param txQuality Uplink transmission quality of the user in terms of the transmission bitrate, packet loss rate, average RTT (Round-Trip Time), and jitter of the uplink network. `txQuality` is a quality rating helping you understand how well the current uplink network conditions can support the selected CloudHubVideoEncoderConfiguration. For example, a 1000-Kbps uplink network may be adequate for video frames with a resolution of 640 &times; 480 and a frame rate of 15 fps in the Live-broadcast profile, but may be inadequate for resolutions higher than 1280 &times; 720. See  CloudHubNetworkQuality.
  @param rxQuality Downlink network quality rating of the user in terms of packet loss rate, average RTT, and jitter of the downlink network.  See CloudHubNetworkQuality.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine networkQuality:(NSUInteger)uid txQuality:(CloudHubNetworkQuality)txQuality rxQuality:(CloudHubNetworkQuality)rxQuality;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine networkQuality:(NSUInteger)uid txQuality:(CloudHubNetworkQuality)txQuality rxQuality:(CloudHubNetworkQuality)rxQuality;//cyjtodo
 
 /** Reports the statistics of the uploading local video streams once every two seconds. Same as [localVideoStatBlock]([CloudHubRtcEngineKit localVideoStatBlock:]).
 
@@ -467,57 +443,26 @@ Schemes such as FEC (Forward Error Correction) or retransmission counter the fra
 
 
 
-#pragma mark Audio Player Delegate Methods
+#pragma mark Movie Player Delegate Methods
 
 /**-----------------------------------------------------------------------------
- * @name Audio Player Delegate Methods
+ * @name Movie Player Delegate Methods
  * -----------------------------------------------------------------------------
  */
 
-/** Occurs when the audio mixing file playback finishes.
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onLocalMovieStateChanged:(NSString * _Nonnull)filepath
+    state:(CloudHubMovieStateCode)state
+    errorCode:(CloudHubMovieErrorCode)errorCode;//cyjtodo comments
 
-You can start an audio mixing file playback by calling the [startAudioMixing]([CloudHubRtcEngineKit startAudioMixing:loopback:replace:cycle:]) method. The SDK triggers this callback when the audio mixing file playback finishes.
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onLocalMovieProgress:(NSString * _Nonnull)filepath
+              pos:(NSUInteger)pos
+            total:(long)total;//cyjtodo comments
 
- If the [startAudioMixing]([CloudHubRtcEngineKit startAudioMixing:loopback:replace:cycle:]) method call fails, a warning code, CloudHubWarningCodeAudioMixingOpenError, returns in the [didOccurWarning]([CloudHubRtcEngineDelegate rtcEngine:didOccurWarning:]) callback.
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onRemoteMovieStateChanged:(NSString * _Nonnull)uid
+          movieID:(NSString * _Nonnull)movieID
+            state:(CloudHubMovieStateCode)state
+        errorCode:(CloudHubMovieErrorCode)errorCode;//cyjtodo comments
 
- @param engine CloudHubRtcEngineKit object.
- */
-- (void)rtcEngineLocalAudioMixingDidFinish:(CloudHubRtcEngineKit * _Nonnull)engine;
-
-/** Occurs when the state of the local user's audio mixing file changes.
-
-- When the audio mixing file plays, pauses playing, or stops playing, this callback returns 710, 711, or 713  in state, and 0 in `errorCode`.
-- When exceptions occur during playback, this callback returns 714 in `state` and an error in `errorCode`.
-- If the local audio mixing file does not exist, or if the SDK does not support the file format or cannot access the music file URL, the SDK returns `CloudHubWarningCodeAudioMixingOpenError = 701`.
-
-@param engine CloudHubRtcEngineKit object.
-@param state The state code, see CloudHubAudioMixingStateCode.
-@param errorCode The error code, see CloudHubAudioMixingErrorCode.
-*/
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine localAudioMixingStateDidChanged:(CloudHubAudioMixingStateCode)state errorCode:(CloudHubAudioMixingErrorCode)errorCode;
-
-/** Occurs when a remote user starts audio mixing.
-
- The SDK triggers this callback when a remote user calls the [startAudioMixing]([CloudHubRtcEngineKit startAudioMixing:loopback:replace:cycle:]) method.
-
- @param engine CloudHubRtcEngineKit object.
- */
-- (void)rtcEngineRemoteAudioMixingDidStart:(CloudHubRtcEngineKit * _Nonnull)engine;
-
-/** Occurs when a remote user finishes audio mixing.
-
- @param engine CloudHubRtcEngineKit object.
- */
-- (void)rtcEngineRemoteAudioMixingDidFinish:(CloudHubRtcEngineKit * _Nonnull)engine;
-
-/** Occurs when the local audio effect playback finishes.
-
- You can start a local audio effect playback by calling the [playEffect]([CloudHubRtcEngineKit playEffect:filePath:loopCount:pitch:pan:gain:publish:]) method. The SDK triggers this callback when the local audio effect file playback finishes.
-
- @param engine  CloudHubRtcEngineKit object.
- @param soundId ID of the local audio effect. Each local audio effect has a unique ID.
- */
-- (void)rtcEngineDidAudioEffectFinish:(CloudHubRtcEngineKit * _Nonnull)engine soundId:(NSInteger)soundId;
 
 #pragma mark Conrolling Message Delegate Methods
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
@@ -546,4 +491,6 @@ associatedWithMsg:(NSString * _Nullable)assMsgID
             msgId:(NSString * _Nonnull)msgId
              from:(NSString * _Nullable)fromuid
          withData:(NSString * _Nullable)data;//cyjtodo comments
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onLocalUserEvicted:(NSInteger)reason;//cyjtodo comments
 @end
