@@ -4421,7 +4421,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     NSTimeInterval time = ts - self->_answerStartTime;
                     NSString *timestr =  [NSDate bm_countDownENStringDateFromTs:time];
                     
-                    NSDictionary *data = [YSLiveUtil convertWithData:[dic bm_stringForKey:@"data"]];
+                    NSDictionary *data = [YSSessionUtil convertWithData:[dic bm_stringForKey:@"data"]];
 //                    NSDictionary *data = [dic bm_dictionaryForKey:@"data"];
                     NSString *userName = [data bm_stringForKey:@"nickname"];
                     NSString *selectOpts = [data bm_stringForKey:@"selectOpts"];
@@ -4491,7 +4491,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     if (self.liveManager.isBigRoom)
     {
-        [self.liveManager.roomManager getRoomUserWithPeerId:fromID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
+        [self.liveManager getRoomUserWithId:fromID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
@@ -4502,7 +4502,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        YSRoomUser *user = [weakSelf.liveManager.roomManager getRoomUserWithUId:fromID];
+        YSRoomUser *user = [weakSelf.liveManager getRoomUserWithId:fromID];
         [self answerResultViewWithUser:user answerId:answerId];
         
     }
@@ -4734,7 +4734,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 if (weakSelf.liveManager.isBigRoom)
                 {
-                    [weakSelf.liveManager.roomManager getRoomUserWithPeerId:self->contestPeerId callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
+                    [weakSelf.liveManager getRoomUserWithPeerId:self->contestPeerId callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
