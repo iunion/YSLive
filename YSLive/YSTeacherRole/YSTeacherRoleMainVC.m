@@ -4144,7 +4144,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case SCToolBoxTypeAnswer:
         {
             /// 答题器
-            [self.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+            [self.liveManager sendSignalingTeacherToAnswerOccupyed];
         }
             break;
         case SCToolBoxTypeAlbum:
@@ -4156,7 +4156,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case SCToolBoxTypeTimer:
         {
             /// 计时器
-            [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300 completion:nil];
+            [self.liveManager sendSignalingTeacherToStartTimerWithTime:300 isStatus:false isRestart:false isShow:false defaultTime:300];
         }
             break;
         case SCToolBoxTypeResponder:
@@ -4183,14 +4183,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.answerView = [[SCTeacherAnswerView alloc] init];
     [self.answerView showTeacherAnswerViewType:SCTeacherAnswerViewType_AnswerPub inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     self.answerView.submitBlock = ^(NSArray * _Nonnull submitArr) {
-            
-        [weakSelf.liveManager sendSignalingTeacherToAnswerWithOptions:submitArr answerID:answerId completion:nil];
-    
+        
+        [weakSelf.liveManager sendSignalingTeacherToAnswerWithOptions:submitArr answerID:answerId];
+        
     };
     
     self.answerView.closeBlock = ^(BOOL isAnswerIng) {
-        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId completion:nil];
-        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId];
+        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResult];
     };
 }
 #pragma mark 收到答题卡
@@ -4277,26 +4277,26 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [weakSelf getAnswerDetailDataWithAnswerID:answerId];
         }
         
-        [weakSelf.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerId completion:nil];//获取结果
+        [weakSelf.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerId];//获取结果
         
-        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId completion:nil];
+        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId];
     };
     
     self.answerResultView.closeBlock = ^(BOOL isAnswerIng) {
       
         if (isAnswerIng)
         {
-            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId completion:nil];
+            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId];
         }
         else
         {
-            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResult];
         }
  
     };
     
     //先获取一次结果
-    [self.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerId completion:nil];
+    [self.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerId];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.answerTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
@@ -4320,7 +4320,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if ((int)time % 5 == 0)
     {
-        [self.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerID completion:nil];
+        [self.liveManager sendSignalingTeacherToAnswerGetResultWithAnswerID:answerID];
     }
     NSString *str =  [NSDate bm_countDownENStringDateFromTs:time];
     self.answerResultView.timeStr = str;
@@ -4386,7 +4386,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     NSTimeInterval time = self.liveManager.tCurrentTime - _answerStartTime;
     NSString *duration =  [NSDate bm_countDownENStringDateFromTs:time];
-    [self.liveManager sendSignalingTeacherToAnswerPublicResultWithAnswerID:answerId selecteds:self.answerStatistics duration:duration detailData:detailData totalUsers:_totalUsers completion:nil];
+    [self.liveManager sendSignalingTeacherToAnswerPublicResultWithAnswerID:answerId selecteds:self.answerStatistics duration:duration detailData:detailData totalUsers:_totalUsers];
 }
 
 ///收到答题中的统计结果
@@ -4484,9 +4484,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.answerResultView.againBlock = ^{
             [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
             // 删除答题结果信令
-            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResult];
             // 重新开始
-            [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+            [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyed];
         };
         
         if (_isOpenResult)
@@ -4520,16 +4520,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     
     self.answerResultView.closeBlock = ^(BOOL isAnswerIng) {
-        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId completion:nil];
-        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId];
+        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResult];
     };
     
     self.answerResultView.againBlock = ^{
         [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
         // 删除答题结果信令
-        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
+        [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResult];
         // 重新开始
-        [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
+        [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyed];
     };
 }
 
@@ -4563,7 +4563,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)startClickedWithUpPlatform:(BOOL)upPlatform
 {
     autoUpPlatform = upPlatform;
-    [self.liveManager sendSignalingTeacherToStartResponderCompletion:nil];
+    [self.liveManager sendSignalingTeacherToStartResponder];
     contestCommitNumber = 0;
     contestPeerId = @"";
 }
@@ -4577,7 +4577,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)teacherResponderCloseClicked
 {
-    [self.liveManager sendSignalingTeacherToCloseResponderCompletion:nil];
+    [self.liveManager sendSignalingTeacherToCloseResponder];
     [self.responderView dismiss:nil animated:NO dismissBlock:nil];
     [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherResponderCountDownKey];
 }
@@ -4596,7 +4596,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    }
 //    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     {
-         [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300 completion:nil];
+         [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300];
     }
 }
 
@@ -4617,7 +4617,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 订阅抢答排序
 //    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     {
-        [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300 completion:nil];
+        [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300];
     }
     
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
@@ -4661,9 +4661,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self.responderView setPersonName:[NSString stringWithFormat:@"%@",YSLocalized(@"Res.lab.fail")]];
 //                if ([fromID isEqualToString:self.liveManager.localUser.peerID])
                  {
-                     [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@"" completion:nil];
-                     [weakSelf.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
-                     [weakSelf.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
+                     [weakSelf.liveManager sendSignalingTeacherToContestResultWithName:@""];
+                     [weakSelf.liveManager sendSignalingTeacherToCancelContestSubsort];
+                     [weakSelf.liveManager sendSignalingTeacherToDeleteContest];
                  }
                 
             }
@@ -4698,7 +4698,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 //    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
-        [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName completion:nil];
+        [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName];
         if (self.videoViewArray.count < self->maxVideoCount)
         {
             if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
@@ -4720,8 +4720,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
     }
     
-    [self.liveManager sendSignalingTeacherToCancelContestSubsortCompletion:nil];
-    [self.liveManager sendSignalingTeacherToDeleteContestCompletion:nil];
+    [self.liveManager sendSignalingTeacherToCancelContestSubsort];
+    [self.liveManager sendSignalingTeacherToDeleteContest];
 }
 
 /// 收到学生抢答
@@ -5000,13 +5000,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)startWithTime:(NSInteger)time
 {
     timer_defaultTime = time;
-    [self.liveManager sendSignalingTeacherToStartTimerWithTime:time isStatus:YES isRestart:YES isShow:YES defaultTime:timer_defaultTime completion:nil];
+    [self.liveManager sendSignalingTeacherToStartTimerWithTime:time isStatus:YES isRestart:YES isShow:YES defaultTime:timer_defaultTime];
 }
 
 /// 暂停继续
 - (void)pasueWithTime:(NSInteger)time pasue:(BOOL)pasue
 {
-    [self.liveManager sendSignalingTeacherToStartTimerWithTime:time isStatus:!pasue isRestart:NO isShow:YES defaultTime:timer_defaultTime completion:nil];
+    [self.liveManager sendSignalingTeacherToStartTimerWithTime:time isStatus:!pasue isRestart:NO isShow:YES defaultTime:timer_defaultTime];
 }
 
 
@@ -5014,7 +5014,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)resetWithTIme:(NSInteger)time pasue:(BOOL)pasue
 {
     
-    [self.liveManager sendSignalingTeacherToStartTimerWithTime:timer_defaultTime isStatus:!pasue isRestart:YES isShow:YES defaultTime:timer_defaultTime completion:nil];;
+    [self.liveManager sendSignalingTeacherToStartTimerWithTime:timer_defaultTime isStatus:!pasue isRestart:YES isShow:YES defaultTime:timer_defaultTime];
 }
 
 - (void)againTimer
@@ -5030,7 +5030,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherTimerCountDownKey];
 
-    [self.liveManager sendSignalingTeacherToDeleteTimerCompletion:nil];
+    [self.liveManager sendSignalingTeacherToDeleteTimer];
 }
 
 
@@ -5048,7 +5048,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)startPollingWithTime:(NSInteger)time
 {
     _isPolling = YES;
-    [self.liveManager sendSignalingTeacherToStartVideoPollingWithUserID:self.liveManager.localUser.peerID completion:nil];
+    [self.liveManager sendSignalingTeacherToStartVideoPollingWithUserID:self.liveManager.localUser.peerID];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.pollingTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     
