@@ -5556,7 +5556,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case SCVideoViewControlTypeAllRestore:
         {
             // 全体复位
-            for (YSRoomUser * user in [YSLiveManager shareInstance].userList)
+            for (YSRoomUser * user in self.liveManager.userList)
             {
                 NSDictionary * data = @{
                     @"isDrag":@0,
