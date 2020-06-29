@@ -2873,14 +2873,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             NSInteger studentNum = self.liveManager.studentCount;
             NSInteger assistantNum = self.liveManager.assistantCount;
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:ceil((CGFloat)(studentNum + assistantNum)/(CGFloat)onePageMaxUsers)];
-#if YSAPP_NEWERROR
-            [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+            [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                    // UI更新代码
                    [weakSelf.teacherListView setDataSource:users withType:SCBottomToolBarTypePersonList userNum:studentNum];
                 });
             }];
-#endif
         }
         else
         {
@@ -5863,7 +5861,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         NSInteger studentNum = [self.liveManager.userCountDetailDic bm_intForKey:@"2"];
         NSInteger assistantNum = [self.liveManager.userCountDetailDic bm_intForKey:@"1"];
 
-        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+        [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // UI更新代码
 
@@ -5887,7 +5885,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         BMWeakSelf
         NSInteger studentNum = self.liveManager.studentCount ;
         NSInteger assistantNum = self.liveManager.assistantCount;
-        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+        [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // UI更新代码
                 
@@ -6145,7 +6143,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageType_OnlyImage withMemberModel:nil];
+                BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:YSChatMessageType_OnlyImage withMemberModel:nil];
                 if (!isSucceed)
                 {
                     BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];

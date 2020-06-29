@@ -2519,7 +2519,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             NSInteger studentNum = self.liveManager.userCount;
             NSInteger assistantNum = self.liveManager.assistantCount;
             [self.teacherListView setPersonListCurrentPage:_personListCurentPage totalPage:ceil((CGFloat)(studentNum + assistantNum)/(CGFloat)onePageMaxUsers)];
-            [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+            [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:_personListCurentPage*onePageMaxUsers maxNumber:onePageMaxUsers search:@"" order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                    // UI更新代码
                     [weakSelf.teacherListView setUserRole:weakSelf.liveManager.localUser.role];
@@ -2632,7 +2632,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         NSInteger studentNum = self.liveManager.studentCount;
         NSInteger assistantNum = self.liveManager.assistantCount;
 
-        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+        [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // UI更新代码
 
@@ -2657,7 +2657,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         BMWeakSelf
         NSInteger studentNum = self.liveManager.studentCount ;
         NSInteger assistantNum = self.liveManager.assistantCount;
-        [self.liveManager.roomManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
+        [self.liveManager getRoomUsersWithRole:@[@(YSUserType_Assistant),@(YSUserType_Student)] startIndex:0 maxNumber:(studentNum + assistantNum) search:searchContent order:@{} callback:^(NSArray<YSRoomUser *> * _Nonnull users, NSError * _Nonnull error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // UI更新代码
                 
