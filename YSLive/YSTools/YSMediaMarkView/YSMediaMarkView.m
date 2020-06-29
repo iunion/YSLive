@@ -162,11 +162,13 @@
     
     [dic setObject:[YSLiveManager sharedInstance].localUser.nickName forKey:@"nickname"];
     
-    NSData *newData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
-    NSString *data = [[NSString alloc] initWithData:newData encoding:NSUTF8StringEncoding];
-    NSString *dataString = [data stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
-    [[YSRoomInterface instance] pubMsg:sYSSignalSharpsChange msgID:shapeID toID:YSRoomPubMsgTellAll data:dataString save:YES associatedMsgID:sYSSignalVideoWhiteboard associatedUserID:nil expires:0 completion:nil];
+//    NSData *newData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+//    NSString *data = [[NSString alloc] initWithData:newData encoding:NSUTF8StringEncoding];
+//    NSString *dataString = [data stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//
+//    [[YSRoomInterface instance] pubMsg:sYSSignalSharpsChange msgID:shapeID toID:YSRoomPubMsgTellAll data:dataString save:YES associatedMsgID:sYSSignalVideoWhiteboard associatedUserID:nil expires:0 completion:nil];
+#warning 视频标注
+        [[YSLiveManager sharedInstance] pubMsg:sYSSignalSharpsChange msgId:shapeID to:YSRoomPubMsgTellAll withData:dic associatedWithUser:nil associatedWithMsg:sYSSignalVideoWhiteboard save:YES];
 }
 
 - (void)handleSignal:(NSDictionary *)dictionary isDel:(BOOL)isDel

@@ -315,6 +315,11 @@
     
     [theVideoView bringSubviewToFront:newVideoView.backVideoView];
     
+    if (theVideoView)
+    {
+        [self playVideoAudioWithVideoView:theVideoView];
+    }
+    
     return newVideoView;
 }
 
@@ -355,6 +360,11 @@
                 break;
             }
         }
+    }
+    
+    if (delVideoView)
+    {
+        [self stopVideoAudioWithVideoView:delVideoView];
     }
     
     return delVideoView;
@@ -429,7 +439,7 @@
 }
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceID
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID
 {
     
 }
@@ -441,17 +451,19 @@
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+- (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
     SCVideoView *view = [self getVideoViewWithPeerId:uid];
     YSRoomUser *roomUser = view.roomUser;
-    [self.liveManager playVideoWithUserId:uid streamID:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:view];
+    [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:view];
+
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID
+- (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    [self.liveManager stopVideoWithUserId:uid streamID:sourceID];
+    [self.liveManager stopVideoWithUserId:uid streamID:streamID];
+
 }
 
 #pragma mark 用户网络差，被服务器切换媒体线路

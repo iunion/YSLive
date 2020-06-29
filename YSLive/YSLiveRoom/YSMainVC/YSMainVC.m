@@ -9,8 +9,7 @@
 #import "YSMainVC.h"
 #import <objc/message.h>
 #import <BMKit/BMScrollPageView.h>
-//#import "UIView+BMBadge.h"
-//#import "BMCountDownManager.h"
+
 #import "BMAlertView+YSDefaultAlert.h"
 
 #import "YSBarrage.h"
@@ -22,7 +21,6 @@
 #import "YSCommentPopView.h"
 #import "YSChatMemberListVC.h"
 
-#import "YSLiveMediaModel.h"
 
 #import "YSQuestionView.h"
 #import "YSSignedAlertView.h"
@@ -44,10 +42,6 @@
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
-// 视频高度
-//static const CGFloat kVideo_Height_iPhone = 240.0f;
-//static const CGFloat kVideo_Height_iPad = 360.0f;
-//#define VIDEOVIEW_HEIGHT            ([UIDevice bm_isiPad] ? kVideo_Height_iPad : kVideo_Height_iPhone)
 // 上麦视频间隔
 #define VIDEOVIEW_HORIZON_GAP 1
 #define VIDEOVIEW_VERTICAL_GAP 1

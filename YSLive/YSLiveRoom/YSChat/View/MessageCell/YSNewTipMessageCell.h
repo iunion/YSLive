@@ -6,10 +6,7 @@
 //  Copyright © 2018年 talkcloud. All rights reserved.
 //
 
-
-//#import "YSChatMessageModel.h"
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface YSNewTipMessageCell : UITableViewCell
 
