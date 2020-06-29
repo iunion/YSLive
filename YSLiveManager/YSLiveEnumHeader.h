@@ -9,7 +9,6 @@
 #ifndef YSLiveEnumHeader_h
 #define YSLiveEnumHeader_h
 
-
 /// 签到时间
 typedef NS_ENUM(NSUInteger, YSSignCountDownType)
 {
