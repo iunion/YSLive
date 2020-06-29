@@ -9,15 +9,6 @@
 #ifndef YSLiveEnumHeader_h
 #define YSLiveEnumHeader_h
 
-/// 房间即将关闭消息原因类型
-typedef NS_OPTIONS(NSInteger, YSPrepareRoomEndType)
-{
-    /// 已经上课了但是老师退出房间达到10分钟
-    YSPrepareRoomEndType_TeacherLeaveTimeout = 1 << 0,
-    /// 房间预约结束时间超出30分钟
-    YSPrepareRoomEndType_RoomTimeOut = 1 << 1
-};
-
 
 /// 签到时间
 typedef NS_ENUM(NSUInteger, YSSignCountDownType)
