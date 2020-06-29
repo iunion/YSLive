@@ -1416,33 +1416,7 @@
 {
     [super onRoomJoined:ts];
     
-#if 0
-    if (self.liveManager.isBeginClass)
-    {
-        needFreshVideoView = YES;
-        
-        // 因为切换网络会先调用classBegin
-        // 所以要在这里刷新VideoAudio
-        [self rePlayVideoAudio];
-    }
-#endif
 }
-
-#if 0
-- (void)rePlayVideoAudio
-{
-    for (SCVideoView *videoView in self.videoViewArray)
-    {
-        [self stopVideoAudioWithVideoView:videoView];
-        if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {
-            [videoView freshWithRoomUserProperty:YSCurrentUser];
-        }
-        
-        [self playVideoAudioWithVideoView:videoView];
-    }
-}
-#endif
 
 
 #pragma mark 上下课
@@ -1458,10 +1432,10 @@
     if (teacher.publishState >= YSUser_PublishState_VIDEOONLY && teacher.publishState != 4)
     {
         self.showRoomVideo = YES;
-        NSString *sourceId = [self.liveManager getUserSourceIdWithUserId:self.roomVideoPeerID];
-        if (sourceId)
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:self.roomVideoPeerID];
+        if (streamID)
         {
-            [self.liveManager playVideoWithUserId:self.roomVideoPeerID sourceId:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+            [self.liveManager playVideoWithUserId:self.roomVideoPeerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
         }
     }
     
@@ -1678,7 +1652,7 @@
     }
     else
     {
-        [self.liveManager playVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+        [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
         
         if (self.isFullScreen)
         {
@@ -1699,7 +1673,7 @@
     
     if (mediaModel.isVideo)
     {
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId sourceId:mediaModel.sourceId];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID];
 
         self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;
@@ -1772,29 +1746,29 @@
 #pragma mark 共享桌面
 
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
     self.shareDesktop = YES;
-    NSString *userSourceId = [self.liveManager getUserSourceIdWithUserId:self.roomVideoPeerID];
-    [self.liveManager stopVideoWithUserId:self.roomVideoPeerID sourceId:userSourceId];
+    NSString *userStreamID = [self.liveManager getUserStreamIdWithUserId:self.roomVideoPeerID];
+    [self.liveManager stopVideoWithUserId:self.roomVideoPeerID streamID:userStreamID];
     self.roomVideoPeerID = nil;
     
-    [self.liveManager playVideoWithUserId:userId sourceId:sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+    [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
     
     self.liveBgView.canZoom = YES;
     [self freshMediaView];
 }
 
 /// 停止桌面共享
-- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceId:(NSString *)sourceID
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
     self.shareDesktop = NO;
-    [self.liveManager stopVideoWithUserId:userId sourceId:sourceID];
+    [self.liveManager stopVideoWithUserId:userId streamID:streamID];
     
     self.roomVideoPeerID = self.liveManager.teacher.peerID;
-    NSString *userSourceId = [self.liveManager getUserSourceIdWithUserId:self.liveManager.teacher.peerID];
+    NSString *userStreamID = [self.liveManager getUserStreamIdWithUserId:self.liveManager.teacher.peerID];
     
-    [self.liveManager playVideoWithUserId:userId sourceId:userSourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+    [self.liveManager playVideoWithUserId:userId streamID:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
     
     self.liveBgView.canZoom = NO;
     self.liveBgView.backScrollView.zoomScale = 1.0;
