@@ -81,6 +81,7 @@
     [super layoutSubviews];
     
     CGFloat width = 0.f;
+
     if (self.model.chatMessageType == YSChatMessageType_ImageTips)
     {
         width = [self.iMessageLabel.attributedText bm_sizeToFitHeight:25].width+20;
