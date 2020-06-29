@@ -1641,6 +1641,10 @@
 /// 显示白板视频标注
 - (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
 {
+    if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
+    {
+        return;
+    }
     if (self.mp4BgView.hidden)
     {
         return;
@@ -1661,6 +1665,10 @@
 /// 绘制白板视频标注
 - (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
 {
+    if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
+    {
+        return;
+    }
     if (inlist)
     {
         [self.mediaMarkSharpsDatas addObject:data];
