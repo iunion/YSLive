@@ -9,16 +9,6 @@
 #ifndef YSLiveEnumHeader_h
 #define YSLiveEnumHeader_h
 
-/// 房间即将关闭消息原因类型
-typedef NS_OPTIONS(NSInteger, YSPrepareRoomEndType)
-{
-    /// 已经上课了但是老师退出房间达到10分钟
-    YSPrepareRoomEndType_TeacherLeaveTimeout = 1 << 0,
-    /// 房间预约结束时间超出30分钟
-    YSPrepareRoomEndType_RoomTimeOut = 1 << 1
-};
-
-
 /// 签到时间
 typedef NS_ENUM(NSUInteger, YSSignCountDownType)
 {
@@ -34,16 +24,6 @@ typedef NS_ENUM(NSUInteger, YSSignCountDownType)
     YSSignCountDownType_THIRTY
 };
 
-/// 通知类型
-typedef NS_ENUM(NSUInteger, YSQuestionState)
-{
-    /// 提问
-    YSQuestionState_Question = 0,
-    /// 审核的问题
-    YSQuestionState_Responed,
-    /// 回复
-    YSQuestionState_Answer
-};
 
 /// 小班课底部工具按钮
 typedef NS_ENUM(NSInteger, SCBottomToolBarType)
