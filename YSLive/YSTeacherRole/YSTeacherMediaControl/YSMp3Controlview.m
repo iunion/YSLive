@@ -156,7 +156,7 @@
 
 - (void)sliderViewStart:(YSMediaSlider *)sender
 {
-    [[YSLiveManager sharedInstance].roomManager pauseMediaFile:YES];
+    [[YSLiveManager sharedInstance] pauseShareOneMediaFile:YES];
 }
 
 - (void)sliderViewEnd:(YSMediaSlider *)sender
@@ -168,7 +168,7 @@
         [self.delegate sliderMp3ControlView:sender.value * self.duration];
     }
     
-    [[YSLiveManager sharedInstance].roomManager pauseMediaFile:NO];
+    [[YSLiveManager sharedInstance] pauseShareOneMediaFile:NO];
 }
 
 - (void)playBtnClicked:(UIButton *)btn

@@ -130,7 +130,7 @@ UITextViewDelegate
         make.right.bmmas_equalTo(-10);
         make.bottom.bmmas_equalTo(-9);
     }];
-    BOOL everyoneBanChat = [YSLiveManager shareInstance].isEveryoneBanChat;
+    BOOL everyoneBanChat = [YSLiveManager sharedInstance].isEveryoneBanChat;
     self.everyoneBanChat = everyoneBanChat;
     if (everyoneBanChat)
     {
@@ -141,9 +141,9 @@ UITextViewDelegate
     self.maskView.backgroundColor = [YSSkinDefineColor(@"defaultTitleColor") changeAlpha:0.8];
     [self addSubview:self.maskView];
   
-    if (![YSLiveManager shareInstance].isBeginClass)
+    if (![YSLiveManager sharedInstance].isClassBegin)
     {
-       if (![YSLiveManager shareInstance].roomConfig.isChatBeforeClass)
+       if (![YSLiveManager sharedInstance].roomConfig.isChatBeforeClass)
        {
            self.maskView.hidden = NO;
         }
@@ -165,15 +165,15 @@ UITextViewDelegate
 {
     if([text isEqualToString:@"\n"])
     {
-        BOOL disablechat = [YSCurrentUser.properties bm_boolForKey:sUserDisablechat];
-        BOOL everyoneBanChat = [YSLiveManager shareInstance].isEveryoneBanChat;
+        BOOL disablechat = [YSCurrentUser.properties bm_boolForKey:sYSUserDisablechat];
+        BOOL everyoneBanChat = [YSLiveManager sharedInstance].isEveryoneBanChat;
         if (disablechat || everyoneBanChat)
         {
             [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Prompt.BanChat") message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:nil];
             return NO;
         }
         
-        BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:textView.text  withMessageType:YSChatMessageTypeText withMemberModel:self.memberModel];
+        BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:textView.text  withMessageType:YSChatMessageType_Text withMemberModel:self.memberModel];
         
         if (!isSucceed) {
             BMLog(@"d发送失败");
@@ -212,7 +212,7 @@ UITextViewDelegate
 - (void)flowerBtnClick:(UIButton*)sender
 {
     
-    if (![[YSLiveManager shareInstance].teacher.peerID bm_isNotEmpty]) {
+    if (![[YSLiveManager sharedInstance].teacher.peerID bm_isNotEmpty]) {
         return;
     }
     
@@ -257,8 +257,8 @@ UITextViewDelegate
 #pragma mark - 点击跳转成员列表
 - (void)placeholderButtonClick:(UIButton *)sender
 {
-    BOOL dd = [YSLiveManager shareInstance].roomConfig.isDisablePrivateChat;
-    if (![YSLiveManager shareInstance].roomConfig.isDisablePrivateChat)
+    BOOL dd = [YSLiveManager sharedInstance].roomConfig.isDisablePrivateChat;
+    if (![YSLiveManager sharedInstance].roomConfig.isDisablePrivateChat)
     {
         if ([self.memberDelegate respondsToSelector:@selector(clickPlaceholderdBtn)])
         {

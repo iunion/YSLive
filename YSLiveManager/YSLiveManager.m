@@ -44,7 +44,7 @@
 {
     [YSWhiteBoardManager destroy];
 
-    [YSSessionManager destory];
+    [YSSessionManager destroy];
 }
 
 - (instancetype)init
