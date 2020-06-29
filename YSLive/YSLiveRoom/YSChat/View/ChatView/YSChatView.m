@@ -7,7 +7,6 @@
 //
 
 #import "YSChatView.h"
-#import "YSChatMessageModel.h"
 #import "YSEmotionView.h"
 #import "YSNewTipMessageCell.h"
 #import "YSNewPictureCell.h"
@@ -171,8 +170,8 @@ UITableViewDataSource
     BMWeakSelf
     switch (model.chatMessageType)
     {
-        case YSChatMessageTypeImageTips:
-        case YSChatMessageTypeTips:
+        case YSChatMessageType_ImageTips:
+        case YSChatMessageType_Tips:
         {
             YSNewTipMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSNewTipMessageCell.class) forIndexPath:indexPath];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -181,7 +180,7 @@ UITableViewDataSource
             return cell;
             break;
         }
-        case YSChatMessageTypeText:
+        case YSChatMessageType_Text:
         {
             YSTextMessageCell * cell =[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSTextMessageCell.class) forIndexPath:indexPath];
             cell.model = model;
@@ -196,7 +195,7 @@ UITableViewDataSource
             return cell;
             break;
         }
-        case YSChatMessageTypeOnlyImage:
+        case YSChatMessageType_OnlyImage:
         {
             YSNewPictureCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([YSNewPictureCell class]) forIndexPath:indexPath];
             cell.model = model;
@@ -239,7 +238,7 @@ UITableViewDataSource
     
     switch (model.chatMessageType)
     {
-        case YSChatMessageTypeText:
+        case YSChatMessageType_Text:
         {
             if (model.cellHeight)
             {
@@ -254,12 +253,12 @@ UITableViewDataSource
             }
             break;
         }
-        case YSChatMessageTypeOnlyImage:
+        case YSChatMessageType_OnlyImage:
         {
             return kBMScale_H(12)+kBMScale_H(12)+kBMScale_H(88)+ kBMScale_H(18);
             break;
         }
-        case YSChatMessageTypeTips:
+        case YSChatMessageType_Tips:
         {
             return kBMScale_H(10)+kBMScale_H(25)+ kBMScale_H(10);
             break;
@@ -332,7 +331,7 @@ UITableViewDataSource
     userModel.nickName =  senderName;
     model.timeInterval = [self systemTimeInfo];
     model.sendUser = userModel;
-    model.chatMessageType = YSChatMessageTypeImageTips;
+    model.chatMessageType = YSChatMessageType_ImageTips;
     [self.messageList addObject:model];
     
     [self reloadTableView];

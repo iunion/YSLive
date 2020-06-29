@@ -446,7 +446,7 @@
 - (void)setIVolume:(NSUInteger)iVolume
 {
     _iVolume = iVolume;
-    if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager shareInstance].isEveryoneNoAudio && (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4) && self.roomUser.role != YSUserType_Teacher))
+    if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4) && self.roomUser.role != YSUserType_Teacher))
     {
         self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
@@ -891,7 +891,7 @@
         self.backVideoView.hidden = YES;
         
         BOOL deviceError = NO;
-        if ([self.roomUser.properties bm_containsObjectForKey:sUserVideoFail])
+        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserVideoFail])
         {
             self.videoDeviceState = self.roomUser.vfail;
             if (self.roomUser.vfail != YSDeviceFaultNone)
@@ -920,16 +920,16 @@
                 {
                     isInBackGround = YES;
                 }
-                if (isInBackGround != [self.roomUser.properties bm_boolForKey:sUserIsInBackGround])
+                if (isInBackGround != [self.roomUser.properties bm_boolForKey:sYSUserIsInBackGround])
                 {
-                    [[YSLiveManager shareInstance].roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
+                    [[YSLiveManager sharedInstance] setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(isInBackGround)];
                 }
         }
         
-        self.canDraw = [self.roomUser.properties bm_boolForKey:sUserCandraw];
-        self.giftNumber = [self.roomUser.properties bm_uintForKey:sUserGiftNumber];
+        self.canDraw = [self.roomUser.properties bm_boolForKey:sYSUserCandraw];
+        self.giftNumber = [self.roomUser.properties bm_uintForKey:sYSUserGiftNumber];
         
-        NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sUserPrimaryColor];
+        NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sYSUserPrimaryColor];
         if ([brushColor bm_isNotEmpty])
         {
             self.brushColor = brushColor;
@@ -938,7 +938,7 @@
         // 视频相关
         
         // 低端设备
-        BOOL low = [[YSLiveManager shareInstance] devicePlatformLowEndEquipment];
+        BOOL low = [YSLiveManager sharedInstance].devicePerformance_Low;
         if (low)
         {
             self.videoState |= SCVideoViewVideoState_Low_end;
@@ -957,9 +957,9 @@
 //            deviceError = YES;
 //            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
 //        }
-        if ([self.roomUser.properties bm_containsObjectForKey:sUserVideoFail])
+        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserVideoFail])
         {
-            if ([self.userModel.properties bm_boolForKey:sYSUserHasVideo])
+            if ([self.roomUser.properties bm_boolForKey:sYSUserHasVideo])
             {
                 self.videoDeviceState = self.roomUser.vfail;
                 if (self.roomUser.vfail != YSDeviceFaultNone)
@@ -976,7 +976,7 @@
         }
         else
         {
-            if (!deviceError && ![self.userModel.properties bm_boolForKey:sYSUserHasVideo])
+            if (!deviceError && ![self.roomUser.properties bm_boolForKey:sYSUserHasVideo])
             {
                 // 无设备
                 deviceError = YES;
@@ -994,7 +994,7 @@
             self.videoState &= ~SCVideoViewVideoState_DeviceError;
         }
 
-        YSPublishState publishState = [self.roomUser.properties bm_intForKey:sUserPublishstate];
+        YSPublishState publishState = [self.roomUser.properties bm_intForKey:sYSUserPublishstate];
         if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
         {
             // 关闭视频
@@ -1006,7 +1006,7 @@
         }
         
         // 网络状态
-        BOOL isPoorNetWork = [self.roomUser.properties bm_boolForKey:sUserNetWorkState];
+        BOOL isPoorNetWork = [self.roomUser.properties bm_boolForKey:sYSUserNetWorkState];
         if (isPoorNetWork)
         {
             self.videoState |= SCVideoViewVideoState_PoorInternet;
@@ -1017,7 +1017,7 @@
         }
         
         // 进入后台(home键)
-        BOOL isInBackGround = [self.roomUser.properties bm_boolForKey:sUserIsInBackGround];
+        BOOL isInBackGround = [self.roomUser.properties bm_boolForKey:sYSUserIsInBackGround];
         if (isInBackGround)
         {
             self.videoState |= SCVideoViewVideoState_InBackground;
@@ -1037,9 +1037,9 @@
 //            deviceError = YES;
 //            self.audioDeviceState = SCVideoViewAudioDeviceState_Disable;
 //        }
-        if ([self.roomUser.properties bm_containsObjectForKey:sUserAudioFail])
+        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserAudioFail])
         {
-            if ([self.userModel.properties bm_boolForKey:sYSUserHasAudio])
+            if ([self.roomUser.properties bm_boolForKey:sYSUserHasAudio])
             {
                 self.audioDeviceState = self.roomUser.afail;
                 if (self.roomUser.afail != YSDeviceFaultNone)
@@ -1056,7 +1056,7 @@
         else
         {
             
-            if (!deviceError && ![self.userModel.properties bm_boolForKey:sYSUserHasAudio])
+            if (!deviceError && ![self.roomUser.properties bm_boolForKey:sYSUserHasAudio])
             {
                 // 无设备
                 deviceError = YES;
@@ -1074,7 +1074,7 @@
             self.audioState &= ~SCVideoViewAudioState_DeviceError;
         }
 
-        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4 || ([YSLiveManager shareInstance].isEveryoneNoAudio && self.roomUser.role != YSUserType_Teacher))
+        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && self.roomUser.role != YSUserType_Teacher))
         {
             // 关闭音频
             self.audioState |= SCVideoViewAudioState_Close;

@@ -52,7 +52,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 /// 当前展示课件数组
 @property (nonatomic, strong) NSArray *currentFileList;
 @property (nonatomic, strong) NSString *mediaFileID;
-@property (nonatomic, assign) YSWhiteBordMediaState mediaState;
+@property (nonatomic, assign) YSMediaState mediaState;
 @end
 
 @implementation SCTeacherListView
@@ -284,7 +284,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state
+- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSMediaState)state
 {
     self.currentFileList = currentFileList;
     self.mediaFileID = mediaFileID;

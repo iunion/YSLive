@@ -51,7 +51,7 @@
 {
     _model = model;
     
-    if (model.chatMessageType == YSChatMessageTypeImageTips)
+    if (model.chatMessageType == YSChatMessageType_ImageTips)
     {
         NSString * str = [NSString stringWithFormat:@"  %@%@ ",model.sendUser.nickName,YSLocalized(@"Role.ToTeacher")];
         NSMutableAttributedString * mutAttrString = [[NSMutableAttributedString alloc]initWithString:str];
@@ -81,7 +81,7 @@
     [super layoutSubviews];
     
     CGFloat width = 0.f;
-    if (self.model.chatMessageType == YSChatMessageTypeImageTips)
+    if (self.model.chatMessageType == YSChatMessageType_ImageTips)
     {
         width = [self.iMessageLabel.attributedText bm_sizeToFitHeight:25].width+20;
     }

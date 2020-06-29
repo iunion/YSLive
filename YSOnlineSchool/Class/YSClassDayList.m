@@ -32,7 +32,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 @interface YSClassDayList ()
 <
     YSClassCellDelegate,
-    YSLiveRoomManagerDelegate,
+    YSSessionDelegate,
     YSClassDetailVCDelegate
 >
 
@@ -294,7 +294,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
                 if ([responseDic bm_isNotEmptyDictionary])
                 {
                     NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
@@ -407,7 +407,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     //[[YSLiveManager shareInstance] destroy];
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
-    [liveManager registerRoomManagerDelegate:self];
+    [liveManager registerRoomDelegate:self];
     
     if (![passWord bm_isNotEmpty])
     {
@@ -438,7 +438,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [Bugly setUserValue:nickName forKey:@"nickName"];
     [Bugly setUserValue:schoolUserAccount forKey:@"userAccount"];
 
-    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
+    [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
@@ -605,7 +605,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         //[YSLiveManager destroy];
         
         YSLiveManager *liveManager = [YSLiveManager sharedInstance];
-        [liveManager registerRoomManagerDelegate:self];
+        [liveManager registerRoomDelegate:self];
         
         [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
         

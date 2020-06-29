@@ -7,7 +7,6 @@
 //
 
 #import "SCTeacherCoursewareListCell.h"
-#import "YSLiveMediaModel.h"
 
 @interface SCTeacherCoursewareListCell ()
 
@@ -118,7 +117,7 @@
         
     }
 }
-- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSWhiteBordMediaState)state
+- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSMediaState)state
 {
     _fileModel = fileModel;
 
@@ -168,15 +167,15 @@
         
         if (mediaFileID && [mediaFileID isEqualToString:fileModel.fileid])
         {
-            if (state == YSWhiteBordMediaState_Play)
+            if (state == YSMediaState_Play)
             {
                 [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconSel")];
             }
-            else if (state == YSWhiteBordMediaState_Pause)
+            else if (state == YSMediaState_Pause)
             {
                 [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconNor")];
             }
-            else if (state == YSWhiteBordMediaState_Stop)
+            else if (state == YSMediaState_Stop)
             {
                 [self.openImageView setImage:playDisImage];
             }
