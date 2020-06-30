@@ -1895,9 +1895,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 }
 
 // 成功进入房间
-- (void)onRoomJoined
+- (void)onRoomDidCheckRoom
 {
-    BMLog(@"YSLoginVC onRoomJoined");
+    BMLog(@"YSLoginVC onRoomDidCheckRoom");
     
     [self.progressHUD bm_hideAnimated:NO];
     
