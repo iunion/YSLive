@@ -1438,16 +1438,17 @@
     
     [self freshMediaView];
     
+    if (![text bm_isNotEmpty])
+    {
+        text = YSLocalized(@"Prompt.ClassEnd");
+    }
+    
     BMWeakSelf
     [BMAlertView ys_showAlertWithTitle:text message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
         
         [weakSelf.liveManager leaveRoom:nil];
         
     }];
-    //    if (![YSLiveManager shareInstance].roomConfig.isChatBeforeClass) {
-    //        self.chaView.chatToolView.maskView.hidden = NO;
-    //        self.questionaView.maskView.hidden = NO;
-    //    }
 }
 
 /// 弹框

@@ -3640,6 +3640,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self.imagePickerController cancelButtonClick];
     
+    if (![text bm_isNotEmpty])
+    {
+        text = YSLocalized(@"Prompt.ClassEnd");
+    }
+    
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     

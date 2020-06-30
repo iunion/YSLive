@@ -453,7 +453,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //举手上台的按钮
         [self setupHandView];
         /// 视频布局时的全屏按钮 （只在 1VN 房间）
-        
     }
     
     // 设置花名册 课件表
@@ -464,13 +463,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 右侧聊天视图
     [self creatRightChatView];
     
-    
     //创建上下课按钮
     [self setupClassBeginButton];
     
     // 上课前不发送修改画笔权限
     //[self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
-    [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
+//    [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
     
     // 会议默认视频布局
     if (self.appUseTheType == YSRoomUseTypeMeeting)
@@ -2606,6 +2604,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.imagePickerController cancelButtonClick];
 
+    if (![text bm_isNotEmpty])
+    {
+        text = YSLocalized(@"Prompt.ClassEnd");
+    }
+    
     BMWeakSelf
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
     
