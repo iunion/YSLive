@@ -2592,7 +2592,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 下课
-- (void)handleSignalingClassEndWithText:(NSString *)text
+
+- (void)handleSignalingClassEndWithText
+{
+    [self classEndWithText:nil];
+}
+
+- (void)classEndWithText:(NSString *)text
 {
     self.classBeginBtn.userInteractionEnabled = YES;
 
@@ -2697,11 +2703,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSString * reason = [dataDic bm_stringForKey:@"reason"];
     if ([reason isEqualToString:@"30 minutes past the end of the reservation"])
     {
-        [self handleSignalingClassEndWithText:YSLocalized(@"Prompt.ClassEndAppointment30")];
+        [self classEndWithText:YSLocalized(@"Prompt.ClassEndAppointment30")];
     }
     else if([reason isEqualToString:@"All the teachers left the room for more than 10 minutes"])
     {
-        [self handleSignalingClassEndWithText:YSLocalized(@"Prompt.ClassEndAnchorLeave10")];
+        [self classEndWithText:YSLocalized(@"Prompt.ClassEndAnchorLeave10")];
     }
 }
 
