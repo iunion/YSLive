@@ -54,14 +54,6 @@
 
 - (void)doMsgCachePool
 {
-    [self.liveManager serverLog:@"doMsgCachePool"];
-    self.liveManager.readyToHandleMsg = YES;
-
-    [self beforeDoMsgCachePool];
-#warning doMsgCachePool
-    //[self.liveManager doMsgCachePool];
-    
-    [self afterDoMsgCachePool];
 }
 
 - (void)beforeDoMsgCachePool
@@ -91,8 +83,6 @@
 
     // 关闭自动锁屏，保证屏幕常亮
     [UIApplication sharedApplication].idleTimerDisabled = YES;
-
-    [self performSelector:@selector(doMsgCachePool) withObject:nil afterDelay:0.5];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -405,7 +395,7 @@
 }
 
 // 成功进入房间
-- (void)onRoomJoined:(long)ts;
+- (void)onRoomJoined
 {
     // 断开的时候不再发送这个
     // onRoomConnectionLost
@@ -413,7 +403,7 @@
     [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
 }
 
-- (void)onRoomReJoined:(long)ts
+- (void)onRoomReJoined
 {
     // 断开的时候会发这个
     // onRoomConnectionLost

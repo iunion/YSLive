@@ -1895,7 +1895,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 }
 
 // 成功进入房间
-- (void)onRoomJoined:(long)ts;
+- (void)onRoomJoined
 {
     BMLog(@"YSLoginVC onRoomJoined");
     

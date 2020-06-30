@@ -3037,9 +3037,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
 }
 
-- (void)onRoomReJoined:(long)ts
+- (void)onRoomReJoined
 {
-    [super onRoomReJoined:ts];
+    [super onRoomReJoined];
     self.spreadBottomToolBar.userEnable = YES;
 }
 
@@ -3445,9 +3445,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 切换网络 会收到onRoomJoined
 
-- (void)onRoomJoined:(long)ts
+- (void)onRoomJoined
 {
-    [super onRoomJoined:ts];
+    [super onRoomJoined];
 }
 
 

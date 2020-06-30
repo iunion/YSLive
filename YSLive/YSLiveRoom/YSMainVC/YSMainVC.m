@@ -1153,9 +1153,9 @@
 }
 
 
-- (void)onRoomReJoined:(long)ts
+- (void)onRoomReJoined
 {
-    [super onRoomReJoined:ts];
+    [super onRoomReJoined];
     
 }
 // 已经离开房间
@@ -1346,12 +1346,10 @@
 
 #pragma mark 切换网络 会收到onRoomJoined
 
-- (void)onRoomJoined:(long)ts
+- (void)onRoomJoined
 {
-    [super onRoomJoined:ts];
-    
+    [super onRoomJoined];
 }
-
 
 #pragma mark 上下课
 

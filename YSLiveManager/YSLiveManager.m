@@ -418,16 +418,7 @@
 
 /// 切换课件
 - (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
-{
-    if (!self.readyToHandleMsg)
-    {
-        NSMutableArray *parameters = [[NSMutableArray alloc] init];
-        [parameters addObject:fileList];
-        [self addMsgCachePoolWithMethodName:@selector(onWhiteBoardChangedFileWithFileList:) parameters:parameters];
-        
-        return;
-    }
-    
+{    
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardChangedFileWithFileList:)])
     {
         [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileList];
