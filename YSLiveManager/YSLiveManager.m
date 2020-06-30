@@ -192,6 +192,8 @@
 {
     self.whiteBoardManager = [YSWhiteBoardManager sharedInstance];
     NSLog(@"WhiteBoard SDK Version: %@", [YSWhiteBoardManager whiteBoardVersion]);
+    
+    [self registerRoomForWhiteBoardDelegate:self.whiteBoardManager];
 
     NSDictionary *whiteBoardConfig = @{
         YSWhiteBoardWebProtocolKey : YSLive_Http,
