@@ -1944,6 +1944,12 @@
 // 通知
 - (void)handleSignalingLiveNoticeInfoWithNotice:(NSString *)text timeInterval:(NSUInteger)timeInterval
 {
+    if ([text isEqualToString:@"sYSSignaling_LiveLuckDrawResult"])
+    {
+        [self creatLessonDataWithNotice:YSLocalized(@"Alert.Reward.title") type:YSLessonNotifyType_Status timeInterval:timeInterval];
+        return;
+    }
+    
     [self creatLessonDataWithNotice:text type:YSLessonNotifyType_Status timeInterval:timeInterval];
 }
 
