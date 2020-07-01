@@ -5451,7 +5451,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//下台
             self.selectControlView.roomUser.mediaPublishState = YSUserMediaPublishState_NONE;
             
-            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(false)];
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(false)];
 
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
