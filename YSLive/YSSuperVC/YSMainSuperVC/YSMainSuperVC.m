@@ -509,7 +509,6 @@
 }
 
 #pragma mark meidia
-
 /// 媒体流发布状态
 - (void)onRoomShareMediaFile:(YSSharedMediaFileModel *)mediaFileModel
 {

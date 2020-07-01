@@ -2051,8 +2051,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (isHistory == YES)
         {
-#warning evictUser
-            //[self.liveManager evictUser:user.peerID completion:nil];
+            [self.liveManager evictUser:user.peerID reason:1];
         }
     }
     [self freshTeacherPersonListData];
