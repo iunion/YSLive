@@ -50,6 +50,7 @@
 {
     self.liveManager = [YSLiveManager sharedInstance];
     [self.liveManager registerRoomDelegate:self];
+    self.liveManager.whiteBoardDelegate = self;
 }
 
 - (void)doMsgCachePool
