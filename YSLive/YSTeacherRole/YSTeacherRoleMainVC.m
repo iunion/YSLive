@@ -913,6 +913,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES withDelegate:self];
         videoView.appUseTheType = self.appUseTheType;
         [self.videoViewArray addObject:videoView];
+        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
         [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
         
@@ -1153,6 +1154,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:videoView];
     self.teacherVideoView = videoView;
 
+    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -2562,19 +2564,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     dispatch_resume(self.topBarTimer);
 
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
-#if YSAPP_NEWERROR
-    //if (!inlist)
-    {
-        //if (YSCurrentUser.vfail == YSDeviceFaultNone || YSCurrentUser.hasVideo)
-        {
-            [self.liveManager.roomManager publishVideo:nil];
-        }
-        //if (YSCurrentUser.afail == YSDeviceFaultNone || YSCurrentUser.hasAudio)
-        {
-            [self.liveManager.roomManager publishAudio:nil];
-        }
-    }
-#endif
     
     if (!inlist)
     {

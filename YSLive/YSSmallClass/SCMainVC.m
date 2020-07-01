@@ -871,6 +871,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES];
             videoView.appUseTheType = self.appUseTheType;
             [self.videoViewArray addObject:videoView];
+            
+            [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
             [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
             [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -1047,6 +1049,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
     self.userVideoView = videoView;
 
+    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -3426,10 +3429,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 视频镜像
     if ([properties bm_containsObjectForKey:sYSUserIsVideoMirror])
     {
-#if YSAPP_NEWERROR
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
         BOOL isVideoMirror = [properties bm_boolForKey:sYSUserIsVideoMirror];
-        [self.liveManager changeVideoMirrorWithPeerId:peerID mirror:isVideoMirror];
-#endif
+        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        if (isVideoMirror)
+        {
+            videoMirrorMode = CloudHubVideoMirrorModeEnabled;
+        }
+        
+        [self.liveManager changeVideoWithUserId:userId streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
     }
     
     /// 用户设备状态
@@ -3565,45 +3573,36 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             // 自动上台
             if (self.videoViewArray.count < maxVideoCount)
             {
-#if YSAPP_NEWERROR
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
 //                if (autoOpenAudioAndVideoFlag)
                 if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
                 {
-                    //if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                    YSPublishState publishState = YSUser_PublishState_BOTH;
+                    
+                    BOOL isEveryoneNoAudio = self.liveManager.isEveryoneNoAudio;
+                    if (!isEveryoneNoAudio)
                     {
-                        [self.liveManager.roomManager publishVideo:nil];
+                        publishState = YSUser_PublishState_VIDEOONLY;
                     }
-                    //if (YSCurrentUser.afail == YSDeviceFaultNone)
-                    {
-                        BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
-                        if (!isEveryoneNoAudio)
-                        {
-                            [self.liveManager.roomManager publishAudio:nil];
-                        }
-                    }
+
+                    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
                 }
-#endif
             }
         }
         else if (self.appUseTheType == YSRoomUseTypeMeeting)
         {//会议，进教室默认上台
             if (self.liveManager.isClassBegin && self.videoViewArray.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
-#if YSAPP_NEWERROR
-                //if (YSCurrentUser.vfail == YSDeviceFaultNone)
+                YSPublishState publishState = YSUser_PublishState_BOTH;
+                
+                BOOL isEveryoneNoAudio = self.liveManager.isEveryoneNoAudio;
+                if (!isEveryoneNoAudio)
                 {
-                    [self.liveManager.roomManager publishVideo:nil];
+                    publishState = YSUser_PublishState_VIDEOONLY;
                 }
-                //if (YSCurrentUser.afail == YSDeviceFaultNone)
-                {
-                    BOOL isEveryoneNoAudio = [YSLiveManager shareInstance].isEveryoneNoAudio;
-                    if (!isEveryoneNoAudio)
-                    {
-                        [self.liveManager.roomManager publishAudio:nil];
-                    }
-                }
-#endif
+                
+                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
+                
                 [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(true)];
             }
         }

@@ -1198,20 +1198,15 @@
 {
     if (isHistory == NO && self.liveManager.isClassBegin && user.role == YSUserType_Teacher)
     {
-#if YSAPP_NEWERROR
         self.roomVideoPeerID = user.peerID;
-        if (user.publishState >= YSUser_PublishState_VIDEOONLY && user.publishState != 4)
+        
+        if (user.publishState >= YSUser_PublishState_VIDEOONLY && user.publishState != YSUser_PublishState_ONSTAGE)
         {
             self.showRoomVideo = YES;
-            [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
-            }];
+            
+            NSString *streamID = [self.liveManager getUserStreamIdWithUserId:user.peerID];
+            [self.liveManager playVideoWithUserId:user.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
         }
-        if (user.publishState == YSUser_PublishState_AUDIOONLY || user.publishState == YSUser_PublishState_BOTH)
-        {
-            [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
-            }];
-        }
-#endif
         
         [self freshMediaView];
     }
