@@ -2003,6 +2003,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 }
 
+/// 进入房间失败
 - (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
 {
     [self.progressHUD bm_hideAnimated:NO];
@@ -2065,9 +2066,23 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 }
 
-- (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
+/// 进入房间失败
+- (void)onRoomJoinFailed:(NSDictionary *)errorDic
 {
-    NSLog(@"================================== roomManagerReportFail: %@, %@", @(errorCode), descript);
+    NSError *error = [errorDic objectForKey:@"error"];
+    YSRoomErrorCode errorCode = error.code;
+    NSString *descript = [YSLiveUtil getOccuredErrorCode:errorCode];
+    
+    NSLog(@"================================== onRoomJoinFailed: %@, %@", @(errorCode), descript);
+    
+    if (errorCode == YSErrorCode_CheckRoom_NeedPassword ||
+        errorCode == YSErrorCode_CheckRoom_PasswordError ||
+        errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
+    {
+        [self roomManagerNeedEnterPassWord:errorCode];
+        return;
+    }
+
     
 #if YSShowErrorCode
     self.leftHUDmessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];

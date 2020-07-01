@@ -10,21 +10,9 @@
 //#include <netdb.h>
 #include <arpa/inet.h>
 
-@implementation YSLiveUtil
+#import "YSCoreStatus.h"
 
-+ (BOOL)isDomain:(NSString *)host
-{
-    const char *hostN= [host UTF8String];
-    in_addr_t rt = inet_addr(hostN);
-    if (rt == INADDR_NONE)
-    {
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
-}
+@implementation YSLiveUtil
 
 + (BOOL)checkDataType:(id)data
 {
@@ -36,84 +24,6 @@
     {
         return YES;
     }
-    return NO;
-}
-
-+ (NSDictionary *)convertWithData:(id)data
-{
-    if (!data)
-    {
-        return nil;
-    }
-    
-    NSDictionary *dataDic = nil;
-    
-    if ([data isKindOfClass:[NSString class]])
-    {
-        NSString *tDataString = [NSString stringWithFormat:@"%@", data];
-        NSData *tJsData = [tDataString dataUsingEncoding:NSUTF8StringEncoding];
-        if (tJsData)
-        {
-            dataDic = [NSJSONSerialization JSONObjectWithData:tJsData
-                                                      options:NSJSONReadingMutableContainers
-                                                        error:nil];
-        }
-    }
-    else if ([data isKindOfClass:[NSDictionary class]])
-    {
-        dataDic = (NSDictionary *)data;
-    }
-    else if ([data isKindOfClass:[NSData class]])
-    {
-        NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        dataDic = [YSLiveUtil convertWithData:dataStr];
-    }
-    
-    return dataDic;
-}
-
-+ (NSString *)createUUID
-{
-    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-    CFStringRef cfstring = CFUUIDCreateString(kCFAllocatorDefault, uuid);
-    const char *cStr = CFStringGetCStringPtr(cfstring,CFStringGetFastestEncoding(cfstring));
-    unsigned char result[16];
-    CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
-    CFRelease(uuid);
-    CFRelease(cfstring);
-   
-    NSString *openUDID = [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%08lx",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15],
-                 (unsigned long)(arc4random() % NSUIntegerMax)];
-    
-    return openUDID;
-}
-
-+ (BOOL)checkIsMedia:(NSString *)filetype
-{
-    if ([filetype isEqualToString:@"mp3"]
-        || [filetype isEqualToString:@"mp4"]
-        || [filetype isEqualToString:@"webm"]
-        || [filetype isEqualToString:@"ogg"]
-        || [filetype isEqualToString:@"wav"])
-    {
-        return YES;
-    }
-    
-    return NO;
-}
-
-+ (BOOL)checkIsVideo:(NSString *)filetype
-{
-    if ([filetype isEqualToString:@"mp4"] || [filetype isEqualToString:@"webm"])
-    {
-        return YES;
-    }
-    
     return NO;
 }
 
@@ -162,4 +72,83 @@
     return @"";
 }
 
+/// 发生错误 回调的提示信息
+/// @param errorCode 错误码
++ (NSString *)getOccuredErrorCode:(NSInteger)errorCode
+{
+    NSString *alertMessage = nil;
+    switch (errorCode)
+    {
+        case YSErrorCode_CheckRoom_ServerOverdue:
+        { // 3001  服务器过期
+            alertMessage = YSLocalized(@"Error.ServerExpired");
+        }
+            break;
+        case YSErrorCode_CheckRoom_RoomFreeze:
+        { // 3002  公司被冻结
+            alertMessage = YSLocalized(@"Error.CompanyFreeze");
+        }
+            break;
+        case YSErrorCode_CheckRoom_RoomDeleteOrOrverdue: // 3003  房间被删除或过期
+        case YSErrorCode_CheckRoom_RoomNonExistent:
+        { // 4007 房间不存在 房间被删除或者过期
+            alertMessage = YSLocalized(@"Error.RoomDeletedOrExpired");
+        }
+            break;
+        case YSErrorCode_CheckRoom_RequestFailed:
+        {
+            alertMessage = YSLocalized(@"Error.WaitingForNetwork");
+        }
+            break;
+        case YSErrorCode_CheckRoom_PasswordError:
+        { // 4008  房间密码错误
+            alertMessage = YSLocalized(@"Error.PwdError");
+        }
+            break;
+        case YSErrorCode_CheckRoom_WrongPasswordForRole:
+        { // 4012  密码与角色不符
+            alertMessage = YSLocalized(@"Error.PwdError");
+        }
+            break;
+        case YSErrorCode_CheckRoom_RoomNumberOverRun:
+        { // 4103  房间人数超限
+            alertMessage = YSLocalized(@"Error.MemberOverRoomLimit");
+        }
+            break;
+        case YSErrorCode_CheckRoom_NeedPassword:
+        { // 4110  该房间需要密码，请输入密码
+            alertMessage = YSLocalized(@"Error.NeedPwd");
+        } break;
+            
+        case YSErrorCode_CheckRoom_RoomPointOverrun:
+        { // 4112  企业点数超限
+            alertMessage = YSLocalized(@"Error.pointOverRun");
+        }
+            break;
+        case YSErrorCode_CheckRoom_RoomAuthenError:
+        { // 4109  认证错误
+            alertMessage = YSLocalized(@"Error.AuthIncorrect");
+        }
+            break;
+            
+        default:
+        {
+#ifdef DEBUG
+            alertMessage = [NSString stringWithFormat:@"%@(%@)", YSLocalized(@"Error.WaitingForNetwork"), @(errorCode)];
+#else
+            if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
+            {
+                alertMessage = YSLocalized(@"Error.WaitingForNetwork");//@"网络错误，请稍后再试";
+            }
+            else
+            {
+                alertMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+            }
+#endif
+        }
+            break;
+    }
+    
+    return alertMessage;
+}
 @end

@@ -387,6 +387,18 @@
 #pragma -
 #pragma mark YSSessionDelegate
 
+/// 发生错误 回调
+- (void)onRoomDidOccuredError:(NSError *)error
+{
+    
+}
+
+/// 发生警告 回调
+- (void)onRoomDidOccuredWaring:(YSRoomWarningCode)code
+{
+    
+}
+
 /// 失去连接
 - (void)onRoomConnectionLost
 {
