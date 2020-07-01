@@ -3142,10 +3142,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 自己被踢出房间
-- (void)onRoomKickedOut:(NSDictionary *)reason
+- (void)onRoomKickedOut:(NSInteger)reasonCode
 {
-    NSUInteger reasonCode = [reason bm_uintForKey:@"reason"];
-
+    [super onRoomKickedOut:reasonCode];
+    
     NSString *reasonString = YSLocalized(@"KickOut.Repeat");
     if (reasonCode)
     {

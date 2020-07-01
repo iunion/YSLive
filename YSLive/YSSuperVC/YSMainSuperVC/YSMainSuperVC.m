@@ -431,6 +431,22 @@
     [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
 }
 
+- (void)onRoomKickedOut:(NSInteger)reasonCode
+{
+    if (reasonCode == 1)
+    {
+        NSString *roomIdKey = YSKickTime;
+        if ([self.liveManager.room_Id bm_isNotEmpty])
+        {
+            roomIdKey = [NSString stringWithFormat:@"%@_%@", YSKickTime, self.liveManager.room_Id ];
+        }
+        
+        // 存储被踢时间
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:roomIdKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 #pragma mark 用户流
 
 /// 用户流音量变化
