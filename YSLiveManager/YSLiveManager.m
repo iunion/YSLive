@@ -203,11 +203,11 @@
     };
     
 #if YSSDK
-    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig useHttpDNS:self.needUseHttpDNSForWhiteBoard];
+    [self.whiteBoardManager registerDelegate:self.roomDelegate configration:whiteBoardConfig useHttpDNS:self.needUseHttpDNSForWhiteBoard];
     
     [self.whiteBoardManager setConnectH5CoursewareUrlCookies:self.connectH5CoursewareUrlCookies];
 #else
-    [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
+    [self.whiteBoardManager registerDelegate:self.roomDelegate configration:whiteBoardConfig];
 #endif
         
     if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
