@@ -4238,14 +4238,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 进入后台
 - (void)handleEnterBackground
 {
-    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(YES)];
     [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
 }
 
 /// 进入前台
 - (void)handleEnterForeground
 {
-    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(NO)];
 }
 
 #pragma mark  答题卡
