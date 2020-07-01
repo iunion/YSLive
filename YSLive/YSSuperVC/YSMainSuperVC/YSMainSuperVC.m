@@ -444,16 +444,17 @@
 - (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
     SCVideoView *view = [self getVideoViewWithPeerId:uid];
-    YSRoomUser *roomUser = view.roomUser;
-    [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:view];
-
+    if (view)
+    {
+        YSRoomUser *roomUser = view.roomUser;
+        [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:view];
+    }
 }
 
 /// 停止音视频流
 - (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
     [self.liveManager stopVideoWithUserId:uid streamID:streamID];
-
 }
 
 #pragma mark 用户网络差，被服务器切换媒体线路

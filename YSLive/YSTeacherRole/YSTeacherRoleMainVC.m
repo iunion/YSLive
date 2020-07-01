@@ -2528,7 +2528,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self addVidoeViewWithPeerId:peerID];
         }
-        else if (publishState == 4)
+        else if (publishState == YSUser_PublishState_ONSTAGE)
         {
             [self addVidoeViewWithPeerId:peerID];
         }
@@ -2568,6 +2568,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //4.开始执行
     dispatch_resume(self.topBarTimer);
 
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
 #if YSAPP_NEWERROR
     //if (!inlist)
     {
