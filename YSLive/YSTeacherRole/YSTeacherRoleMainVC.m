@@ -1921,7 +1921,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSLiveRoomManagerDelegate
 
 /// 大并发房间
-- (void)roomManagerChangeToBigRoomInList:(BOOL)inlist
+- (void)onRoomChangeToBigRoomInList:(BOOL)inlist
 {
     BMWeakSelf
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -2044,12 +2044,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark  用户进入
-- (void)roomManagerJoinedUser:(YSRoomUser *)user inList:(BOOL)inList
+- (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory
 {
     // 不做互踢
     if (user.role == YSUserType_Teacher)
     {
-        if (inList == YES)
+        if (isHistory == YES)
         {
 #warning evictUser
             //[self.liveManager evictUser:user.peerID completion:nil];
@@ -2071,16 +2071,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self bottomToolBarPollingBtnEnable];
     self.spreadBottomToolBar.isPolling = _isPolling;
-//    if (self.appUseTheType == YSRoomUseTypeMeeting)
-//    {
-//        if (user.role == YSUserType_Teacher || user.role == YSUserType_Student) {
-//            [self.liveManager sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
-//        }
-//    }
 }
 
 /// 用户退出
-- (void)roomManagerLeftUser:(YSRoomUser *)user
+- (void)onRoomUserLeft:(YSRoomUser *)user
 {
     if (self.roomtype == YSRoomUserType_More)
     {
@@ -2152,7 +2146,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 大房间刷新用户数量
-- (void)roomManagerBigRoomFreshUserCountInList:(BOOL)inlist
+- (void)onRoomBigRoomFreshUserCountInList:(BOOL)inlist
 {
     NSInteger userCount = self.liveManager.studentCount;
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
@@ -3582,6 +3576,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 #endif
 }
+
+
+
 
 
 #pragma mark 进入前台后台

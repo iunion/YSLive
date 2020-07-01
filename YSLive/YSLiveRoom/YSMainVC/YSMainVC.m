@@ -1192,24 +1192,11 @@
     }];
 }
 
-- (void)roomManagerRoomTeacherEnter
-{
-    BMLog(@"roomManagerRoomTeacherEnter %@", self.liveManager.teacher.nickName);
-    
-    self.teacherPlaceLab.hidden = self.liveManager.isClassBegin;
-}
-
-- (void)roomManagerRoomTeacherLeft
-{
-    BMLog(@"roomManagerRoomTeacherLeft %@", self.liveManager.teacher.nickName);
-    self.teacherPlaceLab.hidden = YES;
-}
-
 #pragma mark 用户进入
 
-- (void)roomManagerJoinedUser:(YSRoomUser *)user inList:(BOOL)inList
+- (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory
 {
-    if (inList == NO && self.liveManager.isClassBegin && user.role == YSUserType_Teacher)
+    if (isHistory == NO && self.liveManager.isClassBegin && user.role == YSUserType_Teacher)
     {
 #if YSAPP_NEWERROR
         self.roomVideoPeerID = user.peerID;
@@ -1232,7 +1219,7 @@
 
 #pragma mark 用户退出
 
-- (void)roomManagerLeftUser:(YSRoomUser *)user
+- (void)onRoomUserLeft:(YSRoomUser *)user
 {
     if (user.role == YSUserType_Teacher)
     {
@@ -1253,6 +1240,19 @@
     }
 #endif
 }
+
+/// 老师进入
+- (void)onRoomTeacherJoined:(BOOL)isHistory;
+{
+    self.teacherPlaceLab.hidden = self.liveManager.isClassBegin;
+}
+
+/// 老师退出
+- (void)onRoomTeacherLeft
+{
+    self.teacherPlaceLab.hidden = YES;
+}
+
 
 #pragma mark 用户属性变化
 

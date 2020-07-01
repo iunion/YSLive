@@ -2977,7 +2977,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSLiveRoomManagerDelegate
 
 /// 大并发房间
-- (void)roomManagerChangeToBigRoomInList:(BOOL)inlist
+- (void)onRoomChangeToBigRoomInList:(BOOL)inlist
 {
     BMWeakSelf
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -3084,28 +3084,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }];
 }
 
-/// 用户进入
-- (void)roomManagerRoomTeacherEnter
-{
-#if USE_FullTeacher
-    self.teacherPlaceLab.hidden = self.liveManager.isClassBegin;
-    if (!self.whitebordFullBackgroud.hidden || !self.shareVideoFloatView.hidden)
-    {
-        self.fullTeacherFloatView.hidden = NO;
-    }
-#endif
-}
 
-- (void)roomManagerRoomTeacherLeft
-{
-#if USE_FullTeacher
-    self.teacherPlaceLab.hidden = YES;
-    self.fullTeacherFloatView.hidden = YES;
-#endif
-}
 
-/// 用户进入
-- (void)roomManagerJoinedUser:(YSRoomUser *)user inList:(BOOL)inList
+#pragma mark 用户进入
+- (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory
 {
     [self freshTeacherPersonListData];
     // 不做互踢
@@ -3124,7 +3106,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 用户退出
-- (void)roomManagerLeftUser:(YSRoomUser *)user
+- (void)onRoomUserLeft:(YSRoomUser *)user
 {
     [self freshTeacherPersonListData];
     if (self.roomtype == YSRoomUserType_More)
@@ -3133,7 +3115,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (void)roomManagerBigRoomFreshUserCountInList:(BOOL)inlist
+/// 老师进入
+- (void)onRoomTeacherJoined:(BOOL)isHistory
+{
+#if USE_FullTeacher
+    self.teacherPlaceLab.hidden = self.liveManager.isClassBegin;
+    if (!self.whitebordFullBackgroud.hidden || !self.shareVideoFloatView.hidden)
+    {
+        self.fullTeacherFloatView.hidden = NO;
+    }
+#endif
+}
+
+/// 老师退出
+- (void)onRoomTeacherLeft
+{
+#if USE_FullTeacher
+    self.teacherPlaceLab.hidden = YES;
+    self.fullTeacherFloatView.hidden = YES;
+#endif
+}
+
+
+- (void)onRoomBigRoomFreshUserCountInList:(BOOL)inlist
 {
 }
 
@@ -4231,7 +4235,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 #endif
 }
-
 
 #pragma mark 进入前台后台
 
