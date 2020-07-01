@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YSLiveUtil : NSObject
 
 + (NSString *)makeApiSignWithData:(NSObject *)data;
++ (NSString *)getOccuredErrorCode:(NSInteger)errorCode;
 
 @end
 
