@@ -1084,6 +1084,8 @@
             self.audioState &= ~SCVideoViewAudioState_Close;
         }
     }
+    
+    [self.backVideoView bm_bringToFront];
 }
 
 @end

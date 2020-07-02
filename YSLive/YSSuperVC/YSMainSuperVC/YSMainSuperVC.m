@@ -164,9 +164,6 @@
                 [self.liveManager stopVideoWithUserId:userId streamID:streamID];
             }
             [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
-
-            [videoView freshWithRoomUserProperty:videoView.roomUser];
-            [videoView bringSubviewToFront:videoView.backVideoView];
         }
     }
     else
@@ -174,6 +171,7 @@
         [self.liveManager stopVideoWithUserId:userId streamID:streamID];
     }
     
+    [videoView freshWithRoomUserProperty:videoView.roomUser];
     videoView.publishState = publishState;
 }
 
@@ -205,15 +203,14 @@
     {
         [self.liveManager stopVideoWithUserId:userId streamID:streamID];
         [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
-
-        [videoView freshWithRoomUserProperty:videoView.roomUser];
-        [videoView bringSubviewToFront:videoView.backVideoView];
     }
     else
     {
         [self.liveManager stopVideoWithUserId:userId streamID:streamID];
     }
     
+    [videoView freshWithRoomUserProperty:videoView.roomUser];
+
     videoView.publishState = publishState;
 }
 
@@ -474,12 +471,12 @@
 /// 收到音视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    SCVideoView *view = [self getVideoViewWithPeerId:uid];
-    if (view)
+    SCVideoView *videoView = [self getVideoViewWithPeerId:uid];
+    if (videoView)
     {
-        YSRoomUser *roomUser = view.roomUser;
-        [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:view];
-        [view freshWithRoomUserProperty:roomUser];
+        YSRoomUser *roomUser = videoView.roomUser;
+        [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:videoView];
+        [videoView freshWithRoomUserProperty:roomUser];
     }
 }
 
