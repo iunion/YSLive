@@ -5318,7 +5318,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {//当前是关闭音频状态
                 userPublishState |= YSUserMediaPublishState_AUDIOONLY;
             }
-            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(userPublishState)];
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@([YSRoomUser convertMediaPublishState:userPublishState])];
             sender.selected = !sender.selected;
         }
             break;
@@ -5332,7 +5332,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {//当前是关闭视频状态
                 userPublishState |= YSUserMediaPublishState_VIDEOONLY;
             }
-            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(userPublishState)];
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@([YSRoomUser convertMediaPublishState:userPublishState])];
             sender.selected = !sender.selected;
         }
             break;
@@ -5449,7 +5449,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             break;
         case SCVideoViewControlTypeOnStage:
         {//下台
-            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUserMediaPublishState_NONE)];
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@([YSRoomUser convertMediaPublishState:YSUserMediaPublishState_NONE])];
 
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
