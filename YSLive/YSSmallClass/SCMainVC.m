@@ -4872,7 +4872,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {//当前是关闭音频状态
                 userPublishState |= YSUserMediaPublishState_AUDIOONLY;
             }
-            YSCurrentUser.mediaPublishState = userPublishState;
+            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(userPublishState)];
             sender.selected = !sender.selected;
         }
             break;
@@ -4886,7 +4886,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {//当前是关闭视频状态
                 userPublishState |= YSUserMediaPublishState_VIDEOONLY;
             }
-            YSCurrentUser.mediaPublishState = userPublishState;
+            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(userPublishState)];
             sender.selected = !sender.selected;
         }
             break;
