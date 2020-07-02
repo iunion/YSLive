@@ -165,6 +165,7 @@
             }
             [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
 
+            [videoView freshWithRoomUserProperty:videoView.roomUser];
             [videoView bringSubviewToFront:videoView.backVideoView];
         }
     }
@@ -205,6 +206,7 @@
         [self.liveManager stopVideoWithUserId:userId streamID:streamID];
         [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
 
+        [videoView freshWithRoomUserProperty:videoView.roomUser];
         [videoView bringSubviewToFront:videoView.backVideoView];
     }
     else
@@ -477,6 +479,7 @@
     {
         YSRoomUser *roomUser = view.roomUser;
         [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:view];
+        [view freshWithRoomUserProperty:roomUser];
     }
 }
 
