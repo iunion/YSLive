@@ -319,4 +319,37 @@
 
 }
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    if (highlighted)
+    {
+        [self showHighlightedAnimation];
+    }
+}
+
+- (void)showHighlightedAnimation
+{
+    UIView *tmpView = [[UIView alloc] initWithFrame:self.bounds];
+    tmpView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");;
+    tmpView.alpha = 0.f;
+    [self addSubview:tmpView];
+    
+    [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        
+        tmpView.alpha = 0.8f;
+        
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.20 delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            
+            tmpView.alpha = 0.f;
+            
+        } completion:^(BOOL finished) {
+            
+            [tmpView removeFromSuperview];
+        }];
+    }];
+}
+
 @end
