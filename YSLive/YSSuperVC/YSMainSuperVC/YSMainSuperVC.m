@@ -527,7 +527,7 @@
 }
 
 /// 更新媒体流的信息
-- (void)roomWhiteBoardOnUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel
+- (void)onRoomUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
