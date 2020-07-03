@@ -254,13 +254,11 @@
             
             NSDictionary * dict = @{
                 @"userId":self.peerId,
-                @"percentLeft: ":[NSString stringWithFormat:@"%f",percentLeft],
+                @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
                 @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
                 @"isDrag": @1, // 是否拖拽了
                 @"scale":@(self.endScale)
             };
-            
-//             [[YSLiveManager sharedInstance] sendSignalingTopinchVideoViewWithPeerId:self.peerId scale:self.endScale];
             [[YSLiveManager sharedInstance]sendSignalingTopinchVideoViewWithPeerId:self.peerId withData:dict];
         }
     }

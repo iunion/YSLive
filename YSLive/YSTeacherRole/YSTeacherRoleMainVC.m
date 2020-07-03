@@ -3241,7 +3241,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
                     @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
                     @"userId":videoView.roomUser.peerID,
-                    @"scale: ":@(floatV.endScale)
+                    @"scale":@(floatV.endScale)
                 };
 //                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
                 [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
@@ -3332,8 +3332,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 
 #pragma mark 拖出/放回视频窗口
-//- (void)handleSignalingDragOutVideoWithPeerId:(NSString *)peerId atPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop isDragOut:(BOOL)isDragOut
-- (void)handleSignalingDragOutAndChangeSizeVideoWithData:(NSDictionary *)data
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(NSDictionary *)data
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
     
@@ -3343,7 +3342,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        NSString *peerId = [data bm_stringForKey:@"userId"];
         [self hideDragOutVidoeViewWithPeerId:peerId];
     }
 }
@@ -3368,13 +3366,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (videoView.isDragOut)
     {
-        YSFloatView * floatView = [self dragOutVideoChangeSizeWithPeerId:peerId scale:endScale];
+        YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
+        CGSize floatViewSize = [self dragOutVideoChangeSizeWithFloatView:floatView withScale:endScale];
         
-        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatView.bm_width);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatView.bm_height);
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatViewSize.width);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatViewSize.height);
         
-//        YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
-        floatView.frame = CGRectMake(x, y, floatView.bm_width, floatView.bm_height);
+//
+        floatView.frame = CGRectMake(x, y, floatViewSize.width, floatViewSize.height);
         [floatView bm_bringToFront];
         return;
     }
@@ -3402,10 +3401,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 
 /// 拖出视频窗口拉伸 根据本地默认尺寸scale
-- (YSFloatView *)dragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
+- (CGSize )dragOutVideoChangeSizeWithFloatView:(YSFloatView *)floatView withScale:(CGFloat)scale
 {
-    YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
-
     CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoMinWidth;
     CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoMinHeight;
     
@@ -3414,10 +3411,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     CGFloat width = floatVideoMinWidth * minscale;
     CGFloat height = floatVideoMinHeight * minscale;
     
-    CGPoint center = floatView.center;
+//    CGPoint center = floatView.center;
     
     floatView.bm_size = CGSizeMake(width, height);
-    floatView.center = center;
+//    floatView.center = center;
     
     if (floatView.bm_top < 0.0f)
     {
@@ -3435,7 +3432,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [floatView bm_setWidth:width right:self.whitebordBackgroud.bm_width];
     }
-    return floatView;
+    return floatView.bm_size;
 }
 
 #pragma mark floatVideo

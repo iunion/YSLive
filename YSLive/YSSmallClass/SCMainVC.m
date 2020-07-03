@@ -1847,99 +1847,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 
-#pragma mark - floatVideo
 
-// 拖出视频
-- (void)showDragOutVidoeViewWithPeerId:(NSString *)peerId percentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop
-{
-    if (self.roomLayout == YSRoomLayoutType_VideoLayout)
-    {
-        return;
-    }
-    
-    SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
-    if (videoView.isDragOut)
-    {
-        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - videoView.bm_width);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - videoView.bm_height);
-        
-        YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
-        floatView.frame = CGRectMake(x, y, videoView.bm_width, videoView.bm_height);
-        [floatView bm_bringToFront];
-        return;
-    }
-    else
-    {
-        videoView.isDragOut = YES;
-        [self freshContentVidoeView];
-        
-        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
-        
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
-        // 暂时不支持本地拖动缩放
-        //floatView.canGestureRecognizer = YES;
-        floatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
-        //[floatView showWithContentView:videoView];
-        [self.dragOutFloatViewArray addObject:floatView];
-        [self.whitebordBackgroud addSubview:floatView];
-        
-        [floatView showWithContentView:videoView];
-        //[floatView stayMove];
-        [floatView bm_bringToFront];
-    }
-}
-
-// 放回视频
-- (void)hideDragOutVidoeViewWithPeerId:(NSString *)peerId
-{
-    if (self.roomLayout == YSRoomLayoutType_VideoLayout)
-    {
-        return;
-    }
-    
-    BOOL needFresh = NO;
-    for (YSFloatView *floatView in self.dragOutFloatViewArray )
-    {
-        SCVideoView *videoView = (SCVideoView *)floatView.contentView;
-        if ([videoView.roomUser.peerID isEqualToString:peerId])
-        {
-            needFresh = YES;
-            videoView.isDragOut = NO;
-            
-            [floatView cleanContent];
-            if (floatView.superview)
-            {
-                [floatView removeFromSuperview];
-            }
-            [self.dragOutFloatViewArray removeObject:floatView];
-            break;
-        }
-    }
-    
-    if (needFresh)
-    {
-        [self freshContentVidoeView];
-    }
-}
-
-- (void)hideAllDragOutVidoeView
-{
-    for (YSFloatView *floatView in self.dragOutFloatViewArray )
-    {
-        SCVideoView *videoView = (SCVideoView *)floatView.contentView;
-        
-        videoView.isDragOut = NO;
-        
-        [floatView cleanContent];
-        if (floatView.superview)
-        {
-            [floatView removeFromSuperview];
-        }
-    }
-    
-    [self.dragOutFloatViewArray removeAllObjects];
-}
 
 // 开始播放课件视频
 - (void)showWhiteBordVidoeViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
@@ -3884,7 +3792,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
                     @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
                     @"userId":videoView.roomUser.peerID,
-                    @"scale: ":@(floatV.endScale)
+                    @"scale":@(floatV.endScale)
                 };
 //                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
                 [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
@@ -3963,11 +3871,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 
 /// 拖出/放回视频窗口
-- (void)handleSignalingDragOutVideoWithPeerId:(NSString *)peerId atPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop isDragOut:(BOOL)isDragOut
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(NSDictionary *)data
 {
+    BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
+    
     if (isDragOut)
     {
-        [self showDragOutVidoeViewWithPeerId:peerId percentLeft:percentLeft percentTop:percentTop];
+        [self showDragOutVidoeViewWithData:data];
     }
     else
     {
@@ -3975,10 +3885,113 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-/// 拖出视频窗口拉伸 根据本地默认尺寸scale
-- (void)dragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
+#pragma mark - floatVideo
+
+// 拖出视频
+- (void)showDragOutVidoeViewWithData:(NSDictionary *)data
 {
-    YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
+    if (self.roomLayout == YSRoomLayoutType_VideoLayout)
+    {
+        return;
+    }
+    
+    NSString *peerId = [data bm_stringForKey:@"userId"];
+
+    CGFloat percentLeft = [data bm_floatForKey:@"percentLeft"];
+    
+    CGFloat percentTop = [data bm_floatForKey:@"percentTop"];
+    
+    CGFloat endScale = [data bm_floatForKey:@"scale"];
+    
+    SCVideoView *videoView = [self getVideoViewWithPeerId:peerId];
+    if (videoView.isDragOut)
+    {
+        YSFloatView *floatView = (YSFloatView *)(videoView.superview.superview);
+        
+        CGSize floatViewSize = [self dragOutVideoChangeSizeWithFloatView:floatView withScale:endScale];
+        
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatViewSize.width);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatViewSize.height);
+        
+//
+        floatView.frame = CGRectMake(x, y, floatViewSize.width, floatViewSize.height);
+        [floatView bm_bringToFront];
+        return;
+    }
+    else
+    {
+        videoView.isDragOut = YES;
+        [self freshContentVidoeView];
+        
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoDefaultWidth);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
+        
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+        // 暂时不支持本地拖动缩放
+        floatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
+        [self.dragOutFloatViewArray addObject:floatView];
+        [self.whitebordBackgroud addSubview:floatView];
+        
+        [floatView showWithContentView:videoView];
+        [floatView bm_bringToFront];
+    }
+}
+
+// 放回视频
+- (void)hideDragOutVidoeViewWithPeerId:(NSString *)peerId
+{
+    if (self.roomLayout == YSRoomLayoutType_VideoLayout)
+    {
+        return;
+    }
+    
+    BOOL needFresh = NO;
+    for (YSFloatView *floatView in self.dragOutFloatViewArray )
+    {
+        SCVideoView *videoView = (SCVideoView *)floatView.contentView;
+        if ([videoView.roomUser.peerID isEqualToString:peerId])
+        {
+            needFresh = YES;
+            videoView.isDragOut = NO;
+            
+            [floatView cleanContent];
+            if (floatView.superview)
+            {
+                [floatView removeFromSuperview];
+            }
+            [self.dragOutFloatViewArray removeObject:floatView];
+            break;
+        }
+    }
+    
+    if (needFresh)
+    {
+        [self freshContentVidoeView];
+    }
+}
+
+- (void)hideAllDragOutVidoeView
+{
+    for (YSFloatView *floatView in self.dragOutFloatViewArray )
+    {
+        SCVideoView *videoView = (SCVideoView *)floatView.contentView;
+        
+        videoView.isDragOut = NO;
+        
+        [floatView cleanContent];
+        if (floatView.superview)
+        {
+            [floatView removeFromSuperview];
+        }
+    }
+    
+    [self.dragOutFloatViewArray removeAllObjects];
+}
+
+/// 拖出视频窗口拉伸 根据本地默认尺寸scale
+- (CGSize )dragOutVideoChangeSizeWithFloatView:(YSFloatView *)floatView withScale:(CGFloat)scale
+{
+//    YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
 
     CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoMinWidth;
     CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoMinHeight;
@@ -3988,10 +4001,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     CGFloat width = floatVideoMinWidth * minscale;
     CGFloat height = floatVideoMinHeight * minscale;
     
-    CGPoint center = floatView.center;
+//    CGPoint center = floatView.center;
     
     floatView.bm_size = CGSizeMake(width, height);
-    floatView.center = center;
+//    floatView.center = center;
     
     if (floatView.bm_top < 0.0f)
     {
@@ -4009,6 +4022,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [floatView bm_setWidth:width right:self.whitebordBackgroud.bm_width];
     }
+    return floatView.bm_size;
 }
 
 /// 双击视频最大化
