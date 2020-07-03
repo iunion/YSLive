@@ -1879,7 +1879,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
         // 暂时不支持本地拖动缩放
         //floatView.canGestureRecognizer = YES;
-        floatView.defaultSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
+        floatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
         //[floatView showWithContentView:videoView];
         [self.dragOutFloatViewArray addObject:floatView];
         [self.whitebordBackgroud addSubview:floatView];
@@ -3868,7 +3868,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     @"isDrag":@0,
                     @"userId":videoView.roomUser.peerID
                 };
-                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+//                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+                [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
                 
                 [self.dragImageView removeFromSuperview];
                 self.dragImageView = nil;
@@ -3877,13 +3878,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
+                YSFloatView * floatV = [self getVideoFloatViewWithPeerId:videoView.roomUser.peerID];
                 NSDictionary * data = @{
                     @"isDrag":@1,
                     @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
                     @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
-                    @"userId":videoView.roomUser.peerID
+                    @"userId":videoView.roomUser.peerID,
+                    @"scale: ":@(floatV.endScale)
                 };
-                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+//                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
+                [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
             }
         }
 
@@ -3948,8 +3952,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         // 支持本地拖动缩放
         self.fullTeacherFloatView.canGestureRecognizer = YES;
-        self.fullTeacherFloatView.defaultSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
         [self.fullTeacherFloatView bm_bringToFront];
+        self.fullTeacherFloatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
         self.fullTeacherFloatView.maxSize = background.bm_size;
         self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
     }
@@ -3972,7 +3976,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 拖出视频窗口拉伸 根据本地默认尺寸scale
-- (void)handleSignalingDragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
+- (void)dragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale
 {
     YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
 
