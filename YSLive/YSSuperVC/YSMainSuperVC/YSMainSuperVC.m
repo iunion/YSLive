@@ -527,20 +527,27 @@
 }
 
 /// 更新媒体流的信息
-- (void)roomWhiteBoardOnUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel
+- (void)onRoomUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel isSetPos:(BOOL)isSetPos
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
     
-    if (mediaFileModel.state == YSMediaState_Play)
+    if (isSetPos)
     {
-        [self handleWhiteBordPlayMediaStream:mediaFileModel];
+        [self onRoomUpdateMediaStream:mediaFileModel.duration pos:mediaFileModel.pos isPlay:YES];
     }
     else
     {
-        [self handleWhiteBordPauseMediaStream:mediaFileModel];
+        if (mediaFileModel.state == YSMediaState_Play)
+        {
+            [self handleWhiteBordPlayMediaStream:mediaFileModel];
+        }
+        else
+        {
+            [self handleWhiteBordPauseMediaStream:mediaFileModel];
+        }
     }
 }
 
@@ -560,6 +567,13 @@
 }
 
 - (void)handleWhiteBordPauseMediaStream:(YSSharedMediaFileModel *)mediaFileModel
+{
+    
+}
+
+- (void)onRoomUpdateMediaStream:(NSTimeInterval)duration
+                            pos:(NSTimeInterval)pos
+                         isPlay:(BOOL)isPlay
 {
     
 }
