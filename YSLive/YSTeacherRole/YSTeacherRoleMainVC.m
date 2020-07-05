@@ -5329,7 +5329,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {//当前是关闭音频状态
                 userPublishState |= YSUserMediaPublishState_AUDIOONLY;
             }
-            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@([YSRoomUser convertMediaPublishState:userPublishState])];
+            YSPublishState publishState = [YSRoomUser convertMediaPublishState:userPublishState];
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
             sender.selected = !sender.selected;
         }
             break;
@@ -5343,7 +5344,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {//当前是关闭视频状态
                 userPublishState |= YSUserMediaPublishState_VIDEOONLY;
             }
-            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@([YSRoomUser convertMediaPublishState:userPublishState])];
+            YSPublishState publishState = [YSRoomUser convertMediaPublishState:userPublishState];
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
             sender.selected = !sender.selected;
         }
             break;
