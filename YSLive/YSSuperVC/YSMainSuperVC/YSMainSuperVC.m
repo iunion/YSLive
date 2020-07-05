@@ -459,13 +459,15 @@
 /// 开关摄像头
 - (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    
+    SCVideoView *view = [self getVideoViewWithPeerId:uid];
+    [view freshWithRoomUserProperty:view.roomUser];
 }
 
 /// 开关麦克风
 - (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
 {
-    
+    SCVideoView *view = [self getVideoViewWithPeerId:uid];
+    [view freshWithRoomUserProperty:view.roomUser];
 }
 
 /// 收到音视频流

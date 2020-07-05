@@ -995,7 +995,7 @@
         }
 
         YSPublishState publishState = [self.roomUser.properties bm_intForKey:sYSUserPublishstate];
-        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == 4)
+        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_ONSTAGE)
         {
             // 关闭视频
             self.videoState |= SCVideoViewVideoState_Close;
