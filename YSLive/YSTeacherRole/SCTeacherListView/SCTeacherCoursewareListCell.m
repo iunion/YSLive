@@ -331,7 +331,7 @@
 - (void)showHighlightedAnimation
 {
     UIView *tmpView = [[UIView alloc] initWithFrame:self.bounds];
-    tmpView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");;
+    tmpView.backgroundColor = YSSkinDefineColor(@"defaultListSelectedBgColor");
     tmpView.alpha = 0.f;
     [self addSubview:tmpView];
     
