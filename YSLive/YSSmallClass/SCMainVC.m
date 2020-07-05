@@ -1809,7 +1809,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!giftMp3Playing)
     {
         giftMp3Playing = YES;
-        [self.liveManager.cloudHubRtcEngineKit startPlayMovie:filePath];
+        [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:filePath];
 #if YSAPP_NEWERROR
         BMWeakSelf
         [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
