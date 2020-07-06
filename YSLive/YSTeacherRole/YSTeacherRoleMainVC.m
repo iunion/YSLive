@@ -1833,11 +1833,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     ///  轮播 设置上台的人在数组最后
     if (roomUser.role == YSUserType_Student)
     {
-        if ([self.pollingArr containsObject:peerId])
+        for (YSRoomUser *tempUser in self.pollingArr)
         {
-            [self.pollingArr removeObject:peerId];
-            [self.pollingArr addObject:peerId];
+            if ([tempUser.peerID isEqualToString:peerId])
+            {
+                [self.pollingArr removeObject:tempUser];
+                [self.pollingArr addObject:tempUser];
+            }
         }
+
     }
     
     if (newVideoView)
@@ -2063,16 +2067,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
     NSInteger userCount = self.liveManager.studentCount;
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
-    for (YSRoomUser *user in self.liveManager.userList)
-    {
-        if (user.role == YSUserType_Student)
+//    for (YSRoomUser *user in self.liveManager.userList)
+//    {
+//        if (user.role == YSUserType_Student)
+//        {
+//            if (![self.pollingArr containsObject:user.peerID])
+//            {
+//                [self.pollingArr addObject:user.peerID];
+//            }
+//        }
+//    }
+    
+    [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        YSRoomUser *tempUser = (YSRoomUser *)obj;
+        if (user.role == YSUserType_Student && ![tempUser.peerID isEqualToString:user.peerID])
         {
-            if (![self.pollingArr containsObject:user.peerID])
-            {
-                [self.pollingArr addObject:user.peerID];
-            }
+            [self.pollingArr addObject:user];
         }
-    }
+    }];
+    
     [self bottomToolBarPollingBtnEnable];
     self.spreadBottomToolBar.isPolling = _isPolling;
 }
@@ -2102,10 +2115,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 删除轮播字典里边的该学生
     if (user.role == YSUserType_Student)
     {
-        if ([self.pollingArr containsObject:user.peerID])
-        {
-            [self.pollingArr removeObject:user.peerID];
-        }
+//        if ([self.pollingArr containsObject:user.peerID])
+//        {
+//            [self.pollingArr removeObject:user.peerID];
+//        }
+        [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            YSRoomUser *tempUser = (YSRoomUser *)obj;
+            if ([tempUser.peerID isEqualToString:user.peerID])
+            {
+                [self.pollingArr removeObject:tempUser];
+                *stop = YES;
+            }
+        }];
+   
+        
         if ([self.pollingUpPlatformArr containsObject:user.peerID])
         {
             [self.pollingUpPlatformArr removeObject:user.peerID];
@@ -2508,10 +2531,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         /// 轮播数组数组
         if (roomUser.role == YSUserType_Student)
         {
-            if (![self.pollingArr containsObject:roomUser.peerID])
-            {
-                [self.pollingArr addObject:roomUser.peerID];
-            }
+//            if (![self.pollingArr containsObject:roomUser.peerID])
+//            {
+//                [self.pollingArr addObject:roomUser.peerID];
+//            }
+            [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                YSRoomUser *tempUser = (YSRoomUser *)obj;
+                if (![tempUser.peerID isEqualToString:roomUser.peerID])
+                {
+                    [self.pollingArr addObject:roomUser];
+                }
+            }];
+            
         }
         
         if (publishState == YSUser_PublishState_VIDEOONLY)
@@ -4884,21 +4915,21 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)pollingUpPlatform
 {
     YSRoomUser *roomUser = nil;
-    for (NSString *tempPeerID in self.pollingArr)
+    for (YSRoomUser *tempRoomUser in self.pollingArr)
     {
-        SCVideoView *videoView = [self getVideoViewWithPeerId:tempPeerID];
+        SCVideoView *videoView = [self getVideoViewWithPeerId:tempRoomUser.peerID];
         if (videoView)
         {
             if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
             {
                 
-                roomUser = [self.liveManager getRoomUserWithId:tempPeerID];
+                roomUser = tempRoomUser;
                 break;
             }
         }
         else
         {
-            roomUser = [self.liveManager getRoomUserWithId:tempPeerID];
+            roomUser = tempRoomUser;
             break;
         }
 
