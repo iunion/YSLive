@@ -147,6 +147,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSInteger contestCommitNumber;
     
     NSString *contestPeerId;
+    NSString *contestNickName;
     
     BOOL autoUpPlatform;
     NSInteger timer_defaultTime;
@@ -4424,6 +4425,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager sendSignalingTeacherToStartResponder];
     contestCommitNumber = 0;
     contestPeerId = @"";
+    contestNickName = @"";
 }
 
 - (void)againClicked
@@ -4528,48 +4530,42 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (self->contestCommitNumber > 0)
             {
-                if (weakSelf.liveManager.isBigRoom)
-                {
-
-#warning BigRoom
-//                    [weakSelf.liveManager getRoomUserWithPeerId:self->contestPeerId callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
-//
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//
-//                            [weakSelf showContestResultWithRoomUser:user fromID:fromID];
-//
-//                        });
-//                    }];
-                }
-                else
-                {
-                    YSRoomUser *user = [weakSelf.liveManager getRoomUserWithId:self->contestPeerId];
-                    [weakSelf showContestResultWithRoomUser:user fromID:fromID];
-                }
+                [weakSelf showContestResultWithNickName:self->contestNickName peerID:self->contestPeerId];
             }
         }
     }];
 }
 
 /// 展示抢答结果 并确定是否自动上台
-- (void)showContestResultWithRoomUser:(YSRoomUser *)user fromID:(NSString *)fromID
+- (void)showContestResultWithNickName:(NSString *)nickName peerID:(NSString *)peerID
 {
-    [self.responderView setPersonName:user.nickName];
+    [self.responderView setPersonName:nickName];
     
 //    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
-        [self.liveManager sendSignalingTeacherToContestResultWithName:user.nickName];
+        [self.liveManager sendSignalingTeacherToContestResultWithName:nickName];
         if (self.videoViewArray.count < self->maxVideoCount)
         {
-            if (self->autoUpPlatform && user.publishState == YSUser_PublishState_NONE)
+            if (self->autoUpPlatform)
             {
-                if (self->allNoAudio)
+                BOOL isUpPlatform = NO;
+                for (SCVideoView *videoView in self.videoViewArray)
                 {
-                    [self.liveManager setPropertyOfUid:user.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_VIDEOONLY)];
+                    if ([videoView.roomUser.peerID isEqualToString:peerID])
+                    {
+                        isUpPlatform = YES;
+                    }
                 }
-                else
+                if (!isUpPlatform)
                 {
-                    [self.liveManager setPropertyOfUid:user.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
+                    if (self->allNoAudio)
+                    {
+                        [self.liveManager setPropertyOfUid:peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_VIDEOONLY)];
+                    }
+                    else
+                    {
+                        [self.liveManager setPropertyOfUid:peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
+                    }
                 }
             }
         }
@@ -4614,6 +4610,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         NSDictionary *contestUset = data.firstObject;
         NSString *peerID = contestUset.allKeys.firstObject;
         contestPeerId = peerID;
+        contestNickName = contestUset[peerID];
     }
 
 }
