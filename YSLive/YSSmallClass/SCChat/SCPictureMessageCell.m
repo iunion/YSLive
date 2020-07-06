@@ -94,26 +94,15 @@
     self.bubbleView.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right) resizingMode:UIImageResizingModeStretch];
     
     _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + 5, 108, 90);
-    _msgImageView.frame = CGRectMake(0, 0, 108, 90);
+    self.msgImageView.frame = CGRectMake(0, 0, 108, 90);
     
-//    if ([model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
-//    {//我的消息
-//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(12, 12)];
-//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//        maskLayer.frame = self.bubbleView.bounds;
-//        maskLayer.path = maskPath.CGPath;
-//        self.bubbleView.layer.mask = maskLayer;
-//    }
-//    else
-//    {
-//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(12, 12)];
-//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//        maskLayer.frame = self.bubbleView.bounds;
-//        maskLayer.path = maskPath.CGPath;
-//        self.bubbleView.layer.mask = maskLayer;
-//    }
-    
-    [_msgImageView bm_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"tk_login_logo_black"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [self.msgImageView bm_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"tk_login_logo_black"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        
+        if (![image bm_isNotEmpty])
+        {
+            self.msgImageView.image = [UIImage imageNamed:@"tk_login_logo_black"];
+        }
+        
         [self setNeedsLayout];
         [self layoutIfNeeded];
     }];
@@ -121,7 +110,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    if (_msgImageView.image)
+    if (self.msgImageView.image)
     {
         CGFloat bubbleX = 0;
         CGFloat bubbleW = 0;
@@ -140,55 +129,37 @@
         }
         _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + 5, bubbleW, bubbleH);
         self.msgImageView.frame = CGRectMake(0, 0, bubbleW, bubbleH);
-        
-//        if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
-//        {//我的消息
-//            UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(12, 12)];
-//            CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//            maskLayer.frame = self.bubbleView.bounds;
-//            maskLayer.path = maskPath.CGPath;
-//            self.bubbleView.layer.mask = maskLayer;
-//        }
-//        else
-//        {
-//            UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(12, 12)];
-//            CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//            maskLayer.frame = self.bubbleView.bounds;
-//            maskLayer.path = maskPath.CGPath;
-//            self.bubbleView.layer.mask = maskLayer;
-//        }
-        
     }
 }
 - (void) smallImageClick:(UITapGestureRecognizer *)tap
 {
     if (nil == _bigImageView)
     {
-        _bigImageView = [[UIImageView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
-        _bigImageView.userInteractionEnabled = YES;
-        [_bigImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bigImageClick:)]];
+        self.bigImageView = [[UIImageView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
+        self.bigImageView.userInteractionEnabled = YES;
+        [self.bigImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bigImageClick:)]];
     }
     
-    [[UIApplication sharedApplication].keyWindow addSubview:_bigImageView];
-    _bigImageView.image = [_msgImageView.image copy];
-    _bigImageView.backgroundColor = UIColor.whiteColor;
-    CGSize size = [_bigImageView.image size];
+    [[UIApplication sharedApplication].keyWindow addSubview:self.bigImageView];
+    self.bigImageView.image = [self.msgImageView.image copy];
+    self.bigImageView.backgroundColor = UIColor.whiteColor;
+    CGSize size = [self.bigImageView.image size];
     if (size.width >= BMUI_SCREEN_WIDTH || size.height >= BMUI_SCREEN_HEIGHT)
     {
-        _bigImageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.bigImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     else
     {
-        _bigImageView.contentMode = UIViewContentModeCenter;
+        self.bigImageView.contentMode = UIViewContentModeCenter;
     }
 }
 
 - (void) bigImageClick:(UITapGestureRecognizer *) tap
 {
-    if (_bigImageView)
+    if (self.bigImageView)
     {
-        [_bigImageView removeFromSuperview];
-        _bigImageView = nil;
+        [self.bigImageView removeFromSuperview];
+        self.bigImageView = nil;
     }
 }
 
