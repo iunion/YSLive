@@ -3180,8 +3180,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [self hiddenTheKeyBoard];
             }
             
-            YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
-            if (fromUser.role == YSUserType_Teacher || fromUser.role == YSUserType_Assistant)
+//            YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
+//            if (fromUser.role == YSUserType_Teacher || fromUser.role == YSUserType_Assistant)
             {
                 if (disablechat)
                 {
