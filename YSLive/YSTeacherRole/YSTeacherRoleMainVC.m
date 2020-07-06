@@ -4283,55 +4283,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         dispatch_source_cancel(self.answerDetailTimer);
         self.answerDetailTimer = nil;
     }
-    BMWeakSelf
-    if (self.liveManager.isBigRoom)
-    {
 
-#warning BigRoom
-//        [self.liveManager getRoomUserWithPeerId:fromID callback:^(YSRoomUser * _Nullable user, NSError * _Nullable error) {
-//
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//
-//                [weakSelf answerResultViewWithUser:user answerId:answerId];
-//
-//            });
-//        }];
-    }
-    else
-    {
-        YSRoomUser *user = [weakSelf.liveManager getRoomUserWithId:fromID];
-        [self answerResultViewWithUser:user answerId:answerId];
-        
-    }
-//    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//
-//
-//    }
-//    else
-//    {
-//
-//        [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
-//        self.answerResultView = [[SCTeacherAnswerView alloc] init];
-//        [self.answerResultView showTeacherAnswerViewType:SCTeacherAnswerViewType_Statistics inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-//        [self.answerResultView setAnswerStatistics:self.answerStatistics totalUsers:_totalUsers rightResult:self.rightAnswer];
-//        self.answerResultView.isAnswerIng = NO;
-//        [self.answerResultView hideEndAgainBtn:NO];
-//        self.answerResultView.againBlock = ^{
-//            [weakSelf.answerResultView dismiss:nil animated:NO dismissBlock:nil];
-//            // 删除答题结果信令
-//            [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResultCompletion:nil];
-//            // 重新开始
-//            [weakSelf.liveManager sendSignalingTeacherToAnswerOccupyedCompletion:nil];
-//        };
-
-//    }
-
+    [self answerResultViewWithFromeID:fromID answerId:answerId];
 }
-- (void)answerResultViewWithUser:(YSRoomUser *)user answerId:(NSString *)answerId
+- (void)answerResultViewWithFromeID:(NSString *)fromeId answerId:(NSString *)answerId
 {
     BMWeakSelf
-    if (user.role == YSUserType_Assistant)
+    if (![fromeId isEqualToString:self.liveManager.teacher.peerID])
     {
         [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
     }
