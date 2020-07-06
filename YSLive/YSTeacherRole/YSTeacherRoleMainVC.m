@@ -162,6 +162,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL _isMp4ControlHide;// MP4控制是否显示 关闭按钮是否显示
     BOOL _isPolling;// 正在轮播
     NSString *_pollingFromID;/// 轮播发起者ID
+    
+    BOOL giftMp3Playing;
 }
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
@@ -3038,6 +3040,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+- (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
+{
+    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
+    if ([mediaFileUrl isEqualToString:filePath])
+    {
+        giftMp3Playing = NO;
+    }
+}
+
 - (void)showGiftAnimationWithVideoView:(SCVideoView *)videoView
 {
     if (!videoView)
@@ -3048,23 +3060,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
     NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
     
-    static BOOL giftMp3Playing = NO;
-    
     if (!giftMp3Playing)
     {
-        giftMp3Playing = YES;
-        [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:filePath];
-#if YSAPP_NEWERROR
-        BMWeakSelf
-        [self.liveManager.roomManager startPlayMediaFile:filePath window:nil loop:NO progress:^(int playID, int64_t current, int64_t total) {
-            
-            [weakSelf.liveManager.roomManager setPlayMedia:playID volume:0.5f];
-            if (current >= total)
-            {
-                giftMp3Playing = NO;
-            }
-        }];
-#endif
+        giftMp3Playing = [self.liveManager startPlayingMedia:filePath];
     }
     
     UIImageView *giftImageView = [self makeGiftImageView];
