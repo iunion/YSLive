@@ -3168,6 +3168,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
          [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         
         CGFloat percentLeft = 0;
+        
+        if (!videoView.isDragOut)
+        {
+            videoView.bm_width = floatVideoDefaultWidth;
+            videoView.bm_height = floatVideoDefaultHeight;
+        }
+        
         if (background.bm_width != videoView.bm_width && background.bm_width != (videoView.bm_width + 2) )
         {
             percentLeft = (self.videoOriginInSuperview.x+endPoint.x)/(background.bm_width - 2 - videoView.bm_width);
@@ -3394,7 +3401,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatViewSize.width);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatViewSize.height);
         
-//
         floatView.frame = CGRectMake(x, y, floatViewSize.width, floatViewSize.height);
         [floatView bm_bringToFront];
         return;
