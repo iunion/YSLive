@@ -97,7 +97,6 @@
 /// 主播的视频view的高度
 @property (nonatomic, assign) CGFloat liveViewHeight;
 
-
 /// 老师占位图中是否上课的提示
 @property (nonatomic, strong) UILabel *teacherPlaceLab ;
 /// 学生视频容器
@@ -839,30 +838,6 @@
     [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
     self.barrageBtn.frame = CGRectZero;
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //上麦按钮
-    //    self.upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [self.view addSubview:self.upPlatformBtn];
-    //    [self.view bringSubviewToFront:self.upPlatformBtn];
-    //
-    //    // iOS 获取设备当前语言和地区的代码
-    //    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
-    //
-    //    if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
-    //    {
-    //
-    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom"] forState:UIControlStateNormal];
-    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom"] forState:UIControlStateDisabled];
-    //    }
-    //    else
-    //    {
-    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"applyUpPlatfrom_EN"] forState:UIControlStateNormal];
-    //        [self.upPlatformBtn setImage:[UIImage imageNamed:@"waitUpPlatfrom_EN"] forState:UIControlStateDisabled];
-    //    }
-    //    self.upPlatformBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 12 - 50, self.fullScreenBtn.bm_bottom+15, 50, 50);
-    //    [self.upPlatformBtn addTarget:self action:@selector(upPlatformBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    //    self.upPlatformBtn.layer.cornerRadius = 10;
-    //    self.upPlatformBtn.hidden = YES;
 }
 
 - (void)setupVideoBackgroud
@@ -872,15 +847,7 @@
     self.videoBackgroud.backgroundColor = [UIColor clearColor];//[UIColor bm_colorWithHex:0x5A8CDC];
     [self.allVideoBgView addSubview:self.videoBackgroud];
     self.videoBackgroud.frame = CGRectMake(0, self.liveViewHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
-    //    self.videoBackgroud.bm_bottom = self.liveBgView.bm_bottom - 2;
 }
-
-///连麦按钮点击事件
-//- (void)upPlatformBtnClicked:(UIButton *)sender
-//{
-//    sender.enabled = NO;
-//    [[YSLiveManager shareInstance] sendSignalingUpPlatformWithCompletion:nil];
-//}
 
 - (void)makeMp3Animation
 {
@@ -1052,7 +1019,6 @@
     
     self.liveBgView.frame = CGRectMake(0, 0, teacherW, teacherH);
     self.liveBgView.bm_centerX = self.allVideoBgView.bm_centerX;
-    
 }
 
 
@@ -1114,7 +1080,6 @@
 - (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
 {
     SCVideoView *newVideoView = [super addVidoeViewWithPeerId:peerId withMaxCount:PLATFPRM_VIDEO_MAXCOUNT];
-
     
     [self freshContentView];
     
@@ -2491,7 +2456,6 @@
                 
                 self.remarkLab.transform = CGAffineTransformMakeRotation(0);
                 self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_originX - self.remarkLab.bm_width - 15 - 5, 0, self.remarkLab.bm_width + 15, 16);
-                
                 
                 self.playMp3ImageView.bm_origin = CGPointMake(15, self.liveBgView.bm_bottom - 70);
                 
