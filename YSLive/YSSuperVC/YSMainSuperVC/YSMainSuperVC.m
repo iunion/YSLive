@@ -449,6 +449,17 @@
 
 #pragma mark 用户流
 
+/// 大房间同步上台用户属性
+- (void)handleSignalingSyncProperty:(YSRoomUser *)roomUser
+{
+    [self userPublishstatechange:roomUser];
+}
+
+- (void)userPublishstatechange:(YSRoomUser *)roomUser
+{
+    
+}
+
 /// 用户流音量变化
 - (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
 {

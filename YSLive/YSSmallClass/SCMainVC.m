@@ -3092,6 +3092,89 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 用户属性变化
 
+- (void)userPublishstatechange:(YSRoomUser *)roomUser
+{
+    [super userPublishstatechange:roomUser];
+    
+    YSPublishState publishState = roomUser.publishState;
+    NSString *userId = roomUser.peerID;
+
+    if ([userId isEqualToString:self.liveManager.localUser.peerID])
+    {
+        /// 学生上课后 切换摄像头按钮不可点击（有视频流以后才可以切换）
+        if (self.liveManager.isClassBegin)
+        {
+            self.spreadBottomToolBar.isCameraEnable = (publishState == YSUser_PublishState_VIDEOONLY) || (publishState == YSUser_PublishState_BOTH);
+        }
+        else
+        {
+            self.spreadBottomToolBar.isCameraEnable = YES;
+        }
+        
+        if (publishState == YSUser_PublishState_VIDEOONLY)
+        {
+            self.controlPopoverView.audioBtn.selected = NO;
+            self.controlPopoverView.videoBtn.selected = YES;
+        }
+        if (publishState == YSUser_PublishState_AUDIOONLY)
+        {
+            self.controlPopoverView.audioBtn.selected = YES;
+            self.controlPopoverView.videoBtn.selected = NO;
+        }
+        if (publishState == YSUser_PublishState_BOTH)
+        {
+            self.controlPopoverView.audioBtn.selected = YES;
+            self.controlPopoverView.videoBtn.selected = YES;
+        }
+        if (publishState < YSUser_PublishState_AUDIOONLY)
+        {
+            if (!self.liveManager.isClassBegin)
+            {
+                return;
+            }
+            self.controlPopoverView.audioBtn.selected = NO;
+            self.controlPopoverView.videoBtn.selected = NO;
+            if (self.controlPopoverView.presentingViewController)
+            {
+                [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+            }
+        }
+        else if (publishState > YSUser_PublishState_BOTH)
+        {
+            self.controlPopoverView.audioBtn.selected = NO;
+            self.controlPopoverView.videoBtn.selected = NO;
+        }
+        else
+        {
+        }
+    }
+    
+    if (publishState == YSUser_PublishState_VIDEOONLY)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_AUDIOONLY)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_BOTH)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_ONSTAGE)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState != YSUser_PublishState_ONSTAGE)
+    {
+        if (!self.liveManager.isClassBegin)
+        {
+            return;
+        }
+        [self delVidoeViewWithPeerId:userId];
+    }
+}
+
 - (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:userId];
@@ -3214,102 +3297,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 发布媒体状态
     if ([properties bm_containsObjectForKey:sYSUserPublishstate])
     {
-        YSPublishState publishState = [properties bm_intForKey:sYSUserPublishstate];
-        
-        if ([userId isEqualToString:self.liveManager.localUser.peerID])
-        {
-            /// 学生上课后 切换摄像头按钮不可点击（有视频流以后才可以切换）
-            if (self.liveManager.isClassBegin)
-            {
-                ///
-                self.spreadBottomToolBar.isCameraEnable = (publishState == YSUser_PublishState_VIDEOONLY) || (publishState == YSUser_PublishState_BOTH);
-            }
-            else
-            {
-                self.spreadBottomToolBar.isCameraEnable = YES;
-            }
-            
-            if (publishState == YSUser_PublishState_VIDEOONLY)
-            {
-                self.controlPopoverView.audioBtn.selected = NO;
-                self.controlPopoverView.videoBtn.selected = YES;
-            }
-            if (publishState == YSUser_PublishState_AUDIOONLY)
-            {
-                self.controlPopoverView.audioBtn.selected = YES;
-                self.controlPopoverView.videoBtn.selected = NO;
-            }
-            if (publishState == YSUser_PublishState_BOTH)
-            {
-                self.controlPopoverView.audioBtn.selected = YES;
-                self.controlPopoverView.videoBtn.selected = YES;
-            }
-            if (publishState < YSUser_PublishState_AUDIOONLY)
-            {
-                if (!self.liveManager.isClassBegin)
-                {
-                    return;
-                }
-                self.controlPopoverView.audioBtn.selected = NO;
-                self.controlPopoverView.videoBtn.selected = NO;
-                if (self.controlPopoverView.presentingViewController)
-                {
-                    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
-                }
-            }
-            else if (publishState > YSUser_PublishState_BOTH)
-            {
-                self.controlPopoverView.audioBtn.selected = NO;
-                self.controlPopoverView.videoBtn.selected = NO;
-            }
-            else
-            {
-            }
-        }
-        
-        if (publishState == YSUser_PublishState_VIDEOONLY)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == YSUser_PublishState_AUDIOONLY)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == YSUser_PublishState_BOTH)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == 4)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState != 4)
-        {
-            if (!self.liveManager.isClassBegin)
-            {
-                return;
-            }
-            [self delVidoeViewWithPeerId:userId];
-        }
-        
-//        // 刷新当前用户前后台状态
-//        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
-//        {
-//            //videoView = [self getVideoViewWithPeerId:YSCurrentUser.peerID];
-//            if ([videoView bm_isNotEmpty])
-//            {
-//                BOOL isInBackGround = NO;
-//                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-//                if (state != UIApplicationStateActive)
-//                {
-//                    isInBackGround = YES;
-//                }
-//                if (isInBackGround != videoView.isInBackGround)
-//                {
-//                    [self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@(isInBackGround) completion:nil];
-//                }
-//            }
-//        }
+        [self userPublishstatechange:roomUser];
     }
     
 #if USE_FullTeacher

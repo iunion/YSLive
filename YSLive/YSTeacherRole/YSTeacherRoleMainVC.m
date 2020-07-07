@@ -2264,6 +2264,53 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark - 用户属性变化
 
+- (void)userPublishstatechange:(YSRoomUser *)roomUser
+{
+    [super userPublishstatechange:roomUser];
+    
+    YSPublishState publishState = roomUser.publishState;
+    NSString *userId = roomUser.peerID;
+
+    if (publishState == YSUser_PublishState_VIDEOONLY)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_AUDIOONLY)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_BOTH)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_ONSTAGE)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState != YSUser_PublishState_ONSTAGE)
+    {
+        if (!self.liveManager.isClassBegin)
+        {
+            return;
+        }
+        [self delVidoeViewWithPeerId:userId];
+        if (self.controlPopoverView.presentingViewController)
+        {
+            [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+        }
+    }
+    
+    for (NSMutableDictionary *userDict in self.raiseHandArray)
+    {
+        if ([[userDict bm_stringForKey:@"peerId"] isEqualToString:userId])
+        {
+            [userDict setValue:@(publishState) forKey:@"publishState"];
+            self.upHandPopTableView.userArr = self.raiseHandArray;
+            break;
+        }
+    }
+}
+
 - (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:userId];
@@ -2358,78 +2405,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 发布媒体状态
     if ([properties bm_containsObjectForKey:sYSUserPublishstate])
     {
-        YSPublishState publishState = [properties bm_intForKey:sYSUserPublishstate];
-//        YSRoomUser *user = [self.liveManager.roomManager getRoomUserWithUId:peerID];
-
-        for (NSMutableDictionary *userDict in self.raiseHandArray)
-        {
-            if ([userDict bm_stringForKey:@"peerId"])
-            {
-                [userDict setValue:@(publishState) forKey:@"publishState"];
-                self.upHandPopTableView.userArr = self.raiseHandArray;
-                break;
-            }
-        }
-                
-#if 0
-        if ([peerID isEqualToString:self.liveManager.localUser.peerID])
-        {
-            if (publishState == YSUser_PublishState_VIDEOONLY)
-            {
-                
-            }
-            if (publishState == YSUser_PublishState_AUDIOONLY)
-            {
-                
-            }
-            if (publishState == YSUser_PublishState_BOTH)
-            {
-                
-            }
-            if (publishState < YSUser_PublishState_AUDIOONLY || publishState > YSUser_PublishState_BOTH)
-            {
-                
-            }
-            else
-            {
-                if (publishState != YSUser_PublishState_VIDEOONLY)
-                {
-                    
-                }
-            }
-        }
-#endif
-        
-        //YSRoomUser * user = [[YSLiveManager shareInstance].roomManager getRoomUserWithUId:peerID];
-        
-        if (publishState == YSUser_PublishState_VIDEOONLY)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == YSUser_PublishState_AUDIOONLY)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == YSUser_PublishState_BOTH)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == 4)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState != 4)
-        {
-            if (!self.liveManager.isClassBegin)
-            {
-                return;
-            }
-            [self delVidoeViewWithPeerId:userId];
-            if (self.controlPopoverView.presentingViewController)
-            {
-                [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-            }
-        }
+        [self userPublishstatechange:roomUser];
     }
     
 #if USE_FullTeacher

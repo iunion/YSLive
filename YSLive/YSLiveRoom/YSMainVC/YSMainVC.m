@@ -1253,6 +1253,57 @@
 
 #pragma mark 用户属性变化
 
+- (void)userPublishstatechange:(YSRoomUser *)roomUser
+{
+    [super userPublishstatechange:roomUser];
+    
+    YSPublishState publishState = roomUser.publishState;
+    NSString *userId = roomUser.peerID;
+    
+    if ([userId isEqualToString:self.liveManager.localUser.peerID])
+    {
+        if (publishState == YSUser_PublishState_VIDEOONLY)
+        {
+            
+        }
+        if (publishState == YSUser_PublishState_AUDIOONLY)
+        {
+            
+        }
+        if (publishState == YSUser_PublishState_BOTH)
+        {
+            
+        }
+    }
+    
+    if (publishState == YSUser_PublishState_VIDEOONLY)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_AUDIOONLY)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_BOTH)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState == YSUser_PublishState_ONSTAGE)
+    {
+        [self addVidoeViewWithPeerId:userId];
+    }
+    else if (publishState != YSUser_PublishState_ONSTAGE)
+    {
+        if (!self.liveManager.isClassBegin)
+        {
+            return;
+        }
+        
+        [self delVidoeViewWithPeerId:userId];
+        [self clickToShowControl];// 隐藏控制按钮
+    }
+}
+
 - (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:userId];
@@ -1282,50 +1333,7 @@
     // 上台
     if ([properties bm_containsObjectForKey:sYSUserPublishstate] && roomUser.role == YSUserType_Student)
     {
-        YSPublishState publishState = [properties bm_intForKey:sYSUserPublishstate];
-        
-        if ([userId isEqualToString:self.liveManager.localUser.peerID])
-        {
-            if (publishState == YSUser_PublishState_VIDEOONLY)
-            {
-                
-            }
-            if (publishState == YSUser_PublishState_AUDIOONLY)
-            {
-                
-            }
-            if (publishState == YSUser_PublishState_BOTH)
-            {
-                
-            }
-        }
-        
-        if (publishState == YSUser_PublishState_VIDEOONLY)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == YSUser_PublishState_AUDIOONLY)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == YSUser_PublishState_BOTH)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState == 4)
-        {
-            [self addVidoeViewWithPeerId:userId];
-        }
-        else if (publishState != 4)
-        {
-            if (!self.liveManager.isClassBegin)
-            {
-                return;
-            }
-            
-            [self delVidoeViewWithPeerId:userId];
-            [self clickToShowControl];// 隐藏控制按钮
-        }
+        [self userPublishstatechange:roomUser];
     }
     
     if ([userId isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
