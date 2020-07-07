@@ -2102,7 +2102,7 @@
     switch (index)
     {
         case 0:
-            return YSLocalized(@"Label.Courseware");
+            return YSLocalized(@"Label.Document");
             break;
         case 1:
             return YSLocalized(@"Label.Room");
