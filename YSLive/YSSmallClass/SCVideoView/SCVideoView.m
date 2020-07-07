@@ -399,7 +399,7 @@
     self.maskCloseVideo.frame = CGRectMake(0, 0, imageWidth, imageHeight);
     [self.maskCloseVideo bm_centerInSuperView];
     
-    if (self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
+    if (self.appUseTheType == YSRoomUseTypeLiveRoom || self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
     {
         self.cupImage.hidden = YES;
         self.cupNumLab.hidden = YES;
