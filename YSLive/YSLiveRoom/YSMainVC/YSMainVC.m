@@ -1045,6 +1045,12 @@
 
 #pragma mark - videoViewArray
 
+/// 用户流音量变化
+- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
+{
+    [super onRoomAudioVolumeWithUserId:userId volume:volume];
+}
+
 /// 开关摄像头
 - (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID
 {
@@ -1060,7 +1066,21 @@
 /// 收到音视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    [super onRoomStartVideoOfUid:uid streamID:streamID];
+    SCVideoView *videoView = [self getVideoViewWithPeerId:uid];
+    if (videoView)
+    {
+        YSRoomUser *roomUser = videoView.roomUser;
+        [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:videoView];
+        [videoView freshWithRoomUserProperty:roomUser];
+    }
+    else
+    {
+        YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:uid];
+        if (roomUser && roomUser.role == YSUserType_Teacher)
+        {
+            [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:self.liveView];
+        }
+    }
 }
 
 /// 停止音视频流
@@ -1172,7 +1192,10 @@
             self.showRoomVideo = YES;
             
             NSString *streamID = [self.liveManager getUserStreamIdWithUserId:user.peerID];
-            [self.liveManager playVideoWithUserId:user.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+            if (streamID)
+            {
+                [self.liveManager playVideoWithUserId:user.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+            }
         }
         
         [self freshMediaView];
@@ -1185,10 +1208,10 @@
 {
     if (user.role == YSUserType_Teacher)
     {
-#if YSAPP_NEWERROR
-        [self.liveManager stopPlayVideo:user.peerID completion:nil];
-        [self.liveManager stopPlayAudio:user.peerID completion:nil];
-#endif
+        self.showRoomVideo = NO;
+
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:user.peerID];
+        [self.liveManager stopVideoWithUserId:user.peerID streamID:streamID];
     }
     
 #if 0
@@ -1296,9 +1319,35 @@
     }
     
     // 上台
-    if ([properties bm_containsObjectForKey:sYSUserPublishstate] && roomUser.role == YSUserType_Student)
+    if ([properties bm_containsObjectForKey:sYSUserPublishstate])
     {
-        [self userPublishstatechange:roomUser];
+        if (roomUser.role == YSUserType_Student)
+        {
+            [self userPublishstatechange:roomUser];
+        }
+        else if (roomUser.role == YSUserType_Teacher)
+        {
+            self.roomVideoPeerID = userId;
+            NSString *streamID = [self.liveManager getUserStreamIdWithUserId:roomUser.peerID];
+            
+            if (roomUser.publishState >= YSUser_PublishState_VIDEOONLY && roomUser.publishState != YSUser_PublishState_ONSTAGE)
+            {
+                self.showRoomVideo = YES;
+                
+                if (streamID)
+                {
+                    [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+                }
+            }
+            else
+            {
+                self.showRoomVideo = NO;
+
+                [self.liveManager stopVideoWithUserId:roomUser.peerID streamID:streamID];
+            }
+            
+            [self freshMediaView];
+        }
     }
     
     if ([userId isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
@@ -1377,7 +1426,7 @@
             {
                 [self addVidoeViewWithPeerId:peerID];
             }
-            else if (publishState == 4)
+            else if (publishState == YSUser_PublishState_ONSTAGE)
             {
                 [self addVidoeViewWithPeerId:peerID];
             }
