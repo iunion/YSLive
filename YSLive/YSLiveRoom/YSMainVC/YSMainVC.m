@@ -1278,6 +1278,11 @@
 
 - (void)userPublishstatechange:(YSRoomUser *)roomUser
 {
+    if (roomUser.role == YSUserType_Teacher)
+    {
+        return;
+    }
+    
     [super userPublishstatechange:roomUser];
     
     YSPublishState publishState = roomUser.publishState;
