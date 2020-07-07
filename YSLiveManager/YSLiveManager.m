@@ -40,7 +40,7 @@
 
 @implementation YSLiveManager
 
-+ (void)destory
++ (void)destroy
 {
     [YSWhiteBoardManager destroy];
 
