@@ -4881,7 +4881,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 #pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
-- (void)videoViewControlBtnsClick:(UIButton *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
+- (void)videoViewControlBtnsClick:(BMImageTitleButtonView *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
 {
     YSUserMediaPublishState userPublishState = YSCurrentUser.mediaPublishState;
     switch (videoViewControlType) {

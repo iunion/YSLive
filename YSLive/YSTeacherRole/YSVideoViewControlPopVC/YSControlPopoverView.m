@@ -445,7 +445,7 @@
 }
 
 
-- (void)userBtnsClick:(UIButton *)sender
+- (void)userBtnsClick:(BMImageTitleButtonView *)sender
 {
     if ([self.delegate respondsToSelector:@selector(videoViewControlBtnsClick:videoViewControlType:)])
     {
