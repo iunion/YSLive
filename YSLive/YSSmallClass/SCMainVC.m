@@ -3479,8 +3479,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     {
                         publishState = YSUser_PublishState_VIDEOONLY;
                     }
-
-                    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
+                    NSString *whom = YSRoomPubMsgTellAll;
+                    if (self.liveManager.isBigRoom)
+                    {
+                        whom = YSCurrentUser.peerID;
+                    }
+                    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(publishState)];
                 }
             }
         }
@@ -3495,8 +3499,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     publishState = YSUser_PublishState_VIDEOONLY;
                 }
-                
-                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
+                NSString *whom = YSRoomPubMsgTellAll;
+                if (self.liveManager.isBigRoom)
+                {
+                    whom = YSCurrentUser.peerID;
+                }
+                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(publishState)];
                 
                 [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(true)];
             }
