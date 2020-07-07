@@ -467,6 +467,8 @@
 - (void)closeToolBar
 {
     self.spreadOut = NO;
+    self.spreadBtn.selected = YES;
+    
     CGFloat top = self.topLeftpoint.y;
     CGFloat left = self.topLeftpoint.x-YSSpreadBottomToolBar_BtnGap;
     CGFloat height = YSSpreadBottomToolBar_BtnWidth + YSSpreadBottomToolBar_BtnGap*2.0f;
@@ -492,4 +494,5 @@
         [self.delegate bottomToolBarSpreadOut:self.spreadOut];
     }
 }
+
 @end
