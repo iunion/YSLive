@@ -18,14 +18,14 @@
 @property (nonatomic, strong) UIView *backView;
 
 //复位控制按钮
-@property (nonatomic, strong) UIButton * restoreBtn;
+@property (nonatomic, strong) BMImageTitleButtonView * restoreBtn;
 //发奖杯按钮
-@property (nonatomic, strong) UIButton * giftCupBtn;
+@property (nonatomic, strong) BMImageTitleButtonView * giftCupBtn;
 
 //全体复位控制按钮
-@property (nonatomic, strong) UIButton * allRestoreBtn;
+@property (nonatomic, strong) BMImageTitleButtonView * allRestoreBtn;
 //全体奖杯按钮
-@property (nonatomic, strong) UIButton * allGiftCupBtn;
+@property (nonatomic, strong) BMImageTitleButtonView * allGiftCupBtn;
 //线
 @property (nonatomic, strong) UIView * lineView;
 @property (nonatomic, strong) NSMutableArray *btnArray;
@@ -130,8 +130,8 @@
     
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
-    [self.audioBtn setImage:YSSkinElementImage(@"videoPop_soundButton", @"iconDis") forState:UIControlStateDisabled];
-    [self.audioBtn setTitle:YSLocalized(@"Button.MutingAudio") forState:UIControlStateDisabled];
+    self.audioBtn.disabledImage = YSSkinElementImage(@"videoPop_soundButton", @"iconDis");
+    self.audioBtn.disabledText = YSLocalized(@"Button.MutingAudio");
     self.audioBtn.tag = SCVideoViewControlTypeAudio;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -145,7 +145,7 @@
     //视频控制按钮
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") image:YSSkinElementImage(@"videoPop_videoButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_videoButton", @"iconSel")];
     UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.videoBtn setImage:videoClose forState:UIControlStateDisabled];
+    self.videoBtn.disabledImage = videoClose;
     self.videoBtn.tag = SCVideoViewControlTypeVideo;
     if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -177,7 +177,7 @@
     //镜像控制按钮
     self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenMirror" ) selectTitle:YSLocalized(@"Button.CloseMirror" ) image:YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_mirrorButton", @"iconSel")];
     UIImage * mirrorClose = [YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    [self.mirrorBtn setImage:mirrorClose forState:UIControlStateDisabled];
+    self.mirrorBtn.disabledImage = mirrorClose;
     self.mirrorBtn.tag = SCVideoViewControlTypeMirror;
     if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
     {
@@ -189,7 +189,7 @@
     }
     
     //复位控制按钮
-    UIButton * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
+    BMImageTitleButtonView  * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
     restoreBtn.tag = SCVideoViewControlTypeRestore;
     self.restoreBtn = restoreBtn;
     
@@ -206,7 +206,7 @@
     }
     
     //发奖杯按钮
-    UIButton * giftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.GiveCup") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
+    BMImageTitleButtonView  * giftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.GiveCup") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
     giftCupBtn.tag = SCVideoViewControlTypeGiftCup;
     self.giftCupBtn = giftCupBtn;
     
@@ -216,12 +216,12 @@
     lineView.hidden = YES;
     
     //全体复位按钮
-    UIButton * allRestoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reset") selectTitle:nil image:YSSkinElementImage(@"videoPop_allResetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_allResetButton", @"iconSel")];
+    BMImageTitleButtonView  * allRestoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reset") selectTitle:nil image:YSSkinElementImage(@"videoPop_allResetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_allResetButton", @"iconSel")];
     allRestoreBtn.tag = SCVideoViewControlTypeAllRestore;
     self.allRestoreBtn = allRestoreBtn;
     
     //全体奖杯按钮
-    UIButton * allGiftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reward") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
+    BMImageTitleButtonView  * allGiftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reward") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
     allGiftCupBtn.tag = SCVideoViewControlTypeAllGiftCup;
     self.allGiftCupBtn = allGiftCupBtn;
     [self.btnArray removeAllObjects];
@@ -373,7 +373,7 @@
             CGRect frame = CGRectMake(Margin + width * index, 0, width, self.view.bm_height);
             btn.frame = frame;
         }
-        [self moveButtonTitleAndImageWithButton:btn];
+//        [self moveButtonTitleAndImageWithButton:btn];
     }
     if (isShowLine)
     {
@@ -469,30 +469,25 @@
 
 
 ///创建button
-- (UIButton *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle image:(UIImage *)image selectImage:(UIImage *)selectImage
+- (BMImageTitleButtonView *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle image:(UIImage *)image selectImage:(UIImage *)selectImage
 {
-    UIButton * button = [[UIButton alloc]init];
+    BMImageTitleButtonView * button = [[BMImageTitleButtonView alloc]init];
+    button.userInteractionEnabled = YES;
+    button.type = BMImageTitleButtonView_ImageTop;
     [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [button setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    [button setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-    button.titleLabel.font = UI_FONT_10;
-//    if (![UIDevice bm_isiPad] && self.roomLayout == YSRoomLayoutType_VideoLayout)
-//    {
-//
-//
-//    }else
+    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
+    button.textFont= UI_FONT_10;
+    button.normalText = title;
+    
+    if (selectTitle.length)
     {
-        [button setTitle:title forState:UIControlStateNormal];
-        if (selectTitle.length)
-        {
-            [button setTitle:selectTitle forState:UIControlStateSelected];
-        }
+        button.selectedText = selectTitle;
     }
     
-    [button setImage:image forState:UIControlStateNormal];
+    button.normalImage = image;
     if (selectImage)
     {
-        [button setImage:selectImage forState:UIControlStateSelected];
+        button.selectedImage = selectImage;
     }
     return button;
 }

@@ -26,17 +26,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)void(^controlPopoverbuttonClick)(NSInteger index);
 
 ///音频控制按钮
-@property(nonatomic,strong) UIButton * audioBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * audioBtn;
 ///视频控制按钮
-@property(nonatomic,strong) UIButton * videoBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
 ///镜像控制按钮
-@property(nonatomic,strong) UIButton * mirrorBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * mirrorBtn;
 ///画笔权限控制按钮
-@property(nonatomic,strong) UIButton * canDrawBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * canDrawBtn;
 ///上下台控制按钮
-@property(nonatomic,strong) UIButton * onStageBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * onStageBtn;
 //成为焦点按钮
-@property(nonatomic,strong) UIButton * fouceBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * fouceBtn;
 
 /// 是否被拖出
 @property (nonatomic, assign) BOOL isDragOut;
