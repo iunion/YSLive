@@ -1181,7 +1181,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
         UIImageView * raiseMaskImage = [[UIImageView alloc]initWithFrame:self.raiseHandsBtn.bounds];
         raiseMaskImage.animationImages = @[YSSkinElementImage(@"raiseHand_time", @"iconNor3"),YSSkinElementImage(@"raiseHand_time", @"iconNor2"),YSSkinElementImage(@"raiseHand_time", @"iconNor1")];
-        raiseMaskImage.animationDuration = 3.0;
+        raiseMaskImage.animationDuration = 3.1;
         raiseMaskImage.animationRepeatCount = 0;
         self.raiseMaskImage = raiseMaskImage;
         [self.raiseHandsBtn addSubview:raiseMaskImage];
@@ -1233,9 +1233,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.raiseMaskImage startAnimating];
         self.raiseHandsBtn.userInteractionEnabled = NO;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.raiseMaskImage stopAnimating];
             self.remarkLab.hidden = YES;
             self.raiseMaskImage.hidden = YES;
+            [self.raiseMaskImage stopAnimating];
             self.raiseHandsBtn.userInteractionEnabled = YES;
             
             [self.liveManager sendSignalingsStudentToRaiseHandWithModify:1l];
