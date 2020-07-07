@@ -187,23 +187,23 @@
 "Prompt.timeoutReadyEnd.two" = "minutes overtime now. This class will end automatically in";
 "Prompt.timeoutReadyEnd.three" = "minutes.";
 
-"Title.DocumentList"        = "Course Lib";
+"Title.DocumentList"        = "Lib";
 "Title.ToolBox"             = "Tools";
-"Title.AroundLayout"        = "Tile";
-"Title.VideoLayout"         = "Synthetical";
-"Title.Polling"             = "Carousel";
-"Title.AllNoAudio"          = "Mute all";
-"Title.AllAudio"            = "Unmute all";
-"Title.Message"             = "Messages";
+"Title.AroundLayout"        = "Layout";
+"Title.VideoLayout"         = "Layout";
+"Title.Polling"             = "Rot";
+"Title.AllNoAudio"          = "Mute";
+"Title.AllAudio"            = "Unmute";
+"Title.Message"             = "Chat";
 "Title.Exit"                = "Quit";
-"Title.ChangeCamera"        = "Reverse camera";
+"Title.ChangeCamera"        = "Switch";
 
 
 
 "Title.MediaList"           = "Media";
 "Title.ControlList"         = "Operation";
 "Title.TrophySend"          = "Send Cup";
-"Title.UserList"            = "Name List";
+"Title.UserList"            = "List";
 "Title.UserList.two"        = "Name List (1)";
 "Title.AreaList"            = "Optimal server";
 "Title.StudentNum"            = "Student number";
