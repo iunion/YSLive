@@ -2755,9 +2755,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
 }
-
 /// 双击视频最大化
-- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId isFull:(BOOL)isFull;
+- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId isFull:(BOOL)isFull
 {
     self.isDoubleVideoBig = isFull;
     if (isFull)
@@ -2771,8 +2770,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         videoView.isFullScreen = isFull;
         
         [self freshContentView];
-        
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:self.whitebordBackgroud.bounds];
+        YSFloatView *floatView = [[YSFloatView alloc] init];
+        CGFloat wide = 4.0/3.0;
+        if (self.isWideScreen)
+        {
+            wide = 16.0/9.0;
+        }
+
+        if(self.whitebordBackgroud.bm_height < self.whitebordBackgroud.bm_width)
+        {
+            CGFloat tempWidth = ceil(self.whitebordBackgroud.bm_height * wide);
+            floatView.frame = CGRectMake(0, 0, tempWidth, self.whitebordBackgroud.bm_height);
+            floatView.bm_centerX = self.whitebordBackgroud.bm_width*0.5f;
+        }
+        else
+        {
+            CGFloat tempHeight = ceil(self.whitebordBackgroud.bm_width / wide);
+            floatView.frame = CGRectMake(0, 0, self.whitebordBackgroud.bm_width, tempHeight);
+            floatView.bm_centerY = self.whitebordBackgroud.bm_height*0.5f;
+        }
         
         [self.whitebordBackgroud addSubview:floatView];
         [floatView bm_centerInSuperView];
@@ -5281,7 +5297,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 #pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
-- (void)videoViewControlBtnsClick:(UIButton *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
+- (void)videoViewControlBtnsClick:(BMImageTitleButtonView *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
 {
     YSUserMediaPublishState userPublishState = self.selectControlView.roomUser.mediaPublishState;
     switch (videoViewControlType) {
