@@ -4028,7 +4028,25 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         [self freshContentView];
         
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:self.whitebordBackgroud.bounds];
+        YSFloatView *floatView = [[YSFloatView alloc] init];
+        CGFloat wide = 4.0/3.0;
+        if (self.isWideScreen)
+        {
+            wide = 16.0/9.0;
+        }
+
+        if(self.whitebordBackgroud.bm_height < self.whitebordBackgroud.bm_width)
+        {
+            CGFloat tempWidth = ceil(self.whitebordBackgroud.bm_height * wide);
+            floatView.frame = CGRectMake(0, 0, tempWidth, self.whitebordBackgroud.bm_height);
+            floatView.bm_centerX = self.whitebordBackgroud.bm_width*0.5f;
+        }
+        else
+        {
+            CGFloat tempHeight = ceil(self.whitebordBackgroud.bm_width / wide);
+            floatView.frame = CGRectMake(0, 0, self.whitebordBackgroud.bm_width, tempHeight);
+            floatView.bm_centerY = self.whitebordBackgroud.bm_height*0.5f;
+        }
         
         [self.whitebordBackgroud addSubview:floatView];
         [floatView bm_centerInSuperView];
