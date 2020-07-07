@@ -2486,6 +2486,13 @@
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(0);
                 self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
                 
+                self.raiseMaskImage.transform = CGAffineTransformMakeRotation(0);
+                self.raiseMaskImage.frame = self.raiseHandsBtn.frame;
+                
+                self.remarkLab.transform = CGAffineTransformMakeRotation(0);
+                self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_originX - self.remarkLab.bm_width - 15 - 5, 0, self.remarkLab.bm_width + 15, 16);
+                
+                
                 self.playMp3ImageView.bm_origin = CGPointMake(15, self.liveBgView.bm_bottom - 70);
                 
                 [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.liveImageView.bm_height-50];
@@ -2530,6 +2537,12 @@
                 
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.raiseHandsBtn.frame = CGRectMake(self.fullScreenBtn.bm_left - 40 - 20, self.fullScreenBtn.bm_top, 40, 40);
+                
+                self.raiseMaskImage.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                self.raiseMaskImage.frame = self.raiseHandsBtn.frame;
+                
+                self.remarkLab.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_centerX - self.remarkLab.bm_width/2, self.raiseHandsBtn.bm_originY - self.remarkLab.bm_height - 5 - 15, self.remarkLab.bm_width, self.remarkLab.bm_height);
                 
                 self.playMp3ImageView.bm_origin = CGPointMake(15, 70);
                 
