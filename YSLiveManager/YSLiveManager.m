@@ -200,6 +200,7 @@
         YSWhiteBoardWebHostKey : host,
         YSWhiteBoardWebPortKey : @(port),
         YSWhiteBoardPlayBackKey : @(NO),
+        YSWhiteBoardPDFLevelsKey : @(2)
     };
     
 #if YSSDK
