@@ -1917,17 +1917,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
-
-    BMWeakSelf
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:reasonString message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        [weakSelf.liveManager leaveRoom:nil];
-        
-    }];
-    [alertVc addAction:confimAc];
-    [self presentViewController:alertVc animated:YES completion:nil];
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withDetailText:reasonString delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 }
 
 

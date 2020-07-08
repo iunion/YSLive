@@ -1171,12 +1171,8 @@
     {
         reasonString = YSLocalized(@"KickOut.SentOutClassroom");
     }
-    
-    BMWeakSelf
-    [BMAlertView ys_showAlertWithTitle:reasonString message:nil cancelTitle:YSLocalized(@"Prompt.OK") otherTitle:nil completion:^(BOOL cancelled, NSInteger buttonIndex) {
         
-        [weakSelf.liveManager leaveRoom:nil];
-    }];
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withDetailText:reasonString delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 }
 
 #pragma mark 用户进入
