@@ -934,7 +934,7 @@
         }
         else
         {
-            self.liveImageView.image = [UIImage imageNamed:@"main_stopvideo"];
+            self.liveImageView.image = YSSkinDefineImage(@"live_main_stopvideo");
             self.liveImageView.hidden = NO;
         }
     }
