@@ -879,7 +879,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 白板背景
     UIView *whitebordBackgroud = [[UIView alloc] init];
-    whitebordBackgroud.backgroundColor = [UIColor redColor];
+    //whitebordBackgroud.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
@@ -1233,7 +1233,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 白板背景
     UIView *whitebordFullBackgroud = [[UIView alloc] init];
 //    whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-    whitebordFullBackgroud.backgroundColor = UIColor.redColor;
+    //whitebordFullBackgroud.backgroundColor = UIColor.redColor;
     [self.contentBackgroud addSubview:whitebordFullBackgroud];
     whitebordFullBackgroud.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight);
     self.whitebordFullBackgroud = whitebordFullBackgroud;
