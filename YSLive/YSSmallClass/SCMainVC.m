@@ -3547,16 +3547,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         text = YSLocalized(@"Prompt.ClassEnd");
     }
     
-    BMWeakSelf
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:text message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        [weakSelf.liveManager leaveRoom:nil];
-        
-    }];
-    [alertVc addAction:confimAc];
-    [self presentViewController:alertVc animated:YES completion:nil];
+    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES withDetailText:text delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [self.liveManager leaveRoom:nil];
 }
 
 /// 弹框
