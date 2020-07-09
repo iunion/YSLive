@@ -1399,10 +1399,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 SCVideoView *videoView = self.videoViewArray.firstObject;
                 if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
-#if YSAPP_NEWERROR
-                    [self.liveManager stopPlayVideo:YSCurrentUser.peerID completion:nil];
-                    [self.liveManager stopPlayAudio:YSCurrentUser.peerID completion:nil];
-#endif
+                    [self.liveManager stopVideoWithUserId:YSCurrentUser.peerID streamID:nil];
                     if (videoView.roomUser.role == YSUserType_Student)
                     {
                         self.userVideoView.hidden = YES;
