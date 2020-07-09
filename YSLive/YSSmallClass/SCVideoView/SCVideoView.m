@@ -919,6 +919,14 @@
                 if (state != UIApplicationStateActive)
                 {
                     isInBackGround = YES;
+                    // 兼容iOS11前后台状态
+                    if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
+                    {
+                        if (state == UIApplicationStateInactive)
+                        {
+                            isInBackGround = NO;
+                        }
+                    }
                 }
                 if (isInBackGround != [self.roomUser.properties bm_boolForKey:sYSUserIsInBackGround])
                 {
