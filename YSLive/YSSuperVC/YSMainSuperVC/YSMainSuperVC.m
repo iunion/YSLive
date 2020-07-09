@@ -172,7 +172,7 @@
     }
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
-    videoView.publishState = publishState;
+    videoView.publishState = videoView.roomUser.publishState;
 }
 
 - (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
@@ -211,7 +211,7 @@
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
 
-    videoView.publishState = publishState;
+    videoView.publishState = videoView.roomUser.publishState;
 }
 
 - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView

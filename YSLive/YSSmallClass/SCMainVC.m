@@ -3509,6 +3509,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (state != UIApplicationStateActive)
         {
             isInBackGround = YES;
+            // 兼容iOS11前后台状态
+            if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
+            {
+                if (state == UIApplicationStateInactive)
+                {
+                    isInBackGround = NO;
+                }
+            }
         }
         
         if (isInBackGround != userIsInBackGround)
