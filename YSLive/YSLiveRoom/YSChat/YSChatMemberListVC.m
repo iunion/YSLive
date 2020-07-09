@@ -96,9 +96,8 @@
 -(void)setMemberList:(NSMutableArray<YSRoomUser *> *)memberList
 {
     _memberList = memberList;
-    YSRoomUser * model = [[YSRoomUser alloc]init];
+    YSRoomUser * model = [[YSRoomUser alloc]initWithPeerId:@""];
     model.nickName = YSLocalized(@"Label.All");
-    model.peerID = @"";
     [self.memberList insertObject:model atIndex:0];
 }
 

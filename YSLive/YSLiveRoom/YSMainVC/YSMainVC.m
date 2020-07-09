@@ -2505,7 +2505,7 @@
                 self.raiseMaskImage.frame = self.raiseHandsBtn.frame;
                 
                 self.remarkLab.transform = CGAffineTransformMakeRotation(0);
-                self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_originX - self.remarkLab.bm_width - 15 - 5, 0, self.remarkLab.bm_width + 15, 16);
+                self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_originX - self.remarkLab.bm_width - 15 - 5, self.raiseHandsBtn.bm_centerY - 8, self.remarkLab.bm_width + 15, 16);
                 
                 self.playMp3ImageView.bm_origin = CGPointMake(15, self.liveBgView.bm_bottom - 70);
                 

@@ -55,7 +55,7 @@
         NSMutableAttributedString * mutAttrString = [[NSMutableAttributedString alloc]initWithString:str];
         NSTextAttachment * attch = [[NSTextAttachment alloc]init];
         attch.bounds = CGRectMake(0, 0, 20, 19);
-        attch.image = [UIImage imageNamed:@"flower"];
+        attch.image = YSSkinElementImage(@"live_chat_flowerBtn", @"iconNor");
         NSAttributedString * imageStr = [NSAttributedString attributedStringWithAttachment:attch];
         [mutAttrString appendAttributedString:imageStr];
         

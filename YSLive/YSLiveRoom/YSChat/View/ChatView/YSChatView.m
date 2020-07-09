@@ -327,7 +327,7 @@ UITableViewDataSource
 - (void)receiveFlowrsWithSenderId:(NSString *)senderId senderName:(NSString *)senderName
 {
     YSChatMessageModel * model = [[YSChatMessageModel alloc]init];
-    YSRoomUser * userModel = [[YSRoomUser alloc]init];
+    YSRoomUser * userModel = [[YSRoomUser alloc]initWithPeerId:senderId];
     userModel.nickName =  senderName;
     model.timeInterval = [self systemTimeInfo];
     model.sendUser = userModel;
