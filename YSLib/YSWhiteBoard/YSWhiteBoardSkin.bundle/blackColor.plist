@@ -215,5 +215,14 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
+	<key>laser_point</key>
+	<dict>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>laser_point_nor_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
 </dict>
 </plist>
