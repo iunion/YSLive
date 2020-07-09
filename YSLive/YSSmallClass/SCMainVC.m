@@ -2508,7 +2508,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSRoomLayoutType_VideoLayout);
         }
         
-        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
+        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
         {
             self.drawBoardView.hidden = YES;
         }
@@ -3635,7 +3635,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
     {
         self.drawBoardView.hidden = YES;
     }
@@ -4058,7 +4058,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.brushToolOpenBtn.hidden = isFull;
         }
     }
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected )
+    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
     {
         self.drawBoardView.hidden = YES;
     }
