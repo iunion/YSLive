@@ -4282,12 +4282,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [self.answerStatistics setValue:values[key] forKey:key];
     }
-//    if (_isOpenResult)
-//    {
-//        //为了处理公布答案的情况
-//        [self getAnswerDetailDataWithAnswerID:answerId ];
-//        return;
-//    }
     
     [self.answerResultView setAnswerStatistics:self.answerStatistics totalUsers:totalUsers rightResult:self.rightAnswer];
 }
@@ -4334,7 +4328,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //为了处理公布答案的情况
             [self getAnswerDetailDataWithAnswerID:answerId];
         }
-        
     }
 }
 
