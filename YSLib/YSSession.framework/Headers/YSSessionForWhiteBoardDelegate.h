@@ -37,23 +37,23 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)roomWhiteBoardOnRoomUserPropertyChangedUserId:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties;
 
 /// pubMsg消息通知
-- (void)roomWhiteBoardOnRemotePubMsg:(NSString *)msgName msgId:(NSString *)msgId from:(nullable NSString *)fromuid withData:(nullable NSString *)data ts:(NSTimeInterval)ts isHistory:(BOOL)isHistory;
-
+- (void)roomWhiteBoardOnRemotePubMsg:(NSDictionary *)messageDic;
 /// delMsg消息通知
-- (void)roomWhiteBoardOnRemoteDelMsg:(NSString *)msgName msgId:(NSString *)msgId from:(nullable NSString *)fromuid withData:(nullable NSString *)data;
+- (void)roomWhiteBoardOnRemoteDelMsg:(NSDictionary *)messageDic;
 
 /// 媒体流发布状态
 - (void)roomWhiteBoardOnShareMediaFile:(YSSharedMediaFileModel *)mediaFileModel;
 /// 更新媒体流的信息
-- (void)roomWhiteBoardOnUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel;
+- (void)roomWhiteBoardOnUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel isSetPos:(BOOL)isSetPos;
 
 
 @optional
 
 /// pubMsg消息通知
-- (void)roomWhiteBoardOnRemotePubMsg:(NSDictionary *)messageDic;
+- (void)roomWhiteBoardOnRemotePubMsg:(NSString *)msgName msgId:(NSString *)msgId from:(nullable NSString *)fromuid withData:(nullable NSString *)data ts:(NSTimeInterval)ts isHistory:(BOOL)isHistory;
+
 /// delMsg消息通知
-- (void)roomWhiteBoardOnRemoteDelMsg:(NSDictionary *)messageDic;
+- (void)roomWhiteBoardOnRemoteDelMsg:(NSString *)msgName msgId:(NSString *)msgId from:(nullable NSString *)fromuid withData:(nullable NSString *)data;
 
 @end
 

@@ -19,6 +19,8 @@ typedef void(^YSHttpRequestSpeedComplete)(id _Nullable response, YSConfigServer 
 
 @interface YSHttpClientRequest : NSObject
 
+- (void)destroy;
+
 + (NSURLSessionDataTask *)post:(NSString * _Nonnull)url parameters:(NSDictionary * _Nonnull)parameters success:(YSHttpRequestSucess)sucess failure:(YSHttpRequestFail)failure;
 + (NSURLSessionDataTask *)get:(NSString * _Nonnull)url success:(YSHttpRequestSucess)sucess failure:(YSHttpRequestFail)failure;
 

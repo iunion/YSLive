@@ -39,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) YSUserRoleType role;
 
 /// 该用户是否有麦克风
-//@property (nonatomic, assign, readonly) BOOL hasAudio;
+@property (nonatomic, assign) BOOL hasAudio;
 /// 该用户是否有摄像头
-//@property (nonatomic, assign, readonly) BOOL hasVideo;
+@property (nonatomic, assign) BOOL hasVideo;
 
 /// 该用户是否有权在白板和文档上进行绘制
 @property (nonatomic, assign) BOOL canDraw;
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 发布状态，0：未发布，1：发布音频；2：发布视频；3：发布音视频
 @property (nonatomic, assign, readonly) YSPublishState publishState;
-/// 关联publishState
+/// 关联publishState，并发送修改通知
 @property (nonatomic, assign) YSUserMediaPublishState mediaPublishState;
 
 /// 麦克风设备故障
@@ -61,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 用户应用是否进入后台运行
 @property (nonatomic, assign) BOOL isInBackGround;
 
+
++ (YSUserMediaPublishState)convertPublishState:(YSPublishState)publishState;
++ (YSPublishState)convertMediaPublishState:(YSUserMediaPublishState)mediaPublishState;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  初始化一个用户

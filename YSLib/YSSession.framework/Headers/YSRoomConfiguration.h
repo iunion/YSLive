@@ -23,11 +23,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 课堂结束时自动退出房间 7
 @property (nonatomic, assign) BOOL autoQuitClassWhenClassOverFlag;
 
+/// 自动开启音视频 23
+@property (nonatomic, assign) BOOL autoOpenAudioAndVideoFlag;
+
 /// 自动上课 32
 @property (nonatomic, assign) BOOL autoStartClassFlag;
 
 /// 学生是否有翻页权限 38
 @property (nonatomic, assign) BOOL canPageTurningFlag;
+
+/// 课前是否全体禁言 119
+@property (nonatomic, assign) BOOL isBeforeClassBanChat;
 
 /// 画笔穿透 131
 @property (nonatomic, assign) BOOL isPenCanPenetration;
@@ -46,9 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 是否禁止观众私聊 202
 @property (nonatomic, assign) BOOL isDisablePrivateChat;
-
-/// 课前是否全体禁言
-@property (nonatomic, assign) BOOL isBeforeClassBanChat;
 
 
 - (instancetype)initWithConfigurationString:(NSString *)configurationString;

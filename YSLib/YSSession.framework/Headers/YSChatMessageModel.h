@@ -12,8 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSChatMessageModel : NSObject
 
-/// 用户名
+/// 发送的用户
 @property (nullable, nonatomic, strong) YSRoomUser *sendUser;
+
+/// 发送的用户Id
+@property (nullable, nonatomic, strong) NSString *senderPeerId;
+
+/// 发送的用户名
+@property (nullable, nonatomic, strong) NSString *senderNickName;
+
+/// 发送的用户role
+@property (nullable, nonatomic, strong) NSString *senderRole;
+
 /// 接收消息的人的用户名
 @property (nullable, nonatomic, strong) YSRoomUser *receiveUser;
 /// 消息时间

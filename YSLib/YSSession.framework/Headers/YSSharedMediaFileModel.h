@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger duration;
 @property (nonatomic, assign) NSUInteger pos;
 
+@property (nonatomic, assign) BOOL isBeforeClassBeigin;
+
 + (nullable instancetype)sharedMediaFileModelWithDic:(NSDictionary *)dic;
 - (void)updateWithDic:(NSDictionary *)dic;
 

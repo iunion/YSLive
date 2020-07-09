@@ -21,9 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 设置
 
-/// host地址
+/// 外部传入host地址
 @property (nonatomic, strong) NSString *apiHost;
-/// port
+/// 外部传入port
 @property (nonatomic, assign) NSUInteger apiPort;
 
 
@@ -31,7 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) id <YSSessionDelegate> roomDelegate;
 
+/// 内部解析host地址
 @property (nonatomic, strong, readonly) NSString *webServerIP;
+/// 内部解析host地址
 @property (nonatomic, assign, readonly) int webServerPort;
 
 #pragma mark - 房间相关
@@ -118,12 +120,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 信令管理
 
-/// 上层是否准备完毕，可以相应信令消息， YES：通过roomDelegate向下转发 NO：在cacheMsgPool中暂存信令消息直到YES
-@property (nonatomic, assign) BOOL readyToHandleMsg;
-/// 消息缓存数据
-@property (nonatomic, strong, readonly) NSMutableArray *cacheMsgPool;
-
-
 /// 是否开始上课
 @property (nonatomic, assign) BOOL isClassBegin;
 
@@ -141,17 +137,25 @@ NS_ASSUME_NONNULL_BEGIN
 /// 支持一路媒体课件时的媒体数据
 @property (nullable, nonatomic, strong) YSSharedMediaFileModel *mediaFileModel;
 
+/// SDK版本号
++ (NSString *)sessionVersion;
 
+/// 管理单例
 + (instancetype)sharedInstance;
+/// 管理销毁
 + (void)destroy;
 
+/// 注册相关信息
 - (void)registWithAppId:(NSString *)appId settingOptional:(nullable NSDictionary *)optional;
+/// 注册回调
 - (void)registerRoomDelegate:(nullable id <YSSessionDelegate>)roomDelegate;
+/// 注册白板数据接收回调
 - (void)registerRoomForWhiteBoardDelegate:(nullable id <YSSessionForWhiteBoardDelegate>)roomForWhiteBoardDelegate;
 
 /// 浏览器打开app的URL解析
 + (nullable NSDictionary *)resolveJoinRoomParamsWithUrl:(NSURL *)url;
 
+/// 进入房间
 - (BOOL)joinRoomWithHost:(NSString *)host
                     port:(int)port
                 nickName:(NSString *)nickName
@@ -167,34 +171,44 @@ NS_ASSUME_NONNULL_BEGIN
               roomParams:(NSDictionary *)roomParams
               userParams:(nullable NSDictionary *)userParams;
 
+/// 离开房间
 - (BOOL)leaveRoom:(void(^ _Nullable)(void))leaveChannelBlock;
+
 
 - (void)serverLog:(NSString *)log;
 
 
-- (void)addMsgCachePoolWithMethodName:(SEL)selector parameters:(NSArray *)parameters;
+//- (NSString *)getProtocol;
 
-- (NSString *)getProtocol;
-
+- (YSRoomUser *)addRoomUserWithId:(NSString *)peerId properties:(NSDictionary *)properties;
 
 - (YSRoomUser *)getRoomUserWithId:(NSString *)userId;
 
-- (void)getRoomUserCountWithRole:(NSArray *_Nullable)role
+- (void)getRoomUserCountWithRole:(nullable NSArray *)role
                           search:(NSString *)search
-                        callback:(void (^)(NSUInteger num, NSError *error))callback;
+                        callback:(void (^)(NSUInteger num, NSError * _Nonnull error))callback;
 
-- (void)getRoomUsersWithRole:(NSArray *_Nullable)role
+- (void)getRoomUsersWithRole:(nullable NSArray *)role
                   startIndex:(NSInteger)start
                    maxNumber:(NSInteger)max
                       search:(NSString *)search
                        order:(NSDictionary *)order
-                    callback:(void (^)(NSArray<YSRoomUser *> *_Nonnull users, NSError *error))callback;
+                    callback:(void (^)(NSArray<YSRoomUser *> *_Nonnull users, NSError * _Nonnull error))callback;
 
 
 - (nullable NSString *)getUserStreamIdWithUserId:(NSString *)userId;
 - (nullable NSString *)getShareStreamIdWithUserId:(NSString *)userId;
-- (nullable YSSharedMediaFileModel *)getMediaFileModelWithUserId:(NSString *)userId;
-- (nullable NSString *)getMediaStreamIdWithUserId:(NSString *)userId;
+- (nullable YSSharedMediaFileModel *)getMediaFileModelWithUrl:(NSString *)url;
+- (nullable NSString *)getMediaStreamIdWithUrl:(NSString *)userId;
+
+
+#pragma mark - 本地播放音视频
+
+- (BOOL)startPlayingMedia:(nullable NSString *)filepath;
+- (BOOL)startPlayingMedia:(nullable NSString *)filepath cycle:(BOOL)cycle;
+- (BOOL)stopPlayingMedia:(nullable NSString *)filepath;
+- (BOOL)pausePlayingMedia:(nullable NSString *)filepath;
+- (BOOL)resumePlayingMedia:(nullable NSString *)filepath;
 
 
 #pragma mark - 接收流操作 上台流 媒体流 共享流
@@ -233,7 +247,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)evictUser:(NSString *)uid reason:(NSInteger)reasonCode;
 
 /// 改变自己的音视频状态，并管理音视频流
-- (void)changeMyPublishState:(YSUserMediaPublishState)mediaPublishState;
+- (void)changeMyMediaPublishState:(YSUserMediaPublishState)mediaPublishState;
 
 @end
 
@@ -249,7 +263,7 @@ NS_ASSUME_NONNULL_BEGIN
                           dataDic:(nullable NSDictionary *)dataDic
                            fromID:(NSString *)fromID
                     extensionData:(nullable NSDictionary *)extensionData
-                           inList:(BOOL)inlist
+                        isHistory:(BOOL)isHistory
                                ts:(long)ts;
 
 /// 收到自定义删除信令
@@ -308,9 +322,17 @@ associatedWithMsg:(nullable NSString *)assMsgID
       withData:(nullable NSDictionary *)data;
 
 
+/// 客户端请求关闭信令服务器房间
+- (BOOL)sendSignalingDestroyServerRoom;
+
 #pragma mark - 同步服务器时间
 
 - (BOOL)sendSignalingUpdateTime;
+
+#pragma mark - 同步自己的属性
+
+- (BOOL)sendSignalingSyncProperty;
+
 
 #pragma -
 #pragma mark 老师相关
@@ -330,6 +352,14 @@ associatedWithMsg:(nullable NSString *)assMsgID
 /// 老师停止轮播
 - (BOOL)sendSignalingTeacherToStopVideoPolling;
 
+/// 全体静音 isNoAudio:YES 静音  NO：不静音
+- (BOOL)sendSignalingTeacherToLiveAllNoAudio:(BOOL)isNoAudio;
+
+#pragma mark - 送花
+
+/// 送花
+- (BOOL)sendSignalingLiveNoticesSendFlower;
+
 #pragma mark - 举手
 
 /// 通知各端开始举手
@@ -345,13 +375,11 @@ associatedWithMsg:(nullable NSString *)assMsgID
 
 /// 改变布局
 - (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSRoomLayoutType)layoutType;
+
 - (BOOL)sendSignalingToChangeLayoutWithLayoutType:(YSRoomLayoutType)layoutType appUserType:(YSRoomUseType)appUserType withFouceUserId:(nullable NSString *)peerId;
 
-/// 拖出视频/复位视频
-- (BOOL)sendSignalingToDragOutVideoViewWithData:(NSDictionary*)data;
-
-/// 拖出视频后捏合动作
-- (BOOL)sendSignalingTopinchVideoViewWithPeerId:(NSString *)peerId scale:(CGFloat)scale;
+/// 拖出视频 + 缩放视频
+- (BOOL)sendSignalingTopinchVideoViewWithPeerId:(NSString *)peerId withData:(NSDictionary *)dictData;
 
 /// 发送双击视频放大
 - (BOOL)sendSignalingToDoubleClickVideoViewWithPeerId:(NSString *)peerId;
@@ -449,12 +477,6 @@ associatedWithMsg:(nullable NSString *)assMsgID
 /// 发送文本消息
 - (BOOL)sendMessageWithText:(NSString *)message withMessageType:(YSChatMessageType)messageType withMemberModel:(nullable YSRoomUser *)memberModel;
 
-/// 收到聊天消息
-// @param message 聊天消息内容
-// @param peerID 发送者用户ID
-// @param extension 消息扩展信息（用户昵称、用户角色等等）
-- (void)handleMessageReceived:(NSString *)message fromID:(NSString *)peerID extension:(NSDictionary *)extension;
-
 /// 系统配置提示消息
 // @param message 消息内容
 // @param peerID 发送者用户ID
@@ -464,9 +486,6 @@ associatedWithMsg:(nullable NSString *)assMsgID
 /// 发送提问
 // @return  QuestionID问题唯一标识 非nil表示调用成功，nil表示调用失败
 - (nullable NSString *)sendQuestionWithText:(NSString *)textMessage;
-
-/// 送花
-- (BOOL)sendSignalingLiveNoticesSendFlower;
 
 @end
 
@@ -497,11 +516,6 @@ associatedWithMsg:(nullable NSString *)assMsgID
 
 - (void)pauseShareOneMediaFile:(BOOL)isPause;
 - (void)seekShareOneMediaFile:(NSUInteger)position;
-
-
-/// 全体静音 isNoAudio:YES 静音  NO：不静音
-- (BOOL)sendSignalingTeacherToLiveAllNoAudio:(BOOL)isNoAudio;
-
 
 @end
 
