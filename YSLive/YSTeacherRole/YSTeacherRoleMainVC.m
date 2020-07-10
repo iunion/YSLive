@@ -2053,14 +2053,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomUserJoined:user isHistory:isHistory];
     
-    // 不做互踢
-    if (user.role == YSUserType_Teacher)
-    {
-        if (isHistory == YES)
-        {
-            [self.liveManager evictUser:user.peerID reason:0];
-        }
-    }
     [self freshTeacherPersonListData];
         
     NSInteger userCount = self.liveManager.studentCount;
