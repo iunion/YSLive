@@ -655,8 +655,8 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_topBtn)
     {
         _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_topBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-        [_topBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        [_topBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+        [_topBtn setBackgroundColor:[UIColor clearColor]];
         _topBtn.titleLabel.font = UI_FONT_10;
         _topBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_topBtn addTarget:self action:@selector(topBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
