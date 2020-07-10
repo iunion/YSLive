@@ -3328,7 +3328,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.fullTeacherFloatView.frame = CGRectMake(videoX, videoY, floatVideoDefaultWidth, floatVideoDefaultHeight);
             self.fullTeacherFloatView.hidden = NO;
             // 支持本地拖动缩放
-            self.fullTeacherFloatView.canGestureRecognizer = YES;
+//            self.fullTeacherFloatView.canGestureRecognizer = YES;
             [self.fullTeacherFloatView bm_bringToFront];
             self.fullTeacherFloatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
             self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
