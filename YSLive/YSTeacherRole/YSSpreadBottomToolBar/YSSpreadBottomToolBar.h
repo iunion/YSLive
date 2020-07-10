@@ -50,7 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isToolBoxEnable;
 /// 切换摄像头可否点击
 @property (nonatomic, assign) BOOL isCameraEnable;
-
+/// 是否全体禁言
+@property (nonatomic, assign) BOOL isEveryoneNoAudio;
 - (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomUserType)roomType;
 
 /// 花名册 课件库按钮的非选中

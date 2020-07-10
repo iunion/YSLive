@@ -445,6 +445,12 @@
     self.cameraBtn.enabled = isCameraEnable;
 }
 
+- (void)setIsEveryoneNoAudio:(BOOL)isEveryoneNoAudio
+{
+    _isEveryoneNoAudio = isEveryoneNoAudio;
+    self.allNoAudioBtn.selected = isEveryoneNoAudio;
+}
+
 - (BOOL)nameListIsShow
 {
     BOOL nameLiseShow = self.personListBtn.selected;

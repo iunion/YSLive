@@ -4392,6 +4392,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingliveAllNoAudio:(BOOL)noAudio
 {
     allNoAudio = noAudio;
+    self.spreadBottomToolBar.isEveryoneNoAudio = noAudio;
 }
 
 
