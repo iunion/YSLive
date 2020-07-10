@@ -9,8 +9,8 @@
 #import "YSStudentResponder.h"
 #import "YSCircleProgress.h"
 
-#define backViewWidth 220
-#define backViewHeight 220
+#define backViewWidth 140
+#define backViewHeight 140
 @interface YSStudentResponder ()
 
 /// 底部view
@@ -62,9 +62,9 @@
     self.closeBtn.hidden = YES;
     //抢答器
     self.circleProgress = [[YSCircleProgress alloc] init];
-    self.circleProgress.frame = CGRectMake(0, 0, 180, 180);
+    self.circleProgress.frame = CGRectMake(0, 0, 100, 100);
     //    self.circleProgress.progress = 0.5;
-    self.circleProgress.lineWidth = 7;
+    self.circleProgress.lineWidth = 4;
     self.circleProgress.isClockwise = YES;
     self.circleProgress.innerColor = YSSkinDefineColor(@"defaultBgColor");
     self.circleProgress.lineBgColor = YSSkinDefineColor(@"defaultTitleColor");
@@ -75,10 +75,10 @@
     
     self.circleBacView = [[UIView alloc] init];
     [self.circleProgress addSubview:self.circleBacView];
-    self.circleBacView.frame = CGRectMake(0, 0, 160, 160);
+    self.circleBacView.frame = CGRectMake(0, 0, 90, 90);
     self.circleBacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     [self.circleBacView bm_centerInSuperView];
-    [self.circleBacView bm_roundedRect:80];
+    [self.circleBacView bm_roundedRect:45];
     
     
     [self showWithView:self.bacView inView:inView];
@@ -88,9 +88,9 @@
     
     self.titleL.textAlignment= NSTextAlignmentCenter;
     self.titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
-    self.titleL.font = [UIFont systemFontOfSize:16.0f];
+    self.titleL.font = [UIFont systemFontOfSize:12.0f];
     self.titleL.numberOfLines = 0;
-    self.titleL.frame = CGRectMake(0, 0, 180, 180 );
+    self.titleL.frame = CGRectMake(0, 0, 100, 100);
 }
 
 - (void)setTitleName:(NSString *)title
