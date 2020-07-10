@@ -388,13 +388,13 @@
 #pragma mark YSSessionDelegate
 
 /// 发生错误 回调
-- (void)onRoomDidOccuredError:(NSError *)error
+- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
 {
     
 }
 
 /// 发生警告 回调
-- (void)onRoomDidOccuredWaring:(YSRoomWarningCode)code
+- (void)onRoomDidOccuredWaring:(CloudHubWarningCode)code
 {
     
 }
