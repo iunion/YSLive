@@ -2764,7 +2764,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.spreadBottomToolBar.isNewMessage = YES;
     [self.rightChatView.SCMessageList addObject:message];
     [self.rightChatView.SCChatTableView reloadData];
-    
+
     if (self.rightChatView.SCMessageList.count)
     {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.rightChatView.SCMessageList.count-1 inSection:0];
@@ -3254,8 +3254,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [self hiddenTheKeyBoard];
             }
             
-//            YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
-//            if (fromUser.role == YSUserType_Teacher || fromUser.role == YSUserType_Assistant)
+            YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
+            if (fromUser.role == YSUserType_Teacher || fromUser.role == YSUserType_Assistant)
             {
                 if (disablechat)
                 {
