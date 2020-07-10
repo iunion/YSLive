@@ -447,6 +447,56 @@
     }
 }
 
+#pragma mark 用户user
+
+/// 用户进入
+- (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory
+{
+    NSString *roleName = nil;
+    if (user.role == YSUserType_Teacher)
+    {
+        roleName = YSLocalized(@"Role.Teacher");
+    }
+    else if (user.role == YSUserType_Assistant)
+    {
+        roleName = YSLocalized(@"Role.Assistant");
+    }
+    else if (user.role == YSUserType_Student)
+    {
+        roleName = YSLocalized(@"Role.Student");
+    }
+    
+    if (!self.liveManager.isBigRoom && !isHistory && roleName)
+    {
+        NSString *message = [NSString stringWithFormat:@"%@(%@) %@", user.nickName, roleName, YSLocalized(@"Action.EnterRoom")];
+        [self.liveManager sendTipMessage:message tipType:YSChatMessageType_Tips];
+    }
+}
+
+/// 用户退出
+- (void)onRoomUserLeft:(YSRoomUser *)user
+{
+    NSString *roleName = nil;
+    if (user.role == YSUserType_Teacher)
+    {
+        roleName = YSLocalized(@"Role.Teacher");
+    }
+    else if(user.role == YSUserType_Assistant)
+    {
+        roleName = YSLocalized(@"Role.Assistant");
+    }
+    else if (user.role == YSUserType_Student)
+    {
+        roleName = YSLocalized(@"Role.Student");
+    }
+    
+    if (!self.liveManager.isBigRoom && roleName)
+    {
+        NSString *message = [NSString stringWithFormat:@"%@(%@) %@", user.nickName, roleName, YSLocalized(@"Action.ExitRoom")];
+        [self.liveManager sendTipMessage:message tipType:YSChatMessageType_Tips];
+    }}
+
+
 #pragma mark 用户流
 
 /// 大房间同步上台用户属性

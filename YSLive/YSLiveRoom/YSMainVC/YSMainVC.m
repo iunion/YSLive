@@ -1179,6 +1179,8 @@
 
 - (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory
 {
+    [super onRoomUserJoined:user isHistory:isHistory];
+
     if (isHistory == NO && self.liveManager.isClassBegin && user.role == YSUserType_Teacher)
     {
         self.roomVideoPeerID = user.peerID;
@@ -1202,6 +1204,8 @@
 
 - (void)onRoomUserLeft:(YSRoomUser *)user
 {
+    [super onRoomUserLeft:user];
+    
     if (user.role == YSUserType_Teacher)
     {
         self.showRoomVideo = NO;

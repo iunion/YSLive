@@ -2051,6 +2051,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark  用户进入
 - (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory
 {
+    [super onRoomUserJoined:user isHistory:isHistory];
+    
     // 不做互踢
     if (user.role == YSUserType_Teacher)
     {
@@ -2089,6 +2091,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 用户退出
 - (void)onRoomUserLeft:(YSRoomUser *)user
 {
+    [super onRoomUserLeft:user];
+    
     if (self.roomtype == YSRoomUserType_More)
     {
         [self delVidoeViewWithPeerId:user.peerID];
