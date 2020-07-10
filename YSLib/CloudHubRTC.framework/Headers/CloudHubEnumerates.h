@@ -524,19 +524,6 @@ typedef NS_ENUM(NSInteger, CloudHubClientRole) {
     CloudHubClientRoleAudience = 2,
 };
 
-
-/** Media type. */
-typedef NS_ENUM(NSInteger, CloudHubMediaType) {
-    /** No audio and video. */
-    CloudHubMediaTypeNone = 0,
-    /** Audio only. */
-    CloudHubMediaTypeAudioOnly = 1,
-    /** Video only. */
-    CloudHubMediaTypeVideoOnly = 2,
-    /** Audio and video. */
-    CloudHubMediaTypeAudioAndVideo = 3,
-};
-
 /** Encryption mode */
 typedef NS_ENUM(NSInteger, CloudHubEncryptionMode) {
     /** When encryptionMode is set as NULL, the encryption mode is set as "aes-128-xts" by default. */
@@ -1333,12 +1320,13 @@ typedef NS_ENUM(NSInteger, CloudHubStreamInjectStatus) {
     CloudHub_INJECT_STREAM_STATUS_BROKEN = 8,
     /** 10: The external video stream is corrupted. */
     CloudHub_INJECT_STREAM_STATUS_PAUSE = 9,
-    CloudHub_INJECT_STREAM_STATUS_POSITION = 10
+    CloudHub_INJECT_STREAM_STATUS_RESUME = 10
 };
 
-typedef NS_ENUM(NSInteger, CloudHubVideoType) {
-    CloudHub_VIDEO_CAMERA =0,
-    CloudHub_VIDEO_VOD_MOVIE=1,
-    CloudHub_VIDEO_LOCAL_MOVIE=2,
-    CloudHub_VIDEO_SCREEN=3,
+typedef NS_ENUM(NSInteger, CloudHubMediaType) {
+    CloudHub_MEDIA_TYPE_AUDIO_ONLY = 1,
+    CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO = 2,
+    CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO = 4,
+    CloudHub_MEDIA_TYPE_OFFLINE_MOVIE_VIDEO = 5,
+    CloudHub_MEDIA_TYPE_SCREEN_VIDEO = 6,
 };

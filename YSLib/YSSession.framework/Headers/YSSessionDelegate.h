@@ -43,35 +43,37 @@ NS_ASSUME_NONNULL_BEGIN
 /// 进入房间失败
 - (void)onRoomJoinFailed:(NSDictionary *)errorDic;
 
-/**
-    成功进入房间
-    @param ts 服务器当前时间戳，以秒为单位，如1572001230
- */
-- (void)onRoomJoined:(long)ts;
+/// 获取房间数据完毕
+- (void)onRoomDidCheckRoom;
 
-/**
-    成功重连房间
-    @param ts 服务器当前时间戳，以秒为单位，如1572001230
- */
-- (void)onRoomReJoined:(long)ts;
+/// 成功进入房间
+- (void)onRoomJoined;
 
-/**
-    已经离开房间
- */
+/// 成功重连房间
+- (void)onRoomReJoined;
+
+/// 已经离开房间
 - (void)onRoomLeft;
-
 
 /// 失去连接
 - (void)onRoomConnectionLost;
 
+/// 被踢出
+- (void)onRoomKickedOut:(NSInteger)reasonCode;
 
 /// 用户属性改变
 - (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties;
 
+/// 本地媒体流发布状态
+- (void)onRoomStartLocalMediaFile:(NSString *)mediaFileUrl;
+- (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl;
+/// 更新本地媒体流的信息
+- (void)onRoomUpdateLocalFileStream:(NSString *)mediaFileUrl total:(NSUInteger)total pos:(NSUInteger)pos isPause:(BOOL)isPause;
+
 /// 媒体流发布状态
 - (void)onRoomShareMediaFile:(YSSharedMediaFileModel *)mediaFileModel;
 /// 更新媒体流的信息
-- (void)onRoomUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel;
+- (void)onRoomUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel isSetPos:(BOOL)isSetPos;
 
 /// 收到开始共享桌面
 - (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID;
@@ -99,12 +101,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 只用于普通房间
 /// 用户进入
-- (void)onRoomUserJoined:(YSRoomUser *)user inList:(BOOL)inList;
+- (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory;
 /// 用户退出
 - (void)onRoomUserLeft:(YSRoomUser *)user;
 
 /// 老师进入
-- (void)onRoomTeacherJoined;
+- (void)onRoomTeacherJoined:(BOOL)isHistory;
 /// 老师退出
 - (void)onRoomTeacherLeft;
 

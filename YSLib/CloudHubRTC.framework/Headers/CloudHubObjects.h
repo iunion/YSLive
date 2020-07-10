@@ -22,6 +22,9 @@ typedef NSColor COLOR_CLASS;
 /** Statistics of the local video stream.
  */
 __attribute__((visibility("default"))) @interface CloudHubRtcLocalVideoStats : NSObject
+
+/** Device ID of the video stream. */
+@property (copy, nonatomic) NSString*  _Nullable sourceID;
 /** Bitrate (Kbps) sent in the reported interval, which does not include the bitrate of the retransmission video after packet loss. */
 @property (assign, nonatomic) NSUInteger sentBitrate;
 /** Frame rate (fps) sent in the reported interval, which does not include the frame rate of the retransmission video after packet loss. */
@@ -61,9 +64,13 @@ __attribute__((visibility("default"))) @interface CloudHubRtcRemoteVideoStats : 
  */
 @property (copy, nonatomic) NSString*  _Nullable uid;
 
-/** Device ID of the video stream.
+/** ID of the video stream.
  */
-@property (copy, nonatomic) NSString*  _Nullable sourceId;
+@property (copy, nonatomic) NSString*  _Nullable streamID;
+
+/** Type of the video stream.
+*/
+@property (assign, nonatomic) CloudHubMediaType type;
 
 /** Width (pixels) of the video stream.
  */

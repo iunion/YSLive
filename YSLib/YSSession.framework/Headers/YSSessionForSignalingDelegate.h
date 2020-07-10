@@ -24,22 +24,21 @@ NS_ASSUME_NONNULL_BEGIN
 /// 取消房间即将关闭消息,只取消YSPrepareRoomEndType_TeacherLeaveTimeout
 - (void)stopSignalingLivePrepareRoomEnd_TeacherLeaveTimeout;
 
-///房间踢除所有用户消息
+#pragma mark 用户网络差，被服务器切换媒体线路
+
+- (void)roomManagerChangeMediaLine;
+
+/// 房间踢除所有用户消息
 - (void)handleSignalingEvictAllRoomUseWithDataDic:(NSDictionary *)dataDic;
+
+/// 大房间同步上台用户属性
+- (void)handleSignalingSyncProperty:(YSRoomUser *)roomUser;
 
 /// 上课
 - (void)handleSignalingClassBeginWihInList:(BOOL)inlist;
 
-#pragma mark 房间状态变为大房间
-
-/// 由小房间变为大房间(只调用一次)
-- (void)roomManagerChangeToBigRoomInList:(BOOL)inlist;
-
-/// 大房间刷新用户数量
-- (void)roomManagerBigRoomFreshUserCountInList:(BOOL)inlist;
-
-/// 大房间刷新数据
-- (void)handleSignalingBigRoomInList:(BOOL)inlist;
+/// 下课
+- (void)handleSignalingClassEndWithText;
 
 /// 全体静音
 - (void)handleSignalingliveAllNoAudio:(BOOL)noAudio;
@@ -53,14 +52,20 @@ NS_ASSUME_NONNULL_BEGIN
 ///所有举手用户的列表
 - (void)handleSignalingRaiseHandUserArray:(NSMutableArray *)raiseHandUserArray;
 
-/// 拖出/放回视频窗口
-- (void)handleSignalingDragOutVideoWithPeerId:(NSString *)peerId atPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop isDragOut:(BOOL)isDragOut;
+/// 窗口布局变化
+- (void)handleSignalingSetRoomLayout:(YSRoomLayoutType)roomLayout withPeerId:(nullable NSString *)peerId;
 
-/// 拖出视频窗口拉伸 根据本地默认尺寸scale
-- (void)handleSignalingDragOutVideoChangeSizeWithPeerId:(NSString *)peerId scale:(CGFloat)scale;
+///切换窗口布局恢复
+- (void)handleSignalingDefaultRoomLayout;
+
+///拖出/放回/拉伸视频窗口 根据本地默认尺寸scale
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(NSDictionary *)data;
 
 ///双师时老师拖拽视频时
 - (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data;
+
+/// 双击视频最大化
+- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(nullable NSString *)peerId isFull:(BOOL)isFull;
 
 ///助教刷新课件
 - (void)handleSignalingTorefeshCourseware;

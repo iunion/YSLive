@@ -41,6 +41,8 @@ extern NSString *const YSWhiteBoardWebHostKey;
 /// port
 extern NSString *const YSWhiteBoardWebPortKey;
 extern NSString *const YSWhiteBoardPlayBackKey;
+/// pdf
+extern NSString *const YSWhiteBoardPDFLevelsKey;
 
 #pragma mark - 1.读取本地index  0.读取指定   ssssssssss
 #define IS_LOAD_LOCAL_INDEX 1

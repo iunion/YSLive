@@ -53,7 +53,7 @@ See [CloudHubErrorCode](CloudHubErrorCode).
  @param engine    CloudHubRtcEngineKit object
  @param errorCode Error code: CloudHubErrorCode
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didOccurError:(CloudHubErrorCode)errorCode;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didOccurError:(CloudHubErrorCode)errorCode withMessage:(NSString * _Nonnull)message;
 
 /** Occurs when the local user joins a specified channel.
 
@@ -64,8 +64,9 @@ See [CloudHubErrorCode](CloudHubErrorCode).
  @param uid     User ID. If the `uid` is specified in the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, the specified user ID is returned. If the user ID is not specified when the joinChannel method is called, the server automatically assigns a `uid`.
  @param elapsed Time elapsed (ms) from the user calling the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinChannel:(NSString * _Nonnull)channel withUid:(NSString * _Nonnull)uid serverTS:(NSUInteger)serverts elapsed:(NSInteger) elapsed;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinChannel:(NSString * _Nonnull)channel withUid:(NSString * _Nonnull)uid  elapsed:(NSInteger) elapsed;
 
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onServerTime:(NSUInteger)serverts;
 /** Occurs when the local user leaves a channel.
 
  When the app calls the [leaveChannel]([CloudHubRtcEngineKit leaveChannel:]) method, this callback notifies the app that a user leaves a channel.
@@ -99,7 +100,7 @@ See [CloudHubErrorCode](CloudHubErrorCode).
  @param uid     ID of the user or host who joins the channel. If the `uid` is specified in the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, the specified user ID is returned. If the `uid` is not specified in the joinChannelByToken method, the CloudHub server automatically assigns a `uid`.
  joinChannelByToken:channelId:info:uid:joinSuccess:]) or [setClientRole]([CloudHubRtcEngineKit setClientRole:]) method until the SDK triggers this callback.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinedOfUid:(NSString * _Nonnull)uid properties:(NSString * _Nullable)properties;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinedOfUid:(NSString * _Nonnull)uid properties:(NSString * _Nullable)properties isHistory:(BOOL)isHistory;
 
 /** Occurs when a remote user (Communication)/host (Live Broadcast) leaves a channel. Same as [userOfflineBlock]([CloudHubRtcEngineKit userOfflineBlock:]).
 
@@ -160,6 +161,9 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 - (void)rtcEngineRequestToken:(CloudHubRtcEngineKit * _Nonnull)engine;//cyjtodo
 
 
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onClientRoleChangedFrom:(CloudHubClientRole)oldRole to:(CloudHubClientRole)newRole;
+
+
 #pragma mark Media Delegate Methods
 
 /**-----------------------------------------------------------------------------
@@ -210,7 +214,7 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
  @param engine  CloudHubRtcEngineKit object.
  @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstLocalAudioFrame:(NSInteger)elapsed;
+- (void)rtcEngineFirstLocalAudioFrame:(CloudHubRtcEngineKit * _Nonnull)engine;
 
 /** Occurs when the engine decodes the first remote audio frame.
 
@@ -218,7 +222,7 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 @param uid    ID of the user or host whoes audio frame is decoded.
 @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
 */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstRemoteAudioDecodedOfUid:(NSString * _Nonnull)uid elapsed:(NSInteger)elapsed;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstRemoteAudioFrameOfUid:(NSString * _Nonnull)uid;
 
  /** Occurs when the first local video frame is displayed/rendered on the local video view.
 
@@ -236,64 +240,25 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 @param uid      ID of the user or host whoes audio frame is decoded.
 @param sourceID      ID of the video device.
 @param size    Size of the first local video frame (width and height).
-@param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK calls this callback.
-*/
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstRemoteVideoDecodedOfSID:(NSString * _Nonnull)streamID Size:(CGSize)size elapsed:(NSInteger)elapsed;
-
-/** Occurs when a remote user's video stream playback pauses/resumes.
-
- You can also use the [remoteVideoStateChangedOfUid]([CloudHubRtcEngineDelegate rtcEngine:remoteVideoStateChangedOfUid:state:reason:elapsed:]) callback with the following parameters:
-
- - CloudHubVideoRemoteStateStopped(0) and CloudHubVideoRemoteStateReasonRemoteMuted(5).
- - CloudHubVideoRemoteStateDecoding(2) and CloudHubVideoRemoteStateReasonRemoteUnmuted(6).
- 
- Same as [userMuteVideoBlock]([CloudHubRtcEngineKit userMuteVideoBlock:]).
-
- The SDK triggers this callback when the remote user stops or resumes sending the video stream by calling the [muteLocalVideoStream]([CloudHubRtcEngineKit muteLocalVideoStream:]) method.
-
- **Note:**
-
- This callback is invalid when the number of users or broadcasters in a channel exceeds 20.
-
- @param engine CloudHubRtcEngineKit object.
- @param muted  A remote user's video stream playback pauses/resumes:
-
- * YES: Pause.
- * NO: Resume.
-
- @param uid    User ID of the remote user.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onVideoMuted:(BOOL)muted withUid:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstRemoteVideoFrameOfUID:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type Size:(CGSize)size;
 
+/** Occurs when the video size or rotation of local user changes.
 
-/** Occurs when a remote user's audio stream playback pauses/resumes.
-
-You can also use the [remoteAudioStateChangedOfUid]([CloudHubRtcEngineDelegate rtcEngine:remoteAudioStateChangedOfUid:state:reason:elapsed:]) callback with the following parameters:
-
-- CloudHubAudioRemoteStateStopped(0) and CloudHubAudioRemoteStateReasonRemoteMuted(5).
-- CloudHubAudioRemoteStateDecoding(2) and CloudHubAudioRemoteStateReasonRemoteUnmuted(6).
-
-The SDK triggers this callback when the remote user stops or resumes sending the video stream by calling the [muteLocalAudioStream]([CloudHubRtcEngineKit muteLocalAudioStream:]) method.
-
-
-@param engine CloudHubRtcEngineKit object.
-@param muted  A remote user's audio stream playback pauses/resumes:
-
-* YES: Pause.
-* NO: Resume.
-
-@param uid    User ID of the remote user.
-*/
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onAudioMuted:(BOOL)muted withUid:(NSString * _Nonnull)uid;
-
+ @param engine   CloudHubRtcEngineKit object.
+ @param size     New video size.
+ */
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine localVideoSizeChanged:(CGSize)size;//cyjtodo
 
 /** Occurs when the video size or rotation of a specific remote user changes.
 
  @param engine   CloudHubRtcEngineKit object.
  @param uid      User ID of the remote user or local user (0) whose video size or rotation changes.
+ @param streamID      Stream ID of the video.
+ @param type     Type of the video
  @param size     New video size.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine videoSizeChangedOfSID:(NSString * _Nonnull)streamID size:(CGSize)size;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoSizeChangedOfUID:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type size:(CGSize)size;
 
 /** Occurs when the remote video state changes.
  
@@ -303,7 +268,7 @@ The SDK triggers this callback when the remote user stops or resumes sending the
  @param reason The reason of the remote video state change. See [CloudHubVideoRemoteStateReason](CloudHubVideoRemoteStateReason).
  @param elapsed The time elapsed (ms) from the local user calling the [joinChannel]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID type:(CloudHubVideoType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason;
 
 /** Occurs when the local video stream state changes.
 
@@ -323,9 +288,8 @@ The SDK reports the current video state in this callback.
  @param uid ID of the remote user whose audio state changes.
  @param state  State of the remote audio. See [CloudHubAudioRemoteState](CloudHubAudioRemoteState).
  @param reason The reason of the remote audio state change. See [CloudHubAudioRemoteStateReason](CloudHubAudioRemoteStateReason).
- @param elapsed Time elapsed (ms) from the local user calling the [joinChannel]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
  */
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteAudioStateChangedOfUid:(NSString * _Nonnull)uid state:(CloudHubAudioRemoteState)state reason:(CloudHubAudioRemoteStateReason)reason elapsed:(NSInteger)elapsed;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteAudioStateChangedOfUid:(NSString * _Nonnull)uid state:(CloudHubAudioRemoteState)state reason:(CloudHubAudioRemoteStateReason)reason;
 
 /** Occurs when the local audio state changes.
 
@@ -340,11 +304,9 @@ The SDK reports the current video state in this callback.
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine localAudioStateChange:(CloudHubAudioLocalState)state error:(CloudHubAudioLocalError)error;
 
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onStreamInjectedStatus:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID attributes:(NSString * _Nonnull)attributes status:(CloudHubStreamInjectStatus)status pos:(NSUInteger)pos;//cyjtodo comment
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onStreamInjectedStatus:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID attributes:(NSString * _Nonnull)attributes status:(CloudHubStreamInjectStatus)status;//cyjtodo comment
 
-//- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteScreenStartOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID;//cyjtodo comment
-//
-//- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteScreenStopOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID;//cyjtodo comment
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onStreamInjectedPosition:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID pos:(NSUInteger)pos;//cyjtodo comment
 
 #pragma mark Device Delegate Methods
 
@@ -458,11 +420,12 @@ Schemes such as FEC (Forward Error Correction) or retransmission counter the fra
               pos:(NSUInteger)pos
             total:(long)total;//cyjtodo comments
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onRemoteMovieStateChanged:(NSString * _Nonnull)uid
-          movieID:(NSString * _Nonnull)movieID
-            state:(CloudHubMovieStateCode)state
-        errorCode:(CloudHubMovieErrorCode)errorCode;//cyjtodo comments
+#pragma mark Mannual Subscribing Delegate Methods
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onUserPublished:(NSString * _Nonnull)uid
+             type:(CloudHubMediaType)type streamID:(NSString *_Nonnull)streamID;
 
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onUserUnPublished:(NSString * _Nonnull)uid
+             type:(CloudHubMediaType)type streamID:(NSString *_Nonnull)streamID;
 
 #pragma mark Conrolling Message Delegate Methods
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine

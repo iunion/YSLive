@@ -28,14 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 配置项
 @property (nonatomic, strong, readonly) NSDictionary *configration;
 
-/// 房间数据
-@property (nonatomic, strong, readonly) NSDictionary *roomDic;
-/// 房间配置项
-@property (nonatomic, strong, readonly) YSRoomConfiguration *roomConfig;
-/// 房间类型
-@property (nonatomic, assign, readonly) YSRoomUseType roomUseType;
-/// 房间最大上台人数(包含老师)
-@property (nonatomic, assign, readonly) NSUInteger roomMaxVideo;
+///// 房间数据
+//@property (nonatomic, strong, readonly) NSDictionary *roomDic;
+///// 房间配置项
+//@property (nonatomic, strong, readonly) YSRoomConfiguration *roomConfig;
+///// 房间类型
+//@property (nonatomic, assign, readonly) YSRoomUseType roomUseType;
+///// 房间最大上台人数(包含老师)
+//@property (nonatomic, assign, readonly) NSUInteger roomMaxVideo;
 
 // 关于获取白板 服务器地址、备份地址、web地址相关通知
 /// 文档服务器地址
@@ -62,11 +62,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 课件窗口列表
 @property (nullable, nonatomic, strong) NSMutableArray <YSWhiteBoardView *> *coursewareViewList;
 
-///每个课件收到的位置
+/// 每个课件收到的位置
 @property (nonatomic, strong, readonly) NSMutableDictionary * allPositionDict;
 
-///16：9的背景view尺寸
+/// 16：9的背景view尺寸
 @property (nonatomic, assign, readonly) CGSize contentSize;
+
+/// pdf课件清晰度 大于1
+@property (nonatomic, assign, readonly) NSUInteger pdfLevelsOfDetail;
+
 
 + (void)destroy;
 

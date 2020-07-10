@@ -5443,8 +5443,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             break;
         case SCVideoViewControlTypeOnStage:
         {//下台
-            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@([YSRoomUser convertMediaPublishState:YSUserMediaPublishState_NONE])];
-
+            [self.liveManager setPropertyOfUid:self.selectControlView.roomUser.peerID tell:YSRoomPubMsgTellAll properties:@{sYSUserPublishstate : @(YSUser_PublishState_NONE), sYSUserCandraw : @(false)}];
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
             break;

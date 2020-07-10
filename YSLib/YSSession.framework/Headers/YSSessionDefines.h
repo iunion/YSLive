@@ -9,6 +9,12 @@
 #ifndef YSSessionDefines_h
 #define YSSessionDefines_h
 
+#define YS_CloudHubRtcRender_AutoReSize     (0)
+
+#define YS_Check_DevicePerformance_Low      (0)
+
+#define YS_UseInjectStream_PlayLocalMedia   (1)
+
 #define YS_Deprecated(string) __attribute__((deprecated(string)))
 
 /// 信令服务器尝试重连次数key，0：表示无限次重连，大于0：表示重连的次数
@@ -126,8 +132,14 @@ static NSString *const YSRoomPubMsgTellNone                = @"__None";
 
 #pragma - mark 信令
 
+/// 客户端请求关闭信令服务器房间
+static NSString *const sYSSignalNotice_Server_RoomEnd      = @"Server_RoomEnd";
+
 /// 服务器时间同步
 static NSString *const sYSSignalUpdateTime              = @"UpdateTime";
+
+/// 用户网络差，被服务器切换媒体线路
+static NSString *const sYSSignalNotice_ChangeMediaLine  =   @"Notice_ChangeMediaLine";
 
 /// 房间即将关闭消息
 static NSString *const sYSSignalName_Notice_PrepareRoomEnd   = @"Notice_PrepareRoomEnd";
@@ -142,6 +154,8 @@ static NSString *const sYSSignalClassBegin              = @"ClassBegin";
 
 /// 大房间用户数
 static NSString *const sYSSignalNotice_BigRoom_Usernum  = @"Notice_BigRoom_Usernum";
+/// 大房间自己被上台后，同步自己的属性给别人
+static NSString *const sYSSignalSyncProperty            = @"SyncProperty";
 
 /// 设置用户属性
 static NSString *const sYSSignalSetProperty             = @"setProperty";
@@ -163,11 +177,8 @@ static NSString *const sYSSignalVideoPolling            = @"VideoPolling";
 /// 切换窗口布局
 static NSString *const sYSSignalSetRoomLayout           = @"SetRoomLayout";
 
-/// 拖出视频
-static NSString *const sYSSignalVideoDrag               = @"VideoDrag";
-
-/// 拖出视频拉伸
-static NSString *const sYSSignalVideoChangeSize         = @"VideoChangeSize";
+/// 视频 拖出 + 缩放
+static NSString *const sYSSignalVideoAttribute               = @"VideoAttribute";
 
 /// 双击视频最大化
 static NSString *const sYSSignalDoubleClickVideo        = @"doubleClickVideo";
@@ -180,7 +191,6 @@ static NSString *const sYSSignalRefeshCourseware =      @"RemoteControlCoursewar
 
 /// 助教强制刷新
 static NSString *const sYSSignalRemoteControl    = @"RemoteControl";
-
 
 
 /// 投票

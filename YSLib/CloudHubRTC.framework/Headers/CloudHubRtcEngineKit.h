@@ -61,6 +61,7 @@ The CloudHubRtcEngineKit differentiates channel profiles and applies optimizatio
  */
 - (int)setChannelProfile:(CloudHubChannelProfile)profile;
 
+- (int)setClientRole:(CloudHubClientRole)role;
 
 /** Joins a channel with the user ID.
 
@@ -116,7 +117,7 @@ When the connection between the client and CloudHub's server is interrupted due 
                 channelId:(NSString * _Nonnull)channelId
                properties:(NSString * _Nullable)properties
                       uid:(NSString * _Nullable)uid
-              joinSuccess:(void(^ _Nullable)(NSString * _Nonnull channel, NSString * _Nonnull uid, NSUInteger serverts, NSInteger elapsed))joinSuccessBlock;
+              joinSuccess:(void(^ _Nullable)(NSString * _Nonnull channel, NSString * _Nonnull uid, NSInteger elapsed))joinSuccessBlock;
 
 /** Allows a user to leave a channel, such as hanging up or exiting a call.
 
@@ -175,6 +176,12 @@ The `token` expires after a period of time once the token schema is enabled when
 - (int)PublishStream;
 
 - (int)UnPublishStream;
+
+#pragma mark Subscribing
+// Do not use these three interfaces, if you don't know of what do they mean!
+- (int)subscribe:(NSString * _Nonnull)streamID;
+- (int)unsubscribe:(NSString * _Nonnull)streamID;
+- (void)setAutoSubscribe:(BOOL)bAuto;
 
 #pragma mark Core Audio
 
@@ -252,20 +259,6 @@ The SDK triggers the [didMicrophoneEnabled]([CloudHubRtcEngineDelegate rtcEngine
 * < 0: Failure.
  */
 - (int)muteAllRemoteAudioStreams:(BOOL)mute;
-
-/** Sets whether to receive all remote audio streams by default.
-
-You can call this method either before or after joining a channel. If you call this method after joining a channel, then the audio streams of all users joining afterwards are not received.
-
- @param mute Sets whether to receive/stop receiving all remote audio streams by default:
-
- * YES: Stop receiving all remote audio streams by default.
- * NO: (Default) Receive all remote audio streams by default.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)setDefaultMuteAllRemoteAudioStreams:(BOOL)mute;
 
 /** Adjust the playback volume of a specified remote user.
  
@@ -511,22 +504,7 @@ The parameters specified in this method are the maximum values under ideal netwo
 * < 0: Failure.
  */
 - (int)muteRemoteVideoStream:(NSString* _Nonnull)uid
-                    streamID:(NSString* _Nullable)streamID
                         mute:(BOOL)mute;
-
-/** Sets whether to receive all remote video streams by default.
-
- @param mute Sets whether to receive/stop receiving all remote video streams by default.
-
- * YES: Stop receiving all remote video streams by default.
- * NO: (Default) Receive all remote video streams by default.
-
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)setDefaultMuteAllRemoteVideoStreams:(BOOL)mute;
-
-
 
 #pragma mark Audio Routing Controller
 
@@ -605,10 +583,10 @@ The parameters specified in this method are the maximum values under ideal netwo
 - (void) pauseInjectStreamUrl:(NSString *_Nonnull)url pause:(BOOL)pause;
 
 #pragma mark Local Movie File Playback
-- (int) startPlayMovie:(NSString * _Nonnull)filepath;
-- (int) stopPlayMovie:(NSString * _Nonnull)filepath;
-- (int) pausePlayMovie:(NSString * _Nonnull)filepath;
-- (int) resumePlayMovie:(NSString * _Nonnull)filepath;
+- (int) startPlayingMovie:(NSString * _Nonnull)filepath cycle:(BOOL)cycle;
+- (int) stopPlayingMovie:(NSString * _Nonnull)filepath;
+- (int) pausePlayingMovie:(NSString * _Nonnull)filepath;
+- (int) resumePlayingMovie:(NSString * _Nonnull)filepath;
 - (CloudHubLocalMovieInfo * _Nullable) getMovieInfo:(NSString * _Nonnull)filepath;
 - (NSUInteger) getMovieCurrentPosition:(NSString * _Nonnull)filepath;
 - (int) setMoviePosition:(NSUInteger)pos withFile:(NSString * _Nonnull)filepath;
@@ -630,7 +608,7 @@ The parameters specified in this method are the maximum values under ideal netwo
 #endif
 
 #pragma mark Conrolling Methods
-- (int)setPropertyOfUid:(NSString * _Nonnull)uid tell:(NSString * _Nullable)whom properties:(NSDictionary * _Nonnull)prop;//cyjtodo comments
+- (int)setPropertyOfUid:(NSString * _Nonnull)uid tell:(NSString * _Nullable)whom properties:(NSString * _Nonnull)prop;//cyjtodo comments
 
 - (int)sendChatMsg:(NSString * _Nonnull)message to:(NSString * _Nullable)whom withExtraData:(NSString * _Nullable)extraData;//cyjtodo comments
 
