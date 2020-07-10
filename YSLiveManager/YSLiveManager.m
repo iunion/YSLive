@@ -351,6 +351,21 @@
 #pragma mark -
 #pragma mark YSWhiteBoardManagerDelegate
 
+/// 白板准备完毕
+- (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
+{
+    if (!finished)
+    {
+        return;
+    }
+    
+    if (self.room_UseType == YSRoomUseTypeLiveRoom)
+    {
+        [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordLiveBgColor];
+        [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordLiveDrawBgColor];
+    }
+}
+
 /**
  文件列表回调
  @param fileList 文件NSDictionary列表

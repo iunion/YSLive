@@ -1534,70 +1534,73 @@
 
 
 #pragma mark 房间视频/音频
-/// 继续播放房间视频
-- (void)handleRoomPlayMediaWithPeerID:(NSString *)peerID
-{
-    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-    {
-        return;
-    }
-    self.liveBgView.canZoom = NO;
-    self.liveBgView.backScrollView.zoomScale = 1.0;
-    
-    self.showRoomVideo = YES;
-#if YSAPP_NEWERROR
-    [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
-    }];
-#endif
-    
-    [self freshMediaView];
-}
 
-/// 暂停房间视频
-- (void)handleRoomPauseMediaWithPeerID:(NSString *)peerID
-{
-    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-    {
-        return;
-    }
-    
-    self.showRoomVideo = NO;
-#if YSAPP_NEWERROR
-    [self.liveManager stopPlayVideo:self.liveManager.teacher.peerID completion:^(NSError * _Nonnull error) {
-    }];
+#if 0
+///// 继续播放房间视频
+//- (void)handleRoomPlayMediaWithPeerID:(NSString *)peerID
+//{
+//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
+//    {
+//        return;
+//    }
+//    self.liveBgView.canZoom = NO;
+//    self.liveBgView.backScrollView.zoomScale = 1.0;
+//    
+//    self.showRoomVideo = YES;
+//#if YSAPP_NEWERROR
+//    [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
+//    }];
+//#endif
+//    
+//    [self freshMediaView];
+//}
+//
+///// 暂停房间视频
+//- (void)handleRoomPauseMediaWithPeerID:(NSString *)peerID
+//{
+//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
+//    {
+//        return;
+//    }
+//    
+//    self.showRoomVideo = NO;
+//#if YSAPP_NEWERROR
+//    [self.liveManager stopPlayVideo:self.liveManager.teacher.peerID completion:^(NSError * _Nonnull error) {
+//    }];
+//#endif
+//    
+//    [self freshMediaView];
+//}
+//
+///// 继续播放房间音频
+//- (void)handleRoomPlayAudioWithPeerID:(NSString *)peerID
+//{
+//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
+//    {
+//        return;
+//    }
+//    
+//#if YSAPP_NEWERROR
+//    [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
+//    }];
+//#endif
+//}
+//
+///// 暂停房间音频
+//- (void)handleRoomPauseAudioWithPeerID:(NSString *)peerID
+//{
+//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
+//    {
+//        return;
+//    }
+//    
+//#if YSAPP_NEWERROR
+//    [self.liveManager stopPlayAudio:self.roomVideoPeerID completion:^(NSError *error) {
+//    }];
+//#endif
+//    [self freshMediaView];
+//}
 #endif
-    
-    [self freshMediaView];
-}
-
-/// 继续播放房间音频
-- (void)handleRoomPlayAudioWithPeerID:(NSString *)peerID
-{
-    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-    {
-        return;
-    }
-    
-#if YSAPP_NEWERROR
-    [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
-    }];
-#endif
-}
-
-/// 暂停房间音频
-- (void)handleRoomPauseAudioWithPeerID:(NSString *)peerID
-{
-    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-    {
-        return;
-    }
-    
-#if YSAPP_NEWERROR
-    [self.liveManager stopPlayAudio:self.roomVideoPeerID completion:^(NSError *error) {
-    }];
-#endif
-    [self freshMediaView];
-}
 
 #pragma mark 白板视频/音频
 

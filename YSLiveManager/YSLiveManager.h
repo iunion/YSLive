@@ -41,11 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 
-/// 改变小班课白板背景颜色和水印底图
+/// 改变小班课白板背景颜色和水印底图 需要在joinRoomWithHost之间设置，如果想要随时修改，请使用白板sdk相应方法
 - (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
 - (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color drawBackGroundColor:(nullable UIColor *)drawBgColor maskImage:(nullable UIImage *)image;
 
-/// 改变直播白板背景颜色
+/// 改变直播白板背景颜色 需要在joinRoomWithHost之间设置，如果想要随时修改，请使用白板sdk相应方法
 - (void)setWhiteBoardLivrBackGroundColor:(nullable UIColor *)color drawBackGroundColor:(nullable UIColor *)drawBgColor;
 
 /// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
@@ -53,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 设置H5课件Cookies
 - (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
+
+
 
 /// 获取课件数据
 - (YSFileModel *)getFileWithFileID:(NSString *)fileId;
