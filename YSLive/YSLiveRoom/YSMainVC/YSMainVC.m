@@ -1975,7 +1975,7 @@
 // 通知
 - (void)handleSignalingLiveNoticeInfoWithNotice:(NSString *)text timeInterval:(NSUInteger)timeInterval
 {
-    if ([text isEqualToString:sYSSignaling_LiveLuckDrawResult])
+    if ([text isEqualToString:sYSSignal_LiveLuckDrawResult])
     {
         [self creatLessonDataWithNotice:YSLocalized(@"Alert.Reward.title") type:YSLessonNotifyType_Status timeInterval:timeInterval];
         return;

@@ -51,7 +51,7 @@
     //drawView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     //drawView.delegate = self;
-    [drawView switchToFileID:sYSSignaling_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
+    [drawView switchToFileID:sYSSignal_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
     self.drawView = drawView;
 }
 
@@ -167,8 +167,7 @@
 //    NSString *dataString = [data stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 //
 //    [[YSRoomInterface instance] pubMsg:sYSSignalSharpsChange msgID:shapeID toID:YSRoomPubMsgTellAll data:dataString save:YES associatedMsgID:sYSSignalVideoWhiteboard associatedUserID:nil expires:0 completion:nil];
-#warning 视频标注
-        [[YSLiveManager sharedInstance] pubMsg:sYSSignalSharpsChange msgId:shapeID to:YSRoomPubMsgTellAll withData:dic associatedWithUser:nil associatedWithMsg:sYSSignalVideoWhiteboard save:YES];
+    [[YSLiveManager sharedInstance] pubMsg:sYSSignal_SharpsChange msgId:shapeID to:YSRoomPubMsgTellAll withData:dic associatedWithUser:nil associatedWithMsg:sYSSignal_VideoWhiteboard save:YES];
 }
 
 - (void)handleSignal:(NSDictionary *)dictionary isDel:(BOOL)isDel
@@ -192,7 +191,7 @@
         return;
     }
 
-    if ([msgName isEqualToString:sYSSignalVideoWhiteboard])
+    if ([msgName isEqualToString:sYSSignal_VideoWhiteboard])
     {
         if (!isDel)
         {

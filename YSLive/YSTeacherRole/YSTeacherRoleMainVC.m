@@ -2863,7 +2863,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (self.liveManager.isClassBegin)
         {
             //[self.liveManager.whiteBoardManager clearVideoMark];
-            [self.liveManager delMsg:sYSSignalVideoWhiteboard msgId:sYSSignalVideoWhiteboard to:YSRoomPubMsgTellAll];
+            [self.liveManager delMsg:sYSSignal_VideoWhiteboard msgId:sYSSignal_VideoWhiteboard to:YSRoomPubMsgTellAll];
         }
     }
     else
@@ -2979,7 +2979,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (self.liveManager.isClassBegin)
         {
             YSSharedMediaFileModel *mediaFileModel = self.liveManager.mediaFileModel;
-            [self.liveManager pubMsg:sYSSignalVideoWhiteboard msgId:sYSSignalVideoWhiteboard to:YSRoomPubMsgTellAll withData:@{@"videoRatio":@(mediaFileModel.width/mediaFileModel.height)} save:YES];
+            [self.liveManager pubMsg:sYSSignal_VideoWhiteboard msgId:sYSSignal_VideoWhiteboard to:YSRoomPubMsgTellAll withData:@{@"videoRatio":@(mediaFileModel.width/mediaFileModel.height)} save:YES];
         }
     }
     else
@@ -2987,7 +2987,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (self.liveManager.isClassBegin)
         {
             //[self.liveManager.whiteBoardManager clearVideoMark];
-            [self.liveManager delMsg:sYSSignalVideoWhiteboard msgId:sYSSignalVideoWhiteboard to:YSRoomPubMsgTellAll];
+            [self.liveManager delMsg:sYSSignal_VideoWhiteboard msgId:sYSSignal_VideoWhiteboard to:YSRoomPubMsgTellAll];
         }
     }
 }
@@ -2999,7 +2999,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.liveManager.isClassBegin)
     {
         //[self.liveManager.whiteBoardManager clearVideoMark];
-        [self.liveManager delMsg:sYSSignalVideoWhiteboard msgId:sYSSignalVideoWhiteboard to:YSRoomPubMsgTellAll];
+        [self.liveManager delMsg:sYSSignal_VideoWhiteboard msgId:sYSSignal_VideoWhiteboard to:YSRoomPubMsgTellAll];
     }
 }
 
