@@ -868,7 +868,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     //[self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
     // 前后默认开启镜像
-    [self.liveManager changeLocalVideoMirrorMode:CloudHubVideoMirrorModeEnabled];
+    //[self.liveManager changeLocalVideoMirrorMode:CloudHubVideoMirrorModeEnabled];
 
     // 视频+白板背景
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight - STATETOOLBAR_HEIGHT)];
