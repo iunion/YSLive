@@ -393,12 +393,6 @@
     
 }
 
-/// 发生警告 回调
-- (void)onRoomDidOccuredWaring:(CloudHubWarningCode)code
-{
-    
-}
-
 /// 失去连接
 - (void)onRoomConnectionLost
 {
