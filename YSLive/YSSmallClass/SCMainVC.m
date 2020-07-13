@@ -3690,6 +3690,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+    if (self.liveManager.localUser.role == YSUserType_Student && ![videoView isEqual:self.fullTeacherVideoView])
+    {
+        return;
+    }
+    
+    
     CGPoint endPoint = [pan translationInView:videoView];
     
     UIView * background = nil;
@@ -3702,7 +3708,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         background = self.shareVideoFloatView;
     }
-    
     
     if (!self.dragImageView)
     {
@@ -3780,7 +3785,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     @"userId":videoView.roomUser.peerID,
                     @"scale":@(floatV.endScale)
                 };
-//                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
                 [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
             }
         }
