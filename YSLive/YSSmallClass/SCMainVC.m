@@ -1424,7 +1424,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        
         if (self.roomLayout == YSRoomLayoutType_VideoLayout || self.roomLayout == YSRoomLayoutType_FocusLayout)
         {
             [self freshVidoeGridView];
@@ -4055,6 +4054,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [floatView bm_centerInSuperView];
         [floatView showWithContentView:videoView];
         self.doubleFloatView = floatView;
+        
+        self.whiteBordView.hidden = YES;
     }
     else
     {
@@ -4064,6 +4065,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.doubleFloatView removeFromSuperview];
         [self freshContentView];
         self.doubleFloatView = nil;
+        self.whiteBordView.hidden = NO;
     }
     
     if (!self.isWhitebordFullScreen)
