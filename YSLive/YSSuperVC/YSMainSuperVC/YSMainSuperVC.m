@@ -488,7 +488,8 @@
     {
         NSString *message = [NSString stringWithFormat:@"%@(%@) %@", user.nickName, roleName, YSLocalized(@"Action.ExitRoom")];
         [self.liveManager sendTipMessage:message tipType:YSChatMessageType_Tips];
-    }}
+    }
+}
 
 
 #pragma mark 用户流

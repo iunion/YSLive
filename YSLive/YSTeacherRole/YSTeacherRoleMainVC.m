@@ -2085,7 +2085,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomUserLeft:user];
     
-    if (self.roomtype == YSRoomUserType_More)
+//    if (self.roomtype == YSRoomUserType_More)
     {
         [self delVidoeViewWithPeerId:user.peerID];
     }
@@ -3257,14 +3257,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                              
                 YSFloatView * floatV = [self getVideoFloatViewWithPeerId:videoView.roomUser.peerID];
                 
+                CGFloat endScale = floatV.endScale;
+                if (endScale == 0)
+                {
+                    endScale = 2;
+                }
+                
                 NSDictionary * data = @{
                     @"isDrag":@1,
                     @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
                     @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
                     @"userId":videoView.roomUser.peerID,
-                    @"scale":@(floatV.endScale)
+                    @"scale":@(endScale)
                 };
-//                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
                 [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
                 [self showDragOutFullTeacherVidoeViewWithPeerId:videoView.roomUser.peerID videoX:videoEndX videoY:videoEndY];
             }

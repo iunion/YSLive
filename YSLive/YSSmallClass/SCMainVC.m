@@ -1387,7 +1387,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.roomtype == YSRoomUserType_One)
     {
-        if (self.videoViewArray.count>1)
+        if (self.videoViewArray.count > 1)
         {
             self.userVideoView.hidden = YES;
         }
@@ -3019,7 +3019,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [super onRoomUserLeft:user];
     
     [self freshTeacherPersonListData];
-    if (self.roomtype == YSRoomUserType_More)
+//    if (self.roomtype == YSRoomUserType_More)
     {
         [self delVidoeViewWithPeerId:user.peerID];
     }
@@ -3686,11 +3686,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if ((self.roomtype == YSRoomUserType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == YSRoomLayoutType_FocusLayout)
     {
+        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         return;
     }
     
     if (self.liveManager.localUser.role == YSUserType_Student && ![videoView isEqual:self.fullTeacherVideoView])
     {
+        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         return;
     }
     
@@ -3758,36 +3760,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             [self showDragOutFullTeacherVidoeViewWithPercentLeft:percentLeft percentTop:percentTop];
         }
-        else
-        {//不全屏
-            if (percentTop<0)
-            {
-                NSDictionary * data = @{
-                    @"isDrag":@0,
-                    @"userId":videoView.roomUser.peerID
-                };
-//                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-                [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
-                
-                [self.dragImageView removeFromSuperview];
-                self.dragImageView = nil;
-                self.videoOriginInSuperview = CGPointZero;
-                return;
-            }
-            else
-            {
-                YSFloatView * floatV = [self getVideoFloatViewWithPeerId:videoView.roomUser.peerID];
-                NSDictionary * data = @{
-                    @"isDrag":@1,
-                    @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
-                    @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
-                    @"userId":videoView.roomUser.peerID,
-                    @"scale":@(floatV.endScale)
-                };
-                [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
-            }
-        }
-
+        
         [self.dragImageView removeFromSuperview];
         self.dragImageView = nil;
         self.videoOriginInSuperview = CGPointZero;
