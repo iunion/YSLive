@@ -906,7 +906,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
          _resultTableView.dataSource = self;
          _resultTableView.showsVerticalScrollIndicator = YES;
          _resultTableView.alwaysBounceVertical = NO;
-    
+         _resultTableView.bounces = NO;
          _resultTableView.backgroundColor = [UIColor clearColor];
          [_resultTableView registerClass:[SCAnswerDetailTableViewCell class] forCellReuseIdentifier:@"SCAnswerDetailTableViewCell"];
          [_resultTableView registerClass:[SCStatisticsTableViewCell class] forCellReuseIdentifier:@"SCStatisticsTableViewCell"];

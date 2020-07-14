@@ -4576,6 +4576,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     }
     BMWeakSelf
+    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         [weakSelf.studentTimerView showTimeInterval:timeInterval];
         if (timeInterval == 0)
