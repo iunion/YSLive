@@ -2786,7 +2786,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [floatView bm_centerInSuperView];
         [floatView showWithContentView:videoView];
         self.doubleFloatView = floatView;
-
+        self.whiteBordView.hidden = YES;
     }
     else
     {
@@ -2796,7 +2796,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.doubleFloatView removeFromSuperview];
         [self freshContentView];
         self.doubleFloatView = nil;
-
+        self.whiteBordView.hidden = NO;
     }
     
     if (!self.isWhitebordFullScreen)
