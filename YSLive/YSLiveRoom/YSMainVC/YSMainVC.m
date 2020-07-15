@@ -1302,6 +1302,11 @@
     SCVideoView *videoView = [self getVideoViewWithPeerId:userId];
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:userId];
     
+    if (!roomUser)
+    {
+        return;
+    }
+    
     // 网络状态
     if ([properties bm_containsObjectForKey:sYSUserNetWorkState])
     {

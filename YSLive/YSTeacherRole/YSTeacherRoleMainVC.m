@@ -2308,6 +2308,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     SCVideoView *videoView = [self getVideoViewWithPeerId:userId];
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:userId];
 
+    if (!roomUser)
+    {
+        return;
+    }
+    
     // 网络状态
     if ([properties bm_containsObjectForKey:sYSUserNetWorkState])
     {
