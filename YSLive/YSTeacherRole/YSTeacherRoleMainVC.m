@@ -1826,8 +1826,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     SCVideoView *newVideoView = [super addVidoeViewWithPeerId:peerId];
     
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
@@ -1877,8 +1877,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     SCVideoView *delVideoView = [super delVidoeViewWithPeerId:peerId];
 
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     
     if (delVideoView)
     {
@@ -2595,8 +2595,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 老师取消订阅举手列表
     [self.liveManager sendSignalingToSubscribeAllRaiseHandMemberWithType:@"unsubSort"];
    
-    [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:YES completion:nil];
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     
     [self.imagePickerController cancelButtonClick];
 
@@ -5393,14 +5393,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //            [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
             [self.liveManager sendSignalingTopinchVideoViewWithPeerId:self.selectControlView.roomUser.peerID withData:data];
             
-            
-            
             if (self.controlPopoverView.presentingViewController)
             {
                 [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
             }
-            
-            
         }
             break;
         case SCVideoViewControlTypeAllRestore:
