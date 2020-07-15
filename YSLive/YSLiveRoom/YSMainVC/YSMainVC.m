@@ -1395,7 +1395,7 @@
 #pragma mark 上下课
 
 // 上课
-- (void)handleSignalingClassBeginWihInList:(BOOL)inlist
+- (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
     self.teacherPlaceLab.hidden = YES;
     NSString *teacherPeerID = self.liveManager.teacher.peerID;
@@ -1414,7 +1414,7 @@
     
     [self freshMediaView];
     
-    if (!inlist)
+    if (!isHistory)
     {
         [self bringSomeViewToFront];
         [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Alert.BeginClass") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
@@ -1707,13 +1707,13 @@
 }
 
 /// 绘制白板视频标注
-- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
+- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data isHistory:(BOOL)isHistory
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
-    if (inlist)
+    if (isHistory)
     {
         [self.mediaMarkSharpsDatas addObject:data];
     }

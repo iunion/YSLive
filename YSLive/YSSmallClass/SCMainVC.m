@@ -3355,7 +3355,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 上课
 
-- (void)handleSignalingClassBeginWihInList:(BOOL)inlist
+- (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
     self.rightChatView.allDisabled = NO;
 
@@ -3506,7 +3506,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    if (inlist)
+    if (isHistory)
     {
         // 刷新当前用户前后台状态
         NSDictionary *properties = self.liveManager.localUser.properties;
@@ -4144,14 +4144,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 绘制白板视频标注
-- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
+- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data isHistory:(BOOL)isHistory
 {
 
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
-    if (inlist)
+    if (isHistory)
     {
         [self.mediaMarkSharpsDatas addObject:data];
     }

@@ -2471,7 +2471,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 上课
 //inlist表示在我进房间之前的信令
-- (void)handleSignalingClassBeginWihInList:(BOOL)inlist
+- (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
     self.classBeginBtn.userInteractionEnabled = YES;
 
@@ -2572,7 +2572,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
     
-    if (!inlist)
+    if (!isHistory)
     {
         if (self.liveManager.mediaFileModel)
         {
@@ -3025,13 +3025,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 绘制白板视频标注
-- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data inList:(BOOL)inlist
+- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data isHistory:(BOOL)isHistory
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
-    if (inlist)
+    if (isHistory)
     {
         [self.mediaMarkSharpsDatas addObject:data];
     }
