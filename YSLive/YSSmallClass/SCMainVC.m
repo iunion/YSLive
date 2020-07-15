@@ -2883,7 +2883,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSLiveRoomManagerDelegate
 
 /// 大并发房间
-- (void)onRoomChangeToBigRoomInList:(BOOL)inlist
+- (void)onRoomChangeToBigRoomIsHistory:(BOOL)isHistory
 {
     BMWeakSelf
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -3047,7 +3047,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 
-- (void)onRoomBigRoomFreshUserCountInList:(BOOL)inlist
+- (void)onRoomBigRoomFreshUserCountIsHistory:(BOOL)isHistory
 {
 }
 

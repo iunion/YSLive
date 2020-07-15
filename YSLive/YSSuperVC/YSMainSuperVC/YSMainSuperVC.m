@@ -533,7 +533,14 @@
     if (videoView)
     {
         YSRoomUser *roomUser = videoView.roomUser;
-        [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:[roomUser.properties bm_boolForKey:sYSUserIsVideoMirror] inView:videoView];
+        BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sYSUserIsVideoMirror];
+        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        if (isVideoMirror)
+        {
+            videoMirrorMode = CloudHubVideoMirrorModeEnabled;
+        }
+
+        [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
         [videoView freshWithRoomUserProperty:roomUser];
     }
 }
