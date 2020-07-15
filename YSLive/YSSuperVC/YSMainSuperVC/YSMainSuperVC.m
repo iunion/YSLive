@@ -515,8 +515,18 @@
 /// 开关摄像头
 - (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    SCVideoView *view = [self getVideoViewWithPeerId:uid];
-    [view freshWithRoomUserProperty:view.roomUser];
+    //SCVideoView *view = [self getVideoViewWithPeerId:uid];
+    //[view freshWithRoomUserProperty:view.roomUser];
+    if (close)
+    {
+        [self onRoomStopVideoOfUid:uid streamID:streamID];
+        SCVideoView *view = [self getVideoViewWithPeerId:uid];
+        [view freshWithRoomUserProperty:view.roomUser];
+    }
+    else
+    {
+        [self onRoomStartVideoOfUid:uid streamID:streamID];
+    }
 }
 
 /// 开关麦克风
