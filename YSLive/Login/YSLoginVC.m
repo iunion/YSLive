@@ -1435,9 +1435,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
             self.passwordTextField.frame = CGRectMake((350-300)/2, 171, 300, 40);
         }
         
+        UIImageView *passImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 30, 30)];
+        [passImg setImage:YSSkinElementImage(@"login_passImg", @"iconNor")];
+        _passwordTextField.inputTextField.leftView = passImg;
+        _passwordTextField.inputTextField.leftViewMode = UITextFieldViewModeAlways;
+        
         UIButton * eyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passwordTextField.bm_width-40, 0, 40, 40)];
-        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
-        [eyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
+        [eyeBtn setImage:YSSkinElementImage(@"login_passEye", @"iconNor") forState:UIControlStateNormal];
+        [eyeBtn setImage:YSSkinElementImage(@"login_passEye", @"iconSel") forState:UIControlStateSelected];
         [eyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
         [_passwordTextField addSubview:eyeBtn];
         

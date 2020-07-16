@@ -701,6 +701,28 @@
 		<key>iconOnlineSchool</key>
 		<string>login_iconOnlineSchool_skin</string>
 	</dict>
+	<key>login_passImg</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_passImg_nor</string>
+		<key>iconSel</key>
+		<string>login_passImg_sel</string>
+	</dict>
+	<key>login_passEye</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_passEye_nor</string>
+		<key>iconSel</key>
+		<string>login_passEye_sel</string>
+	</dict>
 	<key>login_setting</key>
 	<dict>
 		<key>tittleColor</key>
