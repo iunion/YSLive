@@ -90,8 +90,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 @property (nonatomic, strong) YSInputView *admin_accountTextField;
 /// 网校密码输入框
 @property (nonatomic, strong) YSInputView *passOnlineTextField;
-/// 网校系统
-@property (nonatomic, strong) UILabel *onlineSchoolTitle;
 
 ///获取房间类型时，探测接口的调用次数
 @property (nonatomic, assign) NSInteger  callNum;
@@ -575,22 +573,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
         make.width.bmmas_equalTo(kBMScale_W(197));
     }];
     
-    
-    UILabel *onlineSchoolTitle = [[UILabel alloc] init];
-    onlineSchoolTitle.font = [UIFont systemFontOfSize:16];
-    onlineSchoolTitle.textColor = YSSkinDefineColor(@"login_placeholderColor");
-    onlineSchoolTitle.textAlignment = NSTextAlignmentCenter;
-    onlineSchoolTitle.hidden = YES;
-    onlineSchoolTitle.text = YSLocalizedSchool(@"Label.onlineSchoolSystem");
-    self.onlineSchoolTitle = onlineSchoolTitle;
-    [self.backImageView addSubview:onlineSchoolTitle];
-    [self.onlineSchoolTitle bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(kBMScale_W(28));
-        make.right.bmmas_equalTo(-kBMScale_W(28));
-        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(5));
-        make.height.bmmas_equalTo(30);
-    }];
-    
     [self.backImageView addSubview:self.roomTextField];
     [self.roomTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(60));
@@ -747,7 +729,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             make.height.bmmas_equalTo(kBMScale_W(153));
             make.width.bmmas_equalTo(kBMScale_W(197));
         }];
-        self.onlineSchoolTitle.hidden = NO;
+        
         self.passOnlineTextField.hidden = NO;
         self.domainTextField.hidden = NO;
         self.admin_accountTextField.hidden = NO;
@@ -795,7 +777,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             make.height.bmmas_equalTo(kBMScale_W(153));
             make.width.bmmas_equalTo(kBMScale_W(197));
         }];
-        self.onlineSchoolTitle.hidden = YES;
+
         self.passOnlineTextField.hidden = YES;
         self.domainTextField.hidden = YES;
         self.admin_accountTextField.hidden = YES;
@@ -1401,8 +1383,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (!_backImageView)
     {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.backgroundColor = [UIColor whiteColor];
-        [_backImageView setImage:YSSkinElementImage(@"login_background", @"iconNor")];
+        _backImageView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+//        [_backImageView setImage:YSSkinElementImage(@"login_background", @"iconNor")];
         _backImageView.userInteractionEnabled = YES;
     }
     return _backImageView;
