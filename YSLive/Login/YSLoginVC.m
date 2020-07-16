@@ -668,7 +668,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     UIButton *eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     eyeBtn.frame = CGRectMake(0, 0, 100, 40);
-    [eyeBtn setTitle:YSLoginLocalized(@"Login.Seting") forState:UIControlStateNormal];
+//    [eyeBtn setTitle:YSLoginLocalized(@"Login.Seting") forState:UIControlStateNormal];
+    [eyeBtn setImage:YSSkinElementImage(@"login_setting", @"iconNor") forState:UIControlStateNormal];
     eyeBtn.titleLabel.font = UI_FONT_12;
     [eyeBtn setTitleColor:[UIColor bm_colorWithHex:0x878E95] forState:UIControlStateNormal];
     [eyeBtn addTarget:self action:@selector(onClickEye:) forControlEvents:UIControlEventTouchUpInside];
@@ -687,16 +688,16 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
     [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
-    [onlineSchoolBtn setTitleColor:YSSkinDefineColor(@"login_placeholderColor") forState:UIControlStateNormal];
-    onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-    onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [onlineSchoolBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+    onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     onlineSchoolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [self.onlineSchoolBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.bottom.bmmas_equalTo(-25);
+        make.top.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_bottom).bmmas_offset(27);
         make.height.bmmas_equalTo(30);
-        make.width.bmmas_equalTo(BMUI_SCREEN_WIDTH - 60);
-        make.left.bmmas_equalTo(30);
+        make.width.bmmas_equalTo(100);
+        make.centerX.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_centerX);
     }];
 #endif
 }

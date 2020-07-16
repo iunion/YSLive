@@ -24,6 +24,7 @@
         _iconImageView = [[UIImageView alloc] initWithImage:image];
         _iconImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_iconImageView];
+        _iconImageView.hidden = YES;
         
         _inputTextField = [[UITextField alloc] init];
         [self addSubview:_inputTextField];
@@ -71,10 +72,10 @@
 {
     [super layoutSubviews];
 
-    _iconImageView.frame = CGRectMake(10, 0, 15,self.bm_height);
+//    _iconImageView.frame = CGRectMake(10, 0, 15,self.bm_height);
     
-    _inputTextField.frame = CGRectMake(CGRectGetMaxX(_iconImageView.frame)+ 18, 0, self.bm_width - 70, self.bm_height);
-    
+//    _inputTextField.frame = CGRectMake(CGRectGetMaxX(_iconImageView.frame)+ 18, 0, self.bm_width - 70, self.bm_height);
+    _inputTextField.frame = CGRectMake(10, 0, self.bm_width - 20, self.bm_height);
     self.lineView.frame = CGRectMake(0, self.bm_height - 1.0, self.bm_width, 0.5);
 }
 

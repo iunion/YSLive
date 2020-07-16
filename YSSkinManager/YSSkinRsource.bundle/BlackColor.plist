@@ -701,6 +701,15 @@
 		<key>iconOnlineSchool</key>
 		<string>login_iconOnlineSchool_skin</string>
 	</dict>
+	<key>login_setting</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_setting_nor</string>
+	</dict>
 	<key>login_roomNum</key>
 	<dict>
 		<key>tittleColor</key>
