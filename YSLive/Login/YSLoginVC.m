@@ -678,7 +678,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [self.onlineSchoolBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.top.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_bottom).bmmas_offset(27);
         make.height.bmmas_equalTo(30);
-        make.width.bmmas_equalTo(100);
+        make.width.bmmas_equalTo(150);
         make.centerX.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_centerX);
     }];
 #endif
