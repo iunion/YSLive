@@ -593,11 +593,13 @@
 
     if (mediaFileModel.state == YSMediaState_Play)
     {
+        self.mediaFileModel = mediaFileModel;
         [self handleWhiteBordPlayMediaFileWithMedia:mediaFileModel];
     }
     else
     {
         [self handleWhiteBordStopMediaFileWithMedia:mediaFileModel];
+        self.mediaFileModel = nil;
     }
 }
 

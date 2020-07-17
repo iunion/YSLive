@@ -1067,7 +1067,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)closeMp4BtnClicked:(UIButton *)btn
 {
-    [self.liveManager stopShareOneMediaFile];
+    YSSharedMediaFileModel *mediaFileModel = self.mp4ControlView.mediaFileModel;
+    [self.liveManager stopSharedMediaFile:mediaFileModel.fileUrl];
 }
 
 - (void)doubleBtnClick:(UIButton *)sender
@@ -2571,14 +2572,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     dispatch_resume(self.topBarTimer);
 
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
-    
-    if (!isHistory)
-    {
-        if (self.liveManager.mediaFileModel)
-        {
-            [self.liveManager stopShareOneMediaFile];
-        }
-    }
 }
 
 /// 下课
@@ -2829,6 +2822,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
+        self.mp3ControlView.mediaFileModel = self.mediaFileModel;
         [self onPlayMp3];
     }
 }
@@ -2836,6 +2830,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onPlayMp3
 {
     self.mp3ControlView.hidden = NO;
+    
     [self arrangeAllViewInVCView];
 }
 
@@ -2921,7 +2916,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMLog(@"onRoomUpdateMediaStream: %@, %@, %@", @(duration), @(pos), @(isPlay));
     if (pos == duration)
     {
-        [self.liveManager stopShareOneMediaFile];
+        [self.liveManager stopSharedMediaFile:self.mediaFileModel.fileUrl];
         return;
     }
     if (isPlay)
@@ -2932,13 +2927,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         if (!isDrag)
         {
-            if (self.liveManager.mediaFileModel.isVideo)
+            if (self.mediaFileModel.isVideo)
             {
-                [self.mp4ControlView setMediaStream:duration pos:pos isPlay:isPlay fileName:self.liveManager.mediaFileModel.fileName];
+                [self.mp4ControlView setMediaStream:duration pos:pos isPlay:isPlay fileName:self.mediaFileModel.fileName];
             }
             else
             {
-                [self.mp3ControlView setMediaStream:duration pos:pos isPlay:isPlay fileName:self.liveManager.mediaFileModel.fileName];
+                [self.mp3ControlView setMediaStream:duration pos:pos isPlay:isPlay fileName:self.mediaFileModel.fileName];
             }
         }
 
@@ -2947,35 +2942,34 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark -YSMp3ControlViewDelegate
-- (void)playMp3ControlViewPlay:(BOOL)isPlay
+- (void)playMp3ControlViewPlay:(BOOL)isPause withFileModel:(nonnull YSSharedMediaFileModel *)mediaFileModel
 {
-    [self.liveManager pauseShareOneMediaFile:isPlay];
-    isMediaPause = isPlay;
+    [self.liveManager pauseSharedMediaFile:mediaFileModel.fileUrl isPause:isPause];
+    isMediaPause = isPause;
     [self freshTeacherCoursewareListData];
 }
 
-- (void)sliderMp3ControlView:(NSInteger)value
+- (void)sliderMp3ControlViewPos:(NSTimeInterval)value withFileModel:(YSSharedMediaFileModel *)mediaFileModel
 {
     isDrag = YES;
-    [self.liveManager seekShareOneMediaFile:value];
+    [self.liveManager seekSharedMediaFile:mediaFileModel.fileUrl positionByMS:value];
 }
 
-- (void)closeMp3ControlView
+- (void)closeMp3ControlViewWithFileModel:(YSSharedMediaFileModel *)mediaFileModel
 {
-    [self.liveManager stopShareOneMediaFile];
+    [self.liveManager stopSharedMediaFile:mediaFileModel.fileUrl];
 }
 
 #pragma mark -YSMp4ControlViewDelegate
 
-- (void)playYSMp4ControlViewPlay:(BOOL)isPlay
+- (void)playYSMp4ControlViewPlay:(BOOL)isPause withFileModel:(YSSharedMediaFileModel *)mediaFileModel
 {
-    [self.liveManager pauseShareOneMediaFile:isPlay];
+    [self.liveManager pauseSharedMediaFile:mediaFileModel.fileUrl isPause:isPause];
     
-    if (isPlay)
+    if (isPause)
     {
         if (self.liveManager.isClassBegin)
         {
-            YSSharedMediaFileModel *mediaFileModel = self.liveManager.mediaFileModel;
             [self.liveManager pubMsg:sYSSignal_VideoWhiteboard msgId:sYSSignal_VideoWhiteboard to:YSRoomPubMsgTellAll withData:@{@"videoRatio":@(mediaFileModel.width/mediaFileModel.height)} save:YES];
         }
     }
@@ -2989,10 +2983,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (void)sliderYSMp4ControlView:(NSInteger)value
+- (void)sliderYSMp4ControlViewPos:(NSTimeInterval)value withFileModel:(YSSharedMediaFileModel *)mediaFileModel
 {
     isDrag = YES;
-    [self.liveManager seekShareOneMediaFile:value];
+    [self.liveManager seekSharedMediaFile:mediaFileModel.fileUrl positionByMS:value];
     if (self.liveManager.isClassBegin)
     {
         //[self.liveManager.whiteBoardManager clearVideoMark];
@@ -3057,7 +3051,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if ([self.spreadBottomToolBar coursewareListIsShow])
     {
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.mediaFileModel.fileId mediaState:self.mediaFileModel.state];
     }
 }
 
@@ -3649,6 +3643,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isMp4Play = YES;
     [self.view endEditing:YES];
     self.mp4ControlView.hidden = NO;
+    self.mp4ControlView.mediaFileModel = mediaModel;
     self.closeMp4Btn.hidden = NO;
     
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
@@ -3793,7 +3788,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //课件库
             [self freshListViewWithSelect:isSelected];
             
-            [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
+            [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.mediaFileModel.fileId mediaState:self.mediaFileModel.state];
             
             [self.teacherListView bm_bringToFront];
         }
@@ -5628,29 +5623,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.deleteTask resume];
     }
 }
+
 /// 课件点击
 - (void)selectCoursewareProxyWithFileModel:(YSFileModel *)fileModel
 {
-    if (self.liveManager.mediaFileModel)
-    {
-        if ([self.liveManager.mediaFileModel.fileId isEqualToString:fileModel.fileid])
-        {
-            isMediaPause = !isMediaPause;
-            [self.liveManager pauseShareOneMediaFile:isMediaPause];
-            [self freshTeacherCoursewareListData];
-            self.mp3ControlView.playBtn.selected = isMediaPause;
-            return;
-        }
-
-        [self.liveManager stopShareOneMediaFile];
-    }
-    
     if (![fileModel bm_isNotEmpty])
     {
         return;
     }
+    
     [self.liveManager.whiteBoardManager changeCourseWithFileId:fileModel.fileid];
-
 }
 
 ///收回列表
