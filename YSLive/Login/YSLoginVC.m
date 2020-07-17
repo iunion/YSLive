@@ -568,15 +568,15 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [self.backImageView addSubview:self.logoImageView];
     [self.logoImageView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
 //        make.centerX.bmmas_equalTo(0);
-        make.top.bmmas_equalTo(kBMScale_H(60));
+        make.top.bmmas_equalTo(kBMScale_H(90));
         make.left.bmmas_equalTo(kBMScale_W(40));
         make.right.bmmas_equalTo(-kBMScale_W(40));
-        make.height.bmmas_equalTo(kBMScale_H(250));
+//        make.height.bmmas_equalTo(kBMScale_H(250));
     }];
     
     [self.backImageView addSubview:self.roomTextField];
     [self.roomTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(30));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom);//.bmmas_offset(kBMScale_H(15));
         make.height.bmmas_equalTo(40);
         make.width.bmmas_equalTo(kBMScale_W(210));
         make.centerX.bmmas_equalTo(0);
@@ -584,7 +584,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     [self.backImageView addSubview:self.domainTextField];
     [self.domainTextField bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(30));
+        make.top.bmmas_equalTo(weakSelf.logoImageView.bmmas_bottom).bmmas_offset(kBMScale_H(10));
         make.height.bmmas_equalTo(40);
         make.width.bmmas_equalTo(kBMScale_W(210));
         make.centerX.bmmas_equalTo(0);
@@ -643,7 +643,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     [self.backImageView addSubview:self.joinRoomBtn];
     [self.joinRoomBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(20));
+        make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
         make.height.bmmas_equalTo(50);
         make.width.bmmas_equalTo(kBMScale_W(238));
         make.centerX.bmmas_equalTo(0);
@@ -740,7 +740,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Login.EnterRoom") forState:UIControlStateNormal];
         
         [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
-            make.top.bmmas_equalTo(weakSelf.passOnlineTextField.bmmas_bottom).bmmas_offset(kBMScale_H(20));
+            make.top.bmmas_equalTo(weakSelf.passOnlineTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
             make.height.bmmas_equalTo(50);
             make.width.bmmas_equalTo(kBMScale_W(238));
             make.centerX.bmmas_equalTo(0);
@@ -787,7 +787,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [self.joinRoomBtn setTitle:YSLoginLocalized(@"Login.EnterRoom") forState:UIControlStateNormal];
         [self.onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
         [self.joinRoomBtn bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
-            make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(20));
+            make.top.bmmas_equalTo(weakSelf.nickNameTextField.bmmas_bottom).bmmas_offset(kBMScale_H(30));
             make.height.bmmas_equalTo(50);
             make.width.bmmas_equalTo(kBMScale_W(238));
             make.centerX.bmmas_equalTo(0);
@@ -1384,7 +1384,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (!_backImageView)
     {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _backImageView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"defaultTitleColor");
 //        [_backImageView setImage:YSSkinElementImage(@"login_background", @"iconNor")];
         _backImageView.userInteractionEnabled = YES;
     }
