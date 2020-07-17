@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 自己视频
 @property (nullable, nonatomic, strong) SCVideoView *myVideoView;
 
+/// 打开的音视频课件，目前只支持一个音视频
+@property (nullable, nonatomic, strong) YSSharedMediaFileModel *mediaFileModel;
+
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 
