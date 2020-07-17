@@ -55,6 +55,8 @@
 	</dict>
 	<key>CommonImage</key>
 	<dict>
+		<key>permission_background</key>
+		<string>permission_background_skin</string>
 		<key>main_uservideocover</key>
 		<string>main_uservideocover_skin</string>
 		<key>main_teachervideocover4v3</key>
