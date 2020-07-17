@@ -2140,7 +2140,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 //课件库
                 [self freshListViewWithSelect:isSelected];
                 [self.teacherListView setUserRole:self.liveManager.localUser.role];
-                [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
+                [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.mediaFileModel.fileId mediaState:self.mediaFileModel.state];
                 [self.teacherListView bm_bringToFront];
                 
             }
@@ -2307,7 +2307,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self.teacherListView setUserRole:self.liveManager.localUser.role];
 
-        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.liveManager.mediaFileModel.fileId mediaState:self.liveManager.mediaFileModel.state];
+        [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.mediaFileModel.fileId mediaState:self.mediaFileModel.state];
     }
 }
 
@@ -2450,8 +2450,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self freshTeacherPersonListData];
     }
-    
-    
 }
 
 #pragma mark -

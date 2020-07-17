@@ -1471,14 +1471,8 @@
 
 - (void)classEndWithText:(NSString *)text
 {
-    YSSharedMediaFileModel *playMediaModel = self.liveManager.mediaFileModel;
-    if (!playMediaModel.isVideo)
-    {
-        [self onStopMp3];
-    }
-    
     self.showRoomVideo = NO;
-    [self.liveManager stopShareOneMediaFile];
+    [self handleWhiteBordStopMediaFileWithMedia:self.mediaFileModel];
     
     self.roomVideoPeerID = nil;
     
@@ -1661,7 +1655,6 @@
         self.mp4BgView.hidden = YES;
         [self handleSignalingHideVideoWhiteboard];
     }
-    
 }
 
 /// 继续播放白板视频/音频
