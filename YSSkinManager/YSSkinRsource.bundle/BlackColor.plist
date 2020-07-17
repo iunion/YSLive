@@ -1201,16 +1201,18 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
-	<key>videoView_closeVideo</key>
+	<key>videoView_stateVideo</key>
 	<dict>
-		<key>tittleColor</key>
-		<string></string>
-		<key>bgColor</key>
-		<string></string>
-		<key>iconNor</key>
+		<key>closeCam</key>
 		<string>videoView_closeVideo_skin</string>
-		<key>iconSel</key>
-		<string></string>
+		<key>noCam</key>
+		<string>videoView_noCamera_skin</string>
+		<key>occupyCam</key>
+		<string>videoView_occupyCamera_skin</string>
+		<key>disableCam</key>
+		<string>videoView_disableCamera_skin</string>
+		<key>lowWifi</key>
+		<string>videoView_lowWifi_skin</string>
 	</dict>
 	<key>videoView_trophyImage</key>
 	<dict>
@@ -1233,6 +1235,15 @@
 		<string>videoView_handImage_skin</string>
 		<key>iconSel</key>
 		<string></string>
+	</dict>
+	<key>videoView_stateSound</key>
+	<dict>
+		<key>noMic</key>
+		<string>videoView_noMic_skin</string>
+		<key>occupyMic</key>
+		<string>videoView_occupyMic_skin</string>
+		<key>disableMic</key>
+		<string>videoView_disableMic_skin</string>
 	</dict>
 	<key>videoView_soundImageView</key>
 	<dict>

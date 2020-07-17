@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "videoView_sound_2_skin.png",
+      "filename" : "videoView_noMic_skin.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "videoView_sound_2_skin@2x.png",
+      "filename" : "videoView_noMic_skin@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

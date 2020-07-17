@@ -23,7 +23,9 @@
 @property (nonatomic, strong) UILabel * maskNoVideobgLab;
 
 ///正在加载中
-@property (nonatomic, strong) UIImageView *loadingImg;
+@property (nonatomic, strong) UIImageView *loadingImgView;
+///正在加载中图片
+@property (nonatomic, strong) UIImage *loadingImg;
 
 ///所有蒙版的背景View
 @property (nonatomic, strong) UIView * maskBackView;
@@ -39,20 +41,22 @@
 ///用户名
 @property (nonatomic, strong) UILabel *nickNameLab;
 ///声音图标
-@property (nonatomic, strong) UIImageView *soundImage;
+@property (nonatomic, strong) UIImageView *soundImageView;
+@property (nonatomic, strong) UIImage *soundImage;
 ///没有麦克风时的label
 @property (nonatomic, strong) UILabel *silentLab;
 
 ///关闭视频时的蒙版
 @property (nonatomic, strong) UIView *maskCloseVideoBgView;//背景蒙版
 @property (nonatomic, strong) UIImageView *maskCloseVideo;
+@property (nonatomic, strong) UIImage *maskCloseImage;
 
 ///点击Home键提示蒙版
 @property (nonatomic, strong) UILabel *homeMaskLab;
 
 ///没有连摄像头时的蒙版
 @property (nonatomic, strong) UIView *maskNoVideo;//背景蒙版
-///上课后没有连摄像头时的文字
+//上课后没有连摄像头时的文字
 @property (nonatomic, strong) UILabel *maskNoVideoTitle;
 
 /// 当前设备上次捕捉的音量  音量大小 0 ～ 32670
@@ -137,12 +141,6 @@
         return YES;
     }
 }
-
-////这个方法返回YES，第一个和第二个互斥时，第二个会失效
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer NS_AVAILABLE_IOS(7_0);
-//{
-//    return YES;
-//}
 
 // 学生用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser
@@ -235,21 +233,12 @@
     self.maskNoVideobgLab = maskNoVideobgLab;
     
     ///正在加载中
-    UIImageView * loadingImg = [[UIImageView alloc]initWithImage:YSSkinElementImage(@"videoView_loadingImage", @"icon_normal")];
-    [loadingImg setBackgroundColor:YSSkinDefineColor(@"videoMaskBack_color")];
-    loadingImg.contentMode = UIViewContentModeCenter;
-    [self addSubview:loadingImg];
-    self.loadingImg = loadingImg;
-    
-    if (self.videoDeviceState & SCVideoViewVideoState_DeviceError)
-    {
-        maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
-        loadingImg.hidden = YES;
-    }
-    else
-    {
-        loadingImg.hidden = NO;
-    }
+    self.loadingImg = YSSkinElementImage(@"videoView_loadingImage", @"icon_normal");
+    UIImageView * loadingImgView = [[UIImageView alloc]initWithImage:self.loadingImg];
+    [loadingImgView setBackgroundColor:YSSkinDefineColor(@"videoMaskBack_color")];
+    loadingImgView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:loadingImgView];
+    self.loadingImgView = loadingImgView;
     
     self.backVideoView = [[UIView alloc]init];
     self.backVideoView.backgroundColor = UIColor.clearColor;
@@ -262,11 +251,13 @@
     
     //关闭视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
-    self.maskCloseVideoBgView.backgroundColor = YSSkinDefineColor(@"videoMaskBack_color");
+    self.maskCloseVideoBgView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [maskBackView addSubview:self.maskCloseVideoBgView];
     self.maskCloseVideoBgView.hidden = YES;
 
-    self.maskCloseVideo = [[UIImageView alloc] initWithImage:YSSkinElementImage(@"videoView_closeVideo", @"iconNor")];
+    self.maskCloseImage = YSSkinElementImage(@"videoView_stateVideo", @"closeCam");
+    
+    self.maskCloseVideo = [[UIImageView alloc] initWithImage:self.maskCloseImage];
     self.maskCloseVideo.contentMode = UIViewContentModeScaleAspectFit;
     [self.maskCloseVideoBgView addSubview:self.maskCloseVideo];
 
@@ -305,11 +296,9 @@
     self.cupImage.image = YSSkinElementImage(@"videoView_trophyImage", @"iconNor");
     self.cupImage.hidden = NO;
     [self.backVideoView addSubview:self.cupImage];
-//    self.cupImage.backgroundColor = UIColor.redColor;
     
     //奖杯个数
     self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 15)];
-//    self.cupNumLab.backgroundColor = UIColor.greenColor;
     self.cupNumLab.font = UI_FONT_14;
     self.cupNumLab.text = @"× 0";
     self.cupNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
@@ -344,9 +333,9 @@
     [self.backVideoView addSubview:self.nickNameLab];
     
     //声音图片
-    self.soundImage = [[UIImageView alloc] init];
-    self.soundImage.contentMode = UIViewContentModeScaleAspectFit;
-    [self.backVideoView addSubview:self.soundImage];
+    self.soundImageView = [[UIImageView alloc] init];
+    self.soundImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.backVideoView addSubview:self.soundImageView];
     
     UILabel * silentLab = [[UILabel alloc]init];
     silentLab.font = UI_FONT_16;
@@ -377,7 +366,16 @@
 {
     [super setFrame:frame];
     self.maskNoVideobgLab.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
-    self.loadingImg.frame = self.bounds;
+    
+    if (self.loadingImg.size.width > self.bounds.size.width && self.loadingImg.size.height > self.bounds.size.height)
+    {
+        self.loadingImgView.frame = self.bounds;
+    }
+    else
+    {
+        self.loadingImgView.frame = CGRectMake((self.bounds.size.width - self.loadingImg.size.width)/2, (self.bounds.size.height - self.loadingImg.size.height)/2, self.loadingImg.size.width, self.loadingImg.size.height);
+    }
+    
     self.backVideoView.frame = self.bounds;
     self.maskBackView.frame = self.bounds;
     self.maskCloseVideoBgView.frame = self.bounds;
@@ -386,18 +384,15 @@
     self.maskNoVideoTitle.frame = CGRectMake(2, 10, self.bm_width-4, self.bm_height-25);
 
     self.sourceView.frame = CGRectMake((self.bounds.size.width - 50)/2	, (self.bounds.size.height - 50)/2, 50, 50);
-    CGFloat imageWidth = frame.size.height*0.3f;
-    if (imageWidth > self.maskCloseVideo.image.size.width)
+
+    if (self.maskCloseImage.size.width > self.bounds.size.width && self.maskCloseImage.size.height > self.bounds.size.height)
     {
-        imageWidth = self.maskCloseVideo.image.size.width;
+        self.maskCloseVideo.frame = self.bounds;
     }
-    CGFloat imageHeight = imageWidth;
-    if (self.maskCloseVideo.image.size.width > 0)
+    else
     {
-        imageHeight = imageWidth * self.maskCloseVideo.image.size.height / self.maskCloseVideo.image.size.width;
+        self.maskCloseVideo.frame = CGRectMake((self.bounds.size.width - self.maskCloseImage.size.width)/2, (self.bounds.size.height - self.maskCloseImage.size.height)/2, self.maskCloseImage.size.width, self.maskCloseImage.size.height);
     }
-    self.maskCloseVideo.frame = CGRectMake(0, 0, imageWidth, imageHeight);
-    [self.maskCloseVideo bm_centerInSuperView];
     
     if (self.appUseTheType == YSRoomUseTypeLiveRoom || self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
     {
@@ -438,7 +433,7 @@
 
     self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 120*widthScale, height);
     CGFloat soundImageWidth = height*5/3;
-    self.soundImage.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
+    self.soundImageView.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
     self.silentLab.frame = CGRectMake(self.bm_width-150*widthScale, self.bm_height-4-height, 150*widthScale, height);
 }
 
@@ -448,7 +443,7 @@
     _iVolume = iVolume;
     if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4) && self.roomUser.role != YSUserType_Teacher))
     {
-        self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+        self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
     }
 
@@ -458,28 +453,28 @@
     {
         if (self.lastVolume > 1)
         {
-            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
         }
     }
     else if (iVolume<= volumeScale)
     {
         if (self.lastVolume>volumeScale || self.lastVolume<1)
         {
-            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_1Sound");
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_1Sound");
         }
     }
     else if (iVolume<= volumeScale*2)
     {
         if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale)
         {
-            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_2Sound");
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_2Sound");
         }
     }
     else if (iVolume > volumeScale*2)
     {
         if (self.lastVolume<=volumeScale*2)
         {
-            self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_3Sound");
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_3Sound");
         }
     }
 }
@@ -593,64 +588,47 @@
            }
            else
            {
-               self.maskNoVideo.hidden = YES;
                self.maskNoVideoTitle.text = nil;
            }
     }
     
     if (videoState & SCVideoViewVideoState_DeviceError)
     {
-        self.loadingImg.hidden = YES;
-        self.maskNoVideo.hidden = NO;
-        [self.maskBackView bringSubviewToFront:self.maskNoVideo];
+        self.loadingImgView.hidden = YES;
         
         switch (self.videoDeviceState)
         {
             // 无设备
             case YSDeviceFaultNotFind:
             {
-                if (self.isForPerch)
-                {
-                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.NoCamera");
-                }
-                else
-                {
-                    self.maskNoVideoTitle.text = YSLocalized(@"Prompt.NoCamera");
-                }
+                self.maskCloseVideoBgView.hidden = NO;
+                [self.maskCloseVideoBgView bm_bringToFront];
+                self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"noCam");
             }
                 break;
                 
             // 设备被禁用
             case YSDeviceFaultNotAuth:
             {
-                
-                if (self.isForPerch)
-                {
-                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.DisableCamera");
-                }
-                else
-                {
-                    self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DisableCamera");
-                }
+                self.maskCloseVideoBgView.hidden = NO;
+                [self.maskCloseVideoBgView bm_bringToFront];
+                self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"disableCam");
             }
                 break;
                 
             // 设备被占用
             case YSDeviceFaultOccupied:
             {
-                if (self.isForPerch)
-                {
-                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.CameraOccupied");
-                }
-                else
-                {
-                    self.maskNoVideoTitle.text = YSLocalized(@"Prompt.CameraOccupied");
-                }
+                self.maskCloseVideoBgView.hidden = NO;
+                [self.maskCloseVideoBgView bm_bringToFront];
+                self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"occupyCam");
             }
                 break;
                 
             case YSDeviceFaultUnknown:
             {
+                self.maskNoVideo.hidden = NO;
+                [self.maskNoVideo bm_bringToFront];
                  if (self.isForPerch)
                  {
                      self.maskNoVideobgLab.text = YSLocalized(@"Prompt.DeviceUnknownError");
@@ -670,6 +648,8 @@
 //                YSDeviceFaultStreamEmpty    = 8 //设备流没有数据
             default:
             {
+                self.maskNoVideo.hidden = NO;
+                [self.maskNoVideo bm_bringToFront];
                 if (self.isForPerch)
                 {
                     self.maskNoVideobgLab.text = YSLocalized(@"Prompt.CanotOpenCamera");
@@ -685,7 +665,7 @@
     }
     else
     {
-        self.loadingImg.hidden = NO;
+        self.loadingImgView.hidden = NO;
     }
 
 #if 0
@@ -713,24 +693,17 @@
     if (videoState & SCVideoViewVideoState_Close)
     {
         self.maskCloseVideoBgView.hidden = NO;
-        [self.maskBackView bringSubviewToFront:self.maskCloseVideoBgView];
+        [self.maskCloseVideoBgView bm_bringToFront];
+        self.maskCloseVideo.image = self.maskCloseImage;
         return;
     }
     
     // 弱网环境
     if (videoState & SCVideoViewVideoState_PoorInternet)
     {
-        self.homeMaskLab.hidden = NO;
-        
-        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {//本地
-            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.self");
-        }
-        else
-        {
-            self.homeMaskLab.text = YSLocalized(@"State.PoorNetWork.other");
-        }
-        [self.maskBackView bringSubviewToFront:self.homeMaskLab];
+        self.maskCloseVideoBgView.hidden = NO;
+        [self.maskCloseVideoBgView bm_bringToFront];
+        self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
         
         return;
     }
@@ -741,8 +714,8 @@
         if (self.roomUser.role == YSUserType_Student)
         {
             self.homeMaskLab.hidden = NO;
+            [self.homeMaskLab bm_bringToFront];
             self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
-            [self.maskBackView bringSubviewToFront:self.homeMaskLab];
             return;
         }
     }
@@ -769,41 +742,40 @@
     
     self.silentLab.hidden = YES;
     self.silentLab.text = nil;
-    self.soundImage.hidden = NO;
-    self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
+    self.soundImageView.hidden = NO;
+    self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
     
     // 设备不可用
     if (audioState & SCVideoViewAudioState_DeviceError)
     {
-        self.silentLab.hidden = NO;
-        self.soundImage.hidden = YES;
-        
         switch (self.audioDeviceState)
         {
             // 无设备
             case YSDeviceFaultNotFind:
             {
-                self.silentLab.text = YSLocalized(@"Prompt.NoMicrophone");
+                self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"noMic");
             }
                 break;
                 
             // 设备被禁用
             case YSDeviceFaultNotAuth:
             {
-                self.silentLab.text = YSLocalized(@"Prompt.DisableMicrophone");
+                self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"disableMic");
             }
                 break;
                 
             // 设备被占用
             case YSDeviceFaultOccupied:
             {
-                self.silentLab.text = YSLocalized(@"Prompt.MicrophoneOccupied");
+                self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"occupyMic");
             }
                 break;
                
             // 未知错误
             case YSDeviceFaultUnknown:
             {
+                self.silentLab.hidden = NO;
+                self.soundImageView.hidden = YES;
                 self.silentLab.text = YSLocalized(@"Prompt.DeviceUnknownError");
             }
                 break;
@@ -811,6 +783,8 @@
             // 浏览器不支持
             case YSDeviceFaultSDPFail:
             {
+                self.silentLab.hidden = NO;
+                self.soundImageView.hidden = YES;
                 self.silentLab.text = YSLocalized(@"Prompt.BrowserCanotSupport");
             }
                 break;
@@ -818,6 +792,8 @@
             // 设备打开失败
             default:
             {
+                self.silentLab.hidden = NO;
+                self.soundImageView.hidden = YES;
                 self.silentLab.text = [NSString stringWithFormat:@"%@:%@", @(self.audioDeviceState), YSLocalized(@"Prompt.CanotOpenMicrophone")];
             }
                 break;
@@ -832,7 +808,7 @@
     {
         self.silentLab.hidden = NO;
         self.silentLab.text = YSLocalized(@"Prompt.AudioLoading");
-        self.soundImage.hidden = YES;
+        self.soundImageView.hidden = YES;
         return;
     }
     
@@ -841,25 +817,22 @@
     {
         self.silentLab.hidden = NO;
         self.silentLab.text = YSLocalized(@"Prompt.AudioBuffering");
-        self.soundImage.hidden = YES;
+        self.soundImageView.hidden = YES;
         return;
     }
 #endif
     
-    self.silentLab.hidden = YES;
-    self.soundImage.hidden = NO;
-    
     // 用户关闭麦克风
     if (audioState & SCVideoViewAudioState_Close)
     {
-        self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+        self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
     }
 
     // 正常
     if (audioState == SCVideoViewAudioState_Normal)
     {
-        self.soundImage.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
+        self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
     }
 }
 
@@ -887,7 +860,7 @@
     
     if (self.isForPerch)
     {
-        self.loadingImg.hidden = (self.roomUser.vfail != YSDeviceFaultNone);
+        self.loadingImgView.hidden = (self.roomUser.vfail != YSDeviceFaultNone);
         self.backVideoView.hidden = YES;
         
         BOOL deviceError = NO;
