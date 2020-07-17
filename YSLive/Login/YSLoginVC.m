@@ -42,6 +42,8 @@
 
 #import "YSLiveUtil.h"
 
+#import "BMPerformTest.h"
+
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
@@ -182,6 +184,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[BMPerformTest shareInstance] startMonitor];
     
     [self getAppStoreNewVersion];
     

@@ -403,6 +403,8 @@
 		8765B14723B4B00B004500DE /* SCEyeCareWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8765B14623B4B00B004500DE /* SCEyeCareWindow.m */; };
 		8766821323506EF600C4C635 /* YSLiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766821223506EF600C4C635 /* YSLiveTests.m */; };
 		8766821E23506EF600C4C635 /* YSLiveUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766821D23506EF600C4C635 /* YSLiveUITests.m */; };
+		876BF77E24C19005008E9848 /* BMPerformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF77D24C19005008E9848 /* BMPerformTest.m */; };
+		876BF78024C193D6008E9848 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BF77F24C193D6008E9848 /* CrashReporter.framework */; };
 		8777C7AB23EA9EA1002002BF /* YSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AA23EA9EA1002002BF /* YSTableView.m */; };
 		8777C7AE23EAA78E002002BF /* YSTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AD23EAA78E002002BF /* YSTableViewVC.m */; };
 		8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7B023EAB7A6002002BF /* YSSetTableViewVC.m */; };
@@ -1132,6 +1134,9 @@
 		876687912350794D00C4C635 /* PLDictionaryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLDictionaryTableViewController.m; sourceTree = "<group>"; };
 		876688162350794E00C4C635 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
 		876688172350794E00C4C635 /* BMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMProgressHUD.h; sourceTree = "<group>"; };
+		876BF77C24C19005008E9848 /* BMPerformTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMPerformTest.h; sourceTree = "<group>"; };
+		876BF77D24C19005008E9848 /* BMPerformTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMPerformTest.m; sourceTree = "<group>"; };
+		876BF77F24C193D6008E9848 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
 		87728F2A2355CCD800E34916 /* YSLiveMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveMacros.h; sourceTree = "<group>"; };
 		8777C7A923EA9EA1002002BF /* YSTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTableView.h; sourceTree = "<group>"; };
 		8777C7AA23EA9EA1002002BF /* YSTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTableView.m; sourceTree = "<group>"; };
@@ -1618,6 +1623,7 @@
 				87981DC123C5809F00DA0276 /* UTMini.framework in Frameworks */,
 				87981DC223C5809F00DA0276 /* AlicloudHttpDNS.framework in Frameworks */,
 				87981DB123C57CC300DA0276 /* BMKit.framework in Frameworks */,
+				876BF78024C193D6008E9848 /* CrashReporter.framework in Frameworks */,
 				872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */,
 				87981DBE23C5809F00DA0276 /* UTDID.framework in Frameworks */,
 				87981DBF23C5809F00DA0276 /* AlicloudBeacon.framework in Frameworks */,
@@ -2559,9 +2565,20 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		876BF77B24C18FE0008E9848 /* BMPerformanceTest  */ = {
+			isa = PBXGroup;
+			children = (
+				876BF77F24C193D6008E9848 /* CrashReporter.framework */,
+				876BF77C24C19005008E9848 /* BMPerformTest.h */,
+				876BF77D24C19005008E9848 /* BMPerformTest.m */,
+			);
+			path = "BMPerformanceTest ";
+			sourceTree = "<group>";
+		};
 		87728F272355CCD800E34916 /* YSLiveManager */ = {
 			isa = PBXGroup;
 			children = (
+				876BF77B24C18FE0008E9848 /* BMPerformanceTest  */,
 				87AF4D2223602337008D9D00 /* YSLiveApiRequest */,
 				87AED04523B5D71000D38129 /* YSPermissions */,
 				87728F2A2355CCD800E34916 /* YSLiveMacros.h */,
@@ -3971,6 +3988,7 @@
 				871335B5237270F6006534A4 /* YSSuperVC.m in Sources */,
 				8709FF312485F7CB00CC8BEA /* FBObjectiveCBlock.m in Sources */,
 				8745557F23B3358000BC6CAB /* YSEyeCareManager.m in Sources */,
+				876BF77E24C19005008E9848 /* BMPerformTest.m in Sources */,
 				8709FF1B2485F7CB00CC8BEA /* UIView+MemoryLeak.m in Sources */,
 				269B023B2376CA0000DE83B0 /* SCTopToolBarModel.m in Sources */,
 				8783304A24874C4400F1178E /* FLEXKeyboardHelpViewController.m in Sources */,
@@ -4601,6 +4619,7 @@
 					"$(PROJECT_DIR)/YSLib/OneSDK",
 					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveManager/BMPerformanceTest\\ ",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";
@@ -4678,6 +4697,7 @@
 					"$(PROJECT_DIR)/YSLib/OneSDK",
 					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveManager/BMPerformanceTest\\ ",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";
