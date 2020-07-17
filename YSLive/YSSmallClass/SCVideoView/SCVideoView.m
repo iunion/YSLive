@@ -367,13 +367,13 @@
     [super setFrame:frame];
     self.maskNoVideobgLab.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
     
-    if (self.loadingImg.size.width > self.bounds.size.width && self.loadingImg.size.height > self.bounds.size.height)
+    if (self.bounds.size.width > self.loadingImg.size.width && self.bounds.size.height > self.loadingImg.size.height)
     {
-        self.loadingImgView.frame = self.bounds;
+        self.loadingImgView.frame = CGRectMake((self.bounds.size.width - self.loadingImg.size.width)/2, (self.bounds.size.height - self.loadingImg.size.height)/2, self.loadingImg.size.width, self.loadingImg.size.height);
     }
     else
     {
-        self.loadingImgView.frame = CGRectMake((self.bounds.size.width - self.loadingImg.size.width)/2, (self.bounds.size.height - self.loadingImg.size.height)/2, self.loadingImg.size.width, self.loadingImg.size.height);
+        self.loadingImgView.frame = self.bounds;
     }
     
     self.backVideoView.frame = self.bounds;
@@ -385,13 +385,13 @@
 
     self.sourceView.frame = CGRectMake((self.bounds.size.width - 50)/2	, (self.bounds.size.height - 50)/2, 50, 50);
 
-    if (self.maskCloseImage.size.width > self.bounds.size.width && self.maskCloseImage.size.height > self.bounds.size.height)
+    if (self.bounds.size.width > self.maskCloseImage.size.width && self.bounds.size.height > self.maskCloseImage.size.height )
     {
-        self.maskCloseVideo.frame = self.bounds;
+        self.maskCloseVideo.frame = CGRectMake((self.bounds.size.width - self.maskCloseImage.size.width)/2, (self.bounds.size.height - self.maskCloseImage.size.height)/2, self.maskCloseImage.size.width, self.maskCloseImage.size.height);
     }
     else
     {
-        self.maskCloseVideo.frame = CGRectMake((self.bounds.size.width - self.maskCloseImage.size.width)/2, (self.bounds.size.height - self.maskCloseImage.size.height)/2, self.maskCloseImage.size.width, self.maskCloseImage.size.height);
+        self.maskCloseVideo.frame = self.bounds;
     }
     
     if (self.appUseTheType == YSRoomUseTypeLiveRoom || self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
