@@ -559,7 +559,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
     
     self.backImageView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-    self.backImageView.backgroundColor = [UIColor clearColor];
+
     [self.backScrollView addSubview:self.backImageView];
 
     UITapGestureRecognizer *click = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction:)];
@@ -1384,7 +1384,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (!_backImageView)
     {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"defaultTitleColor");
+        _backImageView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
 //        [_backImageView setImage:YSSkinElementImage(@"login_background", @"iconNor")];
         _backImageView.userInteractionEnabled = YES;
     }
