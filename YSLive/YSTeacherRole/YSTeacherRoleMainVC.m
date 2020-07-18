@@ -2448,7 +2448,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    }
     
     /// 用户设备状态
-    if ([properties bm_containsObjectForKey:sYSUserVideoFail] || [properties bm_containsObjectForKey:sYSUserAudioFail])
+    if ([properties bm_containsObjectForKey:sYSUserVideoFail] || [properties bm_containsObjectForKey:sYSUserAudioFail] || [properties bm_containsObjectForKey:sYSUserHasVideo] || [properties bm_containsObjectForKey:sYSUserHasAudio])
     {
         [videoView freshWithRoomUserProperty:roomUser];
     }
