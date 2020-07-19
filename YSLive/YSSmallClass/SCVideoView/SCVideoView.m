@@ -563,7 +563,21 @@
 - (void)setIsRaiseHand:(BOOL)isRaiseHand
 {
     _isRaiseHand = isRaiseHand;
-    self.raiseHandImage.hidden = !isRaiseHand;
+    
+    if (isRaiseHand)
+    {
+        self.raiseHandImage.hidden = NO;
+        self.raiseHandImage.image = YSSkinElementImage(@"videoView_handImageView", @"iconNor");
+    }
+    else if (self.videoState & SCVideoViewVideoState_PoorInternet)
+    {
+        self.raiseHandImage.hidden = NO;
+        self.raiseHandImage.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
+    }
+    else
+    {
+       self.raiseHandImage.hidden = YES;
+    }
 }
 
 /// 视频状态
@@ -699,13 +713,19 @@
     }
     
     // 弱网环境
-    if (videoState & SCVideoViewVideoState_PoorInternet)
+    if (self.isRaiseHand)
     {
-        self.maskCloseVideoBgView.hidden = NO;
-        [self.maskCloseVideoBgView bm_bringToFront];
-        self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
-        
-        return;
+        self.raiseHandImage.hidden = NO;
+        self.raiseHandImage.image = YSSkinElementImage(@"videoView_handImageView", @"iconNor");
+    }
+    else if (videoState & SCVideoViewVideoState_PoorInternet)
+    {
+        self.raiseHandImage.hidden = NO;
+        self.raiseHandImage.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
+    }
+    else
+    {
+        self.raiseHandImage.hidden = YES;
     }
     
     // 用户进入后台
