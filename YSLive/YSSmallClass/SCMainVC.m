@@ -1044,7 +1044,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIImageView *userImageView = [[UIImageView alloc] initWithImage:YSSkinDefineImage(@"main_uservideocover")];
     userImageView.frame = videoView.bounds;
     userImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    userImageView.contentMode = UIViewContentModeCenter;
+    userImageView.contentMode = UIViewContentModeScaleAspectFit;
     userImageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [videoView addSubview:userImageView];
     [self.videoBackgroud addSubview:videoView];
