@@ -3558,7 +3558,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         text = YSLocalized(@"Prompt.ClassEnd");
     }
     
-    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES withDetailText:text delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES withDetailText:text delay:5.0f];
     [self.liveManager leaveRoom:nil];
 }
 
