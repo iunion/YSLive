@@ -1301,11 +1301,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     /// 悬浮默认视频高(拖出和共享)
-    floatVideoDefaultHeight = self.whitebordBackgroud.bm_height / 3.0;
+    floatVideoDefaultHeight = self.whitebordBackgroud.bm_height / 3.0f;
     /// 悬浮默认视频宽(拖出和共享)
     floatVideoDefaultWidth = floatVideoDefaultHeight * scale;
     
-    floatVideoMinHeight = self.whitebordBackgroud.bm_height / 6;
+    floatVideoMinHeight = self.whitebordBackgroud.bm_height / 6.0f;
     floatVideoMinWidth = floatVideoMinHeight * scale;
 }
 
