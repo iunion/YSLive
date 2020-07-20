@@ -1482,13 +1482,8 @@
     {
         text = YSLocalized(@"Prompt.ClassEnd");
     }
-    
-    BMWeakSelf
-    [BMAlertView ys_showAlertWithTitle:text message:nil cancelTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
-        
-        [weakSelf.liveManager leaveRoom:nil];
-        
-    }];
+    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES withDetailText:text delay:5.0f];
+    [self.liveManager leaveRoom:nil];
 }
 
 /// 弹框

@@ -629,7 +629,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 全屏MP4 共享桌面
     [self.shareVideoFloatView bm_bringToFront];
-    
+    [self.fullTeacherFloatView bm_bringToFront];
     // 所有答题卡按顺序放置最上层
     [[BMNoticeViewStack sharedInstance] bringAllViewsToFront];
 }
@@ -3161,6 +3161,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         [self delVidoeViewWithPeerId:userId];
     }
+    
+#if USE_FullTeacher
+    if (roomUser.role == YSUserType_Teacher)
+    {
+        /// 老师中途进入房间上课时的全屏处理
+        if (!self.whitebordFullBackgroud.hidden)
+        {
+            [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+        }
+        if (!self.shareVideoFloatView.hidden)
+        {
+            [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+        }
+    }
+#endif
 }
 
 - (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties
@@ -3292,22 +3307,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self userPublishstatechange:roomUser];
     }
-    
-#if USE_FullTeacher
-    if (roomUser.role == YSUserType_Teacher)
-    {
-        /// 老师中途进入房间上课时的全屏处理
-        if (!self.whitebordFullBackgroud.hidden)
-        {
-            [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-        }
-        if (!self.shareVideoFloatView.hidden)
-        {
-            [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-        }
-    }
-#endif
-    
+        
     //进入前后台
     if ([properties bm_containsObjectForKey:sYSUserIsInBackGround])
     {
@@ -3558,7 +3558,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         text = YSLocalized(@"Prompt.ClassEnd");
     }
     
-    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES withDetailText:text delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [BMProgressHUD bm_showHUDAddedTo:YSKeyWindow animated:YES withDetailText:text delay:5.0f];
     [self.liveManager leaveRoom:nil];
 }
 
