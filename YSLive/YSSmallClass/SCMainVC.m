@@ -3161,6 +3161,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         [self delVidoeViewWithPeerId:userId];
     }
+    
+#if USE_FullTeacher
+    if (roomUser.role == YSUserType_Teacher)
+    {
+        /// 老师中途进入房间上课时的全屏处理
+        if (!self.whitebordFullBackgroud.hidden)
+        {
+            [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+        }
+        if (!self.shareVideoFloatView.hidden)
+        {
+            [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+        }
+    }
+#endif
 }
 
 - (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties
@@ -3292,22 +3307,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self userPublishstatechange:roomUser];
     }
-    
-#if USE_FullTeacher
-    if (roomUser.role == YSUserType_Teacher)
-    {
-        /// 老师中途进入房间上课时的全屏处理
-        if (!self.whitebordFullBackgroud.hidden)
-        {
-            [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
-        }
-        if (!self.shareVideoFloatView.hidden)
-        {
-            [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
-        }
-    }
-#endif
-    
+        
     //进入前后台
     if ([properties bm_containsObjectForKey:sYSUserIsInBackGround])
     {
