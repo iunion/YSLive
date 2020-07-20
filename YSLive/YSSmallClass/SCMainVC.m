@@ -629,7 +629,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 全屏MP4 共享桌面
     [self.shareVideoFloatView bm_bringToFront];
-    
+    [self.fullTeacherFloatView bm_bringToFront];
     // 所有答题卡按顺序放置最上层
     [[BMNoticeViewStack sharedInstance] bringAllViewsToFront];
 }

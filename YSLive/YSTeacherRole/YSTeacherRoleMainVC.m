@@ -554,7 +554,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.mp4ControlView bm_bringToFront];
     [self.closeMp4Btn bm_bringToFront];
     [self.mp3ControlView bm_bringToFront];
-    
+    [self.fullTeacherFloatView bm_bringToFront];
     // 所有答题卡按顺序放置最上层
     [[BMNoticeViewStack sharedInstance] bringAllViewsToFront];
 }
