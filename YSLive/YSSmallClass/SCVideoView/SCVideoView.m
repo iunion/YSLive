@@ -441,6 +441,11 @@
 - (void)setIVolume:(NSUInteger)iVolume
 {
     _iVolume = iVolume;
+    
+    if (self.audioState != YSDeviceFaultNone)
+    {
+        return;
+    }
     if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4) && self.roomUser.role != YSUserType_Teacher))
     {
         self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
