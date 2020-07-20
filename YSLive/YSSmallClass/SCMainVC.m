@@ -1301,12 +1301,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     /// 悬浮默认视频高(拖出和共享)
-    floatVideoDefaultHeight = ceil(self.whiteBordView.bm_height / 3);
+    floatVideoDefaultHeight = self.whitebordBackgroud.bm_height / 3.0;
     /// 悬浮默认视频宽(拖出和共享)
-    floatVideoDefaultWidth = ceil(floatVideoDefaultHeight * scale);
+    floatVideoDefaultWidth = floatVideoDefaultHeight * scale;
     
-    floatVideoMinHeight = ceil(self.whiteBordView.bm_height / 6);
-    floatVideoMinWidth = ceil(floatVideoMinHeight * scale);
+    floatVideoMinHeight = self.whitebordBackgroud.bm_height / 6;
+    floatVideoMinWidth = floatVideoMinHeight * scale;
 }
 
 // 计算视频尺寸，除老师视频
@@ -3875,8 +3875,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         CGSize floatViewSize = [self dragOutVideoChangeSizeWithFloatView:floatView withScale:endScale];
         
-        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatViewSize.width);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatViewSize.height);
+        CGFloat x = percentLeft * (self.whiteBordView.bm_width - floatViewSize.width);
+        CGFloat y = percentTop * (self.whiteBordView.bm_height - floatViewSize.height);
         
 //
         floatView.frame = CGRectMake(x, y, floatViewSize.width, floatViewSize.height);
@@ -3956,8 +3956,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 拖出视频窗口拉伸 根据本地默认尺寸scale
 - (CGSize )dragOutVideoChangeSizeWithFloatView:(YSFloatView *)floatView withScale:(CGFloat)scale
 {
-//    YSFloatView *floatView = [self getVideoFloatViewWithPeerId:peerId];
-
+    if (scale == 1)
+    {
+        return CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
+    }
+    else if (scale == 2)
+    {
+        return CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+    }
+    
     CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoMinWidth;
     CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoMinHeight;
     
@@ -3965,11 +3972,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     minscale = minscale < scale ? minscale : scale;
     CGFloat width = floatVideoMinWidth * minscale;
     CGFloat height = floatVideoMinHeight * minscale;
-    
-//    CGPoint center = floatView.center;
-    
+        
     floatView.bm_size = CGSizeMake(width, height);
-//    floatView.center = center;
     
     if (floatView.bm_top < 0.0f)
     {

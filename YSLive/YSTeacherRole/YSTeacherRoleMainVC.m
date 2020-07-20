@@ -3427,6 +3427,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 拖出视频窗口拉伸 根据本地默认尺寸scale
 - (CGSize )dragOutVideoChangeSizeWithFloatView:(YSFloatView *)floatView withScale:(CGFloat)scale
 {
+    if (scale == 1)
+    {
+        return CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
+    }
+    else if (scale == 2)
+    {
+        return CGSizeMake(floatVideoDefaultWidth, floatVideoDefaultHeight);
+    }
+    
     CGFloat widthScale = self.whitebordBackgroud.bm_width / floatVideoMinWidth;
     CGFloat heightScale = self.whitebordBackgroud.bm_height / floatVideoMinHeight;
     
@@ -3475,12 +3484,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     /// 悬浮默认视频高(拖出和共享)
-    floatVideoDefaultHeight = ceil(self.whiteBordView.bm_height / 3);
+    floatVideoDefaultHeight = self.whitebordBackgroud.bm_height / 3.0;
     /// 悬浮默认视频宽(拖出和共享)
-    floatVideoDefaultWidth = ceil(floatVideoDefaultHeight * scale);
+    floatVideoDefaultWidth = floatVideoDefaultHeight * scale;
     
-    floatVideoMinHeight = ceil(self.whiteBordView.bm_height / 6);
-    floatVideoMinWidth = ceil(floatVideoMinHeight * scale);
+    floatVideoMinHeight = self.whiteBordView.bm_height / 6.0;
+    floatVideoMinWidth = floatVideoMinHeight * scale;
 }
 
 // 放回视频
