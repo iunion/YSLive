@@ -1839,14 +1839,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     ///  轮播 设置上台的人在数组最后
     if (roomUser.role == YSUserType_Student)
     {
-//        for (YSRoomUser *tempUser in self.pollingArr)
-//        {
-//            if ([tempUser.peerID isEqualToString:peerId])
-//            {
-//                [self.pollingArr removeObject:tempUser];
-//                [self.pollingArr addObject:tempUser];
-//            }
-//        }
+
         __block YSRoomUser *lastUser = nil;
         [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             YSRoomUser *tempUser = (YSRoomUser *)obj;
