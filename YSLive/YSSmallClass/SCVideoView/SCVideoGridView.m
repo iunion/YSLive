@@ -493,7 +493,15 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         
         fouceVideo.frame = CGRectMake((self.defaultSize.width - bgWidth - VIDEOGRIDVIEW_GAP - self.rightBgWidth)/2, (maxHeight-bgHeight)/2+VIDEOGRIDVIEW_GAP, bgWidth, bgHeight);
         
-        self.rightVideoBgView.frame = CGRectMake(fouceVideo.bm_right + VIDEOGRIDVIEW_GAP, 0, self.rightBgWidth, self.rightBgHeight);
+        if (mutArray.count < 2)
+        {
+            self.rightVideoBgView.hidden = YES;
+        }
+        else
+        {
+            self.rightVideoBgView.hidden = NO;
+            self.rightVideoBgView.frame = CGRectMake(fouceVideo.bm_right + VIDEOGRIDVIEW_GAP, 0, self.rightBgWidth, self.rightBgHeight);
+        }
 
         [mutArray removeObject:fouceVideo];
     }
