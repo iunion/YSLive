@@ -298,12 +298,12 @@
     [self.backVideoView addSubview:self.cupImage];
     
     //奖杯个数
-    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 15)];
+    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 10)];
     self.cupNumLab.font = UI_FONT_14;
     self.cupNumLab.text = @"× 0";
     self.cupNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
-    self.cupNumLab.adjustsFontSizeToFitWidth = YES;
-    self.cupNumLab.minimumScaleFactor = 0.3;
+    //self.cupNumLab.adjustsFontSizeToFitWidth = YES;
+    //self.cupNumLab.minimumScaleFactor = 0.1;
     self.cupNumLab.hidden = NO;
     [self.backVideoView addSubview:self.cupNumLab];
     
@@ -405,11 +405,22 @@
         self.cupNumLab.hidden = NO;
     }
    
-    self.cupNumLab.bm_width = 100*widthScale;
-    self.cupImage.bm_width = self.cupImage.bm_height = 15;
-     self.cupNumLab.bm_originY = self.cupImage.bm_originY;
-    self.cupNumLab.bm_left = self.cupImage.bm_right + 4;
-    
+    self.cupImage.bm_width = self.cupImage.bm_height = self.bm_width*0.1f;
+    self.cupNumLab.bm_width = self.bm_width*0.3f;
+    self.cupNumLab.bm_top = self.cupImage.bm_top;
+    self.cupNumLab.bm_height = self.cupImage.bm_height;
+    self.cupNumLab.bm_left = self.cupImage.bm_right + 4.0f;
+    CGFloat fontSize = self.cupImage.bm_height-2.0f;
+    if (fontSize<1)
+    {
+        fontSize = 1.0f;
+    }
+    else if (fontSize>24)
+    {
+        fontSize = 24.0f;
+    }
+    self.cupNumLab.font = [UIFont systemFontOfSize:fontSize];
+
     self.brushImageView.frame = CGRectMake(self.bm_width - self.cupImage.bm_width - 4, self.cupImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
     self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
     
