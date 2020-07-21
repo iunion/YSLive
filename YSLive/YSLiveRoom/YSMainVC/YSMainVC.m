@@ -1225,6 +1225,10 @@
         NSString *streamID = [self.liveManager getUserStreamIdWithUserId:user.peerID];
         [self.liveManager stopVideoWithUserId:user.peerID streamID:streamID];
     }
+    else
+    {
+        [self delVidoeViewWithPeerId:user.peerID];
+    }
     
 #if 0
     for (YSRoomUser *memberUser in self.memberList)
