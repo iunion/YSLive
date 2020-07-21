@@ -298,12 +298,12 @@
     [self.backVideoView addSubview:self.cupImage];
     
     //奖杯个数
-    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 15)];
+    self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 10)];
     self.cupNumLab.font = UI_FONT_14;
     self.cupNumLab.text = @"× 0";
     self.cupNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.cupNumLab.adjustsFontSizeToFitWidth = YES;
-    self.cupNumLab.minimumScaleFactor = 0.3;
+    self.cupNumLab.minimumScaleFactor = 0.1;
     self.cupNumLab.hidden = NO;
     [self.backVideoView addSubview:self.cupNumLab];
     
@@ -367,14 +367,13 @@
     [super setFrame:frame];
     self.maskNoVideobgLab.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
     
-    if (self.bounds.size.width > self.loadingImg.size.width && self.bounds.size.height > self.loadingImg.size.height)
+    CGFloat width = self.bm_height*0.7f;
+    if (width>100)
     {
-        self.loadingImgView.frame = CGRectMake((self.bounds.size.width - self.loadingImg.size.width)/2, (self.bounds.size.height - self.loadingImg.size.height)/2, self.loadingImg.size.width, self.loadingImg.size.height);
+        width = 100;
     }
-    else
-    {
-        self.loadingImgView.frame = self.bounds;
-    }
+    self.loadingImgView.bm_size = CGSizeMake(width, width);
+    [self.loadingImgView bm_centerInSuperView];
     
     self.backVideoView.frame = self.bounds;
     self.maskBackView.frame = self.bounds;
@@ -385,15 +384,9 @@
 
     self.sourceView.frame = CGRectMake((self.bounds.size.width - 50)/2	, (self.bounds.size.height - 50)/2, 50, 50);
 
-    if (self.bounds.size.width > self.maskCloseImage.size.width && self.bounds.size.height > self.maskCloseImage.size.height )
-    {
-        self.maskCloseVideo.frame = CGRectMake((self.bounds.size.width - self.maskCloseImage.size.width)/2, (self.bounds.size.height - self.maskCloseImage.size.height)/2, self.maskCloseImage.size.width, self.maskCloseImage.size.height);
-    }
-    else
-    {
-        self.maskCloseVideo.frame = self.bounds;
-    }
-    
+    self.maskCloseVideo.bm_size = CGSizeMake(width, width);
+    [self.maskCloseVideo bm_centerInSuperView];
+
     if (self.appUseTheType == YSRoomUseTypeLiveRoom || self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
     {
         self.cupImage.hidden = YES;
@@ -405,33 +398,38 @@
         self.cupNumLab.hidden = NO;
     }
    
-    self.cupNumLab.bm_width = 100*widthScale;
-    self.cupImage.bm_width = self.cupImage.bm_height = 15;
-     self.cupNumLab.bm_originY = self.cupImage.bm_originY;
-    self.cupNumLab.bm_left = self.cupImage.bm_right + 4;
-    
+    self.cupImage.bm_width = self.cupImage.bm_height = self.bm_width*0.1f;
+    self.cupNumLab.bm_width = self.bm_width*0.3f;
+    self.cupNumLab.bm_top = self.cupImage.bm_top;
+    self.cupNumLab.bm_height = self.cupImage.bm_height;
+    self.cupNumLab.bm_left = self.cupImage.bm_right + 4.0f;
+    CGFloat fontSize = self.cupImage.bm_height-2.0f;
+    if (fontSize<1)
+    {
+        fontSize = 1.0f;
+    }
+    else if (fontSize>24)
+    {
+        fontSize = 24.0f;
+    }
+    self.cupNumLab.font = [UIFont systemFontOfSize:fontSize];
+
     self.brushImageView.frame = CGRectMake(self.bm_width - self.cupImage.bm_width - 4, self.cupImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
     self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
     
-    CGFloat height;
-    if ([UIDevice bm_isiPad])
+    CGFloat height = self.bm_width*0.1f;
+    self.nickNameLab.frame = CGRectMake(4, self.bm_height-4-height, self.bm_width*0.5f, height);
+    fontSize = height-2.0f;
+    if (fontSize<1)
     {
-        height = 24*widthScale;
-        if (height < 16)
-        {
-            height = 16;
-        }
+        fontSize = 1.0f;
     }
-    else
+    else if (fontSize>24)
     {
-        height = 20*widthScale;
-        if (height < 12)
-        {
-            height = 12;
-        }
+        fontSize = 24.0f;
     }
+    self.nickNameLab.font = [UIFont systemFontOfSize:fontSize];
 
-    self.nickNameLab.frame = CGRectMake(7*widthScale,self.bm_height-4-height, 120*widthScale, height);
     CGFloat soundImageWidth = height*5/3;
     self.soundImageView.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
     self.silentLab.frame = CGRectMake(self.bm_width-150*widthScale, self.bm_height-4-height, 150*widthScale, height);
