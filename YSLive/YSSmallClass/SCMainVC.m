@@ -3021,6 +3021,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self delVidoeViewWithPeerId:user.peerID];
     }
+    
+    if (self.liveManager.localUser.mediaPublishState & YSUserMediaPublishState_NONEONSTAGE)
+    {
+        //焦点用户退出
+        if ([self.fouceView.roomUser.peerID isEqualToString:user.peerID])
+        {
+            self.roomLayout = YSRoomLayoutType_VideoLayout;
+            self.fouceView = nil;
+            self.foucePeerId = nil;
+            [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID];
+        }
+    }
 }
 
 /// 老师进入

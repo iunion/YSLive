@@ -886,22 +886,27 @@
         {
             self.liveImageView.hidden = YES;
         }
-        else if (self.liveManager.teacher.publishState >= YSUser_PublishState_VIDEOONLY && self.liveManager.teacher.publishState != YSUser_PublishState_ONSTAGE)
-        {
-            self.liveImageView.hidden = YES;
-        }
         else
         {
-            if (!self.liveManager.teacher.publishState)
+            YSUserMediaPublishState mediaPublishState = self.liveManager.teacher.mediaPublishState;
+            
+            if (mediaPublishState & YSUserMediaPublishState_VIDEOONLY)
             {
-                self.liveImageView.image = YSSkinDefineImage(@"live_main_waitingvideo");
+                self.liveImageView.hidden = YES;
             }
             else
             {
-                self.liveImageView.image = YSSkinDefineImage(@"live_main_stopvideo");
+                if (mediaPublishState == YSUserMediaPublishState_NONE)
+                {
+                    self.liveImageView.image = YSSkinDefineImage(@"live_main_waitingvideo");
+                }
+                else
+                {
+                    self.liveImageView.image = YSSkinDefineImage(@"live_main_stopvideo");
+                }
+                
+                self.liveImageView.hidden = NO;
             }
-            
-            self.liveImageView.hidden = NO;
         }
     }
     else
