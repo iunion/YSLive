@@ -1884,7 +1884,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (delVideoView)
     {
         [self.pollingUpPlatformArr removeObject:peerId];///删除视频的同时删除轮播上台数据
-
+        
+        //焦点用户退出
+        if ([self.fouceView.roomUser.peerID isEqualToString:peerId])
+        {
+            self.roomLayout = YSRoomLayoutType_VideoLayout;
+            self.fouceView = nil;
+            self.foucePeerId = nil;
+            [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:peerId];
+        }
+        
         if (delVideoView.isDragOut)
         {
             [self hideDragOutVidoeViewWithPeerId:peerId];
@@ -2098,7 +2107,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         self.roomLayout = YSRoomLayoutType_VideoLayout;
         self.fouceView = nil;
-        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID];
+        self.foucePeerId = nil;
+        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID];
     }
     
     NSInteger userCount = self.liveManager.studentCount;
