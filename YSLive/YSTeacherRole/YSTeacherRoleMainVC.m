@@ -4419,42 +4419,46 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 老师/助教收到 showContest
-- (void)handleSignalingShowContestFromID:(NSString *)fromID
+- (void)handleSignalingShowContestFromID:(NSString *)fromID isHistory:(BOOL)isHistory
 {
 //    老师/助教发起抢答排序 Contest(pubMsg)，并订阅抢答排序ContestSubsort(pubMsg)
-//    if (!self.responderView)
-//    {
-    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+    if (!self.responderView)
+    {
+//    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
         self.responderView = [[YSTeacherResponder alloc] init];
         [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+        
         self.responderView.delegate = self;
-//    }
+    }
+    
 //    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
+    [self.responderView showResponderWithType:YSTeacherResponderType_ING];
+    if(!isHistory)
     {
-         [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300];
+        [self.liveManager sendSignalingTeacherToContestResponderWithMaxSort:300];
+        [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300];
+    }
+    else
+    {
+        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
     }
 }
 
 /// 收到抢答排序
-- (void)handleSignalingContestFromID:(NSString *)fromID
+- (void)handleSignalingContestFromID:(NSString *)fromID isHistory:(BOOL)isHistory
 {
-    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
+//    [self.responderView dismiss:nil animated:NO dismissBlock:nil];
     BMWeakSelf
-//    if (!self.responderView)
-//    {
+    if (!self.responderView)
+    {
         self.responderView = [[YSTeacherResponder alloc] init];
-        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
-        [self.responderView showResponderWithType:YSTeacherResponderType_Start];
+        [self.responderView showYSTeacherResponderType:YSTeacherResponderType_ING inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
         self.responderView.delegate = self;
-//    }
-
+    }
     
     /// 订阅抢答排序
 //    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
-    {
-        [self.liveManager sendSignalingTeacherToContestSubsortWithMin:1 max:300];
-    }
+    [self.responderView showResponderWithType:YSTeacherResponderType_ING];
     
     [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
@@ -4562,7 +4566,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 收到学生抢答
-- (void)handleSignalingContestCommitWithData:(NSArray *)data
+- (void)handleSignalingContestCommitWithData:(NSArray *)data isHistory:(BOOL)isHistory
 {
 // data     @{peerId : nickName}
     contestCommitNumber = data.count;

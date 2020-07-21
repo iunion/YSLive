@@ -50,22 +50,18 @@
         self.shouldDismissOnTapOutside = NO;
         self.noticeMaskBgEffectView.alpha = 1;
         self.noticeMaskBgColor = [UIColor bm_colorWithHex:0x000000 alpha:0.6];
+        [self setupUI];
+        
     }
     return self;
 }
 
-- (void)showYSTeacherResponderType:(YSTeacherResponderType)responderType inView:(UIView *)inView backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets topDistance:(CGFloat)topDistance
+- (void)setupUI
 {
-    self.topDistance = topDistance;
-    self.backgroundEdgeInsets = backgroundEdgeInsets;
-    self.responderType = responderType;
-    
     self.bacView = [[UIView alloc] init];
     self.bacView.backgroundColor = [UIColor clearColor];
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
-    [self showWithView:self.bacView inView:inView];
-    
     
     self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.closeBtn setImage:YSSkinDefineImage(@"close_btn_icon") forState:UIControlStateNormal];
@@ -86,7 +82,7 @@
     self.circleProgress.lineProgressColor = YSSkinDefineColor(@"PopViewBgColor");
     [self.bacView addSubview:self.circleProgress];
     [self.circleProgress bm_centerInSuperView];
-   
+    
     self.circleBacView = [[UIView alloc] init];
     [self.circleProgress addSubview:self.circleBacView];
     self.circleBacView.frame = CGRectMake(0, 0, 160, 160);
@@ -116,7 +112,7 @@
     
     
     self.actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-
+    
     [self.actionBtn addTarget:self action:@selector(actionBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.actionBtn.hidden = NO;
     self.actionBtn.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
@@ -136,9 +132,15 @@
     self.selectBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     [self.circleProgress addSubview:self.selectBtn];
     [self.selectBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:4];
+}
 
+- (void)showYSTeacherResponderType:(YSTeacherResponderType)responderType inView:(UIView *)inView backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets topDistance:(CGFloat)topDistance
+{
+    self.topDistance = topDistance;
+    self.backgroundEdgeInsets = backgroundEdgeInsets;
+//    self.responderType = responderType;
     
-    
+    [self showWithView:self.bacView inView:inView];
 }
 
 - (void)showResponderWithType:(YSTeacherResponderType)responderType
@@ -191,6 +193,7 @@
         self.actionBtn.bm_centerX = self.titleL.bm_centerX;
         self.actionBtn.bm_top = self.titleL.bm_bottom + 5;
         [self.actionBtn setTitle:YSLocalized(@"Res.btn.noget") forState:UIControlStateNormal];
+        self.actionBtn.enabled = YES;// 只能点一次开始 以后变为不可点状态 直达抢答结果时可以点击
         self.actionBtn.hidden = NO;
         self.selectBtn.hidden = YES;
         self.iconImgV.hidden = NO;
@@ -233,8 +236,15 @@
 
 - (void)actionBtnClicked:(UIButton *)btn
 {
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(doAction) object:nil];
+    [self performSelector:@selector(doAction) withObject:nil afterDelay:0.5f];
+}
+
+- (void)doAction
+{
     if (self.responderType == YSTeacherResponderType_Start)
     {
+        self.actionBtn.enabled = NO;// 只能点一次开始 之后变为不可点状态 直达抢答结果时可以点击
         if ([self.delegate respondsToSelector:@selector(startClickedWithUpPlatform:)])
         {
             [self.delegate startClickedWithUpPlatform:self.selectBtn.selected];
@@ -247,7 +257,6 @@
             [self.delegate againClicked];
         }
     }
-
 }
 
 - (void)selectBtnClicked:(UIButton *)btn
