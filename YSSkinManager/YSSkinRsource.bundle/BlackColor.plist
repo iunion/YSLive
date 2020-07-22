@@ -326,7 +326,7 @@
 		<key>tittleColor</key>
 		<string></string>
 		<key>backgroundColor</key>
-		<string> </string>
+		<string></string>
 		<key>iconNormal</key>
 		<string></string>
 		<key>iconSelected</key>
@@ -350,7 +350,7 @@
 		<key>tittleColor</key>
 		<string>#FF7D7D</string>
 		<key>bgColor</key>
-		<string>#333436 </string>
+		<string>#333436</string>
 		<key>iconNor</key>
 		<string></string>
 		<key>iconSel</key>

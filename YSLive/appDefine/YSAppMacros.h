@@ -52,8 +52,9 @@
 
 #else
 
-#define YS_APPSTORE_DOWNLOADAPP_ADDRESS     @"itms-apps://itunes.apple.com/app/id1489026684"
-#define YS_APPID                            @"1489026684"
+#define YS_APPSTORE_DOWNLOADAPP_ADDRESS     @"itms-apps://itunes.apple.com/app/id1524580594"
+//#define YS_APPID                            @"1489026684"
+#define YS_APPID                            @"1524580594"
 
 #endif
 

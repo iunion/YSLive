@@ -64,7 +64,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
     UITextFieldDelegate,
     YSInputViewDelegate
 >
-
+{
+    UIAlertController *updatAalertVc;
+    UIAlertController *eyeCareAlertVc;
+}
 @property (nonatomic, assign) YSRoomUseType room_UseTheType;
 
 @property (nonatomic, strong) NSURL *loginUrl;
@@ -349,7 +352,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }];
         [alertVc addAction:cancleAc];
         [alertVc addAction:confimAc];
-        [self presentViewController:alertVc animated:YES completion:nil];
+        if (!updatAalertVc)
+        {
+            [self presentViewController:alertVc animated:YES completion:nil];
+            eyeCareAlertVc = alertVc;
+        }
     }
 }
 
@@ -537,7 +544,20 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }];
         [alertVc addAction:ccc];
     }
-    [self presentViewController:alertVc animated:YES completion:nil];
+    
+    if (eyeCareAlertVc)
+    {
+        [eyeCareAlertVc dismissViewControllerAnimated:NO completion:^{
+            [self presentViewController:alertVc animated:NO completion:nil];
+            self->updatAalertVc = alertVc;
+        }];
+        eyeCareAlertVc = nil;
+    }
+    else
+    {
+        [self presentViewController:alertVc animated:YES completion:nil];
+        updatAalertVc = alertVc;
+    }
 }
 
 #pragma mark - UI
