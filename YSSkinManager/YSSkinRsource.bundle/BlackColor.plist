@@ -1217,6 +1217,8 @@
 		<string>videoView_disableCamera_skin</string>
 		<key>lowWifi</key>
 		<string>videoView_lowWifi_skin</string>
+		<key>unknownCam</key>
+		<string>videoView_unknownCamera_skin</string>
 	</dict>
 	<key>videoView_trophyImage</key>
 	<dict>
@@ -1248,6 +1250,8 @@
 		<string>videoView_occupyMic_skin</string>
 		<key>disableMic</key>
 		<string>videoView_disableMic_skin</string>
+		<key>unknownMic</key>
+		<string>videoView_unknownMic_skin</string>
 	</dict>
 	<key>videoView_soundImageView</key>
 	<dict>

@@ -43,8 +43,6 @@
 ///声音图标
 @property (nonatomic, strong) UIImageView *soundImageView;
 @property (nonatomic, strong) UIImage *soundImage;
-///没有麦克风时的label
-@property (nonatomic, strong) UILabel *silentLab;
 
 ///关闭视频时的蒙版
 @property (nonatomic, strong) UIView *maskCloseVideoBgView;//背景蒙版
@@ -337,19 +335,6 @@
     self.soundImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.backVideoView addSubview:self.soundImageView];
     
-    UILabel * silentLab = [[UILabel alloc]init];
-    silentLab.font = UI_FONT_16;
-    silentLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
-    silentLab.backgroundColor = UIColor.redColor;
-    silentLab.adjustsFontSizeToFitWidth = YES;
-    silentLab.minimumScaleFactor = 0.3;
-    silentLab.textAlignment = NSTextAlignmentCenter;
-    silentLab.layer.cornerRadius = 2;
-    silentLab.layer.masksToBounds = YES;
-    [self.backVideoView addSubview:silentLab];
-    self.silentLab = silentLab;
-    silentLab.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-    
     if (self.isDragOut || self.isFullScreen)
     {
         self.nickNameLab.font = self.cupNumLab.font = self.dragFont;
@@ -432,7 +417,6 @@
 
     CGFloat soundImageWidth = height*5/3;
     self.soundImageView.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
-    self.silentLab.frame = CGRectMake(self.bm_width-150*widthScale, self.bm_height-4-height, 150*widthScale, height);
 }
 
 /// 当前设备音量  音量大小 0 ～ 32670
@@ -612,14 +596,13 @@
     if (videoState & SCVideoViewVideoState_DeviceError)
     {
         self.loadingImgView.hidden = YES;
-        
+        self.maskCloseVideoBgView.hidden = NO;
+        [self.maskCloseVideoBgView bm_bringToFront];
         switch (self.videoDeviceState)
         {
             // 无设备
             case YSDeviceFaultNotFind:
             {
-                self.maskCloseVideoBgView.hidden = NO;
-                [self.maskCloseVideoBgView bm_bringToFront];
                 self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"noCam");
             }
                 break;
@@ -627,8 +610,6 @@
             // 设备被禁用
             case YSDeviceFaultNotAuth:
             {
-                self.maskCloseVideoBgView.hidden = NO;
-                [self.maskCloseVideoBgView bm_bringToFront];
                 self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"disableCam");
             }
                 break;
@@ -636,26 +617,10 @@
             // 设备被占用
             case YSDeviceFaultOccupied:
             {
-                self.maskCloseVideoBgView.hidden = NO;
-                [self.maskCloseVideoBgView bm_bringToFront];
                 self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"occupyCam");
             }
                 break;
-                
-            case YSDeviceFaultUnknown:
-            {
-                self.maskNoVideo.hidden = NO;
-                [self.maskNoVideo bm_bringToFront];
-                 if (self.isForPerch)
-                 {
-                     self.maskNoVideobgLab.text = YSLocalized(@"Prompt.DeviceUnknownError");
-                 }
-                 else
-                 {
-                     self.maskNoVideoTitle.text = YSLocalized(@"Prompt.DeviceUnknownError");
-                 }
-            }
-                break;
+
 
 //            // 设备打开失败
 //                YSDeviceFaultUnknown        = 1, //未知错误
@@ -665,16 +630,7 @@
 //                YSDeviceFaultStreamEmpty    = 8 //设备流没有数据
             default:
             {
-                self.maskNoVideo.hidden = NO;
-                [self.maskNoVideo bm_bringToFront];
-                if (self.isForPerch)
-                {
-                    self.maskNoVideobgLab.text = YSLocalized(@"Prompt.CanotOpenCamera");
-                }
-                else
-                {
-                    self.maskNoVideoTitle.text = [NSString stringWithFormat:@"%@:%@", @(self.videoDeviceState), YSLocalized(@"Prompt.CanotOpenCamera")];
-                }
+                self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"unknownCam");
             }
                 break;
         }
@@ -762,10 +718,7 @@
 - (void)setAudioState:(SCVideoViewAudioState)audioState
 {
     _audioState = audioState;
-    
-    self.silentLab.hidden = YES;
-    self.silentLab.text = nil;
-    self.soundImageView.hidden = NO;
+
     self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
     
     // 设备不可用
@@ -794,30 +747,10 @@
             }
                 break;
                
-            // 未知错误
-            case YSDeviceFaultUnknown:
-            {
-                self.silentLab.hidden = NO;
-                self.soundImageView.hidden = YES;
-                self.silentLab.text = YSLocalized(@"Prompt.DeviceUnknownError");
-            }
-                break;
-
-            // 浏览器不支持
-            case YSDeviceFaultSDPFail:
-            {
-                self.silentLab.hidden = NO;
-                self.soundImageView.hidden = YES;
-                self.silentLab.text = YSLocalized(@"Prompt.BrowserCanotSupport");
-            }
-                break;
-                
             // 设备打开失败
             default:
             {
-                self.silentLab.hidden = NO;
-                self.soundImageView.hidden = YES;
-                self.silentLab.text = [NSString stringWithFormat:@"%@:%@", @(self.audioDeviceState), YSLocalized(@"Prompt.CanotOpenMicrophone")];
+                self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"unknownMic");
             }
                 break;
         }
@@ -829,8 +762,6 @@
     // 音频订阅失败
     if (audioState & SCVideoViewAudioState_SubscriptionFailed)
     {
-        self.silentLab.hidden = NO;
-        self.silentLab.text = YSLocalized(@"Prompt.AudioLoading");
         self.soundImageView.hidden = YES;
         return;
     }
@@ -838,8 +769,6 @@
     // 音频播放失败
     if (audioState & SCVideoViewAudioState_PlayFailed)
     {
-        self.silentLab.hidden = NO;
-        self.silentLab.text = YSLocalized(@"Prompt.AudioBuffering");
         self.soundImageView.hidden = YES;
         return;
     }
