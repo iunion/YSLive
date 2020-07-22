@@ -401,7 +401,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             videoTeacherHeight = videoHeight;
             
         }
-        [self calculateFloatVideoSize];
+        
     }
     return self;
 }
@@ -1731,7 +1731,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
     }
-    
+    if (!floatVideoDefaultWidth)
+    {
+        [self calculateFloatVideoSize];
+    }
     [self freshWhiteBordViewFrame];
 }
 
