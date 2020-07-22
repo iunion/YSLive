@@ -204,8 +204,6 @@
     [self freshContentView];
 }
 
-
-
 - (void)setBarrageStart:(BOOL)barrageStart
 {
     _barrageStart = barrageStart;
@@ -539,6 +537,13 @@
 
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
+    YSRoomUser * userModel = videoView.roomUser;
+    YSUserMediaPublishState userPublishState = userModel.mediaPublishState;
+    if (videoView.roomUser.peerID != YSCurrentUser.peerID || userPublishState == YSUserMediaPublishState_NONE)
+    {
+        return;
+    }
+    
     CGRect frame = [self.videoBackgroud convertRect:videoView.frame toView:self.controlBackMaskView];
     
 //    self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.size.height/2 + frame.origin.y);
