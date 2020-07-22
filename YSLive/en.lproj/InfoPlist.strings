@@ -6,7 +6,7 @@
   Copyright © 2019 YS. All rights reserved.
 */
 
-CFBundleDisplayName = "YSLive";
+CFBundleDisplayName = "CloudHub+";
 /*权限声明*/
 NSPhotoLibraryUsageDescription = "You need to select a local picture in the room. Are you allowed to access the album";
 NSCameraUsageDescription = "You need to make video calls in the room and shoot if you allow the camera to turn on";
