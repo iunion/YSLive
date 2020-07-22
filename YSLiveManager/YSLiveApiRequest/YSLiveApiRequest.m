@@ -13,17 +13,17 @@
 
 @implementation YSLiveApiRequest
 
-/// 获取升级信息
-+ (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum
-{
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//    NSString *nowStr = [NSDate bm_stringFromDate:[NSDate date] formatter:@"yyyyMMdd"];
-//    NSString *version = [NSString stringWithFormat:@"%@%@",nowStr,versionNum];
-    [parameters bm_setString:versionNum forKey:@"version"];
-    [parameters bm_setString:@"3" forKey:@"type"];
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
-}
+///// 获取升级信息
+//+ (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum
+//{
+//    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
+//    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+////    NSString *nowStr = [NSDate bm_stringFromDate:[NSDate date] formatter:@"yyyyMMdd"];
+////    NSString *version = [NSString stringWithFormat:@"%@%@",nowStr,versionNum];
+//    [parameters bm_setString:versionNum forKey:@"version"];
+//    [parameters bm_setString:@"3" forKey:@"type"];
+//    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
+//}
 
 /// 获取服务器时间
 + (NSMutableURLRequest *)getServerTime

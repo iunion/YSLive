@@ -435,7 +435,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
         @"text/xml"
     ]];
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
+    //NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/checkupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     // 默认是自己的标准app，传值是其他公司定制
