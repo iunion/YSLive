@@ -78,6 +78,7 @@ static YSLiveSkinManager *skinManager = nil;
 ///默认颜色
 - (UIColor *)getDefaultColorWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
 {
+    self.classOrOnline = classOrOnline;
     NSDictionary *colorDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonColor"];
     NSString *colorStr = [colorDict bm_stringForKey:key];
 
