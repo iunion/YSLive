@@ -1587,7 +1587,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     }
                     else
                     {
-                        CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+                        view.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
                     }
                 }
                 else
