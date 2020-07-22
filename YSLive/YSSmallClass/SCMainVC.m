@@ -4417,7 +4417,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark - 抢答器
-- (void)handleSignalingContestFromID:(NSString *)fromID
+- (void)handleSignalingContestFromID:(NSString *)fromID isHistory:(BOOL)isHistory
 {
     contestTouchOne = 0;
     if (self.responderView)
