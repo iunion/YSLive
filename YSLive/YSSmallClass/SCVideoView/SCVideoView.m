@@ -19,9 +19,6 @@
 
 @property (nonatomic, strong) YSRoomUser *roomUser;
 
-///没上课时没有连摄像头时的lab
-@property (nonatomic, strong) UILabel * maskNoVideobgLab;
-
 ///正在加载中
 @property (nonatomic, strong) UIImageView *loadingImgView;
 ///正在加载中图片
@@ -211,24 +208,14 @@
 
 - (void)setupUIView
 {
-    self.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    self.backgroundColor = YSSkinDefineColor(@"videoBackColor");
+//    self.backgroundColor = UIColor.redColor;
     
     UIView *sourceView = [[UIView alloc] init];
     sourceView.backgroundColor = UIColor.clearColor;
     sourceView.hidden = YES;
     [self addSubview:sourceView];
     self.sourceView = sourceView;
-    
-    //没上课时没有连摄像头时的lab
-    UILabel * maskNoVideobgLab = [[UILabel alloc] initWithFrame:self.bounds];
-    maskNoVideobgLab.backgroundColor = YSSkinDefineColor(@"videoMaskBack_color");
-    maskNoVideobgLab.font = UI_FONT_14;
-    maskNoVideobgLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
-    maskNoVideobgLab.adjustsFontSizeToFitWidth = YES;
-    maskNoVideobgLab.minimumScaleFactor = 0.3;
-    maskNoVideobgLab.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:maskNoVideobgLab];
-    self.maskNoVideobgLab = maskNoVideobgLab;
     
     ///正在加载中
     self.loadingImg = YSSkinElementImage(@"videoView_loadingImage", @"icon_normal");
@@ -350,7 +337,6 @@
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    self.maskNoVideobgLab.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
     
     CGFloat width = self.bm_height*0.7f;
     if (width>100)
@@ -575,6 +561,20 @@
     self.maskNoVideo.hidden = YES;
     self.maskCloseVideoBgView.hidden = YES;
     self.homeMaskLab.hidden = YES;
+    
+    BOOL isClassBegin = [YSLiveManager sharedInstance].isClassBegin;
+    
+    
+    if (isClassBegin)
+    {
+        self.loadingImgView.image = self.loadingImg;
+    }
+    else
+    {
+        self.loadingImgView.hidden = NO;
+        self.loadingImgView.image = YSSkinElementImage(@"videoView_stateVideo", @"disableCam");
+        return;
+    }
     
     // 低端设备
     if (videoState & SCVideoViewVideoState_Low_end)
