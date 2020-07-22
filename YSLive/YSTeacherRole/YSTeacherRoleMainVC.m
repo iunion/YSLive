@@ -419,7 +419,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = YSSkinDefineColor(@"blackColor");
     classEndAlertVC = nil;
     _personListCurentPage = 0;
     _personListTotalPage = 0;

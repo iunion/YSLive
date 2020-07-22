@@ -446,7 +446,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.view.backgroundColor = YSSkinDefineColor(@"blackColor");
     _personListCurentPage = 0;
     _personListTotalPage = 0;
     isSearch = NO;
