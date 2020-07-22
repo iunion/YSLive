@@ -867,7 +867,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)setupContentView
 {
     //[self.liveManager setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
-    [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnRight];
+    //[self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnRight];
     // 前后默认开启镜像
     //[self.liveManager changeLocalVideoMirrorMode:CloudHubVideoMirrorModeEnabled];
 
