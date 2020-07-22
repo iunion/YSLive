@@ -1229,31 +1229,31 @@
 
 - (void)userPublishstatechange:(YSRoomUser *)roomUser
 {
+    [super userPublishstatechange:roomUser];
+    
     if (roomUser.role == YSUserType_Teacher)
     {
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:roomUser.peerID];
+        
+        if (roomUser.publishState >= YSUser_PublishState_VIDEOONLY && roomUser.publishState != YSUser_PublishState_ONSTAGE)
+        {
+            if (streamID)
+            {
+                [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+            }
+        }
+        else
+        {
+            [self.liveManager stopVideoWithUserId:roomUser.peerID streamID:streamID];
+        }
+        
+        [self freshMediaView];
+        
         return;
     }
     
-    [super userPublishstatechange:roomUser];
-    
     YSPublishState publishState = roomUser.publishState;
     NSString *userId = roomUser.peerID;
-    
-    if ([userId isEqualToString:self.liveManager.localUser.peerID])
-    {
-        if (publishState == YSUser_PublishState_VIDEOONLY)
-        {
-            
-        }
-        if (publishState == YSUser_PublishState_AUDIOONLY)
-        {
-            
-        }
-        if (publishState == YSUser_PublishState_BOTH)
-        {
-            
-        }
-    }
     
     if (publishState == YSUser_PublishState_VIDEOONLY)
     {
@@ -1317,28 +1317,7 @@
     // 上台
     if ([properties bm_containsObjectForKey:sYSUserPublishstate])
     {
-        if (roomUser.role == YSUserType_Student)
-        {
-            [self userPublishstatechange:roomUser];
-        }
-        else if (roomUser.role == YSUserType_Teacher)
-        {
-            NSString *streamID = [self.liveManager getUserStreamIdWithUserId:roomUser.peerID];
-            
-            if (roomUser.publishState >= YSUser_PublishState_VIDEOONLY && roomUser.publishState != YSUser_PublishState_ONSTAGE)
-            {
-                if (streamID)
-                {
-                    [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
-                }
-            }
-            else
-            {
-                [self.liveManager stopVideoWithUserId:roomUser.peerID streamID:streamID];
-            }
-            
-            [self freshMediaView];
-        }
+        [self userPublishstatechange:roomUser];
     }
     
     if ([userId isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
@@ -1398,7 +1377,7 @@
         }
 #endif
         
-        if (roomUser.role == YSUserType_Student)
+        if (roomUser.role != YSUserType_Teacher)
         {
             YSPublishState publishState = [roomUser.properties bm_intForKey:sYSUserPublishstate];
             NSString *peerID = roomUser.peerID;
