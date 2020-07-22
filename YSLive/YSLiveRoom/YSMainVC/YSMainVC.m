@@ -2421,6 +2421,7 @@
         {
 #warning setDeviceOrientation
             //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationPortrait];
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnBottom];
             
             [UIView animateWithDuration:0.25 animations:^{
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
@@ -2469,7 +2470,7 @@
         {
 #warning setDeviceOrientation
             //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeLeft];
-            
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnRight];
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isFullScreen = YES;//通过set 方法刷新了视频布局
@@ -2521,6 +2522,7 @@
         {
 #warning setDeviceOrientation
             //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeRight];
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnLeft];
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isFullScreen = YES;
