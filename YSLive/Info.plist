@@ -17,7 +17,7 @@
 		<string>zh_TW</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>云枢迅联</string>
+	<string>CloudHub+</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -28,20 +28,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>yslive</string>
+			<string>cloudhub</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>yslive</string>
+				<string>cloudhub</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>enterlive</string>
+			<string>enterlivev3</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>enterlive</string>
+				<string>enterlivev3</string>
 			</array>
 		</dict>
 	</array>
@@ -85,6 +85,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>YSAppCommitVersion</key>
-	<string>2020062400</string>
+	<string>2020072200</string>
 </dict>
 </plist>
