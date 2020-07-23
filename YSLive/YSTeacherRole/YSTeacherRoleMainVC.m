@@ -2338,6 +2338,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+    if (!self.whitebordFullBackgroud.hidden && [roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+    {
+        [self.fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
+    }
     // 网络状态
     if ([properties bm_containsObjectForKey:sYSUserNetWorkState])
     {

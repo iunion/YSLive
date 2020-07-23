@@ -2395,7 +2395,6 @@
     [self setMp4InterfaceOrientation:UIInterfaceOrientationLandscapeRight];
 }
 
-
 //- (void)setInterfaceOrientation:(UIInterfaceOrientation)orientation
 //{
 //    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)])
