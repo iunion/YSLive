@@ -61,6 +61,8 @@
 @property (nonatomic, strong) UIFont *dragFont;
 ///拖出时的文字字号
 @property (nonatomic, strong)UIFont *notDragFont;
+///弱网图标
+@property (nonatomic, strong) UIImageView *lowWifiImage;
 ///举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
 
@@ -300,6 +302,14 @@
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
     
+    //弱网图标
+    self.lowWifiImage = [[UIImageView alloc] init];
+    self.lowWifiImage.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
+    self.lowWifiImage.contentMode = UIViewContentModeScaleAspectFit;
+    self.lowWifiImage.hidden = YES;
+    [self.backVideoView addSubview:self.lowWifiImage];
+    self.lowWifiImage.backgroundColor = UIColor.clearColor;
+    
     //举手图标
     self.raiseHandImage = [[UIImageView alloc] init];
     self.raiseHandImage.image = YSSkinElementImage(@"videoView_handImageView", @"iconNor");
@@ -386,7 +396,8 @@
     self.cupNumLab.font = [UIFont systemFontOfSize:fontSize];
 
     self.brushImageView.frame = CGRectMake(self.bm_width - self.cupImage.bm_width - 4, self.cupImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
-    self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+    self.lowWifiImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+    self.raiseHandImage.frame = CGRectMake(self.lowWifiImage.bm_originX-self.cupImage.bm_width - 4, self.lowWifiImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
     
     CGFloat height = self.bm_width*0.1f;
     self.nickNameLab.frame = CGRectMake(4, self.bm_height-4-height, self.bm_width*0.5f, height);
@@ -537,20 +548,7 @@
 {
     _isRaiseHand = isRaiseHand;
     
-    if (isRaiseHand)
-    {
-        self.raiseHandImage.hidden = NO;
-        self.raiseHandImage.image = YSSkinElementImage(@"videoView_handImageView", @"iconNor");
-    }
-    else if (self.videoState & SCVideoViewVideoState_PoorInternet)
-    {
-        self.raiseHandImage.hidden = NO;
-        self.raiseHandImage.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
-    }
-    else
-    {
-       self.raiseHandImage.hidden = YES;
-    }
+    self.raiseHandImage.hidden = !isRaiseHand;
 }
 
 /// 视频状态
@@ -654,7 +652,6 @@
     // 视频播放失败
     if (videoState & SCVideoViewVideoState_PlayFailed)
     {
-        
         self.maskNoVideo.hidden = NO;
         self.maskNoVideoTitle.text = YSLocalized(@"Prompt.VideoBuffering");
         [self.maskBackView bringSubviewToFront:self.maskNoVideo];
@@ -672,19 +669,14 @@
     }
     
     // 弱网环境
-    if (self.isRaiseHand)
+    if (videoState & SCVideoViewVideoState_PoorInternet)
     {
-        self.raiseHandImage.hidden = NO;
-        self.raiseHandImage.image = YSSkinElementImage(@"videoView_handImageView", @"iconNor");
-    }
-    else if (videoState & SCVideoViewVideoState_PoorInternet)
-    {
-        self.raiseHandImage.hidden = NO;
-        self.raiseHandImage.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
+        self.lowWifiImage.hidden = NO;
+        return;
     }
     else
     {
-        self.raiseHandImage.hidden = YES;
+        self.lowWifiImage.hidden = YES;
     }
     
     // 用户进入后台
