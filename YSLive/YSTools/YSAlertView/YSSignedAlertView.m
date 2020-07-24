@@ -88,6 +88,11 @@
     BMWeakSelf
     [[BMCountDownManager manager] startCountDownWithIdentifier:SignedAlertCountDownKey timeInterval:timeInterval processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
+        if (forcedStop || timeInterval <= 0)
+        {
+            [weakSelf dismiss:nil];
+            return;
+        }
         weakSelf.timeLabel.attributedText = [weakSelf creatTimeStringWithTimeInterval:timeInterval];
     }];
 }
