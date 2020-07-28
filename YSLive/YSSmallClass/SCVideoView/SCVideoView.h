@@ -76,6 +76,9 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 
 @property (nonatomic, weak) id <SCVideoViewDelegate> delegate;
 
+///视频设备 sourceId
+@property (nonatomic, assign) NSString *sourceId;
+
 @property (nonatomic, strong, readonly) YSRoomUser *roomUser;
 /// 是否占位用
 @property (nonatomic, assign) BOOL isForPerch;
@@ -117,7 +120,14 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 @property (nonatomic, assign) BOOL isRaiseHand;
 
 // 保存发布状态，用于比较是否有变更
-@property (nonatomic, assign) YSPublishState publishState;
+@property (nonatomic, assign) YSPublishState publishState1;
+
+// 开关是否静音
+@property (nonatomic, assign) YSSessionMuteState audioMute;
+
+// 开关是否关摄像头
+@property (nonatomic, assign) YSSessionMuteState videomute;
+
 
 // 老师用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;

@@ -31,7 +31,7 @@
         
         [self.liveManager serverLog:[NSString stringWithFormat:@"YSMainSuperVC init with class %@", NSStringFromClass([self class])]];
         
-        self.videoViewArray = [[NSMutableArray alloc] init];
+        self.videoViewArrayDic = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -110,13 +110,21 @@
 {
     NSUInteger count = 0;
     
-    for (SCVideoView *videoView in self.videoViewArray)
+    NSArray * keyArray = self.videoViewArrayDic.allKeys;
+    
+    for (NSString * peerId in keyArray)
     {
-        if (!videoView.isDragOut && !videoView.isFullScreen)
-        {
-            count++;
-        }
+        NSMutableArray * mutArr = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
+        count += mutArr.count;
     }
+    
+//    for (SCVideoView *videoView in self.videoViewArray)
+//    {
+//        if (!videoView.isDragOut && !videoView.isFullScreen)
+//        {
+//            count++;
+//        }
+//    }
     return count;
 }
 
@@ -135,7 +143,7 @@
         return;
     }
     
-    YSUserMediaPublishState publishState = videoView.roomUser.mediaPublishState;
+    YSPublishState publishState = videoView.roomUser.publishState1;
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
 
     fresh = NO;
@@ -155,6 +163,8 @@
         }
     }
 
+    
+    
     if (publishState & YSUserMediaPublishState_VIDEOONLY)
     {
         if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
@@ -228,8 +238,50 @@
     videoView.publishState = 4;
 }
 
-#pragma mark  添加视频窗口
 
+///排序后的视频窗口array
+- (void)videoViewsSequence
+{
+    NSMutableArray * idArr = [self.videoViewArrayDic.allKeys mutableCopy];
+    // id正序排序
+    [idArr sortUsingComparator:^NSComparisonResult(NSString * _Nonnull peerId1, NSString * _Nonnull peerId2) {
+        return [peerId1 compare:peerId2];
+    }];
+    
+    self.videoSequenceArr = [NSMutableArray array];
+    for (NSArray *peerId in idArr)
+    {
+        NSArray * arr = [self.videoViewArrayDic bm_arrayForKey:peerId];
+        [self.videoSequenceArr addObjectsFromArray:arr];
+    }
+//    return videoArray;
+}
+
+///给videoViewArrayDic中添加视频
+- (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView
+{
+    NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
+    [videoArr addObject:videoView];
+    [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
+    [self videoViewsSequence];
+}
+
+///从videoViewArrayDic中移除视频
+- (void)deleteVideoViewfromVideoViewArrayDic:(SCVideoView *)videoView
+{
+    NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
+    
+    if ([videoArr containsObject:videoArr])
+    {
+        [videoArr removeObject:videoView];
+        [self.videoSequenceArr removeObject:videoView];
+    }
+    
+    [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
+}
+
+
+#pragma mark  添加视频窗口
 - (SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId
 {
     return [self addVidoeViewWithPeerId:peerId withMaxCount:0];
@@ -243,19 +295,22 @@
         return nil;
     }
     
+    NSMutableArray * myVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:self.liveManager.localUser.peerID];
+    
     // 删除本人占位视频
-    for (SCVideoView *avideoView in self.videoViewArray)
+    for (SCVideoView *avideoView in myVideoArray)
     {
         if (avideoView.isForPerch)
         {
-            [self.videoViewArray removeObject:avideoView];
+            [myVideoArray removeObject:avideoView];
             break;
         }
     }
     
     BOOL isUserExist = NO;
     SCVideoView *theVideoView = nil;
-    for (SCVideoView *videoView in self.videoViewArray)
+    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
+    for (SCVideoView *videoView in videoArray)
     {
         if ([videoView.roomUser.peerID isEqualToString:peerId])
         {
@@ -275,31 +330,23 @@
         theVideoView = newVideoView;
         if (newVideoView)
         {
+            
             if (count == 0)
             {
-                [self.videoViewArray addObject:newVideoView];
+                [videoArray addObject:newVideoView];
             }
             else
             {
-                [self.videoViewArray bm_addObject:newVideoView withMaxCount:count];
+                [videoArray bm_addObject:newVideoView withMaxCount:count];
             }
+            
+            [self.videoViewArrayDic setObject:videoArray forKey:peerId];
+            [self videoViewsSequence];
+            
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoView = newVideoView;
             }
-        }
-        
-        if (self.teacherVideoView)
-        {
-            [self.videoViewArray removeObject:self.teacherVideoView];
-        }
-        // id正序排序
-        [self.videoViewArray sortUsingComparator:^NSComparisonResult(SCVideoView * _Nonnull obj1, SCVideoView * _Nonnull obj2) {
-            return [obj1.roomUser.peerID compare:obj2.roomUser.peerID];
-        }];
-        if (self.teacherVideoView)
-        {
-            [self.videoViewArray insertObject:self.teacherVideoView atIndex:0];
         }
     }
     
@@ -315,16 +362,18 @@
 
 #pragma mark  获取视频窗口
 
-- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId
+- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
 {
-    for (SCVideoView *videoView in self.videoViewArray)
+    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
+    
+    for (SCVideoView *videoView in videoArray)
     {
-        if ([videoView.roomUser.peerID isEqualToString:peerId])
+        if ([videoView.sourceId isEqualToString:sourceId])
         {
             return videoView;
         }
     }
-    
+
     return nil;
 }
 
@@ -332,25 +381,22 @@
 
 - (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId
 {
+    
+    NSString * sourceId = nil;
+    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
+    
     SCVideoView *delVideoView = nil;
-    if ([peerId isEqualToString:self.teacherVideoView.roomUser.peerID])
+    
+    for (SCVideoView * videoView in videoArray)
     {
-        delVideoView = self.teacherVideoView;
-        [self.videoViewArray removeObject:self.teacherVideoView];
-        self.teacherVideoView = nil;
-    }
-    else
-    {
-        for (SCVideoView *videoView in self.videoViewArray)
+        if ([videoView.sourceId isEqualToString:sourceId])
         {
-            if ([videoView.roomUser.peerID isEqualToString:peerId])
-            {
-                delVideoView = videoView;
-                [self.videoViewArray removeObject:videoView];
-                break;
-            }
+            delVideoView = videoView;
+            break;
         }
     }
+    
+    [self deleteVideoViewfromVideoViewArrayDic:delVideoView];
     
     if (delVideoView)
     {
@@ -364,7 +410,8 @@
 
 - (void)removeAllVideoView
 {
-    [self.videoViewArray removeAllObjects];
+//    [self.videoViewArray removeAllObjects];
+    [self.videoViewArrayDic removeAllObjects];
 }
 
 

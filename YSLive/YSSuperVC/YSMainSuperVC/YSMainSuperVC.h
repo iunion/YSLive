@@ -29,7 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable,nonatomic, copy) NSString *foucePeerId;
 
 /// 视频View列表
-@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoViewArray;
+@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
+@property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;
+
 /// 老师视频
 @property (nullable, nonatomic, strong) SCVideoView *teacherVideoView;
 /// 自己视频
@@ -46,6 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)afterDoMsgCachePool;
 
 - (void)showEyeCareRemind;
+
+///排序后的视频窗口array
+- (void)videoViewsSequence;
+
+///给videoViewArrayDic中添加视频
+- (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView;
+///从videoViewArrayDic中移除视频
+- (void)deleteVideoViewfromVideoViewArrayDic:(SCVideoView *)videoView;
+
 
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView;
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh;
