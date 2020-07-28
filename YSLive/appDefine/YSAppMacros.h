@@ -69,6 +69,10 @@ static NSString *const YSAPP_ID_BaiDu = @"20190926000337599";
 static NSString *const YSSECURITY_KEY = @"fFFxmgclVTLMt0kogAbH";
 static NSString *const YSTRANS_API_HOST = @"http://api.fanyi.baidu.com/api/trans/vip/translate";
 
+// 用户协议
+static NSString *const YSUserAgreement = @"YSUserAgreement";
+// 隐私条款
+static NSString *const YSPrivacyClause = @"PrivacyClause";
 
 #define YSPHONENUMBER_LENGTH            11
 

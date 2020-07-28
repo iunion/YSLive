@@ -9,7 +9,7 @@
 #import "YSSetViewController.h"
 #import "YSSetTableViewCell.h"
 #import "YSEyeCareVC.h"
-
+#import "YSWebViewController.h"
 @interface YSSetViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 /**
@@ -30,7 +30,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+
 }
 
 - (void)viewDidLoad {
@@ -60,14 +60,25 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YSSetTableViewCell *cell = [YSSetTableViewCell setTableViewCellWithTableView:tableView];
     cell.backgroundColor = [UIColor clearColor];
     
+    if (indexPath.row == 0)
+    {
+        cell.titleText = @"用户协议";//YSLocalized(@"EyeProtection.Btnsetup");
+    }
+    else if (indexPath.row == 1)
+    {
+        cell.titleText = @"隐私条款";//YSLocalized(@"EyeProtection.Btnsetup");
+    }
+    else if (indexPath.row == 2)
+    {
+        cell.titleText = YSLocalized(@"EyeProtection.Btnsetup");
+    }
     
-    cell.titleText = YSLocalized(@"EyeProtection.Btnsetup");
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,6 +95,21 @@
 {
     if (indexPath.row == 0)
     {
+        // 用户协议
+        YSWebViewController *webVC = [[YSWebViewController alloc] init];
+        webVC.roteUrl = YSUserAgreement;
+        [self.navigationController pushViewController:webVC animated:YES];
+    }
+    else if (indexPath.row == 1)
+    {
+        // 隐私条款
+        YSWebViewController *webVC = [[YSWebViewController alloc] init];
+        webVC.roteUrl = YSPrivacyClause;
+        [self.navigationController pushViewController:webVC animated:YES];
+    }
+    else if (indexPath.row == 2)
+    {
+        
         YSEyeCareVC *eyeCareVC = [[YSEyeCareVC alloc] init];
         [self.navigationController pushViewController:eyeCareVC animated:YES];
     }

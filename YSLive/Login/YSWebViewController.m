@@ -27,7 +27,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewDidLoad
@@ -35,18 +34,17 @@
     [super viewDidLoad];
     NSString *urlStr = @"";
     NSString *title = @"";
-    if ([self.roteUrl isEqualToString:@"Privacy"])
+    if ([self.roteUrl isEqualToString:YSPrivacyClause])
     {
         // 隐私政策
         urlStr = @"";
-        title = @"隐私政策";
+        title = @"隐私协议";
     }
-    else if ([self.roteUrl isEqualToString:@"Agreement"])
+    else if ([self.roteUrl isEqualToString:YSUserAgreement])
     {
         // 用户协议
         urlStr = @"";
         title = @"用户协议";
-        
     }
     
     self.bm_NavigationItemTintColor = [UIColor whiteColor];

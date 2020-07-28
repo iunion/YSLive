@@ -709,8 +709,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     NSString *str = @"已阅读并同意《隐私政策》和《用户协议》";
     NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc] initWithString:str];
-    [attribute addAttribute:NSLinkAttributeName value:@"Privacy" range:[str rangeOfString:@"《隐私政策》"]];
-    [attribute addAttribute:NSLinkAttributeName value:@"Agreement" range:[str rangeOfString:@"《用户协议》"]];
+    [attribute addAttribute:NSLinkAttributeName value:YSPrivacyClause range:[str rangeOfString:@"《隐私政策》"]];
+    [attribute addAttribute:NSLinkAttributeName value:YSUserAgreement range:[str rangeOfString:@"《用户协议》"]];
     
     YSTextView *textView = [[YSTextView alloc] init];
     textView.delegate = self;
