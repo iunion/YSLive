@@ -425,11 +425,17 @@
     {
         return;
     }
-    if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4) && self.roomUser.role != YSUserType_Teacher))
+    if (self.roomUser.afail == YSDeviceFaultNone && self.roomUser.audioMute == YSSessionMuteState_Mute)
     {
         self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
     }
+    
+//    if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4) && self.roomUser.role != YSUserType_Teacher))
+//    {
+//        self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+//        return;
+//    }
 
     CGFloat volumeScale = 32670/4;
     
@@ -804,14 +810,15 @@
     
     if (self.isForPerch)
     {
-        self.loadingImgView.hidden = (self.roomUser.vfail != YSDeviceFaultNone);
+        YSDeviceFaultType vfail = [self.roomUser getVideoVfailWithSourceId:self.sourceId];
+        self.loadingImgView.hidden = (vfail != YSDeviceFaultNone);
         self.backVideoView.hidden = YES;
         
         BOOL deviceError = NO;
-        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserVideoFail])
+        if (vfail)
         {
-            self.videoDeviceState = self.roomUser.vfail;
-            if (self.roomUser.vfail != YSDeviceFaultNone)
+            self.videoDeviceState = vfail;
+            if ([self.roomUser getVideoVfailWithSourceId:self.sourceId] != YSDeviceFaultNone)
             {
                 deviceError = YES;
             }

@@ -919,8 +919,6 @@
         self.liveImageView.image = YSSkinDefineImage(@"live_main_notclassbeging");
         self.liveImageView.hidden = NO;
     }
-    
-    
 }
 
 - (void)creatbuttonHide
@@ -930,6 +928,8 @@
 
 - (void)freshContentView
 {
+    [self videoViewsSequence];
+    
     if (self.isFullScreen)
     {
         [self freshVidoeGridView];
@@ -947,9 +947,9 @@
     
     //    CGFloat firstX = (self.videoBackgroud.bm_width - self.videoViewArray.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
     
-    for (int i = 1; i <= self.videoViewArray.count; i++)
+    for (int i = 1; i <= self.videoSequenceArr.count; i++)
     {
-        SCVideoView *videoView = self.videoViewArray[i-1];
+        SCVideoView *videoView = self.videoSequenceArr[i-1];
         [self.videoBackgroud addSubview:videoView];
         videoView.frame = CGRectMake(self.videoBackgroud.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
     }
@@ -962,13 +962,13 @@
     
     CGFloat teacherH = 0.0;
     CGFloat teacherW = 0.0;
-    if (self.videoViewArray.count <= 2)
+    if (self.videoSequenceArr.count <= 2)
     {
         teacherH = self.liveViewHeight;
         teacherW = BMUI_SCREEN_WIDTH;
-        for (NSInteger i = 1; i <= self.videoViewArray.count; i++)
+        for (NSInteger i = 1; i <= self.videoSequenceArr.count; i++)
         {
-            SCVideoView *videoView = self.videoViewArray[i-1];
+            SCVideoView *videoView = self.videoSequenceArr[i-1];
             [self.videoBackgroud addSubview:videoView];
             videoView.frame = CGRectMake(self.videoBackgroud.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
         }
@@ -986,10 +986,10 @@
             teacherW = ceil(teacherH * 4 / 3);
         }
         
-        CGFloat firstX = (self.videoBackgroud.bm_width - self.videoViewArray.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
-        for (int i = 0; i < self.videoViewArray.count; i++)
+        CGFloat firstX = (self.videoBackgroud.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
+        for (int i = 0; i < self.videoSequenceArr.count; i++)
         {
-            SCVideoView *videoView = self.videoViewArray[i];
+            SCVideoView *videoView = self.videoSequenceArr[i];
             [self.videoBackgroud addSubview:videoView];
             videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
         }
