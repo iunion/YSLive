@@ -9,6 +9,10 @@
 #import "YSLiveManager.h"
 #import "YSPermissionsVC.h"
 
+#if YSSDK
+#import "YSSDKManager.h"
+#endif
+
 @interface YSLiveManager ()
 <
     YSWhiteBoardManagerDelegate
@@ -36,6 +40,9 @@
 @property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
 @property (nonatomic, strong) NSArray <NSDictionary *> *connectH5CoursewareUrlCookies;
 
+// 是否需要使用HttpDNS
+@property (nonatomic, assign) BOOL needUseHttpDNSForWhiteBoard;
+
 @end
 
 @implementation YSLiveManager
@@ -61,6 +68,12 @@
 
         self.whiteBordLiveBgColor = YSWhiteBoard_LiveMainBackGroudColor;
         self.whiteBordLiveDrawBgColor = YSWhiteBoard_LiveMainBackDrawBoardBgColor;
+        self.needUseHttpDNSForWhiteBoard = YES;
+
+        #if YSSDK
+            // 区分是否进入教室
+            self.sdkIsJoinRoom = NO;
+        #endif
     }
     
     return self;
@@ -75,6 +88,13 @@
               YSRoomSettingOptionalWhiteBoardNotify : @(YES),
               YSRoomSettingOptionalReconnectattempts : @(5)
           }];
+}
+
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard
+{
+#if YSSDK
+    self.needUseHttpDNSForWhiteBoard = needUseHttpDNSForWhiteBoard;
+#endif
 }
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
@@ -442,5 +462,17 @@
         [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileList];
     }
 }
+
+#if YSSDK
+- (void)onSDKRoomLeft
+{
+    BMLog(@"onSDKRoomLeft");
+    
+    if ([self.sdkDelegate respondsToSelector:@selector(onRoomLeft)])
+    {
+        [self.sdkDelegate onRoomLeft];
+    }
+}
+#endif
 
 @end

@@ -32,9 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前课件数据
 @property (nonatomic, strong, readonly) YSFileModel *currentFile;
 
+#if YSSDK
+@property (nullable, nonatomic, weak) volatile id <YSSessionDelegate> sdkDelegate;
+// 区分是否进入教室
+@property (nonatomic, assign) BOOL sdkIsJoinRoom;
+#endif
 
 + (void)destroy;
 
+- (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
@@ -54,10 +60,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置H5课件Cookies
 - (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
-
-
 /// 获取课件数据
 - (YSFileModel *)getFileWithFileID:(NSString *)fileId;
+
+#if YSSDK
+/// SDK退出房间，需要在房间返回时调用dismissViewControllerAnimated:completion:
+- (void)onSDKRoomLeft;
+#endif
 
 @end
 
