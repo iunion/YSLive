@@ -802,6 +802,17 @@
 		<key>iconSel</key>
 		<string>login_showPassword_yes_skin</string>
 	</dict>
+	<key>login_userAgreement</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>login_userAgreement_no_skin</string>
+		<key>iconSel</key>
+		<string>login_userAgreement_yes_skin</string>
+	</dict>
 	<key>message_bottombar</key>
 	<dict>
 		<key>tittleColor</key>

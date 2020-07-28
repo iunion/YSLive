@@ -41,7 +41,8 @@
 #import "BMAlertView+YSDefaultAlert.h"
 
 #import "YSLiveUtil.h"
-
+#import "YSWebViewController.h"
+#import "YSTextView.h"
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
@@ -62,7 +63,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 <
     YSSessionDelegate,
     UITextFieldDelegate,
-    YSInputViewDelegate
+    YSInputViewDelegate,
+    UITextViewDelegate
 >
 {
     UIAlertController *updatAalertVc;
@@ -704,6 +706,56 @@ typedef void (^YSRoomLeftDoBlock)(void);
         make.centerX.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_centerX);
     }];
 #endif
+    
+    NSString *str = @"已阅读并同意《隐私政策》和《用户协议》";
+    NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc] initWithString:str];
+    [attribute addAttribute:NSLinkAttributeName value:@"Privacy" range:[str rangeOfString:@"《隐私政策》"]];
+    [attribute addAttribute:NSLinkAttributeName value:@"Agreement" range:[str rangeOfString:@"《用户协议》"]];
+    
+    YSTextView *textView = [[YSTextView alloc] init];
+    textView.delegate = self;
+    textView.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    textView.font = UI_FONT_10;
+    textView.linkTextAttributes = @{NSForegroundColorAttributeName:YSSkinDefineColor(@"defaultSelectedBgColor"),NSFontAttributeName:[UIFont systemFontOfSize:10]};
+    textView.editable = NO;
+    textView.scrollEnabled = NO;
+    [self.backImageView addSubview:textView];
+    [textView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.bottom.bmmas_equalTo(-20);
+        make.height.bmmas_equalTo(30);
+        make.width.bmmas_equalTo(250);
+        make.centerX.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_centerX);
+    }];
+    textView.attributedText = attribute;
+
+    // 用户协议
+    UIButton *userAgreement = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.backImageView addSubview:userAgreement];
+    [userAgreement setImage:YSSkinElementImage(@"login_userAgreement", @"iconNor") forState:UIControlStateNormal];
+    [userAgreement setImage:YSSkinElementImage(@"login_userAgreement", @"iconSel") forState:UIControlStateSelected];
+    [userAgreement addTarget:self action:@selector(userAgreementClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [userAgreement bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.right.bmmas_equalTo(textView.bmmas_left).bmmas_offset(-2);
+        make.height.bmmas_equalTo(15);
+        make.width.bmmas_equalTo(15);
+        make.centerY.bmmas_equalTo(textView.bmmas_centerY);
+    }];
+    
+}
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
+    NSLog(@"%@",URL);
+
+    YSWebViewController *webVC = [[YSWebViewController alloc] init];
+    webVC.roteUrl = [URL absoluteString];
+    
+    [self.navigationController pushViewController:webVC animated:YES];
+    return NO;
+}
+
+- (void)userAgreementClicked:(UIButton *)btn
+{
+    btn.selected = !btn.selected;
+    
 }
 
 #pragma mark --键盘弹出收起管理
