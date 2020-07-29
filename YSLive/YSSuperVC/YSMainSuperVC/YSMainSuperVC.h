@@ -67,8 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)getVideoViewCount;
 - (nullable SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId;
 - (nullable SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
-- (nullable SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId;
-- (nullable SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId;
+- (nullable SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId;
+- (nullable NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId;
+- (nullable SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
 - (void)removeAllVideoView;
 
 - (void)userPublishstatechange:(YSRoomUser *)roomUser;

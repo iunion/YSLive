@@ -126,7 +126,7 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 @property (nonatomic, assign) YSSessionMuteState audioMute;
 
 // 开关是否关摄像头
-@property (nonatomic, assign) YSSessionMuteState videomute;
+@property (nonatomic, assign) YSSessionMuteState videoMute;
 
 
 // 老师用

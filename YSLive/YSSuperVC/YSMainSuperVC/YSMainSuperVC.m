@@ -142,8 +142,9 @@
     {
         return;
     }
+    NSDictionary * sourceDict = [videoView.roomUser.sourceListDic bm_dictionaryForKey:videoView.sourceId];
     
-    YSPublishState publishState = videoView.roomUser.publishState1;
+    YSSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
 
     fresh = NO;
@@ -162,12 +163,10 @@
             }
         }
     }
-
     
-    
-    if (publishState & YSUserMediaPublishState_VIDEOONLY)
+    if (newVideoMute == YSSessionMuteState_UnMute)
     {
-        if (fresh || (videoView.publishState != YSUser_PublishState_VIDEOONLY && videoView.publishState != YSUser_PublishState_BOTH))
+        if (fresh || videoView.videoMute == YSSessionMuteState_Mute)
         {
             if (fresh)
             {
@@ -182,7 +181,8 @@
     }
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
-    videoView.publishState = videoView.roomUser.publishState;
+    videoView.audioMute = videoView.roomUser.audioMute;
+    videoView.videoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
 }
 
 - (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
@@ -192,7 +192,9 @@
         return;
     }
 
-    YSUserMediaPublishState publishState = videoView.roomUser.mediaPublishState;
+    NSDictionary * sourceDict = [videoView.roomUser.sourceListDic bm_dictionaryForKey:videoView.sourceId];
+    
+    YSSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
 
     NSString *userId = videoView.roomUser.peerID;
@@ -209,7 +211,7 @@
         }
     }
 
-    if (publishState & YSUserMediaPublishState_VIDEOONLY)
+    if (newVideoMute == YSSessionMuteState_UnMute)
     {
         [self.liveManager stopVideoWithUserId:userId streamID:streamID];
         [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
@@ -221,7 +223,9 @@
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
 
-    videoView.publishState = videoView.roomUser.publishState;
+//    videoView.publishState = videoView.roomUser.publishState;
+    videoView.audioMute = videoView.roomUser.audioMute;
+    videoView.videoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
 }
 
 - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
@@ -235,9 +239,8 @@
     NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
     
     [self.liveManager stopVideoWithUserId:userId streamID:streamID];
-    videoView.publishState = 4;
+    videoView.publishState1 = YSUser_PublishState_DOWN;
 }
-
 
 ///排序后的视频窗口array
 - (void)videoViewsSequence
@@ -275,9 +278,8 @@
     {
         [videoArr removeObject:videoView];
         [self.videoSequenceArr removeObject:videoView];
+        [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
     }
-    
-    [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
 }
 
 
@@ -378,11 +380,9 @@
 }
 
 #pragma mark  删除视频窗口
-
-- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId
+///删除某个设备ID为sourceId的视频窗口
+- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId
 {
-    
-    NSString * sourceId = nil;
     NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     
     SCVideoView *delVideoView = nil;
@@ -402,8 +402,25 @@
     {
         [self stopVideoAudioWithVideoView:delVideoView];
     }
-    
     return delVideoView;
+}
+
+
+- (NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId
+{
+    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
+    
+    for (SCVideoView * videoView in videoArray)
+    {
+         [self deleteVideoViewfromVideoViewArrayDic:videoView];
+            
+            if (videoView)
+            {
+                [self stopVideoAudioWithVideoView:videoView];
+            }
+    }
+    
+    return videoArray;
 }
 
 #pragma mark  删除所有视频窗口

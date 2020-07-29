@@ -231,7 +231,7 @@
     {
         if (isBeginClass)
         {
-            self.upPlatformBtn.selected = userModel.publishState != 0;
+            self.upPlatformBtn.selected = (userModel.publishState1 == YSUser_PublishState_UP);
         }
         else
         {
