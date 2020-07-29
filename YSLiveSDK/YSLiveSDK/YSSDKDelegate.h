@@ -19,7 +19,7 @@
    @param roomType 房间类型
    @param userType 登入用户身份
 */
-- (void)onRoomJoinWithRoomType:(YSRoomUseType)roomType userType:(YSUserRoleType)userType;
+- (void)onRoomJoinWithRoomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType;
 
 /**
     失去连接

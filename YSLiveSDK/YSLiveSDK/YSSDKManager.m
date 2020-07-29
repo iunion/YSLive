@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.8.2";
+static NSString *YSAPPVersionString = @"3.0.1";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.8.2.0";
+static NSString *YSSDKVersionString = @"3.0.1.0";
 
 @interface YSSDKManager ()
 <
@@ -123,7 +123,7 @@ static NSString *YSSDKVersionString = @"2.8.2.0";
 }
 
 
-- (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSRoomUseType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code,NSString *errorStr))failure
+- (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code,NSString *errorStr))failure
 {
        BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
        NSMutableURLRequest *request = [YSLiveApiRequest checkRoomTypeWithRoomId:roomId];
@@ -176,15 +176,15 @@ static NSString *YSSDKVersionString = @"2.8.2.0";
 
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
-    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSUserType_Teacher userId:userId userParams:userParams needCheckPermissions:needCheckPermissions];
+    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSSDKUserType_Teacher userId:userId userParams:userParams needCheckPermissions:needCheckPermissions];
 }
 
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
 {
     return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:userRole userId:userId userParams:userParams needCheckPermissions:YES];
 }
 
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
     self.selectRoleType = userRole;
     if (![self checkKickTimeWithRoomId:roomId])
@@ -212,7 +212,7 @@ static NSString *YSSDKVersionString = @"2.8.2.0";
 
     [self.liveManager setWhiteBoardBackGroundColor:self.whiteBordBgColor maskImage:self.whiteBordMaskImage];
 
-    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
+    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:(YSUserRoleType)userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
 }
@@ -321,7 +321,7 @@ static NSString *YSSDKVersionString = @"2.8.2.0";
     
     if ([self.delegate respondsToSelector:@selector(onRoomJoinWithRoomType:userType:)])
     {
-        [self.delegate onRoomJoinWithRoomType:roomtype userType:self.liveManager.localUser.role];
+        [self.delegate onRoomJoinWithRoomType:(YSSDKUseTheType)roomtype userType:(YSSDKUserRoleType)self.liveManager.localUser.role];
     }
 
     if (isSmallClass)

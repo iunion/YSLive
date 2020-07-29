@@ -34,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 /// 注意：小班课和会议支持老师和学生身份登入房间，直播只支持学生身份
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams;
-- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams;
+- (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 ///探测房间类型接口  3：小班课  4：直播  6：会议
 /**探测房间类型接口  3：小班课  4：直播  6：会议
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
    1、roomType: YSSDKUseTheType 类型，房间类型
    2、needpassword: BOOL类型，参会人员(学生)是否需要密码
  */
-- (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSRoomUseType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code, NSString *errorStr))failure;
+- (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code, NSString *errorStr))failure;
 
 /// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
 - (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;

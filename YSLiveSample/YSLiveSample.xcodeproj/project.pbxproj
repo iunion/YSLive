@@ -9,19 +9,6 @@
 /* Begin PBXBuildFile section */
 		0455F0B9243EB90E00468853 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0B8243EB90E00468853 /* main.m */; };
 		0455F0EC243EB96F00468853 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0C0243EB96E00468853 /* AppDelegate.m */; };
-		0455F0ED243EB96F00468853 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0C2243EB96F00468853 /* YSMeetingResources.bundle */; };
-		0455F0EE243EB96F00468853 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455F0C4243EB96F00468853 /* BMKit.framework */; };
-		0455F0EF243EB96F00468853 /* YSRoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455F0C5243EB96F00468853 /* YSRoomSDK.framework */; };
-		0455F0F0243EB96F00468853 /* YSWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455F0C6243EB96F00468853 /* YSWhiteBoard.framework */; };
-		0455F0F1243EB96F00468853 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0C7243EB96F00468853 /* BMTZImagePickerController.bundle */; };
-		0455F0F2243EB96F00468853 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0C8243EB96F00468853 /* YSWhiteBoardResources.bundle */; };
-		0455F0F3243EB96F00468853 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0C9243EB96F00468853 /* BMKitImage.xcassets */; };
-		0455F0F4243EB96F00468853 /* YSWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0CA243EB96F00468853 /* YSWhiteBoardImage.xcassets */; };
-		0455F0F5243EB96F00468853 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0CB243EB96F00468853 /* BMKitResources.bundle */; };
-		0455F0F6243EB96F00468853 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0CC243EB96F00468853 /* BMDatePicker.nib */; };
-		0455F0F7243EB96F00468853 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0CD243EB96F00468853 /* YSLive.xcassets */; };
-		0455F0F8243EB96F00468853 /* YSResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0CE243EB96F00468853 /* YSResources.bundle */; };
-		0455F0F9243EB96F00468853 /* YSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455F0CF243EB96F00468853 /* YSSDK.framework */; };
 		0455F0FA243EB96F00468853 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0D1243EB96F00468853 /* YSLoginVC.m */; };
 		0455F0FB243EB96F00468853 /* login_join_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D3243EB96F00468853 /* login_join_normal@2x.png */; };
 		0455F0FC243EB96F00468853 /* login_join_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D4243EB96F00468853 /* login_join_normal@3x.png */; };
@@ -42,9 +29,25 @@
 		0455F10B243EB96F00468853 /* YSInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0E5243EB96F00468853 /* YSInputView.m */; };
 		0455F10C243EB96F00468853 /* whiteboardmask_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0E7243EB96F00468853 /* whiteboardmask_iphone@2x.png */; };
 		0455F10E243EB96F00468853 /* YSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0EB243EB96F00468853 /* YSNavigationController.m */; };
-		0455F110243EBA2300468853 /* YSRoomSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0455F0C5243EB96F00468853 /* YSRoomSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0455F112243EBA5C00468853 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455F111243EBA5C00468853 /* libc++.tbd */; };
 		0455F114243EBE7800468853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0455F113243EBE7800468853 /* Assets.xcassets */; };
+		876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4624CFF25A008E9848 /* YSLive.xcassets */; };
+		876BFA5924CFF25B008E9848 /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4724CFF25A008E9848 /* YSSkinRsource.bundle */; };
+		876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */; };
+		876BFA5B24CFF25B008E9848 /* YSSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA4A24CFF25B008E9848 /* YSSession.framework */; };
+		876BFA5C24CFF25B008E9848 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA4C24CFF25B008E9848 /* BMKit.framework */; };
+		876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */; };
+		876BFA5E24CFF25B008E9848 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */; };
+		876BFA5F24CFF25B008E9848 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */; };
+		876BFA6024CFF25B008E9848 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5024CFF25B008E9848 /* BMDatePicker.nib */; };
+		876BFA6124CFF25B008E9848 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5224CFF25B008E9848 /* YSWhiteBoardResources.bundle */; };
+		876BFA6224CFF25B008E9848 /* YSWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5324CFF25B008E9848 /* YSWhiteBoardImage.xcassets */; };
+		876BFA6324CFF25B008E9848 /* YSWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA5424CFF25B008E9848 /* YSWhiteBoard.framework */; };
+		876BFA6424CFF25B008E9848 /* YSWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5524CFF25B008E9848 /* YSWhiteBoardSkin.bundle */; };
+		876BFA6524CFF25B008E9848 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */; };
+		876BFA6624CFF25B008E9848 /* YSResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5724CFF25B008E9848 /* YSResources.bundle */; };
+		876BFA6824CFF298008E9848 /* YSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA6724CFF298008E9848 /* YSSDK.framework */; };
+		876BFA6924CFF2B2008E9848 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D3DBFAE3448A4A1F3E7377 /* libPods-YSLiveSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1924E7809FB026034BC9959 /* libPods-YSLiveSample.a */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +58,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0455F110243EBA2300468853 /* YSRoomSDK.framework in CopyFiles */,
+				876BFA6924CFF2B2008E9848 /* CloudHubRTC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,19 +70,6 @@
 		0455F0B8243EB90E00468853 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0455F0BF243EB96E00468853 /* YSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSNavigationController.h; sourceTree = "<group>"; };
 		0455F0C0243EB96E00468853 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0455F0C2243EB96F00468853 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
-		0455F0C4243EB96F00468853 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
-		0455F0C5243EB96F00468853 /* YSRoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSRoomSDK.framework; sourceTree = "<group>"; };
-		0455F0C6243EB96F00468853 /* YSWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSWhiteBoard.framework; sourceTree = "<group>"; };
-		0455F0C7243EB96F00468853 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
-		0455F0C8243EB96F00468853 /* YSWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		0455F0C9243EB96F00468853 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
-		0455F0CA243EB96F00468853 /* YSWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSWhiteBoardImage.xcassets; sourceTree = "<group>"; };
-		0455F0CB243EB96F00468853 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
-		0455F0CC243EB96F00468853 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
-		0455F0CD243EB96F00468853 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
-		0455F0CE243EB96F00468853 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
-		0455F0CF243EB96F00468853 /* YSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSSDK.framework; sourceTree = "<group>"; };
 		0455F0D1243EB96F00468853 /* YSLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLoginVC.m; sourceTree = "<group>"; };
 		0455F0D3243EB96F00468853 /* login_join_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_normal@2x.png"; sourceTree = "<group>"; };
 		0455F0D4243EB96F00468853 /* login_join_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_normal@3x.png"; sourceTree = "<group>"; };
@@ -108,6 +98,22 @@
 		0455F113243EBE7800468853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09247186120069BD999D4845 /* Pods-YSLiveSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSample.debug.xcconfig"; path = "Target Support Files/Pods-YSLiveSample/Pods-YSLiveSample.debug.xcconfig"; sourceTree = "<group>"; };
 		645F2A39076A7143C5BC4592 /* Pods-YSLiveSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSample.release.xcconfig"; path = "Target Support Files/Pods-YSLiveSample/Pods-YSLiveSample.release.xcconfig"; sourceTree = "<group>"; };
+		876BFA4624CFF25A008E9848 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
+		876BFA4724CFF25A008E9848 /* YSSkinRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinRsource.bundle; sourceTree = "<group>"; };
+		876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
+		876BFA4A24CFF25B008E9848 /* YSSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSSession.framework; sourceTree = "<group>"; };
+		876BFA4C24CFF25B008E9848 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
+		876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
+		876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
+		876BFA5024CFF25B008E9848 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
+		876BFA5224CFF25B008E9848 /* YSWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		876BFA5324CFF25B008E9848 /* YSWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		876BFA5424CFF25B008E9848 /* YSWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSWhiteBoard.framework; sourceTree = "<group>"; };
+		876BFA5524CFF25B008E9848 /* YSWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
+		876BFA5724CFF25B008E9848 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
+		876BFA6724CFF298008E9848 /* YSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSSDK.framework; sourceTree = "<group>"; };
 		B1924E7809FB026034BC9959 /* libPods-YSLiveSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YSLiveSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -117,10 +123,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0455F112243EBA5C00468853 /* libc++.tbd in Frameworks */,
-				0455F0EF243EB96F00468853 /* YSRoomSDK.framework in Frameworks */,
-				0455F0F9243EB96F00468853 /* YSSDK.framework in Frameworks */,
-				0455F0EE243EB96F00468853 /* BMKit.framework in Frameworks */,
-				0455F0F0243EB96F00468853 /* YSWhiteBoard.framework in Frameworks */,
+				876BFA6824CFF298008E9848 /* YSSDK.framework in Frameworks */,
+				876BFA6324CFF25B008E9848 /* YSWhiteBoard.framework in Frameworks */,
+				876BFA6524CFF25B008E9848 /* CloudHubRTC.framework in Frameworks */,
+				876BFA5B24CFF25B008E9848 /* YSSession.framework in Frameworks */,
+				876BFA5C24CFF25B008E9848 /* BMKit.framework in Frameworks */,
 				C4D3DBFAE3448A4A1F3E7377 /* libPods-YSLiveSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,29 +173,14 @@
 		0455F0C1243EB96F00468853 /* YSLib */ = {
 			isa = PBXGroup;
 			children = (
-				0455F0C2243EB96F00468853 /* YSMeetingResources.bundle */,
-				0455F0C3243EB96F00468853 /* expandLib */,
-				0455F0C7243EB96F00468853 /* BMTZImagePickerController.bundle */,
-				0455F0C8243EB96F00468853 /* YSWhiteBoardResources.bundle */,
-				0455F0C9243EB96F00468853 /* BMKitImage.xcassets */,
-				0455F0CA243EB96F00468853 /* YSWhiteBoardImage.xcassets */,
-				0455F0CB243EB96F00468853 /* BMKitResources.bundle */,
-				0455F0CC243EB96F00468853 /* BMDatePicker.nib */,
-				0455F0CD243EB96F00468853 /* YSLive.xcassets */,
-				0455F0CE243EB96F00468853 /* YSResources.bundle */,
-				0455F0CF243EB96F00468853 /* YSSDK.framework */,
+				876BFA4924CFF25B008E9848 /* expandLib */,
+				876BFA6724CFF298008E9848 /* YSSDK.framework */,
+				876BFA4624CFF25A008E9848 /* YSLive.xcassets */,
+				876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */,
+				876BFA5724CFF25B008E9848 /* YSResources.bundle */,
+				876BFA4724CFF25A008E9848 /* YSSkinRsource.bundle */,
 			);
 			path = YSLib;
-			sourceTree = "<group>";
-		};
-		0455F0C3243EB96F00468853 /* expandLib */ = {
-			isa = PBXGroup;
-			children = (
-				0455F0C4243EB96F00468853 /* BMKit.framework */,
-				0455F0C5243EB96F00468853 /* YSRoomSDK.framework */,
-				0455F0C6243EB96F00468853 /* YSWhiteBoard.framework */,
-			);
-			path = expandLib;
 			sourceTree = "<group>";
 		};
 		0455F0D0243EB96F00468853 /* Login */ = {
@@ -233,6 +225,40 @@
 				0455F0E5243EB96F00468853 /* YSInputView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		876BFA4924CFF25B008E9848 /* expandLib */ = {
+			isa = PBXGroup;
+			children = (
+				876BFA4A24CFF25B008E9848 /* YSSession.framework */,
+				876BFA4B24CFF25B008E9848 /* BMKit */,
+				876BFA5124CFF25B008E9848 /* YSWhiteBoard */,
+				876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */,
+			);
+			path = expandLib;
+			sourceTree = "<group>";
+		};
+		876BFA4B24CFF25B008E9848 /* BMKit */ = {
+			isa = PBXGroup;
+			children = (
+				876BFA4C24CFF25B008E9848 /* BMKit.framework */,
+				876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */,
+				876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */,
+				876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */,
+				876BFA5024CFF25B008E9848 /* BMDatePicker.nib */,
+			);
+			path = BMKit;
+			sourceTree = "<group>";
+		};
+		876BFA5124CFF25B008E9848 /* YSWhiteBoard */ = {
+			isa = PBXGroup;
+			children = (
+				876BFA5224CFF25B008E9848 /* YSWhiteBoardResources.bundle */,
+				876BFA5324CFF25B008E9848 /* YSWhiteBoardImage.xcassets */,
+				876BFA5424CFF25B008E9848 /* YSWhiteBoard.framework */,
+				876BFA5524CFF25B008E9848 /* YSWhiteBoardSkin.bundle */,
+			);
+			path = YSWhiteBoard;
 			sourceTree = "<group>";
 		};
 		8EB7B6E57C4A9E9A6897C842 /* Pods */ = {
@@ -312,33 +338,35 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				876BFA5924CFF25B008E9848 /* YSSkinRsource.bundle in Resources */,
 				0455F107243EB96F00468853 /* login_room@2x.png in Resources */,
 				0455F0FF243EB96F00468853 /* login_name@3x.png in Resources */,
+				876BFA6224CFF25B008E9848 /* YSWhiteBoardImage.xcassets in Resources */,
 				0455F106243EB96F00468853 /* login_join_highlight@2x.png in Resources */,
 				0455F0FB243EB96F00468853 /* login_join_normal@2x.png in Resources */,
-				0455F0F4243EB96F00468853 /* YSWhiteBoardImage.xcassets in Resources */,
-				0455F0F3243EB96F00468853 /* BMKitImage.xcassets in Resources */,
 				0455F101243EB96F00468853 /* login_join_disabled@2x.png in Resources */,
-				0455F0F6243EB96F00468853 /* BMDatePicker.nib in Resources */,
 				0455F102243EB96F00468853 /* login_room@3x.png in Resources */,
 				0455F108243EB96F00468853 /* ysall_login_background.png in Resources */,
-				0455F0F2243EB96F00468853 /* YSWhiteBoardResources.bundle in Resources */,
 				0455F10A243EB96F00468853 /* whiteboardmask_ipad@2x.png in Resources */,
 				0455F104243EB96F00468853 /* login_join_highlight@3x.png in Resources */,
 				0455F0FD243EB96F00468853 /* btn_close@2x.png in Resources */,
 				0455F100243EB96F00468853 /* btn_close@3x.png in Resources */,
-				0455F0F5243EB96F00468853 /* BMKitResources.bundle in Resources */,
+				876BFA6124CFF25B008E9848 /* YSWhiteBoardResources.bundle in Resources */,
+				876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */,
+				876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */,
+				876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */,
+				876BFA6024CFF25B008E9848 /* BMDatePicker.nib in Resources */,
+				876BFA6624CFF25B008E9848 /* YSResources.bundle in Resources */,
 				0455F0FC243EB96F00468853 /* login_join_normal@3x.png in Resources */,
 				0455F103243EB96F00468853 /* login_icon@3x.png in Resources */,
 				0455F0FE243EB96F00468853 /* login_name@2x.png in Resources */,
-				0455F0ED243EB96F00468853 /* YSMeetingResources.bundle in Resources */,
+				876BFA5E24CFF25B008E9848 /* BMKitImage.xcassets in Resources */,
 				0455F105243EB96F00468853 /* login_icon@2x.png in Resources */,
 				0455F10C243EB96F00468853 /* whiteboardmask_iphone@2x.png in Resources */,
-				0455F0F7243EB96F00468853 /* YSLive.xcassets in Resources */,
-				0455F0F1243EB96F00468853 /* BMTZImagePickerController.bundle in Resources */,
 				0455F109243EB96F00468853 /* login_join_disabled@3x.png in Resources */,
+				876BFA6424CFF25B008E9848 /* YSWhiteBoardSkin.bundle in Resources */,
 				0455F114243EBE7800468853 /* Assets.xcassets in Resources */,
-				0455F0F8243EB96F00468853 /* YSResources.bundle in Resources */,
+				876BFA5F24CFF25B008E9848 /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +534,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/YSWhiteBoard",
 				);
 				INFOPLIST_FILE = YSLiveSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -549,6 +579,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/YSWhiteBoard",
 				);
 				INFOPLIST_FILE = YSLiveSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

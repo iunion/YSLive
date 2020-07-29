@@ -9,6 +9,27 @@
 #ifndef YSSDKDefine_h
 #define YSSDKDefine_h
 
+/// 用户属性
+typedef NS_ENUM(NSUInteger, YSSDKUserRoleType)
+{
+    YSSDKUserType_Teacher = 0,     //老师
+    //YSSDKUserType_Assistant,       //助教
+    YSSDKSUserType_Student = 2,    //学生
+    //YSSDKSUserType_Live,           //直播
+    YSSDKSUserType_Patrol = 4      //巡课
+};
+
+/// app使用场景  3：小班课  4：直播   6：会议
+typedef NS_ENUM(NSInteger, YSSDKUseTheType)
+{
+    /** 小班课 */
+    YSSDKUseTheType_SmallClass = 3,
+    /** 直播 */
+    YSSDKUseTheType_LiveRoom = 4,
+    /** 会议*/
+    YSSDKUseTheType_Meeting = 6
+};
+
 /// 错误码
 typedef NS_ENUM(NSInteger, YSSDKErrorCode)
 {
