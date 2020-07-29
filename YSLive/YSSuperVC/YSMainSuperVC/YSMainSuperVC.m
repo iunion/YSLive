@@ -239,7 +239,7 @@
     NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
     
     [self.liveManager stopVideoWithUserId:userId streamID:streamID];
-    videoView.publishState1 = YSUser_PublishState_DOWN;
+//    videoView.publishState = YSUser_PublishState_DOWN;
 }
 
 ///排序后的视频窗口array
@@ -429,6 +429,7 @@
 {
 //    [self.videoViewArray removeAllObjects];
     [self.videoViewArrayDic removeAllObjects];
+    [self.videoSequenceArr removeAllObjects];
 }
 
 
@@ -561,10 +562,10 @@
 /// 大房间同步上台用户属性
 - (void)handleSignalingSyncProperty:(YSRoomUser *)roomUser
 {
-    [self userPublishstatechange:roomUser];
+    [self userPublishstatechange:roomUser andSourceId:nil];
 }
 
-- (void)userPublishstatechange:(YSRoomUser *)roomUser
+- (void)userPublishstatechange:(YSRoomUser *)roomUser andSourceId:(NSString *)sourceId
 {
     
 }
@@ -572,19 +573,22 @@
 /// 用户流音量变化
 - (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
 {
-    SCVideoView *view = [self getVideoViewWithPeerId:userId];
-    view.iVolume = volume;
+    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:userId];
+    
+    for (SCVideoView *videoView in videoArray)
+    {
+        videoView.iVolume = volume;
+    }
 }
 
 /// 开关摄像头
 - (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    //SCVideoView *view = [self getVideoViewWithPeerId:uid];
-    //[view freshWithRoomUserProperty:view.roomUser];
+    NSString * sourceId = nil;
     if (close)
     {
         [self onRoomStopVideoOfUid:uid streamID:streamID];
-        SCVideoView *view = [self getVideoViewWithPeerId:uid];
+        SCVideoView *view = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
         [view freshWithRoomUserProperty:view.roomUser];
     }
     else
@@ -596,14 +600,16 @@
 /// 开关麦克风
 - (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
 {
-    SCVideoView *view = [self getVideoViewWithPeerId:uid];
+    NSString * sourceId = nil;
+    SCVideoView *view = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
     [view freshWithRoomUserProperty:view.roomUser];
 }
 
 /// 收到音视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID
 {
-    SCVideoView *videoView = [self getVideoViewWithPeerId:uid];
+    NSString * sourceId = nil;
+    SCVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
     if (videoView)
     {
         YSRoomUser *roomUser = videoView.roomUser;

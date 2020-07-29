@@ -119,9 +119,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;
 
-// 保存发布状态，用于比较是否有变更
-@property (nonatomic, assign) YSPublishState publishState1;
-
 // 开关是否静音
 @property (nonatomic, assign) YSSessionMuteState audioMute;
 

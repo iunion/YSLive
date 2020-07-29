@@ -508,7 +508,7 @@
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
     YSRoomUser * userModel = videoView.roomUser;
-    if (videoView.roomUser.peerID != YSCurrentUser.peerID || userModel.publishState1 == YSUser_PublishState_DOWN)
+    if (videoView.roomUser.peerID != YSCurrentUser.peerID || userModel.publishState == YSUser_PublishState_DOWN)
     {
         return;
     }
@@ -873,7 +873,7 @@
                 {
                     self.liveImageView.hidden = NO;
                     
-                    if (self.liveManager.teacher.publishState1 == YSUser_PublishState_DOWN)
+                    if (self.liveManager.teacher.publishState == YSUser_PublishState_DOWN)
                     {
                         self.liveImageView.image = YSSkinDefineImage(@"live_main_waitingvideo");
                     }
@@ -1163,7 +1163,6 @@
                 [self.liveManager playVideoWithUserId:user.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
             }
         }
-        
         [self freshMediaView];
     }
 }
@@ -1212,9 +1211,9 @@
 
 #pragma mark 用户属性变化
 
-- (void)userPublishstatechange:(YSRoomUser *)roomUser
+- (void)userPublishstatechange:(YSRoomUser *)roomUser andSourceId:(NSString *)sourceId
 {
-    [super userPublishstatechange:roomUser];
+    [super userPublishstatechange:roomUser andSourceId:sourceId];
     
     if (roomUser.role == YSUserType_Teacher)
     {
@@ -1239,7 +1238,7 @@
     }
     
     
-    if (roomUser.publishState1 == YSUser_PublishState_UP)
+    if (roomUser.publishState == YSUser_PublishState_UP)
     {
         [self addVidoeViewWithPeerId:roomUser.peerID];
     }
@@ -1294,7 +1293,17 @@
     // 上台
     if ([properties bm_containsObjectForKey:sYSUserPublishstate])
     {
-        [self userPublishstatechange:roomUser];
+        if ([videoViewArr bm_isNotEmpty])
+        {
+            for (SCVideoView * videoView in videoViewArr)
+            {
+                [self userPublishstatechange:roomUser andSourceId:videoView.sourceId];
+            }
+        }
+        else
+        {
+          [self userPublishstatechange:roomUser andSourceId:nil];
+        }
     }
     
     if ([userId isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
@@ -1353,7 +1362,7 @@
         {
             NSString *peerID = roomUser.peerID;
             
-            if (roomUser.publishState1 == YSUser_PublishState_UP)
+            if (roomUser.publishState == YSUser_PublishState_UP)
             {
                 [self addVidoeViewWithPeerId:peerID];
             }

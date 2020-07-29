@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
 - (void)removeAllVideoView;
 
-- (void)userPublishstatechange:(YSRoomUser *)roomUser;
+- (void)userPublishstatechange:(YSRoomUser *)roomUser andSourceId:(nullable NSString *)sourceId;
 
 @end
 
