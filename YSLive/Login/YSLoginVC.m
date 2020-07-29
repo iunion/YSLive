@@ -69,6 +69,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     UIAlertController *updatAalertVc;
     UIAlertController *eyeCareAlertVc;
+    BOOL isAgreeUserAgreement;//是否同意用户协议
 }
 @property (nonatomic, assign) YSRoomUseType room_UseTheType;
 
@@ -192,6 +193,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     self.selectRoleType = YSUserType_Student;
     self.isOnlineSchool = NO;
+    isAgreeUserAgreement = NO;
     // 主题问题
     [self setupUI];
     
@@ -769,7 +771,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)userAgreementClicked:(UIButton *)btn
 {
     btn.selected = !btn.selected;
-    
+    isAgreeUserAgreement = btn.selected;
 }
 
 #pragma mark --键盘弹出收起管理
@@ -1093,6 +1095,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
+    if (!isAgreeUserAgreement)
+    {
+        [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Agreement.Alert") message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+        return;
+    }
+    
     if (![YSCoreStatus isNetworkEnable])
     {
         [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
