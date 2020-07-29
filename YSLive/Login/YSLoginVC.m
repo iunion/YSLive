@@ -752,8 +752,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [userAgreement addTarget:self action:@selector(userAgreementClicked:) forControlEvents:UIControlEventTouchUpInside];
     [userAgreement bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.right.bmmas_equalTo(textView.bmmas_left).bmmas_offset(-2);
-        make.height.bmmas_equalTo(15);
-        make.width.bmmas_equalTo(15);
+        make.height.bmmas_equalTo(25);
+        make.width.bmmas_equalTo(25);
         make.centerY.bmmas_equalTo(textView.bmmas_centerY);
     }];
     
