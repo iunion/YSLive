@@ -427,7 +427,10 @@
 "EyeProtection.BtnKnow" = "我知道了";
 "EyeProtection.Btnsetup" = "護眼設置";
 
-
+"Agreement.User"        = "用戶協議";
+"Agreement.Privacy"     = "隱私政策";
+"Agreement.Agree"       = "已閱讀並同意《隱私政策》和《用戶協議》";
+"Agreement.Alert"       = "請仔細閱讀並勾選《隱私政策》和《用戶協議》";
 
 "Permissions.notice" = "提醒";
 "Permissions.KickedOutMembers" = "您確定要將該成員踢出出房間嗎？";

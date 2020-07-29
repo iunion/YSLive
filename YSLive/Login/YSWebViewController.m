@@ -38,13 +38,13 @@
     {
         // 隐私政策
         urlStr = @"";
-        title = @"隐私协议";
+        title = YSLocalized(@"Agreement.Privacy");
     }
     else if ([self.roteUrl isEqualToString:YSUserAgreement])
     {
         // 用户协议
         urlStr = @"";
-        title = @"用户协议";
+        title = YSLocalized(@"Agreement.User");
     }
     
     self.bm_NavigationItemTintColor = [UIColor whiteColor];

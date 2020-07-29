@@ -65,14 +65,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YSSetTableViewCell *cell = [YSSetTableViewCell setTableViewCellWithTableView:tableView];
     cell.backgroundColor = [UIColor clearColor];
-    
+
     if (indexPath.row == 0)
     {
-        cell.titleText = @"用户协议";//YSLocalized(@"EyeProtection.Btnsetup");
+        cell.titleText = YSLocalized(@"Agreement.User");
     }
     else if (indexPath.row == 1)
     {
-        cell.titleText = @"隐私条款";//YSLocalized(@"EyeProtection.Btnsetup");
+        cell.titleText = YSLocalized(@"Agreement.Privacy");
     }
     else if (indexPath.row == 2)
     {

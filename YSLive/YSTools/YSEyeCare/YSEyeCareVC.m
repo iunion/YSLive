@@ -156,7 +156,7 @@
     [self.view addSubview:label4];
     [label4 bm_centerHorizontallyInSuperViewWithTop:sliderView.bm_bottom + kBMScale_H(10.0f)];
     self.brightnessLabel = label4;
-    
+#if 0
     UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400.0f, 40.0f)];
     label5.text = YSLocalized(@"EyeProtection.Period");
     label5.font = UI_FONT_18;
@@ -202,6 +202,7 @@
     menu.bm_right = label5.bm_right;
 
     [self.view addSubview:menu];
+#endif
     
 #if 0
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScale_W(200.0f), 50)];

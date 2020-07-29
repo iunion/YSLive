@@ -707,10 +707,24 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }];
 #endif
     
-    NSString *str = @"已阅读并同意《隐私政策》和《用户协议》";
+    NSString *str = YSLocalized(@"Agreement.Agree");//@"已阅读并同意《隐私政策》和《用户协议》";
     NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc] initWithString:str];
-    [attribute addAttribute:NSLinkAttributeName value:YSPrivacyClause range:[str rangeOfString:@"《隐私政策》"]];
-    [attribute addAttribute:NSLinkAttributeName value:YSUserAgreement range:[str rangeOfString:@"《用户协议》"]];
+    
+    NSString *linkStr1 = YSLocalized(@"Agreement.Privacy");//隐私政策
+    NSString *linkStr2 = YSLocalized(@"Agreement.User");// 用户协议
+    // iOS 获取设备当前语言和地区的代码
+    NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
+    
+    if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+    {
+        linkStr1 = [NSString stringWithFormat:@"《%@》",YSLocalized(@"Agreement.Privacy")];//隐私政策
+        linkStr2 = [NSString stringWithFormat:@"《%@》",YSLocalized(@"Agreement.User")];//用户协议
+    }
+
+    
+    
+    [attribute addAttribute:NSLinkAttributeName value:YSPrivacyClause range:[str rangeOfString:linkStr1]];
+    [attribute addAttribute:NSLinkAttributeName value:YSUserAgreement range:[str rangeOfString:linkStr2]];
     
     YSTextView *textView = [[YSTextView alloc] init];
     textView.delegate = self;
