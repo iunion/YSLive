@@ -808,9 +808,9 @@
         self.nickNameLab.text = self.roomUser.nickName;
     }
     
+    YSDeviceFaultType vfail = [self.roomUser getVideoVfailWithSourceId:self.sourceId];
     if (self.isForPerch)
     {
-        YSDeviceFaultType vfail = [self.roomUser getVideoVfailWithSourceId:self.sourceId];
         self.loadingImgView.hidden = (vfail != YSDeviceFaultNone);
         self.backVideoView.hidden = YES;
         
@@ -818,7 +818,7 @@
         if (vfail)
         {
             self.videoDeviceState = vfail;
-            if ([self.roomUser getVideoVfailWithSourceId:self.sourceId] != YSDeviceFaultNone)
+            if (vfail != YSDeviceFaultNone)
             {
                 deviceError = YES;
             }
@@ -881,43 +881,8 @@
         }
 
         // 设备不可用
-        BOOL deviceError = NO;
-
-//        if (!self.roomUser.disableVideo)
-//        {
-//            // 设备禁用
-//            deviceError = YES;
-//            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
-//        }
-        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserVideoFail])
-        {
-            if ([self.roomUser.properties bm_boolForKey:sYSUserHasVideo])
-            {
-                self.videoDeviceState = self.roomUser.vfail;
-                if (self.roomUser.vfail != YSDeviceFaultNone)
-                {
-                    deviceError = YES;
-                }
-            }
-            else
-            {
-                deviceError = YES;
-                // 设备禁用
-                self.videoDeviceState = YSDeviceFaultNotFind;
-            }
-        }
-        else
-        {
-            if (!deviceError && ![self.roomUser.properties bm_boolForKey:sYSUserHasVideo])
-            {
-                // 无设备
-                deviceError = YES;
-                // 设备禁用
-                self.videoDeviceState = YSDeviceFaultNotFind;
-            }
-        }
-
-        if (deviceError)
+        self.videoDeviceState = vfail;
+        if (vfail != YSDeviceFaultNone)
         {
             self.videoState |= SCVideoViewVideoState_DeviceError;
         }
@@ -925,9 +890,53 @@
         {
             self.videoState &= ~SCVideoViewVideoState_DeviceError;
         }
+        
 
-        YSPublishState publishState = [self.roomUser.properties bm_intForKey:sYSUserPublishstate];
-        if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_ONSTAGE)
+//        if (!self.roomUser.disableVideo)
+//        {
+//            // 设备禁用
+//            deviceError = YES;
+//            self.videoDeviceState = SCVideoViewVideoDeviceState_Disable;
+//        }
+//        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserVideoFail])
+//        {
+//            if ([self.roomUser.properties bm_boolForKey:sYSUserHasVideo])
+//            {
+//                self.videoDeviceState = vfail;
+//                if (vfail != YSDeviceFaultNone)
+//                {
+//                    deviceError = YES;
+//                }
+//            }
+//            else
+//            {
+//                deviceError = YES;
+//                // 设备禁用
+//                self.videoDeviceState = YSDeviceFaultNotFind;
+//            }
+//        }
+//        else
+//        {
+//            if (!deviceError && ![self.roomUser.properties bm_boolForKey:sYSUserHasVideo])
+//            {
+//                // 无设备
+//                deviceError = YES;
+//                // 设备禁用
+//                self.videoDeviceState = YSDeviceFaultNotFind;
+//            }
+//        }
+
+//        if (deviceError)
+//        {
+//            self.videoState |= SCVideoViewVideoState_DeviceError;
+//        }
+//        else
+//        {
+//            self.videoState &= ~SCVideoViewVideoState_DeviceError;
+//        }
+
+        
+        if ([self.roomUser getVideoMuteWithSourceId:self.sourceId] == YSSessionMuteState_Mute)
         {
             // 关闭视频
             self.videoState |= SCVideoViewVideoState_Close;
@@ -960,44 +969,8 @@
         }
         
         // 音频相关
-        
-        // 设备不可用
-        deviceError = NO;
-//        if (!self.roomUser.disableAudio)
-//        {
-//            // 设备禁用
-//            deviceError = YES;
-//            self.audioDeviceState = SCVideoViewAudioDeviceState_Disable;
-//        }
-        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserAudioFail])
-        {
-            if ([self.roomUser.properties bm_boolForKey:sYSUserHasAudio])
-            {
-                self.audioDeviceState = self.roomUser.afail;
-                if (self.roomUser.afail != YSDeviceFaultNone)
-                {
-                    deviceError = YES;
-                }
-            }
-            else
-            {
-                deviceError = YES;
-                self.audioDeviceState = YSDeviceFaultNotFind;
-            }
-        }
-        else
-        {
-            
-            if (!deviceError && ![self.roomUser.properties bm_boolForKey:sYSUserHasAudio])
-            {
-                // 无设备
-                deviceError = YES;
-                // 设备禁用
-                self.audioDeviceState = YSDeviceFaultNotFind;
-            }
-        }
-
-        if (deviceError)
+        self.audioDeviceState = self.roomUser.afail;
+        if (self.roomUser.afail != YSDeviceFaultNone)
         {
             self.audioState |= SCVideoViewAudioState_DeviceError;
         }
@@ -1005,8 +978,50 @@
         {
             self.audioState &= ~SCVideoViewAudioState_DeviceError;
         }
+        
+        
+        // 设备不可用
+//        deviceError = NO;
 
-        if (publishState == YSUser_PublishState_VIDEOONLY || publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && self.roomUser.role != YSUserType_Teacher))
+//        if ([self.roomUser.properties bm_containsObjectForKey:sYSUserAudioFail])
+//        {
+//            if ([self.roomUser.properties bm_boolForKey:sYSUserHasAudio])
+//            {
+//                self.audioDeviceState = self.roomUser.afail;
+//                if (self.roomUser.afail != YSDeviceFaultNone)
+//                {
+//                    deviceError = YES;
+//                }
+//            }
+//            else
+//            {
+//                deviceError = YES;
+//                self.audioDeviceState = YSDeviceFaultNotFind;
+//            }
+//        }
+//        else
+//        {
+//
+//            if (!deviceError && ![self.roomUser.properties bm_boolForKey:sYSUserHasAudio])
+//            {
+//                // 无设备
+//                deviceError = YES;
+//                // 设备禁用
+//                self.audioDeviceState = YSDeviceFaultNotFind;
+//            }
+//        }
+
+//        if (deviceError)
+//        {
+//            self.audioState |= SCVideoViewAudioState_DeviceError;
+//        }
+//        else
+//        {
+//            self.audioState &= ~SCVideoViewAudioState_DeviceError;
+//        }
+
+
+        if (self.roomUser.audioMute == YSSessionMuteState_Mute)
         {
             // 关闭音频
             self.audioState |= SCVideoViewAudioState_Close;

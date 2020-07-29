@@ -126,14 +126,13 @@
 - (void)setupUI
 {
     [self.backView bm_removeAllSubviews];
-    YSPublishState publishState = [self.userModel.properties bm_intForKey:sYSUserPublishstate];
     
     //音频控制按钮
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
     self.audioBtn.disabledImage = YSSkinElementImage(@"videoPop_soundButton", @"iconDis");
     self.audioBtn.disabledText = YSLocalized(@"Button.MutingAudio");
     self.audioBtn.tag = SCVideoViewControlTypeAudio;
-    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
+    if (self.userModel.audioMute == YSSessionMuteState_UnMute)
     {
         self.audioBtn.selected = YES;
     }
@@ -147,7 +146,7 @@
     UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     self.videoBtn.disabledImage = videoClose;
     self.videoBtn.tag = SCVideoViewControlTypeVideo;
-    if (publishState == YSUser_PublishState_VIDEOONLY || publishState == YSUser_PublishState_BOTH)
+    if ([self.userModel getVideoMuteWithSourceId:self.sourceId] == YSSessionMuteState_UnMute)
     {
         self.videoBtn.selected = YES;
     }
@@ -179,14 +178,14 @@
     UIImage * mirrorClose = [YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     self.mirrorBtn.disabledImage = mirrorClose;
     self.mirrorBtn.tag = SCVideoViewControlTypeMirror;
-    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
-    {
-        self.mirrorBtn.selected = YES;
-    }
-    else
-    {
-        self.mirrorBtn.selected = NO;
-    }
+//    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
+//    {
+//        self.mirrorBtn.selected = YES;
+//    }
+//    else
+//    {
+//        self.mirrorBtn.selected = NO;
+//    }
     
     //复位控制按钮
     BMImageTitleButtonView  * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
@@ -247,7 +246,6 @@
                 [self.btnArray addObject:self.videoBtn];
                 [self.btnArray addObject:self.mirrorBtn];
 //                [self.btnArray addObject:self.allGiftCupBtn];
-
             }
             else
             {
@@ -397,8 +395,7 @@
     }
 
     //没有摄像头、麦克风权限时的显示禁用状态
-    if ([self.userModel.properties bm_containsObjectForKey:sYSUserVideoFail])
-    {
+
         if (self.userModel.afail == YSDeviceFaultNone)
         {
             self.audioBtn.enabled = !self.isAllNoAudio;
@@ -407,51 +404,26 @@
         {
             self.audioBtn.enabled = NO;
         }
-        if (self.userModel.vfail == YSDeviceFaultNone)
-        {
-            self.videoBtn.enabled = YES;
-            self.mirrorBtn.enabled = YES;
-        }
-        else
-        {
-            self.videoBtn.enabled = NO;
-            self.mirrorBtn.enabled = NO;
-        }
-    }
-    else
-    {
-        
-        
-        if ([self.userModel.properties bm_boolForKey:sYSUserHasAudio])
-        {
-            self.audioBtn.enabled = !self.isAllNoAudio;
-        }
-        else
-        {
-            self.audioBtn.enabled = NO;
-        }
-        if ([self.userModel.properties bm_boolForKey:sYSUserHasVideo])
-        {
-            self.videoBtn.enabled = YES;
-            self.mirrorBtn.enabled = YES;
-        }
-        else
-        {
-            self.videoBtn.enabled = NO;
-            self.mirrorBtn.enabled = NO;
-        }
-    }
     
+    if ([self.userModel getVideoVfailWithSourceId:self.sourceId] == YSDeviceFaultNone)
+        {
+            self.videoBtn.enabled = YES;
+            self.mirrorBtn.enabled = YES;
+        }
+        else
+        {
+            self.videoBtn.enabled = NO;
+            self.mirrorBtn.enabled = NO;
+        }
 }
 
 
 - (void)userBtnsClick:(BMImageTitleButtonView *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(videoViewControlBtnsClick:videoViewControlType:)])
+    if ([self.delegate respondsToSelector:@selector(videoViewControlBtnsClick:videoViewControlType:withSourceId:)])
     {
-        [self.delegate videoViewControlBtnsClick:sender videoViewControlType:sender.tag];
+        [self.delegate videoViewControlBtnsClick:sender videoViewControlType:sender.tag withSourceId:self.sourceId];
     }
-    
 }
 
 - (void)setVideoMirrorMode:(CloudHubVideoMirrorMode)videoMirrorMode

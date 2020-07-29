@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSControlPopoverViewDelegate <NSObject>
 
-- (void)videoViewControlBtnsClick:(BMImageTitleButtonView*)sender videoViewControlType:(SCVideoViewControlType)videoViewControlType;
+- (void)videoViewControlBtnsClick:(BMImageTitleButtonView*)sender videoViewControlType:(SCVideoViewControlType)videoViewControlType withSourceId:(NSString *)sourceId;
 @end
 
 
@@ -59,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 当前的用户视频的镜像状态
 @property(nonatomic, assign) CloudHubVideoMirrorMode videoMirrorMode;
+
+/// 当前视频窗口的sourceId
+@property(nonatomic, assign) NSString *sourceId;
 
 @end
 
