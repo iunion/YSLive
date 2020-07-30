@@ -176,7 +176,7 @@ static NSString *YSSDKVersionString = @"3.0.1.0";
 
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
-    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSSDKUserType_Teacher userId:userId userParams:userParams needCheckPermissions:needCheckPermissions];
+    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSSDKSUserType_Student userId:userId userParams:userParams needCheckPermissions:needCheckPermissions];
 }
 
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams

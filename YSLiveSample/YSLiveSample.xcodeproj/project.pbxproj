@@ -527,6 +527,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 09247186120069BD999D4845 /* Pods-YSLiveSample.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
@@ -572,6 +573,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 645F2A39076A7143C5BC4592 /* Pods-YSLiveSample.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
