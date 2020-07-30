@@ -28,12 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 ///成为焦点的用户的peerID
 @property (nullable,nonatomic, copy) NSString *foucePeerId;
 
-/// 视频View列表
+/// 排序后的视频View列表
 @property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;
 
 /// 老师视频
-@property (nullable, nonatomic, strong) SCVideoView *teacherVideoView;
+//@property (nullable, nonatomic, strong) SCVideoView *teacherVideoView;
+@property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *teacherVideoViewArray;
 /// 自己视频
 @property (nullable, nonatomic, strong) SCVideoView *myVideoView;
 
@@ -49,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showEyeCareRemind;
 
-///排序后的视频窗口array
+///视频窗口排序后存储为array
 - (void)videoViewsSequence;
 
 ///给videoViewArrayDic中添加视频
@@ -65,14 +66,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (NSUInteger)getVideoViewCount;
-- (nullable SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId;
-- (nullable SCVideoView *)addVidoeViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
+- (nullable NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId;
+- (nullable NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
 - (nullable SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId;
 - (nullable NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId;
 - (nullable SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
 - (void)removeAllVideoView;
 
-- (void)userPublishstatechange:(YSRoomUser *)roomUser andSourceId:(nullable NSString *)sourceId;
+- (void)userPublishstatechange:(YSRoomUser *)roomUser;
 
 @end
 

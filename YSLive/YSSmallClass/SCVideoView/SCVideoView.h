@@ -126,13 +126,13 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 @property (nonatomic, assign) YSSessionMuteState videoMute;
 
 
-// 老师用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withDelegate:(id<SCVideoViewDelegate>)delegate;
+/// 老师用
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate;
 
-// 学生用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser;
+/// 学生用
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch;
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId;
 
 - (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser;
 

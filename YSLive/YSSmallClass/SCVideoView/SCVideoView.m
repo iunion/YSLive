@@ -80,12 +80,12 @@
 @implementation SCVideoView
 
 // 老师用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withDelegate:(id<SCVideoViewDelegate>)delegate
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate
 {
-    return [self initWithRoomUser:roomUser isForPerch:NO withDelegate:delegate];
+    return [self initWithRoomUser:roomUser withSourceId:sourceId isForPerch:NO withDelegate:delegate];
 }
 
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate
 {
     self = [super init];
 
@@ -94,6 +94,7 @@
         self.delegate = delegate;
         
         self.roomUser = roomUser;
+        self.sourceId = sourceId;
         self.isForPerch = isForPerch;
         
         if ([UIDevice bm_isiPad])
@@ -140,17 +141,18 @@
 }
 
 // 学生用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId
 {
-    return [self initWithRoomUser:roomUser isForPerch:NO];
+    return [self initWithRoomUser:roomUser withSourceId:sourceId isForPerch:NO];
 }
 
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch
 {
     self = [super init];
     if (self)
     {
         self.roomUser = roomUser;
+        self.sourceId = sourceId;
         self.isForPerch = isForPerch;
 
         if ([UIDevice bm_isiPad])
@@ -800,7 +802,6 @@
     {
         return;
     }
-    
     self.roomUser = roomUser;
 
     if (![self.roomUser.peerID isEqualToString:@"0"])
