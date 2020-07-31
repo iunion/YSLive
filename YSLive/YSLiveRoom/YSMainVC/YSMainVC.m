@@ -1594,14 +1594,8 @@
     }
     else
     {
-        NSDictionary *videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:mediaModel.senderId];
-        if ([videoType_sourceID bm_isNotEmpty])
-        {
-            CloudHubMediaType videoType = [videoType_sourceID bm_intForKey:mediaModel.sourceID];
-            [self.liveManager playVideoWithUserId:mediaModel.senderId videoType:videoType sourceID:mediaModel.sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
-        }
+        [self.liveManager playVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
 
-        
         if (self.isFullScreen)
         {
             // 如果是全屏，点击按钮进入小屏状态
@@ -1621,12 +1615,7 @@
     
     if (mediaModel.isVideo)
     {
-        NSDictionary *videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:mediaModel.senderId];
-        if ([videoType_sourceID bm_isNotEmpty])
-        {
-            CloudHubMediaType videoType = [videoType_sourceID bm_intForKey:mediaModel.sourceID];
-            [self.liveManager stopVideoWithUserId:mediaModel.senderId videoType:videoType sourceID:mediaModel.sourceID];
-        }
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID];
         
         self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;

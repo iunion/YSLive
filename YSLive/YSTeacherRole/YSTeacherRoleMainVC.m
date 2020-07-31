@@ -3637,9 +3637,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView.hidden = NO;
     self.mp4ControlView.mediaFileModel = mediaModel;
     self.closeMp4Btn.hidden = NO;
-    NSDictionary *mediaType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:mediaModel.senderId];
-    CloudHubMediaType mediaType = [mediaType_sourceID bm_intForKey:mediaModel.sourceID];
-    [self.liveManager playVideoWithUserId:mediaModel.senderId videoType:mediaType sourceID:mediaModel.sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
 
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
@@ -3660,9 +3658,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isMp4Play = NO;
     if (mediaModel.isVideo)
     {
-        NSDictionary *mediaType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:mediaModel.senderId];
-        CloudHubMediaType mediaType = [mediaType_sourceID bm_intForKey:mediaModel.sourceID];
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId videoType:mediaType sourceID:mediaModel.sourceID];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID];
     }
     
     self.shareVideoFloatView.canZoom = NO;
