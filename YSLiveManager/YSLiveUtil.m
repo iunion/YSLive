@@ -79,6 +79,12 @@
     NSString *alertMessage = nil;
     switch (errorCode)
     {
+        case YSErrorCode_JoinGroupRoom_RequestFailed:
+        { // 900  客户端只能以学生身份进入分组房间
+            alertMessage = YSLocalized(@"Error.JoinGroupRoom");
+        }
+            break;
+
         case YSErrorCode_CheckRoom_ServerOverdue:
         { // 3001  服务器过期
             alertMessage = YSLocalized(@"Error.ServerExpired");
