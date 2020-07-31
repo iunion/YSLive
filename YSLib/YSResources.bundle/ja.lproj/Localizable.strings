@@ -10,6 +10,7 @@
 "Error.NoMeeting" = "教室番号が存在しません";
 "Error.NoLiving" = "ライブ配信が存在しません";
 "Error.NotSupportThisType" = "そのライブのタイプはサポートしていません。コンピューター端末でログインしてください";
+"Error.JoinGroupRoom" = "Not support enter this type of room";
 "Error.ServerExpired" = "サーバー期限切れ";
 "Error.CheckmeetingFail" = "会議チェックエラー";
 "Error.CheckserverInformationFail" = "サーバー情報読み取り失敗";

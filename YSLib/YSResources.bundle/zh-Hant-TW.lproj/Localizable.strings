@@ -14,6 +14,7 @@
 "Error.NoMeeting" = "會議不存在";
 "Error.NoLiving" = "直播不存在";
 "Error.NotSupportThisType" = "不支持這種直播類型，請用電腦端登錄";
+"Error.JoinGroupRoom" = "不支持登入該類型教室";
 "Error.ServerExpired" = "服務器過期";
 "Error.CheckmeetingFail" = "檢查會議失敗";
 "Error.CheckserverInformationFail" = "獲取伺服器信息失敗";

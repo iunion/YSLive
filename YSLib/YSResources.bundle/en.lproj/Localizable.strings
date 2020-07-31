@@ -14,6 +14,7 @@
 "Error.NoMeeting" = "The room doesn't exist.";
 "Error.NoLiving" = "Cannot find this Living";
 "Error.NotSupportThisType" = "Do't Support this Live's type, please use computer login";
+"Error.JoinGroupRoom" = "Not support enter this type of room";
 "Error.ServerExpired" = "Server has expired!";
 "Error.CheckmeetingFail" = "Check meeting fail";
 "Error.CheckserverInformationFail" = "Failed to get server information";
