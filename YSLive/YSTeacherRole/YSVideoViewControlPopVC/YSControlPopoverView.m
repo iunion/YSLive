@@ -195,7 +195,8 @@
     //成为焦点按钮
     self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") image:YSSkinElementImage(@"videoPop_fouceButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_fouceButton", @"iconSel")];
     self.fouceBtn.tag = SCVideoViewControlTypeFouce;
-    if ([self.userModel.peerID isEqualToString:self.foucePeerId])
+    
+    if ([self.foucePeerId isEqualToString:self.userModel.peerID] && [self.fouceSourceId isEqualToString:self.sourceId])
     {
         self.fouceBtn.selected = YES;
     }

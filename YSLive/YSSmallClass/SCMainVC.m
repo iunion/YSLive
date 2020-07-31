@@ -498,7 +498,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         defaultRoomLayout = YSRoomLayoutType_VideoLayout;
         self.roomLayout = defaultRoomLayout;
-        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil];
+        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil withSourceId:nil];
     }
     else
     {
@@ -1155,7 +1155,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #warning handleSignalingTorefeshCourseware
 }
 
-
 - (UIButton *)raiseHandsBtn
 {
     if (!_raiseHandsBtn)
@@ -1268,25 +1267,35 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (count < 8)
     {
-        totalWidth = count*(videoWidth+VIDEOVIEW_GAP*0.5);
+        videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
+        
+        totalWidth = count*(videoWidth + VIDEOVIEW_GAP*0.5) - VIDEOVIEW_GAP*0.5;
     }
-//    else if (count < 26)
-//    {
-//        NSInteger num = 0;
-//        if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
-//        {
-//            num = (count - 1)/2 + (count - 1)%2;
-//            totalWidth = videoTeacherWidth + num * (videoWidth + VIDEOVIEW_GAP/2);
-//        }
-//        else
-//        {
-//            num = count/2 + count%2;
-//            totalWidth = num * (videoWidth + VIDEOVIEW_GAP/2);
-//        }
-//    }
+    else
+    {
+        videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * (count + 1))/count);
+        totalWidth = self.contentWidth - VIDEOVIEW_GAP;
+    }
+
     return totalWidth;
 }
 
+- (NSInteger)getVideoViewWidthAndHeigh
+{
+    CGFloat scale = 0;
+    if (self.isWideScreen)
+    {
+        scale = 16.0/9.0;
+    }
+    else
+    {
+        scale = 4.0/3.0;
+    }
+    
+    NSInteger width = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
+    NSInteger height = ceil(width / scale);
+    return height;
+}
 
 - (void)calculateFloatVideoSize
 {
@@ -1310,7 +1319,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     floatVideoMinWidth = floatVideoMinHeight * scale;
 }
 
-// 计算视频尺寸，除老师视频
+// 计算视频和白板尺寸，除老师视频
 - (void)calculateVideoSize
 {
     if (self.roomtype == YSRoomUserType_One)
@@ -1357,18 +1366,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         
         NSUInteger count = [self getVideoViewCount];
-        videoTeacherWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
-        videoTeacherHeight = ceil(videoTeacherWidth / scale);
+        
+        NSInteger teacherWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
+        
+        videoTeacherHeight = ceil(teacherWidth / scale);
         if (count < 8)
         {
-            videoWidth = videoTeacherWidth;
-            videoHeight = videoTeacherHeight;
+            videoTeacherWidth = teacherWidth;
         }
         else
         {
-            videoHeight = ceil((videoTeacherHeight - VIDEOVIEW_GAP * 0.5)/2.0);
-            videoWidth = ceil(videoHeight * scale);
+            videoTeacherWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * (count + 1))/count);
         }
+        
+        videoWidth = videoTeacherWidth;
+        videoHeight = videoTeacherHeight;
        
         if ((self.contentHeight - STATETOOLBAR_HEIGHT - videoTeacherHeight - VIDEOVIEW_GAP) * 2 >= self.contentWidth)
         {
@@ -1617,11 +1629,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        CGFloat totalWidth = [self getVideoTotalWidth];
-        videoStartX = (self.contentWidth-totalWidth)*0.5;
-        
-        NSInteger count = [self getVideoViewCount];
+        NSUInteger count = [self getVideoViewCount];
+
         NSUInteger index = 0;
+        
+//        videoHeight = [self getVideoViewWidthAndHeigh];
+        
         for (int i = 0; i < self.videoSequenceArr.count; i++)
         {
             SCVideoView *view = self.videoSequenceArr[i];
@@ -1632,40 +1645,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             
             if (count < 8)
-             {
-                 view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
-             }
-//            else if (count < 26)
-//            {
-//                // 老师没被拖出
-//                if (self.teacherVideoView && !self.teacherVideoView.isDragOut && !self.teacherVideoView.isFullScreen)
-//                {
-//                    if (i == 0)
-//                    {
-//                        view.frame = CGRectMake(videoStartX, VIDEOVIEW_GAP*0.5, videoTeacherWidth, videoTeacherHeight);
-//                    }
-//                    else
-//                    {
-//                        NSInteger lineNum = (index - 1) % 2;//学生的行数
-//                        NSInteger arrangeNum = (index - 1) / 2;//学生的列数
-//
-//                        CGFloat videoX = videoStartX + videoTeacherWidth + VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * arrangeNum;
-//                        CGFloat videoY = VIDEOVIEW_GAP*0.5 + (videoHeight + VIDEOVIEW_GAP * 0.5) * lineNum;
-//
-//                        view.frame = CGRectMake(videoX, videoY, videoWidth, videoHeight);
-//                    }
-//                }
-//                else
-//                {
-//                    NSInteger lineNum = index % 2;//学生的行数
-//                    NSInteger arrangeNum = index / 2;//学生的列数
-//
-//                    CGFloat videoX = videoStartX + VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * arrangeNum;
-//                    CGFloat videoY = VIDEOVIEW_GAP*0.5 + (videoHeight + VIDEOVIEW_GAP * 0.5) * lineNum;
-//
-//                    view.frame = CGRectMake(videoX, videoY, videoWidth, videoHeight);
-//                }
-//            }
+            {
+//                videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
+                CGFloat totalWidth = count*(videoWidth + VIDEOVIEW_GAP*0.5) - VIDEOVIEW_GAP*0.5;
+                videoStartX = (self.contentWidth-totalWidth)*0.5;
+                
+                view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
+            }
+            else
+            {
+//                videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * (count + 1))/count);
+                view.frame = CGRectMake(VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
+            }
             index++;
         }
     }
@@ -1959,7 +1950,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else if (delVideoView.isFullScreen)
         {
-            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
+            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil withSourceId:nil isFull:NO];
         }
         else
         {
@@ -1968,16 +1959,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     return delVideoView;
-}
-
-#pragma mark  删除所有视频窗口
-
-- (void)removeAllVideoView
-{
-    [super removeAllVideoView];
-    
-    [self hideAllDragOutVidoeView];
-    [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
 }
 
 #pragma mark  获取拖出的浮动窗口
@@ -2860,12 +2841,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.lessonTime = str;
 }
 
-
-#pragma mark -
-#pragma mark YSWhiteBoardManagerDelegate
-
-
-
 #pragma mark -
 #pragma mark YSLiveRoomManagerDelegate
 
@@ -2891,14 +2866,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
 }
 
-
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
     self.spreadBottomToolBar.userEnable = NO;
     [self.view bringSubviewToFront:self.spreadBottomToolBar];
 #if 0
-    [self removeAllVideoView];
     
     if (self.isWhitebordFullScreen)
     {
@@ -2910,13 +2883,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     BOOL canDraw = NO;
     if (self.roomLayout == YSRoomLayoutType_VideoLayout || self.roomLayout == YSRoomLayoutType_FocusLayout)
     {
-//        self.coursewareBtn.hidden =
         self.brushToolView.hidden = YES;
         self.drawBoardView.hidden = YES;
     }
     else
     {
-//        self.coursewareBtn.hidden = YES;
         self.brushToolView.hidden = !canDraw;
         if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
         {
@@ -3018,9 +2989,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if ([self.fouceView.roomUser.peerID isEqualToString:user.peerID])
         {
             self.roomLayout = YSRoomLayoutType_VideoLayout;
+            [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID withSourceId:self.fouceView.sourceId];
             self.fouceView = nil;
+            self.fouceSourceId = nil;
             self.foucePeerId = nil;
-            [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID];
         }
     }
 }
@@ -3612,7 +3584,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark - 窗口布局变化
-- (void)handleSignalingSetRoomLayout:(YSRoomLayoutType)roomLayout withPeerId:(nullable NSString *)peerId
+- (void)handleSignalingSetRoomLayout:(YSRoomLayoutType)roomLayout withPeerId:(nullable NSString *)peerId withSourceId:(nullable NSString *)sourceId
 {
     self.roomLayout = roomLayout;
     
@@ -3634,14 +3606,28 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.drawBoardView.hidden = NO;
     }
     
-    if (roomLayout == YSRoomLayoutType_FocusLayout && peerId)
+    if (roomLayout == YSRoomLayoutType_FocusLayout && [peerId bm_isNotEmpty])
     {
-        for (SCVideoView *videoView in self.videoSequenceArr)
+        if ([sourceId bm_isNotEmpty])
         {
-            if ([videoView.roomUser.peerID isEqualToString:peerId])
+            for (SCVideoView *videoView in self.videoSequenceArr)
             {
-                self.fouceView = videoView;
-                break;
+                if ([videoView.sourceId isEqualToString:sourceId])
+                {
+                    self.fouceView = videoView;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            for (SCVideoView *videoView in self.videoSequenceArr)
+            {
+                if ([videoView.roomUser.peerID isEqualToString:peerId])
+                {
+                    self.fouceView = videoView;
+                    break;
+                }
             }
         }
         if (![self.fouceView bm_isNotEmpty])
@@ -3655,7 +3641,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingDefaultRoomLayout
 {
-    [self handleSignalingSetRoomLayout:defaultRoomLayout withPeerId:nil];
+    [self handleSignalingSetRoomLayout:defaultRoomLayout withPeerId:nil withSourceId:nil];
 }
 
 #if USE_FullTeacher
@@ -3793,18 +3779,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         CGFloat x = percentLeft * (self.contentWidth - 2 - floatVideoDefaultWidth);
         CGFloat y = percentTop * (background.bm_height - 2 - floatVideoDefaultHeight);
-        if (x <= 0) {
+        if (x <= 0)
+        {
             x = 1.0;
         }
         CGPoint point = CGPointMake(x, y);
         self.fullTeacherFloatView.frame = CGRectMake(point.x, point.y, floatVideoDefaultWidth, floatVideoDefaultHeight);
         
         // 支持本地拖动缩放
-//        self.fullTeacherFloatView.canGestureRecognizer = YES;
         [self.fullTeacherFloatView bm_bringToFront];
         self.fullTeacherFloatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
         self.fullTeacherFloatView.maxSize = background.bm_size;
         self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
+        self.fullTeacherFloatView.sourceId = sYSUserDefaultSourceId;
     }
 }
 #endif
@@ -3812,7 +3799,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 
 /// 拖出/放回视频窗口
-- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(NSDictionary *)data
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(nonnull NSDictionary *)data
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
     
@@ -3838,14 +3825,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     NSString *peerId = [data bm_stringForKey:@"userId"];
 
+    NSString *sourceId = [data bm_stringForKey:@"sourceId"];
+    
     CGFloat percentLeft = [data bm_floatForKey:@"percentLeft"];
     
     CGFloat percentTop = [data bm_floatForKey:@"percentTop"];
     
     CGFloat endScale = [data bm_floatForKey:@"scale"];
-    
-    NSString *sourceId = nil;
-    
+        
     SCVideoView *videoView = [self getVideoViewWithPeerId:peerId andSourceId:sourceId];
     if (videoView.isDragOut)
     {
@@ -3856,7 +3843,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         CGFloat x = percentLeft * (self.whiteBordView.bm_width - floatViewSize.width);
         CGFloat y = percentTop * (self.whiteBordView.bm_height - floatViewSize.height);
         
-//
         floatView.frame = CGRectMake(x, y, floatViewSize.width, floatViewSize.height);
         [floatView bm_bringToFront];
         return;
@@ -3973,14 +3959,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 双击视频最大化
-- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId isFull:(BOOL)isFull;
+- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId withSourceId:(nullable NSString *)sourceId isFull:(BOOL)isFull
 {
     self.isDoubleVideoBig = isFull;
     if (isFull)
     {
         if (self.doubleFloatView)
         {
-            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil isFull:NO];
+            [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil withSourceId:nil isFull:NO];
         }
         
         NSString *sourceId = nil;
@@ -4808,7 +4794,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     self.controlPopoverView.roomtype = self.roomtype;
     self.controlPopoverView.isDragOut = videoView.isDragOut;
-    self.controlPopoverView.foucePeerId = self.foucePeerId;
+    self.controlPopoverView.fouceSourceId = self.fouceSourceId;
+    self.controlPopoverView.foucePeerId = videoView.roomUser.peerID;
     self.controlPopoverView.userModel = userModel;
     self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }

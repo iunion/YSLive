@@ -69,6 +69,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -109,22 +110,15 @@
 - (NSUInteger)getVideoViewCount
 {
     NSUInteger count = 0;
-    
-    NSArray * keyArray = self.videoViewArrayDic.allKeys;
-    
-    for (NSString * peerId in keyArray)
+
+    for (SCVideoView *videoView in self.videoSequenceArr)
     {
-        NSMutableArray * mutArr = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
-        count += mutArr.count;
+        if (!videoView.isDragOut && !videoView.isFullScreen)
+        {
+            count++;
+        }
     }
-    
-//    for (SCVideoView *videoView in self.videoViewArray)
-//    {
-//        if (!videoView.isDragOut && !videoView.isFullScreen)
-//        {
-//            count++;
-//        }
-//    }
+
     return count;
 }
 
@@ -261,8 +255,6 @@
             [self.videoSequenceArr insertObject:teacherVideo atIndex:0];
         }
     }
-    
-//    return videoArray;
 }
 
 ///给videoViewArrayDic中添加视频
@@ -409,7 +401,7 @@
 
 #pragma mark  删除视频窗口
 ///删除某个设备ID为sourceId的视频窗口
-- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId
+- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
 {
     NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     
@@ -434,31 +426,22 @@
 }
 
 
-- (NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId
-{
-    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
-    
-    for (SCVideoView * videoView in videoArray)
-    {
-        [self deleteVideoViewfromVideoViewArrayDic:videoView];
-        
-        if (videoView)
-        {
-            [self stopVideoAudioWithVideoView:videoView];
-        }
-    }
-    
-    return videoArray;
-}
+//- (NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId
+//{
+//    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
+//    
+//    for (SCVideoView * videoView in videoArray)
+//    {
+//        [self deleteVideoViewfromVideoViewArrayDic:videoView];
+//        
+//        if (videoView)
+//        {
+//            [self stopVideoAudioWithVideoView:videoView];
+//        }
+//    }
+//    return videoArray;
+//}
 
-#pragma mark  删除所有视频窗口
-
-- (void)removeAllVideoView
-{
-//    [self.videoViewArray removeAllObjects];
-    [self.videoViewArrayDic removeAllObjects];
-    [self.videoSequenceArr removeAllObjects];
-}
 
 
 #pragma -

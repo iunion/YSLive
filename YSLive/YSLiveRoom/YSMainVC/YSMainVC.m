@@ -1058,11 +1058,6 @@
 }
 
 
-- (void)removeAllVideoView
-{
-    [super removeAllVideoView];
-}
-
 #pragma mark  添加视频窗口
 
 - (NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId
@@ -1096,7 +1091,6 @@
 {
     [super onRoomConnectionLost];
     [self.view bringSubviewToFront:self.returnBtn];
-    //    [self removeAllVideoView];
     //
     //    if (self.isFullScreen)
     //    {

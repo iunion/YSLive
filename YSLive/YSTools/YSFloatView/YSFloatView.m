@@ -254,12 +254,13 @@
             
             NSDictionary * dict = @{
                 @"userId":self.peerId,
+                @"sourceId":self.sourceId,
                 @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
                 @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
                 @"isDrag": @1, // 是否拖拽了
                 @"scale":@(self.endScale)
             };
-            [[YSLiveManager sharedInstance]sendSignalingTopinchVideoViewWithPeerId:self.peerId withData:dict];
+            [[YSLiveManager sharedInstance]sendSignalingTopinchVideoViewWithPeerId:self.peerId withSourceId:self.sourceId withData:dict];
         }
     }
 }

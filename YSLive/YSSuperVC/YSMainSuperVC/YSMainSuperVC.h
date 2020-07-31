@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///成为焦点的用户的peerID
 @property (nullable,nonatomic, copy) NSString *foucePeerId;
+@property (nullable,nonatomic, copy) NSString *fouceSourceId;
+
 
 /// 排序后的视频View列表
 @property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
@@ -69,9 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId;
 - (nullable NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
 - (nullable SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId;
-- (nullable NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId;
+//- (nullable NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId;
 - (nullable SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
-- (void)removeAllVideoView;
 
 - (void)userPublishstatechange:(YSRoomUser *)roomUser;
 

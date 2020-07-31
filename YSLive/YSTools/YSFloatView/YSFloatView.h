@@ -38,6 +38,9 @@ typedef void(^YSFloatViewClickBlock)(void);
 
 @property (nonatomic, copy) NSString *peerId;
 
+///视频设备 sourceId
+@property (nonatomic, assign) NSString *sourceId;
+
 ///默认刚拖出来的比例为2
 @property (nonatomic , assign) CGFloat endScale;
 

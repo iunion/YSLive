@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isNested;
 ///成为焦点的用户的peerID(必须在userModel前赋值)
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
+@property (nullable,nonatomic, copy) NSString *fouceSourceId;
 
 
 @property(nonatomic,strong) YSRoomUser * userModel;

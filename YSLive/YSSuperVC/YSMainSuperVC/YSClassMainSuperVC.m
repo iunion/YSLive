@@ -76,6 +76,9 @@
     
     // 底部工具栏
     [self setupBottomToolBarView];
+
+    
+    
 }
 
 ///创建一个16：9的背景view
