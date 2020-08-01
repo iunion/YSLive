@@ -911,7 +911,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         videoView.appUseTheType = self.appUseTheType;
         [self addVideoViewToVideoViewArrayDic:videoView];
         
-        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID sourceID:sYSUserDefaultSourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+        CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:YSCurrentUser.peerID andSourceID:sYSUserDefaultSourceId];
+        
+        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID sourceID:sYSUserDefaultSourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
         [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
         
@@ -1153,7 +1155,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:videoView];
     [self.teacherVideoViewArray addObject:videoView];
 
-    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID sourceID:sYSUserDefaultSourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:YSCurrentUser.peerID andSourceID:sYSUserDefaultSourceId];
+    
+    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID sourceID:sYSUserDefaultSourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -2397,7 +2401,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 视频镜像
     if ([properties bm_containsObjectForKey:sYSUserIsVideoMirror])
     {
-        NSMutableArray *sourceIdsArray = [self.liveManager getUserSourceIdsWithUserId:userId];
+        NSMutableDictionary *sourceIdsDict = [self.liveManager getUserSourceIdsWithUserId:userId];
         BOOL isVideoMirror = [properties bm_boolForKey:sYSUserIsVideoMirror];
         CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
         if (isVideoMirror)
@@ -2405,9 +2409,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
         
-        for (NSString *sourceId in sourceIdsArray)
+        for (NSString *sourceId in sourceIdsDict.allKeys)
         {
-            [self.liveManager changeVideoWithUserId:userId sourceID:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
+            CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:sourceId];
+            
+            [self.liveManager changeVideoWithUserId:userId sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
         }
     }
 
@@ -3297,7 +3303,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-
 // 拖出视频
 - (void)showDragOutVidoeViewWithData:(NSDictionary *)data
 {
@@ -3305,12 +3310,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         return;
     }
-    NSString *peerId = [data bm_stringForKey:@"userId"];
     
     NSString *streamId = [data bm_stringForKey:@"streamId"];
-    
     NSString *sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
 
+    NSString *peerId = [data bm_stringForKey:@"userId"];
+    
     CGFloat percentLeft = [data bm_floatForKey:@"percentLeft"];
     
     CGFloat percentTop = [data bm_floatForKey:@"percentTop"];
@@ -3515,7 +3520,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.view endEditing:YES];
     _isMp4Play = NO;
     
-    [self.liveManager playVideoWithUserId:userId sourceID:sourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+//    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:sourceId];
+    
+    [self.liveManager playVideoWithUserId:userId sourceID:sourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
     
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;
@@ -3530,7 +3537,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceId:(nonnull NSString *)sourceId
 {
     _isMp4Play = NO;
-    [self.liveManager stopVideoWithUserId:userId sourceID:sourceId];
+    [self.liveManager stopVideoWithUserId:userId sourceID:sourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO];
     
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
@@ -3586,7 +3593,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView.mediaFileModel = mediaModel;
     self.closeMp4Btn.hidden = NO;
     
-    [self.liveManager playVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    YSSharedMediaFileModel *mediaFileModel = [self.liveManager getMediaFileModelWhithSourceId:mediaModel.sourceId];
+    
+    [self.liveManager playVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId type:mediaFileModel.mediaType renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
 
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
@@ -3607,7 +3616,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isMp4Play = NO;
     if (mediaModel.isVideo)
     {
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId type:mediaModel.mediaType];
     }
     
     self.shareVideoFloatView.canZoom = NO;

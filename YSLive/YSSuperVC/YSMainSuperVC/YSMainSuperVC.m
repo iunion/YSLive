@@ -159,13 +159,15 @@
         }
     }
     
+    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:videoView.sourceId];
+    
     if (newVideoMute == YSSessionMuteState_UnMute)
     {
-        [self.liveManager playVideoWithUserId:userId sourceID:videoView.sourceId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
     }
     else
     {
-        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId];
+        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
     }
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
@@ -199,14 +201,16 @@
         }
     }
 
+    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:videoView.sourceId];
+    
     if (newVideoMute == YSSessionMuteState_UnMute)
     {
-        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId];
-        [self.liveManager playVideoWithUserId:userId sourceID:videoView.sourceId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
+        [self.liveManager playVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
     }
     else
     {
-        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId];
+        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
     }
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
@@ -224,8 +228,9 @@
     }
     
     NSString *userId = videoView.roomUser.peerID;
+    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:videoView.sourceId];
     
-    [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId];
+    [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
 //    videoView.publishState = YSUser_PublishState_DOWN;
 }
 
@@ -629,7 +634,8 @@
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
 
-        [self.liveManager playVideoWithUserId:uid sourceID:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+        CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:uid andSourceID:sourceId];
+        [self.liveManager playVideoWithUserId:uid sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
         [videoView freshWithRoomUserProperty:roomUser];
     }
 }
@@ -637,7 +643,8 @@
 /// 停止音视频流
 - (void)onRoomStopVideoOfUid:(NSString *)uid sourceId:(nullable NSString *)sourceId
 {
-    [self.liveManager stopVideoWithUserId:uid sourceID:sourceId];
+    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:uid andSourceID:sourceId];
+    [self.liveManager stopVideoWithUserId:uid sourceID:sourceId type:mediaType];
 }
 
 #pragma mark 用户网络差，被服务器切换媒体线路

@@ -1021,6 +1021,9 @@
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceId:(nullable NSString *)sourceId
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
+    
+    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:uid andSourceID:sourceId];
+    
     if (videoView)
     {
         YSRoomUser *roomUser = videoView.roomUser;
@@ -1030,7 +1033,7 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        [self.liveManager playVideoWithUserId:uid sourceID:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:uid sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
         [videoView freshWithRoomUserProperty:roomUser];
     }
     else
@@ -1044,7 +1047,7 @@
             {
                 videoMirrorMode = CloudHubVideoMirrorModeEnabled;
             }
-            [self.liveManager playVideoWithUserId:uid sourceID:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:self.liveView];
+            [self.liveManager playVideoWithUserId:uid sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:self.liveView];
             
             [self freshMediaView];
         }
@@ -1149,13 +1152,15 @@
 
         if ([sourceId bm_isNotEmpty] && [user getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)
         {
-            NSMutableArray *sourceIdsArray = [self.liveManager getUserSourceIdsWithUserId:user.peerID];
+            NSMutableDictionary *sourceIdsDict = [self.liveManager getUserSourceIdsWithUserId:user.peerID];
             
-            for (NSString *sourceId in sourceIdsArray)
+            for (NSString *sourceId in sourceIdsDict.allKeys)
             {
                 if (sourceId)
                 {
-                    [self.liveManager playVideoWithUserId:user.peerID sourceID:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+                    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:user.peerID andSourceID:sourceId];
+                    
+                    [self.liveManager playVideoWithUserId:user.peerID sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
                 }
             }
             
@@ -1173,10 +1178,12 @@
     
     if (user.role == YSUserType_Teacher)
     {
-        NSMutableArray *sourceIds = [self.liveManager getUserSourceIdsWithUserId:user.peerID];
-        if ([sourceIds.firstObject bm_isNotEmpty])
+        NSMutableDictionary *sourceIdsDict = [self.liveManager getUserSourceIdsWithUserId:user.peerID];
+        if ([sourceIdsDict.allKeys.firstObject bm_isNotEmpty])
         {
-            [self.liveManager stopVideoWithUserId:user.peerID sourceID:sourceIds.firstObject];
+            CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:user.peerID andSourceID:sourceIdsDict.allKeys.firstObject];
+            
+            [self.liveManager stopVideoWithUserId:user.peerID sourceID:sourceIdsDict.allKeys.firstObject  type:mediaType];
             [self freshMediaView];
         }
     }
@@ -1220,16 +1227,18 @@
     {
         NSString * sourceId = self.liveManager.teacher.sourceListDic.allValues.firstObject;
         
+        CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:roomUser.peerID andSourceID:sourceId];
+        
         if ([sourceId bm_isNotEmpty] && [roomUser getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)
         {
             if (sourceId)
             {
-                [self.liveManager playVideoWithUserId:roomUser.peerID sourceID:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+                [self.liveManager playVideoWithUserId:roomUser.peerID sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
             }
         }
         else
         {
-            [self.liveManager stopVideoWithUserId:roomUser.peerID sourceID:sourceId];
+            [self.liveManager stopVideoWithUserId:roomUser.peerID sourceID:sourceId type:mediaType];
         }
         
         [self freshMediaView];
@@ -1320,7 +1329,9 @@
     
     if ([sourceId bm_isNotEmpty] && [teacher getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)
     {
-        [self.liveManager playVideoWithUserId:teacher.peerID sourceID:sourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+        CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:teacher.peerID andSourceID:sourceId];
+        
+        [self.liveManager playVideoWithUserId:teacher.peerID sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
     }
     
     [self freshMediaView];
@@ -1515,7 +1526,7 @@
     }
     else
     {
-        [self.liveManager playVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+        [self.liveManager playVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId type:mediaModel.mediaType renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
         
         if (self.isFullScreen)
         {
@@ -1536,7 +1547,7 @@
     
     if (mediaModel.isVideo)
     {
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId type:mediaModel.mediaType];
 
         self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;
@@ -1621,12 +1632,14 @@
     self.shareDesktop = YES;
 //    NSString *userStreamID = [self.liveManager getUserStreamIdWithUserId:self.liveManager.teacher.peerID];
     
-    NSString * teacherSourceId = self.liveManager.teacher.sourceListDic.allKeys.firstObject;
+//    NSString * teacherSourceId = self.liveManager.teacher.sourceListDic.allKeys.firstObject;
     
-    [self.liveManager stopVideoWithUserId:self.liveManager.teacher.peerID sourceID:sourceId];
+//    YSSharedMediaFileModel *mediaFileModel = [self.liveManager getMediaFileModelWhithSourceId:sourceId];
+    
+    [self.liveManager stopVideoWithUserId:self.liveManager.teacher.peerID sourceID:sourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO];
     
     
-    [self.liveManager playVideoWithUserId:userId sourceID:teacherSourceId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+    [self.liveManager playVideoWithUserId:userId sourceID:sourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
     
     self.liveBgView.canZoom = YES;
     [self freshMediaView];
@@ -1636,12 +1649,12 @@
 - (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceId:(nonnull NSString *)sourceId
 {
     self.shareDesktop = NO;
-    [self.liveManager stopVideoWithUserId:userId sourceID:sourceId];
+    [self.liveManager stopVideoWithUserId:userId sourceID:sourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO];
     
 //    NSString *userStreamID = [self.liveManager getUserStreamIdWithUserId:self.liveManager.teacher.peerID];
     NSString * teacherSourceId = self.liveManager.teacher.sourceListDic.allKeys.firstObject;
     
-    [self.liveManager playVideoWithUserId:userId sourceID:teacherSourceId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+    [self.liveManager playVideoWithUserId:userId sourceID:teacherSourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
     
     self.liveBgView.canZoom = NO;
     self.liveBgView.backScrollView.zoomScale = 1.0;
