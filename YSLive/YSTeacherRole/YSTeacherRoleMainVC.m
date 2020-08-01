@@ -740,15 +740,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     popTab.modalPresentationStyle = UIModalPresentationPopover;
     BMWeakSelf
     popTab.letStudentUpVideo = ^(YSUpHandPopCell *cell) {
-        if (weakSelf.videoSequenceArr.count < self->maxVideoCount)
+        if (weakSelf.videoViewArrayDic.allKeys.count < self->maxVideoCount)
         {
             YSPublishState publishState = YSUser_PublishState_UP;
-            
-//            if (weakSelf.liveManager.isEveryoneNoAudio)
-//            {
-//                publishState = YSUser_PublishState_VIDEOONLY;
-//            }
-            
+
             NSString *peerId = [cell.userDict bm_stringForKey:@"peerId"];
             NSString *whom = YSRoomPubMsgTellAll;
             if (self.liveManager.isBigRoom)
@@ -1872,8 +1867,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:peerId withSourceId:self.fouceView.sourceId];
             self.fouceView = nil;
-            self.fouceSourceId = nil;
-            self.foucePeerId = nil;
+            self.controlPopoverView.fouceSourceId = nil;
+            self.controlPopoverView.foucePeerId = nil;
         }
         
         if (delVideoView.isDragOut)
@@ -2068,8 +2063,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.roomLayout = YSRoomLayoutType_VideoLayout;
         [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID withSourceId:self.fouceView.sourceId];
         self.fouceView = nil;
-        self.fouceSourceId = nil;
-        self.foucePeerId = nil;
+        self.controlPopoverView.fouceSourceId = nil;
+        self.controlPopoverView.foucePeerId = nil;
     }
     
     NSInteger userCount = self.liveManager.studentCount;
@@ -3860,7 +3855,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     self.spreadBottomToolBar.isPollingEnable = total >= maxVideoCount;
-    
 }
 
 #pragma mark 切换布局模式
@@ -3921,31 +3915,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.spreadBottomToolBar.isAroundLayout = (self.roomLayout == YSRoomLayoutType_AroundLayout);
     
-    if (roomLayout == YSRoomLayoutType_FocusLayout && [peerId bm_isNotEmpty])
+    if (roomLayout == YSRoomLayoutType_FocusLayout && [peerId bm_isNotEmpty] && [sourceId bm_isNotEmpty])
     {
-        if ([sourceId bm_isNotEmpty])
+        for (SCVideoView *videoView in self.videoSequenceArr)
         {
-            for (SCVideoView *videoView in self.videoSequenceArr)
+            if ([videoView.roomUser.peerID isEqualToString:peerId] && [videoView.sourceId isEqualToString:sourceId])
             {
-                if ([videoView.sourceId isEqualToString:sourceId])
-                {
-                    self.fouceView = videoView;
-                    break;
-                }
+                self.fouceView = videoView;
+                break;
             }
         }
-        else
-        {
-           for (SCVideoView *videoView in self.videoSequenceArr)
-            {
-                if ([videoView.roomUser.peerID isEqualToString:peerId])
-                {
-                    self.fouceView = videoView;
-                    break;
-                }
-            }
-        }
-        
+
         if (![self.fouceView bm_isNotEmpty])
         {
             self.roomLayout = YSRoomLayoutType_VideoLayout;
@@ -4482,7 +4462,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    if ([fromID isEqualToString:self.liveManager.teacher.peerID])
     {
         [self.liveManager sendSignalingTeacherToContestResultWithName:nickName];
-        if (self.videoSequenceArr.count < self->maxVideoCount)
+        if (self.videoViewArrayDic.allKeys.count < self->maxVideoCount)
         {
             if (self->autoUpPlatform)
             {
@@ -4898,7 +4878,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
 //        if (roomUser.publishState == YSUser_PublishState_NONE)
         {
-            if (self.videoSequenceArr.count < maxVideoCount)
+            if (self.videoViewArrayDic.allKeys.count < maxVideoCount)
             {
                 [self changeUpPlatformRoomUser:roomUser];
             }
@@ -5209,7 +5189,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSRoomUser * userModel = videoView.roomUser;
 
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
-    if ( self.videoSequenceArr.count <= 2 || [self.fouceSourceId isEqualToString:videoView.sourceId])
+    if ( self.videoSequenceArr.count <= 2 || ([self.fouceView.sourceId isEqualToString:videoView.sourceId] && [self.fouceView.roomUser.peerID isEqualToString:videoView.roomUser.peerID]))
     {
         /// 1.视频数小于等于2  2.videoView为焦点视频时
         popover.sourceView = videoView.sourceView;
@@ -5246,13 +5226,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     self.controlPopoverView.roomtype = self.roomtype;
     self.controlPopoverView.isDragOut = videoView.isDragOut;
-    self.controlPopoverView.fouceSourceId = self.fouceSourceId;
-    self.controlPopoverView.foucePeerId = videoView.roomUser.peerID;
     self.controlPopoverView.userModel = userModel;
-    self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
     self.controlPopoverView.sourceId = videoView.sourceId;
+    self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }
-
 
 #pragma mark -
 #pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
@@ -5308,7 +5285,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else if (self.roomLayout == YSRoomLayoutType_FocusLayout)
             {
-                if ([self.selectControlView.sourceId isEqual:self.fouceView.sourceId])
+                if ([self.selectControlView.sourceId isEqual:self.fouceView.sourceId] &&  [self.selectControlView.roomUser.peerID isEqual:self.fouceView.roomUser.peerID])
                 {
                     self.roomLayout = YSRoomLayoutType_VideoLayout;
                     self.fouceView = nil;
@@ -5320,8 +5297,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
                 [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:self.fouceView.roomUser.peerID withSourceId:self.fouceView.sourceId];
             }
-            self.fouceSourceId = self.fouceView.sourceId;
-            self.foucePeerId = self.fouceView.roomUser.peerID;
+            
+            self.controlPopoverView.fouceSourceId = self.fouceView.sourceId;
+            self.controlPopoverView.foucePeerId = self.fouceView.roomUser.peerID;
             [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
         }
             break;
@@ -5456,7 +5434,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMLog(@"%@",roomUser.nickName);
     if (roomUser.publishState == YSUser_PublishState_DOWN)
     {
-        if (self.videoSequenceArr.count < maxVideoCount)
+        if (self.videoViewArrayDic.allKeys.count < maxVideoCount)
         {
             NSString *whom = YSRoomPubMsgTellAll;
             if (self.liveManager.isBigRoom)

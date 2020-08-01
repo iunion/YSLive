@@ -48,9 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
 @property (nullable,nonatomic, copy) NSString *fouceSourceId;
 
-
 @property(nonatomic,strong) YSRoomUser * userModel;
-
 
 /// 房间类型
 @property (nonatomic, assign) YSRoomUserType roomtype;

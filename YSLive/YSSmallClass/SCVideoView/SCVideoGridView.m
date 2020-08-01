@@ -95,7 +95,6 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             heightNum = 1;
         }
             break;
-
         case 2:
         {
             widthNum = 2;

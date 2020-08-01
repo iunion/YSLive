@@ -25,17 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///app使用场景  3：小班课  4：直播   6：会议
 @property (nonatomic, assign) YSRoomUseType appUseTheType;
 
-///成为焦点的用户的peerID
-@property (nullable,nonatomic, copy) NSString *foucePeerId;
-@property (nullable,nonatomic, copy) NSString *fouceSourceId;
-
-
 /// 排序后的视频View列表
 @property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;
 
 /// 老师视频
-//@property (nullable, nonatomic, strong) SCVideoView *teacherVideoView;
 @property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *teacherVideoViewArray;
 /// 自己视频
 @property (nullable, nonatomic, strong) SCVideoView *myVideoView;

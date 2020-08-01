@@ -44,8 +44,6 @@
 
 
 
-//#define MAXVIDEOCOUNT               12
-
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
@@ -528,7 +526,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.appUseTheType == YSRoomUseTypeSmallClass)
     {
         // 自动上台
-        if (self.liveManager.isBeginClass && self.videoSequenceArr.count < maxVideoCount)
+        if (self.liveManager.isBeginClass && self.videoViewArrayDic.allKeys.count < maxVideoCount)
         {
             BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
 //            if (autoOpenAudioAndVideoFlag)
@@ -552,7 +550,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     //会议，进教室默认上台
     if (self.appUseTheType == YSRoomUseTypeMeeting)
     {
-        if (self.liveManager.isBeginClass && self.videoSequenceArr.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
+        if (self.liveManager.isBeginClass && self.videoViewArrayDic.allKeys.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
         {
             //if (YSCurrentUser.vfail == YSDeviceFaultNone)
             {
@@ -2991,8 +2989,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.roomLayout = YSRoomLayoutType_VideoLayout;
             [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID withSourceId:self.fouceView.sourceId];
             self.fouceView = nil;
-            self.fouceSourceId = nil;
-            self.foucePeerId = nil;
+            self.controlPopoverView.fouceSourceId = nil;
+            self.controlPopoverView.foucePeerId = nil;
         }
     }
 }
@@ -3408,7 +3406,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (self.appUseTheType == YSRoomUseTypeSmallClass)
         {
             // 自动上台
-            if (self.videoSequenceArr.count < maxVideoCount)
+            if (self.videoViewArrayDic.allKeys.count < maxVideoCount)
             {
                 BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
 //                if (autoOpenAudioAndVideoFlag)
@@ -3432,7 +3430,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else if (self.appUseTheType == YSRoomUseTypeMeeting)
         {//会议，进教室默认上台
-            if (self.liveManager.isClassBegin && self.videoSequenceArr.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
+            if (self.liveManager.isClassBegin && self.videoViewArrayDic.allKeys.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
             {
                 NSString *whom = YSRoomPubMsgTellAll;
                 if (self.liveManager.isBigRoom)
@@ -4794,12 +4792,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     self.controlPopoverView.roomtype = self.roomtype;
     self.controlPopoverView.isDragOut = videoView.isDragOut;
-    self.controlPopoverView.fouceSourceId = self.fouceSourceId;
-    self.controlPopoverView.foucePeerId = videoView.roomUser.peerID;
+    self.controlPopoverView.sourceId = videoView.sourceId;
     self.controlPopoverView.userModel = userModel;
     self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }
-
 
 #pragma mark -
 #pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
