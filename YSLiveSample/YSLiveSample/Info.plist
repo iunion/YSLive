@@ -33,8 +33,6 @@
 	<string>房间中需要上传图片您是否允许添加图片</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>房间中需要选择本地图片您是否允许访问相册</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
