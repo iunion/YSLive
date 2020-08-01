@@ -3307,7 +3307,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     NSString *peerId = [data bm_stringForKey:@"userId"];
     
-    NSString *sourceId = [data bm_stringForKey:@"sourceId"];
+    NSString *streamId = [data bm_stringForKey:@"streamId"];
+    
+    NSString *sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
 
     CGFloat percentLeft = [data bm_floatForKey:@"percentLeft"];
     
