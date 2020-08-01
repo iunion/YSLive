@@ -14,6 +14,8 @@
 #import "YSLoginMacros.h"
 
 #import <YSSDK/YSSDKManager.h>
+
+
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #define USE_COOKIES     0
@@ -402,7 +404,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     {
         _joinRoomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         //        _joinRoomBtn.backgroundColor = YSColor_DefaultBlue;
-        [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSSLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
+//        [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSSLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
         UIColor *color = login_UIColorFromRGB(0xFFE895);
         [_joinRoomBtn setTitleColor:color forState:UIControlStateNormal];
@@ -596,11 +598,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 #pragma mark -
 #pragma mark YSLiveSDKDelegate
 
-/**
-    成功进入房间
-    @param ts 服务器当前时间戳，以秒为单位，如1572001230
- */
-- (void)onRoomJoined:(NSTimeInterval)ts roomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
+/// 成功进入房间
+- (void)onRoomJoinWithRoomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
 {
     NSLog(@"onRoomJoined");
     
@@ -640,9 +639,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
 /**
     自己被踢出房间
-    @param reason 被踢原因
+    @param reasonCode 被踢原因
  */
-- (void)onRoomKickedOut:(NSDictionary *)reason
+- (void)onRoomKickedOut:(NSInteger)reasonCode
 {
     NSLog(@"onRoomKickedOut");
 
