@@ -4805,23 +4805,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark YSControlPopoverViewDelegate  视频控制按钮点击事件
 - (void)videoViewControlBtnsClick:(BMImageTitleButtonView *)sender                videoViewControlType:(SCVideoViewControlType)videoViewControlType
 {
-//    YSUserMediaPublishState userPublishState = YSCurrentUser.mediaPublishState;
-    
     YSSessionMuteState muteState = YSSessionMuteState_Mute;
     switch (videoViewControlType) {
         case SCVideoViewControlTypeAudio:
         {//关闭音频
             if (sender.selected)
             {//当前是打开音频状态
-//                userPublishState &= ~YSUserMediaPublishState_AUDIOONLY;
                 muteState = YSSessionMuteState_UnMute;
             }
-//            else
-//            {//当前是关闭音频状态
-//                userPublishState |= YSUserMediaPublishState_AUDIOONLY;
-//            }
-//            YSPublishState publishState = [YSRoomUser convertMediaPublishState:userPublishState];
-//            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
+
             [YSCurrentUser sendToChangeAudioMute:muteState];
             sender.selected = !sender.selected;
         }
@@ -4830,15 +4822,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//关闭视频
             if (sender.selected)
             {//当前是打开视频状态
-//                userPublishState &= ~YSUserMediaPublishState_VIDEOONLY;
                 muteState = YSSessionMuteState_UnMute;
             }
-//            else
-//            {//当前是关闭视频状态
-//                userPublishState |= YSUserMediaPublishState_VIDEOONLY;
-//            }
-//            YSPublishState publishState = [YSRoomUser convertMediaPublishState:userPublishState];
-//            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(publishState)];
+
             [YSCurrentUser sendToChangeVideoMute:muteState WithSourceId:sYSUserDefaultSourceId];
             sender.selected = !sender.selected;
         }

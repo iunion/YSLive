@@ -16,8 +16,8 @@
 
 @implementation YSUpHandPopCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView {
-    
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
     NSString *reuseIdentifier = NSStringFromClass([self class]);
     
     YSUpHandPopCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];

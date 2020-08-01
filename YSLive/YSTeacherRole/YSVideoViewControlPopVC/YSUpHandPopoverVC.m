@@ -55,16 +55,6 @@
     cell.userDict = self.userArr[indexPath.row];
     __weak __typeof__(cell) weakCell = cell;
     cell.headButtonClick = ^{
-        //同意上台
-//        BOOL isEveryoneNoAudio = [YSLiveManager sharedInstance].isEveryoneNoAudio;
-//        if (isEveryoneNoAudio) {
-//            [[YSLiveManager sharedInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_VIDEOONLY)];
-//        }
-//        else
-//        {
-//            [[YSLiveManager sharedInstance] sendSignalingToChangePropertyWithRoomUser:user withKey:sUserPublishstate WithValue:@(YSUser_PublishState_BOTH)];
-//        }
-        
         if (self->_letStudentUpVideo) {
             self->_letStudentUpVideo(weakCell);
         }

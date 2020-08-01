@@ -396,26 +396,26 @@
     }
 
     //没有摄像头、麦克风权限时的显示禁用状态
-
-        if (self.userModel.afail == YSDeviceFaultNone)
-        {
-            self.audioBtn.enabled = !self.isAllNoAudio;
-        }
-        else
-        {
-            self.audioBtn.enabled = NO;
-        }
+    
+    if (self.userModel.afail == YSDeviceFaultNone)
+    {
+        self.audioBtn.enabled = !self.isAllNoAudio;
+    }
+    else
+    {
+        self.audioBtn.enabled = NO;
+    }
     
     if ([self.userModel getVideoVfailWithSourceId:self.sourceId] == YSDeviceFaultNone)
-        {
-            self.videoBtn.enabled = YES;
-            self.mirrorBtn.enabled = YES;
-        }
-        else
-        {
-            self.videoBtn.enabled = NO;
-            self.mirrorBtn.enabled = NO;
-        }
+    {
+        self.videoBtn.enabled = YES;
+        self.mirrorBtn.enabled = YES;
+    }
+    else
+    {
+        self.videoBtn.enabled = NO;
+        self.mirrorBtn.enabled = NO;
+    }
 }
 
 
