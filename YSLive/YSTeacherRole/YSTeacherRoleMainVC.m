@@ -304,7 +304,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 轮播
 @property (nonatomic, strong)YSPollingView *teacherPollingView;
 /// 轮播的学生数据
-@property (nonatomic, strong) NSMutableArray *pollingArr;
+@property (nonatomic, strong) NSMutableArray *pollingUserList;
 /// 轮播的上台学生数据
 @property (nonatomic, strong) NSMutableArray *pollingUpPlatformArr;
 /// 轮播定时器
@@ -425,7 +425,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isMp4Play = NO;
     _isMp4ControlHide = NO;
     searchArr = [[NSMutableArray alloc] init];
-    self.pollingArr = [[NSMutableArray alloc] init];
+    self.pollingUserList = [[NSMutableArray alloc] init];
     self.pollingUpPlatformArr = [[NSMutableArray alloc] init];
     self.currentFileList = [[NSMutableArray alloc] init];
     isSearch = NO;
@@ -1771,6 +1771,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 
+#pragma mark - pollingArr
+
+- (void)addPollingUserWithUserId:(NSString *)peerId
+{
+    if (![self.pollingUserList containsObject:peerId])
+    {
+        [self.pollingUserList addObject:peerId];
+    }
+}
+
+
 #pragma mark - videoViewArray
 
 /// 开关摄像头
@@ -1815,18 +1826,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     ///  轮播 设置上台的人在数组最后
     if (roomUser.role == YSUserType_Student)
     {
-        __block YSRoomUser *lastUser = nil;
-        [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            YSRoomUser *tempUser = (YSRoomUser *)obj;
-            if ([tempUser.peerID isEqualToString:peerId])
-            {
-                [self.pollingArr removeObject:tempUser];
-                lastUser = tempUser;
-                *stop = YES;
-            }
-        }];
-        [self.pollingArr addObject:lastUser];
-
+        [self.pollingUserList removeObject:roomUser.peerID];
+        [self.pollingUserList addObject:roomUser.peerID];
     }
     
     if (newVideoViewArray.count)
@@ -2040,14 +2041,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSInteger userCount = self.liveManager.studentCount;
     self.handNumLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.raiseHandArray.count,(long)userCount];
 
-    [self.pollingArr addObject:user];
-    [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        YSRoomUser *tempUser = (YSRoomUser *)obj;
-        if (user.role == YSUserType_Student && ![tempUser.peerID isEqualToString:user.peerID])
-        {
-            [self.pollingArr addObject:user];
-        }
-    }];
+    if (user.role == YSUserType_Student)
+    {
+        [self addPollingUserWithUserId:user.peerID];
+    }
     
     [self bottomToolBarPollingBtnEnable];
     self.spreadBottomToolBar.isPolling = _isPolling;
@@ -2082,20 +2079,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 删除轮播字典里边的该学生
     if (user.role == YSUserType_Student)
     {
-//        if ([self.pollingArr containsObject:user.peerID])
-//        {
-//            [self.pollingArr removeObject:user.peerID];
-//        }
-        [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            YSRoomUser *tempUser = (YSRoomUser *)obj;
-            if ([tempUser.peerID isEqualToString:user.peerID])
-            {
-                [self.pollingArr removeObject:tempUser];
-                *stop = YES;
-            }
-        }];
+        [self.pollingUserList removeObject:user.peerID];
    
-        
         if ([self.pollingUpPlatformArr containsObject:user.peerID])
         {
             [self.pollingUpPlatformArr removeObject:user.peerID];
@@ -2487,19 +2472,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         /// 轮播数组数组
         if (roomUser.role == YSUserType_Student)
         {
-//            if (![self.pollingArr containsObject:roomUser.peerID])
-//            {
-//                [self.pollingArr addObject:roomUser.peerID];
-//            }
-            [self.pollingArr addObject:roomUser];
-            [self.pollingArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                YSRoomUser *tempUser = (YSRoomUser *)obj;
-                if (![tempUser.peerID isEqualToString:roomUser.peerID])
-                {
-                    [self.pollingArr addObject:roomUser];
-                }
-            }];
-            
+            [self addPollingUserWithUserId:roomUser.peerID];
         }
         
         if (roomUser.publishState)
@@ -4892,29 +4865,26 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //4.开始执行
     dispatch_resume(self.pollingTimer);
     [self.teacherPollingView dismiss:nil animated:NO dismissBlock:nil];
-
-    
 }
 
 - (void)pollingUpPlatform
 {
     YSRoomUser *roomUser = nil;
     NSString *sourceId = nil;
-    for (YSRoomUser *tempRoomUser in self.pollingArr)
+    for (NSString *userId in self.pollingUserList)
     {
-        SCVideoView *videoView = [self getVideoViewWithPeerId:tempRoomUser.peerID andSourceId:sourceId];
+        SCVideoView *videoView = [self getVideoViewWithPeerId:userId andSourceId:sourceId];
         if (videoView)
         {
             if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
             {
-                
-                roomUser = tempRoomUser;
+                roomUser = videoView.roomUser;
                 break;
             }
         }
         else
         {
-            roomUser = tempRoomUser;
+            roomUser = [self.liveManager getRoomUserWithId:userId];
             break;
         }
     }
@@ -4929,7 +4899,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             if (self.videoSequenceArr.count < maxVideoCount)
             {
-                
                 [self changeUpPlatformRoomUser:roomUser];
             }
             else
@@ -4959,9 +4928,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
         }
-
     }
-    
 }
 
 /// 上台学生

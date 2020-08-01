@@ -11,12 +11,39 @@
 
 @implementation NSMutableArray (BMCategory)
 
-- (void)bm_moveObjectToTop:(NSUInteger)index
+- (void)bm_moveObjectToFirst:(NSUInteger)index
 {
-    [self bm_moveObjectFromIndex:index toIndex:0];
+    if (index == 0)
+    {
+        return;
+    }
+    if (index >= self.count)
+    {
+        return;
+    }
+    
+    id object = [self objectAtIndex:index];
+    [self removeObject:object];
+    [self insertObject:object atIndex:0];
 }
 
-- (void)bm_moveObjectFromIndex:(NSUInteger)oldIndex toIndex:(NSUInteger)newIndex
+- (void)bm_moveObjectToLast:(NSUInteger)index
+{
+    if (index == 0)
+    {
+        return;
+    }
+    if (index >= self.count)
+    {
+        return;
+    }
+    
+    id object = [self objectAtIndex:index];
+    [self removeObject:object];
+    [self addObject:object];
+}
+
+- (void)bm_exchangeObjectFromIndex:(NSUInteger)oldIndex toIndex:(NSUInteger)newIndex
 {
     if (oldIndex == newIndex)
     {

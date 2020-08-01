@@ -10,9 +10,10 @@
 
 @interface NSMutableArray (BMCategory)
 
-- (void)bm_moveObjectToTop:(NSUInteger)index;
+- (void)bm_moveObjectToFirst:(NSUInteger)index;
+- (void)bm_moveObjectToLast:(NSUInteger)index;
 
-- (void)bm_moveObjectFromIndex:(NSUInteger)oldIndex toIndex:(NSUInteger)newIndex;
+- (void)bm_exchangeObjectFromIndex:(NSUInteger)oldIndex toIndex:(NSUInteger)newIndex;
 
 - (nonnull NSMutableArray *)bm_removeFirstObject;
 
