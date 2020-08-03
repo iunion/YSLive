@@ -62,11 +62,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (NSUInteger)getVideoViewCount;
-- (nullable NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId;
-- (nullable NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
+- (nullable NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId;
+- (nullable NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
+
+//设备变化时
+- (NSMutableArray<SCVideoView *> *)frashVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count;
+
 - (nullable SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId;
-//- (nullable NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId;
-- (nullable SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
+//- (nullable NSMutableArray<SCVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId;
+- (nullable SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
 
 - (void)userPublishstatechange:(YSRoomUser *)roomUser;
 

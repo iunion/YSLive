@@ -76,8 +76,11 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 
 @property (nonatomic, weak) id <SCVideoViewDelegate> delegate;
 
-///视频设备 sourceId
-@property (nonatomic, assign) NSString *sourceId;
+///视频设备ID sourceId
+@property (nonatomic, copy) NSString *sourceId;
+
+///视频流ID streamId
+@property (nonatomic, copy) NSString *streamId;
 
 @property (nonatomic, strong, readonly) YSRoomUser *roomUser;
 /// 是否占位用
@@ -127,12 +130,12 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 
 
 /// 老师用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate;
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate;
 
 /// 学生用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId;
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch;
+- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId;
 
 - (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser;
 

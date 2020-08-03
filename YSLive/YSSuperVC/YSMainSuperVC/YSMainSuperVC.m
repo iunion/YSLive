@@ -144,8 +144,6 @@
     fresh = NO;
     
     NSString *userId = videoView.roomUser.peerID;
-//    NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
-//    NSMutableArray *sourceIds = [self.liveManager getUserSourceIdsWithUserId:userId];
     
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
     if (self.appUseTheType != YSRoomUseTypeLiveRoom)
@@ -158,16 +156,14 @@
             }
         }
     }
-    
-    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:videoView.sourceId];
-    
+        
     if (newVideoMute == YSSessionMuteState_UnMute)
     {
-        [self.liveManager playVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
     }
     else
     {
-        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
+        [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
     }
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
@@ -200,17 +196,15 @@
             }
         }
     }
-
-    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:videoView.sourceId];
     
     if (newVideoMute == YSSessionMuteState_UnMute)
     {
-        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
-        [self.liveManager playVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
+        [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
     }
     else
     {
-        [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
+        [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
     }
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
@@ -228,9 +222,7 @@
     }
     
     NSString *userId = videoView.roomUser.peerID;
-    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:videoView.sourceId];
-    
-    [self.liveManager stopVideoWithUserId:userId sourceID:videoView.sourceId type:mediaType];
+    [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
 //    videoView.publishState = YSUser_PublishState_DOWN;
 }
 
@@ -266,6 +258,20 @@
 - (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView
 {
     NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
+//    for (SCVideoView * videoView in videoArr)
+//    {
+//        if ([videoView.sourceId isEqualToString:videoView.sourceId])
+//        {
+//            [videoArr removeObject:videoView];
+//            break;;
+//        }
+//    }
+    if ([videoArr containsObject:videoView])
+    {
+        [videoArr removeObject:videoView];
+    }
+    
+    
     [videoArr addObject:videoView];
     [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
     if (videoView.roomUser.role == YSUserType_Teacher)
@@ -292,14 +298,14 @@
     }
 }
 
-
 #pragma mark  添加视频窗口
-- (NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId
+- (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
 {
-    return [self addVidoeViewWithPeerId:peerId withMaxCount:0];
+    return [self addVideoViewWithPeerId:peerId withMaxCount:0];
 }
 
-- (NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count
+///新上台时添加
+- (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count
 {
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
@@ -321,36 +327,39 @@
         }
     }
     
-    //最后要返回的这个用户的所有视频的数组
-    NSMutableArray * theAddVideoArray = [NSMutableArray array];
-    //已有的视频数组
-    NSMutableArray * theVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     //用户新下发的设备id数组
-    
     NSMutableArray * theSourceIdArray = [roomUser.sourceListDic.allKeys mutableCopy];
-    if (theSourceIdArray == nil)
-    {
-        theSourceIdArray = [NSMutableArray array];
-    }
     
-    for (SCVideoView *videoView in theVideoArray)
+    //视频数组
+    NSMutableArray * theVideoArray = [NSMutableArray array];
+    
+    if (!theSourceIdArray.count)
     {
-        if ([theSourceIdArray containsObject:videoView.sourceId])
+        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:nil withDelegate:self];
+        newVideoView.appUseTheType = self.appUseTheType;
+        if (newVideoView)
         {
-            [theAddVideoArray addObject:videoView];
-            [theSourceIdArray removeObject:videoView.sourceId];
-            // property刷新原用户的值没有变化，需要重新赋值user
-            [videoView freshWithRoomUserProperty:roomUser];
-            [videoView bm_bringToFront];
-        }
-        else
-        {
-            [self deleteVideoViewfromVideoViewArrayDic:videoView];
-            [self stopVideoAudioWithVideoView:videoView];
+            if (count == 0)
+            {
+                [theVideoArray addObject:newVideoView];
+            }
+            else
+            {
+                [theVideoArray bm_addObject:newVideoView withMaxCount:count];
+            }
+            
+            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
+            
+            if (roomUser.role == YSUserType_Teacher)
+            {
+                self.teacherVideoViewArray = theVideoArray;
+            }
+            [self videoViewsSequence];
+            
+            [newVideoView bm_bringToFront];
         }
     }
-    
-    if (theSourceIdArray.count)
+    else
     {
         for (NSString *sourceId in theSourceIdArray)
         {
@@ -360,36 +369,160 @@
             {
                 if (count == 0)
                 {
-                    [theAddVideoArray addObject:newVideoView];
+                    [theVideoArray addObject:newVideoView];
                 }
                 else
                 {
-                    [theAddVideoArray bm_addObject:newVideoView withMaxCount:count];
+                    [theVideoArray bm_addObject:newVideoView withMaxCount:count];
                 }
                 
-                [self.videoViewArrayDic setObject:theAddVideoArray forKey:peerId];
+                [self.videoViewArrayDic setObject:newVideoView forKey:peerId];
                 
                 if (roomUser.role == YSUserType_Teacher)
                 {
-                    self.teacherVideoViewArray = theAddVideoArray;
+                    self.teacherVideoViewArray = theVideoArray;
                 }
                 [self videoViewsSequence];
                 
                 [newVideoView bm_bringToFront];
             }
+            
+            if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [peerId isEqualToString:YSCurrentUser.peerID])
+            {
+                CloudHubMediaType localMediaType = CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO;
+                newVideoView.streamId = [NSString stringWithFormat:@"%@:%ld:%@",peerId,(long)localMediaType,sourceId];
+            }
+            
+            [self playVideoAudioWithVideoView:newVideoView];
         }
     }
     
-    for (SCVideoView * videoView in theAddVideoArray)
+    for (SCVideoView * videoView in theVideoArray)
     {
-        [self playVideoAudioWithVideoView:videoView];
+        [self addVideoViewToVideoViewArrayDic:videoView];
     }
+    
+    return theVideoArray;
+}
+
+//设备变化时
+- (NSMutableArray<SCVideoView *> *)frashVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
+{
+    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
+    if (!roomUser)
+    {
+        return nil;
+    }
+    
+    //本人的视频数组
+    NSMutableArray * myVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:self.liveManager.localUser.peerID];
+    
+    // 删除本人占位视频
+    for (SCVideoView *avideoView in myVideoArray)
+    {
+        if (avideoView.isForPerch)
+        {
+            [self deleteVideoViewfromVideoViewArrayDic:avideoView];
+            break;
+        }
+    }
+    
+    //最后要返回的这个用户的所有视频的数组
+    NSMutableArray * theAddVideoArray = [NSMutableArray array];
+    //已有的视频数组
+    NSMutableArray * theVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
+    
+    if (!sourceIdArray.count)
+    {//摄像头全部拔掉时
+        
+        for (SCVideoView * videoView in theVideoArray)
+        {
+            [theVideoArray removeObject:videoView];
+            [self deleteVideoViewfromVideoViewArrayDic:videoView];
+        }
+        
+        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:nil withDelegate:self];
+        newVideoView.appUseTheType = self.appUseTheType;
+        if (newVideoView)
+        {
+            if (count == 0)
+            {
+                [theVideoArray addObject:newVideoView];
+            }
+            else
+            {
+                [theVideoArray bm_addObject:newVideoView withMaxCount:count];
+            }
+            
+            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
+            
+            if (roomUser.role == YSUserType_Teacher)
+            {
+                self.teacherVideoViewArray = theVideoArray;
+            }
+            [self videoViewsSequence];
+            
+            [newVideoView bm_bringToFront];
+        }
+        
+        [self addVideoViewToVideoViewArrayDic:newVideoView];
+        return [NSMutableArray arrayWithArray:@[newVideoView]];
+    }
+    else
+    {//摄像头变更时
+        for (SCVideoView *videoView in theVideoArray)
+        {
+            if ([sourceIdArray containsObject:videoView.sourceId])
+            {
+                [theAddVideoArray addObject:videoView];
+                [sourceIdArray removeObject:videoView.streamId];
+                // property刷新原用户的值没有变化，需要重新赋值user
+                [videoView freshWithRoomUserProperty:roomUser];
+                [videoView bm_bringToFront];
+            }
+            else
+            {
+                [self deleteVideoViewfromVideoViewArrayDic:videoView];
+                [self stopVideoAudioWithVideoView:videoView];
+            }
+        }
+        
+        for (NSString *sourceId in sourceIdArray)
+        {
+            SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
+            newVideoView.appUseTheType = self.appUseTheType;
+            if (newVideoView)
+            {
+                if (count == 0)
+                {
+                    [theVideoArray addObject:newVideoView];
+                }
+                else
+                {
+                    [theVideoArray bm_addObject:newVideoView withMaxCount:count];
+                }
+                
+                [self.videoViewArrayDic setObject:newVideoView forKey:peerId];
+                
+                if (roomUser.role == YSUserType_Teacher)
+                {
+                    self.teacherVideoViewArray = theVideoArray;
+                }
+                [self videoViewsSequence];
+                
+                [newVideoView bm_bringToFront];
+            }
+            [self playVideoAudioWithVideoView:newVideoView];
+            [self addVideoViewToVideoViewArrayDic:newVideoView];
+        }
+    }
+    
     return theAddVideoArray;
 }
 
 #pragma mark  获取视频窗口
 
-- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
+- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(nonnull NSString *)sourceId
 {
     NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     
@@ -406,7 +539,7 @@
 
 #pragma mark  删除视频窗口
 ///删除某个设备ID为sourceId的视频窗口
-- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
+- (SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
 {
     NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     
@@ -431,7 +564,7 @@
 }
 
 
-//- (NSMutableArray<SCVideoView *> *)delVidoeViewWithPeerId:(NSString *)peerId
+//- (NSMutableArray<SCVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId
 //{
 //    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
 //    
@@ -598,32 +731,38 @@
 }
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceId:(nonnull NSString *)sourceId
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid  sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
     if (close)
     {
-        [self onRoomStopVideoOfUid:uid sourceId:sourceId];
+        [self onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
         SCVideoView *view = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
         [view freshWithRoomUserProperty:view.roomUser];
     }
     else
     {
-        [self onRoomStartVideoOfUid:uid sourceId:sourceId];
+        [self onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
     }
 }
 
 /// 开关麦克风
 - (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
 {
-    NSString * sourceId = nil;
-    SCVideoView *view = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
-    [view freshWithRoomUserProperty:view.roomUser];
+    NSMutableArray *videoViewArray = [self.videoViewArrayDic bm_mutableArrayForKey:uid];
+    for (SCVideoView * videoView in videoViewArray)
+    {
+        videoView.audioMute = close;
+        [videoView freshWithRoomUserProperty:videoView.roomUser];
+        [self addVideoViewToVideoViewArrayDic:videoView];
+    }
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid sourceId:(nullable NSString *)sourceId
+- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
+    videoView.sourceId = sourceId;
+    videoView.streamId = streamId;
     if (videoView)
     {
         YSRoomUser *roomUser = videoView.roomUser;
@@ -634,17 +773,15 @@
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
 
-        CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:uid andSourceID:sourceId];
-        [self.liveManager playVideoWithUserId:uid sourceID:sourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
         [videoView freshWithRoomUserProperty:roomUser];
     }
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid sourceId:(nullable NSString *)sourceId
+- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
-    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:uid andSourceID:sourceId];
-    [self.liveManager stopVideoWithUserId:uid sourceID:sourceId type:mediaType];
+    [self.liveManager stopVideoWithUserId:uid streamID:streamId];
 }
 
 #pragma mark 用户网络差，被服务器切换媒体线路

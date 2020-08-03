@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSControlPopoverViewDelegate <NSObject>
 
-- (void)videoViewControlBtnsClick:(BMImageTitleButtonView*)sender videoViewControlType:(SCVideoViewControlType)videoViewControlType withSourceId:(NSString *)sourceId;
+- (void)videoViewControlBtnsClick:(BMImageTitleButtonView*)sender videoViewControlType:(SCVideoViewControlType)videoViewControlType withStreamId:(NSString *)streamId;
 @end
 
 
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isNested;
 ///成为焦点的用户的peerID(必须在userModel前赋值)
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
-@property (nullable,nonatomic, copy) NSString *fouceSourceId;
+@property (nullable,nonatomic, copy) NSString *fouceStreamId;
 
 @property(nonatomic,strong) YSRoomUser * userModel;
 
@@ -60,7 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) CloudHubVideoMirrorMode videoMirrorMode;
 
 /// 当前视频窗口的sourceId
-@property(nonatomic, assign) NSString *sourceId;
+@property(nonatomic, copy) NSString *sourceId;
+
+/// 当前视频窗口的streamId
+@property(nonatomic, copy) NSString *streamId;
 
 @end
 

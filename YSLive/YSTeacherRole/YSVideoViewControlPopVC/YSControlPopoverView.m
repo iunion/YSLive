@@ -196,7 +196,7 @@
     self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") image:YSSkinElementImage(@"videoPop_fouceButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_fouceButton", @"iconSel")];
     self.fouceBtn.tag = SCVideoViewControlTypeFouce;
     
-    if ([self.foucePeerId isEqualToString:self.userModel.peerID] && [self.fouceSourceId isEqualToString:self.sourceId])
+    if ([self.foucePeerId isEqualToString:self.userModel.peerID] && [self.fouceStreamId isEqualToString:self.streamId])
     {
         self.fouceBtn.selected = YES;
     }
@@ -421,9 +421,9 @@
 
 - (void)userBtnsClick:(BMImageTitleButtonView *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(videoViewControlBtnsClick:videoViewControlType:withSourceId:)])
+    if ([self.delegate respondsToSelector:@selector(videoViewControlBtnsClick:videoViewControlType:withStreamId:)])
     {
-        [self.delegate videoViewControlBtnsClick:sender videoViewControlType:sender.tag withSourceId:self.sourceId];
+        [self.delegate videoViewControlBtnsClick:sender videoViewControlType:sender.tag withStreamId:self.streamId];
     }
 }
 

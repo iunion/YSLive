@@ -872,10 +872,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             videoView.appUseTheType = self.appUseTheType;
             
             [self addVideoViewToVideoViewArrayDic:videoView];
-            
-            CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:YSCurrentUser.peerID andSourceID:sYSUserDefaultSourceId];
-            
-            [self.liveManager playVideoWithUserId:YSCurrentUser.peerID sourceID:sYSUserDefaultSourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+                        
+            NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
+            [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
             [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
             [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -1039,6 +1038,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.teacherPlaceLab = placeLab;
     
     // 1V1 初始本人视频音频
+    
     SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sYSUserDefaultSourceId isForPerch:YES];
     videoView.appUseTheType = self.appUseTheType;
     videoView.tag = PlaceholderPTag;
@@ -1051,10 +1051,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:videoView];
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
     self.userVideoView = videoView;
-
-    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:YSCurrentUser.peerID andSourceID:sYSUserDefaultSourceId];
     
-    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID sourceID:sYSUserDefaultSourceId type:mediaType renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+    NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
+    
+    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -1414,9 +1414,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 SCVideoView *videoView = self.videoSequenceArr.firstObject;
                 if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
-                    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:videoView.roomUser.peerID andSourceID:sYSUserDefaultSourceId];
+                    NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
                     
-                    [self.liveManager stopVideoWithUserId:YSCurrentUser.peerID sourceID:sYSUserDefaultSourceId type:mediaType];
+                    [self.liveManager stopVideoWithUserId:YSCurrentUser.peerID streamID:streamId];
                     if (videoView.roomUser.role == YSUserType_Student)
                     {
                         self.userVideoView.hidden = YES;
@@ -1431,11 +1431,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         if (self.roomLayout == YSRoomLayoutType_VideoLayout)
         {
-            [self freshVidoeGridView];
+            [self freshVideoGridView];
         }
         else
         {
-            [self freshContentVidoeView];
+            [self freshContentVideoView];
             [self.videoBackgroud bringSubviewToFront:self.userVideoView];
         }
     }
@@ -1443,7 +1443,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (self.roomLayout == YSRoomLayoutType_VideoLayout || self.roomLayout == YSRoomLayoutType_FocusLayout)
         {
-            [self freshVidoeGridView];
+            [self freshVideoGridView];
             [self.raiseHandsBtn bm_bringToFront];
         }
         else
@@ -1453,13 +1453,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.contentBackgroud addSubview:self.videoGridView];
 //            [self.videoGridView bm_centerInSuperView];
             self.videoGridView.backgroundColor = [UIColor clearColor];
-            [self freshContentVidoeView];
+            [self freshContentVideoView];
         }
     }
 }
 
 // 刷新content视频布局
-- (void)freshContentVidoeView
+- (void)freshContentVideoView
 {
     self.contentView.hidden = NO;
     self.videoGridView.hidden = YES;
@@ -1497,17 +1497,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.isDoubleType && self.roomtype == YSRoomUserType_One)
     {
         [self doubleTeacherCalculateVideoSize];
-        [self doubleTeacherArrangeVidoeView];
+        [self doubleTeacherArrangeVideoView];
     }
     else
     {
         [self calculateVideoSize];
-        [self arrangeVidoeView];
+        [self arrangeVideoView];
     }
 }
 
 ///排布双师模式视图
-- (void)doubleTeacherArrangeVidoeView
+- (void)doubleTeacherArrangeVideoView
 {
     for (NSUInteger i=0; i<self.videoSequenceArr.count; i++)
     {
@@ -1593,7 +1593,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 ///排布视图
-- (void)arrangeVidoeView
+- (void)arrangeVideoView
 {
     if (self.roomtype == YSRoomUserType_One)
     {
@@ -1757,9 +1757,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 刷新宫格视频布局
-- (void)freshVidoeGridView
+- (void)freshVideoGridView
 {
-    [self hideAllDragOutVidoeView];
+    [self hideAllDragOutVideoView];
         
     NSMutableArray *viewArray = [[NSMutableArray alloc] init];
     [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -1841,13 +1841,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 
 // 开始播放课件视频
-- (void)showWhiteBordVidoeViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
+- (void)showWhiteBordVideoViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
 {
     [self.view endEditing:YES];
     
-    YSSharedMediaFileModel *mediaFileModel = [self.liveManager getMediaFileModelWhithSourceId:mediaModel.sourceId];
     
-    [self.liveManager playVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId type:mediaFileModel.mediaType renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
     
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
@@ -1863,11 +1862,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 关闭课件视频
-- (void)hideWhiteBordVidoeViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
+- (void)hideWhiteBordVideoViewWithMediaModel:(YSSharedMediaFileModel *)mediaModel
 {
     if (mediaModel.isVideo)
     {
-        [[YSLiveManager sharedInstance] stopVideoWithUserId:mediaModel.senderId sourceID:mediaModel.sourceId type:mediaModel.mediaType];
+        [[YSLiveManager sharedInstance] stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
     }
     
     self.shareVideoFloatView.canZoom = NO;
@@ -1890,9 +1889,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark - videoViewArray
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceId:(nonnull NSString *)sourceId
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
-    [super onRoomCloseVideo:close withUid:uid sourceId:sourceId];
+    [super onRoomCloseVideo:close withUid:uid sourceID:sourceId streamId:streamId];
 }
 
 /// 开关麦克风
@@ -1902,46 +1901,55 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid sourceId:(nullable NSString *)sourceId
+- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
-    [super onRoomStartVideoOfUid:uid sourceId:sourceId];
+    [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid sourceId:(nullable NSString *)sourceId
+- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
-    [super onRoomStopVideoOfUid:uid sourceId:sourceId];
+    [super onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
 }
 
 
 #pragma mark  添加视频窗口
 
-- (NSMutableArray<SCVideoView *> *)addVidoeViewWithPeerId:(NSString *)peerId
+- (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
 {
-    NSMutableArray *newVideoViewArray = [super addVidoeViewWithPeerId:peerId];
+    NSMutableArray *newVideoViewArray = [super addVideoViewWithPeerId:peerId];
 
     if (self.controlPopoverView.presentingViewController)
     {
         [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     }
-
-//    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
-//    if (!roomUser)
-//    {
-//        return;
-//    }
     
     [self freshContentView];
     
     return newVideoViewArray;
 }
 
+#pragma mark  某人的摄像头设备变更
+//设备变化时
+- (NSMutableArray<SCVideoView *> *)frashVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
+{
+    NSMutableArray *videoViewArray = [super frashVideoViewsCountWithPeerId:peerId withSourceIdArray:sourceIdArray withMaxCount:count];
+    
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    }
+    
+    [self freshContentView];
+    
+    return videoViewArray;
+}
 
 #pragma mark  删除视频窗口
 
-- (SCVideoView *)delVidoeViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
+- (SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
 {
-    SCVideoView *delVideoView = [super delVidoeViewWithPeerId:peerId andSourceId:sourceId];
+    SCVideoView *delVideoView = [super delVideoViewWithPeerId:peerId andSourceId:sourceId];
 
     if (self.controlPopoverView.presentingViewController)
     {
@@ -1952,7 +1960,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (delVideoView.isDragOut)
         {
-            [self hideDragOutVidoeViewWithPeerId:peerId];
+            [self hideDragOutVideoViewWithPeerId:peerId];
         }
         else if (delVideoView.isFullScreen)
         {
@@ -2986,7 +2994,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     for (NSString * sourceId in user.sourceListDic.allKeys)
     {
-        [self delVidoeViewWithPeerId:user.peerID andSourceId:sourceId];
+        [self delVideoViewWithPeerId:user.peerID andSourceId:sourceId];
     }
     
     if (self.liveManager.localUser.publishState == YSUser_PublishState_UP)
@@ -2995,9 +3003,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if ([self.fouceView.roomUser.peerID isEqualToString:user.peerID])
         {
             self.roomLayout = YSRoomLayoutType_VideoLayout;
-            [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID withSourceId:self.fouceView.sourceId];
+            [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:user.peerID withStreamId:self.fouceView.streamId];
             self.fouceView = nil;
-            self.controlPopoverView.fouceSourceId = nil;
+            self.controlPopoverView.fouceStreamId = nil;
             self.controlPopoverView.foucePeerId = nil;
         }
     }
@@ -3100,7 +3108,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (roomUser.publishState == YSUser_PublishState_UP)
     {
-        [self addVidoeViewWithPeerId:userId];
+        [self addVideoViewWithPeerId:userId];
     }
     else
     {
@@ -3110,7 +3118,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         for (NSString * sourceId in roomUser.sourceListDic.allKeys)
         {
-            [self delVidoeViewWithPeerId:roomUser.peerID andSourceId:sourceId];
+            [self delVideoViewWithPeerId:roomUser.peerID andSourceId:sourceId];
         }
     }
     
@@ -3140,20 +3148,61 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         return;
     }
-
     
     if (!self.whitebordFullBackgroud.hidden && [roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
     {
         [self.fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
     }
     // 网络状态 + 设备状态
-    if ([properties bm_containsObjectForKey:sYSUserNetWorkState] || [properties bm_containsObjectForKey:sYSUserMic] || [properties bm_containsObjectForKey:sYSUserCameras])
+    if ([properties bm_containsObjectForKey:sYSUserNetWorkState] || [properties bm_containsObjectForKey:sYSUserMic])
     {
         for (SCVideoView * videoView in videoViewArr)
         {
             [videoView freshWithRoomUserProperty:roomUser];
         }
     }
+    
+    //摄像头变更
+    if ([properties bm_containsObjectForKey:sYSUserCameras])
+    {
+        NSDictionary * dict = [properties bm_dictionaryForKey:sYSUserCameras];
+    
+        [self frashVideoViewsCountWithPeerId:userId withSourceIdArray:[dict.allKeys mutableCopy] withMaxCount:maxVideoCount];
+    }
+    
+//    if ([properties bm_containsObjectForKey:sYSUserCameras])
+//    {
+//        NSMutableArray * addSourceIdArr = [NSMutableArray array];
+//        NSMutableArray * deleteSourceIdArr = [NSMutableArray array];
+//
+//        for (NSString *souurceId in roomUser.sourceListDic.allKeys)
+//        {
+//            if (![[properties bm_mutDictionaryForKey:sYSUserCameras].allKeys containsObject:souurceId])
+//            {
+//                [deleteSourceIdArr addObject:souurceId];
+//            }
+//        }
+//
+//        for (NSString *sourceId in [properties bm_mutDictionaryForKey:sYSUserCameras].allKeys)
+//        {
+//            if (![roomUser.sourceListDic.allKeys containsObject:sourceId])
+//            {
+//                [addSourceIdArr addObject:sourceId];
+//            }
+//        }
+//
+//        if (addSourceIdArr.count)
+//        {
+//            [self addVideoViewWithPeerId:userId];
+//        }
+//        if (deleteSourceIdArr.count)
+//        {
+//            for (NSString *sourceId in deleteSourceIdArr)
+//            {
+//                [self delVideoViewWithPeerId:roomUser.peerID andSourceId:sourceId];
+//            }
+//        }
+//    }
     
     // 奖杯数
     if ([properties bm_containsObjectForKey:sYSUserGiftNumber])
@@ -3298,7 +3347,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 视频镜像
     if ([properties bm_containsObjectForKey:sYSUserIsVideoMirror])
     {
-        NSMutableDictionary *sourceIdsDict = [self.liveManager getUserSourceIdsWithUserId:userId];
+        NSMutableArray *streamIdsArray = [self.liveManager getUserStreamIdsWithUserId:userId];
         BOOL isVideoMirror = [properties bm_boolForKey:sYSUserIsVideoMirror];
         CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
         if (isVideoMirror)
@@ -3306,10 +3355,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
         
-        for (NSString * sourceId in sourceIdsDict.allKeys)
+        for (NSString * streamId in streamIdsArray)
         {
-            CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:sourceId];
-            [self.liveManager changeVideoWithUserId:userId sourceID:sourceId type:mediaType   renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
+            [self.liveManager changeVideoWithUserId:userId streamID:streamId   renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
         }
     }
     
@@ -3338,7 +3386,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     self.teacherPlaceLab.hidden = YES;
     
-    [self addVidoeViewWithPeerId:self.liveManager.teacher.peerID];
+    [self addVideoViewWithPeerId:self.liveManager.teacher.peerID];
 
     [self freshTeacherPersonListData];
        
@@ -3370,11 +3418,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             if (roomUser.publishState == YSUser_PublishState_UP)
             {
-                [self addVidoeViewWithPeerId:peerID];
+                [self addVideoViewWithPeerId:peerID];
             }
             else
             {
-                [self delVidoeViewWithPeerId:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
+                [self delVideoViewWithPeerId:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
             }
         }
     }
@@ -3730,7 +3778,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 percentTop = 0;
             }
-            [self showDragOutFullTeacherVidoeViewWithPercentLeft:percentLeft percentTop:percentTop];
+            [self showDragOutFullTeacherVideoViewWithPercentLeft:percentLeft percentTop:percentTop];
         }
         
         [self.dragImageView removeFromSuperview];
@@ -3746,7 +3794,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 全屏课件时拖拽视频
-- (void)showDragOutFullTeacherVidoeViewWithPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop
+- (void)showDragOutFullTeacherVideoViewWithPercentLeft:(CGFloat)percentLeft percentTop:(CGFloat)percentTop
 {
     if (self.roomLayout == YSRoomLayoutType_VideoLayout)
     {
@@ -3799,6 +3847,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.fullTeacherFloatView.maxSize = background.bm_size;
         self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
         self.fullTeacherFloatView.sourceId = sYSUserDefaultSourceId;
+        self.fullTeacherFloatView.streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
     }
 }
 #endif
@@ -3812,18 +3861,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (isDragOut)
     {
-        [self showDragOutVidoeViewWithData:data];
+        [self showDragOutVideoViewWithData:data];
     }
     else
     {
-        [self hideDragOutVidoeViewWithPeerId:peerId];
+        [self hideDragOutVideoViewWithPeerId:peerId];
     }
 }
 
 #pragma mark - floatVideo
 
 // 拖出视频
-- (void)showDragOutVidoeViewWithData:(NSDictionary *)data
+- (void)showDragOutVideoViewWithData:(NSDictionary *)data
 {
     if (self.roomLayout == YSRoomLayoutType_VideoLayout)
     {
@@ -3858,7 +3907,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     else
     {
         videoView.isDragOut = YES;
-        [self freshContentVidoeView];
+        [self freshContentVideoView];
         
         CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoDefaultWidth);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
@@ -3875,7 +3924,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 放回视频
-- (void)hideDragOutVidoeViewWithPeerId:(NSString *)peerId
+- (void)hideDragOutVideoViewWithPeerId:(NSString *)peerId
 {
     if (self.roomLayout == YSRoomLayoutType_VideoLayout)
     {
@@ -3903,11 +3952,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (needFresh)
     {
-        [self freshContentVidoeView];
+        [self freshContentVideoView];
     }
 }
 
-- (void)hideAllDragOutVidoeView
+- (void)hideAllDragOutVideoView
 {
     for (YSFloatView *floatView in self.dragOutFloatViewArray )
     {
@@ -3970,15 +4019,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId withSourceId:(nullable NSString *)sourceId isFull:(BOOL)isFull
 {
     self.isDoubleVideoBig = isFull;
+//    NSString * sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
     if (isFull)
     {
         if (self.doubleFloatView)
         {
             [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil withSourceId:nil isFull:NO];
         }
-        
-        NSString *sourceId = nil;
-        
+                
         SCVideoView *videoView = [self getVideoViewWithPeerId:peerId andSourceId:sourceId];
         videoView.isFullScreen = isFull;
         
@@ -4049,7 +4097,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (mediaModel.isVideo)
     {
-        [self showWhiteBordVidoeViewWithMediaModel:mediaModel];
+        [self showWhiteBordVideoViewWithMediaModel:mediaModel];
     }
     else
     {
@@ -4065,7 +4113,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (mediaModel.isVideo)
     {
-        [self hideWhiteBordVidoeViewWithMediaModel:mediaModel];
+        [self hideWhiteBordVideoViewWithMediaModel:mediaModel];
     }
     else
     {
@@ -4183,13 +4231,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 共享桌面
 
 // 开始共享桌面
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceId:(nonnull NSString *)sourceId
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamId:(nonnull NSString *)streamId
 {
     [self.view endEditing:YES];
-    
-//    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:sourceId];
-    
-    [self.liveManager playVideoWithUserId:userId sourceID:sourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+        
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
 
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;
@@ -4202,9 +4248,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 关闭共享桌面
-- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceId:(nonnull NSString *)sourceId
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamId:(nonnull NSString *)streamId
 {
-    [self.liveManager stopVideoWithUserId:userId sourceID:sourceId type:CloudHub_MEDIA_TYPE_SCREEN_VIDEO];
+    [self.liveManager stopVideoWithUserId:userId streamID:streamId];
 
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
@@ -4297,7 +4343,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }];
         
         [weakSelf.answerMyResultDic setValue:tempArr forKey:weakSelf.liveManager.localUser.peerID];
-        
     };
 }
 
@@ -4711,8 +4756,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         self.fullTeacherFloatView.frame = CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
         [self.fullTeacherFloatView bm_bringToFront];
+                
+//        NSString * streamId = [self.liveManager getLocalStreamIdWith:self.liveManager.teacher.peerID andSourceId:self.liveManager.teacher.sourceListDic.allKeys.firstObject];
         
-        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher withSourceId:self.teacherVideoViewArray.firstObject.sourceId isForPerch:NO withDelegate:self];
+        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher withSourceId:self.liveManager.teacher.sourceListDic.allKeys.firstObject isForPerch:NO withDelegate:self];
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
         
@@ -4805,6 +4852,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.controlPopoverView.roomtype = self.roomtype;
     self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.sourceId = videoView.sourceId;
+    self.controlPopoverView.streamId = videoView.streamId;
     self.controlPopoverView.userModel = userModel;
     self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }

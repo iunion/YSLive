@@ -251,16 +251,15 @@
         [self stayMove];
         if (!self.isFullBackgrond)
         {
-            
             NSDictionary * dict = @{
                 @"userId":self.peerId,
-                @"sourceId":self.sourceId,
+                @"streamId":self.streamId,
                 @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
                 @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
                 @"isDrag": @1, // 是否拖拽了
                 @"scale":@(self.endScale)
             };
-            [[YSLiveManager sharedInstance]sendSignalingTopinchVideoViewWithPeerId:self.peerId withSourceId:self.sourceId withData:dict];
+            [[YSLiveManager sharedInstance]sendSignalingTopinchVideoViewWithPeerId:self.peerId withStreamId:self.streamId withData:dict];
         }
     }
 }
