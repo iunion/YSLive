@@ -28,8 +28,6 @@
 
 #import "SCColorSelectView.h"
 
-#import "YSControlPopoverView.h"
-
 #import "YSMp4ControlView.h"
 #import "YSMp3Controlview.h"
 
@@ -88,7 +86,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     SCBrushToolViewDelegate,
     SCDrawBoardViewDelegate,
     SCVideoViewDelegate,
-    YSControlPopoverViewDelegate,
     SCTeacherListViewDelegate,
     YSMp4ControlViewDelegate,
     YSMp3ControlviewDelegate,
@@ -167,8 +164,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL giftMp3Playing;
 }
 
-///标识布局变化的值
-@property (nonatomic, assign) YSRoomLayoutType roomLayout;
 /// 工具箱
 @property(nonatomic, strong) YSToolBoxView *toolBoxView;
 /// 花名册 课件库
@@ -246,8 +241,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 共享视频窗口
 @property (nonatomic, strong) UIView *shareVideoView;
 
-/// 视频控制popoverView
-@property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
 /// 学生的视频控制popoverView
 @property(nonatomic, strong) SCVideoView *selectControlView;
 
@@ -306,9 +299,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property(nonatomic, strong) AVAudioPlayer *player;
 @property(nonatomic, strong) AVAudioSession *session;
 
-/// 当前的焦点视图
-@property(nonatomic, strong) SCVideoView *fouceView;
-
 @property(nonatomic, weak) BMTZImagePickerController *imagePickerController;
 /// 当前展示课件数组
 @property (nonatomic, strong) NSMutableArray *currentFileList;
@@ -319,9 +309,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 
-
 @end
-
 
 @implementation YSTeacherRoleMainVC
 
@@ -5178,18 +5166,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 #pragma mark 视频控制popoverView视图
-
-- (YSControlPopoverView *)controlPopoverView
+- (void)creatControlPopoverView
 {
-    if (!_controlPopoverView)
+    if (!self.controlPopoverView)
     {
         self.controlPopoverView = [[YSControlPopoverView alloc]init];
         self.controlPopoverView.modalPresentationStyle = UIModalPresentationPopover;
         self.controlPopoverView.delegate = self;
         self.controlPopoverView.appUseTheType = self.appUseTheType;
     }
-    return _controlPopoverView;
 }
+
 
 // 只实现这个代理的话，会有横屏显示不正确的问题。
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
@@ -5207,6 +5194,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
+    [self creatControlPopoverView];
+    
     self.selectControlView = videoView;
     
     YSRoomUser * userModel = videoView.roomUser;

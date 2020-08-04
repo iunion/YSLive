@@ -31,8 +31,6 @@
 #import "YSStudentResponder.h"
 #import "YSStudentTimerView.h"
 
-#import "YSControlPopoverView.h"
-
 #import "PanGestureControl.h"
 #import "YSToolBoxView.h"
 
@@ -93,7 +91,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     SCBrushToolViewDelegate,
     SCDrawBoardViewDelegate,
     UIPopoverPresentationControllerDelegate,
-    YSControlPopoverViewDelegate,
     SCVideoViewDelegate,
     SCTeacherListViewDelegate,
     YSToolBoxViewDelegate
@@ -146,8 +143,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     BOOL giftMp3Playing;
 }
 
-/// 标识布局变化的值
-@property (nonatomic, assign) YSRoomLayoutType roomLayout;
 
 /// 奖杯数请求
 @property (nonatomic, strong) NSURLSessionDataTask *giftCountTask;
@@ -257,11 +252,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///音频播放器
 @property(nonatomic, strong) AVAudioPlayer *player;
 @property(nonatomic, strong) AVAudioSession *session;
-
-/// 当前的焦点视图
-@property(nonatomic, strong) SCVideoView *fouceView;
-/// 视频控制popoverView
-@property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
 
 /// 花名册 课件库
 @property(nonatomic, strong) SCTeacherListView *teacherListView;
@@ -4710,17 +4700,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark -
 #pragma mark 视频控制popoverView视图
-
-- (YSControlPopoverView *)controlPopoverView
+- (void)creatControlPopoverView
 {
-    if (!_controlPopoverView)
+    if (!self.controlPopoverView)
     {
         self.controlPopoverView = [[YSControlPopoverView alloc]init];
         self.controlPopoverView.modalPresentationStyle = UIModalPresentationPopover;
         self.controlPopoverView.delegate = self;
         self.controlPopoverView.appUseTheType = self.appUseTheType;
     }
-    return _controlPopoverView;
 }
 
 // 只实现这个代理的话，会有横屏显示不正确的问题。
@@ -4737,7 +4725,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
-{    
+{
+    [self creatControlPopoverView];
+    
     YSRoomUser * userModel = videoView.roomUser;
     
     if (videoView.roomUser.peerID != YSCurrentUser.peerID || userModel.publishState == YSUser_PublishState_DOWN)

@@ -8,6 +8,7 @@
 
 #import "YSSuperNetVC.h"
 #import "SCVideoView.h"
+#import "YSControlPopoverView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 <
     YSSessionDelegate,
     YSLiveForWhiteBoardDelegate,
-    SCVideoViewDelegate
+    SCVideoViewDelegate,
+    YSControlPopoverViewDelegate
 >
 
 @property (nonatomic, weak, readonly) YSLiveManager *liveManager;
@@ -45,6 +47,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 打开的音视频课件，目前只支持一个音视频
 @property (nullable, nonatomic, strong) YSSharedMediaFileModel *mediaFileModel;
 
+/// 当前的焦点视图
+@property(nullable, nonatomic, strong) SCVideoView *fouceView;
+
+///标识布局变化的值
+@property (nonatomic, assign) YSRoomLayoutType roomLayout;
+
+/// 视频控制popoverView
+@property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 
