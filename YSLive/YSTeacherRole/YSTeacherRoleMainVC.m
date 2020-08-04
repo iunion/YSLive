@@ -2297,11 +2297,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //摄像头变更
     if ([properties bm_containsObjectForKey:sYSUserCameras])
     {
-        NSDictionary * dict = [properties bm_dictionaryForKey:sYSUserCameras];
-    
-        [self freshVideoViewsCountWithPeerId:userId withSourceIdArray:[dict.allKeys mutableCopy] withMaxCount:maxVideoCount];
+        if (roomUser.publishState == YSUser_PublishState_UP)
+        {
+            NSDictionary * dict = [properties bm_dictionaryForKey:sYSUserCameras];
+            [self freshVideoViewsCountWithPeerId:userId withSourceIdArray:[dict.allKeys mutableCopy] withMaxCount:maxVideoCount];
+        }
     }
-    
     
     // 举手上台
     if ([properties bm_containsObjectForKey:sYSUserRaisehand])
@@ -5463,14 +5464,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 whom = roomUser.peerID;
             }
             [self.liveManager setPropertyOfUid:roomUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
-//            if (self.liveManager.isEveryoneNoAudio)
-//            {
-//                [self.liveManager setPropertyOfUid:roomUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_VIDEOONLY)];
-//            }
-//            else
-//            {
-//                [self.liveManager setPropertyOfUid:roomUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
-//            }
         }
         else
         {
