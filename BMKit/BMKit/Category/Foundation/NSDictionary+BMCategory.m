@@ -517,10 +517,10 @@
 
 - (NSMutableDictionary *)bm_mutDictionaryForKey:(id)key
 {
-    NSDictionary *value = nil;
+    NSMutableDictionary *value = nil;
     
     id object = [self objectForKey:key];
-    if ([object bm_isValided] && [object isKindOfClass:[NSDictionary class]])
+    if ([object bm_isValided] && [object isKindOfClass:[NSMutableDictionary class]])
     {
         value = [NSMutableDictionary dictionaryWithDictionary:object];
     }

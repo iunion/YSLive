@@ -3674,7 +3674,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             for (SCVideoView *videoView in self.videoSequenceArr)
             {
-                if ([videoView.sourceId isEqualToString:sourceId])
+                if ([videoView.roomUser.peerID isEqualToString:peerId] && [videoView.sourceId isEqualToString:sourceId])
                 {
                     self.fouceView = videoView;
                     break;

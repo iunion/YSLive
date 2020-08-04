@@ -236,7 +236,6 @@
     
     NSString *userId = videoView.roomUser.peerID;
     [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
-//    videoView.publishState = YSUser_PublishState_DOWN;
 }
 
 ///排序后的视频窗口array
@@ -251,10 +250,34 @@
     }];
     
     self.videoSequenceArr = [NSMutableArray array];
-    for (NSArray *peerId in idArr)
+    for (NSString *peerId in idArr)
     {
         NSArray * arr = [self.videoViewArrayDic bm_arrayForKey:peerId];
-        [self.videoSequenceArr addObjectsFromArray:arr];
+        
+        if (![arr bm_isNotEmpty])
+        {
+            [self.videoViewArrayDic removeObjectForKey:peerId];
+        }
+        else if (arr.count == 1)
+        {
+            [self.videoSequenceArr addObject:arr[0]];
+        }
+        else
+        {
+          SCVideoView * videoView0 = arr[0];
+            SCVideoView * videoView1 = arr[1];
+            NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+            
+            if (result == NSOrderedAscending)
+            {//左边小于右边
+                [self.videoSequenceArr addObjectsFromArray:arr];
+            }
+            else
+            {
+                [self.videoSequenceArr addObject:videoView1];
+                [self.videoSequenceArr addObject:videoView0];
+            }
+        }
     }
     
     ///把老师插入最前面
@@ -272,12 +295,11 @@
 {
     NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
 
-    if ([videoArr containsObject:videoView])
+    if (![videoArr containsObject:videoView])
     {
-        [videoArr removeObject:videoView];
+        [videoArr addObject:videoView];
     }
     
-    [videoArr addObject:videoView];
     [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
     if (videoView.roomUser.role == YSUserType_Teacher)
     {
@@ -295,12 +317,22 @@
     {
         [videoArr removeObject:videoView];
         [self.videoSequenceArr removeObject:videoView];
-        [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
+        if (videoArr.count)
+        {
+            [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
+            if (videoView.roomUser.role == YSUserType_Teacher)
+            {
+                self.teacherVideoViewArray = videoArr;
+            }
+        }
+        else
+        {
+            [self.videoViewArrayDic removeObjectForKey:videoView.roomUser.peerID];
+        }
         if (videoView.roomUser.role == YSUserType_Teacher)
         {
-            [self.teacherVideoViewArray removeObject:videoView];
-        }
-    }
+            self.teacherVideoViewArray = videoArr;
+        }    }
 }
 
 #pragma mark  添加视频窗口
