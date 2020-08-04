@@ -116,7 +116,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 /// 麦克风设备状态
 @property (nonatomic, assign, readonly) YSDeviceFaultType audioDeviceState;
 
-
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 /// 是否举手
@@ -127,7 +126,6 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 
 // 开关是否关摄像头
 @property (nonatomic, assign) YSSessionMuteState videoMute;
-
 
 /// 老师用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;

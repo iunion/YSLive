@@ -332,7 +332,8 @@
         if (videoView.roomUser.role == YSUserType_Teacher)
         {
             self.teacherVideoViewArray = videoArr;
-        }    }
+        }
+    }
 }
 
 #pragma mark  添加视频窗口
@@ -520,6 +521,16 @@
             {
                 [self deleteVideoViewfromVideoViewArrayDic:videoView];
                 [self stopVideoAudioWithVideoView:videoView];
+                
+                //焦点用户退出
+                if ([self.fouceView.roomUser.peerID isEqualToString:videoView.roomUser.peerID])
+                {
+                    self.roomLayout = YSRoomLayoutType_VideoLayout;
+                    [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:videoView.roomUser.peerID withStreamId:self.fouceView.streamId];
+                    self.fouceView = nil;
+                    self.controlPopoverView.fouceStreamId = nil;
+                    self.controlPopoverView.foucePeerId = nil;
+                }
             }
         }
         
