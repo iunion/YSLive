@@ -731,18 +731,21 @@ typedef void (^YSRoomLeftDoBlock)(void);
     textView.delegate = self;
     textView.textColor = YSSkinDefineColor(@"login_placeholderColor");
     textView.font = UI_FONT_10;
+    
     textView.linkTextAttributes = @{NSForegroundColorAttributeName:YSSkinDefineColor(@"defaultSelectedBgColor"),NSFontAttributeName:[UIFont systemFontOfSize:10]};
     textView.editable = NO;
     textView.scrollEnabled = NO;
     [self.backImageView addSubview:textView];
+    
+    CGSize textViewSize = [attribute bm_sizeToFit:CGSizeMake(250.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    textView.attributedText = attribute;
     [textView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.bottom.bmmas_equalTo(-20);
-        make.height.bmmas_equalTo(50);
-        make.width.bmmas_equalTo(250);
+        make.bottom.bmmas_equalTo(-20.f);
+        make.height.bmmas_equalTo(textViewSize.height + textView.textContainerInset.top + textView.textContainerInset.bottom+ 2.0f);
+        make.width.bmmas_equalTo(250.f);
         make.centerX.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_centerX);
     }];
-    textView.attributedText = attribute;
-
+    
     // 用户协议
     UIButton *userAgreement = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.backImageView addSubview:userAgreement];
