@@ -69,7 +69,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     UIAlertController *updatAalertVc;
     UIAlertController *eyeCareAlertVc;
-    BOOL isAgreeUserAgreement;//是否同意用户协议
 }
 @property (nonatomic, assign) YSRoomUseType room_UseTheType;
 
@@ -193,7 +192,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     self.selectRoleType = YSUserType_Student;
     self.isOnlineSchool = NO;
-    isAgreeUserAgreement = NO;
+    
     // 主题问题
     [self setupUI];
     
@@ -738,7 +737,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [self.backImageView addSubview:textView];
     [textView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.bottom.bmmas_equalTo(-20);
-        make.height.bmmas_equalTo(30);
+        make.height.bmmas_equalTo(50);
         make.width.bmmas_equalTo(250);
         make.centerX.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_centerX);
     }];
@@ -757,6 +756,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
         make.centerY.bmmas_equalTo(textView.bmmas_centerY);
     }];
     
+    if ([YSUserDefault getUserAgreement])
+    {
+        userAgreement.selected = YES;
+    }
 }
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     NSLog(@"%@",URL);
@@ -768,10 +771,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return NO;
 }
 
+/// 同意用户协议
 - (void)userAgreementClicked:(UIButton *)btn
 {
     btn.selected = !btn.selected;
-    isAgreeUserAgreement = btn.selected;
+    [YSUserDefault setUserAgreement:btn.selected];
+    
 }
 
 #pragma mark --键盘弹出收起管理
@@ -1095,7 +1100,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
-    if (!isAgreeUserAgreement)
+    if (![YSUserDefault getUserAgreement])
     {
         [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Agreement.Alert") message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
         return;
