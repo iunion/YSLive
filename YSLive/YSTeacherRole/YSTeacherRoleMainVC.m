@@ -167,14 +167,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL giftMp3Playing;
 }
 
-/// 房间类型 0:表示一对一教室  非0:表示一多教室
-@property (nonatomic, assign) YSRoomUserType roomtype;
-/// 视频ratio 16:9
-@property (nonatomic, assign) BOOL isWideScreen;
-
-/// 固定UserId
-@property (nonatomic, strong) NSString *userId;
-
 ///标识布局变化的值
 @property (nonatomic, assign) YSRoomLayoutType roomLayout;
 /// 工具箱
