@@ -52,4 +52,18 @@
     return reproducerPermission;
 }
 
+
++ (void)setUserAgreement:(BOOL)agree
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:agree forKey:YS_UserAgreement];
+    [defaults synchronize];
+    
+}
++ (BOOL)getUserAgreement
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL agree = [defaults boolForKey:YS_UserAgreement];
+    return agree;
+}
 @end

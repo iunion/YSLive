@@ -16,6 +16,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 /// 扬声器权限
 static NSString *const YSPERMISSION_USERDEFAULT_REPRODUCER = @"ysPERMISSION_USERDEFAULT_REPRODUCER";
 
+/// 是否同意用户协议
+static NSString *const YS_UserAgreement = @"ys_USERAGREEMENT";
+
 @interface YSUserDefault : NSObject
 
 + (void)setLoginRoomID:(NSString *)roomID;
@@ -23,6 +26,10 @@ static NSString *const YSPERMISSION_USERDEFAULT_REPRODUCER = @"ysPERMISSION_USER
 
 + (void)setLoginNickName:(NSString *)nickName;
 + (NSString *)getLoginNickName;
+
+/// 用户协议
++ (void)setUserAgreement:(BOOL)agree;
++ (BOOL)getUserAgreement;
 
 //+ (void)setLoginRoleType:(YSUserRoleType)roleType;
 //+ (NSString *)getLoginRoleType;
