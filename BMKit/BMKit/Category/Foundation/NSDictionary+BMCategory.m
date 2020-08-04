@@ -515,7 +515,7 @@
     return value;
 }
 
-- (NSMutableDictionary *)bm_mutDictionaryForKey:(id)key
+- (NSMutableDictionary *)bm_mutableDictionaryForKey:(id)key
 {
     NSMutableDictionary *value = nil;
     

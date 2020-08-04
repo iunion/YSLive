@@ -70,7 +70,7 @@
 - (nullable NSArray *)bm_arrayForKey:(nonnull id)key;
 - (nullable NSMutableArray *)bm_mutableArrayForKey:(nonnull id)key;
 - (nullable NSDictionary *)bm_dictionaryForKey:(nonnull id)key;
-- (nullable NSMutableDictionary *)bm_mutDictionaryForKey:(nonnull id)key;
+- (nullable NSMutableDictionary *)bm_mutableDictionaryForKey:(nonnull id)key;
 
 - (BOOL)bm_containsObjectForKey:(nonnull id)key;
 

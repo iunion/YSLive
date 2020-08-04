@@ -25,6 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 ///app使用场景  3：小班课  4：直播   6：会议
 @property (nonatomic, assign) YSRoomUseType appUseTheType;
 
+/// 房间类型 0:表示一对一教室  非0:表示一多教室
+@property (nonatomic, assign) YSRoomUserType roomtype;
+/// 视频ratio 16:9
+@property (nonatomic, assign) BOOL isWideScreen;
+
+/// 固定UserId
+@property (nonatomic, strong) NSString *userId;
+
 /// 排序后的视频View列表
 @property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;

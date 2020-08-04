@@ -2020,7 +2020,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
-        YSRoomUserType roomusertype = maxvideo > 2 ? YSRoomUserType_More : YSRoomUserType_One;
+        YSRoomUserType roomusertype = liveManager.roomModel.roomUserType;
         
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
