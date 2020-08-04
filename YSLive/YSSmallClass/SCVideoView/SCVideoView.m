@@ -93,11 +93,15 @@
     {
         self.delegate = delegate;
         
-//        NSString *sourceId = [[YSLiveManager sharedInstance] getSourceIdFromStreamId:streamId];
+        
+        if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {
+            CloudHubMediaType localMediaType = CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO;
+            self.streamId = [NSString stringWithFormat:@"%@:%ld:%@",roomUser.peerID,(long)localMediaType,sourceId];
+        }
         
         self.roomUser = roomUser;
         self.sourceId = sourceId;
-//        self.streamId = streamId;
         self.isForPerch = isForPerch;
         
         if ([UIDevice bm_isiPad])

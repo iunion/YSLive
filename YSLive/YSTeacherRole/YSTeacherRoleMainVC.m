@@ -1820,9 +1820,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark  某人的摄像头设备变更
 //设备变化时
-- (NSMutableArray<SCVideoView *> *)frashVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
+- (NSMutableArray<SCVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
 {
-    NSMutableArray *videoViewArray = [super frashVideoViewsCountWithPeerId:peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:count];
+    NSMutableArray *videoViewArray = [super freshVideoViewsCountWithPeerId:peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:count];
     
     return [self videoViewFrash:videoViewArray withPeerId:peerId];
 }
@@ -2307,7 +2307,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         NSDictionary * dict = [properties bm_dictionaryForKey:sYSUserCameras];
     
-        [self frashVideoViewsCountWithPeerId:userId withSourceIdArray:[dict.allKeys mutableCopy] withMaxCount:maxVideoCount];
+        [self freshVideoViewsCountWithPeerId:userId withSourceIdArray:[dict.allKeys mutableCopy] withMaxCount:maxVideoCount];
     }
     
     
@@ -3281,7 +3281,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.fullTeacherFloatView.frame = CGRectMake(videoX, videoY, floatVideoDefaultWidth, floatVideoDefaultHeight);
             self.fullTeacherFloatView.hidden = NO;
             // 支持本地拖动缩放
-//            self.fullTeacherFloatView.canGestureRecognizer = YES;
             [self.fullTeacherFloatView bm_bringToFront];
             self.fullTeacherFloatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
             self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
@@ -3314,7 +3313,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 
 #pragma mark 拖出/放回视频窗口
-- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(nonnull NSDictionary *)data
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(nonnull NSString *)sourceId WithData:(nonnull NSDictionary *)data
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
     
@@ -5285,9 +5284,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {//当前是打开视频状态
                 muteState = YSSessionMuteState_Mute;
             }
-            else
-            {//当前是关闭视频状态
-            }
+
             [self.selectControlView.roomUser sendToChangeVideoMute:muteState WithSourceId:[self.liveManager getSourceIdFromStreamId:streamId]];
             sender.selected = !sender.selected;
         }

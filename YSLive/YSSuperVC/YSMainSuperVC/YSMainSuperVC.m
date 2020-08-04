@@ -157,6 +157,19 @@
         }
     }
         
+    if (videoView.streamId == nil)
+    {
+        NSArray *streamIdArray = [self.liveManager.userStreamIds_userId bm_arrayForKey:userId];
+        
+        for (NSString * streamId in streamIdArray)
+        {
+            if ([streamId containsString:videoView.sourceId])
+            {
+                videoView.streamId = streamId;
+            }
+        }
+    }
+    
     if (newVideoMute == YSSessionMuteState_UnMute)
     {
         [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
@@ -258,19 +271,11 @@
 - (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView
 {
     NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
-//    for (SCVideoView * videoView in videoArr)
-//    {
-//        if ([videoView.sourceId isEqualToString:videoView.sourceId])
-//        {
-//            [videoArr removeObject:videoView];
-//            break;;
-//        }
-//    }
+
     if ([videoArr containsObject:videoView])
     {
         [videoArr removeObject:videoView];
     }
-    
     
     [videoArr addObject:videoView];
     [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
@@ -348,12 +353,12 @@
                 [theVideoArray bm_addObject:newVideoView withMaxCount:count];
             }
             
-            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
             
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoViewArray = theVideoArray;
             }
+            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
             [self videoViewsSequence];
             
             [newVideoView bm_bringToFront];
@@ -376,13 +381,12 @@
                     [theVideoArray bm_addObject:newVideoView withMaxCount:count];
                 }
                 
-                [self.videoViewArrayDic setObject:newVideoView forKey:peerId];
-                
                 if (roomUser.role == YSUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theVideoArray;
                 }
-                [self videoViewsSequence];
+                
+                
                 
                 [newVideoView bm_bringToFront];
             }
@@ -393,20 +397,22 @@
                 newVideoView.streamId = [NSString stringWithFormat:@"%@:%ld:%@",peerId,(long)localMediaType,sourceId];
             }
             
-            [self playVideoAudioWithVideoView:newVideoView];
         }
-    }
-    
-    for (SCVideoView * videoView in theVideoArray)
-    {
-        [self addVideoViewToVideoViewArrayDic:videoView];
+        
+        [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
+        [self videoViewsSequence];
+        
+        for (SCVideoView * videoView in theVideoArray)
+        {
+            [self playVideoAudioWithVideoView:videoView];
+        }
     }
     
     return theVideoArray;
 }
 
 //设备变化时
-- (NSMutableArray<SCVideoView *> *)frashVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
+- (NSMutableArray<SCVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
 {
     YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
@@ -437,7 +443,6 @@
         
         for (SCVideoView * videoView in theVideoArray)
         {
-            [theVideoArray removeObject:videoView];
             [self deleteVideoViewfromVideoViewArrayDic:videoView];
         }
         
@@ -447,35 +452,34 @@
         {
             if (count == 0)
             {
-                [theVideoArray addObject:newVideoView];
+                [theAddVideoArray addObject:newVideoView];
             }
             else
             {
-                [theVideoArray bm_addObject:newVideoView withMaxCount:count];
+                [theAddVideoArray bm_addObject:newVideoView withMaxCount:count];
             }
-            
-            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
             
             if (roomUser.role == YSUserType_Teacher)
             {
-                self.teacherVideoViewArray = theVideoArray;
+                self.teacherVideoViewArray = theAddVideoArray;
             }
-            [self videoViewsSequence];
             
             [newVideoView bm_bringToFront];
         }
         
         [self addVideoViewToVideoViewArrayDic:newVideoView];
-        return [NSMutableArray arrayWithArray:@[newVideoView]];
+        
+        return theAddVideoArray;
     }
     else
     {//摄像头变更时
+                
         for (SCVideoView *videoView in theVideoArray)
         {
             if ([sourceIdArray containsObject:videoView.sourceId])
             {
                 [theAddVideoArray addObject:videoView];
-                [sourceIdArray removeObject:videoView.streamId];
+                [sourceIdArray removeObject:videoView.sourceId];
                 // property刷新原用户的值没有变化，需要重新赋值user
                 [videoView freshWithRoomUserProperty:roomUser];
                 [videoView bm_bringToFront];
@@ -495,25 +499,23 @@
             {
                 if (count == 0)
                 {
-                    [theVideoArray addObject:newVideoView];
+                    [theAddVideoArray addObject:newVideoView];
                 }
                 else
                 {
-                    [theVideoArray bm_addObject:newVideoView withMaxCount:count];
+                    [theAddVideoArray bm_addObject:newVideoView withMaxCount:count];
                 }
-                
-                [self.videoViewArrayDic setObject:newVideoView forKey:peerId];
                 
                 if (roomUser.role == YSUserType_Teacher)
                 {
-                    self.teacherVideoViewArray = theVideoArray;
+                    self.teacherVideoViewArray = theAddVideoArray;
                 }
-                [self videoViewsSequence];
                 
+                [self addVideoViewToVideoViewArrayDic:newVideoView];
+                
+                [self playVideoAudioWithVideoView:newVideoView];
                 [newVideoView bm_bringToFront];
             }
-            [self playVideoAudioWithVideoView:newVideoView];
-            [self addVideoViewToVideoViewArrayDic:newVideoView];
         }
     }
     

@@ -483,6 +483,25 @@
     return value;
 }
 
+- (NSMutableArray *)bm_mutableArrayForKey:(id)key
+{
+    NSMutableArray *value = nil;
+    
+    id object = [self objectForKey:key];
+    if ([object bm_isValided] && [object isKindOfClass:[NSMutableArray class]])
+    {
+        value = [NSMutableArray arrayWithArray:object];
+    }
+    
+    if (value == nil)
+    {
+        value = [NSMutableArray array];
+    }
+    
+    return value;
+}
+
+
 - (NSDictionary *)bm_dictionaryForKey:(id)key
 {
     NSDictionary *value = nil;
@@ -495,6 +514,25 @@
     
     return value;
 }
+
+- (NSMutableDictionary *)bm_mutDictionaryForKey:(id)key
+{
+    NSDictionary *value = nil;
+    
+    id object = [self objectForKey:key];
+    if ([object bm_isValided] && [object isKindOfClass:[NSDictionary class]])
+    {
+        value = [NSMutableDictionary dictionaryWithDictionary:object];
+    }
+    
+    if (value == nil)
+    {
+        value = [NSMutableDictionary dictionary];
+    }
+    
+    return value;
+}
+
 
 - (BOOL)bm_containsObjectForKey:(id)key
 {
