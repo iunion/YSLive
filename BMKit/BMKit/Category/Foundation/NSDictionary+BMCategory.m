@@ -515,9 +515,9 @@
     return value;
 }
 
-- (NSMutableDictionary *)bm_mutDictionaryForKey:(id)key
+- (NSMutableDictionary *)bm_mutableDictionaryForKey:(id)key
 {
-    NSDictionary *value = nil;
+    NSMutableDictionary *value = nil;
     
     id object = [self objectForKey:key];
     if ([object bm_isValided] && [object isKindOfClass:[NSDictionary class]])
