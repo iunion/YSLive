@@ -332,7 +332,8 @@
         if (videoView.roomUser.role == YSUserType_Teacher)
         {
             self.teacherVideoViewArray = videoArr;
-        }    }
+        }
+    }
 }
 
 #pragma mark  添加视频窗口

@@ -92,8 +92,6 @@
     if (self)
     {
         self.delegate = delegate;
-        
-        
         if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
             CloudHubMediaType localMediaType = CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO;
@@ -166,7 +164,6 @@
         
         self.roomUser = roomUser;
         self.sourceId = sourceId;
-//        self.streamId = streamId;
         self.isForPerch = isForPerch;
 
         if ([UIDevice bm_isiPad])
@@ -395,7 +392,26 @@
         self.cupNumLab.hidden = NO;
     }
    
-    self.cupImage.bm_width = self.cupImage.bm_height = self.bm_width*0.1f;
+    int maxW = 40;
+    int minW = 7;
+    if ([UIDevice bm_isiPad])
+    {
+        maxW = 50;
+        minW = 10;
+    }
+    
+    CGFloat cupImageW = self.bm_width*0.1f ;
+    
+    if (self.bm_width*0.1f > maxW)
+    {
+        cupImageW = maxW;
+    }
+    else if (self.bm_width*0.1f < minW)
+    {
+        cupImageW = minW;
+    }
+        
+    self.cupImage.bm_width = self.cupImage.bm_height = cupImageW;
     self.cupNumLab.bm_width = self.bm_width*0.3f;
     self.cupNumLab.bm_top = self.cupImage.bm_top;
     self.cupNumLab.bm_height = self.cupImage.bm_height;
@@ -410,10 +426,33 @@
         fontSize = 24.0f;
     }
     self.cupNumLab.font = [UIFont systemFontOfSize:fontSize];
-
+        
     self.brushImageView.frame = CGRectMake(self.bm_width - self.cupImage.bm_width - 4, self.cupImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
-    self.lowWifiImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
-    self.raiseHandImage.frame = CGRectMake(self.lowWifiImage.bm_originX-self.cupImage.bm_width - 4, self.lowWifiImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+    
+    if (self.lowWifiImage.hidden == YES && self.raiseHandImage.hidden == NO)
+    {
+        if ([self getIsVertical])
+        {
+            self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX, self.brushImageView.bm_bottom + 5, self.cupImage.bm_width, self.cupImage.bm_width);
+        }
+        else
+        {
+            self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+        }
+    }
+    else
+    {
+        if ([self getIsVertical])
+        {
+            self.lowWifiImage.frame = CGRectMake(self.brushImageView.bm_originX, self.brushImageView.bm_bottom + 5, self.cupImage.bm_width, self.cupImage.bm_width);
+            self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX, self.lowWifiImage.bm_bottom + 5, self.cupImage.bm_width, self.cupImage.bm_width);
+        }
+        else
+        {
+            self.lowWifiImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+            self.raiseHandImage.frame = CGRectMake(self.lowWifiImage.bm_originX-self.cupImage.bm_width - 4, self.lowWifiImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+        }
+    }
     
     CGFloat height = self.bm_width*0.1f;
     self.nickNameLab.frame = CGRectMake(4, self.bm_height-4-height, self.bm_width*0.5f, height);
@@ -430,6 +469,35 @@
 
     CGFloat soundImageWidth = height*5/3;
     self.soundImageView.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
+}
+
+- (BOOL)getIsVertical
+{
+    BOOL isVertical = NO;
+    
+    CGFloat width = self.bm_width;
+    CGFloat height = self.bm_height;
+    
+    CGFloat scaleVide = (width + 1)/height;
+    
+    if ([YSLiveManager sharedInstance].room_IsWideScreen)
+    {
+        CGFloat scaleVideoW = 16.0 / 9.0;
+        
+        if (scaleVide < scaleVideoW)
+        {
+            isVertical = YES;
+        }
+    }
+    else
+    {
+        CGFloat scaleVideoH = 4.0 / 3.0;
+        if (scaleVide < scaleVideoH)
+        {
+            isVertical = YES;
+        }
+    }
+    return isVertical;
 }
 
 /// 当前设备音量  音量大小 0 ～ 32670
@@ -571,6 +639,32 @@
     _isRaiseHand = isRaiseHand;
     
     self.raiseHandImage.hidden = !isRaiseHand;
+    
+    if (self.raiseHandImage.hidden == NO)
+    {
+        if (self.lowWifiImage.hidden == NO)
+        {
+            if ([self getIsVertical])
+            {
+                self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX, self.lowWifiImage.bm_bottom + 5, self.cupImage.bm_width, self.cupImage.bm_width);
+            }
+            else
+            {
+                self.raiseHandImage.frame = CGRectMake(self.lowWifiImage.bm_originX-self.cupImage.bm_width - 4, self.lowWifiImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+            }
+        }
+        else
+        {
+            if ([self getIsVertical])
+            {
+                self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX, self.brushImageView.bm_bottom + 5, self.cupImage.bm_width, self.cupImage.bm_width);
+            }
+            else
+            {
+                self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX-self.cupImage.bm_width - 4, self.brushImageView.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+            }
+        }
+    }
 }
 
 /// 视频状态
@@ -694,6 +788,19 @@
     if (videoState & SCVideoViewVideoState_PoorInternet)
     {
         self.lowWifiImage.hidden = NO;
+
+        if (self.raiseHandImage.hidden == NO)
+        {
+            if ([self getIsVertical])
+            {
+                self.raiseHandImage.frame = CGRectMake(self.brushImageView.bm_originX, self.lowWifiImage.bm_bottom + 5, self.cupImage.bm_width, self.cupImage.bm_width);
+            }
+            else
+            {
+                self.raiseHandImage.frame = CGRectMake(self.lowWifiImage.bm_originX-self.cupImage.bm_width - 4, self.lowWifiImage.bm_originY, self.cupImage.bm_width, self.cupImage.bm_width);
+            }
+        }
+        
         return;
     }
     else
