@@ -2379,12 +2379,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        
-        NSMutableArray *streamIdsArray = [self.liveManager getUserStreamIdsWithUserId:userId];
-        
-        for (NSString *streamId in streamIdsArray)
+
+        NSArray *streamIdArray = [self.liveManager getUserStreamIdsWithUserId:userId];
+        if ([streamIdArray bm_isNotEmpty])
         {
-            [self.liveManager changeVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
+            for (NSString *streamId in streamIdArray)
+            {
+                [self.liveManager changeVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
+            }
+        }
+        else
+        {
+            [self.liveManager changeVideoWithUserId:userId streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
         }
     }
 

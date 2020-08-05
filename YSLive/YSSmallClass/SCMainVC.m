@@ -3255,16 +3255,24 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     // 视频镜像
     if ([properties bm_containsObjectForKey:sYSUserIsVideoMirror])
     {
-        NSMutableArray *streamIdsArray = [self.liveManager getUserStreamIdsWithUserId:userId];
         BOOL isVideoMirror = [properties bm_boolForKey:sYSUserIsVideoMirror];
         CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
         if (isVideoMirror)
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        for (NSString * streamId in streamIdsArray)
+        
+        NSArray *streamIdArray = [self.liveManager getUserStreamIdsWithUserId:userId];
+        if ([streamIdArray bm_isNotEmpty])
         {
-            [self.liveManager changeVideoWithUserId:userId streamID:streamId   renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
+            for (NSString *streamId in streamIdArray)
+            {
+                [self.liveManager changeVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
+            }
+        }
+        else
+        {
+            [self.liveManager changeVideoWithUserId:userId streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
         }
     }
     
