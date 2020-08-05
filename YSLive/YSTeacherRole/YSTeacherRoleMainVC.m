@@ -3059,12 +3059,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         if (!videoView.isDragOut)
         {
-            if (endPoint.y < videoView.bm_height * 0.7)
+            if (self.whitebordFullBackgroud.hidden)
             {
-                [self.dragImageView removeFromSuperview];
-                self.dragImageView = nil;
-                return;
+                if (self.videoOriginInSuperview.y + endPoint.y < videoView.bm_height * 0.7)
+                {
+                    [self.dragImageView removeFromSuperview];
+                    self.dragImageView = nil;
+                    return;
+                }
             }
+            
             videoView.bm_width = floatVideoDefaultWidth;
             videoView.bm_height = floatVideoDefaultHeight;
         }
