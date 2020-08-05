@@ -946,8 +946,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:teacherVideoView];
     teacherVideoView.frame = CGRectMake(0, 0, videoWidth, videoHeight);
     self.teacherPlacehold = teacherVideoView;
-    
-    
+        
     NSString * text = YSLocalized(@"Label.TeacherState");
     CGSize labSize = [text bm_sizeToFitWidth:videoWidth withFont:UI_FONT_12];
     UILabel *placeLab = [[UILabel alloc]initWithFrame:CGRectMake((videoWidth-labSize.width)/2, videoHeight-25, labSize.width+20, 15)];
@@ -4114,7 +4113,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 共享桌面
 
 // 开始共享桌面
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamId:(nonnull NSString *)streamId
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
     [self.view endEditing:YES];
         
@@ -4131,7 +4130,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 关闭共享桌面
-- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamId:(nonnull NSString *)streamId
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
     [self.liveManager stopVideoWithUserId:userId streamID:streamId];
 

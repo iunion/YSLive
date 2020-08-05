@@ -92,6 +92,11 @@
     if (self)
     {
         self.delegate = delegate;
+        if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {
+            self.streamId = [NSString stringWithFormat:@"%@:video:%@",roomUser.peerID,sourceId];
+        }
+        
         self.roomUser = roomUser;
         self.sourceId = sourceId;
         self.isForPerch = isForPerch;
@@ -149,7 +154,12 @@
 {
     self = [super init];
     if (self)
-    {
+    {        
+        if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        {
+            self.streamId = [NSString stringWithFormat:@"%@:video:%@",roomUser.peerID,sourceId];
+        }
+        
         self.roomUser = roomUser;
         self.sourceId = sourceId;
         self.isForPerch = isForPerch;
