@@ -2274,8 +2274,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
         if (fromUser.role != YSUserType_Student && videoViewArr.count)
         {
+            NSUInteger giftNumber = [properties bm_uintForKey:sYSUserGiftNumber];
+            for (SCVideoView *videoView in videoViewArr)
+            {
+                videoView.giftNumber = giftNumber;
+            }
+
             SCVideoView *videoView = videoViewArr[0];
-            videoView.giftNumber =  [properties bm_uintForKey:sYSUserGiftNumber];
             [self showGiftAnimationWithVideoView:videoView];
         }
     }
