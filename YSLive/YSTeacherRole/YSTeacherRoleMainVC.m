@@ -851,9 +851,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         videoView.appUseTheType = self.appUseTheType;
         [self addVideoViewToVideoViewArrayDic:videoView];
                 
-        NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
 
-        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:streamId  renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil  renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
         [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
         
@@ -1093,10 +1092,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.videoBackgroud addSubview:videoView];
     [self.teacherVideoViewArray addObject:videoView];
-    
-    NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
 
-    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -2170,8 +2167,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.rightChatView.allDisabled = isDisable;
 }
 
-#pragma mark - 用户上下台变化
+#pragma mark - 用户属性变化
 
+//上下台
 - (void)userPublishstatechange:(YSRoomUser *)roomUser
 {
     [super userPublishstatechange:roomUser];
@@ -3234,7 +3232,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
             self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
             self.fullTeacherFloatView.sourceId = sYSUserDefaultSourceId;
-            self.fullTeacherFloatView.streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
         }
         else
         {
@@ -5203,11 +5200,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
     }
+    self.controlPopoverView.sourceId = videoView.sourceId;
+    self.controlPopoverView.streamId = videoView.streamId;
     self.controlPopoverView.roomtype = self.roomtype;
     self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.userModel = userModel;
-    self.controlPopoverView.sourceId = videoView.sourceId;
-    self.controlPopoverView.streamId = videoView.streamId;
     self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }
 

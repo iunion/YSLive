@@ -800,8 +800,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             [self addVideoViewToVideoViewArrayDic:videoView];
                         
-            NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
-            [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+            [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
             [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
             [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -978,10 +977,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:videoView];
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
     self.userVideoView = videoView;
-    
-    NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
-    
-    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+        
+    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -1341,9 +1338,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 SCVideoView *videoView = self.videoSequenceArr.firstObject;
                 if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
-                    NSString * streamId = [self.liveManager getLocalStreamIdWith:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
-                    
-                    [self.liveManager stopVideoWithUserId:YSCurrentUser.peerID streamID:streamId];
+                    [self.liveManager stopVideoWithUserId:YSCurrentUser.peerID streamID:nil];
                     if (videoView.roomUser.role == YSUserType_Student)
                     {
                         self.userVideoView.hidden = YES;
@@ -3006,8 +3001,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self hiddenTheKeyBoard];
 }
 
-#pragma mark 用户上下台变化
+#pragma mark 用户属性变化
 
+//上下台
 - (void)userPublishstatechange:(YSRoomUser *)roomUser
 {
     [super userPublishstatechange:roomUser];
@@ -4706,10 +4702,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         popover.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
 
     }
-    self.controlPopoverView.roomtype = self.roomtype;
-    self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.sourceId = videoView.sourceId;
     self.controlPopoverView.streamId = videoView.streamId;
+    self.controlPopoverView.roomtype = self.roomtype;
+    self.controlPopoverView.isDragOut = videoView.isDragOut;
     self.controlPopoverView.userModel = userModel;
     self.controlPopoverView.videoMirrorMode = self.liveManager.localVideoMirrorMode;
 }
