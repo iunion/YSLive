@@ -164,7 +164,6 @@
     }
     
     // 通过 transform(改变) 进行视图的视图的捏合
-//    view.transform = CGAffineTransformScale(view.transform, pinch.scale, pinch.scale);
     if (pinch.state == UIGestureRecognizerStateBegan)
     {
         scaleCenterPoint = self.center;

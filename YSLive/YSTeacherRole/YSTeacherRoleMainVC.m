@@ -1803,7 +1803,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return videoArray;
 }
 
-
 #pragma mark  删除视频窗口
 
 - (SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
@@ -1903,7 +1902,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [super onRoomReJoined];
     self.spreadBottomToolBar.userEnable = YES;
 }
-
 
 // 已经离开房间
 - (void)onRoomLeft
@@ -2997,12 +2995,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
+    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    
     if ((self.roomtype == YSRoomUserType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == YSRoomLayoutType_VideoLayout || self.roomLayout == YSRoomLayoutType_FocusLayout)
     {
-        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+//        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         return;
     }
-        
     UIView * background = self.whitebordBackgroud;
     
     if (self.isWhitebordFullScreen)
@@ -3034,7 +3033,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
-         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+//         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         
         CGFloat percentLeft = 0;
         
@@ -3063,7 +3062,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
             {
-                percentTop = -1;
+                percentTop = 0;
             }
             else
             {
@@ -3072,11 +3071,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
-            {
-                percentTop = -1;
-            }
-            else
+//            if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
+//            {
+//                percentTop = 0;
+//            }
+//            else
             {
                 percentTop = 0;
             }
@@ -3113,7 +3112,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {//不全屏
             
-            if (percentTop < 0 && abs((int)videoEndY) > videoView.bm_height * 0.3)
+            if (percentTop <= 0 && abs((int)videoEndY) > videoView.bm_height * 0.3)
             {
                 NSDictionary * data = @{
                     @"isDrag":@0,
