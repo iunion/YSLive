@@ -359,7 +359,7 @@
     
     if (!theSourceIdArray.count)
     {
-        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:nil withDelegate:self];
+        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sYSUserDefaultSourceId withDelegate:self];
         newVideoView.appUseTheType = self.appUseTheType;
         newVideoView.sourceId = sYSUserDefaultSourceId;
         if (newVideoView)
@@ -456,7 +456,7 @@
             [self deleteVideoViewfromVideoViewArrayDic:videoView];
         }
         
-        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:nil withDelegate:self];
+        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sYSUserDefaultSourceId withDelegate:self];
         newVideoView.appUseTheType = self.appUseTheType;
         if (newVideoView)
         {

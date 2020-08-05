@@ -852,7 +852,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self addVideoViewToVideoViewArrayDic:videoView];
                 
 
-        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil  renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:videoView.streamId  renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
         [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
         
@@ -1084,9 +1084,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 1V1 初始默认视频背景
 - (void)setUp1V1DefaultVideoView
 {
-    
     // 1V1 初始本人视频音频
-    SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sYSUserDefaultSourceId  isForPerch:YES withDelegate:self];
+    SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sYSUserDefaultSourceId isForPerch:YES withDelegate:self];
     videoView.appUseTheType = self.appUseTheType;
     videoView.tag = PlaceholderPTag;
     
@@ -3493,7 +3492,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 共享桌面
 
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamId:(nonnull NSString *)streamId
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
     [self.view endEditing:YES];
     _isMp4Play = NO;
@@ -3512,7 +3511,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 停止桌面共享
-- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamId:(nonnull NSString *)streamId
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
     _isMp4Play = NO;
     [self.liveManager stopVideoWithUserId:userId streamID:streamId];
