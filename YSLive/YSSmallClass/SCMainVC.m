@@ -1838,6 +1838,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
+    
+    if ([self.liveManager.teacher.peerID isEqualToString:uid] && !self.whitebordFullBackgroud.hidden)
+    {
+        [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
+    }
 }
 
 /// 停止音视频流
@@ -4587,6 +4592,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
+        
+        SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
+        
         [self stopVideoAudioWithVideoView:self.teacherVideoViewArray.firstObject];
         
         if ([self.liveManager.teacher.peerID bm_isNotEmpty])
@@ -4599,6 +4607,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.fullTeacherFloatView bm_bringToFront];
                         
         SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher withSourceId:self.liveManager.teacher.sourceListDic.allKeys.firstObject isForPerch:NO withDelegate:self];
+        
+        fullTeacherVideoView.streamId = teacherVideo.streamId;
+        
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
         

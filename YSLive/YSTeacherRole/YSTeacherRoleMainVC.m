@@ -1738,6 +1738,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
+    
+    if ([YSCurrentUser.peerID isEqualToString:uid] && !self.whitebordFullBackgroud.hidden)
+    {
+        [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
+    }
 }
 
 /// 停止音视频流
