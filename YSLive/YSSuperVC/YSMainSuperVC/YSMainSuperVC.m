@@ -363,6 +363,7 @@
     {
         SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:nil withDelegate:self];
         newVideoView.appUseTheType = self.appUseTheType;
+        newVideoView.sourceId = sYSUserDefaultSourceId;
         if (newVideoView)
         {
             if (count == 0)

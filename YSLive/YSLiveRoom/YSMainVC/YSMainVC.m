@@ -862,10 +862,11 @@
         }
         else
         {
-            NSString * sourceId = self.liveManager.teacher.sourceListDic.allKeys.firstObject;
-            if ([sourceId bm_isNotEmpty])
+            SCVideoView * videoView = self.teacherVideoViewArray.firstObject;
+            
+            if ([videoView.sourceId bm_isNotEmpty])
             {
-                if ([self.liveManager.teacher getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)
+                if ([self.liveManager.teacher getVideoMuteWithSourceId:videoView.sourceId] == YSSessionMuteState_UnMute)
                 {
                     self.liveImageView.hidden = YES;
                 }
@@ -1173,17 +1174,21 @@
     
     if (user.role == YSUserType_Teacher)
     {
-        NSMutableArray *sourceIdsArray = [self.liveManager getUserStreamIdsWithUserId:user.peerID];
-        if ([sourceIdsArray.firstObject bm_isNotEmpty])
+        NSMutableArray *streamIdsArray = [self.liveManager getUserStreamIdsWithUserId:user.peerID];
+        
+        if ([streamIdsArray.firstObject bm_isNotEmpty])
         {
             
-            [self.liveManager stopVideoWithUserId:user.peerID streamID:sourceIdsArray.firstObject];
+            [self.liveManager stopVideoWithUserId:user.peerID streamID:streamIdsArray.firstObject];
             [self freshMediaView];
         }
     }
     else
     {
-        [self delVideoViewWithPeerId:user.peerID andSourceId:user.sourceListDic.allKeys.firstObject];
+        NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:user.peerID];
+        SCVideoView * videoVivew = userVideoVivews.firstObject;
+        
+        [self delVideoViewWithPeerId:user.peerID andSourceId:videoVivew.sourceId];
     }
     
 #if 0
@@ -1223,9 +1228,9 @@
                 
         NSString * sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
         
-        if ([sourceId bm_isNotEmpty] && [roomUser getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)
+        if ([streamId bm_isNotEmpty] && [roomUser getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)
         {
-            if (sourceId)
+            if (streamId)
             {
                 [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
             }
@@ -1251,7 +1256,10 @@
             return;
         }
         
-        [self delVideoViewWithPeerId:roomUser.peerID andSourceId:roomUser.sourceListDic.allKeys.firstObject];
+        NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:roomUser.peerID];
+        SCVideoView * videoVivew = userVideoVivews.firstObject;
+        
+        [self delVideoViewWithPeerId:roomUser.peerID andSourceId:videoVivew.sourceId];
         [self clickToShowControl];// 隐藏控制按钮
     }
 }
@@ -1320,6 +1328,10 @@
     YSRoomUser *teacher = self.liveManager.teacher;
     
     NSString * sourceId = teacher.sourceListDic.allKeys.firstObject;
+    if ([sourceId bm_isNotEmpty])
+    {
+        sourceId = sYSUserDefaultSourceId;
+    }
     NSString * streamId = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
     
     if ([sourceId bm_isNotEmpty] && [teacher getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)

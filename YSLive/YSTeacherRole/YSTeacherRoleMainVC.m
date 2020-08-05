@@ -2010,9 +2010,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomUserLeft:user];
     
-    for (NSString * sourceId in user.sourceListDic.allKeys)
+    NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:user.peerID];
+    
+    for (SCVideoView * videoVivew in userVideoVivews)
     {
-        [self delVideoViewWithPeerId:user.peerID andSourceId:sourceId];
+        [self delVideoViewWithPeerId:user.peerID andSourceId:videoVivew.sourceId];
     }
     
     [self freshTeacherPersonListData];
@@ -2168,7 +2170,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.rightChatView.allDisabled = isDisable;
 }
 
-#pragma mark - 用户属性变化
+#pragma mark - 用户上下台变化
 
 - (void)userPublishstatechange:(YSRoomUser *)roomUser
 {
@@ -2183,10 +2185,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        for (NSString * sourceId in roomUser.sourceListDic.allKeys)
+        NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:roomUser.peerID];
+        
+        for (SCVideoView * videoVivew in userVideoVivews)
         {
-            [self delVideoViewWithPeerId:roomUser.peerID andSourceId:sourceId];
+            [self delVideoViewWithPeerId:roomUser.peerID andSourceId:videoVivew.sourceId];
         }
+        
         if (self.controlPopoverView.presentingViewController)
         {
             [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
@@ -2352,7 +2357,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    // 发布媒体状态
+    // 发布媒体状态（上下台）
     if ([properties bm_containsObjectForKey:sYSUserPublishstate])
     {
         [self userPublishstatechange:roomUser];
