@@ -53,18 +53,6 @@
     self.liveManager.whiteBoardDelegate = self;
 }
 
-- (void)doMsgCachePool
-{
-}
-
-- (void)beforeDoMsgCachePool
-{
-}
-
-- (void)afterDoMsgCachePool
-{
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

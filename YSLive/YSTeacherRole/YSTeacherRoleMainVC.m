@@ -138,9 +138,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UIAlertController *classEndAlertVC;
     
     YSRoomLayoutType defaultRoomLayout;
-    
-    //BOOL needFreshVideoView;
-    
+        
     NSInteger contestCommitNumber;
     
     NSString *contestPeerId;
@@ -148,7 +146,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     BOOL autoUpPlatform;
     NSInteger timer_defaultTime;
-    BOOL allNoAudio;// 全体静音
     
     NSInteger _personListCurentPage;
     NSInteger _personListTotalPage;
@@ -448,10 +445,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //创建上下课按钮
     [self setupClassBeginButton];
     
-    // 上课前不发送修改画笔权限
-    //[self.liveManager.roomManager changeUserProperty:YSCurrentUser.peerID tellWhom:YSCurrentUser.peerID key:sUserCandraw value:@(true) completion:nil];
-//    [self.liveManager.whiteBoardManager brushToolsDidSelect:YSBrushToolTypeMouse];
-    
     // 会议默认视频布局
     if (self.appUseTheType == YSRoomUseTypeMeeting)
     {
@@ -470,10 +463,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 }
 
-
-
-
-
 #if USE_FullTeacher
 - (void)setupFullTeacherView
 {
@@ -484,29 +473,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 #endif
 
-- (void)afterDoMsgCachePool
-{
-    [super afterDoMsgCachePool];
-    
-//    if (self.liveManager.isBeginClass)
-//    {
-//        if (YSCurrentUser.vfail == YSDeviceFaultNone)
-//        {
-//            [self.liveManager.roomManager publishVideo:nil];
-//        }
-//        if (YSCurrentUser.afail == YSDeviceFaultNone)
-//        {
-//            [self.liveManager.roomManager publishAudio:nil];
-//        }
-//    }
-    //会议默认上课
-    if (self.appUseTheType == YSRoomUseTypeMeeting && !self.liveManager.isClassBegin)
-    {
-        [self.liveManager sendSignalingTeacherToClassBegin];
-    }
-}
-
-
 #pragma mark - 层级管理
 
 // 重新排列VC.View的图层
@@ -514,10 +480,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     // 全屏白板
     [self.whitebordFullBackgroud bm_bringToFront];
-    
-    // mp3f动画
-    //    [self.playMp3ImageView bm_bringToFront];
-    
+        
     // 笔刷工具
     [self.brushToolView bm_bringToFront];
         
@@ -682,7 +645,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         raiseHandRight = 20;
         labBottom = 20;
     }
-//    BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*2.0f
     UILabel *handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
     handNumLab.bm_centerX = self.spreadBottomToolBar.bm_right - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;  //(YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;
     handNumLab.font = UI_FONT_13;
@@ -848,7 +810,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 白板背景
     UIView *whitebordBackgroud = [[UIView alloc] init];
-    //whitebordBackgroud.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
@@ -877,7 +838,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.expandContractBtn setBackgroundImage:YSSkinElementImage(@"doubleTeacher_littleView", @"iconSel") forState:UIControlStateSelected];
         self.expandContractBtn.tag = DoubleTeacherExpandContractBtnTag;
         self.expandContractBtn.hidden = YES;
-//        [self.expandContractBtn setBackgroundColor:UIColor.greenColor];
         [self.videoBackgroud addSubview:self.expandContractBtn];
         [self setUp1V1DefaultVideoView];
     }
@@ -885,7 +845,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         // 添加浮动视频窗口
         self.dragOutFloatViewArray = [[NSMutableArray alloc] init];
-        
         
         // 1VN 初始本人视频音频
         SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sYSUserDefaultSourceId isForPerch:YES withDelegate:self];
@@ -919,7 +878,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView = [[YSMp4ControlView alloc] init];
     [self.contentBackgroud addSubview:self.mp4ControlView];
     self.mp4ControlView.frame = CGRectMake(30, self.contentHeight - 100, self.contentWidth - 60, 74);
-//    self.mp4ControlView.bm_bottom = self.view.bm_bottom - 23;
     self.mp4ControlView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278 alpha:0.39];
     self.mp4ControlView.layer.cornerRadius = 37;
     self.mp4ControlView.hidden = YES;
@@ -1036,7 +994,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     BMLog(@"diandji");
 }
-
 
 - (void)closeMp4BtnClicked:(UIButton *)btn
 {
@@ -2317,13 +2274,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if ([properties bm_containsObjectForKey:sYSUserGiftNumber])
     {
         YSRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
-        if (fromUser.role != YSUserType_Student)
+        if (fromUser.role != YSUserType_Student && videoViewArr.count)
         {
-            for (SCVideoView * videoView in videoViewArr)
-            {
-                videoView.giftNumber =  [properties bm_uintForKey:sYSUserGiftNumber];
-                [self showGiftAnimationWithVideoView:videoView];
-            }
+            SCVideoView *videoView = videoViewArr[0];
+            videoView.giftNumber =  [properties bm_uintForKey:sYSUserGiftNumber];
+            [self showGiftAnimationWithVideoView:videoView];
         }
     }
     
@@ -2436,7 +2391,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [super onRoomJoined];
 }
 
-
 #pragma mark 上课
 //inlist表示在我进房间之前的信令
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
@@ -2482,7 +2436,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self delVideoViewWithPeerId:peerID andSourceId:sYSUserDefaultSourceId];
         }
-
     }
     
     if (self.topBarTimer)
@@ -4337,10 +4290,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 ///全体静音 发言
 - (void)handleSignalingliveAllNoAudio:(BOOL)noAudio
 {
-    allNoAudio = noAudio;
+//    allNoAudio = noAudio;
     self.spreadBottomToolBar.isEveryoneNoAudio = noAudio;
 }
-
 
 #pragma mark -
 #pragma mark 抢答器 YSTeacherResponderDelegate
@@ -4492,16 +4444,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     {
                         whom = peerID;
                     }
+                    
                     [self.liveManager setPropertyOfUid:peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
                     
-//                    if (self->allNoAudio)
-//                    {
-//                        [self.liveManager setPropertyOfUid:peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_VIDEOONLY)];
-//                    }
-//                    else
-//                    {
-//                        [self.liveManager setPropertyOfUid:peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_BOTH)];
-//                    }
+                    if (!self.liveManager.isBigRoom)
+                    {
+                        if (!self.liveManager.isEveryoneNoAudio)
+                        {
+                            YSRoomUser *user = [self.liveManager getRoomUserWithId:peerID];
+                            [user sendToChangeAudioMute:YSSessionMuteState_Mute];
+                        }
+                    }
                 }
             }
         }
@@ -5701,52 +5654,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [self freshTeacherPersonListData];
     }
-    
-    
 }
-#pragma mark -
-#pragma mark UIImagePickerControllerDelegate
-//// 完成图片的选取后调用的方法
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-//{
-//    // 选取完图片后跳转回原控制器
-//    [picker dismissViewControllerAnimated:YES completion:nil];
-//    /* 此处参数 info 是一个字典，下面是字典中的键值 （从相机获取的图片和相册获取的图片时，两者的info值不尽相同）
-//     * UIImagePickerControllerMediaType; // 媒体类型
-//     * UIImagePickerControllerOriginalImage; // 原始图片
-//     * UIImagePickerControllerEditedImage; // 裁剪后图片
-//     * UIImagePickerControllerCropRect; // 图片裁剪区域（CGRect）
-//     * UIImagePickerControllerMediaURL; // 媒体的URL
-//     * UIImagePickerControllerReferenceURL // 原件的URL
-//     * UIImagePickerControllerMediaMetadata // 当数据来源是相机时，此值才有效
-//     */
-//    // 从info中将图片取出，并加载到imageView当中
-//
-//    BMWeakSelf
-//    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-//    [YSLiveApiRequest uploadImageWithImage:image withImageUseType:SCUploadImageUseType_Document success:^(NSDictionary * _Nonnull dict) {
-//
-//        [weakSelf sendWhiteBordImageWithDic:dict];
-//
-//    } failure:^(NSInteger errorCode) {
-//#if DEBUG
-//        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
-//#else
-//        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
-//#endif
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
-//        });
-//    }];
-//
-//}
-//
-//// 取消选取调用的方法
-//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-//{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-
 
 #pragma mark -
 #pragma mark SCBoardControlViewDelegate 白板翻页控件
@@ -5826,7 +5734,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [UIView animateWithDuration:0.3 animations:^{
                 self.brushToolView.bm_left = -tempWidth;
                 self.brushToolOpenBtn.bm_left = leftGap;
-
             }];
         }
         else
@@ -5834,9 +5741,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [UIView animateWithDuration:0.3 animations:^{
                 self.brushToolView.bm_left = leftGap;
                 self.brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
-                
             }];
-            
         }
     }
 }
@@ -5864,7 +5769,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
         make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
     }];
-
 }
 
 - (void)brushToolDoClean
@@ -5893,7 +5797,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
-//    imagePickerController.allowTakePicture = imageUseType == SCUploadImageUseType_Document ? NO : YES;
     imagePickerController.allowTakeVideo = NO;
     imagePickerController.allowPickingVideo = NO;
     imagePickerController.showSelectedIndex = YES;

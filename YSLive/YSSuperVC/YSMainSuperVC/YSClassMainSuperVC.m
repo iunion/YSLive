@@ -230,16 +230,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)beforeDoMsgCachePool
-{
-    [super beforeDoMsgCachePool];
-}
-
-- (void)afterDoMsgCachePool
-{
-    [super afterDoMsgCachePool];
-}
-
 #pragma mark 键盘通知方法
 
 - (void)keyboardWillShow:(NSNotification*)notification

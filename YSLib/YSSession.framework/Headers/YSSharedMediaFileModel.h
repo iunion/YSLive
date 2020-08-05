@@ -24,8 +24,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 发送者Id
 @property (nonatomic, strong) NSString *senderId;
+
+/// 媒体流设备Id
+@property (nonatomic, strong) NSString *sourceId;
+
 /// 媒体流Id
-@property (nonatomic, strong) NSString *streamID;
+@property (nonatomic, strong) NSString *streamId;
+
+///视频类型
+@property (nonatomic, assign) CloudHubMediaType mediaType;
 
 /// 是否视频
 @property (nonatomic, assign) BOOL isVideo;

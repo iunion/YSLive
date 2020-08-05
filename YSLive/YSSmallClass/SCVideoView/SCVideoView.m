@@ -264,6 +264,15 @@
     ///点击Home键提示蒙版
     self.homeMaskLab = [[UILabel alloc]init];
     self.homeMaskLab.text = YSLocalized(@"State.teacherInBackGround");
+
+    if ([UIDevice bm_isiPad])
+    {
+        self.homeMaskLab.font = UI_FONT_12;
+    }
+    else
+    {
+        self.homeMaskLab.font = UI_FONT_10;
+    }
     self.homeMaskLab.font = UI_FONT_12;
     self.homeMaskLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     [maskBackView addSubview:self.homeMaskLab];
@@ -282,7 +291,15 @@
     //没有连摄像头时的文字
     UILabel * maskNoVideoTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 20)];
     maskNoVideoTitle.backgroundColor = [UIColor clearColor];
-    maskNoVideoTitle.font = UI_FONT_14;
+    if ([UIDevice bm_isiPad])
+    {
+        maskNoVideoTitle.font = UI_FONT_14;
+    }
+    else
+    {
+        maskNoVideoTitle.font = UI_FONT_12;
+    }
+    
     maskNoVideoTitle.textColor = YSSkinDefineColor(@"defaultTitleColor");
     maskNoVideoTitle.adjustsFontSizeToFitWidth = YES;
     maskNoVideoTitle.minimumScaleFactor = 0.3;
@@ -299,7 +316,14 @@
     
     //奖杯个数
     self.cupNumLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 85, 10)];
-    self.cupNumLab.font = UI_FONT_14;
+    if ([UIDevice bm_isiPad])
+    {
+        self.cupNumLab.font = UI_FONT_14;
+    }
+    else
+    {
+        self.cupNumLab.font = UI_FONT_12;
+    }
     self.cupNumLab.text = @"× 0";
     self.cupNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.cupNumLab.adjustsFontSizeToFitWidth = YES;
@@ -333,7 +357,14 @@
     //用户名
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
-    self.nickNameLab.font = UI_FONT_16;
+    if ([UIDevice bm_isiPad])
+    {
+        self.nickNameLab.font = UI_FONT_14;
+    }
+    else
+    {
+        self.nickNameLab.font = UI_FONT_12;
+    }
     self.nickNameLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
     self.nickNameLab.adjustsFontSizeToFitWidth = YES;
     self.nickNameLab.minimumScaleFactor = 0.3;
@@ -392,11 +423,11 @@
         self.cupNumLab.hidden = NO;
     }
    
-    int maxW = 40;
+    int maxW = 35;
     int minW = 7;
     if ([UIDevice bm_isiPad])
     {
-        maxW = 50;
+        maxW = 40;
         minW = 10;
     }
     
@@ -514,12 +545,6 @@
         self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
     }
-    
-//    if (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4 || ([YSLiveManager sharedInstance].isEveryoneNoAudio && (self.roomUser.publishState == YSUser_PublishState_VIDEOONLY || self.roomUser.publishState == 4) && self.roomUser.role != YSUserType_Teacher))
-//    {
-//        self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
-//        return;
-//    }
 
     CGFloat volumeScale = 32670/4;
     

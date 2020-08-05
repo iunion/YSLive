@@ -69,53 +69,54 @@ static  NSString *const sWhiteboardID           = @"whiteboardID";
 #pragma - mark 信令
 
 /// 白板加载完成回调
-static  NSString *const sYSSignalOnPageFinished         = @"onPageFinished";
+static  NSString *const sYSSignal_OnPageFinished            = @"onPageFinished";
 
 /// 打印h5日志
-static  NSString *const sYSSignalPrintLogMessage        = @"printLogMessage";
+static  NSString *const sYSSignal_PrintLogMessage           = @"printLogMessage";
 
 /// 白板放大事件
-static  NSString *const sYSSignalChangeWebPageFullScreen = @"changeWebPageFullScreen";
+static  NSString *const sYSSignal_ChangeWebPageFullScreen   = @"changeWebPageFullScreen";
 /// 接收动作指令
-static  NSString *const sYSSignalReceiveActionCommand   = @"receiveActionCommand";
+static  NSString *const sYSSignal_ReceiveActionCommand      = @"receiveActionCommand";
 /// 发送动作指令
-static  NSString *const sYSSignalSendActionCommand      = @"sendActionCommand";
+static  NSString *const sYSSignal_SendActionCommand         = @"sendActionCommand";
 
 /// 本地持久化当前文档服务器的地址信息
-static  NSString *const sYSSignalSaveValueByKey         = @"saveValueByKey";
-static  NSString *const sYSSignalGetValueByKey          = @"getValueByKey";
+static  NSString *const sYSSignal_SaveValueByKey            = @"saveValueByKey";
+static  NSString *const sYSSignal_GetValueByKey             = @"getValueByKey";
 
 /// 播放ppt内部MP3
-static  NSString *const sYSSignalOnJsPlay               = @"isPlayAudio";
+static  NSString *const sYSSignal_OnJsPlay                  = @"isPlayAudio";
 
 /// 显示课件
 /// 单课件
-static  NSString *const sYSSignalShowPage               = @"ShowPage";
+static  NSString *const sYSSignal_ShowPage                  = @"ShowPage";
 /// 多课件
-static  NSString *const sYSSignalExtendShowPage         = @"ExtendShowPage";
-static  NSString *const sYSSignalDocumentChange         = @"DocumentChange";
+static  NSString *const sYSSignal_ExtendShowPage            = @"ExtendShowPage";
+static  NSString *const sYSSignal_DocumentChange            = @"DocumentChange";
 /// 白板增加页数
-static  NSString *const sYSSignalWBPageCount            = @"WBPageCount";
+static  NSString *const sYSSignal_WBPageCount               = @"WBPageCount";
 
 
 /// ShowPage ID
-static  NSString *const sYSSignalDocumentFilePage_ShowPage          = @"DocumentFilePage_ShowPage";
-static  NSString *const sYSSignalDocumentFilePage_ExtendShowPage    = @"DocumentFilePage_ExtendShowPage_";
-static  NSString *const sYSSignalActionShow             = @"show";
+static  NSString *const sYSSignal_DocumentFilePage_ShowPage = @"DocumentFilePage_ShowPage";
+static  NSString *const sYSSignal_DocumentFilePage_ExtendShowPage = @"DocumentFilePage_ExtendShowPage_";
+static  NSString *const sYSSignal_ActionShow                = @"show";
 
 /// 更换画笔工具
-static  NSString *const sYSSignalSharpsChange           = @"SharpsChange";
+static  NSString *const sYSSignal_SharpsChange              = @"SharpsChange";
 
-/// 白板视频标注
-#define YSVideoWhiteboard_Id                            @"videoDrawBoard"
-static  NSString *const sYSSignalVideoWhiteboard        = @"VideoWhiteboard";
+static  NSString *const sYSSignal_H5DocumentAction          = @"H5DocumentAction";
+static  NSString *const sYSSignal_ExtendH5DocumentAction    = @"ExtendH5DocumentAction";
 
-static  NSString *const sYSSignalH5DocumentAction       = @"H5DocumentAction";
-static  NSString *const sYSSignalNewPptTriggerActionClick = @"NewPptTriggerActionClick";
+static  NSString *const sYSSignal_NewPptTriggerActionClick  = @"NewPptTriggerActionClick";
+static  NSString *const sYSSignal_ExtendNewPptTriggerActionClick  = @"ExtendNewPptTriggerActionClick";
+
+
 
 /// 单窗口位置、大小、最小化、最大化数据
-static  NSString *const sYSSignalMoreWhiteboardState    = @"MoreWhiteboardState";
-static  NSString *const sYSSignalMoreWhiteboardGlobalState  = @"MoreWhiteboardGlobalState";
+static  NSString *const sYSSignal_MoreWhiteboardState       = @"MoreWhiteboardState";
+static  NSString *const sYSSignal_MoreWhiteboardGlobalState = @"MoreWhiteboardGlobalState";
 
 
 #pragma - mark js命令

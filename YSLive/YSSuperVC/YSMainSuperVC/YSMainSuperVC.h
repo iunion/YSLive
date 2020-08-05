@@ -58,10 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 
-- (void)beforeDoMsgCachePool;
-
-- (void)afterDoMsgCachePool;
-
 - (void)showEyeCareRemind;
 
 ///视频窗口排序后存储为array

@@ -8,34 +8,34 @@
 
 #import <UIKit/UIKit.h>
 #import "YSWhiteBoardEnum.h"
-@class DrawView;
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DrawView;
 @protocol YSDrawViewDelegate <NSObject>
-
 
 /**
  涂鸦数据回调
  
  @param fileid 所属文件id
  @param shapeID 涂鸦id
- @param shapeData 涂鸦数据
+ @param shapeDic 涂鸦数据
  */
-- (void)addSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeData:(NSData *)shapeData;
+- (void)addSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeDic:(NSDictionary *)shapeDic;
 
 @end
 
 @interface YSDrawView : UIView
+
+@property (nonatomic, weak) id <YSDrawViewDelegate> delegate;
+
 @property (nonatomic, strong) DrawView *drawView;                       //涂鸦显示层
 @property (nonatomic, strong) DrawView *rtDrawView;                     //实时绘制层
-@property (nonatomic, copy) NSString *fileid;                           //涂鸦所属文件id
+@property (nonatomic, copy, readonly) NSString *fileid;                           //涂鸦所属文件id
 @property (nonatomic, assign) int pageid;                               //涂鸦所属文件页码
 @property (nonatomic, assign) float iFontScale;                         //涂鸦比例，当前涂鸦frame.width / 960
-@property (nonatomic, weak) id <YSDrawViewDelegate>delegate;
 
 - (instancetype)initWithDelegate:(nullable id<YSDrawViewDelegate>)delegate;
-
 
 /**
  是否已经设置了画笔
@@ -54,7 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setDrawType:(YSDrawType)drawType
            hexColor:(NSString *)hexColor
            progress:(CGFloat)progress;
-
 
 
 /**
