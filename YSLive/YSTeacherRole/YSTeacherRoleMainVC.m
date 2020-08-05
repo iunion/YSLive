@@ -3828,6 +3828,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.spreadBottomToolBar.isPollingEnable = NO;
         return;
     }
+    
+    /// 多路流时 轮播不可用
+    if (self.liveManager.roomConfig.isChairManControl)
+    {
+        self.spreadBottomToolBar.isPollingEnable = NO;
+        return;
+    }
     NSInteger total = 0;
     for (YSRoomUser * user in self.liveManager.userList)
     {
