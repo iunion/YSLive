@@ -14,9 +14,10 @@
 {
     if ([UIMenuController sharedMenuController])
     {
-        [UIMenuController sharedMenuController].menuVisible = NO;
+        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:NO];
     }
     return YES;
 }
+
 
 @end
