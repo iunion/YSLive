@@ -185,7 +185,6 @@
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
 
     NSString *userId = videoView.roomUser.peerID;
-//    NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
     if (self.appUseTheType != YSRoomUseTypeLiveRoom)
     {
@@ -210,7 +209,6 @@
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
 
-//    videoView.publishState = videoView.roomUser.publishState;
     videoView.audioMute = videoView.roomUser.audioMute;
     videoView.videoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
 }
@@ -407,18 +405,8 @@
                 {
                     self.teacherVideoViewArray = theVideoArray;
                 }
-                
-                
-                
                 [newVideoView bm_bringToFront];
             }
-            
-            if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [peerId isEqualToString:YSCurrentUser.peerID])
-            {
-                CloudHubMediaType localMediaType = CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO;
-                newVideoView.streamId = [NSString stringWithFormat:@"%@:%ld:%@",peerId,(long)localMediaType,sourceId];
-            }
-            
         }
         
         [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];

@@ -92,12 +92,6 @@
     if (self)
     {
         self.delegate = delegate;
-        if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {
-            CloudHubMediaType localMediaType = CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO;
-            self.streamId = [NSString stringWithFormat:@"%@:%ld:%@",roomUser.peerID,(long)localMediaType,sourceId];
-        }
-        
         self.roomUser = roomUser;
         self.sourceId = sourceId;
         self.isForPerch = isForPerch;
@@ -155,13 +149,7 @@
 {
     self = [super init];
     if (self)
-    {        
-        if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {
-            CloudHubMediaType localMediaType = CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO;
-            self.streamId = [NSString stringWithFormat:@"%@:%ld:%@",roomUser.peerID,(long)localMediaType,sourceId];
-        }
-        
+    {
         self.roomUser = roomUser;
         self.sourceId = sourceId;
         self.isForPerch = isForPerch;
