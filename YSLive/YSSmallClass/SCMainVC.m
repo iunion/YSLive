@@ -4591,15 +4591,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
-    self.fullTeacherFloatView.hidden = YES;
-    [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
-    [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
+    if (!self.liveManager.roomConfig.isChairManControl)
+    {
+        self.fullTeacherFloatView.hidden = YES;
+        [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
+        [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
+    }
 }
 
 /// 播放全屏老师视频流
 - (void)playFullTeacherVideoViewInView:(UIView *)view
 {
-    if (self.liveManager.isClassBegin)
+    if (!self.liveManager.roomConfig.isChairManControl && self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
         
         SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
