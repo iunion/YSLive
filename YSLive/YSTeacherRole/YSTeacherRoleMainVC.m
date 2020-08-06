@@ -3095,14 +3095,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-//            if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
-//            {
-//                percentTop = 0;
-//            }
-//            else
-            {
-                percentTop = 0;
-            }
+            percentTop = 0;
         }
         
         CGFloat videoEndX = self.videoOriginInSuperview.x+endPoint.x;
@@ -3135,7 +3128,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {//不全屏
-            
             if (percentTop <= 0 && abs((int)videoEndY) > videoView.bm_height * 0.3)
             {
                 NSDictionary * data = @{
@@ -3143,7 +3135,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"streamId":videoView.streamId,
                     @"userId":videoView.roomUser.peerID,
                 };
-//                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
                 [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
                 
                 [self.dragImageView removeFromSuperview];
@@ -3169,9 +3160,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {
                     endScale = 2;
                 }
-                
-                NSLog(@"videoView.streamId = %@",videoView.streamId);
-                
+                                
                 NSDictionary * data = @{
                     @"isDrag":@1,
                     @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
@@ -3215,7 +3204,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-//        videoView = [self getVideoViewWithPeerId:peerId];
         dragOut = videoView.isDragOut;
         whitebordH = self.whitebordBackgroud.bm_height;
     }
