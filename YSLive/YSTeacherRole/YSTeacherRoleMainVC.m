@@ -3140,6 +3140,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         if (!videoView.isDragOut)
         {
+            if (self.whitebordFullBackgroud.hidden)
+            {
+                if (self.videoOriginInSuperview.y + endPoint.y < videoView.bm_height * 0.7)
+                {
+                    [self.dragImageView removeFromSuperview];
+                    self.dragImageView = nil;
+                    return;
+                }
+            }
+            
             videoView.bm_width = floatVideoDefaultWidth;
             videoView.bm_height = floatVideoDefaultHeight;
         }
@@ -3157,7 +3167,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
             {
-                percentTop = -1;
+                percentTop = 0;
             }
             else
             {
@@ -3166,11 +3176,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
-            {
-                percentTop = -1;
-            }
-            else
+//            if ((self.videoOriginInSuperview.y+endPoint.y) < 0)
+//            {
+//                percentTop = -1;
+//            }
+//            else
             {
                 percentTop = 0;
             }
@@ -3207,7 +3217,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {//不全屏
             
-            if (percentTop < 0 && abs((int)videoEndY) > videoView.bm_height * 0.3)
+            if (percentTop <= 0 && abs((int)videoEndY) > videoView.bm_height * 0.3)
             {
                 NSDictionary * data = @{
                     @"isDrag":@0,
@@ -3384,10 +3394,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         videoView.isDragOut = YES;
         [self freshContentVidoeView];
         
-        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoMinWidth * endScale);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoMinHeight * endScale);
         
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoMinWidth * endScale, floatVideoMinHeight * endScale)];
         floatView.peerId = peerId;
         // 暂时不支持本地拖动缩放
         [self.dragOutFloatViewArray addObject:floatView];
