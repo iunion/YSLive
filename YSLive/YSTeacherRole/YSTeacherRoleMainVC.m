@@ -4474,16 +4474,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                         whom = peerID;
                     }
                     
-                    [self.liveManager setPropertyOfUid:peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
-                    
-                    if (!self.liveManager.isBigRoom)
-                    {
-                        if (!self.liveManager.isEveryoneNoAudio)
-                        {
-                            YSRoomUser *user = [self.liveManager getRoomUserWithId:peerID];
-                            [user sendToChangeAudioMute:YSSessionMuteState_Mute];
-                        }
-                    }
+                    YSRoomUser *user = [self.liveManager getRoomUserWithId:peerID];
+                    [user sendToPublishStateUPTellWhom:whom];
                 }
             }
         }
@@ -4914,8 +4906,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         whom = roomUser.peerID;
     }
     
-    [self.liveManager setPropertyOfUid:roomUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
-    
+    [roomUser sendToPublishStateUPTellWhom:whom];
+
 //    if (self.liveManager.isEveryoneNoAudio)
 //    {
 //        [self.liveManager setPropertyOfUid:roomUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_VIDEOONLY)];
