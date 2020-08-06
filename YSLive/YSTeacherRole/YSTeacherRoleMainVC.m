@@ -3135,7 +3135,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"streamId":videoView.streamId,
                     @"userId":videoView.roomUser.peerID,
                 };
+                                
                 [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
+                
+                [self hideDragOutVideoViewWithPeerId:videoView.roomUser.peerID];
                 
                 [self.dragImageView removeFromSuperview];
                 self.dragImageView = nil;
@@ -3257,17 +3260,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 
 #pragma mark 拖出/放回视频窗口
-- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(nonnull NSString *)sourceId WithData:(nonnull NSDictionary *)data
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(nonnull NSString *)sourceId WithData:(nonnull NSDictionary *)data fromId:(nonnull NSString *)fromId
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
-    
+        
     if (isDragOut)
     {
         [self showDragOutVideoViewWithData:data];
     }
     else
     {
-        [self hideDragOutVideoViewWithPeerId:peerId];
+        if (![fromId isEqualToString:YSCurrentUser.peerID])
+        {
+            [self hideDragOutVideoViewWithPeerId:peerId];
+        }
     }
 }
 
@@ -3853,6 +3859,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 @"userId":videoView.roomUser.peerID
             };
             [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
+            [self hideDragOutVideoViewWithPeerId:videoView.roomUser.peerID];
         }
         
         if (self.isDoubleVideoBig)
@@ -5285,7 +5292,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 @"streamId":streamId,
                 @"userId":self.selectControlView.roomUser.peerID
             };
+            
             [self.liveManager sendSignalingTopinchVideoViewWithPeerId:self.selectControlView.roomUser.peerID withStreamId:streamId withData:data];
+            
+            [self hideDragOutVideoViewWithPeerId:self.selectControlView.roomUser.peerID];
             
             if (self.controlPopoverView.presentingViewController)
             {
@@ -5304,6 +5314,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"userId":videoView.roomUser.peerID
                 };
                 [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
+                [self hideDragOutVideoViewWithPeerId:videoView.roomUser.peerID];
             }
 
         }
