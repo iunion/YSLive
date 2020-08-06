@@ -1030,19 +1030,19 @@
 }
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomCloseVideo:(BOOL)close withUid:(nonnull NSString *)uid streamID:(nonnull NSString *)streamID
 {
-    [super onRoomCloseVideo:close withUid:uid videoType:videoType sourceID:sourceID];
+    [super onRoomCloseVideo:close withUid:uid streamID:streamID];
 }
 
 /// 开关麦克风
-- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
+- (void)onRoomCloseAudio:(BOOL)close withUid:(nonnull NSString *)uid
 {
     [super onRoomCloseAudio:close withUid:uid];
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(NSString *)streamID
 {
     SCVideoView *videoView = [self getVideoViewWithPeerId:uid];
     if (videoView)
@@ -1054,7 +1054,8 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        [self.liveManager playVideoWithUserId:uid videoType:videoType sourceID:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+
         [videoView freshWithRoomUserProperty:roomUser];
     }
     else
@@ -1068,17 +1069,17 @@
             {
                 videoMirrorMode = CloudHubVideoMirrorModeEnabled;
             }
-            [self.liveManager playVideoWithUserId:uid videoType:videoType sourceID:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:self.liveView];
-            
+            [self.liveManager playVideoWithUserId:uid streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:self.liveView];
+
             [self freshMediaView];
         }
     }
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    [super onRoomStopVideoOfUid:uid videoType:videoType sourceID:sourceID];
+    [super onRoomStopVideoOfUid:uid streamID:streamID];
 }
 
 
@@ -1177,18 +1178,12 @@
     {
         if (user.publishState >= YSUser_PublishState_VIDEOONLY && user.publishState != YSUser_PublishState_ONSTAGE)
         {
-            NSDictionary *videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:user.peerID];
-            if ([videoType_sourceID bm_isNotEmpty])
+            NSString *streamID = [self.liveManager getUserStreamIdWithUserId:user.peerID];
+            if (streamID)
             {
-                for (NSString *sourceID in videoType_sourceID.allKeys)
-                {
-                    CloudHubMediaType videoType = [videoType_sourceID bm_intForKey:sourceID];
-                    [self.liveManager playVideoWithUserId:user.peerID videoType:videoType sourceID:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
-                }
+                [self.liveManager playVideoWithUserId:user.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
             }
-            
         }
-        
         [self freshMediaView];
     }
 }
@@ -1201,16 +1196,8 @@
     
     if (user.role == YSUserType_Teacher)
     {
-        NSDictionary *videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:user.peerID];
-        if ([videoType_sourceID bm_isNotEmpty])
-        {
-            for (NSString *sourceID in videoType_sourceID.allKeys)
-            {
-                CloudHubMediaType videoType = [videoType_sourceID bm_intForKey:sourceID];
-                [self.liveManager stopVideoWithUserId:user.peerID videoType:videoType sourceID:sourceID];
-            }
-        }
-        
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:user.peerID];
+        [self.liveManager stopVideoWithUserId:user.peerID streamID:streamID];
         [self freshMediaView];
     }
     else
@@ -1251,25 +1238,19 @@
     
     if (roomUser.role == YSUserType_Teacher)
     {
-        NSDictionary *videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:roomUser.peerID];
-        if ([videoType_sourceID bm_isNotEmpty])
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:roomUser.peerID];
+
+        if (streamID)
         {
-            for (NSString *sourceID in videoType_sourceID.allKeys)
+            if (roomUser.publishState >= YSUser_PublishState_VIDEOONLY && roomUser.publishState != YSUser_PublishState_ONSTAGE)
             {
                 
-                CloudHubMediaType videoType = [videoType_sourceID bm_intForKey:sourceID];
-                if (roomUser.publishState >= YSUser_PublishState_VIDEOONLY && roomUser.publishState != YSUser_PublishState_ONSTAGE)
-                {
-               
-                    [self.liveManager playVideoWithUserId:roomUser.peerID videoType:videoType sourceID:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
-                    
-                }
-                else
-                {
-                    [self.liveManager stopVideoWithUserId:roomUser.peerID videoType:videoType sourceID:sourceID];
-                }
-
-
+                [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+            }
+            else
+            {
+                [self.liveManager stopVideoWithUserId:roomUser.peerID streamID:streamID];
+                
             }
         }
         
@@ -1377,14 +1358,10 @@
     
     if (teacher.publishState >= YSUser_PublishState_VIDEOONLY && teacher.publishState != 4)
     {
-        NSDictionary *videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:teacherPeerID];
-        if ([videoType_sourceID bm_isNotEmpty])
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:teacherPeerID];
+        if (streamID)
         {
-            for (NSString *sourceID in videoType_sourceID.allKeys)
-            {
-                CloudHubMediaType videoType = [videoType_sourceID bm_intForKey:sourceID];
-                [self.liveManager playVideoWithUserId:teacherPeerID videoType:videoType sourceID:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
-            }
+            [self.liveManager playVideoWithUserId:teacherPeerID streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
         }
     }
     
@@ -1594,7 +1571,7 @@
     }
     else
     {
-        [self.liveManager playVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+        [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
 
         if (self.isFullScreen)
         {
@@ -1615,7 +1592,8 @@
     
     if (mediaModel.isVideo)
     {
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID];
+
         
         self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;
@@ -1695,40 +1673,28 @@
 #pragma mark 共享桌面
 
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
     self.shareDesktop = YES;
-    NSDictionary *teacher_videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:self.liveManager.teacher.peerID];
-    if ([teacher_videoType_sourceID bm_isNotEmpty])
-    {
-        for (NSString *teacherSourceID in teacher_videoType_sourceID.allKeys)
-        {
-            CloudHubMediaType teacherVideoType = [teacher_videoType_sourceID bm_intForKey:teacherSourceID];
-            [self.liveManager stopVideoWithUserId:self.liveManager.teacher.peerID videoType:teacherVideoType sourceID:teacherSourceID];
-        }
-    }
-    
-    
-    [self.liveManager playVideoWithUserId:userId videoType:videoType sourceID:sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
-    
+        NSString *userStreamID = [self.liveManager getUserStreamIdWithUserId:self.liveManager.teacher.peerID];
+    [self.liveManager stopVideoWithUserId:self.liveManager.teacher.peerID streamID:userStreamID];
+
+    [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+
     self.liveBgView.canZoom = YES;
     [self freshMediaView];
 }
 
 /// 停止桌面共享
-- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
     self.shareDesktop = NO;
-    [self.liveManager stopVideoWithUserId:userId videoType:videoType sourceID:sourceID];
-    NSDictionary *videoType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:self.liveManager.teacher.peerID];
-    if ([videoType_sourceID bm_isNotEmpty])
-    {
-        for (NSString *teacherSourceID in videoType_sourceID.allKeys)
-        {
-            CloudHubMediaType teacherVideoType = [videoType_sourceID bm_intForKey:teacherSourceID];
-            [self.liveManager playVideoWithUserId:userId videoType:teacherVideoType sourceID:teacherSourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
-        }
-    }
+    [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+    
+    NSString *userStreamID = [self.liveManager getUserStreamIdWithUserId:self.liveManager.teacher.peerID];
+    
+    [self.liveManager playVideoWithUserId:userId streamID:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.liveView];
+    
     
     self.liveBgView.canZoom = NO;
     self.liveBgView.backScrollView.zoomScale = 1.0;
@@ -2464,7 +2430,6 @@
 #warning setDeviceOrientation
             //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationPortrait];
             [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnBottom];
-            
             [UIView animateWithDuration:0.25 animations:^{
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
                 self.barrageStart = NO;

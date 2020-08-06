@@ -922,7 +922,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:YES withDelegate:self];
         videoView.appUseTheType = self.appUseTheType;
         [self.videoViewArray addObject:videoView];
-        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID videoType:0 sourceID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+        [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 
 #if YSAPP_NEWERROR
         [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
@@ -1164,7 +1164,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.videoBackgroud addSubview:videoView];
     self.teacherVideoView = videoView;
-    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID videoType:0 sourceID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+    [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
+
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
     [self.liveManager playAudio:YSCurrentUser.peerID completion:nil];
@@ -1813,27 +1814,27 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark - videoViewArray
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomCloseVideo:(BOOL)close withUid:(nonnull NSString *)uid streamID:(nonnull NSString *)streamID
 {
-    [super onRoomCloseVideo:close withUid:uid videoType:videoType sourceID:sourceID];
+    [super onRoomCloseVideo:close withUid:uid streamID:streamID];
 }
 
 /// 开关麦克风
-- (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
+- (void)onRoomCloseAudio:(BOOL)close withUid:(nonnull NSString *)uid
 {
     [super onRoomCloseAudio:close withUid:uid];
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    [super onRoomStartVideoOfUid:uid videoType:videoType sourceID:sourceID];
+    [super onRoomStartVideoOfUid:uid streamID:streamID];
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(NSString *)streamID
 {
-    [super onRoomStopVideoOfUid:uid videoType:videoType sourceID:sourceID];
+    [super onRoomStopVideoOfUid:uid streamID:streamID];
 }
 
 #pragma mark  添加视频窗口
@@ -2434,13 +2435,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        
-        NSDictionary *mediaType_sourceID = [self.liveManager getUserSourceIDAndMediaTypeWithUserId:userId];
-        for (NSString *sourceID in mediaType_sourceID.allKeys)
-        {
-            CloudHubMediaType mediaType = [mediaType_sourceID bm_intForKey:sourceID];
-            [self.liveManager changeVideoWithUserId:userId videoType:mediaType sourceID:sourceID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
-        }
+        NSString *streamID = [self.liveManager getUserStreamIdWithUserId:userId];
+        [self.liveManager changeVideoWithUserId:userId streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode];
     }
     
 //    YSRoomUser *fromUser = [self.liveManager.roomManager getRoomUserWithUId:fromId];
@@ -3561,14 +3557,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 共享桌面
 
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
     [self.view endEditing:YES];
     _isMp4Play = NO;
-    
-    [self.liveManager playVideoWithUserId:userId videoType:videoType sourceID:sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
-    
-    
+    [self.liveManager playVideoWithUserId:userId streamID:streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;
     self.shareVideoFloatView.showWaiting = NO;
@@ -3579,11 +3573,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 停止桌面共享
-- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId videoType:(CloudHubMediaType)videoType sourceID:(NSString *)sourceID
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID
 {
     _isMp4Play = NO;
-    [self.liveManager stopVideoWithUserId:userId videoType:videoType sourceID:sourceID];
-    
+    [self.liveManager stopVideoWithUserId:userId streamID:streamID];
+
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
@@ -3637,7 +3631,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView.hidden = NO;
     self.mp4ControlView.mediaFileModel = mediaModel;
     self.closeMp4Btn.hidden = NO;
-    [self.liveManager playVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
 
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
@@ -3658,7 +3652,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isMp4Play = NO;
     if (mediaModel.isVideo)
     {
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId videoType:CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO sourceID:mediaModel.sourceID];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamID];
     }
     
     self.shareVideoFloatView.canZoom = NO;

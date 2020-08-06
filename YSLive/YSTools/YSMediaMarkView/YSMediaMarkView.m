@@ -167,7 +167,7 @@
 //    NSString *dataString = [data stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 //
 //    [[YSRoomInterface instance] pubMsg:sYSSignalSharpsChange msgID:shapeID toID:YSRoomPubMsgTellAll data:dataString save:YES associatedMsgID:sYSSignalVideoWhiteboard associatedUserID:nil expires:0 completion:nil];
-    [[YSLiveManager sharedInstance] pubMsg:sYSSignal_SharpsChange msgId:shapeID to:YSRoomPubMsgTellAll withData:dic associatedWithUser:nil associatedWithMsg:sYSSignal_VideoWhiteboard save:YES];
+    [[YSLiveManager sharedInstance] pubMsg:sYSSignalSharpsChange msgId:shapeID to:YSRoomPubMsgTellAll withData:dic associatedWithUser:nil associatedWithMsg:sYSSignal_VideoWhiteboard save:YES];
 }
 
 - (void)handleSignal:(NSDictionary *)dictionary isDel:(BOOL)isDel
