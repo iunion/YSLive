@@ -3321,10 +3321,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         videoView.isDragOut = YES;
         [self freshContentVideoView];
         
-        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoMinWidth * endScale);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoMinHeight * endScale);
         
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoMinWidth * endScale, floatVideoMinHeight * endScale)];
         floatView.peerId = peerId;
         floatView.sourceId = videoView.sourceId;
         floatView.streamId = videoView.streamId;
@@ -5995,7 +5995,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.fullTeacherFloatView.hidden = NO;
         self.fullTeacherFloatView.frame = CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
         [self.fullTeacherFloatView bm_bringToFront];
-        
          
         SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sYSUserDefaultSourceId isForPerch:NO withDelegate:self];
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;

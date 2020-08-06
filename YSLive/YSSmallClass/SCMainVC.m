@@ -3789,13 +3789,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        videoView.isDragOut = YES;
         [self freshContentVideoView];
+        videoView.isDragOut = YES;
         
-        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoDefaultWidth);
-        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoDefaultHeight);
+        CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoMinWidth * endScale);
+        CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoMinHeight * endScale);
         
-        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoDefaultWidth, floatVideoDefaultHeight)];
+        YSFloatView *floatView = [[YSFloatView alloc] initWithFrame:CGRectMake(x, y, floatVideoMinWidth * endScale, floatVideoMinHeight * endScale)];
         // 暂时不支持本地拖动缩放
         floatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
         [self.dragOutFloatViewArray addObject:floatView];
