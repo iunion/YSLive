@@ -1415,11 +1415,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         
         videoView.isFullMedia = NO;
-        
-//        if (![viewArray containsObject:videoView])
-        {
-            [self.videoBackgroud addSubview:videoView];
-        }
+        [self.videoBackgroud addSubview:videoView];
     }
     
     if (self.isDoubleType && self.roomtype == YSRoomUserType_One)
@@ -1564,9 +1560,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         NSUInteger count = [self getVideoViewCount];
 
         NSUInteger index = 0;
-        
-//        videoHeight = [self getVideoViewWidthAndHeigh];
-        
+                
         for (int i = 0; i < self.videoSequenceArr.count; i++)
         {
             SCVideoView *view = self.videoSequenceArr[i];
@@ -1578,15 +1572,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             if (count < 8)
             {
-//                videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * 8)/7);
-                CGFloat totalWidth = count*(videoWidth + VIDEOVIEW_GAP*0.5) - VIDEOVIEW_GAP*0.5;
+                CGFloat totalWidth = count * (videoWidth + VIDEOVIEW_GAP*0.5) - VIDEOVIEW_GAP*0.5;
                 videoStartX = (self.contentWidth-totalWidth)*0.5;
                 
                 view.frame = CGRectMake(videoStartX + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
             }
             else
             {
-//                videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 0.5 * (count + 1))/count);
                 view.frame = CGRectMake(VIDEOVIEW_GAP * 0.5 + (videoWidth + VIDEOVIEW_GAP * 0.5) * index, VIDEOVIEW_GAP * 0.5, videoWidth, videoHeight);
             }
             index++;
@@ -3789,8 +3781,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
+        videoView.isDragOut = YES;//必须刷新前赋值
         [self freshContentVideoView];
-        videoView.isDragOut = YES;
         
         CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoMinWidth * endScale);
         CGFloat y = percentTop * (self.whitebordBackgroud.bm_height - floatVideoMinHeight * endScale);

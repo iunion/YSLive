@@ -3306,7 +3306,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        videoView.isDragOut = YES;
+        videoView.isDragOut = YES;//必须刷新前赋值
+        
         [self freshContentVideoView];
         
         CGFloat x = percentLeft * (self.whitebordBackgroud.bm_width - floatVideoMinWidth * endScale);
