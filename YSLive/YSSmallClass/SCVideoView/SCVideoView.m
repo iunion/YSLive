@@ -421,11 +421,11 @@
         self.cupNumLab.hidden = NO;
     }
    
-    int maxW = 35;
+    int maxW = 25;
     int minW = 7;
     if ([UIDevice bm_isiPad])
     {
-        maxW = 40;
+        maxW = 35;
         minW = 10;
     }
     
@@ -485,18 +485,47 @@
     
     CGFloat height = self.bm_width*0.1f;
     self.nickNameLab.frame = CGRectMake(4, self.bm_height-4-height, self.bm_width*0.5f, height);
-    fontSize = height-2.0f;
+    fontSize = height-5.0f;
+    if ([UIDevice bm_isiPad])
+    {
+        maxW = 20.0f;
+    }
+    else
+    {
+        maxW = 16.0f;
+    }
+    
     if (fontSize<1)
     {
         fontSize = 1.0f;
     }
-    else if (fontSize>24)
+    else if (fontSize>maxW)
     {
-        fontSize = 24.0f;
+        fontSize = maxW;
     }
     self.nickNameLab.font = [UIFont systemFontOfSize:fontSize];
-
+    
+    if ([UIDevice bm_isiPad])
+    {
+        maxW = 55;
+        minW = 20;
+    }
+    else
+    {
+        maxW = 40;
+        minW = 15;
+    }
     CGFloat soundImageWidth = height*5/3;
+        
+    if (soundImageWidth > maxW)
+    {
+        soundImageWidth = maxW;
+    }
+    else if (soundImageWidth < minW)
+    {
+        soundImageWidth = minW;
+    }
+    
     self.soundImageView.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
 }
 
