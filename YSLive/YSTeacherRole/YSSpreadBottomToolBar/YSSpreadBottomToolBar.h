@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isCameraEnable;
 /// 是否全体禁言
 @property (nonatomic, assign) BOOL isEveryoneNoAudio;
-- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomUserType)roomType;
+- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomUserType)roomType isChairManControl:(BOOL)isChairManControl;
 
 /// 花名册 课件库按钮的非选中
 - (void)hideListView;

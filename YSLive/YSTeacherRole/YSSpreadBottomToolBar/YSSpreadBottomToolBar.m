@@ -17,6 +17,8 @@
 
 @property (nonatomic, assign) BOOL spreadOut;
 
+@property (nonatomic, assign) BOOL isChairManControl;
+
 @property (nonatomic, strong) BMImageTitleButtonView *spreadBtn;
 @property (nonatomic, strong) NSMutableArray <BMImageTitleButtonView *> *btnArray;
 
@@ -44,7 +46,7 @@
 
 @implementation YSSpreadBottomToolBar
 
-- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomUserType)roomType
+- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomUserType)roomType isChairManControl:(BOOL)isChairManControl
 {
     self = [super init];
     if (self)
@@ -53,7 +55,7 @@
         self.topLeftpoint = point;
         self.roomtype = roomType;
         self.btnArray = [[NSMutableArray alloc] init];
-        
+        self.isChairManControl = isChairManControl;
         self.spreadOut = YES;
         
         [self setupView];
@@ -120,8 +122,13 @@
         self.switchLayoutBtn = switchLayoutBtn;
         [self.btnArray addObject:self.switchLayoutBtn];
 
-        self.pollingBtn = pollingBtn;
-        [self.btnArray addObject:self.pollingBtn];
+        if (!self.isChairManControl)
+        {
+            //多流房间不存在轮播
+            self.pollingBtn = pollingBtn;
+            [self.btnArray addObject:self.pollingBtn];
+        }
+        
         if (self.roomtype == YSRoomUserType_More)
         {
             self.allNoAudioBtn = allNoAudioBtn;
