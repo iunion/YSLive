@@ -2396,7 +2396,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     self.drawBoardView.hidden = YES;
                 }else
                 {
-                    self.drawBoardView.hidden = NO;
+//                    self.drawBoardView.hidden = NO;
                 }
             }
 
