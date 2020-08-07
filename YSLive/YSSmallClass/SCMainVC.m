@@ -3852,7 +3852,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 
 /// 拖出/放回视频窗口
-- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(NSDictionary *)data
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId WithData:(NSDictionary *)data fromId:(nonnull NSString *)fromId
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
     
