@@ -252,8 +252,8 @@
             
             if (result == NSOrderedAscending)
             {//左边小于右边
-                [self.videoSequenceArr addObject:videoView1];
                 [self.videoSequenceArr addObject:videoView0];
+                [self.videoSequenceArr addObject:videoView1];
             }
             else
             {
@@ -276,13 +276,13 @@
         
         if (result == NSOrderedAscending)
         {//左边小于右边
-            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
             [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
         }
         else
         {
-            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
             [self.videoSequenceArr insertObject:videoView0 atIndex:0];
+            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
         }
     }
 }

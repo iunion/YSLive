@@ -5984,7 +5984,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
         [self.teacherVideoViewArray.firstObject freshWithRoomUserProperty:self.liveManager.teacher];
     }
-
 }
 
 /// 播放全屏老师视频流
