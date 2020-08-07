@@ -250,28 +250,46 @@
         }
         else
         {
-          SCVideoView * videoView0 = arr[0];
+            SCVideoView * videoView0 = arr[0];
             SCVideoView * videoView1 = arr[1];
             NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
             
             if (result == NSOrderedAscending)
             {//左边小于右边
-                [self.videoSequenceArr addObjectsFromArray:arr];
+                [self.videoSequenceArr addObject:videoView1];
+                [self.videoSequenceArr addObject:videoView0];
             }
             else
             {
-                [self.videoSequenceArr addObject:videoView1];
-                [self.videoSequenceArr addObject:videoView0];
+                [self.videoSequenceArr addObjectsFromArray:arr];
             }
         }
     }
     
     ///把老师插入最前面
-    for (SCVideoView * teacherVideo in self.teacherVideoViewArray)
+    
+    if (!self.teacherVideoViewArray.count)
     {
-        if (![self.videoSequenceArr containsObject:teacherVideo])
+    }
+    else if (self.teacherVideoViewArray.count == 1)
+    {
+        [self.videoSequenceArr addObject:self.teacherVideoViewArray[0]];
+    }
+    else
+    {
+        SCVideoView * videoView0 = self.teacherVideoViewArray[0];
+        SCVideoView * videoView1 = self.teacherVideoViewArray[1];
+        NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+        
+        if (result == NSOrderedAscending)
+        {//左边小于右边
+            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
+            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+        }
+        else
         {
-            [self.videoSequenceArr insertObject:teacherVideo atIndex:0];
+            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
         }
     }
 }
