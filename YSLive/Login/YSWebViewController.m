@@ -44,15 +44,15 @@
 
         if([currentLanguageRegion bm_containString:@"zh-Hans"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/隐私政策（简体）.pdf";
+            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyJ.pdf";
         }
         else if([currentLanguageRegion bm_containString:@"zh-Hant"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/隐私政策（繁体）.pdf";
+            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyF.pdf";
         }
         else
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/Privacy Policy.pdf";
+            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyE.pdf";
         }
     }
     else if ([self.roteUrl isEqualToString:YSUserAgreement])
@@ -61,15 +61,15 @@
         title = YSLocalized(@"Agreement.User");
         if([currentLanguageRegion bm_containString:@"zh-Hans"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/用户协议（简体）.pdf";
+            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementJ.pdf";
         }
         else if([currentLanguageRegion bm_containString:@"zh-Hant"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/用户协议（繁体）.pdf";
+            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementF.pdf";
         }
         else
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/Agreement of YSLive  User.pdf";
+            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementE.pdf";
         }
     }
     
