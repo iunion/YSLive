@@ -3223,8 +3223,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"isDrag":@0,
                     @"userId":videoView.roomUser.peerID
                 };
-//                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-                [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
+                BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
+                if (result)
+                {
+                    [self hideDragOutVidoeViewWithPeerId:videoView.roomUser.peerID];
+                }
+
                 
                 [self.dragImageView removeFromSuperview];
                 self.dragImageView = nil;
@@ -3257,8 +3261,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"userId":videoView.roomUser.peerID,
                     @"scale":@(endScale)
                 };
-                [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
-                [self showDragOutFullTeacherVidoeViewWithPeerId:videoView.roomUser.peerID videoX:videoEndX videoY:videoEndY];
+                BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withData:data];
+                
+                if (result)
+                {
+                    [self showDragOutFullTeacherVidoeViewWithPeerId:videoView.roomUser.peerID videoX:videoEndX videoY:videoEndY];
+                }
             }
         }
         
@@ -3927,8 +3935,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 @"isDrag":@0,
                 @"userId":user.peerID
             };
-//            [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-            [self.liveManager sendSignalingTopinchVideoViewWithPeerId:user.peerID withData:data];
+            BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:user.peerID withData:data];
+            if (result)
+            {
+                [self hideDragOutVidoeViewWithPeerId:user.peerID];
+            }
         }
         
         if (self.isDoubleVideoBig)
@@ -5378,7 +5389,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 @"userId":self.selectControlView.roomUser.peerID
             };
 //            [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-            [self.liveManager sendSignalingTopinchVideoViewWithPeerId:self.selectControlView.roomUser.peerID withData:data];
+            BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:self.selectControlView.roomUser.peerID withData:data];
+            if (result)
+            {
+                [self hideDragOutVidoeViewWithPeerId:self.selectControlView.roomUser.peerID];
+            }
             
             if (self.controlPopoverView.presentingViewController)
             {
@@ -5396,7 +5411,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"userId":user.peerID
                 };
 //                [self.liveManager sendSignalingToDragOutVideoViewWithData:data];
-                [self.liveManager sendSignalingTopinchVideoViewWithPeerId:user.peerID withData:data];
+                BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:user.peerID withData:data];
+                if (result)
+                {
+                    [self hideDragOutVidoeViewWithPeerId:user.peerID];
+                }
             }
         }
             break;
