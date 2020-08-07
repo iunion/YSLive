@@ -1735,7 +1735,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
     
-    if ([YSCurrentUser.peerID isEqualToString:uid] && !self.whitebordFullBackgroud.hidden)
+    if ([YSCurrentUser.peerID isEqualToString:uid] && !self.fullTeacherFloatView.hidden)
     {
         [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
     }
@@ -3054,12 +3054,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (pan.state == UIGestureRecognizerStateEnded)
     {
 //         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
-        
         CGFloat percentLeft = 0;
         
         if (!videoView.isDragOut)
         {
-            if (self.whitebordFullBackgroud.hidden)
+            if (self.fullTeacherFloatView.hidden)
             {
                 if (self.videoOriginInSuperview.y + endPoint.y < videoView.bm_height * 0.7)
                 {

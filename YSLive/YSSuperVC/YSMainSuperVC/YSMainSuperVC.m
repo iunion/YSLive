@@ -240,15 +240,11 @@
     {
         NSArray * arr = [self.videoViewArrayDic bm_arrayForKey:peerId];
         
-        if (![arr bm_isNotEmpty])
-        {
-            [self.videoViewArrayDic removeObjectForKey:peerId];
-        }
-        else if (arr.count == 1)
+        if (arr.count == 1)
         {
             [self.videoSequenceArr addObject:arr[0]];
         }
-        else
+        else if (arr.count > 1)
         {
             SCVideoView * videoView0 = arr[0];
             SCVideoView * videoView1 = arr[1];
@@ -268,15 +264,11 @@
     
     ///把老师插入最前面
     
-    if (!self.teacherVideoViewArray.count)
-    {
-        [self.videoViewArrayDic removeObjectForKey:self.liveManager.teacher.peerID];
-    }
-    else if (self.teacherVideoViewArray.count == 1)
+    if (self.teacherVideoViewArray.count == 1)
     {
         [self.videoSequenceArr insertObject:self.teacherVideoViewArray[0] atIndex:0];
     }
-    else
+    else if (self.teacherVideoViewArray.count > 1)
     {
         SCVideoView * videoView0 = self.teacherVideoViewArray[0];
         SCVideoView * videoView1 = self.teacherVideoViewArray[1];
