@@ -252,12 +252,12 @@
             
             if (result == NSOrderedAscending)
             {//左边小于右边
-                [self.videoSequenceArr addObject:videoView0];
-                [self.videoSequenceArr addObject:videoView1];
+                [self.videoSequenceArr addObjectsFromArray:arr];
             }
             else
             {
-                [self.videoSequenceArr addObjectsFromArray:arr];
+                [self.videoSequenceArr addObject:videoView1];
+                [self.videoSequenceArr addObject:videoView0];
             }
         }
     }
