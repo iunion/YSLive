@@ -1902,6 +1902,104 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomReJoined];
     self.spreadBottomToolBar.userEnable = YES;
+//    if (self.liveManager.isBigRoom)
+//    {
+//        if (self.liveManager.bigRoomUserCount > 1)
+//        {
+//            return;
+//        }
+//    }
+//    else
+//    {
+//        if (self.liveManager.userList.count > 1)
+//        {
+//            return;
+//        }
+//    }
+    [self deleateAllView];
+    [self updataSubViews];
+}
+
+
+- (void)updataSubViews
+{
+    classEndAlertVC = nil;
+    _personListCurentPage = 0;
+    _personListTotalPage = 0;
+    _isMp4Play = NO;
+    _isMp4ControlHide = NO;
+    searchArr = [[NSMutableArray alloc] init];
+    self.pollingUserList = [[NSMutableArray alloc] init];
+    self.pollingUpPlatformArr = [[NSMutableArray alloc] init];
+    self.currentFileList = [[NSMutableArray alloc] init];
+    isSearch = NO;
+    _isPolling = NO;
+
+    /// 初始化顶栏数据
+    [self setupStateBarData];
+
+    // 设置左侧工具栏
+    [self setupBrushToolView];
+    
+    [self.spreadBottomToolBar bm_bringToFront];
+    
+    //创建上下课按钮
+    [self setupClassBeginButton];
+    
+    self.spreadBottomToolBar.isBeginClass = self.liveManager.isClassBegin;
+    self.spreadBottomToolBar.isPollingEnable = NO;
+    self.spreadBottomToolBar.isToolBoxEnable = NO;
+    self.spreadBottomToolBar.isCameraEnable = YES;
+    self.spreadBottomToolBar.isEveryoneNoAudio = self.liveManager.isEveryoneNoAudio;
+}
+
+
+/// 删除所有子View 定时器 弹框 等
+- (void)deleateAllView
+{
+    if (self.topBarTimer)
+    {
+        dispatch_source_cancel(self.topBarTimer);
+        self.topBarTimer = nil;
+    }
+    
+    if (self.answerTimer)
+    {
+        dispatch_source_cancel(self.answerTimer);
+        self.answerTimer = nil;
+    }
+    
+    if (self.answerDetailTimer)
+    {
+        dispatch_source_cancel(self.answerDetailTimer);
+        self.answerDetailTimer = nil;
+    }
+    
+    if (self.bigRoomTimer)
+    {
+        dispatch_source_cancel(self.bigRoomTimer);
+        self.bigRoomTimer = nil;
+    }
+    
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    
+    [self.imagePickerController cancelButtonClick];
+    
+    if (self.pollingTimer)
+    {
+        dispatch_source_cancel(self.pollingTimer);
+        self.pollingTimer = nil;
+    }
+    // 网络中断尝试失败后退出
+    [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
+    
+    [self.brushToolView removeFromSuperview];
+
+    [self.brushToolOpenBtn removeFromSuperview];
+    
+    [self.classBeginBtn removeFromSuperview];
+
 }
 
 // 已经离开房间

@@ -430,6 +430,10 @@
     _isBeginClass = isBeginClass;
     self.allNoAudioBtn.enabled = isBeginClass;
     self.switchLayoutBtn.enabled = isBeginClass;
+    if (!isBeginClass)
+    {
+        self.toolBoxBtn.selected = NO;
+    }
 //    self.toolBoxBtn.enabled = isBeginClass;
 }
 
