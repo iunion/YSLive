@@ -65,7 +65,6 @@
     // 退出全屏
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
     
-//    self.view.backgroundColor = [UIColor whiteColor];
     self.view.backgroundColor = YSSkinDefineColor(@"blackColor");
     
     //创建一个16：9的背景view
@@ -76,15 +75,11 @@
     
     // 底部工具栏
     [self setupBottomToolBarView];
-
-    
-    
 }
 
 ///创建一个16：9的背景view
 - (void)setupBottomBackgroundView
 {
-//    BMIS_IPHONEXANDP
     NSInteger WIDTH = BMUI_SCREEN_WIDTH_ROTATE;
     NSInteger top = 0;
     if (BMIS_IPHONEXANDP)
@@ -111,7 +106,6 @@
     contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     self.contentBackgroud = contentBackgroud;
 }
-
 
 ///顶部状态栏
 - (void)setupstateToolBar

@@ -284,7 +284,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (instancetype)initWithRoomType:(YSRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
+- (instancetype)initWithRoomType:(YSRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(NSString *)userId
 {
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
@@ -1809,7 +1809,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark - videoViewArray
 
 /// 开关摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomCloseVideo:close withUid:uid sourceID:sourceId streamId:streamId];
 }
@@ -1821,7 +1821,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
+- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
     
@@ -1832,7 +1832,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
+- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
 }
@@ -3516,7 +3516,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark - 窗口布局变化
-- (void)handleSignalingSetRoomLayout:(YSRoomLayoutType)roomLayout withPeerId:(nullable NSString *)peerId withSourceId:(nullable NSString *)sourceId
+- (void)handleSignalingSetRoomLayout:(YSRoomLayoutType)roomLayout withPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId
 {
     self.roomLayout = roomLayout;
     
@@ -3733,7 +3733,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 
 /// 拖出/放回视频窗口
-- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(nonnull NSString *)sourceId WithData:(nonnull NSDictionary *)data
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId WithData:(NSDictionary *)data fromId:(NSString *)fromId
+
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
     
@@ -3891,7 +3892,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 双击视频最大化
-- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId withSourceId:(nullable NSString *)sourceId isFull:(BOOL)isFull
+- (void)handleSignalingDragOutVideoChangeFullSizeWithPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId isFull:(BOOL)isFull
 {
     self.isDoubleVideoBig = isFull;
 //    NSString * sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
@@ -4105,7 +4106,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 共享桌面
 
 // 开始共享桌面
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [self.view endEditing:YES];
         

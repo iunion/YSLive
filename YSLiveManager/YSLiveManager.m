@@ -331,7 +331,7 @@
     }
 }
 
-- (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
+- (void)setConnectH5CoursewareUrlCookies:(NSArray<NSDictionary *> *)cookies
 {
     _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
