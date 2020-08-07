@@ -6134,33 +6134,36 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 播放全屏老师视频流
 - (void)playFullTeacherVideoViewInView:(UIView *)view
 {
+    
     if (self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoView];
-
-        [self.fullTeacherFloatView cleanContent];
-        self.fullTeacherFloatView.hidden = NO;
-        self.fullTeacherFloatView.frame = CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
-        [self.fullTeacherFloatView bm_bringToFront];
-//        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO];
-        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO withDelegate:self];
-        fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
-        [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
-        
-        fullTeacherVideoView.appUseTheType = self.appUseTheType;
-        [self playVideoAudioWithNewVideoView:fullTeacherVideoView];
-        self.fullTeacherVideoView = fullTeacherVideoView;
-        [fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
-        
-        if (view == self.whitebordFullBackgroud)
+        if (self.fullTeacherFloatView.hidden)
         {
-            [self.raiseHandsBtn bm_bringToFront];
-            [self.handNumLab bm_bringToFront];
+            [self.fullTeacherFloatView cleanContent];
+            self.fullTeacherFloatView.hidden = NO;
+            self.fullTeacherFloatView.frame = CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
+            [self.fullTeacherFloatView bm_bringToFront];
+            //        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO];
+            SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser isForPerch:NO withDelegate:self];
+            fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
+            [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
             
-//            self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
+            fullTeacherVideoView.appUseTheType = self.appUseTheType;
+            
+            self.fullTeacherVideoView = fullTeacherVideoView;
+            [fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
+            
+            if (view == self.whitebordFullBackgroud)
+            {
+                [self.raiseHandsBtn bm_bringToFront];
+                [self.handNumLab bm_bringToFront];
+                
+                //            self.raiseHandsBtn.frame = CGRectMake(UI_SCREEN_WIDTH-40-26, self.fullTeacherFloatView.bm_top, 40, 40);
+            }
         }
+        [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
     }
-    
 }
 #endif
 
