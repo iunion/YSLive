@@ -270,10 +270,11 @@
     
     if (!self.teacherVideoViewArray.count)
     {
+        [self.videoViewArrayDic removeObjectForKey:self.liveManager.teacher.peerID];
     }
     else if (self.teacherVideoViewArray.count == 1)
     {
-        [self.videoSequenceArr addObject:self.teacherVideoViewArray[0]];
+        [self.videoSequenceArr insertObject:self.teacherVideoViewArray[0] atIndex:0];
     }
     else
     {

@@ -484,7 +484,21 @@
     }
     
     CGFloat height = self.bm_width*0.1f;
+    if ([UIDevice bm_isiPad])
+    {
+        minW = 12.0f;
+    }
+    else
+    {
+        minW = 10.0f;
+    }
+    if (height < minW)
+    {
+        height = minW;
+    }
+    
     self.nickNameLab.frame = CGRectMake(4, self.bm_height-4-height, self.bm_width*0.5f, height);
+        
     fontSize = height-5.0f;
     if ([UIDevice bm_isiPad])
     {
