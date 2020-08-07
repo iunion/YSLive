@@ -3140,7 +3140,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         if (!videoView.isDragOut)
         {
-            if (self.whitebordFullBackgroud.hidden)
+            if (self.fullTeacherFloatView.hidden)
             {
                 if (self.videoOriginInSuperview.y + endPoint.y < videoView.bm_height * 0.7)
                 {
