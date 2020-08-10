@@ -1830,7 +1830,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         if (delVideoView.isDragOut)
         {
-            [self hideDragOutVideoViewWithPeerId:peerId];
+            [self hideDragOutVideoViewWithStreamId:delVideoView.streamId];
         }
         else if (delVideoView.isFullScreen)
         {
@@ -3153,7 +3153,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
 //         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
         CGFloat percentLeft = 0;
-        
+                
         if (!videoView.isDragOut)
         {
             if (self.fullTeacherFloatView.hidden)
@@ -3237,7 +3237,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 
                 if (result)
                 {
-                    [self hideDragOutVideoViewWithPeerId:videoView.roomUser.peerID];
+                    [self hideDragOutVideoViewWithStreamId:videoView.streamId];
                 }
                 
                 [self.dragImageView removeFromSuperview];
@@ -3363,7 +3363,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 
 #pragma mark 拖出/放回视频窗口
-- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId WithData:(NSDictionary *)data fromId:(NSString *)fromId
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId withStreamId:(NSString *)streamId WithData:(NSDictionary *)data fromId:(NSString *)fromId
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
         
@@ -3375,7 +3375,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (![fromId isEqualToString:YSCurrentUser.peerID])
         {
-            [self hideDragOutVideoViewWithPeerId:peerId];
+            [self hideDragOutVideoViewWithStreamId:peerId];
         }
     }
 }
@@ -3508,7 +3508,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 // 放回视频
-- (void)hideDragOutVideoViewWithPeerId:(NSString *)peerId
+- (void)hideDragOutVideoViewWithStreamId:(NSString *)streamId
 {
     if (self.roomLayout == YSRoomLayoutType_VideoLayout)
     {
@@ -3519,7 +3519,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     for (YSFloatView *floatView in self.dragOutFloatViewArray )
     {
         SCVideoView *videoView = (SCVideoView *)floatView.contentView;
-        if ([videoView.roomUser.peerID isEqualToString:peerId])
+        if ([videoView.streamId isEqualToString:streamId] )
         {
             needFresh = YES;
             videoView.isDragOut = NO;
@@ -3965,7 +3965,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (result)
             {
-                [self hideDragOutVideoViewWithPeerId:videoView.roomUser.peerID];
+                [self hideDragOutVideoViewWithStreamId:videoView.streamId];
             }
         }
         
@@ -5404,8 +5404,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (result)
             {
-                [self hideDragOutVideoViewWithPeerId:self.selectControlView.roomUser.peerID];
+                [self hideDragOutVideoViewWithStreamId:self.selectControlView.streamId];
             }
+
             if (self.controlPopoverView.presentingViewController)
             {
                 [self.controlPopoverView dismissViewControllerAnimated:YES completion:nil];
@@ -5423,9 +5424,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     @"userId":videoView.roomUser.peerID
                 };
                 BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
-                [self hideDragOutVideoViewWithPeerId:videoView.roomUser.peerID];
+                
+                if (result)
+                {
+                    [self hideDragOutVideoViewWithStreamId:videoView.streamId];
+                }
             }
-
         }
             break;
         case SCVideoViewControlTypeAllGiftCup:

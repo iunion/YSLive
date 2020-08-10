@@ -222,7 +222,6 @@
 - (void)setupUIView
 {
     self.backgroundColor = YSSkinDefineColor(@"videoBackColor");
-//    self.backgroundColor = UIColor.redColor;
     
     UIView *sourceView = [[UIView alloc] init];
     sourceView.backgroundColor = UIColor.clearColor;

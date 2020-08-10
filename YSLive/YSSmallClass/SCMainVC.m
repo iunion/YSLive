@@ -1884,7 +1884,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (delVideoView.isDragOut)
         {
-            [self hideDragOutVideoViewWithPeerId:peerId withSourceId:sourceId];
+            [self hideDragOutVideoViewWithStreamId:delVideoView.streamId];
         }
         else if (delVideoView.isFullScreen)
         {
@@ -3799,7 +3799,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 拖出/放回视频窗口
 
 /// 拖出/放回视频窗口
-- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId WithData:(NSDictionary *)data fromId:(NSString *)fromId
+- (void)handleSignalingDragOutAndChangeSizeVideoWithPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId withStreamId:(NSString *)streamId WithData:(NSDictionary *)data fromId:(NSString *)fromId
 
 {
     BOOL isDragOut = [data bm_boolForKey:@"isDrag"];
@@ -3810,7 +3810,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else
     {
-        [self hideDragOutVideoViewWithPeerId:peerId withSourceId:sourceId];
+        [self hideDragOutVideoViewWithStreamId:streamId];
     }
 }
 
@@ -3866,7 +3866,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 放回视频
-- (void)hideDragOutVideoViewWithPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId
+- (void)hideDragOutVideoViewWithStreamId:(NSString *)streamId
 {
     if (self.roomLayout == YSRoomLayoutType_VideoLayout)
     {
@@ -3877,7 +3877,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     for (YSFloatView *floatView in self.dragOutFloatViewArray )
     {
         SCVideoView *videoView = (SCVideoView *)floatView.contentView;
-        if ([videoView.roomUser.peerID isEqualToString:peerId] && [videoView.sourceId isEqualToString:sourceId])
+        if ([videoView.streamId isEqualToString:streamId])
         {
             needFresh = YES;
             videoView.isDragOut = NO;
