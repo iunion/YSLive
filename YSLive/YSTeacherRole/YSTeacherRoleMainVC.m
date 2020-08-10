@@ -3679,7 +3679,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.hidden = NO;
     
 #if USE_FullTeacher
-    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+//    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
 #endif
 }
 
@@ -6096,26 +6096,32 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (!self.liveManager.roomConfig.isChairManControl && self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoViewArray.firstObject];
-
-        [self.fullTeacherFloatView cleanContent];
-        self.fullTeacherFloatView.hidden = NO;
-        self.fullTeacherFloatView.frame = CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
-        [self.fullTeacherFloatView bm_bringToFront];
-         
-        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sYSUserDefaultSourceId isForPerch:NO withDelegate:self];
-        fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
-        [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
         
-        fullTeacherVideoView.appUseTheType = self.appUseTheType;
-        [self playVideoAudioWithNewVideoView:fullTeacherVideoView];
-        self.fullTeacherVideoView = fullTeacherVideoView;
-        [fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
-        
-        if (view == self.whitebordFullBackgroud)
+        if (self.fullTeacherFloatView.hidden)
         {
-            [self.raiseHandsBtn bm_bringToFront];
-            [self.handNumLab bm_bringToFront];
+            
+            [self.fullTeacherFloatView cleanContent];
+            self.fullTeacherFloatView.hidden = NO;
+            self.fullTeacherFloatView.frame = CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
+            [self.fullTeacherFloatView bm_bringToFront];
+            
+            SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sYSUserDefaultSourceId isForPerch:NO withDelegate:self];
+            fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
+            [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
+            
+            fullTeacherVideoView.appUseTheType = self.appUseTheType;
+            
+            self.fullTeacherVideoView = fullTeacherVideoView;
+            [fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
+            
+            if (view == self.whitebordFullBackgroud)
+            {
+                [self.raiseHandsBtn bm_bringToFront];
+                [self.handNumLab bm_bringToFront];
+            }
         }
+        [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
+
     }
 }
 #endif

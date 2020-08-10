@@ -73,13 +73,32 @@ static inline NSString *getAssetsName(NSString *assetsName)
 {
     NSString *bundlePath = [self resourcePath];
     NSString *basePath = [bundlePath stringByAppendingPathComponent:getAssetsName(assetsName)];
-    
+
     NSString *imageTmpName = [imageName stringByDeletingPathExtension];
     NSString *imagePathName = [imageTmpName stringByAppendingPathExtension:@"imageset"];
-    
-    NSString *imageFilePath = [[basePath stringByAppendingPathComponent:imagePathName] stringByAppendingPathComponent:imageName];
-    
-    return [UIImage imageWithContentsOfFile:imageFilePath];
+
+    if (BMIS_IOS_10_OR_LATER)
+     {
+         NSString *imageFilePath = [[basePath stringByAppendingPathComponent:imagePathName] stringByAppendingPathComponent:imageName];
+         return [UIImage imageWithContentsOfFile:imageFilePath];
+     }
+
+    NSString *name = [NSString stringWithFormat:@"%@@2x", imageName];
+    NSString *imageFilePath = [[basePath stringByAppendingPathComponent:imagePathName] stringByAppendingPathComponent:name];
+    UIImage *image = [UIImage imageWithContentsOfFile:imageFilePath];
+    if (!image)
+    {
+        NSString *name = [NSString stringWithFormat:@"%@@3x", imageName];
+        NSString *imageFilePath = [[basePath stringByAppendingPathComponent:imagePathName] stringByAppendingPathComponent:name];
+        image = [UIImage imageWithContentsOfFile:imageFilePath];
+    }
+    if (!image)
+    {
+        NSString *imageFilePath = [[basePath stringByAppendingPathComponent:imagePathName] stringByAppendingPathComponent:imageName];
+        image = [UIImage imageWithContentsOfFile:imageFilePath];
+    }
+
+    return image;
 }
 
 #pragma mark localizedString
