@@ -49,7 +49,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL reproducerPermission = [defaults boolForKey:YSPERMISSION_USERDEFAULT_REPRODUCER];
-    return reproducerPermission;
+    return NO;
 }
 
 @end

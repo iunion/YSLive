@@ -12,6 +12,10 @@
 
 #import <AVFoundation/AVFoundation.h> //音频视频框架
 
+#import "AppDelegate.h"
+#import "BMProgressHUD.h"
+
+
 /// 检测类型
 typedef NS_ENUM(NSInteger, YSPermissionsType)
 {
@@ -120,7 +124,33 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     /// 提示动画
     UIImageView *animateView = [[UIImageView alloc]initWithFrame:CGRectMake(19, BMUI_SCREEN_HEIGHT-284-143, 91, 143)];
     [self.view addSubview:animateView];
-    animateView.animationImages = @[YSSkinElementImage(@"Permissions_animation", @"animation1"),YSSkinElementImage(@"Permissions_animation", @"animation2"),YSSkinElementImage(@"Permissions_animation", @"animation3"),YSSkinElementImage(@"Permissions_animation", @"animation4")];
+    
+    NSMutableArray *animationImages = [NSMutableArray array];
+    for (NSUInteger i=0; i<4; i++)
+    {
+        NSString *imageStr = [NSString stringWithFormat:@"animation%@", @(i+1)];
+        UIImage *image = YSSkinElementImage(@"Permissions_animation", imageStr);
+        if (image)
+        {
+            [animationImages addObject:image];
+        }
+        else
+        {
+            NSString *str = [NSString stringWithFormat:@"%@_%@", imageStr, @([YSLiveSkinManager shareInstance].classOrOnline)];
+            [BMProgressHUD bm_showHUDAddedTo:GetAppDelegate.window animated:NO withText:str delay:5.0f];
+        }
+    }
+    
+    animateView.animationImages = animationImages;
+    
+    //animateView.animationImages = @[YSSkinElementImage(@"Permissions_animation", @"animation1"),YSSkinElementImage(@"Permissions_animation", @"animation2"),YSSkinElementImage(@"Permissions_animation", @"animation3"),YSSkinElementImage(@"Permissions_animation", @"animation4")];
+    
+//    @try {
+//        UIImage *image = nil;
+//        animateView.animationImages = @[YSSkinElementImage(@"Permissions_animation", @"animation1"),image,YSSkinElementImage(@"Permissions_animation", @"animation3"),YSSkinElementImage(@"Permissions_animation", @"animation4")];
+//    } @catch (NSException *exception) {
+//    } @finally {
+//    }
     animateView.animationDuration = 1.0;
     animateView.animationRepeatCount = 0;
     [animateView startAnimating];
