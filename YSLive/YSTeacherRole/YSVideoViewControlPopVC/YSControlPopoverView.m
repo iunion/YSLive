@@ -120,11 +120,10 @@
 {
     _isAllNoAudio = isAllNoAudio;
     
-    if (self.userModel.role != YSUserType_Teacher)
+    if (self.userModel.role != YSUserType_Teacher && YSCurrentUser.role != YSUserType_Teacher)
     {
         self.audioBtn.enabled = !isAllNoAudio;
     }
-    
 }
 
 - (void)setupUI
@@ -395,9 +394,9 @@
             self.lineView.bm_centerY = self.view.bm_height*0.5f;
         }
     }
-
+    
     //没有摄像头、麦克风权限时的显示禁用状态
-    if (self.userModel.role != YSUserType_Teacher)
+    if (self.userModel.role != YSUserType_Teacher && YSCurrentUser.role != YSUserType_Teacher)
     {
         if (self.userModel.afail == YSDeviceFaultNone)
         {
