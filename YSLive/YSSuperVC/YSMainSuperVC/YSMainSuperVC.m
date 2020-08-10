@@ -227,32 +227,23 @@
 ///排序后的视频窗口array
 - (void)videoViewsSequence
 {
-    NSMutableArray * idArr = [self.videoViewArrayDic.allKeys mutableCopy];
-    [idArr removeObject:self.liveManager.teacher.peerID];
-    
-    // id正序排序
-    [idArr sortUsingComparator:^NSComparisonResult(NSString * _Nonnull peerId1, NSString * _Nonnull peerId2) {
-        return [peerId1 compare:peerId2];
-    }];
-    
     self.videoSequenceArr = [NSMutableArray array];
-    for (NSString *peerId in idArr)
+    if (!self.liveManager.isClassBegin)
     {
-        NSArray * arr = [self.videoViewArrayDic bm_arrayForKey:peerId];
-        
-        if (arr.count == 1)
+        NSArray * videoArray = self.videoViewArrayDic.allValues.firstObject;
+        if (videoArray.count == 1)
         {
-            [self.videoSequenceArr addObject:arr[0]];
+            [self.videoSequenceArr addObject:videoArray[0]];
         }
-        else if (arr.count > 1)
+        else if (videoArray.count > 1)
         {
-            SCVideoView * videoView0 = arr[0];
-            SCVideoView * videoView1 = arr[1];
+            SCVideoView * videoView0 = videoArray[0];
+            SCVideoView * videoView1 = videoArray[1];
             NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
             
             if (result == NSOrderedAscending)
             {//左边小于右边
-                [self.videoSequenceArr addObjectsFromArray:arr];
+                [self.videoSequenceArr addObjectsFromArray:videoArray];
             }
             else
             {
@@ -261,28 +252,64 @@
             }
         }
     }
-    
-    ///把老师插入最前面
-    
-    if (self.teacherVideoViewArray.count == 1)
+    else
     {
-        [self.videoSequenceArr insertObject:self.teacherVideoViewArray[0] atIndex:0];
-    }
-    else if (self.teacherVideoViewArray.count > 1)
-    {
-        SCVideoView * videoView0 = self.teacherVideoViewArray[0];
-        SCVideoView * videoView1 = self.teacherVideoViewArray[1];
-        NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+        NSMutableArray * idArr = [self.videoViewArrayDic.allKeys mutableCopy];
+        [idArr removeObject:self.liveManager.teacher.peerID];
         
-        if (result == NSOrderedAscending)
-        {//左边小于右边
-            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
-            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
-        }
-        else
+        // id正序排序
+        [idArr sortUsingComparator:^NSComparisonResult(NSString * _Nonnull peerId1, NSString * _Nonnull peerId2) {
+            return [peerId1 compare:peerId2];
+        }];
+        
+        for (NSString *peerId in idArr)
         {
-            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
-            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+            NSArray * arr = [self.videoViewArrayDic bm_arrayForKey:peerId];
+            
+            if (arr.count == 1)
+            {
+                [self.videoSequenceArr addObject:arr[0]];
+            }
+            else if (arr.count > 1)
+            {
+                SCVideoView * videoView0 = arr[0];
+                SCVideoView * videoView1 = arr[1];
+                NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+                
+                if (result == NSOrderedAscending)
+                {//左边小于右边
+                    [self.videoSequenceArr addObjectsFromArray:arr];
+                }
+                else
+                {
+                    [self.videoSequenceArr addObject:videoView1];
+                    [self.videoSequenceArr addObject:videoView0];
+                }
+            }
+        }
+        
+        ///把老师插入最前面
+        
+        if (self.teacherVideoViewArray.count == 1)
+        {
+            [self.videoSequenceArr insertObject:self.teacherVideoViewArray[0] atIndex:0];
+        }
+        else if (self.teacherVideoViewArray.count > 1)
+        {
+            SCVideoView * videoView0 = self.teacherVideoViewArray[0];
+            SCVideoView * videoView1 = self.teacherVideoViewArray[1];
+            NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+            
+            if (result == NSOrderedAscending)
+            {//左边小于右边
+                [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+                [self.videoSequenceArr insertObject:videoView0 atIndex:0];
+            }
+            else
+            {
+                [self.videoSequenceArr insertObject:videoView0 atIndex:0];
+                [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+            }
         }
     }
 }
