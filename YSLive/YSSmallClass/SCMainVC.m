@@ -1777,7 +1777,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.hidden = NO;
     
 #if USE_FullTeacher
-    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+//    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
 #endif
 }
 
