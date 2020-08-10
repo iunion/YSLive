@@ -119,7 +119,12 @@
 - (void)setIsAllNoAudio:(BOOL)isAllNoAudio
 {
     _isAllNoAudio = isAllNoAudio;
-    self.audioBtn.enabled = !isAllNoAudio;
+    
+    if (self.userModel.role != YSUserType_Teacher)
+    {
+        self.audioBtn.enabled = !isAllNoAudio;
+    }
+    
 }
 
 - (void)setupUI
@@ -131,6 +136,7 @@
     self.audioBtn.disabledImage = YSSkinElementImage(@"videoPop_soundButton", @"iconDis");
     self.audioBtn.disabledText = YSLocalized(@"Button.MutingAudio");
     self.audioBtn.tag = SCVideoViewControlTypeAudio;
+    self.audioBtn.enabled = YES;
     if (self.userModel.audioMute == YSSessionMuteState_UnMute)
     {
         self.audioBtn.selected = YES;
@@ -252,11 +258,9 @@
                 isShowLine = YES;
                 if (self.roomLayout == YSRoomLayoutType_AroundLayout)
                 {
-                    
                     if (self.isDragOut)
                     {
                         //音频 视频 镜像 复位 全体奖杯 全体复位
-                        
                         [self.btnArray addObject:self.audioBtn];
                         [self.btnArray addObject:self.videoBtn];
                         [self.btnArray addObject:self.mirrorBtn];
@@ -282,9 +286,7 @@
                     [self.btnArray addObject:self.mirrorBtn];
                     [self.btnArray addObject:self.fouceBtn];
                     [self.btnArray addObject:self.allGiftCupBtn];
-                    
                 }
-                
             }
             
         }
@@ -395,13 +397,16 @@
     }
 
     //没有摄像头、麦克风权限时的显示禁用状态
-    if (self.userModel.afail == YSDeviceFaultNone)
+    if (self.userModel.role != YSUserType_Teacher)
     {
-        self.audioBtn.enabled = !self.isAllNoAudio;
-    }
-    else
-    {
-        self.audioBtn.enabled = NO;
+        if (self.userModel.afail == YSDeviceFaultNone)
+        {
+            self.audioBtn.enabled = !self.isAllNoAudio;
+        }
+        else
+        {
+            self.audioBtn.enabled = NO;
+        }
     }
     
     if ([self.userModel getVideoVfailWithSourceId:self.sourceId] == YSDeviceFaultNone)

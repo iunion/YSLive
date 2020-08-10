@@ -5267,7 +5267,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     return UIModalPresentationNone;
 }
 
-
 #pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
