@@ -105,7 +105,6 @@
         self.allRestoreBtn.bm_width = self.backView.bm_width;
         //全体奖杯按钮
         self.allGiftCupBtn.bm_width = self.backView.bm_width;
-
     }
     
 }
@@ -396,7 +395,6 @@
     }
 
     //没有摄像头、麦克风权限时的显示禁用状态
-    
     if (self.userModel.afail == YSDeviceFaultNone)
     {
         self.audioBtn.enabled = !self.isAllNoAudio;

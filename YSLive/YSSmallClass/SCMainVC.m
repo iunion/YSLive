@@ -4314,10 +4314,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark -全体静音 发言
 - (void)handleSignalingliveAllNoAudio:(BOOL)noAudio
 {
-    if (self.liveManager.localUser.afail == YSDeviceFaultNone)
-    {
-        self.controlPopoverView.isAllNoAudio = noAudio;
-    }
+    self.controlPopoverView.isAllNoAudio = noAudio;
 }
 
 #pragma mark - 抢答器
@@ -4730,6 +4727,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self creatControlPopoverView];
     
     YSRoomUser * userModel = videoView.roomUser;
+    
+    self.controlPopoverView.isAllNoAudio = self.liveManager.isEveryoneNoAudio;
     
     if (videoView.roomUser.peerID != YSCurrentUser.peerID || userModel.publishState == YSUser_PublishState_DOWN)
     {

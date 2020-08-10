@@ -5275,6 +5275,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     self.selectControlView = videoView;
     
+    self.controlPopoverView.isAllNoAudio = self.liveManager.isEveryoneNoAudio;
+    
     YSRoomUser * userModel = videoView.roomUser;
 
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
