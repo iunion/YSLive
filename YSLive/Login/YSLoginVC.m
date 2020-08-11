@@ -412,12 +412,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)getAppStoreNewVersion
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@",YS_APPID]]];
+    NSString *fdd = [NSString stringWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@&ts=%@", YS_APPID, @([NSDate date].timeIntervalSince1970)];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:fdd]];
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         // 请求的数据转字典，必须判断数据有值才走里面，不然空的data会出现crash
-        if (data.length > 0) {
+        if (data.length > 0)
+        {
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
             NSString *newVersion = [result[@"results"] firstObject][@"version"];
