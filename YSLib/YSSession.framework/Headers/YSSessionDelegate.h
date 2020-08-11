@@ -20,25 +20,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSSessionDelegate <YSSessionForUserDelegate, YSSessionForBigRoomDelegate, YSSessionForSignalingDelegate, YSSessionForMessageDelegate>
 
+@optional
+
 /// 进入前台
 - (void)handleEnterForeground;
 
 /// 进入后台
 - (void)handleEnterBackground;
 
-/**
- 发生错误 回调
-
- @param error error
- */
-- (void)onRoomDidOccuredError:(NSError *)error;
-
-/**
- 发生警告 回调
-
- @param code 警告码
- */
-- (void)onRoomDidOccuredWaring:(YSRoomWarningCode)code;
+/// 发生错误 回调
+- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(nullable NSString *)message;
 
 /// 进入房间失败
 - (void)onRoomJoinFailed:(NSDictionary *)errorDic;
@@ -76,28 +67,30 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onRoomUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel isSetPos:(BOOL)isSetPos;
 
 /// 收到开始共享桌面
-- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID;
+- (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(NSString *)streamId;
 /// 收到结束共享桌面
-- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId streamID:(NSString *)streamID;
+- (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(NSString *)streamId;
 
 
 /// 用户流音量变化
 - (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume;
 
 /// 是否关闭摄像头
-- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid streamID:(NSString *)streamID;
+- (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(NSString *)streamId;
 /// 是否关闭麦克风
 - (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid;
 
 /// 收到音视频流
-- (void)onRoomStartVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID;
+- (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId;
 /// 停止音视频流
-- (void)onRoomStopVideoOfUid:(NSString *)uid streamID:(nullable NSString *)streamID;
+- (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId;
 
 @end
 
 #pragma mark 用户
 @protocol YSSessionForUserDelegate <NSObject>
+
+@optional
 
 // 只用于普通房间
 /// 用户进入
@@ -115,17 +108,21 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 房间状态变为大房间
 @protocol YSSessionForBigRoomDelegate <NSObject>
 
+@optional
+
 /// 由小房间变为大房间(只调用一次)
-- (void)onRoomChangeToBigRoomInList:(BOOL)inlist;
+- (void)onRoomChangeToBigRoomIsHistory:(BOOL)isHistory;
 /// 大房间刷新用户数量
-- (void)onRoomBigRoomFreshUserCountInList:(BOOL)inlist;
+- (void)onRoomBigRoomFreshUserCountIsHistory:(BOOL)isHistory;
 /// 大房间刷新数据
-- (void)onRoomBigRoomFreshInList:(BOOL)inlist;
+- (void)onRoomBigRoomFreshIsHistory:(BOOL)isHistory;
 
 @end
 
 #pragma mark 消息
 @protocol YSSessionForMessageDelegate <NSObject>
+
+@optional
 
 /// 收到信息
 - (void)handleMessageWith:(YSChatMessageModel *)message;
