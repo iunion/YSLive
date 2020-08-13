@@ -3392,7 +3392,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                [self delVideoViewWithPeerId:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
+//                [self delVideoViewWithPeerId:YSCurrentUser.peerID andSourceId:sYSUserDefaultSourceId];
             }
         }
     }
@@ -3579,6 +3579,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self classEndWithText:YSLocalized(@"Prompt.ClassEndAnchorLeave10")];
     }
+}
+
+#pragma mark - 分组房间授课
+/// 启用授课（关闭讨论）
+- (void)handleSignalingParentRoomLectureBegin
+{
+    [self.liveManager.whiteBoardManager clearGroupData];
+}
+
+/// 关闭授课（开始讨论）
+- (void)handleSignalingParentRoomLectureEnd
+{
+    
 }
 
 #pragma mark - 窗口布局变化
