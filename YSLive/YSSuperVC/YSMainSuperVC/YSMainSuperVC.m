@@ -478,6 +478,10 @@
                 if (roomUser.role == YSUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theVideoArray;
+                    if (self.liveManager.isGroupRoom)
+                    {
+                        newVideoView.groopRoomState = SCGroopRoomState_Discussing;
+                    }
                 }
                 else if (roomUser.role == YSUserType_ClassMaster)
                 {
@@ -611,6 +615,10 @@
                 if (roomUser.role == YSUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theAddVideoArray;
+                    if (self.liveManager.isGroupRoom)
+                    {
+                        newVideoView.groopRoomState = SCGroopRoomState_Discussing;
+                    }
                 }
                 else if (roomUser.role == YSUserType_ClassMaster)
                 {
@@ -880,7 +888,10 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-
+        if (self.liveManager.isGroupRoom && videoView.roomUser.role == YSUserType_Teacher)
+        {
+            videoView.groopRoomState = SCGroopRoomState_Normal;
+        }
         [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
         [videoView freshWithRoomUserProperty:roomUser];
     }

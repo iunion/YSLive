@@ -3359,6 +3359,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.spreadBottomToolBar.isToolBoxEnable = NO;
         self.spreadBottomToolBar.isCameraEnable = NO;
+        //名师
+//        SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
+//        teacherVideo.groopRoomState = SCGroopRoomState_Discussing;
         if (self.isWhitebordFullScreen)
         {
             /// 主房间上课后 本地全屏关闭
@@ -3605,12 +3608,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 启用授课（关闭讨论）
 - (void)handleSignalingParentRoomLectureBegin
 {
-    [self.liveManager.whiteBoardManager clearGroupData];
+//    [self.liveManager.whiteBoardManager clearGroupData];
+    SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
+    teacherVideo.groopRoomState = SCGroopRoomState_Normal;
 }
 
 /// 关闭授课（开始讨论）
 - (void)handleSignalingParentRoomLectureEnd
 {
+    SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
+    teacherVideo.groopRoomState = SCGroopRoomState_Discussing;
+    [self stopVideoAudioWithVideoView:teacherVideo];
 //    self getVideoViewWithPeerId:self.liveManager.classMaster.peerID andSourceId:self.liveManager.classMaster.sourceListDic
 }
 

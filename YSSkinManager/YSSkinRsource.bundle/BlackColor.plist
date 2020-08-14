@@ -1231,6 +1231,13 @@
 		<key>unknownCam</key>
 		<string>videoView_unknownCamera_skin</string>
 	</dict>
+	<key>videoView_groupRoom</key>
+	<dict>
+		<key>discussing</key>
+		<string>videoView_groupRoom_discussing_skin</string>
+		<key>privateChat</key>
+		<string>videoView_groupRoom_privateChat_skin</string>
+	</dict>
 	<key>videoView_trophyImage</key>
 	<dict>
 		<key>tittleColor</key>
