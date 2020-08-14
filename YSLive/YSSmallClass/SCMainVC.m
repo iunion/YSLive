@@ -989,7 +989,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     // 白板背景
     UIView *whitebordFullBackgroud = [[UIView alloc] init];
-    whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    whitebordFullBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     [self.contentBackgroud addSubview:whitebordFullBackgroud];
     whitebordFullBackgroud.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight);
     self.whitebordFullBackgroud = whitebordFullBackgroud;
@@ -1352,6 +1352,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         if (self.roomLayout == YSRoomLayoutType_VideoLayout)
         {
+            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
             [self freshVideoGridView];
         }
         else
@@ -1366,15 +1367,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [self freshVideoGridView];
             [self.raiseHandsBtn bm_bringToFront];
+            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+//            self.whiteBordView.hidden = YES;
         }
         else
         {
             self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
             self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
             [self.contentBackgroud addSubview:self.videoGridView];
-//            [self.videoGridView bm_centerInSuperView];
-            self.videoGridView.backgroundColor = [UIColor clearColor];
+            self.videoGridView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
             [self freshContentVideoView];
+
         }
     }
 }
@@ -2408,19 +2411,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         //        [self freshContentView];
         
 //        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSRoomLayoutType_VideoLayout);
-        if (YSCurrentUser.canDraw)
-        {
-            self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSRoomLayoutType_VideoLayout);
-        }
-        
-        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
-        {
-            self.drawBoardView.hidden = YES;
-        }
-        else
-        {
-            self.drawBoardView.hidden = NO;
-        }
+        [self freshBrushTools];
 #if USE_FullTeacher
         [self stopFullTeacherVideoView];
 #endif
@@ -2819,22 +2810,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self handleSignalingDefaultRoomLayout];
     
     BOOL canDraw = NO;
-    if (self.roomLayout == YSRoomLayoutType_VideoLayout || self.roomLayout == YSRoomLayoutType_FocusLayout)
-    {
-        self.brushToolView.hidden = YES;
-        self.drawBoardView.hidden = YES;
-    }
-    else
-    {
-        self.brushToolView.hidden = !canDraw;
-        if (!canDraw || !self.brushToolView.toolsBtn.selected || self.brushToolView.mouseBtn.selected)
-        {
-            self.drawBoardView.hidden = YES;
-        }else{
-            self.drawBoardView.hidden = NO;
-        }
-    }
-    
+    [self freshBrushTools];
     [self resetDrawTools];
 #endif
 }
@@ -3208,25 +3184,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
             self.spreadBottomToolBar.isToolBoxEnable = canDraw;
-            if (self.roomLayout == YSRoomLayoutType_VideoLayout)
-            {
-                self.brushToolView.hidden = YES;
-                self.brushToolOpenBtn.hidden = YES;
-                self.drawBoardView.hidden = YES;
-            }
-            else
-            {
-                self.brushToolView.hidden = !canDraw;
-                self.brushToolOpenBtn.hidden = !canDraw;
-                if (!canDraw || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
-                {
-                    self.drawBoardView.hidden = YES;
-                }
-                else
-                {
-                    self.drawBoardView.hidden = NO;
-                }
-            }
+            [self freshBrushTools];
             
             // 设置画笔颜色初始值
             if (canDraw)
@@ -3397,6 +3355,24 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
 
+    if (self.liveManager.isGroupBegin)
+    {
+        self.spreadBottomToolBar.isToolBoxEnable = NO;
+        self.spreadBottomToolBar.isCameraEnable = NO;
+        if (self.isWhitebordFullScreen)
+        {
+            /// 主房间上课后 本地全屏关闭
+            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+        }
+    }
+    else
+    {
+        self.spreadBottomToolBar.isToolBoxEnable = YSCurrentUser.canDraw;
+        self.spreadBottomToolBar.isCameraEnable = (YSCurrentUser.publishState == YSUser_PublishState_UP);
+    }
+    
+    [self freshBrushTools];
+    
     if (self.topBarTimer)
     {
         dispatch_source_cancel(self.topBarTimer);
@@ -3489,6 +3465,50 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self classEndWithText:nil];
 }
 
+#pragma mark - 刷新画笔工具状态
+- (void)freshBrushTools
+{
+    if (self.liveManager.isGroupBegin)
+    {
+        self.brushToolView.hidden = YES;
+        self.brushToolOpenBtn.hidden = YES;
+        self.drawBoardView.hidden = YES;
+    }
+    else
+    {
+        if (YSCurrentUser.canDraw)
+        {
+            if ((self.roomLayout == YSRoomLayoutType_VideoLayout) || (self.roomLayout == YSRoomLayoutType_FocusLayout) || self.isDoubleVideoBig)
+            {
+                self.brushToolView.hidden = YES;
+                self.brushToolOpenBtn.hidden = YES;
+            }
+            else
+            {
+                self.brushToolView.hidden = NO;
+                self.brushToolOpenBtn.hidden = NO;
+                
+            }
+        }
+        else
+        {
+            self.brushToolView.hidden = YES;
+            self.brushToolOpenBtn.hidden = YES;
+            self.drawBoardView.hidden = YES;
+        }
+        
+        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
+        {
+            self.drawBoardView.hidden = YES;
+        }
+        else
+        {
+            self.drawBoardView.hidden = NO;
+        }
+    }
+    
+    [self resetDrawTools];
+}
 
 - (void)classEndWithText:(NSString *)text
 {
@@ -3591,31 +3611,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 关闭授课（开始讨论）
 - (void)handleSignalingParentRoomLectureEnd
 {
-    
+//    self getVideoViewWithPeerId:self.liveManager.classMaster.peerID andSourceId:self.liveManager.classMaster.sourceListDic
 }
 
 #pragma mark - 窗口布局变化
 - (void)handleSignalingSetRoomLayout:(YSRoomLayoutType)roomLayout withPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId
 {
     self.roomLayout = roomLayout;
-    
-    if (!self.isWhitebordFullScreen)
-    {
-        if (YSCurrentUser.canDraw)
-        {
-            self.brushToolView.hidden = (self.roomLayout == YSRoomLayoutType_VideoLayout) || (self.roomLayout == YSRoomLayoutType_FocusLayout);
-            self.brushToolOpenBtn.hidden = (self.roomLayout == YSRoomLayoutType_VideoLayout) || (self.roomLayout == YSRoomLayoutType_FocusLayout);
-        }
-    }
-    
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
-    {
-        self.drawBoardView.hidden = YES;
-    }
-    else
-    {
-        self.drawBoardView.hidden = NO;
-    }
     
     if (roomLayout == YSRoomLayoutType_FocusLayout && [peerId bm_isNotEmpty])
     {
@@ -3646,7 +3648,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.roomLayout = YSRoomLayoutType_VideoLayout;
         }
     }
-    
+//    if (!self.isWhitebordFullScreen)
+    {
+        [self freshBrushTools];
+    }
     [self freshContentView];
 }
 
@@ -3977,6 +3982,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    NSString * sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
     if (isFull)
     {
+        [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];//双击全屏最大化时 关闭本地课件全屏
+        
         if (self.doubleFloatView)
         {
             [self handleSignalingDragOutVideoChangeFullSizeWithPeerId:nil withSourceId:nil isFull:NO];
@@ -4013,6 +4020,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.doubleFloatView = floatView;
         
         self.whiteBordView.hidden = YES;
+        
     }
     else
     {
@@ -4025,21 +4033,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.hidden = NO;
     }
     
-    if (!self.isWhitebordFullScreen)
+//    if (!self.isWhitebordFullScreen)
     {
-        if (YSCurrentUser.canDraw)
-        {
-            self.brushToolView.hidden = isFull;
-            self.brushToolOpenBtn.hidden = isFull;
-        }
-    }
-    if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
-    {
-        self.drawBoardView.hidden = YES;
-    }
-    else
-    {
-        self.drawBoardView.hidden = NO;
+        [self freshBrushTools];
     }
 }
 
@@ -4664,7 +4660,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.fullTeacherFloatView.hidden = YES;
         [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
-        [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
+        
+        if (self.liveManager.isGroupRoom && !self.liveManager.isGroupBegin)
+        {
+            [self playVideoAudioWithNewVideoView:self.classMasterVideoViewArray.firstObject];
+        }
+        else
+        {
+            [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
+        }
     }
 }
 
@@ -4676,7 +4680,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
         
-        [self stopVideoAudioWithVideoView:self.teacherVideoViewArray.firstObject];
+        [self stopVideoAudioWithVideoView:teacherVideo];
         
         if ([self.liveManager.teacher.peerID bm_isNotEmpty])
         {
@@ -4687,11 +4691,21 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.fullTeacherFloatView.frame = CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight);
         [self.fullTeacherFloatView bm_bringToFront];
                         
-        SCVideoView *oldTeacherVideo = self.teacherVideoViewArray.firstObject;
         
-        SCVideoView *fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher withSourceId:oldTeacherVideo.sourceId isForPerch:NO withDelegate:self];
-        
-        fullTeacherVideoView.streamId = teacherVideo.streamId;
+        SCVideoView *fullTeacherVideoView;
+
+        if (self.liveManager.isGroupRoom && !self.liveManager.isGroupBegin)
+        {
+            SCVideoView *oldTeacherVideo = self.classMasterVideoViewArray.firstObject;
+            fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.classMaster withSourceId:oldTeacherVideo.sourceId isForPerch:NO withDelegate:self];
+            fullTeacherVideoView.streamId = oldTeacherVideo.streamId;
+        }
+        else
+        {
+//            SCVideoView *oldTeacherVideo = self.teacherVideoViewArray.firstObject;
+            fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher withSourceId:teacherVideo.sourceId isForPerch:NO withDelegate:self];
+            fullTeacherVideoView.streamId = teacherVideo.streamId;
+        }
         
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
