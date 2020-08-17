@@ -2127,32 +2127,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)freshListViewWithSelect:(BOOL)select
 {
-    
-    CGFloat height = self.liveManager.whiteBoardManager.mainWhiteBoardView.bm_height * 2.0 / 3.0;
-     CGFloat width = (height - 2 * TopBarHeight) * 16.0 /9.0;
-     self.liveManager.whiteBoardManager.whiteBoardViewDefaultSize = CGSizeMake(width, height);
-    YSWhiteBoardView * smallBoard = [[YSWhiteBoardManager sharedInstance] createSmallWhiteBoardWithFileId:@"2396" withPositionData:@{} isFromLocalUser:NO];
-    smallBoard.bottomBar.smallBottomBarButtonsClick = ^(UIButton * _Nonnull sender) {
-        
-        if (sender.tag == 1)
-        {//上传图片课件
-            /// 上传图片
-            [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document];
-        }
-        else if (sender.tag == 2)
-        {
-            self.liveManager.whiteBoardManager.smallBoardView.drawViewManager.fileView.imageView.image = nil;
-        }
-    };
-    
-    NSMutableDictionary *message = [[NSMutableDictionary alloc] init];
-    [message bm_setString:YSCurrentUser.peerID forKey:@"id"];
-    [message setObject:@{ @"candraw" : @(YES) } forKey:@"properties"];
-    [self.liveManager.whiteBoardManager.smallBoardView userPropertyChanged:message];
-    
-    [self.liveManager.whiteBoardManager.smallBoardView brushToolsDidSelect:[YSBrushToolsManager shareInstance].currentBrushToolType];
-    
-    return;
 
     CGRect tempRect = self.teacherListView.frame;
     if (select)
@@ -2534,22 +2508,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                if (imageUseType == 0)
-                {
-                    [self.liveManager.whiteBoardManager addWhiteBordImageCourseWithDic:dict];
-                }
-                else
-                {
-                    BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"] withMessageType:YSChatMessageType_OnlyImage withMemberModel:nil];
-                    if (!isSucceed)
-                    {
-                        BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
-                        hub.yOffset = -100;
-                        [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-                    }
+
+                BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"] withMessageType:YSChatMessageType_OnlyImage withMemberModel:nil];
+                if (!isSucceed) {
+                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+                    hub.yOffset = -100;
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                 }
             }
-
             /*
              cospath = "https://demo.roadofcloud.com";
              downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
