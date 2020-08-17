@@ -3957,7 +3957,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             NSDictionary * data = @{
                 @"isDrag":@0,
-                @"streamId":videoView.streamId,
+                @"streamId":videoView.streamId ? videoView.streamId : @"",
                 @"userId":videoView.roomUser.peerID
             };
             BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
