@@ -29,8 +29,6 @@
         self.bm_CanBackInteractive = NO;
         [self setRoomManagerDelegate];
         
-        [self.liveManager serverLog:[NSString stringWithFormat:@"YSMainSuperVC init with class %@", NSStringFromClass([self class])]];
-        
         self.videoViewArrayDic = [[NSMutableDictionary alloc] init];
     }
     return self;

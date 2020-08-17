@@ -31,7 +31,7 @@
 			<string>yslive</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>yslive</string>
+				<string>cloudhub</string>
 			</array>
 		</dict>
 		<dict>
@@ -41,12 +41,14 @@
 			<string>enterlive</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>enterlive</string>
+				<string>enterlivev3</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -85,6 +87,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>YSAppCommitVersion</key>
-	<string></string>
+	<string>2020081700</string>
 </dict>
 </plist>

@@ -1025,24 +1025,26 @@
         // 刷新当前用户前后台状态
         if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
-                BOOL isInBackGround = NO;
-                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-                if (state != UIApplicationStateActive)
+            BOOL isInBackGround = NO;
+            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+            if (state != UIApplicationStateActive)
+            {
+                isInBackGround = YES;
+                // 兼容iOS11前后台状态
+                if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
                 {
-                    isInBackGround = YES;
-                    // 兼容iOS11前后台状态
-                    if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
+                    if (state == UIApplicationStateInactive)
                     {
-                        if (state == UIApplicationStateInactive)
-                        {
-                            isInBackGround = NO;
-                        }
+                        isInBackGround = NO;
                     }
                 }
-                if (isInBackGround != [self.roomUser.properties bm_boolForKey:sYSUserIsInBackGround])
-                {
-                    [[YSLiveManager sharedInstance] setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(isInBackGround)];
-                }
+            }
+            if (isInBackGround != self.roomUser.isInBackGround)
+            {
+                [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(isInBackGround)];
+            }
+            
+            [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
         }
         
         self.canDraw = [self.roomUser.properties bm_boolForKey:sYSUserCandraw];
@@ -1145,7 +1147,7 @@
         }
         
         // 进入后台(home键)
-        BOOL isInBackGround = [self.roomUser.properties bm_boolForKey:sYSUserIsInBackGround];
+        BOOL isInBackGround = self.roomUser.isInBackGround;
         if (isInBackGround)
         {
             self.videoState |= SCVideoViewVideoState_InBackground;
