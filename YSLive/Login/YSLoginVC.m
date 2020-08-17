@@ -1542,6 +1542,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }
         
         UIImageView *passImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 30, 30)];
+        passImg.contentMode = UIViewContentModeCenter;
         [passImg setImage:YSSkinElementImage(@"login_passImg", @"iconNor")];
         _passwordTextField.inputTextField.leftView = passImg;
         _passwordTextField.inputTextField.leftViewMode = UITextFieldViewModeAlways;
