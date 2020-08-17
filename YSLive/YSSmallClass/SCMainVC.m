@@ -2131,7 +2131,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     CGFloat height = self.liveManager.whiteBoardManager.mainWhiteBoardView.bm_height * 2.0 / 3.0;
      CGFloat width = (height - 2 * TopBarHeight) * 16.0 /9.0;
      self.liveManager.whiteBoardManager.whiteBoardViewDefaultSize = CGSizeMake(width, height);
+    self.liveManager.whiteBoardManager.smallBoardStageState = YSSmallBoardStage_answer;
+    
     YSWhiteBoardView * smallBoard = [[YSWhiteBoardManager sharedInstance] createSmallWhiteBoardWithFileId:@"2396" withPositionData:@{} isFromLocalUser:NO];
+    
     smallBoard.bottomBar.smallBottomBarButtonsClick = ^(UIButton * _Nonnull sender) {
         
         if (sender.tag == 1)
