@@ -3438,6 +3438,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+
 /// 拖出视频窗口拉伸 根据本地默认尺寸scale
 - (CGSize )dragOutVideoChangeSizeWithFloatView:(YSFloatView *)floatView withScale:(CGFloat)scale
 {
@@ -5650,7 +5651,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     [self.liveManager.whiteBoardManager changeCourseWithFileId:fileModel.fileid];
-
 }
 
 ///收回列表
@@ -5927,8 +5927,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark - 打开相册选择图片
 
-- (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType
-{
+- (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType{
+    
+
     BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
     imagePickerController.allowTakeVideo = NO;
