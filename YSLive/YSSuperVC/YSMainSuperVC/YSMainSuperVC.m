@@ -317,19 +317,22 @@
 ///给videoViewArrayDic中添加视频
 - (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView
 {
-    NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
+    if (videoView)
+    {
+        NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
 
-    if (![videoArr containsObject:videoView])
-    {
-        [videoArr addObject:videoView];
+        if (![videoArr containsObject:videoView])
+        {
+            [videoArr addObject:videoView];
+        }
+        
+        [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
+        if (videoView.roomUser.role == YSUserType_Teacher)
+        {
+            self.teacherVideoViewArray = videoArr;
+        }
+        [self videoViewsSequence];
     }
-    
-    [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
-    if (videoView.roomUser.role == YSUserType_Teacher)
-    {
-        self.teacherVideoViewArray = videoArr;
-    }
-    [self videoViewsSequence];
 }
 
 ///从videoViewArrayDic中移除视频
