@@ -414,17 +414,13 @@
                 [theVideoArray bm_addObject:newVideoView withMaxCount:count];
             }
             
-            
             if (roomUser.role == YSUserType_Teacher)
             {
                 self.teacherVideoViewArray = theVideoArray;
             }
-            if (theVideoArray.count)
-            {
-                [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
-                [self videoViewsSequence];
-            }
-            
+ 
+            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
+            [self videoViewsSequence];
             
             [newVideoView bm_bringToFront];
         }
@@ -453,11 +449,8 @@
                 [newVideoView bm_bringToFront];
             }
         }
-        if (theVideoArray.count)
-        {
-            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
-            [self videoViewsSequence];
-        }
+        [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
+        [self videoViewsSequence];
         
         for (SCVideoView * videoView in theVideoArray)
         {
@@ -597,9 +590,17 @@
     
     for (SCVideoView *videoView in videoArray)
     {
-        if ([videoView.sourceId isEqualToString:sourceId])
+        if ([sourceId bm_isNotEmpty])
         {
-            return videoView;
+            if ([videoView.sourceId isEqualToString:sourceId])
+            {
+                return videoView;
+            }
+        }
+        else
+        {
+           return videoView;
+            break;
         }
     }
 

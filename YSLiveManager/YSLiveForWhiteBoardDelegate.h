@@ -22,6 +22,12 @@
 /// 媒体课件状态
 - (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSMediaState)state;
 
+//小黑板状态变化（更改画笔）
+- (void)handleSignalingSetSmallBoardStageState:(YSSmallBoardStageState)smallBoardStageState;
+
+//小黑板bottomBar的代理
+- (void)handleSignalingSmallBoardBottomBarClick:(UIButton *)sender;
+
 @end
 
 #endif /* YSLiveForWhiteBoardDelegate_h */

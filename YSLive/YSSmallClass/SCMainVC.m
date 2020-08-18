@@ -315,6 +315,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             videoTeacherHeight = videoHeight;
         }
     }
+    
     return self;
 }
 
@@ -2003,7 +2004,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
         make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
     }];
-
 }
 
 
@@ -2122,41 +2122,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-
 #pragma mark 是否弹出课件库 以及 花名册  select  yes--弹出  no--收回
 
 - (void)freshListViewWithSelect:(BOOL)select
 {
-    
-    CGFloat height = self.liveManager.whiteBoardManager.mainWhiteBoardView.bm_height * 2.0 / 3.0;
-     CGFloat width = (height - 2 * TopBarHeight) * 16.0 /9.0;
-     self.liveManager.whiteBoardManager.whiteBoardViewDefaultSize = CGSizeMake(width, height);
-    self.liveManager.whiteBoardManager.smallBoardStageState = YSSmallBoardStage_answer;
-    
-    YSWhiteBoardView * smallBoard = [[YSWhiteBoardManager sharedInstance] createSmallWhiteBoardWithFileId:@"2396" withPositionData:@{} isFromLocalUser:NO];
-    
-    smallBoard.bottomBar.smallBottomBarButtonsClick = ^(UIButton * _Nonnull sender) {
-        
-        if (sender.tag == 1)
-        {//上传图片课件
-            /// 上传图片
-            [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document  isSmallBoard:YES];
-        }
-        else if (sender.tag == 2)
-        {
-            self.liveManager.whiteBoardManager.smallBoardView.drawViewManager.fileView.imageView.image = nil;
-        }
-    };
-    
-    NSMutableDictionary *message = [[NSMutableDictionary alloc] init];
-    [message bm_setString:YSCurrentUser.peerID forKey:@"id"];
-    [message setObject:@{ @"candraw" : @(YES) } forKey:@"properties"];
-    [self.liveManager.whiteBoardManager.smallBoardView userPropertyChanged:message];
-    
-    [self.liveManager.whiteBoardManager.smallBoardView brushToolsDidSelect:[YSBrushToolsManager shareInstance].currentBrushToolType];
-    
-    return;
-    
     CGRect tempRect = self.teacherListView.frame;
     if (select)
     {//弹出
@@ -4209,6 +4178,69 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListData];
 }
 
+- (void)handleSignalingSetSmallBoardStageState:(YSSmallBoardStageState)smallBoardStageState
+{
+    if (smallBoardStageState == YSSmallBoardStage_none)
+    {
+        BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
+        self.spreadBottomToolBar.isToolBoxEnable = canDraw;
+        if (self.roomLayout == YSRoomLayoutType_VideoLayout)
+        {
+            self.brushToolView.hidden = YES;
+            self.brushToolOpenBtn.hidden = YES;
+            self.drawBoardView.hidden = YES;
+        }
+        else
+        {
+            self.brushToolView.hidden = !canDraw;
+            self.brushToolOpenBtn.hidden = !canDraw;
+            if (!canDraw || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
+            {
+                self.drawBoardView.hidden = YES;
+            }
+            else
+            {
+                self.drawBoardView.hidden = NO;
+            }
+        }
+        
+        // 设置画笔颜色初始值
+        if (canDraw)
+        {
+            if (![[YSCurrentUser.properties bm_stringTrimForKey:sYSUserPrimaryColor] bm_isNotEmpty])
+            {
+                [self setCurrentUserPrimaryColor];
+            }
+            [self resetDrawTools];
+        }
+    }
+    else if (smallBoardStageState == YSSmallBoardStage_answer)
+    {
+        self.brushToolView.hidden = NO;
+        self.brushToolOpenBtn.hidden = NO;
+        self.drawBoardView.hidden = NO;
+    }
+    else if (smallBoardStageState == YSSmallBoardStage_comment)
+    {
+        self.brushToolView.hidden = YES;
+        self.brushToolOpenBtn.hidden = YES;
+        self.drawBoardView.hidden = YES;
+    }
+}
+
+- (void)handleSignalingSmallBoardBottomBarClick:(UIButton *)sender
+{
+    if (sender.tag == 1)
+    {//上传图片课件
+        /// 上传图片
+        [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document  isSmallBoard:YES];
+    }
+    else if (sender.tag == 2)
+    {
+        self.liveManager.whiteBoardManager.smallBoardView.drawViewManager.fileView.imageView.image = nil;
+    }
+}
+
 
 #pragma mark 共享桌面
 
@@ -4280,8 +4312,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.answerView showWithAnswerViewType:SCAnswerViewType_AnswerIng inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     self.answerView.dataSource = options;
     self.answerView.isSingle = NO;
-    
-    
     
     NSString *rightResult = @"";
     for (int i = 0; i < options.count ; i++) {

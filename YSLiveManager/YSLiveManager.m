@@ -463,6 +463,24 @@
     }
 }
 
+- (void)onSetSmallBoardStageState:(YSSmallBoardStageState)smallBoardStageState
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSetSmallBoardStageState:)])
+    {
+        [self.whiteBoardDelegate handleSignalingSetSmallBoardStageState:smallBoardStageState];
+    }
+}
+
+//小黑板bottomBar的代理
+- (void)onSmallBoardBottomBarClick:(UIButton *)sender
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClick:)])
+    {
+        [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClick:sender];
+    }
+}
+
+
 #if YSSDK
 - (void)onSDKRoomLeft
 {
