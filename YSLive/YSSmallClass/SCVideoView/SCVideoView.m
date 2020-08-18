@@ -1039,9 +1039,9 @@
                     }
                 }
             }
-            if (isInBackGround != self.roomUser.isInBackGround)
+            if (!isInBackGround && (isInBackGround != self.roomUser.isInBackGround))
             {
-                [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(isInBackGround)];
+                [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(NO)];
             }
             
             [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
