@@ -3355,10 +3355,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
 
-    if (self.liveManager.isGroupBegin)
+    if (self.liveManager.isParentRoomLecture)
     {
         self.spreadBottomToolBar.isToolBoxEnable = NO;
-        self.spreadBottomToolBar.isCameraEnable = NO;
+//        self.spreadBottomToolBar.isCameraEnable = NO;
         //名师
 //        SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
 //        teacherVideo.groopRoomState = SCGroopRoomState_Discussing;
@@ -3371,7 +3371,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     else
     {
         self.spreadBottomToolBar.isToolBoxEnable = YSCurrentUser.canDraw;
-        self.spreadBottomToolBar.isCameraEnable = (YSCurrentUser.publishState == YSUser_PublishState_UP);
+//        self.spreadBottomToolBar.isCameraEnable = (YSCurrentUser.publishState == YSUser_PublishState_UP);
     }
     
     [self freshBrushTools];
@@ -3468,50 +3468,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self classEndWithText:nil];
 }
 
-#pragma mark - 刷新画笔工具状态
-- (void)freshBrushTools
-{
-    if (self.liveManager.isGroupBegin)
-    {
-        self.brushToolView.hidden = YES;
-        self.brushToolOpenBtn.hidden = YES;
-        self.drawBoardView.hidden = YES;
-    }
-    else
-    {
-        if (YSCurrentUser.canDraw)
-        {
-            if ((self.roomLayout == YSRoomLayoutType_VideoLayout) || (self.roomLayout == YSRoomLayoutType_FocusLayout) || self.isDoubleVideoBig)
-            {
-                self.brushToolView.hidden = YES;
-                self.brushToolOpenBtn.hidden = YES;
-            }
-            else
-            {
-                self.brushToolView.hidden = NO;
-                self.brushToolOpenBtn.hidden = NO;
-                
-            }
-        }
-        else
-        {
-            self.brushToolView.hidden = YES;
-            self.brushToolOpenBtn.hidden = YES;
-            self.drawBoardView.hidden = YES;
-        }
-        
-        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
-        {
-            self.drawBoardView.hidden = YES;
-        }
-        else
-        {
-            self.drawBoardView.hidden = NO;
-        }
-    }
-    
-    [self resetDrawTools];
-}
 
 - (void)classEndWithText:(NSString *)text
 {
@@ -3603,6 +3559,52 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self classEndWithText:YSLocalized(@"Prompt.ClassEndAnchorLeave10")];
     }
 }
+
+#pragma mark - 刷新画笔工具状态
+- (void)freshBrushTools
+{
+    if (self.liveManager.isParentRoomLecture)
+    {
+        self.brushToolView.hidden = YES;
+        self.brushToolOpenBtn.hidden = YES;
+        self.drawBoardView.hidden = YES;
+    }
+    else
+    {
+        if (YSCurrentUser.canDraw)
+        {
+            if ((self.roomLayout == YSRoomLayoutType_VideoLayout) || (self.roomLayout == YSRoomLayoutType_FocusLayout) || self.isDoubleVideoBig)
+            {
+                self.brushToolView.hidden = YES;
+                self.brushToolOpenBtn.hidden = YES;
+            }
+            else
+            {
+                self.brushToolView.hidden = NO;
+                self.brushToolOpenBtn.hidden = NO;
+                
+            }
+        }
+        else
+        {
+            self.brushToolView.hidden = YES;
+            self.brushToolOpenBtn.hidden = YES;
+            self.drawBoardView.hidden = YES;
+        }
+        
+        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
+        {
+            self.drawBoardView.hidden = YES;
+        }
+        else
+        {
+            self.drawBoardView.hidden = NO;
+        }
+    }
+    
+    [self resetDrawTools];
+}
+
 
 #pragma mark - 分组房间授课
 /// 启用授课（关闭讨论）
@@ -4690,7 +4692,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         [self stopVideoAudioWithVideoView:teacherVideo];
         
-        if ([self.liveManager.teacher.peerID bm_isNotEmpty])
+        if ([self.liveManager.teacher.peerID bm_isNotEmpty] || [self.liveManager.classMaster.peerID bm_isNotEmpty])
         {
             self.fullTeacherFloatView.hidden = NO;
         }
