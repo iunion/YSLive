@@ -644,7 +644,14 @@
     
     for (SCVideoView *videoView in videoArray)
     {
-        if ([videoView.sourceId isEqualToString:sourceId])
+        if ([sourceId bm_isNotEmpty])
+        {
+            if ([videoView.sourceId isEqualToString:sourceId])
+            {
+                return videoView;
+            }
+        }
+        else
         {
             return videoView;
         }
