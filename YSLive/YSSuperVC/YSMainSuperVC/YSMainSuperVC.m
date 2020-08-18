@@ -317,19 +317,22 @@
 ///给videoViewArrayDic中添加视频
 - (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView
 {
-    NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
+    if (videoView)
+    {
+        NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
 
-    if (![videoArr containsObject:videoView])
-    {
-        [videoArr addObject:videoView];
+        if (![videoArr containsObject:videoView])
+        {
+            [videoArr addObject:videoView];
+        }
+        
+        [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
+        if (videoView.roomUser.role == YSUserType_Teacher)
+        {
+            self.teacherVideoViewArray = videoArr;
+        }
+        [self videoViewsSequence];
     }
-    
-    [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
-    if (videoView.roomUser.role == YSUserType_Teacher)
-    {
-        self.teacherVideoViewArray = videoArr;
-    }
-    [self videoViewsSequence];
 }
 
 ///从videoViewArrayDic中移除视频
@@ -416,8 +419,12 @@
             {
                 self.teacherVideoViewArray = theVideoArray;
             }
-            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
-            [self videoViewsSequence];
+            if (theVideoArray.count)
+            {
+                [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
+                [self videoViewsSequence];
+            }
+            
             
             [newVideoView bm_bringToFront];
         }
@@ -446,9 +453,11 @@
                 [newVideoView bm_bringToFront];
             }
         }
-        
-        [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
-        [self videoViewsSequence];
+        if (theVideoArray.count)
+        {
+            [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
+            [self videoViewsSequence];
+        }
         
         for (SCVideoView * videoView in theVideoArray)
         {
