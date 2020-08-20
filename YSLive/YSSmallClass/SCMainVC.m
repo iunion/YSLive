@@ -3624,6 +3624,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    self getVideoViewWithPeerId:self.liveManager.classMaster.peerID andSourceId:self.liveManager.classMaster.sourceListDic
 }
 
+
+#pragma mark - 分组私聊
+- (void)handleSignalingParentRoomChating:(BOOL)isChating childUserId:(NSString *)childUserId
+{
+    
+    if ([childUserId isEqualToString:self.liveManager.classMaster.peerID])
+    {
+        SCVideoView * classMasterVideo = self.classMasterVideoViewArray.firstObject;
+        classMasterVideo.groopRoomState = isChating ? SCGroopRoomState_PrivateChat : SCGroopRoomState_Normal;
+    }
+    else
+    {
+        SCVideoView * classMasterVideo = self.classMasterVideoViewArray.firstObject;
+        classMasterVideo.groopRoomState = SCGroopRoomState_Normal;
+    }
+    
+    if (self.liveManager.isParentRoomLecture)
+    {
+        SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
+        teacherVideo.groopRoomState = isChating ? SCGroopRoomState_PrivateChat : SCGroopRoomState_Normal;
+    }
+}
+
 #pragma mark - 窗口布局变化
 - (void)handleSignalingSetRoomLayout:(YSRoomLayoutType)roomLayout withPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId
 {
