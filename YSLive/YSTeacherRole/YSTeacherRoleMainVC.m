@@ -691,8 +691,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (self.liveManager.isBigRoom)
             {
                 whom = peerId;
+                [weakSelf.liveManager setPropertyOfUid:peerId tell:whom propertyKey:sYSUserPublishstate value:@(publishState)];
             }
-            [weakSelf.liveManager setPropertyOfUid:peerId tell:whom propertyKey:sYSUserPublishstate value:@(publishState)];
+            else
+            {
+                YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
+                [roomUser sendToPublishStateUPTellWhom:whom];
+            }
             cell.headBtn.selected = YES;
         }
         else
@@ -5538,8 +5543,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             if (self.liveManager.isBigRoom)
             {
                 whom = roomUser.peerID;
+                [self.liveManager setPropertyOfUid:roomUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
             }
-            [self.liveManager setPropertyOfUid:roomUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
+            else
+            {
+                [roomUser sendToPublishStateUPTellWhom:whom];
+            }
         }
         else
         {
