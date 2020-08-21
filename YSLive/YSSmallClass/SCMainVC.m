@@ -3421,6 +3421,28 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
             if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != YSUserType_Patrol)
             {
+                if (!self.liveManager.isGroupRoom)
+                {
+                    NSString *whom = YSRoomPubMsgTellAll;
+                    if (self.liveManager.isBigRoom)
+                    {
+                        whom = YSCurrentUser.peerID;
+                        [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
+                    }
+                    else
+                    {
+                        [YSCurrentUser sendToPublishStateUPTellWhom:whom];
+                    }
+                }
+            }
+        }
+    }
+    else if (self.appUseTheType == YSRoomUseTypeMeeting)
+    {//会议，进教室默认上台
+        if (self.liveManager.isClassBegin && self.videoViewArrayDic.allKeys.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
+        {
+            if (!self.liveManager.isGroupRoom)
+            {
                 NSString *whom = YSRoomPubMsgTellAll;
                 if (self.liveManager.isBigRoom)
                 {
@@ -3431,25 +3453,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     [YSCurrentUser sendToPublishStateUPTellWhom:whom];
                 }
+                
+                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(true)];
             }
-        }
-    }
-    else if (self.appUseTheType == YSRoomUseTypeMeeting)
-    {//会议，进教室默认上台
-        if (self.liveManager.isClassBegin && self.videoViewArrayDic.allKeys.count < maxVideoCount && YSCurrentUser.role != YSUserType_Patrol)
-        {
-            NSString *whom = YSRoomPubMsgTellAll;
-            if (self.liveManager.isBigRoom)
-            {
-                whom = YSCurrentUser.peerID;
-                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
-            }
-            else
-            {
-                [YSCurrentUser sendToPublishStateUPTellWhom:whom];
-            }
-
-            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(true)];
         }
     }
     
