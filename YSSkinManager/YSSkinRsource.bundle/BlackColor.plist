@@ -1260,6 +1260,17 @@
 		<key>iconSel</key>
 		<string></string>
 	</dict>
+	<key>videoView_PrivateChat</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoView_PrivateChat_skin</string>
+		<key>iconSel</key>
+		<string></string>
+	</dict>
 	<key>videoView_stateSound</key>
 	<dict>
 		<key>noMic</key>

@@ -264,7 +264,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 工具箱
 @property(nonatomic, strong) YSToolBoxView *toolBoxView;
 
+///小黑板的状态
 @property (nonatomic, assign) YSSmallBoardStageState smallStageState;
+///小黑板私聊人员ID数组
+@property(nonatomic, strong) NSArray * privateIdArray;
 
 @end
 
@@ -4439,11 +4442,95 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];
 }
 
-#pragma mark -全体静音 发言
+#pragma mark - 全体静音 发言
 - (void)handleSignalingliveAllNoAudio:(BOOL)noAudio
 {
     self.controlPopoverView.isAllNoAudio = noAudio;
 }
+
+#pragma mark - 小黑板答题阶段私聊
+- (void)handleSignalingReceivePrivateChatWithData:(NSDictionary *)data
+{
+    if ([data bm_isNotEmpty])
+    {//开始私聊
+        [YSWhiteBoardManager sharedInstance].smallBoardView.smallTopBar.isPrivateChating = YES;
+        
+        self.privateIdArray = [data bm_arrayForKey:@"roomPrivateId"];
+        if ([self.privateIdArray containsObject:YSCurrentUser.peerID])
+        {//私聊的是自己,关闭除自己和私聊对象外所有人的audio，并把自己的流发布给私聊对象
+            for (SCVideoView * videoView in self.videoSequenceArr)
+            {
+                if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
+                {
+                    videoView.isPrivateChating = YES;
+                    continue;
+                }
+                [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
+            }
+            
+            //把自己的流发布给私聊对象
+             [[YSSessionManager sharedInstance].cloudHubRtcEngineKit publishStreamTo:[YSSessionManager sharedInstance].teacher.peerID];
+        }
+        else
+        {//私聊的不是自己,关闭除自己外所有用户的audio，
+
+            for (SCVideoView * videoView in self.videoSequenceArr)
+            {
+                if (![videoView bm_isNotEmpty] || [videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+                {
+                    continue;
+                }
+                
+                if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
+                {
+                    videoView.isPrivateChating = YES;
+                }
+                
+                [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
+            }
+            
+        }
+    }
+    else
+    {//结束私聊
+        
+        [YSWhiteBoardManager sharedInstance].smallBoardView.smallTopBar.isPrivateChating = NO;
+        
+        if ([self.privateIdArray containsObject:YSCurrentUser.peerID])
+        {//私聊的是自己,打开除自己和私聊对象外所有人的audio，并把自己的流发布给所有人
+            for (SCVideoView * videoView in self.videoSequenceArr)
+            {
+                if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
+                {
+                    videoView.isPrivateChating = NO;
+                    continue;
+                }
+                [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
+            }
+            //把自己的流发布给所有人
+            [[YSSessionManager sharedInstance].cloudHubRtcEngineKit publishStreamTo:[YSSessionManager sharedInstance].teacher.peerID];
+        }
+        else
+        {//私聊的不是自己,打开除自己外所有用户的audio，
+            
+            for (SCVideoView * videoView in self.videoSequenceArr)
+            {
+                if (![videoView bm_isNotEmpty] || [videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+                {
+                    continue;
+                }
+                
+                if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
+                {
+                    videoView.isPrivateChating = NO;
+                }
+                
+                [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
+            }
+        }
+    }
+}
+
 
 #pragma mark - 抢答器
 - (void)handleSignalingContestFromID:(NSString *)fromID isHistory:(BOOL)isHistory
@@ -4970,5 +5057,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             break;
     }
 }
+
 
 @end

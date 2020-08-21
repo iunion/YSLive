@@ -397,7 +397,6 @@
     self.maskGroupRoomImage.contentMode = UIViewContentModeScaleAspectFit;
     [maskGroupRoomView addSubview:self.maskGroupRoomImage];
     
-    
     [self freshWithRoomUserProperty:self.roomUser];
 }
 
@@ -800,6 +799,9 @@
            }
     }
     
+   
+    
+    
     if (videoState & SCVideoViewVideoState_DeviceError)
     {
         self.loadingImgView.hidden = YES;
@@ -1008,6 +1010,12 @@
     _audioDeviceState = audioDeviceState;
     
     [self setAudioState:self.audioState];
+}
+
+- (void)setIsPrivateChating:(BOOL)isPrivateChating
+{
+    _isPrivateChating = isPrivateChating;
+    [self freshWithRoomUserProperty:self.roomUser];
 }
 
 - (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser
