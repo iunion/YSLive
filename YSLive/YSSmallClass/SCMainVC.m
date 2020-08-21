@@ -263,6 +263,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 /// 工具箱
 @property(nonatomic, strong) YSToolBoxView *toolBoxView;
+
+@property (nonatomic, assign)YSSmallBoardStageState smallStageState;
+
 @end
 
 @implementation SCMainVC
@@ -2406,19 +2409,38 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         //        [self freshContentView];
         
 //        self.boardControlView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSRoomLayoutType_VideoLayout);
-        if (YSCurrentUser.canDraw)
-        {
-            self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSRoomLayoutType_VideoLayout);
-        }
         
-        if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
+        if (self.smallStageState == YSSmallBoardStage_none)
         {
+            if (YSCurrentUser.canDraw)
+            {
+                self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == YSRoomLayoutType_VideoLayout);
+            }
+            
+            if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
+            {
+                self.drawBoardView.hidden = YES;
+            }
+            else
+            {
+                self.drawBoardView.hidden = NO;
+            }
+        }
+        else if (self.smallStageState == YSSmallBoardStage_answer)
+        {
+            self.brushToolView.hidden = NO;
+            self.brushToolOpenBtn.hidden = NO;
+            self.drawBoardView.hidden = NO;
+            [self resetDrawTools];
+        }
+        else if (self.smallStageState == YSSmallBoardStage_comment)
+        {
+            self.brushToolView.hidden = YES;
+            self.brushToolOpenBtn.hidden = YES;
             self.drawBoardView.hidden = YES;
         }
-        else
-        {
-            self.drawBoardView.hidden = NO;
-        }
+        
+        
 #if USE_FullTeacher
         [self stopFullTeacherVideoView];
 #endif
@@ -3216,9 +3238,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         if ([userId isEqualToString:self.liveManager.localUser.peerID])
         {
-            BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
-            self.spreadBottomToolBar.isToolBoxEnable = canDraw;
-            if (self.roomLayout == YSRoomLayoutType_VideoLayout)
+            if (self.smallStageState == YSSmallBoardStage_answer)
+            {
+                self.brushToolView.hidden = NO;
+                self.brushToolOpenBtn.hidden = NO;
+                self.drawBoardView.hidden = NO;
+                
+                [self resetDrawTools];
+            }
+            else if (self.smallStageState != YSSmallBoardStage_none)
             {
                 self.brushToolView.hidden = YES;
                 self.brushToolOpenBtn.hidden = YES;
@@ -3226,27 +3254,40 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                self.brushToolView.hidden = !canDraw;
-                self.brushToolOpenBtn.hidden = !canDraw;
-                if (!canDraw || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
+                BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
+                self.spreadBottomToolBar.isToolBoxEnable = canDraw;
+                if (self.roomLayout == YSRoomLayoutType_VideoLayout)
                 {
+                    self.brushToolView.hidden = YES;
+                    self.brushToolOpenBtn.hidden = YES;
                     self.drawBoardView.hidden = YES;
                 }
                 else
                 {
-                    self.drawBoardView.hidden = NO;
+                    self.brushToolView.hidden = !canDraw;
+                    self.brushToolOpenBtn.hidden = !canDraw;
+                    if (!canDraw || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
+                    {
+                        self.drawBoardView.hidden = YES;
+                    }
+                    else
+                    {
+                        self.drawBoardView.hidden = NO;
+                    }
                 }
-            }
-            
-            // 设置画笔颜色初始值
-            if (canDraw)
-            {
-                if (![[YSCurrentUser.properties bm_stringTrimForKey:sYSUserPrimaryColor] bm_isNotEmpty])
+                
+                // 设置画笔颜色初始值
+                if (canDraw)
                 {
-                    [self setCurrentUserPrimaryColor];
+                    if (![[YSCurrentUser.properties bm_stringTrimForKey:sYSUserPrimaryColor] bm_isNotEmpty])
+                    {
+                        [self setCurrentUserPrimaryColor];
+                    }
+                    [self resetDrawTools];
                 }
-                [self resetDrawTools];
+                
             }
+            BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
             for (SCVideoView * videoView in videoViewArr)
             {
                 videoView.canDraw = canDraw;
@@ -4180,6 +4221,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingSetSmallBoardStageState:(YSSmallBoardStageState)smallBoardStageState
 {
+    self.smallStageState = smallBoardStageState;
     if (smallBoardStageState == YSSmallBoardStage_none)
     {
         BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
@@ -4219,6 +4261,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.brushToolView.hidden = NO;
         self.brushToolOpenBtn.hidden = NO;
         self.drawBoardView.hidden = NO;
+        [self resetDrawTools];
     }
     else if (smallBoardStageState == YSSmallBoardStage_comment)
     {
