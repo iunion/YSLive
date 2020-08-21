@@ -139,6 +139,10 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 // 开关是否关摄像头
 @property (nonatomic, assign) YSSessionMuteState videoMute;
 
+///小黑板是否正在私聊
+@property(nonatomic,assign)BOOL isPrivateChating;
+
+
 /// 老师用
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
 - (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate;

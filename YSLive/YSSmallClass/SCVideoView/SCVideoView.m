@@ -397,7 +397,6 @@
     self.maskGroupRoomImage.contentMode = UIViewContentModeScaleAspectFit;
     [maskGroupRoomView addSubview:self.maskGroupRoomImage];
     
-    
     [self freshWithRoomUserProperty:self.roomUser];
 }
 
@@ -817,6 +816,9 @@
            }
     }
     
+   
+    
+    
     if (videoState & SCVideoViewVideoState_DeviceError)
     {
         self.loadingImgView.hidden = YES;
@@ -1027,6 +1029,12 @@
     [self setAudioState:self.audioState];
 }
 
+- (void)setIsPrivateChating:(BOOL)isPrivateChating
+{
+    _isPrivateChating = isPrivateChating;
+    [self freshWithRoomUserProperty:self.roomUser];
+}
+
 - (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser
 {
     if (!roomUser)
@@ -1067,6 +1075,21 @@
     }
     else
     {
+        if (self.isPrivateChating)
+        {
+            self.loadingImgView.hidden = YES;
+            self.maskCloseVideoBgView.hidden = NO;
+            [self.maskCloseVideoBgView bm_bringToFront];
+            
+            self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
+            [self.backVideoView bm_bringToFront];
+            return;
+        }
+        else
+        {
+            self.maskCloseVideoBgView.hidden = YES;
+        }
+        
         // 刷新当前用户前后台状态
         if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
