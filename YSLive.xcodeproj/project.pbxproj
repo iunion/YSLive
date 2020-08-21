@@ -200,7 +200,6 @@
 		8713363E237270F6006534A4 /* CALayer+YSBarrage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1723670AB5000859F7 /* CALayer+YSBarrage.m */; };
 		8713363F237270F6006534A4 /* YSChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB131C2372647900D642E8 /* YSChatToolView.m */; };
 		87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1492371720600A43607 /* BMTestNetFlowManager.m */; };
-		87133646237270F6006534A4 /* BMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688162350794E00C4C635 /* BMProgressHUD.m */; };
 		8713364B237270F6006534A4 /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007E2363D5D3009297C2 /* YSSignedAlertView.m */; };
 		8713364C237270F6006534A4 /* YSTestHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B179237172F200A43607 /* YSTestHelp.m */; };
 		8713364F237270F6006534A4 /* BMTestNetFlowSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B14D2371720600A43607 /* BMTestNetFlowSummaryVC.m */; };
@@ -337,7 +336,6 @@
 		8717E3032400DADC008C4CDA /* BMTestNetFlowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1492371720600A43607 /* BMTestNetFlowManager.m */; };
 		8717E3052400DADC008C4CDA /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6823B36F0300086B01 /* LMJDropdownMenu.m */; };
 		8717E3072400DADC008C4CDA /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE223B4BB9A004B8366 /* SCTeacherListView.m */; };
-		8717E3092400DADC008C4CDA /* BMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 876688162350794E00C4C635 /* BMProgressHUD.m */; };
 		8717E30D2400DADC008C4CDA /* YSFloatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720C237A541900407A75 /* YSFloatView.m */; };
 		8717E30E2400DADC008C4CDA /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A007E2363D5D3009297C2 /* YSSignedAlertView.m */; };
 		8717E30F2400DADC008C4CDA /* YSSchoolApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */; };
@@ -1138,8 +1136,6 @@
 		8766878F2350794D00C4C635 /* PLDictionaryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDictionaryTableViewController.h; sourceTree = "<group>"; };
 		876687902350794D00C4C635 /* PLArrayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLArrayTableViewController.h; sourceTree = "<group>"; };
 		876687912350794D00C4C635 /* PLDictionaryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLDictionaryTableViewController.m; sourceTree = "<group>"; };
-		876688162350794E00C4C635 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
-		876688172350794E00C4C635 /* BMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMProgressHUD.h; sourceTree = "<group>"; };
 		87728F2A2355CCD800E34916 /* YSLiveMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveMacros.h; sourceTree = "<group>"; };
 		8777C7A923EA9EA1002002BF /* YSTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTableView.h; sourceTree = "<group>"; };
 		8777C7AA23EA9EA1002002BF /* YSTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTableView.m; sourceTree = "<group>"; };
@@ -2562,15 +2558,6 @@
 			path = PListNavigatorLibs;
 			sourceTree = "<group>";
 		};
-		876688152350794E00C4C635 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				876688172350794E00C4C635 /* BMProgressHUD.h */,
-				876688162350794E00C4C635 /* BMProgressHUD.m */,
-			);
-			path = MBProgressHUD;
-			sourceTree = "<group>";
-		};
 		87728F272355CCD800E34916 /* YSLiveManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -3340,7 +3327,6 @@
 				8779E58223F79803008E885C /* YSCircleProgress */,
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
 				8745556123B309CE00BC6CAB /* YSEyeCare */,
-				876688152350794E00C4C635 /* MBProgressHUD */,
 				875A720A237A540000407A75 /* YSFloatView */,
 				875A723023824EC500407A75 /* YSMediaMarkView */,
 				8701B12E2371720600A43607 /* BMConsole */,
@@ -4169,7 +4155,6 @@
 				8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */,
 				87832F2424874C4300F1178E /* FLEXDefaultsContentSection.m in Sources */,
 				87832F1E24874C4300F1178E /* FLEXCarouselCell.m in Sources */,
-				87133646237270F6006534A4 /* BMProgressHUD.m in Sources */,
 				8783304024874C4400F1178E /* CALayer+FLEX.m in Sources */,
 				8709FF222485F7CB00CC8BEA /* UIViewController+MemoryLeak.m in Sources */,
 				87832FC824874C4300F1178E /* FLEXDBQueryRowCell.m in Sources */,
@@ -4521,7 +4506,6 @@
 				8717E3052400DADC008C4CDA /* LMJDropdownMenu.m in Sources */,
 				87832F1724874C4300F1178E /* FLEXSubtitleTableViewCell.m in Sources */,
 				8717E3072400DADC008C4CDA /* SCTeacherListView.m in Sources */,
-				8717E3092400DADC008C4CDA /* BMProgressHUD.m in Sources */,
 				8717E30D2400DADC008C4CDA /* YSFloatView.m in Sources */,
 				87832F6D24874C4300F1178E /* FLEXArgumentInputColorView.m in Sources */,
 				87832F8924874C4300F1178E /* FLEXTabList.m in Sources */,

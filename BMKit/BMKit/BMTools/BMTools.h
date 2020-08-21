@@ -71,4 +71,6 @@
 
 #import "BMRSA.h"
 
+#import "BMProgressHUD.h"
+
 #endif /* BMTools_h */

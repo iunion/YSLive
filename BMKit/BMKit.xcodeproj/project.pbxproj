@@ -281,6 +281,8 @@
 		8701B124237165AA00A43607 /* BMTableViewActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */; };
 		8706C50E2394D67200223C87 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8706C50D2394D67200223C87 /* BMKitResources.bundle */; };
 		8706C5142395F73000223C87 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8706C5132395F73000223C87 /* BMKitImage.xcassets */; };
+		8742F87B24EF6E7600BDF294 /* BMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742F87924EF6E7600BDF294 /* BMProgressHUD.m */; };
+		8742F87C24EF6E7600BDF294 /* BMProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742F87A24EF6E7600BDF294 /* BMProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C77623EA72A2002002BF /* BMFreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74323EA72A2002002BF /* BMFreshBaseView.m */; };
 		8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -674,6 +676,8 @@
 		8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTableViewActionBar.m; sourceTree = "<group>"; };
 		8706C50D2394D67200223C87 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		8706C5132395F73000223C87 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		8742F87924EF6E7600BDF294 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
+		8742F87A24EF6E7600BDF294 /* BMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMProgressHUD.h; sourceTree = "<group>"; };
 		8777C74323EA72A2002002BF /* BMFreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshBaseView.m; sourceTree = "<group>"; };
 		8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+BMFresh.h"; sourceTree = "<group>"; };
 		8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshContainerHeaderView.h; sourceTree = "<group>"; };
@@ -1001,6 +1005,7 @@
 				87832D8E24863E8700F1178E /* BMImageTitleButtonView */,
 				8701AF4323715F5500A43607 /* BMNavigationBar */,
 				8701AFA82371623600A43607 /* BMPlaceholderTextView */,
+				8742F87824EF6E7600BDF294 /* MBProgressHUD */,
 				8777C74223EA72A2002002BF /* BMRefreshView */,
 				8701AF8D237160DB00A43607 /* BMScrollPageView */,
 				8701AF992371610D00A43607 /* BMSingleLineView */,
@@ -1339,6 +1344,15 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		8742F87824EF6E7600BDF294 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				8742F87A24EF6E7600BDF294 /* BMProgressHUD.h */,
+				8742F87924EF6E7600BDF294 /* BMProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		8777C74223EA72A2002002BF /* BMRefreshView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1611,6 +1625,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8742F87C24EF6E7600BDF294 /* BMProgressHUD.h in Headers */,
 				87832D9224863E8700F1178E /* BMImageTitleButtonView.h in Headers */,
 				87901A5F24176EB500FF38EC /* BMMASViewAttribute.h in Headers */,
 				87901A6124176EB500FF38EC /* BMMASViewConstraint.h in Headers */,
@@ -1974,6 +1989,7 @@
 				8701AF0923715B4D00A43607 /* BMSDWebImageDownloader.m in Sources */,
 				8701AE5A23714E6000A43607 /* NSDictionary+BMCategory.m in Sources */,
 				8701AF95237160DB00A43607 /* BMScrollPageView.m in Sources */,
+				8742F87B24EF6E7600BDF294 /* BMProgressHUD.m in Sources */,
 				8701B0922371650F00A43607 /* BMCheckBox.m in Sources */,
 				8701B0E6237165AA00A43607 /* BMTableViewSegmentCell.m in Sources */,
 				8701AFA4237161AA00A43607 /* BMApiUtil.m in Sources */,
