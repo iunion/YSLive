@@ -862,11 +862,11 @@
         }
         else
         {
-            SCVideoView * videoView = self.teacherVideoViewArray.firstObject;
-            
-            if ([videoView.sourceId bm_isNotEmpty])
+            YSPublishState publishState = self.liveManager.teacher.publishState;
+            NSString *sourceId = [self.liveManager.teacher getFirstVideoSourceId];
+            if ([sourceId bm_isNotEmpty])
             {
-                if ([self.liveManager.teacher getVideoMuteWithSourceId:videoView.sourceId] == YSSessionMuteState_UnMute)
+                if ([self.liveManager.teacher getVideoMuteWithSourceId:sourceId] == YSSessionMuteState_UnMute)
                 {
                     self.liveImageView.hidden = YES;
                 }
@@ -874,7 +874,7 @@
                 {
                     self.liveImageView.hidden = NO;
                     
-                    if (self.liveManager.teacher.publishState == YSUser_PublishState_DOWN)
+                    if (publishState == YSUser_PublishState_DOWN)
                     {
                         self.liveImageView.image = YSSkinDefineImage(@"live_main_waitingvideo");
                     }

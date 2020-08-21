@@ -3258,10 +3258,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self userPublishstatechange:roomUser];
     }
         
-    //进入前后台
+    // 进入前后台
     if ([properties bm_containsObjectForKey:sYSUserIsInBackGround])
     {
-        for (SCVideoView * videoView in videoViewArr)
+        for (SCVideoView *videoView in videoViewArr)
         {
             [videoView freshWithRoomUserProperty:roomUser];
         }
@@ -3432,8 +3432,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (isHistory)
     {
         // 刷新当前用户前后台状态
-        NSDictionary *properties = self.liveManager.localUser.properties;
-        BOOL userIsInBackGround = [properties bm_boolForKey:sYSUserIsInBackGround];
+        BOOL userIsInBackGround = YSCurrentUser.isInBackGround;
 
         UIApplicationState state = [[UIApplication sharedApplication] applicationState];
         BOOL isInBackGround = NO;

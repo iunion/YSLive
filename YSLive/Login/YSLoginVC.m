@@ -413,8 +413,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)getAppStoreNewVersion
 {
-    NSString *fdd = [NSString stringWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@&ts=%@", YS_APPID, @([NSDate date].timeIntervalSince1970)];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:fdd]];
+    NSString *urlStr = [NSString stringWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@&ts=%@", YS_APPID, @([NSDate date].timeIntervalSince1970)];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -448,7 +448,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
         @"text/xml"
     ]];
-    //NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/getupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
+
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/checkupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
@@ -1552,6 +1552,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }
         
         UIImageView *passImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 30, 30)];
+        passImg.contentMode = UIViewContentModeCenter;
         [passImg setImage:YSSkinElementImage(@"login_passImg", @"iconNor")];
         _passwordTextField.inputTextField.leftView = passImg;
         _passwordTextField.inputTextField.leftViewMode = UITextFieldViewModeAlways;
