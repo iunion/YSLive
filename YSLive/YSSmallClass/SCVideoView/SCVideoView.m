@@ -566,26 +566,9 @@
 - (void)setGroopRoomState:(SCGroopRoomState)groopRoomState
 {
     _groopRoomState = groopRoomState;
-    if (groopRoomState == SCGroopRoomState_Normal)
-    {
-        self.maskGroupRoomView.hidden = YES;
-    }
-    else
-    {
-        self.maskGroupRoomView.hidden = NO;
-        [self.maskGroupRoomView bm_bringToFront];
-        if (groopRoomState == SCGroopRoomState_Discussing)
-        {
-            /// 讨论中
-            [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"discussing")];
-        }
-        else if (groopRoomState == SCGroopRoomState_PrivateChat)
-        {
-            [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"privateChat")];
-        }
-    }
-
-}
+    
+    [self freshWithRoomUserProperty:self.roomUser];
+ }
 
 - (BOOL)getIsVertical
 {
@@ -1067,6 +1050,27 @@
     }
     else
     {
+        if (self.groopRoomState == SCGroopRoomState_Normal)
+        {
+            self.maskGroupRoomView.hidden = YES;
+        }
+        else
+        {
+            self.maskGroupRoomView.hidden = NO;
+            [self.backVideoView bm_bringToFront];
+            
+            if (self.groopRoomState == SCGroopRoomState_Discussing)
+            {   
+                /// 讨论中
+                [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"discussing")];
+            }
+            else if (self.groopRoomState == SCGroopRoomState_PrivateChat)
+            {
+                [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"privateChat")];
+            }
+            return;
+        }
+
         // 刷新当前用户前后台状态
         if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
