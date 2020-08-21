@@ -12,7 +12,7 @@
 #import "YSNewPictureCell.h"
 #import "YSTextMessageCell.h"
 #import "BMAlertView+YSDefaultAlert.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 
 //输入框高度
 #define ToolHeight (BMIS_IPHONEXANDP?(56+10):56)

@@ -419,6 +419,7 @@
 		8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7D523ED1A46002002BF /* YSClassModel.m */; };
 		8777C7DA23EE96EC002002BF /* YSOnlineSchool.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8777C7D923EE96EB002002BF /* YSOnlineSchool.bundle */; };
 		8779E58523F7981B008E885C /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E58423F7981B008E885C /* YSCircleProgress.m */; };
+		877C3E0D24EA7D7000874430 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 87517E3924A354310094E2B3 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87832F0824874C4300F1178E /* FLEXSingleRowSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 87832D9724874C4300F1178E /* FLEXSingleRowSection.m */; };
 		87832F0924874C4300F1178E /* FLEXSingleRowSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 87832D9724874C4300F1178E /* FLEXSingleRowSection.m */; };
 		87832F0A24874C4300F1178E /* FLEXTableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 87832D9824874C4300F1178E /* FLEXTableViewSection.m */; };
@@ -795,6 +796,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				877C3E0D24EA7D7000874430 /* CloudHubRTC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4712,7 +4714,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.2.1.0;
+				CURRENT_PROJECT_VERSION = 2.0.0.0;
 				DEVELOPMENT_TEAM = S6NQ524Y5V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4737,7 +4739,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4758,7 +4760,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.2.1.0;
+				CURRENT_PROJECT_VERSION = 2.0.0.0;
 				DEVELOPMENT_TEAM = S6NQ524Y5V;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
@@ -4812,7 +4814,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",

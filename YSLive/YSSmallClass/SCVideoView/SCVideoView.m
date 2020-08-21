@@ -65,6 +65,9 @@
 @property (nonatomic, strong) UIImageView *lowWifiImage;
 ///举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
+/// 分组蒙版
+@property (nonatomic, strong) UIView * maskGroupRoomView;
+@property (nonatomic, strong) UIImageView *maskGroupRoomImage;
 
 /// 视频状态
 @property (nonatomic, assign) SCVideoViewVideoState videoState;
@@ -382,6 +385,19 @@
         self.nickNameLab.font = self.cupNumLab.font = self.notDragFont;
     }
     
+    
+    //分组
+    UIView * maskGroupRoomView = [[UIView alloc]init];
+    maskGroupRoomView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");;
+    [self.backVideoView addSubview:maskGroupRoomView];
+    maskGroupRoomView.hidden = YES;
+    self.maskGroupRoomView = maskGroupRoomView;
+    
+    self.maskGroupRoomImage = [[UIImageView alloc] init];
+    self.maskGroupRoomImage.contentMode = UIViewContentModeScaleAspectFit;
+    [maskGroupRoomView addSubview:self.maskGroupRoomImage];
+    
+    
     [self freshWithRoomUserProperty:self.roomUser];
 }
 
@@ -400,6 +416,7 @@
     self.backVideoView.frame = self.bounds;
     self.maskBackView.frame = self.bounds;
     self.maskCloseVideoBgView.frame = self.bounds;
+    
     self.homeMaskLab.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
     self.maskNoVideo.frame = self.bounds;
     self.maskNoVideoTitle.frame = CGRectMake(2, 10, self.bm_width-4, self.bm_height-25);
@@ -409,6 +426,10 @@
     self.maskCloseVideo.bm_size = CGSizeMake(width, width);
     [self.maskCloseVideo bm_centerInSuperView];
 
+    self.maskGroupRoomView.frame = self.bounds;
+    self.maskGroupRoomImage.bm_size = CGSizeMake(width, width);
+    [self.maskGroupRoomImage bm_centerInSuperView];
+    
     if (self.appUseTheType == YSRoomUseTypeLiveRoom || self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
     {
         self.cupImage.hidden = YES;
@@ -540,6 +561,30 @@
     }
     
     self.soundImageView.frame = CGRectMake(self.bm_width-5-soundImageWidth, self.bm_height-4-height, soundImageWidth, height);
+}
+
+- (void)setGroopRoomState:(SCGroopRoomState)groopRoomState
+{
+    _groopRoomState = groopRoomState;
+    if (groopRoomState == SCGroopRoomState_Normal)
+    {
+        self.maskGroupRoomView.hidden = YES;
+    }
+    else
+    {
+        self.maskGroupRoomView.hidden = NO;
+        [self.maskGroupRoomView bm_bringToFront];
+        if (groopRoomState == SCGroopRoomState_Discussing)
+        {
+            /// 讨论中
+            [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"discussing")];
+        }
+        else if (groopRoomState == SCGroopRoomState_PrivateChat)
+        {
+            [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"privateChat")];
+        }
+    }
+
 }
 
 - (BOOL)getIsVertical
@@ -758,7 +803,7 @@
     // 低端设备
     if (videoState & SCVideoViewVideoState_Low_end)
     {
-        if (self.roomUser.role != YSUserType_Teacher && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        if ((self.roomUser.role != YSUserType_Teacher || self.roomUser.role != YSUserType_ClassMaster ) && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
            {
                self.maskNoVideo.hidden = NO;
                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
@@ -1025,24 +1070,26 @@
         // 刷新当前用户前后台状态
         if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
-                BOOL isInBackGround = NO;
-                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-                if (state != UIApplicationStateActive)
+            BOOL isInBackGround = NO;
+            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+            if (state != UIApplicationStateActive)
+            {
+                isInBackGround = YES;
+                // 兼容iOS11前后台状态
+                if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
                 {
-                    isInBackGround = YES;
-                    // 兼容iOS11前后台状态
-                    if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
+                    if (state == UIApplicationStateInactive)
                     {
-                        if (state == UIApplicationStateInactive)
-                        {
-                            isInBackGround = NO;
-                        }
+                        isInBackGround = NO;
                     }
                 }
-                if (isInBackGround != [self.roomUser.properties bm_boolForKey:sYSUserIsInBackGround])
-                {
-                    [[YSLiveManager sharedInstance] setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(isInBackGround)];
-                }
+            }
+            if (!isInBackGround && (isInBackGround != self.roomUser.isInBackGround))
+            {
+                [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(NO)];
+            }
+            
+            [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
         }
         
         self.canDraw = [self.roomUser.properties bm_boolForKey:sYSUserCandraw];
@@ -1145,7 +1192,7 @@
         }
         
         // 进入后台(home键)
-        BOOL isInBackGround = [self.roomUser.properties bm_boolForKey:sYSUserIsInBackGround];
+        BOOL isInBackGround = self.roomUser.isInBackGround;
         if (isInBackGround)
         {
             self.videoState |= SCVideoViewVideoState_InBackground;

@@ -95,7 +95,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 @property (nonatomic, strong) YSInputView *admin_accountTextField;
 /// 网校密码输入框
 @property (nonatomic, strong) YSInputView *passOnlineTextField;
-
+/// grouproom 房间分组类型 0 普通房间，1 分组主（父）房间，2 分组子房间
+@property (nonatomic, assign) YSRoomGroupType grouproom;
 ///获取房间类型时，探测接口的调用次数
 @property (nonatomic, assign) NSInteger  callNum;
 
@@ -1331,6 +1332,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 
                 weakSelf.needpwd = [dataDict bm_boolForKey:@"needpwd"];
                 
+                // grouproom 房间分组类型 0 普通房间，1 分组主（父）房间，2 分组子房间
+                weakSelf.grouproom = [dataDict bm_intForKey:@"grouproom"];
+
                 if (weakSelf.needpwd)
                 {
                     self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.inputPwd");
@@ -1393,6 +1397,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
         return;
     }
 
+    if (self.grouproom > YSRoomGroupType_Normal && (self.grouproom == YSRoomGroupType_GroupSub && self.selectRoleType == YSUserType_Teacher))
+    {
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.JoinGroupRoom") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        return;
+    }
+    
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     [liveManager registerRoomDelegate:self];
     liveManager.apiHost = YSLIVE_HOST;
@@ -1542,6 +1552,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }
         
         UIImageView *passImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 30, 30)];
+        passImg.contentMode = UIViewContentModeCenter;
         [passImg setImage:YSSkinElementImage(@"login_passImg", @"iconNor")];
         _passwordTextField.inputTextField.leftView = passImg;
         _passwordTextField.inputTextField.leftViewMode = UITextFieldViewModeAlways;

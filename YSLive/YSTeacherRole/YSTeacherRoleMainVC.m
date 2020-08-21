@@ -4938,10 +4938,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)pollingUpPlatform
 {
     YSRoomUser *roomUser = nil;
-    NSString *sourceId = nil;
     for (NSString *userId in self.pollingUserList)
     {
-        SCVideoView *videoView = [self getVideoViewWithPeerId:userId andSourceId:sourceId];
+        roomUser = [self.liveManager getRoomUserWithId:userId];
+        SCVideoView *videoView = [self getVideoViewWithPeerId:userId andSourceId:[roomUser getFirstVideoSourceId]];
         if (videoView)
         {
             if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))
@@ -4952,7 +4952,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
         else
         {
-            roomUser = [self.liveManager getRoomUserWithId:userId];
+//            roomUser = [self.liveManager getRoomUserWithId:userId];
             break;
         }
     }
@@ -4974,8 +4974,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 NSString *upPlatformPeerId = @"";
                 for (NSString *peerId in self.pollingUpPlatformArr)
                 {
-                    
-                    SCVideoView *videoView = [self getVideoViewWithPeerId:peerId andSourceId:sourceId];
+                    YSRoomUser *upPlatformUser = [self.liveManager getRoomUserWithId:peerId];
+                    SCVideoView *videoView = [self getVideoViewWithPeerId:peerId andSourceId:[upPlatformUser getFirstVideoSourceId]];
                     if (videoView)
                     {
                         if (!(videoView.isDragOut || [videoView.roomUser.peerID isEqualToString: self.liveManager.teacher.peerID]))

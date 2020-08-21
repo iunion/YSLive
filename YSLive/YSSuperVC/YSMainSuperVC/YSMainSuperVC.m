@@ -29,8 +29,6 @@
         self.bm_CanBackInteractive = NO;
         [self setRoomManagerDelegate];
         
-        [self.liveManager serverLog:[NSString stringWithFormat:@"YSMainSuperVC init with class %@", NSStringFromClass([self class])]];
-        
         self.videoViewArrayDic = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -256,6 +254,7 @@
     {
         NSMutableArray * idArr = [self.videoViewArrayDic.allKeys mutableCopy];
         [idArr removeObject:self.liveManager.teacher.peerID];
+        [idArr removeObject:self.liveManager.classMaster.peerID];
         
         // id正序排序
         [idArr sortUsingComparator:^NSComparisonResult(NSString * _Nonnull peerId1, NSString * _Nonnull peerId2) {
@@ -288,28 +287,45 @@
             }
         }
         
-        ///把老师插入最前面
-        
-        if (self.teacherVideoViewArray.count == 1)
+        // 分组教室
+        if (self.liveManager.isGroupRoom)
         {
-            [self.videoSequenceArr insertObject:self.teacherVideoViewArray[0] atIndex:0];
-        }
-        else if (self.teacherVideoViewArray.count > 1)
-        {
-            SCVideoView * videoView0 = self.teacherVideoViewArray[0];
-            SCVideoView * videoView1 = self.teacherVideoViewArray[1];
-            NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+            [self insertVideoViewWithArray:self.classMasterVideoViewArray];
             
-            if (result == NSOrderedAscending)
-            {//左边小于右边
-                [self.videoSequenceArr insertObject:videoView1 atIndex:0];
-                [self.videoSequenceArr insertObject:videoView0 atIndex:0];
-            }
-            else
+            if (self.liveManager.isGroupBegin)
             {
-                [self.videoSequenceArr insertObject:videoView0 atIndex:0];
-                [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+                [self insertVideoViewWithArray:self.teacherVideoViewArray];
             }
+        }
+        else
+        {
+            ///把老师插入最前面
+            [self insertVideoViewWithArray:self.teacherVideoViewArray];
+        }
+    }
+}
+
+- (void)insertVideoViewWithArray:(NSArray<SCVideoView *>*)videoViewArray
+{
+    if (videoViewArray.count == 1)
+    {
+        [self.videoSequenceArr insertObject:videoViewArray[0] atIndex:0];
+    }
+    else if (videoViewArray.count > 1)
+    {
+        SCVideoView * videoView0 = videoViewArray[0];
+        SCVideoView * videoView1 = videoViewArray[1];
+        NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+        
+        if (result == NSOrderedAscending)
+        {//左边小于右边
+            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
+            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
+        }
+        else
+        {
+            [self.videoSequenceArr insertObject:videoView0 atIndex:0];
+            [self.videoSequenceArr insertObject:videoView1 atIndex:0];
         }
     }
 }
@@ -331,6 +347,10 @@
         {
             self.teacherVideoViewArray = videoArr;
         }
+        else if (videoView.roomUser.role == YSUserType_ClassMaster)
+        {
+            self.classMasterVideoViewArray = videoArr;
+        }
         [self videoViewsSequence];
     }
 }
@@ -351,14 +371,23 @@
             {
                 self.teacherVideoViewArray = videoArr;
             }
+            else if (videoView.roomUser.role == YSUserType_ClassMaster)
+            {
+                self.classMasterVideoViewArray = videoArr;
+            }
         }
         else
         {
             [self.videoViewArrayDic removeObjectForKey:videoView.roomUser.peerID];
         }
+        
         if (videoView.roomUser.role == YSUserType_Teacher)
         {
             self.teacherVideoViewArray = videoArr;
+        }
+        else if (videoView.roomUser.role == YSUserType_ClassMaster)
+        {
+            self.classMasterVideoViewArray = videoArr;
         }
     }
 }
@@ -387,6 +416,7 @@
         if (avideoView.isForPerch)
         {
             [myVideoArray removeObject:avideoView];
+            [self.videoViewArrayDic setObject:myVideoArray forKey:avideoView.roomUser.peerID];
             [self.videoSequenceArr removeObject:avideoView];
             break;
         }
@@ -418,7 +448,11 @@
             {
                 self.teacherVideoViewArray = theVideoArray;
             }
- 
+            else if (roomUser.role == YSUserType_ClassMaster)
+            {
+                self.classMasterVideoViewArray = theVideoArray;
+            }
+            
             [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
             [self videoViewsSequence];
             
@@ -445,7 +479,16 @@
                 if (roomUser.role == YSUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theVideoArray;
+                    if (self.liveManager.isGroupRoom)
+                    {
+                        newVideoView.groopRoomState = SCGroopRoomState_Discussing;
+                    }
                 }
+                else if (roomUser.role == YSUserType_ClassMaster)
+                {
+                    self.classMasterVideoViewArray = theVideoArray;
+                }
+                
                 [newVideoView bm_bringToFront];
             }
         }
@@ -513,7 +556,10 @@
             {
                 self.teacherVideoViewArray = theAddVideoArray;
             }
-            
+            else if (roomUser.role == YSUserType_ClassMaster)
+            {
+                self.classMasterVideoViewArray = theVideoArray;
+            }
             [newVideoView bm_bringToFront];
         }
         
@@ -569,6 +615,14 @@
                 if (roomUser.role == YSUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theAddVideoArray;
+                    if (self.liveManager.isGroupRoom)
+                    {
+                        newVideoView.groopRoomState = SCGroopRoomState_Discussing;
+                    }
+                }
+                else if (roomUser.role == YSUserType_ClassMaster)
+                {
+                    self.classMasterVideoViewArray = theVideoArray;
                 }
                 
                 [self addVideoViewToVideoViewArrayDic:newVideoView];
@@ -600,7 +654,6 @@
         else
         {
            return videoView;
-            break;
         }
     }
 
@@ -842,7 +895,10 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-
+        if (self.liveManager.isGroupRoom && videoView.roomUser.role == YSUserType_Teacher)
+        {
+            videoView.groopRoomState = SCGroopRoomState_Normal;
+        }
         [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
         [videoView freshWithRoomUserProperty:roomUser];
     }

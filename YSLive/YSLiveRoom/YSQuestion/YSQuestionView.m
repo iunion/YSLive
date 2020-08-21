@@ -8,7 +8,7 @@
 
 #import "YSQuestionView.h"
 #import "YSAnswerCell.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 
 //输入框高度
 #define ToolHeight (BMIS_IPHONEXANDP?(50+20):50)

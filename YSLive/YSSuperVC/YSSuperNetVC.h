@@ -8,7 +8,7 @@
 
 #import "YSSuperVC.h"
 #import "YSApiRequest.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

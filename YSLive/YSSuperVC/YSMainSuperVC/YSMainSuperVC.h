@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 老师视频
 @property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *teacherVideoViewArray;
+/// 老师视频
+@property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *classMasterVideoViewArray;
 /// 自己视频
 @property (nullable, nonatomic, strong) SCVideoView *myVideoView;
 

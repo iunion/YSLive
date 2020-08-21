@@ -55,6 +55,15 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
     SCVideoViewAudioState_Close = 1 << 20
 };
 
+typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
+{
+    // 正常
+    SCGroopRoomState_Normal = 0,
+    // 讨论中
+    SCGroopRoomState_Discussing = 1 << 0,
+    // 私聊中
+    SCGroopRoomState_PrivateChat = 1 << 1,
+};
 
 @protocol SCVideoViewDelegate <NSObject>
 
@@ -101,6 +110,9 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 @property (nonatomic, strong) NSString *brushColor;
 /// 画笔权限
 @property (nonatomic, assign) BOOL canDraw;
+
+/// 分组房间视频状态
+@property (nonatomic, assign) SCGroopRoomState groopRoomState;
 
 /// 背景view
 @property (nonatomic, strong) UIView *backVideoView;

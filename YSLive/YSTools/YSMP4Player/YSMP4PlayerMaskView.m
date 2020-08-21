@@ -7,7 +7,7 @@
 //
 
 #import "YSMP4PlayerMaskView.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 #import <BMKit/BMMasonry.h>
 
 @interface YSMP4PlayerMaskView ()<YSMP4PlayerDelegate,UIGestureRecognizerDelegate> {
