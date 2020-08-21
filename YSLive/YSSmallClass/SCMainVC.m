@@ -3425,8 +3425,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 if (self.liveManager.isBigRoom)
                 {
                     whom = YSCurrentUser.peerID;
+                    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
                 }
-                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
+                else
+                {
+                    [YSCurrentUser sendToPublishStateUPTellWhom:whom];
+                }
             }
         }
     }
@@ -3438,9 +3442,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             if (self.liveManager.isBigRoom)
             {
                 whom = YSCurrentUser.peerID;
+                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
             }
-            [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
-            
+            else
+            {
+                [YSCurrentUser sendToPublishStateUPTellWhom:whom];
+            }
+
             [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserCandraw value:@(true)];
         }
     }
