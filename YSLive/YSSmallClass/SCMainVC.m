@@ -4237,7 +4237,30 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else if (sender.tag == 2)
     {
-        self.liveManager.whiteBoardManager.smallBoardView.drawViewManager.fileView.imageView.image = nil;
+        if (self.controlPopoverView.presentingViewController)
+        {
+            [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+        }
+
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.prompt") message:YSLocalized(@"SmallBoard_DeletePictureTag") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        BMWeakSelf
+        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            weakSelf.liveManager.whiteBoardManager.smallBoardView.drawViewManager.fileView.imageView.image = nil;
+            
+            NSDictionary * dataDict = @{
+                @"imageUrl":@"",
+                @"instanceId":[YSWhiteBoardManager sharedInstance].smallBoardView.fileId,
+                @"peerId":YSCurrentUser.peerID
+            };
+            [YSRoomUtil pubWhiteBoardMsg:sYSSignal_setSmallBlackBoardImage msgID:sYSSignal_setSmallBlackBoardImage data:dataDict extensionData:nil associatedMsgID:sYSSignal_smallBlackBoardState];
+            
+            
+        }];
+        [alertVc addAction:cancelAc];
+        [alertVc addAction:confimAc];
+        [self presentViewController:alertVc animated:YES completion:nil];
     }
 }
 
