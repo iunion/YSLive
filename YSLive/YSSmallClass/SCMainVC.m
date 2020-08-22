@@ -3334,8 +3334,31 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 
-#pragma mark 上课
+#pragma mark 主房间上下课
+- (void)handleSignalingGroupRoomBegin:(BOOL)isGroupBegin
+{
+    if (self.liveManager.isParentRoomLecture)
+    {
+        self.spreadBottomToolBar.isToolBoxEnable = NO;
+        //名师
+        //        SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
+        //        teacherVideo.groopRoomState = SCGroopRoomState_Discussing;
+        if (self.isWhitebordFullScreen)
+        {
+            /// 主房间上课后 本地全屏关闭
+            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+        }
+    }
+    else
+    {
+        self.spreadBottomToolBar.isToolBoxEnable = YSCurrentUser.canDraw;
+    }
+    
+    [self freshBrushTools];
+}
 
+
+#pragma mark 上课
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
     self.rightChatView.allDisabled = NO;
@@ -3381,27 +3404,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
 
-    if (self.liveManager.isParentRoomLecture)
-    {
-        self.spreadBottomToolBar.isToolBoxEnable = NO;
-//        self.spreadBottomToolBar.isCameraEnable = NO;
-        //名师
-//        SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
-//        teacherVideo.groopRoomState = SCGroopRoomState_Discussing;
-        if (self.isWhitebordFullScreen)
-        {
-            /// 主房间上课后 本地全屏关闭
-            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
-        }
-    }
-    else
-    {
-        self.spreadBottomToolBar.isToolBoxEnable = YSCurrentUser.canDraw;
-//        self.spreadBottomToolBar.isCameraEnable = (YSCurrentUser.publishState == YSUser_PublishState_UP);
-    }
-    
-    [self freshBrushTools];
-    
     if (self.topBarTimer)
     {
         dispatch_source_cancel(self.topBarTimer);
