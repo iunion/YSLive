@@ -471,3 +471,6 @@
 "Button.Loading" = "加载中";
 "Polling.Time" = "轮播时间";
 "Polling.second" = "秒/次";
+
+
+"SmallBoard_DeletePictureTag" = "是否删除小黑板上的图片";
