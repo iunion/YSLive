@@ -2995,6 +2995,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.controlPopoverView.foucePeerId = nil;
         }
     }
+    
+    if (self.liveManager.isGroupRoom && self.liveManager.isGroupBegin && self.liveManager.isParentRoomChating && user.role == YSUserType_Teacher)
+    {
+        ///分组房间 当名师离开房间时  班主任如果在私聊中  将状态重置到正常情况
+        SCVideoView * classMasterVideo = self.classMasterVideoViewArray.firstObject;
+        classMasterVideo.groopRoomState = SCGroopRoomState_Normal;
+    }
 }
 
 /// 老师进入
