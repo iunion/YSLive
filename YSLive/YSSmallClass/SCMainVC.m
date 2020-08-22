@@ -3002,6 +3002,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         SCVideoView * classMasterVideo = self.classMasterVideoViewArray.firstObject;
         classMasterVideo.groopRoomState = SCGroopRoomState_Normal;
     }
+    
+    ///老师退出时，结束小黑板私聊
+    if (user.role == YSUserType_Teacher && [self.privateIdArray bm_isNotEmpty])
+    {
+        [self handleSignalingReceivePrivateChatWithData:nil];
+    }
 }
 
 /// 老师进入
@@ -4537,6 +4543,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
             }
         }
+        
+        self.privateIdArray = nil;
     }
 }
 
