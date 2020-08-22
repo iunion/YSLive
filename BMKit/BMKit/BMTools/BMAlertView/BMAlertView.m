@@ -103,6 +103,11 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
 
 - (UIWindow *)windowWithLevel:(UIWindowLevel)windowLevel
 {
+    UIWindow *keywindow = [UIApplication sharedApplication].keyWindow;
+    if (keywindow.windowLevel == windowLevel)
+    {
+        return keywindow;
+    }
     NSArray *windows = [[UIApplication sharedApplication] windows];
     for (UIWindow *window in windows)
     {
