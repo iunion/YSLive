@@ -4477,7 +4477,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
                 {
-                    videoView.isPrivateChating = YES;
+//                    videoView.isPrivateChating = YES;
                     continue;
                 }
                 [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];

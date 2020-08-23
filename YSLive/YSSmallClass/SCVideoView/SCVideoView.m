@@ -1058,6 +1058,23 @@
     }
     else
     {
+        if (self.isPrivateChating)
+        {
+            self.loadingImgView.hidden = YES;
+            self.maskCloseVideoBgView.hidden = NO;
+            [self.maskCloseVideoBgView bm_bringToFront];
+            
+            self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
+            [self.backVideoView bm_bringToFront];
+            return;
+        }
+        else
+        {
+            self.maskCloseVideoBgView.hidden = YES;
+        }
+        
+
+        
         if (self.groopRoomState == SCGroopRoomState_Normal)
         {
             self.maskGroupRoomView.hidden = YES;
