@@ -4468,11 +4468,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if ([data bm_isNotEmpty])
     {//开始私聊
-        [YSWhiteBoardManager sharedInstance].smallBoardView.smallTopBar.isPrivateChating = YES;
+        
         
         self.privateIdArray = [data bm_arrayForKey:@"roomPrivateId"];
         if ([self.privateIdArray containsObject:YSCurrentUser.peerID])
         {//私聊的是自己,关闭除自己和私聊对象外所有人的audio，并把自己的流发布给私聊对象
+            
+            [YSWhiteBoardManager sharedInstance].smallBoardView.smallTopBar.isPrivateChating = YES;
+            
             for (SCVideoView * videoView in self.videoSequenceArr)
             {
                 if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
@@ -4489,6 +4492,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else
         {//私聊的不是自己,关闭除自己外所有用户的audio，
 
+            [YSWhiteBoardManager sharedInstance].smallBoardView.smallTopBar.isPrivateChating = NO;
             for (SCVideoView * videoView in self.videoSequenceArr)
             {
                 if (![videoView bm_isNotEmpty] || [videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
