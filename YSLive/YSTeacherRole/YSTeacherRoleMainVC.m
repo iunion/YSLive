@@ -2223,7 +2223,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         for (int i = 0; i<raiseHandUserArray.count; i++)
         {
             NSMutableDictionary * userDict = raiseHandUserArray[i];
-            YSPublishState publishState = YSUser_PublishState_UP;
+            YSPublishState publishState = YSUser_PublishState_DOWN;
             for (int j = 0; j<mutArray.count; j++)
             {
                 YSRoomUser * videoUser = mutArray[j];
