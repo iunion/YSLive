@@ -4468,8 +4468,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if ([data bm_isNotEmpty])
     {//开始私聊
-        
-        
         self.privateIdArray = [data bm_arrayForKey:@"roomPrivateId"];
         if ([self.privateIdArray containsObject:YSCurrentUser.peerID])
         {//私聊的是自己,关闭除自己和私聊对象外所有人的audio，并把自己的流发布给私聊对象
@@ -4480,7 +4478,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
                 {
-//                    videoView.isPrivateChating = YES;
                     continue;
                 }
                 [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
@@ -4499,15 +4496,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     continue;
                 }
+                [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
                 
                 if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
                 {
                     videoView.isPrivateChating = YES;
                 }
-                
-                [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
             }
-            
         }
     }
     else
@@ -4527,6 +4522,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
             }
             //把自己的流发布给所有人
+            [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:[YSSessionManager sharedInstance].teacher.peerID mute:NO];
+            
             [[YSSessionManager sharedInstance].cloudHubRtcEngineKit publishStreamTo:[YSSessionManager sharedInstance].teacher.peerID];
         }
         else
@@ -4546,8 +4543,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 
                 [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
             }
+            
+            for (NSString *peerId in self.privateIdArray)
+            {
+                [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:peerId mute:NO];
+            }
         }
-        
         self.privateIdArray = nil;
     }
 }
