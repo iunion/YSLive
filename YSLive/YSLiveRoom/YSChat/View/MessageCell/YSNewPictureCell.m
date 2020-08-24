@@ -118,7 +118,7 @@
     _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + 12, 108, 88);
     _msgImageView.frame = CGRectMake(0, 0, 108, 88);
     
-    [_msgImageView bm_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"tk_login_logo_black"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [_msgImageView bmsd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"tk_login_logo_black"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         [self setNeedsLayout];
         [self layoutIfNeeded];
     }];

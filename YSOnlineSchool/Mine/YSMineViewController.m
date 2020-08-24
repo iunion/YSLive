@@ -116,7 +116,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     if (![imgUrl bm_isNotEmpty]) {
         imgUrl = [YSSchoolUser shareInstance].organimageurl;
     }
-    [self.userIconImg bm_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
+    [self.userIconImg bmsd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
     
     self.userNameL = [[UILabel alloc] init];
     self.userNameL.frame = CGRectMake(0, 0, self.mineTableView.bm_width, 22);

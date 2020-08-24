@@ -163,7 +163,7 @@
     
     NSString *newURL = [normalIconUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    [self bm_setImageWithURL:[NSURL URLWithString:newURL] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:self.normalIcon]];
+    [self bmsd_setImageWithURL:[NSURL URLWithString:newURL] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:self.normalIcon]];
 }
 
 - (void)setSelectedIconUrl:(NSString *)selectedIconUrl
@@ -177,7 +177,7 @@
     
     NSString *newURL = [selectedIconUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
  
-    [self bm_setImageWithURL:[NSURL URLWithString:newURL] forState:UIControlStateSelected placeholderImage:[UIImage imageNamed:self.selectedIcon]];
+    [self bmsd_setImageWithURL:[NSURL URLWithString:newURL] forState:UIControlStateSelected placeholderImage:[UIImage imageNamed:self.selectedIcon]];
 }
 
 - (void)setHighlightIconUrl:(NSString *)highlightIconUrl
@@ -191,7 +191,7 @@
     
     NSString *newURL = [highlightIconUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
-    [self bm_setImageWithURL:[NSURL URLWithString:newURL] forState:UIControlStateHighlighted placeholderImage:[UIImage imageNamed:self.highlightIcon]];
+    [self bmsd_setImageWithURL:[NSURL URLWithString:newURL] forState:UIControlStateHighlighted placeholderImage:[UIImage imageNamed:self.highlightIcon]];
 }
 
 // 设置图标背景图组

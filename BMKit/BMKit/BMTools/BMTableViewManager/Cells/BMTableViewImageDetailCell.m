@@ -56,7 +56,7 @@
     }
     if (!self.detailImageView.image)
     {
-        [self.detailImageView bm_setImageWithURL:[NSURL URLWithString:self.item.detailImageUrl] completed:^(UIImage *image, NSError *error, BMSDImageCacheType cacheType, NSURL *imageURL)
+        [self.detailImageView bmsd_setImageWithURL:[NSURL URLWithString:self.item.detailImageUrl] completed:^(UIImage *image, NSError *error, BMSDImageCacheType cacheType, NSURL *imageURL)
          {
              [self setNeedsLayout];
              if (self.item.imageLoadedHandler)
