@@ -20,7 +20,21 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)ys_showAlertWithTitle:(nullable id)title
                       message:(nullable id)message
                   cancelTitle:(nullable NSString *)cancelTitle
+              orientationMask:(UIInterfaceOrientationMask)orientationMask
+                   completion:(nullable BMAlertViewCompletionBlock)completion;
+
+
++ (void)ys_showAlertWithTitle:(nullable id)title
+                      message:(nullable id)message
+                  cancelTitle:(nullable NSString *)cancelTitle
                    otherTitle:(nullable NSString *)otherTitle
+                   completion:(nullable BMAlertViewCompletionBlock)completion;
+
++ (void)ys_showAlertWithTitle:(nullable id)title
+                      message:(nullable id)message
+                  cancelTitle:(nullable NSString *)cancelTitle
+                   otherTitle:(nullable NSString *)otherTitle
+              orientationMask:(UIInterfaceOrientationMask)orientationMask
                    completion:(nullable BMAlertViewCompletionBlock)completion;
 
 + (BMAlertView *)creatAlertWithIcon:(nullable NSString *)iconName

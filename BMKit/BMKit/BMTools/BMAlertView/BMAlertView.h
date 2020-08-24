@@ -41,7 +41,8 @@ typedef void (^BMAlertViewCompletionBlock)(BOOL cancelled, NSInteger buttonIndex
 
 // 是否显示关闭按钮
 @property (nonatomic, assign) BOOL showClose;
-
+// 转屏方向
+@property (nonatomic, assign) UIInterfaceOrientationMask orientationMask;
 @property (nonatomic, assign) BOOL shouldDismissOnTapOutside;
 @property (nonatomic, assign) BOOL notDismissOnCancel;
 

@@ -133,7 +133,8 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
     {
         // 不支持手势退出
         self.bm_CanBackInteractive = NO;
-        
+        // 默认竖屏
+        self.orientationMask = UIInterfaceOrientationMaskPortrait;
         self.mainWindow = [self windowWithLevel:UIWindowLevelNormal];
         
         self.alertWindow = [self windowWithLevel:UIWindowLevelAlert];
@@ -674,11 +675,37 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
     return NO;
 }
 
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskPortrait;  //UIInterfaceOrientationMaskAll;
+//}
+/// 2.返回支持的旋转方向
+/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskPortrait;  //UIInterfaceOrientationMaskAll;
+    if (self.orientationMask)
+    {
+        return self.orientationMask;
+    }
+    else
+    {
+        return UIInterfaceOrientationMaskLandscapeRight;
+    }
 }
 
+/// 3.返回进入界面默认显示方向
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    if (self.orientationMask)
+    {
+        return self.orientationMask;
+    }
+    else
+    {
+        return UIInterfaceOrientationLandscapeRight;
+    }
+}
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 //{
 //    return YES;
