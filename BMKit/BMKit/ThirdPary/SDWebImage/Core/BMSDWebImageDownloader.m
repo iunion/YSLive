@@ -189,10 +189,30 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
 }
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
+                                                     options:(BMSDWebImageDownloaderOptions)options
+                                                    progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                   completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock
+{
+    return [self downloadImageWithURL:url host:host options:options context:nil progress:progressBlock completed:completedBlock];
+}
+
+- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                    options:(BMSDWebImageDownloaderOptions)options
                                                    context:(nullable BMSDWebImageContext *)context
                                                   progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock {
+                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock
+{
+    return [self downloadImageWithURL:url host:nil options:options context:context progress:progressBlock completed:completedBlock];
+}
+
+- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
+                                                     options:(BMSDWebImageDownloaderOptions)options
+                                                     context:(nullable BMSDWebImageContext *)context
+                                                    progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                   completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock
+{
     // The URL will be used as the key to the callbacks dictionary so it cannot be nil. If it is nil immediately call the completed block with no image or data.
     if (url == nil) {
         if (completedBlock) {
@@ -207,7 +227,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     NSOperation<BMSDWebImageDownloaderOperation> *operation = [self.URLOperations objectForKey:url];
     // There is a case that the operation may be marked as finished or cancelled, but not been removed from `self.URLOperations`.
     if (!operation || operation.isFinished || operation.isCancelled) {
-        operation = [self createDownloaderOperationWithUrl:url options:options context:context];
+        operation = [self createDownloaderOperationWithUrl:url host:host options:options context:context];
         if (!operation) {
             BMSD_UNLOCK(self.operationsLock);
             if (completedBlock) {
@@ -261,6 +281,14 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
 - (nullable NSOperation<BMSDWebImageDownloaderOperation> *)createDownloaderOperationWithUrl:(nonnull NSURL *)url
                                                                                   options:(BMSDWebImageDownloaderOptions)options
                                                                                   context:(nullable BMSDWebImageContext *)context {
+    
+    return [self createDownloaderOperationWithUrl:url host:nil options:options context:context];
+}
+
+- (nullable NSOperation<BMSDWebImageDownloaderOperation> *)createDownloaderOperationWithUrl:(nonnull NSURL *)url
+                                                                                       host:(nullable NSString *)host
+                                                                                    options:(BMSDWebImageDownloaderOptions)options
+                                                                                    context:(nullable BMSDWebImageContext *)context {
     NSTimeInterval timeoutInterval = self.config.downloadTimeout;
     if (timeoutInterval == 0.0) {
         timeoutInterval = 15.0;
@@ -274,6 +302,11 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     BMSD_LOCK(self.HTTPHeadersLock);
     mutableRequest.allHTTPHeaderFields = self.HTTPHeaders;
     BMSD_UNLOCK(self.HTTPHeadersLock);
+    
+    if ([host bm_isNotEmpty])
+    {
+        [mutableRequest setValue:host forHTTPHeaderField:@"host"];
+    }
     
     // Context Option
     BMSDWebImageMutableContext *mutableContext;

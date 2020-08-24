@@ -494,6 +494,101 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
     
+#if SDWEBIMAGE_NORMALUSEHTTPDNS
+    if (!challenge)
+    {
+        return;
+    }
+    
+    NSString* host = [[task.originalRequest allHTTPHeaderFields] objectForKey:@"host"];
+    
+    NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+    __block NSURLCredential *credential = nil;
+    
+    if (!host)
+    {
+        host = task.originalRequest.URL.host;
+    }
+    
+    // 以下逻辑与 AFNetworking -> AFURLSessionManager.m 里的代码一致
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
+    {
+        if ([self evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:host])
+        {
+            // 上述 `evaluateServerTrust:forDomain:` 方法用于验证 SSL 握手过程中服务端返回的证书是否可信任，
+            // 以及请求的 URL 中的域名与证书里声明的的 CN 字段是否一致。
+            credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            if (credential)
+            {
+                disposition = NSURLSessionAuthChallengeUseCredential;
+            }
+            else
+            {
+                disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+            }
+        }
+        else
+        {
+            disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+        }
+    }
+    else
+    {
+        disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+    }
+    
+    if (completionHandler)
+    {
+        //        disposition = NSURLSessionAuthChallengeUseCredential;
+        //        credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+        
+        if (disposition != NSURLSessionAuthChallengeUseCredential)
+        {
+            if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+                if (!(self.options & BMSDWebImageDownloaderAllowInvalidSSLCertificates)) {
+                    disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+                } else {
+                    credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+                    disposition = NSURLSessionAuthChallengeUseCredential;
+                }
+            } else {
+                if (challenge.previousFailureCount == 0) {
+                    if (self.credential) {
+                        credential = self.credential;
+                        disposition = NSURLSessionAuthChallengeUseCredential;
+                    } else {
+                        disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+                    }
+                } else {
+                    disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+                }
+            }
+            
+            if (disposition != NSURLSessionAuthChallengeUseCredential)
+            {
+                if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
+                {
+                    SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
+                    CFDataRef exceptions    = SecTrustCopyExceptions(serverTrust);
+                    SecTrustSetExceptions(serverTrust, exceptions);
+                    CFRelease(exceptions);
+                    completionHandler(NSURLSessionAuthChallengeUseCredential,
+                                      [NSURLCredential credentialForTrust:serverTrust]);
+                }
+            }
+            else
+            {
+                completionHandler(disposition, credential);
+            }
+        }
+        else
+        {
+            completionHandler(disposition, credential);
+        }
+    }
+    
+#else
+    
     NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
     __block NSURLCredential *credential = nil;
     
@@ -520,6 +615,37 @@ didReceiveResponse:(NSURLResponse *)response
     if (completionHandler) {
         completionHandler(disposition, credential);
     }
+#endif
+}
+
+- (BOOL)evaluateServerTrust:(SecTrustRef)serverTrust
+                  forDomain:(NSString *)domain
+{
+    /*
+     * 创建证书校验策略
+     */
+    NSMutableArray *policies = [NSMutableArray array];
+    if (domain)
+    {
+        [policies addObject:(__bridge_transfer id)SecPolicyCreateSSL(true, (__bridge CFStringRef)domain)];
+    }
+    else
+    {
+        [policies addObject:(__bridge_transfer id)SecPolicyCreateBasicX509()];
+    }
+    /*
+     * 绑定校验策略到服务端的证书上
+     */
+    SecTrustSetPolicies(serverTrust, (__bridge CFArrayRef)policies);
+    /*
+     * 评估当前serverTrust是否可信任，
+     * 官方建议在result = kSecTrustResultUnspecified 或 kSecTrustResultProceed
+     * 的情况下serverTrust可以被验证通过，https://developer.apple.com/library/ios/technotes/tn2232/_index.html
+     * 关于SecTrustResultType的详细信息请参考SecTrust.h
+     */
+    SecTrustResultType result;
+    SecTrustEvaluate(serverTrust, &result);
+    return (result == kSecTrustResultUnspecified || result == kSecTrustResultProceed);
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didFinishCollectingMetrics:(NSURLSessionTaskMetrics *)metrics API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0)) {

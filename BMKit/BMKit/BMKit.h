@@ -20,6 +20,9 @@ FOUNDATION_EXPORT const unsigned char BMKitVersionString[];
 #define BMBasekit_Category_Encrypt  1
 #define BMBasekit_Use_CoreLocation  0
 
+// 图片加载使用HTTPDNS
+#define SDWEBIMAGE_NORMALUSEHTTPDNS 1
+
 
 #if __has_include(<BMKit/BMkitMacros.h>)
 #import <BMKit/BMkitMacros.h>

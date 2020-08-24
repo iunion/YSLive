@@ -266,6 +266,12 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
                                                   progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
+- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
+                                                     options:(BMSDWebImageDownloaderOptions)options
+                                                    progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                   completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
+
 /**
  * Creates a SDWebImageDownloader async downloader instance with a given URL
  *
@@ -287,6 +293,13 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
                                                    context:(nullable BMSDWebImageContext *)context
                                                   progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
+
+- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
+                                                     options:(BMSDWebImageDownloaderOptions)options
+                                                     context:(nullable BMSDWebImageContext *)context
+                                                    progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+                                                   completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 /**
  * Cancels all download operations in the queue
