@@ -785,7 +785,7 @@
     // 低端设备
     if (videoState & SCVideoViewVideoState_Low_end)
     {
-        if ((self.roomUser.role != YSUserType_Teacher || self.roomUser.role != YSUserType_ClassMaster ) && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        if (self.roomUser.role != YSUserType_Teacher && self.roomUser.role != YSUserType_ClassMaster && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
            {
                self.maskNoVideo.hidden = NO;
                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
