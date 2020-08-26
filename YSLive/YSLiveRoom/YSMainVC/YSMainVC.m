@@ -473,15 +473,14 @@
 
 - (void)userBtnsClick:(UIButton *)sender
 {
-    
-    YSSessionMuteState muteState = YSSessionMuteState_Mute;
+    YSSessionMuteState muteState = YSSessionMuteState_UnMute;
     
     switch (sender.tag) {
         case 0:
         {//关闭音频
             if (sender.selected)
             {//当前是打开音频状态
-                muteState = YSSessionMuteState_UnMute;
+                muteState = YSSessionMuteState_Mute;
             }
             [YSCurrentUser sendToChangeAudioMute:muteState];
             sender.selected = !sender.selected;
@@ -491,7 +490,7 @@
         {//关闭视频
             if (sender.selected)
             {//当前是打开视频状态
-                muteState = YSSessionMuteState_UnMute;
+                muteState = YSSessionMuteState_Mute;
             }
             
             [YSCurrentUser sendToChangeVideoMute:muteState WithSourceId:sYSUserDefaultSourceId];
