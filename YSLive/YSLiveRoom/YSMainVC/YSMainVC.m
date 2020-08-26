@@ -68,6 +68,8 @@
     CGFloat platformVideoHeight;
     
     //BOOL needFreshVideoView;
+#warning fullScreenBtn
+    CGRect fullScreenBtnFrame;
 }
 
 /// 原keywindow
@@ -756,11 +758,12 @@
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(liveViewClicked:)];
     [self.allVideoBgView addGestureRecognizer:tapGesture];
     
-    self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:self.fullScreenBtn];
+    //self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //[self.view addSubview:self.fullScreenBtn];
     [self.view bringSubviewToFront:self.fullScreenBtn];
     [self.fullScreenBtn setImage:YSSkinElementImage(@"live_lesson_full", @"iconNor") forState:UIControlStateNormal];
     self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
+    self->fullScreenBtnFrame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
     [self.fullScreenBtn addTarget:self action:@selector(fullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -819,8 +822,8 @@
     
     self.mp4BgView.hidden = YES;
     
-    self.mp4FullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.mp4BgView addSubview:self.mp4FullScreenBtn];
+    self.mp4FullScreenBtn = nil;//[UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.mp4BgView addSubview:self.mp4FullScreenBtn];
     [self.mp4BgView bringSubviewToFront:self.mp4FullScreenBtn];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconNor") forState:UIControlStateNormal];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconSel") forState:UIControlStateSelected];
@@ -2421,8 +2424,9 @@
                 self.barrageBtn.frame = CGRectZero;
                 
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(0);
-                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
-                
+                //self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
+                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self->fullScreenBtnFrame.origin.y+self->fullScreenBtnFrame.size.height+15, 40, 40);
+
                 self.raiseMaskImage.transform = CGAffineTransformMakeRotation(0);
                 self.raiseMaskImage.frame = self.raiseHandsBtn.frame;
                 
@@ -2608,7 +2612,9 @@
     if (!_raiseHandsBtn)
     {
         CGFloat raiseHandWH = 40;
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom+15, raiseHandWH, raiseHandWH)];
+        //self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom+15, raiseHandWH, raiseHandWH)];
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self->fullScreenBtnFrame.origin.y+self->fullScreenBtnFrame.size.height+15, raiseHandWH, raiseHandWH)];
+        
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconNor") forState:UIControlStateNormal];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconSel") forState:UIControlStateHighlighted];
