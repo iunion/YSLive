@@ -39,6 +39,9 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
+// 隐藏视频全屏按钮
+#define HideFullScreenBtn   1
+
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
@@ -68,8 +71,9 @@
     CGFloat platformVideoHeight;
     
     //BOOL needFreshVideoView;
-#warning fullScreenBtn
+#if HideFullScreenBtn
     CGRect fullScreenBtnFrame;
+#endif
 }
 
 /// 原keywindow
@@ -81,10 +85,10 @@
 
 
 /// 视频ratio 16:9
-@property (nonatomic, assign) BOOL isWideScreen;
+//@property (nonatomic, assign) BOOL isWideScreen;
 
 /// 固定UserId
-@property (nonatomic, strong) NSString *userId;
+//@property (nonatomic, strong) NSString *userId;
 
 @property (nonatomic, strong) BMScrollPageSegment *m_SegmentBar;
 @property (nonatomic, strong) BMScrollPageView *m_ScrollPageView;
@@ -758,12 +762,17 @@
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(liveViewClicked:)];
     [self.allVideoBgView addGestureRecognizer:tapGesture];
     
-    //self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //[self.view addSubview:self.fullScreenBtn];
+#if HideFullScreenBtn
+#else
+    self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:self.fullScreenBtn];
+#endif
     [self.view bringSubviewToFront:self.fullScreenBtn];
     [self.fullScreenBtn setImage:YSSkinElementImage(@"live_lesson_full", @"iconNor") forState:UIControlStateNormal];
     self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
-    self->fullScreenBtnFrame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
+#if HideFullScreenBtn
+    fullScreenBtnFrame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
+#endif
     [self.fullScreenBtn addTarget:self action:@selector(fullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -822,8 +831,11 @@
     
     self.mp4BgView.hidden = YES;
     
-    self.mp4FullScreenBtn = nil;//[UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.mp4BgView addSubview:self.mp4FullScreenBtn];
+#if HideFullScreenBtn
+#else
+    self.mp4FullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.mp4BgView addSubview:self.mp4FullScreenBtn];
+#endif
     [self.mp4BgView bringSubviewToFront:self.mp4FullScreenBtn];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconNor") forState:UIControlStateNormal];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconSel") forState:UIControlStateSelected];
@@ -2424,8 +2436,11 @@
                 self.barrageBtn.frame = CGRectZero;
                 
                 self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(0);
-                //self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
+#if HideFullScreenBtn
                 self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self->fullScreenBtnFrame.origin.y+self->fullScreenBtnFrame.size.height+15, 40, 40);
+#else
+                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
+#endif
 
                 self.raiseMaskImage.transform = CGAffineTransformMakeRotation(0);
                 self.raiseMaskImage.frame = self.raiseHandsBtn.frame;
@@ -2612,8 +2627,11 @@
     if (!_raiseHandsBtn)
     {
         CGFloat raiseHandWH = 40;
-        //self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom+15, raiseHandWH, raiseHandWH)];
+#if HideFullScreenBtn
         self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self->fullScreenBtnFrame.origin.y+self->fullScreenBtnFrame.size.height+15, raiseHandWH, raiseHandWH)];
+#else
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom+15, raiseHandWH, raiseHandWH)];
+#endif
         
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconNor") forState:UIControlStateNormal];
