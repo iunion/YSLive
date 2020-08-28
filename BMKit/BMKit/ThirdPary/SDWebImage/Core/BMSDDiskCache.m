@@ -11,7 +11,7 @@
 #import "BMSDFileAttributeHelper.h"
 #import <CommonCrypto/CommonDigest.h>
 
-static NSString * const BMSDDiskCacheExtendedAttributeName = @"com.hackemist.SDDiskCache";
+static NSString * const BMSDDiskCacheExtendedAttributeName = @"com.hackemist.BMSDDiskCache";
 
 @interface BMSDDiskCache ()
 

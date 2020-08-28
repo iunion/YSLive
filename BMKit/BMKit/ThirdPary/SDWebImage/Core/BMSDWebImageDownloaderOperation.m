@@ -19,8 +19,8 @@ const float NSURLSessionTaskPriorityDefault = 0.5;
 const float NSURLSessionTaskPriorityLow = 0.25;
 #endif
 
-static NSString *const kProgressCallbackKey = @"progress";
-static NSString *const kCompletedCallbackKey = @"completed";
+static NSString *const kBMProgressCallbackKey = @"progress";
+static NSString *const kBMCompletedCallbackKey = @"completed";
 
 typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
 
@@ -101,8 +101,8 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
 - (nullable id)addHandlersForProgress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
                             completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock {
     BMSDCallbacksDictionary *callbacks = [NSMutableDictionary new];
-    if (progressBlock) callbacks[kProgressCallbackKey] = [progressBlock copy];
-    if (completedBlock) callbacks[kCompletedCallbackKey] = [completedBlock copy];
+    if (progressBlock) callbacks[kBMProgressCallbackKey] = [progressBlock copy];
+    if (completedBlock) callbacks[kBMCompletedCallbackKey] = [completedBlock copy];
     @synchronized (self) {
         [self.callbackBlocks addObject:callbacks];
     }
@@ -138,7 +138,7 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
         @synchronized (self) {
             [self.callbackBlocks removeObjectIdenticalTo:token];
         }
-        BMSDWebImageDownloaderCompletedBlock completedBlock = [token valueForKey:kCompletedCallbackKey];
+        BMSDWebImageDownloaderCompletedBlock completedBlock = [token valueForKey:kBMCompletedCallbackKey];
         dispatch_main_async_bmsafe(^{
             if (completedBlock) {
                 completedBlock(nil, nil, [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}], YES);
@@ -217,7 +217,7 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
             self.coderQueue.qualityOfService = NSQualityOfServiceDefault;
         }
         [self.dataTask resume];
-        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
+        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kBMProgressCallbackKey]) {
             progressBlock(0, NSURLResponseUnknownLength, self.request.URL);
         }
         __block typeof(self) strongSelf = self;
@@ -340,7 +340,7 @@ didReceiveResponse:(NSURLResponse *)response
     }
     
     if (valid) {
-        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
+        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kBMProgressCallbackKey]) {
             progressBlock(0, expected, self.request.URL);
         }
     } else {
@@ -366,7 +366,7 @@ didReceiveResponse:(NSURLResponse *)response
     self.receivedSize = self.imageData.length;
     if (self.expectedSize == 0) {
         // Unknown expectedSize, immediately call progressBlock and return
-        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
+        for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kBMProgressCallbackKey]) {
             progressBlock(self.receivedSize, self.expectedSize, self.request.URL);
         }
         return;
@@ -404,7 +404,7 @@ didReceiveResponse:(NSURLResponse *)response
         }
     }
     
-    for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kProgressCallbackKey]) {
+    for (BMSDWebImageDownloaderProgressBlock progressBlock in [self callbacksForKey:kBMProgressCallbackKey]) {
         progressBlock(self.receivedSize, self.expectedSize, self.request.URL);
     }
 }
@@ -451,7 +451,7 @@ didReceiveResponse:(NSURLResponse *)response
         [self callCompletionBlocksWithError:error];
         [self done];
     } else {
-        if ([self callbacksForKey:kCompletedCallbackKey].count > 0) {
+        if ([self callbacksForKey:kBMCompletedCallbackKey].count > 0) {
             NSData *imageData = [self.imageData copy];
             self.imageData = nil;
             // data decryptor
@@ -575,6 +575,10 @@ didReceiveResponse:(NSURLResponse *)response
                     completionHandler(NSURLSessionAuthChallengeUseCredential,
                                       [NSURLCredential credentialForTrust:serverTrust]);
                 }
+                else
+                {
+                    completionHandler(disposition, credential);
+                }
             }
             else
             {
@@ -676,7 +680,7 @@ didReceiveResponse:(NSURLResponse *)response
                             imageData:(nullable NSData *)imageData
                                 error:(nullable NSError *)error
                              finished:(BOOL)finished {
-    NSArray<id> *completionBlocks = [self callbacksForKey:kCompletedCallbackKey];
+    NSArray<id> *completionBlocks = [self callbacksForKey:kBMCompletedCallbackKey];
     dispatch_main_async_bmsafe(^{
         for (BMSDWebImageDownloaderCompletedBlock completedBlock in completionBlocks) {
             completedBlock(image, imageData, error, finished);
