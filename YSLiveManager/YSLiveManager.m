@@ -9,6 +9,8 @@
 #import "YSLiveManager.h"
 #import "YSPermissionsVC.h"
 
+#import "YSNewCoursewareControlView.h"
+
 #if YSSDK
 #import "YSSDKManager.h"
 #endif
@@ -235,6 +237,8 @@
     {
         [self.whiteBoardManager changeConnectH5CoursewareUrlParameters:self.connectH5CoursewareUrlParameters];
     }
+    
+    [self.whiteBoardManager registerCoursewareControlView:@"YSNewCoursewareControlView" viewSize:CGSizeMake(YSCoursewareControlView_Width, 50)];
     
     CGFloat whiteBordViewH = 500;
     if (BMIS_IPHONE)
