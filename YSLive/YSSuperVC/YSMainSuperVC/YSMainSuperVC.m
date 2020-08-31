@@ -292,10 +292,10 @@
         {
             [self insertVideoViewWithArray:self.classMasterVideoViewArray];
             
-            if (self.liveManager.isGroupBegin)
-            {
+//            if (self.liveManager.isGroupBegin)
+//            {
                 [self insertVideoViewWithArray:self.teacherVideoViewArray];
-            }
+//            }
         }
         else
         {
