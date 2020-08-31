@@ -61,7 +61,9 @@ xcdebugger/
 #xcschemes/
 
 
-YSLib/BMKit/BMKit.framework
+YSLib/
 YSLiveSample/YSLiveSample/YSLib/
+YSWhiteBoardSample/YSLiveSample/YSLib/
+
 
 
