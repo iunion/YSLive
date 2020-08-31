@@ -1,0 +1,15 @@
+//
+//  sample.pch
+//  YSLiveSample
+//
+//  Created by 马迪 on 2020/8/31.
+//  Copyright © 2020 yunshuxunlian. All rights reserved.
+//
+
+#ifndef sample_pch
+#define sample_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* sample_pch */

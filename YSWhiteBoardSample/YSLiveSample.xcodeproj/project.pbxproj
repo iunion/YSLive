@@ -1,0 +1,650 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		041615E524FCCB6100144271 /* YSWhiteBoardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041615E424FCCB6100144271 /* YSWhiteBoardSDK.framework */; };
+		0455F0B9243EB90E00468853 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0B8243EB90E00468853 /* main.m */; };
+		0455F0EC243EB96F00468853 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0C0243EB96E00468853 /* AppDelegate.m */; };
+		0455F0FA243EB96F00468853 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0D1243EB96F00468853 /* YSLoginVC.m */; };
+		0455F0FB243EB96F00468853 /* login_join_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D3243EB96F00468853 /* login_join_normal@2x.png */; };
+		0455F0FC243EB96F00468853 /* login_join_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D4243EB96F00468853 /* login_join_normal@3x.png */; };
+		0455F0FD243EB96F00468853 /* btn_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D5243EB96F00468853 /* btn_close@2x.png */; };
+		0455F0FE243EB96F00468853 /* login_name@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D6243EB96F00468853 /* login_name@2x.png */; };
+		0455F0FF243EB96F00468853 /* login_name@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D7243EB96F00468853 /* login_name@3x.png */; };
+		0455F100243EB96F00468853 /* btn_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D8243EB96F00468853 /* btn_close@3x.png */; };
+		0455F101243EB96F00468853 /* login_join_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0D9243EB96F00468853 /* login_join_disabled@2x.png */; };
+		0455F102243EB96F00468853 /* login_room@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0DA243EB96F00468853 /* login_room@3x.png */; };
+		0455F103243EB96F00468853 /* login_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0DB243EB96F00468853 /* login_icon@3x.png */; };
+		0455F104243EB96F00468853 /* login_join_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0DC243EB96F00468853 /* login_join_highlight@3x.png */; };
+		0455F105243EB96F00468853 /* login_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0DD243EB96F00468853 /* login_icon@2x.png */; };
+		0455F106243EB96F00468853 /* login_join_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0DE243EB96F00468853 /* login_join_highlight@2x.png */; };
+		0455F107243EB96F00468853 /* login_room@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0DF243EB96F00468853 /* login_room@2x.png */; };
+		0455F108243EB96F00468853 /* ysall_login_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0E0243EB96F00468853 /* ysall_login_background.png */; };
+		0455F109243EB96F00468853 /* login_join_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0E1243EB96F00468853 /* login_join_disabled@3x.png */; };
+		0455F10A243EB96F00468853 /* whiteboardmask_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0E2243EB96F00468853 /* whiteboardmask_ipad@2x.png */; };
+		0455F10B243EB96F00468853 /* YSInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0E5243EB96F00468853 /* YSInputView.m */; };
+		0455F10C243EB96F00468853 /* whiteboardmask_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0455F0E7243EB96F00468853 /* whiteboardmask_iphone@2x.png */; };
+		0455F10E243EB96F00468853 /* YSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0EB243EB96F00468853 /* YSNavigationController.m */; };
+		0455F112243EBA5C00468853 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455F111243EBA5C00468853 /* libc++.tbd */; };
+		0455F114243EBE7800468853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0455F113243EBE7800468853 /* Assets.xcassets */; };
+		876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4624CFF25A008E9848 /* YSLive.xcassets */; };
+		876BFA5924CFF25B008E9848 /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4724CFF25A008E9848 /* YSSkinRsource.bundle */; };
+		876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */; };
+		876BFA5C24CFF25B008E9848 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA4C24CFF25B008E9848 /* BMKit.framework */; };
+		876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */; };
+		876BFA5E24CFF25B008E9848 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */; };
+		876BFA5F24CFF25B008E9848 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */; };
+		876BFA6024CFF25B008E9848 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5024CFF25B008E9848 /* BMDatePicker.nib */; };
+		876BFA6124CFF25B008E9848 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5224CFF25B008E9848 /* YSWhiteBoardResources.bundle */; };
+		876BFA6224CFF25B008E9848 /* YSWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5324CFF25B008E9848 /* YSWhiteBoardImage.xcassets */; };
+		876BFA6324CFF25B008E9848 /* YSWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA5424CFF25B008E9848 /* YSWhiteBoard.framework */; };
+		876BFA6424CFF25B008E9848 /* YSWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5524CFF25B008E9848 /* YSWhiteBoardSkin.bundle */; };
+		876BFA6524CFF25B008E9848 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */; };
+		876BFA6624CFF25B008E9848 /* YSResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5724CFF25B008E9848 /* YSResources.bundle */; };
+		876BFA6924CFF2B2008E9848 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4D3DBFAE3448A4A1F3E7377 /* libPods-YSLiveSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1924E7809FB026034BC9959 /* libPods-YSLiveSample.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0455F10F243EBA1800468853 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				876BFA6924CFF2B2008E9848 /* CloudHubRTC.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		041615E424FCCB6100144271 /* YSWhiteBoardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSWhiteBoardSDK.framework; sourceTree = "<group>"; };
+		041615E624FCF14C00144271 /* sample.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sample.pch; sourceTree = "<group>"; };
+		0455F0A3243EB90D00468853 /* YSLiveSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YSLiveSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0455F0B7243EB90E00468853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0455F0B8243EB90E00468853 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0455F0BF243EB96E00468853 /* YSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSNavigationController.h; sourceTree = "<group>"; };
+		0455F0C0243EB96E00468853 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0455F0D1243EB96F00468853 /* YSLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLoginVC.m; sourceTree = "<group>"; };
+		0455F0D3243EB96F00468853 /* login_join_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_normal@2x.png"; sourceTree = "<group>"; };
+		0455F0D4243EB96F00468853 /* login_join_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_normal@3x.png"; sourceTree = "<group>"; };
+		0455F0D5243EB96F00468853 /* btn_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_close@2x.png"; sourceTree = "<group>"; };
+		0455F0D6243EB96F00468853 /* login_name@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_name@2x.png"; sourceTree = "<group>"; };
+		0455F0D7243EB96F00468853 /* login_name@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_name@3x.png"; sourceTree = "<group>"; };
+		0455F0D8243EB96F00468853 /* btn_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_close@3x.png"; sourceTree = "<group>"; };
+		0455F0D9243EB96F00468853 /* login_join_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_disabled@2x.png"; sourceTree = "<group>"; };
+		0455F0DA243EB96F00468853 /* login_room@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_room@3x.png"; sourceTree = "<group>"; };
+		0455F0DB243EB96F00468853 /* login_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_icon@3x.png"; sourceTree = "<group>"; };
+		0455F0DC243EB96F00468853 /* login_join_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_highlight@3x.png"; sourceTree = "<group>"; };
+		0455F0DD243EB96F00468853 /* login_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_icon@2x.png"; sourceTree = "<group>"; };
+		0455F0DE243EB96F00468853 /* login_join_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_highlight@2x.png"; sourceTree = "<group>"; };
+		0455F0DF243EB96F00468853 /* login_room@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_room@2x.png"; sourceTree = "<group>"; };
+		0455F0E0243EB96F00468853 /* ysall_login_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ysall_login_background.png; sourceTree = "<group>"; };
+		0455F0E1243EB96F00468853 /* login_join_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_disabled@3x.png"; sourceTree = "<group>"; };
+		0455F0E2243EB96F00468853 /* whiteboardmask_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteboardmask_ipad@2x.png"; sourceTree = "<group>"; };
+		0455F0E3243EB96F00468853 /* YSLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLoginVC.h; sourceTree = "<group>"; };
+		0455F0E5243EB96F00468853 /* YSInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSInputView.m; sourceTree = "<group>"; };
+		0455F0E6243EB96F00468853 /* YSInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSInputView.h; sourceTree = "<group>"; };
+		0455F0E7243EB96F00468853 /* whiteboardmask_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteboardmask_iphone@2x.png"; sourceTree = "<group>"; };
+		0455F0E9243EB96F00468853 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0455F0EA243EB96F00468853 /* YSLoginMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLoginMacros.h; sourceTree = "<group>"; };
+		0455F0EB243EB96F00468853 /* YSNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSNavigationController.m; sourceTree = "<group>"; };
+		0455F111243EBA5C00468853 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		0455F113243EBE7800468853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		09247186120069BD999D4845 /* Pods-YSLiveSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSample.debug.xcconfig"; path = "Target Support Files/Pods-YSLiveSample/Pods-YSLiveSample.debug.xcconfig"; sourceTree = "<group>"; };
+		645F2A39076A7143C5BC4592 /* Pods-YSLiveSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSample.release.xcconfig"; path = "Target Support Files/Pods-YSLiveSample/Pods-YSLiveSample.release.xcconfig"; sourceTree = "<group>"; };
+		876BFA4624CFF25A008E9848 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
+		876BFA4724CFF25A008E9848 /* YSSkinRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinRsource.bundle; sourceTree = "<group>"; };
+		876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
+		876BFA4C24CFF25B008E9848 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
+		876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
+		876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
+		876BFA5024CFF25B008E9848 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
+		876BFA5224CFF25B008E9848 /* YSWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		876BFA5324CFF25B008E9848 /* YSWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		876BFA5424CFF25B008E9848 /* YSWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSWhiteBoard.framework; sourceTree = "<group>"; };
+		876BFA5524CFF25B008E9848 /* YSWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
+		876BFA5724CFF25B008E9848 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
+		B1924E7809FB026034BC9959 /* libPods-YSLiveSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YSLiveSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0455F0A0243EB90D00468853 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0455F112243EBA5C00468853 /* libc++.tbd in Frameworks */,
+				876BFA6324CFF25B008E9848 /* YSWhiteBoard.framework in Frameworks */,
+				041615E524FCCB6100144271 /* YSWhiteBoardSDK.framework in Frameworks */,
+				876BFA6524CFF25B008E9848 /* CloudHubRTC.framework in Frameworks */,
+				876BFA5C24CFF25B008E9848 /* BMKit.framework in Frameworks */,
+				C4D3DBFAE3448A4A1F3E7377 /* libPods-YSLiveSample.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0455F09A243EB90D00468853 = {
+			isa = PBXGroup;
+			children = (
+				0455F0A5243EB90D00468853 /* YSLiveSample */,
+				0455F0A4243EB90D00468853 /* Products */,
+				8EB7B6E57C4A9E9A6897C842 /* Pods */,
+				BBCCC7BB6CFA9350CB70AC4B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		0455F0A4243EB90D00468853 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0455F0A3243EB90D00468853 /* YSLiveSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0455F0A5243EB90D00468853 /* YSLiveSample */ = {
+			isa = PBXGroup;
+			children = (
+				0455F0C1243EB96F00468853 /* YSLib */,
+				0455F0D0243EB96F00468853 /* Login */,
+				0455F0E9243EB96F00468853 /* AppDelegate.h */,
+				0455F0C0243EB96E00468853 /* AppDelegate.m */,
+				0455F0EA243EB96F00468853 /* YSLoginMacros.h */,
+				0455F0BF243EB96E00468853 /* YSNavigationController.h */,
+				0455F0EB243EB96F00468853 /* YSNavigationController.m */,
+				0455F113243EBE7800468853 /* Assets.xcassets */,
+				0455F0B7243EB90E00468853 /* Info.plist */,
+				0455F0B8243EB90E00468853 /* main.m */,
+				041615E624FCF14C00144271 /* sample.pch */,
+			);
+			path = YSLiveSample;
+			sourceTree = "<group>";
+		};
+		0455F0C1243EB96F00468853 /* YSLib */ = {
+			isa = PBXGroup;
+			children = (
+				876BFA4924CFF25B008E9848 /* expandLib */,
+				876BFA4624CFF25A008E9848 /* YSLive.xcassets */,
+				876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */,
+				876BFA5724CFF25B008E9848 /* YSResources.bundle */,
+				876BFA4724CFF25A008E9848 /* YSSkinRsource.bundle */,
+			);
+			path = YSLib;
+			sourceTree = "<group>";
+		};
+		0455F0D0243EB96F00468853 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0455F0D2243EB96F00468853 /* Images */,
+				0455F0E4243EB96F00468853 /* Views */,
+				0455F0E2243EB96F00468853 /* whiteboardmask_ipad@2x.png */,
+				0455F0E7243EB96F00468853 /* whiteboardmask_iphone@2x.png */,
+				0455F0E3243EB96F00468853 /* YSLoginVC.h */,
+				0455F0D1243EB96F00468853 /* YSLoginVC.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0455F0D2243EB96F00468853 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0455F0D3243EB96F00468853 /* login_join_normal@2x.png */,
+				0455F0D4243EB96F00468853 /* login_join_normal@3x.png */,
+				0455F0D5243EB96F00468853 /* btn_close@2x.png */,
+				0455F0D6243EB96F00468853 /* login_name@2x.png */,
+				0455F0D7243EB96F00468853 /* login_name@3x.png */,
+				0455F0D8243EB96F00468853 /* btn_close@3x.png */,
+				0455F0D9243EB96F00468853 /* login_join_disabled@2x.png */,
+				0455F0DA243EB96F00468853 /* login_room@3x.png */,
+				0455F0DB243EB96F00468853 /* login_icon@3x.png */,
+				0455F0DC243EB96F00468853 /* login_join_highlight@3x.png */,
+				0455F0DD243EB96F00468853 /* login_icon@2x.png */,
+				0455F0DE243EB96F00468853 /* login_join_highlight@2x.png */,
+				0455F0DF243EB96F00468853 /* login_room@2x.png */,
+				0455F0E0243EB96F00468853 /* ysall_login_background.png */,
+				0455F0E1243EB96F00468853 /* login_join_disabled@3x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		0455F0E4243EB96F00468853 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0455F0E6243EB96F00468853 /* YSInputView.h */,
+				0455F0E5243EB96F00468853 /* YSInputView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		876BFA4924CFF25B008E9848 /* expandLib */ = {
+			isa = PBXGroup;
+			children = (
+				041615E424FCCB6100144271 /* YSWhiteBoardSDK.framework */,
+				876BFA4B24CFF25B008E9848 /* BMKit */,
+				876BFA5124CFF25B008E9848 /* YSWhiteBoard */,
+				876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */,
+			);
+			path = expandLib;
+			sourceTree = "<group>";
+		};
+		876BFA4B24CFF25B008E9848 /* BMKit */ = {
+			isa = PBXGroup;
+			children = (
+				876BFA4C24CFF25B008E9848 /* BMKit.framework */,
+				876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */,
+				876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */,
+				876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */,
+				876BFA5024CFF25B008E9848 /* BMDatePicker.nib */,
+			);
+			path = BMKit;
+			sourceTree = "<group>";
+		};
+		876BFA5124CFF25B008E9848 /* YSWhiteBoard */ = {
+			isa = PBXGroup;
+			children = (
+				876BFA5224CFF25B008E9848 /* YSWhiteBoardResources.bundle */,
+				876BFA5324CFF25B008E9848 /* YSWhiteBoardImage.xcassets */,
+				876BFA5424CFF25B008E9848 /* YSWhiteBoard.framework */,
+				876BFA5524CFF25B008E9848 /* YSWhiteBoardSkin.bundle */,
+			);
+			path = YSWhiteBoard;
+			sourceTree = "<group>";
+		};
+		8EB7B6E57C4A9E9A6897C842 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				09247186120069BD999D4845 /* Pods-YSLiveSample.debug.xcconfig */,
+				645F2A39076A7143C5BC4592 /* Pods-YSLiveSample.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BBCCC7BB6CFA9350CB70AC4B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0455F111243EBA5C00468853 /* libc++.tbd */,
+				B1924E7809FB026034BC9959 /* libPods-YSLiveSample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0455F0A2243EB90D00468853 /* YSLiveSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0455F0BC243EB90E00468853 /* Build configuration list for PBXNativeTarget "YSLiveSample" */;
+			buildPhases = (
+				11C2662F0E8A6F2AD7BD7A02 /* [CP] Check Pods Manifest.lock */,
+				0455F09F243EB90D00468853 /* Sources */,
+				0455F0A0243EB90D00468853 /* Frameworks */,
+				0455F0A1243EB90D00468853 /* Resources */,
+				0455F10F243EBA1800468853 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YSLiveSample;
+			productName = YSLiveSample;
+			productReference = 0455F0A3243EB90D00468853 /* YSLiveSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0455F09B243EB90D00468853 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = yunshuxunlian;
+				TargetAttributes = {
+					0455F0A2243EB90D00468853 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 0455F09E243EB90D00468853 /* Build configuration list for PBXProject "YSLiveSample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0455F09A243EB90D00468853;
+			productRefGroup = 0455F0A4243EB90D00468853 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0455F0A2243EB90D00468853 /* YSLiveSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0455F0A1243EB90D00468853 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				876BFA5924CFF25B008E9848 /* YSSkinRsource.bundle in Resources */,
+				0455F107243EB96F00468853 /* login_room@2x.png in Resources */,
+				0455F0FF243EB96F00468853 /* login_name@3x.png in Resources */,
+				876BFA6224CFF25B008E9848 /* YSWhiteBoardImage.xcassets in Resources */,
+				0455F106243EB96F00468853 /* login_join_highlight@2x.png in Resources */,
+				0455F0FB243EB96F00468853 /* login_join_normal@2x.png in Resources */,
+				0455F101243EB96F00468853 /* login_join_disabled@2x.png in Resources */,
+				0455F102243EB96F00468853 /* login_room@3x.png in Resources */,
+				0455F108243EB96F00468853 /* ysall_login_background.png in Resources */,
+				0455F10A243EB96F00468853 /* whiteboardmask_ipad@2x.png in Resources */,
+				0455F104243EB96F00468853 /* login_join_highlight@3x.png in Resources */,
+				0455F0FD243EB96F00468853 /* btn_close@2x.png in Resources */,
+				0455F100243EB96F00468853 /* btn_close@3x.png in Resources */,
+				876BFA6124CFF25B008E9848 /* YSWhiteBoardResources.bundle in Resources */,
+				876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */,
+				876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */,
+				876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */,
+				876BFA6024CFF25B008E9848 /* BMDatePicker.nib in Resources */,
+				876BFA6624CFF25B008E9848 /* YSResources.bundle in Resources */,
+				0455F0FC243EB96F00468853 /* login_join_normal@3x.png in Resources */,
+				0455F103243EB96F00468853 /* login_icon@3x.png in Resources */,
+				0455F0FE243EB96F00468853 /* login_name@2x.png in Resources */,
+				876BFA5E24CFF25B008E9848 /* BMKitImage.xcassets in Resources */,
+				0455F105243EB96F00468853 /* login_icon@2x.png in Resources */,
+				0455F10C243EB96F00468853 /* whiteboardmask_iphone@2x.png in Resources */,
+				0455F109243EB96F00468853 /* login_join_disabled@3x.png in Resources */,
+				876BFA6424CFF25B008E9848 /* YSWhiteBoardSkin.bundle in Resources */,
+				0455F114243EBE7800468853 /* Assets.xcassets in Resources */,
+				876BFA5F24CFF25B008E9848 /* BMKitResources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11C2662F0E8A6F2AD7BD7A02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YSLiveSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0455F09F243EB90D00468853 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0455F10E243EB96F00468853 /* YSNavigationController.m in Sources */,
+				0455F0EC243EB96F00468853 /* AppDelegate.m in Sources */,
+				0455F0FA243EB96F00468853 /* YSLoginVC.m in Sources */,
+				0455F0B9243EB90E00468853 /* main.m in Sources */,
+				0455F10B243EB96F00468853 /* YSInputView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0455F0BA243EB90E00468853 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0455F0BB243EB90E00468853 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0455F0BD243EB90E00468853 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09247186120069BD999D4845 /* Pods-YSLiveSample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2DPW2MS2H5;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/YSWhiteBoard",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WhiteBoardSDK=1",
+				);
+				INFOPLIST_FILE = YSLiveSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-ObjC",
+					"-l\"MBProgressHUD\"",
+					"-l\"Masonry\"",
+					"-l\"iconv\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = yunshuxunlian.YSLiveSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0455F0BE243EB90E00468853 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 645F2A39076A7143C5BC4592 /* Pods-YSLiveSample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2DPW2MS2H5;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/YSWhiteBoard",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WhiteBoardSDK=1",
+				);
+				INFOPLIST_FILE = YSLiveSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-ObjC",
+					"-l\"MBProgressHUD\"",
+					"-l\"Masonry\"",
+					"-l\"iconv\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = yunshuxunlian.YSLiveSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0455F09E243EB90D00468853 /* Build configuration list for PBXProject "YSLiveSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0455F0BA243EB90E00468853 /* Debug */,
+				0455F0BB243EB90E00468853 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0455F0BC243EB90E00468853 /* Build configuration list for PBXNativeTarget "YSLiveSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0455F0BD243EB90E00468853 /* Debug */,
+				0455F0BE243EB90E00468853 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0455F09B243EB90D00468853 /* Project object */;
+}
