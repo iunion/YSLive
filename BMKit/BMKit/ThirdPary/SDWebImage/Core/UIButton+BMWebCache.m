@@ -15,23 +15,23 @@
 #import "UIView+BMWebCache.h"
 #import "BMSDInternalMacros.h"
 
-static char imageURLStorageKey;
+static char imageBMURLStorageKey;
 
 typedef NSMutableDictionary<NSString *, NSURL *> BMSDStateImageURLDictionary;
 
-static inline NSString * imageURLKeyForState(UIControlState state) {
+static inline NSString * imageBMURLKeyForState(UIControlState state) {
     return [NSString stringWithFormat:@"image_%lu", (unsigned long)state];
 }
 
-static inline NSString * backgroundImageURLKeyForState(UIControlState state) {
+static inline NSString * backgroundImageBMURLKeyForState(UIControlState state) {
     return [NSString stringWithFormat:@"backgroundImage_%lu", (unsigned long)state];
 }
 
-static inline NSString * imageOperationKeyForState(UIControlState state) {
+static inline NSString * imageBMOperationKeyForState(UIControlState state) {
     return [NSString stringWithFormat:@"UIButtonImageOperation%lu", (unsigned long)state];
 }
 
-static inline NSString * backgroundImageOperationKeyForState(UIControlState state) {
+static inline NSString * backgroundImageBMOperationKeyForState(UIControlState state) {
     return [NSString stringWithFormat:@"UIButtonBackgroundImageOperation%lu", (unsigned long)state];
 }
 
@@ -40,17 +40,17 @@ static inline NSString * backgroundImageOperationKeyForState(UIControlState stat
 #pragma mark - Image
 
 - (nullable NSURL *)bmsd_currentImageURL {
-    NSURL *url = self.bmsd_imageURLStorage[imageURLKeyForState(self.state)];
+    NSURL *url = self.bmsd_imageURLStorage[imageBMURLKeyForState(self.state)];
 
     if (!url) {
-        url = self.bmsd_imageURLStorage[imageURLKeyForState(UIControlStateNormal)];
+        url = self.bmsd_imageURLStorage[imageBMURLKeyForState(UIControlStateNormal)];
     }
 
     return url;
 }
 
 - (nullable NSURL *)bmsd_imageURLForState:(UIControlState)state {
-    return self.bmsd_imageURLStorage[imageURLKeyForState(state)];
+    return self.bmsd_imageURLStorage[imageBMURLKeyForState(state)];
 }
 
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state {
@@ -93,9 +93,9 @@ static inline NSString * backgroundImageOperationKeyForState(UIControlState stat
                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                  completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     if (!url) {
-        [self.bmsd_imageURLStorage removeObjectForKey:imageURLKeyForState(state)];
+        [self.bmsd_imageURLStorage removeObjectForKey:imageBMURLKeyForState(state)];
     } else {
-        self.bmsd_imageURLStorage[imageURLKeyForState(state)] = url;
+        self.bmsd_imageURLStorage[imageBMURLKeyForState(state)] = url;
     }
     
     BMSDWebImageMutableContext *mutableContext;
@@ -104,7 +104,7 @@ static inline NSString * backgroundImageOperationKeyForState(UIControlState stat
     } else {
         mutableContext = [NSMutableDictionary dictionary];
     }
-    mutableContext[BMSDWebImageContextSetImageOperationKey] = imageOperationKeyForState(state);
+    mutableContext[BMSDWebImageContextSetImageOperationKey] = imageBMOperationKeyForState(state);
     @bmweakify(self);
     [self bmsd_internalSetImageWithURL:url
                     placeholderImage:placeholder
@@ -125,17 +125,17 @@ static inline NSString * backgroundImageOperationKeyForState(UIControlState stat
 #pragma mark - Background Image
 
 - (nullable NSURL *)bmsd_currentBackgroundImageURL {
-    NSURL *url = self.bmsd_imageURLStorage[backgroundImageURLKeyForState(self.state)];
+    NSURL *url = self.bmsd_imageURLStorage[backgroundImageBMURLKeyForState(self.state)];
     
     if (!url) {
-        url = self.bmsd_imageURLStorage[backgroundImageURLKeyForState(UIControlStateNormal)];
+        url = self.bmsd_imageURLStorage[backgroundImageBMURLKeyForState(UIControlStateNormal)];
     }
     
     return url;
 }
 
 - (nullable NSURL *)bmsd_backgroundImageURLForState:(UIControlState)state {
-    return self.bmsd_imageURLStorage[backgroundImageURLKeyForState(state)];
+    return self.bmsd_imageURLStorage[backgroundImageBMURLKeyForState(state)];
 }
 
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state {
@@ -178,9 +178,9 @@ static inline NSString * backgroundImageOperationKeyForState(UIControlState stat
                             progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                            completed:(nullable BMSDExternalCompletionBlock)completedBlock {
     if (!url) {
-        [self.bmsd_imageURLStorage removeObjectForKey:backgroundImageURLKeyForState(state)];
+        [self.bmsd_imageURLStorage removeObjectForKey:backgroundImageBMURLKeyForState(state)];
     } else {
-        self.bmsd_imageURLStorage[backgroundImageURLKeyForState(state)] = url;
+        self.bmsd_imageURLStorage[backgroundImageBMURLKeyForState(state)] = url;
     }
     
     BMSDWebImageMutableContext *mutableContext;
@@ -189,7 +189,7 @@ static inline NSString * backgroundImageOperationKeyForState(UIControlState stat
     } else {
         mutableContext = [NSMutableDictionary dictionary];
     }
-    mutableContext[BMSDWebImageContextSetImageOperationKey] = backgroundImageOperationKeyForState(state);
+    mutableContext[BMSDWebImageContextSetImageOperationKey] = backgroundImageBMOperationKeyForState(state);
     @bmweakify(self);
     [self bmsd_internalSetImageWithURL:url
                     placeholderImage:placeholder
@@ -210,20 +210,20 @@ static inline NSString * backgroundImageOperationKeyForState(UIControlState stat
 #pragma mark - Cancel
 
 - (void)bmsd_cancelImageLoadForState:(UIControlState)state {
-    [self bmsd_cancelImageLoadOperationWithKey:imageOperationKeyForState(state)];
+    [self bmsd_cancelImageLoadOperationWithKey:imageBMOperationKeyForState(state)];
 }
 
 - (void)bmsd_cancelBackgroundImageLoadForState:(UIControlState)state {
-    [self bmsd_cancelImageLoadOperationWithKey:backgroundImageOperationKeyForState(state)];
+    [self bmsd_cancelImageLoadOperationWithKey:backgroundImageBMOperationKeyForState(state)];
 }
 
 #pragma mark - Private
 
 - (BMSDStateImageURLDictionary *)bmsd_imageURLStorage {
-    BMSDStateImageURLDictionary *storage = objc_getAssociatedObject(self, &imageURLStorageKey);
+    BMSDStateImageURLDictionary *storage = objc_getAssociatedObject(self, &imageBMURLStorageKey);
     if (!storage) {
         storage = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, &imageURLStorageKey, storage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &imageBMURLStorageKey, storage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
 
     return storage;

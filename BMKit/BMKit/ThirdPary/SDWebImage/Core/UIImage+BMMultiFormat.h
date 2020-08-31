@@ -56,7 +56,7 @@
  @param imageFormat The specify image format
  @return The encoded data. If can't encode, return nil
  */
-- (nullable NSData *)bmsd_imageDataAsFormat:(BMSDImageFormat)imageFormat NS_SWIFT_NAME(sd_imageData(as:));
+- (nullable NSData *)bmsd_imageDataAsFormat:(BMSDImageFormat)imageFormat NS_SWIFT_NAME(bmsd_imageData(as:));
 
 /**
  Encode the current image to data with the specify image format and compression quality
@@ -65,7 +65,7 @@
  @param compressionQuality The quality of the resulting image data. Value between 0.0-1.0. Some coders may not support compression quality.
  @return The encoded data. If can't encode, return nil
  */
-- (nullable NSData *)bmsd_imageDataAsFormat:(BMSDImageFormat)imageFormat compressionQuality:(double)compressionQuality NS_SWIFT_NAME(sd_imageData(as:compressionQuality:));
+- (nullable NSData *)bmsd_imageDataAsFormat:(BMSDImageFormat)imageFormat compressionQuality:(double)compressionQuality NS_SWIFT_NAME(bmsd_imageData(as:compressionQuality:));
 
 /**
  Encode the current image to data with the specify image format and compression quality, allow specify animate/static control
@@ -75,6 +75,6 @@
  @param firstFrameOnly Even if the image is animated image, encode the first frame only as static image.
  @return The encoded data. If can't encode, return nil
  */
-- (nullable NSData *)bmsd_imageDataAsFormat:(BMSDImageFormat)imageFormat compressionQuality:(double)compressionQuality firstFrameOnly:(BOOL)firstFrameOnly NS_SWIFT_NAME(sd_imageData(as:compressionQuality:firstFrameOnly:));
+- (nullable NSData *)bmsd_imageDataAsFormat:(BMSDImageFormat)imageFormat compressionQuality:(double)compressionQuality firstFrameOnly:(BOOL)firstFrameOnly NS_SWIFT_NAME(bmsd_imageData(as:compressionQuality:firstFrameOnly:));
 
 @end

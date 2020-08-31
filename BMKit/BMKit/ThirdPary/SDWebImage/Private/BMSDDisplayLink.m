@@ -18,7 +18,7 @@
 static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow, const CVTimeStamp *inOutputTime, CVOptionFlags flagsIn, CVOptionFlags *flagsOut, void *displayLinkContext);
 #endif
 
-#define kSDDisplayLinkInterval 1.0 / 60
+#define kBMSDDisplayLinkInterval 1.0 / 60
 
 @interface BMSDDisplayLink ()
 
@@ -99,7 +99,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     }
 #endif
     if (duration == 0) {
-        duration = kSDDisplayLinkInterval;
+        duration = kBMSDDisplayLinkInterval;
     }
     return duration;
 }

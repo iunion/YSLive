@@ -25,7 +25,6 @@ static const size_t kBMBytesPerPixel = 4;
 static const size_t kBMBitsPerComponent = 8;
 
 static const CGFloat kBMBytesPerMB = 1024.0f * 1024.0f;
-static const CGFloat kBMPixelsPerMB = kBMBytesPerMB / kBMBytesPerPixel;
 /*
  * Defines the maximum size in MB of the decoded image when the flag `SDWebImageScaleDownLargeImages` is set
  * Suggested value for iPad1 and iPhone 3GS: 60.
@@ -268,7 +267,7 @@ static const CGFloat kBMDestSeemOverlap = 2.0f;   // the numbers of pixels to ov
     }
     
     // Apply transform
-    CGAffineTransform transform = SDCGContextTransformFromOrientation(orientation, CGSizeMake(newWidth, newHeight));
+    CGAffineTransform transform = BMSDCGContextTransformFromOrientation(orientation, CGSizeMake(newWidth, newHeight));
     CGContextConcatCTM(context, transform);
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgImage); // The rect is bounding box of CGImage, don't swap width & height
     CGImageRef newImageRef = CGBitmapContextCreateImage(context);
@@ -379,9 +378,9 @@ static const CGFloat kBMDestSeemOverlap = 2.0f;   // the numbers of pixels to ov
         // see kDestImageSizeMB, and how it relates to destTotalPixels.
         CGFloat imageScale = sqrt(destTotalPixels / sourceTotalPixels);
         CGSize destResolution = CGSizeZero;
-        destResolution.width = (int)(sourceResolution.width * imageScale);
-        destResolution.height = (int)(sourceResolution.height * imageScale);
-        
+        destResolution.width = MAX(1, (int)(sourceResolution.width * imageScale));
+        destResolution.height = MAX(1, (int)(sourceResolution.height * imageScale));
+
         // device color space
         CGColorSpaceRef colorspaceRef = [self colorSpaceGetDeviceRGB];
         BOOL hasAlpha = [self CGImageContainsAlpha:sourceImageRef];
@@ -419,7 +418,7 @@ static const CGFloat kBMDestSeemOverlap = 2.0f;   // the numbers of pixels to ov
         // The source tile height is dynamic. Since we specified the size
         // of the source tile in MB, see how many rows of pixels high it
         // can be given the input image width.
-        sourceTile.size.height = (int)(tileTotalPixels / sourceTile.size.width );
+        sourceTile.size.height = MAX(1, (int)(tileTotalPixels / sourceTile.size.width));
         sourceTile.origin.x = 0.0f;
         // The output tile is the same proportions as the input tile, but
         // scaled to image scale.
@@ -485,7 +484,7 @@ static const CGFloat kBMDestSeemOverlap = 2.0f;   // the numbers of pixels to ov
 }
 
 + (void)setDefaultScaleDownLimitBytes:(NSUInteger)defaultScaleDownLimitBytes {
-    if (defaultScaleDownLimitBytes < kBMBytesPerMB) {
+    if (defaultScaleDownLimitBytes < kBMBytesPerPixel) {
         return;
     }
     kBMDestImageLimitBytes = defaultScaleDownLimitBytes;
@@ -596,13 +595,10 @@ static const CGFloat kBMDestSeemOverlap = 2.0f;   // the numbers of pixels to ov
     }
     CGFloat destTotalPixels;
     if (bytes == 0) {
-        bytes = kBMDestImageLimitBytes;
+        bytes = [self defaultScaleDownLimitBytes];
     }
+    bytes = MAX(bytes, kBMBytesPerPixel);
     destTotalPixels = bytes / kBMBytesPerPixel;
-    if (destTotalPixels <= kBMPixelsPerMB) {
-        // Too small to scale down
-        return NO;
-    }
     float imageScale = destTotalPixels / sourceTotalPixels;
     if (imageScale < 1) {
         shouldScaleDown = YES;
@@ -613,7 +609,7 @@ static const CGFloat kBMDestSeemOverlap = 2.0f;   // the numbers of pixels to ov
     return shouldScaleDown;
 }
 
-static inline CGAffineTransform SDCGContextTransformFromOrientation(CGImagePropertyOrientation orientation, CGSize size) {
+static inline CGAffineTransform BMSDCGContextTransformFromOrientation(CGImagePropertyOrientation orientation, CGSize size) {
     // Inspiration from @libfeihu
     // We need to calculate the proper transformation to make the image upright.
     // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.

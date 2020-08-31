@@ -47,7 +47,7 @@ static const BMSDImageFormat BMSDImageFormatSVG       = 8;
  *  @return The UTType as CFStringRef
  *  @note For unknown format, `kUTTypeImage` abstract type will return
  */
-+ (nonnull CFStringRef)bmsd_UTTypeFromImageFormat:(BMSDImageFormat)format CF_RETURNS_NOT_RETAINED NS_SWIFT_NAME(sd_UTType(from:));
++ (nonnull CFStringRef)bmsd_UTTypeFromImageFormat:(BMSDImageFormat)format CF_RETURNS_NOT_RETAINED NS_SWIFT_NAME(bmsd_UTType(from:));
 
 /**
  *  Convert UTType to SDImageFormat

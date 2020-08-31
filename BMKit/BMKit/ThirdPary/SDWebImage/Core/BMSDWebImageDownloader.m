@@ -53,11 +53,11 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
 + (void)initialize {
     // Bind SDNetworkActivityIndicator if available (download it here: http://github.com/rs/SDNetworkActivityIndicator )
     // To use it, just add #import "SDNetworkActivityIndicator.h" in addition to the SDWebImage import
-    if (NSClassFromString(@"SDNetworkActivityIndicator")) {
+    if (NSClassFromString(@"BMSDNetworkActivityIndicator")) {
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        id activityIndicator = [NSClassFromString(@"SDNetworkActivityIndicator") performSelector:NSSelectorFromString(@"sharedActivityIndicator")];
+        id activityIndicator = [NSClassFromString(@"BMSDNetworkActivityIndicator") performSelector:NSSelectorFromString(@"sharedActivityIndicator")];
 #pragma clang diagnostic pop
 
         // Remove observer in case it was previously added.
@@ -301,12 +301,11 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     mutableRequest.HTTPShouldUsePipelining = YES;
     BMSD_LOCK(self.HTTPHeadersLock);
     mutableRequest.allHTTPHeaderFields = self.HTTPHeaders;
-    BMSD_UNLOCK(self.HTTPHeadersLock);
-    
     if ([host bm_isNotEmpty])
     {
         [mutableRequest setValue:host forHTTPHeaderField:@"host"];
     }
+    BMSD_UNLOCK(self.HTTPHeadersLock);
     
     // Context Option
     BMSDWebImageMutableContext *mutableContext;
