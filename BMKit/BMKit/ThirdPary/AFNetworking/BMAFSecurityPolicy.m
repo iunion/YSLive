@@ -60,7 +60,10 @@ static id BMAFPublicKeyForCertificate(NSData *certificate) {
 
     policy = SecPolicyCreateBasicX509();
     __Require_noErr_Quiet(SecTrustCreateWithCertificates(allowedCertificate, policy, &allowedTrust), _out);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     __Require_noErr_Quiet(SecTrustEvaluate(allowedTrust, &result), _out);
+#pragma clang diagnostic pop
 
     allowedPublicKey = (__bridge_transfer id)SecTrustCopyPublicKey(allowedTrust);
 
@@ -83,7 +86,10 @@ _out:
 static BOOL BMAFServerTrustIsValid(SecTrustRef serverTrust) {
     BOOL isValid = NO;
     SecTrustResultType result;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     __Require_noErr_Quiet(SecTrustEvaluate(serverTrust, &result), _out);
+#pragma clang diagnostic pop
 
     isValid = (result == kSecTrustResultUnspecified || result == kSecTrustResultProceed);
 
@@ -115,10 +121,11 @@ static NSArray * BMAFPublicKeyTrustChainForServerTrust(SecTrustRef serverTrust) 
 
         SecTrustRef trust;
         __Require_noErr_Quiet(SecTrustCreateWithCertificates(certificates, policy, &trust), _out);
-
         SecTrustResultType result;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         __Require_noErr_Quiet(SecTrustEvaluate(trust, &result), _out);
-
+#pragma clang diagnostic pop
         [trustChain addObject:(__bridge_transfer id)SecTrustCopyPublicKey(trust)];
 
     _out:
