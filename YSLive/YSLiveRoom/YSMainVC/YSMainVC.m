@@ -270,16 +270,23 @@
                 case 0:
                 {//显示全部消息
                     weakSelf.chaView.showType = YSMessageShowTypeAll;
+                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconNor") forState:UIControlStateNormal];
+                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconSel") forState:UIControlStateHighlighted];
+                    
                 }
                     break;
                 case 1:
                 {//仅看主播消息
                     weakSelf.chaView.showType = YSMessageShowTypeAnchor;
+                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAnchor", @"iconNor") forState:UIControlStateNormal];
+                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAnchor", @"iconSel") forState:UIControlStateHighlighted];
                 }
                     break;
                 case 2:
                 {//仅看自己消息
                     weakSelf.chaView.showType = YSMessageShowTypeMain;
+                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageMine", @"iconNor") forState:UIControlStateNormal];
+                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageMine", @"iconSel") forState:UIControlStateHighlighted];
                 }
                     break;
                     

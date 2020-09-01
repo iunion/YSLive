@@ -648,16 +648,26 @@
 		<key>iconSel</key>
 		<string>liveChat_emotionYSPush_skin</string>
 	</dict>
-	<key>live_chatMessagePersional</key>
+	<key>live_chatMessageAllPersional</key>
 	<dict>
-		<key>tittleColor</key>
-		<string></string>
-		<key>bgColor</key>
-		<string></string>
 		<key>iconNor</key>
-		<string>liveChat_messagePersonal_skin</string>
+		<string>liveChat_messageAllPersonal_skin</string>
 		<key>iconSel</key>
-		<string>liveChat_messagePersonalPush_skin</string>
+		<string>liveChat_messageAllPersonalPush_skin</string>
+	</dict>
+	<key>live_chatMessageMine</key>
+	<dict>
+		<key>iconNor</key>
+		<string>liveChat_messageMine_skin</string>
+		<key>iconSel</key>
+		<string>liveChat_messageMinePush_skin</string>
+	</dict>
+	<key>live_chatMessageAnchor</key>
+	<dict>
+		<key>iconNor</key>
+		<string>liveChat_messageAnchor_skin</string>
+		<key>iconSel</key>
+		<string>liveChat_messageAnchorPush_skin</string>
 	</dict>
 	<key>live_chatdeleteBtn</key>
 	<dict>

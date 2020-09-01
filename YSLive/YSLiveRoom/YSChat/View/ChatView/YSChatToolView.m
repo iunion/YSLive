@@ -50,8 +50,8 @@ UITextViewDelegate
     _msgTypeBtn = ({
         UIButton * msgTypeBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 15 - 24 , 15, 24, 24)];
         [msgTypeBtn addTarget:self action:@selector(msgTypeBtnBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessagePersional", @"iconNor") forState:UIControlStateNormal];
-        [msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessagePersional", @"iconSel") forState:UIControlStateHighlighted];
+        [msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconNor") forState:UIControlStateNormal];
+        [msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconSel") forState:UIControlStateHighlighted];
         msgTypeBtn;
     });
     [self addSubview:_msgTypeBtn];
