@@ -3343,6 +3343,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 主房间上下课
 - (void)handleSignalingGroupRoomBegin:(BOOL)isGroupBegin
 {
+   
+    if (isGroupBegin)
+    {
+        [self addVideoViewWithPeerId:self.liveManager.teacher.peerID];
+    }
+    
     if (self.liveManager.isParentRoomLecture)
     {
         self.spreadBottomToolBar.isToolBoxEnable = NO;
@@ -3371,7 +3377,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     self.teacherPlaceLab.hidden = YES;
     
-    [self addVideoViewWithPeerId:self.liveManager.teacher.peerID];
+    if (!self.liveManager.isGroupRoom)
+    {
+        [self addVideoViewWithPeerId:self.liveManager.teacher.peerID];
+    }
 
     [self freshTeacherPersonListData];
        
