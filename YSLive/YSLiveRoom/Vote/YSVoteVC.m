@@ -259,7 +259,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     _voteModel = voteModel;
     self.topView.voteModel = voteModel;
     self.voteNameLabel.text = voteModel.subject;
-    self.voteTypeLabel.text = [NSString stringWithFormat:@"%@  ",self.voteType == YSVoteVCType_Single ? YSLocalized(@"Label.Single"):YSLocalized(@"Label.Multiple")];
+    self.voteTypeLabel.text = [NSString stringWithFormat:@"%@  ",self.voteModel.isSingle ? YSLocalized(@"Label.Single"):YSLocalized(@"Label.Multiple")];
 
     self.voteTypeLabel.hidden = NO;
 

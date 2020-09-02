@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGSize subjectSize;
 @property (nonatomic, assign) CGFloat rightAnswerHeight;
 @property (nonatomic, assign) CGFloat topViewHeight;
+@property (nonatomic, assign) BOOL isSingle;
 @end
 
 @interface YSVoteResultModel : NSObject

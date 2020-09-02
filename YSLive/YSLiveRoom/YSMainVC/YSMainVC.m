@@ -1968,7 +1968,7 @@
     voteModel.voteId = voteId;
     voteModel.subject = subject;
     voteModel.desc = desc;
-    
+    voteModel.isSingle = !multi;
     NSMutableArray * arr = [NSMutableArray arrayWithCapacity:0];
     for (int i = 0; i < voteList.count; i++)
     {
@@ -2002,7 +2002,7 @@
     voteModel.voteId = voteId;
     voteModel.subject = subject;
     voteModel.desc = desc;
-    
+    voteModel.isSingle = !multi;
     NSMutableArray * arr = [NSMutableArray arrayWithCapacity:0];
     
     NSUInteger total = 0;
