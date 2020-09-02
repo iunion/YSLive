@@ -1082,6 +1082,7 @@
 - (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
     [super onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
+    [self freshMediaView];
 }
 
 
