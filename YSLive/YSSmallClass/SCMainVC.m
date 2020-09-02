@@ -3685,6 +3685,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    [self.liveManager.whiteBoardManager clearGroupData];
     SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
     teacherVideo.groopRoomState = SCGroopRoomState_Normal;
+    if (self.liveManager.isParentRoomLecture && !self.fullTeacherFloatView.hidden)
+    {
+        /// 当本地先处于画中画 模式时 再关闭讨论  名师正常显示
+        self.fullTeacherVideoView.groopRoomState = SCGroopRoomState_Normal;
+    }
+    
 }
 
 /// 关闭授课（开始讨论）
@@ -3693,6 +3699,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
     teacherVideo.groopRoomState = SCGroopRoomState_Discussing;
     [self stopVideoAudioWithVideoView:teacherVideo];
+    
+    if (!self.liveManager.isParentRoomLecture && !self.fullTeacherFloatView.hidden)
+    {
+        /// 当本地先处于画中画 模式时 再开启讨论  名师占位图显示讨论中
+        self.fullTeacherVideoView.groopRoomState = SCGroopRoomState_Discussing;
+    }
+    
 //    self getVideoViewWithPeerId:self.liveManager.classMaster.peerID andSourceId:self.liveManager.classMaster.sourceListDic
 }
 
@@ -3716,6 +3729,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;
         teacherVideo.groopRoomState = isChating ? SCGroopRoomState_PrivateChat : SCGroopRoomState_Normal;
+        
+        if (!self.fullTeacherFloatView.hidden)
+        {
+            /// 当本地先处于画中画 模式时 再开关私聊  名师占位图显示私聊中还是正常显示
+            self.fullTeacherVideoView.groopRoomState = self.liveManager.isParentRoomChating ? SCGroopRoomState_PrivateChat : SCGroopRoomState_Normal;
+        }
     }
 }
 
@@ -4931,6 +4950,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //            SCVideoView *oldTeacherVideo = self.teacherVideoViewArray.firstObject;
             fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher withSourceId:teacherVideo.sourceId isForPerch:NO withDelegate:self];
             fullTeacherVideoView.streamId = teacherVideo.streamId;
+            if (!self.liveManager.isParentRoomLecture)
+            {
+                fullTeacherVideoView.groopRoomState = SCGroopRoomState_Discussing;
+            }
+            else if (self.liveManager.isParentRoomChating)
+            {
+                fullTeacherVideoView.groopRoomState = SCGroopRoomState_PrivateChat;
+            }
         }
         
         fullTeacherVideoView.frame = self.fullTeacherFloatView.bounds;
