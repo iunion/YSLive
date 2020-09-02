@@ -281,7 +281,7 @@ static NSString * _defaultBMDiskCacheDirectory;
     });
 }
 
-// Make sure to call form io queue by caller
+// Make sure to call from io queue by caller
 - (void)_storeImageDataToDisk:(nullable NSData *)imageData forKey:(nullable NSString *)key {
     if (!imageData || !key) {
         return;
@@ -316,7 +316,7 @@ static NSString * _defaultBMDiskCacheDirectory;
     return exists;
 }
 
-// Make sure to call form io queue by caller
+// Make sure to call from io queue by caller
 - (BOOL)_diskImageDataExistsWithKey:(nullable NSString *)key {
     if (!key) {
         return NO;
@@ -528,27 +528,24 @@ static NSString * _defaultBMDiskCacheDirectory;
         @autoreleasepool {
             NSData *diskData = [self diskImageDataBySearchingAllPathsForKey:key];
             UIImage *diskImage;
-            BMSDImageCacheType cacheType = BMSDImageCacheTypeNone;
             if (image) {
                 // the image is from in-memory cache, but need image data
                 diskImage = image;
-                cacheType = BMSDImageCacheTypeMemory;
             } else if (diskData) {
-                cacheType = BMSDImageCacheTypeDisk;
                 // decode image data only if in-memory cache missed
                 diskImage = [self diskImageForKey:key data:diskData options:options context:context];
                 if (diskImage && self.config.shouldCacheImagesInMemory) {
-                    NSUInteger cost = diskImage.bmsd_memoryCost;
+                    NSUInteger cost = diskImage.sd_memoryCost;
                     [self.memoryCache setObject:diskImage forKey:key cost:cost];
                 }
             }
             
             if (doneBlock) {
                 if (shouldQueryDiskSync) {
-                    doneBlock(diskImage, diskData, cacheType);
+                    doneBlock(diskImage, diskData, SDImageCacheTypeDisk);
                 } else {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        doneBlock(diskImage, diskData, cacheType);
+                        doneBlock(diskImage, diskData, SDImageCacheTypeDisk);
                     });
                 }
             }

@@ -174,7 +174,29 @@ const int64_t BMSDWebImageProgressUnitCountUnknown = 1LL;
 #if BMSD_UIKIT || BMSD_MAC
             // check whether we should use the image transition
             BMSDWebImageTransition *transition = nil;
-            if (finished && (options & BMSDWebImageForceTransition || cacheType == BMSDImageCacheTypeNone)) {
+            BOOL shouldUseTransition = NO;
+            if (options & BMSDWebImageForceTransition) {
+                // Always
+                shouldUseTransition = YES;
+            } else if (cacheType == BMSDImageCacheTypeNone) {
+                // From network
+                shouldUseTransition = YES;
+            } else {
+                // From disk (and, user don't use sync query)
+                if (cacheType == BMSDImageCacheTypeMemory) {
+                    shouldUseTransition = NO;
+                } else if (cacheType == BMSDImageCacheTypeDisk) {
+                    if (options & BMSDWebImageQueryMemoryDataSync || options & BMSDWebImageQueryDiskDataSync) {
+                        shouldUseTransition = NO;
+                    } else {
+                        shouldUseTransition = YES;
+                    }
+                } else {
+                    // Not valid cache type, fallback
+                    shouldUseTransition = NO;
+                }
+            }
+            if (finished && shouldUseTransition) {
                 transition = self.bmsd_imageTransition;
             }
 #endif
