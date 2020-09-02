@@ -535,17 +535,17 @@ static NSString * _defaultBMDiskCacheDirectory;
                 // decode image data only if in-memory cache missed
                 diskImage = [self diskImageForKey:key data:diskData options:options context:context];
                 if (diskImage && self.config.shouldCacheImagesInMemory) {
-                    NSUInteger cost = diskImage.sd_memoryCost;
+                    NSUInteger cost = diskImage.bmsd_memoryCost;
                     [self.memoryCache setObject:diskImage forKey:key cost:cost];
                 }
             }
             
             if (doneBlock) {
                 if (shouldQueryDiskSync) {
-                    doneBlock(diskImage, diskData, SDImageCacheTypeDisk);
+                    doneBlock(diskImage, diskData, BMSDImageCacheTypeDisk);
                 } else {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        doneBlock(diskImage, diskData, SDImageCacheTypeDisk);
+                        doneBlock(diskImage, diskData, BMSDImageCacheTypeDisk);
                     });
                 }
             }
