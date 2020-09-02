@@ -1703,30 +1703,30 @@
     [self.view endEditing:YES];
     
     // stateType    0--1分钟  1--3分钟  2--5分钟  3--10分钟  4--30分钟
-    NSInteger time = 0;
+    NSTimeInterval time = 0.0f;
     switch (stateType)
     {
         case YSSignCountDownType_ONE:
-            time = 1 * 60;
+            time = 1.0f * 60.0f;
             break;
         case YSSignCountDownType_THREE:
-            time = 3 * 60;
+            time = 3.0f * 60.0f;
             break;
         case YSSignCountDownType_FIVE:
-            time = 5 * 60;
+            time = 5.0f * 60.0f;
             break;
         case YSSignCountDownType_TEN:
-            time = 10 * 60;
+            time = 10.0f * 60.0f;
             break;
         case YSSignCountDownType_THIRTY:
-            time = 30 * 60;
+            time = 30.0f * 60.0f;
             break;
         default:
             break;
     }
     
     time = time - apartTimeInterval;
-    if (time <= 0 )
+    if (time <= 0.0f )
     {
         return;
     }
