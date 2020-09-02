@@ -15,8 +15,11 @@
 
 //#import <YSWhiteBoardSDK/YSWhiteBoardSDK.h>
 
-#import <YSWhiteBoardSDK/YSWhiteBoardManager.h>
+//#import <YSWhiteBoardSDK/YSWhiteBoardManager.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+
+#import "YSMainViewController.h"
+
 
 #define USE_COOKIES     0
 
@@ -39,7 +42,9 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
 @interface YSLoginVC ()
 <
     UITextFieldDelegate,
-    YSInputViewDelegate
+    YSInputViewDelegate,
+    YSWhiteBoardSDKDelegate,
+    YSWhiteBoardManagerDelegate
 >
 {
     YSUserRoleType userRole;
@@ -47,7 +52,7 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
 
 
 
-@property (nonatomic, weak) YSWhiteBoardManager *whiteBoardSDKManager;
+@property (nonatomic, weak) YSWhiteBoardSDKManager *whiteBoardSDKManager;
 /// 背景滚动
 @property (nonatomic, strong) UIScrollView *backScrollView;
 /// 背景
@@ -138,21 +143,8 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
         self.joinRoomBtn.enabled = NO;
     }
 
-//    NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
-//    self.ysSDKManager = [YSSDKManager sharedInstance];
-//    [self.ysSDKManager registerManagerDelegate:self];
-    
-//    [self registerRoomForWhiteBoardDelegate:self.whiteBoardSDKManager];
-    
-    NSDictionary *whiteBoardConfig = @{
-        YSWhiteBoardWebProtocolKey : @"https",
-        YSWhiteBoardWebHostKey : @"api.roadofcloud.net",
-        YSWhiteBoardWebPortKey : @(443),
-        YSWhiteBoardPlayBackKey : @(NO),
-        YSWhiteBoardPDFLevelsKey : @(2)
-    };
-    self.whiteBoardSDKManager = [YSWhiteBoardManager sharedInstance];
-    [self.whiteBoardSDKManager registerDelegate:self configration:whiteBoardConfig];
+    self.whiteBoardSDKManager = [YSWhiteBoardSDKManager sharedInstance];
+    [self.whiteBoardSDKManager registerSDKManagerDelegate:self];
     
     
 #if USE_COOKIES
@@ -164,17 +156,6 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
     [self.ysSDKManager setConnectH5CoursewareUrlCookies:@[cookieDic]];
 #endif
     
-    // 设置H5课件扩展参数
-//    [self.ysSDKManager changeConnectH5CoursewareUrlParameters:@{@"app_token" : @"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYWRhbmFtdSBhcHAiLCJleHAiOjE1OTE0MjcyOTMsImlhdCI6MTU4ODgzNTI2MywiaXNzIjoiS2lkc0xvb3BDaGluYVVzZXIiLCJzdWIiOiJhdXRob3JpemF0aW9uIiwiVG9rZW5UeXBlIjowLCJEYXRhIjoiSE9HdE1Ub3dsVVhyeGRQdlFmYXNKRHIvK3k0OWhQU2Q1ajVrblFEMEViV3g0d202L3dsYkdWS0NicjZoeU90WUpPQlRjVmJvK2NUbXNySVhSV0s1amQ4bVRkOXNnN253RlAzZGFQajZjV3FjTzdrMEMxNDNYQlV6YmJ1bEFHVHVJWFpKYy9Fa2p2am43c0Z4OGNGLyJ9.HCRjxXuE9wU_ingpplY88Zl9O-TyvxgZ1H5yoOxEtNFPfZ1-tllQ-RZfMH5mX5zEWx1WI6TbKr_jPVN4j73aJYUC90hPmXG4VZLVQgt9ffVEnheKc8_ZATSF0LD0P8pERUjnqXp4cMPcEk37VSAZcOzdySdgR8_ac1FPfZV9eL8"}];
-    
-//    if (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
-//    {
-//        [self.ysSDKManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_ipad"]];
-//    }
-//    else
-//    {
-//        [self.whiteBoardSDKManager setWhiteBoardBackGroundColor:nil maskImage:[UIImage imageNamed:@"whiteboardmask_iphone"]];
-//    }
 }
 
 
@@ -538,29 +519,8 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
     // 根据实际用户变更用户身份
     userRole = YSUserType_Teacher;
 
-            // 学生登入
-            // 注意： 直播只支持学生身份登入房间
-//    [self.whiteBoardSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:nil userId:nil userParams:nil];
-    
-//
-    NSMutableDictionary *parameters = @{
-        @"serial" : roomId,
-        @"userrole" : @(userRole),
-        @"server" : @"global",
-        @"clientType" : @(3)
-    }.mutableCopy;
-    
-//    if ([roomPassword bm_isNotEmpty])
-//    {
-//        [parameters setObject:roomPassword forKey:YSJoinRoomParamsPasswordKey];
-//    }
-//
-//    if ([userId bm_isNotEmpty])
-//    {
-//        [parameters setObject:userId forKey:YSJoinRoomParamsUserIDKey];
-//    }
-    
-    [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomParams:parameters userParams:nil];
+    // 学生登入
+    [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
 }
 
 #else
@@ -615,15 +575,12 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
     [self.progressHUD showAnimated:YES];
 }
 
-
 #endif
+
 
 #pragma mark -
 #pragma mark YSLiveSDKDelegate
-
-/// 成功进入房间
-//- (void)onRoomJoinWithRoomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
-- (void)onRoomDidJoin
+- (void)onRoomJoined
 {
     NSLog(@"onRoomJoined");
     
@@ -640,6 +597,12 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
     {
         GetAppDelegate.allowRotation = YES;
     }
+    
+    YSMainViewController * mainVC = [[YSMainViewController alloc]init];
+    
+    mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:mainVC animated:YES completion:nil];
+    
 }
 
 /**
@@ -713,7 +676,8 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
         {
             // 老师(会议主持)登入
             // 注意： 小班课和会议支持老师和学生身份登入房间
-            [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomParams:nil userParams:nil];
+//            [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomParams:nil userParams:nil];
+             [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
         }
     }];
     [alertVc addAction:confimAc];
