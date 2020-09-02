@@ -8,6 +8,8 @@
 
 #import <YSWhiteBoard/YSWhiteBoard.h>
 
+#if USECUSTOMER_COURSEWARECONTROLVIEW
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSNewCoursewareControlView : YSCoursewareControlView
@@ -15,3 +17,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif
