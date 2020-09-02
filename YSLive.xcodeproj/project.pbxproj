@@ -381,6 +381,7 @@
 		8717E3722400DFD1008C4CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8717E36D2400DFD1008C4CDA /* InfoPlist.strings */; };
 		8717E3732400DFD1008C4CDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717E3712400DFD1008C4CDA /* Assets.xcassets */; };
 		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
+		8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FF2424F79DF600BDF294 /* YSNewCoursewareControlView.m */; };
 		8745557C23B3358000BC6CAB /* YSSkinCoverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */; };
 		8745557D23B3358000BC6CAB /* YSSkinCoverWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557723B3358000BC6CAB /* YSSkinCoverWindow.m */; };
 		8745557E23B3358000BC6CAB /* YSEyeCareMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557823B3358000BC6CAB /* YSEyeCareMaskView.m */; };
@@ -1089,6 +1090,8 @@
 		872558A823FAB5D9009A3A79 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		874061F3235AA428005D3620 /* YSLiveUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		874061F4235AA428005D3620 /* YSLiveUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveUtil.m; sourceTree = "<group>"; };
+		8742FF2324F79DF600BDF294 /* YSNewCoursewareControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSNewCoursewareControlView.h; sourceTree = "<group>"; };
+		8742FF2424F79DF600BDF294 /* YSNewCoursewareControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSNewCoursewareControlView.m; sourceTree = "<group>"; };
 		8745557223B3358000BC6CAB /* YSSkinCoverWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSkinCoverWindow.h; sourceTree = "<group>"; };
 		8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSkinCoverLayer.m; sourceTree = "<group>"; };
 		8745557423B3358000BC6CAB /* YSEyeCareMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSEyeCareMaskView.h; sourceTree = "<group>"; };
@@ -2570,6 +2573,8 @@
 				87517E4024A453A70094E2B3 /* YSLiveForWhiteBoardDelegate.h */,
 				87517E3C24A35C870094E2B3 /* YSLiveManager.h */,
 				87517E3D24A35C870094E2B3 /* YSLiveManager.m */,
+				8742FF2324F79DF600BDF294 /* YSNewCoursewareControlView.h */,
+				8742FF2424F79DF600BDF294 /* YSNewCoursewareControlView.m */,
 				874061F3235AA428005D3620 /* YSLiveUtil.h */,
 				874061F4235AA428005D3620 /* YSLiveUtil.m */,
 			);
@@ -3836,6 +3841,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */,
+				8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */,
 				87832FB824874C4300F1178E /* FLEXAddressExplorerCoordinator.m in Sources */,
 				8783302224874C4400F1178E /* FLEXColor.m in Sources */,
 				87832FBA24874C4300F1178E /* FLEXTableLeftCell.m in Sources */,

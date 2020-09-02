@@ -188,7 +188,7 @@
     {
         NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.questionArr.count-1 inSection:0];
       
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self.questTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         });
     }
