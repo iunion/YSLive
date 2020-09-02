@@ -580,7 +580,7 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
 
 #pragma mark -
 #pragma mark YSLiveSDKDelegate
-- (void)onRoomJoined
+- (void)onRoomJoinedWithUserId:(NSString *)userId
 {
     NSLog(@"onRoomJoined");
     
@@ -598,7 +598,7 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
         GetAppDelegate.allowRotation = YES;
     }
     
-    YSMainViewController * mainVC = [[YSMainViewController alloc]init];
+    YSMainViewController * mainVC = [[YSMainViewController alloc]initWithwhiteBordView:self.whiteBoardSDKManager.mainWhiteBoardView userId:userId];
     
     mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:mainVC animated:YES completion:nil];
@@ -722,6 +722,72 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
 {
     NSLog(@"onEnterClassRoom");
 
+}
+
+
+/// 白板准备完毕
+- (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
+{
+    
+}
+
+/**
+ 文件列表回调
+ @param fileList 文件NSDictionary列表
+ */
+- (void)onWhiteBroadFileList:(NSArray *)fileList
+{
+    
+}
+
+/// H5脚本文件加载初始化完成
+- (void)onWhiteBoardPageFinshed:(NSString *)fileId
+{
+    
+}
+
+/// 切换Web课件加载状态
+- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    
+}
+
+/// Web课件翻页结果
+- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    
+}
+/// 翻页超时
+- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    
+}
+/// 课件缩放
+- (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
+{
+    
+}
+
+
+#pragma mark - 课件事件
+
+/// 课件全屏
+- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
+{
+    
+}
+
+/// 切换课件
+- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
+{
+    
+}
+
+
+/// 课件窗口最大化事件
+- (void)onWhiteBoardMaximizeView
+{
+    
 }
 
 @end
