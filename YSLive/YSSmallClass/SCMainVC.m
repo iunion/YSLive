@@ -1411,10 +1411,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [videoView removeFromSuperview];
         }
-        else if (![self.videoSequenceArr containsObject:videoView])
-        {
-            [videoView removeFromSuperview];
-        }
+//        else if (![self.videoSequenceArr containsObject:videoView])
+//        {
+//            [videoView removeFromSuperview];
+//        }
     }
     
     for (SCVideoView *videoView in self.videoSequenceArr)
