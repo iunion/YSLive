@@ -742,11 +742,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     CGSize textViewSize = [attribute bm_sizeToFit:CGSizeMake(250.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     textView.attributedText = attribute;
+    textView.textAlignment = NSTextAlignmentCenter;
     [textView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.bottom.bmmas_equalTo(-20.f);
         make.height.bmmas_equalTo(textViewSize.height + textView.textContainerInset.top + textView.textContainerInset.bottom+ 2.0f);
-        make.width.bmmas_equalTo(250.f);
-        make.centerX.bmmas_equalTo(weakSelf.joinRoomBtn.bmmas_centerX);
+        make.left.bmmas_equalTo(5.0f);
+        make.right.bmmas_equalTo(-5.0f);
     }];
     
 //    // 用户协议
@@ -777,12 +778,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return NO;
 }
 
-/// 同意用户协议
+///// 同意用户协议
 //- (void)userAgreementClicked:(UIButton *)btn
 //{
 //    btn.selected = !btn.selected;
 //    [YSUserDefault setUserAgreement:btn.selected];
-//    
+//
 //}
 
 #pragma mark --键盘弹出收起管理
@@ -1111,7 +1112,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //        [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Agreement.Alert") message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
 //        return;
 //    }
-    
+//
     if (![YSCoreStatus isNetworkEnable])
     {
         [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.WaitingForNetwork") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];

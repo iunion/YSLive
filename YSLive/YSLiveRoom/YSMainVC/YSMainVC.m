@@ -1082,6 +1082,7 @@
 - (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
     [super onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
+    [self freshMediaView];
 }
 
 
@@ -1968,7 +1969,7 @@
     voteModel.voteId = voteId;
     voteModel.subject = subject;
     voteModel.desc = desc;
-    
+    voteModel.isSingle = !multi;
     NSMutableArray * arr = [NSMutableArray arrayWithCapacity:0];
     for (int i = 0; i < voteList.count; i++)
     {
@@ -2002,7 +2003,7 @@
     voteModel.voteId = voteId;
     voteModel.subject = subject;
     voteModel.desc = desc;
-    
+    voteModel.isSingle = !multi;
     NSMutableArray * arr = [NSMutableArray arrayWithCapacity:0];
     
     NSUInteger total = 0;
