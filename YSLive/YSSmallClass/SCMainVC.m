@@ -4958,13 +4958,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //            SCVideoView *oldTeacherVideo = self.teacherVideoViewArray.firstObject;
             fullTeacherVideoView = [[SCVideoView alloc] initWithRoomUser:self.liveManager.teacher withSourceId:teacherVideo.sourceId isForPerch:NO withDelegate:self];
             fullTeacherVideoView.streamId = teacherVideo.streamId;
-            if (!self.liveManager.isParentRoomLecture)
+            if (self.liveManager.isGroupRoom)
             {
-                fullTeacherVideoView.groopRoomState = SCGroopRoomState_Discussing;
-            }
-            else if (self.liveManager.isParentRoomChating)
-            {
-                fullTeacherVideoView.groopRoomState = SCGroopRoomState_PrivateChat;
+                if (!self.liveManager.isParentRoomLecture)
+                {
+                    fullTeacherVideoView.groopRoomState = SCGroopRoomState_Discussing;
+                }
+                else if (self.liveManager.isParentRoomChating)
+                {
+                    fullTeacherVideoView.groopRoomState = SCGroopRoomState_PrivateChat;
+                }
             }
         }
         
