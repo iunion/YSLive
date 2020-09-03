@@ -750,22 +750,22 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }];
     
 //    // 用户协议
-//    UIButton *userAgreement = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.backImageView addSubview:userAgreement];
-//    [userAgreement setImage:YSSkinElementImage(@"login_userAgreement", @"iconNor") forState:UIControlStateNormal];
-//    [userAgreement setImage:YSSkinElementImage(@"login_userAgreement", @"iconSel") forState:UIControlStateSelected];
-//    [userAgreement addTarget:self action:@selector(userAgreementClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [userAgreement bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-//        make.right.bmmas_equalTo(textView.bmmas_left).bmmas_offset(-2);
-//        make.height.bmmas_equalTo(25);
-//        make.width.bmmas_equalTo(25);
-//        make.centerY.bmmas_equalTo(textView.bmmas_centerY);
-//    }];
-//
-//    if ([YSUserDefault getUserAgreement])
-//    {
-//        userAgreement.selected = YES;
-//    }
+    UIButton *userAgreement = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.backImageView addSubview:userAgreement];
+    [userAgreement setImage:YSSkinElementImage(@"login_userAgreement", @"iconNor") forState:UIControlStateNormal];
+    [userAgreement setImage:YSSkinElementImage(@"login_userAgreement", @"iconSel") forState:UIControlStateSelected];
+    [userAgreement addTarget:self action:@selector(userAgreementClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [userAgreement bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+        make.right.bmmas_equalTo(textView.bmmas_left).bmmas_offset(-2);
+        make.height.bmmas_equalTo(25);
+        make.width.bmmas_equalTo(25);
+        make.centerY.bmmas_equalTo(textView.bmmas_centerY);
+    }];
+
+    if ([YSUserDefault getUserAgreement])
+    {
+        userAgreement.selected = YES;
+    }
 }
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     NSLog(@"%@",URL);
@@ -778,12 +778,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
 }
 
 /// 同意用户协议
-//- (void)userAgreementClicked:(UIButton *)btn
-//{
-//    btn.selected = !btn.selected;
-//    [YSUserDefault setUserAgreement:btn.selected];
-//    
-//}
+- (void)userAgreementClicked:(UIButton *)btn
+{
+    btn.selected = !btn.selected;
+    [YSUserDefault setUserAgreement:btn.selected];
+    
+}
 
 #pragma mark --键盘弹出收起管理
 
@@ -1106,11 +1106,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
-//    if (![YSUserDefault getUserAgreement])
-//    {
-//        [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Agreement.Alert") message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
-//        return;
-//    }
+    if (![YSUserDefault getUserAgreement])
+    {
+        [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Agreement.Alert") message:nil cancelTitle:YSLocalizedSchool(@"Prompt.OK") completion:nil];
+        return;
+    }
     
     if (![YSCoreStatus isNetworkEnable])
     {

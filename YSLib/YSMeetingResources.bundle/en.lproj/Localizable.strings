@@ -434,7 +434,8 @@
 
 "Agreement.User"        = "User Agreement";
 "Agreement.Privacy"     = "Privacy Policy";
-"Agreement.Agree"       = "By entering the room, you agree to the Privacy Policy and User Agreement";
+"Agreement.Agree"       = "Have read and agreed to the Privacy Policy and User Agreement";
+//"Agreement.Agree"       = "By entering the room, you agree to the Privacy Policy and User Agreement";
 "Agreement.Alert"       = "Please read carefully and check the privacy policy and user agreement";
 
 
