@@ -51,20 +51,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.view.backgroundColor = UIColor.whiteColor;
-        
-    // 白板背景
-//    UIView *whitebordBackgroud = [[UIView alloc] initWithFrame:CGRectMake(50, 50, self.view.frame.size.height - 100, self.view.frame.size.width - 100)];
-//    [self.view addSubview:whitebordBackgroud];
-//    whitebordBackgroud.backgroundColor = UIColor.yellowColor;
     
     [self.view addSubview:self.mainWhiteBoardView];
     self.mainWhiteBoardView.frame = CGRectMake(0, 0, self.view.bm_height, self.view.bm_width);
     
     [self setupBrushToolView];
+    
+    
+    UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 50, 100, 50)];;
+    [canDrawBtn addTarget:self action:@selector(canDrawBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [canDrawBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
+//    [canDrawBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
+    [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
+    [canDrawBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:canDrawBtn];
+    canDrawBtn.selected = YES;
+    
 }
+
+- (void)canDrawBtnClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    
+    [self.whiteBoardSDKManager changeUserCandraw:sender.selected];
+    
+    self.brushToolOpenBtn.hidden = self.brushToolView.hidden = !sender.selected;
+}
+
 
 #pragma mark UI 工具栏
 
