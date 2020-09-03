@@ -4523,11 +4523,16 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {//私聊的不是自己,关闭除自己外所有用户的audio，
             
             [YSWhiteBoardManager sharedInstance].smallBoardView.smallTopBar.isPrivateChating = NO;
+                        
             for (SCVideoView * videoView in self.videoSequenceArr)
             {
                 if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
                 {
                     videoView.isPrivateChating = YES;
+                }
+//                if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+                {
+                    [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
                 }
             }
         }
@@ -4557,12 +4562,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
         else
         {//私聊的不是自己,打开除自己外所有用户的audio，
-            
             for (SCVideoView * videoView in self.videoSequenceArr)
             {
                 if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
                 {
                     videoView.isPrivateChating = NO;
+                }
+//                if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+                {
+                    [[YSSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
                 }
             }
         }
