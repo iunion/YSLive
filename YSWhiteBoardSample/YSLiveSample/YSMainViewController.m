@@ -65,6 +65,7 @@
 //    [canDrawBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
 //    [canDrawBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
     [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
+    [canDrawBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [canDrawBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:canDrawBtn];
     canDrawBtn.selected = YES;
