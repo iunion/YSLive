@@ -23,9 +23,10 @@
     {
         
         [self addSubview:self.contentView];
-        [self.contentView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.left.top.right.bmmas_equalTo(self);
-            make.height.bmmas_equalTo(self.bmmas_width).bmmas_offset(-2);
+        
+        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.mas_equalTo(self);
+            make.height.mas_equalTo(self.mas_width).mas_offset(-2);
         }];
     }
     return self;
@@ -33,7 +34,7 @@
 
 - (void) changeColor:(NSString *)colorString
 {
-    self.contentView.backgroundColor = [UIColor bm_colorWithHexString:colorString];
+    self.contentView.backgroundColor = [YSCommonTools colorWithHexString:colorString];
 }
 
 - (void)drawRect:(CGRect)rect

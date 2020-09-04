@@ -49,15 +49,15 @@
         self.backgroundColor = UIColor.clearColor;
         
         [self addSubview:self.currentColorView];
-        [self.currentColorView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.top.right.bottom.bmmas_equalTo(self);
-            make.width.bmmas_equalTo(self.bmmas_height);
+        [self.currentColorView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.bottom.mas_equalTo(self);
+            make.width.mas_equalTo(self.mas_height);
         }];
         
         [self addSubview:self.colorListView];
-        [self.colorListView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.top.bottom.left.bmmas_equalTo(self);
-            make.right.bmmas_equalTo(self.currentColorView.bmmas_left).bmmas_offset(-10);
+        [self.colorListView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.left.mas_equalTo(self);
+            make.right.mas_equalTo(self.currentColorView.mas_left).mas_offset(-10);
         }];
         
         [self.colorViewMuArray removeAllObjects];
@@ -65,17 +65,17 @@
         for (int i = 0; i < [SCColorSelectView colorArray].count; i ++) {
             
             UIView * colorView = [[UIView alloc] init];
-            colorView.backgroundColor = [UIColor bm_colorWithHexString:[[SCColorSelectView colorArray] objectAtIndex:i]];
+            colorView.backgroundColor = [YSCommonTools colorWithHexString:[[SCColorSelectView colorArray] objectAtIndex:i]];
             colorView.tag = SCColorViewBaseTag + i;
             [self.colorListView addSubview:colorView];
             [self.colorViewMuArray addObject:colorView];
-            [colorView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-                make.top.and.bottom.bmmas_equalTo(self.colorListView);
-                make.width.bmmas_equalTo(self.colorListView).dividedBy([SCColorSelectView colorArray].count);
+            [colorView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.and.bottom.mas_equalTo(self.colorListView);
+                make.width.mas_equalTo(self.colorListView).dividedBy([SCColorSelectView colorArray].count);
                 if (lastView == nil) {
-                    make.left.bmmas_offset(0);
+                    make.left.mas_offset(0);
                 } else {
-                    make.left.bmmas_equalTo(lastView.bmmas_right);
+                    make.left.mas_equalTo(lastView.mas_right);
                 }
                 lastView = colorView;
             }];
@@ -83,18 +83,18 @@
         
         [self.colorListView addSubview:self.chooseTipView];
         self.chooseTipView.hidden = YES;
-        [self.chooseTipView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.width.and.height.bmmas_equalTo(lastView).bmmas_offset(4);
-            make.center.bmmas_equalTo(lastView);
+        [self.chooseTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.and.height.mas_equalTo(lastView).mas_offset(4);
+            make.center.mas_equalTo(lastView);
         }];
         
         self.colorTipView.hidden = YES;
         [self.colorListView addSubview:self.colorTipView];
-        [self.colorTipView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.width.bmmas_equalTo(self.currentColorView);
-            make.height.bmmas_equalTo(self.colorTipView.bmmas_width).bmmas_offset(2);
-            make.bottom.bmmas_equalTo(lastView.bmmas_top).bmmas_offset(-4);
-            make.centerX.bmmas_equalTo(lastView);
+        [self.colorTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(self.currentColorView);
+            make.height.mas_equalTo(self.colorTipView.mas_width).mas_offset(2);
+            make.bottom.mas_equalTo(lastView.mas_top).mas_offset(-4);
+            make.centerX.mas_equalTo(lastView);
         }];
     }
     return self;
@@ -121,7 +121,7 @@
         _colorListView.layer.borderColor = UIColor.whiteColor.CGColor;
         _colorListView.userInteractionEnabled = YES;
         
-        BMWeakSelf
+        YSWeakSelf
         _colorListView.BeganBlock = ^(CGPoint point) {
             [weakSelf selectorViewTouchDown:point];
         };
@@ -177,7 +177,7 @@
         
         self.chooseTipView.hidden = YES;
         self.colorTipView.hidden  = YES;
-        self.currentColorView.backgroundColor = [UIColor bm_colorWithHexString: self.currentColor];
+        self.currentColorView.backgroundColor = [YSCommonTools colorWithHexString:self.currentColor];
     }
 }
 
@@ -186,22 +186,22 @@
     NSString * chooseColor = [[SCColorSelectView colorArray] objectAtIndex:index];
     self.currentChooseColor = chooseColor;
     
-    self.currentColorView.backgroundColor = [UIColor bm_colorWithHexString:chooseColor];
+    self.currentColorView.backgroundColor = [YSCommonTools colorWithHexString:chooseColor];
     [self.colorTipView changeColor:chooseColor];
     
     
     UIView * colorView = [self.colorListView viewWithTag:SCColorViewBaseTag + index];
-    [self.chooseTipView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
-        make.width.and.height.bmmas_equalTo(colorView).bmmas_offset(4);
-        make.center.bmmas_equalTo(colorView).priorityLow();
+    [self.chooseTipView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.and.height.mas_equalTo(colorView).mas_offset(4);
+        make.center.mas_equalTo(colorView).priorityLow();
     }];
     self.chooseTipView.hidden = NO;
     
-    [self.colorTipView bmmas_remakeConstraints:^(BMMASConstraintMaker *make) {
-        make.width.bmmas_equalTo(self.currentColorView);
-        make.height.bmmas_equalTo(self.colorTipView.bmmas_width).bmmas_offset(2);
-        make.bottom.bmmas_equalTo(colorView.bmmas_top).bmmas_offset(-4);
-        make.centerX.bmmas_equalTo(colorView);
+    [self.colorTipView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(self.currentColorView);
+        make.height.mas_equalTo(self.colorTipView.mas_width).mas_offset(2);
+        make.bottom.mas_equalTo(colorView.mas_top).mas_offset(-4);
+        make.centerX.mas_equalTo(colorView);
     }];
     self.colorTipView.hidden = NO;
 }
@@ -237,7 +237,7 @@
 
 - (void)setCurrentSelectColor:(NSString *)curColor {
     
-    self.currentColorView.backgroundColor = [UIColor bm_colorWithHexString:curColor];
+    self.currentColorView.backgroundColor = [YSCommonTools colorWithHexString:curColor];
     self.currentColor = curColor;
     self.currentChooseColor = curColor;
 }

@@ -23,6 +23,10 @@
 
 #define USE_COOKIES     0
 
+#define YSHost        @"api.roadofcloud.net"
+
+#define YSPort        443
+
 /// 登录时 输入框记录的房间号
 static NSString *const YSLOGIN_USERDEFAULT_ROOMID = @"ysLOGIN_USERDEFAULT_ROOMID";
 /// 登录时 输入框记录的昵称
@@ -38,21 +42,24 @@ extern NSString *const YSWhiteBoardPlayBackKey;
 /// pdf
 extern NSString *const YSWhiteBoardPDFLevelsKey;
 
+/// host
+static NSString *const YSAPPHost = @"api.roadofcloud.net";
+
 
 @interface YSLoginVC ()
 <
     UITextFieldDelegate,
     YSInputViewDelegate,
-    YSWhiteBoardSDKDelegate,
-    YSWhiteBoardManagerDelegate
+    CHWhiteBoardSDKDelegate,
+    CHWhiteBoardManagerDelegate
 >
-{
-    YSUserRoleType userRole;
-}
+//{
+//    YSUserRoleType userRole;
+//}
 
 
 
-@property (nonatomic, weak) YSWhiteBoardSDKManager *whiteBoardSDKManager;
+@property (nonatomic, weak) CHWhiteBoardSDKManager *whiteBoardSDKManager;
 /// 背景滚动
 @property (nonatomic, strong) UIScrollView *backScrollView;
 /// 背景
@@ -143,7 +150,7 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
         self.joinRoomBtn.enabled = NO;
     }
 
-    self.whiteBoardSDKManager = [YSWhiteBoardSDKManager sharedInstance];
+    self.whiteBoardSDKManager = [CHWhiteBoardSDKManager sharedInstance];
     [self.whiteBoardSDKManager registerSDKManagerDelegate:self];
     
     
@@ -181,7 +188,7 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
 
 - (void)setupUI
 {
-    login_WeakSelf
+    YSWeakSelf
     [self.view addSubview:self.backScrollView];
     self.backScrollView.frame = CGRectMake(0, 0,login_UI_SCREEN_WIDTH, login_UI_SCREEN_HEIGHT);
     self.backScrollView.contentSize = CGSizeMake(login_UI_SCREEN_WIDTH, login_UI_SCREEN_HEIGHT);
@@ -278,7 +285,7 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
 
     if (offSet > 0.01)
     {
-        login_WeakSelf
+        YSWeakSelf
         [UIView animateWithDuration:0.1 animations:^{
             weakSelf.backScrollView.contentOffset = CGPointMake(0, offSet);
         }];
@@ -517,10 +524,11 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
     }
 
     // 根据实际用户变更用户身份
-    userRole = YSUserType_Teacher;
+//    userRole = YSUserType_Teacher;
 
     // 学生登入
-    [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
+//    [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
+    [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil userParams:nil];
 }
 
 #else
@@ -651,14 +659,16 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
     __block UITextField *passwordTextField;
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         passwordTextField = textField;
-        if (self->userRole == YSUserType_Teacher)
-        {
-            textField.placeholder = YSSLocalized(@"Error.NeedPwd.teacher");
-        }
-        else
-        {
-            textField.placeholder = YSSLocalized(@"Error.NeedPwd.student");
-        }
+        
+        textField.placeholder = YSSLocalized(@"Error.NeedPwd");
+//        if (self->userRole == YSUserType_Teacher)
+//        {
+//            textField.placeholder = YSSLocalized(@"Error.NeedPwd.teacher");
+//        }
+//        else
+//        {
+//            textField.placeholder = YSSLocalized(@"Error.NeedPwd.student");
+//        }
     }];
 
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -677,7 +687,8 @@ extern NSString *const YSWhiteBoardPDFLevelsKey;
             // 老师(会议主持)登入
             // 注意： 小班课和会议支持老师和学生身份登入房间
 //            [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomParams:nil userParams:nil];
-             [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
+//             [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
+            [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil userParams:nil];
         }
     }];
     [alertVc addAction:confimAc];
