@@ -13,6 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (BMHex)
 
+/// 以下颜色使用RGB16进制颜色数值字符串标识
+/// 前缀支持 0X 0x 中文＃ 英文#
+/// 格式支持 #RRGGBB   #AARRGGBB   #RGB ==> #RRGGBB   #ARGB ==> #AARRGGBB
+/// # 前缀  R 红色  G 绿色  B 蓝色  A alpha
+/// 其中格式#RGB 会被转换为 #RRGGBB 例 #ABC ==> #AABBCC
+/// 其中格式#ARGB 会被转换为 #AAARRGGBB 例 #0ABC ==> #00AABBCC
+/// 透明色指定使用 #0 或 0x0
 + (nullable UIColor *)bm_colorWithHexString:(nullable NSString *)stringToConvert;
 + (nullable UIColor *)bm_colorWithHexString:(nullable NSString *)stringToConvert alpha:(CGFloat)alpha;
 + (nullable UIColor *)bm_colorWithHexString:(nullable NSString *)stringToConvert default:(nullable UIColor *)color;
