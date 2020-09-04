@@ -17,9 +17,11 @@
 		0416160D24FF7BE700144271 /* SCColorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416160524FF7BE700144271 /* SCColorTipView.m */; };
 		0416160E24FF7BE700144271 /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416160824FF7BE700144271 /* SCDrawBoardView.m */; };
 		0416160F24FF7BE700144271 /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416160924FF7BE700144271 /* YSSliderSuperView.m */; };
-		0416161324FF7F1600144271 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0416161224FF7F1600144271 /* BMKit.framework */; };
 		0416161A24FF852B00144271 /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416161824FF852B00144271 /* YSLiveSkinManager.m */; };
 		0416161C24FF882100144271 /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0416161B24FF882100144271 /* YSSkinRsource.bundle */; };
+		0416161F2502179800144271 /* YSCommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416161E2502179800144271 /* YSCommonTools.m */; };
+		041616222502228A00144271 /* UIView+BMSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 041616212502228A00144271 /* UIView+BMSize.m */; };
+		0416162525022BB900144271 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0416162425022BB900144271 /* BMKit.framework */; };
 		0455F0B9243EB90E00468853 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0B8243EB90E00468853 /* main.m */; };
 		0455F0EC243EB96F00468853 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0C0243EB96E00468853 /* AppDelegate.m */; };
 		0455F0FA243EB96F00468853 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0D1243EB96F00468853 /* YSLoginVC.m */; };
@@ -88,11 +90,15 @@
 		0416160724FF7BE700144271 /* SCBrushToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBrushToolView.h; sourceTree = "<group>"; };
 		0416160824FF7BE700144271 /* SCDrawBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDrawBoardView.m; sourceTree = "<group>"; };
 		0416160924FF7BE700144271 /* YSSliderSuperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSliderSuperView.m; sourceTree = "<group>"; };
-		0416161224FF7F1600144271 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
 		0416161424FF84B500144271 /* YSAppMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppMacros.h; sourceTree = "<group>"; };
 		0416161724FF852B00144271 /* YSLiveSkinManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveSkinManager.h; sourceTree = "<group>"; };
 		0416161824FF852B00144271 /* YSLiveSkinManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveSkinManager.m; sourceTree = "<group>"; };
 		0416161B24FF882100144271 /* YSSkinRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinRsource.bundle; sourceTree = "<group>"; };
+		0416161D2502179800144271 /* YSCommonTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSCommonTools.h; sourceTree = "<group>"; };
+		0416161E2502179800144271 /* YSCommonTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSCommonTools.m; sourceTree = "<group>"; };
+		041616202502228A00144271 /* UIView+BMSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BMSize.h"; sourceTree = "<group>"; };
+		041616212502228A00144271 /* UIView+BMSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BMSize.m"; sourceTree = "<group>"; };
+		0416162425022BB900144271 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
 		0455F0A3243EB90D00468853 /* YSLiveSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YSLiveSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0455F0B7243EB90E00468853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0455F0B8243EB90E00468853 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -143,7 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0455F112243EBA5C00468853 /* libc++.tbd in Frameworks */,
-				0416161324FF7F1600144271 /* BMKit.framework in Frameworks */,
+				0416162525022BB900144271 /* BMKit.framework in Frameworks */,
 				041615E524FCCB6100144271 /* YSWhiteBoardSDK.framework in Frameworks */,
 				876BFA6524CFF25B008E9848 /* CloudHubRTC.framework in Frameworks */,
 				C4D3DBFAE3448A4A1F3E7377 /* libPods-YSLiveSample.a in Frameworks */,
@@ -190,6 +196,17 @@
 			path = YSSkinManager;
 			sourceTree = "<group>";
 		};
+		041616232502229A00144271 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				0416161D2502179800144271 /* YSCommonTools.h */,
+				0416161E2502179800144271 /* YSCommonTools.m */,
+				041616202502228A00144271 /* UIView+BMSize.h */,
+				041616212502228A00144271 /* UIView+BMSize.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		0455F09A243EB90D00468853 = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +239,7 @@
 				0455F0EB243EB96F00468853 /* YSNavigationController.m */,
 				041615F124FE514200144271 /* YSMainViewController.h */,
 				041615F224FE514200144271 /* YSMainViewController.m */,
+				041616232502229A00144271 /* Tools */,
 				0455F113243EBE7800468853 /* Assets.xcassets */,
 				0455F0B7243EB90E00468853 /* Info.plist */,
 				0455F0B8243EB90E00468853 /* main.m */,
@@ -302,7 +320,7 @@
 		876BFA4B24CFF25B008E9848 /* BMKit */ = {
 			isa = PBXGroup;
 			children = (
-				0416161224FF7F1600144271 /* BMKit.framework */,
+				0416162425022BB900144271 /* BMKit.framework */,
 				876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */,
 				876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */,
 				876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */,
@@ -457,10 +475,12 @@
 				0455F0FA243EB96F00468853 /* YSLoginVC.m in Sources */,
 				0416160D24FF7BE700144271 /* SCColorTipView.m in Sources */,
 				0416160C24FF7BE700144271 /* SCColorSelectView.m in Sources */,
+				041616222502228A00144271 /* UIView+BMSize.m in Sources */,
 				0416160E24FF7BE700144271 /* SCDrawBoardView.m in Sources */,
 				0416160F24FF7BE700144271 /* YSSliderSuperView.m in Sources */,
 				0416161A24FF852B00144271 /* YSLiveSkinManager.m in Sources */,
 				041615F324FE514200144271 /* YSMainViewController.m in Sources */,
+				0416161F2502179800144271 /* YSCommonTools.m in Sources */,
 				0455F0B9243EB90E00468853 /* main.m in Sources */,
 				0416160A24FF7BE700144271 /* SCBrushToolView.m in Sources */,
 				0455F10B243EB96F00468853 /* YSInputView.m in Sources */,

@@ -12,11 +12,16 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
-#import <BMKit/BMKit.h>
-#import <YSWhiteBoardSDK/YSWhiteBoardSDKManager.h>
+//#import <BMKit/BMKit.h>
+#import <YSWhiteBoardSDK/CHWhiteBoardSDKManager.h>
 
 #import "YSAppMacros.h"
 #import "YSLiveSkinManager.h"
+#import "YSCommonTools.h"
 
+#import <Masonry.h>
 
+#import "YSLoginMacros.h"
+
+#import "UIView+BMSize.h"
 #endif /* SamplePrefixHeader_pch */

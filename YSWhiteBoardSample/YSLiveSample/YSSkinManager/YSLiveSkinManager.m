@@ -11,7 +11,7 @@
 static YSLiveSkinManager *skinManager = nil;
 
 #define YSSkinBundleName    (self.classOrOnline == YSSkinClassOrOnline_class)?@"YSSkinRsource.bundle": @"YSOnlineSchool.bundle"
-#define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
+#define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:YSSkinBundleName]]
 
 @interface YSLiveSkinManager ()
 
@@ -43,7 +43,7 @@ static YSLiveSkinManager *skinManager = nil;
 - (NSDictionary *)getPliatDictionaryWithType:(YSSkinClassOrOnline)classOrOnline
 {
     
-    if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
+    if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.skinType || ![YSCommonTools isNotEmpty:self.plictDict])
     {
         NSString *path = nil;
         
@@ -79,10 +79,10 @@ static YSLiveSkinManager *skinManager = nil;
 - (UIColor *)getDefaultColorWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
-    NSDictionary *colorDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonColor"];
-    NSString *colorStr = [colorDict bm_stringForKey:key];
+    NSDictionary *colorDict = [YSCommonTools dictionary:[self getPliatDictionaryWithType:classOrOnline] ForKey:@"CommonColor"];
+    NSString *colorStr = [YSCommonTools stringForKey:key byDictionary:colorDict];
 
-    UIColor *color = [UIColor bm_colorWithHexString:colorStr];
+    UIColor *color = [YSCommonTools colorWithHexString:colorStr];
     
     return color;
 }
@@ -91,8 +91,9 @@ static YSLiveSkinManager *skinManager = nil;
 - (UIImage *)getDefaultImageWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
-    NSDictionary *imageDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonImage"];
-    NSString *imageName = [imageDict bm_stringForKey:key];
+//    NSDictionary *imageDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonImage"];
+    NSDictionary *imageDict = [YSCommonTools dictionary:[self getPliatDictionaryWithType:classOrOnline] ForKey:@"CommonImage"];
+    NSString *imageName = [YSCommonTools stringForKey:key byDictionary:imageDict];
     
     UIImage *image = [self getBundleImageWithType:classOrOnline WithImageName:imageName];
     
@@ -103,13 +104,13 @@ static YSLiveSkinManager *skinManager = nil;
 - (UIColor *)getElementColorWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
-    NSDictionary *elementDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:name];
+    NSDictionary *elementDict = [YSCommonTools dictionary:[self getPliatDictionaryWithType:classOrOnline] ForKey:name];
     
-    if ([elementDict bm_isNotEmpty])
+    if ([YSCommonTools isNotEmpty:elementDict])
     {
-        NSString *colorStr = [elementDict bm_stringForKey:key];
+        NSString *colorStr = [YSCommonTools stringForKey:key byDictionary:elementDict];
         
-        UIColor *color = [UIColor bm_colorWithHexString:colorStr];
+        UIColor *color = [YSCommonTools colorWithHexString:colorStr];
         return color;
     }
     
@@ -120,12 +121,13 @@ static YSLiveSkinManager *skinManager = nil;
 - (UIImage *)getElementImageWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
+        
+    NSDictionary *elementDict = [YSCommonTools dictionary:[self getPliatDictionaryWithType:classOrOnline] ForKey:name];
     
-    NSDictionary *elementDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:name];
     
-    if ([elementDict bm_isNotEmpty])
+    if ([YSCommonTools isNotEmpty:elementDict])
     {
-        NSString *imageName = [elementDict bm_stringForKey:key];
+        NSString *imageName = [YSCommonTools stringForKey:key byDictionary:elementDict];
         
         UIImage *image =  [self getBundleImageWithType:classOrOnline  WithImageName:imageName];
         return image;
@@ -155,7 +157,7 @@ static YSLiveSkinManager *skinManager = nil;
         imageFolder = @"onLineSkinBlack";
     }
         
-    UIImage *image = [YSSkinBundle bm_imageWithAssetsName:imageFolder imageName:imageName];
+    UIImage *image = [YSCommonTools imageWithAssetsName:imageFolder imageName:imageName fromBundle:YSSkinBundle];
     return image;
 }
 
