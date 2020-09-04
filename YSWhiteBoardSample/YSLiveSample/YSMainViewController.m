@@ -74,9 +74,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    self.view.backgroundColor = UIColor.redColor;
-    
+            
     [self.view addSubview:self.mainWhiteBoardView];
     self.mainWhiteBoardView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH_ROTATE, UI_SCREEN_HEIGHT_ROTATE);
     
@@ -110,7 +108,7 @@
 {
     sender.selected = !sender.selected;
     
-    [self.whiteBoardSDKManager changeUserCandraw:sender.selected];
+    [self.whiteBoardSDKManager setCandraw:sender.selected];
     
     self.brushToolOpenBtn.hidden = self.brushToolView.hidden = !sender.selected;
 }
@@ -125,15 +123,13 @@
     sender.selected = !sender.selected;
     if (sender.selected)
     {
-        [self.whiteBoardSDKManager setTheWhiteBoardRatio:16.0/9.0];
+        [self.whiteBoardSDKManager setWhiteBoardRatio:16.0/9.0];
     }
     else
     {
-        [self.whiteBoardSDKManager setTheWhiteBoardRatio:4.0/3.0];
+        [self.whiteBoardSDKManager setWhiteBoardRatio:4.0/3.0];
     }
 }
-
-
 
 #pragma mark UI 工具栏
 

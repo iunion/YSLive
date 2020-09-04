@@ -151,7 +151,7 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     }
 
     self.whiteBoardSDKManager = [CHWhiteBoardSDKManager sharedInstance];
-    [self.whiteBoardSDKManager registerSDKManagerDelegate:self];
+    [self.whiteBoardSDKManager registerSDKManagerDelegate:self config:nil];
     
     
 #if USE_COOKIES
