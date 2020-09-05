@@ -73,4 +73,6 @@
 
 #import "BMProgressHUD.h"
 
+#import "BMHttpRequest.h"
+
 #endif /* BMTools_h */

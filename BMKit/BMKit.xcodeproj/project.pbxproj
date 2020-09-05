@@ -385,6 +385,8 @@
 		8742FF1C24F3A12B00BDF294 /* BMSDImageAssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FDC924F3A12A00BDF294 /* BMSDImageAssetManager.m */; };
 		8742FF1D24F3A12B00BDF294 /* BMSDWeakProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FDCA24F3A12A00BDF294 /* BMSDWeakProxy.h */; };
 		8742FF1E24F3A12B00BDF294 /* BMSDInternalMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FDCB24F3A12A00BDF294 /* BMSDInternalMacros.m */; };
+		876C87BB25031EE80029248C /* BMHttpRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 876C87B925031EE80029248C /* BMHttpRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		876C87BC25031EE80029248C /* BMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 876C87BA25031EE80029248C /* BMHttpRequest.m */; };
 		8777C77623EA72A2002002BF /* BMFreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C74323EA72A2002002BF /* BMFreshBaseView.m */; };
 		8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -882,6 +884,8 @@
 		8742FDC924F3A12A00BDF294 /* BMSDImageAssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSDImageAssetManager.m; sourceTree = "<group>"; };
 		8742FDCA24F3A12A00BDF294 /* BMSDWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDWeakProxy.h; sourceTree = "<group>"; };
 		8742FDCB24F3A12A00BDF294 /* BMSDInternalMacros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSDInternalMacros.m; sourceTree = "<group>"; };
+		876C87B925031EE80029248C /* BMHttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMHttpRequest.h; sourceTree = "<group>"; };
+		876C87BA25031EE80029248C /* BMHttpRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMHttpRequest.m; sourceTree = "<group>"; };
 		8777C74323EA72A2002002BF /* BMFreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFreshBaseView.m; sourceTree = "<group>"; };
 		8777C74423EA72A2002002BF /* UIScrollView+BMFresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+BMFresh.h"; sourceTree = "<group>"; };
 		8777C74623EA72A2002002BF /* BMFreshContainerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFreshContainerHeaderView.h; sourceTree = "<group>"; };
@@ -1205,6 +1209,7 @@
 				8701AF3523715CF900A43607 /* BMCountDownManager */,
 				8701AFED2371648100A43607 /* BMDatePicker */,
 				8777C79E23EA7489002002BF /* BMEmptyView */,
+				876C87B825031ED10029248C /* BMHttpRequest */,
 				8701AF3E23715DF800A43607 /* BMImageTextView */,
 				87832D8E24863E8700F1178E /* BMImageTitleButtonView */,
 				8701AF4323715F5500A43607 /* BMNavigationBar */,
@@ -1675,6 +1680,15 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		876C87B825031ED10029248C /* BMHttpRequest */ = {
+			isa = PBXGroup;
+			children = (
+				876C87B925031EE80029248C /* BMHttpRequest.h */,
+				876C87BA25031EE80029248C /* BMHttpRequest.m */,
+			);
+			path = BMHttpRequest;
+			sourceTree = "<group>";
+		};
 		8777C74223EA72A2002002BF /* BMRefreshView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1947,6 +1961,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				876C87BB25031EE80029248C /* BMHttpRequest.h in Headers */,
 				8742FE1924F3A12A00BDF294 /* BMSDWebImageCompat.h in Headers */,
 				8742FE1B24F3A12A00BDF294 /* BMSDImageAWebPCoder.h in Headers */,
 				8742FE2424F3A12A00BDF294 /* BMSDImageHEICCoder.h in Headers */,
@@ -2305,6 +2320,7 @@
 				8701AF3C23715CF900A43607 /* BMCountDownManager.m in Sources */,
 				8777C79D23EA72A3002002BF /* UIScrollView+BMFresh.m in Sources */,
 				8742FE4C24F3A12A00BDF294 /* BMSDImageCachesManagerOperation.m in Sources */,
+				876C87BC25031EE80029248C /* BMHttpRequest.m in Sources */,
 				8701AE3C23714E6000A43607 /* NSDecimalNumber+BMCategory.m in Sources */,
 				87901A3224173ACF00FF38EC /* BMTZImagePickerController.m in Sources */,
 				8701AE3F23714E6000A43607 /* NSURL+BMParameters.m in Sources */,
