@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol CloudHubManagerDelegate <NSObject>
+@protocol CloudHubManagerDelegate <CHWhiteBoardManagerDelegate>
 
 /// 发生错误 回调
 - (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(nullable NSString *)message;

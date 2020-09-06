@@ -13,9 +13,8 @@
 #import "Masonry.h"
 #import "YSLoginMacros.h"
 
-//#import <YSWhiteBoardSDK/YSWhiteBoardSDK.h>
+#import "CloudHubManager.h"
 
-//#import <YSWhiteBoardSDK/YSWhiteBoardManager.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #import "YSMainViewController.h"
@@ -54,6 +53,8 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 //{
 //    YSUserRoleType userRole;
 //}
+
+@property (nonatomic, weak) CloudHubManager *cloudHubManager;
 
 /// 背景滚动
 @property (nonatomic, strong) UIScrollView *backScrollView;
@@ -131,6 +132,8 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     {
         self.joinRoomBtn.enabled = NO;
     }
+    
+    self.cloudHubManager = [CloudHubManager sharedInstance];
 }
 
 
@@ -493,7 +496,7 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     // 根据实际用户变更用户身份
 //    userRole = YSUserType_Teacher;
 
-    //[self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil userParams:nil];
+    [self.cloudHubManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil];
 }
 
 

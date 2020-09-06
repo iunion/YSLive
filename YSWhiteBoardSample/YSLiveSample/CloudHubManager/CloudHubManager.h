@@ -42,6 +42,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前课件数据
 @property (nonatomic, strong, readonly) CHFileModel *currentFile;
 
++ (instancetype)sharedInstance;
+
+- (BOOL)joinRoomWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId;
+- (BOOL)joinRoomWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

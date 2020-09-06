@@ -57,7 +57,7 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 @property (nonatomic, strong) CHRoomUser *localUser;
 
 @property (nonatomic, strong) NSString *webServerHost;
-@property (nonatomic, assign) int webServerPort;
+@property (nonatomic, assign) NSUInteger webServerPort;
 
 /// 服务器地址
 @property (nonatomic, strong) NSString *currentServer;
@@ -129,7 +129,7 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     joinCount = 0;
 }
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userId:(NSString *)userId
+- (BOOL)joinRoomWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userId:(NSString *)userId
 {
     NSString *server = @"global";
     if ([CHSessionUtil isDomain:host] == YES)
@@ -148,7 +148,12 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     {
         [parameters setObject:roomPassword forKey:CHJoinRoomParamsPasswordKey];
     }
-    
+    else
+    {
+        [parameters setObject:@""
+                       forKey:CHJoinRoomParamsPasswordKey];
+    }
+
     if (userId)
     {
         [parameters setObject:userId forKey:CHJoinRoomParamsUserIDKey];
@@ -157,7 +162,7 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters];
 }
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams
+- (BOOL)joinRoomWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams
 {
     if (!roomParams)
     {
@@ -201,6 +206,8 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     NSDictionary *rtcEngineKitConfig = @{ CHJoinRoomParamsServerKey:host, CHJoinRoomParamsPortKey:@(80), CHJoinRoomParamsSecureKey:@(NO) };
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:self.appId config:[rtcEngineKitConfig ch_toJSON]];
     self.cloudHubRtcEngineKit.delegate = self;
+    self.cloudHubRtcEngineKit.wb = self;
+    
 #ifdef DEBUG
     [self.cloudHubRtcEngineKit setLogFilter:1];
 #endif
@@ -219,6 +226,8 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 
     return NO;
 }
+
+
 
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOccurError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
@@ -333,6 +342,84 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     {
         [self.delegate onRoomReJoined];
     }
+}
+
+/// 被踢出
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine onLocalUserEvicted:(NSInteger)reason
+{
+    if ([self.delegate respondsToSelector:@selector(onRoomKickedOut:)])
+    {
+        [self.delegate onRoomKickedOut:reason];
+    }
+}
+
+
+#pragma mark - CHWhiteBoardManagerDelegate
+
+/// 白板准备完毕
+- (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
+{
+    [self.delegate onWhiteBroadCheckRoomFinish:finished];
+}
+
+/**
+ 文件列表回调
+ @param fileList 文件NSDictionary列表
+ */
+- (void)onWhiteBroadFileList:(NSArray *)fileList
+{
+    [self.delegate onWhiteBroadFileList:fileList];
+}
+
+/// H5脚本文件加载初始化完成
+- (void)onWhiteBoardPageFinshed:(NSString *)fileId
+{
+    [self.delegate onWhiteBoardPageFinshed:fileId];
+}
+
+/// 切换Web课件加载状态
+- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    [self.delegate onWhiteBoardLoadedState:fileId withState:dic];
+}
+
+/// Web课件翻页结果
+- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    [self.delegate onWhiteBoardStateUpdate:fileId withState:dic];
+}
+
+/// 翻页超时
+- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    [self.delegate onWhiteBoardSlideLoadTimeout:fileId withState:dic];
+}
+
+/// 课件缩放
+- (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
+{
+    [self.delegate onWhiteBoardZoomScaleChanged:fileId zoomScale:zoomScale];
+}
+
+
+#pragma mark - 课件事件
+
+/// 课件全屏
+- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
+{
+    [self.delegate onWhiteBoardFullScreen:isAllScreen];
+}
+
+/// 切换课件
+- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
+{
+    [self.delegate onWhiteBoardChangedFileWithFileList:fileList];
+}
+
+/// 课件窗口最大化事件
+- (void)onWhiteBoardMaximizeView
+{
+    [self.delegate onWhiteBoardMaximizeView];
 }
 
 @end
