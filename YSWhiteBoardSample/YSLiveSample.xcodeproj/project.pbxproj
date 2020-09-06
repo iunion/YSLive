@@ -46,6 +46,8 @@
 		0455F10E243EB96F00468853 /* YSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0EB243EB96F00468853 /* YSNavigationController.m */; };
 		0455F112243EBA5C00468853 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455F111243EBA5C00468853 /* libc++.tbd */; };
 		0455F114243EBE7800468853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0455F113243EBE7800468853 /* Assets.xcassets */; };
+		8769E6032504A6BA0032AFA8 /* CloudHubManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6022504A6BA0032AFA8 /* CloudHubManager.m */; };
+		8769E6082504C61D0032AFA8 /* JsonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6072504C61D0032AFA8 /* JsonTool.m */; };
 		876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4624CFF25A008E9848 /* YSLive.xcassets */; };
 		876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */; };
 		876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */; };
@@ -132,6 +134,12 @@
 		0455F113243EBE7800468853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09247186120069BD999D4845 /* Pods-YSLiveSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSample.debug.xcconfig"; path = "Target Support Files/Pods-YSLiveSample/Pods-YSLiveSample.debug.xcconfig"; sourceTree = "<group>"; };
 		645F2A39076A7143C5BC4592 /* Pods-YSLiveSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLiveSample.release.xcconfig"; path = "Target Support Files/Pods-YSLiveSample/Pods-YSLiveSample.release.xcconfig"; sourceTree = "<group>"; };
+		8769E6012504A6BA0032AFA8 /* CloudHubManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudHubManager.h; sourceTree = "<group>"; };
+		8769E6022504A6BA0032AFA8 /* CloudHubManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudHubManager.m; sourceTree = "<group>"; };
+		8769E6042504A8960032AFA8 /* CloudHubManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudHubManagerDelegate.h; sourceTree = "<group>"; };
+		8769E6052504AFB40032AFA8 /* CloudHubManagerDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudHubManagerDefine.h; sourceTree = "<group>"; };
+		8769E6062504C61D0032AFA8 /* JsonTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonTool.h; sourceTree = "<group>"; };
+		8769E6072504C61D0032AFA8 /* JsonTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JsonTool.m; sourceTree = "<group>"; };
 		876BFA4624CFF25A008E9848 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
 		876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
@@ -203,6 +211,8 @@
 				0416161E2502179800144271 /* YSCommonTools.m */,
 				041616202502228A00144271 /* UIView+BMSize.h */,
 				041616212502228A00144271 /* UIView+BMSize.m */,
+				8769E6062504C61D0032AFA8 /* JsonTool.h */,
+				8769E6072504C61D0032AFA8 /* JsonTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -229,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				0455F0C1243EB96F00468853 /* YSLib */,
+				8769E6002504A69F0032AFA8 /* CloudHubManager */,
 				0416161524FF852B00144271 /* YSSkinManager */,
 				0455F0D0243EB96F00468853 /* Login */,
 				041615FC24FF7BE700144271 /* BrushToolView */,
@@ -303,6 +314,17 @@
 				0455F0E5243EB96F00468853 /* YSInputView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8769E6002504A69F0032AFA8 /* CloudHubManager */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6042504A8960032AFA8 /* CloudHubManagerDelegate.h */,
+				8769E6052504AFB40032AFA8 /* CloudHubManagerDefine.h */,
+				8769E6012504A6BA0032AFA8 /* CloudHubManager.h */,
+				8769E6022504A6BA0032AFA8 /* CloudHubManager.m */,
+			);
+			path = CloudHubManager;
 			sourceTree = "<group>";
 		};
 		876BFA4924CFF25B008E9848 /* expandLib */ = {
@@ -476,12 +498,14 @@
 				0416160D24FF7BE700144271 /* SCColorTipView.m in Sources */,
 				0416160C24FF7BE700144271 /* SCColorSelectView.m in Sources */,
 				041616222502228A00144271 /* UIView+BMSize.m in Sources */,
+				8769E6082504C61D0032AFA8 /* JsonTool.m in Sources */,
 				0416160E24FF7BE700144271 /* SCDrawBoardView.m in Sources */,
 				0416160F24FF7BE700144271 /* YSSliderSuperView.m in Sources */,
 				0416161A24FF852B00144271 /* YSLiveSkinManager.m in Sources */,
 				041615F324FE514200144271 /* YSMainViewController.m in Sources */,
 				0416161F2502179800144271 /* YSCommonTools.m in Sources */,
 				0455F0B9243EB90E00468853 /* main.m in Sources */,
+				8769E6032504A6BA0032AFA8 /* CloudHubManager.m in Sources */,
 				0416160A24FF7BE700144271 /* SCBrushToolView.m in Sources */,
 				0455F10B243EB96F00468853 /* YSInputView.m in Sources */,
 			);

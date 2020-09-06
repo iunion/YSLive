@@ -49,17 +49,12 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 @interface YSLoginVC ()
 <
     UITextFieldDelegate,
-    YSInputViewDelegate,
-    CHWhiteBoardSDKDelegate,
-    CHWhiteBoardManagerDelegate
+    YSInputViewDelegate
 >
 //{
 //    YSUserRoleType userRole;
 //}
 
-
-
-@property (nonatomic, weak) CHWhiteBoardSDKManager *whiteBoardSDKManager;
 /// 背景滚动
 @property (nonatomic, strong) UIScrollView *backScrollView;
 /// 背景
@@ -112,19 +107,6 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 {
     [super viewDidLoad];
  
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
-//    {
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//        self.extendedLayoutIncludesOpaqueBars = NO;
-//        self.modalPresentationCapturesStatusBarAppearance = NO;
-//    }
-//
-//    // 隐藏系统的返回按钮
-//    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-//    temporaryBarButtonItem.title = @"";
-//    //    temporaryBarButtonItem.tintColor = [UIColor whiteColor];
-//    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-
     [self setupUI];
 
     self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
@@ -149,20 +131,6 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     {
         self.joinRoomBtn.enabled = NO;
     }
-
-    self.whiteBoardSDKManager = [CHWhiteBoardSDKManager sharedInstance];
-    [self.whiteBoardSDKManager registerSDKManagerDelegate:self config:nil];
-    
-    
-#if USE_COOKIES
-    // 如果使用cookie请关闭HttpDNS
-    [self.ysSDKManager registerUseHttpDNSForWhiteBoard:NO];
-    
-    NSDictionary *cookieDic = @{NSHTTPCookieDomain:@".kidsloop.4mvlbg6o.badanamu.com.cn", NSHTTPCookiePath:@"/", NSHTTPCookieName:@"username", NSHTTPCookieValue:@"world", NSHTTPCookieExpires:[NSDate dateWithTimeIntervalSinceNow:24*60*60]};
-    // 设置cookie，只在初始化使用，后期设置无效
-    [self.ysSDKManager setConnectH5CoursewareUrlCookies:@[cookieDic]];
-#endif
-    
 }
 
 
@@ -491,7 +459,6 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
      [self.view endEditing:YES];
 }
 
-#if 1
 // 进入房间方法一
 - (void)joinRoomBtnClicked:(UIButton *)btn
 {
@@ -526,68 +493,13 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     // 根据实际用户变更用户身份
 //    userRole = YSUserType_Teacher;
 
-    // 学生登入
-//    [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
-    [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil userParams:nil];
+    //[self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil userParams:nil];
 }
-
-#else
-
-// 进入房间方法二
-- (void)joinRoomBtnClicked:(UIButton *)btn
-{
-    NSString *roomId = self.roomTextField.inputTextField.text;
-    NSString *nickName = self.nickNameTextField.inputTextField.text;
-
-    /**信息检查*/
-    if (!roomId.length)
-    {
-        //教室号不能为空
-        NSString *content =  @"房间号不能为空";
-        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:content message:nil preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        }];
-        [alertVc addAction:confimAc];
-        return;
-    }
-
-    if (!nickName.length)
-    {
-        // 昵称不能为空
-        NSString *content =  @"昵称不能为空";
-        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:content message:nil preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        }];
-        [alertVc addAction:confimAc];
-        return;
-    }
-
-    // 根据实际用户变更用户身份
-    // 如果需要密码请添加password
-    userRole = YSSDKUserType_Teacher;
-    if (userRole == YSSDKSUserType_Student)
-    {
-        // 学生登入
-        // 注意： 直播只支持学生身份登入房间
-        [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:nil userId:nil userParams:nil];
-    }
-    else
-    {
-        // 老师(会议主持)登入
-        // 注意： 小班课和会议支持老师和学生身份登入房间
-        [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:nil userRole:userRole userId:nil userParams:nil];
-    }
-    
-    [self.progressHUD showAnimated:YES];
-}
-
-#endif
 
 
 #pragma mark -
 #pragma mark YSLiveSDKDelegate
+#if 0
 - (void)onRoomJoinedWithUserId:(NSString *)userId
 {
     NSLog(@"onRoomJoined");
@@ -800,5 +712,6 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 {
     
 }
+#endif
 
 @end
