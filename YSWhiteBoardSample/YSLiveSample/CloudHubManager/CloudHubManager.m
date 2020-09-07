@@ -51,6 +51,8 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 /// appId
 @property (nonatomic, strong) NSString *appId;
 
+@property (nonatomic, strong) NSString *roomId;
+
 /// 当前用户数据
 @property (nonatomic, strong) CHRoomUser *localUser;
 
@@ -124,6 +126,8 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userId:(NSString *)userId
 {
+    self.roomId = roomId;
+    
     NSString *server = @"global";
     if ([CHSessionUtil isDomain:host] == YES)
     {
@@ -305,7 +309,17 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 
     [self.whiteBoardManager roomWhiteBoardOnChangeServerAddrs:dict];
     
-    [self.whiteBoardManager roomWhiteBoardOnJoined];
+    if (self.roomId)
+    {
+        [self.whiteBoardManager getFileListWithRoomId:self.roomId complete:^(NSArray<NSDictionary *> * _Nullable fileList) {
+            [self.whiteBoardManager setWhiteBoardFileList:fileList];
+            [self.whiteBoardManager roomWhiteBoardOnJoined];
+        }];
+    }
+    else
+    {
+        [self.whiteBoardManager roomWhiteBoardOnJoined];
+    }
 }
 
 /// 离开房间
