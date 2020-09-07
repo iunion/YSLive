@@ -8,6 +8,7 @@
 
 #import "CloudHubManager.h"
 #import "JsonTool.h"
+#import "CHNewCoursewareControlView.h"
 
 static CloudHubManager *cloudHubManagerSingleton = nil;
 
@@ -203,6 +204,8 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     self.whiteBoardManager = [CHWhiteBoardSDKManager sharedInstance];
     
     [self.whiteBoardManager registerDelegate:self loudHubRtcEngineKit:self.cloudHubRtcEngineKit host:host localUser:self.localUser configration:nil useHttpDNS:YES];
+    // 使用自定义翻页工具条
+    [self.whiteBoardManager registerCoursewareControlView:@"CHNewCoursewareControlView" viewSize:CGSizeZero];
     
     [self.whiteBoardManager creatWhiteBordView];
 
