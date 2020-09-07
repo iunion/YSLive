@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041615E524FCCB6100144271 /* YSWhiteBoardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041615E424FCCB6100144271 /* YSWhiteBoardSDK.framework */; };
 		041615F324FE514200144271 /* YSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041615F224FE514200144271 /* YSMainViewController.m */; };
-		041615FA24FF7A6300144271 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 041615F624FF7A6300144271 /* YSWhiteBoardResources.bundle */; };
-		041615FB24FF7A6300144271 /* YSWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 041615F724FF7A6300144271 /* YSWhiteBoardSkin.bundle */; };
 		0416160A24FF7BE700144271 /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041615FD24FF7BE700144271 /* SCBrushToolView.m */; };
 		0416160B24FF7BE700144271 /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416160124FF7BE700144271 /* SCColorListView.m */; };
 		0416160C24FF7BE700144271 /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416160324FF7BE700144271 /* SCColorSelectView.m */; };
@@ -21,7 +18,6 @@
 		0416161C24FF882100144271 /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0416161B24FF882100144271 /* YSSkinRsource.bundle */; };
 		0416161F2502179800144271 /* YSCommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416161E2502179800144271 /* YSCommonTools.m */; };
 		041616222502228A00144271 /* UIView+BMSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 041616212502228A00144271 /* UIView+BMSize.m */; };
-		0416162525022BB900144271 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0416162425022BB900144271 /* BMKit.framework */; };
 		0455F0B9243EB90E00468853 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0B8243EB90E00468853 /* main.m */; };
 		0455F0EC243EB96F00468853 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0C0243EB96E00468853 /* AppDelegate.m */; };
 		0455F0FA243EB96F00468853 /* YSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455F0D1243EB96F00468853 /* YSLoginVC.m */; };
@@ -49,16 +45,19 @@
 		8769E6032504A6BA0032AFA8 /* CloudHubManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6022504A6BA0032AFA8 /* CloudHubManager.m */; };
 		8769E6082504C61D0032AFA8 /* JsonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6072504C61D0032AFA8 /* JsonTool.m */; };
 		8769E60D2506151D0032AFA8 /* CHNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E60B2506151D0032AFA8 /* CHNewCoursewareControlView.m */; };
-		8769E60F2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E60E2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets */; };
-		876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4624CFF25A008E9848 /* YSLive.xcassets */; };
-		876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */; };
-		876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */; };
-		876BFA5E24CFF25B008E9848 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */; };
-		876BFA5F24CFF25B008E9848 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */; };
-		876BFA6024CFF25B008E9848 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5024CFF25B008E9848 /* BMDatePicker.nib */; };
-		876BFA6524CFF25B008E9848 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */; };
-		876BFA6624CFF25B008E9848 /* YSResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA5724CFF25B008E9848 /* YSResources.bundle */; };
-		876BFA6924CFF2B2008E9848 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8769E63825062DD40032AFA8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E62A25062DD30032AFA8 /* CHWhiteBoardResources.bundle */; };
+		8769E63925062DD40032AFA8 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E62B25062DD40032AFA8 /* CHWhiteBoardImage.xcassets */; };
+		8769E63A25062DD40032AFA8 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E62C25062DD40032AFA8 /* CHWhiteBoardSkin.bundle */; };
+		8769E63B25062DD40032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E62D25062DD40032AFA8 /* CHWhiteBoardBlack.xcassets */; };
+		8769E63C25062DD40032AFA8 /* CHWhiteBoardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E62E25062DD40032AFA8 /* CHWhiteBoardSDK.framework */; };
+		8769E63D25062DD40032AFA8 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E63125062DD40032AFA8 /* BMKit.framework */; };
+		8769E63E25062DD40032AFA8 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E63225062DD40032AFA8 /* BMTZImagePickerController.bundle */; };
+		8769E63F25062DD40032AFA8 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E63325062DD40032AFA8 /* BMKitImage.xcassets */; };
+		8769E64025062DD40032AFA8 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E63425062DD40032AFA8 /* BMKitResources.bundle */; };
+		8769E64125062DD40032AFA8 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8769E63525062DD40032AFA8 /* BMDatePicker.nib */; };
+		8769E64225062DD40032AFA8 /* CHLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E63625062DD40032AFA8 /* CHLive.xcassets */; };
+		8769E64325062DD40032AFA8 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E63725062DD40032AFA8 /* CloudHubRTC.framework */; };
+		8769E64425062F980032AFA8 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8769E63725062DD40032AFA8 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D3DBFAE3448A4A1F3E7377 /* libPods-YSLiveSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1924E7809FB026034BC9959 /* libPods-YSLiveSample.a */; };
 /* End PBXBuildFile section */
 
@@ -69,19 +68,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				876BFA6924CFF2B2008E9848 /* CloudHubRTC.framework in CopyFiles */,
+				8769E64425062F980032AFA8 /* CloudHubRTC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		041615E424FCCB6100144271 /* YSWhiteBoardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSWhiteBoardSDK.framework; sourceTree = "<group>"; };
 		041615F024FE232700144271 /* SamplePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplePrefixHeader.pch; sourceTree = "<group>"; };
 		041615F124FE514200144271 /* YSMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMainViewController.h; sourceTree = "<group>"; };
 		041615F224FE514200144271 /* YSMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMainViewController.m; sourceTree = "<group>"; };
-		041615F624FF7A6300144271 /* YSWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		041615F724FF7A6300144271 /* YSWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardSkin.bundle; sourceTree = "<group>"; };
 		041615FD24FF7BE700144271 /* SCBrushToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBrushToolView.m; sourceTree = "<group>"; };
 		041615FE24FF7BE700144271 /* SCDrawBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDrawBoardView.h; sourceTree = "<group>"; };
 		0416160024FF7BE700144271 /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
@@ -102,7 +98,6 @@
 		0416161E2502179800144271 /* YSCommonTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSCommonTools.m; sourceTree = "<group>"; };
 		041616202502228A00144271 /* UIView+BMSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BMSize.h"; sourceTree = "<group>"; };
 		041616212502228A00144271 /* UIView+BMSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BMSize.m"; sourceTree = "<group>"; };
-		0416162425022BB900144271 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
 		0455F0A3243EB90D00468853 /* YSLiveSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YSLiveSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0455F0B7243EB90E00468853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0455F0B8243EB90E00468853 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -144,15 +139,18 @@
 		8769E6072504C61D0032AFA8 /* JsonTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JsonTool.m; sourceTree = "<group>"; };
 		8769E60B2506151D0032AFA8 /* CHNewCoursewareControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNewCoursewareControlView.m; sourceTree = "<group>"; };
 		8769E60C2506151D0032AFA8 /* CHNewCoursewareControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNewCoursewareControlView.h; sourceTree = "<group>"; };
-		8769E60E2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
-		876BFA4624CFF25A008E9848 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
-		876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
-		876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
-		876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
-		876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
-		876BFA5024CFF25B008E9848 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
-		876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
-		876BFA5724CFF25B008E9848 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
+		8769E62A25062DD30032AFA8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		8769E62B25062DD40032AFA8 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		8769E62C25062DD40032AFA8 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		8769E62D25062DD40032AFA8 /* CHWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
+		8769E62E25062DD40032AFA8 /* CHWhiteBoardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoardSDK.framework; sourceTree = "<group>"; };
+		8769E63125062DD40032AFA8 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
+		8769E63225062DD40032AFA8 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
+		8769E63325062DD40032AFA8 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		8769E63425062DD40032AFA8 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
+		8769E63525062DD40032AFA8 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
+		8769E63625062DD40032AFA8 /* CHLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHLive.xcassets; sourceTree = "<group>"; };
+		8769E63725062DD40032AFA8 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
 		B1924E7809FB026034BC9959 /* libPods-YSLiveSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YSLiveSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -162,9 +160,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0455F112243EBA5C00468853 /* libc++.tbd in Frameworks */,
-				0416162525022BB900144271 /* BMKit.framework in Frameworks */,
-				041615E524FCCB6100144271 /* YSWhiteBoardSDK.framework in Frameworks */,
-				876BFA6524CFF25B008E9848 /* CloudHubRTC.framework in Frameworks */,
+				8769E64325062DD40032AFA8 /* CloudHubRTC.framework in Frameworks */,
+				8769E63C25062DD40032AFA8 /* CHWhiteBoardSDK.framework in Frameworks */,
+				8769E63D25062DD40032AFA8 /* BMKit.framework in Frameworks */,
 				C4D3DBFAE3448A4A1F3E7377 /* libPods-YSLiveSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,10 +268,10 @@
 		0455F0C1243EB96F00468853 /* YSLib */ = {
 			isa = PBXGroup;
 			children = (
-				876BFA4924CFF25B008E9848 /* expandLib */,
-				876BFA4624CFF25A008E9848 /* YSLive.xcassets */,
-				876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */,
-				876BFA5724CFF25B008E9848 /* YSResources.bundle */,
+				8769E63625062DD40032AFA8 /* CHLive.xcassets */,
+				8769E62925062DD30032AFA8 /* CHWhiteBoardSDK */,
+				8769E63725062DD40032AFA8 /* CloudHubRTC.framework */,
+				8769E62F25062DD40032AFA8 /* expandLib */,
 			);
 			path = YSLib;
 			sourceTree = "<group>";
@@ -342,27 +340,34 @@
 			path = CoursewareControlView;
 			sourceTree = "<group>";
 		};
-		876BFA4924CFF25B008E9848 /* expandLib */ = {
+		8769E62925062DD30032AFA8 /* CHWhiteBoardSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8769E60E2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets */,
-				041615F624FF7A6300144271 /* YSWhiteBoardResources.bundle */,
-				041615F724FF7A6300144271 /* YSWhiteBoardSkin.bundle */,
-				041615E424FCCB6100144271 /* YSWhiteBoardSDK.framework */,
-				876BFA4B24CFF25B008E9848 /* BMKit */,
-				876BFA5624CFF25B008E9848 /* CloudHubRTC.framework */,
+				8769E62A25062DD30032AFA8 /* CHWhiteBoardResources.bundle */,
+				8769E62B25062DD40032AFA8 /* CHWhiteBoardImage.xcassets */,
+				8769E62C25062DD40032AFA8 /* CHWhiteBoardSkin.bundle */,
+				8769E62D25062DD40032AFA8 /* CHWhiteBoardBlack.xcassets */,
+				8769E62E25062DD40032AFA8 /* CHWhiteBoardSDK.framework */,
+			);
+			path = CHWhiteBoardSDK;
+			sourceTree = "<group>";
+		};
+		8769E62F25062DD40032AFA8 /* expandLib */ = {
+			isa = PBXGroup;
+			children = (
+				8769E63025062DD40032AFA8 /* BMKit */,
 			);
 			path = expandLib;
 			sourceTree = "<group>";
 		};
-		876BFA4B24CFF25B008E9848 /* BMKit */ = {
+		8769E63025062DD40032AFA8 /* BMKit */ = {
 			isa = PBXGroup;
 			children = (
-				0416162425022BB900144271 /* BMKit.framework */,
-				876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */,
-				876BFA4E24CFF25B008E9848 /* BMKitImage.xcassets */,
-				876BFA4F24CFF25B008E9848 /* BMKitResources.bundle */,
-				876BFA5024CFF25B008E9848 /* BMDatePicker.nib */,
+				8769E63125062DD40032AFA8 /* BMKit.framework */,
+				8769E63225062DD40032AFA8 /* BMTZImagePickerController.bundle */,
+				8769E63325062DD40032AFA8 /* BMKitImage.xcassets */,
+				8769E63425062DD40032AFA8 /* BMKitResources.bundle */,
+				8769E63525062DD40032AFA8 /* BMDatePicker.nib */,
 			);
 			path = BMKit;
 			sourceTree = "<group>";
@@ -444,35 +449,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8769E63F25062DD40032AFA8 /* BMKitImage.xcassets in Resources */,
 				0455F107243EB96F00468853 /* login_room@2x.png in Resources */,
 				0455F0FF243EB96F00468853 /* login_name@3x.png in Resources */,
 				0455F106243EB96F00468853 /* login_join_highlight@2x.png in Resources */,
 				0455F0FB243EB96F00468853 /* login_join_normal@2x.png in Resources */,
 				0455F101243EB96F00468853 /* login_join_disabled@2x.png in Resources */,
 				0455F102243EB96F00468853 /* login_room@3x.png in Resources */,
-				041615FA24FF7A6300144271 /* YSWhiteBoardResources.bundle in Resources */,
+				8769E63A25062DD40032AFA8 /* CHWhiteBoardSkin.bundle in Resources */,
 				0455F108243EB96F00468853 /* ysall_login_background.png in Resources */,
 				0455F10A243EB96F00468853 /* whiteboardmask_ipad@2x.png in Resources */,
-				8769E60F2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets in Resources */,
+				8769E63925062DD40032AFA8 /* CHWhiteBoardImage.xcassets in Resources */,
 				0455F104243EB96F00468853 /* login_join_highlight@3x.png in Resources */,
 				0455F0FD243EB96F00468853 /* btn_close@2x.png in Resources */,
 				0455F100243EB96F00468853 /* btn_close@3x.png in Resources */,
-				876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */,
-				876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */,
-				876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */,
-				876BFA6024CFF25B008E9848 /* BMDatePicker.nib in Resources */,
-				876BFA6624CFF25B008E9848 /* YSResources.bundle in Resources */,
+				8769E64225062DD40032AFA8 /* CHLive.xcassets in Resources */,
+				8769E63B25062DD40032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */,
+				8769E63825062DD40032AFA8 /* CHWhiteBoardResources.bundle in Resources */,
 				0455F0FC243EB96F00468853 /* login_join_normal@3x.png in Resources */,
-				041615FB24FF7A6300144271 /* YSWhiteBoardSkin.bundle in Resources */,
 				0455F103243EB96F00468853 /* login_icon@3x.png in Resources */,
 				0416161C24FF882100144271 /* YSSkinRsource.bundle in Resources */,
 				0455F0FE243EB96F00468853 /* login_name@2x.png in Resources */,
-				876BFA5E24CFF25B008E9848 /* BMKitImage.xcassets in Resources */,
 				0455F105243EB96F00468853 /* login_icon@2x.png in Resources */,
+				8769E64025062DD40032AFA8 /* BMKitResources.bundle in Resources */,
+				8769E63E25062DD40032AFA8 /* BMTZImagePickerController.bundle in Resources */,
 				0455F10C243EB96F00468853 /* whiteboardmask_iphone@2x.png in Resources */,
 				0455F109243EB96F00468853 /* login_join_disabled@3x.png in Resources */,
+				8769E64125062DD40032AFA8 /* BMDatePicker.nib in Resources */,
 				0455F114243EBE7800468853 /* Assets.xcassets in Resources */,
-				876BFA5F24CFF25B008E9848 /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +659,7 @@
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/CHWhiteBoardSDK",
 				);
 				GCC_PREFIX_HEADER = YSLiveSample/SamplePrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -706,6 +711,7 @@
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/CHWhiteBoardSDK",
 				);
 				GCC_PREFIX_HEADER = YSLiveSample/SamplePrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (

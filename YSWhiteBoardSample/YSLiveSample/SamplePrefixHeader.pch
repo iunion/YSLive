@@ -14,7 +14,7 @@
 
 //#import <BMKit/BMKit.h>
 #import <CloudHubRTC/CloudHubRTC.h>
-#import <YSWhiteBoardSDK/CHWhiteBoardSDKManager.h>
+#import <CHWhiteBoardSDK/CHWhiteBoardSDKManager.h>
 
 #import "YSAppMacros.h"
 #import "YSLiveSkinManager.h"

@@ -6,7 +6,7 @@
 //  Copyright © 2020 YS. All rights reserved.
 //
 
-#import <YSWhiteBoardSDK/CHCoursewareControlView.h>
+#import <CHWhiteBoardSDK/CHCoursewareControlView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
