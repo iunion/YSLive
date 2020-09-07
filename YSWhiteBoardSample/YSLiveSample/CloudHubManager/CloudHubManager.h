@@ -24,14 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) CloudHubRtcEngineKit *cloudHubRtcEngineKit;
 
 /// 房间相关消息回调
-@property (nonatomic, weak, readonly) id <CloudHubManagerDelegate> delegate;
+@property (nonatomic, weak) id <CloudHubManagerDelegate, CHWhiteBoardManagerDelegate> delegate;
 
 /// 当前用户数据
 @property (nonatomic, strong, readonly) CHRoomUser *localUser;
 
 #pragma mark - 白板
 
-@property (nonatomic, weak, readonly) id <CHWhiteBoardManagerDelegate> whiteBoardDelegate;
 /// 白板管理
 @property (nonatomic, strong, readonly) CHWhiteBoardSDKManager *whiteBoardManager;
 /// 白板视图whiteBord

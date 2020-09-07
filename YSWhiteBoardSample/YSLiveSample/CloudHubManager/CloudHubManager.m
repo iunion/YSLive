@@ -50,9 +50,6 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 /// appId
 @property (nonatomic, strong) NSString *appId;
 
-/// 房间相关消息回调
-@property (nonatomic, weak) id <CloudHubManagerDelegate> delegate;
-
 /// 当前用户数据
 @property (nonatomic, strong) CHRoomUser *localUser;
 
@@ -66,11 +63,8 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 
 #pragma mark - 白板
 
-@property (nonatomic, weak) id <CHWhiteBoardManagerDelegate> whiteBoardDelegate;
 /// 白板管理
 @property (nonatomic, strong) CHWhiteBoardSDKManager *whiteBoardManager;
-/// 白板视图whiteBord
-@property (nonatomic, weak) UIView *whiteBordView;
 
 /// 课件列表
 @property (nonatomic, strong) NSArray <CHFileModel *> *fileList;
@@ -205,7 +199,7 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     // rtcEngineKit 使用http，所以端口是80
     NSDictionary *rtcEngineKitConfig = @{ CHJoinRoomParamsServerKey:host, CHJoinRoomParamsPortKey:@(80), CHJoinRoomParamsSecureKey:@(NO) };
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:self.appId config:[rtcEngineKitConfig ch_toJSON]];
-    self.cloudHubRtcEngineKit.delegate = self;
+    //self.cloudHubRtcEngineKit.delegate = self;
     self.cloudHubRtcEngineKit.wb = self;
     
 #ifdef DEBUG
@@ -227,7 +221,10 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     return NO;
 }
 
-
+- (UIView *)whiteBordView
+{
+    return self.whiteBoardManager.mainWhiteBoardView;
+}
 
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOccurError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message

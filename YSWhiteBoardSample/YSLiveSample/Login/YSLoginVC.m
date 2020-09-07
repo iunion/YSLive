@@ -48,7 +48,9 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 @interface YSLoginVC ()
 <
     UITextFieldDelegate,
-    YSInputViewDelegate
+    YSInputViewDelegate,
+    CloudHubManagerDelegate,
+    CHWhiteBoardManagerDelegate
 >
 //{
 //    YSUserRoleType userRole;
@@ -134,6 +136,7 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     }
     
     self.cloudHubManager = [CloudHubManager sharedInstance];
+    self.cloudHubManager.delegate = self;
 }
 
 
@@ -502,8 +505,8 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 
 #pragma mark -
 #pragma mark YSLiveSDKDelegate
-#if 0
-- (void)onRoomJoinedWithUserId:(NSString *)userId
+
+- (void)onRoomJoined
 {
     NSLog(@"onRoomJoined");
     
@@ -521,7 +524,7 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
         GetAppDelegate.allowRotation = YES;
     }
     
-    YSMainViewController * mainVC = [[YSMainViewController alloc]initWithwhiteBordView:self.whiteBoardSDKManager.mainWhiteBoardView userId:userId];
+    YSMainViewController * mainVC = [[YSMainViewController alloc]initWithwhiteBordView:self.cloudHubManager.whiteBoardManager.mainWhiteBoardView userId:nil];
     
     mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:mainVC animated:YES completion:nil];
@@ -557,12 +560,14 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 
 }
 
+
 /**
     发生密码错误 回调
     需要重新输入密码
 
     @param errorCode errorCode
  */
+/*
 - (void)onRoomNeedEnterPassWord:(YSRoomErrorCode)errorCode
 {
     NSLog(@"onRoomNeedEnterPassWord");
@@ -617,6 +622,7 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
  
     @param errorCode errorCode
 */
+/*
 - (void)onRoomReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
 {
     NSLog(@"onRoomNeedEnterPassWord");
@@ -631,7 +637,7 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     
     [self presentViewController:alertVc animated:YES completion:nil];
 }
-
+*/
 /**
    已经进入直播房间
 */
@@ -715,6 +721,6 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 {
     
 }
-#endif
+
 
 @end
