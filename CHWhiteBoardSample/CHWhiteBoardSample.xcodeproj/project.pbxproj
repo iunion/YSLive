@@ -1,0 +1,783 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		32FB0A3189F4A749D4E41FB3 /* libPods-CHWhiteBoardSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA40D696047CD6C00B59452 /* libPods-CHWhiteBoardSample.a */; };
+		8769E653250630B80032AFA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E652250630B80032AFA8 /* AppDelegate.m */; };
+		8769E65E250630BC0032AFA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E65D250630BC0032AFA8 /* Assets.xcassets */; };
+		8769E661250630BC0032AFA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8769E65F250630BC0032AFA8 /* LaunchScreen.storyboard */; };
+		8769E664250630BC0032AFA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E663250630BC0032AFA8 /* main.m */; };
+		8769E670250644EF0032AFA8 /* CHMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E66B250644EE0032AFA8 /* CHMainViewController.m */; };
+		8769E671250644EF0032AFA8 /* CHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E66F250644EF0032AFA8 /* CHNavigationController.m */; };
+		8769E684250646120032AFA8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E676250646120032AFA8 /* CHWhiteBoardResources.bundle */; };
+		8769E685250646120032AFA8 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E677250646120032AFA8 /* CHWhiteBoardImage.xcassets */; };
+		8769E686250646120032AFA8 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E678250646120032AFA8 /* CHWhiteBoardSkin.bundle */; };
+		8769E687250646120032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E679250646120032AFA8 /* CHWhiteBoardBlack.xcassets */; };
+		8769E688250646120032AFA8 /* CHWhiteBoardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E67A250646120032AFA8 /* CHWhiteBoardSDK.framework */; };
+		8769E689250646120032AFA8 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E67D250646120032AFA8 /* BMKit.framework */; };
+		8769E68A250646120032AFA8 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E67E250646120032AFA8 /* BMTZImagePickerController.bundle */; };
+		8769E68B250646120032AFA8 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E67F250646120032AFA8 /* BMKitImage.xcassets */; };
+		8769E68C250646120032AFA8 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E680250646120032AFA8 /* BMKitResources.bundle */; };
+		8769E68D250646120032AFA8 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8769E681250646120032AFA8 /* BMDatePicker.nib */; };
+		8769E68E250646120032AFA8 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E682250646120032AFA8 /* CloudHubRTC.framework */; };
+		8769E68F250646120032AFA8 /* CHLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E683250646120032AFA8 /* CHLive.xcassets */; };
+		8769E694250646D60032AFA8 /* CHSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E691250646D60032AFA8 /* CHSkinRsource.bundle */; };
+		8769E695250646D60032AFA8 /* CHLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E693250646D60032AFA8 /* CHLiveSkinManager.m */; };
+		8769E69D250647980032AFA8 /* JsonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E697250647980032AFA8 /* JsonTool.m */; };
+		8769E69F250647980032AFA8 /* UIView+BMSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E69C250647980032AFA8 /* UIView+BMSize.m */; };
+		8769E6A2250648600032AFA8 /* CHCommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6A1250648600032AFA8 /* CHCommonTools.m */; };
+		8769E6AB250648EC0032AFA8 /* CloudHubManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6A7250648EB0032AFA8 /* CloudHubManager.m */; };
+		8769E6AC250648EC0032AFA8 /* CHNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6A9250648EC0032AFA8 /* CHNewCoursewareControlView.m */; };
+		8769E6BB2506493E0032AFA8 /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6AE2506493D0032AFA8 /* SCBrushToolView.m */; };
+		8769E6BC2506493E0032AFA8 /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6B22506493D0032AFA8 /* SCColorListView.m */; };
+		8769E6BD2506493E0032AFA8 /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6B42506493D0032AFA8 /* SCColorSelectView.m */; };
+		8769E6BE2506493E0032AFA8 /* SCColorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6B62506493E0032AFA8 /* SCColorTipView.m */; };
+		8769E6BF2506493E0032AFA8 /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6B92506493E0032AFA8 /* SCDrawBoardView.m */; };
+		8769E6C02506493E0032AFA8 /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6BA2506493E0032AFA8 /* YSSliderSuperView.m */; };
+		8769E6DA250649FA0032AFA8 /* login_join_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6C4250649FA0032AFA8 /* login_join_normal@2x.png */; };
+		8769E6DB250649FA0032AFA8 /* login_join_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6C5250649FA0032AFA8 /* login_join_normal@3x.png */; };
+		8769E6DC250649FA0032AFA8 /* btn_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6C6250649FA0032AFA8 /* btn_close@2x.png */; };
+		8769E6DD250649FA0032AFA8 /* login_name@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6C7250649FA0032AFA8 /* login_name@2x.png */; };
+		8769E6DE250649FA0032AFA8 /* login_name@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6C8250649FA0032AFA8 /* login_name@3x.png */; };
+		8769E6DF250649FA0032AFA8 /* btn_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6C9250649FA0032AFA8 /* btn_close@3x.png */; };
+		8769E6E0250649FA0032AFA8 /* login_join_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6CA250649FA0032AFA8 /* login_join_disabled@2x.png */; };
+		8769E6E1250649FA0032AFA8 /* login_room@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6CB250649FA0032AFA8 /* login_room@3x.png */; };
+		8769E6E2250649FA0032AFA8 /* login_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6CC250649FA0032AFA8 /* login_icon@3x.png */; };
+		8769E6E3250649FA0032AFA8 /* login_join_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6CD250649FA0032AFA8 /* login_join_highlight@3x.png */; };
+		8769E6E4250649FA0032AFA8 /* login_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6CE250649FA0032AFA8 /* login_icon@2x.png */; };
+		8769E6E5250649FA0032AFA8 /* login_join_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6CF250649FA0032AFA8 /* login_join_highlight@2x.png */; };
+		8769E6E6250649FA0032AFA8 /* login_room@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6D0250649FA0032AFA8 /* login_room@2x.png */; };
+		8769E6E7250649FA0032AFA8 /* ysall_login_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6D1250649FA0032AFA8 /* ysall_login_background.png */; };
+		8769E6E8250649FA0032AFA8 /* login_join_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6D2250649FA0032AFA8 /* login_join_disabled@3x.png */; };
+		8769E6E9250649FA0032AFA8 /* whiteboardmask_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6D3250649FA0032AFA8 /* whiteboardmask_ipad@2x.png */; };
+		8769E6EB250649FA0032AFA8 /* whiteboardmask_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6D8250649FA0032AFA8 /* whiteboardmask_iphone@2x.png */; };
+		8769E6EE25064A380032AFA8 /* CHLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6ED25064A380032AFA8 /* CHLoginVC.m */; };
+		8769E6F125064A4E0032AFA8 /* CHInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6F025064A4E0032AFA8 /* CHInputView.m */; };
+		8769E6F325064C980032AFA8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E6F225064C980032AFA8 /* libc++.tbd */; };
+		8769E6F525064CB70032AFA8 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8769E682250646120032AFA8 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8769E6F425064CA90032AFA8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8769E6F525064CB70032AFA8 /* CloudHubRTC.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2FA40D696047CD6C00B59452 /* libPods-CHWhiteBoardSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CHWhiteBoardSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		59ECC2EBE003240DFEF86858 /* Pods-CHWhiteBoardSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHWhiteBoardSample.debug.xcconfig"; path = "Target Support Files/Pods-CHWhiteBoardSample/Pods-CHWhiteBoardSample.debug.xcconfig"; sourceTree = "<group>"; };
+		8769E64E250630B80032AFA8 /* CHWhiteBoardSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHWhiteBoardSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8769E651250630B80032AFA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8769E652250630B80032AFA8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8769E65D250630BC0032AFA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8769E660250630BC0032AFA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8769E662250630BC0032AFA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8769E663250630BC0032AFA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8769E66A250644EE0032AFA8 /* CHNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNavigationController.h; sourceTree = "<group>"; };
+		8769E66B250644EE0032AFA8 /* CHMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMainViewController.m; sourceTree = "<group>"; };
+		8769E66C250644EE0032AFA8 /* CHAppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAppMacros.h; sourceTree = "<group>"; };
+		8769E66D250644EF0032AFA8 /* CHLoginMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLoginMacros.h; sourceTree = "<group>"; };
+		8769E66E250644EF0032AFA8 /* CHMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMainViewController.h; sourceTree = "<group>"; };
+		8769E66F250644EF0032AFA8 /* CHNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNavigationController.m; sourceTree = "<group>"; };
+		8769E673250645B70032AFA8 /* SamplePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplePrefixHeader.pch; sourceTree = "<group>"; };
+		8769E676250646120032AFA8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		8769E677250646120032AFA8 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		8769E678250646120032AFA8 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		8769E679250646120032AFA8 /* CHWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
+		8769E67A250646120032AFA8 /* CHWhiteBoardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoardSDK.framework; sourceTree = "<group>"; };
+		8769E67D250646120032AFA8 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
+		8769E67E250646120032AFA8 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
+		8769E67F250646120032AFA8 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		8769E680250646120032AFA8 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
+		8769E681250646120032AFA8 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
+		8769E682250646120032AFA8 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
+		8769E683250646120032AFA8 /* CHLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHLive.xcassets; sourceTree = "<group>"; };
+		8769E691250646D60032AFA8 /* CHSkinRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHSkinRsource.bundle; sourceTree = "<group>"; };
+		8769E692250646D60032AFA8 /* CHLiveSkinManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLiveSkinManager.h; sourceTree = "<group>"; };
+		8769E693250646D60032AFA8 /* CHLiveSkinManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLiveSkinManager.m; sourceTree = "<group>"; };
+		8769E697250647980032AFA8 /* JsonTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonTool.m; sourceTree = "<group>"; };
+		8769E699250647980032AFA8 /* UIView+BMSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BMSize.h"; sourceTree = "<group>"; };
+		8769E69A250647980032AFA8 /* JsonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonTool.h; sourceTree = "<group>"; };
+		8769E69C250647980032AFA8 /* UIView+BMSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BMSize.m"; sourceTree = "<group>"; };
+		8769E6A0250648600032AFA8 /* CHCommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommonTools.h; sourceTree = "<group>"; };
+		8769E6A1250648600032AFA8 /* CHCommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommonTools.m; sourceTree = "<group>"; };
+		8769E6A4250648EB0032AFA8 /* CloudHubManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudHubManagerDelegate.h; sourceTree = "<group>"; };
+		8769E6A5250648EB0032AFA8 /* CloudHubManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudHubManager.h; sourceTree = "<group>"; };
+		8769E6A6250648EB0032AFA8 /* CloudHubManagerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudHubManagerDefine.h; sourceTree = "<group>"; };
+		8769E6A7250648EB0032AFA8 /* CloudHubManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudHubManager.m; sourceTree = "<group>"; };
+		8769E6A9250648EC0032AFA8 /* CHNewCoursewareControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNewCoursewareControlView.m; sourceTree = "<group>"; };
+		8769E6AA250648EC0032AFA8 /* CHNewCoursewareControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNewCoursewareControlView.h; sourceTree = "<group>"; };
+		8769E6AE2506493D0032AFA8 /* SCBrushToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBrushToolView.m; sourceTree = "<group>"; };
+		8769E6AF2506493D0032AFA8 /* SCDrawBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDrawBoardView.h; sourceTree = "<group>"; };
+		8769E6B12506493D0032AFA8 /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
+		8769E6B22506493D0032AFA8 /* SCColorListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorListView.m; sourceTree = "<group>"; };
+		8769E6B32506493D0032AFA8 /* SCColorTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorTipView.h; sourceTree = "<group>"; };
+		8769E6B42506493D0032AFA8 /* SCColorSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorSelectView.m; sourceTree = "<group>"; };
+		8769E6B52506493D0032AFA8 /* SCColorListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorListView.h; sourceTree = "<group>"; };
+		8769E6B62506493E0032AFA8 /* SCColorTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorTipView.m; sourceTree = "<group>"; };
+		8769E6B72506493E0032AFA8 /* YSSliderSuperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSliderSuperView.h; sourceTree = "<group>"; };
+		8769E6B82506493E0032AFA8 /* SCBrushToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBrushToolView.h; sourceTree = "<group>"; };
+		8769E6B92506493E0032AFA8 /* SCDrawBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDrawBoardView.m; sourceTree = "<group>"; };
+		8769E6BA2506493E0032AFA8 /* YSSliderSuperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSliderSuperView.m; sourceTree = "<group>"; };
+		8769E6C4250649FA0032AFA8 /* login_join_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_normal@2x.png"; sourceTree = "<group>"; };
+		8769E6C5250649FA0032AFA8 /* login_join_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_normal@3x.png"; sourceTree = "<group>"; };
+		8769E6C6250649FA0032AFA8 /* btn_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_close@2x.png"; sourceTree = "<group>"; };
+		8769E6C7250649FA0032AFA8 /* login_name@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_name@2x.png"; sourceTree = "<group>"; };
+		8769E6C8250649FA0032AFA8 /* login_name@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_name@3x.png"; sourceTree = "<group>"; };
+		8769E6C9250649FA0032AFA8 /* btn_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_close@3x.png"; sourceTree = "<group>"; };
+		8769E6CA250649FA0032AFA8 /* login_join_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_disabled@2x.png"; sourceTree = "<group>"; };
+		8769E6CB250649FA0032AFA8 /* login_room@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_room@3x.png"; sourceTree = "<group>"; };
+		8769E6CC250649FA0032AFA8 /* login_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_icon@3x.png"; sourceTree = "<group>"; };
+		8769E6CD250649FA0032AFA8 /* login_join_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_highlight@3x.png"; sourceTree = "<group>"; };
+		8769E6CE250649FA0032AFA8 /* login_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_icon@2x.png"; sourceTree = "<group>"; };
+		8769E6CF250649FA0032AFA8 /* login_join_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_highlight@2x.png"; sourceTree = "<group>"; };
+		8769E6D0250649FA0032AFA8 /* login_room@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_room@2x.png"; sourceTree = "<group>"; };
+		8769E6D1250649FA0032AFA8 /* ysall_login_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ysall_login_background.png; sourceTree = "<group>"; };
+		8769E6D2250649FA0032AFA8 /* login_join_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_join_disabled@3x.png"; sourceTree = "<group>"; };
+		8769E6D3250649FA0032AFA8 /* whiteboardmask_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteboardmask_ipad@2x.png"; sourceTree = "<group>"; };
+		8769E6D8250649FA0032AFA8 /* whiteboardmask_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteboardmask_iphone@2x.png"; sourceTree = "<group>"; };
+		8769E6EC25064A380032AFA8 /* CHLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHLoginVC.h; path = CHWhiteBoardSample/Login/CHLoginVC.h; sourceTree = SOURCE_ROOT; };
+		8769E6ED25064A380032AFA8 /* CHLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHLoginVC.m; path = CHWhiteBoardSample/Login/CHLoginVC.m; sourceTree = SOURCE_ROOT; };
+		8769E6EF25064A4E0032AFA8 /* CHInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHInputView.h; sourceTree = "<group>"; };
+		8769E6F025064A4E0032AFA8 /* CHInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHInputView.m; sourceTree = "<group>"; };
+		8769E6F225064C980032AFA8 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9F88FA80E0F4539FC5920D24 /* Pods-CHWhiteBoardSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHWhiteBoardSample.release.xcconfig"; path = "Target Support Files/Pods-CHWhiteBoardSample/Pods-CHWhiteBoardSample.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8769E64B250630B80032AFA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8769E6F325064C980032AFA8 /* libc++.tbd in Frameworks */,
+				8769E68E250646120032AFA8 /* CloudHubRTC.framework in Frameworks */,
+				32FB0A3189F4A749D4E41FB3 /* libPods-CHWhiteBoardSample.a in Frameworks */,
+				8769E689250646120032AFA8 /* BMKit.framework in Frameworks */,
+				8769E688250646120032AFA8 /* CHWhiteBoardSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0CFF1B70C389EBF59121F6F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6F225064C980032AFA8 /* libc++.tbd */,
+				2FA40D696047CD6C00B59452 /* libPods-CHWhiteBoardSample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8769E645250630B80032AFA8 = {
+			isa = PBXGroup;
+			children = (
+				8769E674250646120032AFA8 /* CHLib */,
+				8769E650250630B80032AFA8 /* CHWhiteBoardSample */,
+				8769E64F250630B80032AFA8 /* Products */,
+				FB3D10BE6485E557DF86079E /* Pods */,
+				0CFF1B70C389EBF59121F6F0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8769E64F250630B80032AFA8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8769E64E250630B80032AFA8 /* CHWhiteBoardSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8769E650250630B80032AFA8 /* CHWhiteBoardSample */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6A3250648EB0032AFA8 /* CloudHubManager */,
+				8769E6A8250648EC0032AFA8 /* CoursewareControlView */,
+				8769E6AD2506493D0032AFA8 /* BrushToolView */,
+				8769E696250647980032AFA8 /* Tools */,
+				8769E690250646D60032AFA8 /* CHSkinManager */,
+				8769E6C1250649FA0032AFA8 /* Login */,
+				8769E651250630B80032AFA8 /* AppDelegate.h */,
+				8769E652250630B80032AFA8 /* AppDelegate.m */,
+				8769E66C250644EE0032AFA8 /* CHAppMacros.h */,
+				8769E66D250644EF0032AFA8 /* CHLoginMacros.h */,
+				8769E66E250644EF0032AFA8 /* CHMainViewController.h */,
+				8769E66B250644EE0032AFA8 /* CHMainViewController.m */,
+				8769E66A250644EE0032AFA8 /* CHNavigationController.h */,
+				8769E66F250644EF0032AFA8 /* CHNavigationController.m */,
+				8769E65D250630BC0032AFA8 /* Assets.xcassets */,
+				8769E65F250630BC0032AFA8 /* LaunchScreen.storyboard */,
+				8769E662250630BC0032AFA8 /* Info.plist */,
+				8769E673250645B70032AFA8 /* SamplePrefixHeader.pch */,
+				8769E663250630BC0032AFA8 /* main.m */,
+			);
+			path = CHWhiteBoardSample;
+			sourceTree = "<group>";
+		};
+		8769E674250646120032AFA8 /* CHLib */ = {
+			isa = PBXGroup;
+			children = (
+				8769E675250646120032AFA8 /* CHWhiteBoardSDK */,
+				8769E67B250646120032AFA8 /* expandLib */,
+				8769E682250646120032AFA8 /* CloudHubRTC.framework */,
+				8769E683250646120032AFA8 /* CHLive.xcassets */,
+			);
+			name = CHLib;
+			path = CHWhiteBoardSample/CHLib;
+			sourceTree = "<group>";
+		};
+		8769E675250646120032AFA8 /* CHWhiteBoardSDK */ = {
+			isa = PBXGroup;
+			children = (
+				8769E676250646120032AFA8 /* CHWhiteBoardResources.bundle */,
+				8769E677250646120032AFA8 /* CHWhiteBoardImage.xcassets */,
+				8769E678250646120032AFA8 /* CHWhiteBoardSkin.bundle */,
+				8769E679250646120032AFA8 /* CHWhiteBoardBlack.xcassets */,
+				8769E67A250646120032AFA8 /* CHWhiteBoardSDK.framework */,
+			);
+			path = CHWhiteBoardSDK;
+			sourceTree = "<group>";
+		};
+		8769E67B250646120032AFA8 /* expandLib */ = {
+			isa = PBXGroup;
+			children = (
+				8769E67C250646120032AFA8 /* BMKit */,
+			);
+			path = expandLib;
+			sourceTree = "<group>";
+		};
+		8769E67C250646120032AFA8 /* BMKit */ = {
+			isa = PBXGroup;
+			children = (
+				8769E67D250646120032AFA8 /* BMKit.framework */,
+				8769E67E250646120032AFA8 /* BMTZImagePickerController.bundle */,
+				8769E67F250646120032AFA8 /* BMKitImage.xcassets */,
+				8769E680250646120032AFA8 /* BMKitResources.bundle */,
+				8769E681250646120032AFA8 /* BMDatePicker.nib */,
+			);
+			path = BMKit;
+			sourceTree = "<group>";
+		};
+		8769E690250646D60032AFA8 /* CHSkinManager */ = {
+			isa = PBXGroup;
+			children = (
+				8769E692250646D60032AFA8 /* CHLiveSkinManager.h */,
+				8769E693250646D60032AFA8 /* CHLiveSkinManager.m */,
+				8769E691250646D60032AFA8 /* CHSkinRsource.bundle */,
+			);
+			path = CHSkinManager;
+			sourceTree = "<group>";
+		};
+		8769E696250647980032AFA8 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6A0250648600032AFA8 /* CHCommonTools.h */,
+				8769E6A1250648600032AFA8 /* CHCommonTools.m */,
+				8769E69A250647980032AFA8 /* JsonTool.h */,
+				8769E697250647980032AFA8 /* JsonTool.m */,
+				8769E699250647980032AFA8 /* UIView+BMSize.h */,
+				8769E69C250647980032AFA8 /* UIView+BMSize.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		8769E6A3250648EB0032AFA8 /* CloudHubManager */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6A6250648EB0032AFA8 /* CloudHubManagerDefine.h */,
+				8769E6A4250648EB0032AFA8 /* CloudHubManagerDelegate.h */,
+				8769E6A5250648EB0032AFA8 /* CloudHubManager.h */,
+				8769E6A7250648EB0032AFA8 /* CloudHubManager.m */,
+			);
+			path = CloudHubManager;
+			sourceTree = "<group>";
+		};
+		8769E6A8250648EC0032AFA8 /* CoursewareControlView */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6AA250648EC0032AFA8 /* CHNewCoursewareControlView.h */,
+				8769E6A9250648EC0032AFA8 /* CHNewCoursewareControlView.m */,
+			);
+			path = CoursewareControlView;
+			sourceTree = "<group>";
+		};
+		8769E6AD2506493D0032AFA8 /* BrushToolView */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6AE2506493D0032AFA8 /* SCBrushToolView.m */,
+				8769E6AF2506493D0032AFA8 /* SCDrawBoardView.h */,
+				8769E6B02506493D0032AFA8 /* SCColorSelectView */,
+				8769E6B72506493E0032AFA8 /* YSSliderSuperView.h */,
+				8769E6B82506493E0032AFA8 /* SCBrushToolView.h */,
+				8769E6B92506493E0032AFA8 /* SCDrawBoardView.m */,
+				8769E6BA2506493E0032AFA8 /* YSSliderSuperView.m */,
+			);
+			path = BrushToolView;
+			sourceTree = "<group>";
+		};
+		8769E6B02506493D0032AFA8 /* SCColorSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6B12506493D0032AFA8 /* SCColorSelectView.h */,
+				8769E6B22506493D0032AFA8 /* SCColorListView.m */,
+				8769E6B32506493D0032AFA8 /* SCColorTipView.h */,
+				8769E6B42506493D0032AFA8 /* SCColorSelectView.m */,
+				8769E6B52506493D0032AFA8 /* SCColorListView.h */,
+				8769E6B62506493E0032AFA8 /* SCColorTipView.m */,
+			);
+			path = SCColorSelectView;
+			sourceTree = "<group>";
+		};
+		8769E6C1250649FA0032AFA8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6C3250649FA0032AFA8 /* Images */,
+				8769E6D5250649FA0032AFA8 /* Views */,
+				8769E6EC25064A380032AFA8 /* CHLoginVC.h */,
+				8769E6ED25064A380032AFA8 /* CHLoginVC.m */,
+				8769E6D3250649FA0032AFA8 /* whiteboardmask_ipad@2x.png */,
+				8769E6D8250649FA0032AFA8 /* whiteboardmask_iphone@2x.png */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		8769E6C3250649FA0032AFA8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6C4250649FA0032AFA8 /* login_join_normal@2x.png */,
+				8769E6C5250649FA0032AFA8 /* login_join_normal@3x.png */,
+				8769E6C6250649FA0032AFA8 /* btn_close@2x.png */,
+				8769E6C7250649FA0032AFA8 /* login_name@2x.png */,
+				8769E6C8250649FA0032AFA8 /* login_name@3x.png */,
+				8769E6C9250649FA0032AFA8 /* btn_close@3x.png */,
+				8769E6CA250649FA0032AFA8 /* login_join_disabled@2x.png */,
+				8769E6CB250649FA0032AFA8 /* login_room@3x.png */,
+				8769E6CC250649FA0032AFA8 /* login_icon@3x.png */,
+				8769E6CD250649FA0032AFA8 /* login_join_highlight@3x.png */,
+				8769E6CE250649FA0032AFA8 /* login_icon@2x.png */,
+				8769E6CF250649FA0032AFA8 /* login_join_highlight@2x.png */,
+				8769E6D0250649FA0032AFA8 /* login_room@2x.png */,
+				8769E6D1250649FA0032AFA8 /* ysall_login_background.png */,
+				8769E6D2250649FA0032AFA8 /* login_join_disabled@3x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		8769E6D5250649FA0032AFA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6EF25064A4E0032AFA8 /* CHInputView.h */,
+				8769E6F025064A4E0032AFA8 /* CHInputView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FB3D10BE6485E557DF86079E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59ECC2EBE003240DFEF86858 /* Pods-CHWhiteBoardSample.debug.xcconfig */,
+				9F88FA80E0F4539FC5920D24 /* Pods-CHWhiteBoardSample.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8769E64D250630B80032AFA8 /* CHWhiteBoardSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8769E667250630BC0032AFA8 /* Build configuration list for PBXNativeTarget "CHWhiteBoardSample" */;
+			buildPhases = (
+				9BB3CB13CF601F0DCC92012C /* [CP] Check Pods Manifest.lock */,
+				8769E64A250630B80032AFA8 /* Sources */,
+				8769E64B250630B80032AFA8 /* Frameworks */,
+				8769E64C250630B80032AFA8 /* Resources */,
+				8769E6F425064CA90032AFA8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CHWhiteBoardSample;
+			productName = CHWhiteBoardSample;
+			productReference = 8769E64E250630B80032AFA8 /* CHWhiteBoardSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8769E646250630B80032AFA8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1150;
+				TargetAttributes = {
+					8769E64D250630B80032AFA8 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+				};
+			};
+			buildConfigurationList = 8769E649250630B80032AFA8 /* Build configuration list for PBXProject "CHWhiteBoardSample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8769E645250630B80032AFA8;
+			productRefGroup = 8769E64F250630B80032AFA8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8769E64D250630B80032AFA8 /* CHWhiteBoardSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8769E64C250630B80032AFA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8769E6E4250649FA0032AFA8 /* login_icon@2x.png in Resources */,
+				8769E6E8250649FA0032AFA8 /* login_join_disabled@3x.png in Resources */,
+				8769E68F250646120032AFA8 /* CHLive.xcassets in Resources */,
+				8769E68D250646120032AFA8 /* BMDatePicker.nib in Resources */,
+				8769E6E3250649FA0032AFA8 /* login_join_highlight@3x.png in Resources */,
+				8769E6E2250649FA0032AFA8 /* login_icon@3x.png in Resources */,
+				8769E68A250646120032AFA8 /* BMTZImagePickerController.bundle in Resources */,
+				8769E6E0250649FA0032AFA8 /* login_join_disabled@2x.png in Resources */,
+				8769E6E5250649FA0032AFA8 /* login_join_highlight@2x.png in Resources */,
+				8769E68B250646120032AFA8 /* BMKitImage.xcassets in Resources */,
+				8769E661250630BC0032AFA8 /* LaunchScreen.storyboard in Resources */,
+				8769E687250646120032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */,
+				8769E685250646120032AFA8 /* CHWhiteBoardImage.xcassets in Resources */,
+				8769E6DF250649FA0032AFA8 /* btn_close@3x.png in Resources */,
+				8769E6E7250649FA0032AFA8 /* ysall_login_background.png in Resources */,
+				8769E6DE250649FA0032AFA8 /* login_name@3x.png in Resources */,
+				8769E6DD250649FA0032AFA8 /* login_name@2x.png in Resources */,
+				8769E6E9250649FA0032AFA8 /* whiteboardmask_ipad@2x.png in Resources */,
+				8769E686250646120032AFA8 /* CHWhiteBoardSkin.bundle in Resources */,
+				8769E6DA250649FA0032AFA8 /* login_join_normal@2x.png in Resources */,
+				8769E684250646120032AFA8 /* CHWhiteBoardResources.bundle in Resources */,
+				8769E6DC250649FA0032AFA8 /* btn_close@2x.png in Resources */,
+				8769E6DB250649FA0032AFA8 /* login_join_normal@3x.png in Resources */,
+				8769E6E1250649FA0032AFA8 /* login_room@3x.png in Resources */,
+				8769E6E6250649FA0032AFA8 /* login_room@2x.png in Resources */,
+				8769E65E250630BC0032AFA8 /* Assets.xcassets in Resources */,
+				8769E68C250646120032AFA8 /* BMKitResources.bundle in Resources */,
+				8769E6EB250649FA0032AFA8 /* whiteboardmask_iphone@2x.png in Resources */,
+				8769E694250646D60032AFA8 /* CHSkinRsource.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9BB3CB13CF601F0DCC92012C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CHWhiteBoardSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8769E64A250630B80032AFA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8769E69F250647980032AFA8 /* UIView+BMSize.m in Sources */,
+				8769E6BB2506493E0032AFA8 /* SCBrushToolView.m in Sources */,
+				8769E670250644EF0032AFA8 /* CHMainViewController.m in Sources */,
+				8769E653250630B80032AFA8 /* AppDelegate.m in Sources */,
+				8769E6BC2506493E0032AFA8 /* SCColorListView.m in Sources */,
+				8769E6BD2506493E0032AFA8 /* SCColorSelectView.m in Sources */,
+				8769E6BE2506493E0032AFA8 /* SCColorTipView.m in Sources */,
+				8769E6C02506493E0032AFA8 /* YSSliderSuperView.m in Sources */,
+				8769E695250646D60032AFA8 /* CHLiveSkinManager.m in Sources */,
+				8769E6A2250648600032AFA8 /* CHCommonTools.m in Sources */,
+				8769E69D250647980032AFA8 /* JsonTool.m in Sources */,
+				8769E6EE25064A380032AFA8 /* CHLoginVC.m in Sources */,
+				8769E6AC250648EC0032AFA8 /* CHNewCoursewareControlView.m in Sources */,
+				8769E6F125064A4E0032AFA8 /* CHInputView.m in Sources */,
+				8769E6AB250648EC0032AFA8 /* CloudHubManager.m in Sources */,
+				8769E664250630BC0032AFA8 /* main.m in Sources */,
+				8769E671250644EF0032AFA8 /* CHNavigationController.m in Sources */,
+				8769E6BF2506493E0032AFA8 /* SCDrawBoardView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8769E65F250630BC0032AFA8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8769E660250630BC0032AFA8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8769E665250630BC0032AFA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8769E666250630BC0032AFA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8769E668250630BC0032AFA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59ECC2EBE003240DFEF86858 /* Pods-CHWhiteBoardSample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U4GN82M5NS;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CHWhiteBoardSDK",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WhiteBoardSDK=1",
+				);
+				INFOPLIST_FILE = CHWhiteBoardSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-ObjC",
+					"-l\"MBProgressHUD\"",
+					"-l\"Masonry\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = CH.CHWhiteBoardSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8769E669250630BC0032AFA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F88FA80E0F4539FC5920D24 /* Pods-CHWhiteBoardSample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U4GN82M5NS;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CHWhiteBoardSDK",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/expandLib/BMKit",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WhiteBoardSDK=1",
+				);
+				INFOPLIST_FILE = CHWhiteBoardSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-ObjC",
+					"-l\"MBProgressHUD\"",
+					"-l\"Masonry\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = CH.CHWhiteBoardSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8769E649250630B80032AFA8 /* Build configuration list for PBXProject "CHWhiteBoardSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8769E665250630BC0032AFA8 /* Debug */,
+				8769E666250630BC0032AFA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8769E667250630BC0032AFA8 /* Build configuration list for PBXNativeTarget "CHWhiteBoardSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8769E668250630BC0032AFA8 /* Debug */,
+				8769E669250630BC0032AFA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8769E646250630B80032AFA8 /* Project object */;
+}

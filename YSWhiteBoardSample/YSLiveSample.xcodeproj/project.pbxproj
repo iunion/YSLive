@@ -661,7 +661,7 @@
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/CHWhiteBoardSDK",
 				);
-				GCC_PREFIX_HEADER = YSLiveSample/SamplePrefixHeader.pch;
+				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -713,7 +713,7 @@
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/CHWhiteBoardSDK",
 				);
-				GCC_PREFIX_HEADER = YSLiveSample/SamplePrefixHeader.pch;
+				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",

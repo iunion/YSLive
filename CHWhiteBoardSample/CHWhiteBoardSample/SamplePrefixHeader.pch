@@ -1,0 +1,28 @@
+//
+//  SamplePrefixHeader.pch
+//  YSLiveSample
+//
+//  Created by 马迪 on 2020/9/1.
+//  Copyright © 2020 yunshuxunlian. All rights reserved.
+//
+
+#ifndef SamplePrefixHeader_pch
+#define SamplePrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//#import <BMKit/BMKit.h>
+#import <CloudHubRTC/CloudHubRTC.h>
+#import <CHWhiteBoardSDK/CHWhiteBoardSDKManager.h>
+
+#import "CHAppMacros.h"
+#import "CHLiveSkinManager.h"
+#import "CHCommonTools.h"
+
+#import <Masonry.h>
+
+#import "CHLoginMacros.h"
+
+#import "UIView+BMSize.h"
+#endif /* SamplePrefixHeader_pch */
