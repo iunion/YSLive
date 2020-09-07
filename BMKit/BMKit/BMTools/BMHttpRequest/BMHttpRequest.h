@@ -15,6 +15,8 @@ typedef void(^BMHttpRequestFail)(NSError *_Nonnull error, NSInteger statusCode);
 
 @interface BMHttpRequest : NSObject
 
+@property (nonatomic, strong, readonly) NSURLSession *session;
+
 - (void)destroy;
 
 + (NSURLSessionDataTask *)post:(NSString * _Nonnull)url parameters:(NSDictionary * _Nonnull)parameters success:(BMHttpRequestSucess)sucess failure:(BMHttpRequestFail)failure;

@@ -48,6 +48,8 @@
 		0455F114243EBE7800468853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0455F113243EBE7800468853 /* Assets.xcassets */; };
 		8769E6032504A6BA0032AFA8 /* CloudHubManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6022504A6BA0032AFA8 /* CloudHubManager.m */; };
 		8769E6082504C61D0032AFA8 /* JsonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6072504C61D0032AFA8 /* JsonTool.m */; };
+		8769E60D2506151D0032AFA8 /* CHNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E60B2506151D0032AFA8 /* CHNewCoursewareControlView.m */; };
+		8769E60F2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E60E2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets */; };
 		876BFA5824CFF25B008E9848 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4624CFF25A008E9848 /* YSLive.xcassets */; };
 		876BFA5A24CFF25B008E9848 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */; };
 		876BFA5D24CFF25B008E9848 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */; };
@@ -140,6 +142,9 @@
 		8769E6052504AFB40032AFA8 /* CloudHubManagerDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudHubManagerDefine.h; sourceTree = "<group>"; };
 		8769E6062504C61D0032AFA8 /* JsonTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonTool.h; sourceTree = "<group>"; };
 		8769E6072504C61D0032AFA8 /* JsonTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JsonTool.m; sourceTree = "<group>"; };
+		8769E60B2506151D0032AFA8 /* CHNewCoursewareControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNewCoursewareControlView.m; sourceTree = "<group>"; };
+		8769E60C2506151D0032AFA8 /* CHNewCoursewareControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNewCoursewareControlView.h; sourceTree = "<group>"; };
+		8769E60E2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
 		876BFA4624CFF25A008E9848 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
 		876BFA4824CFF25A008E9848 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		876BFA4D24CFF25B008E9848 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
@@ -243,6 +248,7 @@
 				0416161524FF852B00144271 /* YSSkinManager */,
 				0455F0D0243EB96F00468853 /* Login */,
 				041615FC24FF7BE700144271 /* BrushToolView */,
+				8769E60A2506151D0032AFA8 /* CoursewareControlView */,
 				0455F0E9243EB96F00468853 /* AppDelegate.h */,
 				0455F0C0243EB96E00468853 /* AppDelegate.m */,
 				0455F0EA243EB96F00468853 /* YSLoginMacros.h */,
@@ -327,9 +333,19 @@
 			path = CloudHubManager;
 			sourceTree = "<group>";
 		};
+		8769E60A2506151D0032AFA8 /* CoursewareControlView */ = {
+			isa = PBXGroup;
+			children = (
+				8769E60C2506151D0032AFA8 /* CHNewCoursewareControlView.h */,
+				8769E60B2506151D0032AFA8 /* CHNewCoursewareControlView.m */,
+			);
+			path = CoursewareControlView;
+			sourceTree = "<group>";
+		};
 		876BFA4924CFF25B008E9848 /* expandLib */ = {
 			isa = PBXGroup;
 			children = (
+				8769E60E2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets */,
 				041615F624FF7A6300144271 /* YSWhiteBoardResources.bundle */,
 				041615F724FF7A6300144271 /* YSWhiteBoardSkin.bundle */,
 				041615E424FCCB6100144271 /* YSWhiteBoardSDK.framework */,
@@ -437,6 +453,7 @@
 				041615FA24FF7A6300144271 /* YSWhiteBoardResources.bundle in Resources */,
 				0455F108243EB96F00468853 /* ysall_login_background.png in Resources */,
 				0455F10A243EB96F00468853 /* whiteboardmask_ipad@2x.png in Resources */,
+				8769E60F2506180D0032AFA8 /* YSWhiteBoardBlack.xcassets in Resources */,
 				0455F104243EB96F00468853 /* login_join_highlight@3x.png in Resources */,
 				0455F0FD243EB96F00468853 /* btn_close@2x.png in Resources */,
 				0455F100243EB96F00468853 /* btn_close@3x.png in Resources */,
@@ -495,6 +512,7 @@
 				0455F10E243EB96F00468853 /* YSNavigationController.m in Sources */,
 				0455F0EC243EB96F00468853 /* AppDelegate.m in Sources */,
 				0455F0FA243EB96F00468853 /* YSLoginVC.m in Sources */,
+				8769E60D2506151D0032AFA8 /* CHNewCoursewareControlView.m in Sources */,
 				0416160D24FF7BE700144271 /* SCColorTipView.m in Sources */,
 				0416160C24FF7BE700144271 /* SCColorSelectView.m in Sources */,
 				041616222502228A00144271 /* UIView+BMSize.m in Sources */,
