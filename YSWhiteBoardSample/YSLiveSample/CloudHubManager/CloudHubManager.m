@@ -56,9 +56,6 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 @property (nonatomic, strong) NSString *webServerHost;
 @property (nonatomic, assign) NSUInteger webServerPort;
 
-/// 服务器地址
-@property (nonatomic, strong) NSString *currentServer;
-
 @property (nonatomic, strong) NSArray *serverList;
 
 #pragma mark - 白板
@@ -83,6 +80,7 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 {
     if (cloudHubManagerSingleton)
     {
+        [CHWhiteBoardSDKManager destroy];
         cloudHubManagerSingleton.cloudHubRtcEngineKit = nil;
     }
     
@@ -163,6 +161,15 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
         return NO;
     }
 
+    if (!host)
+    {
+        host = CloudHubManager_DefaultApiHost;
+    }
+    if (port == 0)
+    {
+        port = CloudHubManager_DefaultApiPort;
+    }
+
     self.apiHost = host;
     self.apiPort = port;
     
@@ -180,19 +187,6 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     self.localUser.nickName = nickName;
     
     self.webServerHost = host;
-    
-    NSString *serverName = [roomParams objectForKey:CHJoinRoomParamsServerKey];
-    self.currentServer = serverName;
-    
-    // 如果host是域名，并且params中的server不是空，则需要将域名host的global替换
-    if ([CHSessionUtil isDomain:host] && serverName)
-    {
-        NSArray *array = [host componentsSeparatedByString:@"."];
-        if (array && array.count > 2)
-        {
-            self.webServerHost = [NSString stringWithFormat:@"%@.%@.%@", serverName, array[1], array[2]];
-        }
-    }
     self.webServerPort = port;
 
     // 初始化 cloudHubRtcEngineKit
@@ -224,6 +218,15 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 - (UIView *)whiteBordView
 {
     return self.whiteBoardManager.mainWhiteBoardView;
+}
+
+/// 当前服务器时间 now+tHowMuchTimeServerFasterThenMe
+- (NSTimeInterval)tCurrentTime
+{
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval timeInterval = now + self.tHowMuchTimeServerFasterThenMe;
+    
+    return timeInterval;
 }
 
 
@@ -260,10 +263,17 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine onServerTime:(NSUInteger)serverts
 {
     NSTimeInterval timeInterval = serverts;
-
-     //NSLog(@"ServiceTime %@", [NSDate bm_stringFromTs:timeInterval]);
-     //self.tHowMuchTimeServerFasterThenMe = timeInterval - [[NSDate date] timeIntervalSince1970];
-     //NSLog(@"tHowMuchTimeServerFasterThenMe %@", @(self.tHowMuchTimeServerFasterThenMe));
+    
+#if DEBUG
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+    [dateFormater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *serviceTime = [dateFormater stringFromDate:date];
+    
+    NSLog(@"ServiceTime %@", serviceTime);
+#endif
+    self.tHowMuchTimeServerFasterThenMe = timeInterval - [[NSDate date] timeIntervalSince1970];
+    NSLog(@"tHowMuchTimeServerFasterThenMe %@", @(self.tHowMuchTimeServerFasterThenMe));
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(onUpdateTimeWithTimeInterval:)])
     {

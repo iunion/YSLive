@@ -16,9 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 发生错误 回调
 - (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(nullable NSString *)message;
 
-/// 进入房间失败
-- (void)onRoomJoinFailed:(NSDictionary *)errorDic;
-
 - (void)onUpdateTimeWithTimeInterval:(NSTimeInterval)timeInterval;
 
 /// 成功进入房间

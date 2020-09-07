@@ -24,10 +24,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) CloudHubRtcEngineKit *cloudHubRtcEngineKit;
 
 /// 房间相关消息回调
-@property (nonatomic, weak) id <CloudHubManagerDelegate, CHWhiteBoardManagerDelegate> delegate;
+@property (nonatomic, weak) id <CloudHubManagerDelegate> delegate;
 
 /// 当前用户数据
 @property (nonatomic, strong, readonly) CHRoomUser *localUser;
+
+#pragma mark - 时间相关
+
+/// 服务器时间与本地时间差 tServiceTime-now
+@property (nonatomic, assign) NSTimeInterval tHowMuchTimeServerFasterThenMe;
+
+/// 当前服务器时间 now+tHowMuchTimeServerFasterThenMe
+@property (nonatomic, assign, readonly) NSTimeInterval tCurrentTime;
 
 #pragma mark - 白板
 
@@ -42,9 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) CHFileModel *currentFile;
 
 + (instancetype)sharedInstance;
+/// 管理销毁
++ (void)destroy;
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId;
-- (BOOL)joinRoomWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams;
+- (BOOL)joinRoomWithHost:(nullable NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId;
+- (BOOL)joinRoomWithHost:(nullable NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams;
 
 
 @end

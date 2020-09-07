@@ -49,8 +49,7 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 <
     UITextFieldDelegate,
     YSInputViewDelegate,
-    CloudHubManagerDelegate,
-    CHWhiteBoardManagerDelegate
+    CloudHubManagerDelegate
 >
 //{
 //    YSUserRoleType userRole;
@@ -134,9 +133,6 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     {
         self.joinRoomBtn.enabled = NO;
     }
-    
-    self.cloudHubManager = [CloudHubManager sharedInstance];
-    self.cloudHubManager.delegate = self;
 }
 
 
@@ -498,13 +494,16 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 
     // 根据实际用户变更用户身份
 //    userRole = YSUserType_Teacher;
+    
+    self.cloudHubManager = [CloudHubManager sharedInstance];
+    self.cloudHubManager.delegate = self;
 
     [self.cloudHubManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil];
 }
 
 
 #pragma mark -
-#pragma mark YSLiveSDKDelegate
+#pragma mark CloudHubManagerDelegate
 
 - (void)onRoomJoined
 {
@@ -524,10 +523,18 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
         GetAppDelegate.allowRotation = YES;
     }
     
-    YSMainViewController * mainVC = [[YSMainViewController alloc]initWithwhiteBordView:self.cloudHubManager.whiteBoardManager.mainWhiteBoardView userId:nil];
+    YSMainViewController *mainVC = [[YSMainViewController alloc] initWithwhiteBordView:self.cloudHubManager.whiteBoardManager.mainWhiteBoardView userId:nil];
+    
+    self.cloudHubManager.delegate = mainVC;
     
     mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:mainVC animated:YES completion:nil];
+    
+}
+
+/// 成功重连房间
+- (void)onRoomReJoined
+{
     
 }
 
@@ -560,76 +567,13 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 
 }
 
-
-/**
-    发生密码错误 回调
-    需要重新输入密码
-
-    @param errorCode errorCode
- */
-/*
-- (void)onRoomNeedEnterPassWord:(YSRoomErrorCode)errorCode
+- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
 {
-    NSLog(@"onRoomNeedEnterPassWord");
+    [CloudHubManager destroy];
     
     [self.progressHUD hideAnimated:YES];
 
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSSLocalized(@"Error.PwdError") message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    __block UITextField *passwordTextField;
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        passwordTextField = textField;
-        
-        textField.placeholder = YSSLocalized(@"Error.NeedPwd");
-//        if (self->userRole == YSUserType_Teacher)
-//        {
-//            textField.placeholder = YSSLocalized(@"Error.NeedPwd.teacher");
-//        }
-//        else
-//        {
-//            textField.placeholder = YSSLocalized(@"Error.NeedPwd.student");
-//        }
-    }];
-
-    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
-        NSString *roomId = self.roomTextField.inputTextField.text;
-        NSString *nickName = self.nickNameTextField.inputTextField.text;
-        NSString *password = passwordTextField.text;
-//        if (self->userRole == YSSDKSUserType_Student)
-//        {
-//            // 学生登入
-//            // 注意： 直播只支持学生身份登入房间
-//            [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userId:nil userParams:nil needCheckPermissions:NO];
-//        }
-//        else
-        {
-            // 老师(会议主持)登入
-            // 注意： 小班课和会议支持老师和学生身份登入房间
-//            [self.whiteBoardSDKManager joinRoomWithHost:@"api.roadofcloud.net" port:443 nickName:nickName roomParams:nil userParams:nil];
-//             [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userRole:YSUserType_Student userId:nil userParams:nil];
-            [self.whiteBoardSDKManager joinRoomWithHost:YSHost port:YSPort nickName:nickName roomId:roomId roomPassword:nil userId:nil userParams:nil];
-        }
-    }];
-    [alertVc addAction:confimAc];
-    
-    [self presentViewController:alertVc animated:YES completion:nil];
-}
-
-/**
-    发生其他错误 回调
-    需要重新登陆
- 
-    @param errorCode errorCode
-*/
-/*
-- (void)onRoomReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
-{
-    NSLog(@"onRoomNeedEnterPassWord");
-
-    [self.progressHUD hideAnimated:YES];
-
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:descript message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
@@ -637,25 +581,15 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
     
     [self presentViewController:alertVc animated:YES completion:nil];
 }
-*/
-/**
-   已经进入直播房间
-*/
-- (void)onEnterLiveRoom
-{
-    NSLog(@"onEnterLiveRoom");
 
+- (void)onUpdateTimeWithTimeInterval:(NSTimeInterval)timeInterval
+{
+    
 }
 
-/**
-   已经进入小班课(会议)房间
-*/
-- (void)onEnterClassRoom
-{
-    NSLog(@"onEnterClassRoom");
 
-}
 
+#pragma mark - CHWhiteBoardManagerDelegate
 
 /// 白板准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
@@ -721,6 +655,5 @@ static NSString *const YSAPPHost = @"api.roadofcloud.net";
 {
     
 }
-
 
 @end

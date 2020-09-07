@@ -17,6 +17,7 @@
     SCDrawBoardViewDelegate
 >
 
+@property (nonatomic, weak) CloudHubManager *cloudHubManager;
 
 @property (nonatomic, weak) CHWhiteBoardSDKManager *whiteBoardSDKManager;
 /// 固定UserId
@@ -44,6 +45,8 @@
         self.userId = userId;
         self.mainWhiteBoardView = whiteBordView;
         self.whiteBoardSDKManager = [CHWhiteBoardSDKManager sharedInstance];
+        
+        self.view.backgroundColor = [UIColor blackColor];
     }
     return self;
 }
@@ -74,7 +77,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-            
+    
+    self.cloudHubManager = [CloudHubManager sharedInstance];
+    
     [self.view addSubview:self.mainWhiteBoardView];
     self.mainWhiteBoardView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH_ROTATE, UI_SCREEN_HEIGHT_ROTATE);
     
@@ -115,7 +120,7 @@
 
 - (void)backBtnClick:(UIButton *)sender
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.cloudHubManager.cloudHubRtcEngineKit leaveChannel:nil];
 }
 
 - (void)scaleBtnClick:(UIButton *)sender
@@ -161,33 +166,30 @@
 }
 
 #pragma mark 画笔工具展开收起
+
 - (void)brushToolOpenBtnClick:(UIButton *)btn
 {
-//    if (self.liveManager.isBeginClass)
-       {
-           btn.selected = !btn.selected;
-           CGFloat leftGap = 10;
-           if (BMIS_IPHONEXANDP)
-           {
-               leftGap = BMUI_HOME_INDICATOR_HEIGHT;
-           }
-           CGFloat tempWidth = [YSCommonTools deviceIsIPad] ? 50.0f : 36.0f;
-           if (btn.selected)
-           {
-//               self.drawBoardView.hidden = YES;
-               [UIView animateWithDuration:0.3 animations:^{
-                   self.brushToolView.bm_left = -tempWidth;
-                   self.brushToolOpenBtn.bm_left = leftGap;
-               }];
-           }
-           else
-           {
-               [UIView animateWithDuration:0.3 animations:^{
-                   self.brushToolView.bm_left = leftGap;
-                   self.brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
-               }];
-           }
-       }
+    btn.selected = !btn.selected;
+    CGFloat leftGap = 10;
+    if (BMIS_IPHONEXANDP)
+    {
+        leftGap = BMUI_HOME_INDICATOR_HEIGHT;
+    }
+    CGFloat tempWidth = [YSCommonTools deviceIsIPad] ? 50.0f : 36.0f;
+    if (btn.selected)
+    {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.brushToolView.bm_left = -tempWidth;
+            self.brushToolOpenBtn.bm_left = leftGap;
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.brushToolView.bm_left = leftGap;
+            self.brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
+        }];
+    }
 }
 
 #pragma mark SCBrushToolViewDelegate
@@ -220,5 +222,127 @@
     [self.whiteBoardSDKManager didSDKSelectDrawType:drawType color:hexColor widthProgress:progress];
 }
 
+
+#pragma mark -
+#pragma mark CloudHubManagerDelegate
+
+- (void)onRoomJoined
+{
+}
+
+/// 成功重连房间
+- (void)onRoomReJoined
+{
+    
+}
+
+/**
+    失去连接
+ */
+- (void)onRoomConnectionLost
+{
+    NSLog(@"onRoomConnectionLost");
+
+}
+
+/**
+    已经离开房间
+ */
+- (void)onRoomLeft
+{
+    NSLog(@"onRoomLeft");
+    
+    [CloudHubManager destroy];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    //GetAppDelegate.allowRotation = NO;
+}
+
+/**
+    自己被踢出房间
+    @param reasonCode 被踢原因
+ */
+- (void)onRoomKickedOut:(NSInteger)reasonCode
+{
+    NSLog(@"onRoomKickedOut");
+
+}
+
+- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
+{
+
+}
+
+- (void)onUpdateTimeWithTimeInterval:(NSTimeInterval)timeInterval
+{
+    
+}
+
+
+#pragma mark - CHWhiteBoardManagerDelegate
+
+/// 白板准备完毕
+- (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
+{
+    
+}
+
+/**
+ 文件列表回调
+ @param fileList 文件NSDictionary列表
+ */
+- (void)onWhiteBroadFileList:(NSArray *)fileList
+{
+    
+}
+
+/// H5脚本文件加载初始化完成
+- (void)onWhiteBoardPageFinshed:(NSString *)fileId
+{
+    
+}
+
+/// 切换Web课件加载状态
+- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    
+}
+
+/// Web课件翻页结果
+- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    
+}
+/// 翻页超时
+- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic
+{
+    
+}
+/// 课件缩放
+- (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
+{
+    
+}
+
+
+#pragma mark - 课件事件
+
+/// 课件全屏
+- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
+{
+    
+}
+
+/// 切换课件
+- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
+{
+    
+}
+
+
+/// 课件窗口最大化事件
+- (void)onWhiteBoardMaximizeView
+{
+    
+}
 
 @end
