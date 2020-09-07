@@ -2,8 +2,7 @@
 //  CHSkinManager.h
 //  CHAll
 //
-//  Created by 马迪 on 2020/5/25.
-//  Copyright © 2020 YS. All rights reserved.
+
 //
 
 #import <Foundation/Foundation.h>

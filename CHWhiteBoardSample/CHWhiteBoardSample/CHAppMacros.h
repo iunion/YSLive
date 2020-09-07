@@ -2,8 +2,6 @@
 //  CHAppMacros.h
 //  CHLiveSample
 //
-//  Created by 马迪 on 2020/9/2.
-//  Copyright © 2020 yunshuxunlian. All rights reserved.
 //
 
 #ifndef CHAppMacros_h

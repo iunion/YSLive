@@ -2,8 +2,6 @@
 //  YSInputView.m
 //  YSEdu
 //
-//  Created by fzxm on 2019/10/10.
-//  Copyright © 2019 ysxl. All rights reserved.
 //
 
 #import "CHInputView.h"

@@ -2,8 +2,6 @@
 //  SCColorSelectView.h
 //  YSLive
 //
-//  Created by fzxm on 2019/11/7.
-//  Copyright © 2019 YS. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

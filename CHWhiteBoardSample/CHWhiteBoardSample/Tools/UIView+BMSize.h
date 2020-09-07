@@ -2,8 +2,6 @@
 //  UIView+BMSize.h
 //  BMBasekit
 //
-//  Created by DennisDeng on 14-5-5.
-//  Copyright (c) 2014年 DennisDeng. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

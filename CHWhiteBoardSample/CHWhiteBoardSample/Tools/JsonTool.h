@@ -2,8 +2,6 @@
 //  JsonTool.h
 //  YSLiveSample
 //
-//  Created by jiang deng on 2020/9/6.
-//  Copyright © 2020 yunshuxunlian. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

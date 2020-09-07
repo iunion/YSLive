@@ -2,13 +2,13 @@
 //  CloudHubManager.m
 //  YSLiveSample
 //
-//  Created by jiang deng on 2020/9/6.
-//  Copyright © 2020 yunshuxunlian. All rights reserved.
 //
 
 #import "CloudHubManager.h"
 #import "JsonTool.h"
 #import "CHNewCoursewareControlView.h"
+
+#define APPID @"LEL26sZnybNA81cH"
 
 static CloudHubManager *cloudHubManagerSingleton = nil;
 
@@ -116,7 +116,7 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
 
 - (void)initializeManager
 {
-    self.appId = @"";
+    self.appId = @"";//APPID;
     
     self.apiHost = CloudHubManager_DefaultApiHost;
     self.apiPort = CloudHubManager_DefaultApiPort;
@@ -375,6 +375,85 @@ NSString *const CHJoinRoomParamsSecureKey       = @"secure";
     {
         [self.delegate onRoomKickedOut:reason];
     }
+}
+
+/// 信令
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine
+         onPubMsg:(NSString *)msgName
+            msgId:(NSString *)msgId
+             from:(NSString *)fromuid
+         withData:(NSString *)data
+associatedWithUser:(NSString *)uid
+associatedWithMsg:(NSString *)assMsgID
+               ts:(NSUInteger)ts
+    withExtraData:(NSString *)extraData
+        isHistory:(BOOL)isHistory
+{
+    //data = [data stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+    //extraData = [extraData stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+    
+    NSDictionary *dataDic = [CHSessionUtil convertWithData:data];
+    NSDictionary *extensionDic = [CHSessionUtil convertWithData:extraData];
+
+    NSMutableDictionary *msgDic = [NSMutableDictionary dictionary];
+    [msgDic setObject:msgId forKey:@"id"];
+    [msgDic setObject:msgName forKey:@"name"];
+    [msgDic setObject:@(ts) forKey:@"ts"];
+    if (fromuid)
+    {
+        [msgDic setObject:fromuid forKey:@"fromID"];
+    }
+    if (data)
+    {
+        if (dataDic)
+        {
+            [msgDic setObject:dataDic forKey:@"data"];
+        }
+    }
+    if (uid)
+    {
+        [msgDic setObject:uid forKey:@"associatedUserID"];
+    }
+    if (assMsgID)
+    {
+        [msgDic setObject:assMsgID forKey:@"associatedMsgID"];
+    }
+    if (extraData)
+    {
+        if (extensionDic)
+        {
+            [msgDic addEntriesFromDictionary:extensionDic];
+        }
+    }
+    [msgDic setObject:@(isHistory) forKey:@"isHistory"];
+    
+    [self.whiteBoardManager roomWhiteBoardOnRemotePubMsg:msgDic];
+}
+
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine
+         onDelMsg:(NSString *)msgName
+            msgId:(NSString *)msgId
+             from:(NSString *)fromuid
+         withData:(NSString *)data
+{
+    //NSDictionary *dataDic = [CHSessionUtil convertWithData:data];
+    NSMutableDictionary *msgDic = [NSMutableDictionary dictionary];
+    [msgDic setObject:msgId forKey:@"id"];
+    [msgDic setObject:msgName forKey:@"name"];
+    if (fromuid)
+    {
+        [msgDic setObject:fromuid forKey:@"fromID"];
+    }
+    if (data)
+    {
+        NSDictionary *dataDic = [CHSessionUtil convertWithData:data];
+        if (dataDic)
+        {
+            [msgDic setObject:dataDic forKey:@"data"];
+        }
+    }
+    
+    [self.whiteBoardManager roomWhiteBoardOnRemoteDelMsg:msgDic];
 }
 
 

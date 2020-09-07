@@ -2,8 +2,6 @@
 //  CHLoginMacros.h
 //  CHLogin
 //
-//  Created by fzxm on 2019/11/26.
-//  Copyright © 2019 ysxl. All rights reserved.
 //
 
 #ifndef CHLoginMacros_h
