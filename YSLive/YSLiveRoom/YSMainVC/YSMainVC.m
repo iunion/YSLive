@@ -40,7 +40,7 @@
 #import "SCEyeCareWindow.h"
 
 // 隐藏视频全屏按钮
-#define HideFullScreenBtn   1
+#define HideFullScreenBtn   0
 
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
