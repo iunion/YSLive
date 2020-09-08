@@ -220,11 +220,11 @@
     btn.selected = !btn.selected;
     if (btn.selected)
     {
-        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 0, 300, UI_SCREEN_HEIGHT);
+        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH - 300, 0, 300, UI_SCREEN_HEIGHT);
     }
     else
     {
-        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH - 300, 0, 300, UI_SCREEN_HEIGHT);
+        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 0, 300, UI_SCREEN_HEIGHT);
     }
 
 }
