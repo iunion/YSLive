@@ -20,7 +20,6 @@
 		8769E68C250646120032AFA8 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E680250646120032AFA8 /* BMKitResources.bundle */; };
 		8769E68D250646120032AFA8 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8769E681250646120032AFA8 /* BMDatePicker.nib */; };
 		8769E68E250646120032AFA8 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E682250646120032AFA8 /* CloudHubRTC.framework */; };
-		8769E68F250646120032AFA8 /* CHLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E683250646120032AFA8 /* CHLive.xcassets */; };
 		8769E694250646D60032AFA8 /* CHSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E691250646D60032AFA8 /* CHSkinRsource.bundle */; };
 		8769E695250646D60032AFA8 /* CHLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E693250646D60032AFA8 /* CHLiveSkinManager.m */; };
 		8769E69D250647980032AFA8 /* JsonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E697250647980032AFA8 /* JsonTool.m */; };
@@ -50,11 +49,12 @@
 		8769E6F125064A4E0032AFA8 /* CHInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6F025064A4E0032AFA8 /* CHInputView.m */; };
 		8769E6F325064C980032AFA8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E6F225064C980032AFA8 /* libc++.tbd */; };
 		8769E6F525064CB70032AFA8 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8769E682250646120032AFA8 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8769E6FD25072C020032AFA8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6F825072C020032AFA8 /* CHWhiteBoardResources.bundle */; };
-		8769E6FE25072C020032AFA8 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6F925072C020032AFA8 /* CHWhiteBoardImage.xcassets */; };
-		8769E6FF25072C020032AFA8 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6FA25072C020032AFA8 /* CHWhiteBoardSkin.bundle */; };
-		8769E70025072C020032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6FB25072C020032AFA8 /* CHWhiteBoardBlack.xcassets */; };
-		8769E70125072C020032AFA8 /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E6FC25072C020032AFA8 /* CloudHubWhiteBoardKit.framework */; };
+		8769E7092507315F0032AFA8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E7042507315F0032AFA8 /* CHWhiteBoardResources.bundle */; };
+		8769E70A2507315F0032AFA8 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E7052507315F0032AFA8 /* CHWhiteBoardImage.xcassets */; };
+		8769E70B2507315F0032AFA8 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E7062507315F0032AFA8 /* CHWhiteBoardSkin.bundle */; };
+		8769E70D2507315F0032AFA8 /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E7082507315F0032AFA8 /* CloudHubWhiteBoardKit.framework */; };
+		8769E711250769FB0032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E70F250769FB0032AFA8 /* CHWhiteBoardBlack.xcassets */; };
+		8769E712250769FB0032AFA8 /* CHLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E710250769FB0032AFA8 /* CHLive.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,7 +93,6 @@
 		8769E680250646120032AFA8 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		8769E681250646120032AFA8 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
 		8769E682250646120032AFA8 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
-		8769E683250646120032AFA8 /* CHLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHLive.xcassets; sourceTree = "<group>"; };
 		8769E691250646D60032AFA8 /* CHSkinRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHSkinRsource.bundle; sourceTree = "<group>"; };
 		8769E692250646D60032AFA8 /* CHLiveSkinManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLiveSkinManager.h; sourceTree = "<group>"; };
 		8769E693250646D60032AFA8 /* CHLiveSkinManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLiveSkinManager.m; sourceTree = "<group>"; };
@@ -135,11 +134,12 @@
 		8769E6EF25064A4E0032AFA8 /* CHInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHInputView.h; sourceTree = "<group>"; };
 		8769E6F025064A4E0032AFA8 /* CHInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHInputView.m; sourceTree = "<group>"; };
 		8769E6F225064C980032AFA8 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		8769E6F825072C020032AFA8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		8769E6F925072C020032AFA8 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
-		8769E6FA25072C020032AFA8 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
-		8769E6FB25072C020032AFA8 /* CHWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
-		8769E6FC25072C020032AFA8 /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
+		8769E7042507315F0032AFA8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		8769E7052507315F0032AFA8 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		8769E7062507315F0032AFA8 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		8769E7082507315F0032AFA8 /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
+		8769E70F250769FB0032AFA8 /* CHWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
+		8769E710250769FB0032AFA8 /* CHLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHLive.xcassets; sourceTree = "<group>"; };
 		9F88FA80E0F4539FC5920D24 /* Pods-CHWhiteBoardSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHWhiteBoardSample.release.xcconfig"; path = "Target Support Files/Pods-CHWhiteBoardSample/Pods-CHWhiteBoardSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,8 +151,8 @@
 				8769E6F325064C980032AFA8 /* libc++.tbd in Frameworks */,
 				8769E68E250646120032AFA8 /* CloudHubRTC.framework in Frameworks */,
 				32FB0A3189F4A749D4E41FB3 /* libPods-CHWhiteBoardSample.a in Frameworks */,
+				8769E70D2507315F0032AFA8 /* CloudHubWhiteBoardKit.framework in Frameworks */,
 				8769E689250646120032AFA8 /* BMKit.framework in Frameworks */,
-				8769E70125072C020032AFA8 /* CloudHubWhiteBoardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +204,7 @@
 				8769E66A250644EE0032AFA8 /* CHNavigationController.h */,
 				8769E66F250644EF0032AFA8 /* CHNavigationController.m */,
 				8769E65D250630BC0032AFA8 /* Assets.xcassets */,
+				8769E70E250769FB0032AFA8 /* Resources */,
 				8769E65F250630BC0032AFA8 /* LaunchScreen.storyboard */,
 				8769E662250630BC0032AFA8 /* Info.plist */,
 				8769E673250645B70032AFA8 /* SamplePrefixHeader.pch */,
@@ -215,10 +216,9 @@
 		8769E674250646120032AFA8 /* CHLib */ = {
 			isa = PBXGroup;
 			children = (
-				8769E6F725072C020032AFA8 /* CloudHubWhiteBoardKit. */,
 				8769E67B250646120032AFA8 /* expandLib */,
+				8769E7032507315F0032AFA8 /* CloudHubWhiteBoardKit */,
 				8769E682250646120032AFA8 /* CloudHubRTC.framework */,
-				8769E683250646120032AFA8 /* CHLive.xcassets */,
 			);
 			name = CHLib;
 			path = CHWhiteBoardSample/CHLib;
@@ -343,16 +343,24 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		8769E6F725072C020032AFA8 /* CloudHubWhiteBoardKit. */ = {
+		8769E7032507315F0032AFA8 /* CloudHubWhiteBoardKit */ = {
 			isa = PBXGroup;
 			children = (
-				8769E6F825072C020032AFA8 /* CHWhiteBoardResources.bundle */,
-				8769E6F925072C020032AFA8 /* CHWhiteBoardImage.xcassets */,
-				8769E6FA25072C020032AFA8 /* CHWhiteBoardSkin.bundle */,
-				8769E6FB25072C020032AFA8 /* CHWhiteBoardBlack.xcassets */,
-				8769E6FC25072C020032AFA8 /* CloudHubWhiteBoardKit.framework */,
+				8769E7042507315F0032AFA8 /* CHWhiteBoardResources.bundle */,
+				8769E7052507315F0032AFA8 /* CHWhiteBoardImage.xcassets */,
+				8769E7062507315F0032AFA8 /* CHWhiteBoardSkin.bundle */,
+				8769E7082507315F0032AFA8 /* CloudHubWhiteBoardKit.framework */,
 			);
-			path = CloudHubWhiteBoardKit.;
+			path = CloudHubWhiteBoardKit;
+			sourceTree = "<group>";
+		};
+		8769E70E250769FB0032AFA8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8769E70F250769FB0032AFA8 /* CHWhiteBoardBlack.xcassets */,
+				8769E710250769FB0032AFA8 /* CHLive.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		FB3D10BE6485E557DF86079E /* Pods */ = {
@@ -423,27 +431,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				8769E6E8250649FA0032AFA8 /* login_join_disabled@3x.png in Resources */,
-				8769E6FD25072C020032AFA8 /* CHWhiteBoardResources.bundle in Resources */,
-				8769E6FE25072C020032AFA8 /* CHWhiteBoardImage.xcassets in Resources */,
-				8769E68F250646120032AFA8 /* CHLive.xcassets in Resources */,
 				8769E68D250646120032AFA8 /* BMDatePicker.nib in Resources */,
 				8769E6E3250649FA0032AFA8 /* login_join_highlight@3x.png in Resources */,
 				8769E68A250646120032AFA8 /* BMTZImagePickerController.bundle in Resources */,
 				8769E6E0250649FA0032AFA8 /* login_join_disabled@2x.png in Resources */,
 				8769E6E5250649FA0032AFA8 /* login_join_highlight@2x.png in Resources */,
 				8769E68B250646120032AFA8 /* BMKitImage.xcassets in Resources */,
+				8769E711250769FB0032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */,
 				8769E661250630BC0032AFA8 /* LaunchScreen.storyboard in Resources */,
+				8769E7092507315F0032AFA8 /* CHWhiteBoardResources.bundle in Resources */,
 				8769E6DF250649FA0032AFA8 /* btn_close@3x.png in Resources */,
+				8769E70A2507315F0032AFA8 /* CHWhiteBoardImage.xcassets in Resources */,
 				8769E6E7250649FA0032AFA8 /* ysall_login_background.png in Resources */,
 				8769E6DE250649FA0032AFA8 /* login_name@3x.png in Resources */,
 				8769E6DD250649FA0032AFA8 /* login_name@2x.png in Resources */,
-				8769E70025072C020032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */,
+				8769E712250769FB0032AFA8 /* CHLive.xcassets in Resources */,
 				8769E6DA250649FA0032AFA8 /* login_join_normal@2x.png in Resources */,
+				8769E70B2507315F0032AFA8 /* CHWhiteBoardSkin.bundle in Resources */,
 				8769E6DC250649FA0032AFA8 /* btn_close@2x.png in Resources */,
 				8769E6DB250649FA0032AFA8 /* login_join_normal@3x.png in Resources */,
 				8769E6E1250649FA0032AFA8 /* login_room@3x.png in Resources */,
 				8769E6E6250649FA0032AFA8 /* login_room@2x.png in Resources */,
-				8769E6FF25072C020032AFA8 /* CHWhiteBoardSkin.bundle in Resources */,
 				8769E65E250630BC0032AFA8 /* Assets.xcassets in Resources */,
 				8769E68C250646120032AFA8 /* BMKitResources.bundle in Resources */,
 				8769E694250646D60032AFA8 /* CHSkinRsource.bundle in Resources */,
@@ -640,13 +648,13 @@
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CloudHubWhiteBoardKit.",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CloudHubWhiteBoardKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"WhiteBoardSDK=1",
 				);
 				INFOPLIST_FILE = CHWhiteBoardSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -689,13 +697,13 @@
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CloudHubWhiteBoardKit.",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CloudHubWhiteBoardKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"WhiteBoardSDK=1",
 				);
 				INFOPLIST_FILE = CHWhiteBoardSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

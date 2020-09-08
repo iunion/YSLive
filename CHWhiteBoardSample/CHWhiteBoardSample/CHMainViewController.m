@@ -86,29 +86,34 @@
     
     [self setupBrushToolView];
     
-    UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 50, 100, 50)];
-    [canDrawBtn addTarget:self action:@selector(canDrawBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+#warning - 操作的临时按钮
+
+    UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 20, 80, 50)];
+    [canDrawBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
     [canDrawBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [canDrawBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:canDrawBtn];
     canDrawBtn.selected = YES;
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 150, 50, 100, 50)];
-    [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setTitle:@"返回登录页" forState:UIControlStateNormal];
-    [backBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [backBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:backBtn];
-    
-    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(150, UI_SCREEN_WIDTH - 100, 100, 50)];
-    [scaleBtn addTarget:self action:@selector(scaleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 100, 20, 80, 50)];
+    [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
     [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [scaleBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:scaleBtn];
     
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 100, 20, 80, 50)];
+    [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setTitle:@"返回登录页" forState:UIControlStateNormal];
+    [backBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [backBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:backBtn];
     
+    canDrawBtn.tag = 1;
+    scaleBtn.tag = 2;
+    backBtn.tag = 3;
     UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 100, 100, 50, 50)];
     [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
     [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
@@ -122,6 +127,42 @@
 }
 
 
+- (void)buttomsClick:(UIButton *)sender
+{
+    switch (sender.tag)
+    {
+        case 1:
+        {
+            sender.selected = !sender.selected;
+            
+            [self.cloudHubManager setCandraw:sender.selected];
+            
+            self.brushToolOpenBtn.hidden = self.brushToolView.hidden = !sender.selected;
+        }
+            break;
+        case 2:
+        {
+            sender.selected = !sender.selected;
+            if (sender.selected)
+            {
+                [self.cloudHubManager setWhiteBoardRatio:4.0/3.0];
+            }
+            else
+            {
+                [self.cloudHubManager setWhiteBoardRatio:16.0/9.0];
+            }
+        }
+            break;
+        case 3:
+        {
+            [self.cloudHubManager.cloudHubRtcEngineKit leaveChannel:nil];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 - (void)setupFileList
 {
     UITableView *fileTableView = [[UITableView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 300, 0, 300, UI_SCREEN_HEIGHT) style:UITableViewStylePlain];
@@ -176,33 +217,6 @@
     
 }
 
-- (void)canDrawBtnClick:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-    
-    [self.cloudHubManager setCandraw:sender.selected];
-    
-    self.brushToolOpenBtn.hidden = self.brushToolView.hidden = !sender.selected;
-}
-
-- (void)backBtnClick:(UIButton *)sender
-{
-    [self.cloudHubManager.cloudHubRtcEngineKit leaveChannel:nil];
-}
-
-- (void)scaleBtnClick:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-    if (sender.selected)
-    {
-        [self.cloudHubManager setWhiteBoardRatio:16.0/9.0];
-    }
-    else
-    {
-        [self.cloudHubManager setWhiteBoardRatio:4.0/3.0];
-    }
-}
-
 #pragma mark UI 工具栏
 
 /// 设置左侧工具栏
@@ -210,14 +224,13 @@
 {
     self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:NO];
     [self.view addSubview:self.brushToolView];
-
+    
     CGFloat laftGap = 10;
     if (BMIS_IPHONEXANDP)
     {
         laftGap = BMUI_HOME_INDICATOR_HEIGHT;
     }
     self.brushToolView.bm_left = laftGap;
-    NSLog(@"%@",@(self.view.bm_centerY));
     self.brushToolView.bm_centerY = UI_SCREEN_HEIGHT * 0.5;
     self.brushToolView.delegate = self;
 //    self.brushToolView.hidden = YES;
