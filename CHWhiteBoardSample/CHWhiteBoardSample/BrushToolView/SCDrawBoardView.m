@@ -63,7 +63,7 @@
     
     
     self.drawType = YSDrawTypePen;
-    self.selectColor = [[CHWhiteBoardSDKManager sharedInstance] getSDKPrimaryColorHex];
+    self.selectColor = [[CloudHubWhiteBoardKit sharedInstance] getSDKPrimaryColorHex];
     self.progressResult = 0.5f;
     CHWeakSelf
     self.backgroundColor = [UIColor clearColor];
@@ -261,12 +261,12 @@
     _brushToolType = brushToolType;
     
 //    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
-    CHBrushToolsConfigs *config = [[CHWhiteBoardSDKManager sharedInstance] getSDKCurrentBrushToolConfig];
+    CHBrushToolsConfigs *config = [[CloudHubWhiteBoardKit sharedInstance] getSDKCurrentBrushToolConfig];
 //    YSDrawType drawType = [[YSWhiteBoardSDKManager sharedInstance] getSDKCurrentBrushToolConfig].drawType;
     CHDrawType drawType = config.drawType;
     // 工具颜色各自配置
     //NSString *colorHex = config.colorHex;
-    NSString *colorHex = [[CHWhiteBoardSDKManager sharedInstance] getSDKPrimaryColorHex];
+    NSString *colorHex = [[CloudHubWhiteBoardKit sharedInstance] getSDKPrimaryColorHex];
     CGFloat progress = config.progress;
 
     switch (brushToolType)

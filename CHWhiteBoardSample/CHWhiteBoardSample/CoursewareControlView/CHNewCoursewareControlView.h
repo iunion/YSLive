@@ -4,7 +4,7 @@
 //
 //
 
-#import <CHWhiteBoardSDK/CHCoursewareControlView.h>
+#import <CloudHubWhiteBoardKit/CHCoursewareControlView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

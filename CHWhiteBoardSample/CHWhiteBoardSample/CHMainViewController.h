@@ -5,13 +5,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CloudHubManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CHMainViewController : UIViewController
 <
-    CloudHubManagerDelegate
+    CloudHubWhiteBoardDelegate
 >
 
 //- (instancetype)initWithRoomType:(YSRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;

@@ -14,11 +14,6 @@
 		8769E664250630BC0032AFA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E663250630BC0032AFA8 /* main.m */; };
 		8769E670250644EF0032AFA8 /* CHMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E66B250644EE0032AFA8 /* CHMainViewController.m */; };
 		8769E671250644EF0032AFA8 /* CHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E66F250644EF0032AFA8 /* CHNavigationController.m */; };
-		8769E684250646120032AFA8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E676250646120032AFA8 /* CHWhiteBoardResources.bundle */; };
-		8769E685250646120032AFA8 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E677250646120032AFA8 /* CHWhiteBoardImage.xcassets */; };
-		8769E686250646120032AFA8 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E678250646120032AFA8 /* CHWhiteBoardSkin.bundle */; };
-		8769E687250646120032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E679250646120032AFA8 /* CHWhiteBoardBlack.xcassets */; };
-		8769E688250646120032AFA8 /* CHWhiteBoardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E67A250646120032AFA8 /* CHWhiteBoardSDK.framework */; };
 		8769E689250646120032AFA8 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E67D250646120032AFA8 /* BMKit.framework */; };
 		8769E68A250646120032AFA8 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E67E250646120032AFA8 /* BMTZImagePickerController.bundle */; };
 		8769E68B250646120032AFA8 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E67F250646120032AFA8 /* BMKitImage.xcassets */; };
@@ -31,7 +26,6 @@
 		8769E69D250647980032AFA8 /* JsonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E697250647980032AFA8 /* JsonTool.m */; };
 		8769E69F250647980032AFA8 /* UIView+BMSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E69C250647980032AFA8 /* UIView+BMSize.m */; };
 		8769E6A2250648600032AFA8 /* CHCommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6A1250648600032AFA8 /* CHCommonTools.m */; };
-		8769E6AB250648EC0032AFA8 /* CloudHubManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6A7250648EB0032AFA8 /* CloudHubManager.m */; };
 		8769E6AC250648EC0032AFA8 /* CHNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6A9250648EC0032AFA8 /* CHNewCoursewareControlView.m */; };
 		8769E6BB2506493E0032AFA8 /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6AE2506493D0032AFA8 /* SCBrushToolView.m */; };
 		8769E6BC2506493E0032AFA8 /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6B22506493D0032AFA8 /* SCColorListView.m */; };
@@ -56,6 +50,11 @@
 		8769E6F125064A4E0032AFA8 /* CHInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8769E6F025064A4E0032AFA8 /* CHInputView.m */; };
 		8769E6F325064C980032AFA8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E6F225064C980032AFA8 /* libc++.tbd */; };
 		8769E6F525064CB70032AFA8 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8769E682250646120032AFA8 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8769E6FD25072C020032AFA8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6F825072C020032AFA8 /* CHWhiteBoardResources.bundle */; };
+		8769E6FE25072C020032AFA8 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6F925072C020032AFA8 /* CHWhiteBoardImage.xcassets */; };
+		8769E6FF25072C020032AFA8 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6FA25072C020032AFA8 /* CHWhiteBoardSkin.bundle */; };
+		8769E70025072C020032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8769E6FB25072C020032AFA8 /* CHWhiteBoardBlack.xcassets */; };
+		8769E70125072C020032AFA8 /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8769E6FC25072C020032AFA8 /* CloudHubWhiteBoardKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,11 +87,6 @@
 		8769E66E250644EF0032AFA8 /* CHMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMainViewController.h; sourceTree = "<group>"; };
 		8769E66F250644EF0032AFA8 /* CHNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNavigationController.m; sourceTree = "<group>"; };
 		8769E673250645B70032AFA8 /* SamplePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplePrefixHeader.pch; sourceTree = "<group>"; };
-		8769E676250646120032AFA8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		8769E677250646120032AFA8 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
-		8769E678250646120032AFA8 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
-		8769E679250646120032AFA8 /* CHWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
-		8769E67A250646120032AFA8 /* CHWhiteBoardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoardSDK.framework; sourceTree = "<group>"; };
 		8769E67D250646120032AFA8 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
 		8769E67E250646120032AFA8 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
 		8769E67F250646120032AFA8 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
@@ -109,10 +103,6 @@
 		8769E69C250647980032AFA8 /* UIView+BMSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BMSize.m"; sourceTree = "<group>"; };
 		8769E6A0250648600032AFA8 /* CHCommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommonTools.h; sourceTree = "<group>"; };
 		8769E6A1250648600032AFA8 /* CHCommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommonTools.m; sourceTree = "<group>"; };
-		8769E6A4250648EB0032AFA8 /* CloudHubManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudHubManagerDelegate.h; sourceTree = "<group>"; };
-		8769E6A5250648EB0032AFA8 /* CloudHubManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudHubManager.h; sourceTree = "<group>"; };
-		8769E6A6250648EB0032AFA8 /* CloudHubManagerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudHubManagerDefine.h; sourceTree = "<group>"; };
-		8769E6A7250648EB0032AFA8 /* CloudHubManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudHubManager.m; sourceTree = "<group>"; };
 		8769E6A9250648EC0032AFA8 /* CHNewCoursewareControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNewCoursewareControlView.m; sourceTree = "<group>"; };
 		8769E6AA250648EC0032AFA8 /* CHNewCoursewareControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNewCoursewareControlView.h; sourceTree = "<group>"; };
 		8769E6AE2506493D0032AFA8 /* SCBrushToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBrushToolView.m; sourceTree = "<group>"; };
@@ -145,6 +135,11 @@
 		8769E6EF25064A4E0032AFA8 /* CHInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHInputView.h; sourceTree = "<group>"; };
 		8769E6F025064A4E0032AFA8 /* CHInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHInputView.m; sourceTree = "<group>"; };
 		8769E6F225064C980032AFA8 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		8769E6F825072C020032AFA8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		8769E6F925072C020032AFA8 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		8769E6FA25072C020032AFA8 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		8769E6FB25072C020032AFA8 /* CHWhiteBoardBlack.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardBlack.xcassets; sourceTree = "<group>"; };
+		8769E6FC25072C020032AFA8 /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
 		9F88FA80E0F4539FC5920D24 /* Pods-CHWhiteBoardSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHWhiteBoardSample.release.xcconfig"; path = "Target Support Files/Pods-CHWhiteBoardSample/Pods-CHWhiteBoardSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,7 +152,7 @@
 				8769E68E250646120032AFA8 /* CloudHubRTC.framework in Frameworks */,
 				32FB0A3189F4A749D4E41FB3 /* libPods-CHWhiteBoardSample.a in Frameworks */,
 				8769E689250646120032AFA8 /* BMKit.framework in Frameworks */,
-				8769E688250646120032AFA8 /* CHWhiteBoardSDK.framework in Frameworks */,
+				8769E70125072C020032AFA8 /* CloudHubWhiteBoardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +190,6 @@
 		8769E650250630B80032AFA8 /* CHWhiteBoardSample */ = {
 			isa = PBXGroup;
 			children = (
-				8769E6A3250648EB0032AFA8 /* CloudHubManager */,
 				8769E6A8250648EC0032AFA8 /* CoursewareControlView */,
 				8769E6AD2506493D0032AFA8 /* BrushToolView */,
 				8769E696250647980032AFA8 /* Tools */,
@@ -221,25 +215,13 @@
 		8769E674250646120032AFA8 /* CHLib */ = {
 			isa = PBXGroup;
 			children = (
-				8769E675250646120032AFA8 /* CHWhiteBoardSDK */,
+				8769E6F725072C020032AFA8 /* CloudHubWhiteBoardKit. */,
 				8769E67B250646120032AFA8 /* expandLib */,
 				8769E682250646120032AFA8 /* CloudHubRTC.framework */,
 				8769E683250646120032AFA8 /* CHLive.xcassets */,
 			);
 			name = CHLib;
 			path = CHWhiteBoardSample/CHLib;
-			sourceTree = "<group>";
-		};
-		8769E675250646120032AFA8 /* CHWhiteBoardSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8769E676250646120032AFA8 /* CHWhiteBoardResources.bundle */,
-				8769E677250646120032AFA8 /* CHWhiteBoardImage.xcassets */,
-				8769E678250646120032AFA8 /* CHWhiteBoardSkin.bundle */,
-				8769E679250646120032AFA8 /* CHWhiteBoardBlack.xcassets */,
-				8769E67A250646120032AFA8 /* CHWhiteBoardSDK.framework */,
-			);
-			path = CHWhiteBoardSDK;
 			sourceTree = "<group>";
 		};
 		8769E67B250646120032AFA8 /* expandLib */ = {
@@ -283,17 +265,6 @@
 				8769E69C250647980032AFA8 /* UIView+BMSize.m */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		8769E6A3250648EB0032AFA8 /* CloudHubManager */ = {
-			isa = PBXGroup;
-			children = (
-				8769E6A6250648EB0032AFA8 /* CloudHubManagerDefine.h */,
-				8769E6A4250648EB0032AFA8 /* CloudHubManagerDelegate.h */,
-				8769E6A5250648EB0032AFA8 /* CloudHubManager.h */,
-				8769E6A7250648EB0032AFA8 /* CloudHubManager.m */,
-			);
-			path = CloudHubManager;
 			sourceTree = "<group>";
 		};
 		8769E6A8250648EC0032AFA8 /* CoursewareControlView */ = {
@@ -372,6 +343,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8769E6F725072C020032AFA8 /* CloudHubWhiteBoardKit. */ = {
+			isa = PBXGroup;
+			children = (
+				8769E6F825072C020032AFA8 /* CHWhiteBoardResources.bundle */,
+				8769E6F925072C020032AFA8 /* CHWhiteBoardImage.xcassets */,
+				8769E6FA25072C020032AFA8 /* CHWhiteBoardSkin.bundle */,
+				8769E6FB25072C020032AFA8 /* CHWhiteBoardBlack.xcassets */,
+				8769E6FC25072C020032AFA8 /* CloudHubWhiteBoardKit.framework */,
+			);
+			path = CloudHubWhiteBoardKit.;
+			sourceTree = "<group>";
+		};
 		FB3D10BE6485E557DF86079E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +423,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8769E6E8250649FA0032AFA8 /* login_join_disabled@3x.png in Resources */,
+				8769E6FD25072C020032AFA8 /* CHWhiteBoardResources.bundle in Resources */,
+				8769E6FE25072C020032AFA8 /* CHWhiteBoardImage.xcassets in Resources */,
 				8769E68F250646120032AFA8 /* CHLive.xcassets in Resources */,
 				8769E68D250646120032AFA8 /* BMDatePicker.nib in Resources */,
 				8769E6E3250649FA0032AFA8 /* login_join_highlight@3x.png in Resources */,
@@ -448,19 +433,17 @@
 				8769E6E5250649FA0032AFA8 /* login_join_highlight@2x.png in Resources */,
 				8769E68B250646120032AFA8 /* BMKitImage.xcassets in Resources */,
 				8769E661250630BC0032AFA8 /* LaunchScreen.storyboard in Resources */,
-				8769E687250646120032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */,
-				8769E685250646120032AFA8 /* CHWhiteBoardImage.xcassets in Resources */,
 				8769E6DF250649FA0032AFA8 /* btn_close@3x.png in Resources */,
 				8769E6E7250649FA0032AFA8 /* ysall_login_background.png in Resources */,
 				8769E6DE250649FA0032AFA8 /* login_name@3x.png in Resources */,
 				8769E6DD250649FA0032AFA8 /* login_name@2x.png in Resources */,
-				8769E686250646120032AFA8 /* CHWhiteBoardSkin.bundle in Resources */,
+				8769E70025072C020032AFA8 /* CHWhiteBoardBlack.xcassets in Resources */,
 				8769E6DA250649FA0032AFA8 /* login_join_normal@2x.png in Resources */,
-				8769E684250646120032AFA8 /* CHWhiteBoardResources.bundle in Resources */,
 				8769E6DC250649FA0032AFA8 /* btn_close@2x.png in Resources */,
 				8769E6DB250649FA0032AFA8 /* login_join_normal@3x.png in Resources */,
 				8769E6E1250649FA0032AFA8 /* login_room@3x.png in Resources */,
 				8769E6E6250649FA0032AFA8 /* login_room@2x.png in Resources */,
+				8769E6FF25072C020032AFA8 /* CHWhiteBoardSkin.bundle in Resources */,
 				8769E65E250630BC0032AFA8 /* Assets.xcassets in Resources */,
 				8769E68C250646120032AFA8 /* BMKitResources.bundle in Resources */,
 				8769E694250646D60032AFA8 /* CHSkinRsource.bundle in Resources */,
@@ -513,7 +496,6 @@
 				8769E6EE25064A380032AFA8 /* CHLoginVC.m in Sources */,
 				8769E6AC250648EC0032AFA8 /* CHNewCoursewareControlView.m in Sources */,
 				8769E6F125064A4E0032AFA8 /* CHInputView.m in Sources */,
-				8769E6AB250648EC0032AFA8 /* CloudHubManager.m in Sources */,
 				8769E664250630BC0032AFA8 /* main.m in Sources */,
 				8769E671250644EF0032AFA8 /* CHNavigationController.m in Sources */,
 				8769E6BF2506493E0032AFA8 /* SCDrawBoardView.m in Sources */,
@@ -657,6 +639,7 @@
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CHWhiteBoardSDK",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CloudHubWhiteBoardKit.",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
@@ -705,6 +688,7 @@
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CHWhiteBoardSDK",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib",
+					"$(PROJECT_DIR)/CHWhiteBoardSample/CHLib/CloudHubWhiteBoardKit.",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CHWhiteBoardSample/SamplePrefixHeader.pch;
