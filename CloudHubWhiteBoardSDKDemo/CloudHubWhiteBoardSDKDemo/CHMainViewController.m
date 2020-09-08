@@ -89,7 +89,19 @@
     
 #warning - 操作的临时按钮
 
-    UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 20, 80, 50)];
+    UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 20, 50, 50)];
+    fileListBtn.titleLabel.font = [UIFont systemFontOfSize:10.0f];
+    [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
+    [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
+    [fileListBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [fileListBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:fileListBtn];
+    self.fileListBtn = fileListBtn;
+    
+    [self setupFileList];
+    
+    
+    UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(fileListBtn.bm_right + 30, 20, 80, 50)];
     [canDrawBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
     [canDrawBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
@@ -104,9 +116,9 @@
     [scaleBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:scaleBtn];
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 100, 20, 80, 50)];
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 100, 20, 90, 50)];
     [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setTitle:@"返回登录页" forState:UIControlStateNormal];
+    [backBtn setTitle:@"返回登录" forState:UIControlStateNormal];
     [backBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [backBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:backBtn];
@@ -114,15 +126,7 @@
     canDrawBtn.tag = 1;
     scaleBtn.tag = 2;
     backBtn.tag = 3;
-    UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 100, 100, 50, 50)];
-    [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
-    [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
-    [fileListBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [fileListBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:fileListBtn];
-    self.fileListBtn = fileListBtn;
-    
-    [self setupFileList];
+
     
 }
 
@@ -165,17 +169,18 @@
 }
 - (void)setupFileList
 {
-    UITableView *fileTableView = [[UITableView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 300, 0, 300, UI_SCREEN_HEIGHT) style:UITableViewStylePlain];
+    UITableView *fileTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.fileTableView = fileTableView;
     [self.view addSubview:self.fileTableView];
     
     fileTableView.bounces = NO;
-    fileTableView.backgroundColor = [UIColor whiteColor];
+    fileTableView.backgroundColor = [UIColor blackColor];
     fileTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     fileTableView.delegate = self;
     fileTableView.dataSource = self;
     fileTableView.showsVerticalScrollIndicator = YES;
     [fileTableView registerClass:[FileListTableViewCell class] forCellReuseIdentifier:@"FileListTableViewCell"];
+    [self.fileTableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -206,15 +211,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    CHFileModel * model = self.cloudHubManager.fileList[indexPath.row];
-//    [self.cloudHubManager
-//
-//     changeCourseWithFileId:fileModel.fileid];
+    CHFileModel * model = self.cloudHubManager.fileList[indexPath.row];
+    [self.cloudHubManager changeCourseWithFileId:model.fileid];
 }
 
 - (void)showFileList:(UIButton *)btn
 {
-    
+    btn.selected = !btn.selected;
+    if (btn.selected)
+    {
+        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 0, 300, UI_SCREEN_HEIGHT);
+    }
+    else
+    {
+        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH - 300, 0, 300, UI_SCREEN_HEIGHT);
+    }
+
 }
 
 #pragma mark UI 工具栏
@@ -231,7 +243,7 @@
         laftGap = BMUI_HOME_INDICATOR_HEIGHT;
     }
     self.brushToolView.bm_left = laftGap;
-    self.brushToolView.bm_centerY = UI_SCREEN_HEIGHT * 0.5;
+    self.brushToolView.bm_centerY = self.view.bm_centerX;
     self.brushToolView.delegate = self;
 //    self.brushToolView.hidden = YES;
     
@@ -309,6 +321,7 @@
 
 - (void)onRoomJoined
 {
+    [self.fileTableView reloadData];
 }
 
 /// 成功重连房间

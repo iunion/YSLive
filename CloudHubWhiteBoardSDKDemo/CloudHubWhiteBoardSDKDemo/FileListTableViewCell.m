@@ -24,7 +24,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
     {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor blackColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self setup];
     }
@@ -39,12 +39,12 @@
     self.nameLabel = nameLabel;
     nameLabel.font = [UIFont systemFontOfSize:14.0f];
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.textColor = [UIColor blackColor];
+    nameLabel.textColor = [UIColor grayColor];
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:deleteBtn];
     self.deleteBtn = deleteBtn;
-    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"open_small"] forState:UIControlStateNormal];
+    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"smallBoard_deleteimageBtn_skin"] forState:UIControlStateNormal];
     [deleteBtn addTarget:self action:@selector(deleteBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -58,7 +58,7 @@
     self.deleteBtn.bm_right = self.contentView.bm_right - 10;
     
     self.nameLabel.font = [UIFont systemFontOfSize:12.0];
-    self.nameLabel.frame = CGRectMake(0, 0, 200, 20);
+    self.nameLabel.frame = CGRectMake(10, 0, 200, 20);
     self.nameLabel.bm_centerY = self.contentView.bm_centerY;
 }
 
