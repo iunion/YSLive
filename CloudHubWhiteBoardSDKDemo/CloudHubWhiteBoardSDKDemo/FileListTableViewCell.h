@@ -1,9 +1,6 @@
 //
 //  FileListTableViewCell.h
-//  CHWhiteBoardSample
-//
-//  Created by fzxm on 2020/9/8.
-//
+
 
 #import <UIKit/UIKit.h>
 

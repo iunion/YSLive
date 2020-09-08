@@ -1,9 +1,5 @@
 //
 //  FileListTableViewCell.m
-//  CHWhiteBoardSample
-//
-//  Created by fzxm on 2020/9/8.
-//
 
 #import "FileListTableViewCell.h"
 @interface FileListTableViewCell()
