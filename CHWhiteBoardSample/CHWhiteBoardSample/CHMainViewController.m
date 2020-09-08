@@ -7,12 +7,15 @@
 #import "CHMainViewController.h"
 #import "SCBrushToolView.h"
 #import "SCDrawBoardView.h"
-
+#import "FileListTableViewCell.h"
 
 @interface CHMainViewController ()
 <
     SCBrushToolViewDelegate,
-    SCDrawBoardViewDelegate
+    SCDrawBoardViewDelegate,
+    UITableViewDelegate,
+    UITableViewDataSource,
+    CoursewareListCellDelegate
 >
 
 @property (nonatomic, weak) CloudHubWhiteBoardKit *cloudHubManager;
@@ -29,7 +32,9 @@
 @property (nonatomic, strong) UIButton *brushToolOpenBtn;
 /// 画笔选择 颜色 大小 形状
 @property (nonatomic, strong) SCDrawBoardView *drawBoardView;
-
+/// 课件列表
+@property (nonatomic, strong) UIButton *fileListBtn;
+@property (nonatomic, strong) UITableView *fileTableView;
 @end
 
 @implementation CHMainViewController
@@ -103,6 +108,72 @@
     [scaleBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:scaleBtn];
     
+    
+    UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 100, 100, 50, 50)];
+    [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
+    [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
+    [fileListBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [fileListBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:fileListBtn];
+    self.fileListBtn = fileListBtn;
+    
+    [self setupFileList];
+    
+}
+
+
+- (void)setupFileList
+{
+    UITableView *fileTableView = [[UITableView alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 300, 0, 300, UI_SCREEN_HEIGHT) style:UITableViewStylePlain];
+    self.fileTableView = fileTableView;
+    [self.view addSubview:self.fileTableView];
+    
+    fileTableView.bounces = NO;
+    fileTableView.backgroundColor = [UIColor whiteColor];
+    fileTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    fileTableView.delegate = self;
+    fileTableView.dataSource = self;
+    fileTableView.showsVerticalScrollIndicator = YES;
+    [fileTableView registerClass:[FileListTableViewCell class] forCellReuseIdentifier:@"FileListTableViewCell"];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.cloudHubManager.fileList.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FileListTableViewCell * coursewareCell = [tableView dequeueReusableCellWithIdentifier:@"FileListTableViewCell" forIndexPath:indexPath];
+    if (indexPath.row < self.cloudHubManager.fileList.count)
+    {
+        CHFileModel * model = self.cloudHubManager.fileList[indexPath.row];
+        
+        [coursewareCell setFileModel:model];
+    }
+    coursewareCell.delegate = self;
+    return coursewareCell;
+}
+
+#pragma mark UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return 40;
+
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    CHFileModel * model = self.cloudHubManager.fileList[indexPath.row];
+//    [self.cloudHubManager
+//
+//     changeCourseWithFileId:fileModel.fileid];
+}
+
+- (void)showFileList:(UIButton *)btn
+{
+    
 }
 
 - (void)canDrawBtnClick:(UIButton *)sender
@@ -146,7 +217,8 @@
         laftGap = BMUI_HOME_INDICATOR_HEIGHT;
     }
     self.brushToolView.bm_left = laftGap;
-    self.brushToolView.bm_centerY = self.view.bm_centerY;
+    NSLog(@"%@",@(self.view.bm_centerY));
+    self.brushToolView.bm_centerY = UI_SCREEN_HEIGHT * 0.5;
     self.brushToolView.delegate = self;
 //    self.brushToolView.hidden = YES;
     
