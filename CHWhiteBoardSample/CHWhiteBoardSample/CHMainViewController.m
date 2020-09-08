@@ -15,9 +15,8 @@
     SCDrawBoardViewDelegate
 >
 
-@property (nonatomic, weak) CloudHubManager *cloudHubManager;
+@property (nonatomic, weak) CloudHubWhiteBoardKit *cloudHubManager;
 
-@property (nonatomic, weak) CHWhiteBoardSDKManager *whiteBoardSDKManager;
 /// 固定UserId
 @property (nonatomic, strong) NSString *userId;
 
@@ -42,7 +41,6 @@
     {
         self.userId = userId;
         self.mainWhiteBoardView = whiteBordView;
-        self.whiteBoardSDKManager = [CHWhiteBoardSDKManager sharedInstance];
         
         self.view.backgroundColor = [UIColor blackColor];
     }
@@ -76,7 +74,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.cloudHubManager = [CloudHubManager sharedInstance];
+    self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
     
     [self.view addSubview:self.mainWhiteBoardView];
     self.mainWhiteBoardView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH_ROTATE, UI_SCREEN_HEIGHT_ROTATE);
@@ -111,7 +109,7 @@
 {
     sender.selected = !sender.selected;
     
-    [self.whiteBoardSDKManager setCandraw:sender.selected];
+    [self.cloudHubManager setCandraw:sender.selected];
     
     self.brushToolOpenBtn.hidden = self.brushToolView.hidden = !sender.selected;
 }
@@ -126,11 +124,11 @@
     sender.selected = !sender.selected;
     if (sender.selected)
     {
-        [self.whiteBoardSDKManager setWhiteBoardRatio:16.0/9.0];
+        [self.cloudHubManager setWhiteBoardRatio:16.0/9.0];
     }
     else
     {
-        [self.whiteBoardSDKManager setWhiteBoardRatio:4.0/3.0];
+        [self.cloudHubManager setWhiteBoardRatio:4.0/3.0];
     }
 }
 
@@ -194,7 +192,7 @@
 
 - (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn
 {
-    [self.whiteBoardSDKManager brushSDKToolsDidSelect:toolViewBtnType];
+    [self.cloudHubManager brushSDKToolsDidSelect:toolViewBtnType];
 
     if (self.drawBoardView)
     {
@@ -217,7 +215,7 @@
 
 - (void)brushSelectorViewDidSelectDrawType:(CHDrawType)drawType color:(NSString *)hexColor widthProgress:(float)progress
 {
-    [self.whiteBoardSDKManager didSDKSelectDrawType:drawType color:hexColor widthProgress:progress];
+    [self.cloudHubManager didSDKSelectDrawType:drawType color:hexColor widthProgress:progress];
 }
 
 
@@ -250,7 +248,7 @@
 {
     NSLog(@"onRoomLeft");
     
-    [CloudHubManager destroy];
+    [CloudHubWhiteBoardKit destroy];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     //GetAppDelegate.allowRotation = NO;
 }

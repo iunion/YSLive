@@ -12,7 +12,7 @@
 
 //#import <BMKit/BMKit.h>
 #import <CloudHubRTC/CloudHubRTC.h>
-#import <CHWhiteBoardSDK/CHWhiteBoardSDKManager.h>
+#import <CloudHubWhiteBoardKit/CloudHubWhiteBoardKit.h>
 
 #import "CHAppMacros.h"
 #import "CHLiveSkinManager.h"

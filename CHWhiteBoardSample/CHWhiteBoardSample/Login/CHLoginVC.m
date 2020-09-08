@@ -12,8 +12,6 @@
 #import "Masonry.h"
 #import "CHLoginMacros.h"
 
-#import "CloudHubManager.h"
-
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #import "CHMainViewController.h"
@@ -48,13 +46,13 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 <
     UITextFieldDelegate,
     CHInputViewDelegate,
-    CloudHubManagerDelegate
+    CloudHubWhiteBoardDelegate
 >
 //{
 //    YSUserRoleType userRole;
 //}
 
-@property (nonatomic, weak) CloudHubManager *cloudHubManager;
+@property (nonatomic, weak) CloudHubWhiteBoardKit *cloudHubManager;
 
 /// 背景滚动
 @property (nonatomic, strong) UIScrollView *backScrollView;
@@ -494,7 +492,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     // 根据实际用户变更用户身份
 //    userRole = YSUserType_Teacher;
     
-    self.cloudHubManager = [CloudHubManager sharedInstance];
+    self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
     self.cloudHubManager.delegate = self;
 
     [self.cloudHubManager joinRoomWithHost:CHHost port:CHPort nickName:nickName roomId:roomId roomPassword:nil userId:nil];
@@ -522,7 +520,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
         GetAppDelegate.allowRotation = YES;
     }
     
-    CHMainViewController *mainVC = [[CHMainViewController alloc] initWithwhiteBordView:self.cloudHubManager.whiteBoardManager.mainWhiteBoardView userId:nil];
+    CHMainViewController *mainVC = [[CHMainViewController alloc] initWithwhiteBordView:self.cloudHubManager.mainWhiteBoardView userId:nil];
     
     self.cloudHubManager.delegate = mainVC;
     
@@ -568,7 +566,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 
 - (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
 {
-    [CloudHubManager destroy];
+    [CloudHubWhiteBoardKit destroy];
     
     [self.progressHUD hideAnimated:YES];
 
