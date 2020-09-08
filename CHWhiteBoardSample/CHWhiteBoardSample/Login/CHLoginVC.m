@@ -19,28 +19,10 @@
 
 #define USE_COOKIES     0
 
-#define CHHost        @"api.roadofcloud.net"
-
-#define CHPort        443
-
 /// 登录时 输入框记录的房间号
 static NSString *const YSLOGIN_USERDEFAULT_ROOMID = @"chLOGIN_USERDEFAULT_ROOMID";
 /// 登录时 输入框记录的昵称
 static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICKNAME";
-
-///// 网络协议 http or https
-//extern NSString *const YSWhiteBoardWebProtocolKey;
-///// host
-//extern NSString *const YSWhiteBoardWebHostKey;
-///// port
-//extern NSString *const YSWhiteBoardWebPortKey;
-//extern NSString *const YSWhiteBoardPlayBackKey;
-///// pdf
-//extern NSString *const YSWhiteBoardPDFLevelsKey;
-//
-///// host
-//static NSString *const YSAPPHost = @"api.roadofcloud.net";
-
 
 @interface CHLoginVC ()
 <
@@ -495,7 +477,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
     self.cloudHubManager.delegate = self;
 
-    [self.cloudHubManager joinRoomWithHost:CHHost port:CHPort nickName:nickName roomId:roomId roomPassword:nil userId:nil];
+    [self.cloudHubManager joinRoomWithNickName:nickName roomId:roomId roomPassword:nil userId:nil];
 }
 
 
