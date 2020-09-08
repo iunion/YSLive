@@ -647,7 +647,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"WhiteBoardSDK=1",
 				);
 				INFOPLIST_FILE = CHWhiteBoardSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -697,7 +696,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"WhiteBoardSDK=1",
 				);
 				INFOPLIST_FILE = CHWhiteBoardSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
