@@ -1,10 +1,7 @@
 //
 //  main.m
 //  CloudHubWhiteBoardSDKDemo
-//
-//  Created by fzxm on 2020/9/8.
-//  Copyright © 2020 ysxl. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
