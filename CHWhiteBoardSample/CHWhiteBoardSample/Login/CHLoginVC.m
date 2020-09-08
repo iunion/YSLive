@@ -190,7 +190,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [self.roomTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(login_kScale_W(28));
         make.right.mas_equalTo(-login_kScale_W(28));
-        make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(login_kScale_H(60));
+        make.top.mas_equalTo(weakSelf.logoImageView.mas_bottom).mas_offset(-login_kScale_H(60));
         make.height.mas_equalTo(40);
     }];
     self.roomTextField.layer.cornerRadius = 20;
@@ -572,7 +572,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:CHSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    NSString * jjj = CHSLocalized(@"Prompt.OK");
+    
+    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertVc addAction:confimAc];
     
