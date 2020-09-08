@@ -215,8 +215,8 @@
 				26ABA4BC25077B93001E4865 /* AppDelegate.m */,
 				26ABA4CC25077B96001E4865 /* Info.plist */,
 				26ABA4C925077B96001E4865 /* LaunchScreen.storyboard */,
-				26ABA4C725077B96001E4865 /* Assets.xcassets */,
 				26ABA50925077DC0001E4865 /* Resources */,
+				26ABA4C725077B96001E4865 /* Assets.xcassets */,
 			);
 			path = CloudHubWhiteBoardSDKDemo;
 			sourceTree = "<group>";
@@ -333,8 +333,8 @@
 			isa = PBXGroup;
 			children = (
 				26ABA54D250780B9001E4865 /* expandLib */,
-				26ABA554250780B9001E4865 /* CloudHubRTC.framework */,
 				26ABA555250780B9001E4865 /* CloudHubWhiteBoardKit. */,
+				26ABA554250780B9001E4865 /* CloudHubRTC.framework */,
 			);
 			name = CHLib;
 			path = CloudHubWhiteBoardSDKDemo/CHLib;
@@ -659,7 +659,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 28MCU34HH7;
+				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -689,7 +689,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.road.cloud.CloudHubWhiteBoardSDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CloudHub.CloudHubWhiteBoardSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -701,7 +701,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 28MCU34HH7;
+				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -731,7 +731,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.road.cloud.CloudHubWhiteBoardSDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CloudHub.CloudHubWhiteBoardSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
