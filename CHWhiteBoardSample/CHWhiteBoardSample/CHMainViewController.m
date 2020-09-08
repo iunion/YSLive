@@ -139,14 +139,14 @@
 {
     self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:NO];
     [self.view addSubview:self.brushToolView];
-
+    
     CGFloat laftGap = 10;
     if (BMIS_IPHONEXANDP)
     {
         laftGap = BMUI_HOME_INDICATOR_HEIGHT;
     }
     self.brushToolView.bm_left = laftGap;
-    self.brushToolView.bm_centerY = self.view.bm_centerY;
+    self.brushToolView.bm_centerY = self.view.bm_centerX;
     self.brushToolView.delegate = self;
 //    self.brushToolView.hidden = YES;
     
