@@ -99,7 +99,7 @@
     [scaleBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:scaleBtn];
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 100, 20, 80, 50)];
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 100, 20, 100, 50)];
     [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"返回登录页" forState:UIControlStateNormal];
     [backBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
