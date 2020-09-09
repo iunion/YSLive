@@ -9,6 +9,7 @@
 #import "SCDrawBoardView.h"
 #import "FileListTableViewCell.h"
 
+
 @interface CHMainViewController ()
 <
     SCBrushToolViewDelegate,
@@ -126,8 +127,6 @@
     canDrawBtn.tag = 1;
     scaleBtn.tag = 2;
     backBtn.tag = 3;
-
-    
 }
 
 
@@ -159,7 +158,8 @@
             break;
         case 3:
         {
-//            [self.cloudHubManager.cloudHubRtcEngineKit leaveChannel:nil];
+            [self.cloudHubRtcEngineKit leaveChannel:nil];
+            
         }
             break;
             
@@ -167,6 +167,14 @@
             break;
     }
 }
+
+/// 离开房间
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didLeaveChannel:(CloudHubChannelStats *)stats
+{
+    [CloudHubWhiteBoardKit destroy];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)setupFileList
 {
     UITableView *fileTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -314,63 +322,6 @@
 {
     [self.cloudHubManager didSDKSelectDrawType:drawType color:hexColor widthProgress:progress];
 }
-
-
-#pragma mark -
-#pragma mark CloudHubManagerDelegate
-
-- (void)onRoomJoined
-{
-    [self.fileTableView reloadData];
-}
-
-/// 成功重连房间
-- (void)onRoomReJoined
-{
-    
-}
-
-/**
-    失去连接
- */
-- (void)onRoomConnectionLost
-{
-    NSLog(@"onRoomConnectionLost");
-
-}
-
-/**
-    已经离开房间
- */
-- (void)onRoomLeft
-{
-    NSLog(@"onRoomLeft");
-    
-    [CloudHubWhiteBoardKit destroy];
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    //GetAppDelegate.allowRotation = NO;
-}
-
-/**
-    自己被踢出房间
-    @param reasonCode 被踢原因
- */
-- (void)onRoomKickedOut:(NSInteger)reasonCode
-{
-    NSLog(@"onRoomKickedOut");
-
-}
-
-- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
-{
-
-}
-
-- (void)onUpdateTimeWithTimeInterval:(NSTimeInterval)timeInterval
-{
-    
-}
-
 
 #pragma mark - CHWhiteBoardManagerDelegate
 
