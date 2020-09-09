@@ -490,19 +490,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
 //    self.cloudHubManager.delegate = self;
 
-//    [self.cloudHubManager joinRoomWithNickName:nickName roomId:roomId roomPassword:nil userId:nil];
     [self joinRoomWithNickName:nickName roomId:roomId roomPassword:nickName];
 }
-
-//- (BOOL)joinRoomWithNickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId
-//{
-//    return [self joinRoomWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:roomPassword userId:userId];
-//}
-//
-//- (BOOL)joinRoomWithNickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams
-//{
-//    return [self joinRoomWithHost:nil port:0 nickName:nickName roomParams:roomParams];
-//}
 
 - (BOOL)joinRoomWithNickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword
 {
@@ -519,6 +508,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 //    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:nil];
     self.cloudHubRtcEngineKit.wb = self.cloudHubManager;
+    self.cloudHubRtcEngineKit.delegate = self;
     
 #ifdef DEBUG
     [self.cloudHubRtcEngineKit setLogFilter:1];
