@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHMainViewController : UIViewController
 <
-    CloudHubWhiteBoardDelegate
+    CHWhiteBoardManagerDelegate
 >
 
 //- (instancetype)initWithRoomType:(YSRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;

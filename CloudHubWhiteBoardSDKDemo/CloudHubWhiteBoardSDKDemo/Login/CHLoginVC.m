@@ -16,6 +16,15 @@
 
 #import "CHMainViewController.h"
 
+/// server
+//NSString *const CHJoinRoomParamsServerKey       = @"server";
+///// 客户端类型
+/////// port
+//NSString *const CHJoinRoomParamsPortKey         = @"port";
+/////// secure
+//NSString *const CHJoinRoomParamsSecureKey       = @"secure";
+#define CloudHubManager_DefaultApiHost     @"api.roadofcloud.net"
+#define CloudHubManager_DefaultApiPort     (443)
 
 #define USE_COOKIES     0
 
@@ -28,7 +37,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 <
     UITextFieldDelegate,
     CHInputViewDelegate,
-    CloudHubWhiteBoardDelegate
+    CHWhiteBoardManagerDelegate
 >
 //{
 //    YSUserRoleType userRole;
@@ -51,10 +60,14 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 /// 进入教室按钮
 @property (nonatomic, strong) UIButton *joinRoomBtn;
 
+/// 当前用户数据
+@property (nonatomic, strong) CHRoomUser *localUser;
+
 @property (assign, nonatomic) NSInteger role;
 /// 默认服务
 @property (strong, nonatomic) NSString *defaultServer;
-
+/// 音视频SDK干管理
+@property (nonatomic, weak) CloudHubRtcEngineKit *cloudHubRtcEngineKit;
 // 网络等待
 @property (nonatomic, strong) MBProgressHUD *progressHUD;
 
@@ -475,11 +488,52 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 //    userRole = YSUserType_Teacher;
     
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
-    self.cloudHubManager.delegate = self;
+//    self.cloudHubManager.delegate = self;
 
-    [self.cloudHubManager joinRoomWithNickName:nickName roomId:roomId roomPassword:nil userId:nil];
+//    [self.cloudHubManager joinRoomWithNickName:nickName roomId:roomId roomPassword:nil userId:nil];
+    [self joinRoomWithNickName:nickName roomId:roomId roomPassword:nickName];
 }
 
+//- (BOOL)joinRoomWithNickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId
+//{
+//    return [self joinRoomWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:roomPassword userId:userId];
+//}
+//
+//- (BOOL)joinRoomWithNickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams
+//{
+//    return [self joinRoomWithHost:nil port:0 nickName:nickName roomParams:roomParams];
+//}
+
+- (BOOL)joinRoomWithNickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword
+{
+    // 用户ID
+    NSString * userId = [[NSUUID UUID] UUIDString];
+    self.localUser = [[CHRoomUser alloc] initWithPeerId:userId];
+
+    // 用户属性
+    self.localUser.nickName = nickName;
+
+    // 初始化 cloudHubRtcEngineKit
+    // rtcEngineKit 使用http，所以端口是80
+//    NSDictionary *rtcEngineKitConfig = @{ CHJoinRoomParamsServerKey:host, CHJoinRoomParamsPortKey:@(80), CHJoinRoomParamsSecureKey:@(NO) };
+//    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
+    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:nil];
+    self.cloudHubRtcEngineKit.wb = self.cloudHubManager;
+    
+#ifdef DEBUG
+    [self.cloudHubRtcEngineKit setLogFilter:1];
+#endif
+    
+    [self.cloudHubManager registeWhiteBoardWithHost:CloudHubManager_DefaultApiHost port:CloudHubManager_DefaultApiPort withLocalUser:self.localUser roomId:roomId];
+    
+    if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:self.localUser.peerID joinSuccess:nil] != 0)
+    {
+        NSLog(@"Join Channel failed!!");
+        return NO;
+    }
+
+    return YES;
+}
 
 #pragma mark -
 #pragma mark CloudHubManagerDelegate
@@ -492,15 +546,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     
     [CHLoginVC setLoginRoomID:self.roomTextField.inputTextField.text];
     [CHLoginVC setLoginNickName:self.nickNameTextField.inputTextField.text];
-    
-//    if (roomType == YSSDKUseTheType_LiveRoom)
-//    {
-//        GetAppDelegate.allowRotation = NO;
-//    }
-//    else
-    {
-        GetAppDelegate.allowRotation = YES;
-    }
+
+    GetAppDelegate.allowRotation = YES;
     
     CHMainViewController *mainVC = [[CHMainViewController alloc] initWithwhiteBordView:self.cloudHubManager.mainWhiteBoardView userId:nil];
     

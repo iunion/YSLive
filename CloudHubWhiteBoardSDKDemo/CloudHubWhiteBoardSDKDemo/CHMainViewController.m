@@ -159,7 +159,7 @@
             break;
         case 3:
         {
-            [self.cloudHubManager.cloudHubRtcEngineKit leaveChannel:nil];
+//            [self.cloudHubManager.cloudHubRtcEngineKit leaveChannel:nil];
         }
             break;
             
