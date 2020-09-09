@@ -63,9 +63,8 @@ xcdebugger/
 
 YSLib/BMKit/BMKit.framework
 YSLiveSample/YSLiveSample/YSLib/
-YSWhiteBoardSample/YSLiveSample/YSLib/
-CHWhiteBoardSample/CHWhiteBoardSample/CHLib/
-CHWhiteBoardSample/CHWhiteBoardSample/Resources/
-
+CloudHubWhiteBoardSDKDemo/CloudHubWhiteBoardSDKDemo/CHLib/
+CloudHubWhiteBoardSDKDemo/CloudHubWhiteBoardSDKDemo/Resources/
+CloudHubWhiteBoardSDKDemo/CloudHubWhiteBoardSDKDemo/CHSkinManager/CHSkinRsource.bundle
 
 
