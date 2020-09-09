@@ -10,7 +10,8 @@
 @property (nonatomic, strong) UIButton *deleteBtn;
 
 @property (nonatomic, strong) CHFileModel *fileModel;
-
+/// 打开
+@property (nonatomic, strong) UIImageView *openImageView;
 @end
 
 
@@ -37,6 +38,13 @@
     nameLabel.textAlignment = NSTextAlignmentLeft;
     nameLabel.textColor = [UIColor grayColor];
     
+    UIImageView *openImageView = [[UIImageView alloc] init];
+    [self.contentView addSubview:openImageView];
+    self.openImageView = openImageView;
+    openImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [openImageView setImage:CHSkinElementImage(@"coursewareList_open", @"iconNor")];
+
+    
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:deleteBtn];
     self.deleteBtn = deleteBtn;
@@ -54,8 +62,12 @@
     self.deleteBtn.bm_right = self.contentView.bm_right - 10;
     
     self.nameLabel.font = [UIFont systemFontOfSize:12.0];
-    self.nameLabel.frame = CGRectMake(10, 0, 200, 20);
+    self.nameLabel.frame = CGRectMake(10, 0, 150, 20);
     self.nameLabel.bm_centerY = self.contentView.bm_centerY;
+    
+    self.openImageView.frame = CGRectMake(0, 0, 15, 15);
+    self.openImageView.bm_centerY = self.contentView.bm_centerY;
+    self.openImageView.bm_right = self.deleteBtn.bm_left - 15;
 }
 
 - (void)deleteBtnClicked:(UIButton *)btn
@@ -79,7 +91,7 @@
 }
 
 
-- (void)setFileModel:(CHFileModel *)fileModel
+- (void)setFileModel:(CHFileModel *)fileModel isCurrent:(BOOL)isCurrent
 {
     _fileModel = fileModel;
     NSString *filename = @"";
@@ -92,6 +104,17 @@
         filename = fileModel.filename;
     }
     self.nameLabel.text = filename;
+    
+    if (isCurrent)
+    {
+        [self.openImageView setImage:CHSkinElementImage(@"coursewareList_open", @"iconSel")];
+        
+    }
+    else
+    {
+        [self.openImageView setImage:CHSkinElementImage(@"coursewareList_open", @"iconNor")];
+        
+    }
 }
 
 

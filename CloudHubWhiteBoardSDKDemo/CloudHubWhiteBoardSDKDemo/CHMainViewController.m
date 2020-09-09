@@ -35,6 +35,8 @@
 /// 课件列表
 @property (nonatomic, strong) UIButton *fileListBtn;
 @property (nonatomic, strong) UITableView *fileTableView;
+/// 当前展示课件数组
+@property (nonatomic, strong) NSMutableArray *currentFileList;
 @end
 
 @implementation CHMainViewController
@@ -78,7 +80,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.currentFileList = [[NSMutableArray alloc] init];
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
     
     [self.view addSubview:self.mainWhiteBoardView];
@@ -194,11 +196,19 @@
     if (indexPath.row < self.cloudHubManager.fileList.count)
     {
         CHFileModel * model = self.cloudHubManager.fileList[indexPath.row];
-        
-        [coursewareCell setFileModel:model];
+        BOOL isCurrent = [self.currentFileList containsObject:model.fileid];
+        [coursewareCell setFileModel:model isCurrent:isCurrent];
     }
     coursewareCell.delegate = self;
     return coursewareCell;
+}
+
+
+#pragma mark CoursewareListCellDelegate
+- (void)deleteBtnWithFileModel:(CHFileModel *)fileModel
+{
+    /// 删除课件
+    [self.cloudHubManager deleteCourseWithFileId:fileModel.fileid];
 }
 
 #pragma mark UITableViewDelegate
@@ -386,7 +396,7 @@
  */
 - (void)onWhiteBroadFileList:(NSArray *)fileList
 {
-    
+    [self.fileTableView reloadData];
 }
 
 /// H5脚本文件加载初始化完成
@@ -429,7 +439,9 @@
 /// 切换课件
 - (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
 {
-    
+    [self.currentFileList removeAllObjects];
+    [self.currentFileList addObjectsFromArray:fileList];
+    [self.fileTableView reloadData];
 }
 
 
