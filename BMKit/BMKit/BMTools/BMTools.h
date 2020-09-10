@@ -74,5 +74,6 @@
 #import "BMProgressHUD.h"
 
 #import "BMHttpRequest.h"
+#import "BMCloudHubUtil.h"
 
 #endif /* BMTools_h */
