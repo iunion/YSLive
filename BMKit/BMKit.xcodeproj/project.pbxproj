@@ -508,6 +508,10 @@
 		87901A6E24176EB500FF38EC /* BMMASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A5524176EB500FF38EC /* BMMASViewAttribute.m */; };
 		87901A7324176F1D00FF38EC /* BMMASUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A7124176F1D00FF38EC /* BMMASUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87901A7424176F1D00FF38EC /* BMMasonry.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A7224176F1D00FF38EC /* BMMasonry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87A186D32508D31100607E24 /* BMCloudHubUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A186D12508D31100607E24 /* BMCloudHubUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87A186D42508D31100607E24 /* BMCloudHubUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A186D22508D31100607E24 /* BMCloudHubUtil.m */; };
+		87A186DC2509CC3D00607E24 /* NSError+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A186DA2509CC3D00607E24 /* NSError+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87A186DD2509CC3D00607E24 /* NSError+BMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A186DB2509CC3D00607E24 /* NSError+BMCategory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1008,6 +1012,10 @@
 		87901A5524176EB500FF38EC /* BMMASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMASViewAttribute.m; sourceTree = "<group>"; };
 		87901A7124176F1D00FF38EC /* BMMASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASUtilities.h; sourceTree = "<group>"; };
 		87901A7224176F1D00FF38EC /* BMMasonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMasonry.h; sourceTree = "<group>"; };
+		87A186D12508D31100607E24 /* BMCloudHubUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCloudHubUtil.h; sourceTree = "<group>"; };
+		87A186D22508D31100607E24 /* BMCloudHubUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCloudHubUtil.m; sourceTree = "<group>"; };
+		87A186DA2509CC3D00607E24 /* NSError+BMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+BMCategory.h"; sourceTree = "<group>"; };
+		87A186DB2509CC3D00607E24 /* NSError+BMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+BMCategory.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1147,6 +1155,8 @@
 				8701ADDB23714E6000A43607 /* NSDecimalNumber+BMCategory.m */,
 				8701ADD823714E6000A43607 /* NSDictionary+BMCategory.h */,
 				8701ADFB23714E6000A43607 /* NSDictionary+BMCategory.m */,
+				87A186DA2509CC3D00607E24 /* NSError+BMCategory.h */,
+				87A186DB2509CC3D00607E24 /* NSError+BMCategory.m */,
 				8701ADE023714E6000A43607 /* NSMutableArray+BMCategory.h */,
 				8701AE0523714E6000A43607 /* NSMutableArray+BMCategory.m */,
 				8701ADE723714E6000A43607 /* NSNumber+BMCategory.h */,
@@ -1206,6 +1216,7 @@
 				8701AF9E237161AA00A43607 /* BMApiUtil */,
 				8701AF2E23715C9D00A43607 /* BMBadge */,
 				8701B0862371650F00A43607 /* BMCheckBox */,
+				87A186D02508D30000607E24 /* BMCloudHubUtil */,
 				8701AF3523715CF900A43607 /* BMCountDownManager */,
 				8701AFED2371648100A43607 /* BMDatePicker */,
 				8777C79E23EA7489002002BF /* BMEmptyView */,
@@ -1954,6 +1965,15 @@
 			path = Masonry;
 			sourceTree = "<group>";
 		};
+		87A186D02508D30000607E24 /* BMCloudHubUtil */ = {
+			isa = PBXGroup;
+			children = (
+				87A186D12508D31100607E24 /* BMCloudHubUtil.h */,
+				87A186D22508D31100607E24 /* BMCloudHubUtil.m */,
+			);
+			path = BMCloudHubUtil;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2050,6 +2070,7 @@
 				879019D4241657F600FF38EC /* BMAFURLResponseSerialization.h in Headers */,
 				879019CD2416530A00FF38EC /* BMAFURLRequestSerialization.h in Headers */,
 				879019C12416497F00FF38EC /* BMAFNetworking.h in Headers */,
+				87A186D32508D31100607E24 /* BMCloudHubUtil.h in Headers */,
 				87901A08241727BF00FF38EC /* BMTZImageRequestOperation.h in Headers */,
 				879019D0241655D000FF38EC /* BMAFURLSessionManager.h in Headers */,
 				879019BF2416492100FF38EC /* BMAFHTTPSessionManager.h in Headers */,
@@ -2207,6 +2228,7 @@
 				8701AEAC2371550000A43607 /* BMAlertView.h in Headers */,
 				8701AEA92371550000A43607 /* BMNoticeView.h in Headers */,
 				8701AEAD2371550000A43607 /* BMTools.h in Headers */,
+				87A186DC2509CC3D00607E24 /* NSError+BMCategory.h in Headers */,
 				8742FE4B24F3A12A00BDF294 /* BMSDImageAssetManager.h in Headers */,
 				8742FE4224F3A12A00BDF294 /* BMSDWebImageTransitionInternal.h in Headers */,
 				8701AE3923714E6000A43607 /* NSDictionary+BMCategory.h in Headers */,
@@ -2423,6 +2445,7 @@
 				8777C7A323EA7489002002BF /* BMEmptyView.m in Sources */,
 				8701AE1023714E6000A43607 /* UIView+BMAnimation.m in Sources */,
 				8701B0E8237165AA00A43607 /* BMTableViewBoolCell.m in Sources */,
+				87A186D42508D31100607E24 /* BMCloudHubUtil.m in Sources */,
 				8742FE4624F3A12A00BDF294 /* BMSDAsyncBlockOperation.m in Sources */,
 				8701B113237165AA00A43607 /* BMLongTextItem.m in Sources */,
 				8742FDE524F3A12A00BDF294 /* BMSDImageAPNGCoder.m in Sources */,
@@ -2489,6 +2512,7 @@
 				8701AF8823715F5500A43607 /* BMNavigationBar.m in Sources */,
 				8742FE2D24F3A12A00BDF294 /* BMSDAnimatedImagePlayer.m in Sources */,
 				8742FE3224F3A12A00BDF294 /* UIImage+BMGIF.m in Sources */,
+				87A186DD2509CC3D00607E24 /* NSError+BMCategory.m in Sources */,
 				8742FE4724F3A12A00BDF294 /* BMSDDeviceHelper.m in Sources */,
 				8701B0F5237165AA00A43607 /* BMTableViewNumberTextCell.m in Sources */,
 				8701AF94237160DB00A43607 /* BMScrollPageSegment.m in Sources */,
