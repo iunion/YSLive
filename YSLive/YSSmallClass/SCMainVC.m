@@ -3664,10 +3664,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else if (self.smallStageState == YSSmallBoardStage_answer)
     {
-        self.brushToolView.hidden = NO;
-        self.brushToolOpenBtn.hidden = NO;
-        self.drawBoardView.hidden = NO;
-        [self resetDrawTools];
+        if (YSCurrentUser.role == YSUserType_Patrol)
+        {
+            self.brushToolView.hidden = YES;
+            self.brushToolOpenBtn.hidden = YES;
+            self.drawBoardView.hidden = YES;
+        }
+        else
+        {
+            self.brushToolView.hidden = NO;
+            self.brushToolOpenBtn.hidden = NO;
+            self.drawBoardView.hidden = NO;
+            [self resetDrawTools];
+        }
     }
     else if (self.smallStageState == YSSmallBoardStage_comment)
     {
