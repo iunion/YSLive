@@ -494,6 +494,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
 #else
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:nil];
+    
+    self.cloudHubManager.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
 #endif
     
     
