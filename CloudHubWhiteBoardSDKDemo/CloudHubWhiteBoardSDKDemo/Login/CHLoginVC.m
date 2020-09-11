@@ -519,7 +519,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 #pragma mark -
 #pragma mark CloudHubRtcEngineDelegate
 
-/// 进入房间
+#pragma mark - 进入房间
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannel:(NSString *)channel withUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
     NSLog(@"onRoomJoined");
@@ -539,8 +539,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     mainVC.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
     mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:mainVC animated:YES completion:nil];
-    
 }
+
 
 #pragma mark - 重连
 

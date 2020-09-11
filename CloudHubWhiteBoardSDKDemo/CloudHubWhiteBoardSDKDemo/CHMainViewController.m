@@ -127,8 +127,15 @@
     canDrawBtn.tag = 1;
     scaleBtn.tag = 2;
     backBtn.tag = 3;
+    [self resetDrawTools];
 }
 
+- (void)resetDrawTools
+{
+    [self.brushToolView resetTool];
+    self.drawBoardView.brushToolType = YSBrushToolTypeLine;
+    self.drawBoardView.hidden = YES;
+}
 
 - (void)buttomsClick:(UIButton *)sender
 {
@@ -212,9 +219,7 @@
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     return 40;
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
