@@ -474,6 +474,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
         return;
     }
     
+    [self.progressHUD showAnimated:YES];
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
     [self joinRoomWithWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:nil];
 }
@@ -488,7 +489,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.localUser.nickName = nickName;
 
     // 初始化 cloudHubRtcEngineKit
-#if 0
+#if 1
     // rtcEngineKit 使用http，所以端口是80
     NSDictionary *rtcEngineKitConfig = @{ @"server":@"demo.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
@@ -496,6 +497,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:nil];
 #endif
     
+    self.cloudHubManager.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
     
 #ifdef DEBUG
     [self.cloudHubRtcEngineKit setLogFilter:1];
