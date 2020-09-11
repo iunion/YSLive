@@ -2905,11 +2905,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 }
 
-
 - (void)resetDrawTools
 {
     [self.brushToolView resetTool];
-    self.drawBoardView.brushToolType = YSBrushToolTypeMouse;
+    self.drawBoardView.brushToolType = YSBrushToolTypeLine;
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
 }
 
@@ -3216,7 +3215,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
             self.spreadBottomToolBar.isToolBoxEnable = canDraw;
             [self freshBrushTools];
-            
             // 设置画笔颜色初始值
             if (canDraw)
             {
@@ -3226,6 +3224,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 }
                 [self resetDrawTools];
             }
+            self.drawBoardView.hidden = YES;
 
             for (SCVideoView * videoView in videoViewArr)
             {

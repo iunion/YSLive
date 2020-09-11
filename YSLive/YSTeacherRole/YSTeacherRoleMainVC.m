@@ -9,7 +9,6 @@
 #import "YSTeacherRoleMainVC.h"
 #import "SCChatView.h"
 #import "SCBrushToolView.h"
-#import "SCDrawBoardView.h"
 #import "SCChatToolView.h"
 #import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
@@ -740,6 +739,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.brushToolOpenBtn.hidden = YES;
     [self.view addSubview:brushToolOpenBtn];
 }
+
 
 /// 助教网络刷新所有人课件
 - (void)handleSignalingTorefeshCourseware
@@ -2433,13 +2433,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                     self.brushToolOpenBtn.hidden = NO;
                 }
 
-                if (self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
-                {
-                    self.drawBoardView.hidden = YES;
-                }else
-                {
-                    self.drawBoardView.hidden = NO;
-                }
+//                if (self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
+//                {
+//                    self.drawBoardView.hidden = YES;
+//                }else
+//                {
+//                    self.drawBoardView.hidden = NO;
+//                }
             }
 
             // 设置画笔颜色初始值
@@ -2503,6 +2503,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self freshTeacherPersonListData];
         }
     }
+}
+
+- (void)resetDrawTools
+{
+    [self.brushToolView resetTool];
+    self.drawBoardView.brushToolType = YSBrushToolTypeLine;
+    [self.liveManager.whiteBoardManager freshBrushToolConfig];
 }
 
 #pragma mark 切换网络 会收到onRoomJoined
@@ -2581,6 +2588,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     dispatch_resume(self.topBarTimer);
 
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserPublishstate value:@(YSUser_PublishState_UP)];
+    
+    [self resetDrawTools];
 }
 
 /// 下课
