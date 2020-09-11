@@ -74,7 +74,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 
 - (void)resetTool
 {
-    [self sc_toolButtonListClicked:self.mouseBtn];
+    [self sc_toolButtonListClicked:self.penBtn];
 }
 
 - (void)setup
@@ -206,7 +206,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_mouseBtn setAdjustsImageWhenHighlighted:NO];
         [_mouseBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _mouseBtn.tag = YSBrushToolTypeMouse;
-        _mouseBtn.selected = YES;
+//        _mouseBtn.selected = YES;
     }
     
     return _mouseBtn;
@@ -222,6 +222,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_penBtn setAdjustsImageWhenHighlighted:NO];
         [_penBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _penBtn.tag = YSBrushToolTypeLine;
+        _penBtn.selected = YES;
     }
     
     return _penBtn;

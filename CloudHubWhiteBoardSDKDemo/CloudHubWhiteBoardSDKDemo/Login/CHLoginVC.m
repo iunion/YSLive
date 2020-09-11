@@ -16,7 +16,6 @@
 
 #import "CHMainViewController.h"
 
-
 #define USE_COOKIES     0
 
 /// 登录时 输入框记录的房间号
@@ -28,11 +27,11 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 <
     UITextFieldDelegate,
     CHInputViewDelegate,
-    CloudHubWhiteBoardDelegate
+    CHWhiteBoardManagerDelegate,
+    CloudHubRtcEngineDelegate
 >
-//{
-//    YSUserRoleType userRole;
-//}
+
+@property (nonatomic, weak) CHMainViewController *mainVC;
 
 @property (nonatomic, weak) CloudHubWhiteBoardKit *cloudHubManager;
 
@@ -51,10 +50,14 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 /// 进入教室按钮
 @property (nonatomic, strong) UIButton *joinRoomBtn;
 
+/// 当前用户数据
+@property (nonatomic, strong) CHRoomUser *localUser;
+
 @property (assign, nonatomic) NSInteger role;
 /// 默认服务
 @property (strong, nonatomic) NSString *defaultServer;
-
+/// 音视频SDK干管理
+@property (nonatomic, weak) CloudHubRtcEngineKit *cloudHubRtcEngineKit;
 // 网络等待
 @property (nonatomic, strong) MBProgressHUD *progressHUD;
 
@@ -470,21 +473,54 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
         [alertVc addAction:confimAc];
         return;
     }
-
-    // 根据实际用户变更用户身份
-//    userRole = YSUserType_Teacher;
     
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
-    self.cloudHubManager.delegate = self;
-
-    [self.cloudHubManager joinRoomWithNickName:nickName roomId:roomId roomPassword:nil userId:nil];
+    [self joinRoomWithWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:nil];
 }
 
+- (BOOL)joinRoomWithWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword
+{
+    // 用户ID
+    NSString * userId = [[NSUUID UUID] UUIDString];
+    self.localUser = [[CHRoomUser alloc] initWithPeerId:userId];
+
+    // 用户属性
+    self.localUser.nickName = nickName;
+
+    // 初始化 cloudHubRtcEngineKit
+#if 0
+    // rtcEngineKit 使用http，所以端口是80
+    NSDictionary *rtcEngineKitConfig = @{ @"server":@"demo.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
+    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
+#else
+    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:nil];
+#endif
+    
+    
+#ifdef DEBUG
+    [self.cloudHubRtcEngineKit setLogFilter:1];
+#endif
+
+    self.cloudHubRtcEngineKit.wb = self.cloudHubManager;
+    self.cloudHubRtcEngineKit.delegate = self;
+    
+    
+    [self.cloudHubManager registeWhiteBoardWithHost:host port:port withLocalUser:self.localUser roomId:roomId];
+    
+    if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:self.localUser.peerID joinSuccess:nil] != 0)
+    {
+        NSLog(@"Join Channel failed!!");
+        return NO;
+    }
+
+    return YES;
+}
 
 #pragma mark -
-#pragma mark CloudHubManagerDelegate
+#pragma mark CloudHubRtcEngineDelegate
 
-- (void)onRoomJoined
+#pragma mark - 进入房间
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannel:(NSString *)channel withUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
     NSLog(@"onRoomJoined");
     
@@ -492,70 +528,35 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     
     [CHLoginVC setLoginRoomID:self.roomTextField.inputTextField.text];
     [CHLoginVC setLoginNickName:self.nickNameTextField.inputTextField.text];
-    
-//    if (roomType == YSSDKUseTheType_LiveRoom)
-//    {
-//        GetAppDelegate.allowRotation = NO;
-//    }
-//    else
-    {
-        GetAppDelegate.allowRotation = YES;
-    }
+
+    GetAppDelegate.allowRotation = YES;
     
     CHMainViewController *mainVC = [[CHMainViewController alloc] initWithwhiteBordView:self.cloudHubManager.mainWhiteBoardView userId:nil];
     
+    self.mainVC = mainVC;
+    self.cloudHubRtcEngineKit.delegate = mainVC;
     self.cloudHubManager.delegate = mainVC;
-    
+    mainVC.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
     mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:mainVC animated:YES completion:nil];
-    
 }
 
-/// 成功重连房间
-- (void)onRoomReJoined
+
+#pragma mark - 重连
+
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didReJoinChannel:(NSString *)channel withUid:(NSString *)uid elapsed:(NSInteger) elapsed
 {
     
 }
 
-/**
-    失去连接
- */
-- (void)onRoomConnectionLost
-{
-    NSLog(@"onRoomConnectionLost");
-
-}
-
-/**
-    已经离开房间
- */
-- (void)onRoomLeft
-{
-    NSLog(@"onRoomLeft");
-    
-    //GetAppDelegate.allowRotation = NO;
-}
-
-/**
-    自己被踢出房间
-    @param reasonCode 被踢原因
- */
-- (void)onRoomKickedOut:(NSInteger)reasonCode
-{
-    NSLog(@"onRoomKickedOut");
-
-}
-
-- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOccurError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
 {
     [CloudHubWhiteBoardKit destroy];
     
     [self.progressHUD hideAnimated:YES];
 
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    NSString * jjj = CHSLocalized(@"Prompt.OK");
-    
+        
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertVc addAction:confimAc];
@@ -563,10 +564,13 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
-- (void)onUpdateTimeWithTimeInterval:(NSTimeInterval)timeInterval
+
+/// 离开房间
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didLeaveChannel:(CloudHubChannelStats *)stats
 {
-    
+
 }
+
 
 
 
