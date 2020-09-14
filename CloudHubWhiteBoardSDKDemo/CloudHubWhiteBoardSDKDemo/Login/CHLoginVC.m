@@ -488,8 +488,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     // 用户属性
     self.localUser.nickName = nickName;
 
-    // 初始化 cloudHubRtcEngineKit
-#if 1
+#if 0
     // rtcEngineKit 使用http，所以端口是80
     NSDictionary *rtcEngineKitConfig = @{ @"server":@"demo.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
