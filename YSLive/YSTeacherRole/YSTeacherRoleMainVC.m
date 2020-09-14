@@ -2507,8 +2507,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)resetDrawTools
 {
-    [self.brushToolView resetTool];
     self.drawBoardView.brushToolType = YSBrushToolTypeLine;
+    [self.brushToolView resetTool];
+    
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
 }
 
@@ -5915,8 +5916,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.drawBoardView = [[SCDrawBoardView alloc] init];
     self.drawBoardView.delegate = self;
     self.drawBoardView.brushToolType = toolViewBtnType;
-    [self.contentBackgroud addSubview:self.drawBoardView];
-    
+    [self.view addSubview:self.drawBoardView];
     BMWeakSelf
     [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);

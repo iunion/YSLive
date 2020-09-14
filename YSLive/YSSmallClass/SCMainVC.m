@@ -2907,8 +2907,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)resetDrawTools
 {
-    [self.brushToolView resetTool];
+    
     self.drawBoardView.brushToolType = YSBrushToolTypeLine;
+    [self.brushToolView resetTool];
+    
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
 }
 
@@ -3659,7 +3661,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
         
-        [self resetDrawTools];
+//        [self resetDrawTools];
     }
     else if (self.smallStageState == YSSmallBoardStage_answer)
     {
