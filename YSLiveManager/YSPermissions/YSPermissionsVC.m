@@ -359,7 +359,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     NSString *filePath = [self chinaOrEnglishWithPermissionsType:permissionsType];
     if (filePath)
     {
-        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filePath] error:nil];
         self.player.delegate = self;
         [self.player setVolume:1.0];
         [self.player play];
