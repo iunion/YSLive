@@ -168,7 +168,7 @@
     NSMutableURLRequest *request = nil;
     
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         request = [YSLiveApiRequest postTeacherNewpass:self.changePasswordView.inputTextField.text repass:self.againPasswordView.inputTextField.text teacherid:schoolUser.userId organid:organId];
     }
@@ -206,7 +206,7 @@
             else
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
-                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
                 NSLog(@"%@", str);

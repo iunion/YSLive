@@ -20,10 +20,10 @@
 /// 课件最大化
 - (void)handleonWhiteBoardMaximizeView;
 /// 媒体课件状态
-- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(YSMediaState)state;
+- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHMediaState)state;
 
 //小黑板状态变化（更改画笔）
-- (void)handleSignalingSetSmallBoardStageState:(YSSmallBoardStageState)smallBoardStageState;
+- (void)handleSignalingSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState;
 
 //小黑板bottomBar的代理
 - (void)handleSignalingSmallBoardBottomBarClick:(UIButton *)sender;

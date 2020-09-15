@@ -319,7 +319,7 @@
     
     BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     
-    YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
+    CHUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
     NSString * userId = [YSSchoolUser shareInstance].userId;
     NSString * organId = [YSSchoolUser shareInstance].organId;
     
@@ -352,7 +352,7 @@
             {
                 [self.progressHUD bm_hideAnimated:NO];
                 
-                NSDictionary *responseDic = [YSSessionUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
                 if ([responseDic bm_isNotEmptyDictionary])
                 {
                     

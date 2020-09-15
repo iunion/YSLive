@@ -19,13 +19,13 @@
 
 @interface YSLiveManager ()
 <
-    YSWhiteBoardManagerDelegate
+    CHWhiteBoardManagerDelegate
 >
 
 #pragma mark - 白板
 
 /// 白板管理
-@property (nonatomic, strong) YSWhiteBoardManager *whiteBoardManager;
+@property (nonatomic, strong) CHWhiteBoardManager *whiteBoardManager;
 /// 白板视图whiteBord
 @property (nonatomic, weak) UIView *whiteBordView;
 
@@ -53,9 +53,9 @@
 
 + (void)destroy
 {
-    [YSWhiteBoardManager destroy];
+    [CHWhiteBoardManager destroy];
 
-    [YSSessionManager destroy];
+    [CHSessionManager destroy];
 }
 
 - (instancetype)init
@@ -66,12 +66,12 @@
         self.apiHost = YSLIVE_HOST;
         self.schoolApiHost = YSSchool_Server;
         
-        self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
-        self.whiteBordDrawBgColor = YSWhiteBoard_MainBackDrawBoardBgColor;
+        self.whiteBordBgColor = CHWhiteBoard_MainBackGroudColor;
+        self.whiteBordDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
         self.whiteBordMaskImage = nil;
 
-        self.whiteBordLiveBgColor = YSWhiteBoard_LiveMainBackGroudColor;
-        self.whiteBordLiveDrawBgColor = YSWhiteBoard_LiveMainBackDrawBoardBgColor;
+        self.whiteBordLiveBgColor = CHWhiteBoard_LiveMainBackGroudColor;
+        self.whiteBordLiveDrawBgColor = CHWhiteBoard_LiveMainBackDrawBoardBgColor;
         self.needUseHttpDNSForWhiteBoard = YES;
 
         #if YSSDK
@@ -83,14 +83,14 @@
     return self;
 }
 
-- (void)registerRoomDelegate:(id <YSSessionDelegate>)roomDelegate
+- (void)registerRoomDelegate:(id <CHSessionDelegate>)roomDelegate
 {
     [super registerRoomDelegate:roomDelegate];
         
     [self registWithAppId: YSLive_AppKey
           settingOptional: @{
-              YSRoomSettingOptionalWhiteBoardNotify : @(YES),
-              YSRoomSettingOptionalReconnectattempts : @(5)
+              CHRoomSettingOptionalWhiteBoardNotify : @(YES),
+              CHRoomSettingOptionalReconnectattempts : @(5)
           }];
 }
 
@@ -101,35 +101,35 @@
 #endif
 }
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(CHUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
 {
     return [self joinRoomWithHost:host port:port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:userParams needCheckPermissions:YES];
 }
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(CHUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
     NSString *server = @"global";
-    if ([YSSessionUtil isDomain:host] == YES)
+    if ([BMCloudHubUtil isDomain:host] == YES)
     {
         NSArray *array = [host componentsSeparatedByString:@"."];
         server = [NSString stringWithFormat:@"%@", array[0]];
     }
     
     NSMutableDictionary *parameters = @{
-        YSJoinRoomParamsRoomIDKey : roomId,
-        YSJoinRoomParamsUserRoleKey : @(userRole),
-        YSJoinRoomParamsServerKey : server,
-        YSJoinRoomParamsClientTypeKey : @(3)
+        CHJoinRoomParamsRoomSerialKey : roomId,
+        CHJoinRoomParamsUserRoleKey : @(userRole),
+        CHJoinRoomParamsServerKey : server,
+        CHJoinRoomParamsClientTypeKey : @(3)
     }.mutableCopy;
     
     if ([roomPassword bm_isNotEmpty])
     {
-        [parameters setObject:roomPassword forKey:YSJoinRoomParamsPasswordKey];
+        [parameters setObject:roomPassword forKey:CHJoinRoomParamsPasswordKey];
     }
     
     if ([userId bm_isNotEmpty])
     {
-        [parameters setObject:userId forKey:YSJoinRoomParamsUserIDKey];
+        [parameters setObject:userId forKey:CHJoinRoomParamsUserIDKey];
     }
     
     return [self joinRoomWithHost:host port:port nickName:nickName roomParams:parameters userParams:userParams needCheckPermissions:needCheckPermissions];
@@ -214,17 +214,17 @@
 
 - (void)prepareToJoinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
 {
-    self.whiteBoardManager = [YSWhiteBoardManager sharedInstance];
-    NSLog(@"WhiteBoard SDK Version: %@", [YSWhiteBoardManager whiteBoardVersion]);
+    self.whiteBoardManager = [CHWhiteBoardManager sharedInstance];
+    NSLog(@"WhiteBoard SDK Version: %@", [CHWhiteBoardManager whiteBoardVersion]);
     
     [self registerRoomForWhiteBoardDelegate:self.whiteBoardManager];
 
     NSDictionary *whiteBoardConfig = @{
-        YSWhiteBoardWebProtocolKey : YSLive_Http,
-        YSWhiteBoardWebHostKey : host,
-        YSWhiteBoardWebPortKey : @(port),
-        YSWhiteBoardPlayBackKey : @(NO),
-        YSWhiteBoardPDFLevelsKey : @(2)
+        CHWhiteBoardWebProtocolKey : YSLive_Http,
+        CHWhiteBoardWebHostKey : host,
+        CHWhiteBoardWebPortKey : @(port),
+        CHWhiteBoardPlayBackKey : @(NO),
+        CHWhiteBoardPDFLevelsKey : @(2)
     };
     
 #if YSSDK
@@ -234,6 +234,8 @@
 #else
     [self.whiteBoardManager registerDelegate:self configration:whiteBoardConfig];
 #endif
+    
+    [self registerRoomForWhiteBoardDelegate:self.whiteBoardManager];
         
     if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
     {
@@ -270,7 +272,7 @@
     }
     else
     {
-        self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
+        self.whiteBordBgColor = CHWhiteBoard_MainBackGroudColor;
     }
 
     self.whiteBordMaskImage = image;
@@ -284,7 +286,7 @@
     }
     else
     {
-        self.whiteBordBgColor = YSWhiteBoard_MainBackGroudColor;
+        self.whiteBordBgColor = CHWhiteBoard_MainBackGroudColor;
     }
 
     if (drawBgColor)
@@ -293,7 +295,7 @@
     }
     else
     {
-        self.whiteBordDrawBgColor = YSWhiteBoard_MainBackDrawBoardBgColor;
+        self.whiteBordDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
     }
 
     self.whiteBordMaskImage = image;
@@ -308,7 +310,7 @@
     }
     else
     {
-        self.whiteBordLiveBgColor = YSWhiteBoard_MainBackGroudColor;
+        self.whiteBordLiveBgColor = CHWhiteBoard_MainBackGroudColor;
     }
 
     if (drawBgColor)
@@ -317,7 +319,7 @@
     }
     else
     {
-        self.whiteBordLiveDrawBgColor = YSWhiteBoard_MainBackDrawBoardBgColor;
+        self.whiteBordLiveDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
     }
 }
 
@@ -344,19 +346,19 @@
     _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
 
-- (NSArray <YSFileModel *> *)fileList
+- (NSArray <CHFileModel *> *)fileList
 {
     return [self.whiteBoardManager.docmentList copy];
 }
 
-- (YSFileModel *)currentFile
+- (CHFileModel *)currentFile
 {
     return [self.whiteBoardManager currentFile];
 }
 
-- (YSFileModel *)getFileWithFileID:(NSString *)fileId;
+- (CHFileModel *)getFileWithFileID:(NSString *)fileId;
 {
-    YSFileModel *file = [self.whiteBoardManager getDocumentWithFileID:fileId];
+    CHFileModel *file = [self.whiteBoardManager getDocumentWithFileID:fileId];
     return file;
 }
 
@@ -387,7 +389,7 @@
         return;
     }
     
-    if (self.room_UseType == YSRoomUseTypeLiveRoom)
+    if (self.room_UseType == CHRoomUseTypeLiveRoom)
     {
         [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordLiveBgColor];
         [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordLiveDrawBgColor];
@@ -445,7 +447,7 @@
 }
 
 /// 媒体播放状态
-- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(YSMediaState)state
+- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(CHMediaState)state
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardMediaFileStateWithFileId:state:)])
     {
@@ -471,7 +473,7 @@
     }
 }
 
-- (void)onSetSmallBoardStageState:(YSSmallBoardStageState)smallBoardStageState
+- (void)onSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSetSmallBoardStageState:)])
     {

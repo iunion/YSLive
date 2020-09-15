@@ -28,7 +28,7 @@
 /// 奖杯数
 @property (nonatomic, strong) UILabel *cupNumberLabel;
 //@property (nonatomic, strong) YSRoomUser *userModel;
-@property (nonatomic, assign) YSUserRoleType userRoleType;
+@property (nonatomic, assign) CHUserRoleType userRoleType;
 @end
 
 @implementation SCTeacherPersonListCell
@@ -186,7 +186,7 @@
 
 }
 
-- (void)setUserModel:(YSRoomUser *)userModel
+- (void)setUserModel:(CHRoomUser *)userModel
 {
     _userModel = userModel;
 
@@ -227,17 +227,17 @@
     
     BOOL isBeginClass = [YSLiveManager sharedInstance].isClassBegin;
     
-    if (userModel.role == YSUserType_Student )
+    if (userModel.role == CHUserType_Student )
     {
         if (isBeginClass)
         {
-            self.upPlatformBtn.selected = (userModel.publishState == YSUser_PublishState_UP);
+            self.upPlatformBtn.selected = (userModel.publishState == CHUser_PublishState_UP);
         }
         else
         {
 //            self.upPlatformBtn.selected = NO;
         }
-        BOOL disablechat = [userModel.properties bm_boolForKey:sYSUserDisablechat];
+        BOOL disablechat = [userModel.properties bm_boolForKey:sCHUserDisablechat];
         self.speakBtn.selected = disablechat;
     }
     self.upPlatformBtn.enabled = isBeginClass;
@@ -245,10 +245,10 @@
     self.nameLabel.text = userModel.nickName;
     [self.iconImgView setImage:YSSkinElementImage(imageName, @"iconNor")];
     
-    NSInteger giftNumber = [userModel.properties bm_uintForKey:sYSUserGiftNumber];
+    NSInteger giftNumber = [userModel.properties bm_uintForKey:sCHUserGiftNumber];
     self.cupNumberLabel.text = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
 
-    if ([YSLiveManager sharedInstance].room_UseType == YSRoomUseTypeMeeting)
+    if ([YSLiveManager sharedInstance].room_UseType == CHRoomUseTypeMeeting)
     {
         self.cupView.hidden = YES;
         self.cupImgView.hidden = YES;
@@ -261,7 +261,7 @@
         self.cupNumberLabel.hidden = NO;
     }
 
-    if (userModel.role == YSUserType_Assistant )
+    if (userModel.role == CHUserType_Assistant )
     {
         self.upPlatformBtn.enabled = NO;
         self.outBtn.enabled = NO;
@@ -278,9 +278,9 @@
     }
 
 }
-- (void)setUserRole:(YSUserRoleType)userRoleType
+- (void)setUserRole:(CHUserRoleType)userRoleType
 {
-    if (userRoleType ==  YSUserType_Patrol)
+    if (userRoleType ==  CHUserType_Patrol)
     {
         _userRoleType = userRoleType;
     }
@@ -288,7 +288,7 @@
 - (void)upPlatformBtnClicked:(UIButton *)btn
 {
 //    btn.selected = !btn.selected;
-    if (_userRoleType ==  YSUserType_Patrol)
+    if (_userRoleType ==  CHUserType_Patrol)
     {
         return;
     }
@@ -300,7 +300,7 @@
 
 - (void)speakBtnClicked:(UIButton *)btn
 {
-    if (_userRoleType ==  YSUserType_Patrol)
+    if (_userRoleType ==  CHUserType_Patrol)
     {
         return;
     }
@@ -313,7 +313,7 @@
 
 - (void)outBtnClicked:(UIButton *)btn
 {
-    if (_userRoleType ==  YSUserType_Patrol)
+    if (_userRoleType ==  CHUserType_Patrol)
     {
         return;
     }

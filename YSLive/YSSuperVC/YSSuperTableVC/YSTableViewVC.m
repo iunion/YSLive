@@ -417,7 +417,7 @@
     
     if (![responseDic bm_isNotEmptyDictionary])
     {
-        responseDic = [YSSessionUtil convertWithData:responseDic];
+        responseDic = [BMCloudHubUtil convertWithData:responseDic];
     }
     
     if (![responseDic bm_isNotEmptyDictionary])

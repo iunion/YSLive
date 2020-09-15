@@ -155,7 +155,7 @@
     NSString *starttime = self.linkClassModel.startTimeStr;
     NSString *endtime = self.linkClassModel.endTimeStr;
 
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         return [YSLiveApiRequest getTeacherClassInfoWithToteachtimeid:toTeachId lessonsid:lessonsId starttime:starttime endtime:endtime date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"]];
     }
@@ -178,7 +178,7 @@
 #endif
     
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         data = [data bm_dictionaryForKey:@"playback"];
         data = [data bm_dictionaryForKey:@"data"];

@@ -210,15 +210,15 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     self.videosBgView.center = center;
 }
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr withFouceVideo:(SCVideoView *)fouceVideo withRoomLayout:(YSRoomLayoutType)roomLayout withAppUseTheType:(YSRoomUseType)appUseTheType
+- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr withFouceVideo:(SCVideoView *)fouceVideo withRoomLayout:(CHRoomLayoutType)roomLayout withAppUseTheType:(CHRoomUseType)appUseTheType
 {
     self.videoSequenceArr = videoSequenceArr;
     
     [self clearView];
     
-    if (roomLayout == YSRoomLayoutType_FocusLayout)
+    if (roomLayout == CHRoomLayoutType_FocusLayout)
     {
-        if (appUseTheType == YSRoomUseTypeSmallClass)
+        if (appUseTheType == CHRoomUseTypeSmallClass)
         {
             self.videosBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
             

@@ -50,7 +50,7 @@
 }
 
 
-- (void)setModel:(YSRoomUser *)model
+- (void)setModel:(CHRoomUser *)model
 {
     _model = model;
     self.nickNameLab.text= model.nickName;

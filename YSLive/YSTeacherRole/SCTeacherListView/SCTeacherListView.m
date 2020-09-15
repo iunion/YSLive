@@ -32,7 +32,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     NSInteger _currentPage;
     NSInteger _totalPage;
     NSInteger _userNum;
-    YSUserRoleType _userRoleType;
+    CHUserRoleType _userRoleType;
     NSString *_searchString;
 }
 @property (nonatomic, strong) UIView *tableBacView;
@@ -52,7 +52,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 /// 当前展示课件数组
 @property (nonatomic, strong) NSArray *currentFileList;
 @property (nonatomic, strong) NSString *mediaFileID;
-@property (nonatomic, assign) YSMediaState mediaState;
+@property (nonatomic, assign) CHMediaState mediaState;
 @end
 
 @implementation SCTeacherListView
@@ -284,7 +284,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSMediaState)state
+- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(CHMediaState)state
 {
     self.currentFileList = currentFileList;
     self.mediaFileID = mediaFileID;
@@ -305,9 +305,9 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         {
             [self.dataSource addObjectsFromArray:dataSource];
         }
-        for (YSRoomUser * user in dataSource)
+        for (CHRoomUser * user in dataSource)
         {
-            if (!(user.role == YSUserType_Student || user.role == YSUserType_Assistant))
+            if (!(user.role == CHUserType_Student || user.role == CHUserType_Assistant))
             {
                 [self.dataSource removeObject:user];
             }
@@ -321,12 +321,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         {
             [self.dataSource addObjectsFromArray:dataSource];
         }
-        [self.dataSource sortUsingComparator:^NSComparisonResult(YSFileModel * _Nonnull obj1, YSFileModel * _Nonnull obj2) {
+        [self.dataSource sortUsingComparator:^NSComparisonResult(CHFileModel * _Nonnull obj1, CHFileModel * _Nonnull obj2) {
             return [obj2.fileid compare:obj1.fileid];
         }];
         
-        YSFileModel *whiteBoardFile = nil;
-        for (YSFileModel *model in self.dataSource)
+        CHFileModel *whiteBoardFile = nil;
+        for (CHFileModel *model in self.dataSource)
         {
             if (model.fileid.intValue == 0)
             {
@@ -353,7 +353,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     [self.tableView reloadData];
 }
 
-- (void)setUserRole:(YSUserRoleType)userRoleType
+- (void)setUserRole:(CHUserRoleType)userRoleType
 {
     _userRoleType = userRoleType;
 }
@@ -394,10 +394,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         SCTeacherPersonListCell * personCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherPersonListCellID forIndexPath:indexPath];
         if (indexPath.row < [self.dataSource count])
         {
-            YSRoomUser *user = self.dataSource[indexPath.row];
+            CHRoomUser *user = self.dataSource[indexPath.row];
             
             personCell.userModel = user;
-            if (_userRoleType == YSUserType_Patrol)
+            if (_userRoleType == CHUserType_Patrol)
             {
                 [personCell setUserRole:_userRoleType];
             }
@@ -410,12 +410,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     else if (self.type == SCBottomToolBarTypeCourseware)
     {
         SCTeacherCoursewareListCell * coursewareCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherCoursewareListCellID forIndexPath:indexPath];
-        YSFileModel * model = self.dataSource[indexPath.row];
+        CHFileModel * model = self.dataSource[indexPath.row];
         BOOL isCurrent = [self.currentFileList containsObject:model.fileid];
         
         [coursewareCell setFileModel:model isCurrent:isCurrent mediaFileID:self.mediaFileID mediaState:self.mediaState];
         
-        if (_userRoleType == YSUserType_Patrol)
+        if (_userRoleType == CHUserType_Patrol)
         {
             [coursewareCell setUserRole:_userRoleType];
         }
@@ -614,11 +614,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     if (self.type == SCBottomToolBarTypeCourseware)
     {
         
-        if (_userRoleType == YSUserType_Patrol)
+        if (_userRoleType == CHUserType_Patrol)
         {
             return;
         }
-        YSFileModel * model = self.dataSource[indexPath.row];
+        CHFileModel * model = self.dataSource[indexPath.row];
         if ([self.delegate respondsToSelector:@selector(selectCoursewareProxyWithFileModel:)])
         {
             [self.delegate selectCoursewareProxyWithFileModel:model];
@@ -628,7 +628,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 #pragma mark -
 #pragma mark SCTeacherPersonListCellDelegate
-- (void)upPlatformBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser
+- (void)upPlatformBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser
 {
     if ([self.delegate respondsToSelector:@selector(upPlatformProxyWithRoomUser:)])
     {
@@ -636,7 +636,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)speakBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser
+- (void)speakBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser
 {
     if ([self.delegate respondsToSelector:@selector(speakProxyWithRoomUser:)])
     {
@@ -644,7 +644,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)outBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser
+- (void)outBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser
 {
     if ([self.delegate respondsToSelector:@selector(outProxyWithRoomUser:)])
     {
@@ -671,7 +671,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 #pragma mark -
 #pragma mark SCTeacherCoursewareListCellDelegate
 
-- (void)deleteBtnProxyClickWithFileModel:(YSFileModel *)fileModel
+- (void)deleteBtnProxyClickWithFileModel:(CHFileModel *)fileModel
 {
     if ([self.delegate respondsToSelector:@selector(deleteCoursewareProxyWithFileModel:)])
     {

@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YSChatMemberListVC : YSSuperVC
 
 ///私聊成员列表
-@property (nonatomic,strong) NSMutableArray<YSRoomUser*> * memberList;
+@property (nonatomic,strong) NSMutableArray<CHRoomUser*> * memberList;
 ///选中的人的model
-@property (nonatomic,strong) YSRoomUser * selectModel;
+@property (nonatomic,strong) CHRoomUser * selectModel;
 
 
-@property(nonatomic,copy)void(^passTheMemberOfChat)(YSRoomUser*memberModel);
+@property(nonatomic,copy)void(^passTheMemberOfChat)(CHRoomUser*memberModel);
 
 @end
 

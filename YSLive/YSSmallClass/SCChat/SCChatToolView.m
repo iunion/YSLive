@@ -93,7 +93,7 @@
     switch (sender.tag) {
         case 1:
         {//发送
-            BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:self.inputView.text  withMessageType:YSChatMessageType_Text withMemberModel:nil];
+            BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:self.inputView.text  withMessageType:CHChatMessageType_Text withMemberModel:nil];
             if (isSucceed)
             {
                 self.inputView.text = nil;

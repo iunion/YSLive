@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SCTeacherCoursewareListCellDelegate <NSObject>
 
-- (void)deleteBtnProxyClickWithFileModel:(YSFileModel *)fileModel;
+- (void)deleteBtnProxyClickWithFileModel:(CHFileModel *)fileModel;
 
 
 @end
@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,weak) id<SCTeacherCoursewareListCellDelegate> delegate;
 
-- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(NSString *)mediaFileID mediaState:(YSMediaState)state;
-- (void)setUserRole:(YSUserRoleType)userRoleType;
+- (void)setFileModel:(CHFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(NSString *)mediaFileID mediaState:(CHMediaState)state;
+- (void)setUserRole:(CHUserRoleType)userRoleType;
 
 @end
 

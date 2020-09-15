@@ -67,7 +67,7 @@
 //    self.msgLab.backgroundColor = UIColor.w;
 }
 
-- (void)setModel:(YSChatMessageModel *)model
+- (void)setModel:(CHChatMessageModel *)model
 {
     _model = model;
     NSString * nameTimeStr = nil;

@@ -64,12 +64,12 @@ UITableViewDataSource
 }
 
 
-- (void)setMessageList:(NSMutableArray<YSChatMessageModel *> *)messageList
+- (void)setMessageList:(NSMutableArray<CHChatMessageModel *> *)messageList
 {
     _messageList = messageList;
     if (messageList.count) {
-        for (YSChatMessageModel * model in messageList) {
-            if (model.sendUser.role == YSUserType_Teacher)
+        for (CHChatMessageModel * model in messageList) {
+            if (model.sendUser.role == CHUserType_Teacher)
             {
                 [self.anchorMessageList addObject:model];
             }
@@ -152,7 +152,7 @@ UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel *model;
+    CHChatMessageModel *model;
     
     if (self.showType == YSMessageShowTypeAll)
     {
@@ -170,8 +170,8 @@ UITableViewDataSource
     BMWeakSelf
     switch (model.chatMessageType)
     {
-        case YSChatMessageType_ImageTips:
-        case YSChatMessageType_Tips:
+        case CHChatMessageType_ImageTips:
+        case CHChatMessageType_Tips:
         {
             YSNewTipMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSNewTipMessageCell.class) forIndexPath:indexPath];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -180,7 +180,7 @@ UITableViewDataSource
             return cell;
             break;
         }
-        case YSChatMessageType_Text:
+        case CHChatMessageType_Text:
         {
             YSTextMessageCell * cell =[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSTextMessageCell.class) forIndexPath:indexPath];
             cell.model = model;
@@ -195,7 +195,7 @@ UITableViewDataSource
             return cell;
             break;
         }
-        case YSChatMessageType_OnlyImage:
+        case CHChatMessageType_OnlyImage:
         {
             YSNewPictureCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([YSNewPictureCell class]) forIndexPath:indexPath];
             cell.model = model;
@@ -221,7 +221,7 @@ UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel *model;
+    CHChatMessageModel *model;
     
     if (self.showType == YSMessageShowTypeAll)
     {
@@ -238,7 +238,7 @@ UITableViewDataSource
     
     switch (model.chatMessageType)
     {
-        case YSChatMessageType_Text:
+        case CHChatMessageType_Text:
         {
             if (model.cellHeight)
             {
@@ -253,12 +253,12 @@ UITableViewDataSource
             }
             break;
         }
-        case YSChatMessageType_OnlyImage:
+        case CHChatMessageType_OnlyImage:
         {
             return kBMScale_H(12)+kBMScale_H(12)+kBMScale_H(88)+ kBMScale_H(18);
             break;
         }
-        case YSChatMessageType_Tips:
+        case CHChatMessageType_Tips:
         {
             return kBMScale_H(10)+kBMScale_H(25)+ kBMScale_H(10);
             break;
@@ -326,12 +326,12 @@ UITableViewDataSource
 //接收到送花消息
 - (void)receiveFlowrsWithSenderId:(NSString *)senderId senderName:(NSString *)senderName
 {
-    YSChatMessageModel * model = [[YSChatMessageModel alloc]init];
-    YSRoomUser * userModel = [[YSRoomUser alloc]initWithPeerId:senderId];
+    CHChatMessageModel * model = [[CHChatMessageModel alloc]init];
+    CHRoomUser * userModel = [[CHRoomUser alloc]initWithPeerId:senderId];
     userModel.nickName =  senderName;
     model.timeInterval = [self systemTimeInfo];
     model.sendUser = userModel;
-    model.chatMessageType = YSChatMessageType_ImageTips;
+    model.chatMessageType = CHChatMessageType_ImageTips;
     [self.messageList addObject:model];
     
     [self reloadTableView];

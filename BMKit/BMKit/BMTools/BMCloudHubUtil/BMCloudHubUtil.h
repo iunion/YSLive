@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BMCloudHubUtil : NSObject
 
+/// 获取设备语言
++ (NSString *)getCurrentLanguage;
+
 + (BOOL)isDomain:(NSString *)host;
 
 /// 检查数据类型

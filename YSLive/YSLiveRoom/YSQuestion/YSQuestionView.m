@@ -127,11 +127,11 @@
     NSString *questionId = [[YSLiveManager sharedInstance] sendQuestionWithText:self.inputView.text];
     if ([questionId bm_isNotEmpty])
     {
-        YSQuestionModel * model = [[YSQuestionModel alloc]init];
+        CHQuestionModel * model = [[CHQuestionModel alloc]init];
         model.nickName = YSCurrentUser.nickName;
         model.timeInterval = [YSLiveManager sharedInstance].tCurrentTime;
         model.questDetails = self.inputView.text;
-        model.state = YSQuestionState_Question;
+        model.state = CHQuestionState_Question;
         model.questionId = questionId;
         [self.questionArr addObject:model];
     }
@@ -149,16 +149,16 @@
 #pragma mark - 刷新
 - (void)frashView:(id)message
 {
-    if ([message bm_isNotEmpty] && [message isKindOfClass:[YSQuestionModel class]])
+    if ([message bm_isNotEmpty] && [message isKindOfClass:[CHQuestionModel class]])
     {//添加的时候传model
-        YSQuestionModel * questionModel = (YSQuestionModel*)message;
+        CHQuestionModel * questionModel = (CHQuestionModel*)message;
         
-        if (questionModel.state == YSQuestionState_Responed) {
-            for (YSQuestionModel * model in self.questionArr)
+        if (questionModel.state == CHQuestionState_Responed) {
+            for (CHQuestionModel * model in self.questionArr)
             {
                 if ([model.questionId isEqualToString:questionModel.questionId])
                 {
-                    if (questionModel.state == YSQuestionState_Answer)
+                    if (questionModel.state == CHQuestionState_Answer)
                     {
                         questionModel.questDetails = model.questDetails;
                     }
@@ -176,7 +176,7 @@
 
         for (int i = (int)(self.questionArr.count)-1; i>=0; i--) {
             
-            YSQuestionModel * model = self.questionArr[i];
+            CHQuestionModel * model = self.questionArr[i];
             if ([model.questionId isEqualToString:questionId]) {
                 [self.questionArr removeObject:model];
             }
@@ -207,7 +207,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSQuestionModel * model = _questionArr[indexPath.row];
+    CHQuestionModel * model = _questionArr[indexPath.row];
     
     YSAnswerCell * cell =[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSAnswerCell.class) forIndexPath:indexPath];
     cell.model = model;
@@ -221,7 +221,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    YSQuestionModel * model = _questionArr[indexPath.row];
+    CHQuestionModel * model = _questionArr[indexPath.row];
     
     
     CGSize tagSize = [YSLocalized(@"Label.Reply") bm_sizeToFitWidth:100 withFont:UI_FONT_12];
@@ -232,7 +232,7 @@
     {//有翻译
         if (!model.transCellHeight)
         {
-            if (model.state == YSQuestionState_Answer)
+            if (model.state == CHQuestionState_Answer)
             {//回复
                 NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
                 CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
@@ -250,7 +250,7 @@
     {//无翻译
         if (!model.cellHeight)
         {
-            if (model.state == YSQuestionState_Answer)
+            if (model.state == CHQuestionState_Answer)
             {//回复
                 NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
                 CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
@@ -345,7 +345,7 @@
 #pragma mark 翻译
 - (void)getBaiduTranslateWithIndexPath:(NSIndexPath *) indexPath
 {
-    YSQuestionModel * model = self.questionArr[indexPath.row];
+    CHQuestionModel * model = self.questionArr[indexPath.row];
     
     BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];
@@ -356,7 +356,7 @@
     //=====增加表情的识别，表情不进行翻译 ===  +  === 对链接地址不进行翻译======
     NSString * aTranslationString = @"";
     
-    if (model.state == YSQuestionState_Answer)
+    if (model.state == CHQuestionState_Answer)
     {
         aTranslationString = model.answerDetails;
     }

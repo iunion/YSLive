@@ -14,7 +14,7 @@
     if (self = [super init]) {
         self.roomID = @"";
         self.lessonTime = @"00:00:00";
-        self.netQuality =YSNetQuality_Good;
+        self.netQuality =CHNetQuality_Good;
         self.netDelay = 0;
         self.lostRate = 0;
     }
@@ -37,11 +37,11 @@
     return _lessonTime;
 }
 
-- (YSNetQuality)netQuality
+- (CHNetQuality)netQuality
 {
     if (!_netQuality)
     {
-        _netQuality = YSNetQuality_Good;
+        _netQuality = CHNetQuality_Good;
     }
     return _netQuality;
 }

@@ -12,6 +12,33 @@
 
 @implementation BMCloudHubUtil
 
++ (NSString *)getCurrentLanguage
+{
+    NSArray *language = [NSLocale preferredLanguages];
+    if ([language objectAtIndex:0]) {
+        NSString *currentLanguage = [language objectAtIndex:0];
+        if ([currentLanguage length] >= 7 &&
+            [[currentLanguage substringToIndex:7] isEqualToString:@"zh-Hans"])
+        {
+            return @"ch";
+        }
+
+        if ([currentLanguage length] >= 7 &&
+            [[currentLanguage substringToIndex:7] isEqualToString:@"zh-Hant"])
+        {
+            return @"tw";
+        }
+
+        if ([currentLanguage length] >= 3 &&
+            [[currentLanguage substringToIndex:3] isEqualToString:@"en-"])
+        {
+            return @"en";
+        }
+    }
+
+    return @"en";
+}
+
 + (BOOL)isDomain:(NSString *)host
 {
     const char *hostN= [host UTF8String];

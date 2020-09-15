@@ -65,7 +65,7 @@
 }
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr
++ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(CHUserRoleType)userRoleType Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
     NSString *urlStr = nil;
@@ -75,7 +75,7 @@
     [parameters bm_setString:dateStr forKey:@"date"];
     [parameters bm_setString:organId forKey:@"organid"];
     
-    if (userRoleType == YSUserType_Teacher)
+    if (userRoleType == CHUserType_Teacher)
     {
         urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/teachCourseList", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
         [parameters bm_setString:userId forKey:@"teacherid"];
@@ -157,12 +157,12 @@
 }
 
 /// 进入教室
-+ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(YSUserRoleType)userRoleType toTeachId:(NSString *)toteachid
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(CHUserRoleType)userRoleType toTeachId:(NSString *)toteachid
 {
     // /student/Mycourse/intoClassroom
     // https://school.roadofcloud.net/teacher/Personalcourse/intoClassroom
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/intoClassroom", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
-    if (userRoleType == YSUserType_Teacher)
+    if (userRoleType == CHUserType_Teacher)
     {
         urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/intoClassroom", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     }

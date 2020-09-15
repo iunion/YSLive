@@ -123,7 +123,7 @@
     
 }
 
-- (void)setModel:(YSQuestionModel *)model
+- (void)setModel:(CHQuestionModel *)model
 {
     _model = model;
         
@@ -132,7 +132,7 @@
     CGFloat bubbleH = 0;
     
     self.questLine.hidden = self.questTransLab.hidden = ![model.detailTrans bm_isNotEmpty];
-    if (model.state == YSQuestionState_Answer)
+    if (model.state == CHQuestionState_Answer)
     {//回复
         self.answerLab.hidden = NO;
         
@@ -197,7 +197,7 @@
         
         NSString * nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.nickName,model.timeStr];
         
-        if (model.state  == YSQuestionState_Question)
+        if (model.state  == CHQuestionState_Question)
         {//待审核
             self.tagLab.backgroundColor = [UIColor bm_colorWithHex:0xFB8B2C];
             self.tagLab.text = YSLocalized(@"Label.Inspect");

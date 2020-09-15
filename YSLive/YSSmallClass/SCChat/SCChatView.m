@@ -122,7 +122,7 @@ UITextFieldDelegate
     self.SCChatTableView.frame = CGRectMake(0, lineView.bm_bottom, self.bm_width, self.bm_height - lineView.bm_bottom - BottomH);
     [self addSubview:self.SCChatTableView];
     
-    if (YSCurrentUser.role == YSUserType_Patrol)
+    if (YSCurrentUser.role == CHUserType_Patrol)
     {
         self.SCChatTableView.bm_height = self.bm_height - lineView.bm_bottom;
         return;
@@ -150,7 +150,7 @@ UITextFieldDelegate
     CGFloat textBtnX = 15;
     CGFloat textBtnW = self.bm_width - 15 - 15;
     
-    if (YSCurrentUser.role == YSUserType_Teacher)
+    if (YSCurrentUser.role == CHUserType_Teacher)
     {
         //全体禁言的按钮
         UIButton * allDisableBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtnX, 10, allDisableBtnWH+10, allDisableBtnWH+10)];
@@ -196,7 +196,7 @@ UITextFieldDelegate
 {
     _allDisabled = allDisabled;
            
-    if (YSCurrentUser.role != YSUserType_Teacher)
+    if (YSCurrentUser.role != CHUserType_Teacher)
     {
         if (allDisabled)
         {
@@ -217,7 +217,7 @@ UITextFieldDelegate
 
 - (void)textFieldDidChange
 {
-    if (self.allDisabled && YSCurrentUser.role != YSUserType_Teacher)
+    if (self.allDisabled && YSCurrentUser.role != CHUserType_Teacher)
     {
         return;
     }
@@ -241,15 +241,15 @@ UITextFieldDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel *model = _SCMessageList[indexPath.row];
+    CHChatMessageModel *model = _SCMessageList[indexPath.row];
     
-    if (model.chatMessageType == YSChatMessageType_Tips)
+    if (model.chatMessageType == CHChatMessageType_Tips)
     {
         SCTipsMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCTipsMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
         return cell;
     }
-    else if (model.chatMessageType == YSChatMessageType_Text)
+    else if (model.chatMessageType == CHChatMessageType_Text)
     {
         SCTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCTextMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
@@ -259,7 +259,7 @@ UITextFieldDelegate
         };
         return cell;
     }
-    else if (model.chatMessageType == YSChatMessageType_OnlyImage)
+    else if (model.chatMessageType == CHChatMessageType_OnlyImage)
     {
         SCPictureMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCPictureMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
@@ -271,9 +271,9 @@ UITextFieldDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel * model = _SCMessageList[indexPath.row];
+    CHChatMessageModel * model = _SCMessageList[indexPath.row];
     
-    if (model.chatMessageType == YSChatMessageType_Tips)
+    if (model.chatMessageType == CHChatMessageType_Tips)
     {
         if (!model.cellHeight)
         {
@@ -281,7 +281,7 @@ UITextFieldDelegate
         }
         return model.cellHeight;
     }
-    else if (model.chatMessageType == YSChatMessageType_Text)
+    else if (model.chatMessageType == CHChatMessageType_Text)
     {
         if ([model.detailTrans bm_isNotEmpty])
         {//有翻译
@@ -316,7 +316,7 @@ UITextFieldDelegate
             return model.cellHeight;
         }
     }
-    else if (model.chatMessageType == YSChatMessageType_OnlyImage)
+    else if (model.chatMessageType == CHChatMessageType_OnlyImage)
     {
         if (!model.cellHeight)
         {
@@ -389,7 +389,7 @@ UITextFieldDelegate
 #pragma mark 翻译
 - (void)getBaiduTranslateWithIndexPath:(NSIndexPath *) indexPath
 {
-    YSChatMessageModel * model = self.SCMessageList[indexPath.row];
+    CHChatMessageModel * model = self.SCMessageList[indexPath.row];
     
     BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];

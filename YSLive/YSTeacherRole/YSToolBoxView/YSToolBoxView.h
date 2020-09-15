@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showToolBoxViewInView:(UIView *)inView
          backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
                   topDistance:(CGFloat)topDistance
-                     userRole:(YSUserRoleType)roleType;
+                     userRole:(CHUserRoleType)roleType;
 
 @end
 

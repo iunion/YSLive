@@ -30,9 +30,9 @@
 #import <BMKit/BMKitThird.h>
 
 #import <CloudHubRTC/CloudHubRTC.h>
-#import <YSSession/YSSession.h>
-#import <YSWhiteBoard/YSWhiteBoard.h>
-#import <YSWhiteBoard/YSWhiteBoardManager.h>
+#import <CHSession/CHSession.h>
+#import <CHWhiteBoard/CHWhiteBoard.h>
+#import <CHWhiteBoard/CHWhiteBoardManager.h>
 
 #import "YSLiveMacros.h"
 #import "YSAppMacros.h"

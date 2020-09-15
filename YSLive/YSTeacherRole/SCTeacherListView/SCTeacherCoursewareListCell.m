@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UIImageView *openImageView;
 /// 删除
 @property (nonatomic, strong) UIButton *deleteBtn;
-@property (nonatomic, strong) YSFileModel *fileModel;
+@property (nonatomic, strong) CHFileModel *fileModel;
 
 @end
 
@@ -109,15 +109,15 @@
 
 }
 
-- (void)setUserRole:(YSUserRoleType)userRoleType
+- (void)setUserRole:(CHUserRoleType)userRoleType
 {
-    if (userRoleType ==  YSUserType_Patrol)
+    if (userRoleType == CHUserType_Patrol)
     {
         self.deleteBtn.hidden = YES;
         
     }
 }
-- (void)setFileModel:(YSFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(YSMediaState)state
+- (void)setFileModel:(CHFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(CHMediaState)state
 {
     _fileModel = fileModel;
 
@@ -167,15 +167,15 @@
         
         if (mediaFileID && [mediaFileID isEqualToString:fileModel.fileid])
         {
-            if (state == YSMediaState_Play)
+            if (state == CHMediaState_Play)
             {
                 [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconSel")];
             }
-            else if (state == YSMediaState_Pause)
+            else if (state == CHMediaState_Pause)
             {
                 [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconNor")];
             }
-            else if (state == YSMediaState_Stop)
+            else if (state == CHMediaState_Stop)
             {
                 [self.openImageView setImage:playDisImage];
             }

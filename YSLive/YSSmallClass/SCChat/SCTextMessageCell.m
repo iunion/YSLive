@@ -69,7 +69,7 @@
     [self.bubbleView addSubview:self.msgLab];
     
 }
-- (void)setModel:(YSChatMessageModel *)model
+- (void)setModel:(CHChatMessageModel *)model
 {
     _model = model;
     

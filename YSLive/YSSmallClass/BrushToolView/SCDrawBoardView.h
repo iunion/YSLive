@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, YSSelectorShowType)
 /// @param drawType 画笔 形状类型
 /// @param hexColor 颜色
 /// @param progress 大小
-- (void)brushSelectorViewDidSelectDrawType:(YSDrawType)drawType
+- (void)brushSelectorViewDidSelectDrawType:(CHDrawType)drawType
                                      color:(NSString *)hexColor
                              widthProgress:(float)progress;
 
@@ -34,9 +34,9 @@ typedef NS_ENUM(NSInteger, YSSelectorShowType)
 @property (nonatomic, weak) id<SCDrawBoardViewDelegate> delegate;
 
 /// 工具类型 必传  为了判断哪种功能界面
-@property(nonatomic, assign) YSBrushToolType brushToolType;
+@property(nonatomic, assign) CHBrushToolType brushToolType;
 /// 画笔类型  边框类型 （记录上次选中的类型）
-@property (nonatomic, assign) YSDrawType drawType;
+@property (nonatomic, assign) CHDrawType drawType;
 @property (nonatomic, strong) UIView *backgroundView;
 //小三角
 //@property (nonatomic, strong) UIImageView *triangleImgView;

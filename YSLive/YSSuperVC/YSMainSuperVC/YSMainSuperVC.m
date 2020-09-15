@@ -124,7 +124,7 @@
     }
     NSDictionary * sourceDict = [videoView.roomUser.sourceListDic bm_dictionaryForKey:videoView.sourceId];
     
-    YSSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
+    CHSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
 
     fresh = NO;
@@ -132,11 +132,11 @@
     NSString *userId = videoView.roomUser.peerID;
     
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
-    if (self.appUseTheType != YSRoomUseTypeLiveRoom)
+    if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {
         if (self.liveManager.roomConfig.isMirrorVideo)
         {
-            if ([videoView.roomUser.properties bm_boolForKey:sYSUserIsVideoMirror])
+            if ([videoView.roomUser.properties bm_boolForKey:sCHUserIsVideoMirror])
             {
                 videoMirrorMode = CloudHubVideoMirrorModeEnabled;
             }
@@ -156,7 +156,7 @@
         }
     }
     
-    if (newVideoMute == YSSessionMuteState_UnMute)
+    if (newVideoMute == CHSessionMuteState_UnMute)
     {
         [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
     }
@@ -167,7 +167,7 @@
     
     [videoView freshWithRoomUserProperty:videoView.roomUser];
     videoView.audioMute = videoView.roomUser.audioMute;
-    videoView.videoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
+    videoView.videoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
 }
 
 - (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
@@ -179,23 +179,23 @@
 
     NSDictionary * sourceDict = [videoView.roomUser.sourceListDic bm_dictionaryForKey:videoView.sourceId];
     
-    YSSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
+    CHSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
 
     NSString *userId = videoView.roomUser.peerID;
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
-    if (self.appUseTheType != YSRoomUseTypeLiveRoom)
+    if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {
         if (self.liveManager.roomConfig.isMirrorVideo)
         {
-            if ([videoView.roomUser.properties bm_boolForKey:sYSUserIsVideoMirror])
+            if ([videoView.roomUser.properties bm_boolForKey:sCHUserIsVideoMirror])
             {
                 videoMirrorMode = CloudHubVideoMirrorModeEnabled;
             }
         }
     }
     
-    if (newVideoMute == YSSessionMuteState_UnMute)
+    if (newVideoMute == CHSessionMuteState_UnMute)
     {
         [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
         [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
@@ -208,7 +208,7 @@
     [videoView freshWithRoomUserProperty:videoView.roomUser];
 
     videoView.audioMute = videoView.roomUser.audioMute;
-    videoView.videoMute = [sourceDict bm_uintForKey:sYSUserDiveceMute];
+    videoView.videoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
 }
 
 - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
@@ -343,11 +343,11 @@
         }
         
         [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
-        if (videoView.roomUser.role == YSUserType_Teacher)
+        if (videoView.roomUser.role == CHUserType_Teacher)
         {
             self.teacherVideoViewArray = videoArr;
         }
-        else if (videoView.roomUser.role == YSUserType_ClassMaster)
+        else if (videoView.roomUser.role == CHUserType_ClassMaster)
         {
             self.classMasterVideoViewArray = videoArr;
         }
@@ -367,11 +367,11 @@
         if (videoArr.count)
         {
             [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
-            if (videoView.roomUser.role == YSUserType_Teacher)
+            if (videoView.roomUser.role == CHUserType_Teacher)
             {
                 self.teacherVideoViewArray = videoArr;
             }
-            else if (videoView.roomUser.role == YSUserType_ClassMaster)
+            else if (videoView.roomUser.role == CHUserType_ClassMaster)
             {
                 self.classMasterVideoViewArray = videoArr;
             }
@@ -381,11 +381,11 @@
             [self.videoViewArrayDic removeObjectForKey:videoView.roomUser.peerID];
         }
         
-        if (videoView.roomUser.role == YSUserType_Teacher)
+        if (videoView.roomUser.role == CHUserType_Teacher)
         {
             self.teacherVideoViewArray = videoArr;
         }
-        else if (videoView.roomUser.role == YSUserType_ClassMaster)
+        else if (videoView.roomUser.role == CHUserType_ClassMaster)
         {
             self.classMasterVideoViewArray = videoArr;
         }
@@ -401,7 +401,7 @@
 ///新上台时添加
 - (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count
 {
-    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
+    CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
     {
         return nil;
@@ -430,9 +430,9 @@
     
     if (!theSourceIdArray.count)
     {
-        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sYSUserDefaultSourceId withDelegate:self];
+        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
         newVideoView.appUseTheType = self.appUseTheType;
-        newVideoView.sourceId = sYSUserDefaultSourceId;
+        newVideoView.sourceId = sCHUserDefaultSourceId;
         if (newVideoView)
         {
             if (count == 0)
@@ -444,11 +444,11 @@
                 [theVideoArray bm_addObject:newVideoView withMaxCount:count];
             }
             
-            if (roomUser.role == YSUserType_Teacher)
+            if (roomUser.role == CHUserType_Teacher)
             {
                 self.teacherVideoViewArray = theVideoArray;
             }
-            else if (roomUser.role == YSUserType_ClassMaster)
+            else if (roomUser.role == CHUserType_ClassMaster)
             {
                 self.classMasterVideoViewArray = theVideoArray;
             }
@@ -476,7 +476,7 @@
                     [theVideoArray bm_addObject:newVideoView withMaxCount:count];
                 }
                 
-                if (roomUser.role == YSUserType_Teacher)
+                if (roomUser.role == CHUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theVideoArray;
                     if (self.liveManager.isGroupRoom)
@@ -484,7 +484,7 @@
                         newVideoView.groopRoomState = SCGroopRoomState_Discussing;
                     }
                 }
-                else if (roomUser.role == YSUserType_ClassMaster)
+                else if (roomUser.role == CHUserType_ClassMaster)
                 {
                     self.classMasterVideoViewArray = theVideoArray;
                 }
@@ -507,7 +507,7 @@
 //设备变化时
 - (NSMutableArray<SCVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
 {
-    YSRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
+    CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
     {
         return nil;
@@ -539,7 +539,7 @@
             [self deleteVideoViewfromVideoViewArrayDic:videoView];
         }
         
-        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sYSUserDefaultSourceId withDelegate:self];
+        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
         newVideoView.appUseTheType = self.appUseTheType;
         if (newVideoView)
         {
@@ -552,11 +552,11 @@
                 [theAddVideoArray bm_addObject:newVideoView withMaxCount:count];
             }
             
-            if (roomUser.role == YSUserType_Teacher)
+            if (roomUser.role == CHUserType_Teacher)
             {
                 self.teacherVideoViewArray = theAddVideoArray;
             }
-            else if (roomUser.role == YSUserType_ClassMaster)
+            else if (roomUser.role == CHUserType_ClassMaster)
             {
                 self.classMasterVideoViewArray = theVideoArray;
             }
@@ -588,7 +588,7 @@
                 //焦点用户退出
                 if ([self.fouceView.roomUser.peerID isEqualToString:videoView.roomUser.peerID])
                 {
-                    self.roomLayout = YSRoomLayoutType_VideoLayout;
+                    self.roomLayout = CHRoomLayoutType_VideoLayout;
                     [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:videoView.roomUser.peerID withStreamId:self.fouceView.streamId];
                     self.fouceView = nil;
                     self.controlPopoverView.fouceStreamId = nil;
@@ -612,7 +612,7 @@
                     [theAddVideoArray bm_addObject:newVideoView withMaxCount:count];
                 }
                 
-                if (roomUser.role == YSUserType_Teacher)
+                if (roomUser.role == CHUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theAddVideoArray;
                     if (self.liveManager.isGroupRoom)
@@ -620,7 +620,7 @@
                         newVideoView.groopRoomState = SCGroopRoomState_Discussing;
                     }
                 }
-                else if (roomUser.role == YSUserType_ClassMaster)
+                else if (roomUser.role == CHUserType_ClassMaster)
                 {
                     self.classMasterVideoViewArray = theVideoArray;
                 }
@@ -781,18 +781,18 @@
 #pragma mark 用户user
 
 /// 用户进入
-- (void)onRoomUserJoined:(YSRoomUser *)user isHistory:(BOOL)isHistory
+- (void)onRoomUserJoined:(CHRoomUser *)user isHistory:(BOOL)isHistory
 {
     NSString *roleName = nil;
-    if (user.role == YSUserType_Teacher)
+    if (user.role == CHUserType_Teacher)
     {
         roleName = YSLocalized(@"Role.Teacher");
     }
-    else if (user.role == YSUserType_Assistant)
+    else if (user.role == CHUserType_Assistant)
     {
         roleName = YSLocalized(@"Role.Assistant");
     }
-    else if (user.role == YSUserType_Student)
+    else if (user.role == CHUserType_Student)
     {
         roleName = YSLocalized(@"Role.Student");
     }
@@ -800,23 +800,23 @@
     if (!self.liveManager.isBigRoom && !isHistory && roleName)
     {
         NSString *message = [NSString stringWithFormat:@"%@(%@) %@", user.nickName, roleName, YSLocalized(@"Action.EnterRoom")];
-        [self.liveManager sendTipMessage:message tipType:YSChatMessageType_Tips];
+        [self.liveManager sendTipMessage:message tipType:CHChatMessageType_Tips];
     }
 }
 
 /// 用户退出
-- (void)onRoomUserLeft:(YSRoomUser *)user
+- (void)onRoomUserLeft:(CHRoomUser *)user
 {
     NSString *roleName = nil;
-    if (user.role == YSUserType_Teacher)
+    if (user.role == CHUserType_Teacher)
     {
         roleName = YSLocalized(@"Role.Teacher");
     }
-    else if(user.role == YSUserType_Assistant)
+    else if(user.role == CHUserType_Assistant)
     {
         roleName = YSLocalized(@"Role.Assistant");
     }
-    else if (user.role == YSUserType_Student)
+    else if (user.role == CHUserType_Student)
     {
         roleName = YSLocalized(@"Role.Student");
     }
@@ -824,7 +824,7 @@
     if (!self.liveManager.isBigRoom && roleName)
     {
         NSString *message = [NSString stringWithFormat:@"%@(%@) %@", user.nickName, roleName, YSLocalized(@"Action.ExitRoom")];
-        [self.liveManager sendTipMessage:message tipType:YSChatMessageType_Tips];
+        [self.liveManager sendTipMessage:message tipType:CHChatMessageType_Tips];
     }
 }
 
@@ -832,12 +832,12 @@
 #pragma mark 用户流
 
 /// 大房间同步上台用户属性
-- (void)handleSignalingSyncProperty:(YSRoomUser *)roomUser
+- (void)handleSignalingSyncProperty:(CHRoomUser *)roomUser
 {
     [self userPublishstatechange:roomUser];
 }
 
-- (void)userPublishstatechange:(YSRoomUser *)roomUser
+- (void)userPublishstatechange:(CHRoomUser *)roomUser
 {
     
 }
@@ -888,14 +888,14 @@
     videoView.streamId = streamId;
     if (videoView)
     {
-        YSRoomUser *roomUser = videoView.roomUser;
-        BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sYSUserIsVideoMirror];
+        CHRoomUser *roomUser = videoView.roomUser;
+        BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sCHUserIsVideoMirror];
         CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
         if (isVideoMirror)
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        if (self.liveManager.isGroupRoom && videoView.roomUser.role == YSUserType_Teacher)
+        if (self.liveManager.isGroupRoom && videoView.roomUser.role == CHUserType_Teacher)
         {
             videoView.groopRoomState = SCGroopRoomState_Normal;
         }
@@ -922,17 +922,17 @@
 {
     if (isDisable)
     {
-        [self.liveManager sendTipMessage:YSLocalized(@"Prompt.BanChatInView") tipType:YSChatMessageType_Tips];
+        [self.liveManager sendTipMessage:YSLocalized(@"Prompt.BanChatInView") tipType:CHChatMessageType_Tips];
     }
     else
     {
-        [self.liveManager sendTipMessage:YSLocalized(@"Prompt.CancelBanChatInView") tipType:YSChatMessageType_Tips];
+        [self.liveManager sendTipMessage:YSLocalized(@"Prompt.CancelBanChatInView") tipType:CHChatMessageType_Tips];
     }
 }
 
 #pragma mark meidia
 /// 媒体流发布状态
-- (void)onRoomShareMediaFile:(YSSharedMediaFileModel *)mediaFileModel
+- (void)onRoomShareMediaFile:(CHSharedMediaFileModel *)mediaFileModel
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
@@ -940,7 +940,7 @@
         return;
     }
 
-    if (mediaFileModel.state == YSMediaState_Play)
+    if (mediaFileModel.state == CHMediaState_Play)
     {
         self.mediaFileModel = mediaFileModel;
         [self handleWhiteBordPlayMediaFileWithMedia:mediaFileModel];
@@ -953,7 +953,7 @@
 }
 
 /// 更新媒体流的信息
-- (void)onRoomUpdateMediaFileStream:(YSSharedMediaFileModel *)mediaFileModel isSetPos:(BOOL)isSetPos
+- (void)onRoomUpdateMediaFileStream:(CHSharedMediaFileModel *)mediaFileModel isSetPos:(BOOL)isSetPos
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
@@ -966,7 +966,7 @@
     }
     else
     {
-        if (mediaFileModel.state == YSMediaState_Play)
+        if (mediaFileModel.state == CHMediaState_Play)
         {
             [self handleWhiteBordPlayMediaStream:mediaFileModel];
         }
@@ -977,22 +977,22 @@
     }
 }
 
-- (void)handleWhiteBordPlayMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
 {
     
 }
 
-- (void)handleWhiteBordStopMediaFileWithMedia:(YSSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
 {
     
 }
 
-- (void)handleWhiteBordPlayMediaStream:(YSSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPlayMediaStream:(CHSharedMediaFileModel *)mediaFileModel
 {
     
 }
 
-- (void)handleWhiteBordPauseMediaStream:(YSSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPauseMediaStream:(CHSharedMediaFileModel *)mediaFileModel
 {
     
 }

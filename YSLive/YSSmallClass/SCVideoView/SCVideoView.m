@@ -17,7 +17,7 @@
     UIGestureRecognizerDelegate
 >
 
-@property (nonatomic, strong) YSRoomUser *roomUser;
+@property (nonatomic, strong) CHRoomUser *roomUser;
 
 ///正在加载中
 @property (nonatomic, strong) UIImageView *loadingImgView;
@@ -72,30 +72,30 @@
 /// 视频状态
 @property (nonatomic, assign) SCVideoViewVideoState videoState;
 /// 摄像头设备状态
-@property (nonatomic, assign) YSDeviceFaultType videoDeviceState;
+@property (nonatomic, assign) CHDeviceFaultType videoDeviceState;
 /// 音频状态
 @property (nonatomic, assign) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
-@property (nonatomic, assign) YSDeviceFaultType audioDeviceState;
+@property (nonatomic, assign) CHDeviceFaultType audioDeviceState;
 
 @end
 
 @implementation SCVideoView
 
 // 老师用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate
 {
     return [self initWithRoomUser:roomUser withSourceId:sourceId isForPerch:NO withDelegate:delegate];
 }
 
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate
 {
     self = [super init];
 
     if (self)
     {
         self.delegate = delegate;
-        if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        if ([sourceId isEqualToString:sCHUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
             self.streamId = [NSString stringWithFormat:@"%@:video:%@",roomUser.peerID,sourceId];
         }
@@ -148,17 +148,17 @@
 }
 
 // 学生用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(NSString *)sourceId
 {
     return [self initWithRoomUser:roomUser withSourceId:sourceId isForPerch:NO];
 }
 
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(NSString *)sourceId isForPerch:(BOOL)isForPerch
 {
     self = [super init];
     if (self)
     {        
-        if ([sourceId isEqualToString:sYSUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        if ([sourceId isEqualToString:sCHUserDefaultSourceId] && [roomUser.peerID isEqualToString:YSCurrentUser.peerID])
         {
             self.streamId = [NSString stringWithFormat:@"%@:video:%@",roomUser.peerID,sourceId];
         }
@@ -194,7 +194,7 @@
 //视频view点击事件
 - (void)clickToShowControl
 {
-    if (self.appUseTheType == YSRoomUseTypeLiveRoom && [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    if (self.appUseTheType == CHRoomUseTypeLiveRoom && [self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
     {
         if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
         {
@@ -203,7 +203,7 @@
     }
     else
     {
-        if (self.roomUser.role == YSUserType_Student || self.roomUser.role == YSUserType_Teacher)
+        if (self.roomUser.role == CHUserType_Student || self.roomUser.role == CHUserType_Teacher)
         {
             if ([self.delegate respondsToSelector:@selector(clickViewToControlWithVideoView:)])
             {
@@ -429,7 +429,7 @@
     self.maskGroupRoomImage.bm_size = CGSizeMake(width, width);
     [self.maskGroupRoomImage bm_centerInSuperView];
     
-    if (self.appUseTheType == YSRoomUseTypeLiveRoom || self.appUseTheType == YSRoomUseTypeMeeting || self.roomUser.role == YSUserType_Teacher || self.roomUser.role == YSUserType_Assistant)
+    if (self.appUseTheType == CHRoomUseTypeLiveRoom || self.appUseTheType == CHRoomUseTypeMeeting || self.roomUser.role == CHUserType_Teacher || self.roomUser.role == CHUserType_Assistant)
     {
         self.cupImage.hidden = YES;
         self.cupNumLab.hidden = YES;
@@ -603,11 +603,11 @@
 {
     _iVolume = iVolume;
     
-    if (self.audioState != YSDeviceFaultNone)
+    if (self.audioState != CHDeviceFaultNone)
     {
         return;
     }
-    if (self.roomUser.afail == YSDeviceFaultNone && self.roomUser.audioMute == YSSessionMuteState_Mute)
+    if (self.roomUser.afail == CHDeviceFaultNone && self.roomUser.audioMute == CHSessionMuteState_Mute)
     {
         self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
         return;
@@ -650,7 +650,7 @@
 {
     _giftNumber = giftNumber;
     
-    if (self.roomUser.role != YSUserType_Teacher && self.roomUser.role != YSUserType_Assistant)
+    if (self.roomUser.role != CHUserType_Teacher && self.roomUser.role != CHUserType_Assistant)
     {
         self.cupNumLab.text = [NSString stringWithFormat:@"× %@", @(giftNumber)];
     }
@@ -785,7 +785,7 @@
     // 低端设备
     if (videoState & SCVideoViewVideoState_Low_end)
     {
-        if (self.roomUser.role != YSUserType_Teacher && self.roomUser.role != YSUserType_ClassMaster && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+        if (self.roomUser.role != CHUserType_Teacher && self.roomUser.role != CHUserType_ClassMaster && ![self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
            {
                self.maskNoVideo.hidden = NO;
                self.maskNoVideoTitle.text = YSLocalized(@"Prompt.LowDeviceTitle");
@@ -810,21 +810,21 @@
         switch (self.videoDeviceState)
         {
             // 无设备
-            case YSDeviceFaultNotFind:
+            case CHDeviceFaultNotFind:
             {
                 self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"noCam");
             }
                 break;
                 
             // 设备被禁用
-            case YSDeviceFaultNotAuth:
+            case CHDeviceFaultNotAuth:
             {
                 self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"disableCam");
             }
                 break;
                 
             // 设备被占用
-            case YSDeviceFaultOccupied:
+            case CHDeviceFaultOccupied:
             {
                 self.maskCloseVideo.image = YSSkinElementImage(@"videoView_stateVideo", @"occupyCam");
             }
@@ -906,7 +906,7 @@
     // 用户进入后台
     if (videoState & SCVideoViewVideoState_InBackground)
     {
-        if (self.roomUser.role == YSUserType_Student)
+        if (self.roomUser.role == CHUserType_Student)
         {
             self.homeMaskLab.hidden = NO;
             [self.homeMaskLab bm_bringToFront];
@@ -923,7 +923,7 @@
 }
 
 /// 摄像头设备状态
-- (void)setVideoDeviceState:(YSDeviceFaultType)videoDeviceState
+- (void)setVideoDeviceState:(CHDeviceFaultType)videoDeviceState
 {
     _videoDeviceState = videoDeviceState;
     
@@ -943,21 +943,21 @@
         switch (self.audioDeviceState)
         {
             // 无设备
-            case YSDeviceFaultNotFind:
+            case CHDeviceFaultNotFind:
             {
                 self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"noMic");
             }
                 break;
                 
             // 设备被禁用
-            case YSDeviceFaultNotAuth:
+            case CHDeviceFaultNotAuth:
             {
                 self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"disableMic");
             }
                 break;
                 
             // 设备被占用
-            case YSDeviceFaultOccupied:
+            case CHDeviceFaultOccupied:
             {
                 self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"occupyMic");
             }
@@ -1005,7 +1005,7 @@
 }
 
 /// 麦克风设备状态
-- (void)setAudioDeviceState:(YSDeviceFaultType)audioDeviceState
+- (void)setAudioDeviceState:(CHDeviceFaultType)audioDeviceState
 {
     _audioDeviceState = audioDeviceState;
     
@@ -1018,7 +1018,7 @@
     [self freshWithRoomUserProperty:self.roomUser];
 }
 
-- (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser
+- (void)freshWithRoomUserProperty:(CHRoomUser *)roomUser
 {
     if (!roomUser)
     {
@@ -1031,17 +1031,17 @@
         self.nickNameLab.text = self.roomUser.nickName;
     }
     
-    YSDeviceFaultType vfail = [self.roomUser getVideoVfailWithSourceId:self.sourceId];
+    CHDeviceFaultType vfail = [self.roomUser getVideoVfailWithSourceId:self.sourceId];
     if (self.isForPerch)
     {
-        self.loadingImgView.hidden = (vfail != YSDeviceFaultNone);
+        self.loadingImgView.hidden = (vfail != CHDeviceFaultNone);
         self.backVideoView.hidden = YES;
         
         BOOL deviceError = NO;
         if (vfail)
         {
             self.videoDeviceState = vfail;
-            if (vfail != YSDeviceFaultNone)
+            if (vfail != CHDeviceFaultNone)
             {
                 deviceError = YES;
             }
@@ -1115,16 +1115,16 @@
             }
             if (!isInBackGround && (isInBackGround != self.roomUser.isInBackGround))
             {
-                [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:YSRoomPubMsgTellAll propertyKey:sYSUserIsInBackGround value:@(NO)];
+                [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserIsInBackGround value:@(NO)];
             }
             
             [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
         }
         
-        self.canDraw = [self.roomUser.properties bm_boolForKey:sYSUserCandraw];
-        self.giftNumber = [self.roomUser.properties bm_uintForKey:sYSUserGiftNumber];
+        self.canDraw = [self.roomUser.properties bm_boolForKey:sCHUserCandraw];
+        self.giftNumber = [self.roomUser.properties bm_uintForKey:sCHUserGiftNumber];
         
-        NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sYSUserPrimaryColor];
+        NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sCHUserPrimaryColor];
         if ([brushColor bm_isNotEmpty])
         {
             self.brushColor = brushColor;
@@ -1145,7 +1145,7 @@
 
         // 设备不可用
         self.videoDeviceState = vfail;
-        if (vfail != YSDeviceFaultNone)
+        if (vfail != CHDeviceFaultNone)
         {
             self.videoState |= SCVideoViewVideoState_DeviceError;
         }
@@ -1199,7 +1199,7 @@
 //        }
 
         
-        if ([self.roomUser getVideoMuteWithSourceId:self.sourceId] == YSSessionMuteState_Mute)
+        if ([self.roomUser getVideoMuteWithSourceId:self.sourceId] == CHSessionMuteState_Mute)
         {
             // 关闭视频
             self.videoState |= SCVideoViewVideoState_Close;
@@ -1210,7 +1210,7 @@
         }
         
         // 网络状态
-        BOOL isPoorNetWork = [self.roomUser.properties bm_boolForKey:sYSUserNetWorkState];
+        BOOL isPoorNetWork = [self.roomUser.properties bm_boolForKey:sCHUserNetWorkState];
         if (isPoorNetWork)
         {
             self.videoState |= SCVideoViewVideoState_PoorInternet;
@@ -1233,7 +1233,7 @@
         
         // 音频相关
         self.audioDeviceState = self.roomUser.afail;
-        if (self.roomUser.afail != YSDeviceFaultNone)
+        if (self.roomUser.afail != CHDeviceFaultNone)
         {
             self.audioState |= SCVideoViewAudioState_DeviceError;
         }
@@ -1284,7 +1284,7 @@
 //        }
 
 
-        if (self.roomUser.audioMute == YSSessionMuteState_Mute)
+        if (self.roomUser.audioMute == CHSessionMuteState_Mute)
         {
             // 关闭音频
             self.audioState |= SCVideoViewAudioState_Close;

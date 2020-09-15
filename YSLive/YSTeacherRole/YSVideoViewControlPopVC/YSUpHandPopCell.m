@@ -74,7 +74,7 @@
 {
     _userDict = userDict;
     self.nickNameLab.text = [userDict bm_stringForKey:@"nickName"];
-    YSPublishState publishState = [userDict bm_intForKey:@"publishState"];
+    CHPublishState publishState = [userDict bm_intForKey:@"publishState"];
     if (publishState > 0)
     {
         self.nickNameLab.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");

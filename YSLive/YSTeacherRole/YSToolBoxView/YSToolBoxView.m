@@ -41,7 +41,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
 
 @property (nonatomic, strong) NSMutableArray <BMImageTitleButtonView *> *btnArray;
 
-@property (nonatomic, assign) YSUserRoleType roleType;
+@property (nonatomic, assign) CHUserRoleType roleType;
 
 @end
 
@@ -73,7 +73,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
 - (void)showToolBoxViewInView:(UIView *)inView
          backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
                   topDistance:(CGFloat)topDistance
-                     userRole:(YSUserRoleType)roleType
+                     userRole:(CHUserRoleType)roleType
 {
     self.roleType = roleType;
     self.topDistance = topDistance;
@@ -120,7 +120,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     BMImageTitleButtonView *responderBtn = [self creatButtonWithNormalTitle:@"tool.qiangdaqi" selectedTitle:@"tool.qiangdaqi" pathName:@"toolBox_responder"];
     responderBtn.tag = SCToolBoxTypeResponder;
     
-    if (self.roleType == YSUserType_Teacher)
+    if (self.roleType == CHUserType_Teacher)
     {
         self.answerBtn = answerBtn;
         [self.btnArray addObject:self.answerBtn];
@@ -134,7 +134,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
         self.responderBtn = responderBtn;
         [self.btnArray addObject:self.responderBtn];
     }
-    else if (self.roleType == YSUserType_Student)
+    else if (self.roleType == CHUserType_Student)
     {
         self.albumBtn = albumBtn;
         [self.btnArray addObject:self.albumBtn];

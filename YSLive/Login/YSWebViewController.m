@@ -7,13 +7,16 @@
 //
 
 #import "YSWebViewController.h"
+#import <WebKit/WebKit.h>
 
 @interface YSWebViewController ()
 <
     WKUIDelegate,
     WKNavigationDelegate
 >
-@property (nonatomic, strong)WKWebView *webView;
+
+@property (nonatomic, strong) WKWebView *webView;
+
 @end
 
 @implementation YSWebViewController

@@ -81,7 +81,7 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 @interface SCVideoView : UIView
 
 ///app使用场景  3：小班课  4：直播   6：会议
-@property (nonatomic, assign) YSRoomUseType appUseTheType;
+@property (nonatomic, assign) CHRoomUseType appUseTheType;
 
 @property (nonatomic, weak) id <SCVideoViewDelegate> delegate;
 
@@ -91,7 +91,7 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 ///视频流ID streamId
 @property (nonatomic, copy) NSString *streamId;
 
-@property (nonatomic, strong, readonly) YSRoomUser *roomUser;
+@property (nonatomic, strong, readonly) CHRoomUser *roomUser;
 /// 是否占位用
 @property (nonatomic, assign) BOOL isForPerch;
 /// 标识布局变化的值 宫格布局标识
@@ -122,11 +122,11 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 /// 视频状态
 @property (nonatomic, assign, readonly) SCVideoViewVideoState videoState;
 /// 摄像头设备状态
-@property (nonatomic, assign, readonly) YSDeviceFaultType videoDeviceState;
+@property (nonatomic, assign, readonly) CHDeviceFaultType videoDeviceState;
 /// 音频状态
 @property (nonatomic, assign, readonly) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
-@property (nonatomic, assign, readonly) YSDeviceFaultType audioDeviceState;
+@property (nonatomic, assign, readonly) CHDeviceFaultType audioDeviceState;
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
@@ -134,24 +134,24 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 @property (nonatomic, assign) BOOL isRaiseHand;
 
 // 开关是否静音
-@property (nonatomic, assign) YSSessionMuteState audioMute;
+@property (nonatomic, assign) CHSessionMuteState audioMute;
 
 // 开关是否关摄像头
-@property (nonatomic, assign) YSSessionMuteState videoMute;
+@property (nonatomic, assign) CHSessionMuteState videoMute;
 
 ///小黑板是否正在私聊
 @property(nonatomic,assign)BOOL isPrivateChating;
 
 
 /// 老师用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate;
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate;
 
 /// 学生用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId;
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch;
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId;
 
-- (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser;
+- (void)freshWithRoomUserProperty:(CHRoomUser *)roomUser;
 
 @end
 

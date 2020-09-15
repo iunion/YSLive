@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSMp3ControlviewDelegate <NSObject>
 
-- (void)playMp3ControlViewPlay:(BOOL)isPause withFileModel:(YSSharedMediaFileModel *)mediaFileModel;
+- (void)playMp3ControlViewPlay:(BOOL)isPause withFileModel:(CHSharedMediaFileModel *)mediaFileModel;
 
-- (void)sliderMp3ControlViewPos:(NSTimeInterval)value withFileModel:(YSSharedMediaFileModel *)mediaFileModel;
-- (void)closeMp3ControlViewWithFileModel:(YSSharedMediaFileModel *)mediaFileModel;
+- (void)sliderMp3ControlViewPos:(NSTimeInterval)value withFileModel:(CHSharedMediaFileModel *)mediaFileModel;
+- (void)closeMp3ControlViewWithFileModel:(CHSharedMediaFileModel *)mediaFileModel;
 
 @end
 
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak) id<YSMp3ControlviewDelegate> delegate;
 
 /// 媒体数据
-@property (nonatomic, strong) YSSharedMediaFileModel *mediaFileModel;
+@property (nonatomic, strong) CHSharedMediaFileModel *mediaFileModel;
 
 @property (nonatomic, strong) UIButton *playBtn;
 

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSMainSuperVC : YSSuperNetVC
 <
-    YSSessionDelegate,
+    CHSessionDelegate,
     YSLiveForWhiteBoardDelegate,
     SCVideoViewDelegate,
     YSControlPopoverViewDelegate
@@ -25,10 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIView *whiteBordView;
 
 ///app使用场景  3：小班课  4：直播   6：会议
-@property (nonatomic, assign) YSRoomUseType appUseTheType;
+@property (nonatomic, assign) CHRoomUseType appUseTheType;
 
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
-@property (nonatomic, assign) YSRoomUserType roomtype;
+@property (nonatomic, assign) CHRoomUserType roomtype;
 /// 视频ratio 16:9
 @property (nonatomic, assign) BOOL isWideScreen;
 
@@ -47,13 +47,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong) SCVideoView *myVideoView;
 
 /// 打开的音视频课件，目前只支持一个音视频
-@property (nullable, nonatomic, strong) YSSharedMediaFileModel *mediaFileModel;
+@property (nullable, nonatomic, strong) CHSharedMediaFileModel *mediaFileModel;
 
 /// 当前的焦点视图
 @property(nullable, nonatomic, strong) SCVideoView *fouceView;
 
 ///标识布局变化的值
-@property (nonatomic, assign) YSRoomLayoutType roomLayout;
+@property (nonatomic, assign) CHRoomLayoutType roomLayout;
 
 /// 视频控制popoverView
 @property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 //- (nullable NSMutableArray<SCVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId;
 - (nullable SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
 
-- (void)userPublishstatechange:(YSRoomUser *)roomUser;
+- (void)userPublishstatechange:(CHRoomUser *)roomUser;
 
 @end
 

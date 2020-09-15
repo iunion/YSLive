@@ -79,59 +79,59 @@
     NSString *alertMessage = nil;
     switch (errorCode)
     {
-        case YSErrorCode_JoinGroupRoom_RequestFailed:
+        case CHErrorCode_JoinGroupRoom_RequestFailed:
         { // 900  客户端只能以学生身份进入分组房间
             alertMessage = YSLocalized(@"Error.JoinGroupRoom");
         }
             break;
 
-        case YSErrorCode_CheckRoom_ServerOverdue:
+        case CHErrorCode_CheckRoom_ServerOverdue:
         { // 3001  服务器过期
             alertMessage = YSLocalized(@"Error.ServerExpired");
         }
             break;
-        case YSErrorCode_CheckRoom_RoomFreeze:
+        case CHErrorCode_CheckRoom_RoomFreeze:
         { // 3002  公司被冻结
             alertMessage = YSLocalized(@"Error.CompanyFreeze");
         }
             break;
-        case YSErrorCode_CheckRoom_RoomDeleteOrOrverdue: // 3003  房间被删除或过期
-        case YSErrorCode_CheckRoom_RoomNonExistent:
+        case CHErrorCode_CheckRoom_RoomDeleteOrOrverdue: // 3003  房间被删除或过期
+        case CHErrorCode_CheckRoom_RoomNonExistent:
         { // 4007 房间不存在 房间被删除或者过期
             alertMessage = YSLocalized(@"Error.RoomDeletedOrExpired");
         }
             break;
-        case YSErrorCode_CheckRoom_RequestFailed:
+        case CHErrorCode_CheckRoom_RequestFailed:
         {
             alertMessage = YSLocalized(@"Error.WaitingForNetwork");
         }
             break;
-        case YSErrorCode_CheckRoom_PasswordError:
+        case CHErrorCode_CheckRoom_PasswordError:
         { // 4008  房间密码错误
             alertMessage = YSLocalized(@"Error.PwdError");
         }
             break;
-        case YSErrorCode_CheckRoom_WrongPasswordForRole:
+        case CHErrorCode_CheckRoom_WrongPasswordForRole:
         { // 4012  密码与角色不符
             alertMessage = YSLocalized(@"Error.PwdError");
         }
             break;
-        case YSErrorCode_CheckRoom_RoomNumberOverRun:
+        case CHErrorCode_CheckRoom_RoomNumberOverRun:
         { // 4103  房间人数超限
             alertMessage = YSLocalized(@"Error.MemberOverRoomLimit");
         }
             break;
-        case YSErrorCode_CheckRoom_NeedPassword:
+        case CHErrorCode_CheckRoom_NeedPassword:
         { // 4110  该房间需要密码，请输入密码
             alertMessage = YSLocalized(@"Error.NeedPwd");
         } break;
             
-        case YSErrorCode_CheckRoom_RoomPointOverrun:
+        case CHErrorCode_CheckRoom_RoomPointOverrun:
         { // 4112  企业点数超限
             alertMessage = YSLocalized(@"Error.pointOverRun");
         }
             break;
-        case YSErrorCode_CheckRoom_RoomAuthenError:
+        case CHErrorCode_CheckRoom_RoomAuthenError:
         { // 4109  认证错误
             alertMessage = YSLocalized(@"Error.AuthIncorrect");
         }

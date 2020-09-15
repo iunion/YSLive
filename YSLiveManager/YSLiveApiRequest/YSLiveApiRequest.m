@@ -160,7 +160,7 @@
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = [YSSessionUtil convertWithData:responseObject];
+        NSDictionary *dict = [BMCloudHubUtil convertWithData:responseObject];
         if ([dict bm_uintForKey:@"result" withDefault:-1] == 0) {
             success(dict);
         }

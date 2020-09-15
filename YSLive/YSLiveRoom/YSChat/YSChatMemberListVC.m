@@ -93,10 +93,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)setMemberList:(NSMutableArray<YSRoomUser *> *)memberList
+-(void)setMemberList:(NSMutableArray<CHRoomUser *> *)memberList
 {
     _memberList = memberList;
-    YSRoomUser * model = [[YSRoomUser alloc]initWithPeerId:@""];
+    CHRoomUser * model = [[CHRoomUser alloc]initWithPeerId:@""];
     model.nickName = YSLocalized(@"Label.All");
     [self.memberList insertObject:model atIndex:0];
 }
@@ -110,7 +110,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YSChatMemberListCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([YSChatMemberListCell class])];
-    YSRoomUser * model = self.memberList[indexPath.row];
+    CHRoomUser * model = self.memberList[indexPath.row];
     
     cell.model = model;
     cell.selectionStyle =UITableViewCellSelectionStyleNone;

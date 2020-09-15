@@ -11,7 +11,7 @@
 
 @interface YSSpreadBottomToolBar ()
 
-@property (nonatomic, assign) YSUserRoleType roleType;
+@property (nonatomic, assign) CHUserRoleType roleType;
 
 @property (nonatomic, assign) CGPoint topLeftpoint;
 
@@ -41,12 +41,12 @@
 /// 退出房间
 @property (nonatomic, weak) BMImageTitleButtonView *exitBtn;
 /// 房间类型 0:表示一对一教室  非0:表示一多教室
-@property (nonatomic, assign) YSRoomUserType roomtype;
+@property (nonatomic, assign) CHRoomUserType roomtype;
 @end
 
 @implementation YSSpreadBottomToolBar
 
-- (instancetype)initWithUserRole:(YSUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(YSRoomUserType)roomType isChairManControl:(BOOL)isChairManControl
+- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl
 {
     self = [super init];
     if (self)
@@ -108,7 +108,7 @@
     BMImageTitleButtonView *exitBtn = [self creatButtonWithNormalTitle:@"Title.Exit" selectedTitle:@"Title.Exit" pathName:@"exit_bottombar"];
     exitBtn.tag = SCBottomToolBarTypeExit;
     
-    if (self.roleType == YSUserType_Teacher)
+    if (self.roleType == CHUserType_Teacher)
     {
         self.personListBtn = personListBtn;
         [self.btnArray addObject:self.personListBtn];
@@ -129,7 +129,7 @@
             [self.btnArray addObject:self.pollingBtn];
         }
         
-        if (self.roomtype == YSRoomUserType_More)
+        if (self.roomtype == CHRoomUserType_More)
         {
             self.allNoAudioBtn = allNoAudioBtn;
             [self.btnArray addObject:self.allNoAudioBtn];
@@ -141,7 +141,7 @@
         self.chatBtn = chatBtn;
         [self.btnArray addObject:self.chatBtn];
     }
-    else if (self.roleType == YSUserType_Student)
+    else if (self.roleType == CHUserType_Student)
     {
         self.toolBoxBtn = toolBoxBtn;
         [self.btnArray addObject:self.toolBoxBtn];
@@ -152,7 +152,7 @@
         self.chatBtn = chatBtn;
         [self.btnArray addObject:self.chatBtn];
     }
-    else if (self.roleType == YSUserType_Patrol)
+    else if (self.roleType == CHUserType_Patrol)
     {
         self.personListBtn = personListBtn;
         [self.btnArray addObject:self.personListBtn];

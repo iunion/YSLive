@@ -109,7 +109,7 @@
     
 }
 
-- (void)setUserModel:(YSRoomUser *)userModel
+- (void)setUserModel:(CHRoomUser *)userModel
 {
     _userModel = userModel;
     
@@ -120,7 +120,7 @@
 {
     _isAllNoAudio = isAllNoAudio;
     
-    if (self.userModel.role != YSUserType_Teacher && YSCurrentUser.role != YSUserType_Teacher)
+    if (self.userModel.role != CHUserType_Teacher && YSCurrentUser.role != CHUserType_Teacher)
     {
         self.audioBtn.enabled = !isAllNoAudio;
     }
@@ -136,7 +136,7 @@
     self.audioBtn.disabledText = YSLocalized(@"Button.MutingAudio");
     self.audioBtn.tag = SCVideoViewControlTypeAudio;
     self.audioBtn.enabled = YES;
-    if (self.userModel.audioMute == YSSessionMuteState_UnMute)
+    if (self.userModel.audioMute == CHSessionMuteState_UnMute)
     {
         self.audioBtn.selected = YES;
     }
@@ -150,7 +150,7 @@
     UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     self.videoBtn.disabledImage = videoClose;
     self.videoBtn.tag = SCVideoViewControlTypeVideo;
-    if ([self.userModel getVideoMuteWithSourceId:self.sourceId] == YSSessionMuteState_UnMute)
+    if ([self.userModel getVideoMuteWithSourceId:self.sourceId] == CHSessionMuteState_UnMute)
     {
         self.videoBtn.selected = YES;
     }
@@ -162,7 +162,7 @@
     //画笔权限控制按钮
     self.canDrawBtn = [self creatButtonWithTitle:YSLocalized(@"Label.Authorized") selectTitle:YSLocalized(@"Label.CancelAuthorized") image:YSSkinElementImage(@"videoPop_authorizeButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_authorizeButton", @"iconSel")];
     self.canDrawBtn.tag = SCVideoViewControlTypeCanDraw;
-    BOOL canDraw = [self.userModel.properties bm_boolForKey:sYSUserCandraw];
+    BOOL canDraw = [self.userModel.properties bm_boolForKey:sCHUserCandraw];
     if (canDraw)
     {
         self.canDrawBtn.selected = YES;
@@ -232,7 +232,7 @@
     
     
     BOOL isShowLine = NO;
-    if (YSCurrentUser.role == YSUserType_Student)
+    if (YSCurrentUser.role == CHUserType_Student)
     {
         //音频 视频 镜像
         [self.btnArray addObject:self.audioBtn];
@@ -241,9 +241,9 @@
     }
     else
     {
-        if (self.userModel.role == YSUserType_Teacher || self.userModel.role == YSUserType_Assistant )
+        if (self.userModel.role == CHUserType_Teacher || self.userModel.role == CHUserType_Assistant )
         {
-            if (self.roomtype == YSRoomUserType_One)
+            if (self.roomtype == CHRoomUserType_One)
             {
                 
                 //音频 视频 镜像
@@ -255,7 +255,7 @@
             else
             {
                 isShowLine = YES;
-                if (self.roomLayout == YSRoomLayoutType_AroundLayout)
+                if (self.roomLayout == CHRoomLayoutType_AroundLayout)
                 {
                     if (self.isDragOut)
                     {
@@ -289,9 +289,9 @@
             }
             
         }
-        else if (self.userModel.role == YSUserType_Student)
+        else if (self.userModel.role == CHUserType_Student)
         {
-            if (self.roomtype == YSRoomUserType_One)
+            if (self.roomtype == CHRoomUserType_One)
             {
                 //音频 视频 画笔 上下台 奖杯
                 [self.btnArray addObject:self.audioBtn];
@@ -302,7 +302,7 @@
             }
             else
             {
-                if (self.roomLayout == YSRoomLayoutType_AroundLayout)
+                if (self.roomLayout == CHRoomLayoutType_AroundLayout)
                 {
                     //音频 视频 画笔 上下台 奖杯
                     [self.btnArray addObject:self.audioBtn];
@@ -334,14 +334,14 @@
         }
     }
     
-    if (self.appUseTheType == YSRoomUseTypeMeeting)
+    if (self.appUseTheType == CHRoomUseTypeMeeting)
     {
         /// 会议将奖杯移除
         [self.btnArray removeObject:self.allGiftCupBtn];
         [self.btnArray removeObject:self.giftCupBtn];
     }
     
-    if (self.roomtype == YSRoomUserType_One && !self.isNested)
+    if (self.roomtype == CHRoomUserType_One && !self.isNested)
     {// 1V1 且 画中画的情况下老师视频是 竖排的
         
         self.view.frame = CGRectMake(0, 0, 50, 50 *self.btnArray.count);
@@ -396,9 +396,9 @@
     }
     
     //没有摄像头、麦克风权限时的显示禁用状态
-    if (self.userModel.role != YSUserType_Teacher && YSCurrentUser.role != YSUserType_Teacher)
+    if (self.userModel.role != CHUserType_Teacher && YSCurrentUser.role != CHUserType_Teacher)
     {
-        if (self.userModel.afail == YSDeviceFaultNone)
+        if (self.userModel.afail == CHDeviceFaultNone)
         {
             self.audioBtn.enabled = !self.isAllNoAudio;
         }
@@ -408,7 +408,7 @@
         }
     }
     
-    if ([self.userModel getVideoVfailWithSourceId:self.sourceId] == YSDeviceFaultNone)
+    if ([self.userModel getVideoVfailWithSourceId:self.sourceId] == CHDeviceFaultNone)
     {
         self.videoBtn.enabled = YES;
         self.mirrorBtn.enabled = YES;

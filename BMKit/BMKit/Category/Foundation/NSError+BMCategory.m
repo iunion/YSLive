@@ -32,12 +32,11 @@
                 underlyingError:(NSError *)underlyingError
 {
     NSDictionary *userInfo = nil;
-    if (underlyingError)
+    if (underlyingError == nil)
     {
         userInfo = @{
             NSLocalizedDescriptionKey : description ? description : @"",
-            NSLocalizedRecoverySuggestionErrorKey : recoverySuggestion ? recoverySuggestion : @"",
-            NSUnderlyingErrorKey : underlyingError
+            NSLocalizedRecoverySuggestionErrorKey : recoverySuggestion ? recoverySuggestion : @""
         };
     }
     else

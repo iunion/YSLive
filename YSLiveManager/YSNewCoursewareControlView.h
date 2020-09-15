@@ -6,13 +6,13 @@
 //  Copyright © 2020 YS. All rights reserved.
 //
 
-#import <YSWhiteBoard/YSWhiteBoard.h>
+#import <CHWhiteBoard/CHWhiteBoard.h>
 
 #if USECUSTOMER_COURSEWARECONTROLVIEW
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSNewCoursewareControlView : YSCoursewareControlView
+@interface YSNewCoursewareControlView : CHCoursewareControlView
 
 @end
 

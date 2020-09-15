@@ -28,14 +28,14 @@ typedef NS_ENUM(NSInteger, YSMessageShowType) {
 ///当前显示消息的类型
 @property(nonatomic,assign)YSMessageShowType showType;
 ///聊天列表数组(全部的)
-@property (nonatomic, strong) NSMutableArray<YSChatMessageModel *>  *messageList;
+@property (nonatomic, strong) NSMutableArray<CHChatMessageModel *>  *messageList;
 ///聊天列表数组(主播的)
-@property (nonatomic, strong) NSMutableArray<YSChatMessageModel *>  *anchorMessageList;
+@property (nonatomic, strong) NSMutableArray<CHChatMessageModel *>  *anchorMessageList;
 ///聊天列表数组(我的)
-@property (nonatomic, strong) NSMutableArray<YSChatMessageModel *>  *mainMessageList;
+@property (nonatomic, strong) NSMutableArray<CHChatMessageModel *>  *mainMessageList;
 
 ///添加私聊名单时的block
-@property(nonatomic,copy)void(^addChatMember)(YSRoomUser * memberModel);
+@property(nonatomic,copy)void(^addChatMember)(CHRoomUser * memberModel);
 
 
 //滚动或点击空白时，键盘回归原位

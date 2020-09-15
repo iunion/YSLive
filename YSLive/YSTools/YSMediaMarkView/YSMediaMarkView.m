@@ -12,11 +12,11 @@
 
 @interface YSMediaMarkView ()
 <
-    YSDrawViewDelegate
+    CHDrawViewDelegate
 >
 
 // 画板
-@property (nonatomic, strong) YSDrawView *drawView;
+@property (nonatomic, strong) CHDrawView *drawView;
 
 @property (nonatomic, assign) CGFloat videoRatio;
 
@@ -46,12 +46,12 @@
 
 - (void)setupTools
 {
-    YSDrawView *drawView = [[YSDrawView alloc] initWithDelegate:self];
+    CHDrawView *drawView = [[CHDrawView alloc] initWithDelegate:self];
     [self addSubview:drawView];
     //drawView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     //drawView.delegate = self;
-    [drawView switchToFileID:sYSSignal_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
+    [drawView switchToFileID:sCHSignal_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
     self.drawView = drawView;
 }
 
@@ -115,7 +115,7 @@
 {
     self.videoRatio = videoRatio;
 
-    [self.drawView switchToFileID:YSVideoWhiteboard_Id pageID:1 refreshImmediately:YES];
+    [self.drawView switchToFileID:CHVideoWhiteboard_Id pageID:1 refreshImmediately:YES];
 
     for (NSDictionary *dic in sharpsDataArray)
     {
@@ -149,14 +149,14 @@
 
 - (void)addSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeData:(NSData *)shapeData
 {
-    if ([YSLiveManager sharedInstance].localUser.role != YSUserType_Teacher)
+    if ([YSLiveManager sharedInstance].localUser.role != CHUserType_Teacher)
     {
         return;
     }
     
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:shapeData options:NSJSONReadingMutableContainers error:nil];
     
-    NSString *whiteboardID = [YSRoomUtil getwhiteboardIDFromFileId:self.drawView.fileid];
+    NSString *whiteboardID = [CHWhiteBoardUtil getwhiteboardIDFromFileId:self.drawView.fileid];
     [dic setObject:whiteboardID forKey:@"whiteboardID"];
     [dic setObject:@(false) forKey:@"isBaseboard"];
     
@@ -167,7 +167,7 @@
 //    NSString *dataString = [data stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 //
 //    [[YSRoomInterface instance] pubMsg:sYSSignalSharpsChange msgID:shapeID toID:YSRoomPubMsgTellAll data:dataString save:YES associatedMsgID:sYSSignalVideoWhiteboard associatedUserID:nil expires:0 completion:nil];
-    [[YSLiveManager sharedInstance] pubMsg:sYSSignal_SharpsChange msgId:shapeID to:YSRoomPubMsgTellAll withData:dic associatedWithUser:nil associatedWithMsg:sYSSignal_VideoWhiteboard save:YES];
+    [[YSLiveManager sharedInstance] pubMsg:sCHWBSignal_SharpsChange msgId:shapeID to:CHRoomPubMsgTellAll withData:dic associatedWithUser:nil associatedWithMsg:sCHSignal_VideoWhiteboard save:YES];
 }
 
 - (void)handleSignal:(NSDictionary *)dictionary isDel:(BOOL)isDel
@@ -185,13 +185,13 @@
     
     // 信令内容
     id dataObject = [dictionary objectForKey:@"data"];
-    NSDictionary *data = [YSRoomUtil convertWithData:dataObject];
+    NSDictionary *data = [BMCloudHubUtil convertWithData:dataObject];
     if (![data bm_isNotEmptyDictionary])
     {
         return;
     }
 
-    if ([msgName isEqualToString:sYSSignal_VideoWhiteboard])
+    if ([msgName isEqualToString:sCHSignal_VideoWhiteboard])
     {
         if (!isDel)
         {

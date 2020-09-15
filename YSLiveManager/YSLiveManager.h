@@ -6,12 +6,13 @@
 //  Copyright © 2020 YS. All rights reserved.
 //
 
-#import <YSSession/YSSession.h>
+#import <CHSession/CHSession.h>
+#import <CHSession/CHSessionDefines.h>
 #import "YSLiveForWhiteBoardDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSLiveManager : YSSessionManager
+@interface YSLiveManager : CHSessionManager
 
 /// 网校api请求host
 @property (nonatomic, strong) NSString *schoolApiHost;
@@ -23,14 +24,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <YSLiveForWhiteBoardDelegate> whiteBoardDelegate;
 /// 白板管理
-@property (nonatomic, strong, readonly) YSWhiteBoardManager *whiteBoardManager;
+@property (nonatomic, strong, readonly) CHWhiteBoardManager *whiteBoardManager;
 /// 白板视图whiteBord
 @property (nonatomic, weak, readonly) UIView *whiteBordView;
 
 /// 课件列表
-@property (nonatomic, strong, readonly) NSArray <YSFileModel *> *fileList;
+@property (nonatomic, strong, readonly) NSArray <CHFileModel *> *fileList;
 /// 当前课件数据
-@property (nonatomic, strong, readonly) YSFileModel *currentFile;
+@property (nonatomic, strong, readonly) CHFileModel *currentFile;
 
 #if YSSDK
 @property (nullable, nonatomic, weak) volatile id <YSSessionDelegate> sdkDelegate;
@@ -42,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard;
 
-- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(YSUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
+- (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(CHUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
@@ -61,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
 /// 获取课件数据
-- (YSFileModel *)getFileWithFileID:(NSString *)fileId;
+- (CHFileModel *)getFileWithFileID:(NSString *)fileId;
 
 #if YSSDK
 /// SDK退出房间，需要在房间返回时调用dismissViewControllerAnimated:completion:

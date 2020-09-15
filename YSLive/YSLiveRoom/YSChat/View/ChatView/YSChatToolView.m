@@ -165,7 +165,7 @@ UITextViewDelegate
 {
     if([text isEqualToString:@"\n"])
     {
-        BOOL disablechat = [YSCurrentUser.properties bm_boolForKey:sYSUserDisablechat];
+        BOOL disablechat = [YSCurrentUser.properties bm_boolForKey:sCHUserDisablechat];
         BOOL everyoneBanChat = [YSLiveManager sharedInstance].isEveryoneBanChat;
         if (disablechat || everyoneBanChat)
         {
@@ -173,7 +173,7 @@ UITextViewDelegate
             return NO;
         }
         
-        BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:textView.text  withMessageType:YSChatMessageType_Text withMemberModel:self.memberModel];
+        BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:textView.text  withMessageType:CHChatMessageType_Text withMemberModel:self.memberModel];
         
         if (!isSucceed) {
             BMLog(@"d发送失败");
@@ -257,7 +257,6 @@ UITextViewDelegate
 #pragma mark - 点击跳转成员列表
 - (void)placeholderButtonClick:(UIButton *)sender
 {
-    BOOL dd = [YSLiveManager sharedInstance].roomConfig.isDisablePrivateChat;
     if (![YSLiveManager sharedInstance].roomConfig.isDisablePrivateChat)
     {
         if ([self.memberDelegate respondsToSelector:@selector(clickPlaceholderdBtn)])
@@ -267,7 +266,7 @@ UITextViewDelegate
      }
 }
 
-- (void)setMemberModel:(YSRoomUser *)memberModel
+- (void)setMemberModel:(CHRoomUser *)memberModel
 {
     _memberModel = memberModel;
     NSString * str = [NSString stringWithFormat:@"%@%@",YSLocalized(@"Label.To"),memberModel.nickName];

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <YSWhiteBoard/YSDrawView.h>
+#import <CHWhiteBoard/CHDrawView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -50,16 +50,16 @@
         NSInteger userType = [dic bm_intForKey:@"usertype"];
         if (userType == 2)
         {
-            self.userRoleType = YSUserType_Teacher;
+            self.userRoleType = CHUserType_Teacher;
         }
         else
         {
-            self.userRoleType = YSUserType_Student;
+            self.userRoleType = CHUserType_Student;
         }
     }
     else
     {
-        self.userRoleType = YSUserType_Student;
+        self.userRoleType = CHUserType_Student;
     }
 
     /// 昵称: nickname
@@ -82,7 +82,7 @@
     self.schoolUserDic = nil;
     self.userId = nil;
     self.token = nil;
-    self.userRoleType = YSUserType_Student;
+    self.userRoleType = CHUserType_Student;
     self.nickName = nil;
     self.imageUrl = nil;
     self.organId = nil;

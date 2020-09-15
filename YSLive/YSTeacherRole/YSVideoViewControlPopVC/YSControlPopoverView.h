@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YSControlPopoverView : UIViewController
 
 ///app使用场景  3：小班课  4：直播   5：会议
-@property (nonatomic, assign) YSRoomUseType appUseTheType;
+@property (nonatomic, assign) CHRoomUseType appUseTheType;
 
 @property(nonatomic,weak) id<YSControlPopoverViewDelegate> delegate;
 
@@ -48,13 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
 @property (nullable,nonatomic, copy) NSString *fouceStreamId;
 
-@property(nonatomic,strong) YSRoomUser * userModel;
+@property(nonatomic,strong) CHRoomUser * userModel;
 
 /// 房间类型
-@property (nonatomic, assign) YSRoomUserType roomtype;
+@property (nonatomic, assign) CHRoomUserType roomtype;
 
 ///标识布局变化的值
-@property (nonatomic, assign) YSRoomLayoutType roomLayout;
+@property (nonatomic, assign) CHRoomLayoutType roomLayout;
 
 /// 当前的用户视频的镜像状态
 @property(nonatomic, assign) CloudHubVideoMirrorMode videoMirrorMode;

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSAnswerCell : UITableViewCell
 
-@property (nonatomic, strong) YSQuestionModel *model;
+@property (nonatomic, strong) CHQuestionModel *model;
 
 @property(nonatomic,copy)void(^translationBtnClick)(void);
 
