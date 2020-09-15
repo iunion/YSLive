@@ -14,9 +14,9 @@
 
 // iOS 8 Foundation.framework extern these symbol but the define is in CFNetwork.framework. We just fix this without import CFNetwork.framework
 #if ((__IPHONE_OS_VERSION_MIN_REQUIRED && __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_9_0) || (__MAC_OS_X_VERSION_MIN_REQUIRED && __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_11))
-const float NSURLSessionTaskPriorityHigh = 0.75;
-const float NSURLSessionTaskPriorityDefault = 0.5;
-const float NSURLSessionTaskPriorityLow = 0.25;
+const float BMURLSessionTaskPriorityHigh = 0.75;
+const float BMURLSessionTaskPriorityDefault = 0.5;
+const float BMURLSessionTaskPriorityLow = 0.25;
 #endif
 
 static NSString *const kBMProgressCallbackKey = @"progress";
@@ -207,13 +207,13 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
 
     if (self.dataTask) {
         if (self.options & BMSDWebImageDownloaderHighPriority) {
-            self.dataTask.priority = NSURLSessionTaskPriorityHigh;
+            self.dataTask.priority = BMURLSessionTaskPriorityHigh;
             self.coderQueue.qualityOfService = NSQualityOfServiceUserInteractive;
         } else if (self.options & BMSDWebImageDownloaderLowPriority) {
-            self.dataTask.priority = NSURLSessionTaskPriorityLow;
+            self.dataTask.priority = BMURLSessionTaskPriorityLow;
             self.coderQueue.qualityOfService = NSQualityOfServiceBackground;
         } else {
-            self.dataTask.priority = NSURLSessionTaskPriorityDefault;
+            self.dataTask.priority = BMURLSessionTaskPriorityDefault;
             self.coderQueue.qualityOfService = NSQualityOfServiceDefault;
         }
         [self.dataTask resume];

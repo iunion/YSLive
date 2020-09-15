@@ -768,15 +768,17 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //        userAgreement.selected = YES;
 //    }
 }
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    NSLog(@"%@",URL);
-
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(nonnull NSURL *)URL inRange:(NSRange)characterRange
+{
+    
     YSWebViewController *webVC = [[YSWebViewController alloc] init];
     webVC.roteUrl = [URL absoluteString];
     
     [self.navigationController pushViewController:webVC animated:YES];
     return NO;
 }
+
+
 
 ///// 同意用户协议
 //- (void)userAgreementClicked:(UIButton *)btn
