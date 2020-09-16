@@ -6,9 +6,9 @@
 //  Copyright © 2018年 LIUHAO. All rights reserved.
 //
 
-#import "LHDiceAnimationView.h"
+#import "YSDiceAnimationView.h"
 
-@interface LHDiceAnimationView (Tools)
+@interface YSDiceAnimationView (Tools)
 -(NSMutableArray *)getRandomNumbers:(NSInteger)count length:(uint32_t)length;
 -(NSMutableArray *)diceAimalImages:(NSUInteger)fourMultiple;
 -(NSMutableArray *)diceAnimalPathWithBasePath:(CGPoint)basePoint withPointsCount:(NSUInteger)count withMaxDistance:(uint32_t)maxDistance;

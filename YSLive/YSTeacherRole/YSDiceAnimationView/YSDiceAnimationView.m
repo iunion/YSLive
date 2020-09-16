@@ -6,16 +6,16 @@
 //  Copyright © 2018年 LIUHAO. All rights reserved.
 //
 
-#import "LHDiceAnimationView.h"
-#import "LHDiceAnimationView+Tools.h"
+#import "YSDiceAnimationView.h"
+#import "YSDiceAnimationView+Tools.h"
 
 //动画一次循环时长
-#define AnimationTime 1.0
+#define AnimationTime 1.5
 
 //图片张数
 #define ImageNums 8
 
-@interface LHDiceAnimationView()
+@interface YSDiceAnimationView()
 <
     CAAnimationDelegate,
     UIGestureRecognizerDelegate
@@ -34,7 +34,7 @@
 @property(nonatomic,strong) UILabel *nameLab;
 
 @end
-@implementation LHDiceAnimationView
+@implementation YSDiceAnimationView
 #pragma mark - #1初始化方法
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -73,11 +73,11 @@
 
 - (void)tapGestureClicked:(UITapGestureRecognizer *)tap
 {
-    if (YSCurrentUser.role == YSUserType_Teacher || (YSCurrentUser.role == YSUserType_Student && YSCurrentUser.canDraw))
+    if (YSCurrentUser.role == CHUserType_Teacher || (YSCurrentUser.role == CHUserType_Student && YSCurrentUser.canDraw))
     {
         self.resultNum = arc4random() % 6 + 1;
         
-        [[YSSessionManager sharedInstance] sendSignalingToDiceWithState:1 IRand:self.resultNum];
+        [[CHSessionManager sharedInstance] sendSignalingToDiceWithState:1 IRand:self.resultNum];
                 
         [self diceBegainAnimals];
         self.userInteractionEnabled = NO;
@@ -112,7 +112,8 @@
 
 - (void)diceCancleBtnCkick
 {
-    self.hidden = YES;
+//    self.hidden = YES;
+    [[CHSessionManager sharedInstance] sendSignalingToDeleteDice];
 }
 
 #pragma mark - #1diceNums Set方法
@@ -173,7 +174,7 @@
         _cancleBtn = [[UIButton alloc]init];
         [_cancleBtn setImage:YSSkinDefineImage(@"close_btn_icon") forState:UIControlStateNormal];
         [_cancleBtn addTarget:self action:@selector(diceCancleBtnCkick) forControlEvents:UIControlEventTouchUpInside];
-        if (YSCurrentUser.role != YSUserType_Teacher && YSCurrentUser.role != YSUserType_Assistant)
+        if (YSCurrentUser.role != CHUserType_Teacher && YSCurrentUser.role != CHUserType_Assistant)
         {
             _cancleBtn.hidden = YES;
         }

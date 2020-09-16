@@ -6,9 +6,9 @@
 //  Copyright © 2018年 LIUHAO. All rights reserved.
 //
 
-#import "LHDiceAnimationView+Tools.h"
+#import "YSDiceAnimationView+Tools.h"
 
-@implementation LHDiceAnimationView (Tools)
+@implementation YSDiceAnimationView (Tools)
 #pragma mark - 获取随机数
 /**
  return：随机数组

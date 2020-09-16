@@ -3874,9 +3874,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
             break;
         case SCBottomToolBarTypeChat:
-        {
-            
-            
+        {            
             //消息
             CGRect tempRect = self.rightChatView.frame;
             if (isSelected)

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		044E01B12510B5AD001FDAC8 /* YSDiceAnimationView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E01AF2510B5AD001FDAC8 /* YSDiceAnimationView+Tools.m */; };
-		044E01B22510B5AD001FDAC8 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E01B02510B5AD001FDAC8 /* YSDiceAnimationView.m */; };
+		044E01BD2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E01B92511EC3A001FDAC8 /* YSDiceAnimationView+Tools.m */; };
+		044E01BE2511EC3B001FDAC8 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E01BC2511EC3B001FDAC8 /* YSDiceAnimationView.m */; };
 		045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045CF51123C828B6008F474E /* YSMeetingResources.bundle */; };
 		045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
 		045F76092484E00300A34F76 /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
@@ -801,10 +801,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		044E01AD2510B5AD001FDAC8 /* YSDiceAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSDiceAnimationView.h; sourceTree = "<group>"; };
-		044E01AE2510B5AD001FDAC8 /* YSDiceAnimationView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YSDiceAnimationView+Tools.h"; sourceTree = "<group>"; };
-		044E01AF2510B5AD001FDAC8 /* YSDiceAnimationView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YSDiceAnimationView+Tools.m"; sourceTree = "<group>"; };
-		044E01B02510B5AD001FDAC8 /* YSDiceAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSDiceAnimationView.m; sourceTree = "<group>"; };
+		044E01B92511EC3A001FDAC8 /* YSDiceAnimationView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "YSDiceAnimationView+Tools.m"; path = "YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView+Tools.m"; sourceTree = SOURCE_ROOT; };
+		044E01BA2511EC3B001FDAC8 /* YSDiceAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YSDiceAnimationView.h; path = YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView.h; sourceTree = SOURCE_ROOT; };
+		044E01BB2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "YSDiceAnimationView+Tools.h"; path = "YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView+Tools.h"; sourceTree = SOURCE_ROOT; };
+		044E01BC2511EC3B001FDAC8 /* YSDiceAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YSDiceAnimationView.m; path = YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView.m; sourceTree = SOURCE_ROOT; };
 		045CF51123C828B6008F474E /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		045F76042484DD2800A34F76 /* YSSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSetViewController.h; sourceTree = "<group>"; };
 		045F76052484DD2800A34F76 /* YSSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSetViewController.m; sourceTree = "<group>"; };
@@ -1671,10 +1671,10 @@
 		044E01AC2510B5AD001FDAC8 /* YSDiceAnimationView */ = {
 			isa = PBXGroup;
 			children = (
-				044E01AD2510B5AD001FDAC8 /* YSDiceAnimationView.h */,
-				044E01B02510B5AD001FDAC8 /* YSDiceAnimationView.m */,
-				044E01AE2510B5AD001FDAC8 /* YSDiceAnimationView+Tools.h */,
-				044E01AF2510B5AD001FDAC8 /* YSDiceAnimationView+Tools.m */,
+				044E01BA2511EC3B001FDAC8 /* YSDiceAnimationView.h */,
+				044E01BC2511EC3B001FDAC8 /* YSDiceAnimationView.m */,
+				044E01BB2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.h */,
+				044E01B92511EC3A001FDAC8 /* YSDiceAnimationView+Tools.m */,
 			);
 			name = YSDiceAnimationView;
 			path = ../../../YSDiceAnimationView;
@@ -3936,6 +3936,7 @@
 				8783304824874C4400F1178E /* FLEXKeyboardShortcutManager.m in Sources */,
 				87133596237270F6006534A4 /* YSBarrageTextCell.m in Sources */,
 				8709FF192485F7CB00CC8BEA /* UINavigationController+MemoryLeak.m in Sources */,
+				044E01BE2511EC3B001FDAC8 /* YSDiceAnimationView.m in Sources */,
 				8783303424874C4400F1178E /* UIPasteboard+FLEX.m in Sources */,
 				87832F9824874C4300F1178E /* FLEXGlobalsSection.m in Sources */,
 				8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */,
@@ -3943,6 +3944,7 @@
 				875A720823758F1900407A75 /* SCVideoGridView.m in Sources */,
 				8709FF302485F7CB00CC8BEA /* FBObjectGraphConfiguration.m in Sources */,
 				87133599237270F6006534A4 /* YSChatView.m in Sources */,
+				044E01BD2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.m in Sources */,
 				34043C4523EA6514004982E6 /* YSMineViewController.m in Sources */,
 				8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */,
 				87832F1824874C4300F1178E /* FLEXMultilineTableViewCell.m in Sources */,
@@ -4018,7 +4020,6 @@
 				87832FF624874C4300F1178E /* FLEXHierarchyTableViewController.m in Sources */,
 				8783300A24874C4400F1178E /* FLEXMirror.m in Sources */,
 				34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
-				044E01B22510B5AD001FDAC8 /* YSDiceAnimationView.m in Sources */,
 				8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */,
 				87832F5224874C4300F1178E /* FLEXNetworkTransactionCell.m in Sources */,
 				CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */,
@@ -4064,7 +4065,6 @@
 				8783302C24874C4400F1178E /* NSObject+FLEX_Reflection.m in Sources */,
 				CB384CE723FE7D3100DCD1C0 /* YSTeacherTimerView.m in Sources */,
 				87832FAE24874C4300F1178E /* FLEXSystemLogCell.m in Sources */,
-				044E01B12510B5AD001FDAC8 /* YSDiceAnimationView+Tools.m in Sources */,
 				8783301C24874C4400F1178E /* FLEXMethodBase.m in Sources */,
 				8709FF1A2485F7CB00CC8BEA /* MLeakedObjectProxy.m in Sources */,
 				87832FBE24874C4300F1178E /* FLEXTableContentViewController.m in Sources */,
