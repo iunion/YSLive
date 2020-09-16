@@ -1,0 +1,29 @@
+/*
+ Meetings.strings
+ Meetings
+ 
+ Created by macmini on 15/2/3.
+ Copyright (c) 2015年 macmini. All rights reserved.
+ */
+
+"YSPreload.downloading" = "正在加载课件";
+"YSPreload.unzipping"   = "正在解压缩课件";
+"YSPreload.skip"        = "跳过";
+
+"SmallBoard_Name"           = "小黑板";
+"SmallBoard_Stage_Prepare"  = "准备阶段";
+"SmallBoard_Stage_Answer"   = "答题阶段";
+"SmallBoard_Stage_Comment"  = "讲评阶段";
+"SmallBoard_Distribution"   = "分发";
+"SmallBoard_DistributionAgain" = "再次分发";
+
+"SmallBoard_Calls"          = "单独语音";
+"SmallBoard_EndCalls"       = "结束语音";
+"SmallBoard_EndCallsTag"    = "语音通讯中，需要断开后进行切换";
+"SmallBoard_Withdrawn"      = "回收";
+"SmallBoard_BeenWithdrawn"  = "小黑板已收回";
+"SmallBoard_DeletePictureTag" = "是否删除小黑板上的图片";
+"SmallBoard_Calling"        = "正在私聊中";
+
+"SmallBoard_cancleSmall"    = "确认是否关闭小黑板";
+

@@ -1,0 +1,28 @@
+/*
+ Meetings.strings
+ Meetings
+ 
+ Created by macmini on 15/2/3.
+ Copyright (c) 2015年 macmini. All rights reserved.
+ */
+
+"YSPreload.downloading" = "正在加載課件";
+"YSPreload.unzipping"   = "正在解壓縮課件";
+"YSPreload.skip"        = "跳過";
+
+
+"SmallBoard_Name"       = "小黑板";
+"SmallBoard_Stage_Prepare" = "準備階段";
+"SmallBoard_Stage_Answer" = "答題階段";
+"SmallBoard_Stage_Comment" = "講評階段";
+"SmallBoard_Distribution" = "分發";
+"SmallBoard_DistributionAgain" = "再次分發";
+"SmallBoard_Calls"       = "單獨語音";
+"SmallBoard_EndCalls"    = "結束語音";
+"SmallBoard_EndCallsTag" = "語音通訊中，需要斷開後進行切換";
+"SmallBoard_Withdrawn"   = "回收";
+"SmallBoard_BeenWithdrawn" = "小黑板已收回";
+"SmallBoard_DeletePictureTag" = "是否刪除小黑板上的圖片";
+"SmallBoard_Calling"     = "正在私聊中";
+
+"SmallBoard_cancleSmall" = "確認是否關閉小黑板";
