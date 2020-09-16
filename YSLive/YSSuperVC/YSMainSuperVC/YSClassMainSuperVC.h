@@ -8,6 +8,7 @@
 
 #import "YSMainSuperVC.h"
 #import "YSSpreadBottomToolBar.h"
+#import "LHDiceAnimationView.h"
 
 /// 顶部状态栏高度
 #define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
@@ -51,6 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 底部工具栏
 @property (nonatomic, strong, readonly) YSSpreadBottomToolBar *spreadBottomToolBar;
+
+///骰子
+@property(nonatomic,weak)LHDiceAnimationView *diceView;
 
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;

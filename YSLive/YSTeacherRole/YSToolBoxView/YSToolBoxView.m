@@ -38,6 +38,8 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
 @property (nonatomic, weak) BMImageTitleButtonView *timerBtn;
 /// 抢答器
 @property (nonatomic, weak) BMImageTitleButtonView *responderBtn;
+/// 骰子
+@property (nonatomic, weak) BMImageTitleButtonView *diceBtn;
 
 @property (nonatomic, strong) NSMutableArray <BMImageTitleButtonView *> *btnArray;
 
@@ -120,6 +122,10 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     BMImageTitleButtonView *responderBtn = [self creatButtonWithNormalTitle:@"tool.qiangdaqi" selectedTitle:@"tool.qiangdaqi" pathName:@"toolBox_responder"];
     responderBtn.tag = SCToolBoxTypeResponder;
     
+    /// 骰子
+    BMImageTitleButtonView *diceBtn = [self creatButtonWithNormalTitle:@"title.Dice" selectedTitle:@"title.Dice" pathName:@"toolBox_dice"];
+    diceBtn.tag = SCToolBoxTypeDice;
+    
     if (self.roleType == CHUserType_Teacher)
     {
         self.answerBtn = answerBtn;
@@ -133,6 +139,9 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
 
         self.responderBtn = responderBtn;
         [self.btnArray addObject:self.responderBtn];
+        
+        self.diceBtn = diceBtn;
+        [self.btnArray addObject:self.diceBtn];
     }
     else if (self.roleType == CHUserType_Student)
     {

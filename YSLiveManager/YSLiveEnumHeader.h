@@ -86,7 +86,8 @@ typedef NS_ENUM(NSInteger, SCToolBoxType)
     SCToolBoxTypeTimer,
     /** 抢答器 */
     SCToolBoxTypeResponder,
-
+    /** 骰子*/
+    SCToolBoxTypeDice,
 };
 
 

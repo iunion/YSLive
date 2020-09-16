@@ -4661,6 +4661,30 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.responderView.titleL.font = [UIFont systemFontOfSize:16.0f];
 }
 
+- (void)handleSignalingDiceWithData:(NSDictionary *)diceData
+{
+    if ([diceData bm_isNotEmptyDictionary])
+    {
+        [self.diceView bm_bringToFront];
+        NSInteger state = [diceData bm_intForKey:@"state"];
+        if (!state)
+        {
+            self.diceView.hidden = NO;
+        }
+        else if(state == 1)
+        {
+            self.diceView.nickName = [diceData bm_stringForKey:@"nickname"];
+            self.diceView.resultNum = [diceData bm_intForKey:@"iRand"];
+            [self.diceView diceBegainAnimals];
+        }
+    }
+    else
+    {
+        self.diceView.hidden = YES;
+    }
+}
+
+
 
 #pragma mark - 计时器
 

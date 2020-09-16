@@ -3875,6 +3875,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             break;
         case SCBottomToolBarTypeChat:
         {
+            
+            
             //消息
             CGRect tempRect = self.rightChatView.frame;
             if (isSelected)
@@ -3891,6 +3893,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 self.rightChatView.frame = tempRect;
             }];
             [self arrangeAllViewInVCView];
+             
         }
             break;
         case SCBottomToolBarTypeExit:
@@ -4095,6 +4098,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.responderView showYSTeacherResponderType:YSTeacherResponderType_Start inView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
             [self.responderView showResponderWithType:YSTeacherResponderType_Start];
             self.responderView.delegate = self;
+        }
+            break;
+        case SCToolBoxTypeDice:
+        {
+            /// 骰子
+            [self.liveManager sendSignalingToDiceWithState:0 IRand:0];
+            
         }
             break;
         default:
@@ -4668,6 +4678,29 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.responderView dismiss:nil animated:NO dismissBlock:nil];
     [[BMCountDownManager manager] stopCountDownIdentifier:YSTeacherResponderCountDownKey];
+}
+
+- (void)handleSignalingDiceWithData:(NSDictionary *)diceData
+{
+    if ([diceData bm_isNotEmptyDictionary])
+    {
+        [self.diceView bm_bringToFront];
+        NSInteger state = [diceData bm_intForKey:@"state"];
+        if (!state)
+        {
+            self.diceView.hidden = NO;
+        }
+        else if(state == 1)
+        {
+            self.diceView.nickName = [diceData bm_stringForKey:@"nickname"];
+            self.diceView.resultNum = [diceData bm_intForKey:@"iRand"];
+            [self.diceView diceBegainAnimals];
+        }
+    }
+    else
+    {
+        self.diceView.hidden = YES;
+    }
 }
 
 #pragma mark -
