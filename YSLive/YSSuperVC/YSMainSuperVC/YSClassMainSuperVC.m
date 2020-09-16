@@ -181,7 +181,7 @@
         width = 250;
     }
     
-    LHDiceAnimationView *diceView = [[LHDiceAnimationView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+    YSDiceAnimationView *diceView = [[YSDiceAnimationView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
     [self.view addSubview:diceView];
     diceView.center = self.view.center;
     self.diceView = diceView;

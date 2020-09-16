@@ -481,3 +481,5 @@
 "Polling.second" = "Seconds / times";
 
 "SmallBoard_DeletePictureTag" = "Whether to delete the picture on the chalkboard";
+
+"title.Dice" = "Dice";
