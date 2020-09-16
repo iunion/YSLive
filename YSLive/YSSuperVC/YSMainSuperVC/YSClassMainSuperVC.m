@@ -75,6 +75,9 @@
     
     // 底部工具栏
     [self setupBottomToolBarView];
+    
+    //骰子
+    [self creatDiceAnimationView];
 }
 
 ///创建一个16：9的背景view
@@ -168,6 +171,21 @@
     {
         self.timeL.text = @"00:00:00";
     }
+}
+
+- (void)creatDiceAnimationView
+{
+    CGFloat width = 150;
+    if ([UIDevice bm_isiPad])
+    {
+        width = 250;
+    }
+    
+    LHDiceAnimationView *diceView = [[LHDiceAnimationView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+    [self.view addSubview:diceView];
+    diceView.center = self.view.center;
+    self.diceView = diceView;
+    self.diceView.hidden = YES;
 }
 
 /// 进入全屏

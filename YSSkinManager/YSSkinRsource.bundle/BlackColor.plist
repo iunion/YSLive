@@ -1215,6 +1215,15 @@
 		<key>iconDis</key>
 		<string>toolBox_responder_dis_skin</string>
 	</dict>
+	<key>toolBox_dice</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>toolBox_dice_nor_skin</string>
+	</dict>
 	<key>videoView_authorizeLab</key>
 	<dict>
 		<key>tittleColor</key>
