@@ -9,35 +9,40 @@
 #import "YSDiceAnimationView+Tools.h"
 
 @implementation YSDiceAnimationView (Tools)
+
 #pragma mark - 获取随机数
+
 /**
  return：随机数组
  count:个数
  length:最大数
  */
--(NSMutableArray *)getRandomNumbers:(NSInteger)count length:(uint32_t)length
+- (NSMutableArray *)getRandomNumbers:(NSUInteger)count length:(uint32_t)length
 {
     NSMutableArray *randomNumbers = [NSMutableArray array];
 #warning count要小于等于length
-    if(count > length)
+    if (count > length)
     {
         return randomNumbers;
     }
     
-    for (NSInteger i = 0; i < count; ++i) {
+    for (NSInteger i = 0; i < count; ++i)
+    {
         uint32_t number = arc4random_uniform(length) + 1;
         
-        while ([randomNumbers containsObject:[NSNumber numberWithUnsignedInteger:number]]) {
+        while ([randomNumbers containsObject:[NSNumber numberWithUnsignedInteger:number]])
+        {
             number = arc4random_uniform(length) + 1;
         }
         [randomNumbers addObject:[NSNumber numberWithUnsignedInteger:number]];
     }
     
     return randomNumbers;
-    
 }
+
 #pragma mark - 获取随机图片
--(NSMutableArray *)diceAimalImages:(NSUInteger)fourMultiple
+
+- (NSMutableArray *)diceAimalImages:(NSUInteger)fourMultiple
 {
     NSMutableArray *randImages = [NSMutableArray array];
         
@@ -61,7 +66,8 @@
 }
 
 #pragma mark - 获取随机路径
--(NSMutableArray *)diceAnimalPathWithBasePath:(CGPoint)basePoint withPointsCount:(NSUInteger)count withMaxDistance:(uint32_t)maxDistance
+
+- (NSMutableArray *)diceAnimalPathWithBasePath:(CGPoint)basePoint withPointsCount:(NSUInteger)count withMaxDistance:(uint32_t)maxDistance
 {
     BOOL isBigMax = 50 > maxDistance;
     
@@ -73,7 +79,8 @@
     
     NSMutableArray *paths = [NSMutableArray array];
     
-    for (NSInteger i = 0; i < count; ++i) {
+    for (NSInteger i = 0; i < count; ++i)
+    {
         BOOL xAdd = arc4random() % 2;
         BOOL yAdd = arc4random() % 2;
         
@@ -87,4 +94,5 @@
     
     return paths;
 }
+
 @end

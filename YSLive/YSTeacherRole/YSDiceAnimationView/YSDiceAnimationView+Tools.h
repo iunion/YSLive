@@ -9,7 +9,9 @@
 #import "YSDiceAnimationView.h"
 
 @interface YSDiceAnimationView (Tools)
--(NSMutableArray *)getRandomNumbers:(NSInteger)count length:(uint32_t)length;
--(NSMutableArray *)diceAimalImages:(NSUInteger)fourMultiple;
--(NSMutableArray *)diceAnimalPathWithBasePath:(CGPoint)basePoint withPointsCount:(NSUInteger)count withMaxDistance:(uint32_t)maxDistance;
+
+- (NSMutableArray *)getRandomNumbers:(NSUInteger)count length:(uint32_t)length;
+- (NSMutableArray *)diceAimalImages:(NSUInteger)fourMultiple;
+- (NSMutableArray *)diceAnimalPathWithBasePath:(CGPoint)basePoint withPointsCount:(NSUInteger)count withMaxDistance:(uint32_t)maxDistance;
+
 @end

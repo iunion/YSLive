@@ -10,13 +10,13 @@
 
 @interface YSDiceAnimationView : UIView
 
-//结束时的随机数字
-@property(nonatomic,assign)NSInteger resultNum;
+/// 结束时的随机数字
+@property(nonatomic, assign) NSInteger resultNum;
 
-//结束时的随机数字
-@property(nonatomic,copy)NSString *nickName;
+/// 结束时的随机数字
+@property(nonatomic, strong) NSString *nickName;
 
-//开始动画
--(void)diceBegainAnimals;
+/// 开始动画
+- (void)diceBegainAnimals;
 
 @end
