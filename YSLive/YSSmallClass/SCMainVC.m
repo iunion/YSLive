@@ -2077,10 +2077,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCBottomToolBarTypeChat:
             {
-                [self.diceView bm_bringToFront];
-                self.diceView.hidden = !self.diceView.hidden;
-                /*
-                
                 //消息
                 CGRect tempRect = self.rightChatView.frame;
                 if (isSelected)
@@ -2097,7 +2093,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     self.rightChatView.frame = tempRect;
                 }];
                 [self arrangeAllViewInVCView];
-                 */
             }
                 break;
             case SCBottomToolBarTypeExit:
@@ -4684,7 +4679,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if ([diceData bm_isNotEmptyDictionary])
     {
-        self.diceView.hidden = NO;
+        [self.diceView bm_bringToFront];
         NSInteger state = [diceData bm_intForKey:@"state"];
         if (!state)
         {
