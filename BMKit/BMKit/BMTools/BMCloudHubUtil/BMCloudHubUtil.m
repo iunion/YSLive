@@ -83,6 +83,39 @@
     return mutableJSONString;
 }
 
+#if 1
++ (NSDictionary *)convertWithData:(id)data
+{
+    if (!data)
+    {
+        return nil;
+    }
+    
+    NSDictionary *dataDic = nil;
+    if ([data isKindOfClass:[NSString class]])
+    {
+        NSString *tDataString = [NSString stringWithFormat:@"%@", data];
+        NSData *tJsData = [tDataString dataUsingEncoding:NSUTF8StringEncoding];
+        if (tJsData)
+        {
+            dataDic = [NSJSONSerialization JSONObjectWithData:tJsData
+                                                      options:NSJSONReadingMutableContainers
+                                                        error:nil];
+        }
+    }
+    else if ([data isKindOfClass:[NSDictionary class]])
+    {
+        dataDic = (NSDictionary *)data;
+    }
+    else if ([data isKindOfClass:[NSData class]])
+    {
+        NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        dataDic = [BMCloudHubUtil convertWithData:dataStr];
+    }
+    
+    return dataDic;
+}
+#else
 /// 将数据转换成字典类型NSDictionary
 + (NSDictionary *)convertWithData:(id)data
 {
@@ -95,6 +128,7 @@
     if ([data isKindOfClass:[NSString class]])
     {
         NSString *tDataString = [NSString stringWithFormat:@"%@", data];
+        tDataString = [tDataString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
         //tDataString = [tDataString stringByReplacingOccurrencesOfString:@"\\\\/" withString:@"/"];
         //tDataString = [tDataString stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
         //tDataString = [YSSessionUtil stringFromJSONString:tDataString];
@@ -120,6 +154,7 @@
     
     return dataDic;
 }
+#endif
 
 /// 文件扩展名检查，是否是媒体文件
 + (BOOL)checkIsMedia:(NSString *)filetype;
