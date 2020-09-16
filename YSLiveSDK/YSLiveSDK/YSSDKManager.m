@@ -22,16 +22,16 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
 
 @interface YSSDKManager ()
 <
-    YSSessionDelegate,
+    CHSessionDelegate,
     YSCoreNetWorkStatusProtocol
 >
 /// 底部的角色type
-@property (nonatomic, assign) YSUserRoleType selectRoleType;
+@property (nonatomic, assign) CHUserRoleType selectRoleType;
 
 ///获取房间类型时，探测接口的调用次数
 @property (nonatomic, assign) NSInteger callNum;
 
-@property (nonatomic, assign) YSRoomUseType roomType;
+@property (nonatomic, assign) CHRoomUseType roomType;
 
 @property (nonatomic, weak) UIViewController <YSSDKDelegate> *delegate;
 
@@ -88,8 +88,8 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
 
 + (NSString *)SDKDetailVersion
 {
-    NSString *sessionVersion = [NSString stringWithFormat:@"%s", YSSessionVersionString];
-    NSString *whiteBoardSDKVersion = [YSWhiteBoardManager whiteBoardVersion];
+    NSString *sessionVersion = [NSString stringWithFormat:@"%s", CHSessionVersionString];
+    NSString *whiteBoardSDKVersion = [CHWhiteBoardManager whiteBoardVersion];
     
     NSString *version = [NSString stringWithFormat:@"sessionVersion: %@\nwhiteBoardSDKVersion: %@\nYSSDKVersion: %@", sessionVersion, whiteBoardSDKVersion, YSSDKVersionString];
     return version;
@@ -142,7 +142,7 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
                }
                else
                {
-                   NSDictionary *responseDic = [YSRoomUtil convertWithData:responseObject];
+                   NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
                    
                    NSInteger result = [responseDic bm_intForKey:@"result"];
                    if (result == 4007)
@@ -158,7 +158,7 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
                                                          
                    NSDictionary *dataDict = [responseDic bm_dictionaryForKey:@"data"];
                    // 'roomtype'=>房间类型   3小班课，4直播，6会议
-                   YSRoomUseType appUsetype = [dataDict bm_intForKey:@"roomtype"];
+                   CHRoomUseType appUsetype = [dataDict bm_intForKey:@"roomtype"];
                    BOOL needpwd = [dataDict bm_boolForKey:@"needpwd"];
                    self.roomType = appUsetype;
                    
@@ -212,7 +212,7 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
 
     [self.liveManager setWhiteBoardBackGroundColor:self.whiteBordBgColor maskImage:self.whiteBordMaskImage];
 
-    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:(YSUserRoleType)userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
+    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:(CHUserRoleType)userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
 }
@@ -242,7 +242,7 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
 
 - (BOOL)checkKickTimeWithRoomId:(NSString *)roomId
 {
-    if (self.selectRoleType == YSUserType_Student)
+    if (self.selectRoleType == CHUserType_Student)
     {
         // 学生被T 3分钟内不能登录
         NSString *roomIdKey = [NSString stringWithFormat:@"%@_%@", YSKickTime, roomId];
@@ -316,8 +316,8 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
     self.liveManager.sdkIsJoinRoom = YES;
     
     // 3: 小班课  4: 直播
-    YSRoomUseType roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
-    BOOL isSmallClass = (roomtype == YSRoomUseTypeSmallClass || roomtype == YSRoomUseTypeMeeting);
+    CHRoomUseType roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
+    BOOL isSmallClass = (roomtype == CHRoomUseTypeSmallClass || roomtype == CHRoomUseTypeMeeting);
     
     if ([self.delegate respondsToSelector:@selector(onRoomJoinWithRoomType:userType:)])
     {
@@ -327,10 +327,10 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
     if (isSmallClass)
     {
         NSUInteger maxvideo = [self.liveManager.roomDic bm_uintForKey:@"maxvideo"];
-        YSRoomUserType roomusertype = maxvideo > 2 ? YSRoomUserType_More : YSRoomUserType_One;
+        CHRoomUserType roomusertype = maxvideo > 2 ? CHRoomUserType_More : CHRoomUserType_One;
         BOOL isWideScreen = self.liveManager.room_IsWideScreen;
         
-        if (self.selectRoleType == YSUserType_Teacher)
+        if (self.selectRoleType == CHUserType_Teacher)
         {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:self.liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = roomtype;
@@ -351,7 +351,7 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
     }
     else
     {
-        if (self.selectRoleType == YSUserType_Student)
+        if (self.selectRoleType == CHUserType_Student)
         {
             BOOL isWideScreen = self.liveManager.room_IsWideScreen;
             YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:self.liveManager.whiteBordView userId:nil];
@@ -369,7 +369,7 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
     }
 }
 
-- (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
+- (void)roomManagerNeedEnterPassWord:(CHRoomErrorCode)errorCode
 {
     [YSLiveManager destroy];
     
@@ -383,12 +383,12 @@ static NSString *YSSDKVersionString = @"3.3.2.1";
 - (void)onRoomJoinFailed:(NSDictionary *)errorDic
 {
     NSError *error = [errorDic objectForKey:@"error"];
-    YSRoomErrorCode errorCode = error.code;
+    CHRoomErrorCode errorCode = error.code;
     NSString *descript = [YSLiveUtil getOccuredErrorCode:errorCode];
 
-    if (errorCode == YSErrorCode_CheckRoom_NeedPassword ||
-        errorCode == YSErrorCode_CheckRoom_PasswordError ||
-        errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
+    if (errorCode == CHErrorCode_CheckRoom_NeedPassword ||
+        errorCode == CHErrorCode_CheckRoom_PasswordError ||
+        errorCode == CHErrorCode_CheckRoom_WrongPasswordForRole)
     {
         [self roomManagerNeedEnterPassWord:errorCode];
         return;

@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) CHFileModel *currentFile;
 
 #if YSSDK
-@property (nullable, nonatomic, weak) volatile id <YSSessionDelegate> sdkDelegate;
+@property (nullable, nonatomic, weak) volatile id <CHSessionDelegate> sdkDelegate;
 // 区分是否进入教室
 @property (nonatomic, assign) BOOL sdkIsJoinRoom;
 #endif

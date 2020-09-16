@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26F409F82511FD6100E15466 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */; };
+		26F409F92511FD6100E15466 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26F409F42511FD6100E15466 /* CHWhiteBoardImage.xcassets */; };
+		26F409FA2511FD6100E15466 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F409F52511FD6100E15466 /* CHWhiteBoardSkin.bundle */; };
+		26F409FB2511FD6100E15466 /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26F409F62511FD6100E15466 /* CHWhiteBoard.framework */; };
+		26F409FC2511FD6100E15466 /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26F409F72511FD6100E15466 /* CHSession.framework */; };
+		26F40A022511FEB100E15466 /* YSDiceAnimationView+Tools.h in Headers */ = {isa = PBXBuildFile; fileRef = 26F409FE2511FEB100E15466 /* YSDiceAnimationView+Tools.h */; };
+		26F40A032511FEB100E15466 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F409FF2511FEB100E15466 /* YSDiceAnimationView.m */; };
+		26F40A042511FEB100E15466 /* YSDiceAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26F40A002511FEB100E15466 /* YSDiceAnimationView.h */; };
+		26F40A052511FEB100E15466 /* YSDiceAnimationView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F40A012511FEB100E15466 /* YSDiceAnimationView+Tools.m */; };
 		876BF78B24CFC351008E9848 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BF78624CFC351008E9848 /* BMKit.framework */; };
 		876BF78C24CFC351008E9848 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BF78724CFC351008E9848 /* BMTZImagePickerController.bundle */; };
 		876BF78D24CFC351008E9848 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BF78824CFC351008E9848 /* BMKitImage.xcassets */; };
 		876BF78E24CFC351008E9848 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BF78924CFC351008E9848 /* BMKitResources.bundle */; };
 		876BF78F24CFC351008E9848 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 876BF78A24CFC351008E9848 /* BMDatePicker.nib */; };
 		876BF79124CFC35F008E9848 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BF79024CFC35F008E9848 /* CloudHubRTC.framework */; };
-		876BF79324CFC374008E9848 /* YSSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BF79224CFC374008E9848 /* YSSession.framework */; };
-		876BF79924CFC37B008E9848 /* YSWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BF79524CFC37B008E9848 /* YSWhiteBoardResources.bundle */; };
-		876BF79A24CFC37B008E9848 /* YSWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876BF79624CFC37B008E9848 /* YSWhiteBoardImage.xcassets */; };
-		876BF79B24CFC37B008E9848 /* YSWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BF79724CFC37B008E9848 /* YSWhiteBoard.framework */; };
-		876BF79C24CFC37B008E9848 /* YSWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BF79824CFC37B008E9848 /* YSWhiteBoardSkin.bundle */; };
 		876BF79F24CFC38B008E9848 /* YSResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BF79D24CFC38B008E9848 /* YSResources.bundle */; };
 		876BF7A024CFC38B008E9848 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 876BF79E24CFC38B008E9848 /* YSMeetingResources.bundle */; };
 		876BF7B424CFC3A8008E9848 /* YSLiveEnumHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7A224CFC3A8008E9848 /* YSLiveEnumHeader.h */; };
@@ -250,17 +254,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		26F409F42511FD6100E15466 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		26F409F52511FD6100E15466 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		26F409F62511FD6100E15466 /* CHWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoard.framework; sourceTree = "<group>"; };
+		26F409F72511FD6100E15466 /* CHSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHSession.framework; sourceTree = "<group>"; };
+		26F409FE2511FEB100E15466 /* YSDiceAnimationView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YSDiceAnimationView+Tools.h"; sourceTree = "<group>"; };
+		26F409FF2511FEB100E15466 /* YSDiceAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSDiceAnimationView.m; sourceTree = "<group>"; };
+		26F40A002511FEB100E15466 /* YSDiceAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSDiceAnimationView.h; sourceTree = "<group>"; };
+		26F40A012511FEB100E15466 /* YSDiceAnimationView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YSDiceAnimationView+Tools.m"; sourceTree = "<group>"; };
 		876BF78624CFC351008E9848 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
 		876BF78724CFC351008E9848 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
 		876BF78824CFC351008E9848 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
 		876BF78924CFC351008E9848 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		876BF78A24CFC351008E9848 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
 		876BF79024CFC35F008E9848 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
-		876BF79224CFC374008E9848 /* YSSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSSession.framework; sourceTree = "<group>"; };
-		876BF79524CFC37B008E9848 /* YSWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		876BF79624CFC37B008E9848 /* YSWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSWhiteBoardImage.xcassets; sourceTree = "<group>"; };
-		876BF79724CFC37B008E9848 /* YSWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YSWhiteBoard.framework; sourceTree = "<group>"; };
-		876BF79824CFC37B008E9848 /* YSWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSWhiteBoardSkin.bundle; sourceTree = "<group>"; };
 		876BF79D24CFC38B008E9848 /* YSResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSResources.bundle; sourceTree = "<group>"; };
 		876BF79E24CFC38B008E9848 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		876BF7A224CFC3A8008E9848 /* YSLiveEnumHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveEnumHeader.h; sourceTree = "<group>"; };
@@ -501,15 +509,37 @@
 			files = (
 				876BF7BC24CFC3A8008E9848 /* CrashReporter.framework in Frameworks */,
 				876BF79124CFC35F008E9848 /* CloudHubRTC.framework in Frameworks */,
-				876BF79324CFC374008E9848 /* YSSession.framework in Frameworks */,
+				26F409FB2511FD6100E15466 /* CHWhiteBoard.framework in Frameworks */,
+				26F409FC2511FD6100E15466 /* CHSession.framework in Frameworks */,
 				876BF78B24CFC351008E9848 /* BMKit.framework in Frameworks */,
-				876BF79B24CFC37B008E9848 /* YSWhiteBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26F409F22511FD6100E15466 /* CHWhiteBoard */ = {
+			isa = PBXGroup;
+			children = (
+				26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */,
+				26F409F42511FD6100E15466 /* CHWhiteBoardImage.xcassets */,
+				26F409F52511FD6100E15466 /* CHWhiteBoardSkin.bundle */,
+				26F409F62511FD6100E15466 /* CHWhiteBoard.framework */,
+			);
+			path = CHWhiteBoard;
+			sourceTree = "<group>";
+		};
+		26F409FD2511FEB100E15466 /* YSDiceAnimationView */ = {
+			isa = PBXGroup;
+			children = (
+				26F409FE2511FEB100E15466 /* YSDiceAnimationView+Tools.h */,
+				26F409FF2511FEB100E15466 /* YSDiceAnimationView.m */,
+				26F40A002511FEB100E15466 /* YSDiceAnimationView.h */,
+				26F40A012511FEB100E15466 /* YSDiceAnimationView+Tools.m */,
+			);
+			path = YSDiceAnimationView;
+			sourceTree = "<group>";
+		};
 		876BF78524CFC351008E9848 /* BMKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,17 +550,6 @@
 				876BF78A24CFC351008E9848 /* BMDatePicker.nib */,
 			);
 			path = BMKit;
-			sourceTree = "<group>";
-		};
-		876BF79424CFC37B008E9848 /* YSWhiteBoard */ = {
-			isa = PBXGroup;
-			children = (
-				876BF79524CFC37B008E9848 /* YSWhiteBoardResources.bundle */,
-				876BF79624CFC37B008E9848 /* YSWhiteBoardImage.xcassets */,
-				876BF79724CFC37B008E9848 /* YSWhiteBoard.framework */,
-				876BF79824CFC37B008E9848 /* YSWhiteBoardSkin.bundle */,
-			);
-			path = YSWhiteBoard;
 			sourceTree = "<group>";
 		};
 		876BF7A124CFC3A8008E9848 /* YSLiveManager */ = {
@@ -599,17 +618,18 @@
 		876BF7C424CFC3CE008E9848 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
-				876BF7C524CFC3CE008E9848 /* YSTeacherRoleMainVC.h */,
-				876BF7C624CFC3CE008E9848 /* YSTeacherMediaControl */,
-				876BF7CD24CFC3CE008E9848 /* YSVideoViewControlPopVC */,
-				876BF7D424CFC3CE008E9848 /* YSTeacherResponder */,
+				26F409FD2511FEB100E15466 /* YSDiceAnimationView */,
 				876BF7D724CFC3CE008E9848 /* SCTeacherAnswerView */,
-				876BF7DA24CFC3CE008E9848 /* YSSpreadBottomToolBar */,
-				876BF7DD24CFC3CE008E9848 /* YSPollingView */,
-				876BF7E024CFC3CE008E9848 /* YSTeacherTimer */,
-				876BF7E324CFC3CE008E9848 /* YSTeacherRoleMainVC.m */,
 				876BF7E424CFC3CE008E9848 /* SCTeacherListView */,
+				876BF7DD24CFC3CE008E9848 /* YSPollingView */,
+				876BF7DA24CFC3CE008E9848 /* YSSpreadBottomToolBar */,
+				876BF7C624CFC3CE008E9848 /* YSTeacherMediaControl */,
+				876BF7D424CFC3CE008E9848 /* YSTeacherResponder */,
+				876BF7C524CFC3CE008E9848 /* YSTeacherRoleMainVC.h */,
+				876BF7E324CFC3CE008E9848 /* YSTeacherRoleMainVC.m */,
+				876BF7E024CFC3CE008E9848 /* YSTeacherTimer */,
 				876BF7EB24CFC3CE008E9848 /* YSToolBoxView */,
+				876BF7CD24CFC3CE008E9848 /* YSVideoViewControlPopVC */,
 			);
 			path = YSTeacherRole;
 			sourceTree = "<group>";
@@ -1216,9 +1236,9 @@
 			isa = PBXGroup;
 			children = (
 				876BF78524CFC351008E9848 /* BMKit */,
-				876BF79424CFC37B008E9848 /* YSWhiteBoard */,
-				876BF79224CFC374008E9848 /* YSSession.framework */,
 				876BF79024CFC35F008E9848 /* CloudHubRTC.framework */,
+				26F409F72511FD6100E15466 /* CHSession.framework */,
+				26F409F22511FD6100E15466 /* CHWhiteBoard */,
 				876BF79E24CFC38B008E9848 /* YSMeetingResources.bundle */,
 				876BF79D24CFC38B008E9848 /* YSResources.bundle */,
 			);
@@ -1272,6 +1292,7 @@
 				876BF92624CFC3D0008E9848 /* YSTeacherRoleMainVC.h in Headers */,
 				876BF7B724CFC3A8008E9848 /* YSPermissionsVResultView.h in Headers */,
 				876BF7BB24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h in Headers */,
+				26F40A042511FEB100E15466 /* YSDiceAnimationView.h in Headers */,
 				876BFA1624CFC3D0008E9848 /* YSBarrageHeader.h in Headers */,
 				876BF7BA24CFC3A8008E9848 /* YSLiveManager.h in Headers */,
 				876BF92824CFC3D0008E9848 /* YSMp4ControlView.h in Headers */,
@@ -1309,6 +1330,7 @@
 				876BF96E24CFC3D0008E9848 /* YSTextMessageCell.h in Headers */,
 				876BF94024CFC3D0008E9848 /* SCTeacherPersonListCell.h in Headers */,
 				876BFA1124CFC3D0008E9848 /* YSBarrageTrackInfo.h in Headers */,
+				26F40A022511FEB100E15466 /* YSDiceAnimationView+Tools.h in Headers */,
 				876BF9B324CFC3D0008E9848 /* YSStudentResponder.h in Headers */,
 				876BFA1B24CFC3D0008E9848 /* YSBarrage.h in Headers */,
 				876BF94124CFC3D0008E9848 /* SCTeacherCoursewareListCell.h in Headers */,
@@ -1414,14 +1436,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				876BF79A24CFC37B008E9848 /* YSWhiteBoardImage.xcassets in Resources */,
 				876BF79F24CFC38B008E9848 /* YSResources.bundle in Resources */,
+				26F409F92511FD6100E15466 /* CHWhiteBoardImage.xcassets in Resources */,
+				26F409F82511FD6100E15466 /* CHWhiteBoardResources.bundle in Resources */,
 				876BF78C24CFC351008E9848 /* BMTZImagePickerController.bundle in Resources */,
-				876BF79924CFC37B008E9848 /* YSWhiteBoardResources.bundle in Resources */,
 				876BF78D24CFC351008E9848 /* BMKitImage.xcassets in Resources */,
 				876BFA3124CFC3D0008E9848 /* YSLive.xcassets in Resources */,
+				26F409FA2511FD6100E15466 /* CHWhiteBoardSkin.bundle in Resources */,
 				876BFA4324CFC4D0008E9848 /* YSSkinRsource.bundle in Resources */,
-				876BF79C24CFC37B008E9848 /* YSWhiteBoardSkin.bundle in Resources */,
 				876BF78F24CFC351008E9848 /* BMDatePicker.nib in Resources */,
 				876BF7A024CFC38B008E9848 /* YSMeetingResources.bundle in Resources */,
 				876BF78E24CFC351008E9848 /* BMKitResources.bundle in Resources */,
@@ -1444,6 +1466,7 @@
 				876BF98F24CFC3D0008E9848 /* SCChatToolView.m in Sources */,
 				876BFA2424CFC3D0008E9848 /* YSTableView.m in Sources */,
 				87DBE929241F510E000C1FB5 /* YSSDKManager.m in Sources */,
+				26F40A032511FEB100E15466 /* YSDiceAnimationView.m in Sources */,
 				876BF97924CFC3D0008E9848 /* YSCoreStatus.m in Sources */,
 				876BF94B24CFC3D0008E9848 /* YSVoteModel.m in Sources */,
 				876BF96324CFC3D0008E9848 /* YSChatToolView.m in Sources */,
@@ -1520,6 +1543,7 @@
 				876BF99524CFC3D0008E9848 /* SCTextMessageCell.m in Sources */,
 				876BF9EC24CFC3D0008E9848 /* YSMP4Player.m in Sources */,
 				876BFA1A24CFC3D0008E9848 /* YSBarrageTrackInfo.m in Sources */,
+				26F40A052511FEB100E15466 /* YSDiceAnimationView+Tools.m in Sources */,
 				876BF9A624CFC3D0008E9848 /* SCAnswerPageView.m in Sources */,
 				876BF95124CFC3D0008E9848 /* YSVoteResultTableCell.m in Sources */,
 				876BF92B24CFC3D0008E9848 /* YSMp3Controlview.m in Sources */,
@@ -1677,7 +1701,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../YSLib",
 					"$(PROJECT_DIR)/../YSLib/BMKit",
-					"$(PROJECT_DIR)/../YSLib/YSWhiteBoard",
+					"$(PROJECT_DIR)/../YSLib/CHWhiteBoard",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/YSLiveSDK/YSLiveSDK.h";
@@ -1719,7 +1743,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../YSLib",
 					"$(PROJECT_DIR)/../YSLib/BMKit",
-					"$(PROJECT_DIR)/../YSLib/YSWhiteBoard",
+					"$(PROJECT_DIR)/../YSLib/CHWhiteBoard",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/YSLiveSDK/YSLiveSDK.h";
