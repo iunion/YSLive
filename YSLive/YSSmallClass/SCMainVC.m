@@ -1994,25 +1994,29 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark SCBrushToolViewDelegate
 
-- (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn
+- (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn showTool:(BOOL)showTool
 {
     [self.liveManager.whiteBoardManager brushToolsDidSelect:toolViewBtnType];
-
-    if (self.drawBoardView)
+    
+    if (showTool)
     {
-        [self.drawBoardView removeFromSuperview];
+        if (self.drawBoardView)
+        {
+            [self.drawBoardView removeFromSuperview];
+        }
+        
+        self.drawBoardView = [[SCDrawBoardView alloc] init];
+        self.drawBoardView.delegate = self;
+        self.drawBoardView.brushToolType = toolViewBtnType;
+        [self.view addSubview:self.drawBoardView];
+        
+        BMWeakSelf
+        [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
+            make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
+        }];
     }
     
-    self.drawBoardView = [[SCDrawBoardView alloc] init];
-    self.drawBoardView.delegate = self;
-    self.drawBoardView.brushToolType = toolViewBtnType;
-    [self.view addSubview:self.drawBoardView];
-    
-    BMWeakSelf
-    [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
-        make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
-    }];
 }
 
 
@@ -4667,11 +4671,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self.diceView bm_bringToFront];
         NSInteger state = [diceData bm_intForKey:@"state"];
-        if (!state)
-        {
-            self.diceView.hidden = NO;
-        }
-        else if(state == 1)
+        self.diceView.hidden = NO;
+        if (state == 1)
         {
             self.diceView.nickName = [diceData bm_stringForKey:@"nickname"];
             self.diceView.resultNum = [diceData bm_intForKey:@"iRand"];

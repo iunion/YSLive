@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 工具类型回调
 /// @param toolViewBtnType 工具类型
-- (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn;
+- (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn showTool:(BOOL)showTool;
 
 
 @optional

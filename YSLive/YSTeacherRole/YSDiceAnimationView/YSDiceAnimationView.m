@@ -91,7 +91,7 @@
     self.animDiceOne.hidden = NO;
     [self.animDiceOne startAnimating];
 
-    self.animDiceOne.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", @(self.resultNum)]];
+    self.animDiceOne.image = [UIImage imageNamed:[NSString stringWithFormat:@"diceRes_%@.png", @(self.resultNum)]];
 
     BMWeakSelf
     // 停止动画
@@ -209,7 +209,7 @@
     {
         _animDiceOne = [[UIImageView alloc] init];
         _animDiceOne.animationDuration = YSDiceAnimationTime;
-        _animDiceOne.image = [UIImage imageNamed:@"2"];
+        _animDiceOne.image = [UIImage imageNamed:@"diceRes_5"];
         _animDiceOne.animationRepeatCount = 1;
         _animDiceOne.animationImages = [self diceAimalImages:YSDiceImageNums];
     }
