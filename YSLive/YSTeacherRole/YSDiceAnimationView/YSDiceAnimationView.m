@@ -209,7 +209,7 @@
     {
         _animDiceOne = [[UIImageView alloc] init];
         _animDiceOne.animationDuration = YSDiceAnimationTime;
-        _animDiceOne.image = [UIImage imageNamed:@"2"];
+        _animDiceOne.image = [UIImage imageNamed:@"5"];
         _animDiceOne.animationRepeatCount = 1;
         _animDiceOne.animationImages = [self diceAimalImages:YSDiceImageNums];
     }
