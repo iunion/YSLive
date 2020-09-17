@@ -76,7 +76,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 
 - (void)resetTool
 {
-    [self sc_toolButtonListClicked:self.penBtn];
+    [self sc_toolButtonListClicked:self.penBtn showTool:NO];
 }
 
 - (void)setup
@@ -158,6 +158,11 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 
 - (void)sc_toolButtonListClicked:(UIButton *)btn
 {
+    [self sc_toolButtonListClicked:btn showTool:YES];
+}
+
+- (void)sc_toolButtonListClicked:(UIButton *)btn showTool:(BOOL)showTool
+{
     if (btn == self.clearBtn)
     {
         if ([self.delegate respondsToSelector:@selector(brushToolDoClean)])
@@ -176,9 +181,9 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         }
     }
 
-    if ([self.delegate respondsToSelector:@selector(brushToolViewType:withToolBtn:)])
+    if ([self.delegate respondsToSelector:@selector(brushToolViewType:withToolBtn:showTool:)])
     {
-        [self.delegate brushToolViewType:btn.tag withToolBtn:btn];
+        [self.delegate brushToolViewType:btn.tag withToolBtn:btn showTool:showTool];
     }
 }
 

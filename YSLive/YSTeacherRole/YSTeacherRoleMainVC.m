@@ -5937,23 +5937,26 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark SCBrushToolViewDelegate
 
 
-- (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn
+- (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn showTool:(BOOL)showTool
 {
     [self.liveManager.whiteBoardManager brushToolsDidSelect:toolViewBtnType];
-
-    if (self.drawBoardView)
+    if (showTool)
     {
-        [self.drawBoardView removeFromSuperview];
+        if (self.drawBoardView)
+        {
+            [self.drawBoardView removeFromSuperview];
+        }
+        self.drawBoardView = [[SCDrawBoardView alloc] init];
+        self.drawBoardView.delegate = self;
+        self.drawBoardView.brushToolType = toolViewBtnType;
+        [self.view addSubview:self.drawBoardView];
+        BMWeakSelf
+        [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
+            make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
+            make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
+        }];
     }
-    self.drawBoardView = [[SCDrawBoardView alloc] init];
-    self.drawBoardView.delegate = self;
-    self.drawBoardView.brushToolType = toolViewBtnType;
-    [self.view addSubview:self.drawBoardView];
-    BMWeakSelf
-    [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
-        make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
-    }];
+
 }
 
 - (void)brushToolDoClean
