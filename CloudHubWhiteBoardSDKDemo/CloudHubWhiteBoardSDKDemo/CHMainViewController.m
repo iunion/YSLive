@@ -16,7 +16,9 @@
     SCDrawBoardViewDelegate,
     UITableViewDelegate,
     UITableViewDataSource,
-    CoursewareListCellDelegate
+    CoursewareListCellDelegate,
+    BMTZImagePickerControllerDelegate
+
 >
 
 @property (nonatomic, weak) CloudHubWhiteBoardKit *cloudHubManager;
@@ -91,44 +93,12 @@
     
     
 #warning - 操作的临时按钮
-
-    UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 20, 50, 50)];
-    fileListBtn.titleLabel.font = [UIFont systemFontOfSize:10.0f];
-    [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
-    [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
-    [fileListBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [fileListBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:fileListBtn];
-    self.fileListBtn = fileListBtn;
+    [self setupButtonsUI];
     
+    //展示课件库
     [self setupFileList];
     
-    
-    UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(fileListBtn.bm_right + 30, 20, 80, 50)];
-    [canDrawBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
-    [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
-    [canDrawBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [canDrawBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:canDrawBtn];
-    canDrawBtn.selected = YES;
-    
-    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 100, 20, 80, 50)];
-    [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
-    [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
-    [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [scaleBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:scaleBtn];
-    
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 100, 20, 90, 50)];
-    [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setTitle:@"返回登录" forState:UIControlStateNormal];
-    [backBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [backBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:backBtn];
-    
-    canDrawBtn.tag = 1;
-    scaleBtn.tag = 2;
-    backBtn.tag = 3;
+    //初始化画笔
     [self resetDrawTools];
 }
 
@@ -138,6 +108,66 @@
     self.drawBoardView.brushToolType = CHBrushToolTypeLine;
     self.drawBoardView.hidden = YES;
 }
+
+- (void)setupButtonsUI
+{
+   UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 20, 50, 50)];
+    fileListBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
+    [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
+    [fileListBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+
+    [self.view addSubview:fileListBtn];
+    self.fileListBtn = fileListBtn;
+
+    UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(fileListBtn.bm_right + 30, 20, 80, 50)];
+    [canDrawBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
+    canDrawBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [canDrawBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [canDrawBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:canDrawBtn];
+    canDrawBtn.selected = YES;
+
+    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 50, 50)];
+    [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
+    scaleBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [scaleBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:scaleBtn];
+
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 50, 20, 80, 50)];
+    [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setTitle:@"返回登录" forState:UIControlStateNormal];
+    backBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [backBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [backBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:backBtn];
+    
+    UIButton *imageBtn = [[UIButton alloc]initWithFrame:CGRectMake(backBtn.bm_right + 50, 20, 100, 50)];
+    [imageBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [imageBtn setTitle:@"上传图片课件" forState:UIControlStateNormal];
+    imageBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [imageBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [imageBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:imageBtn];
+
+    UIButton *uploadFileBtn = [[UIButton alloc]initWithFrame:CGRectMake(imageBtn.bm_right + 50, 20, 80, 50)];
+    [uploadFileBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [uploadFileBtn setTitle:@"上传课件" forState:UIControlStateNormal];
+    uploadFileBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [uploadFileBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [uploadFileBtn setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:uploadFileBtn];
+    
+    canDrawBtn.tag = 1;
+    scaleBtn.tag = 2;
+    backBtn.tag = 3;
+    imageBtn.tag = 4;
+    uploadFileBtn.tag = 5;
+}
+
 
 - (void)buttomsClick:(UIButton *)sender
 {
@@ -171,10 +201,71 @@
             
         }
             break;
+        case 4:
+        {
+            [self openTheImagePickerWithImage];
+        }
+            break;
+        case 5:
+        {
+
             
+            NSDictionary * fileData =     @{
+                @"action" : @"",
+                @"filedata" : @{
+                    @"cospdfpath" : @"/upload/20200831_102614_wdwcjnjl.pdf",
+                    @"currpage" : @1,
+                    @"fileid" : @329111,
+                    @"filename" : @"新添加的.pptx",
+                    @"fileprop" : @1,
+                    @"filetype" : @"pptx",
+                    @"isContentDocument" : @0,
+                    @"pagenum" : @5,
+                    @"pptslide" : @1,
+                    @"pptstep" : @0,
+                    @"steptotal" : @1,
+                    @"swfpath" : @"/upload/20200831_102614_wdwcjnjl"
+                },
+                @"fileid" : @"329111",
+                @"isDynamicPPT" : @1,
+                @"isGeneralFile" : @0,
+                @"isH5Document" : @0,
+                @"isMedia" : @0,
+                @"mediaType" : @"",
+                @"sourceInstanceId" : @"default"
+            };
+            [self.cloudHubManager uploadFileDate:fileData];
+        }
+            break;
+
         default:
             break;
     }
+}
+#pragma mark - 打开相册选择图片
+
+//- (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType
+- (void)openTheImagePickerWithImage
+{
+    BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
+    imagePickerController.showPhotoCannotSelectLayer = YES;
+    imagePickerController.allowTakeVideo = NO;
+    imagePickerController.allowPickingVideo = NO;
+    imagePickerController.showSelectedIndex = YES;
+    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+    imagePickerController.sortAscendingByModificationDate = NO;
+    
+    BMWeakSelf
+    [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        [weakSelf.cloudHubManager uploadImageWithImage:photos.firstObject success:^(NSDictionary * _Nonnull imageDict) {
+            
+        } failure:^(NSInteger errorCode) {
+            
+        }];
+    }];
+
+//    self.imagePickerController = imagePickerController;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
 /// 离开房间
