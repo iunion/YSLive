@@ -205,7 +205,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_mouseBtn setImage:CHSkinElementImage(@"brushTool_mouse", @"iconSel") forState:UIControlStateSelected];
         [_mouseBtn setAdjustsImageWhenHighlighted:NO];
         [_mouseBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
-        _mouseBtn.tag = YSBrushToolTypeMouse;
+        _mouseBtn.tag = CHBrushToolTypeMouse;
 //        _mouseBtn.selected = YES;
     }
     
@@ -221,7 +221,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_penBtn setImage:CHSkinElementImage(@"brushTool_pen", @"iconSel") forState:UIControlStateSelected];
         [_penBtn setAdjustsImageWhenHighlighted:NO];
         [_penBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
-        _penBtn.tag = YSBrushToolTypeLine;
+        _penBtn.tag = CHBrushToolTypeLine;
         _penBtn.selected = YES;
     }
     
@@ -237,7 +237,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_textBtn setImage:CHSkinElementImage(@"brushTool_text", @"iconSel") forState:UIControlStateSelected];
         [_textBtn setAdjustsImageWhenHighlighted:NO];
         [_textBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
-        _textBtn.tag = YSBrushToolTypeText;
+        _textBtn.tag = CHBrushToolTypeText;
     }
     
     return _textBtn;
@@ -252,7 +252,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_shapeBtn setImage:CHSkinElementImage(@"brushTool_shape", @"iconSel") forState:UIControlStateSelected];
         [_shapeBtn setAdjustsImageWhenHighlighted:NO];
         [_shapeBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
-        _shapeBtn.tag = YSBrushToolTypeShape;
+        _shapeBtn.tag = CHBrushToolTypeShape;
     }
     
     return _shapeBtn;
@@ -267,7 +267,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_eraserBtn setImage:CHSkinElementImage(@"brushTool_eraser", @"iconSel") forState:UIControlStateSelected];
         [_eraserBtn setAdjustsImageWhenHighlighted:NO];
         [_eraserBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
-        _eraserBtn.tag = YSBrushToolTypeEraser;
+        _eraserBtn.tag = CHBrushToolTypeEraser;
     }
     
     return _eraserBtn;
@@ -283,7 +283,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         
         [_clearBtn setAdjustsImageWhenHighlighted:NO];
         [_clearBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
-        _clearBtn.tag = YSDrawTypeClear;
+        _clearBtn.tag = CHDrawTypeClear;
     }
     
     return _clearBtn;
