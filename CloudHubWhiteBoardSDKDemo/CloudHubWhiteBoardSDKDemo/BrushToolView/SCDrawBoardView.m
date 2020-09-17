@@ -62,7 +62,7 @@
 {
     
     
-    self.drawType = YSDrawTypePen;
+    self.drawType = CHDrawTypePen;
     self.selectColor = [[CloudHubWhiteBoardKit sharedInstance] getSDKPrimaryColorHex];
     self.progressResult = 0.5f;
     CHWeakSelf
@@ -271,31 +271,31 @@
 
     switch (brushToolType)
     {
-        case YSBrushToolTypeMouse:
+        case CHBrushToolTypeMouse:
             self.hidden = YES;
             break;
           
-        case YSBrushToolTypeLine:
+        case CHBrushToolTypeLine:
             self.drawType = drawType;
-            [self creatToolBtnWithBrushToolType:YSBrushToolTypeLine];
-            [self showType:YSSelectorShowType_All];
+            [self creatToolBtnWithBrushToolType:CHBrushToolTypeLine];
+            [self showType:CHSelectorShowType_All];
             
             break;
             
-        case YSBrushToolTypeText:
+        case CHBrushToolTypeText:
             self.drawType = drawType;
-            [self showType:YSSelectorShowType_ColorSize];
+            [self showType:CHSelectorShowType_ColorSize];
             break;
             
-        case YSBrushToolTypeShape:
+        case CHBrushToolTypeShape:
             self.drawType = drawType;
-            [self creatToolBtnWithBrushToolType:YSBrushToolTypeShape];
-            [self showType:YSSelectorShowType_All];
+            [self creatToolBtnWithBrushToolType:CHBrushToolTypeShape];
+            [self showType:CHSelectorShowType_All];
             break;
             
-        case YSBrushToolTypeEraser:
+        case CHBrushToolTypeEraser:
             self.drawType = drawType;
-            [self showType:YSSelectorShowType_Size];
+            [self showType:CHSelectorShowType_Size];
         
             break;
             
@@ -320,7 +320,7 @@
     }];
     self.weightView.layer.cornerRadius = (progress * WeightViewCoefficient + 5) / 2;
     self.weightView.layer.masksToBounds = YES;
-    if (brushToolType != YSBrushToolTypeMouse)
+    if (brushToolType != CHBrushToolTypeMouse)
     {
         if ([self.delegate respondsToSelector:@selector(brushSelectorViewDidSelectDrawType:color:widthProgress:)])
         {
@@ -339,20 +339,20 @@
     }
 
     switch (drawType) {
-        case YSDrawTypePen:
-        case YSDrawTypeEmptyRectangle:
+        case CHDrawTypePen:
+        case CHDrawTypeEmptyRectangle:
             self.toolOneBtn.selected = YES;
             break;
-        case YSDrawTypeMarkPen:
-        case YSDrawTypeFilledRectangle:
+        case CHDrawTypeMarkPen:
+        case CHDrawTypeFilledRectangle:
             self.toolTwoBtn.selected = YES;
             break;
-        case YSDrawTypeLine:
-        case YSDrawTypeEmptyEllipse:
+        case CHDrawTypeLine:
+        case CHDrawTypeEmptyEllipse:
             self.toolThreeBtn.selected = YES;
             break;
-        case YSDrawTypeArrowLine:
-        case YSDrawTypeFilledEllipse:
+        case CHDrawTypeArrowLine:
+        case CHDrawTypeFilledEllipse:
             self.toolFourBtn.selected = YES;
             break;
         default:
@@ -362,7 +362,7 @@
 
 - (void)creatToolBtnWithBrushToolType:(CHBrushToolType)brushToolType
 {
-    if (brushToolType == YSBrushToolTypeLine)
+    if (brushToolType == CHBrushToolTypeLine)
     {
 
         [self.toolOneBtn setImage:CHSkinElementImage(@"brushTool_drawpen", @"iconNor") forState:UIControlStateNormal];
@@ -379,7 +379,7 @@
         
     }
     
-    if (brushToolType == YSBrushToolTypeShape)
+    if (brushToolType == CHBrushToolTypeShape)
     {
 
         [self.toolOneBtn setImage:CHSkinElementImage(@"brushTool_emptyrectangle", @"iconNor") forState:UIControlStateNormal];
@@ -397,11 +397,11 @@
     
 }
 
-- (void)showType:(YSSelectorShowType)type
+- (void)showType:(CHSelectorShowType)type
 {
     CHWeakSelf
     switch (type) {
-        case YSSelectorShowType_All:
+        case CHSelectorShowType_All:
         {
             [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(weakSelf.bacContainerView.mas_left);
@@ -411,7 +411,7 @@
             }];
             break;
         }
-        case YSSelectorShowType_ColorSize:
+        case CHSelectorShowType_ColorSize:
         {
             [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(weakSelf.bacContainerView.mas_left);
@@ -421,7 +421,7 @@
             }];
             break;
         }
-        case YSSelectorShowType_Color:
+        case CHSelectorShowType_Color:
         {
             [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(weakSelf.bacContainerView.mas_left);
@@ -431,7 +431,7 @@
             }];
             break;
         }
-        case YSSelectorShowType_Size:
+        case CHSelectorShowType_Size:
         {
             [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(weakSelf.bacContainerView.mas_left);
@@ -450,7 +450,7 @@
 #pragma mark - SEL
 - (void)toolBtnsSelect:(UIButton *)btn
 {
-    if (self.brushToolType == YSBrushToolTypeLine)
+    if (self.brushToolType == CHBrushToolTypeLine)
     {
         /**
         YSDrawTypePen               = 10,    //钢笔
@@ -461,7 +461,7 @@
         self.drawType = 10 + [self.toolBtnArr indexOfObject:btn];//通过整型得到type
     }
     
-    if (self.brushToolType == YSBrushToolTypeShape)
+    if (self.brushToolType == CHBrushToolTypeShape)
     {
         /**
          YSDrawTypeEmptyRectangle    = 30,    //空心矩形

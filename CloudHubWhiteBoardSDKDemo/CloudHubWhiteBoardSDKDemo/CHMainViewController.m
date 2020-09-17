@@ -135,7 +135,7 @@
 - (void)resetDrawTools
 {
     [self.brushToolView resetTool];
-    self.drawBoardView.brushToolType = YSBrushToolTypeLine;
+    self.drawBoardView.brushToolType = CHBrushToolTypeLine;
     self.drawBoardView.hidden = YES;
 }
 

@@ -7,12 +7,12 @@
 #import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, YSSelectorShowType)
+typedef NS_ENUM(NSInteger, CHSelectorShowType)
 {
-    YSSelectorShowType_All,         //包含类型选择，颜色选择，大小选择
-    YSSelectorShowType_ColorSize,       //包含颜色选择，大小选择
-    YSSelectorShowType_Size,          //只有大小选择
-    YSSelectorShowType_Color,      //只有颜色选择(文字的特殊配置项)
+    CHSelectorShowType_All,         //包含类型选择，颜色选择，大小选择
+    CHSelectorShowType_ColorSize,       //包含颜色选择，大小选择
+    CHSelectorShowType_Size,          //只有大小选择
+    CHSelectorShowType_Color,      //只有颜色选择(文字的特殊配置项)
 };
 
 @protocol SCDrawBoardViewDelegate <NSObject>
