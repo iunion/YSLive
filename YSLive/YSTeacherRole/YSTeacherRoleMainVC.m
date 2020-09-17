@@ -4684,11 +4684,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [self.diceView bm_bringToFront];
         NSInteger state = [diceData bm_intForKey:@"state"];
-        if (!state)
-        {
-            self.diceView.hidden = NO;
-        }
-        else if(state == 1)
+        self.diceView.hidden = NO;
+        if (state == 1)
         {
             self.diceView.nickName = [diceData bm_stringForKey:@"nickname"];
             self.diceView.resultNum = [diceData bm_intForKey:@"iRand"];
