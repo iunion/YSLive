@@ -48,10 +48,10 @@
         
     for (int i = 1; i<=fourMultiple; i++)
     {
-        NSString * imageName = [NSString stringWithFormat:@"1_%d.png",i];
+        NSString * imageName = [NSString stringWithFormat:@"diceAni_%d.png",i];
         if (i < 10)
         {
-            imageName = [NSString stringWithFormat:@"1_0%d.png",i];
+            imageName = [NSString stringWithFormat:@"diceAni_0%d.png",i];
         }
         UIImage * image = [UIImage imageNamed:imageName];
 
