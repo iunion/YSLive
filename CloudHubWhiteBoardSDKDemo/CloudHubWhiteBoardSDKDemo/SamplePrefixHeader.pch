@@ -12,7 +12,7 @@
 
 //#define CHSingle_WhiteBoard     1
 
-#import <BMKit/BMKit.h>
+//#import <BMKit/BMKit.h>
 #import <CloudHubRTC/CloudHubRTC.h>
 
 #import <CloudHubWhiteBoardKit/CloudHubWhiteBoardKit.pch>

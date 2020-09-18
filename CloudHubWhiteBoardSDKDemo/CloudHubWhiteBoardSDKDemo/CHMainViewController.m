@@ -9,6 +9,8 @@
 #import "SCDrawBoardView.h"
 #import "FileListTableViewCell.h"
 
+#import "TZImagePickerController.h"
+
 
 @interface CHMainViewController ()
 <
@@ -17,7 +19,7 @@
     UITableViewDelegate,
     UITableViewDataSource,
     CoursewareListCellDelegate,
-    BMTZImagePickerControllerDelegate
+    TZImagePickerControllerDelegate
 
 >
 
@@ -247,7 +249,7 @@
 //- (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType
 - (void)openTheImagePickerWithImage
 {
-    BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
+    TZImagePickerController * imagePickerController = [[TZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
     imagePickerController.allowTakeVideo = NO;
     imagePickerController.allowPickingVideo = NO;
@@ -255,7 +257,7 @@
     imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
     imagePickerController.sortAscendingByModificationDate = NO;
     
-    BMWeakSelf
+    __weak __typeof(self) weakSelf = self;
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         [weakSelf.cloudHubManager uploadImageWithImage:photos.firstObject success:^(NSDictionary * _Nonnull imageDict) {
             

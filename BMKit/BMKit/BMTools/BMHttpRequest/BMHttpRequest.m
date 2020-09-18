@@ -8,7 +8,7 @@
 
 #import "BMHttpRequest.h"
 
-#define Request_TimeoutInterval     (60.0f)
+#define BMRequest_TimeoutInterval     (60.0f)
 
 @interface BMHttpRequest()
 <
@@ -44,7 +44,7 @@
 {
     NSURL *urlAdd = [NSURL URLWithString:url];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlAdd];
-    [request setTimeoutInterval:Request_TimeoutInterval];
+    [request setTimeoutInterval:BMRequest_TimeoutInterval];
     [request setHTTPMethod:@"GET"];
     
     NSURLSession *session = [NSURLSession sharedSession];
@@ -92,7 +92,7 @@
     [request setHTTPMethod:@"POST"]; //指定请求方式
     [request setURL:URL]; //设置请求的地址
     [request setHTTPBody:postData];  //设置请求的参数
-    [request setTimeoutInterval:Request_TimeoutInterval];
+    [request setTimeoutInterval:BMRequest_TimeoutInterval];
     // 保证同步
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
