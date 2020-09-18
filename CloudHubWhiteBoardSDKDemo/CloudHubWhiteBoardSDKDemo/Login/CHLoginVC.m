@@ -474,6 +474,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
         return;
     }
     
+    [self.progressHUD showAnimated:YES];
+    
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
     [self joinRoomWithWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:nil];
 }
