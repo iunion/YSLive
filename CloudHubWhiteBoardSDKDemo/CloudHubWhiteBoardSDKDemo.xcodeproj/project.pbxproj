@@ -51,12 +51,12 @@
 		26ABA55D250780B9001E4865 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ABA552250780B9001E4865 /* BMKitResources.bundle */; };
 		26ABA55E250780B9001E4865 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 26ABA553250780B9001E4865 /* BMDatePicker.nib */; };
 		26ABA55F250780B9001E4865 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ABA554250780B9001E4865 /* CloudHubRTC.framework */; };
-		26ABA560250780B9001E4865 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ABA556250780B9001E4865 /* CHWhiteBoardResources.bundle */; };
-		26ABA561250780B9001E4865 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26ABA557250780B9001E4865 /* CHWhiteBoardImage.xcassets */; };
-		26ABA562250780B9001E4865 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ABA558250780B9001E4865 /* CHWhiteBoardSkin.bundle */; };
-		26ABA563250780B9001E4865 /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ABA559250780B9001E4865 /* CloudHubWhiteBoardKit.framework */; };
 		26ABA564250781E2001E4865 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26ABA554250780B9001E4865 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4098AB6F5721838A6E68E215 /* libPods-CloudHubWhiteBoardSDKDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D002AAAADD7C996CAB8AB5 /* libPods-CloudHubWhiteBoardSDKDemo.a */; };
+		87D70D61251451D90068107A /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87D70D5D251451D90068107A /* CHWhiteBoardResources.bundle */; };
+		87D70D62251451D90068107A /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87D70D5E251451D90068107A /* CHWhiteBoardImage.xcassets */; };
+		87D70D63251451D90068107A /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87D70D5F251451D90068107A /* CHWhiteBoardSkin.bundle */; };
+		87D70D64251451D90068107A /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D70D60251451D90068107A /* CloudHubWhiteBoardKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -140,10 +140,10 @@
 		26ABA552250780B9001E4865 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		26ABA553250780B9001E4865 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
 		26ABA554250780B9001E4865 /* CloudHubRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubRTC.framework; sourceTree = "<group>"; };
-		26ABA556250780B9001E4865 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		26ABA557250780B9001E4865 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
-		26ABA558250780B9001E4865 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
-		26ABA559250780B9001E4865 /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
+		87D70D5D251451D90068107A /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
+		87D70D5E251451D90068107A /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
+		87D70D5F251451D90068107A /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
+		87D70D60251451D90068107A /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
 		D1D002AAAADD7C996CAB8AB5 /* libPods-CloudHubWhiteBoardSDKDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudHubWhiteBoardSDKDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFCAB34D883198B1056EB956 /* Pods-CloudHubWhiteBoardSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudHubWhiteBoardSDKDemo.release.xcconfig"; path = "Target Support Files/Pods-CloudHubWhiteBoardSDKDemo/Pods-CloudHubWhiteBoardSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,7 +156,7 @@
 				26ABA55F250780B9001E4865 /* CloudHubRTC.framework in Frameworks */,
 				26ABA54925077F41001E4865 /* libc++.tbd in Frameworks */,
 				26ABA55A250780B9001E4865 /* BMKit.framework in Frameworks */,
-				26ABA563250780B9001E4865 /* CloudHubWhiteBoardKit.framework in Frameworks */,
+				87D70D64251451D90068107A /* CloudHubWhiteBoardKit.framework in Frameworks */,
 				4098AB6F5721838A6E68E215 /* libPods-CloudHubWhiteBoardSDKDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,7 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				26ABA54D250780B9001E4865 /* expandLib */,
-				26ABA555250780B9001E4865 /* CloudHubWhiteBoardKit. */,
+				87D70D5C251451D90068107A /* CloudHubWhiteBoardKit */,
 				26ABA554250780B9001E4865 /* CloudHubRTC.framework */,
 			);
 			name = CHLib;
@@ -360,17 +360,6 @@
 			path = BMKit;
 			sourceTree = "<group>";
 		};
-		26ABA555250780B9001E4865 /* CloudHubWhiteBoardKit. */ = {
-			isa = PBXGroup;
-			children = (
-				26ABA556250780B9001E4865 /* CHWhiteBoardResources.bundle */,
-				26ABA557250780B9001E4865 /* CHWhiteBoardImage.xcassets */,
-				26ABA558250780B9001E4865 /* CHWhiteBoardSkin.bundle */,
-				26ABA559250780B9001E4865 /* CloudHubWhiteBoardKit.framework */,
-			);
-			path = CloudHubWhiteBoardKit.;
-			sourceTree = "<group>";
-		};
 		4A4BB79D474C23501FAC1016 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +367,17 @@
 				D1D002AAAADD7C996CAB8AB5 /* libPods-CloudHubWhiteBoardSDKDemo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		87D70D5C251451D90068107A /* CloudHubWhiteBoardKit */ = {
+			isa = PBXGroup;
+			children = (
+				87D70D5D251451D90068107A /* CHWhiteBoardResources.bundle */,
+				87D70D5E251451D90068107A /* CHWhiteBoardImage.xcassets */,
+				87D70D5F251451D90068107A /* CHWhiteBoardSkin.bundle */,
+				87D70D60251451D90068107A /* CloudHubWhiteBoardKit.framework */,
+			);
+			path = CloudHubWhiteBoardKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,6 +392,7 @@
 				26ABA4B525077B93001E4865 /* Frameworks */,
 				26ABA4B625077B93001E4865 /* Resources */,
 				26ABA54A25077F71001E4865 /* CopyFiles */,
+				619FC502CBA88E0199DA4EB5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -439,14 +440,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26ABA562250780B9001E4865 /* CHWhiteBoardSkin.bundle in Resources */,
+				87D70D63251451D90068107A /* CHWhiteBoardSkin.bundle in Resources */,
 				26ABA52125077DC0001E4865 /* ysall_login_background.png in Resources */,
 				26ABA52D25077DC0001E4865 /* CHWhiteBoardBlack.xcassets in Resources */,
 				26ABA51A25077DC0001E4865 /* login_name@3x.png in Resources */,
 				26ABA55D250780B9001E4865 /* BMKitResources.bundle in Resources */,
 				26ABA51725077DC0001E4865 /* login_join_normal@3x.png in Resources */,
 				26ABA55B250780B9001E4865 /* BMTZImagePickerController.bundle in Resources */,
-				26ABA561250780B9001E4865 /* CHWhiteBoardImage.xcassets in Resources */,
+				87D70D62251451D90068107A /* CHWhiteBoardImage.xcassets in Resources */,
 				26ABA51C25077DC0001E4865 /* login_join_disabled@2x.png in Resources */,
 				26ABA4CB25077B96001E4865 /* LaunchScreen.storyboard in Resources */,
 				26ABA51925077DC0001E4865 /* login_name@2x.png in Resources */,
@@ -460,7 +461,7 @@
 				26ABA51F25077DC0001E4865 /* login_join_highlight@2x.png in Resources */,
 				26ABA51E25077DC0001E4865 /* login_join_highlight@3x.png in Resources */,
 				26ABA51D25077DC0001E4865 /* login_room@3x.png in Resources */,
-				26ABA560250780B9001E4865 /* CHWhiteBoardResources.bundle in Resources */,
+				87D70D61251451D90068107A /* CHWhiteBoardResources.bundle in Resources */,
 				26ABA55E250780B9001E4865 /* BMDatePicker.nib in Resources */,
 				26ABA51B25077DC0001E4865 /* btn_close@3x.png in Resources */,
 				26ABA4C625077B93001E4865 /* Main.storyboard in Resources */,
@@ -471,6 +472,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		619FC502CBA88E0199DA4EB5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CloudHubWhiteBoardSDKDemo/Pods-CloudHubWhiteBoardSDKDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CloudHubWhiteBoardSDKDemo/Pods-CloudHubWhiteBoardSDKDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CloudHubWhiteBoardSDKDemo/Pods-CloudHubWhiteBoardSDKDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C8F9F074F4518BC8568D3435 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -666,6 +684,7 @@
 					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib",
 					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib/CloudHubWhiteBoardKit.",
+					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib/CloudHubWhiteBoardKit",
 				);
 				GCC_PREFIX_HEADER = CloudHubWhiteBoardSDKDemo/SamplePrefixHeader.pch;
 				INFOPLIST_FILE = CloudHubWhiteBoardSDKDemo/Info.plist;
@@ -708,6 +727,7 @@
 					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib/expandLib/BMKit",
 					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib",
 					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib/CloudHubWhiteBoardKit.",
+					"$(PROJECT_DIR)/CloudHubWhiteBoardSDKDemo/CHLib/CloudHubWhiteBoardKit",
 				);
 				GCC_PREFIX_HEADER = CloudHubWhiteBoardSDKDemo/SamplePrefixHeader.pch;
 				INFOPLIST_FILE = CloudHubWhiteBoardSDKDemo/Info.plist;
