@@ -506,12 +506,13 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [self.cloudHubRtcEngineKit setLogFilter:1];
 #endif
 
-    self.cloudHubRtcEngineKit.wb = self.cloudHubManager;
     self.cloudHubRtcEngineKit.delegate = self;
     
     [self.cloudHubManager registerCoursewareControlView:@"CHNewCoursewareControlView" viewSize:CGSizeZero];
 
-    [self.cloudHubManager registeWhiteBoardWithHost:host port:port withLocalUser:self.localUser roomId:roomId];
+    CloudHubWhiteBoardConfig *whiteBoardConfig = [[CloudHubWhiteBoardConfig alloc] init];
+    whiteBoardConfig.isMultiCourseware = YES;
+    [self.cloudHubManager registeWhiteBoardWithHost:host port:port withLocalUser:self.localUser roomId:roomId configration:whiteBoardConfig];
     
     if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:self.localUser.peerID joinSuccess:nil] != 0)
     {
