@@ -15,6 +15,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #import "CHMainViewController.h"
+#import "CHNewCoursewareControlView.h"
 
 #define USE_COOKIES     0
 
@@ -506,9 +507,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.cloudHubRtcEngineKit.wb = self.cloudHubManager;
     self.cloudHubRtcEngineKit.delegate = self;
     
-    
-    [self.cloudHubManager registeWhiteBoardWithHost:host port:port withLocalUser:self.localUser roomId:roomId];
     [self.cloudHubManager registerCoursewareControlView:@"CHNewCoursewareControlView" viewSize:CGSizeZero];
+
+    [self.cloudHubManager registeWhiteBoardWithHost:host port:port withLocalUser:self.localUser roomId:roomId];
     
     if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:self.localUser.peerID joinSuccess:nil] != 0)
     {
