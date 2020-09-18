@@ -270,12 +270,6 @@
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
-/// 离开房间
-- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didLeaveChannel:(CloudHubChannelStats *)stats
-{
-    [CloudHubWhiteBoardKit destroy];
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void)setupFileList
 {
@@ -328,6 +322,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CHFileModel * model = self.cloudHubManager.fileList[indexPath.row];
+    if (self.cloudHubManager.cloudHubWhiteBoardConfig.isMultiCourseware)
+    {
+        NSString *instanceId = [NSString stringWithFormat:@"docModule_%@",model.fileid];
+    //    instanceId = [CHWhiteBoardUtil getSourceInstanceIdFromFileId:model.fileid];
+        NSString *msgID = [NSString stringWithFormat:@"CreateMoreWB_%@",instanceId];
+        NSDictionary *data = @{@"instanceId" : instanceId};
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
+        NSString *dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        [self.cloudHubManager.cloudHubRtcEngineKit pubMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll withData:dataStr associatedWithUser:nil associatedWithMsg:nil save:YES extraData:@""];
+    }
     [self.cloudHubManager changeCourseWithFileId:model.fileid];
 }
 
@@ -431,6 +436,35 @@
     [self.cloudHubManager didSDKSelectDrawType:drawType color:hexColor widthProgress:progress];
 }
 
+
+#pragma mark - CloudHubRtcEngineDelegate
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine onPubMsg:(NSString * _Nonnull)msgName msgId:(NSString * _Nonnull)msgId from:(NSString * _Nullable)fromuid withData:(NSString * _Nullable)data associatedWithUser:(NSString * _Nullable)uid associatedWithMsg:(NSString * _Nullable)assMsgID ts:(NSUInteger)ts withExtraData:(NSString * _Nullable)extraData isHistory:(BOOL)isHistory
+{
+    NSLog(@"PubMsg----%@",msgName);
+    NSString *tDataString = [NSString stringWithFormat:@"%@", data];
+    NSData *tJsData = [tDataString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    if (tJsData)
+    {
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:tJsData
+                                                  options:NSJSONReadingMutableContainers
+                                                    error:nil];
+        NSLog(@"%@",dataDic);
+    }
+}
+
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine onDelMsg:(NSString * _Nonnull)msgName msgId:(NSString * _Nonnull)msgId from:(NSString * _Nullable)fromuid withData:(NSString * _Nullable)data
+{
+    NSLog(@"DelMsg----%@",msgName);
+}
+
+/// 离开房间
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didLeaveChannel:(CloudHubChannelStats *)stats
+{
+    [CloudHubWhiteBoardKit destroy];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - CHWhiteBoardManagerDelegate
 
 /// 白板准备完毕
@@ -499,5 +533,16 @@
 {
     
 }
+
+/// 关闭课件
+- (void)onWhiteBoardCloseFileWithFileId:(NSString *)fileId
+{
+    NSString *instanceId = [NSString stringWithFormat:@"docModule_%@",fileId];
+//    instanceId = [CHWhiteBoardUtil getSourceInstanceIdFromFileId:fileId];
+    NSString *msgID = [NSString stringWithFormat:@"CreateMoreWB_%@",instanceId];
+    
+    [self.cloudHubManager.cloudHubRtcEngineKit delMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll];
+}
+
 
 @end
