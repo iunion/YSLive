@@ -210,8 +210,6 @@
             break;
         case 5:
         {
-
-            
             NSDictionary * fileData =     @{
                 @"action" : @"",
                 @"filedata" : @{
@@ -259,7 +257,9 @@
     
     __weak __typeof(self) weakSelf = self;
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        [weakSelf.cloudHubManager uploadImageWithImage:photos.firstObject success:^(NSDictionary * _Nonnull imageDict) {
+        [weakSelf.cloudHubManager uploadImageCourseWithImage:photos.firstObject success:^(NSDictionary * _Nonnull imageDict) {
+
+            NSLog(@"%@", imageDict);
             
         } failure:^(NSInteger errorCode) {
             
@@ -319,19 +319,24 @@
     return 40;
 }
 
+- (void)sendCreateMoreWBWithFileId:(NSString *)fileid
+{
+    NSString *instanceId = [NSString stringWithFormat:@"docModule_%@", fileid];
+//    instanceId = [CHWhiteBoardUtil getSourceInstanceIdFromFileId:model.fileid];
+    NSString *msgID = [NSString stringWithFormat:@"CreateMoreWB_%@", instanceId];
+    NSDictionary *data = @{@"instanceId" : instanceId};
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
+    NSString *dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [self.cloudHubManager.cloudHubRtcEngineKit pubMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll withData:dataStr associatedWithUser:nil associatedWithMsg:nil save:YES extraData:@""];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHFileModel * model = self.cloudHubManager.fileList[indexPath.row];
+    CHFileModel *model = self.cloudHubManager.fileList[indexPath.row];
     if (self.cloudHubManager.cloudHubWhiteBoardConfig.isMultiCourseware)
     {
-        NSString *instanceId = [NSString stringWithFormat:@"docModule_%@",model.fileid];
-    //    instanceId = [CHWhiteBoardUtil getSourceInstanceIdFromFileId:model.fileid];
-        NSString *msgID = [NSString stringWithFormat:@"CreateMoreWB_%@",instanceId];
-        NSDictionary *data = @{@"instanceId" : instanceId};
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
-        NSString *dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        [self.cloudHubManager.cloudHubRtcEngineKit pubMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll withData:dataStr associatedWithUser:nil associatedWithMsg:nil save:YES extraData:@""];
+        [self sendCreateMoreWBWithFileId:model.fileid];
     }
     [self.cloudHubManager changeCourseWithFileId:model.fileid];
 }
@@ -347,7 +352,6 @@
     {
         self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 0, 300, UI_SCREEN_HEIGHT);
     }
-
 }
 
 #pragma mark UI 工具栏
