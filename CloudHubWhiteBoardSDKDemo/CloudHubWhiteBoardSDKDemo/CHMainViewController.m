@@ -278,7 +278,7 @@
     [self.view addSubview:self.fileTableView];
     
     fileTableView.bounces = NO;
-    fileTableView.backgroundColor = [UIColor blackColor];
+    fileTableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
     fileTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     fileTableView.delegate = self;
     fileTableView.dataSource = self;
@@ -346,11 +346,11 @@
     btn.selected = !btn.selected;
     if (btn.selected)
     {
-        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH - 300, 0, 300, UI_SCREEN_HEIGHT);
+        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH - 300, 40, 300, UI_SCREEN_HEIGHT-80);
     }
     else
     {
-        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 0, 300, UI_SCREEN_HEIGHT);
+        self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 40, 300, UI_SCREEN_HEIGHT-80);
     }
 }
 
