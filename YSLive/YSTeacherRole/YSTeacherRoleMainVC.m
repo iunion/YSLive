@@ -4124,7 +4124,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [weakSelf.liveManager sendSignalingTeacherToAnswerWithOptions:submitArr answerID:answerId];
         
     };
-    
+    _isOpenResult = NO;
     self.answerView.closeBlock = ^(BOOL isAnswerIng) {
         [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerWithAnswerID:answerId];
         [weakSelf.liveManager sendSignalingTeacherToDeleteAnswerPublicResult];
