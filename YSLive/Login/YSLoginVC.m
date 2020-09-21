@@ -733,6 +733,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     YSTextView *textView = [[YSTextView alloc] init];
     textView.delegate = self;
     textView.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    textView.backgroundColor = [UIColor clearColor];
     textView.font = UI_FONT_10;
     
     textView.linkTextAttributes = @{NSForegroundColorAttributeName:YSSkinDefineColor(@"defaultSelectedBgColor"),NSFontAttributeName:[UIFont systemFontOfSize:10]};
