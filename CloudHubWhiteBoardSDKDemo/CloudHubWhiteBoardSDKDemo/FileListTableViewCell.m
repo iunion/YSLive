@@ -48,7 +48,7 @@
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:deleteBtn];
     self.deleteBtn = deleteBtn;
-    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"smallBoard_deleteimageBtn_skin"] forState:UIControlStateNormal];
+    [deleteBtn setImage:[UIImage imageNamed:@"smallBoard_deleteimageBtn_skin"] forState:UIControlStateNormal];
     [deleteBtn addTarget:self action:@selector(deleteBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -57,7 +57,7 @@
 {
     [super layoutSubviews];
     
-    self.deleteBtn.frame = CGRectMake(0, 0, 15, 15);
+    self.deleteBtn.frame = CGRectMake(0, 0, 30, 30);
     self.deleteBtn.bm_centerY = self.contentView.bm_centerY;
     self.deleteBtn.bm_right = self.contentView.bm_right - 10;
     
