@@ -27,6 +27,9 @@
 
 //小黑板bottomBar的代理
 - (void)handleSignalingSmallBoardBottomBarClick:(UIButton *)sender;
+/// 小黑板答题阶段私聊
+- (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray;
+- (void)handleSignalingDeletePrivateChat;
 
 @end
 

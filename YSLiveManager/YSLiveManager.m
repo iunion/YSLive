@@ -490,6 +490,21 @@
     }
 }
 
+- (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingReceivePrivateChatWithPrivateIdArray:)])
+    {
+        [self.whiteBoardDelegate handleSignalingReceivePrivateChatWithPrivateIdArray:privateIdArray];
+    }
+}
+
+- (void)handleSignalingDeletePrivateChat
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingDeletePrivateChat)])
+    {
+        [self.whiteBoardDelegate handleSignalingDeletePrivateChat];
+    }
+}
 
 #if YSSDK
 - (void)onSDKRoomLeft
