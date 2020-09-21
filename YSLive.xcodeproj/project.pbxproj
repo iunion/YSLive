@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		044E01BD2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E01B92511EC3A001FDAC8 /* YSDiceAnimationView+Tools.m */; };
-		044E01BE2511EC3B001FDAC8 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E01BC2511EC3B001FDAC8 /* YSDiceAnimationView.m */; };
 		045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045CF51123C828B6008F474E /* YSMeetingResources.bundle */; };
 		045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
 		045F76092484E00300A34F76 /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
@@ -46,6 +44,15 @@
 		26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
 		26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
 		26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
+		26E4716E2518A50A00CE1776 /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77392511B59F00A3830C /* CHWhiteBoard.framework */; };
+		26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */; };
+		26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */; };
+		26E471772518A51100CE1776 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77382511B59F00A3830C /* CHWhiteBoardSkin.bundle */; };
+		26E4717E2518A65D00CE1776 /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77012510681800A3830C /* CHSession.framework */; };
+		26E4718C2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
+		26E4718D2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
+		26E4718E2518A78300CE1776 /* YSDiceAnimationView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E4718B2518A78300CE1776 /* YSDiceAnimationView+Tools.m */; };
+		26E4718F2518A78300CE1776 /* YSDiceAnimationView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E4718B2518A78300CE1776 /* YSDiceAnimationView+Tools.m */; };
 		26EFA60123795A7100EC2A64 /* SCAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA5FF23794EFD00EC2A64 /* SCAnswerView.m */; };
 		26EFA67223797B0000EC2A64 /* SCOptionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA67123797B0000EC2A64 /* SCOptionCollectionCell.m */; };
 		26EFA6762379963F00EC2A64 /* SCStatisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA6752379963F00EC2A64 /* SCStatisticsTableViewCell.m */; };
@@ -801,10 +808,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		044E01B92511EC3A001FDAC8 /* YSDiceAnimationView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "YSDiceAnimationView+Tools.m"; path = "YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView+Tools.m"; sourceTree = SOURCE_ROOT; };
-		044E01BA2511EC3B001FDAC8 /* YSDiceAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YSDiceAnimationView.h; path = YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView.h; sourceTree = SOURCE_ROOT; };
-		044E01BB2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "YSDiceAnimationView+Tools.h"; path = "YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView+Tools.h"; sourceTree = SOURCE_ROOT; };
-		044E01BC2511EC3B001FDAC8 /* YSDiceAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YSDiceAnimationView.m; path = YSLive/YSTeacherRole/YSDiceAnimationView/YSDiceAnimationView.m; sourceTree = SOURCE_ROOT; };
 		045CF51123C828B6008F474E /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		045F76042484DD2800A34F76 /* YSSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSetViewController.h; sourceTree = "<group>"; };
 		045F76052484DD2800A34F76 /* YSSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSetViewController.m; sourceTree = "<group>"; };
@@ -888,6 +891,10 @@
 		26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4PlayerMaskView.m; sourceTree = "<group>"; };
 		26D5405D23BDD7060064FB84 /* SCTeacherAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTeacherAnswerView.h; sourceTree = "<group>"; };
 		26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTeacherAnswerView.m; sourceTree = "<group>"; };
+		26E471882518A78300CE1776 /* YSDiceAnimationView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YSDiceAnimationView+Tools.h"; sourceTree = "<group>"; };
+		26E471892518A78300CE1776 /* YSDiceAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSDiceAnimationView.m; sourceTree = "<group>"; };
+		26E4718A2518A78300CE1776 /* YSDiceAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSDiceAnimationView.h; sourceTree = "<group>"; };
+		26E4718B2518A78300CE1776 /* YSDiceAnimationView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YSDiceAnimationView+Tools.m"; sourceTree = "<group>"; };
 		26E6401723699700000D9CEC /* YSUserDefault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSUserDefault.h; sourceTree = "<group>"; };
 		26E6401823699700000D9CEC /* YSUserDefault.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSUserDefault.m; sourceTree = "<group>"; };
 		26EFA5FE23794EFD00EC2A64 /* SCAnswerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAnswerView.h; sourceTree = "<group>"; };
@@ -1641,10 +1648,12 @@
 			files = (
 				8717E32A2400DADC008C4CDA /* libresolv.tbd in Frameworks */,
 				8717E32B2400DADC008C4CDA /* AlicloudUtils.framework in Frameworks */,
+				26E4717E2518A65D00CE1776 /* CHSession.framework in Frameworks */,
 				87517E3B24A354310094E2B3 /* CloudHubRTC.framework in Frameworks */,
 				8717E32C2400DADC008C4CDA /* UTMini.framework in Frameworks */,
 				8717E32D2400DADC008C4CDA /* AlicloudHttpDNS.framework in Frameworks */,
 				8717E32E2400DADC008C4CDA /* BMKit.framework in Frameworks */,
+				26E4716E2518A50A00CE1776 /* CHWhiteBoard.framework in Frameworks */,
 				8717E32F2400DADC008C4CDA /* Bugly.framework in Frameworks */,
 				8717E3332400DADC008C4CDA /* UTDID.framework in Frameworks */,
 				8717E3342400DADC008C4CDA /* AlicloudBeacon.framework in Frameworks */,
@@ -1668,18 +1677,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		044E01AC2510B5AD001FDAC8 /* YSDiceAnimationView */ = {
-			isa = PBXGroup;
-			children = (
-				044E01BA2511EC3B001FDAC8 /* YSDiceAnimationView.h */,
-				044E01BC2511EC3B001FDAC8 /* YSDiceAnimationView.m */,
-				044E01BB2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.h */,
-				044E01B92511EC3A001FDAC8 /* YSDiceAnimationView+Tools.m */,
-			);
-			name = YSDiceAnimationView;
-			path = ../../../YSDiceAnimationView;
-			sourceTree = "<group>";
-		};
 		0464CEA1247B9BFA001532A3 /* YSSkinManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1693,7 +1690,7 @@
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
-				044E01AC2510B5AD001FDAC8 /* YSDiceAnimationView */,
+				26E471872518A78300CE1776 /* YSDiceAnimationView */,
 				269B1B512486492100352BC6 /* YSToolBoxView */,
 				8709FEB12484D2A000CC8BEA /* YSSpreadBottomToolBar */,
 				CBC14DFF242A5B610052F6EE /* YSPollingView */,
@@ -1886,6 +1883,17 @@
 				26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */,
 			);
 			path = YSMP4Player;
+			sourceTree = "<group>";
+		};
+		26E471872518A78300CE1776 /* YSDiceAnimationView */ = {
+			isa = PBXGroup;
+			children = (
+				26E4718A2518A78300CE1776 /* YSDiceAnimationView.h */,
+				26E471892518A78300CE1776 /* YSDiceAnimationView.m */,
+				26E471882518A78300CE1776 /* YSDiceAnimationView+Tools.h */,
+				26E4718B2518A78300CE1776 /* YSDiceAnimationView+Tools.m */,
+			);
+			path = YSDiceAnimationView;
 			sourceTree = "<group>";
 		};
 		26EFA5FD23794C4B00EC2A64 /* SCAnswerView */ = {
@@ -3776,6 +3784,8 @@
 				8717E33C2400DADC008C4CDA /* YSMeetingResources.bundle in Resources */,
 				8717E3732400DFD1008C4CDA /* Assets.xcassets in Resources */,
 				8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */,
+				26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */,
+				26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
 				8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */,
 				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
@@ -3787,6 +3797,7 @@
 				8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */,
 				8717E34B2400DADC008C4CDA /* testcolorpicker@2x.png in Resources */,
 				8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */,
+				26E471772518A51100CE1776 /* CHWhiteBoardSkin.bundle in Resources */,
 				8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3852,6 +3863,7 @@
 				87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */,
 				8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */,
 				87832FB824874C4300F1178E /* FLEXAddressExplorerCoordinator.m in Sources */,
+				26E4718E2518A78300CE1776 /* YSDiceAnimationView+Tools.m in Sources */,
 				8783302224874C4400F1178E /* FLEXColor.m in Sources */,
 				87832FBA24874C4300F1178E /* FLEXTableLeftCell.m in Sources */,
 				87133568237270F6006534A4 /* YSVoteModel.m in Sources */,
@@ -3867,6 +3879,7 @@
 				87832F2824874C4300F1178E /* FLEXCollectionContentSection.m in Sources */,
 				26FCAD7623C477D300FC90EF /* YSMediaSlider.m in Sources */,
 				8713356D237270F6006534A4 /* BMTestGPSMocker.m in Sources */,
+				26E4718C2518A78300CE1776 /* YSDiceAnimationView.m in Sources */,
 				87832FE824874C4300F1178E /* FHSRangeSlider.m in Sources */,
 				87832F1A24874C4300F1178E /* FLEXTableViewCell.m in Sources */,
 				8783303624874C4400F1178E /* NSUserDefaults+FLEX.m in Sources */,
@@ -3936,7 +3949,6 @@
 				8783304824874C4400F1178E /* FLEXKeyboardShortcutManager.m in Sources */,
 				87133596237270F6006534A4 /* YSBarrageTextCell.m in Sources */,
 				8709FF192485F7CB00CC8BEA /* UINavigationController+MemoryLeak.m in Sources */,
-				044E01BE2511EC3B001FDAC8 /* YSDiceAnimationView.m in Sources */,
 				8783303424874C4400F1178E /* UIPasteboard+FLEX.m in Sources */,
 				87832F9824874C4300F1178E /* FLEXGlobalsSection.m in Sources */,
 				8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */,
@@ -3944,7 +3956,6 @@
 				875A720823758F1900407A75 /* SCVideoGridView.m in Sources */,
 				8709FF302485F7CB00CC8BEA /* FBObjectGraphConfiguration.m in Sources */,
 				87133599237270F6006534A4 /* YSChatView.m in Sources */,
-				044E01BD2511EC3B001FDAC8 /* YSDiceAnimationView+Tools.m in Sources */,
 				34043C4523EA6514004982E6 /* YSMineViewController.m in Sources */,
 				8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */,
 				87832F1824874C4300F1178E /* FLEXMultilineTableViewCell.m in Sources */,
@@ -4422,6 +4433,7 @@
 				87832F3724874C4300F1178E /* FLEXBundleShortcuts.m in Sources */,
 				87832F7324874C4300F1178E /* FLEXArgumentInputStructView.m in Sources */,
 				8783300F24874C4400F1178E /* FLEXProperty.m in Sources */,
+				26E4718D2518A78300CE1776 /* YSDiceAnimationView.m in Sources */,
 				8783300924874C4400F1178E /* FLEXObjcInternal.mm in Sources */,
 				8783301524874C4400F1178E /* FLEXProtocolBuilder.m in Sources */,
 				8717E2812400DADC008C4CDA /* YSTeacherResponder.m in Sources */,
@@ -4476,6 +4488,7 @@
 				87832F3524874C4300F1178E /* FLEXViewShortcuts.m in Sources */,
 				3471E29524039A0100A3BBB4 /* FSCalendarCell.m in Sources */,
 				87832F2524874C4300F1178E /* FLEXDefaultsContentSection.m in Sources */,
+				26E4718F2518A78300CE1776 /* YSDiceAnimationView+Tools.m in Sources */,
 				2615880E24D0171B00F35234 /* YSTextView.m in Sources */,
 				87832F5D24874C4300F1178E /* FLEXManager+Extensibility.m in Sources */,
 				8717E2CE2400DADC008C4CDA /* PanGestureControl.m in Sources */,
@@ -4610,7 +4623,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.3.2.4;
+				CURRENT_PROJECT_VERSION = 3.3.3.2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
@@ -4618,7 +4631,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
-					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLib/BMKit",
 					"$(PROJECT_DIR)/YSLib/CHWhiteBoard",
 				);
@@ -4636,7 +4648,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.2;
+				MARKETING_VERSION = 3.3.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4657,7 +4669,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.3.2.4;
+				CURRENT_PROJECT_VERSION = 3.3.3.2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
@@ -4696,7 +4708,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
-					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLib/BMKit",
 					"$(PROJECT_DIR)/YSLib/CHWhiteBoard",
 				);
@@ -4712,7 +4723,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.2;
+				MARKETING_VERSION = 3.3.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4740,8 +4751,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
-					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLib/BMKit",
+					"$(PROJECT_DIR)/YSLib/CHWhiteBoard",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";
@@ -4817,8 +4828,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YSLib",
 					"$(PROJECT_DIR)/YSLib/OneSDK",
-					"$(PROJECT_DIR)/YSLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLib/BMKit",
+					"$(PROJECT_DIR)/YSLib/CHWhiteBoard",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YSLive/YSLive-Prefix.pch";
