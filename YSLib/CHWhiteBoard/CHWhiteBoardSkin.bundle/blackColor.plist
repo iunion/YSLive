@@ -155,11 +155,11 @@
 		<key>bgColor</key>
 		<string></string>
 		<key>iconNor</key>
-		<string>controlTool_colse_normal_skin</string>
+		<string>controlTool_close_normal_skin</string>
 		<key>iconSel</key>
 		<string></string>
 		<key>iconHigh</key>
-		<string>controlTool_colse_highLight_skin</string>
+		<string>controlTool_close_highLight_skin</string>
 	</dict>
 	<key>controlTool_frash</key>
 	<dict>
