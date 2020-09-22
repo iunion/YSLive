@@ -469,6 +469,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.fullTeacherFloatView.isFullBackgrond = YES;
     [self.contentBackgroud addSubview:self.fullTeacherFloatView];
     self.fullTeacherFloatView.hidden = YES;
+    self.fullTeacherFloatView.canGestureRecognizer = YES;
 }
 #endif
 
@@ -3181,8 +3182,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 }
             }
             
-            videoView.bm_width = floatVideoDefaultWidth;
-            videoView.bm_height = floatVideoDefaultHeight;
+            if (videoView != self.fullTeacherVideoView)
+            {
+                videoView.bm_width = floatVideoDefaultWidth;
+                videoView.bm_height = floatVideoDefaultHeight;
+            }
         }
         
         if (background.bm_width != videoView.bm_width && background.bm_width != (videoView.bm_width + 2) )
@@ -3349,7 +3353,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             // 支持本地拖动缩放
             [self.fullTeacherFloatView bm_bringToFront];
             self.fullTeacherFloatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
-            self.fullTeacherFloatView.maxSize = self.whitebordFullBackgroud.bm_size;
+            self.fullTeacherFloatView.maxSize = CGSizeMake(self.whitebordFullBackgroud.bm_size.width*0.95f, self.whitebordFullBackgroud.bm_size.height*0.95f);
+            //self.whitebordFullBackgroud.bm_size;
             self.fullTeacherFloatView.peerId = YSCurrentUser.peerID;
             self.fullTeacherFloatView.sourceId = sCHUserDefaultSourceId;
         }
@@ -3368,7 +3373,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             //[floatView stayMove];
             [floatView bm_bringToFront];
             floatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
-            floatView.maxSize = self.whitebordBackgroud.bm_size;
+            //floatView.maxSize = self.whitebordBackgroud.bm_size;
+            floatView.maxSize = CGSizeMake(self.whitebordBackgroud.bm_size.width*0.95f, self.whitebordBackgroud.bm_size.height*0.95f);
             floatView.peerId = videoView.roomUser.peerID;
             floatView.sourceId = videoView.sourceId;
             floatView.streamId = videoView.streamId;
@@ -3445,7 +3451,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.dragOutFloatViewArray addObject:floatView];
         [self.whitebordBackgroud addSubview:floatView];
         floatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
-        floatView.maxSize = self.whitebordBackgroud.bm_size;
+        //floatView.maxSize = self.whitebordBackgroud.bm_size;
+        floatView.maxSize = CGSizeMake(self.whitebordBackgroud.bm_size.width*0.95f, self.whitebordBackgroud.bm_size.height*0.95f);
         floatView.canGestureRecognizer = YES;
 
         [floatView showWithContentView:videoView];

@@ -503,6 +503,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.fullTeacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(self.contentWidth - 76 - floatVideoDefaultWidth, 50, floatVideoDefaultWidth, floatVideoDefaultHeight)];
     [self.contentBackgroud addSubview:self.fullTeacherFloatView];
     self.fullTeacherFloatView.hidden = YES;
+    self.fullTeacherFloatView.canGestureRecognizer = YES;
 }
 #endif
 
@@ -3942,7 +3943,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         // 支持本地拖动缩放
         [self.fullTeacherFloatView bm_bringToFront];
         self.fullTeacherFloatView.minSize = CGSizeMake(floatVideoMinWidth, floatVideoMinHeight);
-        self.fullTeacherFloatView.maxSize = background.bm_size;
+        self.fullTeacherFloatView.maxSize = CGSizeMake(background.bm_size.width*0.95f, background.bm_size.height*0.95f);
         self.fullTeacherFloatView.peerId = self.liveManager.teacher.peerID;
         
         SCVideoView *teacherVideo = self.teacherVideoViewArray.firstObject;
