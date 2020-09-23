@@ -8,6 +8,12 @@
 
 #import "YSBarrageManager.h"
 
+@interface YSBarrageManager ()
+
+@property (nonatomic, strong) YSBarrageRenderView *renderView;
+
+@end
+
 @implementation YSBarrageManager
 
 - (void)dealloc {
@@ -58,8 +64,13 @@
 }
 
 #pragma mark ------ getter
-- (YSBarrageRenderView *)renderView {
-    return _renderView;
+//- (YSBarrageRenderView *)renderView {
+//    return _renderView;
+//}
+
+- (YSBarrageRenderStatus)renderStatus
+{
+    return self.renderView.renderStatus;
 }
 
 @end

@@ -10,9 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSBarrageTextDescriptor : YSBarrageDescriptor {
-    NSMutableDictionary *_textAttribute;
-}
+@interface YSBarrageTextDescriptor : YSBarrageDescriptor
 
 @property (nonatomic, strong, nullable) UIFont *textFont;
 @property (nonatomic, strong, nullable) UIColor *textColor;
@@ -30,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) int strokeWidth;//笔画宽度(粗细)，取值为 NSNumber 对象（整数），负值填充效果，正值中空效果
 
 @property (nonatomic, copy, nullable) NSString *text;
-@property (nonatomic, copy, nullable) NSAttributedString *attributedText;
+@property (nullable, nonatomic, copy) NSAttributedString *attributedText;
 
 @end
 

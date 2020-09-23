@@ -8,6 +8,12 @@
 
 #import "YSBarrageTextDescriptor.h"
 
+@interface YSBarrageTextDescriptor ()
+
+@property (nonatomic, strong) NSMutableDictionary *textAttribute;
+
+@end
+
 @implementation YSBarrageTextDescriptor
 
 @synthesize textFont = _textFont, textColor = _textColor, shadowColor = _shadowColor, attributedText = _attributedText;
@@ -30,21 +36,21 @@
     _textShadowOpened = textShadowOpened;
     
     if (textShadowOpened) {
-        [_textAttribute removeObjectForKey:NSStrokeColorAttributeName];
-        [_textAttribute removeObjectForKey:NSStrokeWidthAttributeName];
+        [self.textAttribute removeObjectForKey:NSStrokeColorAttributeName];
+        [self.textAttribute removeObjectForKey:NSStrokeWidthAttributeName];
     }
 }
 
 - (void)setTextFont:(UIFont *)textFont {
     _textFont = textFont;
     
-    [_textAttribute setValue:textFont forKey:NSFontAttributeName];
+    [self.textAttribute setValue:textFont forKey:NSFontAttributeName];
 }
 
 - (void)setTextColor:(UIColor *)textColor {
     _textColor =  textColor;
     
-    [_textAttribute setValue:textColor forKey:NSForegroundColorAttributeName];
+    [self.textAttribute setValue:textColor forKey:NSForegroundColorAttributeName];
 }
 
 - (void)setStrokeColor:(UIColor *)strokeColor {
@@ -54,17 +60,17 @@
         return;
     }
     
-    [_textAttribute setValue:strokeColor forKey:NSStrokeColorAttributeName];
+    [self.textAttribute setValue:strokeColor forKey:NSStrokeColorAttributeName];
 }
 
 - (void)setStrokeWidth:(int)strokeWidth {
     _strokeWidth = strokeWidth;
     
-    if (_textShadowOpened) {
+    if (self.textShadowOpened) {
         return;
     }
     
-    [_textAttribute setValue:[NSNumber numberWithInt:strokeWidth] forKey:NSStrokeWidthAttributeName];
+    [self.textAttribute setValue:[NSNumber numberWithInt:strokeWidth] forKey:NSStrokeWidthAttributeName];
 }
 
 #pragma mark ----- getter
@@ -102,10 +108,10 @@
 
 - (NSAttributedString *)attributedText {
     if (!_attributedText) {
-        if (!_text) {
+        if (!self.text) {
             return nil;
         }
-        _attributedText = [[NSAttributedString alloc] initWithString:_text attributes:_textAttribute];
+        _attributedText = [[NSAttributedString alloc] initWithString:self.text attributes:self.textAttribute];
     }
     
     //修复阿拉伯文字显示的bug.

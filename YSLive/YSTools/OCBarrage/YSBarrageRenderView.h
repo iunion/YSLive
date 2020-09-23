@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, YSBarrageRenderStatus) {
+typedef NS_ENUM(NSUInteger, YSBarrageRenderStatus) {
 	YSBarrageRenderStoped = 0,
 	YSBarrageRenderStarted,
 	YSBarrageRenderPaused
