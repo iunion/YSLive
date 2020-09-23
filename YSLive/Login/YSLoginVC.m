@@ -19,12 +19,8 @@
 #import "YSEyeCareManager.h"
 #import "YSPermissionsVC.h"
 #import <AVFoundation/AVFoundation.h>
-#ifdef YSLIVE
 #import "YSMainVC.h"
-#endif
-#if YSCLASS
 #import "SCMainVC.h"
-#endif
 
 #import "YSTeacherRoleMainVC.h"
 
@@ -2027,8 +2023,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     //NSDictionary *dic = [Bugly allUserValues];
     
-#if YSCLASS
-    
     CHRoomUseType appUseTheType = liveManager.room_UseType;
     // 未通过check进入房间时
     if (self.room_UseTheType == 0)
@@ -2088,7 +2082,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
         self.selectRoleType = CHUserType_Student;
     }
     else
-#endif
     {
         GetAppDelegate.allowRotation = NO;
         BOOL isWideScreen = liveManager.room_IsWideScreen;

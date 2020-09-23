@@ -23,7 +23,7 @@
 "SmallBoard_Withdrawn"      = "回收";
 "SmallBoard_BeenWithdrawn"  = "小黑板已收回";
 "SmallBoard_DeletePictureTag" = "是否删除小黑板上的图片";
-"SmallBoard_Calling"        = "正在私聊中";
+"SmallBoard_Calling"        = "";
 
 "SmallBoard_cancleSmall"    = "确认是否关闭小黑板";
 

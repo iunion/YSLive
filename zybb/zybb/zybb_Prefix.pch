@@ -1,0 +1,21 @@
+//
+//  zybb_Prefix.pch
+//  zybb
+//
+//  Created by fzxm on 2020/9/23.
+//
+
+#ifndef zybb_Prefix_pch
+#define zybb_Prefix_pch
+
+#import <Availability.h>
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import <BMKit/BMkit.h>
+#import "YSAppConfig.h"
+#endif
+#endif /* zybb_Prefix_pch */
