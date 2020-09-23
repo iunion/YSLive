@@ -111,6 +111,16 @@
 /// 返回按钮
 @property (nonatomic, strong) UIButton *returnBtn;
 
+/// 弹幕按钮
+@property (nonatomic, strong) UIButton *barrageBtn;
+/// 弹幕
+@property (nonatomic, strong) YSBarrageManager *barrageManager;
+
+/// 全屏按钮
+@property (nonatomic, strong) UIButton *fullScreenBtn;
+/// 是否全屏
+@property (nonatomic, assign) BOOL isFullScreen;
+
 /// 房间号
 //@property (nonatomic, strong) UILabel *roomIDLabel;
 /// Mp3播放动画
@@ -149,18 +159,7 @@
 @property (nonatomic, strong) NSMutableArray *questionBeforeArr;
 /// 抽奖弹窗
 @property (nonatomic, strong) YSPrizeAlertView *prizeAlert;
-/// 全屏按钮
-//@property (nonatomic, strong) UIButton *fullScreenBtn;
-/// 是否全屏
-//@property (nonatomic, assign) BOOL isFullScreen;
-/// 弹幕
-//@property (nonatomic, strong) YSBarrageManager *barrageManager;
-/// 开启弹幕
-//@property (nonatomic, assign) BOOL barrageStart;
-/// 弹幕按钮
-//@property (nonatomic, strong) UIButton *barrageBtn;
-/// 播放界面上的按钮隐藏显示
-//@property (nonatomic, assign) BOOL buttonHide;
+
 /// 当前房间播放视频Id
 //@property (nonatomic, strong) NSString *roomVideoPeerID;
 /// 是否正在播放视频
@@ -258,14 +257,10 @@
     [self setupLiveUI];// 视频UI
 
     [self setupBarrage];
-    [self setupReturnBar];
     
     [self makeMp3Animation];
     [self setupMp4UI];
-    
-    [self performSelector:@selector(hideToolBtns) withObject:nil afterDelay:5.0f];
-    
-    [self.view addSubview:self.raiseHandsBtn];
+        
     
     [self addControlMainVideoAudioView];
 }
@@ -354,6 +349,7 @@
     self.teacherBgMaskView.image = YSSkinDefineImage(@"live_main_notclassbeging");
     self.teacherBgMaskView.userInteractionEnabled = YES;
     [self.levelView.bgView addSubview:self.teacherBgMaskView];
+    self.teacherBgMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     /// 主播的视频view
     /// 老师视频容器
@@ -366,7 +362,8 @@
     self.teacherVideoView = [[UIView alloc] initWithFrame:self.teacherFloatView.bounds];
     self.teacherVideoView.backgroundColor = [UIColor clearColor];
     [self.teacherFloatView showWithContentView:self.teacherVideoView];
-    
+    self.teacherFloatView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     self.teacherMaskView = [[UIImageView alloc] initWithFrame:self.levelView.bounds];
     self.teacherMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.teacherMaskView.contentMode = UIViewContentModeCenter;
@@ -375,7 +372,8 @@
     [self.levelView.maskView addSubview:self.teacherMaskView];
     self.teacherMaskView.userInteractionEnabled = YES;
     self.teacherMaskView.hidden = YES;
-    
+    self.teacherMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     NSString *text = YSLocalized(@"Label.AnchorState");
     CGSize labelSize = [text bm_sizeToFitWidth:self.teacherBgMaskView.bm_width withFont:UI_FONT_12];
     UILabel *placeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labelSize.width+20, 16)];
@@ -397,6 +395,7 @@
     control.backgroundColor = [UIColor clearColor];
     [control addTarget:self action:@selector(levelViewClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.levelView.bgView addSubview:control];
+    control.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     /// 学生视频容器
     UIView *studentVideoBgView = [[UIView alloc] init];
@@ -404,31 +403,58 @@
     [self.levelView.liveView addSubview:studentVideoBgView];
     studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
     self.studentVideoBgView = studentVideoBgView;
+    
+    [self setupVideoBackgroud];
+    
+    [self setupBarrage];
+    
+    [self setupToolsView];
+    
+    [self.levelView.toolsView addSubview:self.raiseHandsBtn];
+
+    [self performSelector:@selector(hideToolBtns) withObject:nil afterDelay:5.0f];
+}
+
+// 上台视频背景容器
+- (void)setupVideoBackgroud
+{
+    // 视频背景
+    self.studentVideoBgView = [[UIView alloc] init];
+    self.studentVideoBgView.backgroundColor = [UIColor clearColor];//[UIColor bm_colorWithHex:0x5A8CDC];
+    [self.levelView.liveView addSubview:self.studentVideoBgView];
+    self.studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
+}
+
+// 字幕
+- (void)setupBarrage
+{
+    self.barrageManager = [[YSBarrageManager alloc] init];
+    [self.levelView.barrageView addSubview:self.barrageManager.renderView];
+    self.barrageManager.renderView.frame = CGRectMake(0, 40.0f, self.levelView.barrageView.bm_width, 60.0f);
+    self.barrageManager.renderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 /// 设置返回按钮以及 房间ID
-- (void)setupReturnBar
+- (void)setupToolsView
 {
     self.returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.returnBtn setImage:YSSkinElementImage(@"live_lesson_return", @"iconNor") forState:UIControlStateNormal];
-    self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 80, 80);
+    self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
     [self.levelView.toolsAutoHideView addSubview:self.returnBtn];
     [self.returnBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     self.returnBtn.bm_ActionEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
+    
+    self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.levelView.toolsAutoHideView addSubview:self.barrageBtn];
+    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
+    self.barrageBtn.frame = CGRectMake(10, self.teacherVideoHeight - 50, 40, 40);
+    [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 
-//    self.roomIDLabel = [[UILabel alloc] init];
-//    self.roomIDLabel.font = [UIFont systemFontOfSize:12];
-//    self.roomIDLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
-//
-//    [self.view addSubview:self.roomIDLabel];
-//    [self.view bringSubviewToFront:self.roomIDLabel];
-//    self.roomIDLabel.text = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Label.roomid"),self.liveManager.room_Id];
-//    self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, BMUI_SCREEN_WIDTH * 0.5, 26);
-//    self.roomIDLabel.adjustsFontSizeToFitWidth = YES;
-//    self.roomIDLabel.minimumScaleFactor = 0.5f;
-//    self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
-//    /// 隐藏房间号
-//    self.roomIDLabel.hidden = YES;
+    self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.levelView.toolsAutoHideView addSubview:self.fullScreenBtn];
+    [self.fullScreenBtn setImage:YSSkinElementImage(@"live_lesson_full", @"iconNor") forState:UIControlStateNormal];
+    self.fullScreenBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
+    [self.fullScreenBtn addTarget:self action:@selector(fullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -763,18 +789,6 @@
     */
 }
 
-// 上台视频背景容器
-- (void)setupVideoBackgroud
-{
-    /*
-    // 视频背景
-    self.videoBackgroud = [[UIView alloc] init];
-    self.videoBackgroud.backgroundColor = [UIColor clearColor];//[UIColor bm_colorWithHex:0x5A8CDC];
-    [self.allVideoBgView addSubview:self.videoBackgroud];
-    self.videoBackgroud.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
-     */
-}
-
 - (void)makeMp3Animation
 {
     /*
@@ -828,18 +842,6 @@
     //self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
     self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
     [self.mp4FullScreenBtn addTarget:self action:@selector(mp4FullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-     */
-}
-
-- (void)setupBarrage
-{
-    /*
-    self.barrageManager = [[YSBarrageManager alloc] init];
-    [self.teacherFloatView.backScrollView addSubview:self.barrageManager.renderView];
-    //self.barrageManager.renderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.barrageManager.renderView.userInteractionEnabled = YES;
-    //UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(liveViewClicked:)];
-    //[self.barrageManager.renderView addGestureRecognizer:tapGesture];
      */
 }
 
@@ -1049,7 +1051,7 @@
             {
                 videoMirrorMode = CloudHubVideoMirrorModeEnabled;
             }
-            //[self.liveManager playVideoWithUserId:uid streamID:streamId  renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:self.teacherVideoView];
+            [self.liveManager playVideoWithUserId:uid streamID:streamId  renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:self.teacherVideoView];
             
             [self freshMediaView];
         }
@@ -1159,7 +1161,7 @@
             
             if ([sourceIdsArray bm_isNotEmpty])
             {
-                //[self.liveManager playVideoWithUserId:user.peerID streamID:sourceIdsArray.firstObject renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+                [self.liveManager playVideoWithUserId:user.peerID streamID:sourceIdsArray.firstObject renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
             }
         }
         [self freshMediaView];
@@ -1232,7 +1234,7 @@
         {
             if (streamId)
             {
-                //[self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+                [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
             }
         }
         else
@@ -1336,7 +1338,7 @@
         
         if ([sourceId bm_isNotEmpty] && [teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
         {
-            //[self.liveManager playVideoWithUserId:teacher.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+            [self.liveManager playVideoWithUserId:teacher.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
         }
     }
 
@@ -1641,7 +1643,7 @@
         
     [self.liveManager stopVideoWithUserId:self.liveManager.teacher.peerID streamID:userStreamID];
     
-    //[self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
     
     //self.teacherFloatView.canZoom = YES;
     [self freshMediaView];
@@ -1654,7 +1656,7 @@
     [self.liveManager stopVideoWithUserId:userId streamID:streamId];
     
     NSString *userStreamID = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
-    //[self.liveManager playVideoWithUserId:userId streamID:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+    [self.liveManager playVideoWithUserId:userId streamID:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
     
     //self.teacherFloatView.canZoom = NO;
     //self.teacherFloatView.backScrollView.zoomScale = 1.0;
@@ -2265,16 +2267,15 @@
 
 - (void)barrageBtnClicked:(UIButton *)btn
 {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideToolBtns) object:nil];
-    [self performSelector:@selector(hideToolBtns) withObject:nil afterDelay:5.0f];
-//    if (self.isFullScreen)
+//    if (barrageStart)
 //    {
-//        //控制弹幕关闭开启
-//        self.barrageStart = !self.barrageStart;
+//        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
+//        [self.barrageManager start];
 //    }
 //    else
 //    {
-//        //控制转换
+//        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
+//        [self.barrageManager stop];
 //    }
 }
 
@@ -2617,11 +2618,7 @@
     if (!_raiseHandsBtn)
     {
         CGFloat raiseHandWH = 40;
-#if HideFullScreenBtn
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, self->fullScreenBtnFrame.origin.y+self->fullScreenBtnFrame.size.height+15, raiseHandWH, raiseHandWH)];
-#else
-        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, 30+15, raiseHandWH, raiseHandWH)];
-#endif
+        self.raiseHandsBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-40-15, BMUI_STATUS_BAR_HEIGHT+40+15, raiseHandWH, raiseHandWH)];
         
         [self.raiseHandsBtn setBackgroundColor: UIColor.clearColor];
         [self.raiseHandsBtn setImage:YSSkinElementImage(@"live_raiseHand_time", @"iconNor") forState:UIControlStateNormal];

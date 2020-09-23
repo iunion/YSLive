@@ -86,10 +86,41 @@
     toolsAutoHideView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+- (NSArray *)getSubViewsWithView:(UIView *)view
+{
+    return [self getSubViewsWithView:view class:nil];
+}
+
+- (NSArray *)getSubViewsWithView:(UIView *)view class:(Class)class
+{
+    if (![view.subviews bm_isNotEmpty])
+    {
+        return nil;
+    }
+    
+    NSMutableArray *subViewArray = [[NSMutableArray alloc] initWithArray:view.subviews];
+    if (class)
+    {
+        NSMutableArray *newSubViewArray = [NSMutableArray array];
+        for (UIView *view in subViewArray)
+        {
+            if ([view isKindOfClass:class])
+            {
+                [newSubViewArray addObject:view];
+            }
+        }
+        
+        return newSubViewArray;
+    }
+    
+    return subViewArray;
+}
+
+- (UIView *)getHitTest:(CGPoint)point inView:(UIView *)view class:(Class)class
 {
     UIView *findView = nil;
-    for (UIView *view in self.toolsAutoHideView.subviews)
+    NSArray *subViewArray = [self getSubViewsWithView:view class:class];
+    for (UIView *view in subViewArray)
     {
         if (CGRectContainsPoint(view.frame, point))
         {
@@ -97,51 +128,56 @@
             break;
         }
     }
+    
+    return findView;
+}
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (event.type != UIEventTypeTouches)
+    {
+        return [super hitTest:point withEvent:event];
+    }
+
+    UIView *findView = [self getHitTest:point inView:self.toolsAutoHideView class:[UIButton class]];
     if (!findView)
     {
-        for (UIView *view in self.toolsView.subviews)
-        {
-            if (CGRectContainsPoint(view.frame, point))
-            {
-                findView = view;
-                break;
-            }
-        }
+        findView = [self getHitTest:point inView:self.toolsAutoHideView class:[UIControl class]];
     }
 
     if (!findView)
     {
-        for (UIView *view in self.liveView.subviews)
-        {
-            if (CGRectContainsPoint(view.frame, point))
-            {
-                findView = view;
-                break;
-            }
-        }
+        findView = [self getHitTest:point inView:self.toolsView class:[UIButton class]];
+    }
+    if (!findView)
+    {
+        findView = [self getHitTest:point inView:self.toolsView class:[UIControl class]];
     }
 
     if (!findView)
     {
-        for (UIView *view in self.bgView.subviews)
-        {
-            if (CGRectContainsPoint(view.frame, point))
-            {
-                findView = view;
-                break;
-            }
-        }
+        findView = [self getHitTest:point inView:self.liveView class:[UIButton class]];
+    }
+    if (!findView)
+    {
+        findView = [self getHitTest:point inView:self.liveView class:[UIControl class]];
+    }
+
+    if (!findView)
+    {
+        findView = [self getHitTest:point inView:self.bgView class:[UIButton class]];
+    }
+    if (!findView)
+    {
+        findView = [self getHitTest:point inView:self.bgView class:[UIControl class]];
     }
     
     if (findView)
     {
         return findView;
     }
-    else
-    {
-        return [super hitTest:point withEvent:event];
-    }
+
+    return [super hitTest:point withEvent:event];
 }
 
 @end
