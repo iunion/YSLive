@@ -614,9 +614,8 @@
     {
         return;
     }
-
-/*
-    CGRect frame = [self.videoBackgroud convertRect:videoView.frame toView:self.controlBackMaskView];
+    
+    CGRect frame = [self.studentVideoBgView convertRect:videoView.frame toView:self.controlBackMaskView];
     
 //    self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.size.height/2 + frame.origin.y);
     self.controlBackMaskView.hidden = NO;
@@ -633,7 +632,6 @@
         self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.origin.y - self.controlBackView.bounds.size.height*0.5f);
         self.controlBackView.transform = CGAffineTransformMakeRotation(0);
     }
- */
 }
 
 - (void)showEyeCareRemind
@@ -676,12 +674,10 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    /*
     if (self.isFullScreen)
     {
         return YES;
     }
-     */
     
     return NO;
 }
@@ -791,7 +787,6 @@
 
 - (void)makeMp3Animation
 {
-    /*
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.teacherFloatView.bm_bottom - 70, 55, 55)];
     
     NSMutableArray *imageArray = [[NSMutableArray alloc] init];
@@ -806,12 +801,10 @@
     imageView.hidden = YES;
     self.playMp3ImageView = imageView;
     [self.view addSubview:self.playMp3ImageView];
-     */
 }
 
 - (void)setupMp4UI
 {
-    /*
     /// 是否mp4全屏
     self.isMp4FullScreen = NO;
     
@@ -842,7 +835,6 @@
     //self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
     self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
     [self.mp4FullScreenBtn addTarget:self action:@selector(mp4FullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-     */
 }
 
 
@@ -907,11 +899,11 @@
 {
     [self videoViewsSequence];
     
-//    if (self.isFullScreen)
-//    {
-//        [self freshVideoGridView];
-//    }
-//    else
+    if (self.isFullScreen)
+    {
+        [self freshVideoGridView];
+    }
+    else
     {
         [self freshContentVideoView];
     }
@@ -920,23 +912,22 @@
 // 刷新全屏视频布局
 - (void)freshVideoGridView
 {
-//    [self.videoBackgroud bm_removeAllSubviews];
-//
-//    //    CGFloat firstX = (self.videoBackgroud.bm_width - self.videoViewArray.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
-//
-//    for (int i = 1; i <= self.videoSequenceArr.count; i++)
-//    {
-//        SCVideoView *videoView = self.videoSequenceArr[i-1];
-//        [self.videoBackgroud addSubview:videoView];
-//        videoView.frame = CGRectMake(self.videoBackgroud.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
-//    }
+    [self.studentVideoBgView bm_removeAllSubviews];
+    
+    //    CGFloat firstX = (self.videoBackgroud.bm_width - self.videoViewArray.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
+    
+    for (int i = 1; i <= self.videoSequenceArr.count; i++)
+    {
+        SCVideoView *videoView = self.videoSequenceArr[i-1];
+        [self.studentVideoBgView addSubview:videoView];
+        videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
+    }
 }
 
 // 刷新content视频布局
 - (void)freshContentVideoView
 {
-    /*
-    [self.videoBackgroud bm_removeAllSubviews];
+    [self.studentVideoBgView bm_removeAllSubviews];
     
     CGFloat teacherH = 0.0;
     CGFloat teacherW = 0.0;
@@ -947,8 +938,8 @@
         for (NSInteger i = 1; i <= self.videoSequenceArr.count; i++)
         {
             SCVideoView *videoView = self.videoSequenceArr[i-1];
-            [self.videoBackgroud addSubview:videoView];
-            videoView.frame = CGRectMake(self.videoBackgroud.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
+            [self.studentVideoBgView addSubview:videoView];
+            videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
         }
     }
     else
@@ -964,18 +955,17 @@
             teacherW = ceil(teacherH * 4 / 3);
         }
         
-        CGFloat firstX = (self.videoBackgroud.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
+        CGFloat firstX = (self.studentVideoBgView.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
         for (int i = 0; i < self.videoSequenceArr.count; i++)
         {
             SCVideoView *videoView = self.videoSequenceArr[i];
-            [self.videoBackgroud addSubview:videoView];
+            [self.studentVideoBgView addSubview:videoView];
             videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
         }
     }
     
     self.teacherFloatView.frame = CGRectMake(0, 0, teacherW, teacherH);
     self.teacherFloatView.bm_centerX = self.levelView.bm_centerX;
-     */
 }
 
 
@@ -984,19 +974,19 @@
 
 - (void)onPlayMp3
 {
-//    self.playMp3ImageView.hidden = NO;
-//    [self.playMp3ImageView startAnimating];
+    self.playMp3ImageView.hidden = NO;
+    [self.playMp3ImageView startAnimating];
 }
 
 - (void)onPauseMp3
 {
-//    [self.playMp3ImageView stopAnimating];
+    [self.playMp3ImageView stopAnimating];
 }
 
 - (void)onStopMp3
 {
-//    self.playMp3ImageView.hidden = YES;
-//    [self.playMp3ImageView stopAnimating];
+    self.playMp3ImageView.hidden = YES;
+    [self.playMp3ImageView stopAnimating];
 }
 
 
@@ -1208,13 +1198,13 @@
 /// 老师进入
 - (void)onRoomTeacherJoined:(BOOL)isHistory;
 {
-    //self.teacherPlaceLab.hidden = self.liveManager.isClassBegin;
+    self.teacherPlaceLabel.hidden = self.liveManager.isClassBegin;
 }
 
 /// 老师退出
 - (void)onRoomTeacherLeft
 {
-    //self.teacherPlaceLab.hidden = YES;
+    self.teacherPlaceLabel.hidden = YES;
 }
 
 
@@ -1324,7 +1314,7 @@
 // 上课
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
-    //self.teacherPlaceLab.hidden = YES;
+    self.teacherPlaceLabel.hidden = YES;
 //    NSString *teacherPeerID = self.liveManager.teacher.peerID;
     CHRoomUser *teacher = self.liveManager.teacher;
     if (teacher)
@@ -1467,13 +1457,13 @@
 //    }
 //    self.liveBgView.canZoom = NO;
 //    self.liveBgView.backScrollView.zoomScale = 1.0;
-//    
+//
 //    self.showRoomVideo = YES;
 //#if YSAPP_NEWERROR
 //    [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
 //    }];
 //#endif
-//    
+//
 //    [self freshMediaView];
 //}
 //
@@ -1484,13 +1474,13 @@
 //    {
 //        return;
 //    }
-//    
+//
 //    self.showRoomVideo = NO;
 //#if YSAPP_NEWERROR
 //    [self.liveManager stopPlayVideo:self.liveManager.teacher.peerID completion:^(NSError * _Nonnull error) {
 //    }];
 //#endif
-//    
+//
 //    [self freshMediaView];
 //}
 //
@@ -1501,7 +1491,7 @@
 //    {
 //        return;
 //    }
-//    
+//
 //#if YSAPP_NEWERROR
 //    [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
 //    }];
@@ -1515,7 +1505,7 @@
 //    {
 //        return;
 //    }
-//    
+//
 //#if YSAPP_NEWERROR
 //    [self.liveManager stopPlayAudio:self.roomVideoPeerID completion:^(NSError *error) {
 //    }];
@@ -1537,15 +1527,15 @@
     {
         [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
         
-//        if (self.isFullScreen)
-//        {
-//            // 如果是全屏，点击按钮进入小屏状态
-//            [self changeTopVideoToOriginalFrame];
-//        }
-//        self.fullScreenBtn.enabled = NO;
-//        self.mp4BgView.hidden = NO;
-//        [self.mp4BgView bm_bringToFront];
-//        [self.mp4FullScreenBtn bm_bringToFront];
+        if (self.isFullScreen)
+        {
+            // 如果是全屏，点击按钮进入小屏状态
+            [self changeTopVideoToOriginalFrame];
+        }
+        self.fullScreenBtn.enabled = NO;
+        self.mp4BgView.hidden = NO;
+        [self.mp4BgView bm_bringToFront];
+        [self.mp4FullScreenBtn bm_bringToFront];
     }
 }
 
@@ -1558,7 +1548,7 @@
     {
         [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
 
-        //self.fullScreenBtn.enabled = YES;
+        self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;
         [self handleSignalingHideVideoWhiteboard];
     }
@@ -1645,7 +1635,7 @@
     
     [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
     
-    //self.teacherFloatView.canZoom = YES;
+    self.teacherFloatView.canZoom = YES;
     [self freshMediaView];
 }
 
@@ -1658,8 +1648,8 @@
     NSString *userStreamID = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
     [self.liveManager playVideoWithUserId:userId streamID:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
     
-    //self.teacherFloatView.canZoom = NO;
-    //self.teacherFloatView.backScrollView.zoomScale = 1.0;
+    self.teacherFloatView.canZoom = NO;
+    self.teacherFloatView.backScrollView.zoomScale = 1.0;
     [self freshMediaView];
 }
 
@@ -1668,7 +1658,7 @@
 // 收到签到
 - (void)handleSignalingLiveCallRollWithStateType:(NSUInteger)stateType callRollId:(NSString *)callRollId apartTimeInterval:(NSTimeInterval)apartTimeInterval
 {
-    //if (self.isFullScreen)
+    if (self.isFullScreen)
     {
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
@@ -1722,7 +1712,7 @@
 
 // 结束点名
 - (void)closeSignalingLiveCallRoll
-{   
+{
     [self.signedAlert dismiss:nil];
 }
 
@@ -1734,7 +1724,7 @@
     BMLog(@"抽奖中");
     
     
-    //if (self.isFullScreen)
+    if (self.isFullScreen)
     {
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
@@ -1759,7 +1749,7 @@
 // 中奖结果
 - (void)handleSignalingLiveLuckDrawResultWithNameList:(NSArray *)nameList withEndTime:(NSString *)endTime
 {
-    //if (self.isFullScreen)
+    if (self.isFullScreen)
     {
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
@@ -1804,21 +1794,21 @@
 
 - (void)handleMessageWith:(CHChatMessageModel *)message
 {
-//    if (self.isFullScreen)
-//    {
-//        YSBarrageTextDescriptor *textDescriptor = [[YSBarrageTextDescriptor alloc] init];
-//
-//        //          textDescriptor.text = message.message;
-//        textDescriptor.attributedText = [message emojiViewWithMessage:message.message color:YSSkinDefineColor(@"placeholderColor") font:16.0f];
-//        textDescriptor.textColor = [UIColor whiteColor];
-//        textDescriptor.positionPriority = YSBarragePositionLow;
-//        textDescriptor.textFont = [UIFont systemFontOfSize:16.0];
-//        textDescriptor.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//        textDescriptor.strokeWidth = -1;
-//        textDescriptor.animationDuration = arc4random()%5 + 5;
-//        textDescriptor.barrageCellClass = [YSBarrageTextCell class];
-//        [self.barrageManager renderBarrageDescriptor:textDescriptor];
-//    }
+    if (self.isFullScreen)
+    {
+        YSBarrageTextDescriptor *textDescriptor = [[YSBarrageTextDescriptor alloc] init];
+        
+        //          textDescriptor.text = message.message;
+        textDescriptor.attributedText = [message emojiViewWithMessage:message.message color:YSSkinDefineColor(@"placeholderColor") font:16.0f];
+        textDescriptor.textColor = [UIColor whiteColor];
+        textDescriptor.positionPriority = YSBarragePositionLow;
+        textDescriptor.textFont = [UIFont systemFontOfSize:16.0];
+        textDescriptor.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        textDescriptor.strokeWidth = -1;
+        textDescriptor.animationDuration = arc4random()%5 + 5;
+        textDescriptor.barrageCellClass = [YSBarrageTextCell class];
+        [self.barrageManager renderBarrageDescriptor:textDescriptor];
+    }
     
     if (self.m_SegmentBar.currentIndex != 2 && message.chatMessageType != CHChatMessageType_Tips && message.chatMessageType != CHChatMessageType_ImageTips)
     {
@@ -1934,7 +1924,7 @@
 {
     //当在投票结果页面时  收到老师投票信令  将投票结果页面pop掉
     [self.navigationController popToViewController:self animated:NO];
-    //if (self.isFullScreen)
+    if (self.isFullScreen)
     {
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
@@ -1968,7 +1958,7 @@
     
     //当在投票中页面时  收到老师结束投票信令  将投票中页面pop掉
     [self.navigationController popToViewController:self animated:NO];
-    //if (self.isFullScreen)
+    if (self.isFullScreen)
     {
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
@@ -2293,17 +2283,17 @@
         return;
     }
     
-//    if (self.isFullScreen)
-//    {
-//        // 如果是全屏，点击按钮进入小屏状态
-//        [self changeTopVideoToOriginalFrame];
-//    }
-//    else
-//    {
-//        // 不是全屏，点击按钮进入全屏状态
-//        [self changeTopVideoToFullScreen];
-//
-//    }
+    if (self.isFullScreen)
+    {
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
+    }
+    else
+    {
+        // 不是全屏，点击按钮进入全屏状态
+        [self changeTopVideoToFullScreen];
+        
+    }
 }
 
 - (void)changeTopVideoToOriginalFrame
