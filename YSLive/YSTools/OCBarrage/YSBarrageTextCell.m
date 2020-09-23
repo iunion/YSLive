@@ -8,6 +8,12 @@
 
 #import "YSBarrageTextCell.h"
 
+@interface YSBarrageTextCell ()
+
+@property (nonatomic, strong) UILabel *textLabel;
+
+@end
+
 @implementation YSBarrageTextCell
 
 - (instancetype)init {
@@ -25,7 +31,7 @@
 }
 
 - (void)updateSubviewsData {
-    if (!_textLabel) {
+    if (!self.textLabel) {
         [self addSubview:self.textLabel];
     }
 //    if (self.textDescriptor.textShadowOpened) {
@@ -84,7 +90,7 @@
 - (void)removeSubViewsAndSublayers {
     [super removeSubViewsAndSublayers];
     
-    _textLabel = nil;
+    self.textLabel = nil;
 }
 
 - (void)addBarrageAnimationWithDelegate:(id<CAAnimationDelegate>)animationDelegate {
@@ -112,7 +118,7 @@
     walkAnimation.removedOnCompletion = NO;
     walkAnimation.fillMode = kCAFillModeForwards;
     
-    [self.layer addAnimation:walkAnimation forKey:kBarrageAnimation];
+    [self.layer addAnimation:walkAnimation forKey:kYSBarrageAnimation];
 }
 
 - (UILabel *)textLabel {

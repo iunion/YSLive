@@ -13,19 +13,19 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _trackIndex = -1;
+        self.trackIndex = -1;
     }
     
     return self;
 }
 
 - (void)prepareForReuse {
-    [self.layer removeAnimationForKey:kBarrageAnimation];
-    _barrageDescriptor = nil;
-    if (!_idle) {
-        _idle = YES;
+    [self.layer removeAnimationForKey:kYSBarrageAnimation];
+    self.barrageDescriptor = nil;
+    if (!self.idle) {
+        self.idle = YES;
     }
-    _trackIndex = -1;
+    self.trackIndex = -1;
 }
 
 - (void)setBarrageDescriptor:(YSBarrageDescriptor *)barrageDescriptor {
@@ -106,7 +106,7 @@
 }
 
 - (CAAnimation *)barrageAnimation {
-    return [self.layer animationForKey:kBarrageAnimation];
+    return [self.layer animationForKey:kYSBarrageAnimation];
 }
 
 

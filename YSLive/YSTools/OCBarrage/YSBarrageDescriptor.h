@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "YSBarrageHeader.h"
-@class YSBarrageCell;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) YSBarrageTouchAction touchAction DEPRECATED_MSG_ATTRIBUTE("use YSBarrageCellTouchedAction instead");
 @property (nonatomic, copy, nullable) YSBarrageCellTouchedAction cellTouchedAction;//新属性里回传了被点击的cell, 可以在代码块里更改被点击的cell的属性, 比如之前有用户需要在弹幕被点击的时候修改被点击的弹幕的文字颜色等等. 用来替代旧版本的touchAction
+
 @property (nonatomic, strong, nullable) UIColor *borderColor; // Default is no border
 @property (nonatomic, assign) CGFloat borderWidth; // Default is 0
 @property (nonatomic, assign) CGFloat cornerRadius; // Default is 8

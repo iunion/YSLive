@@ -17,6 +17,8 @@
 #import "CHMainViewController.h"
 #import "CHNewCoursewareControlView.h"
 
+#define APPID @"n1cq1Le0ypVtTJek"
+
 #define USE_COOKIES     0
 
 /// 登录时 输入框记录的房间号
@@ -496,7 +498,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     NSDictionary *rtcEngineKitConfig = @{ @"server":@"demo.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
 #else
-    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:nil];
+    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:APPID config:nil];
     
     self.cloudHubManager.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
 #endif
