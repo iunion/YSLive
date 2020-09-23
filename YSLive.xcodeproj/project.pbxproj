@@ -39,6 +39,8 @@
 		269B023B2376CA0000DE83B0 /* SCTopToolBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B02322376C48200DE83B0 /* SCTopToolBarModel.m */; };
 		269B1B542486498700352BC6 /* YSToolBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B1B532486498700352BC6 /* YSToolBoxView.m */; };
 		269B1B552486498700352BC6 /* YSToolBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 269B1B532486498700352BC6 /* YSToolBoxView.m */; };
+		26BAA5A72519F75B0077B7F0 /* YSLiveLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BAA5A62519F75B0077B7F0 /* YSLiveLevelView.m */; };
+		26BAA5A82519F75B0077B7F0 /* YSLiveLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BAA5A62519F75B0077B7F0 /* YSLiveLevelView.m */; };
 		26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
 		26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1A243F03B2002B1B60 /* YSMP4Player.m */; };
 		26D07C23243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
@@ -885,6 +887,8 @@
 		269B02322376C48200DE83B0 /* SCTopToolBarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTopToolBarModel.m; sourceTree = "<group>"; };
 		269B1B522486498700352BC6 /* YSToolBoxView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSToolBoxView.h; sourceTree = "<group>"; };
 		269B1B532486498700352BC6 /* YSToolBoxView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSToolBoxView.m; sourceTree = "<group>"; };
+		26BAA5A52519F75B0077B7F0 /* YSLiveLevelView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveLevelView.h; sourceTree = "<group>"; };
+		26BAA5A62519F75B0077B7F0 /* YSLiveLevelView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveLevelView.m; sourceTree = "<group>"; };
 		26D07C17243F03B2002B1B60 /* YSMP4Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4Player.h; sourceTree = "<group>"; };
 		26D07C19243F03B2002B1B60 /* YSMP4PlayerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMP4PlayerMaskView.h; sourceTree = "<group>"; };
 		26D07C1A243F03B2002B1B60 /* YSMP4Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMP4Player.m; sourceTree = "<group>"; };
@@ -3484,6 +3488,8 @@
 			children = (
 				87EB12972372647800D642E8 /* YSMainVC.h */,
 				87EB12DC2372647800D642E8 /* YSMainVC.m */,
+				26BAA5A52519F75B0077B7F0 /* YSLiveLevelView.h */,
+				26BAA5A62519F75B0077B7F0 /* YSLiveLevelView.m */,
 			);
 			path = YSMainVC;
 			sourceTree = "<group>";
@@ -4223,6 +4229,7 @@
 				8783303024874C4400F1178E /* NSTimer+FLEX.m in Sources */,
 				8745558323B335C200BC6CAB /* YSEyeCareVC.m in Sources */,
 				8709FF332485F7CB00CC8BEA /* FBNodeEnumerator.mm in Sources */,
+				26BAA5A72519F75B0077B7F0 /* YSLiveLevelView.m in Sources */,
 				87832FB424874C4300F1178E /* FLEXASLLogController.m in Sources */,
 				87832F5A24874C4300F1178E /* FLEXExplorerToolbar.m in Sources */,
 				04A479F0239E276100680D84 /* SCBrushToolView.m in Sources */,
@@ -4566,6 +4573,7 @@
 				8717E31C2400DADC008C4CDA /* SCChatToolView.m in Sources */,
 				8717E31F2400DADC008C4CDA /* SCAnswerStatisticsModel.m in Sources */,
 				87832F6724874C4300F1178E /* FLEXFieldEditorViewController.m in Sources */,
+				26BAA5A82519F75B0077B7F0 /* YSLiveLevelView.m in Sources */,
 				8717E3212400DADC008C4CDA /* AppDelegate.m in Sources */,
 				8717E3232400DADC008C4CDA /* YSEyeCareVC.m in Sources */,
 				87832F1F24874C4300F1178E /* FLEXCarouselCell.m in Sources */,
