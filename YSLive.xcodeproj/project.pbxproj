@@ -1847,24 +1847,24 @@
 		2661FB0D23670AB5000859F7 /* OCBarrage */ = {
 			isa = PBXGroup;
 			children = (
-				2661FB0E23670AB5000859F7 /* CALayer+YSBarrage.h */,
-				2661FB1723670AB5000859F7 /* CALayer+YSBarrage.m */,
 				2661FB1A23670AB5000859F7 /* YSBarrage.h */,
-				2661FB1E23670AB5000859F7 /* YSBarrageCell.h */,
-				2661FB1423670AB5000859F7 /* YSBarrageCell.m */,
-				2661FB1F23670AB5000859F7 /* YSBarrageDescriptor.h */,
-				2661FB1323670AB5000859F7 /* YSBarrageDescriptor.m */,
 				2661FB1C23670AB5000859F7 /* YSBarrageHeader.h */,
 				2661FB1123670AB5000859F7 /* YSBarrageManager.h */,
 				2661FB1823670AB5000859F7 /* YSBarrageManager.m */,
 				2661FB1523670AB5000859F7 /* YSBarrageRenderView.h */,
 				2661FB1D23670AB5000859F7 /* YSBarrageRenderView.m */,
+				2661FB1E23670AB5000859F7 /* YSBarrageCell.h */,
+				2661FB1423670AB5000859F7 /* YSBarrageCell.m */,
 				2661FB1B23670AB5000859F7 /* YSBarrageTextCell.h */,
 				2661FB1223670AB5000859F7 /* YSBarrageTextCell.m */,
+				2661FB1F23670AB5000859F7 /* YSBarrageDescriptor.h */,
+				2661FB1323670AB5000859F7 /* YSBarrageDescriptor.m */,
 				2661FB0F23670AB5000859F7 /* YSBarrageTextDescriptor.h */,
 				2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */,
 				2661FB1023670AB5000859F7 /* YSBarrageTrackInfo.h */,
 				2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */,
+				2661FB0E23670AB5000859F7 /* CALayer+YSBarrage.h */,
+				2661FB1723670AB5000859F7 /* CALayer+YSBarrage.m */,
 			);
 			path = OCBarrage;
 			sourceTree = "<group>";

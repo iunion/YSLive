@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSBarrageTextCell : YSBarrageCell
 
-@property (nonatomic, strong) UILabel *textLabel;
+@property (nonatomic, strong, readonly) UILabel *textLabel;
 @property (nonatomic, strong, nullable) YSBarrageTextDescriptor *textDescriptor;
 
 @end
