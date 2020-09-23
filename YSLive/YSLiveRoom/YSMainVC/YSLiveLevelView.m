@@ -100,7 +100,6 @@
 
     if (!findView)
     {
-        NSArray *aa = self.toolsView.subviews;
         for (UIView *view in self.toolsView.subviews)
         {
             if (CGRectContainsPoint(view.frame, point))
@@ -123,6 +122,18 @@
         }
     }
 
+    if (!findView)
+    {
+        for (UIView *view in self.bgView.subviews)
+        {
+            if (CGRectContainsPoint(view.frame, point))
+            {
+                findView = view;
+                break;
+            }
+        }
+    }
+    
     if (findView)
     {
         return findView;

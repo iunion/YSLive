@@ -396,7 +396,8 @@
     UIControl *control = [[UIControl alloc] initWithFrame:self.levelView.toolsView.bounds];
     control.backgroundColor = [UIColor clearColor];
     [control addTarget:self action:@selector(levelViewClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.levelView.bgView addSubview:control];
+
     /// 学生视频容器
     UIView *studentVideoBgView = [[UIView alloc] init];
     studentVideoBgView.backgroundColor = [UIColor clearColor];
