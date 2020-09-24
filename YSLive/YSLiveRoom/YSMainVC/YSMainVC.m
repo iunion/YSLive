@@ -415,6 +415,7 @@
     UIView *studentVideoBgView = [[UIView alloc] init];
     studentVideoBgView.backgroundColor = [UIColor clearColor];
     [self.levelView.liveView addSubview:studentVideoBgView];
+    studentVideoBgView.tag = 111;
     studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
     self.studentVideoBgView = studentVideoBgView;
 }
@@ -465,15 +466,17 @@
 
 - (void)addControlMainVideoAudioView
 {
-    UIView * controlBackMaskView = [[UIView alloc]initWithFrame:self.view.bounds];
+    UIControl* controlBackMaskView = [[UIControl alloc]initWithFrame:self.view.bounds];
     controlBackMaskView.backgroundColor = UIColor.clearColor;
     self.controlBackMaskView = controlBackMaskView;
     [self.view addSubview:controlBackMaskView];
+    [controlBackMaskView addTarget:self action:@selector(clickToHideControl) forControlEvents:UIControlEventTouchUpInside];
+    
     controlBackMaskView.hidden = YES;
-    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl)];
-    oneTap.numberOfTapsRequired = 1;
-    [controlBackMaskView addGestureRecognizer:oneTap];
-    oneTap.delegate = self;
+//    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToHideControl)];
+//    oneTap.numberOfTapsRequired = 1;
+//    [controlBackMaskView addGestureRecognizer:oneTap];
+//    oneTap.delegate = self;
     
     UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
     controlBackView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
@@ -563,7 +566,7 @@
     return button;
 }
 
-- (void)clickToShowControl
+- (void)clickToHideControl
 {
     self.controlBackMaskView.hidden = YES;
 }
@@ -1246,7 +1249,7 @@
         SCVideoView * videoVivew = userVideoVivews.firstObject;
         
         [self delVideoViewWithPeerId:roomUser.peerID andSourceId:videoVivew.sourceId];
-        [self clickToShowControl];// 隐藏控制按钮
+        [self clickToHideControl];// 隐藏控制按钮
     }
 }
 
