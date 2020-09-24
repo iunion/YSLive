@@ -396,13 +396,6 @@
     [control addTarget:self action:@selector(levelViewClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.levelView.bgView addSubview:control];
     control.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-
-    /// 学生视频容器
-    UIView *studentVideoBgView = [[UIView alloc] init];
-    studentVideoBgView.backgroundColor = [UIColor clearColor];
-    [self.levelView.liveView addSubview:studentVideoBgView];
-    studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
-    self.studentVideoBgView = studentVideoBgView;
     
     [self setupVideoBackgroud];
     
@@ -418,11 +411,12 @@
 // 上台视频背景容器
 - (void)setupVideoBackgroud
 {
-    // 视频背景
-    self.studentVideoBgView = [[UIView alloc] init];
-    self.studentVideoBgView.backgroundColor = [UIColor clearColor];//[UIColor bm_colorWithHex:0x5A8CDC];
-    [self.levelView.liveView addSubview:self.studentVideoBgView];
-    self.studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
+    /// 学生视频容器
+    UIView *studentVideoBgView = [[UIView alloc] init];
+    studentVideoBgView.backgroundColor = [UIColor clearColor];
+    [self.levelView.liveView addSubview:studentVideoBgView];
+    studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
+    self.studentVideoBgView = studentVideoBgView;
 }
 
 // 字幕
@@ -434,7 +428,7 @@
     self.barrageManager.renderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-/// 设置返回按钮以及 房间ID
+/// 设置按钮
 - (void)setupToolsView
 {
     self.returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -444,17 +438,17 @@
     [self.returnBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     self.returnBtn.bm_ActionEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
     
-    self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.levelView.toolsAutoHideView addSubview:self.barrageBtn];
-    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
-    self.barrageBtn.frame = CGRectMake(10, self.teacherVideoHeight - 50, 40, 40);
-    [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-
     self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.levelView.toolsAutoHideView addSubview:self.fullScreenBtn];
     [self.fullScreenBtn setImage:YSSkinElementImage(@"live_lesson_full", @"iconNor") forState:UIControlStateNormal];
     self.fullScreenBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
     [self.fullScreenBtn addTarget:self action:@selector(fullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.levelView.toolsAutoHideView addSubview:self.barrageBtn];
+    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
+    self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
+    [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -2378,7 +2372,7 @@
 //- (void)orientChange:(NSNotification *)noti
 - (void)setInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    /*
+    
     //UIDeviceOrientation orientation = UIDeviceOrientationLandscapeLeft;//[UIDevice currentDevice].orientation;
     switch (orientation)
     {
@@ -2390,47 +2384,21 @@
             
             [UIView animateWithDuration:0.25 animations:^{
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
-                self.barrageStart = NO;
-                self.allVideoBgView.transform = CGAffineTransformMakeRotation(0);
-                self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.teacherVideoHeight);
-                
-                //                self.liveBgView.transform = CGAffineTransformMakeRotation(0);
-                //                self.liveBgView.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, VIDEOVIEW_HEIGHT);
-                
-                self.videoBackgroud.frame = CGRectMake(0, self.teacherVideoHeight - (self->platformVideoHeight) - VIDEOVIEW_VERTICAL_GAP , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
-                
-                self.returnBtn.transform = CGAffineTransformMakeRotation(0);
+//                self.barrageStart = NO;
+                self.levelView.transform = CGAffineTransformMakeRotation(0);
+                self.levelView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.teacherVideoHeight);
+                self.teacherFloatView.frame =  self.levelView.bounds;
+                self.studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - self->platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, self->platformVideoHeight);
                 self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
-                
-//                self.roomIDLabel.transform = CGAffineTransformMakeRotation(0);
-//                self.roomIDLabel.frame = CGRectMake(CGRectGetMaxX(self.returnBtn.frame) + 7, BMUI_STATUS_BAR_HEIGHT, 120, 26);
-//                self.roomIDLabel.bm_centerY = self.returnBtn.bm_centerY;
-                //self.barrageManager.renderView.transform = CGAffineTransformMakeRotation(0);
-                self.barrageManager.renderView.frame = CGRectZero;
-                //self.barrageManager.renderView.hidden = YES;
-                
-                self.fullScreenBtn.transform = CGAffineTransformMakeRotation(0);
-                self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
-                
-                self.barrageBtn.transform = CGAffineTransformMakeRotation(0);
-                self.barrageBtn.frame = CGRectZero;
-                
-                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(0);
-#if HideFullScreenBtn
-                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self->fullScreenBtnFrame.origin.y+self->fullScreenBtnFrame.size.height+15, 40, 40);
-#else
-                self.raiseHandsBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH-40-15, self.fullScreenBtn.bm_bottom + 15, 40, 40);
-#endif
-
-                self.raiseMaskImage.transform = CGAffineTransformMakeRotation(0);
+                self.fullScreenBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
+                self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
+                self.raiseHandsBtn.frame = CGRectMake(self.levelView.toolsView.bm_width-40-15, self.barrageBtn.bm_bottom + 10, 40, 40);
                 self.raiseMaskImage.frame = self.raiseHandsBtn.frame;
-                
-                self.remarkLab.transform = CGAffineTransformMakeRotation(0);
                 self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_originX - self.remarkLab.bm_width - 15 - 5, self.raiseHandsBtn.bm_centerY - 8, self.remarkLab.bm_width + 15, 16);
                 
-                self.playMp3ImageView.bm_origin = CGPointMake(15, self.teacherFloatView.bm_bottom - 70);
+                self.playMp3ImageView.bm_origin = CGPointMake(15, self.levelView.bm_bottom - 70);
                 
-                [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-50];
+                [self.teacherPlaceLabel bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-50];
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
         }
@@ -2443,45 +2411,25 @@
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isFullScreen = YES;//通过set 方法刷新了视频布局
-                self.barrageStart = YES;
-                self.allVideoBgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.allVideoBgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-                //                self.liveBgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.teacherFloatView.frame = CGRectMake(0, 0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH);
-                
-                //                self.videoBackgroud.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.videoBackgroud.frame = CGRectMake(0, BMUI_SCREEN_WIDTH - (self->platformVideoHeight) - 7 , BMUI_SCREEN_WIDTH, (self->platformVideoHeight));
-                self.videoBackgroud.bm_centerX = self.allVideoBgView.bm_centerY;
-                //                self.videoBackgroud.bm_bottom = self.liveBgView.bm_bottom - 7;
-                
-                self.returnBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.returnBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
-                
-//                self.roomIDLabel.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-//                self.roomIDLabel.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40, BMUI_STATUS_BAR_HEIGHT + 40 + 7, 26, 120);
-//                self.roomIDLabel.bm_centerX = self.returnBtn.bm_centerX;
-//
+//                self.barrageStart = YES;
+                self.levelView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                self.levelView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
+                self.teacherFloatView.frame =  self.levelView.bounds;
+
+                self.studentVideoBgView.frame = CGRectMake(0, BMUI_SCREEN_WIDTH - self->platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, self->platformVideoHeight);
+                self.studentVideoBgView.bm_centerX = self.levelView.liveView.bm_centerX;
                 
                 self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-(self->platformVideoHeight) - 10);
+                self.fullScreenBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
+                self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
                 
-                self.fullScreenBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 25 - 40 ,BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10 , 40, 40);
-                
-                self.barrageBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.barrageBtn.frame = CGRectMake(10, BMUI_SCREEN_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 40 - 10, 40, 40);
-                
-                self.raiseHandsBtn.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.raiseHandsBtn.frame = CGRectMake(self.fullScreenBtn.bm_left - 40 - 20, self.fullScreenBtn.bm_top, 40, 40);
-                
-                self.raiseMaskImage.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                self.raiseHandsBtn.frame = CGRectMake(self.levelView.toolsView.bm_width-40-15, self.barrageBtn.bm_bottom + 10, 40, 40);
                 self.raiseMaskImage.frame = self.raiseHandsBtn.frame;
-                
-                self.remarkLab.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_centerX - self.remarkLab.bm_width/2, self.raiseHandsBtn.bm_originY - self.remarkLab.bm_height - 5 - 15, self.remarkLab.bm_width, self.remarkLab.bm_height);
+                self.remarkLab.frame = CGRectMake(self.raiseHandsBtn.bm_originX - self.remarkLab.bm_width - 15 - 5, self.raiseHandsBtn.bm_centerY - 8, self.remarkLab.bm_width + 15, 16);
                 
                 self.playMp3ImageView.bm_origin = CGPointMake(15, 70);
                 
-                [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-80];
+                [self.teacherPlaceLabel bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-80];
                 
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
@@ -2490,12 +2438,13 @@
         case UIDeviceOrientationLandscapeRight:
         {
 #warning setDeviceOrientation
+            /*
             //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeRight];
             [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnLeft];
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isFullScreen = YES;
-                self.barrageStart = YES;
+//                self.barrageStart = YES;
                 self.teacherFloatView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 self.teacherFloatView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
                 
@@ -2517,17 +2466,18 @@
 
                 self.playMp3ImageView.bm_origin = CGPointMake(BMUI_SCREEN_WIDTH - 70 , BMUI_SCREEN_HEIGHT - BMUI_STATUS_BAR_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 15);
                 
-                [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-80];
+                [self.teacherPlaceLabel bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-80];
                 
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
+             */
         }
             break;
             
         default:
             break;
     }
-     */
+     
 }
 
 - (void)setMp4InterfaceOrientation:(UIInterfaceOrientation)orientation
@@ -2624,7 +2574,7 @@
         raiseMaskImage.animationDuration = 3.0;
         raiseMaskImage.animationRepeatCount = 0;
         self.raiseMaskImage = raiseMaskImage;
-        [self.view addSubview:raiseMaskImage];
+        [self.levelView.toolsView addSubview:raiseMaskImage];
         raiseMaskImage.userInteractionEnabled = NO;
         raiseMaskImage.hidden = YES;
         
@@ -2641,7 +2591,7 @@
         remarkLab.layer.cornerRadius = 16/2;
         remarkLab.layer.masksToBounds = YES;
         remarkLab.hidden = YES;
-        [self.view addSubview:remarkLab];
+        [self.levelView.toolsView addSubview:remarkLab];
         self.remarkLab = remarkLab;
     }
     return _raiseHandsBtn;

@@ -102,11 +102,11 @@
     if (class)
     {
         NSMutableArray *newSubViewArray = [NSMutableArray array];
-        for (UIView *view in subViewArray)
+        for (UIView *subview in subViewArray)
         {
-            if ([view isKindOfClass:class])
+            if ([subview isKindOfClass:class])
             {
-                [newSubViewArray addObject:view];
+                [newSubViewArray addObject:subview];
             }
         }
         
@@ -118,13 +118,17 @@
 
 - (UIView *)getHitTest:(CGPoint)point inView:(UIView *)view class:(Class)class
 {
+    if (view.hidden)
+    {
+        return nil;
+    }
     UIView *findView = nil;
     NSArray *subViewArray = [self getSubViewsWithView:view class:class];
-    for (UIView *view in subViewArray)
+    for (UIView *subview in subViewArray)
     {
-        if (CGRectContainsPoint(view.frame, point))
+        if (!subview.hidden && CGRectContainsPoint(subview.frame, point))
         {
-            findView = view;
+            findView = subview;
             break;
         }
     }
