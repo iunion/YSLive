@@ -415,6 +415,7 @@
     UIView *studentVideoBgView = [[UIView alloc] init];
     studentVideoBgView.backgroundColor = [UIColor clearColor];
     [self.levelView.liveView addSubview:studentVideoBgView];
+    studentVideoBgView.tag = 111;
     studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
     self.studentVideoBgView = studentVideoBgView;
 }

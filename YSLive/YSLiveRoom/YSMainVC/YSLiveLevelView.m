@@ -7,7 +7,7 @@
 //
 
 #import "YSLiveLevelView.h"
-
+#import "SCVideoView.h"
 @interface YSLiveLevelView ()
 
 /// 背景
@@ -122,11 +122,13 @@
     {
         return nil;
     }
+    
     UIView *findView = nil;
     NSArray *subViewArray = [self getSubViewsWithView:view class:class];
     for (UIView *subview in subViewArray)
     {
-        if (!subview.hidden && CGRectContainsPoint(subview.frame, point))
+        CGPoint newPoint = [view.superview convertPoint:point toView:view];
+        if (!subview.hidden && CGRectContainsPoint(subview.frame, newPoint))
         {
             findView = subview;
             break;
@@ -138,12 +140,13 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (event.type != UIEventTypeTouches)
-    {
-        return [super hitTest:point withEvent:event];
-    }
+//    if (event.type != UIEventTypeTouches)
+//    {
+//        return [super hitTest:point withEvent:event];
+//    }
 
     UIView *findView = [self getHitTest:point inView:self.toolsAutoHideView class:[UIButton class]];
+        
     if (!findView)
     {
         findView = [self getHitTest:point inView:self.toolsAutoHideView class:[UIControl class]];
@@ -160,12 +163,19 @@
 
     if (!findView)
     {
+        findView = [self getHitTest:point inView:[self.liveView viewWithTag:111] class:[SCVideoView class]];
+    }
+
+    if (!findView)
+    {
         findView = [self getHitTest:point inView:self.liveView class:[UIButton class]];
     }
     if (!findView)
     {
         findView = [self getHitTest:point inView:self.liveView class:[UIControl class]];
     }
+ 
+    
 
     if (!findView)
     {
