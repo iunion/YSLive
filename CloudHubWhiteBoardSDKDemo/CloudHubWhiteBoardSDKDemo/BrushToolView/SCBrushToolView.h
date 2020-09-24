@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)brushToolDoClean;
+- (void)brushToolClikWithToolBtn:(nonnull UIButton *)toolBtn;
 
 @end
 

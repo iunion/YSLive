@@ -359,7 +359,7 @@
 /// 设置左侧工具栏
 - (void)setupBrushToolView
 {
-    self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:NO];
+    self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:YES];
     [self.view addSubview:self.brushToolView];
     
     CGFloat laftGap = 10;
@@ -432,6 +432,23 @@
         make.centerY.mas_equalTo(weakSelf.brushToolOpenBtn.mas_centerY);
     }];
 }
+
+- (void)brushToolClikWithToolBtn:(nonnull UIButton *)toolBtn
+{
+    if (toolBtn.tag == CHDrawTypeClear)
+    {
+        [self brushSelectorViewDidSelectDrawType:CHDrawTypeClear color:@"" widthProgress:0];
+    }
+    else if (toolBtn.tag == CHBrushToolTypeUndo)
+    {
+        NSLog(@"点击了undo按钮");
+    }
+    else if (toolBtn.tag == CHBrushToolTypeRedo)
+    {
+        NSLog(@"点击了redo按钮");
+    }
+}
+
 #pragma mark - 需要传递给白板的数据
 #pragma mark SCDrawBoardViewDelegate
 
