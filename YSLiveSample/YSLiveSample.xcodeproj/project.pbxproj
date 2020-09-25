@@ -533,10 +533,9 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
-					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/CHWhiteBoard",
 				);
 				INFOPLIST_FILE = YSLiveSample/Info.plist;
@@ -581,10 +580,9 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib",
+					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/BMKit",
-					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/YSWhiteBoard",
 					"$(PROJECT_DIR)/YSLiveSample/YSLib/expandLib/CHWhiteBoard",
 				);
 				INFOPLIST_FILE = YSLiveSample/Info.plist;

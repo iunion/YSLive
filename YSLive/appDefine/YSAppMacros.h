@@ -85,3 +85,6 @@ static NSString *const YSPrivacyClause = @"PrivacyClause";
 #define YSLEAKS_ENABLED                 0
 #endif
 #endif /* YSAppMacros_h */
+
+
+#define YSGiftMp3SoundId                (CHUISoundId_Start+1)
