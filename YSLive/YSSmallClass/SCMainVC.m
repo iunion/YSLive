@@ -2981,6 +2981,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
 #endif
+    
+    if ([self.privateIdArray bm_isNotEmpty])
+    {
+        [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:user.peerID mute:YES];
+    }
 }
 
 /// 用户退出
