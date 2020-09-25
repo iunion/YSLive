@@ -2364,7 +2364,7 @@
                 self.levelView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 self.levelView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
                 self.teacherFloatView.frame =  self.levelView.bounds;
-
+                self.teacherMaskView.frame = self.levelView.maskView.bounds;
                 self.studentVideoBgView.frame = CGRectMake(0, BMUI_SCREEN_WIDTH - self->platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, self->platformVideoHeight);
                 self.studentVideoBgView.bm_centerX = self.levelView.liveView.bm_centerX;
                 
