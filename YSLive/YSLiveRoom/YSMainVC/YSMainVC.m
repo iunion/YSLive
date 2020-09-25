@@ -115,6 +115,8 @@
 @property (nonatomic, strong) UIButton *barrageBtn;
 /// 弹幕
 @property (nonatomic, strong) YSBarrageManager *barrageManager;
+/// 是否开启弹幕
+@property (nonatomic, assign) BOOL barrageStart;
 
 /// 全屏按钮
 @property (nonatomic, strong) UIButton *fullScreenBtn;
@@ -231,7 +233,7 @@
 {
     [super viewDidLoad];
     self.bm_CanBackInteractive = NO;
-
+    
     if (self.isWideScreen)
     {
         self.teacherVideoHeight = BMUI_SCREEN_WIDTH * 9/16;
@@ -286,16 +288,15 @@
 
 - (void)backAction:(id)sender
 {
-    /*
+    
     if (self.isFullScreen)
     {
-        //[[UIApplication sharedApplication] setStatusBarHidden:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
-        self.barrageStart = NO;
+//        self.barrageStart = NO;
     }
     else
-     */
     {
         BMWeakSelf
         [BMAlertView ys_showAlertWithTitle:YSLocalized(@"Prompt.Quite") message:nil cancelTitle:YSLocalized(@"Prompt.Cancel") otherTitle:YSLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
@@ -425,7 +426,7 @@
 {
     self.barrageManager = [[YSBarrageManager alloc] init];
     [self.levelView.barrageView addSubview:self.barrageManager.renderView];
-    self.barrageManager.renderView.frame = CGRectMake(0, 40.0f, self.levelView.barrageView.bm_width, 60.0f);
+    self.barrageManager.renderView.frame = CGRectMake(0, 40, self.levelView.barrageView.bm_width, self.levelView.barrageView.bm_height-(self->platformVideoHeight) - 40);
     self.barrageManager.renderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
@@ -447,7 +448,7 @@
     
     self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.levelView.toolsAutoHideView addSubview:self.barrageBtn];
-    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
+    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
     self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -1791,7 +1792,7 @@
 
 - (void)handleMessageWith:(CHChatMessageModel *)message
 {
-    if (self.isFullScreen)
+    if (self.barrageStart)
     {
         YSBarrageTextDescriptor *textDescriptor = [[YSBarrageTextDescriptor alloc] init];
         
@@ -2254,16 +2255,17 @@
 
 - (void)barrageBtnClicked:(UIButton *)btn
 {
-//    if (barrageStart)
-//    {
-//        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
-//        [self.barrageManager start];
-//    }
-//    else
-//    {
-//        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
-//        [self.barrageManager stop];
-//    }
+    self.barrageStart = !self.barrageStart;
+    if (self.barrageStart)
+    {
+        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
+        [self.barrageManager start];
+    }
+    else
+    {
+        [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
+        [self.barrageManager stop];
+    }
 }
 
 /// 全屏按钮
@@ -2392,6 +2394,9 @@
                 self.levelView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.teacherVideoHeight);
                 self.teacherFloatView.frame =  self.levelView.bounds;
                 self.studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - self->platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, self->platformVideoHeight);
+                
+                self.barrageManager.renderView.frame = CGRectMake(0, 40, self.levelView.barrageView.bm_width, self.levelView.barrageView.bm_height-(self->platformVideoHeight) - 40);
+                
                 self.returnBtn.frame = CGRectMake(10, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 self.fullScreenBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
@@ -2422,7 +2427,7 @@
                 self.studentVideoBgView.frame = CGRectMake(0, BMUI_SCREEN_WIDTH - self->platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, self->platformVideoHeight);
                 self.studentVideoBgView.bm_centerX = self.levelView.liveView.bm_centerX;
                 
-                self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-(self->platformVideoHeight) - 10);
+                self.barrageManager.renderView.frame = CGRectMake(0, 10, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-(self->platformVideoHeight) - 20);
                 self.fullScreenBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
                 self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
                 
