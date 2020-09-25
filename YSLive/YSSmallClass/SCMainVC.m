@@ -41,7 +41,6 @@
 #define PlaceholderPTag       10
 
 
-
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
@@ -1719,11 +1718,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.videoGridView.hidden = NO;
 }
 
-- (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
+//- (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
+//{
+//    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+//    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
+//    if ([mediaFileUrl isEqualToString:filePath])
+//    {
+//        giftMp3Playing = NO;
+//    }
+//}
+
+- (void)onRoomAudioFinished:(NSInteger)soundId
 {
-    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
-    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
-    if ([mediaFileUrl isEqualToString:filePath])
+    if (YSGiftMp3SoundId == soundId)
     {
         giftMp3Playing = NO;
     }
@@ -1741,7 +1748,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!giftMp3Playing)
     {
-        giftMp3Playing = [self.liveManager startPlayingMedia:filePath];
+        //giftMp3Playing = [self.liveManager startPlayingMedia:filePath];
+        giftMp3Playing = [self.liveManager startAudio:filePath withSoundId:YSGiftMp3SoundId];
     }
     
     UIImageView *giftImageView = [self makeGiftImageView];
