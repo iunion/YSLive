@@ -255,9 +255,6 @@
     
     [self setupLevelView];
 
-    
-    [self setupLiveUI];// 视频UI
-
     [self setupBarrage];
     
     [self makeMp3Animation];
@@ -475,10 +472,6 @@
     [controlBackMaskView addTarget:self action:@selector(clickToHideControl) forControlEvents:UIControlEventTouchUpInside];
     
     controlBackMaskView.hidden = YES;
-//    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToHideControl)];
-//    oneTap.numberOfTapsRequired = 1;
-//    [controlBackMaskView addGestureRecognizer:oneTap];
-//    oneTap.delegate = self;
     
     UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
     controlBackView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
@@ -710,80 +703,6 @@
     return UIStatusBarAnimationNone;
 }
 
-
-
-- (void)setupLiveUI
-{
-    /*
-    ///所有视频容器
-    self.allVideoBgView = [[UIView alloc] initWithFrame:self.levelView.liveView.bounds];
-    self.allVideoBgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-//    [self.view addSubview:self.allVideoBgView];
-    [self.levelView.liveView addSubview:self.allVideoBgView];
-    
-    /// 老师视频容器
-    self.teacherFloatView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.teacherVideoHeight)];
-    self.teacherFloatView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-    self.teacherFloatView.showWaiting = NO;
-    self.teacherFloatView.bm_centerX = self.allVideoBgView.bm_centerX;
-    [self.allVideoBgView addSubview:self.teacherFloatView];
-    
-    self.teacherVideoView = [[UIView alloc] initWithFrame:self.teacherFloatView.bounds];
-    self.teacherVideoView.backgroundColor = [UIColor clearColor];
-    //self.liveBgView.canZoom = YES;
-    [self.teacherFloatView showWithContentView:self.teacherVideoView];
-    
-    self.teacherMaskView  = [[UIImageView alloc] initWithFrame:self.teacherFloatView.bounds];
-    self.teacherMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.teacherMaskView.contentMode = UIViewContentModeCenter;
-    self.teacherMaskView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
-    self.teacherMaskView.image = YSSkinDefineImage(@"live_main_notclassbeging");
-    [self.teacherFloatView.backScrollView addSubview:self.teacherMaskView];
-    
-    NSString * text = YSLocalized(@"Label.AnchorState");
-    CGSize labSize = [text bm_sizeToFitWidth:self.teacherFloatView.bm_width withFont:UI_FONT_12];
-    UILabel *placeLab = [[UILabel alloc]initWithFrame:CGRectMake((self.teacherFloatView.bm_width-labSize.width)/2, self.teacherFloatView.bm_height-50, labSize.width+20, 15)];
-    placeLab.text = text;
-    placeLab.textAlignment = NSTextAlignmentCenter;
-    placeLab.backgroundColor = YSSkinDefineColor(@"jurisdictionCheckFail");
-    placeLab.textColor = UIColor.whiteColor;
-    placeLab.layer.cornerRadius = 15/2;
-    placeLab.layer.masksToBounds = YES;
-    placeLab.font = UI_FONT_12;
-    placeLab.numberOfLines = 1;
-    placeLab.hidden = YES;
-    [self.teacherMaskView addSubview:placeLab];
-    self.teacherPlaceLab = placeLab;
-    [self.teacherPlaceLab bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-50];
-    
-    self.allVideoBgView.userInteractionEnabled = YES;
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(liveViewClicked:)];
-    [self.allVideoBgView addGestureRecognizer:tapGesture];
-    
-#if HideFullScreenBtn
-#else
-    self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:self.fullScreenBtn];
-#endif
-    [self.view bringSubviewToFront:self.fullScreenBtn];
-    [self.fullScreenBtn setImage:YSSkinElementImage(@"live_lesson_full", @"iconNor") forState:UIControlStateNormal];
-    self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
-#if HideFullScreenBtn
-    fullScreenBtnFrame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, BMUI_STATUS_BAR_HEIGHT, 40, 40);
-#endif
-    [self.fullScreenBtn addTarget:self action:@selector(fullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:self.barrageBtn];
-    [self.view bringSubviewToFront:self.barrageBtn];
-    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
-    self.barrageBtn.frame = CGRectZero;
-    [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    // 上台视频背景容器
-    [self setupVideoBackgroud];
-    */
-}
-
 - (void)makeMp3Animation
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.teacherFloatView.bm_bottom - 70, 55, 55)];
@@ -852,9 +771,11 @@
 {
     if (self.liveManager.isClassBegin)
     {
+        self.teacherBgMaskView.hidden = YES;
+        
         if (self.shareDesktop)
         {
-            //self.teacherMaskView.hidden = YES;
+            self.teacherMaskView.hidden = YES;
         }
         else
         {
@@ -864,33 +785,32 @@
             {
                 if ([self.liveManager.teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
                 {
-                    //self.teacherMaskView.hidden = YES;
+                    self.teacherMaskView.hidden = YES;
                 }
                 else
                 {
-                    //self.teacherMaskView.hidden = NO;
+                    self.teacherMaskView.hidden = NO;
                     
                     if (publishState == CHUser_PublishState_DOWN)
                     {
-                        //self.teacherMaskView.image = YSSkinDefineImage(@"live_main_waitingvideo");
+                        self.teacherMaskView.image = YSSkinDefineImage(@"live_main_waitingvideo");
                     }
                     else
                     {
-                        //self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
+                        self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
                     }
                 }
             }
             else
             {
-                //self.teacherMaskView.hidden = NO;
-                //self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
+                self.teacherMaskView.hidden = NO;
+                self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
             }
         }
     }
     else
     {
-        //self.teacherMaskView.hidden = NO;
-        //self.teacherMaskView.image = YSSkinDefineImage(@"live_main_notclassbeging");
+        self.teacherBgMaskView.hidden = NO;
     }
 }
 
@@ -1088,14 +1008,6 @@
 {
     [super onRoomConnectionLost];
     //[self.view bringSubviewToFront:self.returnBtn];
-//
-//    if (self.isFullScreen)
-//    {
-//        self.isFullScreen = NO;
-//        [self changeTopVideoToOriginalFrame];
-//    }
-//
-//    [self freshContentView];
 }
 
 
@@ -2505,7 +2417,6 @@
         default:
             break;
     }
-     
 }
 
 - (void)setMp4InterfaceOrientation:(UIInterfaceOrientation)orientation
