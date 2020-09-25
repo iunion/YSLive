@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIView *liveView;
 /// 视频蒙版
 @property (nonatomic, strong) UIView *maskView;
+/// 学生视频蒙版
+@property (nonatomic, strong) UIView *studentLiveView;
 /// 弹幕容器
 @property (nonatomic, strong) UIView *barrageView;
 /// 工具容器
@@ -63,6 +65,14 @@
     maskView.frame = self.bounds;
     maskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    /// 学生视频蒙版
+    UIView *studentLiveView = [[UIView alloc] init];
+    self.studentLiveView = studentLiveView;
+    [self addSubview:studentLiveView];
+    studentLiveView.backgroundColor = [UIColor clearColor];
+    studentLiveView.frame = self.bounds;
+    studentLiveView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     /// 弹幕容器
     UIView *barrageView = [[UIView alloc] init];
     self.barrageView = barrageView;

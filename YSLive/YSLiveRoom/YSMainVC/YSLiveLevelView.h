@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIView *liveView;
 /// 视频蒙版
 @property (nonatomic, strong, readonly) UIView *maskView;
+/// 学生视频蒙版
+@property (nonatomic, strong, readonly) UIView *studentLiveView;
 /// 弹幕容器
 @property (nonatomic, strong, readonly) UIView *barrageView;
 /// 工具容器
