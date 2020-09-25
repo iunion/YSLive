@@ -448,7 +448,7 @@
     [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
     self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    self.barrageBtn.hidden = YES;
+    self.barrageBtn.hidden = NO;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -1009,13 +1009,13 @@
     [super onRoomConnectionLost];
     //[self.view bringSubviewToFront:self.returnBtn];
 //
-//    if (self.isFullScreen)
-//    {
-//        self.isFullScreen = NO;
-//        [self changeTopVideoToOriginalFrame];
-//    }
+    if (self.isFullScreen)
+    {
+        self.isFullScreen = NO;
+        [self changeTopVideoToOriginalFrame];
+    }
 //
-//    [self freshContentView];
+    [self freshContentView];
 }
 
 
@@ -1713,12 +1713,14 @@
 
 - (void)handleMessageWith:(CHChatMessageModel *)message
 {
-    if (self.barrageStart)
+    if (self.barrageStart && !message.isPersonal)
     {
         YSBarrageTextDescriptor *textDescriptor = [[YSBarrageTextDescriptor alloc] init];
         
         //          textDescriptor.text = message.message;
-        textDescriptor.attributedText = [message emojiViewWithMessage:message.message color:YSSkinDefineColor(@"placeholderColor") font:16.0f];
+        NSArray *colors = @[@"#FFFFFF",@"#FF7D7D",@"#82ABEC",@"#FB8B2C",@"#5ABEDC"];
+        UIColor *color = [UIColor bm_colorWithHexString:colors[arc4random()%colors.count]];
+        textDescriptor.attributedText = [message emojiViewWithMessage:message.message color:color font:16.0f];
         textDescriptor.textColor = [UIColor whiteColor];
         textDescriptor.positionPriority = YSBarragePositionLow;
         textDescriptor.textFont = [UIFont systemFontOfSize:16.0];

@@ -1594,8 +1594,6 @@
 		<string>live_lesson_barrage_nor_skin</string>
 		<key>iconSel</key>
 		<string>live_lesson_barrage_sel_skin</string>
-		<key>iconDis</key>
-		<string>live_lesson_barrage_dis_skin</string>
 	</dict>
 	<key>live_lesson_full</key>
 	<dict>
