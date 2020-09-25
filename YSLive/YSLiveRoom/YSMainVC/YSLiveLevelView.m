@@ -163,7 +163,7 @@
 
     if (!findView)
     {
-        findView = [self getHitTest:point inView:[self.liveView viewWithTag:111] class:[SCVideoView class]];
+        findView = [self getHitTest:point inView:self.studentVideoBgView class:[SCVideoView class]];
         if (findView)
         {
             if (firstClick)
