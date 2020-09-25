@@ -1837,9 +1837,20 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
 {
     [super onRoomCloseAudio:close withUid:uid];
+    
+    if (!close)
+    {
+        if ([self.privateIdArray bm_isNotEmpty])
+        {
+            if (![self.privateIdArray containsObject:uid])
+            {
+                [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:uid mute:YES];
+            }
+        }
+    }
 }
 
-/// 收到音视频流
+/// 收到视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
@@ -1850,7 +1861,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-/// 停止音视频流
+/// 停止视频流
 - (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
@@ -2981,11 +2992,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
 #endif
-    
-    if ([self.privateIdArray bm_isNotEmpty])
-    {
-        [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:user.peerID mute:YES];
-    }
 }
 
 /// 用户退出
