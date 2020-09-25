@@ -291,7 +291,7 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
-//        self.barrageStart = NO;
+
     }
     else
     {
@@ -742,11 +742,8 @@
     
     self.mp4BgView.hidden = YES;
     
-#if HideFullScreenBtn
-#else
     self.mp4FullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.mp4BgView addSubview:self.mp4FullScreenBtn];
-#endif
     [self.mp4BgView bringSubviewToFront:self.mp4FullScreenBtn];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconNor") forState:UIControlStateNormal];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconSel") forState:UIControlStateSelected];
