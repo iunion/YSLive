@@ -879,7 +879,8 @@
             videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
         }
     }
-    
+    self.teacherMaskView.frame =CGRectMake(0, 0, teacherW, teacherH);
+    self.teacherMaskView.bm_centerX = self.levelView.bm_centerX;
     self.teacherFloatView.frame = CGRectMake(0, 0, teacherW, teacherH);
     self.teacherFloatView.bm_centerX = self.levelView.bm_centerX;
 }
