@@ -472,10 +472,6 @@
     [controlBackMaskView addTarget:self action:@selector(clickToHideControl) forControlEvents:UIControlEventTouchUpInside];
     
     controlBackMaskView.hidden = YES;
-//    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToHideControl)];
-//    oneTap.numberOfTapsRequired = 1;
-//    [controlBackMaskView addGestureRecognizer:oneTap];
-//    oneTap.delegate = self;
     
     UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
     controlBackView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
@@ -772,6 +768,8 @@
 {
     if (self.liveManager.isClassBegin)
     {
+        self.teacherBgMaskView.hidden = YES;
+        
         if (self.shareDesktop)
         {
             self.teacherMaskView.hidden = YES;
@@ -809,8 +807,7 @@
     }
     else
     {
-        self.teacherMaskView.hidden = NO;
-        self.teacherMaskView.image = YSSkinDefineImage(@"live_main_notclassbeging");
+        self.teacherBgMaskView.hidden = NO;
     }
 }
 
@@ -2427,7 +2424,6 @@
         default:
             break;
     }
-     
 }
 
 - (void)setMp4InterfaceOrientation:(UIInterfaceOrientation)orientation
