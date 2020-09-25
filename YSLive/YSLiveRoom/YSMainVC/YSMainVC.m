@@ -451,6 +451,7 @@
     [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
     self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.barrageBtn.hidden = YES;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -2012,6 +2013,25 @@
 - (void)handleSignalingVoteEndWithVoteId:(NSString *)voteId
 {
     [self.navigationController popToViewController:self animated:NO];
+}
+
+#pragma mark -
+#pragma mark  弹幕
+- (void)handleSignalingBarrageIsOpen:(BOOL)isOpen
+{
+    if (isOpen)
+    {
+        self.barrageBtn.hidden = NO;
+        if (self.barrageStart)
+        {
+            [self.barrageManager start];
+        }
+    }
+    else
+    {
+        self.barrageBtn.hidden = YES;
+        [self.barrageManager stop];
+    }
 }
 
 #pragma mark -
