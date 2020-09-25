@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 工具容器
 @property (nonatomic, strong, readonly) UIView *toolsAutoHideView;
 
+/// 上台视频背景
+@property (nonatomic, weak) UIView *studentVideoBgView;
+
 @end
 
 NS_ASSUME_NONNULL_END
