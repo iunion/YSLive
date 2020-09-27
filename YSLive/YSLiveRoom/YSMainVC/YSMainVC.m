@@ -233,7 +233,7 @@
 {
     [super viewDidLoad];
     self.bm_CanBackInteractive = NO;
-    
+    self.barrageStart = YES;
     if (self.isWideScreen)
     {
         self.teacherVideoHeight = BMUI_SCREEN_WIDTH * 9/16;
@@ -445,7 +445,7 @@
     
     self.barrageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.levelView.toolsAutoHideView addSubview:self.barrageBtn];
-    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconSel") forState:UIControlStateNormal];
+    [self.barrageBtn setImage:YSSkinElementImage(@"live_lesson_barrage", @"iconNor") forState:UIControlStateNormal];
     self.barrageBtn.frame = CGRectMake(self.levelView.toolsAutoHideView.bm_width - 15 - 40, self.fullScreenBtn.bm_bottom + 10, 40, 40);
     [self.barrageBtn addTarget:self action:@selector(barrageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.barrageBtn.hidden = NO;
