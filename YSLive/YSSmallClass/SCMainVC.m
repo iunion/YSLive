@@ -2979,6 +2979,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [super onRoomUserJoined:user isHistory:isHistory];
 
     [self freshTeacherPersonListData];
+    
+    
+    
     // 不做互踢
 #if 0
     if (self.roomtype == YSRoomUserType_One)
@@ -4518,10 +4521,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark - 小黑板答题阶段私聊
 
-/// 小黑板答题阶段私聊
-//- (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray;
-//- (void)handleSignalingDeletePrivateChat;
-
+/// 开始私聊
 - (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
 {
     NSString *local = YSCurrentUser.peerID;
@@ -4559,6 +4559,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+///接收私聊
 - (void)handleSignalingDeletePrivateChat
 {
     NSString *local = YSCurrentUser.peerID;
