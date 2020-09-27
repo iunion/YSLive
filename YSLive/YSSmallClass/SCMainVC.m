@@ -4538,9 +4538,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     //把自己的流发布给私聊对象
                     [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:[NSString stringWithFormat:@"[\"%@\"]", [CHSessionManager sharedInstance].teacher.peerID]];
                 }
-                continue;
             }
-            [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
+            else
+            {
+                [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
+            }
         }
     }
     else
@@ -4559,7 +4561,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-///接收私聊
+///结束私聊
 - (void)handleSignalingDeletePrivateChat
 {
     NSString *local = YSCurrentUser.peerID;
@@ -4579,7 +4581,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 }
                 continue;
             }
-            [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
+            else
+            {
+                [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
+            }
         }
     }
     else
