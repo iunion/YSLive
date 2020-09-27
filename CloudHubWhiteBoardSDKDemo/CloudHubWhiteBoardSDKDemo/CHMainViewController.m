@@ -442,10 +442,14 @@
     else if (toolBtn.tag == CHBrushToolTypeUndo)
     {
         NSLog(@"点击了undo按钮");
+        
+        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeUndo color:@"" widthProgress:0];
+        
     }
     else if (toolBtn.tag == CHBrushToolTypeRedo)
     {
         NSLog(@"点击了redo按钮");
+        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeRedo color:@"" widthProgress:0];
     }
 }
 
