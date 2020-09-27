@@ -66,8 +66,8 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     frame.size.width = BRUSHTOOL_WIDTH;
     if (self.isTeacher)
     {
-//        frame.size.height = BRUSHTOOL_BTN_WIDTH*6+BrushToolBtnGap*5+10.0f;
-        frame.size.height = BRUSHTOOL_BTN_WIDTH*8+BrushToolBtnGap*7+10.0f;
+        frame.size.height = BRUSHTOOL_BTN_WIDTH*6+BrushToolBtnGap*5+10.0f;
+//        frame.size.height = BRUSHTOOL_BTN_WIDTH*8+BrushToolBtnGap*7+10.0f;
     }
     else
     {
@@ -102,8 +102,8 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     if (self.isTeacher)
     {
         [self.toolBacView addSubview:self.clearBtn];
-        [self.toolBacView addSubview:self.undoBtn];
-        [self.toolBacView addSubview:self.redoBtn];
+//        [self.toolBacView addSubview:self.undoBtn];
+//        [self.toolBacView addSubview:self.redoBtn];
     }
 }
 
@@ -154,17 +154,17 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
             make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
         }];
         
-        [self.undoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.clearBtn.mas_bottom).mas_offset(btnGap);
-            make.centerX.mas_equalTo(0);
-            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
-        }];
-        
-        [self.redoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.undoBtn.mas_bottom).mas_offset(btnGap);
-            make.centerX.mas_equalTo(0);
-            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
-        }];
+//        [self.undoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_equalTo(weakSelf.clearBtn.mas_bottom).mas_offset(btnGap);
+//            make.centerX.mas_equalTo(0);
+//            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
+//        }];
+//
+//        [self.redoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_equalTo(weakSelf.undoBtn.mas_bottom).mas_offset(btnGap);
+//            make.centerX.mas_equalTo(0);
+//            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
+//        }];
 
     }
 }
