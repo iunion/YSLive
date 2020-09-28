@@ -17,8 +17,10 @@
 #import "CHMainViewController.h"
 #import "CHNewCoursewareControlView.h"
 
-#define APPID @""
-//#define APPID @"n1cq1Le0ypVtTJek"
+/// 海信
+//#define APPID @"ocrKJoD4WdDrfDPZ"
+
+#define APPID @"n1cq1Le0ypVtTJek"
 
 #define USE_COOKIES     0
 
@@ -226,7 +228,6 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.joinRoomBtn.layer.cornerRadius = 25;
     self.joinRoomBtn.layer.masksToBounds = YES;
     [self.joinRoomBtn addTarget:self action:@selector(joinRoomBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 #pragma mark --键盘弹出收起管理
