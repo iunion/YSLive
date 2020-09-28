@@ -37,13 +37,12 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 @property (nonatomic, strong) UIButton *shapeBtn;
 /// 橡皮檫
 @property (nonatomic, strong) UIButton *eraserBtn;
-/// 清除
-@property (nonatomic, strong) UIButton *clearBtn;
-
 /// 撤退
 @property (nonatomic, strong) UIButton *undoBtn;
 /// 前进
 @property (nonatomic, strong) UIButton *redoBtn;
+/// 清除
+@property (nonatomic, strong) UIButton *clearBtn;
 
 @property (nonatomic, assign) CHBrushToolType type;
 
@@ -101,9 +100,9 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     [self.toolBacView addSubview:self.eraserBtn];
     if (self.isTeacher)
     {
-        [self.toolBacView addSubview:self.clearBtn];
         [self.toolBacView addSubview:self.undoBtn];
         [self.toolBacView addSubview:self.redoBtn];
+        [self.toolBacView addSubview:self.clearBtn];
     }
 }
 
@@ -148,14 +147,8 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     
     if (self.isTeacher)
     {
-        [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.eraserBtn.mas_bottom).mas_offset(btnGap);
-            make.centerX.mas_equalTo(0);
-            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
-        }];
-        
         [self.undoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.clearBtn.mas_bottom).mas_offset(btnGap);
+            make.top.mas_equalTo(weakSelf.eraserBtn.mas_bottom).mas_offset(btnGap);
             make.centerX.mas_equalTo(0);
             make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
         }];
@@ -165,10 +158,15 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
             make.centerX.mas_equalTo(0);
             make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
         }];
+        
+        [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.redoBtn.mas_bottom).mas_offset(btnGap);
+            make.centerX.mas_equalTo(0);
+            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
+        }];
 
     }
 }
-
 
 #pragma mark -
 #pragma mark SEL
@@ -316,9 +314,8 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     if (!_undoBtn)
     {
         _undoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_undoBtn setImage:CHSkinElementImage(@"brushTool_clear", @"iconNor") forState:UIControlStateNormal];
-//        [_undoBtn setImage:CHSkinElementImage(@"brushTool_clear", @"iconSel") forState:UIControlStateSelected];
-        [_undoBtn setImage:CHSkinElementImage(@"brushTool_mouse", @"iconNor") forState:UIControlStateNormal];
+        [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconNor") forState:UIControlStateNormal];
+        [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconSel") forState:UIControlStateSelected];
         
         [_undoBtn setAdjustsImageWhenHighlighted:NO];
         [_undoBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -334,10 +331,8 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     if (!_redoBtn)
     {
         _redoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_redoBtn setImage:CHSkinElementImage(@"brushTool_clear", @"iconNor") forState:UIControlStateNormal];
-//        [_redoBtn setImage:CHSkinElementImage(@"brushTool_clear", @"iconSel") forState:UIControlStateSelected];
-        
-        [_redoBtn setImage:CHSkinElementImage(@"brushTool_pen", @"iconNor") forState:UIControlStateNormal];
+        [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconNor") forState:UIControlStateNormal];
+        [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconSel") forState:UIControlStateSelected];
         
         [_redoBtn setAdjustsImageWhenHighlighted:NO];
         [_redoBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -346,7 +341,5 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     
     return _redoBtn;
 }
-
-
 
 @end
