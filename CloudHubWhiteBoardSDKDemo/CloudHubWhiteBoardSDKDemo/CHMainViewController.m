@@ -439,14 +439,6 @@
     {
         [self brushSelectorViewDidSelectDrawType:CHDrawTypeClear color:@"" widthProgress:0];
     }
-    else if (toolBtn.tag == CHBrushToolTypeUndo)
-    {
-        NSLog(@"点击了undo按钮");
-    }
-    else if (toolBtn.tag == CHBrushToolTypeRedo)
-    {
-        NSLog(@"点击了redo按钮");
-    }
 }
 
 #pragma mark - 需要传递给白板的数据
