@@ -569,5 +569,9 @@
     [self.cloudHubManager.cloudHubRtcEngineKit delMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll];
 }
 
+- (void)changeUndoRedoState:(NSString *)fileid canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo
+{
+    [self.brushToolView freshCanUndo:canUndo canRedo:canRedo];
+}
 
 @end

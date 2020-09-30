@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTeacher:(BOOL)isTeacher;
 
+- (void)freshCanUndo:(BOOL)canUndo canRedo:(BOOL)canRedo;
+
 - (void)resetTool;
 
 @end

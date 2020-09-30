@@ -81,6 +81,12 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     [self sc_toolButtonListClicked:self.penBtn];
 }
 
+- (void)freshCanUndo:(BOOL)canUndo canRedo:(BOOL)canRedo
+{
+    self.undoBtn.enabled = canUndo;
+    self.redoBtn.enabled = canRedo;
+}
+
 - (void)setup
 {
     [self addSubview:self.toolBacView];
@@ -316,7 +322,9 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         _undoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconNor") forState:UIControlStateNormal];
         [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconSel") forState:UIControlStateSelected];
-        
+        [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconDis") forState:UIControlStateDisabled];
+        _undoBtn.enabled = NO;
+
         [_undoBtn setAdjustsImageWhenHighlighted:NO];
         [_undoBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _undoBtn.tag = CHBrushToolTypeUndo;
@@ -333,7 +341,9 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         _redoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconNor") forState:UIControlStateNormal];
         [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconSel") forState:UIControlStateSelected];
-        
+        [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconDis") forState:UIControlStateDisabled];
+        _redoBtn.enabled = NO;
+
         [_redoBtn setAdjustsImageWhenHighlighted:NO];
         [_redoBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _redoBtn.tag = CHBrushToolTypeRedo;
