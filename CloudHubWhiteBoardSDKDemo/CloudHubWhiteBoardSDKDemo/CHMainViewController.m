@@ -210,31 +210,20 @@
             break;
         case 5:
         {
-            NSDictionary * fileData =     @{
-                @"action" : @"",
-                @"filedata" : @{
-                    @"cospdfpath" : @"/upload/20200831_102614_wdwcjnjl.pdf",
-                    @"currpage" : @1,
-                    @"fileid" : @329111,
-                    @"filename" : @"新添加的.pptx",
-                    @"fileprop" : @1,
-                    @"filetype" : @"pptx",
-                    @"isContentDocument" : @0,
-                    @"pagenum" : @5,
-                    @"pptslide" : @1,
-                    @"pptstep" : @0,
-                    @"steptotal" : @1,
-                    @"swfpath" : @"/upload/20200831_102614_wdwcjnjl"
-                },
-                @"fileid" : @"329111",
-                @"isDynamicPPT" : @1,
-                @"isGeneralFile" : @0,
-                @"isH5Document" : @0,
-                @"isMedia" : @0,
-                @"mediaType" : @"",
-                @"sourceInstanceId" : @"default"
-            };
-            [self.cloudHubManager uploadFileDate:fileData];
+            NSArray *pagesAddr = @[@"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-1.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-2.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-3.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-4.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-5.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-6.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-7.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-8.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-9.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-10.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-11.jpg"
+            ];
+            
+            [self.cloudHubManager addCustomFileDateWithFileId:@"-2394" fileProp:CHWhiteBordFileProp_GeneralFile fileType:@"ppt" fileName:@"分数除法三.ppt" pagesAddr:pagesAddr];
         }
             break;
 
