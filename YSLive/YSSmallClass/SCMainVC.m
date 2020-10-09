@@ -41,7 +41,6 @@
 #define PlaceholderPTag       10
 
 
-
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
@@ -1719,11 +1718,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.videoGridView.hidden = NO;
 }
 
-- (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
+//- (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
+//{
+//    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+//    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
+//    if ([mediaFileUrl isEqualToString:filePath])
+//    {
+//        giftMp3Playing = NO;
+//    }
+//}
+
+- (void)onRoomAudioFinished:(NSInteger)soundId
 {
-    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
-    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
-    if ([mediaFileUrl isEqualToString:filePath])
+    if (YSGiftMp3SoundId == soundId)
     {
         giftMp3Playing = NO;
     }
@@ -1741,7 +1748,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!giftMp3Playing)
     {
-        giftMp3Playing = [self.liveManager startPlayingMedia:filePath];
+        //giftMp3Playing = [self.liveManager startPlayingMedia:filePath];
+        giftMp3Playing = [self.liveManager startAudio:filePath withSoundId:YSGiftMp3SoundId];
     }
     
     UIImageView *giftImageView = [self makeGiftImageView];
@@ -1829,9 +1837,20 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
 {
     [super onRoomCloseAudio:close withUid:uid];
+    
+    if (!close)
+    {
+        if ([self.privateIdArray bm_isNotEmpty])
+        {
+            if (![self.privateIdArray containsObject:uid])
+            {
+                [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:uid mute:YES];
+            }
+        }
+    }
 }
 
-/// 收到音视频流
+/// 收到视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
@@ -1842,7 +1861,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-/// 停止音视频流
+/// 停止视频流
 - (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
@@ -2960,6 +2979,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [super onRoomUserJoined:user isHistory:isHistory];
 
     [self freshTeacherPersonListData];
+    
+    
+    
     // 不做互踢
 #if 0
     if (self.roomtype == YSRoomUserType_One)
@@ -4499,10 +4521,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 #pragma mark - 小黑板答题阶段私聊
 
-/// 小黑板答题阶段私聊
-//- (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray;
-//- (void)handleSignalingDeletePrivateChat;
-
+/// 开始私聊
 - (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
 {
     NSString *local = YSCurrentUser.peerID;
@@ -4540,6 +4559,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+///接收私聊
 - (void)handleSignalingDeletePrivateChat
 {
     NSString *local = YSCurrentUser.peerID;

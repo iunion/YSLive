@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)brushToolDoClean;
+- (void)brushToolClikWithToolBtn:(nonnull UIButton *)toolBtn;
 
 @end
 
@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIButton *mouseBtn;
 
 - (instancetype)initWithTeacher:(BOOL)isTeacher;
+
+- (void)freshCanUndo:(BOOL)canUndo canRedo:(BOOL)canRedo;
 
 - (void)resetTool;
 

@@ -63,7 +63,7 @@
 #import "BMSDWebImageOptionsProcessor.h"
 #import "BMSDImageIOAnimatedCoder.h"
 #import "BMSDImageHEICCoder.h"
-#import "BMSDImageAWebPCoder.h"
+//#import "BMSDImageAWebPCoder.h"
 
 /// AFNetworking
 #import "BMAFNetworking.h"

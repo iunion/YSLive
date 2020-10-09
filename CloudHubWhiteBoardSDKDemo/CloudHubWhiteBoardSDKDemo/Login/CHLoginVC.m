@@ -17,6 +17,9 @@
 #import "CHMainViewController.h"
 #import "CHNewCoursewareControlView.h"
 
+/// 海信
+//#define APPID @"ocrKJoD4WdDrfDPZ"
+
 #define APPID @"n1cq1Le0ypVtTJek"
 
 #define USE_COOKIES     0
@@ -225,7 +228,6 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     self.joinRoomBtn.layer.cornerRadius = 25;
     self.joinRoomBtn.layer.masksToBounds = YES;
     [self.joinRoomBtn addTarget:self action:@selector(joinRoomBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 #pragma mark --键盘弹出收起管理
@@ -480,6 +482,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [self.progressHUD showAnimated:YES];
     
     self.cloudHubManager = [CloudHubWhiteBoardKit sharedInstance];
+    self.cloudHubManager.delegate = self;
+    
     [self joinRoomWithWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:nil];
 }
 
@@ -513,8 +517,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [self.cloudHubManager registerCoursewareControlView:@"CHNewCoursewareControlView" viewSize:CGSizeZero];
 
     CloudHubWhiteBoardConfig *whiteBoardConfig = [[CloudHubWhiteBoardConfig alloc] init];
-    whiteBoardConfig.isMultiCourseware = YES;
-    [self.cloudHubManager registeWhiteBoardWithHost:host port:port withLocalUser:self.localUser roomId:roomId configration:whiteBoardConfig];
+    //whiteBoardConfig.isMultiCourseware = YES;
+    [self.cloudHubManager registeWhiteBoardWithConfigration:whiteBoardConfig];
     
     if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:self.localUser.peerID joinSuccess:nil] != 0)
     {
@@ -538,16 +542,6 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [CHLoginVC setLoginRoomID:self.roomTextField.inputTextField.text];
     [CHLoginVC setLoginNickName:self.nickNameTextField.inputTextField.text];
 
-    GetAppDelegate.allowRotation = YES;
-    
-    CHMainViewController *mainVC = [[CHMainViewController alloc] initWithwhiteBordView:self.cloudHubManager.mainWhiteBoardView userId:nil];
-    
-    self.mainVC = mainVC;
-    self.cloudHubRtcEngineKit.delegate = mainVC;
-    self.cloudHubManager.delegate = mainVC;
-    mainVC.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
-    mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:mainVC animated:YES completion:nil];
 }
 
 
@@ -588,7 +582,16 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 /// 白板准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
 {
+    GetAppDelegate.allowRotation = YES;
     
+    CHMainViewController *mainVC = [[CHMainViewController alloc] initWithwhiteBordView:self.cloudHubManager.mainWhiteBoardView userId:nil];
+    
+    self.mainVC = mainVC;
+    self.cloudHubRtcEngineKit.delegate = mainVC;
+    self.cloudHubManager.delegate = mainVC;
+    mainVC.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
+    mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:mainVC animated:YES completion:nil];
 }
 
 /**

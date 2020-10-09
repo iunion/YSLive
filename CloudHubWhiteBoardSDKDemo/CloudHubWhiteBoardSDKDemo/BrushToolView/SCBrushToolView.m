@@ -37,9 +37,12 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 @property (nonatomic, strong) UIButton *shapeBtn;
 /// 橡皮檫
 @property (nonatomic, strong) UIButton *eraserBtn;
+/// 撤退
+@property (nonatomic, strong) UIButton *undoBtn;
+/// 前进
+@property (nonatomic, strong) UIButton *redoBtn;
 /// 清除
 @property (nonatomic, strong) UIButton *clearBtn;
-
 
 @property (nonatomic, assign) CHBrushToolType type;
 
@@ -62,7 +65,8 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     frame.size.width = BRUSHTOOL_WIDTH;
     if (self.isTeacher)
     {
-        frame.size.height = BRUSHTOOL_BTN_WIDTH*6+BrushToolBtnGap*5+10.0f;
+//        frame.size.height = BRUSHTOOL_BTN_WIDTH*6+BrushToolBtnGap*5+10.0f;
+        frame.size.height = BRUSHTOOL_BTN_WIDTH*8+BrushToolBtnGap*7+10.0f;
     }
     else
     {
@@ -75,6 +79,12 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 - (void)resetTool
 {
     [self sc_toolButtonListClicked:self.penBtn];
+}
+
+- (void)freshCanUndo:(BOOL)canUndo canRedo:(BOOL)canRedo
+{
+    self.undoBtn.enabled = canUndo;
+    self.redoBtn.enabled = canRedo;
 }
 
 - (void)setup
@@ -96,6 +106,8 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     [self.toolBacView addSubview:self.eraserBtn];
     if (self.isTeacher)
     {
+        [self.toolBacView addSubview:self.undoBtn];
+        [self.toolBacView addSubview:self.redoBtn];
         [self.toolBacView addSubview:self.clearBtn];
     }
 }
@@ -141,25 +153,38 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     
     if (self.isTeacher)
     {
-        [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.undoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.eraserBtn.mas_bottom).mas_offset(btnGap);
             make.centerX.mas_equalTo(0);
             make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
         }];
+        
+        [self.redoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.undoBtn.mas_bottom).mas_offset(btnGap);
+            make.centerX.mas_equalTo(0);
+            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
+        }];
+        
+        [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.redoBtn.mas_bottom).mas_offset(btnGap);
+            make.centerX.mas_equalTo(0);
+            make.width.height.mas_equalTo(BRUSHTOOL_BTN_WIDTH);
+        }];
+
     }
 }
-
 
 #pragma mark -
 #pragma mark SEL
 
 - (void)sc_toolButtonListClicked:(UIButton *)btn
 {
-    if (btn == self.clearBtn)
+//    if (btn == self.clearBtn)
+    if (btn.tag == CHDrawTypeClear || btn.tag == CHBrushToolTypeUndo || btn.tag == CHBrushToolTypeRedo)
     {
-        if ([self.delegate respondsToSelector:@selector(brushToolDoClean)])
+        if ([self.delegate respondsToSelector:@selector(brushToolClikWithToolBtn:)])
         {
-            [self.delegate brushToolDoClean];
+            [self.delegate brushToolClikWithToolBtn:btn];
         }
         return;
     }
@@ -287,6 +312,44 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     }
     
     return _clearBtn;
+}
+
+// 撤退
+- (UIButton *)undoBtn
+{
+    if (!_undoBtn)
+    {
+        _undoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconNor") forState:UIControlStateNormal];
+        [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconSel") forState:UIControlStateSelected];
+        [_undoBtn setImage:CHSkinElementImage(@"brushTool_undo", @"iconDis") forState:UIControlStateDisabled];
+        _undoBtn.enabled = NO;
+
+        [_undoBtn setAdjustsImageWhenHighlighted:NO];
+        [_undoBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
+        _undoBtn.tag = CHBrushToolTypeUndo;
+    }
+    
+    return _undoBtn;
+}
+
+/// 前进
+- (UIButton *)redoBtn
+{
+    if (!_redoBtn)
+    {
+        _redoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconNor") forState:UIControlStateNormal];
+        [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconSel") forState:UIControlStateSelected];
+        [_redoBtn setImage:CHSkinElementImage(@"brushTool_redo", @"iconDis") forState:UIControlStateDisabled];
+        _redoBtn.enabled = NO;
+
+        [_redoBtn setAdjustsImageWhenHighlighted:NO];
+        [_redoBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
+        _redoBtn.tag = CHBrushToolTypeRedo;
+    }
+    
+    return _redoBtn;
 }
 
 @end

@@ -210,31 +210,20 @@
             break;
         case 5:
         {
-            NSDictionary * fileData =     @{
-                @"action" : @"",
-                @"filedata" : @{
-                    @"cospdfpath" : @"/upload/20200831_102614_wdwcjnjl.pdf",
-                    @"currpage" : @1,
-                    @"fileid" : @329111,
-                    @"filename" : @"新添加的.pptx",
-                    @"fileprop" : @1,
-                    @"filetype" : @"pptx",
-                    @"isContentDocument" : @0,
-                    @"pagenum" : @5,
-                    @"pptslide" : @1,
-                    @"pptstep" : @0,
-                    @"steptotal" : @1,
-                    @"swfpath" : @"/upload/20200831_102614_wdwcjnjl"
-                },
-                @"fileid" : @"329111",
-                @"isDynamicPPT" : @1,
-                @"isGeneralFile" : @0,
-                @"isH5Document" : @0,
-                @"isMedia" : @0,
-                @"mediaType" : @"",
-                @"sourceInstanceId" : @"default"
-            };
-            [self.cloudHubManager uploadFileDate:fileData];
+            NSArray *pagesAddr = @[@"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-1.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-2.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-3.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-4.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-5.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-6.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-7.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-8.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-9.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-10.jpg",
+                                   @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-11.jpg"
+            ];
+            
+            [self.cloudHubManager addCustomFileDateWithFileId:@"-2394" fileProp:CHWhiteBordFileProp_GeneralFile fileType:@"ppt" fileName:@"分数除法三.ppt" pagesAddr:pagesAddr];
         }
             break;
 
@@ -359,7 +348,7 @@
 /// 设置左侧工具栏
 - (void)setupBrushToolView
 {
-    self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:NO];
+    self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:YES];
     [self.view addSubview:self.brushToolView];
     
     CGFloat laftGap = 10;
@@ -432,6 +421,27 @@
         make.centerY.mas_equalTo(weakSelf.brushToolOpenBtn.mas_centerY);
     }];
 }
+
+- (void)brushToolClikWithToolBtn:(nonnull UIButton *)toolBtn
+{
+    if (toolBtn.tag == CHDrawTypeClear)
+    {
+        [self brushSelectorViewDidSelectDrawType:CHDrawTypeClear color:@"" widthProgress:0];
+    }
+    else if (toolBtn.tag == CHBrushToolTypeUndo)
+    {
+        NSLog(@"点击了undo按钮");
+        
+        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeUndo color:@"" widthProgress:0];
+        
+    }
+    else if (toolBtn.tag == CHBrushToolTypeRedo)
+    {
+        NSLog(@"点击了redo按钮");
+        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeRedo color:@"" widthProgress:0];
+    }
+}
+
 #pragma mark - 需要传递给白板的数据
 #pragma mark SCDrawBoardViewDelegate
 
@@ -548,5 +558,9 @@
     [self.cloudHubManager.cloudHubRtcEngineKit delMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll];
 }
 
+- (void)changeUndoRedoState:(NSString *)fileid canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo
+{
+    [self.brushToolView freshCanUndo:canUndo canRedo:canRedo];
+}
 
 @end

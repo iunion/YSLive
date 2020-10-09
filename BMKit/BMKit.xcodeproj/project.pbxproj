@@ -265,7 +265,6 @@
 		8742FDDC24F3A12A00BDF294 /* BMSDWebImageError.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FC8324F3A12900BDF294 /* BMSDWebImageError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8742FDDD24F3A12A00BDF294 /* BMSDImageLoadersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FC8424F3A12900BDF294 /* BMSDImageLoadersManager.m */; };
 		8742FDDE24F3A12A00BDF294 /* BMSDWebImageDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FC8524F3A12900BDF294 /* BMSDWebImageDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8742FDDF24F3A12A00BDF294 /* BMSDImageAWebPCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FC8624F3A12900BDF294 /* BMSDImageAWebPCoder.m */; };
 		8742FDE024F3A12A00BDF294 /* BMSDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FC8724F3A12900BDF294 /* BMSDWebImagePrefetcher.m */; };
 		8742FDE124F3A12A00BDF294 /* NSButton+BMWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FC8824F3A12900BDF294 /* NSButton+BMWebCache.m */; };
 		8742FDE224F3A12A00BDF294 /* BMSDAnimatedImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FC8924F3A12900BDF294 /* BMSDAnimatedImageView+WebCache.m */; };
@@ -325,7 +324,6 @@
 		8742FE1824F3A12A00BDF294 /* BMSDImageCoderHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FCBF24F3A12900BDF294 /* BMSDImageCoderHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8742FE1924F3A12A00BDF294 /* BMSDWebImageCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FCC024F3A12900BDF294 /* BMSDWebImageCompat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8742FE1A24F3A12A00BDF294 /* BMSDAnimatedImageView+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FCC124F3A12900BDF294 /* BMSDAnimatedImageView+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8742FE1B24F3A12A00BDF294 /* BMSDImageAWebPCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FCC224F3A12900BDF294 /* BMSDImageAWebPCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8742FE1C24F3A12A00BDF294 /* BMSDWebImagePrefetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FCC324F3A12900BDF294 /* BMSDWebImagePrefetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8742FE1D24F3A12A00BDF294 /* NSButton+BMWebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FCC424F3A12900BDF294 /* NSButton+BMWebCache.h */; };
 		8742FE1E24F3A12A00BDF294 /* BMSDWebImageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FCC524F3A12900BDF294 /* BMSDWebImageDefine.m */; };
@@ -1983,7 +1981,6 @@
 			files = (
 				876C87BB25031EE80029248C /* BMHttpRequest.h in Headers */,
 				8742FE1924F3A12A00BDF294 /* BMSDWebImageCompat.h in Headers */,
-				8742FE1B24F3A12A00BDF294 /* BMSDImageAWebPCoder.h in Headers */,
 				8742FE2424F3A12A00BDF294 /* BMSDImageHEICCoder.h in Headers */,
 				8742FE1224F3A12A00BDF294 /* BMSDImageIOAnimatedCoder.h in Headers */,
 				8742FDF524F3A12A00BDF294 /* BMSDWebImageOptionsProcessor.h in Headers */,
@@ -2549,7 +2546,6 @@
 				8777C79923EA72A3002002BF /* BMFreshAutoNormalFooter.m in Sources */,
 				8742FDF024F3A12A00BDF294 /* UIImageView+BMHighlightedWebCache.m in Sources */,
 				87901A04241727BF00FF38EC /* BMTZPhotoPreviewController.m in Sources */,
-				8742FDDF24F3A12A00BDF294 /* BMSDImageAWebPCoder.m in Sources */,
 				8701AFF12371648200A43607 /* BMDatePicker.m in Sources */,
 				8742FE0824F3A12A00BDF294 /* BMSDWebImageOperation.m in Sources */,
 				8701AE0A23714E6000A43607 /* UIWindow+BMCategory.m in Sources */,
@@ -2700,7 +2696,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200824;
+				CURRENT_PROJECT_VERSION = 20200924;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2719,7 +2715,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-Objc",
@@ -2737,7 +2733,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200824;
+				CURRENT_PROJECT_VERSION = 20200924;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2756,7 +2752,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",
