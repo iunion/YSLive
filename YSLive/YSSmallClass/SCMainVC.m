@@ -4536,7 +4536,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 if ([videoView.roomUser.peerID isEqualToString:local])
                 {
                     //把自己的流发布给私聊对象
-                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:[NSString stringWithFormat:@"[\"%@\"]", [CHSessionManager sharedInstance].teacher.peerID]];
+//                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:[NSString stringWithFormat:@"[\"%@\"]", [CHSessionManager sharedInstance].teacher.peerID]];
                 }
             }
             else
@@ -4546,14 +4546,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     else
-    {//私聊的不是自己,关闭除自己外所有用户的audio，
+    {//私聊的不是自己,关闭所有用户的audio，
         for (SCVideoView * videoView in self.videoSequenceArr)
         {
             if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
             {
-                videoView.isPrivateChating = YES;
+//                videoView.isPrivateChating = YES;
             }
-//            if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+// //           if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
             {
                 [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:YES];
             }
@@ -4572,14 +4572,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
             {
-                videoView.isPrivateChating = NO;
-                
-                if ([videoView.roomUser.peerID isEqualToString:local])
-                {
-                    //把自己的流发布给所有人
-                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:@"[\"__all\"]"];
-                }
-                continue;
+//                videoView.isPrivateChating = NO;
+//
+//                if ([videoView.roomUser.peerID isEqualToString:local])
+//                {
+//                    //把自己的流发布给所有人
+//                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:@"[\"__all\"]"];
+//                }
+//                continue;
             }
             else
             {
@@ -4593,9 +4593,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
             {
-                videoView.isPrivateChating = NO;
+//                videoView.isPrivateChating = NO;
             }
-//            if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+//            //if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
             {
                 [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:videoView.roomUser.peerID mute:NO];
             }
