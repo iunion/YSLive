@@ -30,7 +30,8 @@ typedef void (^BMCountDownBlock)(BMCountDownButton *button, BMCountDownButtonSta
 /// 结束标题
 @property (nonatomic, strong) NSString *endTitle;
 
-- (instancetype)initWithFrame:(CGRect)frame startTitle:(NSString *)startTitle durationTitle:(NSString *)durationTitle endTitle:(NSString *)endTitle seconds:(NSInteger)seconds countDownBlock:(BMCountDownBlock )countDownBlock;
+
+- (instancetype)initWithFrame:(CGRect)frame startTitle:(NSString *)startTitle durationTitle:(NSString *)durationTitle endTitle:(NSString *)endTitle seconds:(NSInteger)seconds countDownBlock:(BMCountDownBlock)countDownBlock;
 
 
 @end
