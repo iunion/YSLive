@@ -16,23 +16,23 @@ typedef NS_ENUM(NSUInteger, BMCountDownButtonState){
     BMCountDownButtonStateEnd
 };
 
-typedef void (^BMCountDownBlock)(BMCountDownButton *button, BMCountDownButtonState state, NSString *seconds);
+typedef void (^BMCountDownBlock)(BMCountDownButton *button, BMCountDownButtonState state, NSInteger seconds);
 
 @interface BMCountDownButton : UIButton
 /// 倒计时时间
 @property (nonatomic, assign) NSInteger seconds;
 /// 倒计时点击回调
 @property (nonatomic, strong) BMCountDownBlock countDownBlock;
-/// 开始标题
-@property (nonatomic, strong) NSString *startTitle;
-/// 倒计时标题
-@property (nonatomic, strong) NSString *durationTitle;
-/// 结束标题
-@property (nonatomic, strong) NSString *endTitle;
+///// 开始标题
+//@property (nonatomic, strong) NSString *startTitle;
+///// 倒计时标题
+//@property (nonatomic, strong) NSString *durationTitle;
+///// 结束标题
+//@property (nonatomic, strong) NSString *endTitle;
 
 
-- (instancetype)initWithFrame:(CGRect)frame startTitle:(NSString *)startTitle durationTitle:(NSString *)durationTitle endTitle:(NSString *)endTitle seconds:(NSInteger)seconds countDownBlock:(BMCountDownBlock)countDownBlock;
-
+- (instancetype)initWithFrame:(CGRect)frame seconds:(NSInteger)seconds countDownBlock:(BMCountDownBlock)countDownBlock;
+- (void)startCountDown;
 
 @end
 

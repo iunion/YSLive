@@ -22,7 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		264A16A225355433000916F2 /* BMCountDownButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 264A16A025355433000916F2 /* BMCountDownButton.h */; };
+		264A16A225355433000916F2 /* BMCountDownButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 264A16A025355433000916F2 /* BMCountDownButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		264A16A325355433000916F2 /* BMCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A16A125355433000916F2 /* BMCountDownButton.m */; };
 		34497707241D1BD6009E8B3A /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87901A2E2417353800FF38EC /* BMTZImagePickerController.bundle */; };
 		34497708241D1C0E009E8B3A /* NSBundle+BMTZImagePicker.m in Resources */ = {isa = PBXBuildFile; fileRef = 87901A1B241729D800FF38EC /* NSBundle+BMTZImagePicker.m */; };
@@ -1993,6 +1993,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				264A16A225355433000916F2 /* BMCountDownButton.h in Headers */,
 				876C87BB25031EE80029248C /* BMHttpRequest.h in Headers */,
 				8742FE1924F3A12A00BDF294 /* BMSDWebImageCompat.h in Headers */,
 				8742FE2424F3A12A00BDF294 /* BMSDImageHEICCoder.h in Headers */,
@@ -2152,7 +2153,6 @@
 				8701AE5723714E6000A43607 /* NSString+BMRoundNumber.h in Headers */,
 				8701AE4323714E6000A43607 /* NSData+BMEncrypt.h in Headers */,
 				8701AE6323714E6000A43607 /* NSDate+BMCategory.h in Headers */,
-				264A16A225355433000916F2 /* BMCountDownButton.h in Headers */,
 				8701AE5C23714E6000A43607 /* NSDecimalNumber+BMCategory.h in Headers */,
 				8701AE2323714E6000A43607 /* UIImage+BMAssets.h in Headers */,
 				8701AE2B23714E6000A43607 /* UILocalNotification+BMCategory.h in Headers */,
