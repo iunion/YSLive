@@ -3666,7 +3666,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     self.brushToolView.hidden = NO;
                     self.brushToolOpenBtn.hidden = NO;
-                    
                 }
             }
             else
@@ -3686,7 +3685,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
         
-//        [self resetDrawTools];
+        [self resetDrawTools];
     }
     else if (self.smallStageState == CHSmallBoardStage_answer)
     {
