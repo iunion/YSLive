@@ -2508,10 +2508,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)resetDrawTools
 {
-    self.drawBoardView.brushToolType = CHBrushToolTypeLine;
-    [self.brushToolView resetTool];
-    
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
+    
+    [self.brushToolView resetTool];
 }
 
 #pragma mark 切换网络 会收到onRoomJoined

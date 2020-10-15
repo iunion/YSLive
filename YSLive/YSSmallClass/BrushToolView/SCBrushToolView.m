@@ -76,7 +76,40 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 
 - (void)resetTool
 {
-    [self sc_toolButtonListClicked:self.penBtn showTool:NO];
+//    [self sc_toolButtonListClicked:self.penBtn showTool:NO];
+    
+    /// 鼠标（光标）
+    self.mouseBtn.selected = NO;
+    /// 画笔
+    self.penBtn.selected = NO;
+    /// 文本
+    self.textBtn.selected = NO;
+    /// 框
+    self.shapeBtn.selected = NO;
+    /// 橡皮檫
+    self.eraserBtn.selected = NO;
+    
+    CHBrushToolType toolType = [[CHWhiteBoardManager sharedInstance] getCurrentBrushToolType];
+    switch (toolType)
+    {
+        case CHBrushToolTypeMouse:
+            self.mouseBtn.selected = YES;
+            break;
+        case CHBrushToolTypeLine:
+            self.penBtn.selected = YES;
+            break;
+        case CHBrushToolTypeText:
+            self.textBtn.selected = YES;
+            break;
+        case CHBrushToolTypeShape:
+            self.shapeBtn.selected = YES;
+            break;
+        case CHBrushToolTypeEraser:
+            self.eraserBtn.selected = YES;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)setup
@@ -214,7 +247,6 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_mouseBtn setAdjustsImageWhenHighlighted:NO];
         [_mouseBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _mouseBtn.tag = CHBrushToolTypeMouse;
-        
     }
     
     return _mouseBtn;
@@ -230,7 +262,6 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_penBtn setAdjustsImageWhenHighlighted:NO];
         [_penBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _penBtn.tag = CHBrushToolTypeLine;
-        _penBtn.selected = YES;
     }
     
     return _penBtn;

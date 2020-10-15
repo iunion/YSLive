@@ -11,7 +11,6 @@
 #import "SCBrushToolView.h"
 #import "SCDrawBoardView.h"
 #import "SCChatToolView.h"
-#import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
 
 #import "SCTeacherListView.h"
@@ -2931,11 +2930,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)resetDrawTools
 {
-    
-    self.drawBoardView.brushToolType = CHBrushToolTypeLine;
-    [self.brushToolView resetTool];
-    
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
+    
+    [self.brushToolView resetTool];
 }
 
 // 已经离开房间
@@ -3668,7 +3665,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     self.brushToolView.hidden = NO;
                     self.brushToolOpenBtn.hidden = NO;
-                    
                 }
             }
             else
@@ -3678,17 +3674,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 self.drawBoardView.hidden = YES;
             }
             
-            if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
-            {
-                self.drawBoardView.hidden = YES;
-            }
-            else
+//            if (!YSCurrentUser.canDraw || self.brushToolView.hidden || self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected || self.drawBoardView.hidden)
+//            {
+//                self.drawBoardView.hidden = YES;
+//            }
+//            else
             {
                 self.drawBoardView.hidden = NO;
             }
         }
         
-//        [self resetDrawTools];
+        [self resetDrawTools];
     }
     else if (self.smallStageState == CHSmallBoardStage_answer)
     {
@@ -3702,7 +3698,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             self.brushToolView.hidden = NO;
             self.brushToolOpenBtn.hidden = NO;
-            self.drawBoardView.hidden = NO;
+            self.drawBoardView.hidden = YES;
             [self resetDrawTools];
         }
     }

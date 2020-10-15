@@ -1814,6 +1814,7 @@
     [super handleSignalingToDisAbleEveryoneBanChatWithIsDisable:isDisable];
     
     self.chaView.chatToolView.everyoneBanChat = isDisable;
+    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserDisablechat value:@(isDisable)];
     if (isDisable)
     {
         self.chaView.chatToolView.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
