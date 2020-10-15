@@ -960,13 +960,15 @@
         {
             if (!([self.roomUser.peerID isEqualToString:[CHSessionManager sharedInstance].localUser.peerID] || [self.roomUser.peerID isEqualToString:[CHSessionManager sharedInstance].teacher.peerID]))
             {
-                self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+                UIImage *image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+                self.soundImageView.image = image;
                 return;
             }
         }
         else
         {
-            self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"icon_selientSound");
+            UIImage *image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+            self.soundImageView.image = image;
             return;
         }
     }
@@ -1092,22 +1094,20 @@
     }
     else
     {
-//        if (self.isPrivateChating)
-//        {
-//            self.loadingImgView.hidden = YES;
-//            self.maskCloseVideoBgView.hidden = NO;
-//            [self.maskCloseVideoBgView bm_bringToFront];
-//
-//            self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
-//            [self.backVideoView bm_bringToFront];
-//            return;
-//        }
-//        else
+        if (self.isPrivateChating)
+        {
+            self.loadingImgView.hidden = YES;
+            self.maskCloseVideoBgView.hidden = NO;
+            [self.maskCloseVideoBgView bm_bringToFront];
+
+            self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
+            [self.backVideoView bm_bringToFront];
+            return;
+        }
+        else
         {
             self.maskCloseVideoBgView.hidden = YES;
         }
-        
-
         
         if (self.groopRoomState == SCGroopRoomState_Normal)
         {
