@@ -140,8 +140,7 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 @property (nonatomic, assign) CHSessionMuteState videoMute;
 
 ///小黑板是否正在私聊
-@property(nonatomic,assign)BOOL isPrivateChating;
-
+@property(nonatomic, assign) BOOL isPrivateChating;
 
 /// 老师用
 - (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;

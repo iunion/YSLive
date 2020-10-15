@@ -4527,10 +4527,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {//私聊的是自己,关闭除自己和私聊对象外所有人的audio，并把自己的流发布给私聊对象
         for (SCVideoView * videoView in self.videoSequenceArr)
         {
+            videoView.isPrivateChating = YES;
+
             if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
             {
                 if ([videoView.roomUser.peerID isEqualToString:local])
                 {
+                    
                     //把自己的流发布给私聊对象
 //                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:[NSString stringWithFormat:@"[\"%@\"]", [CHSessionManager sharedInstance].teacher.peerID]];
                 }
@@ -4545,6 +4548,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {//私聊的不是自己,关闭所有用户的audio，
         for (SCVideoView * videoView in self.videoSequenceArr)
         {
+            videoView.isPrivateChating = YES;
+            
             if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
             {
 //                videoView.isPrivateChating = YES;
@@ -4566,6 +4571,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {//私聊的是自己,打开除自己和私聊对象外所有人的audio，并把自己的流发布给所有人
         for (SCVideoView * videoView in self.videoSequenceArr)
         {
+            videoView.isPrivateChating = NO;
+
             if (![videoView bm_isNotEmpty] || [self.privateIdArray containsObject:videoView.roomUser.peerID])
             {
 //                videoView.isPrivateChating = NO;
@@ -4587,6 +4594,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {//私聊的不是自己,打开除自己外所有用户的audio，
         for (SCVideoView * videoView in self.videoSequenceArr)
         {
+            videoView.isPrivateChating = NO;
+
             if ([self.privateIdArray containsObject:videoView.roomUser.peerID])
             {
 //                videoView.isPrivateChating = NO;

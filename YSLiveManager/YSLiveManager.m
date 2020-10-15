@@ -492,6 +492,18 @@
 
 - (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
 {
+    /// 私聊
+    self.isPrivateChating = YES;
+    /// 私聊对象是不是我自己
+    if ([privateIdArray containsObject:self.localUser.peerID])
+    {
+        self.isPrivateChatingToMe = YES;
+    }
+    else
+    {
+        self.isPrivateChatingToMe = NO;
+    }
+
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingReceivePrivateChatWithPrivateIdArray:)])
     {
         [self.whiteBoardDelegate handleSignalingReceivePrivateChatWithPrivateIdArray:privateIdArray];
@@ -500,6 +512,9 @@
 
 - (void)handleSignalingDeletePrivateChat
 {
+    /// 私聊
+    self.isPrivateChating = NO;
+    
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingDeletePrivateChat)])
     {
         [self.whiteBoardDelegate handleSignalingDeletePrivateChat];

@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *schoolApiHost;
 
 
+/// 私聊
+@property(nonatomic, assign) BOOL isPrivateChating;
+/// 私聊对象是不是我自己
+@property(nonatomic, assign) BOOL isPrivateChatingToMe;
 
 
 #pragma mark - 白板

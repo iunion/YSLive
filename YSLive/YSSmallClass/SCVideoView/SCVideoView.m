@@ -603,6 +603,23 @@
 {
     _iVolume = iVolume;
     
+    if ([YSLiveManager sharedInstance].isPrivateChating)
+    {
+        if ([YSLiveManager sharedInstance].isPrivateChatingToMe)
+        {
+            if (!([self.roomUser.peerID isEqualToString:[CHSessionManager sharedInstance].localUser.peerID] || [self.roomUser.peerID isEqualToString:[CHSessionManager sharedInstance].teacher.peerID]))
+            {
+                self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+                return;
+            }
+        }
+        else
+        {
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+            return;
+        }
+    }
+
     if (self.audioState != CHDeviceFaultNone)
     {
         return;
@@ -937,6 +954,23 @@
 
     self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
     
+    if ([YSLiveManager sharedInstance].isPrivateChating)
+    {
+        if ([YSLiveManager sharedInstance].isPrivateChatingToMe)
+        {
+            if (!([self.roomUser.peerID isEqualToString:[CHSessionManager sharedInstance].localUser.peerID] || [self.roomUser.peerID isEqualToString:[CHSessionManager sharedInstance].teacher.peerID]))
+            {
+                self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_selientSound");
+                return;
+            }
+        }
+        else
+        {
+            self.soundImageView.image = YSSkinElementImage(@"videoView_stateSound", @"icon_selientSound");
+            return;
+        }
+    }
+    
     // 设备不可用
     if (audioState & SCVideoViewAudioState_DeviceError)
     {
@@ -1058,17 +1092,17 @@
     }
     else
     {
-        if (self.isPrivateChating)
-        {
-            self.loadingImgView.hidden = YES;
-            self.maskCloseVideoBgView.hidden = NO;
-            [self.maskCloseVideoBgView bm_bringToFront];
-            
-            self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
-            [self.backVideoView bm_bringToFront];
-            return;
-        }
-        else
+//        if (self.isPrivateChating)
+//        {
+//            self.loadingImgView.hidden = YES;
+//            self.maskCloseVideoBgView.hidden = NO;
+//            [self.maskCloseVideoBgView bm_bringToFront];
+//
+//            self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
+//            [self.backVideoView bm_bringToFront];
+//            return;
+//        }
+//        else
         {
             self.maskCloseVideoBgView.hidden = YES;
         }
