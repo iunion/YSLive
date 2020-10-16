@@ -1839,9 +1839,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (!close)
     {
-        if ([self.privateIdArray bm_isNotEmpty])
+        if ([YSLiveManager sharedInstance].isPrivateChating && [self.privateIdArray bm_isNotEmpty])
         {
-            if (![self.privateIdArray containsObject:uid])
+            if ([YSLiveManager sharedInstance].isPrivateChatingToMe)
+            {
+                NSString *myUserId = [CHSessionManager sharedInstance].localUser.peerID;
+                NSString *teacherUserId = [CHSessionManager sharedInstance].teacher.peerID;
+                if (![myUserId isEqualToString:uid] && ![teacherUserId isEqualToString:uid])
+                {
+                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:uid mute:YES];
+                }
+            }
+            else
             {
                 [[CHSessionManager sharedInstance].cloudHubRtcEngineKit muteRemoteAudioStream:uid mute:YES];
             }
