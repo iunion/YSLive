@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26E5460B25398778000BA3F5 /* YSLiveLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E5460925398778000BA3F5 /* YSLiveLevelView.m */; };
+		26E5460C25398778000BA3F5 /* YSLiveLevelView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26E5460A25398778000BA3F5 /* YSLiveLevelView.h */; };
 		26F409F82511FD6100E15466 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */; };
 		26F409F92511FD6100E15466 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26F409F42511FD6100E15466 /* CHWhiteBoardImage.xcassets */; };
 		26F409FA2511FD6100E15466 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F409F52511FD6100E15466 /* CHWhiteBoardSkin.bundle */; };
@@ -254,6 +256,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26E5460925398778000BA3F5 /* YSLiveLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveLevelView.m; sourceTree = "<group>"; };
+		26E5460A25398778000BA3F5 /* YSLiveLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveLevelView.h; sourceTree = "<group>"; };
 		26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
 		26F409F42511FD6100E15466 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
 		26F409F52511FD6100E15466 /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
@@ -790,6 +794,8 @@
 				876BF80A24CFC3CF008E9848 /* Images */,
 				876BF80B24CFC3CF008E9848 /* mp3pnglist */,
 				876BF80C24CFC3CF008E9848 /* YSMainVC.m */,
+				26E5460A25398778000BA3F5 /* YSLiveLevelView.h */,
+				26E5460925398778000BA3F5 /* YSLiveLevelView.m */,
 			);
 			path = YSMainVC;
 			sourceTree = "<group>";
@@ -1335,6 +1341,7 @@
 				876BFA1B24CFC3D0008E9848 /* YSBarrage.h in Headers */,
 				876BF94124CFC3D0008E9848 /* SCTeacherCoursewareListCell.h in Headers */,
 				876BF9A824CFC3D0008E9848 /* SCAnswerDetailModel.h in Headers */,
+				26E5460C25398778000BA3F5 /* YSLiveLevelView.h in Headers */,
 				876BF97D24CFC3D0008E9848 /* YSApiRequest.h in Headers */,
 				876BF95C24CFC3D0008E9848 /* YSChatMemberListVC.h in Headers */,
 				876BF95F24CFC3D0008E9848 /* YSEmotionCollectionCell.h in Headers */,
@@ -1519,6 +1526,7 @@
 				876BFA2924CFC3D0008E9848 /* YSSuperNetVC.m in Sources */,
 				876BF97724CFC3D0008E9848 /* YSLessonDetailHeaderView.m in Sources */,
 				876BFA2E24CFC3D0008E9848 /* YSClassMainSuperVC.m in Sources */,
+				26E5460B25398778000BA3F5 /* YSLiveLevelView.m in Sources */,
 				876BFA0C24CFC3D0008E9848 /* YSBarrageRenderView.m in Sources */,
 				876BF98924CFC3D0008E9848 /* SCColorTipView.m in Sources */,
 				876BF96224CFC3D0008E9848 /* YSChatView.m in Sources */,
@@ -1691,7 +1699,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200922;
+				CURRENT_PROJECT_VERSION = 20201016;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1719,7 +1727,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.3.0;
+				MARKETING_VERSION = 3.3.6.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
@@ -1734,7 +1742,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200922;
+				CURRENT_PROJECT_VERSION = 20201016;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1760,7 +1768,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.3.0;
+				MARKETING_VERSION = 3.3.6.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
 				PRODUCT_NAME = YSSDK;
