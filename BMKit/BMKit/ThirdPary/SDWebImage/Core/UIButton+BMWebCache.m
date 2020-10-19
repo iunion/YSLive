@@ -53,39 +53,40 @@ static inline NSString * backgroundImageBMOperationKeyForState(UIControlState st
     return self.bmsd_imageURLStorage[imageBMURLKeyForState(state)];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:nil options:0 completed:nil];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:nil options:0 completed:nil];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:placeholder options:0 completed:nil];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:placeholder options:0 completed:nil];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:placeholder options:options progress:nil completed:nil];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:placeholder options:options progress:nil completed:nil];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options context:(nullable BMSDWebImageContext *)context {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:placeholder options:options context:context progress:nil completed:nil];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options context:(nullable BMSDWebImageContext *)context {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:placeholder options:options context:context progress:nil completed:nil];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:nil options:0 completed:completedBlock];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:nil options:0 completed:completedBlock];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:placeholder options:0 completed:completedBlock];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:placeholder options:0 completed:completedBlock];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:placeholder options:options progress:nil completed:completedBlock];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:placeholder options:options progress:nil completed:completedBlock];
 }
 
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options progress:(nullable BMSDImageLoaderProgressBlock)progressBlock completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setImageWithURL:url forState:state placeholderImage:placeholder options:options context:nil progress:progressBlock completed:completedBlock];
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options progress:(nullable BMSDImageLoaderProgressBlock)progressBlock completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setImageWithURL:url host:host forState:state placeholderImage:placeholder options:options context:nil progress:progressBlock completed:completedBlock];
 }
 
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
@@ -107,6 +108,7 @@ static inline NSString * backgroundImageBMOperationKeyForState(UIControlState st
     mutableContext[BMSDWebImageContextSetImageOperationKey] = imageBMOperationKeyForState(state);
     @bmweakify(self);
     [self bmsd_internalSetImageWithURL:url
+                                  host:host
                     placeholderImage:placeholder
                              options:options
                              context:mutableContext
@@ -138,39 +140,40 @@ static inline NSString * backgroundImageBMOperationKeyForState(UIControlState st
     return self.bmsd_imageURLStorage[backgroundImageBMURLKeyForState(state)];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:nil options:0 completed:nil];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:nil options:0 completed:nil];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:0 completed:nil];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:placeholder options:0 completed:nil];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:options progress:nil completed:nil];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:placeholder options:options progress:nil completed:nil];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options context:(nullable BMSDWebImageContext *)context {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:options context:context progress:nil completed:nil];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options context:(nullable BMSDWebImageContext *)context {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:placeholder options:options context:context progress:nil completed:nil];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:nil options:0 completed:completedBlock];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:nil options:0 completed:completedBlock];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:0 completed:completedBlock];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:placeholder options:0 completed:completedBlock];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:options progress:nil completed:completedBlock];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:placeholder options:options progress:nil completed:completedBlock];
 }
 
-- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options progress:(nullable BMSDImageLoaderProgressBlock)progressBlock completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setBackgroundImageWithURL:url forState:state placeholderImage:placeholder options:options context:nil progress:progressBlock completed:completedBlock];
+- (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host forState:(UIControlState)state placeholderImage:(nullable UIImage *)placeholder options:(BMSDWebImageOptions)options progress:(nullable BMSDImageLoaderProgressBlock)progressBlock completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setBackgroundImageWithURL:url host:host forState:state placeholderImage:placeholder options:options context:nil progress:progressBlock completed:completedBlock];
 }
 
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                              options:(BMSDWebImageOptions)options
@@ -192,6 +195,7 @@ static inline NSString * backgroundImageBMOperationKeyForState(UIControlState st
     mutableContext[BMSDWebImageContextSetImageOperationKey] = backgroundImageBMOperationKeyForState(state);
     @bmweakify(self);
     [self bmsd_internalSetImageWithURL:url
+                                  host:host
                     placeholderImage:placeholder
                              options:options
                              context:mutableContext

@@ -177,16 +177,17 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
 }
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(NSURL *)url
+                                                        host:(nullable NSString *)host
                                                  completed:(BMSDWebImageDownloaderCompletedBlock)completedBlock {
-    return [self downloadImageWithURL:url options:0 progress:nil completed:completedBlock];
+    return [self downloadImageWithURL:url host:host options:0 progress:nil completed:completedBlock];
 }
 
-- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(NSURL *)url
-                                                   options:(BMSDWebImageDownloaderOptions)options
-                                                  progress:(BMSDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(BMSDWebImageDownloaderCompletedBlock)completedBlock {
-    return [self downloadImageWithURL:url options:options context:nil progress:progressBlock completed:completedBlock];
-}
+//- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(NSURL *)url
+//                                                   options:(BMSDWebImageDownloaderOptions)options
+//                                                  progress:(BMSDWebImageDownloaderProgressBlock)progressBlock
+//                                                 completed:(BMSDWebImageDownloaderCompletedBlock)completedBlock {
+//    return [self downloadImageWithURL:url options:options context:nil progress:progressBlock completed:completedBlock];
+//}
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
@@ -197,14 +198,14 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     return [self downloadImageWithURL:url host:host options:options context:nil progress:progressBlock completed:completedBlock];
 }
 
-- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
-                                                   options:(BMSDWebImageDownloaderOptions)options
-                                                   context:(nullable BMSDWebImageContext *)context
-                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock
-{
-    return [self downloadImageWithURL:url host:nil options:options context:context progress:progressBlock completed:completedBlock];
-}
+//- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+//                                                   options:(BMSDWebImageDownloaderOptions)options
+//                                                   context:(nullable BMSDWebImageContext *)context
+//                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+//                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock
+//{
+//    return [self downloadImageWithURL:url host:nil options:options context:context progress:progressBlock completed:completedBlock];
+//}
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
@@ -600,7 +601,7 @@ didReceiveResponse:(NSURLResponse *)response
     return YES;
 }
 
-- (id<BMSDWebImageOperation>)requestImageWithURL:(NSURL *)url options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDImageLoaderCompletedBlock)completedBlock {
+- (id<BMSDWebImageOperation>)requestImageWithURL:(NSURL *)url host:(NSString *)host options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDImageLoaderCompletedBlock)completedBlock {
     UIImage *cachedImage = context[BMSDWebImageContextLoaderCachedImage];
     
     BMSDWebImageDownloaderOptions downloaderOptions = 0;
@@ -624,7 +625,7 @@ didReceiveResponse:(NSURLResponse *)response
         downloaderOptions |= BMSDWebImageDownloaderIgnoreCachedResponse;
     }
     
-    return [self downloadImageWithURL:url options:downloaderOptions context:context progress:progressBlock completed:completedBlock];
+    return [self downloadImageWithURL:url host:host options:downloaderOptions context:context progress:progressBlock completed:completedBlock];
 }
 
 - (BOOL)shouldBlockFailedURLWithURL:(NSURL *)url error:(NSError *)error {

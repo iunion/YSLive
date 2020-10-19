@@ -62,6 +62,7 @@
     }
     mutableContext[BMSDWebImageContextAnimatedImageClass] = animatedImageClass;
     [self bmsd_internalSetImageWithURL:url
+                                  host:nil
                     placeholderImage:placeholder
                              options:options
                              context:mutableContext

@@ -234,6 +234,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  * @return Returns an instance of SDWebImageCombinedOperation, which you can cancel the loading process.
  */
 - (nullable BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
                                                    options:(BMSDWebImageOptions)options
                                                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                                  completed:(nonnull BMSDInternalCompletionBlock)completedBlock;
@@ -251,6 +252,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  * @return Returns an instance of SDWebImageCombinedOperation, which you can cancel the loading process.
  */
 - (nullable BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
                                                    options:(BMSDWebImageOptions)options
                                                    context:(nullable BMSDWebImageContext *)context
                                                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock

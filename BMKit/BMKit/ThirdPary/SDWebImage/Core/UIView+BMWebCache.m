@@ -47,6 +47,7 @@ const int64_t BMSDWebImageProgressUnitCountUnknown = 1LL;
 }
 
 - (void)bmsd_internalSetImageWithURL:(nullable NSURL *)url
+                                host:(nullable NSString *)host
                   placeholderImage:(nullable UIImage *)placeholder
                            options:(BMSDWebImageOptions)options
                            context:(nullable BMSDWebImageContext *)context
@@ -122,7 +123,7 @@ const int64_t BMSDWebImageProgressUnitCountUnknown = 1LL;
             }
         };
         @bmweakify(self);
-        id <BMSDWebImageOperation> operation = [manager loadImageWithURL:url options:options context:context progress:combinedProgressBlock completed:^(UIImage *image, NSData *data, NSError *error, BMSDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        id <BMSDWebImageOperation> operation = [manager loadImageWithURL:url host:host options:options context:context progress:combinedProgressBlock completed:^(UIImage *image, NSData *data, NSError *error, BMSDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             @bmstrongify(self);
             if (!self) { return; }
             // if the progress not been updated, mark it to complete state

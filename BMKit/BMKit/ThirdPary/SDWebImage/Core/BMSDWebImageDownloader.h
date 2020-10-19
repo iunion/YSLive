@@ -237,6 +237,7 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
  * @return A token (SDWebImageDownloadToken) that can be used to cancel this operation
  */
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
                                                  completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 /**
@@ -261,10 +262,10 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
  *
  * @return A token (SDWebImageDownloadToken) that can be used to cancel this operation
  */
-- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
-                                                   options:(BMSDWebImageDownloaderOptions)options
-                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
+//- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+//                                                   options:(BMSDWebImageDownloaderOptions)options
+//                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+//                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
@@ -288,11 +289,11 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
  *
  * @return A token (SDWebImageDownloadToken) that can be used to cancel this operation
  */
-- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
-                                                   options:(BMSDWebImageDownloaderOptions)options
-                                                   context:(nullable BMSDWebImageContext *)context
-                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
-                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
+//- (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
+//                                                   options:(BMSDWebImageDownloaderOptions)options
+//                                                   context:(nullable BMSDWebImageContext *)context
+//                                                  progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
+//                                                 completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host

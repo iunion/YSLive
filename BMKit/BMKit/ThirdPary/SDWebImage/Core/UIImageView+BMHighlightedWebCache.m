@@ -18,31 +18,32 @@ static NSString * const BMSDHighlightedImageOperationKey = @"UIImageViewImageOpe
 
 @implementation UIImageView (BMHighlightedWebCache)
 
-- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url {
-    [self bmsd_setHighlightedImageWithURL:url options:0 progress:nil completed:nil];
+- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host {
+    [self bmsd_setHighlightedImageWithURL:url host:host options:0 progress:nil completed:nil];
 }
 
-- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url options:(BMSDWebImageOptions)options {
-    [self bmsd_setHighlightedImageWithURL:url options:options progress:nil completed:nil];
+- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host options:(BMSDWebImageOptions)options {
+    [self bmsd_setHighlightedImageWithURL:url host:host options:options progress:nil completed:nil];
 }
 
-- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url options:(BMSDWebImageOptions)options context:(nullable BMSDWebImageContext *)context {
-    [self bmsd_setHighlightedImageWithURL:url options:options context:context progress:nil completed:nil];
+- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host options:(BMSDWebImageOptions)options context:(nullable BMSDWebImageContext *)context {
+    [self bmsd_setHighlightedImageWithURL:url host:host options:options context:context progress:nil completed:nil];
 }
 
-- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setHighlightedImageWithURL:url options:0 progress:nil completed:completedBlock];
+- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setHighlightedImageWithURL:url host:host options:0 progress:nil completed:completedBlock];
 }
 
-- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url options:(BMSDWebImageOptions)options completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setHighlightedImageWithURL:url options:options progress:nil completed:completedBlock];
+- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host options:(BMSDWebImageOptions)options completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setHighlightedImageWithURL:url host:host options:options progress:nil completed:completedBlock];
 }
 
-- (void)bmsd_setHighlightedImageWithURL:(NSURL *)url options:(BMSDWebImageOptions)options progress:(nullable BMSDImageLoaderProgressBlock)progressBlock completed:(nullable BMSDExternalCompletionBlock)completedBlock {
-    [self bmsd_setHighlightedImageWithURL:url options:options context:nil progress:progressBlock completed:completedBlock];
+- (void)bmsd_setHighlightedImageWithURL:(NSURL *)url host:(nullable NSString *)host options:(BMSDWebImageOptions)options progress:(nullable BMSDImageLoaderProgressBlock)progressBlock completed:(nullable BMSDExternalCompletionBlock)completedBlock {
+    [self bmsd_setHighlightedImageWithURL:url host:host options:options context:nil progress:progressBlock completed:completedBlock];
 }
 
 - (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url
+                                   host:(nullable NSString *)host
                               options:(BMSDWebImageOptions)options
                               context:(nullable BMSDWebImageContext *)context
                              progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
@@ -56,6 +57,7 @@ static NSString * const BMSDHighlightedImageOperationKey = @"UIImageViewImageOpe
     }
     mutableContext[BMSDWebImageContextSetImageOperationKey] = BMSDHighlightedImageOperationKey;
     [self bmsd_internalSetImageWithURL:url
+                                  host:host
                     placeholderImage:nil
                              options:options
                              context:mutableContext

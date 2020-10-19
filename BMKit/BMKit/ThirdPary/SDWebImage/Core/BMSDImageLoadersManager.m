@@ -88,14 +88,14 @@
     return NO;
 }
 
-- (id<BMSDWebImageOperation>)requestImageWithURL:(NSURL *)url options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDImageLoaderCompletedBlock)completedBlock {
+- (id<BMSDWebImageOperation>)requestImageWithURL:(NSURL *)url host:(NSString *)host options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDImageLoaderCompletedBlock)completedBlock {
     if (!url) {
         return nil;
     }
     NSArray<id<BMSDImageLoader>> *loaders = self.loaders;
     for (id<BMSDImageLoader> loader in loaders.reverseObjectEnumerator) {
         if ([loader canRequestImageForURL:url]) {
-            return [loader requestImageWithURL:url options:options context:context progress:progressBlock completed:completedBlock];
+            return [loader requestImageWithURL:url host:host options:options context:context progress:progressBlock completed:completedBlock];
         }
     }
     return nil;

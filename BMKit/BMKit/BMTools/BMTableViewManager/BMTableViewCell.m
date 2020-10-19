@@ -262,7 +262,7 @@
         self.imageView.image = item.image;
         if (item.imageUrl)
         {
-            [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:item.imageUrl] placeholderImage:item.image options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority completed:^(UIImage *image, NSError *error, BMSDImageCacheType cacheType, NSURL *imageURL) {
+            [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:item.imageUrl] host:nil placeholderImage:item.image options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority completed:^(UIImage *image, NSError *error, BMSDImageCacheType cacheType, NSURL *imageURL) {
             }];
         }
         
@@ -270,7 +270,7 @@
         if (item.highlightedImageUrl)
         {
             BMWeakSelf
-            [[BMSDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:item.highlightedImageUrl] options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL *targetURL) {
+            [[BMSDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:item.highlightedImageUrl] host:nil options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL *targetURL) {
             } completed:^(UIImage *image, NSData *data, NSError *error, BMSDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (image)

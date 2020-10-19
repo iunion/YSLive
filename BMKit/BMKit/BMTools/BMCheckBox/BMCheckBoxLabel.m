@@ -176,6 +176,7 @@
     else if (self.labelImageUrl)
     {
         [self.imageView.realImageView bmsd_setImageWithURL:[NSURL URLWithString:self.labelImageUrl]
+                                                      host:nil
                           placeholderImage:self.placeholderLabelImage
                                    options:BMSDWebImageRetryFailed | BMSDWebImageLowPriority
                                  completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {

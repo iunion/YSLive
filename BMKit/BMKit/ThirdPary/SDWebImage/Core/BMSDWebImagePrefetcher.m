@@ -118,7 +118,7 @@
                 if (!self || asyncOperation.isCancelled) {
                     return;
                 }
-                id<BMSDWebImageOperation> operation = [self.manager loadImageWithURL:url options:self.options context:self.context progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BMSDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                id<BMSDWebImageOperation> operation = [self.manager loadImageWithURL:url host:nil options:self.options context:self.context progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BMSDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
                     @bmstrongify(self);
                     if (!self) {
                         return;

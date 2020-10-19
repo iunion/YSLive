@@ -52,7 +52,7 @@
  *
  * @param url The url for the image.
  */
-- (void)bmsd_setImageWithURL:(nullable NSURL *)url NS_REFINED_FOR_SWIFT;
+- (void)bmsd_setImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `image` with an `url` and a placeholder.
@@ -64,6 +64,7 @@
  * @see sd_setImageWithURL:placeholderImage:options:
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
           placeholderImage:(nullable UIImage *)placeholder NS_REFINED_FOR_SWIFT;
 
 /**
@@ -76,6 +77,7 @@
  * @param options     The options to use when downloading the image. @see SDWebImageOptions for the possible values.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
@@ -90,6 +92,7 @@
  * @param context     A context contains different options to perform specify changes or processes, see `SDWebImageContextOption`. This hold the extra objects which `options` enum can not hold.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
                    context:(nullable BMSDWebImageContext *)context;
@@ -107,6 +110,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                  completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
 /**
@@ -123,6 +127,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
           placeholderImage:(nullable UIImage *)placeholder
                  completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
 
@@ -141,6 +146,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
                  completed:(nullable BMSDExternalCompletionBlock)completedBlock;
@@ -162,6 +168,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
@@ -185,7 +192,8 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
-          placeholderImage:(nullable UIImage *)placeholder
+                        host:(nullable NSString *)host
+            placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
                    context:(nullable BMSDWebImageContext *)context
                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock

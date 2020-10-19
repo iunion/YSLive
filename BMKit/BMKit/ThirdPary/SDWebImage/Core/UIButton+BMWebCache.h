@@ -29,7 +29,7 @@
  * 
  * @param state Which state you want to know the URL for. The values are described in UIControlState.
  */
-- (nullable NSURL *)bmsd_imageURLForState:(UIControlState)state;
+- (nullable NSURL *)bmsd_imageURLForState:(UIControlState)state host:(nullable NSString *)host;
 
 /**
  * Set the button `image` with an `url`.
@@ -40,6 +40,7 @@
  * @param state The state that uses the specified title. The values are described in UIControlState.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state NS_REFINED_FOR_SWIFT;
 
 /**
@@ -53,6 +54,7 @@
  * @see sd_setImageWithURL:placeholderImage:options:
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder NS_REFINED_FOR_SWIFT;
 
@@ -67,6 +69,7 @@
  * @param options     The options to use when downloading the image. @see SDWebImageOptions for the possible values.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
@@ -83,6 +86,7 @@
  * @param context     A context contains different options to perform specify changes or processes, see `SDWebImageContextOption`. This hold the extra objects which `options` enum can not hold.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
@@ -102,6 +106,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
                  completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
@@ -120,6 +125,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                  completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
@@ -140,6 +146,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
@@ -163,6 +170,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
@@ -188,6 +196,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setImageWithURL:(nullable NSURL *)url
+                        host:(nullable NSString *)host
                   forState:(UIControlState)state
           placeholderImage:(nullable UIImage *)placeholder
                    options:(BMSDWebImageOptions)options
@@ -218,6 +227,7 @@
  * @param state The state that uses the specified title. The values are described in UIControlState.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state NS_REFINED_FOR_SWIFT;
 
 /**
@@ -231,6 +241,7 @@
  * @see sd_setImageWithURL:placeholderImage:options:
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder NS_REFINED_FOR_SWIFT;
 
@@ -245,6 +256,7 @@
  * @param options     The options to use when downloading the image. @see SDWebImageOptions for the possible values.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                              options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
@@ -261,6 +273,7 @@
  * @param context     A context contains different options to perform specify changes or processes, see `SDWebImageContextOption`. This hold the extra objects which `options` enum can not hold.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                              options:(BMSDWebImageOptions)options
@@ -280,6 +293,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                            completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
@@ -298,6 +312,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                            completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
@@ -317,6 +332,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                              options:(BMSDWebImageOptions)options
@@ -339,6 +355,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                              options:(BMSDWebImageOptions)options
@@ -363,6 +380,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setBackgroundImageWithURL:(nullable NSURL *)url
+                                  host:(nullable NSString *)host
                             forState:(UIControlState)state
                     placeholderImage:(nullable UIImage *)placeholder
                              options:(BMSDWebImageOptions)options

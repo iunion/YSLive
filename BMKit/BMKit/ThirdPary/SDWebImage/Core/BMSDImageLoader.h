@@ -81,6 +81,7 @@ FOUNDATION_EXPORT UIImage * _Nullable BMSDImageLoaderDecodeProgressiveImageData(
  @return An operation which allow the user to cancel the current request.
  */
 - (nullable id<BMSDWebImageOperation>)requestImageWithURL:(nullable NSURL *)url
+                                                     host:(nullable NSString *)host
                                                 options:(BMSDWebImageOptions)options
                                                 context:(nullable BMSDWebImageContext *)context
                                                progress:(nullable BMSDImageLoaderProgressBlock)progressBlock

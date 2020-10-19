@@ -73,6 +73,7 @@ typedef void(^BMSDSetImageBlock)(UIImage * _Nullable image, NSData * _Nullable i
  *   The last parameter is the original image URL
  */
 - (void)bmsd_internalSetImageWithURL:(nullable NSURL *)url
+                                host:(nullable NSString *)host
                   placeholderImage:(nullable UIImage *)placeholder
                            options:(BMSDWebImageOptions)options
                            context:(nullable BMSDWebImageContext *)context

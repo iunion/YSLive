@@ -24,7 +24,7 @@
  *
  * @param url The url for the image.
  */
-- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url NS_REFINED_FOR_SWIFT;
+- (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url host:(nullable NSString *)host NS_REFINED_FOR_SWIFT;
 
 /**
  * Set the imageView `highlightedImage` with an `url` and custom options.
@@ -35,6 +35,7 @@
  * @param options The options to use when downloading the image. @see SDWebImageOptions for the possible values.
  */
 - (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url
+                                   host:(nullable NSString *)host
                               options:(BMSDWebImageOptions)options NS_REFINED_FOR_SWIFT;
 
 /**
@@ -47,6 +48,7 @@
  * @param context     A context contains different options to perform specify changes or processes, see `SDWebImageContextOption`. This hold the extra objects which `options` enum can not hold.
  */
 - (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url
+                                   host:(nullable NSString *)host
                               options:(BMSDWebImageOptions)options
                               context:(nullable BMSDWebImageContext *)context;
 
@@ -63,6 +65,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url
+                                   host:(nullable NSString *)host
                             completed:(nullable BMSDExternalCompletionBlock)completedBlock NS_REFINED_FOR_SWIFT;
 
 /**
@@ -79,6 +82,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url
+                                   host:(nullable NSString *)host
                               options:(BMSDWebImageOptions)options
                             completed:(nullable BMSDExternalCompletionBlock)completedBlock;
 
@@ -98,6 +102,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url
+                                   host:(nullable NSString *)host
                               options:(BMSDWebImageOptions)options
                              progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                             completed:(nullable BMSDExternalCompletionBlock)completedBlock;
@@ -119,6 +124,7 @@
  *                       The fourth parameter is the original image url.
  */
 - (void)bmsd_setHighlightedImageWithURL:(nullable NSURL *)url
+                                   host:(nullable NSString *)host
                               options:(BMSDWebImageOptions)options
                               context:(nullable BMSDWebImageContext *)context
                              progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
