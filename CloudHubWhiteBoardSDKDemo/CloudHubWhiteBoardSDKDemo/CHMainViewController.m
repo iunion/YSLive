@@ -113,15 +113,15 @@
 
 - (void)setupButtonsUI
 {
-   UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 20, 50, 50)];
+    UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 20, 50, 50)];
     fileListBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
     [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
     [fileListBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-
+    
     [self.view addSubview:fileListBtn];
     self.fileListBtn = fileListBtn;
-
+    
     UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(fileListBtn.bm_right + 30, 20, 80, 50)];
     [canDrawBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
@@ -130,7 +130,7 @@
     [canDrawBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:canDrawBtn];
     canDrawBtn.selected = YES;
-
+    
     UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 50, 50)];
     [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
@@ -138,7 +138,7 @@
     [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [scaleBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:scaleBtn];
-
+    
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 50, 20, 80, 50)];
     [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"返回登录" forState:UIControlStateNormal];
@@ -154,7 +154,7 @@
     [imageBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [imageBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:imageBtn];
-
+    
     UIButton *uploadFileBtn = [[UIButton alloc]initWithFrame:CGRectMake(imageBtn.bm_right + 50, 20, 80, 50)];
     [uploadFileBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [uploadFileBtn setTitle:@"上传课件" forState:UIControlStateNormal];
@@ -163,11 +163,21 @@
     [uploadFileBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:uploadFileBtn];
     
+    UIButton *canControlShape = [[UIButton alloc]initWithFrame:CGRectMake(uploadFileBtn.bm_right + 50, 20, 80, 50)];
+    [canControlShape addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [canControlShape setTitle:@"操作所有" forState:UIControlStateNormal];
+    [canControlShape setTitle:@"操作自己" forState:UIControlStateSelected];
+    canControlShape.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [canControlShape setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [canControlShape setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:canControlShape];
+
     canDrawBtn.tag = 1;
     scaleBtn.tag = 2;
     backBtn.tag = 3;
     imageBtn.tag = 4;
     uploadFileBtn.tag = 5;
+    canControlShape.tag = 6;
 }
 
 
@@ -227,6 +237,14 @@
         }
             break;
 
+        case 6:
+        {
+            sender.selected = !sender.selected;
+            [self.cloudHubManager setIsOnlyOperationSelfShape:sender.selected];
+            [self.cloudHubManager getUndoRedoState];
+        }
+            break;
+            
         default:
             break;
     }
@@ -558,9 +576,11 @@
     [self.cloudHubManager.cloudHubRtcEngineKit delMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll];
 }
 
-- (void)changeUndoRedoState:(NSString *)fileid canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo
+- (void)changeUndoRedoState:(NSString *)fileid currentpage:(NSUInteger)currentPage canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo canErase:(BOOL)canErase canClean:(BOOL)canClean
 {
     [self.brushToolView freshCanUndo:canUndo canRedo:canRedo];
+    [self.brushToolView freshClear:canClean];
+    [self.brushToolView freshErase:canErase];
 }
 
 @end
