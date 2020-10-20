@@ -1004,6 +1004,35 @@
     
 }
 
+
+/// 本地movie 流
+- (void)onRoomLocalMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID isStart:(BOOL)isStart
+{
+    if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
+    {
+        /// 多课件不做处理
+        return;
+    }
+
+    if (isStart)
+    {
+        
+        [self handlePlayMovieStreamID:movieStreamID userID:userID];
+    }
+    else
+    {
+        [self handleStopMovieStreamID:movieStreamID userID:userID];
+    }
+}
+
+- (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
+{
+    
+}
+- (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
+{
+    
+}
 /*
 - (void)addBaseNotification
 {

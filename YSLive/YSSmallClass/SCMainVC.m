@@ -4196,7 +4196,33 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self freshBrushTools];
     }
 }
+#pragma mark 本地movie stream
 
+- (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
+{
+    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self arrangeAllViewInVCView];
+    self.shareVideoFloatView.canZoom = NO;
+    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
+    self.shareVideoFloatView.showWaiting = YES;
+    self.shareVideoFloatView.hidden = NO;
+}
+- (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
+{
+    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
+    self.shareVideoFloatView.canZoom = NO;
+    self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
+    self.shareVideoFloatView.hidden = YES;
+   
+    
+#if USE_FullTeacher
+    [self stopFullTeacherVideoView];
+    if (!self.whitebordFullBackgroud.hidden)
+    {
+        [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
+    }
+#endif
+}
 #pragma mark 白板翻页 换课件
 // 播放白板视频/音频
 - (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel

@@ -1431,6 +1431,29 @@
 //}
 #endif
 
+
+#pragma mark 本地movie stream
+
+- (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
+{
+    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+    
+    if (self.isFullScreen)
+    {
+        // 如果是全屏，点击按钮进入小屏状态
+        [self changeTopVideoToOriginalFrame];
+    }
+    self.fullScreenBtn.enabled = NO;
+    self.mp4BgView.hidden = NO;
+    [self.mp4BgView bm_bringToFront];
+    [self.mp4FullScreenBtn bm_bringToFront];
+}
+- (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
+{
+    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
+    self.fullScreenBtn.enabled = YES;
+    self.mp4BgView.hidden = YES;
+}
 #pragma mark 白板视频/音频
 
 // 播放白板视频/音频
