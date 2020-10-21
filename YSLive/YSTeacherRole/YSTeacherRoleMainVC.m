@@ -1092,6 +1092,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     // 1V1 初始本人视频音频
     SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sCHUserDefaultSourceId isForPerch:YES withDelegate:self];
+    videoView.frame = CGRectMake(0, 0, videoWidth, videoHeight);
     videoView.appUseTheType = self.appUseTheType;
     videoView.tag = PlaceholderPTag;
     
@@ -1118,6 +1119,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [self.videoBackgroud addSubview:userVideoView];
+    [imageView bm_sendOneLevelDown];
     
     if (self.isWideScreen)
     {
