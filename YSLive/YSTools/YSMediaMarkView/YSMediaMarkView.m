@@ -119,7 +119,7 @@
 
     for (NSDictionary *dic in sharpsDataArray)
     {
-        [self.drawView addDrawData:dic refreshImmediately:YES];
+        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
     }
 }
 
@@ -132,10 +132,10 @@
     
     for (NSDictionary *dic in sharpsDataArray)
     {
-        [self.drawView addDrawData:dic refreshImmediately:YES];
+        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
     }
     
-    [self.drawView addDrawData:data refreshImmediately:YES];
+    [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
 }
 
 //- (void)didMoveToSuperview
@@ -205,7 +205,7 @@
         if ([whiteboardID isEqualToString:@"videoDrawBoard"])
         {
             [self.drawView switchToFileID:whiteboardID pageID:1 refreshImmediately:YES];
-            [self.drawView addDrawData:data refreshImmediately:YES];
+            [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
             return;
         }
     }
