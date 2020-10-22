@@ -99,7 +99,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [super viewDidLoad];
  
     [self setupUI];
-
+    
     self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
     self.progressHUD.animationType = MBProgressHUDAnimationFade;
     [self.view addSubview:self.progressHUD];
@@ -488,6 +488,25 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [self joinRoomWithWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:nil];
 }
 
+- (NSString *)bm_toJSONWithDic:(NSDictionary *)dic
+{
+    NSString *json = nil;
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:&error];
+    
+    if (!jsonData)
+    {
+        return @"{}";
+    }
+    else if (!error)
+    {
+        json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return json;
+    }
+    
+    return nil;
+}
+
 - (BOOL)joinRoomWithWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword
 {
     // 用户ID
@@ -500,14 +519,13 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     // 初始化 cloudHubRtcEngineKit
 #if 0
     // rtcEngineKit 使用http，所以端口是80
-    NSDictionary *rtcEngineKitConfig = @{ @"server":@"demo.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
-    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
+    NSDictionary *rtcEngineKitConfig = @{ @"server":@"release.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
+    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[self bm_toJSONWithDic:rtcEngineKitConfig]];
 #else
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:APPID config:nil];
-    
-    self.cloudHubManager.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
 #endif
     
+    self.cloudHubManager.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
     
 #ifdef DEBUG
     [self.cloudHubRtcEngineKit setLogFilter:1];
