@@ -4731,7 +4731,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				MARKETING_VERSION = 3.3.7;
+=======
+				MARKETING_VERSION = 3.3.5;
+>>>>>>> 838ad1b7a348695c51ce2bd83cec5a1726c711f9
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",

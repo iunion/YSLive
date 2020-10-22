@@ -20,6 +20,7 @@
 /// 海信
 //#define APPID @"ocrKJoD4WdDrfDPZ"
 
+// 请填写appId
 #define APPID @"n1cq1Le0ypVtTJek"
 
 #define USE_COOKIES     0
@@ -578,6 +579,12 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 
 
 #pragma mark - CHWhiteBoardManagerDelegate
+
+- (void)onWhiteBroadCreateFail
+{
+    [CloudHubWhiteBoardKit destroy];
+    self.cloudHubRtcEngineKit = nil;
+}
 
 /// 白板准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished

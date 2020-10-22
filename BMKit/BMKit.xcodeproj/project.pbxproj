@@ -22,6 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		264A16A225355433000916F2 /* BMCountDownButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 264A16A025355433000916F2 /* BMCountDownButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		264A16A325355433000916F2 /* BMCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A16A125355433000916F2 /* BMCountDownButton.m */; };
 		34497707241D1BD6009E8B3A /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87901A2E2417353800FF38EC /* BMTZImagePickerController.bundle */; };
 		34497708241D1C0E009E8B3A /* NSBundle+BMTZImagePicker.m in Resources */ = {isa = PBXBuildFile; fileRef = 87901A1B241729D800FF38EC /* NSBundle+BMTZImagePicker.m */; };
 		8701AD9C23714E1500A43607 /* BMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AD9A23714E1500A43607 /* BMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -523,6 +525,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		264A16A025355433000916F2 /* BMCountDownButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCountDownButton.h; sourceTree = "<group>"; };
+		264A16A125355433000916F2 /* BMCountDownButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCountDownButton.m; sourceTree = "<group>"; };
 		8701AD9723714E1500A43607 /* BMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8701AD9A23714E1500A43607 /* BMKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKit.h; sourceTree = "<group>"; };
 		8701AD9B23714E1500A43607 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1027,6 +1031,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		264A169D25355372000916F2 /* BMCountDownButton */ = {
+			isa = PBXGroup;
+			children = (
+				264A16A025355433000916F2 /* BMCountDownButton.h */,
+				264A16A125355433000916F2 /* BMCountDownButton.m */,
+			);
+			path = BMCountDownButton;
+			sourceTree = "<group>";
+		};
 		8701AD8D23714E1500A43607 = {
 			isa = PBXGroup;
 			children = (
@@ -1207,6 +1220,7 @@
 		8701AEA12371550000A43607 /* BMTools */ = {
 			isa = PBXGroup;
 			children = (
+				264A169D25355372000916F2 /* BMCountDownButton */,
 				8779E57723F2D3FC008E885C /* BMRSA */,
 				8701AEA22371550000A43607 /* BMAlertView */,
 				8701AF2923715B9400A43607 /* BMAlignedImageView */,
@@ -1979,6 +1993,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				264A16A225355433000916F2 /* BMCountDownButton.h in Headers */,
 				876C87BB25031EE80029248C /* BMHttpRequest.h in Headers */,
 				8742FE1924F3A12A00BDF294 /* BMSDWebImageCompat.h in Headers */,
 				8742FE2424F3A12A00BDF294 /* BMSDImageHEICCoder.h in Headers */,
@@ -2445,6 +2460,7 @@
 				87A186D42508D31100607E24 /* BMCloudHubUtil.m in Sources */,
 				8742FE4624F3A12A00BDF294 /* BMSDAsyncBlockOperation.m in Sources */,
 				8701B113237165AA00A43607 /* BMLongTextItem.m in Sources */,
+				264A16A325355433000916F2 /* BMCountDownButton.m in Sources */,
 				8742FDE524F3A12A00BDF294 /* BMSDImageAPNGCoder.m in Sources */,
 				8742FDDA24F3A12A00BDF294 /* UIImage+BMTransform.m in Sources */,
 				8742FDF624F3A12A00BDF294 /* BMSDGraphicsImageRenderer.m in Sources */,

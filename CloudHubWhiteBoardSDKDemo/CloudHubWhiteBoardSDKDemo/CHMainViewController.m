@@ -354,11 +354,13 @@
     if (btn.selected)
     {
         self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH - 300, 40, 300, UI_SCREEN_HEIGHT-80);
+        [self.fileTableView reloadData];
     }
     else
     {
         self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 40, 300, UI_SCREEN_HEIGHT-80);
     }
+    
 }
 
 #pragma mark UI 工具栏
