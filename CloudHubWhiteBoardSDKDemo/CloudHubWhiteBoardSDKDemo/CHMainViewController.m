@@ -516,6 +516,8 @@
     [self.fileTableView reloadData];
 }
 
+#pragma mark - H5课件加载事件
+
 /// H5脚本文件加载初始化完成
 - (void)onWhiteBoardPageFinshed:(NSString *)fileId
 {
@@ -538,14 +540,22 @@
 {
     
 }
+
+#pragma mark - 普通课件加载事件
+
+/// 普通课件加载完成状态
+- (void)onWhiteBoardPageLoadFinshed:(NSString *)fileId isSuccess:(BOOL)isSuccess;
+{
+    
+}
+
+#pragma mark - 课件事件
+
 /// 课件缩放
 - (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
 {
     
 }
-
-
-#pragma mark - 课件事件
 
 /// 课件全屏
 - (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
