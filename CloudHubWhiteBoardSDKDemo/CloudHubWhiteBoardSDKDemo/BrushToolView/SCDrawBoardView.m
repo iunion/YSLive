@@ -267,7 +267,7 @@
     // 工具颜色各自配置
     //NSString *colorHex = config.colorHex;
     NSString *colorHex = [[CloudHubWhiteBoardKit sharedInstance] getSDKPrimaryColorHex];
-    CGFloat progress = config.progress;
+    CGFloat size = config.size;
 
     switch (brushToolType)
     {
@@ -303,28 +303,28 @@
             break;
     }
     
-    self.slider.value = progress;
-    self.progressResult = progress;
+    self.slider.value = size;
+    self.progressResult = size;
     [self changeSelectColor:colorHex];
     [self layoutIfNeeded];
     
     [self.progressSelectView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.bacContainerView.mas_left).mas_offset(20);
-        make.width.mas_equalTo(progress * self.progressView.frame.size.width);
+        make.width.mas_equalTo(size * self.progressView.frame.size.width);
         make.height.mas_equalTo(@(10));
         make.top.mas_equalTo(self.colorSelectView.mas_bottom).mas_offset(33);
     }];
 //    [self layoutIfNeeded];
     [self.weightView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(@(progress * WeightViewCoefficient + 5));
+        make.width.height.mas_equalTo(@(size * WeightViewCoefficient + 5));
     }];
-    self.weightView.layer.cornerRadius = (progress * WeightViewCoefficient + 5) / 2;
+    self.weightView.layer.cornerRadius = (size * WeightViewCoefficient + 5) / 2;
     self.weightView.layer.masksToBounds = YES;
     if (brushToolType != CHBrushToolTypeMouse)
     {
         if ([self.delegate respondsToSelector:@selector(brushSelectorViewDidSelectDrawType:color:widthProgress:)])
         {
-            [self.delegate brushSelectorViewDidSelectDrawType:_drawType color:self.selectColor widthProgress:progress];
+            [self.delegate brushSelectorViewDidSelectDrawType:_drawType color:self.selectColor widthProgress:size];
         }
     }
 }

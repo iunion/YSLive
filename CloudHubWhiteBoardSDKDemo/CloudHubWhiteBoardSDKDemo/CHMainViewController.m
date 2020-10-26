@@ -423,7 +423,7 @@
 
 - (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn
 {
-    [self.cloudHubManager brushSDKToolsDidSelect:toolViewBtnType];
+    [self.cloudHubManager changeBrushToolsType:toolViewBtnType];
 
     if (self.drawBoardView)
     {
@@ -452,13 +452,13 @@
     {
         NSLog(@"点击了undo按钮");
         
-        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeUndo color:@"" widthProgress:0];
+        [self.cloudHubManager changeBrushToolsDrawType:CHDrawTypeUndo color:@"" size:0];
         
     }
     else if (toolBtn.tag == CHBrushToolTypeRedo)
     {
         NSLog(@"点击了redo按钮");
-        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeRedo color:@"" widthProgress:0];
+        [self.cloudHubManager changeBrushToolsDrawType:CHDrawTypeRedo color:@"" size:0];
     }
 }
 
@@ -467,7 +467,7 @@
 
 - (void)brushSelectorViewDidSelectDrawType:(CHDrawType)drawType color:(NSString *)hexColor widthProgress:(float)progress
 {
-    [self.cloudHubManager didSDKSelectDrawType:drawType color:hexColor widthProgress:progress];
+    [self.cloudHubManager changeBrushToolsDrawType:drawType color:hexColor size:progress];
 }
 
 
