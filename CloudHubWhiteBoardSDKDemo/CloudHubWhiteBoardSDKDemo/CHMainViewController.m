@@ -220,7 +220,8 @@
             break;
         case 5:
         {
-            NSArray *pagesAddr = @[@"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-1.jpg",
+            NSArray *pagesAddr = @[@"https://b-ssl.duitang.com/uploads/item/201611/04/20161104110413_XzVAk.gif",
+                @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-1.pdf",
                                    @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-2.jpg",
                                    @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-3.jpg",
                                    @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-4.jpg",
