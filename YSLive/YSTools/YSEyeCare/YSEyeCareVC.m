@@ -187,25 +187,21 @@
     menu.optionFont = [UIFont systemFontOfSize:16];
     menu.optionTextColor = [UIColor bm_colorWithHex:0x828282];
     menu.optionLineColor = [UIColor bm_colorWithHex:0xDDDDDD];
-    menu.optionSelectedTextColor = [UIColor bm_colorWithHex:0x5A8CDC];
     NSUInteger index = [[YSEyeCareManager shareInstance] getEyeCareModeRemindTime];
     if (index == 60)
     {
-        index = 1;
+        menu.title = YSLocalized(@"EyeProtection.Period.60");
     }
     else
     {
-        index = 0;
+        menu.title = YSLocalized(@"EyeProtection.Period.30");
     }
-    [menu resetSelectedAtIndex:index];
     menu.bm_top = label5.bm_top;
     menu.bm_right = label5.bm_right;
 
     [self.view addSubview:menu];
-#endif
-    
-#if 0
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScale_W(200.0f), 50)];
+
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kBMScale_W(200.0f), 50)];
     [btn setTitle:YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
     btn.titleLabel.font = UI_FONT_18;
@@ -214,7 +210,7 @@
     [btn addTarget:self action:@selector(onClickOk:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     [btn bm_centerInSuperView];
-    btn.bm_bottom = self.view.bm_height-btn.bm_height-kScale_H(60.0f);
+    btn.bm_bottom = self.view.bm_height-btn.bm_height-kBMScale_H(60.0f);
 #endif
 }
 
