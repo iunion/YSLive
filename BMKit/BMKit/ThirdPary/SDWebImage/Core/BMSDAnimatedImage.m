@@ -25,9 +25,7 @@ static CGFloat BMSDImageScaleFromPath(NSString *string) {
     
     NSRegularExpression *pattern = [NSRegularExpression regularExpressionWithPattern:@"@[0-9]+\\.?[0-9]*x$" options:NSRegularExpressionAnchorsMatchLines error:nil];
     [pattern enumerateMatchesInString:name options:kNilOptions range:NSMakeRange(0, name.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        if (result.range.location >= 3) {
-            scale = [string substringWithRange:NSMakeRange(result.range.location + 1, result.range.length - 2)].doubleValue;
-        }
+        scale = [string substringWithRange:NSMakeRange(result.range.location + 1, result.range.length - 2)].doubleValue;
     }];
     
     return scale;
@@ -128,7 +126,7 @@ static CGFloat BMSDImageScaleFromPath(NSString *string) {
     }
     data = [data copy]; // avoid mutable data
     id<BMSDAnimatedImageCoder> animatedCoder = nil;
-    for (id<BMSDImageCoder>coder in [BMSDImageCodersManager sharedManager].coders) {
+    for (id<BMSDImageCoder>coder in [BMSDImageCodersManager sharedManager].coders.reverseObjectEnumerator) {
         if ([coder conformsToProtocol:@protocol(BMSDAnimatedImageCoder)]) {
             if ([coder canDecodeFromData:data]) {
                 if (!options) {
@@ -209,7 +207,7 @@ static CGFloat BMSDImageScaleFromPath(NSString *string) {
         }
         CGFloat scale = self.scale;
         id<BMSDAnimatedImageCoder> animatedCoder = nil;
-        for (id<BMSDImageCoder>coder in [BMSDImageCodersManager sharedManager].coders) {
+        for (id<BMSDImageCoder>coder in [BMSDImageCodersManager sharedManager].coders.reverseObjectEnumerator) {
             if ([coder conformsToProtocol:@protocol(BMSDAnimatedImageCoder)]) {
                 if ([coder canDecodeFromData:animatedImageData]) {
                     animatedCoder = [[[coder class] alloc] initWithAnimatedImageData:animatedImageData options:@{BMSDImageCoderDecodeScaleFactor : @(scale)}];

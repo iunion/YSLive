@@ -89,6 +89,7 @@ CATransition * BMSDTransitionFromAnimationOptions(BMSDWebImageAnimationOptions o
 
 + (BMSDWebImageTransition *)fadeTransitionWithDuration:(NSTimeInterval)duration {
     BMSDWebImageTransition *transition = [BMSDWebImageTransition new];
+    transition.duration = duration;
 #if BMSD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction;
 #else
@@ -103,6 +104,7 @@ CATransition * BMSDTransitionFromAnimationOptions(BMSDWebImageAnimationOptions o
 
 + (BMSDWebImageTransition *)flipFromLeftTransitionWithDuration:(NSTimeInterval)duration {
     BMSDWebImageTransition *transition = [BMSDWebImageTransition new];
+    transition.duration = duration;
 #if BMSD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionAllowUserInteraction;
 #else
@@ -117,6 +119,7 @@ CATransition * BMSDTransitionFromAnimationOptions(BMSDWebImageAnimationOptions o
 
 + (BMSDWebImageTransition *)flipFromRightTransitionWithDuration:(NSTimeInterval)duration {
     BMSDWebImageTransition *transition = [BMSDWebImageTransition new];
+    transition.duration = duration;
 #if BMSD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromRight | UIViewAnimationOptionAllowUserInteraction;
 #else
@@ -131,6 +134,7 @@ CATransition * BMSDTransitionFromAnimationOptions(BMSDWebImageAnimationOptions o
 
 + (BMSDWebImageTransition *)flipFromTopTransitionWithDuration:(NSTimeInterval)duration {
     BMSDWebImageTransition *transition = [BMSDWebImageTransition new];
+    transition.duration = duration;
 #if BMSD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromTop | UIViewAnimationOptionAllowUserInteraction;
 #else
@@ -145,6 +149,7 @@ CATransition * BMSDTransitionFromAnimationOptions(BMSDWebImageAnimationOptions o
 
 + (BMSDWebImageTransition *)flipFromBottomTransitionWithDuration:(NSTimeInterval)duration {
     BMSDWebImageTransition *transition = [BMSDWebImageTransition new];
+    transition.duration = duration;
 #if BMSD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionFlipFromBottom | UIViewAnimationOptionAllowUserInteraction;
 #else
@@ -159,6 +164,7 @@ CATransition * BMSDTransitionFromAnimationOptions(BMSDWebImageAnimationOptions o
 
 + (BMSDWebImageTransition *)curlUpTransitionWithDuration:(NSTimeInterval)duration {
     BMSDWebImageTransition *transition = [BMSDWebImageTransition new];
+    transition.duration = duration;
 #if BMSD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionCurlUp | UIViewAnimationOptionAllowUserInteraction;
 #else
@@ -173,6 +179,7 @@ CATransition * BMSDTransitionFromAnimationOptions(BMSDWebImageAnimationOptions o
 
 + (BMSDWebImageTransition *)curlDownTransitionWithDuration:(NSTimeInterval)duration {
     BMSDWebImageTransition *transition = [BMSDWebImageTransition new];
+    transition.duration = duration;
 #if BMSD_UIKIT
     transition.animationOptions = UIViewAnimationOptionTransitionCurlDown | UIViewAnimationOptionAllowUserInteraction;
 #else
