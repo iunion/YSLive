@@ -4,7 +4,7 @@
 //
 //  Created by 谭真 on 15/12/24.
 //  Copyright © 2015年 谭真. All rights reserved.
-//  version 3.4.8 - 2020.10.17
+//  version 3.4.9 - 2020.10.28
 //  更多信息，请前往项目的github地址：https://github.com/banchichen/TZImagePickerController
 
 #import "BMTZImagePickerController.h"
@@ -417,11 +417,6 @@
     [alertController addAction:[UIAlertAction actionWithTitle:[NSBundle bmtz_localizedStringForKey:@"OK"] style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
     return alertController;
-}
-
-- (void)hideAlertView:(UIAlertController *)alertView {
-    [alertView dismissViewControllerAnimated:YES completion:nil];
-    alertView = nil;
 }
 
 - (void)showProgressHUD {
