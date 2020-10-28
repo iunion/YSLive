@@ -207,6 +207,11 @@
     [_collectionView registerClass:[BMTZPhotoPreviewCell class] forCellWithReuseIdentifier:@"BMTZPhotoPreviewCell"];
     [_collectionView registerClass:[BMTZVideoPreviewCell class] forCellWithReuseIdentifier:@"BMTZVideoPreviewCell"];
     [_collectionView registerClass:[BMTZGifPreviewCell class] forCellWithReuseIdentifier:@"BMTZGifPreviewCell"];
+    
+    BMTZImagePickerController *_tzImagePickerVc = (BMTZImagePickerController *)self.navigationController;
+    if (_tzImagePickerVc.scaleAspectFillCrop && _tzImagePickerVc.allowCrop) {
+        _collectionView.scrollEnabled = NO;
+    }
 }
 
 - (void)configCropView {
@@ -270,7 +275,7 @@
         [_collectionView reloadData];
     }
     
-    CGFloat toolBarHeight = [BMTZCommonTools tz_isIPhoneX] ? 44 + (83 - 49) : 44;
+    CGFloat toolBarHeight = 44 + [BMTZCommonTools tz_safeAreaInsets].bottom;
     CGFloat toolBarTop = self.view.bmtz_height - toolBarHeight;
     _toolBar.frame = CGRectMake(0, toolBarTop, self.view.bmtz_width, toolBarHeight);
     if (_tzImagePickerVc.allowPickingOriginalPhoto) {

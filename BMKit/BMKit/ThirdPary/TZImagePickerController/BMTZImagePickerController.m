@@ -4,7 +4,7 @@
 //
 //  Created by 谭真 on 15/12/24.
 //  Copyright © 2015年 谭真. All rights reserved.
-//  version 3.4.2 - 2020.08.17
+//  version 3.4.8 - 2020.10.17
 //  更多信息，请前往项目的github地址：https://github.com/banchichen/TZImagePickerController
 
 #import "BMTZImagePickerController.h"
@@ -51,7 +51,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.needShowStatusBar = ![UIApplication sharedApplication].statusBarHidden;
-    self.view.backgroundColor = [UIColor whiteColor];
+    if (@available(iOS 13.0, *)) {
+        self.view.backgroundColor = UIColor.tertiarySystemBackgroundColor;
+    } else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
     self.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationBar.translucent = YES;
     [BMTZImageManager manager].shouldFixOrientation = NO;
@@ -115,9 +119,7 @@
 
 - (void)configBarButtonItemAppearance {
     UIBarButtonItem *barItem;
-    //if (@available(iOS 9, *)) {
-    if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0)
-    {
+    if (@available(iOS 9.0, *)) {
         barItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[BMTZImagePickerController class]]];
     } else {
         barItem = [UIBarButtonItem appearanceWhenContainedIn:[BMTZImagePickerController class], nil];
@@ -333,6 +335,11 @@
     _photoOriginSelImage = [UIImage bmtz_imageNamedFromMyBundle:photoOriginSelImageName];
 }
 
+- (void)setTakePictureImage:(UIImage *)takePictureImage {
+    _takePictureImage = takePictureImage;
+    _takePictureImageName = @"";
+}
+
 - (void)setIconThemeColor:(UIColor *)iconThemeColor {
     _iconThemeColor = iconThemeColor;
     [self configDefaultImageName];
@@ -397,7 +404,7 @@
         BMTZPhotoPickerController *photoPickerVc = [[BMTZPhotoPickerController alloc] init];
         photoPickerVc.isFirstAppear = YES;
         photoPickerVc.columnNumber = self.columnNumber;
-        [[BMTZImageManager manager] getCameraRollAlbum:self.allowPickingVideo allowPickingImage:self.allowPickingImage needFetchAssets:NO completion:^(BMTZAlbumModel *model) {
+        [[BMTZImageManager manager] getCameraRollAlbumWithFetchAssets:NO completion:^(BMTZAlbumModel *model) {
             photoPickerVc.model = model;
             [self pushViewController:photoPickerVc animated:YES];
             self->_didPushPhotoPickerVc = YES;
@@ -721,7 +728,11 @@
     [super viewDidLoad];
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     self.isFirstAppear = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
+    if (@available(iOS 13.0, *)) {
+        self.view.backgroundColor = UIColor.tertiarySystemBackgroundColor;
+    } else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
     
     BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:imagePickerVc.cancelBtnTitleStr style:UIBarButtonItemStylePlain target:imagePickerVc action:@selector(cancelButtonClick)];
@@ -751,14 +762,13 @@
         return;
     }
 
+    BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
     if (self.isFirstAppear) {
-        BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
         [imagePickerVc showProgressHUD];
     }
 
-    BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [[BMTZImageManager manager] getAllAlbums:imagePickerVc.allowPickingVideo allowPickingImage:imagePickerVc.allowPickingImage needFetchAssets:!self.isFirstAppear completion:^(NSArray<BMTZAlbumModel *> *models) {
+        [[BMTZImageManager manager] getAllAlbumsWithFetchAssets:!self.isFirstAppear completion:^(NSArray<BMTZAlbumModel *> *models) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self->_albumArr = [NSMutableArray arrayWithArray:models];
                 for (BMTZAlbumModel *albumModel in self->_albumArr) {
@@ -774,7 +784,11 @@
                 if (!self->_tableView) {
                     self->_tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
                     self->_tableView.rowHeight = 70;
-                    self->_tableView.backgroundColor = [UIColor whiteColor];
+                    if (@available(iOS 13.0, *)) {
+                        self->_tableView.backgroundColor = [UIColor tertiarySystemBackgroundColor];
+                    } else {
+                        self->_tableView.backgroundColor = [UIColor whiteColor];
+                    }
                     self->_tableView.tableFooterView = [[UIView alloc] init];
                     self->_tableView.dataSource = self;
                     self->_tableView.delegate = self;
@@ -844,6 +858,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BMTZAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMTZAlbumCell"];
+    if (@available(iOS 13.0, *)) {
+        cell.backgroundColor = UIColor.tertiarySystemBackgroundColor;
+    }
     BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
     cell.albumCellDidLayoutSubviewsBlock = imagePickerVc.albumCellDidLayoutSubviewsBlock;
     cell.albumCellDidSetModelBlock = imagePickerVc.albumCellDidSetModelBlock;
@@ -887,15 +904,40 @@
 
 @implementation BMTZCommonTools
 
++ (UIEdgeInsets)tz_safeAreaInsets {
+    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+    if (![window isKeyWindow]) {
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        if (CGRectEqualToRect(keyWindow.bounds, [UIScreen mainScreen].bounds)) {
+            window = keyWindow;
+        }
+    }
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets insets = [window safeAreaInsets];
+        return insets;
+    }
+    return UIEdgeInsetsZero;
+}
+
 + (BOOL)tz_isIPhoneX {
+    if ([UIWindow instancesRespondToSelector:@selector(safeAreaInsets)]) {
+        return [self tz_safeAreaInsets].bottom > 0;
+    }
     return (CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(375, 812)) ||
             CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(812, 375)) ||
             CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(414, 896)) ||
-            CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(896, 414)));
+            CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(896, 414)) ||
+            CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(390, 844)) ||
+            CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(844, 390)) ||
+            CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(428, 926)) ||
+            CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(926, 428)));
 }
 
 + (CGFloat)tz_statusBarHeight {
-    return [self tz_isIPhoneX] ? 44 : 20;
+    if ([UIWindow instancesRespondToSelector:@selector(safeAreaInsets)]) {
+        return [self tz_safeAreaInsets].top ?: 20;
+    }
+    return 20;
 }
 
 // 获得Info.plist数据字典
@@ -912,9 +954,7 @@
 }
 
 + (BOOL)tz_isRightToLeftLayout {
-    //if (@available(iOS 9.0, *)) {
-    if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0)
-    {
+    if (@available(iOS 9.0, *)) {
         if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UISemanticContentAttributeUnspecified] == UIUserInterfaceLayoutDirectionRightToLeft) {
             return YES;
         }

@@ -98,12 +98,20 @@ static dispatch_once_t onceToken;
 
 #pragma mark - Get Album
 
-/// Get Album 获得相册/相册数组
 - (void)getCameraRollAlbum:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage needFetchAssets:(BOOL)needFetchAssets completion:(void (^)(BMTZAlbumModel *model))completion {
+    BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
+    config.allowPickingVideo = allowPickingVideo;
+    config.allowPickingImage = allowPickingImage;
+    [self getCameraRollAlbumWithFetchAssets:needFetchAssets completion:completion];
+}
+
+/// Get Album 获得相册/相册数组
+- (void)getCameraRollAlbumWithFetchAssets:(BOOL)needFetchAssets completion:(void (^)(BMTZAlbumModel *model))completion {
     __block BMTZAlbumModel *model;
+    BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
-    if (!allowPickingVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
-    if (!allowPickingImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
+    if (!config.allowPickingVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
+    if (!config.allowPickingImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
                                                 PHAssetMediaTypeVideo];
     // option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:self.sortAscendingByModificationDate]];
     if (!self.sortAscendingByModificationDate) {
@@ -124,11 +132,19 @@ static dispatch_once_t onceToken;
     }
 }
 
-- (void)getAllAlbums:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage needFetchAssets:(BOOL)needFetchAssets completion:(void (^)(NSArray<BMTZAlbumModel *> *))completion{
+- (void)getAllAlbums:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage needFetchAssets:(BOOL)needFetchAssets completion:(void (^)(NSArray<BMTZAlbumModel *> *))completion {
+    BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
+    config.allowPickingVideo = allowPickingVideo;
+    config.allowPickingImage = allowPickingImage;
+    [self getAllAlbumsWithFetchAssets:needFetchAssets completion:completion];
+}
+
+- (void)getAllAlbumsWithFetchAssets:(BOOL)needFetchAssets completion:(void (^)(NSArray<BMTZAlbumModel *> *))completion {
+    BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
     NSMutableArray *albumArr = [NSMutableArray array];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
-    if (!allowPickingVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
-    if (!allowPickingImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
+    if (!config.allowPickingVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
+    if (!config.allowPickingImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
                                                 PHAssetMediaTypeVideo];
     // option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:self.sortAscendingByModificationDate]];
     if (!self.sortAscendingByModificationDate) {
@@ -173,15 +189,18 @@ static dispatch_once_t onceToken;
 #pragma mark - Get Assets
 
 /// Get Assets 获得照片数组
-- (void)getAssetsFromFetchResult:(PHFetchResult *)result completion:(void (^)(NSArray<BMTZAssetModel *> *))completion {
+- (void)getAssetsFromFetchResult:(PHFetchResult *)result allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(NSArray<BMTZAssetModel *> *))completion {
     BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
-    return [self getAssetsFromFetchResult:result allowPickingVideo:config.allowPickingVideo allowPickingImage:config.allowPickingImage completion:completion];
+    config.allowPickingVideo = allowPickingVideo;
+    config.allowPickingImage = allowPickingImage;
+    return [self getAssetsFromFetchResult:result completion:completion];
 }
 
-- (void)getAssetsFromFetchResult:(PHFetchResult *)result allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(NSArray<BMTZAssetModel *> *))completion {
+- (void)getAssetsFromFetchResult:(PHFetchResult *)result completion:(void (^)(NSArray<BMTZAssetModel *> *))completion {
+    BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
     NSMutableArray *photoArr = [NSMutableArray array];
     [result enumerateObjectsUsingBlock:^(PHAsset *asset, NSUInteger idx, BOOL * _Nonnull stop) {
-        BMTZAssetModel *model = [self assetModelWithAsset:asset allowPickingVideo:allowPickingVideo allowPickingImage:allowPickingImage];
+        BMTZAssetModel *model = [self assetModelWithAsset:asset allowPickingVideo:config.allowPickingVideo allowPickingImage:config.allowPickingImage];
         if (model) {
             [photoArr addObject:model];
         }
@@ -192,6 +211,13 @@ static dispatch_once_t onceToken;
 ///  Get asset at index 获得下标为index的单个照片
 ///  if index beyond bounds, return nil in callback 如果索引越界, 在回调中返回 nil
 - (void)getAssetFromFetchResult:(PHFetchResult *)result atIndex:(NSInteger)index allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(BMTZAssetModel *))completion {
+    BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
+    config.allowPickingVideo = allowPickingVideo;
+    config.allowPickingImage = allowPickingImage;
+    [self getAssetFromFetchResult:result atIndex:index allowPickingVideo:config.allowPickingVideo allowPickingImage:config.allowPickingImage completion:completion];
+}
+
+- (void)getAssetFromFetchResult:(PHFetchResult *)result atIndex:(NSInteger)index completion:(void (^)(BMTZAssetModel *))completion {
     PHAsset *asset;
     @try {
         asset = result[index];
@@ -200,7 +226,8 @@ static dispatch_once_t onceToken;
         if (completion) completion(nil);
         return;
     }
-    BMTZAssetModel *model = [self assetModelWithAsset:asset allowPickingVideo:allowPickingVideo allowPickingImage:allowPickingImage];
+    BMTZImagePickerConfig *config = [BMTZImagePickerConfig sharedInstance];
+    BMTZAssetModel *model = [self assetModelWithAsset:asset allowPickingVideo:config.allowPickingVideo allowPickingImage:config.allowPickingImage];
     if (completion) completion(model);
 }
 
