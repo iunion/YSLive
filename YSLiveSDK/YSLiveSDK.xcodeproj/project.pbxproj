@@ -34,7 +34,6 @@
 		876BF7B924CFC3A8008E9848 /* YSLiveUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7A824CFC3A8008E9848 /* YSLiveUtil.h */; };
 		876BF7BA24CFC3A8008E9848 /* YSLiveManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7A924CFC3A8008E9848 /* YSLiveManager.h */; };
 		876BF7BB24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7AA24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h */; };
-		876BF7BC24CFC3A8008E9848 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BF7AC24CFC3A8008E9848 /* CrashReporter.framework */; };
 		876BF7BD24CFC3A8008E9848 /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF7AD24CFC3A8008E9848 /* YSLiveManager.m */; };
 		876BF7BE24CFC3A8008E9848 /* YSLiveMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7AE24CFC3A8008E9848 /* YSLiveMacros.h */; };
 		876BF7BF24CFC3A8008E9848 /* YSLiveUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF7AF24CFC3A8008E9848 /* YSLiveUtil.m */; };
@@ -256,6 +255,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26CCE733254A6EE8008E4F29 /* YSSDKManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSDKManagerDelegate.h; sourceTree = "<group>"; };
 		26E5460925398778000BA3F5 /* YSLiveLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveLevelView.m; sourceTree = "<group>"; };
 		26E5460A25398778000BA3F5 /* YSLiveLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveLevelView.h; sourceTree = "<group>"; };
 		26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
@@ -283,7 +283,6 @@
 		876BF7A824CFC3A8008E9848 /* YSLiveUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		876BF7A924CFC3A8008E9848 /* YSLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveManager.h; sourceTree = "<group>"; };
 		876BF7AA24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveForWhiteBoardDelegate.h; sourceTree = "<group>"; };
-		876BF7AC24CFC3A8008E9848 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
 		876BF7AD24CFC3A8008E9848 /* YSLiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveManager.m; sourceTree = "<group>"; };
 		876BF7AE24CFC3A8008E9848 /* YSLiveMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveMacros.h; sourceTree = "<group>"; };
 		876BF7AF24CFC3A8008E9848 /* YSLiveUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveUtil.m; sourceTree = "<group>"; };
@@ -511,7 +510,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				876BF7BC24CFC3A8008E9848 /* CrashReporter.framework in Frameworks */,
 				876BF79124CFC35F008E9848 /* CloudHubRTC.framework in Frameworks */,
 				26F409FB2511FD6100E15466 /* CHWhiteBoard.framework in Frameworks */,
 				26F409FC2511FD6100E15466 /* CHSession.framework in Frameworks */,
@@ -560,7 +558,6 @@
 			isa = PBXGroup;
 			children = (
 				876BF7B024CFC3A8008E9848 /* YSLiveApiRequest */,
-				876BF7AB24CFC3A8008E9848 /* BMPerformanceTest  */,
 				876BF7A224CFC3A8008E9848 /* YSLiveEnumHeader.h */,
 				876BF7AE24CFC3A8008E9848 /* YSLiveMacros.h */,
 				876BF7AA24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h */,
@@ -583,14 +580,6 @@
 				876BF7A724CFC3A8008E9848 /* YSPermissionsVC.h */,
 			);
 			path = YSPermissions;
-			sourceTree = "<group>";
-		};
-		876BF7AB24CFC3A8008E9848 /* BMPerformanceTest  */ = {
-			isa = PBXGroup;
-			children = (
-				876BF7AC24CFC3A8008E9848 /* CrashReporter.framework */,
-			);
-			path = "BMPerformanceTest ";
 			sourceTree = "<group>";
 		};
 		876BF7B024CFC3A8008E9848 /* YSLiveApiRequest */ = {
@@ -791,27 +780,11 @@
 			isa = PBXGroup;
 			children = (
 				876BF80924CFC3CF008E9848 /* YSMainVC.h */,
-				876BF80A24CFC3CF008E9848 /* Images */,
-				876BF80B24CFC3CF008E9848 /* mp3pnglist */,
 				876BF80C24CFC3CF008E9848 /* YSMainVC.m */,
 				26E5460A25398778000BA3F5 /* YSLiveLevelView.h */,
 				26E5460925398778000BA3F5 /* YSLiveLevelView.m */,
 			);
 			path = YSMainVC;
-			sourceTree = "<group>";
-		};
-		876BF80A24CFC3CF008E9848 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		876BF80B24CFC3CF008E9848 /* mp3pnglist */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = mp3pnglist;
 			sourceTree = "<group>";
 		};
 		876BF80D24CFC3CF008E9848 /* YSChat */ = {
@@ -1229,6 +1202,7 @@
 				876BFA3F24CFC4D0008E9848 /* YSSkinManager */,
 				876BF7C324CFC3CE008E9848 /* YSLive */,
 				87DBE921241F510E000C1FB5 /* YSLiveSDK.h */,
+				26CCE733254A6EE8008E4F29 /* YSSDKManagerDelegate.h */,
 				87DBE922241F510E000C1FB5 /* YSSDKDefine.h */,
 				87DBE923241F510E000C1FB5 /* YSSDKDelegate.h */,
 				87DBE920241F510E000C1FB5 /* YSSDKManager.h */,
@@ -1699,7 +1673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201022;
+				CURRENT_PROJECT_VERSION = 20201029;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1727,7 +1701,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.7.2;
+				MARKETING_VERSION = 3.3.7.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
@@ -1742,7 +1716,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201022;
+				CURRENT_PROJECT_VERSION = 20201029;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1768,7 +1742,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.7.2;
+				MARKETING_VERSION = 3.3.7.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
 				PRODUCT_NAME = YSSDK;

@@ -507,6 +507,16 @@
 }
 
 #if YSSDK
+- (void)onSDKRoomWillLeft
+{
+    BMLog(@"onSDKRoomWillLeft");
+    
+    if ([self.sdkDelegate respondsToSelector:@selector(onRoomWillLeft)])
+    {
+        [self.sdkDelegate onRoomWillLeft];
+    }
+}
+
 - (void)onSDKRoomLeft
 {
     BMLog(@"onSDKRoomLeft");

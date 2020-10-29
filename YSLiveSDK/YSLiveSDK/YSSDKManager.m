@@ -18,7 +18,7 @@
 static NSString *YSAPPVersionString = @"3.3.7";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"3.3.7.2";
+static NSString *YSSDKVersionString = @"3.3.7.3";
 
 @interface YSSDKManager ()
 <
@@ -417,6 +417,17 @@ static NSString *YSSDKVersionString = @"3.3.7.2";
     if ([self.delegate respondsToSelector:@selector(onRoomConnectionLost)])
     {
         [self.delegate onRoomConnectionLost];
+    }
+}
+
+/**
+    即将离开房间
+ */
+- (void)onRoomWillLeft
+{
+    if ([self.delegate respondsToSelector:@selector(onRoomWillLeft)])
+    {
+        [self.delegate onRoomWillLeft];
     }
 }
 
