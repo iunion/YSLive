@@ -2052,7 +2052,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     
+#if YSSDK
     [self.liveManager onSDKRoomWillLeft];
+#endif
     [self dismissViewControllerAnimated:YES completion:^{
 #if YSSDK
         [self.liveManager onSDKRoomLeft];

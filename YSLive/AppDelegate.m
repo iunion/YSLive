@@ -94,7 +94,14 @@
     if (self.allowRotation)
     {
         //return UIInterfaceOrientationMaskAll;
-        return UIInterfaceOrientationMaskLandscapeRight;
+        if (self.classCanRotation)
+        {
+            return UIInterfaceOrientationMaskLandscape;
+        }
+        else
+        {
+            return UIInterfaceOrientationMaskLandscapeRight;
+        }
     }
     else
     {

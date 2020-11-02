@@ -1049,7 +1049,9 @@
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     //    [self.navigationController popToRootViewControllerAnimated:YES];
     
+#if YSSDK
     [self.liveManager onSDKRoomWillLeft];
+#endif
     [self dismissViewControllerAnimated:YES completion:^{
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
