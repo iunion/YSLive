@@ -628,6 +628,16 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 }
 
 /**
+    即将离开房间
+ */
+- (void)onRoomWillLeft
+{
+    NSLog(@"onRoomWillLeft");
+    
+    GetAppDelegate.allowRotation = NO;
+}
+
+/**
     已经离开房间
  */
 - (void)onRoomLeft

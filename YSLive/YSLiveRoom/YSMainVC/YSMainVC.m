@@ -1048,6 +1048,8 @@
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     //    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    [self.liveManager onSDKRoomWillLeft];
     [self dismissViewControllerAnimated:YES completion:^{
 #if YSSDK
         [self.liveManager onSDKRoomLeft];

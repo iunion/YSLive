@@ -27,6 +27,11 @@
 - (void)onRoomConnectionLost;
 
 /**
+    即将离开房间
+ */
+- (void)onRoomWillLeft;
+
+/**
     已经离开房间
  */
 - (void)onRoomLeft;
