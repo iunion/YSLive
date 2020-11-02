@@ -48,10 +48,10 @@
     // Override point for customization after application launch.
     [YSCoreStatus beginMonitorNetwork:self];
     [[UIButton appearance] setExclusiveTouch:YES];
-    self.useAllowRotation = YES;
+    self.useAllowRotation = NO;
     self.allowRotation = NO;
     
-    self.classCanRotation = NO;
+    self.classCanRotation = YES;
     
 #if Ues_Bugly
     [Bugly startWithAppId:@"55ff7e6968"];
