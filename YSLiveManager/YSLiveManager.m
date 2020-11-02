@@ -252,7 +252,7 @@
         whiteBordViewH = 300;
     }
     
-    self.whiteBordView = [self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
+    self.whiteBordView = (UIView *)[self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
 
     }];
 
@@ -380,6 +380,10 @@
 
 #pragma mark -
 #pragma mark YSWhiteBoardManagerDelegate
+
+- (void)onWhiteBroadCreateFail
+{
+}
 
 /// 白板准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished

@@ -77,6 +77,9 @@ static NSString *YSSDKVersionString = @"3.3.7.2";
         [YSCoreStatus beginMonitorNetwork:self];
         
         self.needUseHttpDNSForWhiteBoard = YES;
+        
+        self.useAppDelegateAllowRotation = YES;
+        self.classCanRotation = NO;
     }
     return self;
 }

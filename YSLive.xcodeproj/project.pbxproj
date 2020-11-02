@@ -1009,6 +1009,7 @@
 		8701B178237172F200A43607 /* YSTestHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTestHelp.h; sourceTree = "<group>"; };
 		8701B179237172F200A43607 /* YSTestHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTestHelp.m; sourceTree = "<group>"; };
 		8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolApiRequest.m; sourceTree = "<group>"; };
+		8708BA9E254A5B3A008CED8D /* SCColorTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorTipView.h; sourceTree = "<group>"; };
 		8709FEB22484D2A000CC8BEA /* YSSpreadBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSpreadBottomToolBar.h; sourceTree = "<group>"; };
 		8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSpreadBottomToolBar.m; sourceTree = "<group>"; };
 		8709FEC72485F7CB00CC8BEA /* UINavigationController+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MemoryLeak.m"; sourceTree = "<group>"; };
@@ -1731,6 +1732,7 @@
 				04A479E1239E274C00680D84 /* SCColorListView.m */,
 				04A479E0239E274C00680D84 /* SCColorSelectView.h */,
 				04A479E3239E274C00680D84 /* SCColorSelectView.m */,
+				8708BA9E254A5B3A008CED8D /* SCColorTipView.h */,
 				04A479E5239E274C00680D84 /* SCColorTipView.m */,
 			);
 			path = SCColorSelectView;

@@ -7,6 +7,11 @@
 //
 
 #import "YSClassMainSuperVC.h"
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
 
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
@@ -41,6 +46,20 @@
 
 @implementation YSClassMainSuperVC
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+#if YSSDK
+    if ([YSSDKManager sharedInstance].classCanRotation)
+#else
+    if (GetAppDelegate.classCanRotation)
+#endif
+    {
+        // 结束设备旋转的通知
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    }
+}
+
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView
 {
     self = [super initWithWhiteBordView:whiteBordView];
@@ -59,6 +78,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+#if YSSDK
+    if ([YSSDKManager sharedInstance].classCanRotation)
+#else
+    if (GetAppDelegate.classCanRotation)
+#endif
+    {
+        // 开启和监听 设备旋转的通知（不开启的话，设备方向一直是UIInterfaceOrientationUnknown）
+        if (![UIDevice currentDevice].generatesDeviceOrientationNotifications)
+        {
+            // 设备旋转通知
+            [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        }
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleDeviceOrientationDidChange:)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:nil
+         ];
+    }
 
     // 进入全屏
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(begainFullScreen) name:UIWindowDidBecomeVisibleNotification object:nil];
@@ -80,6 +119,51 @@
     [self creatDiceAnimationView];
 }
 
+- (void)handleDeviceOrientationDidChange:(NSNotification *)noti
+{
+    UIDevice *device = [UIDevice currentDevice] ;
+    
+    switch (device.orientation)
+    {
+        case UIDeviceOrientationLandscapeLeft:
+            NSLog(@"home键在右");
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnRight];
+            break;
+
+        case UIDeviceOrientationLandscapeRight:
+            NSLog(@"home键在左");
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnLeft];
+            break;
+        
+        case UIDeviceOrientationFaceUp:
+            NSLog(@"屏幕朝上平躺");
+        case UIDeviceOrientationFaceDown:
+            NSLog(@"屏幕朝下平躺");
+        case UIDeviceOrientationPortrait:
+        {
+            NSLog(@"home键在下");
+            UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+            NSLog(@"状态条方向: %@", @(interfaceOrientation));
+            if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+            {
+                [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnLeft];
+            }
+            else
+            {
+                [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnRight];
+            }
+        }
+            break;
+
+        case UIDeviceOrientationUnknown:
+            NSLog(@"未知方向");
+        case UIDeviceOrientationPortraitUpsideDown:
+            NSLog(@"home键在上");
+        default:
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnRight];
+            break;
+    }
+}
 ///创建一个16：9的背景view
 - (void)setupBottomBackgroundView
 {
@@ -154,6 +238,12 @@
     
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
+}
+
+// 横排视频最大宽度计算
+- (CGFloat)getVideoTotalWidth
+{
+    return 0.0f;
 }
 
 - (void)setRoomID:(NSString *)roomID
@@ -257,15 +347,38 @@
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
-    return NO;
+#if YSSDK
+    if ([YSSDKManager sharedInstance].useAppDelegateAllowRotation)
+    {
+        return NO;
+    }
+#else
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+#endif
+    
+    return YES;
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskLandscape;
+#if YSSDK
+    if ([YSSDKManager sharedInstance].classCanRotation)
+#else
+    if (GetAppDelegate.classCanRotation)
+#endif
+    {
+        return UIInterfaceOrientationMaskLandscape;
+    }
+    else
+    {
+        return UIInterfaceOrientationMaskLandscapeRight;
+    }
 }
 
 /// 3.返回进入界面默认显示方向

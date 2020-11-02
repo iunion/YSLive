@@ -8,6 +8,12 @@
 
 #import "YSMainVC.h"
 #import <objc/message.h>
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
+
 #import <BMKit/BMScrollPageView.h>
 
 #import "BMAlertView+YSDefaultAlert.h"
@@ -680,15 +686,27 @@
 //1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
-    return NO;
+#if YSSDK
+    if ([YSSDKManager sharedInstance].useAppDelegateAllowRotation)
+    {
+        return NO;
+    }
+#else
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+#endif
+    
+    return YES;
 }
 
 //2.返回支持的旋转方向
-//iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+//iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 //iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 //3.返回进入界面默认显示方向
