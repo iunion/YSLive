@@ -3,7 +3,7 @@
 //  FLEX
 //
 //  Created by Tanner Bennett on 8/28/19.
-//  Copyright © 2019 Flipboard. All rights reserved.
+//  Copyright © 2020 FLEX Team. All rights reserved.
 //
 
 #import "FLEXObjectExplorer.h"
@@ -86,7 +86,7 @@
 - (NSString *)objectDescription {
     if (!_objectDescription) {
         // Hard-code UIColor description
-        if ([self.object isKindOfClass:[UIColor class]]) {
+        if ([FLEXRuntimeUtility safeObject:self.object isKindOfClass:[UIColor class]]) {
             CGFloat h, s, l, r, g, b, a;
             [self.object getRed:&r green:&g blue:&b alpha:&a];
             [self.object getHue:&h saturation:&s brightness:&l alpha:nil];

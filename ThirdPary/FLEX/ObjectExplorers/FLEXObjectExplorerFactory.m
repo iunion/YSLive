@@ -3,7 +3,7 @@
 //  Flipboard
 //
 //  Created by Ryan Olson on 5/15/14.
-//  Copyright (c) 2020 Flipboard. All rights reserved.
+//  Copyright (c) 2020 FLEX Team. All rights reserved.
 //
 
 #import "FLEXObjectExplorerFactory.h"
@@ -25,6 +25,14 @@ static NSMutableDictionary<Class, Class> *classesToRegisteredSections = nil;
 
 + (void)initialize {
     if (self == [FLEXObjectExplorerFactory class]) {
+        // DO NOT USE STRING KEYS HERE
+        // We NEED to use the class as a key, because we CANNOT
+        // differentiate a class's name from the metaclass's name.
+        // These mappings are per-class-object, not per-class-name.
+        //
+        // For example, if we used class names, this would result in
+        // the object explorer trying to render a color preview for
+        // the UIColor class object, which is not a color itself.
         #define ClassKey(name) (Class<NSCopying>)[name class]
         #define ClassKeyByName(str) (Class<NSCopying>)NSClassFromString(@ #str)
         #define MetaclassKey(meta) (Class<NSCopying>)object_getClass([meta class])

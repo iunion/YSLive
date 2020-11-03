@@ -3,7 +3,7 @@
 //  FLEX
 //
 //  Created by Tanner on 3/9/20.
-//  Copyright © 2020 Flipboard. All rights reserved.
+//  Copyright © 2020 FLEX Team. All rights reserved.
 //
 
 #import "FLEXMutableListSection.h"
@@ -47,7 +47,7 @@ configurationBlock:(FLEXMutableListCellForElement)cellConfig
 
 - (void)setList:(NSMutableArray *)list {
     NSParameterAssert(list);
-    _collection = list;
+    _collection = (id)list;
 
     [self reloadData];
 }
