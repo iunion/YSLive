@@ -57,9 +57,6 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 /// 进入教室按钮
 @property (nonatomic, strong) UIButton *joinRoomBtn;
 
-/// 当前用户数据
-@property (nonatomic, strong) CHRoomUser *localUser;
-
 @property (assign, nonatomic) NSInteger role;
 /// 默认服务
 @property (strong, nonatomic) NSString *defaultServer;
@@ -510,11 +507,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 - (BOOL)joinRoomWithWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword
 {
     // 用户ID
-    NSString * userId = [[NSUUID UUID] UUIDString];
-    self.localUser = [[CHRoomUser alloc] initWithPeerId:userId];
-
-    // 用户属性
-    self.localUser.nickName = nickName;
+    NSString *userId = [[NSUUID UUID] UUIDString];
 
     // 初始化 cloudHubRtcEngineKit
 #if 0
@@ -537,9 +530,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 
     CloudHubWhiteBoardConfig *whiteBoardConfig = [[CloudHubWhiteBoardConfig alloc] init];
     //whiteBoardConfig.isMultiCourseware = YES;
-    [self.cloudHubManager registeWhiteBoardWithConfigration:whiteBoardConfig];
+    [self.cloudHubManager registeWhiteBoardWithConfigration:whiteBoardConfig userId:userId nickName:nickName];
     
-    if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:self.localUser.peerID joinSuccess:nil] != 0)
+    if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:userId joinSuccess:nil] != 0)
     {
         NSLog(@"Join Channel failed!!");
         return NO;
