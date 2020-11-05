@@ -45,6 +45,8 @@
     self.backView.backgroundColor = [UIColor clearColor];
     self.backView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.backView];
+    
+    self.popoverPresentationController.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
 }
 
 - (void)viewWillLayoutSubviews

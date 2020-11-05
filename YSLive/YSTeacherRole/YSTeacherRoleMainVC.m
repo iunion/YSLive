@@ -5342,6 +5342,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     CHRoomUser * userModel = videoView.roomUser;
 
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
+    popover.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     if ( self.videoSequenceArr.count <= 2 || ([self.fouceView.sourceId isEqualToString:videoView.sourceId] && [self.fouceView.roomUser.peerID isEqualToString:videoView.roomUser.peerID]))
     {
         /// 1.视频数小于等于2  2.videoView为焦点视频时

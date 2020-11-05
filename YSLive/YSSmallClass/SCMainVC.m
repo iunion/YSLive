@@ -5070,6 +5070,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
+    popover.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     if (self.videoSequenceArr.count <= 2)
     {
         popover.sourceView = videoView.sourceView;
