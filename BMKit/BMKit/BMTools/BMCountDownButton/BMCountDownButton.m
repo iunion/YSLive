@@ -16,7 +16,7 @@
 
 @implementation BMCountDownButton
 
-- (instancetype)initWithFrame:(CGRect)frame seconds:(NSInteger)seconds countDownBlock:(BMCountDownBlock)countDownBlock
+- (instancetype)initWithFrame:(CGRect)frame seconds:(NSInteger)seconds countDownBlock:(BMCountDownBlock)countDownBlock clickedBlock:(nonnull BMCountDownClickedBlock)clickedBlock
 {
     if (self = [super initWithFrame:frame])
     {
@@ -25,8 +25,9 @@
 //        _endTitle = endTitle;
         _seconds = seconds;
         _countDownBlock = countDownBlock;
+        _clickedBlock = clickedBlock;
         _countState = BMCountDownButtonStateStart;
- 
+        
         
         [self addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
         
@@ -41,21 +42,24 @@
     if (self.countState == BMCountDownButtonStateStart)
     {
         self.countState = BMCountDownButtonStateDuration;
-        [self startCountDown];
+        if (self.clickedBlock)
+        {
+            self.clickedBlock(self, BMCountDownButtonStateStart, 0);
+        }
     }
     else if(self.countState == BMCountDownButtonStateDuration)
     {
         NSInteger seconds = [[BMCountDownManager manager] timeIntervalWithIdentifier:@"CountDownButton"];
-        if (self.countDownBlock)
+        if (self.clickedBlock)
         {
-            self.countDownBlock(self, BMCountDownButtonStateDuration, seconds);
+            self.clickedBlock(self, BMCountDownButtonStateDuration, seconds);
         }
     }
     else
     {
-        if (self.countDownBlock)
+        if (self.clickedBlock)
         {
-            self.countDownBlock(self, BMCountDownButtonStateEnd, 0);
+            self.clickedBlock(self, BMCountDownButtonStateEnd, 0);
         }
     }
 }
@@ -71,6 +75,10 @@
             state = BMCountDownButtonStateEnd;
         }
         weakSelf.countState = state;
+        if (self.countDownBlock)
+        {
+            self.countDownBlock(self, state, timeInterval);
+        }
     }];
 }
 
