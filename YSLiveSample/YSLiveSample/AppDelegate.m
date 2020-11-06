@@ -19,7 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.useAllowRotation = NO;
     self.allowRotation = NO;
+    
+    self.classCanRotation = YES;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -32,17 +35,28 @@
 }
 
 /// 强制应用只能响应竖屏
-//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
-//{
-//    if (self.allowRotation)
-//    {
-//        //return UIInterfaceOrientationMaskAll;
-//        return UIInterfaceOrientationMaskLandscapeRight;
-//    }
-//    else
-//    {
-//        return UIInterfaceOrientationMaskPortrait;
-//    }
-//}
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (!self.useAllowRotation)
+    {
+        return UIInterfaceOrientationMaskAll;
+    }
+    if (self.allowRotation)
+    {
+        //return UIInterfaceOrientationMaskAll;
+        if (self.classCanRotation)
+        {
+            return UIInterfaceOrientationMaskLandscape;
+        }
+        else
+        {
+            return UIInterfaceOrientationMaskLandscapeRight;
+        }
+    }
+    else
+    {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
 
 @end

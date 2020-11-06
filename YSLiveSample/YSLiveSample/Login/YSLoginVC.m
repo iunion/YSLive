@@ -131,8 +131,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
     NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
-    self.ysSDKManager.useAppDelegateAllowRotation = NO;
-    self.ysSDKManager.classCanRotation = YES;
+    
+    self.ysSDKManager.useAppDelegateAllowRotation = GetAppDelegate.useAllowRotation;
+    self.ysSDKManager.classCanRotation = GetAppDelegate.classCanRotation;
     
     [self.ysSDKManager registerManagerDelegate:self];
     
@@ -163,6 +164,11 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
 - (BOOL)shouldAutorotate
 {
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+    
     return YES;
 }
 
