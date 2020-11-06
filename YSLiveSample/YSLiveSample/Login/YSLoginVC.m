@@ -15,6 +15,7 @@
 
 #import <YSSDK/YSSDKManager.h>
 
+#import <YSSDK/UIAlertController+SCAlertAutorotate.h>
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
@@ -130,6 +131,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
     NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
+    self.ysSDKManager.useAppDelegateAllowRotation = NO;
+    self.ysSDKManager.classCanRotation = YES;
+    
     [self.ysSDKManager registerManagerDelegate:self];
     
 #if USE_COOKIES
@@ -159,7 +163,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    return YES;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
@@ -557,6 +561,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         }];
+        alertVc.sc_Portrait = YES;
         [alertVc addAction:confimAc];
         return;
     }
@@ -569,6 +574,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         }];
+        alertVc.sc_Portrait = YES;
         [alertVc addAction:confimAc];
         return;
     }
@@ -702,6 +708,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
             [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userRole:self->userRole userId:nil userParams:nil needCheckPermissions:NO];
         }
     }];
+    alertVc.sc_Portrait = YES;
     [alertVc addAction:confimAc];
     
     [self presentViewController:alertVc animated:YES completion:nil];
@@ -723,6 +730,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
+    alertVc.sc_Portrait = YES;
     [alertVc addAction:confimAc];
     
     [self presentViewController:alertVc animated:YES completion:nil];

@@ -195,7 +195,7 @@
 		876BF9FB24CFC3D0008E9848 /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF8D324CFC3CF008E9848 /* YSSignedAlertView.m */; };
 		876BF9FC24CFC3D0008E9848 /* YSPassWordAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D424CFC3CF008E9848 /* YSPassWordAlert.h */; };
 		876BF9FD24CFC3D0008E9848 /* YSPrizeAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D524CFC3CF008E9848 /* YSPrizeAlertView.h */; };
-		876BF9FE24CFC3D0008E9848 /* UIAlertController+SCAlertAutorotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */; };
+		876BF9FE24CFC3D0008E9848 /* UIAlertController+SCAlertAutorotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		876BF9FF24CFC3D0008E9848 /* YSPassWordAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF8D724CFC3CF008E9848 /* YSPassWordAlert.m */; };
 		876BFA0024CFC3D0008E9848 /* YSSignedAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D824CFC3CF008E9848 /* YSSignedAlertView.h */; };
 		876BFA0124CFC3D0008E9848 /* BMAlertView+YSDefaultAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D924CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.h */; };
@@ -1060,16 +1060,16 @@
 		876BF8D124CFC3CF008E9848 /* YSAlertView */ = {
 			isa = PBXGroup;
 			children = (
-				876BF8D224CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.m */,
-				876BF8D324CFC3CF008E9848 /* YSSignedAlertView.m */,
-				876BF8D424CFC3CF008E9848 /* YSPassWordAlert.h */,
-				876BF8D524CFC3CF008E9848 /* YSPrizeAlertView.h */,
-				876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */,
-				876BF8D724CFC3CF008E9848 /* YSPassWordAlert.m */,
-				876BF8D824CFC3CF008E9848 /* YSSignedAlertView.h */,
 				876BF8D924CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.h */,
+				876BF8D224CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.m */,
+				876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */,
 				876BF8DA24CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.m */,
+				876BF8D424CFC3CF008E9848 /* YSPassWordAlert.h */,
+				876BF8D724CFC3CF008E9848 /* YSPassWordAlert.m */,
+				876BF8D524CFC3CF008E9848 /* YSPrizeAlertView.h */,
 				876BF8DB24CFC3CF008E9848 /* YSPrizeAlertView.m */,
+				876BF8D824CFC3CF008E9848 /* YSSignedAlertView.h */,
+				876BF8D324CFC3CF008E9848 /* YSSignedAlertView.m */,
 			);
 			path = YSAlertView;
 			sourceTree = "<group>";
@@ -1146,12 +1146,12 @@
 		876BF8FF24CFC3D0008E9848 /* YSSuperTableVC */ = {
 			isa = PBXGroup;
 			children = (
-				876BF90024CFC3D0008E9848 /* YSTableView.h */,
-				876BF90124CFC3D0008E9848 /* YSSetTableViewVC.m */,
-				876BF90224CFC3D0008E9848 /* YSTableViewVC.h */,
-				876BF90324CFC3D0008E9848 /* YSTableView.m */,
-				876BF90424CFC3D0008E9848 /* YSTableViewVC.m */,
 				876BF90524CFC3D0008E9848 /* YSSetTableViewVC.h */,
+				876BF90124CFC3D0008E9848 /* YSSetTableViewVC.m */,
+				876BF90024CFC3D0008E9848 /* YSTableView.h */,
+				876BF90324CFC3D0008E9848 /* YSTableView.m */,
+				876BF90224CFC3D0008E9848 /* YSTableViewVC.h */,
+				876BF90424CFC3D0008E9848 /* YSTableViewVC.m */,
 			);
 			path = YSSuperTableVC;
 			sourceTree = "<group>";
@@ -1159,10 +1159,10 @@
 		876BF90A24CFC3D0008E9848 /* YSMainSuperVC */ = {
 			isa = PBXGroup;
 			children = (
-				876BF90B24CFC3D0008E9848 /* YSMainSuperVC.h */,
 				876BF90C24CFC3D0008E9848 /* YSClassMainSuperVC.h */,
-				876BF90D24CFC3D0008E9848 /* YSMainSuperVC.m */,
 				876BF90E24CFC3D0008E9848 /* YSClassMainSuperVC.m */,
+				876BF90B24CFC3D0008E9848 /* YSMainSuperVC.h */,
+				876BF90D24CFC3D0008E9848 /* YSMainSuperVC.m */,
 			);
 			path = YSMainSuperVC;
 			sourceTree = "<group>";
@@ -1673,7 +1673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201029;
+				CURRENT_PROJECT_VERSION = 20201106;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1701,7 +1701,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.7.3;
+				MARKETING_VERSION = 3.3.7.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
@@ -1716,7 +1716,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201029;
+				CURRENT_PROJECT_VERSION = 20201106;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1742,7 +1742,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.7.3;
+				MARKETING_VERSION = 3.3.7.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
 				PRODUCT_NAME = YSSDK;

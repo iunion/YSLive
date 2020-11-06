@@ -18,7 +18,7 @@
 static NSString *YSAPPVersionString = @"3.3.7";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"3.3.7.3";
+static NSString *YSSDKVersionString = @"3.3.7.5";
 
 @interface YSSDKManager ()
 <
@@ -78,8 +78,8 @@ static NSString *YSSDKVersionString = @"3.3.7.3";
         
         self.needUseHttpDNSForWhiteBoard = YES;
         
-        self.useAppDelegateAllowRotation = YES;
-        self.classCanRotation = NO;
+        self.useAppDelegateAllowRotation = NO;
+        self.classCanRotation = YES;
     }
     return self;
 }

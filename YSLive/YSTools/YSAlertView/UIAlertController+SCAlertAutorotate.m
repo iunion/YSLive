@@ -7,6 +7,7 @@
 //
 
 #import "UIAlertController+SCAlertAutorotate.h"
+#import <objc/runtime.h>
 #if YSSDK
 #import "YSSDKManager.h"
 #else
@@ -16,6 +17,17 @@
 
 
 @implementation UIAlertController (SCAlertAutorotate)
+
+- (BOOL)sc_Portrait
+{
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj ? [obj boolValue] : NO;
+}
+
+- (void)setSc_Portrait:(BOOL)portrait
+{
+    objc_setAssociatedObject(self, @selector(sc_Portrait), @(portrait), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 #pragma mark 横竖屏
 
@@ -42,13 +54,27 @@
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskLandscape;
+    if (self.sc_Portrait)
+    {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    else
+    {
+        return UIInterfaceOrientationMaskLandscape;
+    }
 }
 
 /// 3.返回进入界面默认显示方向
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-    return UIInterfaceOrientationLandscapeRight;
+    if (self.sc_Portrait)
+    {
+        return UIInterfaceOrientationPortrait;
+    }
+    else
+    {
+        return UIInterfaceOrientationLandscapeRight;
+    }
 }
 
 @end

@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIAlertController (SCAlertAutorotate)
 
+// 是否横屏
+@property (nonatomic, assign) BOOL sc_Portrait;
+
 @end
 
 NS_ASSUME_NONNULL_END
