@@ -265,7 +265,7 @@
     // 工具颜色各自配置
     //NSString *colorHex = config.colorHex;
     NSString *colorHex = [liveManager.whiteBoardManager getPrimaryColorHex];
-    CGFloat progress = config.size;
+    CGFloat progress = config.progress;
 
     switch (brushToolType)
     {
