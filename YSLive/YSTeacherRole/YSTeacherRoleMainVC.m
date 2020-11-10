@@ -13,6 +13,11 @@
 #import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
 
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
 
 #import "SCTeacherListView.h"
 #import "SCTeacherAnswerView.h"
@@ -795,7 +800,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [classEndAlertVC addAction:confimAc];
         [classEndAlertVC addAction:cancle];
         
-        classEndAlertVC.sc_Autorotate = YES;
+#if YSSDK
+        classEndAlertVC.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+        classEndAlertVC.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
         classEndAlertVC.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
         classEndAlertVC.sc_Orientation = UIInterfaceOrientationLandscapeRight;
         [self presentViewController:classEndAlertVC animated:YES completion:nil];
@@ -2643,7 +2652,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [alertVc addAction:confimAc];
     
-    alertVc.sc_Autorotate = YES;
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
     alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
     alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
     
@@ -5658,7 +5671,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
     
-    alertVc.sc_Autorotate = YES;
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
     alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
     alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
     
@@ -5684,7 +5701,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
     
-    alertVc.sc_Autorotate = YES;
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
     alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
     alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
 

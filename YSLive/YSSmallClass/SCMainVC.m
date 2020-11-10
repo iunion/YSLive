@@ -12,6 +12,12 @@
 #import "SCDrawBoardView.h"
 #import "SCChatToolView.h"
 
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
+
 #import "YSEmotionView.h"
 
 #import "SCTeacherListView.h"
@@ -3589,7 +3595,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:confimAc];
     
-    alertVc.sc_Autorotate = YES;
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
     alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
     alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
     
@@ -4375,7 +4385,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [alertVc addAction:cancelAc];
         [alertVc addAction:confimAc];
         
-        alertVc.sc_Autorotate = YES;
+#if YSSDK
+        alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+        alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
         alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
         alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
 
@@ -4935,7 +4949,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [alertVc addAction:cancelAc];
     [alertVc addAction:confimAc];
     
-    alertVc.sc_Autorotate = YES;
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
     alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
     alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
 
