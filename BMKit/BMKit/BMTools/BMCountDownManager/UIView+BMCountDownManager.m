@@ -67,7 +67,7 @@
         if (processBlock)
         {
             NSInteger timeInterval = [[BMCountDownManager manager] timeIntervalWithIdentifier:self.countDownIdentifier];
-            processBlock(self.countDownIdentifier, timeInterval, NO);
+            processBlock(self.countDownIdentifier, timeInterval, NO, NO);
         }
         [[BMCountDownManager manager] setProcessBlock:processBlock withIdentifier:self.countDownIdentifier];
     }

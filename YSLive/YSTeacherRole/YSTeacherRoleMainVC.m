@@ -4557,7 +4557,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     [self.responderView showResponderWithType:YSTeacherResponderType_ING];
     
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.responderView setCloseBtnHide:YES];
         [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
@@ -4778,7 +4778,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.teacherTimerView.pauseBtn.selected = YES;
 
         BMWeakSelf
-        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
             BMLog(@"%ld", (long)timeInterval);
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -4816,7 +4816,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
         }
         BMWeakSelf
-        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
             BMLog(@"%ld", (long)timeInterval);
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -4868,7 +4868,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
     }
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.teacherTimerView showTimeInterval:timeInterval];
         if (timeInterval == 0)
@@ -4914,7 +4914,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     self.teacherTimerView.pauseBtn.selected = NO;
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         
         [weakSelf.teacherTimerView showTimeInterval:timeInterval];

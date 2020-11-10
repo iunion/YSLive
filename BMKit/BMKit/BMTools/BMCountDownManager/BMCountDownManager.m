@@ -16,6 +16,10 @@
 // 倒计时剩余时间(单位:秒)
 @property (nonatomic, assign) NSInteger timeInterval;
 
+@property (nonatomic, assign) NSInteger backTimeInterval;
+
+@property (nonatomic, assign) BOOL autoRestart;
+
 // 是否暂停
 @property (nonatomic, assign) BOOL isPause;
 
@@ -89,6 +93,12 @@
 
 - (void)startCountDownWithIdentifier:(id)identifier timeInterval:(NSInteger)timeInterval processBlock:(BMCountDownProcessBlock)processBlock
 {
+    [self startCountDownWithIdentifier:identifier timeInterval:timeInterval autoRestart:NO processBlock:processBlock];
+}
+
+- (void)startCountDownWithIdentifier:(id)identifier timeInterval:(NSInteger)timeInterval autoRestart:(BOOL)autoRestart processBlock:(nullable BMCountDownProcessBlock)processBlock
+
+{
     // 倒计时时间判断
     if (timeInterval <= 0)
     {
@@ -100,13 +110,13 @@
     if (!countDownItem)
     {
         // 不存在标识的倒计时创建
-        countDownItem = [BMCountDownItem countDownItemWithTimeInterval:timeInterval processBlock:processBlock];
+        countDownItem = [BMCountDownItem countDownItemWithTimeInterval:timeInterval autoRestart:autoRestart processBlock:processBlock];
         self.countDownDict[identifier] = countDownItem;
         
         if (processBlock)
         {
             // 调用processBlock
-            processBlock(identifier, countDownItem.timeInterval, NO);
+            processBlock(identifier, countDownItem.timeInterval, NO, NO);
         }
     }
     else if (countDownItem.timeInterval <= 0)
@@ -121,14 +131,14 @@
         if (oldProcessBlock)
         {
             // 调用旧的processBlock，并发送stop状态
-            oldProcessBlock(identifier, countDownItem.timeInterval, YES);
+            oldProcessBlock(identifier, countDownItem.timeInterval, NO, YES);
         }
         
         if (processBlock)
         {
             // 调用新的processBlock
             countDownItem.processBlock = processBlock;
-            processBlock(identifier, countDownItem.timeInterval, NO);
+            processBlock(identifier, countDownItem.timeInterval, NO, NO);
         }
     }
     
@@ -186,13 +196,24 @@
     BMCountDownItem *countDownItem = self.countDownDict[identifier];
     if (countDownItem)
     {
-        [self.countDownDict removeObjectForKey:identifier];
-        
-        if (stop)
+        if (!stop && countDownItem.autoRestart)
         {
+            countDownItem.timeInterval = countDownItem.backTimeInterval;
             if (countDownItem.processBlock)
             {
-                countDownItem.processBlock(identifier, countDownItem.timeInterval, stop);
+                countDownItem.processBlock(identifier, countDownItem.timeInterval, YES, NO);
+            }
+        }
+        else
+        {
+            [self.countDownDict removeObjectForKey:identifier];
+            
+            if (stop)
+            {
+                if (countDownItem.processBlock)
+                {
+                    countDownItem.processBlock(identifier, countDownItem.timeInterval, NO, stop);
+                }
             }
         }
     }
@@ -245,7 +266,7 @@
 
                 if (countDownItem.processBlock)
                 {
-                    countDownItem.processBlock(identifier, countDownItem.timeInterval, NO);
+                    countDownItem.processBlock(identifier, countDownItem.timeInterval, NO, NO);
                 }
             }
         }
@@ -274,6 +295,12 @@
     return countDownItem;
 }
 
++ (instancetype)countDownItemWithTimeInterval:(NSInteger)timeInterval autoRestart:(BOOL)autoRestart processBlock:(nullable BMCountDownProcessBlock)processBlock
+{
+    BMCountDownItem *countDownItem = [[BMCountDownItem alloc] initWithTimeInterval:timeInterval autoRestart:autoRestart processBlock:processBlock];
+    return countDownItem;
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -291,6 +318,11 @@
 
 - (instancetype)initWithTimeInterval:(NSInteger)timeInterval processBlock:(BMCountDownProcessBlock)processBlock
 {
+    return [self initWithTimeInterval:timeInterval autoRestart:NO processBlock:nil];
+}
+
+- (instancetype)initWithTimeInterval:(NSInteger)timeInterval autoRestart:(BOOL)autoRestart processBlock:(BMCountDownProcessBlock)processBlock
+{
     self = [self init];
     if (self)
     {
@@ -299,6 +331,10 @@
             timeInterval = BMCountDown_DefaultTimeInterval;
         }
         self.timeInterval = timeInterval;
+        
+        self.backTimeInterval = timeInterval;
+        self.autoRestart = autoRestart;
+        
         self.processBlock = processBlock;
     }
     return self;
