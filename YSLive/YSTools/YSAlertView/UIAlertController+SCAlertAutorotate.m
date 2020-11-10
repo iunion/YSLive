@@ -64,12 +64,16 @@
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
+#if YSAutorotateNO
+    return NO;
+#else
     if (!self.sc_Autorotate)
     {
         return NO;
     }
     
     return YES;
+#endif
 }
 
 /// 2.返回支持的旋转方向
