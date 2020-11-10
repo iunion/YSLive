@@ -407,7 +407,7 @@
 #if YSSDK
     alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
 #else
-    ialertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
 #endif
     alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
     alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
