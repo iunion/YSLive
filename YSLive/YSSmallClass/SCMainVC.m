@@ -3588,6 +3588,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertVc addAction:confimAc];
+    
+    alertVc.sc_Autorotate = YES;
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
@@ -4369,6 +4374,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }];
         [alertVc addAction:cancelAc];
         [alertVc addAction:confimAc];
+        
+        alertVc.sc_Autorotate = YES;
+        alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+        alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+
         [self presentViewController:alertVc animated:YES completion:nil];
     }
 }
@@ -4924,6 +4934,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:cancelAc];
     [alertVc addAction:confimAc];
+    
+    alertVc.sc_Autorotate = YES;
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 

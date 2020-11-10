@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #endif
 
+#import "UIAlertController+SCAlertAutorotate.h"
+
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
@@ -401,6 +403,11 @@
     }];
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
+    
+    alertVc.sc_Autorotate = YES;
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 

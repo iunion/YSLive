@@ -714,7 +714,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
             [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userRole:self->userRole userId:nil userParams:nil needCheckPermissions:NO];
         }
     }];
-    alertVc.sc_Portrait = YES;
+    alertVc.sc_Autorotate = YES;
     [alertVc addAction:confimAc];
     
     [self presentViewController:alertVc animated:YES completion:nil];
@@ -736,7 +736,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
-    alertVc.sc_Portrait = YES;
+    alertVc.sc_Autorotate = YES;
     [alertVc addAction:confimAc];
     
     [self presentViewController:alertVc animated:YES completion:nil];

@@ -795,6 +795,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [classEndAlertVC addAction:confimAc];
         [classEndAlertVC addAction:cancle];
         
+        classEndAlertVC.sc_Autorotate = YES;
+        classEndAlertVC.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+        classEndAlertVC.sc_Orientation = UIInterfaceOrientationLandscapeRight;
         [self presentViewController:classEndAlertVC animated:YES completion:nil];
     }
     else
@@ -2639,6 +2642,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     
     [alertVc addAction:confimAc];
+    
+    alertVc.sc_Autorotate = YES;
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
@@ -5649,6 +5657,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
+    
+    alertVc.sc_Autorotate = YES;
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
@@ -5670,8 +5683,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
-    [self presentViewController:alertVc animated:YES completion:nil];
     
+    alertVc.sc_Autorotate = YES;
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+
+    [self presentViewController:alertVc animated:YES completion:nil];
 }
 
 - (void)deleteCoursewareWithFileID:(NSString *)fileid
