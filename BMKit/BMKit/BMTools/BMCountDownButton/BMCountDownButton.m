@@ -67,7 +67,7 @@
 - (void)startCountDown
 {
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:@"CountDownButton" timeInterval:self.seconds processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:@"CountDownButton" timeInterval:self.seconds processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         
         BMCountDownButtonState state = BMCountDownButtonStateDuration;
         if (timeInterval == 0)

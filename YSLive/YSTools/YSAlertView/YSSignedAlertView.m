@@ -86,7 +86,7 @@
 - (void)startCuntDown:(NSTimeInterval)timeInterval
 {
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:SignedAlertCountDownKey timeInterval:timeInterval processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:SignedAlertCountDownKey timeInterval:timeInterval processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         if (forcedStop || timeInterval <= 0)
         {

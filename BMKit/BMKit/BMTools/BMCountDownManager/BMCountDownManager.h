@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define BMCountDown_DefaultTimeInterval     (60)
 
-typedef void(^BMCountDownProcessBlock)(id identifier, NSInteger timeInterval, BOOL forcedStop);
+typedef void(^BMCountDownProcessBlock)(id identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop);
 
 // 注意启动多个倒计时，在计时器启动情况下会有1秒内的误差(快了不到1秒)
 
@@ -23,6 +23,7 @@ typedef void(^BMCountDownProcessBlock)(id identifier, NSInteger timeInterval, BO
 // 开始倒计时
 - (void)startCountDownWithIdentifier:(id)identifier processBlock:(nullable BMCountDownProcessBlock)processBlock;
 - (void)startCountDownWithIdentifier:(id)identifier timeInterval:(NSInteger)timeInterval processBlock:(nullable BMCountDownProcessBlock)processBlock;
+- (void)startCountDownWithIdentifier:(id)identifier timeInterval:(NSInteger)timeInterval autoRestart:(BOOL)autoRestart processBlock:(nullable BMCountDownProcessBlock)processBlock;
 
 // 获取倒计时
 - (NSInteger)timeIntervalWithIdentifier:(id)identifier;
@@ -56,9 +57,11 @@ typedef void(^BMCountDownProcessBlock)(id identifier, NSInteger timeInterval, BO
 
 + (instancetype)countDownItemWithTimeInterval:(NSInteger)timeInterval;
 + (instancetype)countDownItemWithTimeInterval:(NSInteger)timeInterval processBlock:(nullable BMCountDownProcessBlock)processBlock;
++ (instancetype)countDownItemWithTimeInterval:(NSInteger)timeInterval autoRestart:(BOOL)autoRestart processBlock:(nullable BMCountDownProcessBlock)processBlock;
 
 - (instancetype)initWithTimeInterval:(NSInteger)timeInterval;
 - (instancetype)initWithTimeInterval:(NSInteger)timeInterval processBlock:(nullable BMCountDownProcessBlock)processBlock;
+- (instancetype)initWithTimeInterval:(NSInteger)timeInterval autoRestart:(BOOL)autoRestart processBlock:(nullable BMCountDownProcessBlock)processBlock;
 
 @end
 

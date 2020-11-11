@@ -13,6 +13,11 @@
 #import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
 
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
 
 #import "SCTeacherListView.h"
 #import "SCTeacherAnswerView.h"
@@ -795,6 +800,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [classEndAlertVC addAction:confimAc];
         [classEndAlertVC addAction:cancle];
         
+#if YSSDK
+        classEndAlertVC.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+        classEndAlertVC.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+        classEndAlertVC.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+        classEndAlertVC.sc_Orientation = UIInterfaceOrientationLandscapeRight;
         [self presentViewController:classEndAlertVC animated:YES completion:nil];
     }
     else
@@ -2639,6 +2651,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     
     [alertVc addAction:confimAc];
+    
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
@@ -4536,7 +4557,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     [self.responderView showResponderWithType:YSTeacherResponderType_ING];
     
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.responderView setCloseBtnHide:YES];
         [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
@@ -4757,7 +4778,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.teacherTimerView.pauseBtn.selected = YES;
 
         BMWeakSelf
-        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
             BMLog(@"%ld", (long)timeInterval);
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -4795,7 +4816,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
         }
         BMWeakSelf
-        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
             BMLog(@"%ld", (long)timeInterval);
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -4847,7 +4868,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
     }
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.teacherTimerView showTimeInterval:timeInterval];
         if (timeInterval == 0)
@@ -4893,7 +4914,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     self.teacherTimerView.pauseBtn.selected = NO;
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         
         [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -5649,6 +5670,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
+    
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
@@ -5670,8 +5700,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
-    [self presentViewController:alertVc animated:YES completion:nil];
     
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+
+    [self presentViewController:alertVc animated:YES completion:nil];
 }
 
 - (void)deleteCoursewareWithFileID:(NSString *)fileid

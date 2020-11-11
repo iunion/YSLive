@@ -1673,7 +1673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201106;
+				CURRENT_PROJECT_VERSION = 20201110;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1691,6 +1691,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					YSSDK,
+					"YSAutorotateNO=0",
 				);
 				INFOPLIST_FILE = YSLiveSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1701,7 +1702,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.7.5;
+				MARKETING_VERSION = 3.3.7.6;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
@@ -1716,7 +1717,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201106;
+				CURRENT_PROJECT_VERSION = 20201110;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1732,6 +1733,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					YSSDK,
+					"YSAutorotateNO=0",
 				);
 				INFOPLIST_FILE = YSLiveSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1742,7 +1744,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.7.5;
+				MARKETING_VERSION = 3.3.7.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
 				PRODUCT_NAME = YSSDK;
