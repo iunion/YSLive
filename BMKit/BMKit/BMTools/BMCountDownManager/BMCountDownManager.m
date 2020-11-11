@@ -144,8 +144,12 @@
     
     if (!self.timer)
     {
-        // 启动时钟
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTime:) userInfo:nil repeats:YES];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            // 启动时钟
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTime:) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop] run];
+        });
+                       
 //        NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
 //        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     }
@@ -198,11 +202,19 @@
     {
         if (!stop && countDownItem.autoRestart)
         {
-            countDownItem.timeInterval = countDownItem.backTimeInterval;
-            if (countDownItem.processBlock)
+            NSInteger start = countDownItem.backTimeInterval-1;
+            if (start < 0)
             {
-                countDownItem.processBlock(identifier, countDownItem.timeInterval, YES, NO);
+                start = 0;
             }
+
+            countDownItem.timeInterval = start;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (countDownItem.processBlock)
+                {
+                    countDownItem.processBlock(identifier, countDownItem.timeInterval, YES, NO);
+                }
+            });
         }
         else
         {
@@ -210,10 +222,12 @@
             
             if (stop)
             {
-                if (countDownItem.processBlock)
-                {
-                    countDownItem.processBlock(identifier, countDownItem.timeInterval, NO, stop);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (countDownItem.processBlock)
+                    {
+                        countDownItem.processBlock(identifier, countDownItem.timeInterval, NO, stop);
+                    }
+                });
             }
         }
     }
@@ -264,10 +278,12 @@
             {
                 countDownItem.timeInterval--;
 
-                if (countDownItem.processBlock)
-                {
-                    countDownItem.processBlock(identifier, countDownItem.timeInterval, NO, NO);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (countDownItem.processBlock)
+                    {
+                        countDownItem.processBlock(identifier, countDownItem.timeInterval, NO, NO);
+                    }
+                });
             }
         }
     }
