@@ -119,7 +119,10 @@
 
     for (NSDictionary *dic in sharpsDataArray)
     {
-        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
+        NSString *fromId = [dic objectForKey:@"fromID"];
+        BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
+        
+        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
     }
 }
 
@@ -132,10 +135,16 @@
     
     for (NSDictionary *dic in sharpsDataArray)
     {
-        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
+        NSString *fromId = [dic objectForKey:@"fromID"];
+        BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
+
+        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
     }
     
-    [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
+    NSString *fromId = [data objectForKey:@"fromID"];
+    BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
+
+    [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
 }
 
 //- (void)didMoveToSuperview
@@ -204,8 +213,11 @@
         NSString *whiteboardID = [data bm_stringTrimForKey:@"whiteboardID"];
         if ([whiteboardID isEqualToString:@"videoDrawBoard"])
         {
+            NSString *fromId = [dictionary objectForKey:@"fromID"];
+            BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
+            
             [self.drawView switchToFileID:whiteboardID pageID:1 refreshImmediately:YES];
-            [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO refreshImmediately:YES];
+            [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
             return;
         }
     }
