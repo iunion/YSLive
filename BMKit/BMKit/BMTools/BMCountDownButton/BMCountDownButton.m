@@ -16,7 +16,7 @@
 
 @implementation BMCountDownButton
 
-- (instancetype)initWithFrame:(CGRect)frame seconds:(NSInteger)seconds countDownBlock:(BMCountDownBlock)countDownBlock clickedBlock:(nonnull BMCountDownClickedBlock)clickedBlock
+- (instancetype)initWithFrame:(CGRect)frame seconds:(NSUInteger)seconds countDownBlock:(BMCountDownBlock)countDownBlock clickedBlock:(nonnull BMCountDownClickedBlock)clickedBlock
 {
     if (self = [super initWithFrame:frame])
     {
@@ -28,17 +28,13 @@
         _clickedBlock = clickedBlock;
         _countState = BMCountDownButtonStateStart;
         
-        
         [self addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return self;
 }
 
 - (void)buttonClicked
 {
-    BMWeakSelf
-    
     if (self.countState == BMCountDownButtonStateStart)
     {
         self.countState = BMCountDownButtonStateDuration;

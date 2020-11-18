@@ -10,18 +10,19 @@
 @class BMCountDownButton;
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, BMCountDownButtonState){
+typedef NS_ENUM(NSUInteger, BMCountDownButtonState)
+{
     BMCountDownButtonStateStart = 0,
     BMCountDownButtonStateDuration,
     BMCountDownButtonStateEnd
 };
 
-typedef void (^BMCountDownClickedBlock)(BMCountDownButton *button, BMCountDownButtonState state, NSInteger seconds);
-typedef void (^BMCountDownBlock)(BMCountDownButton *button, BMCountDownButtonState state, NSInteger seconds);
+typedef void (^BMCountDownClickedBlock)(BMCountDownButton *button, BMCountDownButtonState state, NSUInteger seconds);
+typedef void (^BMCountDownBlock)(BMCountDownButton *button, BMCountDownButtonState state, NSUInteger seconds);
 
 @interface BMCountDownButton : UIButton
 /// 倒计时时间
-@property (nonatomic, assign) NSInteger seconds;
+@property (nonatomic, assign) NSUInteger seconds;
 /// 倒计时回调
 @property (nonatomic, strong) BMCountDownBlock countDownBlock;
 /// 点击回调
@@ -29,7 +30,7 @@ typedef void (^BMCountDownBlock)(BMCountDownButton *button, BMCountDownButtonSta
 
 
 - (instancetype)initWithFrame:(CGRect)frame
-                      seconds:(NSInteger)seconds
+                      seconds:(NSUInteger)seconds
                countDownBlock:(BMCountDownBlock)countDownBlock
                  clickedBlock:(BMCountDownClickedBlock)clickedBlock;
 - (void)startCountDown;
