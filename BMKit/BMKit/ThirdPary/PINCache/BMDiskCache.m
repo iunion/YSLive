@@ -428,13 +428,12 @@ static NSURL *_sharedTrashURL;
 
 + (NSURL *)sharedTrashURL
 {
-    NSURL *trashURL = nil;
-    
-    [[BMDiskCache sharedLock] lock];
+    NSAssert(![[BMDiskCache sharedLock] tryLock] || ([[BMDiskCache sharedLock] unlock], NO),
+             @"+[sharedTrashURL] must be called with +[sharedLock] held.");
     if (_sharedTrashURL == nil) {
         NSString *uniqueString = [[NSProcessInfo processInfo] globallyUniqueString];
         _sharedTrashURL = [[[NSURL alloc] initFileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:uniqueString isDirectory:YES];
-        
+
         NSError *error = nil;
         [[NSFileManager defaultManager] createDirectoryAtURL:_sharedTrashURL
                                  withIntermediateDirectories:YES
@@ -442,23 +441,30 @@ static NSURL *_sharedTrashURL;
                                                        error:&error];
         BMDiskCacheError(error);
     }
-    trashURL = _sharedTrashURL;
-    [[BMDiskCache sharedLock] unlock];
-    
-    return trashURL;
+    return _sharedTrashURL;
 }
 
-+ (BOOL)moveItemAtURLToTrash:(NSURL *)itemURL
++ (BOOL)moveItemAtURLToTrashOrRemove:(NSURL *)itemURL
 {
     if (![[NSFileManager defaultManager] fileExistsAtPath:[itemURL path]])
         return NO;
     
     NSError *error = nil;
     NSString *uniqueString = [[NSProcessInfo processInfo] globallyUniqueString];
-    NSURL *uniqueTrashURL = [[BMDiskCache sharedTrashURL] URLByAppendingPathComponent:uniqueString isDirectory:NO];
-    BOOL moved = [[NSFileManager defaultManager] moveItemAtURL:itemURL toURL:uniqueTrashURL error:&error];
+
+    [[BMDiskCache sharedLock] lock];
+        NSURL *uniqueTrashURL = [[BMDiskCache sharedTrashURL] URLByAppendingPathComponent:uniqueString
+                                                                               isDirectory:NO];
+        BOOL moved = [[NSFileManager defaultManager] moveItemAtURL:itemURL toURL:uniqueTrashURL error:&error];
+    [[BMDiskCache sharedLock] unlock];
     BMDiskCacheError(error);
-    return moved;
+    BOOL removed = NO;
+    if (!moved) {
+        // Delete the item synchronously as a fallback.
+        removed = [[NSFileManager defaultManager] removeItemAtURL:itemURL error:&error];
+        BMDiskCacheError(error);
+    }
+    return moved || removed;
 }
 
 + (void)emptyTrash
@@ -692,7 +698,7 @@ static NSURL *_sharedTrashURL;
         [self lock];
     }
     
-    BOOL trashed = [BMDiskCache moveItemAtURLToTrash:fileURL];
+    BOOL trashed = [BMDiskCache moveItemAtURLToTrashOrRemove:fileURL];
     if (!trashed) {
         [self unlock];
         return NO;
@@ -1357,7 +1363,7 @@ static NSURL *_sharedTrashURL;
         [self lock];
     }
     
-    [BMDiskCache moveItemAtURLToTrash:self->_cacheURL];
+    [BMDiskCache moveItemAtURLToTrashOrRemove:self->_cacheURL];
     [BMDiskCache emptyTrash];
     
     [self _locked_createCacheDirectory];
