@@ -131,15 +131,16 @@
     [self.view addSubview:canDrawBtn];
     canDrawBtn.selected = YES;
     
-    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 50, 50)];
-    [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
-    [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
-    scaleBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [scaleBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:scaleBtn];
+//    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 50, 50)];
+//    [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
+//    scaleBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+//    [scaleBtn setBackgroundColor:UIColor.yellowColor];
+//    scaleBtn.enabled = NO;
+//    [self.view addSubview:scaleBtn];
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 50, 20, 80, 50)];
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 80, 50)];
     [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"返回登录" forState:UIControlStateNormal];
     backBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -173,7 +174,7 @@
     [self.view addSubview:canControlShape];
 
     canDrawBtn.tag = 1;
-    scaleBtn.tag = 2;
+    //scaleBtn.tag = 2;
     backBtn.tag = 3;
     imageBtn.tag = 4;
     uploadFileBtn.tag = 5;
@@ -196,15 +197,15 @@
             break;
         case 2:
         {
-            sender.selected = !sender.selected;
-            if (sender.selected)
-            {
-                [self.cloudHubManager setWhiteBoardRatio:4.0/3.0];
-            }
-            else
-            {
-                [self.cloudHubManager setWhiteBoardRatio:16.0/9.0];
-            }
+//            sender.selected = !sender.selected;
+//            if (sender.selected)
+//            {
+//                [self.cloudHubManager setWhiteBoardRatio:4.0/3.0];
+//            }
+//            else
+//            {
+//                [self.cloudHubManager setWhiteBoardRatio:16.0/9.0];
+//            }
         }
             break;
         case 3:
@@ -594,6 +595,11 @@
     [self.brushToolView freshCanUndo:canUndo canRedo:canRedo];
     [self.brushToolView freshClear:canClean];
     [self.brushToolView freshErase:canErase];
+}
+
+- (void)onWhiteBroadCreateFail
+{
+    
 }
 
 @end
