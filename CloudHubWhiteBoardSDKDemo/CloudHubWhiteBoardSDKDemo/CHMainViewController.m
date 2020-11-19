@@ -501,24 +501,17 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+
 #pragma mark - CHWhiteBoardManagerDelegate
 
-/// 白板准备完毕
-- (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
-{
-    
-}
-
-/**
- 文件列表回调
- @param fileList 文件NSDictionary列表
- */
-- (void)onWhiteBroadFileList:(NSArray *)fileList
+/// 文件列表回调
+/// @param fileList 文件NSDictionary列表
+- (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
 {
     [self.fileTableView reloadData];
 }
 
-#pragma mark - H5课件加载事件
+#pragma mark - 交互课件加载事件
 
 /// H5脚本文件加载初始化完成
 - (void)onWhiteBoardPageFinshed:(NSString *)fileId
@@ -526,27 +519,16 @@
     
 }
 
-/// 切换Web课件加载状态
-- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic
+/// 切换交互课件加载状态
+- (void)onWhiteBoardLoadInterCourse:(NSString *)fileId isSuccess:(BOOL)isSuccess
 {
     
 }
 
-/// Web课件翻页结果
-- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic
-{
-    
-}
-/// 翻页超时
-- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic
-{
-    
-}
+#pragma mark - 课件翻页加载事件
 
-#pragma mark - 普通课件加载事件
-
-/// 普通课件加载完成状态
-- (void)onWhiteBoardPageLoadFinshed:(NSString *)fileId isSuccess:(BOOL)isSuccess;
+/// 课件翻页显示结果
+- (void)onWhiteBoardSlideCourse:(NSString *)fileId currentPage:(NSUInteger)currentPage isSuccess:(BOOL)isSuccess
 {
     
 }
@@ -565,7 +547,7 @@
     
 }
 
-/// 切换课件
+/// 当前打开的课件列表
 - (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
 {
     [self.currentFileList removeAllObjects];
@@ -595,11 +577,6 @@
     [self.brushToolView freshCanUndo:canUndo canRedo:canRedo];
     [self.brushToolView freshClear:canClean];
     [self.brushToolView freshErase:canErase];
-}
-
-- (void)onWhiteBroadCreateFail
-{
-    
 }
 
 @end
