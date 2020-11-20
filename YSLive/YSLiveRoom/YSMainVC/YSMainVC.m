@@ -1646,9 +1646,14 @@
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3* NSEC_PER_SEC));
     
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-        weakSelf.signedAlert = [YSSignedAlertView showWithTime:time inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(self.teacherVideoHeight + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0 signedBlock:^{
-            [weakSelf sendLiveCallRollSigninWithCallRollId:callRollId];
-        }];
+        NSString *signStr = [NSString stringWithFormat:@"%@%@",YSCurrentUser.peerID,callRollId];
+        if (![[YSUserDefault getUserSignin] isEqualToString:signStr])
+        {
+            weakSelf.signedAlert = [YSSignedAlertView showWithTime:time inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(self.teacherVideoHeight + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0 signedBlock:^{
+                [weakSelf sendLiveCallRollSigninWithCallRollId:callRollId];
+            }];
+        }
+
     });
     
 }
@@ -2172,6 +2177,8 @@
                 NSString *responseStr = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
                 BMLog(@"%@ %@", response, responseStr);
 #endif
+                NSString *signStr = [NSString stringWithFormat:@"%@%@",YSCurrentUser.peerID,callRollId];
+                [YSUserDefault setUserSignin:signStr];
                 [weakSelf liveCallRollSigninRequestFinished:response responseDic:responseDic];
             }
         }];
