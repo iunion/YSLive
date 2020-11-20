@@ -2177,16 +2177,14 @@
                 NSString *responseStr = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
                 BMLog(@"%@ %@", response, responseStr);
 #endif
-                NSString *signStr = [NSString stringWithFormat:@"%@%@",YSCurrentUser.peerID,callRollId];
-                [YSUserDefault setUserSignin:signStr];
-                [weakSelf liveCallRollSigninRequestFinished:response responseDic:responseDic];
+                [weakSelf liveCallRollSigninRequestFinished:response responseDic:responseDic callRollId:callRollId];
             }
         }];
         [self.liveCallRollSigninTask resume];
     }
 }
 
-- (void)liveCallRollSigninRequestFinished:(NSURLResponse *)response responseDic:(NSDictionary *)resDic
+- (void)liveCallRollSigninRequestFinished:(NSURLResponse *)response responseDic:(NSDictionary *)resDic callRollId:(NSString *)callRollId
 {
     BMLog(@"签到-------------%@", resDic);
     
@@ -2194,6 +2192,8 @@
     
     if (result == 0)
     {
+        NSString *signStr = [NSString stringWithFormat:@"%@%@",YSCurrentUser.peerID,callRollId];
+        [YSUserDefault setUserSignin:signStr];
         [self.signedAlert dismiss:nil];
     }
 }
