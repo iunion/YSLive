@@ -16,8 +16,6 @@
 #import "YSLoginVC.h"
 #import "YSCoreStatus.h" //网络状态
 
-//#import <HockeySDK/HockeySDK.h>
-
 #define Ues_Bugly   1
 
 #ifdef YSCUSTOMIZED_WSKJ
@@ -31,7 +29,6 @@
 
 @interface AppDelegate ()
 <
-    //BITHockeyManagerDelegate,
     YSCoreNetWorkStatusProtocol
 >
 
@@ -51,9 +48,11 @@
     // Override point for customization after application launch.
     [YSCoreStatus beginMonitorNetwork:self];
     [[UIButton appearance] setExclusiveTouch:YES];
+    self.useAllowRotation = NO;
     self.allowRotation = NO;
     
-    //[self crashManager];
+    self.classCanRotation = YES;
+    
 #if Ues_Bugly
     [Bugly startWithAppId:@"55ff7e6968"];
 #endif
@@ -74,46 +73,35 @@
     //NSString *cx = [[NSString alloc] initWithCString:YSRoomSDKVersionString];
     
     BMNavigationController *nav;
-//    if ([UIDevice bm_isiPad])
-//    {
-//        UIViewController *vc = [[UIViewController alloc] init];
-//        nav = [[BMNavigationController alloc] initWithRootViewController:vc];
-//    }
-//    else
-    {
-        YSLoginVC *vc = [[YSLoginVC alloc] initWithLoginURL:url];
-        nav = [[BMNavigationController alloc] initWithRootViewController:vc];
-        nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
-        self.loginVC = vc;
-        
-        //nav.modalPresentationStyle = UIModalPresentationFullScreen;
-    }
+    YSLoginVC *vc = [[YSLoginVC alloc] initWithLoginURL:url];
+    nav = [[BMNavigationController alloc] initWithRootViewController:vc];
+    nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
+    self.loginVC = vc;
     
     self.window.rootViewController = nav;
     
     return YES;
 }
 
-//- (void)crashManager
-//{
-//    //注册HockeySDK
-//    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:CRASH_IDENTIFIER
-//                                                           delegate:self];
-//    [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelWarning;
-//    [BITHockeyManager sharedHockeyManager].serverURL = CRASH_REPORT_ADDRESS;
-//
-//    [[BITHockeyManager sharedHockeyManager] startManager];
-//    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-//    [[BITHockeyManager sharedHockeyManager].crashManager setCrashManagerStatus: BITCrashManagerStatusAutoSend];
-//}
-
 /// 强制应用只能响应竖屏
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
+    if (!self.useAllowRotation)
+    {
+        return UIInterfaceOrientationMaskAll;
+    }
+    
     if (self.allowRotation)
     {
         //return UIInterfaceOrientationMaskAll;
-        return UIInterfaceOrientationMaskLandscapeRight;
+        if (self.classCanRotation)
+        {
+            return UIInterfaceOrientationMaskLandscape;
+        }
+        else
+        {
+            return UIInterfaceOrientationMaskLandscapeRight;
+        }
     }
     else
     {
@@ -136,6 +124,7 @@
 //    }
 //    return YES;
 //}
+
 - (BOOL)application:(UIApplication*)application shouldAllowExtensionPointIdentifier:(nonnull UIApplicationExtensionPointIdentifier)extensionPointIdentifier
 {
     return NO;

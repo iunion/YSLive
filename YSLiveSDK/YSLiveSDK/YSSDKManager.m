@@ -15,10 +15,10 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"3.3.6";
+static NSString *YSAPPVersionString = @"3.3.7";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"3.3.6.2";
+static NSString *YSSDKVersionString = @"3.3.7.6";
 
 @interface YSSDKManager ()
 <
@@ -77,6 +77,9 @@ static NSString *YSSDKVersionString = @"3.3.6.2";
         [YSCoreStatus beginMonitorNetwork:self];
         
         self.needUseHttpDNSForWhiteBoard = YES;
+        
+        self.useAppDelegateAllowRotation = NO;
+        self.classCanRotation = YES;
     }
     return self;
 }
@@ -417,6 +420,17 @@ static NSString *YSSDKVersionString = @"3.3.6.2";
     if ([self.delegate respondsToSelector:@selector(onRoomConnectionLost)])
     {
         [self.delegate onRoomConnectionLost];
+    }
+}
+
+/**
+    即将离开房间
+ */
+- (void)onRoomWillLeft
+{
+    if ([self.delegate respondsToSelector:@selector(onRoomWillLeft)])
+    {
+        [self.delegate onRoomWillLeft];
     }
 }
 

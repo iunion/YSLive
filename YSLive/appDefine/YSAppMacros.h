@@ -79,11 +79,6 @@ static NSString *const YSPrivacyClause = @"PrivacyClause";
 #define YSPASSWORD_MINLENGTH            8
 #define YSPASSWORD_MAXLENGTH            16
 
-#ifdef YSCUSTOMIZED_WSKJ
-#define YSLEAKS_ENABLED                 0
-#else
-#define YSLEAKS_ENABLED                 0
-#endif
 #endif /* YSAppMacros_h */
 
 

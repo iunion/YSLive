@@ -532,9 +532,14 @@ static NSString * _defaultBMDiskCacheDirectory;
                 // the image is from in-memory cache, but need image data
                 diskImage = image;
             } else if (diskData) {
+                BOOL shouldCacheToMomery = YES;
+                if (context[BMSDWebImageContextStoreCacheType]) {
+                    BMSDImageCacheType cacheType = [context[BMSDWebImageContextStoreCacheType] integerValue];
+                    shouldCacheToMomery = (cacheType == BMSDImageCacheTypeAll || cacheType == BMSDImageCacheTypeMemory);
+                }
                 // decode image data only if in-memory cache missed
                 diskImage = [self diskImageForKey:key data:diskData options:options context:context];
-                if (diskImage && self.config.shouldCacheImagesInMemory) {
+                if (shouldCacheToMomery && diskImage && self.config.shouldCacheImagesInMemory) {
                     NSUInteger cost = diskImage.bmsd_memoryCost;
                     [self.memoryCache setObject:diskImage forKey:key cost:cost];
                 }

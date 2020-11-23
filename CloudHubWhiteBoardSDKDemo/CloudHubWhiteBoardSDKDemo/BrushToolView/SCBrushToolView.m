@@ -87,6 +87,16 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     self.redoBtn.enabled = canRedo;
 }
 
+- (void)freshClear:(BOOL)canClear
+{
+    self.clearBtn.enabled = canClear;
+}
+
+- (void)freshErase:(BOOL)canErase
+{
+    self.eraserBtn.enabled = canErase;
+}
+
 - (void)setup
 {
     [self addSubview:self.toolBacView];

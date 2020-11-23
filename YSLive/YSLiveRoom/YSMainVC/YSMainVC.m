@@ -8,6 +8,12 @@
 
 #import "YSMainVC.h"
 #import <objc/message.h>
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
+
 #import <BMKit/BMScrollPageView.h>
 
 #import "BMAlertView+YSDefaultAlert.h"
@@ -680,15 +686,31 @@
 //1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
+#if YSAutorotateNO
     return NO;
+#else
+#if YSSDK
+    if ([YSSDKManager sharedInstance].useAppDelegateAllowRotation)
+    {
+        return NO;
+    }
+#else
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+#endif
+    
+    return YES;
+#endif
 }
 
 //2.返回支持的旋转方向
-//iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+//iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 //iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 //3.返回进入界面默认显示方向
@@ -1030,6 +1052,10 @@
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     //    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+#if YSSDK
+    [self.liveManager onSDKRoomWillLeft];
+#endif
     [self dismissViewControllerAnimated:YES completion:^{
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
@@ -1643,9 +1669,14 @@
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3* NSEC_PER_SEC));
     
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-        weakSelf.signedAlert = [YSSignedAlertView showWithTime:time inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(self.teacherVideoHeight + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0 signedBlock:^{
-            [weakSelf sendLiveCallRollSigninWithCallRollId:callRollId];
-        }];
+        NSString *signStr = [NSString stringWithFormat:@"%@%@",YSCurrentUser.peerID,callRollId];
+        if (![[YSUserDefault getUserSignin] isEqualToString:signStr])
+        {
+            weakSelf.signedAlert = [YSSignedAlertView showWithTime:time inView:self.view backgroundEdgeInsets:UIEdgeInsetsMake(self.teacherVideoHeight + PAGESEGMENT_HEIGHT, 0, 0, 0) topDistance:0 signedBlock:^{
+                [weakSelf sendLiveCallRollSigninWithCallRollId:callRollId];
+            }];
+        }
+
     });
     
 }
@@ -2169,14 +2200,14 @@
                 NSString *responseStr = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
                 BMLog(@"%@ %@", response, responseStr);
 #endif
-                [weakSelf liveCallRollSigninRequestFinished:response responseDic:responseDic];
+                [weakSelf liveCallRollSigninRequestFinished:response responseDic:responseDic callRollId:callRollId];
             }
         }];
         [self.liveCallRollSigninTask resume];
     }
 }
 
-- (void)liveCallRollSigninRequestFinished:(NSURLResponse *)response responseDic:(NSDictionary *)resDic
+- (void)liveCallRollSigninRequestFinished:(NSURLResponse *)response responseDic:(NSDictionary *)resDic callRollId:(NSString *)callRollId
 {
     BMLog(@"签到-------------%@", resDic);
     
@@ -2184,6 +2215,8 @@
     
     if (result == 0)
     {
+        NSString *signStr = [NSString stringWithFormat:@"%@%@",YSCurrentUser.peerID,callRollId];
+        [YSUserDefault setUserSignin:signStr];
         [self.signedAlert dismiss:nil];
     }
 }

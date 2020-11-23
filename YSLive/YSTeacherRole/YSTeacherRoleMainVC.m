@@ -13,6 +13,11 @@
 #import "SCDrawBoardView.h"
 #import "YSEmotionView.h"
 
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
 
 #import "SCTeacherListView.h"
 #import "SCTeacherAnswerView.h"
@@ -795,6 +800,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [classEndAlertVC addAction:confimAc];
         [classEndAlertVC addAction:cancle];
         
+#if YSSDK
+        classEndAlertVC.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+        classEndAlertVC.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+        classEndAlertVC.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+        classEndAlertVC.sc_Orientation = UIInterfaceOrientationLandscapeRight;
         [self presentViewController:classEndAlertVC animated:YES completion:nil];
     }
     else
@@ -1092,6 +1104,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     // 1V1 初始本人视频音频
     SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sCHUserDefaultSourceId isForPerch:YES withDelegate:self];
+    videoView.frame = CGRectMake(0, 0, videoWidth, videoHeight);
     videoView.appUseTheType = self.appUseTheType;
     videoView.tag = PlaceholderPTag;
     
@@ -1118,6 +1131,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [self.videoBackgroud addSubview:userVideoView];
+    [imageView bm_sendOneLevelDown];
     
     if (self.isWideScreen)
     {
@@ -2049,6 +2063,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
+    
+#if YSSDK
+    [self.liveManager onSDKRoomWillLeft];
+#endif
     [self dismissViewControllerAnimated:YES completion:^{
 #if YSSDK
         [self.liveManager onSDKRoomLeft];
@@ -2633,6 +2651,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     
     [alertVc addAction:confimAc];
+    
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
@@ -4559,7 +4586,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //    if ([fromID isEqualToString:self.liveManager.localUser.peerID])
     [self.responderView showResponderWithType:YSTeacherResponderType_ING];
     
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherResponderCountDownKey timeInterval:10 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.responderView setCloseBtnHide:YES];
         [weakSelf.responderView showResponderWithType:YSTeacherResponderType_ING];
@@ -4780,7 +4807,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.teacherTimerView.pauseBtn.selected = YES;
 
         BMWeakSelf
-        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
             BMLog(@"%ld", (long)timeInterval);
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -4818,7 +4845,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
         }
         BMWeakSelf
-        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+        [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
             BMLog(@"%ld", (long)timeInterval);
             [weakSelf.teacherTimerView showResponderWithType:YSTeacherTimerViewType_Ing];
             [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -4870,7 +4897,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.teacherTimerView showResponderWithType:YSTeacherTimerViewType_End];
     }
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         [weakSelf.teacherTimerView showTimeInterval:timeInterval];
         if (timeInterval == 0)
@@ -4916,7 +4943,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     self.teacherTimerView.pauseBtn.selected = NO;
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSTeacherTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         
         [weakSelf.teacherTimerView showTimeInterval:timeInterval];
@@ -5365,6 +5392,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     CHRoomUser * userModel = videoView.roomUser;
 
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
+    popover.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     if ( self.videoSequenceArr.count <= 2 || ([self.fouceView.sourceId isEqualToString:videoView.sourceId] && [self.fouceView.roomUser.peerID isEqualToString:videoView.roomUser.peerID]))
     {
         /// 1.视频数小于等于2  2.videoView为焦点视频时
@@ -5671,6 +5699,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
+    
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+    
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
@@ -5692,8 +5729,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }];
     [alertVc addAction:cancleAc];
     [alertVc addAction:confimAc];
-    [self presentViewController:alertVc animated:YES completion:nil];
     
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+
+    [self presentViewController:alertVc animated:YES completion:nil];
 }
 
 - (void)deleteCoursewareWithFileID:(NSString *)fileid
@@ -6023,7 +6068,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)openTheImagePickerWithImageUseType:(SCUploadImageUseType)imageUseType
 {
-    BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:3 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
+    BMTZImagePickerController * imagePickerController = [[BMTZImagePickerController alloc]initWithMaxImagesCount:1 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePickerController.showPhotoCannotSelectLayer = YES;
     imagePickerController.allowTakeVideo = NO;
     imagePickerController.allowPickingVideo = NO;

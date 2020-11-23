@@ -23,7 +23,7 @@
 #import "UIView+BMBadge.h"
 
 #import "UIView+BMCountDownManager.h"
-
+#import "BMCountDownButton.h"
 #import "BMImageTextView.h"
 #import "BMImageTitleButtonView.h"
 
@@ -75,5 +75,7 @@
 
 #import "BMHttpRequest.h"
 #import "BMCloudHubUtil.h"
+
+
 
 #endif /* BMTools_h */

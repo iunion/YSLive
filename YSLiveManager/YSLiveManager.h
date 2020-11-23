@@ -9,7 +9,9 @@
 #import <CHSession/CHSession.h>
 #import <CHSession/CHSessionDefines.h>
 #import "YSLiveForWhiteBoardDelegate.h"
-
+#if YSSDK
+#import "YSSDKManagerDelegate.h"
+#endif
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSLiveManager : CHSessionManager
@@ -34,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) CHFileModel *currentFile;
 
 #if YSSDK
-@property (nullable, nonatomic, weak) volatile id <CHSessionDelegate> sdkDelegate;
+@property (nullable, nonatomic, weak) volatile id <YSSDKManagerDelegate> sdkDelegate;
 // 区分是否进入教室
 @property (nonatomic, assign) BOOL sdkIsJoinRoom;
 #endif
@@ -65,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (CHFileModel *)getFileWithFileID:(NSString *)fileId;
 
 #if YSSDK
+/// 即将退出房间
+- (void)onSDKRoomWillLeft;
 /// SDK退出房间，需要在房间返回时调用dismissViewControllerAnimated:completion:
 - (void)onSDKRoomLeft;
 #endif

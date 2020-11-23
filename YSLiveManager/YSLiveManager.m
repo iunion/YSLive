@@ -252,7 +252,7 @@
         whiteBordViewH = 300;
     }
     
-    self.whiteBordView = [self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
+    self.whiteBordView = (UIView *)[self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
 
     }];
 
@@ -379,9 +379,14 @@
 
 
 #pragma mark -
-#pragma mark YSWhiteBoardManagerDelegate
+#pragma mark CHWhiteBoardManagerDelegate
 
-/// 白板准备完毕
+/// 白板管理初始化失败
+- (void)onWhiteBroadCreateFail
+{
+}
+
+/// 白板管理准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
 {
     if (!finished)
@@ -396,11 +401,9 @@
     }
 }
 
-/**
- 文件列表回调
- @param fileList 文件NSDictionary列表
- */
-- (void)onWhiteBroadFileList:(NSArray *)fileList
+/// 文件列表回调
+/// @param fileList 文件NSDictionary列表
+- (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
 {
     
 }
@@ -411,20 +414,14 @@
     
 }
 
-/// 切换Web课件加载状态
-- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic
+/// 切换交互课件加载状态
+- (void)onWhiteBoardLoadInterCourse:(NSString *)fileId isSuccess:(BOOL)isSuccess
 {
     
 }
 
-/// Web课件翻页结果
-- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic
-{
-    
-}
-
-/// 翻页超时
-- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic
+/// 课件翻页显示结果
+- (void)onWhiteBoardSlideCourse:(NSString *)fileId currentPage:(NSUInteger)currentPage isSuccess:(BOOL)isSuccess
 {
     
 }
@@ -507,6 +504,16 @@
 }
 
 #if YSSDK
+- (void)onSDKRoomWillLeft
+{
+    BMLog(@"onSDKRoomWillLeft");
+    
+    if ([self.sdkDelegate respondsToSelector:@selector(onRoomWillLeft)])
+    {
+        [self.sdkDelegate onRoomWillLeft];
+    }
+}
+
 - (void)onSDKRoomLeft
 {
     BMLog(@"onSDKRoomLeft");

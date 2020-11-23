@@ -207,6 +207,11 @@
     [_collectionView registerClass:[BMTZPhotoPreviewCell class] forCellWithReuseIdentifier:@"BMTZPhotoPreviewCell"];
     [_collectionView registerClass:[BMTZVideoPreviewCell class] forCellWithReuseIdentifier:@"BMTZVideoPreviewCell"];
     [_collectionView registerClass:[BMTZGifPreviewCell class] forCellWithReuseIdentifier:@"BMTZGifPreviewCell"];
+    
+    BMTZImagePickerController *_tzImagePickerVc = (BMTZImagePickerController *)self.navigationController;
+    if (_tzImagePickerVc.scaleAspectFillCrop && _tzImagePickerVc.allowCrop) {
+        _collectionView.scrollEnabled = NO;
+    }
 }
 
 - (void)configCropView {
@@ -270,7 +275,7 @@
         [_collectionView reloadData];
     }
     
-    CGFloat toolBarHeight = [BMTZCommonTools tz_isIPhoneX] ? 44 + (83 - 49) : 44;
+    CGFloat toolBarHeight = 44 + [BMTZCommonTools tz_safeAreaInsets].bottom;
     CGFloat toolBarTop = self.view.bmtz_height - toolBarHeight;
     _toolBar.frame = CGRectMake(0, toolBarTop, self.view.bmtz_width, toolBarHeight);
     if (_tzImagePickerVc.allowPickingOriginalPhoto) {
@@ -479,21 +484,20 @@
         photoPreviewCell.cropRect = _tzImagePickerVc.cropRect;
         photoPreviewCell.allowCrop = _tzImagePickerVc.allowCrop;
         photoPreviewCell.scaleAspectFillCrop = _tzImagePickerVc.scaleAspectFillCrop;
-        __weak typeof(_tzImagePickerVc) weakTzImagePickerVc = _tzImagePickerVc;
         __weak typeof(_collectionView) weakCollectionView = _collectionView;
         __weak typeof(photoPreviewCell) weakCell = photoPreviewCell;
         [photoPreviewCell setImageProgressUpdateBlock:^(double progress) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
-            __strong typeof(weakTzImagePickerVc) strongTzImagePickerVc = weakTzImagePickerVc;
             __strong typeof(weakCollectionView) strongCollectionView = weakCollectionView;
             __strong typeof(weakCell) strongCell = weakCell;
             strongSelf.progress = progress;
             if (progress >= 1) {
                 if (strongSelf.isSelectOriginalPhoto) [strongSelf showPhotoBytes];
                 if (strongSelf.alertView && [strongCollectionView.visibleCells containsObject:strongCell]) {
-                    [strongTzImagePickerVc hideAlertView:strongSelf.alertView];
-                    strongSelf.alertView = nil;
-                    [strongSelf doneButtonClick];
+                    [strongSelf.alertView dismissViewControllerAnimated:YES completion:^{
+                        strongSelf.alertView = nil;
+                        [strongSelf doneButtonClick];
+                    }];
                 }
             }
         }];

@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL shouldDismissOnTapOutside;
 // 是否cancel关闭
 @property (nonatomic, assign) BOOL notDismissOnCancel;
+// 是否可以自动关闭
+@property (nonatomic, assign) BOOL stopAutoClose;
 
 // 蒙版
 @property (nonatomic, strong, readonly) UIVisualEffectView *noticeMaskBgEffectView;

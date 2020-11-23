@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) UIViewController <YSSDKDelegate> * delegate;
 
+/// 是否使用shouldAutorotate，NO: 使用    默认： NO
+@property (nonatomic, assign) BOOL useAppDelegateAllowRotation;
+/// 小班课是否可转屏，支持左右转屏    默认： YES
+@property (nonatomic, assign) BOOL classCanRotation;
+
 + (NSString *)SDKVersion;
 + (NSString *)SDKDetailVersion;
 

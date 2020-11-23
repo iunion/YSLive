@@ -61,7 +61,7 @@
             strongSelf.imageProgressUpdateBlock(progress);
         }
     }];
-    [self addSubview:self.previewView];
+    [self.contentView addSubview:self.previewView];
 }
 
 - (void)setModel:(BMTZAssetModel *)model {
@@ -118,9 +118,7 @@
         _scrollView.delaysContentTouches = NO;
         _scrollView.canCancelContentTouches = YES;
         _scrollView.alwaysBounceVertical = NO;
-        //if (@available(iOS 11, *)) {
-        if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0)
-        {
+        if (@available(iOS 11.0, *)) {
             _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         [self addSubview:_scrollView];
@@ -345,8 +343,8 @@
     _progressView.frame = CGRectMake(progressX, progressY, progressWH, progressWH);
     
     [self recoverSubviews];
-    _iCloudErrorIcon.frame = CGRectMake(20, [BMTZCommonTools tz_isIPhoneX] ? 88 + 10 : 64 + 10, 28, 28);
-    _iCloudErrorLabel.frame = CGRectMake(53, [BMTZCommonTools tz_isIPhoneX] ? 88 + 10 : 64 + 10, self.bmtz_width - 63, 28);
+    _iCloudErrorIcon.frame = CGRectMake(20, [BMTZCommonTools tz_statusBarHeight] + 44 + 10, 28, 28);
+    _iCloudErrorLabel.frame = CGRectMake(53, [BMTZCommonTools tz_statusBarHeight] + 44 + 10, self.bmtz_width - 63, 28);
 }
 
 #pragma mark - UITapGestureRecognizer Event
@@ -421,9 +419,10 @@
     [_playButton setImage:[UIImage bmtz_imageNamedFromMyBundle:@"MMVideoPreviewPlay"] forState:UIControlStateNormal];
     [_playButton setImage:[UIImage bmtz_imageNamedFromMyBundle:@"MMVideoPreviewPlayHL"] forState:UIControlStateHighlighted];
     [_playButton addTarget:self action:@selector(playButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_playButton];
-    [self addSubview:_iCloudErrorIcon];
-    [self addSubview:_iCloudErrorLabel];
+    _playButton.frame = CGRectMake(0, 64, self.bmtz_width, self.bmtz_height - 64 - 44);
+    [self.contentView addSubview:_playButton];
+    [self.contentView addSubview:_iCloudErrorIcon];
+    [self.contentView addSubview:_iCloudErrorLabel];
 }
 
 - (void)setModel:(BMTZAssetModel *)model {
@@ -478,7 +477,7 @@
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.backgroundColor = [UIColor blackColor].CGColor;
     self.playerLayer.frame = self.bounds;
-    [self.layer addSublayer:self.playerLayer];
+    [self.contentView.layer addSublayer:self.playerLayer];
     [self configPlayButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayerAndShowNaviBar) name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
 }
@@ -487,8 +486,8 @@
     [super layoutSubviews];
     _playerLayer.frame = self.bounds;
     _playButton.frame = CGRectMake(0, 64, self.bmtz_width, self.bmtz_height - 64 - 44);
-    _iCloudErrorIcon.frame = CGRectMake(20, [BMTZCommonTools tz_isIPhoneX] ? 88 + 10 : 64 + 10, 28, 28);
-    _iCloudErrorLabel.frame = CGRectMake(53, [BMTZCommonTools tz_isIPhoneX] ? 88 + 10 : 64 + 10, self.bmtz_width - 63, 28);
+    _iCloudErrorIcon.frame = CGRectMake(20, [BMTZCommonTools tz_statusBarHeight] + 44 + 10, 28, 28);
+    _iCloudErrorLabel.frame = CGRectMake(53, [BMTZCommonTools tz_statusBarHeight] + 44 + 10, self.bmtz_width - 63, 28);
 }
 
 - (void)photoPreviewCollectionViewDidScroll {
@@ -511,6 +510,7 @@
     CMTime currentTime = _player.currentItem.currentTime;
     CMTime durationTime = _player.currentItem.duration;
     if (_player.rate == 0.0f) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BMTZ_VIDEO_PLAY_NOTIFICATION" object:_player];
         if (currentTime.value == durationTime.value) [_player.currentItem seekToTime:CMTimeMake(0, 1)];
         [_player play];
         [_playButton setImage:nil forState:UIControlStateNormal];
@@ -547,7 +547,7 @@
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [strongSelf signleTapAction];
     }];
-    [self addSubview:_previewView];
+    [self.contentView addSubview:_previewView];
 }
 
 - (void)setModel:(BMTZAssetModel *)model {

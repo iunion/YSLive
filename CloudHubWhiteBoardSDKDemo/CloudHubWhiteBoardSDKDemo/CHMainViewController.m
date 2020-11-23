@@ -113,15 +113,15 @@
 
 - (void)setupButtonsUI
 {
-   UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 20, 50, 50)];
+    UIButton *fileListBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 20, 50, 50)];
     fileListBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     [fileListBtn addTarget:self action:@selector(showFileList:) forControlEvents:UIControlEventTouchUpInside];
     [fileListBtn setTitle:@"课件库" forState:UIControlStateNormal];
     [fileListBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-
+    
     [self.view addSubview:fileListBtn];
     self.fileListBtn = fileListBtn;
-
+    
     UIButton *canDrawBtn = [[UIButton alloc]initWithFrame:CGRectMake(fileListBtn.bm_right + 30, 20, 80, 50)];
     [canDrawBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [canDrawBtn setTitle:@"画笔权限" forState:UIControlStateNormal];
@@ -130,16 +130,17 @@
     [canDrawBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:canDrawBtn];
     canDrawBtn.selected = YES;
-
-    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 50, 50)];
-    [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
-    [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
-    scaleBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    [scaleBtn setBackgroundColor:UIColor.yellowColor];
-    [self.view addSubview:scaleBtn];
-
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(scaleBtn.bm_right + 50, 20, 80, 50)];
+    
+//    UIButton *scaleBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 50, 50)];
+//    [scaleBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [scaleBtn setTitle:@"比例" forState:UIControlStateNormal];
+//    scaleBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [scaleBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+//    [scaleBtn setBackgroundColor:UIColor.yellowColor];
+//    scaleBtn.enabled = NO;
+//    [self.view addSubview:scaleBtn];
+    
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(canDrawBtn.bm_right + 50, 20, 80, 50)];
     [backBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"返回登录" forState:UIControlStateNormal];
     backBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -154,7 +155,7 @@
     [imageBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [imageBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:imageBtn];
-
+    
     UIButton *uploadFileBtn = [[UIButton alloc]initWithFrame:CGRectMake(imageBtn.bm_right + 50, 20, 80, 50)];
     [uploadFileBtn addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
     [uploadFileBtn setTitle:@"上传课件" forState:UIControlStateNormal];
@@ -163,11 +164,21 @@
     [uploadFileBtn setBackgroundColor:UIColor.yellowColor];
     [self.view addSubview:uploadFileBtn];
     
+    UIButton *canControlShape = [[UIButton alloc]initWithFrame:CGRectMake(uploadFileBtn.bm_right + 50, 20, 80, 50)];
+    [canControlShape addTarget:self action:@selector(buttomsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [canControlShape setTitle:@"操作所有" forState:UIControlStateNormal];
+    [canControlShape setTitle:@"操作自己" forState:UIControlStateSelected];
+    canControlShape.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [canControlShape setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [canControlShape setBackgroundColor:UIColor.yellowColor];
+    [self.view addSubview:canControlShape];
+
     canDrawBtn.tag = 1;
-    scaleBtn.tag = 2;
+    //scaleBtn.tag = 2;
     backBtn.tag = 3;
     imageBtn.tag = 4;
     uploadFileBtn.tag = 5;
+    canControlShape.tag = 6;
 }
 
 
@@ -186,15 +197,15 @@
             break;
         case 2:
         {
-            sender.selected = !sender.selected;
-            if (sender.selected)
-            {
-                [self.cloudHubManager setWhiteBoardRatio:4.0/3.0];
-            }
-            else
-            {
-                [self.cloudHubManager setWhiteBoardRatio:16.0/9.0];
-            }
+//            sender.selected = !sender.selected;
+//            if (sender.selected)
+//            {
+//                [self.cloudHubManager setWhiteBoardRatio:4.0/3.0];
+//            }
+//            else
+//            {
+//                [self.cloudHubManager setWhiteBoardRatio:16.0/9.0];
+//            }
         }
             break;
         case 3:
@@ -210,7 +221,8 @@
             break;
         case 5:
         {
-            NSArray *pagesAddr = @[@"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-1.jpg",
+            NSArray *pagesAddr = @[@"https://b-ssl.duitang.com/uploads/item/201611/04/20161104110413_XzVAk.gif",
+                @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-1.pdf",
                                    @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-2.jpg",
                                    @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-3.jpg",
                                    @"https://rddoccdndemows.roadofcloud.net/upload/20200515_174835_tmrpbqsc-4.jpg",
@@ -227,6 +239,14 @@
         }
             break;
 
+        case 6:
+        {
+            sender.selected = !sender.selected;
+            [self.cloudHubManager setIsOnlyOperationSelfShape:sender.selected];
+            [self.cloudHubManager getUndoRedoState];
+        }
+            break;
+            
         default:
             break;
     }
@@ -336,11 +356,13 @@
     if (btn.selected)
     {
         self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH - 300, 40, 300, UI_SCREEN_HEIGHT-80);
+        [self.fileTableView reloadData];
     }
     else
     {
         self.fileTableView.frame = CGRectMake(UI_SCREEN_WIDTH , 40, 300, UI_SCREEN_HEIGHT-80);
     }
+    
 }
 
 #pragma mark UI 工具栏
@@ -403,7 +425,7 @@
 
 - (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn
 {
-    [self.cloudHubManager brushSDKToolsDidSelect:toolViewBtnType];
+    [self.cloudHubManager changeBrushToolsType:toolViewBtnType];
 
     if (self.drawBoardView)
     {
@@ -432,13 +454,13 @@
     {
         NSLog(@"点击了undo按钮");
         
-        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeUndo color:@"" widthProgress:0];
+        [self.cloudHubManager changeBrushToolsDrawType:CHDrawTypeUndo color:@"" size:0];
         
     }
     else if (toolBtn.tag == CHBrushToolTypeRedo)
     {
         NSLog(@"点击了redo按钮");
-        [self.cloudHubManager didSDKSelectDrawType:CHDrawTypeRedo color:@"" widthProgress:0];
+        [self.cloudHubManager changeBrushToolsDrawType:CHDrawTypeRedo color:@"" size:0];
     }
 }
 
@@ -447,7 +469,7 @@
 
 - (void)brushSelectorViewDidSelectDrawType:(CHDrawType)drawType color:(NSString *)hexColor widthProgress:(float)progress
 {
-    [self.cloudHubManager didSDKSelectDrawType:drawType color:hexColor widthProgress:progress];
+    [self.cloudHubManager changeBrushToolsDrawType:drawType color:hexColor size:progress];
 }
 
 
@@ -479,22 +501,17 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+
 #pragma mark - CHWhiteBoardManagerDelegate
 
-/// 白板准备完毕
-- (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
-{
-    
-}
-
-/**
- 文件列表回调
- @param fileList 文件NSDictionary列表
- */
-- (void)onWhiteBroadFileList:(NSArray *)fileList
+/// 文件列表回调
+/// @param fileList 文件NSDictionary列表
+- (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
 {
     [self.fileTableView reloadData];
 }
+
+#pragma mark - 交互课件加载事件
 
 /// H5脚本文件加载初始化完成
 - (void)onWhiteBoardPageFinshed:(NSString *)fileId
@@ -502,30 +519,27 @@
     
 }
 
-/// 切换Web课件加载状态
-- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic
+/// 切换交互课件加载状态
+- (void)onWhiteBoardLoadInterCourse:(NSString *)fileId isSuccess:(BOOL)isSuccess
 {
     
 }
 
-/// Web课件翻页结果
-- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic
+#pragma mark - 课件翻页加载事件
+
+/// 课件翻页显示结果
+- (void)onWhiteBoardSlideCourse:(NSString *)fileId currentPage:(NSUInteger)currentPage isSuccess:(BOOL)isSuccess
 {
     
 }
-/// 翻页超时
-- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic
-{
-    
-}
+
+#pragma mark - 课件事件
+
 /// 课件缩放
 - (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
 {
     
 }
-
-
-#pragma mark - 课件事件
 
 /// 课件全屏
 - (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
@@ -533,7 +547,7 @@
     
 }
 
-/// 切换课件
+/// 当前打开的课件列表
 - (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
 {
     [self.currentFileList removeAllObjects];
@@ -558,9 +572,11 @@
     [self.cloudHubManager.cloudHubRtcEngineKit delMsg:@"CreateMoreWB" msgId:msgID to:CHRoomPubMsgTellAll];
 }
 
-- (void)changeUndoRedoState:(NSString *)fileid canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo
+- (void)changeUndoRedoState:(NSString *)fileid currentpage:(NSUInteger)currentPage canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo canErase:(BOOL)canErase canClean:(BOOL)canClean
 {
     [self.brushToolView freshCanUndo:canUndo canRedo:canRedo];
+    [self.brushToolView freshClear:canClean];
+    [self.brushToolView freshErase:canErase];
 }
 
 @end

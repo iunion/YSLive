@@ -18,6 +18,8 @@ static NSString *const YSPERMISSION_USERDEFAULT_REPRODUCER = @"ysPERMISSION_USER
 
 /// 是否同意用户协议
 static NSString *const YS_UserAgreement = @"ys_USERAGREEMENT";
+/// 是否签到
+static NSString *const YS_UserSignin = @"ys_UserSignin";
 
 @interface YSUserDefault : NSObject
 
@@ -39,6 +41,10 @@ static NSString *const YS_UserAgreement = @"ys_USERAGREEMENT";
 /// 扬声器权限
 + (BOOL)getReproducerPermission;
 
+/// 是否签到
++ (void)setUserSignin:(NSString *)sign;
+/// 是否签到
++ (NSString *)getUserSignin;
 @end
 
 NS_ASSUME_NONNULL_END

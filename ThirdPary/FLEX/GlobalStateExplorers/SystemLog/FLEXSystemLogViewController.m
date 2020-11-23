@@ -3,7 +3,7 @@
 //  FLEX
 //
 //  Created by Ryan Olson on 1/19/15.
-//  Copyright (c) 2015 f. All rights reserved.
+//  Copyright (c) 2020 FLEX Team. All rights reserved.
 //
 
 #import "FLEXSystemLogViewController.h"
@@ -118,12 +118,12 @@ static BOOL my_os_log_shim_enabled(void *addr) {
     // Toolbar buttons //
 
     UIBarButtonItem *scrollDown = [UIBarButtonItem
-        itemWithImage:FLEXResources.scrollToBottomIcon
+        flex_itemWithImage:FLEXResources.scrollToBottomIcon
         target:self
         action:@selector(scrollToLastRow)
     ];
     UIBarButtonItem *settings = [UIBarButtonItem
-        itemWithImage:FLEXResources.gearIcon
+        flex_itemWithImage:FLEXResources.gearIcon
         target:self
         action:@selector(showLogSettings)
     ];
@@ -220,11 +220,11 @@ static BOOL my_os_log_shim_enabled(void *addr) {
     [FLEXAlert makeAlert:^(FLEXAlert *make) {
         make.title(title).message(body);
         make.button(aslToggle).destructiveStyle().handler(^(NSArray<NSString *> *strings) {
-            [defaults toggleBoolForKey:kFLEXDefaultsDisableOSLogForceASLKey];
+            [defaults flex_toggleBoolForKey:kFLEXDefaultsDisableOSLogForceASLKey];
         });
 
         make.button(persistence).handler(^(NSArray<NSString *> *strings) {
-            [defaults toggleBoolForKey:kFLEXDefaultsiOSPersistentOSLogKey];
+            [defaults flex_toggleBoolForKey:kFLEXDefaultsiOSPersistentOSLogKey];
             logController.persistent = !persistent;
             [logController.messages addObjectsFromArray:self.logMessages.list];
         });
@@ -265,8 +265,30 @@ static BOOL my_os_log_shim_enabled(void *addr) {
 - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     if (action == @selector(copy:)) {
         // We usually only want to copy the log message itself, not any metadata associated with it.
-        UIPasteboard.generalPasteboard.string = self.logMessages.filteredList[indexPath.row].messageText;
+        UIPasteboard.generalPasteboard.string = self.logMessages.filteredList[indexPath.row].messageText ?: @"";
     }
 }
+
+#if FLEX_AT_LEAST_IOS13_SDK
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView
+contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+                                    point:(CGPoint)point __IOS_AVAILABLE(13.0) {
+    __weak __typeof__(self) weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                   previewProvider:nil
+                                                    actionProvider:^UIMenu *(NSArray<UIMenuElement *> *suggestedActions) {
+        UIAction *copy = [UIAction actionWithTitle:@"Copy"
+                                             image:nil
+                                        identifier:@"Copy"
+                                           handler:^(__kindof UIAction *action) {
+            // We usually only want to copy the log message itself, not any metadata associated with it.
+            UIPasteboard.generalPasteboard.string = weakSelf.logMessages.filteredList[indexPath.row].messageText ?: @"";
+        }];
+        return [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:@[copy]];
+    }];
+}
+
+#endif
 
 @end

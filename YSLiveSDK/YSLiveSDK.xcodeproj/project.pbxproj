@@ -34,7 +34,6 @@
 		876BF7B924CFC3A8008E9848 /* YSLiveUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7A824CFC3A8008E9848 /* YSLiveUtil.h */; };
 		876BF7BA24CFC3A8008E9848 /* YSLiveManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7A924CFC3A8008E9848 /* YSLiveManager.h */; };
 		876BF7BB24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7AA24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h */; };
-		876BF7BC24CFC3A8008E9848 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876BF7AC24CFC3A8008E9848 /* CrashReporter.framework */; };
 		876BF7BD24CFC3A8008E9848 /* YSLiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF7AD24CFC3A8008E9848 /* YSLiveManager.m */; };
 		876BF7BE24CFC3A8008E9848 /* YSLiveMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF7AE24CFC3A8008E9848 /* YSLiveMacros.h */; };
 		876BF7BF24CFC3A8008E9848 /* YSLiveUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF7AF24CFC3A8008E9848 /* YSLiveUtil.m */; };
@@ -196,7 +195,7 @@
 		876BF9FB24CFC3D0008E9848 /* YSSignedAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF8D324CFC3CF008E9848 /* YSSignedAlertView.m */; };
 		876BF9FC24CFC3D0008E9848 /* YSPassWordAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D424CFC3CF008E9848 /* YSPassWordAlert.h */; };
 		876BF9FD24CFC3D0008E9848 /* YSPrizeAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D524CFC3CF008E9848 /* YSPrizeAlertView.h */; };
-		876BF9FE24CFC3D0008E9848 /* UIAlertController+SCAlertAutorotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */; };
+		876BF9FE24CFC3D0008E9848 /* UIAlertController+SCAlertAutorotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		876BF9FF24CFC3D0008E9848 /* YSPassWordAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 876BF8D724CFC3CF008E9848 /* YSPassWordAlert.m */; };
 		876BFA0024CFC3D0008E9848 /* YSSignedAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D824CFC3CF008E9848 /* YSSignedAlertView.h */; };
 		876BFA0124CFC3D0008E9848 /* BMAlertView+YSDefaultAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = 876BF8D924CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.h */; };
@@ -256,6 +255,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26CCE733254A6EE8008E4F29 /* YSSDKManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSDKManagerDelegate.h; sourceTree = "<group>"; };
 		26E5460925398778000BA3F5 /* YSLiveLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveLevelView.m; sourceTree = "<group>"; };
 		26E5460A25398778000BA3F5 /* YSLiveLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveLevelView.h; sourceTree = "<group>"; };
 		26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
@@ -283,7 +283,6 @@
 		876BF7A824CFC3A8008E9848 /* YSLiveUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		876BF7A924CFC3A8008E9848 /* YSLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveManager.h; sourceTree = "<group>"; };
 		876BF7AA24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveForWhiteBoardDelegate.h; sourceTree = "<group>"; };
-		876BF7AC24CFC3A8008E9848 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
 		876BF7AD24CFC3A8008E9848 /* YSLiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveManager.m; sourceTree = "<group>"; };
 		876BF7AE24CFC3A8008E9848 /* YSLiveMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveMacros.h; sourceTree = "<group>"; };
 		876BF7AF24CFC3A8008E9848 /* YSLiveUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveUtil.m; sourceTree = "<group>"; };
@@ -511,7 +510,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				876BF7BC24CFC3A8008E9848 /* CrashReporter.framework in Frameworks */,
 				876BF79124CFC35F008E9848 /* CloudHubRTC.framework in Frameworks */,
 				26F409FB2511FD6100E15466 /* CHWhiteBoard.framework in Frameworks */,
 				26F409FC2511FD6100E15466 /* CHSession.framework in Frameworks */,
@@ -560,7 +558,6 @@
 			isa = PBXGroup;
 			children = (
 				876BF7B024CFC3A8008E9848 /* YSLiveApiRequest */,
-				876BF7AB24CFC3A8008E9848 /* BMPerformanceTest  */,
 				876BF7A224CFC3A8008E9848 /* YSLiveEnumHeader.h */,
 				876BF7AE24CFC3A8008E9848 /* YSLiveMacros.h */,
 				876BF7AA24CFC3A8008E9848 /* YSLiveForWhiteBoardDelegate.h */,
@@ -583,14 +580,6 @@
 				876BF7A724CFC3A8008E9848 /* YSPermissionsVC.h */,
 			);
 			path = YSPermissions;
-			sourceTree = "<group>";
-		};
-		876BF7AB24CFC3A8008E9848 /* BMPerformanceTest  */ = {
-			isa = PBXGroup;
-			children = (
-				876BF7AC24CFC3A8008E9848 /* CrashReporter.framework */,
-			);
-			path = "BMPerformanceTest ";
 			sourceTree = "<group>";
 		};
 		876BF7B024CFC3A8008E9848 /* YSLiveApiRequest */ = {
@@ -791,27 +780,11 @@
 			isa = PBXGroup;
 			children = (
 				876BF80924CFC3CF008E9848 /* YSMainVC.h */,
-				876BF80A24CFC3CF008E9848 /* Images */,
-				876BF80B24CFC3CF008E9848 /* mp3pnglist */,
 				876BF80C24CFC3CF008E9848 /* YSMainVC.m */,
 				26E5460A25398778000BA3F5 /* YSLiveLevelView.h */,
 				26E5460925398778000BA3F5 /* YSLiveLevelView.m */,
 			);
 			path = YSMainVC;
-			sourceTree = "<group>";
-		};
-		876BF80A24CFC3CF008E9848 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		876BF80B24CFC3CF008E9848 /* mp3pnglist */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = mp3pnglist;
 			sourceTree = "<group>";
 		};
 		876BF80D24CFC3CF008E9848 /* YSChat */ = {
@@ -1087,16 +1060,16 @@
 		876BF8D124CFC3CF008E9848 /* YSAlertView */ = {
 			isa = PBXGroup;
 			children = (
-				876BF8D224CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.m */,
-				876BF8D324CFC3CF008E9848 /* YSSignedAlertView.m */,
-				876BF8D424CFC3CF008E9848 /* YSPassWordAlert.h */,
-				876BF8D524CFC3CF008E9848 /* YSPrizeAlertView.h */,
-				876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */,
-				876BF8D724CFC3CF008E9848 /* YSPassWordAlert.m */,
-				876BF8D824CFC3CF008E9848 /* YSSignedAlertView.h */,
 				876BF8D924CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.h */,
+				876BF8D224CFC3CF008E9848 /* BMAlertView+YSDefaultAlert.m */,
+				876BF8D624CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.h */,
 				876BF8DA24CFC3CF008E9848 /* UIAlertController+SCAlertAutorotate.m */,
+				876BF8D424CFC3CF008E9848 /* YSPassWordAlert.h */,
+				876BF8D724CFC3CF008E9848 /* YSPassWordAlert.m */,
+				876BF8D524CFC3CF008E9848 /* YSPrizeAlertView.h */,
 				876BF8DB24CFC3CF008E9848 /* YSPrizeAlertView.m */,
+				876BF8D824CFC3CF008E9848 /* YSSignedAlertView.h */,
+				876BF8D324CFC3CF008E9848 /* YSSignedAlertView.m */,
 			);
 			path = YSAlertView;
 			sourceTree = "<group>";
@@ -1173,12 +1146,12 @@
 		876BF8FF24CFC3D0008E9848 /* YSSuperTableVC */ = {
 			isa = PBXGroup;
 			children = (
-				876BF90024CFC3D0008E9848 /* YSTableView.h */,
-				876BF90124CFC3D0008E9848 /* YSSetTableViewVC.m */,
-				876BF90224CFC3D0008E9848 /* YSTableViewVC.h */,
-				876BF90324CFC3D0008E9848 /* YSTableView.m */,
-				876BF90424CFC3D0008E9848 /* YSTableViewVC.m */,
 				876BF90524CFC3D0008E9848 /* YSSetTableViewVC.h */,
+				876BF90124CFC3D0008E9848 /* YSSetTableViewVC.m */,
+				876BF90024CFC3D0008E9848 /* YSTableView.h */,
+				876BF90324CFC3D0008E9848 /* YSTableView.m */,
+				876BF90224CFC3D0008E9848 /* YSTableViewVC.h */,
+				876BF90424CFC3D0008E9848 /* YSTableViewVC.m */,
 			);
 			path = YSSuperTableVC;
 			sourceTree = "<group>";
@@ -1186,10 +1159,10 @@
 		876BF90A24CFC3D0008E9848 /* YSMainSuperVC */ = {
 			isa = PBXGroup;
 			children = (
-				876BF90B24CFC3D0008E9848 /* YSMainSuperVC.h */,
 				876BF90C24CFC3D0008E9848 /* YSClassMainSuperVC.h */,
-				876BF90D24CFC3D0008E9848 /* YSMainSuperVC.m */,
 				876BF90E24CFC3D0008E9848 /* YSClassMainSuperVC.m */,
+				876BF90B24CFC3D0008E9848 /* YSMainSuperVC.h */,
+				876BF90D24CFC3D0008E9848 /* YSMainSuperVC.m */,
 			);
 			path = YSMainSuperVC;
 			sourceTree = "<group>";
@@ -1229,6 +1202,7 @@
 				876BFA3F24CFC4D0008E9848 /* YSSkinManager */,
 				876BF7C324CFC3CE008E9848 /* YSLive */,
 				87DBE921241F510E000C1FB5 /* YSLiveSDK.h */,
+				26CCE733254A6EE8008E4F29 /* YSSDKManagerDelegate.h */,
 				87DBE922241F510E000C1FB5 /* YSSDKDefine.h */,
 				87DBE923241F510E000C1FB5 /* YSSDKDelegate.h */,
 				87DBE920241F510E000C1FB5 /* YSSDKManager.h */,
@@ -1699,7 +1673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201016;
+				CURRENT_PROJECT_VERSION = 20201110;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1717,6 +1691,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					YSSDK,
+					"YSAutorotateNO=0",
 				);
 				INFOPLIST_FILE = YSLiveSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1727,7 +1702,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.6.2;
+				MARKETING_VERSION = 3.3.7.6;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
@@ -1742,7 +1717,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201016;
+				CURRENT_PROJECT_VERSION = 20201110;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1758,6 +1733,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					YSSDK,
+					"YSAutorotateNO=0",
 				);
 				INFOPLIST_FILE = YSLiveSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1768,7 +1744,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.6.2;
+				MARKETING_VERSION = 3.3.7.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
 				PRODUCT_NAME = YSSDK;

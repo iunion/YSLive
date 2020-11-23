@@ -22,6 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		264A16A225355433000916F2 /* BMCountDownButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 264A16A025355433000916F2 /* BMCountDownButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		264A16A325355433000916F2 /* BMCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A16A125355433000916F2 /* BMCountDownButton.m */; };
 		34497707241D1BD6009E8B3A /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87901A2E2417353800FF38EC /* BMTZImagePickerController.bundle */; };
 		34497708241D1C0E009E8B3A /* NSBundle+BMTZImagePicker.m in Resources */ = {isa = PBXBuildFile; fileRef = 87901A1B241729D800FF38EC /* NSBundle+BMTZImagePicker.m */; };
 		8701AD9C23714E1500A43607 /* BMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701AD9A23714E1500A43607 /* BMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -510,6 +512,19 @@
 		87A186D42508D31100607E24 /* BMCloudHubUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A186D22508D31100607E24 /* BMCloudHubUtil.m */; };
 		87A186DC2509CC3D00607E24 /* NSError+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A186DA2509CC3D00607E24 /* NSError+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87A186DD2509CC3D00607E24 /* NSError+BMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A186DB2509CC3D00607E24 /* NSError+BMCategory.m */; };
+		87B47FE02546B07500DB986C /* BMCacheOperationQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FDE2546B07500DB986C /* BMCacheOperationQueue.h */; };
+		87B47FE12546B07500DB986C /* BMCacheOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B47FDF2546B07500DB986C /* BMCacheOperationQueue.m */; };
+		87B47FE82546B1CE00DB986C /* BMCacheOperationGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FE62546B1CE00DB986C /* BMCacheOperationGroup.h */; };
+		87B47FE92546B1CE00DB986C /* BMCacheOperationGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B47FE72546B1CE00DB986C /* BMCacheOperationGroup.m */; };
+		87B47FEE2546B96F00DB986C /* BMDiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FEC2546B96F00DB986C /* BMDiskCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87B47FEF2546B96F00DB986C /* BMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B47FED2546B96F00DB986C /* BMDiskCache.m */; };
+		87B47FF52546CDEB00DB986C /* BMMemoryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FF32546CDEB00DB986C /* BMMemoryCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87B47FF62546CDEB00DB986C /* BMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B47FF42546CDEB00DB986C /* BMMemoryCache.m */; };
+		87B47FFB2546D60B00DB986C /* BMCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FF92546D60B00DB986C /* BMCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87B47FFC2546D60B00DB986C /* BMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B47FFA2546D60B00DB986C /* BMCache.m */; };
+		87B47FFF2546DCA700DB986C /* BMCacheMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD92546ADDB00DB986C /* BMCacheMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87B480022546DCAC00DB986C /* BMCacheProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD32546AC1F00DB986C /* BMCacheProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87B480072546DCB000DB986C /* BMCacheObjectSubscripting.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD62546AD9500DB986C /* BMCacheObjectSubscripting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -523,6 +538,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		264A16A025355433000916F2 /* BMCountDownButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCountDownButton.h; sourceTree = "<group>"; };
+		264A16A125355433000916F2 /* BMCountDownButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCountDownButton.m; sourceTree = "<group>"; };
 		8701AD9723714E1500A43607 /* BMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8701AD9A23714E1500A43607 /* BMKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKit.h; sourceTree = "<group>"; };
 		8701AD9B23714E1500A43607 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -766,7 +783,6 @@
 		8742FC8324F3A12900BDF294 /* BMSDWebImageError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDWebImageError.h; sourceTree = "<group>"; };
 		8742FC8424F3A12900BDF294 /* BMSDImageLoadersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSDImageLoadersManager.m; sourceTree = "<group>"; };
 		8742FC8524F3A12900BDF294 /* BMSDWebImageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDWebImageDefine.h; sourceTree = "<group>"; };
-		8742FC8624F3A12900BDF294 /* BMSDImageAWebPCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSDImageAWebPCoder.m; sourceTree = "<group>"; };
 		8742FC8724F3A12900BDF294 /* BMSDWebImagePrefetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSDWebImagePrefetcher.m; sourceTree = "<group>"; };
 		8742FC8824F3A12900BDF294 /* NSButton+BMWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+BMWebCache.m"; sourceTree = "<group>"; };
 		8742FC8924F3A12900BDF294 /* BMSDAnimatedImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BMSDAnimatedImageView+WebCache.m"; sourceTree = "<group>"; };
@@ -826,7 +842,6 @@
 		8742FCBF24F3A12900BDF294 /* BMSDImageCoderHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDImageCoderHelper.h; sourceTree = "<group>"; };
 		8742FCC024F3A12900BDF294 /* BMSDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDWebImageCompat.h; sourceTree = "<group>"; };
 		8742FCC124F3A12900BDF294 /* BMSDAnimatedImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BMSDAnimatedImageView+WebCache.h"; sourceTree = "<group>"; };
-		8742FCC224F3A12900BDF294 /* BMSDImageAWebPCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDImageAWebPCoder.h; sourceTree = "<group>"; };
 		8742FCC324F3A12900BDF294 /* BMSDWebImagePrefetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDWebImagePrefetcher.h; sourceTree = "<group>"; };
 		8742FCC424F3A12900BDF294 /* NSButton+BMWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+BMWebCache.h"; sourceTree = "<group>"; };
 		8742FCC524F3A12900BDF294 /* BMSDWebImageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSDWebImageDefine.m; sourceTree = "<group>"; };
@@ -1014,6 +1029,22 @@
 		87A186D22508D31100607E24 /* BMCloudHubUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCloudHubUtil.m; sourceTree = "<group>"; };
 		87A186DA2509CC3D00607E24 /* NSError+BMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+BMCategory.h"; sourceTree = "<group>"; };
 		87A186DB2509CC3D00607E24 /* NSError+BMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+BMCategory.m"; sourceTree = "<group>"; };
+		87B47FD32546AC1F00DB986C /* BMCacheProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheProtocol.h; sourceTree = "<group>"; };
+		87B47FD62546AD9500DB986C /* BMCacheObjectSubscripting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheObjectSubscripting.h; sourceTree = "<group>"; };
+		87B47FD92546ADDB00DB986C /* BMCacheMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheMacros.h; sourceTree = "<group>"; };
+		87B47FDB2546AF6800DB986C /* BMCacheOperationMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheOperationMacros.h; sourceTree = "<group>"; };
+		87B47FDC2546AFEF00DB986C /* BMCacheOperationTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheOperationTypes.h; sourceTree = "<group>"; };
+		87B47FDD2546B03900DB986C /* BMCacheOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheOperation.h; sourceTree = "<group>"; };
+		87B47FDE2546B07500DB986C /* BMCacheOperationQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheOperationQueue.h; sourceTree = "<group>"; };
+		87B47FDF2546B07500DB986C /* BMCacheOperationQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCacheOperationQueue.m; sourceTree = "<group>"; };
+		87B47FE62546B1CE00DB986C /* BMCacheOperationGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCacheOperationGroup.h; sourceTree = "<group>"; };
+		87B47FE72546B1CE00DB986C /* BMCacheOperationGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCacheOperationGroup.m; sourceTree = "<group>"; };
+		87B47FEC2546B96F00DB986C /* BMDiskCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMDiskCache.h; sourceTree = "<group>"; };
+		87B47FED2546B96F00DB986C /* BMDiskCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMDiskCache.m; sourceTree = "<group>"; };
+		87B47FF32546CDEB00DB986C /* BMMemoryCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMMemoryCache.h; sourceTree = "<group>"; };
+		87B47FF42546CDEB00DB986C /* BMMemoryCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMMemoryCache.m; sourceTree = "<group>"; };
+		87B47FF92546D60B00DB986C /* BMCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCache.h; sourceTree = "<group>"; };
+		87B47FFA2546D60B00DB986C /* BMCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1027,6 +1058,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		264A169D25355372000916F2 /* BMCountDownButton */ = {
+			isa = PBXGroup;
+			children = (
+				264A16A025355433000916F2 /* BMCountDownButton.h */,
+				264A16A125355433000916F2 /* BMCountDownButton.m */,
+			);
+			path = BMCountDownButton;
+			sourceTree = "<group>";
+		};
 		8701AD8D23714E1500A43607 = {
 			isa = PBXGroup;
 			children = (
@@ -1207,6 +1247,7 @@
 		8701AEA12371550000A43607 /* BMTools */ = {
 			isa = PBXGroup;
 			children = (
+				264A169D25355372000916F2 /* BMCountDownButton */,
 				8779E57723F2D3FC008E885C /* BMRSA */,
 				8701AEA22371550000A43607 /* BMAlertView */,
 				8701AF2923715B9400A43607 /* BMAlignedImageView */,
@@ -1260,6 +1301,7 @@
 			children = (
 				8790199D2416483700FF38EC /* AFNetworking */,
 				87901A3C24176EB500FF38EC /* Masonry */,
+				87B47FD22546AB7700DB986C /* PINCache */,
 				8742FC7124F3A12900BDF294 /* SDWebImage */,
 				879019D9241727BF00FF38EC /* TZImagePickerController */,
 				8790199B24163F4C00FF38EC /* BMKitThird.h */,
@@ -1555,8 +1597,6 @@
 				8742FC9D24F3A12900BDF294 /* BMSDGraphicsImageRenderer.m */,
 				8742FCBE24F3A12900BDF294 /* BMSDImageAPNGCoder.h */,
 				8742FC8C24F3A12900BDF294 /* BMSDImageAPNGCoder.m */,
-				8742FCC224F3A12900BDF294 /* BMSDImageAWebPCoder.h */,
-				8742FC8624F3A12900BDF294 /* BMSDImageAWebPCoder.m */,
 				8742FCD724F3A12900BDF294 /* BMSDImageCache.h */,
 				8742FC8F24F3A12900BDF294 /* BMSDImageCache.m */,
 				8742FC7824F3A12900BDF294 /* BMSDImageCacheConfig.h */,
@@ -1972,6 +2012,37 @@
 			path = BMCloudHubUtil;
 			sourceTree = "<group>";
 		};
+		87B47FD22546AB7700DB986C /* PINCache */ = {
+			isa = PBXGroup;
+			children = (
+				87B47FDA2546AF2F00DB986C /* BMCacheOperation */,
+				87B47FD92546ADDB00DB986C /* BMCacheMacros.h */,
+				87B47FD32546AC1F00DB986C /* BMCacheProtocol.h */,
+				87B47FD62546AD9500DB986C /* BMCacheObjectSubscripting.h */,
+				87B47FEC2546B96F00DB986C /* BMDiskCache.h */,
+				87B47FED2546B96F00DB986C /* BMDiskCache.m */,
+				87B47FF32546CDEB00DB986C /* BMMemoryCache.h */,
+				87B47FF42546CDEB00DB986C /* BMMemoryCache.m */,
+				87B47FF92546D60B00DB986C /* BMCache.h */,
+				87B47FFA2546D60B00DB986C /* BMCache.m */,
+			);
+			path = PINCache;
+			sourceTree = "<group>";
+		};
+		87B47FDA2546AF2F00DB986C /* BMCacheOperation */ = {
+			isa = PBXGroup;
+			children = (
+				87B47FDB2546AF6800DB986C /* BMCacheOperationMacros.h */,
+				87B47FDC2546AFEF00DB986C /* BMCacheOperationTypes.h */,
+				87B47FDD2546B03900DB986C /* BMCacheOperation.h */,
+				87B47FDE2546B07500DB986C /* BMCacheOperationQueue.h */,
+				87B47FDF2546B07500DB986C /* BMCacheOperationQueue.m */,
+				87B47FE62546B1CE00DB986C /* BMCacheOperationGroup.h */,
+				87B47FE72546B1CE00DB986C /* BMCacheOperationGroup.m */,
+			);
+			path = BMCacheOperation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1979,6 +2050,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				264A16A225355433000916F2 /* BMCountDownButton.h in Headers */,
 				876C87BB25031EE80029248C /* BMHttpRequest.h in Headers */,
 				8742FE1924F3A12A00BDF294 /* BMSDWebImageCompat.h in Headers */,
 				8742FE2424F3A12A00BDF294 /* BMSDImageHEICCoder.h in Headers */,
@@ -1999,7 +2071,9 @@
 				8742FDF924F3A12A00BDF294 /* BMSDImageCoder.h in Headers */,
 				8742FE1624F3A12A00BDF294 /* BMSDImageCodersManager.h in Headers */,
 				8742FDEB24F3A12A00BDF294 /* BMSDAnimatedImagePlayer.h in Headers */,
+				87B47FFF2546DCA700DB986C /* BMCacheMacros.h in Headers */,
 				8742FE1A24F3A12A00BDF294 /* BMSDAnimatedImageView+WebCache.h in Headers */,
+				87B47FFB2546D60B00DB986C /* BMCache.h in Headers */,
 				8742FDCC24F3A12A00BDF294 /* BMSDAnimatedImageView.h in Headers */,
 				8742FDFE24F3A12A00BDF294 /* BMSDAnimatedImage.h in Headers */,
 				8742FE0624F3A12A00BDF294 /* UIImage+BMTransform.h in Headers */,
@@ -2052,6 +2126,7 @@
 				87901A5B24176EB500FF38EC /* BMMASConstraintMaker.h in Headers */,
 				87901A6C24176EB500FF38EC /* ViewController+BMMASAdditions.h in Headers */,
 				87901A1C241729D800FF38EC /* NSBundle+BMTZImagePicker.h in Headers */,
+				87B480072546DCB000DB986C /* BMCacheObjectSubscripting.h in Headers */,
 				87901A2C2417349D00FF38EC /* BMTZImageManager.h in Headers */,
 				87901A222417308900FF38EC /* BMTZAssetModel.h in Headers */,
 				87901A242417308900FF38EC /* BMTZAssetCell.h in Headers */,
@@ -2123,9 +2198,11 @@
 				8701AE3323714E6000A43607 /* CAAnimation+Animation.h in Headers */,
 				8701AE4823714E6000A43607 /* NSAttributedString+BMCategory.h in Headers */,
 				8701AE3523714E6000A43607 /* UILabel+BMCategory.h in Headers */,
+				87B47FEE2546B96F00DB986C /* BMDiskCache.h in Headers */,
 				8701AE1D23714E6000A43607 /* UIImageView+BMCategory.h in Headers */,
 				8701AE0B23714E6000A43607 /* UIView+BMOutSide.h in Headers */,
 				8701AE6523714E6000A43607 /* BMUICategory.h in Headers */,
+				87B47FE02546B07500DB986C /* BMCacheOperationQueue.h in Headers */,
 				8701AE3723714E6000A43607 /* UIDevice+BMCategory.h in Headers */,
 				8701AE2023714E6000A43607 /* UIFont+BMCategory.h in Headers */,
 				8701AE4723714E6000A43607 /* NSNumber+BMCategory.h in Headers */,
@@ -2170,6 +2247,7 @@
 				8701B0FA237165AA00A43607 /* BMTableViewItem.h in Headers */,
 				8701B0E2237165AA00A43607 /* BMTableViewStepperInputCell.h in Headers */,
 				8701B0EA237165AA00A43607 /* BMTableViewNumberTextCell.h in Headers */,
+				87B480022546DCAC00DB986C /* BMCacheProtocol.h in Headers */,
 				8701B0E1237165AA00A43607 /* BMTableViewMaskTextCell.h in Headers */,
 				8701B11B237165AA00A43607 /* BMBoolItem.h in Headers */,
 				8701B0EB237165AA00A43607 /* BMTableViewCheckBoxGroupCell.h in Headers */,
@@ -2209,7 +2287,9 @@
 				87901A5824176EB500FF38EC /* BMMASConstraint+Private.h in Headers */,
 				8701AF8423715F5500A43607 /* BMNavigationBarDefine.h in Headers */,
 				8701AE4A23714E6000A43607 /* emojiCodes.h in Headers */,
+				87B47FF52546CDEB00DB986C /* BMMemoryCache.h in Headers */,
 				8701AE5223714E6000A43607 /* NSString+BMEncrypt.h in Headers */,
+				87B47FE82546B1CE00DB986C /* BMCacheOperationGroup.h in Headers */,
 				8701AE6123714E6000A43607 /* NSBundle+BMResource.h in Headers */,
 				8701AE1B23714E6000A43607 /* UITextField+BMCategory.h in Headers */,
 				8701AE2123714E6000A43607 /* UIButton+BMCategory.h in Headers */,
@@ -2385,6 +2465,7 @@
 				87901A252417308900FF38EC /* BMTZAssetCell.m in Sources */,
 				8742FF1E24F3A12B00BDF294 /* BMSDInternalMacros.m in Sources */,
 				8742FDF324F3A12A00BDF294 /* BMSDImageHEICCoder.m in Sources */,
+				87B47FF62546CDEB00DB986C /* BMMemoryCache.m in Sources */,
 				8742FDD524F3A12A00BDF294 /* UIImageView+BMWebCache.m in Sources */,
 				8742FE2124F3A12A00BDF294 /* BMSDWebImageError.m in Sources */,
 				8701B0E9237165AA00A43607 /* BMTableViewSliderCell.m in Sources */,
@@ -2407,6 +2488,7 @@
 				8701AE5E23714E6000A43607 /* NSObject+BMCategory.m in Sources */,
 				8701AE5123714E6000A43607 /* NSString+BMRoundNumber.m in Sources */,
 				87901A232417308900FF38EC /* BMTZAssetModel.m in Sources */,
+				87B47FEF2546B96F00DB986C /* BMDiskCache.m in Sources */,
 				8742FE2324F3A12A00BDF294 /* BMSDWebImageOptionsProcessor.m in Sources */,
 				8701AE1E23714E6000A43607 /* CAAnimation+Animation.m in Sources */,
 				87901A2D2417349D00FF38EC /* BMTZImageManager.m in Sources */,
@@ -2445,6 +2527,7 @@
 				87A186D42508D31100607E24 /* BMCloudHubUtil.m in Sources */,
 				8742FE4624F3A12A00BDF294 /* BMSDAsyncBlockOperation.m in Sources */,
 				8701B113237165AA00A43607 /* BMLongTextItem.m in Sources */,
+				264A16A325355433000916F2 /* BMCountDownButton.m in Sources */,
 				8742FDE524F3A12A00BDF294 /* BMSDImageAPNGCoder.m in Sources */,
 				8742FDDA24F3A12A00BDF294 /* UIImage+BMTransform.m in Sources */,
 				8742FDF624F3A12A00BDF294 /* BMSDGraphicsImageRenderer.m in Sources */,
@@ -2524,6 +2607,7 @@
 				8777C78B23EA72A2002002BF /* BMFreshGifHeader.m in Sources */,
 				8701AE4D23714E6000A43607 /* NSString+BMMandarinLatin.m in Sources */,
 				8777C77B23EA72A2002002BF /* BMFreshNormalHeader.m in Sources */,
+				87B47FFC2546D60B00DB986C /* BMCache.m in Sources */,
 				8701AF2D23715B9400A43607 /* BMAlignedImageView.m in Sources */,
 				8701AE3623714E6000A43607 /* CAAnimation+Blocks.m in Sources */,
 				8701AF8B23715F5500A43607 /* BMNavigationController.m in Sources */,
@@ -2554,8 +2638,10 @@
 				8742FDDD24F3A12A00BDF294 /* BMSDImageLoadersManager.m in Sources */,
 				8701B0902371650F00A43607 /* BMCheckBoxLabel.m in Sources */,
 				8701AE3E23714E6000A43607 /* NSBundle+BMCategory.m in Sources */,
+				87B47FE12546B07500DB986C /* BMCacheOperationQueue.m in Sources */,
 				87901A0C241727BF00FF38EC /* BMTZPhotoPickerController.m in Sources */,
 				8701B124237165AA00A43607 /* BMTableViewActionBar.m in Sources */,
+				87B47FE92546B1CE00DB986C /* BMCacheOperationGroup.m in Sources */,
 				8779E57A23F2D3FC008E885C /* BMRSA.m in Sources */,
 				8701B0E5237165AA00A43607 /* BMTableViewTextCell.m in Sources */,
 				8742FDD624F3A12A00BDF294 /* BMSDWebImageDownloader.m in Sources */,
@@ -2696,7 +2782,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200924;
+				CURRENT_PROJECT_VERSION = 20201106;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2715,7 +2801,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-Objc",
@@ -2733,7 +2819,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200924;
+				CURRENT_PROJECT_VERSION = 20201106;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2752,7 +2838,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.3;
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",

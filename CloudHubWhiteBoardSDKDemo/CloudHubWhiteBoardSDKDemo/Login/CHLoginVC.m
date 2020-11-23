@@ -20,6 +20,7 @@
 /// 海信
 //#define APPID @"ocrKJoD4WdDrfDPZ"
 
+// 请填写appId
 #define APPID @"n1cq1Le0ypVtTJek"
 
 #define USE_COOKIES     0
@@ -55,9 +56,6 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 @property (nonatomic, strong) UILabel *bottomVersionL;
 /// 进入教室按钮
 @property (nonatomic, strong) UIButton *joinRoomBtn;
-
-/// 当前用户数据
-@property (nonatomic, strong) CHRoomUser *localUser;
 
 @property (assign, nonatomic) NSInteger role;
 /// 默认服务
@@ -98,7 +96,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [super viewDidLoad];
  
     [self setupUI];
-
+    
     self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
     self.progressHUD.animationType = MBProgressHUDAnimationFade;
     [self.view addSubview:self.progressHUD];
@@ -487,26 +485,40 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     [self joinRoomWithWithHost:nil port:0 nickName:nickName roomId:roomId roomPassword:nil];
 }
 
+- (NSString *)bm_toJSONWithDic:(NSDictionary *)dic
+{
+    NSString *json = nil;
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:&error];
+    
+    if (!jsonData)
+    {
+        return @"{}";
+    }
+    else if (!error)
+    {
+        json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return json;
+    }
+    
+    return nil;
+}
+
 - (BOOL)joinRoomWithWithHost:(NSString *)host port:(NSUInteger)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword
 {
     // 用户ID
-    NSString * userId = [[NSUUID UUID] UUIDString];
-    self.localUser = [[CHRoomUser alloc] initWithPeerId:userId];
-
-    // 用户属性
-    self.localUser.nickName = nickName;
+    NSString *userId = [[NSUUID UUID] UUIDString];
 
     // 初始化 cloudHubRtcEngineKit
 #if 0
     // rtcEngineKit 使用http，所以端口是80
-    NSDictionary *rtcEngineKitConfig = @{ @"server":@"demo.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
-    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[rtcEngineKitConfig bm_toJSON]];
+    NSDictionary *rtcEngineKitConfig = @{ @"server":@"release.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
+    self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:@"" config:[self bm_toJSONWithDic:rtcEngineKitConfig]];
 #else
     self.cloudHubRtcEngineKit = [CloudHubRtcEngineKit sharedEngineWithAppId:APPID config:nil];
-    
-    self.cloudHubManager.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
 #endif
     
+    self.cloudHubManager.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
     
 #ifdef DEBUG
     [self.cloudHubRtcEngineKit setLogFilter:1];
@@ -518,9 +530,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 
     CloudHubWhiteBoardConfig *whiteBoardConfig = [[CloudHubWhiteBoardConfig alloc] init];
     //whiteBoardConfig.isMultiCourseware = YES;
-    [self.cloudHubManager registeWhiteBoardWithConfigration:whiteBoardConfig];
+    [self.cloudHubManager registeWhiteBoardWithConfigration:whiteBoardConfig userId:userId nickName:nickName];
     
-    if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:self.localUser.peerID joinSuccess:nil] != 0)
+    if ([self.cloudHubRtcEngineKit joinChannelByToken:@"" channelId:roomId properties:nil uid:userId joinSuccess:nil] != 0)
     {
         NSLog(@"Join Channel failed!!");
         return NO;
@@ -575,11 +587,16 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
 }
 
 
-
-
 #pragma mark - CHWhiteBoardManagerDelegate
 
-/// 白板准备完毕
+/// 白板管理初始化失败
+- (void)onWhiteBroadCreateFail
+{
+    [CloudHubWhiteBoardKit destroy];
+    self.cloudHubRtcEngineKit = nil;
+}
+
+/// 白板管理准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
 {
     GetAppDelegate.allowRotation = YES;
@@ -592,65 +609,6 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"chLOGIN_USERDEFAULT_NICK
     mainVC.cloudHubRtcEngineKit = self.cloudHubRtcEngineKit;
     mainVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:mainVC animated:YES completion:nil];
-}
-
-/**
- 文件列表回调
- @param fileList 文件NSDictionary列表
- */
-- (void)onWhiteBroadFileList:(NSArray *)fileList
-{
-    
-}
-
-/// H5脚本文件加载初始化完成
-- (void)onWhiteBoardPageFinshed:(NSString *)fileId
-{
-    
-}
-
-/// 切换Web课件加载状态
-- (void)onWhiteBoardLoadedState:(NSString *)fileId withState:(NSDictionary *)dic
-{
-    
-}
-
-/// Web课件翻页结果
-- (void)onWhiteBoardStateUpdate:(NSString *)fileId withState:(NSDictionary *)dic
-{
-    
-}
-/// 翻页超时
-- (void)onWhiteBoardSlideLoadTimeout:(NSString *)fileId withState:(NSDictionary *)dic
-{
-    
-}
-/// 课件缩放
-- (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
-{
-    
-}
-
-
-#pragma mark - 课件事件
-
-/// 课件全屏
-- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen
-{
-    
-}
-
-/// 切换课件
-- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
-{
-    
-}
-
-
-/// 课件窗口最大化事件
-- (void)onWhiteBoardMaximizeView
-{
-    
 }
 
 @end

@@ -76,4 +76,7 @@
 /// Masonry
 #import "BMMasonry.h"
 
+/// PINCache
+#import "BMCache.h"
+
 #endif /* BMKitThird_h */
