@@ -69,7 +69,7 @@
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
