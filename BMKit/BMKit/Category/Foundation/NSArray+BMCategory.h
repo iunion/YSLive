@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NSArray (BMCategory)
 
@@ -126,3 +127,10 @@
 
 @end
 
+@interface NSArray (UIValue)
+
+- (CGPoint)bm_pointAtIndex:(NSUInteger)index;
+- (CGSize)bm_sizeAtIndex:(NSUInteger)index;
+- (CGRect)bm_rectAtIndex:(NSUInteger)index;
+
+@end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NSMutableArray (BMCategory)
 
@@ -25,5 +26,14 @@
 - (NSUInteger)bm_replaceObject:(nonnull id)objectToReplace withObject:(nonnull id)object;
 
 - (void)bm_shuffle;
+
+@end
+
+
+@interface NSMutableArray (UIValue)
+
+- (void)bm_addPoint:(CGPoint)point;
+- (void)bm_addSize:(CGSize)size;
+- (void)bm_addRect:(CGRect)rect;
 
 @end

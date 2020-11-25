@@ -426,3 +426,57 @@
 
 @end
 
+@implementation NSArray (UIValue)
+
+- (CGPoint)bm_pointAtIndex:(NSUInteger)index
+{
+    CGPoint point = CGPointZero;
+    NSDictionary *dictionary = [self objectAtIndex:index];
+    
+    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        BOOL success = CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &point);
+        if (success)
+            return point;
+        else
+            return CGPointZero;
+    }
+    
+    return CGPointZero;
+}
+
+- (CGSize)bm_sizeAtIndex:(NSUInteger)index
+{
+    CGSize size = CGSizeZero;
+    NSDictionary *dictionary = [self objectAtIndex:index];
+    
+    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        BOOL success = CGSizeMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &size);
+        if (success)
+            return size;
+        else
+            return CGSizeZero;
+    }
+    
+    return CGSizeZero;
+}
+
+- (CGRect)bm_rectAtIndex:(NSUInteger)index
+{
+    CGRect rect = CGRectZero;
+    NSDictionary *dictionary = [self objectAtIndex:index];
+    
+    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    {
+        BOOL success = CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &rect);
+        if (success)
+            return rect;
+        else
+            return CGRectZero;
+    }
+    
+    return CGRectZero;
+}
+
+@end

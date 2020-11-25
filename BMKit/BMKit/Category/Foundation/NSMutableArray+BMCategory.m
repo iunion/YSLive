@@ -128,3 +128,38 @@
 }
 
 @end
+
+
+@implementation NSMutableArray (UIValue)
+
+- (void)bm_addPoint:(CGPoint)point
+{
+    CFDictionaryRef dictionary = CGPointCreateDictionaryRepresentation(point);
+    NSDictionary *pointDict = [NSDictionary dictionaryWithDictionary:
+                               (__bridge NSDictionary *)dictionary]; // autoreleased
+    CFRelease(dictionary);
+    
+    [self addObject:pointDict];
+}
+
+- (void)bm_addSize:(CGSize)size
+{
+    CFDictionaryRef dictionary = CGSizeCreateDictionaryRepresentation(size);
+    NSDictionary *sizeDict = [NSDictionary dictionaryWithDictionary:
+                               (__bridge NSDictionary *)dictionary]; // autoreleased
+    CFRelease(dictionary);
+    
+    [self addObject:sizeDict];
+}
+
+- (void)bm_addRect:(CGRect)rect
+{
+    CFDictionaryRef dictionary = CGRectCreateDictionaryRepresentation(rect);
+    NSDictionary *rectDict = [NSDictionary dictionaryWithDictionary:
+                              (__bridge NSDictionary *)dictionary]; // autoreleased
+    CFRelease(dictionary);
+    
+    [self addObject:rectDict];
+}
+
+@end
