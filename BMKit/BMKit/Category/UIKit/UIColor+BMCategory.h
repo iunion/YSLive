@@ -18,12 +18,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 格式支持 #RRGGBB   #AARRGGBB   #RGB ==> #RRGGBB   #ARGB ==> #AARRGGBB
 /// # 前缀  R 红色  G 绿色  B 蓝色  A alpha
 /// 其中格式#RGB 会被转换为 #RRGGBB 例 #ABC ==> #AABBCC
-/// 其中格式#ARGB 会被转换为 #AAARRGGBB 例 #0ABC ==> #00AABBCC
+/// 其中格式#ARGB 会被转换为 #AARRGGBB 例 #0ABC ==> #00AABBCC
 /// 透明色指定使用 #0 或 0x0
 + (nullable UIColor *)bm_colorWithHexString:(nullable NSString *)stringToConvert;
 + (nullable UIColor *)bm_colorWithHexString:(nullable NSString *)stringToConvert alpha:(CGFloat)alpha;
 + (nullable UIColor *)bm_colorWithHexString:(nullable NSString *)stringToConvert default:(nullable UIColor *)color;
 + (nullable UIColor *)bm_colorWithHexString:(NSString *)stringToConvert alpha:(CGFloat)alpha default:(nullable UIColor *)color;
+
+/// 格式支持 #RRGGBBAA
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert;
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert alpha:(CGFloat)alpha;
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert  alpha:(CGFloat)alpha default:(nullable UIColor *)color;
 
 + (UIColor *)bm_colorWithHex:(UInt32)hex;
 + (UIColor *)bm_colorWithHex:(UInt32)hex alpha:(CGFloat)alpha;
@@ -33,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)bm_hexString;
 - (NSString *)bm_hexStringWithStartChar:(NSString *)startChar;
 - (NSString *)bm_hexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha;
+
+- (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha;
 
 + (UIColor *)bm_randomColor;
 + (UIColor *)bm_randomColorWithAlpha:(CGFloat)alpha;
@@ -67,6 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) CGFloat luminance;
 @property (nonatomic, readonly) UInt32 rgbHex;
 @property (nonatomic, readonly) UInt32 bm_argbHex;
+@property (nonatomic, readonly) UInt32 bm_rgbaHex;
 
 - (UIColor *)changeAlpha:(CGFloat)alpha;
 

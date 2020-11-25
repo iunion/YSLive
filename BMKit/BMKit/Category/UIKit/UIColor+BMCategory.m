@@ -146,6 +146,84 @@
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
+/// 格式支持 #RRGGBBAA
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert
+{
+    return [UIColor bm_colorWithRGBAHexString:stringToConvert alpha:1.0f];
+}
+
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert alpha:(CGFloat)alpha
+{
+    return [UIColor bm_colorWithRGBAHexString:stringToConvert alpha:(CGFloat)alpha default:DEFAULT_VOID_COLOR];
+}
+
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert  alpha:(CGFloat)alpha default:(nullable UIColor *)color
+{
+    NSString *colorString = [[stringToConvert stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // strip 0X if it appears
+    //if ([cString hasPrefix:@"0X"] || [cString hasPrefix:@"0x"])
+    if ([colorString hasPrefix:@"0X"])
+    {
+        colorString = [colorString substringFromIndex:2];
+    }
+    else if ([colorString hasPrefix:@"＃"] || [colorString hasPrefix:@"#"])
+    {
+        colorString = [colorString substringFromIndex:1];
+    }
+
+    if (![colorString bm_isNotEmpty])
+    {
+        return color;
+    }
+    
+    CGFloat red, blue, green;
+    NSUInteger length = colorString.length;
+    switch (length)
+    {
+        case 1: // 0
+            if ([colorString isEqualToString:@"0"])
+            {
+                return [UIColor clearColor];
+            }
+            else
+            {
+                return color;
+            }
+
+        case 3: // #RGB ==> #RRGGBB
+            red = [UIColor colorComponentFrom:colorString start:0 length:1];
+            green = [UIColor colorComponentFrom:colorString start:1 length:1];
+            blue = [UIColor colorComponentFrom:colorString start:2 length:1];
+            break;
+            
+        case 4: // #RGBA ==> #RRGGBBAA
+            red = [UIColor colorComponentFrom:colorString start:0 length:1];
+            green = [UIColor colorComponentFrom:colorString start:1 length:1];
+            blue = [UIColor colorComponentFrom:colorString start:2 length:1];
+            alpha = [UIColor colorComponentFrom:colorString start:3 length:1];
+            break;
+
+        case 6: // #RRGGBB
+            red = [UIColor colorComponentFrom:colorString start:0 length:2];
+            green = [UIColor colorComponentFrom:colorString start:2 length:2];
+            blue = [UIColor colorComponentFrom:colorString start:4 length:2];
+            break;
+            
+        case 8: // #RRGGBBAA
+            red = [UIColor colorComponentFrom:colorString start:0 length:2];
+            green = [UIColor colorComponentFrom:colorString start:2 length:2];
+            blue = [UIColor colorComponentFrom:colorString start:4 length:2];
+            alpha = [UIColor colorComponentFrom:colorString start:6 length:2];
+            break;
+            
+        default:
+            return color;
+    }
+
+    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+}
+
 // _hexUIColorRegex = [NSRegularExpression regularExpressionWithPattern:@"\\[\\s*UIColor\\s+(colorWithHex:\\s*(0[xX][0-9a-fA-F]{1,6})(\\s+alpha:\\s*([0-9]*.?[0-9]{1,})f?)?)\\s*\\]" options:0 error:NULL];
 // NSString *hex = [text substringWithRange:[result rangeAtIndex:2]];
 // index即是()小括号位置
@@ -199,6 +277,23 @@
 - (NSString *)bm_hexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha
 {
     return [UIColor bm_hexStringFromColor:self withStartChar:startChar haveAlpha:haveAlpha];
+}
+
+- (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha
+{
+    if (![startChar bm_isNotEmpty])
+    {
+        startChar = @"";
+    }
+    
+    if (haveAlpha)
+    {
+        return [NSString stringWithFormat:@"%@%0.8X", startChar, (unsigned int)self.bm_rgbaHex];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%@%0.6X", startChar, (unsigned int)self.rgbHex];
+    }
 }
 
 + (UIColor *)bm_randomColor
@@ -514,6 +609,24 @@
     | (((int)roundf(r * 255)) << 16)
     | (((int)roundf(g * 255)) << 8)
     | (((int)roundf(b * 255)));
+}
+
+- (UInt32)bm_rgbaHex
+{
+    NSAssert(self.canProvideRGBComponents, @"Must be a RGB color to use rgbHex");
+    
+    CGFloat r,g,b,a;
+    if (![self red:&r green:&g blue:&b alpha:&a]) return 0;
+    
+    a = MIN(MAX(a, 0.0f), 1.0f);
+    r = MIN(MAX(r, 0.0f), 1.0f);
+    g = MIN(MAX(g, 0.0f), 1.0f);
+    b = MIN(MAX(b, 0.0f), 1.0f);
+    
+    return (((int)roundf(r * 255)) << 24)
+    | (((int)roundf(g * 255)) << 16)
+    | (((int)roundf(b * 255)) << 8)
+    | (((int)roundf(a * 255)));
 }
 
 - (UIColor *)changeAlpha:(CGFloat)alpha
