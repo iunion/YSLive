@@ -350,7 +350,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(NSString *)userId
+- (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(NSString *)userId withRoomLayout:(CHRoomLayoutType)roomLayoutType
 {
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
@@ -361,6 +361,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.isWideScreen = isWideScreen;
         
         self.userId = userId;
+        
+        self.roomLayout = defaultRoomLayout = roomLayoutType;
         
         self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
         
@@ -452,15 +454,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 会议默认视频布局
     if (self.appUseTheType == CHRoomUseTypeMeeting)
     {
-        defaultRoomLayout = CHRoomLayoutType_VideoLayout;
-        self.roomLayout = defaultRoomLayout;
+        self.roomLayout = defaultRoomLayout = CHRoomLayoutType_VideoLayout;
         [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil withSourceId:nil];
     }
-    else
-    {
-        defaultRoomLayout = CHRoomLayoutType_AroundLayout;
-        self.roomLayout = defaultRoomLayout;
-    }
+    
     
 #if USE_FullTeacher
     [self setupFullTeacherView];
