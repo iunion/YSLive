@@ -782,6 +782,45 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)classBeginBtnClick:(UIButton *)sender
 {
+#if CHTEST_ALLPUBMSG
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"record" ofType:@"json"];
+    
+    NSString *str = [NSString stringWithContentsOfFile:plistPath encoding:NSUTF8StringEncoding error:nil];
+
+    NSArray *array = (NSArray *)[BMCloudHubUtil convertWithData:str];
+    NSUInteger index = 0;
+    for (NSDictionary *dic in array)
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+            NSString *method = [dic bm_stringForKey:@"method"];
+            if ([method isEqualToString:@"PubMsg"])
+            {
+                NSString *associatedMsgID = [dic bm_stringForKey:@"associatedMsgID"];
+                NSString *associatedUserID = [dic bm_stringForKey:@"associatedUserID"];
+                NSDictionary *data = [dic bm_dictionaryForKey:@"data"];
+                NSString *msgName = [data bm_stringForKey:@"name"];
+                NSString *msgId = [data bm_stringForKey:@"id"];
+                NSDictionary *msgData = [data bm_dictionaryForKey:@"data"];
+                id extensionData = [data objectForKey:@"extensionData"];
+                
+                //NSLog(@"====== send %@: %@", @(index), msgName);
+                
+                if ([msgId isEqualToString:@"SharpsChange"])
+                {
+                    NSLog(@"====== send %@: %@_%@", @(index), msgId, [msgData bm_dictionaryForKey:@"data"][@"className"]);
+                }
+                
+                //[self.liveManager pubMsg:msgName msgId:msgId to:@"__all" withData:msgData extensionData:extensionData associatedWithUser:associatedUserID associatedWithMsg:associatedMsgID save:YES];
+            }
+
+        });
+        index++;
+    }
+    
+    return;
+#endif
+
     if (sender.selected)
     {
         BMWeakType(sender)
