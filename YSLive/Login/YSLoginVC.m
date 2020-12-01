@@ -141,8 +141,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
 @property (nonatomic, strong) NSString *leftHUDmessage;
-///教室的默认布局
-@property (nonatomic, assign) CHRoomLayoutType checkDefaultRoomLayout;
 
 @end
 
@@ -1346,7 +1344,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 // grouproom 房间分组类型 0 普通房间，1 分组主（父）房间，2 分组子房间
                 weakSelf.grouproom = [dataDict bm_intForKey:@"grouproom"];
 
-                weakSelf.checkDefaultRoomLayout = [dataDict bm_intForKey:@"roomtype"];
                 
                 if (weakSelf.needpwd)
                 {
@@ -2060,7 +2057,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         
         if (roleType == CHUserType_Teacher)
         {
-            YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil withRoomLayout:self.checkDefaultRoomLayout];
+            YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = self.room_UseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -2074,7 +2071,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }
         else
         {
-           SCMainVC *mainVC = [[SCMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil withRoomLayout:self.checkDefaultRoomLayout];
+           SCMainVC *mainVC = [[SCMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = self.room_UseTheType;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;

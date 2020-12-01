@@ -56,6 +56,12 @@ NS_ASSUME_NONNULL_BEGIN
 ///骰子
 @property(nonatomic,weak)YSDiceAnimationView *diceView;
 
+///自己当前的分辨率 视频宽
+@property (nonatomic, assign) NSUInteger userVideowidth;
+/// 自己当前的分辨率 视频高
+@property (nonatomic, assign) NSUInteger userVideoheight;
+
+
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 

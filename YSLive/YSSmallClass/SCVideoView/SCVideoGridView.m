@@ -240,17 +240,17 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         self.videosBgView.backgroundColor = [UIColor clearColor];
         [self changeFrame];
-
-           for (SCVideoView *videoView in self.videoSequenceArr)
-           {
-               videoView.isDragOut = NO;
-               videoView.isFullScreen = NO;
-               videoView.isFullMedia = YES;
-               [self.videosBgView addSubview:videoView];
-               videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
-           }
-               
-           [self freshView];
+        
+        for (SCVideoView *videoView in self.videoSequenceArr)
+        {
+            videoView.isDragOut = NO;
+            videoView.isFullScreen = NO;
+            videoView.isFullMedia = YES;
+            [self.videosBgView addSubview:videoView];
+            videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
+        }
+        
+        [self freshView];
     }
 }
 

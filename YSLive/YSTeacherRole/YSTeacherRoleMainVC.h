@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSTeacherRoleMainVC : YSClassMainSuperVC
 
-- (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId withRoomLayout:(CHRoomLayoutType)roomLayoutType;
+- (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;
 
 @end
 

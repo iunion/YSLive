@@ -295,7 +295,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(NSString *)userId withRoomLayout:(CHRoomLayoutType)roomLayoutType
+- (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(NSString *)userId
 {
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
@@ -307,7 +307,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         self.userId = userId;
         
-        self.roomLayout = defaultRoomLayout = roomLayoutType;
+        if (roomType == CHRoomUserType_More && self.liveManager.roomModel.defaultRoomLayout == CHRoomLayoutType_rightLeftLayout)
+        {
+            self.roomLayout = defaultRoomLayout = CHRoomLayoutType_AroundLayout;
+        }
+        else
+        {
+            self.roomLayout = defaultRoomLayout = self.liveManager.roomModel.defaultRoomLayout;
+        }
         
         self.mediaMarkSharpsDatas = [[NSMutableArray alloc] init];
         
@@ -492,6 +499,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.roomLayout = defaultRoomLayout = CHRoomLayoutType_VideoLayout;
         
         [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil withSourceId:nil];
+    }
+    else
+    {
+//        if (!self.liveManager.isClassBegin && self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
+        if (!self.liveManager.isClassBegin)
+        {
+            [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
+        }
     }
     
 #if USE_FullTeacher
@@ -865,9 +880,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///双师：老师拖拽视频布局
 - (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data
 {
-    self.isDoubleType = 1;
+//    self.isDoubleType = 1;
+    self.roomLayout = CHRoomLayoutType_DoubleLayout;
     
     self.doubleType = [data bm_stringForKey:@"one2one"];
+    
     
     [self freshContentView];
 }
@@ -1020,7 +1037,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.contentBackgroud addSubview:videoGridView];
 //    [videoGridView bm_centerInSuperView];
     videoGridView.backgroundColor = [UIColor clearColor];
-    videoGridView.hidden = YES;
+    
+    if (self.roomLayout == CHRoomLayoutType_VideoLayout)
+    {
+        videoGridView.hidden = YES;
+    }
     self.videoGridView = videoGridView;
 }
 
@@ -1355,7 +1376,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 }
                 else
                 {
-                    self.userVideoView.hidden = YES;
+                    if (self.liveManager.isClassBegin)//为了上课前默认布局
+                    {
+                        self.userVideoView.hidden = YES;
+                    }
                 }
             }
         }
@@ -1404,10 +1428,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.userVideoView removeFromSuperview];
     [self.videoBackgroud addSubview:self.userVideoView];
     NSMutableArray *viewArray = [[NSMutableArray alloc] init];
-    [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
-        [viewArray addObject:childView];
-    }];
     
+//    if (!self.liveManager.isClassBegin)
+//    {
+//        viewArray = self.videoSequenceArr;
+//    }
+//    else
+    {
+        [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
+            [viewArray addObject:childView];
+        }];
+    }
     for (SCVideoView *videoView in viewArray)
     {
         if (videoView.tag != PlaceholderPTag && videoView.tag != DoubleTeacherExpandContractBtnTag)
@@ -1694,10 +1725,24 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self hideAllDragOutVideoView];
         
+    
+//    if (!self.liveManager.isClassBegin)
+//    {
+//        [self.userVideoView removeFromSuperview];
+//        [self.videoBackgroud addSubview:self.userVideoView];
+//    }
+    
     NSMutableArray *viewArray = [[NSMutableArray alloc] init];
-    [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
-        [viewArray addObject:childView];
-    }];
+//    if (!self.liveManager.isClassBegin)
+//    {
+//        viewArray = self.videoSequenceArr;
+//    }
+//    else
+    {
+        [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
+            [viewArray addObject:childView];
+        }];
+    }
     
     for (SCVideoView *videoView in viewArray)
     {
@@ -1705,6 +1750,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [videoView removeFromSuperview];
         }
+    }
+
+    if (!self.liveManager.isClassBegin && ![self.videoSequenceArr bm_isNotEmpty])
+    {
+        self.videoSequenceArr = [NSMutableArray arrayWithObject:self.userVideoView];
     }
         
     if (self.isDoubleType)
@@ -2984,9 +3034,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [super onRoomUserJoined:user isHistory:isHistory];
 
     [self freshTeacherPersonListData];
-    
-    
-    
+        
     // 不做互踢
 #if 0
     if (self.roomtype == YSRoomUserType_One)
