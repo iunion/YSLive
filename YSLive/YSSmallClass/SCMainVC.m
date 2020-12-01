@@ -505,7 +505,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //        if (!self.liveManager.isClassBegin && self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
         if (!self.liveManager.isClassBegin)
         {
-            [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
+            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+            {
+                [self handleSignalingToDoubleTeacherWithData:@{@"one2one":@"nested"}];
+            }
+            else
+            {
+                [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
+            }
+            
         }
     }
     
@@ -880,11 +888,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 ///双师：老师拖拽视频布局
 - (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data
 {
-//    self.isDoubleType = 1;
-    self.roomLayout = CHRoomLayoutType_DoubleLayout;
+    self.isDoubleType = 1;
+//    self.roomLayout = CHRoomLayoutType_DoubleLayout;
     
     self.doubleType = [data bm_stringForKey:@"one2one"];
     
+    if ([self.doubleType isEqualToString:@"nested"])
+    {
+        self.roomLayout = CHRoomLayoutType_DoubleLayout;
+    }
+    else
+    {
+        self.roomLayout = CHRoomLayoutType_AroundLayout;
+    }
     
     [self freshContentView];
 }
@@ -904,43 +920,79 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             videoHeight = ceil(videoWidth * 3/4);
         }
     }
-    else
+    else if (self.roomLayout == CHRoomLayoutType_AroundLayout)
     {
-        if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])//默认上下平行关系
+        // 在此调整视频大小和屏幕比例关系
+        videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 3)/3);
+        if (self.isWideScreen)
         {
-            // 在此调整视频大小和屏幕比例关系
-            videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 3)/3);
-            if (self.isWideScreen)
-            {
-                videoHeight = ceil(videoWidth * 9/16);
-            }
-            else
-            {
-                videoHeight = ceil(videoWidth * 3/4);
-            }
-            whitebordWidth = 2 * videoWidth;
-            whitebordHeight = ceil(whitebordWidth * 3/4);
+            videoHeight = ceil(videoWidth * 9/16);
         }
-        else if([self.doubleType isEqualToString:@"nested"] )//画中画
+        else
         {
-            // 在此调整视频大小和屏幕比例关系
-            videoWidth = ceil(self.contentWidth / 7);
-            videoTeacherWidth = ceil((self.contentWidth-VIDEOVIEW_GAP)/2);
-            whitebordWidth = videoTeacherWidth;
-            if (self.isWideScreen)
-            {
-                videoHeight = ceil(videoWidth * 9/16);
-                videoTeacherHeight = ceil(videoTeacherWidth * 9/16);
-            }
-            else
-            {
-                videoHeight = ceil(videoWidth * 3/4);
-                videoTeacherHeight = ceil(videoTeacherWidth * 3/4);
-            }
-            
-            whitebordHeight = whitebordWidth * 3/4;
+            videoHeight = ceil(videoWidth * 3/4);
         }
+        whitebordWidth = 2 * videoWidth;
+        whitebordHeight = ceil(whitebordWidth * 3/4);
     }
+    else if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+    {
+        // 在此调整视频大小和屏幕比例关系
+        videoWidth = ceil(self.contentWidth / 7);
+        videoTeacherWidth = ceil((self.contentWidth-VIDEOVIEW_GAP)/2);
+        whitebordWidth = videoTeacherWidth;
+        if (self.isWideScreen)
+        {
+            videoHeight = ceil(videoWidth * 9/16);
+            videoTeacherHeight = ceil(videoTeacherWidth * 9/16);
+        }
+        else
+        {
+            videoHeight = ceil(videoWidth * 3/4);
+            videoTeacherHeight = ceil(videoTeacherWidth * 3/4);
+        }
+        
+        whitebordHeight = whitebordWidth * 3/4;
+    }
+    
+    
+//    else
+//    {
+//        if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])//默认上下平行关系
+//        {
+//            // 在此调整视频大小和屏幕比例关系
+//            videoWidth = ceil((self.contentWidth - VIDEOVIEW_GAP * 3)/3);
+//            if (self.isWideScreen)
+//            {
+//                videoHeight = ceil(videoWidth * 9/16);
+//            }
+//            else
+//            {
+//                videoHeight = ceil(videoWidth * 3/4);
+//            }
+//            whitebordWidth = 2 * videoWidth;
+//            whitebordHeight = ceil(whitebordWidth * 3/4);
+//        }
+//        else if([self.doubleType isEqualToString:@"nested"] )//画中画
+//        {
+//            // 在此调整视频大小和屏幕比例关系
+//            videoWidth = ceil(self.contentWidth / 7);
+//            videoTeacherWidth = ceil((self.contentWidth-VIDEOVIEW_GAP)/2);
+//            whitebordWidth = videoTeacherWidth;
+//            if (self.isWideScreen)
+//            {
+//                videoHeight = ceil(videoWidth * 9/16);
+//                videoTeacherHeight = ceil(videoTeacherWidth * 9/16);
+//            }
+//            else
+//            {
+//                videoHeight = ceil(videoWidth * 3/4);
+//                videoTeacherHeight = ceil(videoTeacherWidth * 3/4);
+//            }
+//
+//            whitebordHeight = whitebordWidth * 3/4;
+//        }
+//    }
     
     [self freshWhitBordContentView];
 }
@@ -1496,66 +1548,128 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 view.frame = CGRectMake(VIDEOVIEW_GAP + videoWidth, 0, videoWidth, videoHeight);
             }
         }
-        else
-        {
-            if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
-            {//上下平行关系
+    else if (self.roomLayout == CHRoomLayoutType_AroundLayout)
+    {
+        //上下平行关系
+            if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+            {
+                view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+            }
+            else
+            {
+                view.frame = CGRectMake(0, videoHeight+VIDEOVIEW_GAP, videoWidth, videoHeight);
+            }
+            
+            if (self.isWideScreen)
+            {//16:9
+                
+                CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
+                
+                if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+                {
+                    view.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
+                }
+                else
+                {
+                    view.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+                }
+            }
+            else
+            {//4:3
+                
                 if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
                 {
                     view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
                 }
                 else
                 {
-                    view.frame = CGRectMake(0, videoHeight+VIDEOVIEW_GAP, videoWidth, videoHeight);
-                }
-                
-                if (self.isWideScreen)
-                {//16:9
-                    
-                    CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
-                    
-                    if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
-                    {
-                        view.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
-                    }
-                    else
-                    {
-                        view.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
-                    }
-                }
-                else
-                {//4:3
-                    
-                    if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
-                    {
-                        view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
-                    }
-                    else
-                    {
-                        view.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
-                    }
+                    view.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
                 }
             }
-            else if([self.doubleType isEqualToString:@"nested"])
-            {//画中画
-                
-                self.expandContractBtn.hidden = NO;
-                
-                if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
-                {
-                    view.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
-                }
-                else
-                {
-                    view.frame = CGRectMake(videoTeacherWidth - videoWidth, 0, videoWidth, videoHeight);
-                    self.studentVideoView = view;
-                    self.expandContractBtn.selected = NO;
-                    self.expandContractBtn.frame = CGRectMake(view.bm_originX-23, view.bm_originY, 23, videoHeight);
-                    [self.videoBackgroud bringSubviewToFront:view];
-                    [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
-                }
-            }
+    }
+    else if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+    {//画中画
+        
+        self.expandContractBtn.hidden = NO;
+        
+        if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+        {
+            view.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
         }
+        else
+        {
+            view.frame = CGRectMake(videoTeacherWidth - videoWidth, 0, videoWidth, videoHeight);
+            self.studentVideoView = view;
+            self.expandContractBtn.selected = NO;
+            self.expandContractBtn.frame = CGRectMake(view.bm_originX-23, view.bm_originY, 23, videoHeight);
+            [self.videoBackgroud bringSubviewToFront:view];
+            [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
+        }
+    }
+        
+        
+        
+        
+//        else
+//        {
+//            if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
+//            {//上下平行关系
+//                if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+//                {
+//                    view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+//                }
+//                else
+//                {
+//                    view.frame = CGRectMake(0, videoHeight+VIDEOVIEW_GAP, videoWidth, videoHeight);
+//                }
+//
+//                if (self.isWideScreen)
+//                {//16:9
+//
+//                    CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
+//
+//                    if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+//                    {
+//                        view.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
+//                    }
+//                    else
+//                    {
+//                        view.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+//                    }
+//                }
+//                else
+//                {//4:3
+//
+//                    if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+//                    {
+//                        view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+//                    }
+//                    else
+//                    {
+//                        view.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
+//                    }
+//                }
+//            }
+//            else if([self.doubleType isEqualToString:@"nested"])
+//            {//画中画
+//
+//                self.expandContractBtn.hidden = NO;
+//
+//                if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+//                {
+//                    view.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
+//                }
+//                else
+//                {
+//                    view.frame = CGRectMake(videoTeacherWidth - videoWidth, 0, videoWidth, videoHeight);
+//                    self.studentVideoView = view;
+//                    self.expandContractBtn.selected = NO;
+//                    self.expandContractBtn.frame = CGRectMake(view.bm_originX-23, view.bm_originY, 23, videoHeight);
+//                    [self.videoBackgroud bringSubviewToFront:view];
+//                    [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
+//                }
+//            }
+//        }
         [view bringSubviewToFront:view.backVideoView];
     }
 }
@@ -1644,52 +1758,97 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.teacherPlacehold.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
             self.userVideoView.frame = CGRectMake(VIDEOVIEW_GAP*2+videoWidth, 0, videoWidth, videoHeight);
         }
-        else
+        else if (self.roomLayout == CHRoomLayoutType_AroundLayout)
         {
             self.whitebordBackgroud.hidden = NO;
+            //上下平行关系
+            //默认上下平行关系
+            self.expandContractBtn.hidden = YES;
+            self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
             
-            if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
-            {//默认上下平行关系
-                 self.expandContractBtn.hidden = YES;
-                self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
-
-                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, 0, videoWidth, whitebordHeight);
+            self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, 0, videoWidth, whitebordHeight);
+            
+            if (self.isWideScreen)
+            {//16:9
                 
-                if (self.isWideScreen)
-                {//16:9
-                    
-                    CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
-                    
-                    self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
-                    self.teacherPlacehold.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
-                    self.userVideoView.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
-                }
-                else
-                {//4:3
-                    self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, 0, videoWidth, videoHeight);
-                    self.teacherPlacehold.frame = CGRectMake(0, 0, videoWidth, videoHeight);
-                    self.userVideoView.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
-                }
+                CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
+                
+                self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
+                self.teacherPlacehold.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
+                self.userVideoView.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
             }
-            else if([self.doubleType isEqualToString:@"nested"])
-            {//画中画
-                
-                CGFloat whitebordY = (self.contentHeight - STATETOOLBAR_HEIGHT - whitebordHeight)/2;
-                
-                self.whitebordBackgroud.frame = CGRectMake(0, whitebordY, whitebordWidth, whitebordHeight);
-                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, whitebordY, videoTeacherWidth, whitebordHeight);
-                
-                self.teacherPlacehold.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
-                self.userVideoView.frame = CGRectMake(CGRectGetMaxX(self.teacherPlacehold.frame)-videoWidth, 0, videoWidth, videoHeight);
-                
-                self.expandContractBtn.hidden = NO;
-                
-                self.expandContractBtn.selected = NO;
-                self.expandContractBtn.frame = CGRectMake(self.userVideoView.bm_originX-23, self.userVideoView.bm_originY, 23, videoHeight);
-                [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
-                self.studentVideoView = self.userVideoView;
+            else
+            {//4:3
+                self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+                self.teacherPlacehold.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+                self.userVideoView.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
             }
         }
+        else if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+        {//画中画
+            self.whitebordBackgroud.hidden = NO;
+            CGFloat whitebordY = (self.contentHeight - STATETOOLBAR_HEIGHT - whitebordHeight)/2;
+            
+            self.whitebordBackgroud.frame = CGRectMake(0, whitebordY, whitebordWidth, whitebordHeight);
+            self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, whitebordY, videoTeacherWidth, whitebordHeight);
+            
+            self.teacherPlacehold.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
+            self.userVideoView.frame = CGRectMake(CGRectGetMaxX(self.teacherPlacehold.frame)-videoWidth, 0, videoWidth, videoHeight);
+            
+            self.expandContractBtn.hidden = NO;
+            
+            self.expandContractBtn.selected = NO;
+            self.expandContractBtn.frame = CGRectMake(self.userVideoView.bm_originX-23, self.userVideoView.bm_originY, 23, videoHeight);
+            [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
+            self.studentVideoView = self.userVideoView;
+        }
+        
+//        else
+//        {
+//            self.whitebordBackgroud.hidden = NO;
+//
+//            if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
+//            {//默认上下平行关系
+//                 self.expandContractBtn.hidden = YES;
+//                self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
+//
+//                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, 0, videoWidth, whitebordHeight);
+//
+//                if (self.isWideScreen)
+//                {//16:9
+//
+//                    CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
+//
+//                    self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
+//                    self.teacherPlacehold.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
+//                    self.userVideoView.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+//                }
+//                else
+//                {//4:3
+//                    self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+//                    self.teacherPlacehold.frame = CGRectMake(0, 0, videoWidth, videoHeight);
+//                    self.userVideoView.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
+//                }
+//            }
+//            else if([self.doubleType isEqualToString:@"nested"])
+//            {//画中画
+//
+//                CGFloat whitebordY = (self.contentHeight - STATETOOLBAR_HEIGHT - whitebordHeight)/2;
+//
+//                self.whitebordBackgroud.frame = CGRectMake(0, whitebordY, whitebordWidth, whitebordHeight);
+//                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, whitebordY, videoTeacherWidth, whitebordHeight);
+//
+//                self.teacherPlacehold.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
+//                self.userVideoView.frame = CGRectMake(CGRectGetMaxX(self.teacherPlacehold.frame)-videoWidth, 0, videoWidth, videoHeight);
+//
+//                self.expandContractBtn.hidden = NO;
+//
+//                self.expandContractBtn.selected = NO;
+//                self.expandContractBtn.frame = CGRectMake(self.userVideoView.bm_originX-23, self.userVideoView.bm_originY, 23, videoHeight);
+//                [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
+//                self.studentVideoView = self.userVideoView;
+//            }
+//        }
     }
     else
     {
@@ -5198,7 +5357,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.roomtype == CHRoomUserType_One)
     {
         popover.permittedArrowDirections = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionLeft;
-        if ([self.doubleType isEqualToString:@"nested"] && userModel.role != CHUserType_Teacher)
+//        if ([self.doubleType isEqualToString:@"nested"] && userModel.role != CHUserType_Teacher)
+        if (self.roomLayout == CHRoomLayoutType_DoubleLayout && userModel.role != CHUserType_Teacher)
         {
             popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
             self.controlPopoverView.isNested = YES;
