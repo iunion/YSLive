@@ -396,7 +396,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         }
         
         @bmweakify(operation);
-        operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
+        operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(NSURL *url, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
             @bmstrongify(operation);
             if (!operation || operation.isCancelled) {
                 // Image combined operation cancelled by user

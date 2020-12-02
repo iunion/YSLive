@@ -217,7 +217,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     if (url == nil) {
         if (completedBlock) {
             NSError *error = [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorInvalidURL userInfo:@{NSLocalizedDescriptionKey : @"Image url is nil"}];
-            completedBlock(nil, nil, error, YES);
+            completedBlock(nil, nil, nil, error, YES);
         }
         return nil;
     }
@@ -232,7 +232,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
             BMSD_UNLOCK(self.operationsLock);
             if (completedBlock) {
                 NSError *error = [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorInvalidDownloadOperation userInfo:@{NSLocalizedDescriptionKey : @"Downloader operation is nil"}];
-                completedBlock(nil, nil, error, YES);
+                completedBlock(nil, nil, nil, error, YES);
             }
             return nil;
         }

@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 生成UUID
 + (NSString *)createUUID;
 
+/// 替换URL的host
++ (NSString *)changeUrl:(NSURL *)url withProtocol:(nullable NSString *)protocol host:(NSString *)host;
+
 @end
 
 NS_ASSUME_NONNULL_END
