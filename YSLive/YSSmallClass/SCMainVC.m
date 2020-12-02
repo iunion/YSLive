@@ -513,7 +513,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
             }
-            
         }
     }
     
@@ -889,7 +888,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data
 {
     self.isDoubleType = 1;
-//    self.roomLayout = CHRoomLayoutType_DoubleLayout;
     
     self.doubleType = [data bm_stringForKey:@"one2one"];
     
@@ -1548,9 +1546,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 view.frame = CGRectMake(VIDEOVIEW_GAP + videoWidth, 0, videoWidth, videoHeight);
             }
         }
-    else if (self.roomLayout == CHRoomLayoutType_AroundLayout)
-    {
-        //上下平行关系
+        else if (self.roomLayout == CHRoomLayoutType_AroundLayout)
+        {
+            //上下平行关系
             if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
             {
                 view.frame = CGRectMake(0, 0, videoWidth, videoHeight);
@@ -1586,26 +1584,26 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     view.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
                 }
             }
-    }
-    else if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
-    {//画中画
-        
-        self.expandContractBtn.hidden = NO;
-        
-        if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
-        {
-            view.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
         }
-        else
-        {
-            view.frame = CGRectMake(videoTeacherWidth - videoWidth, 0, videoWidth, videoHeight);
-            self.studentVideoView = view;
-            self.expandContractBtn.selected = NO;
-            self.expandContractBtn.frame = CGRectMake(view.bm_originX-23, view.bm_originY, 23, videoHeight);
-            [self.videoBackgroud bringSubviewToFront:view];
-            [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
+        else if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+        {//画中画
+            
+            self.expandContractBtn.hidden = NO;
+            
+            if ([view.roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
+            {
+                view.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
+            }
+            else
+            {
+                view.frame = CGRectMake(videoTeacherWidth - videoWidth, 0, videoWidth, videoHeight);
+                self.studentVideoView = view;
+                self.expandContractBtn.selected = NO;
+                self.expandContractBtn.frame = CGRectMake(view.bm_originX-23, view.bm_originY, 23, videoHeight);
+                [self.videoBackgroud bringSubviewToFront:view];
+                [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
+            }
         }
-    }
         
         
         

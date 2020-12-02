@@ -26,6 +26,16 @@
 
 @implementation YSMainSuperVC
 
+
+- (NSMutableArray<SCVideoView *> *)teacherVideoViewArray
+{
+    if (!_teacherVideoViewArray)
+    {
+        _teacherVideoViewArray = [NSMutableArray array];
+    }
+    return _teacherVideoViewArray;
+}
+
 - (instancetype)init
 {
     self = [super init];
