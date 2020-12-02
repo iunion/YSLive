@@ -119,7 +119,10 @@
 
     for (NSDictionary *dic in sharpsDataArray)
     {
-        [self.drawView addDrawData:dic refreshImmediately:YES];
+        NSString *fromId = [dic objectForKey:@"fromID"];
+        BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
+        
+        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
     }
 }
 
