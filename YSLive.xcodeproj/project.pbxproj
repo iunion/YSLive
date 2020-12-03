@@ -17,6 +17,7 @@
 		0464CE9E247B563C001532A3 /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */; };
 		046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
+		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
 		04A479E6239E274D00680D84 /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E1239E274C00680D84 /* SCColorListView.m */; };
 		04A479E8239E274D00680D84 /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E3239E274C00680D84 /* SCColorSelectView.m */; };
@@ -798,6 +799,8 @@
 		046E683C2373CF73001CBB27 /* SCTextMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
 		046E683F2373E152001CBB27 /* SCChatToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCChatToolView.h; sourceTree = "<group>"; };
 		046E68402373E152001CBB27 /* SCChatToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCChatToolView.m; sourceTree = "<group>"; };
+		047F07AD25779BEF00D64265 /* YSDefaultLayoutPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSDefaultLayoutPopView.h; sourceTree = "<group>"; };
+		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
 		04A479E0239E274C00680D84 /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
 		04A479E1239E274C00680D84 /* SCColorListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorListView.m; sourceTree = "<group>"; };
@@ -2059,6 +2062,8 @@
 			children = (
 				8709FEB22484D2A000CC8BEA /* YSSpreadBottomToolBar.h */,
 				8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */,
+				047F07AD25779BEF00D64265 /* YSDefaultLayoutPopView.h */,
+				047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */,
 			);
 			path = YSSpreadBottomToolBar;
 			sourceTree = "<group>";
@@ -3741,6 +3746,7 @@
 				87832F5224874C4300F1178E /* FLEXNetworkTransactionCell.m in Sources */,
 				CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */,
 				87832FD824874C4300F1178E /* FLEXSearchToken.m in Sources */,
+				047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */,
 				CB3D95AD23F2EC0300A0DEC4 /* YSSchoolUser.m in Sources */,
 				8777C7B123EAB7A6002002BF /* YSSetTableViewVC.m in Sources */,
 				26EFA686237A841C00EC2A64 /* SCAnswerDetailModel.m in Sources */,
@@ -4317,7 +4323,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.3.8.3;
+				CURRENT_PROJECT_VERSION = 3.3.11.0;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
@@ -4342,7 +4348,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.8;
+				MARKETING_VERSION = 3.3.11;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4363,7 +4369,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.3.8.3;
+				CURRENT_PROJECT_VERSION = 3.3.11.0;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
@@ -4417,7 +4423,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.8;
+				MARKETING_VERSION = 3.3.11;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4704,6 +4710,7 @@
 		8766822923506EF600C4C635 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				INFOPLIST_FILE = YSLiveUITests/Info.plist;
@@ -4722,6 +4729,7 @@
 		8766822A23506EF600C4C635 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				INFOPLIST_FILE = YSLiveUITests/Info.plist;

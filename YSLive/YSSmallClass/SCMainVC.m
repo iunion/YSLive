@@ -505,11 +505,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //        if (!self.liveManager.isClassBegin && self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
         if (!self.liveManager.isClassBegin)
         {
-            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
-            {
-                [self handleSignalingToDoubleTeacherWithData:@{@"one2one":@"nested"}];
-            }
-            else
+//            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+//            {
+//                [self handleSignalingToDoubleTeacherWithData:@{@"one2one":@"nested"}];
+//            }
+//            else
             {
                 [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
             }
@@ -884,24 +884,24 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
 }
 
-///双师：老师拖拽视频布局
-- (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data
-{
-    self.isDoubleType = 1;
-    
-    self.doubleType = [data bm_stringForKey:@"one2one"];
-    
-    if ([self.doubleType isEqualToString:@"nested"])
-    {
-        self.roomLayout = CHRoomLayoutType_DoubleLayout;
-    }
-    else
-    {
-        self.roomLayout = CHRoomLayoutType_AroundLayout;
-    }
-    
-    [self freshContentView];
-}
+/////双师：老师拖拽视频布局
+//- (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data
+//{
+//    self.isDoubleType = 1;
+//
+//    self.doubleType = [data bm_stringForKey:@"one2one"];
+//
+//    if ([self.doubleType isEqualToString:@"nested"])
+//    {
+//        self.roomLayout = CHRoomLayoutType_DoubleLayout;
+//    }
+//    else
+//    {
+//        self.roomLayout = CHRoomLayoutType_AroundLayout;
+//    }
+//
+//    [self freshContentView];
+//}
 
 /// 双师信令时计算视频尺寸
 - (void)doubleTeacherCalculateVideoSize
@@ -3998,6 +3998,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     self.roomLayout = roomLayout;
     
+    self.isDoubleType = 0;
+    
     if (roomLayout == CHRoomLayoutType_FocusLayout && [peerId bm_isNotEmpty])
     {
         if ([sourceId bm_isNotEmpty])
@@ -4027,6 +4029,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.roomLayout = CHRoomLayoutType_VideoLayout;
         }
     }
+    else if (roomLayout == CHRoomLayoutType_DoubleLayout)
+    {
+        self.isDoubleType = 1;
+        
+        self.roomLayout = CHRoomLayoutType_DoubleLayout;
+
+    }
 //    if (!self.isWhitebordFullScreen)
     {
         [self freshBrushTools];
@@ -4034,6 +4043,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshContentView];
 }
 
+///切换窗口布局恢复
 - (void)handleSignalingDefaultRoomLayout
 {
     [self handleSignalingSetRoomLayout:defaultRoomLayout withPeerId:nil withSourceId:nil];

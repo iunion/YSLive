@@ -617,12 +617,26 @@
 		<string></string>
 		<key>bgColor</key>
 		<string></string>
+		<key>aroundNor</key>
+		<string>bottombar_layout_aroundNor_skin</string>
+		<key>aroundSel</key>
+		<string>bottombar_layout_aroundSel_skin</string>
+		<key>videoNor</key>
+		<string>bottombar_layout_videoNor_skin</string>
+		<key>videoSel</key>
+		<string>bottombar_layout_videoSel_skin</string>
+		<key>doubleNor</key>
+		<string>bottombar_layout_doubleNor_skin</string>
+		<key>doubleSel</key>
+		<string>bottombar_layout_doubleSel_skin</string>
+		<key>focusNor</key>
+		<string>bottombar_layout_focusNor_skin</string>
+		<key>focusSel</key>
+		<string>bottombar_layout_focusSel_skin</string>
 		<key>iconNor</key>
-		<string>bottombar_layout_nor_skin</string>
+		<string>bottombar_layout_changeNor_skin</string>
 		<key>iconSel</key>
-		<string>bottombar_layout_sel_skin</string>
-		<key>iconDis</key>
-		<string>bottombar_layout_dis_skin</string>
+		<string>bottombar_layout_changeSel_skin</string>
 	</dict>
 	<key>leftPage_nameList</key>
 	<dict>

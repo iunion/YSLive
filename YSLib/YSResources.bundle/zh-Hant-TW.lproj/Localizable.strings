@@ -190,8 +190,11 @@
 
 "Title.DocumentList"        = "課件庫";
 "Title.ToolBox"             = "工具箱";
+"Title.ChangeLayout"        = "切換佈局";
 "Title.AroundLayout"        = "平鋪佈局";
 "Title.VideoLayout"         = "綜合佈局";
+"Title.DoubleLayout"        = "雙師佈局";
+"Title.FocusLayout"         = "焦點佈局";
 "Title.Polling"             = "輪播";
 "Title.AllNoAudio"          = "全體静音";
 "Title.AllAudio"            = "取消靜音";

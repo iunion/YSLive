@@ -190,8 +190,11 @@
 
 "Title.DocumentList"        = "Lib";
 "Title.ToolBox"             = "Tools";
-"Title.AroundLayout"        = "Layout";
-"Title.VideoLayout"         = "Layout";
+"Title.ChangeLayout"        = "Change";
+"Title.AroundLayout"        = "Around";
+"Title.VideoLayout"         = "Video";
+"Title.DoubleLayout"        = "Double";
+"Title.FocusLayout"         = "Focus";
 "Title.Polling"             = "Rot";
 "Title.AllNoAudio"          = "Mute";
 "Title.AllAudio"            = "Unmute";

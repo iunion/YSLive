@@ -191,8 +191,11 @@
 
 "Title.DocumentList"        = "课件库";
 "Title.ToolBox"             = "工具箱";
+"Title.ChangeLayout"        = "切换布局";
 "Title.AroundLayout"        = "平铺布局";
 "Title.VideoLayout"         = "综合布局";
+"Title.DoubleLayout"        = "双师布局";
+"Title.FocusLayout"         = "焦点布局";
 "Title.Polling"             = "轮播";
 "Title.AllNoAudio"          = "全体静音";
 "Title.AllAudio"            = "取消静音";

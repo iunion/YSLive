@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 除退出 收放 按钮以外 其他按钮是否可以点击
 @property (nonatomic, assign) BOOL userEnable;
 /// 视频布局
-@property (nonatomic, assign) BOOL isAroundLayout;
+//@property (nonatomic, assign) BOOL isAroundLayout;
 /// 是否上课
 @property (nonatomic, assign) BOOL isBeginClass;
 /// 工具箱可否点击
@@ -52,6 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isCameraEnable;
 /// 是否全体禁言
 @property (nonatomic, assign) BOOL isEveryoneNoAudio;
+
+/// 切换布局
+@property (nonatomic, weak) BMImageTitleButtonView *switchLayoutBtn;
+
 
 - (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl;
 

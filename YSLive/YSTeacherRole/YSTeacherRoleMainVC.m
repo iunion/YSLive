@@ -44,6 +44,8 @@
 #import "YSPollingView.h"
 #import "YSToolBoxView.h"
 
+#import "YSDefaultLayoutPopView.h"
+
 #define USE_FullTeacher             1
 
 #define PlaceholderPTag     10
@@ -97,7 +99,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     YSTeacherResponderDelegate,
     YSTeacherTimerViewDelegate,
     YSPollingViewDelegate,
-    YSToolBoxViewDelegate
+    YSToolBoxViewDelegate,
+    YSDefaultLayoutPopViewDelegate
 >
 {
     /// 最大上台数
@@ -310,6 +313,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 
+@property (nonatomic, strong) YSDefaultLayoutPopView * layoutPopoverView;
+
+
 @end
 
 @implementation YSTeacherRoleMainVC
@@ -355,6 +361,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
     {
+        
+        
+        
+        
         maxVideoCount = maxCount;
         
         self.roomtype = roomType;
@@ -468,15 +478,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (!self.liveManager.isClassBegin)
         {
-            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
-            {
-                [self handleSignalingToDoubleTeacherWithData:@{@"one2one":@"nested"}];
-            }
-            else
+//            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+//            {
+//                [self handleSignalingToDoubleTeacherWithData:@{@"one2one":@"nested"}];
+//            }
+//            else
             {
                 [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
             }
-
         }
     }
     
@@ -846,6 +855,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         BMWeakSelf
         [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
         [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+        [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
 
         classEndAlertVC = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.FinishClass") message:nil preferredStyle:UIAlertControllerStyleAlert];
         
@@ -1092,23 +1102,23 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 ///双师：老师拖拽视频布局
-- (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data
-{
-    self.isDoubleType = 1;
-    
-    self.doubleType = [data bm_stringForKey:@"one2one"];
-    
-    if ([self.doubleType isEqualToString:@"nested"])
-    {
-        self.roomLayout = CHRoomLayoutType_DoubleLayout;
-    }
-    else
-    {
-        self.roomLayout = CHRoomLayoutType_AroundLayout;
-    }
-
-    [self freshContentView];
-}
+//- (void)handleSignalingToDoubleTeacherWithData:(NSDictionary *)data
+//{
+//    self.isDoubleType = 1;
+//
+//    self.doubleType = [data bm_stringForKey:@"one2one"];
+//
+//    if ([self.doubleType isEqualToString:@"nested"])
+//    {
+//        self.roomLayout = CHRoomLayoutType_DoubleLayout;
+//    }
+//    else
+//    {
+//        self.roomLayout = CHRoomLayoutType_AroundLayout;
+//    }
+//
+//    [self freshContentView];
+//}
 
 /// 双师信令时计算视频尺寸
 - (void)doubleTeacherCalculateVideoSize
@@ -1762,10 +1772,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
 //    }
     
-//    if (!self.liveManager.isClassBegin && ![self.videoSequenceArr bm_isNotEmpty])
-//    {
-//        self.videoSequenceArr = [NSMutableArray arrayWithObject:self.teacherVideoViewArray.firstObject];
-//    }
+    if (!self.liveManager.isClassBegin && ![self.videoSequenceArr bm_isNotEmpty])
+    {
+        self.videoSequenceArr = [NSMutableArray arrayWithObject:self.teacherVideoViewArray.firstObject];
+    }
     
 //    if (self.videoViewArray.count<22)
 //    {
@@ -1858,6 +1868,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
     
     CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
@@ -1901,6 +1912,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
     
     if (delVideoView)
     {
@@ -1940,6 +1952,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
     
@@ -2072,6 +2085,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
     
     [self.imagePickerController cancelButtonClick];
     
@@ -2122,6 +2136,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
     
@@ -2282,6 +2297,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     [self.imagePickerController cancelButtonClick];
     
@@ -2695,6 +2711,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
    
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
     
     [self.imagePickerController cancelButtonClick];
 
@@ -2711,6 +2728,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
     
     [self.imagePickerController cancelButtonClick];
 
@@ -3981,7 +3999,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case SCBottomToolBarTypeSwitchLayout:
         {
             //切换布局
-            [self changeLayoutWithMode:isSelected];
+//            [self changeLayoutWithMode:isSelected];
+            
+            [self creatLayoutPopoverView];
+            
         }
             break;
         case SCBottomToolBarTypePolling:
@@ -4044,8 +4065,80 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         default:
             break;
     }
+}
+
+- (void)creatLayoutPopoverView
+{
+    if (!self.layoutPopoverView)
+    {
+        self.layoutPopoverView = [[YSDefaultLayoutPopView alloc]init];
+        self.layoutPopoverView.modalPresentationStyle = UIModalPresentationPopover;
+        self.layoutPopoverView.delegate = self;
+        self.layoutPopoverView.roomLayout = self.roomLayout;
+        if (self.roomtype == CHRoomUserType_One)
+        {
+            self.layoutPopoverView.menusArr = @[@"Title.VideoLayout",@"Title.AroundLayout",@"Title.DoubleLayout"];
+        }
+        else
+        {
+            self.layoutPopoverView.menusArr = @[@"Title.VideoLayout",@"Title.AroundLayout",@"Title.FocusLayout" ];
+        }
+    }
+    
+    UIPopoverPresentationController *popover = self.layoutPopoverView.popoverPresentationController;
+    popover.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+
+    popover.sourceView = self.spreadBottomToolBar.switchLayoutBtn;
+    popover.sourceRect = self.spreadBottomToolBar.switchLayoutBtn.bounds;
+    popover.delegate = self;
+    
+    [self presentViewController:self.layoutPopoverView animated:YES completion:nil];///present即可
+
+    
+        
+    popover.permittedArrowDirections =  UIPopoverArrowDirectionDown;
     
 }
+
+- (void)layoutCellClick:(NSInteger)rowNum
+{
+    switch (rowNum) {
+            case 0:
+                self.roomLayout = CHRoomLayoutType_AroundLayout;
+                break;
+            case 1:
+                self.roomLayout = CHRoomLayoutType_VideoLayout;
+            break;
+        case 2:{
+            if (self.roomtype == CHRoomUserType_One)
+            {
+                self.roomLayout = CHRoomLayoutType_DoubleLayout;
+            }
+            else
+            {
+                self.roomLayout = CHRoomLayoutType_FocusLayout;
+            }
+            
+        }
+            break;
+
+            default:
+                break;
+        }
+    
+    if (self.roomLayout == CHRoomLayoutType_FocusLayout)
+    {
+        self.fouceView = self.teacherVideoViewArray.firstObject;
+        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:YSCurrentUser.peerID withStreamId:self.fouceView.streamId];
+    }
+    else
+    {
+        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:nil withStreamId:nil];
+    }
+    
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
+}
+
 
 // 是否弹出课件库 以及 花名册  select  yes--弹出  no--收回
 - (void)freshListViewWithSelect:(BOOL)select
@@ -4154,6 +4247,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 切换窗口布局变化
 - (void)handleSignalingSetRoomLayout:(CHRoomLayoutType)roomLayout withPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId
 {
+
     //NO:上下布局  YES:左右布局
     self.roomLayout = roomLayout;
     
@@ -4164,7 +4258,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     self.spreadBottomToolBar.isBeginClass = YES;
     
-    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout == CHRoomLayoutType_AroundLayout);
+//    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout == CHRoomLayoutType_AroundLayout);
+    
+    self.isDoubleType = 0;
     
     if (roomLayout == CHRoomLayoutType_FocusLayout && [peerId bm_isNotEmpty] && [sourceId bm_isNotEmpty])
     {
@@ -4181,6 +4277,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             self.roomLayout = CHRoomLayoutType_VideoLayout;
         }
+    }
+    else if (roomLayout == CHRoomLayoutType_DoubleLayout)
+    {
+        self.isDoubleType = 1;
+        
+        self.roomLayout = CHRoomLayoutType_DoubleLayout;
+
     }
     
     [self freshContentView];
@@ -5757,6 +5860,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
     
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Permissions.KickedOutMembers") preferredStyle:UIAlertControllerStyleAlert];
     
@@ -5785,7 +5889,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
-
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
 
     BMWeakSelf
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Permissions.notice") message:YSLocalized(@"Prompt.delClassFile") preferredStyle:UIAlertControllerStyleAlert];

@@ -28,8 +28,7 @@
 @property (nonatomic, weak) BMImageTitleButtonView *coursewareBtn;
 /// 工具箱
 @property (nonatomic, weak) BMImageTitleButtonView *toolBoxBtn;
-/// 切换布局
-@property (nonatomic, weak) BMImageTitleButtonView *switchLayoutBtn;
+
 /// 轮询
 @property (nonatomic, weak) BMImageTitleButtonView *pollingBtn;
 /// 全体静音
@@ -85,7 +84,8 @@
     toolBoxBtn.tag = SCBottomToolBarTypeToolBox;
     
     /// 切换布局
-    BMImageTitleButtonView *switchLayoutBtn = [self creatButtonWithNormalTitle:@"Title.AroundLayout" selectedTitle:@"Title.VideoLayout" pathName:@"layout_bottombar"];
+//    BMImageTitleButtonView *switchLayoutBtn = [self creatButtonWithNormalTitle:@"Title.AroundLayout" selectedTitle:@"Title.VideoLayout" pathName:@"layout_bottombar"];
+    BMImageTitleButtonView *switchLayoutBtn = [self creatButtonWithNormalTitle:@"Title.ChangeLayout"  selectedTitle:@"Title.ChangeLayout" pathName:@"layout_bottombar"];
     switchLayoutBtn.tag = SCBottomToolBarTypeSwitchLayout;
     
     /// 轮询
@@ -227,7 +227,7 @@
 
 - (void)bottomToolBarClicked:(BMImageTitleButtonView *)btn
 {
-    if (btn != self.pollingBtn && btn != self.exitBtn)
+    if (btn != self.pollingBtn && btn != self.exitBtn  && btn != self.switchLayoutBtn)
     {
         btn.selected = !btn.selected;
     }
@@ -419,11 +419,11 @@
     self.chatBtn.enabled = userEnable;
 }
 
-- (void)setIsAroundLayout:(BOOL)isAroundLayout
-{
-    _isAroundLayout = isAroundLayout;
-    self.switchLayoutBtn.selected = !isAroundLayout;
-}
+//- (void)setIsAroundLayout:(BOOL)isAroundLayout
+//{
+//    _isAroundLayout = isAroundLayout;
+//    self.switchLayoutBtn.selected = !isAroundLayout;
+//}
 
 - (void)setIsBeginClass:(BOOL)isBeginClass
 {
