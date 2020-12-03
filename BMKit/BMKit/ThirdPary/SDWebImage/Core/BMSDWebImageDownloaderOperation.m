@@ -141,7 +141,7 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
         BMSDWebImageDownloaderCompletedBlock completedBlock = [token valueForKey:kBMCompletedCallbackKey];
         dispatch_main_async_bmsafe(^{
             if (completedBlock) {
-                completedBlock(nil, nil, [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}], YES);
+                completedBlock(nil, nil, nil, [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}], YES);
             }
         });
     }
@@ -398,7 +398,7 @@ didReceiveResponse:(NSURLResponse *)response
                 if (image) {
                     // We do not keep the progressive decoding image even when `finished`=YES. Because they are for view rendering but not take full function from downloader options. And some coders implementation may not keep consistent between progressive decoding and normal decoding.
                     
-                    [self callCompletionBlocksWithImage:image imageData:nil error:nil finished:NO];
+                    [self callCompletionBlocksWithImage:image imageData:nil url:nil error:nil finished:NO];
                 }
             }];
         }
@@ -477,7 +477,7 @@ didReceiveResponse:(NSURLResponse *)response
                             NSString *description = image == nil ? @"Downloaded image decode failed" : @"Downloaded image has 0 pixels";
                             [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorBadImageData userInfo:@{NSLocalizedDescriptionKey : description}]];
                         } else {
-                            [self callCompletionBlocksWithImage:image imageData:imageData error:nil finished:YES];
+                            [self callCompletionBlocksWithImage:image imageData:imageData url:self.request.URL error:nil finished:YES];
                         }
                         [self done];
                     }];
@@ -673,17 +673,18 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (void)callCompletionBlocksWithError:(nullable NSError *)error {
-    [self callCompletionBlocksWithImage:nil imageData:nil error:error finished:YES];
+    [self callCompletionBlocksWithImage:nil imageData:nil url:nil error:error finished:YES];
 }
 
 - (void)callCompletionBlocksWithImage:(nullable UIImage *)image
                             imageData:(nullable NSData *)imageData
+                                  url:(nullable NSURL *)url
                                 error:(nullable NSError *)error
                              finished:(BOOL)finished {
     NSArray<id> *completionBlocks = [self callbacksForKey:kBMCompletedCallbackKey];
     dispatch_main_async_bmsafe(^{
         for (BMSDWebImageDownloaderCompletedBlock completedBlock in completionBlocks) {
-            completedBlock(image, imageData, error, finished);
+            completedBlock(url, image, imageData, error, finished);
         }
     });
 }

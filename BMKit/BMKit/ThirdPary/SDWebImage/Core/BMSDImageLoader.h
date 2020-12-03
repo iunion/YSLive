@@ -11,7 +11,7 @@
 #import "BMSDWebImageOperation.h"
 
 typedef void(^BMSDImageLoaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
-typedef void(^BMSDImageLoaderCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
+typedef void(^BMSDImageLoaderCompletedBlock)(NSURL * _Nullable url, UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
 
 #pragma mark - Context Options
 

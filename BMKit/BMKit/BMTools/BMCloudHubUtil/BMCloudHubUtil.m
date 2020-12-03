@@ -260,4 +260,26 @@
     return openUDID;
 }
 
++ (NSString *)changeUrl:(NSURL *)url withProtocol:(NSString *)protocol host:(NSString *)host
+{
+    NSString *new;
+    
+    if (![protocol bm_isNotEmpty])
+    {
+        protocol = url.scheme;
+    }
+    
+    NSString *path = url.path;
+    if ([path bm_isNotEmpty])
+    {
+        new = [NSString stringWithFormat:@"%@://%@/%@", protocol, host, path];
+    }
+    else
+    {
+        new = [NSString stringWithFormat:@"%@://%@", protocol, host];
+    }
+    
+    return new;
+}
+
 @end
