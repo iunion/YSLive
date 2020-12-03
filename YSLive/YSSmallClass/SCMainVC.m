@@ -4630,7 +4630,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.responderView = [[YSStudentResponder alloc] init];
     [self.responderView showInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentResponderCountDownKey timeInterval:3 processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentResponderCountDownKey timeInterval:3 autoRestart:NO processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
         //        [weakSelf.responderView setPersonName:@"宁杰英"];
         CGFloat progress = (3.0f - timeInterval) / 3.0f;
@@ -4744,7 +4744,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!pause)
        {
            BMWeakSelf
-           [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+           [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time autoRestart:NO processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
                [weakSelf.studentTimerView showTimeInterval:timeInterval];
                if (timeInterval == 0)
                {
@@ -4776,7 +4776,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
            }
 
            BMWeakSelf
-           [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+           [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time autoRestart:NO processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
                [weakSelf.studentTimerView showTimeInterval:timeInterval];
                if (timeInterval == 0)
                {
@@ -4812,7 +4812,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     BMWeakSelf
     [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time autoRestart:NO processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         [weakSelf.studentTimerView showTimeInterval:timeInterval];
         if (timeInterval == 0)
         {
@@ -4850,7 +4850,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time autoRestart:NO processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         [weakSelf.studentTimerView showTimeInterval:timeInterval];
         if (timeInterval == 0)
         {
