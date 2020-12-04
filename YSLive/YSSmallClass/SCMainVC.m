@@ -1800,53 +1800,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
             self.studentVideoView = self.userVideoView;
         }
-        
-//        else
-//        {
-//            self.whitebordBackgroud.hidden = NO;
-//
-//            if (![self.doubleType bm_isNotEmpty] || [self.doubleType isEqualToString:@"abreast"])
-//            {//默认上下平行关系
-//                 self.expandContractBtn.hidden = YES;
-//                self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
-//
-//                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, 0, videoWidth, whitebordHeight);
-//
-//                if (self.isWideScreen)
-//                {//16:9
-//
-//                    CGFloat orgainalY = (whitebordHeight - 2 * videoHeight - VIDEOVIEW_GAP)/2;
-//
-//                    self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
-//                    self.teacherPlacehold.frame = CGRectMake(0, orgainalY, videoWidth, videoHeight);
-//                    self.userVideoView.frame = CGRectMake(0, orgainalY + videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
-//                }
-//                else
-//                {//4:3
-//                    self.teacherVideoViewArray.firstObject.frame = CGRectMake(0, 0, videoWidth, videoHeight);
-//                    self.teacherPlacehold.frame = CGRectMake(0, 0, videoWidth, videoHeight);
-//                    self.userVideoView.frame = CGRectMake(0, videoHeight, videoWidth, videoHeight);
-//                }
-//            }
-//            else if([self.doubleType isEqualToString:@"nested"])
-//            {//画中画
-//
-//                CGFloat whitebordY = (self.contentHeight - STATETOOLBAR_HEIGHT - whitebordHeight)/2;
-//
-//                self.whitebordBackgroud.frame = CGRectMake(0, whitebordY, whitebordWidth, whitebordHeight);
-//                self.videoBackgroud.frame = CGRectMake(whitebordWidth + VIDEOVIEW_GAP, whitebordY, videoTeacherWidth, whitebordHeight);
-//
-//                self.teacherPlacehold.frame = CGRectMake(0, 0, videoTeacherWidth, videoTeacherHeight);
-//                self.userVideoView.frame = CGRectMake(CGRectGetMaxX(self.teacherPlacehold.frame)-videoWidth, 0, videoWidth, videoHeight);
-//
-//                self.expandContractBtn.hidden = NO;
-//
-//                self.expandContractBtn.selected = NO;
-//                self.expandContractBtn.frame = CGRectMake(self.userVideoView.bm_originX-23, self.userVideoView.bm_originY, 23, videoHeight);
-//                [self.videoBackgroud bringSubviewToFront:self.expandContractBtn];
-//                self.studentVideoView = self.userVideoView;
-//            }
-//        }
     }
     else
     {
@@ -1881,25 +1834,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)freshVideoGridView
 {
     [self hideAllDragOutVideoView];
-        
-    
-//    if (!self.liveManager.isClassBegin)
-//    {
-//        [self.userVideoView removeFromSuperview];
-//        [self.videoBackgroud addSubview:self.userVideoView];
-//    }
-    
+
     NSMutableArray *viewArray = [[NSMutableArray alloc] init];
-//    if (!self.liveManager.isClassBegin)
-//    {
-//        viewArray = self.videoSequenceArr;
-//    }
-//    else
-    {
-        [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
-            [viewArray addObject:childView];
-        }];
-    }
+
+    [self.videoBackgroud.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull childView, NSUInteger idx, BOOL * _Nonnull stop) {
+        [viewArray addObject:childView];
+    }];
     
     for (SCVideoView *videoView in viewArray)
     {
@@ -2255,7 +2195,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)brushSelectorViewDidSelectDrawType:(CHDrawType)drawType color:(NSString *)hexColor widthProgress:(float)progress
 {
-
     if (self.liveManager.localUser.canDraw || self.liveManager.whiteBoardManager.smallBoardView)
     {
         [self.liveManager.whiteBoardManager didSelectDrawType:drawType color:hexColor widthProgress:progress];
@@ -3611,6 +3550,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 上课
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
+    [self.videoSequenceArr removeAllObjects];
     self.rightChatView.allDisabled = NO;
 
     self.teacherPlaceLab.hidden = YES;
