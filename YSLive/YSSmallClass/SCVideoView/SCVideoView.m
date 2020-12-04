@@ -141,8 +141,22 @@
         {
             if ([YSLiveManager sharedInstance].roomModel.roomtype == CHRoomUseTypeSmallClass)
             {
-                CGFloat oldScale = [change bm_sizeForKey:@"old"].width/BMUI_SCREEN_WIDTH_ROTATE;
-                CGFloat newScale = [change bm_sizeForKey:@"new"].width/BMUI_SCREEN_WIDTH_ROTATE;
+                
+                CGRect oldRect = CGRectZero;
+                CGRect newRect = CGRectZero;
+                CGFloat oldScale = 0.0;
+                CGFloat newScale = 0.0;
+                if([change valueForKey:@"old"] != [NSNull null])
+                {
+                    oldRect = [[change valueForKey:@"old"] CGRectValue];
+                    oldScale = oldRect.size.width/BMUI_SCREEN_WIDTH_ROTATE;
+                }
+                
+                if([change valueForKey:@"new"] != [NSNull null])
+                {
+                    newRect = [[change valueForKey:@"new"] CGRectValue];
+                    newScale = newRect.size.width/BMUI_SCREEN_WIDTH_ROTATE;
+                }
                 
                 int oldTag = 1;
                 int newTag = 1;
@@ -172,10 +186,9 @@
                 {
                     newTag = 3;
                 }
-                
+
                 NSInteger videowidth = 0;
                 NSInteger videoheight = 0;
-                
                 CHRoomModel * roomModel = [YSLiveManager sharedInstance].roomModel;
                 
                 if (oldTag != newTag)
