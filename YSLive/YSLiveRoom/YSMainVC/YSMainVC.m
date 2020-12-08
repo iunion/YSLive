@@ -47,6 +47,9 @@
 
 #import "YSLiveLevelView.h"
 
+#import "YSMP4PlayerMaskView.h"
+#import "YSCoreStatus.h"
+
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
@@ -197,6 +200,11 @@
 @property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
 
 @property (nonatomic, assign) BOOL shareDesktop;
+///暖场视频
+@property (nonatomic, strong) YSMP4PlayerMaskView *playerMaskView;
+
+///暖场视频连接
+@property (nonatomic, copy) NSString *warmUrl;
 
 @end
 
@@ -231,9 +239,12 @@
         {
             platformVideoHeight = platformVideoWidth * 3 / 4;
         }
+        self.warmUrl = @"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4";
     }
     return self;
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -1275,6 +1286,11 @@
         }
     }
 
+    if (_playerMaskView)
+    {
+        [_playerMaskView.player stop];
+        [_playerMaskView removeFromSuperview];
+    }
     
     [self freshMediaView];
     
@@ -2062,6 +2078,11 @@
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [self.liveManager.whiteBoardManager refreshWhiteBoard];
             
+            //判断暖场视频是否存在，和时间
+            if (!self.liveManager.isClassBegin && [self.warmUrl bm_isNotEmpty])
+            {
+                [self creatWarmUpVideo];
+            }
             return self.whiteBordView;
         }
         case 1:
@@ -2129,6 +2150,60 @@
         UIView *segmentView = [self.m_SegmentBar segmentViewAtIndex:index];
         [segmentView clearBadge];
     }
+}
+
+///创建暖场视频
+- (void)creatWarmUpVideo
+{
+    
+    NSTimeInterval nowTime = [[NSDate new] timeIntervalSince1970];
+    
+    double time = self.liveManager.roomModel.startTime - nowTime;
+    
+    //判断暖场视频是否存在 和 时间是否在上课前一小时
+    if (!self.liveManager.isClassBegin && [self.warmUrl bm_isNotEmpty] && time > 0 && time < 3600)
+    {
+        _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+        [self.view addSubview:_playerMaskView];
+        _playerMaskView.isWiFi = [YSCoreStatus isWifiEnable];
+        [_playerMaskView playWithVideoUrl:self.warmUrl];
+        [_playerMaskView.player play];
+        _playerMaskView.showFullBtn = YES;
+        BMWeakSelf
+        _playerMaskView.closeBlock = ^{
+            [weakSelf.playerMaskView.player stop];
+            weakSelf.navigationController.navigationBarHidden = NO;
+            [weakSelf performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+            [weakSelf.playerMaskView removeFromSuperview];
+        };
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runLoopTheMovie:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+        
+        _playerMaskView.fullButtonClick = ^(UIButton *fullButton) {
+            fullButton.selected = !fullButton.selected;
+            
+            if (fullButton.selected)
+            {
+                weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                weakSelf.playerMaskView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
+                [weakSelf.playerMaskView bm_bringToFront];
+            }
+            else
+            {
+                weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(0);
+                weakSelf.playerMaskView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
+            }
+        };
+    }
+}
+- (void)runLoopTheMovie:(NSNotification *)info
+{
+    //    AVPlayerItem * p = [info object];
+    //        //关键代码
+    //        [p seekToTime:kCMTimeZero];
+    
+    //如果选择了循环播放就重播
+    [_playerMaskView.player play];
 }
 
 - (void)creatPopover:(UIButton*)popoBtn
