@@ -191,7 +191,7 @@
                 NSInteger videoheight = 0;
                 CHRoomModel * roomModel = [YSLiveManager sharedInstance].roomModel;
                 
-                if (oldTag != newTag)
+                if ((!oldScale && newScale > 0) || oldTag != newTag)
                 {
                     if (newTag == 1)
                     {
