@@ -2077,12 +2077,9 @@
             
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [self.liveManager.whiteBoardManager refreshWhiteBoard];
+
+            [self creatWarmUpVideo];
             
-            //判断暖场视频是否存在，和时间
-            if (!self.liveManager.isClassBegin && [self.warmUrl bm_isNotEmpty])
-            {
-                [self creatWarmUpVideo];
-            }
             return self.whiteBordView;
         }
         case 1:
@@ -2156,44 +2153,49 @@
 - (void)creatWarmUpVideo
 {
     
-    NSTimeInterval nowTime = [[NSDate new] timeIntervalSince1970];
-    
-    double time = self.liveManager.roomModel.startTime - nowTime;
-    
-    //判断暖场视频是否存在 和 时间是否在上课前一小时
-    if (!self.liveManager.isClassBegin && [self.warmUrl bm_isNotEmpty] && time > 0 && time < 3600)
+    //判断暖场视频是否存在
+    if (!self.liveManager.isClassBegin && [self.warmUrl bm_isNotEmpty])
     {
-        _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
-        [self.view addSubview:_playerMaskView];
-        _playerMaskView.isWiFi = [YSCoreStatus isWifiEnable];
-        [_playerMaskView playWithVideoUrl:self.warmUrl];
-        [_playerMaskView.player play];
-        _playerMaskView.showFullBtn = YES;
-        BMWeakSelf
-        _playerMaskView.closeBlock = ^{
-            [weakSelf.playerMaskView.player stop];
-            weakSelf.navigationController.navigationBarHidden = NO;
-            [weakSelf performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
-            [weakSelf.playerMaskView removeFromSuperview];
-        };
+        NSTimeInterval nowTime = [[NSDate new] timeIntervalSince1970];
+        double time = self.liveManager.roomModel.startTime - nowTime;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runLoopTheMovie:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-        
-        _playerMaskView.fullButtonClick = ^(UIButton *fullButton) {
-            fullButton.selected = !fullButton.selected;
+        //时间是否在上课前一小时
+        if (time > 0 && time < 3600)
+        {
+            _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+            [self.view addSubview:_playerMaskView];
+            _playerMaskView.isWiFi = [YSCoreStatus isWifiEnable];
+            [_playerMaskView playWithVideoUrl:self.warmUrl];
+            [_playerMaskView.player play];
+            _playerMaskView.showFullBtn = YES;
+//            [_playerMaskView.backBtn setImage:YSSkinElementImage(@"searchbar_cancel_nameList", @"iconNor") forState:UIControlStateNormal];
             
-            if (fullButton.selected)
-            {
-                weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                weakSelf.playerMaskView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-                [weakSelf.playerMaskView bm_bringToFront];
-            }
-            else
-            {
-                weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(0);
-                weakSelf.playerMaskView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
-            }
-        };
+            BMWeakSelf
+            _playerMaskView.closeBlock = ^{
+                [weakSelf.playerMaskView.player stop];
+//                weakSelf.navigationController.navigationBarHidden = NO;
+                [weakSelf performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+                [weakSelf.playerMaskView removeFromSuperview];
+            };
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runLoopTheMovie:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+            
+            _playerMaskView.fullButtonClick = ^(UIButton *fullButton) {
+                fullButton.selected = !fullButton.selected;
+                
+                if (fullButton.selected)
+                {
+                    weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                    weakSelf.playerMaskView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
+                    [weakSelf.playerMaskView bm_bringToFront];
+                }
+                else
+                {
+                    weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(0);
+                    weakSelf.playerMaskView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
+                }
+            };
+        }
     }
 }
 - (void)runLoopTheMovie:(NSNotification *)info
