@@ -31,6 +31,9 @@
 - (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray;
 - (void)handleSignalingDeletePrivateChat;
 
+- (void)handleSignalingChangeUndoRedoStateCanErase:(BOOL)canErase canClean:(BOOL)canClean;
+
+
 @end
 
 #endif /* YSLiveForWhiteBoardDelegate_h */

@@ -4395,6 +4395,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
 }
 #pragma mark 白板翻页 换课件
+
+- (void)handleSignalingChangeUndoRedoStateCanErase:(BOOL)canErase canClean:(BOOL)canClean
+{
+    self.brushToolView.canErase = canErase;
+    self.brushToolView.canClean = canClean;
+}
+
 // 播放白板视频/音频
 - (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
 {

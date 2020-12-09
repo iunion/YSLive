@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UIButton *mouseBtn;
 
+/// 可以橡皮檫
+@property (nonatomic, assign) BOOL canErase;
+/// 可以清除
+@property (nonatomic, assign) BOOL canClean;
+
 - (instancetype)initWithTeacher:(BOOL)isTeacher;
 
 - (void)resetTool;

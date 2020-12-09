@@ -220,6 +220,18 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     }
 }
 
+- (void)setCanErase:(BOOL)canErase
+{
+    _canErase = canErase;
+    self.eraserBtn.userInteractionEnabled = canErase;
+}
+
+- (void)setCanClean:(BOOL)canClean
+{
+    _canClean = canClean;
+    self.clearBtn.userInteractionEnabled = canClean;
+}
+
 
 #pragma mark -
 #pragma mark lazy
@@ -309,6 +321,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_eraserBtn setAdjustsImageWhenHighlighted:NO];
         [_eraserBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _eraserBtn.tag = CHBrushToolTypeEraser;
+        _eraserBtn.userInteractionEnabled = NO;
     }
     
     return _eraserBtn;
@@ -325,6 +338,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         [_clearBtn setAdjustsImageWhenHighlighted:NO];
         [_clearBtn addTarget:self action:@selector(sc_toolButtonListClicked:) forControlEvents:UIControlEventTouchUpInside];
         _clearBtn.tag = CHDrawTypeClear;
+        _clearBtn.userInteractionEnabled = NO;
     }
     
     return _clearBtn;
