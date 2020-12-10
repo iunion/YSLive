@@ -224,6 +224,10 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
 {
     _canErase = canErase;
     self.eraserBtn.userInteractionEnabled = canErase;
+    if (!canErase)
+    {
+        self.eraserBtn.selected = NO;
+    }
 }
 
 - (void)setCanClean:(BOOL)canClean
