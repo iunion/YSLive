@@ -331,11 +331,11 @@
     {
         if (haveAlpha)
         {
-            return [NSString stringWithFormat:@"RGBA(%@,%@,%@,%@)", @(self.red), @(self.green), @(self.blue), @(self.alpha)];
+            return [NSString stringWithFormat:@"rgba(%@,%@,%@,%@)", @((NSUInteger)(self.red*255)), @((NSUInteger)(self.green*255)), @((NSUInteger)(self.blue*255)), @(self.alpha)];
         }
         else
         {
-            return [NSString stringWithFormat:@"RGBA(%@,%@,%@)", @(self.red), @(self.green), @(self.blue)];
+            return [NSString stringWithFormat:@"rgba(%@,%@,%@)", @((NSUInteger)(self.red*255)), @((NSUInteger)(self.green*255)), @((NSUInteger)(self.blue*255))];
         }
     }
     else
