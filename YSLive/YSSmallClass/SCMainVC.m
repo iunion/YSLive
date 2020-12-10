@@ -1046,10 +1046,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     videoView.tag = PlaceholderPTag;
     UIImageView *userImageView = [[UIImageView alloc] initWithImage:YSSkinDefineImage(@"main_uservideocover")];
     userImageView.frame = videoView.bounds;
-    userImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    userImageView.contentMode = UIViewContentModeScaleAspectFit;
-    userImageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [videoView addSubview:userImageView];
+    userImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    userImageView.contentMode = UIViewContentModeCenter;
+    userImageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
     [self.videoBackgroud addSubview:videoView];
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
     self.userVideoView = videoView;
