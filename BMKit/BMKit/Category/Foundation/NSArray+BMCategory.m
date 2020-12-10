@@ -430,16 +430,16 @@
 
 - (CGPoint)bm_pointAtIndex:(NSUInteger)index
 {
-    CGPoint point = CGPointZero;
-    NSDictionary *dictionary = [self objectAtIndex:index];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    if (index >= self.count)
     {
-        BOOL success = CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &point);
-        if (success)
-            return point;
-        else
-            return CGPointZero;
+        return CGPointZero;
+    }
+    
+    id value = [self objectAtIndex:index];
+    if ([value bm_isNotEmpty])
+    {
+        CGPoint point = [value CGPointValue];
+        return point;
     }
     
     return CGPointZero;
@@ -447,35 +447,35 @@
 
 - (CGSize)bm_sizeAtIndex:(NSUInteger)index
 {
-    CGSize size = CGSizeZero;
-    NSDictionary *dictionary = [self objectAtIndex:index];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    if (index >= self.count)
     {
-        BOOL success = CGSizeMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &size);
-        if (success)
-            return size;
-        else
-            return CGSizeZero;
+        return CGSizeZero;
     }
     
+    id value = [self objectAtIndex:index];
+    if ([value bm_isNotEmpty])
+    {
+        CGSize size = [value CGSizeValue];
+        return size;
+    }
+
     return CGSizeZero;
 }
 
 - (CGRect)bm_rectAtIndex:(NSUInteger)index
 {
-    CGRect rect = CGRectZero;
-    NSDictionary *dictionary = [self objectAtIndex:index];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    if (index >= self.count)
     {
-        BOOL success = CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &rect);
-        if (success)
-            return rect;
-        else
-            return CGRectZero;
+        return CGRectZero;
     }
     
+    id value = [self objectAtIndex:index];
+    if ([value bm_isNotEmpty])
+    {
+        CGRect rect = [value CGRectValue];
+        return rect;
+    }
+
     return CGRectZero;
 }
 
