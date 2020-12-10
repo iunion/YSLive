@@ -157,10 +157,46 @@
     return [UIColor bm_colorWithRGBAHexString:stringToConvert alpha:(CGFloat)alpha default:DEFAULT_VOID_COLOR];
 }
 
-+ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert  alpha:(CGFloat)alpha default:(nullable UIColor *)color
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert alpha:(CGFloat)alpha default:(nullable UIColor *)color
 {
     NSString *colorString = [[stringToConvert stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
+    if ([colorString hasPrefix:@"RGBA("])
+    {
+        colorString = [colorString substringFromIndex:5];
+        colorString = [colorString stringByReplacingOccurrencesOfString:@")" withString:@""];
+        NSArray *rgbaArray = [colorString componentsSeparatedByString:@","];
+        if (rgbaArray.count == 3)
+        {
+            NSNumber *r = rgbaArray[0];
+            NSNumber *g = rgbaArray[1];
+            NSNumber *b = rgbaArray[2];
+            UIColor *rgbColor = [UIColor colorWithRed:r.integerValue/255.0f
+                                                green:g.integerValue/255.0f
+                                                 blue:b.integerValue/255.0f
+                                                alpha:alpha];
+            return rgbColor;
+        }
+        else if (rgbaArray.count == 4)
+        {
+            NSNumber *r = rgbaArray[0];
+            NSNumber *g = rgbaArray[1];
+            NSNumber *b = rgbaArray[2];
+            NSNumber *a = rgbaArray[3];
+            alpha = a.floatValue;
+            if (alpha > 1.0f)
+            {
+                alpha = 1.0f;
+            }
+            UIColor *rgbColor = [UIColor colorWithRed:r.integerValue/255.0f
+                                                green:g.integerValue/255.0f
+                                                 blue:b.integerValue/255.0f
+                                                alpha:alpha];
+            return rgbColor;
+        }
+        return color;
+    }
+
     // strip 0X if it appears
     //if ([cString hasPrefix:@"0X"] || [cString hasPrefix:@"0x"])
     if ([colorString hasPrefix:@"0X"])
