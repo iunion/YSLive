@@ -2030,6 +2030,19 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self freshContentView];
     
+    if (self.roomtype == CHRoomUserType_One && self.isDoubleVideoBig)
+    {
+        for (SCVideoView *videoView in self.videoSequenceArr)
+        {
+            if (videoView.isFullScreen)
+            {
+                [self doubleFullWithFullVideoView:videoView];
+            }
+        }
+        
+    }
+    
+    
     return newVideoViewArray;
 }
 
@@ -2073,6 +2086,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else
         {
             [self freshContentView];
+            
+            if (self.roomtype == CHRoomUserType_One && self.isDoubleVideoBig)
+            {
+                for (SCVideoView *videoView in self.videoSequenceArr)
+                {
+                    if (videoView.isFullScreen)
+                    {
+                        [self doubleFullWithFullVideoView:videoView];
+                    }
+                }
+                
+            }
         }
     }
     
@@ -4323,32 +4348,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         [self freshContentView];
         
-        YSFloatView *floatView = [[YSFloatView alloc] init];
-        CGFloat wide = 4.0/3.0;
-        if (self.isWideScreen)
-        {
-            wide = 16.0/9.0;
-        }
-
-        if(self.whitebordBackgroud.bm_height < self.whitebordBackgroud.bm_width)
-        {
-            CGFloat tempWidth = ceil(self.whitebordBackgroud.bm_height * wide);
-            floatView.frame = CGRectMake(0, 0, tempWidth, self.whitebordBackgroud.bm_height);
-            floatView.bm_centerX = self.whitebordBackgroud.bm_width*0.5f;
-        }
-        else
-        {
-            CGFloat tempHeight = ceil(self.whitebordBackgroud.bm_width / wide);
-            floatView.frame = CGRectMake(0, 0, self.whitebordBackgroud.bm_width, tempHeight);
-            floatView.bm_centerY = self.whitebordBackgroud.bm_height*0.5f;
-        }
-        
-        [self.whitebordBackgroud addSubview:floatView];
-        [floatView bm_centerInSuperView];
-        [floatView showWithContentView:videoView];
-        self.doubleFloatView = floatView;
-        
-        self.whiteBordView.hidden = YES;
+        [self doubleFullWithFullVideoView:videoView];
         
     }
     else
@@ -4367,6 +4367,38 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self freshBrushTools];
     }
 }
+
+- (void)doubleFullWithFullVideoView:(SCVideoView *)videoView
+{
+    YSFloatView *floatView = [[YSFloatView alloc] init];
+    CGFloat wide = 4.0/3.0;
+    if (self.isWideScreen)
+    {
+        wide = 16.0/9.0;
+    }
+
+    if(self.whitebordBackgroud.bm_height < self.whitebordBackgroud.bm_width)
+    {
+        CGFloat tempWidth = ceil(self.whitebordBackgroud.bm_height * wide);
+        floatView.frame = CGRectMake(0, 0, tempWidth, self.whitebordBackgroud.bm_height);
+        floatView.bm_centerX = self.whitebordBackgroud.bm_width*0.5f;
+    }
+    else
+    {
+        CGFloat tempHeight = ceil(self.whitebordBackgroud.bm_width / wide);
+        floatView.frame = CGRectMake(0, 0, self.whitebordBackgroud.bm_width, tempHeight);
+        floatView.bm_centerY = self.whitebordBackgroud.bm_height*0.5f;
+    }
+    
+    [self.whitebordBackgroud addSubview:floatView];
+    [floatView bm_centerInSuperView];
+    [floatView showWithContentView:videoView];
+    self.doubleFloatView = floatView;
+    
+    self.whiteBordView.hidden = YES;
+}
+
+
 #pragma mark 本地movie stream
 
 - (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
