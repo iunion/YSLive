@@ -317,18 +317,37 @@
 
 - (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha
 {
+    return [self bm_RBGAHexStringWithStartChar:startChar haveAlpha:haveAlpha isRGBA:NO];
+}
+
+- (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha isRGBA:(BOOL)isRGBA
+{
     if (![startChar bm_isNotEmpty])
     {
         startChar = @"";
     }
     
-    if (haveAlpha)
+    if (isRGBA)
     {
-        return [NSString stringWithFormat:@"%@%0.8X", startChar, (unsigned int)self.bm_rgbaHex];
+        if (haveAlpha)
+        {
+            return [NSString stringWithFormat:@"RGBA(%@,%@,%@,%@)", @(self.red), @(self.green), @(self.blue), @(self.alpha)];
+        }
+        else
+        {
+            return [NSString stringWithFormat:@"RGBA(%@,%@,%@)", @(self.red), @(self.green), @(self.blue)];
+        }
     }
     else
     {
-        return [NSString stringWithFormat:@"%@%0.6X", startChar, (unsigned int)self.rgbHex];
+        if (haveAlpha)
+        {
+            return [NSString stringWithFormat:@"%@%0.8X", startChar, (unsigned int)self.bm_rgbaHex];
+        }
+        else
+        {
+            return [NSString stringWithFormat:@"%@%0.6X", startChar, (unsigned int)self.rgbHex];
+        }
     }
 }
 
