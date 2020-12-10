@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)bm_hexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha;
 
 - (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha;
+- (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha isRGBA:(BOOL)isRGBA;
 
 + (UIColor *)bm_randomColor;
 + (UIColor *)bm_randomColorWithAlpha:(CGFloat)alpha;
