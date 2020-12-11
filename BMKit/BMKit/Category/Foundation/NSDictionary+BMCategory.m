@@ -421,16 +421,11 @@
 
 - (CGPoint)bm_pointForKey:(id)key
 {
-    CGPoint point = CGPointZero;
-    NSDictionary *dictionary = [self valueForKey:key];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    id value = [self valueForKey:key];
+    if ([value bm_isNotEmpty])
     {
-        BOOL success = CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &point);
-        if (success)
-            return point;
-        else
-            return CGPointZero;
+        CGPoint point = [value CGPointValue];
+        return point;
     }
     
     return CGPointZero;
@@ -438,35 +433,25 @@
 
 - (CGSize)bm_sizeForKey:(id)key
 {
-    CGSize size = CGSizeZero;
-    NSDictionary *dictionary = [self valueForKey:key];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    id value = [self valueForKey:key];
+    if ([value bm_isNotEmpty])
     {
-        BOOL success = CGSizeMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &size);
-        if (success)
-            return size;
-        else
-            return CGSizeZero;
+        CGSize size = [value CGSizeValue];
+        return size;
     }
-    
+
     return CGSizeZero;
 }
 
 - (CGRect)bm_rectForKey:(id)key
 {
-    CGRect rect = CGRectZero;
-    NSDictionary *dictionary = [self valueForKey:key];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    id value = [self valueForKey:key];
+    if ([value bm_isNotEmpty])
     {
-        BOOL success = CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &rect);
-        if (success)
-            return rect;
-        else
-            return CGRectZero;
+        CGRect rect = [value CGRectValue];
+        return rect;
     }
-    
+
     return CGRectZero;
 }
 
@@ -682,32 +667,20 @@
 
 - (void)bm_setPoint:(CGPoint)value forKey:(id)key
 {
-    CFDictionaryRef dictionary = CGPointCreateDictionaryRepresentation(value);
-    NSDictionary *pointDict = [NSDictionary dictionaryWithDictionary:
-                               (__bridge NSDictionary *)dictionary]; // autoreleased
-    CFRelease(dictionary);
-    
-    [self setValue:pointDict forKey:key];
+    NSValue *pointValue = [NSValue valueWithCGPoint:value];
+    [self setValue:pointValue forKey:key];
 }
 
 - (void)bm_setSize:(CGSize)value forKey:(id)key
 {
-    CFDictionaryRef dictionary = CGSizeCreateDictionaryRepresentation(value);
-    NSDictionary *sizeDict = [NSDictionary dictionaryWithDictionary:
-                               (__bridge NSDictionary *)dictionary]; // autoreleased
-    CFRelease(dictionary);
-    
-    [self setValue:sizeDict forKey:key];
+    NSValue *sizeValue = [NSValue valueWithCGSize:value];
+    [self setValue:sizeValue forKey:key];
 }
 
 - (void)bm_setRect:(CGRect)value forKey:(id)key
 {
-    CFDictionaryRef dictionary = CGRectCreateDictionaryRepresentation(value);
-    NSDictionary *rectDict = [NSDictionary dictionaryWithDictionary:
-                              (__bridge NSDictionary *)dictionary]; // autoreleased
-    CFRelease(dictionary);
-    
-    [self setValue:rectDict forKey:key];
+    NSValue *rectValue = [NSValue valueWithCGRect:value];
+    [self setValue:rectValue forKey:key];
 }
 
 - (void)bm_setBMApiObject:(id)anObject forKey:(id)aKey

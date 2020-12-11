@@ -25,10 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable UIColor *)bm_colorWithHexString:(nullable NSString *)stringToConvert default:(nullable UIColor *)color;
 + (nullable UIColor *)bm_colorWithHexString:(NSString *)stringToConvert alpha:(CGFloat)alpha default:(nullable UIColor *)color;
 
-/// 格式支持 #RRGGBBAA
+/// 格式支持 #RRGGBBAA 及 RGBA(r,b,g,a)，RGBA(r,b,g)
 + (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert;
 + (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert alpha:(CGFloat)alpha;
-+ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert  alpha:(CGFloat)alpha default:(nullable UIColor *)color;
++ (nullable UIColor *)bm_colorWithRGBAHexString:(NSString *)stringToConvert alpha:(CGFloat)alpha default:(nullable UIColor *)color;
 
 + (UIColor *)bm_colorWithHex:(UInt32)hex;
 + (UIColor *)bm_colorWithHex:(UInt32)hex alpha:(CGFloat)alpha;
@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)bm_hexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha;
 
 - (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha;
+- (NSString *)bm_RBGAHexStringWithStartChar:(NSString *)startChar haveAlpha:(BOOL)haveAlpha isRGBA:(BOOL)isRGBA;
 
 + (UIColor *)bm_randomColor;
 + (UIColor *)bm_randomColorWithAlpha:(CGFloat)alpha;

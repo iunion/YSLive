@@ -380,7 +380,16 @@
 
 #pragma mark -
 #pragma mark CHWhiteBoardManagerDelegate
-
+- (void)changeUndoRedoState:(NSString *)fileid currentpage:(NSUInteger)currentPage canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo canErase:(BOOL)canErase canClean:(BOOL)canClean
+{
+    if ([self.whiteBoardManager.currentFileId isEqualToString:fileid])
+    {
+        if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingChangeUndoRedoStateCanErase:canClean:)])
+        {
+            [self.whiteBoardDelegate handleSignalingChangeUndoRedoStateCanErase:canErase canClean:canClean];
+        }
+    }
+}
 /// 白板管理初始化失败
 - (void)onWhiteBroadCreateFail
 {

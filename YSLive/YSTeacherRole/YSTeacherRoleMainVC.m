@@ -3885,6 +3885,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark -
 #pragma mark YSWhiteBoardManagerDelegate
 
+- (void)handleSignalingChangeUndoRedoStateCanErase:(BOOL)canErase canClean:(BOOL)canClean
+{
+    self.brushToolView.canErase = canErase;
+    self.brushToolView.canClean = canClean;
+}
+
 
 #pragma mark 白板翻页 换课件
 
