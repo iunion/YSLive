@@ -203,9 +203,6 @@
 ///暖场视频
 @property (nonatomic, strong) YSMP4PlayerMaskView *playerMaskView;
 
-///暖场视频连接
-@property (nonatomic, copy) NSString *warmUrl;
-
 @end
 
 @implementation YSMainVC
@@ -239,7 +236,6 @@
         {
             platformVideoHeight = platformVideoWidth * 3 / 4;
         }
-        self.warmUrl = @"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4";
     }
     return self;
 }
@@ -1334,7 +1330,6 @@
 {
     [self classEndWithText:nil];
 }
-
 - (void)classEndWithText:(NSString *)text
 {
     [self handleWhiteBordStopMediaFileWithMedia:self.mediaFileModel];
@@ -2078,8 +2073,11 @@
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [self.liveManager.whiteBoardManager refreshWhiteBoard];
 
-            [self creatWarmUpVideo];
-            
+            if (!self.liveManager.isClassBegin && self.liveManager.roomConfig.hasWarmVideo)
+            {
+                [self creatWarmUpVideo];
+            }
+                        
             return self.whiteBordView;
         }
         case 1:
@@ -2152,9 +2150,19 @@
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
+    //CHWhiteBoard_domain_demows
     
-    //判断暖场视频是否存在
-    if (!self.liveManager.isClassBegin && [self.warmUrl bm_isNotEmpty])
+    NSString *warmUrl = nil;
+    if ([self.liveManager.whiteBoardManager.warmModel bm_isNotEmpty])
+    {
+        warmUrl = self.liveManager.whiteBoardManager.warmModel.warmVideoUrl;
+    }
+    else
+    {
+        return;
+    }
+    
+    if ([warmUrl bm_isNotEmpty])
     {
         NSTimeInterval nowTime = [[NSDate new] timeIntervalSince1970];
         double time = self.liveManager.roomModel.startTime - nowTime;
@@ -2165,10 +2173,9 @@
             _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
             [self.view addSubview:_playerMaskView];
             _playerMaskView.isWiFi = [YSCoreStatus isWifiEnable];
-            [_playerMaskView playWithVideoUrl:self.warmUrl];
+            [_playerMaskView playWithVideoUrl:warmUrl];
             [_playerMaskView.player play];
             _playerMaskView.showFullBtn = YES;
-//            [_playerMaskView.backBtn setImage:YSSkinElementImage(@"searchbar_cancel_nameList", @"iconNor") forState:UIControlStateNormal];
             
             BMWeakSelf
             _playerMaskView.closeBlock = ^{
@@ -2203,9 +2210,11 @@
     //    AVPlayerItem * p = [info object];
     //        //关键代码
     //        [p seekToTime:kCMTimeZero];
-    
-    //如果选择了循环播放就重播
-    [_playerMaskView.player play];
+    //是否循环播放
+    if (self.liveManager.roomModel.warmupCycle == CHWarmVideoCycleType_Cycle)
+    {
+        [_playerMaskView.player play];
+    }
 }
 
 - (void)creatPopover:(UIButton*)popoBtn
