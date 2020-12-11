@@ -50,6 +50,8 @@
 #import "YSMP4PlayerMaskView.h"
 #import "YSCoreStatus.h"
 
+#import "YSWarmVideoView.h"
+
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
@@ -202,6 +204,10 @@
 @property (nonatomic, assign) BOOL shareDesktop;
 ///暖场视频
 @property (nonatomic, strong) YSMP4PlayerMaskView *playerMaskView;
+
+
+///暖场视频
+@property (nonatomic, strong) YSWarmVideoView *warmVideoView;
 
 @end
 
@@ -2152,10 +2158,33 @@
 {
     //CHWhiteBoard_domain_demows
     
+    
+    
+    
+    
     NSString *warmUrl = nil;
-    if ([self.liveManager.whiteBoardManager.warmModel bm_isNotEmpty])
+    
+    NSString *swfpath = self.liveManager.whiteBoardManager.warmModel.swfpath;
+    if ([swfpath bm_isNotEmpty])
     {
-        warmUrl = self.liveManager.whiteBoardManager.warmModel.warmVideoUrl;
+        
+        swfpath = [NSString stringWithFormat:@"%@:%d%@", CHWhiteBoard_domain_demows, YSLive_Port,swfpath];
+        NSString *tdeletePathExtension = swfpath.stringByDeletingPathExtension;
+        warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, swfpath.pathExtension];
+        //https://release.roadofcloud.net:443/upload/20200515_174708_lnkwchxo-1.mkv
+        
+        
+        self.warmVideoView = [[YSWarmVideoView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+        
+        [self.view addSubview:self.warmVideoView];
+        
+        int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:warmUrl cycle:YES view:self.warmVideoView paused:NO];
+//        self.warmVideoView.warmUrl = warmUrl;
+        
+        NSLog(@"dddddd = %d",iii);
+        
+        
+        return;
     }
     else
     {
