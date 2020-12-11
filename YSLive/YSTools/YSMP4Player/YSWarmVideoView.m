@@ -40,6 +40,7 @@
 -(void)setUI
 {
     UIButton * fullBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width-50, self.bm_height - 50, 30, 30)];
+    [fullBtn setBackgroundColor:UIColor.redColor];
     //[_fullBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_fullscreen"] forState:UIControlStateNormal];
     [fullBtn setImage:YSSkinOnlineElementImage(@"online_video_fullscreen", @"iconNor") forState:UIControlStateNormal];
     [fullBtn addTarget:self action:@selector(videoFullAction:) forControlEvents:UIControlEventTouchUpInside];
