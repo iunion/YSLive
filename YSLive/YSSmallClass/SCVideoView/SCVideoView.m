@@ -82,11 +82,6 @@
 
 @implementation SCVideoView
 
-- (void)dealloc
-{
-    [self removeObserver:self forKeyPath:@"frame"];
-}
-
 // 老师用
 - (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate
 {
@@ -131,98 +126,9 @@
         
         self.panGesture.delegate = self;
         self.exclusiveTouch = YES;
-        
-        [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-        
     }
     return self;
 }
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"frame"])
-    {
-        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {
-            if ([YSLiveManager sharedInstance].roomModel.roomtype == CHRoomUseTypeSmallClass)
-            {
-                
-                CGRect oldRect = CGRectZero;
-                CGRect newRect = CGRectZero;
-                CGFloat oldScale = 0.0;
-                CGFloat newScale = 0.0;
-                if([change valueForKey:@"old"] != [NSNull null])
-                {
-                    oldRect = [[change valueForKey:@"old"] CGRectValue];
-                    oldScale = oldRect.size.width/BMUI_SCREEN_WIDTH_ROTATE;
-                }
-                
-                if([change valueForKey:@"new"] != [NSNull null])
-                {
-                    newRect = [[change valueForKey:@"new"] CGRectValue];
-                    newScale = newRect.size.width/BMUI_SCREEN_WIDTH_ROTATE;
-                }
-                
-                int oldTag = 1;
-                int newTag = 1;
-                
-                if (oldScale < 0.25)
-                {
-                    oldTag = 1;
-                }
-                else if (oldScale < 0.34)
-                {
-                    oldTag = 2;
-                }
-                else
-                {
-                    oldTag = 3;
-                }
-                
-                if (newScale < 0.25)
-                {
-                    newTag = 1;
-                }
-                else if (newScale < 0.34)
-                {
-                    newTag = 2;
-                }
-                else
-                {
-                    newTag = 3;
-                }
-
-                NSInteger videowidth = 0;
-                NSInteger videoheight = 0;
-                CHRoomModel * roomModel = [YSLiveManager sharedInstance].roomModel;
-                
-                if ((!oldScale && newScale > 0) || oldTag != newTag)
-                {
-                    if (newTag == 1)
-                    {
-                        videowidth = [roomModel.lowerResolution bm_intForKey:@"videowidth"];
-                        videoheight = [roomModel.lowerResolution bm_intForKey:@"videoheight"];
-                    }
-                    else if (newTag == 2)
-                    {
-                        videowidth = [roomModel.middleResolution bm_intForKey:@"videowidth"];
-                        videoheight = [roomModel.middleResolution bm_intForKey:@"videoheight"];
-                    }
-                    else
-                    {
-                        videowidth = [roomModel.highResolution bm_intForKey:@"videowidth"];
-                        videoheight = [roomModel.highResolution bm_intForKey:@"videoheight"];
-                    }
-                    
-                    CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:videowidth height:videoheight frameRate:roomModel.videoframerate];
-                    
-                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setVideoEncoderConfiguration:config];
-                }
-            }
-        }
-    }
-}
-
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -496,8 +402,78 @@
 
 - (void)setFrame:(CGRect)frame
 {
+    CGFloat oldWidth = self.bm_width;
+
     [super setFrame:frame];
 
+    CGFloat newWidth = self.bm_width;
+
+    // 动态调整自己的视频分辨率
+    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    {
+        if ([YSLiveManager sharedInstance].roomModel.roomtype == CHRoomUseTypeSmallClass)
+        {
+            CGFloat oldScale = oldWidth/BMUI_SCREEN_WIDTH_ROTATE;
+            CGFloat newScale = newWidth/BMUI_SCREEN_WIDTH_ROTATE;
+
+            int oldTag = 1;
+            int newTag = 1;
+            
+            if (oldScale < 0.25)
+            {
+                oldTag = 1;
+            }
+            else if (oldScale < 0.34)
+            {
+                oldTag = 2;
+            }
+            else
+            {
+                oldTag = 3;
+            }
+            
+            if (newScale < 0.25)
+            {
+                newTag = 1;
+            }
+            else if (newScale < 0.34)
+            {
+                newTag = 2;
+            }
+            else
+            {
+                newTag = 3;
+            }
+
+            NSInteger videowidth = 0;
+            NSInteger videoheight = 0;
+            CHRoomModel * roomModel = [YSLiveManager sharedInstance].roomModel;
+            
+            if ((!oldScale && newScale > 0) || oldTag != newTag)
+            {
+                if (newTag == 1)
+                {
+                    videowidth = [roomModel.lowerResolution bm_intForKey:@"videowidth"];
+                    videoheight = [roomModel.lowerResolution bm_intForKey:@"videoheight"];
+                }
+                else if (newTag == 2)
+                {
+                    videowidth = [roomModel.middleResolution bm_intForKey:@"videowidth"];
+                    videoheight = [roomModel.middleResolution bm_intForKey:@"videoheight"];
+                }
+                else
+                {
+                    videowidth = [roomModel.highResolution bm_intForKey:@"videowidth"];
+                    videoheight = [roomModel.highResolution bm_intForKey:@"videoheight"];
+                }
+                
+                CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:videowidth height:videoheight frameRate:roomModel.videoframerate];
+                
+                [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setVideoEncoderConfiguration:config];
+            }
+        }
+    }
+    
     CGFloat width = self.bm_height*0.7f;
     if (width>100)
     {
