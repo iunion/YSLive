@@ -30,6 +30,9 @@
 #import <BMKit/BMKitThird.h>
 
 #import <CloudHubRTC/CloudHubRTC.h>
+#import <CloudHubRTC/CloudHubRtcEngineKit.internal.h>
+#import <CloudHubRTC/CloudHubRtcEngineDelegate.internal.h>
+
 #import <CHSession/CHSession.h>
 #import <CHWhiteBoard/CHWhiteBoard.h>
 #import <CHWhiteBoard/CHWhiteBoardManager.h>
