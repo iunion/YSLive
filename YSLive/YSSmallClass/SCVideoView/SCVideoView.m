@@ -82,6 +82,11 @@
 
 @implementation SCVideoView
 
+- (void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"frame"];
+}
+
 // 老师用
 - (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate
 {
