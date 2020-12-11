@@ -11,8 +11,7 @@
 
 @interface YSWarmVideoView ()
 
-/** 全屏按钮 */
-@property (nonatomic, strong) UIButton *fullBtn;
+
 
 @end
 
@@ -47,15 +46,30 @@
     
     [self addSubview:fullBtn];
     
-    
-    
-    
+    self.fullBtn = fullBtn;
 }
 
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    if (frame.size.height == BMUI_SCREEN_HEIGHT)
+    {
+        self.fullBtn.frame = CGRectMake(self.bm_height - 50, self.bm_width - 50, 30, 30);
+    }
+    else
+    {
+        self.fullBtn.frame = CGRectMake(self.bm_width-50, self.bm_height - 50, 30, 30);
+    }
+}
 
 - (void)videoFullAction:(UIButton *)sender
 {
     
+    sender.selected = !sender.selected;
+    if (_warmViewFullBtnClick)
+    {
+        _warmViewFullBtnClick(sender);
+    }
 }
 
 

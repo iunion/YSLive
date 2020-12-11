@@ -1263,6 +1263,11 @@
 - (void)onRoomJoined
 {
     [super onRoomJoined];
+    
+    if (!self.liveManager.isClassBegin && self.liveManager.roomConfig.hasWarmVideo)
+    {
+        [self creatWarmUpVideo];
+    }
 }
 
 #pragma mark 上下课
@@ -2079,10 +2084,7 @@
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [self.liveManager.whiteBoardManager refreshWhiteBoard];
 
-            if (!self.liveManager.isClassBegin && self.liveManager.roomConfig.hasWarmVideo)
-            {
-                [self creatWarmUpVideo];
-            }
+            
                         
             return self.whiteBordView;
         }
@@ -2157,11 +2159,6 @@
 - (void)creatWarmUpVideo
 {
     //CHWhiteBoard_domain_demows
-    
-    
-    
-    
-    
     NSString *warmUrl = nil;
     
     NSString *swfpath = self.liveManager.whiteBoardManager.warmModel.swfpath;
@@ -2173,16 +2170,29 @@
         warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, swfpath.pathExtension];
         //https://release.roadofcloud.net:443/upload/20200515_174708_lnkwchxo-1.mkv
         
-        
         self.warmVideoView = [[YSWarmVideoView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
         
         [self.view addSubview:self.warmVideoView];
+        BMWeakSelf
+        self.warmVideoView.warmViewFullBtnClick = ^(UIButton * _Nonnull sender) {
+            if (sender.selected)
+            {
+                weakSelf.warmVideoView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+//                weakSelf.warmVideoView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
+//                weakSelf.warmVideoView.frame = CGRectMake(0, 0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH);
+//                [weakSelf.playerMaskView bm_bringToFront];
+                weakSelf.warmVideoView.frame = weakSelf.view.bounds;
+            }
+            else
+            {
+                weakSelf.warmVideoView.transform = CGAffineTransformMakeRotation(0);
+                weakSelf.warmVideoView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
+            }
+        };
         
         int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:warmUrl cycle:YES view:self.warmVideoView paused:NO];
-//        self.warmVideoView.warmUrl = warmUrl;
-        
-        NSLog(@"dddddd = %d",iii);
-        
+                
+        [self.warmVideoView.fullBtn bm_bringToFront];
         
         return;
     }
