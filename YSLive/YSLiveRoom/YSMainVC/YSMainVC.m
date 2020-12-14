@@ -2171,7 +2171,7 @@
         double time = self.liveManager.roomModel.startTime - nowTime;
         
         //时间是否在上课前一小时
-        if (time > 0 && time < 3600)
+        if (time < 3600)
         {
             warmUrl = [NSString stringWithFormat:@"%@:%d%@", CHWhiteBoard_domain_demows, YSLive_Port,warmUrl];
             NSString *tdeletePathExtension = warmUrl.stringByDeletingPathExtension;
