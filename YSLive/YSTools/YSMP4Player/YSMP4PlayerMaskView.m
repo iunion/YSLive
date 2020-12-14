@@ -517,7 +517,12 @@
 }
 
 /** 全屏 和退出全屏 */
-- (void)videoFullAction {
+- (void)videoFullAction:(UIButton *)sender {
+    
+    if (_fullButtonClick)
+    {
+        _fullButtonClick(sender);
+    }
     
 //    UIDeviceOrientation orientation;
 //
@@ -589,7 +594,7 @@
         _fullBtn.frame = CGRectMake(0, 0, 21, 21);
         //[_fullBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_fullscreen"] forState:UIControlStateNormal];
         [_fullBtn setImage:YSSkinOnlineElementImage(@"online_video_fullscreen", @"iconNor") forState:UIControlStateNormal];
-        [_fullBtn addTarget:self action:@selector(videoFullAction) forControlEvents:UIControlEventTouchUpInside];
+        [_fullBtn addTarget:self action:@selector(videoFullAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _fullBtn;
 }

@@ -47,6 +47,12 @@
 
 #import "YSLiveLevelView.h"
 
+#import "YSMP4PlayerMaskView.h"
+#import "YSCoreStatus.h"
+
+#import "YSWarmVideoView.h"
+
+
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
@@ -197,6 +203,16 @@
 @property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
 
 @property (nonatomic, assign) BOOL shareDesktop;
+///暖场视频
+@property (nonatomic, strong) YSMP4PlayerMaskView *playerMaskView;
+
+
+///暖场视频
+@property (nonatomic, strong) YSWarmVideoView *warmVideoView;
+
+///暖场视频的上层视频View
+@property (nonatomic, strong) UIView *warmView;
+
 
 @end
 
@@ -234,6 +250,8 @@
     }
     return self;
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -1250,6 +1268,11 @@
 - (void)onRoomJoined
 {
     [super onRoomJoined];
+    
+    if (!self.liveManager.isClassBegin && self.liveManager.roomConfig.hasWarmVideo)
+    {
+        [self creatWarmUpVideo];
+    }
 }
 
 #pragma mark 上下课
@@ -1275,6 +1298,11 @@
         }
     }
 
+    if (_playerMaskView)
+    {
+        [_playerMaskView.player stop];
+        [_playerMaskView removeFromSuperview];
+    }
     
     [self freshMediaView];
     
@@ -1318,7 +1346,6 @@
 {
     [self classEndWithText:nil];
 }
-
 - (void)classEndWithText:(NSString *)text
 {
     [self handleWhiteBordStopMediaFileWithMedia:self.mediaFileModel];
@@ -2061,7 +2088,9 @@
             
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [self.liveManager.whiteBoardManager refreshWhiteBoard];
+
             
+                        
             return self.whiteBordView;
         }
         case 1:
@@ -2130,6 +2159,72 @@
         [segmentView clearBadge];
     }
 }
+
+///创建暖场视频
+- (void)creatWarmUpVideo
+{
+    NSString *warmUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
+
+    if ([warmUrl bm_isNotEmpty])
+    {
+        NSTimeInterval nowTime = [[NSDate new] timeIntervalSince1970];
+        double time = self.liveManager.roomModel.startTime - nowTime;
+        
+        //时间是否在上课前一小时
+        if (time > 0 && time < 3600)
+        {
+            warmUrl = [NSString stringWithFormat:@"%@:%d%@", CHWhiteBoard_domain_demows, YSLive_Port,warmUrl];
+            NSString *tdeletePathExtension = warmUrl.stringByDeletingPathExtension;
+            warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, warmUrl.pathExtension];
+            
+            self.warmVideoView = [[YSWarmVideoView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+            
+            [self.view addSubview:self.warmVideoView];
+            BMWeakSelf
+            self.warmVideoView.warmViewFullBtnClick = ^(UIButton * _Nonnull sender) {
+                if (sender.selected)
+                {
+                    weakSelf.warmVideoView.frame = weakSelf.view.bounds;
+                    
+                    [UIView animateWithDuration:0.25 animations:^{
+                        weakSelf.warmView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                    }];
+                }
+                else
+                {
+                    weakSelf.warmVideoView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
+                    [UIView animateWithDuration:0.25 animations:^{
+                        weakSelf.warmView.transform = CGAffineTransformMakeRotation(0);
+                    }];
+                }
+            };
+            
+            BOOL isCycle = NO;
+            //是否循环播放
+            if (self.liveManager.roomModel.warmupCycle == CHWarmVideoCycleType_Cycle)
+            {
+                isCycle = YES;
+            }
+            
+            int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:warmUrl cycle:isCycle view:self.warmVideoView paused:NO];
+            
+            for (UIView *view in weakSelf.warmVideoView.subviews)
+            {
+                if ([NSStringFromClass([view class]) isEqualToString:@"CloudHubRtcRender"])
+                {
+                    self.warmView = view;
+                }
+            }
+            [self.warmVideoView.fullBtn bm_bringToFront];
+        }
+    }
+}
+
+- (void)warmVideoViewEndOfPlay
+{
+    [self.warmVideoView removeFromSuperview];
+}
+
 
 - (void)creatPopover:(UIButton*)popoBtn
 {
