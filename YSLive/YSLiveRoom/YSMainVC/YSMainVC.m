@@ -52,6 +52,7 @@
 
 #import "YSWarmVideoView.h"
 
+
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
@@ -208,6 +209,10 @@
 
 ///暖场视频
 @property (nonatomic, strong) YSWarmVideoView *warmVideoView;
+
+///暖场视频的上层视频View
+@property (nonatomic, strong) UIView *warmView;
+
 
 @end
 
@@ -2158,49 +2163,8 @@
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
-    //CHWhiteBoard_domain_demows
-    NSString *warmUrl = nil;
-    
-    NSString *swfpath = self.liveManager.whiteBoardManager.warmModel.swfpath;
-    if ([swfpath bm_isNotEmpty])
-    {
-        
-        swfpath = [NSString stringWithFormat:@"%@:%d%@", CHWhiteBoard_domain_demows, YSLive_Port,swfpath];
-        NSString *tdeletePathExtension = swfpath.stringByDeletingPathExtension;
-        warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, swfpath.pathExtension];
-        //https://release.roadofcloud.net:443/upload/20200515_174708_lnkwchxo-1.mkv
-        
-        self.warmVideoView = [[YSWarmVideoView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
-        
-        [self.view addSubview:self.warmVideoView];
-        BMWeakSelf
-        self.warmVideoView.warmViewFullBtnClick = ^(UIButton * _Nonnull sender) {
-            if (sender.selected)
-            {
-                weakSelf.warmVideoView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-//                weakSelf.warmVideoView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-//                weakSelf.warmVideoView.frame = CGRectMake(0, 0, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH);
-//                [weakSelf.playerMaskView bm_bringToFront];
-                weakSelf.warmVideoView.frame = weakSelf.view.bounds;
-            }
-            else
-            {
-                weakSelf.warmVideoView.transform = CGAffineTransformMakeRotation(0);
-                weakSelf.warmVideoView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
-            }
-        };
-        
-        int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:warmUrl cycle:YES view:self.warmVideoView paused:NO];
-                
-        [self.warmVideoView.fullBtn bm_bringToFront];
-        
-        return;
-    }
-    else
-    {
-        return;
-    }
-    
+    NSString *warmUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
+
     if ([warmUrl bm_isNotEmpty])
     {
         NSTimeInterval nowTime = [[NSDate new] timeIntervalSince1970];
@@ -2209,52 +2173,58 @@
         //时间是否在上课前一小时
         if (time > 0 && time < 3600)
         {
-            _playerMaskView = [[YSMP4PlayerMaskView alloc] initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
-            [self.view addSubview:_playerMaskView];
-            _playerMaskView.isWiFi = [YSCoreStatus isWifiEnable];
-            [_playerMaskView playWithVideoUrl:warmUrl];
-            [_playerMaskView.player play];
-            _playerMaskView.showFullBtn = YES;
+            warmUrl = [NSString stringWithFormat:@"%@:%d%@", CHWhiteBoard_domain_demows, YSLive_Port,warmUrl];
+            NSString *tdeletePathExtension = warmUrl.stringByDeletingPathExtension;
+            warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, warmUrl.pathExtension];
             
+            self.warmVideoView = [[YSWarmVideoView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+            
+            [self.view addSubview:self.warmVideoView];
             BMWeakSelf
-            _playerMaskView.closeBlock = ^{
-                [weakSelf.playerMaskView.player stop];
-//                weakSelf.navigationController.navigationBarHidden = NO;
-                [weakSelf performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
-                [weakSelf.playerMaskView removeFromSuperview];
-            };
-            
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runLoopTheMovie:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-            
-            _playerMaskView.fullButtonClick = ^(UIButton *fullButton) {
-                fullButton.selected = !fullButton.selected;
-                
-                if (fullButton.selected)
+            self.warmVideoView.warmViewFullBtnClick = ^(UIButton * _Nonnull sender) {
+                if (sender.selected)
                 {
-                    weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
-                    weakSelf.playerMaskView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-                    [weakSelf.playerMaskView bm_bringToFront];
+                    weakSelf.warmVideoView.frame = weakSelf.view.bounds;
+                    
+                    [UIView animateWithDuration:0.25 animations:^{
+                        weakSelf.warmView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                    }];
                 }
                 else
                 {
-                    weakSelf.playerMaskView.transform = CGAffineTransformMakeRotation(0);
-                    weakSelf.playerMaskView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
+                    weakSelf.warmVideoView.frame = CGRectMake(0, BMUI_SCREEN_HEIGHT - weakSelf.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, weakSelf.m_ScrollPageView.bm_height);
+                    [UIView animateWithDuration:0.25 animations:^{
+                        weakSelf.warmView.transform = CGAffineTransformMakeRotation(0);
+                    }];
                 }
             };
+            
+            BOOL isCycle = NO;
+            //是否循环播放
+            if (self.liveManager.roomModel.warmupCycle == CHWarmVideoCycleType_Cycle)
+            {
+                isCycle = YES;
+            }
+            
+            int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:warmUrl cycle:isCycle view:self.warmVideoView paused:NO];
+            
+            for (UIView *view in weakSelf.warmVideoView.subviews)
+            {
+                if ([NSStringFromClass([view class]) isEqualToString:@"CloudHubRtcRender"])
+                {
+                    self.warmView = view;
+                }
+            }
+            [self.warmVideoView.fullBtn bm_bringToFront];
         }
     }
 }
-- (void)runLoopTheMovie:(NSNotification *)info
+
+- (void)warmVideoViewEndOfPlay
 {
-    //    AVPlayerItem * p = [info object];
-    //        //关键代码
-    //        [p seekToTime:kCMTimeZero];
-    //是否循环播放
-    if (self.liveManager.roomModel.warmupCycle == CHWarmVideoCycleType_Cycle)
-    {
-        [_playerMaskView.player play];
-    }
+    [self.warmVideoView removeFromSuperview];
 }
+
 
 - (void)creatPopover:(UIButton*)popoBtn
 {

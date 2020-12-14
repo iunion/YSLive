@@ -21,7 +21,7 @@
 {
     if (self = [super initWithFrame:frame])
     {
-        self.backgroundColor = [UIColor yellowColor];
+//        self.backgroundColor = [UIColor clearColor];
         
 //        _isDragSlider = NO;
 //        _isWiFi = YES;
@@ -39,7 +39,7 @@
 -(void)setUI
 {
     UIButton * fullBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width-50, self.bm_height - 50, 30, 30)];
-    [fullBtn setBackgroundColor:UIColor.redColor];
+//    [fullBtn setBackgroundColor:UIColor.clearColor];
     //[_fullBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_fullscreen"] forState:UIControlStateNormal];
     [fullBtn setImage:YSSkinOnlineElementImage(@"online_video_fullscreen", @"iconNor") forState:UIControlStateNormal];
     [fullBtn addTarget:self action:@selector(videoFullAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -54,7 +54,7 @@
     [super setFrame:frame];
     if (frame.size.height == BMUI_SCREEN_HEIGHT)
     {
-        self.fullBtn.frame = CGRectMake(self.bm_height - 50, self.bm_width - 50, 30, 30);
+        self.fullBtn.frame = CGRectMake(50, self.bm_height - 50, 30, 30);
     }
     else
     {
