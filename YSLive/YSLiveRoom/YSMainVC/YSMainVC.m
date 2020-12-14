@@ -2220,7 +2220,7 @@
     }
 }
 
-- (void)warmVideoViewEndOfPlay
+- (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
 {
     [self.warmVideoView removeFromSuperview];
 }
