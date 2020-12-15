@@ -1312,6 +1312,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             {
                 videoHeight = ceil(videoWidth * 3/4);
             }
+            whitebordWidth = 2 * videoWidth;
+            whitebordHeight = ceil(whitebordWidth * 3/4);
         }
         else
         {
@@ -1664,7 +1666,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (self.roomLayout == CHRoomLayoutType_VideoLayout)
         {//左右平行关系
             self.whitebordBackgroud.hidden = YES;
-            
+            self.whitebordBackgroud.frame = CGRectMake(0, 0, whitebordWidth, whitebordHeight);
+
             self.videoBackgroud.frame = CGRectMake(whitebordWidth, 0, videoWidth, videoHeight);
             
             self.teacherVideoViewArray.firstObject.frame = CGRectMake(VIDEOVIEW_GAP, 0, videoWidth, videoHeight);
