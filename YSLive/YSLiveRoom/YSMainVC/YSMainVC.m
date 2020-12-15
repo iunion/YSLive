@@ -47,9 +47,6 @@
 
 #import "YSLiveLevelView.h"
 
-#import "YSMP4PlayerMaskView.h"
-#import "YSCoreStatus.h"
-
 #import "YSWarmVideoView.h"
 
 
@@ -203,9 +200,9 @@
 @property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
 
 @property (nonatomic, assign) BOOL shareDesktop;
-///暖场视频
-@property (nonatomic, strong) YSMP4PlayerMaskView *playerMaskView;
 
+///暖场视频链接
+@property (nonatomic, copy) NSString *warmUrl;
 
 ///暖场视频
 @property (nonatomic, strong) YSWarmVideoView *warmVideoView;
@@ -1298,10 +1295,9 @@
         }
     }
 
-    if (_playerMaskView)
+    if (self.warmVideoView)
     {
-        [_playerMaskView.player stop];
-        [_playerMaskView removeFromSuperview];
+        [self.liveManager.cloudHubRtcEngineKit stopPlayingMovie:self.warmUrl];
     }
     
     [self freshMediaView];
@@ -2163,9 +2159,9 @@
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
-    NSString *warmUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
+    NSString *warmVideoUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
 
-    if ([warmUrl bm_isNotEmpty])
+    if ([warmVideoUrl bm_isNotEmpty])
     {
         NSTimeInterval nowTime = [[NSDate new] timeIntervalSince1970];
         double time = self.liveManager.roomModel.startTime - nowTime;
@@ -2173,9 +2169,9 @@
         //时间是否在上课前一小时
         if (time < 3600)
         {
-            warmUrl = [NSString stringWithFormat:@"%@:%d%@", CHWhiteBoard_domain_demows, YSLive_Port,warmUrl];
-            NSString *tdeletePathExtension = warmUrl.stringByDeletingPathExtension;
-            warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, warmUrl.pathExtension];
+            warmVideoUrl = [NSString stringWithFormat:@"%@:%d%@", self.liveManager.whiteBoardManager.serverDocHost, YSLive_Port,warmVideoUrl];
+            NSString *tdeletePathExtension = warmVideoUrl.stringByDeletingPathExtension;
+            self.warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, warmVideoUrl.pathExtension];
             
             self.warmVideoView = [[YSWarmVideoView alloc]initWithFrame:CGRectMake(0, BMUI_SCREEN_HEIGHT - self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
             
@@ -2206,7 +2202,9 @@
                 isCycle = YES;
             }
             
-            int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:warmUrl cycle:isCycle view:self.warmVideoView paused:NO];
+            int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:self.warmUrl cycle:isCycle view:self.warmVideoView paused:NO];
+            
+//            NSLog(@"12345self.warmUrl = %@ -- %d",self.warmUrl,iii);
             
             for (UIView *view in weakSelf.warmVideoView.subviews)
             {
@@ -2222,7 +2220,11 @@
 
 - (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
 {
-    [self.warmVideoView removeFromSuperview];
+    if (self.warmVideoView)
+    {
+        [self.warmVideoView removeFromSuperview];
+        self.warmVideoView = nil;
+    }
 }
 
 
