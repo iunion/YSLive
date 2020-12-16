@@ -1312,9 +1312,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 }
 
                 NSInteger result = [responseDic bm_intForKey:@"result"];
-                if (result == 4007)
+                if (result == CHErrorCode_CheckRoom_RoomFreeze || result == CHErrorCode_CheckRoom_RoomDeleteOrOrverdue ||  result == CHErrorCode_CheckRoom_RoomNonExistent)
                 {
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.RoomTypeCheckError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    NSString *descript = [YSLiveUtil getOccuredErrorCode:result];
+
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:descript delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
