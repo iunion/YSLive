@@ -2188,7 +2188,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     NSError *error = [errorDic objectForKey:@"error"];
     CHRoomErrorCode errorCode = error.code;
     NSString *descript = [YSLiveUtil getOccuredErrorCode:errorCode];
-    
+//
     NSLog(@"================================== onRoomJoinFailed: %@, %@", @(errorCode), descript);
     
     if (errorCode == CHErrorCode_CheckRoom_NeedPassword ||
@@ -2198,6 +2198,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [self roomManagerNeedEnterPassWord:errorCode];
         return;
     }
+    else if (errorCode == CHErrorCode_CheckRoom_RoomDeleteOrOrverdue)
+    {
+        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.RoomTypeCheckError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+        return;
+    }
+
 
     
 #if YSShowErrorCode
