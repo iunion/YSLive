@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2658F79B2589BD87001502F8 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2658F7992589BD87001502F8 /* YSDefaultLayoutPopView.m */; };
+		2658F79C2589BD87001502F8 /* YSDefaultLayoutPopView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2658F79A2589BD87001502F8 /* YSDefaultLayoutPopView.h */; };
+		2658F7A02589BDD1001502F8 /* YSWarmVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2658F79E2589BDD1001502F8 /* YSWarmVideoView.m */; };
+		2658F7A12589BDD1001502F8 /* YSWarmVideoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2658F79F2589BDD1001502F8 /* YSWarmVideoView.h */; };
 		26E5460B25398778000BA3F5 /* YSLiveLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E5460925398778000BA3F5 /* YSLiveLevelView.m */; };
 		26E5460C25398778000BA3F5 /* YSLiveLevelView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26E5460A25398778000BA3F5 /* YSLiveLevelView.h */; };
 		26F409F82511FD6100E15466 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26F409F32511FD6100E15466 /* CHWhiteBoardResources.bundle */; };
@@ -255,6 +259,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2658F7992589BD87001502F8 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
+		2658F79A2589BD87001502F8 /* YSDefaultLayoutPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSDefaultLayoutPopView.h; sourceTree = "<group>"; };
+		2658F79E2589BDD1001502F8 /* YSWarmVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSWarmVideoView.m; sourceTree = "<group>"; };
+		2658F79F2589BDD1001502F8 /* YSWarmVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSWarmVideoView.h; sourceTree = "<group>"; };
 		26CCE733254A6EE8008E4F29 /* YSSDKManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSDKManagerDelegate.h; sourceTree = "<group>"; };
 		26E5460925398778000BA3F5 /* YSLiveLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLiveLevelView.m; sourceTree = "<group>"; };
 		26E5460A25398778000BA3F5 /* YSLiveLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLiveLevelView.h; sourceTree = "<group>"; };
@@ -674,6 +682,8 @@
 		876BF7DA24CFC3CE008E9848 /* YSSpreadBottomToolBar */ = {
 			isa = PBXGroup;
 			children = (
+				2658F79A2589BD87001502F8 /* YSDefaultLayoutPopView.h */,
+				2658F7992589BD87001502F8 /* YSDefaultLayoutPopView.m */,
 				876BF7DB24CFC3CE008E9848 /* YSSpreadBottomToolBar.h */,
 				876BF7DC24CFC3CE008E9848 /* YSSpreadBottomToolBar.m */,
 			);
@@ -1031,6 +1041,8 @@
 				876BF8C024CFC3CF008E9848 /* YSMP4Player.m */,
 				876BF8C124CFC3CF008E9848 /* YSMP4Player.h */,
 				876BF8C224CFC3CF008E9848 /* YSMP4PlayerMaskView.m */,
+				2658F79F2589BDD1001502F8 /* YSWarmVideoView.h */,
+				2658F79E2589BDD1001502F8 /* YSWarmVideoView.m */,
 			);
 			path = YSMP4Player;
 			sourceTree = "<group>";
@@ -1318,6 +1330,7 @@
 				26E5460C25398778000BA3F5 /* YSLiveLevelView.h in Headers */,
 				876BF97D24CFC3D0008E9848 /* YSApiRequest.h in Headers */,
 				876BF95C24CFC3D0008E9848 /* YSChatMemberListVC.h in Headers */,
+				2658F79C2589BD87001502F8 /* YSDefaultLayoutPopView.h in Headers */,
 				876BF95F24CFC3D0008E9848 /* YSEmotionCollectionCell.h in Headers */,
 				876BFA2124CFC3D0008E9848 /* YSTableView.h in Headers */,
 				876BF99324CFC3D0008E9848 /* SCChatToolView.h in Headers */,
@@ -1335,6 +1348,7 @@
 				876BFA0124CFC3D0008E9848 /* BMAlertView+YSDefaultAlert.h in Headers */,
 				876BF93324CFC3D0008E9848 /* YSTeacherResponder.h in Headers */,
 				876BF95324CFC3D0008E9848 /* YSVotingTableCell.h in Headers */,
+				2658F7A12589BDD1001502F8 /* YSWarmVideoView.h in Headers */,
 				876BF9FE24CFC3D0008E9848 /* UIAlertController+SCAlertAutorotate.h in Headers */,
 				876BFA4424CFC4D0008E9848 /* YSLiveSkinManager.h in Headers */,
 				876BF9A224CFC3D0008E9848 /* SCAnswerStatisticsModel.h in Headers */,
@@ -1508,6 +1522,7 @@
 				876BF92C24CFC3D0008E9848 /* YSMediaSlider.m in Sources */,
 				876BF99824CFC3D0008E9848 /* SCMainVC.m in Sources */,
 				876BF95524CFC3D0008E9848 /* YSQuestionView.m in Sources */,
+				2658F79B2589BD87001502F8 /* YSDefaultLayoutPopView.m in Sources */,
 				876BF7B524CFC3A8008E9848 /* YSPermissionsVResultView.m in Sources */,
 				876BF94524CFC3D0008E9848 /* YSToolBoxView.m in Sources */,
 				876BF93924CFC3D0008E9848 /* YSPollingView.m in Sources */,
@@ -1525,6 +1540,7 @@
 				876BF99524CFC3D0008E9848 /* SCTextMessageCell.m in Sources */,
 				876BF9EC24CFC3D0008E9848 /* YSMP4Player.m in Sources */,
 				876BFA1A24CFC3D0008E9848 /* YSBarrageTrackInfo.m in Sources */,
+				2658F7A02589BDD1001502F8 /* YSWarmVideoView.m in Sources */,
 				26F40A052511FEB100E15466 /* YSDiceAnimationView+Tools.m in Sources */,
 				876BF9A624CFC3D0008E9848 /* SCAnswerPageView.m in Sources */,
 				876BF95124CFC3D0008E9848 /* YSVoteResultTableCell.m in Sources */,
@@ -1673,7 +1689,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201130;
+				CURRENT_PROJECT_VERSION = 20201216;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1702,7 +1718,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.10.0;
+				MARKETING_VERSION = 3.4.0.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
@@ -1717,7 +1733,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201130;
+				CURRENT_PROJECT_VERSION = 20201216;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1744,7 +1760,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.3.10.0;
+				MARKETING_VERSION = 3.4.0.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = YS.YSLiveSDK;
 				PRODUCT_NAME = YSSDK;
