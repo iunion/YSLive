@@ -15,6 +15,7 @@
 "Error.CheckmeetingFail" = "会議チェックエラー";
 "Error.CheckserverInformationFail" = "サーバー情報読み取り失敗";
 "Error.CompanyFreeze" = "会社はフリーズされています";
+"Error.RoomNonExistent" = "Room no exist, expired or deleted.";
 "Error.RoomDeletedOrExpired" = "教室は削除されたか期限切れです";
 "Error.MemberOverRoomLimit" = "教室の人数オーバー";
 "Error.NeedPwd" = "該当の教室はパスワードが必要です。パスワードを入力して下さい";

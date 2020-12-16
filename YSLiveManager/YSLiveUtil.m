@@ -95,10 +95,14 @@
             alertMessage = YSLocalized(@"Error.CompanyFreeze");
         }
             break;
-        case CHErrorCode_CheckRoom_RoomDeleteOrOrverdue: // 3003  房间被删除或过期
+        case CHErrorCode_CheckRoom_RoomDeleteOrOrverdue: // 3003  房间过期或删除
+        {
+            alertMessage = YSLocalized(@"Error.RoomDeletedOrExpired");
+        }
+            break;
         case CHErrorCode_CheckRoom_RoomNonExistent:
         { // 4007 房间不存在 房间被删除或者过期
-            alertMessage = YSLocalized(@"Error.RoomDeletedOrExpired");
+            alertMessage = YSLocalized(@"Error.RoomNonExistent");
         }
             break;
         case CHErrorCode_CheckRoom_RequestFailed:

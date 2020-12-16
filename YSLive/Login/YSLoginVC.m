@@ -140,7 +140,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
+#if 0
 @property (nonatomic, strong) NSString *leftHUDmessage;
+#endif
 
 @end
 
@@ -2198,31 +2200,23 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [self roomManagerNeedEnterPassWord:errorCode];
         return;
     }
-    else if (errorCode == CHErrorCode_CheckRoom_RoomDeleteOrOrverdue)
-    {
-        [self.progressHUD bm_showAnimated:NO withDetailText:YSLoginLocalized(@"Error.RoomTypeCheckError") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-        return;
-    }
-
-
     
+#if YSShowErrorCode
+    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
+#else
+    NSString *errorMessage = descript;
+#endif
+    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+
+#if 0
 #if YSShowErrorCode
     self.leftHUDmessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
 #else
     self.leftHUDmessage = descript;
 #endif
     
-    //[self performSelector:@selector(waitRoomLeft:) withObject:nil afterDelay:1];
     [self waitRoomLeft:nil];
-    
-//    [self.progressHUD bm_hideAnimated:NO];
-//    if (![YSCoreStatus isNetworkEnable])
-//    {
-//        descript = YSLoginLocalized(@"Prompt.NetworkChanged");
-//    }
-//    [BMAlertView ys_showAlertWithTitle:descript message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:nil];
-//
-//    [[YSLiveManager sharedInstance].roomManager leaveRoom:nil];
+#endif
 }
 
 - (void)onRoomConnectionLost
@@ -2242,11 +2236,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
     NSLog(@"================================== onRoomLeft");
     
     NSString *errorMessage;
+#if 0
     if (self.leftHUDmessage)
     {
         errorMessage = self.leftHUDmessage;
     }
     else
+#endif
     {
         if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
         {
@@ -2260,7 +2256,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 
+#if 0
     self.leftHUDmessage = nil;
+#endif
     
     [YSLiveManager destroy];
 }

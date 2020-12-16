@@ -19,7 +19,8 @@
 "Error.CheckmeetingFail" = "Check meeting fail";
 "Error.CheckserverInformationFail" = "Failed to get server information";
 "Error.CompanyFreeze" = "Account of the company has expired.";
-"Error.RoomDeletedOrExpired" = "The class has expired.";
+"Error.RoomNonExistent" = "Room no exist, expired or deleted.";
+"Error.RoomDeletedOrExpired" = "Room expired or deleted.";
 "Error.MemberOverRoomLimit" = "The number of students has exceeded limit.";
 "Error.NeedPwd" = "Password required, Please input it";
 "Error.NeedPwd.teacher" = "Please enter anchor password.";

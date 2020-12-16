@@ -41,7 +41,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, strong) NSURLSessionDataTask *enterRoomTask;
 
+#if 0
 @property (nonatomic, strong) NSString *leftHUDmessage;
+#endif
 
 @end
 
@@ -641,12 +643,21 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 
 #if YSShowErrorCode
+    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
+#else
+    NSString *errorMessage = descript;
+#endif
+    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+
+#if 0
+#if YSShowErrorCode
     self.leftHUDmessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
 #else
     self.leftHUDmessage = descript;
 #endif
     
     [self waitRoomLeft:nil];
+#endif
     
 //    [self.progressHUD bm_hideAnimated:NO];
 //    if (![YSCoreStatus isNetworkEnable])
@@ -670,11 +681,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)onRoomLeft
 {
     NSString *errorMessage;
+#if 0
     if (self.leftHUDmessage)
     {
         errorMessage = self.leftHUDmessage;
     }
     else
+#endif
     {
         if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
         {
@@ -688,7 +701,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
     
+#if 0
     self.leftHUDmessage = nil;
+#endif
 
     [YSLiveManager destroy];
 }

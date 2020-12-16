@@ -19,7 +19,8 @@
 "Error.CheckmeetingFail" = "检查会议失败";
 "Error.CheckserverInformationFail" = "获取服务器信息失败";
 "Error.CompanyFreeze" = "公司被冻结！";
-"Error.RoomDeletedOrExpired" = "房间被删除或者过期！";
+"Error.RoomNonExistent" = "房间不存在，过期或删除";
+"Error.RoomDeletedOrExpired" = "房间过期或删除";
 "Error.MemberOverRoomLimit" = "房间人数超限";
 "Error.NeedPwd" = "该房间需要密码，请输入密码！";
 "Error.NeedPwd.teacher" = "请输入教师密码";

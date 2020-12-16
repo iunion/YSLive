@@ -19,7 +19,8 @@
 "Error.CheckmeetingFail" = "檢查會議失敗";
 "Error.CheckserverInformationFail" = "獲取伺服器信息失敗";
 "Error.CompanyFreeze" = "公司被凍結";
-"Error.RoomDeletedOrExpired" = "房間不存在";
+"Error.RoomNonExistent" = "房間不存在，過期或删除";
+"Error.RoomDeletedOrExpired" = "房間過期或删除";
 "Error.MemberOverRoomLimit" = "房間人數超過限制";
 "Error.NeedPwd" = "該房間需要密碼，請輸入密碼";
 "Error.NeedPwd.teacher" = "請輸入教師密碼";
