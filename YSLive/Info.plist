@@ -91,6 +91,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>YSAppCommitVersion</key>
-	<string></string>
+	<string>2020121500</string>
 </dict>
 </plist>
