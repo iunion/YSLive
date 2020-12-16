@@ -6,6 +6,8 @@
 //  Copyright © 2019 YS. All rights reserved.
 //
 #import <AVFoundation/AVFoundation.h>
+#import <CloudHubRTC/CloudHubRtcEngineKit.internal.h>
+
 #import "SCMainVC.h"
 #import "SCChatView.h"
 #import "SCBrushToolView.h"
@@ -4778,7 +4780,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 if ([videoView.roomUser.peerID isEqualToString:local])
                 {
                     //把自己的流发布给私聊对象
-                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:[NSString stringWithFormat:@"[\"%@\"]", [CHSessionManager sharedInstance].teacher.peerID]];
+                    CloudHubRtcEngineKitInternal *rtcEngineKitInternal = (CloudHubRtcEngineKitInternal *)[CHSessionManager sharedInstance].cloudHubRtcEngineKit;
+                    [rtcEngineKitInternal setPublishToID:[NSString stringWithFormat:@"[\"%@\"]", [CHSessionManager sharedInstance].teacher.peerID]];
                 }
                 continue;
             }
@@ -4817,7 +4820,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 if ([videoView.roomUser.peerID isEqualToString:local])
                 {
                     //把自己的流发布给所有人
-                    [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setPublishToID:@"[\"__all\"]"];
+                    CloudHubRtcEngineKitInternal *rtcEngineKitInternal = (CloudHubRtcEngineKitInternal *)[CHSessionManager sharedInstance].cloudHubRtcEngineKit;
+                    [rtcEngineKitInternal setPublishToID:@"[\"__all\"]"];
                 }
                 continue;
             }

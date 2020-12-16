@@ -33,11 +33,11 @@ __attribute__((visibility("default"))) @interface CloudHubRtcLocalVideoStats : N
 @property (assign, nonatomic) NSUInteger encoderOutputFrameRate;
 /** The renderer output frame rate (fps) of the local video. */
 @property (assign, nonatomic) NSUInteger rendererOutputFrameRate;
-/** The target bitrate (Kbps) of the current encoder. This value is estimated by the SDK based on the current network conditions. */
+/** The target bitrate (bps) of the current encoder. This value is estimated by the SDK based on the current network conditions. */
 @property (assign, nonatomic) NSUInteger targetBitrate;
 /** The target frame rate (fps) of the current encoder. */
 @property (assign, nonatomic) NSUInteger targetFrameRate;
-/** The encoding bitrate (Kbps), which does not include the bitrate of the re-transmission video after packet loss.
+/** The encoding bitrate (bps), which does not include the bitrate of the re-transmission video after packet loss.
  */
 @property (assign, nonatomic) NSUInteger encodedBitrate;
 /** The width of the encoding frame (px).
@@ -78,7 +78,7 @@ __attribute__((visibility("default"))) @interface CloudHubRtcRemoteVideoStats : 
 /** Height (pixels) of the video stream.
  */
 @property (assign, nonatomic) NSUInteger height;
-/** The average bitrate (Kbps) of the received video stream.
+/** The average bitrate (bps) of the received video stream.
  */
 @property (assign, nonatomic) NSUInteger receivedBitrate;
 /** The decoder output frame rate (fps) of the remote video.
@@ -137,7 +137,7 @@ __attribute__((visibility("default"))) @interface CloudHubRtcRemoteAudioStats : 
 /** The sample rate (Hz) of the received audio stream in the reported interval.
  */
 @property (assign, nonatomic) NSUInteger receivedSampleRate;
-/** The average bitrate (Kbps) of the received audio stream in the reported interval.
+/** The average bitrate (bps) of the received audio stream in the reported interval.
  */
 @property (assign, nonatomic) NSUInteger receivedBitrate;
 /** The total freeze time (ms) of the remote audio stream after the remote user joins the channel. 
@@ -269,4 +269,100 @@ User ID of the speaker.
  * of the local user.
  */
 @property (nonatomic, assign) NSUInteger vad;
+@end
+
+/** The video properties of the stream displaying the video in the CDN live. CloudHub
+* supports a maximum of 24 transcoding streams in a CDN streaming channel.
+*/
+__attribute__((visibility("default"))) @interface CloudHubTranscodingStream : NSObject
+
+@property (nonatomic, copy) NSString * _Nonnull uid;
+
+@property (nonatomic, assign) CloudHubMediaType type;
+
+@property (nonatomic, copy) NSString * _Nonnull sourceID;
+
+/** Horizontal position (pixel) of the video frame relative to the top left
+* corner.
+*/
+@property (nonatomic, assign) int x;
+
+/** Vertical position (pixel) of the video frame relative to the top left
+* corner.
+*/
+@property (nonatomic, assign) int y;
+
+  /** Width (pixel) of the video frame. The default value is 360.
+   */
+@property (nonatomic, assign) int width;
+
+  /** Height (pixel) of the video frame. The default value is 640.
+   */
+@property (nonatomic, assign) int height;
+
+  /** Layer position of the video frame. The value ranges between 0 and 100.
+   - 0: (Default) Lowest
+   - 100: Highest
+   - If zOrder is beyond this range, the SDK reports #ERR_INVALID_ARGUMENT.
+   */
+@property (nonatomic, assign)int zOrder;
+@end
+
+/** A struct for managing CDN live audio/video transcoding settings.
+ */
+__attribute__((visibility("default"))) @interface CloudHubLiveTranscoding : NSObject
+@property (nonatomic, assign) int            width;
+@property (nonatomic, assign) int            height;
+@property (nonatomic, assign) int            videoBitrate;
+@property (nonatomic, assign) int            videoFramerate;
+@property (nonatomic, assign) int            videoGop;
+@property (nonatomic, assign) CloudHubVideoCodecProfile            videoCodecProfile;
+@property (nonatomic, assign) unsigned int   backgroundColor;
+/** array of CloudHubTranscodingStream */
+@property (nonatomic, copy) NSArray *  _Nonnull transcodingStreams;
+@property (nonatomic, copy) NSString * _Nullable transcodingExtraInfo;
+@property (nonatomic, assign) CloudHubAudioSampleRate audioSampleRate;
+@property (nonatomic, assign) int                     audioBitrate;
+@property (nonatomic, assign) int                     audioChannels;
+@end
+
+/** Configurations of the last-mile network probe test.
+ */
+__attribute__((visibility("default"))) @interface CloudHubLastmileProbeConfig : NSObject
+
+/** Sets whether or not to test the uplink network. Some users, for example,
+the audience in a Live-broadcast channel, do not need such a test:
+- YES: test.
+- NO: do not test. */
+@property (nonatomic, assign) BOOL probeUplink;
+/** Sets whether or not to test the downlink network:
+- YES: test.
+- NO: do not test. */
+@property (nonatomic, assign) BOOL probeDownlink;
+/** The expected maximum sending bitrate (bps) of the local user. The value
+ * ranges between 100000 and 2000000. We recommend setting this parameter
+ * according to the bitrate value set by \ref
+ * IRtcEngine::setVideoEncoderConfiguration "setVideoEncoderConfiguration". */
+@property (nonatomic, assign) unsigned int expectedUplinkBitrate;
+/** The expected maximum receiving bitrate (bps) of the local user. The value
+ * ranges between 100000 and 5000000. */
+@property (nonatomic, assign) unsigned int expectedDownlinkBitrate;
+
+@end
+
+/** The uplink and downlink last-mile network probe test result.
+ */
+__attribute__((visibility("default"))) @interface CloudHubLastmileProbeResult : NSObject
+/** The state of the probe test. */
+@property (nonatomic, assign) CloudHubLastmileProbeResultState state;
+/** The uplink last-mile packet loss rate (%). */
+@property (nonatomic, assign) unsigned int uplinkPacketLossRate;
+/** The uplink last-mile estimated available bandwidth (bps). */
+@property (nonatomic, assign) unsigned int uplinkAvailableBandwidth;
+/** The downlink last-mile packet loss rate (%). */
+@property (nonatomic, assign) unsigned int downlinkPacketLossRate;
+/** The downlink last-mile estimated available bandwidth (bps). */
+@property (nonatomic, assign) unsigned int downlinkAvailableBandwidth;
+/** The round-trip delay time (ms). */
+@property (nonatomic, assign) unsigned int rtt;
 @end

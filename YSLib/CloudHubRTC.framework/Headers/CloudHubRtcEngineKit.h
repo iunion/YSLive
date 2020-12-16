@@ -145,19 +145,11 @@ __attribute__((visibility("default"))) @interface CloudHubRtcEngineKit : NSObjec
 - (BOOL)isSpeakerphoneEnabled;
 #endif
 
-#pragma mark Online Media File Playing
-
-- (int) addInjectStreamUrl:(NSString * _Nonnull)url attributes:(NSString* _Nullable)attributes;
-
-- (int) removeInjectStreamUrl:(NSString *_Nonnull)url;
-
-- (void) seekInjectStreamUrl:(NSString *_Nonnull)url positionByMS:(NSUInteger)position;
-
-- (void) pauseInjectStreamUrl:(NSString *_Nonnull)url pause:(BOOL)pause;
-
 #pragma mark Local Movie File Playback
 
 - (int) startPlayingMovie:(NSString * _Nonnull)filepath cycle:(BOOL)cycle;
+
+- (int) startPlayingMovie:(NSString * _Nonnull)filepath cycle:(BOOL)cycle view:(VIEW_CLASS * _Nullable)view  paused:(BOOL)paused;
 
 - (int) stopPlayingMovie:(NSString * _Nonnull)filepath;
 
@@ -171,12 +163,71 @@ __attribute__((visibility("default"))) @interface CloudHubRtcEngineKit : NSObjec
 
 - (int) setMoviePosition:(NSUInteger)pos withFile:(NSString * _Nonnull)filepath;
 
+#pragma mark Local Sound Effect Methods
+
+- (int) playEffect:(int)soundId
+          filePath:(NSString * _Nonnull)filepath
+         loopCount:(int)loopCount
+              gain:(int)gain
+           publish:(BOOL)publish
+       startTimeMS:(NSUInteger)starttime
+         endTimeMS:(NSUInteger)endtime;
+
+- (int) stopEffect:(int)soundId;
+
+- (int) stopAllEffects;
+
+- (int) preloadEffect:(int)soundId filePath:(NSString * _Nonnull)filepath;
+
+- (int) unloadEffect:(int)soundId;
+
+- (int) pauseEffect:(int)soundId;
+
+- (int) pauseAllEffects;
+
+- (int) resumeEffect:(int)soundId;
+
+- (int) resumeAllEffects;
+
+- (int) getEffectsVolume;
+
+- (int) setEffectsVolume:(int)volume;
+
+- (int) setVolumeOfEffect:(int)soundId volume:(int)volume;
+
+
 #if TARGET_OS_IPHONE
 #pragma mark Camera Control
 
 - (int)switchCamera:(BOOL)front;
 
 #endif
+
+#pragma mark CDN Live Stream Pushing Methods
+- (int) addPublishStreamUrl:(NSString* _Nonnull)url;
+
+- (int) removePublishStreamUrl:(NSString* _Nonnull)url;
+
+- (int) setLiveTranscoding:(CloudHubLiveTranscoding* _Nonnull)transcoding;
+
+#pragma mark Network Testing Methods
+- (int)startEchoTest:(int)intervalInSeconds;
+
+- (int)stopEchoTest;
+
+- (int)startLastmileProbeTest:(CloudHubLastmileProbeConfig* _Nonnull)config;
+
+- (int)stopLastmileProbeTest;
+
+#pragma mark Server Recording Methods
+- (int) startServerRecord;
+
+- (int) stopServerRecord;
+
+- (int) pauseServerRecord;
+
+- (int) resumeServerRecord;
+
 
 #pragma mark Conrolling Methods
 
@@ -213,16 +264,8 @@ extraData:(NSString * _Nullable)extra;
 
 - (int)setLogFilter:(NSUInteger)filter;
 
+- (void * _Nullable)getNativeHandle;
+
 @property (nonatomic, weak) id<CloudHubRtcEngineDelegate> _Nullable delegate;
-
-@property (nonatomic, weak) id<CloudHubRtcEngineDelegate> _Nullable wb;
-
-#pragma mark internal use only
-
-- (void)logMessage:(NSInteger)level log:(NSString* _Nonnull)log file:(NSString* _Nonnull)file line:(NSInteger)line;
-
-- (int)setPublishToID:(NSString* _Nonnull)toID;
-
-- (int)publishStreamTo:(NSString* _Nonnull)toID;
 
 @end
