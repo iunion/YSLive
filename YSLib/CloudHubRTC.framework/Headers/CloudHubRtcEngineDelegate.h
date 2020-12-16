@@ -44,6 +44,7 @@
 
 - (void)rtcEngineRequestToken:(CloudHubRtcEngineKit * _Nonnull)engine;
 
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onLocalUserPermissionChanged:(CloudHubPermissionType)type permission:(BOOL)hasPermission;
 
 #pragma mark Mannual Subscribing Delegate Methods
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onUserPublished:(NSString * _Nonnull)uid
@@ -99,10 +100,6 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason;
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onStreamInjectedStatus:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID attributes:(NSString * _Nonnull)attributes status:(CloudHubStreamInjectStatus)status;
-
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onStreamInjectedPosition:(NSString * _Nonnull)uid streamID:(NSString * _Nonnull)streamID pos:(NSUInteger)pos;
-
 #pragma mark Statistics Delegate Methods
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine localAudioStats:(CloudHubRtcLocalAudioStats * _Nonnull)stats;
@@ -128,6 +125,24 @@
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine firstLocalMovieVideoFrame:(NSString * _Nonnull)filepath
              size:(CGSize)size;
 
+#pragma mark Local Sound Effect Method
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onAudioEffectFinish:(int)soundId;
+
+#pragma mark Network Testing Method
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onLastmileQuality:(CloudHubNetworkQuality)quality;
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onLastmileProbeResult:(CloudHubLastmileProbeResult * _Nonnull)result;
+
+#pragma mark Server Recording Method
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onServerRecordStateChange:(CloudHubRecordingState)state
+          startTS:(NSUInteger)startTS
+           currTS:(NSUInteger)currTS
+    pauseDuration:(NSUInteger)pauseDuration
+   recordDuration:(NSUInteger)recordDuration;
+
 #pragma mark Conrolling Message Delegate Methods
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
 onSetPropertyOfUid:(NSString * _Nonnull)uid
@@ -151,10 +166,29 @@ associatedWithMsg:(NSString * _Nullable)assMsgID
         isHistory:(BOOL)isHistory;
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
+         onPubMsg:(NSString * _Nonnull)msgName
+            msgId:(NSString * _Nonnull)msgId
+             from:(NSString * _Nullable)fromuid
+         withData:(NSString * _Nullable)data
+associatedWithUser:(NSString * _Nullable)uid
+associatedWithMsg:(NSString * _Nullable)assMsgID
+               ts:(NSUInteger)ts
+    withExtraData:(NSString * _Nullable)extraData
+        isHistory:(BOOL)isHistory
+              seq:(NSInteger)seq;
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
+onDelMsg:(NSString * _Nonnull)msgName
+   msgId:(NSString * _Nonnull)msgId
+    from:(NSString * _Nullable)fromuid
+withData:(NSString * _Nullable)data;
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
          onDelMsg:(NSString * _Nonnull)msgName
             msgId:(NSString * _Nonnull)msgId
              from:(NSString * _Nullable)fromuid
-         withData:(NSString * _Nullable)data;
+         withData:(NSString * _Nullable)data
+              seq:(NSInteger)seq;
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onLocalUserEvicted:(NSInteger)reason;
 @end

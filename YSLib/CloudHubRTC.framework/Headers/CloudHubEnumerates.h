@@ -33,20 +33,6 @@ typedef NS_ENUM(NSInteger, CloudHubErrorCode) {
     CloudHubErrorCodeBufferTooSmall = 6,
     /** 7: The SDK is not initialized before calling this method. */
     CloudHubErrorCodeNotInitialized = 7,
-    /** 9: No permission exists. Check if the user has granted access to the audio or video device. */
-    CloudHubErrorCodeNoPermission = 9,
-    /** 10: An API method timeout occurs. Some API methods require the SDK to return the execution result, and this error occurs if the request takes too long (over 10 seconds) for the SDK to process. */
-    CloudHubErrorCodeTimedOut = 10,
-    /** 11: The request is canceled. This is for internal SDK use only, and is not returned to the app through any method or callback. */
-    CloudHubErrorCodeCanceled = 11,
-    /** 12: The method is called too often. This is for internal SDK use only, and is not returned to the app through any method or callback. */
-    CloudHubErrorCodeTooOften = 12,
-    /** 13: The SDK fails to bind to the network socket. This is for internal SDK use only, and is not returned to the app through any method or callback. */
-    CloudHubErrorCodeBindSocket = 13,
-    /** 14: The network is unavailable. This is for internal SDK use only, and is not returned to the app through any method or callback. */
-    CloudHubErrorCodeNetDown = 14,
-    /** 15: No network buffers are available. This is for internal SDK use only, and is not returned to the app through any method or callback. */
-    CloudHubErrorCodeNoBufs = 15,
     /** 17: The request to join the channel is rejected.
      <p>Possible reasons are:
      <ul><li>The user is already in the channel, and still calls the API method to join the channel, for example, [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).</li>
@@ -59,136 +45,52 @@ typedef NS_ENUM(NSInteger, CloudHubErrorCode) {
      <li>The user has not joined the channel and calls the API method to leave the channel.</li></ul></p>
     */
     CloudHubErrorCodeLeaveChannelRejected = 18,
-    /** 19: The resources are occupied and cannot be used. */
-    CloudHubErrorCodeAlreadyInUse = 19,
-    /** 20: The SDK gave up the request due to too many requests.  */
-    CloudHubErrorCodeAbort = 20,
-    /** 21: In Windows, specific firewall settings cause the SDK to fail to initialize and crash. */
-    CloudHubErrorCodeInitNetEngine = 21,
     /** 22: The app uses too much of the system resources and the SDK fails to allocate the resources. */
     CloudHubErrorCodeResourceLimited = 22,
     /** 101: The specified App ID is invalid. Please try to rejoin the channel with a valid App ID.*/
     CloudHubErrorCodeInvalidAppId = 101,
     /** 102: The specified channel name is invalid. Please try to rejoin the channel with a valid channel name. */
     CloudHubErrorCodeInvalidChannelId = 102,
+    /** 107: The amount of concurrent points has exceeded your enterpirse account's limitation . */
+    CloudHubErrorCodeConcurrentPintsExceedLimit = 107,
     /** 109: The token expired.
-     <br></br><b>DEPRECATED</b> as of v2.4.1. Use CloudHubConnectionChangedTokenExpired(9) in the `reason` parameter of [connectionChangedToState]([CloudHubRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).
-     <p>Possible reasons are:
-     <ul><li>Authorized Timestamp expired: The timestamp is represented by the number of seconds elapsed since 1/1/1970. The user can use the token to access the CloudHub service within five minutes after the token is generated. If the user does not access the CloudHub service after five minutes, this token is no longer valid.</li>
-     <li>Call Expiration Timestamp expired: The timestamp is the exact time when a user can no longer use the CloudHub service (for example, when a user is forced to leave an ongoing call). When a value is set for the Call Expiration Timestamp, it does not mean that the token will expire, but that the user will be banned from the channel.</li></ul></p>
+      CloudHubConnectionChangedTokenExpired(9) in the `reason` parameter of [connectionChangedToState]([CloudHubRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).
      */
     CloudHubErrorCodeTokenExpired = 109,
     /** 110: The token is invalid.
-<br></br><b>DEPRECATED</b> as of v2.4.1. Use CloudHubConnectionChangedInvalidToken(8) in the `reason` parameter of [connectionChangedToState]([CloudHubRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).
-     <p>Possible reasons are:
-     <ul><li>The App Certificate for the project is enabled in Console, but the user is using the App ID. Once the App Certificate is enabled, the user must use a token.</li>
-     <li>The uid is mandatory, and users must set the same uid as the one set in the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.</li></ul></p>
+     Possible reasons are:
+     The App Certificate for the project is enabled in Console, but the user is using the App ID. Once the App Certificate is enabled, the user must use a token.
+     The uid is mandatory, and users must set the same uid as the one set in the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.
      */
     CloudHubErrorCodeInvalidToken = 110,
     /** 111: The Internet connection is interrupted. This applies to the CloudHub Web SDK only. */
-    CloudHubErrorCodeConnectionInterrupted = 111,
-    /** 112: The Internet connection is lost. This applies to the CloudHub Web SDK only. */
-    CloudHubErrorCodeConnectionLost = 112,
-    /** 113: The user is not in the channel when calling the [sendStreamMessage]([CloudHubRtcEngineKit sendStreamMessage:data:]) or [getUserInfoByUserAccount]([CloudHubRtcEngineKit getUserInfoByUserAccount:withError:]) method. */
     CloudHubErrorCodeNotInChannel = 113,
-    /** 114: The size of the sent data is over 1024 bytes when the user calls the [sendStreamMessage]([CloudHubRtcEngineKit sendStreamMessage:data:]) method. */
-    CloudHubErrorCodeSizeTooLarge = 114,
-    /** 115: The bitrate of the sent data exceeds the limit of 6 Kbps when the user calls the [sendStreamMessage]([CloudHubRtcEngineKit sendStreamMessage:data:]) method. */
-    CloudHubErrorCodeBitrateLimit = 115,
-    /** 116: Too many data streams (over five streams) are created when the user calls the [createDataStream]([CloudHubRtcEngineKit createDataStream:reliable:ordered:]) method. */
-    CloudHubErrorCodeTooManyDataStreams = 116,
-    /** 120: Decryption fails. The user may have used a different encryption password to join the channel. Check your settings or try rejoining the channel. */
-    CloudHubErrorCodeDecryptionFailed = 120,
-    /** 124: Incorrect watermark file parameter. */
-    CloudHubErrorCodeWatermarkParam = 124,
-    /** 125: Incorrect watermark file path. */
-    CloudHubErrorCodeWatermarkPath = 125,
-    /** 126: Incorrect watermark file format. */
-    CloudHubErrorCodeWatermarkPng = 126,
-    /** 127: Incorrect watermark file information. */
-    CloudHubErrorCodeWatermarkInfo = 127,
-    /** 128: Incorrect watermark file data format. */
-    CloudHubErrorCodeWatermarkAGRB = 128,
-    /** 129: An error occurs in reading the watermark file. */
-    CloudHubErrorCodeWatermarkRead = 129,
-    /** 130: The encrypted stream is not allowed to publish. */
-    CloudHubErrorCodeEncryptedStreamNotAllowedPublish = 130,
-    /** 134: The user account is invalid. */
-    CloudHubErrorCodeInvalidUserAccount = 134,
-
-    /** 151: CDN related errors. Remove the original URL address and add a new one by calling the [removePublishStreamUrl]([CloudHubRtcEngineKit removePublishStreamUrl:]) and [addPublishStreamUrl]([CloudHubRtcEngineKit addPublishStreamUrl:transcodingEnabled:]) methods. */
-    CloudHubErrorCodePublishStreamCDNError = 151,
-    /** 152: The host publishes more than 10 URLs. Delete the unnecessary URLs before adding new ones. */
-    CloudHubErrorCodePublishStreamNumReachLimit = 152,
-    /** 153: The host manipulates other hosts' URLs. Check your app logic. */
-    CloudHubErrorCodePublishStreamNotAuthorized = 153,
-    /** 154: An error occurs in CloudHub's streaming server. Call the [addPublishStreamUrl]([CloudHubRtcEngineKit addPublishStreamUrl:transcodingEnabled:]) method to publish the stream again. */
-    CloudHubErrorCodePublishStreamInternalServerError = 154,
-    /** 155: The server fails to find the stream. */
-    CloudHubErrorCodePublishStreamNotFound = 155,
-    /** 156: The format of the RTMP stream URL is not supported. Check whether the URL format is correct. */
-    CloudHubErrorCodePublishStreamFormatNotSuppported = 156,
-
-    /** 1001: Fails to load the media engine. */
-    CloudHubErrorCodeLoadMediaEngine = 1001,
-    /** 1002: Fails to start the call after enabling the media engine. */
-    CloudHubErrorCodeStartCall = 1002,
-    /** 1003: Fails to start the camera.
-     <br></br><b>DEPRECATED</b> as of v2.4.1. Use CloudHubLocalVideoStreamErrorCaptureFailure(4) in the `error` parameter of [connectionChangedToState]([CloudHubRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).
-     */
+    
+    /** 501: The local user is currently not authorized to publish steam. */
+    CloudHubErrorCodePublishNotAuthorized = 501,
+    /** 502: Internal server error occured when trying to publish stream. */
+    CloudHubErrorCodePublishInternalServerError = 502,
+    
+    /** 601: The local user is currently not authorized to subscribe steam. */
+    CloudHubErrorCodeSubscribeNotAuthorized = 601,
+    /** 602: Internal server error occured when trying to subscribe stream. */
+    CloudHubErrorCodeSubscribeInternalServerError = 602,
+    
+    /** 701: The movie file is already being played. */
+    CloudHubErrorCodeMovieAlreadyPlaying = 701,
+    /** 702: Only one movie file can be published at the same time. */
+    CloudHubErrorCodeMovieAlreadyPublishing = 702,
+    
+    /** 1003: Fails to start the camera. */
     CloudHubErrorCodeStartCamera = 1003,
-    /** 1004: Fails to start the video rendering module. */
-    CloudHubErrorCodeStartVideoRender = 1004,
-    /** 1005: A general error occurs in the Audio Device Module (the reason is not classified specifically). Check if the audio device is used by another app, or try rejoining the channel. */
-    CloudHubErrorCodeAdmGeneralError = 1005,
-    /** 1006: Audio Device Module: An error occurs in using the Java resources. */
-    CloudHubErrorCodeAdmJavaResource = 1006,
-    /** 1007: Audio Device Module: An error occurs in setting the sampling frequency. */
-    CloudHubErrorCodeAdmSampleRate = 1007,
-    /** 1008: Audio Device Module: An error occurs in initializing the playback device. */
-    CloudHubErrorCodeAdmInitPlayout = 1008,
-    /** 1009: Audio Device Module: An error occurs in starting the playback device. */
-    CloudHubErrorCodeAdmStartPlayout = 1009,
-    /** 1010: Audio Device Module: An error occurs in stopping the playback device. */
-    CloudHubErrorCodeAdmStopPlayout = 1010,
-    /** 1011: Audio Device Module: An error occurs in initializing the recording device. */
-    CloudHubErrorCodeAdmInitRecording = 1011,
-    /** 1012: Audio Device Module: An error occurs in starting the recording device. */
-    CloudHubErrorCodeAdmStartRecording = 1012,
-    /** 1013: Audio Device Module: An error occurs in stopping the recording device. */
-    CloudHubErrorCodeAdmStopRecording = 1013,
-    /** 1015: Audio Device Module: A playback error occurs. Check your playback device, or try rejoining the channel. */
-    CloudHubErrorCodeAdmRuntimePlayoutError = 1015,
-    /** 1017: Audio Device Module: A recording error occurs. */
-    CloudHubErrorCodeAdmRuntimeRecordingError = 1017,
-    /** 1018: Audio Device Module: Fails to record. */
-    CloudHubErrorCodeAdmRecordAudioFailed = 1018,
-    /** 1020: Audio Device Module: Abnormal audio playback frequency. */
-    CloudHubErrorCodeAdmPlayAbnormalFrequency = 1020,
-    /** 1021: Audio Device Module: Abnormal audio recording frequency. */
-    CloudHubErrorCodeAdmRecordAbnormalFrequency = 1021,
-    /** 1022: Audio Device Module: An error occurs in initializing the loopback device. */
-    CloudHubErrorCodeAdmInitLoopback  = 1022,
-    /** 1023: Audio Device Module: An error occurs in starting the loopback device. */
-    CloudHubErrorCodeAdmStartLoopback = 1023,
     /** 1027: Audio Device Module: An error occurs in no recording Permission. */
     CloudHubErrorCodeAdmNoPermission = 1027,
-    /** 1359: No recording device exists. */
-    CloudHubErrorCodeAdmNoRecordingDevice = 1359,
-    /** 1360: No playback device exists. */
-    CloudHubErrorCodeAdmNoPlayoutDevice = 1360,
+
     /** 1501: Video Device Module: The camera is unauthorized. */
     CloudHubErrorCodeVdmCameraNotAuthorized = 1501,
-    /** 1600: Video Device Module: An unknown error occurs. */
-    CloudHubErrorCodeVcmUnknownError = 1600,
-    /** 1601: Video Device Module: An error occurs in initializing the video encoder. */
-    CloudHubErrorCodeVcmEncoderInitError = 1601,
-    /** 1602: Video Device Module: An error occurs in video encoding. */
-    CloudHubErrorCodeVcmEncoderEncodeError = 1602,
-    /** 1603: Video Device Module: An error occurs in setting the video encoder.
-    <p><b>DEPRECATED</b></p>
-    */
-    CloudHubErrorCodeVcmEncoderSetError = 1603,
+    
+    /** -1: Other errors*/
+    CloudHubErrorCodeUnknwon = -1
 };
 
 /** The state of the audio mixing file. */
@@ -555,4 +457,82 @@ typedef NS_ENUM(NSInteger, CloudHubMediaType) {
     CloudHub_MEDIA_TYPE_ONLINE_MOVIE_VIDEO = 4,
     CloudHub_MEDIA_TYPE_OFFLINE_MOVIE_VIDEO = 5,
     CloudHub_MEDIA_TYPE_SCREEN_VIDEO = 6,
+};
+
+typedef NS_ENUM(NSInteger, CloudHubNetworkQuality) {
+     /** 0: The network quality is unknown. */
+     CloudHub_QUALITY_UNKNOWN = 0,
+     /**  1: The network quality is excellent. */
+     CloudHub_QUALITY_EXCELLENT = 1,
+     /** 2: The network quality is quite good, but the bitrate may be slightly
+        lower than excellent. */
+     CloudHub_QUALITY_GOOD = 2,
+     /** 3: Users can feel the communication slightly impaired. */
+     CloudHub_QUALITY_POOR = 3,
+     /** 4: Users cannot communicate smoothly. */
+     CloudHub_QUALITY_BAD = 4,
+     /** 5: The network is so bad that users can barely communicate. */
+     CloudHub_QUALITY_VBAD = 5,
+     /** 6: The network is down and users cannot communicate at all. */
+     CloudHub_QUALITY_DOWN = 6,
+     /** 7: Users cannot detect the network quality. (Not in use.) */
+     CloudHub_QUALITY_UNSUPPORTED = 7,
+     /** 8: Detecting the network quality. */
+     CloudHub_QUALITY_DETECTING = 8,
+};
+
+typedef NS_ENUM(NSInteger, CloudHubRecordingState) {
+    /** 0: Not recording. */
+    CloudHub_RECORDING_STATE_NONE = 0,
+    /** 1: Recording. */
+    CloudHub_RECORDING_STATE_STARTED = 1,
+    /** 2: Paused. */
+    CloudHub_RECORDING_STATE_PAUSED = 2,
+};
+
+/** Video codec profile types. */
+typedef NS_ENUM(NSInteger, CloudHubVideoCodecProfile) {
+  /** 66: Baseline video codec profile. Generally used in video calls on mobile
+     phones. */
+  CloudHub_VIDEO_CODEC_PROFILE_BASELINE = 66,
+  /** 77: Main video codec profile. Generally used in mainstream electronics
+     such as MP4 players, portable video players, PSP, and iPads. */
+  CloudHub_VIDEO_CODEC_PROFILE_MAIN = 77,
+  /** 100: (Default) High video codec profile. Generally used in high-resolution
+     broadcasts or television. */
+  CloudHub_VIDEO_CODEC_PROFILE_HIGH = 100,
+};
+
+typedef NS_ENUM(NSInteger, CloudHubAudioSampleRate) {
+    /** 32000: 32 kHz */
+    CloudHub_AUDIO_SAMPLE_RATE_32000 = 32000,
+    /** 44100: 44.1 kHz */
+    CloudHub_AUDIO_SAMPLE_RATE_44100 = 44100,
+    /** 48000: 48 kHz */
+    CloudHub_AUDIO_SAMPLE_RATE_48000 = 48000,
+};
+
+typedef NS_ENUM(NSInteger, CloudHubLastmileProbeResultState) {
+    /** 1: The last-mile network probe test is complete. */
+    CloudHub_LASTMILE_PROBE_RESULT_COMPLETE = 1,
+    /** 2: The last-mile network probe test is incomplete and the bandwidth
+       estimation is not available, probably due to limited test resources. */
+    CloudHub_LASTMILE_PROBE_RESULT_INCOMPLETE_NO_BWE = 2,
+    /** 3: The last-mile network probe test is not carried out, probably due to
+       poor network conditions. */
+    CloudHub_LASTMILE_PROBE_RESULT_UNAVAILABLE = 3
+};
+
+/**
+  Permission Types.
+ */
+typedef NS_ENUM(NSInteger, CloudHubPermissionType) {
+  /** The user's publish permission. This determins whether the user can publish
+   * his/her own audio/video stream to others or not.
+   */
+  CloudHub_PERMISSION_TYPE_PUBLISH = 1,
+  /** The user's subscribe permission. This determins whether the user can see/hear
+   * other user's audio/video or not.
+   */
+  CloudHub_PERMISSION_TYPE_SUBSCRIBE = 2,
 };
