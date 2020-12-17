@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)makeApiSignWithData:(NSObject *)data;
 + (NSString *)getOccuredErrorCode:(NSInteger)errorCode;
++ (NSString *)getOccuredErrorCode:(NSInteger)errorCode defaultMessage:(nullable NSString *)message;
 
 @end
 
