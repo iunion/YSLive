@@ -537,9 +537,7 @@
         [self failLoadedResponse:response responseDic:responseDic withErrorCode:statusCode];
         
         NSString *message = [responseDic bm_stringTrimForKey:YSSuperVC_ErrorMessage_key withDefault:[YSApiRequest publicErrorMessageWithCode:YSAPI_DATA_ERRORCODE]];
-#if YSShowErrorCode
-        message = [NSString stringWithFormat:@"%@: %@", @(statusCode), message];
-#endif
+
         if ([self checkRequestStatus:statusCode message:message responseDic:responseDic])
         {
             [self.progressHUD bm_hideAnimated:NO];

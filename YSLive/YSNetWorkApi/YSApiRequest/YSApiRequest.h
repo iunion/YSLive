@@ -9,9 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "YSAPIMacros.h"
 
-
-#define YSShowErrorCode     1
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSApiRequest : NSObject
