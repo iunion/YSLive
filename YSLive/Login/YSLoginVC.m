@@ -1315,8 +1315,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 if (result == CHErrorCode_CheckRoom_RoomFreeze || result == CHErrorCode_CheckRoom_RoomDeleteOrOrverdue ||  result == CHErrorCode_CheckRoom_RoomNonExistent)
                 {
                     NSString *descript = [YSLiveUtil getOccuredErrorCode:result];
+#if YSShowErrorCode
+                    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(result), descript];
+#else
+                    NSString *errorMessage = descript;
+#endif
 
-                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:descript delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    [weakSelf.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     return;
                 }
                 else if (result != 0)
