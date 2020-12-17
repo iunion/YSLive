@@ -55,7 +55,7 @@ static YSLiveSkinManager *skinManager = nil;
             //        }
             //        else if (self.skinType == YSSkinType_black)
                     {//黑色背景
-                        path = [YSSkinBundle pathForResource:@"BlackColor" ofType:@"plist"];
+                        path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
                     }
         }
         else
@@ -146,7 +146,7 @@ static YSLiveSkinManager *skinManager = nil;
         //    }
         //    else if (self.skinType == YSSkinType_black)
             {//黑色背景
-                imageFolder = @"YSSkinBlack";
+                imageFolder = @"YSSkinDarkColor";
             }
     }
     else

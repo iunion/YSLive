@@ -11,6 +11,8 @@
 typedef NS_ENUM(NSUInteger, YSSkinType)
 {
     YSSkinType_black,
+    YSSkinType_middle,
+    YSSkinType_light,
     YSSkinType_original,
 };
 
