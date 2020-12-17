@@ -33,7 +33,7 @@ static YSLiveSkinManager *skinManager = nil;
         {
             skinManager = [[YSLiveSkinManager alloc] init];
             
-            skinManager.skinType = YSSkinType_black;
+            skinManager.skinType = YSSkinType_dark;
         }
     }
     return skinManager;
@@ -53,19 +53,32 @@ static YSLiveSkinManager *skinManager = nil;
             //        {//原始颜色背景 （蓝）
             //            path = [YSSkinBundle pathForResource:@"OriginalColor" ofType:@"plist"];
             //        }
-            //        else if (self.skinType == YSSkinType_black)
+            //        else if (self.skinType == YSSkinType_dark)
                     {//黑色背景
                         path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
                     }
+            
+            if (self.skinType == YSSkinType_dark)
+            {//深色背景
+                path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
+            }
+            else if (self.skinType == YSSkinType_middle)
+            {
+                path = [YSSkinBundle pathForResource:@"LightColor " ofType:@"plist"];
+            }
+            else if (self.skinType == YSSkinType_light)
+            {
+                path = [YSSkinBundle pathForResource:@"MiddleColor " ofType:@"plist"];
+            }
+            
+            
         }
         else
         {
             //黑色背景
             path = [YSSkinBundle pathForResource:@"onlineBlackColor" ofType:@"plist"];
         }
-            
-        NSString * sss = YSSkinBundleName;
-        
+                    
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     
@@ -144,10 +157,24 @@ static YSLiveSkinManager *skinManager = nil;
         //    {//原始颜色背景 （蓝）
         //        imageFolder = @"YSSkinOriginal";
         //    }
-        //    else if (self.skinType == YSSkinType_black)
-            {//黑色背景
-                imageFolder = @"YSSkinDarkColor";
-            }
+        //    else if (self.skinType == YSSkinType_dark)
+//            {//黑色背景
+//                imageFolder = @"YSSkinDarkColor";
+//            }
+        
+        if (self.skinType == YSSkinType_dark)
+        {//深色背景
+            imageFolder = @"YSSkinDarkColor";
+        }
+        else if (self.skinType == YSSkinType_middle)
+        {
+            imageFolder = @"YSSkinMiddleColor";
+        }
+        else if (self.skinType == YSSkinType_light)
+        {
+            imageFolder = @"YSSkinLightColor";
+        }
+        
     }
     else
     {

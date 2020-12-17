@@ -194,6 +194,10 @@
     UIView * contentBackgroud = [[UIView alloc]initWithFrame:CGRectMake(bgX, bgY, self.contentWidth, self.contentHeight)];
     contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     self.contentBackgroud = contentBackgroud;
+    
+    UIImageView * contentImage = [[UIImageView alloc]initWithFrame:contentBackgroud.bounds];
+    [contentBackgroud addSubview:contentImage];
+    
 }
 
 ///顶部状态栏

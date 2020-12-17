@@ -781,7 +781,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     contentView.backgroundColor = [UIColor clearColor];
     [self.contentBackgroud addSubview:contentView];
     self.contentView = contentView;
-
     
     // 白板背景
     UIView *whitebordBackgroud = [[UIView alloc] init];
