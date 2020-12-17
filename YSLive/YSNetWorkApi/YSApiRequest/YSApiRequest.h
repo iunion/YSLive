@@ -10,7 +10,7 @@
 #import "YSAPIMacros.h"
 
 
-#define YSShowErrorCode     1
+#define YSShowErrorCode     0
 
 NS_ASSUME_NONNULL_BEGIN
 
