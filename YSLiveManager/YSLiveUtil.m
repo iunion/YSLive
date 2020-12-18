@@ -76,7 +76,12 @@
 /// @param errorCode 错误码
 + (NSString *)getOccuredErrorCode:(NSInteger)errorCode
 {
-    NSString *alertMessage = nil;
+    return [YSLiveUtil getOccuredErrorCode:errorCode defaultMessage:nil];
+}
+
++ (NSString *)getOccuredErrorCode:(NSInteger)errorCode defaultMessage:(NSString *)message
+{
+    NSString *alertMessage = message;
     switch (errorCode)
     {
         case CHErrorCode_JoinGroupRoom_RequestFailed:
@@ -144,7 +149,14 @@
         default:
         {
 #ifdef DEBUG
-            alertMessage = [NSString stringWithFormat:@"%@(%@)", YSLocalized(@"Error.WaitingForNetwork"), @(errorCode)];
+            if ([message bm_isNotEmpty])
+            {
+                alertMessage = [NSString stringWithFormat:@"%@(%@)", message, @(errorCode)];
+            }
+            else
+            {
+                alertMessage = [NSString stringWithFormat:@"%@(%@)", YSLocalized(@"Error.WaitingForNetwork"), @(errorCode)];
+            }
 #else
             if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
             {
@@ -152,7 +164,14 @@
             }
             else
             {
-                alertMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                if ([message bm_isNotEmpty])
+                {
+                    alertMessage = message;
+                }
+                else
+                {
+                    alertMessage = YSLocalized(@"Error.CanNotConnectNetworkError");//@"服务器繁忙，请稍后再试";
+                }
             }
 #endif
         }
