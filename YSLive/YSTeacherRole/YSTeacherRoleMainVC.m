@@ -197,6 +197,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIView *videoBackgroud;
 /// 白板背景
 @property (nonatomic, strong) UIView *whitebordBackgroud;
+/// 白板背景图片
+@property (nonatomic, strong) UIImageView *whitebordBgimage;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
 /// 全屏老师 视频容器
@@ -903,29 +905,43 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     whitebordBgimage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     whitebordBgimage.contentMode = UIViewContentModeScaleToFill;
     [whitebordBackgroud addSubview:whitebordBgimage];
+    self.whitebordBgimage = whitebordBgimage;
     if ([self.liveManager.roomModel.wbBgImageUrl bm_isNotEmpty])
     {
         [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.wbBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (!image)
             {
-                whitebordBackgroud.hidden = YES;
+                self.whitebordBackgroud.hidden = YES;
+                
+                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
+                {
+                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+                }
+                else
+                {
+                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+                }
             }
             else
             {
-                whitebordBackgroud.hidden = NO;
+                self.whitebordBackgroud.hidden = NO;
+                self.whitebordBackgroud.backgroundColor = UIColor.clearColor;
             }
         }];
     }
     else
     {
         whitebordBackgroud.hidden = YES;
+        
+        if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
+        {
+            whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+        }
+        else
+        {
+            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+        }
     }
-    
-    if (whitebordBackgroud.hidden && [self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
-    {
-        whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-    }
-    
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];

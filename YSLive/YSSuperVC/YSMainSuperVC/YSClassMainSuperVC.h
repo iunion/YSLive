@@ -41,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 所有内容的背景
 @property (nonatomic, strong) UIView *contentBackgroud;
 
+/// 所有内容的背景图片
+@property (nonatomic, strong) UIImageView *contentBgImage;
+
 /// 所有内容的背景contentBackgroud的尺寸
 @property(nonatomic, assign, readonly) CGFloat contentWidth;
 @property(nonatomic, assign, readonly) CGFloat contentHeight;
