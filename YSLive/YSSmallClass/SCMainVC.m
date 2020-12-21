@@ -789,9 +789,44 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
     
+    UIImageView *whitebordBgimage = [[UIImageView alloc]initWithFrame:whitebordBackgroud.bounds];
+    whitebordBgimage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    whitebordBgimage.contentMode = UIViewContentModeScaleToFill;
+    [whitebordBackgroud addSubview:whitebordBgimage];
+    
+    if ([self.liveManager.roomModel.wbBgImageUrl bm_isNotEmpty])
+    {
+        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.wbBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (!image)
+            {
+                whitebordBackgroud.hidden = YES;
+            }
+            else
+            {
+                whitebordBackgroud.hidden = NO;
+            }
+        }];
+    }
+    else
+    {
+        whitebordBackgroud.hidden = YES;
+    }
+    
+    if (whitebordBackgroud.hidden && [self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
+    {
+        if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
+        {
+            whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+        }
+        else
+        {
+            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+        }
+    }
+    
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-    videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+//    videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
     
     [self.view addSubview:self.contentBackgroud];
     [self.contentView addSubview:videoBackgroud];
@@ -1462,7 +1497,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.contentBackgroud addSubview:self.videoGridView];
             self.videoGridView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
             [self freshContentVideoView];
-
+            
         }
     }
 }
