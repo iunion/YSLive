@@ -522,6 +522,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         return;
     }
 
+#pragma mark - 身份
+
     // 根据实际用户变更用户身份
     userRole = YSSDKUserType_Teacher;
     __weak __typeof(self) weakSelf = self;
