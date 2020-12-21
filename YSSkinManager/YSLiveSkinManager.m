@@ -15,7 +15,9 @@ static YSLiveSkinManager *skinManager = nil;
 
 @interface YSLiveSkinManager ()
 
-@property (nonatomic, assign) YSSkinType lastSkinType;
+@property (nonatomic, assign)YSSkinDetailsType roomDetailsType;
+
+@property (nonatomic, assign) YSSkinDetailsType lastSkinType;
 
 @property (nonatomic, assign) YSSkinClassOrOnline lastClassOrOnline;
 
@@ -33,7 +35,7 @@ static YSLiveSkinManager *skinManager = nil;
         {
             skinManager = [[YSLiveSkinManager alloc] init];
             
-            skinManager.skinType = YSSkinType_dark;
+            skinManager.roomDetailsType =[YSLiveManager sharedInstance].roomModel.roomDetailsType;
         }
     }
     return skinManager;
@@ -43,7 +45,7 @@ static YSLiveSkinManager *skinManager = nil;
 - (NSDictionary *)getPliatDictionaryWithType:(YSSkinClassOrOnline)classOrOnline
 {
     
-    if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.skinType || ![self.plictDict bm_isNotEmpty])
+    if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.roomDetailsType || ![self.plictDict bm_isNotEmpty])
     {
         NSString *path = nil;
         
@@ -58,15 +60,15 @@ static YSLiveSkinManager *skinManager = nil;
                         path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
                     }
             
-            if (self.skinType == YSSkinType_dark)
+            if (self.roomDetailsType == YSSkinDetailsType_dark)
             {//深色背景
                 path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
             }
-            else if (self.skinType == YSSkinType_middle)
+            else if (self.roomDetailsType == YSSkinDetailsType_middle)
             {
                 path = [YSSkinBundle pathForResource:@"LightColor " ofType:@"plist"];
             }
-            else if (self.skinType == YSSkinType_light)
+            else if (self.roomDetailsType == YSSkinDetailsType_light)
             {
                 path = [YSSkinBundle pathForResource:@"MiddleColor " ofType:@"plist"];
             }
@@ -82,7 +84,7 @@ static YSLiveSkinManager *skinManager = nil;
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     
-    self.lastSkinType = self.skinType;
+    self.lastSkinType = self.roomDetailsType;
     self.lastClassOrOnline = self.classOrOnline;
     
     return self.plictDict;
@@ -162,15 +164,15 @@ static YSLiveSkinManager *skinManager = nil;
 //                imageFolder = @"YSSkinDarkColor";
 //            }
         
-        if (self.skinType == YSSkinType_dark)
+        if (self.roomDetailsType == YSSkinDetailsType_dark)
         {//深色背景
             imageFolder = @"YSSkinDarkColor";
         }
-        else if (self.skinType == YSSkinType_middle)
+        else if (self.roomDetailsType == YSSkinDetailsType_middle)
         {
             imageFolder = @"YSSkinMiddleColor";
         }
-        else if (self.skinType == YSSkinType_light)
+        else if (self.roomDetailsType == YSSkinDetailsType_light)
         {
             imageFolder = @"YSSkinLightColor";
         }
