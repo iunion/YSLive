@@ -784,7 +784,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_addBtn)
     {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+        [_addBtn setTitleColor:YSSkinElementColor(@"answerAddtBtn", @"titleColor") forState:UIControlStateNormal];
         [_addBtn setBackgroundColor:[UIColor clearColor]];
         _addBtn.titleLabel.font = UI_FONT_10;
         _addBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -800,7 +800,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_delBtn)
     {
         _delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_delBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+        [_delBtn setTitleColor:YSSkinElementColor(@"answerAddtBtn", @"titleColor") forState:UIControlStateNormal];
         [_delBtn setBackgroundColor:[UIColor clearColor]];
         _delBtn.titleLabel.font = UI_FONT_10;
         _delBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -817,7 +817,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _putBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_putBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
         [_putBtn setTitle:YSLocalized(@"tool.fabudati") forState:UIControlStateNormal];
-        [_putBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+        [_putBtn setTitleColor:YSSkinDefineColor(@"whiteColor") forState:UIControlStateNormal];
         _putBtn.titleLabel.font = UI_FONT_12;
         [_putBtn addTarget:self action:@selector(putBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -887,7 +887,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_endAgainBtn)
     {
         _endAgainBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_endAgainBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+        [_endAgainBtn setTitleColor:YSSkinDefineColor(@"whiteColor") forState:UIControlStateNormal];
         [_endAgainBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
         _endAgainBtn.titleLabel.font = UI_FONT_12;
         _endAgainBtn.titleLabel.textAlignment = NSTextAlignmentCenter;

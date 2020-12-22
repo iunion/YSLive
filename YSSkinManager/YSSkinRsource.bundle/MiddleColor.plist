@@ -91,6 +91,22 @@
 		<key>iconDis</key>
 		<string>bottombar_allNoAudio_dis_skin</string>
 	</dict>
+	<key>answerSelectBtn</key>
+	<dict>
+		<key>noSelectTitleColor</key>
+		<string>#FFFFFF</string>
+		<key>selectTitleColor</key>
+		<string>#FFFFFF</string>
+		<key>noSelectbgColor</key>
+		<string>#ADAAB0</string>
+		<key>selectbgColor</key>
+		<string>#EAA165</string>
+	</dict>
+	<key>answerAddtBtn</key>
+	<dict>
+		<key>titleColor</key>
+		<string>#82ABEC</string>
+	</dict>
 	<key>barScaleBtn</key>
 	<dict>
 		<key>tittleColor</key>
