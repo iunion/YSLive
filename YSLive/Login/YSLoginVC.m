@@ -182,6 +182,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     GetAppDelegate.allowRotation = NO;
 }
 
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)even
 {
     [self.view endEditing:YES];
@@ -2058,6 +2059,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     if (isSmallClass)
     {
+        //        [YSLiveSkinManager shareInstance].roomDetailsType = [YSLiveManager sharedInstance].roomModel.roomDetailsType;
+        [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_light;
+        
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
         CHRoomUserType roomusertype = liveManager.roomModel.roomUserType;

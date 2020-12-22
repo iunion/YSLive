@@ -15,7 +15,7 @@ static YSLiveSkinManager *skinManager = nil;
 
 @interface YSLiveSkinManager ()
 
-@property (nonatomic, assign)YSSkinDetailsType roomDetailsType;
+
 
 @property (nonatomic, assign) YSSkinDetailsType lastSkinType;
 
@@ -34,9 +34,8 @@ static YSLiveSkinManager *skinManager = nil;
         if (!skinManager)
         {
             skinManager = [[YSLiveSkinManager alloc] init];
-            
-//            skinManager.roomDetailsType = [YSLiveManager sharedInstance].roomModel.roomDetailsType;
-            skinManager.roomDetailsType = YSSkinDetailsType_light;
+
+            skinManager.roomDetailsType = YSSkinDetailsType_dark;
         }
     }
     return skinManager;

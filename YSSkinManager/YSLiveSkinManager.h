@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSLiveSkinManager : NSObject
 
-
+@property (nonatomic, assign)YSSkinDetailsType roomDetailsType;
 
 @property (nonatomic, assign)YSSkinClassOrOnline classOrOnline;
 

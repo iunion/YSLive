@@ -343,6 +343,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     return self;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_dark;
+}
+
 /// 获取用户奖杯数
 - (void)getGiftCount
 {
