@@ -9,6 +9,8 @@
 #ifndef BMUICategory_h
 #define BMUICategory_h
 
+#import "UIBezierPath+BMCategory.h"
+
 #import "UIButton+BMCategory.h"
 #import "UIButton+BMContentRect.h"
 
