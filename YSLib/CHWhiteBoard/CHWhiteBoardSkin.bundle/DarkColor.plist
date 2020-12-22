@@ -52,7 +52,7 @@
 	<key>CommonImage</key>
 	<dict>
 		<key>close_btn_icon</key>
-		<string>close_btn_icon_skin</string>
+		<string>controlTool_close_normal_skin</string>
 		<key>cancel_btn_icon_select</key>
 		<string>cancel_skin</string>
 	</dict>
