@@ -96,9 +96,9 @@
 		<key>bgColor</key>
 		<string>#18191D</string>
 		<key>iconNor</key>
-		<string>barScale_normal_skin</string>
+        <string>bottombar_onOff_sel_skin</string>
 		<key>iconSel</key>
-		<string>barScale_selected_skin</string>
+        <string>bottombar_onOff_nor_skin</string>
 	</dict>
 	<key>brushTool_emptyrectangle</key>
 	<dict>

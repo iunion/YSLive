@@ -35,7 +35,8 @@ static YSLiveSkinManager *skinManager = nil;
         {
             skinManager = [[YSLiveSkinManager alloc] init];
             
-            skinManager.roomDetailsType =[YSLiveManager sharedInstance].roomModel.roomDetailsType;
+//            skinManager.roomDetailsType = [YSLiveManager sharedInstance].roomModel.roomDetailsType;
+            skinManager.roomDetailsType = YSSkinDetailsType_light;
         }
     }
     return skinManager;
