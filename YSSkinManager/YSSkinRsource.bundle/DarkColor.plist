@@ -4,6 +4,10 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
+		<key>blackColor</key>
+		<string>#000000</string>
+		<key>whiteColor</key>
+		<string>#FFFFFF</string>
 		<key>mediaSliderBgColor</key>
 		<string>#545454</string>
 		<key>noVideoMaskBgColor</key>
@@ -18,8 +22,6 @@
 		<string>#979797</string>
 		<key>disableColor</key>
 		<string>#888888</string>
-		<key>blackColor</key>
-		<string>#000000</string>
 		<key>defaultTitleColor</key>
 		<string>#ffffff</string>
 		<key>defaultBgColor</key>

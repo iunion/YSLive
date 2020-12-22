@@ -4,6 +4,10 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
+		<key>blackColor</key>
+		<string>#000000</string>
+		<key>whiteColor</key>
+		<string>#FFFFFF</string>
 		<key>mediaSliderBgColor</key>
 		<string>#545454</string>
 		<key>noVideoMaskBgColor</key>
@@ -18,20 +22,18 @@
 		<string>#979797</string>
 		<key>disableColor</key>
 		<string>#888888</string>
-		<key>blackColor</key>
-		<string>#000000</string>
 		<key>defaultTitleColor</key>
-		<string>#ffffff</string>
+		<string>#736D78</string>
 		<key>defaultBgColor</key>
 		<string>#24262C</string>
 		<key>defaultSelectedBgColor</key>
-		<string>#82ABEC</string>
+		<string>#EAA165</string>
 		<key>defaultListSelectedBgColor</key>
 		<string>#2E3037</string>
 		<key>WhiteBoardBgColor</key>
 		<string>#2E3037</string>
 		<key>PopViewBgColor</key>
-		<string>#212121</string>
+		<string>#FFFFFF</string>
 		<key>ToolBgColor</key>
 		<string>#1C1D20</string>
 		<key>videoMaskBack_color</key>
@@ -96,9 +98,9 @@
 		<key>bgColor</key>
 		<string>#18191D</string>
 		<key>iconNor</key>
-        <string>bottombar_onOff_sel_skin</string>
+		<string>bottombar_onOff_sel_skin</string>
 		<key>iconSel</key>
-        <string>bottombar_onOff_nor_skin</string>
+		<string>bottombar_onOff_nor_skin</string>
 	</dict>
 	<key>brushTool_emptyrectangle</key>
 	<dict>
