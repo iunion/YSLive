@@ -73,7 +73,7 @@
     [self addGestureRecognizer:tapGesture];
     
     self.backgroundView = [[UIView alloc] init];
-    self.backgroundView.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+    self.backgroundView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
     self.backgroundView.layer.masksToBounds = YES;
     self.backgroundView.layer.cornerRadius = 20;
     [self addSubview:self.backgroundView];
@@ -157,7 +157,7 @@
     }];
     
     self.progressSelectView = [[UIView alloc] init];
-    self.progressSelectView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    self.progressSelectView.backgroundColor = YSSkinElementColor(@"brushTool_slider", @"selColor");
     self.progressSelectView.layer.masksToBounds = YES;
     self.progressSelectView.layer.cornerRadius = 2.5f;
     [self.bacContainerView addSubview:self.progressSelectView];

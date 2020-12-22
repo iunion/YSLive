@@ -161,9 +161,8 @@
     BMImageTitleButtonView * button = [[BMImageTitleButtonView alloc]init];
     button.userInteractionEnabled = YES;
     button.type = BMImageTitleButtonView_ImageTop;
-//    [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-//    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
     button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
+    button.textSelectedColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     button.textFont= UI_FONT_10;
     button.normalText = title;
     

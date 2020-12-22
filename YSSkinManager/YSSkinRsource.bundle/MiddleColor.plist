@@ -160,6 +160,8 @@
 		<string></string>
 		<key>bgColor</key>
 		<string>#DEEAFF</string>
+		<key>selColor</key>
+		<string>#82ABEC</string>
 		<key>iconNor</key>
 		<string>brushTool_slider_nor_skin</string>
 		<key>iconSel</key>
