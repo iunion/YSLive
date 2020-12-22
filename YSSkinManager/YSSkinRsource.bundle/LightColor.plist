@@ -17,7 +17,7 @@
 		<key>placeholderColor</key>
 		<string>#828282</string>
 		<key>lineColor</key>
-		<string>#313131</string>
+		<string>#E7E7E7</string>
 		<key>login_lineColor</key>
 		<string>#979797</string>
 		<key>disableColor</key>
@@ -1227,8 +1227,8 @@
 	<dict>
 		<key>tittleColor</key>
 		<string></string>
-		<key>bgColor</key>
-		<string></string>
+		<key>timeBgColor</key>
+		<string>#ADAAB0</string>
 		<key>iconNor</key>
 		<string>toolBox_timer_nor_skin</string>
 		<key>iconSel</key>

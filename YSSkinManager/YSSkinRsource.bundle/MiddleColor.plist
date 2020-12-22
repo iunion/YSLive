@@ -1227,8 +1227,8 @@
 	<dict>
 		<key>tittleColor</key>
 		<string></string>
-		<key>bgColor</key>
-		<string></string>
+		<key>timeBgColor</key>
+		<string>#ADAAB0</string>
 		<key>iconNor</key>
 		<string>toolBox_timer_nor_skin</string>
 		<key>iconSel</key>

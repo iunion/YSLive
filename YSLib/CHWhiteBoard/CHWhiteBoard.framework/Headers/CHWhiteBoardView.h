@@ -23,12 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 媒体课件窗口
 @property (nonatomic, assign, readonly) BOOL isMediaView;
+
+#if !CHSingle_WhiteBoard
 /// 媒体数据
 @property (nonatomic, strong) CHSharedMediaFileModel *mediaFileModel;
 
 @property (nonatomic, assign, readonly) CHWhiteBordMediaType mediaType;
 /// H5脚本加载视频
 @property (nonatomic, assign) BOOL isH5LoadMedia;
+#endif
 
 /// 当前页码
 @property (nonatomic, assign, readonly) NSUInteger currentPage;
@@ -55,28 +58,30 @@ NS_ASSUME_NONNULL_BEGIN
 /// 主白板的
 @property (nonatomic, strong) CHWhiteBoardView *mainWhiteBoard;
 
-///最小化时的收藏夹按钮
+/// 最小化时的收藏夹按钮
 @property (nonatomic, strong) UIButton *collectBtn;
 
-///当前的位置信令的值
-@property (nonatomic, strong) NSDictionary *positionData;
+/// 当前的位置信令的值
+@property (nonatomic, strong, readonly) NSMutableDictionary *positionData;
 
 /// 是否属于当前激活课件
 @property (nonatomic, assign) BOOL isCurrent;
 
+#if WBHaveSmallBalckBoard
 #pragma mark - 小黑板
 
 /// 是否是小黑板
 @property (nonatomic, assign, readonly) BOOL isSmallBoard;
 
-///小黑板的bottomBar
+/// 小黑板的bottomBar
 @property (nonatomic, strong, readonly) CHSmallBoardBottomBar *bottomBar;
 
-///小黑板的topBar
+/// 小黑板的topBar
 @property (nonatomic, strong, readonly) CHSmallBoardTopBar *smallTopBar;
 
-///上传图片后返回的数据
+/// 上传图片后返回的数据
 @property (nonatomic, strong) NSDictionary *imageDict;
+#endif
 
 
 - (void)destroy;
@@ -108,11 +113,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 变更白板背景图
 - (void)changeMainWhiteBoardBackImage:(UIImage *)image;
 
-// 页面刷新尺寸
+/// 页面刷新尺寸
 - (void)refreshWhiteBoard;
 - (void)refreshWhiteBoardWithFrame:(CGRect)frame;
 
 - (CGFloat)documentZoomScale;
+
+/// 窗口位置尺寸数据
+- (void)changePositionData:(NSDictionary *)positionData;
+- (void)changePositionData:(NSDictionary *)positionData type:(NSString *)type isSmall:(BOOL)isSmall isFull:(BOOL)isFull;
 
 #pragma -
 #pragma mark 课件操作
@@ -146,15 +155,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 缩放变更回调
 - (void)onWhiteBoardFileViewZoomScaleChanged:(CGFloat)zoomScale;
 
+- (void)sendUndoRedoState;
+
 
 #pragma -
 #pragma mark 画笔控制
 
-- (void)brushToolsDidSelect:(CHBrushToolType)BrushToolType;
+- (void)brushToolsDidSelect:(CHBrushToolType)brushToolType;
 - (void)didSelectDrawType:(CHDrawType)type color:(NSString *)hexColor widthProgress:(CGFloat)progress;
 - (void)freshBrushToolConfigs;
 
 
+#if !CHSingle_WhiteBoard
 #pragma -
 #pragma mark 音视频控制
 
@@ -173,6 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 清除白板视频标注
 - (void)clearDrawVideoMark;
 
+#endif
 
 #pragma -
 #pragma mark 白板H5课件参数设置
@@ -201,6 +214,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 翻页超时
 - (void)onWBViewWebViewManagerSlideLoadTimeout:(CHWhiteBoardView *)whiteBoardView withState:(NSDictionary *)dic;
 
+/// 普通课件加载完成状态
+- (void)onWWBViewDrawViewManagerLoadFinshed:(CHWhiteBoardView *)whiteBoardView isSuccess:(BOOL)isSuccess;
+
 /// 课件缩放
 - (void)onWWBViewDrawViewManagerZoomScaleChanged:(CHWhiteBoardView *)whiteBoardView zoomScale:(CGFloat)zoomScale;
 /// 课件全屏
@@ -208,8 +224,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 拖拽手势事件  拖拽右下角缩放View
 - (void)panToZoomWhiteBoardView:(CHWhiteBoardView *)whiteBoard withGestureRecognizer:(UIPanGestureRecognizer *)pan;
 
+#if !CHSingle_WhiteBoard
 /// 拖拽Mp3手势事件
 - (void)moveMp3ViewWithGestureRecognizer:(UIPanGestureRecognizer *)panGesture;
+#endif
 
 @end
 

@@ -91,6 +91,19 @@
 		<key>iconDis</key>
 		<string>bottombar_allNoAudio_dis_skin</string>
 	</dict>
+	<key>answer_openResult</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>answer_openResult_nor_skin</string>
+		<key>iconSel</key>
+		<string>answer_openResult_sel_skin</string>
+		<key>iconDis</key>
+		<string>answer_openResult_dis_skin</string>
+	</dict>
 	<key>answerSelectBtn</key>
 	<dict>
 		<key>noSelectTitleColor</key>
@@ -1227,8 +1240,8 @@
 	<dict>
 		<key>tittleColor</key>
 		<string></string>
-		<key>bgColor</key>
-		<string></string>
+		<key>timeBgColor</key>
+		<string>#6D7278</string>
 		<key>iconNor</key>
 		<string>toolBox_timer_nor_skin</string>
 		<key>iconSel</key>
@@ -1461,19 +1474,6 @@
 		<string>videoPop_allResetNo_skin</string>
 		<key>iconSel</key>
 		<string>videoPop_allReset_skin</string>
-	</dict>
-	<key>answer_openResult</key>
-	<dict>
-		<key>tittleColor</key>
-		<string></string>
-		<key>bgColor</key>
-		<string></string>
-		<key>iconNor</key>
-		<string>answer_openResult_nor_skin</string>
-		<key>iconSel</key>
-		<string>answer_openResult_sel_skin</string>
-		<key>iconDis</key>
-		<string>answer_openResult_dis_skin</string>
 	</dict>
 	<key>timer_up</key>
 	<dict>

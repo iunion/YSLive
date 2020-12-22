@@ -131,9 +131,9 @@
     }
     
     [self.cancleBtn bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-        make.top.bmmas_equalTo(titleTop);
-        make.right.bmmas_equalTo(-titleTop);
-        make.width.height.bmmas_equalTo(20.0f);
+        make.top.bmmas_equalTo(0);
+        make.right.bmmas_equalTo(0);
+        make.width.height.bmmas_equalTo(20.0f + titleTop);
     }];
     
     [self.titleLab bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
@@ -175,6 +175,7 @@
         {
             _cancleBtn.hidden = YES;
         }
+                
     }
     return _cancleBtn;
 }
