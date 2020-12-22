@@ -52,29 +52,18 @@ static YSLiveSkinManager *skinManager = nil;
         
         if (classOrOnline == YSSkinClassOrOnline_class)
         {
-            //        if (self.skinType == YSSkinType_original)
-            //        {//原始颜色背景 （蓝）
-            //            path = [YSSkinBundle pathForResource:@"OriginalColor" ofType:@"plist"];
-            //        }
-            //        else if (self.skinType == YSSkinType_dark)
-                    {//黑色背景
-                        path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
-                    }
-            
             if (self.roomDetailsType == YSSkinDetailsType_dark)
             {//深色背景
                 path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
             }
             else if (self.roomDetailsType == YSSkinDetailsType_middle)
             {
-                path = [YSSkinBundle pathForResource:@"LightColor " ofType:@"plist"];
+                path = [YSSkinBundle pathForResource:@"MiddleColor" ofType:@"plist"];
             }
             else if (self.roomDetailsType == YSSkinDetailsType_light)
             {
-                path = [YSSkinBundle pathForResource:@"MiddleColor " ofType:@"plist"];
-            }
-            
-            
+                path = [YSSkinBundle pathForResource:@"LightColor" ofType:@"plist"];
+            }            
         }
         else
         {
@@ -156,15 +145,6 @@ static YSLiveSkinManager *skinManager = nil;
     
     if (classOrOnline == YSSkinClassOrOnline_class)
     {
-        //    if (self.skinType == YSSkinType_original)
-        //    {//原始颜色背景 （蓝）
-        //        imageFolder = @"YSSkinOriginal";
-        //    }
-        //    else if (self.skinType == YSSkinType_dark)
-//            {//黑色背景
-//                imageFolder = @"YSSkinDarkColor";
-//            }
-        
         if (self.roomDetailsType == YSSkinDetailsType_dark)
         {//深色背景
             imageFolder = @"YSSkinDarkColor";

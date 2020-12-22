@@ -207,6 +207,8 @@
     toolBtn.normalImage = normalImage;
     toolBtn.selectedImage = selectedImage;
     toolBtn.disabledImage = disabledImage;
+    toolBtn.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
+    toolBtn.textSelectedColor = YSSkinDefineColor(@"defaultSelectedBgColor");
     if (norTitle)
     {
         toolBtn.normalText = YSLocalized(norTitle);

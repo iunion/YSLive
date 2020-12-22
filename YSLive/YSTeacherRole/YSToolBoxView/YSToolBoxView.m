@@ -180,6 +180,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     toolBtn.normalImage = normalImage;
     toolBtn.selectedImage = selectedImage;
     toolBtn.disabledImage = disabledImage;
+    toolBtn.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
     if (norTitle)
     {
         toolBtn.normalText = YSLocalized(norTitle);

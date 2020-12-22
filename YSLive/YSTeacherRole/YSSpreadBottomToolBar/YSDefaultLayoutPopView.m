@@ -163,7 +163,7 @@
     button.type = BMImageTitleButtonView_ImageTop;
 //    [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
 //    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
-    button.textNormalColor = UIColor.whiteColor;
+    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
     button.textFont= UI_FONT_10;
     button.normalText = title;
     
