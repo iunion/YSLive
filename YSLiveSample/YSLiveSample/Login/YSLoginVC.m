@@ -531,7 +531,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     [self.ysSDKManager checkRoomTypeBeforeJoinRoomWithRoomId:roomId success:^(YSSDKUseTheType roomType, BOOL needpassword) {
         // roomType: 房间类型 3：小班课  4：直播   6：会议
         // needpassword: 参会人员(学生)是否需要密码
-        if (self->userRole == YSSDKSUserType_Student)
+        if (self->userRole == YSSDKUserType_Student)
         {
             // 学生登入
             // 注意： 直播只支持学生身份登入房间
@@ -703,7 +703,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         NSString *roomId = self.roomTextField.inputTextField.text;
         NSString *nickName = self.nickNameTextField.inputTextField.text;
         NSString *password = passwordTextField.text;
-        if (self->userRole == YSSDKSUserType_Student)
+        if (self->userRole == YSSDKUserType_Student)
         {
             // 学生登入
             // 注意： 直播只支持学生身份登入房间

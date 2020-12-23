@@ -19,9 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.useAllowRotation = NO;
     self.allowRotation = NO;
-    
+
+    self.useAllowRotation = NO;    
     self.classCanRotation = YES;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
