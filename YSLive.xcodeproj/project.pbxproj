@@ -35,6 +35,8 @@
 		26215A7623C7130600D6730B /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26215A7523C7130600D6730B /* YSSliderSuperView.m */; };
 		26262AF22386972C005B9F27 /* SCAnswerTBHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26262AF12386972C005B9F27 /* SCAnswerTBHeaderView.m */; };
 		2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
+		263327532591C874004ED6CE /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
+		263327562591C87A004ED6CE /* YSWarmVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AD5C132583598E0023BEAD /* YSWarmVideoView.m */; };
 		26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE223B4BB9A004B8366 /* SCTeacherListView.m */; };
 		26355BE623B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE523B4C550004B8366 /* SCTeacherPersonListCell.m */; };
 		26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE923B4C58E004B8366 /* SCTeacherCoursewareListCell.m */; };
@@ -3987,6 +3989,7 @@
 				3471E2A124039A0100A3BBB4 /* FSCalendarExtensions.m in Sources */,
 				8783302F24874C4400F1178E /* FLEXRuntime+UIKitHelpers.m in Sources */,
 				8717E1F02400DADC008C4CDA /* YSNewTipMessageCell.m in Sources */,
+				263327532591C874004ED6CE /* YSDefaultLayoutPopView.m in Sources */,
 				8717E1F82400DADC008C4CDA /* SCStatisticsTableViewCell.m in Sources */,
 				8717E1F92400DADC008C4CDA /* YSMainVC.m in Sources */,
 				8717E1FD2400DADC008C4CDA /* YSOnlineMineTableViewCell.m in Sources */,
@@ -4143,6 +4146,7 @@
 				8783301524874C4400F1178E /* FLEXProtocolBuilder.m in Sources */,
 				8717E2812400DADC008C4CDA /* YSTeacherResponder.m in Sources */,
 				8717E2832400DADC008C4CDA /* YSTeacherTimerView.m in Sources */,
+				263327562591C87A004ED6CE /* YSWarmVideoView.m in Sources */,
 				8717E2852400DADC008C4CDA /* YSCoreStatus.m in Sources */,
 				8717E28A2400DADC008C4CDA /* YSBarrageManager.m in Sources */,
 				87832F1D24874C4300F1178E /* FLEXScopeCarousel.m in Sources */,
@@ -4450,7 +4454,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1.0.0;
+				CURRENT_PROJECT_VERSION = 2.2.0.0;
 				DEVELOPMENT_TEAM = S6NQ524Y5V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4475,7 +4479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4496,7 +4500,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1.0.0;
+				CURRENT_PROJECT_VERSION = 2.2.0.0;
 				DEVELOPMENT_TEAM = S6NQ524Y5V;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
@@ -4550,7 +4554,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
