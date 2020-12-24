@@ -90,7 +90,7 @@
     [self addSubview:nameLabel];
     self.nameLabel = nameLabel;
     nameLabel.font = [UIFont systemFontOfSize:12];
-    nameLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    nameLabel.textColor = YSSkinDefineColor(@"Color3");
     nameLabel.textAlignment = NSTextAlignmentLeft;
 
     
@@ -98,7 +98,7 @@
     [self addSubview:timeLabel];
     self.timeLabel = timeLabel;
     timeLabel.font = [UIFont systemFontOfSize:12];
-    timeLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    timeLabel.textColor = YSSkinDefineColor(@"Color3");
     timeLabel.textAlignment = NSTextAlignmentRight;
 
     
@@ -106,8 +106,8 @@
     [self addSubview:sliderView];
     self.sliderView = sliderView;
 //    sliderView.continuous = NO;
-    sliderView.minimumTrackTintColor = YSSkinDefineColor(@"defaultTitleColor");
-    sliderView.maximumTrackTintColor = YSSkinDefineColor(@"mediaSliderBgColor");
+    sliderView.minimumTrackTintColor = YSSkinDefineColor(@"Color6");
+    sliderView.maximumTrackTintColor = YSSkinDefineColor(@"Color3");
 //    sliderView.thumbTintColor = [UIColor bm_colorWithHex:0x9DBEF3];
     [sliderView setThumbImage:YSSkinElementImage(@"media_slider", @"iconNor") forState:UIControlStateNormal];
     [sliderView addTarget:self action:@selector(sliderViewChange:) forControlEvents:UIControlEventValueChanged];

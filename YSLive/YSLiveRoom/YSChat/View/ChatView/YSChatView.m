@@ -48,7 +48,7 @@ UITableViewDataSource
     {
 //        self.layer.cornerRadius = 12;
 //        self.layer.masksToBounds = YES;
-        self.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
+        self.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
         
         self.messageList = [NSMutableArray array];
         self.anchorMessageList = [NSMutableArray array];
@@ -277,7 +277,7 @@ UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 10.0)];
-    view.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
+    view.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
     return view;
 }
 

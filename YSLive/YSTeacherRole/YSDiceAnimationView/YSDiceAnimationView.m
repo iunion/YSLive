@@ -44,7 +44,7 @@
     if (self)
     {
         self.layer.cornerRadius = 10.0f;
-        self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        self.backgroundColor = YSSkinDefineColor(@"Color2");
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
         tapGesture.delegate =self;
         self.userInteractionEnabled = YES;
@@ -186,7 +186,7 @@
     {
         _titleLab = [[UILabel alloc] init];
         _titleLab.textAlignment = NSTextAlignmentCenter;
-        _titleLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _titleLab.textColor = YSSkinDefineColor(@"Color3");
         _titleLab.backgroundColor = [UIColor clearColor];
         _titleLab.font = UI_FONT_12;
         _titleLab.text = YSLocalized(@"title.Dice");
@@ -199,7 +199,7 @@
     if (!_lineView)
     {
         _lineView = [[UIView alloc]init];
-        _lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+        _lineView.backgroundColor = YSSkinDefineColor(@"Color7");
     }
     return _lineView;
 }
@@ -223,7 +223,7 @@
     {
         _nameLab = [[UILabel alloc] init];
         _nameLab.textAlignment = NSTextAlignmentCenter;
-        _nameLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _nameLab.textColor = YSSkinDefineColor(@"Color3");
         _nameLab.backgroundColor = [UIColor clearColor];
         _nameLab.font = UI_FONT_10;
         _nameLab.text = YSLocalized(@"Role.Teacher");

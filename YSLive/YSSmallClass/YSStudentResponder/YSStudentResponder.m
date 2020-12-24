@@ -66,9 +66,9 @@
     //    self.circleProgress.progress = 0.5;
     self.circleProgress.lineWidth = 4;
     self.circleProgress.isClockwise = YES;
-    self.circleProgress.innerColor = YSSkinDefineColor(@"defaultBgColor");
-    self.circleProgress.lineBgColor = YSSkinDefineColor(@"defaultTitleColor");
-    self.circleProgress.lineProgressColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    self.circleProgress.innerColor = YSSkinDefineColor(@"Color2");
+    self.circleProgress.lineBgColor = YSSkinDefineColor(@"Color3");
+    self.circleProgress.lineProgressColor = YSSkinDefineColor(@"Color4");
     [self.bacView addSubview:self.circleProgress];
     [self.circleProgress bm_centerInSuperView];
     
@@ -76,7 +76,7 @@
     self.circleBacView = [[UIView alloc] init];
     [self.circleProgress addSubview:self.circleBacView];
     self.circleBacView.frame = CGRectMake(0, 0, 90, 90);
-    self.circleBacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.circleBacView.backgroundColor = YSSkinDefineColor(@"Color2");
     [self.circleBacView bm_centerInSuperView];
     [self.circleBacView bm_roundedRect:45];
     
@@ -87,7 +87,7 @@
     [self.circleProgress addSubview:self.titleL];
     
     self.titleL.textAlignment= NSTextAlignmentCenter;
-    self.titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.titleL.textColor = YSSkinDefineColor(@"Color3");
     self.titleL.font = [UIFont systemFontOfSize:12.0f];
     self.titleL.numberOfLines = 0;
     self.titleL.frame = CGRectMake(0, 0, 100, 100);
@@ -97,11 +97,11 @@
 {
     if ([title isEqualToString:YSLocalized(@"Res.lab.get")])
     {
-        self.circleBacView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.circleBacView.backgroundColor = YSSkinDefineColor(@"Color4");
     }
     else
     {
-        self.circleBacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        self.circleBacView.backgroundColor = YSSkinDefineColor(@"Color2");
     }
     self.titleL.text = title;
 }

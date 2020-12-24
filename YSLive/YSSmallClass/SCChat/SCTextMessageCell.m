@@ -75,13 +75,13 @@
     
     NSString * nameTimeStr = nil;
         
-    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
+    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"PlaceholderColor") font:15];
     if (!model.messageSize.width && [model.message bm_isNotEmpty]) {
         
         model.messageSize = [attMessage bm_sizeToFitWidth:200];
     }
     
-    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"placeholderColor") font:15];
+    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"PlaceholderColor") font:15];
     
     if (!model.translatSize.width && [model.detailTrans bm_isNotEmpty]) {
         model.translatSize = [attTranslation bm_sizeToFitWidth:200];
@@ -102,24 +102,24 @@
     {//我的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",YSLocalized(@"Role.Me"),model.timeStr];
         self.nickNameLab.textAlignment = NSTextAlignmentRight;
-        self.nickNameLab.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
-        self.msgLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        self.translationText.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.nickNameLab.textColor = YSSkinDefineColor(@"Color4");
+        self.msgLab.textColor = YSSkinDefineColor(@"Color3");
+        self.translationText.textColor = YSSkinDefineColor(@"Color3");
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color4");
         [self.translateBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
-        self.lineView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.lineView.backgroundColor = YSSkinDefineColor(@"Color3");
         bubbleX = ChatViewWidth-10-bubbleW;
     }
     else
     {//别人的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.sendUser.nickName,model.timeStr];
         self.nickNameLab.textAlignment = NSTextAlignmentLeft;;
-        self.nickNameLab.textColor = YSSkinDefineColor(@"placeholderColor");
-        self.msgLab.textColor = YSSkinDefineColor(@"placeholderColor");
-        self.translationText.textColor = YSSkinDefineColor(@"placeholderColor");
-        self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.nickNameLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
+        self.msgLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
+        self.translationText.textColor = YSSkinDefineColor(@"PlaceholderColor");
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
         [self.translateBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
-        self.lineView.backgroundColor = YSSkinDefineColor(@"placeholderColor");
+        self.lineView.backgroundColor = YSSkinDefineColor(@"PlaceholderColor");
         bubbleX = 10;
     }
     

@@ -4,56 +4,36 @@
 <dict>
 	<key>CommonColor</key>
 	<dict>
-		<key>blackColor</key>
-		<string>#000000</string>
-		<key>whiteColor</key>
+		<key>WhiteColor</key>
 		<string>#FFFFFF</string>
-		<key>mediaSliderBgColor</key>
-		<string>#545454</string>
-		<key>noVideoMaskBgColor</key>
-		<string>#40424A</string>
-		<key>timer_timeBgColor</key>
-		<string>#DEEAFF</string>
-		<key>placeholderColor</key>
-		<string>#828282</string>
-		<key>lineColor</key>
-		<string>#313131</string>
-		<key>login_lineColor</key>
-		<string>#979797</string>
-		<key>disableColor</key>
-		<string>#888888</string>
-		<key>defaultTitleColor</key>
-		<string>#ffffff</string>
-		<key>defaultBgColor</key>
-		<string>#24262C</string>
-		<key>defaultSelectedBgColor</key>
-		<string>#82ABEC</string>
-		<key>defaultListSelectedBgColor</key>
+		<key>Color1</key>
 		<string>#2E3037</string>
-		<key>WhiteBoardBgColor</key>
-		<string>#2E3037</string>
-		<key>PopViewBgColor</key>
-		<string>#212121</string>
-		<key>ToolBgColor</key>
+		<key>Color2</key>
 		<string>#1C1D20</string>
-		<key>videoMaskBack_color</key>
-		<string>#1C1C1C</string>
-		<key>videoBackColor</key>
-		<string>#18191D</string>
-		<key>login_placeholderColor</key>
+		<key>Color3</key>
+		<string>#FFFFFF</string>
+		<key>Color4</key>
+		<string>#82ABEC</string>
+		<key>Color5</key>
+		<string>#FFFFFF</string>
+		<key>Color6</key>
+		<string>#FFFFFF</string>
+		<key>Color7</key>
+		<string>#313131</string>
+		<key>PlaceholderColor</key>
 		<string>#6D7278</string>
-		<key>raiseHandTitleDefaultColor</key>
-		<string>#66676B</string>
-		<key>jurisdictionCheckFail</key>
+		<key>MaskBgColor</key>
+		<string>#40424A</string>
+		<key>JurisdictionCheckFail</key>
 		<string>#FF7D7D</string>
-		<key>liveDefaultBgColor</key>
+		<key>Live_timer_timeBgColor</key>
+		<string>#DEEAFF</string>
+		<key>Live_DefaultBgColor</key>
 		<string>#F1F6FF</string>
-		<key>liveTimeTextColor</key>
-		<string>#818181</string>
-		<key>liveChatBgColor</key>
-		<string>#F6F8FA</string>
-		<key>liveVoteNameTextColor</key>
+		<key>Live_VoteNameTextColor</key>
 		<string>#5A8CDC</string>
+		<key>Live_TimeTextColor</key>
+		<string>#818181</string>
 	</dict>
 	<key>CommonImage</key>
 	<dict>

@@ -39,14 +39,14 @@
     [super viewDidLoad];
     self.btnArray = [[NSMutableArray alloc] init];
 //    self.view.backgroundColor = [UIColor bm_colorWithHex:0x336CC7];
-    self.view.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.view.backgroundColor = YSSkinDefineColor(@"Color2");
     
     self.backView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.backView.backgroundColor = [UIColor clearColor];
     self.backView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.backView];
     
-    self.popoverPresentationController.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.popoverPresentationController.backgroundColor = YSSkinDefineColor(@"Color2");
 }
 
 - (void)viewWillLayoutSubviews
@@ -217,7 +217,7 @@
     self.giftCupBtn = giftCupBtn;
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = YSSkinDefineColor(@"login_lineColor");
+    lineView.backgroundColor = YSSkinDefineColor(@"Color7");
     self.lineView = lineView;
     lineView.hidden = YES;
     
@@ -452,7 +452,7 @@
     button.userInteractionEnabled = YES;
     button.type = BMImageTitleButtonView_ImageTop;
     [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
+    button.textNormalColor = YSSkinDefineColor(@"Color3");
     button.textFont= UI_FONT_10;
     button.normalText = title;
     

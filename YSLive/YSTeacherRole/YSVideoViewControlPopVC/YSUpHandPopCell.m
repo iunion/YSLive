@@ -46,7 +46,7 @@
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 95-10-30, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.lineBreakMode = NSLineBreakByTruncatingTail;
-    self.nickNameLab.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    self.nickNameLab.textColor = YSSkinDefineColor(@"Color4");
     self.nickNameLab.font = UI_FONT_14;
     [self.contentView addSubview:_nickNameLab];
             
@@ -77,12 +77,12 @@
     CHPublishState publishState = [userDict bm_intForKey:@"publishState"];
     if (publishState > 0)
     {
-        self.nickNameLab.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.nickNameLab.textColor = YSSkinDefineColor(@"Color4");
         self.headBtn.selected = YES;
     }
     else
     {
-        self.nickNameLab.textColor = YSSkinDefineColor(@"raiseHandTitleDefaultColor");
+        self.nickNameLab.textColor = YSSkinDefineColor(@"Color3");
         self.headBtn.selected = NO;
     }
 }

@@ -80,7 +80,7 @@
     if (!_backView)
     {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _backView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
     return _backView;
 }
@@ -90,7 +90,7 @@
     if (!_lessonTitleL)
     {
         _lessonTitleL = [[UILabel alloc] init];
-        _lessonTitleL.textColor = YSSkinDefineColor(@"placeholderColor");
+        _lessonTitleL.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _lessonTitleL.textAlignment = NSTextAlignmentLeft;
         _lessonTitleL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
         _lessonTitleL.numberOfLines = 0;
@@ -117,7 +117,7 @@
     if (!_roomIDL)
     {
         _roomIDL = [[UILabel alloc] init];
-        _roomIDL.textColor = YSSkinDefineColor(@"placeholderColor");
+        _roomIDL.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _roomIDL.textAlignment = NSTextAlignmentLeft;
         _roomIDL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
     }
@@ -130,7 +130,7 @@
     if (!_lineView)
     {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [YSSkinDefineColor(@"login_placeholderColor") changeAlpha:0.24f];
+        _lineView.backgroundColor = [YSSkinDefineColor(@"PlaceholderColor") changeAlpha:0.24f];
     }
     
     return _lineView;

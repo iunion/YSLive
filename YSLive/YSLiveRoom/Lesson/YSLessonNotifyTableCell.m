@@ -178,7 +178,7 @@
         _timeL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
         _timeL.numberOfLines = 1;
         _timeL.lineBreakMode = NSLineBreakByCharWrapping;
-        _timeL.textColor = YSSkinDefineColor(@"liveTimeTextColor");
+        _timeL.textColor = YSSkinDefineColor(@"Live_TimeTextColor");
     }
     return _timeL;
 }
@@ -188,7 +188,7 @@
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _bacView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
     
     return _bacView;
@@ -222,7 +222,7 @@
            _originalL = [[UILabel alloc] init];
            _originalL.textAlignment = NSTextAlignmentLeft;
            _originalL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
-           _originalL.textColor = YSSkinDefineColor(@"placeholderColor");
+           _originalL.textColor = YSSkinDefineColor(@"PlaceholderColor");
            _originalL.numberOfLines = 0;
            _originalL.lineBreakMode = NSLineBreakByCharWrapping;
        }
@@ -235,7 +235,7 @@
     if (!_lineView)
     {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [YSSkinDefineColor(@"login_placeholderColor") changeAlpha:0.24f];
+        _lineView.backgroundColor = [YSSkinDefineColor(@"PlaceholderColor") changeAlpha:0.24f];
         _lineView.hidden = YES;
     }
     
@@ -250,7 +250,7 @@
            _translatL.textAlignment = NSTextAlignmentLeft;
            _translatL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
            _translatL.numberOfLines = 0;
-           _translatL.textColor = YSSkinDefineColor(@"placeholderColor");
+           _translatL.textColor = YSSkinDefineColor(@"PlaceholderColor");
            _translatL.lineBreakMode = NSLineBreakByCharWrapping;
            _translatL.hidden = YES;
        }

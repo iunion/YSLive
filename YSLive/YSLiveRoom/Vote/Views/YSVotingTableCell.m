@@ -39,7 +39,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.backgroundColor = YSSkinDefineColor(@"Color3");
     self.selectImageV.frame = CGRectMake(22, 0, 17, 17);
     self.selectImageV.bm_centerY = self.contentView.bm_centerY;
 
@@ -79,7 +79,7 @@
     {
         _titleL = [[UILabel alloc] init];
         _titleL.backgroundColor = [UIColor clearColor];
-        _titleL.textColor = YSSkinDefineColor(@"placeholderColor");
+        _titleL.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _titleL.textAlignment = NSTextAlignmentLeft;
         _titleL.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16);
         _titleL.numberOfLines = 0;

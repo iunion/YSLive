@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.view.backgroundColor = YSSkinDefineColor(@"Color2");
     
     self.view.frame = CGRectMake(0, 0, 60, 50 *self.menusArr.count);
     self.preferredContentSize = CGSizeMake(60, 50 *self.menusArr.count);
@@ -161,8 +161,8 @@
     BMImageTitleButtonView * button = [[BMImageTitleButtonView alloc]init];
     button.userInteractionEnabled = YES;
     button.type = BMImageTitleButtonView_ImageTop;
-    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
-    button.textSelectedColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    button.textNormalColor = YSSkinDefineColor(@"Color3");
+    button.textSelectedColor = YSSkinDefineColor(@"Color4");
     button.textFont= UI_FONT_10;
     button.normalText = title;
     

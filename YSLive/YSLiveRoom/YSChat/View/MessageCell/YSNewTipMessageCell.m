@@ -31,7 +31,7 @@
 - (void)setupView
 {
     self.backView = [[UIView alloc] init];
-    self.backView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.backView.backgroundColor = YSSkinDefineColor(@"Color3");
     self.backView.layer.cornerRadius = 12.5;
     [self.contentView addSubview:self.backView];
     
@@ -41,7 +41,7 @@
     self.iMessageLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     self.iMessageLabel.numberOfLines = 1;
     [self.iMessageLabel setFont:UI_FONT_12];
-    self.iMessageLabel.textColor = YSSkinDefineColor(@"placeholderColor");
+    self.iMessageLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
     [self.backView addSubview:self.iMessageLabel];
 }
 

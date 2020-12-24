@@ -31,7 +31,7 @@
         [_inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
         
         UIView * lineView = [[UIView alloc]init];
-        lineView.backgroundColor = YSSkinDefineColor(@"login_lineColor");
+        lineView.backgroundColor = YSSkinDefineColor(@"Color7");
         [self addSubview:lineView];
         self.lineView = lineView;
         
@@ -45,7 +45,7 @@
     if (placeholder)
     {
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:placeholder attributes:@{
-            NSForegroundColorAttributeName:YSSkinDefineColor(@"login_placeholderColor"),
+            NSForegroundColorAttributeName:YSSkinDefineColor(@"PlaceholderColor"),
             NSFontAttributeName:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 15)
         }];
         _inputTextField.attributedPlaceholder = attrString;

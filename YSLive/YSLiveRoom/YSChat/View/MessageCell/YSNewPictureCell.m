@@ -36,7 +36,7 @@
         
         self.bubbleView = [[UIView alloc] initWithFrame:CGRectZero];
         self.bubbleView.userInteractionEnabled = YES;
-        self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
         self.bubbleView.layer.cornerRadius = 4;
         [self.contentView addSubview:self.bubbleView];
 

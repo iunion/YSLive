@@ -133,21 +133,21 @@
     NSMutableAttributedString * timeAttribut = [[NSMutableAttributedString alloc] initWithString:timeStr];
     
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 42) range:NSMakeRange(0, 2)];
-    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"login_placeholderColor") range:NSMakeRange(0, 2)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(0, 2)];
     
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 30) range:NSMakeRange(4, 1)];
-    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"login_placeholderColor") range:NSMakeRange(4, 1)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(4, 1)];
     [timeAttribut addAttribute:NSBaselineOffsetAttributeName value:@(7) range:NSMakeRange(4, 1)];
     
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 42) range:NSMakeRange(7, 2)];
-    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"login_placeholderColor") range:NSMakeRange(7, 2)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(7, 2)];
 
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 30) range:NSMakeRange(11, 1)];
-    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"login_placeholderColor") range:NSMakeRange(11, 1)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(11, 1)];
     [timeAttribut addAttribute:NSBaselineOffsetAttributeName value:@(7) range:NSMakeRange(11, 1)];
 
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 42) range:NSMakeRange(14, 2)];
-    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"login_placeholderColor") range:NSMakeRange(14, 2)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(14, 2)];
 
     return timeAttribut;
 }
@@ -161,7 +161,7 @@
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _bacView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
     return _bacView;
 }
@@ -187,7 +187,7 @@
         _tagLabel = [[UILabel alloc] init];
         _tagLabel.textAlignment = NSTextAlignmentCenter;
         _tagLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        _tagLabel.textColor = YSSkinDefineColor(@"login_placeholderColor");
+        _tagLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _tagLabel.font = [UIFont systemFontOfSize:11.0f];
         _tagLabel.text = @"  Hours          Minutes        Seconds ";
     }
@@ -202,7 +202,7 @@
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_sureBtn setTitle:YSLocalized(@"Button.Sign") forState:UIControlStateNormal];
         [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_sureBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        [_sureBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         [_sureBtn addTarget:self action:@selector(sureBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _sureBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
         _sureBtn.titleEdgeInsets = UIEdgeInsetsMake(-10,0, 0, 0);

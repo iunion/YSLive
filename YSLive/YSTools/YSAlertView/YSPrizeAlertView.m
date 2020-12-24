@@ -242,21 +242,21 @@
     self.backgroundColor = [UIColor clearColor];
     
     UIView *bacView = [[UIView alloc] init];
-    bacView.backgroundColor = [YSSkinDefineColor(@"defaultTitleColor") changeAlpha:0.5f];
+    bacView.backgroundColor = [YSSkinDefineColor(@"Color3") changeAlpha:0.5f];
     [self.contentView addSubview:bacView];
     CGFloat tempWidth = ViewWidth - 28;
     bacView.frame = CGRectMake(0, 0, tempWidth, 25);
     self.bacView = bacView;
     
     UILabel *nameL = [[UILabel alloc] init];
-    nameL.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    nameL.textColor = YSSkinDefineColor(@"PlaceholderColor");
     nameL.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12);
     [self.contentView addSubview:nameL];
     nameL.frame = CGRectMake(20, 0, (tempWidth - 40)*0.5f, 25);
     self.nameL = nameL;
     
     UILabel *timeL = [[UILabel alloc] init];
-    timeL.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    timeL.textColor = YSSkinDefineColor(@"PlaceholderColor");
     timeL.textAlignment = NSTextAlignmentRight;
     timeL.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12);
     [self.contentView addSubview:timeL];

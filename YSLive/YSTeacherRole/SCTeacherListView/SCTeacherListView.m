@@ -127,7 +127,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     {
         tableView.insetsContentViewsToSafeArea = NO;
     }
-    tableView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    tableView.backgroundColor = YSSkinDefineColor(@"Color2");
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -139,12 +139,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     
     self.tableFooterView = [[UIView alloc] init];
     [tableBacView addSubview:self.tableFooterView];
-    self.tableFooterView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.tableFooterView.backgroundColor = YSSkinDefineColor(@"Color2");
     self.tableFooterView.hidden = NO;
     
     UILabel * pageNumLabel = [[UILabel alloc] init];
-    pageNumLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
-    pageNumLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    pageNumLabel.backgroundColor = YSSkinDefineColor(@"Color2");
+    pageNumLabel.textColor = YSSkinDefineColor(@"Color3");
     pageNumLabel.font = [UIFont systemFontOfSize:16];
     pageNumLabel.text = @"";
     pageNumLabel.textAlignment = NSTextAlignmentCenter;
@@ -430,13 +430,13 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]init];
-    view.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    view.backgroundColor = YSSkinDefineColor(@"Color2");
     view.userInteractionEnabled = YES;
     if (self.type == SCBottomToolBarTypePersonList)
     {
         UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 40)];
-        titleLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
-        titleLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        titleLabel.backgroundColor = YSSkinDefineColor(@"Color2");
+        titleLabel.textColor = YSSkinDefineColor(@"Color3");
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
         NSString * title = YSLocalized(@"Title.UserList");
@@ -444,7 +444,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         [view addSubview:titleLabel];
         
         UIView *lineView = [[UIView alloc] init];
-        lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+        lineView.backgroundColor = YSSkinDefineColor(@"Color7");
         lineView.frame = CGRectMake(0, CGRectGetMaxY(titleLabel.frame), tableWidth, 1);
         [view addSubview:lineView];
         
@@ -452,8 +452,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         CGFloat userNumGap = [UIDevice bm_isiPad] ? 17.0f : 8.0f;
         CGFloat userNumHeight = [UIDevice bm_isiPad] ? 40.0f : 26.0f;
         UILabel * userNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableWidth - 10 - 80, CGRectGetMaxY(lineView.frame) + userNumGap, 80, userNumHeight)];
-        userNumLabel.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
-        userNumLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        userNumLabel.backgroundColor = YSSkinDefineColor(@"Color2");
+        userNumLabel.textColor = YSSkinDefineColor(@"Color3");
         userNumLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10;
         NSString * userNum = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Title.StudentNum"),@(_userNum)];
         userNumLabel.text = userNum;
@@ -464,18 +464,18 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 //        [inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
         self.inputTextField = inputTextField;
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:YSLocalized(@"Label.searchPlaceholder") attributes:@{
-                       NSForegroundColorAttributeName:YSSkinDefineColor(@"placeholderColor"),
+                       NSForegroundColorAttributeName:YSSkinDefineColor(@"PlaceholderColor"),
                        NSFontAttributeName:[UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10
                    }];
         inputTextField.attributedPlaceholder = attrString;
-        inputTextField.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
-        inputTextField.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        inputTextField.backgroundColor = YSSkinDefineColor(@"Color2");
+        inputTextField.textColor = YSSkinDefineColor(@"Color3");
         inputTextField.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10;
         inputTextField.delegate = self;
         inputTextField.tintColor = YSColor_LoginTextField;
         inputTextField.enabled = YES;
 
-        [inputTextField bm_addShadow:1 Radius:userNumHeight/2.0f BorderColor:YSSkinDefineColor(@"placeholderColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+        [inputTextField bm_addShadow:1 Radius:userNumHeight/2.0f BorderColor:YSSkinDefineColor(@"PlaceholderColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
         
         inputTextField.returnKeyType = UIReturnKeySearch;
         if ([_searchString bm_isNotEmpty])
@@ -509,8 +509,8 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     else if (self.type == SCBottomToolBarTypeCourseware)
     {
         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 39)];
-        label.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
-        label.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        label.backgroundColor = YSSkinDefineColor(@"Color2");
+        label.textColor = YSSkinDefineColor(@"Color3");
         label.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
         NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.DocumentList"),@(_userNum)];
         label.text = str;
@@ -518,7 +518,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         [view addSubview:label];
         
         UIView *lineView = [[UIView alloc] init];
-        lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+        lineView.backgroundColor = YSSkinDefineColor(@"Color7");
         lineView.frame = CGRectMake(0, CGRectGetMaxY(label.frame), tableWidth, 1);
         [view addSubview:lineView];
         

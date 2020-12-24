@@ -706,7 +706,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.onlineSchoolBtn = onlineSchoolBtn;
     [self.backImageView addSubview:onlineSchoolBtn];
     [onlineSchoolBtn setTitle:YSLocalizedSchool(@"Button.onlineschool") forState:UIControlStateNormal];
-    [onlineSchoolBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+    [onlineSchoolBtn setTitleColor:YSSkinDefineColor(@"Color4") forState:UIControlStateNormal];
     onlineSchoolBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     onlineSchoolBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [onlineSchoolBtn addTarget:self action:@selector(onlineSchoolBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -740,11 +740,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     YSTextView *textView = [[YSTextView alloc] init];
     textView.delegate = self;
-    textView.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    textView.textColor = YSSkinDefineColor(@"PlaceholderColor");
     textView.backgroundColor = [UIColor clearColor];
     textView.font = UI_FONT_10;
     
-    textView.linkTextAttributes = @{NSForegroundColorAttributeName:YSSkinDefineColor(@"defaultSelectedBgColor"),NSFontAttributeName:[UIFont systemFontOfSize:10]};
+    textView.linkTextAttributes = @{NSForegroundColorAttributeName:YSSkinDefineColor(@"Color4"),NSFontAttributeName:[UIFont systemFontOfSize:10]};
     textView.editable = NO;
     textView.scrollEnabled = NO;
     [self.backImageView addSubview:textView];
@@ -1519,7 +1519,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (!_backImageView)
     {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _backImageView.backgroundColor = YSSkinDefineColor(@"Color3");
 //        [_backImageView setImage:YSSkinElementImage(@"login_background", @"iconNor")];
         _backImageView.userInteractionEnabled = YES;
     }
@@ -1700,13 +1700,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
         UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 50)];
         titleLab.text = YSLoginLocalized(@"Label.choiceIdentity");
         titleLab.font = UI_FONT_18;
-        titleLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+        titleLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
         titleLab.textAlignment = NSTextAlignmentCenter;
         [alertView addSubview:titleLab];
         titleLab.bm_centerX = alertView.bm_width/2;
         
         UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, titleLab.bm_bottom, alertView.bm_width, 0.8)];
-        lineView.backgroundColor = YSSkinDefineColor(@"login_lineColor");
+        lineView.backgroundColor = YSSkinDefineColor(@"Color7");
         lineView.alpha = 0.14;
         [alertView addSubview:lineView];
         
@@ -1787,8 +1787,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
             }
             
             button.titleLabel.font = UI_FONT_14;
-            [button setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
-            [button setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateSelected];
+            [button setTitleColor:YSSkinDefineColor(@"Color4") forState:UIControlStateNormal];
+            [button setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateSelected];
             [button setBackgroundImage:YSSkinElementImage(@"login_roleBtn", @"iconNor") forState:UIControlStateNormal];
             [button setBackgroundImage:YSSkinElementImage(@"login_roleBtn", @"iconSel") forState:UIControlStateSelected];
             button.titleLabel.font = UI_FONT_18;
@@ -1803,11 +1803,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
         
         [okBtn setTitle:YSLoginLocalized(@"Prompt.OK") forState:UIControlStateNormal];
         okBtn.titleLabel.font = UI_FONT_18;
-        [okBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+        [okBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
         [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [alertView addSubview:okBtn];
         
-        [okBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        [okBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         okBtn.layer.cornerRadius = 20;
         okBtn.layer.masksToBounds = YES;
     }
@@ -1923,11 +1923,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     if (!_joinRoomBtn)
     {
-        _joinRoomBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 50) color:YSSkinDefineColor(@"defaultSelectedBgColor") highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
+        _joinRoomBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 100, 50) color:YSSkinDefineColor(@"Color4") highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
         [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSLoginLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
-        [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-//        [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"disableColor") forState:UIControlStateDisabled];
+        [_joinRoomBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
         _joinRoomBtn.titleLabel.textAlignment =  NSTextAlignmentCenter;
         _joinRoomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 16);
 //        [_joinRoomBtn bm_addShadow:4.0f Radius:25.0f BorderColor:[UIColor bm_colorWithHex:0x9DB7E7] ShadowColor:[UIColor lightGrayColor]];

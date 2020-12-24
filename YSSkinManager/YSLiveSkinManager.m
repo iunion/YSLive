@@ -10,8 +10,8 @@
 
 static YSLiveSkinManager *skinManager = nil;
 
-#define YSSkinBundleName    (self.classOrOnline == YSSkinClassOrOnline_class)?@"YSSkinRsource.bundle": @"YSOnlineSchool.bundle"
-#define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
+//#define YSSkinBundleName    (self.classOrOnline == YSSkinClassOrOnline_class)?@"YSSkinRsource.bundle": @"YSOnlineSchool.bundle"
+//#define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
 
 @interface YSLiveSkinManager ()
 
@@ -41,6 +41,20 @@ static YSLiveSkinManager *skinManager = nil;
     return skinManager;
 }
 
+///当前调用的皮肤bundle
+- (NSBundle*)getCurrentBundle
+{
+    NSString *skinBundleName = @"YSSkinRsource.bundle";
+    
+    if (self.classOrOnline == YSSkinClassOrOnline_online)
+    {
+        skinBundleName = @"YSOnlineSchool.bundle";
+    }
+    
+    return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
+}
+
+
 /// 获取plist文件中的数据
 - (NSDictionary *)getPliatDictionaryWithType:(YSSkinClassOrOnline)classOrOnline
 {
@@ -49,25 +63,28 @@ static YSLiveSkinManager *skinManager = nil;
     {
         NSString *path = nil;
         
+        NSBundle *jkkj = [self getCurrentBundle];
+        
+        
         if (classOrOnline == YSSkinClassOrOnline_class)
         {
             if (self.roomDetailsType == YSSkinDetailsType_dark)
             {//深色背景
-                path = [YSSkinBundle pathForResource:@"DarkColor" ofType:@"plist"];
+                path = [[self getCurrentBundle] pathForResource:@"DarkColor" ofType:@"plist"];
             }
             else if (self.roomDetailsType == YSSkinDetailsType_middle)
             {
-                path = [YSSkinBundle pathForResource:@"MiddleColor" ofType:@"plist"];
+                path = [[self getCurrentBundle] pathForResource:@"MiddleColor" ofType:@"plist"];
             }
             else if (self.roomDetailsType == YSSkinDetailsType_light)
             {
-                path = [YSSkinBundle pathForResource:@"LightColor" ofType:@"plist"];
+                path = [[self getCurrentBundle] pathForResource:@"LightColor" ofType:@"plist"];
             }            
         }
         else
         {
             //黑色背景
-            path = [YSSkinBundle pathForResource:@"onlineBlackColor" ofType:@"plist"];
+            path = [[self getCurrentBundle] pathForResource:@"onlineBlackColor" ofType:@"plist"];
         }
                     
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -156,7 +173,6 @@ static YSLiveSkinManager *skinManager = nil;
         {
             imageFolder = @"YSSkinLightColor";
         }
-        
     }
     else
     {
@@ -164,7 +180,7 @@ static YSLiveSkinManager *skinManager = nil;
         imageFolder = @"onLineSkinBlack";
     }
         
-    UIImage *image = [YSSkinBundle bm_imageWithAssetsName:imageFolder imageName:imageName];
+    UIImage *image = [[self getCurrentBundle] bm_imageWithAssetsName:imageFolder imageName:imageName];
     return image;
 }
 

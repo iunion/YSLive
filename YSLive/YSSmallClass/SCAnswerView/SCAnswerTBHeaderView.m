@@ -34,8 +34,8 @@
 
 - (void)setup
 {
-    self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
-    self.contentView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.backgroundColor = YSSkinDefineColor(@"Color2");
+    self.contentView.backgroundColor = YSSkinDefineColor(@"Color2");
     
     UIView *bacView = [UIView new];
     bacView.backgroundColor = [UIColor clearColor];
@@ -98,7 +98,7 @@
         _nameL = [[UILabel alloc] init];
         _nameL.textAlignment = NSTextAlignmentLeft;
         _nameL.font = UI_FONT_10;
-        _nameL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _nameL.textColor = YSSkinDefineColor(@"Color3");
     }
     return _nameL;
 }
@@ -110,7 +110,7 @@
         _resultL = [[UILabel alloc] init];
         _resultL.textAlignment = NSTextAlignmentCenter;
         _resultL.font = UI_FONT_10;
-        _resultL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _resultL.textColor = YSSkinDefineColor(@"Color3");
     }
     return _resultL;
 }
@@ -122,7 +122,7 @@
         _timeL = [[UILabel alloc] init];
         _timeL.textAlignment = NSTextAlignmentRight;
         _timeL.font = UI_FONT_10;
-        _timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _timeL.textColor = YSSkinDefineColor(@"Color3");
     }
     return _timeL;
 }

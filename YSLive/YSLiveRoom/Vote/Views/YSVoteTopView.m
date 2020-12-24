@@ -123,7 +123,7 @@
         _statusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _statusBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         _statusBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_statusBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+        [_statusBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
         _statusBtn.userInteractionEnabled = NO;
         
     }
@@ -141,13 +141,13 @@
 {
     NSMutableAttributedString * nameString = [[NSMutableAttributedString alloc] initWithString:name attributes:@{
         NSFontAttributeName: UI_FSFONT_MAKE(FontNamePingFangSCRegular, 16),
-        NSForegroundColorAttributeName:YSSkinDefineColor(@"liveVoteNameTextColor")
+        NSForegroundColorAttributeName:YSSkinDefineColor(@"Live_VoteNameTextColor")
     }];
     
     NSString * timeStr = [NSString stringWithFormat:@" %@ %@ ",time,YSLocalized(@"title.ToVote")];
     NSMutableAttributedString * timeAttString = [[NSMutableAttributedString alloc] initWithString:timeStr attributes:@{
         NSFontAttributeName: UI_FSFONT_MAKE(FontNamePingFangSCRegular, 16),
-        NSForegroundColorAttributeName: YSSkinDefineColor(@"login_placeholderColor")
+        NSForegroundColorAttributeName: YSSkinDefineColor(@"PlaceholderColor")
     }];
     
     [nameString appendAttributedString:timeAttString];

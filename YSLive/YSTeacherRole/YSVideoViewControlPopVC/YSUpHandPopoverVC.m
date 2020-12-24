@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    self.view.backgroundColor = YSSkinDefineColor(@"Color2");
     UITableView * tabView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,95, 146)];
     [self.view addSubview:tabView];
     self.tabView = tabView;

@@ -56,12 +56,12 @@
     self.nameLabel = nameLabel;
     nameLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_12;
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    nameLabel.textColor = YSSkinDefineColor(@"Color3");
     
     UIView *cupView = [[UIView alloc] init];
     [self.contentView addSubview:cupView];
     self.cupView = cupView;
-    cupView.backgroundColor = YSSkinDefineColor(@"placeholderColor");
+    cupView.backgroundColor = YSSkinDefineColor(@"PlaceholderColor");
     
     UIImageView *cupImgView = [[UIImageView alloc] init];
     [self.contentView addSubview:cupImgView];
@@ -73,7 +73,7 @@
     self.cupNumberLabel = cupNumberLabel;
     cupNumberLabel.font = [UIDevice bm_isiPad] ? UI_FONT_12 : UI_FONT_8;
     cupNumberLabel.textAlignment = NSTextAlignmentLeft;
-    cupNumberLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    cupNumberLabel.textColor = YSSkinDefineColor(@"Color3");
       
     UIButton *upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:upPlatformBtn];

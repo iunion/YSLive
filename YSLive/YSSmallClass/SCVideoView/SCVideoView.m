@@ -224,7 +224,7 @@
 
 - (void)setupUIView
 {
-    self.backgroundColor = YSSkinDefineColor(@"videoBackColor");
+    self.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
     
     UIView *sourceView = [[UIView alloc] init];
     sourceView.backgroundColor = UIColor.clearColor;
@@ -235,7 +235,7 @@
     ///正在加载中
     self.loadingImg = YSSkinElementImage(@"videoView_loadingImage", @"icon_normal");
     UIImageView * loadingImgView = [[UIImageView alloc]initWithImage:self.loadingImg];
-    [loadingImgView setBackgroundColor:YSSkinDefineColor(@"videoMaskBack_color")];
+    [loadingImgView setBackgroundColor:YSSkinDefineColor(@"MaskBgColor")];
     loadingImgView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:loadingImgView];
     self.loadingImgView = loadingImgView;
@@ -251,7 +251,7 @@
     
     //关闭视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
-    self.maskCloseVideoBgView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
+    self.maskCloseVideoBgView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
     [maskBackView addSubview:self.maskCloseVideoBgView];
     self.maskCloseVideoBgView.hidden = YES;
 
@@ -274,7 +274,7 @@
         self.homeMaskLab.font = UI_FONT_10;
     }
     self.homeMaskLab.font = UI_FONT_12;
-    self.homeMaskLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.homeMaskLab.textColor = YSSkinDefineColor(@"Color3");
     [maskBackView addSubview:self.homeMaskLab];
     [self.homeMaskLab setAdjustsFontSizeToFitWidth:YES];
     self.homeMaskLab.numberOfLines = 2;
@@ -284,7 +284,7 @@
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
-    self.maskNoVideo.backgroundColor = YSSkinDefineColor(@"videoMaskBack_color");;
+    self.maskNoVideo.backgroundColor = YSSkinDefineColor(@"MaskBgColor");;
     [maskBackView addSubview:self.maskNoVideo];
     self.maskNoVideo.hidden = YES;
     
@@ -300,7 +300,7 @@
         maskNoVideoTitle.font = UI_FONT_12;
     }
     
-    maskNoVideoTitle.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    maskNoVideoTitle.textColor = YSSkinDefineColor(@"Color3");
     maskNoVideoTitle.adjustsFontSizeToFitWidth = YES;
     maskNoVideoTitle.minimumScaleFactor = 0.3;
     maskNoVideoTitle.numberOfLines = 0;
@@ -325,7 +325,7 @@
         self.cupNumLab.font = UI_FONT_12;
     }
     self.cupNumLab.text = @"× 0";
-    self.cupNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.cupNumLab.textColor = YSSkinDefineColor(@"Color3");
     self.cupNumLab.adjustsFontSizeToFitWidth = YES;
     self.cupNumLab.minimumScaleFactor = 0.1;
     self.cupNumLab.hidden = NO;
@@ -365,7 +365,7 @@
     {
         self.nickNameLab.font = UI_FONT_12;
     }
-    self.nickNameLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.nickNameLab.textColor = YSSkinDefineColor(@"Color3");
     self.nickNameLab.adjustsFontSizeToFitWidth = YES;
     self.nickNameLab.minimumScaleFactor = 0.3;
     self.nickNameLab.hidden = NO;
@@ -388,7 +388,7 @@
     
     //分组
     UIView * maskGroupRoomView = [[UIView alloc]init];
-    maskGroupRoomView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");;
+    maskGroupRoomView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");;
     [self.backVideoView addSubview:maskGroupRoomView];
     maskGroupRoomView.hidden = YES;
     self.maskGroupRoomView = maskGroupRoomView;

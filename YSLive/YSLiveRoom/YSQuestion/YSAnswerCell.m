@@ -65,19 +65,19 @@
     self.nickNameLab = [[UILabel alloc] init];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     self.nickNameLab.font = UI_FONT_12;
-    self.nickNameLab.textColor = YSSkinDefineColor(@"liveTimeTextColor");
+    self.nickNameLab.textColor = YSSkinDefineColor(@"Live_TimeTextColor");
     [self.contentView addSubview:self.nickNameLab];
     
     //气泡
     self.bubbleView = [[UIView alloc] init];
-    self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
     self.bubbleView.layer.cornerRadius = 4;
     [self.contentView addSubview:self.bubbleView];
     
     //提问文字内容
     self.questLab = [[UILabel alloc]init];
     self.questLab.font = UI_FONT_14;
-    self.questLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    self.questLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
     self.questLab.numberOfLines = 0;
     [self.bubbleView addSubview:self.questLab];
     
@@ -93,14 +93,14 @@
     //提问的翻译内容
     self.questTransLab = [[UILabel alloc]init];
     self.questTransLab.font = UI_FONT_14;
-    self.questTransLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    self.questTransLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
     self.questTransLab.numberOfLines = 0;
     [self.bubbleView addSubview:self.questTransLab];
     
     //回复文字内容
     self.answerLab = [[UILabel alloc]init];
     self.answerLab.font = UI_FONT_14;
-    self.answerLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    self.answerLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
     self.answerLab.numberOfLines = 0;
     [self.contentView addSubview:self.answerLab];
     
@@ -115,7 +115,7 @@
     //回复的翻译内容
 //    self.answerTransLab = [[UILabel alloc]init];
 //    self.answerTransLab.font = UI_FONT_14;
-//    self.answerTransLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+//    self.answerTransLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
 //    self.answerTransLab.numberOfLines = 0;
 //    [self.contentView addSubview:self.answerTransLab];
     

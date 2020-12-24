@@ -66,7 +66,7 @@
     UILabel * cellTitleLab = [[UILabel alloc]init];
     [cellTitleLab sizeToFit];
     cellTitleLab.font = UI_FONT_14;
-    cellTitleLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    cellTitleLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
     self.cellTitleLab = cellTitleLab;
     [bgView addSubview:cellTitleLab];
         

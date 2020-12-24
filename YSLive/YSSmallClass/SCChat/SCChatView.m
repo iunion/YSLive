@@ -39,7 +39,7 @@ UITextFieldDelegate
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        self.backgroundColor = YSSkinDefineColor(@"Color2");
 //        self.alpha = 0.95;
         
         UIBezierPath *maskBottomPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft  cornerRadii:CGSizeMake(30, 30)];
@@ -108,13 +108,13 @@ UITextFieldDelegate
     
     UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, self.bm_width - 2 * 20, titleLabH)];
     titleLab.text = @"消息";
-    titleLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    titleLab.textColor = YSSkinDefineColor(@"Color3");
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = titleLabFont;
     [self addSubview:titleLab];
     
     UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, titleLab.bm_bottom, self.bm_width, 1.0)];
-    lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+    lineView.backgroundColor = YSSkinDefineColor(@"Color7");
     [self addSubview:lineView];
     
     
@@ -128,7 +128,7 @@ UITextFieldDelegate
         return;
     }
     UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height - BottomH, self.bm_width, BottomH)];
-    bottomView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    bottomView.backgroundColor = YSSkinDefineColor(@"Color2");
     [self addSubview:bottomView];
     
     UIBezierPath *maskBottomPath = [UIBezierPath bezierPathWithRoundedRect:bottomView.bounds byRoundingCorners:UIRectCornerBottomLeft  cornerRadii:CGSizeMake(30, 30)];
@@ -168,7 +168,7 @@ UITextFieldDelegate
     //弹起输入框的按钮
     UIButton * textBtn = [[UIButton alloc]initWithFrame:CGRectMake(textBtnX, 10, textBtnW, allDisableBtnWH)];
     textBtn.titleLabel.font = UI_FONT_14;
-    [textBtn setTitleColor:YSSkinDefineColor(@"placeholderColor") forState:UIControlStateNormal];
+    [textBtn setTitleColor:YSSkinDefineColor(@"PlaceholderColor") forState:UIControlStateNormal];
     [textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
     textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [textBtn addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventTouchUpInside];
@@ -178,7 +178,7 @@ UITextFieldDelegate
     
     textBtn.layer.cornerRadius = allDisableBtnWH/2;
     textBtn.layer.borderWidth = 1;  // 给图层添加一个有色边框
-    textBtn.layer.borderColor = YSSkinDefineColor(@"placeholderColor").CGColor;
+    textBtn.layer.borderColor = YSSkinDefineColor(@"PlaceholderColor").CGColor;
         
     self.allDisableBtn.bm_centerY = textBtn.bm_centerY;
 }
@@ -289,13 +289,13 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
+                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"PlaceholderColor") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 
                 if (!model.translatSize.width)
                 {
-                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"placeholderColor") font:15];
+                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"PlaceholderColor") font:15];
                     model.translatSize = [attTranslation bm_sizeToFitWidth:200];
                 }
                 model.transCellHeight = 10 + 20 + 5 +  5 + model.messageSize.height + 5 + 1 + 5 + model.translatSize.height + 5 + 5;
@@ -308,7 +308,7 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
+                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"PlaceholderColor") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 model.cellHeight = 10 + 20 + 5 + 5 + model.messageSize.height + 5 + 5;

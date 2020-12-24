@@ -61,7 +61,7 @@
     
     if ([self.selectIndex compare:indexPath] == NSOrderedSame)
     {
-        cell.textLabel.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        cell.textLabel.textColor = YSSkinDefineColor(@"Color4");
     }
     else
     {

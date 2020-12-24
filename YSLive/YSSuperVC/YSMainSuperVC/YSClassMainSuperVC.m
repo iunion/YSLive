@@ -106,7 +106,7 @@
     // 退出全屏
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
     
-    self.view.backgroundColor = YSSkinDefineColor(@"blackColor");
+    self.view.backgroundColor = UIColor.blackColor;
     
     //创建一个16：9的背景view
     [self.view addSubview:self.contentBackgroud];
@@ -192,7 +192,7 @@
     CGFloat bgY = (BMUI_SCREEN_HEIGHT_ROTATE - self.contentHeight)/2;
     
     UIView * contentBackgroud = [[UIView alloc]initWithFrame:CGRectMake(bgX, bgY, self.contentWidth, self.contentHeight)];
-    contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color2");
     self.contentBackgroud = contentBackgroud;
     
     UIImageView * contentBgImage = [[UIImageView alloc]initWithFrame:contentBackgroud.bounds];
@@ -201,19 +201,19 @@
 //    if ([self.liveManager.roomModel.bgImageUrl bm_isNotEmpty])
     {
         [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.roomBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            if (!image)
-            {
-                self.contentBgImage.hidden = YES;
-                if ([self.liveManager.roomModel.roomBgColor bm_isNotEmpty])
-                {
-                    self.contentBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-                }
-                else
-                {
-                    self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-                }
-            }
-            else
+//            if (!image)
+//            {
+//                self.contentBgImage.hidden = YES;
+//                if ([self.liveManager.roomModel.roomBgColor bm_isNotEmpty])
+//                {
+//                    self.contentBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+//                }
+//                else
+//                {
+//                    self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+//                }
+//            }
+//            else
             {
                 self.contentBgImage.hidden = NO;
                 self.contentBackgroud.backgroundColor = UIColor.clearColor;
@@ -229,7 +229,7 @@
 //        }
 //        else
 //        {
-//            self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+//            self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
 //        }
 //    }
 }
@@ -238,7 +238,7 @@
 - (void)setupstateToolBar
 {
     UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
-    stateToolView.backgroundColor = YSSkinDefineColor(@"WhiteBoardBgColor");
+    stateToolView.backgroundColor = YSSkinDefineColor(@"Color1");
     [self.contentBackgroud addSubview:stateToolView];
     CGFloat fontSize = 12;
     if (![UIDevice bm_isiPad])
@@ -247,7 +247,7 @@
     }
     /// 房间号
     UILabel *roomIDL = [[UILabel alloc] init];
-    roomIDL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    roomIDL.textColor = YSSkinDefineColor(@"Color3");
     roomIDL.textAlignment = NSTextAlignmentLeft;
     roomIDL.font = [UIFont systemFontOfSize:fontSize];
     self.roomIDL = roomIDL;
@@ -257,7 +257,7 @@
 
     /// time
     UILabel *timeL = [[UILabel alloc] init];
-    timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    timeL.textColor = YSSkinDefineColor(@"Color3");
     timeL.textAlignment = NSTextAlignmentCenter;
     timeL.font = [UIFont fontWithName:@"Helvetica" size:fontSize];
     self.timeL = timeL;

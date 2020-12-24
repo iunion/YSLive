@@ -87,7 +87,7 @@
     self.second = 0;
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
     
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
@@ -107,21 +107,21 @@
     self.titleL = [[UILabel alloc] init];
     [self.bacView addSubview:self.titleL];
     self.titleL.textAlignment= NSTextAlignmentCenter;
-    self.titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.titleL.textColor = YSSkinDefineColor(@"Color3");
     self.titleL.font = UI_FONT_16;
     self.titleL.text = YSLocalized(@"tool.jishiqi");
     self.titleL.frame = CGRectMake(30, 10, self.bacView.bm_width - 60, 40);
     
     UIView *lineView = [[UIView alloc] init];
     [self.bacView addSubview:lineView];
-    lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+    lineView.backgroundColor = YSSkinDefineColor(@"Color7");
     lineView.frame = CGRectMake(0, CGRectGetMaxY(self.titleL.frame), self.bacView.bm_width, 1);
     self.lineView = lineView;
     
     self.intervalL = [[UILabel alloc] init];
     [self.bacView addSubview:self.intervalL];
     self.intervalL.textAlignment= NSTextAlignmentCenter;
-    self.intervalL.textColor = YSSkinDefineColor(@"login_placeholderColor");
+    self.intervalL.textColor = YSSkinDefineColor(@"PlaceholderColor");
     self.intervalL.font = [UIFont systemFontOfSize:30.0f];
     self.intervalL.text = @":";
     self.intervalL.frame = CGRectMake(0, 50, 9, 42);
@@ -131,7 +131,7 @@
     self.minuteL = [[UILabel alloc] init];
     [self.bacView addSubview:self.minuteL];
     self.minuteL.textAlignment= NSTextAlignmentCenter;
-    self.minuteL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.minuteL.textColor = YSSkinDefineColor(@"Color3");
     self.minuteL.backgroundColor = YSSkinElementColor(@"toolBox_timer", @"timeBgColor");
     self.minuteL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
     self.minuteL.frame = CGRectMake(0, 0, 70, 42);
@@ -167,7 +167,7 @@
     self.secondL = [[UILabel alloc] init];
     [self.bacView addSubview:self.secondL];
     self.secondL.textAlignment= NSTextAlignmentCenter;
-    self.secondL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.secondL.textColor = YSSkinDefineColor(@"Color3");
     self.secondL.backgroundColor = YSSkinElementColor(@"toolBox_timer", @"timeBgColor");
     self.secondL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
     self.secondL.frame = CGRectMake(0, 0, 70, 42);
@@ -205,9 +205,9 @@
     [self.startBtn addTarget:self action:@selector(startBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bacView addSubview:self.startBtn];
     self.startBtn.frame = CGRectMake(0, self.bacView.bm_height - 50, 90, 40);
-    [self.startBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-    [self.startBtn setTitleColor:YSSkinDefineColor(@"login_placeholderColor") forState:UIControlStateDisabled];
-    [self.startBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+    [self.startBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
+    [self.startBtn setTitleColor:YSSkinDefineColor(@"PlaceholderColor") forState:UIControlStateDisabled];
+    [self.startBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
     self.startBtn.titleLabel.font = UI_FONT_12;
     [self.startBtn bm_roundedRect:20];
     self.startBtn.bm_centerX = self.titleL.bm_centerX;
@@ -228,7 +228,7 @@
     self.endTitleL = [[UILabel alloc] init];
     [self.bacView addSubview:self.endTitleL];
     self.endTitleL.textAlignment= NSTextAlignmentCenter;
-    self.endTitleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.endTitleL.textColor = YSSkinDefineColor(@"Color3");
     self.endTitleL.font = [UIFont systemFontOfSize:20.0f];
     self.endTitleL.text = YSLocalized(@"Timer.lab.end");
 

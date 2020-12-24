@@ -83,7 +83,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     [self addGestureRecognizer:tapGesture];
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
     self.bacView.layer.cornerRadius = 26;
@@ -102,7 +102,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.titleLabel = [[UILabel alloc] init];
     [self.bacView addSubview:self.titleLabel];
     self.titleLabel.textAlignment= NSTextAlignmentLeft;
-    self.titleLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.titleLabel.textColor = YSSkinDefineColor(@"Color3");
     self.titleLabel.font = UI_FONT_12;
     self.titleLabel.text = YSLocalized(@"Polling.Time");
     self.titleLabel.frame = CGRectMake(30, 80, 70, 25);
@@ -113,7 +113,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     
     self.stepperInputView.bm_centerY = self.titleLabel.bm_centerY;
     self.stepperInputView.bm_left = self.titleLabel.bm_right + 8;
-    self.stepperInputView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.stepperInputView.backgroundColor = YSSkinDefineColor(@"Color2");
     
     
     self.stepperInputView.delegate = self;
@@ -129,7 +129,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.stepperInputView.useKeyBord = YES;
     
     // 数字颜色
-    self.stepperInputView.numberColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.stepperInputView.numberColor = YSSkinDefineColor(@"Color3");
     // 数字字体
     self.stepperInputView.numberFont = UI_FONT_18;
     
@@ -137,7 +137,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.stepperInputView.borderColor = [UIColor clearColor];
     //            // 边框线宽
     self.stepperInputView.borderWidth = 1;
-    [self.stepperInputView bm_addShadow:1 Radius:21 BorderColor:YSSkinDefineColor(@"defaultSelectedBgColor") ShadowColor:YSSkinDefineColor(@"PopViewBgColor") Offset:CGSizeMake(0, 1) Opacity:0.5];
+    [self.stepperInputView bm_addShadow:1 Radius:21 BorderColor:YSSkinDefineColor(@"Color4") ShadowColor:YSSkinDefineColor(@"Color2") Offset:CGSizeMake(0, 1) Opacity:0.5];
     // 加按钮背景图片
     self.stepperInputView.increaseImage = YSSkinElementImage(@"polling_add", @"iconNor");
     // 减按钮背景图片
@@ -199,7 +199,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.secondLabel = [[UILabel alloc] init];
     [self.bacView addSubview:self.secondLabel];
     self.secondLabel.textAlignment= NSTextAlignmentLeft;
-    self.secondLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.secondLabel.textColor = YSSkinDefineColor(@"Color3");
     self.secondLabel.font = UI_FONT_12;
     self.secondLabel.text = YSLocalized(@"Polling.second");
     self.secondLabel.frame = CGRectMake(0, 0, 80, 25);
@@ -211,10 +211,10 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     [self.sureBtn setTitle: YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
     [self.sureBtn addTarget:self action:@selector(sureBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bacView addSubview:self.sureBtn];
-    [self.sureBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+    [self.sureBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
     self.sureBtn.frame = CGRectMake(0, self.bacView.bm_height - 80, 147, 40);
     self.sureBtn.bm_centerX = self.bacView.bm_centerX;
-    [self.sureBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    [self.sureBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     self.sureBtn.titleLabel.font = UI_FONT_16;
     self.sureBtn.layer.cornerRadius = 20;
     self.sureBtn.layer.masksToBounds = YES;

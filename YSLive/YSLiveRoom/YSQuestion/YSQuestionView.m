@@ -47,7 +47,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
+        self.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
         self.questionArr = [NSMutableArray array];
         
         [self setupUI];
@@ -64,13 +64,13 @@
     [self addSubview:self.questTableView];
     
     self.bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ToolOriginalY, BMUI_SCREEN_WIDTH, ToolHeight)];
-    self.bottomView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.bottomView.backgroundColor = YSSkinDefineColor(@"Color3");
     [self addSubview:self.bottomView];
     
     self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 70 - 20, 10, 70, 34)];
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
-    [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
-    [self.sendBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
+    [self.sendBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     self.sendBtn.titleLabel.font = UI_FONT_14;
     self.sendBtn.layer.cornerRadius = 4;
     [self.sendBtn addTarget:self action:@selector(sendButtonClick) forControlEvents:(UIControlEventTouchUpInside)];
@@ -79,7 +79,7 @@
     
     self.backView = [[UIView alloc]initWithFrame:CGRectMake(20, 10, self.sendBtn.bm_originX - 20 - 15, 34)];
     self.backView.layer.cornerRadius = 4;
-    self.backView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
+    self.backView.backgroundColor = YSSkinDefineColor(@"Live_ChatBgColor");
     [self.bottomView addSubview:self.backView];
         
     self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(5, 0, self.backView.bm_width-10, 30)];
@@ -95,7 +95,7 @@
     [self.inputView addSubview:self.placeholdLab];
     
     self.maskView = [[UIView alloc]initWithFrame:self.bottomView.bounds];
-    self.maskView.backgroundColor = [YSSkinDefineColor(@"defaultTitleColor") changeAlpha:0.8];
+    self.maskView.backgroundColor = [YSSkinDefineColor(@"Color3") changeAlpha:0.8];
     [self.bottomView addSubview:self.maskView];
     
     if (![YSLiveManager sharedInstance].isClassBegin)
@@ -328,7 +328,7 @@
         self.questTableView.delegate   = self;
         self.questTableView.dataSource = self;
         self.questTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        self.questTableView.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
+        self.questTableView.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
         self.questTableView.separatorColor  = [UIColor clearColor];
         self.questTableView.showsHorizontalScrollIndicator = NO;
         self.questTableView.showsVerticalScrollIndicator = NO;

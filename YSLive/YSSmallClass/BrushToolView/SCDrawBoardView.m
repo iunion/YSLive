@@ -73,7 +73,7 @@
     [self addGestureRecognizer:tapGesture];
     
     self.backgroundView = [[UIView alloc] init];
-    self.backgroundView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.backgroundView.backgroundColor = YSSkinDefineColor(@"Color2");
     self.backgroundView.layer.masksToBounds = YES;
     self.backgroundView.layer.cornerRadius = 20;
     [self addSubview:self.backgroundView];
@@ -116,7 +116,7 @@
     }
     
     self.lineView = [[UIView alloc] init];
-    self.lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+    self.lineView.backgroundColor = YSSkinDefineColor(@"Color7");
     [self.bacContainerView addSubview:self.lineView];
     [self.lineView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.left.bmmas_equalTo(weakSelf.bacContainerView).bmmas_offset(13);
@@ -187,7 +187,7 @@
     
     
     self.weightView = [[UIView alloc] init];
-    self.weightView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    self.weightView.backgroundColor = YSSkinDefineColor(@"Color4");
     [self.bacContainerView addSubview:self.weightView];
     [self.weightView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         

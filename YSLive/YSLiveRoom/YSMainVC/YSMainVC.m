@@ -332,13 +332,13 @@
     // 切换视图
     self.m_SegmentBar = [[BMScrollPageSegment alloc] initWithFrame:CGRectMake(0, self.teacherVideoHeight, BMUI_SCREEN_WIDTH, PAGESEGMENT_HEIGHT)];
     [self.view addSubview:_m_SegmentBar];
-    self.m_SegmentBar.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.m_SegmentBar.backgroundColor = YSSkinDefineColor(@"Color3");
     self.m_SegmentBar.showMore = NO;
     self.m_SegmentBar.equalDivide = YES;
-    self.m_SegmentBar.moveLineColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    self.m_SegmentBar.moveLineColor = YSSkinDefineColor(@"Color4");
     self.m_SegmentBar.showBottomLine = NO;
-    self.m_SegmentBar.titleColor = YSSkinDefineColor(@"login_placeholderColor");
-    self.m_SegmentBar.titleSelectedColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    self.m_SegmentBar.titleColor = YSSkinDefineColor(@"PlaceholderColor");
+    self.m_SegmentBar.titleSelectedColor = YSSkinDefineColor(@"Color4");
     self.m_SegmentBar.showGapLine = NO;
     // 内容视图
     self.m_ScrollPageView = [[BMScrollPageView alloc] initWithFrame:CGRectMake(0, self.teacherVideoHeight + PAGESEGMENT_HEIGHT, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT - self.teacherVideoHeight - PAGESEGMENT_HEIGHT) withScrollPageSegment:self.m_SegmentBar];
@@ -364,18 +364,18 @@
     self.teacherBgMaskView = [[UIImageView alloc] initWithFrame:self.levelView.bounds];
     self.teacherBgMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.teacherBgMaskView.contentMode = UIViewContentModeCenter;
-    self.teacherBgMaskView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
+    self.teacherBgMaskView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
     self.teacherBgMaskView.image = YSSkinDefineImage(@"live_main_notclassbeging");
     self.teacherBgMaskView.userInteractionEnabled = YES;
     [self.levelView.bgView addSubview:self.teacherBgMaskView];
     self.teacherBgMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.levelView.bgView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    self.levelView.bgView.backgroundColor = YSSkinDefineColor(@"Color2");
     /// 主播的视频view
     /// 老师视频容器
     self.teacherFloatView = [[YSFloatView alloc] initWithFrame:self.levelView.bounds];
     self.teacherFloatView.backgroundColor = [UIColor clearColor];
     self.teacherFloatView.showWaiting = NO;
-    //self.levelView.liveView.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+    //self.levelView.liveView.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
     [self.levelView.liveView addSubview:self.teacherFloatView];
     
     self.teacherVideoView = [[UIView alloc] initWithFrame:self.teacherFloatView.bounds];
@@ -386,7 +386,7 @@
     self.teacherMaskView = [[UIImageView alloc] initWithFrame:self.levelView.bounds];
     self.teacherMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.teacherMaskView.contentMode = UIViewContentModeCenter;
-    self.teacherMaskView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
+    self.teacherMaskView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
     self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
     [self.levelView.maskView addSubview:self.teacherMaskView];
     self.teacherMaskView.userInteractionEnabled = YES;
@@ -398,7 +398,7 @@
     UILabel *placeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labelSize.width+20, 16)];
     placeLabel.text = text;
     placeLabel.textAlignment = NSTextAlignmentCenter;
-    placeLabel.backgroundColor = YSSkinDefineColor(@"jurisdictionCheckFail");
+    placeLabel.backgroundColor = YSSkinDefineColor(@"JurisdictionCheckFail");
     placeLabel.textColor = UIColor.whiteColor;
     placeLabel.layer.cornerRadius = 8.0f;
     placeLabel.layer.masksToBounds = YES;
@@ -495,7 +495,7 @@
     controlBackMaskView.hidden = YES;
     
     UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
-    controlBackView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    controlBackView.backgroundColor = YSSkinDefineColor(@"Color2");
     self.controlBackView = controlBackView;
     [controlBackMaskView addSubview:controlBackView];
     [controlBackView bm_roundedRect:5.0f borderWidth:0 borderColor:nil];
@@ -564,7 +564,7 @@
 {
     BMImageTitleButtonView * button = [[BMImageTitleButtonView alloc]init];
     [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-    button.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
+    button.textNormalColor = YSSkinDefineColor(@"Color3");
     button.textFont = UI_FONT_10;
     button.normalText = title;
     
@@ -2686,9 +2686,9 @@
         UILabel * remarkLab = [[UILabel alloc]initWithFrame:CGRectMake(self.raiseHandsBtn.bm_originX - tipStrWidth - 15 - 5, 0, tipStrWidth + 15, 16)];
         remarkLab.bm_centerY = self.raiseHandsBtn.bm_centerY;
         remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
-        remarkLab.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        remarkLab.backgroundColor = YSSkinDefineColor(@"Color3");
         remarkLab.font = UI_FONT_10;
-        remarkLab.textColor = YSSkinDefineColor(@"login_placeholderColor");
+        remarkLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
         remarkLab.textAlignment = NSTextAlignmentCenter;
         remarkLab.layer.cornerRadius = 16/2;
         remarkLab.layer.masksToBounds = YES;

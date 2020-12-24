@@ -119,7 +119,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     
 //    self.toolBacView.backgroundColor = [YSSkinDefineColor(@"ToolBgColor") changeAlpha:YSPopViewDefaultAlpha];
     self.toolBacView.layer.cornerRadius = BRUSHTOOL_WIDTH*0.5f;
-    self.toolBacView.layer.shadowColor = YSSkinDefineColor(@"PopViewBgColor").CGColor;
+    self.toolBacView.layer.shadowColor = YSSkinDefineColor(@"Color2").CGColor;
     self.toolBacView.layer.shadowOffset = CGSizeMake(0,2);
     self.toolBacView.layer.shadowOpacity = 0.5;
     self.toolBacView.layer.shadowRadius = 1;
@@ -247,7 +247,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
         _toolBacView = [[UIView alloc] init];
         //[_toolBacView bm_setImageWithStretchableImage:@"sc_brush_tool_bac" atPoint:CGPointMake(24, 50)];
         _toolBacView.userInteractionEnabled = YES;
-        _toolBacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+        _toolBacView.backgroundColor = YSSkinDefineColor(@"Color2");
     }
     
     return _toolBacView;

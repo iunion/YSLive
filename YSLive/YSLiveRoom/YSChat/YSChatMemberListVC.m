@@ -27,8 +27,8 @@
     
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    self.bm_NavigationTitleTintColor = YSSkinDefineColor(@"WhiteBoardBgColor");
-    self.bm_NavigationItemTintColor = YSSkinDefineColor(@"login_placeholderColor");
+    self.bm_NavigationTitleTintColor = YSSkinDefineColor(@"Color1");
+    self.bm_NavigationItemTintColor = YSSkinDefineColor(@"PlaceholderColor");
     
     [self bm_setNavigationWithTitle:YSLocalized(@"Label.ChatList") barTintColor:[UIColor bm_colorWithHex:0xDEEAFF] leftItemTitle:nil leftItemImage:@"navigationBackImage" leftToucheEvent:@selector(backLeft) rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
 }
@@ -64,7 +64,7 @@
     UIButton * decideBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(110), decideBtnY, BMUI_SCREEN_WIDTH - 2 * kBMScale_W(110), kBMScale_H(40))];
     [decideBtn setTintColor:[UIColor whiteColor]];
     [decideBtn setTitle:YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
-    [decideBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+    [decideBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
     decideBtn.layer.cornerRadius = 4;
     [decideBtn addTarget:self action:@selector(decideBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:decideBtn];

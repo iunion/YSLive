@@ -536,7 +536,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+        _bacView.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
     }
     return _bacView;
 }
@@ -548,7 +548,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _topView = [[UILabel alloc] init];
         _topView.textAlignment = NSTextAlignmentCenter;
 //        _topView.lineBreakMode = NSLineBreakByCharWrapping;
-        _topView.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _topView.textColor = YSSkinDefineColor(@"Color3");
         _topView.backgroundColor = [UIColor clearColor];
         _topView.font = UI_FONT_12;
         _topView.text = YSLocalized(@"tool.datiqiqi");
@@ -598,7 +598,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _promptL = [[UILabel alloc] init];
         _promptL.textAlignment = NSTextAlignmentLeft;
-        _promptL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _promptL.textColor = YSSkinDefineColor(@"Color3");
         _promptL.backgroundColor = [UIColor clearColor];
         _promptL.font = UI_FONT_8;
         _promptL.text = YSLocalized(@"tool.leastanswer");
@@ -612,11 +612,11 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_putBtn)
     {
         _putBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_putBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        [_putBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         [_putBtn setTitle:YSLocalized(@"tool.submit") forState:UIControlStateNormal];
         [_putBtn setTitle:YSLocalized(@"tool.modify") forState:UIControlStateSelected];
-        [_putBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-        [_putBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateHighlighted];
+        [_putBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
+        [_putBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateHighlighted];
         _putBtn.titleLabel.font = UI_FONT_12;
         [_putBtn addTarget:self action:@selector(putBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -629,7 +629,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _personNumL = [[UILabel alloc] init];
         _personNumL.textAlignment = NSTextAlignmentLeft;
-        _personNumL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _personNumL.textColor = YSSkinDefineColor(@"Color3");
         _personNumL.backgroundColor = [UIColor clearColor];
         _personNumL.font = UI_FONT_10;
     }
@@ -643,7 +643,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _timeL = [[UILabel alloc] init];
         _timeL.textAlignment = NSTextAlignmentCenter;
-        _timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _timeL.textColor = YSSkinDefineColor(@"Color3");
         _timeL.backgroundColor = [UIColor clearColor];
         _timeL.font = UI_FONT_10;
     }
@@ -655,7 +655,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_topBtn)
     {
         _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_topBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+        [_topBtn setTitleColor:YSSkinDefineColor(@"Color4") forState:UIControlStateNormal];
         [_topBtn setBackgroundColor:[UIColor clearColor]];
         _topBtn.titleLabel.font = UI_FONT_10;
         _topBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -690,7 +690,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _resultLable = [[UILabel alloc] init];
         _resultLable.textAlignment = NSTextAlignmentLeft;
-        _resultLable.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _resultLable.textColor = YSSkinDefineColor(@"Color3");
         _resultLable.backgroundColor = [UIColor clearColor];
         _resultLable.font = UI_FONT_8;
     }

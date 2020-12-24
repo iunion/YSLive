@@ -190,7 +190,7 @@
     //[self bm_addShadow:0.0f Radius:self.bm_height*0.5f BorderColor:nil ShadowColor:[UIColor grayColor]];
     [self bm_roundedRect:height*0.5f];
     
-    self.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+    self.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
 }
 
 - (BMImageTitleButtonView *)creatButtonWithNormalTitle:(NSString *)norTitle selectedTitle:(NSString *)selTitle pathName:(NSString *)pathName
@@ -207,8 +207,8 @@
     toolBtn.normalImage = normalImage;
     toolBtn.selectedImage = selectedImage;
     toolBtn.disabledImage = disabledImage;
-    toolBtn.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
-    toolBtn.textSelectedColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+    toolBtn.textNormalColor = YSSkinDefineColor(@"Color3");
+    toolBtn.textSelectedColor = YSSkinDefineColor(@"Color4");
     if (norTitle)
     {
         toolBtn.normalText = YSLocalized(norTitle);

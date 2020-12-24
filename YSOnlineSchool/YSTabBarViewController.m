@@ -15,7 +15,7 @@
 //正常色
 #define ITEM_NOR_COLOR YSSkinOnlineDefineColor(@"placeholderColor")
 //选中色
-#define ITEM_SEL_COLOR YSSkinOnlineDefineColor(@"defaultSelectedBgColor")
+#define ITEM_SEL_COLOR YSSkinOnlineDefineColor(@"MainColor")
 
 @interface YSTabBarViewController ()
 

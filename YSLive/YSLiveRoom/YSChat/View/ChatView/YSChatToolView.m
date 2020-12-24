@@ -32,7 +32,7 @@ UITextViewDelegate
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.backgroundColor = YSSkinDefineColor(@"Color3");
         [self setupUIView];
     }
     return self;
@@ -67,7 +67,7 @@ UITextViewDelegate
     [self addSubview:_emotionButton];
  
     self.backView = [[UIView alloc]initWithFrame:CGRectMake(self.flowerColourBtn.bm_right + 10, 10, _emotionButton.bm_originX - 10 - self.flowerColourBtn.bm_right - 10, 34)];
-    self.backView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
+    self.backView.backgroundColor = YSSkinDefineColor(@"Live_ChatBgColor");
     self.backView.layer.cornerRadius = 4;
     self.backView.layer.masksToBounds = YES;
     self.backView.layer.borderColor = UIColor.clearColor.CGColor;
@@ -94,7 +94,7 @@ UITextViewDelegate
     
     //输入框
     self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_placeholder.frame), 5, 236-CGRectGetMaxX(_placeholder.frame) - 9, 25)];
-    self.inputView.backgroundColor = YSSkinDefineColor(@"liveChatBgColor");
+    self.inputView.backgroundColor = YSSkinDefineColor(@"Live_ChatBgColor");
     self.inputView.returnKeyType = UIReturnKeySend;
     self.inputView.font = UI_FONT_15;
     self.inputView.textColor = [UIColor bm_colorWithHexString:@"#2F2F2F"];
@@ -138,7 +138,7 @@ UITextViewDelegate
     }
     
     self.maskView = [[UIView alloc]initWithFrame:self.bounds];
-    self.maskView.backgroundColor = [YSSkinDefineColor(@"defaultTitleColor") changeAlpha:0.8];
+    self.maskView.backgroundColor = [YSSkinDefineColor(@"Color3") changeAlpha:0.8];
     [self addSubview:self.maskView];
   
     if (![YSLiveManager sharedInstance].isClassBegin)

@@ -48,7 +48,7 @@
     self.nameLabel = nameLabel;
     nameLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_12;
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    nameLabel.textColor = YSSkinDefineColor(@"Color3");
     
     UIImageView *openImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:openImageView];
@@ -331,7 +331,7 @@
 - (void)showHighlightedAnimation
 {
     UIView *tmpView = [[UIView alloc] initWithFrame:self.bounds];
-    tmpView.backgroundColor = YSSkinDefineColor(@"defaultListSelectedBgColor");
+    tmpView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
     tmpView.alpha = 0.f;
     [self addSubview:tmpView];
     

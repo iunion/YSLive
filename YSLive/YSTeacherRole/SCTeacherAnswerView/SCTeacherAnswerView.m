@@ -154,13 +154,13 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         self.addBtn.frame = CGRectMake(0, 0, 60, 22);
         self.addBtn.bm_left = self.bacView.bm_left + 10;
         self.addBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        [self.addBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinDefineColor(@"defaultSelectedBgColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+        [self.addBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinDefineColor(@"Color4") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
         
         [self.bacView addSubview:self.delBtn];
         self.delBtn.frame = CGRectMake(0, 0, 60, 22);
         self.delBtn.bm_left = self.addBtn.bm_right + 10;
         self.delBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        [self.delBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinDefineColor(@"defaultSelectedBgColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+        [self.delBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinDefineColor(@"Color4") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
         [self.bacView addSubview:self.promptL];
         self.promptL.frame = CGRectMake(10, CGRectGetMaxY(self.delBtn.frame) + 5, self.bacView.bm_width - 120, 15);
 
@@ -706,7 +706,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+        _bacView.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
     }
     return _bacView;
 }
@@ -718,8 +718,8 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _topView = [[UILabel alloc] init];
         _topView.textAlignment = NSTextAlignmentCenter;
 //        _topView.lineBreakMode = NSLineBreakByCharWrapping;
-        _topView.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        _topView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"PopViewBgColor");
+        _topView.textColor = YSSkinDefineColor(@"Color3");
+        _topView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"ToolBgColor");
         _topView.font = UI_FONT_12;
         _topView.text = YSLocalized(@"tool.datiqiqi");
     }
@@ -754,7 +754,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         _optionCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _optionCollectionView.delegate = self; //设置代理
         _optionCollectionView.dataSource = self;   //设置数据来源
-        _optionCollectionView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"PopViewBgColor");
+        _optionCollectionView.backgroundColor = [UIColor clearColor];//YSSkinDefineColor(@"ToolBgColor");
 //        _optionCollectionView.bounces = YES;
         _optionCollectionView.alwaysBounceVertical = YES;
         _optionCollectionView.showsVerticalScrollIndicator = NO;
@@ -770,7 +770,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _promptL = [[UILabel alloc] init];
         _promptL.textAlignment = NSTextAlignmentLeft;
-        _promptL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _promptL.textColor = YSSkinDefineColor(@"Color3");
         _promptL.backgroundColor = [UIColor clearColor];
         _promptL.font = UI_FONT_8;
         _promptL.text = YSLocalized(@"tool.leastanswer");
@@ -815,7 +815,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_putBtn)
     {
         _putBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_putBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        [_putBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         [_putBtn setTitle:YSLocalized(@"tool.fabudati") forState:UIControlStateNormal];
         [_putBtn setTitleColor:YSSkinDefineColor(@"whiteColor") forState:UIControlStateNormal];
         _putBtn.titleLabel.font = UI_FONT_12;
@@ -830,7 +830,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _personNumL = [[UILabel alloc] init];
         _personNumL.textAlignment = NSTextAlignmentLeft;
-        _personNumL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _personNumL.textColor = YSSkinDefineColor(@"Color3");
         _personNumL.backgroundColor = [UIColor clearColor];
         _personNumL.font = UI_FONT_10;
     }
@@ -844,7 +844,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _timeL = [[UILabel alloc] init];
         _timeL.textAlignment = NSTextAlignmentCenter;
-        _timeL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _timeL.textColor = YSSkinDefineColor(@"Color3");
         _timeL.backgroundColor = [UIColor clearColor];
         _timeL.font = UI_FONT_10;
     }
@@ -856,7 +856,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_topBtn)
     {
         _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_topBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
+        [_topBtn setTitleColor:YSSkinDefineColor(@"Color4") forState:UIControlStateNormal];
         [_topBtn setBackgroundColor:[UIColor clearColor]];
         _topBtn.titleLabel.font = UI_FONT_10;
         _topBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -869,7 +869,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     if (!_openResultBtn)
     {
         _openResultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_openResultBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+        [_openResultBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
         
         [_openResultBtn setImage:YSSkinElementImage(@"answer_openResult", @"iconNor") forState:UIControlStateNormal];
         [_openResultBtn setImage:YSSkinElementImage(@"answer_openResult", @"iconSel") forState:UIControlStateSelected];
@@ -888,7 +888,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _endAgainBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_endAgainBtn setTitleColor:YSSkinDefineColor(@"whiteColor") forState:UIControlStateNormal];
-        [_endAgainBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        [_endAgainBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         _endAgainBtn.titleLabel.font = UI_FONT_12;
         _endAgainBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_endAgainBtn addTarget:self action:@selector(endAgainBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -922,7 +922,7 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _resultLable = [[UILabel alloc] init];
         _resultLable.textAlignment = NSTextAlignmentLeft;
-        _resultLable.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _resultLable.textColor = YSSkinDefineColor(@"Color3");
         _resultLable.backgroundColor = [UIColor clearColor];
         _resultLable.font = UI_FONT_8;
     }

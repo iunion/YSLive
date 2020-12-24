@@ -50,9 +50,9 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     [super viewDidLoad];
     self.title = YSLocalized(@"Button.vote");
     
-    self.navigationController.navigationBar.barTintColor = YSSkinDefineColor(@"timer_timeBgColor");
+    self.navigationController.navigationBar.barTintColor = YSSkinDefineColor(@"Live_timer_timeBgColor");
     
-    self.view.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.view.backgroundColor = YSSkinDefineColor(@"Color3");
     
     [self setupUI];
 }
@@ -330,7 +330,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _voteNameLabel = [[UILabel alloc] init];
         _voteNameLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 18);
-        _voteNameLabel.textColor = YSSkinDefineColor(@"placeholderColor");
+        _voteNameLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _voteNameLabel.textAlignment = NSTextAlignmentLeft;
         _voteNameLabel.lineBreakMode = NSLineBreakByCharWrapping;
         _voteNameLabel.numberOfLines = 0;
@@ -344,9 +344,9 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _voteTypeLabel = [[UILabel alloc] init];
         _voteTypeLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
-        _voteTypeLabel.textColor = YSSkinDefineColor(@"placeholderColor");
+        _voteTypeLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _voteTypeLabel.textAlignment = NSTextAlignmentCenter;
-        _voteTypeLabel.backgroundColor = YSSkinDefineColor(@"timer_timeBgColor");
+        _voteTypeLabel.backgroundColor = YSSkinDefineColor(@"Live_timer_timeBgColor");
         _voteTypeLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _voteTypeLabel;
@@ -358,7 +358,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _voteDescLabel = [[UILabel alloc] init];
         _voteDescLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
-        _voteDescLabel.textColor = YSSkinDefineColor(@"placeholderColor");
+        _voteDescLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _voteDescLabel.textAlignment = NSTextAlignmentLeft;
         
     }
@@ -374,7 +374,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
         _voteTableView.delegate = self;
         _voteTableView.dataSource = self;
         _voteTableView.showsVerticalScrollIndicator = NO;
-        _voteTableView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _voteTableView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
     return _voteTableView;
 }
@@ -383,7 +383,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     if (!_bottomView)
     {
         _bottomView = [[UIView alloc] init];
-        _bottomView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _bottomView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
     return _bottomView;
 }
@@ -394,7 +394,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _rightAnswerLabel = [[UILabel alloc] init];
         _rightAnswerLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12);
-        _rightAnswerLabel.textColor = YSSkinDefineColor(@"placeholderColor");
+        _rightAnswerLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _rightAnswerLabel.textAlignment = NSTextAlignmentLeft;
         _rightAnswerLabel.backgroundColor = [UIColor clearColor];
         _rightAnswerLabel.numberOfLines = 0;
@@ -408,8 +408,8 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     if (!_bottomBtn)
     {
         _bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_bottomBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
-        [_bottomBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+        [_bottomBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         _bottomBtn.titleLabel.textAlignment =  NSTextAlignmentCenter;
         _bottomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 15);
     }

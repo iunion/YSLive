@@ -55,7 +55,7 @@
     
     //气泡
     self.bubbleView = [[UIView alloc] init];
-    self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
     [self.contentView addSubview:self.bubbleView];
     self.bubbleView.layer.cornerRadius = 4;
     
@@ -75,7 +75,7 @@
     // iOS 获取设备当前语言和地区的代码
     NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
     
-    NSMutableAttributedString * att = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"placeholderColor") font:15];
+    NSMutableAttributedString * att = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"PlaceholderColor") font:15];
     CGSize size = [att bm_sizeToFitWidth:kBMScale_W(300)];
     
     CGFloat bubbleW = size.width + kBMScale_W(5)+kBMScale_W(5);
@@ -125,7 +125,7 @@
     }
     else
     {//群聊
-        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"liveTimeTextColor") forState:UIControlStateNormal];
+        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"Live_TimeTextColor") forState:UIControlStateNormal];
         
         if ([model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//我的消息

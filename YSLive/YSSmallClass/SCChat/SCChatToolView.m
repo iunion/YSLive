@@ -32,7 +32,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+        self.backgroundColor = YSSkinDefineColor(@"Color2");
         [self setupUIView];
     }
     return self;
@@ -44,8 +44,8 @@
     self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-20-92, 13, 92, 34)];
 
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
-    [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
-    [self.sendBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
+    [self.sendBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     [self.sendBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     self.sendBtn.tag = 1;
     [self addSubview:self.sendBtn];
@@ -69,17 +69,17 @@
     self.emojBtn = emojBtn;
     
     UIView * inputBackView = [[UIView alloc]initWithFrame:CGRectMake(InputViewX, 13, self.emojBtn.bm_originX-InputViewX-10, 34)];
-    inputBackView.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+    inputBackView.backgroundColor = YSSkinDefineColor(@"Color2");
     inputBackView.layer.cornerRadius = 34/2;
     inputBackView.layer.borderWidth = 1.0;  // 给图层添加一个有色边框
-    inputBackView.layer.borderColor = YSSkinDefineColor(@"login_lineColor").CGColor;
+    inputBackView.layer.borderColor = YSSkinDefineColor(@"Color7").CGColor;
     [self addSubview:inputBackView];
     
     //输入框
     UITextView * inputView = [[UITextView alloc]initWithFrame:CGRectMake(10, 0, inputBackView.bm_width-15, 34)];
     inputView.backgroundColor = UIColor.clearColor;
     inputView.returnKeyType = UIReturnKeyDefault;
-    inputView.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    inputView.textColor = YSSkinDefineColor(@"Color3");
     inputView.font = UI_FONT_15;
     //当textview的字符串为0时发送（rerurn）键无效
     inputView.enablesReturnKeyAutomatically = YES;

@@ -37,14 +37,14 @@
     self.optionLabel.text = dataDic[@"option"];
     if ([_dataDic[@"isselect"] intValue] == 0)
     {
-        self.optionLabel.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
-        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        self.optionLabel.textColor = YSSkinDefineColor(@"WhiteColor");
+        self.optionLabel.backgroundColor = YSSkinDefineColor(@"Color6");
     }
     else
     {
 
-        self.optionLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
-        self.optionLabel.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        self.optionLabel.textColor = YSSkinDefineColor(@"WhiteColor");
+        self.optionLabel.backgroundColor = YSSkinDefineColor(@"Color4");
     }
 }
 
@@ -53,8 +53,8 @@
     if (!_optionLabel)
     {
         _optionLabel = [[UILabel alloc]init];
-        _optionLabel.textColor = YSSkinDefineColor(@"defaultSelectedBgColor");
-        _optionLabel.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _optionLabel.textColor = YSSkinDefineColor(@"WhiteColor");
+        _optionLabel.backgroundColor = YSSkinDefineColor(@"Color6");
         _optionLabel.textAlignment = NSTextAlignmentCenter;
         _optionLabel.font = [UIFont systemFontOfSize:40.0f];
     }

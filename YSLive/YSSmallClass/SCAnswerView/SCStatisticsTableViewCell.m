@@ -107,7 +107,7 @@
     {
         _titleL = [[UILabel alloc] init];
         _titleL.backgroundColor = [UIColor clearColor];
-        _titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _titleL.textColor = YSSkinDefineColor(@"Color3");
         _titleL.textAlignment = NSTextAlignmentLeft;
         _titleL.font = UI_FONT_10;
         _titleL.numberOfLines = 0;
@@ -120,7 +120,7 @@
     if (!_backView)
     {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        _backView.backgroundColor = YSSkinDefineColor(@"Color3");
 
     }
     return _backView;
@@ -131,7 +131,7 @@
     if (!_selectView)
     {
         _selectView = [[UIView alloc] init];
-        _selectView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        _selectView.backgroundColor = YSSkinDefineColor(@"Color4");
 
     }
     return _selectView;
@@ -143,7 +143,7 @@
     {
         _numPersonLabel = [[UILabel alloc] init];
         _numPersonLabel.backgroundColor = [UIColor clearColor];
-        _numPersonLabel.textColor = YSSkinDefineColor(@"defaultTitleColor");
+        _numPersonLabel.textColor = YSSkinDefineColor(@"Color3");
         _numPersonLabel.textAlignment = NSTextAlignmentLeft;
         _numPersonLabel.font = UI_FONT_10;
     }

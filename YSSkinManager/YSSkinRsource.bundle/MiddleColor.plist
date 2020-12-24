@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CommonColor</key>
+	<key>CommonColorss</key>
 	<dict>
 		<key>blackColor</key>
 		<string>#000000</string>
@@ -20,8 +20,6 @@
 		<string>#313131</string>
 		<key>login_lineColor</key>
 		<string>#979797</string>
-		<key>disableColor</key>
-		<string>#888888</string>
 		<key>defaultTitleColor</key>
 		<string>#ffffff</string>
 		<key>defaultBgColor</key>
@@ -55,6 +53,8 @@
 		<key>liveVoteNameTextColor</key>
 		<string>#5A8CDC</string>
 	</dict>
+	<key>CommonColor</key>
+	<dict/>
 	<key>CommonImage</key>
 	<dict>
 		<key>permission_background</key>

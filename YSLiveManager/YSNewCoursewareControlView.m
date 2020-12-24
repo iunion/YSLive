@@ -53,7 +53,7 @@
     
     // 页码
     UILabel *pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 28)];
-    pageLabel.textColor = YSSkinWhiteDefineColor(@"defaultTitleColor");
+    pageLabel.textColor = YSSkinWhiteDefineColor(@"DefaultTitleColor");
     pageLabel.textAlignment = NSTextAlignmentCenter;
     pageLabel.font = [UIFont systemFontOfSize:16];
     pageLabel.tag = YSCoursewareControlViewTag_Page;

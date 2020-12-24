@@ -423,7 +423,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //self.view.backgroundColor = YSSkinDefineColor(@"blackColor");
     classEndAlertVC = nil;
     _personListCurentPage = 0;
     _personListTotalPage = 0;
@@ -686,8 +685,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UILabel *handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
     handNumLab.bm_centerX = self.spreadBottomToolBar.bm_right - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;  //(YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;
     handNumLab.font = UI_FONT_13;
-    handNumLab.textColor = YSSkinDefineColor(@"defaultTitleColor");
-    handNumLab.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+    handNumLab.textColor = YSSkinDefineColor(@"Color3");
+    handNumLab.backgroundColor = YSSkinDefineColor(@"Color2");
     handNumLab.layer.cornerRadius = 18/2;
     handNumLab.layer.masksToBounds = YES;
     handNumLab.textAlignment = NSTextAlignmentCenter;
@@ -806,7 +805,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     classBeginBtn.titleLabel.font = UI_FONT_10;
     [classBeginBtn setTitle:YSLocalized(@"Button.ClassBegin") forState:UIControlStateNormal];
     [classBeginBtn setTitle:YSLocalized(@"Button.ClassIsOver") forState:UIControlStateSelected];
-    [classBeginBtn setBackgroundColor:YSSkinDefineColor(@"defaultSelectedBgColor")];
+    [classBeginBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
     classBeginBtn.layer.cornerRadius = buttonWH/2;
     self.classBeginBtn = classBeginBtn;
     [self.view addSubview:classBeginBtn];
@@ -912,46 +911,46 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     whitebordBgimage.contentMode = UIViewContentModeScaleToFill;
     [whitebordBackgroud addSubview:whitebordBgimage];
     self.whitebordBgimage = whitebordBgimage;
-    if ([self.liveManager.roomModel.wbBgImageUrl bm_isNotEmpty])
+//    if ([self.liveManager.roomModel.wbBgImageUrl bm_isNotEmpty])
     {
         [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.wbBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            if (!image)
-            {
-                self.whitebordBackgroud.hidden = YES;
-                
-                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
-                {
-                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-                }
-                else
-                {
-                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-                }
-            }
-            else
+//            if (!image)
+//            {
+//                self.whitebordBackgroud.hidden = YES;
+//
+//                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
+//                {
+//                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+//                }
+//                else
+//                {
+//                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+//                }
+//            }
+//            else
             {
                 self.whitebordBackgroud.hidden = NO;
                 self.whitebordBackgroud.backgroundColor = UIColor.clearColor;
             }
         }];
     }
-    else
-    {
-        whitebordBackgroud.hidden = YES;
-        
-        if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
-        {
-            whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-        }
-        else
-        {
-            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
-        }
-    }
+//    else
+//    {
+//        whitebordBackgroud.hidden = YES;
+//
+//        if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
+//        {
+//            whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+//        }
+//        else
+//        {
+//            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+//        }
+//    }
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-//    videoBackgroud.backgroundColor = YSSkinDefineColor(@"defaultBgColor");
+//    videoBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
     
     videoBackgroud.layer.shadowColor = [UIColor bm_colorWithHex:0x000000 alpha:0.5].CGColor;
     videoBackgroud.layer.shadowOffset = CGSizeMake(0,2);
@@ -1013,7 +1012,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView = [[YSMp4ControlView alloc] init];
     [self.contentBackgroud addSubview:self.mp4ControlView];
     self.mp4ControlView.frame = CGRectMake(30, self.contentHeight - 100, self.contentWidth - 60, 74);
-    self.mp4ControlView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278 alpha:0.39];
+    self.mp4ControlView.backgroundColor = [YSSkinDefineColor(@"Color5") changeAlpha:0.6];
     self.mp4ControlView.layer.cornerRadius = 37;
     self.mp4ControlView.hidden = YES;
     self.mp4ControlView.delegate = self;
@@ -1030,7 +1029,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp3ControlView = [[YSMp3Controlview alloc] init];
     self.mp3ControlView.hidden = YES;
     self.mp3ControlView.delegate = self;
-    self.mp3ControlView.backgroundColor = [UIColor bm_colorWithHex:0x000000 alpha:0.39];
+    self.mp3ControlView.backgroundColor = [YSSkinDefineColor(@"Color5") changeAlpha:0.6];
+    [UIColor bm_colorWithHex:0x736D78 alpha:0.39];
     [self.contentBackgroud addSubview:self.mp3ControlView];
     if ([UIDevice bm_isiPad])
     {
@@ -1250,7 +1250,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [userVideoView addSubview:imageView];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.backgroundColor = YSSkinDefineColor(@"noVideoMaskBgColor");
+    imageView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
     [self.videoBackgroud addSubview:userVideoView];
     [imageView bm_sendOneLevelDown];
     
@@ -4148,7 +4148,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     UIPopoverPresentationController *popover = self.layoutPopoverView.popoverPresentationController;
-    popover.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    popover.backgroundColor = YSSkinDefineColor(@"Color2");
 
     popover.sourceView = self.spreadBottomToolBar.switchLayoutBtn;
     popover.sourceRect = self.spreadBottomToolBar.switchLayoutBtn.bounds;
@@ -5626,7 +5626,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     CHRoomUser * userModel = videoView.roomUser;
 
     UIPopoverPresentationController *popover = self.controlPopoverView.popoverPresentationController;
-    popover.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    popover.backgroundColor = YSSkinDefineColor(@"Color2");
     if ( self.videoSequenceArr.count <= 2 || ([self.fouceView.sourceId isEqualToString:videoView.sourceId] && [self.fouceView.roomUser.peerID isEqualToString:videoView.roomUser.peerID]))
     {
         /// 1.视频数小于等于2  2.videoView为焦点视频时

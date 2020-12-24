@@ -77,16 +77,16 @@
     self.circleProgress.frame = CGRectMake(0, 0, 180, 180);
     self.circleProgress.lineWidth = 5;
     self.circleProgress.isClockwise = YES;
-    self.circleProgress.innerColor = YSSkinDefineColor(@"defaultBgColor");
-    self.circleProgress.lineBgColor = YSSkinDefineColor(@"defaultSelectedBgColor");
-    self.circleProgress.lineProgressColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.circleProgress.innerColor = YSSkinDefineColor(@"Color2");
+    self.circleProgress.lineBgColor = YSSkinDefineColor(@"Color4");
+    self.circleProgress.lineProgressColor = YSSkinDefineColor(@"Color2");
     [self.bacView addSubview:self.circleProgress];
     [self.circleProgress bm_centerInSuperView];
     
     self.circleBacView = [[UIView alloc] init];
     [self.circleProgress addSubview:self.circleBacView];
     self.circleBacView.frame = CGRectMake(0, 0, 160, 160);
-    self.circleBacView.backgroundColor = YSSkinDefineColor(@"PopViewBgColor");
+    self.circleBacView.backgroundColor = YSSkinDefineColor(@"Color2");
     [self.circleBacView bm_centerInSuperView];
     [self.circleBacView bm_roundedRect:80];
     
@@ -94,7 +94,7 @@
     [self.circleProgress addSubview:self.titleL];
     
     self.titleL.textAlignment= NSTextAlignmentCenter;
-    self.titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.titleL.textColor = YSSkinDefineColor(@"Color3");
     self.titleL.font = [UIFont systemFontOfSize:16.0f];
     self.titleL.numberOfLines = 0;
     
@@ -106,7 +106,7 @@
     [self.circleProgress addSubview:self.personNumberL];
     self.personNumberL.text = YSLocalized(@"tool.qiangdaqi");
     self.personNumberL.textAlignment= NSTextAlignmentCenter;
-    self.personNumberL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    self.personNumberL.textColor = YSSkinDefineColor(@"Color3");
     self.personNumberL.font = [UIFont systemFontOfSize:16.0f];
     self.personNumberL.numberOfLines = 0;
     
@@ -115,8 +115,8 @@
     
     [self.actionBtn addTarget:self action:@selector(actionBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.actionBtn.hidden = NO;
-    self.actionBtn.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
-    [self.actionBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    self.actionBtn.backgroundColor = YSSkinDefineColor(@"Color4");
+    [self.actionBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     self.actionBtn.titleLabel.font = UI_FONT_16;
     [self.circleProgress addSubview:self.actionBtn];
     [self.actionBtn bm_roundedRect:17];
@@ -128,7 +128,7 @@
     [self.selectBtn setImage:YSSkinElementImage(@"responder_upPlatform", @"iconSel") forState:UIControlStateSelected];
     [self.selectBtn addTarget:self action:@selector(selectBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.selectBtn.hidden = NO;
-    [self.selectBtn setTitleColor:YSSkinDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    [self.selectBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     self.selectBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     [self.circleProgress addSubview:self.selectBtn];
     [self.selectBtn bm_layoutButtonWithEdgeInsetsStyle:BMButtonEdgeInsetsStyleImageLeft imageTitleGap:4];

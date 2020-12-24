@@ -39,7 +39,7 @@ static  NSString * const   YSLessonNotifyTableCellID      = @"YSLessonNotifyTabl
 
 - (void)setup
 {
-    self.backgroundColor = YSSkinDefineColor(@"liveDefaultBgColor");
+    self.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
     [self addSubview:self.lessonTableView];
     [self.lessonTableView registerClass:[YSLessonNotifyTableCell class] forCellReuseIdentifier:YSLessonNotifyTableCellID];
     self.headerView = [[YSLessonDetailHeaderView alloc] init];

@@ -70,16 +70,16 @@
     {//我的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",YSLocalized(@"Role.Me"),model.timeStr];
         self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"defaultSelectedBgColor") forState:UIControlStateNormal];
-        self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultSelectedBgColor");
+        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"Color4") forState:UIControlStateNormal];
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color4");
         bubbleX = ChatViewWidth-108-15;
     }
     else
     {//别人的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.sendUser.nickName,model.timeStr];
         self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"placeholderColor") forState:UIControlStateNormal];
-        self.bubbleView.backgroundColor = YSSkinDefineColor(@"defaultTitleColor");
+        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"PlaceholderColor") forState:UIControlStateNormal];
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
         bubbleX = 15;
     }
     

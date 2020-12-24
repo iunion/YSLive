@@ -86,7 +86,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     [self addGestureRecognizer:tapGesture];
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = [YSSkinDefineColor(@"PopViewBgColor") changeAlpha:YSPopViewDefaultAlpha];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
     self.bacView.bm_width = ToolBoxWidth;
     self.bacView.bm_height = ToolBoxHeight;
     self.bacView.layer.cornerRadius = 24.0f;
@@ -96,13 +96,13 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     self.titleL = titleL;
     titleL.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
     titleL.textAlignment = NSTextAlignmentCenter;
-    titleL.textColor = YSSkinDefineColor(@"defaultTitleColor");
+    titleL.textColor = YSSkinDefineColor(@"Color3");
     titleL.text = YSLocalized(@"Title.ToolBox");
     [self.bacView addSubview:titleL];
     titleL.frame = CGRectMake(0, 0, ToolBoxWidth, ToolBoxTitleHeight);
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = YSSkinDefineColor(@"lineColor");
+    lineView.backgroundColor = YSSkinDefineColor(@"Color7");
     lineView.frame = CGRectMake(0, CGRectGetMaxY(titleL.frame), ToolBoxWidth, 1.0f);
     [self.bacView addSubview:lineView];
     
@@ -180,7 +180,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     toolBtn.normalImage = normalImage;
     toolBtn.selectedImage = selectedImage;
     toolBtn.disabledImage = disabledImage;
-    toolBtn.textNormalColor = YSSkinDefineColor(@"defaultTitleColor");
+    toolBtn.textNormalColor = YSSkinDefineColor(@"Color3");
     if (norTitle)
     {
         toolBtn.normalText = YSLocalized(norTitle);
