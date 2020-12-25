@@ -2686,9 +2686,9 @@
         UILabel * remarkLab = [[UILabel alloc]initWithFrame:CGRectMake(self.raiseHandsBtn.bm_originX - tipStrWidth - 15 - 5, 0, tipStrWidth + 15, 16)];
         remarkLab.bm_centerY = self.raiseHandsBtn.bm_centerY;
         remarkLab.text = YSLocalized(@"Label.RaisingHandsTip");
-        remarkLab.backgroundColor = YSSkinDefineColor(@"Color3");
+        remarkLab.backgroundColor = YSSkinDefineColor(@"Color4");
         remarkLab.font = UI_FONT_10;
-        remarkLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
+        remarkLab.textColor = YSSkinDefineColor(@"Color2");
         remarkLab.textAlignment = NSTextAlignmentCenter;
         remarkLab.layer.cornerRadius = 16/2;
         remarkLab.layer.masksToBounds = YES;

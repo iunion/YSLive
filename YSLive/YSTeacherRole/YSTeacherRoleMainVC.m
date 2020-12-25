@@ -685,8 +685,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     UILabel *handNumLab = [[UILabel alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - raiseHandWH - raiseHandRight, self.spreadBottomToolBar.bm_originY - labBottom - 18, raiseHandWH, 18)];
     handNumLab.bm_centerX = self.spreadBottomToolBar.bm_right - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;  //(YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*0.5f;
     handNumLab.font = UI_FONT_13;
-    handNumLab.textColor = YSSkinDefineColor(@"Color3");
-    handNumLab.backgroundColor = YSSkinDefineColor(@"Color2");
+    handNumLab.textColor = YSSkinDefineColor(@"Color2");
+    handNumLab.backgroundColor = YSSkinDefineColor(@"Color3");
     handNumLab.layer.cornerRadius = 18/2;
     handNumLab.layer.masksToBounds = YES;
     handNumLab.textAlignment = NSTextAlignmentCenter;
@@ -913,30 +913,31 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     whitebordBgimage.contentMode = UIViewContentModeScaleToFill;
     [whitebordBackgroud addSubview:whitebordBgimage];
     self.whitebordBgimage = whitebordBgimage;
-//    if ([self.liveManager.roomModel.wbBgImageUrl bm_isNotEmpty])
-    {
-        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.wbBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//            if (!image)
+        
+////    if ([self.liveManager.roomModel.wbBgImageUrl bm_isNotEmpty])
+//    {
+//        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.wbBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+////            if (!image)
+////            {
+////                self.whitebordBackgroud.hidden = YES;
+////
+////                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
+////                {
+////                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+////            self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+////                }
+////                else
+////                {
+////                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+////                }
+////            }
+////            else
 //            {
-//                self.whitebordBackgroud.hidden = YES;
-//
-//                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
-//                {
-//                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-//            self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-//                }
-//                else
-//                {
-//                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-//                }
+//                self.whitebordBackgroud.hidden = NO;
+//                self.whitebordBackgroud.backgroundColor = UIColor.clearColor;
 //            }
-//            else
-            {
-                self.whitebordBackgroud.hidden = NO;
-                self.whitebordBackgroud.backgroundColor = UIColor.clearColor;
-            }
-        }];
-    }
+//        }];
+//    }
 //    else
 //    {
 //        whitebordBackgroud.hidden = YES;
