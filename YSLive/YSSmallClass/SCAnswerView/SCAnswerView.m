@@ -547,7 +547,6 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
     {
         _topView = [[UILabel alloc] init];
         _topView.textAlignment = NSTextAlignmentCenter;
-//        _topView.lineBreakMode = NSLineBreakByCharWrapping;
         _topView.textColor = YSSkinDefineColor(@"Color3");
         _topView.backgroundColor = [UIColor clearColor];
         _topView.font = UI_FONT_12;

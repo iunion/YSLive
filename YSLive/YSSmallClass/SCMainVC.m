@@ -790,7 +790,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 白板背景
     UIView *whitebordBackgroud = [[UIView alloc] init];
-    whitebordBackgroud.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
@@ -810,10 +809,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
 //                {
 //                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+//            self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
 //                }
 //                else
 //                {
-//                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+//                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
 //                }
 //            }
 //            else

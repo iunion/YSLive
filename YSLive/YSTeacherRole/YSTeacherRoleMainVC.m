@@ -906,6 +906,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
     
+    YSSkinDefineColor(@"Color1");
+    
     UIImageView *whitebordBgimage = [[UIImageView alloc]initWithFrame:whitebordBackgroud.bounds];
     whitebordBgimage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     whitebordBgimage.contentMode = UIViewContentModeScaleToFill;
@@ -921,10 +923,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
 //                {
 //                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+//            self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
 //                }
 //                else
 //                {
-//                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+//                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
 //                }
 //            }
 //            else

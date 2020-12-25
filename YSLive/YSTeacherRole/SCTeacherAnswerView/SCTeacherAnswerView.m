@@ -154,13 +154,13 @@ static const CGFloat kCollectionViewHeight_iPad = 120.0f;
         self.addBtn.frame = CGRectMake(0, 0, 60, 22);
         self.addBtn.bm_left = self.bacView.bm_left + 10;
         self.addBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        [self.addBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinDefineColor(@"Color4") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+        [self.addBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinElementColor(@"answerAddtBtn", @"titleColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
         
         [self.bacView addSubview:self.delBtn];
         self.delBtn.frame = CGRectMake(0, 0, 60, 22);
         self.delBtn.bm_left = self.addBtn.bm_right + 10;
         self.delBtn.bm_top = self.optionCollectionView.bm_bottom + 5;
-        [self.delBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinDefineColor(@"Color4") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+        [self.delBtn bm_addShadow:1.0f Radius:11 BorderColor:YSSkinElementColor(@"answerAddtBtn", @"titleColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
         [self.bacView addSubview:self.promptL];
         self.promptL.frame = CGRectMake(10, CGRectGetMaxY(self.delBtn.frame) + 5, self.bacView.bm_width - 120, 15);
 
