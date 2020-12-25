@@ -18,6 +18,9 @@
 /// 用时
 @property (nonatomic, strong) UILabel * timeL;
 
+@property (nonatomic, strong)UIView *lineView;
+
+
 @end
 
 @implementation SCAnswerDetailTableViewCell
@@ -40,7 +43,7 @@
     [self.contentView addSubview:self.nameL];
     [self.contentView addSubview:self.resultL];
     [self.contentView addSubview:self.timeL];
-
+    [self.contentView addSubview:self.lineView];
 }
 
 - (void)layoutSubviews
@@ -59,6 +62,9 @@
     
     self.timeL.frame = CGRectMake(CGRectGetMaxX(self.resultL.frame) + 5, 0, tempWidth, 15);
     self.timeL.bm_centerY = self.contentView.bm_centerY;
+    
+    self.lineView.frame = CGRectMake(13, self.bm_height-1, self.bm_width - 26 , 1);
+    
     
 }
 
@@ -131,6 +137,17 @@
         _timeL.textColor = YSSkinDefineColor(@"Color3");
     }
     return _timeL;
+}
+
+
+- (UIView *)lineView
+{
+    if (!_lineView)
+    {
+        _lineView = [[UIView alloc] init];
+        _lineView.backgroundColor = YSSkinDefineColor(@"Color7");
+    }
+    return _lineView;
 }
 
 @end

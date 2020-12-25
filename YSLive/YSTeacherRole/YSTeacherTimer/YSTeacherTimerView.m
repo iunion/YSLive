@@ -132,7 +132,8 @@
     [self.bacView addSubview:self.minuteL];
     self.minuteL.textAlignment= NSTextAlignmentCenter;
     self.minuteL.textColor = YSSkinDefineColor(@"Color3");
-    self.minuteL.backgroundColor = YSSkinElementColor(@"toolBox_timer", @"timeBgColor");
+    self.minuteL.backgroundColor = YSSkinDefineColor(@"Color7");
+        
     self.minuteL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
     self.minuteL.frame = CGRectMake(0, 0, 70, 42);
     self.minuteL.bm_right = self.intervalL.bm_left - 18;
@@ -168,7 +169,7 @@
     [self.bacView addSubview:self.secondL];
     self.secondL.textAlignment= NSTextAlignmentCenter;
     self.secondL.textColor = YSSkinDefineColor(@"Color3");
-    self.secondL.backgroundColor = YSSkinElementColor(@"toolBox_timer", @"timeBgColor");
+    self.secondL.backgroundColor = YSSkinDefineColor(@"Color7");
     self.secondL.font = [UIFont fontWithName:@"Helvetica" size:42.0f];
     self.secondL.frame = CGRectMake(0, 0, 70, 42);
     self.secondL.bm_left = self.intervalL.bm_right + 18;
