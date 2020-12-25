@@ -7,19 +7,19 @@
 		<key>WhiteColor</key>
 		<string>#FFFFFF</string>
 		<key>Color1</key>
-		<string>#174132</string>
+		<string>#DEEAFF</string>
 		<key>Color2</key>
-		<string>#FFFFFF</string>
+		<string>#82ABEC</string>
 		<key>Color3</key>
-		<string>#736D78</string>
+		<string>#FFFFFF</string>
 		<key>Color4</key>
-		<string>#EAA165</string>
+		<string>#FFE895</string>
 		<key>Color5</key>
-		<string>#736D78</string>
+		<string>#FFFFFF</string>
 		<key>Color6</key>
-		<string>#ADAAB0</string>
+		<string>#DEEAFF</string>
 		<key>Color7</key>
-		<string>#E7E7E7</string>
+		<string>#B5C2D9</string>
 		<key>PlaceholderColor</key>
 		<string>#6D7278</string>
 		<key>MaskBgColor</key>
