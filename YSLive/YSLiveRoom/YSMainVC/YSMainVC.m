@@ -364,7 +364,7 @@
     self.teacherBgMaskView = [[UIImageView alloc] initWithFrame:self.levelView.bounds];
     self.teacherBgMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.teacherBgMaskView.contentMode = UIViewContentModeCenter;
-    self.teacherBgMaskView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
+    self.teacherBgMaskView.backgroundColor = YSSkinDefineColor(@"Color9");
     self.teacherBgMaskView.image = YSSkinDefineImage(@"live_main_notclassbeging");
     self.teacherBgMaskView.userInteractionEnabled = YES;
     [self.levelView.bgView addSubview:self.teacherBgMaskView];
@@ -386,7 +386,7 @@
     self.teacherMaskView = [[UIImageView alloc] initWithFrame:self.levelView.bounds];
     self.teacherMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.teacherMaskView.contentMode = UIViewContentModeCenter;
-    self.teacherMaskView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
+    self.teacherMaskView.backgroundColor = YSSkinDefineColor(@"Color9");
     self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
     [self.levelView.maskView addSubview:self.teacherMaskView];
     self.teacherMaskView.userInteractionEnabled = YES;
@@ -2159,7 +2159,7 @@
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
-    NSString *warmVideoUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
+    NSString *warmVideoUrl = [self.liveManager.warmDict bm_stringTrimForKey:@"swfpath"];
 
     if ([warmVideoUrl bm_isNotEmpty])
     {
