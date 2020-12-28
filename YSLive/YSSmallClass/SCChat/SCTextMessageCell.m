@@ -48,7 +48,7 @@
     self.nickNameLab.textAlignment = NSTextAlignmentLeft;
     self.nickNameLab.lineBreakMode = NSLineBreakByTruncatingTail;
     self.nickNameLab.font = UI_FONT_14;
-    self.nickNameLab.textColor = [UIColor bm_colorWithHexString:@"#8D9CBC"];
+    self.nickNameLab.textColor = YSSkinDefineColor(@"Color3");
     [self.contentView addSubview:self.nickNameLab];
     
     //气泡
@@ -57,15 +57,18 @@
     [self.contentView addSubview:self.bubbleView];
     
     //翻译按钮
-    self.translateBtn = [[UIButton alloc]init];
+    self.translateBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.translateBtn addTarget:self action:@selector(translateBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.translateBtn setBackgroundColor:[UIColor clearColor]];
     [self.bubbleView addSubview:self.translateBtn];
+    [self.translateBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
+    [self.translateBtn setTintColor:YSSkinDefineColor(@"Color8")];
     
     //文字内容
     self.msgLab = [[UILabel alloc]init];
     self.msgLab.font = UI_FONT_14;
     self.msgLab.numberOfLines = 0;
+    self.msgLab.textColor = YSSkinDefineColor(@"Color8");
     [self.bubbleView addSubview:self.msgLab];
     
 }
@@ -75,13 +78,13 @@
     
     NSString * nameTimeStr = nil;
         
-    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"PlaceholderColor") font:15];
+    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"Color8") font:15];
     if (!model.messageSize.width && [model.message bm_isNotEmpty]) {
         
         model.messageSize = [attMessage bm_sizeToFitWidth:200];
     }
     
-    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"PlaceholderColor") font:15];
+    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"Color8") font:15];
     
     if (!model.translatSize.width && [model.detailTrans bm_isNotEmpty]) {
         model.translatSize = [attTranslation bm_sizeToFitWidth:200];
@@ -97,29 +100,18 @@
     CGFloat bubbleX = 0;
     
     self.msgLab.attributedText = attMessage;
-    
     if ([model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
     {//我的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",YSLocalized(@"Role.Me"),model.timeStr];
         self.nickNameLab.textAlignment = NSTextAlignmentRight;
-        self.nickNameLab.textColor = YSSkinDefineColor(@"Color4");
-        self.msgLab.textColor = YSSkinDefineColor(@"Color3");
-        self.translationText.textColor = YSSkinDefineColor(@"Color3");
-        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color4");
-        [self.translateBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
-        self.lineView.backgroundColor = YSSkinDefineColor(@"Color3");
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color3");
         bubbleX = ChatViewWidth-10-bubbleW;
     }
     else
     {//别人的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.sendUser.nickName,model.timeStr];
         self.nickNameLab.textAlignment = NSTextAlignmentLeft;;
-        self.nickNameLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
-        self.msgLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
-        self.translationText.textColor = YSSkinDefineColor(@"PlaceholderColor");
         self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
-        [self.translateBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
-        self.lineView.backgroundColor = YSSkinDefineColor(@"PlaceholderColor");
         bubbleX = 10;
     }
     
@@ -189,7 +181,7 @@
     if (!_lineView)
     {
         self.lineView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(self.msgLab.frame)+5, self.bubbleView.bm_width-20, 1.0)];
-        self.lineView.backgroundColor = [UIColor bm_colorWithHexString:@"#EEEEEE"];
+        self.lineView.backgroundColor = YSSkinDefineColor(@"Color8");
         [self.bubbleView addSubview:self.lineView];
     }
     return _lineView;
@@ -204,7 +196,7 @@
         self.translationText.lineBreakMode = NSLineBreakByTruncatingTail;
         self.translationText.font = UI_FONT_14;
         self.translationText.numberOfLines = 0;
-        self.translationText.textColor = [UIColor bm_colorWithHexString:@"#345376"];
+        self.translationText.textColor = YSSkinDefineColor(@"Color8");
         [self.bubbleView addSubview:self.translationText];
     }
     return _translationText;

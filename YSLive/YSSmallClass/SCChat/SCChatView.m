@@ -168,7 +168,7 @@ UITextFieldDelegate
     //弹起输入框的按钮
     UIButton * textBtn = [[UIButton alloc]initWithFrame:CGRectMake(textBtnX, 10, textBtnW, allDisableBtnWH)];
     textBtn.titleLabel.font = UI_FONT_14;
-    [textBtn setTitleColor:YSSkinDefineColor(@"PlaceholderColor") forState:UIControlStateNormal];
+    [textBtn setTitleColor:YSSkinDefineColor(@"Color7") forState:UIControlStateNormal];
     [textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
     textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [textBtn addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventTouchUpInside];
@@ -178,7 +178,7 @@ UITextFieldDelegate
     
     textBtn.layer.cornerRadius = allDisableBtnWH/2;
     textBtn.layer.borderWidth = 1;  // 给图层添加一个有色边框
-    textBtn.layer.borderColor = YSSkinDefineColor(@"PlaceholderColor").CGColor;
+    textBtn.layer.borderColor = YSSkinDefineColor(@"Color7").CGColor;
         
     self.allDisableBtn.bm_centerY = textBtn.bm_centerY;
 }
@@ -289,13 +289,13 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"PlaceholderColor") font:15];
+                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"Color8") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 
                 if (!model.translatSize.width)
                 {
-                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"PlaceholderColor") font:15];
+                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"Color8") font:15];
                     model.translatSize = [attTranslation bm_sizeToFitWidth:200];
                 }
                 model.transCellHeight = 10 + 20 + 5 +  5 + model.messageSize.height + 5 + 1 + 5 + model.translatSize.height + 5 + 5;
@@ -308,7 +308,7 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"PlaceholderColor") font:15];
+                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"Color8") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 model.cellHeight = 10 + 20 + 5 + 5 + model.messageSize.height + 5 + 5;

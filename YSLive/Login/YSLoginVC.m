@@ -2059,7 +2059,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     if (isSmallClass)
     {
         //        [YSLiveSkinManager shareInstance].roomDetailsType = [YSLiveManager sharedInstance].roomModel.roomDetailsType;
-        [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_light;
+        [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_middle;
         
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];

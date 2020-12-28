@@ -121,7 +121,7 @@
     self.intervalL = [[UILabel alloc] init];
     [self.bacView addSubview:self.intervalL];
     self.intervalL.textAlignment= NSTextAlignmentCenter;
-    self.intervalL.textColor = YSSkinDefineColor(@"PlaceholderColor");
+    self.intervalL.textColor = YSSkinDefineColor(@"Color3");
     self.intervalL.font = [UIFont systemFontOfSize:30.0f];
     self.intervalL.text = @":";
     self.intervalL.frame = CGRectMake(0, 50, 9, 42);
@@ -207,7 +207,7 @@
     [self.bacView addSubview:self.startBtn];
     self.startBtn.frame = CGRectMake(0, self.bacView.bm_height - 50, 90, 40);
     [self.startBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
-    [self.startBtn setTitleColor:YSSkinDefineColor(@"PlaceholderColor") forState:UIControlStateDisabled];
+    [self.startBtn setTitleColor:YSSkinDefineColor(@"Color2") forState:UIControlStateDisabled];
     [self.startBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
     self.startBtn.titleLabel.font = UI_FONT_12;
     [self.startBtn bm_roundedRect:20];

@@ -801,7 +801,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     UIButton * classBeginBtn = [[UIButton alloc]initWithFrame:CGRectMake(buttonLeft, BMUI_SCREEN_HEIGHT - buttonBottom - buttonWH, buttonWH, buttonWH)];
     [classBeginBtn addTarget:self action:@selector(classBeginBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [classBeginBtn setTitleColor:YSSkinDefineColor(@"whiteColor") forState:UIControlStateNormal];
+    [classBeginBtn setTitleColor:YSSkinDefineColor(@"Color2") forState:UIControlStateNormal];
     classBeginBtn.titleLabel.font = UI_FONT_10;
     [classBeginBtn setTitle:YSLocalized(@"Button.ClassBegin") forState:UIControlStateNormal];
     [classBeginBtn setTitle:YSLocalized(@"Button.ClassIsOver") forState:UIControlStateSelected];
@@ -1254,7 +1254,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [userVideoView addSubview:imageView];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
+    imageView.backgroundColor = YSSkinDefineColor(@"Color9");
     [self.videoBackgroud addSubview:userVideoView];
     [imageView bm_sendOneLevelDown];
     

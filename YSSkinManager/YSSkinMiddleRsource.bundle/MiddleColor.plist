@@ -20,10 +20,12 @@
 		<string>#DEEAFF</string>
 		<key>Color7</key>
 		<string>#B5C2D9</string>
+		<key>Color8</key>
+		<string>#828282</string>
+		<key>Color9</key>
+		<string>#40424A</string>
 		<key>PlaceholderColor</key>
 		<string>#6D7278</string>
-		<key>MaskBgColor</key>
-		<string>#40424A</string>
 		<key>JurisdictionCheckFail</key>
 		<string>#FF7D7D</string>
 		<key>Live_timer_timeBgColor</key>
@@ -342,19 +344,6 @@
 		<string>chat_allDisableNo_skin</string>
 		<key>iconSel</key>
 		<string>chat_allDisable_skin</string>
-		<key>iconDis</key>
-		<string></string>
-	</dict>
-	<key>chatView_tipsMessage</key>
-	<dict>
-		<key>tittleColor</key>
-		<string>#FF7D7D</string>
-		<key>bgColor</key>
-		<string>#333436</string>
-		<key>iconNor</key>
-		<string></string>
-		<key>iconSel</key>
-		<string></string>
 		<key>iconDis</key>
 		<string></string>
 	</dict>

@@ -97,7 +97,7 @@
     self.intervalL = [[UILabel alloc] init];
     [self.bacView addSubview:self.intervalL];
     self.intervalL.textAlignment= NSTextAlignmentCenter;
-    self.intervalL.textColor = YSSkinDefineColor(@"PlaceholderColor");
+    self.intervalL.textColor = YSSkinDefineColor(@"Color3");
     self.intervalL.font = [UIFont systemFontOfSize:30.0f];
     self.intervalL.text = @":";
     self.intervalL.frame = CGRectMake(0, 50, 9, 42);

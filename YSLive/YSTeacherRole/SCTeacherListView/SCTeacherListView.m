@@ -464,7 +464,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 //        [inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
         self.inputTextField = inputTextField;
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:YSLocalized(@"Label.searchPlaceholder") attributes:@{
-                       NSForegroundColorAttributeName:YSSkinDefineColor(@"PlaceholderColor"),
+                       NSForegroundColorAttributeName:YSSkinDefineColor(@"Color3"),
                        NSFontAttributeName:[UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10
                    }];
         inputTextField.attributedPlaceholder = attrString;
@@ -475,7 +475,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         inputTextField.tintColor = YSColor_LoginTextField;
         inputTextField.enabled = YES;
 
-        [inputTextField bm_addShadow:1 Radius:userNumHeight/2.0f BorderColor:YSSkinDefineColor(@"PlaceholderColor") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+        [inputTextField bm_addShadow:1 Radius:userNumHeight/2.0f BorderColor:YSSkinDefineColor(@"Color3") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
         
         inputTextField.returnKeyType = UIReturnKeySearch;
         if ([_searchString bm_isNotEmpty])

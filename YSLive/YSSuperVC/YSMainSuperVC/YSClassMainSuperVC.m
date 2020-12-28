@@ -192,34 +192,34 @@
     CGFloat bgY = (BMUI_SCREEN_HEIGHT_ROTATE - self.contentHeight)/2;
     
     UIView * contentBackgroud = [[UIView alloc]initWithFrame:CGRectMake(bgX, bgY, self.contentWidth, self.contentHeight)];
-    contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color2");
+    contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
     self.contentBackgroud = contentBackgroud;
     
     UIImageView * contentBgImage = [[UIImageView alloc]initWithFrame:contentBackgroud.bounds];
     [contentBackgroud addSubview:contentBgImage];
     self.contentBgImage = contentBgImage;
 //    if ([self.liveManager.roomModel.bgImageUrl bm_isNotEmpty])
-    {
-        [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.roomBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//            if (!image)
+//    {
+//        [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.roomBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+////            if (!image)
+////            {
+////                self.contentBgImage.hidden = YES;
+////                if ([self.liveManager.roomModel.roomBgColor bm_isNotEmpty])
+////                {
+////                    self.contentBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
+////                }
+////                else
+////                {
+////                    self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
+////                }
+////            }
+////            else
 //            {
-//                self.contentBgImage.hidden = YES;
-//                if ([self.liveManager.roomModel.roomBgColor bm_isNotEmpty])
-//                {
-//                    self.contentBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-//                }
-//                else
-//                {
-//                    self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
-//                }
+//                self.contentBgImage.hidden = NO;
+//                self.contentBackgroud.backgroundColor = UIColor.clearColor;
 //            }
-//            else
-            {
-                self.contentBgImage.hidden = NO;
-                self.contentBackgroud.backgroundColor = UIColor.clearColor;
-            }
-        }];
-    }
+//        }];
+//    }
 //    else
 //    {
 //        self.contentBgImage.hidden = YES;
@@ -238,7 +238,7 @@
 - (void)setupstateToolBar
 {
     UIView * stateToolView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, self.contentBackgroud.bm_width, STATETOOLBAR_HEIGHT)];
-    stateToolView.backgroundColor = YSSkinDefineColor(@"Color1");
+    stateToolView.backgroundColor = YSSkinDefineColor(@"Color2");
     [self.contentBackgroud addSubview:stateToolView];
     CGFloat fontSize = 12;
     if (![UIDevice bm_isiPad])

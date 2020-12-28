@@ -44,11 +44,22 @@ static YSLiveSkinManager *skinManager = nil;
 ///当前调用的皮肤bundle
 - (NSBundle*)getCurrentBundle
 {
-    NSString *skinBundleName = @"YSSkinRsource.bundle";
+    NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
     
     if (self.classOrOnline == YSSkinClassOrOnline_online)
     {
         skinBundleName = @"YSOnlineSchool.bundle";
+    }
+    else
+    {
+        if (self.roomDetailsType == YSSkinDetailsType_light)
+        {
+            skinBundleName = @"YSSkinLightRsource.bundle";
+        }
+        else if (self.roomDetailsType == YSSkinDetailsType_middle)
+        {
+            skinBundleName = @"YSSkinMiddleRsource.bundle";
+        }
     }
     
     return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
@@ -62,9 +73,6 @@ static YSLiveSkinManager *skinManager = nil;
     if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.roomDetailsType || ![self.plictDict bm_isNotEmpty])
     {
         NSString *path = nil;
-        
-        NSBundle *jkkj = [self getCurrentBundle];
-        
         
         if (classOrOnline == YSSkinClassOrOnline_class)
         {

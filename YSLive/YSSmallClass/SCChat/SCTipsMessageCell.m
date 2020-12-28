@@ -33,7 +33,7 @@
 - (void)setupView
 {
     self.backView = [[UIView alloc] init];
-    self.backView.backgroundColor = YSSkinElementColor(@"chatView_tipsMessage", @"bgColor");
+    self.backView.backgroundColor = YSSkinDefineColor(@"Color3");
     self.backView.layer.cornerRadius = 12.5;
     [self.contentView addSubview:self.backView];
     
@@ -43,7 +43,7 @@
     self.iMessageLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     self.iMessageLabel.numberOfLines = 1;
     [self.iMessageLabel setFont:UI_FONT_12];
-    self.iMessageLabel.textColor = YSSkinElementColor(@"chatView_tipsMessage", @"tittleColor");
+    self.iMessageLabel.textColor = YSSkinDefineColor(@"Color2");
     [self.backView addSubview:self.iMessageLabel];
 }
 

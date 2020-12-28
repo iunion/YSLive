@@ -224,7 +224,7 @@
 
 - (void)setupUIView
 {
-    self.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
+    self.backgroundColor = YSSkinDefineColor(@"Color9");
     
     UIView *sourceView = [[UIView alloc] init];
     sourceView.backgroundColor = UIColor.clearColor;
@@ -235,7 +235,7 @@
     ///正在加载中
     self.loadingImg = YSSkinElementImage(@"videoView_loadingImage", @"icon_normal");
     UIImageView * loadingImgView = [[UIImageView alloc]initWithImage:self.loadingImg];
-    [loadingImgView setBackgroundColor:YSSkinDefineColor(@"MaskBgColor")];
+    [loadingImgView setBackgroundColor:YSSkinDefineColor(@"Color9")];
     loadingImgView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:loadingImgView];
     self.loadingImgView = loadingImgView;
@@ -251,7 +251,7 @@
     
     //关闭视频时的蒙版
     self.maskCloseVideoBgView = [[UIView alloc] init];
-    self.maskCloseVideoBgView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");
+    self.maskCloseVideoBgView.backgroundColor = YSSkinDefineColor(@"Color9");
     [maskBackView addSubview:self.maskCloseVideoBgView];
     self.maskCloseVideoBgView.hidden = YES;
 
@@ -284,7 +284,7 @@
     
     //没有摄像头时的蒙版
     self.maskNoVideo = [[UIView alloc] init];
-    self.maskNoVideo.backgroundColor = YSSkinDefineColor(@"MaskBgColor");;
+    self.maskNoVideo.backgroundColor = YSSkinDefineColor(@"Color9");;
     [maskBackView addSubview:self.maskNoVideo];
     self.maskNoVideo.hidden = YES;
     
@@ -388,7 +388,7 @@
     
     //分组
     UIView * maskGroupRoomView = [[UIView alloc]init];
-    maskGroupRoomView.backgroundColor = YSSkinDefineColor(@"MaskBgColor");;
+    maskGroupRoomView.backgroundColor = YSSkinDefineColor(@"Color9");;
     [self.backVideoView addSubview:maskGroupRoomView];
     maskGroupRoomView.hidden = YES;
     self.maskGroupRoomView = maskGroupRoomView;

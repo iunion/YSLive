@@ -78,7 +78,7 @@
     {//别人的消息
         nameTimeStr = [NSString stringWithFormat:@"%@ %@",model.sendUser.nickName,model.timeStr];
         self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"PlaceholderColor") forState:UIControlStateNormal];
+        [self.nickNameBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
         self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
         bubbleX = 15;
     }
