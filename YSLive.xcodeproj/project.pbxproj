@@ -13,11 +13,15 @@
 		0463845F237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */; };
 		046384CA237FA85D00DE7236 /* SCPictureMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384C9237FA85D00DE7236 /* SCPictureMessageCell.m */; };
 		046384CE237FC1AE00DE7236 /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */; };
-		0464CE972477CD35001532A3 /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinRsource.bundle */; };
+		0464994F25997623005EB09F /* YSSkinMiddleRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464994E25997623005EB09F /* YSSkinMiddleRsource.bundle */; };
+		0464995025997623005EB09F /* YSSkinMiddleRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464994E25997623005EB09F /* YSSkinMiddleRsource.bundle */; };
+		0464CE972477CD35001532A3 /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */; };
 		0464CE9E247B563C001532A3 /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */; };
 		046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
+		048C1F3D25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */; };
+		048C1F3E25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
 		04A479E6239E274D00680D84 /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E1239E274C00680D84 /* SCColorListView.m */; };
 		04A479E8239E274D00680D84 /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E3239E274C00680D84 /* SCColorSelectView.m */; };
@@ -115,7 +119,7 @@
 		8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
 		8709FEB52484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */; };
 		8709FF382485FEBA00CC8BEA /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */; };
-		8709FF392485FEBC00CC8BEA /* YSSkinRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinRsource.bundle */; };
+		8709FF392485FEBC00CC8BEA /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */; };
 		8709FF3A2485FEE900CC8BEA /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
 		8709FF3B2485FEFB00CC8BEA /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
 		87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B15E2371720600A43607 /* BMTestGPSMockVC.m */; };
@@ -793,15 +797,17 @@
 		046384C9237FA85D00DE7236 /* SCPictureMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCPictureMessageCell.m; sourceTree = "<group>"; };
 		046384CC237FC1AE00DE7236 /* SCTipsMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTipsMessageCell.h; sourceTree = "<group>"; };
 		046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTipsMessageCell.m; sourceTree = "<group>"; };
-		0464CE962477CD35001532A3 /* YSSkinRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinRsource.bundle; sourceTree = "<group>"; };
+		0464994E25997623005EB09F /* YSSkinMiddleRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinMiddleRsource.bundle; sourceTree = "<group>"; };
+		0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinDarkRsource.bundle; sourceTree = "<group>"; };
 		0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveSkinManager.h; sourceTree = "<group>"; };
 		0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveSkinManager.m; sourceTree = "<group>"; };
 		046E683B2373CF73001CBB27 /* SCTextMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTextMessageCell.h; sourceTree = "<group>"; };
-		046E683C2373CF73001CBB27 /* SCTextMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
+		046E683C2373CF73001CBB27 /* SCTextMessageCell.m */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
 		046E683F2373E152001CBB27 /* SCChatToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCChatToolView.h; sourceTree = "<group>"; };
 		046E68402373E152001CBB27 /* SCChatToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCChatToolView.m; sourceTree = "<group>"; };
 		047F07AD25779BEF00D64265 /* YSDefaultLayoutPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSDefaultLayoutPopView.h; sourceTree = "<group>"; };
 		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
+		048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinLightRsource.bundle; sourceTree = "<group>"; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
 		04A479E0239E274C00680D84 /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
 		04A479E1239E274C00680D84 /* SCColorListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorListView.m; sourceTree = "<group>"; };
@@ -1595,7 +1601,9 @@
 			children = (
 				0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */,
 				0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */,
-				0464CE962477CD35001532A3 /* YSSkinRsource.bundle */,
+				0464994E25997623005EB09F /* YSSkinMiddleRsource.bundle */,
+				048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */,
+				0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */,
 			);
 			path = YSSkinManager;
 			sourceTree = "<group>";
@@ -3484,8 +3492,9 @@
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
 				87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */,
 				8777C7DA23EE96EC002002BF /* YSOnlineSchool.bundle in Resources */,
-				0464CE972477CD35001532A3 /* YSSkinRsource.bundle in Resources */,
+				0464CE972477CD35001532A3 /* YSSkinDarkRsource.bundle in Resources */,
 				045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */,
+				048C1F3D25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */,
 				87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */,
 				87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */,
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
@@ -3496,6 +3505,7 @@
 				879EB230241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
 				3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */,
 				871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */,
+				0464994F25997623005EB09F /* YSSkinMiddleRsource.bundle in Resources */,
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
 				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
@@ -3508,7 +3518,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8709FF392485FEBC00CC8BEA /* YSSkinRsource.bundle in Resources */,
+				8709FF392485FEBC00CC8BEA /* YSSkinDarkRsource.bundle in Resources */,
 				8717E3382400DADC008C4CDA /* YSResources.bundle in Resources */,
 				8717E3392400DADC008C4CDA /* BMTestNetFlowCell.xib in Resources */,
 				8717E33A2400DADC008C4CDA /* BMDatePicker.nib in Resources */,
@@ -3516,6 +3526,7 @@
 				8717E33C2400DADC008C4CDA /* YSMeetingResources.bundle in Resources */,
 				8717E3732400DFD1008C4CDA /* Assets.xcassets in Resources */,
 				8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */,
+				048C1F3E25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */,
 				26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */,
 				26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
@@ -3526,6 +3537,7 @@
 				8717E3472400DADC008C4CDA /* OnlineSchool.xcassets in Resources */,
 				8717E3492400DADC008C4CDA /* testcolorpalette@2x.png in Resources */,
 				8717E3722400DFD1008C4CDA /* InfoPlist.strings in Resources */,
+				0464995025997623005EB09F /* YSSkinMiddleRsource.bundle in Resources */,
 				8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */,
 				8717E34B2400DADC008C4CDA /* testcolorpicker@2x.png in Resources */,
 				8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */,

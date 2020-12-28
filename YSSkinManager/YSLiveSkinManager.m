@@ -52,13 +52,13 @@ static YSLiveSkinManager *skinManager = nil;
     }
     else
     {
-        if (self.roomDetailsType == YSSkinDetailsType_light)
-        {
-            skinBundleName = @"YSSkinLightRsource.bundle";
-        }
-        else if (self.roomDetailsType == YSSkinDetailsType_middle)
+        if (self.roomDetailsType == YSSkinDetailsType_middle)
         {
             skinBundleName = @"YSSkinMiddleRsource.bundle";
+        }
+        else if (self.roomDetailsType == YSSkinDetailsType_light)
+        {
+            skinBundleName = @"YSSkinLightRsource.bundle";
         }
     }
     
