@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 颜色
 @property (nonatomic, strong) NSString *colorHex;
 /// 滑动条进度
-@property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, assign) CGFloat size;
 
 @end
 

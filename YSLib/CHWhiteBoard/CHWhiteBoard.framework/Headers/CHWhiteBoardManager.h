@@ -5,17 +5,27 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "CHWhiteBoardManagerDelegate.h"
 
-#import "CHWhiteBoardView.h"
+#if !CHSingle_WhiteBoard
+#import "CHWBMediaControlviewDelegate.h"
+#endif
+
 #import "CHFileModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CHWhiteBoardView;
 @interface CHWhiteBoardManager : NSObject
+#if !CHSingle_WhiteBoard
 <
+#if !CHSingle_WhiteBoard
+    CHWBMediaControlviewDelegate,
+#endif
     CHSessionForWhiteBoardDelegate
 >
+#endif
 
 /// 音视频SDK管理
 @property (nonatomic, weak, readonly) CloudHubRtcEngineKit *cloudHubRtcEngineKit;
@@ -27,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 关于获取白板 服务器地址、备份地址、web地址相关通知
 /// 文档服务器地址
-@property (nonatomic, strong, readonly) NSString *serverDocAddrKey;
+@property (nonatomic, strong, readonly) NSString *serverDocHost;
 @property (nonatomic, strong, readonly) NSDictionary *serverAddressInfoDic;
 
 /// 课件列表
@@ -38,8 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 主白板
 @property (nonatomic, strong, readonly) CHWhiteBoardView *mainWhiteBoardView;
 
+#if !CHSingle_WhiteBoard
 /// 记录UI层是否开始上课
 @property (nonatomic, assign, readonly) BOOL isBeginClass;
+#endif
 
 /// 更新服务器地址
 @property (nonatomic, assign, readonly) BOOL isUpdateWebAddressInfo;
@@ -56,26 +68,56 @@ NS_ASSUME_NONNULL_BEGIN
 /// pdf课件清晰度 大于1
 @property (nonatomic, assign, readonly) NSUInteger pdfLevelsOfDetail;
 
+#if WBHaveSmallBalckBoard
 /// 小黑板
 @property (nonatomic, strong, readonly) CHWhiteBoardView *smallBoardView;
 
 /// 小黑板阶段状态
 @property (nonatomic, assign )CHSmallBoardStageState smallBoardStageState;
+#endif
 
 // UI
 @property (nonatomic, assign) CGSize whiteBoardViewDefaultSize;
 
+/// coursewareControlViewClass必须是CHCoursewareControlView的继承类
+@property (nonatomic, strong, readonly) NSString *coursewareControlViewClassName;
+/// coursewareControlView翻页工具条的尺寸
+@property (nonatomic, assign, readonly) CGSize coursewareControlViewSize;
+
+/// 是否使用HttpDNS
+@property (nonatomic, assign, readonly) BOOL useHttpDNS;
+
+#if CHSingle_WhiteBoard
+
+///白板的比例关系
+@property (nonatomic, assign) CGFloat whiteBoardRatio;
+
+///SDK白板的画笔权限
+@property (nonatomic, assign) BOOL canDrawSDK;
+
+#endif
+
+/// 最后一个信令的seq
+@property (nonatomic, assign) NSUInteger lastMsgSeq;
+
+/// 暖场视频
+@property (nonatomic, strong) CHFileModel *warmModel;
 
 + (void)destroy;
 
 + (instancetype)sharedInstance;
 + (NSString *)whiteBoardVersion;
 
+#if !CHSingle_WhiteBoard
 - (void)registerRtcEngineKit:(CloudHubRtcEngineKit *)rtcEngineKit delegate:(id <CHWhiteBoardManagerDelegate>)delegate configration:(NSDictionary *)config;
 - (void)registerRtcEngineKit:(CloudHubRtcEngineKit *)rtcEngineKit delegate:(id<CHWhiteBoardManagerDelegate>)delegate configration:(NSDictionary *)config useHttpDNS:(BOOL)useHttpDNS;
+#endif
 
 - (void)registerDelegate:(id <CHWhiteBoardManagerDelegate>)delegate configration:(NSDictionary *)config;
 - (void)registerDelegate:(id<CHWhiteBoardManagerDelegate>)delegate configration:(NSDictionary *)config useHttpDNS:(BOOL)useHttpDNS;
+
+/// 注册翻页工具条类及尺寸
+- (void)registerCoursewareControlView:(NSString *)coursewareControlViewClass viewSize:(CGSize)viewSize;
 
 - (void)serverLog:(NSString *)log;
 
@@ -113,12 +155,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置H5课件Cookies
 - (void)setConnectH5CoursewareUrlCookies:(nullable NSArray <NSDictionary *> *)cookies;
 
+#if CHSingle_WhiteBoard
+- (void)hidePageTool:(BOOL)isHidePageTool;
+#endif
 
 /// 刷新白板
 - (void)refreshWhiteBoard;
 
-/// 刷新当前白板课件数据
-- (void)freshCurrentCourse;
+/// 发送undo redo状态回调
+- (void)sendUndoRedoState;
 
 /// 设置当前课件Id
 - (void)setTheCurrentDocumentFileID:(NSString *)fileId;
@@ -126,13 +171,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (CHFileModel *)currentFile;
 - (CHFileModel *)getDocumentWithFileID:(NSString *)fileId;
 
+/// 刷新当前白板课件数据
+- (void)freshCurrentCourse;
 /// 刷新白板课件
-- (void)freshCurrentCourseWithFileId:(NSString *)fileId;
+- (void)freshCourseWithFileId:(NSString *)fileId;
 
 /// 切换课件
 - (void)changeCourseWithFileId:(NSString *)fileId;
 /// 添加图片课件
 - (void)addWhiteBordImageCourseWithDic:(NSDictionary *)uplaodDic;
+/// 添加课件
+- (BOOL)addOrReplaceDocumentFile:(NSDictionary *)file;
 
 /// 删除小白板图片
 - (void)deleteSmallBoardImage;
@@ -196,26 +245,62 @@ NS_ASSUME_NONNULL_BEGIN
 /// 更换画笔工具
 - (void)brushToolsDidSelect:(CHBrushToolType)BrushToolType;
 - (void)didSelectDrawType:(CHDrawType)type color:(NSString *)hexColor widthProgress:(CGFloat)progress;
-// 恢复默认工具配置设置
+/// 恢复默认工具配置设置
 - (void)freshBrushToolConfig;
-// 获取当前工具配置设置 drawType: CHBrushToolType类型  colorHex: RGB颜色  progress: 值
+/// 获取当前工具类型
+- (CHBrushToolType)getCurrentBrushToolType;
+/// 获取当前工具配置设置 drawType: CHBrushToolType类型  colorHex: RGB颜色  progress: 值
 - (CHBrushToolsConfigs *)getCurrentBrushToolConfig;
-// 画笔颜色
+/// 画笔颜色
 - (NSString *)getPrimaryColorHex;
-// 改变默认画笔颜色
+/// 改变默认画笔颜色
 - (void)changePrimaryColorHex:(NSString *)colorHex;
 
 
+#if !CHSingle_WhiteBoard
 /// 发送信令清除白板视频标注
 - (void)clearVideoMark;
+#endif
 
 
 #pragma -
 #pragma mark 小黑板
 
 #if WBHaveSmallBalckBoard
-///小黑板时的画笔权限
+/// 小黑板时的画笔权限
 - (BOOL)isSmallBoardCanDraw;
+
+/// 添加小黑板图片
+- (void)addSmallBoardImageWithData:(NSDictionary *)imageDic;
+
+#endif
+
+
+#if CHSingle_WhiteBoard
+
+/// checkRoom获取房间信息
+- (void)roomWhiteBoardOnCheckRoom:(nullable NSDictionary *)roomDic;
+
+/// 获取服务器地址
+- (void)roomWhiteBoardOnChangeServerAddrs:(NSDictionary *)serverDic;
+
+/// 获取房间文件列表
+- (void)roomWhiteBoardOnFileList:(NSArray <NSDictionary *> *)fileList;
+
+/// 进入房间
+- (void)roomWhiteBoardOnJoined;
+/// 重新进入房间
+- (void)roomWhiteBoardOnReJoined;
+
+/// 断开链接
+- (void)roomWhiteBoardOnDisconnect;
+
+/// pubMsg消息通知
+- (void)roomWhiteBoardOnRemotePubMsg:(NSDictionary *)messageDic;
+
+/// delMsg消息通知
+- (void)roomWhiteBoardOnRemoteDelMsg:(NSDictionary *)messageDic;
+
 #endif
 
 @end

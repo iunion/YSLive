@@ -34,7 +34,7 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onClientRoleChangedFrom:(CloudHubClientRole)oldRole to:(CloudHubClientRole)newRole;
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinedOfUid:(NSString * _Nonnull)uid properties:(NSString * _Nullable)properties isHistory:(BOOL)isHistory;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinedOfUid:(NSString * _Nonnull)uid properties:(NSString * _Nullable)properties isHistory:(BOOL)isHistory fromChannel:(NSString* _Nonnull)srcChannel;
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didOfflineOfUid:(NSString * _Nonnull)uid;
 
@@ -128,6 +128,10 @@
 #pragma mark Local Sound Effect Method
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onAudioEffectFinish:(int)soundId;
+
+#pragma mark Channel Media Relay Method
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine onChannel:(NSString* _Nonnull)channelID MediaRelayStateChanged:(CloudHubMediaRelayState)state error:(CloudHubMediaRelayError)error;
 
 #pragma mark Network Testing Method
 

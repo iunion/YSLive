@@ -39,32 +39,24 @@ static NSString *const CHWhiteBoard_domain_demoali = @"rddocdemo.roadofcloud.net
 #endif
 
 
-/// 白板服务器地址
-FOUNDATION_EXTERN NSString * const CHWhiteBoardGetServerAddrKey;
-/// 白板备份地址
-FOUNDATION_EXTERN NSString * const CHWhiteBoardGetServerAddrBackupKey;
-/// 白板web地址
-FOUNDATION_EXTERN NSString * const CHWhiteBoardGetWebAddrKey;
-
-
 #define CHWhiteBoardId_Header                   @"docModule_"
 static  NSString *const sWhiteboardID           = @"whiteboardID";
 #define CHDefaultWhiteBoardId                   @"default"
 
 /// 默认小班课白板背景颜色
-#define CHWhiteBoard_MainBackGroudColor         CHSkinWhiteDefineColor(@"WhiteBoardDrawBoardBgColor")
-#define CHWhiteBoard_MainBackDrawBoardBgColor   CHSkinWhiteDefineColor(@"WhiteBoardDrawBoardBgColor")
-#define CHWhiteBoard_BackGroudColor             CHSkinWhiteDefineColor(@"WhiteBoardBgColor")
+#define CHWhiteBoard_MainBackGroudColor         CHSkinWhiteDefineColor(@"WBBgColor")
+#define CHWhiteBoard_MainBackDrawBoardBgColor   CHSkinWhiteDefineColor(@"WBBgColor")
+#define CHWhiteBoard_BackGroudColor             CHSkinWhiteDefineColor(@"WBBgColor")
 
 /// 默认直播白板背景颜色
-#define CHWhiteBoard_LiveMainBackGroudColor         CHSkinWhiteDefineColor(@"LiveWhiteBoardBgColor")
-#define CHWhiteBoard_LiveMainBackDrawBoardBgColor   CHSkinWhiteDefineColor(@"LiveWhiteBoardDrawBoardBgColor")
-#define CHWhiteBoard_LiveBackGroudColor             CHSkinWhiteDefineColor(@"LiveWhiteBoardBgColor")
+#define CHWhiteBoard_LiveMainBackGroudColor         CHSkinWhiteDefineColor(@"Live_WhiteBoardBgColor")
+#define CHWhiteBoard_LiveMainBackDrawBoardBgColor   CHSkinWhiteDefineColor(@"Live_WhiteBoardDrawBoardBgColor")
+#define CHWhiteBoard_LiveBackGroudColor             CHSkinWhiteDefineColor(@"Live_WhiteBoardBgColor")
 
-#define CHWhiteBoard_TopBarBackGroudColor       CHSkinWhiteDefineColor(@"videoBackColor")
-#define CHWhiteBoard_BorderColor                [CHSkinWhiteDefineColor(@"videoBackColor") changeAlpha:0.8f]
-#define CHWhiteBoard_UnTopBarBackGroudColor     CHSkinWhiteDefineColor(@"whiteBoardTopbar_noCurrent")
-#define CHWhiteBoard_UnBorderColor              [CHSkinWhiteDefineColor(@"whiteBoardTopbar_noCurrent") changeAlpha:0.8f]
+#define CHWhiteBoard_TopBarBackGroudColor       CHSkinWhiteDefineColor(@"PlaceholderColor")
+#define CHWhiteBoard_BorderColor                [CHSkinWhiteDefineColor(@"PlaceholderColor") changeAlpha:0.8f]
+#define CHWhiteBoard_UnTopBarBackGroudColor     CHSkinWhiteDefineColor(@"Color2")
+#define CHWhiteBoard_UnBorderColor              [CHSkinWhiteDefineColor(@"Color2") changeAlpha:0.8f]
 
 
 #pragma - mark 信令
@@ -115,6 +107,7 @@ static  NSString *const sCHWBSignal_ExtendNewPptTriggerActionClick  = @"ExtendNe
 
 /// 单窗口位置、大小、最小化、最大化数据
 static  NSString *const sCHWBSignal_MoreWhiteboardState       = @"MoreWhiteboardState";
+/// 窗口层级排序
 static  NSString *const sCHWBSignal_MoreWhiteboardGlobalState = @"MoreWhiteboardGlobalState";
 
 
@@ -187,19 +180,34 @@ static  NSString *const sCHWBSignal_SmallRoomPrivate         = @"RoomPrivate";
 
 #pragma - mark Dictionary Key
 
-static NSString *const CHWhiteBoardDocProtocolKey = @"doc_protocol";
-static NSString *const CHWhiteBoardDocHostKey = @"doc_host";
-static NSString *const CHWhiteBoardDocPortKey = @"doc_port";
+/// api相关服务器设置
+FOUNDATION_EXTERN NSString *const CHWhiteBoardWebProtocolKey;
+/// host
+FOUNDATION_EXTERN NSString *const CHWhiteBoardWebHostKey;
+/// port
+FOUNDATION_EXTERN NSString *const CHWhiteBoardWebPortKey;
 
-static NSString *const CHWhiteBoardBackupDocProtocolKey = @"backup_doc_protocol";
-static NSString *const CHWhiteBoardBackupDocHostKey = @"backup_doc_host";
-static NSString *const CHWhiteBoardBackupDocPortKey = @"backup_doc_port";
+/// 课件相关服务器设置
+FOUNDATION_EXTERN NSString *const CHWhiteBoardDocProtocolKey;
+FOUNDATION_EXTERN NSString *const CHWhiteBoardDocHostKey;
+FOUNDATION_EXTERN NSString *const CHWhiteBoardDocPortKey;
 
-static NSString *const CHWhiteBoardBackupDocHostListKey = @"backup_doc_host_list";
+/// 备份服务器设置
+FOUNDATION_EXTERN NSString *const CHWhiteBoardBackupDocProtocolKey;
+FOUNDATION_EXTERN NSString *const CHWhiteBoardBackupDocHostKey;
+FOUNDATION_EXTERN NSString *const CHWhiteBoardBackupDocPortKey;
+
+FOUNDATION_EXTERN NSString *const CHWhiteBoardBackupDocHostListKey ;
+
+/// 是否后台播放
+FOUNDATION_EXTERN NSString *const CHWhiteBoardPlayBackKey;
+/// pdf解析精度
+FOUNDATION_EXTERN NSString *const CHWhiteBoardPDFLevelsKey;
+
 
 #pragma - mark NSNotificationCenter
 
-static NSString *const CHWhiteSendTextDrawIfChooseMouseNotification = @"CHWhiteSendTextDrawIfChooseMouseNotification";
+//static NSString *const CHWhiteSendTextDrawIfChooseMouseNotification = @"CHWhiteSendTextDrawIfChooseMouseNotification";
 
 
 #endif /* CHWhiteBoardDefines_h */

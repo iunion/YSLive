@@ -366,3 +366,37 @@ __attribute__((visibility("default"))) @interface CloudHubLastmileProbeResult : 
 /** The round-trip delay time (ms). */
 @property (nonatomic, assign) unsigned int rtt;
 @end
+
+
+__attribute__((visibility("default"))) @interface CloudHubChannelMediaRelayInfo : NSObject
+/** For sourceInfo: The user ID to be relayed.
+    For destinationInfos: the user ID in the destination channel.
+ . */
+@property (nonatomic, strong) NSString * _Nullable uid;
+
+/** The source/destination channel id. */
+@property (nonatomic, strong) NSString * _Nullable channelID;
+
+/** The token to join destination channel. */
+@property (nonatomic, strong) NSString * _Nullable token;
+@end
+
+__attribute__((visibility("default"))) @interface CloudHubChannelMediaRelayConfig : NSObject
+
+/** Pointer to the information of the destination channel: ChannelMediaInfo.
+ * It contains the following members:
+ * - `channelID`: The name of the destination channel.
+ * - `uid`: ID of the broadcaster in the destination channel. The value ranges
+ * from 0 to (2<sup>32</sup>-1). To avoid UID conflicts, this `uid` must be
+ * different from any other UIDs in the destination channel. The default value
+ * is nil. which means the SDK generates a random UID.
+ * - `token`: The token for joining the destination channel. It is generated
+ * with the `channelName` and `uid` you set in `destInfos`.
+ *   - If you have not enabled the App Certificate, set this parameter as the
+ * default value `nil`, which means the SDK applies the App ID.
+ *   - If you have enabled the App Certificate, you must use the `token`
+ * generated with the `channelID` and `uid`.
+ */
+@property (nonatomic, strong) NSDictionary<NSString*, CloudHubChannelMediaRelayInfo*>* _Nonnull destinationInfos;
+
+@end

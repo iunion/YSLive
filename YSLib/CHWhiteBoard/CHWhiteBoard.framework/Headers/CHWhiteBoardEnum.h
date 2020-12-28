@@ -17,87 +17,73 @@ typedef NS_ENUM(NSUInteger, CHWhiteBordMediaType)
     CHWhiteBordMediaType_Audio
 };
 
-typedef NS_ENUM(NSInteger, CHEvent)
+#if CHSingle_WhiteBoard
+/// 白板课件类型
+typedef NS_ENUM(NSUInteger, CHWhiteBordFileProp)
 {
-    CHEventShowPage        = 0,    //切换文档
-    CHEventShapeAdd        = 2,    //增加画笔
-    CHEventShapeClean      = 5,    //清屏
-    CHEventShapeUndo       = 6,    //撤回
-    CHEventShapeRedo       = 7,    //重做
-    CHEventShowUserPage    = 10    //切换小黑板数据
+    /// 普通
+    CHWhiteBordFileProp_GeneralFile = 0,
+    /// 动态Ppt
+    CHWhiteBordFileProp_DynamicPPT,
+    CHWhiteBordFileProp_NewDynamicPPT,
+    /// H5
+    CHWhiteBordFileProp_H5Document = 3
 };
+#endif
 
-typedef NS_ENUM(NSInteger, CHNativeToolType)
-{
-    CHNativeToolTypeMouse   = 100,
-    CHNativeToolTypeLine    = 10,
-    CHNativeToolTypeText    = 20,
-    CHNativeToolTypeShape   = 30,
-    CHNativeToolTypeEraser  = 50,
-};
-
-typedef NS_ENUM(NSInteger, CHToolSelectButtonIndex)
-{
-    Draw_Pen            = 10,       //画笔
-    Draw_MarkPen        = 11,       //记号笔
-    Draw_Line           = 12,       //直线
-    Draw_Arrow          = 13,       //带箭头的直线
-    
-    Draw_EmptyRect      = 30,       //空心矩形
-    Draw_SolidRect      = 31,       //实心矩形
-    Draw_EmptyCircle    = 32,       //空心圆
-    Draw_SolidCircle    = 33,       //实心圆
-    
-    Draw_Text_Size      = 20, //文字
-    Draw_Text_Color     = 21,
-    
-    Draw_Edite_Select   = 40,//
-    Draw_Edite_Delete   = 41,//
-    Draw_Edite_Move     = 42,
-    Draw_Edite_Clear    = 43,//
-    
-    Draw_Eraser         = 50,       //橡皮擦
-    
-    
-    Draw_Undo           = 26,       //撤销
-    Draw_Redo           = 27,       //重做
-};
-
+/// 操作模式
 typedef NS_ENUM(NSUInteger, CHWorkMode)
 {
-    CHWorkModeViewer = 0,       //只能观看 不能标记 隐藏工具条
-    CHWorkModeControllor = 1,   //操作状态
+    CHWorkModeViewer        = 0,    // 只能观看 不能标记 隐藏工具条
+    CHWorkModeControllor    = 1,    // 操作状态
 };
 
-typedef NS_ENUM(NSInteger, CHDrawType)
+/// 信令事件
+typedef NS_ENUM(NSInteger, CHDrawEvent)
 {
-    CHDrawTypePen               = 10,    //钢笔
-    CHDrawTypeMarkPen           = 11,    //记号笔
-    CHDrawTypeLine              = 12,    //直线
-    CHDrawTypeArrowLine         = 13,    //箭头
-    
-    CHDrawTypeTextMS            = 20,    //微软雅黑字
-    CHDrawTypeTextSong          = 21,    //宋体字
-    CHDrawTypeTextArial         = 22,    //Arial字
-    
-    CHDrawTypeEmptyRectangle    = 30,    //空心矩形
-    CHDrawTypeFilledRectangle   = 31,    //实心矩形
-    CHDrawTypeEmptyEllipse      = 32,    //空心圆
-    CHDrawTypeFilledEllipse     = 33,    //实心圆
-    
-    CHDrawTypeEraser            = 50,    //橡皮擦
-    
-    CHDrawTypeClear             = 60,    //清除画板内容
+    CHDrawEventUnknown          = 0,    // 切换文档
+    CHDrawEventShowPage         = 1,    // 切换文档
+    CHDrawEventShapeAdd         = 2,    // 增加画笔
+    CHDrawEventShapeClean       = 5,    // 清屏
+    CHDrawEventShapeUndo        = 6,    // 撤回
+    CHDrawEventShapeRedo        = 7,    // 重做
+    CHDrawEventShowUserPage     = 10    // 切换小黑板数据
 };
 
+/// 画笔工具类型
 typedef NS_ENUM(NSInteger, CHBrushToolType)
 {
-    CHBrushToolTypeMouse   = 100,//箭头
-    CHBrushToolTypeLine    = 10, //划线类型
-    CHBrushToolTypeText    = 20, //文字类型
-    CHBrushToolTypeShape   = 30, //框类型
-    CHBrushToolTypeEraser  = 50, //橡皮擦
-    CHBrushToolTypeClear  = 60,  //删除
+    CHBrushToolTypeMouse    = 100,  // 箭头
+    CHBrushToolTypeLine     = 10,   // 划线类型
+    CHBrushToolTypeText     = 20,   // 文字类型
+    CHBrushToolTypeShape    = 30,   // 框类型
+    CHBrushToolTypeEraser   = 50,   // 橡皮擦
+    CHBrushToolTypeClear    = 60,   // 删除
+    CHBrushToolTypeUndo     = 70,   // 撤退
+    CHBrushToolTypeRedo     = 80    // 前进
+};
+
+/// 画笔绘图类型
+typedef NS_ENUM(NSInteger, CHDrawType)
+{
+    CHDrawTypePen               = 10,   // 钢笔
+    CHDrawTypeMarkPen           = 11,   // 记号笔
+    CHDrawTypeLine              = 12,   // 直线
+    CHDrawTypeArrowLine         = 13,   // 带箭头直线
+    
+    CHDrawTypeText              = 20,   // 文本
+    
+    CHDrawTypeEmptyRectangle    = 30,   // 空心矩形
+    CHDrawTypeFilledRectangle   = 31,   // 实心矩形
+    CHDrawTypeEmptyEllipse      = 32,   // 空心圆
+    CHDrawTypeFilledEllipse     = 33,   // 实心圆
+    
+    CHDrawTypeEraser            = 50,   // 橡皮擦
+    
+    CHDrawTypeClear             = 60,   // 清除画板内容
+    
+    CHDrawTypeUndo              = 70,   // 撤退
+    CHDrawTypeRedo              = 80,   // 重做
 };
 
 typedef NS_ENUM(NSUInteger, CHWhiteBoardErrorCode)
@@ -108,12 +94,12 @@ typedef NS_ENUM(NSUInteger, CHWhiteBoardErrorCode)
 
 typedef NS_ENUM(NSUInteger, CHSmallBoardStageState)
 {
-    CHSmallBoardStage_none = 0,//非小黑板状态
-    CHSmallBoardStage_prepare,//准备阶段 (老师创建了白板还没有分发的时候)
-    CHSmallBoardStage_answer,//答题阶段 （老师点了分发，学生在答题阶段）
-    CHSmallBoardStage_comment//讲评极端 （老师回收了画板，学生同步观看老师的状态）
+    CHSmallBoardStage_none = 0, // 非小黑板状态
+    CHSmallBoardStage_prepare,  // 准备阶段 (老师创建了白板还没有分发的时候)
+    CHSmallBoardStage_answer,   // 答题阶段 （老师点了分发，学生在答题阶段）
+    CHSmallBoardStage_comment   // 讲评阶段 （老师回收了画板，学生同步观看老师的状态）
     
-    //再次分发又回到2 状态 ，关闭回到 0状态
+    // 再次分发又回到2 状态 ，关闭回到 0状态
 };
 
 

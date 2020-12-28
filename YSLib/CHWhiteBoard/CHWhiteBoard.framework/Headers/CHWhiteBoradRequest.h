@@ -4,8 +4,7 @@
 //
 //  Created by jiang deng on 2020/9/16.
 //
-
-#import <BMKit/BMKit.h>
+#import <Foundation/Foundation.h>
 
 #define CHWhiteBoradRequestErrorDomain @"CHWhiteBoradRequestErrorDomain"
 
@@ -15,9 +14,12 @@ typedef void(^CHWhiteBoradRequestComplete)(id _Nullable response, NSError *_Null
 typedef void(^CHWhiteBoradRequestSucess)(id _Nonnull response, NSInteger statusCode);
 typedef void(^CHWhiteBoradRequestFail)(NSError *_Nonnull error, NSInteger statusCode);
 
-@interface CHWhiteBoradRequest : BMHttpRequest
+@interface CHWhiteBoradRequest : NSObject
+
+- (void)destroy;
 
 - (NSURLSessionDataTask *)getRoomFileListWithURL:(NSString * _Nonnull)url params:(NSDictionary * _Nonnull)params complete:(CHWhiteBoradRequestComplete _Nullable)complete;
+- (NSURLSessionDataTask *)deleteCoursewareWithURL:(NSString *)url roomId:(NSString *)roomId fileId:(NSString *)fileId complete:(CHWhiteBoradRequestComplete)complete;
 
 @end
 

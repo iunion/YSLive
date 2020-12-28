@@ -7,14 +7,27 @@
 #ifndef CHWhiteBoardMacro_h
 #define CHWhiteBoardMacro_h
 
-#ifndef __OPTIMIZE__
-#define NSLog(...) NSLog(__VA_ARGS__)
+//#ifndef __OPTIMIZE__
+//#define NSLog(...) NSLog(__VA_ARGS__)
+//#else
+//#define NSLog(...)
+//#endif
+
+#if CHSingle_WhiteBoard
+
+/// 小黑板功能
+#define WBHaveSmallBalckBoard                          0
+#define WBLocalUser                             [CloudHubWhiteBoardKit sharedInstance]
+#define WBManager                               [CloudHubWhiteBoardKit sharedInstance]
+
 #else
-#define NSLog(...)
-#endif
 
 /// 小黑板功能
 #define WBHaveSmallBalckBoard                          1
+#define WBLocalUser                             [CHSessionManager sharedInstance].localUser
+#define WBManager                               [CHSessionManager sharedInstance]
+
+#endif
 
 
 #define CHWBBUNDLE_NAME     @"CHWhiteBoardResources.bundle"
@@ -29,16 +42,6 @@
 #define CHWHITEBOARD_MINZOOMSCALE   (1.0f)
 
 #define CHTopBarHeight 30.0
-
-/// 网络协议 http or https
-extern NSString *const CHWhiteBoardWebProtocolKey;
-/// host
-extern NSString *const CHWhiteBoardWebHostKey;
-/// port
-extern NSString *const CHWhiteBoardWebPortKey;
-extern NSString *const CHWhiteBoardPlayBackKey;
-/// pdf
-extern NSString *const CHWhiteBoardPDFLevelsKey;
 
 #pragma mark - 1.读取本地index  0.读取指定   ssssssssss
 #define IS_LOAD_LOCAL_INDEX 1

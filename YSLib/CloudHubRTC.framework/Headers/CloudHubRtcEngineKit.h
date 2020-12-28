@@ -210,6 +210,14 @@ __attribute__((visibility("default"))) @interface CloudHubRtcEngineKit : NSObjec
 
 - (int) setLiveTranscoding:(CloudHubLiveTranscoding* _Nonnull)transcoding;
 
+#pragma mark Channel Media Relay
+- (int) startChannelMediaRelay:(CloudHubChannelMediaRelayConfig* _Nonnull)config;
+
+- (int) updateChannelMediaRelay:(CloudHubChannelMediaRelayConfig* _Nonnull)config;
+
+- (int) stopChannelMediaRelay;
+
+
 #pragma mark Network Testing Methods
 - (int)startEchoTest:(int)intervalInSeconds;
 

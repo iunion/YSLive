@@ -21,6 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
  @param shapeDic 涂鸦数据
  */
 - (void)addSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeDic:(NSDictionary *)shapeDic;
+- (void)deleteSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeDic:(NSDictionary *)shapeDic;
+
+/// 清除，clear发送信令
+- (void)clearSharpWithFileID:(NSString *)fileid shapeID:(NSString *)shapeID shapeDic:(NSDictionary *)shapeDic;
+
+- (void)changeUndoRedoState:(NSString *)fileid currentpage:(NSUInteger)currentPage canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo canErase:(BOOL)canErase canClean:(BOOL)canClean;
 
 @end
 
@@ -32,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WBDrawView *rtDrawView;                     //实时绘制层
 @property (nonatomic, strong, readonly) NSString *fileid;               //涂鸦所属文件id rtDrawView的fileId
 @property (nonatomic, assign, readonly) NSUInteger pageid;              //涂鸦所属文件页码
-@property (nonatomic, assign) float iFontScale;                         //涂鸦比例，当前涂鸦frame.width / 960
+//@property (nonatomic, assign) float iFontScale;                         //涂鸦比例，当前涂鸦frame.width / 960
 
 - (instancetype)initWithDelegate:(nullable id<CHDrawViewDelegate>)delegate;
 
@@ -50,9 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param hexColor 16进制画笔颜色
  @param progress 画笔粗细，0.05f~1.0f
  */
-- (void)setDrawType:(CHDrawType)drawType
+- (void)changeDrawType:(CHDrawType)drawType
            hexColor:(NSString *)hexColor
            progress:(CGFloat)progress;
+- (void)changeDrawHexColor:(NSString *)hexColor progress:(CGFloat)progress;
 
 
 /**
@@ -73,23 +80,25 @@ NS_ASSUME_NONNULL_BEGIN
  @param data 涂鸦数据字典
  @param refresh 是否立即刷新
  */
-- (void)addDrawData:(NSDictionary *)data
- refreshImmediately:(BOOL)refresh;
+- (void)addDrawData:(NSDictionary *)data authorUserId:(NSString *)userId seq:(NSUInteger)seq isRedo:(BOOL)isRedo isFromMyself:(BOOL)isFromMyself refreshImmediately:(BOOL)refresh;
 
+
+- (void)sendUndoRedoState;
 
 /**
- 撤销一笔涂鸦
+ 收到撤销一笔涂鸦
  */
-- (void)undoDraw;
-
+- (void)handleUndoDrawWithShapeId:(NSString *)shapeId;
+- (void)handleUndoDrawWithClearId:(NSString *)clearId;
 
 /**
- 清空涂鸦
+ 收到清空涂鸦
  
  @param clearID 清空id
  */
-- (void)clearDraw:(NSString *)clearID;
-- (void)clearDrawWithMsg;
+- (void)handleClearDrawWithClearID:(NSString *)clearID authorUserId:(NSString *)userId seq:(NSUInteger)seq toAuthorUserId:(NSString *)toAuthorUserId isRedo:(BOOL)isRedo isFromMyself:(BOOL)isFromMyself;
+
+/// 发送清除视频标注数据
 - (void)clearDrawVideoMarkWithMsg;
 
 

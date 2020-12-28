@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, CloudHubErrorCode) {
      The uid is mandatory, and users must set the same uid as the one set in the [joinChannelByToken]([CloudHubRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.
      */
     CloudHubErrorCodeInvalidToken = 110,
-    /** 111: The Internet connection is interrupted. This applies to the CloudHub Web SDK only. */
+    /** 113: Not in channel. */
     CloudHubErrorCodeNotInChannel = 113,
     
     /** 501: The local user is currently not authorized to publish steam. */
@@ -535,4 +535,63 @@ typedef NS_ENUM(NSInteger, CloudHubPermissionType) {
    * other user's audio/video or not.
    */
   CloudHub_PERMISSION_TYPE_SUBSCRIBE = 2,
+};
+
+/** The state code in channel media relay. */
+typedef NS_ENUM(NSInteger, CloudHubMediaRelayState) {
+  /** 0: The SDK is initializing.
+   */
+  CloudHub_RELAY_STATE_IDLE = 0,
+  /** 1: The SDK tries to relay the media stream to the destination channel.
+   */
+  CloudHub_RELAY_STATE_CONNECTING = 1,
+  /** 2: The SDK successfully relays the media stream to the destination
+   * channel.
+   */
+  CloudHub_RELAY_STATE_RUNNING = 2,
+  /** 3: A failure occurs. See the details in code.
+   */
+  CloudHub_RELAY_STATE_FAILURE = 3,
+};
+
+/** The error code in channel media relay. */
+typedef NS_ENUM(NSInteger, CloudHubMediaRelayError) {
+  /** 0: The state is normal.
+   */
+  CloudHub_RELAY_OK = 0,
+  /** 1: An error occurs in the server response.
+   */
+  CloudHub_RELAY_ERROR_SERVER_ERROR_RESPONSE = 1,
+  /** 2: No server response. You can call "leaveChannel" method to leave the channel.
+   */
+  CloudHub_RELAY_ERROR_SERVER_NO_RESPONSE = 2,
+  /** 3: The SDK fails to access the service, probably due to limited
+   * resources of the server.
+   */
+  CloudHub_RELAY_ERROR_NO_RESOURCE_AVAILABLE = 3,
+  /** 4: Fails to send the relay request.
+   */
+  CloudHub_RELAY_ERROR_FAILED_JOIN_SRC = 4,
+  /** 5: Fails to accept the relay request.
+   */
+  CloudHub_RELAY_ERROR_FAILED_JOIN_DEST = 5,
+  /** 6: The server fails to receive the media stream.
+   */
+  CloudHub_RELAY_ERROR_FAILED_PACKET_RECEIVED_FROM_SRC = 6,
+  /** 7: The server fails to send the media stream.
+   */
+  CloudHub_RELAY_ERROR_FAILED_PACKET_SENT_TO_DEST = 7,
+  /** 8: The SDK disconnects from the server due to poor network
+   * connections. You can call "leaveChannel" method to leave the channel.
+   */
+  CloudHub_RELAY_ERROR_SERVER_CONNECTION_LOST = 8,
+  /** 9: An internal error occurs in the server.
+   */
+  CloudHub_RELAY_ERROR_INTERNAL_ERROR = 9,
+  /** 10: The token of the source channel has expired.
+   */
+  CloudHub_RELAY_ERROR_SRC_TOKEN_EXPIRED = 10,
+  /** 11: The token of the destination channel has expired.
+   */
+  CloudHub_RELAY_ERROR_DEST_TOKEN_EXPIRED = 11,
 };

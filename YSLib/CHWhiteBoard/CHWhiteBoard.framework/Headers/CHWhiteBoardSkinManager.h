@@ -13,17 +13,15 @@
 #define CHSkinWhiteElementColor(z , s) [[CHWhiteBoardSkinManager shareInstance] getElementColorWithName:(z) andKey:(s)]
 #define CHSkinWhiteElementImage(z , s) [[CHWhiteBoardSkinManager shareInstance] getElementImageWithName:(z) andKey:(s)]
 
-typedef NS_ENUM(NSUInteger, CHWhiteBoardSkinType)
-{
-    CHWhiteBoardSkinType_black,
-    CHWhiteBoardSkinType_original
-};
+//typedef NS_ENUM(NSUInteger, CHWhiteBoardSkinType)
+//{
+//    CHWhiteBoardSkinType_black,
+//    CHWhiteBoardSkinType_original
+//};
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CHWhiteBoardSkinManager : NSObject
-
-@property (nonatomic, assign) CHWhiteBoardSkinType skinType;
 
 + (instancetype)shareInstance;
 + (void)destroy;

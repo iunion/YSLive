@@ -65,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 媒体课件 独立SDK不支持
 @property (nonatomic, assign) BOOL isMedia;
 
+///是暖场视频
+@property (nonatomic, assign) BOOL isWarmVideo;
 
 + (instancetype)fileModelWithServerDic:(NSDictionary *)dic;
 - (void)updateWithServerDic:(NSDictionary *)dic;
