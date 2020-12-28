@@ -150,12 +150,12 @@
 //            [[NSRunLoop currentRunLoop] run];
 //        });
         
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        //dispatch_async(dispatch_get_global_queue(0, 0), ^{
             // 启动时钟
             NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(countDownTime:) userInfo:nil repeats:YES];
             self.timer = timer;
             [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-        });
+        //});
 
 //        NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
 //        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
