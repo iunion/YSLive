@@ -1943,7 +1943,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
-    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSMeetingResources.bundle"]];
+    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
     NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"trophy_tones.mp3"];
     
     if (!giftMp3Playing)
@@ -5025,7 +5025,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                if (timeInterval == 0)
                {
                    [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
-                   NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSMeetingResources.bundle"]];
+                   NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
                    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
                    if (filePath)
                    {
@@ -5057,7 +5057,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                if (timeInterval == 0)
                {
                    [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
-                   NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSMeetingResources.bundle"]];
+                   NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
                    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
                    if (filePath)
                    {
@@ -5093,7 +5093,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (timeInterval == 0)
         {
             [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
-            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSMeetingResources.bundle"]];
+            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
             NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
             if (filePath)
             {
@@ -5131,7 +5131,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (timeInterval == 0)
         {
             [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
-            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSMeetingResources.bundle"]];
+            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
             NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
             if (filePath)
             {

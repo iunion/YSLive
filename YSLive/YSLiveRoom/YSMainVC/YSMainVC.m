@@ -2159,7 +2159,7 @@
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
-    NSString *warmVideoUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
+    NSString *warmVideoUrl = [self.liveManager.warmDict bm_stringTrimForKey:@"swfpath"];
 
     if ([warmVideoUrl bm_isNotEmpty])
     {
