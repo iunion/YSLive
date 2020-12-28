@@ -17,6 +17,12 @@
 		0464995025997623005EB09F /* YSSkinMiddleRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464994E25997623005EB09F /* YSSkinMiddleRsource.bundle */; };
 		0464CE972477CD35001532A3 /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */; };
 		0464CE9E247B563C001532A3 /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */; };
+		0464E95E2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */; };
+		0464E95F2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */; };
+		0464E9602599D45600B2F490 /* CHWBSkinLight.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */; };
+		0464E9612599D45600B2F490 /* CHWBSkinLight.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */; };
+		0464E9622599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */; };
+		0464E9632599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */; };
 		046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
@@ -55,7 +61,6 @@
 		26E4716E2518A50A00CE1776 /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77392511B59F00A3830C /* CHWhiteBoard.framework */; };
 		26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */; };
 		26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */; };
-		26E471772518A51100CE1776 /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77382511B59F00A3830C /* CHWhiteBoardSkin.bundle */; };
 		26E4717E2518A65D00CE1776 /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77012510681800A3830C /* CHSession.framework */; };
 		26E4718C2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
 		26E4718D2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
@@ -373,7 +378,6 @@
 		874B77022510681800A3830C /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77012510681800A3830C /* CHSession.framework */; };
 		874B773A2511B5A000A3830C /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */; };
 		874B773B2511B5A000A3830C /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */; };
-		874B773C2511B5A000A3830C /* CHWhiteBoardSkin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77382511B59F00A3830C /* CHWhiteBoardSkin.bundle */; };
 		874B773D2511B5A000A3830C /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77392511B59F00A3830C /* CHWhiteBoard.framework */; };
 		874E4F6623B36A1500086B01 /* YSSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6523B36A1500086B01 /* YSSlider.m */; };
 		874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6823B36F0300086B01 /* LMJDropdownMenu.m */; };
@@ -801,6 +805,9 @@
 		0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinDarkRsource.bundle; sourceTree = "<group>"; };
 		0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveSkinManager.h; sourceTree = "<group>"; };
 		0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveSkinManager.m; sourceTree = "<group>"; };
+		0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinDark.bundle; sourceTree = "<group>"; };
+		0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinLight.bundle; sourceTree = "<group>"; };
+		0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinMiddle.bundle; sourceTree = "<group>"; };
 		046E683B2373CF73001CBB27 /* SCTextMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTextMessageCell.h; sourceTree = "<group>"; };
 		046E683C2373CF73001CBB27 /* SCTextMessageCell.m */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
 		046E683F2373E152001CBB27 /* SCChatToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCChatToolView.h; sourceTree = "<group>"; };
@@ -1032,7 +1039,6 @@
 		874B77012510681800A3830C /* CHSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHSession.framework; sourceTree = "<group>"; };
 		874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
 		874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
-		874B77382511B59F00A3830C /* CHWhiteBoardSkin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardSkin.bundle; sourceTree = "<group>"; };
 		874B77392511B59F00A3830C /* CHWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoard.framework; sourceTree = "<group>"; };
 		874E4F6423B36A1500086B01 /* YSSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSlider.h; sourceTree = "<group>"; };
 		874E4F6523B36A1500086B01 /* YSSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSlider.m; sourceTree = "<group>"; };
@@ -1601,9 +1607,9 @@
 			children = (
 				0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */,
 				0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */,
+				0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */,
 				0464994E25997623005EB09F /* YSSkinMiddleRsource.bundle */,
 				048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */,
-				0464CE962477CD35001532A3 /* YSSkinDarkRsource.bundle */,
 			);
 			path = YSSkinManager;
 			sourceTree = "<group>";
@@ -2178,10 +2184,12 @@
 		874B77352511B59F00A3830C /* CHWhiteBoard */ = {
 			isa = PBXGroup;
 			children = (
+				0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */,
+				0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */,
+				0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */,
 				874B77392511B59F00A3830C /* CHWhiteBoard.framework */,
 				874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */,
 				874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */,
-				874B77382511B59F00A3830C /* CHWhiteBoardSkin.bundle */,
 			);
 			path = CHWhiteBoard;
 			sourceTree = "<group>";
@@ -3487,6 +3495,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87133669237270F6006534A4 /* Assets.xcassets in Resources */,
+				0464E9602599D45600B2F490 /* CHWBSkinLight.bundle in Resources */,
 				874B773A2511B5A000A3830C /* CHWhiteBoardResources.bundle in Resources */,
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
@@ -3496,7 +3505,9 @@
 				045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */,
 				048C1F3D25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */,
 				87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */,
+				0464E95E2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */,
 				87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */,
+				0464E9622599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */,
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
 				8777C7CA23EC32F2002002BF /* YSClassInstructionCell.xib in Resources */,
 				871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */,
@@ -3509,7 +3520,6 @@
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
 				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
-				874B773C2511B5A000A3830C /* CHWhiteBoardSkin.bundle in Resources */,
 				87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3519,6 +3529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8709FF392485FEBC00CC8BEA /* YSSkinDarkRsource.bundle in Resources */,
+				0464E9612599D45600B2F490 /* CHWBSkinLight.bundle in Resources */,
 				8717E3382400DADC008C4CDA /* YSResources.bundle in Resources */,
 				8717E3392400DADC008C4CDA /* BMTestNetFlowCell.xib in Resources */,
 				8717E33A2400DADC008C4CDA /* BMDatePicker.nib in Resources */,
@@ -3528,7 +3539,9 @@
 				8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */,
 				048C1F3E25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */,
 				26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */,
+				0464E95F2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */,
 				26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */,
+				0464E9632599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
 				8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */,
 				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
@@ -3541,7 +3554,6 @@
 				8717E34A2400DADC008C4CDA /* YSLive.xcassets in Resources */,
 				8717E34B2400DADC008C4CDA /* testcolorpicker@2x.png in Resources */,
 				8717E34C2400DADC008C4CDA /* YSClassCell.xib in Resources */,
-				26E471772518A51100CE1776 /* CHWhiteBoardSkin.bundle in Resources */,
 				8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
