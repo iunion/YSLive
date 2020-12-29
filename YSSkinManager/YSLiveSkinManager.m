@@ -72,28 +72,7 @@ static YSLiveSkinManager *skinManager = nil;
     
     if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.roomDetailsType || ![self.plictDict bm_isNotEmpty])
     {
-        NSString *path = nil;
-        
-        if (classOrOnline == YSSkinClassOrOnline_class)
-        {
-            if (self.roomDetailsType == YSSkinDetailsType_dark)
-            {//深色背景
-                path = [[self getCurrentBundle] pathForResource:@"DarkColor" ofType:@"plist"];
-            }
-            else if (self.roomDetailsType == YSSkinDetailsType_middle)
-            {
-                path = [[self getCurrentBundle] pathForResource:@"MiddleColor" ofType:@"plist"];
-            }
-            else if (self.roomDetailsType == YSSkinDetailsType_light)
-            {
-                path = [[self getCurrentBundle] pathForResource:@"LightColor" ofType:@"plist"];
-            }            
-        }
-        else
-        {
-            //黑色背景
-            path = [[self getCurrentBundle] pathForResource:@"onlineBlackColor" ofType:@"plist"];
-        }
+        NSString *path = [[self getCurrentBundle] pathForResource:@"SkinSource" ofType:@"plist"];
                     
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
@@ -165,29 +144,8 @@ static YSLiveSkinManager *skinManager = nil;
 
 - (UIImage *)getBundleImageWithType:(YSSkinClassOrOnline)classOrOnline WithImageName:(NSString *)imageName
 {
-    NSString *imageFolder = nil;
-    
-    if (classOrOnline == YSSkinClassOrOnline_class)
-    {
-        if (self.roomDetailsType == YSSkinDetailsType_dark)
-        {//深色背景
-            imageFolder = @"YSSkinDarkColor";
-        }
-        else if (self.roomDetailsType == YSSkinDetailsType_middle)
-        {
-            imageFolder = @"YSSkinMiddleColor";
-        }
-        else if (self.roomDetailsType == YSSkinDetailsType_light)
-        {
-            imageFolder = @"YSSkinLightColor";
-        }
-    }
-    else
-    {
-        //黑色背景
-        imageFolder = @"onLineSkinBlack";
-    }
-        
+    NSString * imageFolder = @"YSSkinImageSource";
+
     UIImage *image = [[self getCurrentBundle] bm_imageWithAssetsName:imageFolder imageName:imageName];
     return image;
 }
