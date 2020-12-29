@@ -19,10 +19,6 @@
 		0464CE9E247B563C001532A3 /* YSLiveSkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */; };
 		0464E95E2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */; };
 		0464E95F2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */; };
-		0464E9602599D45600B2F490 /* CHWBSkinLight.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */; };
-		0464E9612599D45600B2F490 /* CHWBSkinLight.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */; };
-		0464E9622599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */; };
-		0464E9632599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */; };
 		046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
@@ -806,8 +802,6 @@
 		0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveSkinManager.h; sourceTree = "<group>"; };
 		0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveSkinManager.m; sourceTree = "<group>"; };
 		0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinDark.bundle; sourceTree = "<group>"; };
-		0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinLight.bundle; sourceTree = "<group>"; };
-		0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinMiddle.bundle; sourceTree = "<group>"; };
 		046E683B2373CF73001CBB27 /* SCTextMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTextMessageCell.h; sourceTree = "<group>"; };
 		046E683C2373CF73001CBB27 /* SCTextMessageCell.m */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
 		046E683F2373E152001CBB27 /* SCChatToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCChatToolView.h; sourceTree = "<group>"; };
@@ -2185,8 +2179,6 @@
 			isa = PBXGroup;
 			children = (
 				0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */,
-				0464E95C2599D45500B2F490 /* CHWBSkinLight.bundle */,
-				0464E95D2599D45600B2F490 /* CHWBSkinMiddle.bundle */,
 				874B77392511B59F00A3830C /* CHWhiteBoard.framework */,
 				874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */,
 				874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */,
@@ -3495,7 +3487,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				87133669237270F6006534A4 /* Assets.xcassets in Resources */,
-				0464E9602599D45600B2F490 /* CHWBSkinLight.bundle in Resources */,
 				874B773A2511B5A000A3830C /* CHWhiteBoardResources.bundle in Resources */,
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
@@ -3507,7 +3498,6 @@
 				87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */,
 				0464E95E2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */,
 				87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */,
-				0464E9622599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */,
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
 				8777C7CA23EC32F2002002BF /* YSClassInstructionCell.xib in Resources */,
 				871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */,
@@ -3529,7 +3519,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8709FF392485FEBC00CC8BEA /* YSSkinDarkRsource.bundle in Resources */,
-				0464E9612599D45600B2F490 /* CHWBSkinLight.bundle in Resources */,
 				8717E3382400DADC008C4CDA /* YSResources.bundle in Resources */,
 				8717E3392400DADC008C4CDA /* BMTestNetFlowCell.xib in Resources */,
 				8717E33A2400DADC008C4CDA /* BMDatePicker.nib in Resources */,
@@ -3541,7 +3530,6 @@
 				26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */,
 				0464E95F2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */,
 				26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */,
-				0464E9632599D45600B2F490 /* CHWBSkinMiddle.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
 				8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */,
 				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,

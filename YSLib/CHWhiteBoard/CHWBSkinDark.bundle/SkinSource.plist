@@ -22,9 +22,11 @@
 		<string>#DEEAFF</string>
 		<key>Color7</key>
 		<string>#313131</string>
+		<key>Color9</key>
+		<string>#40424A</string>
 		<key>PlaceholderColor</key>
 		<string>#6D7278</string>
-		<key>Live_WhiteBoardBgColor</key>
+		<key>Live_DefaultBgColor</key>
 		<string>#F1F6FF</string>
 		<key>Live_WhiteBoardDrawBoardBgColor</key>
 		<string>#DCE2F1</string>
