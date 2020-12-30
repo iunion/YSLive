@@ -26,7 +26,7 @@
 
 @implementation YSMainSuperVC
 
-
+#if 0
 - (NSMutableArray<SCVideoView *> *)teacherVideoViewArray
 {
     if (!_teacherVideoViewArray)
@@ -1285,5 +1285,5 @@
     BMLog(@"---jin current categoryOptions is :%@", tSString);
 }
 */
-
+#endif
 @end

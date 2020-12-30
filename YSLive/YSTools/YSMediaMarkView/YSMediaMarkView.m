@@ -11,9 +11,9 @@
 #import "YSLiveUtil.h"
 
 @interface YSMediaMarkView ()
-<
-    CHDrawViewDelegate
->
+//<
+//    CHDrawViewDelegate
+//>
 
 // 画板
 @property (nonatomic, strong) CHDrawView *drawView;
@@ -31,7 +31,7 @@
 @end
 
 @implementation YSMediaMarkView
-
+#if 0
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -222,4 +222,6 @@
         }
     }
 }
+#endif
+
 @end

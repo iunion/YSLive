@@ -26,8 +26,6 @@
 
 /// 白板管理
 @property (nonatomic, strong) CHWhiteBoardManager *whiteBoardManager;
-/// 白板视图whiteBord
-@property (nonatomic, weak) UIView *whiteBordView;
 
 /// 白板背景色
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
@@ -223,7 +221,6 @@
         CHWhiteBoardWebProtocolKey : YSLive_Http,
         CHWhiteBoardWebHostKey : host,
         CHWhiteBoardWebPortKey : @(port),
-        CHWhiteBoardPlayBackKey : @(NO),
         CHWhiteBoardPDFLevelsKey : @(2)
     };
     
@@ -246,16 +243,6 @@
     [self.whiteBoardManager registerCoursewareControlView:@"YSNewCoursewareControlView" viewSize:CGSizeMake(YSCoursewareControlView_Width, 50)];
 #endif
     
-    CGFloat whiteBordViewH = 500;
-    if (BMIS_IPHONE)
-    {
-        whiteBordViewH = 300;
-    }
-    
-    self.whiteBordView = (UIView *)[self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
-
-    }];
-
     [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
     [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
     [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
@@ -346,6 +333,11 @@
     _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
 
+- (UIView *)whiteBordView
+{
+    return self.whiteBoardManager.mainWhiteBoardView;
+}
+
 - (NSArray <CHFileModel *> *)fileList
 {
     return [self.whiteBoardManager.docmentList copy];
@@ -353,13 +345,14 @@
 
 - (CHFileModel *)currentFile
 {
-    return [self.whiteBoardManager currentFile];
+    return nil;
+    //return [self.whiteBoardManager currentFile];
 }
 
 - (CHFileModel *)getFileWithFileID:(NSString *)fileId;
 {
-    CHFileModel *file = [self.whiteBoardManager getDocumentWithFileID:fileId];
-    return file;
+    CHFileModel *fileModel = [self.whiteBoardManager getDocumentWithFileId:fileId];
+    return fileModel;
 }
 
 
@@ -380,6 +373,8 @@
 
 #pragma mark -
 #pragma mark CHWhiteBoardManagerDelegate
+
+
 - (void)changeUndoRedoState:(NSString *)fileid currentpage:(NSUInteger)currentPage canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo canErase:(BOOL)canErase canClean:(BOOL)canClean
 {
     if ([self.whiteBoardManager.currentFileId isEqualToString:fileid])

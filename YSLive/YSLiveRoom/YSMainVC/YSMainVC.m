@@ -226,7 +226,7 @@
 
 #pragma mark -
 #pragma mark ViewControllerLife
-
+#if 0
 - (instancetype)initWithWideScreen:(BOOL)isWideScreen whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
 {
     self = [super initWithWhiteBordView:whiteBordView];
@@ -2809,5 +2809,5 @@
     return _menuVc;
 }
 
-
+#endif
 @end

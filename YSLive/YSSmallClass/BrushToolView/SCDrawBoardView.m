@@ -63,7 +63,7 @@
 - (void)setup
 {
     self.drawType = CHDrawTypePen;
-    self.selectColor = [[YSLiveManager sharedInstance].whiteBoardManager getPrimaryColorHex];
+    self.selectColor = @"#ff0000";// [[YSLiveManager sharedInstance].whiteBoardManager getPrimaryColorHex];
     self.progressResult = 0.5f;
     BMWeakSelf
     self.backgroundColor = [UIColor clearColor];
@@ -259,13 +259,13 @@
     _brushToolType = brushToolType;
     
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
-    CHBrushToolsConfigs *config = [liveManager.whiteBoardManager getCurrentBrushToolConfig];
+    CHBrushToolsConfigs *config = nil;//[liveManager.whiteBoardManager getCurrentBrushToolConfig];
     
     CHDrawType drawType = config.drawType;
     // 工具颜色各自配置
     //NSString *colorHex = config.colorHex;
-    NSString *colorHex = [liveManager.whiteBoardManager getPrimaryColorHex];
-    CGFloat progress = config.size;
+    NSString *colorHex = nil;//[liveManager.whiteBoardManager getPrimaryColorHex];
+    CGFloat progress = 0.5;//config.size;
 
     switch (brushToolType)
     {

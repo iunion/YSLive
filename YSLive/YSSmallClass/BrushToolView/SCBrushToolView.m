@@ -89,7 +89,7 @@ static const CGFloat kBrushToolBtn_width_iPad = 30.0f ;
     /// 橡皮檫
     self.eraserBtn.selected = NO;
     
-    CHBrushToolType toolType = [[CHWhiteBoardManager sharedInstance] getCurrentBrushToolType];
+    CHBrushToolType toolType = CHBrushToolTypeMouse;//[[CHWhiteBoardManager sharedInstance] getCurrentBrushToolType];
     switch (toolType)
     {
         case CHBrushToolTypeMouse:

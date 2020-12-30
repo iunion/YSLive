@@ -280,6 +280,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 @implementation SCMainVC
 
+#if 0
 - (void)dealloc
 {
     [self.giftCountTask cancel];
@@ -2906,7 +2907,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }];
         self.chatToolView.emojBtn.selected = NO;
     }
-    else if (firstResponder.tag == CHWHITEBOARD_TEXTVIEWTAG)
+    else if (firstResponder.tag == CHWHITEBOARDKIT_TEXTVIEWTAG)
     {//调用白板键盘
         [UIView animateWithDuration:duration animations:^{
             self.chatToolView.bm_originY = self.emotionListView.bm_height = BMUI_SCREEN_HEIGHT;
@@ -5415,5 +5416,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+#endif
 
 @end
