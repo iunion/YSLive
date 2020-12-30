@@ -43,6 +43,9 @@
 #import "YSLiveUtil.h"
 #import "YSWebViewController.h"
 #import "YSTextView.h"
+
+#import "SSZipArchive.h"
+
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
@@ -1264,6 +1267,65 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return YES;
 }
 
+#pragma mark - 小班课获取皮肤类型并解压
+- (void)getTheSkinBundleWithSkinType:(YSSkinDetailsType)skinType
+{
+    NSString *key = [NSString stringWithFormat:@"%ld",skinType];
+    
+    NSString *bundlePath = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    
+    if ([bundlePath bm_isNotEmpty])
+    {
+        NSBundle *bundle = [[NSBundle alloc] initWithPath:bundlePath];
+        [YSLiveSkinManager shareInstance].skinBundle = bundle;
+        return;
+    }
+    
+    BMWeakSelf
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
+    
+    NSMutableURLRequest *request = [YSLiveApiRequest getSkinColorWithType:skinType];
+    request.timeoutInterval = 30.0f;
+    
+    if (request)
+    {
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
+            @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
+            @"text/xml"
+        ]];
+        
+        NSURLSessionDataTask *task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+            
+            NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+            NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
+            return [NSURL fileURLWithPath:path];
+        } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+            
+            if ([filePath bm_isNotEmpty] && [[NSFileManager defaultManager]fileExistsAtPath:[filePath path]])
+            {
+                NSString *name = [filePath.path lastPathComponent];
+                
+                NSString *documenPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+                
+                [SSZipArchive unzipFileAtPath:filePath.path toDestination:documenPath progressHandler:nil completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
+                                 
+                    //根据路径取bundle
+                    NSString *pathString = [path stringByAppendingPathComponent:name];
+                    NSBundle *bundle = [[NSBundle alloc] initWithPath:pathString];
+                    
+                    [YSLiveSkinManager shareInstance].skinBundle = bundle;
+                    [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = bundle;
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:pathString forKey:key];
+                    
+                }];
+            }
+        }];
+        
+        [task resume];
+    }
+}
+
 #pragma mark - 检查房间类型
 - (void)checkRoomType
 {
@@ -1376,6 +1438,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
                         [weakSelf.view endEditing:YES];
                         weakSelf.passwordTextField.inputTextField.text = nil;
+                        
+                        //是小班课就获取皮肤类型
+                        [self getTheSkinBundleWithSkinType:[YSLiveManager sharedInstance].roomModel.roomDetailsType];
+                        
                         return;
                     // 直播
                     case 4:
@@ -2058,9 +2124,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     if (isSmallClass)
     {
-        //        [YSLiveSkinManager shareInstance].roomDetailsType = [YSLiveManager sharedInstance].roomModel.roomDetailsType;
-        [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_middle;
-        
+                [YSLiveSkinManager shareInstance].roomDetailsType = [YSLiveManager sharedInstance].roomModel.roomDetailsType;
+//        [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_middle;
+                
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
         CHRoomUserType roomusertype = liveManager.roomModel.roomUserType;

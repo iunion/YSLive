@@ -15,8 +15,6 @@ static YSLiveSkinManager *skinManager = nil;
 
 @interface YSLiveSkinManager ()
 
-
-
 @property (nonatomic, assign) YSSkinDetailsType lastSkinType;
 
 @property (nonatomic, assign) YSSkinClassOrOnline lastClassOrOnline;
@@ -64,6 +62,33 @@ static YSLiveSkinManager *skinManager = nil;
     
     return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
 }
+
+/*
+///当前调用的皮肤bundle
+- (NSBundle*)getCurrentBundle
+{
+    if (self.classOrOnline == YSSkinClassOrOnline_online)
+    {
+        NSString *skinBundleName = @"YSOnlineSchool.bundle";
+        
+        return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
+    }
+    else
+    {
+        
+        if (self.roomDetailsType == YSSkinDetailsType_dark || ![self.skinBundle bm_isNotEmpty])
+        {
+            NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
+            return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
+            
+        }
+        else
+        {
+            return self.skinBundle;
+        }
+    }
+}
+*/
 
 
 /// 获取plist文件中的数据

@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)YSSkinClassOrOnline classOrOnline;
 
+///换皮肤资源bundle
+@property (nonatomic, strong)NSBundle *skinBundle;
+
+
 + (instancetype)shareInstance;
 
 - (UIColor *)getDefaultColorWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
