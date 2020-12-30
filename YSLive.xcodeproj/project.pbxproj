@@ -22,6 +22,27 @@
 		046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
+		0487B1EB259C5C900010B721 /* mz_strm_os_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1C9259C5C900010B721 /* mz_strm_os_posix.c */; };
+		0487B1EC259C5C900010B721 /* mz_strm_pkcrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1CA259C5C900010B721 /* mz_strm_pkcrypt.c */; };
+		0487B1ED259C5C900010B721 /* mz_strm_zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1CD259C5C900010B721 /* mz_strm_zlib.c */; };
+		0487B1EE259C5C900010B721 /* mz_zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1CE259C5C900010B721 /* mz_zip.c */; };
+		0487B1EF259C5C900010B721 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0487B1D0259C5C900010B721 /* LICENSE */; };
+		0487B1F0259C5C900010B721 /* mz_zip_rw.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1D1259C5C900010B721 /* mz_zip_rw.c */; };
+		0487B1F1259C5C900010B721 /* mz_crypt_apple.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1D4259C5C900010B721 /* mz_crypt_apple.c */; };
+		0487B1F2259C5C900010B721 /* mz_strm_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1D6259C5C900010B721 /* mz_strm_mem.c */; };
+		0487B1F3259C5C900010B721 /* mz_crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1D7259C5C900010B721 /* mz_crypt.c */; };
+		0487B1F4259C5C900010B721 /* mz_strm_wzaes.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1D8259C5C900010B721 /* mz_strm_wzaes.c */; };
+		0487B1F5259C5C900010B721 /* mz_compat.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1DA259C5C900010B721 /* mz_compat.c */; };
+		0487B1F6259C5C900010B721 /* mz_os.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1DD259C5C900010B721 /* mz_os.c */; };
+		0487B1F7259C5C900010B721 /* mz_os_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1DF259C5C900010B721 /* mz_os_posix.c */; };
+		0487B1F8259C5C900010B721 /* mz_strm_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1E1259C5C900010B721 /* mz_strm_buf.c */; };
+		0487B1F9259C5C900010B721 /* mz_strm_split.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1E2259C5C900010B721 /* mz_strm_split.c */; };
+		0487B1FA259C5C900010B721 /* mz_strm.c in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1E5259C5C900010B721 /* mz_strm.c */; };
+		0487B1FB259C5C900010B721 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487B1E9259C5C900010B721 /* SSZipArchive.m */; };
+		0487B1FD259C5D5B0010B721 /* SSZipArchive.h in Resources */ = {isa = PBXBuildFile; fileRef = 0487B1E7259C5C900010B721 /* SSZipArchive.h */; };
+		0487B1FE259C5D610010B721 /* SSZipCommon.h in Resources */ = {isa = PBXBuildFile; fileRef = 0487B1E8259C5C900010B721 /* SSZipCommon.h */; };
+		0487B27D259C60670010B721 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27C259C60670010B721 /* libz.tbd */; };
+		0487B27F259C60720010B721 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27E259C60720010B721 /* libiconv.tbd */; };
 		048C1F3D25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */; };
 		048C1F3E25947C73009F5FE6 /* YSSkinLightRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
@@ -808,6 +829,42 @@
 		046E68402373E152001CBB27 /* SCChatToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCChatToolView.m; sourceTree = "<group>"; };
 		047F07AD25779BEF00D64265 /* YSDefaultLayoutPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSDefaultLayoutPopView.h; sourceTree = "<group>"; };
 		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
+		0487B1C7259C5C900010B721 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		0487B1C9259C5C900010B721 /* mz_strm_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_os_posix.c; sourceTree = "<group>"; };
+		0487B1CA259C5C900010B721 /* mz_strm_pkcrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_pkcrypt.c; sourceTree = "<group>"; };
+		0487B1CB259C5C900010B721 /* mz_strm_wzaes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_wzaes.h; sourceTree = "<group>"; };
+		0487B1CC259C5C900010B721 /* mz_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_compat.h; sourceTree = "<group>"; };
+		0487B1CD259C5C900010B721 /* mz_strm_zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_zlib.c; sourceTree = "<group>"; };
+		0487B1CE259C5C900010B721 /* mz_zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_zip.c; sourceTree = "<group>"; };
+		0487B1CF259C5C900010B721 /* mz_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_os.h; sourceTree = "<group>"; };
+		0487B1D0259C5C900010B721 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		0487B1D1259C5C900010B721 /* mz_zip_rw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_zip_rw.c; sourceTree = "<group>"; };
+		0487B1D2259C5C900010B721 /* mz_strm_split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_split.h; sourceTree = "<group>"; };
+		0487B1D3259C5C900010B721 /* mz_strm_buf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_buf.h; sourceTree = "<group>"; };
+		0487B1D4259C5C900010B721 /* mz_crypt_apple.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_crypt_apple.c; sourceTree = "<group>"; };
+		0487B1D5259C5C900010B721 /* mz_strm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm.h; sourceTree = "<group>"; };
+		0487B1D6259C5C900010B721 /* mz_strm_mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_mem.c; sourceTree = "<group>"; };
+		0487B1D7259C5C900010B721 /* mz_crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_crypt.c; sourceTree = "<group>"; };
+		0487B1D8259C5C900010B721 /* mz_strm_wzaes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_wzaes.c; sourceTree = "<group>"; };
+		0487B1D9259C5C900010B721 /* mz_strm_zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_zlib.h; sourceTree = "<group>"; };
+		0487B1DA259C5C900010B721 /* mz_compat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_compat.c; sourceTree = "<group>"; };
+		0487B1DB259C5C900010B721 /* mz_strm_pkcrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_pkcrypt.h; sourceTree = "<group>"; };
+		0487B1DC259C5C900010B721 /* mz_zip_rw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_zip_rw.h; sourceTree = "<group>"; };
+		0487B1DD259C5C900010B721 /* mz_os.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_os.c; sourceTree = "<group>"; };
+		0487B1DE259C5C900010B721 /* mz_zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_zip.h; sourceTree = "<group>"; };
+		0487B1DF259C5C900010B721 /* mz_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_os_posix.c; sourceTree = "<group>"; };
+		0487B1E0259C5C900010B721 /* mz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz.h; sourceTree = "<group>"; };
+		0487B1E1259C5C900010B721 /* mz_strm_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_buf.c; sourceTree = "<group>"; };
+		0487B1E2259C5C900010B721 /* mz_strm_split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_split.c; sourceTree = "<group>"; };
+		0487B1E3259C5C900010B721 /* mz_crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_crypt.h; sourceTree = "<group>"; };
+		0487B1E4259C5C900010B721 /* mz_strm_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_mem.h; sourceTree = "<group>"; };
+		0487B1E5259C5C900010B721 /* mz_strm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm.c; sourceTree = "<group>"; };
+		0487B1E6259C5C900010B721 /* mz_strm_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_os.h; sourceTree = "<group>"; };
+		0487B1E7259C5C900010B721 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		0487B1E8259C5C900010B721 /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
+		0487B1E9259C5C900010B721 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		0487B27C259C60670010B721 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0487B27E259C60720010B721 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		048C1F3C25947C73009F5FE6 /* YSSkinLightRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinLightRsource.bundle; sourceTree = "<group>"; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
 		04A479E0239E274C00680D84 /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
@@ -1547,6 +1604,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0487B27F259C60720010B721 /* libiconv.tbd in Frameworks */,
+				0487B27D259C60670010B721 /* libz.tbd in Frameworks */,
 				878D983123A0C6530007FBBA /* libresolv.tbd in Frameworks */,
 				87981DC023C5809F00DA0276 /* AlicloudUtils.framework in Frameworks */,
 				874B77022510681800A3830C /* CHSession.framework in Frameworks */,
@@ -1625,6 +1684,56 @@
 				87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */,
 			);
 			path = YSTeacherRole;
+			sourceTree = "<group>";
+		};
+		0487B1C6259C5C900010B721 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				0487B1C7259C5C900010B721 /* ZipArchive.h */,
+				0487B1C8259C5C900010B721 /* minizip */,
+				0487B1E7259C5C900010B721 /* SSZipArchive.h */,
+				0487B1E8259C5C900010B721 /* SSZipCommon.h */,
+				0487B1E9259C5C900010B721 /* SSZipArchive.m */,
+			);
+			name = SSZipArchive;
+			path = "../../../Downloads/ZipArchive-master/SSZipArchive";
+			sourceTree = "<group>";
+		};
+		0487B1C8259C5C900010B721 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				0487B1C9259C5C900010B721 /* mz_strm_os_posix.c */,
+				0487B1CA259C5C900010B721 /* mz_strm_pkcrypt.c */,
+				0487B1CB259C5C900010B721 /* mz_strm_wzaes.h */,
+				0487B1CC259C5C900010B721 /* mz_compat.h */,
+				0487B1CD259C5C900010B721 /* mz_strm_zlib.c */,
+				0487B1CE259C5C900010B721 /* mz_zip.c */,
+				0487B1CF259C5C900010B721 /* mz_os.h */,
+				0487B1D0259C5C900010B721 /* LICENSE */,
+				0487B1D1259C5C900010B721 /* mz_zip_rw.c */,
+				0487B1D2259C5C900010B721 /* mz_strm_split.h */,
+				0487B1D3259C5C900010B721 /* mz_strm_buf.h */,
+				0487B1D4259C5C900010B721 /* mz_crypt_apple.c */,
+				0487B1D5259C5C900010B721 /* mz_strm.h */,
+				0487B1D6259C5C900010B721 /* mz_strm_mem.c */,
+				0487B1D7259C5C900010B721 /* mz_crypt.c */,
+				0487B1D8259C5C900010B721 /* mz_strm_wzaes.c */,
+				0487B1D9259C5C900010B721 /* mz_strm_zlib.h */,
+				0487B1DA259C5C900010B721 /* mz_compat.c */,
+				0487B1DB259C5C900010B721 /* mz_strm_pkcrypt.h */,
+				0487B1DC259C5C900010B721 /* mz_zip_rw.h */,
+				0487B1DD259C5C900010B721 /* mz_os.c */,
+				0487B1DE259C5C900010B721 /* mz_zip.h */,
+				0487B1DF259C5C900010B721 /* mz_os_posix.c */,
+				0487B1E0259C5C900010B721 /* mz.h */,
+				0487B1E1259C5C900010B721 /* mz_strm_buf.c */,
+				0487B1E2259C5C900010B721 /* mz_strm_split.c */,
+				0487B1E3259C5C900010B721 /* mz_crypt.h */,
+				0487B1E4259C5C900010B721 /* mz_strm_mem.h */,
+				0487B1E5259C5C900010B721 /* mz_strm.c */,
+				0487B1E6259C5C900010B721 /* mz_strm_os.h */,
+			);
+			path = minizip;
 			sourceTree = "<group>";
 		};
 		04A479DE239E274C00680D84 /* BrushToolView */ = {
@@ -2313,6 +2422,7 @@
 		876687802350794D00C4C635 /* ThirdPary */ = {
 			isa = PBXGroup;
 			children = (
+				0487B1C6259C5C900010B721 /* SSZipArchive */,
 				87832D9324874C4300F1178E /* FLEX */,
 				3471E26E24039A0100A3BBB4 /* FSCalendar */,
 				874E4F6723B36F0300086B01 /* LMJDropdownMenu */,
@@ -3044,6 +3154,8 @@
 		878D982F23A0C6520007FBBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0487B27E259C60720010B721 /* libiconv.tbd */,
+				0487B27C259C60670010B721 /* libz.tbd */,
 				878D983023A0C6530007FBBA /* libresolv.tbd */,
 			);
 			name = Frameworks;
@@ -3486,8 +3598,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0487B1FE259C5D610010B721 /* SSZipCommon.h in Resources */,
+				0487B1FD259C5D5B0010B721 /* SSZipArchive.h in Resources */,
 				87133669237270F6006534A4 /* Assets.xcassets in Resources */,
 				874B773A2511B5A000A3830C /* CHWhiteBoardResources.bundle in Resources */,
+				0487B1EF259C5C900010B721 /* LICENSE in Resources */,
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
 				87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */,
@@ -3605,6 +3720,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87133565237270F6006534A4 /* BMTestGPSMockVC.m in Sources */,
+				0487B1FA259C5C900010B721 /* mz_strm.c in Sources */,
 				8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */,
 				87832FB824874C4300F1178E /* FLEXAddressExplorerCoordinator.m in Sources */,
 				26E4718E2518A78300CE1776 /* YSDiceAnimationView+Tools.m in Sources */,
@@ -3638,6 +3754,7 @@
 				2615880924D0090D00F35234 /* YSWebViewController.m in Sources */,
 				87832F2224874C4300F1178E /* FLEXObjectExplorerFactory.m in Sources */,
 				8713357B237270F6006534A4 /* BMTestNSURLProtocol.m in Sources */,
+				0487B1EE259C5C900010B721 /* mz_zip.c in Sources */,
 				87832F9424874C4300F1178E /* FLEXViewControllersViewController.m in Sources */,
 				8783301224874C4400F1178E /* FLEXIvar.m in Sources */,
 				8783300624874C4400F1178E /* FLEXTypeEncodingParser.m in Sources */,
@@ -3651,12 +3768,15 @@
 				87832F3C24874C4300F1178E /* FLEXShortcutsFactory+Defaults.m in Sources */,
 				8783301424874C4400F1178E /* FLEXProtocolBuilder.m in Sources */,
 				87832FA824874C4300F1178E /* FLEXKeychainQuery.m in Sources */,
+				0487B1F1259C5C900010B721 /* mz_crypt_apple.c in Sources */,
 				87832FF824874C4400F1178E /* FLEXHierarchyViewController.m in Sources */,
 				87832FA624874C4300F1178E /* FLEXKeychain.m in Sources */,
+				0487B1F9259C5C900010B721 /* mz_strm_split.c in Sources */,
 				87832F9224874C4300F1178E /* FLEXBookmarksViewController.m in Sources */,
 				8783300C24874C4400F1178E /* FLEXPropertyAttributes.m in Sources */,
 				8783303C24874C4400F1178E /* NSString+ObjcRuntime.m in Sources */,
 				87832FC424874C4300F1178E /* FLEXMultiColumnTableView.m in Sources */,
+				0487B1EB259C5C900010B721 /* mz_strm_os_posix.c in Sources */,
 				8783300E24874C4400F1178E /* FLEXProperty.m in Sources */,
 				87133580237270F6006534A4 /* BMAlertView+YSDefaultAlert.m in Sources */,
 				87832F7824874C4300F1178E /* FLEXArgumentInputFontView.m in Sources */,
@@ -3689,8 +3809,10 @@
 				8777C7D223EC3409002002BF /* YSClassDetailVC.m in Sources */,
 				87133598237270F6006534A4 /* UIDevice+Private.m in Sources */,
 				875A720823758F1900407A75 /* SCVideoGridView.m in Sources */,
+				0487B1F7259C5C900010B721 /* mz_os_posix.c in Sources */,
 				87133599237270F6006534A4 /* YSChatView.m in Sources */,
 				34043C4523EA6514004982E6 /* YSMineViewController.m in Sources */,
+				0487B1F4259C5C900010B721 /* mz_strm_wzaes.c in Sources */,
 				8777C7D623ED1A46002002BF /* YSClassModel.m in Sources */,
 				87832F1824874C4300F1178E /* FLEXMultilineTableViewCell.m in Sources */,
 				871335A0237270F6006534A4 /* BMTestAlignView.m in Sources */,
@@ -3702,6 +3824,7 @@
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				87832FEA24874C4300F1178E /* FHSView.m in Sources */,
 				87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */,
+				0487B1F6259C5C900010B721 /* mz_os.c in Sources */,
 				87832F6A24874C4300F1178E /* FLEXArgumentInputStringView.m in Sources */,
 				87832F2A24874C4300F1178E /* FLEXColorPreviewSection.m in Sources */,
 				26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */,
@@ -3716,8 +3839,10 @@
 				87832F2624874C4300F1178E /* FLEXMutableListSection.m in Sources */,
 				045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */,
 				2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */,
+				0487B1F3259C5C900010B721 /* mz_crypt.c in Sources */,
 				87832F0E24874C4300F1178E /* FLEXNavigationController.m in Sources */,
 				04A479F2239E276100680D84 /* SCDrawBoardView.m in Sources */,
+				0487B1ED259C5C900010B721 /* mz_strm_zlib.c in Sources */,
 				87832FDA24874C4300F1178E /* FLEXKBToolbarButton.m in Sources */,
 				3471E29224039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,
 				3450B140240677A6006141E5 /* YSMonthListCell.m in Sources */,
@@ -3774,6 +3899,7 @@
 				8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */,
 				871335DB237270F6006534A4 /* YSNewPictureCell.m in Sources */,
 				26215A7623C7130600D6730B /* YSSliderSuperView.m in Sources */,
+				0487B1FB259C5C900010B721 /* SSZipArchive.m in Sources */,
 				87832F2E24874C4300F1178E /* FLEXBlockShortcuts.m in Sources */,
 				87832F8224874C4300F1178E /* FLEXArgumentInputViewFactory.m in Sources */,
 				87832F8824874C4300F1178E /* FLEXTabList.m in Sources */,
@@ -3839,6 +3965,7 @@
 				87832F9E24874C4300F1178E /* FLEXObjectRef.m in Sources */,
 				04A479EA239E274D00680D84 /* SCColorTipView.m in Sources */,
 				26355BE623B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */,
+				0487B1F0259C5C900010B721 /* mz_zip_rw.c in Sources */,
 				87832FC624874C4300F1178E /* FLEXRealmDatabaseManager.m in Sources */,
 				3471E2A824039A0100A3BBB4 /* FSCalendarTransitionCoordinator.m in Sources */,
 				8783302824874C4400F1178E /* FLEXRuntime+Compare.m in Sources */,
@@ -3865,6 +3992,7 @@
 				345517262410987D00B1B922 /* YSControlPopoverView.m in Sources */,
 				87832FFC24874C4400F1178E /* FLEXHeapEnumerator.m in Sources */,
 				3450B1482406805F006141E5 /* YSMonthListView.m in Sources */,
+				0487B1EC259C5C900010B721 /* mz_strm_pkcrypt.c in Sources */,
 				8783303824874C4400F1178E /* UITextField+Range.m in Sources */,
 				87832F7424874C4300F1178E /* FLEXArgumentInputDateView.m in Sources */,
 				8783301024874C4400F1178E /* FLEXMethod.m in Sources */,
@@ -3890,6 +4018,7 @@
 				87133638237270F6006534A4 /* YSEmotionView.m in Sources */,
 				87832F4624874C4300F1178E /* FLEXObjectExplorer.m in Sources */,
 				87133639237270F6006534A4 /* YSLessonView.m in Sources */,
+				0487B1F8259C5C900010B721 /* mz_strm_buf.c in Sources */,
 				8713363B237270F6006534A4 /* main.m in Sources */,
 				87832F5424874C4300F1178E /* FLEXNetworkCurlLogger.m in Sources */,
 				8713363D237270F6006534A4 /* PLArrayTableViewController.m in Sources */,
@@ -3900,6 +4029,7 @@
 				87832FE424874C4300F1178E /* FLEXImagePreviewViewController.m in Sources */,
 				87832F5024874C4300F1178E /* FLEXNetworkTransactionDetailController.m in Sources */,
 				87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */,
+				0487B1F5259C5C900010B721 /* mz_compat.c in Sources */,
 				874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */,
 				26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */,
 				8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */,
@@ -3915,6 +4045,7 @@
 				87832F1224874C4300F1178E /* FLEXKeyValueTableViewCell.m in Sources */,
 				87832FF424874C4300F1178E /* FLEXHierarchyTableViewCell.m in Sources */,
 				8713364F237270F6006534A4 /* BMTestNetFlowSummaryVC.m in Sources */,
+				0487B1F2259C5C900010B721 /* mz_strm_mem.c in Sources */,
 				87832F0A24874C4300F1178E /* FLEXTableViewSection.m in Sources */,
 				26EFA60123795A7100EC2A64 /* SCAnswerView.m in Sources */,
 				87133651237270F6006534A4 /* YSBarrageRenderView.m in Sources */,
