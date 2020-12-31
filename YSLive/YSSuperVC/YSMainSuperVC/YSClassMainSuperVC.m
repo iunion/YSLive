@@ -229,17 +229,13 @@
     
     if (self.liveManager.roomModel.skinModel.backgroundType)
     {
-        [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.skinModel.backgroundValue] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            if (!image)
-            {
-                self.contentBgImage.hidden = YES;
-                self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-            }
-            else
-            {
-                self.contentBgImage.hidden = NO;
-            }
-        }];
+        UIImage * placeholderImage = [UIImage imageNamed:@"LightBackgroundImage"];
+        if (self.liveManager.roomModel.skinModel.detailType == YSSkinDetailsType_middle)
+        {
+            placeholderImage = [UIImage imageNamed:@"MiddleBackgroundImage"];
+        }
+        
+        [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.skinModel.backgroundValue] completed:nil];
     }
     else
     {

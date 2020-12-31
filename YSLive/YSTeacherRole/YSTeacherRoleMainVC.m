@@ -923,7 +923,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             imageUrl = self.liveManager.roomModel.skinModel.whiteboardSecondValue;
         }
         
-        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (!image)
             {
                 self.whitebordBgimage.hidden = YES;
