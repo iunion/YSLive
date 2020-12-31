@@ -24,6 +24,8 @@
 		<string>#828282</string>
 		<key>Color9</key>
 		<string>#40424A</string>
+		<key>Color10</key>
+		<string>#FFFFFF</string>
 		<key>PlaceholderColor</key>
 		<string>#6D7278</string>
 		<key>JurisdictionCheckFail</key>
