@@ -1267,64 +1267,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return YES;
 }
 
-#pragma mark - 小班课获取皮肤类型并解压
-- (void)getTheSkinBundleWithSkinType:(YSSkinDetailsType)skinType
-{
-    NSString *key = [NSString stringWithFormat:@"%ld",skinType];
-    
-    NSString *bundlePath = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    
-    if ([bundlePath bm_isNotEmpty])
-    {
-        NSBundle *bundle = [[NSBundle alloc] initWithPath:bundlePath];
-        [YSLiveSkinManager shareInstance].skinBundle = bundle;
-        return;
-    }
-    
-    BMWeakSelf
-    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
-    
-    NSMutableURLRequest *request = [YSLiveApiRequest getSkinColorWithType:skinType];
-    request.timeoutInterval = 30.0f;
-    
-    if (request)
-    {
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-            @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
-            @"text/xml"
-        ]];
-        
-        NSURLSessionDataTask *task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-            
-            NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-            NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
-            return [NSURL fileURLWithPath:path];
-        } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-            
-            if ([filePath bm_isNotEmpty] && [[NSFileManager defaultManager]fileExistsAtPath:[filePath path]])
-            {
-                NSString *name = [filePath.path lastPathComponent];
-                
-                NSString *documenPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-                
-                [SSZipArchive unzipFileAtPath:filePath.path toDestination:documenPath progressHandler:nil completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
-                                 
-                    //根据路径取bundle
-                    NSString *pathString = [path stringByAppendingPathComponent:name];
-                    NSBundle *bundle = [[NSBundle alloc] initWithPath:pathString];
-                    
-                    [YSLiveSkinManager shareInstance].skinBundle = bundle;
-                    [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = bundle;
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:pathString forKey:key];
-                    
-                }];
-            }
-        }];
-        
-        [task resume];
-    }
-}
 
 #pragma mark - 检查房间类型
 - (void)checkRoomType
@@ -1415,7 +1357,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 
                 // grouproom 房间分组类型 0 普通房间，1 分组主（父）房间，2 分组子房间
                 weakSelf.grouproom = [dataDict bm_intForKey:@"grouproom"];
-
                 
                 if (weakSelf.needpwd)
                 {
@@ -1427,7 +1368,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                     self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.noneedPwd");
                     self.passwordMask.hidden = NO;
                 }
-                
+                                
                 switch (weakSelf.room_UseTheType)
                 {
                     // 小班课
@@ -1438,9 +1379,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
                         [weakSelf.view endEditing:YES];
                         weakSelf.passwordTextField.inputTextField.text = nil;
-                        
-                        //是小班课就获取皮肤类型
-                        [self getTheSkinBundleWithSkinType:[YSLiveManager sharedInstance].roomModel.roomDetailsType];
                         
                         return;
                     // 直播
@@ -2085,12 +2023,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 }
 
-// 成功进入房间
+
+
+
+
+#pragma mark -  成功进入房间
 - (void)onRoomDidCheckRoom
 {
     BMLog(@"YSLoginVC onRoomDidCheckRoom");
-    
-    [self.progressHUD bm_hideAnimated:NO];
     
     [YSUserDefault setLoginRoomID:[self.roomTextField.inputTextField.text bm_trimAllSpace]];
     [YSUserDefault setLoginNickName:[self.nickNameTextField.inputTextField.text bm_trimAllSpace]];
@@ -2105,10 +2045,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [Bugly setUserValue:userId forKey:@"userId"];
     [Bugly setUserValue:nickName forKey:@"nickName"];
     [Bugly setUserValue:@"NO" forKey:@"userAccount"];
-
-    //NSDictionary *dic = [Bugly allUserValues];
     
-#if YSCLASS
     
     CHRoomUseType appUseTheType = liveManager.room_UseType;
     // 未通过check进入房间时
@@ -2116,64 +2053,42 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         self.room_UseTheType = appUseTheType;
     }
-
-    CHUserRoleType roleType = liveManager.localUser.role;
            
     // 3: 小班课  4: 直播  6： 会议
     BOOL isSmallClass = (self.room_UseTheType == CHRoomUseTypeSmallClass || self.room_UseTheType == CHRoomUseTypeMeeting);
     
     if (isSmallClass)
     {
-                [YSLiveSkinManager shareInstance].roomDetailsType = [YSLiveManager sharedInstance].roomModel.roomDetailsType;
-//        [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_middle;
-                
-        GetAppDelegate.allowRotation = YES;
-        NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
-        CHRoomUserType roomusertype = liveManager.roomModel.roomUserType;
-        
-        BOOL isWideScreen = liveManager.room_IsWideScreen;
-        
-        if (roleType == CHUserType_Teacher)
+        if ([YSLiveManager sharedInstance].roomModel.skinModel.detailType && [YSLiveManager sharedInstance].roomModel.skinModel.detailType != YSSkinDetailsType_dark)
         {
-            YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
-            mainVC.appUseTheType = self.room_UseTheType;
-            BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
-            nav.modalPresentationStyle = UIModalPresentationFullScreen;
-            nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
-            [self presentViewController:nav animated:YES completion:^{
-                [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
-            }];
-            [YSEyeCareManager shareInstance].showRemindBlock = ^{
-                [mainVC showEyeCareRemind];
-            };
+            NSString *bundlePath = [[NSUserDefaults standardUserDefaults] objectForKey:[YSLiveManager sharedInstance].roomModel.skinModel.detailName];
+            
+            if ([bundlePath bm_isNotEmpty])
+            {
+                NSBundle *bundle = [[NSBundle alloc] initWithPath:bundlePath];
+                [YSLiveSkinManager shareInstance].skinBundle = bundle;
+                [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = bundle;
+                
+                [self smallClassJoinRoomSuccess];
+            }
+            else
+            {
+                //小班课下载皮肤类型bundle并解压
+                [self getTheRoomSkinBundle];
+            }
         }
         else
         {
-           SCMainVC *mainVC = [[SCMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
-            mainVC.appUseTheType = self.room_UseTheType;
-            BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
-            nav.modalPresentationStyle = UIModalPresentationFullScreen;
-            nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
-            [self presentViewController:nav animated:YES completion:^{
-                [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
-            }];
-            
-            [YSEyeCareManager shareInstance].showRemindBlock = ^{
-                [mainVC showEyeCareRemind];
-            };
+            [YSLiveSkinManager shareInstance].skinBundle = NULL;
+            [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = NULL;
+            [self smallClassJoinRoomSuccess];
         }
-        
-        self.selectedRoleBtn.selected = NO;
-        self.passwordMask.hidden = NO;
-        self.passwordTextField.inputTextField.text = nil;
-        self.selectedRoleBtn = self.studentRoleBtn;
-        self.selectedRoleBtn.selected = YES;
-        self.roleSelectView.hidden = YES;
-        self.selectRoleType = CHUserType_Student;
     }
     else
-#endif
     {
+        
+        [self.progressHUD bm_hideAnimated:NO];
+        
         GetAppDelegate.allowRotation = NO;
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:liveManager.whiteBordView userId:nil];
@@ -2188,14 +2103,128 @@ typedef void (^YSRoomLeftDoBlock)(void);
         [YSEyeCareManager shareInstance].showRemindBlock = ^{
             [mainVC showEyeCareRemind];
         };
+        
+        [[YSEyeCareManager shareInstance] stopRemindtime];
+        if ([YSLiveManager sharedInstance].roomConfig.isRemindEyeCare)
+        {
+            [[YSEyeCareManager shareInstance] startRemindtime];
+        }
     }
+}
+
+///小班课下载皮肤类型bundle并解压
+- (void)getTheRoomSkinBundle
+{
+    BMWeakSelf
+    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
+    
+    NSMutableURLRequest *request = [YSApiRequest makeRequestWithURL:[YSLiveManager sharedInstance].roomModel.skinModel.detailUrl parameters:nil];
+    request.timeoutInterval = 30.0f;
+    
+    if (request)
+    {
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
+            @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
+            @"text/xml"
+        ]];
+        
+        NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+            
+            NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+            NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
+            return [NSURL fileURLWithPath:path];
+        } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+            
+            if ([filePath bm_isNotEmpty] && [[NSFileManager defaultManager]fileExistsAtPath:[filePath path]])
+            {
+                NSString *name = [filePath.path lastPathComponent];
+                
+                NSString *documenPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+                
+                [SSZipArchive unzipFileAtPath:filePath.path toDestination:documenPath progressHandler:nil completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
+                                 
+                    //根据路径取bundle
+                    NSString *pathString = [path stringByAppendingPathComponent:name];
+                    NSBundle *bundle = [[NSBundle alloc] initWithPath:pathString];
+                    
+                    [YSLiveSkinManager shareInstance].skinBundle = bundle;
+                    [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = bundle;
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:pathString forKey:[YSLiveManager sharedInstance].roomModel.skinModel.detailName];
+                    [weakSelf smallClassJoinRoomSuccess];
+                    
+                }];
+            }
+            else
+            {
+                [weakSelf smallClassJoinRoomSuccess];
+            }
+        }];
+        
+        [task resume];
+    }
+}
+
+///小班课跳转教室界面
+- (void)smallClassJoinRoomSuccess
+{
+    [self.progressHUD bm_hideAnimated:NO];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+    
+    [YSLiveSkinManager shareInstance].roomDetailsType = liveManager.roomModel.skinModel.detailType;
+            
+    GetAppDelegate.allowRotation = YES;
+    NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
+    CHRoomUserType roomusertype = liveManager.roomModel.roomUserType;
+    
+    BOOL isWideScreen = liveManager.room_IsWideScreen;
+    
+    if (liveManager.localUser.role == CHUserType_Teacher)
+    {
+        YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
+        mainVC.appUseTheType = self.room_UseTheType;
+        BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
+        nav.modalPresentationStyle = UIModalPresentationFullScreen;
+        nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
+        [self presentViewController:nav animated:YES completion:^{
+            [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
+        }];
+        [YSEyeCareManager shareInstance].showRemindBlock = ^{
+            [mainVC showEyeCareRemind];
+        };
+    }
+    else
+    {
+       SCMainVC *mainVC = [[SCMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
+        mainVC.appUseTheType = self.room_UseTheType;
+        BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
+        nav.modalPresentationStyle = UIModalPresentationFullScreen;
+        nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
+        [self presentViewController:nav animated:YES completion:^{
+            [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
+        }];
+        
+        [YSEyeCareManager shareInstance].showRemindBlock = ^{
+            [mainVC showEyeCareRemind];
+        };
+    }
+    
+    self.selectedRoleBtn.selected = NO;
+    self.passwordMask.hidden = NO;
+    self.passwordTextField.inputTextField.text = nil;
+    self.selectedRoleBtn = self.studentRoleBtn;
+    self.selectedRoleBtn.selected = YES;
+    self.roleSelectView.hidden = YES;
+    self.selectRoleType = CHUserType_Student;
     
     [[YSEyeCareManager shareInstance] stopRemindtime];
     if ([YSLiveManager sharedInstance].roomConfig.isRemindEyeCare)
     {
         [[YSEyeCareManager shareInstance] startRemindtime];
     }
+    
 }
+
 
 /// 进入房间失败
 - (void)roomManagerNeedEnterPassWord:(CHRoomErrorCode)errorCode
