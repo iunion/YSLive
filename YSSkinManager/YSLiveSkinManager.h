@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)YSSkinClassOrOnline classOrOnline;
 
 ///换皮肤资源bundle
-@property (nonatomic, strong)NSBundle *skinBundle;
+@property (nonatomic, strong,nullable)NSBundle *skinBundle;
 
 
 + (instancetype)shareInstance;

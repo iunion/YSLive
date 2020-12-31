@@ -24,6 +24,9 @@
     SCEyeCareViewDelegate
 >
 
+/// 整个窗口的背景图
+@property (nonatomic, strong) UIImageView * backgroundImage;
+
 /// 原keywindow
 @property(nonatomic, weak) UIWindow *previousKeyWindow;
 /// 护眼提醒
@@ -105,8 +108,33 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(begainFullScreen) name:UIWindowDidBecomeVisibleNotification object:nil];
     // 退出全屏
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
-    
+        
     self.view.backgroundColor = UIColor.blackColor;
+    
+    UIImageView * backgroundImage = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    backgroundImage.contentMode = UIViewContentModeScaleToFill;
+    [self.view addSubview:backgroundImage];
+    self.backgroundImage = backgroundImage;
+    
+    if (self.liveManager.roomModel.skinModel.mobileroomFillType && [self.liveManager.roomModel.skinModel.mobileroomFillValue bm_isNotEmpty])
+    {
+        [backgroundImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.skinModel.mobileroomFillValue] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (!image)
+            {
+                self.backgroundImage.hidden = YES;
+            }
+        }];
+    }
+    else
+    {
+        backgroundImage.hidden = YES;
+        
+        if ([self.liveManager.roomModel.skinModel.mobileroomFillValue bm_isNotEmpty])
+        {
+            self.view.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.mobileroomFillValue];
+        }
+    }
+    
     
     //创建一个16：9的背景view
     [self.view addSubview:self.contentBackgroud];
@@ -198,40 +226,33 @@
     UIImageView * contentBgImage = [[UIImageView alloc]initWithFrame:contentBackgroud.bounds];
     [contentBackgroud addSubview:contentBgImage];
     self.contentBgImage = contentBgImage;
-//    if ([self.liveManager.roomModel.bgImageUrl bm_isNotEmpty])
-//    {
-//        [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.roomBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-////            if (!image)
-////            {
-////                self.contentBgImage.hidden = YES;
-////                if ([self.liveManager.roomModel.roomBgColor bm_isNotEmpty])
-////                {
-////                    self.contentBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-////                }
-////                else
-////                {
-////                    self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
-////                }
-////            }
-////            else
-//            {
-//                self.contentBgImage.hidden = NO;
-//                self.contentBackgroud.backgroundColor = UIColor.clearColor;
-//            }
-//        }];
-//    }
-//    else
-//    {
-//        self.contentBgImage.hidden = YES;
-//        if ([self.liveManager.roomModel.roomBgColor bm_isNotEmpty])
-//        {
-//            self.contentBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-//        }
-//        else
-//        {
-//            self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
-//        }
-//    }
+    
+    if (self.liveManager.roomModel.skinModel.backgroundType)
+    {
+        [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.skinModel.backgroundValue] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (!image)
+            {
+                self.contentBgImage.hidden = YES;
+                self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+            }
+            else
+            {
+                self.contentBgImage.hidden = NO;
+            }
+        }];
+    }
+    else
+    {
+        self.contentBgImage.hidden = YES;
+        if ([self.liveManager.roomModel.skinModel.backgroundValue bm_isNotEmpty])
+        {
+            self.contentBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.backgroundValue];
+        }
+        else
+        {
+            self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+        }
+    }
 }
 
 ///顶部状态栏

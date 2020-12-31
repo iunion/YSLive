@@ -905,6 +905,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
+//    self.whitebordBackgroud.backgroundColor = UIColor.redColor;
     
     YSSkinDefineColor(@"Color1");
     
@@ -914,43 +915,45 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [whitebordBackgroud addSubview:whitebordBgimage];
     self.whitebordBgimage = whitebordBgimage;
         
-////    if ([self.liveManager.roomModel.wbBgImageUrl bm_isNotEmpty])
-//    {
-//        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.wbBgImageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-////            if (!image)
-////            {
-////                self.whitebordBackgroud.hidden = YES;
-////
-////                if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
-////                {
-////                    self.whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-////            self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-////                }
-////                else
-////                {
-////                    self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-////                }
-////            }
-////            else
-//            {
-//                self.whitebordBackgroud.hidden = NO;
-//                self.whitebordBackgroud.backgroundColor = UIColor.clearColor;
-//            }
-//        }];
-//    }
-//    else
-//    {
-//        whitebordBackgroud.hidden = YES;
-//
-//        if ([self.liveManager.roomModel.wbBgColor bm_isNotEmpty])
-//        {
-//            whitebordBackgroud.backgroundColor = [UIColor bm_colorWithHexString:self.liveManager.roomModel.wbBgColor];
-//        }
-//        else
-//        {
-//            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
-//        }
-//    }
+    if (self.liveManager.roomModel.skinModel.whiteboardType)
+    {
+        NSString *imageUrl = self.liveManager.roomModel.skinModel.whiteboardValue;
+        if (self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
+        {
+            imageUrl = self.liveManager.roomModel.skinModel.whiteboardSecondValue;
+        }
+        
+        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"爱情公寓5诸葛大力4k高清壁纸_彼岸图网"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (!image)
+            {
+                self.whitebordBgimage.hidden = YES;
+
+                self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+                [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color10")];
+            }
+            else
+            {
+                self.whitebordBgimage.hidden = NO;
+            }
+        }];
+    }
+    else
+    {
+        whitebordBgimage.hidden = YES;
+
+        if ([self.liveManager.roomModel.skinModel.whiteboardValue bm_isNotEmpty])
+        {
+            UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
+            
+            whitebordBackgroud.backgroundColor = color;
+            [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:color];
+        }
+        else
+        {
+            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+            [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color10")];
+        }
+    }
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];

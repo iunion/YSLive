@@ -115,17 +115,6 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
 
-///获取换肤资源包
-+ (NSMutableURLRequest *)getSkinColorWithType:(YSSkinDetailsType)skinType
-{
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/simplifyAnswer", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
-    
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters bm_setInteger:skinType forKey:@"skinType"];
-    
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
-}
-
 #pragma mark - 上传图片
 
 /// 上传图片

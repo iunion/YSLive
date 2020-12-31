@@ -36,10 +36,6 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 /// 送花
 + (NSMutableURLRequest *)liveGivigGiftsSigninWithGiftsCount:(NSUInteger)count;
 
-///获取换肤资源包
-+ (NSMutableURLRequest *)getSkinColorWithType:(YSSkinDetailsType)skinType;
-
-
 /// 上传图片
 + (void)uploadImageWithImage:(UIImage *)image withImageUseType:(NSInteger)imageUseType success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failurel;
 

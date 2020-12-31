@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BMAFHTTPRequestSerializer *)HTTPRequestSerializer;
 + (BMAFJSONRequestSerializer *)JSONRequestSerializer;
 
-+ (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters;
++ (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(nullable NSDictionary *)parameters;
 + (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost;
 + (NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isOnlineSchool:(BOOL)isOnlineSchool;
 + (nullable NSMutableURLRequest *)makeRequestWithURL:(NSString *)URLString parameters:(NSDictionary *)parameters isPost:(BOOL)isPost isOnlineSchool:(BOOL)isOnlineSchool;
