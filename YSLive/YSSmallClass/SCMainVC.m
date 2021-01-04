@@ -280,7 +280,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 @implementation SCMainVC
 
-#if 0
 - (void)dealloc
 {
     [self.giftCountTask cancel];
@@ -439,7 +438,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserPrimaryColor value:newColorStr];
 
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager changePrimaryColorHex:newColorStr];
+#endif
 }
 
 
@@ -852,7 +853,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
+#endif
     
     [self freshContentView];
 }
@@ -1439,7 +1442,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         if (self.roomLayout == CHRoomLayoutType_VideoLayout)
         {
+#if !PASS_TEST
             [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+#endif
             [self freshVideoGridView];
         }
         else
@@ -1454,7 +1459,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [self freshVideoGridView];
             [self.raiseHandsBtn bm_bringToFront];
+#if !PASS_TEST
             [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+#endif
 //            self.whiteBordView.hidden = YES;
         }
         else
@@ -1830,7 +1837,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     }
 
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
+#endif
 }
 
 // 刷新宫格视频布局
@@ -2194,7 +2203,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn showTool:(BOOL)showTool
 {
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager brushToolsDidSelect:toolViewBtnType];
+#endif
     
     if (showTool)
     {
@@ -2225,7 +2236,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (self.liveManager.localUser.canDraw || self.liveManager.whiteBoardManager.smallBoardView)
     {
+#if !PASS_TEST
         [self.liveManager.whiteBoardManager didSelectDrawType:drawType color:hexColor widthProgress:progress];
+#endif
     }
 
 }
@@ -2624,8 +2637,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
     }
 
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
+#endif
 }
 
 
@@ -2703,14 +2718,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 if ([dict bm_isNotEmpty])
                 {
+#if !PASS_TEST
                     [weakSelf.liveManager.whiteBoardManager addSmallBoardImageWithData:dict];
+#endif
                 }
             }
             else
             {
                 if (imageUseType == 0)
                 {
+#if !PASS_TEST
                     [self.liveManager.whiteBoardManager addWhiteBordImageCourseWithDic:dict];
+#endif
                 }
                 else
                 {
@@ -2915,7 +2934,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
         CGFloat keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+#if !PASS_TEST
         CGFloat zoomScale = [self.liveManager.whiteBoardManager currentDocumentZoomScale];
+#else
+        CGFloat zoomScale = 1.0f;
+#endif
         CGFloat actualHeight = CGRectGetHeight(firstResponder.frame)*zoomScale + relativePoint.y + keyboardHeight;
         CGFloat overstep = actualHeight - CGRectGetHeight([UIScreen mainScreen].bounds);// + 5;
         if (overstep > 1)
@@ -3108,7 +3131,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)resetDrawTools
 {
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
+#endif
     
     [self.brushToolView resetTool];
 }
@@ -3563,7 +3588,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (self.isWhitebordFullScreen)
         {
             /// 主房间上课后 本地全屏关闭
+#if !PASS_TEST
             [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+#endif
         }
     }
     else
@@ -4339,7 +4366,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    NSString * sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
     if (isFull)
     {
+#if !PASS_TEST
         [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];//双击全屏最大化时 关闭本地课件全屏
+#endif
         
         if (self.doubleFloatView)
         {
@@ -4600,7 +4629,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }];
         BMWeakSelf
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+#if !PASS_TEST
             [weakSelf.liveManager.whiteBoardManager deleteSmallBoardImage];
+#endif
         }];
         [alertVc addAction:cancelAc];
         [alertVc addAction:confimAc];
@@ -5415,7 +5446,5 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             break;
     }
 }
-
-#endif
 
 @end

@@ -319,7 +319,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @end
 
 @implementation YSTeacherRoleMainVC
-#if 0
+
 - (void)dealloc
 {
     [self.deleteTask cancel];
@@ -957,7 +957,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
+#endif
     
     self.mp4ControlView = [[YSMp4ControlView alloc] init];
     [self.contentBackgroud addSubview:self.mp4ControlView];
@@ -1740,7 +1742,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     }
 
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
+#endif
 }
 
 // 刷新宫格视频布局
@@ -2606,7 +2610,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)resetDrawTools
 {
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
+#endif
     
     [self.brushToolView resetTool];
 }
@@ -3765,7 +3771,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserPrimaryColor value:newColorStr];
 
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager changePrimaryColorHex:newColorStr];
+#endif
 }
 
 #pragma mark 共享桌面
@@ -3956,8 +3964,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     }
     
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager refreshWhiteBoard];
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
+#endif
 }
 
 // 课件最大化
@@ -5489,7 +5499,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
         CGFloat keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-        CGFloat zoomScale = [self.liveManager.whiteBoardManager currentDocumentZoomScale];
+#if !PASS_TEST
+        CGFloat zoomScale = [self.liveManager.whiteBoardManager documentZoomScale];
+#else
+        CGFloat zoomScale = 1.0f;
+#endif
         CGFloat actualHeight = CGRectGetHeight(firstResponder.frame)*zoomScale + relativePoint.y + keyboardHeight;
         CGFloat overstep = actualHeight - CGRectGetHeight([UIScreen mainScreen].bounds);// + 5;
         if (overstep > 1)
@@ -5944,7 +5958,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
+#if !PASS_TEST
                 [weakSelf.liveManager.whiteBoardManager deleteCourseWithFileId:fileid];
+#endif
 //                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
 //
 //                if ([responseDic bm_containsObjectForKey:@"result"])
@@ -5970,7 +5986,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager changeCourseWithFileId:fileModel.fileid];
+#endif
 
 }
 
@@ -6209,7 +6227,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn showTool:(BOOL)showTool
 {
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager brushToolsDidSelect:toolViewBtnType];
+#endif
     if (showTool)
     {
         if (self.drawBoardView)
@@ -6231,7 +6251,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)brushToolDoClean
 {
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager didSelectDrawType:CHDrawTypeClear color:@"" widthProgress:0];
+#endif
 
     if (self.drawBoardView)
     {
@@ -6245,7 +6267,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)brushSelectorViewDidSelectDrawType:(CHDrawType)drawType color:(NSString *)hexColor widthProgress:(float)progress
 {
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager didSelectDrawType:drawType color:hexColor widthProgress:progress];
+#endif
 }
 
 #pragma mark - 打开相册选择图片
@@ -6266,7 +6290,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             
             if (imageUseType == 0)
             {
+#if !PASS_TEST
                 [weakSelf.liveManager.whiteBoardManager addWhiteBordImageCourseWithDic:dict];
+#endif
             }
             else
             {
@@ -6465,8 +6491,5 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }];
     }
 }
-
-
-#endif
 
 @end

@@ -226,7 +226,7 @@
 
 #pragma mark -
 #pragma mark ViewControllerLife
-#if 0
+
 - (instancetype)initWithWideScreen:(BOOL)isWideScreen whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId
 {
     self = [super initWithWhiteBordView:whiteBordView];
@@ -2083,9 +2083,9 @@
             //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
             
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
+#if !PASS_TEST
             [self.liveManager.whiteBoardManager refreshWhiteBoard];
-
-            
+#endif
                         
             return self.whiteBordView;
         }
@@ -2159,7 +2159,7 @@
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
-    NSString *warmVideoUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
+    NSString *warmVideoUrl = self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit.warmFileModel.swfpath;
 
     if ([warmVideoUrl bm_isNotEmpty])
     {
@@ -2169,7 +2169,7 @@
         //时间是否在上课前一小时
         if (time < 3600)
         {
-            warmVideoUrl = [NSString stringWithFormat:@"%@:%d%@", self.liveManager.whiteBoardManager.serverDocHost, YSLive_Port,warmVideoUrl];
+            warmVideoUrl = [NSString stringWithFormat:@"%@:%d%@", self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit.docHost, YSLive_Port, warmVideoUrl];
             NSString *tdeletePathExtension = warmVideoUrl.stringByDeletingPathExtension;
             self.warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, warmVideoUrl.pathExtension];
             
@@ -2809,5 +2809,4 @@
     return _menuVc;
 }
 
-#endif
 @end
