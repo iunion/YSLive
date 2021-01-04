@@ -19,11 +19,6 @@
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
-		04A479E6239E274D00680D84 /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E1239E274C00680D84 /* SCColorListView.m */; };
-		04A479E8239E274D00680D84 /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E3239E274C00680D84 /* SCColorSelectView.m */; };
-		04A479EA239E274D00680D84 /* SCColorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E5239E274C00680D84 /* SCColorTipView.m */; };
-		04A479F0239E276100680D84 /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479EC239E276000680D84 /* SCBrushToolView.m */; };
-		04A479F2239E276100680D84 /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479EF239E276000680D84 /* SCDrawBoardView.m */; };
 		04AD5C142583598E0023BEAD /* YSWarmVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AD5C132583598E0023BEAD /* YSWarmVideoView.m */; };
 		04B5A47C2372E49F00DB2EDC /* YSEmotionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5A4742372E49E00DB2EDC /* YSEmotionCollectionCell.m */; };
 		04B5A47E2372E49F00DB2EDC /* SCChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5A4752372E49E00DB2EDC /* SCChatView.m */; };
@@ -32,7 +27,6 @@
 		2615880A24D0090D00F35234 /* YSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880824D0090D00F35234 /* YSWebViewController.m */; };
 		2615880D24D0171B00F35234 /* YSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880C24D0171B00F35234 /* YSTextView.m */; };
 		2615880E24D0171B00F35234 /* YSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880C24D0171B00F35234 /* YSTextView.m */; };
-		26215A7623C7130600D6730B /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26215A7523C7130600D6730B /* YSSliderSuperView.m */; };
 		26262AF22386972C005B9F27 /* SCAnswerTBHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26262AF12386972C005B9F27 /* SCAnswerTBHeaderView.m */; };
 		2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
 		263327532591C874004ED6CE /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
@@ -237,7 +231,6 @@
 		8717E2292400DADC008C4CDA /* YSLessonDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */; };
 		8717E2302400DADC008C4CDA /* YSApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB01235178C000C72EAA /* YSApiRequest.m */; };
 		8717E2312400DADC008C4CDA /* YSMp3Controlview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2626447523C57AC300317DAE /* YSMp3Controlview.m */; };
-		8717E2322400DADC008C4CDA /* SCDrawBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479EF239E276000680D84 /* SCDrawBoardView.m */; };
 		8717E2372400DADC008C4CDA /* YSPrizeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */; };
 		8717E23A2400DADC008C4CDA /* YSSkinCoverWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557723B3358000BC6CAB /* YSSkinCoverWindow.m */; };
 		8717E23B2400DADC008C4CDA /* YSClassInstructionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7C723EC32F2002002BF /* YSClassInstructionCell.m */; };
@@ -255,7 +248,6 @@
 		8717E2592400DADC008C4CDA /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1572371720600A43607 /* GTMStackTrace.m */; };
 		8717E25B2400DADC008C4CDA /* YSAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 879ADB0423517A2600C72EAA /* YSAppInfo.m */; };
 		8717E25C2400DADC008C4CDA /* BMConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B13E2371720600A43607 /* BMConsole.m */; };
-		8717E25E2400DADC008C4CDA /* SCColorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E1239E274C00680D84 /* SCColorListView.m */; };
 		8717E2602400DADC008C4CDA /* YSUpHandPopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B8D0F223FA92D600EDBCBF /* YSUpHandPopCell.m */; };
 		8717E2622400DADC008C4CDA /* YSClassDayList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7BE23EC313D002002BF /* YSClassDayList.m */; };
 		8717E2632400DADC008C4CDA /* YSStudentResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CB384CE223FE6C0400DCD1C0 /* YSStudentResponder.m */; };
@@ -264,7 +256,6 @@
 		8717E26D2400DADC008C4CDA /* SCAnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA685237A841C00EC2A64 /* SCAnswerDetailModel.m */; };
 		8717E26F2400DADC008C4CDA /* YSClassMediumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7CC23EC336B002002BF /* YSClassMediumCell.m */; };
 		8717E2702400DADC008C4CDA /* YSNewPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB13242372647900D642E8 /* YSNewPictureCell.m */; };
-		8717E2712400DADC008C4CDA /* YSSliderSuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26215A7523C7130600D6730B /* YSSliderSuperView.m */; };
 		8717E2722400DADC008C4CDA /* YSClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7C223EC31C8002002BF /* YSClassCell.m */; };
 		8717E2732400DADC008C4CDA /* YSAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB128E2372647800D642E8 /* YSAnswerCell.m */; };
 		8717E2742400DADC008C4CDA /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */; };
@@ -289,7 +280,6 @@
 		8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8717E2AB2400DADC008C4CDA /* UIAlertController+SCAlertAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */; };
 		8717E2AD2400DADC008C4CDA /* YSMp4ControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAD7223C4616100FC90EF /* YSMp4ControlView.m */; };
-		8717E2B12400DADC008C4CDA /* SCColorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E5239E274C00680D84 /* SCColorTipView.m */; };
 		8717E2B22400DADC008C4CDA /* SCTeacherPersonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26355BE523B4C550004B8366 /* SCTeacherPersonListCell.m */; };
 		8717E2B52400DADC008C4CDA /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046384CD237FC1AE00DE7236 /* SCTipsMessageCell.m */; };
 		8717E2B82400DADC008C4CDA /* BMTestAppInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1522371720600A43607 /* BMTestAppInfoVC.m */; };
@@ -299,7 +289,6 @@
 		8717E2C12400DADC008C4CDA /* SCEyeCareEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04D23B5D8F300D38129 /* SCEyeCareEmptyVC.m */; };
 		8717E2C52400DADC008C4CDA /* YSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AA23EA9EA1002002BF /* YSTableView.m */; };
 		8717E2CE2400DADC008C4CDA /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B8C6E423CEECFF0095F880 /* PanGestureControl.m */; };
-		8717E2D02400DADC008C4CDA /* SCColorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479E3239E274C00680D84 /* SCColorSelectView.m */; };
 		8717E2D12400DADC008C4CDA /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		8717E2D32400DADC008C4CDA /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		8717E2D42400DADC008C4CDA /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E58423F7981B008E885C /* YSCircleProgress.m */; };
@@ -333,7 +322,6 @@
 		8717E31F2400DADC008C4CDA /* SCAnswerStatisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA67D23799F0600EC2A64 /* SCAnswerStatisticsModel.m */; };
 		8717E3212400DADC008C4CDA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 876681FA23506EF400C4C635 /* AppDelegate.m */; };
 		8717E3232400DADC008C4CDA /* YSEyeCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745558223B335C200BC6CAB /* YSEyeCareVC.m */; };
-		8717E3282400DADC008C4CDA /* SCBrushToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A479EC239E276000680D84 /* SCBrushToolView.m */; };
 		8717E32A2400DADC008C4CDA /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D983023A0C6530007FBBA /* libresolv.tbd */; };
 		8717E32B2400DADC008C4CDA /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */; };
 		8717E32C2400DADC008C4CDA /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBC23C5809F00DA0276 /* UTMini.framework */; };
@@ -807,15 +795,6 @@
 		047F07AD25779BEF00D64265 /* YSDefaultLayoutPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSDefaultLayoutPopView.h; sourceTree = "<group>"; };
 		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
-		04A479E0239E274C00680D84 /* SCColorSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorSelectView.h; sourceTree = "<group>"; };
-		04A479E1239E274C00680D84 /* SCColorListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorListView.m; sourceTree = "<group>"; };
-		04A479E3239E274C00680D84 /* SCColorSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorSelectView.m; sourceTree = "<group>"; };
-		04A479E4239E274C00680D84 /* SCColorListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorListView.h; sourceTree = "<group>"; };
-		04A479E5239E274C00680D84 /* SCColorTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCColorTipView.m; sourceTree = "<group>"; };
-		04A479EC239E276000680D84 /* SCBrushToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBrushToolView.m; sourceTree = "<group>"; };
-		04A479ED239E276000680D84 /* SCBrushToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBrushToolView.h; sourceTree = "<group>"; };
-		04A479EE239E276000680D84 /* SCDrawBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDrawBoardView.h; sourceTree = "<group>"; };
-		04A479EF239E276000680D84 /* SCDrawBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDrawBoardView.m; sourceTree = "<group>"; };
 		04AD5C122583598E0023BEAD /* YSWarmVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSWarmVideoView.h; sourceTree = "<group>"; };
 		04AD5C132583598E0023BEAD /* YSWarmVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSWarmVideoView.m; sourceTree = "<group>"; };
 		04B5A4732372E49E00DB2EDC /* SCChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChatView.h; sourceTree = "<group>"; };
@@ -832,8 +811,6 @@
 		2615880824D0090D00F35234 /* YSWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSWebViewController.m; sourceTree = "<group>"; };
 		2615880B24D0171B00F35234 /* YSTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSTextView.h; sourceTree = "<group>"; };
 		2615880C24D0171B00F35234 /* YSTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSTextView.m; sourceTree = "<group>"; };
-		26215A7423C7130600D6730B /* YSSliderSuperView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSliderSuperView.h; sourceTree = "<group>"; };
-		26215A7523C7130600D6730B /* YSSliderSuperView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSliderSuperView.m; sourceTree = "<group>"; };
 		26262AF02386972C005B9F27 /* SCAnswerTBHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAnswerTBHeaderView.h; sourceTree = "<group>"; };
 		26262AF12386972C005B9F27 /* SCAnswerTBHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAnswerTBHeaderView.m; sourceTree = "<group>"; };
 		2626447423C57AC300317DAE /* YSMp3Controlview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMp3Controlview.h; sourceTree = "<group>"; };
@@ -989,7 +966,6 @@
 		8701B178237172F200A43607 /* YSTestHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSTestHelp.h; sourceTree = "<group>"; };
 		8701B179237172F200A43607 /* YSTestHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTestHelp.m; sourceTree = "<group>"; };
 		8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSchoolApiRequest.m; sourceTree = "<group>"; };
-		8708BA9E254A5B3A008CED8D /* SCColorTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCColorTipView.h; sourceTree = "<group>"; };
 		8709FEB22484D2A000CC8BEA /* YSSpreadBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSpreadBottomToolBar.h; sourceTree = "<group>"; };
 		8709FEB32484D2A000CC8BEA /* YSSpreadBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSpreadBottomToolBar.m; sourceTree = "<group>"; };
 		870C531C23572DF100BDB1EC /* YSLiveEnumHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveEnumHeader.h; sourceTree = "<group>"; };
@@ -1626,33 +1602,6 @@
 			path = YSTeacherRole;
 			sourceTree = "<group>";
 		};
-		04A479DE239E274C00680D84 /* BrushToolView */ = {
-			isa = PBXGroup;
-			children = (
-				04A479ED239E276000680D84 /* SCBrushToolView.h */,
-				04A479EC239E276000680D84 /* SCBrushToolView.m */,
-				04A479EE239E276000680D84 /* SCDrawBoardView.h */,
-				04A479EF239E276000680D84 /* SCDrawBoardView.m */,
-				26215A7423C7130600D6730B /* YSSliderSuperView.h */,
-				26215A7523C7130600D6730B /* YSSliderSuperView.m */,
-				04A479DF239E274C00680D84 /* SCColorSelectView */,
-			);
-			path = BrushToolView;
-			sourceTree = "<group>";
-		};
-		04A479DF239E274C00680D84 /* SCColorSelectView */ = {
-			isa = PBXGroup;
-			children = (
-				04A479E4239E274C00680D84 /* SCColorListView.h */,
-				04A479E1239E274C00680D84 /* SCColorListView.m */,
-				04A479E0239E274C00680D84 /* SCColorSelectView.h */,
-				04A479E3239E274C00680D84 /* SCColorSelectView.m */,
-				8708BA9E254A5B3A008CED8D /* SCColorTipView.h */,
-				04A479E5239E274C00680D84 /* SCColorTipView.m */,
-			);
-			path = SCColorSelectView;
-			sourceTree = "<group>";
-		};
 		04B5A4642372E3A800DB2EDC /* SCChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -2101,7 +2050,6 @@
 				CBCD78B823FF8B4500498742 /* YSStudentTimer */,
 				CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */,
 				26EFA5FD23794C4B00EC2A64 /* SCAnswerView */,
-				04A479DE239E274C00680D84 /* BrushToolView */,
 				875A7201237561CC00407A75 /* SCVideoView */,
 				2628F2B92376B08600425E08 /* SCTopToolBar */,
 				04B5A4642372E3A800DB2EDC /* SCChat */,
@@ -3723,7 +3671,6 @@
 				045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */,
 				2626447623C57AC300317DAE /* YSMp3Controlview.m in Sources */,
 				87832F0E24874C4300F1178E /* FLEXNavigationController.m in Sources */,
-				04A479F2239E276100680D84 /* SCDrawBoardView.m in Sources */,
 				87832FDA24874C4300F1178E /* FLEXKBToolbarButton.m in Sources */,
 				3471E29224039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,
 				3450B140240677A6006141E5 /* YSMonthListCell.m in Sources */,
@@ -3762,7 +3709,6 @@
 				871335CD237270F6006534A4 /* BMConsole.m in Sources */,
 				3471E2A424039A0100A3BBB4 /* FSCalendarCalculator.m in Sources */,
 				2615880D24D0171B00F35234 /* YSTextView.m in Sources */,
-				04A479E6239E274D00680D84 /* SCColorListView.m in Sources */,
 				87832FF624874C4300F1178E /* FLEXHierarchyTableViewController.m in Sources */,
 				8783300A24874C4400F1178E /* FLEXMirror.m in Sources */,
 				34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
@@ -3779,7 +3725,6 @@
 				87832F1424874C4300F1178E /* FLEXCodeFontCell.m in Sources */,
 				8777C7CE23EC336C002002BF /* YSClassMediumCell.m in Sources */,
 				871335DB237270F6006534A4 /* YSNewPictureCell.m in Sources */,
-				26215A7623C7130600D6730B /* YSSliderSuperView.m in Sources */,
 				87832F2E24874C4300F1178E /* FLEXBlockShortcuts.m in Sources */,
 				87832F8224874C4300F1178E /* FLEXArgumentInputViewFactory.m in Sources */,
 				87832F8824874C4300F1178E /* FLEXTabList.m in Sources */,
@@ -3843,7 +3788,6 @@
 				26FCAD7323C4616100FC90EF /* YSMp4ControlView.m in Sources */,
 				87832F4224874C4300F1178E /* FLEXMetadataSection.m in Sources */,
 				87832F9E24874C4300F1178E /* FLEXObjectRef.m in Sources */,
-				04A479EA239E274D00680D84 /* SCColorTipView.m in Sources */,
 				26355BE623B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */,
 				87832FC624874C4300F1178E /* FLEXRealmDatabaseManager.m in Sources */,
 				3471E2A824039A0100A3BBB4 /* FSCalendarTransitionCoordinator.m in Sources */,
@@ -3879,7 +3823,6 @@
 				04B8C6E523CEECFF0095F880 /* PanGestureControl.m in Sources */,
 				87832FD424874C4300F1178E /* FLEXRuntimeKeyPath.m in Sources */,
 				8783301E24874C4400F1178E /* FLEXAlert.m in Sources */,
-				04A479E8239E274D00680D84 /* SCColorSelectView.m in Sources */,
 				87832FA024874C4300F1178E /* FLEXWebViewController.m in Sources */,
 				CB3D958F23EDBA0B00A0DEC4 /* YSChangePassWordVC.m in Sources */,
 				26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */,
@@ -3948,7 +3891,6 @@
 				26BAA5A72519F75B0077B7F0 /* YSLiveLevelView.m in Sources */,
 				87832FB424874C4300F1178E /* FLEXASLLogController.m in Sources */,
 				87832F5A24874C4300F1178E /* FLEXExplorerToolbar.m in Sources */,
-				04A479F0239E276100680D84 /* SCBrushToolView.m in Sources */,
 				87832F4424874C4300F1178E /* FLEXObjectExplorerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4060,7 +4002,6 @@
 				87832FEB24874C4300F1178E /* FHSView.m in Sources */,
 				87832F0924874C4300F1178E /* FLEXSingleRowSection.m in Sources */,
 				87832F9324874C4300F1178E /* FLEXBookmarksViewController.m in Sources */,
-				8717E2322400DADC008C4CDA /* SCDrawBoardView.m in Sources */,
 				8783303F24874C4400F1178E /* UIBarButtonItem+FLEX.m in Sources */,
 				8783301324874C4400F1178E /* FLEXIvar.m in Sources */,
 				3471E29324039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,
@@ -4114,7 +4055,6 @@
 				3471E2A524039A0100A3BBB4 /* FSCalendarCalculator.m in Sources */,
 				87832FF724874C4300F1178E /* FLEXHierarchyTableViewController.m in Sources */,
 				87832F3B24874C4300F1178E /* FLEXUIAppShortcuts.m in Sources */,
-				8717E25E2400DADC008C4CDA /* SCColorListView.m in Sources */,
 				8717E2602400DADC008C4CDA /* YSUpHandPopCell.m in Sources */,
 				8717E2622400DADC008C4CDA /* YSClassDayList.m in Sources */,
 				87832F2F24874C4300F1178E /* FLEXBlockShortcuts.m in Sources */,
@@ -4132,7 +4072,6 @@
 				87832F6524874C4300F1178E /* FLEXMethodCallingViewController.m in Sources */,
 				8783303124874C4400F1178E /* NSTimer+FLEX.m in Sources */,
 				8717E2702400DADC008C4CDA /* YSNewPictureCell.m in Sources */,
-				8717E2712400DADC008C4CDA /* YSSliderSuperView.m in Sources */,
 				8717E2722400DADC008C4CDA /* YSClassCell.m in Sources */,
 				87832F5324874C4300F1178E /* FLEXNetworkTransactionCell.m in Sources */,
 				8717E2732400DADC008C4CDA /* YSAnswerCell.m in Sources */,
@@ -4189,7 +4128,6 @@
 				8717E2AB2400DADC008C4CDA /* UIAlertController+SCAlertAutorotate.m in Sources */,
 				3471E29F24039A0100A3BBB4 /* FSCalendarSeparatorDecorationView.m in Sources */,
 				8717E2AD2400DADC008C4CDA /* YSMp4ControlView.m in Sources */,
-				8717E2B12400DADC008C4CDA /* SCColorTipView.m in Sources */,
 				87832F7F24874C4300F1178E /* FLEXArgumentInputNumberView.m in Sources */,
 				87832F6B24874C4300F1178E /* FLEXArgumentInputStringView.m in Sources */,
 				8717E2B22400DADC008C4CDA /* SCTeacherPersonListCell.m in Sources */,
@@ -4217,7 +4155,6 @@
 				2615880E24D0171B00F35234 /* YSTextView.m in Sources */,
 				87832F5D24874C4300F1178E /* FLEXManager+Extensibility.m in Sources */,
 				8717E2CE2400DADC008C4CDA /* PanGestureControl.m in Sources */,
-				8717E2D02400DADC008C4CDA /* SCColorSelectView.m in Sources */,
 				8717E2D12400DADC008C4CDA /* YSChangePassWordVC.m in Sources */,
 				87832F3324874C4300F1178E /* FLEXImageShortcuts.m in Sources */,
 				87832F9124874C4300F1178E /* FLEXBookmarkManager.m in Sources */,
@@ -4295,7 +4232,6 @@
 				8717E3212400DADC008C4CDA /* AppDelegate.m in Sources */,
 				8717E3232400DADC008C4CDA /* YSEyeCareVC.m in Sources */,
 				87832F1F24874C4300F1178E /* FLEXCarouselCell.m in Sources */,
-				8717E3282400DADC008C4CDA /* SCBrushToolView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
