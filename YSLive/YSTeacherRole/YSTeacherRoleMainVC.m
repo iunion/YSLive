@@ -3712,8 +3712,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 设置自己默认画笔颜色
 - (void)setCurrentUserPrimaryColor
 {
-#if !PASS_TEST
-    NSArray *colorArray = [SCColorSelectView colorArray];
+    NSArray *colorArray = [CHWhiteBoardManager colorSelectArray];
     NSString *newColorStr;
     if (self.roomtype == CHRoomUserType_One)
     {
@@ -3726,11 +3725,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserPrimaryColor value:newColorStr];
 
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager changePrimaryColorHex:newColorStr];
-#endif
-    
-#endif
+    [self.liveManager.whiteBoardManager changeDefaultPrimaryColor:newColorStr];
 }
 
 #pragma mark 共享桌面

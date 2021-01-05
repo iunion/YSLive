@@ -388,7 +388,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 设置自己默认画笔颜色
 - (void)setCurrentUserPrimaryColor
 {
-#if !PASS_TEST
     //YSRoomUser *lastRoomUser = [YSLiveManager shareInstance].userList.lastObject;
     CHRoomUser *lastRoomUser = nil;
     for (NSInteger i = self.videoSequenceArr.count - 1; i >= 0; i--)
@@ -401,7 +400,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    NSArray *colorArray = [SCColorSelectView colorArray];
+    NSArray *colorArray = [CHWhiteBoardManager colorSelectArray];
     NSString *newColorStr;
     if (lastRoomUser)
     {
@@ -428,11 +427,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserPrimaryColor value:newColorStr];
 
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager changePrimaryColorHex:newColorStr];
-#endif
-    
-#endif
+    [self.liveManager.whiteBoardManager changeDefaultPrimaryColor:newColorStr];
 }
 
 
