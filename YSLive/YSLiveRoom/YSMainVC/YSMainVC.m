@@ -2083,9 +2083,7 @@
             //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
             
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
-#if !PASS_TEST
-            [self.liveManager.whiteBoardManager refreshWhiteBoard];
-#endif
+            [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
                         
             return self.whiteBordView;
         }

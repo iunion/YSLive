@@ -374,30 +374,22 @@
 #pragma mark -
 #pragma mark CHWhiteBoardManagerDelegate
 
-
-- (void)changeUndoRedoState:(NSString *)fileid currentpage:(NSUInteger)currentPage canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo canErase:(BOOL)canErase canClean:(BOOL)canClean
-{
-    if ([self.whiteBoardManager.currentFileId isEqualToString:fileid])
-    {
-        if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingChangeUndoRedoStateCanErase:canClean:)])
-        {
-            [self.whiteBoardDelegate handleSignalingChangeUndoRedoStateCanErase:canErase canClean:canClean];
-        }
-    }
-}
-/// 白板管理初始化失败
-- (void)onWhiteBroadCreateFail
-{
-}
-
 /// 白板管理准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
 {
-    if (!finished)
-    {
-        return;
-    }
     
+}
+
+/// 白板管理进入房间完毕，SAAS使用
+- (void)onWhiteBroadEnterRoomFinish:(BOOL)finished
+{
+    
+}
+
+/// 文件列表回调
+/// @param fileList 文件NSDictionary列表
+- (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
+{
     if (self.room_UseType == CHRoomUseTypeLiveRoom)
     {
         [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordLiveBgColor];
@@ -405,35 +397,13 @@
     }
 }
 
-/// 文件列表回调
-/// @param fileList 文件NSDictionary列表
-- (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
+/// 当前打开的课件列表
+- (void)onWhiteBoardChangedShowFileIdList:(NSArray *)fileIdList
 {
-    
-}
-
-/// H5脚本文件加载初始化完成
-- (void)onWhiteBoardPageFinshed:(NSString *)fileId
-{
-    
-}
-
-/// 切换交互课件加载状态
-- (void)onWhiteBoardLoadInterCourse:(NSString *)fileId isSuccess:(BOOL)isSuccess
-{
-    
-}
-
-/// 课件翻页显示结果
-- (void)onWhiteBoardSlideCourse:(NSString *)fileId currentPage:(NSUInteger)currentPage isSuccess:(BOOL)isSuccess
-{
-    
-}
-
-/// 课件缩放
-- (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
-{
-    
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardChangedFileWithFileList:)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileIdList];
+    }
 }
 
 #pragma mark - 课件事件
@@ -465,14 +435,6 @@
     }
 }
 
-/// 切换课件
-- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
-{    
-    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardChangedFileWithFileList:)])
-    {
-        [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileList];
-    }
-}
 
 - (void)onSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState
 {

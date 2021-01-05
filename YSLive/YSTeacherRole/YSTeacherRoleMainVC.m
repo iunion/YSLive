@@ -912,9 +912,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager refreshWhiteBoard];
-#endif
+    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
     
     self.mp4ControlView = [[YSMp4ControlView alloc] init];
     [self.contentBackgroud addSubview:self.mp4ControlView];
@@ -1676,7 +1674,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         self.videoBackgroud.frame = CGRectMake(0, 0, self.contentWidth, videoTeacherHeight + VIDEOVIEW_GAP);
 
+#if !PASS_TEST
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
+#else
+        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
+#endif
     }
     if (!floatVideoDefaultWidth)
     {
@@ -1697,9 +1699,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     }
 
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager refreshWhiteBoard];
-#endif
+    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
 }
 
 // 刷新宫格视频布局
@@ -3925,8 +3925,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     }
     
+    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
 #if !PASS_TEST
-    [self.liveManager.whiteBoardManager refreshWhiteBoard];
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 #endif
 }
