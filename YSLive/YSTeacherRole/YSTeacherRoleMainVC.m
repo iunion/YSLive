@@ -3723,6 +3723,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         NSUInteger index = arc4random() % colorArray.count;
         newColorStr = colorArray[index];
     }
+    
+    NSString *colorStr = [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit.cloudHubWhiteBoardConfig.canvasColor bm_hexStringWithStartChar:@"#"];
+    if ([newColorStr isEqualToString:colorStr])
+    {
+        newColorStr = @"#FF0000";
+    }
+    
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserPrimaryColor value:newColorStr];
 
     [self.liveManager.whiteBoardManager changeDefaultPrimaryColor:newColorStr];
