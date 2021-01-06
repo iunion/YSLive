@@ -221,7 +221,8 @@
         CHWhiteBoardWebProtocolKey : YSLive_Http,
         CHWhiteBoardWebHostKey : host,
         CHWhiteBoardWebPortKey : @(port),
-        CHWhiteBoardPDFLevelsKey : @(2)
+        CHWhiteBoardPDFLevelsKey : @(2),
+        CHWhiteBoardIsObjectLevelKey : @(YES)
     };
     
 #if YSSDK
