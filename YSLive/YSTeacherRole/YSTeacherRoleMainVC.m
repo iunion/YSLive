@@ -2969,11 +2969,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
 
         [self hideWhiteBordVideoViewWithMediaModel:mediaModel];
-        if (self.liveManager.isClassBegin)
-        {
-            //[self.liveManager.whiteBoardManager clearVideoMark];
-            [self.liveManager delMsg:sCHSignal_VideoWhiteboard msgId:sCHSignal_VideoWhiteboard to:CHRoomPubMsgTellAll];
-        }
     }
     else
     {
@@ -3087,15 +3082,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (self.liveManager.isClassBegin)
         {
-            [self.liveManager pubMsg:sCHSignal_VideoWhiteboard msgId:sCHSignal_VideoWhiteboard to:CHRoomPubMsgTellAll withData:@{@"videoRatio":@(mediaFileModel.width/mediaFileModel.height)} save:YES];
-        }
-    }
-    else
-    {
-        if (self.liveManager.isClassBegin)
-        {
-            //[self.liveManager.whiteBoardManager clearVideoMark];
-            [self.liveManager delMsg:sCHSignal_VideoWhiteboard msgId:sCHSignal_VideoWhiteboard to:CHRoomPubMsgTellAll];
+            NSString *fileId = [NSString stringWithFormat:@"%@_%@", CHVideoWhiteboard_Id, mediaFileModel.fileId];
+            [self.liveManager pubMsg:sCHSignal_VideoWhiteboard msgId:sCHSignal_VideoWhiteboard to:CHRoomPubMsgTellAll withData:@{@"videoRatio":@(mediaFileModel.width/mediaFileModel.height), @"fileId":fileId} save:YES];
         }
     }
 }
@@ -3104,11 +3092,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     isDrag = YES;
     [self.liveManager seekSharedMediaFile:mediaFileModel.fileUrl positionByMS:value];
-    if (self.liveManager.isClassBegin)
-    {
-        //[self.liveManager.whiteBoardManager clearVideoMark];
-        [self.liveManager delMsg:sCHSignal_VideoWhiteboard msgId:sCHSignal_VideoWhiteboard to:CHRoomPubMsgTellAll];
-    }
 }
 
 /// 显示白板视频标注
@@ -3128,7 +3111,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self.mediaMarkView removeFromSuperview];
     }
     
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds];
+    NSString *fileId = [data bm_stringForKey:@"fileId"];
+    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds fileId:fileId];
     [self.shareVideoFloatView addSubview:self.mediaMarkView];
     
     [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];

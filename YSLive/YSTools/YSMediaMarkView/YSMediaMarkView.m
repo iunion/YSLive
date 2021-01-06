@@ -17,6 +17,9 @@
 //    CHDrawViewDelegate
 //>
 
+
+@property (nonatomic, strong) NSString *fileId;
+
 // 画板
 @property (nonatomic, strong) CHDrawView *drawView;
 
@@ -34,12 +37,13 @@
 
 @implementation YSMediaMarkView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame fileId:(NSString *)fileId
 {
     self = [super initWithFrame:frame];
     if (self)
     {
         self.backgroundColor = [UIColor clearColor];
+        self.fileId = fileId;
         
         [self setupTools];
     }
@@ -53,7 +57,7 @@
     [self addSubview:drawView];
     //drawView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    [drawView switchToFileId:CHVideoWhiteboard_Id pageNum:1 updateImmediately:YES];
+    [drawView switchToFileId:self.fileId pageNum:1 updateImmediately:YES];
     
     self.drawView = drawView;
 }
@@ -118,7 +122,7 @@
 {
     self.videoRatio = videoRatio;
 
-    [self.drawView switchToFileId:CHVideoWhiteboard_Id pageNum:1 updateImmediately:YES];
+    [self.drawView switchToFileId:self.fileId pageNum:1 updateImmediately:YES];
 
     for (NSDictionary *dic in sharpsDataArray)
     {

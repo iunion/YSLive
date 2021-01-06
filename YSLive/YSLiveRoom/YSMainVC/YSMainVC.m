@@ -1578,7 +1578,8 @@
         [self.mediaMarkView removeFromSuperview];
     }
     
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds];
+    NSString *fileId = [data bm_stringForKey:@"fileId"];
+    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds fileId:fileId];
     [self.mp4BgView addSubview:self.mediaMarkView];
     [self.mp4FullScreenBtn bm_bringToFront];
     

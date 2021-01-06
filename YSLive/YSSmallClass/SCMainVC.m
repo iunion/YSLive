@@ -4410,7 +4410,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.mediaMarkView removeFromSuperview];
     }
     
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds];
+    NSString *fileId = [data bm_stringForKey:@"fileId"];
+    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds fileId:fileId];
     [self.shareVideoFloatView addSubview:self.mediaMarkView];
     
     [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];
@@ -4419,7 +4420,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 绘制白板视频标注
 - (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data isHistory:(BOOL)isHistory
 {
-
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
