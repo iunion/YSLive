@@ -5951,13 +5951,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
-#if !PASS_TEST
     [self.liveManager.whiteBoardManager changeCourseWithFileId:fileModel.fileid];
-#endif
-
 }
 
-///收回列表
+/// 收回列表
 - (void)tapGestureBackListView
 {
     [self freshListViewWithSelect:NO];
