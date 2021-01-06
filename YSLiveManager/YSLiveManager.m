@@ -243,11 +243,11 @@
     [self.whiteBoardManager registerCoursewareControlView:@"YSNewCoursewareControlView" viewSize:CGSizeMake(YSCoursewareControlView_Width, 50)];
 #endif
     
-    [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
-    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
-    [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
-
-    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
+//    [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
+//    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
+//    [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
+//
+//    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
 }
 
 /// 改变小班课白板背景颜色和水印底图
@@ -390,6 +390,12 @@
 /// @param fileList 文件NSDictionary列表
 - (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
 {
+    [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
+    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
+    [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
+
+    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
+
     if (self.room_UseType == CHRoomUseTypeLiveRoom)
     {
         [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordLiveBgColor];
