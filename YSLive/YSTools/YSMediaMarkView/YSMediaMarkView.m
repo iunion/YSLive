@@ -171,6 +171,7 @@
     }
     
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:shapeData options:NSJSONReadingMutableContainers error:nil];
+
     NSString *whiteboardID = [CHWhiteBoardUtil getwhiteboardIdFromFileId:self.drawView.fileId];
     [dic setObject:whiteboardID forKey:@"whiteboardID"];
     [dic setObject:@(false) forKey:@"isBaseboard"];
