@@ -2590,19 +2590,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     BMWeakSelf
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
-            
-            if (isSmallBoard)
-            {
-                if ([dict bm_isNotEmpty])
-                {
-#if !PASS_TEST
-                    [weakSelf.liveManager.whiteBoardManager addSmallBoardImageWithData:dict];
-#endif
-                }
-            }
-            else
-            {
+        if (isSmallBoard)
+        {
+            [self.liveManager.whiteBoardManager uploadSmallBalckBoardImageWithImage:photos.firstObject success:nil failure:nil];
+    
+        }
+        else
+        {
+            [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
+                
                 if (imageUseType == 0)
                 {
 #if !PASS_TEST
@@ -2619,33 +2615,34 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                         [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     }
                 }
-            }
-            
-            /*
-             cospath = "https://demo.roadofcloud.com";
-             downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
-             dynamicppt = 0;
-             fileid = 157372252254;
-             filename = "iOS_mobile_2019-11-14_17_08_38.JPG";
-             fileprop = 0;
-             isContentDocument = 0;
-             pagenum = 1;
-             realUrl = "";
-             result = 0;
-             size = 1256893;
-             status = 1;
-             swfpath = "/upload/20191114_170842_rjkvvosq.jpg";
-             */
-        } failure:^(NSInteger errorCode) {
+                
+                /*
+                 cospath = "https://demo.roadofcloud.com";
+                 downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
+                 dynamicppt = 0;
+                 fileid = 157372252254;
+                 filename = "iOS_mobile_2019-11-14_17_08_38.JPG";
+                 fileprop = 0;
+                 isContentDocument = 0;
+                 pagenum = 1;
+                 realUrl = "";
+                 result = 0;
+                 size = 1256893;
+                 status = 1;
+                 swfpath = "/upload/20191114_170842_rjkvvosq.jpg";
+                 */
+            } failure:^(NSInteger errorCode) {
 #if DEBUG
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
 #endif
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
-            });
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
+                });
         }];
+            
+        }
     }];
     
     self.imagePickerController = imagePickerController;
@@ -4476,6 +4473,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListData];
 }
 
+//
 - (void)handleSignalingSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState
 {
     self.smallStageState = smallBoardStageState;
@@ -4483,44 +4481,42 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshBrushTools];
 }
 
-- (void)handleSignalingSmallBoardBottomBarClick:(UIButton *)sender
+//小黑板上传图片课件
+- (void)handleSignalingSmallBoardBottomBarClickToUploadImage
 {
-    if (sender.tag == 1)
-    {//上传图片课件
-        /// 上传图片
-        [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document  isSmallBoard:YES];
-    }
-    else if (sender.tag == 2)
-    {
-        if (self.controlPopoverView.presentingViewController)
-        {
-            [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
-        }
-
-        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.prompt") message:YSLocalized(@"SmallBoard_DeletePictureTag") preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        }];
-        BMWeakSelf
-        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-#if !PASS_TEST
-            [weakSelf.liveManager.whiteBoardManager deleteSmallBoardImage];
-#endif
-        }];
-        [alertVc addAction:cancelAc];
-        [alertVc addAction:confimAc];
-        
-#if YSSDK
-        alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
-#else
-        alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
-#endif
-        alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
-        alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
-
-        [self presentViewController:alertVc animated:YES completion:nil];
-    }
+    [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document  isSmallBoard:YES];
 }
 
+//小黑板删除图片课件
+- (void)handleSignalingSmallBoardBottomBarClickToDeleteImage
+{
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    }
+
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.prompt") message:YSLocalized(@"SmallBoard_DeletePictureTag") preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    BMWeakSelf
+    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+#if !PASS_TEST
+        [weakSelf.liveManager.whiteBoardManager deleteSmallBoardImage];
+#endif
+    }];
+    [alertVc addAction:cancelAc];
+    [alertVc addAction:confimAc];
+    
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+
+    [self presentViewController:alertVc animated:YES completion:nil];
+}
 
 #pragma mark 共享桌面
 

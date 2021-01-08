@@ -452,11 +452,20 @@
 }
 
 //小黑板bottomBar的代理
-- (void)onSmallBoardBottomBarClick:(UIButton *)sender
+///上传图片
+- (void)onSmallBoardBottomBarClickToUploadImage
 {
-    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClick:)])
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToUploadImage)])
     {
-        [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClick:sender];
+        [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClickToUploadImage];
+    }
+}
+///删除图片
+- (void)onSmallBoardBottomBarClickToDeleteImage
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToDeleteImage)])
+    {
+        [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClickToDeleteImage];
     }
 }
 

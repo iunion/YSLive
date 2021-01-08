@@ -26,7 +26,10 @@
 - (void)handleSignalingSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState;
 
 //小黑板bottomBar的代理
-- (void)handleSignalingSmallBoardBottomBarClick:(UIButton *)sender;
+///上传图片
+- (void)handleSignalingSmallBoardBottomBarClickToUploadImage;
+///删除图片
+- (void)handleSignalingSmallBoardBottomBarClickToDeleteImage;
 /// 小黑板答题阶段私聊
 - (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray;
 - (void)handleSignalingDeletePrivateChat;
