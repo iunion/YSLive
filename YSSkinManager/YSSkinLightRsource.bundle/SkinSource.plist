@@ -203,6 +203,15 @@
 		<key>iconDis</key>
 		<string>brushTool_mouse_dis_skin</string>
 	</dict>
+	<key>brushTool_select</key>
+	<dict>
+		<key>iconNor</key>
+		<string>brushTool_select_nor_skin</string>
+		<key>iconSel</key>
+		<string>brushTool_select_sel_skin</string>
+		<key>iconDis</key>
+		<string>brushTool_select_dis_skin</string>
+	</dict>
 	<key>brushTool_pen</key>
 	<dict>
 		<key>tittleColor</key>
@@ -267,6 +276,13 @@
 		<string>brushTool_clear_sel_skin</string>
 		<key>iconDis</key>
 		<string>brushTool_clear_dis_skin</string>
+	</dict>
+	<key>brushTool_deleteselect</key>
+	<dict>
+		<key>iconNor</key>
+		<string>brushTool_delete_nor_skin</string>
+		<key>iconSel</key>
+		<string>brushTool_delete_sel_skin</string>
 	</dict>
 	<key>brushTool_drawpen</key>
 	<dict>
