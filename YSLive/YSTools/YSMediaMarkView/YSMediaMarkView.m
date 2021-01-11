@@ -10,10 +10,15 @@
 #import "YSLiveManager.h"
 #import "YSLiveUtil.h"
 
+#import <CloudHubWhiteBoardKit/CHDrawView.h>
+
 @interface YSMediaMarkView ()
-<
-    CHDrawViewDelegate
->
+//<
+//    CHDrawViewDelegate
+//>
+
+
+@property (nonatomic, strong) NSString *fileId;
 
 // 画板
 @property (nonatomic, strong) CHDrawView *drawView;
@@ -32,12 +37,13 @@
 
 @implementation YSMediaMarkView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame fileId:(NSString *)fileId
 {
     self = [super initWithFrame:frame];
     if (self)
     {
         self.backgroundColor = [UIColor clearColor];
+        self.fileId = fileId;
         
         [self setupTools];
     }
@@ -46,12 +52,13 @@
 
 - (void)setupTools
 {
-    CHDrawView *drawView = [[CHDrawView alloc] initWithDelegate:self];
+    CloudHubWhiteBoardConfig *whiteBoardConfig = [YSLiveManager sharedInstance].whiteBoardManager.cloudHubWhiteBoardKit.cloudHubWhiteBoardConfig;
+    CHDrawView *drawView = [[CHDrawView alloc] initWithWhiteBoardId:sCHSignal_VideoWhiteboard_Id whiteBoardConfig:whiteBoardConfig];
     [self addSubview:drawView];
     //drawView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    //drawView.delegate = self;
-    [drawView switchToFileID:sCHSignal_VideoWhiteboard_Id pageID:1 refreshImmediately:YES];
+    [drawView switchToFileId:self.fileId pageNum:1 updateImmediately:YES];
+    
     self.drawView = drawView;
 }
 
@@ -115,14 +122,14 @@
 {
     self.videoRatio = videoRatio;
 
-    [self.drawView switchToFileID:CHVideoWhiteboard_Id pageID:1 refreshImmediately:YES];
+    [self.drawView switchToFileId:self.fileId pageNum:1 updateImmediately:YES];
 
     for (NSDictionary *dic in sharpsDataArray)
     {
         NSString *fromId = [dic objectForKey:@"fromID"];
         BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
         
-        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
+        [self.drawView addDrawSharpData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
     }
 }
 
@@ -138,13 +145,13 @@
         NSString *fromId = [dic objectForKey:@"fromID"];
         BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
 
-        [self.drawView addDrawData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
+        [self.drawView addDrawSharpData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
     }
     
     NSString *fromId = [data objectForKey:@"fromID"];
     BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
 
-    [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
+    [self.drawView addDrawSharpData:data authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
 }
 
 //- (void)didMoveToSuperview
@@ -164,8 +171,8 @@
     }
     
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:shapeData options:NSJSONReadingMutableContainers error:nil];
-    
-    NSString *whiteboardID = [CHWhiteBoardUtil getwhiteboardIDFromFileId:self.drawView.fileid];
+
+    NSString *whiteboardID = [CHWhiteBoardUtil getwhiteboardIdFromFileId:self.drawView.fileId];
     [dic setObject:whiteboardID forKey:@"whiteboardID"];
     [dic setObject:@(false) forKey:@"isBaseboard"];
     
@@ -216,10 +223,12 @@
             NSString *fromId = [dictionary objectForKey:@"fromID"];
             BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
             
-            [self.drawView switchToFileID:whiteboardID pageID:1 refreshImmediately:YES];
-            [self.drawView addDrawData:data authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself refreshImmediately:YES];
+            [self.drawView switchToFileId:whiteboardID pageNum:1 updateImmediately:YES];
+
+            [self.drawView addDrawSharpData:data authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
             return;
         }
     }
 }
+
 @end

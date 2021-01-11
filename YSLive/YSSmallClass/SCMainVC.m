@@ -10,8 +10,6 @@
 
 #import "SCMainVC.h"
 #import "SCChatView.h"
-#import "SCBrushToolView.h"
-#import "SCDrawBoardView.h"
 #import "SCChatToolView.h"
 
 #if YSSDK
@@ -34,7 +32,6 @@
 #import "UIAlertController+SCAlertAutorotate.h"
 #import "YSLiveApiRequest.h"
 
-#import "SCColorSelectView.h"
 
 #import "YSStudentResponder.h"
 #import "YSStudentTimerView.h"
@@ -95,8 +92,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate,
     UITextViewDelegate,
-    SCBrushToolViewDelegate,
-    SCDrawBoardViewDelegate,
     UIPopoverPresentationControllerDelegate,
     SCVideoViewDelegate,
     SCTeacherListViewDelegate,
@@ -219,13 +214,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, strong) UIImageView *playMp3ImageView;
 /// 聊天的View
 @property(nonatomic,strong)SCChatView *rightChatView;
-/// 左侧工具栏
-@property (nonatomic, strong) SCBrushToolView *brushToolView;
-/// 画笔工具按钮（控制工具条的展开收起）
-@property (nonatomic, strong) UIButton *brushToolOpenBtn;
-/// 画笔选择 颜色 大小 形状
-@property (nonatomic, strong) SCDrawBoardView *drawBoardView;
-
 /// 答题中
 @property (nonatomic, strong) SCAnswerView *answerView;
 /// 答题结果
@@ -403,6 +391,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+
 /// 设置自己默认画笔颜色
 - (void)setCurrentUserPrimaryColor
 {
@@ -418,7 +407,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    NSArray *colorArray = [SCColorSelectView colorArray];
+    NSArray *colorArray = [CHWhiteBoardManager colorSelectArray];
     NSString *newColorStr;
     if (lastRoomUser)
     {
@@ -443,9 +432,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         newColorStr = colorArray[0];
     }
     
+    NSString *colorStr = [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit.cloudHubWhiteBoardConfig.canvasColor bm_hexStringWithStartChar:@"#"];
+    if ([newColorStr isEqualToString:colorStr])
+    {
+        newColorStr = @"#FF0000";
+    }
+
     [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserPrimaryColor value:newColorStr];
 
-    [self.liveManager.whiteBoardManager changePrimaryColorHex:newColorStr];
+    [self.liveManager.whiteBoardManager changeDefaultPrimaryColor:newColorStr];
 }
 
 
@@ -485,12 +480,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self.spreadBottomToolBar bm_bringToFront];
     self.spreadBottomToolBar.isCameraEnable = YES;// 学生上课前
-    
-    if (YSCurrentUser.role == CHUserType_Student)
-    {
-        // 设置左侧工具栏
-        [self setupBrushToolView];
-    }
 
     // 右侧聊天视图
     [self creatRightChatView];
@@ -581,9 +570,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // mp3f动画
     [self.playMp3ImageView bm_bringToFront];
-    
-    // 笔刷工具
-    [self.brushToolView bm_bringToFront];
     
     // 聊天窗口
     [self.rightChatView bm_bringToFront];
@@ -901,8 +887,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.backgroundColor = [UIColor blackColor];
     
     self.whiteBordView.frame = self.whitebordBackgroud.bounds;
-    [self.liveManager.whiteBoardManager refreshWhiteBoard];
-    
+    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
+
     [self freshContentView];
 }
 
@@ -1175,37 +1161,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     return imageView;
 }
-
-#pragma mark UI 工具栏
-
-/// 设置左侧工具栏
-- (void)setupBrushToolView
-{
-    self.brushToolView = [[SCBrushToolView alloc] initWithTeacher:NO];
-    [self.view addSubview:self.brushToolView];
-
-    CGFloat laftGap = 10;
-    if (BMIS_IPHONEXANDP)
-    {
-        laftGap = BMUI_HOME_INDICATOR_HEIGHT;
-    }
-    self.brushToolView.bm_left = laftGap;
-    self.brushToolView.bm_centerY = self.view.bm_centerY;
-    self.brushToolView.delegate = self;
-    self.brushToolView.hidden = YES;
-    
-    UIButton *brushToolOpenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [brushToolOpenBtn addTarget:self action:@selector(brushToolOpenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconNor") forState:UIControlStateNormal];
-    [brushToolOpenBtn setBackgroundImage:YSSkinElementImage(@"brushTool_open", @"iconSel") forState:UIControlStateSelected];
-    brushToolOpenBtn.frame = CGRectMake(0, 0, 25, 37);
-    brushToolOpenBtn.bm_centerY = self.brushToolView.bm_centerY;
-    brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
-    self.brushToolOpenBtn = brushToolOpenBtn;
-    self.brushToolOpenBtn.hidden = YES;
-    [self.view addSubview:brushToolOpenBtn];
-}
-
 
 /// 助教网络刷新课件
 - (void)handleSignalingTorefeshCourseware
@@ -1488,7 +1443,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         if (self.roomLayout == CHRoomLayoutType_VideoLayout)
         {
+#if !PASS_TEST
             [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+#endif
             [self freshVideoGridView];
         }
         else
@@ -1503,7 +1460,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [self freshVideoGridView];
             [self.raiseHandsBtn bm_bringToFront];
+#if !PASS_TEST
             [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+#endif
 //            self.whiteBordView.hidden = YES;
         }
         else
@@ -1857,7 +1816,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.videoBackgroud.frame = CGRectMake(0, 0, self.contentWidth, videoTeacherHeight + VIDEOVIEW_GAP);
 
+#if !PASS_TEST
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
+#else
+        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
+#endif
     }
     
     if (!floatVideoDefaultHeight)
@@ -1879,7 +1842,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordBackgroud.bounds;
     }
 
-    [self.liveManager.whiteBoardManager refreshWhiteBoard];
+    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
 }
 
 // 刷新宫格视频布局
@@ -2206,77 +2169,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [rightChatView addGestureRecognizer:tap];
     self.rightChatView = rightChatView;
     [self.view addSubview:rightChatView];
-}
-
-#pragma mark 画笔工具展开收起
-- (void)brushToolOpenBtnClick:(UIButton *)btn
-{
-//    if (self.liveManager.isBeginClass)
-       {
-           btn.selected = !btn.selected;
-           CGFloat leftGap = 10;
-           if (BMIS_IPHONEXANDP)
-           {
-               leftGap = BMUI_HOME_INDICATOR_HEIGHT;
-           }
-           CGFloat tempWidth = [UIDevice bm_isiPad] ? 50.0f : 36.0f;
-           if (btn.selected)
-           {
-               self.drawBoardView.hidden = YES;
-               [UIView animateWithDuration:0.3 animations:^{
-                   self.brushToolView.bm_left = -tempWidth;
-                   self.brushToolOpenBtn.bm_left = leftGap;
-               }];
-           }
-           else
-           {
-               [UIView animateWithDuration:0.3 animations:^{
-                   self.brushToolView.bm_left = leftGap;
-                   self.brushToolOpenBtn.bm_left = self.brushToolView.bm_right;
-               }];
-           }
-       }
-}
-
-#pragma mark -
-#pragma mark SCBrushToolViewDelegate
-
-- (void)brushToolViewType:(CHBrushToolType)toolViewBtnType withToolBtn:(nonnull UIButton *)toolBtn showTool:(BOOL)showTool
-{
-    [self.liveManager.whiteBoardManager brushToolsDidSelect:toolViewBtnType];
-    
-    if (showTool)
-    {
-        if (self.drawBoardView)
-        {
-            [self.drawBoardView removeFromSuperview];
-        }
-        
-        self.drawBoardView = [[SCDrawBoardView alloc] init];
-        self.drawBoardView.delegate = self;
-        self.drawBoardView.brushToolType = toolViewBtnType;
-        [self.view addSubview:self.drawBoardView];
-        
-        BMWeakSelf
-        [self.drawBoardView.backgroundView  bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.left.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_right).bmmas_offset(10);
-            make.centerY.bmmas_equalTo(weakSelf.brushToolOpenBtn.bmmas_centerY);
-        }];
-    }
-    
-}
-
-
-#pragma mark - 需要传递给白板的数据
-#pragma mark SCDrawBoardViewDelegate
-
-- (void)brushSelectorViewDidSelectDrawType:(CHDrawType)drawType color:(NSString *)hexColor widthProgress:(float)progress
-{
-    if (self.liveManager.localUser.canDraw || self.liveManager.whiteBoardManager.smallBoardView)
-    {
-        [self.liveManager.whiteBoardManager didSelectDrawType:drawType color:hexColor widthProgress:progress];
-    }
-
 }
 
 
@@ -2673,8 +2565,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
     }
 
-    [self.liveManager.whiteBoardManager refreshWhiteBoard];
+    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
+#endif
 }
 
 
@@ -2746,20 +2640,20 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     BMWeakSelf
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
-            
-            if (isSmallBoard)
-            {
-                if ([dict bm_isNotEmpty])
-                {
-                    [weakSelf.liveManager.whiteBoardManager addSmallBoardImageWithData:dict];
-                }
-            }
-            else
-            {
+        if (isSmallBoard)
+        {
+            [self.liveManager.whiteBoardManager uploadSmallBalckBoardImageWithImage:photos.firstObject success:nil failure:nil];
+    
+        }
+        else
+        {
+            [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
+                
                 if (imageUseType == 0)
                 {
+#if !PASS_TEST
                     [self.liveManager.whiteBoardManager addWhiteBordImageCourseWithDic:dict];
+#endif
                 }
                 else
                 {
@@ -2771,33 +2665,34 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                         [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
                     }
                 }
-            }
-            
-            /*
-             cospath = "https://demo.roadofcloud.com";
-             downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
-             dynamicppt = 0;
-             fileid = 157372252254;
-             filename = "iOS_mobile_2019-11-14_17_08_38.JPG";
-             fileprop = 0;
-             isContentDocument = 0;
-             pagenum = 1;
-             realUrl = "";
-             result = 0;
-             size = 1256893;
-             status = 1;
-             swfpath = "/upload/20191114_170842_rjkvvosq.jpg";
-             */
-        } failure:^(NSInteger errorCode) {
+                
+                /*
+                 cospath = "https://demo.roadofcloud.com";
+                 downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
+                 dynamicppt = 0;
+                 fileid = 157372252254;
+                 filename = "iOS_mobile_2019-11-14_17_08_38.JPG";
+                 fileprop = 0;
+                 isContentDocument = 0;
+                 pagenum = 1;
+                 realUrl = "";
+                 result = 0;
+                 size = 1256893;
+                 status = 1;
+                 swfpath = "/upload/20191114_170842_rjkvvosq.jpg";
+                 */
+            } failure:^(NSInteger errorCode) {
 #if DEBUG
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
 #else
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
 #endif
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
-            });
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
+                });
         }];
+            
+        }
     }];
     
     self.imagePickerController = imagePickerController;
@@ -2956,7 +2851,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         }];
         self.chatToolView.emojBtn.selected = NO;
     }
-    else if (firstResponder.tag == CHWHITEBOARD_TEXTVIEWTAG)
+    else if (firstResponder.tag == CHWHITEBOARDKIT_TEXTVIEWTAG)
     {//调用白板键盘
         [UIView animateWithDuration:duration animations:^{
             self.chatToolView.bm_originY = self.emotionListView.bm_height = BMUI_SCREEN_HEIGHT;
@@ -2964,7 +2859,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
         CGFloat keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+#if !PASS_TEST
         CGFloat zoomScale = [self.liveManager.whiteBoardManager currentDocumentZoomScale];
+#else
+        CGFloat zoomScale = 1.0f;
+#endif
         CGFloat actualHeight = CGRectGetHeight(firstResponder.frame)*zoomScale + relativePoint.y + keyboardHeight;
         CGFloat overstep = actualHeight - CGRectGetHeight([UIScreen mainScreen].bounds);// + 5;
         if (overstep > 1)
@@ -3113,9 +3012,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     isSearch = NO;
     /// 初始化顶栏数据
     [self setupStateBarData];
-
-    // 设置左侧工具栏
-    [self setupBrushToolView];
     
     [self.spreadBottomToolBar bm_bringToFront];
     self.spreadBottomToolBar.isBeginClass = self.liveManager.isClassBegin;
@@ -3148,18 +3044,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-    
-    [self.brushToolView removeFromSuperview];
-
-    [self.brushToolOpenBtn removeFromSuperview];
-
 }
 
 - (void)resetDrawTools
 {
+#if !PASS_TEST
     [self.liveManager.whiteBoardManager freshBrushToolConfig];
-    
-    [self.brushToolView resetTool];
+#endif
+
 }
 
 // 已经离开房间
@@ -3479,7 +3371,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 }
                 [self resetDrawTools];
             }
-            self.drawBoardView.hidden = YES;
 
             for (SCVideoView * videoView in videoViewArr)
             {
@@ -3612,7 +3503,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (self.isWhitebordFullScreen)
         {
             /// 主房间上课后 本地全屏关闭
+#if !PASS_TEST
             [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
+#endif
         }
     }
     else
@@ -3883,10 +3776,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark - 刷新画笔工具状态
 - (void)freshBrushTools
 {
+#if !PASS_TEST
     if (self.smallStageState == CHSmallBoardStage_none)
     {
         if (self.liveManager.isParentRoomLecture)
         {
+
             self.brushToolView.hidden = YES;
             self.brushToolOpenBtn.hidden = YES;
             self.drawBoardView.hidden = YES;
@@ -3947,6 +3842,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.brushToolOpenBtn.hidden = YES;
         self.drawBoardView.hidden = YES;
     }
+#endif
 }
 
 
@@ -4388,7 +4284,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    NSString * sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
     if (isFull)
     {
+#if !PASS_TEST
         [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];//双击全屏最大化时 关闭本地课件全屏
+#endif
         
         if (self.doubleFloatView)
         {
@@ -4482,8 +4380,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleSignalingChangeUndoRedoStateCanErase:(BOOL)canErase canClean:(BOOL)canClean
 {
+#if !PASS_TEST
     self.brushToolView.canErase = canErase;
     self.brushToolView.canClean = canClean;
+#endif
 }
 
 // 播放白板视频/音频
@@ -4557,7 +4457,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.mediaMarkView removeFromSuperview];
     }
     
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds];
+    NSString *fileId = [data bm_stringForKey:@"fileId"];
+    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds fileId:fileId];
     [self.shareVideoFloatView addSubview:self.mediaMarkView];
     
     [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];
@@ -4566,7 +4467,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 绘制白板视频标注
 - (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data isHistory:(BOOL)isHistory
 {
-
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
@@ -4623,6 +4523,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListData];
 }
 
+//
 - (void)handleSignalingSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState
 {
     self.smallStageState = smallBoardStageState;
@@ -4630,42 +4531,42 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshBrushTools];
 }
 
-- (void)handleSignalingSmallBoardBottomBarClick:(UIButton *)sender
+//小黑板上传图片课件
+- (void)handleSignalingSmallBoardBottomBarClickToUploadImage
 {
-    if (sender.tag == 1)
-    {//上传图片课件
-        /// 上传图片
-        [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document  isSmallBoard:YES];
-    }
-    else if (sender.tag == 2)
-    {
-        if (self.controlPopoverView.presentingViewController)
-        {
-            [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
-        }
-
-        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.prompt") message:YSLocalized(@"SmallBoard_DeletePictureTag") preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        }];
-        BMWeakSelf
-        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [weakSelf.liveManager.whiteBoardManager deleteSmallBoardImage];
-        }];
-        [alertVc addAction:cancelAc];
-        [alertVc addAction:confimAc];
-        
-#if YSSDK
-        alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
-#else
-        alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
-#endif
-        alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
-        alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
-
-        [self presentViewController:alertVc animated:YES completion:nil];
-    }
+    [self openTheImagePickerWithImageUseType:SCUploadImageUseType_Document  isSmallBoard:YES];
 }
 
+//小黑板删除图片课件
+- (void)handleSignalingSmallBoardBottomBarClickToDeleteImage
+{
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    }
+
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.prompt") message:YSLocalized(@"SmallBoard_DeletePictureTag") preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    BMWeakSelf
+    UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+#if !PASS_TEST
+        [weakSelf.liveManager.whiteBoardManager deleteSmallBoardImage];
+#endif
+    }];
+    [alertVc addAction:cancelAc];
+    [alertVc addAction:confimAc];
+    
+#if YSSDK
+    alertVc.sc_Autorotate = ![YSSDKManager sharedInstance].useAppDelegateAllowRotation;
+#else
+    alertVc.sc_Autorotate = !GetAppDelegate.useAllowRotation;
+#endif
+    alertVc.sc_OrientationMask = UIInterfaceOrientationMaskLandscape;
+    alertVc.sc_Orientation = UIInterfaceOrientationLandscapeRight;
+
+    [self presentViewController:alertVc animated:YES completion:nil];
+}
 
 #pragma mark 共享桌面
 
@@ -5464,6 +5365,5 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             break;
     }
 }
-
 
 @end

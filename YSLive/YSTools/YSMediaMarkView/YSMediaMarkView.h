@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CHWhiteBoard/CHDrawView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSMediaMarkView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame fileId:(NSString *)fileId;
 
 /// 接收处理VideoWhiteboard信令
 ///- (void)handleSignal:(NSDictionary *)dictionary isDel:(BOOL)isDel;

@@ -142,9 +142,19 @@
     return [self bm_floatForKey:key withDefault:0.0f];
 }
 
+- (float)bm_floatForKey:(nonnull id)key roundingScale:(short)scale;
+{
+    return [self bm_floatForKey:key withDefault:0.0f roundingScale:scale];
+}
+
 - (float)bm_floatForKey:(id)key withDefault:(float)theDefault
 {
     return [self bm_floatForKey:key withDefault:theDefault roundingScale:BMDefaultRoundingScale roundingMode:NSRoundPlain];
+}
+
+- (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault roundingScale:(short)scale;
+{
+    return [self bm_floatForKey:key withDefault:theDefault roundingScale:scale roundingMode:NSRoundPlain];
 }
 
 - (float)bm_floatForKey:(id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(float)theDefault
@@ -169,9 +179,19 @@
     return [self bm_doubleForKey:key withDefault:0.0f];
 }
 
+- (double)bm_doubleForKey:(nonnull id)key roundingScale:(short)scale
+{
+    return [self bm_doubleForKey:key withDefault:0.0f roundingScale:scale];
+}
+
 - (double)bm_doubleForKey:(id)key withDefault:(double)theDefault
 {
     return [self bm_doubleForKey:key formatNumberStyle:NSNumberFormatterNoStyle withDefault:theDefault];
+}
+
+- (double)bm_doubleForKey:(nonnull id)key withDefault:(double)theDefault roundingScale:(short)scale
+{
+    return [self bm_doubleForKey:key formatNumberStyle:NSNumberFormatterNoStyle withDefault:theDefault roundingScale:scale roundingMode:NSRoundPlain];
 }
 
 - (double)bm_doubleForKey:(id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(double)theDefault
@@ -230,7 +250,6 @@
 {
     return [self bm_numberForKey:key formatNumberStyle:numberStyle withDefault:@(theDefault) roundingScale:scale roundingMode:mode isDouble:YES];
 }
-
 
 - (NSDecimalNumber *)bm_2PointNumberForKey:(id)key
 {

@@ -26,7 +26,6 @@
 
 @implementation YSMainSuperVC
 
-
 - (NSMutableArray<SCVideoView *> *)teacherVideoViewArray
 {
     if (!_teacherVideoViewArray)

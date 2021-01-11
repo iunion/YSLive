@@ -467,6 +467,13 @@
                     videoheight = [roomModel.highResolution bm_intForKey:@"videoheight"];
                 }
                 
+                //容错处理
+                if (videowidth == 0 || videoheight == 0)
+                {
+                    videowidth = roomModel.videowidth;
+                    videoheight = roomModel.videoheight;
+                }
+                
                 CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:videowidth height:videoheight frameRate:roomModel.videoframerate];
                 
                 [[CHSessionManager sharedInstance].cloudHubRtcEngineKit setVideoEncoderConfiguration:config];

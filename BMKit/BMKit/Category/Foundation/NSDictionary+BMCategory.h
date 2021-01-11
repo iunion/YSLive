@@ -25,13 +25,17 @@
 - (BOOL)bm_boolForKey:(nonnull id)key withDefault:(BOOL)theDefault;
 
 - (float)bm_floatForKey:(nonnull id)key;
+- (float)bm_floatForKey:(nonnull id)key roundingScale:(short)scale;
 - (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault;
+- (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault roundingScale:(short)scale;
 - (float)bm_floatForKey:(nonnull id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(float)theDefault;
 - (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault roundingScale:(short)scale roundingMode:(NSRoundingMode)mode;
 - (float)bm_floatForKey:(nonnull id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(float)theDefault roundingScale:(short)scale roundingMode:(NSRoundingMode)mode;
 
 - (double)bm_doubleForKey:(nonnull id)key;
+- (double)bm_doubleForKey:(nonnull id)key roundingScale:(short)scale;
 - (double)bm_doubleForKey:(nonnull id)key withDefault:(double)theDefault;
+- (double)bm_doubleForKey:(nonnull id)key withDefault:(double)theDefault roundingScale:(short)scale;
 - (double)bm_doubleForKey:(nonnull id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(double)theDefault;
 - (double)bm_2PointDoubleForKey:(nonnull id)key;
 - (double)bm_2PointDoubleForKey:(nonnull id)key withDefault:(double)theDefault;

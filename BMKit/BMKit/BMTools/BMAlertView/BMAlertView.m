@@ -103,19 +103,37 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
 
 - (UIWindow *)windowWithLevel:(UIWindowLevel)windowLevel
 {
-    UIWindow *keywindow = [UIApplication sharedApplication].keyWindow;
-    if (keywindow.windowLevel == windowLevel)
+    if (@available(iOS 13.0, *))
     {
-        return keywindow;
-    }
-    NSArray *windows = [[UIApplication sharedApplication] windows];
-    for (UIWindow *window in windows)
-    {
-        if (window.windowLevel == windowLevel)
+        for (UIWindowScene *windowScene in [UIApplication sharedApplication].connectedScenes)
         {
-            return window;
+            if (windowScene.activationState == UISceneActivationStateForegroundActive)
+            {
+                UIWindow *keywindow = windowScene.windows.lastObject;
+                if (keywindow && keywindow.windowLevel == windowLevel)
+                {
+                    return keywindow;
+                }
+            }
         }
     }
+    else
+    {
+        UIWindow *keywindow = [UIApplication sharedApplication].keyWindow;
+        if (keywindow && keywindow.windowLevel == windowLevel)
+        {
+            return keywindow;
+        }
+        NSArray *windows = [UIApplication sharedApplication].windows;
+        for (UIWindow *window in windows)
+        {
+            if (window.windowLevel == windowLevel)
+            {
+                return window;
+            }
+        }
+    }
+    
     return nil;
 }
 
@@ -145,6 +163,27 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
             self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
             self.alertWindow.windowLevel = UIWindowLevelAlert;
             self.alertWindow.backgroundColor = [UIColor clearColor];
+
+            if (@available(iOS 13.0, *))
+            {
+                [[NSNotificationCenter defaultCenter] addObserverForName:UISceneWillConnectNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+                    self.alertWindow.windowScene = note.object;
+                }];
+                if ([UIApplication sharedApplication].windows.count > 0)
+                {
+                    for (UIWindow * defaultWindow in [UIApplication sharedApplication].windows)
+                    {
+                        if (defaultWindow.windowLevel == UIWindowLevelAlert)
+                        {
+                            self.alertWindow.windowScene = defaultWindow.windowScene;
+                        }
+                        else if (defaultWindow.windowLevel == UIWindowLevelNormal)
+                        {
+                            self.alertWindow.windowScene = defaultWindow.windowScene;
+                        }
+                    }
+                }
+            }
         }
         
         self.shouldDismissOnTapOutside = YES;
@@ -1095,7 +1134,8 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
 
 - (void)showCompletion
 {
-    self.alertWindow.alpha = 1;
+    self.alertWindow.alpha = 1.0f;
+    self.alertWindow.hidden = NO;
     
     self.visible = YES;
     

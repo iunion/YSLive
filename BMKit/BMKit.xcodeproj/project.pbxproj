@@ -525,6 +525,8 @@
 		87B47FFF2546DCA700DB986C /* BMCacheMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD92546ADDB00DB986C /* BMCacheMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B480022546DCAC00DB986C /* BMCacheProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD32546AC1F00DB986C /* BMCacheProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B480072546DCB000DB986C /* BMCacheObjectSubscripting.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD62546AD9500DB986C /* BMCacheObjectSubscripting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87CB8D3C25834A58000B402D /* UIBezierPath+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CB8D3A25834A58000B402D /* UIBezierPath+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87CB8D3D25834A58000B402D /* UIBezierPath+BMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1045,6 +1047,8 @@
 		87B47FF42546CDEB00DB986C /* BMMemoryCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMMemoryCache.m; sourceTree = "<group>"; };
 		87B47FF92546D60B00DB986C /* BMCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMCache.h; sourceTree = "<group>"; };
 		87B47FFA2546D60B00DB986C /* BMCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCache.m; sourceTree = "<group>"; };
+		87CB8D3A25834A58000B402D /* UIBezierPath+BMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+BMCategory.h"; sourceTree = "<group>"; };
+		87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+BMCategory.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1121,6 +1125,8 @@
 				8701ADD423714E6000A43607 /* CAAnimation+Blocks.m */,
 				8701ADD223714E6000A43607 /* CALayer+BMSize.h */,
 				8701ADC523714E6000A43607 /* CALayer+BMSize.m */,
+				87CB8D3A25834A58000B402D /* UIBezierPath+BMCategory.h */,
+				87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */,
 				8701ADBF23714E5F00A43607 /* UIButton+BMCategory.h */,
 				8701ADCF23714E6000A43607 /* UIButton+BMCategory.m */,
 				8701ADA523714E5F00A43607 /* UIButton+BMContentRect.h */,
@@ -2201,6 +2207,7 @@
 				87B47FEE2546B96F00DB986C /* BMDiskCache.h in Headers */,
 				8701AE1D23714E6000A43607 /* UIImageView+BMCategory.h in Headers */,
 				8701AE0B23714E6000A43607 /* UIView+BMOutSide.h in Headers */,
+				87CB8D3C25834A58000B402D /* UIBezierPath+BMCategory.h in Headers */,
 				8701AE6523714E6000A43607 /* BMUICategory.h in Headers */,
 				87B47FE02546B07500DB986C /* BMCacheOperationQueue.h in Headers */,
 				8701AE3723714E6000A43607 /* UIDevice+BMCategory.h in Headers */,
@@ -2647,6 +2654,7 @@
 				8742FDD624F3A12A00BDF294 /* BMSDWebImageDownloader.m in Sources */,
 				8742FE0724F3A12A00BDF294 /* BMSDWebImageDownloaderConfig.m in Sources */,
 				8742FDCF24F3A12A00BDF294 /* BMSDWebImageDownloaderOperation.m in Sources */,
+				87CB8D3D25834A58000B402D /* UIBezierPath+BMCategory.m in Sources */,
 				8742FDED24F3A12A00BDF294 /* BMSDImageFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2782,7 +2790,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201106;
+				CURRENT_PROJECT_VERSION = 20201223;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2801,7 +2809,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-Objc",
@@ -2819,7 +2827,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201106;
+				CURRENT_PROJECT_VERSION = 20201223;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2838,7 +2846,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",

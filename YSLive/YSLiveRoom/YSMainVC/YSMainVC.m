@@ -1578,7 +1578,8 @@
         [self.mediaMarkView removeFromSuperview];
     }
     
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds];
+    NSString *fileId = [data bm_stringForKey:@"fileId"];
+    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds fileId:fileId];
     [self.mp4BgView addSubview:self.mediaMarkView];
     [self.mp4FullScreenBtn bm_bringToFront];
     
@@ -2083,9 +2084,7 @@
             //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
             
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
-            [self.liveManager.whiteBoardManager refreshWhiteBoard];
-
-            
+            [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
                         
             return self.whiteBordView;
         }
@@ -2159,7 +2158,7 @@
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
-    NSString *warmVideoUrl = self.liveManager.whiteBoardManager.warmModel.swfpath;
+    NSString *warmVideoUrl = self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit.warmFileModel.swfpath;
 
     if ([warmVideoUrl bm_isNotEmpty])
     {
@@ -2169,7 +2168,7 @@
         //时间是否在上课前一小时
         if (time < 3600)
         {
-            warmVideoUrl = [NSString stringWithFormat:@"%@:%d%@", self.liveManager.whiteBoardManager.serverDocHost, YSLive_Port,warmVideoUrl];
+            warmVideoUrl = [NSString stringWithFormat:@"%@:%d%@", self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit.docHost, YSLive_Port, warmVideoUrl];
             NSString *tdeletePathExtension = warmVideoUrl.stringByDeletingPathExtension;
             self.warmUrl = [NSString stringWithFormat:@"%@://%@-1.%@", YSLive_Http, tdeletePathExtension, warmVideoUrl.pathExtension];
             
@@ -2808,6 +2807,5 @@
     }
     return _menuVc;
 }
-
 
 @end

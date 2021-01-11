@@ -24,6 +24,10 @@
 #define FLEX_BM                 1
 #endif
 
+
+#define PASS_TEST               1
+
+
 #import "YSAppMacros.h"
 #import "YSAppUIDef.h"
 
@@ -34,6 +38,7 @@
 #import <CHSession/CHSession.h>
 #import <CHWhiteBoard/CHWhiteBoard.h>
 #import <CHWhiteBoard/CHWhiteBoardManager.h>
+#import <CloudHubWhiteBoardKit/CloudHubWhiteBoardKit.pch>
 
 #import "YSLiveMacros.h"
 #import "YSAppMacros.h"

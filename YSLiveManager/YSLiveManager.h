@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *schoolApiHost;
 
 
-
-
 #pragma mark - 白板
 
 @property (nonatomic, weak) id <YSLiveForWhiteBoardDelegate> whiteBoardDelegate;

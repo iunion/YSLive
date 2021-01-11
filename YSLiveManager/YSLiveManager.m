@@ -26,8 +26,6 @@
 
 /// 白板管理
 @property (nonatomic, strong) CHWhiteBoardManager *whiteBoardManager;
-/// 白板视图whiteBord
-@property (nonatomic, weak) UIView *whiteBordView;
 
 /// 白板背景色
 @property (nonatomic, strong) UIColor *whiteBordBgColor;
@@ -223,8 +221,8 @@
         CHWhiteBoardWebProtocolKey : YSLive_Http,
         CHWhiteBoardWebHostKey : host,
         CHWhiteBoardWebPortKey : @(port),
-        CHWhiteBoardPlayBackKey : @(NO),
-        CHWhiteBoardPDFLevelsKey : @(2)
+        CHWhiteBoardPDFLevelsKey : @(2),
+        CHWhiteBoardIsObjectLevelKey : @(YES)
     };
     
 #if YSSDK
@@ -246,21 +244,11 @@
     [self.whiteBoardManager registerCoursewareControlView:@"YSNewCoursewareControlView" viewSize:CGSizeMake(YSCoursewareControlView_Width, 50)];
 #endif
     
-    CGFloat whiteBordViewH = 500;
-    if (BMIS_IPHONE)
-    {
-        whiteBordViewH = 300;
-    }
-    
-    self.whiteBordView = (UIView *)[self.whiteBoardManager createMainWhiteBoardWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, whiteBordViewH) loadFinishedBlock:^{
-
-    }];
-
-    [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
-    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
-    [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
-
-    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
+//    [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
+//    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
+//    [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
+//
+//    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
 }
 
 /// 改变小班课白板背景颜色和水印底图
@@ -346,6 +334,11 @@
     _connectH5CoursewareUrlCookies = [NSArray arrayWithArray:cookies];
 }
 
+- (UIView *)whiteBordView
+{
+    return self.whiteBoardManager.mainWhiteBoardView;
+}
+
 - (NSArray <CHFileModel *> *)fileList
 {
     return [self.whiteBoardManager.docmentList copy];
@@ -353,13 +346,14 @@
 
 - (CHFileModel *)currentFile
 {
-    return [self.whiteBoardManager currentFile];
+    return nil;
+    //return [self.whiteBoardManager currentFile];
 }
 
 - (CHFileModel *)getFileWithFileID:(NSString *)fileId;
 {
-    CHFileModel *file = [self.whiteBoardManager getDocumentWithFileID:fileId];
-    return file;
+    CHFileModel *fileModel = [self.whiteBoardManager getDocumentWithFileId:fileId];
+    return fileModel;
 }
 
 
@@ -380,29 +374,29 @@
 
 #pragma mark -
 #pragma mark CHWhiteBoardManagerDelegate
-- (void)changeUndoRedoState:(NSString *)fileid currentpage:(NSUInteger)currentPage canUndo:(BOOL)canUndo canRedo:(BOOL)canRedo canErase:(BOOL)canErase canClean:(BOOL)canClean
-{
-    if ([self.whiteBoardManager.currentFileId isEqualToString:fileid])
-    {
-        if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingChangeUndoRedoStateCanErase:canClean:)])
-        {
-            [self.whiteBoardDelegate handleSignalingChangeUndoRedoStateCanErase:canErase canClean:canClean];
-        }
-    }
-}
-/// 白板管理初始化失败
-- (void)onWhiteBroadCreateFail
-{
-}
 
 /// 白板管理准备完毕
 - (void)onWhiteBroadCheckRoomFinish:(BOOL)finished
 {
-    if (!finished)
-    {
-        return;
-    }
     
+}
+
+/// 白板管理进入房间完毕，SAAS使用
+- (void)onWhiteBroadEnterRoomFinish:(BOOL)finished
+{
+    
+}
+
+/// 文件列表回调
+/// @param fileList 文件NSDictionary列表
+- (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
+{
+    [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
+    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
+    [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
+
+    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
+
     if (self.room_UseType == CHRoomUseTypeLiveRoom)
     {
         [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordLiveBgColor];
@@ -410,35 +404,13 @@
     }
 }
 
-/// 文件列表回调
-/// @param fileList 文件NSDictionary列表
-- (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
+/// 当前打开的课件列表
+- (void)onWhiteBoardChangedShowFileIdList:(NSArray *)fileIdList
 {
-    
-}
-
-/// H5脚本文件加载初始化完成
-- (void)onWhiteBoardPageFinshed:(NSString *)fileId
-{
-    
-}
-
-/// 切换交互课件加载状态
-- (void)onWhiteBoardLoadInterCourse:(NSString *)fileId isSuccess:(BOOL)isSuccess
-{
-    
-}
-
-/// 课件翻页显示结果
-- (void)onWhiteBoardSlideCourse:(NSString *)fileId currentPage:(NSUInteger)currentPage isSuccess:(BOOL)isSuccess
-{
-    
-}
-
-/// 课件缩放
-- (void)onWhiteBoardZoomScaleChanged:(NSString *)fileId zoomScale:(CGFloat)zoomScale
-{
-    
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardChangedFileWithFileList:)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileIdList];
+    }
 }
 
 #pragma mark - 课件事件
@@ -470,14 +442,6 @@
     }
 }
 
-/// 切换课件
-- (void)onWhiteBoardChangedFileWithFileList:(NSArray *)fileList
-{    
-    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardChangedFileWithFileList:)])
-    {
-        [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileList];
-    }
-}
 
 - (void)onSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState
 {
@@ -488,11 +452,20 @@
 }
 
 //小黑板bottomBar的代理
-- (void)onSmallBoardBottomBarClick:(UIButton *)sender
+///上传图片
+- (void)onSmallBoardBottomBarClickToUploadImage
 {
-    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClick:)])
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToUploadImage)])
     {
-        [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClick:sender];
+        [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClickToUploadImage];
+    }
+}
+///删除图片
+- (void)onSmallBoardBottomBarClickToDeleteImage
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToDeleteImage)])
+    {
+        [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClickToDeleteImage];
     }
 }
 
