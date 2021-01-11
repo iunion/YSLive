@@ -16,10 +16,10 @@
 //    YSSkinType_original,
 //};
 
-typedef NS_ENUM(NSUInteger, YSSkinClassOrOnline)
+typedef NS_ENUM(NSUInteger, CHSkinClassOrOnline)
 {
-    YSSkinClassOrOnline_class,
-    YSSkinClassOrOnline_online,
+    CHSkinClassOrOnline_class,
+    CHSkinClassOrOnline_online,
 };
 
 
@@ -27,9 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSLiveSkinManager : NSObject
 
-@property (nonatomic, assign)YSSkinDetailsType roomDetailsType;
+@property (nonatomic, assign)CHSkinDetailsType roomDetailsType;
 
-@property (nonatomic, assign)YSSkinClassOrOnline classOrOnline;
+@property (nonatomic, assign)CHSkinClassOrOnline classOrOnline;
 
 ///换皮肤资源bundle
 @property (nonatomic, strong,nullable)NSBundle *skinBundle;
@@ -37,11 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareInstance;
 
-- (UIColor *)getDefaultColorWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
-- (UIImage *)getDefaultImageWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
+- (UIColor *)getDefaultColorWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
+- (UIImage *)getDefaultImageWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
 
-- (UIColor *)getElementColorWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key;
-- (UIImage *)getElementImageWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key;
+- (UIColor *)getElementColorWithType:(CHSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key;
+- (UIImage *)getElementImageWithType:(CHSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key;
 
 
 @end

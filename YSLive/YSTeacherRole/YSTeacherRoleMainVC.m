@@ -349,7 +349,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_dark;
+    [YSLiveSkinManager shareInstance].roomDetailsType = CHSkinDetailsType_dark;
 }
 
 - (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(NSString *)userId

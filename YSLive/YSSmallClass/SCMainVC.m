@@ -333,7 +333,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [YSLiveSkinManager shareInstance].roomDetailsType = YSSkinDetailsType_dark;
+    [YSLiveSkinManager shareInstance].roomDetailsType = CHSkinDetailsType_dark;
 }
 
 /// 获取用户奖杯数

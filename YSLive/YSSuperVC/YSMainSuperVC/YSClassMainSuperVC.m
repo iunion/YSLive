@@ -230,7 +230,7 @@
     if (self.liveManager.roomModel.skinModel.backgroundType)
     {
         UIImage * placeholderImage = [UIImage imageNamed:@"LightBackgroundImage"];
-        if (self.liveManager.roomModel.skinModel.detailType == YSSkinDetailsType_middle)
+        if (self.liveManager.roomModel.skinModel.detailType == CHSkinDetailsType_middle)
         {
             placeholderImage = [UIImage imageNamed:@"MiddleBackgroundImage"];
         }

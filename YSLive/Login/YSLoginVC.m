@@ -2059,7 +2059,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     if (isSmallClass)
     {
-        if ([YSLiveManager sharedInstance].roomModel.skinModel.detailType && [YSLiveManager sharedInstance].roomModel.skinModel.detailType != YSSkinDetailsType_dark)
+        if ([YSLiveManager sharedInstance].roomModel.skinModel.detailType && [YSLiveManager sharedInstance].roomModel.skinModel.detailType != CHSkinDetailsType_dark)
         {
             NSString *bundlePath = [[NSUserDefaults standardUserDefaults] objectForKey:[YSLiveManager sharedInstance].roomModel.skinModel.detailName];
             

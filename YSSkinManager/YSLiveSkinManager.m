@@ -10,14 +10,14 @@
 
 static YSLiveSkinManager *skinManager = nil;
 
-//#define YSSkinBundleName    (self.classOrOnline == YSSkinClassOrOnline_class)?@"YSSkinRsource.bundle": @"YSOnlineSchool.bundle"
+//#define YSSkinBundleName    (self.classOrOnline == CHSkinClassOrOnline_class)?@"YSSkinRsource.bundle": @"YSOnlineSchool.bundle"
 //#define YSSkinBundle        [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YSSkinBundleName]]
 
 @interface YSLiveSkinManager ()
 
-@property (nonatomic, assign) YSSkinDetailsType lastSkinType;
+@property (nonatomic, assign) CHSkinDetailsType lastSkinType;
 
-@property (nonatomic, assign) YSSkinClassOrOnline lastClassOrOnline;
+@property (nonatomic, assign) CHSkinClassOrOnline lastClassOrOnline;
 
 @property (nonatomic, strong) NSDictionary *plictDict;
 
@@ -33,7 +33,7 @@ static YSLiveSkinManager *skinManager = nil;
         {
             skinManager = [[YSLiveSkinManager alloc] init];
 
-            skinManager.roomDetailsType = YSSkinDetailsType_dark;
+            skinManager.roomDetailsType = CHSkinDetailsType_dark;
         }
     }
     return skinManager;
@@ -44,17 +44,17 @@ static YSLiveSkinManager *skinManager = nil;
 {
     NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
     
-    if (self.classOrOnline == YSSkinClassOrOnline_online)
+    if (self.classOrOnline == CHSkinClassOrOnline_online)
     {
         skinBundleName = @"YSOnlineSchool.bundle";
     }
     else
     {
-        if (self.roomDetailsType == YSSkinDetailsType_middle)
+        if (self.roomDetailsType == CHSkinDetailsType_middle)
         {
             skinBundleName = @"YSSkinMiddleRsource.bundle";
         }
-        else if (self.roomDetailsType == YSSkinDetailsType_light)
+        else if (self.roomDetailsType == CHSkinDetailsType_light)
         {
             skinBundleName = @"YSSkinLightRsource.bundle";
         }
@@ -67,7 +67,7 @@ static YSLiveSkinManager *skinManager = nil;
 ///当前调用的皮肤bundle
 - (NSBundle*)getCurrentBundle
 {
-    if (self.classOrOnline == YSSkinClassOrOnline_online)
+    if (self.classOrOnline == CHSkinClassOrOnline_online)
     {
         NSString *skinBundleName = @"YSOnlineSchool.bundle";
         
@@ -76,7 +76,7 @@ static YSLiveSkinManager *skinManager = nil;
     else
     {
         
-        if (self.roomDetailsType == YSSkinDetailsType_dark || ![self.skinBundle bm_isNotEmpty])
+        if (self.roomDetailsType == CHSkinDetailsType_dark || ![self.skinBundle bm_isNotEmpty])
         {
             NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
             return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
@@ -92,7 +92,7 @@ static YSLiveSkinManager *skinManager = nil;
 
 
 /// 获取plist文件中的数据
-- (NSDictionary *)getPliatDictionaryWithType:(YSSkinClassOrOnline)classOrOnline
+- (NSDictionary *)getPliatDictionaryWithType:(CHSkinClassOrOnline)classOrOnline
 {
     
     if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.roomDetailsType || ![self.plictDict bm_isNotEmpty])
@@ -109,7 +109,7 @@ static YSLiveSkinManager *skinManager = nil;
 }
 
 ///默认颜色
-- (UIColor *)getDefaultColorWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
+- (UIColor *)getDefaultColorWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
     NSDictionary *colorDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonColor"];
@@ -121,7 +121,7 @@ static YSLiveSkinManager *skinManager = nil;
 }
 
 //默认图片
-- (UIImage *)getDefaultImageWithType:(YSSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
+- (UIImage *)getDefaultImageWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
     NSDictionary *imageDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:@"CommonImage"];
@@ -133,7 +133,7 @@ static YSLiveSkinManager *skinManager = nil;
 }
 
 ///控件颜色
-- (UIColor *)getElementColorWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
+- (UIColor *)getElementColorWithType:(CHSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
     NSDictionary *elementDict = [[self getPliatDictionaryWithType:classOrOnline] bm_dictionaryForKey:name];
@@ -150,7 +150,7 @@ static YSLiveSkinManager *skinManager = nil;
 }
 
 ///控件图片
-- (UIImage *)getElementImageWithType:(YSSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
+- (UIImage *)getElementImageWithType:(CHSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key
 {
     self.classOrOnline = classOrOnline;
     
@@ -167,7 +167,7 @@ static YSLiveSkinManager *skinManager = nil;
     return nil;
 }
 
-- (UIImage *)getBundleImageWithType:(YSSkinClassOrOnline)classOrOnline WithImageName:(NSString *)imageName
+- (UIImage *)getBundleImageWithType:(CHSkinClassOrOnline)classOrOnline WithImageName:(NSString *)imageName
 {
     NSString * imageFolder = @"YSSkinImageSource";
 
