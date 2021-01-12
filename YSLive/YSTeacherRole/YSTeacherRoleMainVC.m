@@ -1267,12 +1267,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 白板背景
     UIView *whitebordFullBackgroud = [[UIView alloc] init];
 //    whitebordFullBackgroud.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
-    //whitebordFullBackgroud.backgroundColor = UIColor.redColor;
+    
     [self.contentBackgroud addSubview:whitebordFullBackgroud];
     whitebordFullBackgroud.frame = CGRectMake(0, 0, self.contentWidth, self.contentHeight);
     self.whitebordFullBackgroud = whitebordFullBackgroud;
     self.whitebordFullBackgroud.hidden = YES;
     whitebordFullBackgroud.layer.masksToBounds = YES;
+    whitebordFullBackgroud.backgroundColor = self.contentBackgroud.backgroundColor;
 }
 
 /// 隐藏白板视频布局背景
@@ -2527,30 +2528,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if ([userId isEqualToString:self.liveManager.localUser.peerID])
         {
             BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
-#if !PASS_TEST
-            if (self.roomLayout == CHRoomLayoutType_VideoLayout || self.roomLayout == CHRoomLayoutType_FocusLayout)
-            {
-                self.brushToolView.hidden = YES;
-                self.brushToolOpenBtn.hidden = YES;
-                self.drawBoardView.hidden = YES;
-            }
-            else
-            {
-                if (self.liveManager.isClassBegin)
-                {
-                    self.brushToolView.hidden = NO;
-                    self.brushToolOpenBtn.hidden = NO;
-                }
-
-//                if (self.brushToolOpenBtn.selected || self.brushToolView.mouseBtn.selected)
-//                {
-//                    self.drawBoardView.hidden = YES;
-//                }else
-//                {
-//                    self.drawBoardView.hidden = NO;
-//                }
-            }
-#endif
             // 设置画笔颜色初始值
             if (canDraw)
             {
@@ -2614,15 +2591,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (void)resetDrawTools
-{
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager freshBrushToolConfig];
-#endif
-    
-//    [self.brushToolView resetTool];
-}
-
 #pragma mark 切换网络 会收到onRoomJoined
 
 - (void)onRoomJoined
@@ -2649,10 +2617,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.classBeginBtn.selected = YES;
 
     [self freshTeacherPersonListData];
-#if !PASS_TEST
-    self.brushToolView.hidden = NO;
-    self.brushToolOpenBtn.hidden = NO;
-#endif
+
     for (CHRoomUser *roomUser in self.liveManager.userList)
     {
 #if 0
@@ -2710,8 +2675,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         NSString * streamId = [NSString stringWithFormat:@"%@:video:%@",YSCurrentUser.peerID,sCHUserDefaultSourceId];
         [self.liveManager sendSignalingToChangeLayoutWithLayoutType:self.roomLayout appUserType:self.appUseTheType withFouceUserId:YSCurrentUser.peerID withStreamId:streamId];
     }
-    
-    [self resetDrawTools];
 }
 
 /// 下课
@@ -2937,13 +2900,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.doubleFloatView = nil;
         self.whiteBordView.hidden = NO;
     }
-#if !PASS_TEST
-    if (!self.isWhitebordFullScreen)
-    {
-        self.brushToolView.hidden = isFull;
-        self.brushToolOpenBtn.hidden = isFull;
-    }
-#endif
+
 //    [self freshWhiteBordViewFrame];
 }
 
@@ -2987,10 +2944,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         [self showWhiteBordVideoViewWithMediaModel:mediaModel];
         self.spreadBottomToolBar.hidden = YES;
-#if !PASS_TEST
-        self.brushToolView.hidden = YES ;
-        self.brushToolOpenBtn.hidden = YES;
-#endif
     }
     else
     {
@@ -3017,15 +2970,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (mediaModel.isVideo)
     {
         self.spreadBottomToolBar.hidden = NO;
-        if (self.liveManager.isClassBegin)
-        {
-
-#if !PASS_TEST
-            self.brushToolView.hidden = (self.roomLayout == CHRoomLayoutType_VideoLayout) || (self.roomLayout == CHRoomLayoutType_FocusLayout);
-            self.brushToolOpenBtn.hidden = (self.roomLayout == CHRoomLayoutType_VideoLayout) || (self.roomLayout == CHRoomLayoutType_FocusLayout);
-#endif
-        }
-
         [self hideWhiteBordVideoViewWithMediaModel:mediaModel];
     }
     else
@@ -3892,18 +3836,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 }
 
-#pragma mark -
-#pragma mark YSWhiteBoardManagerDelegate
-
-- (void)handleSignalingChangeUndoRedoStateCanErase:(BOOL)canErase canClean:(BOOL)canClean
-{
-#if !PASS_TEST
-    self.brushToolView.canErase = canErase;
-    self.brushToolView.canClean = canClean;
-#endif
-}
-
-
 #pragma mark 白板翻页 换课件
 
 /// 媒体课件状态
@@ -3953,26 +3885,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.whiteBordView.frame = self.whitebordBackgroud.bounds;
         
         [self arrangeAllViewInWhiteBordBackgroud];
-        
-        if (self.liveManager.isClassBegin)
-        {
-#if !PASS_TEST
-            self.brushToolView.hidden = self.isDoubleVideoBig || (self.roomLayout == CHRoomLayoutType_VideoLayout);
-            self.brushToolOpenBtn.hidden = self.isDoubleVideoBig || (self.roomLayout == CHRoomLayoutType_VideoLayout);
-#endif
-        }
 
-        
 #if USE_FullTeacher
         [self stopFullTeacherVideoView];
 #endif
 
     }
     
-    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
-#endif
+//    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
+//#if !PASS_TEST
+//    [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
+//#endif
 }
 
 // 课件最大化
@@ -4277,13 +4200,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //NO:上下布局  YES:左右布局
     self.roomLayout = roomLayout;
     
-    if (!self.isWhitebordFullScreen && self.liveManager.isClassBegin)
-    {
-#if !PASS_TEST
-        self.brushToolView.hidden = (self.roomLayout == CHRoomLayoutType_VideoLayout) || (self.roomLayout == CHRoomLayoutType_FocusLayout);
-        self.brushToolOpenBtn.hidden = (self.roomLayout == CHRoomLayoutType_VideoLayout) || (self.roomLayout == CHRoomLayoutType_FocusLayout);
-#endif
-    }
     self.spreadBottomToolBar.isBeginClass = YES;
     
 //    self.spreadBottomToolBar.isAroundLayout = (self.roomLayout == CHRoomLayoutType_AroundLayout);

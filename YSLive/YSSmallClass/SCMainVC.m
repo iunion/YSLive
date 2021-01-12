@@ -2978,7 +2978,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     BOOL canDraw = NO;
     [self freshBrushTools];
-    [self resetDrawTools];
 #endif
 }
 
@@ -3044,14 +3043,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-}
-
-- (void)resetDrawTools
-{
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager freshBrushToolConfig];
-#endif
-
 }
 
 // 已经离开房间
@@ -3369,7 +3360,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     [self setCurrentUserPrimaryColor];
                 }
-                [self resetDrawTools];
             }
 
             for (SCVideoView * videoView in videoViewArr)
@@ -3817,8 +3807,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 self.drawBoardView.hidden = YES;
             }
         }
-        
-        [self resetDrawTools];
     }
     else if (self.smallStageState == CHSmallBoardStage_answer)
     {
@@ -3833,7 +3821,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.brushToolView.hidden = NO;
             self.brushToolOpenBtn.hidden = NO;
             self.drawBoardView.hidden = YES;
-            [self resetDrawTools];
         }
     }
     else if (self.smallStageState == CHSmallBoardStage_comment)
@@ -4550,9 +4537,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }];
     BMWeakSelf
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-#if !PASS_TEST
         [weakSelf.liveManager.whiteBoardManager deleteSmallBoardImage];
-#endif
     }];
     [alertVc addAction:cancelAc];
     [alertVc addAction:confimAc];
