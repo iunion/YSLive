@@ -818,7 +818,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
             
             whitebordBackgroud.backgroundColor = color;
-            [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:color];
+            [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
         }
 //        else
 //        {

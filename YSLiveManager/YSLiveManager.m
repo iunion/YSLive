@@ -394,9 +394,9 @@
     [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
     [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:UIColor.clearColor];//self.whiteBordBgColor
     [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
-
-    [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];
-
+    
+    [self.whiteBoardManager changeConfigWhiteBoardBackgroudColor:self.whiteBordBgColor];
+    [self.whiteBoardManager changeConfigWhiteBoardCanvasColor:UIColor.clearColor];
     if (self.room_UseType == CHRoomUseTypeLiveRoom)
     {
         [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordLiveBgColor];
