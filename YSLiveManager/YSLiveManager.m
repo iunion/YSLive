@@ -64,10 +64,10 @@
         self.apiHost = YSLIVE_HOST;
         self.schoolApiHost = YSSchool_Server;
         
-        self.whiteBordBgColor = CHWhiteBoard_MainBackGroudColor;
+        self.whiteBordBgColor = CHWhiteBoard_BackGroudColor;
         self.whiteBordDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
         self.whiteBordMaskImage = nil;
-
+        
         self.whiteBordLiveBgColor = CHWhiteBoard_LiveMainBackGroudColor;
         self.whiteBordLiveDrawBgColor = CHWhiteBoard_LiveMainBackDrawBoardBgColor;
         self.needUseHttpDNSForWhiteBoard = YES;
@@ -260,7 +260,7 @@
     }
     else
     {
-        self.whiteBordBgColor = CHWhiteBoard_MainBackGroudColor;
+        self.whiteBordBgColor = CHWhiteBoard_BackGroudColor;
     }
 
     self.whiteBordMaskImage = image;
@@ -274,7 +274,7 @@
     }
     else
     {
-        self.whiteBordBgColor = CHWhiteBoard_MainBackGroudColor;
+        self.whiteBordBgColor = CHWhiteBoard_BackGroudColor;
     }
 
     if (drawBgColor)
@@ -392,7 +392,7 @@
 - (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
 {
     [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
-    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:self.whiteBordBgColor];
+    [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:UIColor.clearColor];//self.whiteBordBgColor
     [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
 
     [self.whiteBoardManager changeAllWhiteBoardBackgroudColor:self.whiteBordBgColor];

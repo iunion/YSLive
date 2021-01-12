@@ -800,8 +800,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             {
                 self.whitebordBgimage.hidden = YES;
 
-                self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-                [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color10")];
+//                self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+//                [self.liveManager.whiteBoardManager changeMainWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color10")];
             }
             else
             {
@@ -820,11 +820,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             whitebordBackgroud.backgroundColor = color;
             [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:color];
         }
-        else
-        {
-            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-            [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color10")];
-        }
+//        else
+//        {
+//            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+//            [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color1")];
+//        }
     }
     
     // 视频背景
