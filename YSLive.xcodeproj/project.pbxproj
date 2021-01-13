@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		042A731D25AC23420040613E /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 042A731C25AC23420040613E /* YSSkinDarkRsource.bundle */; };
-		042A732225AC3B990040613E /* YSSkinMiddleRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 042A732025AC3B820040613E /* YSSkinMiddleRsource.bundle */; };
-		042A732325AC3B990040613E /* YSSkinLightRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 042A732125AC3B990040613E /* YSSkinLightRsource.bundle */; };
 		045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045CF51123C828B6008F474E /* YSMeetingResources.bundle */; };
 		045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
 		045F76092484E00300A34F76 /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
@@ -795,8 +793,6 @@
 
 /* Begin PBXFileReference section */
 		042A731C25AC23420040613E /* YSSkinDarkRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinDarkRsource.bundle; sourceTree = "<group>"; };
-		042A732025AC3B820040613E /* YSSkinMiddleRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinMiddleRsource.bundle; sourceTree = "<group>"; };
-		042A732125AC3B990040613E /* YSSkinLightRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinLightRsource.bundle; sourceTree = "<group>"; };
 		045CF51123C828B6008F474E /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		045F76042484DD2800A34F76 /* YSSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSetViewController.h; sourceTree = "<group>"; };
 		045F76052484DD2800A34F76 /* YSSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSetViewController.m; sourceTree = "<group>"; };
@@ -1685,8 +1681,6 @@
 		0464CEA1247B9BFA001532A3 /* YSSkinManager */ = {
 			isa = PBXGroup;
 			children = (
-				042A732125AC3B990040613E /* YSSkinLightRsource.bundle */,
-				042A732025AC3B820040613E /* YSSkinMiddleRsource.bundle */,
 				042A731C25AC23420040613E /* YSSkinDarkRsource.bundle */,
 				0464CE9C247B563C001532A3 /* YSLiveSkinManager.h */,
 				0464CE9D247B563C001532A3 /* YSLiveSkinManager.m */,
@@ -3564,7 +3558,6 @@
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
 				87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */,
 				8777C7DA23EE96EC002002BF /* YSOnlineSchool.bundle in Resources */,
-				042A732225AC3B990040613E /* YSSkinMiddleRsource.bundle in Resources */,
 				874A33B7259B38FF00EFA617 /* CHWhiteBoardKitResources.bundle in Resources */,
 				045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */,
 				87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */,
@@ -3572,7 +3565,6 @@
 				87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */,
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
 				8777C7CA23EC32F2002002BF /* YSClassInstructionCell.xib in Resources */,
-				042A732325AC3B990040613E /* YSSkinLightRsource.bundle in Resources */,
 				871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */,
 				874B773B2511B5A000A3830C /* CHWhiteBoardImage.xcassets in Resources */,
 				8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */,
