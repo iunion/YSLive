@@ -64,12 +64,8 @@
         self.apiHost = YSLIVE_HOST;
         self.schoolApiHost = YSSchool_Server;
         
-        self.whiteBordBgColor = CHWhiteBoard_BackGroudColor;
-        self.whiteBordDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
         self.whiteBordMaskImage = nil;
         
-        self.whiteBordLiveBgColor = CHWhiteBoard_LiveMainBackGroudColor;
-        self.whiteBordLiveDrawBgColor = CHWhiteBoard_LiveMainBackDrawBoardBgColor;
         self.needUseHttpDNSForWhiteBoard = YES;
 
         #if YSSDK
@@ -85,6 +81,11 @@
 {
     [super registerRoomDelegate:roomDelegate];
         
+    self.whiteBordBgColor = CHWhiteBoard_BackGroudColor;
+    self.whiteBordDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
+    self.whiteBordLiveBgColor = CHWhiteBoard_LiveMainBackGroudColor;
+    self.whiteBordLiveDrawBgColor = CHWhiteBoard_LiveMainBackDrawBoardBgColor;
+    
     [self registWithAppId: YSLive_AppKey
           settingOptional: @{
               CHRoomSettingOptionalWhiteBoardNotify : @(YES),
