@@ -67,7 +67,6 @@
 		26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		26E4716E2518A50A00CE1776 /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77392511B59F00A3830C /* CHWhiteBoard.framework */; };
 		26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */; };
-		26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */; };
 		26E4717E2518A65D00CE1776 /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77012510681800A3830C /* CHSession.framework */; };
 		26E4718C2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
 		26E4718D2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
@@ -378,7 +377,6 @@
 		874A33B7259B38FF00EFA617 /* CHWhiteBoardKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874A33B5259B38FF00EFA617 /* CHWhiteBoardKitResources.bundle */; };
 		874A33B8259B38FF00EFA617 /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874A33B6259B38FF00EFA617 /* CloudHubWhiteBoardKit.framework */; };
 		874B77022510681800A3830C /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77012510681800A3830C /* CHSession.framework */; };
-		874B773A2511B5A000A3830C /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */; };
 		874B773B2511B5A000A3830C /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */; };
 		874B773D2511B5A000A3830C /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77392511B59F00A3830C /* CHWhiteBoard.framework */; };
 		874E4F6623B36A1500086B01 /* YSSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6523B36A1500086B01 /* YSSlider.m */; };
@@ -1061,7 +1059,6 @@
 		874A33B5259B38FF00EFA617 /* CHWhiteBoardKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardKitResources.bundle; sourceTree = "<group>"; };
 		874A33B6259B38FF00EFA617 /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
 		874B77012510681800A3830C /* CHSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHSession.framework; sourceTree = "<group>"; };
-		874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
 		874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
 		874B77392511B59F00A3830C /* CHWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoard.framework; sourceTree = "<group>"; };
 		874E4F6423B36A1500086B01 /* YSSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSlider.h; sourceTree = "<group>"; };
@@ -1633,11 +1630,11 @@
 		0460D5B325AC62DE00A2D3A1 /* SSZipArchive */ = {
 			isa = PBXGroup;
 			children = (
-				0460D5B425AC62DE00A2D3A1 /* ZipArchive.h */,
 				0460D5B525AC62DE00A2D3A1 /* minizip */,
 				0460D5D325AC62DE00A2D3A1 /* SSZipArchive.h */,
-				0460D5D425AC62DE00A2D3A1 /* SSZipCommon.h */,
 				0460D5D525AC62DE00A2D3A1 /* SSZipArchive.m */,
+				0460D5D425AC62DE00A2D3A1 /* SSZipCommon.h */,
+				0460D5B425AC62DE00A2D3A1 /* ZipArchive.h */,
 			);
 			path = SSZipArchive;
 			sourceTree = "<group>";
@@ -1645,35 +1642,35 @@
 		0460D5B525AC62DE00A2D3A1 /* minizip */ = {
 			isa = PBXGroup;
 			children = (
-				0460D5B625AC62DE00A2D3A1 /* mz_strm_os_posix.c */,
-				0460D5B725AC62DE00A2D3A1 /* mz_strm_pkcrypt.c */,
-				0460D5B825AC62DE00A2D3A1 /* mz_strm_wzaes.h */,
-				0460D5B925AC62DE00A2D3A1 /* mz_compat.h */,
-				0460D5BA25AC62DE00A2D3A1 /* mz_strm_zlib.c */,
-				0460D5BB25AC62DE00A2D3A1 /* mz_zip.c */,
-				0460D5BC25AC62DE00A2D3A1 /* mz_os.h */,
-				0460D5BD25AC62DE00A2D3A1 /* mz_zip_rw.c */,
-				0460D5BE25AC62DE00A2D3A1 /* mz_strm_split.h */,
-				0460D5BF25AC62DE00A2D3A1 /* mz_strm_buf.h */,
-				0460D5C025AC62DE00A2D3A1 /* mz_crypt_apple.c */,
-				0460D5C125AC62DE00A2D3A1 /* mz_strm.h */,
-				0460D5C225AC62DE00A2D3A1 /* mz_strm_mem.c */,
-				0460D5C325AC62DE00A2D3A1 /* mz_crypt.c */,
-				0460D5C425AC62DE00A2D3A1 /* mz_strm_wzaes.c */,
-				0460D5C525AC62DE00A2D3A1 /* mz_strm_zlib.h */,
 				0460D5C625AC62DE00A2D3A1 /* mz_compat.c */,
-				0460D5C725AC62DE00A2D3A1 /* mz_strm_pkcrypt.h */,
-				0460D5C825AC62DE00A2D3A1 /* mz_zip_rw.h */,
-				0460D5C925AC62DE00A2D3A1 /* mz_os.c */,
-				0460D5CA25AC62DE00A2D3A1 /* mz_zip.h */,
-				0460D5CB25AC62DE00A2D3A1 /* mz_os_posix.c */,
-				0460D5CC25AC62DE00A2D3A1 /* mz.h */,
-				0460D5CD25AC62DE00A2D3A1 /* mz_strm_buf.c */,
-				0460D5CE25AC62DE00A2D3A1 /* mz_strm_split.c */,
+				0460D5B925AC62DE00A2D3A1 /* mz_compat.h */,
+				0460D5C025AC62DE00A2D3A1 /* mz_crypt_apple.c */,
+				0460D5C325AC62DE00A2D3A1 /* mz_crypt.c */,
 				0460D5CF25AC62DE00A2D3A1 /* mz_crypt.h */,
+				0460D5CB25AC62DE00A2D3A1 /* mz_os_posix.c */,
+				0460D5C925AC62DE00A2D3A1 /* mz_os.c */,
+				0460D5BC25AC62DE00A2D3A1 /* mz_os.h */,
+				0460D5CD25AC62DE00A2D3A1 /* mz_strm_buf.c */,
+				0460D5BF25AC62DE00A2D3A1 /* mz_strm_buf.h */,
+				0460D5C225AC62DE00A2D3A1 /* mz_strm_mem.c */,
 				0460D5D025AC62DE00A2D3A1 /* mz_strm_mem.h */,
-				0460D5D125AC62DE00A2D3A1 /* mz_strm.c */,
+				0460D5B625AC62DE00A2D3A1 /* mz_strm_os_posix.c */,
 				0460D5D225AC62DE00A2D3A1 /* mz_strm_os.h */,
+				0460D5B725AC62DE00A2D3A1 /* mz_strm_pkcrypt.c */,
+				0460D5C725AC62DE00A2D3A1 /* mz_strm_pkcrypt.h */,
+				0460D5CE25AC62DE00A2D3A1 /* mz_strm_split.c */,
+				0460D5BE25AC62DE00A2D3A1 /* mz_strm_split.h */,
+				0460D5C425AC62DE00A2D3A1 /* mz_strm_wzaes.c */,
+				0460D5B825AC62DE00A2D3A1 /* mz_strm_wzaes.h */,
+				0460D5BA25AC62DE00A2D3A1 /* mz_strm_zlib.c */,
+				0460D5C525AC62DE00A2D3A1 /* mz_strm_zlib.h */,
+				0460D5D125AC62DE00A2D3A1 /* mz_strm.c */,
+				0460D5C125AC62DE00A2D3A1 /* mz_strm.h */,
+				0460D5BD25AC62DE00A2D3A1 /* mz_zip_rw.c */,
+				0460D5C825AC62DE00A2D3A1 /* mz_zip_rw.h */,
+				0460D5BB25AC62DE00A2D3A1 /* mz_zip.c */,
+				0460D5CA25AC62DE00A2D3A1 /* mz_zip.h */,
+				0460D5CC25AC62DE00A2D3A1 /* mz.h */,
 			);
 			path = minizip;
 			sourceTree = "<group>";
@@ -2243,7 +2240,6 @@
 				874A33B4259B38FF00EFA617 /* CloudHubWhiteBoardKit */,
 				874B77392511B59F00A3830C /* CHWhiteBoard.framework */,
 				874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */,
-				874B77362511B59F00A3830C /* CHWhiteBoardResources.bundle */,
 			);
 			path = CHWhiteBoard;
 			sourceTree = "<group>";
@@ -3553,7 +3549,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				87133669237270F6006534A4 /* Assets.xcassets in Resources */,
-				874B773A2511B5A000A3830C /* CHWhiteBoardResources.bundle in Resources */,
 				8790DBEF238D282A005C0BC7 /* YSResources.bundle in Resources */,
 				87133685237270F6006534A4 /* BMTestNetFlowCell.xib in Resources */,
 				87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */,
@@ -3592,7 +3587,6 @@
 				8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */,
 				26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */,
 				0464E95F2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */,
-				26E471742518A50F00CE1776 /* CHWhiteBoardResources.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
 				8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */,
 				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
