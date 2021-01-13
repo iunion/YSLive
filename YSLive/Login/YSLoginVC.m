@@ -2059,34 +2059,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     if (isSmallClass)
     {
-        if ([YSLiveManager sharedInstance].roomModel.skinModel.detailType && [YSLiveManager sharedInstance].roomModel.skinModel.detailType != CHSkinDetailsType_dark)
-        {
-            NSString *bundlePath = [[NSUserDefaults standardUserDefaults] objectForKey:[YSLiveManager sharedInstance].roomModel.skinModel.detailName];
-            
-            if ([bundlePath bm_isNotEmpty])
-            {
-                NSBundle *bundle = [[NSBundle alloc] initWithPath:bundlePath];
-                [YSLiveSkinManager shareInstance].skinBundle = bundle;
-                [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = bundle;
-                
-                [self smallClassJoinRoomSuccess];
-            }
-            else
-            {
-                //小班课下载皮肤类型bundle并解压
-                [self getTheRoomSkinBundle];
-            }
-        }
-        else
-        {
-            [YSLiveSkinManager shareInstance].skinBundle = NULL;
-            [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = NULL;
-            [self smallClassJoinRoomSuccess];
-        }
+        [YSLiveSkinManager shareInstance].skinBundle = [CHSessionManager sharedInstance].skinBundle;
+        
+        [self smallClassJoinRoomSuccess];
     }
     else
     {
-        
         [self.progressHUD bm_hideAnimated:NO];
         
         GetAppDelegate.allowRotation = NO;
@@ -2109,59 +2087,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
         {
             [[YSEyeCareManager shareInstance] startRemindtime];
         }
-    }
-}
-
-///小班课下载皮肤类型bundle并解压
-- (void)getTheRoomSkinBundle
-{
-    BMWeakSelf
-    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
-    
-    NSMutableURLRequest *request = [YSApiRequest makeRequestWithURL:[YSLiveManager sharedInstance].roomModel.skinModel.detailUrl parameters:nil];
-    request.timeoutInterval = 30.0f;
-    
-    if (request)
-    {
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-            @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
-            @"text/xml"
-        ]];
-        
-        NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-            
-            NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-            NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
-            return [NSURL fileURLWithPath:path];
-        } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-            
-            if ([filePath bm_isNotEmpty] && [[NSFileManager defaultManager]fileExistsAtPath:[filePath path]])
-            {
-                NSString *name = [filePath.path lastPathComponent];
-                
-                NSString *documenPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-                
-                [SSZipArchive unzipFileAtPath:filePath.path toDestination:documenPath progressHandler:nil completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
-                                 
-                    //根据路径取bundle
-                    NSString *pathString = [path stringByAppendingPathComponent:name];
-                    NSBundle *bundle = [[NSBundle alloc] initWithPath:pathString];
-                    
-                    [YSLiveSkinManager shareInstance].skinBundle = bundle;
-                    [YSLiveManager sharedInstance].whiteBoardManager.skinBundle = bundle;
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:pathString forKey:[YSLiveManager sharedInstance].roomModel.skinModel.detailName];
-                    [weakSelf smallClassJoinRoomSuccess];
-                    
-                }];
-            }
-            else
-            {
-                [weakSelf smallClassJoinRoomSuccess];
-            }
-        }];
-        
-        [task resume];
     }
 }
 

@@ -40,30 +40,30 @@ static YSLiveSkinManager *skinManager = nil;
 }
 
 ///当前调用的皮肤bundle
-- (NSBundle*)getCurrentBundle
-{
-    NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
-    
-    if (self.classOrOnline == CHSkinClassOrOnline_online)
-    {
-        skinBundleName = @"YSOnlineSchool.bundle";
-    }
-    else
-    {
-        if (self.roomDetailsType == CHSkinDetailsType_middle)
-        {
-            skinBundleName = @"YSSkinMiddleRsource.bundle";
-        }
-        else if (self.roomDetailsType == CHSkinDetailsType_light)
-        {
-            skinBundleName = @"YSSkinLightRsource.bundle";
-        }
-    }
-    
-    return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
-}
+//- (NSBundle*)getCurrentBundle
+//{
+//    NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
+//
+//    if (self.classOrOnline == CHSkinClassOrOnline_online)
+//    {
+//        skinBundleName = @"YSOnlineSchool.bundle";
+//    }
+//    else
+//    {
+//        if (self.roomDetailsType == CHSkinDetailsType_middle)
+//        {
+//            skinBundleName = @"YSSkinMiddleRsource.bundle";
+//        }
+//        else if (self.roomDetailsType == CHSkinDetailsType_light)
+//        {
+//            skinBundleName = @"YSSkinLightRsource.bundle";
+//        }
+//    }
+//
+//    return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
+//}
 
-/*
+
 ///当前调用的皮肤bundle
 - (NSBundle*)getCurrentBundle
 {
@@ -75,12 +75,10 @@ static YSLiveSkinManager *skinManager = nil;
     }
     else
     {
-        
-        if (self.roomDetailsType == CHSkinDetailsType_dark || ![self.skinBundle bm_isNotEmpty])
+        if (self.roomDetailsType == CHSkinDetailsType_dark || !self.roomDetailsType  || ![self.skinBundle bm_isNotEmpty])
         {
             NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
             return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
-            
         }
         else
         {
@@ -88,8 +86,6 @@ static YSLiveSkinManager *skinManager = nil;
         }
     }
 }
-*/
-
 
 /// 获取plist文件中的数据
 - (NSDictionary *)getPliatDictionaryWithType:(CHSkinClassOrOnline)classOrOnline
