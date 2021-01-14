@@ -2638,7 +2638,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (isSmallBoard)
         {
             [self.liveManager.whiteBoardManager uploadSmallBalckBoardImageWithImage:photos.firstObject success:nil failure:nil];
-    
         }
         else
         {
@@ -2685,8 +2684,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
                 });
-        }];
-            
+            }];
         }
     }];
     
