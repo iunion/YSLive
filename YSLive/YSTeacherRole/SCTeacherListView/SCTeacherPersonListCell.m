@@ -61,7 +61,7 @@
     UIView *cupView = [[UIView alloc] init];
     [self.contentView addSubview:cupView];
     self.cupView = cupView;
-    cupView.backgroundColor = YSSkinDefineColor(@"Color3");
+    cupView.backgroundColor = YSSkinDefineColor(@"Color6");
     
     UIImageView *cupImgView = [[UIImageView alloc] init];
     [self.contentView addSubview:cupImgView];
