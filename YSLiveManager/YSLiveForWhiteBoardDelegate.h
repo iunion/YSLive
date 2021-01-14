@@ -15,6 +15,8 @@
 
 /// 当前展示的课件列表（fileid）
 - (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
+/// 删除课件
+- (void)handleonWhiteBoardDeleteFile;
 /// 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen;
 /// 课件最大化

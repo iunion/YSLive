@@ -3846,6 +3846,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 }
 
+/// 删除课件
+- (void)handleonWhiteBoardDeleteFile
+{
+    [self freshTeacherCoursewareListData];
+}
+
 // 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen
 {
@@ -3883,11 +3889,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 
     }
-    
-//    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
-//#if !PASS_TEST
-//    [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
-//#endif
 }
 
 // 课件最大化
@@ -5856,41 +5857,44 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)deleteCoursewareWithFileID:(NSString *)fileid
 {
-    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
-    NSMutableURLRequest *request = [YSLiveApiRequest deleteCoursewareWithRoomId:self.liveManager.room_Id fileId:fileid];
-    if (request)
-    {
-        [self.deleteTask cancel];
-        
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-            @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",@"text/xml"
-        ]];
-        BMWeakSelf
-        self.deleteTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-            if (error)
-            {
-                BMLog(@"Error: %@", error);
-            }
-            else
-            {
-#if !PASS_TEST
-                [weakSelf.liveManager.whiteBoardManager deleteCourseWithFileId:fileid];
-#endif
-//                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+    
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit deleteFileWithFileId:fileid];
+    
+//    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
+//    NSMutableURLRequest *request = [YSLiveApiRequest deleteCoursewareWithRoomId:self.liveManager.room_Id fileId:fileid];
+//    if (request)
+//    {
+//        [self.deleteTask cancel];
+//        
+//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
+//            @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",@"text/xml"
+//        ]];
+//        BMWeakSelf
+//        self.deleteTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+//            if (error)
+//            {
+//                BMLog(@"Error: %@", error);
+//            }
+//            else
+//            {
 //
-//                if ([responseDic bm_containsObjectForKey:@"result"])
-//                {
-//                    NSInteger result = [responseDic bm_intForKey:@"result"];
-//                    if (result == 0)
-//                    {
-//                        [weakSelf freshTeacherCoursewareListData];
-//                    }
-//                }
-                BMLog(@"%@--------%@", response,responseObject);
-            }
-        }];
-        [self.deleteTask resume];
-    }
+//                
+//
+////                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+////
+////                if ([responseDic bm_containsObjectForKey:@"result"])
+////                {
+////                    NSInteger result = [responseDic bm_intForKey:@"result"];
+////                    if (result == 0)
+////                    {
+////                        [weakSelf freshTeacherCoursewareListData];
+////                    }
+////                }
+//                BMLog(@"%@--------%@", response,responseObject);
+//            }
+//        }];
+//        [self.deleteTask resume];
+//    }
 }
 
 /// 课件点击
@@ -6099,19 +6103,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 }
 */
-
-- (void)brushToolDoClean
-{
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager didSelectDrawType:CHDrawTypeClear color:@"" widthProgress:0];
-#endif
-
-//    if (self.drawBoardView)
-//    {
-//        [self.drawBoardView removeFromSuperview];
-//        self.drawBoardView = nil;
-//    }
-}
 
 
 #pragma mark - 打开相册选择图片
