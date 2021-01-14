@@ -246,7 +246,7 @@
         }
         else
         {
-            self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
+            self.contentBackgroud.backgroundColor = YSSkinDefineColor(@"Color2");
         }
     }
 }

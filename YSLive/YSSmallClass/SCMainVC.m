@@ -820,11 +820,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             whitebordBackgroud.backgroundColor = color;
             [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
         }
-//        else
-//        {
-//            whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-//            [self.liveManager.whiteBoardManager changeAllWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color1")];
-//        }
     }
     
     // 视频背景
