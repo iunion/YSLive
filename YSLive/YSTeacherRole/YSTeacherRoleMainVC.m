@@ -6095,51 +6095,32 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMWeakSelf
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         
-        if (imageUseType == 0)
-        {
-            [self.liveManager.whiteBoardManager addImageCourseWithImage:photos.firstObject success:nil failure:nil];
-        }
-        else
-        {
-            [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
+        [self.liveManager.whiteBoardManager uploadImageWithImage:photos.firstObject addInClass:(imageUseType == SCUploadImageUseType_Document) success:^(NSDictionary * _Nonnull dict) {
+            
+            if (imageUseType == SCUploadImageUseType_Document)
+            {
                 
-               
-                    BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
-                    if (!isSucceed)
-                    {
-                        BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
-                        hub.yOffset = -100;
-                        [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-                    }
-                /*
-                 cospath = "https://demo.roadofcloud.com";
-                 downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
-                 dynamicppt = 0;
-                 fileid = 157372252254;
-                 filename = "iOS_mobile_2019-11-14_17_08_38.JPG";
-                 fileprop = 0;
-                 isContentDocument = 0;
-                 pagenum = 1;
-                 realUrl = "";
-                 result = 0;
-                 size = 1256893;
-                 status = 1;
-                 swfpath = "/upload/20191114_170842_rjkvvosq.jpg";
-                 */
-            } failure:^(NSInteger errorCode) {
-    #if DEBUG
-                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
-    #else
-                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
-    #endif
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
-                });
-            }];
-        }
-        
-        
-        
+            }
+            else
+            {
+                BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
+                if (!isSucceed)
+                {
+                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+                    hub.yOffset = -100;
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                }
+            }
+        } failure:^(NSInteger errorCode) {
+#if DEBUG
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+#else
+            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+#endif
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
+            });
+        }];
     }];
 
     self.imagePickerController = imagePickerController;
