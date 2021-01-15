@@ -5873,20 +5873,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-#if !PASS_TEST
-                [weakSelf.liveManager.whiteBoardManager deleteCourseWithFileId:fileid];
-#endif
-//                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
-//
-//                if ([responseDic bm_containsObjectForKey:@"result"])
-//                {
-//                    NSInteger result = [responseDic bm_intForKey:@"result"];
-//                    if (result == 0)
-//                    {
-//                        [weakSelf freshTeacherCoursewareListData];
-//                    }
-//                }
-                BMLog(@"%@--------%@", response,responseObject);
+                [weakSelf.liveManager.whiteBoardManager deleteTheCourseWithFileId:fileid];
+                
+//                [weakSelf freshTeacherCoursewareListData];
             }
         }];
         [self.deleteTask resume];
