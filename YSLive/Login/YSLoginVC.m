@@ -2096,7 +2096,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [self.progressHUD bm_hideAnimated:NO];
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     
-    [YSLiveSkinManager shareInstance].roomDetailsType = liveManager.roomModel.skinModel.detailType;
+    [YSLiveSkinManager shareInstance].isSmallVC = YES;
             
     GetAppDelegate.allowRotation = YES;
     NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];

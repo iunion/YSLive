@@ -32,36 +32,10 @@ static YSLiveSkinManager *skinManager = nil;
         if (!skinManager)
         {
             skinManager = [[YSLiveSkinManager alloc] init];
-
-            skinManager.roomDetailsType = CHSkinDetailsType_dark;
         }
     }
     return skinManager;
 }
-
-///当前调用的皮肤bundle
-//- (NSBundle*)getCurrentBundle
-//{
-//    NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
-//
-//    if (self.classOrOnline == CHSkinClassOrOnline_online)
-//    {
-//        skinBundleName = @"YSOnlineSchool.bundle";
-//    }
-//    else
-//    {
-//        if (self.roomDetailsType == CHSkinDetailsType_middle)
-//        {
-//            skinBundleName = @"YSSkinMiddleRsource.bundle";
-//        }
-//        else if (self.roomDetailsType == CHSkinDetailsType_light)
-//        {
-//            skinBundleName = @"YSSkinLightRsource.bundle";
-//        }
-//    }
-//
-//    return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
-//}
 
 
 ///当前调用的皮肤bundle
@@ -75,7 +49,7 @@ static YSLiveSkinManager *skinManager = nil;
     }
     else
     {
-        if (self.roomDetailsType == CHSkinDetailsType_dark || !self.roomDetailsType  || ![self.skinBundle bm_isNotEmpty])
+        if (self.isSmallVC || ![[YSLiveManager sharedInstance].roomModel.skinModel.detailUrl bm_isNotEmpty] || ![self.skinBundle bm_isNotEmpty])
         {
             NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
             return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
@@ -91,14 +65,13 @@ static YSLiveSkinManager *skinManager = nil;
 - (NSDictionary *)getPliatDictionaryWithType:(CHSkinClassOrOnline)classOrOnline
 {
     
-    if (self.lastClassOrOnline != self.classOrOnline || self.lastSkinType != self.roomDetailsType || ![self.plictDict bm_isNotEmpty])
+    if (self.lastClassOrOnline != self.classOrOnline || ![self.plictDict bm_isNotEmpty])
     {
         NSString *path = [[self getCurrentBundle] pathForResource:@"SkinSource" ofType:@"plist"];
                     
         self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     
-    self.lastSkinType = self.roomDetailsType;
     self.lastClassOrOnline = self.classOrOnline;
     
     return self.plictDict;

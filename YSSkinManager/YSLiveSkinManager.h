@@ -27,7 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSLiveSkinManager : NSObject
 
-@property (nonatomic, assign)CHSkinDetailsType roomDetailsType;
+//@property (nonatomic, assign)CHSkinDetailsType roomDetailsType;
+@property (nonatomic, assign)BOOL isSmallVC;
 
 @property (nonatomic, assign)CHSkinClassOrOnline classOrOnline;
 

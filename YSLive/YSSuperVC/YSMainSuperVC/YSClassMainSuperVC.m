@@ -229,11 +229,11 @@
     
     if (self.liveManager.roomModel.skinModel.backgroundType)
     {
-        UIImage * placeholderImage = [UIImage imageNamed:@"LightBackgroundImage"];
-        if (self.liveManager.roomModel.skinModel.detailType == CHSkinDetailsType_middle)
-        {
-            placeholderImage = [UIImage imageNamed:@"MiddleBackgroundImage"];
-        }
+//        UIImage * placeholderImage = [UIImage imageNamed:@"LightBackgroundImage"];
+//        if (self.liveManager.roomModel.skinModel.detailType == CHSkinDetailsType_middle)
+//        {
+//            placeholderImage = [UIImage imageNamed:@"MiddleBackgroundImage"];
+//        }
         
         [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.skinModel.backgroundValue] completed:nil];
     }
