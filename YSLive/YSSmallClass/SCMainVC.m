@@ -4487,6 +4487,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
 }
 
+/// 删除课件
+- (void)handleonWhiteBoardDeleteFile
+{
+    [self freshTeacherCoursewareListData];
+}
+
 - (void)onWhiteBoardChangedFileWithFileList:(NSString *)fileId
 {
     

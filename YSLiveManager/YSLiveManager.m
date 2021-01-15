@@ -413,7 +413,14 @@
         [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileIdList];
     }
 }
-
+/// 删除课件
+- (void)onWhiteBroadDeleteFile:(NSString *)fileId
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardDeleteFile)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardDeleteFile];
+    }
+}
 #pragma mark - 课件事件
 
 /// 课件全屏
