@@ -860,9 +860,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
-//    self.whitebordBackgroud.backgroundColor = UIColor.redColor;
-    
-    YSSkinDefineColor(@"Color1");
     
     UIImageView *whitebordBgimage = [[UIImageView alloc]initWithFrame:whitebordBackgroud.bounds];
     whitebordBgimage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -870,7 +867,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [whitebordBackgroud addSubview:whitebordBgimage];
     self.whitebordBgimage = whitebordBgimage;
         
-    if (self.liveManager.roomModel.skinModel.whiteboardType)
+    
+    if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_color)
+    {
+        whitebordBgimage.hidden = YES;
+
+        if ([self.liveManager.roomModel.skinModel.whiteboardValue bm_isNotEmpty])
+        {
+            UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
+            
+            whitebordBackgroud.backgroundColor = color;
+            [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
+        }
+    }
+    else if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_image)
     {
         NSString *imageUrl = self.liveManager.roomModel.skinModel.whiteboardValue;
         if (self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
@@ -892,20 +902,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     else
     {
         whitebordBgimage.hidden = YES;
-
-        if ([self.liveManager.roomModel.skinModel.whiteboardValue bm_isNotEmpty])
-        {
-            UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
-            
-            whitebordBackgroud.backgroundColor = color;
-            [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
-        }
+        whitebordBackgroud.backgroundColor = UIColor.clearColor;
+        [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:UIColor.clearColor];
     }
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-//    videoBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
-    
     videoBackgroud.layer.shadowColor = [UIColor bm_colorWithHex:0x000000 alpha:0.5].CGColor;
     videoBackgroud.layer.shadowOffset = CGSizeMake(0,2);
     videoBackgroud.layer.shadowOpacity = 1;
@@ -1725,11 +1727,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         self.videoBackgroud.frame = CGRectMake(0, 0, self.contentWidth, videoTeacherHeight + VIDEOVIEW_GAP);
 
-#if !PASS_TEST
+//#if !PASS_TEST
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
-#else
-        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
-#endif
+//#else
+//        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
+//#endif
     }
     if (!floatVideoDefaultWidth)
     {
@@ -3863,6 +3865,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 }
 
+/// 删除课件
+- (void)handleonWhiteBoardDeleteFile
+{
+    [self freshTeacherCoursewareListData];
+}
+
 // 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen
 {
@@ -3900,11 +3908,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #endif
 
     }
-    
-//    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
-//#if !PASS_TEST
-//    [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
-//#endif
 }
 
 // 课件最大化
@@ -5871,43 +5874,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
+//删除课件
 - (void)deleteCoursewareWithFileID:(NSString *)fileid
 {
-    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
-    NSMutableURLRequest *request = [YSLiveApiRequest deleteCoursewareWithRoomId:self.liveManager.room_Id fileId:fileid];
-    if (request)
-    {
-        [self.deleteTask cancel];
-        
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-            @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",@"text/xml"
-        ]];
-        BMWeakSelf
-        self.deleteTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-            if (error)
-            {
-                BMLog(@"Error: %@", error);
-            }
-            else
-            {
-#if !PASS_TEST
-                [weakSelf.liveManager.whiteBoardManager deleteCourseWithFileId:fileid];
-#endif
-//                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
-//
-//                if ([responseDic bm_containsObjectForKey:@"result"])
-//                {
-//                    NSInteger result = [responseDic bm_intForKey:@"result"];
-//                    if (result == 0)
-//                    {
-//                        [weakSelf freshTeacherCoursewareListData];
-//                    }
-//                }
-                BMLog(@"%@--------%@", response,responseObject);
-            }
-        }];
-        [self.deleteTask resume];
-    }
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit deleteFileWithFileId:fileid];
 }
 
 /// 课件点击
@@ -6117,19 +6087,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 */
 
-- (void)brushToolDoClean
-{
-#if !PASS_TEST
-    [self.liveManager.whiteBoardManager didSelectDrawType:CHDrawTypeClear color:@"" widthProgress:0];
-#endif
-
-//    if (self.drawBoardView)
-//    {
-//        [self.drawBoardView removeFromSuperview];
-//        self.drawBoardView = nil;
-//    }
-}
-
 
 #pragma mark - 打开相册选择图片
 
@@ -6145,49 +6102,52 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     BMWeakSelf
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
-            
-            if (imageUseType == 0)
-            {
-#if !PASS_TEST
-                [weakSelf.liveManager.whiteBoardManager addWhiteBordImageCourseWithDic:dict];
-#endif
-            }
-            else
-            {
-                BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
-                if (!isSucceed)
-                {
-                    BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
-                    hub.yOffset = -100;
-                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-                }
-            }
-            /*
-             cospath = "https://demo.roadofcloud.com";
-             downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
-             dynamicppt = 0;
-             fileid = 157372252254;
-             filename = "iOS_mobile_2019-11-14_17_08_38.JPG";
-             fileprop = 0;
-             isContentDocument = 0;
-             pagenum = 1;
-             realUrl = "";
-             result = 0;
-             size = 1256893;
-             status = 1;
-             swfpath = "/upload/20191114_170842_rjkvvosq.jpg";
-             */
-        } failure:^(NSInteger errorCode) {
-#if DEBUG
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
-#else
-            [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
-#endif
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
-            });
-        }];
+        
+        if (imageUseType == 0)
+        {
+            [self.liveManager.whiteBoardManager addImageCourseWithImage:photos.firstObject success:nil failure:nil];
+        }
+        else
+        {
+            [YSLiveApiRequest uploadImageWithImage:photos.firstObject withImageUseType:imageUseType success:^(NSDictionary * _Nonnull dict) {
+                
+               
+                    BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
+                    if (!isSucceed)
+                    {
+                        BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+                        hub.yOffset = -100;
+                        [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+                    }
+                /*
+                 cospath = "https://demo.roadofcloud.com";
+                 downloadpath = "/upload/20191114_170842_rjkvvosq.jpg";
+                 dynamicppt = 0;
+                 fileid = 157372252254;
+                 filename = "iOS_mobile_2019-11-14_17_08_38.JPG";
+                 fileprop = 0;
+                 isContentDocument = 0;
+                 pagenum = 1;
+                 realUrl = "";
+                 result = 0;
+                 size = 1256893;
+                 status = 1;
+                 swfpath = "/upload/20191114_170842_rjkvvosq.jpg";
+                 */
+            } failure:^(NSInteger errorCode) {
+    #if DEBUG
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:[NSString stringWithFormat:@"%@,code:%@",YSLocalized(@"UploadPhoto.Error"),@(errorCode)]];
+    #else
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
+    #endif
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [BMProgressHUD bm_hideHUDForView:weakSelf.view animated:YES];
+                });
+            }];
+        }
+        
+        
+        
     }];
 
     self.imagePickerController = imagePickerController;
