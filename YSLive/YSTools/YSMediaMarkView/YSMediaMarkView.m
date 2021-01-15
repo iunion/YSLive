@@ -126,10 +126,7 @@
 
     for (NSDictionary *dic in sharpsDataArray)
     {
-        NSString *fromId = [dic objectForKey:@"fromID"];
-        BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
-        
-        [self.drawView addDrawSharpData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
+        [self doSharpData:dic];
     }
 }
 
@@ -142,23 +139,223 @@
     
     for (NSDictionary *dic in sharpsDataArray)
     {
-        NSString *fromId = [dic objectForKey:@"fromID"];
-        BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
-
-        [self.drawView addDrawSharpData:dic authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
+        [self doSharpData:dic];
     }
     
-    NSString *fromId = [data objectForKey:@"fromID"];
-    BOOL isFromMyself = [fromId isEqualToString:[CHSessionManager sharedInstance].localUser.peerID];
-
-    [self.drawView addDrawSharpData:data authorUserId:@"" seq:0 isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
+    [self doSharpData:data];
 }
 
-//- (void)didMoveToSuperview
-//{
-//    [self freshView];
-//}
+- (void)doSharpData:(NSDictionary *)dictionary
+{
+    NSString *userId = [dictionary bm_stringForKey:@"fromId"];
+    NSUInteger seq = [dictionary bm_uintForKey:@"seq"];
 
+    NSDictionary *shapeDic = [dictionary bm_dictionaryForKey:@"data"];
+    
+    BOOL isFromMyself = [userId isEqualToString:CHLocalUser.peerID];
+    
+    if (![userId bm_isNotEmpty] || ![shapeDic bm_isNotEmptyDictionary])
+    {
+        return;
+    }
+    
+    CHDrawEvent eventType = CHDrawEventUnknown;
+    
+    NSString *actionName = nil;
+    NSString *actionId = nil;
+    NSString *eventTypeString = nil;
+    NSString *toAuthorUserId = nil;
+    
+    eventTypeString = [shapeDic bm_stringForKey:@"eventType"];
+    // 课件消息
+    if (![eventTypeString bm_isNotEmpty])
+    {
+        return;
+    }
+    
+    if ([eventTypeString isEqualToString:@"shapeSaveEvent"])
+    {
+        eventType = CHDrawEventShapeAdd;
+    }
+    else if ([eventTypeString isEqualToString:@"undoEvent"])
+    {
+        eventType = CHDrawEventShapeUndo;
+    }
+    else if ([eventTypeString isEqualToString:@"redoEvent"])
+    {
+        eventType = CHDrawEventShapeRedo;
+    }
+    else if ([eventTypeString isEqualToString:@"clearEvent"])
+    {
+        eventType = CHDrawEventShapeClean;
+    }
+    else if ([eventTypeString isEqualToString:@"selectedShapesMoved"])
+    {
+        eventType = CHDrawEventShapeMove;
+    }
+    else if ([eventTypeString isEqualToString:@"deleteSelectedShapes"])
+    {
+        eventType = CHDrawEventShapeDelete;
+    }
+    
+    if (eventType == CHDrawEventUnknown)
+    {
+        return;
+    }
+    
+    // 绘制消息
+    actionName = [shapeDic bm_stringForKey:@"actionName"];
+    actionId = [shapeDic bm_stringForKey:@"actionId"];
+    if (![actionId bm_isNotEmpty])
+    {
+        actionId = [shapeDic bm_stringForKey:@"clearActionId"];
+    }
+    if ([actionId bm_isNotEmpty])
+    {
+        toAuthorUserId = [shapeDic bm_stringForKey:@"toAuthorUserId"];
+        NSDictionary *otherInfo = [shapeDic bm_dictionaryForKey:@"otherInfo"];
+        if ([otherInfo bm_isNotEmptyDictionary])
+        {
+            userId = [otherInfo bm_stringForKey:@"authorUserId"];
+            seq = [otherInfo bm_uintForKey:@"seq"];
+            toAuthorUserId = [otherInfo bm_stringForKey:@"toAuthorUserId"];
+        }
+    }
+    
+    switch (eventType)
+    {
+        case CHDrawEventShapeAdd:
+        {
+            if ([actionName isEqualToString:@"ClearAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    // 恢复清空
+                    [self.drawView handleClearDrawWithClearId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:YES isFromMyself:isFromMyself];
+                }
+            }
+            else if ([actionName isEqualToString:@"ShapesMoveAction"])
+            {
+                
+            }
+            else if ([actionName isEqualToString:@"DelSelectedShapesAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    NSArray *deleteShapeIds = [shapeDic bm_arrayForKey:@"delIds"];
+                    [self.drawView handleDeleteDrawWithDeleteId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:YES deleteShapeIdsArray:deleteShapeIds isFromMyself:isFromMyself];
+                }
+            }
+            else if ([actionName isEqualToString:@"AddShapeAction"])
+            {
+                [self.drawView addDrawSharpData:shapeDic authorUserId:userId seq:seq isRedo:NO isFromMyself:isFromMyself isUpdate:YES];
+            }
+        }
+            break;
+            
+        case CHDrawEventShapeClean:
+        {
+            if ([actionId bm_isNotEmpty])
+            {
+                [self.drawView handleClearDrawWithClearId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:NO isFromMyself:isFromMyself];
+            }
+        }
+            break;
+            
+        case CHDrawEventShapeMove:
+        {
+            NSDictionary *moveShapesDic = [shapeDic bm_dictionaryForKey:@"posInfos"];
+            if ([moveShapesDic bm_isNotEmptyDictionary] && [actionId bm_isNotEmpty])
+            {
+                [self.drawView handleMoveDrawWithMoveId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:NO moveShapesDic:moveShapesDic isFromMyself:isFromMyself];
+            }
+            break;
+        }
+            
+        case CHDrawEventShapeDelete:
+        {
+            NSArray *deleteShapeIds = [shapeDic bm_arrayForKey:@"delIds"];
+            if ([deleteShapeIds bm_isNotEmpty] && [actionId bm_isNotEmpty])
+            {
+                [self.drawView handleDeleteDrawWithDeleteId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:NO deleteShapeIdsArray:deleteShapeIds isFromMyself:isFromMyself];
+            }
+            break;
+        }
+
+        case CHDrawEventShapeUndo:
+        {
+            if ([actionName isEqualToString:@"ClearAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    [self.drawView handleUndoDrawWithClearId:actionId];
+                }
+            }
+            else if ([actionName isEqualToString:@"ShapesMoveAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    [self.drawView handleUndoDrawWithMoveId:actionId];
+                }
+            }
+            else if ([actionName isEqualToString:@"DelSelectedShapesAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    [self.drawView handleUndoDrawWithDeleteId:actionId];
+                }
+            }
+            else if ([actionName isEqualToString:@"AddShapeAction"])
+            {
+                NSString *shapeId = [shapeDic bm_stringForKey:@"shapeId"];
+                if ([shapeId bm_isNotEmpty])
+                {
+                    [self.drawView handleUndoDrawWithShapeId:shapeId];
+                }
+            }
+            break;
+        }
+            
+        case CHDrawEventShapeRedo:
+        {
+            if ([actionName isEqualToString:@"ClearAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    [self.drawView handleClearDrawWithClearId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:YES isFromMyself:isFromMyself];
+                }
+            }
+            else if ([actionName isEqualToString:@"ShapesMoveAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    NSDictionary *moveShapesDic = [shapeDic bm_dictionaryForKey:@"posInfos"];
+                    if ([moveShapesDic bm_isNotEmptyDictionary] && [actionId bm_isNotEmpty])
+                    {
+                        [self.drawView handleMoveDrawWithMoveId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:YES moveShapesDic:moveShapesDic isFromMyself:isFromMyself];
+                    }
+                }
+            }
+            else if ([actionName isEqualToString:@"DelSelectedShapesAction"])
+            {
+                if ([actionId bm_isNotEmpty])
+                {
+                    NSArray *deleteShapeIds = [shapeDic bm_arrayForKey:@"delIds"];
+                    [self.drawView handleDeleteDrawWithDeleteId:actionId authorUserId:userId seq:seq toAuthorUserId:toAuthorUserId isRedo:NO deleteShapeIdsArray:deleteShapeIds isFromMyself:isFromMyself];
+                }
+            }
+            else if ([actionName isEqualToString:@"AddShapeAction"])
+            {
+                [self.drawView addDrawSharpData:shapeDic authorUserId:userId seq:seq isRedo:YES isFromMyself:isFromMyself isUpdate:YES];
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
 
 #pragma mark -
 #pragma mark YSDrawViewDelegate

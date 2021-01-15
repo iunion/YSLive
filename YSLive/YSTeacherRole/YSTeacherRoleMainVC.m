@@ -3091,16 +3091,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 显示白板视频标注
-- (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
+- (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
-    if (self.shareVideoFloatView.hidden)
-    {
-        return;
-    }
+//    if (self.shareVideoFloatView.hidden)
+//    {
+//        return;
+//    }
     
     if (self.mediaMarkView.superview)
     {
@@ -3108,6 +3108,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
     
     NSString *fileId = [data bm_stringForKey:@"fileId"];
+    CGFloat videoRatio = [data bm_doubleForKey:@"videoRatio"];
+    
     self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds fileId:fileId];
     [self.shareVideoFloatView addSubview:self.mediaMarkView];
     
@@ -3116,17 +3118,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 绘制白板视频标注
-- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data isHistory:(BOOL)isHistory
+- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
-    if (isHistory)
-    {
-        [self.mediaMarkSharpsDatas addObject:data];
-    }
-    else
+    
+//    BOOL isHistory = [data bm_boolForKey:@"isHistory"];
+//
+//    if (isHistory)
+//    {
+//        [self.mediaMarkSharpsDatas addObject:data];
+//    }
+//    else
     {
         [self.mediaMarkView freshViewWithData:data savedSharpsData:self.mediaMarkSharpsDatas];
         [self.mediaMarkSharpsDatas removeAllObjects];
@@ -3141,6 +3146,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (self.mediaMarkView.superview)
     {
         [self.mediaMarkView removeFromSuperview];
+        self.mediaMarkView = nil;
     }
 }
 #pragma mark -刷新课件库数据
@@ -3802,6 +3808,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.showWaiting = YES;
     self.shareVideoFloatView.hidden = NO;
     
+    if (self.mediaMarkView)
+    {
+        [self.mediaMarkView bm_bringToFront];
+    }
+    
 #if USE_FullTeacher
 //    [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
 #endif
@@ -3814,6 +3825,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if (mediaModel.isVideo)
     {
         [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
+    }
+    
+    if (self.mediaMarkView.superview)
+    {
+        [self.mediaMarkView removeFromSuperview];
+        self.mediaMarkView = nil;
     }
     
     self.shareVideoFloatView.canZoom = NO;

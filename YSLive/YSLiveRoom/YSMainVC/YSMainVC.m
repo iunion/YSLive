@@ -1525,6 +1525,11 @@
         self.mp4BgView.hidden = NO;
         [self.mp4BgView bm_bringToFront];
         [self.mp4FullScreenBtn bm_bringToFront];
+        
+        if (self.mediaMarkView)
+        {
+            [self.mediaMarkView bm_bringToFront];
+        }
     }
 }
 
@@ -1562,16 +1567,16 @@
 }
 
 /// 显示白板视频标注
-- (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data videoRatio:(CGFloat)videoRatio
+- (void)handleSignalingShowVideoWhiteboardWithData:(NSDictionary *)data
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
-    if (self.mp4BgView.hidden)
-    {
-        return;
-    }
+//    if (self.mp4BgView.hidden)
+//    {
+//        return;
+//    }
     
     if (self.mediaMarkView.superview)
     {
@@ -1579,6 +1584,8 @@
     }
     
     NSString *fileId = [data bm_stringForKey:@"fileId"];
+    CGFloat videoRatio = [data bm_doubleForKey:@"videoRatio"];
+    
     self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds fileId:fileId];
     [self.mp4BgView addSubview:self.mediaMarkView];
     [self.mp4FullScreenBtn bm_bringToFront];
@@ -1587,17 +1594,20 @@
 }
 
 /// 绘制白板视频标注
-- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data isHistory:(BOOL)isHistory
+- (void)handleSignalingDrawVideoWhiteboardWithData:(NSDictionary *)data
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
         return;
     }
-    if (isHistory)
-    {
-        [self.mediaMarkSharpsDatas addObject:data];
-    }
-    else
+    
+//    BOOL isHistory = [data bm_boolForKey:@"isHistory"];
+//
+//    if (isHistory)
+//    {
+//        [self.mediaMarkSharpsDatas addObject:data];
+//    }
+//    else
     {
         [self.mediaMarkView freshViewWithData:data savedSharpsData:self.mediaMarkSharpsDatas];
         [self.mediaMarkSharpsDatas removeAllObjects];
@@ -1610,6 +1620,7 @@
     if (self.mediaMarkView.superview)
     {
         [self.mediaMarkView removeFromSuperview];
+        self.mediaMarkView = nil;
     }
 }
 
