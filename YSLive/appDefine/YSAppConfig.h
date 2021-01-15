@@ -25,9 +25,6 @@
 #endif
 
 
-#define PASS_TEST               1
-
-
 #import "YSAppMacros.h"
 #import "YSAppUIDef.h"
 
