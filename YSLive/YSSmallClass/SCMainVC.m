@@ -1441,9 +1441,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         
         if (self.roomLayout == CHRoomLayoutType_VideoLayout)
         {
-#if !PASS_TEST
-            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
-#endif
+            [self.liveManager.whiteBoardManager resetFullScreen];
             [self freshVideoGridView];
         }
         else
@@ -1458,9 +1456,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             [self freshVideoGridView];
             [self.raiseHandsBtn bm_bringToFront];
-#if !PASS_TEST
-            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
-#endif
+            [self.liveManager.whiteBoardManager resetFullScreen];
 //            self.whiteBordView.hidden = YES;
         }
         else
@@ -1814,11 +1810,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.videoBackgroud.frame = CGRectMake(0, 0, self.contentWidth, videoTeacherHeight + VIDEOVIEW_GAP);
 
-#if !PASS_TEST
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
-#else
-        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
-#endif
     }
     
     if (!floatVideoDefaultHeight)
@@ -2859,11 +2851,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
         CGFloat keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-#if !PASS_TEST
-        CGFloat zoomScale = [self.liveManager.whiteBoardManager currentDocumentZoomScale];
-#else
-        CGFloat zoomScale = 1.0f;
-#endif
+        CGFloat zoomScale = [self.liveManager.whiteBoardManager currentWhiteBoardZoomScale];
         CGFloat actualHeight = CGRectGetHeight(firstResponder.frame)*zoomScale + relativePoint.y + keyboardHeight;
         CGFloat overstep = actualHeight - CGRectGetHeight([UIScreen mainScreen].bounds);// + 5;
         if (overstep > 1)
@@ -3489,9 +3477,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         if (self.isWhitebordFullScreen)
         {
             /// 主房间上课后 本地全屏关闭
-#if !PASS_TEST
-            [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];
-#endif
+            [self.liveManager.whiteBoardManager resetFullScreen];
         }
     }
     else
@@ -4193,9 +4179,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //    NSString * sourceId = [self.liveManager getSourceIdFromStreamId:streamId];
     if (isFull)
     {
-#if !PASS_TEST
-        [self.liveManager.whiteBoardManager mainWhiteBoardAllScreen:NO];//双击全屏最大化时 关闭本地课件全屏
-#endif
+        [self.liveManager.whiteBoardManager resetFullScreen];//双击全屏最大化时 关闭本地课件全屏
         
         if (self.doubleFloatView)
         {

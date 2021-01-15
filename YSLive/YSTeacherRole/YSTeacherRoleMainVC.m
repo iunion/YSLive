@@ -1727,11 +1727,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         self.videoBackgroud.frame = CGRectMake(0, 0, self.contentWidth, videoTeacherHeight + VIDEOVIEW_GAP);
 
-//#if !PASS_TEST
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
-//#else
-//        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
-//#endif
     }
     if (!floatVideoDefaultWidth)
     {
@@ -5434,11 +5430,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
         CGPoint relativePoint = [firstResponder convertPoint:CGPointZero toView:[UIApplication sharedApplication].keyWindow];
         CGFloat keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-#if !PASS_TEST
-        CGFloat zoomScale = [self.liveManager.whiteBoardManager documentZoomScale];
-#else
-        CGFloat zoomScale = 1.0f;
-#endif
+        CGFloat zoomScale = [self.liveManager.whiteBoardManager currentWhiteBoardZoomScale];
         CGFloat actualHeight = CGRectGetHeight(firstResponder.frame)*zoomScale + relativePoint.y + keyboardHeight;
         CGFloat overstep = actualHeight - CGRectGetHeight([UIScreen mainScreen].bounds);// + 5;
         if (overstep > 1)
