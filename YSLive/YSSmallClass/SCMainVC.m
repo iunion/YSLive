@@ -787,29 +787,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.whitebordBgimage = whitebordBgimage;
     
     
-    if (self.liveManager.roomModel.skinModel.whiteboardType)
-    {
-        NSString *imageUrl = self.liveManager.roomModel.skinModel.whiteboardValue;
-        if (self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
-        {
-            imageUrl = self.liveManager.roomModel.skinModel.whiteboardSecondValue;
-        }
-        
-        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            if (!image)
-            {
-                self.whitebordBgimage.hidden = YES;
-
-//                self.whitebordBackgroud.backgroundColor = YSSkinDefineColor(@"Color1");
-//                [self.liveManager.whiteBoardManager changeMainWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color10")];
-            }
-            else
-            {
-                self.whitebordBgimage.hidden = NO;
-            }
-        }];
-    }
-    else
+    if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_color)
     {
         whitebordBgimage.hidden = YES;
 
@@ -821,7 +799,32 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
         }
     }
-    
+    else if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_image)
+    {
+        NSString *imageUrl = self.liveManager.roomModel.skinModel.whiteboardValue;
+        if (self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
+        {
+            imageUrl = self.liveManager.roomModel.skinModel.whiteboardSecondValue;
+        }
+        
+        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (!image)
+            {
+                self.whitebordBgimage.hidden = YES;
+            }
+            else
+            {
+                self.whitebordBgimage.hidden = NO;
+            }
+        }];
+    }
+    else
+    {
+        whitebordBgimage.hidden = YES;
+        whitebordBackgroud.backgroundColor = UIColor.clearColor;
+        [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:UIColor.clearColor];
+    }
+
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
     

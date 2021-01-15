@@ -860,9 +860,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.contentView addSubview:whitebordBackgroud];
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
-//    self.whitebordBackgroud.backgroundColor = UIColor.redColor;
-    
-    YSSkinDefineColor(@"Color1");
     
     UIImageView *whitebordBgimage = [[UIImageView alloc]initWithFrame:whitebordBackgroud.bounds];
     whitebordBgimage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -870,7 +867,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [whitebordBackgroud addSubview:whitebordBgimage];
     self.whitebordBgimage = whitebordBgimage;
         
-    if (self.liveManager.roomModel.skinModel.whiteboardType)
+    
+    if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_color)
+    {
+        whitebordBgimage.hidden = YES;
+
+        if ([self.liveManager.roomModel.skinModel.whiteboardValue bm_isNotEmpty])
+        {
+            UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
+            
+            whitebordBackgroud.backgroundColor = color;
+            [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
+        }
+    }
+    else if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_image)
     {
         NSString *imageUrl = self.liveManager.roomModel.skinModel.whiteboardValue;
         if (self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
@@ -892,20 +902,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     else
     {
         whitebordBgimage.hidden = YES;
-
-        if ([self.liveManager.roomModel.skinModel.whiteboardValue bm_isNotEmpty])
-        {
-            UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
-            
-            whitebordBackgroud.backgroundColor = color;
-            [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
-        }
+        whitebordBackgroud.backgroundColor = UIColor.clearColor;
+        [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:UIColor.clearColor];
     }
     
     // 视频背景
     UIView *videoBackgroud = [[UIView alloc] init];
-//    videoBackgroud.backgroundColor = YSSkinDefineColor(@"ToolBgColor");
-    
     videoBackgroud.layer.shadowColor = [UIColor bm_colorWithHex:0x000000 alpha:0.5].CGColor;
     videoBackgroud.layer.shadowOffset = CGSizeMake(0,2);
     videoBackgroud.layer.shadowOpacity = 1;
@@ -1725,11 +1727,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         self.videoBackgroud.frame = CGRectMake(0, 0, self.contentWidth, videoTeacherHeight + VIDEOVIEW_GAP);
 
-#if !PASS_TEST
+//#if !PASS_TEST
         self.whitebordBackgroud.frame = CGRectMake((self.contentWidth - whitebordWidth)/2, self.videoBackgroud.bm_bottom, whitebordWidth, whitebordHeight);
-#else
-        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
-#endif
+//#else
+//        self.whitebordBackgroud.frame = CGRectMake(0, self.videoBackgroud.bm_bottom, self.contentWidth, whitebordHeight);
+//#endif
     }
     if (!floatVideoDefaultWidth)
     {
@@ -5855,6 +5857,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
+//删除课件
 - (void)deleteCoursewareWithFileID:(NSString *)fileid
 {
     [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit deleteFileWithFileId:fileid];
