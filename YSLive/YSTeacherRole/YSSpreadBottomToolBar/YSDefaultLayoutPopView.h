@@ -16,9 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @interface YSDefaultLayoutPopView : UIViewController
-
 
 //数据源数组
 @property(nonatomic,strong)NSArray *menusArr;

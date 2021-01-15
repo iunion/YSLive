@@ -49,7 +49,7 @@ static YSLiveSkinManager *skinManager = nil;
     }
     else
     {
-        if (self.isSmallVC || ![[YSLiveManager sharedInstance].roomModel.skinModel.detailUrl bm_isNotEmpty] || ![self.skinBundle bm_isNotEmpty])
+        if (!self.isSmallVC || ![[YSLiveManager sharedInstance].roomModel.skinModel.detailUrl bm_isNotEmpty] || ![self.skinBundle bm_isNotEmpty])
         {
             NSString *skinBundleName = @"YSSkinDarkRsource.bundle";
             return [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:skinBundleName]];
