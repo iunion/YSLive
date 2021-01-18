@@ -293,7 +293,6 @@
 		8717E2942400DADC008C4CDA /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1502371720600A43607 /* YYFPSLabel.m */; };
 		8717E2952400DADC008C4CDA /* YSSkinCoverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */; };
 		8717E2972400DADC008C4CDA /* YSBarrageTrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1923670AB5000859F7 /* YSBarrageTrackInfo.m */; };
-		8717E2982400DADC008C4CDA /* YSMediaMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A723223824F1B00407A75 /* YSMediaMarkView.m */; };
 		8717E2A02400DADC008C4CDA /* BMTestColorPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B1342371720600A43607 /* BMTestColorPickerManager.m */; };
 		8717E2A52400DADC008C4CDA /* YSBarrageTextDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661FB1623670AB5000859F7 /* YSBarrageTextDescriptor.m */; };
 		8717E2AB2400DADC008C4CDA /* UIAlertController+SCAlertAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463845E237AC6BB00DE7236 /* UIAlertController+SCAlertAutorotate.m */; };
@@ -388,7 +387,6 @@
 		87517E5024AB05BF0094E2B3 /* CloudHubRTC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 87517E3924A354310094E2B3 /* CloudHubRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		875A720823758F1900407A75 /* SCVideoGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720723758F1900407A75 /* SCVideoGridView.m */; };
 		875A720D237A541900407A75 /* YSFloatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A720C237A541900407A75 /* YSFloatView.m */; };
-		875A723323824F1B00407A75 /* YSMediaMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875A723223824F1B00407A75 /* YSMediaMarkView.m */; };
 		8765B14423B4A95E004500DE /* SCEyeCareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8765B14323B4A95E004500DE /* SCEyeCareView.m */; };
 		8765B14723B4B00B004500DE /* SCEyeCareWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8765B14623B4B00B004500DE /* SCEyeCareWindow.m */; };
 		8766821323506EF600C4C635 /* YSLiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8766821223506EF600C4C635 /* YSLiveTests.m */; };
@@ -1074,8 +1072,6 @@
 		875A720723758F1900407A75 /* SCVideoGridView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCVideoGridView.m; sourceTree = "<group>"; };
 		875A720B237A541900407A75 /* YSFloatView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSFloatView.h; sourceTree = "<group>"; };
 		875A720C237A541900407A75 /* YSFloatView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSFloatView.m; sourceTree = "<group>"; };
-		875A723123824F1B00407A75 /* YSMediaMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMediaMarkView.h; sourceTree = "<group>"; };
-		875A723223824F1B00407A75 /* YSMediaMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMediaMarkView.m; sourceTree = "<group>"; };
 		8765B14223B4A95E004500DE /* SCEyeCareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEyeCareView.h; sourceTree = "<group>"; };
 		8765B14323B4A95E004500DE /* SCEyeCareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEyeCareView.m; sourceTree = "<group>"; };
 		8765B14523B4B00B004500DE /* SCEyeCareWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCEyeCareWindow.h; sourceTree = "<group>"; };
@@ -2275,15 +2271,6 @@
 			path = YSFloatView;
 			sourceTree = "<group>";
 		};
-		875A723023824EC500407A75 /* YSMediaMarkView */ = {
-			isa = PBXGroup;
-			children = (
-				875A723123824F1B00407A75 /* YSMediaMarkView.h */,
-				875A723223824F1B00407A75 /* YSMediaMarkView.m */,
-			);
-			path = YSMediaMarkView;
-			sourceTree = "<group>";
-		};
 		8765B14123B4A95E004500DE /* SCEyeCareWindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -3155,7 +3142,6 @@
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
 				8745556123B309CE00BC6CAB /* YSEyeCare */,
 				875A720A237A540000407A75 /* YSFloatView */,
-				875A723023824EC500407A75 /* YSMediaMarkView */,
 				8701B12E2371720600A43607 /* BMConsole */,
 				8701B177237172F200A43607 /* YSTestHelp */,
 				2661FB0D23670AB5000859F7 /* OCBarrage */,
@@ -3891,7 +3877,6 @@
 				8745557C23B3358000BC6CAB /* YSSkinCoverLayer.m in Sources */,
 				87832FFE24874C4400F1178E /* flex_fishhook.c in Sources */,
 				87133603237270F6006534A4 /* YSBarrageTrackInfo.m in Sources */,
-				875A723323824F1B00407A75 /* YSMediaMarkView.m in Sources */,
 				0460D5E425AC62DE00A2D3A1 /* mz_strm.c in Sources */,
 				8713360A237270F6006534A4 /* BMTestColorPickerManager.m in Sources */,
 				8783300024874C4400F1178E /* FLEXRuntimeUtility.m in Sources */,
@@ -4234,7 +4219,6 @@
 				8717E2972400DADC008C4CDA /* YSBarrageTrackInfo.m in Sources */,
 				87832F3D24874C4300F1178E /* FLEXShortcutsFactory+Defaults.m in Sources */,
 				87832FB324874C4300F1178E /* FLEXSystemLogMessage.m in Sources */,
-				8717E2982400DADC008C4CDA /* YSMediaMarkView.m in Sources */,
 				87832F5B24874C4300F1178E /* FLEXExplorerToolbar.m in Sources */,
 				8783300124874C4400F1178E /* FLEXRuntimeUtility.m in Sources */,
 				87832FD524874C4300F1178E /* FLEXRuntimeKeyPath.m in Sources */,

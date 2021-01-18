@@ -38,8 +38,6 @@
 
 #import "YSVoteVC.h"
 
-#import "YSMediaMarkView.h"
-
 #import "SCVideoView.h"
 
 #import "SCEyeCareView.h"
@@ -147,7 +145,7 @@
 @property (nonatomic, strong) UIButton *mp4FullScreenBtn;
 
 /// 白板视频标注视图
-@property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
+@property (nonatomic, strong) CHWBMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 
 @property (nonatomic, strong) YSLessonView *lessonView;
@@ -1586,7 +1584,7 @@
     NSString *fileId = [data bm_stringForKey:@"fileId"];
     CGFloat videoRatio = [data bm_doubleForKey:@"videoRatio"];
     
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds fileId:fileId];
+    self.mediaMarkView = [[CHWBMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds fileId:fileId];
     [self.mp4BgView addSubview:self.mediaMarkView];
     [self.mp4FullScreenBtn bm_bringToFront];
     

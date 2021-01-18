@@ -23,11 +23,8 @@
 #import "YSFloatView.h"
 #import "SCVideoGridView.h"
 
-#import "YSMediaMarkView.h"
-
 #import "UIAlertController+SCAlertAutorotate.h"
 #import "YSLiveApiRequest.h"
-
 
 #import "YSMp4ControlView.h"
 #import "YSMp3Controlview.h"
@@ -300,7 +297,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 课件删除
 @property(nonatomic, strong) NSURLSessionDataTask *deleteTask;
 /// 白板视频标注视图
-@property (nonatomic, strong) YSMediaMarkView *mediaMarkView;
+@property (nonatomic, strong) CHWBMediaMarkView *mediaMarkView;
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *mediaMarkSharpsDatas;
 
 @property (nonatomic, strong) YSDefaultLayoutPopView * layoutPopoverView;
@@ -3106,7 +3103,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     NSString *fileId = [data bm_stringForKey:@"fileId"];
     CGFloat videoRatio = [data bm_doubleForKey:@"videoRatio"];
     
-    self.mediaMarkView = [[YSMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds fileId:fileId];
+    self.mediaMarkView = [[CHWBMediaMarkView alloc] initWithFrame:self.shareVideoFloatView.bounds fileId:fileId];
     [self.shareVideoFloatView addSubview:self.mediaMarkView];
     
     [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];
