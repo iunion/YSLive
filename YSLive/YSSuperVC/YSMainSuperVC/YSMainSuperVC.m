@@ -458,7 +458,7 @@
     }
     
     //本人的视频数组
-    NSMutableArray * myVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:self.liveManager.localUser.peerID];
+    NSMutableArray *myVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:self.liveManager.localUser.peerID];
     
     // 删除本人占位视频
     for (SCVideoView *avideoView in myVideoArray)
@@ -466,17 +466,19 @@
         if (avideoView.isForPerch)
         {
             [myVideoArray removeObject:avideoView];
-            [self.videoViewArrayDic setObject:myVideoArray forKey:avideoView.roomUser.peerID];
+            
+            [self.videoViewArrayDic setObject:myVideoArray forKey:self.liveManager.localUser.peerID];
             [self.videoSequenceArr removeObject:avideoView];
+            
             break;
         }
     }
     
     //用户新下发的设备id数组
-    NSMutableArray * theSourceIdArray = [roomUser.sourceListDic.allKeys mutableCopy];
+    NSMutableArray *theSourceIdArray = [roomUser.sourceListDic.allKeys mutableCopy];
     
     //视频数组
-    NSMutableArray * theVideoArray = [NSMutableArray array];
+    NSMutableArray *theVideoArray = [NSMutableArray array];
     
     if (!theSourceIdArray.count)
     {
