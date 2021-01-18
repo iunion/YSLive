@@ -741,6 +741,8 @@
 		87981DC023C5809F00DA0276 /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */; };
 		87981DC123C5809F00DA0276 /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBC23C5809F00DA0276 /* UTMini.framework */; };
 		87981DC223C5809F00DA0276 /* AlicloudHttpDNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */; };
+		8798CB7525B53AA000CA4EF8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8798CB7425B53AA000CA4EF8 /* CHWhiteBoardResources.bundle */; };
+		8798CB7625B53AA000CA4EF8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8798CB7425B53AA000CA4EF8 /* CHWhiteBoardResources.bundle */; };
 		879EB230241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */; };
 		879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */; };
 		87A014552397CC2F0039B3F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 87A014592397CC2F0039B3F3 /* InfoPlist.strings */; };
@@ -1464,6 +1466,7 @@
 		87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
 		87981DBC23C5809F00DA0276 /* UTMini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTMini.framework; sourceTree = "<group>"; };
 		87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudHttpDNS.framework; sourceTree = "<group>"; };
+		8798CB7425B53AA000CA4EF8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
 		879ADAE7235164B100C72EAA /* YSAppUIDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppUIDef.h; sourceTree = "<group>"; };
 		879ADAE8235164B200C72EAA /* YSAppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppConfig.h; sourceTree = "<group>"; };
 		879ADAE92351654E00C72EAA /* YSAppMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppMacros.h; sourceTree = "<group>"; };
@@ -2232,6 +2235,7 @@
 		874B77352511B59F00A3830C /* CHWhiteBoard */ = {
 			isa = PBXGroup;
 			children = (
+				8798CB7425B53AA000CA4EF8 /* CHWhiteBoardResources.bundle */,
 				0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */,
 				874A33B4259B38FF00EFA617 /* CloudHubWhiteBoardKit */,
 				874B77392511B59F00A3830C /* CHWhiteBoard.framework */,
@@ -3553,6 +3557,7 @@
 				3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */,
 				871336C1237270F6006534A4 /* testcolorpalette@2x.png in Resources */,
 				04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */,
+				8798CB7525B53AA000CA4EF8 /* CHWhiteBoardResources.bundle in Resources */,
 				871336E6237270F6006534A4 /* testcolorpicker@2x.png in Resources */,
 				8777C7C523EC31C8002002BF /* YSClassCell.xib in Resources */,
 				042A731D25AC23420040613E /* YSSkinDarkRsource.bundle in Resources */,
@@ -3573,6 +3578,7 @@
 				8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */,
 				26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */,
 				0464E95F2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */,
+				8798CB7625B53AA000CA4EF8 /* CHWhiteBoardResources.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,
 				8717E3422400DADC008C4CDA /* YSClassInstructionCell.xib in Resources */,
 				879EB231241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
