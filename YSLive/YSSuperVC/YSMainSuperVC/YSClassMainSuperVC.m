@@ -18,6 +18,8 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
+#import <BMKit/NSString+BMURLEncode.h>
+
 
 @interface YSClassMainSuperVC ()
 <
@@ -118,7 +120,11 @@
     
     if (self.liveManager.roomModel.skinModel.mobileroomFillType && [self.liveManager.roomModel.skinModel.mobileroomFillValue bm_isNotEmpty])
     {
-        [backgroundImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.skinModel.mobileroomFillValue] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        NSString *urlString = self.liveManager.roomModel.skinModel.mobileroomFillValue;
+        urlString = [urlString bm_URLEncode];
+        NSURL * url = [NSURL URLWithString:urlString];
+        
+        [backgroundImage bmsd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (!image)
             {
                 self.backgroundImage.hidden = YES;
@@ -229,13 +235,13 @@
     
     if (self.liveManager.roomModel.skinModel.backgroundType)
     {
-//        UIImage * placeholderImage = [UIImage imageNamed:@"LightBackgroundImage"];
-//        if (self.liveManager.roomModel.skinModel.detailType == CHSkinDetailsType_middle)
-//        {
-//            placeholderImage = [UIImage imageNamed:@"MiddleBackgroundImage"];
-//        }
         
-        [self.contentBgImage bmsd_setImageWithURL:[NSURL URLWithString:self.liveManager.roomModel.skinModel.backgroundValue] completed:nil];
+        NSString *urlString = self.liveManager.roomModel.skinModel.backgroundValue;
+        urlString = [urlString bm_URLEncode];
+        NSURL * url = [NSURL URLWithString:urlString];
+        
+        [self.contentBgImage bmsd_setImageWithURL:url completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        }];
     }
     else
     {

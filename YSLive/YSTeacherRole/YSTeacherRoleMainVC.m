@@ -190,7 +190,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 白板背景
 @property (nonatomic, strong) UIView *whitebordBackgroud;
 /// 白板背景图片
-@property (nonatomic, strong) UIImageView *whitebordBgimage;
+//@property (nonatomic, strong) UIImageView *whitebordBgimage;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
 /// 全屏老师 视频容器
@@ -858,23 +858,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.whitebordBackgroud = whitebordBackgroud;
     whitebordBackgroud.layer.masksToBounds = YES;
     
-    UIImageView *whitebordBgimage = [[UIImageView alloc]initWithFrame:whitebordBackgroud.bounds];
-    whitebordBgimage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    whitebordBgimage.contentMode = UIViewContentModeScaleToFill;
-    [whitebordBackgroud addSubview:whitebordBgimage];
-    self.whitebordBgimage = whitebordBgimage;
-        
-    
     if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_color)
     {
-        whitebordBgimage.hidden = YES;
-
         if ([self.liveManager.roomModel.skinModel.whiteboardValue bm_isNotEmpty])
         {
             UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
             
             whitebordBackgroud.backgroundColor = color;
-            [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:color];
+            [self.liveManager.whiteBoardManager changeMainWhiteBoardBackgroudColor:color];
         }
     }
     else if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_image)
@@ -885,22 +876,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             imageUrl = self.liveManager.roomModel.skinModel.whiteboardSecondValue;
         }
         
-        [whitebordBgimage bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            if (!image)
-            {
-                self.whitebordBgimage.hidden = YES;
-            }
-            else
-            {
-                self.whitebordBgimage.hidden = NO;
-            }
-        }];
+        imageUrl = [imageUrl bm_URLEncode];
+        
+        [self.liveManager.whiteBoardManager changeMainWhiteBoardBackImageUrl:[NSURL URLWithString:imageUrl]];
     }
     else
     {
-        whitebordBgimage.hidden = YES;
         whitebordBackgroud.backgroundColor = UIColor.clearColor;
-        [self.liveManager.whiteBoardManager changeConfigWhiteBoardBackgroudColor:UIColor.clearColor];
+        [self.liveManager.whiteBoardManager changeMainCourseViewBackgroudColor:UIColor.clearColor];
+        [self.liveManager.whiteBoardManager changeMainWhiteBoardBackgroudColor:UIColor.clearColor];
     }
     
     // 视频背景
@@ -2167,7 +2151,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
     _isPolling = NO;
 }
-
 
 // 网络测速回调
 // @param networkQuality 网速质量 (TKNetQuality_Down 测速失败)
