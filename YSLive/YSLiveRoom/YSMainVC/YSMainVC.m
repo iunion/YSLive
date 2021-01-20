@@ -14,6 +14,8 @@
 #import "AppDelegate.h"
 #endif
 
+#import <CloudHubWhiteBoardKit/CloudHubWhiteBoardKit+Session.h>
+
 #import <BMKit/BMScrollPageView.h>
 
 #import "BMAlertView+YSDefaultAlert.h"
