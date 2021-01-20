@@ -81,10 +81,7 @@
 {
     [super registerRoomDelegate:roomDelegate];
         
-    self.whiteBordBgColor = CHWhiteBoard_BackGroudColor;
-    self.whiteBordDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
-    self.whiteBordLiveBgColor = CHWhiteBoard_LiveMainBackGroudColor;
-    self.whiteBordLiveDrawBgColor = CHWhiteBoard_LiveMainBackDrawBoardBgColor;
+    
     
     [self registWithAppId: YSLive_AppKey
           settingOptional: @{
@@ -392,8 +389,15 @@
 /// @param fileList 文件NSDictionary列表
 - (void)onWhiteBroadFileList:(NSArray <NSDictionary *> *)fileList
 {
+    self.whiteBordBgColor = CHWhiteBoard_BackGroudColor;
+    self.whiteBordDrawBgColor = CHWhiteBoard_MainBackDrawBoardBgColor;
+    self.whiteBordLiveBgColor = CHWhiteBoard_LiveMainBackGroudColor;
+    self.whiteBordLiveDrawBgColor = CHWhiteBoard_LiveMainBackDrawBoardBgColor;
+    
     [self.whiteBoardManager changeMainWhiteBoardBackImage:self.whiteBordMaskImage];
     [self.whiteBoardManager changeMainWhiteBoardBackgroudColor:UIColor.clearColor];//self.whiteBordBgColor
+    
+    
     [self.whiteBoardManager changeMainCourseViewBackgroudColor:self.whiteBordDrawBgColor];
     
     [self.whiteBoardManager changeConfigWhiteBoardBackgroudColor:self.whiteBordBgColor];

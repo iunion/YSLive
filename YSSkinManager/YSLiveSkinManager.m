@@ -15,9 +15,6 @@ static YSLiveSkinManager *skinManager = nil;
 
 @interface YSLiveSkinManager ()
 
-@property (nonatomic, assign) CHSkinDetailsType lastSkinType;
-
-@property (nonatomic, assign) CHSkinClassOrOnline lastClassOrOnline;
 
 @property (nonatomic, strong) NSDictionary *plictDict;
 
@@ -64,15 +61,10 @@ static YSLiveSkinManager *skinManager = nil;
 /// 获取plist文件中的数据
 - (NSDictionary *)getPliatDictionaryWithType:(CHSkinClassOrOnline)classOrOnline
 {
+
+    NSString *path = [[self getCurrentBundle] pathForResource:@"SkinSource" ofType:@"plist"];
     
-    if (self.lastClassOrOnline != self.classOrOnline || ![self.plictDict bm_isNotEmpty])
-    {
-        NSString *path = [[self getCurrentBundle] pathForResource:@"SkinSource" ofType:@"plist"];
-                    
-        self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
-    }
-    
-    self.lastClassOrOnline = self.classOrOnline;
+    self.plictDict = [NSDictionary dictionaryWithContentsOfFile:path];
     
     return self.plictDict;
 }
