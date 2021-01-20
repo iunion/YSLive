@@ -1446,7 +1446,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.videoGridView.defaultSize = CGSizeMake(self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
             self.videoGridView.frame = CGRectMake(0, STATETOOLBAR_HEIGHT, self.contentWidth, self.contentHeight-STATETOOLBAR_HEIGHT);
             [self.contentBackgroud addSubview:self.videoGridView];
-            self.videoGridView.backgroundColor = YSSkinDefineColor(@"Color2");
+            self.videoGridView.backgroundColor = UIColor.clearColor; //YSSkinDefineColor(@"Color2");
             [self freshContentVideoView];
             
         }
