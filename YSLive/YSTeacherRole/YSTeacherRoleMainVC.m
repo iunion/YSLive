@@ -878,7 +878,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         
         imageUrl = [imageUrl bm_URLEncode];
         
-        [self.liveManager.whiteBoardManager changeMainWhiteBoardBackImageUrl:[NSURL URLWithString:imageUrl]];
+        [self.liveManager.whiteBoardManager changeMainCourseViewBackImageUrl:[NSURL URLWithString:imageUrl]];
     }
     else
     {
