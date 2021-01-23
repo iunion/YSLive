@@ -242,7 +242,7 @@
     self.backgroundColor = [UIColor clearColor];
     
     UIView *bacView = [[UIView alloc] init];
-    bacView.backgroundColor = [YSSkinDefineColor(@"Color3") changeAlpha:0.5f];
+    bacView.backgroundColor = [YSSkinDefineColor(@"Color3") bm_changeAlpha:0.5f];
     [self.contentView addSubview:bacView];
     CGFloat tempWidth = ViewWidth - 28;
     bacView.frame = CGRectMake(0, 0, tempWidth, 25);

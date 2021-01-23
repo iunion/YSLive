@@ -383,7 +383,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
     button.titleLabel.adjustsFontSizeToFitWidth = YES;
     button.titleEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2);
     [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [button setTitleColor:[[UIColor blueColor] colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+    [button setTitleColor:[[UIColor blueColor] bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     [button addTarget:self action:@selector(setBackgroundColorForButton:) forControlEvents:UIControlEventTouchDown];
     [button addTarget:self action:@selector(setBackgroundColorForButton:) forControlEvents:UIControlEventTouchDragEnter];
@@ -397,11 +397,11 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
 {
     if (sender.tag == 0)
     {
-        [sender setBackgroundColor:[self.cancleBtnBgColor colorByDarkeningTo:0.8f]];
+        [sender setBackgroundColor:[self.cancleBtnBgColor bm_colorByDarkeningTo:0.8f]];
     }
     else
     {
-        [sender setBackgroundColor:[self.otherBtnBgColor colorByDarkeningTo:0.8f]];
+        [sender setBackgroundColor:[self.otherBtnBgColor bm_colorByDarkeningTo:0.8f]];
     }
     sender.highlighted = YES;
 }
@@ -455,7 +455,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         button.backgroundColor = self.cancleBtnBgColor;
         button.titleLabel.font = self.btnFont;
         [button setTitleColor:self.cancleBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[self.cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[self.cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
         
         return BMAlertViewLineLayerHeight + self.buttonHeight;
     }
@@ -474,14 +474,14 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         button.backgroundColor = self.cancleBtnBgColor;
         button.titleLabel.font = self.btnFont;
         [button setTitleColor:self.cancleBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[self.cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[self.cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
         
         button = self.buttonArray[1];
         button.frame = CGRectMake((self.buttonBgView.bm_width + BMAlertViewLineLayerHeight) * 0.5, BMAlertViewLineLayerHeight, (self.buttonBgView.bm_width - BMAlertViewLineLayerHeight) * 0.5, self.buttonHeight);
         button.backgroundColor = self.otherBtnBgColor;
         button.titleLabel.font = self.btnFont;
         [button setTitleColor:self.otherBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[self.otherBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[self.otherBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
         
         return BMAlertViewLineLayerHeight + self.buttonHeight;
     }
@@ -502,14 +502,14 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
                 button.backgroundColor = self.cancleBtnBgColor;
                 button.titleLabel.font = self.btnFont;
                 [button setTitleColor:self.cancleBtnTextColor forState:UIControlStateNormal];
-                [button setTitleColor:[self.cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+                [button setTitleColor:[self.cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
             }
             else
             {
                 button.backgroundColor = self.otherBtnBgColor;
                 button.titleLabel.font = self.btnFont;
                 [button setTitleColor:self.otherBtnTextColor forState:UIControlStateNormal];
-                [button setTitleColor:[self.otherBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+                [button setTitleColor:[self.otherBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
             }
             
             index++;
@@ -615,7 +615,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         self.messageScrollGradient.hidden = NO;
         self.messageScrollGradient.frame = CGRectMake(self.messageScrollView.bm_left, self.messageScrollView.bm_bottom-30.0f, self.messageScrollView.bm_width, 30.0f);
         UIColor *starColor = self.alertBgColor;
-        UIColor *endColor = [self.alertBgColor changeAlpha:0.4f];
+        UIColor *endColor = [self.alertBgColor bm_changeAlpha:0.4f];
         self.messageScrollGradient.colors = [NSArray arrayWithObjects: (id)starColor.CGColor, (id)endColor.CGColor, nil];
     }
     else
@@ -1043,7 +1043,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         UIButton *button = self.buttonArray[0];
         
         [button setTitleColor:cancleBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
     }
 }
 
@@ -1066,7 +1066,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         UIButton *button = self.buttonArray[index];
         
         [button setTitleColor:otherBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[otherBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[otherBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
     }
 }
 

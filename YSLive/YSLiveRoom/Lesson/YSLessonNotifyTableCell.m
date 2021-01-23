@@ -235,7 +235,7 @@
     if (!_lineView)
     {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [YSSkinDefineColor(@"PlaceholderColor") changeAlpha:0.24f];
+        _lineView.backgroundColor = [YSSkinDefineColor(@"PlaceholderColor") bm_changeAlpha:0.24f];
         _lineView.hidden = YES;
     }
     

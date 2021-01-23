@@ -507,7 +507,7 @@
     if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged)
     {
         self.inGesture = YES;
-        self.navigationBar.tintColor = [from.bm_NavigationBarTintColor blendWithColor:to.bm_NavigationBarTintColor progress:coordinator.percentComplete];
+        self.navigationBar.tintColor = [from.bm_NavigationBarTintColor bm_blendWithColor:to.bm_NavigationBarTintColor progress:coordinator.percentComplete];
         [self updateNavigationItemForController:to];
     }
     else

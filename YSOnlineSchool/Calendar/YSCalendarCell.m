@@ -40,7 +40,7 @@
         self.circleLab = circleLab;
         
         UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-1, self.bm_width, 1.0)];
-        lineView.backgroundColor = [[UIColor bm_colorWithHex:0x6D7278] changeAlpha:0.24];
+        lineView.backgroundColor = [[UIColor bm_colorWithHex:0x6D7278] bm_changeAlpha:0.24];
         [self.contentView addSubview:lineView];
         self.lineView = lineView;
     }

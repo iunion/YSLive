@@ -65,7 +65,7 @@
 //    self.second = 0;
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") bm_changeAlpha:YSPopViewDefaultAlpha];
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
     [self.bacView bm_roundedRect:10.0f];

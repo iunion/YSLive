@@ -47,7 +47,7 @@
     {
         self.textLabel.textColor = [self.checkBox.boxTextColor bm_disableColor];
     }
-    self.textLabel.highlightedTextColor = [self.checkBox.boxTextColor colorByLighteningTo:0.5];
+    self.textLabel.highlightedTextColor = [self.checkBox.boxTextColor bm_colorByLighteningTo:0.5];
     self.textLabel.highlighted = self.highlighted;
     self.textLabel.font = self.checkBox.boxTextFont;
     self.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -89,7 +89,7 @@
     }
     if (self.highlighted)
     {
-        self.boxLayer.strokeColor = [self.checkBox.boxStrokeColor colorByLighteningTo:0.5].CGColor;
+        self.boxLayer.strokeColor = [self.checkBox.boxStrokeColor bm_colorByLighteningTo:0.5].CGColor;
     }
     else
     {
@@ -126,7 +126,7 @@
     self.markLayer.fillColor = [UIColor clearColor].CGColor;
     if (self.highlighted)
     {
-        self.markLayer.strokeColor = [self.checkBox.markStrokeColor colorByLighteningTo:0.5].CGColor;
+        self.markLayer.strokeColor = [self.checkBox.markStrokeColor bm_colorByLighteningTo:0.5].CGColor;
     }
     else
     {

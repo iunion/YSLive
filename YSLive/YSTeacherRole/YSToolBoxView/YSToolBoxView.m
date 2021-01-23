@@ -86,7 +86,7 @@ static const CGFloat kToolBoxHeight_iPad = 215.0f;
     [self addGestureRecognizer:tapGesture];
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") changeAlpha:YSPopViewDefaultAlpha];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") bm_changeAlpha:YSPopViewDefaultAlpha];
     self.bacView.bm_width = ToolBoxWidth;
     self.bacView.bm_height = ToolBoxHeight;
     self.bacView.layer.cornerRadius = 24.0f;

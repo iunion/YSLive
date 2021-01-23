@@ -91,7 +91,7 @@
         if (!label.subviews.count)
         {
             UIView * lineView= [[UIView alloc]initWithFrame:CGRectMake(0, label.fs_height-1.0, label.fs_width, 1.0)];
-            lineView.backgroundColor = [[UIColor bm_colorWithHex:0x6D7278] changeAlpha:0.24];
+            lineView.backgroundColor = [[UIColor bm_colorWithHex:0x6D7278] bm_changeAlpha:0.24];
             
             [label addSubview:lineView];
 

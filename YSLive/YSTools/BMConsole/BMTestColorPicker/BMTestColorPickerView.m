@@ -67,12 +67,12 @@ static const CGFloat kImageIconSize = 32.0f;
     UIColor *color = [UIColor bm_colorWithHexString:hexColor alpha:alpha];
     UIImage *image = [[UIImage imageNamed:@"testcolorpalette"] bm_imageWithTintColor:color];
     self.paletteImageView.image = image;
-    self.paletteImageView.backgroundColor = [color contrastingColor];
+    self.paletteImageView.backgroundColor = [color bm_contrastingColor];
 
     self.colorLabel.text = [hexColor uppercaseString];
     self.colorLabel.textColor = color;
     [self.colorLabel sizeToFit];
-    self.colorLabel.backgroundColor = [color contrastingColor];
+    self.colorLabel.backgroundColor = [color bm_contrastingColor];
 }
 
 - (void)colorPickerPanGestureAction:(UIPanGestureRecognizer *)panGesture
