@@ -1818,9 +1818,17 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
     
-    if ([YSCurrentUser.peerID isEqualToString:uid] && !self.fullTeacherFloatView.hidden)
+    if ([YSCurrentUser.peerID isEqualToString:uid])
     {
-        [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
+        if (!self.fullTeacherFloatView.hidden)
+        {
+            [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
+        }
+        else if (!self.shareVideoFloatView.hidden)
+        {
+            /// 刚进房间时  共享桌面流和老师视频流 存在时序问题  这里做处理在刚进房间时房间处于共享桌面状态下，全屏播放老师视频
+            [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
+        }
     }
 }
 
