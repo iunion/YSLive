@@ -10,7 +10,6 @@
 
 #if BMSD_UIKIT || BMSD_MAC
 
-#import "BMSDAnimatedImagePlayer.h"
 #import "UIImage+BMMetadata.h"
 #import "NSImage+BMCompatibility.h"
 #import "BMSDInternalMacros.h"
@@ -24,14 +23,15 @@
     NSRunLoopMode _runLoopMode;
     NSUInteger _maxBufferSize;
     double _playbackRate;
+    BMSDAnimatedImagePlaybackMode _playbackMode;
 }
 
+@property (nonatomic, strong, readwrite) BMSDAnimatedImagePlayer *player;
 @property (nonatomic, strong, readwrite) UIImage *currentFrame;
 @property (nonatomic, assign, readwrite) NSUInteger currentFrameIndex;
 @property (nonatomic, assign, readwrite) NSUInteger currentLoopCount;
 @property (nonatomic, assign) BOOL shouldAnimate;
 @property (nonatomic, assign) BOOL isProgressive;
-@property (nonatomic,strong) BMSDAnimatedImagePlayer *player; // The animation player.
 @property (nonatomic) CALayer *imageViewLayer; // The actual rendering layer.
 
 @end
@@ -164,6 +164,9 @@
         // Play Rate
         self.player.playbackRate = self.playbackRate;
         
+        // Play Mode
+        self.player.playbackMode = self.playbackMode;
+
         // Setup handler
         @bmweakify(self);
         self.player.animationFrameHandler = ^(NSUInteger index, UIImage * frame) {
@@ -238,6 +241,19 @@
     }
     return _playbackRate;
 }
+
+- (void)setPlaybackMode:(BMSDAnimatedImagePlaybackMode)playbackMode {
+    _playbackMode = playbackMode;
+    self.player.playbackMode = playbackMode;
+}
+
+- (BMSDAnimatedImagePlaybackMode)playbackMode {
+    if (!_initFinished) {
+        return BMSDAnimatedImagePlaybackModeNormal; // Default mode is normal
+    }
+    return _playbackMode;
+}
+
 
 - (BOOL)shouldIncrementalLoad
 {

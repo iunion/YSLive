@@ -13,12 +13,15 @@
 
 static void * BMSDMemoryCacheContext = &BMSDMemoryCacheContext;
 
-@interface BMSDMemoryCache <KeyType, ObjectType> ()
+@interface BMSDMemoryCache <KeyType, ObjectType> () {
+#if BMSD_UIKIT
+    BMSD_LOCK_DECLARE(_weakCacheLock); // a lock to keep the access to `weakCache` thread-safe
+#endif
+}
 
 @property (nonatomic, strong, nullable) BMSDImageCacheConfig *config;
 #if BMSD_UIKIT
 @property (nonatomic, strong, nonnull) NSMapTable<KeyType, ObjectType> *weakCache; // strong-weak cache
-@property (nonatomic, strong, nonnull) dispatch_semaphore_t weakCacheLock; // a lock to keep the access to `weakCache` thread-safe
 #endif
 @end
 
@@ -61,7 +64,7 @@ static void * BMSDMemoryCacheContext = &BMSDMemoryCacheContext;
 
 #if BMSD_UIKIT
     self.weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory capacity:0];
-    self.weakCacheLock = dispatch_semaphore_create(1);
+    BMSD_LOCK_INIT(_weakCacheLock);
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMemoryWarning:)
@@ -85,9 +88,9 @@ static void * BMSDMemoryCacheContext = &BMSDMemoryCacheContext;
     }
     if (key && obj) {
         // Store weak cache
-        BMSD_LOCK(self.weakCacheLock);
+        BMSD_LOCK(_weakCacheLock);
         [self.weakCache setObject:obj forKey:key];
-        BMSD_UNLOCK(self.weakCacheLock);
+        BMSD_UNLOCK(_weakCacheLock);
     }
 }
 
@@ -98,9 +101,9 @@ static void * BMSDMemoryCacheContext = &BMSDMemoryCacheContext;
     }
     if (key && !obj) {
         // Check weak cache
-        BMSD_LOCK(self.weakCacheLock);
+        BMSD_LOCK(_weakCacheLock);
         obj = [self.weakCache objectForKey:key];
-        BMSD_UNLOCK(self.weakCacheLock);
+        BMSD_UNLOCK(_weakCacheLock);
         if (obj) {
             // Sync cache
             NSUInteger cost = 0;
@@ -120,9 +123,9 @@ static void * BMSDMemoryCacheContext = &BMSDMemoryCacheContext;
     }
     if (key) {
         // Remove weak cache
-        BMSD_LOCK(self.weakCacheLock);
+        BMSD_LOCK(_weakCacheLock);
         [self.weakCache removeObjectForKey:key];
-        BMSD_UNLOCK(self.weakCacheLock);
+        BMSD_UNLOCK(_weakCacheLock);
     }
 }
 
@@ -132,9 +135,9 @@ static void * BMSDMemoryCacheContext = &BMSDMemoryCacheContext;
         return;
     }
     // Manually remove should also remove weak cache
-    BMSD_LOCK(self.weakCacheLock);
+    BMSD_LOCK(_weakCacheLock);
     [self.weakCache removeAllObjects];
-    BMSD_UNLOCK(self.weakCacheLock);
+    BMSD_UNLOCK(_weakCacheLock);
 }
 #endif
 

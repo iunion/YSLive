@@ -12,13 +12,12 @@
 
 @interface BMSDImageLoadersManager ()
 
-@property (nonatomic, strong, nonnull) dispatch_semaphore_t loadersLock;
+@property (nonatomic, strong, nonnull) NSMutableArray<id<BMSDImageLoader>> *imageLoaders;
 
 @end
 
-@implementation BMSDImageLoadersManager
-{
-    NSMutableArray<id<BMSDImageLoader>>* _imageLoaders;
+@implementation BMSDImageLoadersManager {
+    BMSD_LOCK_DECLARE(_loadersLock);
 }
 
 + (BMSDImageLoadersManager *)sharedManager {
@@ -35,25 +34,25 @@
     if (self) {
         // initialize with default image loaders
         _imageLoaders = [NSMutableArray arrayWithObject:[BMSDWebImageDownloader sharedDownloader]];
-        _loadersLock = dispatch_semaphore_create(1);
+        BMSD_LOCK_INIT(_loadersLock);
     }
     return self;
 }
 
 - (NSArray<id<BMSDImageLoader>> *)loaders {
-    BMSD_LOCK(self.loadersLock);
+    BMSD_LOCK(_loadersLock);
     NSArray<id<BMSDImageLoader>>* loaders = [_imageLoaders copy];
-    BMSD_UNLOCK(self.loadersLock);
+    BMSD_UNLOCK(_loadersLock);
     return loaders;
 }
 
 - (void)setLoaders:(NSArray<id<BMSDImageLoader>> *)loaders {
-    BMSD_LOCK(self.loadersLock);
+    BMSD_LOCK(_loadersLock);
     [_imageLoaders removeAllObjects];
     if (loaders.count) {
         [_imageLoaders addObjectsFromArray:loaders];
     }
-    BMSD_UNLOCK(self.loadersLock);
+    BMSD_UNLOCK(_loadersLock);
 }
 
 #pragma mark - Loader Property
@@ -62,18 +61,18 @@
     if (![loader conformsToProtocol:@protocol(BMSDImageLoader)]) {
         return;
     }
-    BMSD_LOCK(self.loadersLock);
+    BMSD_LOCK(_loadersLock);
     [_imageLoaders addObject:loader];
-    BMSD_UNLOCK(self.loadersLock);
+    BMSD_UNLOCK(_loadersLock);
 }
 
 - (void)removeLoader:(id<BMSDImageLoader>)loader {
     if (![loader conformsToProtocol:@protocol(BMSDImageLoader)]) {
         return;
     }
-    BMSD_LOCK(self.loadersLock);
+    BMSD_LOCK(_loadersLock);
     [_imageLoaders removeObject:loader];
-    BMSD_UNLOCK(self.loadersLock);
+    BMSD_UNLOCK(_loadersLock);
 }
 
 #pragma mark - SDImageLoader

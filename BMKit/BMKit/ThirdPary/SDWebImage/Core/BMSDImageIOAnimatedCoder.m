@@ -655,7 +655,7 @@ static NSString * kBMSDCGImageDestinationRequestedFileSize = @"kCGImageDestinati
         return nil;
     }
     image.bmsd_imageFormat = self.class.imageFormat;
-    image.bmsd_isDecoded = YES;;
+    image.bmsd_isDecoded = YES;
     return image;
 }
 

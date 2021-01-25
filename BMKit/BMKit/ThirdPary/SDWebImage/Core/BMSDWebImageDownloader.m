@@ -40,15 +40,16 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
 @property (strong, nonatomic, nonnull) NSOperationQueue *downloadQueue;
 @property (strong, nonatomic, nonnull) NSMutableDictionary<NSURL *, NSOperation<BMSDWebImageDownloaderOperation> *> *URLOperations;
 @property (strong, nonatomic, nullable) NSMutableDictionary<NSString *, NSString *> *HTTPHeaders;
-@property (strong, nonatomic, nonnull) dispatch_semaphore_t HTTPHeadersLock; // A lock to keep the access to `HTTPHeaders` thread-safe
-@property (strong, nonatomic, nonnull) dispatch_semaphore_t operationsLock; // A lock to keep the access to `URLOperations` thread-safe
 
 // The session in which data tasks will run
 @property (strong, nonatomic) NSURLSession *session;
 
 @end
 
-@implementation BMSDWebImageDownloader
+@implementation BMSDWebImageDownloader {
+    BMSD_LOCK_DECLARE(_HTTPHeadersLock); // A lock to keep the access to `HTTPHeaders` thread-safe
+    BMSD_LOCK_DECLARE(_operationsLock); // A lock to keep the access to `URLOperations` thread-safe
+}
 
 + (void)initialize {
     // Bind SDNetworkActivityIndicator if available (download it here: http://github.com/rs/SDNetworkActivityIndicator )
@@ -120,8 +121,8 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
         }
         headerDictionary[@"Accept"] = @"image/*,*/*;q=0.8";
         _HTTPHeaders = headerDictionary;
-        _HTTPHeadersLock = dispatch_semaphore_create(1);
-        _operationsLock = dispatch_semaphore_create(1);
+        BMSD_LOCK_INIT(_HTTPHeadersLock);
+        BMSD_LOCK_INIT(_operationsLock);
         NSURLSessionConfiguration *sessionConfiguration = _config.sessionConfiguration;
         if (!sessionConfiguration) {
             sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -161,18 +162,18 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     if (!field) {
         return;
     }
-    BMSD_LOCK(self.HTTPHeadersLock);
+    BMSD_LOCK(_HTTPHeadersLock);
     [self.HTTPHeaders setValue:value forKey:field];
-    BMSD_UNLOCK(self.HTTPHeadersLock);
+    BMSD_UNLOCK(_HTTPHeadersLock);
 }
 
 - (nullable NSString *)valueForHTTPHeaderField:(nullable NSString *)field {
     if (!field) {
         return nil;
     }
-    BMSD_LOCK(self.HTTPHeadersLock);
+    BMSD_LOCK(_HTTPHeadersLock);
     NSString *value = [self.HTTPHeaders objectForKey:field];
-    BMSD_UNLOCK(self.HTTPHeadersLock);
+    BMSD_UNLOCK(_HTTPHeadersLock);
     return value;
 }
 
@@ -222,14 +223,14 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
         return nil;
     }
     
-    BMSD_LOCK(self.operationsLock);
+    BMSD_LOCK(_operationsLock);
     id downloadOperationCancelToken;
     NSOperation<BMSDWebImageDownloaderOperation> *operation = [self.URLOperations objectForKey:url];
     // There is a case that the operation may be marked as finished or cancelled, but not been removed from `self.URLOperations`.
     if (!operation || operation.isFinished || operation.isCancelled) {
         operation = [self createDownloaderOperationWithUrl:url host:host options:options context:context];
         if (!operation) {
-            BMSD_UNLOCK(self.operationsLock);
+            BMSD_UNLOCK(_operationsLock);
             if (completedBlock) {
                 NSError *error = [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorInvalidDownloadOperation userInfo:@{NSLocalizedDescriptionKey : @"Downloader operation is nil"}];
                 completedBlock(nil, nil, nil, error, YES);
@@ -242,9 +243,9 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
             if (!self) {
                 return;
             }
-            BMSD_LOCK(self.operationsLock);
+            BMSD_LOCK(self->_operationsLock);
             [self.URLOperations removeObjectForKey:url];
-            BMSD_UNLOCK(self.operationsLock);
+            BMSD_UNLOCK(self->_operationsLock);
         };
         self.URLOperations[url] = operation;
         // Add the handlers before submitting to operation queue, avoid the race condition that operation finished before setting handlers.
@@ -268,7 +269,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
             }
         }
     }
-    BMSD_UNLOCK(self.operationsLock);
+    BMSD_UNLOCK(_operationsLock);
     
     BMSDWebImageDownloadToken *token = [[BMSDWebImageDownloadToken alloc] initWithDownloadOperation:operation];
     token.url = url;
@@ -299,13 +300,13 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
     mutableRequest.HTTPShouldHandleCookies = BMSD_OPTIONS_CONTAINS(options, BMSDWebImageDownloaderHandleCookies);
     mutableRequest.HTTPShouldUsePipelining = YES;
-    BMSD_LOCK(self.HTTPHeadersLock);
+    BMSD_LOCK(_HTTPHeadersLock);
     mutableRequest.allHTTPHeaderFields = self.HTTPHeaders;
     if ([host bm_isNotEmpty])
     {
         [mutableRequest setValue:host forHTTPHeaderField:@"host"];
     }
-    BMSD_UNLOCK(self.HTTPHeadersLock);
+    BMSD_UNLOCK(_HTTPHeadersLock);
     
     // Context Option
     BMSDWebImageMutableContext *mutableContext;
@@ -593,6 +594,10 @@ didReceiveResponse:(NSURLResponse *)response
 @implementation BMSDWebImageDownloader (SDImageLoader)
 
 - (BOOL)canRequestImageForURL:(NSURL *)url {
+    return [self canRequestImageForURL:url options:0 context:nil];
+}
+
+- (BOOL)canRequestImageForURL:(NSURL *)url options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context {
     if (!url) {
         return NO;
     }
@@ -628,6 +633,10 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (BOOL)shouldBlockFailedURLWithURL:(NSURL *)url error:(NSError *)error {
+    return [self shouldBlockFailedURLWithURL:url error:error options:0 context:nil];
+}
+
+- (BOOL)shouldBlockFailedURLWithURL:(NSURL *)url error:(NSError *)error options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context {
     BOOL shouldBlockFailedURL;
     // Filter the error domain and check error codes
     if ([error.domain isEqualToString:BMSDWebImageErrorDomain]) {

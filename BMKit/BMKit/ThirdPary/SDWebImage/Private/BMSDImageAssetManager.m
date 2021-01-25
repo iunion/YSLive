@@ -32,7 +32,7 @@ static NSArray *BMSDBundlePreferredScales() {
 }
 
 @implementation BMSDImageAssetManager {
-    dispatch_semaphore_t _lock;
+    BMSD_LOCK_DECLARE(_lock);
 }
 
 + (instancetype)sharedAssetManager {
@@ -56,7 +56,7 @@ static NSArray *BMSDBundlePreferredScales() {
         valueOptions = NSPointerFunctionsStrongMemory;
 #endif
         _imageTable = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsCopyIn valueOptions:valueOptions];
-        _lock = dispatch_semaphore_create(1);
+        BMSD_LOCK_INIT(_lock);
 #if BMSD_UIKIT
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 #endif

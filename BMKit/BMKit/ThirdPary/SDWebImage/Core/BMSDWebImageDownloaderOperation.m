@@ -12,13 +12,6 @@
 #import "BMSDWebImageDownloaderResponseModifier.h"
 #import "BMSDWebImageDownloaderDecryptor.h"
 
-// iOS 8 Foundation.framework extern these symbol but the define is in CFNetwork.framework. We just fix this without import CFNetwork.framework
-#if ((__IPHONE_OS_VERSION_MIN_REQUIRED && __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_9_0) || (__MAC_OS_X_VERSION_MIN_REQUIRED && __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_11))
-const float BMURLSessionTaskPriorityHigh = 0.75;
-const float BMURLSessionTaskPriorityDefault = 0.5;
-const float BMURLSessionTaskPriorityLow = 0.25;
-#endif
-
 static NSString *const kBMProgressCallbackKey = @"progress";
 static NSString *const kBMCompletedCallbackKey = @"completed";
 
@@ -151,7 +144,7 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
 - (void)start {
     @synchronized (self) {
         if (self.isCancelled) {
-            self.finished = YES;
+            if (!self.isFinished) self.finished = YES;
             // Operation cancelled by user before sending the request
             [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user before sending the request"}]];
             [self reset];
@@ -207,13 +200,13 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
 
     if (self.dataTask) {
         if (self.options & BMSDWebImageDownloaderHighPriority) {
-            self.dataTask.priority = BMURLSessionTaskPriorityHigh;
+            self.dataTask.priority = NSURLSessionTaskPriorityHigh;
             self.coderQueue.qualityOfService = NSQualityOfServiceUserInteractive;
         } else if (self.options & BMSDWebImageDownloaderLowPriority) {
-            self.dataTask.priority = BMURLSessionTaskPriorityLow;
+            self.dataTask.priority = NSURLSessionTaskPriorityLow;
             self.coderQueue.qualityOfService = NSQualityOfServiceBackground;
         } else {
-            self.dataTask.priority = BMURLSessionTaskPriorityDefault;
+            self.dataTask.priority = NSURLSessionTaskPriorityDefault;
             self.coderQueue.qualityOfService = NSQualityOfServiceDefault;
         }
         [self.dataTask resume];
@@ -225,8 +218,9 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
             [[NSNotificationCenter defaultCenter] postNotificationName:BMSDWebImageDownloadStartNotification object:strongSelf];
         });
     } else {
+        if (!self.isFinished) self.finished = YES;
         [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorInvalidDownloadOperation userInfo:@{NSLocalizedDescriptionKey : @"Task can't be initialized"}]];
-        [self done];
+        [self reset];
     }
 }
 
@@ -239,22 +233,28 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
 - (void)cancelInternal {
     if (self.isFinished) return;
     [super cancel];
+    
+    __block typeof(self) strongSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:BMSDWebImageDownloadStopNotification object:strongSelf];
+    });
 
     if (self.dataTask) {
+        // Cancel the URLSession, `URLSession:task:didCompleteWithError:` delegate callback will be ignored
         [self.dataTask cancel];
-        __block typeof(self) strongSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:BMSDWebImageDownloadStopNotification object:strongSelf];
-        });
-
-        // As we cancelled the task, its callback won't be called and thus won't
-        // maintain the isFinished and isExecuting flags.
+        self.dataTask = nil;
+    }
+    
+    // NSOperation disallow setFinished=YES **before** operation's start method been called
+    // We check for the initialized status, which is isExecuting == NO && isFinished = NO
+    // Ony update for non-intialized status, which is !(isExecuting == NO && isFinished = NO), or if (self.isExecuting || self.isFinished) {...}
+    if (self.isExecuting || self.isFinished) {
         if (self.isExecuting) self.executing = NO;
         if (!self.isFinished) self.finished = YES;
-    } else {
-        // Operation cancelled by user during sending the request
-        [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}]];
     }
+    
+    // Operation cancelled by user during sending the request
+    [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}]];
 
     [self reset];
 }
