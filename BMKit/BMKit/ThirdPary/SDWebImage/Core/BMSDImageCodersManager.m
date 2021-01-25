@@ -15,13 +15,13 @@
 
 @interface BMSDImageCodersManager ()
 
-@property (nonatomic, strong, nonnull) dispatch_semaphore_t codersLock;
+@property (nonatomic, strong, nonnull) NSMutableArray<id<BMSDImageCoder>> *imageCoders;
+
 
 @end
 
-@implementation BMSDImageCodersManager
-{
-    NSMutableArray<id<BMSDImageCoder>> *_imageCoders;
+@implementation BMSDImageCodersManager {
+    BMSD_LOCK_DECLARE(_codersLock);
 }
 
 + (nonnull instancetype)sharedManager {
@@ -37,27 +37,27 @@
     if (self = [super init]) {
         // initialize with default coders
         _imageCoders = [NSMutableArray arrayWithArray:@[[BMSDImageIOCoder sharedCoder], [BMSDImageGIFCoder sharedCoder], [BMSDImageAPNGCoder sharedCoder]]];
-        _codersLock = dispatch_semaphore_create(1);
+        BMSD_LOCK_INIT(_codersLock);
     }
     return self;
 }
 
 - (NSArray<id<BMSDImageCoder>> *)coders
 {
-    BMSD_LOCK(self.codersLock);
+    BMSD_LOCK(_codersLock);
     NSArray<id<BMSDImageCoder>> *coders = [_imageCoders copy];
-    BMSD_UNLOCK(self.codersLock);
+    BMSD_UNLOCK(_codersLock);
     return coders;
 }
 
 - (void)setCoders:(NSArray<id<BMSDImageCoder>> *)coders
 {
-    BMSD_LOCK(self.codersLock);
+    BMSD_LOCK(_codersLock);
     [_imageCoders removeAllObjects];
     if (coders.count) {
         [_imageCoders addObjectsFromArray:coders];
     }
-    BMSD_UNLOCK(self.codersLock);
+    BMSD_UNLOCK(_codersLock);
 }
 
 #pragma mark - Coder IO operations
@@ -66,18 +66,18 @@
     if (![coder conformsToProtocol:@protocol(BMSDImageCoder)]) {
         return;
     }
-    BMSD_LOCK(self.codersLock);
+    BMSD_LOCK(_codersLock);
     [_imageCoders addObject:coder];
-    BMSD_UNLOCK(self.codersLock);
+    BMSD_UNLOCK(_codersLock);
 }
 
 - (void)removeCoder:(nonnull id<BMSDImageCoder>)coder {
     if (![coder conformsToProtocol:@protocol(BMSDImageCoder)]) {
         return;
     }
-    BMSD_LOCK(self.codersLock);
+    BMSD_LOCK(_codersLock);
     [_imageCoders removeObject:coder];
-    BMSD_UNLOCK(self.codersLock);
+    BMSD_UNLOCK(_codersLock);
 }
 
 #pragma mark - SDImageCoder

@@ -13,13 +13,12 @@
 
 @interface BMSDImageCachesManager ()
 
-@property (nonatomic, strong, nonnull) dispatch_semaphore_t cachesLock;
+@property (nonatomic, strong, nonnull) NSMutableArray<id<BMSDImageCache>> *imageCaches;
 
 @end
 
-@implementation BMSDImageCachesManager
-{
-    NSMutableArray<id<BMSDImageCache>> *_imageCaches;
+@implementation BMSDImageCachesManager {
+    BMSD_LOCK_DECLARE(_cachesLock);
 }
 
 + (BMSDImageCachesManager *)sharedManager {
@@ -41,25 +40,25 @@
         self.clearOperationPolicy = BMSDImageCachesManagerOperationPolicyConcurrent;
         // initialize with default image caches
         _imageCaches = [NSMutableArray arrayWithObject:[BMSDImageCache sharedImageCache]];
-        _cachesLock = dispatch_semaphore_create(1);
+        BMSD_LOCK_INIT(_cachesLock);
     }
     return self;
 }
 
 - (NSArray<id<BMSDImageCache>> *)caches {
-    BMSD_LOCK(self.cachesLock);
+    BMSD_LOCK(_cachesLock);
     NSArray<id<BMSDImageCache>> *caches = [_imageCaches copy];
-    BMSD_UNLOCK(self.cachesLock);
+    BMSD_UNLOCK(_cachesLock);
     return caches;
 }
 
 - (void)setCaches:(NSArray<id<BMSDImageCache>> *)caches {
-    BMSD_LOCK(self.cachesLock);
+    BMSD_LOCK(_cachesLock);
     [_imageCaches removeAllObjects];
     if (caches.count) {
         [_imageCaches addObjectsFromArray:caches];
     }
-    BMSD_UNLOCK(self.cachesLock);
+    BMSD_UNLOCK(_cachesLock);
 }
 
 #pragma mark - Cache IO operations
@@ -68,18 +67,18 @@
     if (![cache conformsToProtocol:@protocol(BMSDImageCache)]) {
         return;
     }
-    BMSD_LOCK(self.cachesLock);
+    BMSD_LOCK(_cachesLock);
     [_imageCaches addObject:cache];
-    BMSD_UNLOCK(self.cachesLock);
+    BMSD_UNLOCK(_cachesLock);
 }
 
 - (void)removeCache:(id<BMSDImageCache>)cache {
     if (![cache conformsToProtocol:@protocol(BMSDImageCache)]) {
         return;
     }
-    BMSD_LOCK(self.cachesLock);
+    BMSD_LOCK(_cachesLock);
     [_imageCaches removeObject:cache];
-    BMSD_UNLOCK(self.cachesLock);
+    BMSD_UNLOCK(_cachesLock);
 }
 
 #pragma mark - SDImageCache

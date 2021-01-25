@@ -10,6 +10,25 @@
 #import "BMSDWebImageCompat.h"
 #import "BMSDImageCoder.h"
 
+typedef NS_ENUM(NSUInteger, BMSDAnimatedImagePlaybackMode) {
+    /**
+     * From first to last frame and stop or next loop.
+     */
+    BMSDAnimatedImagePlaybackModeNormal = 0,
+    /**
+     * From last frame to first frame and stop or next loop.
+     */
+    BMSDAnimatedImagePlaybackModeReverse,
+    /**
+     * From first frame to last frame and reverse again, like reciprocating.
+     */
+    BMSDAnimatedImagePlaybackModeBounce,
+    /**
+     * From last frame to first frame and reverse again, like reversed reciprocating.
+     */
+    BMSDAnimatedImagePlaybackModeReversedBounce,
+};
+
 /// A player to control the playback of animated image, which can be used to drive Animated ImageView or any rendering usage, like CALayer/WatchKit/SwiftUI rendering.
 @interface BMSDAnimatedImagePlayer : NSObject
 
@@ -36,6 +55,9 @@
 /// `> 1.0` means the fast speed.
 /// `< 0.0` is not supported currently and stop animation. (may support reverse playback in the future)
 @property (nonatomic, assign) double playbackRate;
+
+/// Asynchronous setup animation playback mode. Default mode is SDAnimatedImagePlaybackModeNormal.
+@property (nonatomic, assign) BMSDAnimatedImagePlaybackMode playbackMode;
 
 /// Provide a max buffer size by bytes. This is used to adjust frame buffer count and can be useful when the decoding cost is expensive (such as Animated WebP software decoding). Default is 0.
 /// `0` means automatically adjust by calculating current memory usage.

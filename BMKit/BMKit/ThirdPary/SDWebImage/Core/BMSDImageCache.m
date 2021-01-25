@@ -194,71 +194,73 @@ static NSString * _defaultBMDiskCacheDirectory;
         [self.memoryCache setObject:image forKey:key cost:cost];
     }
     
-    if (toDisk) {
-        dispatch_async(self.ioQueue, ^{
-            @autoreleasepool {
-                NSData *data = imageData;
-                if (!data && [image conformsToProtocol:@protocol(BMSDAnimatedImage)]) {
-                    // If image is custom animated image class, prefer its original animated data
-                    data = [((id<BMSDAnimatedImage>)image) animatedImageData];
-                }
-                if (!data && image) {
-                    // Check image's associated image format, may return .undefined
-                    BMSDImageFormat format = image.bmsd_imageFormat;
-                    if (format == BMSDImageFormatUndefined) {
-                        // If image is animated, use GIF (APNG may be better, but has bugs before macOS 10.14)
-                        if (image.bmsd_isAnimated) {
-                            format = BMSDImageFormatGIF;
-                        } else {
-                            // If we do not have any data to detect image format, check whether it contains alpha channel to use PNG or JPEG format
-                            if ([BMSDImageCoderHelper CGImageContainsAlpha:image.CGImage]) {
-                                format = BMSDImageFormatPNG;
-                            } else {
-                                format = BMSDImageFormatJPEG;
-                            }
-                        }
-                    }
-                    data = [[BMSDImageCodersManager sharedManager] encodedDataWithImage:image format:format options:nil];
-                }
-                [self _storeImageDataToDisk:data forKey:key];
-                if (image) {
-                    // Check extended data
-                    id extendedObject = image.bmsd_extendedObject;
-                    if ([extendedObject conformsToProtocol:@protocol(NSCoding)]) {
-                        NSData *extendedData;
-                        if (@available(iOS 11, tvOS 11, macOS 10.13, watchOS 4, *)) {
-                            NSError *error;
-                            extendedData = [NSKeyedArchiver archivedDataWithRootObject:extendedObject requiringSecureCoding:NO error:&error];
-                            if (error) {
-                                NSLog(@"NSKeyedArchiver archive failed with error: %@", error);
-                            }
-                        } else {
-                            @try {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                                extendedData = [NSKeyedArchiver archivedDataWithRootObject:extendedObject];
-#pragma clang diagnostic pop
-                            } @catch (NSException *exception) {
-                                NSLog(@"NSKeyedArchiver archive failed with exception: %@", exception);
-                            }
-                        }
-                        if (extendedData) {
-                            [self.diskCache setExtendedData:extendedData forKey:key];
-                        }
-                    }
-                }
-            }
-            
-            if (completionBlock) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock();
-                });
-            }
-        });
-    } else {
+    if (!toDisk) {
         if (completionBlock) {
             completionBlock();
         }
+        return;
+    }
+    dispatch_async(self.ioQueue, ^{
+        @autoreleasepool {
+            NSData *data = imageData;
+            if (!data && [image conformsToProtocol:@protocol(BMSDAnimatedImage)]) {
+                // If image is custom animated image class, prefer its original animated data
+                data = [((id<BMSDAnimatedImage>)image) animatedImageData];
+            }
+            if (!data && image) {
+                // Check image's associated image format, may return .undefined
+                BMSDImageFormat format = image.bmsd_imageFormat;
+                if (format == BMSDImageFormatUndefined) {
+                    // If image is animated, use GIF (APNG may be better, but has bugs before macOS 10.14)
+                    if (image.bmsd_isAnimated) {
+                        format = BMSDImageFormatGIF;
+                    } else {
+                        // If we do not have any data to detect image format, check whether it contains alpha channel to use PNG or JPEG format
+                        format = [BMSDImageCoderHelper CGImageContainsAlpha:image.CGImage] ? BMSDImageFormatPNG : BMSDImageFormatJPEG;
+                    }
+                }
+                data = [[BMSDImageCodersManager sharedManager] encodedDataWithImage:image format:format options:nil];
+            }
+            [self _storeImageDataToDisk:data forKey:key];
+            [self _archivedDataWithImage:image forKey:key];
+        }
+        
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock();
+            });
+        }
+    });
+}
+
+- (void)_archivedDataWithImage:(UIImage *)image forKey:(NSString *)key {
+    if (!image) {
+        return;
+    }
+    // Check extended data
+    id extendedObject = image.bmsd_extendedObject;
+    if (![extendedObject conformsToProtocol:@protocol(NSCoding)]) {
+        return;
+    }
+    NSData *extendedData;
+    if (@available(iOS 11, tvOS 11, macOS 10.13, watchOS 4, *)) {
+        NSError *error;
+        extendedData = [NSKeyedArchiver archivedDataWithRootObject:extendedObject requiringSecureCoding:NO error:&error];
+        if (error) {
+            NSLog(@"NSKeyedArchiver archive failed with error: %@", error);
+        }
+    } else {
+        @try {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            extendedData = [NSKeyedArchiver archivedDataWithRootObject:extendedObject];
+#pragma clang diagnostic pop
+        } @catch (NSException *exception) {
+            NSLog(@"NSKeyedArchiver archive failed with exception: %@", exception);
+        }
+    }
+    if (extendedData) {
+        [self.diskCache setExtendedData:extendedData forKey:key];
     }
 }
 
@@ -359,7 +361,13 @@ static NSString * _defaultBMDiskCacheDirectory;
 - (nullable UIImage *)imageFromDiskCacheForKey:(nullable NSString *)key options:(BMSDImageCacheOptions)options context:(nullable BMSDWebImageContext *)context {
     NSData *data = [self diskImageDataForKey:key];
     UIImage *diskImage = [self diskImageForKey:key data:data options:options context:context];
-    if (diskImage && self.config.shouldCacheImagesInMemory) {
+    
+    BOOL shouldCacheToMomery = YES;
+    if (context[BMSDWebImageContextStoreCacheType]) {
+        BMSDImageCacheType cacheType = [context[BMSDWebImageContextStoreCacheType] integerValue];
+        shouldCacheToMomery = (cacheType == BMSDImageCacheTypeAll || cacheType == BMSDImageCacheTypeMemory);
+    }
+    if (diskImage && self.config.shouldCacheImagesInMemory && shouldCacheToMomery) {
         NSUInteger cost = diskImage.bmsd_memoryCost;
         [self.memoryCache setObject:diskImage forKey:key cost:cost];
     }
@@ -414,38 +422,43 @@ static NSString * _defaultBMDiskCacheDirectory;
 }
 
 - (nullable UIImage *)diskImageForKey:(nullable NSString *)key data:(nullable NSData *)data options:(BMSDImageCacheOptions)options context:(BMSDWebImageContext *)context {
-    if (data) {
-        UIImage *image = BMSDImageCacheDecodeImageData(data, key, [[self class] imageOptionsFromCacheOptions:options], context);
-        if (image) {
-            // Check extended data
-            NSData *extendedData = [self.diskCache extendedDataForKey:key];
-            if (extendedData) {
-                id extendedObject;
-                if (@available(iOS 11, tvOS 11, macOS 10.13, watchOS 4, *)) {
-                    NSError *error;
-                    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:extendedData error:&error];
-                    unarchiver.requiresSecureCoding = NO;
-                    extendedObject = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:&error];
-                    if (error) {
-                        NSLog(@"NSKeyedUnarchiver unarchive failed with error: %@", error);
-                    }
-                } else {
-                    @try {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                        extendedObject = [NSKeyedUnarchiver unarchiveObjectWithData:extendedData];
-#pragma clang diagnostic pop
-                    } @catch (NSException *exception) {
-                        NSLog(@"NSKeyedUnarchiver unarchive failed with exception: %@", exception);
-                    }
-                }
-                image.bmsd_extendedObject = extendedObject;
-            }
-        }
-        return image;
-    } else {
+    if (!data) {
         return nil;
     }
+    UIImage *image = BMSDImageCacheDecodeImageData(data, key, [[self class] imageOptionsFromCacheOptions:options], context);
+    [self _unarchiveObjectWithImage:image forKey:key];
+    return image;
+}
+
+- (void)_unarchiveObjectWithImage:(UIImage *)image forKey:(NSString *)key {
+    if (!image) {
+        return;
+    }
+    // Check extended data
+    NSData *extendedData = [self.diskCache extendedDataForKey:key];
+    if (!extendedData) {
+        return;
+    }
+    id extendedObject;
+    if (@available(iOS 11, tvOS 11, macOS 10.13, watchOS 4, *)) {
+        NSError *error;
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:extendedData error:&error];
+        unarchiver.requiresSecureCoding = NO;
+        extendedObject = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:&error];
+        if (error) {
+            NSLog(@"NSKeyedUnarchiver unarchive failed with error: %@", error);
+        }
+    } else {
+        @try {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            extendedObject = [NSKeyedUnarchiver unarchiveObjectWithData:extendedData];
+#pragma clang diagnostic pop
+        } @catch (NSException *exception) {
+            NSLog(@"NSKeyedUnarchiver unarchive failed with exception: %@", exception);
+        }
+    }
+    image.bmsd_extendedObject = extendedObject;
 }
 
 - (nullable NSOperation *)queryCacheOperationForKey:(NSString *)key done:(BMSDImageCacheQueryCompletionBlock)doneBlock {

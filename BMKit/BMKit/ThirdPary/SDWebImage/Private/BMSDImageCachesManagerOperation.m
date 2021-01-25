@@ -9,9 +9,8 @@
 #import "BMSDImageCachesManagerOperation.h"
 #import "BMSDInternalMacros.h"
 
-@implementation BMSDImageCachesManagerOperation
-{
-    dispatch_semaphore_t _pendingCountLock;
+@implementation BMSDImageCachesManagerOperation {
+    BMSD_LOCK_DECLARE(_pendingCountLock);
 }
 
 @synthesize executing = _executing;
@@ -21,7 +20,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _pendingCountLock = dispatch_semaphore_create(1);
+        BMSD_LOCK_INIT(_pendingCountLock);
         _pendingCount = 0;
     }
     return self;
