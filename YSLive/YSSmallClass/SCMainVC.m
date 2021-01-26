@@ -2960,6 +2960,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self deleateAllView];
     [self updataSubViews];
 }
+
 - (void)updataSubViews
 {
     _personListCurentPage = 0;

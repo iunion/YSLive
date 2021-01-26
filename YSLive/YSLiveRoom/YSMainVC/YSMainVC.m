@@ -321,6 +321,7 @@
             // 关闭页面
             if (buttonIndex == 1)
             {
+                [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES];
                 [weakSelf.liveManager leaveRoom:nil];
             }
         }];
