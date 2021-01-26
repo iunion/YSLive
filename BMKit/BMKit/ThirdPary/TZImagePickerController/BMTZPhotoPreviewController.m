@@ -314,6 +314,9 @@
             return;
             // 2. if not over the maxImagesCount / 如果没有超过最大个数限制
         } else {
+            if ([[BMTZImageManager manager] isAssetCannotBeSelected:model.asset]) {
+                return;
+            }
             [_tzImagePickerVc addSelectedModel:model];
             if (self.photos) {
                 [_tzImagePickerVc.selectedAssets addObject:_assetsTemp[self.currentIndex]];
@@ -389,6 +392,10 @@
     
     // 如果没有选中过照片 点击确定时选中当前预览的照片
     if (_tzImagePickerVc.selectedModels.count == 0 && _tzImagePickerVc.minImagesCount <= 0 && _tzImagePickerVc.autoSelectCurrentWhenDone) {
+        BMTZAssetModel *model = _models[self.currentIndex];
+        if ([[BMTZImageManager manager] isAssetCannotBeSelected:model.asset]) {
+            return;
+        }
         [self select:_selectButton];
     }
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.currentIndex inSection:0];
@@ -415,6 +422,10 @@
 }
 
 - (void)originalPhotoButtonClick {
+    BMTZAssetModel *model = _models[self.currentIndex];
+    if ([[BMTZImageManager manager] isAssetCannotBeSelected:model.asset]) {
+        return;
+    }
     _originalPhotoButton.selected = !_originalPhotoButton.isSelected;
     _isSelectOriginalPhoto = _originalPhotoButton.isSelected;
     _originalPhotoLabel.hidden = !_originalPhotoButton.isSelected;
@@ -468,7 +479,6 @@
         currentCell.iCloudSyncFailedHandle = ^(id asset, BOOL isSyncFailed) {
             model.iCloudFailed = isSyncFailed;
             [weakSelf didICloudSyncStatusChanged:model];
-            [weakSelf.models replaceObjectAtIndex:indexPath.item withObject:model];
         };
     } else if (_tzImagePickerVc.allowPickingMultipleVideo && model.type == BMTZAssetModelMediaTypePhotoGif && _tzImagePickerVc.allowPickingGif) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BMTZGifPreviewCell" forIndexPath:indexPath];
@@ -476,7 +486,6 @@
         currentCell.previewView.iCloudSyncFailedHandle = ^(id asset, BOOL isSyncFailed) {
             model.iCloudFailed = isSyncFailed;
             [weakSelf didICloudSyncStatusChanged:model];
-            [weakSelf.models replaceObjectAtIndex:indexPath.item withObject:model];
         };
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BMTZPhotoPreviewCell" forIndexPath:indexPath];
@@ -504,7 +513,6 @@
         photoPreviewCell.previewView.iCloudSyncFailedHandle = ^(id asset, BOOL isSyncFailed) {
             model.iCloudFailed = isSyncFailed;
             [weakSelf didICloudSyncStatusChanged:model];
-            [weakSelf.models replaceObjectAtIndex:indexPath.item withObject:model];
         };
     }
     

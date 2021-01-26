@@ -183,6 +183,9 @@
 }
 
 - (void)doneButtonClick {
+    if ([[BMTZImageManager manager] isAssetCannotBeSelected:_model.asset]) {
+        return;
+    }
     if (self.navigationController) {
         BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
         if (imagePickerVc.autoDismiss) {
