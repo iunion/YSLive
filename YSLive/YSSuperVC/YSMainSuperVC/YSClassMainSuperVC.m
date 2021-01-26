@@ -460,7 +460,7 @@
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalized(@"Prompt.Quite") message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+        [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES];
         [weakSelf.liveManager leaveRoom:nil];
         
     }];
