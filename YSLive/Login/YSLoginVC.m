@@ -1638,8 +1638,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
         }
         
         self.passwordEyeBtn = [[UIButton alloc]initWithFrame:CGRectMake(_passOnlineTextField.bm_width-40, 0, 40, 40)];
-        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_no"] forState:UIControlStateNormal];
-        [self.passwordEyeBtn setImage:[UIImage imageNamed:@"showPassword_yes"] forState:UIControlStateSelected];
+                
+        [self.passwordEyeBtn setImage:YSSkinElementImage(@"login_rowPassword", @"iconNor") forState:UIControlStateNormal];
+        [self.passwordEyeBtn setImage:YSSkinElementImage(@"login_rowPassword", @"iconSel") forState:UIControlStateSelected];
         [self.passwordEyeBtn addTarget:self action:@selector(changeSecureTextEntry:) forControlEvents:UIControlEventTouchUpInside];
         
         [_passOnlineTextField addSubview:self.passwordEyeBtn];
