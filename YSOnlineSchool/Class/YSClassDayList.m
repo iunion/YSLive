@@ -677,6 +677,20 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    [YSLiveManager destroy];
 }
 
+/// 发生错误 回调
+- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
+{
+    NSLog(@"================================== onRoomDidOccuredError: %@", message);
+    
+#if YSShowErrorCode
+    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), message];
+#else
+    NSString *errorMessage = message;
+#endif
+    
+    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+}
+
 // 已经离开房间
 - (void)onRoomLeft
 {

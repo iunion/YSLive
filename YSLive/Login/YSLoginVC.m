@@ -2024,10 +2024,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 }
 
 
-
-
-
 #pragma mark -  成功进入房间
+
 - (void)onRoomDidCheckRoom
 {
     BMLog(@"YSLoginVC onRoomDidCheckRoom");
