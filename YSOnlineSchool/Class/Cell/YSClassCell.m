@@ -81,7 +81,7 @@
     self.gistLabel.font = UI_FONT_12;
 
     [self.enterBtn bm_roundedRect:4.0f];
-    self.enterBtn.backgroundColor = YSSkinOnlineDefineColor(@"MainColor");
+    self.enterBtn.backgroundColor = YSSkinOnlineDefineColor(@"defaultSelectedBgColor");
     [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
     
     self.timeLabel.textColor = YSSkinOnlineDefineColor(@"onlineSchoolSubTextColor");

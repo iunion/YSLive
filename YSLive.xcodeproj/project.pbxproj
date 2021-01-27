@@ -340,13 +340,8 @@
 		8717E3212400DADC008C4CDA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 876681FA23506EF400C4C635 /* AppDelegate.m */; };
 		8717E3232400DADC008C4CDA /* YSEyeCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745558223B335C200BC6CAB /* YSEyeCareVC.m */; };
 		8717E32A2400DADC008C4CDA /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D983023A0C6530007FBBA /* libresolv.tbd */; };
-		8717E32B2400DADC008C4CDA /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */; };
-		8717E32C2400DADC008C4CDA /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBC23C5809F00DA0276 /* UTMini.framework */; };
-		8717E32D2400DADC008C4CDA /* AlicloudHttpDNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */; };
 		8717E32E2400DADC008C4CDA /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DAE23C57CC300DA0276 /* BMKit.framework */; };
 		8717E32F2400DADC008C4CDA /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
-		8717E3332400DADC008C4CDA /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DB923C5809F00DA0276 /* UTDID.framework */; };
-		8717E3342400DADC008C4CDA /* AlicloudBeacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBA23C5809F00DA0276 /* AlicloudBeacon.framework */; };
 		8717E3382400DADC008C4CDA /* YSResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8790DBEB238D282A005C0BC7 /* YSResources.bundle */; };
 		8717E3392400DADC008C4CDA /* BMTestNetFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8701B1442371720600A43607 /* BMTestNetFlowCell.xib */; };
 		8717E33A2400DADC008C4CDA /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 87981DB023C57CC300DA0276 /* BMDatePicker.nib */; };
@@ -736,11 +731,6 @@
 		87981DB223C57CC300DA0276 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
 		87981DB323C57CC300DA0276 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 87981DB023C57CC300DA0276 /* BMDatePicker.nib */; };
 		87981DB723C57FC600DA0276 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87981DB623C57FC500DA0276 /* BMKitImage.xcassets */; };
-		87981DBE23C5809F00DA0276 /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DB923C5809F00DA0276 /* UTDID.framework */; };
-		87981DBF23C5809F00DA0276 /* AlicloudBeacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBA23C5809F00DA0276 /* AlicloudBeacon.framework */; };
-		87981DC023C5809F00DA0276 /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */; };
-		87981DC123C5809F00DA0276 /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBC23C5809F00DA0276 /* UTMini.framework */; };
-		87981DC223C5809F00DA0276 /* AlicloudHttpDNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */; };
 		8798CB7525B53AA000CA4EF8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8798CB7425B53AA000CA4EF8 /* CHWhiteBoardResources.bundle */; };
 		8798CB7625B53AA000CA4EF8 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8798CB7425B53AA000CA4EF8 /* CHWhiteBoardResources.bundle */; };
 		879EB230241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879EB22F241D34F20042F60C /* BMTZImagePickerController.bundle */; };
@@ -1461,11 +1451,6 @@
 		87981DAF23C57CC300DA0276 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		87981DB023C57CC300DA0276 /* BMDatePicker.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BMDatePicker.nib; sourceTree = "<group>"; };
 		87981DB623C57FC500DA0276 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
-		87981DB923C5809F00DA0276 /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
-		87981DBA23C5809F00DA0276 /* AlicloudBeacon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudBeacon.framework; sourceTree = "<group>"; };
-		87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
-		87981DBC23C5809F00DA0276 /* UTMini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTMini.framework; sourceTree = "<group>"; };
-		87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudHttpDNS.framework; sourceTree = "<group>"; };
 		8798CB7425B53AA000CA4EF8 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
 		879ADAE7235164B100C72EAA /* YSAppUIDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppUIDef.h; sourceTree = "<group>"; };
 		879ADAE8235164B200C72EAA /* YSAppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppConfig.h; sourceTree = "<group>"; };
@@ -1577,15 +1562,10 @@
 				0487B27D259C60670010B721 /* libz.tbd in Frameworks */,
 				0460D5B225AC622700A2D3A1 /* Security.framework in Frameworks */,
 				878D983123A0C6530007FBBA /* libresolv.tbd in Frameworks */,
-				87981DC023C5809F00DA0276 /* AlicloudUtils.framework in Frameworks */,
 				874B77022510681800A3830C /* CHSession.framework in Frameworks */,
 				87517E3A24A354310094E2B3 /* CloudHubRTC.framework in Frameworks */,
-				87981DC123C5809F00DA0276 /* UTMini.framework in Frameworks */,
-				87981DC223C5809F00DA0276 /* AlicloudHttpDNS.framework in Frameworks */,
 				87981DB123C57CC300DA0276 /* BMKit.framework in Frameworks */,
 				872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */,
-				87981DBE23C5809F00DA0276 /* UTDID.framework in Frameworks */,
-				87981DBF23C5809F00DA0276 /* AlicloudBeacon.framework in Frameworks */,
 				874A33B8259B38FF00EFA617 /* CloudHubWhiteBoardKit.framework in Frameworks */,
 				874B773D2511B5A000A3830C /* CHWhiteBoard.framework in Frameworks */,
 			);
@@ -1596,16 +1576,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8717E32A2400DADC008C4CDA /* libresolv.tbd in Frameworks */,
-				8717E32B2400DADC008C4CDA /* AlicloudUtils.framework in Frameworks */,
 				26E4717E2518A65D00CE1776 /* CHSession.framework in Frameworks */,
 				87517E3B24A354310094E2B3 /* CloudHubRTC.framework in Frameworks */,
-				8717E32C2400DADC008C4CDA /* UTMini.framework in Frameworks */,
-				8717E32D2400DADC008C4CDA /* AlicloudHttpDNS.framework in Frameworks */,
 				8717E32E2400DADC008C4CDA /* BMKit.framework in Frameworks */,
 				26E4716E2518A50A00CE1776 /* CHWhiteBoard.framework in Frameworks */,
 				8717E32F2400DADC008C4CDA /* Bugly.framework in Frameworks */,
-				8717E3332400DADC008C4CDA /* UTDID.framework in Frameworks */,
-				8717E3342400DADC008C4CDA /* AlicloudBeacon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2134,7 +2109,6 @@
 			isa = PBXGroup;
 			children = (
 				872558A823FAB5D9009A3A79 /* Bugly.framework */,
-				87981DB823C5809F00DA0276 /* OneSDK */,
 				87981DAD23C57CC300DA0276 /* BMKit */,
 				874B77352511B59F00A3830C /* CHWhiteBoard */,
 				87517E3924A354310094E2B3 /* CloudHubRTC.framework */,
@@ -3112,18 +3086,6 @@
 				87981DB023C57CC300DA0276 /* BMDatePicker.nib */,
 			);
 			path = BMKit;
-			sourceTree = "<group>";
-		};
-		87981DB823C5809F00DA0276 /* OneSDK */ = {
-			isa = PBXGroup;
-			children = (
-				87981DB923C5809F00DA0276 /* UTDID.framework */,
-				87981DBA23C5809F00DA0276 /* AlicloudBeacon.framework */,
-				87981DBB23C5809F00DA0276 /* AlicloudUtils.framework */,
-				87981DBC23C5809F00DA0276 /* UTMini.framework */,
-				87981DBD23C5809F00DA0276 /* AlicloudHttpDNS.framework */,
-			);
-			path = OneSDK;
 			sourceTree = "<group>";
 		};
 		879ADAE62351647B00C72EAA /* appDefine */ = {
