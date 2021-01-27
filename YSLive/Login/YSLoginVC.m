@@ -2061,6 +2061,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         [YSLiveSkinManager shareInstance].skinBundle = [CHSessionManager sharedInstance].skinBundle;
         
+        [YSLiveSkinManager shareInstance].isSmallVC = YES;
+        
         [self smallClassJoinRoomSuccess];
     }
     else
@@ -2095,8 +2097,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     [self.progressHUD bm_hideAnimated:NO];
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
-    
-    [YSLiveSkinManager shareInstance].isSmallVC = YES;
             
     GetAppDelegate.allowRotation = YES;
     NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];

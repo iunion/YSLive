@@ -522,6 +522,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
     // 3: 小班课  4: 直播  6： 会议
     if (appUseTheType == CHRoomUseTypeSmallClass || appUseTheType == CHRoomUseTypeMeeting)
     {
+        [YSLiveSkinManager shareInstance].skinBundle = [CHSessionManager sharedInstance].skinBundle;
+        
+        [YSLiveSkinManager shareInstance].isSmallVC = YES;
+        
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
         CHRoomUserType roomusertype = liveManager.roomModel.roomUserType;
