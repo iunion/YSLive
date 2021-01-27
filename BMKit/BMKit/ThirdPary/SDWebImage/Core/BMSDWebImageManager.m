@@ -401,8 +401,14 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         }
         
         @bmweakify(operation);
-        operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(NSURL *url, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
+        operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(NSURL *url1, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
             @bmstrongify(operation);
+#if 0
+            if (!url1)
+            {
+                url1 = url;
+            }
+#endif
             if (!operation || operation.isCancelled) {
                 // Image combined operation cancelled by user
                 [self callCompletionBlockForOperation:operation completion:completedBlock error:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}] url:url];
@@ -415,13 +421,13 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                 [self callCompletionBlockForOperation:operation completion:completedBlock error:error url:url];
                 BOOL shouldBlockFailedURL = [self shouldBlockFailedURLWithURL:url error:error options:options context:context];
                 
-                if (shouldBlockFailedURL) {
+                if (shouldBlockFailedURL && url) {
                     BMSD_LOCK(self->_failedURLsLock);
                     [self.failedURLs addObject:url];
                     BMSD_UNLOCK(self->_failedURLsLock);
                 }
             } else {
-                if ((options & BMSDWebImageRetryFailed)) {
+                if ((options & BMSDWebImageRetryFailed) && url) {
                     BMSD_LOCK(self->_failedURLsLock);
                     [self.failedURLs removeObject:url];
                     BMSD_UNLOCK(self->_failedURLsLock);
