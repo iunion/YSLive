@@ -401,37 +401,37 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         }
         
         @bmweakify(operation);
-        operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(NSURL *url1, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
+        operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(NSURL *imageUrl, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
             @bmstrongify(operation);
-            if (!url1)
+            if (!imageUrl)
             {
-                url1 = url;
+                imageUrl = url;
             }
             if (!operation || operation.isCancelled) {
                 // Image combined operation cancelled by user
-                [self callCompletionBlockForOperation:operation completion:completedBlock error:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}] url:url];
+                [self callCompletionBlockForOperation:operation completion:completedBlock error:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during sending the request"}] url:imageUrl];
             } else if (cachedImage && options & BMSDWebImageRefreshCached && [error.domain isEqualToString:BMSDWebImageErrorDomain] && error.code == BMSDWebImageErrorCacheNotModified) {
                 // Image refresh hit the NSURLCache cache, do not call the completion block
             } else if ([error.domain isEqualToString:BMSDWebImageErrorDomain] && error.code == BMSDWebImageErrorCancelled) {
                 // Download operation cancelled by user before sending the request, don't block failed URL
-                [self callCompletionBlockForOperation:operation completion:completedBlock error:error url:url1];
+                [self callCompletionBlockForOperation:operation completion:completedBlock error:error url:imageUrl];
             } else if (error) {
-                [self callCompletionBlockForOperation:operation completion:completedBlock error:error url:url1];
-                BOOL shouldBlockFailedURL = [self shouldBlockFailedURLWithURL:url1 error:error options:options context:context];
+                [self callCompletionBlockForOperation:operation completion:completedBlock error:error url:imageUrl];
+                BOOL shouldBlockFailedURL = [self shouldBlockFailedURLWithURL:imageUrl error:error options:options context:context];
                 
-                if (shouldBlockFailedURL && url1) {
+                if (shouldBlockFailedURL && imageUrl) {
                     BMSD_LOCK(self->_failedURLsLock);
-                    [self.failedURLs addObject:url1];
+                    [self.failedURLs addObject:imageUrl];
                     BMSD_UNLOCK(self->_failedURLsLock);
                 }
             } else {
-                if ((options & BMSDWebImageRetryFailed) && url1) {
+                if ((options & BMSDWebImageRetryFailed) && imageUrl) {
                     BMSD_LOCK(self->_failedURLsLock);
-                    [self.failedURLs removeObject:url1];
+                    [self.failedURLs removeObject:imageUrl];
                     BMSD_UNLOCK(self->_failedURLsLock);
                 }
                 // Continue store cache process
-                [self callStoreCacheProcessForOperation:operation url:url1 options:options context:context downloadedImage:downloadedImage downloadedData:downloadedData finished:finished progress:progressBlock completed:completedBlock];
+                [self callStoreCacheProcessForOperation:operation url:imageUrl options:options context:context downloadedImage:downloadedImage downloadedData:downloadedData finished:finished progress:progressBlock completed:completedBlock];
             }
             
             if (finished) {
