@@ -60,27 +60,30 @@
     // it is not all that useful. If you need it to refresh, you can simply go back
     // and go forward again and it will show if the view controller is nil or changed.
     UIViewController *controller = [FLEXViewShortcuts nearestViewControllerForView:view];
-
+    
     return [self forObject:view additionalRows:@[
         [FLEXActionShortcut title:@"Nearest View Controller"
-            subtitle:^NSString *(id view) {
-                return [FLEXRuntimeUtility safeDescriptionForObject:controller];
-            }
-            viewer:^UIViewController *(id view) {
-                return [FLEXObjectExplorerFactory explorerViewControllerForObject:controller];
-            }
-            accessoryType:^UITableViewCellAccessoryType(id view) {
-                return controller ? UITableViewCellAccessoryDisclosureIndicator : 0;
-            }
-        ],
-        [FLEXActionShortcut title:@"Preview Image" subtitle:nil
-            viewer:^UIViewController *(id view) {
-                return [FLEXImagePreviewViewController previewForView:view];
-            }
-            accessoryType:^UITableViewCellAccessoryType(id view) {
-                return UITableViewCellAccessoryDisclosureIndicator;
-            }
-        ]
+                         subtitle:^NSString *(id view) {
+            return [FLEXRuntimeUtility safeDescriptionForObject:controller];
+        }
+                           viewer:^UIViewController *(id view) {
+            return [FLEXObjectExplorerFactory explorerViewControllerForObject:controller];
+        }
+                    accessoryType:^UITableViewCellAccessoryType(id view) {
+            return controller ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+        }
+         ],
+        [FLEXActionShortcut title:@"Preview Image" subtitle:^NSString *(UIView *view) {
+        return !CGRectIsEmpty(view.bounds) ? @"" : @"Unavailable with empty bounds";
+    }
+                           viewer:^UIViewController *(UIView *view) {
+            return [FLEXImagePreviewViewController previewForView:view];
+        }
+                    accessoryType:^UITableViewCellAccessoryType(UIView *view) {
+            // Disable preview if bounds are CGRectZero
+            return !CGRectIsEmpty(view.bounds) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+        }
+         ]
     ]];
 }
 

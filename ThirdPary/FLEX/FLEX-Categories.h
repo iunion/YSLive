@@ -27,11 +27,6 @@
 #else
 #import "UIGestureRecognizer+Blocks.h"
 #endif
-#if __has_include(<FLEX/UIView+FLEX_Layout.h>)
-#import <FLEX/UIView+FLEX_Layout.h>
-#else
-#import "UIView+FLEX_Layout.h"
-#endif
 #if __has_include(<FLEX/UIPasteboard+FLEX.h>)
 #import <FLEX/UIPasteboard+FLEX.h>
 #else
@@ -58,30 +53,10 @@
 #else
 #import "NSArray+FLEX.h"
 #endif
-#if __has_include(<FLEX/NSDictionary+ObjcRuntime.h>)
-#import <FLEX/NSDictionary+ObjcRuntime.h>
-#else
-#import "NSDictionary+ObjcRuntime.h"
-#endif
-#if __has_include(<FLEX/NSString+ObjcRuntime.h>)
-#import <FLEX/NSString+ObjcRuntime.h>
-#else
-#import "NSString+ObjcRuntime.h"
-#endif
-#if __has_include(<FLEX/NSString+FLEX.h>)
-#import <FLEX/NSString+FLEX.h>
-#else
-#import "NSString+FLEX.h"
-#endif
 #if __has_include(<FLEX/NSUserDefaults+FLEX.h>)
 #import <FLEX/NSUserDefaults+FLEX.h>
 #else
 #import "NSUserDefaults+FLEX.h"
-#endif
-#if __has_include(<FLEX/NSMapTable+FLEX_Subscripting.h>)
-#import <FLEX/NSMapTable+FLEX_Subscripting.h>
-#else
-#import "NSMapTable+FLEX_Subscripting.h"
 #endif
 #if __has_include(<FLEX/NSTimer+FLEX.h>)
 #import <FLEX/NSTimer+FLEX.h>
