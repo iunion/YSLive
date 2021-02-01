@@ -76,7 +76,7 @@
 "State.Reconnecting" = "正在連接房間";
 "KickOut.ChairmanKick" = "您已被主席請出會議...";
 "KickOut.Repeat" = "有相同身份的用戶進入，您已經離開房間";
-"KickOut.SentOutClassroom" = "您已被請出教室，請三分鐘之後再進入教室";
+"KickOut.SentOutClassroom" = "您被請出教室，請稍後再進";
 
 "State.teacherInBackGround" = "⚠️學生把APP切到後臺了";
 "State.PoorNetWork.self" = "網絡差，建議切換Wifi/4G或重啓路由器";
