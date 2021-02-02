@@ -13,9 +13,9 @@
 #import "Masonry.h"
 #import "YSLoginMacros.h"
 
-#import <YSSDK/YSSDKManager.h>
+#import <YSLiveSDK/YSSDKManager.h>
 
-#import <YSSDK/UIAlertController+SCAlertAutorotate.h>
+#import <YSLiveSDK/UIAlertController+SCAlertAutorotate.h>
 
 #import <MBProgressHUD/MBProgressHUD.h>
 

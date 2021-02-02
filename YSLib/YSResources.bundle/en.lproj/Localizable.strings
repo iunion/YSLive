@@ -77,7 +77,7 @@
 "State.Reconnecting" = "Connecting to room";
 "KickOut.ChairmanKick" = "You have been kicked out of conference by chairman...";
 "KickOut.Repeat" = "User of the same identity has entered the room. You are blocked.";
-"KickOut.SentOutClassroom" = "You have been invited to the classroom.\nPlease come back in three minutes.";
+"KickOut.SentOutClassroom" = "Kicked out the room.\nPlease wait to try again.";
 
 "State.teacherInBackGround" = "⚠️App is switched to backstage";
 "State.PoorNetWork.self" = "Poor network, Switch WiFi/4G or reset router";

@@ -1927,7 +1927,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
-    
+    if (mediaModel.pause)
+    {
+        [self.shareVideoFloatView showMp4PauseView];
+    }
+    else
+    {
+        [self.shareVideoFloatView showMp4WaitingView];
+    }
+
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     
     [self arrangeAllViewInVCView];
@@ -1952,6 +1960,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (mediaModel.isVideo)
     {
         [[YSLiveManager sharedInstance] stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
+        [self.shareVideoFloatView showMp4WaitingView];
     }
     
     if (self.mediaMarkView.superview)
@@ -4237,6 +4246,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
     [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.shareVideoFloatView showMp4WaitingView];
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
@@ -4246,6 +4256,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
     [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
+    [self.shareVideoFloatView showMp4WaitingView];
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;
     self.shareVideoFloatView.hidden = YES;
@@ -4306,6 +4317,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self onPlayMp3];
     }
+    else
+    {
+        [self.shareVideoFloatView showMp4WaitingView];
+    }
      [self freshTeacherCoursewareListData];
 }
 
@@ -4316,6 +4331,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (!mediaFileModel.isVideo)
     {
         [self onPauseMp3];
+    }
+    else
+    {
+        [self.shareVideoFloatView showMp4PauseView];
     }
     [self freshTeacherCoursewareListData];
 }
