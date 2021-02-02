@@ -2124,10 +2124,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.bigRoomTimer = nil;
     }
 
-    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
-    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
-    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
-
     [self.imagePickerController cancelButtonClick];
     
     if (self.pollingTimer)
@@ -2138,10 +2134,25 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
     
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
+
     if (self.presentedViewController)
     {
         // 关闭未知实模式VC
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [self dismissViewControllerAnimated:NO completion:^{
+#if YSSDK
+            [self.liveManager onSDKRoomWillLeft];
+#endif
+            [self dismissViewControllerAnimated:YES completion:^{
+#if YSSDK
+                [self.liveManager onSDKRoomLeft];
+#endif
+                [YSLiveManager destroy];
+            }];
+        }];
+        return;
     }
     
 #if YSSDK

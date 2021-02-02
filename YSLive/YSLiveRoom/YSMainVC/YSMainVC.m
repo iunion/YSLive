@@ -1072,7 +1072,19 @@
     if (self.presentedViewController)
     {
         // 关闭未知实模式VC
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [self dismissViewControllerAnimated:NO completion:^{
+#if YSSDK
+            [self.liveManager onSDKRoomWillLeft];
+#endif
+            [self dismissViewControllerAnimated:YES completion:^{
+#if YSSDK
+                [self.liveManager onSDKRoomLeft];
+#endif
+                [YSLiveManager destroy];
+            }];
+        }];
+        
+        return;
     }
     
 #if YSSDK

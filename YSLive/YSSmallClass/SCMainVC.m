@@ -3023,20 +3023,32 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.bigRoomTimer = nil;
     }
 
-    if (self.controlPopoverView.presentingViewController)
-    {
-        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
-    }
-
     [self.imagePickerController cancelButtonClick];
     
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
    
+    if (self.controlPopoverView.presentingViewController)
+    {
+        [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    }
+
     if (self.presentedViewController)
     {
         // 关闭未知实模式VC
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [self dismissViewControllerAnimated:NO completion:^{
+#if YSSDK
+            [self.liveManager onSDKRoomWillLeft];
+#endif
+            [self dismissViewControllerAnimated:YES completion:^{
+#if YSSDK
+                [self.liveManager onSDKRoomLeft];
+#endif
+                [YSLiveManager destroy];
+            }];
+        }];
+        
+        return;
     }
     
 #if YSSDK
