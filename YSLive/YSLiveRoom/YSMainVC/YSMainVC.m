@@ -1528,7 +1528,8 @@
     else
     {
         [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
-        
+        [self.mp4BgView showMp4WaitingView];
+
         if (self.isFullScreen)
         {
             // 如果是全屏，点击按钮进入小屏状态
@@ -1554,6 +1555,7 @@
     if (mediaModel.isVideo)
     {
         [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
+        [self.mp4BgView showMp4WaitingView];
 
         self.fullScreenBtn.enabled = YES;
         self.mp4BgView.hidden = YES;
@@ -1568,6 +1570,10 @@
     {
         [self onPlayMp3];
     }
+    else
+    {
+        [self.mp4BgView showMp4WaitingView];
+    }
 }
 
 /// 暂停播放白板视频/音频
@@ -1576,6 +1582,10 @@
     if (!mediaFileModel.isVideo)
     {
         [self onPauseMp3];
+    }
+    else
+    {
+        [self.mp4BgView showMp4PauseView];
     }
 }
 

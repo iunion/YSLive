@@ -58,6 +58,9 @@ typedef void(^YSFloatViewClickBlock)(void);
 
 - (void)cleanContent;
 
+- (void)showMp4WaitingView;
+- (void)showMp4PauseView;
+
 @end
 
 NS_ASSUME_NONNULL_END
