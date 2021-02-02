@@ -3800,7 +3800,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.closeMp4Btn.hidden = NO;
         
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
-    [self.shareVideoFloatView showMp4WaitingView];
+    if (mediaModel.pause)
+    {
+        [self.shareVideoFloatView showMp4PauseView];
+    }
+    else
+    {
+        [self.shareVideoFloatView showMp4WaitingView];
+    }
 
     //[self arrangeAllViewInContentBackgroudViewWithViewType:SCMain_ArrangeContentBackgroudViewType_ShareVideoFloatView index:0];
     

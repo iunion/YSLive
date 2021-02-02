@@ -993,7 +993,7 @@
         return;
     }
 
-    if (mediaFileModel.state == CHMediaState_Play)
+    if (mediaFileModel.state == CHMediaState_Play || mediaFileModel.state == CHMediaState_Pause)
     {
         self.mediaFileModel = mediaFileModel;
         [self handleWhiteBordPlayMediaFileWithMedia:mediaFileModel];

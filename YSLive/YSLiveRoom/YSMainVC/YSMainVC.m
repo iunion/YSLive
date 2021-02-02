@@ -1528,7 +1528,14 @@
     else
     {
         [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
-        [self.mp4BgView showMp4WaitingView];
+        if (mediaModel.pause)
+        {
+            [self.mp4BgView showMp4PauseView];
+        }
+        else
+        {
+            [self.mp4BgView showMp4WaitingView];
+        }
 
         if (self.isFullScreen)
         {
