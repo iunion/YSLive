@@ -260,7 +260,7 @@
             
         }
         [self stayMove];
-        if (!self.isFullBackgrond)
+        if (!self.isFullBackgrond && self.streamId)
         {
             NSDictionary * dict = @{
                 @"userId":self.peerId,

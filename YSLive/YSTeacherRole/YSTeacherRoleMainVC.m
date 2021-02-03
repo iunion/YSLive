@@ -3359,17 +3359,20 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {//不全屏
             if (percentTop <= 0 && abs((int)videoEndY) > videoView.bm_height * 0.3)
             {
-                NSDictionary * data = @{
-                    @"isDrag":@0,
-                    @"streamId":videoView.streamId,
-                    @"userId":videoView.roomUser.peerID,
-                };
-                                
-                BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
-                
-                if (result)
+                if (videoView.streamId && videoView.roomUser.peerID)
                 {
-                    [self hideDragOutVideoViewWithStreamId:videoView.streamId];
+                    NSDictionary * data = @{
+                        @"isDrag":@0,
+                        @"streamId":videoView.streamId,
+                        @"userId":videoView.roomUser.peerID,
+                    };
+                    
+                    BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
+                    
+                    if (result)
+                    {
+                        [self hideDragOutVideoViewWithStreamId:videoView.streamId];
+                    }
                 }
                 
                 [self.dragImageView removeFromSuperview];
@@ -3395,19 +3398,21 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 {
                     endScale = 2;
                 }
-                                
-                NSDictionary * data = @{
-                    @"isDrag":@1,
-                    @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
-                    @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
-                    @"userId":videoView.roomUser.peerID,
-                    @"streamId":videoView.streamId,
-                    @"scale":@(endScale)
-                };
-                BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
-                if (result)
+                if (videoView.streamId && videoView.roomUser.peerID)
                 {
-                    [self showDragOutFullTeacherVideoViewWithPeerId:videoView videoX:videoEndX videoY:videoEndY];
+                    NSDictionary * data = @{
+                        @"isDrag":@1,
+                        @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
+                        @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
+                        @"userId":videoView.roomUser.peerID,
+                        @"streamId":videoView.streamId,
+                        @"scale":@(endScale)
+                    };
+                    BOOL result = [self.liveManager sendSignalingTopinchVideoViewWithPeerId:videoView.roomUser.peerID withStreamId:videoView.streamId withData:data];
+                    if (result)
+                    {
+                        [self showDragOutFullTeacherVideoViewWithPeerId:videoView videoX:videoEndX videoY:videoEndY];
+                    }
                 }
             }
         }
