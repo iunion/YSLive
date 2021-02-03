@@ -55,7 +55,7 @@
 @property (nonatomic, strong) UILabel *maskNoVideoTitle;
 
 /// 当前设备上次捕捉的音量  音量大小 0 ～ 32670
-@property (nonatomic, assign) NSUInteger lastVolume;
+//@property (nonatomic, assign) NSUInteger lastVolume;
 
 ///拖出时的文字字号
 @property (nonatomic, strong) UIFont *dragFont;
@@ -694,28 +694,28 @@
     
     if (iVolume < 1)
     {
-        if (self.lastVolume > 1)
+        //if (self.lastVolume > 1)
         {
             self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
         }
     }
     else if (iVolume<= volumeScale)
     {
-        if (self.lastVolume>volumeScale || self.lastVolume<1)
+        //if (self.lastVolume>volumeScale || self.lastVolume<1)
         {
             self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_1Sound");
         }
     }
     else if (iVolume<= volumeScale*2)
     {
-        if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale)
+        //if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale)
         {
             self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_2Sound");
         }
     }
     else if (iVolume > volumeScale*2)
     {
-        if (self.lastVolume<=volumeScale*2)
+        //if (self.lastVolume<=volumeScale*2)
         {
             self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_3Sound");
         }
