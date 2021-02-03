@@ -170,8 +170,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [BMProgressHUD bm_hideAllHUDsForView:YSKeyWindow animated:YES];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
@@ -183,6 +183,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:YES isRientationPortrait:YES];
     
     GetAppDelegate.allowRotation = NO;
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
