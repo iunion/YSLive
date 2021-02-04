@@ -56,6 +56,7 @@
 
 /// 当前设备上次捕捉的音量  音量大小 0 ～ 32670
 //@property (nonatomic, assign) NSUInteger lastVolume;
+@property (nonatomic, assign) NSUInteger volumeStep;
 
 ///拖出时的文字字号
 @property (nonatomic, strong) UIFont *dragFont;
@@ -375,7 +376,8 @@
     self.soundImageView = [[UIImageView alloc] init];
     self.soundImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.backVideoView addSubview:self.soundImageView];
-    
+    self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
+
     if (self.isDragOut || self.isFullScreen)
     {
         self.nickNameLab.font = self.cupNumLab.font = self.dragFont;
@@ -694,31 +696,49 @@
     
     if (iVolume < 1)
     {
-        //if (self.lastVolume > 1)
-        {
-            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
-        }
+        self.volumeStep = 0;
     }
     else if (iVolume<= volumeScale)
     {
-        //if (self.lastVolume>volumeScale || self.lastVolume<1)
-        {
-            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_1Sound");
-        }
+        self.volumeStep = 1;
     }
     else if (iVolume<= volumeScale*2)
     {
-        //if (self.lastVolume> volumeScale*2 || self.lastVolume<= volumeScale)
-        {
-            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_2Sound");
-        }
+        self.volumeStep = 2;
     }
     else if (iVolume > volumeScale*2)
     {
-        //if (self.lastVolume<=volumeScale*2)
-        {
+        self.volumeStep = 3;
+    }
+}
+
+- (void)setVolumeStep:(NSUInteger)volumeStep
+{
+    if (volumeStep == _volumeStep)
+    {
+        return;
+    }
+    
+    _volumeStep = volumeStep;
+    
+    switch (volumeStep)
+    {
+        case 1:
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_1Sound");
+            break;
+            
+        case 2:
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_2Sound");
+            break;
+            
+        case 3:
             self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_3Sound");
-        }
+            break;
+            
+        case 0:
+        default:
+            self.soundImageView.image = YSSkinElementImage(@"videoView_soundImageView", @"icon_noSound");
+            break;
     }
 }
 
