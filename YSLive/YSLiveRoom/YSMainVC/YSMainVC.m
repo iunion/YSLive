@@ -950,9 +950,9 @@
 #pragma mark - videoViewArray
 
 /// 用户流音量变化
-- (void)onRoomAudioVolumeWithUserId:(NSString *)userId volume:(NSInteger)volume
+- (void)onRoomAudioVolumeWithSpeakers:(NSArray<CloudHubAudioVolumeInfo *> *)speakers
 {
-    [super onRoomAudioVolumeWithUserId:userId volume:volume];
+    [super onRoomAudioVolumeWithSpeakers:speakers];
 }
 
 /// 开关摄像头
