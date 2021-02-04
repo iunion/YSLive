@@ -730,7 +730,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     popover.sourceView = self.raiseHandsBtn;
     popover.sourceRect = self.raiseHandsBtn.bounds;
     popover.delegate = self;
-    [self presentViewController:popTab animated:YES completion:nil];//present即可
+    [self presentViewController:popTab animated:NO completion:nil];//present即可
 }
 
 
@@ -4085,7 +4085,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     popover.sourceRect = self.spreadBottomToolBar.switchLayoutBtn.bounds;
     popover.delegate = self;
     
-    [self presentViewController:self.layoutPopoverView animated:YES completion:nil];///present即可
+    [self presentViewController:self.layoutPopoverView animated:NO completion:nil];///present即可
 
     
         
@@ -5576,7 +5576,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     popover.delegate = self;
 
     self.controlPopoverView.roomLayout = self.roomLayout;
-    [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
+    [self presentViewController:self.controlPopoverView animated:NO completion:nil];///present即可
     self.controlPopoverView.isNested = NO;
     if (self.roomtype == CHRoomUserType_One)
     {

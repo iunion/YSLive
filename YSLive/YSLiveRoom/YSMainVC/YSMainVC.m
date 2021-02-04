@@ -2294,7 +2294,7 @@
     popover.sourceRect = popoBtn.bounds;
     popover.permittedArrowDirections = UIPopoverArrowDirectionDown;
     popover.delegate = self;
-    [self presentViewController:self.menuVc animated:YES completion:nil];///present即可
+    [self presentViewController:self.menuVc animated:NO completion:nil];///present即可
 }
 
 

@@ -5200,7 +5200,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     popover.delegate = self;
     self.controlPopoverView.roomLayout = self.roomLayout;
-    [self presentViewController:self.controlPopoverView animated:YES completion:nil];///present即可
+    [self presentViewController:self.controlPopoverView animated:NO completion:nil];///present即可
     self.controlPopoverView.isNested = NO;
     
     if (self.roomtype == CHRoomUserType_One)
