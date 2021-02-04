@@ -19,52 +19,51 @@
 
 @property (nonatomic, strong) CHRoomUser *roomUser;
 
-///正在加载中
+/// 正在加载中
 @property (nonatomic, strong) UIImageView *loadingImgView;
-///正在加载中图片
+/// 正在加载中图片
 @property (nonatomic, strong) UIImage *loadingImg;
 
-///所有蒙版的背景View
+/// 所有蒙版的背景View
 @property (nonatomic, strong) UIView * maskBackView;
 
-///奖杯
+/// 奖杯
 @property (nonatomic, strong) UIImageView *cupImage;
-///奖杯个数
+/// 奖杯个数
 @property (nonatomic, strong) UILabel *cupNumLab;
-//奖杯个数富文本
+/// 奖杯个数富文本
 @property (nonatomic, strong) NSMutableAttributedString *cupNumStr;
-///画笔权限
+/// 画笔权限
 @property (nonatomic, strong) UIImageView *brushImageView;
-///用户名
+/// 用户名
 @property (nonatomic, strong) UILabel *nickNameLab;
-///声音图标
+/// 声音图标
 @property (nonatomic, strong) UIImageView *soundImageView;
 @property (nonatomic, strong) UIImage *soundImage;
 
-///关闭视频时的蒙版
+/// 关闭视频时的蒙版
 @property (nonatomic, strong) UIView *maskCloseVideoBgView;//背景蒙版
 @property (nonatomic, strong) UIImageView *maskCloseVideo;
 @property (nonatomic, strong) UIImage *maskCloseImage;
 
-///点击Home键提示蒙版
+/// 点击Home键提示蒙版
 @property (nonatomic, strong) UILabel *homeMaskLab;
 
-///没有连摄像头时的蒙版
+/// 没有连摄像头时的蒙版
 @property (nonatomic, strong) UIView *maskNoVideo;//背景蒙版
-//上课后没有连摄像头时的文字
+/// 上课后没有连摄像头时的文字
 @property (nonatomic, strong) UILabel *maskNoVideoTitle;
 
-/// 当前设备上次捕捉的音量  音量大小 0 ～ 32670
-//@property (nonatomic, assign) NSUInteger lastVolume;
+/// 音量等级
 @property (nonatomic, assign) NSUInteger volumeStep;
 
-///拖出时的文字字号
+/// 拖出时的文字字号
 @property (nonatomic, strong) UIFont *dragFont;
-///拖出时的文字字号
+/// 拖出时的文字字号
 @property (nonatomic, strong)UIFont *notDragFont;
-///弱网图标
+/// 弱网图标
 @property (nonatomic, strong) UIImageView *lowWifiImage;
-///举手图标
+/// 举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
 /// 分组蒙版
 @property (nonatomic, strong) UIView * maskGroupRoomView;
@@ -677,7 +676,7 @@
     return isVertical;
 }
 
-/// 当前设备音量  音量大小 0 ～ 32670
+/// 当前设备音量  音量大小 0 ～ 255
 - (void)setIVolume:(NSUInteger)iVolume
 {
     _iVolume = iVolume;
@@ -692,9 +691,9 @@
         return;
     }
 
-    CGFloat volumeScale = 32670/4;
+    CGFloat volumeScale = 255/3;
     
-    if (iVolume < 1)
+    if (iVolume < 5)
     {
         self.volumeStep = 0;
     }
