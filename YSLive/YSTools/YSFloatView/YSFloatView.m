@@ -220,8 +220,27 @@
                 self.endScale = 1;
             }
             
-            percentLeft = (self.center.x - self.minSize.width/2)/(self.maxSize.width - self.minSize.width - 2);
-            percentTop = (self.center.y - self.minSize.height/2)/(self.maxSize.height - self.minSize.height - 2);
+            CGFloat differenceW = self.maxSize.width - self.minSize.width - 2;
+            CGFloat differenceH = self.maxSize.height - self.minSize.height - 2;
+            
+            if (differenceW == 0)
+            {
+                percentLeft = 0;
+            }
+            else
+            {
+                percentLeft = (self.center.x - self.minSize.width/2)/differenceW;
+            }
+            
+            
+            if (differenceH == 0)
+            {
+                percentTop = 0;
+            }
+            else
+            {
+                percentTop = (self.center.y - self.minSize.height/2)/differenceH;
+            }
         }
         else if(self.bm_width >= self.maxSize.width || self.bm_height >= self.maxSize.height)
         {//大于最大时
@@ -255,9 +274,26 @@
         {
             self.endScale *= pinch.scale;
             
-            percentLeft = (self.center.x - self.bm_width/2)/(self.maxSize.width - self.bm_width - 2);
-            percentTop = (self.center.y - self.bm_height/2)/(self.maxSize.height - self.bm_height - 2);
+            CGFloat differenceW = self.maxSize.width - self.bm_width - 2;
+            CGFloat differenceH = self.maxSize.height - self.bm_height - 2;
             
+            if (differenceW == 0)
+            {
+                percentLeft = 0;
+            }
+            else
+            {
+                percentLeft = (self.center.x - self.bm_width/2)/differenceW;
+            }
+            
+            if (differenceH == 0)
+            {
+                percentTop = 0;
+            }
+            else
+            {
+                percentTop = (self.center.y - self.bm_height/2)/differenceH;
+            }
         }
         [self stayMove];
         if (!self.isFullBackgrond && self.streamId)
