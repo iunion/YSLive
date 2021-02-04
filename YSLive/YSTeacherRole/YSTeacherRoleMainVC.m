@@ -692,6 +692,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
+
     YSUpHandPopoverVC *popTab = [[YSUpHandPopoverVC alloc]init];
     popTab.userArr = self.raiseHandArray;
     popTab.preferredContentSize = CGSizeMake(95, 146);
@@ -4056,6 +4059,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)creatLayoutPopoverView
 {
+    [self.controlPopoverView dismissViewControllerAnimated:NO completion:nil];
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+
     if (!self.layoutPopoverView)
     {
         self.layoutPopoverView = [[YSDefaultLayoutPopView alloc]init];
@@ -5537,6 +5543,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
+    [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
+    [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
+
     [self creatControlPopoverView];
     
     self.selectControlView = videoView;
