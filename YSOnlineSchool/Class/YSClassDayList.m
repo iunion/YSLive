@@ -652,6 +652,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     NSString *errorMessage = descript;
 #endif
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    
+    [YSLiveManager destroy];
 
 #if 0
 #if YSShowErrorCode

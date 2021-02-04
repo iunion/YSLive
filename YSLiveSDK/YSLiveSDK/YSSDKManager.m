@@ -397,8 +397,8 @@ static NSString *YSSDKVersionString = @"3.5.2.1";
         return;
     }
 
-    //[self.liveManager destroy];
-    [self waitRoomLeft];
+    [YSLiveManager destroy];
+    //[self waitRoomLeft];
 
     if ([self.delegate respondsToSelector:@selector(onRoomReportFail:descript:)])
     {
