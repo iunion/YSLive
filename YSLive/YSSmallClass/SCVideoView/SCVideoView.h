@@ -100,7 +100,7 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 @property (nonatomic, assign) BOOL isFullScreen;
 /// 是否被拖出
 @property (nonatomic, assign) BOOL isDragOut;
-/// 当前设备音量  音量大小 0 ～ 32670
+/// 当前设备音量  音量大小 0 ～ 255
 @property (nonatomic, assign) NSUInteger iVolume;
 /// 是否隐藏奖杯
 @property (nonatomic, assign) BOOL isHideCup;
