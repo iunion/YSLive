@@ -740,6 +740,8 @@
 		87AED04B23B5D71000D38129 /* YSPermissionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04723B5D71000D38129 /* YSPermissionsVC.m */; };
 		87AED04E23B5D8F300D38129 /* SCEyeCareEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04D23B5D8F300D38129 /* SCEyeCareEmptyVC.m */; };
 		87AED05123B5F74500D38129 /* YSTeacherRoleMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */; };
+		87E3DDD825CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDD725CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m */; };
+		87E3DDD925CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDD725CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m */; };
 		87F32D982411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
 		87F32D992411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
 		87F32D9C2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D9B2411F49A00906C20 /* YSClassMainSuperVC.m */; };
@@ -1483,6 +1485,8 @@
 		87AED05023B5F74500D38129 /* YSTeacherRoleMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSTeacherRoleMainVC.m; sourceTree = "<group>"; };
 		87AF4D2323602347008D9D00 /* YSLiveApiRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveApiRequest.h; sourceTree = "<group>"; };
 		87AF4D2423602347008D9D00 /* YSLiveApiRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveApiRequest.m; sourceTree = "<group>"; };
+		87E3DDD625CD3AEC00B8DA17 /* BMKeystoneCorrectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKeystoneCorrectionView.h; sourceTree = "<group>"; };
+		87E3DDD725CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMKeystoneCorrectionView.m; sourceTree = "<group>"; };
 		87EB12752372647800D642E8 /* YSVoteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVoteVC.h; sourceTree = "<group>"; };
 		87EB12772372647800D642E8 /* YSVoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSVoteModel.m; sourceTree = "<group>"; };
 		87EB12782372647800D642E8 /* YSVoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSVoteModel.h; sourceTree = "<group>"; };
@@ -3111,6 +3115,7 @@
 		879ADAEA23516D4400C72EAA /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
+				87E3DDD525CD3ADC00B8DA17 /* BMKeystoneCorrectionView */,
 				26D07C15243F03B2002B1B60 /* YSMP4Player */,
 				8779E58223F79803008E885C /* YSCircleProgress */,
 				8765B14123B4A95E004500DE /* SCEyeCareWindow */,
@@ -3181,6 +3186,15 @@
 				8703620E23F2402E0054E50A /* YSSchoolApiRequest.m */,
 			);
 			path = YSLiveApiRequest;
+			sourceTree = "<group>";
+		};
+		87E3DDD525CD3ADC00B8DA17 /* BMKeystoneCorrectionView */ = {
+			isa = PBXGroup;
+			children = (
+				87E3DDD625CD3AEC00B8DA17 /* BMKeystoneCorrectionView.h */,
+				87E3DDD725CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m */,
+			);
+			path = BMKeystoneCorrectionView;
 			sourceTree = "<group>";
 		};
 		87EB12732372647800D642E8 /* YSLiveRoom */ = {
@@ -3817,6 +3831,7 @@
 				871335DF237270F6006534A4 /* YSCommentPopView.m in Sources */,
 				871335E0237270F6006534A4 /* YSLessonModel.m in Sources */,
 				34043C3D23EA6179004982E6 /* YSCalendarCurriculumVC.m in Sources */,
+				87E3DDD825CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m in Sources */,
 				87832F5C24874C4300F1178E /* FLEXManager+Extensibility.m in Sources */,
 				26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */,
 				0460D5E325AC62DE00A2D3A1 /* mz_strm_split.c in Sources */,
@@ -4077,6 +4092,7 @@
 				8717E2302400DADC008C4CDA /* YSApiRequest.m in Sources */,
 				3471E29D24039A0100A3BBB4 /* FSCalendarWeekdayView.m in Sources */,
 				875DD4AE25C4103000059D0B /* UIView+FLEX_Layout.m in Sources */,
+				87E3DDD925CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m in Sources */,
 				8717E2312400DADC008C4CDA /* YSMp3Controlview.m in Sources */,
 				8783302324874C4400F1178E /* FLEXColor.m in Sources */,
 				87832FEB24874C4300F1178E /* FHSView.m in Sources */,
