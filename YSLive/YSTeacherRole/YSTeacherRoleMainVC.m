@@ -4024,6 +4024,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.liveManager useFrontCamera:!isSelected];
         }
             break;
+        case SCBottomToolBarTypeVideoAdjustment:
+        {
+            //视频调整
+
+        }
+            break;
         case SCBottomToolBarTypeChat:
         {            
             //消息

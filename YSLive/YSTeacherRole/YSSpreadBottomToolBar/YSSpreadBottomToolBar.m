@@ -18,6 +18,8 @@
 @property (nonatomic, assign) BOOL spreadOut;
 
 @property (nonatomic, assign) BOOL isChairManControl;
+/// 视频调整
+@property (nonatomic, assign) BOOL videoAdjustment;
 
 @property (nonatomic, strong) BMImageTitleButtonView *spreadBtn;
 @property (nonatomic, strong) NSMutableArray <BMImageTitleButtonView *> *btnArray;
@@ -35,6 +37,8 @@
 @property (nonatomic, weak) BMImageTitleButtonView *allNoAudioBtn;
 /// 切换摄像头
 @property (nonatomic, weak) BMImageTitleButtonView *cameraBtn;
+/// 视频调整
+@property (nonatomic, weak) BMImageTitleButtonView *videoAdjustmentBtn;
 /// 聊天按钮
 @property (nonatomic, weak) BMImageTitleButtonView *chatBtn;
 /// 退出房间
@@ -45,7 +49,7 @@
 
 @implementation YSSpreadBottomToolBar
 
-- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl
+- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl videoAdjustment:(BOOL)videoAdjustment
 {
     self = [super init];
     if (self)
@@ -55,6 +59,7 @@
         self.roomtype = roomType;
         self.btnArray = [[NSMutableArray alloc] init];
         self.isChairManControl = isChairManControl;
+        self.videoAdjustment = videoAdjustment;
         self.spreadOut = YES;
         
         [self setupView];
@@ -100,6 +105,10 @@
     BMImageTitleButtonView *cameraBtn = [self creatButtonWithNormalTitle:@"Title.ChangeCamera" selectedTitle:@"Title.ChangeCamera" pathName:@"camera_bottombar"];
     cameraBtn.tag = SCBottomToolBarTypeCamera;
     
+    /// 视频调整
+    BMImageTitleButtonView *videoAdjustmentBtn = [self creatButtonWithNormalTitle:@"Title.VideoAdjustment" selectedTitle:@"Title.VideoAdjustment" pathName:@"videoAdjustment_bottombar"];
+    videoAdjustmentBtn.tag = SCBottomToolBarTypeVideoAdjustment;
+    
     /// 消息
     BMImageTitleButtonView *chatBtn = [self creatButtonWithNormalTitle:@"Title.Message" selectedTitle:@"Title.Message" pathName:@"message_bottombar"];
     chatBtn.tag = SCBottomToolBarTypeChat;
@@ -134,10 +143,17 @@
             self.allNoAudioBtn = allNoAudioBtn;
             [self.btnArray addObject:self.allNoAudioBtn];
         }
-
-        self.cameraBtn = cameraBtn;
-        [self.btnArray addObject:self.cameraBtn];
         
+        if (self.videoAdjustment)
+        {
+            self.videoAdjustmentBtn = videoAdjustmentBtn;
+            [self.btnArray addObject:self.videoAdjustmentBtn];
+        }
+        else
+        {
+            self.cameraBtn = cameraBtn;
+            [self.btnArray addObject:self.cameraBtn];
+        }
         self.chatBtn = chatBtn;
         [self.btnArray addObject:self.chatBtn];
     }
@@ -146,8 +162,16 @@
         self.toolBoxBtn = toolBoxBtn;
         [self.btnArray addObject:self.toolBoxBtn];
         
-        self.cameraBtn = cameraBtn;
-        [self.btnArray addObject:self.cameraBtn];
+        if (self.videoAdjustment)
+        {
+            self.videoAdjustmentBtn = videoAdjustmentBtn;
+            [self.btnArray addObject:self.videoAdjustmentBtn];
+        }
+        else
+        {
+            self.cameraBtn = cameraBtn;
+            [self.btnArray addObject:self.cameraBtn];
+        }
         
         self.chatBtn = chatBtn;
         [self.btnArray addObject:self.chatBtn];
@@ -462,6 +486,13 @@
 {
     _isEveryoneNoAudio = isEveryoneNoAudio;
     self.allNoAudioBtn.selected = isEveryoneNoAudio;
+}
+
+- (void)setVideoAdjustmentEnable:(BOOL)videoAdjustmentEnable
+{
+    _videoAdjustmentEnable = videoAdjustmentEnable;
+   
+    self.videoAdjustmentBtn.enabled = videoAdjustmentEnable;
 }
 
 - (BOOL)nameListIsShow

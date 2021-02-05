@@ -200,7 +200,7 @@
 "Title.Message"             = "Chat";
 "Title.Exit"                = "Quit";
 "Title.ChangeCamera"        = "Switch";
-
+"Title.VideoAdjustment"     = "VideoAdjustment";
 
 "Title.MediaList"           = "Media";
 "Title.ControlList"         = "Operation";

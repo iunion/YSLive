@@ -42,6 +42,8 @@ typedef NS_ENUM(NSInteger, SCBottomToolBarType)
     SCBottomToolBarTypeCamera,
     /** 全体禁音 */
     SCBottomToolBarTypeAllNoAudio,
+    /** 视频调整 */
+    SCBottomToolBarTypeVideoAdjustment,
     /** 消息 */
     SCBottomToolBarTypeChat,
     /** 退出 */

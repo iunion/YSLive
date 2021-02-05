@@ -52,12 +52,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isCameraEnable;
 /// 是否全体禁言
 @property (nonatomic, assign) BOOL isEveryoneNoAudio;
-
+/// 视频调整是否可以点击
+@property (nonatomic, assign) BOOL videoAdjustmentEnable;
 /// 切换布局
 @property (nonatomic, weak) BMImageTitleButtonView *switchLayoutBtn;
 
 
-- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl;
+- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl videoAdjustment:(BOOL)videoAdjustment;
 
 /// 花名册 课件库按钮的非选中
 - (void)hideListView;
