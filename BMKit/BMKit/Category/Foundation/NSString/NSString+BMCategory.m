@@ -455,7 +455,7 @@
 + (NSString *)bm_convertUnicode:(NSString *)aString
 {
     //NSString *ret = [aString replace:RX(@"\\\\[uU]\\w{4}")
-    NSString *ret = [aString bm_replace:RX(@"\\\\?\\\\[uU]\\w{4}")
+    NSString *ret = [aString bm_replace:BMRX(@"\\\\?\\\\[uU]\\w{4}")
                               withBlock:^NSString *(NSString *match) {
                                   NSString *str = [NSString stringWithCString:[match cStringUsingEncoding:NSUTF8StringEncoding]
                                                                      encoding:NSNonLossyASCIIStringEncoding];

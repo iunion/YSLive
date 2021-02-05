@@ -17,62 +17,62 @@
 
 - (NSRegularExpression *)bm_toRxIgnoreCase:(BOOL)ignoreCase
 {
-    return [NSRegularExpression rx:self ignoreCase:ignoreCase];
+    return [NSRegularExpression bm_rx:self ignoreCase:ignoreCase];
 }
 
 - (NSRegularExpression *)bm_toRxWithOptions:(NSRegularExpressionOptions)options
 {
-    return [NSRegularExpression rx:self options:options];
+    return [NSRegularExpression bm_rx:self options:options];
 }
 
 - (BOOL)bm_isMatch:(NSRegularExpression *)rx
 {
-    return [rx isMatch:self];
+    return [rx bm_isMatch:self];
 }
 
 - (NSInteger)bm_indexOf:(NSRegularExpression *)rx
 {
-    return [rx indexOf:self];
+    return [rx bm_indexOf:self];
 }
 
 - (NSArray <NSString *>*)bm_split:(NSRegularExpression *)rx
 {
-    return [rx split:self];
+    return [rx bm_split:self];
 }
 
 - (NSString *)bm_replace:(NSRegularExpression *)rx with:(NSString *)replacement
 {
-    return [rx replace:self with:replacement];
+    return [rx bm_replace:self with:replacement];
 }
 
 - (NSString *)bm_replace:(NSRegularExpression *)rx withBlock:(NSString * (^)(NSString *match))replacer
 {
-    return [rx replace:self withBlock:replacer];
+    return [rx bm_replace:self withBlock:replacer];
 }
 
-- (NSString *)bm_replace:(NSRegularExpression *)rx withDetailsBlock:(NSString * (^)(RxMatch *match))replacer
+- (NSString *)bm_replace:(NSRegularExpression *)rx withDetailsBlock:(NSString * (^)(BMRxMatch *match))replacer
 {
-    return [rx replace:self withDetailsBlock:replacer];
+    return [rx bm_replace:self withDetailsBlock:replacer];
 }
 
 - (NSArray <NSString *>*)bm_matches:(NSRegularExpression *)rx
 {
-    return [rx matches:self];
+    return [rx bm_matches:self];
 }
 
 - (NSString *)bm_firstMatch:(NSRegularExpression *)rx
 {
-    return [rx firstMatch:self];
+    return [rx bm_firstMatch:self];
 }
 
-- (NSArray <RxMatch *>*)bm_matchesWithDetails:(NSRegularExpression *)rx
+- (NSArray <BMRxMatch *>*)bm_matchesWithDetails:(NSRegularExpression *)rx
 {
-    return [rx matchesWithDetails:self];
+    return [rx bm_matchesWithDetails:self];
 }
 
-- (RxMatch *)bm_firstMatchWithDetails:(NSRegularExpression *)rx
+- (BMRxMatch *)bm_firstMatchWithDetails:(NSRegularExpression *)rx
 {
-    return [rx firstMatchWithDetails:self];
+    return [rx bm_firstMatchWithDetails:self];
 }
 
 #pragma mark ori
@@ -162,17 +162,17 @@
 
 - (NSArray <NSString *>*)bm_matchesWithPattern:(NSString *)pattern
 {
-    return [self bm_matches:RX(pattern)];
+    return [self bm_matches:BMRX(pattern)];
 }
 
 - (NSString *)bm_firstMatchWithPattern:(NSString *)pattern
 {
-    return [self bm_firstMatch:RX(pattern)];
+    return [self bm_firstMatch:BMRX(pattern)];
 }
 
 - (BOOL)bm_isMatchWithPattern:(NSString *)pattern
 {
-    return [self bm_isMatch:RX(pattern)];
+    return [self bm_isMatch:BMRX(pattern)];
 }
 
 - (NSRange)bm_rangOfFirstMatchWithPattern:(NSString *)pattern
@@ -195,17 +195,17 @@
 
 - (NSString *)bm_stringByReplacingOccurrencesOfPattern:(NSString *)pattern withString:(NSString *)string
 {
-    return [self bm_replace:RX(pattern) with:string];
+    return [self bm_replace:BMRX(pattern) with:string];
 }
 
 - (NSString *)bm_replaceWithPattern:(NSString *)pattern to:(NSString *)replacement
 {
-    return [self bm_replace:RX(pattern) with:replacement];
+    return [self bm_replace:BMRX(pattern) with:replacement];
 }
 
 - (NSArray<NSString *> *)bm_splitWithPattern:(NSString *)pattern
 {
-    return [self bm_split:RX(pattern)];
+    return [self bm_split:BMRX(pattern)];
 }
 
 @end
