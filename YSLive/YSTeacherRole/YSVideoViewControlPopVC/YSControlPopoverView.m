@@ -232,14 +232,17 @@
     self.allGiftCupBtn = allGiftCupBtn;
     [self.btnArray removeAllObjects];
     
-    
+    BOOL hasVideoAdjustment = [YSLiveManager sharedInstance].roomConfig.hasVideoAdjustment;
     BOOL isShowLine = NO;
     if (YSCurrentUser.role == CHUserType_Student)
     {
         //音频 视频 镜像
         [self.btnArray addObject:self.audioBtn];
         [self.btnArray addObject:self.videoBtn];
-        [self.btnArray addObject:self.mirrorBtn];
+        if (!hasVideoAdjustment)
+        {
+            [self.btnArray addObject:self.mirrorBtn];
+        }
     }
     else
     {
@@ -251,7 +254,12 @@
                 //音频 视频 镜像
                 [self.btnArray addObject:self.audioBtn];
                 [self.btnArray addObject:self.videoBtn];
-                [self.btnArray addObject:self.mirrorBtn];
+                
+                if (!hasVideoAdjustment)
+                {
+                    [self.btnArray addObject:self.mirrorBtn];
+                }
+                
 //                [self.btnArray addObject:self.allGiftCupBtn];
             }
             else
@@ -265,7 +273,10 @@
                         [self.btnArray addObject:self.audioBtn];
                         [self.btnArray addObject:self.videoBtn];
                         [self.btnArray addObject:self.mirrorBtn];
-                        [self.btnArray addObject:self.restoreBtn];
+                        if (!hasVideoAdjustment)
+                        {
+                            [self.btnArray addObject:self.mirrorBtn];
+                        }
                         [self.btnArray addObject:self.allGiftCupBtn];
                         [self.btnArray addObject:self.allRestoreBtn];
                     }
@@ -274,7 +285,10 @@
                         //音频 视频 镜像 全体奖杯 全体复位
                         [self.btnArray addObject:self.audioBtn];
                         [self.btnArray addObject:self.videoBtn];
-                        [self.btnArray addObject:self.mirrorBtn];
+                        if (!hasVideoAdjustment)
+                        {
+                            [self.btnArray addObject:self.mirrorBtn];
+                        }
                         [self.btnArray addObject:self.allGiftCupBtn];
                         [self.btnArray addObject:self.allRestoreBtn];
                     }
@@ -284,7 +298,10 @@
                     //音频 视频 镜像 焦点 全体奖杯
                     [self.btnArray addObject:self.audioBtn];
                     [self.btnArray addObject:self.videoBtn];
-                    [self.btnArray addObject:self.mirrorBtn];
+                    if (!hasVideoAdjustment)
+                    {
+                        [self.btnArray addObject:self.mirrorBtn];
+                    }
                     [self.btnArray addObject:self.fouceBtn];
                     [self.btnArray addObject:self.allGiftCupBtn];
                 }
