@@ -78,6 +78,11 @@
 
 - (void)setupKeystoneCorrectionView
 {
+    if (!self.liveManager.roomConfig.hasVideoAdjustment)
+    {
+        return;
+    }
+    
     BMKeystoneCorrectionView *keystoneCorrectionView = [[BMKeystoneCorrectionView alloc] initWithFrame:self.view.bounds liveManager:self.liveManager];
     [self.view addSubview:keystoneCorrectionView];
     keystoneCorrectionView.delegate = self;

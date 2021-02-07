@@ -34,10 +34,16 @@
 
 @property (nonatomic, strong) UIButton *returnBtn;
 
+
+@property (nonatomic, assign) BOOL isSwithCamera;
+@property (nonatomic, assign) BOOL isFlipH;
+@property (nonatomic, assign) BOOL isFlipV;
+
 @end
 
 // setupBottomToolBarView
 // bottomToolBarClickAtIndex:
+// hasVideoAdjustment
 @implementation BMKeystoneCorrectionView
 
 - (instancetype)initWithFrame:(CGRect)frame liveManager:(YSLiveManager *)liveManager
@@ -47,6 +53,10 @@
     {
         self.liveManager = liveManager;
         
+        self.isSwithCamera = NO;
+        self.isFlipH = NO;
+        self.isFlipV = NO;
+
         [self setupUI];
     }
     
@@ -178,17 +188,21 @@
 
 - (void)camera:(UIButton *)btn
 {
-    
+    self.isSwithCamera = !self.isSwithCamera;
+
+    [self.liveManager useFrontCamera:self.isSwithCamera];
 }
 
 - (void)fliph:(UIButton *)btn
 {
-    
+    self.isFlipH = !self.isFlipH;
+
 }
 
 - (void)flipv:(UIButton *)btn
 {
-    
+    self.isFlipV = !self.isFlipV;
+
 }
 
 - (void)backAction:(UIButton *)btn
