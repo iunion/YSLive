@@ -293,7 +293,7 @@
 // 底部工具栏
 - (void)setupBottomToolBarView
 {
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.0f - 5, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f) roomType:self.roomtype isChairManControl:self.liveManager.roomConfig.isChairManControl videoAdjustment:YES];//self.liveManager.roomConfig.hasVideoAdjustment];
+    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.0f - 5, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f) roomType:self.roomtype isChairManControl:self.liveManager.roomConfig.isChairManControl videoAdjustment:self.liveManager.roomConfig.hasVideoAdjustment];
     spreadBottomToolBar.delegate = self;
     spreadBottomToolBar.isBeginClass = self.liveManager.isClassBegin;
     spreadBottomToolBar.isPollingEnable = NO;
