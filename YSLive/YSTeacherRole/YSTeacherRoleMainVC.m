@@ -4030,7 +4030,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         case SCBottomToolBarTypeVideoAdjustment:
         {
             //视频调整
-
+            [self showKeystoneCorrectionView];
         }
             break;
         case SCBottomToolBarTypeChat:
@@ -6308,15 +6308,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
         }
         
-        self.myVideoView = self.fullTeacherVideoView;
-        if (self.keystoneCorrectionView.hidden)
-        {
-            [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
-        }
-        else
-        {
-            [self showKeystoneCorrectionView];
-        }
+        [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
     }
 }
 #endif

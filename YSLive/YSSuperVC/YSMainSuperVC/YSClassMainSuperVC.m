@@ -48,9 +48,6 @@
 /// 底部工具栏
 @property (nonatomic, strong) YSSpreadBottomToolBar *spreadBottomToolBar;
 
-/// 视频矫正窗口
-@property (nonatomic, strong) BMKeystoneCorrectionView *keystoneCorrectionView;
-
 @end
 
 @implementation YSClassMainSuperVC
@@ -155,8 +152,6 @@
     
     // 骰子
     [self creatDiceAnimationView];
-    
-    [self setupKeystoneCorrectionView];
 }
 
 - (void)handleDeviceOrientationDidChange:(NSNotification *)noti
@@ -307,55 +302,6 @@
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
 }
-
-- (void)setupKeystoneCorrectionView
-{
-    BMKeystoneCorrectionView *keystoneCorrectionView = [[BMKeystoneCorrectionView alloc] initWithFrame:self.view.bounds liveManager:self.liveManager];
-    [self.view addSubview:keystoneCorrectionView];
-    keystoneCorrectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    self.keystoneCorrectionView = keystoneCorrectionView;
-    self.keystoneCorrectionView.hidden = YES;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    
-    [self.keystoneCorrectionView bm_bringToFront];
-    [self.progressHUD bm_bringToFront];
-}
-
-- (void)showKeystoneCorrectionView
-{
-    if (!self.keystoneCorrectionView.hidden)
-    {
-        return;
-    }
-    
-    self.keystoneCorrectionView.hidden = NO;
-    
-    NSString *userId = CHLocalUser.peerID;
-    CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
-    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
-    NSString *streamId = [NSString stringWithFormat:@"%@:video:%@", userId, sCHUserDefaultSourceId];
-
-    [self.liveManager stopVideoWithUserId:userId streamID:streamId];
-    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:renderType mirrorMode:videoMirrorMode inView:self.keystoneCorrectionView.liveView];
-}
-
-- (void)hideKeystoneCorrectionView
-{
-    self.keystoneCorrectionView.hidden = YES;
-    
-    if (!self.myVideoView)
-    {
-        return;
-    }
-    
-    [self playVideoAudioWithNewVideoView:self.myVideoView];
-}
-
 
 // 横排视频最大宽度计算
 - (CGFloat)getVideoTotalWidth

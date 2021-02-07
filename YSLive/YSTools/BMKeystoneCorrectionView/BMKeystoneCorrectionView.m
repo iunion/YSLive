@@ -74,10 +74,14 @@
     
     BMCorrectionView *touchView = [[BMCorrectionView alloc] initWithFrame:self.bounds];
     [self addSubview:touchView];
-    touchView.backgroundColor = UIColor.redColor;
+#if DEBUG
+    touchView.backgroundColor = [UIColor.redColor bm_changeAlpha:0.1f];
+#else
+    touchView.backgroundColor = UIColor.clearColor;
+#endif
     touchView.delegate = self;
     self.touchView = touchView;
-    [self setupTouchView];
+    [self freshTouchView];
 
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120.0f, 30.0f)];
     [self addSubview:topView];
@@ -137,12 +141,13 @@
     [returnBtn bm_roundedRect:15.0f];
 }
 
-- (void)setupTouchView
+- (void)freshTouchView
 {
-    CGFloat ratio = 4.0f / 3.0f;
-    if (self.liveManager.room_IsWideScreen)
+    CGFloat ratio = 1.0f;
+    
+    if (!CGSizeEqualToSize(self.liveManager.localVideoSize, CGSizeZero))
     {
-        ratio = 16.0f / 9.0f;
+        ratio = self.liveManager.localVideoSize.width /  self.liveManager.localVideoSize.height;
     }
 
     CGFloat width = self.bm_width;
@@ -188,7 +193,10 @@
 
 - (void)backAction:(UIButton *)btn
 {
-    
+    if (self.delegate)
+    {
+        [self.delegate keystoneCorrectionViewClose];
+    }
 }
 
 

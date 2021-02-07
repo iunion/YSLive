@@ -9,6 +9,7 @@
 #import "YSSuperNetVC.h"
 #import "SCVideoView.h"
 #import "YSControlPopoverView.h"
+#import "BMKeystoneCorrectionView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -57,6 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 视频控制popoverView
 @property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
+
+/// 视频矫正窗口
+@property (nonatomic, strong) BMKeystoneCorrectionView *keystoneCorrectionView;
+
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 

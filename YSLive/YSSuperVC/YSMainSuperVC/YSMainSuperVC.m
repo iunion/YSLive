@@ -17,6 +17,9 @@
 #define YSChangeMediaLine_Delay     5.0f
 
 @interface YSMainSuperVC ()
+<
+    BMKeystoneCorrectionViewDelegate
+>
 
 @property (nonatomic, weak) YSLiveManager *liveManager;
 /// 白板视图whiteBord
@@ -70,7 +73,67 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self setupKeystoneCorrectionView];
 }
+
+- (void)setupKeystoneCorrectionView
+{
+    BMKeystoneCorrectionView *keystoneCorrectionView = [[BMKeystoneCorrectionView alloc] initWithFrame:self.view.bounds liveManager:self.liveManager];
+    [self.view addSubview:keystoneCorrectionView];
+    keystoneCorrectionView.delegate = self;
+    keystoneCorrectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    self.keystoneCorrectionView = keystoneCorrectionView;
+    self.keystoneCorrectionView.hidden = YES;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    [self.keystoneCorrectionView bm_bringToFront];
+    [self.progressHUD bm_bringToFront];
+}
+
+- (void)showKeystoneCorrectionView
+{
+    if (!self.keystoneCorrectionView.hidden)
+    {
+        return;
+    }
+    
+    //[self.keystoneCorrectionView freshTouchView];
+    self.keystoneCorrectionView.hidden = NO;
+    
+    NSString *userId = CHLocalUser.peerID;
+    CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeFit;
+    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+    NSString *streamId = [NSString stringWithFormat:@"%@:video:%@", userId, sCHUserDefaultSourceId];
+
+    [self.liveManager stopVideoWithUserId:userId streamID:streamId];
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:renderType mirrorMode:videoMirrorMode inView:self.keystoneCorrectionView.liveView];
+}
+
+- (void)hideKeystoneCorrectionView
+{
+    self.keystoneCorrectionView.hidden = YES;
+    
+    if (!self.myVideoView)
+    {
+        return;
+    }
+    
+    [self playVideoAudioWithNewVideoView:self.myVideoView];
+}
+
+
+#pragma mark - BMKeystoneCorrectionViewDelegate
+
+- (void)keystoneCorrectionViewClose
+{
+    [self hideKeystoneCorrectionView];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -173,6 +236,19 @@
     {
         return;
     }
+    
+    NSString *userId = videoView.roomUser.peerID;
+    if ([userId isEqualToString:CHLocalUser.peerID])
+    {
+        self.myVideoView = videoView;
+
+        if (!self.keystoneCorrectionView.hidden)
+        {
+            [self showKeystoneCorrectionView];
+            return;
+        }
+    }
+
     NSDictionary * sourceDict = [videoView.roomUser.sourceListDic bm_dictionaryForKey:videoView.sourceId];
     
     CHSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
@@ -180,12 +256,6 @@
 
     fresh = NO;
     
-    NSString *userId = videoView.roomUser.peerID;
-    if ([userId isEqualToString:CHLocalUser.peerID])
-    {
-        self.myVideoView = videoView;
-    }
-
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
     if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {
@@ -233,16 +303,22 @@
         return;
     }
 
-    NSDictionary * sourceDict = [videoView.roomUser.sourceListDic bm_dictionaryForKey:videoView.sourceId];
-    
-    CHSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
-    CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
-
     NSString *userId = videoView.roomUser.peerID;
     if ([userId isEqualToString:CHLocalUser.peerID])
     {
         self.myVideoView = videoView;
+
+        if (!self.keystoneCorrectionView.hidden)
+        {
+            [self showKeystoneCorrectionView];
+            return;
+        }
     }
+
+    NSDictionary * sourceDict = [videoView.roomUser.sourceListDic bm_dictionaryForKey:videoView.sourceId];
+    
+    CHSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
+    CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
     if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {
@@ -903,6 +979,13 @@
 - (void)userPublishstatechange:(CHRoomUser *)roomUser
 {
     
+}
+
+/// 用户本地视频流第一帧
+- (void)onRoomFirstLocalVideoFrameWithSize:(CGSize)size
+{
+    // 刷新视频编辑尺寸
+    [self.keystoneCorrectionView freshTouchView];
 }
 
 /// 用户流音量变化
