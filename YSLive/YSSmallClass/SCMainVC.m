@@ -854,6 +854,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             
             [self addVideoViewToVideoViewArrayDic:videoView];
                         
+            self.myVideoView = videoView;
+            
             [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
             [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
@@ -1076,6 +1078,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
     self.userVideoView = videoView;
         
+    self.myVideoView = videoView;
+    
     [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
@@ -5136,8 +5140,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self.fullTeacherFloatView showWithContentView:fullTeacherVideoView];
         
         fullTeacherVideoView.appUseTheType = self.appUseTheType;
-        [self playVideoAudioWithNewVideoView:fullTeacherVideoView];
         self.fullTeacherVideoView = fullTeacherVideoView;
+
+        self.myVideoView = fullTeacherVideoView;
+        if (self.keystoneCorrectionView.hidden)
+        {
+            [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
+        }
+        else
+        {
+            [self showKeystoneCorrectionView];
+        }
         
         if (view == self.whitebordFullBackgroud)
         {

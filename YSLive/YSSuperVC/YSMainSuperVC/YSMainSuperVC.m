@@ -166,6 +166,7 @@
     [self playVideoAudioWithVideoView:videoView needFreshVideo:NO];
 }
 
+// 在原视窗刷新视频
 - (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh
 {
     if (!videoView)
@@ -180,7 +181,11 @@
     fresh = NO;
     
     NSString *userId = videoView.roomUser.peerID;
-    
+    if ([userId isEqualToString:CHLocalUser.peerID])
+    {
+        self.myVideoView = videoView;
+    }
+
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
     if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {
@@ -220,6 +225,7 @@
     videoView.videoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
 }
 
+// 创建或更换视窗显示视频
 - (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
 {
     if (!videoView)
@@ -233,6 +239,10 @@
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
 
     NSString *userId = videoView.roomUser.peerID;
+    if ([userId isEqualToString:CHLocalUser.peerID])
+    {
+        self.myVideoView = videoView;
+    }
     CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
     if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {

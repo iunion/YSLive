@@ -931,7 +931,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         videoView.appUseTheType = self.appUseTheType;
         [self addVideoViewToVideoViewArrayDic:videoView];
                 
-
+        self.myVideoView = videoView;
+        
         [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:videoView.streamId  renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
         [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
@@ -1177,6 +1178,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.videoBackgroud addSubview:videoView];
     [self.teacherVideoViewArray addObject:videoView];
 
+    self.myVideoView = videoView;
+    
     [self.liveManager playVideoWithUserId:YSCurrentUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled inView:videoView];
 #if YSAPP_NEWERROR
     [self.liveManager playVideoOnView:videoView withPeerId:YSCurrentUser.peerID renderType:YSRenderMode_adaptive completion:nil];
@@ -6304,8 +6307,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 [self.handNumLab bm_bringToFront];
             }
         }
-        [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
-
+        
+        self.myVideoView = self.fullTeacherVideoView;
+        if (self.keystoneCorrectionView.hidden)
+        {
+            [self playVideoAudioWithNewVideoView:self.fullTeacherVideoView];
+        }
+        else
+        {
+            [self showKeystoneCorrectionView];
+        }
     }
 }
 #endif

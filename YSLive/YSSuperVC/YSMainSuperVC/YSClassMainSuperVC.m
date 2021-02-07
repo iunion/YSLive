@@ -20,7 +20,6 @@
 
 #import <BMKit/NSString+BMURLEncode.h>
 
-
 @interface YSClassMainSuperVC ()
 <
     SCEyeCareViewDelegate
@@ -48,6 +47,9 @@
 
 /// 底部工具栏
 @property (nonatomic, strong) YSSpreadBottomToolBar *spreadBottomToolBar;
+
+/// 视频矫正窗口
+@property (nonatomic, strong) BMKeystoneCorrectionView *keystoneCorrectionView;
 
 @end
 
@@ -142,17 +144,19 @@
     }
     
     
-    //创建一个16：9的背景view
+    // 创建一个16：9的背景view
     [self.view addSubview:self.contentBackgroud];
     
-    //顶部状态栏
+    // 顶部状态栏
     [self setupstateToolBar];
     
     // 底部工具栏
     [self setupBottomToolBarView];
     
-    //骰子
+    // 骰子
     [self creatDiceAnimationView];
+    
+    [self setupKeystoneCorrectionView];
 }
 
 - (void)handleDeviceOrientationDidChange:(NSNotification *)noti
@@ -200,6 +204,7 @@
             break;
     }
 }
+
 ///创建一个16：9的背景view
 - (void)setupBottomBackgroundView
 {
@@ -293,7 +298,7 @@
 // 底部工具栏
 - (void)setupBottomToolBarView
 {
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.0f - 5, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f) roomType:self.roomtype isChairManControl:self.liveManager.roomConfig.isChairManControl videoAdjustment:self.liveManager.roomConfig.hasVideoAdjustment];
+    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.0f - 5, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f) roomType:self.roomtype isChairManControl:self.liveManager.roomConfig.isChairManControl videoAdjustment:YES];//self.liveManager.roomConfig.hasVideoAdjustment];
     spreadBottomToolBar.delegate = self;
     spreadBottomToolBar.isBeginClass = self.liveManager.isClassBegin;
     spreadBottomToolBar.isPollingEnable = NO;
@@ -302,6 +307,55 @@
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
 }
+
+- (void)setupKeystoneCorrectionView
+{
+    BMKeystoneCorrectionView *keystoneCorrectionView = [[BMKeystoneCorrectionView alloc] initWithFrame:self.view.bounds liveManager:self.liveManager];
+    [self.view addSubview:keystoneCorrectionView];
+    keystoneCorrectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    self.keystoneCorrectionView = keystoneCorrectionView;
+    self.keystoneCorrectionView.hidden = YES;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    [self.keystoneCorrectionView bm_bringToFront];
+    [self.progressHUD bm_bringToFront];
+}
+
+- (void)showKeystoneCorrectionView
+{
+    if (!self.keystoneCorrectionView.hidden)
+    {
+        return;
+    }
+    
+    self.keystoneCorrectionView.hidden = NO;
+    
+    NSString *userId = CHLocalUser.peerID;
+    CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
+    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+    NSString *streamId = [NSString stringWithFormat:@"%@:video:%@", userId, sCHUserDefaultSourceId];
+
+    [self.liveManager stopVideoWithUserId:userId streamID:streamId];
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:renderType mirrorMode:videoMirrorMode inView:self.keystoneCorrectionView.liveView];
+}
+
+- (void)hideKeystoneCorrectionView
+{
+    self.keystoneCorrectionView.hidden = YES;
+    
+    if (!self.myVideoView)
+    {
+        return;
+    }
+    
+    [self playVideoAudioWithNewVideoView:self.myVideoView];
+}
+
 
 // 横排视频最大宽度计算
 - (CGFloat)getVideoTotalWidth

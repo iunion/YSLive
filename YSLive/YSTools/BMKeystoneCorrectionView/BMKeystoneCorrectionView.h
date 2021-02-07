@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMCorrectionView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BMKeystoneCorrectionView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame liveManager:(YSLiveManager *)liveManager;
+
+/// 主视频容器
+@property (nonatomic, strong, readonly) UIView *liveView;
+
+/// 手势View
+@property (nonatomic, strong, readonly) BMCorrectionView *touchView;
 
 @end
 
