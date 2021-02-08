@@ -118,7 +118,7 @@
     
     [topView bm_centerHorizontallyInSuperViewWithTop:40.0f];
     
-    UIView *toolsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40.0f, 120.0f)];
+    UIView *toolsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40.0f, 130.0f)];
     [self addSubview:toolsView];
     self.toolsView = toolsView;
     toolsView.backgroundColor = backgroundColor;
@@ -132,13 +132,13 @@
     
     self.flipHBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_fliph"] action:@selector(fliph:)];
     [self.toolsView addSubview:self.flipHBtn];
-    self.flipHBtn.bm_top = 45.0f;
+    self.flipHBtn.bm_top = 50.0f;
     
     self.flipVBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_flipv"] action:@selector(flipv:)];
     [self.toolsView addSubview:self.flipVBtn];
-    self.flipVBtn.bm_top = 85.0f;
+    self.flipVBtn.bm_top = 95.0f;
 
-    UIButton *returnBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80.0f, 30.0f)];
+    UIButton *returnBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90.0f, 36.0f)];
     [self addSubview:returnBtn];
     self.returnBtn = returnBtn;
     returnBtn.backgroundColor = backgroundColor;
@@ -148,7 +148,7 @@
     [returnBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     returnBtn.bm_centerX = self.bm_centerX;
     returnBtn.bm_top = self.bm_height - 80.0f;
-    [returnBtn bm_roundedRect:15.0f];
+    [returnBtn bm_roundedRect:18.0f];
 }
 
 - (void)freshTouchView
