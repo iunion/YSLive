@@ -527,6 +527,8 @@
 		87B480072546DCB000DB986C /* BMCacheObjectSubscripting.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD62546AD9500DB986C /* BMCacheObjectSubscripting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87CB8D3C25834A58000B402D /* UIBezierPath+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CB8D3A25834A58000B402D /* UIBezierPath+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87CB8D3D25834A58000B402D /* UIBezierPath+BMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */; };
+		87E3DDF025D0DD7000B8DA17 /* BMIconFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E3DDEE25D0DD6F00B8DA17 /* BMIconFont.h */; };
+		87E3DDF125D0DD7000B8DA17 /* BMIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDEF25D0DD6F00B8DA17 /* BMIconFont.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1049,6 +1051,8 @@
 		87B47FFA2546D60B00DB986C /* BMCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCache.m; sourceTree = "<group>"; };
 		87CB8D3A25834A58000B402D /* UIBezierPath+BMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+BMCategory.h"; sourceTree = "<group>"; };
 		87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+BMCategory.m"; sourceTree = "<group>"; };
+		87E3DDEE25D0DD6F00B8DA17 /* BMIconFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMIconFont.h; sourceTree = "<group>"; };
+		87E3DDEF25D0DD6F00B8DA17 /* BMIconFont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMIconFont.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1266,6 +1270,7 @@
 				8701AFED2371648100A43607 /* BMDatePicker */,
 				8777C79E23EA7489002002BF /* BMEmptyView */,
 				876C87B825031ED10029248C /* BMHttpRequest */,
+				87E3DDED25D0DD4200B8DA17 /* BMIconFont */,
 				8701AF3E23715DF800A43607 /* BMImageTextView */,
 				87832D8E24863E8700F1178E /* BMImageTitleButtonView */,
 				8701AF4323715F5500A43607 /* BMNavigationBar */,
@@ -2049,6 +2054,16 @@
 			path = BMCacheOperation;
 			sourceTree = "<group>";
 		};
+		87E3DDED25D0DD4200B8DA17 /* BMIconFont */ = {
+			isa = PBXGroup;
+			children = (
+				87E3DDEE25D0DD6F00B8DA17 /* BMIconFont.h */,
+				87E3DDEF25D0DD6F00B8DA17 /* BMIconFont.m */,
+			);
+			name = BMIconFont;
+			path = BMKit/BMTools/BMIconFont;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2316,6 +2331,7 @@
 				8742FE4B24F3A12A00BDF294 /* BMSDImageAssetManager.h in Headers */,
 				8742FE4224F3A12A00BDF294 /* BMSDWebImageTransitionInternal.h in Headers */,
 				8701AE3923714E6000A43607 /* NSDictionary+BMCategory.h in Headers */,
+				87E3DDF025D0DD7000B8DA17 /* BMIconFont.h in Headers */,
 				8701AFE5237163B100A43607 /* BMVerifyFieldTextPosition.h in Headers */,
 				8701AE0C23714E6000A43607 /* UIView+BMInnerShadow.h in Headers */,
 			);
@@ -2464,6 +2480,7 @@
 				8701B121237165AA00A43607 /* BMInputItem.m in Sources */,
 				8701AE1C23714E6000A43607 /* UILocalNotification+BMCategory.m in Sources */,
 				879019C524164B7F00FF38EC /* BMAFNetworkReachabilityManager.m in Sources */,
+				87E3DDF125D0DD7000B8DA17 /* BMIconFont.m in Sources */,
 				8742FDE024F3A12A00BDF294 /* BMSDWebImagePrefetcher.m in Sources */,
 				879019C924164D1F00FF38EC /* BMAFSecurityPolicy.m in Sources */,
 				8701B117237165AA00A43607 /* BMDateTimeItem.m in Sources */,

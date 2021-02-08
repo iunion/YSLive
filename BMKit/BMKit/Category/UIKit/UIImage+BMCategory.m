@@ -12,16 +12,16 @@
 #import <ImageIO/ImageIO.h>
 #import "NSDate+BMCategory.h"
 
-typedef NS_ENUM(NSInteger, PIXELS)
+typedef NS_ENUM(NSUInteger, BMRGB_PIXELS)
 {
-    ALPHA = 0,
-    BLUE = 1,
-    GREEN = 2,
-    RED = 3
+    BMRGB_ALPHA = 0,
+    BMRGB_BLUE = 1,
+    BMRGB_GREEN = 2,
+    BMRGB_RED = 3
 };
 
 
-static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat ovalWidth, CGFloat ovalHeight)
+static void bm_addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat ovalWidth, CGFloat ovalHeight)
 {
     CGFloat fw, fh;
     
@@ -50,53 +50,53 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 
 @implementation UIImage (BMCategory)
 
-+ (UIImage *)strethImageWith:(NSString *)imageName
++ (UIImage *)bm_strethImageWith:(NSString *)imageName
 {
     UIImage *image = [UIImage imageNamed:imageName];
-    image = [image stretchableImage];
+    image = [image bm_stretchableImage];
     
     return image;
 }
 
 // 拉伸图片
-- (UIImage *)stretchableImage
+- (UIImage *)bm_stretchableImage
 {
     return [self stretchableImageWithLeftCapWidth:self.size.width*0.5 topCapHeight:self.size.height*0.5];
 }
 
-- (UIImage *)resizedImageModeTile
+- (UIImage *)bm_resizedImageModeTile
 {
     UIImage *image = [self resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeTile];
     return image;
 }
 
-+ (UIImage *)resizedImageModeTileWithName:(NSString *)name
++ (UIImage *)bm_resizedImageModeTileWithName:(NSString *)name
 {
     UIImage *image = [UIImage imageNamed:name];
     image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeTile];
     return image;
 }
 
-+ (UIImage *)resizedImageWithName:(NSString *)name
++ (UIImage *)bm_resizedImageWithName:(NSString *)name
 {
-    return [UIImage resizedImageWithName:name left:0.5 top:0.5];
+    return [UIImage bm_resizedImageWithName:name left:0.5 top:0.5];
 }
 
-+ (UIImage *)resizedImageWithName:(NSString *)name left:(CGFloat)left top:(CGFloat)top
++ (UIImage *)bm_resizedImageWithName:(NSString *)name left:(CGFloat)left top:(CGFloat)top
 {
     UIImage *image = [UIImage imageNamed:name];
     return [image stretchableImageWithLeftCapWidth:image.size.width * left topCapHeight:image.size.height * top];
 }
 
-+ (UIImage *)imageWithColor:(UIColor *)color
++ (UIImage *)bm_imageWithColor:(UIColor *)color
 {
     CGSize size = CGSizeMake(1.0f, 1.0f);
-    UIImage *image = [UIImage imageWithColor:color size:size];
+    UIImage *image = [UIImage bm_imageWithColor:color size:size];
     
     return image;
 }
 
-+ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
++ (UIImage *)bm_imageWithColor:(UIColor *)color size:(CGSize)size
 {
     // http://stackoverflow.com/questions/1213790/how-to-get-a-color-image-in-iphone-sdk
     
@@ -122,7 +122,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 }
 
 // 圆角
-+ (UIImage *)createRoundedRectImage:(UIImage *)image size:(CGSize)size radius:(CGFloat)r
++ (UIImage *)bm_createRoundedRectImage:(UIImage *)image size:(CGSize)size radius:(CGFloat)r
 {
     // the size of CGContextRef
     int w = size.width;
@@ -134,7 +134,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     CGRect rect = CGRectMake(0, 0, w, h);
     
     CGContextBeginPath(context);
-    addRoundedRectToPath(context, rect, r, r);
+    bm_addRoundedRectToPath(context, rect, r, r);
     CGContextClosePath(context);
     CGContextClip(context);
     CGContextDrawImage(context, CGRectMake(0, 0, w, h), img.CGImage);
@@ -148,12 +148,12 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return img;
 }
 
-+ (UIImage *)createRoundedRectImage:(UIImage *)image radius:(CGFloat)r
++ (UIImage *)bm_createRoundedRectImage:(UIImage *)image radius:(CGFloat)r
 {
-    return [UIImage createRoundedRectImage:image size:image.size radius:r];
+    return [UIImage bm_createRoundedRectImage:image size:image.size radius:r];
 }
 
-- (CGFloat)caculateClearPercent
+- (CGFloat)bm_caculateClearPercent
 {
     CGFloat clearPixelCount = 0;
     CGFloat totalPixelCount = 0;
@@ -190,20 +190,20 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return clearPercent;
 }
 
-+ (UIImage *)imageFromText:(NSString *)text
++ (UIImage *)bm_imageFromText:(NSString *)text
 {
     UIFont *font = [UIFont systemFontOfSize:30.0];
     CGSize size  = CGSizeMake(30.0, 30.0);
     
-    return [self imageFromText:text font:font size:size];
+    return [self bm_imageFromText:text font:font size:size];
 }
 
-+ (UIImage *)imageFromText:(NSString *)text font:(UIFont *)font size:(CGSize)size
++ (UIImage *)bm_imageFromText:(NSString *)text font:(UIFont *)font size:(CGSize)size
 {
-    return [self imageFromText:text font:font color:nil size:size];
+    return [self bm_imageFromText:text font:font color:nil size:size];
 }
 
-+ (UIImage *)imageFromText:(NSString *)text font:(UIFont *)font color:(UIColor *)color size:(CGSize)size
++ (UIImage *)bm_imageFromText:(NSString *)text font:(UIFont *)font color:(UIColor *)color size:(CGSize)size
 {
     //UIFont* emojiFont = [UIFont fontWithName:@"AppleColorEmoji" size:35.0];
     if (&UIGraphicsBeginImageContextWithOptions != NULL)
@@ -231,7 +231,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return image;
 }
 
-- (UIImage *)fixOrientation
+- (UIImage *)bm_fixOrientation
 {
     // No-op if the orientation is already correct
     if (self.imageOrientation == UIImageOrientationUp) return self;
@@ -322,14 +322,14 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 //CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 //CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
 
-#define DegreesToRadians_Loc(ds) ((ds) * M_PI / 180)
-#define RadiansToDegrees_Loc(rs) ((rs) * 180 / M_PI)
+#define BMDegreesToRadians_Loc(ds) ((ds) * M_PI / 180)
+#define BMRadiansToDegrees_Loc(rs) ((rs) * 180 / M_PI)
 
-- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees
+- (UIImage *)bm_imageRotatedByDegrees:(CGFloat)degrees
 {
     // calculate the size of the rotated view's containing box for our drawing space
     UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.size.width, self.size.height)];
-    CGAffineTransform t = CGAffineTransformMakeRotation(DegreesToRadians_Loc(degrees));
+    CGAffineTransform t = CGAffineTransformMakeRotation(BMDegreesToRadians_Loc(degrees));
     rotatedViewBox.transform = t;
     CGSize rotatedSize = rotatedViewBox.frame.size;
     //    [rotatedViewBox release];
@@ -342,7 +342,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2);
     
     //   // Rotate the image context
-    CGContextRotateCTM(bitmap, DegreesToRadians_Loc(degrees));
+    CGContextRotateCTM(bitmap, BMDegreesToRadians_Loc(degrees));
     
     // Now, draw the rotated/scaled image into the context
     CGContextScaleCTM(bitmap, 1.0, -1.0);
@@ -354,13 +354,13 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return newImage;
 }
 
-- (UIImage *)imageRotatedByRadians:(CGFloat)radians
+- (UIImage *)bm_imageRotatedByRadians:(CGFloat)radians
 {
-    return [self imageRotatedByDegrees:RadiansToDegrees_Loc(radians)];
+    return [self bm_imageRotatedByDegrees:BMRadiansToDegrees_Loc(radians)];
 }
 
 // 画水印
-- (UIImage *)imageWithWaterMask:(UIImage *)mask inRect:(CGRect)rect
+- (UIImage *)bm_imageWithWaterMask:(UIImage *)mask inRect:(CGRect)rect
 {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 4.0)
@@ -385,7 +385,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return newPic;
 }
 
-- (UIImage *)imageWithStringWaterMark:(NSString *)markString inRect:(CGRect)rect color:(UIColor *)color font:(UIFont *)font
+- (UIImage *)bm_imageWithStringWaterMark:(NSString *)markString inRect:(CGRect)rect color:(UIColor *)color font:(UIFont *)font
 {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 4.0)
@@ -417,7 +417,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return newPic;
 }
 
-- (UIImage *)imageWithStringWaterMark:(NSString *)markString atPoint:(CGPoint)point color:(UIColor *)color font:(UIFont *)font
+- (UIImage *)bm_imageWithStringWaterMark:(NSString *)markString atPoint:(CGPoint)point color:(UIColor *)color font:(UIFont *)font
 {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 4.0)
@@ -450,12 +450,12 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 }
 
 // 蒙板
-- (UIImage *)imageWithColor:(UIColor *)color inRect:(CGRect)rect
+- (UIImage *)bm_imageWithColor:(UIColor *)color inRect:(CGRect)rect
 {
-    return  [self imageWithWaterMask:[UIImage imageWithColor:color size:rect.size] inRect:rect];
+    return  [self bm_imageWithWaterMask:[UIImage bm_imageWithColor:color size:rect.size] inRect:rect];
 }
 
-- (BOOL)writeImageToFileAtPath:(NSString* )aPath
+- (BOOL)bm_writeImageToFileAtPath:(NSString* )aPath
 {
     if ((aPath == nil) || ([aPath isEqualToString:@""]))
     {
@@ -494,7 +494,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return NO;
 }
 
-- (UIImage *)convertToGrayScale
+- (UIImage *)bm_convertToGrayScale
 {
 	/* const UInt8 luminance = (red * 0.2126) + (green * 0.7152) + (blue * 0.0722); // Good luminance value */
 	/// Create a gray bitmap context
@@ -527,7 +527,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 	return grayscaled;
 }
 
-- (UIImage *)imageWithBlackWhite
+- (UIImage *)bm_imageWithBlackWhite
 {
     CGSize size = [self size];
     int width = size.width;
@@ -553,12 +553,12 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
         {
             uint8_t *rgbaPixel = (uint8_t *) &pixels[y * width + x];
             // convert to grayscale using recommended method: http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
-            uint32_t gray = 0.3 * rgbaPixel[RED] + 0.59 * rgbaPixel[GREEN] + 0.11 * rgbaPixel[BLUE];
+            uint32_t gray = 0.3 * rgbaPixel[BMRGB_RED] + 0.59 * rgbaPixel[BMRGB_GREEN] + 0.11 * rgbaPixel[BMRGB_BLUE];
 
             // set the pixels to gray
-            rgbaPixel[RED] = gray;
-            rgbaPixel[GREEN] = gray;
-            rgbaPixel[BLUE] = gray;
+            rgbaPixel[BMRGB_RED] = gray;
+            rgbaPixel[BMRGB_GREEN] = gray;
+            rgbaPixel[BMRGB_BLUE] = gray;
         }
     }
 
@@ -580,7 +580,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 }
 
 // 图片处理 灰度 深棕色 反色
-- (UIImage *)grayScaleWithType:(IMAGE_GRAYSCALETYPE)type
+- (UIImage *)bm_grayScaleWithType:(BMIMAGE_GRAYSCALETYPE)type
 {
     CGSize size = [self size];
     int width = size.width;
@@ -609,28 +609,28 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
             switch (type)
             {
                     // 灰度
-                case IMAGE_GRAYSCALETYPE_GRAY:
+                case BMIMAGE_GRAYSCALETYPE_GRAY:
                 {
-                    uint32_t gray = 0.3 * rgbaPixel[RED] + 0.59 * rgbaPixel[GREEN] + 0.11 * rgbaPixel[BLUE];
+                    uint32_t gray = 0.3 * rgbaPixel[BMRGB_RED] + 0.59 * rgbaPixel[BMRGB_GREEN] + 0.11 * rgbaPixel[BMRGB_BLUE];
 
                     // set the pixels to gray
-                    rgbaPixel[RED] = gray;
-                    rgbaPixel[GREEN] = gray;
-                    rgbaPixel[BLUE] = gray;
+                    rgbaPixel[BMRGB_RED] = gray;
+                    rgbaPixel[BMRGB_GREEN] = gray;
+                    rgbaPixel[BMRGB_BLUE] = gray;
                 }
                     break;
 
                     // 做旧 棕色
-                case IMAGE_GRAYSCALETYPE_BROWN:
-                    rgbaPixel[GREEN] = rgbaPixel[GREEN] * 0.7;
-                    rgbaPixel[BLUE] = rgbaPixel[BLUE] * 0.4;
+                case BMIMAGE_GRAYSCALETYPE_BROWN:
+                    rgbaPixel[BMRGB_GREEN] = rgbaPixel[BMRGB_GREEN] * 0.7;
+                    rgbaPixel[BMRGB_BLUE] = rgbaPixel[BMRGB_BLUE] * 0.4;
                     break;
 
                     // 反转颜色
-                case IMAGE_GRAYSCALETYPE_INVERSE:
-                    rgbaPixel[RED] = 255 - rgbaPixel[RED];
-                    rgbaPixel[GREEN] = 255 - rgbaPixel[GREEN];
-                    rgbaPixel[BLUE] = 255 - rgbaPixel[BLUE];
+                case BMIMAGE_GRAYSCALETYPE_INVERSE:
+                    rgbaPixel[BMRGB_RED] = 255 - rgbaPixel[BMRGB_RED];
+                    rgbaPixel[BMRGB_GREEN] = 255 - rgbaPixel[BMRGB_GREEN];
+                    rgbaPixel[BMRGB_BLUE] = 255 - rgbaPixel[BMRGB_BLUE];
                     break;
 
                 default:
@@ -656,7 +656,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
     return resultUIImage;
 }
 
-- (UIColor *)averageColor
+- (UIColor *)bm_averageColor
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     unsigned char rgba[4];
@@ -685,7 +685,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 }
 
 //获取图片某一点的颜色
-- (UIColor *)colorAtPixel:(CGPoint)point
+- (UIColor *)bm_colorAtPixel:(CGPoint)point
 {
     if (!CGRectContainsPoint(CGRectMake(0.0f, 0.0f, self.size.width, self.size.height), point))
     {
@@ -730,7 +730,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, CGFloat oval
 @end
 
 
-static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
+static CGImageRef BMCreateMask(CGSize size, NSUInteger thickness)
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     
@@ -768,7 +768,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
 
 @implementation UIImage (BMBorder)
 
-- (UIImage *)imageWithColoredBorder:(NSUInteger)borderThickness borderColor:(UIColor *)color withShadow:(BOOL)withShadow
+- (UIImage *)bm_imageWithColoredBorder:(NSUInteger)borderThickness borderColor:(UIColor *)color withShadow:(BOOL)withShadow
 {
     size_t shadowThickness = 0;
     if (withShadow)
@@ -793,7 +793,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
     return img;
 }
 
-- (UIImage *)imageWithTransparentBorder:(NSUInteger)thickness
+- (UIImage *)bm_imageWithTransparentBorder:(NSUInteger)thickness
 {
     size_t newWidth = self.size.width + 2 * thickness;
     size_t newHeight = self.size.height + 2 * thickness;
@@ -829,7 +829,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
     CGImageRef opaqueBorderImageRef = CGBitmapContextCreateImage(bitmapContext);
     
     // acquire image with transparent border
-    CGImageRef maskImageRef = CreateMask(CGSizeMake(newWidth, newHeight), thickness);
+    CGImageRef maskImageRef = BMCreateMask(CGSizeMake(newWidth, newHeight), thickness);
     CGImageRef transparentBorderImageRef = CGImageCreateWithMask(opaqueBorderImageRef, maskImageRef);
     UIImage *transparentBorderImage = [UIImage imageWithCGImage:transparentBorderImageRef];
     
@@ -848,7 +848,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
 
 @implementation UIImage (BMResize)
 
-- (UIImage *)imageToFitSize:(CGSize)fitSize method:(BMImageResizingMethod)resizeMethod
+- (UIImage *)bm_imageToFitSize:(CGSize)fitSize method:(BMImageResizingMethod)resizeMethod
 {
 	float imageScaleFactor = 1.0;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
@@ -965,15 +965,15 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
 }
 
 
-- (UIImage *)imageCroppedToFitSize:(CGSize)fitSize
+- (UIImage *)bm_imageCroppedToFitSize:(CGSize)fitSize
 {
-	return [self imageToFitSize:fitSize method:BMImageResizeCrop];
+	return [self bm_imageToFitSize:fitSize method:BMImageResizeCrop];
 }
 
 
-- (UIImage *)imageScaledToFitSize:(CGSize)fitSize
+- (UIImage *)bm_imageScaledToFitSize:(CGSize)fitSize
 {
-	return [self imageToFitSize:fitSize method:BMImageResizeScale];
+	return [self bm_imageToFitSize:fitSize method:BMImageResizeScale];
 }
 
 
@@ -983,7 +983,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
 
 @implementation UIImage (BMBlur)
 
-- (UIImage *)boxblurImageWithBlur:(CGFloat)blur
+- (UIImage *)bm_boxblurImageWithBlur:(CGFloat)blur
 {
     if (blur < 0.f || blur > 1.f)
     {
@@ -1079,7 +1079,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
 #if BMBasekit_Use_CoreLocation
 @implementation UIImage (BMImageMetadata)
 
-- (NSMutableDictionary *)getImageMetadata
+- (NSMutableDictionary *)bm_getImageMetadata
 {
     NSData *imageNSData = UIImageJPEGRepresentation(self, 1.0f);
 
@@ -1112,7 +1112,7 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
     return nil;
 }
 
-- (NSData *)setImageDateTime:(NSDate *)date latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude withCompressionQuality:(CGFloat)compressionQuality
+- (NSData *)bm_setImageDateTime:(NSDate *)date latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude withCompressionQuality:(CGFloat)compressionQuality
 {
     NSMutableData *imageData = [UIImageJPEGRepresentation(self, compressionQuality) mutableCopy];
     CGImageSourceRef  source;
@@ -1177,12 +1177,12 @@ static CGImageRef CreateMask(CGSize size, NSUInteger thickness)
     return dest_data;
 }
 
-- (NSData *)setImageMetadata:(NSMutableDictionary *)metaData
+- (NSData *)bm_setImageMetadata:(NSMutableDictionary *)metaData
 {
     return [self setImageMetadata:metaData withCompressionQuality:0.5f];
 }
 
-- (NSData *)setImageMetadata:(NSMutableDictionary *)metaData withCompressionQuality:(CGFloat)compressionQuality
+- (NSData *)bm_setImageMetadata:(NSMutableDictionary *)metaData withCompressionQuality:(CGFloat)compressionQuality
 {
     NSData *imageNSData = UIImageJPEGRepresentation(self, compressionQuality);
 
