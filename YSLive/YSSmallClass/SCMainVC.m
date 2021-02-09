@@ -1413,7 +1413,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 SCVideoView *videoView = self.videoSequenceArr.firstObject;
                 if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
-                    [self.liveManager stopVideoWithUserId:YSCurrentUser.peerID streamID:nil];
+                    if (!self.keystoneCorrectionView.hidden)
+                    {
+                        [self showKeystoneCorrectionView];
+                    }
+                    else
+                    {
+                        [self.liveManager stopVideoWithUserId:YSCurrentUser.peerID streamID:nil];
+                    }
                     if (videoView.roomUser.role == CHUserType_Student)
                     {
                         self.userVideoView.hidden = YES;

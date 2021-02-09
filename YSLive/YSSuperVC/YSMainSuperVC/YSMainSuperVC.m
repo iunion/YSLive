@@ -360,6 +360,17 @@
     }
     
     NSString *userId = videoView.roomUser.peerID;
+    if ([userId isEqualToString:CHLocalUser.peerID])
+    {
+        self.myVideoView = videoView;
+
+        if (!self.keystoneCorrectionView.hidden)
+        {
+            [self showKeystoneCorrectionView];
+            return;
+        }
+    }
+    
     [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
 }
 
@@ -1060,6 +1071,17 @@
 /// 停止音视频流
 - (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
+    if ([uid isEqualToString:CHLocalUser.peerID])
+    {
+        //self.myVideoView = nil;
+
+        if (!self.keystoneCorrectionView.hidden)
+        {
+            [self showKeystoneCorrectionView];
+            return;
+        }
+    }
+
     [self.liveManager stopVideoWithUserId:uid streamID:streamId];
 }
 
