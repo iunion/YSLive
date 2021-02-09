@@ -489,4 +489,5 @@
 "title.Dice" = "Dice";
 
 "KeystoneCorrection.Tip" = "Single finger correction image";
-"KeystoneCorrection.Return" = "Return";
+"KeystoneCorrection.Finish" = "Finish";
+"KeystoneCorrection.Reset" = "Reset";

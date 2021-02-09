@@ -484,4 +484,5 @@
 "title.Dice" = "骰子";
 
 "KeystoneCorrection.Tip" = "單指拉伸進行矯正";
-"KeystoneCorrection.Return" = "返回";
+"KeystoneCorrection.Finish" = "完成";
+"KeystoneCorrection.Reset" = "還原";
