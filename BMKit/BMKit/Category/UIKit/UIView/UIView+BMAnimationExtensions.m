@@ -60,7 +60,7 @@
         animation.duration = fDurationPerBeat;
         animation.repeatCount = fDuration/fDurationPerBeat;
         
-        [animation setCompletion:completion];
+        [animation setBm_completion:completion];
 
         [self.layer addAnimation:animation forKey:@"heartbeatView"];
     }
@@ -146,7 +146,7 @@
 
 
 - (void)bm_flipWithDuration:(NSTimeInterval)duration
-                  direction:(UIViewAnimationFlipDirection)direction
+                  direction:(BMUIViewAnimationFlipDirection)direction
                 repeatCount:(NSUInteger)repeatCount
                 autoreverse:(BOOL)shouldAutoreverse
 {
@@ -154,16 +154,16 @@
     
     switch (direction)
     {
-        case UIViewAnimationFlipDirectionFromTop:
+        case BMUIViewAnimationFlipDirectionFromTop:
             subtype = @"fromTop";
             break;
-        case UIViewAnimationFlipDirectionFromLeft:
+        case BMUIViewAnimationFlipDirectionFromLeft:
             subtype = @"fromLeft";
             break;
-        case UIViewAnimationFlipDirectionFromBottom:
+        case BMUIViewAnimationFlipDirectionFromBottom:
             subtype = @"fromBottom";
             break;
-        case UIViewAnimationFlipDirectionFromRight:
+        case BMUIViewAnimationFlipDirectionFromRight:
         default:
             subtype = @"fromRight";
             break;
@@ -186,13 +186,13 @@
 
 - (void)bm_rotateToAngle:(CGFloat)angle
                 duration:(NSTimeInterval)duration
-               direction:(UIViewAnimationRotationDirection)direction
+               direction:(BMUIViewAnimationRotationDirection)direction
              repeatCount:(NSUInteger)repeatCount
              autoreverse:(BOOL)shouldAutoreverse;
 {
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     
-    rotationAnimation.toValue = @(direction == UIViewAnimationRotationDirectionRight ? angle : -angle);
+    rotationAnimation.toValue = @(direction == BMUIViewAnimationRotationDirectionRight ? angle : -angle);
     rotationAnimation.duration = duration;
     rotationAnimation.autoreverses = shouldAutoreverse;
     rotationAnimation.repeatCount = repeatCount;
@@ -204,14 +204,14 @@
 
 - (void)bm_rotateFromAngle:(CGFloat)angle
                   duration:(NSTimeInterval)duration
-                 direction:(UIViewAnimationRotationDirection)direction
+                 direction:(BMUIViewAnimationRotationDirection)direction
                repeatCount:(NSUInteger)repeatCount
                autoreverse:(BOOL)shouldAutoreverse;
 {
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     
     rotationAnimation.fromValue = @(angle);
-    rotationAnimation.toValue = @(direction == UIViewAnimationRotationDirectionRight ? 2*M_PI+angle : -2*M_PI+angle);
+    rotationAnimation.toValue = @(direction == BMUIViewAnimationRotationDirectionRight ? 2*M_PI+angle : -2*M_PI+angle);
     rotationAnimation.duration = duration;
     rotationAnimation.autoreverses = shouldAutoreverse;
     rotationAnimation.repeatCount = repeatCount;

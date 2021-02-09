@@ -326,26 +326,26 @@
     switch(self.badgeAnimationType)
     {
         case BMBadgeAnimationTypeBreathe:
-            [self.badgeLabel.layer addAnimation:[CAAnimation opacityForever_Animation:1.4]
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_opacityForever_Animation:1.4]
                                          forKey:kBadgeBreatheAniKey];
             break;
         case BMBadgeAnimationTypeShake:
-            [self.badgeLabel.layer addAnimation:[CAAnimation shake_AnimationRepeatTimes:CGFLOAT_MAX
-                                                                               durTimes:1
-                                                                                 forObj:self.badgeLabel.layer]
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_shake_AnimationRepeatTimes:CGFLOAT_MAX
+                                                                                  durTimes:1
+                                                                                    forObj:self.badgeLabel.layer]
                                          forKey:kBadgeShakeAniKey];
             break;
         case BMBadgeAnimationTypeScale:
-            [self.badgeLabel.layer addAnimation:[CAAnimation scaleFrom:1.4
-                                                               toScale:0.6
-                                                              durTimes:1
-                                                                   rep:MAXFLOAT]
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_scaleFrom:1.4
+                                                                  toScale:0.6
+                                                                 durTimes:1
+                                                                      rep:MAXFLOAT]
                                          forKey:kBadgeScaleAniKey];
             break;
         case BMBadgeAnimationTypeBounce:
-            [self.badgeLabel.layer addAnimation:[CAAnimation bounce_AnimationRepeatTimes:CGFLOAT_MAX
-                                                                                durTimes:1
-                                                                                  forObj:self.badgeLabel.layer]
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_bounce_AnimationRepeatTimes:CGFLOAT_MAX
+                                                                                   durTimes:1
+                                                                                     forObj:self.badgeLabel.layer]
                                          forKey:kBadgeBounceAniKey];
             break;
         case BMBadgeAnimationTypeNone:

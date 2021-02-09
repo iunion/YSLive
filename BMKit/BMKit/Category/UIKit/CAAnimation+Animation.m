@@ -17,7 +17,7 @@
  *
  *  @return animation obj
  */
-+(CABasicAnimation *)opacityForever_Animation:(float)time
++ (CABasicAnimation *)bm_opacityForever_Animation:(float)time
 {
     CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"opacity"];
     animation.fromValue=[NSNumber numberWithFloat:1.0];
@@ -39,7 +39,7 @@
  *
  *  @return animation obj
  */
-+(CABasicAnimation *)opacityTimes_Animation:(float)repeatTimes durTimes:(float)time
++ (CABasicAnimation *)bm_opacityTimes_Animation:(float)repeatTimes durTimes:(float)time
 {
     CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"opacity"];
     animation.fromValue=[NSNumber numberWithFloat:1.0];
@@ -63,7 +63,7 @@
  *
  *  @return animation obj
  */
-+(CABasicAnimation *)rotation:(float)dur degree:(float)degree direction:(WAxis)axis repeatCount:(int)repeatCount
++ (CABasicAnimation *)bm_rotation:(float)dur degree:(float)degree direction:(BMWAxis)axis repeatCount:(int)repeatCount
 {
     CABasicAnimation* animation;
     NSArray *axisArr = @[@"transform.rotation.x", @"transform.rotation.y", @"transform.rotation.z"];
@@ -90,7 +90,7 @@
  *
  *  @return animaiton obj
  */
-+(CABasicAnimation *)scaleFrom:(CGFloat)fromScale toScale:(CGFloat)toScale durTimes:(float)time rep:(float)repeatTimes
++ (CABasicAnimation *)bm_scaleFrom:(CGFloat)fromScale toScale:(CGFloat)toScale durTimes:(float)time rep:(float)repeatTimes
 {
     CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
     animation.fromValue = @(fromScale);
@@ -111,7 +111,7 @@
  *  @param obj         always be CALayer
  *  @return aniamtion obj
  */
-+(CAKeyframeAnimation *)shake_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj
++ (CAKeyframeAnimation *)bm_shake_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj
 {
     NSAssert([obj isKindOfClass:[CALayer class]] , @"invalid target");
     CGPoint originPos = CGPointZero;
@@ -144,7 +144,7 @@
  *  @param obj         always be CALayer
  *  @return aniamtion obj
  */
-+(CAKeyframeAnimation *)bounce_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj
++ (CAKeyframeAnimation *)bm_bounce_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj
 {
     NSAssert([obj isKindOfClass:[CALayer class]] , @"invalid target");
     CGPoint originPos = CGPointZero;

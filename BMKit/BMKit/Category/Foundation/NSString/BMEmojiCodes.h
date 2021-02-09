@@ -1,15 +1,15 @@
 //
-//  emojiCodes.h
+//  BMEmojiCodes.h
 //  BMBaseKit
 //
 //  Created by jiang deng on 2019/7/23.
 //  Copyright © 2019 BM. All rights reserved.
 //
 
-#ifndef emojiCodes_h
-#define emojiCodes_h
+#ifndef BMEmojiCodes_h
+#define BMEmojiCodes_h
 
-#define EMOJI_CODE @{ \
+#define BMEMOJI_CODE @{ \
     @":100:" : @"\U0001f4af", \
     @":1234:" : @"\U0001f522", \
     @":grinning:" : @"\U0001f600", \
@@ -1676,4 +1676,4 @@
     @":flag_zw:" : @"\U0001f1ff\U0001f1fc", \
     @":zw:" : @"\U0001f1ff\U0001f1fc", \
 }
-#endif /* emojiCodes_h */
+#endif /* BMEmojiCodes_h */

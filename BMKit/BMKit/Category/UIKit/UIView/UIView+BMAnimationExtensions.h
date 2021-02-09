@@ -15,22 +15,22 @@
 /**
  @brief Direction of flip animation.
  */
-typedef NS_ENUM(NSUInteger, UIViewAnimationFlipDirection)
+typedef NS_ENUM(NSUInteger, BMUIViewAnimationFlipDirection)
 {
-    UIViewAnimationFlipDirectionFromTop,
-    UIViewAnimationFlipDirectionFromLeft,
-    UIViewAnimationFlipDirectionFromRight,
-    UIViewAnimationFlipDirectionFromBottom,
+    BMUIViewAnimationFlipDirectionFromTop,
+    BMUIViewAnimationFlipDirectionFromLeft,
+    BMUIViewAnimationFlipDirectionFromRight,
+    BMUIViewAnimationFlipDirectionFromBottom,
 };
 
 
 /**
  @brief Direction of rotation animation.
  */
-typedef NS_ENUM(NSUInteger, UIViewAnimationRotationDirection)
+typedef NS_ENUM(NSUInteger, BMUIViewAnimationRotationDirection)
 {
-    UIViewAnimationRotationDirectionRight,
-    UIViewAnimationRotationDirectionLeft
+    BMUIViewAnimationRotationDirectionRight,
+    BMUIViewAnimationRotationDirectionLeft
 };
 
 
@@ -84,7 +84,7 @@ typedef NS_ENUM(NSUInteger, UIViewAnimationRotationDirection)
  @param shouldAutoreverse - pass YES to make the animation reverse when it reaches the end.
  */
 - (void)bm_flipWithDuration:(NSTimeInterval)duration
-                  direction:(UIViewAnimationFlipDirection)direction
+                  direction:(BMUIViewAnimationFlipDirection)direction
                 repeatCount:(NSUInteger)repeatCount
                 autoreverse:(BOOL)shouldAutoreverse;
 
@@ -99,13 +99,13 @@ typedef NS_ENUM(NSUInteger, UIViewAnimationRotationDirection)
  */
 - (void)bm_rotateToAngle:(CGFloat)angle
                 duration:(NSTimeInterval)duration
-               direction:(UIViewAnimationRotationDirection)direction
+               direction:(BMUIViewAnimationRotationDirection)direction
              repeatCount:(NSUInteger)repeatCount
              autoreverse:(BOOL)shouldAutoreverse;
 
 - (void)bm_rotateFromAngle:(CGFloat)angle
                   duration:(NSTimeInterval)duration
-                 direction:(UIViewAnimationRotationDirection)direction
+                 direction:(BMUIViewAnimationRotationDirection)direction
                repeatCount:(NSUInteger)repeatCount
                autoreverse:(BOOL)shouldAutoreverse;
 

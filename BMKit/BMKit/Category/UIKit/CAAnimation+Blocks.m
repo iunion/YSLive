@@ -9,17 +9,17 @@
 #import "CAAnimation+Blocks.h"
 
 
-@interface CAAnimationDelegate : NSObject
+@interface BMCAAnimationDelegate : NSObject
+<
+    CAAnimationDelegate
+>
 
 @property (nonatomic, copy) void (^completion)(BOOL);
 @property (nonatomic, copy) void (^start)(void);
 
-- (void)animationDidStart:(CAAnimation *)anim;
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
-
 @end
 
-@implementation CAAnimationDelegate
+@implementation BMCAAnimationDelegate
 
 - (void)animationDidStart:(CAAnimation *)anim
 {
@@ -40,38 +40,38 @@
 
 @implementation CAAnimation (BlocksAddition)
 
-- (void)setCompletion:(void (^)(BOOL))completion
+- (void)setBm_completion:(void (^)(BOOL))completion
 {
-    if ([self.delegate isKindOfClass:[CAAnimationDelegate class]]) {
-        ((CAAnimationDelegate *)self.delegate).completion = completion;
+    if ([self.delegate isKindOfClass:[BMCAAnimationDelegate class]]) {
+        ((BMCAAnimationDelegate *)self.delegate).completion = completion;
     }
     else {
-        CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
+        BMCAAnimationDelegate *delegate = [[BMCAAnimationDelegate alloc] init];
         delegate.completion = completion;
-        self.delegate = (CAAnimationDelegate <CAAnimationDelegate> *) delegate;
+        self.delegate = (BMCAAnimationDelegate <CAAnimationDelegate> *) delegate;
     }
 }
 
-- (void (^)(BOOL))completion
+- (void (^)(BOOL))bm_completion
 {
-    return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).completion: nil;
+    return [self.delegate isKindOfClass:[BMCAAnimationDelegate class]]? ((BMCAAnimationDelegate *)self.delegate).completion: nil;
 }
 
-- (void)setStart:(void (^)(void))start
+- (void)setBm_start:(void (^)(void))start
 {
-    if ([self.delegate isKindOfClass:[CAAnimationDelegate class]]) {
-        ((CAAnimationDelegate *)self.delegate).start = start;
+    if ([self.delegate isKindOfClass:[BMCAAnimationDelegate class]]) {
+        ((BMCAAnimationDelegate *)self.delegate).start = start;
     }
     else {
-        CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
+        BMCAAnimationDelegate *delegate = [[BMCAAnimationDelegate alloc] init];
         delegate.start = start;
-        self.delegate = (CAAnimationDelegate <CAAnimationDelegate> *) delegate;
+        self.delegate = (BMCAAnimationDelegate <CAAnimationDelegate> *) delegate;
     }
 }
 
-- (void (^)(void))start
+- (void (^)(void))bm_start
 {
-    return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).start: nil;
+    return [self.delegate isKindOfClass:[BMCAAnimationDelegate class]]? ((BMCAAnimationDelegate *)self.delegate).start: nil;
 }
 
 @end

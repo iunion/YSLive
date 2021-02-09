@@ -38,6 +38,13 @@ FOUNDATION_EXTERN NSString * const CHJoinRoomParamsUserRoleKey;
 FOUNDATION_EXTERN NSString * const CHJoinRoomParamsUserIDKey;
 
 
+/// 音频SoundId
+#define CHUISoundId_Start       100
+#define CHWBSoundId_Start       500
+
+#define CHUserSoundId_Start     1000
+
+
 /// 缓存数据key
 static NSString *const kCHMethodNameKey     = @"CHCacheMsg_MethodName";
 static NSString *const kCHParameterKey      = @"CHCacheMsg_Parameter";
@@ -160,6 +167,8 @@ static NSString *const sCHSignal_Notice_EvictAllRoomUse     = @"Notice_EvictAllR
 
 /// 上课
 static NSString *const sCHSignal_ClassBegin                 = @"ClassBegin";
+/// 课程结束 只发给服务器
+static NSString *const sCHSignal_Server_RoomEnd             = @"Server_RoomEnd";
 
 /// 大房间用户数
 static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
@@ -279,6 +288,13 @@ static NSString *const sCHSignal_LiveNoticeInform           = @"LiveNoticeInform
 /// 公告
 static NSString *const sCHSignal_LiveNoticeBoard            = @"LiveNoticeBoard";
 
+/// 掷骰子
+static NSString *const sCHSignal_Dice                       = @"Dice";
+/// 弹幕
+static NSString *const sCHSignal_Barrage                    = @"Barrage";
+
+/// 本地电影播放
+static NSString *const sCHSignal_LocalMovieStateChanged     = @"LocalMovieStateChanged";
 
 #pragma mark -白板
 /// 白板视频标注

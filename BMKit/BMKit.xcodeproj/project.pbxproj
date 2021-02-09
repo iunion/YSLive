@@ -94,7 +94,7 @@
 		8701AE4723714E6000A43607 /* NSNumber+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADE723714E6000A43607 /* NSNumber+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AE4823714E6000A43607 /* NSAttributedString+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADE823714E6000A43607 /* NSAttributedString+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AE4923714E6000A43607 /* NSString+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADEA23714E6000A43607 /* NSString+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8701AE4A23714E6000A43607 /* emojiCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADEB23714E6000A43607 /* emojiCodes.h */; };
+		8701AE4A23714E6000A43607 /* BMEmojiCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADEB23714E6000A43607 /* BMEmojiCodes.h */; };
 		8701AE4B23714E6000A43607 /* NSString+BMEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701ADEC23714E6000A43607 /* NSString+BMEncrypt.m */; };
 		8701AE4C23714E6000A43607 /* NSString+BMURLEncode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8701ADED23714E6000A43607 /* NSString+BMURLEncode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8701AE4D23714E6000A43607 /* NSString+BMMandarinLatin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701ADEE23714E6000A43607 /* NSString+BMMandarinLatin.m */; };
@@ -614,7 +614,7 @@
 		8701ADE723714E6000A43607 /* NSNumber+BMCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+BMCategory.h"; sourceTree = "<group>"; };
 		8701ADE823714E6000A43607 /* NSAttributedString+BMCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+BMCategory.h"; sourceTree = "<group>"; };
 		8701ADEA23714E6000A43607 /* NSString+BMCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BMCategory.h"; sourceTree = "<group>"; };
-		8701ADEB23714E6000A43607 /* emojiCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = emojiCodes.h; sourceTree = "<group>"; };
+		8701ADEB23714E6000A43607 /* BMEmojiCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMEmojiCodes.h; sourceTree = "<group>"; };
 		8701ADEC23714E6000A43607 /* NSString+BMEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BMEncrypt.m"; sourceTree = "<group>"; };
 		8701ADED23714E6000A43607 /* NSString+BMURLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BMURLEncode.h"; sourceTree = "<group>"; };
 		8701ADEE23714E6000A43607 /* NSString+BMMandarinLatin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BMMandarinLatin.m"; sourceTree = "<group>"; };
@@ -1233,7 +1233,7 @@
 		8701ADE923714E6000A43607 /* NSString */ = {
 			isa = PBXGroup;
 			children = (
-				8701ADEB23714E6000A43607 /* emojiCodes.h */,
+				8701ADEB23714E6000A43607 /* BMEmojiCodes.h */,
 				8701ADEA23714E6000A43607 /* NSString+BMCategory.h */,
 				8701ADF423714E6000A43607 /* NSString+BMCategory.m */,
 				8701ADF323714E6000A43607 /* NSString+BMEncrypt.h */,
@@ -2308,7 +2308,7 @@
 				8701AE0923714E6000A43607 /* UIImage+BMCategory.h in Headers */,
 				87901A5824176EB500FF38EC /* BMMASConstraint+Private.h in Headers */,
 				8701AF8423715F5500A43607 /* BMNavigationBarDefine.h in Headers */,
-				8701AE4A23714E6000A43607 /* emojiCodes.h in Headers */,
+				8701AE4A23714E6000A43607 /* BMEmojiCodes.h in Headers */,
 				87B47FF52546CDEB00DB986C /* BMMemoryCache.h in Headers */,
 				8701AE5223714E6000A43607 /* NSString+BMEncrypt.h in Headers */,
 				87B47FE82546B1CE00DB986C /* BMCacheOperationGroup.h in Headers */,
@@ -2807,7 +2807,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210202;
+				CURRENT_PROJECT_VERSION = 20210209;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2826,7 +2826,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-Objc",
@@ -2844,7 +2844,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210202;
+				CURRENT_PROJECT_VERSION = 20210209;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2863,7 +2863,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",
