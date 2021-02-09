@@ -32,7 +32,10 @@
 @property (nonatomic, strong) UIButton *flipHBtn;
 @property (nonatomic, strong) UIButton *flipVBtn;
 
-@property (nonatomic, strong) UIButton *returnBtn;
+
+@property (nonatomic, strong) UIView *btnsView;
+@property (nonatomic, strong) UIButton *finishBtn;
+@property (nonatomic, strong) UIButton *resetBtn;
 
 
 @property (nonatomic, assign) BOOL isSwithCamera;
@@ -66,7 +69,9 @@
 - (UIButton *)creatBtnWithNormalImage:(UIImage *)normalImage action:(SEL)action
 {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(5.0f, 0, 30.0f, 30.0f)];
-    [button setImage:normalImage forState:(UIControlStateNormal)];
+    [button setImage:normalImage forState:UIControlStateNormal];
+    UIImage *selectedImage = [normalImage bm_imageWithTintColor:UIColor.blueColor];
+    [button setImage:selectedImage forState:UIControlStateSelected];
     [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     
     return button;
@@ -123,7 +128,7 @@
     self.toolsView = toolsView;
     toolsView.backgroundColor = backgroundColor;
     toolsView.bm_centerY = self.bm_centerY;
-    toolsView.bm_left = self.bm_width - 60.0f;
+    toolsView.bm_left = self.bm_width - 100.0f;
     [toolsView bm_roundedRect:6.0f];
 
     self.cameraBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_camera"] action:@selector(camera:)];
@@ -138,17 +143,34 @@
     [self.toolsView addSubview:self.flipVBtn];
     self.flipVBtn.bm_top = 95.0f;
 
-    UIButton *returnBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90.0f, 36.0f)];
-    [self addSubview:returnBtn];
-    self.returnBtn = returnBtn;
-    returnBtn.backgroundColor = backgroundColor;
-    [returnBtn setTitle:YSLocalized(@"KeystoneCorrection.Return") forState:UIControlStateNormal];
-    [returnBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    returnBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-    [returnBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    returnBtn.bm_centerX = self.bm_centerX;
-    returnBtn.bm_top = self.bm_height - 80.0f;
-    [returnBtn bm_roundedRect:18.0f];
+    UIView *btnsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 220.0f, 36.0f)];
+    [self addSubview:btnsView];
+    self.btnsView = btnsView;
+    btnsView.backgroundColor = UIColor.clearColor;
+    btnsView.bm_centerX = self.bm_centerX;
+    btnsView.bm_top = self.bm_height - 80.0f;
+
+    UIButton *resetBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90.0f, 36.0f)];
+    [self.btnsView addSubview:resetBtn];
+    self.resetBtn = resetBtn;
+    resetBtn.backgroundColor = backgroundColor;
+    [resetBtn setTitle:YSLocalized(@"KeystoneCorrection.Reset") forState:UIControlStateNormal];
+    [resetBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [resetBtn setTitleColor:UIColor.grayColor forState:UIControlStateDisabled];
+    resetBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    [resetBtn addTarget:self action:@selector(resetAction:) forControlEvents:UIControlEventTouchUpInside];
+    [resetBtn bm_roundedRect:18.0f];
+    resetBtn.enabled = NO;
+
+    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(130.0f, 0, 90.0f, 36.0f)];
+    [self.btnsView addSubview:finishBtn];
+    self.finishBtn = finishBtn;
+    finishBtn.backgroundColor = backgroundColor;
+    [finishBtn setTitle:YSLocalized(@"KeystoneCorrection.Finish") forState:UIControlStateNormal];
+    [finishBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    finishBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    [finishBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+    [finishBtn bm_roundedRect:18.0f];
 }
 
 - (void)freshTouchView
@@ -189,20 +211,25 @@
 - (void)camera:(UIButton *)btn
 {
     self.isSwithCamera = !self.isSwithCamera;
-
-    [self.liveManager useFrontCamera:self.isSwithCamera];
+    //btn.selected = self.isSwithCamera;
+    
+    [self.liveManager useFrontCamera:!self.isSwithCamera];
 }
 
 - (void)fliph:(UIButton *)btn
 {
     self.isFlipH = !self.isFlipH;
+    //btn.selected = self.isFlipH;
 
+    [self.liveManager.cloudHubRtcEngineKit setCameraFlipMode:self.isFlipH Vertivcal:self.isFlipV];
 }
 
 - (void)flipv:(UIButton *)btn
 {
     self.isFlipV = !self.isFlipV;
+    //btn.selected = self.isFlipV;
 
+    [self.liveManager.cloudHubRtcEngineKit setCameraFlipMode:self.isFlipH Vertivcal:self.isFlipV];
 }
 
 - (void)backAction:(UIButton *)btn
@@ -213,6 +240,12 @@
     }
 }
 
+- (void)resetAction:(UIButton *)btn
+{
+    [self.liveManager.cloudHubRtcEngineKit resetCameraKeystoning];
+    self.resetBtn.enabled = NO;
+}
+
 
 #pragma mark - BMCorrectionViewDelegate
 
@@ -220,6 +253,8 @@
 {
     NSLog(@"correctionViewFromPoint: %@ toPoint: %@", NSStringFromCGPoint(fromPoint), NSStringFromCGPoint(toPoint));
     
+    [self.liveManager.cloudHubRtcEngineKit correctCameraKeystoning:fromPoint.x FromY:fromPoint.y ToX:toPoint.x ToY:toPoint.y];
+    self.resetBtn.enabled = YES;
 }
 
 @end
