@@ -1004,6 +1004,47 @@
     [self.keystoneCorrectionView freshTouchView];
 }
 
+/// 用户视频流开关状态
+- (void)onRoomMuteLocalVideoStream:(BOOL)mute
+{
+#if 0
+    NSString *userId = CHLocalUser.peerID;
+    
+    NSMutableArray *videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:userId];
+    SCVideoView *userVideoView = nil;
+    
+    for (SCVideoView *videoView in videoArray)
+    {
+        if ([videoView.sourceId isEqualToString:sCHUserDefaultSourceId])
+        {
+            userVideoView = videoView;
+            break;
+        }
+    }
+
+    if (!userVideoView)
+    {
+        return;
+    }
+#endif
+    
+    if (!self.myVideoView)
+    {
+        return;
+    }
+    
+    SCVideoView *userVideoView = self.myVideoView;
+
+    if (mute)
+    {
+        [self stopVideoAudioWithVideoView:userVideoView];
+    }
+    else
+    {
+        [self playVideoAudioWithVideoView:userVideoView];
+    }
+}
+
 /// 用户流音量变化
 - (void)onRoomAudioVolumeWithSpeakers:(NSArray<CloudHubAudioVolumeInfo *> *)speakers
 {
