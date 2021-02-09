@@ -253,7 +253,7 @@
 
 - (void)bottomToolBarClicked:(BMImageTitleButtonView *)btn
 {
-    if (btn != self.pollingBtn && btn != self.exitBtn  && btn != self.switchLayoutBtn)
+    if (btn != self.pollingBtn && btn != self.exitBtn && btn != self.switchLayoutBtn && btn != self.videoAdjustmentBtn)
     {
         btn.selected = !btn.selected;
     }
