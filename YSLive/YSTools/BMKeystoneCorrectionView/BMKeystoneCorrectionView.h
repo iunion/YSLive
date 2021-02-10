@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 手势View
 @property (nonatomic, strong, readonly) BMCorrectionView *touchView;
 
-- (void)freshTouchView;
+//- (void)freshTouchView;
 
 @end
 

@@ -89,6 +89,7 @@
     
     BMCorrectionView *touchView = [[BMCorrectionView alloc] initWithFrame:self.bounds];
     [self addSubview:touchView];
+    touchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 #if DEBUG
     touchView.backgroundColor = [UIColor.redColor bm_changeAlpha:0.1f];
 #else
@@ -96,7 +97,7 @@
 #endif
     touchView.delegate = self;
     self.touchView = touchView;
-    [self freshTouchView];
+    //[self freshTouchView];
 
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120.0f, 30.0f)];
     [self addSubview:topView];
@@ -173,6 +174,7 @@
     [finishBtn bm_roundedRect:18.0f];
 }
 
+#if 0
 - (void)freshTouchView
 {
     CGFloat ratio = 1.0f;
@@ -207,6 +209,7 @@
     self.touchView.frame = CGRectMake(0, 0, width, height);
     [self.touchView bm_centerInSuperView];
 }
+#endif
 
 - (void)camera:(UIButton *)btn
 {

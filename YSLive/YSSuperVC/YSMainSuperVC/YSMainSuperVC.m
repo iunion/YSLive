@@ -107,7 +107,6 @@
         return;
     }
     
-    //[self.keystoneCorrectionView freshTouchView];
     self.keystoneCorrectionView.hidden = NO;
     
     NSString *userId = CHLocalUser.peerID;
@@ -1001,7 +1000,7 @@
 - (void)onRoomFirstLocalVideoFrameWithSize:(CGSize)size
 {
     // 刷新视频编辑尺寸
-    [self.keystoneCorrectionView freshTouchView];
+    //[self.keystoneCorrectionView freshTouchView];
 }
 
 /// 用户视频流开关状态
