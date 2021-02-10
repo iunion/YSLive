@@ -30,15 +30,15 @@
 #define YSLocalizedSchool(s)      [YSAPP_LocalizedSchool localizedStringForKey:s value:@"" table:nil]
 
 //小班课 + 直播 换肤
-#define YSSkinDefineColor(s) [[YSLiveSkinManager shareInstance] getDefaultColorWithType:CHSkinClassOrOnline_class WithKey:(s)]
-#define YSSkinDefineImage(s) [[YSLiveSkinManager shareInstance] getDefaultImageWithType:CHSkinClassOrOnline_class WithKey:(s)]
+#define YSSkinDefineColor(s) [[YSLiveSkinManager shareInstance] getCommonColorWithType:CHSkinClassOrOnline_class WithKey:(s)]
+#define YSSkinDefineImage(s) [[YSLiveSkinManager shareInstance] getCommonImageWithType:CHSkinClassOrOnline_class WithKey:(s)]
 
 #define YSSkinElementColor(z , s) [[YSLiveSkinManager shareInstance] getElementColorWithType:CHSkinClassOrOnline_class WithName:(z) andKey:(s)]
 #define YSSkinElementImage(z , s) [[YSLiveSkinManager shareInstance] getElementImageWithType:CHSkinClassOrOnline_class WithName:(z) andKey:(s)]
 
 //网校 换肤
-#define YSSkinOnlineDefineColor(s) [[YSLiveSkinManager shareInstance] getDefaultColorWithType:CHSkinClassOrOnline_online WithKey:(s)]
-#define YSSkinOnlineDefineImage(s) [[YSLiveSkinManager shareInstance] getDefaultImageWithType:CHSkinClassOrOnline_online WithKey:(s)]
+#define YSSkinOnlineDefineColor(s) [[YSLiveSkinManager shareInstance] getCommonColorWithType:CHSkinClassOrOnline_online WithKey:(s)]
+#define YSSkinOnlineDefineImage(s) [[YSLiveSkinManager shareInstance] getCommonImageWithType:CHSkinClassOrOnline_online WithKey:(s)]
 
 #define YSSkinOnlineElementColor(z , s) [[YSLiveSkinManager shareInstance] getElementColorWithType:CHSkinClassOrOnline_online WithName:(z) andKey:(s)]
 #define YSSkinOnlineElementImage(z , s) [[YSLiveSkinManager shareInstance] getElementImageWithType:CHSkinClassOrOnline_online WithName:(z) andKey:(s)]
