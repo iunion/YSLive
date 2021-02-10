@@ -90,11 +90,11 @@
     BMCorrectionView *touchView = [[BMCorrectionView alloc] initWithFrame:self.bounds];
     [self addSubview:touchView];
     touchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-#if DEBUG
-    touchView.backgroundColor = [UIColor.redColor bm_changeAlpha:0.1f];
-#else
+//#if DEBUG
+//    touchView.backgroundColor = [UIColor.redColor bm_changeAlpha:0.1f];
+//#else
     touchView.backgroundColor = UIColor.clearColor;
-#endif
+//#endif
     touchView.delegate = self;
     self.touchView = touchView;
     //[self freshTouchView];
