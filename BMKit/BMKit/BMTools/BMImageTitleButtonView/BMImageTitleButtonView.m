@@ -18,6 +18,8 @@
 @end
 
 @implementation BMImageTitleButtonView
+@synthesize textSelectedColor = _textSelectedColor;
+@synthesize textDisabledColor = _textDisabledColor;
 
 - (instancetype)init
 {
@@ -25,8 +27,8 @@
     if (self)
     {
         self.textNormalColor = [UIColor whiteColor];
-        self.textSelectedColor = [UIColor whiteColor];
-        self.textDisabledColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
+        //self.textSelectedColor = [UIColor whiteColor];
+        //self.textDisabledColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
 
         self.textFont = [UIFont systemFontOfSize:12.0f];
         
@@ -260,11 +262,31 @@
     [self setNeedsLayout];
 }
 
+- (UIColor *)textSelectedColor
+{
+    if (_textSelectedColor)
+    {
+        return _textSelectedColor;
+    }
+    
+    return self.textNormalColor;
+}
+
 - (void)setTextDisabledColor:(UIColor *)textDisabledColor
 {
     _textDisabledColor = textDisabledColor;
     
     [self setNeedsLayout];
+}
+
+- (UIColor *)textDisabledColor
+{
+    if (_textDisabledColor)
+    {
+        return _textDisabledColor;
+    }
+    
+    return [self.textNormalColor bm_disableColor];
 }
 
 - (void)setNormalAttributedText:(NSAttributedString *)normalAttributedText
