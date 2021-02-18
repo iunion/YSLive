@@ -332,7 +332,7 @@
         return _textDisabledColor;
     }
     
-    return [self.textNormalColor bm_disableColor];
+    return [UIColor bm_colorWithHex:0x888888];
 }
 
 - (void)setNormalAttributedText:(NSAttributedString *)normalAttributedText
