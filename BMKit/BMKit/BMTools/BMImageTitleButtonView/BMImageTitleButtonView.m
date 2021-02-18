@@ -20,6 +20,12 @@
 @implementation BMImageTitleButtonView
 @synthesize textSelectedColor = _textSelectedColor;
 @synthesize textDisabledColor = _textDisabledColor;
+@synthesize selectedText = _selectedText;
+@synthesize disabledText = _disabledText;
+@synthesize selectedImage = _selectedImage;
+@synthesize disabledImage = _disabledImage;
+@synthesize selectedAttributedText = _selectedAttributedText;
+@synthesize disabledAttributedText = _disabledAttributedText;
 
 - (instancetype)init
 {
@@ -213,11 +219,31 @@
     [self setNeedsLayout];
 }
 
+- (UIImage *)selectedImage
+{
+    if (_selectedImage)
+    {
+        return _selectedImage;
+    }
+    
+    return self.normalImage;
+}
+
 - (void)setDisabledImage:(UIImage *)disabledImage
 {
     _disabledImage = disabledImage;
     
     [self setNeedsLayout];
+}
+
+- (UIImage *)disabledImage
+{
+    if (_disabledImage)
+    {
+        return _disabledImage;
+    }
+    
+    return [self.normalImage bm_imageWithTintColor:self.textDisabledColor];
 }
 
 - (void)setNormalText:(NSString *)normalText
@@ -234,11 +260,31 @@
     [self setNeedsLayout];
 }
 
+- (NSString *)selectedText
+{
+    if (_selectedText)
+    {
+        return _selectedText;
+    }
+    
+    return self.normalText;
+}
+
 - (void)setDisabledText:(NSString *)disabledText
 {
     _disabledText = disabledText;
     
     [self setNeedsLayout];
+}
+
+- (NSString *)disabledText
+{
+    if (_disabledText)
+    {
+        return _disabledText;
+    }
+    
+    return self.normalText;
 }
 
 - (void)setTextFont:(UIFont *)textFont
@@ -303,11 +349,31 @@
     [self setNeedsLayout];
 }
 
+- (NSAttributedString *)selectedAttributedText
+{
+    if (_selectedAttributedText)
+    {
+        return _selectedAttributedText;
+    }
+    
+    return self.normalAttributedText;
+}
+
 -(void)setDisabledAttributedText:(NSAttributedString *)disabledAttributedText
 {
     _disabledAttributedText = disabledAttributedText;
     
     [self setNeedsLayout];
+}
+
+- (NSAttributedString *)disabledAttributedText
+{
+    if (_disabledAttributedText)
+    {
+        return _disabledAttributedText;
+    }
+    
+    return self.normalAttributedText;
 }
 
 - (void)setImageTextGap:(CGFloat)imageTextGap

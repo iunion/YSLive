@@ -888,8 +888,16 @@
     r = floorf(r * 100.0 + 0.5) / 100.0;
     g = floorf(g * 100.0 + 0.5) / 100.0;
     b = floorf(b * 100.0 + 0.5) / 100.0;
+
+    r += 0.4;
+    g += 0.4;
+    b += 0.4;
     
-    return [UIColor colorWithRed:(r + .4) green:(g + .4) blue:(b + .4) alpha:1];
+    r = ((int)(r * 255) % 255) / 255.0;
+    g = ((int)(g * 255) % 255) / 255.0;
+    b = ((int)(b * 255) % 255) / 255.0;
+
+    return [UIColor colorWithRed:r green:g blue:b alpha:1];
 }
 
 - (UIColor *)bm_inverseColor
