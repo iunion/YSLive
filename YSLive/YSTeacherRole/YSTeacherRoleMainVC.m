@@ -1764,9 +1764,13 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
 //    }
     
-    if (!self.liveManager.isClassBegin && ![self.videoSequenceArr bm_isNotEmpty] && self.teacherVideoViewArray.firstObject)
+    if (!self.liveManager.isClassBegin && ![self.videoSequenceArr bm_isNotEmpty])
     {
-        self.videoSequenceArr = [NSMutableArray arrayWithObject:self.teacherVideoViewArray.firstObject];
+        if (self.teacherVideoViewArray.firstObject)
+        {
+            self.videoSequenceArr = [NSMutableArray array];
+            [self.videoSequenceArr addObject:self.teacherVideoViewArray.firstObject];
+        }
     }
     
 //    if (self.videoViewArray.count<22)
@@ -5549,6 +5553,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
+    if (self.controlPopoverView.presentingViewController)
+    {
+        return;
+    }
+    
     [self.upHandPopTableView dismissViewControllerAnimated:NO completion:nil];
     [self.layoutPopoverView dismissViewControllerAnimated:NO completion:nil];
 

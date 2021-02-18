@@ -2113,7 +2113,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
         nav.modalPresentationStyle = UIModalPresentationFullScreen;
         nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
-        [self presentViewController:nav animated:YES completion:^{
+        [self presentViewController:nav animated:NO completion:^{
             [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
         }];
         [YSEyeCareManager shareInstance].showRemindBlock = ^{
@@ -2127,7 +2127,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
         nav.modalPresentationStyle = UIModalPresentationFullScreen;
         nav.popOnBackButtonHandler = [YSSuperVC getPopOnBackButtonHandler];
-        [self presentViewController:nav animated:YES completion:^{
+        [self presentViewController:nav animated:NO completion:^{
             [[YSEyeCareManager shareInstance] freshWindowWithShowStatusBar:NO isRientationPortrait:NO];
         }];
         

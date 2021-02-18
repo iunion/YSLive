@@ -1842,7 +1842,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
     if (!self.liveManager.isClassBegin && ![self.videoSequenceArr bm_isNotEmpty])
     {
-        self.videoSequenceArr = [NSMutableArray arrayWithObject:self.userVideoView];
+        if (self.userVideoView)
+        {
+            self.videoSequenceArr = [NSMutableArray arrayWithObject:self.userVideoView];
+        }
     }
         
     if (self.isDoubleType)
@@ -5176,6 +5179,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 点击弹出popoview
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
 {
+    if (self.controlPopoverView.presentingViewController)
+    {
+        return;
+    }
+    
     [self creatControlPopoverView];
     
     CHRoomUser * userModel = videoView.roomUser;
