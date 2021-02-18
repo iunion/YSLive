@@ -9,6 +9,7 @@
 #import "YSSuperNetVC.h"
 #import "SCVideoView.h"
 #import "YSControlPopoverView.h"
+#import "BMKeystoneCorrectionView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 老师视频
 @property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *classMasterVideoViewArray;
 /// 自己视频
-@property (nullable, nonatomic, strong) SCVideoView *myVideoView;
+@property (nullable, nonatomic, weak) SCVideoView *myVideoView;
 
 /// 打开的音视频课件，目前只支持一个音视频
 @property (nullable, nonatomic, strong) CHSharedMediaFileModel *mediaFileModel;
@@ -57,6 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 视频控制popoverView
 @property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
+
+/// 视频矫正窗口
+@property (nonatomic, strong) BMKeystoneCorrectionView *keystoneCorrectionView;
+
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 

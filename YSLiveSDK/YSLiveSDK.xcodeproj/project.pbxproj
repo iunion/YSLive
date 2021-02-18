@@ -249,6 +249,10 @@
 		26ECB94F259D7E8300B28D37 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB80B259D7E8200B28D37 /* YSLive.xcassets */; };
 		875DD42325C3B2EF00059D0B /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD42225C3B2EF00059D0B /* YSSkinDarkRsource.bundle */; };
 		875DD42725C3B39000059D0B /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD42625C3B38F00059D0B /* CHWBSkinDark.bundle */; };
+		87E68CB725D38EB000E29249 /* BMKeystoneCorrectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E68CB325D38EB000E29249 /* BMKeystoneCorrectionView.h */; };
+		87E68CB825D38EB000E29249 /* BMCorrectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E68CB425D38EB000E29249 /* BMCorrectionView.h */; };
+		87E68CB925D38EB000E29249 /* BMKeystoneCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E68CB525D38EB000E29249 /* BMKeystoneCorrectionView.m */; };
+		87E68CBA25D38EB000E29249 /* BMCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E68CB625D38EB000E29249 /* BMCorrectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -496,6 +500,10 @@
 		26ECB80B259D7E8200B28D37 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
 		875DD42225C3B2EF00059D0B /* YSSkinDarkRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinDarkRsource.bundle; sourceTree = "<group>"; };
 		875DD42625C3B38F00059D0B /* CHWBSkinDark.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinDark.bundle; sourceTree = "<group>"; };
+		87E68CB325D38EB000E29249 /* BMKeystoneCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKeystoneCorrectionView.h; sourceTree = "<group>"; };
+		87E68CB425D38EB000E29249 /* BMCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCorrectionView.h; sourceTree = "<group>"; };
+		87E68CB525D38EB000E29249 /* BMKeystoneCorrectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKeystoneCorrectionView.m; sourceTree = "<group>"; };
+		87E68CB625D38EB000E29249 /* BMCorrectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCorrectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -573,10 +581,10 @@
 				26ECB685259D7E8100B28D37 /* YSLiveManager */,
 				26ECB681259D7E8100B28D37 /* YSSkinManager */,
 				26ECB698259D7E8100B28D37 /* YSLive */,
-				26ECB672259D7DE500B28D37 /* YSSDKManager.h */,
 				26ECB673259D7DE500B28D37 /* YSLiveSDK.h */,
 				26ECB674259D7DE500B28D37 /* YSSDKDefine.h */,
 				26ECB675259D7DE500B28D37 /* YSSDKDelegate.h */,
+				26ECB672259D7DE500B28D37 /* YSSDKManager.h */,
 				26ECB676259D7DE500B28D37 /* YSSDKManager.m */,
 				26ECB677259D7DE500B28D37 /* YSSDKManagerDelegate.h */,
 				26ECB678259D7DE500B28D37 /* Info.plist */,
@@ -1049,6 +1057,7 @@
 		26ECB771259D7E8200B28D37 /* YSTools */ = {
 			isa = PBXGroup;
 			children = (
+				87E68CB225D38EB000E29249 /* BMKeystoneCorrectionView */,
 				26ECB7DF259D7E8200B28D37 /* OCBarrage */,
 				26ECB7C0259D7E8200B28D37 /* SCEyeCareWindow */,
 				26ECB7CE259D7E8200B28D37 /* YSAlertView */,
@@ -1207,6 +1216,17 @@
 			path = YSMainSuperVC;
 			sourceTree = "<group>";
 		};
+		87E68CB225D38EB000E29249 /* BMKeystoneCorrectionView */ = {
+			isa = PBXGroup;
+			children = (
+				87E68CB325D38EB000E29249 /* BMKeystoneCorrectionView.h */,
+				87E68CB425D38EB000E29249 /* BMCorrectionView.h */,
+				87E68CB525D38EB000E29249 /* BMKeystoneCorrectionView.m */,
+				87E68CB625D38EB000E29249 /* BMCorrectionView.m */,
+			);
+			path = BMKeystoneCorrectionView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1264,6 +1284,7 @@
 				26ECB919259D7E8300B28D37 /* YSUserDefault.h in Headers */,
 				26ECB939259D7E8300B28D37 /* YSBarrage.h in Headers */,
 				26ECB858259D7E8200B28D37 /* YSTeacherTimerView.h in Headers */,
+				87E68CB825D38EB000E29249 /* BMCorrectionView.h in Headers */,
 				26ECB83F259D7E8200B28D37 /* YSUpHandPopoverVC.h in Headers */,
 				26ECB87C259D7E8300B28D37 /* YSChatView.h in Headers */,
 				26ECB921259D7E8300B28D37 /* BMAlertView+YSDefaultAlert.h in Headers */,
@@ -1284,6 +1305,7 @@
 				26ECB83A259D7E8200B28D37 /* YSMp4ControlView.h in Headers */,
 				26ECB93C259D7E8300B28D37 /* YSAppMacros.h in Headers */,
 				26ECB879259D7E8300B28D37 /* YSChatMemberListCell.h in Headers */,
+				87E68CB725D38EB000E29249 /* BMKeystoneCorrectionView.h in Headers */,
 				26ECB925259D7E8300B28D37 /* YSCircleProgress.h in Headers */,
 				26ECB90D259D7E8300B28D37 /* YSMP4Player.h in Headers */,
 				26ECB8B1259D7E8300B28D37 /* SCChatToolView.h in Headers */,
@@ -1426,6 +1448,7 @@
 				26ECB90B259D7E8300B28D37 /* YSMP4Player.m in Sources */,
 				26ECB829259D7E8200B28D37 /* YSPermissionsVResultView.m in Sources */,
 				26ECB86D259D7E8300B28D37 /* YSVoteResultTableCell.m in Sources */,
+				87E68CB925D38EB000E29249 /* BMKeystoneCorrectionView.m in Sources */,
 				26ECB8C8259D7E8300B28D37 /* YSStudentTimerView.m in Sources */,
 				26ECB8BE259D7E8300B28D37 /* SCAnswerDetailTableViewCell.m in Sources */,
 				26ECB8BD259D7E8300B28D37 /* SCAnswerDetailModel.m in Sources */,
@@ -1441,6 +1464,7 @@
 				26ECB88D259D7E8300B28D37 /* YSChatMemberListCell.m in Sources */,
 				26ECB86E259D7E8300B28D37 /* YSVoteTopView.m in Sources */,
 				26ECB938259D7E8300B28D37 /* YSBarrageTrackInfo.m in Sources */,
+				87E68CBA25D38EB000E29249 /* BMCorrectionView.m in Sources */,
 				26ECB854259D7E8200B28D37 /* YSSpreadBottomToolBar.m in Sources */,
 				26ECB855259D7E8200B28D37 /* YSPollingView.m in Sources */,
 				26ECB881259D7E8300B28D37 /* YSChatToolView.m in Sources */,
@@ -1653,7 +1677,7 @@
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210204;
+				CURRENT_PROJECT_VERSION = 20210210;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1682,7 +1706,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.5.3.0;
+				MARKETING_VERSION = 3.5.4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybb.YSLiveSDK;
@@ -1698,7 +1722,7 @@
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210204;
+				CURRENT_PROJECT_VERSION = 20210210;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1726,7 +1750,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.5.3.0;
+				MARKETING_VERSION = 3.5.4.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybb.YSLiveSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

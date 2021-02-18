@@ -487,3 +487,7 @@
 "SmallBoard_DeletePictureTag" = "Whether to delete the picture on the chalkboard";
 
 "title.Dice" = "Dice";
+
+"KeystoneCorrection.Tip" = "Single finger correction image";
+"KeystoneCorrection.Finish" = "Finish";
+"KeystoneCorrection.Reset" = "Reset";

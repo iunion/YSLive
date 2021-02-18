@@ -11,7 +11,7 @@
 #import <objc/runtime.h>
 
 
-static char kAssociatedObjectKey_actionEdgeInsets;
+static char kBMAssociatedObjectKey_actionEdgeInsets;
 
 @implementation UIView (OutSide)
 
@@ -25,12 +25,12 @@ static char kAssociatedObjectKey_actionEdgeInsets;
 
 - (void)setBm_ActionEdgeInsets:(UIEdgeInsets)edgeInsets
 {
-    objc_setAssociatedObject(self, &kAssociatedObjectKey_actionEdgeInsets, [NSValue valueWithUIEdgeInsets:edgeInsets], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &kBMAssociatedObjectKey_actionEdgeInsets, [NSValue valueWithUIEdgeInsets:edgeInsets], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIEdgeInsets)bm_ActionEdgeInsets
 {
-    return [objc_getAssociatedObject(self, &kAssociatedObjectKey_actionEdgeInsets) UIEdgeInsetsValue];
+    return [objc_getAssociatedObject(self, &kBMAssociatedObjectKey_actionEdgeInsets) UIEdgeInsetsValue];
 }
 
 - (BOOL)actionEdgePointInside:(CGPoint)point withEvent:(UIEvent *)event

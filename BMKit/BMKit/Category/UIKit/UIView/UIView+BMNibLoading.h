@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (BMNibLoading)
 
-+ (instancetype)instanceWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)bundleOrNil owner:(nullable id)ownerOrNil;
-- (void)loadContentsWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)bundleOrNil;
++ (instancetype)bm_instanceWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)bundleOrNil owner:(nullable id)ownerOrNil;
+- (void)bm_loadContentsWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)bundleOrNil;
 
 @end
 

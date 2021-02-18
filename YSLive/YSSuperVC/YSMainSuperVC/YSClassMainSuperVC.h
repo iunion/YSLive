@@ -64,12 +64,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 自己当前的分辨率 视频高
 @property (nonatomic, assign) NSUInteger userVideoheight;
 
+/// 视频矫正窗口
+@property (nonatomic, strong, readonly) BMKeystoneCorrectionView *keystoneCorrectionView;
 
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 
 // 横排视频最大宽度计算
 - (CGFloat)getVideoTotalWidth;
+
+- (void)showKeystoneCorrectionView;
+
+- (void)hideKeystoneCorrectionView;
 
 
 @end

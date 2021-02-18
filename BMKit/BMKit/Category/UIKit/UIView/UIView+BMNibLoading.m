@@ -18,7 +18,7 @@
 //    self.bounds = _customView.bounds;
 //}
 
-+ (instancetype)instanceWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)bundleOrNil owner:(id)ownerOrNil
++ (instancetype)bm_instanceWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)bundleOrNil owner:(id)ownerOrNil
 {
     //default values
     NSString *nibName = nibNameOrNil ?: NSStringFromClass(self);
@@ -56,10 +56,10 @@
     return [[[self class] alloc] init];
 }
 
-- (void)loadContentsWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)bundleOrNil
+- (void)bm_loadContentsWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)bundleOrNil
 {
     NSString *nibName = nibNameOrNil ?: NSStringFromClass([self class]);
-    UIView *view = [UIView instanceWithNibName:nibName bundle:bundleOrNil owner:self];
+    UIView *view = [UIView bm_instanceWithNibName:nibName bundle:bundleOrNil owner:self];
     if (view)
     {
         if (CGSizeEqualToSize(self.frame.size, CGSizeZero))

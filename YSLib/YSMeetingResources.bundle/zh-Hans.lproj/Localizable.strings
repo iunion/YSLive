@@ -477,3 +477,7 @@
 
 
 "SmallBoard_DeletePictureTag" = "是否删除小黑板上的图片";
+
+"KeystoneCorrection.Tip" = "单指拉伸进行矫正";
+"KeystoneCorrection.Finish" = "完成";
+"KeystoneCorrection.Reset" = "还原";

@@ -20,7 +20,6 @@
 
 #import <BMKit/NSString+BMURLEncode.h>
 
-
 @interface YSClassMainSuperVC ()
 <
     SCEyeCareViewDelegate
@@ -142,16 +141,16 @@
     }
     
     
-    //创建一个16：9的背景view
+    // 创建一个16：9的背景view
     [self.view addSubview:self.contentBackgroud];
     
-    //顶部状态栏
+    // 顶部状态栏
     [self setupstateToolBar];
     
     // 底部工具栏
     [self setupBottomToolBarView];
     
-    //骰子
+    // 骰子
     [self creatDiceAnimationView];
 }
 
@@ -200,6 +199,7 @@
             break;
     }
 }
+
 ///创建一个16：9的背景view
 - (void)setupBottomBackgroundView
 {

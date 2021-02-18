@@ -620,7 +620,7 @@
                 {
                     CGSize imageSize = CGSizeMake(self.textFont.pointSize*2, self.textFont.pointSize*2);
                     UIImage *image = [self.secureImage bm_imageWithTintColor:self.textColor];
-                    image = [image imageScaledToFitSize:imageSize];
+                    image = [image bm_imageScaledToFitSize:imageSize];
 
                     CGSize secureImageSize = image.size;
                     CGRect drawRect = CGRectInset(itemRect,

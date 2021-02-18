@@ -11,32 +11,32 @@
 /**
  *  Direction of the linear gradient
  */
-typedef NS_ENUM(NSInteger, UIViewLinearGradientDirection)
+typedef NS_ENUM(NSInteger, BMUIViewLinearGradientDirection)
 {
     /**
      *  Linear gradient vertical
      */
-    UIViewLinearGradientDirectionVertical = 0,
+    BMUIViewLinearGradientDirectionVertical = 0,
     /**
      *  Linear gradient horizontal
      */
-    UIViewLinearGradientDirectionHorizontal,
+    BMUIViewLinearGradientDirectionHorizontal,
     /**
      *  Linear gradient from left to right and top to down
      */
-    UIViewLinearGradientDirectionDiagonalFromLeftToRightAndTopToDown,
+    BMUIViewLinearGradientDirectionDiagonalFromLeftToRightAndTopToDown,
     /**
      *  Linear gradient from left to right and down to top
      */
-    UIViewLinearGradientDirectionDiagonalFromLeftToRightAndDownToTop,
+    BMUIViewLinearGradientDirectionDiagonalFromLeftToRightAndDownToTop,
     /**
      *  Linear gradient from right to left and top to down
      */
-    UIViewLinearGradientDirectionDiagonalFromRightToLeftAndTopToDown,
+    BMUIViewLinearGradientDirectionDiagonalFromRightToLeftAndTopToDown,
     /**
      *  Linear gradient from right to left and down to top
      */
-    UIViewLinearGradientDirectionDiagonalFromRightToLeftAndDownToTop
+    BMUIViewLinearGradientDirectionDiagonalFromRightToLeftAndDownToTop
 };
 
 
@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, UIViewLinearGradientDirection)
  *  @param direction Direction of the gradient
  */
 - (void)bm_createGradientWithColors:(NSArray * _Nonnull)colors
-                          direction:(UIViewLinearGradientDirection)direction;
+                          direction:(BMUIViewLinearGradientDirection)direction;
 
 @end
 

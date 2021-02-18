@@ -10,26 +10,26 @@
 
 @implementation NSError (BMCategory)
 
-+ (instancetype)errorWithDomain:(NSString *)anErrorDomain
-                           code:(NSInteger)anErrorCode
-           localizedDescription:(NSString *)aLocalizedDescription
++ (instancetype)bm_errorWithDomain:(NSString *)anErrorDomain
+                              code:(NSInteger)anErrorCode
+              localizedDescription:(NSString *)aLocalizedDescription
 {
-    return [NSError errorWithDomain:anErrorDomain code:anErrorCode localizedDescription:aLocalizedDescription localizedRecoverySuggestion:nil];
+    return [NSError bm_errorWithDomain:anErrorDomain code:anErrorCode localizedDescription:aLocalizedDescription localizedRecoverySuggestion:nil];
 }
 
-+ (instancetype)errorWithDomain:(NSString *)anErrorDomain
-                           code:(NSInteger)anErrorCode
-           localizedDescription:(NSString *)aLocalizedDescription
-    localizedRecoverySuggestion:(NSString *)recoverySuggestion
++ (instancetype)bm_errorWithDomain:(NSString *)anErrorDomain
+                              code:(NSInteger)anErrorCode
+              localizedDescription:(NSString *)aLocalizedDescription
+       localizedRecoverySuggestion:(NSString *)recoverySuggestion
 {
-    return [NSError errorWithDomain:anErrorDomain code:anErrorCode localizedDescription:aLocalizedDescription localizedRecoverySuggestion:recoverySuggestion underlyingError:nil];
+    return [NSError bm_errorWithDomain:anErrorDomain code:anErrorCode localizedDescription:aLocalizedDescription localizedRecoverySuggestion:recoverySuggestion underlyingError:nil];
 }
 
-+ (instancetype)errorWithDomain:(NSString *)errorDomain
-                           code:(NSInteger)errorCode
-           localizedDescription:(NSString *)description
-    localizedRecoverySuggestion:(NSString *)recoverySuggestion
-                underlyingError:(NSError *)underlyingError
++ (instancetype)bm_errorWithDomain:(NSString *)errorDomain
+                              code:(NSInteger)errorCode
+              localizedDescription:(NSString *)description
+       localizedRecoverySuggestion:(NSString *)recoverySuggestion
+                   underlyingError:(NSError *)underlyingError
 {
     NSDictionary *userInfo = nil;
     if (underlyingError == nil)

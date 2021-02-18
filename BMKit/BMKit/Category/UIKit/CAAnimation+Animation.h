@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, WAxis)
+typedef NS_ENUM(NSUInteger, BMWAxis)
 {
-    WAxisX = 0,
-    WAxisY,
-    WAxisZ
+    BMWAxisX = 0,
+    BMWAxisY,
+    BMWAxisZ
 };
 
 // Degrees to radians
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, WAxis)
  *
  *  @return animation obj
  */
-+(CABasicAnimation *)opacityForever_Animation:(float)time;
++ (CABasicAnimation *)bm_opacityForever_Animation:(float)time;
 
 /**
  *  breathing with fixed repeated times
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, WAxis)
  *
  *  @return animation obj
  */
-+(CABasicAnimation *)opacityTimes_Animation:(float)repeatTimes durTimes:(float)time;
++ (CABasicAnimation *)bm_opacityTimes_Animation:(float)repeatTimes durTimes:(float)time;
 
 /**
  *  //rotate
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, WAxis)
  *
  *  @return animation obj
  */
-+(CABasicAnimation *)rotation:(float)dur degree:(float)degree direction:(WAxis)axis repeatCount:(int)repeatCount;
++ (CABasicAnimation *)bm_rotation:(float)dur degree:(float)degree direction:(BMWAxis)axis repeatCount:(int)repeatCount;
 
 
 /**
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, WAxis)
  *
  *  @return animaiton obj
  */
-+(CABasicAnimation *)scaleFrom:(CGFloat)fromScale toScale:(CGFloat)toScale durTimes:(float)time rep:(float)repeatTimes;
++ (CABasicAnimation *)bm_scaleFrom:(CGFloat)fromScale toScale:(CGFloat)toScale durTimes:(float)time rep:(float)repeatTimes;
 /**
  *  shake
  *
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, WAxis)
  *  @param obj         always be CALayer at present
  *  @return aniamtion obj
  */
-+(CAKeyframeAnimation *)shake_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj;
++ (CAKeyframeAnimation *)bm_shake_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj;
 
 /**
  *  bounce
@@ -83,6 +83,6 @@ typedef NS_ENUM(NSUInteger, WAxis)
  *  @param obj         always be CALayer at present
  *  @return aniamtion obj
  */
-+(CAKeyframeAnimation *)bounce_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj;
++ (CAKeyframeAnimation *)bm_bounce_AnimationRepeatTimes:(float)repeatTimes durTimes:(float)time forObj:(id)obj;
 
 @end

@@ -53,34 +53,34 @@
 + (instancetype)bm_buttonWithFrame:(CGRect)frame title:(NSString *)title color:(UIColor *)color
 {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
-    return [UIButton bm_buttonWithFrame:frame title:title backgroundImage:[UIImage imageWithColor:color] highlightedBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:components[0]-0.1 green:components[1]-0.1 blue:components[2]-0.1 alpha:1]]];
+    return [UIButton bm_buttonWithFrame:frame title:title backgroundImage:[UIImage bm_imageWithColor:color] highlightedBackgroundImage:[UIImage bm_imageWithColor:[UIColor colorWithRed:components[0]-0.1 green:components[1]-0.1 blue:components[2]-0.1 alpha:1]]];
 }
 
 + (instancetype)bm_buttonWithFrame:(CGRect)frame title:(NSString *)title color:(UIColor *)color highlightedColor:(UIColor *)highlightedColor
 {
-    return [UIButton bm_buttonWithFrame:frame title:title backgroundImage:[UIImage imageWithColor:color] highlightedBackgroundImage:[UIImage imageWithColor:highlightedColor]];
+    return [UIButton bm_buttonWithFrame:frame title:title backgroundImage:[UIImage bm_imageWithColor:color] highlightedBackgroundImage:[UIImage bm_imageWithColor:highlightedColor]];
 }
 
 + (instancetype)bm_buttonWithFrame:(CGRect)frame color:(UIColor *)color
 {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
-    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage imageWithColor:color] highlightedBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:components[0]-0.1 green:components[1]-0.1 blue:components[2]-0.1 alpha:1]]];
+    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage bm_imageWithColor:color] highlightedBackgroundImage:[UIImage bm_imageWithColor:[UIColor colorWithRed:components[0]-0.1 green:components[1]-0.1 blue:components[2]-0.1 alpha:1]]];
 }
 
 + (nonnull instancetype)bm_buttonWithFrame:(CGRect)frame color:(nonnull UIColor *)color disableColor:(nonnull UIColor *)disableColor
 {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
-    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage imageWithColor:color] highlightedBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:components[0]-0.1 green:components[1]-0.1 blue:components[2]-0.1 alpha:1]] disableBackgroundImage:[UIImage imageWithColor:disableColor]];
+    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage bm_imageWithColor:color] highlightedBackgroundImage:[UIImage bm_imageWithColor:[UIColor colorWithRed:components[0]-0.1 green:components[1]-0.1 blue:components[2]-0.1 alpha:1]] disableBackgroundImage:[UIImage bm_imageWithColor:disableColor]];
 }
 
 + (instancetype)bm_buttonWithFrame:(CGRect)frame color:(UIColor *)color highlightedColor:(UIColor *)highlightedColor
 {
-    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage imageWithColor:color] highlightedBackgroundImage:[UIImage imageWithColor:highlightedColor]];
+    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage bm_imageWithColor:color] highlightedBackgroundImage:[UIImage bm_imageWithColor:highlightedColor]];
 }
 
 + (nonnull instancetype)bm_buttonWithFrame:(CGRect)frame color:(nonnull UIColor *)color highlightedColor:(nonnull UIColor *)highlightedColor disableColor:(nonnull UIColor *)disableColor
 {
-    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage imageWithColor:color] highlightedBackgroundImage:[UIImage imageWithColor:highlightedColor] disableBackgroundImage:[UIImage imageWithColor:disableColor]];
+    return [UIButton bm_buttonWithFrame:frame title:nil backgroundImage:[UIImage bm_imageWithColor:color] highlightedBackgroundImage:[UIImage bm_imageWithColor:highlightedColor] disableBackgroundImage:[UIImage bm_imageWithColor:disableColor]];
 }
 
 + (instancetype)bm_buttonWithFrame:(CGRect)frame imageName:(NSString *)imageName
@@ -197,20 +197,20 @@
 
 - (void)bm_setBackgroundImageWithColor:(nonnull UIColor *)color
 {
-    [self setBackgroundImage:[UIImage imageWithColor:color] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage bm_imageWithColor:color] forState:UIControlStateNormal];
 }
 
 - (void)bm_setBackgroundImageWithColor:(nonnull UIColor *)color highlightedColor:(nonnull UIColor *)highlightedColor
 {
-    [self setBackgroundImage:[UIImage imageWithColor:color] forState:UIControlStateNormal];
-    [self setBackgroundImage:[UIImage imageWithColor:highlightedColor] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[UIImage bm_imageWithColor:color] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage bm_imageWithColor:highlightedColor] forState:UIControlStateHighlighted];
 }
 
 - (void)bm_setBackgroundImageWithColor:(nonnull UIColor *)color highlightedColor:(nonnull UIColor *)highlightedColor selectedColor:(nonnull UIColor *)selectedColor
 {
-    [self setBackgroundImage:[UIImage imageWithColor:color] forState:UIControlStateNormal];
-    [self setBackgroundImage:[UIImage imageWithColor:highlightedColor] forState:UIControlStateHighlighted];
-    [self setBackgroundImage:[UIImage imageWithColor:selectedColor] forState:UIControlStateDisabled];
+    [self setBackgroundImage:[UIImage bm_imageWithColor:color] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage bm_imageWithColor:highlightedColor] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[UIImage bm_imageWithColor:selectedColor] forState:UIControlStateDisabled];
 }
 
 @end

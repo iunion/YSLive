@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIBezierPath (BMCategory)
 
-- (UIBezierPath *)bm_cloneEmptyPath;
+//- (UIBezierPath *)bm_cloneEmptyPath;
 
 // returns a point in the center of
 // the path's bounds

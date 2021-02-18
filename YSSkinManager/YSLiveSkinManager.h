@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareInstance;
 
-- (UIColor *)getDefaultColorWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
-- (UIImage *)getDefaultImageWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
+- (UIColor *)getCommonColorWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
+- (UIImage *)getCommonImageWithType:(CHSkinClassOrOnline)classOrOnline WithKey:(NSString *)key;
 
 - (UIColor *)getElementColorWithType:(CHSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key;
 - (UIImage *)getElementImageWithType:(CHSkinClassOrOnline)classOrOnline WithName:(NSString *)name andKey:(NSString *)key;
