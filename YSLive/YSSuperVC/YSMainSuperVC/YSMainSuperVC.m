@@ -246,7 +246,7 @@
     {
         self.myVideoView = videoView;
 
-        if (!self.keystoneCorrectionView.hidden)
+        if (self.liveManager.roomConfig.hasVideoAdjustment && !self.keystoneCorrectionView.hidden)
         {
             [self showKeystoneCorrectionView];
             return;
@@ -312,7 +312,7 @@
     {
         self.myVideoView = videoView;
 
-        if (!self.keystoneCorrectionView.hidden)
+        if (self.liveManager.roomConfig.hasVideoAdjustment && !self.keystoneCorrectionView.hidden)
         {
             [self showKeystoneCorrectionView];
             return;
@@ -363,7 +363,7 @@
     {
         self.myVideoView = videoView;
 
-        if (!self.keystoneCorrectionView.hidden)
+        if (self.liveManager.roomConfig.hasVideoAdjustment && !self.keystoneCorrectionView.hidden)
         {
             [self showKeystoneCorrectionView];
             return;
@@ -1115,7 +1115,7 @@
     {
         //self.myVideoView = nil;
 
-        if (!self.keystoneCorrectionView.hidden)
+        if (self.liveManager.roomConfig.hasVideoAdjustment && !self.keystoneCorrectionView.hidden)
         {
             [self showKeystoneCorrectionView];
             return;

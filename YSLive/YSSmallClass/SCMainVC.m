@@ -1413,7 +1413,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 SCVideoView *videoView = self.videoSequenceArr.firstObject;
                 if (![videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
                 {
-                    if (!self.keystoneCorrectionView.hidden)
+                    if (self.liveManager.roomConfig.hasVideoAdjustment && !self.keystoneCorrectionView.hidden)
                     {
                         [self showKeystoneCorrectionView];
                     }
