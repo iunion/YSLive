@@ -1706,7 +1706,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.5.4.0;
+				MARKETING_VERSION = 3.5.5.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybb.YSLiveSDK;
@@ -1750,7 +1750,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.5.4.0;
+				MARKETING_VERSION = 3.5.5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybb.YSLiveSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
