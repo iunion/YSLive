@@ -1311,7 +1311,7 @@
         {
             sourceId = sCHUserDefaultSourceId;
         }
-        NSString * streamId = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
+        NSString *streamId = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
         
         if ([sourceId bm_isNotEmpty] && [teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
         {
@@ -1672,7 +1672,7 @@
 - (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
     self.shareDesktop = YES;
-    NSString *userStreamID = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
+    NSString *userStreamID = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
         
     [self.liveManager stopVideoWithUserId:self.liveManager.teacher.peerID streamID:userStreamID];
     
@@ -1689,7 +1689,7 @@
     self.shareDesktop = NO;
     [self.liveManager stopVideoWithUserId:userId streamID:streamId];
     
-    NSString *userStreamID = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
+    NSString *userStreamID = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
     self.currentTopStreamId = userStreamID;
     CloudHubVideoRenderMode renderMode = CloudHubVideoRenderModeHidden;
     if (self.isFullScreen)
@@ -2562,7 +2562,7 @@
                 
                 [self.teacherPlaceLabel bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-50];
                 
-                NSString *userStreamID = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
+                NSString *userStreamID = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
                 if (self.currentTopStreamId && [self.currentTopStreamId isEqualToString:userStreamID])
                 {
                     [self.liveManager.cloudHubRtcEngineKit setRemoteRenderMode:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
@@ -2600,7 +2600,7 @@
                 
                 [self.teacherPlaceLabel bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-80];
                 
-                NSString *userStreamID = [self.liveManager getUserStreamIdsWithUserId:self.liveManager.teacher.peerID].firstObject;
+                NSString *userStreamID = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
                 if (self.currentTopStreamId && [self.currentTopStreamId isEqualToString:userStreamID])
                 {
                     [self.liveManager.cloudHubRtcEngineKit setRemoteRenderMode:userStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled];
