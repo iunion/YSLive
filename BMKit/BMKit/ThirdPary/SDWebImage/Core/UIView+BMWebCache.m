@@ -141,7 +141,7 @@ const int64_t BMSDWebImageProgressUnitCountUnknown = 1LL;
             BOOL shouldCallCompletedBlock = finished || (options & BMSDWebImageAvoidAutoSetImage);
             BOOL shouldNotSetImage = ((image && (options & BMSDWebImageAvoidAutoSetImage)) ||
                                       (!image && !(options & BMSDWebImageDelayPlaceholder)));
-            BMSDWebImageNoParamsBlock callCompletedBlockClojure = ^{
+            BMSDWebImageNoParamsBlock callCompletedBlockClosure = ^{
                 if (!self) { return; }
                 if (!shouldNotSetImage) {
                     [self bmsd_setNeedsLayout];
@@ -155,7 +155,7 @@ const int64_t BMSDWebImageProgressUnitCountUnknown = 1LL;
             // OR
             // case 1b: we got no image and the SDWebImageDelayPlaceholder is not set
             if (shouldNotSetImage) {
-                dispatch_main_async_bmsafe(callCompletedBlockClojure);
+                dispatch_main_async_bmsafe(callCompletedBlockClosure);
                 return;
             }
             
@@ -206,7 +206,7 @@ const int64_t BMSDWebImageProgressUnitCountUnknown = 1LL;
 #else
                 [self bmsd_setImage:targetImage imageData:targetData basedOnClassOrViaCustomSetImageBlock:setImageBlock cacheType:cacheType imageURL:imageURL];
 #endif
-                callCompletedBlockClojure();
+                callCompletedBlockClosure();
             });
         }];
         [self bmsd_setImageLoadOperation:operation forKey:validOperationKey];

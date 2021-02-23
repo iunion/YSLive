@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface CAAnimation (BlocksAddition)
+@interface CAAnimation (BMBlocksAddition)
 
 @property (nonatomic, copy) void (^bm_completion)(BOOL finished);
 @property (nonatomic, copy) void (^bm_start)(void);

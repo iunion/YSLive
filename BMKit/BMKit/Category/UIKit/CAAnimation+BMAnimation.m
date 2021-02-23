@@ -1,15 +1,15 @@
 //
-//  NSObject+WAnimation.m
+//  NSObject+BMAnimation.m
 //  WZLBadgeDemo
 //
 //  Created by zilin_weng on 15/6/26.
 //  Copyright (c) 2015年 Weng-Zilin. All rights reserved.
 //
 
-#import "CAAnimation+Animation.h"
+#import "CAAnimation+BMAnimation.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation CAAnimation (Animation)
+@implementation CAAnimation (BMAnimation)
 /**
  *  breathing forever
  *

@@ -10,7 +10,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CAAnimation+Blocks.h"
+#import "CAAnimation+BMBlocks.h"
 
 /**
  @brief Direction of flip animation.
