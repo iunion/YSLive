@@ -6,7 +6,7 @@
 //  Copyright 2011 xissburg. All rights reserved.
 //
 
-#import "CAAnimation+Blocks.h"
+#import "CAAnimation+BMBlocks.h"
 
 
 @interface BMCAAnimationDelegate : NSObject
@@ -38,7 +38,7 @@
 @end
 
 
-@implementation CAAnimation (BlocksAddition)
+@implementation CAAnimation (BMBlocksAddition)
 
 - (void)setBm_completion:(void (^)(BOOL))completion
 {

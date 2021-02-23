@@ -40,8 +40,8 @@
 #import "UIView+BMAnimation.h"
 #import "UIView+BMAnimationExtensions.h"
 
-#import "CAAnimation+Animation.h"
-#import "CAAnimation+Blocks.h"
+#import "CAAnimation+BMAnimation.h"
+#import "CAAnimation+BMBlocks.h"
 
 #import "CALayer+BMSize.h"
 

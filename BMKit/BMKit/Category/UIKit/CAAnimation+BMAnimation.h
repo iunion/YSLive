@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, BMWAxis)
 //#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 //#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
-@interface CAAnimation (Animation)
+@interface CAAnimation (BMAnimation)
 
 /**
  *  breathing forever
