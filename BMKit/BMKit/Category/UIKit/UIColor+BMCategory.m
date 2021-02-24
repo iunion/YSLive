@@ -47,7 +47,7 @@
     return [UIColor bm_colorWithHexString:stringToConvert alpha:1.0f default:color];
 }
 
-+ (CGFloat)colorComponentFrom:(NSString *)string start:(NSUInteger)start length:(NSUInteger)length
++ (CGFloat)bm_colorComponentFrom:(NSString *)string start:(NSUInteger)start length:(NSUInteger)length
 {
     NSString *substring = [string substringWithRange:NSMakeRange(start, length)];
     NSString *fullHex = length == 2 ? substring : [NSString stringWithFormat:@"%@%@", substring, substring];
@@ -114,29 +114,29 @@
             }
 
         case 3: // #RGB ==> #RRGGBB
-            red = [UIColor colorComponentFrom:colorString start:0 length:1];
-            green = [UIColor colorComponentFrom:colorString start:1 length:1];
-            blue = [UIColor colorComponentFrom:colorString start:2 length:1];
+            red = [UIColor bm_colorComponentFrom:colorString start:0 length:1];
+            green = [UIColor bm_colorComponentFrom:colorString start:1 length:1];
+            blue = [UIColor bm_colorComponentFrom:colorString start:2 length:1];
             break;
             
         case 4: // #ARGB ==> #AARRGGBB
-            alpha = [UIColor colorComponentFrom:colorString start:0 length:1];
-            red = [UIColor colorComponentFrom:colorString start:1 length:1];
-            green = [UIColor colorComponentFrom:colorString start:2 length:1];
-            blue = [UIColor colorComponentFrom:colorString start:3 length:1];
+            alpha = [UIColor bm_colorComponentFrom:colorString start:0 length:1];
+            red = [UIColor bm_colorComponentFrom:colorString start:1 length:1];
+            green = [UIColor bm_colorComponentFrom:colorString start:2 length:1];
+            blue = [UIColor bm_colorComponentFrom:colorString start:3 length:1];
             break;
 
         case 6: // #RRGGBB
-            red = [UIColor colorComponentFrom:colorString start:0 length:2];
-            green = [UIColor colorComponentFrom:colorString start:2 length:2];
-            blue = [UIColor colorComponentFrom:colorString start:4 length:2];
+            red = [UIColor bm_colorComponentFrom:colorString start:0 length:2];
+            green = [UIColor bm_colorComponentFrom:colorString start:2 length:2];
+            blue = [UIColor bm_colorComponentFrom:colorString start:4 length:2];
             break;
             
         case 8: // #AARRGGBB
-            alpha = [UIColor colorComponentFrom:colorString start:0 length:2];
-            red = [UIColor colorComponentFrom:colorString start:2 length:2];
-            green = [UIColor colorComponentFrom:colorString start:4 length:2];
-            blue = [UIColor colorComponentFrom:colorString start:6 length:2];
+            alpha = [UIColor bm_colorComponentFrom:colorString start:0 length:2];
+            red = [UIColor bm_colorComponentFrom:colorString start:2 length:2];
+            green = [UIColor bm_colorComponentFrom:colorString start:4 length:2];
+            blue = [UIColor bm_colorComponentFrom:colorString start:6 length:2];
             break;
             
         default:
@@ -228,29 +228,29 @@
             }
 
         case 3: // #RGB ==> #RRGGBB
-            red = [UIColor colorComponentFrom:colorString start:0 length:1];
-            green = [UIColor colorComponentFrom:colorString start:1 length:1];
-            blue = [UIColor colorComponentFrom:colorString start:2 length:1];
+            red = [UIColor bm_colorComponentFrom:colorString start:0 length:1];
+            green = [UIColor bm_colorComponentFrom:colorString start:1 length:1];
+            blue = [UIColor bm_colorComponentFrom:colorString start:2 length:1];
             break;
             
         case 4: // #RGBA ==> #RRGGBBAA
-            red = [UIColor colorComponentFrom:colorString start:0 length:1];
-            green = [UIColor colorComponentFrom:colorString start:1 length:1];
-            blue = [UIColor colorComponentFrom:colorString start:2 length:1];
-            alpha = [UIColor colorComponentFrom:colorString start:3 length:1];
+            red = [UIColor bm_colorComponentFrom:colorString start:0 length:1];
+            green = [UIColor bm_colorComponentFrom:colorString start:1 length:1];
+            blue = [UIColor bm_colorComponentFrom:colorString start:2 length:1];
+            alpha = [UIColor bm_colorComponentFrom:colorString start:3 length:1];
             break;
 
         case 6: // #RRGGBB
-            red = [UIColor colorComponentFrom:colorString start:0 length:2];
-            green = [UIColor colorComponentFrom:colorString start:2 length:2];
-            blue = [UIColor colorComponentFrom:colorString start:4 length:2];
+            red = [UIColor bm_colorComponentFrom:colorString start:0 length:2];
+            green = [UIColor bm_colorComponentFrom:colorString start:2 length:2];
+            blue = [UIColor bm_colorComponentFrom:colorString start:4 length:2];
             break;
             
         case 8: // #RRGGBBAA
-            red = [UIColor colorComponentFrom:colorString start:0 length:2];
-            green = [UIColor colorComponentFrom:colorString start:2 length:2];
-            blue = [UIColor colorComponentFrom:colorString start:4 length:2];
-            alpha = [UIColor colorComponentFrom:colorString start:6 length:2];
+            red = [UIColor bm_colorComponentFrom:colorString start:0 length:2];
+            green = [UIColor bm_colorComponentFrom:colorString start:2 length:2];
+            blue = [UIColor bm_colorComponentFrom:colorString start:4 length:2];
+            alpha = [UIColor bm_colorComponentFrom:colorString start:6 length:2];
             break;
             
         default:

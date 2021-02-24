@@ -11,6 +11,13 @@
 
 @interface UIDevice (BMCategory)
 
+// 判断是否是刘海屏
++ (BOOL)bm_isIPhoneNotchScreen;
+ 
+// 获取刘海屏高度
++ (CGFloat)bm_iPhoneNotchScreenHeight;
+
+
 + (NSString * _Nonnull)bm_deviceModel;
 + (NSString * _Nonnull)bm_localizedModel;
 
