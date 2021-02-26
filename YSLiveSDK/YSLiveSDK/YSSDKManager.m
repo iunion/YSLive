@@ -18,7 +18,7 @@
 static NSString *YSAPPVersionString = @"3.5.5";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"3.5.5.0";
+static NSString *YSSDKVersionString = @"3.5.5.1";
 
 @interface YSSDKManager ()
 <
