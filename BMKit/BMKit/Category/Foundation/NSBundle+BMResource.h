@@ -22,38 +22,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSBundle (BMResource)
 
-#pragma mark image
+/// 获取main目录下的bundle，此函数只支持在静态下使用
++ (NSBundle *)resourceBundleWithBundleNamed:(NSString *)bundleName;
 
-// imageName不带扩展名默认为png
-// 其他会自动补齐相应扩展名
+#pragma mark image
 
 /// 从bundle文件中获取图片
 + (nullable UIImage *)bm_bundleImageFromBundleNamed:(NSString *)bundleName imageName:(NSString *)imageName;
-/// 从bundle文件中的xcassets中获取图片
+/// 从bundle文件中的xcassets中获取图片(imageset与imageName同名)
 + (nullable UIImage *)bm_bundleAssetsImageFromeBundleName:(NSString *)bundleName assetsName:(NSString *)assetsName imageName:(NSString *)imageName;
++ (nullable UIImage *)bm_bundleAssetsImageFromeBundleName:(NSString *)bundleName assetsName:(NSString *)assetsName pathName:(nullable NSString *)pathName imageName:(NSString *)imageName;
 
 /// 从app的resourcePath中获取图片
 - (nullable UIImage *)bm_imageWithImageName:(NSString *)imageName;
 /// 从xcassets中获取图片
 - (nullable UIImage *)bm_imageWithAssetsName:(NSString *)assetsName imageName:(NSString *)imageName;
+- (nullable UIImage *)bm_imageWithAssetsName:(NSString *)assetsName pathName:(nullable NSString *)pathName imageName:(NSString *)imageName;
 
 #pragma mark localizedString
 
-+ (NSBundle *)bm_mainLocalizedBundle;
-+ (NSBundle *)bm_mainLocalizedBundleWithLanguage:(nullable NSString *)language;
+/// 指定语言获取文本
+- (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(nullable NSString *)value;
+- (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(nullable NSString *)value table:(nullable NSString *)table;
+- (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(nullable NSString *)value withLanguage:(nullable NSString *)language;
+- (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(nullable NSString *)value table:(nullable NSString *)table withLanguage:(nullable NSString *)language;
 
-+ (nullable NSBundle *)bm_localizedBundleWithBundleName:(NSString *)bundleName;
-+ (nullable NSBundle *)bm_localizedBundleWithBundleName:(NSString *)bundleName language:(nullable NSString *)language;
+@end
 
-+ (NSBundle *)bm_localizedBundleWithBundle:(NSBundle *)bundle;
-+ (nullable NSBundle *)bm_localizedBundleWithBundle:(NSBundle *)bundle language:(nullable NSString *)language;
-
-/// 返回某个包里的的本地化字符串 默认table: Localizable 未找到返回value默认值
-+ (nullable NSString *)bm_localizedStringFromBundleNamed:(NSString *)bundleName forKey:(NSString *)key value:(nullable NSString *)value;
-+ (nullable NSString *)bm_localizedStringFromBundleNamed:(NSString *)bundleName forKey:(NSString *)key value:(nullable NSString *)value table:(nullable NSString *)table;
-
-- (nullable NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(nullable NSString *)value;
-- (nullable NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(nullable NSString *)value table:(nullable NSString *)table;
+@interface NSBundle (BMLocalized)
 
 @end
 
