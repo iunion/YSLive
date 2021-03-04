@@ -26,12 +26,11 @@
 - (instancetype)init {
     if (self = [super init]) {
         
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         // 打断
-        [[AVAudioSession sharedInstance] setActive:YES error:nil];
-        [[AVAudioSession sharedInstance]
-         setCategory: AVAudioSessionCategorySoloAmbient
-         error: nil];
-        
+        [audioSession setActive:YES error:nil];
+        [audioSession setCategory: AVAudioSessionCategorySoloAmbient withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error: nil];
+
         // app退到后台
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
         // app进入前台
