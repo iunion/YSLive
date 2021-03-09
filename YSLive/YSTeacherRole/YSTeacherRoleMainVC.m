@@ -869,11 +869,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             UIColor *color = [UIColor bm_colorWithHexString:self.liveManager.roomModel.skinModel.whiteboardValue];
             
             [self.liveManager.whiteBoardManager changeMainCourseViewBackgroudColor:color];
-            
  
             [self.liveManager.whiteBoardManager changeMainWhiteBoardBackgroudColor:YSSkinDefineColor(@"Color9")];
-            
-
         }
     }
     else if (self.liveManager.roomModel.skinModel.whiteboardType == CHSkinWhiteboardType_image)

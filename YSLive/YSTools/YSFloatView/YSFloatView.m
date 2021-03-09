@@ -253,8 +253,15 @@
                     weakSelf.bm_height = weakSelf.maxSize.width * defaultScale;
                     weakSelf.center = self->scaleCenterPoint;
                 }];
+                if (!self.lastSize.width)
+                {
+                    self.endScale *= self.maxSize.width/self.minSize.width;
+                }
+                else
+                {
+                    self.endScale *= self.maxSize.width/self.lastSize.width;
+                }
                 
-                self.endScale *= self.maxSize.width/self.lastSize.width;
             }
             else
             {//高先达到最大
@@ -265,7 +272,15 @@
                     weakSelf.bm_width = weakSelf.maxSize.height * defaultScale;
                     weakSelf.center = self->scaleCenterPoint;
                 }];
-                self.endScale *= self.maxSize.height/self.lastSize.height;
+                if (!self.lastSize.height)
+                {
+                    self.endScale *= self.maxSize.height/self.minSize.height;
+                }
+                else
+                {
+                    self.endScale *= self.maxSize.height/self.lastSize.height;
+                }
+                
             }
             percentLeft = 0.0;
             percentTop = 0.0;

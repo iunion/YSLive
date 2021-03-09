@@ -754,16 +754,18 @@ typedef void (^YSRoomLeftDoBlock)(void);
     textView.editable = NO;
     textView.scrollEnabled = NO;
     [self.backImageView addSubview:textView];
-    
+        
     CGSize textViewSize = [attribute bm_sizeToFit:CGSizeMake(250.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     textView.attributedText = attribute;
     textView.textAlignment = NSTextAlignmentCenter;
     [textView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
         make.bottom.bmmas_equalTo(-20.f);
-        make.height.bmmas_equalTo(textViewSize.height + textView.textContainerInset.top + textView.textContainerInset.bottom+ 2.0f);
+        make.height.bmmas_equalTo(textViewSize.height);
         make.left.bmmas_equalTo(5.0f);
         make.right.bmmas_equalTo(-5.0f);
     }];
+    
+    
     
 //    // 用户协议
 //    UIButton *userAgreement = [UIButton buttonWithType:UIButtonTypeCustom];
