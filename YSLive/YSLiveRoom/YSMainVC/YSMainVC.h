@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSMainVC : YSMainSuperVC
 
+
+@property (nonatomic,assign) BOOL isFakeLive;
+
 - (instancetype)initWithWideScreen:(BOOL)isWideScreen whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;
 
 @end

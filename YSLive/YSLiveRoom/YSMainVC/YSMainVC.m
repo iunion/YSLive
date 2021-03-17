@@ -213,6 +213,9 @@
 /// 上部窗口视频流
 @property (nonatomic, strong) NSString *currentTopStreamId;
 
+/// 上部窗口视频流
+@property (nonatomic, strong) UIView *fakeView;
+
 @end
 
 @implementation YSMainVC
@@ -390,7 +393,16 @@
     self.teacherMaskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.teacherMaskView.contentMode = UIViewContentModeCenter;
     self.teacherMaskView.backgroundColor = YSSkinDefineColor(@"Color9");
-    self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
+    
+    if (self.liveManager.roomConfig.isFakeLive)
+    {
+        self.teacherMaskView.image = YSSkinElementImage(@"live_fake_maskImage", @"iconNor");
+    }
+    else
+    {
+        self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
+    }
+    
     [self.levelView.maskView addSubview:self.teacherMaskView];
     self.teacherMaskView.userInteractionEnabled = YES;
     self.teacherMaskView.hidden = YES;
@@ -806,48 +818,78 @@
 
 - (void)freshMediaView
 {
-    if (self.liveManager.isClassBegin)
+    if (self.liveManager.roomConfig.isFakeLive)
     {
-        self.teacherBgMaskView.hidden = YES;
-        
-        if (self.shareDesktop)
+        [self freshFakeMediaView];
+    }
+    else
+    {
+        if (self.liveManager.isClassBegin)
         {
-            self.teacherMaskView.hidden = YES;
-        }
-        else
-        {
-            CHPublishState publishState = self.liveManager.teacher.publishState;
-            NSString *sourceId = [self.liveManager.teacher getFirstVideoSourceId];
-            if ([sourceId bm_isNotEmpty])
+            self.teacherBgMaskView.hidden = YES;
+            
+            if (self.shareDesktop)
             {
-                if ([self.liveManager.teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
+                self.teacherMaskView.hidden = YES;
+            }
+            else
+            {
+                CHPublishState publishState = self.liveManager.teacher.publishState;
+                NSString *sourceId = [self.liveManager.teacher getFirstVideoSourceId];
+                if ([sourceId bm_isNotEmpty])
                 {
-                    self.teacherMaskView.hidden = YES;
+                    if ([self.liveManager.teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
+                    {
+                        self.teacherMaskView.hidden = YES;
+                    }
+                    else
+                    {
+                        self.teacherMaskView.hidden = NO;
+                        
+                        if (publishState == CHUser_PublishState_DOWN)
+                        {
+                            self.teacherMaskView.image = YSSkinDefineImage(@"live_main_waitingvideo");
+                        }
+                        else
+                        {
+                            self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
+                        }
+                    }
                 }
                 else
                 {
                     self.teacherMaskView.hidden = NO;
-                    
-                    if (publishState == CHUser_PublishState_DOWN)
-                    {
-                        self.teacherMaskView.image = YSSkinDefineImage(@"live_main_waitingvideo");
-                    }
-                    else
-                    {
-                        self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
-                    }
+                    self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
                 }
             }
-            else
-            {
-                self.teacherMaskView.hidden = NO;
-                self.teacherMaskView.image = YSSkinDefineImage(@"live_main_stopvideo");
-            }
         }
+        else
+        {
+            self.teacherBgMaskView.hidden = NO;
+        }
+    }
+}
+
+- (void)freshFakeMediaView
+{
+    self.teacherBgMaskView.hidden = YES;
+    
+    if (self.mediaFileModel.isVideo || self.shareDesktop)
+    {
+        self.teacherMaskView.hidden = YES;
     }
     else
     {
-        self.teacherBgMaskView.hidden = NO;
+        self.teacherMaskView.hidden = NO;
+        
+        if (self.mediaFileModel && !self.mediaFileModel.isVideo)
+        {
+            self.teacherMaskView.image = YSSkinElementImage(@"live_fake_maskImage", @"iconSel");
+        }
+        else
+        {
+            self.teacherMaskView.image = YSSkinElementImage(@"live_fake_maskImage", @"iconNor");
+        }
     }
 }
 
@@ -1302,21 +1344,26 @@
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
     self.teacherPlaceLabel.hidden = YES;
-//    NSString *teacherPeerID = self.liveManager.teacher.peerID;
-    CHRoomUser *teacher = self.liveManager.teacher;
-    if (teacher)
+    
+    self.isFakeLive = YES;
+    
+    if (!self.isFakeLive)
     {
-        NSString * sourceId = teacher.sourceListDic.allKeys.firstObject;
-        if ([sourceId bm_isNotEmpty])
+        CHRoomUser *teacher = self.liveManager.teacher;
+        if (teacher)
         {
-            sourceId = sCHUserDefaultSourceId;
-        }
-        NSString *streamId = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
-        
-        if ([sourceId bm_isNotEmpty] && [teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
-        {
-            self.currentTopStreamId = streamId;
-            [self.liveManager playVideoWithUserId:teacher.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+            NSString * sourceId = teacher.sourceListDic.allKeys.firstObject;
+            if ([sourceId bm_isNotEmpty])
+            {
+                sourceId = sCHUserDefaultSourceId;
+            }
+            NSString *streamId = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
+            
+            if ([sourceId bm_isNotEmpty] && [teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
+            {
+                self.currentTopStreamId = streamId;
+                [self.liveManager playVideoWithUserId:teacher.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+            }
         }
     }
 
@@ -1343,7 +1390,7 @@
         }
 #endif
         
-        if (roomUser.role != CHUserType_Teacher)
+        if (roomUser.role != CHUserType_Teacher || self.isFakeLive)
         {
             NSString *peerID = roomUser.peerID;
             
@@ -1664,6 +1711,69 @@
         [self.mediaMarkView removeFromSuperview];
         self.mediaMarkView = nil;
     }
+}
+
+#pragma mark - 音视频伪直播
+
+- (void)onRoomOnlineMovieStartWithUserId:(NSString *)userId sourceId:(NSString *)sourceId streamId:(NSString *)streamId
+{
+    if (self.fakeView)
+    {
+        [self.fakeView removeFromSuperview];
+        self.fakeView = nil;
+    }
+    else
+    {
+        self.fakeView = [[UIView alloc]initWithFrame:self.teacherFloatView.bounds];
+        self.fakeView.backgroundColor = UIColor.clearColor;
+        [self.teacherFloatView addSubview:self.fakeView];
+    }
+    
+    
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.fakeView];
+    self.teacherMaskView.hidden = YES;
+}
+
+- (void)onRoomOnlineMovieStopWithUserId:(NSString *)userId sourceId:(NSString *)sourceId streamId:(NSString *)streamId
+{
+    [self.liveManager stopVideoWithUserId:userId streamID:streamId];
+    [self.fakeView removeFromSuperview];
+    self.fakeView = nil;
+    [self freshMediaView];
+}
+
+/// 媒体流发布状态
+- (void)onRoomShareMediaFile:(CHSharedMediaFileModel *)mediaFileModel
+{
+    if (mediaFileModel.state == CHMediaState_Play || mediaFileModel.state == CHMediaState_Pause)
+    {
+        self.mediaFileModel = mediaFileModel;
+        
+        if (self.fakeView)
+        {
+            [self.fakeView removeFromSuperview];
+            self.fakeView = nil;
+        }
+        else
+        {
+            self.fakeView = [[UIView alloc]initWithFrame:self.teacherFloatView.bounds];
+            self.fakeView.backgroundColor = UIColor.clearColor;
+            [self.teacherFloatView addSubview:self.fakeView];
+        }
+        
+        [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:mediaFileModel.fileUrl cycle:NO view:self.fakeView paused:NO];
+    }
+    else
+    {
+        self.mediaFileModel = nil;
+
+        [self.liveManager.cloudHubRtcEngineKit stopPlayingMovie:mediaFileModel.fileUrl];
+        
+        [self.fakeView removeFromSuperview];
+        self.fakeView = nil;
+    }
+    
+    [self freshMediaView];
 }
 
 #pragma mark 共享桌面

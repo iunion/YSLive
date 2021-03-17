@@ -501,6 +501,17 @@
 		<key>iconSel</key>
 		<string>live_chat_flowerGray_skin</string>
 	</dict>
+	<key>live_fake_maskImage</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>live_fake_nothing</string>
+		<key>iconSel</key>
+		<string>live_fake_MP3</string>
+	</dict>
 	<key>live_raiseHand_time</key>
 	<dict>
 		<key>iconNor</key>
