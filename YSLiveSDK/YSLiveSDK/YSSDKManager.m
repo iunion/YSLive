@@ -7,6 +7,7 @@
 //
 
 #import "YSSDKManager.h"
+#import "YSLiveManager.h"
 #import "YSLiveApiRequest.h"
 #import "BMAlertView+YSDefaultAlert.h"
 
@@ -15,14 +16,15 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"3.5.5";
+static NSString *YSAPPVersionString = @"3.5.6";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"3.5.5.1";
+static NSString *YSSDKVersionString = @"3.5.6.0";
 
 @interface YSSDKManager ()
 <
     CHSessionDelegate,
+    YSSDKManagerDelegate,
     YSCoreNetWorkStatusProtocol
 >
 /// 底部的角色type

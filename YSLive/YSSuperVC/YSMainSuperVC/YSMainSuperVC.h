@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) YSControlPopoverView *controlPopoverView;
 
 /// 视频矫正窗口
-@property (nonatomic, strong) BMKeystoneCorrectionView *keystoneCorrectionView;
+@property (nonatomic, strong, readonly) BMKeystoneCorrectionView *keystoneCorrectionView;
 
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;

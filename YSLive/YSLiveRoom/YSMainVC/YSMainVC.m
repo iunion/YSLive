@@ -1127,12 +1127,13 @@
 
         if ([sourceId bm_isNotEmpty] && [user getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
         {
-            NSMutableArray *sourceIdsArray = [self.liveManager getUserStreamIdsWithUserId:user.peerID];
+            NSMutableDictionary *streamIdDic = [self.liveManager getUserStreamIdsWithUserId:user.peerID];
+            NSArray *streamIdArray = streamIdDic.allKeys;
             
-            if ([sourceIdsArray bm_isNotEmpty])
+            if ([streamIdArray bm_isNotEmpty])
             {
-                self.currentTopStreamId = sourceIdsArray.firstObject;
-                [self.liveManager playVideoWithUserId:user.peerID streamID:sourceIdsArray.firstObject renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+                self.currentTopStreamId = streamIdArray.firstObject;
+                [self.liveManager playVideoWithUserId:user.peerID streamID:streamIdArray.firstObject renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
             }
         }
         [self freshMediaView];
@@ -1147,12 +1148,12 @@
     
     if (user.role == CHUserType_Teacher)
     {
-        NSMutableArray *streamIdsArray = [self.liveManager getUserStreamIdsWithUserId:user.peerID];
+        NSMutableDictionary *streamIdDic = [self.liveManager getUserStreamIdsWithUserId:user.peerID];
+        NSArray *streamIdArray = streamIdDic.allKeys;
         
-        if ([streamIdsArray.firstObject bm_isNotEmpty])
+        if ([streamIdArray.firstObject bm_isNotEmpty])
         {
-            
-            [self.liveManager stopVideoWithUserId:user.peerID streamID:streamIdsArray.firstObject];
+            [self.liveManager stopVideoWithUserId:user.peerID streamID:streamIdArray.firstObject];
             [self freshMediaView];
         }
     }

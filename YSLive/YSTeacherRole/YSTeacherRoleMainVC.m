@@ -2575,7 +2575,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
 
-        NSArray *streamIdArray = [self.liveManager getUserStreamIdsWithUserId:userId];
+        NSMutableDictionary *streamIdDic = [self.liveManager getUserStreamIdsWithUserId:userId];
+        NSArray *streamIdArray = streamIdDic.allKeys;
         if ([streamIdArray bm_isNotEmpty])
         {
             for (NSString *streamId in streamIdArray)

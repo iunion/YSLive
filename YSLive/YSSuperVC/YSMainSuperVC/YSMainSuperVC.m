@@ -25,6 +25,9 @@
 /// 白板视图whiteBord
 @property (nonatomic, weak) UIView *whiteBordView;
 
+/// 视频矫正窗口
+@property (nonatomic, strong) BMKeystoneCorrectionView *keystoneCorrectionView;
+
 @end
 
 @implementation YSMainSuperVC
