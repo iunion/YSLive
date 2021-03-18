@@ -236,7 +236,16 @@
     {
         self.isWideScreen = isWideScreen;
         self.userId = userId;
-        platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 5) / 4;
+        
+        if (self.liveManager.roomConfig.isFakeLive)
+        {
+            platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 6) / 5;
+        }
+        else
+        {
+            platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 5) / 4;
+        }
+        
         if (self.isWideScreen)
         {
             platformVideoHeight = platformVideoWidth * 9 / 16;
@@ -282,7 +291,6 @@
     
     [self makeMp3Animation];
     [self setupMp4UI];
-        
     
     [self addControlMainVideoAudioView];
 }
@@ -308,7 +316,6 @@
 
 - (void)backAction:(id)sender
 {
-    
     if (self.isFullScreen)
     {
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -1342,7 +1349,7 @@
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
     self.teacherPlaceLabel.hidden = YES;
-        
+    
     if (!self.liveManager.roomConfig.isFakeLive)
     {
         CHRoomUser *teacher = self.liveManager.teacher;
@@ -1390,7 +1397,7 @@
         {
             NSString *peerID = roomUser.peerID;
             
-            if (roomUser.publishState == CHUser_PublishState_UP)
+            if (roomUser.publishState == CHUser_PublishState_UP || roomUser.role == CHUserType_Teacher)
             {
                 [self addVideoViewWithPeerId:peerID];
             }
