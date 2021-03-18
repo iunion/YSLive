@@ -21,6 +21,7 @@
 		046E683D2373CF73001CBB27 /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E683C2373CF73001CBB27 /* SCTextMessageCell.m */; };
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
+		048411E826032AC4000A47D5 /* YSFakeMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 048411E726032AC4000A47D5 /* YSFakeMainVC.m */; };
 		0487B27D259C60670010B721 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27C259C60670010B721 /* libz.tbd */; };
 		0487B27F259C60720010B721 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27E259C60720010B721 /* libiconv.tbd */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
@@ -828,6 +829,8 @@
 		046E68402373E152001CBB27 /* SCChatToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCChatToolView.m; sourceTree = "<group>"; };
 		047F07AD25779BEF00D64265 /* YSDefaultLayoutPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSDefaultLayoutPopView.h; sourceTree = "<group>"; };
 		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
+		048411E626032AC4000A47D5 /* YSFakeMainVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSFakeMainVC.h; sourceTree = "<group>"; };
+		048411E726032AC4000A47D5 /* YSFakeMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSFakeMainVC.m; sourceTree = "<group>"; };
 		0487B27C259C60670010B721 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		0487B27E259C60720010B721 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
@@ -3290,6 +3293,8 @@
 			children = (
 				87EB12972372647800D642E8 /* YSMainVC.h */,
 				87EB12DC2372647800D642E8 /* YSMainVC.m */,
+				048411E626032AC4000A47D5 /* YSFakeMainVC.h */,
+				048411E726032AC4000A47D5 /* YSFakeMainVC.m */,
 				26BAA5A52519F75B0077B7F0 /* YSLiveLevelView.h */,
 				26BAA5A62519F75B0077B7F0 /* YSLiveLevelView.m */,
 			);
@@ -3968,6 +3973,7 @@
 				87832F4624874C4300F1178E /* FLEXObjectExplorer.m in Sources */,
 				87133639237270F6006534A4 /* YSLessonView.m in Sources */,
 				8713363B237270F6006534A4 /* main.m in Sources */,
+				048411E826032AC4000A47D5 /* YSFakeMainVC.m in Sources */,
 				87832F5424874C4300F1178E /* FLEXNetworkCurlLogger.m in Sources */,
 				8713363D237270F6006534A4 /* PLArrayTableViewController.m in Sources */,
 				87832F8624874C4300F1178E /* FLEXTabsViewController.m in Sources */,

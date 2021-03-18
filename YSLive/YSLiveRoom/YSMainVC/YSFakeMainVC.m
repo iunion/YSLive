@@ -1,12 +1,15 @@
 //
-//  YSMainVC.m
-//  YSLive
+//  YSFakeMainVC.m
+//  YSAll
 //
-//  Created by jiang deng on 2019/10/14.
-//  Copyright © 2019 FS. All rights reserved.
+//  Created by 马迪 on 2021/3/18.
+//  Copyright © 2021 YS. All rights reserved.
 //
 
-#import "YSMainVC.h"
+
+
+
+#import "YSFakeMainVC.h"
 #import <objc/message.h>
 #if YSSDK
 #import "YSSDKManager.h"
@@ -62,7 +65,7 @@
 
 #define PAGESEGMENT_HEIGHT          (44.0f)
 
-@interface YSMainVC ()
+@interface YSFakeMainVC ()
 <
     SCEyeCareViewDelegate,
     BMScrollPageViewDelegate,
@@ -86,16 +89,8 @@
 /// 护眼提醒window
 @property (nonatomic, strong) SCEyeCareWindow *eyeCareWindow;
 
-
-/// 视频ratio 16:9
-//@property (nonatomic, assign) BOOL isWideScreen;
-
-/// 固定UserId
-//@property (nonatomic, strong) NSString *userId;
-
 @property (nonatomic, strong) BMScrollPageSegment *m_SegmentBar;
 @property (nonatomic, strong) BMScrollPageView *m_ScrollPageView;
-
 
 /// 直播视图
 /// 主播的视频view的高度
@@ -132,8 +127,6 @@
 /// 是否全屏
 @property (nonatomic, assign) BOOL isFullScreen;
 
-/// 房间号
-//@property (nonatomic, strong) UILabel *roomIDLabel;
 /// Mp3播放动画
 @property (nonatomic, strong) UIImageView *playMp3ImageView;
 
@@ -215,7 +208,7 @@
 
 @end
 
-@implementation YSMainVC
+@implementation YSFakeMainVC
 
 - (void)dealloc
 {
@@ -2964,5 +2957,6 @@
     }
     return _menuVc;
 }
+
 
 @end
