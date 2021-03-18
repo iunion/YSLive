@@ -789,7 +789,6 @@
     [self.mp4BgView bringSubviewToFront:self.mp4FullScreenBtn];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconNor") forState:UIControlStateNormal];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconSel") forState:UIControlStateSelected];
-    //self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
     self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
     [self.mp4FullScreenBtn addTarget:self action:@selector(mp4FullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -901,9 +900,7 @@
 - (void)freshVideoGridView
 {
     [self.studentVideoBgView bm_removeAllSubviews];
-    
-    //    CGFloat firstX = (self.videoBackgroud.bm_width - self.videoViewArray.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
-    
+        
     for (int i = 1; i <= self.videoSequenceArr.count; i++)
     {
         SCVideoView *videoView = self.videoSequenceArr[i-1];
@@ -1045,7 +1042,6 @@
     [self freshMediaView];
 }
 
-
 #pragma mark  添加视频窗口
 
 - (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
@@ -1078,14 +1074,13 @@
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
-    //[self.view bringSubviewToFront:self.returnBtn];
-//
+
     if (self.isFullScreen)
     {
         self.isFullScreen = NO;
         [self changeTopVideoToOriginalFrame];
     }
-//
+
     [self freshContentView];
 }
 
