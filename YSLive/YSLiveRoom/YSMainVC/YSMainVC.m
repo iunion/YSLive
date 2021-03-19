@@ -237,7 +237,7 @@
         self.isWideScreen = isWideScreen;
         self.userId = userId;
         
-        if (self.liveManager.roomConfig.isFakeLive)
+        if (self.liveManager.roomModel.liveType == CHLiveType_Fake)
         {
             platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 6) / 5;
         }
@@ -398,7 +398,7 @@
     self.teacherMaskView.contentMode = UIViewContentModeCenter;
     self.teacherMaskView.backgroundColor = YSSkinDefineColor(@"Color9");
     
-    if (self.liveManager.roomConfig.isFakeLive)
+    if (self.liveManager.roomModel.liveType == CHLiveType_Fake)
     {
         self.teacherMaskView.image = YSSkinElementImage(@"live_fake_maskImage", @"iconNor");
     }
@@ -822,7 +822,7 @@
 
 - (void)freshMediaView
 {
-    if (self.liveManager.roomConfig.isFakeLive)
+    if (self.liveManager.roomModel.liveType == CHLiveType_Fake)
     {
         [self freshFakeMediaView];
     }
@@ -1350,7 +1350,7 @@
 {
     self.teacherPlaceLabel.hidden = YES;
     
-    if (!self.liveManager.roomConfig.isFakeLive)
+    if (self.liveManager.roomModel.liveType != CHLiveType_Fake)
     {
         CHRoomUser *teacher = self.liveManager.teacher;
         if (teacher)
@@ -1393,7 +1393,7 @@
         }
 #endif
         
-        if (roomUser.role != CHUserType_Teacher || self.liveManager.roomConfig.isFakeLive)
+        if (roomUser.role != CHUserType_Teacher || self.liveManager.roomModel.liveType == CHLiveType_Fake)
         {
             NSString *peerID = roomUser.peerID;
             
@@ -1583,7 +1583,7 @@
 // 播放白板视频/音频
 - (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
 {
-    if (self.liveManager.roomConfig.isFakeLive)
+    if (self.liveManager.roomModel.liveType == CHLiveType_Fake)
     {
         if (!mediaModel.isVideo)
         {
@@ -1634,7 +1634,7 @@
 // 停止白板视频/音频
 - (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
 {
-    if (self.liveManager.roomConfig.isFakeLive)
+    if (self.liveManager.roomModel.liveType == CHLiveType_Fake)
     {
         [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
         self.mediaFileModel = nil;
@@ -1746,7 +1746,7 @@
 /// 开始桌面共享 服务端控制与课件视频/音频互斥
 - (void)onRoomStartShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
-    if (self.liveManager.roomConfig.isFakeLive)
+    if (self.liveManager.roomModel.liveType == CHLiveType_Fake)
     {
         [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
         self.teacherMaskView.hidden = YES;
@@ -1769,7 +1769,7 @@
 /// 停止桌面共享
 - (void)onRoomStopShareDesktopWithUserId:(NSString *)userId sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {
-    if (self.liveManager.roomConfig.isFakeLive)
+    if (self.liveManager.roomModel.liveType == CHLiveType_Fake)
     {
         [self.liveManager stopVideoWithUserId:userId streamID:streamId];
         self.mediaFileModel = nil;
