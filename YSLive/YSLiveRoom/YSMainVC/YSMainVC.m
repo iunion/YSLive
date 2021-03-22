@@ -29,7 +29,6 @@
 #import "YSCommentPopView.h"
 #import "YSChatMemberListVC.h"
 
-
 #import "YSQuestionView.h"
 #import "YSSignedAlertView.h"
 #import "YSPrizeAlertView.h"
@@ -49,7 +48,7 @@
 
 #import "YSWarmVideoView.h"
 
-
+#import "CHLiveControlView.h"
 // 输入框高度
 #define ToolHeight (IS_IPHONEXANDP?(kScale_H(56)+39):kScale_H(56))
 
@@ -86,16 +85,8 @@
 /// 护眼提醒window
 @property (nonatomic, strong) SCEyeCareWindow *eyeCareWindow;
 
-
-/// 视频ratio 16:9
-//@property (nonatomic, assign) BOOL isWideScreen;
-
-/// 固定UserId
-//@property (nonatomic, strong) NSString *userId;
-
 @property (nonatomic, strong) BMScrollPageSegment *m_SegmentBar;
 @property (nonatomic, strong) BMScrollPageView *m_ScrollPageView;
-
 
 /// 直播视图
 /// 主播的视频view的高度
@@ -132,13 +123,10 @@
 /// 是否全屏
 @property (nonatomic, assign) BOOL isFullScreen;
 
-/// 房间号
-//@property (nonatomic, strong) UILabel *roomIDLabel;
 /// Mp3播放动画
 @property (nonatomic, strong) UIImageView *playMp3ImageView;
 
 /// Mp4
-
 @property (nonatomic, strong) YSFloatView *mp4BgView;
 @property (nonatomic, strong) UIView *mp4View;
 /// 是否mp4全屏
@@ -170,12 +158,6 @@
 @property (nonatomic, strong) NSMutableArray *questionBeforeArr;
 /// 抽奖弹窗
 @property (nonatomic, strong) YSPrizeAlertView *prizeAlert;
-
-/// 当前房间播放视频Id
-//@property (nonatomic, strong) NSString *roomVideoPeerID;
-/// 是否正在播放视频
-//@property (nonatomic, assign) BOOL showRoomVideo;
-
 ///私聊列表
 @property (nonatomic, strong) NSMutableArray<CHRoomUser *>  *memberList;
 /// 举手按钮
@@ -191,13 +173,7 @@
 @property (nonatomic, assign)double upTime;
 
 /// 控制自己音视频的按钮的蒙版
-@property(nonatomic,strong) UIView * controlBackMaskView ;
-/// 控制自己音视频的按钮的背景View
-@property(nonatomic,strong) UIView * controlBackView;
-///音频控制按钮
-@property(nonatomic,strong) BMImageTitleButtonView * audioBtn;
-///视频控制按钮
-@property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
+@property(nonatomic,strong) CHLiveControlView * controlBackMaskView ;
 
 @property (nonatomic, assign) BOOL shareDesktop;
 
@@ -260,7 +236,6 @@
 }
 
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -291,6 +266,7 @@
     
     [self makeMp3Animation];
     [self setupMp4UI];
+        
     
     [self addControlMainVideoAudioView];
 }
@@ -316,12 +292,12 @@
 
 - (void)backAction:(id)sender
 {
+    
     if (self.isFullScreen)
     {
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
         // 如果是全屏，点击按钮进入小屏状态
         [self changeTopVideoToOriginalFrame];
-
     }
     else
     {
@@ -493,7 +469,7 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if ([touch.view isDescendantOfView:self.controlBackView])
+    if ([touch.view isDescendantOfView:self.controlBackMaskView.controlBackView])
     {
         return NO;
     }
@@ -505,136 +481,17 @@
 
 - (void)addControlMainVideoAudioView
 {
-    UIControl* controlBackMaskView = [[UIControl alloc]initWithFrame:self.view.bounds];
-    controlBackMaskView.backgroundColor = UIColor.clearColor;
-    self.controlBackMaskView = controlBackMaskView;
-    [self.view addSubview:controlBackMaskView];
+    CHLiveControlView *controlBackMaskView = [[CHLiveControlView alloc]initWithFrame:self.view.bounds];
+    controlBackMaskView.hidden = YES;
     [controlBackMaskView addTarget:self action:@selector(clickToHideControl) forControlEvents:UIControlEventTouchUpInside];
     
-    controlBackMaskView.hidden = YES;
-    
-    UIView * controlBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
-    controlBackView.backgroundColor = YSSkinDefineColor(@"Color2");
-    self.controlBackView = controlBackView;
-    [controlBackMaskView addSubview:controlBackView];
-    [controlBackView bm_roundedRect:5.0f borderWidth:0 borderColor:nil];
-
-    //音频控制按钮
-    self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") imageName:@"videoPop_soundButton" selectImageName:@"videoPop_soundButton"];
-    self.audioBtn.disabledImage = YSSkinElementImage(@"videoPop_soundButton", @"iconDis");
-    self.audioBtn.disabledText = YSLocalized(@"Button.OpenAudio");
-    self.audioBtn.tag = 0;
-    [controlBackView addSubview:self.audioBtn];
-    self.audioBtn.frame = CGRectMake(5, 4, 36, 32);
-    
-    //视频控制按钮
-    self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") imageName:@"videoPop_videoButton" selectImageName:@"videoPop_videoButton"];
-    UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
-    self.videoBtn.disabledImage = videoClose;
-    self.videoBtn.disabledText = YSLocalized(@"Button.OpenVideo");
-    [controlBackView addSubview:self.videoBtn];
-    self.videoBtn.tag = 1;
-    self.videoBtn.frame = CGRectMake(45, 4, 36, 32);
-}
-
-/// 刷新视频控制按钮状态
-- (void)updataVideoPopViewStateWithSourceId:(NSString *)sourceId
-{
-    if (YSCurrentUser.audioMute == CHSessionMuteState_Mute)
-    {
-        self.audioBtn.selected = NO;
-    }
-    else
-    {
-        self.audioBtn.selected = YES;
-    }
-
-    if ([YSCurrentUser getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_Mute)
-    {
-        self.videoBtn.selected = NO;
-    }
-    else
-    {
-        self.videoBtn.selected = YES;
-    }
-        
-    //没有摄像头、麦克风权限时的显示禁用状态
-    if (YSCurrentUser.afail == CHDeviceFaultNone)
-    {
-        self.audioBtn.enabled = YES;
-    }
-    else
-    {
-        self.audioBtn.enabled = NO;
-    }
-    
-    if ([YSCurrentUser getVideoVfailWithSourceId:sourceId] == CHDeviceFaultNone)
-    {
-        self.videoBtn.enabled = YES;
-    }
-    else
-    {
-        self.videoBtn.enabled = NO;
-    }
-}
-
-///创建button
-- (BMImageTitleButtonView *)creatButtonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName
-{
-    BMImageTitleButtonView * button = [[BMImageTitleButtonView alloc]init];
-    [button addTarget:self action:@selector(userBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-    button.textNormalColor = YSSkinDefineColor(@"Color3");
-    button.textFont = UI_FONT_10;
-    button.normalText = title;
-    
-    if (selectTitle.length)
-    {
-        button.selectedText = selectTitle;
-    }
-    button.normalImage = YSSkinElementImage(imageName, @"iconNor");
-
-    if (selectImageName.length)
-    {
-        button.selectedImage = YSSkinElementImage(imageName, @"iconSel");
-    }
-    
-    return button;
+    [self.view addSubview:controlBackMaskView];
+    self.controlBackMaskView = controlBackMaskView;
 }
 
 - (void)clickToHideControl
 {
     self.controlBackMaskView.hidden = YES;
-}
-
-- (void)userBtnsClick:(UIButton *)sender
-{
-    CHSessionMuteState muteState = CHSessionMuteState_UnMute;
-    
-    switch (sender.tag) {
-        case 0:
-        {//关闭音频
-            if (sender.selected)
-            {//当前是打开音频状态
-                muteState = CHSessionMuteState_Mute;
-            }
-            [YSCurrentUser sendToChangeAudioMute:muteState];
-            sender.selected = !sender.selected;
-        }
-            break;
-        case 1:
-        {//关闭视频
-            if (sender.selected)
-            {//当前是打开视频状态
-                muteState = CHSessionMuteState_Mute;
-            }
-            
-            [YSCurrentUser sendToChangeVideoMute:muteState WithSourceId:sCHUserDefaultSourceId];
-            sender.selected = !sender.selected;
-        }
-            break;
-        default:
-            break;
-    }
 }
 
 #pragma mark 点击弹出popoview
@@ -649,20 +506,19 @@
     
     CGRect frame = [self.studentVideoBgView convertRect:videoView.frame toView:self.controlBackMaskView];
     
-//    self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.size.height/2 + frame.origin.y);
     self.controlBackMaskView.hidden = NO;
-    [self updataVideoPopViewStateWithSourceId:videoView.sourceId];
-    [self.view bringSubviewToFront:self.controlBackView];
+    [self.controlBackMaskView updataVideoPopViewStateWithSourceId:videoView.sourceId];
+    [self.view bringSubviewToFront:self.controlBackMaskView.controlBackView];
     
     if (self.isFullScreen)
     {
-        self.controlBackView.center = CGPointMake(frame.size.width + 30, frame.size.height/2 + frame.origin.y);
-        self.controlBackView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+        self.controlBackMaskView.controlBackView.center = CGPointMake(frame.size.width + 30, frame.size.height/2 + frame.origin.y);
+        self.controlBackMaskView.controlBackView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
     }
     else
     {
-        self.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.origin.y - self.controlBackView.bounds.size.height*0.5f);
-        self.controlBackView.transform = CGAffineTransformMakeRotation(0);
+        self.controlBackMaskView.controlBackView.center = CGPointMake(frame.size.width/2 + frame.origin.x, frame.origin.y - self.controlBackMaskView.controlBackView.bounds.size.height*0.5f);
+        self.controlBackMaskView.controlBackView.transform = CGAffineTransformMakeRotation(0);
     }
 }
 
@@ -785,7 +641,6 @@
     self.mp4BgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, self.view.bm_height-self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
     self.mp4BgView.backgroundColor = [UIColor blackColor];
     self.mp4BgView.showWaiting = YES;
-    //[self.view addSubview:self.mp4BgView];
     [self.m_ScrollPageView.scrollView addSubview:self.mp4BgView];
     self.mp4BgView.frame = self.m_ScrollPageView.bounds;
     
@@ -803,7 +658,6 @@
     [self.mp4BgView bringSubviewToFront:self.mp4FullScreenBtn];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconNor") forState:UIControlStateNormal];
     [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconSel") forState:UIControlStateSelected];
-    //self.mp4FullScreenBtn.frame = CGRectMake(UI_SCREEN_WIDTH - 15 - 40, UI_STATUS_BAR_HEIGHT, 40, 40);
     self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
     [self.mp4FullScreenBtn addTarget:self action:@selector(mp4FullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -915,9 +769,7 @@
 - (void)freshVideoGridView
 {
     [self.studentVideoBgView bm_removeAllSubviews];
-    
-    //    CGFloat firstX = (self.videoBackgroud.bm_width - self.videoViewArray.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
-    
+        
     for (int i = 1; i <= self.videoSequenceArr.count; i++)
     {
         SCVideoView *videoView = self.videoSequenceArr[i-1];
@@ -1092,14 +944,13 @@
 - (void)onRoomConnectionLost
 {
     [super onRoomConnectionLost];
-    //[self.view bringSubviewToFront:self.returnBtn];
-//
+
     if (self.isFullScreen)
     {
         self.isFullScreen = NO;
         [self changeTopVideoToOriginalFrame];
     }
-//
+
     [self freshContentView];
 }
 
@@ -1116,7 +967,6 @@
     
     // 网络中断尝试失败后退出
     [[BMNoticeViewStack sharedInstance] closeAllNoticeViews];// 清除alert的栈
-    //    [self.navigationController popToRootViewControllerAnimated:YES];
     
     if (self.presentedViewController)
     {
@@ -1287,8 +1137,6 @@
 
 - (void)onRoomUserPropertyChanged:(NSString *)userId fromeUserId:(NSString *)fromeUserId properties:(NSDictionary *)properties
 {
-//    SCVideoView *videoView = [self getVideoViewWithPeerId:userId];
-    
     CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:userId];
     
     if (!roomUser)
@@ -1327,7 +1175,7 @@
     if ([userId isEqualToString:self.liveManager.localUser.peerID] && self.controlBackMaskView.hidden == NO)
     {
         /// 更新用户的视频按钮状态
-        [self updataVideoPopViewStateWithSourceId:sCHUserDefaultSourceId];
+        [self.controlBackMaskView updataVideoPopViewStateWithSourceId:sCHUserDefaultSourceId];
     }
 }
 
@@ -1349,7 +1197,7 @@
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
     self.teacherPlaceLabel.hidden = YES;
-    
+        
     if (self.liveManager.roomModel.liveType != CHLiveType_Fake)
     {
         CHRoomUser *teacher = self.liveManager.teacher;
@@ -1440,37 +1288,6 @@
     [self presentViewController:alertVc animated:YES completion:nil];
 }
 
-/* 学生不需要下课提示
- /// 房间即将关闭消息
- - (BOOL)handleSignalingPrepareRoomEndWithDataDic:(NSDictionary *)dataDic addReason:(YSPrepareRoomEndType)reason
- {
- NSUInteger reasonCount = [dataDic bm_uintForKey:@"reason"];
- 
- if (reason == YSPrepareRoomEndType_TeacherLeaveTimeout)
- {//老师离开房间时间过长
- 
- if (reasonCount == 1)
- {
- [self showSignalingClassEndWithText:YSLocalized(@"Prompt.TeacherLeave8")];
- }
- }
- else
- if (reason == YSPrepareRoomEndType_RoomTimeOut)
- {//房间预约时间
- 
- if (reasonCount == 2)
- {//表示房间预约时间已到，30分钟后房间即将关闭
- [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment30")];
- }
- else if(reasonCount == 3)
- {//表示已经超过房间预约时间28分钟，2分钟后房间即将关闭
- [self showSignalingClassEndWithText:YSLocalized(@"Prompt.Appointment28")];
- }
- }
- return YES;
- }
- */
-
 ///房间踢除所有用户消息
 - (void)handleSignalingEvictAllRoomUseWithDataDic:(NSDictionary *)dataDic
 {
@@ -1484,77 +1301,6 @@
         [self classEndWithText:YSLocalized(@"Prompt.ClassEndAnchorLeave10")];
     }
 }
-
-
-#pragma mark 房间视频/音频
-
-#if 0
-///// 继续播放房间视频
-//- (void)handleRoomPlayMediaWithPeerID:(NSString *)peerID
-//{
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
-//    self.liveBgView.canZoom = NO;
-//    self.liveBgView.backScrollView.zoomScale = 1.0;
-//
-//    self.showRoomVideo = YES;
-//#if YSAPP_NEWERROR
-//    [self.liveManager playVideoOnView:self.liveView withPeerId:self.roomVideoPeerID renderType:YSRenderMode_adaptive completion:^(NSError *error) {
-//    }];
-//#endif
-//
-//    [self freshMediaView];
-//}
-//
-///// 暂停房间视频
-//- (void)handleRoomPauseMediaWithPeerID:(NSString *)peerID
-//{
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
-//
-//    self.showRoomVideo = NO;
-//#if YSAPP_NEWERROR
-//    [self.liveManager stopPlayVideo:self.liveManager.teacher.peerID completion:^(NSError * _Nonnull error) {
-//    }];
-//#endif
-//
-//    [self freshMediaView];
-//}
-//
-///// 继续播放房间音频
-//- (void)handleRoomPlayAudioWithPeerID:(NSString *)peerID
-//{
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
-//
-//#if YSAPP_NEWERROR
-//    [self.liveManager playAudio:self.roomVideoPeerID completion:^(NSError *error) {
-//    }];
-//#endif
-//}
-//
-///// 暂停房间音频
-//- (void)handleRoomPauseAudioWithPeerID:(NSString *)peerID
-//{
-//    if (![peerID isEqualToString:self.liveManager.teacher.peerID])
-//    {
-//        return;
-//    }
-//
-//#if YSAPP_NEWERROR
-//    [self.liveManager stopPlayAudio:self.roomVideoPeerID completion:^(NSError *error) {
-//    }];
-//#endif
-//    [self freshMediaView];
-//}
-#endif
-
 
 #pragma mark 本地movie stream
 
@@ -1690,11 +1436,7 @@
     {
         return;
     }
-//    if (self.mp4BgView.hidden)
-//    {
-//        return;
-//    }
-    
+
     if (self.mediaMarkView.superview)
     {
         [self.mediaMarkView removeFromSuperview];
@@ -1717,18 +1459,9 @@
     {
         return;
     }
-    
-//    BOOL isHistory = [data bm_boolForKey:@"isHistory"];
-//
-//    if (isHistory)
-//    {
-//        [self.mediaMarkSharpsDatas addObject:data];
-//    }
-//    else
-    {
-        [self.mediaMarkView freshViewWithData:data savedSharpsData:self.mediaMarkSharpsDatas];
-        [self.mediaMarkSharpsDatas removeAllObjects];
-    }
+
+    [self.mediaMarkView freshViewWithData:data savedSharpsData:self.mediaMarkSharpsDatas];
+    [self.mediaMarkSharpsDatas removeAllObjects];
 }
 
 /// 隐藏白板视频标注
@@ -1854,7 +1587,6 @@
         }
 
     });
-    
 }
 
 // 结束点名
@@ -2232,9 +1964,6 @@
     {
         case 0:
         {
-            //            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            //            [userDefaults setObject:@"" forKey:@"com.tingxins.sakura.current.name"];
-            
             self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
             [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
                         
@@ -2307,6 +2036,24 @@
     }
 }
 
+- (void)creatPopover:(UIButton*)popoBtn
+{
+    self.menuVc.popoverPresentationController.sourceView = popoBtn;
+    UIPopoverPresentationController *popover = self.menuVc.popoverPresentationController;
+    popover.sourceRect = popoBtn.bounds;
+    popover.permittedArrowDirections = UIPopoverArrowDirectionDown;
+    popover.delegate = self;
+    [self presentViewController:self.menuVc animated:NO completion:nil];///present即可
+}
+#pragma mark -
+#pragma mark UIPopoverPresentationControllerDelegate
+
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
+#pragma mark - 暖场视频
 ///创建暖场视频
 - (void)creatWarmUpVideo
 {
@@ -2353,10 +2100,8 @@
                 isCycle = YES;
             }
             
-            int iii = [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:self.warmUrl cycle:isCycle view:self.warmVideoView paused:NO];
-            
-//            NSLog(@"12345self.warmUrl = %@ -- %d",self.warmUrl,iii);
-            
+            [self.liveManager.cloudHubRtcEngineKit startPlayingMovie:self.warmUrl cycle:isCycle view:self.warmVideoView paused:NO];
+                        
             for (UIView *view in weakSelf.warmVideoView.subviews)
             {
                 if ([NSStringFromClass([view class]) isEqualToString:@"CloudHubRtcRender"])
@@ -2369,6 +2114,7 @@
     }
 }
 
+/// 停止暖场
 - (void)onRoomStopLocalMediaFile:(NSString *)mediaFileUrl
 {
     if (self.warmVideoView)
@@ -2379,15 +2125,6 @@
 }
 
 
-- (void)creatPopover:(UIButton*)popoBtn
-{
-    self.menuVc.popoverPresentationController.sourceView = popoBtn;
-    UIPopoverPresentationController *popover = self.menuVc.popoverPresentationController;
-    popover.sourceRect = popoBtn.bounds;
-    popover.permittedArrowDirections = UIPopoverArrowDirectionDown;
-    popover.delegate = self;
-    [self presentViewController:self.menuVc animated:NO completion:nil];///present即可
-}
 
 
 #pragma mark -
@@ -2410,13 +2147,7 @@
 }
 
 
-#pragma mark -
-#pragma mark UIPopoverPresentationControllerDelegate
 
--(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
-{
-    return UIModalPresentationNone;
-}
 
 
 #pragma mark -
@@ -2599,24 +2330,6 @@
     [self setMp4InterfaceOrientation:UIInterfaceOrientationLandscapeRight];
 }
 
-//- (void)setInterfaceOrientation:(UIInterfaceOrientation)orientation
-//{
-//    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)])
-//    {
-//        [[UIDevice currentDevice] performSelector:@selector(setOrientation:) withObject:@(orientation)];
-//        [UIViewController attemptRotationToDeviceOrientation];
-//    }
-//
-//    SEL selector = NSSelectorFromString(@"setOrientation:");
-//
-//    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-//    [invocation setSelector:selector];
-//    [invocation setTarget:[UIDevice currentDevice]];
-//    int val = (int)orientation;
-//    [invocation setArgument:&val atIndex:2];
-//    [invocation invoke];
-//    [self orientChange:nil];
-//}
 
 /// 转屏通知
 //- (void)orientChange:(NSNotification *)noti
@@ -2634,7 +2347,6 @@
             
             [UIView animateWithDuration:0.25 animations:^{
                 self.isFullScreen = NO;//通过set 方法刷新了视频布局
-//                self.barrageStart = NO;
                 self.levelView.transform = CGAffineTransformMakeRotation(0);
                 self.levelView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.teacherVideoHeight);
                 self.teacherFloatView.frame =  self.levelView.bounds;
@@ -2704,40 +2416,7 @@
             break;
         case UIDeviceOrientationLandscapeRight:
         {
-#warning setDeviceOrientation
-            /*
-            //[[YSLiveManager shareInstance] setDeviceOrientation:UIDeviceOrientationLandscapeRight];
-            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnLeft];
-            [UIView animateWithDuration:0.25 animations:^{
-                
-                self.isFullScreen = YES;
-//                self.barrageStart = YES;
-                self.teacherFloatView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.teacherFloatView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
-                
-                self.returnBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.returnBtn.frame = CGRectMake(25, BMUI_SCREEN_HEIGHT -  BMUI_HOME_INDICATOR_HEIGHT - 10 - 40, 40, 40);
-                
-//                self.roomIDLabel.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-//                self.roomIDLabel.frame = CGRectMake(25, 0, 26, 120);
-//                self.roomIDLabel.bm_bottom = self.returnBtn.bm_top - 7;
-                
-                self.barrageManager.renderView.frame = CGRectMake(0, 70, BMUI_SCREEN_HEIGHT, BMUI_SCREEN_WIDTH-70-55);
-                //self.barrageManager.renderView.hidden = NO;
-                
-                self.fullScreenBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.fullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40 ,BMUI_STATUS_BAR_HEIGHT + 10 , 40, 40);
-                
-                self.barrageBtn.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
-                self.barrageBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 20 - 40, CGRectGetMaxY(self.fullScreenBtn.frame) + 10, 40, 40);
 
-                self.playMp3ImageView.bm_origin = CGPointMake(BMUI_SCREEN_WIDTH - 70 , BMUI_SCREEN_HEIGHT - BMUI_STATUS_BAR_HEIGHT - BMUI_HOME_INDICATOR_HEIGHT - 15);
-                
-                [self.teacherPlaceLabel bm_centerHorizontallyInSuperViewWithTop:self.teacherMaskView.bm_height-80];
-                
-                [self setNeedsStatusBarAppearanceUpdate];
-            }];
-             */
         }
             break;
             
@@ -2757,7 +2436,6 @@
                 
                 self.isMp4FullScreen = NO;
                 self.mp4BgView.transform = CGAffineTransformMakeRotation(0);
-                //self.mp4BgView.frame = CGRectMake(0, self.view.bm_height-self.m_ScrollPageView.bm_height, UI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
                 
                 [self.mp4BgView removeFromSuperview];
                 [self.m_ScrollPageView.scrollView addSubview:self.mp4BgView];
@@ -2934,43 +2612,49 @@
         self.menuVc.view.frame = CGRectMake(100, 100, 200, 50);
         self.menuVc.titleArr = @[YSLocalized(@"Alert.AllMessage"),YSLocalized(@"Alert.teacherMessage"),YSLocalized(@"Alert.OwnMessage")];
         BMWeakSelf
-        __weak __typeof(&*self.menuVc)weakMenuVc = self.menuVc;
         self.menuVc.popoverCellClick = ^(NSInteger index) {
-            switch (index)
-            {
-                case 0:
-                {//显示全部消息
-                    weakSelf.chaView.showType = YSMessageShowTypeAll;
-                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconNor") forState:UIControlStateNormal];
-                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconSel") forState:UIControlStateHighlighted];
-                    
-                }
-                    break;
-                case 1:
-                {//仅看主播消息
-                    weakSelf.chaView.showType = YSMessageShowTypeAnchor;
-                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAnchor", @"iconNor") forState:UIControlStateNormal];
-                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAnchor", @"iconSel") forState:UIControlStateHighlighted];
-                }
-                    break;
-                case 2:
-                {//仅看自己消息
-                    weakSelf.chaView.showType = YSMessageShowTypeMain;
-                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageMine", @"iconNor") forState:UIControlStateNormal];
-                    [weakSelf.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageMine", @"iconSel") forState:UIControlStateHighlighted];
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-            [weakMenuVc dismissViewControllerAnimated:YES completion:nil];
+            
+            [weakSelf chatMessageShowType:index];
         };
         
         self.menuVc.preferredContentSize = CGSizeMake(160, 135);
         self.menuVc.modalPresentationStyle = UIModalPresentationPopover;
     }
     return _menuVc;
+}
+
+- (void)chatMessageShowType:(NSInteger)index
+{
+    switch (index)
+    {
+        case 0:
+        {//显示全部消息
+            self.chaView.showType = YSMessageShowTypeAll;
+            [self.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconNor") forState:UIControlStateNormal];
+            [self.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAllPersional", @"iconSel") forState:UIControlStateHighlighted];
+            
+        }
+            break;
+        case 1:
+        {//仅看主播消息
+            self.chaView.showType = YSMessageShowTypeAnchor;
+            [self.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAnchor", @"iconNor") forState:UIControlStateNormal];
+            [self.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageAnchor", @"iconSel") forState:UIControlStateHighlighted];
+        }
+            break;
+        case 2:
+        {//仅看自己消息
+            self.chaView.showType = YSMessageShowTypeMain;
+            [self.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageMine", @"iconNor") forState:UIControlStateNormal];
+            [self.chaView.chatToolView.msgTypeBtn setImage:YSSkinElementImage(@"live_chatMessageMine", @"iconSel") forState:UIControlStateHighlighted];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self.menuVc dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
