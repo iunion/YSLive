@@ -119,7 +119,6 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.tableBacView = tableBacView;
     [self addSubview:tableBacView];
     tableBacView.backgroundColor = [UIColor clearColor];
-
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
     tableView.bounces = NO;
