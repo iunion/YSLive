@@ -1113,7 +1113,10 @@
         
         [self freshMediaView];
         
-        return;
+        if (self.liveManager.roomModel.liveType != CHLiveType_MediaFake)
+        {
+            return;
+        }
     }
     
     if (roomUser.publishState == CHUser_PublishState_UP)
@@ -1245,7 +1248,7 @@
         {
             NSString *peerID = roomUser.peerID;
             
-            if (roomUser.publishState == CHUser_PublishState_UP || roomUser.role == CHUserType_Teacher)
+            if (roomUser.publishState == CHUser_PublishState_UP)
             {
                 [self addVideoViewWithPeerId:peerID];
             }
