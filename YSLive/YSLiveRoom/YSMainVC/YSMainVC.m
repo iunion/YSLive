@@ -212,20 +212,12 @@
     {
         self.isWideScreen = isWideScreen;
         self.userId = userId;
-        
-        if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
-        {
-            platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 6) / 5;
-        }
-        else
-        {
-            platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 5) / 4;
-        }
+
+        platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 5) / 4;
         
         if (self.isWideScreen)
         {
             platformVideoHeight = platformVideoWidth * 9 / 16;
-            
         }
         else
         {
@@ -241,6 +233,7 @@
     [super viewDidLoad];
     self.bm_CanBackInteractive = NO;
     self.barrageStart = YES;
+    
     if (self.isWideScreen)
     {
         self.teacherVideoHeight = BMUI_SCREEN_WIDTH * 9/16;
@@ -266,7 +259,6 @@
     
     [self makeMp3Animation];
     [self setupMp4UI];
-        
     
     [self addControlMainVideoAudioView];
 }
@@ -785,19 +777,27 @@
     
     CGFloat teacherH = 0.0;
     CGFloat teacherW = 0.0;
-    if (self.videoSequenceArr.count <= 2)
+    
+    if (self.videoSequenceArr.count >4)
     {
-        teacherH = self.teacherVideoHeight;
-        teacherW = BMUI_SCREEN_WIDTH;
-        for (NSInteger i = 1; i <= self.videoSequenceArr.count; i++)
+        if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i-1];
-            [self.studentVideoBgView addSubview:videoView];
-            videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
+            platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 6) / 5;
+            
+            if (self.isWideScreen)
+            {
+                platformVideoHeight = platformVideoWidth * 9 / 16;
+
+            }
+            else
+            {
+                platformVideoHeight = platformVideoWidth * 3 / 4;
+                
+            }
+            
+            self.studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
         }
-    }
-    else
-    {
+
         teacherH = ceil(self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP * 2) ;
         if (self.isWideScreen)
         {
@@ -815,6 +815,57 @@
             SCVideoView *videoView = self.videoSequenceArr[i];
             [self.studentVideoBgView addSubview:videoView];
             videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
+        }
+    }
+    else
+    {
+        if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
+        {
+            platformVideoWidth = (BMUI_SCREEN_WIDTH - VIDEOVIEW_HORIZON_GAP * 5) / 4;
+        
+            if (self.isWideScreen)
+            {
+                platformVideoHeight = platformVideoWidth * 9 / 16;
+
+            }
+            else
+            {
+                platformVideoHeight = platformVideoWidth * 3 / 4;
+            }
+            self.studentVideoBgView.frame = CGRectMake(0, self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP , BMUI_SCREEN_WIDTH, platformVideoHeight);
+        }
+        
+        if (self.videoSequenceArr.count <= 2)
+        {
+            teacherH = self.teacherVideoHeight;
+            teacherW = BMUI_SCREEN_WIDTH;
+            for (NSInteger i = 1; i <= self.videoSequenceArr.count; i++)
+            {
+                SCVideoView *videoView = self.videoSequenceArr[i-1];
+                [self.studentVideoBgView addSubview:videoView];
+                videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
+            }
+        }
+        else
+        {
+            teacherH = ceil(self.teacherVideoHeight - platformVideoHeight - VIDEOVIEW_HORIZON_GAP * 2) ;
+            if (self.isWideScreen)
+            {
+                teacherW = ceil(teacherH * 16 / 9);
+
+            }
+            else
+            {
+                teacherW = ceil(teacherH * 4 / 3);
+            }
+
+            CGFloat firstX = (self.studentVideoBgView.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
+            for (int i = 0; i < self.videoSequenceArr.count; i++)
+            {
+                SCVideoView *videoView = self.videoSequenceArr[i];
+                [self.studentVideoBgView addSubview:videoView];
+                videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
+            }
         }
     }
     self.teacherMaskView.frame =CGRectMake(0, 0, teacherW, teacherH);
