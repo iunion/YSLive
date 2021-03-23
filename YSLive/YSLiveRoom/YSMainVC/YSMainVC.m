@@ -1462,7 +1462,11 @@
 {
     if (!mediaFileModel.isVideo)
     {
-        [self onPlayMp3];
+        if (self.liveManager.roomModel.liveType != CHLiveType_MediaFake)
+        {
+            [self onPlayMp3];
+        }
+        
     }
     else
     {
