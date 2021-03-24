@@ -47,25 +47,25 @@
     self.image = [image stretchableImageWithLeftCapWidth:point.x topCapHeight:point.y];
 }
 
-+ (instancetype)bm_imageViewWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration
++ (instancetype)bm_imageViewWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration
 {
-    return [UIImageView bm_imageViewWithImageArray:imageArray duration:duration repeatCount:0];
+    return [UIImageView bm_imageViewWithImageNameArray:imageNameArray duration:duration repeatCount:0];
 }
 
-+ (instancetype)bm_imageViewWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount
++ (instancetype)bm_imageViewWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount
 {
-    if (![imageArray bm_isNotEmpty])
+    if (![imageNameArray bm_isNotEmpty])
     {
         return nil;
     }
     
-    UIImageView *imageView = [UIImageView bm_imageViewWithImageNamed:[imageArray objectAtIndex:0]];
+    UIImageView *imageView = [UIImageView bm_imageViewWithImageNamed:[imageNameArray objectAtIndex:0]];
     
     NSMutableArray *images = [NSMutableArray array];
     
-    for (NSUInteger i = 0; i < imageArray.count; i++)
+    for (NSUInteger i = 0; i < imageNameArray.count; i++)
     {
-        UIImage *image = [UIImage imageNamed:[imageArray objectAtIndex:i]];
+        UIImage *image = [UIImage imageNamed:[imageNameArray objectAtIndex:i]];
         if ([image bm_isNotEmpty])
         {
             [images addObject:image];
@@ -86,18 +86,44 @@
     return imageView;
 }
 
-- (void)bm_animationWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount
++ (instancetype)bm_imageViewWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration
 {
-    [self bm_animationWithImageArray:imageArray duration:duration repeatCount:repeatCount imageWithIndex:0];
+    return [self bm_imageViewWithImageArray:imageArray duration:duration repeatCount:0];
 }
 
-- (void)bm_animationWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount imageWithIndex:(NSUInteger)index
++ (instancetype)bm_imageViewWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount
+{
+    if (![imageArray bm_isNotEmpty])
+    {
+        return nil;
+    }
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[imageArray objectAtIndex:0]];
+    
+    if (imageArray.count > 1)
+    {
+        [imageView setAnimationImages:imageArray];
+        [imageView setAnimationDuration:duration];
+        [imageView setAnimationRepeatCount:repeatCount];
+        
+        [imageView stopAnimating];
+    }
+    
+    return imageView;
+}
+
+- (void)bm_animationWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount
+{
+    [self bm_animationWithImageNameArray:imageNameArray duration:duration repeatCount:repeatCount imageWithIndex:0];
+}
+
+- (void)bm_animationWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount imageWithIndex:(NSUInteger)index
 {
     NSMutableArray *images = [NSMutableArray array];
     
-    for (NSUInteger i = 0; i < imageArray.count; i++)
+    for (NSUInteger i = 0; i < imageNameArray.count; i++)
     {
-        UIImage *image = [UIImage imageNamed:[imageArray objectAtIndex:i]];
+        UIImage *image = [UIImage imageNamed:[imageNameArray objectAtIndex:i]];
         if ([image bm_isNotEmpty])
         {
             [images addObject:image];
@@ -113,6 +139,29 @@
         }
         
         [self setAnimationImages:images];
+        [self setAnimationDuration:duration];
+        [self setAnimationRepeatCount:repeatCount];
+    }
+    
+    [self stopAnimating];
+}
+
+- (void)bm_animationWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount
+{
+    [self bm_animationWithImageArray:imageArray duration:duration repeatCount:repeatCount imageWithIndex:0];
+}
+
+- (void)bm_animationWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount imageWithIndex:(NSUInteger)index
+{
+    if (imageArray.count > 1)
+    {
+        UIImage *image = [imageArray bm_safeObjectAtIndex:index];
+        if (image)
+        {
+            [self setImage:image];
+        }
+        
+        [self setAnimationImages:imageArray];
         [self setAnimationDuration:duration];
         [self setAnimationRepeatCount:repeatCount];
     }

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSBundle (BMResource)
 
 /// 获取main目录下的bundle，此函数只支持在静态下使用
-+ (NSBundle *)resourceBundleWithBundleNamed:(NSString *)bundleName;
++ (NSBundle *)bm_resourceBundleWithBundleNamed:(NSString *)bundleName;
 
 #pragma mark image
 

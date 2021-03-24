@@ -15,14 +15,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)bm_imageViewWithImageNamed:(NSString *)imageName;
 + (instancetype)bm_imageViewWithFrame:(CGRect)frame;
 + (instancetype)bm_imageViewWithStretchableImage:(NSString *)imageName Frame:(CGRect)frame;
-+ (nullable instancetype)bm_imageViewWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration;
-+ (nullable instancetype)bm_imageViewWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount;
++ (nullable instancetype)bm_imageViewWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration;
++ (nullable instancetype)bm_imageViewWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount;
++ (nullable instancetype)bm_imageViewWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration;
++ (nullable instancetype)bm_imageViewWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount;
 
 - (void)bm_setImageWithStretchableImage:(NSString *)imageName;
 - (void)bm_setImageWithStretchableImage:(NSString *)imageName atPoint:(CGPoint)point;
 
-- (void)bm_animationWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount;
-- (void)bm_animationWithImageArray:(NSArray *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount imageWithIndex:(NSUInteger)index;
+- (void)bm_animationWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount;
+- (void)bm_animationWithImageNameArray:(NSArray <NSString *> *)imageNameArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount imageWithIndex:(NSUInteger)index;
+- (void)bm_animationWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount;
+- (void)bm_animationWithImageArray:(NSArray <UIImage *> *)imageArray duration:(NSTimeInterval)duration repeatCount:(NSUInteger)repeatCount imageWithIndex:(NSUInteger)index;
 
 // 画水印
 // 图片水印

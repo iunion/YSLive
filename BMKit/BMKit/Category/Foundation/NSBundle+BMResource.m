@@ -11,7 +11,7 @@
 
 @implementation NSBundle (BMResource)
 
-+ (NSBundle *)resourceBundleWithBundleNamed:(NSString *)bundleName
++ (NSBundle *)bm_resourceBundleWithBundleNamed:(NSString *)bundleName
 {
     NSBundle *mainBundle = [NSBundle mainBundle];
     //NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
@@ -28,7 +28,7 @@
 
 + (UIImage *)bm_bundleImageFromBundleNamed:(NSString *)bundleName imageName:(NSString *)imageName
 {
-    NSBundle *bundle = [NSBundle resourceBundleWithBundleNamed:bundleName];
+    NSBundle *bundle = [NSBundle bm_resourceBundleWithBundleNamed:bundleName];
 
     UIImage *image = [bundle bm_imageWithImageName:imageName];
     return image;
@@ -41,7 +41,7 @@
 
 + (UIImage *)bm_bundleAssetsImageFromeBundleName:(NSString *)bundleName assetsName:(NSString *)assetsName pathName:(NSString *)pathName imageName:(NSString *)imageName
 {
-    NSBundle *bundle = [NSBundle resourceBundleWithBundleNamed:bundleName];
+    NSBundle *bundle = [NSBundle bm_resourceBundleWithBundleNamed:bundleName];
 
     UIImage *image = [bundle bm_imageWithAssetsName:assetsName pathName:pathName imageName:imageName];
 
