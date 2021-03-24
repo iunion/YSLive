@@ -62,7 +62,7 @@ xcdebugger/
 
 
 YSLib/BMKit/
-YSLib/Bugly.framework/
+# YSLib/Bugly.framework/
 YSLib/CHSession.framework/
 YSLib/CHWhiteBoard
 YSLib/CloudHubRTC.framework
