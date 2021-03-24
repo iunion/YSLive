@@ -61,7 +61,11 @@ xcdebugger/
 #xcschemes/
 
 
-YSLib/
+YSLib/BMKit/
+YSLib/Bugly.framework/
+YSLib/CHSession.framework/
+YSLib/CHWhiteBoard
+YSLib/CloudHubRTC.framework
 YSLiveSample/YSLiveSample/YSLib/
 CloudHubWhiteBoardSDKDemo/CloudHubWhiteBoardSDKDemo/CHLib/
 CloudHubWhiteBoardSDKDemo/CloudHubWhiteBoardSDKDemo/Resources/
