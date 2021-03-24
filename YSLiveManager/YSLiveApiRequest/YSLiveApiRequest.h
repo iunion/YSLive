@@ -17,7 +17,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 
 
 /// 获取升级信息 versionNum  发版的年月日 加上 版本递增的两位整数  例子：2019122201
-+ (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum;
+//+ (NSMutableURLRequest *)checkUpdateVersionNum:(NSString *)versionNum;
 
 /// 获取服务器时间
 + (NSMutableURLRequest *)getServerTime;
@@ -67,7 +67,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token;
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr;
++ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(CHUserRoleType)userRoleType Withdate:(NSString *)dateStr;
 
 /// 获取学生课程列表
 + (NSMutableURLRequest *)getClassListWithStudentId:(NSString *)studentId date:(NSString *)date pagenum:(NSUInteger)pagenum;
@@ -84,7 +84,7 @@ typedef void (^YSUploadResponse)(NSURLResponse * _Nonnull response, id  _Nullabl
 + (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId;
 
 /// 进入教室
-+ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(YSUserRoleType)userRoleType toTeachId:(NSString *)toteachid;
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(CHUserRoleType)userRoleType toTeachId:(NSString *)toteachid;
 
 ///  修改学生密码
 + (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass repass:(NSString *)repass studentid:(NSString *)studentid organid:(NSString *)organid;

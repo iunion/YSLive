@@ -34,6 +34,8 @@
 
 - (void)setup
 {
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.backView];
     [self.contentView addSubview:self.selectView];
@@ -55,7 +57,7 @@
         f =  (_resultModel.number.floatValue) / (_resultModel.total.floatValue);
     }
     
-    self.titleL.frame = CGRectMake(20, 0, 25, 17);
+    self.titleL.frame = CGRectMake(15, 0, 25, 17);
     self.titleL.bm_centerY = self.contentView.bm_centerY;
     
     
@@ -69,7 +71,7 @@
     self.selectView.layer.cornerRadius = 5;
     self.selectView.layer.masksToBounds = YES;
     
-    self.numPersonLabel.frame = CGRectMake(CGRectGetMaxX(self.backView.frame) + 8, 0, 60, 19);
+    self.numPersonLabel.frame = CGRectMake(CGRectGetMaxX(self.backView.frame) + 10, 0, 60, 19);
     self.numPersonLabel.bm_centerY = self.contentView.bm_centerY;
     
 }
@@ -104,10 +106,10 @@
     if (!_titleL)
     {
         _titleL = [[UILabel alloc] init];
-        _titleL.backgroundColor = [UIColor whiteColor];
-        _titleL.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+        _titleL.backgroundColor = [UIColor clearColor];
+        _titleL.textColor = YSSkinDefineColor(@"Color3");
         _titleL.textAlignment = NSTextAlignmentLeft;
-        _titleL.font = [UIFont systemFontOfSize:12];
+        _titleL.font = UI_FONT_10;
         _titleL.numberOfLines = 0;
     }
     return _titleL;
@@ -118,7 +120,7 @@
     if (!_backView)
     {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+        _backView.backgroundColor = YSSkinDefineColor(@"Color3");
 
     }
     return _backView;
@@ -129,7 +131,7 @@
     if (!_selectView)
     {
         _selectView = [[UIView alloc] init];
-        _selectView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC];
+        _selectView.backgroundColor = YSSkinDefineColor(@"Color4");
 
     }
     return _selectView;
@@ -140,10 +142,10 @@
     if (!_numPersonLabel)
     {
         _numPersonLabel = [[UILabel alloc] init];
-        _numPersonLabel.backgroundColor = [UIColor whiteColor];
-        _numPersonLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+        _numPersonLabel.backgroundColor = [UIColor clearColor];
+        _numPersonLabel.textColor = YSSkinDefineColor(@"Color3");
         _numPersonLabel.textAlignment = NSTextAlignmentLeft;
-        _numPersonLabel.font = [UIFont systemFontOfSize:12];
+        _numPersonLabel.font = UI_FONT_10;
     }
     return _numPersonLabel;
 }

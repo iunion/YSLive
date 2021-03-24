@@ -7,6 +7,12 @@
 //
 
 #import "YSPermissionsVC.h"
+#if YSSDK
+#import "YSSDKManager.h"
+#else
+#import "AppDelegate.h"
+#endif
+
 #import "YSPermissionsVResultView.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -57,7 +63,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
 /// 开始/继续按钮
 @property (nonatomic, strong) UIButton *continueBtn;
 /// 播放按钮
-@property (nonatomic, strong) UIButton *playAudioBtn;
+@property (nonatomic, strong) BMImageTitleButtonView *playAudioBtn;
 /// 再次按钮
 @property (nonatomic, strong) UIButton *againBtn;
 /// 检测类型
@@ -120,7 +126,20 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     /// 提示动画
     UIImageView *animateView = [[UIImageView alloc]initWithFrame:CGRectMake(19, BMUI_SCREEN_HEIGHT-284-143, 91, 143)];
     [self.view addSubview:animateView];
-    animateView.animationImages = @[[UIImage imageNamed:@"Permissions1"],[UIImage imageNamed:@"Permissions2"],[UIImage imageNamed:@"Permissions3"],[UIImage imageNamed:@"Permissions4"]];
+//    animateView.animationImages = @[YSSkinElementImage(@"Permissions_animation", @"animation1"),YSSkinElementImage(@"Permissions_animation", @"animation2"),YSSkinElementImage(@"Permissions_animation", @"animation3"),YSSkinElementImage(@"Permissions_animation", @"animation4")];
+    
+    NSMutableArray *animationImages = [NSMutableArray array];
+    for (NSUInteger i=0; i<4; i++)
+    {
+        NSString *imageStr = [NSString stringWithFormat:@"animation%@", @(i+1)];
+        UIImage *image = YSSkinElementImage(@"Permissions_animation", imageStr);
+        if (image)
+        {
+            [animationImages addObject:image];
+        }
+    }
+    
+    animateView.animationImages = animationImages;
     animateView.animationDuration = 1.0;
     animateView.animationRepeatCount = 0;
     [animateView startAnimating];
@@ -130,7 +149,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     UILabel *centerLab = [[UILabel alloc]initWithFrame:CGRectZero];
     centerLab.numberOfLines = 0;
     centerLab.font = UI_FONT_14;
-    centerLab.textColor = [UIColor bm_colorWithHex:0x6D7278];
+    centerLab.textColor = YSSkinDefineColor(@"PlaceholderColor");
     [self.view addSubview:centerLab];
     self.centerLab = centerLab;
     
@@ -138,7 +157,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 22)];
     
     titleLab.font = UI_FONT_16;
-    titleLab.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    titleLab.textColor = YSSkinDefineColor(@"Color3");
     titleLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:titleLab];
     self.titleLab = titleLab;
@@ -146,7 +165,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
    
     /// 图标
     UIImageView * topImageView = [[UIImageView alloc] init];
-    topImageView.frame = CGRectMake(0, 0, 40, 40);
+    topImageView.frame = CGRectMake(0, 0, 43, 40);
     [self.view addSubview:topImageView];
     topImageView.hidden = YES;
     self.topImageView = topImageView;
@@ -154,11 +173,11 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     /// 扬声器检测结果
     YSPermissionsVResultView *reproducerLab = [[YSPermissionsVResultView alloc]initWithFrame:CGRectMake(0, 0, 170, 20)];
     [self.view addSubview:reproducerLab];
-    reproducerLab.permissionColor = [UIColor bm_colorWithHex:0x82ABEC];
-    reproducerLab.noPermissionColor = [UIColor bm_colorWithHex:0xBE2B2B];
+    reproducerLab.permissionColor = YSSkinDefineColor(@"Color4");
+    reproducerLab.noPermissionColor = YSSkinDefineColor(@"JurisdictionCheckFail");
     reproducerLab.title = YSLocalized(@"Permissions.Speaker");
     reproducerLab.permissionText = YSLocalized(@"Permissions.Normal");
-    reproducerLab.noPermissionText = YSLocalized(@"Permissions.CanNotHear");
+    reproducerLab.noPermissionText = YSLocalized(@"Permissions.SpeakNo");
 
     self.reproducerLab = reproducerLab;
     reproducerLab.hidden = YES;
@@ -166,8 +185,8 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     /// 摄像头检测结果
     YSPermissionsVResultView *cameraLab = [[YSPermissionsVResultView alloc]initWithFrame:CGRectMake(0, 0, 170, 20)];
     [self.view addSubview:cameraLab];
-    cameraLab.permissionColor = [UIColor bm_colorWithHex:0x82ABEC];
-    cameraLab.noPermissionColor = [UIColor bm_colorWithHex:0xBE2B2B];
+    cameraLab.permissionColor = YSSkinDefineColor(@"Color4");
+    cameraLab.noPermissionColor = YSSkinDefineColor(@"JurisdictionCheckFail");
     cameraLab.title = YSLocalized(@"Permissions.Camera");
     cameraLab.permissionText = YSLocalized(@"Permissions.Allow");
     cameraLab.noPermissionText = YSLocalized(@"Permissions.Ban");
@@ -178,8 +197,8 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     /// 麦克风检测结果
     YSPermissionsVResultView *microphonicLab = [[YSPermissionsVResultView alloc]initWithFrame:CGRectMake(0, 0, 170, 20)];
     [self.view addSubview:microphonicLab];
-    microphonicLab.permissionColor = [UIColor bm_colorWithHex:0x82ABEC];
-    microphonicLab.noPermissionColor = [UIColor bm_colorWithHex:0xBE2B2B];
+    microphonicLab.permissionColor = YSSkinDefineColor(@"Color4");
+    microphonicLab.noPermissionColor = YSSkinDefineColor(@"JurisdictionCheckFail");
     microphonicLab.title = YSLocalized(@"Permissions.Microphone");
     microphonicLab.permissionText = YSLocalized(@"Permissions.Allow");
     microphonicLab.noPermissionText = YSLocalized(@"Permissions.Ban");
@@ -190,34 +209,29 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     /// 开始/继续按钮
     UIButton *continueBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 96, 34)];
     continueBtn.bm_centerX = self.view.bm_centerX;
-    [continueBtn setBackgroundImage:[UIImage imageNamed:@"permissions_Btn"] forState:UIControlStateNormal];
-    [continueBtn setBackgroundImage:[UIImage imageNamed:@"permissions_BtnSelect"] forState:UIControlStateHighlighted];
-    [continueBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+    [continueBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
+    [continueBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     [continueBtn setTitle:YSLocalized(@"tool.start") forState:UIControlStateNormal];
     continueBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [continueBtn addTarget:self action:@selector(continueBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:continueBtn];
     self.continueBtn = continueBtn;
+    continueBtn.layer.cornerRadius = 34/2;
     
     /// 播放音频
-    UIButton *playAudioBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+    BMImageTitleButtonView *playAudioBtn = [[BMImageTitleButtonView alloc]init];
+    playAudioBtn.frame = CGRectMake(0, 0, 80, 80);
+    playAudioBtn.userInteractionEnabled = YES;
+    playAudioBtn.type = BMImageTitleButtonView_ImageTop;
+    playAudioBtn.textFont = UI_FONT_14;
+    playAudioBtn.imageTextGap = 2.0f;
+    playAudioBtn.normalImage = YSSkinElementImage(@"timer_pause", @"iconSel");
     playAudioBtn.bm_centerX = self.view.bm_centerX;
-    [playAudioBtn setImage:[UIImage imageNamed:@"permissions_PlayBtn"] forState:UIControlStateNormal];
-    [playAudioBtn setTitleColor:[UIColor bm_colorWithHex:0x5A8CDC] forState:UIControlStateNormal];
-    [playAudioBtn setTitle:YSLocalized(@"Permissions.ListenAgain") forState:UIControlStateNormal];
-    playAudioBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    playAudioBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    float  spacing = 5;//图片和文字的上下间距
-    CGSize imageSize = playAudioBtn.imageView.frame.size;
-    CGSize titleSize = playAudioBtn.titleLabel.frame.size;
-    CGSize textSize = [playAudioBtn.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : playAudioBtn.titleLabel.font}];
-    CGSize frameSize = CGSizeMake(ceilf(textSize.width), ceilf(textSize.height));
-    if (titleSize.width + 0.5 < frameSize.width) {
-        titleSize.width = frameSize.width;
-    }
-    CGFloat totalHeight = (imageSize.height + titleSize.height + spacing);
-    playAudioBtn.imageEdgeInsets = UIEdgeInsetsMake(- (totalHeight - imageSize.height), 0.0, 0.0, - titleSize.width);
-    playAudioBtn.titleEdgeInsets = UIEdgeInsetsMake(0, - imageSize.width, - (totalHeight - titleSize.height), 0);
+    playAudioBtn.textNormalColor = YSSkinDefineColor(@"Color4");
+    playAudioBtn.normalText = YSLocalized(@"Permissions.ListenAgain");
+    playAudioBtn.textAlignment = NSTextAlignmentCenter;
+    playAudioBtn.textAdjustsFontSizeToFitWidth = YES;
+
     [playAudioBtn addTarget:self action:@selector(playAudioBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:playAudioBtn];
     self.playAudioBtn = playAudioBtn;
@@ -226,15 +240,15 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     ///再次
     UIButton *againBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 96, 34)];
     againBtn.bm_centerX = self.view.bm_centerX;
-    [againBtn setBackgroundImage:[UIImage imageNamed:@"permissions_Btn"] forState:UIControlStateNormal];
-    [againBtn setBackgroundImage:[UIImage imageNamed:@"permissions_BtnSelect"] forState:UIControlStateHighlighted];
-    [againBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
+    [againBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
+    [againBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     [againBtn setTitle:YSLocalized(@"Permissions.Again") forState:UIControlStateNormal];
     againBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [againBtn addTarget:self action:@selector(againBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:againBtn];
     self.againBtn = againBtn;
     self.againBtn.hidden = YES;
+    againBtn.layer.cornerRadius = 34/2;
 
     self.permissionsType = YSPermissionsTypeStart;
 }
@@ -245,11 +259,27 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
+#if YSAutorotateNO
     return NO;
+#else
+#if YSSDK
+    if ([YSSDKManager sharedInstance].useAppDelegateAllowRotation)
+    {
+        return NO;
+    }
+#else
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+#endif
+    
+    return YES;
+#endif
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
@@ -303,7 +333,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
         case YSPermissionsTypeCamera:
             
             string = YSLocalized(@"Permissions.checkTitle_Camera");
-            [self.topImageView setImage:[UIImage imageNamed:@"permissions_NoCamera"]];
+            [self.topImageView setImage:YSSkinElementImage(@"checkCameraPermissionImage", @"iconNor")];
             [self.continueBtn setTitle:YSLocalized(@"Permissions.Continue") forState:UIControlStateNormal];
             self.titleLab.text = YSLocalized(@"Permissions.CameraCheck");
             self.topImageView.hidden = NO;
@@ -312,7 +342,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
             
             string = YSLocalized(@"Permissions.checkTitle_Microphone");
             [self.continueBtn setTitle:YSLocalized(@"Permissions.Continue") forState:UIControlStateNormal];
-            [self.topImageView setImage:[UIImage imageNamed:@"permissions_NoSound"]];
+            [self.topImageView setImage:YSSkinElementImage(@"checkSoundPermissionImage", @"iconNor")];
             self.titleLab.text = YSLocalized(@"Permissions.MicrophoneCheck");
             self.topImageView.hidden = NO;
                 break;
@@ -351,7 +381,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     NSString *filePath = [self chinaOrEnglishWithPermissionsType:permissionsType];
     if (filePath)
     {
-        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filePath] error:nil];
         self.player.delegate = self;
         [self.player setVolume:1.0];
         [self.player play];
@@ -514,7 +544,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     BOOL isReproducer = [YSUserDefault getReproducerPermission];
     
     // iOS 获取设备当前语言和地区的代码
-    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+    NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
     NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
     NSString *filePath = nil;
     
@@ -654,7 +684,7 @@ typedef NS_ENUM(NSInteger, YSPermissionsType)
     {
         _backImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
         _backImageView.backgroundColor = [UIColor whiteColor];
-        [_backImageView setImage:[UIImage imageNamed:@"ysall_login_background"]];
+        [_backImageView setImage:YSSkinDefineImage(@"permission_background")];
         _backImageView.userInteractionEnabled = YES;
     }
     return _backImageView;

@@ -50,13 +50,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");
     
     self.bm_CanBackInteractive = NO;
 
-    self.bm_NavigationItemTintColor = [UIColor whiteColor];
-    self.bm_NavigationTitleTintColor = [UIColor whiteColor];
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.ModifyPassWord") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
+    self.bm_NavigationItemTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    self.bm_NavigationTitleTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.ModifyPassWord") barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
     
     [self setupUI];
     
@@ -75,11 +75,16 @@
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
@@ -109,19 +114,17 @@
     self.againPasswordView = againPasswordView;
     [self.view addSubview:self.againPasswordView];
     
-    UIButton *submitBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 224, 34) color:[UIColor bm_colorWithHex:0x5A8CDC] highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
+    UIButton *submitBtn = [UIButton bm_buttonWithFrame:CGRectMake(0, 0, 155, 40) color:[UIColor bm_colorWithHex:0x5A8CDC] highlightedColor:[UIColor bm_colorWithHex:0x336CC7] disableColor:[UIColor bm_colorWithHex:0x97B7EB]];
     self.submitBtn = submitBtn;
 //    submitBtn.frame = CGRectMake(0, 0, 224, 34);
     submitBtn.bm_centerX = self.view.bm_centerX;
-    submitBtn.bm_top = self.againPasswordView.bm_bottom + 50;
+    submitBtn.bm_bottom = self.view.bm_bottom - 30;
     [self.view addSubview:submitBtn];
     [submitBtn setTitle:YSLocalizedSchool(@"Title.OnlineSchool.Submit") forState:UIControlStateNormal];
     submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
     submitBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [submitBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    submitBtn.layer.cornerRadius = 17;
-    submitBtn.layer.borderColor = [UIColor bm_colorWithHex:0x97B7EB].CGColor;
-    submitBtn.layer.borderWidth = 3;
+    [submitBtn setTitleColor:YSSkinOnlineDefineColor(@"defaultTitleColor") forState:UIControlStateNormal];
+    submitBtn.layer.cornerRadius = 4;
     submitBtn.layer.masksToBounds = YES;
     submitBtn.enabled = NO;
     [submitBtn addTarget:self action:@selector(submitBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -132,9 +135,9 @@
 {
     self.changePasswordView.frame = CGRectMake(0, 40, BMUI_SCREEN_WIDTH, 40);
     self.againPasswordView.frame = CGRectMake(0, CGRectGetMaxY(self.changePasswordView.frame) + 15, BMUI_SCREEN_WIDTH, 40);
-    self.submitBtn.frame = CGRectMake(0, 0, 224, 34);
+    self.submitBtn.frame = CGRectMake(0, 0, 115, 40);
     self.submitBtn.bm_centerX = self.view.bm_centerX;
-    self.submitBtn.bm_top = self.againPasswordView.bm_bottom + 50;
+    self.submitBtn.bm_bottom = self.view.bm_bottom - 30;
 }
 
 - (void)submitBtnClicked:(UIButton *)btn
@@ -170,7 +173,7 @@
     NSMutableURLRequest *request = nil;
     
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         request = [YSLiveApiRequest postTeacherNewpass:self.changePasswordView.inputTextField.text repass:self.againPasswordView.inputTextField.text teacherid:schoolUser.userId organid:organId];
     }
@@ -208,7 +211,7 @@
             else
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
                 NSLog(@"%@", str);
@@ -218,8 +221,15 @@
                     NSInteger resquestCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
                     if (resquestCode == YSSuperVC_StatusCode_Succeed)
                     {
-                        [[YSSchoolUser shareInstance] clearUserdata];
-                        [GetAppDelegate logoutOnlineSchool];
+                        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:YSLocalizedSchool(@"Alert.prompt") message:YSLocalizedSchool(@"Alert.passwordSucceed") preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSLocalizedSchool(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [[YSSchoolUser shareInstance] clearUserdata];
+                            [GetAppDelegate logoutOnlineSchool];
+                        }];
+
+                        [alertVc addAction:confimAc];
+                        [self presentViewController:alertVc animated:YES completion:nil];
                     }
                     else
                     {

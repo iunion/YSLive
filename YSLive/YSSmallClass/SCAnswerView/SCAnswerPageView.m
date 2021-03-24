@@ -46,7 +46,6 @@
     
     [self addSubview:self.rightTurnBtn];
     [self.rightTurnBtn addTarget:self action:@selector(rightTurnBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 - (void)layoutSubviews

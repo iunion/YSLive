@@ -7,6 +7,7 @@
 //
 
 #import "YSSDKManager.h"
+#import "YSLiveManager.h"
 #import "YSLiveApiRequest.h"
 #import "BMAlertView+YSDefaultAlert.h"
 
@@ -15,23 +16,24 @@
 //const unsigned char YSSDKVersionString[] = "2.0.1";
 
 /// 对应app版本
-static NSString *YSAPPVersionString = @"2.7.3";
+static NSString *YSAPPVersionString = @"3.5.6";
 
 /// SDK版本
-static NSString *YSSDKVersionString = @"2.7.3.0";
+static NSString *YSSDKVersionString = @"3.5.6.0";
 
 @interface YSSDKManager ()
 <
-    YSLiveRoomManagerDelegate,
+    CHSessionDelegate,
+    YSSDKManagerDelegate,
     YSCoreNetWorkStatusProtocol
 >
 /// 底部的角色type
-@property (nonatomic, assign) YSUserRoleType selectRoleType;
+@property (nonatomic, assign) CHUserRoleType selectRoleType;
 
 ///获取房间类型时，探测接口的调用次数
 @property (nonatomic, assign) NSInteger callNum;
 
-@property (nonatomic, assign) YSSDKUseTheType roomType;
+@property (nonatomic, assign) CHRoomUseType roomType;
 
 @property (nonatomic, weak) UIViewController <YSSDKDelegate> *delegate;
 
@@ -77,6 +79,9 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
         [YSCoreStatus beginMonitorNetwork:self];
         
         self.needUseHttpDNSForWhiteBoard = YES;
+        
+        self.useAppDelegateAllowRotation = NO;
+        self.classCanRotation = YES;
     }
     return self;
 }
@@ -88,10 +93,10 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
 
 + (NSString *)SDKDetailVersion
 {
-    NSString *roomSDKVersion = [NSString stringWithFormat:@"%s", YSRoomSDKVersionString];
-    NSString *whiteBoardSDKVersion = [YSWhiteBoardManager whiteBoardVersion];
+    NSString *sessionVersion = [NSString stringWithFormat:@"%s", CHSessionVersionString];
+    NSString *whiteBoardSDKVersion = [CHWhiteBoardManager whiteBoardVersion];
     
-    NSString *version = [NSString stringWithFormat:@"roomSDKVersion: %@\nwhiteBoardSDKVersion: %@\nYSSDKVersion: %@", roomSDKVersion, whiteBoardSDKVersion, YSSDKVersionString];
+    NSString *version = [NSString stringWithFormat:@"sessionVersion: %@\nwhiteBoardSDKVersion: %@\nYSSDKVersion: %@", sessionVersion, whiteBoardSDKVersion, YSSDKVersionString];
     return version;
 }
 
@@ -142,7 +147,7 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
                }
                else
                {
-                   NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                   NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
                    
                    NSInteger result = [responseDic bm_intForKey:@"result"];
                    if (result == 4007)
@@ -156,9 +161,9 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
                        return;
                    }
                                                          
-                   NSDictionary * dataDict = [responseDic bm_dictionaryForKey:@"data"];
+                   NSDictionary *dataDict = [responseDic bm_dictionaryForKey:@"data"];
                    // 'roomtype'=>房间类型   3小班课，4直播，6会议
-                   YSSDKUseTheType appUsetype = [dataDict bm_intForKey:@"roomtype"];
+                   CHRoomUseType appUsetype = [dataDict bm_intForKey:@"roomtype"];
                    BOOL needpwd = [dataDict bm_boolForKey:@"needpwd"];
                    self.roomType = appUsetype;
                    
@@ -176,7 +181,7 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
 
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(nullable NSString *)roomPassword userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions
 {
-    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSSDKSUserType_Student userId:userId userParams:userParams needCheckPermissions:needCheckPermissions];
+    return [self joinRoomWithRoomId:roomId nickName:nickName roomPassword:roomPassword userRole:YSSDKUserType_Student userId:userId userParams:userParams needCheckPermissions:needCheckPermissions];
 }
 
 - (BOOL)joinRoomWithRoomId:(NSString *)roomId nickName:(NSString *)nickName roomPassword:(NSString *)roomPassword userRole:(YSSDKUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
@@ -192,14 +197,18 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
         return NO;
     }
 
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     self.liveManager = liveManager;
     
-    [self.liveManager registerRoomManagerDelegate:self];
+    [liveManager registerRoomDelegate:self];
     [self.liveManager registerUseHttpDNSForWhiteBoard:self.needUseHttpDNSForWhiteBoard];
     self.liveManager.sdkDelegate = self;
     
-    [self.liveManager setConnectH5CoursewareUrlCookies:self.connectH5CoursewareUrlCookies];
+    if ([self.connectH5CoursewareUrlCookies bm_isNotEmpty])
+    {
+        [self.liveManager registerUseHttpDNSForWhiteBoard:NO];
+        [self.liveManager setConnectH5CoursewareUrlCookies:self.connectH5CoursewareUrlCookies];
+    }
 
     if ([self.connectH5CoursewareUrlParameters bm_isNotEmptyDictionary])
     {
@@ -208,28 +217,9 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
 
     [self.liveManager setWhiteBoardBackGroundColor:self.whiteBordBgColor maskImage:self.whiteBordMaskImage];
 
-    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
+    BOOL joined = [self.liveManager joinRoomWithHost:self.liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:(CHUserRoleType)userRole userId:userId userParams:nil needCheckPermissions:needCheckPermissions];
 
     return joined;
-}
-
-/// 添加H5课件地址参数，此方法会刷新当前H5课件以变更新参数
-- (void)addConnectH5CoursewareUrlParameters:(NSDictionary *)parameters
-{
-    if (!self.connectH5CoursewareUrlParameters)
-    {
-        self.connectH5CoursewareUrlParameters = [NSMutableDictionary dictionary];
-    }
-    
-    if ([parameters bm_isNotEmptyDictionary])
-    {
-        [self.connectH5CoursewareUrlParameters addEntriesFromDictionary:parameters];
-    }
-    
-    if (self.liveManager)
-    {
-        [self.liveManager changeConnectH5CoursewareUrlParameters:parameters];
-    }
 }
 
 /// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
@@ -257,7 +247,7 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
 
 - (BOOL)checkKickTimeWithRoomId:(NSString *)roomId
 {
-    if (self.selectRoleType == YSUserType_Student)
+    if (self.selectRoleType == CHUserType_Student)
     {
         // 学生被T 3分钟内不能登录
         NSString *roomIdKey = [NSString stringWithFormat:@"%@_%@", YSKickTime, roomId];
@@ -292,11 +282,11 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
 
 - (void)waitRoomLeft
 {
-    [self.liveManager.roomManager leaveRoom:nil];
+    [self.liveManager leaveRoom:nil];
 }
 
 // 成功进入房间
-- (void)onRoomJoined:(long)ts;
+- (void)onRoomDidCheckRoom
 {
     UIViewController *rootVC = nil;
     if ([self.delegate isKindOfClass:[UIViewController class]])
@@ -328,39 +318,30 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
         return;
     }
 
-    if ([self.delegate respondsToSelector:@selector(onRoomJoined:)])
-    {
-        [self.delegate onRoomJoined:ts];
-    }
-
     self.liveManager.sdkIsJoinRoom = YES;
     
     // 3: 小班课  4: 直播
-    NSUInteger roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
-    BOOL isSmallClass = (roomtype == YSAppUseTheTypeSmallClass || roomtype == YSAppUseTheTypeMeeting);
+    CHRoomUseType roomtype = [self.liveManager.roomDic bm_uintForKey:@"roomtype"];
+    BOOL isSmallClass = (roomtype == CHRoomUseTypeSmallClass || roomtype == CHRoomUseTypeMeeting);
     
-    if ([self.delegate respondsToSelector:@selector(onRoomJoined:roomType:userType:)])
+    if ([self.delegate respondsToSelector:@selector(onRoomJoinWithRoomType:userType:)])
     {
-        [self.delegate onRoomJoined:ts roomType:roomtype userType:self.liveManager.localUser.role];
+        [self.delegate onRoomJoinWithRoomType:(YSSDKUseTheType)roomtype userType:(YSSDKUserRoleType)self.liveManager.localUser.role];
     }
 
     if (isSmallClass)
     {
         NSUInteger maxvideo = [self.liveManager.roomDic bm_uintForKey:@"maxvideo"];
-        YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
+        CHRoomUserType roomusertype = maxvideo > 2 ? CHRoomUserType_More : CHRoomUserType_One;
         BOOL isWideScreen = self.liveManager.room_IsWideScreen;
         
-        if (self.selectRoleType == YSUserType_Teacher)
+        if (self.selectRoleType == CHUserType_Teacher)
         {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:self.liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = roomtype;
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
             [rootVC presentViewController:nav animated:YES completion:^{
-                if ([self.delegate respondsToSelector:@selector(onEnterClassRoom)])
-                {
-                    [self.delegate onEnterClassRoom];
-                }
             }];
         }
         else
@@ -370,26 +351,18 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
             [rootVC presentViewController:nav animated:YES completion:^{
-                if ([self.delegate respondsToSelector:@selector(onEnterClassRoom)])
-                {
-                    [self.delegate onEnterClassRoom];
-                }
             }];
         }
     }
     else
     {
-        if (self.selectRoleType == YSUserType_Student)
+        if (self.selectRoleType == CHUserType_Student)
         {
             BOOL isWideScreen = self.liveManager.room_IsWideScreen;
             YSMainVC *mainVC = [[YSMainVC alloc] initWithWideScreen:isWideScreen whiteBordView:self.liveManager.whiteBordView userId:nil];
             BMNavigationController *nav = [[BMNavigationController alloc] initWithRootViewController:mainVC];
             nav.modalPresentationStyle = UIModalPresentationFullScreen;
             [rootVC presentViewController:nav animated:YES completion:^{
-                if ([self.delegate respondsToSelector:@selector(onEnterLiveRoom)])
-                {
-                    [self.delegate onEnterLiveRoom];
-                }
             }];
             
             return;
@@ -401,7 +374,7 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
     }
 }
 
-- (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
+- (void)roomManagerNeedEnterPassWord:(CHRoomErrorCode)errorCode
 {
     [YSLiveManager destroy];
     
@@ -411,10 +384,23 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
     }
 }
 
-- (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
+/// 进入房间失败
+- (void)onRoomJoinFailed:(NSDictionary *)errorDic
 {
-    //[self.liveManager destroy];
-    [self waitRoomLeft];
+    NSError *error = [errorDic objectForKey:@"error"];
+    CHRoomErrorCode errorCode = error.code;
+    NSString *descript = [YSLiveUtil getOccuredErrorCode:errorCode];
+
+    if (errorCode == CHErrorCode_CheckRoom_NeedPassword ||
+        errorCode == CHErrorCode_CheckRoom_PasswordError ||
+        errorCode == CHErrorCode_CheckRoom_WrongPasswordForRole)
+    {
+        [self roomManagerNeedEnterPassWord:errorCode];
+        return;
+    }
+
+    [YSLiveManager destroy];
+    //[self waitRoomLeft];
 
     if ([self.delegate respondsToSelector:@selector(onRoomReportFail:descript:)])
     {
@@ -440,6 +426,17 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
 }
 
 /**
+    即将离开房间
+ */
+- (void)onRoomWillLeft
+{
+    if ([self.delegate respondsToSelector:@selector(onRoomWillLeft)])
+    {
+        [self.delegate onRoomWillLeft];
+    }
+}
+
+/**
     已经离开房间
  */
 - (void)onRoomLeft
@@ -453,16 +450,13 @@ static NSString *YSSDKVersionString = @"2.7.3.0";
     }
 }
 
-/**
-    自己被踢出房间
-    @param reason 被踢原因
- */
-- (void)onRoomKickedOut:(NSDictionary *)reason
+// 自己被踢出房间
+- (void)onRoomKickedOut:(NSInteger)reasonCode
 {
     self.liveManager.sdkIsJoinRoom = NO;
     if ([self.delegate respondsToSelector:@selector(onRoomKickedOut:)])
     {
-        [self.delegate onRoomKickedOut:reason];
+        [self.delegate onRoomKickedOut:reasonCode];
     }
 }
 

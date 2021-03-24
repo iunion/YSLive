@@ -38,33 +38,38 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <LMJDropdownMenuDataSource> dataSource;
 @property (nonatomic, weak) id <LMJDropdownMenuDelegate> delegate;
 
+@property (nonatomic,copy)   NSString        * title;
+@property (nonatomic,strong) UIColor         * titleBgColor;
+@property (nonatomic,strong) UIFont          * titleFont;
+@property (nonatomic,strong) UIColor         * titleColor;
+@property (nonatomic)        NSTextAlignment   titleAlignment;
+@property (nonatomic)        UIEdgeInsets      titleEdgeInsets;
 
-@property(nonatomic,copy)   NSString        * title;
-@property(nonatomic,strong) UIColor         * titleBgColor;
-@property(nonatomic,strong) UIFont          * titleFont;
-@property(nonatomic,strong) UIColor         * titleColor;
-@property(nonatomic)        NSTextAlignment   titleAlignment;
-@property(nonatomic)        UIEdgeInsets      titleEdgeInsets;
+@property (nonatomic,strong) UIImage         * rotateIcon;
+@property (nonatomic,assign) CGSize            rotateIconSize;
+@property (nonatomic,assign) CGFloat           rotateIconMarginRight; // default: 7.5
+@property (nonatomic,strong) UIColor         * rotateIconTint;
 
-@property(nonatomic,strong) UIImage         * rotateIcon;
-@property(nonatomic,assign) CGSize            rotateIconSize;
+@property (nonatomic,strong) UIColor         * optionBgColor;
+@property (nonatomic,strong) UIFont          * optionFont;
+@property (nonatomic,strong) UIColor         * optionTextColor;
+@property (nonatomic)        NSTextAlignment   optionTextAlignment;
+@property (nonatomic)        NSInteger         optionNumberOfLines;
+@property (nonatomic,assign) CGSize            optionIconSize;  // default:(15,15)
+@property (nonatomic,assign) CGFloat           optionIconMarginRight; // default: 15
+@property (nonatomic,strong) UIColor         * optionLineColor;
+@property (nonatomic,assign) CGFloat           optionLineHeight; // default: 0.5
 
-
-@property(nonatomic,strong) UIColor         * optionBgColor;
-@property(nonatomic,strong) UIFont          * optionFont;
-@property(nonatomic,strong) UIColor         * optionTextColor;
-@property(nonatomic,strong) UIColor         * optionSelectedTextColor;
-@property(nonatomic)        NSTextAlignment   optionTextAlignment;
-@property(nonatomic)        NSInteger         optionNumberOfLines;
-@property(nonatomic,strong) UIColor         * optionLineColor; 
-@property(nonatomic,assign) CGSize            optionIconSize;  // default:(15,15)
-
-@property(nonatomic,assign,readonly) NSUInteger selectedIndex;
-
-@property(nonatomic,assign) CGFloat animateTime;   // 下拉动画时间 default: 0.25
+/*
+ 选项列表的最大高度。超出最大高度后，选项可滚动 （optionsListLimitHeight <= 0 时，下拉列表将显示所有选项）
+ The maximum height of the drop-down list, beyond which the options can be scrolled （When optionsListLimitHeight <= 0, the drop-down list shows all options）
+ */
+@property (nonatomic,assign) CGFloat           optionsListLimitHeight; // default: 0
+@property (nonatomic,assign) BOOL              showsVerticalScrollIndicatorOfOptionsList; // default: YES
 
 
-- (void)resetSelectedAtIndex:(NSUInteger)index;
+@property (nonatomic,assign) CGFloat animateTime;   // 下拉动画时间 default: 0.25
+
 
 - (void)reloadOptionsData;
 

@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YSChatMessageModel.h"
-
-
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SCTipsMessageCell : UITableViewCell
 
 @property (nonatomic, strong) UIView *backView;
-@property (nonatomic, strong) YSChatMessageModel *model;
+@property (nonatomic, strong) CHChatMessageModel *model;
 
 @end
 

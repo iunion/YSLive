@@ -11,20 +11,20 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol SCTeacherPersonListCellDelegate <NSObject>
 
-- (void)upPlatformBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser;
+- (void)upPlatformBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser;
 
-- (void)speakBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser;
+- (void)speakBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser;
 
-- (void)outBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser;
+- (void)outBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser;
 
 @end
 
 
 @interface SCTeacherPersonListCell : UITableViewCell
 
-@property (nonatomic, strong) YSRoomUser *userModel;
+@property (nonatomic, strong) CHRoomUser *userModel;
 @property(nonatomic,weak) id<SCTeacherPersonListCellDelegate> delegate;
-- (void)setUserRole:(YSUserRoleType)userRoleType;
+- (void)setUserRole:(CHUserRoleType)userRoleType;
 @end
 
 

@@ -9,6 +9,8 @@
 #ifndef BMUICategory_h
 #define BMUICategory_h
 
+#import "UIBezierPath+BMCategory.h"
+
 #import "UIButton+BMCategory.h"
 #import "UIButton+BMContentRect.h"
 
@@ -38,8 +40,8 @@
 #import "UIView+BMAnimation.h"
 #import "UIView+BMAnimationExtensions.h"
 
-#import "CAAnimation+Animation.h"
-#import "CAAnimation+Blocks.h"
+#import "CAAnimation+BMAnimation.h"
+#import "CAAnimation+BMBlocks.h"
 
 #import "CALayer+BMSize.h"
 

@@ -17,13 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上边偏移
 @property (nonatomic, assign) CGFloat topOffset;
 
-@property (nonatomic, strong, readonly) NSMutableArray <SCVideoView *> *videoViewArray;
+@property (nonatomic, strong, readonly) NSMutableArray <SCVideoView *> *videoSequenceArr;
+//@property (nonatomic, strong, readonly) NSMutableDictionary *videoViewArrayDic;
 
 - (instancetype)initWithWideScreen:(BOOL)isWideScreen;
 
 //- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray;
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(YSLiveRoomLayout)roomLayout withAppUseTheType:(YSAppUseTheType)appUseTheType;
+- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(CHRoomLayoutType)roomLayout withAppUseTheType:(CHRoomUseType)appUseTheType;
 
 - (void)clearView;
 

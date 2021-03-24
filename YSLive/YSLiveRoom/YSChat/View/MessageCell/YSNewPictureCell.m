@@ -15,7 +15,7 @@
 ///用户名
 @property (nonatomic, strong) UIButton *nickNameBtn;
 ///气泡View
-@property (nonatomic, strong) UIImageView * bubbleView;
+@property (nonatomic, strong) UIView * bubbleView;
 ///图片内容
 @property (nonatomic, strong) UIImageView * msgImageView;
 ///大图
@@ -34,8 +34,10 @@
         self.backgroundColor = UIColor.clearColor;
         self.contentView.backgroundColor = UIColor.clearColor;
         
-        self.bubbleView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.bubbleView = [[UIView alloc] initWithFrame:CGRectZero];
         self.bubbleView.userInteractionEnabled = YES;
+        self.bubbleView.backgroundColor = YSSkinDefineColor(@"Color6");
+        self.bubbleView.layer.cornerRadius = 4;
         [self.contentView addSubview:self.bubbleView];
 
         self.nickNameBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(12), 10, BMUI_SCREEN_WIDTH-2*kBMScale_W(12), kBMScale_H(12))];
@@ -57,7 +59,7 @@
     return self;
 }
 
-- (void)setModel:(YSChatMessageModel *)model
+- (void)setModel:(CHChatMessageModel *)model
 {
     _model = model;
     NSString * nameTimeStr = nil;
@@ -70,7 +72,6 @@
             nameTimeStr = [NSString stringWithFormat:@"%@ 我对”%@”说",model.timeStr,model.receiveUser.nickName];
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
             bubbleX = BMUI_SCREEN_WIDTH-kBMScale_W(108)-kBMScale_W(19);
-            self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#82ABEC"];
             
             NSMutableAttributedString * mutAtt = [[NSMutableAttributedString alloc]initWithString:nameTimeStr];
             [mutAtt addAttributes:@{NSForegroundColorAttributeName:[UIColor bm_colorWithHexString:@"#5A8CDC"]} range:NSMakeRange(nameTimeStr.length-model.receiveUser.nickName.length-3, model.receiveUser.nickName.length+3)];
@@ -83,7 +84,6 @@
         {//别人的消息
             nameTimeStr = [NSString stringWithFormat:@"”%@“ %@ %@",model.sendUser.nickName,YSLocalized(@"Label.ChatToMe"),model.timeStr];
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
             bubbleX = kBMScale_W(19);
             
             NSMutableAttributedString * mutAtt = [[NSMutableAttributedString alloc]initWithString:nameTimeStr];
@@ -99,14 +99,12 @@
         if ([model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//我的消息
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-            self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#82ABEC"];
             [self.nickNameBtn setTitleColor:[UIColor bm_colorWithHexString:@"#5A8CDC"] forState:UIControlStateNormal];
             bubbleX = BMUI_SCREEN_WIDTH-kBMScale_W(108)-kBMScale_W(19);
         }
         else
         {//别人的消息
             self.nickNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            self.bubbleView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
             [self.nickNameBtn setTitleColor:[UIColor bm_colorWithHexString:@"#828282"] forState:UIControlStateNormal];
             bubbleX = kBMScale_W(19);
         }
@@ -117,39 +115,30 @@
         
     }
     
+    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + 12, 108, 88);
+    _msgImageView.frame = CGRectMake(0, 0, 108, 88);
     
-    UIImage *image = _bubbleView.image;
-    CGFloat top = image.size.height/2.0;
-    CGFloat left = image.size.width/2.0;
-    CGFloat bottom = image.size.height/2.0;
-    CGFloat right = image.size.width/2.0;
-    
-    self.bubbleView.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(top, left, bottom, right) resizingMode:UIImageResizingModeStretch];
-    
-    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + kBMScale_H(12), kBMScale_W(108), kBMScale_H(88));
-    _msgImageView.frame = CGRectMake(0, 0, kBMScale_W(108), kBMScale_H(88));
-    
-    [_msgImageView bm_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"tk_login_logo_black"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [_msgImageView bmsd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"tk_login_logo_black"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         [self setNeedsLayout];
         [self layoutIfNeeded];
     }];
     
-    if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
-    {//我的消息
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(20, 20)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = self.bubbleView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        self.bubbleView.layer.mask = maskLayer;
-    }
-    else
-    {
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(20, 20)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = self.bubbleView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        self.bubbleView.layer.mask = maskLayer;
-    }
+//    if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
+//    {//我的消息
+//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(20, 20)];
+//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//        maskLayer.frame = self.bubbleView.bounds;
+//        maskLayer.path = maskPath.CGPath;
+//        self.bubbleView.layer.mask = maskLayer;
+//    }
+//    else
+//    {
+//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(20, 20)];
+//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//        maskLayer.frame = self.bubbleView.bounds;
+//        maskLayer.path = maskPath.CGPath;
+//        self.bubbleView.layer.mask = maskLayer;
+//    }
     
 }
 
@@ -167,32 +156,32 @@
         
         if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
         {//我的消息
-            bubbleX = BMUI_SCREEN_WIDTH-bubbleW-kBMScale_W(19);
+            bubbleX = BMUI_SCREEN_WIDTH - bubbleW - 19;
         }
         else
         {//别人的消息
-            bubbleX = kBMScale_W(19);
+            bubbleX = 19;
         }
-        _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + kBMScale_H(12), bubbleW, bubbleH);
+        _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame) + 12, bubbleW, bubbleH);
         _msgImageView.frame = CGRectMake(0, 0, bubbleW, bubbleH);
     }
     
-    if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
-    {//我的消息
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(20, 20)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = self.bubbleView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        self.bubbleView.layer.mask = maskLayer;
-    }
-    else
-    {
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(20, 20)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = self.bubbleView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        self.bubbleView.layer.mask = maskLayer;
-    }
+//    if ([self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
+//    {//我的消息
+//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft | UIRectCornerBottomRight  cornerRadii:CGSizeMake(20, 20)];
+//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//        maskLayer.frame = self.bubbleView.bounds;
+//        maskLayer.path = maskPath.CGPath;
+//        self.bubbleView.layer.mask = maskLayer;
+//    }
+//    else
+//    {
+//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bubbleView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(20, 20)];
+//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//        maskLayer.frame = self.bubbleView.bounds;
+//        maskLayer.path = maskPath.CGPath;
+//        self.bubbleView.layer.mask = maskLayer;
+//    }
 }
 
 - (void) smallImageClick:(UITapGestureRecognizer *)tap
@@ -231,7 +220,7 @@
 {
     if (![self.model.sendUser.peerID isEqualToString:YSCurrentUser.peerID])
     {
-        if (![YSLiveManager shareInstance].roomConfig.isDisablePrivateChat)
+        if (![YSLiveManager sharedInstance].roomConfig.isDisablePrivateChat)
         {
             if (self.nickNameBtnClick)
             {

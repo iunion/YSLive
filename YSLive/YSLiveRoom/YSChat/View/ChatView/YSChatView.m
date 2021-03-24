@@ -7,24 +7,22 @@
 //
 
 #import "YSChatView.h"
-#import "YSChatMessageModel.h"
 #import "YSEmotionView.h"
 #import "YSNewTipMessageCell.h"
 #import "YSNewPictureCell.h"
 #import "YSTextMessageCell.h"
 #import "BMAlertView+YSDefaultAlert.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 
 //输入框高度
-#define ToolHeight (BMIS_IPHONEXANDP?(kBMScale_H(56)+10):kBMScale_H(56))
+#define ToolHeight (BMIS_IPHONEXANDP?(56+10):56)
 //键盘的基础高度
-#define BasicToolH kBMScale_H(56)
+#define BasicToolH 56
 //iphoneX的时候键盘多出的高度
-#define BottomH (20)
+#define BottomH 20
 //自定义表情键盘高度
-#define EmotionBtnH (BMIS_IPHONEXANDP?(kBMScale_H(150)+10):kBMScale_H(150))
-//顶部频道的高度
-#define TopToolH (kBMScale_H(44))
+#define EmotionBtnH (BMIS_IPHONEXANDP?(150+10):150)
+
 
 @interface YSChatView()
 <
@@ -40,8 +38,6 @@ UITableViewDataSource
 ///小红花(动画)
 @property (nonatomic, strong) UIButton *flowerAnimationBtn;
 
-
-
 @end
 @implementation YSChatView
 
@@ -50,9 +46,9 @@ UITableViewDataSource
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.layer.cornerRadius = 12;
-        self.layer.masksToBounds = YES;
-        self.backgroundColor = [UIColor whiteColor];
+//        self.layer.cornerRadius = 12;
+//        self.layer.masksToBounds = YES;
+        self.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
         
         self.messageList = [NSMutableArray array];
         self.anchorMessageList = [NSMutableArray array];
@@ -68,12 +64,12 @@ UITableViewDataSource
 }
 
 
-- (void)setMessageList:(NSMutableArray<YSChatMessageModel *> *)messageList
+- (void)setMessageList:(NSMutableArray<CHChatMessageModel *> *)messageList
 {
     _messageList = messageList;
     if (messageList.count) {
-        for (YSChatMessageModel * model in messageList) {
-            if (model.sendUser.role == YSUserType_Teacher)
+        for (CHChatMessageModel * model in messageList) {
+            if (model.sendUser.role == CHUserType_Teacher)
             {
                 [self.anchorMessageList addObject:model];
             }
@@ -95,7 +91,7 @@ UITableViewDataSource
     [self addSubview:self.chatTableView];
     BMWeakSelf
     //表情view
-    self.emotionView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, self.bm_height, BMUI_SCREEN_WIDTH, kBMScale_W(150))];
+    self.emotionView = [[YSEmotionView alloc]initWithFrame:CGRectMake(0, self.bm_height, BMUI_SCREEN_WIDTH, 150)];
     //把表情添加到输入框
     self.emotionView.addEmotionToTextView = ^(NSString * _Nonnull emotionName) {
         [weakSelf.chatToolView.inputView insertText:[NSString stringWithFormat:@"[%@]",emotionName]];
@@ -156,7 +152,7 @@ UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel *model;
+    CHChatMessageModel *model;
     
     if (self.showType == YSMessageShowTypeAll)
     {
@@ -174,8 +170,8 @@ UITableViewDataSource
     BMWeakSelf
     switch (model.chatMessageType)
     {
-        case YSChatMessageTypeImageTips:
-        case YSChatMessageTypeTips:
+        case CHChatMessageType_ImageTips:
+        case CHChatMessageType_Tips:
         {
             YSNewTipMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSNewTipMessageCell.class) forIndexPath:indexPath];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -184,7 +180,7 @@ UITableViewDataSource
             return cell;
             break;
         }
-        case YSChatMessageTypeText:
+        case CHChatMessageType_Text:
         {
             YSTextMessageCell * cell =[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSTextMessageCell.class) forIndexPath:indexPath];
             cell.model = model;
@@ -199,7 +195,7 @@ UITableViewDataSource
             return cell;
             break;
         }
-        case YSChatMessageTypeOnlyImage:
+        case CHChatMessageType_OnlyImage:
         {
             YSNewPictureCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([YSNewPictureCell class]) forIndexPath:indexPath];
             cell.model = model;
@@ -225,7 +221,7 @@ UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel *model;
+    CHChatMessageModel *model;
     
     if (self.showType == YSMessageShowTypeAll)
     {
@@ -242,7 +238,7 @@ UITableViewDataSource
     
     switch (model.chatMessageType)
     {
-        case YSChatMessageTypeText:
+        case CHChatMessageType_Text:
         {
             if (model.cellHeight)
             {
@@ -257,12 +253,12 @@ UITableViewDataSource
             }
             break;
         }
-        case YSChatMessageTypeOnlyImage:
+        case CHChatMessageType_OnlyImage:
         {
             return kBMScale_H(12)+kBMScale_H(12)+kBMScale_H(88)+ kBMScale_H(18);
             break;
         }
-        case YSChatMessageTypeTips:
+        case CHChatMessageType_Tips:
         {
             return kBMScale_H(10)+kBMScale_H(25)+ kBMScale_H(10);
             break;
@@ -281,7 +277,7 @@ UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, 10.0)];
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
     return view;
 }
 
@@ -330,12 +326,12 @@ UITableViewDataSource
 //接收到送花消息
 - (void)receiveFlowrsWithSenderId:(NSString *)senderId senderName:(NSString *)senderName
 {
-    YSChatMessageModel * model = [[YSChatMessageModel alloc]init];
-    YSRoomUser * userModel = [[YSRoomUser alloc]init];
+    CHChatMessageModel * model = [[CHChatMessageModel alloc]init];
+    CHRoomUser * userModel = [[CHRoomUser alloc]initWithPeerId:senderId];
     userModel.nickName =  senderName;
     model.timeInterval = [self systemTimeInfo];
     model.sendUser = userModel;
-    model.chatMessageType = YSChatMessageTypeImageTips;
+    model.chatMessageType = CHChatMessageType_ImageTips;
     [self.messageList addObject:model];
     
     [self reloadTableView];
@@ -439,7 +435,7 @@ UITableViewDataSource
         self.chatTableView.dataSource = self;
         self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         
-        self.chatTableView.backgroundColor = [UIColor whiteColor];
+        self.chatTableView.backgroundColor = [UIColor clearColor];
         self.chatTableView.separatorColor  = [UIColor clearColor];
         self.chatTableView.showsHorizontalScrollIndicator = NO;
         self.chatTableView.showsVerticalScrollIndicator = NO;
@@ -467,7 +463,6 @@ UITableViewDataSource
     if (!_chatToolView)
     {
         self.chatToolView = [[YSChatToolView alloc] initWithFrame:CGRectMake(0, self.bm_height-ToolHeight, BMUI_SCREEN_WIDTH, ToolHeight)];
-        
     }
     return _chatToolView;
 }

@@ -7,7 +7,7 @@
 //
 
 #import "YSMP4PlayerMaskView.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 #import <BMKit/BMMasonry.h>
 
 @interface YSMP4PlayerMaskView ()<YSMP4PlayerDelegate,UIGestureRecognizerDelegate> {
@@ -392,7 +392,7 @@
     
     self.loadingView.hidden = NO;
     //self.loadingImage.image = [self imagesNamedFromCustomBundle:@"icon_video_loading"];
-    self.loadingImage.image = [UIImage imageNamed:@"mp4plarer_icon_video_loading"];
+    self.loadingImage.image = YSSkinOnlineElementImage(@"online_video_loding", @"iconNor");
     if (![self.loadingImage.layer animationForKey:@"loading"]) {
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
@@ -517,7 +517,12 @@
 }
 
 /** 全屏 和退出全屏 */
-- (void)videoFullAction {
+- (void)videoFullAction:(UIButton *)sender {
+    
+    if (_fullButtonClick)
+    {
+        _fullButtonClick(sender);
+    }
     
 //    UIDeviceOrientation orientation;
 //
@@ -566,7 +571,7 @@
         _backBtn.hidden = NO;
         _backBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         //[_backBtn setImage:[self imagesNamedFromCustomBundle:@"icon_back_white"] forState:UIControlStateNormal];
-        [_backBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_back_white"] forState:UIControlStateNormal];
+        [_backBtn setImage:YSSkinOnlineElementImage(@"online_video_back", @"iconNor") forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
@@ -576,9 +581,9 @@
         _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _playBtn.frame = CGRectMake(0, 0, 21, 21);
         //[_playBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_play"] forState:UIControlStateNormal];
-        [_playBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_video_play"] forState:UIControlStateNormal];
+        [_playBtn setImage:YSSkinOnlineElementImage(@"online_video_play", @"iconNor") forState:UIControlStateNormal];
         //[_playBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_stop"] forState:UIControlStateSelected];
-        [_playBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_video_stop"] forState:UIControlStateSelected];
+        [_playBtn setImage:YSSkinOnlineElementImage(@"online_video_play", @"iconSel") forState:UIControlStateSelected];
         [_playBtn addTarget:self action:@selector(startAndPause:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _playBtn;
@@ -588,8 +593,8 @@
         _fullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _fullBtn.frame = CGRectMake(0, 0, 21, 21);
         //[_fullBtn setImage:[self imagesNamedFromCustomBundle:@"icon_video_fullscreen"] forState:UIControlStateNormal];
-        [_fullBtn setImage:[UIImage imageNamed:@"mp4plarer_icon_video_fullscreen"] forState:UIControlStateNormal];
-        [_fullBtn addTarget:self action:@selector(videoFullAction) forControlEvents:UIControlEventTouchUpInside];
+        [_fullBtn setImage:YSSkinOnlineElementImage(@"online_video_fullscreen", @"iconNor") forState:UIControlStateNormal];
+        [_fullBtn addTarget:self action:@selector(videoFullAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _fullBtn;
 }
@@ -632,7 +637,7 @@
     if (!_videoSlider) {
         _videoSlider = [[UISlider alloc]init];
         //[_videoSlider setThumbImage:[self imagesNamedFromCustomBundle:@"icon_video_spot"] forState:UIControlStateNormal];
-        [_videoSlider setThumbImage:[UIImage imageNamed:@"mp4plarer_icon_video_spot"] forState:UIControlStateNormal];
+        [_videoSlider setThumbImage:YSSkinOnlineElementImage(@"online_video_spot", @"iconNor") forState:UIControlStateNormal];
         _videoSlider.minimumTrackTintColor = [UIColor colorWithWhite:1 alpha:0.6];
         _videoSlider.maximumTrackTintColor = [UIColor clearColor];
         // slider开始滑动事件

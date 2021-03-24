@@ -28,7 +28,7 @@
     self.layer.mask = masklayer;
 }
 
-- (void)bm_createGradientWithColors:(NSArray * _Nonnull)colors direction:(UIViewLinearGradientDirection)direction
+- (void)bm_createGradientWithColors:(NSArray * _Nonnull)colors direction:(BMUIViewLinearGradientDirection)direction
 {
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.bounds;
@@ -43,37 +43,37 @@
     
     switch (direction)
     {
-        case UIViewLinearGradientDirectionVertical:
+        case BMUIViewLinearGradientDirectionVertical:
         {
             gradient.startPoint = CGPointMake(0.5f, 0.0f);
             gradient.endPoint = CGPointMake(0.5f, 1.0f);
             break;
         }
-        case UIViewLinearGradientDirectionHorizontal:
+        case BMUIViewLinearGradientDirectionHorizontal:
         {
             gradient.startPoint = CGPointMake(0.0f, 0.5f);
             gradient.endPoint = CGPointMake(1.0f, 0.5f);
             break;
         }
-        case UIViewLinearGradientDirectionDiagonalFromLeftToRightAndTopToDown:
+        case BMUIViewLinearGradientDirectionDiagonalFromLeftToRightAndTopToDown:
         {
             gradient.startPoint = CGPointMake(0.0f, 0.0f);
             gradient.endPoint = CGPointMake(1.0f, 1.0f);
             break;
         }
-        case UIViewLinearGradientDirectionDiagonalFromLeftToRightAndDownToTop:
+        case BMUIViewLinearGradientDirectionDiagonalFromLeftToRightAndDownToTop:
         {
             gradient.startPoint = CGPointMake(0.0f, 1.0f);
             gradient.endPoint = CGPointMake(1.0f, 0.0f);
             break;
         }
-        case UIViewLinearGradientDirectionDiagonalFromRightToLeftAndTopToDown:
+        case BMUIViewLinearGradientDirectionDiagonalFromRightToLeftAndTopToDown:
         {
             gradient.startPoint = CGPointMake(1.0f, 0.0f);
             gradient.endPoint = CGPointMake(0.0f, 1.0f);
             break;
         }
-        case UIViewLinearGradientDirectionDiagonalFromRightToLeftAndDownToTop:
+        case BMUIViewLinearGradientDirectionDiagonalFromRightToLeftAndDownToTop:
         {
             gradient.startPoint = CGPointMake(1.0f, 1.0f);
             gradient.endPoint = CGPointMake(0.0f, 0.0f);

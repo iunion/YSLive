@@ -39,10 +39,9 @@ static  NSString * const   YSLessonNotifyTableCellID      = @"YSLessonNotifyTabl
 
 - (void)setup
 {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
     [self addSubview:self.lessonTableView];
     [self.lessonTableView registerClass:[YSLessonNotifyTableCell class] forCellReuseIdentifier:YSLessonNotifyTableCellID];
-    
     self.headerView = [[YSLessonDetailHeaderView alloc] init];
     [self addSubview:self.headerView];
 }
@@ -62,8 +61,6 @@ static  NSString * const   YSLessonNotifyTableCellID      = @"YSLessonNotifyTabl
 {
     _dataSource = dataSource;
     [self.lessonTableView reloadData];
-    
-
 }
 
 
@@ -216,7 +213,7 @@ static  NSString * const   YSLessonNotifyTableCellID      = @"YSLessonNotifyTabl
         _lessonTableView.delegate = self;
         _lessonTableView.dataSource = self;
         _lessonTableView.showsVerticalScrollIndicator = NO;
-        _lessonTableView.backgroundColor = [UIColor whiteColor];
+        _lessonTableView.backgroundColor = [UIColor clearColor];
     }
     
     return _lessonTableView;

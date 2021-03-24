@@ -61,7 +61,7 @@
     
     if ([self.selectIndex compare:indexPath] == NSOrderedSame)
     {
-        cell.textLabel.textColor = [UIColor bm_colorWithHexString:@"#FFE895"];
+        cell.textLabel.textColor = YSSkinDefineColor(@"Color4");
     }
     else
     {

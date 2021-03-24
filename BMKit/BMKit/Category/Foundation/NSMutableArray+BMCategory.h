@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NSMutableArray (BMCategory)
 
-- (void)bm_moveObjectToTop:(NSUInteger)index;
+- (void)bm_moveObjectToFirst:(NSUInteger)index;
+- (void)bm_moveObjectToLast:(NSUInteger)index;
 
-- (void)bm_moveObjectFromIndex:(NSUInteger)oldIndex toIndex:(NSUInteger)newIndex;
+- (void)bm_exchangeObjectFromIndex:(NSUInteger)oldIndex toIndex:(NSUInteger)newIndex;
 
 - (nonnull NSMutableArray *)bm_removeFirstObject;
 
@@ -24,5 +26,14 @@
 - (NSUInteger)bm_replaceObject:(nonnull id)objectToReplace withObject:(nonnull id)object;
 
 - (void)bm_shuffle;
+
+@end
+
+
+@interface NSMutableArray (UIValue)
+
+- (void)bm_addPoint:(CGPoint)point;
+- (void)bm_addSize:(CGSize)size;
+- (void)bm_addRect:(CGRect)rect;
 
 @end

@@ -12,7 +12,7 @@
 #import "SCPictureMessageCell.h"
 
 //底部View的高
-#define BottomH 82
+#define BottomH ([UIDevice bm_isiPad] ? 70 : 50)
 
 @interface SCChatView()
 <
@@ -24,6 +24,12 @@ UITextFieldDelegate
 ///有投影的底部View
 @property(nonatomic,strong)UIImageView *bubbleView;
 
+///全体禁言的按钮
+@property(nonatomic,strong)UIButton * allDisableBtn;
+
+///弹起输入框的按钮
+@property(nonatomic,strong)UIButton * textBtn;
+
 @end
 
 @implementation SCChatView
@@ -33,8 +39,8 @@ UITextFieldDelegate
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = UIColor.whiteColor;
-        self.alpha = 0.95;
+        self.backgroundColor = YSSkinDefineColor(@"Color2");
+//        self.alpha = 0.95;
         
         UIBezierPath *maskBottomPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft  cornerRadii:CGSizeMake(30, 30)];
         CAShapeLayer *maskBottomLayer = [[CAShapeLayer alloc] init];
@@ -46,24 +52,25 @@ UITextFieldDelegate
         
         self.SCMessageList = [NSMutableArray array];
         
-        if (YSCurrentUser.role == YSUserType_Teacher)
-        {
-            self.allDisabledChat.hidden = YES;
-            self.textBtn.hidden = NO;
-        }
-        else
-        {
-            if ([YSLiveManager shareInstance].isBeginClass)
+//        if (YSCurrentUser.role == YSUserType_Teacher)
+//        {
+//            self.allDisableBtn.userInteractionEnabled = YES;
+//        }
+//        else
+//        {
+//            self.allDisableBtn.userInteractionEnabled = NO;
+        
+//            self.allDisableBtn.alpha = 0.4;
+            
+            if ([YSLiveManager sharedInstance].isClassBegin)
             {
-                self.allDisabledChat.hidden = ![YSLiveManager shareInstance].isEveryoneBanChat;
-                self.textBtn.hidden = [YSLiveManager shareInstance].isEveryoneBanChat;;
+                self.allDisabled = [YSLiveManager sharedInstance].isEveryoneBanChat;
             }
             else
             {
-                self.allDisabledChat.hidden = ![YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
-                self.textBtn.hidden = [YSLiveManager shareInstance].roomConfig.isBeforeClassBanChat;
+                self.allDisabled = [YSLiveManager sharedInstance].roomConfig.isBeforeClassBanChat;
             }
-        }
+//        }
     }
     return self;
 }
@@ -78,7 +85,6 @@ UITextFieldDelegate
     self.bubbleView.alpha = 0.9;
     self.bubbleView.image = [UIImage imageNamed:@"SCChatBubble"];
     self.bubbleView.userInteractionEnabled = YES;
-//    [self addSubview:self.bubbleView];
     
     self.bubbleView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     //剪切边界 如果视图上的子视图layer超出视图layer部分就截取掉 如果添加阴影这个属性必须是NO 不然会把阴影切掉
@@ -90,13 +96,39 @@ UITextFieldDelegate
     // 阴影透明度，默认0
     self.bubbleView.layer.shadowOpacity = 0.9f;
     
+    CGFloat titleLabH = 29;
+    
+    UIFont * titleLabFont = UI_FONT_12;
+    
+    if ([UIDevice bm_isiPad])
+    {
+        titleLabH = 44;
+        titleLabFont = UI_FONT_16;
+    }
+    
+    UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, self.bm_width - 2 * 20, titleLabH)];
+    titleLab.text = @"消息";
+    titleLab.textColor = YSSkinDefineColor(@"Color3");
+    titleLab.textAlignment = NSTextAlignmentCenter;
+    titleLab.font = titleLabFont;
+    [self addSubview:titleLab];
+    
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, titleLab.bm_bottom, self.bm_width, 1.0)];
+    lineView.backgroundColor = YSSkinDefineColor(@"Color7");
+    [self addSubview:lineView];
+    
+    
     //添加聊天tabView
-    self.SCChatTableView.frame = CGRectMake(0, 0, self.bm_width, self.bm_height-BottomH);
+    self.SCChatTableView.frame = CGRectMake(0, lineView.bm_bottom, self.bm_width, self.bm_height - lineView.bm_bottom - BottomH);
     [self addSubview:self.SCChatTableView];
     
-    
-    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height-BottomH, self.bm_width, BottomH)];
-    bottomView.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF" alpha:0.95];
+    if (YSCurrentUser.role == CHUserType_Patrol)
+    {
+        self.SCChatTableView.bm_height = self.bm_height - lineView.bm_bottom;
+        return;
+    }
+    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bm_height - BottomH, self.bm_width, BottomH)];
+    bottomView.backgroundColor = YSSkinDefineColor(@"Color2");
     [self addSubview:bottomView];
     
     UIBezierPath *maskBottomPath = [UIBezierPath bezierPathWithRoundedRect:bottomView.bounds byRoundingCorners:UIRectCornerBottomLeft  cornerRadii:CGSizeMake(30, 30)];
@@ -105,36 +137,91 @@ UITextFieldDelegate
     maskBottomLayer.path = maskBottomPath.CGPath;
     bottomView.layer.mask = maskBottomLayer;
     
+    
+    CGFloat allDisableBtnX = 16;
+    CGFloat allDisableBtnWH = 26;
+    
+    if ([UIDevice bm_isiPad])
+    {
+        allDisableBtnX = 26;
+        allDisableBtnWH = 40;
+    }
+    
+    CGFloat textBtnX = 15;
+    CGFloat textBtnW = self.bm_width - 15 - 15;
+    
+    if (YSCurrentUser.role == CHUserType_Teacher)
+    {
+        //全体禁言的按钮
+        UIButton * allDisableBtn = [[UIButton alloc]initWithFrame:CGRectMake(allDisableBtnX, 10, allDisableBtnWH+10, allDisableBtnWH+10)];
+        [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconNor") forState:UIControlStateNormal];
+        [allDisableBtn setImage:YSSkinElementImage(@"chatView_allDisableBtn", @"iconSel") forState:UIControlStateSelected];
+        [allDisableBtn addTarget:self action:@selector(allDisableButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        //    [allDisableBtn setBackgroundColor:UIColor.whiteColor];
+        [bottomView addSubview:allDisableBtn];
+        self.allDisableBtn = allDisableBtn;
+        
+        textBtnX = allDisableBtn.bm_right + 15;
+        textBtnW = self.bm_width - allDisableBtn.bm_right - 15 - 15;
+    }
+    
     //弹起输入框的按钮
-    self.textBtn = [[UIButton alloc]initWithFrame:CGRectMake(8, 20, 270, 34)];
-    self.textBtn.titleLabel.font = UI_FONT_14;
-    [self.textBtn setTitleColor:[UIColor bm_colorWithHexString:@"#828282"] forState:UIControlStateNormal];
-    [self.textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
-    self.textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.textBtn addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventTouchUpInside];
-    [self.textBtn setBackgroundColor:UIColor.whiteColor];
-    [bottomView addSubview:self.textBtn];
+    UIButton * textBtn = [[UIButton alloc]initWithFrame:CGRectMake(textBtnX, 10, textBtnW, allDisableBtnWH)];
+    textBtn.titleLabel.font = UI_FONT_14;
+    [textBtn setTitleColor:YSSkinDefineColor(@"Color7") forState:UIControlStateNormal];
+    [textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
+    textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [textBtn addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventTouchUpInside];
+    [textBtn setBackgroundColor:UIColor.clearColor];
+    [bottomView addSubview:textBtn];
+    self.textBtn = textBtn;
     
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.textBtn.bounds byRoundingCorners:UIRectCornerBottomLeft cornerRadii:CGSizeMake(17, 17)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = self.textBtn.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.textBtn.layer.mask = maskLayer;
-    
-    //群体禁言
-    self.allDisabledChat = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.bm_width-20, 35)];
-    self.allDisabledChat.backgroundColor = UIColor.whiteColor;
-    self.allDisabledChat.textAlignment = NSTextAlignmentCenter;
-    [self.allDisabledChat setFont:UI_FONT_13];
-    self.allDisabledChat.text = YSLocalized(@"Prompt.BanChatInView");
-    self.allDisabledChat.textColor = [UIColor bm_colorWithHexString:@"#738395"];
-    self.allDisabledChat.layer.cornerRadius = self.allDisabledChat.bm_height/2;
-    self.allDisabledChat.layer.masksToBounds = YES;
-    [bottomView addSubview:self.allDisabledChat];
+    textBtn.layer.cornerRadius = allDisableBtnWH/2;
+    textBtn.layer.borderWidth = 1;  // 给图层添加一个有色边框
+    textBtn.layer.borderColor = YSSkinDefineColor(@"Color7").CGColor;
+        
+    self.allDisableBtn.bm_centerY = textBtn.bm_centerY;
+}
+
+// 全体禁言 解除禁言
+- (void)allDisableButtonClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+
+    // 全体禁言
+    [[YSLiveManager sharedInstance] sendSignalingTeacherToLiveAllNoChatSpeakingWithNotAllow:sender.selected];
+}
+
+- (void)setAllDisabled:(BOOL)allDisabled
+{
+    _allDisabled = allDisabled;
+           
+    if (YSCurrentUser.role != CHUserType_Teacher)
+    {
+        if (allDisabled)
+        {
+            self.textBtn.alpha = 0.4;
+            [self.textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Prompt.BanChat")] forState:UIControlStateNormal];
+        }
+        else
+        {
+            self.textBtn.alpha = 1.0;
+            [self.textBtn setTitle:[NSString stringWithFormat:@"   %@",YSLocalized(@"Alert.NumberOfWords.140")] forState:UIControlStateNormal];
+        }
+    }
+    else
+    {
+        self.allDisableBtn.selected = allDisabled;
+    }
 }
 
 - (void)textFieldDidChange
 {
+    if (self.allDisabled && YSCurrentUser.role != CHUserType_Teacher)
+    {
+        return;
+    }
+    
     if (_textBtnClick)
     {
         _textBtnClick();
@@ -154,16 +241,15 @@ UITextFieldDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel *model = _SCMessageList[indexPath.row];
+    CHChatMessageModel *model = _SCMessageList[indexPath.row];
     
-    if (model.chatMessageType == YSChatMessageTypeTips)
+    if (model.chatMessageType == CHChatMessageType_Tips)
     {
         SCTipsMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCTipsMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
-//        cell.contentView.bm_width = self.bm_width;
         return cell;
     }
-    else if (model.chatMessageType == YSChatMessageTypeText)
+    else if (model.chatMessageType == CHChatMessageType_Text)
     {
         SCTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCTextMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
@@ -171,14 +257,12 @@ UITextFieldDelegate
         cell.translationBtnClick = ^{
             [weakSelf getBaiduTranslateWithIndexPath:indexPath];
         };
-//        cell.contentView.bm_width = self.bm_width;
         return cell;
     }
-    else if (model.chatMessageType == YSChatMessageTypeOnlyImage)
+    else if (model.chatMessageType == CHChatMessageType_OnlyImage)
     {
         SCPictureMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SCPictureMessageCell class]) forIndexPath:indexPath];
         cell.model = model;
-//        cell.contentView.bm_width = self.bm_width;
         return cell;
     }
     
@@ -187,9 +271,9 @@ UITextFieldDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSChatMessageModel * model = _SCMessageList[indexPath.row];
+    CHChatMessageModel * model = _SCMessageList[indexPath.row];
     
-    if (model.chatMessageType == YSChatMessageTypeTips)
+    if (model.chatMessageType == CHChatMessageType_Tips)
     {
         if (!model.cellHeight)
         {
@@ -197,7 +281,7 @@ UITextFieldDelegate
         }
         return model.cellHeight;
     }
-    else if (model.chatMessageType == YSChatMessageTypeText)
+    else if (model.chatMessageType == CHChatMessageType_Text)
     {
         if ([model.detailTrans bm_isNotEmpty])
         {//有翻译
@@ -205,13 +289,13 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message font:15];
+                    NSMutableAttributedString *attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"Color8") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 
                 if (!model.translatSize.width)
                 {
-                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans font:15];
+                    NSMutableAttributedString * attTranslation = [model emojiViewWithMessage:model.detailTrans color:YSSkinDefineColor(@"Color8") font:15];
                     model.translatSize = [attTranslation bm_sizeToFitWidth:200];
                 }
                 model.transCellHeight = 10 + 20 + 5 +  5 + model.messageSize.height + 5 + 1 + 5 + model.translatSize.height + 5 + 5;
@@ -224,7 +308,7 @@ UITextFieldDelegate
             {
                 if (!model.messageSize.width)
                 {
-                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message font:15];
+                    NSMutableAttributedString * attMessage = [model emojiViewWithMessage:model.message color:YSSkinDefineColor(@"Color8") font:15];
                     model.messageSize = [attMessage bm_sizeToFitWidth:200];
                 }
                 model.cellHeight = 10 + 20 + 5 + 5 + model.messageSize.height + 5 + 5;
@@ -232,7 +316,7 @@ UITextFieldDelegate
             return model.cellHeight;
         }
     }
-    else if (model.chatMessageType == YSChatMessageTypeOnlyImage)
+    else if (model.chatMessageType == CHChatMessageType_OnlyImage)
     {
         if (!model.cellHeight)
         {
@@ -305,7 +389,7 @@ UITextFieldDelegate
 #pragma mark 翻译
 - (void)getBaiduTranslateWithIndexPath:(NSIndexPath *) indexPath
 {
-    YSChatMessageModel * model = self.SCMessageList[indexPath.row];
+    CHChatMessageModel * model = self.SCMessageList[indexPath.row];
     
     BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];

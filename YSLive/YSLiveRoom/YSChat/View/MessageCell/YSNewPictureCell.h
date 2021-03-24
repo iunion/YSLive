@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YSChatMessageModel.h"
 #import "YSChatBasicTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSNewPictureCell : YSChatBasicTableViewCell
 
-@property (nonatomic, strong) YSChatMessageModel *model;
+@property (nonatomic, strong) CHChatMessageModel *model;
 //@property (nonatomic, strong) NSDictionary *chatDict;
 
 @end

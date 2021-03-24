@@ -10,14 +10,14 @@
 #import <objc/runtime.h>
 #import "UIView+BMSize.h"
 #import "UILabel+BMCategory.h"
-#import "CAAnimation+Animation.h"
+#import "CAAnimation+BMAnimation.h"
 
 
-#define kBadgeBreatheAniKey     @"breathe"
-#define kBadgeRotateAniKey      @"rotate"
-#define kBadgeShakeAniKey       @"shake"
-#define kBadgeScaleAniKey       @"scale"
-#define kBadgeBounceAniKey      @"bounce"
+#define kBMBadgeBreatheAniKey     @"breathe"
+#define kBMBadgeRotateAniKey      @"rotate"
+#define kBMBadgeShakeAniKey       @"shake"
+#define kBMBadgeScaleAniKey       @"scale"
+#define kBMBadgeBounceAniKey      @"bounce"
 
 @implementation UIView (BMBadge)
 
@@ -326,27 +326,27 @@
     switch(self.badgeAnimationType)
     {
         case BMBadgeAnimationTypeBreathe:
-            [self.badgeLabel.layer addAnimation:[CAAnimation opacityForever_Animation:1.4]
-                                         forKey:kBadgeBreatheAniKey];
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_opacityForever_Animation:1.4]
+                                         forKey:kBMBadgeBreatheAniKey];
             break;
         case BMBadgeAnimationTypeShake:
-            [self.badgeLabel.layer addAnimation:[CAAnimation shake_AnimationRepeatTimes:CGFLOAT_MAX
-                                                                               durTimes:1
-                                                                                 forObj:self.badgeLabel.layer]
-                                         forKey:kBadgeShakeAniKey];
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_shake_AnimationRepeatTimes:CGFLOAT_MAX
+                                                                                  durTimes:1
+                                                                                    forObj:self.badgeLabel.layer]
+                                         forKey:kBMBadgeShakeAniKey];
             break;
         case BMBadgeAnimationTypeScale:
-            [self.badgeLabel.layer addAnimation:[CAAnimation scaleFrom:1.4
-                                                               toScale:0.6
-                                                              durTimes:1
-                                                                   rep:MAXFLOAT]
-                                         forKey:kBadgeScaleAniKey];
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_scaleFrom:1.4
+                                                                  toScale:0.6
+                                                                 durTimes:1
+                                                                      rep:MAXFLOAT]
+                                         forKey:kBMBadgeScaleAniKey];
             break;
         case BMBadgeAnimationTypeBounce:
-            [self.badgeLabel.layer addAnimation:[CAAnimation bounce_AnimationRepeatTimes:CGFLOAT_MAX
-                                                                                durTimes:1
-                                                                                  forObj:self.badgeLabel.layer]
-                                         forKey:kBadgeBounceAniKey];
+            [self.badgeLabel.layer addAnimation:[CAAnimation bm_bounce_AnimationRepeatTimes:CGFLOAT_MAX
+                                                                                   durTimes:1
+                                                                                     forObj:self.badgeLabel.layer]
+                                         forKey:kBMBadgeBounceAniKey];
             break;
         case BMBadgeAnimationTypeNone:
         default:

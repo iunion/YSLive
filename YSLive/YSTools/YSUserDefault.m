@@ -52,4 +52,35 @@
     return reproducerPermission;
 }
 
+
++ (void)setUserAgreement:(BOOL)agree
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:agree forKey:YS_UserAgreement];
+    [defaults synchronize];
+    
+}
++ (BOOL)getUserAgreement
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL agree = [defaults boolForKey:YS_UserAgreement];
+    return agree;
+}
+
+/// 是否签到
++ (void)setUserSignin:(NSString *)sign
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:sign forKey:YS_UserSignin];
+    
+    [defaults synchronize];
+}
+
+/// 是否签到
++ (NSString *)getUserSignin
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *signin = [defaults objectForKey:YS_UserSignin];
+    return signin;
+}
 @end

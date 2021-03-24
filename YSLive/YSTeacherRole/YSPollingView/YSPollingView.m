@@ -83,7 +83,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     [self addGestureRecognizer:tapGesture];
     
     self.bacView = [[UIView alloc] init];
-    self.bacView.backgroundColor = [UIColor whiteColor];
+    self.bacView.backgroundColor = [YSSkinDefineColor(@"Color2") bm_changeAlpha:YSPopViewDefaultAlpha];
     self.bacView.bm_width = backViewWidth;
     self.bacView.bm_height = backViewHeight;
     self.bacView.layer.cornerRadius = 26;
@@ -91,7 +91,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     [self showWithView:self.bacView inView:inView];
     
     self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.closeBtn setImage:[UIImage imageNamed:@"polling_btn_close"] forState:UIControlStateNormal];
+    [self.closeBtn setImage:YSSkinDefineImage(@"close_btn_icon") forState:UIControlStateNormal];
     [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.closeBtn.hidden = NO;
     [self.bacView addSubview:self.closeBtn];
@@ -102,8 +102,8 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.titleLabel = [[UILabel alloc] init];
     [self.bacView addSubview:self.titleLabel];
     self.titleLabel.textAlignment= NSTextAlignmentLeft;
-    self.titleLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-    self.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    self.titleLabel.textColor = YSSkinDefineColor(@"Color3");
+    self.titleLabel.font = UI_FONT_12;
     self.titleLabel.text = YSLocalized(@"Polling.Time");
     self.titleLabel.frame = CGRectMake(30, 80, 70, 25);
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -113,7 +113,7 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     
     self.stepperInputView.bm_centerY = self.titleLabel.bm_centerY;
     self.stepperInputView.bm_left = self.titleLabel.bm_right + 8;
-    self.stepperInputView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF alpha:0.5];
+    self.stepperInputView.backgroundColor = YSSkinDefineColor(@"Color2");
     
     
     self.stepperInputView.delegate = self;
@@ -129,19 +129,19 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.stepperInputView.useKeyBord = YES;
     
     // 数字颜色
-    self.stepperInputView.numberColor = [UIColor bm_colorWithHex:0x5A8CDC];
+    self.stepperInputView.numberColor = YSSkinDefineColor(@"Color3");
     // 数字字体
-    self.stepperInputView.numberFont = [UIFont systemFontOfSize:21.0f];
+    self.stepperInputView.numberFont = UI_FONT_18;
     
     // 边框颜色
     self.stepperInputView.borderColor = [UIColor clearColor];
     //            // 边框线宽
     self.stepperInputView.borderWidth = 1;
-    [self.stepperInputView bm_addShadow:1 Radius:21 BorderColor:[UIColor bm_colorWithHex:0x5A8CDC] ShadowColor:[UIColor whiteColor] Offset:CGSizeMake(0, 1) Opacity:0.5];
+    [self.stepperInputView bm_addShadow:1 Radius:21 BorderColor:YSSkinDefineColor(@"Color4") ShadowColor:YSSkinDefineColor(@"Color2") Offset:CGSizeMake(0, 1) Opacity:0.5];
     // 加按钮背景图片
-    self.stepperInputView.increaseImage = [UIImage imageNamed:@"teacherTimer_add"];
+    self.stepperInputView.increaseImage = YSSkinElementImage(@"polling_add", @"iconNor");
     // 减按钮背景图片
-    self.stepperInputView.decreaseImage = [UIImage imageNamed:@"teacherTimer_subtract"];
+    self.stepperInputView.decreaseImage = YSSkinElementImage(@"polling_subtract", @"iconNor");
     
     // 长按加减的触发时间间隔,默认0.2s
     //               self.stepperInputView.longPressSpaceTime = 10;
@@ -199,8 +199,8 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     self.secondLabel = [[UILabel alloc] init];
     [self.bacView addSubview:self.secondLabel];
     self.secondLabel.textAlignment= NSTextAlignmentLeft;
-    self.secondLabel.textColor = [UIColor bm_colorWithHex:0x5A8CDC];
-    self.secondLabel.font = [UIFont systemFontOfSize:16.0f];
+    self.secondLabel.textColor = YSSkinDefineColor(@"Color3");
+    self.secondLabel.font = UI_FONT_12;
     self.secondLabel.text = YSLocalized(@"Polling.second");
     self.secondLabel.frame = CGRectMake(0, 0, 80, 25);
     self.secondLabel.bm_centerY = self.titleLabel.bm_centerY;
@@ -211,12 +211,14 @@ backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets
     [self.sureBtn setTitle: YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
     [self.sureBtn addTarget:self action:@selector(sureBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bacView addSubview:self.sureBtn];
-    [self.sureBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
+    [self.sureBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
     self.sureBtn.frame = CGRectMake(0, self.bacView.bm_height - 80, 147, 40);
     self.sureBtn.bm_centerX = self.bacView.bm_centerX;
-    [self.sureBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    self.sureBtn.titleLabel.font = [UIFont systemFontOfSize:18.0f];
-    [self.sureBtn bm_addShadow:3 Radius:20 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+    [self.sureBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
+    self.sureBtn.titleLabel.font = UI_FONT_16;
+    self.sureBtn.layer.cornerRadius = 20;
+    self.sureBtn.layer.masksToBounds = YES;
+//    [self.sureBtn bm_addShadow:3 Radius:20 BorderColor:[UIColor bm_colorWithHex:0x97B7EB] ShadowColor:[UIColor grayColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
 }
 
 

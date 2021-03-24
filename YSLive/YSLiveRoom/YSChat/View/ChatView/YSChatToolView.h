@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *emotionButton;
 
 ///将要发消息的对象
-@property (nonatomic, strong) YSRoomUser *memberModel;
+@property (nonatomic, strong) CHRoomUser *memberModel;
 ///群体禁言
 @property (nonatomic, assign) BOOL everyoneBanChat;
 

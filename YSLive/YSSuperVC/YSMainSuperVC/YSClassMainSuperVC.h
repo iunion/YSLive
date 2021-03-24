@@ -7,6 +7,13 @@
 //
 
 #import "YSMainSuperVC.h"
+#import "YSSpreadBottomToolBar.h"
+#import "YSDiceAnimationView.h"
+
+/// 顶部状态栏高度
+#define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
+
+#define DoubleTeacherExpandContractBtnTag          100
 
 typedef NS_ENUM(NSUInteger, SCMain_ArrangeContentBackgroudViewType)
 {
@@ -27,9 +34,47 @@ typedef NS_ENUM(NSInteger, SCUploadImageUseType)
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSClassMainSuperVC : YSMainSuperVC
+<
+    YSSpreadBottomToolBarDelegate
+>
+
+/// 所有内容的背景
+@property (nonatomic, strong) UIView *contentBackgroud;
+
+/// 所有内容的背景图片
+@property (nonatomic, strong) UIImageView *contentBgImage;
+
+/// 所有内容的背景contentBackgroud的尺寸
+@property(nonatomic, assign, readonly) CGFloat contentWidth;
+@property(nonatomic, assign, readonly) CGFloat contentHeight;
+
+/// 房间号
+@property(nonatomic, copy) NSString *roomID;
+/// 上课时间
+@property(nonatomic, copy) NSString *lessonTime;
+
+/// 底部工具栏
+@property (nonatomic, strong, readonly) YSSpreadBottomToolBar *spreadBottomToolBar;
+
+///骰子
+@property(nonatomic,weak)YSDiceAnimationView *diceView;
+
+///自己当前的分辨率 视频宽
+@property (nonatomic, assign) NSUInteger userVideowidth;
+/// 自己当前的分辨率 视频高
+@property (nonatomic, assign) NSUInteger userVideoheight;
+
 
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
+
+// 横排视频最大宽度计算
+- (CGFloat)getVideoTotalWidth;
+
+- (void)showKeystoneCorrectionView;
+
+- (void)hideKeystoneCorrectionView;
+
 
 @end
 

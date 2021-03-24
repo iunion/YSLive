@@ -7,13 +7,15 @@
 //
 
 #import "YSTabBarViewController.h"
+#import "AppDelegate.h"
+
 #import "YSCalendarCurriculumVC.h"
 #import "YSMineViewController.h"
 
 //正常色
-#define ITEM_NOR_COLOR [UIColor bm_colorWithHex:0x979797]
+#define ITEM_NOR_COLOR YSSkinOnlineDefineColor(@"placeholderColor")
 //选中色
-#define ITEM_SEL_COLOR [UIColor bm_colorWithHex:UI_NAVIGATION_BGCOLOR_VALU]
+#define ITEM_SEL_COLOR YSSkinOnlineDefineColor(@"MainColor")
 
 @interface YSTabBarViewController ()
 
@@ -55,11 +57,16 @@
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
@@ -78,12 +85,29 @@
     /// 不支持手滑返回
     self.bm_CanBackInteractive = NO;
     
+//    UIButton * tabBtn1 = [[UIButton alloc]init];
+//    [tabBtn1 setImage:YSSkinOnlineElementImage(@"tabbar_timeTable", @"iconNor") forState:UIControlStateNormal];
+//    [tabBtn1 setImage:YSSkinOnlineElementImage(@"tabbar_timeTable", @"iconSel") forState:UIControlStateSelected];
+//    [tabBtn1 setTitle:YSLocalizedSchool(@"Title.OnlineSchool.Calendar") forState:UIControlStateNormal];
+//    [tabBtn1 setTitleColor:ITEM_NOR_COLOR forState:UIControlStateNormal];
+//    [tabBtn1 setTitleColor:ITEM_SEL_COLOR forState:UIControlStateSelected];
+//
+//    UIButton * tabBtn2 = [[UIButton alloc]init];
+//    [tabBtn2 setImage:YSSkinOnlineElementImage(@"tabbar_personal", @"iconNor") forState:UIControlStateNormal];
+//    [tabBtn2 setImage:YSSkinOnlineElementImage(@"tabbar_personal", @"iconSel") forState:UIControlStateSelected];
+//    [tabBtn1 setTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") forState:UIControlStateNormal];
+//    [tabBtn2 setTitleColor:ITEM_NOR_COLOR forState:UIControlStateNormal];
+//    [tabBtn2 setTitleColor:ITEM_SEL_COLOR forState:UIControlStateSelected];
+    
+    
     BMTabItemClass *tab1 = [[BMTabItemClass alloc] init];
     tab1.title = YSLocalizedSchool(@"Title.OnlineSchool.Calendar");
     tab1.normalColor = ITEM_NOR_COLOR;
     tab1.selectedColor = ITEM_SEL_COLOR;
-    tab1.normalIcon = @"live";
-    tab1.selectedIcon = @"live_sel";
+    tab1.normalIcon = @"timeTable_normal_skin";
+    tab1.selectedIcon = @"timeTable_highLight_skin";
+    //    tab1.normalIcon = YSSkinOnlineElementImage(@"tabbar_timeTable", @"iconNor");
+    //    tab1.selectedIcon = YSSkinOnlineElementImage(@"tabbar_timeTable", @"iconNor");
 
     BMTabItemClass *tab2 = [[BMTabItemClass alloc] init];
     tab2.title = YSLocalizedSchool(@"Title.OnlineSchool.Mine");
@@ -91,8 +115,8 @@
     tab2.selectedColor = ITEM_SEL_COLOR;
 //    tab2.normalIcon = @"home";
 //    tab2.selectedIcon = @"home_sel";
-    tab2.normalIcon = @"me";
-    tab2.selectedIcon = @"me";
+    tab2.normalIcon = @"personal_normal_skin";
+    tab2.selectedIcon = @"personal_high_skin";
     
     return [self initWithArray:@[tab1, tab2]];
 }

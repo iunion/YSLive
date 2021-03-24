@@ -15,6 +15,7 @@
     UIGestureRecognizerDelegate
 >
 {
+    //缩放开始时的数据
     CGPoint scaleCenterPoint;
     CGFloat scaleWidth;
     CGFloat scaleHeight;
@@ -26,8 +27,7 @@
 
 @property (nonatomic, weak) UIView *contentView;
 
-///默认刚拖出来的比例为1
-@property (nonatomic , assign) CGFloat endScale;
+
 ///上次捏合后的尺寸
 @property (nonatomic , assign) CGSize lastSize;
 
@@ -46,24 +46,17 @@
     {
         self.canGestureRecognizer = NO;
         self.canZoom = NO;
-        self.endScale = 1;
+        self.endScale = 2;
         // 设置默认偏移
         self.edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        self.defaultSize = CGSizeZero;
+        self.minSize = CGSizeZero;
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         imageView.contentMode = UIViewContentModeCenter;
         [self addSubview:imageView];
         self.backImageView = imageView;
         
-        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-        for (NSUInteger i=1; i<=21; i++)
-        {
-            NSString *imageName = [NSString stringWithFormat:@"ysfloatview_loding%@", @(i)];
-            [imageArray addObject:imageName];
-        }
-        [imageView bm_animationWithImageArray:imageArray duration:3 repeatCount:0];
-        [imageView startAnimating];
+        [self showMp4WaitingView];
 
         self.showWaiting = NO;
 
@@ -78,10 +71,6 @@
         scrollView.maximumZoomScale = 3.0;
         scrollView.zoomScale = 1.0;
         self.backScrollView = scrollView;
-
-        // 移动手势
-//        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragView:)];
-//        [self addGestureRecognizer:panGestureRecognizer];
         
         // 双击手势
         UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
@@ -100,6 +89,25 @@
     return self;
 }
 
+- (void)showMp4WaitingView
+{
+    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    for (NSUInteger i=1; i<=21; i++)
+    {
+        NSString *imageName = [NSString stringWithFormat:@"ysfloatview_loding%@", @(i)];
+        [imageArray addObject:imageName];
+    }
+    [self.backImageView bm_animationWithImageArray:imageArray duration:3 repeatCount:0];
+    [self.backImageView startAnimating];
+}
+
+- (void)showMp4PauseView
+{
+    [self.backImageView stopAnimating];
+    
+    NSString *imageName = @"ysfloatview_pause";
+    self.backImageView.image = [UIImage imageNamed:imageName];
+}
 
 - (void)setContentView:(UIView *)contentView
 {
@@ -130,49 +138,18 @@
     }
     
     // 双击恢复默认尺寸
-    if (!CGSizeEqualToSize(self.defaultSize, CGSizeZero))
+    if (!CGSizeEqualToSize(self.minSize, CGSizeZero))
     {
         [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
             CGPoint center = self.center;
-            self.bm_width = self.defaultSize.width;
-            self.bm_height = self.defaultSize.height;
+            self.bm_width = self.minSize.width;
+            self.bm_height = self.minSize.height;
             self.center = center;
         }];
     }
     
     [self stayMove];
 }
-
-//- (void)dragView:(UIPanGestureRecognizer *)recognizer
-//{
-//    if (!self.canGestureRecognizer)
-//    {
-//        return;
-//    }
-//
-//    UIView *dragView = recognizer.view;
-//    if (recognizer.state == UIGestureRecognizerStateBegan)
-//    {
-//
-//    }
-//    else if (recognizer.state == UIGestureRecognizerStateChanged)
-//    {
-//        CGPoint location = [recognizer locationInView:self.superview];
-//
-//        if (location.y < 0 || location.y > UI_SCREEN_HEIGHT)
-//        {
-//            return;
-//        }
-//        CGPoint translation = [recognizer translationInView:self.superview];
-//
-//        dragView.center = CGPointMake(dragView.center.x + translation.x, dragView.center.y + translation.y);
-//        [recognizer setTranslation:CGPointZero inView:self.superview];
-//    }
-//    else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
-//    {
-//        [self stayMove];
-//    }
-//}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
@@ -199,7 +176,6 @@
     }
     
     // 通过 transform(改变) 进行视图的视图的捏合
-//    view.transform = CGAffineTransformScale(view.transform, pinch.scale, pinch.scale);
     if (pinch.state == UIGestureRecognizerStateBegan)
     {
         scaleCenterPoint = self.center;
@@ -208,7 +184,7 @@
         self.lastSize = self.bm_size;
     }
     
-    if (!CGSizeEqualToSize(self.defaultSize, CGSizeZero))
+    if (!CGSizeEqualToSize(self.minSize, CGSizeZero))
     {
         self.bm_size = CGSizeMake(scaleWidth*pinch.scale, scaleHeight*pinch.scale);
         self.center = scaleCenterPoint;
@@ -216,65 +192,136 @@
     
     if (pinch.state == UIGestureRecognizerStateEnded)
     {
+        CGFloat percentLeft = 0.0;
+        CGFloat percentTop = 0.0;
+        
         BMWeakSelf
         // 尺寸小于默认恢复默认 只能放大
-        if (self.bm_width <= self.defaultSize.width || self.bm_height <= self.defaultSize.height)
+        if (self.bm_width <= self.minSize.width || self.bm_height <= self.minSize.height)
         {//小于默认最小时
             [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
-                weakSelf.bm_width = weakSelf.defaultSize.width;
-                weakSelf.bm_height = weakSelf.defaultSize.height;
+                weakSelf.bm_width = weakSelf.minSize.width;
+                weakSelf.bm_height = weakSelf.minSize.height;
                 weakSelf.center = self->scaleCenterPoint;
             }];
             
-            if (self.lastSize.width>self.defaultSize.width || self.lastSize.height>self.defaultSize.height)
+            if (self.lastSize.width > self.minSize.width || self.lastSize.height > self.minSize.height)
             {
-                if ((self.lastSize.width/self.defaultSize.width) < (self.lastSize.height/self.defaultSize.height))
+                if ((self.lastSize.width/self.minSize.width) < (self.lastSize.height/self.minSize.height))
                 {
-                    self.endScale *= self.lastSize.width/self.defaultSize.width;
+                    self.endScale *= self.lastSize.width/self.minSize.width;
                 }else
                 {
-                    self.endScale *= self.lastSize.height/self.defaultSize.height;
+                    self.endScale *= self.lastSize.height/self.minSize.height;
                 }
             }
             else
             {
                 self.endScale = 1;
             }
+            
+            CGFloat differenceW = self.maxSize.width - self.minSize.width - 2;
+            CGFloat differenceH = self.maxSize.height - self.minSize.height - 2;
+            
+            if (differenceW == 0)
+            {
+                percentLeft = 0;
+            }
+            else
+            {
+                percentLeft = (self.center.x - self.minSize.width/2)/differenceW;
+            }
+            
+            
+            if (differenceH == 0)
+            {
+                percentTop = 0;
+            }
+            else
+            {
+                percentTop = (self.center.y - self.minSize.height/2)/differenceH;
+            }
         }
         else if(self.bm_width >= self.maxSize.width || self.bm_height >= self.maxSize.height)
         {//大于最大时
-            if ((self.defaultSize.width/self.defaultSize.height)>(self.maxSize.width/self.maxSize.height))
+            if ((self.minSize.width/self.minSize.height)>(self.maxSize.width/self.maxSize.height))
             {//宽先达到最大
-                CGFloat defaultScale = self.defaultSize.height/self.defaultSize.width;
+                CGFloat defaultScale = self.minSize.height/self.minSize.width;
                 
                 [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
                     weakSelf.bm_width = weakSelf.maxSize.width;
                     weakSelf.bm_height = weakSelf.maxSize.width * defaultScale;
                     weakSelf.center = self->scaleCenterPoint;
                 }];
+                if (!self.lastSize.width)
+                {
+                    self.endScale *= self.maxSize.width/self.minSize.width;
+                }
+                else
+                {
+                    self.endScale *= self.maxSize.width/self.lastSize.width;
+                }
                 
-                self.endScale *= self.maxSize.width/self.lastSize.width;
             }
             else
             {//高先达到最大
                 
-                CGFloat defaultScale = self.defaultSize.width/self.defaultSize.height;
+                CGFloat defaultScale = self.minSize.width/self.minSize.height;
                 [UIView animateWithDuration:BMDEFAULT_DELAY_TIME animations:^{
                     weakSelf.bm_height = weakSelf.maxSize.height;
                     weakSelf.bm_width = weakSelf.maxSize.height * defaultScale;
                     weakSelf.center = self->scaleCenterPoint;
                 }];
-                self.endScale *= self.maxSize.height/self.lastSize.height;
+                if (!self.lastSize.height)
+                {
+                    self.endScale *= self.maxSize.height/self.minSize.height;
+                }
+                else
+                {
+                    self.endScale *= self.maxSize.height/self.lastSize.height;
+                }
+                
             }
+            percentLeft = 0.0;
+            percentTop = 0.0;
         }
         else
         {
             self.endScale *= pinch.scale;
+            
+            CGFloat differenceW = self.maxSize.width - self.bm_width - 2;
+            CGFloat differenceH = self.maxSize.height - self.bm_height - 2;
+            
+            if (differenceW == 0)
+            {
+                percentLeft = 0;
+            }
+            else
+            {
+                percentLeft = (self.center.x - self.bm_width/2)/differenceW;
+            }
+            
+            if (differenceH == 0)
+            {
+                percentTop = 0;
+            }
+            else
+            {
+                percentTop = (self.center.y - self.bm_height/2)/differenceH;
+            }
         }
         [self stayMove];
-        if (!self.isFullBackgrond)
+        if (!self.isFullBackgrond && self.streamId)
         {
-             [[YSLiveManager shareInstance] sendSignalingTopinchVideoViewWithPeerId:self.peerId scale:self.endScale];
+            NSDictionary * dict = @{
+                @"userId":self.peerId,
+                @"streamId":self.streamId,
+                @"percentLeft":[NSString stringWithFormat:@"%f",percentLeft],
+                @"percentTop":[NSString stringWithFormat:@"%f",percentTop],
+                @"isDrag": @1, // 是否拖拽了
+                @"scale":@(self.endScale)
+            };
+            [[YSLiveManager sharedInstance]sendSignalingTopinchVideoViewWithPeerId:self.peerId withStreamId:self.streamId withData:dict];
         }
     }
 }
@@ -370,12 +417,5 @@
 
     return nil;
 }
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
-{
-//    self.bm_width = self.bm_width*scale;
-//    self.bm_height = self.bm_height*scale;
-}
-
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 LFC. All rights reserved.
 //
 
-#define kNextAvailableTimeKey(identifier, index) [NSString stringWithFormat:@"%@_%d", identifier, index]
+#define kYSNextAvailableTimeKey(identifier, index) [NSString stringWithFormat:@"%@_%d", identifier, index]
 
 #import "YSBarrageRenderView.h"
 #import "YSBarrageTrackInfo.h"
@@ -272,11 +272,11 @@
             renderHeight = cellHeight;
         }
         
-        int trackCount = floorf(renderHeight/cellHeight);
-        int trackIndex = arc4random_uniform(trackCount);//用户改变行高(比如弹幕文字大小不会引起显示bug, 因为虽然是同一个类, 但是trackCount变小了, 所以不会出现trackIndex*cellHeight超出屏幕边界的情况)
+        NSInteger trackCount = floorf(renderHeight/cellHeight);
+        NSInteger trackIndex = arc4random_uniform(trackCount);//用户改变行高(比如弹幕文字大小不会引起显示bug, 因为虽然是同一个类, 但是trackCount变小了, 所以不会出现trackIndex*cellHeight超出屏幕边界的情况)
         
         dispatch_semaphore_wait(_trackInfoLock, DISPATCH_TIME_FOREVER);
-        YSBarrageTrackInfo *trackInfo = [_trackNextAvailableTime objectForKey:kNextAvailableTimeKey(NSStringFromClass([barrageCell class]), trackIndex)];
+        YSBarrageTrackInfo *trackInfo = [_trackNextAvailableTime objectForKey:kYSNextAvailableTimeKey(NSStringFromClass([barrageCell class]), trackIndex)];
         if (trackInfo && trackInfo.nextAvailableTime > CACurrentMediaTime()) {//当前行暂不可用
             
             NSMutableArray *availableTrackInfos = [NSMutableArray array];
@@ -292,7 +292,7 @@
                 if (_trackNextAvailableTime.count < trackCount) {//刚开始不是每一条轨道都跑过弹幕, 还有空轨道
                     NSMutableArray *numberArray = [NSMutableArray array];
                     for (int index = 0; index < trackCount; index++) {
-                        YSBarrageTrackInfo *emptyTrackInfo = [_trackNextAvailableTime objectForKey:kNextAvailableTimeKey(NSStringFromClass([barrageCell class]), index)];
+                        YSBarrageTrackInfo *emptyTrackInfo = [_trackNextAvailableTime objectForKey:kYSNextAvailableTimeKey(NSStringFromClass([barrageCell class]), index)];
                         if (!emptyTrackInfo) {
                             [numberArray addObject:[NSNumber numberWithInt:index]];
                         }
@@ -332,7 +332,7 @@
                 int trackIndex = arc4random_uniform(trackCount);//用户改变行高(比如弹幕文字大小不会引起显示bug, 因为虽然是同一个类, 但是trackCount变小了, 所以不会出现trackIndex*cellHeight超出屏幕边界的情况)
                 
                 dispatch_semaphore_wait(_trackInfoLock, DISPATCH_TIME_FOREVER);
-                YSBarrageTrackInfo *trackInfo = [_trackNextAvailableTime objectForKey:kNextAvailableTimeKey(NSStringFromClass([barrageCell class]), trackIndex)];
+                YSBarrageTrackInfo *trackInfo = [_trackNextAvailableTime objectForKey:kYSNextAvailableTimeKey(NSStringFromClass([barrageCell class]), trackIndex)];
                 if (trackInfo && trackInfo.nextAvailableTime > CACurrentMediaTime()) {//当前行暂不可用
                     NSMutableArray *availableTrackInfos = [NSMutableArray array];
                     for (YSBarrageTrackInfo *info in _trackNextAvailableTime.allValues) {
@@ -347,7 +347,7 @@
                         if (_trackNextAvailableTime.count < trackCount) {//刚开始不是每一条轨道都跑过弹幕, 还有空轨道
                             NSMutableArray *numberArray = [NSMutableArray array];
                             for (int index = 0; index < trackCount; index++) {
-                                YSBarrageTrackInfo *emptyTrackInfo = [_trackNextAvailableTime objectForKey:kNextAvailableTimeKey(NSStringFromClass([barrageCell class]), index)];
+                                YSBarrageTrackInfo *emptyTrackInfo = [_trackNextAvailableTime objectForKey:kYSNextAvailableTimeKey(NSStringFromClass([barrageCell class]), index)];
                                 if (!emptyTrackInfo) {
                                     [numberArray addObject:[NSNumber numberWithInt:index]];
                                 }
@@ -398,7 +398,7 @@
 }
 
 - (void)recordTrackInfoWithBarrageCell:(YSBarrageCell *)barrageCell {
-    NSString *nextAvalibleTimeKey = kNextAvailableTimeKey(NSStringFromClass([barrageCell class]), barrageCell.trackIndex);
+    NSString *nextAvalibleTimeKey = kYSNextAvailableTimeKey(NSStringFromClass([barrageCell class]), barrageCell.trackIndex);
     CFTimeInterval duration = barrageCell.barrageAnimation.duration;
     NSValue *fromValue = nil;
     NSValue *toValue = nil;
@@ -500,7 +500,7 @@
     }
     
     dispatch_semaphore_wait(_trackInfoLock, DISPATCH_TIME_FOREVER);
-    YSBarrageTrackInfo *trackInfo = [_trackNextAvailableTime objectForKey:kNextAvailableTimeKey(NSStringFromClass([animationedCell class]), animationedCell.trackIndex)];
+    YSBarrageTrackInfo *trackInfo = [_trackNextAvailableTime objectForKey:kYSNextAvailableTimeKey(NSStringFromClass([animationedCell class]), animationedCell.trackIndex)];
     if (trackInfo) {
         trackInfo.barrageCount--;
     }

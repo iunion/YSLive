@@ -9,8 +9,8 @@
 #import "YSStudentResponder.h"
 #import "YSCircleProgress.h"
 
-#define backViewWidth 220
-#define backViewHeight 220
+#define backViewWidth 140
+#define backViewHeight 140
 @interface YSStudentResponder ()
 
 /// 底部view
@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, strong) YSCircleProgress *circleProgress;
 @property (nonatomic, strong) UILabel *titleL;
+@property (nonatomic, strong) UIView *circleBacView;
 
 @end
 @implementation YSStudentResponder
@@ -43,48 +44,65 @@
 
 - (void)showInView:(UIView *)inView backgroundEdgeInsets:(UIEdgeInsets)backgroundEdgeInsets topDistance:(CGFloat)topDistance
 {
-        self.topDistance = topDistance;
-        self.backgroundEdgeInsets = backgroundEdgeInsets;
-        
-        self.bacView = [[UIView alloc] init];
-        self.bacView.backgroundColor = [UIColor clearColor];
-        self.bacView.bm_width = backViewWidth;
-        self.bacView.bm_height = backViewHeight;
-        
-        self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.closeBtn setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
-        [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self.bacView addSubview:self.closeBtn];
-        self.closeBtn.frame = CGRectMake(0, 0, 25, 25);
-        self.closeBtn.bm_right = self.bacView.bm_right - 5;
-        self.closeBtn.bm_top = self.bacView.bm_top + 5;
-        self.closeBtn.hidden = YES;
-        //抢答器
-        self.circleProgress = [[YSCircleProgress alloc] init];
-        self.circleProgress.frame = CGRectMake(0, 0, 180, 180);
+    self.topDistance = topDistance;
+    self.backgroundEdgeInsets = backgroundEdgeInsets;
+    
+    self.bacView = [[UIView alloc] init];
+    self.bacView.backgroundColor = [UIColor clearColor];
+    self.bacView.bm_width = backViewWidth;
+    self.bacView.bm_height = backViewHeight;
+    
+    self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.closeBtn setImage:YSSkinDefineImage(@"close_btn_icon") forState:UIControlStateNormal];
+    [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bacView addSubview:self.closeBtn];
+    self.closeBtn.frame = CGRectMake(0, 0, 25, 25);
+    self.closeBtn.bm_right = self.bacView.bm_right - 5;
+    self.closeBtn.bm_top = self.bacView.bm_top + 5;
+    self.closeBtn.hidden = YES;
+    //抢答器
+    self.circleProgress = [[YSCircleProgress alloc] init];
+    self.circleProgress.frame = CGRectMake(0, 0, 100, 100);
     //    self.circleProgress.progress = 0.5;
-        self.circleProgress.lineWidth = 7;
-        self.circleProgress.isClockwise = YES;
-        self.circleProgress.innerColor = [UIColor bm_colorWithHex:0x82ABEC];
-        self.circleProgress.lineBgColor = [UIColor bm_colorWithHex:0x5A8CDC];
-        self.circleProgress.lineProgressColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        self.circleProgress.bm_centerX = self.bacView.bm_centerX;
-        self.circleProgress.bm_centerY = self.bacView.bm_centerY;
-        [self.bacView addSubview:self.circleProgress];
-        [self showWithView:self.bacView inView:inView];
-        
-        self.titleL = [[UILabel alloc] init];
-        [self.circleProgress addSubview:self.titleL];
-        
-        self.titleL.textAlignment= NSTextAlignmentCenter;
-        self.titleL.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        self.titleL.font = [UIFont systemFontOfSize:16.0f];
-        self.titleL.numberOfLines = 0;
-        self.titleL.frame = CGRectMake(0, 0, 180, 180 );
+    self.circleProgress.lineWidth = 4;
+    self.circleProgress.isClockwise = YES;
+    self.circleProgress.innerColor = YSSkinDefineColor(@"Color2");
+    self.circleProgress.lineBgColor = YSSkinDefineColor(@"Color3");
+    self.circleProgress.lineProgressColor = YSSkinDefineColor(@"Color4");
+    [self.bacView addSubview:self.circleProgress];
+    [self.circleProgress bm_centerInSuperView];
+    
+    
+    self.circleBacView = [[UIView alloc] init];
+    [self.circleProgress addSubview:self.circleBacView];
+    self.circleBacView.frame = CGRectMake(0, 0, 90, 90);
+    self.circleBacView.backgroundColor = YSSkinDefineColor(@"Color2");
+    [self.circleBacView bm_centerInSuperView];
+    [self.circleBacView bm_roundedRect:45];
+    
+    
+    [self showWithView:self.bacView inView:inView];
+    
+    self.titleL = [[UILabel alloc] init];
+    [self.circleProgress addSubview:self.titleL];
+    
+    self.titleL.textAlignment= NSTextAlignmentCenter;
+    self.titleL.textColor = YSSkinDefineColor(@"Color3");
+    self.titleL.font = [UIFont systemFontOfSize:12.0f];
+    self.titleL.numberOfLines = 0;
+    self.titleL.frame = CGRectMake(0, 0, 100, 100);
 }
 
 - (void)setTitleName:(NSString *)title
 {
+    if ([title isEqualToString:YSLocalized(@"Res.lab.get")])
+    {
+        self.circleBacView.backgroundColor = YSSkinDefineColor(@"Color4");
+    }
+    else
+    {
+        self.circleBacView.backgroundColor = YSSkinDefineColor(@"Color2");
+    }
     self.titleL.text = title;
 }
 

@@ -32,12 +32,12 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     NSInteger _currentPage;
     NSInteger _totalPage;
     NSInteger _userNum;
-    YSUserRoleType _userRoleType;
+    CHUserRoleType _userRoleType;
     NSString *_searchString;
 }
 @property (nonatomic, strong) UIView *tableBacView;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) SCTeacherTopBarType type;
+@property (nonatomic, assign) SCBottomToolBarType type;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectArr;
 
@@ -49,6 +49,10 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 @property (nonatomic, strong) UIButton *leftPageBtn;
 @property (nonatomic, strong) UIButton *rightPageBtn;
 @property (nonatomic, strong) UILabel *pageNumLabel;
+/// 当前展示课件数组
+@property (nonatomic, strong) NSArray *currentFileList;
+@property (nonatomic, strong) NSString *mediaFileID;
+@property (nonatomic, assign) CHMediaState mediaState;
 @end
 
 @implementation SCTeacherListView
@@ -65,6 +69,37 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     return self;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    tableWidth = ListView_Width;
+    tableHeight = self.bm_height - self.topGap - self.bottomGap;
+    
+    if (![UIDevice bm_isiPad])
+    {
+        tableWidth = 280;
+        
+    }
+    self.tableBacView.frame = CGRectMake(self.bm_width - tableWidth, self.topGap, tableWidth, tableHeight);
+    [self.tableBacView bm_connerWithRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
+    self.tableView.frame = CGRectMake(0, 0, tableWidth, tableHeight);
+    self.tableFooterView.frame = CGRectMake(0, tableHeight - 40, tableWidth, 40);
+    
+    self.pageNumLabel.frame = CGRectMake(0, 4, 80, 32);
+    self.pageNumLabel.bm_centerX = self.tableFooterView.bm_centerX;
+    self.pageNumLabel.layer.cornerRadius = 6;
+    self.pageNumLabel.layer.masksToBounds = YES;
+    
+    self.leftPageBtn.frame = CGRectMake(0, 0, 32, 32);
+    self.leftPageBtn.bm_right = self.pageNumLabel.bm_left - 6;
+    self.leftPageBtn.bm_centerY = self.pageNumLabel.bm_centerY;
+    
+    self.rightPageBtn.frame = CGRectMake(0, 0, 32, 32);
+    self.rightPageBtn.bm_left = self.pageNumLabel.bm_right + 6;
+    self.rightPageBtn.bm_centerY = self.pageNumLabel.bm_centerY;
+}
+
 - (void)setup
 {
     self.dataSource = [NSMutableArray arrayWithCapacity:0];
@@ -74,37 +109,24 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     _totalPage = 1;
     _userNum = 0;
     _searchString = @"";
-//    self.layer.cornerRadius = 10;
-//    self.layer.masksToBounds = YES;
-//
+
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureClicked:)];
     tapGesture.delegate =self;
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:tapGesture];
     
-    tableWidth = ListView_Width;
-    tableHeight = ListView_Height;
-    if (![UIDevice bm_isiPad])
-    {
-        tableWidth = 280;
-        tableHeight = BMUI_SCREEN_HEIGHT - 80;
-    }
-    
-    UIView *tableBacView = [[UIView alloc] initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH - tableWidth, 0, tableWidth, tableHeight)];
-    tableBacView.bm_centerY = self.bm_centerY;
+    UIView *tableBacView = [[UIView alloc] init];
     self.tableBacView = tableBacView;
     [self addSubview:tableBacView];
     tableBacView.backgroundColor = [UIColor clearColor];
-    [tableBacView bm_connerWithRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
     
-    
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, tableHeight) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
     tableView.bounces = NO;
     if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0)
     {
         tableView.insetsContentViewsToSafeArea = NO;
     }
-    tableView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    tableView.backgroundColor = YSSkinDefineColor(@"Color2");
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -116,44 +138,46 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     
     self.tableFooterView = [[UIView alloc] init];
     [tableBacView addSubview:self.tableFooterView];
-    self.tableFooterView.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-    self.tableFooterView.frame = CGRectMake(0, tableHeight - 40, tableWidth, 40);
+    self.tableFooterView.backgroundColor = YSSkinDefineColor(@"Color2");
     self.tableFooterView.hidden = NO;
     
-    UILabel * pageNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, 80, 32)];
-    pageNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-    pageNumLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
-    pageNumLabel.font = [UIFont systemFontOfSize:14];
-    pageNumLabel.text = @"fffff";
+    UILabel * pageNumLabel = [[UILabel alloc] init];
+    pageNumLabel.backgroundColor = YSSkinDefineColor(@"Color2");
+    pageNumLabel.textColor = YSSkinDefineColor(@"Color3");
+    pageNumLabel.font = [UIFont systemFontOfSize:16];
+    pageNumLabel.text = @"";
     pageNumLabel.textAlignment = NSTextAlignmentCenter;
-    pageNumLabel.bm_centerX = self.tableFooterView.bm_centerX;
-    pageNumLabel.layer.cornerRadius = 6;
-    pageNumLabel.layer.masksToBounds = YES;
     [self.tableFooterView addSubview:pageNumLabel];
     self.pageNumLabel = pageNumLabel;
     
     UIButton *leftPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftPageBtn addTarget:self action:@selector(leftPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_normal"] forState:UIControlStateNormal];
-    [leftPageBtn setImage:[UIImage imageNamed:@"personlist_leftpage_disabled"] forState:UIControlStateDisabled];
+    [leftPageBtn setImage:YSSkinElementImage(@"leftPage_nameList", @"iconNor") forState:UIControlStateNormal];
+    UIImage * leftIconDisImage = [YSSkinElementImage(@"leftPage_nameList", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [leftPageBtn setImage:leftIconDisImage forState:UIControlStateDisabled];
     [self.tableFooterView addSubview:leftPageBtn];
-    leftPageBtn.frame = CGRectMake(0, 0, 32, 32);
-    leftPageBtn.bm_right = pageNumLabel.bm_left - 6;
-    leftPageBtn.bm_centerY = pageNumLabel.bm_centerY;
-
     self.leftPageBtn = leftPageBtn;
+    
     
     UIButton *rightPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightPageBtn addTarget:self action:@selector(rightPageBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_normal"] forState:UIControlStateNormal];
-    [rightPageBtn setImage:[UIImage imageNamed:@"personlist_rightpage_disabled"] forState:UIControlStateDisabled];
+    [rightPageBtn setImage:YSSkinElementImage(@"rightPage_nameList", @"iconNor") forState:UIControlStateNormal];
+    UIImage * rightIconDisImage = [YSSkinElementImage(@"rightPage_nameList", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [rightPageBtn setImage:rightIconDisImage forState:UIControlStateDisabled];
     [self.tableFooterView addSubview:rightPageBtn];
-    rightPageBtn.frame = CGRectMake(0, 0, 32, 32);
-    rightPageBtn.bm_left = pageNumLabel.bm_right + 6;
-    rightPageBtn.bm_centerY = pageNumLabel.bm_centerY;
     self.rightPageBtn = rightPageBtn;
 
-    
+}
+
+
+- (void)setTopGap:(CGFloat)topGap
+{
+    _topGap = topGap;
+}
+
+- (void)setBottomGap:(CGFloat)bottomGap
+{
+    _bottomGap = bottomGap;
 }
 
 - (void)cyclePlaySetup
@@ -259,35 +283,49 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)setDataSource:(NSArray *)dataSource withType:(SCTeacherTopBarType)type userNum:(NSInteger)userNum
+- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum currentFileList:(nonnull NSArray *)currentFileList mediaFileID:(nonnull NSString *)mediaFileID mediaState:(CHMediaState)state
+{
+    self.currentFileList = currentFileList;
+    self.mediaFileID = mediaFileID;
+    self.mediaState = state;
+    [self setDataSource:dataSource withType:type userNum:userNum];
+}
+
+- (void)setDataSource:(NSArray *)dataSource withType:(SCBottomToolBarType)type userNum:(NSInteger)userNum
 {
     self.type = type;
     _userNum = userNum;
     [self.dataSource removeAllObjects];
-    if (self.type == SCTeacherTopBarTypePersonList)
+    if (self.type == SCBottomToolBarTypePersonList)
     {
         self.tableView.bm_height = tableHeight - 40;
         self.tableFooterView.hidden = NO;
-        [self.dataSource addObjectsFromArray:dataSource];
-        for (YSRoomUser * user in dataSource)
+        if ([dataSource bm_isNotEmpty])
         {
-            if (!(user.role == YSUserType_Student || user.role == YSUserType_Assistant))
+            [self.dataSource addObjectsFromArray:dataSource];
+        }
+        for (CHRoomUser * user in dataSource)
+        {
+            if (!(user.role == CHUserType_Student || user.role == CHUserType_Assistant))
             {
                 [self.dataSource removeObject:user];
             }
         }
     }
-    if (self.type == SCTeacherTopBarTypeCourseware)
+    if (self.type == SCBottomToolBarTypeCourseware)
     {
         self.tableView.bm_height = tableHeight;
         self.tableFooterView.hidden = YES;
-        [self.dataSource addObjectsFromArray:dataSource];
-        [self.dataSource sortUsingComparator:^NSComparisonResult(YSFileModel * _Nonnull obj1, YSFileModel * _Nonnull obj2) {
+        if ([dataSource bm_isNotEmpty])
+        {
+            [self.dataSource addObjectsFromArray:dataSource];
+        }
+        [self.dataSource sortUsingComparator:^NSComparisonResult(CHFileModel * _Nonnull obj1, CHFileModel * _Nonnull obj2) {
             return [obj2.fileid compare:obj1.fileid];
         }];
         
-        YSFileModel *whiteBoardFile = nil;
-        for (YSFileModel *model in self.dataSource)
+        CHFileModel *whiteBoardFile = nil;
+        for (CHFileModel *model in self.dataSource)
         {
             if (model.fileid.intValue == 0)
             {
@@ -295,18 +333,30 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
                 break;
             }
         }
+        
         if (whiteBoardFile)
         {
-            [self.dataSource removeObject:whiteBoardFile];
-            [self.dataSource insertObject:whiteBoardFile atIndex:0];
+            
+            if ([YSLiveManager sharedInstance].roomConfig.isMultiCourseware)
+            {
+                [self.dataSource removeObject:whiteBoardFile];
+            }
+            else
+            {
+                [self.dataSource removeObject:whiteBoardFile];
+                [self.dataSource insertObject:whiteBoardFile atIndex:0];
+            }
+            
         }
     }
     [self.tableView reloadData];
 }
-- (void)setUserRole:(YSUserRoleType)userRoleType
+
+- (void)setUserRole:(CHUserRoleType)userRoleType
 {
     _userRoleType = userRoleType;
 }
+
 - (void)setPersonListCurrentPage:(NSInteger)currentPage totalPage:(NSInteger)totalPage
 {
     _totalPage = totalPage;
@@ -325,6 +375,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     self.rightPageBtn.enabled = _currentPage < _totalPage;
 }
 
+
 #pragma mark -
 #pragma mark UITableViewDataSource
 
@@ -337,15 +388,15 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.type == SCTeacherTopBarTypePersonList)
+    if (self.type == SCBottomToolBarTypePersonList)
     {
         SCTeacherPersonListCell * personCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherPersonListCellID forIndexPath:indexPath];
         if (indexPath.row < [self.dataSource count])
         {
-            YSRoomUser *user = self.dataSource[indexPath.row];
+            CHRoomUser *user = self.dataSource[indexPath.row];
             
             personCell.userModel = user;
-            if (_userRoleType == YSUserType_Patrol)
+            if (_userRoleType == CHUserType_Patrol)
             {
                 [personCell setUserRole:_userRoleType];
             }
@@ -355,12 +406,15 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
         personCell.delegate = self;
         return personCell;
     }
-    else if (self.type == SCTeacherTopBarTypeCourseware)
+    else if (self.type == SCBottomToolBarTypeCourseware)
     {
         SCTeacherCoursewareListCell * coursewareCell = [tableView dequeueReusableCellWithIdentifier:SCTeacherCoursewareListCellID forIndexPath:indexPath];
-        YSFileModel * model = self.dataSource[indexPath.row];
-        coursewareCell.fileModel = model;
-        if (_userRoleType == YSUserType_Patrol)
+        CHFileModel * model = self.dataSource[indexPath.row];
+        BOOL isCurrent = [self.currentFileList containsObject:model.fileid];
+        
+        [coursewareCell setFileModel:model isCurrent:isCurrent mediaFileID:self.mediaFileID mediaState:self.mediaState];
+        
+        if (_userRoleType == CHUserType_Patrol)
         {
             [coursewareCell setUserRole:_userRoleType];
         }
@@ -375,78 +429,98 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
+    view.backgroundColor = YSSkinDefineColor(@"Color2");
     view.userInteractionEnabled = YES;
-    if (self.type == SCTeacherTopBarTypePersonList)
+    if (self.type == SCBottomToolBarTypePersonList)
     {
-        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 50, 40)];
-        titleLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-        titleLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
-        titleLabel.font = [UIFont systemFontOfSize:12];
+        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 40)];
+        titleLabel.backgroundColor = YSSkinDefineColor(@"Color2");
+        titleLabel.textColor = YSSkinDefineColor(@"Color3");
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
         NSString * title = YSLocalized(@"Title.UserList");
         titleLabel.text = title;
         [view addSubview:titleLabel];
         
-        UILabel * userNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableWidth - 10 - 80, 0, 80, 40)];
-        userNumLabel.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-        userNumLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
-        userNumLabel.font = [UIFont systemFontOfSize:12];
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = YSSkinDefineColor(@"Color7");
+        lineView.frame = CGRectMake(0, CGRectGetMaxY(titleLabel.frame), tableWidth, 1);
+        [view addSubview:lineView];
+        
+        
+        CGFloat userNumGap = [UIDevice bm_isiPad] ? 17.0f : 8.0f;
+        CGFloat userNumHeight = [UIDevice bm_isiPad] ? 40.0f : 26.0f;
+        UILabel * userNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableWidth - 10 - 80, CGRectGetMaxY(lineView.frame) + userNumGap, 80, userNumHeight)];
+        userNumLabel.backgroundColor = YSSkinDefineColor(@"Color2");
+        userNumLabel.textColor = YSSkinDefineColor(@"Color3");
+        userNumLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10;
         NSString * userNum = [NSString stringWithFormat:@"%@: %@",YSLocalized(@"Title.StudentNum"),@(_userNum)];
         userNumLabel.text = userNum;
+        userNumLabel.textAlignment = NSTextAlignmentRight;
         [view addSubview:userNumLabel];
         
         UITextField *inputTextField = [[UITextField alloc] init];
 //        [inputTextField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
         self.inputTextField = inputTextField;
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:YSLocalized(@"Label.searchPlaceholder") attributes:@{
-                       NSForegroundColorAttributeName:[UIColor bm_colorWithHex:0xFFFFFF],
-                       NSFontAttributeName:UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14)
+                       NSForegroundColorAttributeName:YSSkinDefineColor(@"Color3"),
+                       NSFontAttributeName:[UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10
                    }];
         inputTextField.attributedPlaceholder = attrString;
-        inputTextField.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
-        inputTextField.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
-        inputTextField.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14);
+        inputTextField.backgroundColor = YSSkinDefineColor(@"Color2");
+        inputTextField.textColor = YSSkinDefineColor(@"Color3");
+        inputTextField.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_10;
         inputTextField.delegate = self;
         inputTextField.tintColor = YSColor_LoginTextField;
         inputTextField.enabled = YES;
-        inputTextField.layer.cornerRadius = 15;
-        inputTextField.layer.masksToBounds = YES;
+
+        [inputTextField bm_addShadow:1 Radius:userNumHeight/2.0f BorderColor:YSSkinDefineColor(@"Color3") ShadowColor:[UIColor clearColor] Offset:CGSizeMake(0, 5) Opacity:0.5];
+        
         inputTextField.returnKeyType = UIReturnKeySearch;
         if ([_searchString bm_isNotEmpty])
         {
             inputTextField.text = _searchString;
         }
-        inputTextField.frame = CGRectMake(2, 5, 0, 30);
-        [inputTextField bm_setLeft:titleLabel.bm_right + 5 right:userNumLabel.bm_left - 5];
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
-        UIImageView *searchView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 13, 14, 14)];
+        inputTextField.frame = CGRectMake(2, CGRectGetMaxY(lineView.frame) + userNumGap, 0, userNumHeight);
+        [inputTextField bm_setLeft:15 right:userNumLabel.bm_left - 5];
+        
+        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, userNumHeight, userNumHeight)];
+        UIImageView *searchView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, userNumHeight - 10, userNumHeight - 10)];
         searchView.contentMode = UIViewContentModeCenter;
-        [searchView setImage:[UIImage imageNamed:@"sousuo_huaban"]];
+        [searchView setImage:YSSkinElementImage(@"searchbar_search_nameList", @"iconNor")];
         [leftView addSubview:searchView];
         inputTextField.leftView = leftView;
         inputTextField.leftViewMode = UITextFieldViewModeAlways;
         
-        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
-
+        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, userNumHeight, userNumHeight)];
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [rightView addSubview:cancelBtn];
-        cancelBtn.frame = CGRectMake(5, 14, 12, 12);
-        [cancelBtn setImage:[UIImage imageNamed:@"search_cancel"] forState:UIControlStateNormal];
+        cancelBtn.frame = CGRectMake(8, 8, userNumHeight - 16, userNumHeight - 16);
+        [cancelBtn setImage:YSSkinElementImage(@"searchbar_cancel_nameList", @"iconNor") forState:UIControlStateNormal];
         [cancelBtn addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         inputTextField.rightView = rightView;
         inputTextField.rightViewMode = UITextFieldViewModeAlways;
         
+        
+        
         [view addSubview:inputTextField];
     }
-    else if (self.type == SCTeacherTopBarTypeCourseware)
+    else if (self.type == SCBottomToolBarTypeCourseware)
     {
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 40)];
-        label.backgroundColor = [UIColor bm_colorWithHex:0x5A8CDC alpha:0.96];
-        label.textColor = [UIColor bm_colorWithHex:0xFFE895];
-        label.font = [UIFont systemFontOfSize:14];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 39)];
+        label.backgroundColor = YSSkinDefineColor(@"Color2");
+        label.textColor = YSSkinDefineColor(@"Color3");
+        label.font = [UIDevice bm_isiPad] ? UI_FONT_16 : UI_FONT_12;
         NSString * str = [NSString stringWithFormat:@"   %@(%@)",YSLocalized(@"Title.DocumentList"),@(_userNum)];
         label.text = str;
+        label.textAlignment = NSTextAlignmentCenter;
         [view addSubview:label];
+        
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = YSSkinDefineColor(@"Color7");
+        lineView.frame = CGRectMake(0, CGRectGetMaxY(label.frame), tableWidth, 1);
+        [view addSubview:lineView];
+        
     }
     
 //
@@ -473,6 +547,11 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (self.type == SCBottomToolBarTypePersonList)
+    {
+        CGFloat headerHeight = [UIDevice bm_isiPad] ? 110.0f : 80.0f;
+        return headerHeight;
+    }
     return 40;
 }
 
@@ -531,14 +610,14 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.type == SCTeacherTopBarTypeCourseware)
+    if (self.type == SCBottomToolBarTypeCourseware)
     {
         
-        if (_userRoleType == YSUserType_Patrol)
+        if (_userRoleType == CHUserType_Patrol)
         {
             return;
         }
-        YSFileModel * model = self.dataSource[indexPath.row];
+        CHFileModel * model = self.dataSource[indexPath.row];
         if ([self.delegate respondsToSelector:@selector(selectCoursewareProxyWithFileModel:)])
         {
             [self.delegate selectCoursewareProxyWithFileModel:model];
@@ -548,7 +627,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 
 #pragma mark -
 #pragma mark SCTeacherPersonListCellDelegate
-- (void)upPlatformBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser
+- (void)upPlatformBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser
 {
     if ([self.delegate respondsToSelector:@selector(upPlatformProxyWithRoomUser:)])
     {
@@ -556,7 +635,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)speakBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser
+- (void)speakBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser
 {
     if ([self.delegate respondsToSelector:@selector(speakProxyWithRoomUser:)])
     {
@@ -564,7 +643,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
     }
 }
 
-- (void)outBtnProxyClickWithRoomUser:(YSRoomUser *)roomUser
+- (void)outBtnProxyClickWithRoomUser:(CHRoomUser *)roomUser
 {
     if ([self.delegate respondsToSelector:@selector(outProxyWithRoomUser:)])
     {
@@ -591,7 +670,7 @@ static  NSString * const   SCTeacherCoursewareListCellID     = @"SCTeacherCourse
 #pragma mark -
 #pragma mark SCTeacherCoursewareListCellDelegate
 
-- (void)deleteBtnProxyClickWithFileModel:(YSFileModel *)fileModel
+- (void)deleteBtnProxyClickWithFileModel:(CHFileModel *)fileModel
 {
     if ([self.delegate respondsToSelector:@selector(deleteCoursewareProxyWithFileModel:)])
     {

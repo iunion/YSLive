@@ -51,11 +51,11 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");
     
-    self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    self.bm_NavigationItemTintColor = [UIColor whiteColor];
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
+    self.bm_NavigationTitleTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    self.bm_NavigationItemTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"Title.OnlineSchool.Mine") barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:nil leftToucheEvent:nil rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
     
     self.title = nil;
     
@@ -69,11 +69,16 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
@@ -116,7 +121,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
     if (![imgUrl bm_isNotEmpty]) {
         imgUrl = [YSSchoolUser shareInstance].organimageurl;
     }
-    [self.userIconImg bm_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
+    [self.userIconImg bmsd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
     
     self.userNameL = [[UILabel alloc] init];
     self.userNameL.frame = CGRectMake(0, 0, self.mineTableView.bm_width, 22);
@@ -185,7 +190,7 @@ static  NSString * const   YSOnlineMineTableViewCellID     = @"YSOnlineMineTable
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
 #ifdef DEBUG
                 NSString *str = [[NSString stringWithFormat:@"%@", responseDic] bm_convertUnicode];
                 NSLog(@"%@", str);

@@ -19,6 +19,67 @@
 
 @implementation UIDevice (BMCategory)
 
++ (BOOL)bm_isIPhoneNotchScreen
+{
+    BOOL result = NO;
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone)
+    {
+        return result;
+    }
+    if (@available(iOS 11.0, *)) {
+        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        if (mainWindow.safeAreaInsets.bottom > 0.0f)
+        {
+            result = YES;
+        }
+    }
+    return result;
+}
+ 
++ (CGFloat)bm_iPhoneNotchScreenHeight
+{
+    /*
+     * iPhone8 Plus  UIEdgeInsets: {20, 0, 0, 0}
+     * iPhone8       UIEdgeInsets: {20, 0, 0, 0}
+     * iPhone XR     UIEdgeInsets: {44, 0, 34, 0}
+     * iPhone XS     UIEdgeInsets: {44, 0, 34, 0}
+     * iPhone XS Max UIEdgeInsets: {44, 0, 34, 0}
+     */
+    CGFloat bottomSpace = 0;
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets safeAreaInsets = UIApplication.sharedApplication.windows.firstObject.safeAreaInsets;
+        switch (UIApplication.sharedApplication.statusBarOrientation)
+        {
+            case UIInterfaceOrientationPortrait:
+            {
+                bottomSpace = safeAreaInsets.bottom;
+            }
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+            {
+                bottomSpace = safeAreaInsets.right;
+            }
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+            {
+                bottomSpace = safeAreaInsets.left;
+            }
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+            {
+                bottomSpace = safeAreaInsets.top;
+            }
+                break;
+            default:
+            {
+                bottomSpace = safeAreaInsets.bottom;
+            }
+                break;
+        }
+    }
+    return bottomSpace;
+}
+
 + (NSString *)bm_deviceModel
 {
     struct utsname systemInfo;
@@ -51,7 +112,7 @@
     if ([platform isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
     if ([platform isEqualToString:@"iPhone2,1"])    return @"iPhone 3GS";
     if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4 (GSM)";
-    if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4 (Rev. A)";
+    //if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4 (Rev. A)";
     if ([platform isEqualToString:@"iPhone3,3"])    return @"iPhone 4 (CDMA)";
     if ([platform isEqualToString:@"iPhone4,1"])    return @"iPhone 4S";
     if ([platform isEqualToString:@"iPhone5,1"])    return @"iPhone 5 (GSM)";
@@ -127,12 +188,26 @@
     if ([platform isEqualToString:@"iPad6,11"])     return @"iPad (5th generation)";
     if ([platform isEqualToString:@"iPad6,12"])     return @"iPad (5th generation)";
     // iPad Pro (12.9-inch, 2nd generation)
-    if ([platform isEqualToString:@"iPad7,1"])      return @"iPad Pro (12.9-inch, 2nd generation)";
-    if ([platform isEqualToString:@"iPad7,2"])      return @"iPad Pro (12.9-inch, 2nd generation)";
+    if ([platform isEqualToString:@"iPad7,1"])      return @"iPad Pro (12.9-inch) 2G";
+    if ([platform isEqualToString:@"iPad7,2"])      return @"iPad Pro (12.9-inch) 2G";
     // iPad Pro (10.5-inch)
     if ([platform isEqualToString:@"iPad7,3"])      return @"iPad Pro (10.5-inch)";
     if ([platform isEqualToString:@"iPad7,4"])      return @"iPad Pro (10.5-inch)";
-    if ([platform isEqualToString:@"iPad7,6"])      return @"iPad_6";
+    if ([platform isEqualToString:@"iPad7,5"])      return @"iPad 6G";
+    if ([platform isEqualToString:@"iPad7,6"])      return @"iPad 6G";
+
+    if ([platform isEqualToString:@"iPad8,1"])      return @"iPad Pro (11-inch)";
+    if ([platform isEqualToString:@"iPad8,2"])      return @"iPad Pro (11-inch)";
+    if ([platform isEqualToString:@"iPad8,3"])      return @"iPad Pro (11-inch)";
+    if ([platform isEqualToString:@"iPad8,4"])      return @"iPad Pro (11-inch)";
+    if ([platform isEqualToString:@"iPad8,5"])      return @"iPad Pro (12.9-inch) 3G";
+    if ([platform isEqualToString:@"iPad8,6"])      return @"iPad Pro (12.9-inch) 3G";
+    if ([platform isEqualToString:@"iPad8,7"])      return @"iPad Pro (12.9-inch) 3G";
+    if ([platform isEqualToString:@"iPad8,8"])      return @"iPad Pro (12.9-inch) 3G";
+    if ([platform isEqualToString:@"iPad11,1"])     return @"iPad Mini 5G";
+    if ([platform isEqualToString:@"iPad11,2"])     return @"iPad Mini 5G";
+    if ([platform isEqualToString:@"iPad11,3"])     return @"iPad Air 3G";
+    if ([platform isEqualToString:@"iPad11,4"])     return @"iPad Air 3G";
 
     // Apple TV
     if ([platform isEqualToString:@"AppleTV2,1"])   return @"Apple TV (2nd generation)";
@@ -273,6 +348,102 @@
 
 
 #pragma mark - CPU
+
++ (NSString *)bm_cpuType
+{
+//    host_info_t hostInfo;
+    host_basic_info_data_t hostInfo;
+    mach_msg_type_number_t infoCount = HOST_BASIC_INFO_COUNT;
+    kern_return_t ret = host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t)&hostInfo, &infoCount);
+    NSString *cpuType = @"Unknow";
+    if (ret == KERN_SUCCESS)
+    {
+        switch (hostInfo.cpu_type)
+        {
+            case CPU_TYPE_ARM:
+                cpuType = @"ARM";//armv7 armv7s
+                break;
+                
+            case CPU_TYPE_ARM64:
+                cpuType = @"ARM64";
+                break;
+                
+            case CPU_TYPE_X86://CPU_TYPE_I386
+                cpuType = @"i386";
+                break;
+                
+            case CPU_TYPE_X86_64:
+                cpuType = @"X86_64";
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    return cpuType;
+}
+
++ (CGFloat)bm_cpuUsage
+{
+    kern_return_t kr;
+    task_info_data_t tinfo;
+    mach_msg_type_number_t task_info_count;
+    
+    task_info_count = TASK_INFO_MAX;
+    kr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)tinfo, &task_info_count);
+    if (kr != KERN_SUCCESS) {
+        return -1.0f;
+    }
+    
+    task_basic_info_t      basic_info;
+    thread_array_t         thread_list;
+    mach_msg_type_number_t thread_count;
+    
+    thread_info_data_t     thinfo;
+    mach_msg_type_number_t thread_info_count;
+    
+    thread_basic_info_t basic_info_th;
+    uint32_t stat_thread = 0; // Mach threads
+    
+    basic_info = (task_basic_info_t)tinfo;
+    
+        // get threads in the task
+    kr = task_threads(mach_task_self(), &thread_list, &thread_count);
+    if (kr != KERN_SUCCESS) {
+        return -1.0f;
+    }
+    if (thread_count > 0)
+        stat_thread += thread_count;
+    
+    long tot_sec = 0;
+    long tot_usec = 0;
+    float tot_cpu = 0;
+    int j;
+    
+    for (j = 0; j < thread_count; j++) {
+        thread_info_count = THREAD_INFO_MAX;
+        kr = thread_info(thread_list[j], THREAD_BASIC_INFO,
+                         (thread_info_t)thinfo, &thread_info_count);
+        if (kr != KERN_SUCCESS) {
+            return -1.0f;
+        }
+        
+        basic_info_th = (thread_basic_info_t)thinfo;
+        
+        if (!(basic_info_th->flags & TH_FLAGS_IDLE)) {
+            tot_sec = tot_sec + basic_info_th->user_time.seconds + basic_info_th->system_time.seconds;
+            tot_usec = tot_usec + basic_info_th->user_time.microseconds + basic_info_th->system_time.microseconds;
+            tot_cpu = tot_cpu + basic_info_th->cpu_usage / (float)TH_USAGE_SCALE * 100.0;
+        }
+    } // for each thread
+    
+    kr = vm_deallocate(mach_task_self(), (vm_offset_t)thread_list, thread_count * sizeof(thread_t));
+    assert(kr == KERN_SUCCESS);
+    NSInteger cpuCount = [UIDevice bm_cpuNumber];
+    CGFloat useage_cpu = tot_cpu / cpuCount;
+    return useage_cpu;
+}
 
 + (NSUInteger)bm_cpuFrequency
 {

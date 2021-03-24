@@ -142,9 +142,19 @@
     return [self bm_floatForKey:key withDefault:0.0f];
 }
 
+- (float)bm_floatForKey:(nonnull id)key roundingScale:(short)scale;
+{
+    return [self bm_floatForKey:key withDefault:0.0f roundingScale:scale];
+}
+
 - (float)bm_floatForKey:(id)key withDefault:(float)theDefault
 {
     return [self bm_floatForKey:key withDefault:theDefault roundingScale:BMDefaultRoundingScale roundingMode:NSRoundPlain];
+}
+
+- (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault roundingScale:(short)scale;
+{
+    return [self bm_floatForKey:key withDefault:theDefault roundingScale:scale roundingMode:NSRoundPlain];
 }
 
 - (float)bm_floatForKey:(id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(float)theDefault
@@ -169,9 +179,19 @@
     return [self bm_doubleForKey:key withDefault:0.0f];
 }
 
+- (double)bm_doubleForKey:(nonnull id)key roundingScale:(short)scale
+{
+    return [self bm_doubleForKey:key withDefault:0.0f roundingScale:scale];
+}
+
 - (double)bm_doubleForKey:(id)key withDefault:(double)theDefault
 {
     return [self bm_doubleForKey:key formatNumberStyle:NSNumberFormatterNoStyle withDefault:theDefault];
+}
+
+- (double)bm_doubleForKey:(nonnull id)key withDefault:(double)theDefault roundingScale:(short)scale
+{
+    return [self bm_doubleForKey:key formatNumberStyle:NSNumberFormatterNoStyle withDefault:theDefault roundingScale:scale roundingMode:NSRoundPlain];
 }
 
 - (double)bm_doubleForKey:(id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(double)theDefault
@@ -230,7 +250,6 @@
 {
     return [self bm_numberForKey:key formatNumberStyle:numberStyle withDefault:@(theDefault) roundingScale:scale roundingMode:mode isDouble:YES];
 }
-
 
 - (NSDecimalNumber *)bm_2PointNumberForKey:(id)key
 {
@@ -421,16 +440,11 @@
 
 - (CGPoint)bm_pointForKey:(id)key
 {
-    CGPoint point = CGPointZero;
-    NSDictionary *dictionary = [self valueForKey:key];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    id value = [self valueForKey:key];
+    if ([value bm_isNotEmpty])
     {
-        BOOL success = CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &point);
-        if (success)
-            return point;
-        else
-            return CGPointZero;
+        CGPoint point = [value CGPointValue];
+        return point;
     }
     
     return CGPointZero;
@@ -438,35 +452,25 @@
 
 - (CGSize)bm_sizeForKey:(id)key
 {
-    CGSize size = CGSizeZero;
-    NSDictionary *dictionary = [self valueForKey:key];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    id value = [self valueForKey:key];
+    if ([value bm_isNotEmpty])
     {
-        BOOL success = CGSizeMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &size);
-        if (success)
-            return size;
-        else
-            return CGSizeZero;
+        CGSize size = [value CGSizeValue];
+        return size;
     }
-    
+
     return CGSizeZero;
 }
 
 - (CGRect)bm_rectForKey:(id)key
 {
-    CGRect rect = CGRectZero;
-    NSDictionary *dictionary = [self valueForKey:key];
-    
-    if ([dictionary bm_isValided] && [dictionary isKindOfClass:[NSDictionary class]])
+    id value = [self valueForKey:key];
+    if ([value bm_isNotEmpty])
     {
-        BOOL success = CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dictionary, &rect);
-        if (success)
-            return rect;
-        else
-            return CGRectZero;
+        CGRect rect = [value CGRectValue];
+        return rect;
     }
-    
+
     return CGRectZero;
 }
 
@@ -483,6 +487,25 @@
     return value;
 }
 
+- (NSMutableArray *)bm_mutableArrayForKey:(id)key
+{
+    NSMutableArray *value = nil;
+    
+    id object = [self objectForKey:key];
+    if ([object bm_isValided] && [object isKindOfClass:[NSMutableArray class]])
+    {
+        value = [NSMutableArray arrayWithArray:object];
+    }
+    
+    if (value == nil)
+    {
+        value = [NSMutableArray array];
+    }
+    
+    return value;
+}
+
+
 - (NSDictionary *)bm_dictionaryForKey:(id)key
 {
     NSDictionary *value = nil;
@@ -495,6 +518,25 @@
     
     return value;
 }
+
+- (NSMutableDictionary *)bm_mutableDictionaryForKey:(id)key
+{
+    NSMutableDictionary *value = nil;
+    
+    id object = [self objectForKey:key];
+    if ([object bm_isValided] && [object isKindOfClass:[NSMutableDictionary class]])
+    {
+        value = [NSMutableDictionary dictionaryWithDictionary:object];
+    }
+    
+    if (value == nil)
+    {
+        value = [NSMutableDictionary dictionary];
+    }
+    
+    return value;
+}
+
 
 - (BOOL)bm_containsObjectForKey:(id)key
 {
@@ -644,32 +686,20 @@
 
 - (void)bm_setPoint:(CGPoint)value forKey:(id)key
 {
-    CFDictionaryRef dictionary = CGPointCreateDictionaryRepresentation(value);
-    NSDictionary *pointDict = [NSDictionary dictionaryWithDictionary:
-                               (__bridge NSDictionary *)dictionary]; // autoreleased
-    CFRelease(dictionary);
-    
-    [self setValue:pointDict forKey:key];
+    NSValue *pointValue = [NSValue valueWithCGPoint:value];
+    [self setValue:pointValue forKey:key];
 }
 
 - (void)bm_setSize:(CGSize)value forKey:(id)key
 {
-    CFDictionaryRef dictionary = CGSizeCreateDictionaryRepresentation(value);
-    NSDictionary *sizeDict = [NSDictionary dictionaryWithDictionary:
-                               (__bridge NSDictionary *)dictionary]; // autoreleased
-    CFRelease(dictionary);
-    
-    [self setValue:sizeDict forKey:key];
+    NSValue *sizeValue = [NSValue valueWithCGSize:value];
+    [self setValue:sizeValue forKey:key];
 }
 
 - (void)bm_setRect:(CGRect)value forKey:(id)key
 {
-    CFDictionaryRef dictionary = CGRectCreateDictionaryRepresentation(value);
-    NSDictionary *rectDict = [NSDictionary dictionaryWithDictionary:
-                              (__bridge NSDictionary *)dictionary]; // autoreleased
-    CFRelease(dictionary);
-    
-    [self setValue:rectDict forKey:key];
+    NSValue *rectValue = [NSValue valueWithCGRect:value];
+    [self setValue:rectValue forKey:key];
 }
 
 - (void)bm_setBMApiObject:(id)anObject forKey:(id)aKey

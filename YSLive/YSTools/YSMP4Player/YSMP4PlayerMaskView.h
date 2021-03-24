@@ -10,6 +10,9 @@
 
 #import "YSMP4Player.h"
 typedef void (^YSMP4PlayerViewClose)(void);
+
+typedef void (^YSMP4PlayerViewFullBtnClick)(UIButton *fullButton);
+
 @interface YSMP4PlayerMaskView : UIView
 
 @property (nonatomic, weak) id <YSMP4PlayerDelegate> delegate;
@@ -40,6 +43,9 @@ typedef void (^YSMP4PlayerViewClose)(void);
 /** 视频播放进度条 */
 @property (nonatomic, strong) UISlider *videoSlider;
 @property (nonatomic, copy) YSMP4PlayerViewClose closeBlock;
+
+
+@property (nonatomic, copy) YSMP4PlayerViewFullBtnClick fullButtonClick;
 /**
  是否为Wi-Fi环境 (默认为YES)
  若为YES则会自动播放视频，如果NO，则会弹出提示框给用户进行选择

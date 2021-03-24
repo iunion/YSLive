@@ -7,7 +7,7 @@
 //
 
 #import "YSSuperVC.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 #if YSSDK
 #else
 #import "AppDelegate.h"

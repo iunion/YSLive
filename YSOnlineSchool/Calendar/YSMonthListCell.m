@@ -21,7 +21,7 @@
         titleLab.font = UI_FONT_15;
         titleLab.textAlignment = NSTextAlignmentCenter;
         self.titleLab = titleLab;
-        [self addSubview:titleLab];
+        [self.contentView addSubview:titleLab];
     }
     return self;
 }

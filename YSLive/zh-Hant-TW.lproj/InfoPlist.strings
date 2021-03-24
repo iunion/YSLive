@@ -6,7 +6,7 @@
   Copyright © 2019 YS. All rights reserved.
 */
 
-CFBundleDisplayName = "雲樞互動";
+CFBundleDisplayName = "CloudHub+";
 
 /*权限声明*/
 NSPhotoLibraryUsageDescription = "房间中需要選擇本地圖片您是否允許訪問相冊";

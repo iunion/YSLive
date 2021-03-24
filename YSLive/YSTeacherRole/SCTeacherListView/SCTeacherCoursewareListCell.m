@@ -7,7 +7,6 @@
 //
 
 #import "SCTeacherCoursewareListCell.h"
-#import "YSLiveMediaModel.h"
 
 @interface SCTeacherCoursewareListCell ()
 
@@ -19,7 +18,7 @@
 @property (nonatomic, strong) UIImageView *openImageView;
 /// 删除
 @property (nonatomic, strong) UIButton *deleteBtn;
-
+@property (nonatomic, strong) CHFileModel *fileModel;
 
 @end
 
@@ -47,22 +46,23 @@
     UILabel *nameLabel = [[UILabel alloc] init];
     [self.contentView addSubview:nameLabel];
     self.nameLabel = nameLabel;
-    nameLabel.font = [UIFont systemFontOfSize:16.0];
+    nameLabel.font = [UIDevice bm_isiPad] ? UI_FONT_14 : UI_FONT_12;
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.textColor = [UIColor bm_colorWithHex:0xFFFFFF];
+    nameLabel.textColor = YSSkinDefineColor(@"Color3");
     
     UIImageView *openImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:openImageView];
     self.openImageView = openImageView;
-    [openImageView setImage:[UIImage imageNamed:@"scteacher_personList_open_Normal"]];
-//    [openBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_open_Selected"] forState:UIControlStateSelected];
-//    [openBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_open_Disabled"] forState:UIControlStateDisabled];
+    openImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [openImageView setImage:YSSkinElementImage(@"coursewareList_open", @"iconNor")];
+
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:deleteBtn];
     self.deleteBtn = deleteBtn;
-    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_delete_Normal"] forState:UIControlStateNormal];
-    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_personList_delete_Disabled"] forState:UIControlStateDisabled];
+    [deleteBtn setBackgroundImage:YSSkinElementImage(@"coursewareList_delete", @"iconNor") forState:UIControlStateNormal];
+    UIImage * deleteDisImage = [YSSkinElementImage(@"coursewareList_out", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+    [deleteBtn setImage:deleteDisImage forState:UIControlStateDisabled];
     [deleteBtn addTarget:self action:@selector(deleteBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -75,11 +75,11 @@
         self.iconImgView.frame = CGRectMake(35, 0, 40, 40);
         self.iconImgView.bm_centerY = self.contentView.bm_centerY;
         
-        self.deleteBtn.frame = CGRectMake(0, 0, 26, 26);
+        self.deleteBtn.frame = CGRectMake(0, 0, 20, 20);
         self.deleteBtn.bm_centerY = self.contentView.bm_centerY;
         self.deleteBtn.bm_right = self.contentView.bm_right - 20;
         
-        self.openImageView.frame = CGRectMake(0, 0, 26, 26);
+        self.openImageView.frame = CGRectMake(0, 0, 20, 20);
         self.openImageView.bm_centerY = self.contentView.bm_centerY;
         self.openImageView.bm_right = self.deleteBtn.bm_left - 20;
 
@@ -93,13 +93,13 @@
         self.iconImgView.frame = CGRectMake(10, 0, 20, 20);
         self.iconImgView.bm_centerY = self.contentView.bm_centerY;
         
-        self.deleteBtn.frame = CGRectMake(0, 0, 20, 20);
+        self.deleteBtn.frame = CGRectMake(0, 0, 15, 15);
         self.deleteBtn.bm_centerY = self.contentView.bm_centerY;
         self.deleteBtn.bm_right = self.contentView.bm_right - 10;
         
-        self.openImageView.frame = CGRectMake(0, 0, 20, 20);
+        self.openImageView.frame = CGRectMake(0, 0, 15, 15);
         self.openImageView.bm_centerY = self.contentView.bm_centerY;
-        self.openImageView.bm_right = self.deleteBtn.bm_left - 10;
+        self.openImageView.bm_right = self.deleteBtn.bm_left - 15;
 
         self.nameLabel.font = [UIFont systemFontOfSize:12.0];
         self.nameLabel.frame = CGRectMake(0, 0, 10, 20);
@@ -109,20 +109,19 @@
 
 }
 
-- (void)setUserRole:(YSUserRoleType)userRoleType
+- (void)setUserRole:(CHUserRoleType)userRoleType
 {
-    if (userRoleType ==  YSUserType_Patrol)
+    if (userRoleType == CHUserType_Patrol)
     {
         self.deleteBtn.hidden = YES;
         
     }
 }
-- (void)setFileModel:(YSFileModel *)fileModel
+- (void)setFileModel:(CHFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(CHMediaState)state
 {
     _fileModel = fileModel;
 
-    BOOL isCurrent = [[YSLiveManager shareInstance].currentFile.fileid isEqualToString:fileModel.fileid];
-    BOOL isPlayed = [[YSLiveManager shareInstance].playMediaModel.fileid isEqualToString:fileModel.fileid];
+//    BOOL isCurrent = [[YSLiveManager sharedInstance].currentFile.fileid isEqualToString:fileModel.fileid];
     NSString *filename = @"";
     if (fileModel.fileid.intValue == 0)
     {
@@ -139,17 +138,17 @@
     /// 关联课件的情况下处理
     type = [self creatFileTypeWithFilePath:fileModel.filename];
     
-    if (fileModel.isDynamicPPT.boolValue)
+    if (fileModel.isDynamicPPT)
     {
         type = YSClassFiletype_PPT;
     }
     
-    if (fileModel.isH5Document.boolValue )
+    if (fileModel.isH5Document )
     {
         type = YSClassFiletype_H5;
     }
     
-    if (fileModel.isGeneralFile.boolValue)
+    if (fileModel.isGeneralFile)
     {
         if (fileModel.fileid.intValue == 0)
         {
@@ -164,43 +163,51 @@
     
     if (type == YSClassFiletype_Mp3 || type == YSClassFiletype_Mp4)
     {
-        if (isPlayed)
+        UIImage * playDisImage = [YSSkinElementImage(@"coursewareList_play", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
+        
+        if (mediaFileID && [mediaFileID isEqualToString:fileModel.fileid])
         {
-            if (fileModel.isPlaying)
+            if (state == CHMediaState_Play)
             {
-                [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Selected"]];
+                [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconSel")];
             }
-            else
+            else if (state == CHMediaState_Pause)
             {
-                [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Normal"]];
+                [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconNor")];
+            }
+            else if (state == CHMediaState_Stop)
+            {
+                [self.openImageView setImage:playDisImage];
             }
         }
         else
         {
-            [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_play_Disabled"]];
+            [self.openImageView setImage:playDisImage];
         }
     }
     else
     {
         if (isCurrent)
         {
-            [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_open_Selected"]];
+            [self.openImageView setImage:YSSkinElementImage(@"coursewareList_open", @"iconSel")];
+            
         }
         else
         {
-            [self.openImageView setImage:[UIImage imageNamed:@"scteacher_personList_open_Normal"]];
+            [self.openImageView setImage:YSSkinElementImage(@"coursewareList_open", @"iconNor")];
+            
         }
     }
     
     imageName = [self imageNameWithFileType:type];
-    self.iconImgView.image = [UIImage imageNamed:imageName];
+    self.iconImgView.image = YSSkinElementImage(imageName, @"iconNor");
 }
 
 - (YSClassFiletype)creatFileTypeWithFilePath:(NSString *)filepath
 {
     YSClassFiletype type;
     
-    NSString *fileType = [filepath pathExtension];
+    NSString *fileType = [[filepath pathExtension] lowercaseString];
     if ([fileType isEqualToString:YSLocalized(@"Title.whiteBoard")])
     {
         type = YSClassFiletype_WhiteBoard;
@@ -256,37 +263,37 @@
     switch (type)
     {
         case YSClassFiletype_WhiteBoard:
-            imageName = @"scteacher_personList_icon_WhiteBoard";
+            imageName = @"coursewareList_WhiteBoard";
             break;
         case YSClassFiletype_PPT:
-            imageName = @"scteacher_personList_icon_PPT";
+            imageName = @"coursewareList_PPT";
             break;
         case YSClassFiletype_Excel:
-            imageName = @"scteacher_personList_icon_Excel";
+            imageName = @"coursewareList_Excel";
             break;
         case YSClassFiletype_Word:
-            imageName = @"scteacher_personList_icon_Word";
+            imageName = @"coursewareList_Word";
             break;
         case YSClassFiletype_JPG:
-            imageName = @"scteacher_personList_icon_JPG";
+            imageName = @"coursewareList_JPG";
             break;
         case YSClassFiletype_Txt:
-            imageName = @"scteacher_personList_icon_Txt";
+            imageName = @"coursewareList_Txt";
             break;
         case YSClassFiletype_Mp4:
-            imageName = @"scteacher_personList_icon_Mp4";
+            imageName = @"coursewareList_Mp4";
             break;
         case YSClassFiletype_Mp3:
-            imageName = @"scteacher_personList_icon_Mp3";
+            imageName = @"coursewareList_Mp3";
             break;
         case YSClassFiletype_PDF:
-            imageName = @"scteacher_personList_icon_PDF";
+            imageName = @"coursewareList_PDF";
             break;
         case YSClassFiletype_H5:
-            imageName = @"scteacher_personList_icon_H5";
+            imageName = @"coursewareList_H5";
             break;
         default:
-            imageName = @"scteacher_personList_icon_OtherFile";
+            imageName = @"coursewareList_OtherFile";
             break;
     }
     return imageName;
@@ -310,6 +317,39 @@
 {
     [super setSelected:selected animated:animated];
 
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    if (highlighted)
+    {
+        [self showHighlightedAnimation];
+    }
+}
+
+- (void)showHighlightedAnimation
+{
+    UIView *tmpView = [[UIView alloc] initWithFrame:self.bounds];
+    tmpView.backgroundColor = YSSkinDefineColor(@"Color9");
+    tmpView.alpha = 0.f;
+    [self addSubview:tmpView];
+    
+    [UIView animateWithDuration:0.20 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        
+        tmpView.alpha = 0.8f;
+        
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.20 delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            
+            tmpView.alpha = 0.f;
+            
+        } completion:^(BOOL finished) {
+            
+            [tmpView removeFromSuperview];
+        }];
+    }];
 }
 
 @end

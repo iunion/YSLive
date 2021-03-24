@@ -426,3 +426,57 @@
 
 @end
 
+@implementation NSArray (UIValue)
+
+- (CGPoint)bm_pointAtIndex:(NSUInteger)index
+{
+    if (index >= self.count)
+    {
+        return CGPointZero;
+    }
+    
+    id value = [self objectAtIndex:index];
+    if ([value bm_isNotEmpty])
+    {
+        CGPoint point = [value CGPointValue];
+        return point;
+    }
+    
+    return CGPointZero;
+}
+
+- (CGSize)bm_sizeAtIndex:(NSUInteger)index
+{
+    if (index >= self.count)
+    {
+        return CGSizeZero;
+    }
+    
+    id value = [self objectAtIndex:index];
+    if ([value bm_isNotEmpty])
+    {
+        CGSize size = [value CGSizeValue];
+        return size;
+    }
+
+    return CGSizeZero;
+}
+
+- (CGRect)bm_rectAtIndex:(NSUInteger)index
+{
+    if (index >= self.count)
+    {
+        return CGRectZero;
+    }
+    
+    id value = [self objectAtIndex:index];
+    if ([value bm_isNotEmpty])
+    {
+        CGRect rect = [value CGRectValue];
+        return rect;
+    }
+
+    return CGRectZero;
+}
+
+@end

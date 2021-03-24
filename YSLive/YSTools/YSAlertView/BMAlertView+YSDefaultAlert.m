@@ -39,7 +39,7 @@
     alert.hideAnimationType  = BMAlertViewHideAnimationNone;
     alert.shouldDismissOnTapOutside = YES;
     alert.showClose = YES;
-    
+    alert.orientationMask = UIInterfaceOrientationMaskAll;
     return alert;
 }
 
@@ -47,13 +47,43 @@
                       message:(id)message
                   cancelTitle:(NSString *)cancelTitle completion:(BMAlertViewCompletionBlock)completion
 {
-    
+    [self ys_showAlertWithTitle:title
+                        message:message
+                    cancelTitle:cancelTitle
+                orientationMask:UIInterfaceOrientationMaskPortrait
+                     completion:completion];
+}
+
+
++ (void)ys_showAlertWithTitle:(nullable id)title
+                      message:(nullable id)message
+                  cancelTitle:(nullable NSString *)cancelTitle
+              orientationMask:(UIInterfaceOrientationMask)orientationMask
+                   completion:(nullable BMAlertViewCompletionBlock)completion
+{
     BMAlertView * alert = [BMAlertView creatAlertWithIcon:nil title:title message:message contentView:nil cancelTitle:cancelTitle otherTitles:nil buttonsShouldStack:NO completion:completion];
+    alert.orientationMask = orientationMask;
     alert.cancleBtnTextColor = [UIColor bm_colorWithHex:0x577EEE];
     [alert showAlertView];
 }
 
 + (void)ys_showAlertWithTitle:(id)title message:(id)message cancelTitle:(NSString *)cancelTitle otherTitle:(NSString *)otherTitle completion:(BMAlertViewCompletionBlock)completion
+{
+    
+    [self ys_showAlertWithTitle:title
+                        message:message
+                    cancelTitle:cancelTitle
+                     otherTitle:otherTitle
+                orientationMask:UIInterfaceOrientationMaskPortrait
+                     completion:completion];
+}
+
++ (void)ys_showAlertWithTitle:(nullable id)title
+                      message:(nullable id)message
+                  cancelTitle:(nullable NSString *)cancelTitle
+                   otherTitle:(nullable NSString *)otherTitle
+              orientationMask:(UIInterfaceOrientationMask)orientationMask
+                   completion:(nullable BMAlertViewCompletionBlock)completion
 {
     BMAlertView * alert;
     if ([otherTitle bm_isNotEmpty])
@@ -64,7 +94,7 @@
     {
         alert = [BMAlertView creatAlertWithIcon:nil title:title message:message contentView:nil cancelTitle:cancelTitle otherTitles:nil buttonsShouldStack:NO completion:completion];
     }
-
+    alert.orientationMask = orientationMask;
     
     [alert showAlertView];
 }

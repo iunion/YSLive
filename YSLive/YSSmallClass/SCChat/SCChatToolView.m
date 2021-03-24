@@ -32,7 +32,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor bm_colorWithHexString:@"#DEEAFF"];
+        self.backgroundColor = YSSkinDefineColor(@"Color2");
         [self setupUIView];
     }
     return self;
@@ -42,45 +42,50 @@
 {
     //发送按钮
     self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-20-92, 13, 92, 34)];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton"] forState:UIControlStateNormal];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
+
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
-    [self.sendBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
-    [self.sendBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    [self.sendBtn bm_roundedRect:17.0f borderWidth:3.0f borderColor:[UIColor bm_colorWithHex:0x97B7EB]];
+    [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
+    [self.sendBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
     [self.sendBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     self.sendBtn.tag = 1;
     [self addSubview:self.sendBtn];
+    self.sendBtn.layer.cornerRadius = 34/2;
     
     //图片按钮
     self.imageBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-31-142, 15, 31, 30)];
-    [self.imageBtn setImage:[UIImage imageNamed:@"SCChatImage"] forState:UIControlStateNormal];
-    [self.imageBtn setImage:[UIImage imageNamed:@"SCChatImage_push"] forState:UIControlStateHighlighted];
+    [self.imageBtn setImage:YSSkinElementImage(@"chatTool_imageBtn", @"iconNor") forState:UIControlStateNormal];
+    [self.imageBtn setImage:YSSkinElementImage(@"chatTool_imageBtn", @"iconSel") forState:UIControlStateHighlighted];
     [self.imageBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.imageBtn.layer.cornerRadius = 15;
     self.imageBtn.tag = 2;
     [self addSubview:self.imageBtn];
     
     //表情按钮
-    self.emojBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-31-204, 15, 31, 30)];
-    [self.emojBtn setImage:[UIImage imageNamed:@"SCChatEmotion"] forState:UIControlStateNormal];
-    [self.emojBtn setImage:[UIImage imageNamed:@"SCChatEmotion_push"] forState:UIControlStateHighlighted];
-    [self.emojBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.emojBtn.layer.cornerRadius = 15;
-    self.emojBtn.tag = 3;
-    [self addSubview:self.emojBtn];
+    UIButton * emojBtn = [[UIButton alloc]initWithFrame:CGRectMake(BMUI_SCREEN_WIDTH-31-204, 15, 31, 30)];
+    [emojBtn setImage:YSSkinElementImage(@"chatTool_emijeBtn", @"iconNor") forState:UIControlStateNormal];
+    [emojBtn setImage:YSSkinElementImage(@"chatTool_emijeBtn", @"iconSel") forState:UIControlStateHighlighted];
+    [emojBtn addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
+    emojBtn.tag = 3;
+    [self addSubview:emojBtn];
+    self.emojBtn = emojBtn;
+    
+    UIView * inputBackView = [[UIView alloc]initWithFrame:CGRectMake(InputViewX, 13, self.emojBtn.bm_originX-InputViewX-10, 34)];
+    inputBackView.backgroundColor = YSSkinDefineColor(@"Color2");
+    inputBackView.layer.cornerRadius = 34/2;
+    inputBackView.layer.borderWidth = 1.0;  // 给图层添加一个有色边框
+    inputBackView.layer.borderColor = YSSkinDefineColor(@"Color7").CGColor;
+    [self addSubview:inputBackView];
     
     //输入框
-    self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(InputViewX, 13, self.emojBtn.bm_originX-InputViewX-10, 34)];
-    self.inputView.backgroundColor = UIColor.whiteColor;
-    self.inputView.layer.cornerRadius = 7;
-    self.inputView.returnKeyType = UIReturnKeyDefault;
-    self.inputView.textColor = [UIColor bm_colorWithHexString:@"#828282"];
-    self.inputView.font = UI_FONT_15;
+    UITextView * inputView = [[UITextView alloc]initWithFrame:CGRectMake(10, 0, inputBackView.bm_width-15, 34)];
+    inputView.backgroundColor = UIColor.clearColor;
+    inputView.returnKeyType = UIReturnKeyDefault;
+    inputView.textColor = YSSkinDefineColor(@"Color3");
+    inputView.font = UI_FONT_15;
     //当textview的字符串为0时发送（rerurn）键无效
-    self.inputView.enablesReturnKeyAutomatically = YES;
-    [self addSubview:self.inputView];
-    self.inputView.tag = SCMessageInputViewTag;
+    inputView.enablesReturnKeyAutomatically = YES;
+    inputView.tag = SCMessageInputViewTag;
+    [inputBackView addSubview:inputView];
+    self.inputView = inputView;
 }
 
 - (void)buttonsClick:(UIButton *)sender
@@ -88,7 +93,7 @@
     switch (sender.tag) {
         case 1:
         {//发送
-            BOOL isSucceed = [[YSLiveManager shareInstance] sendMessageWithText:self.inputView.text  withMessageType:YSChatMessageTypeText withMemberModel:nil];
+            BOOL isSucceed = [[YSLiveManager sharedInstance] sendMessageWithText:self.inputView.text  withMessageType:CHChatMessageType_Text withMemberModel:nil];
             if (isSucceed)
             {
                 self.inputView.text = nil;

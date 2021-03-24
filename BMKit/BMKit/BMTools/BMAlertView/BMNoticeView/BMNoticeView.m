@@ -56,6 +56,8 @@
         
         self.shouldDismissOnTapOutside = YES;
         
+        self.stopAutoClose = NO;
+        
         self.showAnimationType = BMNoticeViewShowAnimationFadeIn;
         self.hideAnimationType = BMNoticeViewHideAnimationFadeOut;
         
@@ -623,7 +625,7 @@
     BMNoticeView *last = [self.noticeViews lastObject];
     while (last)
     {
-        if (last.notDismissOnCancel)
+        if (last.notDismissOnCancel || last.stopAutoClose)
         {
             break;
         }

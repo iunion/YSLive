@@ -17,11 +17,11 @@
 
 @interface YSSignedAlertView ()
 
-@property (nonatomic, strong) UIImageView * bacView;
+@property (nonatomic, strong) UIView * bacView;
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) UILabel * tagLabel;
 @property (nonatomic, strong) UIButton * sureBtn;
-@property (nonatomic, strong) UIView * topBacView;
+
 
 /// 签到按钮的回调
 @property (nonatomic, copy) SignedAlertViewSigned signedBlock;
@@ -60,14 +60,17 @@
         
         alert.bacView.bm_height = ViewHeight;
         alert.bacView.bm_width = ViewWidth;
+        
 
         [alert.bacView addSubview:alert.timeLabel];
+        [alert.bacView bm_roundedRect:4.0f];
+        
         alert.timeLabel.frame = CGRectMake(0, 0, ViewWidth, 59);
 
         alert.timeLabel.bm_centerX = alert.bacView.bm_centerX ;
         alert.timeLabel.bm_top = alert.bacView.bm_top + 60;
         
-        [alert.bacView addSubview:alert.tagLabel];
+//        [alert.bacView addSubview:alert.tagLabel];
 
         [alert.bacView addSubview:alert.sureBtn];
         alert.sureBtn.frame = CGRectMake(0, 0, CGRectGetWidth(alert.bacView.frame), 48);
@@ -83,8 +86,13 @@
 - (void)startCuntDown:(NSTimeInterval)timeInterval
 {
     BMWeakSelf
-    [[BMCountDownManager manager] startCountDownWithIdentifier:SignedAlertCountDownKey timeInterval:timeInterval processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL forcedStop) {
+    [[BMCountDownManager manager] startCountDownWithIdentifier:SignedAlertCountDownKey timeInterval:timeInterval processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
         BMLog(@"%ld", (long)timeInterval);
+        if (forcedStop || timeInterval <= 0)
+        {
+            [weakSelf dismiss:nil];
+            return;
+        }
         weakSelf.timeLabel.attributedText = [weakSelf creatTimeStringWithTimeInterval:timeInterval];
     }];
 }
@@ -125,21 +133,21 @@
     NSMutableAttributedString * timeAttribut = [[NSMutableAttributedString alloc] initWithString:timeStr];
     
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 42) range:NSMakeRange(0, 2)];
-    [timeAttribut bm_setTextColor:[UIColor bm_colorWithHex:0x6D7278] range:NSMakeRange(0, 2)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(0, 2)];
     
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 30) range:NSMakeRange(4, 1)];
-    [timeAttribut bm_setTextColor:[UIColor bm_colorWithHex:0x6D7278] range:NSMakeRange(4, 1)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(4, 1)];
     [timeAttribut addAttribute:NSBaselineOffsetAttributeName value:@(7) range:NSMakeRange(4, 1)];
     
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 42) range:NSMakeRange(7, 2)];
-    [timeAttribut bm_setTextColor:[UIColor bm_colorWithHex:0x6D7278] range:NSMakeRange(7, 2)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(7, 2)];
 
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 30) range:NSMakeRange(11, 1)];
-    [timeAttribut bm_setTextColor:[UIColor bm_colorWithHex:0x6D7278] range:NSMakeRange(11, 1)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(11, 1)];
     [timeAttribut addAttribute:NSBaselineOffsetAttributeName value:@(7) range:NSMakeRange(11, 1)];
 
     [timeAttribut bm_setFont:UI_FSFONT_MAKE(FontNameHelveticaBold, 42) range:NSMakeRange(14, 2)];
-    [timeAttribut bm_setTextColor:[UIColor bm_colorWithHex:0x6D7278] range:NSMakeRange(14, 2)];
+    [timeAttribut bm_setTextColor:YSSkinDefineColor(@"PlaceholderColor") range:NSMakeRange(14, 2)];
 
     return timeAttribut;
 }
@@ -148,27 +156,14 @@
 #pragma mark -
 #pragma mark Lazy
 
-- (UIImageView *)bacView
+- (UIView *)bacView
 {
     if (!_bacView)
     {
-        _bacView = [[UIImageView alloc] init];
-        [_bacView setImage:[UIImage imageNamed:@"yslive_sign_backimg"]];
-        _bacView.userInteractionEnabled = YES;
+        _bacView = [[UIView alloc] init];
+        _bacView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
     return _bacView;
-}
-
-- (UIView *)topBacView
-{
-    if (!_topBacView)
-    {
-        _topBacView = [[UIView alloc] init];
-        
-        _topBacView.backgroundColor = [UIColor whiteColor];
-    }
-    
-    return _topBacView;
 }
 
 - (UILabel *)timeLabel
@@ -192,7 +187,7 @@
         _tagLabel = [[UILabel alloc] init];
         _tagLabel.textAlignment = NSTextAlignmentCenter;
         _tagLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        _tagLabel.textColor = [UIColor bm_colorWithHex:0x44474b];
+        _tagLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _tagLabel.font = [UIFont systemFontOfSize:11.0f];
         _tagLabel.text = @"  Hours          Minutes        Seconds ";
     }
@@ -207,9 +202,9 @@
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_sureBtn setTitle:YSLocalized(@"Button.Sign") forState:UIControlStateNormal];
         [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [_sureBtn setBackgroundImage:[UIImage imageNamed:@"signAlert_sign"] forState:UIControlStateNormal];
+        [_sureBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         [_sureBtn addTarget:self action:@selector(sureBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _sureBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+        _sureBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
         _sureBtn.titleEdgeInsets = UIEdgeInsetsMake(-10,0, 0, 0);
     }
     

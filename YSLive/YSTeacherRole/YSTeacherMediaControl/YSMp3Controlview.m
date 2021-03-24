@@ -8,6 +8,7 @@
 
 #import "YSMp3Controlview.h"
 #import "YSMediaSlider.h"
+
 @interface YSMp3Controlview ()
 
 //@property (nonatomic, strong) UIButton *playBtn;
@@ -80,8 +81,8 @@
     [self addSubview:playBtn];
 
     self.playBtn = playBtn;
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_media_play_Selected"] forState:UIControlStateNormal];
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"scteacher_media_play_Normal"] forState:UIControlStateSelected];
+    [playBtn setBackgroundImage:YSSkinElementImage(@"media_play", @"iconNor") forState:UIControlStateNormal];
+    [playBtn setBackgroundImage:YSSkinElementImage(@"media_play", @"iconSel") forState:UIControlStateSelected];
     [playBtn addTarget:self action:@selector(playBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -89,7 +90,7 @@
     [self addSubview:nameLabel];
     self.nameLabel = nameLabel;
     nameLabel.font = [UIFont systemFontOfSize:12];
-    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.textColor = YSSkinDefineColor(@"Color3");
     nameLabel.textAlignment = NSTextAlignmentLeft;
 
     
@@ -97,7 +98,7 @@
     [self addSubview:timeLabel];
     self.timeLabel = timeLabel;
     timeLabel.font = [UIFont systemFontOfSize:12];
-    timeLabel.textColor = [UIColor whiteColor];
+    timeLabel.textColor = YSSkinDefineColor(@"Color3");
     timeLabel.textAlignment = NSTextAlignmentRight;
 
     
@@ -105,10 +106,10 @@
     [self addSubview:sliderView];
     self.sliderView = sliderView;
 //    sliderView.continuous = NO;
-    sliderView.minimumTrackTintColor = [UIColor bm_colorWithHex:0xFFE895];
-    sliderView.maximumTrackTintColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    sliderView.minimumTrackTintColor = YSSkinDefineColor(@"Color6");
+    sliderView.maximumTrackTintColor = YSSkinDefineColor(@"Color3");
 //    sliderView.thumbTintColor = [UIColor bm_colorWithHex:0x9DBEF3];
-    [sliderView setThumbImage:[UIImage imageNamed:@"scteacher_sliderView_Normal"] forState:UIControlStateNormal];
+    [sliderView setThumbImage:YSSkinElementImage(@"media_slider", @"iconNor") forState:UIControlStateNormal];
     [sliderView addTarget:self action:@selector(sliderViewChange:) forControlEvents:UIControlEventValueChanged];
     [sliderView addTarget:self action:@selector(sliderViewStart:) forControlEvents:UIControlEventTouchDown];
     [sliderView addTarget:self action:@selector(sliderViewEnd:) forControlEvents:UIControlEventTouchUpInside];
@@ -118,9 +119,8 @@
     self.closeBtn = closeBtn;
     [self addSubview:self.closeBtn];
     self.closeBtn.frame = CGRectMake(0, 25, 25, 25);
-    [self.closeBtn setBackgroundImage:[UIImage imageNamed:@"ysteacher_closemp4_normal"] forState:UIControlStateNormal];
+    [self.closeBtn setBackgroundImage:YSSkinElementImage(@"media_close", @"iconNor") forState:UIControlStateNormal];
     [self.closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-
 }
 
 - (void)setMediaStream:(NSTimeInterval)duration pos:(NSTimeInterval)pos isPlay:(BOOL)isPlay fileName:(nonnull NSString *)fileName
@@ -156,37 +156,38 @@
 
 - (void)sliderViewStart:(YSMediaSlider *)sender
 {
-    [[YSLiveManager shareInstance].roomManager pauseMediaFile:YES];
+    [[YSLiveManager sharedInstance] pauseSharedMediaFile:self.mediaFileModel.fileUrl isPause:YES];
 }
 
 - (void)sliderViewEnd:(YSMediaSlider *)sender
 {
     BMLog(@"sliderViewEnd: %@ ===========================", @(sender.value));
 
-    if ([self.delegate respondsToSelector:@selector(sliderMp3ControlView:)])
+    if ([self.delegate respondsToSelector:@selector(sliderMp3ControlViewPos:withFileModel:)])
     {
-        [self.delegate sliderMp3ControlView:sender.value * self.duration];
+        [self.delegate sliderMp3ControlViewPos:sender.value * self.duration withFileModel:self.mediaFileModel];
     }
     
-    [[YSLiveManager shareInstance].roomManager pauseMediaFile:NO];
+    [[YSLiveManager sharedInstance] pauseSharedMediaFile:self.mediaFileModel.fileUrl isPause:NO];
 }
 
 - (void)playBtnClicked:(UIButton *)btn
 {
     btn.selected = !btn.selected;
-    if ([self.delegate respondsToSelector:@selector(playMp3ControlViewPlay:)])
+    if ([self.delegate respondsToSelector:@selector(playMp3ControlViewPlay:withFileModel:)])
     {
-        [self.delegate playMp3ControlViewPlay:btn.selected];
+        [self.delegate playMp3ControlViewPlay:btn.selected withFileModel:self.mediaFileModel];
     }
 }
 
 - (void)closeBtnClicked:(UIButton *)btn
 {
-    if ([self.delegate respondsToSelector:@selector(closeMp3ControlView)])
+    if ([self.delegate respondsToSelector:@selector(closeMp3ControlViewWithFileModel:)])
     {
-        [self.delegate closeMp3ControlView];
+        [self.delegate closeMp3ControlViewWithFileModel:self.mediaFileModel];
     }
 }
+
 - (NSString *)countDownStringDateFromTs:(NSUInteger)count
 {
     if (count <= 0)
@@ -197,7 +198,6 @@
     NSUInteger min = count/BMSECONDS_IN_MINUTE;
     NSUInteger second = count%BMSECONDS_IN_MINUTE;
     return [NSString stringWithFormat:@"%02ld:%02ld", (long)min, (long)second];
-
 }
 
 @end

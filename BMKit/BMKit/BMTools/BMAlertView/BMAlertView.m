@@ -103,14 +103,37 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
 
 - (UIWindow *)windowWithLevel:(UIWindowLevel)windowLevel
 {
-    NSArray *windows = [[UIApplication sharedApplication] windows];
-    for (UIWindow *window in windows)
+    if (@available(iOS 13.0, *))
     {
-        if (window.windowLevel == windowLevel)
+        for (UIWindowScene *windowScene in [UIApplication sharedApplication].connectedScenes)
         {
-            return window;
+            if (windowScene.activationState == UISceneActivationStateForegroundActive)
+            {
+                UIWindow *keywindow = windowScene.windows.lastObject;
+                if (keywindow && keywindow.windowLevel == windowLevel)
+                {
+                    return keywindow;
+                }
+            }
         }
     }
+    else
+    {
+        UIWindow *keywindow = [UIApplication sharedApplication].keyWindow;
+        if (keywindow && keywindow.windowLevel == windowLevel)
+        {
+            return keywindow;
+        }
+        NSArray *windows = [UIApplication sharedApplication].windows;
+        for (UIWindow *window in windows)
+        {
+            if (window.windowLevel == windowLevel)
+            {
+                return window;
+            }
+        }
+    }
+    
     return nil;
 }
 
@@ -128,7 +151,8 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
     {
         // 不支持手势退出
         self.bm_CanBackInteractive = NO;
-        
+        // 默认竖屏
+        self.orientationMask = UIInterfaceOrientationMaskPortrait;
         self.mainWindow = [self windowWithLevel:UIWindowLevelNormal];
         
         self.alertWindow = [self windowWithLevel:UIWindowLevelAlert];
@@ -139,6 +163,27 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
             self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
             self.alertWindow.windowLevel = UIWindowLevelAlert;
             self.alertWindow.backgroundColor = [UIColor clearColor];
+
+            if (@available(iOS 13.0, *))
+            {
+                [[NSNotificationCenter defaultCenter] addObserverForName:UISceneWillConnectNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+                    self.alertWindow.windowScene = note.object;
+                }];
+                if ([UIApplication sharedApplication].windows.count > 0)
+                {
+                    for (UIWindow * defaultWindow in [UIApplication sharedApplication].windows)
+                    {
+                        if (defaultWindow.windowLevel == UIWindowLevelAlert)
+                        {
+                            self.alertWindow.windowScene = defaultWindow.windowScene;
+                        }
+                        else if (defaultWindow.windowLevel == UIWindowLevelNormal)
+                        {
+                            self.alertWindow.windowScene = defaultWindow.windowScene;
+                        }
+                    }
+                }
+            }
         }
         
         self.shouldDismissOnTapOutside = YES;
@@ -338,7 +383,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
     button.titleLabel.adjustsFontSizeToFitWidth = YES;
     button.titleEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2);
     [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [button setTitleColor:[[UIColor blueColor] colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+    [button setTitleColor:[[UIColor blueColor] bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     [button addTarget:self action:@selector(setBackgroundColorForButton:) forControlEvents:UIControlEventTouchDown];
     [button addTarget:self action:@selector(setBackgroundColorForButton:) forControlEvents:UIControlEventTouchDragEnter];
@@ -352,11 +397,11 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
 {
     if (sender.tag == 0)
     {
-        [sender setBackgroundColor:[self.cancleBtnBgColor colorByDarkeningTo:0.8f]];
+        [sender setBackgroundColor:[self.cancleBtnBgColor bm_colorByDarkeningTo:0.8f]];
     }
     else
     {
-        [sender setBackgroundColor:[self.otherBtnBgColor colorByDarkeningTo:0.8f]];
+        [sender setBackgroundColor:[self.otherBtnBgColor bm_colorByDarkeningTo:0.8f]];
     }
     sender.highlighted = YES;
 }
@@ -410,7 +455,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         button.backgroundColor = self.cancleBtnBgColor;
         button.titleLabel.font = self.btnFont;
         [button setTitleColor:self.cancleBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[self.cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[self.cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
         
         return BMAlertViewLineLayerHeight + self.buttonHeight;
     }
@@ -429,14 +474,14 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         button.backgroundColor = self.cancleBtnBgColor;
         button.titleLabel.font = self.btnFont;
         [button setTitleColor:self.cancleBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[self.cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[self.cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
         
         button = self.buttonArray[1];
         button.frame = CGRectMake((self.buttonBgView.bm_width + BMAlertViewLineLayerHeight) * 0.5, BMAlertViewLineLayerHeight, (self.buttonBgView.bm_width - BMAlertViewLineLayerHeight) * 0.5, self.buttonHeight);
         button.backgroundColor = self.otherBtnBgColor;
         button.titleLabel.font = self.btnFont;
         [button setTitleColor:self.otherBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[self.otherBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[self.otherBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
         
         return BMAlertViewLineLayerHeight + self.buttonHeight;
     }
@@ -457,14 +502,14 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
                 button.backgroundColor = self.cancleBtnBgColor;
                 button.titleLabel.font = self.btnFont;
                 [button setTitleColor:self.cancleBtnTextColor forState:UIControlStateNormal];
-                [button setTitleColor:[self.cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+                [button setTitleColor:[self.cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
             }
             else
             {
                 button.backgroundColor = self.otherBtnBgColor;
                 button.titleLabel.font = self.btnFont;
                 [button setTitleColor:self.otherBtnTextColor forState:UIControlStateNormal];
-                [button setTitleColor:[self.otherBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+                [button setTitleColor:[self.otherBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
             }
             
             index++;
@@ -570,7 +615,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         self.messageScrollGradient.hidden = NO;
         self.messageScrollGradient.frame = CGRectMake(self.messageScrollView.bm_left, self.messageScrollView.bm_bottom-30.0f, self.messageScrollView.bm_width, 30.0f);
         UIColor *starColor = self.alertBgColor;
-        UIColor *endColor = [self.alertBgColor changeAlpha:0.4f];
+        UIColor *endColor = [self.alertBgColor bm_changeAlpha:0.4f];
         self.messageScrollGradient.colors = [NSArray arrayWithObjects: (id)starColor.CGColor, (id)endColor.CGColor, nil];
     }
     else
@@ -669,11 +714,37 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
     return NO;
 }
 
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskPortrait;  //UIInterfaceOrientationMaskAll;
+//}
+/// 2.返回支持的旋转方向
+/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskPortrait;  //UIInterfaceOrientationMaskAll;
+    if (self.orientationMask)
+    {
+        return self.orientationMask;
+    }
+    else
+    {
+        return UIInterfaceOrientationMaskLandscapeRight;
+    }
 }
 
+/// 3.返回进入界面默认显示方向
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    if (self.orientationMask)
+    {
+        return self.orientationMask;
+    }
+    else
+    {
+        return UIInterfaceOrientationLandscapeRight;
+    }
+}
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 //{
 //    return YES;
@@ -972,7 +1043,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         UIButton *button = self.buttonArray[0];
         
         [button setTitleColor:cancleBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[cancleBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[cancleBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
     }
 }
 
@@ -995,7 +1066,7 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
         UIButton *button = self.buttonArray[index];
         
         [button setTitleColor:otherBtnTextColor forState:UIControlStateNormal];
-        [button setTitleColor:[otherBtnTextColor colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
+        [button setTitleColor:[otherBtnTextColor bm_colorByDarkeningTo:0.8f] forState:UIControlStateHighlighted];
     }
 }
 
@@ -1063,7 +1134,8 @@ static const CGFloat BMAlertViewVerticalEdgeMinMargin = 25.0f;
 
 - (void)showCompletion
 {
-    self.alertWindow.alpha = 1;
+    self.alertWindow.alpha = 1.0f;
+    self.alertWindow.hidden = NO;
     
     self.visible = YES;
     

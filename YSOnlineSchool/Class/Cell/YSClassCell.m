@@ -65,29 +65,29 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    self.bgView.backgroundColor = [UIColor whiteColor];
+    self.bgView.backgroundColor = YSSkinOnlineDefineColor(@"onlineSchoolTimeColor");
     [self.bgView bm_roundedRect:6.0f];
 
-    self.topView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.topView.backgroundColor = YSSkinOnlineDefineColor(@"defaultTitleColor");
 
     [self.iconImageView bm_roundedRect:4.0f];
     
-    self.titleLabel.textColor = [UIColor bm_colorWithHex:0x828282];
+    self.titleLabel.textColor = YSSkinOnlineDefineColor(@"placeholderColor");
     self.titleLabel.font = UI_BOLDFONT_16;
 
-    self.nameLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
+    self.nameLabel.textColor = YSSkinOnlineDefineColor(@"onlineSchoolSubTextColor");
     self.nameLabel.font = UI_FONT_12;
-    self.gistLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
+    self.gistLabel.textColor = YSSkinOnlineDefineColor(@"onlineSchoolSubTextColor");
     self.gistLabel.font = UI_FONT_12;
 
-    [self.enterBtn bm_roundedRect:self.enterBtn.bm_height * 0.5f];
-    self.enterBtn.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    [self.enterBtn bm_roundedRect:4.0f];
+    self.enterBtn.backgroundColor = YSSkinOnlineDefineColor(@"defaultSelectedBgColor");
     [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
     
-    self.timeLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
+    self.timeLabel.textColor = YSSkinOnlineDefineColor(@"onlineSchoolSubTextColor");
     self.timeLabel.font = UI_FONT_12;
 
-    self.stateLabel.textColor = [UIColor whiteColor];
+    self.stateLabel.textColor = YSSkinOnlineDefineColor(@"defaultTitleColor");
     self.stateLabel.font = UI_FONT_12;
     [self.stateLabel bm_roundedRect:self.stateLabel.bm_height * 0.5f];
 }
@@ -125,7 +125,7 @@
         {
 #if 0
             self.enterBtn.hidden = YES;
-            YSLiveManager *liveManager = [YSLiveManager shareInstance];
+            YSLiveManager *liveManager = [YSLiveManager sharedInstance];
             if (liveManager.tServiceTime)
             {
                 CGFloat timecount = self.classModel.startTime - liveManager.tCurrentTime;
@@ -140,7 +140,7 @@
 #endif
             [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Waiting");
-            self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0x5ABEDC];
+            self.stateLabel.backgroundColor = YSSkinOnlineDefineColor(@"onlineSchoolStateWaitingColor");
         }
             break;
             
@@ -149,7 +149,7 @@
             self.enterBtn.hidden = NO;
             [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.Enter") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.Begin");
-            self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xEA7676];
+            self.stateLabel.backgroundColor = YSSkinOnlineDefineColor(@"onlineSchoolStateBeginColor");
             break;
             
         case YSClassState_End:
@@ -164,7 +164,7 @@
             }
             [self.enterBtn setTitle:YSLocalizedSchool(@"ClassListCell.RePlay") forState:UIControlStateNormal];
             self.stateLabel.text = YSLocalizedSchool(@"ClassListCell.State.End");
-            self.stateLabel.backgroundColor = [UIColor bm_colorWithHex:0xA2A2A2];
+            self.stateLabel.backgroundColor = YSSkinOnlineDefineColor(@"onlineSchoolStateEndColor");
             break;
     }
 }
@@ -186,7 +186,7 @@
 
     self.titleLabel.text = classModel.classGist;//classModel.title;
 
-    [self.iconImageView bm_setImageWithURL:[NSURL URLWithString:classModel.classImage] placeholderImage:[UIImage imageNamed:@"classdefault_icon"] options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority];
+    [self.iconImageView bmsd_setImageWithURL:[NSURL URLWithString:classModel.classImage] placeholderImage:[UIImage imageNamed:@"classdefault_icon"] options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority];
 
     self.nameLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Teacher"), classModel.teacherName ? classModel.teacherName : @""];
     self.gistLabel.text = [NSString stringWithFormat:@"%@: %@", YSLocalizedSchool(@"ClassListCell.Text.Class"), classModel.title ? classModel.title : @""];

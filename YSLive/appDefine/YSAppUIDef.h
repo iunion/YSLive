@@ -72,9 +72,8 @@
 
 #pragma mark -
 #pragma mark systemFont
-
+#define UI_FONT_8           [UIFont systemFontOfSize:8.0f]
 #define UI_FONT_9           [UIFont systemFontOfSize:9.0f]
-
 #define UI_FONT_10          [UIFont systemFontOfSize:10.0f]
 #define UI_FONT_12          [UIFont systemFontOfSize:12.0f]
 #define UI_FONT_13          [UIFont systemFontOfSize:13.0f]
@@ -215,5 +214,10 @@
 
 #define YS_Localized(locaString)  NSLocalizedString(locaString, nil)
 
+#define YSToolBar_BtnWidth_iPhone   (44.0f)
+#define YSToolBar_BtnWidth_iPad     (52.0f)
 
+#define YSToolBar_BtnWidth          ([UIDevice bm_isiPad] ? YSToolBar_BtnWidth_iPad : YSToolBar_BtnWidth_iPhone)
+
+#define YSPopViewDefaultAlpha       (1.0f)
 #endif /* YSAppUIDef_h */

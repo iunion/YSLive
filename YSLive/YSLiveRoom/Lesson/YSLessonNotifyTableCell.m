@@ -26,7 +26,7 @@
 /// 翻译后的文字
 @property (nonatomic, strong) UILabel *translatL;
 /// 展开
-@property (nonatomic, strong) UIButton *openBtn;
+//@property (nonatomic, strong) UIButton *openBtn;
 
 @end
 
@@ -44,6 +44,7 @@
 
 - (void)setup
 {
+    self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.timeL];
     
@@ -58,8 +59,8 @@
     [self.contentView addSubview:self.lineView];
     [self.contentView addSubview:self.translatL];
     
-    [self.contentView addSubview:self.openBtn];
-    [self.openBtn addTarget:self action:@selector(openBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:self.openBtn];
+//    [self.openBtn addTarget:self action:@selector(openBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 
@@ -70,7 +71,7 @@
     self.timeL.frame = CGRectMake(0, 5, BMUI_SCREEN_WIDTH, 17);
     
     self.bacView.frame = CGRectMake(20, 25, BMUI_SCREEN_WIDTH - 20 - 20, self.contentView.bm_height-25  - 10);
-    self.bacView.layer.cornerRadius = self.bacView.bm_height/2 > 29 ? 16 : self.bacView.bm_height/2;
+    self.bacView.layer.cornerRadius = 4.0f;
     self.bacView.layer.masksToBounds = YES;
     
     self.typeView.frame = CGRectMake(0, 0, 19, 23);
@@ -94,11 +95,11 @@
     self.translatL.frame = CGRectMake(0, CGRectGetMaxY(self.lineView.frame) + 8, BMUI_SCREEN_WIDTH - 72 - 62, self.lessonModel.translatHeight);
     self.translatL.bm_left = self.typeView.bm_right + 20 ;
     
-    self.openBtn.bm_width = 10;
-    self.openBtn.bm_height = 5;
-    self.openBtn.bm_bottom = self.bacView.bm_bottom - 10;
-    self.openBtn.bm_centerX = self.contentView.bm_centerX;
-    self.openBtn.bm_ActionEdgeInsets =UIEdgeInsetsMake(-5, -5, -5, -5);
+//    self.openBtn.bm_width = 10;
+//    self.openBtn.bm_height = 5;
+//    self.openBtn.bm_bottom = self.bacView.bm_bottom - 10;
+//    self.openBtn.bm_centerX = self.contentView.bm_centerX;
+//    self.openBtn.bm_ActionEdgeInsets =UIEdgeInsetsMake(-5, -5, -5, -5);
     
 }
 
@@ -112,36 +113,36 @@
     {
         case YSLessonNotifyType_Message:
             //公告
-            [self.typeView setImage:[UIImage imageNamed:@"yslive_lesson_message"]];
+            [self.typeView setImage:YSSkinElementImage(@"live_lesson_message", @"iconNor")];
             break;
         case YSLessonNotifyType_Status:
             //通知
-            [self.typeView setImage:[UIImage imageNamed:@"yslive_lesson_status"]];
+            [self.typeView setImage:YSSkinElementImage(@"live_lesson_status", @"iconNor")];
             break;
         default:
             break;
     }
     
-    if ([lessonModel.detailTrans bm_isNotEmpty])
-    {
-        self.openBtn.hidden = NO;
-    }
-    else
-    {
-        self.openBtn.hidden = YES;
-    }
+//    if ([lessonModel.detailTrans bm_isNotEmpty])
+//    {
+//        self.openBtn.hidden = NO;
+//    }
+//    else
+//    {
+//        self.openBtn.hidden = YES;
+//    }
 
     if (lessonModel.isOpen)
     {
         self.lineView.hidden = NO;
         self.translatL.hidden = NO;
-        [_openBtn setImage:[UIImage imageNamed:@"lesson_close"] forState:UIControlStateNormal];
+//        [_openBtn setImage:YSSkinElementImage(@"live_lesson_close", @"iconNor") forState:UIControlStateNormal];
     }
     else
     {
         self.lineView.hidden = YES;
         self.translatL.hidden = YES;
-        [_openBtn setImage:[UIImage imageNamed:@"lesson_open"] forState:UIControlStateNormal];
+//        [_openBtn setImage:YSSkinElementImage(@"live_lesson_open", @"iconNor") forState:UIControlStateNormal];
     }
  
 }
@@ -177,7 +178,7 @@
         _timeL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
         _timeL.numberOfLines = 1;
         _timeL.lineBreakMode = NSLineBreakByCharWrapping;
-        _timeL.textColor = [UIColor bm_colorWithHex:0x818181];
+        _timeL.textColor = YSSkinDefineColor(@"Live_TimeTextColor");
     }
     return _timeL;
 }
@@ -187,7 +188,7 @@
     if (!_bacView)
     {
         _bacView = [[UIView alloc] init];
-        _bacView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+        _bacView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
     
     return _bacView;
@@ -208,7 +209,7 @@
     if (!_translatBtn)
     {
         _translatBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_translatBtn setImage:[UIImage imageNamed:@"lesson_translate"] forState:UIControlStateNormal];
+        [_translatBtn setImage:YSSkinElementImage(@"live_lesson_translat", @"iconNor") forState:UIControlStateNormal];
     }
     
     return _translatBtn;
@@ -220,8 +221,8 @@
        {
            _originalL = [[UILabel alloc] init];
            _originalL.textAlignment = NSTextAlignmentLeft;
-           _originalL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14);
-           _originalL.textColor = [UIColor bm_colorWithHex:0x828282];
+           _originalL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
+           _originalL.textColor = YSSkinDefineColor(@"PlaceholderColor");
            _originalL.numberOfLines = 0;
            _originalL.lineBreakMode = NSLineBreakByCharWrapping;
        }
@@ -234,7 +235,7 @@
     if (!_lineView)
     {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor bm_colorWithHex:0x6D7278];
+        _lineView.backgroundColor = [YSSkinDefineColor(@"PlaceholderColor") bm_changeAlpha:0.24f];
         _lineView.hidden = YES;
     }
     
@@ -247,9 +248,9 @@
        {
            _translatL = [[UILabel alloc] init];
            _translatL.textAlignment = NSTextAlignmentLeft;
-           _translatL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 14);
+           _translatL.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
            _translatL.numberOfLines = 0;
-           _translatL.textColor = [UIColor bm_colorWithHex:0x828282];
+           _translatL.textColor = YSSkinDefineColor(@"PlaceholderColor");
            _translatL.lineBreakMode = NSLineBreakByCharWrapping;
            _translatL.hidden = YES;
        }
@@ -257,17 +258,17 @@
        return _translatL;
 }
 
-- (UIButton *)openBtn
-{
-    if (!_openBtn)
-    {
-        _openBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_openBtn setImage:[UIImage imageNamed:@"lesson_open"] forState:UIControlStateNormal];
-        _openBtn.hidden = YES;
-    }
-    
-    return _openBtn;
-}
+//- (UIButton *)openBtn
+//{
+//    if (!_openBtn)
+//    {
+//        _openBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_openBtn setImage:[UIImage imageNamed:@"lesson_open"] forState:UIControlStateNormal];
+//        _openBtn.hidden = YES;
+//    }
+//
+//    return _openBtn;
+//}
 
 - (void)awakeFromNib
 {

@@ -24,6 +24,9 @@
 #import <Availability.h>
 #import <TargetConditionals.h>
 
+#ifndef _BMAFNETWORKING_
+    #define _BMAFNETWORKING_
+
     #import "BMAFURLRequestSerialization.h"
     #import "BMAFURLResponseSerialization.h"
     #import "BMAFSecurityPolicy.h"
@@ -34,3 +37,5 @@
 
     #import "BMAFURLSessionManager.h"
     #import "BMAFHTTPSessionManager.h"
+
+#endif /* _BMAFNETWORKING_ */

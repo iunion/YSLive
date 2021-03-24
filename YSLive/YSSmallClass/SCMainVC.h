@@ -12,12 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SCMainVC : YSClassMainSuperVC
 
-- (instancetype)initWithRoomType:(YSRoomTypes)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;
+
+- (instancetype)initWithRoomType:(CHRoomUserType)roomType isWideScreen:(BOOL)isWideScreen maxVideoCount:(NSUInteger)maxCount whiteBordView:(UIView *)whiteBordView userId:(nullable NSString *)userId;
 
 // 刷新content视频布局
-//- (void)freshContentVidoeView;
+//- (void)freshContentVideoView;
 // 刷新宫格视频布局
-//- (void)freshVidoeGridView;
+//- (void)freshVideoGridView;
 
 @end
 

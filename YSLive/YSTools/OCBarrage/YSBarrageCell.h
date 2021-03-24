@@ -19,9 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSTimeInterval idleTime;//开始闲置的时间, 闲置超过5秒的, 自动回收内存
 @property (nonatomic, strong, nullable) YSBarrageDescriptor *barrageDescriptor;
 @property (nonatomic, strong, readonly, nullable) CAAnimation *barrageAnimation;
-@property (nonatomic, assign) int trackIndex;
+@property (nonatomic, assign) NSInteger trackIndex;
 
-- (void)addBarrageAnimationWithDelegate:(id<CAAnimationDelegate>)animationDelegate;
+- (void)addBarrageAnimationWithDelegate:(id <CAAnimationDelegate>)animationDelegate;
 - (void)prepareForReuse;
 - (void)clearContents;
 

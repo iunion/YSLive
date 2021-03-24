@@ -19,7 +19,6 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     UITableViewDelegate,
     UITableViewDataSource
 >
-
 /// 顶部文字视图
 @property (nonatomic, strong) YSVoteTopView *topView;
 /// 投票题目
@@ -37,9 +36,6 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
 /// 底部按钮
 @property (nonatomic, strong) UIButton *bottomBtn;
 
-
-
-
 @end
 
 @implementation YSVoteVC
@@ -51,10 +47,13 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
 
 - (void)viewDidLoad
 {
-    self.title = YSLocalized(@"Button.vote");
-    self.navigationController.navigationBar.barTintColor = YSColor_DefaultBlue;
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0xEEF0F3];//YSColor_DefaultBacground;
+    self.title = YSLocalized(@"Button.vote");
+    
+    self.navigationController.navigationBar.barTintColor = YSSkinDefineColor(@"Live_timer_timeBgColor");
+    
+    self.view.backgroundColor = YSSkinDefineColor(@"Color3");
+    
     [self setupUI];
 }
 
@@ -99,7 +98,6 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         [_bottomBtn setTitle:YSLocalized(@"Button.vote") forState:UIControlStateNormal];
     }
-    
 }
 
 - (void)viewWillLayoutSubviews
@@ -151,6 +149,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     self.bottomBtn.frame = CGRectMake(0, 0, 262, 44);
     self.bottomBtn.bm_centerX = self.bottomView.bm_centerX;
     self.bottomBtn.bm_top = self.rightAnswerLabel.bm_bottom + 10;
+    [self.bottomBtn bm_roundedRect:4.0f];
 }
 
 
@@ -176,13 +175,11 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
             break;
         case YSVoteVCType_Multiple  :
         {
-        
             YSVotingTableCell * multipleCell = [tableView dequeueReusableCellWithIdentifier:YSVotingTableCellID forIndexPath:indexPath];
             YSVoteResultModel * model = self.dataSource[indexPath.row];
             multipleCell.isSingle = NO;
             multipleCell.votingModel = model;
             return multipleCell;
-            
         }
             break;
         case YSVoteVCType_Single:
@@ -197,9 +194,9 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
         default:
             break;
     }
+    
     UITableViewCell * cell = [UITableViewCell new];
     return cell;
-   
 }
 
 
@@ -207,7 +204,6 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     YSVoteResultModel * model = self.dataSource[indexPath.row];
     switch (self.voteType)
     {
@@ -252,9 +248,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
         default:
             break;
     }
-    
     [tableView reloadData];
-    
 }
 
 
@@ -265,7 +259,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     _voteModel = voteModel;
     self.topView.voteModel = voteModel;
     self.voteNameLabel.text = voteModel.subject;
-    self.voteTypeLabel.text = [NSString stringWithFormat:@"%@  ",self.voteType == YSVoteVCType_Single ? YSLocalized(@"Label.Single"):YSLocalized(@"Label.Multiple")];
+    self.voteTypeLabel.text = [NSString stringWithFormat:@"%@  ",self.voteModel.isSingle ? YSLocalized(@"Label.Single"):YSLocalized(@"Label.Multiple")];
 
     self.voteTypeLabel.hidden = NO;
 
@@ -284,7 +278,6 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
          [self.voteTableView reloadData];
     }
- 
 }
 
 
@@ -313,12 +306,10 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
             }
         }
         
-        [[YSLiveManager shareInstance] sendSignalingVoteCommitWithVoteId:self.voteModel.voteId voteResault:voteResault completion:^(NSError *error) {
-            BMLog(@"%@",error);
-        }];
+        [[YSLiveManager sharedInstance] sendSignalingVoteCommitWithVoteId:self.voteModel.voteId voteResault:voteResault];
+        
         [self.navigationController popViewControllerAnimated:YES];
     }
-    
 }
 
 
@@ -329,7 +320,6 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     if (!_topView)
     {
         _topView = [[YSVoteTopView alloc] initWithFrame:CGRectZero withVoteStatus:NO];
-        
     }
     return _topView;
 }
@@ -340,13 +330,12 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _voteNameLabel = [[UILabel alloc] init];
         _voteNameLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 18);
-        _voteNameLabel.textColor = [UIColor bm_colorWithHex:0x828282];
+        _voteNameLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _voteNameLabel.textAlignment = NSTextAlignmentLeft;
         _voteNameLabel.lineBreakMode = NSLineBreakByCharWrapping;
         _voteNameLabel.numberOfLines = 0;
     }
     return _voteNameLabel;
-    
 }
 
 - (UILabel *)voteTypeLabel
@@ -355,15 +344,12 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _voteTypeLabel = [[UILabel alloc] init];
         _voteTypeLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
-        _voteTypeLabel.textColor = [UIColor bm_colorWithHex:0x828282];
+        _voteTypeLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _voteTypeLabel.textAlignment = NSTextAlignmentCenter;
-        _voteTypeLabel.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
-//        _voteTypeLabel.lineBreakMode = NSLineBreakByWordWrapping;
-//        _voteTypeLabel.numberOfLines = 0;
+        _voteTypeLabel.backgroundColor = YSSkinDefineColor(@"Live_timer_timeBgColor");
         _voteTypeLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _voteTypeLabel;
-    
 }
 
 - (UILabel *)voteDescLabel
@@ -372,7 +358,7 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _voteDescLabel = [[UILabel alloc] init];
         _voteDescLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCRegular, 12);
-        _voteDescLabel.textColor = [UIColor bm_colorWithHex:0x828282];
+        _voteDescLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _voteDescLabel.textAlignment = NSTextAlignmentLeft;
         
     }
@@ -388,21 +374,18 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
         _voteTableView.delegate = self;
         _voteTableView.dataSource = self;
         _voteTableView.showsVerticalScrollIndicator = NO;
-        _voteTableView.backgroundColor = [UIColor bm_colorWithHex:0xEEF0F3];
+        _voteTableView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
-    
     return _voteTableView;
-    
 }
 - (UIView *)bottomView
 {
-    if (!_bottomView) {
+    if (!_bottomView)
+    {
         _bottomView = [[UIView alloc] init];
-        _bottomView.backgroundColor = [UIColor bm_colorWithHex:0xEEF0F3];
+        _bottomView.backgroundColor = YSSkinDefineColor(@"Color3");
     }
-    
     return _bottomView;
-    
 }
 
 - (UILabel *)rightAnswerLabel
@@ -411,16 +394,13 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     {
         _rightAnswerLabel = [[UILabel alloc] init];
         _rightAnswerLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12);
-        _rightAnswerLabel.textColor = [UIColor bm_colorWithHex:0x94979A];
+        _rightAnswerLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
         _rightAnswerLabel.textAlignment = NSTextAlignmentLeft;
-        _rightAnswerLabel.backgroundColor = [UIColor bm_colorWithHex:0xEEF0F3];
+        _rightAnswerLabel.backgroundColor = [UIColor clearColor];
         _rightAnswerLabel.numberOfLines = 0;
         _rightAnswerLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        
     }
-    
     return _rightAnswerLabel;
-    
 }
 
 - (UIButton *)bottomBtn
@@ -428,14 +408,11 @@ static  NSString * const   YSVotingTableCellID     = @"YSVotingTableCell";
     if (!_bottomBtn)
     {
         _bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_bottomBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-        [_bottomBtn setBackgroundImage:[UIImage imageNamed:@"yslive_vote_push_normal"] forState:UIControlStateNormal];//yslive_vote_return
-        [_bottomBtn setBackgroundImage:[UIImage imageNamed:@"yslive_vote_push_highlight"] forState:UIControlStateHighlighted];
+        [_bottomBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
         _bottomBtn.titleLabel.textAlignment =  NSTextAlignmentCenter;
         _bottomBtn.titleLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 15);
-        
     }
-    
     return _bottomBtn;
 }
 

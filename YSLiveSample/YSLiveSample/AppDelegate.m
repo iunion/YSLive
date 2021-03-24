@@ -21,6 +21,9 @@
 {
     self.allowRotation = NO;
 
+    self.useAllowRotation = NO;    
+    self.classCanRotation = YES;
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -34,10 +37,21 @@
 /// 强制应用只能响应竖屏
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
+    if (!self.useAllowRotation)
+    {
+        return UIInterfaceOrientationMaskAll;
+    }
     if (self.allowRotation)
     {
         //return UIInterfaceOrientationMaskAll;
-        return UIInterfaceOrientationMaskLandscapeRight;
+        if (self.classCanRotation)
+        {
+            return UIInterfaceOrientationMaskLandscape;
+        }
+        else
+        {
+            return UIInterfaceOrientationMaskLandscapeRight;
+        }
     }
     else
     {

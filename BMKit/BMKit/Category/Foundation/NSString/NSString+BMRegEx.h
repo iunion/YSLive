@@ -122,7 +122,7 @@
  *  => @"2 3"
  */
 
-- (NSString *)bm_replace:(NSRegularExpression *)rx withDetailsBlock:(NSString * (^)(RxMatch *match))replacer;
+- (NSString *)bm_replace:(NSRegularExpression *)rx withDetailsBlock:(NSString * (^)(BMRxMatch *match))replacer;
 
 
 /**
@@ -158,7 +158,7 @@
  * NSArray* matches = [str matchesWithDetails:RX(@"\\w+[@]\\w+[.](\\w+)")];
  */
 
-- (NSArray <RxMatch *>*)bm_matchesWithDetails:(NSRegularExpression *)rx;
+- (NSArray <BMRxMatch *>*)bm_matchesWithDetails:(NSRegularExpression *)rx;
 
 
 /**
@@ -169,7 +169,7 @@
  * MXRxMatch* match = [str firstMatchWithDetails:RX(@"\\w+[@]\\w+[.](\\w+)")];
  */
 
-- (RxMatch *)bm_firstMatchWithDetails:(NSRegularExpression *)rx;
+- (BMRxMatch *)bm_firstMatchWithDetails:(NSRegularExpression *)rx;
 
 #pragma mark Vaild
 

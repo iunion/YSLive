@@ -9,7 +9,7 @@
 #import "PLDictionaryTableViewController.h"
 #import "PLArrayTableViewController.h"
 
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 
 @interface PLDictionaryTableViewController ()
 @property (nonatomic, strong) NSDictionary *data;

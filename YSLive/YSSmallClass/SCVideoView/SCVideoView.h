@@ -55,8 +55,19 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
     SCVideoViewAudioState_Close = 1 << 20
 };
 
+typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
+{
+    // 正常
+    SCGroopRoomState_Normal = 0,
+    // 讨论中
+    SCGroopRoomState_Discussing = 1 << 0,
+    // 私聊中
+    SCGroopRoomState_PrivateChat = 1 << 1,
+};
 
 @protocol SCVideoViewDelegate <NSObject>
+
+@optional
 
 ///点击手势事件
 - (void)clickViewToControlWithVideoView:(SCVideoView*)videoView;
@@ -70,11 +81,17 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 @interface SCVideoView : UIView
 
 ///app使用场景  3：小班课  4：直播   6：会议
-@property (nonatomic, assign) YSAppUseTheType appUseTheType;
+@property (nonatomic, assign) CHRoomUseType appUseTheType;
 
-@property (nonatomic, weak) id<SCVideoViewDelegate> delegate;
+@property (nonatomic, weak) id <SCVideoViewDelegate> delegate;
 
-@property (nonatomic, strong, readonly) YSRoomUser *roomUser;
+///视频设备ID sourceId
+@property (nonatomic, copy) NSString *sourceId;
+
+///视频流ID streamId
+@property (nonatomic, copy) NSString *streamId;
+
+@property (nonatomic, strong, readonly) CHRoomUser *roomUser;
 /// 是否占位用
 @property (nonatomic, assign) BOOL isForPerch;
 /// 标识布局变化的值 宫格布局标识
@@ -83,7 +100,7 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 @property (nonatomic, assign) BOOL isFullScreen;
 /// 是否被拖出
 @property (nonatomic, assign) BOOL isDragOut;
-/// 当前设备音量  音量大小 0 ～ 32670
+/// 当前设备音量  音量大小 0 ～ 255
 @property (nonatomic, assign) NSUInteger iVolume;
 /// 是否隐藏奖杯
 @property (nonatomic, assign) BOOL isHideCup;
@@ -94,6 +111,9 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 /// 画笔权限
 @property (nonatomic, assign) BOOL canDraw;
 
+/// 分组房间视频状态
+@property (nonatomic, assign) SCGroopRoomState groopRoomState;
+
 /// 背景view
 @property (nonatomic, strong) UIView *backVideoView;
 /// popView的基准View
@@ -102,30 +122,36 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
 /// 视频状态
 @property (nonatomic, assign, readonly) SCVideoViewVideoState videoState;
 /// 摄像头设备状态
-@property (nonatomic, assign, readonly) YSDeviceFaultType videoDeviceState;
+@property (nonatomic, assign, readonly) CHDeviceFaultType videoDeviceState;
 /// 音频状态
 @property (nonatomic, assign, readonly) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
-@property (nonatomic, assign, readonly) YSDeviceFaultType audioDeviceState;
-
+@property (nonatomic, assign, readonly) CHDeviceFaultType audioDeviceState;
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;
 
-// 保存发布状态，用于比较是否有变更
-@property (nonatomic, assign) YSPublishState publishState;
+// 开关是否静音
+@property (nonatomic, assign) CHSessionMuteState audioMute;
 
-// 老师用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser withDelegate:(id<SCVideoViewDelegate>)delegate;
+// 开关是否关摄像头
+@property (nonatomic, assign) CHSessionMuteState videoMute;
 
-// 学生用
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser isForPerch:(BOOL)isForPerch;
-- (instancetype)initWithRoomUser:(YSRoomUser *)roomUser;
+///小黑板是否正在私聊
+@property(nonatomic,assign)BOOL isPrivateChating;
 
-- (void)freshWithRoomUserProperty:(YSRoomUser *)roomUser;
+
+/// 老师用
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch withDelegate:(id<SCVideoViewDelegate>)delegate;
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate;
+
+/// 学生用
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId isForPerch:(BOOL)isForPerch;
+- (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(nullable NSString *)sourceId;
+
+- (void)freshWithRoomUserProperty:(CHRoomUser *)roomUser;
 
 @end
 

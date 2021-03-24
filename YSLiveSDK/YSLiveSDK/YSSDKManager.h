@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) UIViewController <YSSDKDelegate> * delegate;
 
+/// 是否使用shouldAutorotate，NO: 使用    默认： NO
+@property (nonatomic, assign) BOOL useAppDelegateAllowRotation;
+/// 小班课是否可转屏，支持左右转屏    默认： YES
+@property (nonatomic, assign) BOOL classCanRotation;
+
 + (NSString *)SDKVersion;
 + (NSString *)SDKDetailVersion;
 
@@ -46,8 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)checkRoomTypeBeforeJoinRoomWithRoomId:(NSString *)roomId success:(void(^)(YSSDKUseTheType roomType, BOOL needpassword))success failure:(void(^)(NSInteger code, NSString *errorStr))failure;
 
-/// 添加H5课件地址参数，此方法会刷新当前H5课件以变更新参数
-- (void)addConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
 /// 变更H5课件地址参数，此方法会刷新当前H5课件以变更新参数
 - (void)changeConnectH5CoursewareUrlParameters:(NSDictionary *)parameters;
 

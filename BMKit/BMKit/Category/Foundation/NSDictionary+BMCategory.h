@@ -25,13 +25,17 @@
 - (BOOL)bm_boolForKey:(nonnull id)key withDefault:(BOOL)theDefault;
 
 - (float)bm_floatForKey:(nonnull id)key;
+- (float)bm_floatForKey:(nonnull id)key roundingScale:(short)scale;
 - (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault;
+- (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault roundingScale:(short)scale;
 - (float)bm_floatForKey:(nonnull id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(float)theDefault;
 - (float)bm_floatForKey:(nonnull id)key withDefault:(float)theDefault roundingScale:(short)scale roundingMode:(NSRoundingMode)mode;
 - (float)bm_floatForKey:(nonnull id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(float)theDefault roundingScale:(short)scale roundingMode:(NSRoundingMode)mode;
 
 - (double)bm_doubleForKey:(nonnull id)key;
+- (double)bm_doubleForKey:(nonnull id)key roundingScale:(short)scale;
 - (double)bm_doubleForKey:(nonnull id)key withDefault:(double)theDefault;
+- (double)bm_doubleForKey:(nonnull id)key withDefault:(double)theDefault roundingScale:(short)scale;
 - (double)bm_doubleForKey:(nonnull id)key formatNumberStyle:(NSNumberFormatterStyle)numberStyle withDefault:(double)theDefault;
 - (double)bm_2PointDoubleForKey:(nonnull id)key;
 - (double)bm_2PointDoubleForKey:(nonnull id)key withDefault:(double)theDefault;
@@ -68,7 +72,9 @@
 - (CGRect)bm_rectForKey:(nonnull id)key;
 
 - (nullable NSArray *)bm_arrayForKey:(nonnull id)key;
+- (nullable NSMutableArray *)bm_mutableArrayForKey:(nonnull id)key;
 - (nullable NSDictionary *)bm_dictionaryForKey:(nonnull id)key;
+- (nullable NSMutableDictionary *)bm_mutableDictionaryForKey:(nonnull id)key;
 
 - (BOOL)bm_containsObjectForKey:(nonnull id)key;
 

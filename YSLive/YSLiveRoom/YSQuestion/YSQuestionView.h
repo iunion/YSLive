@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YSQuestionModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSQuestionView : UIView

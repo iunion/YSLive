@@ -8,7 +8,7 @@
 
 #import "YSQuestionView.h"
 #import "YSAnswerCell.h"
-#import "BMProgressHUD.h"
+#import <BMKit/BMProgressHUD.h>
 
 //输入框高度
 #define ToolHeight (BMIS_IPHONEXANDP?(50+20):50)
@@ -47,7 +47,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
         self.questionArr = [NSMutableArray array];
         
         [self setupUI];
@@ -64,25 +64,24 @@
     [self addSubview:self.questTableView];
     
     self.bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ToolOriginalY, BMUI_SCREEN_WIDTH, ToolHeight)];
-    self.bottomView.backgroundColor = [UIColor bm_colorWithHex:0xDEEAFF];
+    self.bottomView.backgroundColor = YSSkinDefineColor(@"Color3");
     [self addSubview:self.bottomView];
     
-    self.backView = [[UIView alloc]initWithFrame:CGRectMake(kBMScale_W(20), 10, kBMScale_W(230), 30)];
-    self.backView.layer.cornerRadius = 30/2;
-    self.backView.backgroundColor = [UIColor whiteColor];
-    [self.bottomView addSubview:self.backView];
-    
-    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(271), 8, kBMScale_W(96), 34)];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton"] forState:UIControlStateNormal];
-//    [self.sendBtn setImage:[UIImage imageNamed:@"SCSendButton_push"] forState:UIControlStateHighlighted];
-    
+    self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 70 - 20, 10, 70, 34)];
     [self.sendBtn setTitle:YSLocalized(@"Button.send") forState:UIControlStateNormal];
-    [self.sendBtn setBackgroundColor:[UIColor bm_colorWithHex:0x5A8CDC]];
-    [self.sendBtn setTitleColor:[UIColor bm_colorWithHex:0xFFE895] forState:UIControlStateNormal];
-    [self.sendBtn bm_roundedRect:17.0f borderWidth:3.0f borderColor:[UIColor bm_colorWithHex:0x97B7EB]];
+    [self.sendBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
+    [self.sendBtn setTitleColor:YSSkinDefineColor(@"Color3") forState:UIControlStateNormal];
+    self.sendBtn.titleLabel.font = UI_FONT_14;
+    self.sendBtn.layer.cornerRadius = 4;
     [self.sendBtn addTarget:self action:@selector(sendButtonClick) forControlEvents:(UIControlEventTouchUpInside)];
     [self.bottomView addSubview:self.sendBtn];
     
+    
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(20, 10, self.sendBtn.bm_originX - 20 - 15, 34)];
+    self.backView.layer.cornerRadius = 4;
+    self.backView.backgroundColor = YSSkinDefineColor(@"Live_ChatBgColor");
+    [self.bottomView addSubview:self.backView];
+        
     self.inputView = [[UITextView alloc]initWithFrame:CGRectMake(5, 0, self.backView.bm_width-10, 30)];
     self.inputView.backgroundColor = UIColor.clearColor;
     self.inputView.textColor = [UIColor bm_colorWithHex:0x828282];
@@ -93,14 +92,13 @@
     self.placeholdLab.text = YSLocalized(@"Alert.WriteQuest");
     self.placeholdLab.textColor = [UIColor bm_colorWithHex:0x828282];
     self.placeholdLab.font = UI_FONT_14;
-    //    self.placeholdLab.backgroundColor = UIColor.redColor;
     [self.inputView addSubview:self.placeholdLab];
     
     self.maskView = [[UIView alloc]initWithFrame:self.bottomView.bounds];
-    self.maskView.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC  alpha:0.6];
+    self.maskView.backgroundColor = [YSSkinDefineColor(@"Color3") bm_changeAlpha:0.8];
     [self.bottomView addSubview:self.maskView];
     
-    if (![YSLiveManager shareInstance].isBeginClass)
+    if (![YSLiveManager sharedInstance].isClassBegin)
     {
         self.maskView.hidden = NO;
     }
@@ -115,7 +113,7 @@
 
 - (void)sendButtonClick
 {
-    if (![YSLiveManager shareInstance].isBeginClass)
+    if (![YSLiveManager sharedInstance].isClassBegin)
     {
         BMProgressHUD * hub =[BMProgressHUD bm_showHUDAddedTo:self animated:YES withDetailText:YSLocalized(@"Alert.CanNotQuestion")];
         hub.yOffset = -130;
@@ -126,14 +124,14 @@
         return ;
     }
     
-    NSString * questionId =  [[YSLiveManager shareInstance] sendQuestionWithText:self.inputView.text];
+    NSString *questionId = [[YSLiveManager sharedInstance] sendQuestionWithText:self.inputView.text];
     if ([questionId bm_isNotEmpty])
     {
-        YSQuestionModel * model = [[YSQuestionModel alloc]init];
+        CHQuestionModel * model = [[CHQuestionModel alloc]init];
         model.nickName = YSCurrentUser.nickName;
-        model.timeInterval = [YSLiveManager shareInstance].tCurrentTime;
+        model.timeInterval = [YSLiveManager sharedInstance].tCurrentTime;
         model.questDetails = self.inputView.text;
-        model.state = YSQuestionState_Question;
+        model.state = CHQuestionState_Question;
         model.questionId = questionId;
         [self.questionArr addObject:model];
     }
@@ -151,16 +149,16 @@
 #pragma mark - 刷新
 - (void)frashView:(id)message
 {
-    if ([message bm_isNotEmpty] && [message isKindOfClass:[YSQuestionModel class]])
+    if ([message bm_isNotEmpty] && [message isKindOfClass:[CHQuestionModel class]])
     {//添加的时候传model
-        YSQuestionModel * questionModel = (YSQuestionModel*)message;
+        CHQuestionModel * questionModel = (CHQuestionModel*)message;
         
-        if (questionModel.state == YSQuestionState_Responed) {
-            for (YSQuestionModel * model in self.questionArr)
+        if (questionModel.state == CHQuestionState_Responed) {
+            for (CHQuestionModel * model in self.questionArr)
             {
                 if ([model.questionId isEqualToString:questionModel.questionId])
                 {
-                    if (questionModel.state == YSQuestionState_Answer)
+                    if (questionModel.state == CHQuestionState_Answer)
                     {
                         questionModel.questDetails = model.questDetails;
                     }
@@ -178,7 +176,7 @@
 
         for (int i = (int)(self.questionArr.count)-1; i>=0; i--) {
             
-            YSQuestionModel * model = self.questionArr[i];
+            CHQuestionModel * model = self.questionArr[i];
             if ([model.questionId isEqualToString:questionId]) {
                 [self.questionArr removeObject:model];
             }
@@ -189,7 +187,10 @@
     if (self.questionArr.count)
     {
         NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.questionArr.count-1 inSection:0];
-        [self.questTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+      
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.questTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        });
     }
 }
 
@@ -206,7 +207,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YSQuestionModel * model = _questionArr[indexPath.row];
+    CHQuestionModel * model = _questionArr[indexPath.row];
     
     YSAnswerCell * cell =[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(YSAnswerCell.class) forIndexPath:indexPath];
     cell.model = model;
@@ -220,7 +221,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    YSQuestionModel * model = _questionArr[indexPath.row];
+    CHQuestionModel * model = _questionArr[indexPath.row];
     
     
     CGSize tagSize = [YSLocalized(@"Label.Reply") bm_sizeToFitWidth:100 withFont:UI_FONT_12];
@@ -231,7 +232,7 @@
     {//有翻译
         if (!model.transCellHeight)
         {
-            if (model.state == YSQuestionState_Answer)
+            if (model.state == CHQuestionState_Answer)
             {//回复
                 NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
                 CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
@@ -249,7 +250,7 @@
     {//无翻译
         if (!model.cellHeight)
         {
-            if (model.state == YSQuestionState_Answer)
+            if (model.state == CHQuestionState_Answer)
             {//回复
                 NSString * questStr = [NSString stringWithFormat:@"%@：%@",YSLocalized(@"Label.Question"),model.questDetails];
                 CGSize questStrSize = [questStr bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_14];
@@ -327,7 +328,7 @@
         self.questTableView.delegate   = self;
         self.questTableView.dataSource = self;
         self.questTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        self.questTableView.backgroundColor = [UIColor clearColor];
+        self.questTableView.backgroundColor = YSSkinDefineColor(@"Live_DefaultBgColor");
         self.questTableView.separatorColor  = [UIColor clearColor];
         self.questTableView.showsHorizontalScrollIndicator = NO;
         self.questTableView.showsVerticalScrollIndicator = NO;
@@ -344,7 +345,7 @@
 #pragma mark 翻译
 - (void)getBaiduTranslateWithIndexPath:(NSIndexPath *) indexPath
 {
-    YSQuestionModel * model = self.questionArr[indexPath.row];
+    CHQuestionModel * model = self.questionArr[indexPath.row];
     
     BMAFHTTPSessionManager * manger = [BMAFHTTPSessionManager manager];
     [manger.requestSerializer setTimeoutInterval:30];
@@ -355,7 +356,7 @@
     //=====增加表情的识别，表情不进行翻译 ===  +  === 对链接地址不进行翻译======
     NSString * aTranslationString = @"";
     
-    if (model.state == YSQuestionState_Answer)
+    if (model.state == CHQuestionState_Answer)
     {
         aTranslationString = model.answerDetails;
     }

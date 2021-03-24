@@ -163,8 +163,8 @@
         UIButton * secureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [secureBtn addTarget:self action:@selector(secureBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         secureBtn.frame = CGRectMake(10, 10, 30, 30);
-        [secureBtn setImage:[UIImage imageNamed:@"passwordAlert_nolook"] forState:UIControlStateNormal];
-        [secureBtn setImage:[UIImage imageNamed:@"passwordAlert_look"] forState:UIControlStateSelected];
+        [secureBtn setImage:YSSkinElementImage(@"passwordAlert", @"iconNor") forState:UIControlStateNormal];
+        [secureBtn setImage:YSSkinElementImage(@"passwordAlert", @"iconSel") forState:UIControlStateSelected];
         _passWordField.rightView = secureBtn;
         _passWordField.clearsOnBeginEditing = NO;
     }

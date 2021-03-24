@@ -29,12 +29,24 @@ typedef void(^YSFloatViewClickBlock)(void);
 // 父视图中可移动范围缩进边距 默认为 0 0 0 0 (气泡默认可活动范围为父视图大小)
 @property (nonatomic, assign) UIEdgeInsets edgeInsets;
 
-@property (nonatomic, assign) CGSize defaultSize;
+////刚拖出来的默认值
+//@property (nonatomic, assign) CGSize defaultSize;
+//可以放大到的最小尺寸
+@property (nonatomic, assign) CGSize minSize;
 //可以放大到的最大尺寸
 @property (nonatomic, assign) CGSize maxSize;
 
-
 @property (nonatomic, copy) NSString *peerId;
+
+///视频设备 sourceId
+@property (nonatomic, copy) NSString *sourceId;
+
+///视频设备 streamId
+@property (nonatomic, copy) NSString *streamId;
+
+
+///默认刚拖出来的比例为2
+@property (nonatomic , assign) CGFloat endScale;
 
 // 点击Block
 @property (nullable, nonatomic, copy) YSFloatViewClickBlock clickBlock;
@@ -45,6 +57,9 @@ typedef void(^YSFloatViewClickBlock)(void);
 - (void)stayMove;
 
 - (void)cleanContent;
+
+- (void)showMp4WaitingView;
+- (void)showMp4PauseView;
 
 @end
 

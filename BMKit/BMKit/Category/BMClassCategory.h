@@ -46,4 +46,6 @@
 #import "NSString+BMURLEncode.h"
 #import "NSString+BMMandarinLatin.h"
 
+#import "NSError+BMCategory.h"
+
 #endif /* BMClassCategory_h */

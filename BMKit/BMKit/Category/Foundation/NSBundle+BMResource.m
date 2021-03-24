@@ -9,103 +9,90 @@
 #import "NSBundle+BMResource.h"
 #import "BMkitMacros.h"
 
-NSString *const kTableDefault = @"Localizable";
-
-static inline NSString *getBundleName(NSString *bundleName)
-{
-    if ([bundleName rangeOfString:@".bundle"].location != NSNotFound)
-    {
-        return bundleName;
-    }
-    
-    return [bundleName stringByAppendingPathExtension:@"bundle"];
-}
-
-static inline NSString *getAssetsName(NSString *assetsName)
-{
-    if ([assetsName rangeOfString:@".xcassets"].location != NSNotFound)
-    {
-        return assetsName;
-    }
-    
-    return [assetsName stringByAppendingPathExtension:@"xcassets"];
-}
-
 @implementation NSBundle (BMResource)
 
-#pragma mark image
++ (NSBundle *)resourceBundleWithBundleNamed:(NSString *)bundleName
+{
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    //NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+    
+    NSString *bundlePath = [mainBundle pathForResource:bundleName ofType:@"bundle"];
+    
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    
+    return bundle;
+}
+
+
+#pragma mark - image
 
 + (UIImage *)bm_bundleImageFromBundleNamed:(NSString *)bundleName imageName:(NSString *)imageName
 {
-    NSString *mainBundlePath = [[NSBundle mainBundle] resourcePath];
-    NSString *imageFilePath = [[mainBundlePath stringByAppendingPathComponent:getBundleName(bundleName)] stringByAppendingPathComponent:imageName];
-    return [UIImage imageWithContentsOfFile:imageFilePath];
+    NSBundle *bundle = [NSBundle resourceBundleWithBundleNamed:bundleName];
+
+    UIImage *image = [bundle bm_imageWithImageName:imageName];
+    return image;
 }
 
 + (UIImage *)bm_bundleAssetsImageFromeBundleName:(NSString *)bundleName assetsName:(NSString *)assetsName imageName:(NSString *)imageName
 {
-    NSString *mainBundlePath = [[NSBundle mainBundle] resourcePath];
-    NSString *basePath = [[mainBundlePath stringByAppendingPathComponent:getBundleName(bundleName)] stringByAppendingPathComponent:getAssetsName(assetsName)];
-    
-    NSString *imageTmpName = [imageName stringByDeletingPathExtension];
-    NSString *imagePathName = [imageTmpName stringByAppendingPathExtension:@"imageset"];
+    return [NSBundle bm_bundleAssetsImageFromeBundleName:bundleName assetsName:assetsName pathName:nil imageName:imageName];
+}
 
-    NSString *imageFilePath = [[basePath stringByAppendingPathComponent:imagePathName] stringByAppendingPathComponent:imageName];
-    
-    return [UIImage imageWithContentsOfFile:imageFilePath];
++ (UIImage *)bm_bundleAssetsImageFromeBundleName:(NSString *)bundleName assetsName:(NSString *)assetsName pathName:(NSString *)pathName imageName:(NSString *)imageName
+{
+    NSBundle *bundle = [NSBundle resourceBundleWithBundleNamed:bundleName];
+
+    UIImage *image = [bundle bm_imageWithAssetsName:assetsName pathName:pathName imageName:imageName];
+
+    return image;
 }
 
 - (UIImage *)bm_imageWithImageName:(NSString *)imageName
 {
-    if (BMIS_IOS_8_OR_LATER)
+    UIImage *image = nil;
+    if (@available(iOS 13.0, *))
     {
-        return [UIImage imageNamed:imageName inBundle:self compatibleWithTraitCollection:nil];
+        image = [UIImage imageNamed:imageName inBundle:self withConfiguration:nil];
     }
     else
     {
-        NSString *bundlePath = [self resourcePath];
-        NSString *imageFilePath = [bundlePath stringByAppendingPathComponent:imageName];
-        return [UIImage imageWithContentsOfFile:imageFilePath];
+        image = [UIImage imageNamed:imageName inBundle:self compatibleWithTraitCollection:nil];
     }
+    
+    return image;
 }
 
 - (UIImage *)bm_imageWithAssetsName:(NSString *)assetsName imageName:(NSString *)imageName
 {
-    NSString *bundlePath = [self resourcePath];
-    NSString *basePath = [bundlePath stringByAppendingPathComponent:getAssetsName(assetsName)];
+    return [self bm_imageWithAssetsName:assetsName pathName:nil imageName:imageName];
+}
+
+- (UIImage *)bm_imageWithAssetsName:(NSString *)assetsName pathName:(NSString *)pathName imageName:(NSString *)imageName
+{
+    if (![imageName bm_isNotEmpty] || ![assetsName bm_isNotEmpty])
+    {
+        return nil;
+    }
     
-    NSString *imageTmpName = [imageName stringByDeletingPathExtension];
-    NSString *imagePathName = [imageTmpName stringByAppendingPathExtension:@"imageset"];
+    NSString *basePath = [self pathForResource:assetsName ofType:@"xcassets"];
+    NSString *imagePathName = [imageName stringByAppendingPathExtension:@"imageset"];
+
+    NSString *imageFilePath = [basePath stringByAppendingPathComponent:imagePathName];
     
-    NSString *imageFilePath = [[basePath stringByAppendingPathComponent:imagePathName] stringByAppendingPathComponent:imageName];
+    if ([pathName bm_isNotEmpty])
+    {
+        imageFilePath = [[basePath stringByAppendingPathComponent:pathName] stringByAppendingPathComponent:imagePathName];
+    }
+
+    NSBundle *imageBundle = [NSBundle bundleWithPath:imageFilePath];
     
-    return [UIImage imageWithContentsOfFile:imageFilePath];
+    UIImage *image = [imageBundle bm_imageWithImageName:imageName];
+    
+    return image;
 }
 
 #pragma mark localizedString
-
-+ (NSBundle *)bm_mainLocalizedBundle
-{
-    return [NSBundle bm_localizedBundleWithBundle:[NSBundle mainBundle]];
-}
-
-+ (NSBundle *)bm_mainLocalizedBundleWithLanguage:(NSString *)language
-{
-    return [NSBundle bm_localizedBundleWithBundle:[NSBundle mainBundle] language:language];
-}
-
-+ (NSBundle *)bm_localizedBundleWithBundleName:(NSString *)bundleName
-{
-    return [NSBundle bm_localizedBundleWithBundleName:bundleName language:nil];
-}
-
-+ (NSBundle *)bm_localizedBundleWithBundleName:(NSString *)bundleName language:(NSString *)language
-{
-    NSString *mainBundlePath = [[NSBundle mainBundle] resourcePath];
-    NSString *basePath = [mainBundlePath stringByAppendingPathComponent:getBundleName(bundleName)];
-    NSBundle *bundle = [NSBundle bundleWithPath:basePath];
-    return [NSBundle bm_localizedBundleWithBundle:bundle language:language];
-}
 
 + (NSBundle *)bm_localizedBundleWithBundle:(NSBundle *)bundle
 {
@@ -146,29 +133,32 @@ static inline NSString *getAssetsName(NSString *assetsName)
     return [NSBundle bundleWithPath:basePath];
 }
 
-+ (NSString *)bm_localizedStringFromBundleNamed:(NSString *)bundleName forKey:(NSString *)key value:(NSString *)value
-{
-    return [NSBundle bm_localizedStringFromBundleNamed:bundleName forKey:key value:value table:kTableDefault];
-}
-
-+ (NSString *)bm_localizedStringFromBundleNamed:(NSString *)bundleName forKey:(NSString *)key value:(NSString *)value table:(NSString *)table
-{
-    NSString *mainBundlePath = [[NSBundle mainBundle] resourcePath];
-    NSString *basePath = [mainBundlePath stringByAppendingPathComponent:getBundleName(bundleName)];
-    NSBundle *bundle = [NSBundle bundleWithPath:basePath];
-
-    return [bundle bm_localizedLanguageStringForKey:key value:value table:table];
-}
-
 - (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(NSString *)value
 {
-    return [self bm_localizedLanguageStringForKey:key value:value table:kTableDefault];
+    return [self bm_localizedLanguageStringForKey:key value:value table:nil withLanguage:nil];
 }
 
 - (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)table
 {
-    NSBundle *localizedBundle = [NSBundle bm_localizedBundleWithBundle:self];
+    return [self bm_localizedLanguageStringForKey:key value:value table:table withLanguage:nil];
+}
+
+- (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(NSString *)value withLanguage:(NSString *)language
+{
+    return [self bm_localizedLanguageStringForKey:key value:value table:nil withLanguage:language];
+}
+
+- (NSString *)bm_localizedLanguageStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)table withLanguage:(NSString *)language
+{
+    NSBundle *localizedBundle = [NSBundle bm_localizedBundleWithBundle:self language:language];
     return [localizedBundle localizedStringForKey:key value:value table:table];
 }
+
+@end
+
+
+@implementation NSBundle (BMLocalized)
+
+
 
 @end

@@ -31,7 +31,7 @@
 - (void)setupView
 {
     self.backView = [[UIView alloc] init];
-    self.backView.backgroundColor = [UIColor bm_colorWithHexString:@"#EFF3FA"];
+    self.backView.backgroundColor = YSSkinDefineColor(@"Color3");
     self.backView.layer.cornerRadius = 12.5;
     [self.contentView addSubview:self.backView];
     
@@ -41,21 +41,21 @@
     self.iMessageLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     self.iMessageLabel.numberOfLines = 1;
     [self.iMessageLabel setFont:UI_FONT_12];
-    self.iMessageLabel.textColor = [UIColor bm_colorWithHexString:@"#8D9CBC"];
+    self.iMessageLabel.textColor = YSSkinDefineColor(@"PlaceholderColor");
     [self.backView addSubview:self.iMessageLabel];
 }
 
-- (void)setModel:(YSChatMessageModel *)model
+- (void)setModel:(CHChatMessageModel *)model
 {
     _model = model;
     
-    if (model.chatMessageType == YSChatMessageTypeImageTips)
+    if (model.chatMessageType == CHChatMessageType_ImageTips)
     {
         NSString * str = [NSString stringWithFormat:@"  %@%@ ",model.sendUser.nickName,YSLocalized(@"Role.ToTeacher")];
         NSMutableAttributedString * mutAttrString = [[NSMutableAttributedString alloc]initWithString:str];
         NSTextAttachment * attch = [[NSTextAttachment alloc]init];
         attch.bounds = CGRectMake(0, 0, 20, 19);
-        attch.image = [UIImage imageNamed:@"flower"];
+        attch.image = YSSkinElementImage(@"live_chat_flowerBtn", @"iconNor");
         NSAttributedString * imageStr = [NSAttributedString attributedStringWithAttachment:attch];
         [mutAttrString appendAttributedString:imageStr];
         
@@ -81,7 +81,8 @@
     [super layoutSubviews];
     
     CGFloat width = 0.f;
-    if (self.model.chatMessageType == YSChatMessageTypeImageTips)
+
+    if (self.model.chatMessageType == CHChatMessageType_ImageTips)
     {
         width = [self.iMessageLabel.attributedText bm_sizeToFitHeight:25].width+20;
     }

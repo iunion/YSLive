@@ -11,6 +11,6 @@
 @interface UIView (BMOutSide)
 
 // 响应区域需要改变的大小，负值表示往外扩大，正值表示往内缩小
-@property(nonatomic, assign) UIEdgeInsets bm_ActionEdgeInsets;
+@property (nonatomic, assign) UIEdgeInsets bm_ActionEdgeInsets;
 
 @end

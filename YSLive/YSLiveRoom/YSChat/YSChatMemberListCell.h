@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YSChatMemberListCell : UITableViewCell
 
 ///是否选中这一行
-@property(nonatomic,assign)BOOL isSelected;
+@property(nonatomic, assign) BOOL isSelected;
 ///数据模型
-@property(nonatomic,strong)YSRoomUser * model;
+@property(nonatomic, strong) CHRoomUser * model;
 
 
 @end

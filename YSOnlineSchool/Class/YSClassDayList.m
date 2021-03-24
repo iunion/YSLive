@@ -32,7 +32,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 @interface YSClassDayList ()
 <
     YSClassCellDelegate,
-    YSLiveRoomManagerDelegate,
+    CHSessionDelegate,
     YSClassDetailVCDelegate
 >
 
@@ -41,7 +41,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, strong) NSURLSessionDataTask *enterRoomTask;
 
+#if 0
 @property (nonatomic, strong) NSString *leftHUDmessage;
+#endif
 
 @end
 
@@ -63,10 +65,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     self.bm_CanBackInteractive = NO;
 
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");
     
     // iOS 获取设备当前语言和地区的代码
-    NSString *currentLanguageRegion = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] firstObject];
+    NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
     NSString *time;
     if ([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
     {
@@ -78,10 +80,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 
     NSString *title = [NSString stringWithFormat:@"%@ %@", time, YSLocalizedSchool(@"ClassDayList.Title")];
-
-    self.bm_NavigationItemTintColor = [UIColor whiteColor];
-    self.bm_NavigationTitleTintColor = [UIColor whiteColor];
-    [self bm_setNavigationWithTitle:title barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshVC)];
+    
+    self.bm_NavigationTitleTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    self.bm_NavigationItemTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    [self bm_setNavigationWithTitle:title barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:YSSkinOnlineDefineImage(@"navigationbar_back_icon") leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:YSSkinOnlineDefineImage(@"navigationbar_refresh_icon") rightToucheEvent:@selector(refreshVC)];
 
     
     self.loadDataType = YSAPILoadDataType_Page;
@@ -115,11 +117,16 @@ typedef void (^YSRoomLeftDoBlock)(void);
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
@@ -168,7 +175,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
     
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         return [YSLiveApiRequest getTeacherClassListWithUserId:schoolUser.userId
                 pagesize:20 date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"] pagenum:1];
@@ -261,7 +268,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 
-    YSUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
+    CHUserRoleType schoolUserType = [YSSchoolUser shareInstance].userRoleType;
 
     BMAFHTTPSessionManager *manager = [YSApiRequest makeYSHTTPSessionManager];
     NSMutableURLRequest *request = [YSLiveApiRequest enterOnlineSchoolClassWithWithUserType:schoolUserType toTeachId:classModel.toTeachId];
@@ -294,7 +301,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             {
                 [weakSelf.progressHUD bm_hideAnimated:NO];
 
-                NSDictionary *responseDic = [YSLiveUtil convertWithData:responseObject];
+                NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
                 if ([responseDic bm_isNotEmptyDictionary])
                 {
                     NSInteger statusCode = [responseDic bm_intForKey:YSSuperVC_StatusCode_Key];
@@ -311,7 +318,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                             {
                                 //serverTime = serverTime / 1000;
                                 //NSString *str = [NSDate bm_stringFromTs:serverTime];
-                                YSLiveManager *liveManager = [YSLiveManager shareInstance];
+                                YSLiveManager *liveManager = [YSLiveManager sharedInstance];
                                 liveManager.tServiceTime = serverTime;
                                 NSString *message = @"";
                                 BOOL stop = NO;
@@ -341,7 +348,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
                             if ([serial bm_isNotEmpty])
                             {
                                 YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-                                if (schoolUser.userRoleType == YSUserType_Teacher)
+                                if (schoolUser.userRoleType == CHUserType_Teacher)
                                 {
                                     classModel.classState = YSClassState_Begin;
                                 }
@@ -406,8 +413,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 
     //[[YSLiveManager shareInstance] destroy];
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
-    [liveManager registerRoomManagerDelegate:self];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+    [liveManager registerRoomDelegate:self];
     
     if (![passWord bm_isNotEmpty])
     {
@@ -416,7 +423,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     NSString *userId;
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         userId = [NSString stringWithFormat:@"2_%@", schoolUser.userId];
     }
@@ -424,7 +431,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         userId = [NSString stringWithFormat:@"3_%@", schoolUser.userId];
     }
-    YSUserRoleType userRoleType = schoolUser.userRoleType;
+    CHUserRoleType userRoleType = schoolUser.userRoleType;
 
     if (![nickName bm_isNotEmpty])
     {
@@ -438,7 +445,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [Bugly setUserValue:nickName forKey:@"nickName"];
     [Bugly setUserValue:schoolUserAccount forKey:@"userAccount"];
 
-    [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
+    [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
@@ -446,7 +453,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (BOOL)checkKickTimeWithRoomId:(NSString *)roomId
 {
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-    if (schoolUser.userRoleType == YSUserType_Student)
+    if (schoolUser.userRoleType == CHUserType_Student)
     {
         // 学生被T 3分钟内不能登录
         NSString *roomIdKey = [NSString stringWithFormat:@"%@_%@", YSKickTime, roomId];
@@ -482,7 +489,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)waitRoomLeft:(YSRoomLeftDoBlock)doSometing
 {
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
-    [[YSLiveManager shareInstance].roomManager leaveRoom:nil];
+    [[YSLiveManager sharedInstance] leaveRoom:nil];
     if (doSometing)
     {
         doSometing();
@@ -490,13 +497,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
 }
 
 // 成功进入房间
-- (void)onRoomJoined:(long)ts;
+- (void)onRoomDidCheckRoom
 {
-    BMLog(@"YSLoginVC onRoomJoined");
+    BMLog(@"YSLoginVC onRoomDidCheckRoom");
     
     [self.progressHUD bm_hideAnimated:NO];
     
-    YSLiveManager *liveManager = [YSLiveManager shareInstance];
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
 
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
 
@@ -510,20 +517,24 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [Bugly setUserValue:nickName forKey:@"nickName"];
     [Bugly setUserValue:schoolUserAccount forKey:@"userAccount"];
 
-    YSAppUseTheType appUseTheType = liveManager.room_UseTheType;
+    CHRoomUseType appUseTheType = liveManager.room_UseType;
 
     // 3: 小班课  4: 直播  6： 会议
-    if (appUseTheType == YSAppUseTheTypeSmallClass || appUseTheType == YSAppUseTheTypeMeeting)
+    if (appUseTheType == CHRoomUseTypeSmallClass || appUseTheType == CHRoomUseTypeMeeting)
     {
+        [YSLiveSkinManager shareInstance].skinBundle = [CHSessionManager sharedInstance].skinBundle;
+        
+        [YSLiveSkinManager shareInstance].isSmallVC = YES;
+        
         GetAppDelegate.allowRotation = YES;
         NSUInteger maxvideo = [liveManager.roomDic bm_uintForKey:@"maxvideo"];
-        YSRoomTypes roomusertype = maxvideo > 2 ? YSRoomType_More : YSRoomType_One;
-        
+        CHRoomUserType roomusertype = liveManager.roomModel.roomUserType;
+
         BOOL isWideScreen = liveManager.room_IsWideScreen;
         
-        YSUserRoleType roleType = liveManager.localUser.role;
+        CHUserRoleType roleType = liveManager.localUser.role;
         
-        if (roleType == YSUserType_Teacher)
+        if (roleType == CHUserType_Teacher)
         {
             YSTeacherRoleMainVC *mainVC = [[YSTeacherRoleMainVC alloc] initWithRoomType:roomusertype isWideScreen:isWideScreen maxVideoCount:maxvideo whiteBordView:liveManager.whiteBordView userId:nil];
             mainVC.appUseTheType = appUseTheType;
@@ -577,15 +588,15 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 }
 
-- (void)roomManagerNeedEnterPassWord:(YSRoomErrorCode)errorCode
+- (void)roomManagerNeedEnterPassWord:(CHRoomErrorCode)errorCode
 {
     [self.progressHUD bm_hideAnimated:NO];
 
     [YSLiveManager destroy];
 
     BMWeakSelf
-    if (errorCode == YSErrorCode_CheckRoom_PasswordError ||
-        errorCode == YSErrorCode_CheckRoom_WrongPasswordForRole)
+    if (errorCode == CHErrorCode_CheckRoom_PasswordError ||
+        errorCode == CHErrorCode_CheckRoom_WrongPasswordForRole)
     {
         [BMAlertView ys_showAlertWithTitle:YSLoginLocalized(@"Error.PwdError") message:nil cancelTitle:YSLoginLocalized(@"Prompt.OK") completion:^(BOOL cancelled, NSInteger buttonIndex) {
              [weakSelf theRoomNeedPassword];
@@ -604,10 +615,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
         BMLog(@"%@",passWord);
         //[YSLiveManager destroy];
         
-        YSLiveManager *liveManager = [YSLiveManager shareInstance];
-        [liveManager registerRoomManagerDelegate:self];
+        YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+        [liveManager registerRoomDelegate:self];
         
-        [liveManager joinRoomWithHost:liveManager.liveHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:YSUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
+        [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:CHUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
         
         [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
     } dismissBlock:^(id  _Nullable sender, NSUInteger index) {
@@ -618,15 +629,41 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }];
 }
 
-- (void)roomManagerReportFail:(YSRoomErrorCode)errorCode descript:(NSString *)descript
+/// 进入房间失败
+- (void)onRoomJoinFailed:(NSDictionary *)errorDic
 {
-    #if YSShowErrorCode
-        self.leftHUDmessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
-    #else
-        self.leftHUDmessage = descript;
-    #endif
+    NSError *error = [errorDic objectForKey:@"error"];
+    CHRoomErrorCode errorCode = error.code;
+    NSString *descript = [YSLiveUtil getOccuredErrorCode:errorCode];
+    
+    NSLog(@"================================== onRoomJoinFailed: %@, %@", @(errorCode), descript);
+    
+    if (errorCode == CHErrorCode_CheckRoom_NeedPassword ||
+        errorCode == CHErrorCode_CheckRoom_PasswordError ||
+        errorCode == CHErrorCode_CheckRoom_WrongPasswordForRole)
+    {
+        [self roomManagerNeedEnterPassWord:errorCode];
+        return;
+    }
 
+#if YSShowErrorCode
+    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
+#else
+    NSString *errorMessage = descript;
+#endif
+    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    
+    [YSLiveManager destroy];
+
+#if 0
+#if YSShowErrorCode
+    self.leftHUDmessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), descript];
+#else
+    self.leftHUDmessage = descript;
+#endif
+    
     [self waitRoomLeft:nil];
+#endif
     
 //    [self.progressHUD bm_hideAnimated:NO];
 //    if (![YSCoreStatus isNetworkEnable])
@@ -646,15 +683,31 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    [YSLiveManager destroy];
 }
 
+/// 发生错误 回调
+- (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
+{
+    NSLog(@"================================== onRoomDidOccuredError: %@", message);
+    
+#if YSShowErrorCode
+    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), message];
+#else
+    NSString *errorMessage = message;
+#endif
+    
+    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+}
+
 // 已经离开房间
 - (void)onRoomLeft
 {
     NSString *errorMessage;
+#if 0
     if (self.leftHUDmessage)
     {
         errorMessage = self.leftHUDmessage;
     }
     else
+#endif
     {
         if ([YSCoreStatus currentNetWorkStatus] == YSCoreNetWorkStatusNone)
         {
@@ -667,9 +720,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 
     [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
-
-    self.leftHUDmessage = nil;
     
+#if 0
+    self.leftHUDmessage = nil;
+#endif
+
     [YSLiveManager destroy];
 }
 

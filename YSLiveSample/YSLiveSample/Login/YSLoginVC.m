@@ -13,7 +13,10 @@
 #import "Masonry.h"
 #import "YSLoginMacros.h"
 
-#import <YSSDK/YSSDKManager.h>
+#import <YSLiveSDK/YSSDKManager.h>
+
+#import <YSLiveSDK/UIAlertController+SCAlertAutorotate.h>
+
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #define USE_COOKIES     0
@@ -128,6 +131,10 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
     NSLog(@"SDK version: %@", [YSSDKManager SDKDetailVersion]);
     self.ysSDKManager = [YSSDKManager sharedInstance];
+    
+    self.ysSDKManager.useAppDelegateAllowRotation = GetAppDelegate.useAllowRotation;
+    self.ysSDKManager.classCanRotation = GetAppDelegate.classCanRotation;
+    
     [self.ysSDKManager registerManagerDelegate:self];
     
 #if USE_COOKIES
@@ -140,7 +147,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 #endif
     
     // 设置H5课件扩展参数
-    [self.ysSDKManager changeConnectH5CoursewareUrlParameters:@{@"app_token" : @"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYWRhbmFtdSBhcHAiLCJleHAiOjE1OTE0MjcyOTMsImlhdCI6MTU4ODgzNTI2MywiaXNzIjoiS2lkc0xvb3BDaGluYVVzZXIiLCJzdWIiOiJhdXRob3JpemF0aW9uIiwiVG9rZW5UeXBlIjowLCJEYXRhIjoiSE9HdE1Ub3dsVVhyeGRQdlFmYXNKRHIvK3k0OWhQU2Q1ajVrblFEMEViV3g0d202L3dsYkdWS0NicjZoeU90WUpPQlRjVmJvK2NUbXNySVhSV0s1amQ4bVRkOXNnN253RlAzZGFQajZjV3FjTzdrMEMxNDNYQlV6YmJ1bEFHVHVJWFpKYy9Fa2p2am43c0Z4OGNGLyJ9.HCRjxXuE9wU_ingpplY88Zl9O-TyvxgZ1H5yoOxEtNFPfZ1-tllQ-RZfMH5mX5zEWx1WI6TbKr_jPVN4j73aJYUC90hPmXG4VZLVQgt9ffVEnheKc8_ZATSF0LD0P8pERUjnqXp4cMPcEk37VSAZcOzdySdgR8_ac1FPfZV9eL8"}];
+//    [self.ysSDKManager changeConnectH5CoursewareUrlParameters:@{@"app_token" : @"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYWRhbmFtdSBhcHAiLCJleHAiOjE1OTE0MjcyOTMsImlhdCI6MTU4ODgzNTI2MywiaXNzIjoiS2lkc0xvb3BDaGluYVVzZXIiLCJzdWIiOiJhdXRob3JpemF0aW9uIiwiVG9rZW5UeXBlIjowLCJEYXRhIjoiSE9HdE1Ub3dsVVhyeGRQdlFmYXNKRHIvK3k0OWhQU2Q1ajVrblFEMEViV3g0d202L3dsYkdWS0NicjZoeU90WUpPQlRjVmJvK2NUbXNySVhSV0s1amQ4bVRkOXNnN253RlAzZGFQajZjV3FjTzdrMEMxNDNYQlV6YmJ1bEFHVHVJWFpKYy9Fa2p2am43c0Z4OGNGLyJ9.HCRjxXuE9wU_ingpplY88Zl9O-TyvxgZ1H5yoOxEtNFPfZ1-tllQ-RZfMH5mX5zEWx1WI6TbKr_jPVN4j73aJYUC90hPmXG4VZLVQgt9ffVEnheKc8_ZATSF0LD0P8pERUjnqXp4cMPcEk37VSAZcOzdySdgR8_ac1FPfZV9eL8"}];
     
     if (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
     {
@@ -157,7 +164,12 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
@@ -402,7 +414,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     {
         _joinRoomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         //        _joinRoomBtn.backgroundColor = YSColor_DefaultBlue;
-        [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSSLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
+//        [_joinRoomBtn setTitle:[NSString stringWithFormat:@"%@",YSSLocalized(@"Login.EnterRoom")] forState:UIControlStateNormal];
         
         UIColor *color = login_UIColorFromRGB(0xFFE895);
         [_joinRoomBtn setTitleColor:color forState:UIControlStateNormal];
@@ -510,6 +522,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         return;
     }
 
+#pragma mark - 身份
+
     // 根据实际用户变更用户身份
     userRole = YSSDKUserType_Teacher;
     __weak __typeof(self) weakSelf = self;
@@ -517,7 +531,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     [self.ysSDKManager checkRoomTypeBeforeJoinRoomWithRoomId:roomId success:^(YSSDKUseTheType roomType, BOOL needpassword) {
         // roomType: 房间类型 3：小班课  4：直播   6：会议
         // needpassword: 参会人员(学生)是否需要密码
-        if (self->userRole == YSSDKSUserType_Student)
+        if (self->userRole == YSSDKUserType_Student)
         {
             // 学生登入
             // 注意： 直播只支持学生身份登入房间
@@ -555,6 +569,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         }];
+        alertVc.sc_Portrait = YES;
         [alertVc addAction:confimAc];
         return;
     }
@@ -567,6 +582,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         
         UIAlertAction *confimAc = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         }];
+        alertVc.sc_Portrait = YES;
         [alertVc addAction:confimAc];
         return;
     }
@@ -596,11 +612,8 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 #pragma mark -
 #pragma mark YSLiveSDKDelegate
 
-/**
-    成功进入房间
-    @param ts 服务器当前时间戳，以秒为单位，如1572001230
- */
-- (void)onRoomJoined:(NSTimeInterval)ts roomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
+/// 成功进入房间
+- (void)onRoomJoinWithRoomType:(YSSDKUseTheType)roomType userType:(YSSDKUserRoleType)userType
 {
     NSLog(@"onRoomJoined");
     
@@ -629,6 +642,16 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 }
 
 /**
+    即将离开房间
+ */
+- (void)onRoomWillLeft
+{
+    NSLog(@"onRoomWillLeft");
+    
+    GetAppDelegate.allowRotation = NO;
+}
+
+/**
     已经离开房间
  */
 - (void)onRoomLeft
@@ -640,9 +663,9 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
 
 /**
     自己被踢出房间
-    @param reason 被踢原因
+    @param reasonCode 被踢原因
  */
-- (void)onRoomKickedOut:(NSDictionary *)reason
+- (void)onRoomKickedOut:(NSInteger)reasonCode
 {
     NSLog(@"onRoomKickedOut");
 
@@ -673,7 +696,6 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         {
             textField.placeholder = YSSLocalized(@"Error.NeedPwd.student");
         }
-        textField.text = @"94Y620EE";
     }];
 
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -681,7 +703,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
         NSString *roomId = self.roomTextField.inputTextField.text;
         NSString *nickName = self.nickNameTextField.inputTextField.text;
         NSString *password = passwordTextField.text;
-        if (self->userRole == YSSDKSUserType_Student)
+        if (self->userRole == YSSDKUserType_Student)
         {
             // 学生登入
             // 注意： 直播只支持学生身份登入房间
@@ -694,6 +716,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
             [self.ysSDKManager joinRoomWithRoomId:roomId nickName:nickName roomPassword:password userRole:self->userRole userId:nil userParams:nil needCheckPermissions:NO];
         }
     }];
+    alertVc.sc_Autorotate = YES;
     [alertVc addAction:confimAc];
     
     [self presentViewController:alertVc animated:YES completion:nil];
@@ -715,6 +738,7 @@ static NSString *const YSLOGIN_USERDEFAULT_NICKNAME = @"ysLOGIN_USERDEFAULT_NICK
     
     UIAlertAction *confimAc = [UIAlertAction actionWithTitle:YSSLocalized(@"Prompt.OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
+    alertVc.sc_Autorotate = YES;
     [alertVc addAction:confimAc];
     
     [self presentViewController:alertVc animated:YES completion:nil];

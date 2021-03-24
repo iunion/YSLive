@@ -7,9 +7,9 @@
 //
 
 #import "NSString+Emoji.h"
-#import "emojiCodes.h"
+#import "BMEmojiCodes.h"
 
-BOOL NSRangeIntersectsRange(NSRange range1, NSRange range2)
+BOOL BMNSRangeIntersectsRange(NSRange range1, NSRange range2)
 {
     if (range1.location > range2.location + range2.length) return NO;
     if (range2.location > range1.location + range1.length) return NO;
@@ -18,23 +18,23 @@ BOOL NSRangeIntersectsRange(NSRange range1, NSRange range2)
 
 @implementation NSString (Emoji)
 
-+ (NSDictionary *)emojiAliases
++ (NSDictionary *)bm_emojiAliases
 {
     static NSDictionary *_emojiAliases;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _emojiAliases = EMOJI_CODE;
+        _emojiAliases = BMEMOJI_CODE;
     });
     return _emojiAliases;
 }
 
 // emoji转字符
-+ (NSString *)encodeEmojiStringWithString:(NSString *)text
++ (NSString *)bm_encodeEmojiStringWithString:(NSString *)text
 {
     if (text.length)
     {
         __block NSMutableString *resultText = [NSMutableString stringWithString:text];
-        [self.emojiAliases enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [self.bm_emojiAliases enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSString *code = obj;
             [resultText replaceOccurrencesOfString:code withString:key options:NSLiteralSearch range:NSMakeRange(0, resultText.length)];
         }];
@@ -45,13 +45,13 @@ BOOL NSRangeIntersectsRange(NSRange range1, NSRange range2)
     return text;
 }
 
-- (NSString *)encodeEmojiString
+- (NSString *)bm_encodeEmojiString
 {
-    return [NSString encodeEmojiStringWithString:self];
+    return [NSString bm_encodeEmojiStringWithString:self];
 }
 
 // 字符转emoji
-+ (NSDictionary *)decodeEmojiStringWithString:(NSString *)text
++ (NSDictionary *)bm_decodeEmojiStringWithString:(NSString *)text
 {
     static dispatch_once_t onceToken;
     static NSRegularExpression *regex = nil;
@@ -83,7 +83,7 @@ BOOL NSRangeIntersectsRange(NSRange range1, NSRange range2)
                 BOOL rangesIntersects = NO;
                 for (NSTextCheckingResult *urlMatch in urlMatches)
                 {
-                    rangesIntersects = NSRangeIntersectsRange(urlMatch.range, range);
+                    rangesIntersects = BMNSRangeIntersectsRange(urlMatch.range, range);
                     if (rangesIntersects)
                     {
                         break;
@@ -91,7 +91,7 @@ BOOL NSRangeIntersectsRange(NSRange range1, NSRange range2)
                 }
                 
                 NSString *code = [text substringWithRange:range];
-                NSString *unicode = self.emojiAliases[code];
+                NSString *unicode = self.bm_emojiAliases[code];
                if (unicode && !rangesIntersects)
                 {
                     resultText = [resultText stringByReplacingOccurrencesOfString:code withString:unicode];
@@ -107,9 +107,9 @@ BOOL NSRangeIntersectsRange(NSRange range1, NSRange range2)
     return @{BMEmojizedStringKey : resultText, BMEmojiRangesKey : matchingRanges, BMEmojiLengthChangesKey : matchingLengthChanges};
 }
 
-- (NSDictionary *)decodeEmojiString
+- (NSDictionary *)bm_decodeEmojiString
 {
-    return [NSString decodeEmojiStringWithString:self];
+    return [NSString bm_decodeEmojiStringWithString:self];
 }
 
 @end

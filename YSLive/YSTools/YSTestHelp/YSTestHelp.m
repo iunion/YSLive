@@ -154,7 +154,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:YS_FLOWERADDRESS_ONLINE forKey:YS_FLOWERADDRESS_KEY];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            [YSLiveManager shareInstance].liveHost = YSLIVE_HOST;
+            [YSLiveManager sharedInstance].apiHost = YSLIVE_HOST;
             
             [BMConsole log:@"当前api已经变更为'线上'"];
             
@@ -175,7 +175,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:YS_FLOWERADDRESS_DEV forKey:YS_FLOWERADDRESS_KEY];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            [YSLiveManager shareInstance].liveHost = YSLIVE_HOST;
+            [YSLiveManager sharedInstance].apiHost = YSLIVE_HOST;
             
             [BMConsole log:@"当前api已经变更为'开发'"];
         }
@@ -195,7 +195,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:YS_FLOWERADDRESS_TEST forKey:YS_FLOWERADDRESS_KEY];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            [YSLiveManager shareInstance].liveHost = YSLIVE_HOST;
+            [YSLiveManager sharedInstance].apiHost = YSLIVE_HOST;
             
             [BMConsole log:@"当前api已经变更为'测试'"];
         }

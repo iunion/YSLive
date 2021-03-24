@@ -24,21 +24,32 @@
 #define FLEX_BM                 1
 #endif
 
+
 #import "YSAppMacros.h"
 #import "YSAppUIDef.h"
 
 #import <BMKit/BMKitThird.h>
 
-#import <YSRoomSDK/YSRoomSDK.h>
-#import <YSWhiteBoard/YSWhiteBoard.h>
-#import <YSWhiteBoard/YSWhiteBoardManager.h>
+#import <CloudHubRTC/CloudHubRTC.h>
+
+#import <CHSession/CHSession.h>
+#import <CHWhiteBoard/CHWhiteBoard.h>
+#import <CHWhiteBoard/CHWhiteBoardManager.h>
+#import <CloudHubWhiteBoardKit/CloudHubWhiteBoardKit.pch>
+
+#import "YSLiveMacros.h"
+#import "YSAppMacros.h"
 
 #import "YSLiveManager.h"
+
 #import "YSUserDefault.h"
+#import "YSLiveSkinManager.h"
+
 #if YSSDK
 #else
 #import "YSSchoolUser.h"
 #endif
+
 #define YSKeyWindow [UIApplication sharedApplication].keyWindow
 
 

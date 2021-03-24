@@ -53,7 +53,7 @@
  */
 
 #ifndef DisableRegExCategoriesMacros
-#define Rx NSRegularExpression
+#define BMRx NSRegularExpression
 #endif
 
 
@@ -65,7 +65,7 @@
  */
 
 #ifndef DisableRegExCategoriesMacros
-#define RX(pattern) [[NSRegularExpression alloc] initWithPattern:pattern]
+#define BMRX(pattern) [[NSRegularExpression alloc] initWithPattern:pattern]
 #endif
 
 
@@ -80,17 +80,21 @@
  * string.
  */
 
-@interface RxMatch : NSObject
-@property (nonatomic, copy)     NSString* value;    /* The substring that matched the expression. */
-@property (nonatomic, assign)   NSRange   range;    /* The range of the original string that was matched. */
-@property (nonatomic, copy)     NSArray*  groups;   /* Each object is an RxMatchGroup. */
-@property (nonatomic, copy)     NSString* original; /* The full original string that was matched against.  */
+@interface BMRxMatch : NSObject
+
+@property (nonatomic, copy) NSString *value;    /* The substring that matched the expression. */
+@property (nonatomic, assign) NSRange range;    /* The range of the original string that was matched. */
+@property (nonatomic, copy) NSArray * groups;   /* Each object is an RxMatchGroup. */
+@property (nonatomic, copy) NSString * original; /* The full original string that was matched against.  */
+
 @end
 
 
-@interface RxMatchGroup : NSObject
-@property (nonatomic, copy)   NSString* value;
+@interface BMRxMatchGroup : NSObject
+
+@property (nonatomic, copy) NSString *value;
 @property (nonatomic, assign) NSRange range;
+
 @end
 
 
@@ -118,7 +122,7 @@
  * var rx = NSRegularExpression(pattern:"\d+");
  */
 
-- (NSRegularExpression*) initWithPattern:(NSString*)pattern;
+- (instancetype)initWithPattern:(NSString *)pattern;
 
 
 /**
@@ -131,7 +135,7 @@
  * var rx = NSRegularExpression.rx("\d+");
  */
 
-+ (NSRegularExpression*) rx:(NSString*)pattern;
++ (NSRegularExpression *)bm_rx:(NSString*)pattern;
 
 
 /**
@@ -145,7 +149,7 @@
  * var rx = NSRegularExpression.rx("\d+", ignoreCase: true);
  */
 
-+ (NSRegularExpression*) rx:(NSString*)pattern ignoreCase:(BOOL)ignoreCase;
++ (NSRegularExpression *)bm_rx:(NSString *)pattern ignoreCase:(BOOL)ignoreCase;
 
 
 /**
@@ -158,7 +162,7 @@
  * var rx = NSRegularExpression.rx("\d+", options: .CaseInsensitive);
  */
 
-+ (NSRegularExpression*) rx:(NSString*)pattern options:(NSRegularExpressionOptions)options;
++ (NSRegularExpression *)bm_rx:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
 
 /*******************************************************/
@@ -178,7 +182,7 @@
  * var isMatch = rx.isMatch("Dog #1"); // => true
  */
 
-- (BOOL) isMatch:(NSString*)matchee;
+- (BOOL)bm_isMatch:(NSString *)matchee;
 
 
 /**
@@ -188,7 +192,7 @@
  * int i = [RX(@"\d+") indexOf:@"Buy 1 dog or buy 2?"]; // => 4
  */
 
-- (int) indexOf:(NSString*)str;
+- (NSInteger)bm_indexOf:(NSString *)str;
 
 
 /**
@@ -200,7 +204,7 @@
  *  => @[@"A", @"dog", @"cat"]
  */
 
-- (NSArray*) split:(NSString*)str;
+- (NSArray *)bm_split:(NSString *)str;
 
 
 /**
@@ -211,7 +215,7 @@
  *  => @"meow meow!"
  */
 
-- (NSString*) replace:(NSString*)string with:(NSString*)replacement;
+- (NSString *)bm_replace:(NSString*)string with:(NSString *)replacement;
 
 
 /**
@@ -223,7 +227,7 @@
  *  => @"i love lamp"
  */
 
-- (NSString*) replace:(NSString*)string withBlock:(NSString*(^)(NSString* match))replacer;
+- (NSString *)bm_replace:(NSString *)string withBlock:(NSString *(^)(NSString* match))replacer;
 
 
 /**
@@ -236,7 +240,7 @@
  *  => @"2 3"
  */
 
-- (NSString*) replace:(NSString *)string withDetailsBlock:(NSString*(^)(RxMatch* match))replacer;
+- (NSString *)bm_replace:(NSString *)string withDetailsBlock:(NSString *(^)(BMRxMatch * match))replacer;
 
 
 /**
@@ -248,7 +252,7 @@
  *  => @[ @"me@example.com", @"you@example.com" ]
  */
 
-- (NSArray*) matches:(NSString*)str;
+- (NSArray *)bm_matches:(NSString *)str;
 
 
 /**
@@ -260,7 +264,7 @@
  *  => @"me@example.com"
  */
 
-- (NSString*) firstMatch:(NSString*)str;
+- (NSString *)bm_firstMatch:(NSString *)str;
 
 
 /**
@@ -272,7 +276,7 @@
  * NSArray* matches = [str matchesWithDetails:RX(@"\\w+[@]\\w+[.](\\w+)")];
  */
 
-- (NSArray*) matchesWithDetails:(NSString*)str;
+- (NSArray *)bm_matchesWithDetails:(NSString *)str;
 
 
 /**
@@ -284,7 +288,7 @@
  * RxMatch* match = [rx firstMatchWithDetails:str];
  */
 
-- (RxMatch*) firstMatchWithDetails:(NSString*)str;
+- (BMRxMatch *)bm_firstMatchWithDetails:(NSString *)str;
 
 @end
 

@@ -12,15 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SCTopToolBarModel : NSObject
 /// 房间号
-@property (nonatomic, strong)NSString *roomID;
+@property (nonatomic, strong) NSString *roomID;
 /// 上课时间
-@property (nonatomic, strong)NSString *lessonTime;
+@property (nonatomic, strong) NSString *lessonTime;
 /// 网络状态
-@property (nonatomic, assign)YSNetQuality netQuality;
+@property (nonatomic, assign) CHNetQuality netQuality;
 /// 网络延迟
-@property (nonatomic, assign)NSInteger netDelay;
+@property (nonatomic, assign) NSInteger netDelay;
 /// 丢包率
-@property (nonatomic, assign)CGFloat lostRate;
+@property (nonatomic, assign) CGFloat lostRate;
+
 @end
 
 NS_ASSUME_NONNULL_END

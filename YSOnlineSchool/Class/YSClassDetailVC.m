@@ -38,11 +38,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.view.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.view.backgroundColor = YSSkinOnlineDefineColor(@"liveDefaultBgColor");
 
-    self.bm_NavigationItemTintColor = [UIColor whiteColor];
-    self.bm_NavigationTitleTintColor = [UIColor whiteColor];
-    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"ClassDetail.Title") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:[UIImage imageNamed:@"navigationbar_back_icon"] leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:[UIImage imageNamed:@"onlineSchool_refresh"] rightToucheEvent:@selector(refreshVC)];
+    self.bm_NavigationTitleTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    self.bm_NavigationItemTintColor = YSSkinOnlineDefineColor(@"login_placeholderColor");
+    [self bm_setNavigationWithTitle:YSLocalizedSchool(@"ClassDetail.Title") barTintColor:YSSkinOnlineDefineColor(@"timer_timeBgColor") leftItemTitle:nil leftItemImage:YSSkinOnlineDefineImage(@"navigationbar_back_icon") leftToucheEvent:@selector(backAction:) rightItemTitle:nil rightItemImage:YSSkinOnlineDefineImage(@"navigationbar_refresh_icon") rightToucheEvent:@selector(refreshVC)];
     
     self.showEmptyView = YES;
 
@@ -74,11 +74,16 @@
 /// 1.决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    if (GetAppDelegate.useAllowRotation)
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 /// 2.返回支持的旋转方向
-/// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
+/// iPhone设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPad设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
@@ -155,7 +160,7 @@
     NSString *starttime = self.linkClassModel.startTimeStr;
     NSString *endtime = self.linkClassModel.endTimeStr;
 
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         return [YSLiveApiRequest getTeacherClassInfoWithToteachtimeid:toTeachId lessonsid:lessonsId starttime:starttime endtime:endtime date:[self.selectedDate bm_stringWithFormat:@"yyyy-MM-dd"]];
     }
@@ -178,7 +183,7 @@
 #endif
     
     YSSchoolUser *schoolUser = [YSSchoolUser shareInstance];
-    if (schoolUser.userRoleType == YSUserType_Teacher)
+    if (schoolUser.userRoleType == CHUserType_Teacher)
     {
         data = [data bm_dictionaryForKey:@"playback"];
         data = [data bm_dictionaryForKey:@"data"];

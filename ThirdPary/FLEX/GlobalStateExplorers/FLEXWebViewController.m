@@ -3,7 +3,7 @@
 //  Flipboard
 //
 //  Created by Ryan Olson on 6/10/14.
-//  Copyright (c) 2014 Flipboard. All rights reserved.
+//  Copyright (c) 2020 FLEX Team. All rights reserved.
 //
 
 #import "FLEXWebViewController.h"
@@ -25,8 +25,7 @@
 
 @implementation FLEXWebViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
@@ -41,8 +40,7 @@
     return self;
 }
 
-- (id)initWithText:(NSString *)text
-{
+- (id)initWithText:(NSString *)text {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.originalText = text;
@@ -66,8 +64,7 @@
 }
 #endif
 
-- (id)initWithURL:(NSURL *)url
-{
+- (id)initWithURL:(NSURL *)url {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -76,20 +73,18 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     // WKWebView's delegate is assigned so we need to clear it manually.
     if (_webView.navigationDelegate == self) {
         _webView.navigationDelegate = nil;
     }
-        
+            
 #if FLEX_BM
     self.document.delegate = nil;
 #endif
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.view addSubview:self.webView];
@@ -116,8 +111,7 @@
 #endif
 }
 
-- (void)copyButtonTapped:(id)sender
-{
+- (void)copyButtonTapped:(id)sender {
     [UIPasteboard.generalPasteboard setString:self.originalText];
 }
 
@@ -141,8 +135,7 @@
 
 #pragma mark - WKWebView Delegate
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
-{
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     WKNavigationActionPolicy policy = WKNavigationActionPolicyCancel;
     if (navigationAction.navigationType == WKNavigationTypeOther) {
         // Allow the initial load
@@ -157,7 +150,6 @@
     }
     decisionHandler(policy);
 }
-
 
 #if FLEX_BM
 #pragma mark - UIDocumentInteractionControllerDelegate
@@ -195,8 +187,7 @@
 
 #pragma mark - Class Helpers
 
-+ (BOOL)supportsPathExtension:(NSString *)extension
-{
++ (BOOL)supportsPathExtension:(NSString *)extension {
     BOOL supported = NO;
     NSSet<NSString *> *supportedExtensions = [self webViewSupportedPathExtensions];
     if ([supportedExtensions containsObject:[extension lowercaseString]]) {
@@ -205,8 +196,7 @@
     return supported;
 }
 
-+ (NSSet<NSString *> *)webViewSupportedPathExtensions
-{
++ (NSSet<NSString *> *)webViewSupportedPathExtensions {
     static NSSet<NSString *> *pathExtensions = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

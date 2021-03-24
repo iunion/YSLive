@@ -11,6 +11,13 @@
 #define ViewHeight      (356)
 #define ViewWidth       (270)
 #define ViewBottomGap   (30)
+@interface YSPrizeResultTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) UIView *bacView;
+@property (nonatomic, strong) UILabel *nameL;
+@property (nonatomic, strong) UILabel *timeL;
+
+@end
 
 
 @interface YSPrizeAlertView ()
@@ -36,8 +43,7 @@
     {
         self.showAnimationType = BMNoticeViewShowAnimationSlideInFromBottom;
         self.noticeMaskBgEffectView.alpha = 1.0;
-        self.noticeMaskBgEffect = nil;//[UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-//        self.noticeMaskBgColor = [UIColor blackColor];
+        self.noticeMaskBgEffect = nil;
         self.noticeMaskBgColor = [UIColor bm_colorWithHex:0x000000 alpha:0.6];
         self.shouldDismissOnTapOutside = NO;
 //        self.notDismissOnCancel = YES;
@@ -93,39 +99,46 @@
     alert.backgroundEdgeInsets = backgroundEdgeInsets;
     if (isResult)
     {//YES 中奖名单
-        [alert.bacImageView setImage:[UIImage imageNamed:@"prizeAlert_result"]];
-//        alert.topDistance = topDistance;//UI_SCREEN_HEIGHT - ViewBottomGap - ViewHeight;
+        [alert.bacImageView setImage:YSSkinElementImage(@"live_prizeAlert_result", @"iconNor")];
         alert.bacImageView.bm_height = ViewHeight;
         alert.bacImageView.bm_width = ViewWidth;
         
         [alert.bacImageView addSubview:alert.cancelBtn];
-        alert.cancelBtn.bm_right = alert.bacImageView.bm_right - 30;
-        alert.cancelBtn.bm_top = alert.bacImageView.bm_top + 20;
+        alert.cancelBtn.bm_right = alert.bacImageView.bm_right - 10;
+        alert.cancelBtn.bm_top = alert.bacImageView.bm_top + 10;
         alert.cancelBtn.bm_size = CGSizeMake(12, 12);
         
-        [alert.bacImageView addSubview:alert.tableView];
-        [alert.tableView bmmas_makeConstraints:^(BMMASConstraintMaker *make) {
-            make.bottom.bmmas_equalTo(alert.bacImageView.bmmas_bottom).bmmas_offset(-15);
-            make.left.bmmas_equalTo(alert.bacImageView.bmmas_left).bmmas_offset(19);
-            make.right.bmmas_equalTo(alert.bacImageView.bmmas_right).bmmas_offset(-19);
-            make.height.bmmas_equalTo(200);
-        }];
+        UIView *tempView = [[UIView alloc] init];
+        tempView.backgroundColor = [UIColor clearColor];
+        tempView.frame = CGRectMake(14, ViewHeight-15-200, ViewWidth-28, 200);
+        [alert.bacImageView addSubview:tempView];
+        [tempView bm_connerWithRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(24.0f, 24.0f)];
+        
+        [tempView addSubview:alert.tableView];
+        alert.tableView.frame = CGRectMake(0, 0, ViewWidth-28, 200);
+
+        UILabel * ingLabel = [[UILabel alloc] init];
+        ingLabel.text = YSLocalized(@"Label.LuckyResult");
+        ingLabel.font = [UIFont boldSystemFontOfSize:16];
+        ingLabel.textColor = YSSkinElementColor(@"live_prizeAlert_result", @"tittleColor");
+        ingLabel.textAlignment = NSTextAlignmentCenter;
+        [alert.bacImageView addSubview:ingLabel];
+        ingLabel.frame = CGRectMake(19, ViewHeight-15-200-22-5, ViewWidth-38, 22);
         
     }
     else
     {
-        [alert.bacImageView setImage:[UIImage imageNamed:@"prizeAlert_waiting"]];
-//        alert.topDistance = topDistance;
-        alert.bacImageView.bm_height = 196;
-        alert.bacImageView.bm_width = 224;
+        [alert.bacImageView setImage:YSSkinElementImage(@"live_prizeAlert_waiting", @"iconNor")];
+        alert.bacImageView.bm_height = 150;
+        alert.bacImageView.bm_width = 150;
         UILabel * ingLabel = [[UILabel alloc] init];
         ingLabel.text = YSLocalized(@"Label.Lucky");
-        ingLabel.font = [UIFont boldSystemFontOfSize:23];
-        ingLabel.textColor = [UIColor bm_colorWithHex:0xFFE895];
+        ingLabel.font = [UIFont boldSystemFontOfSize:20];
+        ingLabel.textColor = YSSkinElementColor(@"live_prizeAlert_waiting", @"tittleColor");
         ingLabel.textAlignment = NSTextAlignmentCenter;
         [alert.bacImageView addSubview:ingLabel];
-        ingLabel.frame = CGRectMake(0, 35, 92, 32);
-        ingLabel.bm_centerX = alert.bacImageView.bm_centerX + 15;
+        ingLabel.frame = CGRectMake(0, 15, 92, 32);
+        ingLabel.bm_centerX = alert.bacImageView.bm_centerX;
         
         
     }
@@ -164,24 +177,12 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        
-    static NSString * cellKey = @"YSPrizeAlertViewTableViewCell";
     
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellKey];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellKey];
-        cell.backgroundColor = UIColor.clearColor;
-    }
+    YSPrizeResultTableViewCell * resultCell = [tableView dequeueReusableCellWithIdentifier:@"YSPrizeResultTableViewCell" forIndexPath:indexPath];
+    resultCell.nameL.text = self.dataSource[indexPath.row];
+    resultCell.timeL.text = self.endTime;
     
-    cell.textLabel.textColor = UIColor.whiteColor;
-    cell.textLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 14);
-    cell.textLabel.text = self.dataSource[indexPath.row];
-    
-    cell.detailTextLabel.textColor = UIColor.whiteColor;
-    cell.detailTextLabel.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12);
-    cell.detailTextLabel.text = self.endTime;
-    
-    return cell;
+    return resultCell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -194,15 +195,16 @@
 {
     if (!_tableView)
     {
-        self.tableView = [[UITableView alloc]initWithFrame:CGRectZero style: UITableViewStylePlain];
-//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.tableView.separatorColor = UIColor.whiteColor;
-        self.tableView.delegate   = self;
-        self.tableView.dataSource = self;
-        self.tableView.backgroundColor = [UIColor clearColor];
-        self.tableView.showsHorizontalScrollIndicator = NO;
-        self.tableView.showsVerticalScrollIndicator = NO;
-        self.tableView.tableFooterView = [UIView new];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero style: UITableViewStylePlain];
+        _tableView.separatorColor = UIColor.clearColor;
+        _tableView.delegate   = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.tableFooterView = [UIView new];
+        [_tableView registerClass:[YSPrizeResultTableViewCell class] forCellReuseIdentifier:@"YSPrizeResultTableViewCell"];
+
     }
     return _tableView;
 }
@@ -213,11 +215,55 @@
     if (!_cancelBtn)
     {
         _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_cancelBtn setImage:[UIImage imageNamed:@"yslive_cancelbtn_close"] forState:UIControlStateNormal];
+        [_cancelBtn setImage:YSSkinElementImage(@"live_prizeAlert_close", @"iconNor") forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _cancelBtn;
+}
+
+@end
+
+
+@implementation YSPrizeResultTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
+{
+    self.contentView.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor clearColor];
+    
+    UIView *bacView = [[UIView alloc] init];
+    bacView.backgroundColor = [YSSkinDefineColor(@"Color3") bm_changeAlpha:0.5f];
+    [self.contentView addSubview:bacView];
+    CGFloat tempWidth = ViewWidth - 28;
+    bacView.frame = CGRectMake(0, 0, tempWidth, 25);
+    self.bacView = bacView;
+    
+    UILabel *nameL = [[UILabel alloc] init];
+    nameL.textColor = YSSkinDefineColor(@"PlaceholderColor");
+    nameL.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12);
+    [self.contentView addSubview:nameL];
+    nameL.frame = CGRectMake(20, 0, (tempWidth - 40)*0.5f, 25);
+    self.nameL = nameL;
+    
+    UILabel *timeL = [[UILabel alloc] init];
+    timeL.textColor = YSSkinDefineColor(@"PlaceholderColor");
+    timeL.textAlignment = NSTextAlignmentRight;
+    timeL.font = UI_FSFONT_MAKE(FontNamePingFangSCMedium, 12);
+    [self.contentView addSubview:timeL];
+    timeL.frame = CGRectMake(CGRectGetMaxX(nameL.frame), 0, (tempWidth - 40)*0.5f, 25);
+    
+    self.timeL = timeL;
+    
 }
 
 @end

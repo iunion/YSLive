@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YSChatMessageModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SCTextMessageCell : UITableViewCell
 
-@property (nonatomic, strong) YSChatMessageModel *model;
+@property (nonatomic, strong) CHChatMessageModel *model;
 
 @property (nonatomic, copy) void(^translationBtnClick)(void);
 

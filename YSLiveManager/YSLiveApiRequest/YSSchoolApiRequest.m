@@ -14,7 +14,7 @@
 + (NSMutableURLRequest *)getSchoolPublicKey
 {
     //http://school.roadofcloud.cn/index/Login/getPublicKey
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/getPublicKey", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/getPublicKey", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
@@ -27,7 +27,7 @@
                                    admin_pwd:(NSString *)admin_pwd
                                    randomKey:(NSString *)randomKey
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/loginV1", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/loginV1", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters bm_setString:domain forKey:@"domain"];
@@ -55,7 +55,7 @@
 + (NSMutableURLRequest *)postExitLoginWithToken:(NSString *)token
 {
     // http://school.roadofcloud.cn/index/Login/exitLogin
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/exitLogin", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/index/Login/exitLogin", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:token forKey:@"token"];
@@ -65,7 +65,7 @@
 }
 
 /// 获取课表日历数据
-+ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(YSUserRoleType)userRoleType Withdate:(NSString *)dateStr
++ (NSMutableURLRequest *)getClassListWithUserId:(NSString *)userId WithOrganId:(NSString *)organId WithUserType:(CHUserRoleType)userRoleType Withdate:(NSString *)dateStr
 {
     // http://school.roadofcloud.cn/student/Mycourse/studentCourseList
     NSString *urlStr = nil;
@@ -75,14 +75,14 @@
     [parameters bm_setString:dateStr forKey:@"date"];
     [parameters bm_setString:organId forKey:@"organid"];
     
-    if (userRoleType == YSUserType_Teacher)
+    if (userRoleType == CHUserType_Teacher)
     {
-        urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/teachCourseList", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+        urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/teachCourseList", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
         [parameters bm_setString:userId forKey:@"teacherid"];
     }
     else
     {
-        urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/studentCourseList", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+        urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/studentCourseList", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
         [parameters bm_setString:userId forKey:@"studentid"];
     }
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters isOnlineSchool:YES];
@@ -93,7 +93,7 @@
 {
     // http://school.roadofcloud.cn/student/Mycourse/getLessonsByDate
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/getLessonsByDate", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/getLessonsByDate", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:studentId forKey:@"studentid"];
     [parameters bm_setString:date forKey:@"date"];
@@ -107,7 +107,7 @@
 {
     // http://school.roadofcloud.net/teacher/Personalcourse/getLessonsByDate
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/getLessonsByDate", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/getLessonsByDate", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:userId forKey:@"teacherid"];
 //    [parameters bm_setInteger:pagesize forKey:@"pagesize"];
@@ -121,7 +121,7 @@
 + (NSMutableURLRequest *)getClassReplayListWithOrganId:(NSString *)organid toTeachId:(NSString *)toteachid
 {
     // student/Mycourse/getLessonsPlayback
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/getLessonsPlayback", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/getLessonsPlayback", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 //    [parameters bm_setString:organid forKey:@"organid"];
     [parameters bm_setString:toteachid forKey:@"toteachid"];
@@ -133,7 +133,7 @@
 + (NSMutableURLRequest *)getTeacherClassInfoWithToteachtimeid:(NSString *)toteachtimeid lessonsid:(NSString *)lessonsid starttime:(NSString *)starttime endtime:(NSString *)endtime date:(NSString *)date
 {
     // http://school.roadofcloud.net/teacher/Personalcourse/getPeriodinfo
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/getPeriodinfo", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/getPeriodinfo", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:toteachtimeid forKey:@"toteachtimeid"];
     [parameters bm_setString:lessonsid forKey:@"id"];
@@ -149,7 +149,7 @@
 + (NSMutableURLRequest *)getStudentInfoWithfStudentId:(NSString *)studentId
 {
     // http://school.roadofcloud.cn/appstudent/User/getStudentInfo
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/appstudent/User/getStudentInfo", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/appstudent/User/getStudentInfo", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:studentId forKey:@"studentid"];
     
@@ -157,14 +157,14 @@
 }
 
 /// 进入教室
-+ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(YSUserRoleType)userRoleType toTeachId:(NSString *)toteachid
++ (NSMutableURLRequest *)enterOnlineSchoolClassWithWithUserType:(CHUserRoleType)userRoleType toTeachId:(NSString *)toteachid
 {
     // /student/Mycourse/intoClassroom
     // https://school.roadofcloud.net/teacher/Personalcourse/intoClassroom
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/intoClassroom", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
-    if (userRoleType == YSUserType_Teacher)
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/Mycourse/intoClassroom", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
+    if (userRoleType == CHUserType_Teacher)
     {
-        urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/intoClassroom", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+        urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Personalcourse/intoClassroom", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     }
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
@@ -177,7 +177,7 @@
 + (NSMutableURLRequest *)postStudentUpdatePass:(NSString *)updatePass repass:(NSString *)repass studentid:(NSString *)studentid organid:(NSString *)organid
 {
     //http://school.roadofcloud.cn/student/Homepage/updatePass
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/User/updateUserPass", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/student/User/updateUserPass", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:studentid forKey:@"studentid"];
     [parameters bm_setString:organid forKey:@"organid"];
@@ -190,7 +190,7 @@
 + (NSMutableURLRequest *)postTeacherNewpass:(NSString *)newpass repass:(NSString *)repass teacherid:(NSString *)teacherid organid:(NSString *)organid
 {
     //http://school.roadofcloud.net/teacher/Teacher/updatePass
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Teacher/updatePass", YSLive_Http, [YSLiveManager shareInstance].schoolHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/teacher/Teacher/updatePass", YSLive_Http, [YSLiveManager sharedInstance].schoolApiHost];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters bm_setString:teacherid forKey:@"teacherid"];
     [parameters bm_setString:organid forKey:@"organid"];

@@ -14,11 +14,11 @@
 
 @interface NSString (Emoji)
 
-+ (NSString *)encodeEmojiStringWithString:(NSString *)text;
-- (NSString *)encodeEmojiString;
++ (NSString *)bm_encodeEmojiStringWithString:(NSString *)text;
+- (NSString *)bm_encodeEmojiString;
 
-+ (NSDictionary *)decodeEmojiStringWithString:(NSString *)text;
-- (NSDictionary *)decodeEmojiString;
++ (NSDictionary *)bm_decodeEmojiStringWithString:(NSString *)text;
+- (NSDictionary *)bm_decodeEmojiString;
 
 
 @end

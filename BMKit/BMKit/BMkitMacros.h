@@ -12,14 +12,14 @@
 #pragma mark -
 #pragma mark - Device macro
 
-#define BMIS_IPHONE4  (CGSizeEqualToSize(CGSizeMake(320.0f, 480.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
-#define BMIS_IPHONE5  (CGSizeEqualToSize(CGSizeMake(320.0f, 568.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
-#define BMIS_IPHONE6  (CGSizeEqualToSize(CGSizeMake(375.0f, 667.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
-#define BMIS_IPHONE6P (CGSizeEqualToSize(CGSizeMake(414.0f, 736.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
-#define BMIS_IPHONEX  (CGSizeEqualToSize(CGSizeMake(375.0f, 812.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
-#define BMIS_IPHONEXP (CGSizeEqualToSize(CGSizeMake(414.0f, 896.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
+#define BMIS_IPHONE4  (CGSizeEqualToSize(CGSizeMake(320.0f, 480.0f), [[UIScreen mainScreen] bounds].size) || CGSizeEqualToSize(CGSizeMake(480.0f, 320.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
+#define BMIS_IPHONE5  (CGSizeEqualToSize(CGSizeMake(320.0f, 568.0f), [[UIScreen mainScreen] bounds].size) || CGSizeEqualToSize(CGSizeMake(568.0f, 320.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
+#define BMIS_IPHONE6  (CGSizeEqualToSize(CGSizeMake(375.0f, 667.0f), [[UIScreen mainScreen] bounds].size) || CGSizeEqualToSize(CGSizeMake(667.0f, 375.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
+#define BMIS_IPHONE6P (CGSizeEqualToSize(CGSizeMake(414.0f, 736.0f), [[UIScreen mainScreen] bounds].size) || CGSizeEqualToSize(CGSizeMake(736.0f, 414.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
+#define BMIS_IPHONEX  (CGSizeEqualToSize(CGSizeMake(375.0f, 812.0f), [[UIScreen mainScreen] bounds].size) || CGSizeEqualToSize(CGSizeMake(812.0f, 375.0f), [[UIScreen mainScreen] bounds].size) ?  YES : NO)
+#define BMIS_IPHONEXP (CGSizeEqualToSize(CGSizeMake(414.0f, 896.0f), [[UIScreen mainScreen] bounds].size) || CGSizeEqualToSize(CGSizeMake(896.0f, 414.0f), [[UIScreen mainScreen] bounds].size) ? YES : NO)
 
-#define BMIS_IPHONEXANDP (BMIS_IPHONEX | BMIS_IPHONEXP)
+#define BMIS_IPHONEXANDP (BMIS_IPHONEX || BMIS_IPHONEXP)
 
 //iphone
 #define BMIS_IPHONE         (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -136,19 +136,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark -
 #pragma mark - UI macro
 
-#define BMUI_NAVIGATION_BAR_DEFAULTHEIGHT 44
-#define BMUI_NAVIGATION_BAR_HEIGHT        44
-#define BMUI_TOOL_BAR_HEIGHT              44
-#define BMUI_HOME_INDICATOR_HEIGHT        (BMIS_IPHONEXANDP ? 34 : 0.0f)
-#define BMUI_TAB_BAR_HEIGHT               (BMIS_IPHONEXANDP ? (49+BMUI_HOME_INDICATOR_HEIGHT) : 49)
-#define BMUI_STATUS_BAR_HEIGHT            (BMIS_IPHONEXANDP ? 44 : 20)
+#define BMUI_NAVIGATION_BAR_FRIMGEHEIGHT  44.0f //刘海高度
+#define BMUI_NAVIGATION_BAR_DEFAULTHEIGHT 44.0f
+#define BMUI_NAVIGATION_BAR_HEIGHT        44.0f
+#define BMUI_TOOL_BAR_HEIGHT              44.0f
+#define BMUI_HOME_INDICATOR_HEIGHT        (BMIS_IPHONEXANDP ? 34.0f : 0.0f)
+#define BMUI_TAB_BAR_HEIGHT               (BMIS_IPHONEXANDP ? (49.0f+BMUI_HOME_INDICATOR_HEIGHT) : 49.0f)
+#define BMUI_STATUS_BAR_HEIGHT            (BMIS_IPHONEXANDP ? 44.0f : 20.0f)
 
 #define BMUI_SCREEN_WIDTH                 ([[UIScreen mainScreen] bounds].size.width)
 #define BMUI_SCREEN_HEIGHT                ([[UIScreen mainScreen] bounds].size.height)
 
-#define BMUI_SCREEN_WIDTH_ROTATE          ([[UIScreen mainScreen] bounds].size.height)
-#define BMUI_SCREEN_HEIGHT_ROTATE         ([[UIScreen mainScreen] bounds].size.width)
+//#define BMUI_SCREEN_WIDTH_ROTATE          ([[UIScreen mainScreen] bounds].size.height)
+//#define BMUI_SCREEN_HEIGHT_ROTATE         ([[UIScreen mainScreen] bounds].size.width)
+#define BMUI_SCREEN_WIDTH_ROTATE          ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height)
 
+
+#define BMUI_SCREEN_HEIGHT_ROTATE         ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height)
 //#define SCREEN_WIDTH ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height)
 //#define SCREEN_HEIGHT ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width)
 #define BMUI_SCREEN_SCALE                 ([UIScreen mainScreen].scale)
@@ -165,12 +169,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define BMUI_IPHONE6P_SCREEN_HEIGHT       736.0f
 
 //6为标准适配的,如果需要其他标准可以修改
-#define kBMScale_W(w) ((BMUI_SCREEN_WIDTH)/375) * (w)
-#define kBMScale_H(h) ((BMUI_SCREEN_HEIGHT)/667) * (h)
+#define kBMScale_W(w) ((BMUI_SCREEN_WIDTH)/375.0f) * (w)
+#define kBMScale_H(h) ((BMUI_SCREEN_HEIGHT)/667.0f) * (h)
 
 // 单像素
-#define BMSINGLE_LINE_WIDTH           (1 / [UIScreen mainScreen].scale)
-#define BMSINGLE_LINE_ADJUST_OFFSET   ((1 / [UIScreen mainScreen].scale) / 2)
+#define BMSINGLE_LINE_WIDTH           (1.0f / [UIScreen mainScreen].scale)
+#define BMSINGLE_LINE_ADJUST_OFFSET   ((1.0f / [UIScreen mainScreen].scale) / 2.0f)
 // UIView *view = [[UIView alloc] initWithFrame:CGrect(x - SINGLE_LINE_ADJUST_OFFSET, 0, SINGLE_LINE_WIDTH, 100)];
 
 

@@ -11,6 +11,13 @@
 
 @interface UIDevice (BMCategory)
 
+// 判断是否是刘海屏
++ (BOOL)bm_isIPhoneNotchScreen;
+ 
+// 获取刘海屏高度
++ (CGFloat)bm_iPhoneNotchScreenHeight;
+
+
 + (NSString * _Nonnull)bm_deviceModel;
 + (NSString * _Nonnull)bm_localizedModel;
 
@@ -99,6 +106,11 @@
 + (NSDate * _Nullable)bm_systemUptime;
 
 #pragma mark - CPU
+
+// 获取CPU类型
++ (NSString * _Nonnull)bm_cpuType;
+// 获取CPU使用率 -1:获取失败
++ (CGFloat)bm_cpuUsage;
 
 /**
  *  获取CPU频率

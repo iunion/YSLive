@@ -116,7 +116,7 @@
     
     _previewView.frame = self.view.bounds;
     _previewView.scrollView.frame = self.view.bounds;
-    CGFloat toolBarHeight = [BMTZCommonTools tz_isIPhoneX] ? 44 + (83 - 49) : 44;
+    CGFloat toolBarHeight = 44 + [BMTZCommonTools tz_safeAreaInsets].bottom;
     _toolBar.frame = CGRectMake(0, self.view.bmtz_height - toolBarHeight, self.view.bmtz_width, toolBarHeight);
     _doneButton.frame = CGRectMake(self.view.bmtz_width - 44 - 12, 0, 44, 44);
     

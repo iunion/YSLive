@@ -12,54 +12,58 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSControlPopoverViewDelegate <NSObject>
 
-- (void)teacherControlBtnsClick:(UIButton*)sender;
-
-- (void)studentControlBtnsClick:(UIButton*)sender;
-
+- (void)videoViewControlBtnsClick:(BMImageTitleButtonView*)sender videoViewControlType:(SCVideoViewControlType)videoViewControlType withStreamId:(NSString *)streamId;
 @end
 
 
 @interface YSControlPopoverView : UIViewController
 
 ///app使用场景  3：小班课  4：直播   5：会议
-@property (nonatomic, assign) YSAppUseTheType appUseTheType;
+@property (nonatomic, assign) CHRoomUseType appUseTheType;
 
 @property(nonatomic,weak) id<YSControlPopoverViewDelegate> delegate;
 
 @property(nonatomic,copy)void(^controlPopoverbuttonClick)(NSInteger index);
 
 ///音频控制按钮
-@property(nonatomic,strong) UIButton * audioBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * audioBtn;
 ///视频控制按钮
-@property(nonatomic,strong) UIButton * videoBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * videoBtn;
 ///镜像控制按钮
-@property(nonatomic,strong) UIButton * mirrorBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * mirrorBtn;
 ///画笔权限控制按钮
-@property(nonatomic,strong) UIButton * canDrawBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * canDrawBtn;
 ///上下台控制按钮
-@property(nonatomic,strong) UIButton * onStageBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * onStageBtn;
 //成为焦点按钮
-@property(nonatomic,strong) UIButton * fouceBtn;
+@property(nonatomic,strong) BMImageTitleButtonView * fouceBtn;
 
 /// 是否被拖出
 @property (nonatomic, assign) BOOL isDragOut;
-
+/// 是否全体静音
+@property (nonatomic, assign) BOOL isAllNoAudio;
+/// 是否是画中画的非老师视频
+@property (nonatomic, assign) BOOL isNested;
 ///成为焦点的用户的peerID(必须在userModel前赋值)
 @property (nullable,nonatomic, copy) NSString * foucePeerId;
+@property (nullable,nonatomic, copy) NSString *fouceStreamId;
 
+@property(nonatomic,strong) CHRoomUser * userModel;
 
-@property(nonatomic,strong) YSRoomUser * userModel;
-
-
-
-/// 房间类型 0:表示一对一教室  非0:表示一多教室
-@property (nonatomic, assign) YSRoomTypes roomtype;
+/// 房间类型
+@property (nonatomic, assign) CHRoomUserType roomtype;
 
 ///标识布局变化的值
-@property (nonatomic, assign) YSLiveRoomLayout roomLayout;
+@property (nonatomic, assign) CHRoomLayoutType roomLayout;
 
 /// 当前的用户视频的镜像状态
-@property(nonatomic, assign) YSVideoMirrorMode videoMirrorMode;
+@property(nonatomic, assign) CloudHubVideoMirrorMode videoMirrorMode;
+
+/// 当前视频窗口的sourceId
+@property(nonatomic, copy) NSString *sourceId;
+
+/// 当前视频窗口的streamId
+@property(nonatomic, copy) NSString *streamId;
 
 @end
 

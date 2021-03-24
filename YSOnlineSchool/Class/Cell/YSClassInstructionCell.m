@@ -50,17 +50,17 @@
     
     self.bgView.backgroundColor = [UIColor clearColor];
     
-    self.topView.backgroundColor = [UIColor whiteColor];
+    self.topView.backgroundColor = YSSkinOnlineDefineColor(@"defaultTitleColor");
     [self.topView bm_roundedRect:6.0f];
     
-    self.iconView.backgroundColor = [UIColor bm_colorWithHex:0x9DBEF3];
+    self.iconView.backgroundColor = YSSkinOnlineDefineColor(@"onlineSchoolClassIconColor");
     [self.iconView bm_roundedRect:2.0f];
 
-    self.titleLabel.textColor = [UIColor bm_colorWithHex:0x828282];
+    self.titleLabel.textColor = YSSkinOnlineDefineColor(@"placeholderColor");
     self.titleLabel.font = UI_BOLDFONT_16;
 
     self.bottomView.backgroundColor = [UIColor whiteColor];
-    self.detailLabel.textColor = [UIColor bm_colorWithHex:0x9F9F9F];
+    self.detailLabel.textColor = YSSkinOnlineDefineColor(@"onlineSchoolSubTextColor");
     self.detailLabel.font = UI_FONT_12;
 }
 

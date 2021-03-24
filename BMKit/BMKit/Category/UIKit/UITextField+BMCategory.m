@@ -17,7 +17,8 @@ static NSString * const kTextFieldPlaceholderKeypathFontName = @"_placeholderLab
 
 - (void)bm_setPlaceholderColor:(UIColor *)color
 {
-    if ([UIDevice currentDevice].systemVersion.floatValue >= 13.0) {
+    //if ([UIDevice currentDevice].systemVersion.floatValue >= 13.0) {
+    if (@available(iOS 13.0, *)) {
         return;
     }
     if (!color)
@@ -31,8 +32,8 @@ static NSString * const kTextFieldPlaceholderKeypathFontName = @"_placeholderLab
 
 - (void)bm_setPlaceholderFont:(nonnull UIFont *)font
 {
-    
-    if ([UIDevice currentDevice].systemVersion.floatValue >= 13.0) {
+    //if ([UIDevice currentDevice].systemVersion.floatValue >= 13.0) {
+    if (@available(iOS 13.0, *)) {
         return;
     }
     [self setValue:font forKeyPath:kTextFieldPlaceholderKeypathFontName];

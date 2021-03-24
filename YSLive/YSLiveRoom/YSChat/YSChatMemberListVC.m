@@ -27,10 +27,10 @@
     
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    self.bm_NavigationTitleTintColor = UIColor.whiteColor;
-    self.bm_NavigationItemTintColor = UIColor.whiteColor;
+    self.bm_NavigationTitleTintColor = YSSkinDefineColor(@"Color1");
+    self.bm_NavigationItemTintColor = YSSkinDefineColor(@"PlaceholderColor");
     
-    [self bm_setNavigationWithTitle:YSLocalized(@"Label.ChatList") barTintColor:[UIColor bm_colorWithHex:0x82ABEC] leftItemTitle:nil leftItemImage:@"navigationBackImage" leftToucheEvent:@selector(backLeft) rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
+    [self bm_setNavigationWithTitle:YSLocalized(@"Label.ChatList") barTintColor:[UIColor bm_colorWithHex:0xDEEAFF] leftItemTitle:nil leftItemImage:@"navigationBackImage" leftToucheEvent:@selector(backLeft) rightItemTitle:nil rightItemImage:nil rightToucheEvent:nil];
 }
 
 //返回
@@ -44,8 +44,8 @@
     [super viewDidLoad];
     
     self.isFirst = 1;
-    self.view.backgroundColor = [UIColor bm_colorWithHexString:@"#F5F5FD"];
-    
+//    self.view.backgroundColor = [UIColor bm_colorWithHexString:@"#F5F5FD"];
+    self.view.backgroundColor = UIColor.whiteColor;
     [self setupUI];
 }
 
@@ -54,18 +54,18 @@
     CGFloat decideBtnY = 0.f;
     if (BMIS_IPHONEXANDP)
     {
-        decideBtnY = BMUI_SCREEN_HEIGHT-kBMScale_H(50)-BMUI_NAVIGATION_BAR_HEIGHT-BMUI_STATUS_BAR_HEIGHT-12-15;
+        decideBtnY = BMUI_SCREEN_HEIGHT-kBMScale_H(40)-BMUI_NAVIGATION_BAR_HEIGHT-BMUI_STATUS_BAR_HEIGHT-12-15;
     }
     else
     {
-        decideBtnY = BMUI_SCREEN_HEIGHT-kBMScale_H(50)-BMUI_NAVIGATION_BAR_HEIGHT-BMUI_STATUS_BAR_HEIGHT-12;
+        decideBtnY = BMUI_SCREEN_HEIGHT-kBMScale_H(40)-BMUI_NAVIGATION_BAR_HEIGHT-BMUI_STATUS_BAR_HEIGHT-12;
     }
     
-    UIButton * decideBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(30), decideBtnY, kBMScale_W(316), kBMScale_H(50))];
+    UIButton * decideBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(110), decideBtnY, BMUI_SCREEN_WIDTH - 2 * kBMScale_W(110), kBMScale_H(40))];
     [decideBtn setTintColor:[UIColor whiteColor]];
     [decideBtn setTitle:YSLocalized(@"Prompt.OK") forState:UIControlStateNormal];
-    [decideBtn setBackgroundColor:[UIColor bm_colorWithHexString:@"#306FFF"]];
-    decideBtn.layer.cornerRadius = kBMScale_H(50)/2;
+    [decideBtn setBackgroundColor:YSSkinDefineColor(@"Color4")];
+    decideBtn.layer.cornerRadius = 4;
     [decideBtn addTarget:self action:@selector(decideBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:decideBtn];
     
@@ -93,12 +93,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)setMemberList:(NSMutableArray<YSRoomUser *> *)memberList
+-(void)setMemberList:(NSMutableArray<CHRoomUser *> *)memberList
 {
     _memberList = memberList;
-    YSRoomUser * model = [[YSRoomUser alloc]init];
+    CHRoomUser * model = [[CHRoomUser alloc]initWithPeerId:@""];
     model.nickName = YSLocalized(@"Label.All");
-    model.peerID = @"";
     [self.memberList insertObject:model atIndex:0];
 }
 
@@ -111,7 +110,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YSChatMemberListCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([YSChatMemberListCell class])];
-    YSRoomUser * model = self.memberList[indexPath.row];
+    CHRoomUser * model = self.memberList[indexPath.row];
     
     cell.model = model;
     cell.selectionStyle =UITableViewCellSelectionStyleNone;

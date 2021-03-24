@@ -262,7 +262,7 @@
         self.imageView.image = item.image;
         if (item.imageUrl)
         {
-            [self.imageView bm_setImageWithURL:[NSURL URLWithString:item.imageUrl] placeholderImage:item.image options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority completed:^(UIImage *image, NSError *error, BMSDImageCacheType cacheType, NSURL *imageURL) {
+            [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:item.imageUrl] placeholderImage:item.image options:BMSDWebImageRetryFailed|BMSDWebImageLowPriority completed:^(UIImage *image, NSError *error, BMSDImageCacheType cacheType, NSURL *imageURL) {
             }];
         }
         
