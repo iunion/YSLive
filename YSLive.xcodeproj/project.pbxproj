@@ -89,7 +89,6 @@
 		26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D07C1C243F03B2002B1B60 /* YSMP4PlayerMaskView.m */; };
 		26D5405F23BDD7060064FB84 /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		26E4716E2518A50A00CE1776 /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77392511B59F00A3830C /* CHWhiteBoard.framework */; };
-		26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */; };
 		26E4717E2518A65D00CE1776 /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77012510681800A3830C /* CHSession.framework */; };
 		26E4718C2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
 		26E4718D2518A78300CE1776 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E471892518A78300CE1776 /* YSDiceAnimationView.m */; };
@@ -394,7 +393,6 @@
 		874A33B7259B38FF00EFA617 /* CHWhiteBoardKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 874A33B5259B38FF00EFA617 /* CHWhiteBoardKitResources.bundle */; };
 		874A33B8259B38FF00EFA617 /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874A33B6259B38FF00EFA617 /* CloudHubWhiteBoardKit.framework */; };
 		874B77022510681800A3830C /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77012510681800A3830C /* CHSession.framework */; };
-		874B773B2511B5A000A3830C /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */; };
 		874B773D2511B5A000A3830C /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B77392511B59F00A3830C /* CHWhiteBoard.framework */; };
 		874E4F6623B36A1500086B01 /* YSSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6523B36A1500086B01 /* YSSlider.m */; };
 		874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 874E4F6823B36F0300086B01 /* LMJDropdownMenu.m */; };
@@ -1078,7 +1076,6 @@
 		874A33B5259B38FF00EFA617 /* CHWhiteBoardKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardKitResources.bundle; sourceTree = "<group>"; };
 		874A33B6259B38FF00EFA617 /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
 		874B77012510681800A3830C /* CHSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHSession.framework; sourceTree = "<group>"; };
-		874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
 		874B77392511B59F00A3830C /* CHWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoard.framework; sourceTree = "<group>"; };
 		874E4F6423B36A1500086B01 /* YSSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSlider.h; sourceTree = "<group>"; };
 		874E4F6523B36A1500086B01 /* YSSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSlider.m; sourceTree = "<group>"; };
@@ -2250,7 +2247,6 @@
 				0464E95B2599D45500B2F490 /* CHWBSkinDark.bundle */,
 				874A33B4259B38FF00EFA617 /* CloudHubWhiteBoardKit */,
 				874B77392511B59F00A3830C /* CHWhiteBoard.framework */,
-				874B77372511B59F00A3830C /* CHWhiteBoardImage.xcassets */,
 			);
 			path = CHWhiteBoard;
 			sourceTree = "<group>";
@@ -3572,7 +3568,6 @@
 				871336A2237270F6006534A4 /* testalignsight_icon@2x.png in Resources */,
 				8777C7CA23EC32F2002002BF /* YSClassInstructionCell.xib in Resources */,
 				871336B1237270F6006534A4 /* testgpsmoker_icon@2x.png in Resources */,
-				874B773B2511B5A000A3830C /* CHWhiteBoardImage.xcassets in Resources */,
 				8777C7CF23EC336C002002BF /* YSClassMediumCell.xib in Resources */,
 				879EB230241D34F20042F60C /* BMTZImagePickerController.bundle in Resources */,
 				3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */,
@@ -3597,7 +3592,6 @@
 				8717E33C2400DADC008C4CDA /* YSMeetingResources.bundle in Resources */,
 				8717E3732400DFD1008C4CDA /* Assets.xcassets in Resources */,
 				8717E33D2400DADC008C4CDA /* BMKitImage.xcassets in Resources */,
-				26E471712518A50C00CE1776 /* CHWhiteBoardImage.xcassets in Resources */,
 				0464E95F2599D45600B2F490 /* CHWBSkinDark.bundle in Resources */,
 				8798CB7625B53AA000CA4EF8 /* CHWhiteBoardResources.bundle in Resources */,
 				8717E3402400DADC008C4CDA /* testalignsight_icon@2x.png in Resources */,

@@ -91,11 +91,15 @@
 
 - (void)showMp4WaitingView
 {
-    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    NSMutableArray <UIImage *> *imageArray = [[NSMutableArray alloc] init];
     for (NSUInteger i=1; i<=21; i++)
     {
-        NSString *imageName = [NSString stringWithFormat:@"ysfloatview_loding%@", @(i)];
-        [imageArray addObject:imageName];
+        NSString *imageName = [NSString stringWithFormat:@"videoview_loding%@", @(i)];
+        UIImage *image = [NSBundle bm_bundleImageFromBundleNamed:CHWBBUNDLE_SHORTNAME imageName:imageName];
+        if (image)
+        {
+            [imageArray addObject:image];
+        }
     }
     [self.backImageView bm_animationWithImageArray:imageArray duration:3 repeatCount:0];
     [self.backImageView startAnimating];
@@ -105,8 +109,9 @@
 {
     [self.backImageView stopAnimating];
     
-    NSString *imageName = @"ysfloatview_pause";
-    self.backImageView.image = [UIImage imageNamed:imageName];
+    NSString *imageName = @"videoview_pause";
+    UIImage *image = [NSBundle bm_bundleImageFromBundleNamed:CHWBBUNDLE_SHORTNAME imageName:imageName];
+    self.backImageView.image = image;
 }
 
 - (void)setContentView:(UIView *)contentView

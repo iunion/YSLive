@@ -611,15 +611,19 @@
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.teacherFloatView.bm_bottom - 70, 55, 55)];
     
-    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    NSMutableArray <UIImage *> *imageArray = [[NSMutableArray alloc] init];
     for (NSUInteger i=1; i<=50; i++)
     {
-        NSString *imageName = [NSString stringWithFormat:@"main_playmp3_%02lu", (unsigned long)i];
-        [imageArray addObject:imageName];
+        NSString *imageName = [NSString stringWithFormat:@"audioview_playmp3_%02lu", (unsigned long)i];
+        UIImage *image = [NSBundle bm_bundleImageFromBundleNamed:CHWBBUNDLE_SHORTNAME imageName:imageName];
+        if (image)
+        {
+            [imageArray addObject:image];
+        }
     }
     
     [imageView bm_animationWithImageArray:imageArray duration:2 repeatCount:0];
-    
+
     imageView.hidden = YES;
     self.playMp3ImageView = imageView;
     [self.view addSubview:self.playMp3ImageView];
