@@ -12,11 +12,9 @@
 		26ECB657259D7D5A00B28D37 /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ECB640259D7D5A00B28D37 /* CHSession.framework */; };
 		26ECB658259D7D5A00B28D37 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB641259D7D5A00B28D37 /* YSMeetingResources.bundle */; };
 		26ECB659259D7D5A00B28D37 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB643259D7D5A00B28D37 /* CHWhiteBoardResources.bundle */; };
-		26ECB65A259D7D5A00B28D37 /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB644259D7D5A00B28D37 /* CHWhiteBoardImage.xcassets */; };
 		26ECB65C259D7D5A00B28D37 /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ECB646259D7D5A00B28D37 /* CHWhiteBoard.framework */; };
 		26ECB65E259D7D5A00B28D37 /* BMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ECB649259D7D5A00B28D37 /* BMKit.framework */; };
 		26ECB65F259D7D5A00B28D37 /* BMTZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB64A259D7D5A00B28D37 /* BMTZImagePickerController.bundle */; };
-		26ECB660259D7D5A00B28D37 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB64B259D7D5A00B28D37 /* BMKitImage.xcassets */; };
 		26ECB661259D7D5A00B28D37 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB64C259D7D5A00B28D37 /* BMKitResources.bundle */; };
 		26ECB662259D7D5A00B28D37 /* BMDatePicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB64D259D7D5A00B28D37 /* BMDatePicker.nib */; };
 		26ECB663259D7D5A00B28D37 /* CloudHubRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ECB64F259D7D5A00B28D37 /* CloudHubRTC.framework */; };
@@ -248,7 +246,6 @@
 		26ECB94B259D7E8300B28D37 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB807259D7E8200B28D37 /* YSMainSuperVC.m */; };
 		26ECB94C259D7E8300B28D37 /* YSClassMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB808259D7E8200B28D37 /* YSClassMainSuperVC.m */; };
 		26ECB94D259D7E8300B28D37 /* YSSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB809259D7E8200B28D37 /* YSSuperVC.h */; };
-		26ECB94F259D7E8300B28D37 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB80B259D7E8200B28D37 /* YSLive.xcassets */; };
 		875DD42325C3B2EF00059D0B /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD42225C3B2EF00059D0B /* YSSkinDarkRsource.bundle */; };
 		875DD42725C3B39000059D0B /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD42625C3B38F00059D0B /* CHWBSkinDark.bundle */; };
 		87E68CB725D38EB000E29249 /* BMKeystoneCorrectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E68CB325D38EB000E29249 /* BMKeystoneCorrectionView.h */; };
@@ -264,7 +261,6 @@
 		26ECB640259D7D5A00B28D37 /* CHSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHSession.framework; sourceTree = "<group>"; };
 		26ECB641259D7D5A00B28D37 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		26ECB643259D7D5A00B28D37 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		26ECB644259D7D5A00B28D37 /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
 		26ECB646259D7D5A00B28D37 /* CHWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoard.framework; sourceTree = "<group>"; };
 		26ECB649259D7D5A00B28D37 /* BMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKit.framework; sourceTree = "<group>"; };
 		26ECB64A259D7D5A00B28D37 /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
@@ -561,7 +557,6 @@
 			children = (
 				875DD42625C3B38F00059D0B /* CHWBSkinDark.bundle */,
 				26ECB643259D7D5A00B28D37 /* CHWhiteBoardResources.bundle */,
-				26ECB644259D7D5A00B28D37 /* CHWhiteBoardImage.xcassets */,
 				26ECB646259D7D5A00B28D37 /* CHWhiteBoard.framework */,
 			);
 			path = CHWhiteBoard;
@@ -1427,10 +1422,7 @@
 			files = (
 				26ECB662259D7D5A00B28D37 /* BMDatePicker.nib in Resources */,
 				26ECB65F259D7D5A00B28D37 /* BMTZImagePickerController.bundle in Resources */,
-				26ECB660259D7D5A00B28D37 /* BMKitImage.xcassets in Resources */,
-				26ECB65A259D7D5A00B28D37 /* CHWhiteBoardImage.xcassets in Resources */,
 				26ECB658259D7D5A00B28D37 /* YSMeetingResources.bundle in Resources */,
-				26ECB94F259D7E8300B28D37 /* YSLive.xcassets in Resources */,
 				875DD42725C3B39000059D0B /* CHWBSkinDark.bundle in Resources */,
 				26ECB66D259D7D7A00B28D37 /* YSResources.bundle in Resources */,
 				875DD42325C3B2EF00059D0B /* YSSkinDarkRsource.bundle in Resources */,

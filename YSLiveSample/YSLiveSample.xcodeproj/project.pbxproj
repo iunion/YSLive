@@ -35,7 +35,6 @@
 		875DD44725C3B77300059D0B /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875DD43325C3B77300059D0B /* CHSession.framework */; };
 		875DD44825C3B77300059D0B /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD43525C3B77300059D0B /* CHWBSkinDark.bundle */; };
 		875DD44925C3B77300059D0B /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD43625C3B77300059D0B /* CHWhiteBoardResources.bundle */; };
-		875DD44A25C3B77300059D0B /* CHWhiteBoardImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875DD43725C3B77300059D0B /* CHWhiteBoardImage.xcassets */; };
 		875DD44B25C3B77300059D0B /* CHWhiteBoardKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD43925C3B77300059D0B /* CHWhiteBoardKitResources.bundle */; };
 		875DD44C25C3B77300059D0B /* CloudHubWhiteBoardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875DD43A25C3B77300059D0B /* CloudHubWhiteBoardKit.framework */; };
 		875DD44D25C3B77300059D0B /* CHWhiteBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875DD43B25C3B77300059D0B /* CHWhiteBoard.framework */; };
@@ -104,7 +103,6 @@
 		875DD43325C3B77300059D0B /* CHSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHSession.framework; sourceTree = "<group>"; };
 		875DD43525C3B77300059D0B /* CHWBSkinDark.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinDark.bundle; sourceTree = "<group>"; };
 		875DD43625C3B77300059D0B /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
-		875DD43725C3B77300059D0B /* CHWhiteBoardImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CHWhiteBoardImage.xcassets; sourceTree = "<group>"; };
 		875DD43925C3B77300059D0B /* CHWhiteBoardKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardKitResources.bundle; sourceTree = "<group>"; };
 		875DD43A25C3B77300059D0B /* CloudHubWhiteBoardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudHubWhiteBoardKit.framework; sourceTree = "<group>"; };
 		875DD43B25C3B77300059D0B /* CHWhiteBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHWhiteBoard.framework; sourceTree = "<group>"; };
@@ -249,7 +247,6 @@
 				875DD43825C3B77300059D0B /* CloudHubWhiteBoardKit */,
 				875DD43525C3B77300059D0B /* CHWBSkinDark.bundle */,
 				875DD43625C3B77300059D0B /* CHWhiteBoardResources.bundle */,
-				875DD43725C3B77300059D0B /* CHWhiteBoardImage.xcassets */,
 				875DD43B25C3B77300059D0B /* CHWhiteBoard.framework */,
 			);
 			path = CHWhiteBoard;
@@ -368,7 +365,6 @@
 				0455F104243EB96F00468853 /* login_join_highlight@3x.png in Resources */,
 				875DD44825C3B77300059D0B /* CHWBSkinDark.bundle in Resources */,
 				0455F0FD243EB96F00468853 /* btn_close@2x.png in Resources */,
-				875DD44A25C3B77300059D0B /* CHWhiteBoardImage.xcassets in Resources */,
 				0455F100243EB96F00468853 /* btn_close@3x.png in Resources */,
 				0455F0FC243EB96F00468853 /* login_join_normal@3x.png in Resources */,
 				0455F103243EB96F00468853 /* login_icon@3x.png in Resources */,
