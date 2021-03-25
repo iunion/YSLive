@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		261CEF38260C2AB900C72958 /* CHLiveControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 261CEF36260C2AB900C72958 /* CHLiveControlView.m */; };
+		261CEF39260C2AB900C72958 /* CHLiveControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 261CEF37260C2AB900C72958 /* CHLiveControlView.h */; };
 		26ECB657259D7D5A00B28D37 /* CHSession.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ECB640259D7D5A00B28D37 /* CHSession.framework */; };
 		26ECB658259D7D5A00B28D37 /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB641259D7D5A00B28D37 /* YSMeetingResources.bundle */; };
 		26ECB659259D7D5A00B28D37 /* CHWhiteBoardResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26ECB643259D7D5A00B28D37 /* CHWhiteBoardResources.bundle */; };
@@ -257,6 +259,8 @@
 
 /* Begin PBXFileReference section */
 		261C4DF9259B2DBE005F8A8C /* YSLiveSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YSLiveSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		261CEF36260C2AB900C72958 /* CHLiveControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLiveControlView.m; sourceTree = "<group>"; };
+		261CEF37260C2AB900C72958 /* CHLiveControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLiveControlView.h; sourceTree = "<group>"; };
 		26ECB640259D7D5A00B28D37 /* CHSession.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHSession.framework; sourceTree = "<group>"; };
 		26ECB641259D7D5A00B28D37 /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		26ECB643259D7D5A00B28D37 /* CHWhiteBoardResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWhiteBoardResources.bundle; sourceTree = "<group>"; };
@@ -845,6 +849,8 @@
 		26ECB6F5259D7E8100B28D37 /* YSMainVC */ = {
 			isa = PBXGroup;
 			children = (
+				261CEF37260C2AB900C72958 /* CHLiveControlView.h */,
+				261CEF36260C2AB900C72958 /* CHLiveControlView.m */,
 				26ECB6F9259D7E8100B28D37 /* YSLiveLevelView.h */,
 				26ECB6F7259D7E8100B28D37 /* YSLiveLevelView.m */,
 				26ECB6F6259D7E8100B28D37 /* YSMainVC.h */,
@@ -1261,6 +1267,7 @@
 				26ECB8CF259D7E8300B28D37 /* SCVideoGridView.h in Headers */,
 				26ECB90C259D7E8300B28D37 /* YSWarmVideoView.h in Headers */,
 				26ECB926259D7E8300B28D37 /* YSMediaMarkView.h in Headers */,
+				261CEF39260C2AB900C72958 /* CHLiveControlView.h in Headers */,
 				26ECB8AE259D7E8300B28D37 /* SCTextMessageCell.h in Headers */,
 				26ECB85E259D7E8200B28D37 /* SCTeacherListView.h in Headers */,
 				26ECB872259D7E8300B28D37 /* YSAnswerCell.h in Headers */,
@@ -1482,6 +1489,7 @@
 				26ECB876259D7E8300B28D37 /* YSMainVC.m in Sources */,
 				26ECB831259D7E8200B28D37 /* YSLiveManager.m in Sources */,
 				26ECB82E259D7E8200B28D37 /* YSNewCoursewareControlView.m in Sources */,
+				261CEF38260C2AB900C72958 /* CHLiveControlView.m in Sources */,
 				26ECB887259D7E8300B28D37 /* YSChatBasicTableViewCell.m in Sources */,
 				26ECB86B259D7E8300B28D37 /* YSVotingTableCell.m in Sources */,
 				26ECB8BC259D7E8300B28D37 /* SCAnswerView.m in Sources */,
@@ -1677,7 +1685,7 @@
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210317;
+				CURRENT_PROJECT_VERSION = 20210325;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1706,7 +1714,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.5.6.0;
+				MARKETING_VERSION = 3.5.7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybb.YSLiveSDK;
@@ -1722,7 +1730,7 @@
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210317;
+				CURRENT_PROJECT_VERSION = 20210325;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1750,7 +1758,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MARKETING_VERSION = 3.5.6.0;
+				MARKETING_VERSION = 3.5.7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybb.YSLiveSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
