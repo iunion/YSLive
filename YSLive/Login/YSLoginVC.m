@@ -46,6 +46,8 @@
 
 #import "SSZipArchive.h"
 
+#import "CHBeautyControlView.h"
+
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
@@ -784,7 +786,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    {
 //        userAgreement.selected = YES;
 //    }
+    
+    [self addBeautyView];
+    
 }
+
+
+
+
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(nonnull NSURL *)URL inRange:(NSRange)characterRange
 {
     
@@ -2335,6 +2344,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     return authStatus == AVAuthorizationStatusAuthorized;
+}
+
+
+- (void)addBeautyView
+{
+    CHBeautyControlView * beautyView = [[CHBeautyControlView alloc]initWithFrame:CGRectMake(0, self.view.bm_height - 376, self.view.bm_width, 376)];
+        
+    [self.view addSubview:beautyView];
 }
 
 

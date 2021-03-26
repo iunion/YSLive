@@ -117,6 +117,36 @@
 		<key>iconSel</key>
 		<string>bottombar_onOff_nor_skin</string>
 	</dict>
+	<key>beautyReplaceBtn</key>
+	<dict>
+		<key>iconNor</key>
+		<string>beauty_replace</string>
+	</dict>
+	<key>beautyWhiten</key>
+	<dict>
+		<key>iconNor</key>
+		<string>beauty_whiten</string>
+	</dict>
+	<key>beautyThinFace</key>
+	<dict>
+		<key>iconNor</key>
+		<string>beauty_thinFace</string>
+	</dict>
+	<key>beautyBigEye</key>
+	<dict>
+		<key>iconNor</key>
+		<string>beauty_bigEye</string>
+	</dict>
+	<key>beautyExfoliating</key>
+	<dict>
+		<key>iconNor</key>
+		<string>beauty_exfoliating</string>
+	</dict>
+	<key>beautyRuddy</key>
+	<dict>
+		<key>iconNor</key>
+		<string>beauty_ruddy</string>
+	</dict>
 	<key>camera_bottombar</key>
 	<dict>
 		<key>tittleColor</key>
