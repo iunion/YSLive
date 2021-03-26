@@ -445,7 +445,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [Bugly setUserValue:nickName forKey:@"nickName"];
     [Bugly setUserValue:schoolUserAccount forKey:@"userAccount"];
 
-    [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil needCheckPermissions:NO];
+    [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWord userRole:userRoleType userId:userId userParams:nil];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
 }
@@ -618,7 +618,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         YSLiveManager *liveManager = [YSLiveManager sharedInstance];
         [liveManager registerRoomDelegate:self];
         
-        [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:CHUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
+        [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.userName roomId:weakSelf.roomId roomPassword:passWord userRole:CHUserType_Student userId:nil userParams:nil];
         
         [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
     } dismissBlock:^(id  _Nullable sender, NSUInteger index) {

@@ -1448,11 +1448,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
     if ([passWordStr bm_isNotEmpty])
     {
-        [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
+        [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:passWordStr userRole:self.selectRoleType userId:nil userParams:nil];
     }
     else
     {
-        [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil needCheckPermissions:self.needCheckPermissions];
+        [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:nickName roomId:roomId roomPassword:nil userRole:self.selectRoleType userId:nil userParams:nil];
     }
     
     self.needCheckPermissions = YES;
@@ -1491,7 +1491,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 #endif
 
-    [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams needCheckPermissions:YES];
+    [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     
@@ -2206,7 +2206,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             }
 #endif
 
-            [liveManager joinRoomWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:CHUserType_Student userId:nil userParams:nil needCheckPermissions:NO];
+            [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:weakSelf.nickNameTextField.inputTextField.text roomId:weakSelf.roomTextField.inputTextField.text roomPassword:passWord userRole:CHUserType_Student userId:nil userParams:nil];
             
             [weakSelf.progressHUD bm_showAnimated:NO showBackground:YES];
         } dismissBlock:^(id  _Nullable sender, NSUInteger index) {

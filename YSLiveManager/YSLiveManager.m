@@ -95,6 +95,89 @@
 #endif
 }
 
+- (BOOL)initializeWhiteBoardWithWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
+{
+    [self prepareToJoinRoomWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams];
+    
+    if ([super initializeWhiteBoardWithWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams])
+    {
+        [self checkRoom];
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)canJoinRoom
+{
+#if YSSDK
+    UIViewController *rootVC = nil;
+    YSSDKManager *SDKManager = (YSSDKManager *)self.sdkDelegate;
+    if ([SDKManager.delegate isKindOfClass:[UIViewController class]])
+    {
+        rootVC = (UIViewController *)SDKManager.delegate;
+    }
+    else
+    {
+        NSArray *windows = [UIApplication sharedApplication].windows;
+        if ([windows bm_isNotEmpty])
+        {
+            UIWindow *window = [windows firstObject];
+            if (window.rootViewController)
+            {
+                rootVC = window.rootViewController;
+            }
+            
+            if ([rootVC isKindOfClass:[UINavigationController class]])
+            {
+                UINavigationController *nav = (UINavigationController *)rootVC;
+                rootVC = nav.visibleViewController;
+            }
+        }
+    }
+    
+    if (![rootVC isKindOfClass:[UIViewController class]])
+    {
+        NSAssert(NO, YSLocalized(@"SDK.VCError"));
+        return NO;
+    }
+#endif
+    ///查看摄像头权限
+    BOOL isCamera = NO;//[self cameraPermissionsService];
+    ///查看麦克风权限
+    BOOL isOpenMicrophone = [self microphonePermissionsService];
+    /// 扬声器权限
+    BOOL isReproducer = [YSUserDefault getReproducerPermission];
+    
+    //    isOpenMicrophone = NO;
+    if (!isOpenMicrophone || !isCamera || !isReproducer)
+    {
+        YSPermissionsVC *vc = [[YSPermissionsVC alloc] init];
+        
+        BMWeakSelf
+        vc.toJoinRoom = ^{
+            [weakSelf joinRoom];
+        };
+        
+#if YSSDK
+        vc.modalPresentationStyle = UIModalPresentationFullScreen;
+        [rootVC presentViewController:vc animated:YES completion:nil];
+#else
+        UIWindow *window = [[UIApplication sharedApplication].delegate window];
+        UIViewController *topViewController = [window rootViewController];
+        
+        [(UINavigationController*)topViewController pushViewController:vc animated:NO];
+#endif
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+#if 0
+
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(CHUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
 {
     return [self joinRoomWithHost:host port:port nickName:nickName roomId:roomId roomPassword:roomPassword userRole:userRole userId:userId userParams:userParams needCheckPermissions:YES];
@@ -205,6 +288,8 @@
     
    return [super joinRoomWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams];
 }
+
+#endif
 
 - (void)prepareToJoinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
 {

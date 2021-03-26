@@ -43,10 +43,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerUseHttpDNSForWhiteBoard:(BOOL)needUseHttpDNSForWhiteBoard;
 
+#if 0
+
+- (BOOL)initializeWhiteBoardWithWithHost:(NSString *)host
+                                    port:(int)port
+                                nickName:(NSString *)nickName
+                                  roomId:(NSString *)roomId
+                            roomPassword:(nullable NSString *)roomPassword
+                                userRole:(CHUserRoleType)userRole
+                                  userId:(nullable NSString *)userId
+                              userParams:(nullable NSDictionary *)userParams
+                    needCheckPermissions:(BOOL)needCheckPermissions;
+
+
+- (BOOL)initializeWhiteBoardWithWithHost:(NSString *)host
+                                    port:(int)port
+                                nickName:(NSString *)nickName
+                              roomParams:(NSDictionary *)roomParams
+                              userParams:(nullable NSDictionary *)userParams
+                    needCheckPermissions:(BOOL)needCheckPermissions;
+
+
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(nullable NSString *)roomPassword userRole:(CHUserRoleType)userRole userId:(nullable NSString *)userId userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(nullable NSDictionary *)userParams needCheckPermissions:(BOOL)needCheckPermissions;
 
+#endif
 
 /// 改变小班课白板背景颜色和水印底图 需要在joinRoomWithHost之间设置，如果想要随时修改，请使用白板sdk相应方法
 - (void)setWhiteBoardBackGroundColor:(nullable UIColor *)color maskImage:(nullable UIImage *)image;
