@@ -9,6 +9,8 @@
 #import "YSLiveManager.h"
 #import "YSPermissionsVC.h"
 
+#import "CHBeautySetVC.h"
+
 #if USECUSTOMER_COURSEWARECONTROLVIEW
 #import "YSNewCoursewareControlView.h"
 #endif
@@ -143,37 +145,20 @@
         return NO;
     }
 #endif
-    ///查看摄像头权限
-    BOOL isCamera = NO;//[self cameraPermissionsService];
-    ///查看麦克风权限
-    BOOL isOpenMicrophone = [self microphonePermissionsService];
-    /// 扬声器权限
-    BOOL isReproducer = [YSUserDefault getReproducerPermission];
     
-    //    isOpenMicrophone = NO;
-    if (!isOpenMicrophone || !isCamera || !isReproducer)
-    {
-        YSPermissionsVC *vc = [[YSPermissionsVC alloc] init];
-        
-        BMWeakSelf
-        vc.toJoinRoom = ^{
-            [weakSelf joinRoom];
-        };
-        
+    CHBeautySetVC *vc = [[CHBeautySetVC alloc] init];
+    
 #if YSSDK
-        vc.modalPresentationStyle = UIModalPresentationFullScreen;
-        [rootVC presentViewController:vc animated:YES completion:nil];
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [rootVC presentViewController:vc animated:YES completion:nil];
 #else
-        UIWindow *window = [[UIApplication sharedApplication].delegate window];
-        UIViewController *topViewController = [window rootViewController];
-        
-        [(UINavigationController*)topViewController pushViewController:vc animated:NO];
-#endif
-        
-        return NO;
-    }
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    UIViewController *topViewController = [window rootViewController];
     
-    return YES;
+    [(UINavigationController *)topViewController pushViewController:vc animated:NO];
+#endif
+    
+        return NO;
 }
 
 #if 0

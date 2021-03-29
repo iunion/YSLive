@@ -386,6 +386,10 @@
 		8717E34E2400DADC008C4CDA /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87981DAF23C57CC300DA0276 /* BMKitResources.bundle */; };
 		8717E3722400DFD1008C4CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8717E36D2400DFD1008C4CDA /* InfoPlist.strings */; };
 		8717E3732400DFD1008C4CDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717E3712400DFD1008C4CDA /* Assets.xcassets */; };
+		871C87452611A72100AB898E /* CHBeautySetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87442611A72100AB898E /* CHBeautySetVC.m */; };
+		871C87462611A72100AB898E /* CHBeautySetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87442611A72100AB898E /* CHBeautySetVC.m */; };
+		871C874D2611B00E00AB898E /* CHPermissionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C874C2611B00E00AB898E /* CHPermissionsView.m */; };
+		871C874E2611B00E00AB898E /* CHPermissionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C874C2611B00E00AB898E /* CHPermissionsView.m */; };
 		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
 		8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FF2424F79DF600BDF294 /* YSNewCoursewareControlView.m */; };
 		8745557C23B3358000BC6CAB /* YSSkinCoverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */; };
@@ -1068,6 +1072,10 @@
 		871A008D2363D5D3009297C2 /* YSSignedAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSignedAlertView.h; sourceTree = "<group>"; };
 		871A008E2363D5D3009297C2 /* BMAlertView+YSDefaultAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BMAlertView+YSDefaultAlert.h"; sourceTree = "<group>"; };
 		871A008F2363D5D3009297C2 /* YSPrizeAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSPrizeAlertView.m; sourceTree = "<group>"; };
+		871C87432611A72100AB898E /* CHBeautySetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHBeautySetVC.h; sourceTree = "<group>"; };
+		871C87442611A72100AB898E /* CHBeautySetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHBeautySetVC.m; sourceTree = "<group>"; };
+		871C874B2611B00E00AB898E /* CHPermissionsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHPermissionsView.h; sourceTree = "<group>"; };
+		871C874C2611B00E00AB898E /* CHPermissionsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHPermissionsView.m; sourceTree = "<group>"; };
 		872558A823FAB5D9009A3A79 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		874061F3235AA428005D3620 /* YSLiveUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		874061F4235AA428005D3620 /* YSLiveUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveUtil.m; sourceTree = "<group>"; };
@@ -2222,6 +2230,17 @@
 			path = YSAlertView;
 			sourceTree = "<group>";
 		};
+		871C87422611A6FB00AB898E /* CHBeautySet */ = {
+			isa = PBXGroup;
+			children = (
+				871C87432611A72100AB898E /* CHBeautySetVC.h */,
+				871C87442611A72100AB898E /* CHBeautySetVC.m */,
+				871C874B2611B00E00AB898E /* CHPermissionsView.h */,
+				871C874C2611B00E00AB898E /* CHPermissionsView.m */,
+			);
+			path = CHBeautySet;
+			sourceTree = "<group>";
+		};
 		8745556123B309CE00BC6CAB /* YSEyeCare */ = {
 			isa = PBXGroup;
 			children = (
@@ -2337,6 +2356,7 @@
 			children = (
 				876687802350794D00C4C635 /* ThirdPary */,
 				870C56FC2358577B00BDB1EC /* YSLib */,
+				871C87422611A6FB00AB898E /* CHBeautySet */,
 				87728F272355CCD800E34916 /* YSLiveManager */,
 				34043C3A23EA60B4004982E6 /* YSOnlineSchool */,
 				0464CEA1247B9BFA001532A3 /* YSSkinManager */,
@@ -3757,6 +3777,7 @@
 				26EFA6762379963F00EC2A64 /* SCStatisticsTableViewCell.m in Sources */,
 				2632466025E49A66002002A6 /* mz_strm.c in Sources */,
 				8713358E237270F6006534A4 /* YSMainVC.m in Sources */,
+				871C87452611A72100AB898E /* CHBeautySetVC.m in Sources */,
 				87832F3024874C4300F1178E /* FLEXClassShortcuts.m in Sources */,
 				87832F6024874C4300F1178E /* FLEXManager+Networking.m in Sources */,
 				CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */,
@@ -3788,6 +3809,7 @@
 				3450B1382404AA26006141E5 /* SCVideoView.m in Sources */,
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				87832FEA24874C4300F1178E /* FHSView.m in Sources */,
+				871C874D2611B00E00AB898E /* CHPermissionsView.m in Sources */,
 				87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */,
 				87832F6A24874C4300F1178E /* FLEXArgumentInputStringView.m in Sources */,
 				04841274260DE47A000A47D5 /* CHPropsView.m in Sources */,
@@ -4164,6 +4186,7 @@
 				87832F0924874C4300F1178E /* FLEXSingleRowSection.m in Sources */,
 				87832F9324874C4300F1178E /* FLEXBookmarksViewController.m in Sources */,
 				8783303F24874C4400F1178E /* UIBarButtonItem+FLEX.m in Sources */,
+				871C874E2611B00E00AB898E /* CHPermissionsView.m in Sources */,
 				8783301324874C4400F1178E /* FLEXIvar.m in Sources */,
 				3471E29324039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,
 				8783300524874C4400F1178E /* FLEXRuntimeConstants.m in Sources */,
@@ -4177,6 +4200,7 @@
 				87832F7524874C4300F1178E /* FLEXArgumentInputDateView.m in Sources */,
 				8717E2372400DADC008C4CDA /* YSPrizeAlertView.m in Sources */,
 				87832F5124874C4300F1178E /* FLEXNetworkTransactionDetailController.m in Sources */,
+				871C87462611A72100AB898E /* CHBeautySetVC.m in Sources */,
 				87832FD924874C4300F1178E /* FLEXSearchToken.m in Sources */,
 				8717E23A2400DADC008C4CDA /* YSSkinCoverWindow.m in Sources */,
 				2632465925E49A66002002A6 /* mz_os.c in Sources */,

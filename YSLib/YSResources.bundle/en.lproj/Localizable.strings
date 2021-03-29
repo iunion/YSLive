@@ -491,3 +491,12 @@
 "KeystoneCorrection.Tip" = "Single finger correction image";
 "KeystoneCorrection.Finish" = "Finish";
 "KeystoneCorrection.Reset" = "Reset";
+
+"BeautySet.note" = "In order to get a better classroom experience,\nIt is recommended to open the camera permission";
+"BeautySet.Cam" = "Camera";
+"BeautySet.Cam.HMirror" = "H-mirror";
+"BeautySet.Cam.VMirror" = "V-mirror";
+"BeautySet.Mic" = "Mic";
+"BeautySet.Speaker" = "Speaker";
+"BeautySet.BeautySet" = "Beauty settings";
+"BeautySet.Enter" = "Enter";
