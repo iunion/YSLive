@@ -2354,6 +2354,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     UIButton *beautyButton = [[UIButton alloc]initWithFrame:CGRectMake(50, 150, 100, 50)];
     [beautyButton setBackgroundColor:UIColor.yellowColor];
     [beautyButton setTitle:@"美颜按钮" forState:UIControlStateNormal];
+    [beautyButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     [self.view addSubview:beautyButton];
     [beautyButton addTarget:self action:@selector(beautyButtonClick) forControlEvents:UIControlEventTouchUpInside];
 }

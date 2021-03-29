@@ -500,3 +500,12 @@
 "BeautySet.Speaker" = "Speaker";
 "BeautySet.BeautySet" = "Beauty settings";
 "BeautySet.Enter" = "Enter";
+"BeautySet.Beauty" = "Beauty";
+"BeautySet.Props" = "Animation Props";
+"BeautySet.Reset" = "Reset";
+"BeautySet.Whitening" = "Whitening";
+"BeautySet.ThinFace" = "Thin Face";
+"BeautySet.BigEyes" = "Big Eyes";
+"BeautySet.Exfoliating" = "Exfoliating";
+"BeautySet.Ruddy" = "Ruddy";
+"BeautySet.Back" = "Back";

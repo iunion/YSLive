@@ -53,20 +53,21 @@
 
 - (void)setupView
 {
-    CGFloat buttonW = 60;
+    CGFloat buttonW = 100;
     CGFloat buttonH = 20;
     CGFloat sliderH = 15;
     
     CGFloat cellH = self.bm_height/5;
     CGFloat buttonTop = (cellH - buttonH - 5 - sliderH)/2;
     
-    NSArray *titleArray = @[@"美白",@"瘦脸",@"大眼",@"磨皮",@"红润"];
+    NSArray *titleArray = @[@"BeautySet.Whitening",@"BeautySet.ThinFace",@"BeautySet.BigEyes",@"BeautySet.Exfoliating",@"BeautySet.Ruddy"];
     NSArray *imageStrArray = @[@"beauty_whiten",@"beauty_thinFace",@"beauty_bigEye",@"beauty_exfoliating",@"beauty_ruddy"];
     
     for (int i = 0; i < 5; i++)
     {
         UIButton *button = [self creatTitleButton:titleArray[i] image:imageStrArray[i]];
         button.frame = CGRectMake(20, i * cellH + buttonTop, buttonW, buttonH);
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         
         UILabel *lable = [self creatProgressLable];
         lable.frame = CGRectMake(self.bm_width - buttonW - 20, i * cellH + buttonTop, buttonW, buttonH);
@@ -90,7 +91,7 @@
 - (UIButton *)creatTitleButton:(NSString *)title image:(NSString *)imageString
 {
     UIButton *button = [[UIButton alloc]init];
-    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitle:YSLocalized(title) forState:UIControlStateNormal];
     button.titleLabel.font = UI_FONT_12;
     [button setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:imageString] forState:UIControlStateNormal];

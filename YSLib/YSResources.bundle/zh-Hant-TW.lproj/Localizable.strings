@@ -495,4 +495,12 @@
 "BeautySet.Speaker" = "揚聲器"；
 "BeautySet.BeautySet" = "美顏設定";
 "BeautySet.Enter" = "進 入";
-
+"BeautySet.Beauty" = "美 顏";
+"BeautySet.Props" = "動畫道具";
+"BeautySet.Reset" = "重置";
+"BeautySet.Whitening" = "美白";
+"BeautySet.ThinFace" = "瘦臉";
+"BeautySet.BigEyes" = "大眼";
+"BeautySet.Exfoliating" = "磨皮";
+"BeautySet.Ruddy" = "紅潤";
+"BeautySet.Back" = "返 回";

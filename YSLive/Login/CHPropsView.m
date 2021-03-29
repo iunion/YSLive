@@ -9,7 +9,6 @@
 #import "CHPropsView.h"
 #import "CHPropsViewCell.h"
 
-//#define ColumnNumber 4
 #define CellMarginX 10
 #define CellMarginY 10
 #define cellWidth 80
@@ -33,7 +32,6 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-//        self.backgroundColor = [YSSkinDefineColor(@"Color2") bm_changeAlpha:0.4];
         [self setupView];
     }
     
@@ -42,14 +40,11 @@
 
 - (void)setupView
 {
-
-    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.itemSize = CGSizeMake(cellWidth,cellHeight);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, CellMarginX, CellMarginY, CellMarginX);
     flowLayout.minimumLineSpacing = CellMarginY;
     flowLayout.minimumInteritemSpacing = CellMarginX;
-//    flowLayout.headerReferenceSize = CGSizeMake(self.view.bounds.size.width, 50);
 
     UICollectionView * collectView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     collectView.showsHorizontalScrollIndicator = false;

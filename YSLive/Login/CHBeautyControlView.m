@@ -48,20 +48,23 @@
 
 - (void)setupView
 {
-    UIButton *beautyButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 15, 40, 20)];
-    [beautyButton setTitle:@"美颜" forState:UIControlStateNormal];
+    NSInteger buttonW = 100;
+    
+    UIButton *beautyButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 15, buttonW, 20)];
+    [beautyButton setTitle:YSLocalized(@"BeautySet.Beauty") forState:UIControlStateNormal];
     beautyButton.titleLabel.font = UI_FONT_12;
     [beautyButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
     [beautyButton setTitleColor:YSSkinDefineColor(@"Color4") forState:UIControlStateSelected];
     [beautyButton addTarget:self action:@selector(topButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    beautyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     beautyButton.tag = 1;
     [self addSubview:beautyButton];
     self.beautyButton = beautyButton;
     
     beautyButton.selected = YES;
     
-    UIButton *propButton = [[UIButton alloc]initWithFrame:CGRectMake((self.bm_width - 60)/2, 15, 60, 20)];
-    [propButton setTitle:@"动画道具" forState:UIControlStateNormal];
+    UIButton *propButton = [[UIButton alloc]initWithFrame:CGRectMake((self.bm_width - buttonW)/2, 15, buttonW, 20)];
+    [propButton setTitle:YSLocalized(@"BeautySet.Props") forState:UIControlStateNormal];
     propButton.titleLabel.font = UI_FONT_12;
     [propButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
     [propButton setTitleColor:YSSkinDefineColor(@"Color4") forState:UIControlStateSelected];
@@ -70,12 +73,13 @@
     [self addSubview:propButton];
     self.propButton = propButton;
     
-    UIButton *replaceButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 20 - 60, 15, 50, 20)];
-    [replaceButton setTitle:@"重置" forState:UIControlStateNormal];
+    UIButton *replaceButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 20 - buttonW, 15, buttonW, 20)];
+    [replaceButton setTitle:YSLocalized(@"BeautySet.Reset") forState:UIControlStateNormal];
     replaceButton.titleLabel.font = UI_FONT_12;
     [replaceButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
     [replaceButton setImage:[UIImage imageNamed:@"beauty_replace"] forState:UIControlStateNormal];
     [replaceButton addTarget:self action:@selector(topButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    replaceButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     replaceButton.tag = 3;
     [self addSubview:replaceButton];
     self.replaceButton = replaceButton;
@@ -91,9 +95,9 @@
     self.propsView = propsView;
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake((self.bm_width - 100)/2, self.bm_height-40, 100, 30)];
-    [backButton setBackgroundColor:YSSkinDefineColor(@"Color2")];
+    [backButton setBackgroundColor:[YSSkinDefineColor(@"Color2") bm_changeAlpha:0.7]];
     backButton.layer.cornerRadius = backButton.bm_height/2;
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
+    [backButton setTitle:YSLocalized(@"BeautySet.Back") forState:UIControlStateNormal];
     backButton.titleLabel.font = UI_FONT_12;
     [backButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(topButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -135,17 +139,13 @@
         }
             break;
         case 4:
-        {
-            NSLog(@"点击了返回按钮");
-            
+        {            
             if (_beautyControlViewBackBtnClick)
             {
                 _beautyControlViewBackBtnClick();
             }
-            
         }
             break;
-            
             
         default:
             break;
