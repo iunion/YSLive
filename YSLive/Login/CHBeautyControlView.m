@@ -115,10 +115,9 @@
         case 1:
         {
             self.propButton.selected = NO;
-            BMWeakSelf
             [UIView animateWithDuration:0.25 animations:^{
-                weakSelf.beautyView.bm_originX = 0;
-                weakSelf.propsView.bm_originX = weakSelf.bm_width;
+                self.beautyView.bm_originX = 0;
+                self.propsView.bm_originX = self.bm_width;
             }];
         }
             break;
@@ -126,15 +125,18 @@
         {
             self.beautyButton.selected = NO;
             
-            BMWeakSelf
             [UIView animateWithDuration:0.25 animations:^{
-                weakSelf.beautyView.bm_originX = -weakSelf.bm_width;
-                weakSelf.propsView.bm_originX = 0;
+                self.beautyView.bm_originX = -self.bm_width;
+                self.propsView.bm_originX = 0;
             }];
         }
             break;
         case 3:
         {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.beautyView.bm_originX = 0;
+                self.propsView.bm_originX = self.bm_width;
+            }];
             [self.beautyView clearBeautyValues];
         }
             break;

@@ -828,9 +828,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
     
     if (offSet > 0.01)
     {
-        BMWeakSelf
         [UIView animateWithDuration:0.25 animations:^{
-            weakSelf.backScrollView.contentOffset = CGPointMake(0, offSet);
+            self.backScrollView.contentOffset = CGPointMake(0, offSet);
         }];
     }
 }
@@ -2361,7 +2360,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)beautyButtonClick
 {
-    
     [UIView animateWithDuration:0.25 animations:^{
         if (self.beautyView.bm_originY == self.view.bm_height)
         {
@@ -2372,7 +2370,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
             self.beautyView.bm_originY = self.view.bm_height;
         }
     }];
-
 }
 
 - (CHBeautyControlView *)beautyView
