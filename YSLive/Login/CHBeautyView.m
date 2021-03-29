@@ -61,7 +61,7 @@
     CGFloat buttonTop = (cellH - buttonH - 5 - sliderH)/2;
     
     NSArray *titleArray = @[@"美白",@"瘦脸",@"大眼",@"磨皮",@"红润"];
-    NSArray *imageStrArray = @[@"beautyWhiten",@"beautyThinFace",@"beautyBigEye",@"beautyExfoliating",@"beautyRuddy"];
+    NSArray *imageStrArray = @[@"beauty_whiten",@"beauty_thinFace",@"beauty_bigEye",@"beauty_exfoliating",@"beauty_ruddy"];
     
     for (int i = 0; i < 5; i++)
     {
@@ -93,7 +93,7 @@
     [button setTitle:title forState:UIControlStateNormal];
     button.titleLabel.font = UI_FONT_12;
     [button setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
-    [button setImage:YSSkinElementImage(imageString, @"iconNor") forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:imageString] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [self addSubview:button];
     button.userInteractionEnabled = NO;

@@ -74,7 +74,7 @@
     [replaceButton setTitle:@"重置" forState:UIControlStateNormal];
     replaceButton.titleLabel.font = UI_FONT_12;
     [replaceButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
-    [replaceButton setImage:YSSkinElementImage(@"beautyReplaceBtn", @"iconNor") forState:UIControlStateNormal];
+    [replaceButton setImage:[UIImage imageNamed:@"beauty_replace"] forState:UIControlStateNormal];
     [replaceButton addTarget:self action:@selector(topButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     replaceButton.tag = 3;
     [self addSubview:replaceButton];
