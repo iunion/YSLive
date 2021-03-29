@@ -145,6 +145,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
+@property (nonatomic, strong)CHBeautyControlView *beautyView;
+
 #if 0
 @property (nonatomic, strong) NSString *leftHUDmessage;
 #endif
@@ -2349,10 +2351,45 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)addBeautyView
 {
-    CHBeautyControlView * beautyView = [[CHBeautyControlView alloc]initWithFrame:CGRectMake(0, self.view.bm_height - 376, self.view.bm_width, 376)];
-        
-    [self.view addSubview:beautyView];
+    UIButton *beautyButton = [[UIButton alloc]initWithFrame:CGRectMake(50, 150, 100, 50)];
+    [beautyButton setBackgroundColor:UIColor.yellowColor];
+    [beautyButton setTitle:@"美颜按钮" forState:UIControlStateNormal];
+    [self.view addSubview:beautyButton];
+    [beautyButton addTarget:self action:@selector(beautyButtonClick) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)beautyButtonClick
+{
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        if (self.beautyView.bm_originY == self.view.bm_height)
+        {
+            self.beautyView.bm_originY = self.view.bm_height - 376;
+        }
+        else
+        {
+            self.beautyView.bm_originY = self.view.bm_height;
+        }
+    }];
+
+}
+
+- (CHBeautyControlView *)beautyView
+{
+    if (!_beautyView)
+    {
+        _beautyView = [[CHBeautyControlView alloc]initWithFrame:CGRectMake(0, self.view.bm_height, self.view.bm_width, 376)];
+        [self.view addSubview:self.beautyView];
+        
+        BMWeakSelf
+        self.beautyView.beautyControlViewBackBtnClick = ^{
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                weakSelf.beautyView.bm_originY = weakSelf.view.bm_height;
+            }];
+        };
+    }
+    return _beautyView;
+}
 
 @end

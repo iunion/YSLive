@@ -137,6 +137,12 @@
         case 4:
         {
             NSLog(@"点击了返回按钮");
+            
+            if (_beautyControlViewBackBtnClick)
+            {
+                _beautyControlViewBackBtnClick();
+            }
+            
         }
             break;
             

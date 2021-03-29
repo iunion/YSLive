@@ -22,6 +22,10 @@
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
 		0484121426087D34000A47D5 /* CHLiveControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484121326087D34000A47D5 /* CHLiveControlView.m */; };
+		04841268260DC094000A47D5 /* CHBeautyControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04841266260DC094000A47D5 /* CHBeautyControlView.m */; };
+		0484126F260DCEA3000A47D5 /* CHBeautyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484126E260DCEA3000A47D5 /* CHBeautyView.m */; };
+		04841274260DE47A000A47D5 /* CHPropsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04841273260DE47A000A47D5 /* CHPropsView.m */; };
+		0484127B260DE77E000A47D5 /* CHPropsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484127A260DE77E000A47D5 /* CHPropsViewCell.m */; };
 		0487B27D259C60670010B721 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27C259C60670010B721 /* libz.tbd */; };
 		0487B27F259C60720010B721 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27E259C60720010B721 /* libiconv.tbd */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
@@ -829,6 +833,14 @@
 		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
 		0484121226087D34000A47D5 /* CHLiveControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHLiveControlView.h; sourceTree = "<group>"; };
 		0484121326087D34000A47D5 /* CHLiveControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveControlView.m; sourceTree = "<group>"; };
+		04841266260DC094000A47D5 /* CHBeautyControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHBeautyControlView.m; sourceTree = "<group>"; };
+		04841267260DC094000A47D5 /* CHBeautyControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBeautyControlView.h; sourceTree = "<group>"; };
+		0484126D260DCEA3000A47D5 /* CHBeautyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHBeautyView.h; sourceTree = "<group>"; };
+		0484126E260DCEA3000A47D5 /* CHBeautyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHBeautyView.m; sourceTree = "<group>"; };
+		04841272260DE47A000A47D5 /* CHPropsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHPropsView.h; sourceTree = "<group>"; };
+		04841273260DE47A000A47D5 /* CHPropsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHPropsView.m; sourceTree = "<group>"; };
+		04841279260DE77E000A47D5 /* CHPropsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHPropsViewCell.h; sourceTree = "<group>"; };
+		0484127A260DE77E000A47D5 /* CHPropsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHPropsViewCell.m; sourceTree = "<group>"; };
 		0487B27C259C60670010B721 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		0487B27E259C60720010B721 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
@@ -1713,6 +1725,14 @@
 				2615880824D0090D00F35234 /* YSWebViewController.m */,
 				2615880B24D0171B00F35234 /* YSTextView.h */,
 				2615880C24D0171B00F35234 /* YSTextView.m */,
+				04841267260DC094000A47D5 /* CHBeautyControlView.h */,
+				04841266260DC094000A47D5 /* CHBeautyControlView.m */,
+				0484126D260DCEA3000A47D5 /* CHBeautyView.h */,
+				0484126E260DCEA3000A47D5 /* CHBeautyView.m */,
+				04841272260DE47A000A47D5 /* CHPropsView.h */,
+				04841273260DE47A000A47D5 /* CHPropsView.m */,
+				04841279260DE77E000A47D5 /* CHPropsViewCell.h */,
+				0484127A260DE77E000A47D5 /* CHPropsViewCell.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -3770,6 +3790,7 @@
 				87832FEA24874C4300F1178E /* FHSView.m in Sources */,
 				87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */,
 				87832F6A24874C4300F1178E /* FLEXArgumentInputStringView.m in Sources */,
+				04841274260DE47A000A47D5 /* CHPropsView.m in Sources */,
 				875DD4B325C4103000059D0B /* NSString+FLEX.m in Sources */,
 				87832F2A24874C4300F1178E /* FLEXColorPreviewSection.m in Sources */,
 				26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */,
@@ -3970,12 +3991,14 @@
 				8713363B237270F6006534A4 /* main.m in Sources */,
 				87832F5424874C4300F1178E /* FLEXNetworkCurlLogger.m in Sources */,
 				8713363D237270F6006534A4 /* PLArrayTableViewController.m in Sources */,
+				0484127B260DE77E000A47D5 /* CHPropsViewCell.m in Sources */,
 				87832F8624874C4300F1178E /* FLEXTabsViewController.m in Sources */,
 				8713363E237270F6006534A4 /* CALayer+YSBarrage.m in Sources */,
 				8713363F237270F6006534A4 /* YSChatToolView.m in Sources */,
 				87832FE424874C4300F1178E /* FLEXImagePreviewViewController.m in Sources */,
 				87832F5024874C4300F1178E /* FLEXNetworkTransactionDetailController.m in Sources */,
 				2632465C25E49A66002002A6 /* mz_strm_buf.c in Sources */,
+				0484126F260DCEA3000A47D5 /* CHBeautyView.m in Sources */,
 				87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */,
 				874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */,
 				26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */,
@@ -4011,6 +4034,7 @@
 				87832F7224874C4300F1178E /* FLEXArgumentInputStructView.m in Sources */,
 				87133656237270F6006534A4 /* YSVotingTableCell.m in Sources */,
 				8783300424874C4400F1178E /* FLEXRuntimeConstants.m in Sources */,
+				04841268260DC094000A47D5 /* CHBeautyControlView.m in Sources */,
 				046E68412373E152001CBB27 /* SCChatToolView.m in Sources */,
 				26EFA67E23799F0600EC2A64 /* SCAnswerStatisticsModel.m in Sources */,
 				87832F4E24874C4300F1178E /* FLEXNetworkMITMViewController.m in Sources */,
