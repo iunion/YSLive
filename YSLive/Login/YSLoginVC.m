@@ -2363,20 +2363,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         self.beautyView = [[CHBeautyControlView alloc]initWithFrame:CGRectMake(0, self.view.bm_height, self.view.bm_width, 0)];
         [self.view addSubview:self.beautyView];
-        
-        BMWeakSelf
-        self.beautyView.beautyControlViewBackBtnClick = ^{
-            
-            [UIView animateWithDuration:0.25 animations:^{
-                weakSelf.beautyView.bm_originY = weakSelf.view.bm_height;
-            }];
-        };
     }
     
     [UIView animateWithDuration:0.25 animations:^{
         if (self.beautyView.bm_originY == self.view.bm_height)
         {
-            self.beautyView.bm_originY = self.view.bm_height - self.beautyView.bm_height;
+            self.beautyView.bm_originY = self.view.bm_height - self.beautyView.bm_height - 60;
         }
         else
         {
