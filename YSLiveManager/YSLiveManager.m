@@ -19,6 +19,8 @@
 #import "YSSDKManager.h"
 #endif
 
+#import "CHBeautySetModel.h"
+
 @interface YSLiveManager ()
 <
     CHWhiteBoardManagerDelegate
@@ -44,8 +46,11 @@
 @property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
 @property (nonatomic, strong) NSArray <NSDictionary *> *connectH5CoursewareUrlCookies;
 
-// 是否需要使用HttpDNS
+/// 是否需要使用HttpDNS
 @property (nonatomic, assign) BOOL needUseHttpDNSForWhiteBoard;
+
+/// 美颜数据
+@property (nonatomic, strong) CHBeautySetModel *beautySetModel;
 
 @end
 
@@ -70,6 +75,8 @@
         
         self.needUseHttpDNSForWhiteBoard = YES;
 
+        self.beautySetModel = [[CHBeautySetModel alloc] init];
+        
         #if YSSDK
             // 区分是否进入教室
             self.sdkIsJoinRoom = NO;
@@ -145,7 +152,16 @@
         return NO;
     }
 #endif
-    
+
+    //return YES;
+
+    [self.cloudHubRtcEngineKit enableLocalAudio:YES];
+    [self.cloudHubRtcEngineKit enableLocalVideo:YES];
+
+//    [self.cloudHubRtcEngineKit enableAudio];
+//    [self.cloudHubRtcEngineKit enableVideo];
+//    [self.cloudHubRtcEngineKit publishStream];
+
     CHBeautySetVC *vc = [[CHBeautySetVC alloc] init];
     
 #if YSSDK

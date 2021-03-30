@@ -14,6 +14,8 @@
 #endif
 NS_ASSUME_NONNULL_BEGIN
 
+@class CHBeautySetModel;
+
 @interface YSLiveManager : CHSessionManager
 
 /// 网校api请求host
@@ -38,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 区分是否进入教室
 @property (nonatomic, assign) BOOL sdkIsJoinRoom;
 #endif
+
+/// 美颜数据
+@property (nonatomic, strong, readonly) CHBeautySetModel *beautySetModel;
 
 + (void)destroy;
 

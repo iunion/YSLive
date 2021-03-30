@@ -1052,14 +1052,25 @@
 {
     for (CloudHubAudioVolumeInfo *info in speakers)
     {
-        NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:info.uid];
-        
-        for (SCVideoView *videoView in videoArray)
+        if ([info.uid isEqualToString:@"0"])
         {
-            videoView.iVolume = info.volume;
+            NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:CHLocalUser.peerID];
+            for (SCVideoView *videoView in videoArray)
+            {
+                videoView.iVolume = info.volume;
+            }
+        }
+        else
+        {
+            NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:info.uid];
+            for (SCVideoView *videoView in videoArray)
+            {
+                videoView.iVolume = info.volume;
+            }
         }
     }
 }
+
 /// 开关摄像头
 - (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid  sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {

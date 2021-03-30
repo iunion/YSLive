@@ -8,6 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, CHPermissionsViewChangeType)
+{
+    /// 切换摄像头
+    CHPermissionsViewChange_Cam ,
+    /// 水平镜像
+    CHPermissionsViewChange_HMirror,
+    /// 垂直镜像
+    CHPermissionsViewChange_VMirror,
+    /// 播放声音
+    CHPermissionsViewChange_Play,
+    /// 停止声音
+    CHPermissionsViewChange_Pause,
+    /// 美颜设置
+    CHPermissionsViewChange_BeautySet
+};
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol CHPermissionsViewDelegate;
@@ -15,11 +32,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <CHPermissionsViewDelegate> delegate;
 
+- (void)changeVolumLevel:(CGFloat)volumLevel;
+
 @end
 
 @protocol CHPermissionsViewDelegate <NSObject>
 
-- (void)permissionsViewChanged;
+- (void)onPermissionsViewChanged:(CHPermissionsViewChangeType)changeType;
 
 @end
 

@@ -390,6 +390,8 @@
 		871C87462611A72100AB898E /* CHBeautySetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87442611A72100AB898E /* CHBeautySetVC.m */; };
 		871C874D2611B00E00AB898E /* CHPermissionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C874C2611B00E00AB898E /* CHPermissionsView.m */; };
 		871C874E2611B00E00AB898E /* CHPermissionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C874C2611B00E00AB898E /* CHPermissionsView.m */; };
+		871C875626132E0500AB898E /* CHBeautySetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C875526132E0500AB898E /* CHBeautySetModel.m */; };
+		871C875726132E0500AB898E /* CHBeautySetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C875526132E0500AB898E /* CHBeautySetModel.m */; };
 		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
 		8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FF2424F79DF600BDF294 /* YSNewCoursewareControlView.m */; };
 		8745557C23B3358000BC6CAB /* YSSkinCoverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */; };
@@ -1076,6 +1078,8 @@
 		871C87442611A72100AB898E /* CHBeautySetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHBeautySetVC.m; sourceTree = "<group>"; };
 		871C874B2611B00E00AB898E /* CHPermissionsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHPermissionsView.h; sourceTree = "<group>"; };
 		871C874C2611B00E00AB898E /* CHPermissionsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHPermissionsView.m; sourceTree = "<group>"; };
+		871C875426132E0500AB898E /* CHBeautySetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHBeautySetModel.h; sourceTree = "<group>"; };
+		871C875526132E0500AB898E /* CHBeautySetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHBeautySetModel.m; sourceTree = "<group>"; };
 		872558A823FAB5D9009A3A79 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		874061F3235AA428005D3620 /* YSLiveUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		874061F4235AA428005D3620 /* YSLiveUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveUtil.m; sourceTree = "<group>"; };
@@ -2237,6 +2241,8 @@
 				871C87442611A72100AB898E /* CHBeautySetVC.m */,
 				871C874B2611B00E00AB898E /* CHPermissionsView.h */,
 				871C874C2611B00E00AB898E /* CHPermissionsView.m */,
+				871C875426132E0500AB898E /* CHBeautySetModel.h */,
+				871C875526132E0500AB898E /* CHBeautySetModel.m */,
 			);
 			path = CHBeautySet;
 			sourceTree = "<group>";
@@ -4056,6 +4062,7 @@
 				87832F7224874C4300F1178E /* FLEXArgumentInputStructView.m in Sources */,
 				87133656237270F6006534A4 /* YSVotingTableCell.m in Sources */,
 				8783300424874C4400F1178E /* FLEXRuntimeConstants.m in Sources */,
+				871C875626132E0500AB898E /* CHBeautySetModel.m in Sources */,
 				04841268260DC094000A47D5 /* CHBeautyControlView.m in Sources */,
 				046E68412373E152001CBB27 /* SCChatToolView.m in Sources */,
 				26EFA67E23799F0600EC2A64 /* SCAnswerStatisticsModel.m in Sources */,
@@ -4149,6 +4156,7 @@
 				8717E2162400DADC008C4CDA /* YSMineViewController.m in Sources */,
 				87832FDD24874C4300F1178E /* FLEXKeyboardToolbar.m in Sources */,
 				87832FB524874C4300F1178E /* FLEXASLLogController.m in Sources */,
+				871C875726132E0500AB898E /* CHBeautySetModel.m in Sources */,
 				87832FE124874C4300F1178E /* FLEXRuntimeKeyPathTokenizer.m in Sources */,
 				87832F5F24874C4300F1178E /* FLEXManager.m in Sources */,
 				8717E21D2400DADC008C4CDA /* YSClassModel.m in Sources */,
