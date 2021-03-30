@@ -9,6 +9,13 @@
 #import "CHBeautyView.h"
 #import "CHPropsView.h"
 
+
+#define viewHeight 376
+#define buttonW 100
+#define buttonH 20
+#define buttonTop 15
+#define lefeMargin 20
+
 @interface CHBeautyControlView ()
 
 /// 美颜按钮
@@ -41,6 +48,8 @@
     {
         self.backgroundColor = [YSSkinDefineColor(@"Color2") bm_changeAlpha:0.4];
         [self setupView];
+        
+        self.frame = frame;
     }
     
     return self;
@@ -48,9 +57,7 @@
 
 - (void)setupView
 {
-    NSInteger buttonW = 100;
-    
-    UIButton *beautyButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 15, buttonW, 20)];
+    UIButton *beautyButton = [[UIButton alloc]init];
     [beautyButton setTitle:YSLocalized(@"BeautySet.Beauty") forState:UIControlStateNormal];
     beautyButton.titleLabel.font = UI_FONT_12;
     [beautyButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
@@ -63,7 +70,7 @@
     
     beautyButton.selected = YES;
     
-    UIButton *propButton = [[UIButton alloc]initWithFrame:CGRectMake((self.bm_width - buttonW)/2, 15, buttonW, 20)];
+    UIButton *propButton = [[UIButton alloc]init];
     [propButton setTitle:YSLocalized(@"BeautySet.Props") forState:UIControlStateNormal];
     propButton.titleLabel.font = UI_FONT_12;
     [propButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
@@ -73,7 +80,7 @@
     [self addSubview:propButton];
     self.propButton = propButton;
     
-    UIButton *replaceButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bm_width - 20 - buttonW, 15, buttonW, 20)];
+    UIButton *replaceButton = [[UIButton alloc]init];
     [replaceButton setTitle:YSLocalized(@"BeautySet.Reset") forState:UIControlStateNormal];
     replaceButton.titleLabel.font = UI_FONT_12;
     [replaceButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
@@ -84,17 +91,17 @@
     [self addSubview:replaceButton];
     self.replaceButton = replaceButton;
     
-    CHBeautyView *beautyView = [[CHBeautyView alloc]initWithFrame:CGRectMake(0, 50, self.bm_width, self.bm_height-110)];
+    CHBeautyView *beautyView = [[CHBeautyView alloc]init];
     [self addSubview:beautyView];
     self.beautyView = beautyView;
 
     /// 动画道具view
-    CHPropsView *propsView = [[CHPropsView alloc]initWithFrame:CGRectMake(self.bm_width, 50, self.bm_width, self.bm_height-110)];
+    CHPropsView *propsView = [[CHPropsView alloc]initWithFrame:CGRectMake(self.bm_width, 50, self.bm_width, beautyView.bm_height)];
     propsView.dataArray = @[@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回"];
     [self addSubview:propsView];
     self.propsView = propsView;
     
-    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake((self.bm_width - 100)/2, self.bm_height-40, 100, 30)];
+    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 0, 30)];
     [backButton setBackgroundColor:[YSSkinDefineColor(@"Color2") bm_changeAlpha:0.7]];
     backButton.layer.cornerRadius = backButton.bm_height/2;
     [backButton setTitle:YSLocalized(@"BeautySet.Back") forState:UIControlStateNormal];
@@ -105,6 +112,26 @@
     [self addSubview:backButton];
     self.backButton = backButton;
 }
+
+- (void)setFrame:(CGRect)frame
+{
+    frame.size.height = 50 + self.beautyView.bm_height + 60;
+    
+    [super setFrame:frame];
+    
+    self.beautyButton.frame = CGRectMake(lefeMargin, buttonTop, buttonW, buttonH);
+    
+    self.propButton.frame = CGRectMake((self.bm_width - buttonW)/2, buttonTop, buttonW, buttonH);
+    
+    self.replaceButton.frame = CGRectMake(self.bm_width - lefeMargin - buttonW, buttonTop, buttonW, buttonH);
+    
+    self.beautyView.frame = CGRectMake(0, 50, self.bm_width, self.beautyView.bm_height);
+    
+    self.propsView.frame = CGRectMake(self.bm_width, 50, self.bm_width, self.beautyView.bm_height);
+    
+    self.backButton.frame = CGRectMake((self.bm_width - 100)/2, self.bm_height-40, 100, 30);
+}
+
 
 - (void)topButtonClick:(UIButton *)sender
 {

@@ -2347,7 +2347,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return authStatus == AVAuthorizationStatusAuthorized;
 }
 
-
 - (void)addBeautyView
 {
     UIButton *beautyButton = [[UIButton alloc]initWithFrame:CGRectMake(50, 150, 100, 50)];
@@ -2360,23 +2359,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 - (void)beautyButtonClick
 {
-    [UIView animateWithDuration:0.25 animations:^{
-        if (self.beautyView.bm_originY == self.view.bm_height)
-        {
-            self.beautyView.bm_originY = self.view.bm_height - 376;
-        }
-        else
-        {
-            self.beautyView.bm_originY = self.view.bm_height;
-        }
-    }];
-}
-
-- (CHBeautyControlView *)beautyView
-{
-    if (!_beautyView)
+    if (!self.beautyView)
     {
-        _beautyView = [[CHBeautyControlView alloc]initWithFrame:CGRectMake(0, self.view.bm_height, self.view.bm_width, 376)];
+        self.beautyView = [[CHBeautyControlView alloc]initWithFrame:CGRectMake(0, self.view.bm_height, self.view.bm_width, 0)];
         [self.view addSubview:self.beautyView];
         
         BMWeakSelf
@@ -2387,7 +2372,17 @@ typedef void (^YSRoomLeftDoBlock)(void);
             }];
         };
     }
-    return _beautyView;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        if (self.beautyView.bm_originY == self.view.bm_height)
+        {
+            self.beautyView.bm_originY = self.view.bm_height - self.beautyView.bm_height;
+        }
+        else
+        {
+            self.beautyView.bm_originY = self.view.bm_height;
+        }
+    }];
 }
 
 @end
