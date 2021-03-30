@@ -11,8 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHBeautyControlView : UIView
 
-@property (nonatomic,copy) void(^beautyControlViewBackBtnClick)(void);
-
 @end
 
 NS_ASSUME_NONNULL_END

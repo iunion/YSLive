@@ -10,7 +10,7 @@
 #import "CHPropsView.h"
 
 
-#define viewHeight 376
+#define viewHeight 316
 #define buttonW 100
 #define buttonH 20
 #define buttonTop 15
@@ -26,10 +26,6 @@
 
 /// 重置按钮
 @property(nonatomic,weak)UIButton *replaceButton;
-
-/// 返回按钮
-@property(nonatomic,weak)UIButton *backButton;
-
 
 /// 美颜设置view
 @property(nonatomic,weak)CHBeautyView *beautyView;
@@ -100,17 +96,7 @@
     propsView.dataArray = @[@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回"];
     [self addSubview:propsView];
     self.propsView = propsView;
-    
-    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 0, 30)];
-    [backButton setBackgroundColor:[YSSkinDefineColor(@"Color2") bm_changeAlpha:0.7]];
-    backButton.layer.cornerRadius = backButton.bm_height/2;
-    [backButton setTitle:YSLocalized(@"BeautySet.Back") forState:UIControlStateNormal];
-    backButton.titleLabel.font = UI_FONT_12;
-    [backButton setTitleColor:YSSkinDefineColor(@"WhiteColor") forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(topButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    backButton.tag = 4;
-    [self addSubview:backButton];
-    self.backButton = backButton;
+
 }
 
 - (void)setFrame:(CGRect)frame
@@ -128,8 +114,6 @@
     self.beautyView.frame = CGRectMake(0, 50, self.bm_width, self.beautyView.bm_height);
     
     self.propsView.frame = CGRectMake(self.bm_width, 50, self.bm_width, self.beautyView.bm_height);
-    
-    self.backButton.frame = CGRectMake((self.bm_width - 100)/2, self.bm_height-40, 100, 30);
 }
 
 
@@ -165,14 +149,6 @@
                 self.propsView.bm_originX = self.bm_width;
             }];
             [self.beautyView clearBeautyValues];
-        }
-            break;
-        case 4:
-        {            
-            if (_beautyControlViewBackBtnClick)
-            {
-                _beautyControlViewBackBtnClick();
-            }
         }
             break;
             
