@@ -54,7 +54,6 @@
     collectView.dataSource = self;
     [self addSubview:collectView];
     self.collectView = collectView;
-    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

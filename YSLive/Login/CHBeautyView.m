@@ -160,10 +160,6 @@
 }
 
 #pragma mark - slider事件
-// slider开始滑动事件
-- (void)progressSliderTouchBegan:(UISlider *)slider
-{
-}
 // slider滑动中事件
 - (void)progressSliderValueChanged:(UISlider *)slider
 {
@@ -172,9 +168,8 @@
     UILabel *lab = self.lableArray[slider.tag - 1];
     
     lab.text = [NSString stringWithFormat:@"%ld %%",value];
-
-    
 }
+
 // slider结束滑动事件
 - (void)progressSliderTouchEnded:(UISlider *)slider
 {
@@ -199,7 +194,6 @@
         default:
             break;
     }
-
 }
 
 
