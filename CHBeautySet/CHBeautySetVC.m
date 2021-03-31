@@ -102,13 +102,19 @@
 - (void)setupAVAudio
 {
     self.session = [AVAudioSession sharedInstance];
-    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    //[self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionAllowBluetooth error:nil];
     
     [self startVollumListening];
 }
 
 - (void)startVollumListening
 {
+    [self.session setActive:NO error:nil];
+
+    [self.session setCategory:AVAudioSessionCategoryRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+
+    [self.session setActive:YES error:nil];
+    
     // 不需要保存录音文件
     NSURL *url = [NSURL fileURLWithPath:@"/dev/null"];
     NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -137,6 +143,8 @@
 
 - (void)stopVollumListening
 {
+    [self.recorder stop];
+    
     if (self.levelTimer)
     {
         [self.levelTimer invalidate];
@@ -144,8 +152,19 @@
     }
 
     [self.permissionsView changeVolumLevel:0.0f];
-    
+        
     [self.session setActive:NO error:nil];
+
+    [self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    
+    [self.session setActive:YES error:nil];
+
+    NSError *error = nil;
+    BOOL success = [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+    if(!success)
+    {
+        NSLog(@"error doing outputaudioportoverride - %@", [error localizedDescription]);
+    }
 }
 
 /// 该方法确实会随环境音量变化而变化，但具体分贝值是否准确暂时没有研究
@@ -262,13 +281,8 @@
         return;
     }
     
-    if (self.levelTimer)
-    {
-        [self.levelTimer invalidate];
-        self.levelTimer = nil;
-    }
-
-    [self.session setActive:NO error:nil];
+    [self stopVollumListening];
+    //[self.session setActive:NO error:nil];
 
     [self.liveManager stopVideoWithUserId:self.liveManager.localUser.peerID streamID:nil];
     
@@ -314,26 +328,22 @@
         if (self.player && !self.player.isPlaying)
         {
             [self.player play];
+            [self.player setVolume:1.0];
         }
         else
         {
-            NSError *error = nil;
-            BOOL success = [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
-            if(!success)
-            {
-                NSLog(@"error doing outputaudioportoverride - %@", [error localizedDescription]);
-            }
-            
             self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:self.filePath] error:nil];
             self.player.delegate = self;
             [self.player setVolume:1.0];
+            
             [self.player play];
         }
     }
     else
     {
-        [self startVollumListening];
         [self.player pause];
+
+        [self startVollumListening];
     }
 }
 
