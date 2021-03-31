@@ -15,7 +15,8 @@
 
 @interface CHBeautySetVC ()
 <
-    AVAudioPlayerDelegate
+    AVAudioPlayerDelegate,
+    CHPermissionsViewDelegate
 >
 
 @property (nonatomic, strong) NSTimer *levelTimer;
@@ -53,6 +54,8 @@
 {
     [super viewDidLoad];
     
+    self.bm_CanBackInteractive = NO;
+
     [self setupAVAudio];
 
     [self setupView];
@@ -176,9 +179,10 @@
     largeVideoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.largeVideoView = largeVideoView;
 
-    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
-    [liveManager playVideoWithUserId:liveManager.localUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:largeVideoView];
-    liveManager.sessionManagerSelfVolume = ^(NSUInteger volume) {
+    [self resetBeautySet];
+    
+    [self.liveManager playVideoWithUserId:self.liveManager.localUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:largeVideoView];
+    self.liveManager.sessionManagerSelfVolume = ^(NSUInteger volume) {
         NSLog(@"volume: %@", @(volume));
     };
     
@@ -189,6 +193,9 @@
     self.bottomView = bottomView;
     
     CHPermissionsView *permissionsView = [[CHPermissionsView alloc] initWithFrame:self.view.bounds];
+    permissionsView.liveManager = self.liveManager;
+    permissionsView.delegate = self;
+    permissionsView.beautySetModel = self.beautySetModel;
     [self.bottomView addSubview:permissionsView];
     self.permissionsView = permissionsView;
 
@@ -213,17 +220,6 @@
     self.enterBtn = enterBtn;
 }
 
-- (void)backAction:(id)sender
-{
-    if (self.levelTimer)
-    {
-        [self.levelTimer invalidate];
-        self.levelTimer = nil;
-    }
-    
-    [super backAction:sender];
-}
-
 - (void)enterBtnClick:(id)sender
 {
     if (self.permissionsView.hidden)
@@ -232,7 +228,68 @@
         return;
     }
     
-    [self.delegate beautySetFinished:YES];
+    if (self.levelTimer)
+    {
+        [self.levelTimer invalidate];
+        self.levelTimer = nil;
+    }
+    
+    [self.liveManager stopVideoWithUserId:self.liveManager.localUser.peerID streamID:nil];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(beautySetFinished:)])
+    {
+        [self.delegate beautySetFinished:YES];
+    }
+}
+
+- (void)resetBeautySet
+{
+    [self.liveManager useFrontCamera:YES];
+    [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnBottom];
+    
+    //[self.liveManager setCameraFlipMode:NO Vertivcal:NO];
+    //[self.liveManager resetCameraKeystoning];
+}
+
+#pragma mark 查看麦克风权限
+
+- (BOOL)microphonePermissionsService
+{
+    AVAudioSessionRecordPermission permissionStatus = [[AVAudioSession sharedInstance] recordPermission];
+    return permissionStatus == AVAudioSessionRecordPermissionGranted;
+}
+
+#pragma mark 查看摄像头权限
+
+- (BOOL)cameraPermissionsService
+{
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    return authStatus == AVAuthorizationStatusAuthorized;
+}
+
+
+#pragma mark - CHPermissionsViewDelegate
+
+- (void)onPermissionsViewChanged:(CHPermissionsViewChangeType)changeType value:(BOOL)value
+{
+    switch (changeType)
+    {
+        case CHPermissionsViewChange_Play:
+        {
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnLeft];
+        }
+            break;
+            
+        case CHPermissionsViewChange_BeautySet:
+        {
+            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnBottom];
+            [self.liveManager.cloudHubRtcEngineKit enableLocalVideo:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 

@@ -23,7 +23,8 @@
 
 @interface YSLiveManager ()
 <
-    CHWhiteBoardManagerDelegate
+    CHWhiteBoardManagerDelegate,
+    CHBeautySetVCDelegate
 >
 
 #pragma mark - 白板
@@ -51,6 +52,7 @@
 
 /// 美颜数据
 @property (nonatomic, strong) CHBeautySetModel *beautySetModel;
+@property (nonatomic, strong) CHBeautySetVC *beautySetVC;
 
 @end
 
@@ -162,19 +164,42 @@
 //    [self.cloudHubRtcEngineKit enableVideo];
 //    [self.cloudHubRtcEngineKit publishStream];
 
-    CHBeautySetVC *vc = [[CHBeautySetVC alloc] init];
+    CHBeautySetVC *beautySetVC = [[CHBeautySetVC alloc] init];
+    beautySetVC.liveManager = self;
+    beautySetVC.delegate = self;
+    beautySetVC.beautySetModel = self.beautySetModel;
+    
+    self.beautySetModel.liveManager = self;
+    
+    self.beautySetVC = beautySetVC;
     
 #if YSSDK
-    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [rootVC presentViewController:vc animated:YES completion:nil];
+    beautySetVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    [rootVC presentViewController:beautySetVC animated:YES completion:nil];
 #else
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     UIViewController *topViewController = [window rootViewController];
     
-    [(UINavigationController *)topViewController pushViewController:vc animated:NO];
+    [(UINavigationController *)topViewController pushViewController:beautySetVC animated:NO];
 #endif
     
         return NO;
+}
+
+- (void)beautySetFinished:(BOOL)isFinished
+{
+#if YSSDK
+    [self.beautySetVC dismissViewControllerAnimated:YES completion:^{
+            [self joinRoom];
+        }];
+#else
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    UINavigationController *topViewController = (UINavigationController *)([window rootViewController]);
+    
+    [topViewController popViewControllerAnimated:NO];
+    
+    [self joinRoom];
+#endif
 }
 
 #if 0

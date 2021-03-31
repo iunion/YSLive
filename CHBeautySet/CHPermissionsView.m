@@ -32,6 +32,8 @@
 @property (nonatomic, strong) UIButton *speakButton;
 @property (nonatomic, strong) UIButton *beautyButton;
 
+@property (nonatomic, assign) BOOL isPlaying;
+
 @property (nonatomic, strong) BMImageTextView *hMirrorBtn;
 @property (nonatomic, strong) BMImageTextView *vMirrorBtn;
 
@@ -63,6 +65,8 @@
 {
     self.backgroundColor = UIColor.clearColor;
     
+    BMWeakSelf
+    
     // 摄像头
     UIImageView *camIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"permissions_cam_icon"]];
     camIcon.frame = CGRectMake(CHPermissionsView_LeftGap, CHPermissionsView_Gap, CHPermissionsView_IconWidth, CHPermissionsView_IconWidth);
@@ -78,6 +82,7 @@
 
     UIButton *camButton = [[UIButton alloc] init];
     [camButton setImage:[UIImage imageNamed:@"permissions_camswitch"] forState:UIControlStateNormal];
+    [camButton addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:camButton];
     self.camButton = camButton;
 
@@ -86,12 +91,46 @@
     hMirrorBtn.textColor = UIColor.whiteColor;
     [self addSubview:hMirrorBtn];
     self.hMirrorBtn = hMirrorBtn;
+    self.hMirrorBtn.imageTextViewClicked = ^(BMImageTextView * _Nonnull imageTextView) {
+
+        weakSelf.beautySetModel.hMirror = !weakSelf.beautySetModel.hMirror;
+        if (weakSelf.beautySetModel.hMirror)
+        {
+            weakSelf.hMirrorBtn.imageName = @"permissions_mirror";
+        }
+        else
+        {
+            weakSelf.hMirrorBtn.imageName = @"permissions_unmirror";
+        }
+
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(onPermissionsViewChanged:value:)])
+        {
+            [weakSelf.delegate onPermissionsViewChanged:CHPermissionsViewChange_HMirror value:weakSelf.beautySetModel.hMirror];
+        }
+    };
 
     BMImageTextView *vMirrorBtn = [[BMImageTextView alloc] initWithImage:@"permissions_unmirror" text:YSLocalized(@"BeautySet.Cam.VMirror") height:30.0f gap:4.0f];
     vMirrorBtn.textColor = UIColor.whiteColor;
     [self addSubview:vMirrorBtn];
     self.vMirrorBtn = vMirrorBtn;
     [self.vMirrorBtn layoutSubviews];
+    self.vMirrorBtn.imageTextViewClicked = ^(BMImageTextView * _Nonnull imageTextView) {
+        
+        weakSelf.beautySetModel.vMirror = !weakSelf.beautySetModel.vMirror;
+        if (weakSelf.beautySetModel.vMirror)
+        {
+            weakSelf.vMirrorBtn.imageName = @"permissions_mirror";
+        }
+        else
+        {
+            weakSelf.vMirrorBtn.imageName = @"permissions_unmirror";
+        }
+
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(onPermissionsViewChanged:value:)])
+        {
+            [weakSelf.delegate onPermissionsViewChanged:CHPermissionsViewChange_VMirror value:weakSelf.beautySetModel.vMirror];
+        }
+    };
 
     UIView *lineView1 = [[UIView alloc] init];
     lineView1.backgroundColor = UIColor.whiteColor;
@@ -142,6 +181,7 @@
 
     UIButton *speakButton = [[UIButton alloc] init];
     [speakButton setImage:[UIImage imageNamed:@"permissions_audioplay"] forState:UIControlStateNormal];
+    [speakButton addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:speakButton];
     self.speakButton = speakButton;
 
@@ -165,12 +205,36 @@
 
     UIButton *beautyButton = [[UIButton alloc] init];
     [beautyButton setImage:[UIImage imageNamed:@"permissions_beautyset"] forState:UIControlStateNormal];
+    [beautyButton addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:beautyButton];
     self.beautyButton = beautyButton;
-
+    
     // permissions_cam_icon permissions_camswitch permissions_audiopause permissions_audioplay
     // permissions_beautyset permissions_beauty_icon permissions_mic_icon permissions_speaker_icon
     // permissions_unmirror permissions_mirror permissions_progress permissions_unprogress
+}
+
+- (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
+{
+    _beautySetModel = beautySetModel;
+    
+    if (!beautySetModel.cameraPermissions)
+    {
+        self.hMirrorBtn.userInteractionEnabled = NO;
+        self.hMirrorBtn.textColor = UIColor.grayColor;
+        
+        self.vMirrorBtn.userInteractionEnabled = NO;
+        self.vMirrorBtn.textColor = UIColor.grayColor;
+
+        self.camButton.enabled = NO;
+    }
+    
+    if (!beautySetModel.microphonePermissions)
+    {
+        self.volumBgImage.image = [UIImage bm_resizedImageModeTileWithName:@"permissions_progress"];
+        self.volumImage.hidden = YES;
+    }
+
 }
 
 - (void)setFrame:(CGRect)frame
@@ -222,5 +286,45 @@
     self.volumImage.bm_width = self.volumBgImage.bm_width * volumLevel;
 }
 
+- (void)btnClick:(UIButton *)btn
+{
+    CHPermissionsViewChangeType changeType = CHPermissionsViewChange_None;
+    BOOL value = NO;
+    if (btn == self.camButton)
+    {
+        changeType = CHPermissionsViewChange_Cam;
+        self.beautySetModel.switchCam = !self.beautySetModel.switchCam;
+        value = self.beautySetModel.switchCam;
+    }
+    else if (btn == self.speakButton)
+    {
+        changeType = CHPermissionsViewChange_Play;
+        self.isPlaying = !self.isPlaying;
+        value = self.isPlaying;
+
+        if (self.isPlaying)
+        {
+            [self.speakButton setImage:[UIImage imageNamed:@"permissions_audioplay"] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [self.speakButton setImage:[UIImage imageNamed:@"permissions_audiopause"] forState:UIControlStateNormal];
+        }
+    }
+    else if (btn == self.beautyButton)
+    {
+        changeType = CHPermissionsViewChange_BeautySet;
+    }
+
+    if (changeType == CHPermissionsViewChange_None)
+    {
+        return;
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onPermissionsViewChanged:value:)])
+    {
+        [self.delegate onPermissionsViewChanged:changeType value:value];
+    }
+}
 
 @end

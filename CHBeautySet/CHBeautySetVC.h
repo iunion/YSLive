@@ -7,6 +7,8 @@
 //
 
 #import "YSSuperVC.h"
+#import "CHBeautySetModel.h"
+#import "YSLiveManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CHBeautySetVC : YSSuperVC
 
 @property (nonatomic, weak) id <CHBeautySetVCDelegate> delegate;
+
+@property (nonatomic, weak) YSLiveManager *liveManager;
+
+/// 美颜数据
+@property (nonatomic, weak) CHBeautySetModel *beautySetModel;
 
 @end
 

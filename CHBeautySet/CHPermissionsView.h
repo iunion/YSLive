@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CHBeautySetModel.h"
 
 typedef NS_ENUM(NSUInteger, CHPermissionsViewChangeType)
 {
+    CHPermissionsViewChange_None,
     /// 切换摄像头
-    CHPermissionsViewChange_Cam ,
+    CHPermissionsViewChange_Cam,
     /// 水平镜像
     CHPermissionsViewChange_HMirror,
     /// 垂直镜像
     CHPermissionsViewChange_VMirror,
     /// 播放声音
     CHPermissionsViewChange_Play,
-    /// 停止声音
-    CHPermissionsViewChange_Pause,
     /// 美颜设置
     CHPermissionsViewChange_BeautySet
 };
@@ -32,13 +32,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <CHPermissionsViewDelegate> delegate;
 
+@property (nonatomic, weak) YSLiveManager *liveManager;
+
+/// 美颜数据
+@property (nonatomic, weak) CHBeautySetModel *beautySetModel;
+
 - (void)changeVolumLevel:(CGFloat)volumLevel;
 
 @end
 
 @protocol CHPermissionsViewDelegate <NSObject>
 
-- (void)onPermissionsViewChanged:(CHPermissionsViewChangeType)changeType;
+- (void)onPermissionsViewChanged:(CHPermissionsViewChangeType)changeType value:(BOOL)value;
 
 @end
 

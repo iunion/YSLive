@@ -10,7 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class YSLiveManager;
 @interface CHBeautySetModel : NSObject
+
+/// 音视频SDK管理
+@property (nonatomic, weak) YSLiveManager *liveManager;
+
+/// 摄像头权限
+@property (nonatomic, assign, readonly) BOOL cameraPermissions;
+/// 权限麦克风
+@property (nonatomic, assign, readonly) BOOL microphonePermissions;
 
 /// 切换摄像头
 @property (nonatomic, assign) BOOL switchCam;
