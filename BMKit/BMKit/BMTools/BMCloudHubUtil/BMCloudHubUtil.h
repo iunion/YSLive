@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BMCloudHubUtil : NSObject
 
+/// 检测设备授权
++ (BOOL)checkAuthorizationStatus:(AVMediaType)mediaType;
+
 /// 获取设备语言
 + (NSString *)getCurrentLanguage;
 

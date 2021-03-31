@@ -106,7 +106,90 @@
 #endif
 }
 
-- (BOOL)initializeWhiteBoardWithWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
+/// 请求设备权限授权
+- (void)requestCaptureAuthorizationByMediaType:(AVMediaType)mediaType finishBlock:(void(^)(BOOL isSuccess))finishBlock
+{
+    AVAuthorizationStatus authorStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    
+    // 检测授权
+    switch (authorStatus)
+    {
+        // 已授权，可使用
+        // The client is authorized to access the hardware supporting a media type.
+        case AVAuthorizationStatusAuthorized:
+        {
+            if (finishBlock)
+            {
+                finishBlock(NO);
+            }
+            break;
+        }
+        // 未进行授权选择
+        // Indicates that the user has not yet made a choice regarding whether the client can access the hardware.
+        case AVAuthorizationStatusNotDetermined:
+        {
+            // 再次请求授权
+            [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
+                // 用户授权成功
+                if (granted)
+                {
+                    if (finishBlock)
+                    {
+                        finishBlock(YES);
+                    }
+                }
+                else
+                {
+                    // 用户拒绝授权
+                    if (finishBlock)
+                    {
+                        finishBlock(NO);
+                    }
+                }
+            }];
+            break;
+        }
+            
+        // 用户拒绝授权/未授权
+        default:
+        {
+            if (finishBlock)
+            {
+                finishBlock(NO);
+            }
+            break;
+        }
+    }
+}
+
+- (BOOL)initializeWhiteBoardWithWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
+{
+    if (![roomParams bm_isNotEmptyDictionary])
+    {
+        return NO;
+    }
+
+    if (![nickName bm_isNotEmpty])
+    {
+        return NO;
+    }
+
+    NSString *roomId = [roomParams bm_stringForKey:CHJoinRoomParamsRoomSerialKey];
+    if (![roomId bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    [self requestCaptureAuthorizationByMediaType:AVMediaTypeAudio finishBlock:^(BOOL isSuccess) {
+        [self requestCaptureAuthorizationByMediaType:AVMediaTypeVideo finishBlock:^(BOOL isSuccess) {
+            [self realInitializeWhiteBoardWithWithHost:host port:port nickName:(NSString *)nickName roomParams:roomParams userParams:userParams];
+        }];
+    }];
+    
+    return YES;
+}
+
+- (BOOL)realInitializeWhiteBoardWithWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
 {
     [self prepareToJoinRoomWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams];
     
