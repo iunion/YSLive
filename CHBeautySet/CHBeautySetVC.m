@@ -24,6 +24,9 @@
 /// 音频播放器
 @property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, strong) AVAudioSession *session;
+
+@property (nonatomic, strong) NSString *filePath;
+
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 
 
@@ -59,18 +62,31 @@
     [self setupAVAudio];
 
     [self setupView];
+    
+    self.filePath = [self getPlayPath];
 }
 
 #pragma mark 横竖屏
 
 - (BOOL)shouldAutorotate
 {
+#if YSAutorotateNO
+    return NO;
+#else
+#if YSSDK
+    if ([YSSDKManager sharedInstance].useAppDelegateAllowRotation)
+    {
+        return NO;
+    }
+#else
     if (GetAppDelegate.useAllowRotation)
     {
         return NO;
     }
+#endif
     
     return YES;
+#endif
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
@@ -88,6 +104,11 @@
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionAllowBluetooth error:nil];
     
+    [self startVollumListening];
+}
+
+- (void)startVollumListening
+{
     // 不需要保存录音文件
     NSURL *url = [NSURL fileURLWithPath:@"/dev/null"];
     NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -112,6 +133,19 @@
     {
         NSLog(@"%@", [error description]);
     }
+}
+
+- (void)stopVollumListening
+{
+    if (self.levelTimer)
+    {
+        [self.levelTimer invalidate];
+        self.levelTimer = nil;
+    }
+
+    [self.permissionsView changeVolumLevel:0.0f];
+    
+    [self.session setActive:NO error:nil];
 }
 
 /// 该方法确实会随环境音量变化而变化，但具体分贝值是否准确暂时没有研究
@@ -233,7 +267,9 @@
         [self.levelTimer invalidate];
         self.levelTimer = nil;
     }
-    
+
+    [self.session setActive:NO error:nil];
+
     [self.liveManager stopVideoWithUserId:self.liveManager.localUser.peerID streamID:nil];
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(beautySetFinished:)])
@@ -251,20 +287,64 @@
     //[self.liveManager resetCameraKeystoning];
 }
 
-#pragma mark 查看麦克风权限
-
-- (BOOL)microphonePermissionsService
+- (NSString *)getPlayPath
 {
-    AVAudioSessionRecordPermission permissionStatus = [[AVAudioSession sharedInstance] recordPermission];
-    return permissionStatus == AVAudioSessionRecordPermissionGranted;
+    NSString *currentLanguageRegion = [[NSLocale preferredLanguages] firstObject];
+    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+    NSString *filePath = nil;
+
+    if([currentLanguageRegion bm_containString:@"zh-Hant"] || [currentLanguageRegion bm_containString:@"zh-Hans"])
+    {
+        filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"SpeakerDetection_China.mp3"];
+    }
+    else
+    {
+        filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"SpeakerDetection_English.mp3"];
+    }
+    
+    return filePath;
 }
 
-#pragma mark 查看摄像头权限
-
-- (BOOL)cameraPermissionsService
+- (void)playAudio:(BOOL)isPlay
 {
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    return authStatus == AVAuthorizationStatusAuthorized;
+    if (isPlay && self.filePath)
+    {
+        [self stopVollumListening];
+        
+        if (self.player && !self.player.isPlaying)
+        {
+            [self.player play];
+        }
+        else
+        {
+            NSError *error = nil;
+            BOOL success = [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+            if(!success)
+            {
+                NSLog(@"error doing outputaudioportoverride - %@", [error localizedDescription]);
+            }
+            
+            self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:self.filePath] error:nil];
+            self.player.delegate = self;
+            [self.player setVolume:1.0];
+            [self.player play];
+        }
+    }
+    else
+    {
+        [self startVollumListening];
+        [self.player pause];
+    }
+}
+
+#pragma mark - AVAudioPlayer Delegate
+
+// 播放完成
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    [self startVollumListening];
+
+    [self.permissionsView stopPlay];
 }
 
 
@@ -276,7 +356,7 @@
     {
         case CHPermissionsViewChange_Play:
         {
-            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnLeft];
+            [self playAudio:value];
         }
             break;
             

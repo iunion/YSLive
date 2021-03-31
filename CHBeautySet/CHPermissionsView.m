@@ -222,19 +222,20 @@
     {
         self.hMirrorBtn.userInteractionEnabled = NO;
         self.hMirrorBtn.textColor = UIColor.grayColor;
+        self.hMirrorBtn.imageName = @"permissions_unmirror";
         
         self.vMirrorBtn.userInteractionEnabled = NO;
         self.vMirrorBtn.textColor = UIColor.grayColor;
+        self.vMirrorBtn.imageName = @"permissions_unmirror";
 
         self.camButton.enabled = NO;
     }
     
     if (!beautySetModel.microphonePermissions)
     {
-        self.volumBgImage.image = [UIImage bm_resizedImageModeTileWithName:@"permissions_progress"];
+        self.volumBgImage.image = [UIImage bm_resizedImageModeTileWithName:@"permissions_unprogress"];
         self.volumImage.hidden = YES;
     }
-
 }
 
 - (void)setFrame:(CGRect)frame
@@ -286,6 +287,12 @@
     self.volumImage.bm_width = self.volumBgImage.bm_width * volumLevel;
 }
 
+- (void)stopPlay
+{
+    self.isPlaying = NO;
+    [self.speakButton setImage:[UIImage imageNamed:@"permissions_audioplay"] forState:UIControlStateNormal];
+}
+
 - (void)btnClick:(UIButton *)btn
 {
     CHPermissionsViewChangeType changeType = CHPermissionsViewChange_None;
@@ -304,11 +311,11 @@
 
         if (self.isPlaying)
         {
-            [self.speakButton setImage:[UIImage imageNamed:@"permissions_audioplay"] forState:UIControlStateNormal];
+            [self.speakButton setImage:[UIImage imageNamed:@"permissions_audiopause"] forState:UIControlStateNormal];
         }
         else
         {
-            [self.speakButton setImage:[UIImage imageNamed:@"permissions_audiopause"] forState:UIControlStateNormal];
+            [self.speakButton setImage:[UIImage imageNamed:@"permissions_audioplay"] forState:UIControlStateNormal];
         }
     }
     else if (btn == self.beautyButton)

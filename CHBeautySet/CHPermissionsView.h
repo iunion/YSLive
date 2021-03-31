@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)changeVolumLevel:(CGFloat)volumLevel;
 
+- (void)stopPlay;
+
 @end
 
 @protocol CHPermissionsViewDelegate <NSObject>

@@ -240,7 +240,7 @@
 
     //return YES;
 
-    [self.cloudHubRtcEngineKit enableLocalAudio:YES];
+    [self.cloudHubRtcEngineKit enableLocalAudio:NO];
     [self.cloudHubRtcEngineKit enableLocalVideo:YES];
 
 //    [self.cloudHubRtcEngineKit enableAudio];
@@ -273,8 +273,8 @@
 {
 #if YSSDK
     [self.beautySetVC dismissViewControllerAnimated:YES completion:^{
-            [self joinRoom];
-        }];
+        [self joinRoom];
+    }];
 #else
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     UINavigationController *topViewController = (UINavigationController *)([window rootViewController]);
@@ -283,6 +283,8 @@
     
     [self joinRoom];
 #endif
+        
+    self.beautySetVC = nil;
 }
 
 #if 0
@@ -546,7 +548,7 @@
     return fileModel;
 }
 
-
+#if 0
 ///查看摄像头权限
 - (BOOL)cameraPermissionsService
 {
@@ -560,7 +562,7 @@
     AVAudioSessionRecordPermission permissionStatus = [[AVAudioSession sharedInstance] recordPermission];
     return permissionStatus == AVAudioSessionRecordPermissionGranted;
 }
-
+#endif
 
 #pragma mark -
 #pragma mark CHWhiteBoardManagerDelegate
