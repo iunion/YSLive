@@ -187,6 +187,8 @@
             [UIView animateWithDuration:0.25 animations:^{
                 self.beautyView.bm_originX = 0.0f;
                 self.propsView.bm_originX = self.bm_width;
+                self.beautyButton.selected = YES;
+                self.propButton.selected = NO;
             }];
             
             [self.beautyView clearBeautyValues];

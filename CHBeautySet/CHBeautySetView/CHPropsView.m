@@ -76,9 +76,11 @@
 
 - (void)clearPropsValue
 {
+    //[self.collectView deselectItemAtIndexPath:[NSIndexPath indexPathForRow:self.beautySetModel.propIndex inSection:0] animated:NO];
+
     self.beautySetModel.propIndex = 0;
     
-    [self.collectView reloadData];
+    [self reloadData];
 }
 
 
