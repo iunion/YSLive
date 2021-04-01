@@ -229,6 +229,8 @@
         self.vMirrorBtn.imageName = @"permissions_unmirror";
 
         self.camButton.enabled = NO;
+        
+        self.beautyButton.enabled = NO;
     }
     
     if (!beautySetModel.microphonePermissions)

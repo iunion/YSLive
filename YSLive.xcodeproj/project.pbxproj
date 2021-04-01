@@ -22,7 +22,6 @@
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
 		0484121426087D34000A47D5 /* CHLiveControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484121326087D34000A47D5 /* CHLiveControlView.m */; };
-		04841268260DC094000A47D5 /* CHBeautyControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04841266260DC094000A47D5 /* CHBeautyControlView.m */; };
 		0487B27D259C60670010B721 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27C259C60670010B721 /* libz.tbd */; };
 		0487B27F259C60720010B721 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27E259C60720010B721 /* libiconv.tbd */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
@@ -844,8 +843,6 @@
 		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
 		0484121226087D34000A47D5 /* CHLiveControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHLiveControlView.h; sourceTree = "<group>"; };
 		0484121326087D34000A47D5 /* CHLiveControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveControlView.m; sourceTree = "<group>"; };
-		04841266260DC094000A47D5 /* CHBeautyControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHBeautyControlView.m; sourceTree = "<group>"; };
-		04841267260DC094000A47D5 /* CHBeautyControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBeautyControlView.h; sourceTree = "<group>"; };
 		0487B27C259C60670010B721 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		0487B27E259C60720010B721 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
@@ -1744,8 +1741,6 @@
 				2615880824D0090D00F35234 /* YSWebViewController.m */,
 				2615880B24D0171B00F35234 /* YSTextView.h */,
 				2615880C24D0171B00F35234 /* YSTextView.m */,
-				04841267260DC094000A47D5 /* CHBeautyControlView.h */,
-				04841266260DC094000A47D5 /* CHBeautyControlView.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -4080,7 +4075,6 @@
 				87133656237270F6006534A4 /* YSVotingTableCell.m in Sources */,
 				8783300424874C4400F1178E /* FLEXRuntimeConstants.m in Sources */,
 				871C875626132E0500AB898E /* CHBeautySetModel.m in Sources */,
-				04841268260DC094000A47D5 /* CHBeautyControlView.m in Sources */,
 				046E68412373E152001CBB27 /* SCChatToolView.m in Sources */,
 				26EFA67E23799F0600EC2A64 /* SCAnswerStatisticsModel.m in Sources */,
 				87832F4E24874C4300F1178E /* FLEXNetworkMITMViewController.m in Sources */,

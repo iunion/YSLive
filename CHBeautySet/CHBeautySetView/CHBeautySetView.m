@@ -94,7 +94,6 @@
     self.resetButton = resetButton;
     
     CHBeautyView *beautyView = [[CHBeautyView alloc] init];
-    beautyView.beautySetModel = self.beautySetModel;
     [self addSubview:beautyView];
     self.beautyView = beautyView;
 
@@ -103,6 +102,14 @@
     propsView.dataArray = @[@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回"];
     [self addSubview:propsView];
     self.propsView = propsView;
+}
+
+- (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
+{
+    _beautySetModel = beautySetModel;
+    
+    self.beautyView.beautySetModel = self.beautySetModel;
+    self.propsView.beautySetModel = self.beautySetModel;
 }
 
 - (void)setFrame:(CGRect)frame

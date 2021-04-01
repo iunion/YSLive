@@ -47,7 +47,6 @@
 
 @implementation CHBeautyView
 
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -101,7 +100,7 @@
     label.textAlignment= NSTextAlignmentRight;
     label.textColor = UIColor.whiteColor;
     label.font = UI_FONT_12;
-    label.text = @"0 %";
+    label.text = @"0.00 %";
     [self addSubview:label];
     
     return label;
@@ -127,7 +126,6 @@
     return slider;
 }
 
-
 - (void)setFrame:(CGRect)frame
 {
     CGFloat width = frame.size.width;
@@ -148,6 +146,45 @@
     frame.size.height = cellHeight*self.sliderArray.count + CHBeautyView_Gap;
     
     [super setFrame:frame];
+}
+
+- (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
+{
+    _beautySetModel = beautySetModel;
+    
+    for (UISlider * slider in self.sliderArray)
+    {
+        switch (slider.tag)
+        {
+            // 美白值
+            case 1:
+                slider.value = self.beautySetModel.whitenValue;
+                break;
+            
+            // 瘦脸值
+            case 2:
+                slider.value = self.beautySetModel.thinFaceValue;
+                break;
+               
+            // 大眼值
+            case 3:
+                slider.value = self.beautySetModel.bigEyeValue;
+                break;
+                
+            // 磨皮值
+            case 4:
+                slider.value = self.beautySetModel.exfoliatingValue;
+                break;
+                
+            // 红润值
+            case 5:
+                slider.value = self.beautySetModel.ruddyValue;
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 - (void)clearBeautyValues
@@ -171,11 +208,11 @@
 // slider滑动中事件
 - (void)progressSliderValueChanged:(UISlider *)slider
 {
-    NSUInteger value = 100 * slider.value;
+    NSNumber *value = [NSNumber numberWithFloat:100.0f * slider.value];
     
     UILabel *label = self.lableArray[slider.tag - 1];
     
-    label.text = [NSString stringWithFormat:@"%ld %%", value];
+    label.text = [NSString stringWithFormat:@"%@ %%", [value bm_stringWithDecimalStyle]];
 }
 
 // slider结束滑动事件
