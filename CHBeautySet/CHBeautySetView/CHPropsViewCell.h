@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHPropsViewCell : UICollectionViewCell
 
+///是否选中这一行
+@property(nonatomic, assign) BOOL isSelected;
+
 @property (nonatomic,copy) NSString *imageUrl;
 
 @end

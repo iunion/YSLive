@@ -46,8 +46,6 @@
 
 #import "SSZipArchive.h"
 
-#import "CHBeautyControlView.h"
-
 #if USE_TEST_HELP
 #define USE_YSLIVE_ROOMID 0
 #define CLEARCHECK 0
@@ -145,7 +143,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
-@property (nonatomic, strong)CHBeautyControlView *beautyView;
 
 #if 0
 @property (nonatomic, strong) NSString *leftHUDmessage;
@@ -788,9 +785,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    {
 //        userAgreement.selected = YES;
 //    }
-    
-    [self addBeautyView];
-    
+        
 }
 
 
@@ -2347,34 +2342,5 @@ typedef void (^YSRoomLeftDoBlock)(void);
     return authStatus == AVAuthorizationStatusAuthorized;
 }
 
-- (void)addBeautyView
-{
-    UIButton *beautyButton = [[UIButton alloc]initWithFrame:CGRectMake(50, 150, 100, 50)];
-    [beautyButton setBackgroundColor:UIColor.yellowColor];
-    [beautyButton setTitle:@"美颜按钮" forState:UIControlStateNormal];
-    [beautyButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-    [self.view addSubview:beautyButton];
-    [beautyButton addTarget:self action:@selector(beautyButtonClick) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)beautyButtonClick
-{
-    if (!self.beautyView)
-    {
-        self.beautyView = [[CHBeautyControlView alloc]initWithFrame:CGRectMake(0, self.view.bm_height, self.view.bm_width, 0)];
-        [self.view addSubview:self.beautyView];
-    }
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        if (self.beautyView.bm_originY == self.view.bm_height)
-        {
-            self.beautyView.bm_originY = self.view.bm_height - self.beautyView.bm_height - 60;
-        }
-        else
-        {
-            self.beautyView.bm_originY = self.view.bm_height;
-        }
-    }];
-}
 
 @end

@@ -15,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSArray *dataArray;
 
+/// 美颜数据
+@property (nonatomic, weak) CHBeautySetModel *beautySetModel;
+
+- (void)clearPropsValue;
+
 @end
 
 NS_ASSUME_NONNULL_END

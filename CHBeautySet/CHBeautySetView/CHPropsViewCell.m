@@ -22,6 +22,7 @@
     if (self)
     {
         self.backgroundColor = [YSSkinDefineColor(@"WhiteColor") bm_changeAlpha:0.6];
+        
         [self setupView];
     }
     
@@ -30,7 +31,7 @@
 
 - (void)setupView
 {
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(1, 1, self.bm_width - 2, self.bm_height - 2)];
     self.imageView = imageView;
     [self addSubview:imageView];
 }
@@ -48,6 +49,19 @@
         [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:_imageUrl] placeholderImage:[UIImage imageNamed:@"120"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                 
         }];
+    }
+}
+
+- (void)setIsSelected:(BOOL)isSelected
+{
+    _isSelected = isSelected;
+    if (isSelected)
+    {
+        self.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+    }
+    else
+    {
+        self.backgroundColor = [YSSkinDefineColor(@"WhiteColor") bm_changeAlpha:0.6];
     }
 }
 
