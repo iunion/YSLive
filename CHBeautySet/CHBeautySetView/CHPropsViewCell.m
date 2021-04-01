@@ -33,7 +33,7 @@
 {
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(1, 1, self.bm_width - 2, self.bm_height - 2)];
     self.imageView = imageView;
-    [self addSubview:imageView];
+    [self.contentView addSubview:imageView];
 }
 
 - (void)setImageUrl:(NSString *)imageUrl
