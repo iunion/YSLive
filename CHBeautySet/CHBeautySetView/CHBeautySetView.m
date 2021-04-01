@@ -99,7 +99,6 @@
 
     /// 动画道具view
     CHPropsView *propsView = [[CHPropsView alloc] initWithFrame:CGRectMake(self.bm_width, 50, self.bm_width, beautyView.bm_height)];
-    propsView.dataArray = @[@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回",@"返回"];
     [self addSubview:propsView];
     self.propsView = propsView;
 }
@@ -110,6 +109,25 @@
     
     self.beautyView.beautySetModel = self.beautySetModel;
     self.propsView.beautySetModel = self.beautySetModel;
+    
+#warning test propUrlArray
+    [self performSelector:@selector(adddata) withObject:nil afterDelay:2];
+}
+
+- (void)adddata
+{
+    NSMutableArray *propUrlArray = [NSMutableArray array];
+    
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+
+    self.beautySetModel.propUrlArray = propUrlArray;
+    self.beautySetModel.propIndex = 2;
+    
+    [self.propsView reloadData];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -172,6 +190,8 @@
             }];
             
             [self.beautyView clearBeautyValues];
+            
+            [self.propsView clearPropsValue];
         }
             break;
             

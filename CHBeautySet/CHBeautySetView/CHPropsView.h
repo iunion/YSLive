@@ -13,10 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHPropsView : UIView
 
-@property (nonatomic,strong) NSArray *dataArray;
-
 /// 美颜数据
 @property (nonatomic, weak) CHBeautySetModel *beautySetModel;
+
+- (void)reloadData;
 
 - (void)clearPropsValue;
 

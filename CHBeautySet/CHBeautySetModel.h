@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 红润值
 @property (nonatomic, assign) CGFloat ruddyValue;
 
+/// 贴画图片地址列表
+@property (nonatomic, strong) NSMutableArray *propUrlArray;
+
 /// 贴画索引
 @property (nonatomic, assign) NSUInteger propIndex;
 

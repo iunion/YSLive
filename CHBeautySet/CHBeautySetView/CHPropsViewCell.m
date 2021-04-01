@@ -21,8 +21,6 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [YSSkinDefineColor(@"WhiteColor") bm_changeAlpha:0.6];
-        
         [self setupView];
     }
     
@@ -31,37 +29,40 @@
 
 - (void)setupView
 {
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(1, 1, self.bm_width - 2, self.bm_height - 2)];
+    self.contentView.backgroundColor = [UIColor bm_colorWithHex:0xFFFFFF alpha:0.6f];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectInset(self.bounds, 4.0f, 4.0f)];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:imageView];
+    
     self.imageView = imageView;
-    [self addSubview:imageView];
 }
 
 - (void)setImageUrl:(NSString *)imageUrl
 {
     _imageUrl = imageUrl;
     
-    if ([_imageUrl isEqualToString:@"hud_network_poor0"])
+    if (![imageUrl bm_isNotEmpty])
     {
-        self.imageView.image = [UIImage imageNamed:@"hud_network_poor0"];
+        self.imageView.image = [UIImage imageNamed:@"beauty_defaultprop"];
     }
-    else if ([_imageUrl bm_isNotEmpty])
+    else
     {
-        [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:_imageUrl] placeholderImage:[UIImage imageNamed:@"120"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                
-        }];
+        [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"beauty_defaultprop"] options:BMSDWebImageRetryFailed | BMSDWebImageLowPriority];
     }
 }
 
 - (void)setIsSelected:(BOOL)isSelected
 {
     _isSelected = isSelected;
+    
     if (isSelected)
     {
-        self.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC];
+        self.backgroundColor = [UIColor bm_colorWithHex:0x82ABEC alpha:0.6f];
     }
     else
     {
-        self.backgroundColor = [YSSkinDefineColor(@"WhiteColor") bm_changeAlpha:0.6];
+        self.backgroundColor = [UIColor bm_colorWithHex:0xFFFFFF alpha:0.6f];
     }
 }
 

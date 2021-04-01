@@ -13,7 +13,7 @@
 #define CellMarginY 10
 #define cellWidth 80
 #define cellHeight 56
-#define Identifier @"CHPropsViewCell"
+#define CHPropsViewCellIdentifier @"CHPropsViewCell"
 
 @interface CHPropsView ()
 <
@@ -40,39 +40,39 @@
 
 - (void)setupView
 {
+    self.backgroundColor = UIColor.clearColor;
+
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.itemSize = CGSizeMake(cellWidth,cellHeight);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, CellMarginX, CellMarginY, CellMarginX);
     flowLayout.minimumLineSpacing = CellMarginY;
     flowLayout.minimumInteritemSpacing = CellMarginX;
 
-    UICollectionView * collectView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+    UICollectionView *collectView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     collectView.showsHorizontalScrollIndicator = false;
     collectView.backgroundColor = [UIColor clearColor];
-    [collectView registerClass:[CHPropsViewCell class] forCellWithReuseIdentifier:Identifier];
+    [collectView registerClass:[CHPropsViewCell class] forCellWithReuseIdentifier:CHPropsViewCellIdentifier];
     collectView.delegate = self;
     collectView.dataSource = self;
     [self addSubview:collectView];
     self.collectView = collectView;
-
-}
-
-- (void)setDataArray:(NSArray *)dataArray
-{
-    _dataArray = dataArray;
-    
-    [self.collectView reloadData];
 }
 
 - (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
 {
     _beautySetModel = beautySetModel;
     
-    [self.collectView selectItemAtIndexPath:[NSIndexPath indexPathForRow:beautySetModel.propIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    
-    [self collectionView:self.collectView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:beautySetModel.propIndex inSection:0]];
+    [self reloadData];
 }
 
+- (void)reloadData
+{
+    [self.collectView reloadData];
+    
+    [self.collectView selectItemAtIndexPath:[NSIndexPath indexPathForRow:self.beautySetModel.propIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    
+    [self collectionView:self.collectView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:self.beautySetModel.propIndex inSection:0]];
+}
 
 - (void)clearPropsValue
 {
@@ -82,35 +82,51 @@
 }
 
 
+#pragma mark - UICollectionViewDataSource
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _dataArray.count + 1;
+    if ([self.beautySetModel bm_isNotEmpty])
+    {
+        return self.beautySetModel.propUrlArray.count + 1;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHPropsViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:Identifier forIndexPath:indexPath];
+    CHPropsViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CHPropsViewCellIdentifier forIndexPath:indexPath];
     
     if (indexPath.row == 0)
     {
-        cell.imageUrl = @"hud_network_poor0";
+        cell.imageUrl = nil;
     }
     else
     {
-        cell.imageUrl = _dataArray[indexPath.row - 1];
+        cell.imageUrl = self.beautySetModel.propUrlArray[indexPath.row - 1];
     }
 
     if (self.beautySetModel.propIndex == indexPath.row)
     {
         cell.isSelected = YES;
     }
+    else
+    {
+        cell.isSelected = NO;
+    }
 
     return cell;
 }
 
+
+#pragma mark - UICollectionViewDelegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHPropsViewCell * cell = (CHPropsViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    CHPropsViewCell *cell = (CHPropsViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     self.beautySetModel.propIndex = indexPath.row;
     cell.isSelected = YES;
@@ -118,7 +134,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHPropsViewCell * cell = (CHPropsViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    CHPropsViewCell *cell = (CHPropsViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.isSelected = NO;
 }
 

@@ -66,6 +66,8 @@
 
 - (void)setupView
 {
+    self.backgroundColor = UIColor.clearColor;
+
     NSArray *titleArray = @[@"BeautySet.Whitening", @"BeautySet.ThinFace", @"BeautySet.BigEyes", @"BeautySet.Exfoliating", @"BeautySet.Ruddy"];
     NSArray *imageStrArray = @[@"beauty_whiten", @"beauty_thinFace", @"beauty_bigEye", @"beauty_exfoliating", @"beauty_ruddy"];
     
@@ -111,7 +113,6 @@
     UISlider *slider = [[UISlider alloc]init];
     slider.tag = tag;
     [slider setThumbImage:[UIImage imageNamed:@"beauty_slider"] forState:UIControlStateNormal];
-    //[slider setThumbImage:YSSkinOnlineElementImage(@"online_video_spot", @"iconNor") forState:UIControlStateNormal];
     slider.minimumTrackTintColor = [UIColor bm_colorWithHex:0x82ABEC];
     slider.maximumTrackTintColor = UIColor.whiteColor;
     // slider开始滑动事件
