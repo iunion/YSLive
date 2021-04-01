@@ -19,30 +19,30 @@
 
 @interface CHPermissionsView ()
 
-@property (nonatomic, strong) UIImageView *camIcon;
-@property (nonatomic, strong) UILabel *camLabel;
-@property (nonatomic, strong) UIImageView *micIcon;
-@property (nonatomic, strong) UILabel *micLabel;
-@property (nonatomic, strong) UIImageView *speakIcon;
-@property (nonatomic, strong) UILabel *speakLabel;
-@property (nonatomic, strong) UIImageView *beautyIcon;
-@property (nonatomic, strong) UILabel *beautyLabel;
+@property (nonatomic, weak) UIImageView *camIcon;
+@property (nonatomic, weak) UILabel *camLabel;
+@property (nonatomic, weak) UIImageView *micIcon;
+@property (nonatomic, weak) UILabel *micLabel;
+@property (nonatomic, weak) UIImageView *speakIcon;
+@property (nonatomic, weak) UILabel *speakLabel;
+@property (nonatomic, weak) UIImageView *beautyIcon;
+@property (nonatomic, weak) UILabel *beautyLabel;
 
-@property (nonatomic, strong) UIButton *camButton;
-@property (nonatomic, strong) UIButton *speakButton;
-@property (nonatomic, strong) UIButton *beautyButton;
+@property (nonatomic, weak) UIButton *camButton;
+@property (nonatomic, weak) UIButton *speakButton;
+@property (nonatomic, weak) UIButton *beautyButton;
 
 @property (nonatomic, assign) BOOL isPlaying;
 
-@property (nonatomic, strong) BMImageTextView *hMirrorBtn;
-@property (nonatomic, strong) BMImageTextView *vMirrorBtn;
+@property (nonatomic, weak) BMImageTextView *hMirrorBtn;
+@property (nonatomic, weak) BMImageTextView *vMirrorBtn;
 
-@property (nonatomic, strong) UIView *lineView1;
-@property (nonatomic, strong) UIView *lineView2;
-@property (nonatomic, strong) UIView *lineView3;
+@property (nonatomic, weak) UIView *lineView1;
+@property (nonatomic, weak) UIView *lineView2;
+@property (nonatomic, weak) UIView *lineView3;
 
-@property (nonatomic, strong) UIImageView *volumBgImage;
-@property (nonatomic, strong) UIImageView *volumImage;
+@property (nonatomic, weak) UIImageView *volumBgImage;
+@property (nonatomic, weak) UIImageView *volumImage;
 
 @end
 

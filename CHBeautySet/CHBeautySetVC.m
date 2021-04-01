@@ -12,11 +12,13 @@
 #import "AppDelegate.h"
 
 #import "CHPermissionsView.h"
+#import "CHBeautySetView.h"
 
 @interface CHBeautySetVC ()
 <
     AVAudioPlayerDelegate,
-    CHPermissionsViewDelegate
+    CHPermissionsViewDelegate,
+    CHBeautySetViewDelegate
 >
 
 @property (nonatomic, strong) NSTimer *levelTimer;
@@ -30,24 +32,26 @@
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 
 
-@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, weak) UIView *topView;
 
 /// 无视频权限背景图
-@property (nonatomic, strong) UIImageView *backImageView;
+@property (nonatomic, weak) UIImageView *backImageView;
 /// 视频权限提醒
-@property (nonatomic, strong) UILabel *permissionLabel;
+@property (nonatomic, weak) UILabel *permissionLabel;
 
 /// 本人视频窗口
-@property (nonatomic, strong) UIView *largeVideoView;
+@property (nonatomic, weak) UIView *largeVideoView;
 
 /// 底部背景窗口
-@property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, weak) UIView *bottomView;
 
 /// 设备权限控制
-@property (nonatomic, strong) CHPermissionsView *permissionsView;
+@property (nonatomic, weak) CHPermissionsView *permissionsView;
+/// 美颜设置
+@property (nonatomic, weak) CHBeautySetView *beautySetView;
 
 /// 进入
-@property (nonatomic, strong) UIButton *enterBtn;
+@property (nonatomic, weak) UIButton *enterBtn;
 
 @end
 
@@ -255,6 +259,14 @@
     bottomView.bm_height = permissionsView.bm_height + 70.0f;
     bottomView.bm_top = BMUI_SCREEN_HEIGHT - bottomView.bm_height;
     
+    CHBeautySetView *beautySetView = [[CHBeautySetView alloc] initWithFrame:self.view.bounds];
+    beautySetView.liveManager = self.liveManager;
+    beautySetView.delegate = self;
+    beautySetView.beautySetModel = self.beautySetModel;
+    beautySetView.hidden = YES;
+    [self.bottomView addSubview:beautySetView];
+    self.beautySetView = beautySetView;
+    
     CGFloat btnWidth = 90.0f;
     if ([UIDevice bm_isiPad])
     {
@@ -277,7 +289,17 @@
 {
     if (self.permissionsView.hidden)
     {
-        
+        [UIView animateWithDuration:0.5 animations:^{
+            self.bottomView.bm_height = self.permissionsView.bm_height + 70.0f;
+            self.bottomView.bm_top = BMUI_SCREEN_HEIGHT - self.bottomView.bm_height;
+
+            self.beautySetView.hidden = YES;
+            self.permissionsView.hidden = NO;
+            
+            [self.enterBtn setTitle:YSLocalized(@"BeautySet.Enter") forState:UIControlStateNormal];
+            self.enterBtn.bm_top = self.bottomView.bm_height - 55.0f;
+        }];
+
         return;
     }
     
@@ -372,8 +394,17 @@
             
         case CHPermissionsViewChange_BeautySet:
         {
-            [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnBottom];
-            [self.liveManager.cloudHubRtcEngineKit enableLocalVideo:YES];
+            [UIView animateWithDuration:0.5 animations:^{
+                self.bottomView.bm_height = self.beautySetView.bm_height + 70.0f;
+                self.bottomView.bm_top = BMUI_SCREEN_HEIGHT - self.bottomView.bm_height;
+                
+                self.beautySetView.hidden = NO;
+                self.permissionsView.hidden = YES;
+                
+                [self.enterBtn setTitle:YSLocalized(@"BeautySet.Back") forState:UIControlStateNormal];
+                self.enterBtn.bm_top = self.bottomView.bm_height - 55.0f;
+            }];
+
         }
             break;
             
