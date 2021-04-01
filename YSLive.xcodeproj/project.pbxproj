@@ -32,7 +32,7 @@
 		04AD5C142583598E0023BEAD /* YSWarmVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AD5C132583598E0023BEAD /* YSWarmVideoView.m */; };
 		04B5A47C2372E49F00DB2EDC /* YSEmotionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5A4742372E49E00DB2EDC /* YSEmotionCollectionCell.m */; };
 		04B5A47E2372E49F00DB2EDC /* SCChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5A4752372E49E00DB2EDC /* SCChatView.m */; };
-		04B8C6E523CEECFF0095F880 /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B8C6E423CEECFF0095F880 /* PanGestureControl.m */; };
+		04B8C6E523CEECFF0095F880 /* CHPanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B8C6E423CEECFF0095F880 /* CHPanGestureControl.m */; };
 		2615880924D0090D00F35234 /* YSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880824D0090D00F35234 /* YSWebViewController.m */; };
 		2615880A24D0090D00F35234 /* YSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880824D0090D00F35234 /* YSWebViewController.m */; };
 		2615880D24D0171B00F35234 /* YSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880C24D0171B00F35234 /* YSTextView.m */; };
@@ -331,7 +331,7 @@
 		8717E2C02400DADC008C4CDA /* YSTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AD23EAA78E002002BF /* YSTableViewVC.m */; };
 		8717E2C12400DADC008C4CDA /* SCEyeCareEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04D23B5D8F300D38129 /* SCEyeCareEmptyVC.m */; };
 		8717E2C52400DADC008C4CDA /* YSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AA23EA9EA1002002BF /* YSTableView.m */; };
-		8717E2CE2400DADC008C4CDA /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B8C6E423CEECFF0095F880 /* PanGestureControl.m */; };
+		8717E2CE2400DADC008C4CDA /* CHPanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B8C6E423CEECFF0095F880 /* CHPanGestureControl.m */; };
 		8717E2D12400DADC008C4CDA /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		8717E2D32400DADC008C4CDA /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		8717E2D42400DADC008C4CDA /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E58423F7981B008E885C /* YSCircleProgress.m */; };
@@ -856,8 +856,8 @@
 		04B5A4742372E49E00DB2EDC /* YSEmotionCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSEmotionCollectionCell.m; sourceTree = "<group>"; };
 		04B5A4752372E49E00DB2EDC /* SCChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChatView.m; sourceTree = "<group>"; };
 		04B5A4782372E49E00DB2EDC /* YSEmotionCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSEmotionCollectionCell.h; sourceTree = "<group>"; };
-		04B8C6E323CEECFF0095F880 /* PanGestureControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanGestureControl.h; sourceTree = "<group>"; };
-		04B8C6E423CEECFF0095F880 /* PanGestureControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanGestureControl.m; sourceTree = "<group>"; };
+		04B8C6E323CEECFF0095F880 /* CHPanGestureControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPanGestureControl.h; sourceTree = "<group>"; };
+		04B8C6E423CEECFF0095F880 /* CHPanGestureControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPanGestureControl.m; sourceTree = "<group>"; };
 		260A1A7C23507CB300288B01 /* YSLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLoginVC.h; sourceTree = "<group>"; };
 		260A1A7E23507CB300288B01 /* YSInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSInputView.m; sourceTree = "<group>"; };
 		260A1A7F23507CB300288B01 /* YSInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSInputView.h; sourceTree = "<group>"; };
@@ -2312,8 +2312,8 @@
 				3450B1372404AA25006141E5 /* SCVideoView.m */,
 				875A720623758F1900407A75 /* SCVideoGridView.h */,
 				875A720723758F1900407A75 /* SCVideoGridView.m */,
-				04B8C6E323CEECFF0095F880 /* PanGestureControl.h */,
-				04B8C6E423CEECFF0095F880 /* PanGestureControl.m */,
+				04B8C6E323CEECFF0095F880 /* CHPanGestureControl.h */,
+				04B8C6E423CEECFF0095F880 /* CHPanGestureControl.m */,
 			);
 			path = SCVideoView;
 			sourceTree = "<group>";
@@ -3996,7 +3996,7 @@
 				8783301024874C4400F1178E /* FLEXMethod.m in Sources */,
 				3471E29424039A0100A3BBB4 /* FSCalendarCell.m in Sources */,
 				8783301624874C4400F1178E /* FLEXBlockDescription.m in Sources */,
-				04B8C6E523CEECFF0095F880 /* PanGestureControl.m in Sources */,
+				04B8C6E523CEECFF0095F880 /* CHPanGestureControl.m in Sources */,
 				87832FD424874C4300F1178E /* FLEXRuntimeKeyPath.m in Sources */,
 				8783301E24874C4400F1178E /* FLEXAlert.m in Sources */,
 				87832FA024874C4300F1178E /* FLEXWebViewController.m in Sources */,
@@ -4351,7 +4351,7 @@
 				26E4718F2518A78300CE1776 /* YSDiceAnimationView+Tools.m in Sources */,
 				2615880E24D0171B00F35234 /* YSTextView.m in Sources */,
 				87832F5D24874C4300F1178E /* FLEXManager+Extensibility.m in Sources */,
-				8717E2CE2400DADC008C4CDA /* PanGestureControl.m in Sources */,
+				8717E2CE2400DADC008C4CDA /* CHPanGestureControl.m in Sources */,
 				8717E2D12400DADC008C4CDA /* YSChangePassWordVC.m in Sources */,
 				87832F3324874C4300F1178E /* FLEXImageShortcuts.m in Sources */,
 				87832F9124874C4300F1178E /* FLEXBookmarkManager.m in Sources */,

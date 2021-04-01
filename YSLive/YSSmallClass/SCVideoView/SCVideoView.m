@@ -7,7 +7,7 @@
 //
 
 #import "SCVideoView.h"
-#import "PanGestureControl.h"
+#import "CHPanGestureControl.h"
 
 #define widthScale  self.bm_width/([UIDevice bm_isiPad]? 400 : 300)
 #define heightScale self.bm_height/([UIDevice bm_isiPad]? 260 : 160)
@@ -136,13 +136,13 @@
     {
         return NO;
     }
-    else if ([[PanGestureControl shareInfo] isExistPanGestureAction:LONG_PRESS_VIEW_DEMO])
+    else if ([[CHPanGestureControl shareInfo] isExistPanGestureAction:CHLONG_PRESS_VIEW_VIDEO])
     {
         return NO;
     }
     else
     {
-        [[PanGestureControl shareInfo] addPanGestureAction:LONG_PRESS_VIEW_DEMO];
+        [[CHPanGestureControl shareInfo] addPanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         return YES;
     }
 }

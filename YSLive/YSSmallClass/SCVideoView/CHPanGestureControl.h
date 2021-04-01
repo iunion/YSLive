@@ -10,32 +10,35 @@
 
 //  2014-04-08 增加区分手势调用
 
-typedef enum {
-    LONG_PRESS_VIEW_DEMO = 1,         
-}LONG_PRESS_VIEW;
+typedef NS_ENUM(NSUInteger, CHLONG_PRESS_VIEW)
+{
+    CHLONG_PRESS_VIEW_VIDEO = 1,
+};
 
 #import <Foundation/Foundation.h>
 
-@interface PanGestureControl : NSObject
+@interface CHPanGestureControl : NSObject
 {
     NSMutableArray *_arrayPanGestureView;
 }
 
+
 #pragma mark
 #pragma mark-------------创建 销毁---------------------
+
 /**   函数名称 :shareInfo
  **   函数作用 :创建 LongPressControl 单例对象
  **   函数参数 :
  **   函数返回值:URLog 单例对象
  **/
-+(PanGestureControl *)shareInfo;
++ (CHPanGestureControl *)shareInfo;
 
 /**   函数名称 :freeInfo
  **   函数作用 :释放 LongPressControl 单例对象
  **   函数参数 :
  **   函数返回值:
  **/
-+(void)freeInfo;
++ (void)freeInfo;
 
 /*!
  *  TODO:添加拖拽事件
@@ -44,7 +47,7 @@ typedef enum {
  *
  *  @author pigpigdaddy
  */
-- (void)addPanGestureAction:(LONG_PRESS_VIEW)view;
+- (void)addPanGestureAction:(CHLONG_PRESS_VIEW)view;
 
 /*!
  *  TODO:删除拖拽事件
@@ -53,17 +56,17 @@ typedef enum {
  *
  *  @author pigpigdaddy
  */
-- (void)removePanGestureAction:(LONG_PRESS_VIEW)view;
+- (void)removePanGestureAction:(CHLONG_PRESS_VIEW)view;
 
 /*!
  *  TODO:是否存在拖拽事件
  *
  *  @param view 是那个View
  *
- *  @return
+ *  @return isExistPan
  *
  *  @author pigpigdaddy
  */
-- (BOOL)isExistPanGestureAction:(LONG_PRESS_VIEW)view;
+- (BOOL)isExistPanGestureAction:(CHLONG_PRESS_VIEW)view;
 
 @end

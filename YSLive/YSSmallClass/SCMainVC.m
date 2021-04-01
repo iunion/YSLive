@@ -34,7 +34,7 @@
 #import "YSStudentResponder.h"
 #import "YSStudentTimerView.h"
 
-#import "PanGestureControl.h"
+#import "CHPanGestureControl.h"
 #import "YSToolBoxView.h"
 
 #define USE_FullTeacher             1
@@ -3894,13 +3894,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if ((self.roomtype == CHRoomUserType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == CHRoomLayoutType_FocusLayout)
     {
-        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+        [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         return;
     }
     
     if (self.liveManager.localUser.role == CHUserType_Student && ![videoView isEqual:self.fullTeacherVideoView])
     {
-        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+        [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         return;
     }
     
@@ -3934,7 +3934,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
-         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+         [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         
         CGFloat percentLeft = 0;
         if (self.contentWidth != videoView.bm_width)
@@ -4543,7 +4543,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 进入后台
 - (void)handleEnterBackground
 {
-    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
 }
 
 /// 进入前台

@@ -29,7 +29,7 @@
 #import "YSMp4ControlView.h"
 #import "YSMp3Controlview.h"
 
-#import "PanGestureControl.h"
+#import "CHPanGestureControl.h"
 
 #import "YSUpHandPopoverVC.h"
 #import "YSCircleProgress.h"
@@ -3250,11 +3250,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
-    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
     
     if ((self.roomtype == CHRoomUserType_One && ![videoView isEqual:self.fullTeacherVideoView]) || self.roomLayout == CHRoomLayoutType_VideoLayout || self.roomLayout == CHRoomLayoutType_FocusLayout)
     {
-//        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+//        [[PanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         return;
     }
     UIView * background = self.whitebordBackgroud;
@@ -3288,7 +3288,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
-//         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+//         [[PanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         CGFloat percentLeft = 0;
                 
         if (!videoView.isDragOut)
@@ -3794,7 +3794,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleEnterBackground
 {
 //    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
-    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
 }
 
 #if 0
