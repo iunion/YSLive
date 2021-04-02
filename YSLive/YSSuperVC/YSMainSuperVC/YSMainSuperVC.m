@@ -90,6 +90,7 @@
     [self.view addSubview:keystoneCorrectionView];
     keystoneCorrectionView.delegate = self;
     keystoneCorrectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    keystoneCorrectionView.beautySetModel = self.liveManager.beautySetModel;
     
     self.keystoneCorrectionView = keystoneCorrectionView;
     self.keystoneCorrectionView.hidden = YES;

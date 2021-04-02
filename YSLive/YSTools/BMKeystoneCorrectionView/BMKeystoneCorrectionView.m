@@ -7,6 +7,7 @@
 //
 
 #import "BMKeystoneCorrectionView.h"
+#import "CHBeautySetView.h"
 
 @interface BMKeystoneCorrectionView ()
 <
@@ -40,11 +41,13 @@
 
 /// 美颜蒙层
 @property (nonatomic, strong) UIControl *beautyMarskView;
+/// 美颜设置
+@property (nonatomic, weak) CHBeautySetView *beautySetView;
 
 
-@property (nonatomic, assign) BOOL isSwithCamera;
-@property (nonatomic, assign) BOOL isFlipH;
-@property (nonatomic, assign) BOOL isFlipV;
+//@property (nonatomic, assign) BOOL isSwithCamera;
+//@property (nonatomic, assign) BOOL isFlipH;
+//@property (nonatomic, assign) BOOL isFlipV;
 
 @end
 
@@ -60,11 +63,8 @@
     {
         self.liveManager = liveManager;
         
-        self.isSwithCamera = NO;
-        self.isFlipH = NO;
-        self.isFlipV = NO;
-
         [self setupUI];
+        [self setupBeautyUI];
     }
     
     return self;
@@ -182,6 +182,10 @@
     [finishBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [finishBtn bm_roundedRect:18.0f];
     
+}
+
+- (void)setupBeautyUI
+{
     UIControl *beautyMarskView = [[UIControl alloc] initWithFrame:self.bounds];
     [self addSubview:beautyMarskView];
     beautyMarskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -189,7 +193,31 @@
     beautyMarskView.hidden = YES;
     [beautyMarskView addTarget:self action:@selector(hideBeauty) forControlEvents:UIControlEventTouchUpInside];
     self.beautyMarskView = beautyMarskView;
+
+    CGFloat width = self.bm_width * 0.35f;
+    CGFloat gap = 12.0f;
+    if ([UIDevice bm_isiPad])
+    {
+        width = self.bm_width * 0.3f;
+        gap = 20.0f;
+    }
+    CHBeautySetView *beautySetView = [[CHBeautySetView alloc] initWithFrame:CGRectMake(self.bm_width-width, 0, width, 50.0f) itemGap:gap];
+    beautySetView.liveManager = self.liveManager;
+    beautySetView.beautySetModel = self.beautySetModel;
+    beautySetView.backgroundColor = [UIColor bm_colorWithHex:0x1C1D20 alpha:0.4f];
+    [beautySetView bm_connerWithRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft  cornerRadii:CGSizeMake(6.0f, 6.0f)];
+    [self.beautyMarskView addSubview:beautySetView];
+    self.beautySetView = beautySetView;
+    self.beautySetView.bm_centerY = self.bm_height * 0.5f;
 }
+
+- (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
+{
+    _beautySetModel = beautySetModel;
+    
+    self.beautySetView.beautySetModel = self.beautySetModel;
+}
+
 
 #if 0
 - (void)freshTouchView
@@ -230,26 +258,17 @@
 
 - (void)camera:(UIButton *)btn
 {
-    self.isSwithCamera = !self.isSwithCamera;
-    //btn.selected = self.isSwithCamera;
-    
-    [self.liveManager useFrontCamera:!self.isSwithCamera];
+    self.beautySetModel.switchCam = !self.beautySetModel.switchCam;
 }
 
 - (void)fliph:(UIButton *)btn
 {
-    self.isFlipH = !self.isFlipH;
-    //btn.selected = self.isFlipH;
-
-    [self.liveManager.cloudHubRtcEngineKit setCameraFlipMode:self.isFlipH Vertivcal:self.isFlipV];
+    self.beautySetModel.fliph = !self.beautySetModel.fliph;
 }
 
 - (void)flipv:(UIButton *)btn
 {
-    self.isFlipV = !self.isFlipV;
-    //btn.selected = self.isFlipV;
-
-    [self.liveManager.cloudHubRtcEngineKit setCameraFlipMode:self.isFlipH Vertivcal:self.isFlipV];
+    self.beautySetModel.flipv = !self.beautySetModel.flipv;
 }
 
 - (void)showBeauty

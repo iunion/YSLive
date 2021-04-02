@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BMCorrectionView.h"
+#import "CHBeautySetModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithFrame:(CGRect)frame liveManager:(YSLiveManager *)liveManager;
 
 @property (nonatomic, weak) id <BMKeystoneCorrectionViewDelegate> delegate;
+
+/// 美颜数据
+@property (nonatomic, weak) CHBeautySetModel *beautySetModel;
+
 
 /// 主视频容器
 @property (nonatomic, strong, readonly) UIView *liveView;

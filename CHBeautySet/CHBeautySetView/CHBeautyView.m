@@ -9,7 +9,7 @@
 #import "CHBeautyView.h"
 
 
-#define CHBeautyView_Gap                20.0f
+//#define CHBeautyView_Gap                20.0f
 #define CHBeautyView_LeftGap            20.0f
 
 #define CHBeautyView_IconWidth          20.0f
@@ -42,16 +42,19 @@
 /// 红润属性值
 @property(nonatomic,assign) CGFloat ruddyValue;
 
+@property (nonatomic, assign) CGFloat gap;
 
 @end
 
 @implementation CHBeautyView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame itemGap:(CGFloat)gap
 {
     self = [super initWithFrame:frame];
     if (self)
     {
+        self.gap = gap;
+
         self.titleIconArray = [NSMutableArray array];
         self.lableArray = [NSMutableArray array];
         self.sliderArray = [NSMutableArray array];
@@ -130,21 +133,21 @@
 - (void)setFrame:(CGRect)frame
 {
     CGFloat width = frame.size.width;
-    CGFloat cellHeight = CHBeautyView_IconWidth + CHBeautyView_SGap + CHBeautyView_sliderHeight + CHBeautyView_Gap;
+    CGFloat cellHeight = CHBeautyView_IconWidth + CHBeautyView_SGap + CHBeautyView_sliderHeight + self.gap;
 
     for (NSUInteger i = 0; i < self.sliderArray.count; i++)
     {
         BMImageTextView *titleIconView = [self.titleIconArray bm_safeObjectAtIndex:i];
-        titleIconView.bm_origin = CGPointMake(CHBeautyView_LeftGap, i*cellHeight + CHBeautyView_Gap);
+        titleIconView.bm_origin = CGPointMake(CHBeautyView_LeftGap, i*cellHeight + self.gap);
 
         UILabel *lable = [self.lableArray bm_safeObjectAtIndex:i];
-        lable.bm_origin = CGPointMake(width - CHBeautyView_LeftGap - CHBeautyView_LabelWidth, i*cellHeight + CHBeautyView_Gap);
+        lable.bm_origin = CGPointMake(width - CHBeautyView_LeftGap - CHBeautyView_LabelWidth, i*cellHeight + self.gap);
 
         UISlider *slider = [self.sliderArray bm_safeObjectAtIndex:i];
         slider.frame = CGRectMake(CHBeautyView_LeftGap, titleIconView.bm_bottom + CHBeautyView_SGap, width - CHBeautyView_LeftGap*2, CHBeautyView_sliderHeight);
     }
     
-    frame.size.height = cellHeight*self.sliderArray.count + CHBeautyView_Gap;
+    frame.size.height = cellHeight*self.sliderArray.count + self.gap;
     
     [super setFrame:frame];
 }

@@ -16,6 +16,8 @@
 #define CHBeautySetView_Gap             20.0f
 #define CHBeautySetView_LeftGap         20.0f
 
+#define CHBeautySetView_SGap            0.0f
+
 @interface CHBeautySetView ()
 
 @property (nonatomic, weak) UIView *topView;
@@ -35,15 +37,28 @@
 /// 动画道具view
 @property (nonatomic, weak) CHPropsView *propsView;
 
+@property (nonatomic, assign) CGFloat gap;
+
 @end
 
 @implementation CHBeautySetView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
+    return [self initWithFrame:frame itemGap:CHBeautySetView_Gap];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame itemGap:(CGFloat)gap
+{
     self = [super initWithFrame:frame];
     if (self)
     {
+        if (gap == 0)
+        {
+            gap = CHBeautySetView_Gap;
+        }
+        self.gap = gap;
+        
         [self setupView];
         
         self.frame = frame;
@@ -93,7 +108,7 @@
     [self.topView addSubview:resetButton];
     self.resetButton = resetButton;
     
-    CHBeautyView *beautyView = [[CHBeautyView alloc] init];
+    CHBeautyView *beautyView = [[CHBeautyView alloc] initWithFrame:self.bounds itemGap:self.gap];
     [self addSubview:beautyView];
     self.beautyView = beautyView;
 
@@ -109,43 +124,24 @@
     
     self.beautyView.beautySetModel = self.beautySetModel;
     self.propsView.beautySetModel = self.beautySetModel;
-    
-#warning test propUrlArray
-    [self performSelector:@selector(adddata) withObject:nil afterDelay:2];
-}
-
-- (void)adddata
-{
-    NSMutableArray *propUrlArray = [NSMutableArray array];
-    
-    [propUrlArray addObject:@"1"];
-    [propUrlArray addObject:@"1"];
-    [propUrlArray addObject:@"1"];
-    [propUrlArray addObject:@"1"];
-    [propUrlArray addObject:@"1"];
-
-    self.beautySetModel.propUrlArray = propUrlArray;
-    self.beautySetModel.propIndex = 2;
-    
-    [self.propsView reloadData];
 }
 
 - (void)setFrame:(CGRect)frame
 {
     CGFloat width = frame.size.width;
 
-    self.topView.frame = CGRectMake(CHBeautySetView_LeftGap, CHBeautySetView_Gap, width-CHBeautySetView_LeftGap*2, CHBeautySetView_BtnHeight+CHBeautySetView_Gap*2);
+    self.topView.frame = CGRectMake(CHBeautySetView_LeftGap, CHBeautySetView_Gap, width-CHBeautySetView_LeftGap*2, CHBeautySetView_BtnHeight);
 
-    self.beautyButton.frame = CGRectMake(0, CHBeautySetView_Gap, CHBeautySetView_BtnWidth, CHBeautySetView_BtnHeight);
+    self.beautyButton.frame = CGRectMake(0, 0, CHBeautySetView_BtnWidth, CHBeautySetView_BtnHeight);
     
-    self.propButton.frame = CGRectMake(0, CHBeautySetView_Gap, CHBeautySetView_BtnWidth, CHBeautySetView_BtnHeight);
+    self.propButton.frame = CGRectMake(0, 0, CHBeautySetView_BtnWidth, CHBeautySetView_BtnHeight);
     self.propButton.bm_centerX = self.topView.bm_width*0.5;
     
-    self.resetButton.frame = CGRectMake(self.topView.bm_width - CHBeautySetView_BtnWidth, CHBeautySetView_Gap, CHBeautySetView_BtnWidth, CHBeautySetView_BtnHeight);
+    self.resetButton.frame = CGRectMake(self.topView.bm_width - CHBeautySetView_BtnWidth, 0, CHBeautySetView_BtnWidth, CHBeautySetView_BtnHeight);
     
-    self.beautyView.frame = CGRectMake(0, self.topView.bm_bottom + CHBeautySetView_Gap, self.bm_width, self.bm_height);
+    self.beautyView.frame = CGRectMake(0, self.topView.bm_bottom + CHBeautySetView_SGap, self.bm_width, self.bm_height);
     
-    self.propsView.frame = CGRectMake(self.bm_width, self.topView.bm_bottom + CHBeautySetView_Gap, self.bm_width, self.beautyView.bm_height);
+    self.propsView.frame = CGRectMake(self.bm_width, self.topView.bm_bottom + CHBeautySetView_SGap, self.bm_width, self.beautyView.bm_height);
     
     frame.size.height = self.beautyView.bm_bottom;
     

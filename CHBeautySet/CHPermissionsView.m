@@ -95,8 +95,8 @@
     self.hMirrorBtn = hMirrorBtn;
     self.hMirrorBtn.imageTextViewClicked = ^(BMImageTextView * _Nonnull imageTextView) {
 
-        weakSelf.beautySetModel.hMirror = !weakSelf.beautySetModel.hMirror;
-        if (weakSelf.beautySetModel.hMirror)
+        weakSelf.beautySetModel.fliph = !weakSelf.beautySetModel.fliph;
+        if (weakSelf.beautySetModel.fliph)
         {
             weakSelf.hMirrorBtn.imageName = @"permissions_mirror";
         }
@@ -107,7 +107,7 @@
 
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(onPermissionsViewChanged:value:)])
         {
-            [weakSelf.delegate onPermissionsViewChanged:CHPermissionsViewChange_HMirror value:weakSelf.beautySetModel.hMirror];
+            [weakSelf.delegate onPermissionsViewChanged:CHPermissionsViewChange_HMirror value:weakSelf.beautySetModel.fliph];
         }
     };
 
@@ -118,8 +118,8 @@
     [self.vMirrorBtn layoutSubviews];
     self.vMirrorBtn.imageTextViewClicked = ^(BMImageTextView * _Nonnull imageTextView) {
         
-        weakSelf.beautySetModel.vMirror = !weakSelf.beautySetModel.vMirror;
-        if (weakSelf.beautySetModel.vMirror)
+        weakSelf.beautySetModel.flipv = !weakSelf.beautySetModel.flipv;
+        if (weakSelf.beautySetModel.flipv)
         {
             weakSelf.vMirrorBtn.imageName = @"permissions_mirror";
         }
@@ -130,7 +130,7 @@
 
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(onPermissionsViewChanged:value:)])
         {
-            [weakSelf.delegate onPermissionsViewChanged:CHPermissionsViewChange_VMirror value:weakSelf.beautySetModel.vMirror];
+            [weakSelf.delegate onPermissionsViewChanged:CHPermissionsViewChange_VMirror value:weakSelf.beautySetModel.flipv];
         }
     };
 

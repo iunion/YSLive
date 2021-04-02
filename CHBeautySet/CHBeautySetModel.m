@@ -41,28 +41,28 @@
     [self.liveManager useFrontCamera:!switchCam];
 }
 
-- (void)setHMirror:(BOOL)hMirror
+- (void)setFliph:(BOOL)fliph
 {
-    if (_hMirror == hMirror)
+    if (_fliph == fliph)
     {
         return;
     }
     
-    _hMirror = hMirror;
+    _fliph = fliph;
     
-    [self.liveManager setCameraFlipMode:hMirror Vertivcal:self.vMirror];
+    [self.liveManager setCameraFlipMode:fliph Vertivcal:self.flipv];
 }
 
-- (void)setVMirror:(BOOL)vMirror
+- (void)setFlipv:(BOOL)flipv
 {
-    if (_vMirror == vMirror)
+    if (_flipv == flipv)
     {
         return;
     }
     
-    _vMirror = vMirror;
+    _flipv = flipv;
     
-    [self.liveManager setCameraFlipMode:self.hMirror Vertivcal:vMirror];
+    [self.liveManager setCameraFlipMode:self.fliph Vertivcal:flipv];
 }
 
 @end

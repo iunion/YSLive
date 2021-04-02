@@ -285,6 +285,45 @@
     self.enterBtn = enterBtn;
 }
 
+- (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
+{
+    _beautySetModel = beautySetModel;
+    
+#warning test propUrlArray
+    [self performSelector:@selector(adddata) withObject:nil afterDelay:2];
+}
+
+- (void)adddata
+{
+    NSMutableArray *propUrlArray = [NSMutableArray array];
+    
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+    [propUrlArray addObject:@"1"];
+
+    self.beautySetModel.propUrlArray = propUrlArray;
+    self.beautySetModel.propIndex = 2;
+
+    self.beautySetView.beautySetModel = self.beautySetModel;
+}
+
 - (void)enterBtnClick:(id)sender
 {
     if (self.permissionsView.hidden)
@@ -413,5 +452,12 @@
     }
 }
 
+
+#pragma mark - CHBeautySetViewDelegate
+
+- (void)beautySetFinished:(BOOL)isFinished
+{
+    
+}
 
 @end

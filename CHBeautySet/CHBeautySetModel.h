@@ -24,9 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 切换摄像头
 @property (nonatomic, assign) BOOL switchCam;
 /// 水平镜像
-@property (nonatomic, assign) BOOL hMirror;
+@property (nonatomic, assign) BOOL fliph;
 /// 垂直镜像
-@property (nonatomic, assign) BOOL vMirror;
+@property (nonatomic, assign) BOOL flipv;
 
 /// 美白值
 @property (nonatomic, assign) CGFloat whitenValue;

@@ -9,10 +9,14 @@
 #import "CHPropsView.h"
 #import "CHPropsViewCell.h"
 
-#define CellMarginX 10
-#define CellMarginY 10
-#define cellWidth 80
-#define cellHeight 56
+#define CHPropsView_Gap     20.0f
+
+#define CellMarginX         10.0f
+#define CellMarginY         10.0f
+
+#define cellWidth           80.0f
+#define cellHeight          56.0f
+
 #define CHPropsViewCellIdentifier @"CHPropsViewCell"
 
 @interface CHPropsView ()
@@ -43,8 +47,8 @@
     self.backgroundColor = UIColor.clearColor;
 
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(cellWidth,cellHeight);
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, CellMarginX, CellMarginY, CellMarginX);
+    flowLayout.itemSize = CGSizeMake(cellWidth, cellHeight);
+    flowLayout.sectionInset = UIEdgeInsetsMake(CHPropsView_Gap, CellMarginX, CellMarginY, CHPropsView_Gap);
     flowLayout.minimumLineSpacing = CellMarginY;
     flowLayout.minimumInteritemSpacing = CellMarginX;
 
