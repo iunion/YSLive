@@ -3592,7 +3592,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.appUseTheType == CHRoomUseTypeSmallClass)
     {
         // 自动上台
-        if (self.videoViewArrayDic.allKeys.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID])
+        if (self.videoSequenceArr.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID])
         {
             BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
             if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != CHUserType_Patrol)
@@ -3615,7 +3615,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
     else if (self.appUseTheType == CHRoomUseTypeMeeting)
     {//会议，进教室默认上台
-        if (self.liveManager.isClassBegin && (self.videoViewArrayDic.allKeys.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID]) && YSCurrentUser.role != CHUserType_Patrol)
+        if (self.liveManager.isClassBegin && (self.videoSequenceArr.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID]) && YSCurrentUser.role != CHUserType_Patrol)
         {
             if (!self.liveManager.isGroupRoom)
             {
