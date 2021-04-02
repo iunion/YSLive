@@ -493,7 +493,9 @@
 "BeautySet.Cam" = "摄像头";
 "BeautySet.Cam.HMirror" = "水平镜像";
 "BeautySet.Cam.VMirror" = "垂直镜像";
+"BeautySet.Cam.Tip" = "请打开你的摄像头权限";
 "BeautySet.Mic" = "麦克风";
+"BeautySet.Mic.Tip" = "请打开你的麦克风权限";
 "BeautySet.Speaker" = "扬声器";
 "BeautySet.BeautySet" = "美颜设置";
 "BeautySet.Enter" = "进 入";

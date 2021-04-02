@@ -491,10 +491,13 @@
 "BeautySet.Cam" = "監視器";
 "BeautySet.Cam.HMirror" = "水准鏡像";
 "BeautySet.Cam.VMirror" = "垂直鏡像";
+"BeautySet.Cam.Tip" = "請打開你的監視器許可權";
 "BeautySet.Mic" = "麥克風";
+"BeautySet.Mic.Tip" = "請打開你的麥克風許可權";
 "BeautySet.Speaker" = "揚聲器"；
 "BeautySet.BeautySet" = "美顏設定";
 "BeautySet.Enter" = "進 入";
+
 "BeautySet.Beauty" = "美 顏";
 "BeautySet.Props" = "動畫道具";
 "BeautySet.Reset" = "重置";

@@ -21,8 +21,10 @@
 
 @property (nonatomic, weak) UIImageView *camIcon;
 @property (nonatomic, weak) UILabel *camLabel;
+@property (nonatomic, weak) UILabel *camTipLabel;
 @property (nonatomic, weak) UIImageView *micIcon;
 @property (nonatomic, weak) UILabel *micLabel;
+@property (nonatomic, weak) UILabel *micTipLabel;
 @property (nonatomic, weak) UIImageView *speakIcon;
 @property (nonatomic, weak) UILabel *speakLabel;
 @property (nonatomic, weak) UIImageView *beautyIcon;
@@ -132,6 +134,14 @@
         }
     };
 
+    UILabel *camTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(CHPermissionsView_LeftGap, hMirrorBtn.bm_bottom, 200.0f, 14.0f)];
+    camTipLabel.font = [UIFont systemFontOfSize:10.0f];
+    camTipLabel.textColor = [UIColor bm_colorWithHex:0xE18D49];
+    camTipLabel.text = YSLocalized(@"BeautySet.Cam.Tip");
+    camTipLabel.hidden = YES;
+    [self addSubview:camTipLabel];
+    self.camTipLabel = camTipLabel;
+
     UIView *lineView1 = [[UIView alloc] init];
     lineView1.backgroundColor = UIColor.whiteColor;
     [self addSubview:lineView1];
@@ -160,6 +170,14 @@
     volumImage.image = [UIImage bm_resizedImageModeTileWithName:@"permissions_progress"];
     [self addSubview:volumImage];
     self.volumImage = volumImage;
+
+    UILabel *micTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(CHPermissionsView_LeftGap, volumBgImage.bm_bottom, 200.0f, 14.0f)];
+    micTipLabel.font = [UIFont systemFontOfSize:10.0f];
+    micTipLabel.textColor = [UIColor bm_colorWithHex:0xE18D49];
+    micTipLabel.text = YSLocalized(@"BeautySet.Mic.Tip");
+    micTipLabel.hidden = YES;
+    [self addSubview:micTipLabel];
+    self.micTipLabel = micTipLabel;
 
     UIView *lineView2 = [[UIView alloc] init];
     lineView2.backgroundColor = UIColor.whiteColor;
@@ -222,21 +240,25 @@
     {
         self.hMirrorBtn.userInteractionEnabled = NO;
         self.hMirrorBtn.textColor = UIColor.grayColor;
-        self.hMirrorBtn.imageName = @"permissions_unmirror";
+        self.hMirrorBtn.imageName = @"permissions_dismirror";
         
         self.vMirrorBtn.userInteractionEnabled = NO;
         self.vMirrorBtn.textColor = UIColor.grayColor;
-        self.vMirrorBtn.imageName = @"permissions_unmirror";
+        self.vMirrorBtn.imageName = @"permissions_dismirror";
 
         self.camButton.enabled = NO;
         
         self.beautyButton.enabled = NO;
+        
+        self.camTipLabel.hidden = NO;
     }
     
     if (!beautySetModel.microphonePermissions)
     {
-        self.volumBgImage.image = [UIImage bm_resizedImageModeTileWithName:@"permissions_unprogress"];
+        self.volumBgImage.image = [UIImage bm_resizedImageModeTileWithName:@"permissions_disprogress"];
         self.volumImage.hidden = YES;
+        
+        self.micTipLabel.hidden = NO;
     }
 }
 
@@ -254,7 +276,9 @@
 
     self.vMirrorBtn.bm_top = self.camIcon.bm_bottom + CHPermissionsView_SGap;
     self.vMirrorBtn.bm_left = width-CHPermissionsView_LeftGap-self.vMirrorBtn.bm_width;
-    
+
+    self.camTipLabel.bm_top = self.hMirrorBtn.bm_bottom;
+
     self.lineView1.frame = CGRectMake(CHPermissionsView_LeftGap, self.hMirrorBtn.bm_bottom + CHPermissionsView_Gap, width-CHPermissionsView_LeftGap*2.0f, BMSINGLE_LINE_WIDTH);
     
     self.micIcon.frame = CGRectMake(CHPermissionsView_LeftGap, self.lineView1.bm_bottom+CHPermissionsView_Gap, CHPermissionsView_IconWidth, CHPermissionsView_IconWidth);
@@ -263,6 +287,8 @@
     self.volumBgImage.frame = CGRectMake(CHPermissionsView_LeftGap, self.micIcon.bm_bottom + CHPermissionsView_SGap, width-CHPermissionsView_LeftGap*2.0f, 14.0f);
     self.volumImage.frame = CGRectMake(CHPermissionsView_LeftGap, self.micIcon.bm_bottom + CHPermissionsView_SGap, 80.0f, 14.0f);
     
+    self.micTipLabel.bm_top = self.volumBgImage.bm_bottom + 2.0f;
+
     self.lineView2.frame = CGRectMake(CHPermissionsView_LeftGap, self.volumBgImage.bm_bottom + CHPermissionsView_Gap, width-CHPermissionsView_LeftGap*2.0f, BMSINGLE_LINE_WIDTH);
     
     self.speakIcon.frame = CGRectMake(CHPermissionsView_LeftGap, self.lineView2.bm_bottom+CHPermissionsView_Gap, CHPermissionsView_IconWidth, CHPermissionsView_IconWidth);

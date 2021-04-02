@@ -44,11 +44,20 @@
     
     if (![imageUrl bm_isNotEmpty])
     {
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.image = [UIImage imageNamed:@"beauty_defaultprop"];
     }
     else
     {
-        [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"beauty_defaultprop"] options:BMSDWebImageRetryFailed | BMSDWebImageLowPriority];
+        self.imageView.contentMode = UIViewContentModeCenter;
+        
+        BMWeakSelf
+        [self.imageView bmsd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"beauty_placeholderprop"] options:BMSDWebImageRetryFailed | BMSDWebImageLowPriority completed:^(UIImage * _Nullable image, NSError * _Nullable error, BMSDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (image)
+            {
+                weakSelf.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            }
+        }];
     }
 }
 

@@ -10,7 +10,7 @@
 #import "CHBeautyView.h"
 #import "CHPropsView.h"
 
-#define CHBeautySetView_BtnWidth        100.0f
+#define CHBeautySetView_BtnWidth        80.0f
 #define CHBeautySetView_BtnHeight       30.0f
 
 #define CHBeautySetView_Gap             20.0f

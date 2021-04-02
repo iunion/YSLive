@@ -226,7 +226,7 @@
     permissionLabel.textColor = [UIColor bm_colorWithHex:0xE18D49];
     permissionLabel.textAlignment = NSTextAlignmentCenter;
     permissionLabel.numberOfLines = 0;
-    permissionLabel.text = YSLocalized(@"BeautySet.note");
+    permissionLabel.text = YSLocalized(@"BeautySet.Note");
     [self.topView addSubview:permissionLabel];
     [permissionLabel bm_centerHorizontallyInSuperViewWithTop:backImageView.bm_bottom + 20.0f];
     self.permissionLabel = permissionLabel;

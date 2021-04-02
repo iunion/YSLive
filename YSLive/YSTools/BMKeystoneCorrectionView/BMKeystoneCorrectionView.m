@@ -31,11 +31,15 @@
 @property (nonatomic, strong) UIButton *cameraBtn;
 @property (nonatomic, strong) UIButton *flipHBtn;
 @property (nonatomic, strong) UIButton *flipVBtn;
+@property (nonatomic, strong) UIButton *beautyBtn;
 
-
+/// 底部容器
 @property (nonatomic, strong) UIView *btnsView;
 @property (nonatomic, strong) UIButton *finishBtn;
 @property (nonatomic, strong) UIButton *resetBtn;
+
+/// 美颜蒙层
+@property (nonatomic, strong) UIControl *beautyMarskView;
 
 
 @property (nonatomic, assign) BOOL isSwithCamera;
@@ -124,7 +128,8 @@
     
     [topView bm_centerHorizontallyInSuperViewWithTop:40.0f];
     
-    UIView *toolsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40.0f, 130.0f)];
+    CGFloat toolsViewHeight = 30.0f*4 + 10*2 + 15*3;
+    UIView *toolsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40.0f, toolsViewHeight)];
     [self addSubview:toolsView];
     self.toolsView = toolsView;
     toolsView.backgroundColor = backgroundColor;
@@ -134,15 +139,19 @@
 
     self.cameraBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_camera"] action:@selector(camera:)];
     [self.toolsView addSubview:self.cameraBtn];
-    self.cameraBtn.bm_top = 5.0f;
+    self.cameraBtn.bm_top = 10.0f;
     
     self.flipHBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_fliph"] action:@selector(fliph:)];
     [self.toolsView addSubview:self.flipHBtn];
-    self.flipHBtn.bm_top = 50.0f;
+    self.flipHBtn.bm_top = 55.0f;
     
     self.flipVBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_flipv"] action:@selector(flipv:)];
     [self.toolsView addSubview:self.flipVBtn];
-    self.flipVBtn.bm_top = 95.0f;
+    self.flipVBtn.bm_top = 100.0f;
+    
+    self.beautyBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_beauty"] action:@selector(showBeauty)];
+    [self.toolsView addSubview:self.beautyBtn];
+    self.beautyBtn.bm_top = 145.0f;
 
     UIView *btnsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 220.0f, 36.0f)];
     [self addSubview:btnsView];
@@ -172,6 +181,14 @@
     finishBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [finishBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [finishBtn bm_roundedRect:18.0f];
+    
+    UIControl *beautyMarskView = [[UIControl alloc] initWithFrame:self.bounds];
+    [self addSubview:beautyMarskView];
+    beautyMarskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    beautyMarskView.backgroundColor = UIColor.clearColor;
+    beautyMarskView.hidden = YES;
+    [beautyMarskView addTarget:self action:@selector(hideBeauty) forControlEvents:UIControlEventTouchUpInside];
+    self.beautyMarskView = beautyMarskView;
 }
 
 #if 0
@@ -233,6 +250,24 @@
     //btn.selected = self.isFlipV;
 
     [self.liveManager.cloudHubRtcEngineKit setCameraFlipMode:self.isFlipH Vertivcal:self.isFlipV];
+}
+
+- (void)showBeauty
+{
+    self.beautyMarskView.hidden = NO;
+    
+    self.topView.hidden = YES;
+    self.toolsView.hidden = YES;
+    self.btnsView.hidden = YES;
+}
+
+- (void)hideBeauty
+{
+    self.beautyMarskView.hidden = YES;
+    
+    self.topView.hidden = NO;
+    self.toolsView.hidden = NO;
+    self.btnsView.hidden = NO;
 }
 
 - (void)backAction:(UIButton *)btn
