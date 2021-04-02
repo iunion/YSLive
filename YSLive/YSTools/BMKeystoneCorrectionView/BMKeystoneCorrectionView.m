@@ -201,6 +201,10 @@
         width = self.bm_width * 0.3f;
         gap = 20.0f;
     }
+    if (self.bm_height < 400.0f)
+    {
+        gap = 4.0f;
+    }
     CHBeautySetView *beautySetView = [[CHBeautySetView alloc] initWithFrame:CGRectMake(self.bm_width-width, 0, width, 50.0f) itemGap:gap];
     beautySetView.liveManager = self.liveManager;
     beautySetView.beautySetModel = self.beautySetModel;
