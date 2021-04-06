@@ -2209,7 +2209,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             case SCBottomToolBarTypePersonList:
             {
-                //花名册  有用户进入房间调用 上下课调用
+                // 花名册  有用户进入房间调用 上下课调用
                 [self freshListViewWithSelect:isSelected];
                 [self freshTeacherPersonListDataNeedFesh:YES];
                 [self.teacherListView bm_bringToFront];
@@ -2219,7 +2219,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 
             case SCBottomToolBarTypeCourseware:
             {
-                //课件库
+                // 课件库
                 [self freshListViewWithSelect:isSelected];
                 [self.teacherListView setUserRole:self.liveManager.localUser.role];
                 [self.teacherListView setDataSource:self.liveManager.fileList withType:SCBottomToolBarTypeCourseware userNum:self.liveManager.fileList.count currentFileList:self.currentFileList mediaFileID:self.mediaFileModel.fileId mediaState:self.mediaFileModel.state];
@@ -2236,28 +2236,28 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCBottomToolBarTypeCamera:
             {
-                //摄像头
+                // 摄像头
                 [self.liveManager useFrontCamera:!isSelected];
             }
                 break;
             case SCBottomToolBarTypeVideoAdjustment:
             {
-                //视频调整
+                // 视频调整
                 [self showKeystoneCorrectionView];
             }
                 break;
             case SCBottomToolBarTypeChat:
             {
-                //消息
+                // 消息
                 CGRect tempRect = self.rightChatView.frame;
                 if (isSelected)
-                {//弹出
+                {// 弹出
                     tempRect.origin.x = BMUI_SCREEN_WIDTH-tempRect.size.width;
                     //收回 课件表 以及 花名册
                     [self freshListViewWithSelect:NO];
                 }
                 else
-                {//收回
+                {// 收回
                     tempRect.origin.x = BMUI_SCREEN_WIDTH;
                 }
                 [UIView animateWithDuration:0.25 animations:^{
@@ -2268,7 +2268,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 break;
             case SCBottomToolBarTypeExit:
             {
-                //退出
+                // 退出
                 [self backAction:nil];
             }
                 break;

@@ -298,6 +298,7 @@
     spreadBottomToolBar.isBeginClass = self.liveManager.isClassBegin;
     spreadBottomToolBar.isPollingEnable = NO;
     spreadBottomToolBar.isToolBoxEnable = NO;
+    spreadBottomToolBar.videoAdjustmentEnable = self.liveManager.beautySetModel.cameraPermissions;
     
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];

@@ -236,7 +236,8 @@
     largeVideoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.largeVideoView = largeVideoView;
 
-    [self resetBeautySet];
+    // 初始美颜设置环境
+    [self resetBeautySetEnvironmental];
     
     [self.liveManager playVideoWithUserId:self.liveManager.localUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:largeVideoView];
     self.liveManager.sessionManagerSelfVolume = ^(NSUInteger volume) {
@@ -288,6 +289,11 @@
 - (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
 {
     _beautySetModel = beautySetModel;
+    
+    if (!beautySetModel.microphonePermissions)
+    {
+        [self stopVollumListening];
+    }
     
 #warning test propUrlArray
     [self performSelector:@selector(adddata) withObject:nil afterDelay:2];
@@ -353,8 +359,9 @@
     }
 }
 
-- (void)resetBeautySet
+- (void)resetBeautySetEnvironmental
 {
+    // 复原摄像头设置
     [self.liveManager useFrontCamera:YES];
     [self.liveManager.cloudHubRtcEngineKit setVideoRotation:CloudHubHomeButtonOnBottom];
     
