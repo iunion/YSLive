@@ -17,7 +17,6 @@
 
 @property (nonatomic, strong, nonnull) NSMutableArray<id<BMSDImageCoder>> *imageCoders;
 
-
 @end
 
 @implementation BMSDImageCodersManager {
@@ -42,16 +41,14 @@
     return self;
 }
 
-- (NSArray<id<BMSDImageCoder>> *)coders
-{
+- (NSArray<id<BMSDImageCoder>> *)coders {
     BMSD_LOCK(_codersLock);
     NSArray<id<BMSDImageCoder>> *coders = [_imageCoders copy];
     BMSD_UNLOCK(_codersLock);
     return coders;
 }
 
-- (void)setCoders:(NSArray<id<BMSDImageCoder>> *)coders
-{
+- (void)setCoders:(NSArray<id<BMSDImageCoder>> *)coders {
     BMSD_LOCK(_codersLock);
     [_imageCoders removeAllObjects];
     if (coders.count) {

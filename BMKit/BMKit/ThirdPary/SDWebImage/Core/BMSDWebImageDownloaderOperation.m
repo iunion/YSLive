@@ -11,6 +11,7 @@
 #import "BMSDInternalMacros.h"
 #import "BMSDWebImageDownloaderResponseModifier.h"
 #import "BMSDWebImageDownloaderDecryptor.h"
+#import "BMSDImageLoader.h"
 
 static NSString *const kBMProgressCallbackKey = @"progress";
 static NSString *const kBMCompletedCallbackKey = @"completed";
@@ -386,15 +387,21 @@ didReceiveResponse:(NSURLResponse *)response
     
     // Using data decryptor will disable the progressive decoding, since there are no support for progressive decrypt
     BOOL supportProgressive = (self.options & BMSDWebImageDownloaderProgressiveLoad) && !self.decryptor;
-    if (supportProgressive) {
+    // Progressive decoding Only decode partial image, full image in `URLSession:task:didCompleteWithError:`
+    if (supportProgressive && !finished) {
         // Get the image data
         NSData *imageData = [self.imageData copy];
         
         // keep maximum one progressive decode process during download
         if (self.coderQueue.operationCount == 0) {
             // NSOperation have autoreleasepool, don't need to create extra one
+            @bmweakify(self);
             [self.coderQueue addOperationWithBlock:^{
-                UIImage *image = BMSDImageLoaderDecodeProgressiveImageData(imageData, self.request.URL, finished, self, [[self class] imageOptionsFromDownloaderOptions:self.options], self.context);
+                @bmstrongify(self);
+                if (!self) {
+                    return;
+                }
+                UIImage *image = BMSDImageLoaderDecodeProgressiveImageData(imageData, self.request.URL, NO, self, [[self class] imageOptionsFromDownloaderOptions:self.options], self.context);
                 if (image) {
                     // We do not keep the progressive decoding image even when `finished`=YES. Because they are for view rendering but not take full function from downloader options. And some coders implementation may not keep consistent between progressive decoding and normal decoding.
                     
@@ -470,8 +477,20 @@ didReceiveResponse:(NSURLResponse *)response
                 } else {
                     // decode the image in coder queue, cancel all previous decoding process
                     [self.coderQueue cancelAllOperations];
+                    @bmweakify(self);
                     [self.coderQueue addOperationWithBlock:^{
-                        UIImage *image = BMSDImageLoaderDecodeImageData(imageData, self.request.URL, [[self class] imageOptionsFromDownloaderOptions:self.options], self.context);
+                        @bmstrongify(self);
+                        if (!self) {
+                            return;
+                        }
+                        // check if we already use progressive decoding, use that to produce faster decoding
+                        id<BMSDProgressiveImageCoder> progressiveCoder =  BMSDImageLoaderGetProgressiveCoder(self);
+                        UIImage *image;
+                        if (progressiveCoder) {
+                            image = BMSDImageLoaderDecodeProgressiveImageData(imageData, self.request.URL, YES, self, [[self class] imageOptionsFromDownloaderOptions:self.options], self.context);
+                        } else {
+                            image = BMSDImageLoaderDecodeImageData(imageData, self.request.URL, [[self class] imageOptionsFromDownloaderOptions:self.options], self.context);
+                        }
                         CGSize imageSize = image.size;
                         if (imageSize.width == 0 || imageSize.height == 0) {
                             NSString *description = image == nil ? @"Downloaded image decode failed" : @"Downloaded image has 0 pixels";

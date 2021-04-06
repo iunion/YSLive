@@ -260,7 +260,6 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
     } else {
         imageCache = self.imageCache;
     }
-    
     // Get the query cache type
     BMSDImageCacheType queryCacheType = BMSDImageCacheTypeAll;
     if (context[BMSDWebImageContextQueryCacheType]) {
@@ -301,14 +300,18 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                                      context:(nullable BMSDWebImageContext *)context
                                     progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                    completed:(nullable BMSDInternalCompletionBlock)completedBlock {
-    // Grab the image cache to use
+    // Grab the image cache to use, choose standalone original cache firstly
     id<BMSDImageCache> imageCache;
-    if ([context[BMSDWebImageContextImageCache] conformsToProtocol:@protocol(BMSDImageCache)]) {
-        imageCache = context[BMSDWebImageContextImageCache];
+    if ([context[BMSDWebImageContextOriginalImageCache] conformsToProtocol:@protocol(BMSDImageCache)]) {
+        imageCache = context[BMSDWebImageContextOriginalImageCache];
     } else {
-        imageCache = self.imageCache;
+        // if no standalone cache available, use default cache
+        if ([context[BMSDWebImageContextImageCache] conformsToProtocol:@protocol(BMSDImageCache)]) {
+            imageCache = context[BMSDWebImageContextImageCache];
+        } else {
+            imageCache = self.imageCache;
+        }
     }
-    
     // Get the original query cache type
     BMSDImageCacheType originalQueryCacheType = BMSDImageCacheTypeNone;
     if (context[BMSDWebImageContextOriginalQueryCacheType]) {
@@ -318,19 +321,10 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
     // Check whether we should query original cache
     BOOL shouldQueryOriginalCache = (originalQueryCacheType != BMSDImageCacheTypeNone);
     if (shouldQueryOriginalCache) {
-        // Change originContext to mutable
-        BMSDWebImageMutableContext * __block originContext;
-        if (context) {
-            originContext = [context mutableCopy];
-        } else {
-            originContext = [NSMutableDictionary dictionary];
-        }
-        
-        // Disable transformer for cache key generation
-        id<BMSDImageTransformer> transformer = originContext[BMSDWebImageContextImageTransformer];
-        originContext[BMSDWebImageContextImageTransformer] = [NSNull null];
-        
-        NSString *key = [self cacheKeyForURL:url context:originContext];
+        // Disable transformer for original cache key generation
+        BMSDWebImageMutableContext *tempContext = [context mutableCopy];
+        tempContext[BMSDWebImageContextImageTransformer] = [NSNull null];
+        NSString *key = [self cacheKeyForURL:url context:tempContext];
         @bmweakify(operation);
         operation.cacheOperation = [imageCache queryImageForKey:key options:options context:context cacheType:originalQueryCacheType completion:^(UIImage * _Nullable cachedImage, NSData * _Nullable cachedData, BMSDImageCacheType cacheType) {
             @bmstrongify(operation);
@@ -339,11 +333,6 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                 [self callCompletionBlockForOperation:operation completion:completedBlock error:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during querying the cache"}] url:url];
                 [self safelyRemoveOperationFromRunning:operation];
                 return;
-            }
-            
-            // Add original transformer
-            if (transformer) {
-                originContext[BMSDWebImageContextImageTransformer] = transformer;
             }
             
             // Use the store cache process instead of downloading, and ignore .refreshCached option for now
@@ -403,8 +392,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         @bmweakify(operation);
         operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(NSURL *imageUrl, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
             @bmstrongify(operation);
-            if (!imageUrl)
-            {
+            if (!imageUrl) {
                 imageUrl = url;
             }
             if (!operation || operation.isCancelled) {
@@ -458,6 +446,18 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                                  finished:(BOOL)finished
                                  progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                 completed:(nullable BMSDInternalCompletionBlock)completedBlock {
+    // Grab the image cache to use, choose standalone original cache firstly
+    id<BMSDImageCache> imageCache;
+    if ([context[BMSDWebImageContextOriginalImageCache] conformsToProtocol:@protocol(BMSDImageCache)]) {
+        imageCache = context[BMSDWebImageContextOriginalImageCache];
+    } else {
+        // if no standalone cache available, use default cache
+        if ([context[BMSDWebImageContextImageCache] conformsToProtocol:@protocol(BMSDImageCache)]) {
+            imageCache = context[BMSDWebImageContextImageCache];
+        } else {
+            imageCache = self.imageCache;
+        }
+    }
     // the target image store cache type
     BMSDImageCacheType storeCacheType = BMSDImageCacheTypeAll;
     if (context[BMSDWebImageContextStoreCacheType]) {
@@ -468,11 +468,10 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
     if (context[BMSDWebImageContextOriginalStoreCacheType]) {
         originalStoreCacheType = [context[BMSDWebImageContextOriginalStoreCacheType] integerValue];
     }
-    // origin cache key
-    BMSDWebImageMutableContext *originContext = [context mutableCopy];
-    // disable transformer for cache key generation
-    originContext[BMSDWebImageContextImageTransformer] = [NSNull null];
-    NSString *key = [self cacheKeyForURL:url context:originContext];
+    // Disable transformer for original cache key generation
+    BMSDWebImageMutableContext *tempContext = [context mutableCopy];
+    tempContext[BMSDWebImageContextImageTransformer] = [NSNull null];
+    NSString *key = [self cacheKeyForURL:url context:tempContext];
     id<BMSDImageTransformer> transformer = context[BMSDWebImageContextImageTransformer];
     if (![transformer conformsToProtocol:@protocol(BMSDImageTransformer)]) {
         transformer = nil;
@@ -492,14 +491,14 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
                 @autoreleasepool {
                     NSData *cacheData = [cacheSerializer cacheDataWithImage:downloadedImage originalData:downloadedData imageURL:url];
-                    [self storeImage:downloadedImage imageData:cacheData forKey:key cacheType:targetStoreCacheType options:options context:context completion:^{
+                    [self storeImage:downloadedImage imageData:cacheData forKey:key imageCache:imageCache cacheType:targetStoreCacheType options:options context:context completion:^{
                         // Continue transform process
                         [self callTransformProcessForOperation:operation url:url options:options context:context originalImage:downloadedImage originalData:downloadedData finished:finished progress:progressBlock completed:completedBlock];
                     }];
                 }
             });
         } else {
-            [self storeImage:downloadedImage imageData:downloadedData forKey:key cacheType:targetStoreCacheType options:options context:context completion:^{
+            [self storeImage:downloadedImage imageData:downloadedData forKey:key imageCache:imageCache cacheType:targetStoreCacheType options:options context:context completion:^{
                 // Continue transform process
                 [self callTransformProcessForOperation:operation url:url options:options context:context originalImage:downloadedImage originalData:downloadedData finished:finished progress:progressBlock completed:completedBlock];
             }];
@@ -520,6 +519,13 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                                 finished:(BOOL)finished
                                 progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                completed:(nullable BMSDInternalCompletionBlock)completedBlock {
+    // Grab the image cache to use
+    id<BMSDImageCache> imageCache;
+    if ([context[BMSDWebImageContextImageCache] conformsToProtocol:@protocol(BMSDImageCache)]) {
+        imageCache = context[BMSDWebImageContextImageCache];
+    } else {
+        imageCache = self.imageCache;
+    }
     // the target image store cache type
     BMSDImageCacheType storeCacheType = BMSDImageCacheTypeAll;
     if (context[BMSDWebImageContextStoreCacheType]) {
@@ -550,7 +556,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                     } else {
                         cacheData = (imageWasTransformed ? nil : originalData);
                     }
-                    [self storeImage:transformedImage imageData:cacheData forKey:key cacheType:storeCacheType options:options context:context completion:^{
+                    [self storeImage:transformedImage imageData:cacheData forKey:key imageCache:imageCache cacheType:storeCacheType options:options context:context completion:^{
                         [self callCompletionBlockForOperation:operation completion:completedBlock image:transformedImage data:originalData error:nil cacheType:BMSDImageCacheTypeNone finished:finished url:url];
                     }];
                 } else {
@@ -577,16 +583,11 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
 - (void)storeImage:(nullable UIImage *)image
          imageData:(nullable NSData *)data
             forKey:(nullable NSString *)key
+        imageCache:(nonnull id<BMSDImageCache>)imageCache
          cacheType:(BMSDImageCacheType)cacheType
            options:(BMSDWebImageOptions)options
            context:(nullable BMSDWebImageContext *)context
         completion:(nullable BMSDWebImageNoParamsBlock)completion {
-    id<BMSDImageCache> imageCache;
-    if ([context[BMSDWebImageContextImageCache] conformsToProtocol:@protocol(BMSDImageCache)]) {
-        imageCache = context[BMSDWebImageContextImageCache];
-    } else {
-        imageCache = self.imageCache;
-    }
     BOOL waitStoreCache = BMSD_OPTIONS_CONTAINS(options, BMSDWebImageWaitStoreCache);
     // Check whether we should wait the store cache finished. If not, callback immediately
     [imageCache storeImage:image imageData:data forKey:key cacheType:cacheType completion:^{
