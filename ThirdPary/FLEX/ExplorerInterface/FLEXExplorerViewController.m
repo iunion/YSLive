@@ -471,7 +471,7 @@ typedef NS_ENUM(NSUInteger, FLEXExplorerMode) {
 //    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     [toolbar.selectedViewDescriptionContainer addGestureRecognizer:leftSwipe];
 //    [toolbar.selectedViewDescriptionContainer addGestureRecognizer:rightSwipe];
-
+    
     // Long press gesture to present tabs manager
     [toolbar.globalsItem addGestureRecognizer:[[UILongPressGestureRecognizer alloc]
         initWithTarget:self action:@selector(handleToolbarShowTabsGesture:)

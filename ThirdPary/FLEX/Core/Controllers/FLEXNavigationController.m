@@ -20,6 +20,7 @@
 @interface FLEXNavigationController ()
 @property (nonatomic, readonly) BOOL toolbarWasHidden;
 @property (nonatomic) BOOL waitingToAddTab;
+@property (nonatomic, readonly) BOOL canShowToolbar;
 @property (nonatomic) BOOL didSetupPendingDismissButtons;
 @property (nonatomic) UISwipeGestureRecognizer *navigationBarSwipeGesture;
 @end
@@ -43,7 +44,7 @@
     // Don't cancel touches to work around bug on versions of iOS prior to 13
     navbarTapGesture.cancelsTouchesInView = NO;
     [self.navigationBar addGestureRecognizer:navbarTapGesture];
-
+    
     // Add gesture to dismiss if not presented with a sheet style
     if (@available(iOS 13, *)) {
         switch (self.modalPresentationStyle) {
@@ -97,6 +98,10 @@
     // allows you to leave a tab open by dragging down to dismiss
     [FLEXTabList.sharedList closeTab:self];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)canShowToolbar {
+    return self.topViewController.toolbarItems.count;
 }
 
 - (void)addNavigationBarItemsToViewController:(UINavigationItem *)navigationItem {
@@ -156,7 +161,7 @@
     }
 
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        if (self.toolbarHidden) {
+        if (self.toolbarHidden && self.canShowToolbar) {
             [self setToolbarHidden:NO animated:YES];
         }
     }
@@ -172,7 +177,7 @@
 
 - (void)_gestureRecognizedInteractiveHide:(UIPanGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        BOOL show = self.topViewController.toolbarItems.count;
+        BOOL show = self.canShowToolbar;
         CGFloat yTranslation = [sender translationInView:self.view].y;
         CGFloat yVelocity = [sender velocityInView:self.view].y;
         if (yVelocity > 2000) {

@@ -396,6 +396,12 @@
 		871C876E2615701C00AB898E /* CHPropsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87672615701B00AB898E /* CHPropsViewCell.m */; };
 		871C876F2615701C00AB898E /* CHPropsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87692615701B00AB898E /* CHPropsView.m */; };
 		871C87702615701C00AB898E /* CHPropsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87692615701B00AB898E /* CHPropsView.m */; };
+		871C8794261C5B4300AB898E /* FLEXNSStringShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C8791261C5B4200AB898E /* FLEXNSStringShortcuts.m */; };
+		871C8795261C5B4300AB898E /* FLEXNSStringShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C8791261C5B4200AB898E /* FLEXNSStringShortcuts.m */; };
+		871C8796261C5B4300AB898E /* FLEXNSDataShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C8793261C5B4300AB898E /* FLEXNSDataShortcuts.m */; };
+		871C8797261C5B4300AB898E /* FLEXNSDataShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C8793261C5B4300AB898E /* FLEXNSDataShortcuts.m */; };
+		871C879C261C5EB200AB898E /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */; };
+		871C879D261C5EB200AB898E /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */; };
 		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
 		8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FF2424F79DF600BDF294 /* YSNewCoursewareControlView.m */; };
 		8745557C23B3358000BC6CAB /* YSSkinCoverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */; };
@@ -1084,6 +1090,12 @@
 		871C87682615701B00AB898E /* CHPropsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPropsView.h; sourceTree = "<group>"; };
 		871C87692615701B00AB898E /* CHPropsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPropsView.m; sourceTree = "<group>"; };
 		871C876A2615701B00AB898E /* CHBeautyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBeautyView.h; sourceTree = "<group>"; };
+		871C8790261C5B4200AB898E /* FLEXNSDataShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXNSDataShortcuts.h; sourceTree = "<group>"; };
+		871C8791261C5B4200AB898E /* FLEXNSStringShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXNSStringShortcuts.m; sourceTree = "<group>"; };
+		871C8792261C5B4300AB898E /* FLEXNSStringShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXNSStringShortcuts.h; sourceTree = "<group>"; };
+		871C8793261C5B4300AB898E /* FLEXNSDataShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXNSDataShortcuts.m; sourceTree = "<group>"; };
+		871C879A261C5EB200AB898E /* Cocoa+FLEXShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cocoa+FLEXShortcuts.h"; sourceTree = "<group>"; };
+		871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cocoa+FLEXShortcuts.m"; sourceTree = "<group>"; };
 		872558A823FAB5D9009A3A79 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		874061F3235AA428005D3620 /* YSLiveUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		874061F4235AA428005D3620 /* YSLiveUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveUtil.m; sourceTree = "<group>"; };
@@ -2342,6 +2354,8 @@
 		875DD4A225C4103000059D0B /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				871C879A261C5EB200AB898E /* Cocoa+FLEXShortcuts.h */,
+				871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */,
 				875DD4A725C4103000059D0B /* NSDictionary+ObjcRuntime.h */,
 				875DD4AC25C4103000059D0B /* NSDictionary+ObjcRuntime.m */,
 				875DD4A525C4103000059D0B /* NSMapTable+FLEX_Subscripting.h */,
@@ -2569,8 +2583,8 @@
 			children = (
 				87832D9924874C4300F1178E /* Controllers */,
 				87832DA024874C4300F1178E /* Views */,
-				87832DB324874C4300F1178E /* FLEXSingleRowSection.h */,
 				87832D9724874C4300F1178E /* FLEXSingleRowSection.m */,
+				87832DB324874C4300F1178E /* FLEXSingleRowSection.h */,
 				87832D9624874C4300F1178E /* FLEXTableViewSection.h */,
 				87832D9824874C4300F1178E /* FLEXTableViewSection.m */,
 			);
@@ -2675,6 +2689,10 @@
 				87832DC924874C4300F1178E /* FLEXImageShortcuts.m */,
 				87832DC824874C4300F1178E /* FLEXLayerShortcuts.h */,
 				87832DD224874C4300F1178E /* FLEXLayerShortcuts.m */,
+				871C8790261C5B4200AB898E /* FLEXNSDataShortcuts.h */,
+				871C8793261C5B4300AB898E /* FLEXNSDataShortcuts.m */,
+				871C8792261C5B4300AB898E /* FLEXNSStringShortcuts.h */,
+				871C8791261C5B4200AB898E /* FLEXNSStringShortcuts.m */,
 				87832DCB24874C4300F1178E /* FLEXShortcut.h */,
 				87832DD524874C4300F1178E /* FLEXShortcut.m */,
 				87832DC624874C4300F1178E /* FLEXShortcutsFactory+Defaults.h */,
@@ -2929,26 +2947,26 @@
 		87832E6624874C4300F1178E /* DatabaseBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				87832E6724874C4300F1178E /* FLEXRealmDefines.h */,
-				87832E6824874C4300F1178E /* FLEXTableLeftCell.m */,
-				87832E6924874C4300F1178E /* FLEXRealmDatabaseManager.h */,
-				87832E6A24874C4300F1178E /* FLEXSQLResult.m */,
-				87832E6B24874C4300F1178E /* FLEXTableContentViewController.m */,
-				87832E6C24874C4300F1178E /* FLEXDBQueryRowCell.h */,
-				87832E6D24874C4300F1178E /* FLEXTableListViewController.m */,
-				87832E6E24874C4300F1178E /* FLEXTableColumnHeader.m */,
-				87832E6F24874C4300F1178E /* FLEXMultiColumnTableView.m */,
-				87832E7024874C4300F1178E /* FLEXSQLiteDatabaseManager.h */,
-				87832E7124874C4300F1178E /* FLEXTableLeftCell.h */,
 				87832E7224874C4300F1178E /* FLEXDatabaseManager.h */,
-				87832E7324874C4300F1178E /* FLEXSQLResult.h */,
-				87832E7424874C4300F1178E /* FLEXRealmDatabaseManager.m */,
+				87832E6C24874C4300F1178E /* FLEXDBQueryRowCell.h */,
 				87832E7524874C4300F1178E /* FLEXDBQueryRowCell.m */,
-				87832E7624874C4300F1178E /* FLEXTableContentViewController.h */,
-				87832E7724874C4300F1178E /* FLEXSQLiteDatabaseManager.m */,
 				87832E7824874C4300F1178E /* FLEXMultiColumnTableView.h */,
+				87832E6F24874C4300F1178E /* FLEXMultiColumnTableView.m */,
+				87832E6924874C4300F1178E /* FLEXRealmDatabaseManager.h */,
+				87832E7424874C4300F1178E /* FLEXRealmDatabaseManager.m */,
+				87832E6724874C4300F1178E /* FLEXRealmDefines.h */,
+				87832E7024874C4300F1178E /* FLEXSQLiteDatabaseManager.h */,
+				87832E7724874C4300F1178E /* FLEXSQLiteDatabaseManager.m */,
+				87832E7324874C4300F1178E /* FLEXSQLResult.h */,
+				87832E6A24874C4300F1178E /* FLEXSQLResult.m */,
 				87832E7924874C4300F1178E /* FLEXTableColumnHeader.h */,
+				87832E6E24874C4300F1178E /* FLEXTableColumnHeader.m */,
+				87832E7624874C4300F1178E /* FLEXTableContentViewController.h */,
+				87832E6B24874C4300F1178E /* FLEXTableContentViewController.m */,
+				87832E7124874C4300F1178E /* FLEXTableLeftCell.h */,
+				87832E6824874C4300F1178E /* FLEXTableLeftCell.m */,
 				87832E7A24874C4300F1178E /* FLEXTableListViewController.h */,
+				87832E6D24874C4300F1178E /* FLEXTableListViewController.m */,
 			);
 			path = DatabaseBrowser;
 			sourceTree = "<group>";
@@ -3825,6 +3843,7 @@
 				87F32D9C2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */,
 				87832F0824874C4300F1178E /* FLEXSingleRowSection.m in Sources */,
 				87832F4024874C4300F1178E /* FLEXViewControllerShortcuts.m in Sources */,
+				871C879C261C5EB200AB898E /* Cocoa+FLEXShortcuts.m in Sources */,
 				3450B1382404AA26006141E5 /* SCVideoView.m in Sources */,
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				87832FEA24874C4300F1178E /* FHSView.m in Sources */,
@@ -3880,6 +3899,7 @@
 				871335C7237270F6006534A4 /* YSLessonNotifyTableCell.m in Sources */,
 				871335CA237270F6006534A4 /* GTMStackTrace.m in Sources */,
 				2632465A25E49A66002002A6 /* mz_os_posix.c in Sources */,
+				871C8796261C5B4300AB898E /* FLEXNSDataShortcuts.m in Sources */,
 				8783302E24874C4400F1178E /* FLEXRuntime+UIKitHelpers.m in Sources */,
 				87832FCA24874C4300F1178E /* FLEXSQLiteDatabaseManager.m in Sources */,
 				87832FB024874C4300F1178E /* FLEXSystemLogViewController.m in Sources */,
@@ -3991,6 +4011,7 @@
 				87133622237270F6006534A4 /* YSTextMessageCell.m in Sources */,
 				87832F9024874C4300F1178E /* FLEXBookmarkManager.m in Sources */,
 				87832FFA24874C4400F1178E /* FLEXUtility.m in Sources */,
+				871C8794261C5B4300AB898E /* FLEXNSStringShortcuts.m in Sources */,
 				8777C7AE23EAA78E002002BF /* YSTableViewVC.m in Sources */,
 				87832F3E24874C4300F1178E /* FLEXShortcut.m in Sources */,
 				871C876F2615701C00AB898E /* CHPropsView.m in Sources */,
@@ -4289,7 +4310,9 @@
 				8717E2732400DADC008C4CDA /* YSAnswerCell.m in Sources */,
 				8717E2742400DADC008C4CDA /* YSTeacherRoleMainVC.m in Sources */,
 				87832FF924874C4400F1178E /* FLEXHierarchyViewController.m in Sources */,
+				871C8795261C5B4300AB898E /* FLEXNSStringShortcuts.m in Sources */,
 				87832F4F24874C4300F1178E /* FLEXNetworkMITMViewController.m in Sources */,
+				871C879D261C5EB200AB898E /* Cocoa+FLEXShortcuts.m in Sources */,
 				87832FDF24874C4300F1178E /* FLEXObjcRuntimeViewController.m in Sources */,
 				87F32D992411F17200906C20 /* YSMainSuperVC.m in Sources */,
 				87832F6F24874C4300F1178E /* FLEXArgumentInputView.m in Sources */,
@@ -4304,6 +4327,7 @@
 				8717E27C2400DADC008C4CDA /* SCTeacherCoursewareListCell.m in Sources */,
 				87832F8B24874C4300F1178E /* FLEXExplorerViewController.m in Sources */,
 				87517E3F24A35C870094E2B3 /* YSLiveManager.m in Sources */,
+				871C8797261C5B4300AB898E /* FLEXNSDataShortcuts.m in Sources */,
 				87832FA524874C4300F1178E /* FLEXKeychainViewController.m in Sources */,
 				26D07C24243F03B2002B1B60 /* YSMP4PlayerMaskView.m in Sources */,
 				87832F3724874C4300F1178E /* FLEXBundleShortcuts.m in Sources */,

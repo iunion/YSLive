@@ -60,7 +60,7 @@
     // it is not all that useful. If you need it to refresh, you can simply go back
     // and go forward again and it will show if the view controller is nil or changed.
     UIViewController *controller = [FLEXViewShortcuts nearestViewControllerForView:view];
-    
+
     return [self forObject:view additionalRows:@[
         [FLEXActionShortcut title:@"Nearest View Controller"
                          subtitle:^NSString *(id view) {

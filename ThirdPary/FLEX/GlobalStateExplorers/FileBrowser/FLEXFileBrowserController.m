@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, FLEXFileBrowserSortAttribute) {
                 attributes = [fileManager attributesOfItemAtPath:[path stringByAppendingPathComponent:fileName] error:NULL];
                 totalSize += [attributes fileSize];
 
-                // Bail if the interested view controller has gone away.
+                // Bail if the interested view controller has gone away
                 if (!self) {
                     return;
                 }

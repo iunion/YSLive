@@ -269,6 +269,10 @@
         if (g2 == self.navigationController.interactivePopGestureRecognizer) {
             return NO;
         }
+        
+        if (g2 == self.tableView.panGestureRecognizer) {
+            return NO;
+        }
     }
     
     return YES;
@@ -294,7 +298,7 @@
         kFLEXDefaultsShowMethodOverridesKey:  @"Method Overrides",
         kFLEXDefaultsHideVariablePreviewsKey: @"Variable Previews"
     };
-
+    
     // Maps the key of the action itself to a map of a description
     // of the action ("hide X") mapped to the current state.
     //
@@ -306,7 +310,7 @@
         kFLEXDefaultsShowMethodOverridesKey:  @{ @NO: @"Show ", @YES: @"Hide " },
         kFLEXDefaultsHideVariablePreviewsKey: @{ @NO: @"Hide ", @YES: @"Show " },
     };
-
+    
     [FLEXAlert makeSheet:^(FLEXAlert *make) {
         make.title(@"Options");
         
