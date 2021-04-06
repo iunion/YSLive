@@ -3514,7 +3514,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         self.spreadBottomToolBar.isToolBoxEnable = YSCurrentUser.canDraw;
     }
-    
 }
 
 
@@ -3592,10 +3591,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     if (self.appUseTheType == CHRoomUseTypeSmallClass)
     {
         // 自动上台
-        if (self.videoSequenceArr.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID])
+        BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
+        if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != CHUserType_Patrol)
         {
-            BOOL autoOpenAudioAndVideoFlag = self.liveManager.roomConfig.autoOpenAudioAndVideoFlag;
-            if (autoOpenAudioAndVideoFlag && YSCurrentUser.role != CHUserType_Patrol)
+            if (self.videoSequenceArr.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID])
             {
                 if (!self.liveManager.isGroupRoom)
                 {
@@ -5090,26 +5089,25 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
-    if (!self.liveManager.roomConfig.isChairManControl)
+    
+    self.fullTeacherFloatView.hidden = YES;
+    [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
+    
+    if (self.liveManager.isGroupRoom && !self.liveManager.isGroupBegin)
     {
-        self.fullTeacherFloatView.hidden = YES;
-        [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
-        
-        if (self.liveManager.isGroupRoom && !self.liveManager.isGroupBegin)
-        {
-            [self playVideoAudioWithNewVideoView:self.classMasterVideoViewArray.firstObject];
-        }
-        else
-        {
-            [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
-        }
+        [self playVideoAudioWithNewVideoView:self.classMasterVideoViewArray.firstObject];
     }
+    else
+    {
+        [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
+    }
+    
 }
 
 /// 播放全屏老师视频流
 - (void)playFullTeacherVideoViewInView:(UIView *)view
 {
-    if (!self.liveManager.roomConfig.isChairManControl && self.liveManager.isClassBegin)
+    if (self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
         
         SCVideoView * teacherVideo = self.teacherVideoViewArray.firstObject;

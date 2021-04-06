@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) BMImageTitleButtonView *switchLayoutBtn;
 
 
-- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl videoAdjustment:(BOOL)videoAdjustment;
+- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType videoAdjustment:(BOOL)videoAdjustment;
 
 /// 花名册 课件库按钮的非选中
 - (void)hideListView;

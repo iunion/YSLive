@@ -17,7 +17,6 @@
 
 @property (nonatomic, assign) BOOL spreadOut;
 
-@property (nonatomic, assign) BOOL isChairManControl;
 /// 视频调整
 @property (nonatomic, assign) BOOL videoAdjustment;
 
@@ -49,7 +48,7 @@
 
 @implementation YSSpreadBottomToolBar
 
-- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType isChairManControl:(BOOL)isChairManControl videoAdjustment:(BOOL)videoAdjustment
+- (instancetype)initWithUserRole:(CHUserRoleType)roleType topLeftpoint:(CGPoint)point roomType:(CHRoomUserType)roomType videoAdjustment:(BOOL)videoAdjustment
 {
     self = [super init];
     if (self)
@@ -58,7 +57,6 @@
         self.topLeftpoint = point;
         self.roomtype = roomType;
         self.btnArray = [[NSMutableArray alloc] init];
-        self.isChairManControl = isChairManControl;
         self.videoAdjustment = videoAdjustment;
         self.spreadOut = YES;
         
@@ -130,13 +128,9 @@
 
         self.switchLayoutBtn = switchLayoutBtn;
         [self.btnArray addObject:self.switchLayoutBtn];
-
-        if (!self.isChairManControl)
-        {
-            //多流房间不存在轮播
-            self.pollingBtn = pollingBtn;
-            [self.btnArray addObject:self.pollingBtn];
-        }
+        
+        self.pollingBtn = pollingBtn;
+        [self.btnArray addObject:self.pollingBtn];
         
         if (self.roomtype == CHRoomUserType_More)
         {

@@ -4183,13 +4183,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.spreadBottomToolBar.isPollingEnable = NO;
         return;
     }
-//#warning 多路流时 轮播可用
-//    /// 多路流时 轮播不可用
-//    if (self.liveManager.roomConfig.isChairManControl)
-//    {
-//        self.spreadBottomToolBar.isPollingEnable = NO;
-//        return;
-//    }
+
     NSInteger total = 0;
     for (CHRoomUser * user in self.liveManager.userList)
     {
@@ -6265,19 +6259,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 停止全屏老师视频流 并开始常规老师视频流
 - (void)stopFullTeacherVideoView
 {
-    if (!self.liveManager.roomConfig.isChairManControl)
-    {
-        self.fullTeacherFloatView.hidden = YES;
-        [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
-        [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
-        [self.teacherVideoViewArray.firstObject freshWithRoomUserProperty:self.liveManager.teacher];
-    }
+    
+    self.fullTeacherFloatView.hidden = YES;
+    [self stopVideoAudioWithVideoView:self.fullTeacherVideoView];
+    [self playVideoAudioWithNewVideoView:self.teacherVideoViewArray.firstObject];
+    [self.teacherVideoViewArray.firstObject freshWithRoomUserProperty:self.liveManager.teacher];
+    
 }
 
 /// 播放全屏老师视频流
 - (void)playFullTeacherVideoViewInView:(UIView *)view
 {
-    if (!self.liveManager.roomConfig.isChairManControl && self.liveManager.isClassBegin)
+    if (self.liveManager.isClassBegin)
     {/// 全屏课件老师显示
         [self stopVideoAudioWithVideoView:self.teacherVideoViewArray.firstObject];
         
