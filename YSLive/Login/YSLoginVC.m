@@ -2272,13 +2272,9 @@ typedef void (^YSRoomLeftDoBlock)(void);
 {
     NSLog(@"================================== onRoomDidOccuredError: %@", message);
     
-#if YSShowErrorCode
-    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), message];
-#else
-    NSString *errorMessage = message;
-#endif
+    NSString *descript = [YSLiveUtil getOccuredErrorCode:errorCode defaultMessage:message];
     
-    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [self.progressHUD bm_showAnimated:NO withDetailText:descript delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 }
 
 // 已经离开房间

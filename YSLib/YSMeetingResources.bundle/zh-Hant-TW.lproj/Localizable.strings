@@ -35,6 +35,7 @@
 "Error.CanNotConnectNetworkError" = "無法連接到服務器，請稍後再試";
 "Error.ServerError" = "服務器訪問異常";
 "Error.UpPlatformMemberOverRoomLimit" = "上臺人數超出最大限制";
+"Error.ForbiddenEnter" = "禁止進入房間";
 
 //Prompt
 "Prompt.inputPlaceholder" = "請輸入房間密碼";

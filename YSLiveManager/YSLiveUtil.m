@@ -145,6 +145,11 @@
             alertMessage = YSLocalized(@"Error.AuthIncorrect");
         }
             break;
+        case CHErrorCode_CheckRoom_RoomBlacklist:
+        { // 4999 黑名单限制
+            alertMessage = YSLocalized(@"Error.ForbiddenEnter");
+        }
+            break;
             
         default:
         {
