@@ -297,9 +297,11 @@
         [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
     }
     
+#if FRESHWITHROOMUSER
     [videoView freshWithRoomUserProperty:videoView.roomUser];
     videoView.audioMute = videoView.roomUser.audioMute;
     videoView.videoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
+#endif
 }
 
 // 创建或更换视窗显示视频
@@ -348,10 +350,12 @@
         [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
     }
     
+#if FRESHWITHROOMUSER
     [videoView freshWithRoomUserProperty:videoView.roomUser];
 
     videoView.audioMute = videoView.roomUser.audioMute;
     videoView.videoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
+#endif
 }
 
 - (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
@@ -1052,11 +1056,11 @@
 {
     for (CloudHubAudioVolumeInfo *info in speakers)
     {
-        NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:info.uid];
+        CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:info.uid];
         
-        for (SCVideoView *videoView in videoArray)
+        if (roomUser)
         {
-            videoView.iVolume = info.volume;
+            roomUser.iVolume = info.volume;
         }
     }
 }
@@ -1066,8 +1070,10 @@
     if (close)
     {
         [self onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
+#if FRESHWITHROOMUSER
         SCVideoView *view = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
         [view freshWithRoomUserProperty:view.roomUser];
+#endif
     }
     else
     {
@@ -1078,6 +1084,7 @@
 /// 开关麦克风
 - (void)onRoomCloseAudio:(BOOL)close withUid:(NSString *)uid
 {
+#if FRESHWITHROOMUSER
     NSMutableArray *videoViewArray = [self.videoViewArrayDic bm_mutableArrayForKey:uid];
     for (SCVideoView * videoView in videoViewArray)
     {
@@ -1085,6 +1092,7 @@
         [videoView freshWithRoomUserProperty:videoView.roomUser];
         [self addVideoViewToVideoViewArrayDic:videoView];
     }
+#endif
 }
 
 /// 收到音视频流
@@ -1107,7 +1115,9 @@
             videoView.groopRoomState = SCGroopRoomState_Normal;
         }
         [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+#if FRESHWITHROOMUSER
         [videoView freshWithRoomUserProperty:roomUser];
+#endif
     }
 }
 

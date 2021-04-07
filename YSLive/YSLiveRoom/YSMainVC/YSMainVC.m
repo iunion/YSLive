@@ -938,7 +938,9 @@
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
         [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+#if FRESHWITHROOMUSER
         [videoView freshWithRoomUserProperty:roomUser];
+#endif
     }
     else
     {
@@ -1202,12 +1204,14 @@
         return;
     }
     
+#if FRESHWITHROOMUSER
     // 网络状态 + 设备状态
     if ([properties bm_containsObjectForKey:sCHUserNetWorkState] || [properties bm_containsObjectForKey:sCHUserMic] || [properties bm_containsObjectForKey:sCHUserCameras])
     {
         NSMutableArray * videoViewArr = [self.videoViewArrayDic bm_mutableArrayForKey:userId];
         [videoViewArr.firstObject freshWithRoomUserProperty:roomUser];
     }
+#endif
     
     // 本人是否被禁言
     if ([properties bm_containsObjectForKey:sCHUserDisablechat])

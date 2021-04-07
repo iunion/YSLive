@@ -3302,6 +3302,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
+#if FRESHWITHROOMUSER
     if (!self.whitebordFullBackgroud.hidden && [roomUser.peerID isEqualToString:self.liveManager.teacher.peerID])
     {
         [self.fullTeacherVideoView freshWithRoomUserProperty:self.liveManager.teacher];
@@ -3314,6 +3315,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [videoView freshWithRoomUserProperty:roomUser];
         }
     }
+#endif
     
     //摄像头变更
     if ([properties bm_containsObjectForKey:sCHUserCameras])
@@ -3331,17 +3333,20 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         CHRoomUser *fromUser = [self.liveManager getRoomUserWithId:fromeUserId];
         if (fromUser.role != CHUserType_Student && videoViewArr.count)
         {
+#if FRESHWITHROOMUSER
             NSUInteger giftNumber = [properties bm_uintForKey:sCHUserGiftNumber];
             for (SCVideoView *videoView in videoViewArr)
             {
                 videoView.giftNumber = giftNumber;
             }
+#endif
 
             SCVideoView * videoView = videoViewArr[0];
             [self showGiftAnimationWithVideoView:videoView];
         }
     }
     
+#if FRESHWITHROOMUSER
     // 画笔颜色值
     if ([properties bm_containsObjectForKey:sCHUserPrimaryColor])
     {
@@ -3354,14 +3359,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             }
         }
     }
+#endif
     
     // 画笔权限
     if ([properties bm_containsObjectForKey:sCHUserCandraw])
     {
+#if FRESHWITHROOMUSER
         for (SCVideoView * videoView in videoViewArr)
         {
             videoView.canDraw = [properties bm_boolForKey:sCHUserCandraw];
         }
+#endif
         if ([userId isEqualToString:self.liveManager.localUser.peerID])
         {
             BOOL canDraw = YSCurrentUser.canDraw;//[properties bm_boolForKey:sUserCandraw];
@@ -3373,11 +3381,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 {
                     [self setCurrentUserPrimaryColor];
                 }
-            }
-
-            for (SCVideoView * videoView in videoViewArr)
-            {
-                videoView.canDraw = canDraw;
             }
         }
     }
@@ -3438,6 +3441,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self userPublishstatechange:roomUser];
     }
         
+#if FRESHWITHROOMUSER
     // 进入前后台
     if ([properties bm_containsObjectForKey:sCHUserIsInBackGround])
     {
@@ -3446,6 +3450,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             [videoView freshWithRoomUserProperty:roomUser];
         }
     }
+#endif
     
     // 视频镜像
     if ([properties bm_containsObjectForKey:sCHUserIsVideoMirror])

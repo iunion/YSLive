@@ -78,9 +78,24 @@
 /// 麦克风设备状态
 @property (nonatomic, assign) CHDeviceFaultType audioDeviceState;
 
+
+/// 当前设备音量  音量大小 0 ～ 255
+@property (nonatomic, assign) NSUInteger iVolume;
+/// 奖杯数
+@property (nonatomic, assign) NSUInteger giftNumber;
+/// 画笔颜色值
+@property (nonatomic, strong) NSString *brushColor;
+/// 画笔权限
+@property (nonatomic, assign) BOOL canDraw;
+
 @end
 
 @implementation SCVideoView
+
+- (void)dealloc
+{
+    [self.roomUser removeObserver:self forKeyPath:@"properties"];
+}
 
 // 老师用
 - (instancetype)initWithRoomUser:(CHRoomUser *)roomUser withSourceId:(NSString *)sourceId withDelegate:(id<SCVideoViewDelegate>)delegate
@@ -117,17 +132,34 @@
         
         [self setupUIView];
         
-        UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickToShowControl)];
+        UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickToShowControl)];
         oneTap.numberOfTapsRequired = 1;
         [self addGestureRecognizer:oneTap];
         
-        self.panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGestureToMoveView:)];
+        self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureToMoveView:)];
         [self addGestureRecognizer:self.panGesture];
         
         self.panGesture.delegate = self;
         self.exclusiveTouch = YES;
+        
+        [self.roomUser addObserver:self forKeyPath:@"properties" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
+    
     return self;
+}
+
+- (void)setRoomUser:(CHRoomUser *)roomUser
+{
+    if (roomUser == _roomUser)
+    {
+        return;
+    }
+    
+    [self.roomUser removeObserver:self forKeyPath:@"properties"];
+
+    _roomUser = roomUser;
+    
+    [self.roomUser addObserver:self forKeyPath:@"properties" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -398,7 +430,7 @@
     self.maskGroupRoomImage.contentMode = UIViewContentModeScaleAspectFit;
     [maskGroupRoomView addSubview:self.maskGroupRoomImage];
     
-    [self freshWithRoomUserProperty:self.roomUser];
+    [self freshWithRoomUser];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -644,7 +676,7 @@
 {
     _groopRoomState = groopRoomState;
     
-    [self freshWithRoomUserProperty:self.roomUser];
+    [self freshWithRoomUser];
  }
 
 - (BOOL)getIsVertical
@@ -1111,7 +1143,7 @@
 - (void)setIsPrivateChating:(BOOL)isPrivateChating
 {
     _isPrivateChating = isPrivateChating;
-    [self freshWithRoomUserProperty:self.roomUser];
+    [self freshWithRoomUser];
 }
 
 - (void)freshWithRoomUserProperty:(CHRoomUser *)roomUser
@@ -1121,11 +1153,19 @@
         return;
     }
     self.roomUser = roomUser;
+    
+    [self freshWithRoomUser];
+}
 
+- (void)freshWithRoomUser
+{
     if (![self.roomUser.peerID isEqualToString:@"0"])
     {
         self.nickNameLab.text = self.roomUser.nickName;
     }
+    
+    // 音量
+    self.iVolume = self.roomUser.iVolume;
     
     CHDeviceFaultType vfail = [self.roomUser getVideoVfailWithSourceId:self.sourceId];
     if (self.isForPerch)
@@ -1168,8 +1208,6 @@
         {
             self.maskCloseVideoBgView.hidden = YES;
         }
-        
-
         
         if (self.groopRoomState == SCGroopRoomState_Normal)
         {
@@ -1217,10 +1255,13 @@
             [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
         }
         
-        self.canDraw = [self.roomUser.properties bm_boolForKey:sCHUserCandraw];
-        self.giftNumber = [self.roomUser.properties bm_uintForKey:sCHUserGiftNumber];
+        // 画笔权限
+        self.canDraw = self.roomUser.canDraw;
+        // 奖杯数
+        self.giftNumber = self.roomUser.giftNumber;
         
-        NSString *brushColor = [self.roomUser.properties bm_stringTrimForKey:sCHUserPrimaryColor];
+        // 画笔颜色
+        NSString *brushColor = self.roomUser.primaryColor;
         if ([brushColor bm_isNotEmpty])
         {
             self.brushColor = brushColor;
@@ -1390,9 +1431,17 @@
             self.audioState &= ~SCVideoViewAudioState_Close;
         }
     }
-    
+        
     [self.backVideoView bm_bringToFront];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    // 课程状态
+    if ([keyPath isEqualToString:@"properties"])
+    {
+        [self freshWithRoomUser];
+    }
+}
 
 @end

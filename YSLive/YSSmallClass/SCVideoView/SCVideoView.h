@@ -100,16 +100,9 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 @property (nonatomic, assign) BOOL isFullScreen;
 /// 是否被拖出
 @property (nonatomic, assign) BOOL isDragOut;
-/// 当前设备音量  音量大小 0 ～ 255
-@property (nonatomic, assign) NSUInteger iVolume;
+
 /// 是否隐藏奖杯
 @property (nonatomic, assign) BOOL isHideCup;
-/// 奖杯数
-@property (nonatomic, assign) NSUInteger giftNumber;
-/// 画笔颜色值
-@property (nonatomic, strong) NSString *brushColor;
-/// 画笔权限
-@property (nonatomic, assign) BOOL canDraw;
 
 /// 分组房间视频状态
 @property (nonatomic, assign) SCGroopRoomState groopRoomState;
@@ -133,14 +126,8 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;
 
-// 开关是否静音
-@property (nonatomic, assign) CHSessionMuteState audioMute;
-
-// 开关是否关摄像头
-@property (nonatomic, assign) CHSessionMuteState videoMute;
-
 ///小黑板是否正在私聊
-@property(nonatomic,assign)BOOL isPrivateChating;
+@property (nonatomic, assign) BOOL isPrivateChating;
 
 
 /// 老师用
