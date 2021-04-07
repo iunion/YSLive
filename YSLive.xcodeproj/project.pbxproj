@@ -22,6 +22,8 @@
 		046E68412373E152001CBB27 /* SCChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E68402373E152001CBB27 /* SCChatToolView.m */; };
 		047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */; };
 		0484121426087D34000A47D5 /* CHLiveControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484121326087D34000A47D5 /* CHLiveControlView.m */; };
+		048412AE261D4E6C000A47D5 /* CHFullFloatVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048412AD261D4E6B000A47D5 /* CHFullFloatVideoView.m */; };
+		048412B5261D5130000A47D5 /* CHFullFloatControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048412B4261D5130000A47D5 /* CHFullFloatControlView.m */; };
 		0487B27D259C60670010B721 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27C259C60670010B721 /* libz.tbd */; };
 		0487B27F259C60720010B721 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0487B27E259C60720010B721 /* libiconv.tbd */; };
 		04A479DB239E23CE00680D84 /* YSLive.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A479DA239E23CE00680D84 /* YSLive.xcassets */; };
@@ -829,6 +831,10 @@
 		047F07AE25779BEF00D64265 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
 		0484121226087D34000A47D5 /* CHLiveControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHLiveControlView.h; sourceTree = "<group>"; };
 		0484121326087D34000A47D5 /* CHLiveControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveControlView.m; sourceTree = "<group>"; };
+		048412AC261D4E6B000A47D5 /* CHFullFloatVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHFullFloatVideoView.h; sourceTree = "<group>"; };
+		048412AD261D4E6B000A47D5 /* CHFullFloatVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHFullFloatVideoView.m; sourceTree = "<group>"; };
+		048412B3261D5130000A47D5 /* CHFullFloatControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHFullFloatControlView.h; sourceTree = "<group>"; };
+		048412B4261D5130000A47D5 /* CHFullFloatControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHFullFloatControlView.m; sourceTree = "<group>"; };
 		0487B27C259C60670010B721 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		0487B27E259C60720010B721 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		04A479DA239E23CE00680D84 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
@@ -1645,6 +1651,17 @@
 			path = YSSkinManager;
 			sourceTree = "<group>";
 		};
+		048412AB261D4E13000A47D5 /* CHFullScreenFloatVideo */ = {
+			isa = PBXGroup;
+			children = (
+				048412AC261D4E6B000A47D5 /* CHFullFloatVideoView.h */,
+				048412AD261D4E6B000A47D5 /* CHFullFloatVideoView.m */,
+				048412B3261D5130000A47D5 /* CHFullFloatControlView.h */,
+				048412B4261D5130000A47D5 /* CHFullFloatControlView.m */,
+			);
+			path = CHFullScreenFloatVideo;
+			sourceTree = "<group>";
+		};
 		0487122B23B05D0C007222B5 /* YSTeacherRole */ = {
 			isa = PBXGroup;
 			children = (
@@ -2156,6 +2173,7 @@
 		871338C72372BE56006534A4 /* YSSmallClass */ = {
 			isa = PBXGroup;
 			children = (
+				048412AB261D4E13000A47D5 /* CHFullScreenFloatVideo */,
 				CBCD78B823FF8B4500498742 /* YSStudentTimer */,
 				CB384CE023FE6BD600DCD1C0 /* YSStudentResponder */,
 				26EFA5FD23794C4B00EC2A64 /* SCAnswerView */,
@@ -3708,6 +3726,7 @@
 				2632465E25E49A66002002A6 /* mz_strm_split.c in Sources */,
 				8783301224874C4400F1178E /* FLEXIvar.m in Sources */,
 				8783300624874C4400F1178E /* FLEXTypeEncodingParser.m in Sources */,
+				048412AE261D4E6C000A47D5 /* CHFullFloatVideoView.m in Sources */,
 				3471E2AA24039A0100A3BBB4 /* FSCalendarAppearance.m in Sources */,
 				8713357E237270F6006534A4 /* YSLiveUtil.m in Sources */,
 				26EFA682237A61E300EC2A64 /* SCAnswerPageView.m in Sources */,
@@ -3867,6 +3886,7 @@
 				26355BEA23B4C58E004B8366 /* SCTeacherCoursewareListCell.m in Sources */,
 				87832F7E24874C4300F1178E /* FLEXArgumentInputNumberView.m in Sources */,
 				87832FB624874C4300F1178E /* FLEXOSLogController.m in Sources */,
+				048412B5261D5130000A47D5 /* CHFullFloatControlView.m in Sources */,
 				87832F3424874C4300F1178E /* FLEXViewShortcuts.m in Sources */,
 				87832F4824874C4300F1178E /* FLEXNetworkTransaction.m in Sources */,
 				2632464C25E49A66002002A6 /* mz_zip_rw.c in Sources */,
