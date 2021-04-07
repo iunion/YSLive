@@ -40,6 +40,8 @@
 
 #import "YSDefaultLayoutPopView.h"
 
+#import "CHFullFloatVideoView.h"
+
 #define USE_FullTeacher             1
 
 #define PlaceholderPTag     10
@@ -202,6 +204,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
+///全屏时视频浮窗背景view
+@property (nonatomic, strong) CHFullFloatVideoView *fullFloatVideoView;
+
 
 /// 默认老师 视频
 //@property (nonatomic, strong) SCVideoView *teacherVideoView;
@@ -436,11 +441,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
     
+    // 全屏情况下视频浮窗view
+    [self setupFullFloatVideoView];
+    
     if (self.roomtype == CHRoomUserType_More)
     {
         //举手上台的按钮
         [self setupHandView];
         /// 视频布局时的全屏按钮 （只在 1VN 房间）
+        
+        self.fullFloatVideoView.rightViewMaxRight = self.raiseHandsBtn.bm_left - 10;
     }
     
     // 设置花名册 课件表
@@ -479,6 +489,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
     [self setupFullTeacherView];
 #endif
+    
+    
+    [self.fullFloatVideoView bm_bringToFront];
+    
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 0; i < 9; i++)
+    {
+        UIView * view = [[UIView alloc]init];
+        view.backgroundColor = UIColor.yellowColor;
+        [array addObject:view];
+    }
+    
+    [self.fullFloatVideoView freshViewWithVideoViewArray:array];
 }
 
 #if USE_FullTeacher
@@ -1275,6 +1298,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     videoGridView.backgroundColor = [UIColor clearColor];
     videoGridView.hidden = YES;
     self.videoGridView = videoGridView;
+}
+
+- (void)setupFullFloatVideoView
+{
+    CHFullFloatVideoView *fullFloatVideoView  = [[CHFullFloatVideoView alloc]initWithFrame:self.contentBackgroud.bounds wideScreen:self.isWideScreen];
+    
+    [self.contentBackgroud addSubview:fullFloatVideoView];
+    self.fullFloatVideoView = fullFloatVideoView;
 }
 
 - (void)setupListView
