@@ -13,6 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHFullFloatVideoView : UIView
 
+///最右侧不能超过【举手】控件的左侧
+@property (nonatomic, assign) CGFloat rightViewMaxRight;
+
+- (instancetype)initWithFrame:(CGRect)frame wideScreen:(BOOL)isWideScreen;
+
+/// 刷新rightVideoBgView内部view
+//- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr;
+- (void)freshViewWithVideoViewArray:(NSArray *)videoSequenceArr;
 @end
 
 NS_ASSUME_NONNULL_END

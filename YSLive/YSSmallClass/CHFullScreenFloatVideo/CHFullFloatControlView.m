@@ -42,11 +42,11 @@
 #pragma mark -
 - (void)setupUIView
 {
-    self.hideButton = [self creatButtonWithNormalImage:@"" selectImage:@"" withTag:1];
+    self.hideButton = [self creatButtonWithImage:@"checkSoundPermissionImage" withTag:1];
     
-    self.mineButton = [self creatButtonWithNormalImage:@"" selectImage:@"" withTag:2];
+    self.mineButton = [self creatButtonWithImage:@"courseware_bottombar" withTag:2];
     
-    self.allButton = [self creatButtonWithNormalImage:@"" selectImage:@"" withTag:3];
+    self.allButton = [self creatButtonWithImage:@"chat_memberSelectBtn" withTag:3];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -62,12 +62,12 @@
     self.allButton.frame = CGRectMake(0, self.mineButton.bm_bottom, frame.size.width, buttonH);
 }
 
-- (UIButton *)creatButtonWithNormalImage:(NSString *)norImageName selectImage:(NSString *)selimageName withTag:(NSInteger)tag
+- (UIButton *)creatButtonWithImage:(NSString *)imageName withTag:(NSInteger)tag
 {
     UIButton *button = [[UIButton alloc]init];
     button.tag = tag;
-    [button setImage:YSSkinElementImage(norImageName, @"iconNor") forState:UIControlStateNormal];
-    [button setImage:YSSkinElementImage(norImageName, @"iconSel") forState:UIControlStateSelected];
+    [button setImage:YSSkinElementImage(imageName, @"iconNor") forState:UIControlStateNormal];
+    [button setImage:YSSkinElementImage(imageName, @"iconSel") forState:UIControlStateSelected];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
     
