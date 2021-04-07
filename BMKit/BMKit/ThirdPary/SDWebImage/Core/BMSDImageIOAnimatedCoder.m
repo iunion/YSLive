@@ -13,7 +13,6 @@
 #import "BMSDImageCoderHelper.h"
 #import "BMSDAnimatedImageRep.h"
 #import "UIImage+BMForceDecode.h"
-#import "BMSDInternalMacros.h"
 
 // Specify DPI for vector format in CGImageSource, like PDF
 static NSString * kBMSDCGImageSourceRasterizationDPI = @"kCGImageSourceRasterizationDPI";
@@ -30,9 +29,6 @@ static NSString * kBMSDCGImageDestinationRequestedFileSize = @"kCGImageDestinati
 @implementation BMSDImageIOCoderFrame
 @end
 
-static BOOL applicationWillTerminate = NO;
-BMSD_LOCK_DECLARE_STATIC(applicationWillTerminateLock);
-
 @implementation BMSDImageIOAnimatedCoder {
     size_t _width, _height;
     CGImageSourceRef _imageSource;
@@ -44,38 +40,6 @@ BMSD_LOCK_DECLARE_STATIC(applicationWillTerminateLock);
     BOOL _finished;
     BOOL _preserveAspectRatio;
     CGSize _thumbnailSize;
-}
-
-+ (void)initialize {
-    if (self == BMSDImageIOAnimatedCoder.class) {
-        BMSD_LOCK_INIT(applicationWillTerminateLock);
-#if SD_UIKIT
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationWillTerminate:)
-                                                     name:UIApplicationWillTerminateNotification
-                                                   object:nil];
-
-#endif
-#if SD_MAC
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationWillTerminate:)
-                                                     name:NSApplicationWillTerminateNotification
-                                                   object:nil];
-#endif
-    }
-}
-
-+ (void)applicationWillTerminate:(NSNotification *)notification {
-    BMSD_LOCK(applicationWillTerminateLock);
-    applicationWillTerminate = YES;
-    BMSD_UNLOCK(applicationWillTerminateLock);
-}
-
-+ (BOOL)willTerminate {
-    BMSD_LOCK(applicationWillTerminateLock);
-    BOOL willTerminate = applicationWillTerminate;
-    BMSD_UNLOCK(applicationWillTerminateLock);
-    return willTerminate;
 }
 
 - (void)dealloc {
@@ -222,11 +186,6 @@ BMSD_LOCK_DECLARE_STATIC(applicationWillTerminateLock);
 }
 
 + (UIImage *)createFrameAtIndex:(NSUInteger)index source:(CGImageSourceRef)source scale:(CGFloat)scale preserveAspectRatio:(BOOL)preserveAspectRatio thumbnailSize:(CGSize)thumbnailSize options:(NSDictionary *)options {
-    // Earily return when application will be terminated.
-    if (BMSDImageIOAnimatedCoder.willTerminate) {
-        return nil;
-    }
-    
     // Some options need to pass to `CGImageSourceCopyPropertiesAtIndex` before `CGImageSourceCreateImageAtIndex`, or ImageIO will ignore them because they parse once :)
     // Parse the image properties
     NSDictionary *properties = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(source, index, (__bridge CFDictionaryRef)options);
@@ -435,10 +394,6 @@ BMSD_LOCK_DECLARE_STATIC(applicationWillTerminateLock);
 }
 
 - (void)updateIncrementalData:(NSData *)data finished:(BOOL)finished {
-    // Earily return when application will be terminated.
-    if (BMSDImageIOAnimatedCoder.willTerminate) {
-        return;
-    }
     if (_finished) {
         return;
     }

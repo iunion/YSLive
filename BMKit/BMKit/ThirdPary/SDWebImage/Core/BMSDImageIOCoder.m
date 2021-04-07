@@ -138,10 +138,6 @@ static NSString * kBMSDCGImageDestinationRequestedFileSize = @"kCGImageDestinati
 }
 
 - (void)updateIncrementalData:(NSData *)data finished:(BOOL)finished {
-    // Earily return when application will be terminated.
-    if (BMSDImageIOAnimatedCoder.willTerminate) {
-        return;
-    }
     if (_finished) {
         return;
     }
