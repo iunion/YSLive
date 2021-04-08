@@ -77,21 +77,22 @@
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragTheRightVideoBgView:)];
     [rightVideoBgView addGestureRecognizer:pan];
-    
 }
 
 - (void)fullFloatControlButtonClick:(UIButton *)button
 {
-    if (button.tag == 1) {
+    if (button.tag == 1)
+    {
         self.rightVideoBgView.hidden = YES;
     }
     else
     {
         self.rightVideoBgView.hidden = NO;
-        if ([self.fullFloatVideoViewDelegate respondsToSelector:@selector(fullFloatControlViewEvent:)])
-        {
-            [self.fullFloatVideoViewDelegate fullFloatControlViewEvent:button];
-        }
+    }
+    
+    if ([self.fullFloatVideoViewDelegate respondsToSelector:@selector(fullFloatControlViewEvent:)])
+    {
+        [self.fullFloatVideoViewDelegate fullFloatControlViewEvent:button];
     }
 }
 

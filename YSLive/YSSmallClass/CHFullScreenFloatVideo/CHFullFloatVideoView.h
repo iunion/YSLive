@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SCVideoView.h"
 
+typedef enum : NSUInteger {
+    FullFloatControlCancle = 1,
+    FullFloatControlMine,
+    FullFloatControlAll,
+} FullFloatControl;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol CHFullFloatVideoViewDelegate <NSObject>

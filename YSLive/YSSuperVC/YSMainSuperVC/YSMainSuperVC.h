@@ -40,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;
 
+///全屏浮窗
+@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArrFull;
+@property (nonatomic, strong) NSMutableDictionary *videoViewArrayDicFull;
+
 /// 老师视频
 @property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *teacherVideoViewArray;
 /// 老师视频
@@ -62,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 视频矫正窗口
 @property (nonatomic, strong, readonly) BMKeystoneCorrectionView *keystoneCorrectionView;
 
+@property (nonatomic,strong) NSMutableArray<SCVideoView *> *myVideoViewArrFull;
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 
@@ -72,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///给videoViewArrayDic中添加视频
 - (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView;
+///给videoViewArrayDicFull中添加视频（全屏浮窗用）
+- (void)addVideoViewToVideoViewArrayDicFull:(SCVideoView *)videoView;
 ///从videoViewArrayDic中移除视频
 - (void)deleteVideoViewfromVideoViewArrayDic:(SCVideoView *)videoView;
 
@@ -85,6 +92,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)getVideoViewCount;
 - (nullable NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId;
 - (nullable NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
+
+//- (nullable NSMutableArray<SCVideoView *> *)addFullFloatVideoViewWithPeerId:(NSString *)peerId;
+
 
 //设备变化时
 - (NSMutableArray<SCVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count;

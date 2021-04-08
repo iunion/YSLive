@@ -5311,13 +5311,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark - 全屏时视频浮窗代理
 - (void)fullFloatControlViewEvent:(UIButton *)sender
 {
-    if (sender.tag == 2)
+    self.fullFloatControl = sender.tag;
+    
+    if (self.fullFloatControl == FullFloatControlMine)
     {
-        [self.fullFloatVideoView freshViewWithVideoViewArray:[self.teacherVideoViewArray copy]];
+        [self.fullFloatVideoView freshViewWithVideoViewArray:self.myVideoViewArrFull];
     }
-    else if (sender.tag == 3)
+    else if (self.fullFloatControl == FullFloatControlAll)
     {
-        [self.fullFloatVideoView freshViewWithVideoViewArray:self.videoSequenceArr];
+        [self.fullFloatVideoView freshViewWithVideoViewArray:self.videoSequenceArrFull];
     }
 }
 

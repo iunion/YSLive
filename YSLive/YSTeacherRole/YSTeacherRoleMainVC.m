@@ -205,8 +205,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
 
-
-
 /// 默认老师 视频
 //@property (nonatomic, strong) SCVideoView *teacherVideoView;
 /// 1V1 默认用户占位
@@ -946,6 +944,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         SCVideoView *videoView = [[SCVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sCHUserDefaultSourceId isForPerch:YES withDelegate:self];
         videoView.appUseTheType = self.appUseTheType;
         [self addVideoViewToVideoViewArrayDic:videoView];
+        
                 
         self.myVideoView = videoView;
         
@@ -2675,6 +2674,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         if (roomUser.publishState)
         {
             [self addVideoViewWithPeerId:peerID];
+            
         }
         else
         {
@@ -3377,6 +3377,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             percentLeft = 0.00;
             videoEndX = 1;
         }
+        
         if (percentTop > 1)
         {
             percentTop = 1.00;
@@ -6148,13 +6149,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark - 全屏时视频浮窗代理
 - (void)fullFloatControlViewEvent:(UIButton *)sender
 {
-    if (sender.tag == 2)
+    self.fullFloatControl = sender.tag;
+    
+    if (self.fullFloatControl == FullFloatControlMine)
     {
-        [self.fullFloatVideoView freshViewWithVideoViewArray:[self.teacherVideoViewArray copy]];
+        [self.fullFloatVideoView freshViewWithVideoViewArray:self.myVideoViewArrFull];
     }
-    else if (sender.tag == 3)
+    else if (self.fullFloatControl == FullFloatControlAll)
     {
-        [self.fullFloatVideoView freshViewWithVideoViewArray:self.videoSequenceArr];
+        [self.fullFloatVideoView freshViewWithVideoViewArray:self.videoSequenceArrFull];
     }
 }
 

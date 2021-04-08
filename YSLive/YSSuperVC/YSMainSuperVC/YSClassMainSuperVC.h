@@ -69,6 +69,10 @@ NS_ASSUME_NONNULL_BEGIN
 ///全屏时视频浮窗背景view
 @property (nonatomic, strong) CHFullFloatVideoView *fullFloatVideoView;
 
+@property (nonatomic,assign) FullFloatControl fullFloatControl;
+
+
+
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 
