@@ -1,0 +1,127 @@
+[{
+  "key": "--iconDefaultColor",
+  "value": "#736D78"
+}, {
+  "key": "--iconHoverColor",
+  "value": "#EAA165"
+}, {
+  "key": "--iconDisabledColor",
+  "value": "#999CA0"
+}, {
+  "key": "--btnDefaultBg",
+  "value": "#736D78"
+}, {
+  "key": "--btnDefaultColor",
+  "value": "#FFF"
+}, {
+  "key": "--btnHoverBg",
+  "value": "#EAA165"
+}, {
+  "key": "--btnHoverColor",
+  "value": "#FFF"
+}, {
+  "key": "--btnDisableBg",
+  "value": "#73829A"
+}, {
+  "key": "--btnDisableColor",
+  "value": "#989CA0"
+}, {
+  "key": "--cancelBtnDefaultBg",
+  "value": "#ADAAB0"
+}, {
+  "key": "--cancelBtnDefaultColor",
+  "value": "#FFF"
+}, {
+  "key": "--cancelBtnHoverBg",
+  "value": "#4D5155"
+}, {
+  "key": "--cancelBtnHoverColor",
+  "value": "#FFF"
+}, {
+  "key": "--baseblockBgColor",
+  "value": "#E3E2E4"
+}, {
+  "key": "--blockBgColor",
+  "value": "#E7E7E7"
+}, {
+  "key": "--pageBgColor",
+  "value": "#174132"
+}, {
+  "key": "--areaBgColor",
+  "value": "#FFF"
+}, {
+  "key": "--regionBgColor",
+  "value": "#736D78"
+}, {
+  "key": "--commonHeaderBorderColor",
+  "value": "#E7E7E7"
+}, {
+  "key": "--wbBgColor",
+  "value": "#174132"
+}, {
+  "key": "--wbPagerBgColor",
+  "value": "#99736D78"
+}, {
+  "key": "--wbPagerIconColor",
+  "value": "#fff"
+}, {
+  "key": "--wbPagerIconBgColor",
+  "value": "#736D78"
+}, {
+  "key": "--wbPagerInputBgColor",
+  "value": "#ffffff33"
+}, {
+  "key": "--moreWbHeaderBgColor",
+  "value": "#fff"
+}, {
+  "key": "--moreWbHeaderColor",
+  "value": "#736D78"
+}, {
+  "key": "--moreWbTabbarBtnBgColor",
+  "value": "#736D78"
+}, {
+  "key": "--moreWbTabbarBtnBgActiveColor",
+  "value": "#fff"
+}, {
+  "key": "--moreWbTabbarBtnColor",
+  "value": "#fff"
+}, {
+  "key": "--moreWbTabbarBtnActiveColor",
+  "value": "#736D78"
+}, {
+  "key": "--mediaBgColor",
+  "value": "#736d78"
+}, {
+  "key": "--mediaSliderBgColor",
+  "value": "#545454"
+}, {
+  "key": "--blockHeaderTitleColor",
+  "value": "#736D78"
+}, {
+  "key": "--soundBg",
+  "value": "#ADAAB0"
+}, {
+  "key": "--otherEleThemeColor",
+  "value": "#EAA165"
+}, {
+  "key": "--themeFontWhite",
+  "value": "#736D78"
+}, {
+  "key": "--themeBorderWhite",
+  "value": "#EAA165"
+}, {
+  "key": "--footerBg",
+  "value": "#FFFFFF"
+}, {
+  "key": "--messagenotme",
+  "value": "#FFFFFF"
+}, {
+  "key": "--messagenotmeBg",
+  "value": "#ADAAB0"
+}, {
+  "key": "--browseBg",
+  "value": ""
+}, {
+  "key": "--boxShadowColor",
+  "value": "#00000080"
+}]
