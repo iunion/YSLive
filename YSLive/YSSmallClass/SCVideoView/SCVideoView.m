@@ -94,7 +94,7 @@
 
 - (void)dealloc
 {
-    [self.roomUser removeObserver:self forKeyPath:@"properties"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHRoomUserPropertiesChangeNotification object:nil];
 }
 
 // 老师用
@@ -142,24 +142,19 @@
         self.panGesture.delegate = self;
         self.exclusiveTouch = YES;
         
-        [self.roomUser addObserver:self forKeyPath:@"properties" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(freshWithRoomUserNotification:) name:CHRoomUserPropertiesChangeNotification object:nil];
     }
     
     return self;
 }
 
-- (void)setRoomUser:(CHRoomUser *)roomUser
+- (void)freshWithRoomUserNotification:(NSNotification *)notification
 {
-    if (roomUser == _roomUser)
-    {
-        return;
-    }
+    NSString *name = notification.object;
     
-    [self.roomUser removeObserver:self forKeyPath:@"properties"];
-
-    _roomUser = roomUser;
+    NSLog(@"User change Property: %@", name);
     
-    [self.roomUser addObserver:self forKeyPath:@"properties" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self freshWithRoomUser];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -417,7 +412,6 @@
     {
         self.nickNameLab.font = self.cupNumLab.font = self.notDragFont;
     }
-    
     
     //分组
     UIView * maskGroupRoomView = [[UIView alloc]init];
@@ -1433,15 +1427,6 @@
     }
         
     [self.backVideoView bm_bringToFront];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    // 课程状态
-    if ([keyPath isEqualToString:@"properties"])
-    {
-        [self freshWithRoomUser];
-    }
 }
 
 @end
