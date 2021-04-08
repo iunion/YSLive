@@ -2271,8 +2271,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
 {
     NSLog(@"================================== onRoomDidOccuredError: %@", message);
-    
-    NSString *descript = [YSLiveUtil getOccuredErrorCode:errorCode defaultMessage:message];
+    NSInteger code = errorCode;
+    if (code == CloudHubErrorCodeInBlackList)
+    {
+        code = CHErrorCode_CheckRoom_RoomBlacklist;
+    }
+    NSString *descript = [YSLiveUtil getOccuredErrorCode:code defaultMessage:message];
     
     [self.progressHUD bm_showAnimated:NO withDetailText:descript delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 }
