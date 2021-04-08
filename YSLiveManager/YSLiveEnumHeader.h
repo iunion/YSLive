@@ -53,28 +53,28 @@ typedef NS_ENUM(NSInteger, SCBottomToolBarType)
 };
 
 /// 小班课视频弹出工具类型
-typedef NS_ENUM(NSInteger, SCVideoViewControlType)
+typedef NS_ENUM(NSInteger, CHVideoViewControlType)
 {
     /** 音频控制 */
-    SCVideoViewControlTypeAudio,
+    CHVideoViewControlTypeAudio,
     /** 视频控制 */
-    SCVideoViewControlTypeVideo,
+    CHVideoViewControlTypeVideo,
     /** 镜像控制 */
-    SCVideoViewControlTypeMirror,
+    CHVideoViewControlTypeMirror,
     /** 画笔权限 */
-    SCVideoViewControlTypeCanDraw,
+    CHVideoViewControlTypeCanDraw,
     /** 上下台控制 */
-    SCVideoViewControlTypeOnStage,
+    CHVideoViewControlTypeOnStage,
     /** 焦点 */
-    SCVideoViewControlTypeFouce,
+    CHVideoViewControlTypeFouce,
     /** 复位控制 */
-    SCVideoViewControlTypeRestore,
+    CHVideoViewControlTypeRestore,
     /** 奖杯 */
-    SCVideoViewControlTypeGiftCup,
+    CHVideoViewControlTypeGiftCup,
     /** 全体复位 */
-    SCVideoViewControlTypeAllRestore,
+    CHVideoViewControlTypeAllRestore,
     /** 全体奖杯 */
-    SCVideoViewControlTypeAllGiftCup
+    CHVideoViewControlTypeAllGiftCup
 };
 
 

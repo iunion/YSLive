@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCVideoView.h"
+#import "CHVideoView.h"
 
 typedef enum : NSUInteger {
     FullFloatControlCancle = 1,
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithFrame:(CGRect)frame wideScreen:(BOOL)isWideScreen;
 
 /// 刷新rightVideoBgView内部view
-//- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr;
+//- (void)freshViewWithVideoViewArray:(NSMutableArray<CHVideoView *> *)videoSequenceArr;
 - (void)freshViewWithVideoViewArray:(NSArray *)videoSequenceArr;
 @end
 

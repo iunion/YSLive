@@ -39,7 +39,7 @@
 
 #import "YSVoteVC.h"
 
-#import "SCVideoView.h"
+#import "CHVideoView.h"
 
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
@@ -68,7 +68,7 @@
     BMScrollPageViewDataSource,
     UIPopoverPresentationControllerDelegate,
     YSChatToolViewMemberDelegate,
-    SCVideoViewDelegate,
+    CHVideoViewDelegate,
     UIGestureRecognizerDelegate
 >
 {
@@ -488,7 +488,7 @@
 
 #pragma mark 点击弹出popoview
 
-- (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
+- (void)clickViewToControlWithVideoView:(CHVideoView*)videoView
 {
     CHRoomUser * userModel = videoView.roomUser;
     if (videoView.roomUser.peerID != YSCurrentUser.peerID || userModel.publishState == CHUser_PublishState_DOWN)
@@ -768,7 +768,7 @@
         
     for (int i = 1; i <= self.videoSequenceArr.count; i++)
     {
-        SCVideoView *videoView = self.videoSequenceArr[i-1];
+        CHVideoView *videoView = self.videoSequenceArr[i-1];
         [self.studentVideoBgView addSubview:videoView];
         videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
     }
@@ -816,7 +816,7 @@
         CGFloat firstX = (self.studentVideoBgView.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
         for (int i = 0; i < self.videoSequenceArr.count; i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             [self.studentVideoBgView addSubview:videoView];
             videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
         }
@@ -845,7 +845,7 @@
             teacherW = BMUI_SCREEN_WIDTH;
             for (NSInteger i = 1; i <= self.videoSequenceArr.count; i++)
             {
-                SCVideoView *videoView = self.videoSequenceArr[i-1];
+                CHVideoView *videoView = self.videoSequenceArr[i-1];
                 [self.studentVideoBgView addSubview:videoView];
                 videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
             }
@@ -866,7 +866,7 @@
             CGFloat firstX = (self.studentVideoBgView.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
             for (int i = 0; i < self.videoSequenceArr.count; i++)
             {
-                SCVideoView *videoView = self.videoSequenceArr[i];
+                CHVideoView *videoView = self.videoSequenceArr[i];
                 [self.studentVideoBgView addSubview:videoView];
                 videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
             }
@@ -923,7 +923,7 @@
 /// 收到音视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID streamId:(nullable NSString *)streamId
 {
-    SCVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceID];
+    CHVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceID];
         
     videoView.sourceId = sourceID;
     videoView.streamId = streamId;
@@ -937,7 +937,7 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView.contentView];
 #if FRESHWITHROOMUSER
         [videoView freshWithRoomUserProperty:roomUser];
 #endif
@@ -971,7 +971,7 @@
 
 #pragma mark  添加视频窗口
 
-- (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
+- (NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
 {
     NSMutableArray *newVideoViewArray = [super addVideoViewWithPeerId:peerId withMaxCount:PLATFPRM_VIDEO_MAXCOUNT];
     
@@ -982,9 +982,9 @@
 
 #pragma mark  删除视频窗口
 
-- (SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
+- (CHVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
 {
-    SCVideoView *delVideoView = [super delVideoViewWithPeerId:peerId andSourceId:sourceId];
+    CHVideoView *delVideoView = [super delVideoViewWithPeerId:peerId andSourceId:sourceId];
     
     if (delVideoView)
     {
@@ -1113,7 +1113,7 @@
     else
     {
         NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:user.peerID];
-        SCVideoView * videoVivew = userVideoVivews.firstObject;
+        CHVideoView * videoVivew = userVideoVivews.firstObject;
         
         [self delVideoViewWithPeerId:user.peerID andSourceId:videoVivew.sourceId];
     }
@@ -1188,7 +1188,7 @@
         }
         
         NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:roomUser.peerID];
-        SCVideoView * videoVivew = userVideoVivews.firstObject;
+        CHVideoView * videoVivew = userVideoVivews.firstObject;
         
         [self delVideoViewWithPeerId:roomUser.peerID andSourceId:videoVivew.sourceId];
         [self clickToHideControl];// 隐藏控制按钮

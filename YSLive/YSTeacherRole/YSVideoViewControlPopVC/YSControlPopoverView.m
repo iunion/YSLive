@@ -136,7 +136,7 @@
     self.audioBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenAudio") selectTitle:YSLocalized(@"Button.CloseAudio") image:YSSkinElementImage(@"videoPop_soundButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_soundButton", @"iconSel")];
     self.audioBtn.disabledImage = YSSkinElementImage(@"videoPop_soundButton", @"iconDis");
     self.audioBtn.disabledText = YSLocalized(@"Button.MutingAudio");
-    self.audioBtn.tag = SCVideoViewControlTypeAudio;
+    self.audioBtn.tag = CHVideoViewControlTypeAudio;
     self.audioBtn.enabled = YES;
     if (self.userModel.audioMute == CHSessionMuteState_UnMute)
     {
@@ -151,7 +151,7 @@
     self.videoBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenVideo") selectTitle:YSLocalized(@"Button.CloseVideo") image:YSSkinElementImage(@"videoPop_videoButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_videoButton", @"iconSel")];
     UIImage * videoClose = [YSSkinElementImage(@"videoPop_videoButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     self.videoBtn.disabledImage = videoClose;
-    self.videoBtn.tag = SCVideoViewControlTypeVideo;
+    self.videoBtn.tag = CHVideoViewControlTypeVideo;
     if ([self.userModel getVideoMuteWithSourceId:self.sourceId] == CHSessionMuteState_UnMute)
     {
         self.videoBtn.selected = YES;
@@ -163,7 +163,7 @@
     
     //画笔权限控制按钮
     self.canDrawBtn = [self creatButtonWithTitle:YSLocalized(@"Label.Authorized") selectTitle:YSLocalized(@"Label.CancelAuthorized") image:YSSkinElementImage(@"videoPop_authorizeButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_authorizeButton", @"iconSel")];
-    self.canDrawBtn.tag = SCVideoViewControlTypeCanDraw;
+    self.canDrawBtn.tag = CHVideoViewControlTypeCanDraw;
     BOOL canDraw = [self.userModel.properties bm_boolForKey:sCHUserCandraw];
     if (canDraw)
     {
@@ -176,14 +176,14 @@
     
     //上下台控制按钮
     self.onStageBtn = [self creatButtonWithTitle:YSLocalized(@"Button.DownPlatform") selectTitle:YSLocalized(@"Button.DownPlatform") image:YSSkinElementImage(@"videoPop_seatButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_seatButton", @"iconNor")];
-    self.onStageBtn.tag = SCVideoViewControlTypeOnStage;
+    self.onStageBtn.tag = CHVideoViewControlTypeOnStage;
     
     
     //镜像控制按钮
     self.mirrorBtn = [self creatButtonWithTitle:YSLocalized(@"Button.OpenMirror" ) selectTitle:YSLocalized(@"Button.CloseMirror" ) image:YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_mirrorButton", @"iconSel")];
     UIImage * mirrorClose = [YSSkinElementImage(@"videoPop_mirrorButton", @"iconNor") bm_imageWithTintColor:[UIColor bm_colorWithHex:0x888888]];
     self.mirrorBtn.disabledImage = mirrorClose;
-    self.mirrorBtn.tag = SCVideoViewControlTypeMirror;
+    self.mirrorBtn.tag = CHVideoViewControlTypeMirror;
 //    if (publishState == YSUser_PublishState_AUDIOONLY || publishState == YSUser_PublishState_BOTH)
 //    {
 //        self.mirrorBtn.selected = YES;
@@ -195,12 +195,12 @@
     
     //复位控制按钮
     BMImageTitleButtonView  * restoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.RestorePosition") selectTitle:nil image:YSSkinElementImage(@"videoPop_resetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_resetButton", @"iconSel")];
-    restoreBtn.tag = SCVideoViewControlTypeRestore;
+    restoreBtn.tag = CHVideoViewControlTypeRestore;
     self.restoreBtn = restoreBtn;
     
     //成为焦点按钮
     self.fouceBtn = [self creatButtonWithTitle:YSLocalized(@"Button.SetFocus") selectTitle:YSLocalized(@"Button.CancelFocus") image:YSSkinElementImage(@"videoPop_fouceButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_fouceButton", @"iconSel")];
-    self.fouceBtn.tag = SCVideoViewControlTypeFouce;
+    self.fouceBtn.tag = CHVideoViewControlTypeFouce;
     
     if ([self.foucePeerId isEqualToString:self.userModel.peerID] && [self.fouceStreamId isEqualToString:self.streamId])
     {
@@ -213,7 +213,7 @@
     
     //发奖杯按钮
     BMImageTitleButtonView  * giftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.GiveCup") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
-    giftCupBtn.tag = SCVideoViewControlTypeGiftCup;
+    giftCupBtn.tag = CHVideoViewControlTypeGiftCup;
     self.giftCupBtn = giftCupBtn;
     
     UIView *lineView = [[UIView alloc] init];
@@ -223,12 +223,12 @@
     
     //全体复位按钮
     BMImageTitleButtonView  * allRestoreBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reset") selectTitle:nil image:YSSkinElementImage(@"videoPop_allResetButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_allResetButton", @"iconSel")];
-    allRestoreBtn.tag = SCVideoViewControlTypeAllRestore;
+    allRestoreBtn.tag = CHVideoViewControlTypeAllRestore;
     self.allRestoreBtn = allRestoreBtn;
     
     //全体奖杯按钮
     BMImageTitleButtonView  * allGiftCupBtn = [self creatButtonWithTitle:YSLocalized(@"Button.Reward") selectTitle:nil image:YSSkinElementImage(@"videoPop_trophyButton", @"iconNor") selectImage:YSSkinElementImage(@"videoPop_trophyButton", @"iconSel")];
-    allGiftCupBtn.tag = SCVideoViewControlTypeAllGiftCup;
+    allGiftCupBtn.tag = CHVideoViewControlTypeAllGiftCup;
     self.allGiftCupBtn = allGiftCupBtn;
     [self.btnArray removeAllObjects];
     

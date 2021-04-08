@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSControlPopoverViewDelegate <NSObject>
 
-- (void)videoViewControlBtnsClick:(BMImageTitleButtonView*)sender videoViewControlType:(SCVideoViewControlType)videoViewControlType withStreamId:(NSString *)streamId;
+- (void)videoViewControlBtnsClick:(BMImageTitleButtonView*)sender videoViewControlType:(CHVideoViewControlType)videoViewControlType withStreamId:(NSString *)streamId;
 @end
 
 

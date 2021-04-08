@@ -31,7 +31,7 @@
 @property (nonatomic, assign) CGFloat videoWidth;
 @property (nonatomic, assign) CGFloat videoHeight;
 
-//@property (nonatomic, strong) NSArray <SCVideoView *> *videoSequenceArr;
+//@property (nonatomic, strong) NSArray <CHVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSArray *videoSequenceArr;
 
 ///拖动rightView时的模拟移动图
@@ -97,7 +97,7 @@
 }
 
 /// 刷新rightVideoBgView内部view
-//- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr
+//- (void)freshViewWithVideoViewArray:(NSMutableArray<CHVideoView *> *)videoSequenceArr
 - (void)freshViewWithVideoViewArray:(NSArray *)videoSequenceArr
 {
     self.videoSequenceArr = videoSequenceArr;
@@ -108,7 +108,7 @@
     
     [self changeFrameFocus];
     
-    for (SCVideoView *videoView in videoSequenceArr)
+    for (CHVideoView *videoView in videoSequenceArr)
     {
         [self.rightVideoBgView addSubview:videoView];
         videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
@@ -168,7 +168,7 @@
     
     for (int i = 0; i < self.videoSequenceArr.count; i++)
     {
-        SCVideoView *videoView = self.videoSequenceArr[i];
+        CHVideoView *videoView = self.videoSequenceArr[i];
         if (i < 6)
         {
             videoView.bm_top = i * heightM + Margin;

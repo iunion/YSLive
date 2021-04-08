@@ -285,6 +285,7 @@
     UIImageView *maskCloseVideoImageView = [[UIImageView alloc] initWithImage:maskCloseImage];
     maskCloseVideoImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.maskCloseVideoBgView addSubview:maskCloseVideoImageView];
+    self.maskCloseVideoImageView = maskCloseVideoImageView;
     
     // 没有摄像头时的蒙版
     UIView *maskNoVideoBgView = [[UIView alloc] init];

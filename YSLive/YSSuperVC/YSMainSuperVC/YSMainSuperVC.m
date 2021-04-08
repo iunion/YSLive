@@ -32,7 +32,7 @@
 
 @implementation YSMainSuperVC
 
-- (NSMutableArray<SCVideoView *> *)teacherVideoViewArray
+- (NSMutableArray<CHVideoView *> *)teacherVideoViewArray
 {
     if (!_teacherVideoViewArray)
     {
@@ -218,7 +218,7 @@
 {
     NSUInteger count = 0;
 
-    for (SCVideoView *videoView in self.videoSequenceArr)
+    for (CHVideoView *videoView in self.videoSequenceArr)
     {
         if (!videoView.isDragOut && !videoView.isFullScreen)
         {
@@ -232,13 +232,13 @@
 
 #pragma mark - 视频窗口
 
-- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView
+- (void)playVideoAudioWithVideoView:(CHVideoView *)videoView
 {
     [self playVideoAudioWithVideoView:videoView needFreshVideo:NO];
 }
 
 // 在原视窗刷新视频
-- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh
+- (void)playVideoAudioWithVideoView:(CHVideoView *)videoView needFreshVideo:(BOOL)fresh
 {
     if (!videoView)
     {
@@ -291,7 +291,7 @@
     
     if (newVideoMute == CHSessionMuteState_UnMute)
     {
-        [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView.contentView];
     }
     else
     {
@@ -306,7 +306,7 @@
 }
 
 // 创建或更换视窗显示视频
-- (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView
+- (void)playVideoAudioWithNewVideoView:(CHVideoView *)videoView
 {
     if (!videoView)
     {
@@ -344,7 +344,7 @@
     if (newVideoMute == CHSessionMuteState_UnMute)
     {
         [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
-        [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:userId streamID:videoView.streamId renderMode:renderType mirrorMode:videoMirrorMode inView:videoView.contentView];
     }
     else
     {
@@ -359,7 +359,7 @@
 #endif
 }
 
-- (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView
+- (void)stopVideoAudioWithVideoView:(CHVideoView *)videoView
 {
     if (!videoView)
     {
@@ -394,8 +394,8 @@
         }
         else if (videoArray.count > 1)
         {
-            SCVideoView * videoView0 = videoArray[0];
-            SCVideoView * videoView1 = videoArray[1];
+            CHVideoView * videoView0 = videoArray[0];
+            CHVideoView * videoView1 = videoArray[1];
             NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
             
             if (result == NSOrderedAscending)
@@ -430,8 +430,8 @@
             }
             else if (arr.count > 1)
             {
-                SCVideoView * videoView0 = arr[0];
-                SCVideoView * videoView1 = arr[1];
+                CHVideoView * videoView0 = arr[0];
+                CHVideoView * videoView1 = arr[1];
                 NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
                 
                 if (result == NSOrderedAscending)
@@ -467,7 +467,7 @@
     
 }
 
-- (void)insertVideoViewWithArray:(NSArray<SCVideoView *>*)videoViewArray
+- (void)insertVideoViewWithArray:(NSArray<CHVideoView *>*)videoViewArray
 {
     if (videoViewArray.count == 1)
     {
@@ -475,8 +475,8 @@
     }
     else if (videoViewArray.count > 1)
     {
-        SCVideoView * videoView0 = videoViewArray[0];
-        SCVideoView * videoView1 = videoViewArray[1];
+        CHVideoView * videoView0 = videoViewArray[0];
+        CHVideoView * videoView1 = videoViewArray[1];
         NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
         
         if (result == NSOrderedAscending)
@@ -493,7 +493,7 @@
 }
 
 ///给videoViewArrayDic中添加视频
-- (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView
+- (void)addVideoViewToVideoViewArrayDic:(CHVideoView *)videoView
 {
     if (videoView)
     {
@@ -520,7 +520,7 @@
 }
 
 ///给videoViewArrayDicFull中添加视频（全屏浮窗用）
-- (void)addVideoViewToVideoViewArrayDicFull:(SCVideoView *)videoView
+- (void)addVideoViewToVideoViewArrayDicFull:(CHVideoView *)videoView
 {
     if (videoView)
     {
@@ -537,7 +537,7 @@
 }
 
 ///从videoViewArrayDic中移除视频
-- (void)deleteVideoViewfromVideoViewArrayDic:(SCVideoView *)videoView
+- (void)deleteVideoViewfromVideoViewArrayDic:(CHVideoView *)videoView
 {
     NSMutableArray * videoArr = [self.videoViewArrayDic bm_mutableArrayForKey:videoView.roomUser.peerID];
     
@@ -574,7 +574,7 @@
 }
 
 ///从videoViewArrayDicFull中移除视频（全屏浮窗用）
-- (void)deleteVideoViewfromVideoViewArrayDicFull:(SCVideoView *)videoView
+- (void)deleteVideoViewfromVideoViewArrayDicFull:(CHVideoView *)videoView
 {
     //（全屏浮窗用）
     NSMutableArray * videoArrFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:videoView.roomUser.peerID];
@@ -598,13 +598,13 @@
 
 
 #pragma mark  添加视频窗口
-- (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
+- (NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
 {
     return [self addVideoViewWithPeerId:peerId withMaxCount:0];
 }
 
 ///新上台时添加
-- (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count
+- (NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count
 {
     CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
@@ -618,7 +618,7 @@
     NSMutableArray *myVideoArrayFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:self.liveManager.localUser.peerID];
     
     // 删除本人占位视频
-    for (SCVideoView *avideoView in myVideoArray)
+    for (CHVideoView *avideoView in myVideoArray)
     {
         if (avideoView.isForPerch)
         {
@@ -631,7 +631,7 @@
         }
     }
     
-    for (SCVideoView *avideoView in myVideoArrayFull)
+    for (CHVideoView *avideoView in myVideoArrayFull)
     {
         if (avideoView.isForPerch)
         {
@@ -655,7 +655,7 @@
     
     if (!theSourceIdArray.count)
     {
-        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
+        CHVideoView *newVideoView = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
         newVideoView.appUseTheType = self.appUseTheType;
         newVideoView.sourceId = sCHUserDefaultSourceId;
         if (newVideoView)
@@ -685,7 +685,7 @@
         }
         
         //（全屏浮窗用）-----------
-        SCVideoView *newVideoViewFull = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
+        CHVideoView *newVideoViewFull = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
         newVideoViewFull.appUseTheType = self.appUseTheType;
         newVideoViewFull.sourceId = sCHUserDefaultSourceId;
         if (newVideoViewFull)
@@ -721,7 +721,7 @@
     {
         for (NSString *sourceId in theSourceIdArray)
         {
-            SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
+            CHVideoView *newVideoView = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
             newVideoView.appUseTheType = self.appUseTheType;
             if (newVideoView)
             {
@@ -739,7 +739,7 @@
                     self.teacherVideoViewArray = theVideoArray;
                     if (self.liveManager.isGroupRoom)
                     {
-                        newVideoView.groopRoomState = SCGroopRoomState_Discussing;
+                        newVideoView.groupRoomState = CHGroupRoomState_Discussing;
                     }
                 }
                 else if (roomUser.role == CHUserType_ClassMaster)
@@ -751,7 +751,7 @@
             }
             
             //（全屏浮窗用）-----------
-            SCVideoView *newVideoViewFull = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
+            CHVideoView *newVideoViewFull = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
             newVideoViewFull.appUseTheType = self.appUseTheType;
             if (newVideoViewFull)
             {
@@ -792,7 +792,7 @@
         
 //        [self videoViewsSequence];
         
-        for (SCVideoView * videoView in theVideoArray)
+        for (CHVideoView * videoView in theVideoArray)
         {
             [self playVideoAudioWithVideoView:videoView];
         }
@@ -802,7 +802,7 @@
 }
 
 //设备变化时
-- (NSMutableArray<SCVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
+- (NSMutableArray<CHVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count
 {
     CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
     if (!roomUser)
@@ -817,7 +817,7 @@
     NSMutableArray *myVideoArrayFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:self.liveManager.localUser.peerID];
 
     // 删除本人占位视频
-    for (SCVideoView *avideoView in myVideoArray)
+    for (CHVideoView *avideoView in myVideoArray)
     {
         if (avideoView.isForPerch)
         {
@@ -826,7 +826,7 @@
         }
     }
     
-    for (SCVideoView *avideoView in myVideoArrayFull)
+    for (CHVideoView *avideoView in myVideoArrayFull)
     {
         if (avideoView.isForPerch)
         {
@@ -848,12 +848,12 @@
     if (!sourceIdArray.count)
     {//摄像头全部拔掉时
         
-        for (SCVideoView * videoView in theVideoArray)
+        for (CHVideoView * videoView in theVideoArray)
         {
             [self deleteVideoViewfromVideoViewArrayDic:videoView];
         }
         
-        SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
+        CHVideoView *newVideoView = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
         newVideoView.appUseTheType = self.appUseTheType;
         if (newVideoView)
         {
@@ -881,12 +881,12 @@
         
         
         //（全屏浮窗用）-----------
-        for (SCVideoView * videoView in theVideoArrayFull)
+        for (CHVideoView * videoView in theVideoArrayFull)
         {
             [self deleteVideoViewfromVideoViewArrayDicFull:videoView];
         }
         
-        SCVideoView *newVideoViewFull = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
+        CHVideoView *newVideoViewFull = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sCHUserDefaultSourceId withDelegate:self];
         newVideoViewFull.appUseTheType = self.appUseTheType;
         if (newVideoViewFull)
         {
@@ -907,7 +907,7 @@
     else
     {//摄像头变更时
                 
-        for (SCVideoView *videoView in theVideoArray)
+        for (CHVideoView *videoView in theVideoArray)
         {
             if ([sourceIdArray containsObject:videoView.sourceId])
             {
@@ -936,7 +936,7 @@
         
         for (NSString *sourceId in sourceIdArray)
         {
-            SCVideoView *newVideoView = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
+            CHVideoView *newVideoView = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
             newVideoView.appUseTheType = self.appUseTheType;
             if (newVideoView)
             {
@@ -954,7 +954,7 @@
                     self.teacherVideoViewArray = theAddVideoArray;
                     if (self.liveManager.isGroupRoom)
                     {
-                        newVideoView.groopRoomState = SCGroopRoomState_Discussing;
+                        newVideoView.groupRoomState = CHGroupRoomState_Discussing;
                     }
                 }
                 else if (roomUser.role == CHUserType_ClassMaster)
@@ -970,7 +970,7 @@
         }
         
         //(全屏浮窗用）-----------
-        for (SCVideoView *videoViewFull in theVideoArrayFull)
+        for (CHVideoView *videoViewFull in theVideoArrayFull)
         {
             if ([sourceIdArray containsObject:videoViewFull.sourceId])
             {
@@ -986,7 +986,7 @@
         }
         for (NSString *sourceId in sourceIdArray)
         {
-            SCVideoView *newVideoViewFull = [[SCVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
+            CHVideoView *newVideoViewFull = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
             newVideoViewFull.appUseTheType = self.appUseTheType;
             if (newVideoViewFull)
             {
@@ -995,7 +995,7 @@
                     self.teacherVideoViewArray = theAddVideoArray;
                     if (self.liveManager.isGroupRoom)
                     {
-                        newVideoViewFull.groopRoomState = SCGroopRoomState_Discussing;
+                        newVideoViewFull.groupRoomState = CHGroupRoomState_Discussing;
                     }
                 }
                 [self addVideoViewToVideoViewArrayDicFull:newVideoViewFull];
@@ -1011,11 +1011,11 @@
 
 #pragma mark  获取视频窗口
 
-- (SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(nonnull NSString *)sourceId
+- (CHVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(nonnull NSString *)sourceId
 {
     NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     
-    for (SCVideoView *videoView in videoArray)
+    for (CHVideoView *videoView in videoArray)
     {
         if ([sourceId bm_isNotEmpty])
         {
@@ -1035,13 +1035,13 @@
 
 #pragma mark  删除视频窗口
 ///删除某个设备ID为sourceId的视频窗口
-- (SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
+- (CHVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
 {
     NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     
-    SCVideoView *delVideoView = nil;
+    CHVideoView *delVideoView = nil;
     
-    for (SCVideoView * videoView in videoArray)
+    for (CHVideoView * videoView in videoArray)
     {
         if ([videoView.sourceId isEqualToString:sourceId])
         {
@@ -1060,11 +1060,11 @@
 }
 
 
-//- (NSMutableArray<SCVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId
+//- (NSMutableArray<CHVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId
 //{
 //    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
 //    
-//    for (SCVideoView * videoView in videoArray)
+//    for (CHVideoView * videoView in videoArray)
 //    {
 //        [self deleteVideoViewfromVideoViewArrayDic:videoView];
 //        
@@ -1079,16 +1079,16 @@
 
 
 #pragma -
-#pragma mark SCVideoViewDelegate
+#pragma mark CHVideoViewDelegate
 
 ///点击手势事件
-- (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
+- (void)clickViewToControlWithVideoView:(CHVideoView*)videoView
 {
     
 }
 
 ///拖拽手势事件
-- (void)panToMoveVideoView:(SCVideoView*)videoView withGestureRecognizer:(UIPanGestureRecognizer *)pan
+- (void)panToMoveVideoView:(CHVideoView*)videoView withGestureRecognizer:(UIPanGestureRecognizer *)pan
 {
     
 }
@@ -1230,9 +1230,9 @@
     NSString *userId = CHLocalUser.peerID;
     
     NSMutableArray *videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:userId];
-    SCVideoView *userVideoView = nil;
+    CHVideoView *userVideoView = nil;
     
-    for (SCVideoView *videoView in videoArray)
+    for (CHVideoView *videoView in videoArray)
     {
         if ([videoView.sourceId isEqualToString:sCHUserDefaultSourceId])
         {
@@ -1252,7 +1252,7 @@
         return;
     }
     
-    SCVideoView *userVideoView = self.myVideoView;
+    CHVideoView *userVideoView = self.myVideoView;
 
     if (mute)
     {
@@ -1284,7 +1284,7 @@
     {
         [self onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
 #if FRESHWITHROOMUSER
-        SCVideoView *view = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
+        CHVideoView *view = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
         [view freshWithRoomUserProperty:view.roomUser];
 #endif
     }
@@ -1299,7 +1299,7 @@
 {
 #if FRESHWITHROOMUSER
     NSMutableArray *videoViewArray = [self.videoViewArrayDic bm_mutableArrayForKey:uid];
-    for (SCVideoView * videoView in videoViewArray)
+    for (CHVideoView * videoView in videoViewArray)
     {
         videoView.audioMute = close;
         [videoView freshWithRoomUserProperty:videoView.roomUser];
@@ -1311,7 +1311,7 @@
 /// 收到音视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceId streamId:(nullable NSString *)streamId
 {
-    SCVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
+    CHVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
     videoView.sourceId = sourceId;
     videoView.streamId = streamId;
     if (videoView)
@@ -1325,9 +1325,9 @@
         }
         if (self.liveManager.isGroupRoom && videoView.roomUser.role == CHUserType_Teacher)
         {
-            videoView.groopRoomState = SCGroopRoomState_Normal;
+            videoView.groupRoomState = CHGroupRoomState_Normal;
         }
-        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView.contentView];
 #if FRESHWITHROOMUSER
         [videoView freshWithRoomUserProperty:roomUser];
 #endif

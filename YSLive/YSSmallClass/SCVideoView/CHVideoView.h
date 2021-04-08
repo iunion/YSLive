@@ -93,6 +93,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 视频流ID streamId
 @property (nonatomic, copy) NSString *streamId;
 
+/// popView的基准View
+@property (nonatomic, strong, readonly) UIView *sourceView;
+
+/// 视频承载View
+@property (nonatomic, strong, readonly) UIView *contentView;
+
 /// 是否占位用
 @property (nonatomic, assign) BOOL isForPerch;
 

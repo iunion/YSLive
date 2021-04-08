@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SCVideoView;
+@class CHVideoView;
 @interface SCVideoGridView : UIView
 
 /// 默认尺寸
@@ -17,14 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上边偏移
 @property (nonatomic, assign) CGFloat topOffset;
 
-@property (nonatomic, strong, readonly) NSMutableArray <SCVideoView *> *videoSequenceArr;
+@property (nonatomic, strong, readonly) NSMutableArray <CHVideoView *> *videoSequenceArr;
 //@property (nonatomic, strong, readonly) NSMutableDictionary *videoViewArrayDic;
 
 - (instancetype)initWithWideScreen:(BOOL)isWideScreen;
 
-//- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoViewArray;
+//- (void)freshViewWithVideoViewArray:(NSMutableArray<CHVideoView *> *)videoViewArray;
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr withFouceVideo:(nullable SCVideoView *)fouceVideo withRoomLayout:(CHRoomLayoutType)roomLayout withAppUseTheType:(CHRoomUseType)appUseTheType;
+- (void)freshViewWithVideoViewArray:(NSMutableArray<CHVideoView *> *)videoSequenceArr withFouceVideo:(nullable CHVideoView *)fouceVideo withRoomLayout:(CHRoomLayoutType)roomLayout withAppUseTheType:(CHRoomUseType)appUseTheType;
 
 - (void)clearView;
 

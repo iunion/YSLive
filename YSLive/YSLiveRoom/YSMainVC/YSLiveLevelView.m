@@ -7,7 +7,7 @@
 //
 
 #import "YSLiveLevelView.h"
-#import "SCVideoView.h"
+#import "CHVideoView.h"
 
 @interface YSLiveLevelView ()
 
@@ -173,12 +173,12 @@
 
     if (!findView)
     {
-        findView = [self getHitTest:point inView:self.studentVideoBgView class:[SCVideoView class]];
+        findView = [self getHitTest:point inView:self.studentVideoBgView class:[CHVideoView class]];
         if (findView)
         {
             if (firstClick)
             {
-                SCVideoView *videoView = (SCVideoView *)findView;
+                CHVideoView *videoView = (CHVideoView *)findView;
                 [videoView.delegate clickViewToControlWithVideoView:videoView];
             }
             firstClick = !firstClick;
