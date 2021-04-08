@@ -24,7 +24,6 @@
 /// popView的基准View
 @property (nonatomic, strong) UIView *sourceView;
 
-
 /// 正在加载中
 @property (nonatomic, strong) UIImageView *loadingImgView;
 /// 正在加载中图片
@@ -45,7 +44,6 @@
 @property (nonatomic, strong) UILabel *nickNameLab;
 /// 声音图标
 @property (nonatomic, strong) UIImageView *soundImageView;
-@property (nonatomic, strong) UIImage *soundImage;
 
 /// 关闭视频时的蒙版
 @property (nonatomic, strong) UIView *maskCloseVideoBgView;//背景蒙版
@@ -76,6 +74,8 @@
 @property (nonatomic, strong) UIImageView *lowWifiImage;
 /// 举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
+
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 /// 视频状态
 @property (nonatomic, assign) SCVideoViewVideoState videoState;
@@ -434,7 +434,7 @@
         self.nickNameLab.font = self.cupNumLab.font = self.notDragFont;
     }
     
-    //分组
+    // 分组
     UIView * maskGroupRoomView = [[UIView alloc]init];
     maskGroupRoomView.backgroundColor = YSSkinDefineColor(@"Color9");;
     [self.backVideoView addSubview:maskGroupRoomView];
