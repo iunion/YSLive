@@ -82,29 +82,16 @@
 
 - (void)fullFloatControlButtonClick:(UIButton *)button
 {
-    switch (button.tag)
+    if (button.tag == 1) {
+        self.rightVideoBgView.hidden = YES;
+    }
+    else
     {
-        case 1:
+        self.rightVideoBgView.hidden = NO;
+        if ([self.fullFloatVideoViewDelegate respondsToSelector:@selector(fullFloatControlViewEvent:)])
         {
-            self.rightVideoBgView.hidden = YES;
+            [self.fullFloatVideoViewDelegate fullFloatControlViewEvent:button];
         }
-            break;
-        case 2:
-        {
-            self.rightVideoBgView.hidden = NO;
-            
-            [self freshViewWithVideoViewArray:@[self.videoSequenceArr.firstObject]];
-        }
-            break;
-        case 3:
-        {
-            self.rightVideoBgView.hidden = NO;
-            [self freshViewWithVideoViewArray:self.videoSequenceArr];
-        }
-            break;
-            
-        default:
-            break;
     }
 }
 
@@ -170,7 +157,7 @@
         self.rightViewMaxRight = self.controlView.bm_left - VideoTop;
     }
 
-    self.rightVideoBgView.frame = CGRectMake(self.rightViewMaxRight - self.rightBgWidth, VideoTop, self.rightBgWidth, self.rightBgHeight);
+    self.rightVideoBgView.frame = CGRectMake(self.rightViewMaxRight - self.rightBgWidth, VideoTop+100, self.rightBgWidth, self.rightBgHeight);
     
     CGFloat widthM = self.videoWidth + Margin;
     CGFloat heightM = self.videoHeight + Margin;

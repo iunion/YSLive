@@ -380,7 +380,7 @@
     [self.liveManager stopVideoWithUserId:userId streamID:videoView.streamId];
 }
 
-///排序后的视频窗口array
+///视频窗口排序
 - (void)videoViewsSequence
 {
     self.videoSequenceArr = [NSMutableArray array];
@@ -461,6 +461,9 @@
             [self insertVideoViewWithArray:self.teacherVideoViewArray];
         }
     }
+    
+    
+    
 }
 
 - (void)insertVideoViewWithArray:(NSArray<SCVideoView *>*)videoViewArray

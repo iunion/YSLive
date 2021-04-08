@@ -150,6 +150,9 @@
     // 底部工具栏
     [self setupBottomToolBarView];
     
+    // 全屏情况下视频浮窗view
+    [self setupFullFloatVideoView];
+    
     // 骰子
     [self creatDiceAnimationView];
 }
@@ -301,6 +304,14 @@
     
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
+}
+
+- (void)setupFullFloatVideoView
+{
+    CHFullFloatVideoView *fullFloatVideoView  = [[CHFullFloatVideoView alloc]initWithFrame:self.contentBackgroud.bounds wideScreen:self.isWideScreen];
+    fullFloatVideoView.fullFloatVideoViewDelegate = self;
+    [self.contentBackgroud addSubview:fullFloatVideoView];
+    self.fullFloatVideoView = fullFloatVideoView;
 }
 
 // 横排视频最大宽度计算

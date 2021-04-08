@@ -11,10 +11,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol CHFullFloatVideoViewDelegate <NSObject>
+
+- (void)fullFloatControlViewEvent:(UIButton *)sender;
+
+@end
+
 @interface CHFullFloatVideoView : UIView
 
 ///最右侧不能超过【举手】控件的左侧
 @property (nonatomic, assign) CGFloat rightViewMaxRight;
+
+@property (nonatomic, weak)id<CHFullFloatVideoViewDelegate> fullFloatVideoViewDelegate;
 
 - (instancetype)initWithFrame:(CGRect)frame wideScreen:(BOOL)isWideScreen;
 

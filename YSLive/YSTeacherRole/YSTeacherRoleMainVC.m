@@ -40,7 +40,7 @@
 
 #import "YSDefaultLayoutPopView.h"
 
-#import "CHFullFloatVideoView.h"
+//#import "CHFullFloatVideoView.h"
 
 #define USE_FullTeacher             1
 
@@ -204,8 +204,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 @property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
-///全屏时视频浮窗背景view
-@property (nonatomic, strong) CHFullFloatVideoView *fullFloatVideoView;
+
 
 
 /// 默认老师 视频
@@ -440,10 +439,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     // 隐藏白板视频布局背景
     [self setupVideoGridView];
-    
-    // 全屏情况下视频浮窗view
-    [self setupFullFloatVideoView];
-    
+        
     if (self.roomtype == CHRoomUserType_More)
     {
         //举手上台的按钮
@@ -1300,13 +1296,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.videoGridView = videoGridView;
 }
 
-- (void)setupFullFloatVideoView
-{
-    CHFullFloatVideoView *fullFloatVideoView  = [[CHFullFloatVideoView alloc]initWithFrame:self.contentBackgroud.bounds wideScreen:self.isWideScreen];
-    
-    [self.contentBackgroud addSubview:fullFloatVideoView];
-    self.fullFloatVideoView = fullFloatVideoView;
-}
+
 
 - (void)setupListView
 {
@@ -6154,6 +6144,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.liveManager.whiteBoardManager whiteBoardResetEnlarge];
 }
 */
+
+#pragma mark - 全屏时视频浮窗代理
+- (void)fullFloatControlViewEvent:(UIButton *)sender
+{
+    if (sender.tag == 2)
+    {
+        [self.fullFloatVideoView freshViewWithVideoViewArray:[self.teacherVideoViewArray copy]];
+    }
+    else if (sender.tag == 3)
+    {
+        [self.fullFloatVideoView freshViewWithVideoViewArray:self.videoSequenceArr];
+    }
+}
 
 
 #pragma mark - 打开相册选择图片

@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showEyeCareRemind;
 
-///视频窗口排序后存储为array
+///视频窗口排序
 - (void)videoViewsSequence;
 
 ///给videoViewArrayDic中添加视频
