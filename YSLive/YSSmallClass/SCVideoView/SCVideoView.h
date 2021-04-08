@@ -108,9 +108,9 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 @property (nonatomic, assign) SCGroopRoomState groopRoomState;
 
 /// 背景view
-@property (nonatomic, strong) UIView *backVideoView;
+@property (nonatomic, strong, readonly) UIView *backVideoView;
 /// popView的基准View
-@property (nonatomic, strong) UIView *sourceView;
+@property (nonatomic, strong, readonly) UIView *sourceView;
 
 /// 视频状态
 @property (nonatomic, assign, readonly) SCVideoViewVideoState videoState;

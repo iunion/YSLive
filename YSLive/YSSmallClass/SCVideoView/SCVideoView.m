@@ -19,13 +19,19 @@
 
 @property (nonatomic, strong) CHRoomUser *roomUser;
 
+/// 背景view
+@property (nonatomic, strong) UIView *backVideoView;
+/// popView的基准View
+@property (nonatomic, strong) UIView *sourceView;
+
+
 /// 正在加载中
 @property (nonatomic, strong) UIImageView *loadingImgView;
 /// 正在加载中图片
 @property (nonatomic, strong) UIImage *loadingImg;
 
 /// 所有蒙版的背景View
-@property (nonatomic, strong) UIView * maskBackView;
+@property (nonatomic, strong) UIView *maskBackView;
 
 /// 奖杯
 @property (nonatomic, strong) UIImageView *cupImage;
@@ -54,6 +60,11 @@
 /// 上课后没有连摄像头时的文字
 @property (nonatomic, strong) UILabel *maskNoVideoTitle;
 
+/// 分组蒙版
+@property (nonatomic, strong) UIView * maskGroupRoomView;
+@property (nonatomic, strong) UIImageView *maskGroupRoomImage;
+
+ 
 /// 音量等级
 @property (nonatomic, assign) NSUInteger volumeStep;
 
@@ -65,9 +76,6 @@
 @property (nonatomic, strong) UIImageView *lowWifiImage;
 /// 举手图标
 @property (nonatomic, strong) UIImageView *raiseHandImage;
-/// 分组蒙版
-@property (nonatomic, strong) UIView * maskGroupRoomView;
-@property (nonatomic, strong) UIImageView *maskGroupRoomImage;
 
 /// 视频状态
 @property (nonatomic, assign) SCVideoViewVideoState videoState;
@@ -94,7 +102,8 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHRoomUserPropertiesChangeNotification object:nil];
+    NSString *notificationKey = [NSString stringWithFormat:@"%@%@", CHRoomUserPropertiesChangedNotification, self.roomUser.peerID];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:notificationKey object:nil];
 }
 
 // 老师用
@@ -141,18 +150,30 @@
         
         self.panGesture.delegate = self;
         self.exclusiveTouch = YES;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(freshWithRoomUserNotification:) name:CHRoomUserPropertiesChangeNotification object:nil];
     }
     
     return self;
 }
 
+- (void)setRoomUser:(CHRoomUser *)roomUser
+{
+    _roomUser = roomUser;
+    
+    NSString *notificationKey = [NSString stringWithFormat:@"%@%@", CHRoomUserPropertiesChangedNotification, self.roomUser.peerID];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:notificationKey object:nil];
+
+    if (roomUser)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(freshWithRoomUserNotification:) name:notificationKey object:nil];
+    }
+}
+
 - (void)freshWithRoomUserNotification:(NSNotification *)notification
 {
-    NSString *name = notification.object;
-    
-    NSLog(@"User change Property: %@", name);
+#if DEBUG
+    NSString *key = notification.object;
+    NSLog(@"User change Property: %@", key);
+#endif
     
     [self freshWithRoomUser];
 }
@@ -366,7 +387,7 @@
     self.brushImageView.hidden = NO;
     [self.backVideoView addSubview:self.brushImageView];
     
-    //弱网图标
+    // 弱网图标
     self.lowWifiImage = [[UIImageView alloc] init];
     self.lowWifiImage.image = YSSkinElementImage(@"videoView_stateVideo", @"lowWifi");
     self.lowWifiImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -374,14 +395,14 @@
     [self.backVideoView addSubview:self.lowWifiImage];
     self.lowWifiImage.backgroundColor = UIColor.clearColor;
     
-    //举手图标
+    // 举手图标
     self.raiseHandImage = [[UIImageView alloc] init];
     self.raiseHandImage.image = YSSkinElementImage(@"videoView_handImageView", @"iconNor");
     self.raiseHandImage.hidden = YES;
     [self.backVideoView addSubview:self.raiseHandImage];
     self.raiseHandImage.backgroundColor = UIColor.clearColor;
     
-    //用户名
+    // 用户名
     self.nickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
     self.nickNameLab.backgroundColor = [UIColor clearColor];
     if ([UIDevice bm_isiPad])
@@ -398,7 +419,7 @@
     self.nickNameLab.hidden = NO;
     [self.backVideoView addSubview:self.nickNameLab];
     
-    //声音图片
+    // 声音图片
     self.soundImageView = [[UIImageView alloc] init];
     self.soundImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.backVideoView addSubview:self.soundImageView];
@@ -1185,107 +1206,110 @@
         {
             self.videoState &= ~SCVideoViewVideoState_DeviceError;
         }
+        
+        return;
+    }
+
+    if (self.isPrivateChating)
+    {
+        self.loadingImgView.hidden = YES;
+        self.maskCloseVideoBgView.hidden = NO;
+        [self.maskCloseVideoBgView bm_bringToFront];
+        
+        self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
+        
+        [self.backVideoView bm_bringToFront];
+        return;
     }
     else
     {
-        if (self.isPrivateChating)
+        self.maskCloseVideoBgView.hidden = YES;
+    }
+    
+    if (self.groopRoomState == SCGroopRoomState_Normal)
+    {
+        self.maskGroupRoomView.hidden = YES;
+    }
+    else
+    {
+        self.maskGroupRoomView.hidden = NO;
+        
+        if (self.groopRoomState == SCGroopRoomState_Discussing)
         {
-            self.loadingImgView.hidden = YES;
-            self.maskCloseVideoBgView.hidden = NO;
-            [self.maskCloseVideoBgView bm_bringToFront];
-            
-            self.maskCloseVideo.image = YSSkinElementImage(@"videoView_PrivateChat", @"iconNor");
-            [self.backVideoView bm_bringToFront];
-            return;
+            /// 讨论中
+            [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"discussing")];
         }
-        else
+        else if (self.groopRoomState == SCGroopRoomState_PrivateChat)
         {
-            self.maskCloseVideoBgView.hidden = YES;
+            [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"privateChat")];
         }
         
-        if (self.groopRoomState == SCGroopRoomState_Normal)
+        [self.backVideoView bm_bringToFront];
+        return;
+    }
+    
+    // 刷新当前用户前后台状态
+    if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+    {
+        BOOL isInBackGround = NO;
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        if (state != UIApplicationStateActive)
         {
-            self.maskGroupRoomView.hidden = YES;
-        }
-        else
-        {
-            self.maskGroupRoomView.hidden = NO;
-            [self.backVideoView bm_bringToFront];
-            
-            if (self.groopRoomState == SCGroopRoomState_Discussing)
-            {   
-                /// 讨论中
-                [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"discussing")];
-            }
-            else if (self.groopRoomState == SCGroopRoomState_PrivateChat)
+            isInBackGround = YES;
+            // 兼容iOS11前后台状态
+            if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
             {
-                [self.maskGroupRoomImage setImage:YSSkinElementImage(@"videoView_groupRoom", @"privateChat")];
-            }
-            return;
-        }
-
-        // 刷新当前用户前后台状态
-        if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
-        {
-            BOOL isInBackGround = NO;
-            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-            if (state != UIApplicationStateActive)
-            {
-                isInBackGround = YES;
-                // 兼容iOS11前后台状态
-                if (BMIOS_VERSION >= 11.0 && BMIOS_VERSION < 12.0)
+                if (state == UIApplicationStateInactive)
                 {
-                    if (state == UIApplicationStateInactive)
-                    {
-                        isInBackGround = NO;
-                    }
+                    isInBackGround = NO;
                 }
             }
-            if (!isInBackGround && (isInBackGround != self.roomUser.isInBackGround))
-            {
-                [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserIsInBackGround value:@(NO)];
-            }
-            
-            [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
+        }
+        if (!isInBackGround && (isInBackGround != self.roomUser.isInBackGround))
+        {
+            [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserIsInBackGround value:@(NO)];
         }
         
-        // 画笔权限
-        self.canDraw = self.roomUser.canDraw;
-        // 奖杯数
-        self.giftNumber = self.roomUser.giftNumber;
-        
-        // 画笔颜色
-        NSString *brushColor = self.roomUser.primaryColor;
-        if ([brushColor bm_isNotEmpty])
-        {
-            self.brushColor = brushColor;
-        }
-
-        // 视频相关
-        
-        // 低端设备
-        BOOL low = [YSLiveManager sharedInstance].devicePerformance_Low;
-        if (low)
-        {
-            self.videoState |= SCVideoViewVideoState_Low_end;
-        }
-        else
-        {
-            self.videoState &= ~SCVideoViewVideoState_Low_end;
-        }
-
-        // 设备不可用
-        self.videoDeviceState = vfail;
-        if (vfail != CHDeviceFaultNone)
-        {
-            self.videoState |= SCVideoViewVideoState_DeviceError;
-        }
-        else
-        {
-            self.videoState &= ~SCVideoViewVideoState_DeviceError;
-        }
-        
-
+        [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
+    }
+    
+    // 画笔权限
+    self.canDraw = self.roomUser.canDraw;
+    // 奖杯数
+    self.giftNumber = self.roomUser.giftNumber;
+    
+    // 画笔颜色
+    NSString *brushColor = self.roomUser.primaryColor;
+    if ([brushColor bm_isNotEmpty])
+    {
+        self.brushColor = brushColor;
+    }
+    
+    // 视频相关
+    
+    // 低端设备
+    BOOL low = [YSLiveManager sharedInstance].devicePerformance_Low;
+    if (low)
+    {
+        self.videoState |= SCVideoViewVideoState_Low_end;
+    }
+    else
+    {
+        self.videoState &= ~SCVideoViewVideoState_Low_end;
+    }
+    
+    // 设备不可用
+    self.videoDeviceState = vfail;
+    if (vfail != CHDeviceFaultNone)
+    {
+        self.videoState |= SCVideoViewVideoState_DeviceError;
+    }
+    else
+    {
+        self.videoState &= ~SCVideoViewVideoState_DeviceError;
+    }
+    
+    
 //        if (!self.roomUser.disableVideo)
 //        {
 //            // 设备禁用
@@ -1328,52 +1352,52 @@
 //        {
 //            self.videoState &= ~SCVideoViewVideoState_DeviceError;
 //        }
-
-        
-        if ([self.roomUser getVideoMuteWithSourceId:self.sourceId] == CHSessionMuteState_Mute)
-        {
-            // 关闭视频
-            self.videoState |= SCVideoViewVideoState_Close;
-        }
-        else
-        {
-            self.videoState &= ~SCVideoViewVideoState_Close;
-        }
-        
-        // 网络状态
-        BOOL isPoorNetWork = [self.roomUser.properties bm_boolForKey:sCHUserNetWorkState];
-        if (isPoorNetWork)
-        {
-            self.videoState |= SCVideoViewVideoState_PoorInternet;
-        }
-        else
-        {
-            self.videoState &= ~SCVideoViewVideoState_PoorInternet;
-        }
-        
-        // 进入后台(home键)
-        BOOL isInBackGround = self.roomUser.isInBackGround;
-        if (isInBackGround)
-        {
-            self.videoState |= SCVideoViewVideoState_InBackground;
-        }
-        else
-        {
-            self.videoState &= ~SCVideoViewVideoState_InBackground;
-        }
-        
-        // 音频相关
-        self.audioDeviceState = self.roomUser.afail;
-        if (self.roomUser.afail != CHDeviceFaultNone)
-        {
-            self.audioState |= SCVideoViewAudioState_DeviceError;
-        }
-        else
-        {
-            self.audioState &= ~SCVideoViewAudioState_DeviceError;
-        }
-        
-        
+    
+    
+    if ([self.roomUser getVideoMuteWithSourceId:self.sourceId] == CHSessionMuteState_Mute)
+    {
+        // 关闭视频
+        self.videoState |= SCVideoViewVideoState_Close;
+    }
+    else
+    {
+        self.videoState &= ~SCVideoViewVideoState_Close;
+    }
+    
+    // 网络状态
+    BOOL isPoorNetWork = [self.roomUser.properties bm_boolForKey:sCHUserNetWorkState];
+    if (isPoorNetWork)
+    {
+        self.videoState |= SCVideoViewVideoState_PoorInternet;
+    }
+    else
+    {
+        self.videoState &= ~SCVideoViewVideoState_PoorInternet;
+    }
+    
+    // 进入后台(home键)
+    BOOL isInBackGround = self.roomUser.isInBackGround;
+    if (isInBackGround)
+    {
+        self.videoState |= SCVideoViewVideoState_InBackground;
+    }
+    else
+    {
+        self.videoState &= ~SCVideoViewVideoState_InBackground;
+    }
+    
+    // 音频相关
+    self.audioDeviceState = self.roomUser.afail;
+    if (self.roomUser.afail != CHDeviceFaultNone)
+    {
+        self.audioState |= SCVideoViewAudioState_DeviceError;
+    }
+    else
+    {
+        self.audioState &= ~SCVideoViewAudioState_DeviceError;
+    }
+    
+    
         // 设备不可用
 //        deviceError = NO;
 
@@ -1413,17 +1437,16 @@
 //        {
 //            self.audioState &= ~SCVideoViewAudioState_DeviceError;
 //        }
-
-
-        if (self.roomUser.audioMute == CHSessionMuteState_Mute)
-        {
-            // 关闭音频
-            self.audioState |= SCVideoViewAudioState_Close;
-        }
-        else
-        {
-            self.audioState &= ~SCVideoViewAudioState_Close;
-        }
+    
+    
+    if (self.roomUser.audioMute == CHSessionMuteState_Mute)
+    {
+        // 关闭音频
+        self.audioState |= SCVideoViewAudioState_Close;
+    }
+    else
+    {
+        self.audioState &= ~SCVideoViewAudioState_Close;
     }
         
     [self.backVideoView bm_bringToFront];
