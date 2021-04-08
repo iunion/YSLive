@@ -407,6 +407,27 @@
 		<key>iconDis</key>
 		<string>bottombar_exit_dis_skin</string>
 	</dict>
+	<key>fullFloat_cancleBtn</key>
+	<dict>
+		<key>iconNor</key>
+		<string>fullFloat_cancle</string>
+		<key>iconSel</key>
+		<string>fullFloat_cancle</string>
+	</dict>
+	<key>fullFloat_mineBtn</key>
+	<dict>
+		<key>iconNor</key>
+		<string>fullFloat_mine_nor</string>
+		<key>iconSel</key>
+		<string>fullFloat_mine_sel</string>
+	</dict>
+	<key>fullFloat_allBtn</key>
+	<dict>
+		<key>iconNor</key>
+		<string>fullFloat_all_nor</string>
+		<key>iconSel</key>
+		<string>fullFloat_all_sel</string>
+	</dict>
 	<key>layout_bottombar</key>
 	<dict>
 		<key>tittleColor</key>

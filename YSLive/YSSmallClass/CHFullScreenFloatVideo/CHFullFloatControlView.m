@@ -42,11 +42,11 @@
 #pragma mark -
 - (void)setupUIView
 {
-    self.hideButton = [self creatButtonWithImage:@"checkSoundPermissionImage" withTag:1];
+    self.hideButton = [self creatButtonWithImage:@"fullFloat_cancleBtn" withTag:1];
     
-    self.mineButton = [self creatButtonWithImage:@"courseware_bottombar" withTag:2];
+    self.mineButton = [self creatButtonWithImage:@"fullFloat_mineBtn" withTag:2];
     
-    self.allButton = [self creatButtonWithImage:@"chat_memberSelectBtn" withTag:3];
+    self.allButton = [self creatButtonWithImage:@"fullFloat_allBtn" withTag:3];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -77,7 +77,12 @@
 - (void)buttonClick:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-    if (sender.tag == 2)
+    if (sender.tag == 1)
+    {
+        self.allButton.selected = NO;
+        self.mineButton.selected = NO;
+    }
+    else if (sender.tag == 2)
     {
         self.allButton.selected = NO;
     }
