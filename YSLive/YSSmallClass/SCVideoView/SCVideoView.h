@@ -55,14 +55,14 @@ typedef NS_OPTIONS(NSUInteger, SCVideoViewAudioState)
     SCVideoViewAudioState_Close = 1 << 20
 };
 
-typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
+typedef NS_ENUM(NSUInteger, SCGroopRoomState)
 {
     // 正常
     SCGroopRoomState_Normal = 0,
     // 讨论中
-    SCGroopRoomState_Discussing = 1 << 0,
+    SCGroopRoomState_Discussing,
     // 私聊中
-    SCGroopRoomState_PrivateChat = 1 << 1,
+    SCGroopRoomState_PrivateChat
 };
 
 @protocol SCVideoViewDelegate <NSObject>
@@ -120,8 +120,6 @@ typedef NS_OPTIONS(NSUInteger, SCGroopRoomState)
 @property (nonatomic, assign, readonly) SCVideoViewAudioState audioState;
 /// 麦克风设备状态
 @property (nonatomic, assign, readonly) CHDeviceFaultType audioDeviceState;
-
-@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;
