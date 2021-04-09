@@ -2066,6 +2066,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self freshContentView];
     
+    [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+    
     if (self.roomtype == CHRoomUserType_One && self.isDoubleVideoBig)
     {
         for (CHVideoView *videoView in self.videoSequenceArr)
@@ -2075,9 +2077,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 [self doubleFullWithFullVideoView:videoView];
             }
         }
-        
     }
-    
     
     return newVideoViewArray;
 }
@@ -5307,17 +5307,17 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark - 全屏时视频浮窗代理
-- (void)fullFloatControlViewEvent:(UIButton *)sender
+- (void)fullFloatControlViewEvent:(FullFloatControl)fullFloatControl
 {
-    self.fullFloatControl = sender.tag;
+    self.fullFloatControl = fullFloatControl;
     
     if (self.fullFloatControl == FullFloatControlMine)
     {
-        [self.fullFloatVideoView freshViewWithVideoViewArray:self.myVideoViewArrFull];
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.myVideoViewArrFull];
     }
     else if (self.fullFloatControl == FullFloatControlAll)
     {
-        [self.fullFloatVideoView freshViewWithVideoViewArray:self.videoSequenceArrFull];
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
     }
 }
 

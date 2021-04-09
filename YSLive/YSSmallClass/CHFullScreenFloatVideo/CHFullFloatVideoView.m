@@ -31,8 +31,7 @@
 @property (nonatomic, assign) CGFloat videoWidth;
 @property (nonatomic, assign) CGFloat videoHeight;
 
-//@property (nonatomic, strong) NSArray <CHVideoView *> *videoSequenceArr;
-@property (nonatomic, strong) NSArray *videoSequenceArr;
+@property (nonatomic, strong) NSArray <CHVideoView *> *videoSequenceArrFull;
 
 ///拖动rightView时的模拟移动图
 @property (nonatomic, strong) UIImageView *dragImageView;
@@ -66,8 +65,8 @@
     [self addSubview:controlView];
     self.controlView = controlView;
     BMWeakSelf
-    controlView.fullFloatControlButtonClick = ^(UIButton * _Nonnull sender) {
-        [weakSelf fullFloatControlButtonClick:sender];
+    controlView.fullFloatControlButtonClick = ^(FullFloatControl fullFloatControl) {
+        [weakSelf fullFloatControlButtonClick:fullFloatControl];
     };
     
     UIView *rightVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, VideoTop, 100, 100)];
@@ -79,28 +78,28 @@
     [rightVideoBgView addGestureRecognizer:pan];
 }
 
-- (void)fullFloatControlButtonClick:(UIButton *)button
+- (void)fullFloatControlButtonClick:(FullFloatControl)fullFloatControl
 {
-    if (button.tag == 1)
+    if (fullFloatControl == FullFloatControlCancle)
     {
         self.rightVideoBgView.hidden = YES;
     }
     else
     {
         self.rightVideoBgView.hidden = NO;
-    }
-    
-    if ([self.fullFloatVideoViewDelegate respondsToSelector:@selector(fullFloatControlViewEvent:)])
-    {
-        [self.fullFloatVideoViewDelegate fullFloatControlViewEvent:button];
+        
+        if ([self.fullFloatVideoViewDelegate respondsToSelector:@selector(fullFloatControlViewEvent:)])
+        {
+            [self.fullFloatVideoViewDelegate fullFloatControlViewEvent:fullFloatControl];
+        }
     }
 }
 
 /// 刷新rightVideoBgView内部view
-//- (void)freshViewWithVideoViewArray:(NSMutableArray<CHVideoView *> *)videoSequenceArr
-- (void)freshViewWithVideoViewArray:(NSArray *)videoSequenceArr
+- (void)freshFullFloatViewWithVideoArray:(NSMutableArray<CHVideoView *> *)videoSequenceArrFull
+//- (void)freshFullFloatViewWithVideoArray:(NSMutableArray *)videoSequenceArrFull
 {
-    self.videoSequenceArr = videoSequenceArr;
+    self.videoSequenceArrFull = videoSequenceArrFull;
     
     [self.rightVideoBgView bm_removeAllSubviews];
     
@@ -108,7 +107,7 @@
     
     [self changeFrameFocus];
     
-    for (CHVideoView *videoView in videoSequenceArr)
+    for (CHVideoView *videoView in videoSequenceArrFull)
     {
         [self.rightVideoBgView addSubview:videoView];
         videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
@@ -131,7 +130,7 @@
         self.videoWidth = ceil(self.videoHeight * 4 / 3);
     }
         
-    NSInteger videoNum = self.videoSequenceArr.count;
+    NSInteger videoNum = self.videoSequenceArrFull.count;
     
     if (videoNum < 1)
     {
@@ -158,7 +157,7 @@
         self.rightViewMaxRight = self.controlView.bm_left - VideoTop;
     }
 
-    self.rightVideoBgView.frame = CGRectMake(self.rightViewMaxRight - self.rightBgWidth, VideoTop+100, self.rightBgWidth, self.rightBgHeight);
+    self.rightVideoBgView.frame = CGRectMake(self.rightViewMaxRight - self.rightBgWidth, VideoTop, self.rightBgWidth, self.rightBgHeight);
     
     CGFloat widthM = self.videoWidth + Margin;
     CGFloat heightM = self.videoHeight + Margin;
@@ -166,9 +165,9 @@
     CGFloat rightBgViewW = self.rightVideoBgView.bm_width;
     
     
-    for (int i = 0; i < self.videoSequenceArr.count; i++)
+    for (int i = 0; i < self.videoSequenceArrFull.count; i++)
     {
-        CHVideoView *videoView = self.videoSequenceArr[i];
+        CHVideoView *videoView = self.videoSequenceArrFull[i];
         if (i < 6)
         {
             videoView.bm_top = i * heightM + Margin;
@@ -236,9 +235,20 @@
     }
 }
 
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-//{
-//    
-//}
+/// 穿透
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (CGRectContainsPoint(self.controlView.frame, point))
+    {
+        return YES;
+    }
+    else if (CGRectContainsPoint(self.rightVideoBgView.frame, point))
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
 
 @end

@@ -110,8 +110,6 @@
 		34043C4523EA6514004982E6 /* YSMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C4423EA6514004982E6 /* YSMineViewController.m */; };
 		34043C7023EABA04004982E6 /* YSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34043C6F23EABA04004982E6 /* YSCalendarCell.m */; };
 		3410E70723ECFF2300900F3F /* OnlineSchool.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */; };
-		3450B1382404AA26006141E5 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1372404AA25006141E5 /* SCVideoView.m */; };
-		3450B1392404AA26006141E5 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1372404AA25006141E5 /* SCVideoView.m */; };
 		3450B140240677A6006141E5 /* YSMonthListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13F240677A6006141E5 /* YSMonthListCell.m */; };
 		3450B141240677A6006141E5 /* YSMonthListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B13F240677A6006141E5 /* YSMonthListCell.m */; };
 		3450B1482406805F006141E5 /* YSMonthListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3450B1472406805F006141E5 /* YSMonthListView.m */; };
@@ -963,7 +961,6 @@
 		34043C6E23EABA03004982E6 /* YSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSCalendarCell.h; sourceTree = "<group>"; };
 		34043C6F23EABA04004982E6 /* YSCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSCalendarCell.m; sourceTree = "<group>"; };
 		3410E70623ECFF2300900F3F /* OnlineSchool.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OnlineSchool.xcassets; sourceTree = "<group>"; };
-		3450B1372404AA25006141E5 /* SCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoView.m; sourceTree = "<group>"; };
 		3450B13E240677A6006141E5 /* YSMonthListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMonthListCell.h; sourceTree = "<group>"; };
 		3450B13F240677A6006141E5 /* YSMonthListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMonthListCell.m; sourceTree = "<group>"; };
 		3450B1462406805F006141E5 /* YSMonthListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMonthListView.h; sourceTree = "<group>"; };
@@ -1095,7 +1092,6 @@
 		87517E3C24A35C870094E2B3 /* YSLiveManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveManager.h; sourceTree = "<group>"; };
 		87517E3D24A35C870094E2B3 /* YSLiveManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveManager.m; sourceTree = "<group>"; };
 		87517E4024A453A70094E2B3 /* YSLiveForWhiteBoardDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveForWhiteBoardDelegate.h; sourceTree = "<group>"; };
-		875A7202237561E400407A75 /* SCVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCVideoView.h; sourceTree = "<group>"; };
 		875A720623758F1900407A75 /* SCVideoGridView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCVideoGridView.h; sourceTree = "<group>"; };
 		875A720723758F1900407A75 /* SCVideoGridView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCVideoGridView.m; sourceTree = "<group>"; };
 		875A720B237A541900407A75 /* YSFloatView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSFloatView.h; sourceTree = "<group>"; };
@@ -2287,8 +2283,6 @@
 			children = (
 				871C87AB261ED75E00AB898E /* CHVideoView.h */,
 				871C87AC261ED75E00AB898E /* CHVideoView.m */,
-				875A7202237561E400407A75 /* SCVideoView.h */,
-				3450B1372404AA25006141E5 /* SCVideoView.m */,
 				875A720623758F1900407A75 /* SCVideoGridView.h */,
 				875A720723758F1900407A75 /* SCVideoGridView.m */,
 				04B8C6E323CEECFF0095F880 /* PanGestureControl.h */,
@@ -3790,7 +3784,6 @@
 				87F32D9C2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */,
 				87832F0824874C4300F1178E /* FLEXSingleRowSection.m in Sources */,
 				87832F4024874C4300F1178E /* FLEXViewControllerShortcuts.m in Sources */,
-				3450B1382404AA26006141E5 /* SCVideoView.m in Sources */,
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				87832FEA24874C4300F1178E /* FHSView.m in Sources */,
 				87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */,
@@ -4138,7 +4131,6 @@
 				87F32D9D2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */,
 				875DD4B225C4103000059D0B /* NSString+ObjcRuntime.m in Sources */,
 				87832F0B24874C4300F1178E /* FLEXTableViewSection.m in Sources */,
-				3450B1392404AA26006141E5 /* SCVideoView.m in Sources */,
 				8783300324874C4400F1178E /* FLEXRuntimeSafety.m in Sources */,
 				87832FCB24874C4300F1178E /* FLEXSQLiteDatabaseManager.m in Sources */,
 				8717E2212400DADC008C4CDA /* YSVoteResultTableCell.m in Sources */,
@@ -4485,6 +4477,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 3.5.7;
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -4561,6 +4554,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 3.5.7;
 				OTHER_LDFLAGS = (
 					"-lz",

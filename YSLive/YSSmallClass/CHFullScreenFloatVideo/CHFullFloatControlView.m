@@ -42,11 +42,11 @@
 #pragma mark -
 - (void)setupUIView
 {
-    self.hideButton = [self creatButtonWithImage:@"fullFloat_cancleBtn" withTag:1];
+    self.hideButton = [self creatButtonWithImage:@"fullFloat_cancleBtn" withTag:FullFloatControlCancle];
     
-    self.mineButton = [self creatButtonWithImage:@"fullFloat_mineBtn" withTag:2];
+    self.mineButton = [self creatButtonWithImage:@"fullFloat_mineBtn" withTag:FullFloatControlMine];
     
-    self.allButton = [self creatButtonWithImage:@"fullFloat_allBtn" withTag:3];
+    self.allButton = [self creatButtonWithImage:@"fullFloat_allBtn" withTag:FullFloatControlAll];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -77,23 +77,23 @@
 - (void)buttonClick:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-    if (sender.tag == 1)
+    if (sender.tag == FullFloatControlCancle)
     {
         self.allButton.selected = NO;
         self.mineButton.selected = NO;
     }
-    else if (sender.tag == 2)
+    else if (sender.tag == FullFloatControlMine)
     {
         self.allButton.selected = NO;
     }
-    else if (sender.tag == 3)
+    else if (sender.tag == FullFloatControlAll)
     {
         self.mineButton.selected = NO;
     }
     
     if (_fullFloatControlButtonClick)
     {
-        _fullFloatControlButtonClick(sender);
+        _fullFloatControlButtonClick(sender.tag);
     }
 }
 

@@ -9,17 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CHVideoView.h"
 
-typedef enum : NSUInteger {
-    FullFloatControlCancle = 1,
-    FullFloatControlMine,
-    FullFloatControlAll,
-} FullFloatControl;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol CHFullFloatVideoViewDelegate <NSObject>
 
-- (void)fullFloatControlViewEvent:(UIButton *)sender;
+- (void)fullFloatControlViewEvent:(FullFloatControl)fullFloatControl;
 
 @end
 
@@ -32,9 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame wideScreen:(BOOL)isWideScreen;
 
-/// 刷新rightVideoBgView内部view
-//- (void)freshViewWithVideoViewArray:(NSMutableArray<CHVideoView *> *)videoSequenceArr;
-- (void)freshViewWithVideoViewArray:(NSArray *)videoSequenceArr;
+/// 刷新rightVideoBgView内部view布局
+- (void)freshFullFloatViewWithVideoArray:(NSMutableArray<CHVideoView *> *)videoSequenceArrFull;
+//- (void)freshFullFloatViewWithVideoArray:(NSMutableArray *)videoSequenceArrFull;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
