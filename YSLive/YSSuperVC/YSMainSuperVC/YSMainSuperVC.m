@@ -41,6 +41,15 @@
     return _teacherVideoViewArray;
 }
 
+- (NSMutableArray<CHVideoView *> *)teacherVideoViewArrayFull
+{
+    if (!_teacherVideoViewArrayFull)
+    {
+        _teacherVideoViewArrayFull = [NSMutableArray array];
+    }
+    return _teacherVideoViewArrayFull;
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -385,6 +394,7 @@
 - (void)videoViewsSequence
 {
     self.videoSequenceArr = [NSMutableArray array];
+    self.videoSequenceArrFull = [NSMutableArray array];
     if (!self.liveManager.isClassBegin)
     {
         NSArray * videoArray = self.videoViewArrayDic.allValues.firstObject;
@@ -406,6 +416,29 @@
             {
                 [self.videoSequenceArr addObject:videoView1];
                 [self.videoSequenceArr addObject:videoView0];
+            }
+        }
+        
+        //（全屏浮窗用）-----------
+        NSArray * videoArrayFull = self.videoViewArrayDicFull.allValues.firstObject;
+        if (videoArrayFull.count == 1)
+        {
+            [self.videoSequenceArrFull addObject:videoArrayFull[0]];
+        }
+        else if (videoArrayFull.count > 1)
+        {
+            CHVideoView * videoView0 = videoArrayFull[0];
+            CHVideoView * videoView1 = videoArrayFull[1];
+            NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+            
+            if (result == NSOrderedAscending)
+            {//左边小于右边
+                [self.videoSequenceArrFull addObjectsFromArray:videoArrayFull];
+            }
+            else
+            {
+                [self.videoSequenceArrFull addObject:videoView1];
+                [self.videoSequenceArrFull addObject:videoView0];
             }
         }
     }
@@ -446,6 +479,42 @@
             }
         }
         
+        //（全屏浮窗用）-----------
+        NSMutableArray * idArrFull = [self.videoViewArrayDicFull.allKeys mutableCopy];
+        [idArrFull removeObject:self.liveManager.teacher.peerID];
+        [idArrFull removeObject:self.liveManager.classMaster.peerID];
+        
+        // id正序排序
+        [idArrFull sortUsingComparator:^NSComparisonResult(NSString * _Nonnull peerId1, NSString * _Nonnull peerId2) {
+            return [peerId1 compare:peerId2];
+        }];
+        
+        for (NSString *peerId in idArrFull)
+        {
+            NSArray * arr = [self.videoViewArrayDicFull bm_arrayForKey:peerId];
+            
+            if (arr.count == 1)
+            {
+                [self.videoSequenceArrFull addObject:arr[0]];
+            }
+            else if (arr.count > 1)
+            {
+                CHVideoView * videoView0 = arr[0];
+                CHVideoView * videoView1 = arr[1];
+                NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+                
+                if (result == NSOrderedAscending)
+                {//左边小于右边
+                    [self.videoSequenceArrFull addObjectsFromArray:arr];
+                }
+                else
+                {
+                    [self.videoSequenceArrFull addObject:videoView1];
+                    [self.videoSequenceArrFull addObject:videoView0];
+                }
+            }
+        }
+        
         // 分组教室
         if (self.liveManager.isGroupRoom)
         {
@@ -460,6 +529,7 @@
         {
             ///把老师插入最前面
             [self insertVideoViewWithArray:self.teacherVideoViewArray];
+            [self insertVideoViewWithArrayFull:self.teacherVideoViewArrayFull];
         }
     }
     
@@ -492,6 +562,32 @@
     }
 }
 
+- (void)insertVideoViewWithArrayFull:(NSArray<CHVideoView *>*)videoViewArray
+{
+    if (videoViewArray.count == 1)
+    {
+        [self.videoSequenceArrFull insertObject:videoViewArray[0] atIndex:0];
+    }
+    else if (videoViewArray.count > 1)
+    {
+        CHVideoView * videoView0 = videoViewArray[0];
+        CHVideoView * videoView1 = videoViewArray[1];
+        NSComparisonResult result =  [videoView0.sourceId compare:videoView1.sourceId];
+        
+        if (result == NSOrderedAscending)
+        {//左边小于右边
+            [self.videoSequenceArrFull insertObject:videoView1 atIndex:0];
+            [self.videoSequenceArrFull insertObject:videoView0 atIndex:0];
+        }
+        else
+        {
+            [self.videoSequenceArrFull insertObject:videoView0 atIndex:0];
+            [self.videoSequenceArrFull insertObject:videoView1 atIndex:0];
+        }
+    }
+}
+
+
 ///给videoViewArrayDic中添加视频
 - (void)addVideoViewToVideoViewArrayDic:(CHVideoView *)videoView
 {
@@ -504,6 +600,9 @@
         }
         
         [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
+
+        [self videoViewsSequence];
+        
         if (videoView.roomUser.role == CHUserType_Teacher)
         {
             self.teacherVideoViewArray = videoArr;
@@ -512,10 +611,6 @@
         {
             self.classMasterVideoViewArray = videoArr;
         }
-        
-        [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
-
-        [self videoViewsSequence];
     }
 }
 
@@ -533,6 +628,11 @@
         [self.videoViewArrayDicFull setObject:videoArrFull forKey:videoView.roomUser.peerID];
 
         [self videoViewsSequence];
+        
+        if (videoView.roomUser.role == CHUserType_Teacher)
+        {
+            self.teacherVideoViewArrayFull = videoArrFull;
+        }
     }
 }
 
@@ -548,14 +648,6 @@
         if (videoArr.count)
         {
             [self.videoViewArrayDic setObject:videoArr forKey:videoView.roomUser.peerID];
-            if (videoView.roomUser.role == CHUserType_Teacher)
-            {
-                self.teacherVideoViewArray = videoArr;
-            }
-            else if (videoView.roomUser.role == CHUserType_ClassMaster)
-            {
-                self.classMasterVideoViewArray = videoArr;
-            }
         }
         else
         {
@@ -586,6 +678,7 @@
         if (videoArrFull.count)
         {
             [self.videoViewArrayDicFull setObject:videoArrFull forKey:videoView.roomUser.peerID];
+            
         }
         else
         {
@@ -593,7 +686,15 @@
         }
     }
     
-    self.myVideoViewArrFull = videoArrFull;
+    if (videoView.roomUser.role == CHUserType_Teacher)
+    {
+        self.teacherVideoViewArrayFull = videoArrFull;
+    }
+    
+    if ([YSCurrentUser.peerID isEqualToString:videoView.roomUser.peerID])
+    {
+        self.myVideoViewArrFull = videoArrFull;
+    }
 }
 
 
@@ -699,10 +800,10 @@
                 [theVideoArrayFull bm_addObject:newVideoViewFull withMaxCount:count];
             }
             
-//            if (roomUser.role == CHUserType_Teacher)
-//            {
-//                self.teacherVideoViewArray = theVideoArray;
-//            }
+            if (roomUser.role == CHUserType_Teacher)
+            {
+                self.teacherVideoViewArrayFull = theVideoArrayFull;
+            }
 //            else if (roomUser.role == CHUserType_ClassMaster)
 //            {
 //                self.classMasterVideoViewArray = theVideoArray;
@@ -764,14 +865,14 @@
                     [theVideoArrayFull bm_addObject:newVideoViewFull withMaxCount:count];
                 }
                 
-//                if (roomUser.role == CHUserType_Teacher)
-//                {
-//                    self.teacherVideoViewArray = theVideoArray;
-//                    if (self.liveManager.isGroupRoom)
-//                    {
-//                        newVideoView.groopRoomState = SCGroopRoomState_Discussing;
-//                    }
-//                }
+                if (roomUser.role == CHUserType_Teacher)
+                {
+                    self.teacherVideoViewArrayFull = theVideoArrayFull;
+                    if (self.liveManager.isGroupRoom)
+                    {
+                        newVideoViewFull.groupRoomState = CHGroupRoomState_Discussing;
+                    }
+                }
 //                else if (roomUser.role == CHUserType_ClassMaster)
 //                {
 //                    self.classMasterVideoViewArray = theVideoArray;
@@ -897,6 +998,11 @@
             else
             {
                 [theAddVideoArrayFull bm_addObject:newVideoViewFull withMaxCount:count];
+            }
+            
+            if (roomUser.role == CHUserType_Teacher)
+            {
+                self.teacherVideoViewArrayFull = theAddVideoArrayFull;
             }
         }
         

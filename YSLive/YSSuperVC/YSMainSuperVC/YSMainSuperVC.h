@@ -48,6 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *teacherVideoViewArray;
 /// 老师视频
 @property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *classMasterVideoViewArray;
+
+/// 老师视频
+@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *teacherVideoViewArrayFull;
+/// 老师视频
+//@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *classMasterVideoViewArrayFull;
+
+
 /// 自己视频
 @property (nullable, nonatomic, weak) CHVideoView *myVideoView;
 

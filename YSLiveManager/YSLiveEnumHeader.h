@@ -141,4 +141,12 @@ typedef NS_ENUM(NSUInteger, YSClassFiletype)
     YSClassFiletype_H5
 };
 
+/// 全屏时视频切换按钮
+typedef enum : NSUInteger {
+    FullFloatControlCancle = 1,
+    FullFloatControlMine,
+    FullFloatControlAll,
+} FullFloatControl;
+
+
 #endif /* YSLiveEnumHeader_h */
