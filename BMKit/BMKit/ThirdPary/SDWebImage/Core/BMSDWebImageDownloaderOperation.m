@@ -195,6 +195,13 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
             }
         }
         
+        if (!session.delegate) {
+            // Session been invalid and has no delegate at all
+            [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorInvalidDownloadOperation userInfo:@{NSLocalizedDescriptionKey : @"Session delegate is nil and invalid"}]];
+            [self reset];
+            return;
+        }
+        
         self.dataTask = [session dataTaskWithRequest:self.request];
         self.executing = YES;
     }
