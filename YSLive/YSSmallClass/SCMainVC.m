@@ -486,6 +486,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         //举手上台的按钮
         [self.view addSubview:self.raiseHandsBtn];
+        
+        self.fullFloatVideoView.rightViewMaxRight = self.raiseHandsBtn.bm_left - 10;
     }
     
     // 会议默认视频布局
@@ -2066,7 +2068,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self freshContentView];
     
-    [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+    if (self.fullFloatControl == FullFloatControlMine && [YSCurrentUser.peerID isEqualToString:peerId])
+    {
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.myVideoViewArrFull];
+    }
+    else if (self.fullFloatControl == FullFloatControlAll)
+    {
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+    }
     
     if (self.roomtype == CHRoomUserType_One && self.isDoubleVideoBig)
     {
@@ -2095,6 +2104,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     
     [self freshContentView];
     
+    if (self.fullFloatControl == FullFloatControlMine && [YSCurrentUser.peerID isEqualToString:peerId])
+    {
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.myVideoViewArrFull];
+    }
+    else if (self.fullFloatControl == FullFloatControlAll)
+    {
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+    }
+    
     return videoViewArray;
 }
 
@@ -2122,6 +2140,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else
         {
             [self freshContentView];
+            
+            if (self.fullFloatControl == FullFloatControlMine && [YSCurrentUser.peerID isEqualToString:peerId])
+            {
+                [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.myVideoViewArrFull];
+            }
+            else if (self.fullFloatControl == FullFloatControlAll)
+            {
+                [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+            }
             
             if (self.roomtype == CHRoomUserType_One && self.isDoubleVideoBig)
             {
@@ -2588,6 +2615,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self stopFullTeacherVideoView];
 #endif
     }
+    
+    [self fullScreenToShowVideoView:isAllScreen];
 }
 
 
@@ -4520,6 +4549,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #if USE_FullTeacher
     [self playFullTeacherVideoViewInView:self.shareVideoFloatView];
 #endif
+    
+    [self fullScreenToShowVideoView:YES];
 }
 
 // 关闭共享桌面
@@ -4538,6 +4569,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [self playFullTeacherVideoViewInView:self.whitebordFullBackgroud];
     }
 #endif
+    
+    [self fullScreenToShowVideoView:NO];
+    
 }
 
 #pragma mark 进入前台后台
@@ -5319,6 +5353,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
     }
+    [self.fullFloatVideoView bm_bringToFront];
 }
 
 @end
