@@ -59,6 +59,7 @@
         [self setRoomManagerDelegate];
         
         self.videoViewArrayDic = [[NSMutableDictionary alloc] init];
+        self.videoViewArrayDicFull = [[NSMutableDictionary alloc] init];
         self.myVideoViewArrFull = [NSMutableArray array];
     }
     return self;
@@ -678,7 +679,6 @@
         if (videoArrFull.count)
         {
             [self.videoViewArrayDicFull setObject:videoArrFull forKey:videoView.roomUser.peerID];
-            
         }
         else
         {
@@ -738,13 +738,12 @@
         {
             [myVideoArrayFull removeObject:avideoView];
             
-            [self.videoViewArrayDicFull setObject:myVideoArray forKey:self.liveManager.localUser.peerID];
+            [self.videoViewArrayDicFull setObject:myVideoArrayFull forKey:self.liveManager.localUser.peerID];
             [self.videoSequenceArrFull removeObject:avideoView];
             
             break;
         }
     }
-    
     
     //用户新下发的设备id数组
     NSMutableArray *theSourceIdArray = [roomUser.sourceListDic.allKeys mutableCopy];
@@ -780,7 +779,7 @@
             }
             
             [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
-            [self videoViewsSequence];
+//            [self videoViewsSequence];
             
             [newVideoView bm_bringToFront];
         }
@@ -810,13 +809,15 @@
 //            }
             
             [self.videoViewArrayDicFull setObject:theVideoArrayFull forKey:peerId];
-            [self videoViewsSequence];
+            
             
             if ([YSCurrentUser.peerID isEqualToString:peerId])
             {
                 self.myVideoViewArrFull = theVideoArrayFull;
             }
         }
+        
+        [self videoViewsSequence];
     }
     else
     {
@@ -1145,7 +1146,10 @@
 {
     NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     
+    NSMutableArray * videoArrayFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:peerId];
+    
     CHVideoView *delVideoView = nil;
+    CHVideoView *delVideoViewFull = nil;
     
     for (CHVideoView * videoView in videoArray)
     {
@@ -1156,12 +1160,28 @@
         }
     }
     
+    for (CHVideoView * videoViewFull in videoArrayFull)
+    {
+        if ([videoViewFull.sourceId isEqualToString:sourceId])
+        {
+            delVideoViewFull = videoViewFull;
+            break;
+        }
+    }
+    
     [self deleteVideoViewfromVideoViewArrayDic:delVideoView];
+    [self deleteVideoViewfromVideoViewArrayDicFull:delVideoViewFull];
     
     if (delVideoView)
     {
         [self stopVideoAudioWithVideoView:delVideoView];
     }
+    
+    if (delVideoViewFull)
+    {
+        [self stopVideoAudioWithVideoView:delVideoViewFull];
+    }
+    
     return delVideoView;
 }
 
@@ -1181,7 +1201,6 @@
 //    }
 //    return videoArray;
 //}
-
 
 
 #pragma -
