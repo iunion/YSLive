@@ -1826,20 +1826,16 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStartVideoOfUid:uid sourceID:sourceId streamId:streamId];
-    
-    if ([YSCurrentUser.peerID isEqualToString:uid])
-    {
-        if (!self.fullFloatVideoView.hidden)
-        {
-            [self fullScreenToShowVideoView:YES];
-        }
-    }
+
+    [self freshFullFloatViewWithPeerId:uid];
 }
 
 /// 停止音视频流
 - (void)onRoomStopVideoOfUid:(NSString *)uid sourceID:(NSString *)sourceId streamId:(NSString *)streamId
 {
     [super onRoomStopVideoOfUid:uid sourceID:sourceId streamId:streamId];
+    
+    [self freshFullFloatViewWithPeerId:uid];
 }
 
 #pragma mark  添加视频窗口
@@ -1898,10 +1894,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     [self freshContentView];
     
-    if (self.fullFloatControl == FullFloatControlAll)
-    {
-        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
-    }
+    [self freshFullFloatViewWithPeerId:peerId];
     
     return videoArray;
 }
@@ -1943,10 +1936,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         {
             [self freshContentView];
             
-            if (self.fullFloatControl == FullFloatControlAll)
-            {
-                [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
-            }
+            [self freshFullFloatViewWithPeerId:peerId];
         }
     }
     
@@ -6064,6 +6054,24 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.fullFloatVideoView bm_bringToFront];
 }
 
+- (void)freshFullFloatViewWithPeerId:(NSString *)peerId
+{
+    if (self.fullFloatVideoView.hidden)
+    {
+        return;
+    }
+    NSLog(@"self.fullFloatControl = %ld",self.fullFloatControl);
+    
+//    if (self.fullFloatControl == FullFloatControlMine && [YSCurrentUser.peerID isEqualToString:peerId])
+//    {
+//        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.myVideoViewArrFull];
+//    }
+//    else
+        if (self.fullFloatControl == FullFloatControlAll)
+    {
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+    }
+}
 
 #pragma mark - 打开相册选择图片
 
