@@ -533,9 +533,6 @@
             [self insertVideoViewWithArrayFull:self.teacherVideoViewArrayFull];
         }
     }
-    
-    
-    
 }
 
 - (void)insertVideoViewWithArray:(NSArray<CHVideoView *>*)videoViewArray

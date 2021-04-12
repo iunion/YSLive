@@ -321,6 +321,7 @@
     
     if (isFull)
     {
+        self.fullFloatControl = FullFloatControlAll;
         for (CHVideoView *videoView in self.videoSequenceArr)
         {
             [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
@@ -337,6 +338,7 @@
     }
     else
     {
+        self.fullFloatControl = FullFloatControlCancle;
         for (CHVideoView *videoView in self.videoSequenceArrFull)
         {
             [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
