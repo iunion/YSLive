@@ -97,7 +97,6 @@
 
 /// 刷新rightVideoBgView内部view
 - (void)freshFullFloatViewWithVideoArray:(NSMutableArray<CHVideoView *> *)videoSequenceArrFull
-//- (void)freshFullFloatViewWithVideoArray:(NSMutableArray *)videoSequenceArrFull
 {
     self.videoSequenceArrFull = videoSequenceArrFull;
     

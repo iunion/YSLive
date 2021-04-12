@@ -312,6 +312,43 @@
     fullFloatVideoView.fullFloatVideoViewDelegate = self;
     [self.contentBackgroud addSubview:fullFloatVideoView];
     self.fullFloatVideoView = fullFloatVideoView;
+    self.fullFloatVideoView.hidden = YES;
+}
+
+- (void)fullScreenToShowVideoView:(BOOL)isFull
+{
+    self.fullFloatVideoView.hidden = !isFull;
+    
+    if (isFull)
+    {
+        self.fullFloatControl = FullFloatControlAll;
+        for (CHVideoView *videoView in self.videoSequenceArr)
+        {
+            [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
+        }
+        
+        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+        
+        [self.fullFloatVideoView bm_bringToFront];
+        
+        for (CHVideoView *videoView in self.videoSequenceArrFull)
+        {
+            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView];
+        }
+    }
+    else
+    {
+        self.fullFloatControl = FullFloatControlCancle;
+        for (CHVideoView *videoView in self.videoSequenceArrFull)
+        {
+            [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
+        }
+        
+        for (CHVideoView *videoView in self.videoSequenceArr)
+        {
+            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView];
+        }
+    }
 }
 
 // 横排视频最大宽度计算

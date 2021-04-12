@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 刷新rightVideoBgView内部view布局
 - (void)freshFullFloatViewWithVideoArray:(NSMutableArray<CHVideoView *> *)videoSequenceArrFull;
-//- (void)freshFullFloatViewWithVideoArray:(NSMutableArray *)videoSequenceArrFull;
 
 
 @end
