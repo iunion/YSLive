@@ -195,7 +195,7 @@
     NSLog(@"User change Property: %@", key);
 #endif
     
-    //[self freshWithRoomUser];
+    [self freshWithRoomUser];
 }
 
 /// 视频view点击事件
@@ -703,7 +703,7 @@
 {
     _groupRoomState = groupRoomState;
     
-    //[self freshWithRoomUser];
+    [self freshWithRoomUser];
  }
 
 /// 当前设备音量  音量大小 0 ～ 255
@@ -818,7 +818,7 @@
 - (void)setIsPrivateChating:(BOOL)isPrivateChating
 {
     _isPrivateChating = isPrivateChating;
-    //[self freshWithRoomUser];
+    [self freshWithRoomUser];
 }
 
 /// 视频状态
