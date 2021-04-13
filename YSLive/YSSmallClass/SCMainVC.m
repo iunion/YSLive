@@ -47,11 +47,6 @@
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
 
-/// 顶部工具条高
-//static const CGFloat kTopToolBar_Height_iPhone = 50.0f;
-//static const CGFloat kTopToolBar_Height_iPad = 70.0f;
-//#define TOPTOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? kTopToolBar_Height_iPad : kTopToolBar_Height_iPhone)
-
 /// 一对一多视频最高尺寸
 static const CGFloat kVideoView_MaxHeight_iPhone = 100.0f;
 static const CGFloat kVideoView_MaxHeight_iPad  = 160.0f;
@@ -149,8 +144,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 上课时间的定时器
 @property (nonatomic, strong) dispatch_source_t topBarTimer;
 
-/// 内容背景
-//@property (nonatomic, strong) UIView *contentBackgroud;
 /// 内容
 @property (nonatomic, strong) UIView *contentView;
 /// 视频背景
@@ -161,11 +154,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //@property (nonatomic, strong) UIImageView *whitebordBgimage;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
-/// 全屏老师 视频容器
-#if USE_FullTeacher
-//@property (nonatomic, strong) YSFloatView *fullTeacherFloatView;
-//@property (nonatomic, strong) CHVideoView *fullTeacherVideoView;
-#endif
+
 @property (nonatomic, assign) BOOL isWhitebordFullScreen;
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;

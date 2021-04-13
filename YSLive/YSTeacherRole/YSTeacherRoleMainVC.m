@@ -195,13 +195,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //@property (nonatomic, strong) UIImageView *whitebordBgimage;
 /// 全屏白板背景
 @property (nonatomic, strong) UIView *whitebordFullBackgroud;
-/// 全屏老师 视频容器
-#if USE_FullTeacher
-//@property (nonatomic, strong) YSFloatView *fullTeacherFloatView;
-//@property (nonatomic, strong) CHVideoView *fullTeacherVideoView;
-#endif
-/// 全屏白板背景
-@property (nonatomic, assign) BOOL isWhitebordFullScreen;
+
 /// 隐藏白板视频布局背景
 @property (nonatomic, strong) SCVideoGridView *videoGridView;
 
@@ -1724,7 +1718,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)freshWhiteBordViewFrame
 {
-    if (self.isWhitebordFullScreen)
+    if (!self.fullFloatVideoView.hidden)
     {
 //        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
         self.whiteBordView.frame = CGRectMake(0, 0, self.whitebordFullBackgroud.bm_width, self.whitebordFullBackgroud.bm_height);
@@ -1895,7 +1889,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self freshContentView];
     
     [self freshFullFloatViewWithPeerId:peerId];
-    
+
     return videoArray;
 }
 
@@ -1988,13 +1982,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [super onRoomConnectionLost];
     self.spreadBottomToolBar.userEnable = NO;
     [self.view bringSubviewToFront:self.spreadBottomToolBar];
-    
-//    if (self.isWhitebordFullScreen)
-//    {
-//        [self boardControlProxyfullScreen:NO];
-//    }
-//    
-//    [self handleSignalingDefaultRoomLayout];
 }
 
 - (void)onRoomReJoined
@@ -3835,8 +3822,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 // 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen
 {
-    self.isWhitebordFullScreen = isAllScreen;
-    
     if (isAllScreen)
     {
         [self.view endEditing:YES];
@@ -6060,7 +6045,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         return;
     }
-    NSLog(@"self.fullFloatControl = %ld",self.fullFloatControl);
     
 //    if (self.fullFloatControl == FullFloatControlMine && [YSCurrentUser.peerID isEqualToString:peerId])
 //    {
