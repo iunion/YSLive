@@ -520,10 +520,12 @@
         if (self.liveManager.isGroupRoom)
         {
             [self insertVideoViewWithArray:self.classMasterVideoViewArray];
+            [self insertVideoViewWithArrayFull:self.classMasterVideoViewArrayFull];
             
 //            if (self.liveManager.isGroupBegin)
 //            {
                 [self insertVideoViewWithArray:self.teacherVideoViewArray];
+            [self insertVideoViewWithArrayFull:self.teacherVideoViewArrayFull];
 //            }
         }
         else
@@ -631,6 +633,10 @@
         {
             self.teacherVideoViewArrayFull = videoArrFull;
         }
+        else if (videoView.roomUser.role == CHUserType_ClassMaster)
+        {
+            self.classMasterVideoViewArrayFull = videoArrFull;
+        }
     }
 }
 
@@ -686,6 +692,10 @@
     if (videoView.roomUser.role == CHUserType_Teacher)
     {
         self.teacherVideoViewArrayFull = videoArrFull;
+    }
+    else if (videoView.roomUser.role == CHUserType_ClassMaster)
+    {
+        self.classMasterVideoViewArrayFull = videoArrFull;
     }
     
     if ([YSCurrentUser.peerID isEqualToString:videoView.roomUser.peerID])
@@ -776,8 +786,6 @@
             }
             
             [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
-//            [self videoViewsSequence];
-            
             [newVideoView bm_bringToFront];
         }
         
@@ -800,10 +808,10 @@
             {
                 self.teacherVideoViewArrayFull = theVideoArrayFull;
             }
-//            else if (roomUser.role == CHUserType_ClassMaster)
-//            {
-//                self.classMasterVideoViewArray = theVideoArray;
-//            }
+            else if (roomUser.role == CHUserType_ClassMaster)
+            {
+                self.classMasterVideoViewArrayFull = theVideoArrayFull;
+            }
             
             [self.videoViewArrayDicFull setObject:theVideoArrayFull forKey:peerId];
             
@@ -871,10 +879,10 @@
                         newVideoViewFull.groupRoomState = CHGroupRoomState_Discussing;
                     }
                 }
-//                else if (roomUser.role == CHUserType_ClassMaster)
-//                {
-//                    self.classMasterVideoViewArray = theVideoArray;
-//                }
+                else if (roomUser.role == CHUserType_ClassMaster)
+                {
+                    self.classMasterVideoViewArrayFull = theVideoArrayFull;
+                }
                 
             }
         }
@@ -888,16 +896,30 @@
             self.myVideoViewArrFull = theVideoArrayFull;
         }
         
-        
-//        [self videoViewsSequence];
-        
-        for (CHVideoView * videoView in theVideoArray)
+        if (self.fullFloatVideoView.hidden)
         {
-            [self playVideoAudioWithVideoView:videoView];
+            for (CHVideoView * videoView in theVideoArray)
+            {
+                [self playVideoAudioWithVideoView:videoView];
+            }
         }
+        else
+        {
+            for (CHVideoView * videoView in theVideoArrayFull)
+            {
+                [self playVideoAudioWithVideoView:videoView];
+            }
+        }
+        
     }
-    
-    return theVideoArray;
+    if (self.fullFloatVideoView.hidden)
+    {
+        return theVideoArray;
+    }
+    else
+    {
+        return theVideoArrayFull;
+    }
 }
 
 //设备变化时
@@ -1002,11 +1024,22 @@
             {
                 self.teacherVideoViewArrayFull = theAddVideoArrayFull;
             }
+            else if (roomUser.role == CHUserType_ClassMaster)
+            {
+                self.classMasterVideoViewArrayFull = theVideoArrayFull;
+            }
         }
         
         [self addVideoViewToVideoViewArrayDicFull:newVideoViewFull];
         
-        return theAddVideoArray;
+        if (self.fullFloatVideoView.hidden)
+        {
+            return theAddVideoArray;
+        }
+        else
+        {
+            return theAddVideoArrayFull;
+        }
     }
     else
     {//摄像头变更时
@@ -1068,7 +1101,10 @@
                 
                 [self addVideoViewToVideoViewArrayDic:newVideoView];
                 
-                [self playVideoAudioWithVideoView:newVideoView];
+                if (self.fullFloatVideoView.hidden)
+                {
+                    [self playVideoAudioWithVideoView:newVideoView];
+                }
                 [newVideoView bm_bringToFront];
             }
         }
@@ -1078,6 +1114,7 @@
         {
             if ([sourceIdArray containsObject:videoViewFull.sourceId])
             {
+                [theAddVideoArrayFull addObject:videoViewFull];
                 [sourceIdArray removeObject:videoViewFull.sourceId];
                 // property刷新原用户的值没有变化，需要重新赋值user
                 [videoViewFull freshWithRoomUserProperty:roomUser];
@@ -1094,21 +1131,44 @@
             newVideoViewFull.appUseTheType = self.appUseTheType;
             if (newVideoViewFull)
             {
+                if (count == 0)
+                {
+                    [theAddVideoArrayFull addObject:newVideoViewFull];
+                }
+                else
+                {
+                    [theAddVideoArrayFull bm_addObject:newVideoViewFull withMaxCount:count];
+                }
+                
                 if (roomUser.role == CHUserType_Teacher)
                 {
-                    self.teacherVideoViewArray = theAddVideoArray;
+                    self.teacherVideoViewArrayFull = theAddVideoArrayFull;
                     if (self.liveManager.isGroupRoom)
                     {
                         newVideoViewFull.groupRoomState = CHGroupRoomState_Discussing;
                     }
                 }
+                else if (roomUser.role == CHUserType_ClassMaster)
+                {
+                    self.classMasterVideoViewArrayFull = theVideoArrayFull;
+                }
                 [self addVideoViewToVideoViewArrayDicFull:newVideoViewFull];
-//                [self playVideoAudioWithVideoView:newVideoView];
+                if (!self.fullFloatVideoView.hidden)
+                {
+                    [self playVideoAudioWithVideoView:newVideoViewFull];
+                }
             }
         }
     }
     
-    return theAddVideoArray;
+    if (self.fullFloatVideoView.hidden)
+    {
+        return theAddVideoArray;
+    }
+    else
+    {
+        return theAddVideoArrayFull;
+    }
 }
 
 
@@ -1181,24 +1241,6 @@
     
     return delVideoView;
 }
-
-
-//- (NSMutableArray<CHVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId
-//{
-//    NSMutableArray * videoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
-//    
-//    for (CHVideoView * videoView in videoArray)
-//    {
-//        [self deleteVideoViewfromVideoViewArrayDic:videoView];
-//        
-//        if (videoView)
-//        {
-//            [self stopVideoAudioWithVideoView:videoView];
-//        }
-//    }
-//    return videoArray;
-//}
-
 
 #pragma -
 #pragma mark CHVideoViewDelegate

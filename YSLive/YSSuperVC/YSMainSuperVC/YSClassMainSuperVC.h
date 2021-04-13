@@ -9,7 +9,7 @@
 #import "YSMainSuperVC.h"
 #import "YSSpreadBottomToolBar.h"
 #import "YSDiceAnimationView.h"
-#import "CHFullFloatVideoView.h"
+
 
 /// 顶部状态栏高度
 #define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
@@ -36,8 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YSClassMainSuperVC : YSMainSuperVC
 <
-    YSSpreadBottomToolBarDelegate,
-    CHFullFloatVideoViewDelegate
+    YSSpreadBottomToolBarDelegate
 >
 
 /// 所有内容的背景
@@ -66,8 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 自己当前的分辨率 视频高
 @property (nonatomic, assign) NSUInteger userVideoheight;
 
-///全屏时视频浮窗背景view
-@property (nonatomic, strong) CHFullFloatVideoView *fullFloatVideoView;
+
 
 @property (nonatomic,assign) FullFloatControl fullFloatControl;
 

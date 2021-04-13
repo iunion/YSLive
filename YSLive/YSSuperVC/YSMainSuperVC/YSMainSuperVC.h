@@ -10,6 +10,7 @@
 #import "CHVideoView.h"
 #import "YSControlPopoverView.h"
 #import "BMKeystoneCorrectionView.h"
+#import "CHFullFloatVideoView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
     CHSessionDelegate,
     YSLiveForWhiteBoardDelegate,
     CHVideoViewDelegate,
-    YSControlPopoverViewDelegate
+    YSControlPopoverViewDelegate,
+    CHFullFloatVideoViewDelegate
 >
 
 @property (nonatomic, weak, readonly) YSLiveManager *liveManager;
@@ -52,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 老师视频
 @property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *teacherVideoViewArrayFull;
 /// 老师视频
-//@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *classMasterVideoViewArrayFull;
+@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *classMasterVideoViewArrayFull;
 
 
 /// 自己视频
@@ -74,6 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) BMKeystoneCorrectionView *keystoneCorrectionView;
 
 @property (nonatomic,strong) NSMutableArray<CHVideoView *> *myVideoViewArrFull;
+
+///全屏时视频浮窗背景view
+@property (nonatomic, strong) CHFullFloatVideoView *fullFloatVideoView;
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 

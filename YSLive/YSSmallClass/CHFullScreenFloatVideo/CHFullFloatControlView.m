@@ -11,7 +11,6 @@
 #define ButtonNum 3
 #define TopMargin 10
 
-
 @interface CHFullFloatControlView ()
 
 @property (nonatomic, strong) UIButton *hideButton;
@@ -77,6 +76,7 @@
 - (void)buttonClick:(UIButton *)sender
 {
     sender.selected = !sender.selected;
+    
     if (sender.tag == FullFloatControlCancle)
     {
         self.allButton.selected = NO;

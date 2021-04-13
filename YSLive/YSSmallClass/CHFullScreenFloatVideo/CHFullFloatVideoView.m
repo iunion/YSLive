@@ -56,12 +56,11 @@
     return self;
 }
 
-#pragma mark -
 - (void)setupUIView
 {
-    CGFloat controlViewW = 30;
+    CGFloat controlViewW = 30.0;
     
-    CHFullFloatControlView *controlView = [[CHFullFloatControlView alloc]initWithFrame:CGRectMake(self.bm_width - controlViewW, 45, controlViewW, self.bm_height/2)];
+    CHFullFloatControlView *controlView = [[CHFullFloatControlView alloc]initWithFrame:CGRectMake(self.bm_width - controlViewW, 45, controlViewW, self.bm_height*0.5)];
     [self addSubview:controlView];
     self.controlView = controlView;
     BMWeakSelf
@@ -101,9 +100,7 @@
     self.videoSequenceArrFull = videoSequenceArrFull;
     
     [self.rightVideoBgView bm_removeAllSubviews];
-    
-    //   self.videosBgView.backgroundColor = YSSkinDefineColor(@"Color2");
-    
+        
     [self changeFrameFocus];
     
     for (CHVideoView *videoView in videoSequenceArrFull)
@@ -162,7 +159,6 @@
     CGFloat heightM = self.videoHeight + Margin;
     
     CGFloat rightBgViewW = self.rightVideoBgView.bm_width;
-    
     
     for (int i = 0; i < self.videoSequenceArrFull.count; i++)
     {
@@ -237,11 +233,7 @@
 /// 穿透
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (CGRectContainsPoint(self.controlView.frame, point))
-    {
-        return YES;
-    }
-    else if (CGRectContainsPoint(self.rightVideoBgView.frame, point))
+    if (CGRectContainsPoint(self.controlView.frame, point) || CGRectContainsPoint(self.rightVideoBgView.frame, point))
     {
         return YES;
     }
