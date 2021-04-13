@@ -47,6 +47,7 @@
 @interface BMStepCountDowmManager ()
 
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSUInteger milliseconds;
 
 /// 倒计时项目存储 identifier : BMStepCountDownItem
 @property (nonatomic, strong) NSMutableDictionary<id, BMStepCountDownItem *> *countDownDict;
@@ -55,13 +56,21 @@
 
 @implementation BMStepCountDowmManager
 
-+ (instancetype)shareManager
++ (instancetype)shareManagerWithMilliseconds:(NSUInteger)milliseconds
 {
     static BMStepCountDowmManager *stepCountDownManager = nil;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
         stepCountDownManager = [[self alloc] init];
+        if (milliseconds == 0)
+        {
+            stepCountDownManager.milliseconds = BMStepCountDownTime_1000Milliseconds;
+        }
+        else
+        {
+            stepCountDownManager.milliseconds = milliseconds;
+        }
     });
     
     return stepCountDownManager;
@@ -74,9 +83,28 @@
     if (self)
     {
         _countDownDict = [[NSMutableDictionary alloc] init];
+        _milliseconds = BMStepCountDownTime_1000Milliseconds;
     }
     
     return self;
+}
+
+- (BOOL)changeTimeInterval:(NSUInteger)milliseconds
+{
+    // 如果有正在运行的，不能更改计数间隔
+    if ([self.countDownDict.allKeys bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    if (milliseconds == 0)
+    {
+        milliseconds = BMStepCountDownTime_1000Milliseconds;
+    }
+
+    self.milliseconds = milliseconds;
+    
+    return YES;
 }
 
 - (void)startCountDownWithIdentifier:(id)identifier processBlock:(BMStepCountDownProcessBlock)processBlock
@@ -140,7 +168,8 @@
     
     if (!self.timer)
     {
-        NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(countDownTime:) userInfo:nil repeats:YES];
+        NSTimeInterval timeInterval = (CGFloat)(self.milliseconds) * 0.001;
+        NSTimer *timer = [NSTimer timerWithTimeInterval:timeInterval target:self selector:@selector(countDownTime:) userInfo:nil repeats:YES];
         self.timer = timer;
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
@@ -215,7 +244,7 @@
         if (countDownItem.isPauseReCount)
         {
             // 清除真实计数，暂停后将重新计数
-            countDownItem.remainderCount = 0;
+            countDownItem.realCount = 0;
         }
     }
 }
@@ -330,8 +359,8 @@
             {
                 if (!countDownItem.isPause)
                 {
-                    countDownItem.remainderCount++;
-                    if ((countDownItem.remainderCount % countDownItem.count) == 0)
+                    countDownItem.realCount++;
+                    if ((countDownItem.realCount % countDownItem.count) == 0)
                     {
                         countDownItem.remainderCount--;
                     
