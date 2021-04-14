@@ -34,15 +34,11 @@
 #import "YSStudentResponder.h"
 #import "YSStudentTimerView.h"
 
-#import "PanGestureControl.h"
 #import "YSToolBoxView.h"
 
 #define USE_FullTeacher             1
 
-#define SCLessonTimeCountDownKey     @"SCLessonTimeCountDownKey"
-
 #define PlaceholderPTag       10
-
 
 #define GiftImageView_Width         185.0f
 #define GiftImageView_Height        224.0f
@@ -121,17 +117,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     /// 悬浮视频高最小值(拖出和共享)
     CGFloat floatVideoMinHeight;
     
-    NSTimeInterval _topbarTimeInterval;
-    
     CHRoomLayoutType defaultRoomLayout;
     
-    //BOOL needFreshVideoView;
     NSInteger contestTouchOne;
     
     NSInteger _personListCurentPage;
     NSInteger _personListTotalPage;
-    BOOL isMediaPause;
-    BOOL isMediaStop;
     BOOL isSearch;
     NSMutableArray *searchArr;
     
@@ -1918,7 +1909,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
     
-    
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
     if (mediaModel.pause)
     {
@@ -2096,7 +2086,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                         [self doubleFullWithFullVideoView:videoView];
                     }
                 }
-                
             }
         }
     }
@@ -3444,7 +3433,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-
 #pragma mark 上课
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
@@ -4072,8 +4060,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 // 播放白板视频/音频
 - (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
 {
-    isMediaPause = YES;
-    
     if (mediaModel.isVideo)
     {
         [self showWhiteBordVideoViewWithMediaModel:mediaModel];
@@ -4088,8 +4074,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 // 停止白板视频/音频
 - (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
 {
-    isMediaStop = YES;
-    
     if (mediaModel.isVideo)
     {
         [self hideWhiteBordVideoViewWithMediaModel:mediaModel];
@@ -4104,7 +4088,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 继续播放白板视频/音频
 - (void)handleWhiteBordPlayMediaStream:(CHSharedMediaFileModel *)mediaFileModel
 {
-    isMediaPause = NO;
     if (!mediaFileModel.isVideo)
     {
         [self onPlayMp3];
@@ -4119,7 +4102,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 /// 暂停播放白板视频/音频
 - (void)handleWhiteBordPauseMediaStream:(CHSharedMediaFileModel *)mediaFileModel
 {
-    isMediaPause = YES;
     if (!mediaFileModel.isVideo)
     {
         [self onPauseMp3];

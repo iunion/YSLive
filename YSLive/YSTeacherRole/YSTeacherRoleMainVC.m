@@ -29,8 +29,6 @@
 #import "YSMp4ControlView.h"
 #import "YSMp3Controlview.h"
 
-#import "PanGestureControl.h"
-
 #import "YSUpHandPopoverVC.h"
 #import "YSCircleProgress.h"
 #import "YSTeacherResponder.h"
@@ -99,10 +97,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     /// 最大上台数
     NSUInteger maxVideoCount;
-    
     /// 一对多视频起始位置
     CGFloat videoStartX;
-    
     /// 视频宽
     CGFloat videoWidth;
     /// 视频高
@@ -111,22 +107,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     CGFloat videoTeacherWidth;
     /// 老师视频高
     CGFloat videoTeacherHeight;
-    
     /// 白板宽
     CGFloat whitebordWidth;
     /// 白板高
     CGFloat whitebordHeight;
-    
     /// 悬浮默认视频宽(拖出和共享)
     CGFloat floatVideoDefaultWidth;
     /// 悬浮默认视频高(拖出和共享)
     CGFloat floatVideoDefaultHeight;
-
     /// 悬浮视频宽最小值(拖出和共享)
     CGFloat floatVideoMinWidth;
     /// 悬浮视频高最小值(拖出和共享)
     CGFloat floatVideoMinHeight;
-    
     /// 答题时间
     NSInteger _answerStartTime;
     /// 答题人数
@@ -135,7 +127,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BOOL _isOpenResult;
     /// 判断视频进度是否在拖动
     BOOL isDrag;
-    BOOL isMediaPause;
     UIAlertController *classEndAlertVC;
     
     CHRoomLayoutType defaultRoomLayout;
@@ -347,7 +338,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self = [super initWithWhiteBordView:whiteBordView];
     if (self)
     {
-
         maxVideoCount = maxCount;
         
         self.roomtype = roomType;
@@ -381,9 +371,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             // 初始化老师视频尺寸 固定值
             videoTeacherWidth = videoWidth;
             videoTeacherHeight = videoHeight;
-            
         }
-        
     }
     return self;
 }
@@ -434,7 +422,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         //举手上台的按钮
         [self setupHandView];
         /// 视频布局时的全屏按钮 （只在 1VN 房间）
-        
         self.fullFloatVideoView.rightViewMaxRight = self.raiseHandsBtn.bm_left - 10;
     }
     
@@ -459,28 +446,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if (!self.liveManager.isClassBegin)
         {
-//            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
-//            {
-//                [self handleSignalingToDoubleTeacherWithData:@{@"one2one":@"nested"}];
-//            }
-//            else
-            {
-                [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
-            }
+
+            [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
         }
     }
     
     [self.fullFloatVideoView bm_bringToFront];
-    
-//    NSMutableArray *array = [NSMutableArray array];
-//    for (int i = 0; i < 9; i++)
-//    {
-//        UIView * view = [[UIView alloc]init];
-//        view.backgroundColor = UIColor.yellowColor;
-//        [array addObject:view];
-//    }
-//
-//    [self.fullFloatVideoView freshFullFloatViewWithVideoArray:array];
 }
 
 
@@ -1720,7 +1691,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     if (!self.fullFloatVideoView.hidden)
     {
-//        self.whiteBordView.frame = self.whitebordFullBackgroud.bounds;
         self.whiteBordView.frame = CGRectMake(0, 0, self.whitebordFullBackgroud.bm_width, self.whitebordFullBackgroud.bm_height);
     }
     else
@@ -2024,7 +1994,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     /// 初始化顶栏数据
     [self setupStateBarData];
 
-    
     [self.spreadBottomToolBar bm_bringToFront];
     
     //创建上下课按钮
@@ -2238,7 +2207,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             [self.pollingUpPlatformArr removeObject:user.peerID];
         }
     }
- 
     
     if (_isPolling)
     {
@@ -3048,7 +3016,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)playMp3ControlViewPlay:(BOOL)isPause withFileModel:(nonnull CHSharedMediaFileModel *)mediaFileModel
 {
     [self.liveManager pauseSharedMediaFile:mediaFileModel.fileUrl isPause:isPause];
-    isMediaPause = isPause;
+
     [self freshTeacherCoursewareListData];
 }
 
