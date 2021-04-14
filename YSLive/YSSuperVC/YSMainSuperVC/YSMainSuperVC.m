@@ -883,7 +883,6 @@
                 {
                     self.classMasterVideoViewArrayFull = theVideoArrayFull;
                 }
-                
             }
         }
         [self.videoViewArrayDic setObject:theVideoArray forKey:peerId];
@@ -910,8 +909,8 @@
                 [self playVideoAudioWithVideoView:videoView];
             }
         }
-        
     }
+    
     if (self.fullFloatVideoView.hidden)
     {
         return theVideoArray;
@@ -1197,6 +1196,28 @@
     return nil;
 }
 
+- (CHVideoView *)getVideoViewWithPeerIdFull:(NSString *)peerId andSourceId:(nonnull NSString *)sourceId
+{
+    NSMutableArray * videoArray = [self.videoViewArrayDicFull bm_mutableArrayForKey:peerId];
+    
+    for (CHVideoView *videoView in videoArray)
+    {
+        if ([sourceId bm_isNotEmpty])
+        {
+            if ([videoView.sourceId isEqualToString:sourceId])
+            {
+                return videoView;
+            }
+        }
+        else
+        {
+           return videoView;
+        }
+    }
+    return nil;
+}
+
+
 #pragma mark  删除视频窗口
 ///删除某个设备ID为sourceId的视频窗口
 - (CHVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
@@ -1478,6 +1499,11 @@
     CHVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceId];
     videoView.sourceId = sourceId;
     videoView.streamId = streamId;
+    
+    CHVideoView *videoViewFull = [self getVideoViewWithPeerIdFull:uid andSourceId:sourceId];
+    videoViewFull.sourceId = sourceId;
+    videoViewFull.streamId = streamId;
+    
     if (videoView)
     {
         CHRoomUser *roomUser = videoView.roomUser;
@@ -1491,7 +1517,34 @@
         {
             videoView.groupRoomState = CHGroupRoomState_Normal;
         }
-        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView.contentView];
+        
+        if (self.fullFloatVideoView.hidden)
+        {
+            [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView.contentView];
+        }
+#if FRESHWITHROOMUSER
+        [videoView freshWithRoomUserProperty:roomUser];
+#endif
+    }
+    
+    if (videoViewFull)
+    {
+        CHRoomUser *roomUser = videoViewFull.roomUser;
+        BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sCHUserIsVideoMirror];
+        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        if (isVideoMirror)
+        {
+            videoMirrorMode = CloudHubVideoMirrorModeEnabled;
+        }
+        if (self.liveManager.isGroupRoom && videoViewFull.roomUser.role == CHUserType_Teacher)
+        {
+            videoViewFull.groupRoomState = CHGroupRoomState_Normal;
+        }
+        
+        if (!self.fullFloatVideoView.hidden)
+        {
+            [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoViewFull.contentView];
+        }
 #if FRESHWITHROOMUSER
         [videoView freshWithRoomUserProperty:roomUser];
 #endif

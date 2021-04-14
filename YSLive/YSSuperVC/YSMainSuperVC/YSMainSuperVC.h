@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <CHVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;
 
-///全屏浮窗
+/// 排序后的视频View列表（全屏浮窗）------
 @property (nonatomic, strong) NSMutableArray <CHVideoView *> *videoSequenceArrFull;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDicFull;
 
@@ -55,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *teacherVideoViewArrayFull;
 /// 老师视频
 @property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *classMasterVideoViewArrayFull;
-
 
 /// 自己视频
 @property (nullable, nonatomic, weak) CHVideoView *myVideoView;
@@ -105,14 +104,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId;
 - (nullable NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
 
-//- (nullable NSMutableArray<CHVideoView *> *)addFullFloatVideoViewWithPeerId:(NSString *)peerId;
-
-
 //设备变化时
 - (NSMutableArray<CHVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count;
 
 - (nullable CHVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId;
-//- (nullable NSMutableArray<CHVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId;
 - (nullable CHVideoView *)delVideoViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
 
 - (void)userPublishstatechange:(CHRoomUser *)roomUser;
