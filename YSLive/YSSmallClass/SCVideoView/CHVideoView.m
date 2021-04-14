@@ -263,7 +263,7 @@
     
     [self setupCoverView];
     
-    //[self freshWithRoomUser];
+    [self freshWithRoomUser];
 }
 
 - (void)setupMaskView

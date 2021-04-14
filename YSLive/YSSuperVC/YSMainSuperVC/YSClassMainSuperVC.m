@@ -317,6 +317,11 @@
 
 - (void)fullScreenToShowVideoView:(BOOL)isFull
 {
+    if (!self.liveManager.isClassBegin)
+    {
+        return;
+    }
+    
     self.fullFloatVideoView.hidden = !isFull;
     
     if (isFull)
@@ -335,6 +340,8 @@
         {
             [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
         }
+        
+        [[PanGestureControl shareInfo] addPanGestureAction:LONG_PRESS_VIEW_DEMO];
     }
     else
     {
@@ -348,6 +355,8 @@
         {
             [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
         }
+        
+        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
     }
 }
 

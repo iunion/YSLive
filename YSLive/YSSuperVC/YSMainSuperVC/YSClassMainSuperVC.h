@@ -9,7 +9,7 @@
 #import "YSMainSuperVC.h"
 #import "YSSpreadBottomToolBar.h"
 #import "YSDiceAnimationView.h"
-
+#import "PanGestureControl.h"
 
 /// 顶部状态栏高度
 #define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
