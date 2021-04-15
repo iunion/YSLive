@@ -107,11 +107,6 @@
     [self fullFloatControlButtonClick];
 }
 
-- (void)hideFullFloatView
-{
-    self.hidden = YES;
-}
-
 /// 刷新rightVideoBgView内部view
 - (void)freshFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray
 {
