@@ -60,11 +60,14 @@
 
 - (void)setupUIView
 {
-    CGFloat controlViewW = 30.0;
+    CGFloat controlViewW = 30.0f;
     
-    CHFullFloatControlView *controlView = [[CHFullFloatControlView alloc] initWithFrame:CGRectMake(self.bm_width - controlViewW, 45, controlViewW, self.bm_height*0.5)];
+    CHFullFloatControlView *controlView = [[CHFullFloatControlView alloc] initWithFrame:CGRectMake(self.bm_width - controlViewW, 45.0f, controlViewW, self.bm_height*0.5)];
     [self addSubview:controlView];
     self.controlView = controlView;
+    [controlView bm_connerWithRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(6.0f, 6.0f)];
+    
+    
     BMWeakSelf
     controlView.fullFloatControlButtonClick = ^(CHFullFloatControlView * _Nonnull fullFloatControlView) {
         [weakSelf fullFloatControlButtonClick];
