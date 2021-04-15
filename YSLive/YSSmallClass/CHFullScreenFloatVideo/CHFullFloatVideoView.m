@@ -31,7 +31,7 @@
 @property (nonatomic, assign) CGFloat videoHeight;
 
 /// 窗口数据
-@property (nonatomic, weak) NSArray <CHVideoView *> *myVideoSequenceArray;
+@property (nonatomic, weak) NSArray <CHVideoView *> *teacherVideoArray;
 @property (nonatomic, weak) NSArray <CHVideoView *> *allVideoSequenceArray;
 
 /// 拖动rightView时的模拟移动图
@@ -100,28 +100,28 @@
     
     [self bm_bringToFront];
     
-    [self freshFullFloatViewWithMyVideoArray:self.myVideoSequenceArray allVideoSequenceArray:self.allVideoSequenceArray];
+    [self freshFullFloatViewWithMyVideoArray:self.teacherVideoArray allVideoSequenceArray:self.allVideoSequenceArray];
 }
 
-- (void)showFullFloatViewWithMyVideoArray:(NSArray <CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSArray <CHVideoView *> *)allVideoSequenceArray
+- (void)showFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)teacherVideoArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray
 {
-    self.controlView.fullFloatState = CHFullFloatState_All;
+    self.controlView.fullFloatState = CHFullFloatState_Mine;
     
-    self.myVideoSequenceArray = myVideoSequenceArray;
+    self.teacherVideoArray = teacherVideoArray;
     self.allVideoSequenceArray = allVideoSequenceArray;
     
     [self fullFloatControlButtonClick];
 }
 
 /// 刷新rightVideoBgView内部view
-- (void)freshFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray
+- (void)freshFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)teacherVideoArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray
 {
-    self.myVideoSequenceArray = myVideoSequenceArray;
+    self.teacherVideoArray = teacherVideoArray;
     self.allVideoSequenceArray = allVideoSequenceArray;
 
     [self.rightVideoBgView bm_removeAllSubviews];
     
-    NSArray <CHVideoView *> *videoArry = myVideoSequenceArray;
+    NSArray <CHVideoView *> *videoArry = teacherVideoArray;
     if (self.fullFloatState == CHFullFloatState_All)
     {
         videoArry = allVideoSequenceArray;
