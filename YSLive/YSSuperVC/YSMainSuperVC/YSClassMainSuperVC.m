@@ -336,6 +336,11 @@
         
         for (CHVideoView *videoView in self.videoSequenceArrFull)
         {
+            if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+            {
+                self.myVideoView = videoView;
+            }
+            
             [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
         }
         
@@ -350,6 +355,11 @@
         
         for (CHVideoView *videoView in self.videoSequenceArr)
         {
+            if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+            {
+                self.myVideoView = videoView;
+            }
+            
             [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
         }
         
