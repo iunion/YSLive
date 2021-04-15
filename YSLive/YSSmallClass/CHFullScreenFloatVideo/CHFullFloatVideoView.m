@@ -107,6 +107,9 @@
 {
     self.controlView.fullFloatState = CHFullFloatState_All;
     
+    self.myVideoSequenceArray = myVideoSequenceArray;
+    self.allVideoSequenceArray = allVideoSequenceArray;
+    
     [self fullFloatControlButtonClick];
 }
 
