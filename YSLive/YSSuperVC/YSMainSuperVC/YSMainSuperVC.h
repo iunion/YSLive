@@ -19,8 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
     CHSessionDelegate,
     YSLiveForWhiteBoardDelegate,
     CHVideoViewDelegate,
-    YSControlPopoverViewDelegate,
-    CHFullFloatVideoViewDelegate
+    YSControlPopoverViewDelegate
 >
 
 @property (nonatomic, weak, readonly) YSLiveManager *liveManager;

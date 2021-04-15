@@ -9,7 +9,7 @@
 #import "CHFullFloatControlView.h"
 
 #define ButtonNum 3
-#define TopMargin 10
+#define TopMargin 10.0f
 
 @interface CHFullFloatControlView ()
 
@@ -38,21 +38,20 @@
     return self;
 }
 
-#pragma mark -
 - (void)setupUIView
 {
-    self.hideButton = [self creatButtonWithImage:@"fullFloat_cancleBtn" withTag:FullFloatControlCancle];
+    self.hideButton = [self creatButtonWithImage:@"fullFloat_cancleBtn" withTag:CHFullFloatState_None];
     
-    self.mineButton = [self creatButtonWithImage:@"fullFloat_mineBtn" withTag:FullFloatControlMine];
+    self.mineButton = [self creatButtonWithImage:@"fullFloat_mineBtn" withTag:CHFullFloatState_Mine];
     
-    self.allButton = [self creatButtonWithImage:@"fullFloat_allBtn" withTag:FullFloatControlAll];
+    self.allButton = [self creatButtonWithImage:@"fullFloat_allBtn" withTag:CHFullFloatState_All];
 }
 
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
     
-    CGFloat buttonH = (frame.size.height - 2*TopMargin)/ButtonNum;
+    CGFloat buttonH = (frame.size.height - 2 * TopMargin) / ButtonNum;
     
     self.hideButton.frame = CGRectMake(0, TopMargin, frame.size.width, buttonH);
     
@@ -63,7 +62,7 @@
 
 - (UIButton *)creatButtonWithImage:(NSString *)imageName withTag:(NSInteger)tag
 {
-    UIButton *button = [[UIButton alloc]init];
+    UIButton *button = [[UIButton alloc] init];
     button.tag = tag;
     [button setImage:YSSkinElementImage(imageName, @"iconNor") forState:UIControlStateNormal];
     [button setImage:YSSkinElementImage(imageName, @"iconSel") forState:UIControlStateSelected];
@@ -73,27 +72,42 @@
     return button;
 }
 
+- (void)setFullFloatState:(CHFullFloatState)fullFloatState
+{
+    _fullFloatState = fullFloatState;
+    
+    switch (fullFloatState)
+    {
+        case CHFullFloatState_Mine:
+        {
+            self.allButton.selected = NO;
+            self.mineButton.selected = YES;
+        }
+            break;
+            
+        case CHFullFloatState_All:
+        {
+            self.allButton.selected = YES;
+            self.mineButton.selected = NO;
+        }
+            break;
+            
+        default:
+        {
+            self.allButton.selected = NO;
+            self.mineButton.selected = NO;
+        }
+            break;
+    }
+}
+
 - (void)buttonClick:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+    self.fullFloatState = sender.tag;
     
-    if (sender.tag == FullFloatControlCancle)
+    if (self.fullFloatControlButtonClick)
     {
-        self.allButton.selected = NO;
-        self.mineButton.selected = NO;
-    }
-    else if (sender.tag == FullFloatControlMine)
-    {
-        self.allButton.selected = NO;
-    }
-    else if (sender.tag == FullFloatControlAll)
-    {
-        self.mineButton.selected = NO;
-    }
-    
-    if (_fullFloatControlButtonClick)
-    {
-        _fullFloatControlButtonClick(sender.tag);
+        self.fullFloatControlButtonClick(self);
     }
 }
 

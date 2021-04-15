@@ -7,11 +7,9 @@
 //
 
 #import "CHFullFloatVideoView.h"
-#import "CHFullFloatControlView.h"
-
 
 #define  Margin 3
-#define  VideoTop 10
+#define  VideoTop 10.0f
 
 @interface CHFullFloatVideoView ()
 
@@ -20,22 +18,25 @@
 
 /// 对rightVideoBgView的控制按钮所在View
 @property (nonatomic, weak) CHFullFloatControlView *controlView;
+@property (nonatomic, assign) CHFullFloatState fullFloatState;
 
 @property (nonatomic, weak) UIView *rightVideoBgView;
 
-//焦点视图右侧的宽高
+/// 焦点视图右侧的宽高
 @property (nonatomic, assign) CGFloat rightBgWidth;
 @property (nonatomic, assign) CGFloat rightBgHeight;
 
-//每个小视频的宽高
+/// 每个小视频的宽高
 @property (nonatomic, assign) CGFloat videoWidth;
 @property (nonatomic, assign) CGFloat videoHeight;
 
-@property (nonatomic, strong) NSArray <CHVideoView *> *videoSequenceArrFull;
+/// 窗口数据
+@property (nonatomic, weak) NSArray <CHVideoView *> *myVideoSequenceArray;
+@property (nonatomic, weak) NSArray <CHVideoView *> *allVideoSequenceArray;
 
-///拖动rightView时的模拟移动图
+/// 拖动rightView时的模拟移动图
 @property (nonatomic, strong) UIImageView *dragImageView;
-///刚开始拖动时，rightView的初始坐标（x,y）
+/// 刚开始拖动时，rightView的初始坐标（x,y）
 @property (nonatomic, assign) CGPoint videoOriginInSuperview;
 
 @end
@@ -50,7 +51,8 @@
         self.backgroundColor = UIColor.clearColor;
         
         self.isWideScreen = isWideScreen;
-                
+        self.videoOriginInSuperview = CGPointZero;
+
         [self setupUIView];
     }
     return self;
@@ -60,78 +62,97 @@
 {
     CGFloat controlViewW = 30.0;
     
-    CHFullFloatControlView *controlView = [[CHFullFloatControlView alloc]initWithFrame:CGRectMake(self.bm_width - controlViewW, 45, controlViewW, self.bm_height*0.5)];
+    CHFullFloatControlView *controlView = [[CHFullFloatControlView alloc] initWithFrame:CGRectMake(self.bm_width - controlViewW, 45, controlViewW, self.bm_height*0.5)];
     [self addSubview:controlView];
     self.controlView = controlView;
     BMWeakSelf
-    controlView.fullFloatControlButtonClick = ^(FullFloatControl fullFloatControl) {
-        [weakSelf fullFloatControlButtonClick:fullFloatControl];
+    controlView.fullFloatControlButtonClick = ^(CHFullFloatControlView * _Nonnull fullFloatControlView) {
+        [weakSelf fullFloatControlButtonClick];
     };
     
-    UIView *rightVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, VideoTop, 100, 100)];
+    UIView *rightVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, VideoTop, 100.0f, 100.0f)];
     rightVideoBgView.backgroundColor = UIColor.clearColor;
     [self addSubview:rightVideoBgView];
     self.rightVideoBgView = rightVideoBgView;
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragTheRightVideoBgView:)];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragTheRightVideoBgView:)];
     [rightVideoBgView addGestureRecognizer:pan];
 }
 
-- (void)fullFloatControlButtonClick:(FullFloatControl)fullFloatControl
+- (CHFullFloatState)fullFloatState
 {
-    if (fullFloatControl == FullFloatControlCancle)
+    return self.controlView.fullFloatState;
+}
+
+- (void)fullFloatControlButtonClick
+{
+    if (self.fullFloatState == CHFullFloatState_None)
     {
         self.rightVideoBgView.hidden = YES;
     }
     else
     {
         self.rightVideoBgView.hidden = NO;
-        
-        if ([self.fullFloatVideoViewDelegate respondsToSelector:@selector(fullFloatControlViewEvent:)])
-        {
-            [self.fullFloatVideoViewDelegate fullFloatControlViewEvent:fullFloatControl];
-        }
     }
+    
+    [self bm_bringToFront];
+}
+
+- (void)showFullFloatViewWithMyVideoArray:(NSMutableArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSMutableArray<CHVideoView *> *)allVideoSequenceArray
+{
+    self.controlView.fullFloatState = CHFullFloatState_All;
+    
+    [self freshFullFloatViewWithMyVideoArray:myVideoSequenceArray allVideoSequenceArray:allVideoSequenceArray];
+}
+
+- (void)hideFullFloatView
+{
+    self.hidden = YES;
 }
 
 /// 刷新rightVideoBgView内部view
-- (void)freshFullFloatViewWithVideoArray:(NSMutableArray<CHVideoView *> *)videoSequenceArrFull
+- (void)freshFullFloatViewWithMyVideoArray:(NSMutableArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSMutableArray<CHVideoView *> *)allVideoSequenceArray
 {
-    self.videoSequenceArrFull = videoSequenceArrFull;
-    
+    self.myVideoSequenceArray = myVideoSequenceArray;
+    self.allVideoSequenceArray = allVideoSequenceArray;
+
     [self.rightVideoBgView bm_removeAllSubviews];
-        
-    [self changeFrameFocus];
     
-    for (CHVideoView *videoView in videoSequenceArrFull)
+    NSMutableArray<CHVideoView *> *videoArry = myVideoSequenceArray;
+    if (self.fullFloatState == CHFullFloatState_All)
+    {
+        videoArry = allVideoSequenceArray;
+    }
+    
+    [self changeFrameFocusWithVideoCount:videoArry.count];
+    
+    for (CHVideoView *videoView in videoArry)
     {
         [self.rightVideoBgView addSubview:videoView];
         videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
     }
     
-    [self freshVideoView];
+    [self freshVideoViewWithVideoArray:videoArry];
 }
 
 /// 计算各控件的尺寸
-- (void)changeFrameFocus
+- (void)changeFrameFocusWithVideoCount:(NSUInteger)videoNum
 {
-    self.videoHeight = (self.bm_height - 2*VideoTop - 7*Margin)/6;
+    self.videoHeight = (self.bm_height - 2*VideoTop - 7*Margin) / 6;
     
     if (self.isWideScreen)
     {
-        self.videoWidth = ceil(self.videoHeight * 16 / 9);
+        self.videoWidth = ceil(self.videoHeight * 16.0f / 9.0f);
     }
     else
     {
-        self.videoWidth = ceil(self.videoHeight * 4 / 3);
+        self.videoWidth = ceil(self.videoHeight * 4.0f / 3.0f);
     }
         
-    NSInteger videoNum = self.videoSequenceArrFull.count;
-    
     if (videoNum < 1)
     {
-        self.rightBgWidth = 0.0;
-        self.rightBgHeight = 0.0;
+        self.rightBgWidth = 0.0f;
+        self.rightBgHeight = 0.0f;
     }
     else if (videoNum < 7)
     {
@@ -146,7 +167,7 @@
 }
 
 /// 对videoView布局
-- (void)freshVideoView
+- (void)freshVideoViewWithVideoArray:(NSMutableArray<CHVideoView *> *)videoArray
 {
     if (!self.rightViewMaxRight)
     {
@@ -160,22 +181,23 @@
     
     CGFloat rightBgViewW = self.rightVideoBgView.bm_width;
     
-    for (int i = 0; i < self.videoSequenceArrFull.count; i++)
+    NSUInteger itemCount = 6;
+    for (NSUInteger i = 0; i < videoArray.count; i++)
     {
-        CHVideoView *videoView = self.videoSequenceArrFull[i];
-        if (i < 6)
+        CHVideoView *videoView = videoArray[i];
+        if (i < itemCount)
         {
             videoView.bm_top = i * heightM + Margin;
             videoView.bm_right = rightBgViewW - Margin;
         }
-        else if (i < 12)
+        else if (i < itemCount*2)
         {
-            videoView.bm_top = (i - 6) * heightM + Margin;
+            videoView.bm_top = (i - itemCount) * heightM + Margin;
             videoView.bm_right = rightBgViewW - Margin - widthM;
         }
-        else if (i < 18)
+        else if (i < itemCount*3)
         {
-            videoView.bm_top = (i - 12) * heightM + Margin;
+            videoView.bm_top = (i - itemCount*2) * heightM + Margin;
             videoView.bm_left = rightBgViewW - Margin - 2 * widthM;
         }
     }
@@ -188,8 +210,8 @@
     
     if (!self.dragImageView)
     {
-        UIImage * img = [self.rightVideoBgView bm_screenshot];
-        self.dragImageView = [[UIImageView alloc]initWithImage:img];
+        UIImage *img = [self.rightVideoBgView bm_screenshot];
+        self.dragImageView = [[UIImageView alloc] initWithImage:img];
         [self addSubview:self.dragImageView];
     }
     
@@ -202,23 +224,24 @@
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
-        CGFloat left = 2;
-        CGFloat top = 2;
+        CGFloat left = 2.0f;
+        CGFloat top = 2.0f;
+        CGFloat gap = 2.0f;
 
         if (self.videoOriginInSuperview.x+endPoint.x > self.rightViewMaxRight - self.rightBgWidth)
         {
             left = self.rightViewMaxRight - self.rightBgWidth;
         }
-        else if (self.videoOriginInSuperview.x+endPoint.x > 2)
+        else if (self.videoOriginInSuperview.x+endPoint.x > gap)
         {
             left = self.videoOriginInSuperview.x + endPoint.x;
         }
         
-        if (self.videoOriginInSuperview.y + endPoint.y > self.bm_height - self.rightBgHeight - 2)
+        if (self.videoOriginInSuperview.y + endPoint.y > self.bm_height - self.rightBgHeight - gap)
         {
-            top = self.bm_height - self.rightBgHeight - 2;
+            top = self.bm_height - self.rightBgHeight - gap;
         }
-        else if (self.videoOriginInSuperview.y + endPoint.y > 2)
+        else if (self.videoOriginInSuperview.y + endPoint.y > gap)
         {
             top = self.videoOriginInSuperview.y + endPoint.y;
         }
@@ -240,6 +263,5 @@
     
     return NO;
 }
-
 
 @end

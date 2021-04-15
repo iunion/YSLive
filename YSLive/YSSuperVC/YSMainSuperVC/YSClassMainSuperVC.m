@@ -309,7 +309,6 @@
 - (void)setupFullFloatVideoView
 {
     CHFullFloatVideoView *fullFloatVideoView  = [[CHFullFloatVideoView alloc]initWithFrame:self.contentBackgroud.bounds wideScreen:self.isWideScreen];
-    fullFloatVideoView.fullFloatVideoViewDelegate = self;
     [self.contentBackgroud addSubview:fullFloatVideoView];
     self.fullFloatVideoView = fullFloatVideoView;
     self.fullFloatVideoView.hidden = YES;
@@ -326,13 +325,12 @@
     
     if (isFull)
     {
-        self.fullFloatControl = FullFloatControlAll;
         for (CHVideoView *videoView in self.videoSequenceArr)
         {
             [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
         }
         
-        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
+        [self.fullFloatVideoView showFullFloatViewWithMyVideoArray:self.myVideoViewArrFull allVideoSequenceArray:self.videoSequenceArrFull];
         
         [self.fullFloatVideoView bm_bringToFront];
         
@@ -345,7 +343,6 @@
     }
     else
     {
-        self.fullFloatControl = FullFloatControlCancle;
         for (CHVideoView *videoView in self.videoSequenceArrFull)
         {
             [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];

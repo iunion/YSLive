@@ -65,12 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 自己当前的分辨率 视频高
 @property (nonatomic, assign) NSUInteger userVideoheight;
 
-
-
-@property (nonatomic,assign) FullFloatControl fullFloatControl;
-
-
-
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 

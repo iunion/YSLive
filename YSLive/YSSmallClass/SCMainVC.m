@@ -4963,22 +4963,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark - 全屏时视频浮窗代理
-- (void)fullFloatControlViewEvent:(FullFloatControl)fullFloatControl
-{
-    self.fullFloatControl = fullFloatControl;
-    
-    if (self.fullFloatControl == FullFloatControlMine)
-    {
-        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.myVideoViewArrFull];
-    }
-    else if (self.fullFloatControl == FullFloatControlAll)
-    {
-        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
-    }
-    [self.fullFloatVideoView bm_bringToFront];
-}
-
-
 - (void)freshFullFloatViewWithPeerId:(NSString *)peerId
 {
     if (self.fullFloatVideoView.hidden)
@@ -4986,14 +4970,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
-    if (self.fullFloatControl == FullFloatControlMine && [YSCurrentUser.peerID isEqualToString:peerId])
-    {
-        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.myVideoViewArrFull];
-    }
-    else if (self.fullFloatControl == FullFloatControlAll)
-    {
-        [self.fullFloatVideoView freshFullFloatViewWithVideoArray:self.videoSequenceArrFull];
-    }
+    [self.fullFloatVideoView freshFullFloatViewWithMyVideoArray:self.myVideoViewArrFull allVideoSequenceArray:self.videoSequenceArrFull];
 }
 
 
