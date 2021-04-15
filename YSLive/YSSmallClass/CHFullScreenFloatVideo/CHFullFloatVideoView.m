@@ -96,13 +96,15 @@
     }
     
     [self bm_bringToFront];
+    
+    [self freshFullFloatViewWithMyVideoArray:self.myVideoSequenceArray allVideoSequenceArray:self.allVideoSequenceArray];
 }
 
-- (void)showFullFloatViewWithMyVideoArray:(NSMutableArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSMutableArray<CHVideoView *> *)allVideoSequenceArray
+- (void)showFullFloatViewWithMyVideoArray:(NSArray <CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSArray <CHVideoView *> *)allVideoSequenceArray
 {
     self.controlView.fullFloatState = CHFullFloatState_All;
     
-    [self freshFullFloatViewWithMyVideoArray:myVideoSequenceArray allVideoSequenceArray:allVideoSequenceArray];
+    [self fullFloatControlButtonClick];
 }
 
 - (void)hideFullFloatView
@@ -111,14 +113,14 @@
 }
 
 /// 刷新rightVideoBgView内部view
-- (void)freshFullFloatViewWithMyVideoArray:(NSMutableArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSMutableArray<CHVideoView *> *)allVideoSequenceArray
+- (void)freshFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray
 {
     self.myVideoSequenceArray = myVideoSequenceArray;
     self.allVideoSequenceArray = allVideoSequenceArray;
 
     [self.rightVideoBgView bm_removeAllSubviews];
     
-    NSMutableArray<CHVideoView *> *videoArry = myVideoSequenceArray;
+    NSArray <CHVideoView *> *videoArry = myVideoSequenceArray;
     if (self.fullFloatState == CHFullFloatState_All)
     {
         videoArry = allVideoSequenceArray;
@@ -167,7 +169,7 @@
 }
 
 /// 对videoView布局
-- (void)freshVideoViewWithVideoArray:(NSMutableArray<CHVideoView *> *)videoArray
+- (void)freshVideoViewWithVideoArray:(NSArray <CHVideoView *> *)videoArray
 {
     if (!self.rightViewMaxRight)
     {
