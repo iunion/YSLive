@@ -190,12 +190,19 @@
 
 - (void)freshWithRoomUserNotification:(NSNotification *)notification
 {
-#if DEBUG
     NSString *key = notification.object;
-    NSLog(@"User change Property: %@", key);
-#endif
+//#if DEBUG
+//    NSLog(@"User change Property: %@", key);
+//#endif
     
-    [self freshWithRoomUser];
+    if ([key isEqualToString:@"iVolume"])
+    {
+        self.iVolume = self.roomUser.iVolume;
+    }
+    else
+    {
+        [self freshWithRoomUser];
+    }
 }
 
 /// 视频view点击事件
@@ -1144,9 +1151,9 @@
         if (!isInBackGround && (isInBackGround != self.roomUser.isInBackGround))
         {
             [[YSLiveManager sharedInstance] setPropertyOfUid:self.roomUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserIsInBackGround value:@(NO)];
+            
+            [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
         }
-        
-        [[YSLiveManager sharedInstance] serverLog:[NSString stringWithFormat:@"User:%@:%@:%@ isInBackGround %@",self.roomUser.nickName, self.roomUser.peerID, @(self.roomUser.isInBackGround), @(isInBackGround)]];
     }
     
     // 画笔权限
