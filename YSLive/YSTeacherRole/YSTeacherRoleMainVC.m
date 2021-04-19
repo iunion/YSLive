@@ -1341,11 +1341,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if(self.videoSequenceArr.count>1)
         {
-            self.userVideoView.hidden = YES;
+//            self.userVideoView.hidden = YES;
         }
         else
         {
-            self.userVideoView.hidden = NO;
+//            self.userVideoView.hidden = NO;
             if (self.videoSequenceArr.count == 1)
             {
 //                CHVideoView *videoView = self.videoViewArray.firstObject;
@@ -1372,7 +1372,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {
             [self freshContentVideoView];
-            [self.videoBackgroud bringSubviewToFront:self.userVideoView];
+//            [self.videoBackgroud bringSubviewToFront:self.userVideoView];
         }
     }
     else

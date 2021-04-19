@@ -1374,7 +1374,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     {
         if (self.videoSequenceArr.count > 1)
         {
-            self.userVideoView.hidden = YES;
+//            self.userVideoView.hidden = YES;
         }
         else
         {
@@ -1394,14 +1394,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                     }
                     if (videoView.roomUser.role == CHUserType_Student)
                     {
-                        self.userVideoView.hidden = YES;
+//                        self.userVideoView.hidden = YES;
                     }
                 }
                 else
                 {
                     if (self.liveManager.isClassBegin)//为了上课前默认布局
                     {
-                        self.userVideoView.hidden = YES;
+//                        self.userVideoView.hidden = YES;
                     }
                 }
             }
@@ -1415,7 +1415,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else
         {
             [self freshContentVideoView];
-            [self.videoBackgroud bringSubviewToFront:self.userVideoView];
+//            [self.videoBackgroud bringSubviewToFront:self.userVideoView];
         }
     }
     else
