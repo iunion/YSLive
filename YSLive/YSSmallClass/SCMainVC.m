@@ -3254,7 +3254,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #endif
 
             CHVideoView * videoView = videoViewArr[0];
-            [self showGiftAnimationWithVideoView:videoView];
+            
+            if (self.fullFloatVideoView.fullFloatState == CHFullFloatState_All && !self.fullFloatVideoView.hidden)
+            {
+                NSArray *videoViewArrFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:userId];
+                videoView = videoViewArrFull[0];
+                
+                [self showGiftAnimationWithVideoView:videoView];
+            }
+            else
+            {
+                [self showGiftAnimationWithVideoView:videoView];
+            }
         }
     }
     
