@@ -1412,7 +1412,7 @@
         else
         {
             [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
-            if (mediaModel.pause)
+            if (mediaModel.state == CHMediaState_Pause)
             {
                 [self.mp4BgView showMp4PauseView];
             }
