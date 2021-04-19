@@ -4970,7 +4970,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
-    [self.fullFloatVideoView freshFullFloatViewWithMyVideoArray:self.myVideoViewArrFull allVideoSequenceArray:self.videoSequenceArrFull];
+    [self.fullFloatVideoView freshFullFloatViewWithMyVideoArray:self.teacherVideoViewArrayFull allVideoSequenceArray:self.videoSequenceArrFull];
 }
 
 

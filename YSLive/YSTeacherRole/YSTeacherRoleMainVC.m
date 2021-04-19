@@ -5998,7 +5998,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         return;
     }
     
-    [self.fullFloatVideoView freshFullFloatViewWithMyVideoArray:self.myVideoViewArrFull allVideoSequenceArray:self.videoSequenceArrFull];
+    [self.fullFloatVideoView freshFullFloatViewWithMyVideoArray:self.teacherVideoViewArrayFull allVideoSequenceArray:self.videoSequenceArrFull];
 }
 
 #pragma mark - 打开相册选择图片

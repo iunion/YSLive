@@ -330,7 +330,7 @@
             [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
         }
         
-        [self.fullFloatVideoView showFullFloatViewWithMyVideoArray:self.myVideoViewArrFull allVideoSequenceArray:self.videoSequenceArrFull];
+        [self.fullFloatVideoView showFullFloatViewWithMyVideoArray:self.teacherVideoViewArrayFull allVideoSequenceArray:self.videoSequenceArrFull];
         
         [self.fullFloatVideoView bm_bringToFront];
         
@@ -340,7 +340,7 @@
             {
                 self.myVideoView = videoView;
             }
-            
+
             [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
         }
         

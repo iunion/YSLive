@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 视频矫正窗口
 @property (nonatomic, strong, readonly) BMKeystoneCorrectionView *keystoneCorrectionView;
 
-@property (nonatomic,strong) NSMutableArray<CHVideoView *> *myVideoViewArrFull;
+//@property (nonatomic,strong) NSMutableArray<CHVideoView *> *myVideoViewArrFull;
 
 ///全屏时视频浮窗背景view
 @property (nonatomic, strong) CHFullFloatVideoView *fullFloatVideoView;

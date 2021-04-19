@@ -60,7 +60,7 @@
         
         self.videoViewArrayDic = [[NSMutableDictionary alloc] init];
         self.videoViewArrayDicFull = [[NSMutableDictionary alloc] init];
-        self.myVideoViewArrFull = [NSMutableArray array];
+//        self.myVideoViewArrFull = [NSMutableArray array];
     }
     return self;
 }
@@ -697,11 +697,6 @@
     {
         self.classMasterVideoViewArrayFull = videoArrFull;
     }
-    
-    if ([YSCurrentUser.peerID isEqualToString:videoView.roomUser.peerID])
-    {
-        self.myVideoViewArrFull = videoArrFull;
-    }
 }
 
 
@@ -814,12 +809,6 @@
             }
             
             [self.videoViewArrayDicFull setObject:theVideoArrayFull forKey:peerId];
-            
-            
-            if ([YSCurrentUser.peerID isEqualToString:peerId])
-            {
-                self.myVideoViewArrFull = theVideoArrayFull;
-            }
         }
         
         [self videoViewsSequence];
@@ -890,11 +879,6 @@
         
         [self videoViewsSequence];
         
-        if ([YSCurrentUser.peerID isEqualToString:peerId])
-        {
-            self.myVideoViewArrFull = theVideoArrayFull;
-        }
-        
         if (self.fullFloatVideoView.hidden)
         {
             for (CHVideoView * videoView in theVideoArray)
@@ -929,6 +913,10 @@
     {
         return nil;
     }
+    
+    NSMutableArray *changeSourceIdArray = [NSMutableArray arrayWithArray:sourceIdArray];
+    
+    NSMutableArray *changeSourceIdArrayFull = [NSMutableArray arrayWithArray:sourceIdArray];
     
     //本人的视频数组
     NSMutableArray * myVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:self.liveManager.localUser.peerID];
@@ -1045,10 +1033,10 @@
                 
         for (CHVideoView *videoView in theVideoArray)
         {
-            if ([sourceIdArray containsObject:videoView.sourceId])
+            if ([changeSourceIdArray containsObject:videoView.sourceId])
             {
                 [theAddVideoArray addObject:videoView];
-                [sourceIdArray removeObject:videoView.sourceId];
+                [changeSourceIdArray removeObject:videoView.sourceId];
                 // property刷新原用户的值没有变化，需要重新赋值user
                 [videoView freshWithRoomUserProperty:roomUser];
                 [videoView bm_bringToFront];
@@ -1070,7 +1058,7 @@
             }
         }
         
-        for (NSString *sourceId in sourceIdArray)
+        for (NSString *sourceId in changeSourceIdArray)
         {
             CHVideoView *newVideoView = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
             newVideoView.appUseTheType = self.appUseTheType;
@@ -1111,10 +1099,10 @@
         //(全屏浮窗用）-----------
         for (CHVideoView *videoViewFull in theVideoArrayFull)
         {
-            if ([sourceIdArray containsObject:videoViewFull.sourceId])
+            if ([changeSourceIdArrayFull containsObject:videoViewFull.sourceId])
             {
                 [theAddVideoArrayFull addObject:videoViewFull];
-                [sourceIdArray removeObject:videoViewFull.sourceId];
+                [changeSourceIdArrayFull removeObject:videoViewFull.sourceId];
                 // property刷新原用户的值没有变化，需要重新赋值user
                 [videoViewFull freshWithRoomUserProperty:roomUser];
             }
@@ -1124,7 +1112,7 @@
                 [self stopVideoAudioWithVideoView:videoViewFull];
             }
         }
-        for (NSString *sourceId in sourceIdArray)
+        for (NSString *sourceId in changeSourceIdArrayFull)
         {
             CHVideoView *newVideoViewFull = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
             newVideoViewFull.appUseTheType = self.appUseTheType;

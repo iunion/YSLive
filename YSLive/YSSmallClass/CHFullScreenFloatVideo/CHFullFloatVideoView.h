@@ -21,9 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame wideScreen:(BOOL)isWideScreen;
 
-- (void)showFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray;
+- (void)showFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)teacherVideoArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray;
 /// 刷新rightVideoBgView内部view布局
-- (void)freshFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)myVideoSequenceArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray;
+- (void)freshFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)teacherVideoArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray;
 
 @end
 
