@@ -3722,7 +3722,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.closeMp4Btn.hidden = NO;
         
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
-    if (mediaModel.pause)
+    if (mediaModel.state == CHMediaState_Pause)
     {
         [self.shareVideoFloatView showMp4PauseView];
     }

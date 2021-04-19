@@ -1910,7 +1910,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self.view endEditing:YES];
     
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
-    if (mediaModel.pause)
+    if (mediaModel.state == CHMediaState_Pause)
     {
         [self.shareVideoFloatView showMp4PauseView];
     }
