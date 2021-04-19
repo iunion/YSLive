@@ -2456,8 +2456,18 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 videoView.giftNumber = giftNumber;
             }
 #endif
-
             CHVideoView *videoView = videoViewArr[0];
+            
+            if (self.fullFloatVideoView.hidden)
+            {
+                videoView = videoViewArr[0];
+            }
+            else
+            {
+                NSArray *videoViewArrFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:userId];
+                videoView = videoViewArrFull[0];
+            }
+            
             [self showGiftAnimationWithVideoView:videoView];
         }
     }
@@ -5997,7 +6007,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         return;
     }
-    
+
     [self.fullFloatVideoView freshFullFloatViewWithMyVideoArray:self.teacherVideoViewArrayFull allVideoSequenceArray:self.videoSequenceArrFull];
 }
 

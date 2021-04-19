@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///最右侧不能超过【举手】控件的左侧
 @property (nonatomic, assign) CGFloat rightViewMaxRight;
 
+@property (nonatomic, assign, readonly) CHFullFloatState fullFloatState;
+
 - (instancetype)initWithFrame:(CGRect)frame wideScreen:(BOOL)isWideScreen;
 
 - (void)showFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)teacherVideoArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray;

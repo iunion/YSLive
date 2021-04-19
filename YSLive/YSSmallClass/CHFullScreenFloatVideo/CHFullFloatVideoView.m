@@ -18,7 +18,6 @@
 
 /// 对rightVideoBgView的控制按钮所在View
 @property (nonatomic, weak) CHFullFloatControlView *controlView;
-@property (nonatomic, assign) CHFullFloatState fullFloatState;
 
 @property (nonatomic, weak) UIView *rightVideoBgView;
 
