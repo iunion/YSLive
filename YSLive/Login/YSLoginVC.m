@@ -2271,14 +2271,14 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)onRoomDidOccuredError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
 {
     NSLog(@"================================== onRoomDidOccuredError: %@", message);
+    NSInteger code = errorCode;
+    if (code == CloudHubErrorCodeInBlackList)
+    {
+        code = CHErrorCode_CheckRoom_RoomBlacklist;
+    }
+    NSString *descript = [YSLiveUtil getOccuredErrorCode:code defaultMessage:message];
     
-#if YSShowErrorCode
-    NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", @(errorCode), message];
-#else
-    NSString *errorMessage = message;
-#endif
-    
-    [self.progressHUD bm_showAnimated:NO withDetailText:errorMessage delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+    [self.progressHUD bm_showAnimated:NO withDetailText:descript delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
 }
 
 // 已经离开房间

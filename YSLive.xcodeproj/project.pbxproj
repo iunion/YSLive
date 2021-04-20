@@ -4451,7 +4451,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.7.0;
+				CURRENT_PROJECT_VERSION = 3.5.8.2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
@@ -4477,8 +4477,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 3.5.7;
+				MARKETING_VERSION = 3.5.8;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
@@ -4499,7 +4498,7 @@
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.7.0;
+				CURRENT_PROJECT_VERSION = 3.5.8.2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				ENABLE_BITCODE = NO;
@@ -4554,8 +4553,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 3.5.7;
+				MARKETING_VERSION = 3.5.8;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-Objc",
