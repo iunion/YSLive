@@ -64,10 +64,8 @@
 		26ECB84A259D7E8200B28D37 /* YSDiceAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB6B1259D7E8100B28D37 /* YSDiceAnimationView.m */; };
 		26ECB84B259D7E8200B28D37 /* YSDiceAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB6B2259D7E8100B28D37 /* YSDiceAnimationView.h */; };
 		26ECB84C259D7E8200B28D37 /* YSDiceAnimationView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB6B3259D7E8100B28D37 /* YSDiceAnimationView+Tools.m */; };
-		26ECB84E259D7E8200B28D37 /* YSLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB6B6259D7E8100B28D37 /* YSLayoutViewController.m */; };
 		26ECB84F259D7E8200B28D37 /* YSDefaultLayoutPopView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB6B7259D7E8100B28D37 /* YSDefaultLayoutPopView.h */; };
 		26ECB850259D7E8200B28D37 /* YSSpreadBottomToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB6B8259D7E8100B28D37 /* YSSpreadBottomToolBar.h */; };
-		26ECB851259D7E8200B28D37 /* YSLayoutViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB6B9259D7E8100B28D37 /* YSLayoutViewController.h */; };
 		26ECB853259D7E8200B28D37 /* YSDefaultLayoutPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB6BB259D7E8100B28D37 /* YSDefaultLayoutPopView.m */; };
 		26ECB854259D7E8200B28D37 /* YSSpreadBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB6BC259D7E8100B28D37 /* YSSpreadBottomToolBar.m */; };
 		26ECB855259D7E8200B28D37 /* YSPollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB6BE259D7E8100B28D37 /* YSPollingView.m */; };
@@ -170,10 +168,8 @@
 		26ECB8C7259D7E8300B28D37 /* YSStudentTimerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB759259D7E8200B28D37 /* YSStudentTimerView.h */; };
 		26ECB8C8259D7E8300B28D37 /* YSStudentTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB75A259D7E8200B28D37 /* YSStudentTimerView.m */; };
 		26ECB8C9259D7E8300B28D37 /* SCMainVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB75B259D7E8200B28D37 /* SCMainVC.h */; };
-		26ECB8CA259D7E8300B28D37 /* SCVideoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB75D259D7E8200B28D37 /* SCVideoView.h */; };
 		26ECB8CB259D7E8300B28D37 /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB75E259D7E8200B28D37 /* PanGestureControl.m */; };
 		26ECB8CC259D7E8300B28D37 /* SCVideoGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB75F259D7E8200B28D37 /* SCVideoGridView.m */; };
-		26ECB8CD259D7E8300B28D37 /* SCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB760259D7E8200B28D37 /* SCVideoView.m */; };
 		26ECB8CE259D7E8300B28D37 /* PanGestureControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB761259D7E8200B28D37 /* PanGestureControl.h */; };
 		26ECB8CF259D7E8300B28D37 /* SCVideoGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB762259D7E8200B28D37 /* SCVideoGridView.h */; };
 		26ECB8D0259D7E8300B28D37 /* YSStudentResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ECB764259D7E8200B28D37 /* YSStudentResponder.m */; };
@@ -248,6 +244,12 @@
 		26ECB94D259D7E8300B28D37 /* YSSuperVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 26ECB809259D7E8200B28D37 /* YSSuperVC.h */; };
 		875DD42325C3B2EF00059D0B /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD42225C3B2EF00059D0B /* YSSkinDarkRsource.bundle */; };
 		875DD42725C3B39000059D0B /* CHWBSkinDark.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 875DD42625C3B38F00059D0B /* CHWBSkinDark.bundle */; };
+		87AE97A1262EAEE700AC2DE0 /* CHVideoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87AE979F262EAEE700AC2DE0 /* CHVideoView.h */; };
+		87AE97A2262EAEE700AC2DE0 /* CHVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AE97A0262EAEE700AC2DE0 /* CHVideoView.m */; };
+		87AE97AA262EAF0F00AC2DE0 /* CHFullFloatVideoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87AE97A6262EAF0F00AC2DE0 /* CHFullFloatVideoView.h */; };
+		87AE97AB262EAF0F00AC2DE0 /* CHFullFloatControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AE97A7262EAF0F00AC2DE0 /* CHFullFloatControlView.m */; };
+		87AE97AC262EAF0F00AC2DE0 /* CHFullFloatControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87AE97A8262EAF0F00AC2DE0 /* CHFullFloatControlView.h */; };
+		87AE97AD262EAF0F00AC2DE0 /* CHFullFloatVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AE97A9262EAF0F00AC2DE0 /* CHFullFloatVideoView.m */; };
 		87E68CB725D38EB000E29249 /* BMKeystoneCorrectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E68CB325D38EB000E29249 /* BMKeystoneCorrectionView.h */; };
 		87E68CB825D38EB000E29249 /* BMCorrectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E68CB425D38EB000E29249 /* BMCorrectionView.h */; };
 		87E68CB925D38EB000E29249 /* BMKeystoneCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E68CB525D38EB000E29249 /* BMKeystoneCorrectionView.m */; };
@@ -315,10 +317,8 @@
 		26ECB6B1259D7E8100B28D37 /* YSDiceAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSDiceAnimationView.m; sourceTree = "<group>"; };
 		26ECB6B2259D7E8100B28D37 /* YSDiceAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSDiceAnimationView.h; sourceTree = "<group>"; };
 		26ECB6B3259D7E8100B28D37 /* YSDiceAnimationView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YSDiceAnimationView+Tools.m"; sourceTree = "<group>"; };
-		26ECB6B6259D7E8100B28D37 /* YSLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLayoutViewController.m; sourceTree = "<group>"; };
 		26ECB6B7259D7E8100B28D37 /* YSDefaultLayoutPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSDefaultLayoutPopView.h; sourceTree = "<group>"; };
 		26ECB6B8259D7E8100B28D37 /* YSSpreadBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSSpreadBottomToolBar.h; sourceTree = "<group>"; };
-		26ECB6B9259D7E8100B28D37 /* YSLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLayoutViewController.h; sourceTree = "<group>"; };
 		26ECB6BB259D7E8100B28D37 /* YSDefaultLayoutPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSDefaultLayoutPopView.m; sourceTree = "<group>"; };
 		26ECB6BC259D7E8100B28D37 /* YSSpreadBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSSpreadBottomToolBar.m; sourceTree = "<group>"; };
 		26ECB6BE259D7E8100B28D37 /* YSPollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSPollingView.m; sourceTree = "<group>"; };
@@ -421,10 +421,8 @@
 		26ECB759259D7E8200B28D37 /* YSStudentTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSStudentTimerView.h; sourceTree = "<group>"; };
 		26ECB75A259D7E8200B28D37 /* YSStudentTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSStudentTimerView.m; sourceTree = "<group>"; };
 		26ECB75B259D7E8200B28D37 /* SCMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMainVC.h; sourceTree = "<group>"; };
-		26ECB75D259D7E8200B28D37 /* SCVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoView.h; sourceTree = "<group>"; };
 		26ECB75E259D7E8200B28D37 /* PanGestureControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanGestureControl.m; sourceTree = "<group>"; };
 		26ECB75F259D7E8200B28D37 /* SCVideoGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoGridView.m; sourceTree = "<group>"; };
-		26ECB760259D7E8200B28D37 /* SCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoView.m; sourceTree = "<group>"; };
 		26ECB761259D7E8200B28D37 /* PanGestureControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanGestureControl.h; sourceTree = "<group>"; };
 		26ECB762259D7E8200B28D37 /* SCVideoGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoGridView.h; sourceTree = "<group>"; };
 		26ECB764259D7E8200B28D37 /* YSStudentResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSStudentResponder.m; sourceTree = "<group>"; };
@@ -500,6 +498,12 @@
 		26ECB80B259D7E8200B28D37 /* YSLive.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YSLive.xcassets; sourceTree = "<group>"; };
 		875DD42225C3B2EF00059D0B /* YSSkinDarkRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinDarkRsource.bundle; sourceTree = "<group>"; };
 		875DD42625C3B38F00059D0B /* CHWBSkinDark.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHWBSkinDark.bundle; sourceTree = "<group>"; };
+		87AE979F262EAEE700AC2DE0 /* CHVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHVideoView.h; sourceTree = "<group>"; };
+		87AE97A0262EAEE700AC2DE0 /* CHVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVideoView.m; sourceTree = "<group>"; };
+		87AE97A6262EAF0F00AC2DE0 /* CHFullFloatVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHFullFloatVideoView.h; sourceTree = "<group>"; };
+		87AE97A7262EAF0F00AC2DE0 /* CHFullFloatControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHFullFloatControlView.m; sourceTree = "<group>"; };
+		87AE97A8262EAF0F00AC2DE0 /* CHFullFloatControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHFullFloatControlView.h; sourceTree = "<group>"; };
+		87AE97A9262EAF0F00AC2DE0 /* CHFullFloatVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHFullFloatVideoView.m; sourceTree = "<group>"; };
 		87E68CB325D38EB000E29249 /* BMKeystoneCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKeystoneCorrectionView.h; sourceTree = "<group>"; };
 		87E68CB425D38EB000E29249 /* BMCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCorrectionView.h; sourceTree = "<group>"; };
 		87E68CB525D38EB000E29249 /* BMKeystoneCorrectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKeystoneCorrectionView.m; sourceTree = "<group>"; };
@@ -737,8 +741,6 @@
 			children = (
 				26ECB6B7259D7E8100B28D37 /* YSDefaultLayoutPopView.h */,
 				26ECB6BB259D7E8100B28D37 /* YSDefaultLayoutPopView.m */,
-				26ECB6B9259D7E8100B28D37 /* YSLayoutViewController.h */,
-				26ECB6B6259D7E8100B28D37 /* YSLayoutViewController.m */,
 				26ECB6B8259D7E8100B28D37 /* YSSpreadBottomToolBar.h */,
 				26ECB6BC259D7E8100B28D37 /* YSSpreadBottomToolBar.m */,
 			);
@@ -963,6 +965,7 @@
 		26ECB729259D7E8200B28D37 /* YSSmallClass */ = {
 			isa = PBXGroup;
 			children = (
+				87AE97A5262EAF0F00AC2DE0 /* CHFullScreenFloatVideo */,
 				26ECB747259D7E8200B28D37 /* SCAnswerView */,
 				26ECB73B259D7E8200B28D37 /* SCChat */,
 				26ECB72A259D7E8200B28D37 /* SCTopToolBar */,
@@ -1036,12 +1039,12 @@
 		26ECB75C259D7E8200B28D37 /* SCVideoView */ = {
 			isa = PBXGroup;
 			children = (
-				26ECB75D259D7E8200B28D37 /* SCVideoView.h */,
-				26ECB75E259D7E8200B28D37 /* PanGestureControl.m */,
-				26ECB75F259D7E8200B28D37 /* SCVideoGridView.m */,
-				26ECB760259D7E8200B28D37 /* SCVideoView.m */,
-				26ECB761259D7E8200B28D37 /* PanGestureControl.h */,
+				87AE979F262EAEE700AC2DE0 /* CHVideoView.h */,
+				87AE97A0262EAEE700AC2DE0 /* CHVideoView.m */,
 				26ECB762259D7E8200B28D37 /* SCVideoGridView.h */,
+				26ECB75F259D7E8200B28D37 /* SCVideoGridView.m */,
+				26ECB761259D7E8200B28D37 /* PanGestureControl.h */,
+				26ECB75E259D7E8200B28D37 /* PanGestureControl.m */,
 			);
 			path = SCVideoView;
 			sourceTree = "<group>";
@@ -1217,6 +1220,17 @@
 			path = YSMainSuperVC;
 			sourceTree = "<group>";
 		};
+		87AE97A5262EAF0F00AC2DE0 /* CHFullScreenFloatVideo */ = {
+			isa = PBXGroup;
+			children = (
+				87AE97A8262EAF0F00AC2DE0 /* CHFullFloatControlView.h */,
+				87AE97A7262EAF0F00AC2DE0 /* CHFullFloatControlView.m */,
+				87AE97A6262EAF0F00AC2DE0 /* CHFullFloatVideoView.h */,
+				87AE97A9262EAF0F00AC2DE0 /* CHFullFloatVideoView.m */,
+			);
+			path = CHFullScreenFloatVideo;
+			sourceTree = "<group>";
+		};
 		87E68CB225D38EB000E29249 /* BMKeystoneCorrectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1253,7 +1267,6 @@
 				26ECB82B259D7E8200B28D37 /* YSPermissionsVResultView.h in Headers */,
 				26ECB87F259D7E8300B28D37 /* YSEmotionView.h in Headers */,
 				26ECB937259D7E8300B28D37 /* YSBarrageRenderView.h in Headers */,
-				26ECB851259D7E8200B28D37 /* YSLayoutViewController.h in Headers */,
 				26ECB82D259D7E8200B28D37 /* YSLiveUtil.h in Headers */,
 				26ECB912259D7E8300B28D37 /* SCEyeCareEmptyVC.h in Headers */,
 				26ECB92C259D7E8300B28D37 /* YSBarrageDescriptor.h in Headers */,
@@ -1292,10 +1305,10 @@
 				26ECB921259D7E8300B28D37 /* BMAlertView+YSDefaultAlert.h in Headers */,
 				26ECB8C0259D7E8300B28D37 /* SCAnswerStatisticsModel.h in Headers */,
 				26ECB837259D7E8200B28D37 /* YSLiveApiRequest.h in Headers */,
+				87AE97A1262EAEE700AC2DE0 /* CHVideoView.h in Headers */,
 				26ECB84F259D7E8200B28D37 /* YSDefaultLayoutPopView.h in Headers */,
 				26ECB86A259D7E8300B28D37 /* YSVoteResultTableCell.h in Headers */,
 				26ECB856259D7E8200B28D37 /* YSPollingView.h in Headers */,
-				26ECB8CA259D7E8300B28D37 /* SCVideoView.h in Headers */,
 				26ECB84B259D7E8200B28D37 /* YSDiceAnimationView.h in Headers */,
 				26ECB92E259D7E8300B28D37 /* YSBarrageManager.h in Headers */,
 				26ECB832259D7E8200B28D37 /* YSNewCoursewareControlView.h in Headers */,
@@ -1321,6 +1334,7 @@
 				26ECB67A259D7DE500B28D37 /* YSLiveSDK.h in Headers */,
 				26ECB88A259D7E8300B28D37 /* YSChatBasicTableViewCell.h in Headers */,
 				26ECB93A259D7E8300B28D37 /* YSAppUIDef.h in Headers */,
+				87AE97AA262EAF0F00AC2DE0 /* CHFullFloatVideoView.h in Headers */,
 				26ECB88B259D7E8300B28D37 /* YSNewTipMessageCell.h in Headers */,
 				26ECB920259D7E8300B28D37 /* YSSignedAlertView.h in Headers */,
 				26ECB913259D7E8300B28D37 /* SCEyeCareView.h in Headers */,
@@ -1353,6 +1367,7 @@
 				26ECB89C259D7E8300B28D37 /* YSLocation.h in Headers */,
 				26ECB833259D7E8200B28D37 /* YSLiveMacros.h in Headers */,
 				26ECB92F259D7E8300B28D37 /* YSBarrageTrackInfo.h in Headers */,
+				87AE97AC262EAF0F00AC2DE0 /* CHFullFloatControlView.h in Headers */,
 				26ECB8C2259D7E8300B28D37 /* SCAnswerView.h in Headers */,
 				26ECB8C9259D7E8300B28D37 /* SCMainVC.h in Headers */,
 				26ECB8C7259D7E8300B28D37 /* YSStudentTimerView.h in Headers */,
@@ -1449,6 +1464,7 @@
 				26ECB86D259D7E8300B28D37 /* YSVoteResultTableCell.m in Sources */,
 				87E68CB925D38EB000E29249 /* BMKeystoneCorrectionView.m in Sources */,
 				26ECB8C8259D7E8300B28D37 /* YSStudentTimerView.m in Sources */,
+				87AE97A2262EAEE700AC2DE0 /* CHVideoView.m in Sources */,
 				26ECB8BE259D7E8300B28D37 /* SCAnswerDetailTableViewCell.m in Sources */,
 				26ECB8BD259D7E8300B28D37 /* SCAnswerDetailModel.m in Sources */,
 				26ECB843259D7E8200B28D37 /* YSUpHandPopCell.m in Sources */,
@@ -1488,10 +1504,10 @@
 				26ECB8D3259D7E8300B28D37 /* YSUserDefault.m in Sources */,
 				26ECB943259D7E8300B28D37 /* YSTableViewVC.m in Sources */,
 				26ECB91B259D7E8300B28D37 /* YSSignedAlertView.m in Sources */,
-				26ECB84E259D7E8200B28D37 /* YSLayoutViewController.m in Sources */,
 				26ECB895259D7E8300B28D37 /* YSLessonDetailHeaderView.m in Sources */,
 				26ECB8C4259D7E8300B28D37 /* SCAnswerPageView.m in Sources */,
 				26ECB8B8259D7E8300B28D37 /* SCAnswerStatisticsModel.m in Sources */,
+				87AE97AD262EAF0F00AC2DE0 /* CHFullFloatVideoView.m in Sources */,
 				26ECB897259D7E8300B28D37 /* YSCoreStatus.m in Sources */,
 				26ECB947259D7E8300B28D37 /* YSSuperNetVC.m in Sources */,
 				26ECB82A259D7E8200B28D37 /* YSPermissionsVC.m in Sources */,
@@ -1513,6 +1529,7 @@
 				26ECB8AD259D7E8300B28D37 /* SCChatToolView.m in Sources */,
 				26ECB915259D7E8300B28D37 /* SCEyeCareView.m in Sources */,
 				26ECB85A259D7E8200B28D37 /* SCTeacherListView.m in Sources */,
+				87AE97AB262EAF0F00AC2DE0 /* CHFullFloatControlView.m in Sources */,
 				26ECB861259D7E8200B28D37 /* YSToolBoxView.m in Sources */,
 				26ECB924259D7E8300B28D37 /* YSCircleProgress.m in Sources */,
 				26ECB914259D7E8300B28D37 /* SCEyeCareWindow.m in Sources */,
@@ -1528,7 +1545,6 @@
 				26ECB834259D7E8200B28D37 /* YSLiveUtil.m in Sources */,
 				26ECB859259D7E8200B28D37 /* YSTeacherRoleMainVC.m in Sources */,
 				26ECB94C259D7E8300B28D37 /* YSClassMainSuperVC.m in Sources */,
-				26ECB8CD259D7E8300B28D37 /* SCVideoView.m in Sources */,
 				26ECB885259D7E8300B28D37 /* YSTextMessageCell.m in Sources */,
 				26ECB8C1259D7E8300B28D37 /* SCOptionCollectionCell.m in Sources */,
 				26ECB827259D7E8200B28D37 /* YSLiveSkinManager.m in Sources */,
