@@ -2460,19 +2460,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
                 videoView.giftNumber = giftNumber;
             }
 #endif
-            CHVideoView *videoView = videoViewArr[0];
-            
             if (self.fullFloatVideoView.hidden)
             {
-                videoView = videoViewArr[0];
+                CHVideoView *videoView = videoViewArr[0];
+                [self showGiftAnimationWithVideoView:videoView];
             }
-            else
-            {
-                NSArray *videoViewArrFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:userId];
-                videoView = videoViewArrFull[0];
-            }
-            
-            [self showGiftAnimationWithVideoView:videoView];
         }
     }
     
@@ -4132,7 +4124,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 切换窗口布局变化
 - (void)handleSignalingSetRoomLayout:(CHRoomLayoutType)roomLayout withPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId
 {
-
+    
+    if (!self.fullFloatVideoView.hidden)
+    {
+        [self handleonWhiteBoardFullScreen:NO];
+        
+        [self.liveManager.whiteBoardManager resetFullScreen];
+    }
+    
     //NO:上下布局  YES:左右布局
     self.roomLayout = roomLayout;
     
