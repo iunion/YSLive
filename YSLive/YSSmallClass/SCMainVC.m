@@ -1009,7 +1009,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     imageView.frame = teacherVideoView.bounds;
     [teacherVideoView addSubview:imageView];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    imageView.contentMode = UIViewContentModeCenter;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.backgroundColor = YSSkinDefineColor(@"Color9");
     [self.videoBackgroud addSubview:teacherVideoView];
     teacherVideoView.frame = CGRectMake(0, 0, videoWidth, videoHeight);
