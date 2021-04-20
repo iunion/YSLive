@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>VersionNum</key>
-	<string>20210121</string>
+	<string>20210420</string>
 	<key>CommonColor</key>
 	<dict>
 		<key>WhiteColor</key>
@@ -407,12 +407,12 @@
 		<key>iconDis</key>
 		<string>bottombar_exit_dis_skin</string>
 	</dict>
-	<key>fullFloat_cancleBtn</key>
+	<key>fullFloat_cancelBtn</key>
 	<dict>
 		<key>iconNor</key>
-		<string>fullFloat_cancle</string>
+		<string>fullFloat_cancel_nor</string>
 		<key>iconSel</key>
-		<string>fullFloat_cancle</string>
+		<string>fullFloat_cancel_sel</string>
 	</dict>
 	<key>fullFloat_mineBtn</key>
 	<dict>

@@ -40,7 +40,7 @@
 
 - (void)setupUIView
 {
-    self.hideButton = [self creatButtonWithImage:@"fullFloat_cancleBtn" withTag:CHFullFloatState_None];
+    self.hideButton = [self creatButtonWithImage:@"fullFloat_cancelBtn" withTag:CHFullFloatState_None];
     
     self.mineButton = [self creatButtonWithImage:@"fullFloat_mineBtn" withTag:CHFullFloatState_Mine];
     
@@ -80,22 +80,25 @@
     {
         case CHFullFloatState_Mine:
         {
-            self.allButton.selected = NO;
+            self.hideButton.selected = NO;
             self.mineButton.selected = YES;
+            self.allButton.selected = NO;
         }
             break;
             
         case CHFullFloatState_All:
         {
-            self.allButton.selected = YES;
+            self.hideButton.selected = NO;
             self.mineButton.selected = NO;
+            self.allButton.selected = YES;
         }
             break;
             
         default:
         {
-            self.allButton.selected = NO;
+            self.hideButton.selected = YES;
             self.mineButton.selected = NO;
+            self.allButton.selected = NO;
         }
             break;
     }
