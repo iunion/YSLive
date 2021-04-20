@@ -1372,7 +1372,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         else
         {
             [self freshContentVideoView];
-//            [self.videoBackgroud bringSubviewToFront:self.userVideoView];
+            
+            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+            {
+                [self.videoBackgroud bringSubviewToFront:self.userVideoView];
+            }
         }
     }
     else

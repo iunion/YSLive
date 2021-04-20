@@ -1031,7 +1031,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.teacherPlaceLab = placeLab;
     
     // 1V1 初始本人视频音频
-    
     CHVideoView *videoView = [[CHVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sCHUserDefaultSourceId isForPerch:YES];
     videoView.appUseTheType = self.appUseTheType;
     videoView.tag = PlaceholderPTag;
@@ -1039,10 +1038,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     userImageView.frame = videoView.bounds;
     [videoView addSubview:userImageView];
     userImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    userImageView.contentMode = UIViewContentModeCenter;
+    userImageView.contentMode = UIViewContentModeScaleAspectFit;
     userImageView.backgroundColor = YSSkinDefineColor(@"Color9");
     [self.videoBackgroud addSubview:videoView];
     videoView.frame = CGRectMake(0, videoHeight + VIDEOVIEW_GAP, videoWidth, videoHeight);
+    
+    [videoView.contentView bm_bringToFront];
+    
     self.userVideoView = videoView;
         
     self.myVideoView = videoView;
@@ -1415,7 +1417,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         else
         {
             [self freshContentVideoView];
-//            [self.videoBackgroud bringSubviewToFront:self.userVideoView];
+            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+            {
+                [self.videoBackgroud bringSubviewToFront:self.userVideoView];
+            }
         }
     }
     else

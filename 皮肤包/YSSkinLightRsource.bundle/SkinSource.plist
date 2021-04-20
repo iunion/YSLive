@@ -888,6 +888,19 @@
 		<key>iconDis</key>
 		<string>bottombar_message_dis_skin</string>
 	</dict>
+	<key>videoAdjustment_bottombar</key>
+	<dict>
+		<key>tittleColor</key>
+		<string></string>
+		<key>bgColor</key>
+		<string></string>
+		<key>iconNor</key>
+		<string>videoAdjustment_bottombar_nor_skin</string>
+		<key>iconSel</key>
+		<string>videoAdjustment_bottombar_sel_skin</string>
+		<key>iconDis</key>
+		<string>videoAdjustment_bottombar_dis_skin</string>
+	</dict>
 	<key>nameList_OtherDevice</key>
 	<dict>
 		<key>tittleColor</key>

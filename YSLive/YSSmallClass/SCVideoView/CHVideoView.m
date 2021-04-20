@@ -259,14 +259,14 @@
     loadingImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.backView addSubview:loadingImageView];
     self.loadingImageView = loadingImageView;
+    
+    [self setupMaskView];
 
     // 视频承载View
     UIView *contentView = [[UIView alloc] init];
     contentView.backgroundColor = UIColor.clearColor;
     [self addSubview:contentView];
     self.contentView = contentView;
-    
-    [self setupMaskView];
     
     [self setupCoverView];
     
