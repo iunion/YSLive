@@ -73,7 +73,7 @@
     };
     
     UIView *rightVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, VideoTop, 100.0f, 100.0f)];
-    rightVideoBgView.backgroundColor = UIColor.clearColor;
+    rightVideoBgView.backgroundColor = UIColor.redColor;
     [self addSubview:rightVideoBgView];
     self.rightVideoBgView = rightVideoBgView;
     
@@ -174,6 +174,11 @@
     if (!self.rightViewMaxRight)
     {
         self.rightViewMaxRight = self.controlView.bm_left - VideoTop;
+    }
+    
+    if (self.rightViewMaxRight > self.controlView.bm_left)
+    {
+        self.rightViewMaxRight = self.controlView.bm_left - 5;
     }
 
     self.rightVideoBgView.frame = CGRectMake(self.rightViewMaxRight - self.rightBgWidth, VideoTop, self.rightBgWidth, self.rightBgHeight);
