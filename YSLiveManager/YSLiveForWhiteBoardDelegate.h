@@ -17,6 +17,9 @@
 - (void)handleonWhiteBoardChangedFileWithFileList:(NSArray *)fileList;
 /// 删除课件
 - (void)handleonWhiteBoardDeleteFile;
+
+/// 关闭课件窗口
+- (void)handleonWhiteBoardDeleteWhiteBoardWindow:(CHWhiteBoardWindow *)whiteBoardWindow;
 /// 课件全屏
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen;
 /// 课件最大化

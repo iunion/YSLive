@@ -3766,7 +3766,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.closeMp4Btn.hidden = YES;
     
     [self fullScreenToShowVideoView:NO];
-    
 }
 
 #pragma mark 白板翻页 换课件
@@ -3791,6 +3790,15 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleonWhiteBoardDeleteFile
 {
     [self freshTeacherCoursewareListData];
+}
+
+/// 删除课件窗口
+- (void)handleonWhiteBoardDeleteWhiteBoardWindow:(CHWhiteBoardWindow *)whiteBoardWindow
+{
+    if (!self.fullFloatVideoView.hidden)
+    {
+        [self handleonWhiteBoardFullScreen:NO];
+    }
 }
 
 // 课件全屏

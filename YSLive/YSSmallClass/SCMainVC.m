@@ -4207,6 +4207,15 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListData];
 }
 
+/// 删除课件窗口
+- (void)handleonWhiteBoardDeleteWhiteBoardWindow:(CHWhiteBoardWindow *)whiteBoardWindow
+{
+    if (!self.fullFloatVideoView.hidden)
+    {
+        [self handleonWhiteBoardFullScreen:NO];
+    }
+}
+
 - (void)onWhiteBoardChangedFileWithFileList:(NSString *)fileId
 {
     

@@ -423,6 +423,16 @@
         [self.whiteBoardDelegate handleonWhiteBoardDeleteFile];
     }
 }
+
+/// 关闭课件窗口
+- (void)deleteWhiteBoardWindow:(CHWhiteBoardWindow *)whiteBoardWindow
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardDeleteWhiteBoardWindow:)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardDeleteWhiteBoardWindow:whiteBoardWindow];
+    }
+}
+
 #pragma mark - 课件事件
 
 /// 课件全屏

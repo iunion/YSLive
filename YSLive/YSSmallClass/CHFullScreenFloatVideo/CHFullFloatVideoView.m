@@ -73,7 +73,7 @@
     };
     
     UIView *rightVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, VideoTop, 100.0f, 100.0f)];
-    rightVideoBgView.backgroundColor = UIColor.redColor;
+    rightVideoBgView.backgroundColor = UIColor.clearColor;
     [self addSubview:rightVideoBgView];
     self.rightVideoBgView = rightVideoBgView;
     
