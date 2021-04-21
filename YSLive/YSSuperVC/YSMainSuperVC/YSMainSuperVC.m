@@ -717,9 +717,7 @@
     
     //本人的视频数组
     NSMutableArray *myVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:self.liveManager.localUser.peerID];
-    //本人的视频数组（全屏浮窗用）
-    NSMutableArray *myVideoArrayFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:self.liveManager.localUser.peerID];
-    
+
     // 删除本人占位视频
     for (CHVideoView *avideoView in myVideoArray)
     {
@@ -733,20 +731,7 @@
             break;
         }
     }
-    
-    for (CHVideoView *avideoView in myVideoArrayFull)
-    {
-        if (avideoView.isForPerch)
-        {
-            [myVideoArrayFull removeObject:avideoView];
-            
-            [self.videoViewArrayDicFull setObject:myVideoArrayFull forKey:self.liveManager.localUser.peerID];
-            [self.videoSequenceArrFull removeObject:avideoView];
-            
-            break;
-        }
-    }
-    
+
     //用户新下发的设备id数组
     NSMutableArray *theSourceIdArray = [roomUser.sourceListDic.allKeys mutableCopy];
     
@@ -879,7 +864,7 @@
         
         [self videoViewsSequence];
         
-        if (self.fullFloatVideoView.hidden)
+        if (![self.fullFloatVideoView bm_isNotEmpty] || self.fullFloatVideoView.hidden)
         {
             for (CHVideoView * videoView in theVideoArray)
             {
@@ -895,7 +880,7 @@
         }
     }
     
-    if (self.fullFloatVideoView.hidden)
+    if (![self.fullFloatVideoView bm_isNotEmpty] || self.fullFloatVideoView.hidden)
     {
         return theVideoArray;
     }
@@ -920,9 +905,6 @@
     
     //本人的视频数组
     NSMutableArray * myVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:self.liveManager.localUser.peerID];
-    
-    //本人的视频数组（全屏浮窗用）
-    NSMutableArray *myVideoArrayFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:self.liveManager.localUser.peerID];
 
     // 删除本人占位视频
     for (CHVideoView *avideoView in myVideoArray)
@@ -930,15 +912,6 @@
         if (avideoView.isForPerch)
         {
             [self deleteVideoViewfromVideoViewArrayDic:avideoView];
-            break;
-        }
-    }
-    
-    for (CHVideoView *avideoView in myVideoArrayFull)
-    {
-        if (avideoView.isForPerch)
-        {
-            [self deleteVideoViewfromVideoViewArrayDicFull:avideoView];
             break;
         }
     }
@@ -951,7 +924,6 @@
     //已有的视频数组
     NSMutableArray * theVideoArray = [self.videoViewArrayDic bm_mutableArrayForKey:peerId];
     NSMutableArray * theVideoArrayFull = [self.videoViewArrayDicFull bm_mutableArrayForKey:peerId];
-    
     
     if (!sourceIdArray.count)
     {//摄像头全部拔掉时
@@ -987,7 +959,6 @@
         
         [self addVideoViewToVideoViewArrayDic:newVideoView];
         
-        
         //（全屏浮窗用）-----------
         for (CHVideoView * videoView in theVideoArrayFull)
         {
@@ -1019,7 +990,7 @@
         
         [self addVideoViewToVideoViewArrayDicFull:newVideoViewFull];
         
-        if (self.fullFloatVideoView.hidden)
+        if (![self.fullFloatVideoView bm_isNotEmpty] || self.fullFloatVideoView.hidden)
         {
             return theAddVideoArray;
         }
@@ -1088,7 +1059,7 @@
                 
                 [self addVideoViewToVideoViewArrayDic:newVideoView];
                 
-                if (self.fullFloatVideoView.hidden)
+                if (![self.fullFloatVideoView bm_isNotEmpty] || self.fullFloatVideoView.hidden)
                 {
                     [self playVideoAudioWithVideoView:newVideoView];
                 }
@@ -1140,7 +1111,7 @@
                     self.classMasterVideoViewArrayFull = theVideoArrayFull;
                 }
                 [self addVideoViewToVideoViewArrayDicFull:newVideoViewFull];
-                if (!self.fullFloatVideoView.hidden)
+                if ([self.fullFloatVideoView bm_isNotEmpty] && !self.fullFloatVideoView.hidden)
                 {
                     [self playVideoAudioWithVideoView:newVideoViewFull];
                 }
@@ -1148,7 +1119,7 @@
         }
     }
     
-    if (self.fullFloatVideoView.hidden)
+    if (![self.fullFloatVideoView bm_isNotEmpty] || self.fullFloatVideoView.hidden)
     {
         return theAddVideoArray;
     }
@@ -1505,7 +1476,7 @@
             videoView.groupRoomState = CHGroupRoomState_Normal;
         }
         
-        if (self.fullFloatVideoView.hidden)
+        if (![self.fullFloatVideoView bm_isNotEmpty] || self.fullFloatVideoView.hidden)
         {
             [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView.contentView];
         }
@@ -1528,7 +1499,7 @@
             videoViewFull.groupRoomState = CHGroupRoomState_Normal;
         }
         
-        if (!self.fullFloatVideoView.hidden)
+        if ([self.fullFloatVideoView bm_isNotEmpty] && !self.fullFloatVideoView.hidden)
         {
             [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoViewFull.contentView];
         }
