@@ -425,7 +425,7 @@
 }
 
 /// 关闭课件窗口
-- (void)deleteWhiteBoardWindow:(CHWhiteBoardWindow *)whiteBoardWindow
+- (void)onDeleteWhiteBoardWindow:(CHWhiteBoardWindow *)whiteBoardWindow
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardDeleteWhiteBoardWindow:)])
     {
