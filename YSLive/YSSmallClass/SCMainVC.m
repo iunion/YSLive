@@ -3444,6 +3444,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 #pragma mark 上课
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
+    [self handleonWhiteBoardFullScreen:NO];
+    
     [self.videoSequenceArr removeAllObjects];
     self.rightChatView.allDisabled = NO;
 

@@ -2568,6 +2568,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //inlist表示在我进房间之前的信令
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
+    [self handleonWhiteBoardFullScreen:NO];
+    
     self.classBeginBtn.userInteractionEnabled = YES;
 
     self.rightChatView.allDisabled = self.liveManager.isEveryoneBanChat;
@@ -3827,10 +3829,11 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         [self arrangeAllViewInWhiteBordBackgroud];
     }
     
-    [self fullScreenToShowVideoView:isAllScreen];
+    if (self.liveManager.isClassBegin)
+    {
+        [self fullScreenToShowVideoView:isAllScreen];
+    }
 }
-
-
 
 // 课件最大化
 - (void)handleonWhiteBoardMaximizeView
