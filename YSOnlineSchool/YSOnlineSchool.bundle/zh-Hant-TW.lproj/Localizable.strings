@@ -51,7 +51,7 @@
 "Label.accountNumberPlaceholder" = "請輸入您的帳號";
 "Label.onlineSchoolSystem" = "網校系統";
 
-"Login.Enter" = "登入";
+"Login.Enter" = "登入網校";
 "Login.EnterRoom" = "進入房間";
 
 "Error.ServerError" = "服務器訪問異常";
