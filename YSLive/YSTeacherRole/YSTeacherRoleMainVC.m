@@ -1341,7 +1341,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         if(self.videoSequenceArr.count>1)
         {
-//            self.userVideoView.hidden = YES;
+            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
+            {
+                self.userVideoView.hidden = YES;
+            }
+            else
+            {
+                self.userVideoView.hidden = NO;
+            }
         }
         else
         {
