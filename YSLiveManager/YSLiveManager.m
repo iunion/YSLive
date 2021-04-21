@@ -415,6 +415,7 @@
         [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileIdList];
     }
 }
+
 /// 删除课件
 - (void)onWhiteBroadDeleteFile:(NSString *)fileId
 {
@@ -471,8 +472,8 @@
     }
 }
 
-//小黑板bottomBar的代理
-///上传图片
+/// 小黑板bottomBar的代理
+/// 上传图片
 - (void)onSmallBoardBottomBarClickToUploadImage
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToUploadImage)])
@@ -480,7 +481,8 @@
         [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClickToUploadImage];
     }
 }
-///删除图片
+
+/// 删除图片
 - (void)onSmallBoardBottomBarClickToDeleteImage
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToDeleteImage)])
@@ -489,7 +491,8 @@
     }
 }
 
-- (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
+/// 开始私聊
+- (void)onSmallBoardStartPrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingReceivePrivateChatWithPrivateIdArray:)])
     {
@@ -497,7 +500,8 @@
     }
 }
 
-- (void)handleSignalingDeletePrivateChat
+/// 结束私聊
+- (void)onSmallBoardStopPrivateChat
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingDeletePrivateChat)])
     {
