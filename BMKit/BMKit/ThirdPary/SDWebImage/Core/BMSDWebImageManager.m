@@ -165,14 +165,27 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
     return [self loadImageWithURL:url options:options context:nil progress:progressBlock completed:completedBlock];
 }
 
+- (BMSDWebImageCombinedOperation *)loadImageWithURL:(NSURL *)url host:(nullable NSString *)host options:(BMSDWebImageOptions)options progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDInternalCompletionBlock)completedBlock {
+    return [self loadImageWithURL:url host:host options:options context:nil progress:progressBlock completed:completedBlock];
+}
+
 - (BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
                                           options:(BMSDWebImageOptions)options
                                           context:(nullable BMSDWebImageContext *)context
                                          progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                         completed:(nonnull BMSDInternalCompletionBlock)completedBlock {
+    return [self loadImageWithURL:url host:nil options:options context:context progress:progressBlock completed:completedBlock];
+}
+
+- (BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
+                                               host:(nullable NSString *)host
+                                            options:(BMSDWebImageOptions)options
+                                            context:(nullable BMSDWebImageContext *)context
+                                           progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
+                                          completed:(nonnull BMSDInternalCompletionBlock)completedBlock {
     // Invoking this method without a completedBlock is pointless
     NSAssert(completedBlock != nil, @"If you mean to prefetch the image, use -[SDWebImagePrefetcher prefetchURLs] instead");
-
+    
     // Very common mistake is to send the URL using NSString object instead of NSURL. For some strange reason, Xcode won't
     // throw any warning for this type mismatch. Here we failsafe this error by allowing URLs to be passed as NSString.
     if ([url isKindOfClass:NSString.class]) {
@@ -209,7 +222,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
     BMSDWebImageOptionsResult *result = [self processedResultForURL:url options:options context:context];
     
     // Start the entry to load image from cache
-    [self callCacheProcessForOperation:operation url:url options:result.options context:result.context progress:progressBlock completed:completedBlock];
+    [self callCacheProcessForOperation:operation url:url host:host options:result.options context:result.context progress:progressBlock completed:completedBlock];
 
     return operation;
 }
@@ -249,6 +262,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
 // Query normal cache process
 - (void)callCacheProcessForOperation:(nonnull BMSDWebImageCombinedOperation *)operation
                                  url:(nonnull NSURL *)url
+                                host:(nullable NSString *)host
                              options:(BMSDWebImageOptions)options
                              context:(nullable BMSDWebImageContext *)context
                             progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
@@ -281,22 +295,23 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                 return;
             } else if (context[BMSDWebImageContextImageTransformer] && !cachedImage) {
                 // Have a chance to query original cache instead of downloading
-                [self callOriginalCacheProcessForOperation:operation url:url options:options context:context progress:progressBlock completed:completedBlock];
+                [self callOriginalCacheProcessForOperation:operation url:url host:host options:options context:context progress:progressBlock completed:completedBlock];
                 return;
             }
             
             // Continue download process
-            [self callDownloadProcessForOperation:operation url:url options:options context:context cachedImage:cachedImage cachedData:cachedData cacheType:cacheType progress:progressBlock completed:completedBlock];
+            [self callDownloadProcessForOperation:operation url:url host:host options:options context:context cachedImage:cachedImage cachedData:cachedData cacheType:cacheType progress:progressBlock completed:completedBlock];
         }];
     } else {
         // Continue download process
-        [self callDownloadProcessForOperation:operation url:url options:options context:context cachedImage:nil cachedData:nil cacheType:BMSDImageCacheTypeNone progress:progressBlock completed:completedBlock];
+        [self callDownloadProcessForOperation:operation url:url host:host options:options context:context cachedImage:nil cachedData:nil cacheType:BMSDImageCacheTypeNone progress:progressBlock completed:completedBlock];
     }
 }
 
 // Query original cache process
 - (void)callOriginalCacheProcessForOperation:(nonnull BMSDWebImageCombinedOperation *)operation
                                          url:(nonnull NSURL *)url
+                                        host:(nullable NSString *)host
                                      options:(BMSDWebImageOptions)options
                                      context:(nullable BMSDWebImageContext *)context
                                     progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
@@ -353,13 +368,14 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         }];
     } else {
         // Continue download process
-        [self callDownloadProcessForOperation:operation url:url options:options context:context cachedImage:nil cachedData:nil cacheType:originalQueryCacheType progress:progressBlock completed:completedBlock];
+        [self callDownloadProcessForOperation:operation url:url host:host options:options context:context cachedImage:nil cachedData:nil cacheType:originalQueryCacheType progress:progressBlock completed:completedBlock];
     }
 }
 
 // Download process
 - (void)callDownloadProcessForOperation:(nonnull BMSDWebImageCombinedOperation *)operation
                                     url:(nonnull NSURL *)url
+                                   host:(nullable NSString *)host
                                 options:(BMSDWebImageOptions)options
                                 context:(BMSDWebImageContext *)context
                             cachedImage:(nullable UIImage *)cachedImage
@@ -401,7 +417,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         }
         
         @bmweakify(operation);
-        operation.loaderOperation = [imageLoader requestImageWithURL:url options:options context:context progress:progressBlock completed:^(NSURL *imageUrl, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
+        operation.loaderOperation = [imageLoader requestImageWithURL:url host:host options:options context:context progress:progressBlock completed:^(NSURL *imageUrl, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
             @bmstrongify(operation);
             if (!imageUrl)
             {
