@@ -672,7 +672,14 @@ static NSString * _defaultBMDiskCacheDirectory;
 
 #if BMSD_UIKIT || BMSD_MAC
 - (void)applicationWillTerminate:(NSNotification *)notification {
-    [self deleteOldFilesWithCompletionBlock:nil];
+    // On iOS/macOS, the async opeartion to remove exipred data will be terminated quickly
+    // Try using the sync operation to ensure we reomve the exipred data
+    if (!self.config.shouldRemoveExpiredDataWhenTerminate) {
+        return;
+    }
+    dispatch_sync(self.ioQueue, ^{
+        [self.diskCache removeExpiredData];
+    });
 }
 #endif
 

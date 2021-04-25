@@ -328,7 +328,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         }
     }
     // Get the original query cache type
-    BMSDImageCacheType originalQueryCacheType = BMSDImageCacheTypeNone;
+    BMSDImageCacheType originalQueryCacheType = BMSDImageCacheTypeDisk;
     if (context[BMSDWebImageContextOriginalQueryCacheType]) {
         originalQueryCacheType = [context[BMSDWebImageContextOriginalQueryCacheType] integerValue];
     }
@@ -347,6 +347,10 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                 // Image combined operation cancelled by user
                 [self callCompletionBlockForOperation:operation completion:completedBlock error:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"Operation cancelled by user during querying the cache"}] url:url];
                 [self safelyRemoveOperationFromRunning:operation];
+                return;
+            } else if (context[BMSDWebImageContextImageTransformer] && !cachedImage) {
+                // Original image cache miss. Continue download process
+                [self callDownloadProcessForOperation:operation url:url host:host options:options context:context cachedImage:nil cachedData:nil cacheType:originalQueryCacheType progress:progressBlock completed:completedBlock];
                 return;
             }
             
@@ -480,7 +484,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         storeCacheType = [context[BMSDWebImageContextStoreCacheType] integerValue];
     }
     // the original store image cache type
-    BMSDImageCacheType originalStoreCacheType = BMSDImageCacheTypeNone;
+    BMSDImageCacheType originalStoreCacheType = BMSDImageCacheTypeDisk;
     if (context[BMSDWebImageContextOriginalStoreCacheType]) {
         originalStoreCacheType = [context[BMSDWebImageContextOriginalStoreCacheType] integerValue];
     }
