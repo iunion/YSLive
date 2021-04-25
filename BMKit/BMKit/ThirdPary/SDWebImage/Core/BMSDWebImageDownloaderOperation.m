@@ -503,8 +503,7 @@ didReceiveResponse:(NSURLResponse *)response
                             // 增加 imageData 判断，防止不能解析为 image 的数据被作为错误返回
                             if (imageData) {
                                 [self callCompletionBlocksWithImage:image imageData:imageData imageUrl:self.request.URL error:nil finished:YES];
-                            }
-                            else {
+                            } else {
                                 NSString *description = image == nil ? @"Downloaded image decode failed" : @"Downloaded image has 0 pixels";
                                 [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorBadImageData userInfo:@{NSLocalizedDescriptionKey : description}]];
                             }
@@ -512,8 +511,7 @@ didReceiveResponse:(NSURLResponse *)response
                         else
                         {
                             CGSize imageSize = image.size;
-                            // 增加 imageData 判断，防止不能解析为 image 的数据被作为错误返回
-                            if (imageData == nil || (image && (imageSize.width == 0 || imageSize.height == 0))) {
+                            if (imageSize.width == 0 || imageSize.height == 0) {
                                 NSString *description = image == nil ? @"Downloaded image decode failed" : @"Downloaded image has 0 pixels";
                                 [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorBadImageData userInfo:@{NSLocalizedDescriptionKey : description}]];
                             } else {
