@@ -93,6 +93,11 @@ typedef NS_OPTIONS(NSUInteger, BMSDWebImageDownloaderOptions) {
      * Note this options is not compatible with `SDWebImageDownloaderDecodeFirstFrameOnly`, which always produce a UIImage/NSImage.
      */
     BMSDWebImageDownloaderMatchAnimatedImageClass = 1 << 12,
+
+    /**
+     下载不能解析为图片的数据
+     */
+    BMSDWebImageDownloaderDoNotDecodeImageData = 1 << 13,
 };
 
 FOUNDATION_EXPORT NSNotificationName _Nonnull const BMSDWebImageDownloadStartNotification;

@@ -201,7 +201,12 @@ typedef NS_OPTIONS(NSUInteger, BMSDWebImageOptions) {
      * We usually don't apply transform on vector images, because vector images supports dynamically changing to any size, rasterize to a fixed size will loss details. To modify vector images, you can process the vector data at runtime (such as modifying PDF tag / SVG element).
      * Use this flag to transform them anyway.
      */
-    BMSDWebImageTransformVectorImage = 1 << 23
+    BMSDWebImageTransformVectorImage = 1 << 23,
+    
+    /**
+     下载完成后不做图片解析
+     */
+    BMSDWebImageDoNotDecodeImageData = 1 << 24
 };
 
 

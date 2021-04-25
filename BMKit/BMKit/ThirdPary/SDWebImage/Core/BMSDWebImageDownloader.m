@@ -622,6 +622,7 @@ didReceiveResponse:(NSURLResponse *)response
     if (options & BMSDWebImageDecodeFirstFrameOnly) downloaderOptions |= BMSDWebImageDownloaderDecodeFirstFrameOnly;
     if (options & BMSDWebImagePreloadAllFrames) downloaderOptions |= BMSDWebImageDownloaderPreloadAllFrames;
     if (options & BMSDWebImageMatchAnimatedImageClass) downloaderOptions |= BMSDWebImageDownloaderMatchAnimatedImageClass;
+    if (options & BMSDWebImageDoNotDecodeImageData) downloaderOptions |= BMSDWebImageDownloaderDoNotDecodeImageData;
     
     if (cachedImage && options & BMSDWebImageRefreshCached) {
         // force progressive off if image already cached but forced refreshing
