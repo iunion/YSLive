@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, BMImageTitleButtonViewType)
 
 @interface BMImageTitleButtonView : UIControl
 
-@property (nonatomic, assign) BMImageTextViewType type;
+@property (nonatomic, assign) BMImageTitleButtonViewType type;
 
 @property (nullable, nonatomic, strong) UIImage *normalImage;
 @property (nullable, nonatomic, strong) UIImage *selectedImage;

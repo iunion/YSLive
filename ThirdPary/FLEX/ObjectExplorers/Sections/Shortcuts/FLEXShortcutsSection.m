@@ -356,7 +356,7 @@ typedef NSMutableDictionary<Class, NSMutableArray<id<FLEXRuntimeMetadata>> *> Re
             }
             bucket;
         });
-        
+
         if (self->_append)  { [bucket addObjectsFromArray:items]; }
         if (self->_replace) { [bucket setArray:items]; }
         if (self->_prepend) {

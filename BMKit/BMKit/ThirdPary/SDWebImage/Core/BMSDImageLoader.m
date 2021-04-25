@@ -15,7 +15,19 @@
 #import "BMSDInternalMacros.h"
 #import "objc/runtime.h"
 
+BMSDWebImageContextOption const BMSDWebImageContextLoaderCachedImage = @"loaderCachedImage";
+
 static void * BMSDImageLoaderProgressiveCoderKey = &BMSDImageLoaderProgressiveCoderKey;
+
+id<BMSDProgressiveImageCoder> BMSDImageLoaderGetProgressiveCoder(id<BMSDWebImageOperation> operation) {
+    NSCParameterAssert(operation);
+    return objc_getAssociatedObject(operation, BMSDImageLoaderProgressiveCoderKey);
+}
+
+void BMSDImageLoaderSetProgressiveCoder(id<BMSDWebImageOperation> operation, id<BMSDProgressiveImageCoder> progressiveCoder) {
+    NSCParameterAssert(operation);
+    objc_setAssociatedObject(operation, BMSDImageLoaderProgressiveCoderKey, progressiveCoder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 UIImage * _Nullable BMSDImageLoaderDecodeImageData(NSData * _Nonnull imageData, NSURL * _Nonnull imageURL, BMSDWebImageOptions options, BMSDWebImageContext * _Nullable context) {
     NSCParameterAssert(imageData);
@@ -136,7 +148,7 @@ UIImage * _Nullable BMSDImageLoaderDecodeProgressiveImageData(NSData * _Nonnull 
     BMSDImageCoderOptions *coderOptions = [mutableCoderOptions copy];
     
     // Grab the progressive image coder
-    id<BMSDProgressiveImageCoder> progressiveCoder = objc_getAssociatedObject(operation, BMSDImageLoaderProgressiveCoderKey);
+    id<BMSDProgressiveImageCoder> progressiveCoder = BMSDImageLoaderGetProgressiveCoder(operation);
     if (!progressiveCoder) {
         id<BMSDProgressiveImageCoder> imageCoder = context[BMSDWebImageContextImageCoder];
         // Check the progressive coder if provided
@@ -152,7 +164,7 @@ UIImage * _Nullable BMSDImageLoaderDecodeProgressiveImageData(NSData * _Nonnull 
                 }
             }
         }
-        objc_setAssociatedObject(operation, BMSDImageLoaderProgressiveCoderKey, progressiveCoder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        BMSDImageLoaderSetProgressiveCoder(operation, progressiveCoder);
     }
     // If we can't find any progressive coder, disable progressive download
     if (!progressiveCoder) {
@@ -190,11 +202,9 @@ UIImage * _Nullable BMSDImageLoaderDecodeProgressiveImageData(NSData * _Nonnull 
         if (shouldDecode) {
             image = [BMSDImageCoderHelper decodedImageWithImage:image];
         }
-        // mark the image as progressive (completionBlock one are not mark as progressive)
-        image.bmsd_isIncremental = YES;
+        // mark the image as progressive (completed one are not mark as progressive)
+        image.bmsd_isIncremental = !finished;
     }
     
     return image;
 }
-
-BMSDWebImageContextOption const BMSDWebImageContextLoaderCachedImage = @"loaderCachedImage";

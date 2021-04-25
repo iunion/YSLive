@@ -42,8 +42,7 @@ static NSString * kBMSDCGImageDestinationRequestedFileSize = @"kCGImageDestinati
     CGSize _thumbnailSize;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     if (_imageSource) {
         CFRelease(_imageSource);
         _imageSource = NULL;
@@ -53,8 +52,7 @@ static NSString * kBMSDCGImageDestinationRequestedFileSize = @"kCGImageDestinati
 #endif
 }
 
-- (void)didReceiveMemoryWarning:(NSNotification *)notification
-{
+- (void)didReceiveMemoryWarning:(NSNotification *)notification {
     if (_imageSource) {
         for (size_t i = 0; i < _frameCount; i++) {
             CGImageSourceRemoveCacheAtIndex(_imageSource, i);
@@ -375,11 +373,11 @@ static NSString * kBMSDCGImageDestinationRequestedFileSize = @"kCGImageDestinati
         CGSize thumbnailSize = CGSizeZero;
         NSValue *thumbnailSizeValue = options[BMSDImageCoderDecodeThumbnailPixelSize];
         if (thumbnailSizeValue != nil) {
-    #if BMSD_MAC
+#if BMSD_MAC
             thumbnailSize = thumbnailSizeValue.sizeValue;
-    #else
+#else
             thumbnailSize = thumbnailSizeValue.CGSizeValue;
-    #endif
+#endif
         }
         _thumbnailSize = thumbnailSize;
         BOOL preserveAspectRatio = YES;

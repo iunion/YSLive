@@ -91,7 +91,6 @@
     if (!url) {
         return nil;
     }
-    
     NSArray<id<BMSDImageLoader>> *loaders = self.loaders;
     for (id<BMSDImageLoader> loader in loaders.reverseObjectEnumerator) {
         if ([loader canRequestImageForURL:url]) {

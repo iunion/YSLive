@@ -131,6 +131,7 @@ BMSDWebImageContextOption const BMSDWebImageContextQueryCacheType = @"queryCache
 BMSDWebImageContextOption const BMSDWebImageContextStoreCacheType = @"storeCacheType";
 BMSDWebImageContextOption const BMSDWebImageContextOriginalQueryCacheType = @"originalQueryCacheType";
 BMSDWebImageContextOption const BMSDWebImageContextOriginalStoreCacheType = @"originalStoreCacheType";
+BMSDWebImageContextOption const BMSDWebImageContextOriginalImageCache = @"originalImageCache";
 BMSDWebImageContextOption const BMSDWebImageContextAnimatedImageClass = @"animatedImageClass";
 BMSDWebImageContextOption const BMSDWebImageContextDownloadRequestModifier = @"downloadRequestModifier";
 BMSDWebImageContextOption const BMSDWebImageContextDownloadResponseModifier = @"downloadResponseModifier";

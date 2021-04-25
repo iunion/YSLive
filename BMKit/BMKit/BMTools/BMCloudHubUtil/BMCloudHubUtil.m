@@ -12,6 +12,19 @@
 
 @implementation BMCloudHubUtil
 
+/// 检测设备授权
++ (BOOL)checkAuthorizationStatus:(AVMediaType)mediaType
+{
+    AVAuthorizationStatus authorStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    if (authorStatus == AVAuthorizationStatusRestricted ||
+        authorStatus == AVAuthorizationStatusDenied)
+    {
+        return NO;
+    }
+    
+    return YES;
+}
+
 + (NSString *)getCurrentLanguage
 {
     NSArray *language = [NSLocale preferredLanguages];

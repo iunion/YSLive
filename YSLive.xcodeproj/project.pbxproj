@@ -767,6 +767,12 @@
 		87E3DDD925CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDD725CD3AEC00B8DA17 /* BMKeystoneCorrectionView.m */; };
 		87E3DDE125CD3CFB00B8DA17 /* BMCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDE025CD3CFB00B8DA17 /* BMCorrectionView.m */; };
 		87E3DDE225CD3CFB00B8DA17 /* BMCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDE025CD3CFB00B8DA17 /* BMCorrectionView.m */; };
+		87EDA9DB263521A50001534B /* FLEXNSStringShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9D7263521A40001534B /* FLEXNSStringShortcuts.m */; };
+		87EDA9DC263521A50001534B /* FLEXNSStringShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9D7263521A40001534B /* FLEXNSStringShortcuts.m */; };
+		87EDA9DD263521A50001534B /* FLEXNSDataShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9D9263521A50001534B /* FLEXNSDataShortcuts.m */; };
+		87EDA9DE263521A50001534B /* FLEXNSDataShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9D9263521A50001534B /* FLEXNSDataShortcuts.m */; };
+		87EDA9E3263521CA0001534B /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */; };
+		87EDA9E4263521CA0001534B /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */; };
 		87F32D982411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
 		87F32D992411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
 		87F32D9C2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D9B2411F49A00906C20 /* YSClassMainSuperVC.m */; };
@@ -1563,6 +1569,12 @@
 		87EB133C2372647900D642E8 /* YSLessonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLessonView.m; sourceTree = "<group>"; };
 		87EB133D2372647900D642E8 /* YSLessonNotifyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLessonNotifyTableCell.h; sourceTree = "<group>"; };
 		87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLessonDetailHeaderView.m; sourceTree = "<group>"; };
+		87EDA9D7263521A40001534B /* FLEXNSStringShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXNSStringShortcuts.m; sourceTree = "<group>"; };
+		87EDA9D8263521A40001534B /* FLEXNSStringShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXNSStringShortcuts.h; sourceTree = "<group>"; };
+		87EDA9D9263521A50001534B /* FLEXNSDataShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXNSDataShortcuts.m; sourceTree = "<group>"; };
+		87EDA9DA263521A50001534B /* FLEXNSDataShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXNSDataShortcuts.h; sourceTree = "<group>"; };
+		87EDA9E1263521C90001534B /* Cocoa+FLEXShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cocoa+FLEXShortcuts.h"; sourceTree = "<group>"; };
+		87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cocoa+FLEXShortcuts.m"; sourceTree = "<group>"; };
 		87F32D962411F17200906C20 /* YSMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
 		87F32D972411F17200906C20 /* YSMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
 		87F32D9A2411F49A00906C20 /* YSClassMainSuperVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassMainSuperVC.h; sourceTree = "<group>"; };
@@ -2303,6 +2315,8 @@
 		875DD4A225C4103000059D0B /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				87EDA9E1263521C90001534B /* Cocoa+FLEXShortcuts.h */,
+				87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */,
 				875DD4A725C4103000059D0B /* NSDictionary+ObjcRuntime.h */,
 				875DD4AC25C4103000059D0B /* NSDictionary+ObjcRuntime.m */,
 				875DD4A525C4103000059D0B /* NSMapTable+FLEX_Subscripting.h */,
@@ -2635,6 +2649,10 @@
 				87832DC924874C4300F1178E /* FLEXImageShortcuts.m */,
 				87832DC824874C4300F1178E /* FLEXLayerShortcuts.h */,
 				87832DD224874C4300F1178E /* FLEXLayerShortcuts.m */,
+				87EDA9DA263521A50001534B /* FLEXNSDataShortcuts.h */,
+				87EDA9D9263521A50001534B /* FLEXNSDataShortcuts.m */,
+				87EDA9D8263521A40001534B /* FLEXNSStringShortcuts.h */,
+				87EDA9D7263521A40001534B /* FLEXNSStringShortcuts.m */,
 				87832DCB24874C4300F1178E /* FLEXShortcut.h */,
 				87832DD524874C4300F1178E /* FLEXShortcut.m */,
 				87832DC624874C4300F1178E /* FLEXShortcutsFactory+Defaults.h */,
@@ -3700,6 +3718,7 @@
 				87517E3E24A35C870094E2B3 /* YSLiveManager.m in Sources */,
 				87133569237270F6006534A4 /* YSChatMemberListCell.m in Sources */,
 				8713356A237270F6006534A4 /* YSChatBasicTableViewCell.m in Sources */,
+				87EDA9DD263521A50001534B /* FLEXNSDataShortcuts.m in Sources */,
 				8713356B237270F6006534A4 /* YSSuperNetVC.m in Sources */,
 				8713356C237270F6006534A4 /* YSBarrageDescriptor.m in Sources */,
 				3471E2A224039A0100A3BBB4 /* FSCalendarConstants.m in Sources */,
@@ -3956,6 +3975,7 @@
 				87AED04E23B5D8F300D38129 /* SCEyeCareEmptyVC.m in Sources */,
 				87832F7A24874C4300F1178E /* FLEXArgumentInputTextView.m in Sources */,
 				3471E29A24039A0100A3BBB4 /* FSCalendarCollectionViewLayout.m in Sources */,
+				87EDA9E3263521CA0001534B /* Cocoa+FLEXShortcuts.m in Sources */,
 				8777C7AB23EA9EA1002002BF /* YSTableView.m in Sources */,
 				87832F9624874C4300F1178E /* FLEXGlobalsEntry.m in Sources */,
 				87832F8C24874C4300F1178E /* FLEXWindow.m in Sources */,
@@ -3996,6 +4016,7 @@
 				87832FE424874C4300F1178E /* FLEXImagePreviewViewController.m in Sources */,
 				87832F5024874C4300F1178E /* FLEXNetworkTransactionDetailController.m in Sources */,
 				2632465C25E49A66002002A6 /* mz_strm_buf.c in Sources */,
+				87EDA9DB263521A50001534B /* FLEXNSStringShortcuts.m in Sources */,
 				87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */,
 				874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */,
 				26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */,
@@ -4069,6 +4090,7 @@
 				3471E2A724039A0100A3BBB4 /* FSCalendarHeaderView.m in Sources */,
 				8717E1CD2400DADC008C4CDA /* YSLiveApiRequest.m in Sources */,
 				87832F5724874C4300F1178E /* FLEXNetworkObserver.m in Sources */,
+				87EDA9DC263521A50001534B /* FLEXNSStringShortcuts.m in Sources */,
 				8717E1CE2400DADC008C4CDA /* SCAnswerTBHeaderView.m in Sources */,
 				2632465725E49A66002002A6 /* mz_compat.c in Sources */,
 				8783302724874C4400F1178E /* UIGestureRecognizer+Blocks.m in Sources */,
@@ -4180,10 +4202,12 @@
 				2632464925E49A66002002A6 /* mz_strm_zlib.c in Sources */,
 				8717E23D2400DADC008C4CDA /* YSSuperVC.m in Sources */,
 				2632464D25E49A66002002A6 /* mz_zip_rw.c in Sources */,
+				87EDA9E4263521CA0001534B /* Cocoa+FLEXShortcuts.m in Sources */,
 				87832F4924874C4300F1178E /* FLEXNetworkTransaction.m in Sources */,
 				8717E23E2400DADC008C4CDA /* YSEyeCareManager.m in Sources */,
 				87832FAB24874C4300F1178E /* FLEXFileBrowserSearchOperation.m in Sources */,
 				2632465325E49A66002002A6 /* mz_crypt.c in Sources */,
+				87EDA9DE263521A50001534B /* FLEXNSDataShortcuts.m in Sources */,
 				87832FFF24874C4400F1178E /* flex_fishhook.c in Sources */,
 				87832FFD24874C4400F1178E /* FLEXHeapEnumerator.m in Sources */,
 				8717E23F2400DADC008C4CDA /* SCTopToolBarModel.m in Sources */,
@@ -4515,6 +4539,7 @@
 					"UIDevice+Private*",
 					"ActivityStreamAPI*",
 					"SceneKit+Snapshot*",
+					"Cocoa+FLEXShortcuts*",
 					"CALayer+FLEX*",
 					"NSArray+FLEX*",
 					"NSDictionary+ObjcRuntime*",
@@ -4636,6 +4661,7 @@
 					"UIDevice+Private*",
 					"ActivityStreamAPI*",
 					"SceneKit+Snapshot*",
+					"Cocoa+FLEXShortcuts*",
 					"CALayer+FLEX*",
 					"NSArray+FLEX*",
 					"NSDictionary+ObjcRuntime*",

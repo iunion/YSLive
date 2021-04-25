@@ -66,11 +66,6 @@
 #endif
 
 
-#if __has_include(<FLEX/FLEXMacros.h>)
-#import <FLEX/FLEXMacros.h>
-#else
-#import "FLEXMacros.h"
-#endif
 #if __has_include(<FLEX/FLEXAlert.h>)
 #import <FLEX/FLEXAlert.h>
 #else

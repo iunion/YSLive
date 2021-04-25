@@ -9,6 +9,7 @@
 #import "BMSDWebImageCompat.h"
 #import "BMSDWebImageDefine.h"
 #import "BMSDWebImageOperation.h"
+#import "BMSDImageCoder.h"
 
 typedef void(^BMSDImageLoaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
 typedef void(^BMSDImageLoaderCompletedBlock)(NSURL * _Nullable imageUrl, UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
@@ -49,6 +50,18 @@ FOUNDATION_EXPORT UIImage * _Nullable BMSDImageLoaderDecodeImageData(NSData * _N
  @return The decoded progressive image for current image data load from the network
  */
 FOUNDATION_EXPORT UIImage * _Nullable BMSDImageLoaderDecodeProgressiveImageData(NSData * _Nonnull imageData, NSURL * _Nonnull imageURL, BOOL finished,  id<BMSDWebImageOperation> _Nonnull operation, BMSDWebImageOptions options, BMSDWebImageContext * _Nullable context);
+
+/**
+ This function get the progressive decoder for current loading operation. If no progressive decoding is happended or decoder is not able to construct, return nil.
+ @return The progressive decoder associated with the loading operation.
+ */
+FOUNDATION_EXPORT id<BMSDProgressiveImageCoder> _Nullable BMSDImageLoaderGetProgressiveCoder(id<BMSDWebImageOperation> _Nonnull operation);
+
+/**
+ This function set the progressive decoder for current loading operation. If no progressive decoding is happended, pass nil.
+ @param operation The loading operation to associate the progerssive decoder.
+ */
+FOUNDATION_EXPORT void BMSDImageLoaderSetProgressiveCoder(id<BMSDWebImageOperation> _Nonnull operation, id<BMSDProgressiveImageCoder> _Nullable progressiveCoder);
 
 #pragma mark - SDImageLoader
 
