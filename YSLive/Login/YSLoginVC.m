@@ -463,7 +463,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
         @"text/xml"
     ]];
 
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/ClientAPI/checkupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/%@/checkupdateinfo", YSLive_Http, [YSLiveManager sharedInstance].apiHost, CHRoomWebApiInterface];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     // 默认是自己的标准app，传值是其他公司定制
