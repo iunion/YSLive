@@ -9,6 +9,8 @@
 #import "YSLiveManager.h"
 #import "YSPermissionsVC.h"
 
+#import "CHBeautySetVC.h"
+
 #if USECUSTOMER_COURSEWARECONTROLVIEW
 #import "YSNewCoursewareControlView.h"
 #endif
@@ -17,9 +19,12 @@
 #import "YSSDKManager.h"
 #endif
 
+#import "CHBeautySetModel.h"
+
 @interface YSLiveManager ()
 <
-    CHWhiteBoardManagerDelegate
+    CHWhiteBoardManagerDelegate,
+    CHBeautySetVCDelegate
 >
 
 #pragma mark - 白板
@@ -42,8 +47,12 @@
 @property (nonatomic, strong) NSMutableDictionary *connectH5CoursewareUrlParameters;
 @property (nonatomic, strong) NSArray <NSDictionary *> *connectH5CoursewareUrlCookies;
 
-// 是否需要使用HttpDNS
+/// 是否需要使用HttpDNS
 @property (nonatomic, assign) BOOL needUseHttpDNSForWhiteBoard;
+
+/// 美颜数据
+@property (nonatomic, strong) CHBeautySetModel *beautySetModel;
+@property (nonatomic, strong) CHBeautySetVC *beautySetVC;
 
 @end
 
@@ -68,6 +77,8 @@
         
         self.needUseHttpDNSForWhiteBoard = YES;
 
+        self.beautySetModel = [[CHBeautySetModel alloc] init];
+        
         #if YSSDK
             // 区分是否进入教室
             self.sdkIsJoinRoom = NO;
@@ -94,6 +105,189 @@
     self.needUseHttpDNSForWhiteBoard = needUseHttpDNSForWhiteBoard;
 #endif
 }
+
+/// 请求设备权限授权
+- (void)requestCaptureAuthorizationByMediaType:(AVMediaType)mediaType finishBlock:(void(^)(BOOL isSuccess))finishBlock
+{
+    AVAuthorizationStatus authorStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    
+    // 检测授权
+    switch (authorStatus)
+    {
+        // 已授权，可使用
+        // The client is authorized to access the hardware supporting a media type.
+        case AVAuthorizationStatusAuthorized:
+        {
+            if (finishBlock)
+            {
+                finishBlock(NO);
+            }
+            break;
+        }
+        // 未进行授权选择
+        // Indicates that the user has not yet made a choice regarding whether the client can access the hardware.
+        case AVAuthorizationStatusNotDetermined:
+        {
+            // 再次请求授权
+            [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
+                // 用户授权成功
+                if (granted)
+                {
+                    if (finishBlock)
+                    {
+                        finishBlock(YES);
+                    }
+                }
+                else
+                {
+                    // 用户拒绝授权
+                    if (finishBlock)
+                    {
+                        finishBlock(NO);
+                    }
+                }
+            }];
+            break;
+        }
+            
+        // 用户拒绝授权/未授权
+        default:
+        {
+            if (finishBlock)
+            {
+                finishBlock(NO);
+            }
+            break;
+        }
+    }
+}
+
+- (BOOL)initializeWhiteBoardWithWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
+{
+    if (![roomParams bm_isNotEmptyDictionary])
+    {
+        return NO;
+    }
+
+    if (![nickName bm_isNotEmpty])
+    {
+        return NO;
+    }
+
+    NSString *roomId = [roomParams bm_stringForKey:CHJoinRoomParamsRoomSerialKey];
+    if (![roomId bm_isNotEmpty])
+    {
+        return NO;
+    }
+    
+    [self requestCaptureAuthorizationByMediaType:AVMediaTypeAudio finishBlock:^(BOOL isSuccess) {
+        [self requestCaptureAuthorizationByMediaType:AVMediaTypeVideo finishBlock:^(BOOL isSuccess) {
+            [self realInitializeWhiteBoardWithWithHost:host port:port nickName:(NSString *)nickName roomParams:roomParams userParams:userParams];
+        }];
+    }];
+    
+    return YES;
+}
+
+- (BOOL)realInitializeWhiteBoardWithWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
+{
+    [self prepareToJoinRoomWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams];
+    
+    if ([super initializeWhiteBoardWithWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams])
+    {
+        [self checkRoom];
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)canJoinRoom
+{
+#if YSSDK
+    UIViewController *rootVC = nil;
+    YSSDKManager *SDKManager = (YSSDKManager *)self.sdkDelegate;
+    if ([SDKManager.delegate isKindOfClass:[UIViewController class]])
+    {
+        rootVC = (UIViewController *)SDKManager.delegate;
+    }
+    else
+    {
+        NSArray *windows = [UIApplication sharedApplication].windows;
+        if ([windows bm_isNotEmpty])
+        {
+            UIWindow *window = [windows firstObject];
+            if (window.rootViewController)
+            {
+                rootVC = window.rootViewController;
+            }
+            
+            if ([rootVC isKindOfClass:[UINavigationController class]])
+            {
+                UINavigationController *nav = (UINavigationController *)rootVC;
+                rootVC = nav.visibleViewController;
+            }
+        }
+    }
+    
+    if (![rootVC isKindOfClass:[UIViewController class]])
+    {
+        NSAssert(NO, YSLocalized(@"SDK.VCError"));
+        return NO;
+    }
+#endif
+
+    //return YES;
+
+    [self.cloudHubRtcEngineKit enableLocalAudio:NO];
+    [self.cloudHubRtcEngineKit enableLocalVideo:YES];
+
+//    [self.cloudHubRtcEngineKit enableAudio];
+//    [self.cloudHubRtcEngineKit enableVideo];
+//    [self.cloudHubRtcEngineKit publishStream];
+
+    CHBeautySetVC *beautySetVC = [[CHBeautySetVC alloc] init];
+    beautySetVC.liveManager = self;
+    beautySetVC.delegate = self;
+    beautySetVC.beautySetModel = self.beautySetModel;
+    
+    self.beautySetModel.liveManager = self;
+    
+    self.beautySetVC = beautySetVC;
+    
+#if YSSDK
+    beautySetVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    [rootVC presentViewController:beautySetVC animated:YES completion:nil];
+#else
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    UIViewController *topViewController = [window rootViewController];
+    
+    [(UINavigationController *)topViewController pushViewController:beautySetVC animated:NO];
+#endif
+    
+        return NO;
+}
+
+- (void)beautySetFinished:(BOOL)isFinished
+{
+#if YSSDK
+    [self.beautySetVC dismissViewControllerAnimated:YES completion:^{
+        [self joinRoom];
+    }];
+#else
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    UINavigationController *topViewController = (UINavigationController *)([window rootViewController]);
+    
+    [topViewController popViewControllerAnimated:NO];
+    
+    [self joinRoom];
+#endif
+        
+    self.beautySetVC = nil;
+}
+
+#if 0
 
 - (BOOL)joinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickName roomId:(NSString *)roomId roomPassword:(NSString *)roomPassword userRole:(CHUserRoleType)userRole userId:(NSString *)userId userParams:(NSDictionary *)userParams
 {
@@ -205,6 +399,8 @@
     
    return [super joinRoomWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams];
 }
+
+#endif
 
 - (void)prepareToJoinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
 {
@@ -352,7 +548,7 @@
     return fileModel;
 }
 
-
+#if 0
 ///查看摄像头权限
 - (BOOL)cameraPermissionsService
 {
@@ -366,7 +562,7 @@
     AVAudioSessionRecordPermission permissionStatus = [[AVAudioSession sharedInstance] recordPermission];
     return permissionStatus == AVAudioSessionRecordPermissionGranted;
 }
-
+#endif
 
 #pragma mark -
 #pragma mark CHWhiteBoardManagerDelegate

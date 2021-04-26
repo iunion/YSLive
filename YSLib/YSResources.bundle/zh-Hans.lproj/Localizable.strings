@@ -489,3 +489,24 @@
 "KeystoneCorrection.Tip" = "单指拉伸进行矫正";
 "KeystoneCorrection.Finish" = "完成";
 "KeystoneCorrection.Reset" = "还原";
+
+"BeautySet.note" = "为了获得更好的课堂体验，\n建议打开摄像头权限。";
+"BeautySet.Cam" = "摄像头";
+"BeautySet.Cam.HMirror" = "水平镜像";
+"BeautySet.Cam.VMirror" = "垂直镜像";
+"BeautySet.Cam.Tip" = "请打开你的摄像头权限";
+"BeautySet.Mic" = "麦克风";
+"BeautySet.Mic.Tip" = "请打开你的麦克风权限";
+"BeautySet.Speaker" = "扬声器";
+"BeautySet.BeautySet" = "美颜设置";
+"BeautySet.Enter" = "进 入";
+
+"BeautySet.Beauty" = "美 颜";
+"BeautySet.Props" = "动画道具";
+"BeautySet.Reset" = "重置";
+"BeautySet.Whitening" = "美白";
+"BeautySet.ThinFace" = "瘦脸";
+"BeautySet.BigEyes" = "大眼";
+"BeautySet.Exfoliating" = "磨皮";
+"BeautySet.Ruddy" = "红润";
+"BeautySet.Back" = "返 回";

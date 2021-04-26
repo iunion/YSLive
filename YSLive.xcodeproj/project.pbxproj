@@ -30,7 +30,6 @@
 		04AD5C142583598E0023BEAD /* YSWarmVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AD5C132583598E0023BEAD /* YSWarmVideoView.m */; };
 		04B5A47C2372E49F00DB2EDC /* YSEmotionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5A4742372E49E00DB2EDC /* YSEmotionCollectionCell.m */; };
 		04B5A47E2372E49F00DB2EDC /* SCChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5A4752372E49E00DB2EDC /* SCChatView.m */; };
-		04B8C6E523CEECFF0095F880 /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B8C6E423CEECFF0095F880 /* PanGestureControl.m */; };
 		2615880924D0090D00F35234 /* YSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880824D0090D00F35234 /* YSWebViewController.m */; };
 		2615880A24D0090D00F35234 /* YSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880824D0090D00F35234 /* YSWebViewController.m */; };
 		2615880D24D0171B00F35234 /* YSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2615880C24D0171B00F35234 /* YSTextView.m */; };
@@ -327,7 +326,6 @@
 		8717E2C02400DADC008C4CDA /* YSTableViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AD23EAA78E002002BF /* YSTableViewVC.m */; };
 		8717E2C12400DADC008C4CDA /* SCEyeCareEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AED04D23B5D8F300D38129 /* SCEyeCareEmptyVC.m */; };
 		8717E2C52400DADC008C4CDA /* YSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8777C7AA23EA9EA1002002BF /* YSTableView.m */; };
-		8717E2CE2400DADC008C4CDA /* PanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B8C6E423CEECFF0095F880 /* PanGestureControl.m */; };
 		8717E2D12400DADC008C4CDA /* YSChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3D958E23EDBA0B00A0DEC4 /* YSChangePassWordVC.m */; };
 		8717E2D32400DADC008C4CDA /* SCTeacherAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D5405E23BDD7060064FB84 /* SCTeacherAnswerView.m */; };
 		8717E2D42400DADC008C4CDA /* YSCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779E58423F7981B008E885C /* YSCircleProgress.m */; };
@@ -773,6 +771,22 @@
 		87EDA9DE263521A50001534B /* FLEXNSDataShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9D9263521A50001534B /* FLEXNSDataShortcuts.m */; };
 		87EDA9E3263521CA0001534B /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */; };
 		87EDA9E4263521CA0001534B /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */; };
+		87EDAA2C26369F440001534B /* CHPropsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2126369F440001534B /* CHPropsView.m */; };
+		87EDAA2D26369F440001534B /* CHPropsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2126369F440001534B /* CHPropsView.m */; };
+		87EDAA2E26369F440001534B /* CHBeautyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2326369F440001534B /* CHBeautyView.m */; };
+		87EDAA2F26369F440001534B /* CHBeautyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2326369F440001534B /* CHBeautyView.m */; };
+		87EDAA3026369F440001534B /* CHPropsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2426369F440001534B /* CHPropsViewCell.m */; };
+		87EDAA3126369F440001534B /* CHPropsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2426369F440001534B /* CHPropsViewCell.m */; };
+		87EDAA3226369F440001534B /* CHBeautySetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2626369F440001534B /* CHBeautySetView.m */; };
+		87EDAA3326369F440001534B /* CHBeautySetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2626369F440001534B /* CHBeautySetView.m */; };
+		87EDAA3426369F440001534B /* CHPermissionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2826369F440001534B /* CHPermissionsView.m */; };
+		87EDAA3526369F440001534B /* CHPermissionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2826369F440001534B /* CHPermissionsView.m */; };
+		87EDAA3626369F440001534B /* CHBeautySetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2926369F440001534B /* CHBeautySetModel.m */; };
+		87EDAA3726369F440001534B /* CHBeautySetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2926369F440001534B /* CHBeautySetModel.m */; };
+		87EDAA3826369F440001534B /* CHBeautySetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2A26369F440001534B /* CHBeautySetVC.m */; };
+		87EDAA3926369F440001534B /* CHBeautySetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA2A26369F440001534B /* CHBeautySetVC.m */; };
+		87EDAA4226369F9A0001534B /* CHPanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA4026369F990001534B /* CHPanGestureControl.m */; };
+		87EDAA4326369F9A0001534B /* CHPanGestureControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EDAA4026369F990001534B /* CHPanGestureControl.m */; };
 		87F32D982411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
 		87F32D992411F17200906C20 /* YSMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D972411F17200906C20 /* YSMainSuperVC.m */; };
 		87F32D9C2411F49A00906C20 /* YSClassMainSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F32D9B2411F49A00906C20 /* YSClassMainSuperVC.m */; };
@@ -850,8 +864,6 @@
 		04B5A4742372E49E00DB2EDC /* YSEmotionCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSEmotionCollectionCell.m; sourceTree = "<group>"; };
 		04B5A4752372E49E00DB2EDC /* SCChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChatView.m; sourceTree = "<group>"; };
 		04B5A4782372E49E00DB2EDC /* YSEmotionCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSEmotionCollectionCell.h; sourceTree = "<group>"; };
-		04B8C6E323CEECFF0095F880 /* PanGestureControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanGestureControl.h; sourceTree = "<group>"; };
-		04B8C6E423CEECFF0095F880 /* PanGestureControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanGestureControl.m; sourceTree = "<group>"; };
 		260A1A7C23507CB300288B01 /* YSLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLoginVC.h; sourceTree = "<group>"; };
 		260A1A7E23507CB300288B01 /* YSInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSInputView.m; sourceTree = "<group>"; };
 		260A1A7F23507CB300288B01 /* YSInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSInputView.h; sourceTree = "<group>"; };
@@ -1575,6 +1587,22 @@
 		87EDA9DA263521A50001534B /* FLEXNSDataShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXNSDataShortcuts.h; sourceTree = "<group>"; };
 		87EDA9E1263521C90001534B /* Cocoa+FLEXShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cocoa+FLEXShortcuts.h"; sourceTree = "<group>"; };
 		87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cocoa+FLEXShortcuts.m"; sourceTree = "<group>"; };
+		87EDAA1D26369F440001534B /* CHBeautySetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBeautySetModel.h; sourceTree = "<group>"; };
+		87EDAA1F26369F440001534B /* CHBeautyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBeautyView.h; sourceTree = "<group>"; };
+		87EDAA2026369F440001534B /* CHBeautySetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBeautySetView.h; sourceTree = "<group>"; };
+		87EDAA2126369F440001534B /* CHPropsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPropsView.m; sourceTree = "<group>"; };
+		87EDAA2226369F440001534B /* CHPropsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPropsViewCell.h; sourceTree = "<group>"; };
+		87EDAA2326369F440001534B /* CHBeautyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHBeautyView.m; sourceTree = "<group>"; };
+		87EDAA2426369F440001534B /* CHPropsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPropsViewCell.m; sourceTree = "<group>"; };
+		87EDAA2526369F440001534B /* CHPropsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPropsView.h; sourceTree = "<group>"; };
+		87EDAA2626369F440001534B /* CHBeautySetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHBeautySetView.m; sourceTree = "<group>"; };
+		87EDAA2726369F440001534B /* CHBeautySetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBeautySetVC.h; sourceTree = "<group>"; };
+		87EDAA2826369F440001534B /* CHPermissionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPermissionsView.m; sourceTree = "<group>"; };
+		87EDAA2926369F440001534B /* CHBeautySetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHBeautySetModel.m; sourceTree = "<group>"; };
+		87EDAA2A26369F440001534B /* CHBeautySetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHBeautySetVC.m; sourceTree = "<group>"; };
+		87EDAA2B26369F440001534B /* CHPermissionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPermissionsView.h; sourceTree = "<group>"; };
+		87EDAA4026369F990001534B /* CHPanGestureControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPanGestureControl.m; sourceTree = "<group>"; };
+		87EDAA4126369F990001534B /* CHPanGestureControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPanGestureControl.h; sourceTree = "<group>"; };
 		87F32D962411F17200906C20 /* YSMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
 		87F32D972411F17200906C20 /* YSMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
 		87F32D9A2411F49A00906C20 /* YSClassMainSuperVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSClassMainSuperVC.h; sourceTree = "<group>"; };
@@ -2293,12 +2321,12 @@
 		875A7201237561CC00407A75 /* SCVideoView */ = {
 			isa = PBXGroup;
 			children = (
+				87EDAA4126369F990001534B /* CHPanGestureControl.h */,
+				87EDAA4026369F990001534B /* CHPanGestureControl.m */,
 				871C87AB261ED75E00AB898E /* CHVideoView.h */,
 				871C87AC261ED75E00AB898E /* CHVideoView.m */,
 				875A720623758F1900407A75 /* SCVideoGridView.h */,
 				875A720723758F1900407A75 /* SCVideoGridView.m */,
-				04B8C6E323CEECFF0095F880 /* PanGestureControl.h */,
-				04B8C6E423CEECFF0095F880 /* PanGestureControl.m */,
 			);
 			path = SCVideoView;
 			sourceTree = "<group>";
@@ -2349,6 +2377,7 @@
 			children = (
 				876687802350794D00C4C635 /* ThirdPary */,
 				870C56FC2358577B00BDB1EC /* YSLib */,
+				87EDAA1C26369F440001534B /* CHBeautySet */,
 				87728F272355CCD800E34916 /* YSLiveManager */,
 				34043C3A23EA60B4004982E6 /* YSOnlineSchool */,
 				0464CEA1247B9BFA001532A3 /* YSSkinManager */,
@@ -3409,6 +3438,35 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		87EDAA1C26369F440001534B /* CHBeautySet */ = {
+			isa = PBXGroup;
+			children = (
+				87EDAA1E26369F440001534B /* CHBeautySetView */,
+				87EDAA2726369F440001534B /* CHBeautySetVC.h */,
+				87EDAA2A26369F440001534B /* CHBeautySetVC.m */,
+				87EDAA2B26369F440001534B /* CHPermissionsView.h */,
+				87EDAA2826369F440001534B /* CHPermissionsView.m */,
+				87EDAA1D26369F440001534B /* CHBeautySetModel.h */,
+				87EDAA2926369F440001534B /* CHBeautySetModel.m */,
+			);
+			path = CHBeautySet;
+			sourceTree = "<group>";
+		};
+		87EDAA1E26369F440001534B /* CHBeautySetView */ = {
+			isa = PBXGroup;
+			children = (
+				87EDAA2026369F440001534B /* CHBeautySetView.h */,
+				87EDAA2626369F440001534B /* CHBeautySetView.m */,
+				87EDAA1F26369F440001534B /* CHBeautyView.h */,
+				87EDAA2326369F440001534B /* CHBeautyView.m */,
+				87EDAA2526369F440001534B /* CHPropsView.h */,
+				87EDAA2126369F440001534B /* CHPropsView.m */,
+				87EDAA2226369F440001534B /* CHPropsViewCell.h */,
+				87EDAA2426369F440001534B /* CHPropsViewCell.m */,
+			);
+			path = CHBeautySetView;
+			sourceTree = "<group>";
+		};
 		87F32D952411F17200906C20 /* YSMainSuperVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -3725,6 +3783,7 @@
 				045F76092484E00300A34F76 /* YSSetTableViewCell.m in Sources */,
 				87832F2824874C4300F1178E /* FLEXCollectionContentSection.m in Sources */,
 				26FCAD7623C477D300FC90EF /* YSMediaSlider.m in Sources */,
+				87EDAA3626369F440001534B /* CHBeautySetModel.m in Sources */,
 				8713356D237270F6006534A4 /* BMTestGPSMocker.m in Sources */,
 				26E4718C2518A78300CE1776 /* YSDiceAnimationView.m in Sources */,
 				87832FE824874C4300F1178E /* FHSRangeSlider.m in Sources */,
@@ -3777,6 +3836,7 @@
 				8713358E237270F6006534A4 /* YSMainVC.m in Sources */,
 				87832F3024874C4300F1178E /* FLEXClassShortcuts.m in Sources */,
 				87832F6024874C4300F1178E /* FLEXManager+Networking.m in Sources */,
+				87EDAA3426369F440001534B /* CHPermissionsView.m in Sources */,
 				CB3D958C23ED925800A0DEC4 /* YSOnlineMineTableViewCell.m in Sources */,
 				26EFA67A2379967A00EC2A64 /* SCAnswerDetailTableViewCell.m in Sources */,
 				87832FE624874C4300F1178E /* FHSViewSnapshot.m in Sources */,
@@ -3829,6 +3889,7 @@
 				871C87AD261ED75F00AB898E /* CHVideoView.m in Sources */,
 				3450B140240677A6006141E5 /* YSMonthListCell.m in Sources */,
 				87832FA424874C4300F1178E /* FLEXKeychainViewController.m in Sources */,
+				87EDAA4226369F9A0001534B /* CHPanGestureControl.m in Sources */,
 				87832F3624874C4300F1178E /* FLEXBundleShortcuts.m in Sources */,
 				8783301824874C4400F1178E /* FLEXClassBuilder.m in Sources */,
 				875DD4AF25C4103000059D0B /* NSMapTable+FLEX_Subscripting.m in Sources */,
@@ -3871,6 +3932,7 @@
 				34B8D0F323FA92D600EDBCBF /* YSUpHandPopCell.m in Sources */,
 				8777C7BF23EC313D002002BF /* YSClassDayList.m in Sources */,
 				87832F5224874C4300F1178E /* FLEXNetworkTransactionCell.m in Sources */,
+				87EDAA2C26369F440001534B /* CHPropsView.m in Sources */,
 				CB384CE323FE6C0400DCD1C0 /* YSStudentResponder.m in Sources */,
 				87832FD824874C4300F1178E /* FLEXSearchToken.m in Sources */,
 				047F07AF25779BEF00D64265 /* YSDefaultLayoutPopView.m in Sources */,
@@ -3934,6 +3996,7 @@
 				8783302A24874C4400F1178E /* NSArray+FLEX.m in Sources */,
 				87832F0C24874C4300F1178E /* FLEXTableViewController.m in Sources */,
 				87832FD224874C4300F1178E /* FLEXRuntimeExporter.m in Sources */,
+				87EDAA3026369F440001534B /* CHPropsViewCell.m in Sources */,
 				871335FC237270F6006534A4 /* YSChatMemberListVC.m in Sources */,
 				87832F6C24874C4300F1178E /* FLEXArgumentInputColorView.m in Sources */,
 				87832F3824874C4300F1178E /* FLEXLayerShortcuts.m in Sources */,
@@ -3954,6 +4017,7 @@
 				87832F4224874C4300F1178E /* FLEXMetadataSection.m in Sources */,
 				87832F9E24874C4300F1178E /* FLEXObjectRef.m in Sources */,
 				2632464E25E49A66002002A6 /* mz_crypt_apple.c in Sources */,
+				87EDAA3226369F440001534B /* CHBeautySetView.m in Sources */,
 				26355BE623B4C550004B8366 /* SCTeacherPersonListCell.m in Sources */,
 				87832FC624874C4300F1178E /* FLEXRealmDatabaseManager.m in Sources */,
 				3471E2A824039A0100A3BBB4 /* FSCalendarTransitionCoordinator.m in Sources */,
@@ -3986,8 +4050,8 @@
 				87832F7424874C4300F1178E /* FLEXArgumentInputDateView.m in Sources */,
 				8783301024874C4400F1178E /* FLEXMethod.m in Sources */,
 				3471E29424039A0100A3BBB4 /* FSCalendarCell.m in Sources */,
+				87EDAA2E26369F440001534B /* CHBeautyView.m in Sources */,
 				8783301624874C4400F1178E /* FLEXBlockDescription.m in Sources */,
-				04B8C6E523CEECFF0095F880 /* PanGestureControl.m in Sources */,
 				87832FD424874C4300F1178E /* FLEXRuntimeKeyPath.m in Sources */,
 				8783301E24874C4400F1178E /* FLEXAlert.m in Sources */,
 				87832FA024874C4300F1178E /* FLEXWebViewController.m in Sources */,
@@ -4019,6 +4083,7 @@
 				87EDA9DB263521A50001534B /* FLEXNSStringShortcuts.m in Sources */,
 				87133641237270F6006534A4 /* BMTestNetFlowManager.m in Sources */,
 				874E4F6A23B36F0300086B01 /* LMJDropdownMenu.m in Sources */,
+				87EDAA3826369F440001534B /* CHBeautySetVC.m in Sources */,
 				26355BE323B4BB9A004B8366 /* SCTeacherListView.m in Sources */,
 				8709FEB42484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */,
 				87832F2424874C4300F1178E /* FLEXDefaultsContentSection.m in Sources */,
@@ -4075,6 +4140,7 @@
 				8717E1C12400DADC008C4CDA /* YSChatMemberListCell.m in Sources */,
 				269B1B552486498700352BC6 /* YSToolBoxView.m in Sources */,
 				8783302124874C4400F1178E /* FLEXResources.m in Sources */,
+				87EDAA2D26369F440001534B /* CHPropsView.m in Sources */,
 				87832FB724874C4300F1178E /* FLEXOSLogController.m in Sources */,
 				8717E1C22400DADC008C4CDA /* YSChatBasicTableViewCell.m in Sources */,
 				87832FA124874C4300F1178E /* FLEXWebViewController.m in Sources */,
@@ -4112,6 +4178,7 @@
 				8717E1E32400DADC008C4CDA /* BMTestNetFlowHttpModel.m in Sources */,
 				8717E1E62400DADC008C4CDA /* YSUpHandPopoverVC.m in Sources */,
 				87832F9D24874C4300F1178E /* FLEXLiveObjectsController.m in Sources */,
+				87EDAA3926369F440001534B /* CHBeautySetVC.m in Sources */,
 				87832F5924874C4300F1178E /* FLEXExplorerToolbarItem.m in Sources */,
 				87832F4324874C4300F1178E /* FLEXMetadataSection.m in Sources */,
 				8717E1EC2400DADC008C4CDA /* YSPassWordAlert.m in Sources */,
@@ -4163,9 +4230,12 @@
 				8717E2232400DADC008C4CDA /* YSPermissionsVResultView.m in Sources */,
 				8709FEB52484D2A000CC8BEA /* YSSpreadBottomToolBar.m in Sources */,
 				8783303724874C4400F1178E /* NSUserDefaults+FLEX.m in Sources */,
+				87EDAA3326369F440001534B /* CHBeautySetView.m in Sources */,
+				87EDAA2F26369F440001534B /* CHBeautyView.m in Sources */,
 				87832F8F24874C4300F1178E /* FLEXWindowManagerController.m in Sources */,
 				87832FB124874C4300F1178E /* FLEXSystemLogViewController.m in Sources */,
 				87832FE924874C4300F1178E /* FHSRangeSlider.m in Sources */,
+				87EDAA3526369F440001534B /* CHPermissionsView.m in Sources */,
 				26D07C20243F03B2002B1B60 /* YSMP4Player.m in Sources */,
 				8717E2272400DADC008C4CDA /* YSQuestionView.m in Sources */,
 				8717E2282400DADC008C4CDA /* YSUserDefault.m in Sources */,
@@ -4202,6 +4272,7 @@
 				2632464925E49A66002002A6 /* mz_strm_zlib.c in Sources */,
 				8717E23D2400DADC008C4CDA /* YSSuperVC.m in Sources */,
 				2632464D25E49A66002002A6 /* mz_zip_rw.c in Sources */,
+				87EDAA4326369F9A0001534B /* CHPanGestureControl.m in Sources */,
 				87EDA9E4263521CA0001534B /* Cocoa+FLEXShortcuts.m in Sources */,
 				87832F4924874C4300F1178E /* FLEXNetworkTransaction.m in Sources */,
 				8717E23E2400DADC008C4CDA /* YSEyeCareManager.m in Sources */,
@@ -4339,7 +4410,6 @@
 				26E4718F2518A78300CE1776 /* YSDiceAnimationView+Tools.m in Sources */,
 				2615880E24D0171B00F35234 /* YSTextView.m in Sources */,
 				87832F5D24874C4300F1178E /* FLEXManager+Extensibility.m in Sources */,
-				8717E2CE2400DADC008C4CDA /* PanGestureControl.m in Sources */,
 				8717E2D12400DADC008C4CDA /* YSChangePassWordVC.m in Sources */,
 				87832F3324874C4300F1178E /* FLEXImageShortcuts.m in Sources */,
 				87832F9124874C4300F1178E /* FLEXBookmarkManager.m in Sources */,
@@ -4369,6 +4439,7 @@
 				87832F1924874C4300F1178E /* FLEXMultilineTableViewCell.m in Sources */,
 				875DD4B025C4103000059D0B /* NSMapTable+FLEX_Subscripting.m in Sources */,
 				8717E2F02400DADC008C4CDA /* YSVoteVC.m in Sources */,
+				87EDAA3126369F440001534B /* CHPropsViewCell.m in Sources */,
 				8717E2F32400DADC008C4CDA /* YSEmotionView.m in Sources */,
 				8717E2F42400DADC008C4CDA /* YSLessonView.m in Sources */,
 				8717E2F72400DADC008C4CDA /* main.m in Sources */,
@@ -4411,6 +4482,7 @@
 				87832F7D24874C4300F1178E /* FLEXArgumentInputFontsPickerView.m in Sources */,
 				87832F1B24874C4300F1178E /* FLEXTableViewCell.m in Sources */,
 				87832FA724874C4300F1178E /* FLEXKeychain.m in Sources */,
+				87EDAA3726369F440001534B /* CHBeautySetModel.m in Sources */,
 				8717E31A2400DADC008C4CDA /* YSBasicAnimation.m in Sources */,
 				8783302D24874C4400F1178E /* NSObject+FLEX_Reflection.m in Sources */,
 				8717E31B2400DADC008C4CDA /* YSVotingTableCell.m in Sources */,

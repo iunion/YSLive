@@ -18,6 +18,8 @@
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
 
+#import "CHPanGestureControl.h"
+
 #import <BMKit/NSString+BMURLEncode.h>
 
 @interface YSClassMainSuperVC ()
@@ -344,7 +346,7 @@
             [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
         }
         
-        [[PanGestureControl shareInfo] addPanGestureAction:LONG_PRESS_VIEW_DEMO];
+        [[CHPanGestureControl shareInfo] addPanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
     }
     else
     {
@@ -363,7 +365,7 @@
             [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
         }
         
-        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+        [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
     }
 }
 

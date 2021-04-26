@@ -29,6 +29,8 @@
 #import "YSMp4ControlView.h"
 #import "YSMp3Controlview.h"
 
+#import "CHPanGestureControl.h"
+
 #import "YSUpHandPopoverVC.h"
 #import "YSCircleProgress.h"
 #import "YSTeacherResponder.h"
@@ -1240,8 +1242,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     videoGridView.hidden = YES;
     self.videoGridView = videoGridView;
 }
-
-
 
 - (void)setupListView
 {
@@ -3209,7 +3209,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(CHVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
-    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
     
     if (self.roomtype == CHRoomUserType_One || self.roomLayout == CHRoomLayoutType_VideoLayout || self.roomLayout == CHRoomLayoutType_FocusLayout)
     {
@@ -3697,7 +3697,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleEnterBackground
 {
 //    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
-    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
 }
 
 #if 0
