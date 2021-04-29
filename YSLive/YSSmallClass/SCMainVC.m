@@ -1924,12 +1924,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 
 // 开始播放课件视频
-- (void)showWhiteBordVideoViewWithMediaModel:(CHSharedMediaFileModel *)mediaModel
+- (void)showWhiteBordVideoViewWithMediaModel:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     [self.view endEditing:YES];
     
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
-    if (mediaModel.state == CHMediaState_Pause)
+    if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
     {
         [self.shareVideoFloatView showMp4PauseView];
     }
@@ -1956,7 +1956,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 关闭课件视频
-- (void)hideWhiteBordVideoViewWithMediaModel:(CHSharedMediaFileModel *)mediaModel
+- (void)hideWhiteBordVideoViewWithMediaModel:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (mediaModel.isVideo)
     {
@@ -4089,7 +4089,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 播放白板视频/音频
-- (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordPlayMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (mediaModel.isVideo)
     {
@@ -4103,7 +4103,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 // 停止白板视频/音频
-- (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (mediaModel.isVideo)
     {
@@ -4117,7 +4117,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 继续播放白板视频/音频
-- (void)handleWhiteBordPlayMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPlayMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (!mediaFileModel.isVideo)
     {
@@ -4131,7 +4131,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 暂停播放白板视频/音频
-- (void)handleWhiteBordPauseMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPauseMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (!mediaFileModel.isVideo)
     {
@@ -4202,7 +4202,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 媒体课件状态
-- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHMediaState)state
+- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHWhiteBoardShareMediaState)state
 {
     [self freshTeacherCoursewareListData];
 }

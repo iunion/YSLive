@@ -1038,8 +1038,8 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)closeMp4BtnClicked:(UIButton *)btn
 {
-    CHSharedMediaFileModel *mediaFileModel = self.mp4ControlView.mediaFileModel;
-    [self.liveManager stopSharedMediaFile:mediaFileModel.fileUrl];
+    CHWhiteBoardShareMediaModel *mediaFileModel = self.mp4ControlView.mediaFileModel;
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit stopSharedMedia:mediaFileModel.fileUrl];
 }
 
 - (void)doubleBtnClick:(UIButton *)sender
@@ -2907,7 +2907,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 白板视频/音频
 
 // 播放白板视频/音频
-- (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordPlayMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     [self freshTeacherCoursewareListData];
     
@@ -2936,7 +2936,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 // 停止白板视频/音频
-- (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (mediaModel.isVideo)
     {
@@ -2952,7 +2952,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 继续播放白板视频/音频
-- (void)handleWhiteBordPlayMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPlayMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (mediaFileModel.isVideo)
     {
@@ -2975,7 +2975,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 /// 暂停播放白板视频/音频
-- (void)handleWhiteBordPauseMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPauseMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (mediaFileModel.isVideo)
     {
@@ -3003,7 +3003,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     BMLog(@"onRoomUpdateMediaStream: %@, %@, %@", @(duration), @(pos), @(isPlay));
     if (pos == duration)
     {
-        [self.liveManager stopSharedMediaFile:self.mediaFileModel.fileUrl];
+        [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit stopSharedMedia:self.mediaFileModel.fileUrl];
         return;
     }
     if (isPlay)
@@ -3029,29 +3029,43 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 #pragma mark -YSMp3ControlViewDelegate
-- (void)playMp3ControlViewPlay:(BOOL)isPause withFileModel:(nonnull CHSharedMediaFileModel *)mediaFileModel
+- (void)playMp3ControlViewPlay:(BOOL)isPause withFileModel:(nonnull CHWhiteBoardShareMediaModel *)mediaFileModel
 {
-    [self.liveManager pauseSharedMediaFile:mediaFileModel.fileUrl isPause:isPause];
+    if (isPause)
+    {
+        [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit pauseSharedMedia:mediaFileModel.fileUrl];
+    }
+    else
+    {
+        [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit resumeSharedMedia:mediaFileModel.fileUrl];
+    }
 
     [self freshTeacherCoursewareListData];
 }
 
-- (void)sliderMp3ControlViewPos:(NSTimeInterval)value withFileModel:(CHSharedMediaFileModel *)mediaFileModel
+- (void)sliderMp3ControlViewPos:(NSTimeInterval)value withFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     isDrag = YES;
-    [self.liveManager seekSharedMediaFile:mediaFileModel.fileUrl positionByMS:value];
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit seekSharedMediaPosition:value withMedia:mediaFileModel.fileUrl];
 }
 
-- (void)closeMp3ControlViewWithFileModel:(CHSharedMediaFileModel *)mediaFileModel
+- (void)closeMp3ControlViewWithFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
-    [self.liveManager stopSharedMediaFile:mediaFileModel.fileUrl];
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit stopSharedMedia:mediaFileModel.fileUrl];
 }
 
 #pragma mark -YSMp4ControlViewDelegate
 
-- (void)playYSMp4ControlViewPlay:(BOOL)isPause withFileModel:(CHSharedMediaFileModel *)mediaFileModel
+- (void)playYSMp4ControlViewPlay:(BOOL)isPause withFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
-    [self.liveManager pauseSharedMediaFile:mediaFileModel.fileUrl isPause:isPause];
+    if (isPause)
+    {
+        [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit pauseSharedMedia:mediaFileModel.fileUrl];
+    }
+    else
+    {
+        [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit resumeSharedMedia:mediaFileModel.fileUrl];
+    }
     
     if (isPause)
     {
@@ -3063,10 +3077,10 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     }
 }
 
-- (void)sliderYSMp4ControlViewPos:(NSTimeInterval)value withFileModel:(CHSharedMediaFileModel *)mediaFileModel
+- (void)sliderYSMp4ControlViewPos:(NSTimeInterval)value withFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     isDrag = YES;
-    [self.liveManager seekSharedMediaFile:mediaFileModel.fileUrl positionByMS:value];
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit seekSharedMediaPosition:value withMedia:mediaFileModel.fileUrl];
 }
 
 /// 显示白板视频标注
@@ -3719,7 +3733,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 
 // 开始播放课件视频
-- (void)showWhiteBordVideoViewWithMediaModel:(CHSharedMediaFileModel *)mediaModel
+- (void)showWhiteBordVideoViewWithMediaModel:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     _isMp4Play = YES;
     [self.view endEditing:YES];
@@ -3728,7 +3742,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.closeMp4Btn.hidden = NO;
         
     [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
-    if (mediaModel.state == CHMediaState_Pause)
+    if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
     {
         [self.shareVideoFloatView showMp4PauseView];
     }
@@ -3754,7 +3768,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 }
 
 // 关闭课件视频
-- (void)hideWhiteBordVideoViewWithMediaModel:(CHSharedMediaFileModel *)mediaModel
+- (void)hideWhiteBordVideoViewWithMediaModel:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     _isMp4Play = NO;
     if (mediaModel.isVideo)
@@ -3781,7 +3795,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 白板翻页 换课件
 
 /// 媒体课件状态
-- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHMediaState)state
+- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHWhiteBoardShareMediaState)state
 {
     [self freshTeacherCoursewareListData];
 }

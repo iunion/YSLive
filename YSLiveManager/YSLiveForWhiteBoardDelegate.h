@@ -24,8 +24,33 @@
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen;
 /// 课件最大化
 - (void)handleonWhiteBoardMaximizeView;
+
 /// 媒体课件状态
-- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHMediaState)state;
+- (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHWhiteBoardShareMediaState)state;
+/// 共享媒体播放回调
+- (void)handleWhiteBoardShareMediaStartPlay:(NSString *)uid
+                                   streamId:(NSString *)streamId
+                                 attributes:(NSDictionary *)attributesDic
+                                 shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia;
+/// 共享媒体停止回调
+- (void)handleWhiteBoardShareMediaStopPlay:(NSString *)uid
+                                  streamId:(NSString *)streamId
+                                shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia;
+
+/// 共享媒体暂停回调
+- (void)handleWhiteBoardShareMediaPause:(NSString *)uid
+                               streamId:(NSString *)streamId
+                             shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia;
+/// 共享媒体继续回调
+- (void)handleWhiteBoardShareMediaResume:(NSString *)uid
+                                streamId:(NSString *)streamId
+                              shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia;
+
+/// 共享媒体进度回调(毫秒)
+- (void)handleWhiteBoardShareMediaChangePosition:(NSString *)uid
+                                        streamId:(NSString *)streamId
+                                             pos:(NSUInteger)pos
+                                      shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia;
 
 //小黑板状态变化（更改画笔）
 - (void)handleSignalingSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState;

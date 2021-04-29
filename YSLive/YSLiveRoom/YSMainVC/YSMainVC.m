@@ -1389,7 +1389,7 @@
 #pragma mark 白板视频/音频
 
 // 播放白板视频/音频
-- (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordPlayMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
     {
@@ -1412,7 +1412,7 @@
         else
         {
             [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
-            if (mediaModel.state == CHMediaState_Pause)
+            if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
             {
                 [self.mp4BgView showMp4PauseView];
             }
@@ -1440,7 +1440,7 @@
 }
 
 // 停止白板视频/音频
-- (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
     {
@@ -1466,7 +1466,7 @@
 }
 
 /// 继续播放白板视频/音频
-- (void)handleWhiteBordPlayMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPlayMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (!mediaFileModel.isVideo)
     {
@@ -1483,7 +1483,7 @@
 }
 
 /// 暂停播放白板视频/音频
-- (void)handleWhiteBordPauseMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPauseMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (!mediaFileModel.isVideo)
     {

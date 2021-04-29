@@ -1547,6 +1547,8 @@
 }
 
 #pragma mark meidia
+
+/*
 /// 媒体流发布状态
 - (void)onRoomShareMediaFile:(CHSharedMediaFileModel *)mediaFileModel
 {
@@ -1592,23 +1594,69 @@
         }
     }
 }
+*/
 
-- (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+/// 共享媒体播放回调
+- (void)handleWhiteBoardShareMediaStartPlay:(NSString *)uid
+                                   streamId:(NSString *)streamId
+                                 attributes:(NSDictionary *)attributesDic
+                                 shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    self.mediaFileModel = shareMedia;
+    [self handleWhiteBordPlayMediaFileWithMedia:shareMedia];
+}
+
+/// 共享媒体停止回调
+- (void)handleWhiteBoardShareMediaStopPlay:(NSString *)uid
+                                  streamId:(NSString *)streamId
+                                shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    [self handleWhiteBordStopMediaFileWithMedia:shareMedia];
+    self.mediaFileModel = nil;
+}
+
+/// 共享媒体暂停回调
+- (void)handleWhiteBoardShareMediaPause:(NSString *)uid
+                               streamId:(NSString *)streamId
+                             shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    [self handleWhiteBordPauseMediaStream:shareMedia];
+}
+
+/// 共享媒体继续回调
+- (void)handleWhiteBoardShareMediaResume:(NSString *)uid
+                                streamId:(NSString *)streamId
+                              shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    [self handleWhiteBordPlayMediaFileWithMedia:shareMedia];
+}
+
+/// 共享媒体进度回调(毫秒)
+- (void)handleWhiteBoardShareMediaChangePosition:(NSString *)uid
+                                        streamId:(NSString *)streamId
+                                             pos:(NSUInteger)pos
+                                      shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    [self onRoomUpdateMediaStream:shareMedia.duration pos:shareMedia.pos isPlay:YES];
+}
+
+
+- (void)handleWhiteBordPlayMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     
 }
 
-- (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     
 }
 
-- (void)handleWhiteBordPlayMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPlayMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     
 }
 
-- (void)handleWhiteBordPauseMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPauseMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     
 }

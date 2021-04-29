@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, weak) CHVideoView *myVideoView;
 
 /// 打开的音视频课件，目前只支持一个音视频
-@property (nullable, nonatomic, strong) CHSharedMediaFileModel *mediaFileModel;
+@property (nullable, nonatomic, strong) CHWhiteBoardShareMediaModel *mediaFileModel;
 
 /// 当前的焦点视图
 @property(nullable, nonatomic, strong) CHVideoView *fouceView;
