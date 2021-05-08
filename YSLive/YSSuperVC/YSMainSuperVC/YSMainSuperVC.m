@@ -802,8 +802,14 @@
     {
         for (NSString *sourceId in theSourceIdArray)
         {
-            CHVideoView *newVideoView = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
-            newVideoView.appUseTheType = self.appUseTheType;
+            CHVideoView *newVideoView = [self getVideoViewWithPeerId:roomUser.peerID andSourceId:sourceId];
+            
+            if (!newVideoView)
+            {
+                newVideoView = [[CHVideoView alloc] initWithRoomUser:roomUser withSourceId:sourceId withDelegate:self];
+                newVideoView.appUseTheType = self.appUseTheType;
+            }
+
             if (newVideoView)
             {
                 if (count == 0)
