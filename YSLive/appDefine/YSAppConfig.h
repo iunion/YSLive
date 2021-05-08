@@ -24,6 +24,7 @@
 #define FLEX_BM                 1
 #endif
 
+#define CHLIVE_USEVIP           0
 
 #import "YSAppMacros.h"
 #import "YSAppUIDef.h"

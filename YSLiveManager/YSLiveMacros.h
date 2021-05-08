@@ -23,26 +23,38 @@
 #define YSLive_IsHttps      YSLive_HTTPS ? @"YES" : @"NO"
 
 
-//#define YSSchool_Server     @"school.roadofcloud.net"
+#if CHLIVE_USEVIP
 #define YSSchool_Server     @"school.cloudhub.vip"
+#else
+#define YSSchool_Server     @"school.roadofcloud.net"
+#endif
 
 #if USE_TEST_HELP
 
 // 开发环境
-//#define YSLIVE_HOST_DEV         @"demo.roadofcloud.net"
+#if CHLIVE_USEVIP
 #define YSLIVE_HOST_DEV         @"api-demo.cloudhub.vip"
+#else
+#define YSLIVE_HOST_DEV         @"demo.roadofcloud.net"
+#endif
 #define YS_SIGNINADDRESS_DEV    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/addsignin/"
 #define YS_FLOWERADDRESS_DEV    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/sendflowers/"
 
 // 测试环境
-//#define YSLIVE_HOST_TEST        @"release.roadofcloud.net"
+#if CHLIVE_USEVIP
 #define YSLIVE_HOST_TEST        @"api-release.cloudhub.vip"
+#else
+#define YSLIVE_HOST_TEST        @"release.roadofcloud.net"
+#endif
 #define YS_SIGNINADDRESS_TEST   @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/release/addsignin/"
 #define YS_FLOWERADDRESS_TEST   @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/release/sendflowers/"
 
 // 线上环境
-//#define YSLIVE_HOST_ONLINE      @"api.roadofcloud.net"
+#if CHLIVE_USEVIP
 #define YSLIVE_HOST_ONLINE      @"api.cloudhub.vip"
+#else
+#define YSLIVE_HOST_ONLINE      @"api.roadofcloud.net"
+#endif
 #define YS_SIGNINADDRESS_ONLINE @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/addsignin/"
 #define YS_FLOWERADDRESS_ONLINE @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/sendflowers/"
 
@@ -66,8 +78,11 @@
 
 //#define YSLIVE_HOST_INIT        @"api.roadofcloud.com"
 //#define YSLIVE_HOST_KEY         (@"release_roomhost")
-//#define YSLIVE_HOST             @"api.roadofcloud.net"
+#if CHLIVE_USEVIP
 #define YSLIVE_HOST             @"api.cloudhub.vip"
+#else
+#define YSLIVE_HOST             @"api.roadofcloud.net"
+#endif
 
 #define YS_SIGNINADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/addsignin/"
 #define YS_FLOWERADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/sendflowers/"
