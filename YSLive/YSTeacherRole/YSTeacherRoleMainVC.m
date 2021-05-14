@@ -3046,7 +3046,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)sliderMp3ControlViewPos:(NSTimeInterval)value withFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     isDrag = YES;
-    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit seekSharedMediaPosition:value withMedia:mediaFileModel.fileUrl];
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit seekSharedMedia:mediaFileModel.fileUrl toPosition:value];
 }
 
 - (void)closeMp3ControlViewWithFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel
@@ -3080,7 +3080,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)sliderYSMp4ControlViewPos:(NSTimeInterval)value withFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     isDrag = YES;
-    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit seekSharedMediaPosition:value withMedia:mediaFileModel.fileUrl];
+    [self.liveManager.whiteBoardManager.cloudHubWhiteBoardKit seekSharedMedia:mediaFileModel.fileUrl toPosition:value];
 }
 
 /// 显示白板视频标注
