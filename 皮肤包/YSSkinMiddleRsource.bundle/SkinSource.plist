@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>VersionNum</key>
-	<string>20210420</string>
+	<string>20210518</string>
 	<key>CommonColor</key>
 	<dict>
 		<key>WhiteColor</key>
@@ -1867,6 +1867,31 @@
 		<string>passwordAlert_nolook</string>
 		<key>iconSel</key>
 		<string>passwordAlert_look</string>
+	</dict>
+	<key>control_wb_close</key>
+	<dict>
+		<key>iconNor</key>
+		<string>control_wb_close_skin</string>
+	</dict>
+	<key>control_wb_fullScreen</key>
+	<dict>
+		<key>iconNor</key>
+		<string>control_wb_fullScreen_skin</string>
+	</dict>
+	<key>control_wb_max</key>
+	<dict>
+		<key>iconNor</key>
+		<string>control_wb_max_skin</string>
+	</dict>
+	<key>control_wb_min</key>
+	<dict>
+		<key>iconNor</key>
+		<string>control_wb_min_skin</string>
+	</dict>
+	<key>control_wb_refresh</key>
+	<dict>
+		<key>iconNor</key>
+		<string>control_wb_refresh_skin</string>
 	</dict>
 	<key>collectBtn</key>
 	<dict>
