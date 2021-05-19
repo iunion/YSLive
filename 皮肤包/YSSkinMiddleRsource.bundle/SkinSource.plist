@@ -1893,6 +1893,16 @@
 		<key>iconNor</key>
 		<string>control_wb_refresh_skin</string>
 	</dict>
+	<key>control_wb_reduce</key>
+	<dict>
+		<key>iconNor</key>
+		<string>control_wb_reduce_skin</string>
+	</dict>
+	<key>control_wb_back</key>
+	<dict>
+		<key>iconNor</key>
+		<string>control_wb_back_skin</string>
+	</dict>
 	<key>collectBtn</key>
 	<dict>
 		<key>bgColor</key>
