@@ -10,4 +10,7 @@
 #import "BMSDWebImageError.h"
 
 NSErrorDomain const _Nonnull BMSDWebImageErrorDomain = @"BMSDWebImageErrorDomain";
+
+NSErrorUserInfoKey const _Nonnull BMSDWebImageErrorDownloadResponseKey = @"BMSDWebImageErrorDownloadResponseKey";
 NSErrorUserInfoKey const _Nonnull BMSDWebImageErrorDownloadStatusCodeKey = @"BMSDWebImageErrorDownloadStatusCodeKey";
+NSErrorUserInfoKey const _Nonnull BMSDWebImageErrorDownloadContentTypeKey = @"BMSDWebImageErrorDownloadContentTypeKey";

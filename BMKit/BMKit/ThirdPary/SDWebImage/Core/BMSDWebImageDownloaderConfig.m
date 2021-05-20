@@ -26,6 +26,7 @@ static BMSDWebImageDownloaderConfig * _defaultBMDownloaderConfig;
         _maxConcurrentDownloads = 6;
         _downloadTimeout = 15.0;
         _executionOrder = BMSDWebImageDownloaderFIFOExecutionOrder;
+        _acceptableStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)];
     }
     return self;
 }
@@ -41,7 +42,9 @@ static BMSDWebImageDownloaderConfig * _defaultBMDownloaderConfig;
     config.urlCredential = self.urlCredential;
     config.username = self.username;
     config.password = self.password;
-    
+    config.acceptableStatusCodes = self.acceptableStatusCodes;
+    config.acceptableContentTypes = self.acceptableContentTypes;
+
     return config;
 }
 

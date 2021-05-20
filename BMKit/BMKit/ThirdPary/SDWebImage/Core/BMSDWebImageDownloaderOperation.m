@@ -192,6 +192,7 @@ typedef NSMutableDictionary<NSString *, id> BMSDCallbacksDictionary;
             }
             if (cachedResponse) {
                 self.cachedData = cachedResponse.data;
+                self.response = cachedResponse.response;
             }
         }
         
@@ -324,7 +325,9 @@ didReceiveResponse:(NSURLResponse *)response
         response = [self.responseModifier modifiedResponseWithResponse:response];
         if (!response) {
             valid = NO;
-            self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorInvalidDownloadResponse userInfo:@{NSLocalizedDescriptionKey : @"Download marked as failed because response is nil"}];
+            self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain
+                                                     code:BMSDWebImageErrorInvalidDownloadResponse
+                                                 userInfo:@{NSLocalizedDescriptionKey : @"Download marked as failed because response is nil"}];
         }
     }
     
@@ -333,18 +336,42 @@ didReceiveResponse:(NSURLResponse *)response
     self.expectedSize = expected;
     self.response = response;
     
-    NSInteger statusCode = [response respondsToSelector:@selector(statusCode)] ? ((NSHTTPURLResponse *)response).statusCode : 200;
-    // Status code should between [200,400)
-    BOOL statusCodeValid = statusCode >= 200 && statusCode < 400;
+    // Check status code valid (defaults [200,400))
+    NSInteger statusCode = [response isKindOfClass:NSHTTPURLResponse.class] ? ((NSHTTPURLResponse *)response).statusCode : 0;
+    BOOL statusCodeValid = YES;
+    if (valid && statusCode > 0 && self.acceptableStatusCodes) {
+        statusCodeValid = [self.acceptableStatusCodes containsIndex:statusCode];
+    }
     if (!statusCodeValid) {
         valid = NO;
-        self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorInvalidDownloadStatusCode userInfo:@{NSLocalizedDescriptionKey : @"Download marked as failed because response status code is not in 200-400", BMSDWebImageErrorDownloadStatusCodeKey : @(statusCode)}];
+        self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain
+                                                 code:BMSDWebImageErrorInvalidDownloadStatusCode
+                                             userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Download marked as failed because of invalid response status code %ld", (long)statusCode],
+                                                        BMSDWebImageErrorDownloadStatusCodeKey : @(statusCode),
+                                                        BMSDWebImageErrorDownloadResponseKey : response}];
+    }
+    // Check content type valid (defaults nil)
+    NSString *contentType = [response isKindOfClass:NSHTTPURLResponse.class] ? ((NSHTTPURLResponse *)response).MIMEType : nil;
+    BOOL contentTypeValid = YES;
+    if (valid && contentType.length > 0 && self.acceptableContentTypes) {
+        contentTypeValid = [self.acceptableContentTypes containsObject:contentType];
+    }
+    if (!contentTypeValid) {
+        valid = NO;
+        self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain
+                                                 code:BMSDWebImageErrorInvalidDownloadContentType
+                                             userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Download marked as failed because of invalid response content type %@", contentType],
+                                                        BMSDWebImageErrorDownloadContentTypeKey : contentType,
+                                                        BMSDWebImageErrorDownloadResponseKey : response}];
     }
     //'304 Not Modified' is an exceptional one
     //URLSession current behavior will return 200 status code when the server respond 304 and URLCache hit. But this is not a standard behavior and we just add a check
-    if (statusCode == 304 && !self.cachedData) {
+    if (valid && statusCode == 304 && !self.cachedData) {
         valid = NO;
-        self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCacheNotModified userInfo:@{NSLocalizedDescriptionKey : @"Download response status code is 304 not modified and ignored"}];
+        self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain
+                                                 code:BMSDWebImageErrorCacheNotModified
+                                             userInfo:@{NSLocalizedDescriptionKey: @"Download response status code is 304 not modified and ignored",
+                                                        BMSDWebImageErrorDownloadResponseKey : response}];
     }
     
     if (valid) {
@@ -477,7 +504,10 @@ didReceiveResponse:(NSURLResponse *)response
                  *  then we should check if the cached data is equal to image data
                  */
                 if (self.options & BMSDWebImageDownloaderIgnoreCachedResponse && [self.cachedData isEqualToData:imageData]) {
-                    self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorCacheNotModified userInfo:@{NSLocalizedDescriptionKey : @"Downloaded image is not modified and ignored"}];
+                    self.responseError = [NSError errorWithDomain:BMSDWebImageErrorDomain
+                                                             code:BMSDWebImageErrorCacheNotModified
+                                                         userInfo:@{NSLocalizedDescriptionKey : @"Downloaded image is not modified and ignored",
+                                                                    BMSDWebImageErrorDownloadResponseKey : self.response}];
                     // call completion block with not modified error
                     [self callCompletionBlocksWithError:self.responseError];
                     [self done];

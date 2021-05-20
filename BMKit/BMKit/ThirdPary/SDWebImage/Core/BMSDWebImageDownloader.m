@@ -381,6 +381,14 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
         operation.minimumProgressInterval = MIN(MAX(self.config.minimumProgressInterval, 0), 1);
     }
     
+    if ([operation respondsToSelector:@selector(setAcceptableStatusCodes:)]) {
+        operation.acceptableStatusCodes = self.config.acceptableStatusCodes;
+    }
+    
+    if ([operation respondsToSelector:@selector(setAcceptableContentTypes:)]) {
+        operation.acceptableContentTypes = self.config.acceptableContentTypes;
+    }
+    
     if (options & BMSDWebImageDownloaderHighPriority) {
         operation.queuePriority = NSOperationQueuePriorityHigh;
     } else if (options & BMSDWebImageDownloaderLowPriority) {
