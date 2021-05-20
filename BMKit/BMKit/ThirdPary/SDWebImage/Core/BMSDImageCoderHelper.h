@@ -97,13 +97,13 @@
  @param image The image to be decoded and scaled down
  @param bytes The limit bytes size. Provide 0 to use the build-in limit.
  @return The decoded and probably scaled down image
-*/
+ */
 + (UIImage * _Nullable)decodedAndScaledDownImageWithImage:(UIImage * _Nullable)image limitBytes:(NSUInteger)bytes;
 
 /**
  Control the default limit bytes to scale down largest images.
  This value must be larger than 4 Bytes (at least 1x1 pixel). Defaults to 60MB on iOS/tvOS, 90MB on macOS, 30MB on watchOS.
-*/
+ */
 @property (class, readwrite) NSUInteger defaultScaleDownLimitBytes;
 
 #if BMSD_UIKIT || BMSD_WATCH

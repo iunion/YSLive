@@ -190,6 +190,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     return [self downloadImageWithURL:url options:options context:nil progress:progressBlock completed:completedBlock];
 }
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options
@@ -208,6 +209,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     return [self downloadImageWithURL:url host:nil options:options context:context progress:progressBlock completed:completedBlock];
 }
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options
@@ -287,6 +289,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     return [self createDownloaderOperationWithUrl:url host:nil options:options context:context];
 }
 
+// modified by Dennis
 - (nullable NSOperation<BMSDWebImageDownloaderOperation> *)createDownloaderOperationWithUrl:(nonnull NSURL *)url
                                                                                        host:(nullable NSString *)host
                                                                                     options:(BMSDWebImageDownloaderOptions)options
@@ -303,6 +306,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     mutableRequest.HTTPShouldUsePipelining = YES;
     BMSD_LOCK(_HTTPHeadersLock);
     mutableRequest.allHTTPHeaderFields = self.HTTPHeaders;
+    // modified by Dennis
     if ([host bm_isNotEmpty])
     {
         [mutableRequest setValue:host forHTTPHeaderField:@"host"];
@@ -630,6 +634,7 @@ didReceiveResponse:(NSURLResponse *)response
     if (options & BMSDWebImageDecodeFirstFrameOnly) downloaderOptions |= BMSDWebImageDownloaderDecodeFirstFrameOnly;
     if (options & BMSDWebImagePreloadAllFrames) downloaderOptions |= BMSDWebImageDownloaderPreloadAllFrames;
     if (options & BMSDWebImageMatchAnimatedImageClass) downloaderOptions |= BMSDWebImageDownloaderMatchAnimatedImageClass;
+    // modified by Dennis
     if (options & BMSDWebImageDoNotDecodeImageData) downloaderOptions |= BMSDWebImageDownloaderDoNotDecodeImageData;
     
     if (cachedImage && options & BMSDWebImageRefreshCached) {

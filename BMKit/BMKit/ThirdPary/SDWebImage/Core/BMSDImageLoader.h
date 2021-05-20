@@ -12,6 +12,7 @@
 #import "BMSDImageCoder.h"
 
 typedef void(^BMSDImageLoaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
+// modified by Dennis
 typedef void(^BMSDImageLoaderCompletedBlock)(NSURL * _Nullable imageUrl, UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished);
 
 #pragma mark - Context Options
@@ -109,6 +110,7 @@ FOUNDATION_EXPORT void BMSDImageLoaderSetProgressiveCoder(id<BMSDWebImageOperati
  @param completedBlock A block called when operation has been completed.
  @return An operation which allow the user to cancel the current request.
  */
+// modified by Dennis
 - (nullable id<BMSDWebImageOperation>)requestImageWithURL:(nullable NSURL *)url
                                                      host:(nullable NSString *)host
                                                 options:(BMSDWebImageOptions)options

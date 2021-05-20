@@ -528,6 +528,7 @@ didReceiveResponse:(NSURLResponse *)response
                         } else {
                             image = BMSDImageLoaderDecodeImageData(imageData, self.request.URL, [[self class] imageOptionsFromDownloaderOptions:self.options], self.context);
                         }
+                        // modified by Dennis
                         if (self.options & BMSDWebImageDownloaderDoNotDecodeImageData)
                         {
                             // 增加 imageData 判断，防止不能解析为 image 的数据被作为错误返回
@@ -545,6 +546,7 @@ didReceiveResponse:(NSURLResponse *)response
                                 NSString *description = image == nil ? @"Downloaded image decode failed" : @"Downloaded image has 0 pixels";
                                 [self callCompletionBlocksWithError:[NSError errorWithDomain:BMSDWebImageErrorDomain code:BMSDWebImageErrorBadImageData userInfo:@{NSLocalizedDescriptionKey : description}]];
                             } else {
+                                // modified by Dennis
                                 [self callCompletionBlocksWithImage:image imageData:imageData imageUrl:self.request.URL error:nil finished:YES];
                             }
                         }
@@ -563,6 +565,7 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
     
+// modified by Dennis
 #if SDWEBIMAGE_NORMALUSEHTTPDNS
     if (!challenge)
     {
@@ -691,6 +694,7 @@ didReceiveResponse:(NSURLResponse *)response
 #endif
 }
 
+// modified by Dennis
 - (BOOL)evaluateServerTrust:(SecTrustRef)serverTrust
                   forDomain:(NSString *)domain
 {
@@ -742,9 +746,11 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (void)callCompletionBlocksWithError:(nullable NSError *)error {
+    // modified by Dennis
     [self callCompletionBlocksWithImage:nil imageData:nil imageUrl:nil error:error finished:YES];
 }
 
+// modified by Dennis
 - (void)callCompletionBlocksWithImage:(nullable UIImage *)image
                             imageData:(nullable NSData *)imageData
                              imageUrl:(nullable NSURL *)url

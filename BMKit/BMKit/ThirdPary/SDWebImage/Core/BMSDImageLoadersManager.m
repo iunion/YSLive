@@ -86,7 +86,7 @@
     }
     return NO;
 }
-
+// modified by Dennis
 - (id<BMSDWebImageOperation>)requestImageWithURL:(NSURL *)url host:(NSString *)host options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDImageLoaderCompletedBlock)completedBlock {
     if (!url) {
         return nil;

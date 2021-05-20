@@ -44,7 +44,7 @@ static BMSDWebImageDownloaderConfig * _defaultBMDownloaderConfig;
     config.password = self.password;
     config.acceptableStatusCodes = self.acceptableStatusCodes;
     config.acceptableContentTypes = self.acceptableContentTypes;
-
+    
     return config;
 }
 

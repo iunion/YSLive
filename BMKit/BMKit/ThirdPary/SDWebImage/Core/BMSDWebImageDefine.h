@@ -204,7 +204,7 @@ typedef NS_OPTIONS(NSUInteger, BMSDWebImageOptions) {
     BMSDWebImageTransformVectorImage = 1 << 23,
     
     /**
-     下载完成后不做图片解析
+     下载完成后不做图片解析 modified by Dennis
      */
     BMSDWebImageDoNotDecodeImageData = 1 << 24
 };

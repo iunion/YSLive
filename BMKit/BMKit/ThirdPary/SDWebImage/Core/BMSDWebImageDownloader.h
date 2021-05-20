@@ -95,7 +95,7 @@ typedef NS_OPTIONS(NSUInteger, BMSDWebImageDownloaderOptions) {
     BMSDWebImageDownloaderMatchAnimatedImageClass = 1 << 12,
 
     /**
-     下载不能解析为图片的数据
+     下载不能解析为图片的数据 modified by Dennis
      */
     BMSDWebImageDownloaderDoNotDecodeImageData = 1 << 13,
 };
@@ -271,6 +271,7 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
                                                   progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options
@@ -299,6 +300,7 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
                                                   progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options

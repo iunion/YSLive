@@ -238,6 +238,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
                                                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                                  completed:(nonnull BMSDInternalCompletionBlock)completedBlock;
 
+// modified by Dennis
 - (nullable BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                    options:(BMSDWebImageOptions)options
@@ -262,6 +263,7 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
                                                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                                  completed:(nonnull BMSDInternalCompletionBlock)completedBlock;
 
+// modified by Dennis
 - (nullable BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                    options:(BMSDWebImageOptions)options
