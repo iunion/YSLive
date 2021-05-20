@@ -229,7 +229,7 @@
                         }];
 
                         [alertVc addAction:confimAc];
-                        [self presentViewController:alertVc animated:YES completion:nil];
+                        [weakSelf presentViewController:alertVc animated:YES completion:nil];
                     }
                     else
                     {

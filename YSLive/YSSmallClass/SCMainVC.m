@@ -2615,11 +2615,11 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [imagePickerController setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         if (isSmallBoard)
         {
-            [self.liveManager.whiteBoardManager uploadSmallBalckBoardImageWithImage:photos.firstObject success:nil failure:nil];
+            [weakSelf.liveManager.whiteBoardManager uploadSmallBalckBoardImageWithImage:photos.firstObject success:nil failure:nil];
         }
         else
         {
-            [self.liveManager.whiteBoardManager uploadImageWithImage:photos.firstObject addInClass:(imageUseType == SCUploadImageUseType_Document) success:^(NSDictionary * _Nonnull dict) {
+            [weakSelf.liveManager.whiteBoardManager uploadImageWithImage:photos.firstObject addInClass:(imageUseType == SCUploadImageUseType_Document) success:^(NSDictionary * _Nonnull dict) {
                 
                 if (imageUseType == SCUploadImageUseType_Document)
                 {
@@ -2627,7 +2627,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                 }
                 else
                 {
-                    BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"] withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
+                    BOOL isSucceed = [weakSelf.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"] withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
                     if (!isSucceed)
                     {
                         BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
@@ -4530,8 +4530,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         [weakSelf.responderView setTitleName:[NSString stringWithFormat:@"%ld",(long)timeInterval]];
         weakSelf.responderView.titleL.font = [UIFont systemFontOfSize:50.0f];
         
-        CGFloat newX = weakSelf.responderView.noticeView.bm_centerX+arc4random_uniform(2 * self.contentWidth/2 + 1) - self.contentWidth/2;
-        CGFloat newY = weakSelf.responderView.noticeView.bm_centerY+arc4random_uniform(2 * self.contentHeight/2 + 1) - self.contentHeight/2;
+        CGFloat newX = weakSelf.responderView.noticeView.bm_centerX+arc4random_uniform(2 * weakSelf.contentWidth/2 + 1) - weakSelf.contentWidth/2;
+        CGFloat newY = weakSelf.responderView.noticeView.bm_centerY+arc4random_uniform(2 * weakSelf.contentHeight/2 + 1) - weakSelf.contentHeight/2;
         CGPoint centerPoint = CGPointMake(newX, newY);
         weakSelf.responderView.noticeView.center = centerPoint;
         
@@ -4544,13 +4544,13 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             weakSelf.responderView.noticeView.bm_left = 0;
         }
         
-        if (weakSelf.responderView.noticeView.bm_bottom > self.contentHeight)
+        if (weakSelf.responderView.noticeView.bm_bottom > weakSelf.contentHeight)
         {
-            weakSelf.responderView.noticeView.bm_top = self.contentHeight - weakSelf.responderView.noticeView.bm_height;
+            weakSelf.responderView.noticeView.bm_top = weakSelf.contentHeight - weakSelf.responderView.noticeView.bm_height;
         }
-        if (weakSelf.responderView.noticeView.bm_right > self.contentWidth)
+        if (weakSelf.responderView.noticeView.bm_right > weakSelf.contentWidth)
         {
-            weakSelf.responderView.noticeView.bm_left = self.contentWidth - weakSelf.responderView.noticeView.bm_width;
+            weakSelf.responderView.noticeView.bm_left = weakSelf.contentWidth - weakSelf.responderView.noticeView.bm_width;
         }
         
         if (timeInterval == 0)

@@ -671,14 +671,14 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
             NSString *peerId = [cell.userDict bm_stringForKey:@"peerId"];
             NSString *whom = CHRoomPubMsgTellAll;
-            if (self.liveManager.isBigRoom)
+            if (weakSelf.liveManager.isBigRoom)
             {
                 whom = peerId;
                 [weakSelf.liveManager setPropertyOfUid:peerId tell:whom propertyKey:sCHUserPublishstate value:@(publishState)];
             }
             else
             {
-                CHRoomUser *roomUser = [self.liveManager getRoomUserWithId:peerId];
+                CHRoomUser *roomUser = [weakSelf.liveManager getRoomUserWithId:peerId];
                 [roomUser sendToPublishStateUPTellWhom:whom];
             }
             cell.headBtn.selected = YES;
@@ -4678,7 +4678,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         NSInteger total = 0;
         if (weakSelf.liveManager.isBigRoom)
         {
-            NSInteger studentNum = self.liveManager.studentCount;
+            NSInteger studentNum = weakSelf.liveManager.studentCount;
             total = studentNum;
         }
         else
@@ -6070,7 +6070,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                BOOL isSucceed = [self.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
+                BOOL isSucceed = [weakSelf.liveManager sendMessageWithText:[dict bm_stringTrimForKey:@"swfpath"]  withMessageType:CHChatMessageType_OnlyImage withMemberModel:nil];
                 if (!isSucceed)
                 {
                     BMProgressHUD *hub = [BMProgressHUD bm_showHUDAddedTo:weakSelf.view animated:YES withDetailText:YSLocalized(@"UploadPhoto.Error")];
