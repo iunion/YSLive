@@ -891,7 +891,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         CHVideoView *videoView = [[CHVideoView alloc] initWithRoomUser:YSCurrentUser withSourceId:sCHUserDefaultSourceId isForPerch:YES withDelegate:self];
         videoView.appUseTheType = self.appUseTheType;
         [self addVideoViewToVideoViewArrayDic:videoView];
-        
                 
         self.myVideoView = videoView;
         
