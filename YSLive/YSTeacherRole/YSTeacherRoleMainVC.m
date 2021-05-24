@@ -920,7 +920,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView = [[YSMp4ControlView alloc] init];
     [self.contentBackgroud addSubview:self.mp4ControlView];
     self.mp4ControlView.frame = CGRectMake(30, self.contentHeight - 100, self.contentWidth - 60, 74);
-    self.mp4ControlView.backgroundColor = [YSSkinDefineColor(@"Color5") bm_changeAlpha:0.6];
+    self.mp4ControlView.backgroundColor = [YSSkinDefineColor(@"Color2") bm_changeAlpha:0.6];
     self.mp4ControlView.layer.cornerRadius = 37;
     self.mp4ControlView.hidden = YES;
     self.mp4ControlView.delegate = self;
@@ -937,7 +937,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp3ControlView = [[YSMp3Controlview alloc] init];
     self.mp3ControlView.hidden = YES;
     self.mp3ControlView.delegate = self;
-    self.mp3ControlView.backgroundColor = [YSSkinDefineColor(@"Color5") bm_changeAlpha:0.6];
+    self.mp3ControlView.backgroundColor = [YSSkinDefineColor(@"Color2") bm_changeAlpha:0.6];
     [UIColor bm_colorWithHex:0x736D78 alpha:0.39];
     [self.contentBackgroud addSubview:self.mp3ControlView];
     if ([UIDevice bm_isiPad])

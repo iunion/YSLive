@@ -66,14 +66,15 @@
     UIImageView *cupImgView = [[UIImageView alloc] init];
     [self.contentView addSubview:cupImgView];
     self.cupImgView = cupImgView;
-    [self.cupImgView setImage:YSSkinElementImage(@"nameList_cup", @"iconNor")];
+    UIImage *cup = [YSSkinElementImage(@"nameList_cup", @"iconNor") bm_imageWithTintColor:YSSkinDefineColor(@"Color10")];
+    [self.cupImgView setImage:cup];
     
     UILabel *cupNumberLabel = [[UILabel alloc] init];
     [self.contentView addSubview:cupNumberLabel];
     self.cupNumberLabel = cupNumberLabel;
     cupNumberLabel.font = [UIDevice bm_isiPad] ? UI_FONT_12 : UI_FONT_8;
     cupNumberLabel.textAlignment = NSTextAlignmentLeft;
-    cupNumberLabel.textColor = YSSkinDefineColor(@"Color3");
+    cupNumberLabel.textColor = YSSkinDefineColor(@"Color10");
       
     UIButton *upPlatformBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.contentView addSubview:upPlatformBtn];
