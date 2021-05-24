@@ -383,6 +383,28 @@ static NSString * _defaultBMDiskCacheDirectory;
     // First check the in-memory cache...
     UIImage *image = [self imageFromMemoryCacheForKey:key];
     if (image) {
+        if (options & BMSDImageCacheDecodeFirstFrameOnly) {
+            // Ensure static image
+            Class animatedImageClass = image.class;
+            if (image.bmsd_isAnimated || ([animatedImageClass isSubclassOfClass:[UIImage class]] && [animatedImageClass conformsToProtocol:@protocol(BMSDAnimatedImage)])) {
+#if BMSD_MAC
+                image = [[NSImage alloc] initWithCGImage:image.CGImage scale:image.scale orientation:kCGImagePropertyOrientationUp];
+#else
+                image = [[UIImage alloc] initWithCGImage:image.CGImage scale:image.scale orientation:image.imageOrientation];
+#endif
+            }
+        } else if (options & BMSDImageCacheMatchAnimatedImageClass) {
+            // Check image class matching
+            Class animatedImageClass = image.class;
+            Class desiredImageClass = context[BMSDWebImageContextAnimatedImageClass];
+            if (desiredImageClass && ![animatedImageClass isSubclassOfClass:desiredImageClass]) {
+                image = nil;
+            }
+        }
+    }
+    
+    // Since we don't need to query imageData, return image if exist
+    if (image) {
         return image;
     }
     
