@@ -247,7 +247,7 @@ UITableViewDataSource
             else
             {
                 CGSize size = [model.message bm_sizeToFitWidth:kBMScale_W(300) withFont:UI_FONT_15];
-                CGFloat height = kBMScale_H(12)+kBMScale_H(12)+size.height+kBMScale_H(20) + kBMScale_H(18);
+                CGFloat height = 12 + 12 + size.height + 10 + 15;
                 model.cellHeight = height;
                 return height;
             }
@@ -255,17 +255,17 @@ UITableViewDataSource
         }
         case CHChatMessageType_OnlyImage:
         {
-            return kBMScale_H(12)+kBMScale_H(12)+kBMScale_H(88)+ kBMScale_H(18);
+            return 12 + 12 + 88 + 18;
             break;
         }
         case CHChatMessageType_Tips:
         {
-            return kBMScale_H(10)+kBMScale_H(25)+ kBMScale_H(10);
+            return 10 + 25 + 10;
             break;
         }
         default:
         {
-            return kBMScale_H(20)+ kBMScale_H(18);
+            return  20 + 18;
         }
     }
 }
