@@ -1306,6 +1306,11 @@
 /// 用户进入
 - (void)onRoomUserJoined:(CHRoomUser *)user isHistory:(BOOL)isHistory
 {
+    if (CHLocalUser.role == CHUserType_Student)
+    {
+        return;
+    }
+    
     NSString *roleName = nil;
     if (user.role == CHUserType_Teacher)
     {
@@ -1330,6 +1335,11 @@
 /// 用户退出
 - (void)onRoomUserLeft:(CHRoomUser *)user
 {
+    if (CHLocalUser.role == CHUserType_Student)
+    {
+        return;
+    }
+    
     NSString *roleName = nil;
     if (user.role == CHUserType_Teacher)
     {
