@@ -16,10 +16,10 @@
 /// 视频ratio 16:9
 @property (nonatomic, assign) BOOL isWideScreen;
 
-/// 对rightVideoBgView的控制按钮所在View
+/// 对videoBgView的控制按钮所在View
 @property (nonatomic, weak) CHFullFloatControlView *controlView;
 
-@property (nonatomic, weak) UIView *rightVideoBgView;
+@property (nonatomic, weak) UIView *videoBgView;
 
 /// 焦点视图右侧的宽高
 @property (nonatomic, assign) CGFloat rightBgWidth;
@@ -72,13 +72,13 @@
         [weakSelf fullFloatControlButtonClick];
     };
     
-    UIView *rightVideoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, VideoTop, 100.0f, 100.0f)];
-    rightVideoBgView.backgroundColor = UIColor.clearColor;
-    [self addSubview:rightVideoBgView];
-    self.rightVideoBgView = rightVideoBgView;
+    UIView *videoBgView = [[UIView alloc] initWithFrame:CGRectMake(0, VideoTop, 100.0f, 100.0f)];
+    videoBgView.backgroundColor = UIColor.clearColor;
+    [self addSubview:videoBgView];
+    self.videoBgView = videoBgView;
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragTheRightVideoBgView:)];
-    [rightVideoBgView addGestureRecognizer:pan];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragTheVideoBgView:)];
+    [videoBgView addGestureRecognizer:pan];
 }
 
 - (CHFullFloatState)fullFloatState
@@ -90,11 +90,11 @@
 {
     if (self.fullFloatState == CHFullFloatState_None)
     {
-        self.rightVideoBgView.hidden = YES;
+        self.videoBgView.hidden = YES;
     }
     else
     {
-        self.rightVideoBgView.hidden = NO;
+        self.videoBgView.hidden = NO;
     }
     
     [self bm_bringToFront];
@@ -112,13 +112,13 @@
     [self fullFloatControlButtonClick];
 }
 
-/// 刷新rightVideoBgView内部view
+/// 刷新videoBgView内部view
 - (void)freshFullFloatViewWithMyVideoArray:(NSArray<CHVideoView *> *)teacherVideoArray allVideoSequenceArray:(NSArray<CHVideoView *> *)allVideoSequenceArray
 {
     self.teacherVideoArray = teacherVideoArray;
     self.allVideoSequenceArray = allVideoSequenceArray;
 
-    [self.rightVideoBgView bm_removeAllSubviews];
+    [self.videoBgView bm_removeAllSubviews];
     
     NSArray <CHVideoView *> *videoArry = teacherVideoArray;
     if (self.fullFloatState == CHFullFloatState_All)
@@ -130,7 +130,7 @@
     
     for (CHVideoView *videoView in videoArry)
     {
-        [self.rightVideoBgView addSubview:videoView];
+        [self.videoBgView addSubview:videoView];
         videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
     }
     
@@ -181,12 +181,12 @@
         self.rightViewMaxRight = self.controlView.bm_left - 5;
     }
 
-    self.rightVideoBgView.frame = CGRectMake(self.rightViewMaxRight - self.rightBgWidth, VideoTop, self.rightBgWidth, self.rightBgHeight);
+    self.videoBgView.frame = CGRectMake(self.rightViewMaxRight - self.rightBgWidth, VideoTop, self.rightBgWidth, self.rightBgHeight);
     
     CGFloat widthM = self.videoWidth + Margin;
     CGFloat heightM = self.videoHeight + Margin;
     
-    CGFloat rightBgViewW = self.rightVideoBgView.bm_width;
+    CGFloat rightBgViewW = self.videoBgView.bm_width;
     
     NSUInteger itemCount = 6;
     for (NSUInteger i = 0; i < videoArray.count; i++)
@@ -213,21 +213,21 @@
 /// 拖拽事件
 - (void)dragTheRightVideoBgView:(UIPanGestureRecognizer *)pan
 {
-    CGPoint endPoint = [pan translationInView:self.rightVideoBgView];
+    CGPoint endPoint = [pan translationInView:self.videoBgView];
     
     if (!self.dragImageView)
     {
-        UIImage *img = [self.rightVideoBgView bm_screenshot];
+        UIImage *img = [self.videoBgView bm_screenshot];
         self.dragImageView = [[UIImageView alloc] initWithImage:img];
         [self addSubview:self.dragImageView];
     }
     
     if (self.videoOriginInSuperview.x == 0 && self.videoOriginInSuperview.y == 0)
     {
-        self.videoOriginInSuperview = [self convertPoint:CGPointMake(0, 0) fromView:self.rightVideoBgView];
+        self.videoOriginInSuperview = [self convertPoint:CGPointMake(0, 0) fromView:self.videoBgView];
         [self bringSubviewToFront:self.dragImageView];
     }
-    self.dragImageView.frame = CGRectMake(self.videoOriginInSuperview.x + endPoint.x, self.videoOriginInSuperview.y + endPoint.y, self.rightVideoBgView.bm_width, self.rightVideoBgView.bm_height);
+    self.dragImageView.frame = CGRectMake(self.videoOriginInSuperview.x + endPoint.x, self.videoOriginInSuperview.y + endPoint.y, self.videoBgView.bm_width, self.videoBgView.bm_height);
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
@@ -253,7 +253,7 @@
             top = self.videoOriginInSuperview.y + endPoint.y;
         }
                 
-        self.rightVideoBgView.frame = CGRectMake(left, top, self.rightBgWidth, self.rightBgHeight);
+        self.videoBgView.frame = CGRectMake(left, top, self.rightBgWidth, self.rightBgHeight);
         [self.dragImageView removeFromSuperview];
         self.dragImageView = nil;
         self.videoOriginInSuperview = CGPointZero;
@@ -263,11 +263,19 @@
 /// 穿透
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (CGRectContainsPoint(self.controlView.frame, point) || CGRectContainsPoint(self.rightVideoBgView.frame, point))
+    if (CGRectContainsPoint(self.controlView.frame, point))
     {
         return YES;
     }
-    
+    else if (self.fullFloatState == CHFullFloatState_None)
+    {
+        return NO;
+    }
+    else if (CGRectContainsPoint(self.videoBgView.frame, point))
+    {
+        return YES;
+    }
+
     return NO;
 }
 
