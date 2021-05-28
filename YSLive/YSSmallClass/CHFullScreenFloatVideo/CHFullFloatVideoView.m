@@ -211,7 +211,7 @@
 }
 
 /// 拖拽事件
-- (void)dragTheRightVideoBgView:(UIPanGestureRecognizer *)pan
+- (void)dragTheVideoBgView:(UIPanGestureRecognizer *)pan
 {
     CGPoint endPoint = [pan translationInView:self.videoBgView];
     
