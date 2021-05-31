@@ -1368,7 +1368,7 @@
 
 - (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View isMediaStream:YES];
     
     if (self.isFullScreen)
     {
@@ -1380,12 +1380,14 @@
     [self.mp4BgView bm_bringToFront];
     [self.mp4FullScreenBtn bm_bringToFront];
 }
+
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
     [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
     self.fullScreenBtn.enabled = YES;
     self.mp4BgView.hidden = YES;
 }
+
 #pragma mark 白板视频/音频
 
 // 播放白板视频/音频
@@ -1399,7 +1401,7 @@
         }
         else
         {
-            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView isMediaStream:YES];
             self.teacherMaskView.hidden = YES;
         }
     }
@@ -1411,7 +1413,7 @@
         }
         else
         {
-            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View isMediaStream:YES];
             if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
             {
                 [self.mp4BgView showMp4PauseView];

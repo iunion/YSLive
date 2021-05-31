@@ -1920,9 +1920,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }];
 }
 
-
-
-
 // 开始播放课件视频
 - (void)showWhiteBordVideoViewWithMediaModel:(CHWhiteBoardShareMediaModel *)mediaModel
 {
@@ -4296,7 +4293,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
         
-    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView isMediaStream:YES];
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
 
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;

@@ -1686,7 +1686,7 @@
 
 
 /// 本地movie 流
-- (void)onRoomLocalMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID isStart:(BOOL)isStart
+- (void)roomWhiteBoardOnShareLocalMediaFile:(NSDictionary *)mediaFileDic senderId:(NSString *)senderId streamId:(NSString *)streamId isPlay:(BOOL)isPlay
 {
     if (![self.liveManager.whiteBoardManager isOneWhiteBoardView])
     {
@@ -1694,14 +1694,14 @@
         return;
     }
 
-    if (isStart)
+    if (isPlay)
     {
         
-        [self handlePlayMovieStreamID:movieStreamID userID:userID];
+        [self handlePlayMovieStreamID:streamId userID:senderId];
     }
     else
     {
-        [self handleStopMovieStreamID:movieStreamID userID:userID];
+        [self handleStopMovieStreamID:streamId userID:senderId];
     }
 }
 
@@ -1709,6 +1709,7 @@
 {
     
 }
+
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
     
