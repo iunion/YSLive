@@ -1928,7 +1928,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
     
-    [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView isMediaStream:YES];
     if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
     {
         [self.shareVideoFloatView showMp4PauseView];
@@ -4063,7 +4063,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 
 - (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView isMediaStream:YES];
     [self.shareVideoFloatView showMp4WaitingView];
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = NO;
@@ -4296,7 +4296,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     [self.view endEditing:YES];
         
-    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView isMediaStream:YES];
 
     [self arrangeAllViewInVCView];
     self.shareVideoFloatView.canZoom = YES;
