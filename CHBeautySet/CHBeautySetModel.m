@@ -65,4 +65,37 @@
     [self.liveManager setCameraFlipMode:self.fliph Vertivcal:flipv];
 }
 
+#pragma - setValue
+- (void)setWhitenValue:(CGFloat)whitenValue
+{
+    _whitenValue = whitenValue;
+    
+    [self setCloudHubBeauty];
+}
+
+- (void)setExfoliatingValue:(CGFloat)exfoliatingValue
+{
+    _exfoliatingValue = exfoliatingValue;
+    
+    [self setCloudHubBeauty];
+}
+
+- (void)setRuddyValue:(CGFloat)ruddyValue
+{
+    _ruddyValue = ruddyValue;
+    
+    [self setCloudHubBeauty];
+}
+
+- (void)setCloudHubBeauty
+{
+    CloudHubBeautyOptions * beautyOptions = [[CloudHubBeautyOptions alloc]init];
+    beautyOptions.lighteningLevel = self.whitenValue;
+    beautyOptions.smoothnessLevel = self.exfoliatingValue;
+    beautyOptions.rednessLevel = self.ruddyValue;
+    
+    [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:YES options:beautyOptions];
+}
+
+
 @end
