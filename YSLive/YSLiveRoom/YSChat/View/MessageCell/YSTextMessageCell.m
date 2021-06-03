@@ -46,7 +46,7 @@
 - (void)setupUIView
 {
     //昵称
-    self.nickNameBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(12), 0, BMUI_SCREEN_WIDTH-2*kBMScale_W(12), kBMScale_H(12))];
+    self.nickNameBtn = [[UIButton alloc]initWithFrame:CGRectMake(kBMScale_W(12), 0, BMUI_SCREEN_WIDTH-2*kBMScale_W(12), 12)];
 //    [self.nickNameBtn setBackgroundColor:[UIColor clearColor]];
     self.nickNameBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.nickNameBtn addTarget:self action:@selector(nickNameBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -141,8 +141,8 @@
         [self.nickNameBtn setTitle:nameTimeStr forState:UIControlStateNormal];
     }
     
-    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame)+kBMScale_H(5), bubbleW, size.height+kBMScale_H(10));
-    _msgLab.frame = CGRectMake(kBMScale_W(5), kBMScale_H(5), size.width , size.height);
+    _bubbleView.frame = CGRectMake(bubbleX, CGRectGetMaxY(_nickNameBtn.frame)+kBMScale_H(5), bubbleW, size.height+10);
+    _msgLab.frame = CGRectMake(5, 5, size.width , size.height);
  
 }
 

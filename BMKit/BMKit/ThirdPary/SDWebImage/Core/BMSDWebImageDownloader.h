@@ -93,6 +93,11 @@ typedef NS_OPTIONS(NSUInteger, BMSDWebImageDownloaderOptions) {
      * Note this options is not compatible with `SDWebImageDownloaderDecodeFirstFrameOnly`, which always produce a UIImage/NSImage.
      */
     BMSDWebImageDownloaderMatchAnimatedImageClass = 1 << 12,
+
+    /**
+     下载不能解析为图片的数据 modified by Dennis
+     */
+    BMSDWebImageDownloaderDoNotDecodeImageData = 1 << 13,
 };
 
 FOUNDATION_EXPORT NSNotificationName _Nonnull const BMSDWebImageDownloadStartNotification;
@@ -157,7 +162,7 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
 
 /**
  * Set the response modifier to modify the original download response during image load.
- * This request modifier method will be called for each downloading image response. Return the original response means no modification. Return nil will mark current download as cancelled.
+ * This response modifier method will be called for each downloading image response. Return the original response means no modification. Return nil will mark current download as cancelled.
  * Defaults to nil, means does not modify the original download response.
  * @note If you want to modify single response, consider using `SDWebImageContextDownloadResponseModifier` context option.
  */
@@ -266,6 +271,7 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
                                                   progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options
@@ -294,6 +300,7 @@ typedef BMSDImageLoaderCompletedBlock BMSDWebImageDownloaderCompletedBlock;
                                                   progress:(nullable BMSDWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable BMSDWebImageDownloaderCompletedBlock)completedBlock;
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options

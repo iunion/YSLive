@@ -150,6 +150,9 @@
     // 底部工具栏
     [self setupBottomToolBarView];
     
+    // 全屏情况下视频浮窗view
+    [self setupFullFloatVideoView];
+    
     // 骰子
     [self creatDiceAnimationView];
 }
@@ -293,7 +296,7 @@
 // 底部工具栏
 - (void)setupBottomToolBarView
 {
-    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.0f - 5, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f) roomType:self.roomtype isChairManControl:self.liveManager.roomConfig.isChairManControl videoAdjustment:self.liveManager.roomConfig.hasVideoAdjustment];
+    YSSpreadBottomToolBar *spreadBottomToolBar = [[YSSpreadBottomToolBar alloc] initWithUserRole:self.liveManager.localUser.role topLeftpoint:CGPointMake(BMUI_SCREEN_WIDTH - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.0f - 5, BMUI_SCREEN_HEIGHT - (YSSpreadBottomToolBar_BtnWidth+YSSpreadBottomToolBar_SpreadBtnGap)*1.5f) roomType:self.roomtype videoAdjustment:self.liveManager.roomConfig.hasVideoAdjustment];
     spreadBottomToolBar.delegate = self;
     spreadBottomToolBar.isBeginClass = self.liveManager.isClassBegin;
     spreadBottomToolBar.isPollingEnable = NO;
@@ -302,6 +305,67 @@
     
     self.spreadBottomToolBar = spreadBottomToolBar;
     [self.view addSubview:spreadBottomToolBar];
+}
+
+- (void)setupFullFloatVideoView
+{
+    CHFullFloatVideoView *fullFloatVideoView  = [[CHFullFloatVideoView alloc]initWithFrame:self.contentBackgroud.bounds wideScreen:self.isWideScreen];
+    [self.contentBackgroud addSubview:fullFloatVideoView];
+    self.fullFloatVideoView = fullFloatVideoView;
+    self.fullFloatVideoView.hidden = YES;
+}
+
+- (void)fullScreenToShowVideoView:(BOOL)isFull
+{
+    if (!self.liveManager.isClassBegin)
+    {
+        return;
+    }
+    
+    self.fullFloatVideoView.hidden = !isFull;
+    
+    if (isFull)
+    {
+        for (CHVideoView *videoView in self.videoSequenceArr)
+        {
+            [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
+        }
+        
+        [self.fullFloatVideoView showFullFloatViewWithMyVideoArray:self.teacherVideoViewArrayFull allVideoSequenceArray:self.videoSequenceArrFull];
+        
+        [self.fullFloatVideoView bm_bringToFront];
+        
+        for (CHVideoView *videoView in self.videoSequenceArrFull)
+        {
+            if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+            {
+                self.myVideoView = videoView;
+            }
+
+            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
+        }
+        
+        [[PanGestureControl shareInfo] addPanGestureAction:LONG_PRESS_VIEW_DEMO];
+    }
+    else
+    {
+        for (CHVideoView *videoView in self.videoSequenceArrFull)
+        {
+            [self.liveManager stopVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId];
+        }
+        
+        for (CHVideoView *videoView in self.videoSequenceArr)
+        {
+            if ([videoView.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
+            {
+                self.myVideoView = videoView;
+            }
+            
+            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
+        }
+        
+        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    }
 }
 
 // 横排视频最大宽度计算

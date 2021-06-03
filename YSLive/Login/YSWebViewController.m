@@ -10,6 +10,28 @@
 #import <WebKit/WebKit.h>
 #import "AppDelegate.h"
 
+#if CHLIVE_USEVIP
+
+#define CHLogin_Privacy_CHS         @"https://rddoccdnws.cloudhub.vip/document/IOS_Privacy_PolicyJ.pdf"
+#define CHLogin_Privacy_CHT         @"https://rddoccdnws.cloudhub.vip/document/IOS_Privacy_PolicyF.pdf";
+#define CHLogin_Privacy_EN          @"https://rddoccdnws.cloudhub.vip/document/IOS_Privacy_PolicyE.pdf"
+
+#define CHLogin_UserAgreement_CHS   @"https://rddoccdnws.cloudhub.vip/document/IOS_User_AgreementJ.pdf"
+#define CHLogin_UserAgreement_CHT   @"https://rddoccdnws.cloudhub.vip/document/IOS_User_AgreementF.pdf"
+#define CHLogin_UserAgreement_EN    @"https://rddoccdnws.cloudhub.vip/document/IOS_User_AgreementE.pdf"
+
+#else
+
+#define CHLogin_Privacy_CHS         @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyJ.pdf"
+#define CHLogin_Privacy_CHT         @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyF.pdf";
+#define CHLogin_Privacy_EN          @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyE.pdf"
+
+#define CHLogin_UserAgreement_CHS   @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementJ.pdf"
+#define CHLogin_UserAgreement_CHT   @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementF.pdf"
+#define CHLogin_UserAgreement_EN    @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementE.pdf"
+
+#endif
+
 @interface YSWebViewController ()
 <
     WKUIDelegate,
@@ -48,15 +70,15 @@
 
         if([currentLanguageRegion bm_containString:@"zh-Hans"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyJ.pdf";
+            urlStr = CHLogin_Privacy_CHS;
         }
         else if([currentLanguageRegion bm_containString:@"zh-Hant"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyF.pdf";
+            urlStr = CHLogin_Privacy_CHT;
         }
         else
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyE.pdf";
+            urlStr = CHLogin_Privacy_EN;
         }
     }
     else if ([self.roteUrl isEqualToString:YSUserAgreement])
@@ -65,15 +87,15 @@
         title = YSLocalized(@"Agreement.User");
         if([currentLanguageRegion bm_containString:@"zh-Hans"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementJ.pdf";
+            urlStr = CHLogin_UserAgreement_CHS;
         }
         else if([currentLanguageRegion bm_containString:@"zh-Hant"])
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementF.pdf";
+            urlStr = CHLogin_UserAgreement_CHT;
         }
         else
         {
-            urlStr = @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementE.pdf";
+            urlStr = CHLogin_UserAgreement_EN;
         }
     }
     

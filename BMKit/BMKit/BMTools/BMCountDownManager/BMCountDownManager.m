@@ -177,7 +177,7 @@
     [self setProcessBlock:nil withIdentifier:identifier];
 }
 
-// 暂停倒计时，并调用processBlock
+/// 暂停倒计时
 - (void)pauseCountDownIdentifier:(id)identifier
 {
     BMCountDownItem *countDownItem = self.countDownDict[identifier];
@@ -187,7 +187,7 @@
     }
 }
 
-// 继续倒计时
+/// 继续倒计时
 - (void)continueCountDownIdentifier:(id)identifier
 {
     BMCountDownItem *countDownItem = self.countDownDict[identifier];

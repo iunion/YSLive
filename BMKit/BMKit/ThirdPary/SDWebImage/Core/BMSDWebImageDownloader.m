@@ -190,6 +190,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     return [self downloadImageWithURL:url options:options context:nil progress:progressBlock completed:completedBlock];
 }
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options
@@ -208,6 +209,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     return [self downloadImageWithURL:url host:nil options:options context:context progress:progressBlock completed:completedBlock];
 }
 
+// modified by Dennis
 - (nullable BMSDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                         host:(nullable NSString *)host
                                                      options:(BMSDWebImageDownloaderOptions)options
@@ -287,6 +289,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     return [self createDownloaderOperationWithUrl:url host:nil options:options context:context];
 }
 
+// modified by Dennis
 - (nullable NSOperation<BMSDWebImageDownloaderOperation> *)createDownloaderOperationWithUrl:(nonnull NSURL *)url
                                                                                        host:(nullable NSString *)host
                                                                                     options:(BMSDWebImageDownloaderOptions)options
@@ -303,6 +306,7 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
     mutableRequest.HTTPShouldUsePipelining = YES;
     BMSD_LOCK(_HTTPHeadersLock);
     mutableRequest.allHTTPHeaderFields = self.HTTPHeaders;
+    // modified by Dennis
     if ([host bm_isNotEmpty])
     {
         [mutableRequest setValue:host forHTTPHeaderField:@"host"];
@@ -379,6 +383,14 @@ static void * BMSDWebImageDownloaderContext = &BMSDWebImageDownloaderContext;
         
     if ([operation respondsToSelector:@selector(setMinimumProgressInterval:)]) {
         operation.minimumProgressInterval = MIN(MAX(self.config.minimumProgressInterval, 0), 1);
+    }
+    
+    if ([operation respondsToSelector:@selector(setAcceptableStatusCodes:)]) {
+        operation.acceptableStatusCodes = self.config.acceptableStatusCodes;
+    }
+    
+    if ([operation respondsToSelector:@selector(setAcceptableContentTypes:)]) {
+        operation.acceptableContentTypes = self.config.acceptableContentTypes;
     }
     
     if (options & BMSDWebImageDownloaderHighPriority) {
@@ -606,7 +618,7 @@ didReceiveResponse:(NSURLResponse *)response
     return YES;
 }
 
-- (id<BMSDWebImageOperation>)requestImageWithURL:(NSURL *)url options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDImageLoaderCompletedBlock)completedBlock {
+- (id<BMSDWebImageOperation>)requestImageWithURL:(NSURL *)url host:(NSString *)host options:(BMSDWebImageOptions)options context:(BMSDWebImageContext *)context progress:(BMSDImageLoaderProgressBlock)progressBlock completed:(BMSDImageLoaderCompletedBlock)completedBlock {
     UIImage *cachedImage = context[BMSDWebImageContextLoaderCachedImage];
     
     BMSDWebImageDownloaderOptions downloaderOptions = 0;
@@ -622,6 +634,8 @@ didReceiveResponse:(NSURLResponse *)response
     if (options & BMSDWebImageDecodeFirstFrameOnly) downloaderOptions |= BMSDWebImageDownloaderDecodeFirstFrameOnly;
     if (options & BMSDWebImagePreloadAllFrames) downloaderOptions |= BMSDWebImageDownloaderPreloadAllFrames;
     if (options & BMSDWebImageMatchAnimatedImageClass) downloaderOptions |= BMSDWebImageDownloaderMatchAnimatedImageClass;
+    // modified by Dennis
+    if (options & BMSDWebImageDoNotDecodeImageData) downloaderOptions |= BMSDWebImageDownloaderDoNotDecodeImageData;
     
     if (cachedImage && options & BMSDWebImageRefreshCached) {
         // force progressive off if image already cached but forced refreshing
@@ -630,7 +644,7 @@ didReceiveResponse:(NSURLResponse *)response
         downloaderOptions |= BMSDWebImageDownloaderIgnoreCachedResponse;
     }
     
-    return [self downloadImageWithURL:url options:downloaderOptions context:context progress:progressBlock completed:completedBlock];
+    return [self downloadImageWithURL:url host:host options:downloaderOptions context:context progress:progressBlock completed:completedBlock];
 }
 
 - (BOOL)shouldBlockFailedURLWithURL:(NSURL *)url error:(NSError *)error {

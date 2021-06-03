@@ -195,11 +195,13 @@
         CGFloat animationDuration = duration;
         CGRect bounds = [self boundingRectForScope:FSCalendarScopeMonth page:toMonth];
         self.state = FSCalendarTransitionStateChanging;
+        
+        BMWeakSelf
         void (^completion)(BOOL) = ^(BOOL finished) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MAX(0, duration-animationDuration) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.calendar.needsAdjustingViewFrame = YES;
-                [self.calendar setNeedsLayout];
-                self.state = FSCalendarTransitionStateIdle;
+                weakSelf.calendar.needsAdjustingViewFrame = YES;
+                [weakSelf.calendar setNeedsLayout];
+                weakSelf.state = FSCalendarTransitionStateIdle;
             });
         };
         if (FSCalendarInAppExtension) {

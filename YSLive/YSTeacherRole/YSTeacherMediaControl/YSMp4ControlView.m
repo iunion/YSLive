@@ -117,7 +117,7 @@
 
 - (void)sliderViewStart:(YSMediaSlider *)sender
 {
-    [[YSLiveManager sharedInstance] pauseSharedMediaFile:self.mediaFileModel.fileUrl isPause:YES];
+    [[YSLiveManager sharedInstance].whiteBoardManager.cloudHubWhiteBoardKit pauseSharedMedia:self.mediaFileModel.fileUrl];
 }
 
 - (void)sliderViewEnd:(YSMediaSlider *)sender
@@ -129,7 +129,7 @@
         [self.delegate sliderYSMp4ControlViewPos:sender.value * self.duration withFileModel:self.mediaFileModel];
     }
     
-    [[YSLiveManager sharedInstance] pauseSharedMediaFile:self.mediaFileModel.fileUrl isPause:NO];
+    [[YSLiveManager sharedInstance].whiteBoardManager.cloudHubWhiteBoardKit resumeSharedMedia:self.mediaFileModel.fileUrl];
 }
 
 - (void)playBtnClicked:(UIButton *)btn

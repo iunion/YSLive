@@ -39,7 +39,7 @@
 
 #import "YSVoteVC.h"
 
-#import "SCVideoView.h"
+#import "CHVideoView.h"
 
 #import "SCEyeCareView.h"
 #import "SCEyeCareWindow.h"
@@ -68,7 +68,7 @@
     BMScrollPageViewDataSource,
     UIPopoverPresentationControllerDelegate,
     YSChatToolViewMemberDelegate,
-    SCVideoViewDelegate,
+    CHVideoViewDelegate,
     UIGestureRecognizerDelegate
 >
 {
@@ -488,7 +488,7 @@
 
 #pragma mark 点击弹出popoview
 
-- (void)clickViewToControlWithVideoView:(SCVideoView*)videoView
+- (void)clickViewToControlWithVideoView:(CHVideoView*)videoView
 {
     CHRoomUser * userModel = videoView.roomUser;
     if (videoView.roomUser.peerID != YSCurrentUser.peerID || userModel.publishState == CHUser_PublishState_DOWN)
@@ -768,7 +768,7 @@
         
     for (int i = 1; i <= self.videoSequenceArr.count; i++)
     {
-        SCVideoView *videoView = self.videoSequenceArr[i-1];
+        CHVideoView *videoView = self.videoSequenceArr[i-1];
         [self.studentVideoBgView addSubview:videoView];
         videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
     }
@@ -816,7 +816,7 @@
         CGFloat firstX = (self.studentVideoBgView.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
         for (int i = 0; i < self.videoSequenceArr.count; i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             [self.studentVideoBgView addSubview:videoView];
             videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
         }
@@ -845,7 +845,7 @@
             teacherW = BMUI_SCREEN_WIDTH;
             for (NSInteger i = 1; i <= self.videoSequenceArr.count; i++)
             {
-                SCVideoView *videoView = self.videoSequenceArr[i-1];
+                CHVideoView *videoView = self.videoSequenceArr[i-1];
                 [self.studentVideoBgView addSubview:videoView];
                 videoView.frame = CGRectMake(self.studentVideoBgView.bm_width - (i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP)) , 0, platformVideoWidth, platformVideoHeight);
             }
@@ -866,7 +866,7 @@
             CGFloat firstX = (self.studentVideoBgView.bm_width - self.videoSequenceArr.count *platformVideoWidth - VIDEOVIEW_HORIZON_GAP * 5)/2;
             for (int i = 0; i < self.videoSequenceArr.count; i++)
             {
-                SCVideoView *videoView = self.videoSequenceArr[i];
+                CHVideoView *videoView = self.videoSequenceArr[i];
                 [self.studentVideoBgView addSubview:videoView];
                 videoView.frame = CGRectMake(firstX  + i * (platformVideoWidth + VIDEOVIEW_HORIZON_GAP) , 0, platformVideoWidth, platformVideoHeight);
             }
@@ -923,7 +923,7 @@
 /// 收到音视频流
 - (void)onRoomStartVideoOfUid:(NSString *)uid sourceID:(nullable NSString *)sourceID streamId:(nullable NSString *)streamId
 {
-    SCVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceID];
+    CHVideoView *videoView = [self getVideoViewWithPeerId:uid andSourceId:sourceID];
         
     videoView.sourceId = sourceID;
     videoView.streamId = streamId;
@@ -937,8 +937,10 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
-        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView];
+        [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView.contentView];
+#if FRESHWITHROOMUSER
         [videoView freshWithRoomUserProperty:roomUser];
+#endif
     }
     else
     {
@@ -969,7 +971,7 @@
 
 #pragma mark  添加视频窗口
 
-- (NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
+- (NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId
 {
     NSMutableArray *newVideoViewArray = [super addVideoViewWithPeerId:peerId withMaxCount:PLATFPRM_VIDEO_MAXCOUNT];
     
@@ -980,9 +982,9 @@
 
 #pragma mark  删除视频窗口
 
-- (SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
+- (CHVideoView *)delVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId
 {
-    SCVideoView *delVideoView = [super delVideoViewWithPeerId:peerId andSourceId:sourceId];
+    CHVideoView *delVideoView = [super delVideoViewWithPeerId:peerId andSourceId:sourceId];
     
     if (delVideoView)
     {
@@ -1111,7 +1113,7 @@
     else
     {
         NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:user.peerID];
-        SCVideoView * videoVivew = userVideoVivews.firstObject;
+        CHVideoView * videoVivew = userVideoVivews.firstObject;
         
         [self delVideoViewWithPeerId:user.peerID andSourceId:videoVivew.sourceId];
     }
@@ -1186,7 +1188,7 @@
         }
         
         NSMutableArray * userVideoVivews = [self.videoViewArrayDic bm_mutableArrayForKey:roomUser.peerID];
-        SCVideoView * videoVivew = userVideoVivews.firstObject;
+        CHVideoView * videoVivew = userVideoVivews.firstObject;
         
         [self delVideoViewWithPeerId:roomUser.peerID andSourceId:videoVivew.sourceId];
         [self clickToHideControl];// 隐藏控制按钮
@@ -1202,12 +1204,14 @@
         return;
     }
     
+#if FRESHWITHROOMUSER
     // 网络状态 + 设备状态
     if ([properties bm_containsObjectForKey:sCHUserNetWorkState] || [properties bm_containsObjectForKey:sCHUserMic] || [properties bm_containsObjectForKey:sCHUserCameras])
     {
         NSMutableArray * videoViewArr = [self.videoViewArrayDic bm_mutableArrayForKey:userId];
         [videoViewArr.firstObject freshWithRoomUserProperty:roomUser];
     }
+#endif
     
     // 本人是否被禁言
     if ([properties bm_containsObjectForKey:sCHUserDisablechat])
@@ -1364,7 +1368,7 @@
 
 - (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
+    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View isMediaStream:YES];
     
     if (self.isFullScreen)
     {
@@ -1376,16 +1380,18 @@
     [self.mp4BgView bm_bringToFront];
     [self.mp4FullScreenBtn bm_bringToFront];
 }
+
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
     [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
     self.fullScreenBtn.enabled = YES;
     self.mp4BgView.hidden = YES;
 }
+
 #pragma mark 白板视频/音频
 
 // 播放白板视频/音频
-- (void)handleWhiteBordPlayMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordPlayMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
     {
@@ -1395,7 +1401,7 @@
         }
         else
         {
-            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView isMediaStream:YES];
             self.teacherMaskView.hidden = YES;
         }
     }
@@ -1407,8 +1413,8 @@
         }
         else
         {
-            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View];
-            if (mediaModel.pause)
+            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View isMediaStream:YES];
+            if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
             {
                 [self.mp4BgView showMp4PauseView];
             }
@@ -1436,7 +1442,7 @@
 }
 
 // 停止白板视频/音频
-- (void)handleWhiteBordStopMediaFileWithMedia:(CHSharedMediaFileModel *)mediaModel
+- (void)handleWhiteBordStopMediaFileWithMedia:(CHWhiteBoardShareMediaModel *)mediaModel
 {
     if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
     {
@@ -1462,7 +1468,7 @@
 }
 
 /// 继续播放白板视频/音频
-- (void)handleWhiteBordPlayMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPlayMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (!mediaFileModel.isVideo)
     {
@@ -1479,7 +1485,7 @@
 }
 
 /// 暂停播放白板视频/音频
-- (void)handleWhiteBordPauseMediaStream:(CHSharedMediaFileModel *)mediaFileModel
+- (void)handleWhiteBordPauseMediaStream:(CHWhiteBoardShareMediaModel *)mediaFileModel
 {
     if (!mediaFileModel.isVideo)
     {

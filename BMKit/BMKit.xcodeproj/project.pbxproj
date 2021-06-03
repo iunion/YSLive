@@ -246,6 +246,8 @@
 		8701B124237165AA00A43607 /* BMTableViewActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */; };
 		8706C50E2394D67200223C87 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8706C50D2394D67200223C87 /* BMKitResources.bundle */; };
 		8706C5142395F73000223C87 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8706C5132395F73000223C87 /* BMKitImage.xcassets */; };
+		871C87C92623E1CE00AB898E /* BMStepCountDowmManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 871C87C72623E1CD00AB898E /* BMStepCountDowmManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		871C87CA2623E1CE00AB898E /* BMStepCountDowmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87C82623E1CE00AB898E /* BMStepCountDowmManager.m */; };
 		8742F87B24EF6E7600BDF294 /* BMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742F87924EF6E7600BDF294 /* BMProgressHUD.m */; };
 		8742F87C24EF6E7600BDF294 /* BMProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742F87A24EF6E7600BDF294 /* BMProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8742FDCC24F3A12A00BDF294 /* BMSDAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8742FC7324F3A12900BDF294 /* BMSDAnimatedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -766,6 +768,8 @@
 		8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTableViewActionBar.m; sourceTree = "<group>"; };
 		8706C50D2394D67200223C87 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		8706C5132395F73000223C87 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		871C87C72623E1CD00AB898E /* BMStepCountDowmManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMStepCountDowmManager.h; sourceTree = "<group>"; };
+		871C87C82623E1CE00AB898E /* BMStepCountDowmManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMStepCountDowmManager.m; sourceTree = "<group>"; };
 		8742F87924EF6E7600BDF294 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
 		8742F87A24EF6E7600BDF294 /* BMProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMProgressHUD.h; sourceTree = "<group>"; };
 		8742FC7324F3A12900BDF294 /* BMSDAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSDAnimatedImageView.h; sourceTree = "<group>"; };
@@ -1342,6 +1346,8 @@
 		8701AF3523715CF900A43607 /* BMCountDownManager */ = {
 			isa = PBXGroup;
 			children = (
+				871C87C72623E1CD00AB898E /* BMStepCountDowmManager.h */,
+				871C87C82623E1CE00AB898E /* BMStepCountDowmManager.m */,
 				8701AF3623715CF900A43607 /* BMCountDownManager.h */,
 				8701AF3823715CF900A43607 /* BMCountDownManager.m */,
 				8701AF3923715CF900A43607 /* UIView+BMCountDownManager.h */,
@@ -2131,6 +2137,7 @@
 				8742FE2E24F3A12A00BDF294 /* BMSDWebImageManager.h in Headers */,
 				8742F87C24EF6E7600BDF294 /* BMProgressHUD.h in Headers */,
 				8742FE4124F3A12A00BDF294 /* BMSDImageCachesManagerOperation.h in Headers */,
+				871C87C92623E1CE00AB898E /* BMStepCountDowmManager.h in Headers */,
 				87832D9224863E8700F1178E /* BMImageTitleButtonView.h in Headers */,
 				87901A5F24176EB500FF38EC /* BMMASViewAttribute.h in Headers */,
 				87901A6124176EB500FF38EC /* BMMASViewConstraint.h in Headers */,
@@ -2651,6 +2658,7 @@
 				8742FE1324F3A12A00BDF294 /* BMSDImageCacheDefine.m in Sources */,
 				8777C77623EA72A2002002BF /* BMFreshBaseView.m in Sources */,
 				8742FE0524F3A12A00BDF294 /* UIView+BMWebCacheOperation.m in Sources */,
+				871C87CA2623E1CE00AB898E /* BMStepCountDowmManager.m in Sources */,
 				8777C79923EA72A3002002BF /* BMFreshAutoNormalFooter.m in Sources */,
 				8742FDF024F3A12A00BDF294 /* UIImageView+BMHighlightedWebCache.m in Sources */,
 				87901A04241727BF00FF38EC /* BMTZPhotoPreviewController.m in Sources */,

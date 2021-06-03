@@ -611,6 +611,7 @@
         [self.whiteBoardDelegate handleonWhiteBoardChangedFileWithFileList:fileIdList];
     }
 }
+
 /// 删除课件
 - (void)onWhiteBroadDeleteFile:(NSString *)fileId
 {
@@ -619,25 +620,17 @@
         [self.whiteBoardDelegate handleonWhiteBoardDeleteFile];
     }
 }
+
+/// 关闭课件窗口
+- (void)onDeleteWhiteBoardWindow:(CHWhiteBoardWindow *)whiteBoardWindow
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardDeleteWhiteBoardWindow:)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardDeleteWhiteBoardWindow:whiteBoardWindow];
+    }
+}
+
 #pragma mark - 课件事件
-
-/// 课件全屏
-- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen;
-{
-    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardFullScreen:)])
-    {
-        [self.whiteBoardDelegate handleonWhiteBoardFullScreen:isAllScreen];
-    }
-}
-
-/// 媒体播放状态
-- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(CHMediaState)state
-{
-    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardMediaFileStateWithFileId:state:)])
-    {
-        [self.whiteBoardDelegate handleonWhiteBoardMediaFileStateWithFileId:fileId state:state];
-    }
-}
 
 /// 课件窗口最大化事件
 - (void)onWhiteBoardMaximizeView
@@ -648,6 +641,91 @@
     }
 }
 
+/// 课件全屏
+- (void)onWhiteBoardFullScreen:(BOOL)isAllScreen;
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardFullScreen:)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardFullScreen:isAllScreen];
+    }
+}
+
+#pragma mark - 媒体课件操作回调
+
+/// 媒体播放状态
+- (void)onWhiteBoardChangedMediaFileStateWithFileId:(NSString *)fileId state:(CHWhiteBoardShareMediaState)state
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardMediaFileStateWithFileId:state:)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardMediaFileStateWithFileId:fileId state:state];
+    }
+}
+
+/// 共享媒体播放回调
+- (void)onWhiteBoardShareMediaStartPlay:(NSString *)uid
+                               streamId:(NSString *)streamId
+                             attributes:(NSDictionary *)attributesDic
+                             shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+//    if (![self.whiteBoardManager isOneWhiteBoardView])
+//    {
+//        /// 多课件不做处理
+//        return;
+//    }
+    
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleWhiteBoardShareMediaStartPlay:streamId:attributes:shareMedia:)])
+    {
+        [self.whiteBoardDelegate handleWhiteBoardShareMediaStartPlay:uid streamId:streamId attributes:attributesDic shareMedia:shareMedia];
+    }
+}
+
+/// 共享媒体停止回调
+- (void)onWhiteBoardShareMediaStopPlay:(NSString *)uid
+                              streamId:(NSString *)streamId
+                            shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleWhiteBoardShareMediaStopPlay:streamId:shareMedia:)])
+    {
+        [self.whiteBoardDelegate handleWhiteBoardShareMediaStopPlay:uid streamId:streamId shareMedia:shareMedia];
+    }
+}
+
+/// 共享媒体暂停回调
+- (void)onWhiteBoardShareMediaPause:(NSString *)uid
+                           streamId:(NSString *)streamId
+                         shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleWhiteBoardShareMediaPause:streamId:shareMedia:)])
+    {
+        [self.whiteBoardDelegate handleWhiteBoardShareMediaPause:uid streamId:streamId shareMedia:shareMedia];
+    }
+}
+
+/// 共享媒体继续回调
+- (void)onWhiteBoardShareMediaResume:(NSString *)uid
+                            streamId:(NSString *)streamId
+                          shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleWhiteBoardShareMediaResume:streamId:shareMedia:)])
+    {
+        [self.whiteBoardDelegate handleWhiteBoardShareMediaResume:uid streamId:streamId shareMedia:shareMedia];
+    }
+}
+
+/// 共享媒体进度回调(毫秒)
+- (void)onWhiteBoardShareMediaChangePosition:(NSString *)uid
+                                    streamId:(NSString *)streamId
+                                         pos:(NSUInteger)pos
+                                  shareMedia:(CHWhiteBoardShareMediaModel *)shareMedia
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleWhiteBoardShareMediaChangePosition:streamId:pos:shareMedia:)])
+    {
+        [self.whiteBoardDelegate handleWhiteBoardShareMediaChangePosition:uid streamId:streamId pos:pos shareMedia:shareMedia];
+    }
+}
+
+
+#pragma mark - 小黑板
 
 - (void)onSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState
 {
@@ -657,8 +735,8 @@
     }
 }
 
-//小黑板bottomBar的代理
-///上传图片
+/// 小黑板bottomBar的代理
+/// 上传图片
 - (void)onSmallBoardBottomBarClickToUploadImage
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToUploadImage)])
@@ -666,7 +744,8 @@
         [self.whiteBoardDelegate handleSignalingSmallBoardBottomBarClickToUploadImage];
     }
 }
-///删除图片
+
+/// 删除图片
 - (void)onSmallBoardBottomBarClickToDeleteImage
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingSmallBoardBottomBarClickToDeleteImage)])
@@ -675,7 +754,8 @@
     }
 }
 
-- (void)handleSignalingReceivePrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
+/// 开始私聊
+- (void)onSmallBoardStartPrivateChatWithPrivateIdArray:(NSArray *)privateIdArray
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingReceivePrivateChatWithPrivateIdArray:)])
     {
@@ -683,7 +763,8 @@
     }
 }
 
-- (void)handleSignalingDeletePrivateChat
+/// 结束私聊
+- (void)onSmallBoardStopPrivateChat
 {
     if ([self.whiteBoardDelegate respondsToSelector:@selector(handleSignalingDeletePrivateChat)])
     {

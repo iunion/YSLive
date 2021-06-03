@@ -29,8 +29,6 @@
 #import "YSMp4ControlView.h"
 #import "YSMp3Controlview.h"
 
-#import "CHPanGestureControl.h"
-
 #import "YSUpHandPopoverVC.h"
 #import "YSCircleProgress.h"
 #import "YSTeacherResponder.h"

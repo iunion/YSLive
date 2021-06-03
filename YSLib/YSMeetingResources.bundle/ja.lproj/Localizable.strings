@@ -27,6 +27,7 @@
 "Error.PwdError" = "パスワードが違います。入力し直してください。";
 "Error.AuthIncorrect" = "認証エラー";
 "Error.WaitingForNetwork" = "一時的にインターネットが使用できません。しばらくしてから再度お試しください。";
+"Error.ForbiddenEnter" = "禁止進入房間";
 //Prompt
 
 "Prompt.ExceptionReport" = "异常报告";
