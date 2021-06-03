@@ -7,9 +7,10 @@
 //
 
 #import "YSSuperNetVC.h"
-#import "SCVideoView.h"
+#import "CHVideoView.h"
 #import "YSControlPopoverView.h"
 #import "BMKeystoneCorrectionView.h"
+#import "CHFullFloatVideoView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 <
     CHSessionDelegate,
     YSLiveForWhiteBoardDelegate,
-    SCVideoViewDelegate,
+    CHVideoViewDelegate,
     YSControlPopoverViewDelegate
 >
 
@@ -37,21 +38,31 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *userId;
 
 /// 排序后的视频View列表
-@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
+@property (nonatomic, strong) NSMutableArray <CHVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;
 
+/// 排序后的视频View列表（全屏浮窗）------
+@property (nonatomic, strong) NSMutableArray <CHVideoView *> *videoSequenceArrFull;
+@property (nonatomic, strong) NSMutableDictionary *videoViewArrayDicFull;
+
 /// 老师视频
-@property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *teacherVideoViewArray;
+@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *teacherVideoViewArray;
 /// 老师视频
-@property (nullable, nonatomic, strong) NSMutableArray<SCVideoView *> *classMasterVideoViewArray;
+@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *classMasterVideoViewArray;
+
+/// 老师视频
+@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *teacherVideoViewArrayFull;
+/// 老师视频
+@property (nullable, nonatomic, strong) NSMutableArray<CHVideoView *> *classMasterVideoViewArrayFull;
+
 /// 自己视频
-@property (nullable, nonatomic, weak) SCVideoView *myVideoView;
+@property (nullable, nonatomic, weak) CHVideoView *myVideoView;
 
 /// 打开的音视频课件，目前只支持一个音视频
-@property (nullable, nonatomic, strong) CHSharedMediaFileModel *mediaFileModel;
+@property (nullable, nonatomic, strong) CHWhiteBoardShareMediaModel *mediaFileModel;
 
 /// 当前的焦点视图
-@property(nullable, nonatomic, strong) SCVideoView *fouceView;
+@property(nullable, nonatomic, strong) CHVideoView *fouceView;
 
 ///标识布局变化的值
 @property (nonatomic, assign) CHRoomLayoutType roomLayout;
@@ -62,36 +73,41 @@ NS_ASSUME_NONNULL_BEGIN
 /// 视频矫正窗口
 @property (nonatomic, strong, readonly) BMKeystoneCorrectionView *keystoneCorrectionView;
 
+//@property (nonatomic,strong) NSMutableArray<CHVideoView *> *myVideoViewArrFull;
+
+///全屏时视频浮窗背景view
+@property (nonatomic, strong) CHFullFloatVideoView *fullFloatVideoView;
 
 - (instancetype)initWithWhiteBordView:(UIView *)whiteBordView;
 
 - (void)showEyeCareRemind;
 
-///视频窗口排序后存储为array
+///视频窗口排序
 - (void)videoViewsSequence;
 
 ///给videoViewArrayDic中添加视频
-- (void)addVideoViewToVideoViewArrayDic:(SCVideoView *)videoView;
+- (void)addVideoViewToVideoViewArrayDic:(CHVideoView *)videoView;
+///给videoViewArrayDicFull中添加视频（全屏浮窗用）
+- (void)addVideoViewToVideoViewArrayDicFull:(CHVideoView *)videoView;
 ///从videoViewArrayDic中移除视频
-- (void)deleteVideoViewfromVideoViewArrayDic:(SCVideoView *)videoView;
+- (void)deleteVideoViewfromVideoViewArrayDic:(CHVideoView *)videoView;
 
 
-- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView;
-- (void)playVideoAudioWithVideoView:(SCVideoView *)videoView needFreshVideo:(BOOL)fresh;
-- (void)playVideoAudioWithNewVideoView:(SCVideoView *)videoView;
-- (void)stopVideoAudioWithVideoView:(SCVideoView *)videoView;
+- (void)playVideoAudioWithVideoView:(CHVideoView *)videoView;
+- (void)playVideoAudioWithVideoView:(CHVideoView *)videoView needFreshVideo:(BOOL)fresh;
+- (void)playVideoAudioWithNewVideoView:(CHVideoView *)videoView;
+- (void)stopVideoAudioWithVideoView:(CHVideoView *)videoView;
 
 
 - (NSUInteger)getVideoViewCount;
-- (nullable NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId;
-- (nullable NSMutableArray<SCVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
+- (nullable NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId;
+- (nullable NSMutableArray<CHVideoView *> *)addVideoViewWithPeerId:(NSString *)peerId withMaxCount:(NSUInteger)count;
 
 //设备变化时
-- (NSMutableArray<SCVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count;
+- (NSMutableArray<CHVideoView *> *)freshVideoViewsCountWithPeerId:(NSString *)peerId withSourceIdArray:(NSMutableArray<NSString *> *)sourceIdArray withMaxCount:(NSUInteger)count;
 
-- (nullable SCVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId;
-//- (nullable NSMutableArray<SCVideoView *> *)delVideoViewWithPeerId:(NSString *)peerId;
-- (nullable SCVideoView *)delVideoViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
+- (nullable CHVideoView *)getVideoViewWithPeerId:(NSString *)peerId andSourceId:(NSString *)sourceId;
+- (nullable CHVideoView *)delVideoViewWithPeerId:(NSString *)peerId  andSourceId:(NSString *)sourceId;
 
 - (void)userPublishstatechange:(CHRoomUser *)roomUser;
 

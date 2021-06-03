@@ -238,6 +238,13 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
                                                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
                                                  completed:(nonnull BMSDInternalCompletionBlock)completedBlock;
 
+// modified by Dennis
+- (nullable BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
+                                                   options:(BMSDWebImageOptions)options
+                                                  progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
+                                                 completed:(nonnull BMSDInternalCompletionBlock)completedBlock;
+
 /**
  * Downloads the image at the given URL if not present in cache or return the cached version otherwise.
  *
@@ -251,6 +258,14 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  * @return Returns an instance of SDWebImageCombinedOperation, which you can cancel the loading process.
  */
 - (nullable BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
+                                                   options:(BMSDWebImageOptions)options
+                                                   context:(nullable BMSDWebImageContext *)context
+                                                  progress:(nullable BMSDImageLoaderProgressBlock)progressBlock
+                                                 completed:(nonnull BMSDInternalCompletionBlock)completedBlock;
+
+// modified by Dennis
+- (nullable BMSDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
+                                                        host:(nullable NSString *)host
                                                    options:(BMSDWebImageOptions)options
                                                    context:(nullable BMSDWebImageContext *)context
                                                   progress:(nullable BMSDImageLoaderProgressBlock)progressBlock

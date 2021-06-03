@@ -20,7 +20,8 @@ FOUNDATION_STATIC_INLINE NSUInteger BMSDMemoryCacheCostForImage(UIImage *image) 
 #if BMSD_MAC
     frameCount = 1;
 #elif BMSD_UIKIT || BMSD_WATCH
-    frameCount = image.images.count > 0 ? image.images.count : 1;
+    // Filter the same frame in `_UIAnimatedImage`.
+    frameCount = image.images.count > 0 ? [NSSet setWithArray:image.images].count : 1;
 #endif
     NSUInteger cost = bytesPerFrame * frameCount;
     return cost;

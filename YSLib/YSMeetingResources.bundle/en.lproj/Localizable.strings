@@ -35,6 +35,7 @@
 "Error.CanNotConnectNetworkError" = "Unable to connect to the server. Please try again later";
 "Error.ServerError" = "Server access exception";
 "Error.UpPlatformMemberOverRoomLimit" = "The number of people on stage exceeded the maximum limit";
+"Error.ForbiddenEnter" = "Forbidden to enter room";
 
 //Prompt
 "Prompt.inputPlaceholder" = "Please input a password";

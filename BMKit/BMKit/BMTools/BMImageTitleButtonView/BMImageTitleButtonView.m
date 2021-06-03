@@ -198,7 +198,7 @@
     [self setNeedsLayout];
 }
 
-- (void)setType:(BMImageTextViewType)type
+- (void)setType:(BMImageTitleButtonViewType)type
 {
     _type = type;
     

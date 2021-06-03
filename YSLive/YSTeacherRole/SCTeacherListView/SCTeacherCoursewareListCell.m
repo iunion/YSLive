@@ -117,7 +117,7 @@
         
     }
 }
-- (void)setFileModel:(CHFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(CHMediaState)state
+- (void)setFileModel:(CHFileModel *)fileModel isCurrent:(BOOL)isCurrent mediaFileID:(nonnull NSString *)mediaFileID mediaState:(CHWhiteBoardShareMediaState)state
 {
     _fileModel = fileModel;
 
@@ -167,15 +167,15 @@
         
         if (mediaFileID && [mediaFileID isEqualToString:fileModel.fileid])
         {
-            if (state == CHMediaState_Play)
+            if (state == CHWhiteBoardShareMediaState_Play)
             {
                 [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconSel")];
             }
-            else if (state == CHMediaState_Pause)
+            else if (state == CHWhiteBoardShareMediaState_Pause)
             {
                 [self.openImageView setImage:YSSkinElementImage(@"coursewareList_play", @"iconNor")];
             }
-            else if (state == CHMediaState_Stop)
+            else if (state == CHWhiteBoardShareMediaState_Stop)
             {
                 [self.openImageView setImage:playDisImage];
             }

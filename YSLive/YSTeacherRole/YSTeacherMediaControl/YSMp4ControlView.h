@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol YSMp4ControlViewDelegate <NSObject>
 
-- (void)playYSMp4ControlViewPlay:(BOOL)isPause withFileModel:(CHSharedMediaFileModel *)mediaFileModel;
+- (void)playYSMp4ControlViewPlay:(BOOL)isPause withFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel;
 
-- (void)sliderYSMp4ControlViewPos:(NSTimeInterval)value withFileModel:(CHSharedMediaFileModel *)mediaFileModel;
+- (void)sliderYSMp4ControlViewPos:(NSTimeInterval)value withFileModel:(CHWhiteBoardShareMediaModel *)mediaFileModel;
 
 @end
 
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak) id<YSMp4ControlViewDelegate> delegate;
 
 /// 媒体数据
-@property (nonatomic, strong) CHSharedMediaFileModel *mediaFileModel;
+@property (nonatomic, strong) CHWhiteBoardShareMediaModel *mediaFileModel;
 
 @property (nonatomic, assign) BOOL isPlay;
 

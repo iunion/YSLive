@@ -253,6 +253,7 @@
     }
     
     if (hidePrivateMethods) {
+
         id methodMapBlock = ^id(NSArray<FLEXMethod *> *list, NSUInteger idx) {
             // Remove methods which contain an underscore
             return [list flex_filtered:^BOOL(FLEXMethod *method, NSUInteger idx) {

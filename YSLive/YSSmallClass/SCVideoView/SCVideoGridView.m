@@ -7,7 +7,7 @@
 //
 
 #import "SCVideoGridView.h"
-#import "SCVideoView.h"
+#import "CHVideoView.h"
 
 /// 视频间距
 static const CGFloat kVideoGridView_Gap_iPhone = 4.0f;
@@ -21,7 +21,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 /// 视频ratio 16:9
 @property (nonatomic, assign) BOOL isWideScreen;
 
-@property (nonatomic, strong) NSMutableArray <SCVideoView *> *videoSequenceArr;
+@property (nonatomic, strong) NSMutableArray <CHVideoView *> *videoSequenceArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewArrayDic;
 
 @property (nonatomic, strong) UIView *videosBgView;
@@ -211,7 +211,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     self.videosBgView.center = center;
 }
 
-- (void)freshViewWithVideoViewArray:(NSMutableArray<SCVideoView *> *)videoSequenceArr withFouceVideo:(SCVideoView *)fouceVideo withRoomLayout:(CHRoomLayoutType)roomLayout withAppUseTheType:(CHRoomUseType)appUseTheType
+- (void)freshViewWithVideoViewArray:(NSMutableArray<CHVideoView *> *)videoSequenceArr withFouceVideo:(CHVideoView *)fouceVideo withRoomLayout:(CHRoomLayoutType)roomLayout withAppUseTheType:(CHRoomUseType)appUseTheType
 {
     self.videoSequenceArr = videoSequenceArr;
     
@@ -225,11 +225,10 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             
             [self changeFrameFocus];
             
-            for (SCVideoView *videoView in self.videoSequenceArr)
+            for (CHVideoView *videoView in self.videoSequenceArr)
             {
                 videoView.isDragOut = NO;
                 videoView.isFullScreen = NO;
-                videoView.isFullMedia = YES;
                 [self.videosBgView addSubview:videoView];
                 videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
             }
@@ -242,11 +241,10 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 //        self.videosBgView.backgroundColor = [UIColor clearColor];
         [self changeFrame];
         
-        for (SCVideoView *videoView in self.videoSequenceArr)
+        for (CHVideoView *videoView in self.videoSequenceArr)
         {
             videoView.isDragOut = NO;
             videoView.isFullScreen = NO;
-            videoView.isFullMedia = YES;
             [self.videosBgView addSubview:videoView];
             videoView.frame = CGRectMake(0, 0, self.videoWidth, self.videoHeight);
         }
@@ -264,15 +262,15 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     
     if (count == 1)
     {
-        SCVideoView *videoView = self.videoSequenceArr[0];
+        CHVideoView *videoView = self.videoSequenceArr[0];
         
         videoView.bm_top = 0;
         videoView.bm_left = 0;
     }
     else if (count == 2)
     {
-        SCVideoView *videoView1 = self.videoSequenceArr[0];
-        SCVideoView *videoView2 = self.videoSequenceArr[1];
+        CHVideoView *videoView1 = self.videoSequenceArr[0];
+        CHVideoView *videoView2 = self.videoSequenceArr[1];
         
         videoView1.bm_top = 0;
         videoView1.bm_left = 0;
@@ -282,9 +280,9 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     }
     else if (count == 3)
     {
-        SCVideoView *videoView1 = self.videoSequenceArr[0];
-        SCVideoView *videoView2 = self.videoSequenceArr[1];
-        SCVideoView *videoView3 = self.videoSequenceArr[2];
+        CHVideoView *videoView1 = self.videoSequenceArr[0];
+        CHVideoView *videoView2 = self.videoSequenceArr[1];
+        CHVideoView *videoView3 = self.videoSequenceArr[2];
         
         videoView1.bm_top = 0;
         videoView1.bm_left = (self.videosBgView.bm_width - self.videoWidth)*0.5f;
@@ -299,7 +297,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         for (int i = 0; i < count; i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             
             videoView.bm_top = (i / 2) * height;
             videoView.bm_left = (i % 2) * width;
@@ -312,7 +310,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         
         for (int i = 0; i < count; i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             if (i < 2)
             {
                 videoView.bm_top = 0;
@@ -329,7 +327,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         for (int i = 0; i < count; i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             
             videoView.bm_top = (i / 3) * height;
             videoView.bm_left = (i % 3) * width;
@@ -339,7 +337,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         for (int i = 0; i < count; i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             
             videoView.bm_top = (i / 4) * height;
             videoView.bm_left = (i % 4) * width;
@@ -353,7 +351,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             {
                 for (int i = 0; i < count; i++)
                 {
-                    SCVideoView *videoView = self.videoSequenceArr[i];
+                    CHVideoView *videoView = self.videoSequenceArr[i];
                     
                     videoView.bm_top = (i / 4) * height;
                     videoView.bm_left = (i % 4) * width;
@@ -366,7 +364,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             {
                 for (int i = 0; i < self.videoSequenceArr.count; i++)
                 {
-                    SCVideoView *videoView = self.videoSequenceArr[i];
+                    CHVideoView *videoView = self.videoSequenceArr[i];
                     
                     videoView.bm_top = (i / 3) * height;
                     videoView.bm_left = (i % 3) * width;
@@ -376,7 +374,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
             {
                 for (int i = 0;i < self.videoSequenceArr.count;i++)
                 {
-                    SCVideoView *videoView = self.videoSequenceArr[i];
+                    CHVideoView *videoView = self.videoSequenceArr[i];
                     
                     videoView.bm_top = (i / 4) * height;
                     videoView.bm_left = (i % 4) * width;
@@ -388,7 +386,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         for (int i = 0;i<self.videoSequenceArr.count;i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             
             videoView.bm_top = (i/5) * height;
             videoView.bm_left = (i%5) * width;
@@ -398,7 +396,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         for (int i = 0;i<self.videoSequenceArr.count;i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             
             videoView.bm_top = (i / 6) * height;
             videoView.bm_left = (i % 6) * width;
@@ -408,7 +406,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
     {
         for (int i = 0;i<self.videoSequenceArr.count;i++)
         {
-            SCVideoView *videoView = self.videoSequenceArr[i];
+            CHVideoView *videoView = self.videoSequenceArr[i];
             
             videoView.bm_top = (i / 7) * height;
             videoView.bm_left = (i % 7) * width;
@@ -462,7 +460,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
 
 
 //布局
-- (void)freshViewFocusWithFouceVideo:(SCVideoView *)fouceVideo
+- (void)freshViewFocusWithFouceVideo:(CHVideoView *)fouceVideo
 {
     CGFloat width = self.videoWidth + VIDEOGRIDVIEW_GAP/2;
     CGFloat height = self.videoHeight + VIDEOGRIDVIEW_GAP/2;
@@ -511,7 +509,7 @@ static const CGFloat kVideoGridView_Gap_iPad  = 6.0f;
         
     for (int i = 0; i < mutArray.count; i++)
     {
-        SCVideoView *videoView = mutArray[i];
+        CHVideoView *videoView = mutArray[i];
         if (i < 6)
         {
             videoView.bm_top = i * height + VIDEOGRIDVIEW_GAP/2;

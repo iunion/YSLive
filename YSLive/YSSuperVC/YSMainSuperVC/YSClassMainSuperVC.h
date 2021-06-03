@@ -9,6 +9,7 @@
 #import "YSMainSuperVC.h"
 #import "YSSpreadBottomToolBar.h"
 #import "YSDiceAnimationView.h"
+#import "PanGestureControl.h"
 
 /// 顶部状态栏高度
 #define STATETOOLBAR_HEIGHT           ([UIDevice bm_isiPad] ? 18 : 12)
@@ -64,17 +65,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 自己当前的分辨率 视频高
 @property (nonatomic, assign) NSUInteger userVideoheight;
 
-
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 
-// 横排视频最大宽度计算
+/// 横排视频最大宽度计算
 - (CGFloat)getVideoTotalWidth;
 
 - (void)showKeystoneCorrectionView;
 
 - (void)hideKeystoneCorrectionView;
 
+/// 全屏切换时视频浮窗切换
+- (void)fullScreenToShowVideoView:(BOOL)isFull;
 
 @end
 

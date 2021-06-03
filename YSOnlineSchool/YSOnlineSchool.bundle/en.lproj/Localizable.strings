@@ -51,7 +51,7 @@
 "Label.accountNumberPlaceholder" = "Please enter your account number";
 "Label.onlineSchoolSystem" = "Network school system";
 
-"Login.Enter" = "Enter";
+"Login.Enter" = "Login school";
 "Login.EnterRoom" = "Enter room";
 
 "Error.ServerError" = "Server access exception";

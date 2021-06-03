@@ -180,7 +180,10 @@
     
     YSPrizeResultTableViewCell * resultCell = [tableView dequeueReusableCellWithIdentifier:@"YSPrizeResultTableViewCell" forIndexPath:indexPath];
     resultCell.nameL.text = self.dataSource[indexPath.row];
-    resultCell.timeL.text = self.endTime;
+    
+    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:[self.endTime intValue]];
+    NSString *endStr = [NSDate bm_stringFromDate:endDate formatter:@"MM-dd HH:mm"];
+    resultCell.timeL.text = endStr;
     
     return resultCell;
 }

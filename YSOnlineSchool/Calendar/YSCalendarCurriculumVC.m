@@ -350,7 +350,7 @@
             }
             else
             {
-                [self.progressHUD bm_hideAnimated:NO];
+                [weakSelf.progressHUD bm_hideAnimated:NO];
                 
                 NSDictionary *responseDic = [BMCloudHubUtil convertWithData:responseObject];
                 if ([responseDic bm_isNotEmptyDictionary])
