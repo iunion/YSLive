@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		042A731D25AC23420040613E /* YSSkinDarkRsource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 042A731C25AC23420040613E /* YSSkinDarkRsource.bundle */; };
+		0447DD5326688AA500BB380B /* CHVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0447DD5226688AA500BB380B /* CHVideoView.m */; };
 		045CF51223C828B6008F474E /* YSMeetingResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045CF51123C828B6008F474E /* YSMeetingResources.bundle */; };
 		045F76062484DD2800A34F76 /* YSSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76052484DD2800A34F76 /* YSSetViewController.m */; };
 		045F76092484E00300A34F76 /* YSSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F76082484E00300A34F76 /* YSSetTableViewCell.m */; };
@@ -402,7 +403,6 @@
 		871C8797261C5B4300AB898E /* FLEXNSDataShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C8793261C5B4300AB898E /* FLEXNSDataShortcuts.m */; };
 		871C879C261C5EB200AB898E /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */; };
 		871C879D261C5EB200AB898E /* Cocoa+FLEXShortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */; };
-
 		872558A923FAB5DA009A3A79 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872558A823FAB5D9009A3A79 /* Bugly.framework */; };
 		8742FF2524F79DF700BDF294 /* YSNewCoursewareControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742FF2424F79DF600BDF294 /* YSNewCoursewareControlView.m */; };
 		8745557C23B3358000BC6CAB /* YSSkinCoverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8745557323B3358000BC6CAB /* YSSkinCoverLayer.m */; };
@@ -833,6 +833,8 @@
 
 /* Begin PBXFileReference section */
 		042A731C25AC23420040613E /* YSSkinDarkRsource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSSkinDarkRsource.bundle; sourceTree = "<group>"; };
+		0447DD5126688AA500BB380B /* CHVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHVideoView.h; sourceTree = "<group>"; };
+		0447DD5226688AA500BB380B /* CHVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVideoView.m; sourceTree = "<group>"; };
 		045CF51123C828B6008F474E /* YSMeetingResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YSMeetingResources.bundle; sourceTree = "<group>"; };
 		045F76042484DD2800A34F76 /* YSSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSSetViewController.h; sourceTree = "<group>"; };
 		045F76052484DD2800A34F76 /* YSSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSSetViewController.m; sourceTree = "<group>"; };
@@ -1106,7 +1108,6 @@
 		871C8793261C5B4300AB898E /* FLEXNSDataShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXNSDataShortcuts.m; sourceTree = "<group>"; };
 		871C879A261C5EB200AB898E /* Cocoa+FLEXShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cocoa+FLEXShortcuts.h"; sourceTree = "<group>"; };
 		871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cocoa+FLEXShortcuts.m"; sourceTree = "<group>"; };
-
 		872558A823FAB5D9009A3A79 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		874061F3235AA428005D3620 /* YSLiveUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLiveUtil.h; sourceTree = "<group>"; };
 		874061F4235AA428005D3620 /* YSLiveUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSLiveUtil.m; sourceTree = "<group>"; };
@@ -1608,10 +1609,7 @@
 		87EB133D2372647900D642E8 /* YSLessonNotifyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLessonNotifyTableCell.h; sourceTree = "<group>"; };
 		87EB133E2372647900D642E8 /* YSLessonDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLessonDetailHeaderView.m; sourceTree = "<group>"; };
 		87EDA9D7263521A40001534B /* FLEXNSStringShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXNSStringShortcuts.m; sourceTree = "<group>"; };
-		87EDA9D8263521A40001534B /* FLEXNSStringShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXNSStringShortcuts.h; sourceTree = "<group>"; };
 		87EDA9D9263521A50001534B /* FLEXNSDataShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXNSDataShortcuts.m; sourceTree = "<group>"; };
-		87EDA9DA263521A50001534B /* FLEXNSDataShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLEXNSDataShortcuts.h; sourceTree = "<group>"; };
-		87EDA9E1263521C90001534B /* Cocoa+FLEXShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cocoa+FLEXShortcuts.h"; sourceTree = "<group>"; };
 		87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cocoa+FLEXShortcuts.m"; sourceTree = "<group>"; };
 		87F32D962411F17200906C20 /* YSMainSuperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMainSuperVC.h; sourceTree = "<group>"; };
 		87F32D972411F17200906C20 /* YSMainSuperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMainSuperVC.m; sourceTree = "<group>"; };
@@ -1764,6 +1762,9 @@
 		04F247BE2384EE39005E29C8 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				87EDA9D9263521A50001534B /* FLEXNSDataShortcuts.m */,
+				87EDA9E2263521C90001534B /* Cocoa+FLEXShortcuts.m */,
+				87EDA9D7263521A40001534B /* FLEXNSStringShortcuts.m */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -2360,8 +2361,8 @@
 		875A7201237561CC00407A75 /* SCVideoView */ = {
 			isa = PBXGroup;
 			children = (
-				871C87AB261ED75E00AB898E /* CHVideoView.h */,
-				871C87AC261ED75E00AB898E /* CHVideoView.m */,
+				0447DD5126688AA500BB380B /* CHVideoView.h */,
+				0447DD5226688AA500BB380B /* CHVideoView.m */,
 				875A720623758F1900407A75 /* SCVideoGridView.h */,
 				875A720723758F1900407A75 /* SCVideoGridView.m */,
 				04B8C6E323CEECFF0095F880 /* CHPanGestureControl.h */,
@@ -2384,7 +2385,6 @@
 			children = (
 				871C879A261C5EB200AB898E /* Cocoa+FLEXShortcuts.h */,
 				871C879B261C5EB200AB898E /* Cocoa+FLEXShortcuts.m */,
-
 				875DD4A725C4103000059D0B /* NSDictionary+ObjcRuntime.h */,
 				875DD4AC25C4103000059D0B /* NSDictionary+ObjcRuntime.m */,
 				875DD4A525C4103000059D0B /* NSMapTable+FLEX_Subscripting.h */,
@@ -2722,7 +2722,6 @@
 				871C8793261C5B4300AB898E /* FLEXNSDataShortcuts.m */,
 				871C8792261C5B4300AB898E /* FLEXNSStringShortcuts.h */,
 				871C8791261C5B4200AB898E /* FLEXNSStringShortcuts.m */,
-
 				87832DCB24874C4300F1178E /* FLEXShortcut.h */,
 				87832DD524874C4300F1178E /* FLEXShortcut.m */,
 				87832DC624874C4300F1178E /* FLEXShortcutsFactory+Defaults.h */,
@@ -3876,13 +3875,12 @@
 				87832F0824874C4300F1178E /* FLEXSingleRowSection.m in Sources */,
 				87832F4024874C4300F1178E /* FLEXViewControllerShortcuts.m in Sources */,
 				871C879C261C5EB200AB898E /* Cocoa+FLEXShortcuts.m in Sources */,
-				3450B1382404AA26006141E5 /* SCVideoView.m in Sources */,
-
 				871335A1237270F6006534A4 /* YSVoteResultTableCell.m in Sources */,
 				87832FEA24874C4300F1178E /* FHSView.m in Sources */,
 				871C874D2611B00E00AB898E /* CHPermissionsView.m in Sources */,
 				87AED04A23B5D71000D38129 /* YSPermissionsVResultView.m in Sources */,
 				87832F6A24874C4300F1178E /* FLEXArgumentInputStringView.m in Sources */,
+				0447DD5326688AA500BB380B /* CHVideoView.m in Sources */,
 				875DD4B325C4103000059D0B /* NSString+FLEX.m in Sources */,
 				87832F2A24874C4300F1178E /* FLEXColorPreviewSection.m in Sources */,
 				26D07C1F243F03B2002B1B60 /* YSMP4Player.m in Sources */,
@@ -3902,7 +3900,6 @@
 				87832FDA24874C4300F1178E /* FLEXKBToolbarButton.m in Sources */,
 				3471E29224039A0100A3BBB4 /* FSCalendarDelegationFactory.m in Sources */,
 				2632466225E49A66002002A6 /* SSZipArchive.m in Sources */,
-				871C87AD261ED75F00AB898E /* CHVideoView.m in Sources */,
 				3450B140240677A6006141E5 /* YSMonthListCell.m in Sources */,
 				87832FA424874C4300F1178E /* FLEXKeychainViewController.m in Sources */,
 				87832F3624874C4300F1178E /* FLEXBundleShortcuts.m in Sources */,
@@ -4375,7 +4372,6 @@
 				26E4718D2518A78300CE1776 /* YSDiceAnimationView.m in Sources */,
 				8783300924874C4400F1178E /* FLEXObjcInternal.mm in Sources */,
 				8783301524874C4400F1178E /* FLEXProtocolBuilder.m in Sources */,
-				871C87AE261ED75F00AB898E /* CHVideoView.m in Sources */,
 				8717E2812400DADC008C4CDA /* YSTeacherResponder.m in Sources */,
 				8717E2832400DADC008C4CDA /* YSTeacherTimerView.m in Sources */,
 				263327562591C87A004ED6CE /* YSWarmVideoView.m in Sources */,
