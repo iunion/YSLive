@@ -3773,7 +3773,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     _isMp4Play = NO;
     if (mediaModel.isVideo)
     {
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId isMediaStream:YES];
         [self.shareVideoFloatView showMp4WaitingView];
     }
     
