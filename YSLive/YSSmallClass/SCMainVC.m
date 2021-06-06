@@ -1957,7 +1957,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     if (mediaModel.isVideo)
     {
-        [[YSLiveManager sharedInstance] stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
+        [[YSLiveManager sharedInstance] stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId isMediaStream:YES];
         [self.shareVideoFloatView showMp4WaitingView];
     }
     
@@ -4068,9 +4068,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.shareVideoFloatView.showWaiting = YES;
     self.shareVideoFloatView.hidden = NO;
 }
+
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
+    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID isMediaStream:YES];
     [self.shareVideoFloatView showMp4WaitingView];
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;

@@ -2897,7 +2897,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
+    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID isMediaStream:YES];
     [self.shareVideoFloatView showMp4WaitingView];
     self.shareVideoFloatView.canZoom = NO;
     self.shareVideoFloatView.backScrollView.zoomScale = 1.0;

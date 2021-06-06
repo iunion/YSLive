@@ -1383,7 +1383,7 @@
 
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID];
+    [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID isMediaStream:YES];
     self.fullScreenBtn.enabled = YES;
     self.mp4BgView.hidden = YES;
 }
@@ -1446,7 +1446,7 @@
 {
     if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
     {
-        [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
+        [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId isMediaStream:YES];
         self.mediaFileModel = nil;
 
         [self freshMediaView];
@@ -1457,7 +1457,7 @@
         
         if (mediaModel.isVideo)
         {
-            [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId];
+            [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId isMediaStream:YES];
             [self.mp4BgView showMp4WaitingView];
             
             self.fullScreenBtn.enabled = YES;
