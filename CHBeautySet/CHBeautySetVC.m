@@ -63,6 +63,10 @@
     
     self.bm_CanBackInteractive = NO;
 
+    self.beautySetModel.whitenValue = 0.7f;
+    self.beautySetModel.exfoliatingValue = 0.5f;
+    self.beautySetModel.ruddyValue = 0.1f;
+    
     [self setupAVAudio];
 
     [self setupView];

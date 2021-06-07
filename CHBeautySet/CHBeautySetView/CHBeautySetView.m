@@ -96,6 +96,8 @@
     propButton.tag = 2;
     [self.topView addSubview:propButton];
     self.propButton = propButton;
+    // 隐藏道具功能
+    propButton.hidden = YES;
     
     UIButton *resetButton = [[UIButton alloc]init];
     [resetButton setTitle:YSLocalized(@"BeautySet.Reset") forState:UIControlStateNormal];

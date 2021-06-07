@@ -71,8 +71,11 @@
 {
     self.backgroundColor = UIColor.clearColor;
 
-    NSArray *titleArray = @[@"BeautySet.Whitening", @"BeautySet.ThinFace", @"BeautySet.BigEyes", @"BeautySet.Exfoliating", @"BeautySet.Ruddy"];
-    NSArray *imageStrArray = @[@"beauty_whiten", @"beauty_thinFace", @"beauty_bigEye", @"beauty_exfoliating", @"beauty_ruddy"];
+//    NSArray *titleArray = @[@"BeautySet.Whitening", @"BeautySet.ThinFace", @"BeautySet.BigEyes", @"BeautySet.Exfoliating", @"BeautySet.Ruddy"];
+//    NSArray *imageStrArray = @[@"beauty_whiten", @"beauty_thinFace", @"beauty_bigEye", @"beauty_exfoliating", @"beauty_ruddy"];
+    
+    NSArray *titleArray = @[@"BeautySet.Whitening", @"BeautySet.Exfoliating", @"BeautySet.Ruddy"];
+    NSArray *imageStrArray = @[@"beauty_whiten", @"beauty_exfoliating", @"beauty_ruddy"];
     
     for (NSUInteger i = 0; i < titleArray.count; i++)
     {
@@ -105,7 +108,7 @@
     label.textAlignment= NSTextAlignmentRight;
     label.textColor = UIColor.whiteColor;
     label.font = UI_FONT_12;
-    label.text = @"0.00 %";
+    label.text = @"0 %";
     [self addSubview:label];
     
     return label;
@@ -165,40 +168,54 @@
                 slider.value = self.beautySetModel.whitenValue;
                 break;
             
-            // 瘦脸值
-            case 2:
-                slider.value = self.beautySetModel.thinFaceValue;
-                break;
-               
-            // 大眼值
-            case 3:
-                slider.value = self.beautySetModel.bigEyeValue;
-                break;
+//            // 瘦脸值
+//            case 2:
+//                slider.value = self.beautySetModel.thinFaceValue;
+//                break;
+//
+//            // 大眼值
+//            case 3:
+//                slider.value = self.beautySetModel.bigEyeValue;
+//                break;
+//
+//            // 磨皮值
+//            case 4:
+//                slider.value = self.beautySetModel.exfoliatingValue;
+//                break;
+//
+//            // 红润值
+//            case 5:
+//                slider.value = self.beautySetModel.ruddyValue;
+//                break;
                 
-            // 磨皮值
-            case 4:
+                // 磨皮值
+            case 2:
                 slider.value = self.beautySetModel.exfoliatingValue;
                 break;
                 
-            // 红润值
-            case 5:
+                // 红润值
+            case 3:
                 slider.value = self.beautySetModel.ruddyValue;
                 break;
                 
             default:
                 break;
         }
+        
+        UILabel *label = self.lableArray[slider.tag - 1];
+        label.text = [NSString stringWithFormat:@"%@ %%", @(slider.value*100)];
     }
 }
 
 - (void)clearBeautyValues
 {
-    self.beautySetModel.whitenValue = self.beautySetModel.thinFaceValue = self.beautySetModel.bigEyeValue = self.beautySetModel.exfoliatingValue = self.beautySetModel.ruddyValue = 0.0f;
+//    self.beautySetModel.whitenValue = self.beautySetModel.thinFaceValue = self.beautySetModel.bigEyeValue = self.beautySetModel.exfoliatingValue = self.beautySetModel.ruddyValue = 0.0f;
     
-    for (UISlider * slider in self.sliderArray)
-    {
-        slider.value = 0.0;
-    }
+    self.beautySetModel.whitenValue = 0.7f;
+    self.beautySetModel.exfoliatingValue = 0.5f;
+    self.beautySetModel.ruddyValue = 0.1f;
+    
+    self.beautySetModel = self.beautySetModel;
 }
 
 
@@ -216,7 +233,7 @@
     
     UILabel *label = self.lableArray[slider.tag - 1];
     
-    label.text = [NSString stringWithFormat:@"%@ %%", [value bm_stringWithDecimalStyle]];
+    label.text = [NSString stringWithFormat:@"%@ %%", @(value.integerValue)];
 }
 
 // slider结束滑动事件
@@ -228,7 +245,7 @@
         case 1:
             self.beautySetModel.whitenValue = slider.value;
             break;
-        
+        /*
         // 瘦脸值
         case 2:
             self.beautySetModel.thinFaceValue = slider.value;
@@ -248,7 +265,17 @@
         case 5:
             self.beautySetModel.ruddyValue = slider.value;
             break;
-            
+         */
+            // 磨皮值
+            case 2:
+                self.beautySetModel.exfoliatingValue = slider.value;
+                break;
+                
+            // 红润值
+            case 3:
+                self.beautySetModel.ruddyValue = slider.value;
+                break;
+         
         default:
             break;
     }
