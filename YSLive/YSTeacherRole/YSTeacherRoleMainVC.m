@@ -3224,6 +3224,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 #pragma mark 全屏课件时可以拖动老师视频
 - (void)panToMoveVideoView:(CHVideoView*)videoView withGestureRecognizer:(nonnull UIPanGestureRecognizer *)pan
 {
+    if (!self.fullFloatVideoView.hidden)
+    {
+        return;
+    }
+    
+    
     [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
     
     if (self.roomtype == CHRoomUserType_One || self.roomLayout == CHRoomLayoutType_VideoLayout || self.roomLayout == CHRoomLayoutType_FocusLayout)
@@ -3910,6 +3916,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 //            [self changeLayoutWithMode:isSelected];
             
             [self creatLayoutPopoverView];
+//            [self handleSignalingSetRoomLayout:CHRoomLayoutType_VideoLayout withPeerId:YSCurrentUser.peerID withSourceId:self.myVideoView.streamId];
             
         }
             break;
@@ -4197,7 +4204,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         self.roomLayout = CHRoomLayoutType_DoubleLayout;
 
     }
-    
+     
     [self freshContentView];
 }
 

@@ -98,11 +98,11 @@
             [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         }
 
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleDeviceOrientationDidChange:)
-                                                     name:UIDeviceOrientationDidChangeNotification
-                                                   object:nil
-         ];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(handleDeviceOrientationDidChange:)
+//                                                     name:UIDeviceOrientationDidChangeNotification
+//                                                   object:nil
+//         ];
     }
 
     // 进入全屏

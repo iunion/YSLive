@@ -229,7 +229,8 @@
     }
     self.dragImageView.frame = CGRectMake(self.videoOriginInSuperview.x + endPoint.x, self.videoOriginInSuperview.y + endPoint.y, self.videoBgView.bm_width, self.videoBgView.bm_height);
     
-    if (pan.state == UIGestureRecognizerStateEnded)
+//    if (pan.state == UIGestureRecognizerStateEnded)
+    if (pan.state != UIGestureRecognizerStateBegan && pan.state != UIGestureRecognizerStateChanged)
     {
         CGFloat left = 2.0f;
         CGFloat top = 2.0f;
