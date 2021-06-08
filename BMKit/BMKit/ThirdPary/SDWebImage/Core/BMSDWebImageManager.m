@@ -360,7 +360,7 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
                 [self callDownloadProcessForOperation:operation url:url host:host options:options context:context cachedImage:nil cachedData:nil cacheType:originalQueryCacheType progress:progressBlock completed:completedBlock];
                 return;
             }
-
+                        
             // Use the store cache process instead of downloading, and ignore .refreshCached option for now
             [self callStoreCacheProcessForOperation:operation url:url options:options context:context downloadedImage:cachedImage downloadedData:cachedData finished:YES progress:progressBlock completed:completedBlock];
             
@@ -422,7 +422,6 @@ static id<BMSDImageLoader> _defaultBMImageLoader;
         // modified by Dennis
         operation.loaderOperation = [imageLoader requestImageWithURL:url host:host options:options context:context progress:progressBlock completed:^(NSURL *imageUrl, UIImage *downloadedImage, NSData *downloadedData, NSError *error, BOOL finished) {
             @bmstrongify(operation);
-
             // modified by Dennis
             if (!imageUrl) {
                 imageUrl = url;

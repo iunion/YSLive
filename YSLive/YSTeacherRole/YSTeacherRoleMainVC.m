@@ -3648,7 +3648,6 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.dragOutFloatViewArray removeAllObjects];
 }
 
-// 111111
 /// 设置自己默认画笔颜色
 - (void)setCurrentUserPrimaryColor
 {

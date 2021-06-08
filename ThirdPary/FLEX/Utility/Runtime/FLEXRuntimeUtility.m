@@ -106,7 +106,6 @@ NSString * const FLEXRuntimeUtilityErrorDomain = @"FLEXRuntimeUtilityErrorDomain
     if ([self safeObject:object respondsToSelector:@selector(description)]) {
         @try {
             return [object description];
-
          } @catch (NSException *exception) {
             return nil;
         }

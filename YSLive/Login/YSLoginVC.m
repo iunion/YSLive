@@ -143,7 +143,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
 
 @property (nonatomic, assign) BOOL needCheckPermissions;
 
-
 #if 0
 @property (nonatomic, strong) NSString *leftHUDmessage;
 #endif
@@ -785,11 +784,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 //    {
 //        userAgreement.selected = YES;
 //    }
-        
 }
-
-
-
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(nonnull NSURL *)URL inRange:(NSRange)characterRange
 {

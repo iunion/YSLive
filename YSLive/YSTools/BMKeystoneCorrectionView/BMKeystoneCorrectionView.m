@@ -181,7 +181,6 @@
     finishBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [finishBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [finishBtn bm_roundedRect:18.0f];
-    
 }
 
 - (void)setupBeautyUI
