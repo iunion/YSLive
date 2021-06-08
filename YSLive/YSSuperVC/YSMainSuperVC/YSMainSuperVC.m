@@ -101,6 +101,7 @@
     [self.view addSubview:keystoneCorrectionView];
     keystoneCorrectionView.delegate = self;
     keystoneCorrectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    keystoneCorrectionView.beautySetModel = self.liveManager.beautySetModel;
     
     self.keystoneCorrectionView = keystoneCorrectionView;
     self.keystoneCorrectionView.hidden = YES;
@@ -1436,6 +1437,7 @@
         }
     }
 }
+
 /// 开关摄像头
 - (void)onRoomCloseVideo:(BOOL)close withUid:(NSString *)uid  sourceID:(nullable NSString *)sourceId streamId:(nonnull NSString *)streamId
 {

@@ -492,3 +492,24 @@
 "KeystoneCorrection.Tip" = "Single finger correction image";
 "KeystoneCorrection.Finish" = "Finish";
 "KeystoneCorrection.Reset" = "Reset";
+
+"BeautySet.Note" = "In order to get a better classroom experience,\nIt is recommended to open the camera permission";
+"BeautySet.Cam" = "Camera";
+"BeautySet.Cam.HMirror" = "Flip Horizontal";
+"BeautySet.Cam.VMirror" = "Flip Vertical";
+"BeautySet.Cam.Tip" = "Turn on camera permissions";
+"BeautySet.Mic" = "Mic";
+"BeautySet.Mic.Tip" = "Turn on mic permissions";
+"BeautySet.Speaker" = "Speaker";
+"BeautySet.BeautySet" = "Beauty set";
+"BeautySet.Enter" = "Enter";
+
+"BeautySet.Beauty" = "Beauty";
+"BeautySet.Props" = "Props";
+"BeautySet.Reset" = "Reset";
+"BeautySet.Whitening" = "Whitening";
+"BeautySet.ThinFace" = "Thin Face";
+"BeautySet.BigEyes" = "Big Eyes";
+"BeautySet.Exfoliating" = "Exfoliating";
+"BeautySet.Ruddy" = "Ruddy";
+"BeautySet.Back" = "Back";

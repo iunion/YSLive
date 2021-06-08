@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 pigpigdaddy. All rights reserved.
 //
 
-#import "PanGestureControl.h"
+#import "CHPanGestureControl.h"
 
-@implementation PanGestureControl
+@implementation CHPanGestureControl
 
-static PanGestureControl *_panGestureControl = nil;
+static CHPanGestureControl *_panGestureControl = nil;
 
 #pragma mark
 #pragma mark-------------创建 销毁---------------------
@@ -19,13 +19,15 @@ static PanGestureControl *_panGestureControl = nil;
  **   函数参数 :
  **   函数返回值:URLog 单例对象
  **/
-+(PanGestureControl *)shareInfo
++ (CHPanGestureControl *)shareInfo
 {
     @synchronized(self){
-        if (!_panGestureControl) {
+        if (!_panGestureControl)
+        {
             _panGestureControl = [[self alloc] init];
         }
     }
+    
     return _panGestureControl;
 }
 
@@ -34,18 +36,22 @@ static PanGestureControl *_panGestureControl = nil;
  **   函数参数 :
  **   函数返回值:
  **/
-+(void)freeInfo
++ (void)freeInfo
 {
-    if (_panGestureControl) {
-        _panGestureControl=nil;
+    if (_panGestureControl)
+    {
+        _panGestureControl = nil;
     }
 }
 
-- (id)init{
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _arrayPanGestureView = [[NSMutableArray alloc] init];
     }
+    
     return self;
 }
 
@@ -56,9 +62,9 @@ static PanGestureControl *_panGestureControl = nil;
  *
  *  @author pigpigdaddy
  */
-- (void)addPanGestureAction:(LONG_PRESS_VIEW)view
+- (void)addPanGestureAction:(CHLONG_PRESS_VIEW)view
 {
-    [_arrayPanGestureView addObject:[NSString stringWithFormat:@"%d", view]];
+    [_arrayPanGestureView addObject:[NSString stringWithFormat:@"%@", @(view)]];
 }
 
 /*!
@@ -68,10 +74,11 @@ static PanGestureControl *_panGestureControl = nil;
  *
  *  @author pigpigdaddy
  */
-- (void)removePanGestureAction:(LONG_PRESS_VIEW)view
+- (void)removePanGestureAction:(CHLONG_PRESS_VIEW)view
 {
-    if ([_arrayPanGestureView containsObject:[NSString stringWithFormat:@"%d", view]]) {
-        [_arrayPanGestureView removeObject:[NSString stringWithFormat:@"%d", view]];
+    if ([_arrayPanGestureView containsObject:[NSString stringWithFormat:@"%@", @(view)]])
+    {
+        [_arrayPanGestureView removeObject:[NSString stringWithFormat:@"%@", @(view)]];
     }
 }
 
@@ -80,13 +87,13 @@ static PanGestureControl *_panGestureControl = nil;
  *
  *  @param view 是那个View
  *
- *  @return
+ *  @return isExistPan
  *
  *  @author pigpigdaddy
  */
-- (BOOL)isExistPanGestureAction:(LONG_PRESS_VIEW)view
+- (BOOL)isExistPanGestureAction:(CHLONG_PRESS_VIEW)view
 {
-    return [_arrayPanGestureView containsObject:[NSString stringWithFormat:@"%d", view]];
+    return [_arrayPanGestureView containsObject:[NSString stringWithFormat:@"%@", @(view)]];
 }
 
 @end

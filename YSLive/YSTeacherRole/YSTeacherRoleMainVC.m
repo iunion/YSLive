@@ -3228,13 +3228,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     {
         return;
     }
-    
-    
-    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+
+    [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
     
     if (self.roomtype == CHRoomUserType_One || self.roomLayout == CHRoomLayoutType_VideoLayout || self.roomLayout == CHRoomLayoutType_FocusLayout)
     {
-//        [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+//        [[PanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         return;
     }
     UIView * background = self.whitebordBackgroud;
@@ -3259,7 +3258,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
     if (pan.state == UIGestureRecognizerStateEnded)
     {
-//         [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+//         [[PanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
         CGFloat percentLeft = 0;
                 
         if (!videoView.isDragOut)
@@ -3649,7 +3648,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     [self.dragOutFloatViewArray removeAllObjects];
 }
 
-
+// 111111
 /// 设置自己默认画笔颜色
 - (void)setCurrentUserPrimaryColor
 {
@@ -3718,7 +3717,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 - (void)handleEnterBackground
 {
 //    [[YSRoomInterface instance] changeUserProperty:YSCurrentUser.peerID tellWhom:YSRoomPubMsgTellAll key:sUserIsInBackGround value:@1 completion:nil];
-    [[PanGestureControl shareInfo] removePanGestureAction:LONG_PRESS_VIEW_DEMO];
+    [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
 }
 
 #if 0
