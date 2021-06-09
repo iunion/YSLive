@@ -475,7 +475,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     [parameters bm_setString:commitVersion forKey:@"version"];
     [parameters bm_setInteger:3 forKey:@"type"];
     
-    NSURLSessionDataTask *task = [manager POST:urlStr parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:urlStr parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
 #ifdef DEBUG
         BMLog(@"%@", responseObject);
@@ -521,7 +521,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
             BMLog(@"Error: %@", error);
         }
     }];
-    [task resume];
+    //[task resume];
 }
 
 - (void)showUpdateAlertWithTitle:(NSString *)title downLink:(NSString *)downLink needUpdata:(BOOL)needUpdata
