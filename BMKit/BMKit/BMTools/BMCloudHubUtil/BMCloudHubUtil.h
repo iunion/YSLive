@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)checkDataClass:(id)data;
 /// 将数据转换成字典类型NSDictionary
 + (nullable NSDictionary *)convertWithData:(nullable id)data;
+/// 将数据转换成NSData
++ (nullable NSData *)convertWithObject:(nullable id)obj;
 
 
 /// 文件扩展名检查，是否是媒体文件

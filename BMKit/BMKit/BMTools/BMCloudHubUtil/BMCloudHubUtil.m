@@ -169,6 +169,46 @@
 }
 #endif
 
+/// 将数据转换成NSData
++ (nullable NSData *)convertWithObject:(nullable id)obj
+{
+    if (!obj)
+    {
+        return nil;
+    }
+    
+    NSData *data = nil;
+    if ([obj isKindOfClass:[NSString class]])
+    {
+        NSString *tDataString = [NSString stringWithFormat:@"%@", obj];
+        tDataString = [tDataString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
+        //tDataString = [tDataString stringByReplacingOccurrencesOfString:@"\\\\/" withString:@"/"];
+        //tDataString = [tDataString stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+        //tDataString = [YSSessionUtil stringFromJSONString:tDataString];
+        tDataString = [tDataString stringByReplacingOccurrencesOfString:@"\"{" withString:@"{"];
+        tDataString = [tDataString stringByReplacingOccurrencesOfString:@"}\"" withString:@"}"];
+        data = [tDataString dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    else if ([obj isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *tDataDic = (NSDictionary *)obj;
+        NSString *dataStr = [tDataDic bm_toJSON];
+        data = [BMCloudHubUtil convertWithObject:dataStr];
+    }
+    else if ([obj isKindOfClass:[NSNumber class]])
+    {
+        NSNumber *num = (NSNumber *)obj;
+        NSString *tDataString = num.stringValue;
+        data = [BMCloudHubUtil convertWithObject:tDataString];
+    }
+    else if ([obj isKindOfClass:[NSData class]])
+    {
+        data = (NSData *)obj;
+    }
+    
+    return data;
+}
+
 /// 文件扩展名检查，是否是媒体文件
 + (BOOL)checkIsMedia:(NSString *)filetype;
 {
