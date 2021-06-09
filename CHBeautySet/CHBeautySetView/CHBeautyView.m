@@ -226,7 +226,7 @@
         }
         
         UILabel *label = self.lableArray[slider.tag - 1];
-        label.text = [NSString stringWithFormat:@"%@ %%", @(slider.value*100)];
+        label.text = [NSString stringWithFormat:@"%.0f %%", slider.value*100];
     }
 }
 
