@@ -90,11 +90,19 @@
 - (void)setCloudHubBeauty
 {
     CloudHubBeautyOptions * beautyOptions = [[CloudHubBeautyOptions alloc]init];
-    beautyOptions.lighteningLevel = self.whitenValue;
-    beautyOptions.smoothnessLevel = self.exfoliatingValue;
-    beautyOptions.rednessLevel = self.ruddyValue;
     
-    [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:YES options:beautyOptions];
+    if (!self.whitenValue && !self.exfoliatingValue && !self.ruddyValue)
+    {
+        [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:NO options:nil];
+    }
+    else
+    {
+        beautyOptions.lighteningLevel = self.whitenValue;
+        beautyOptions.smoothnessLevel = self.exfoliatingValue;
+        beautyOptions.rednessLevel = self.ruddyValue;
+        
+        [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:YES options:beautyOptions];
+    }
 }
 
 

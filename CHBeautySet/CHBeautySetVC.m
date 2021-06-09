@@ -63,9 +63,12 @@
     
     self.bm_CanBackInteractive = NO;
 
-    self.beautySetModel.whitenValue = 0.7f;
-    self.beautySetModel.exfoliatingValue = 0.5f;
-    self.beautySetModel.ruddyValue = 0.1f;
+    if (YSCurrentUser.role == CHUserType_Teacher)
+    {
+        self.beautySetModel.whitenValue = 0.7f;
+        self.beautySetModel.exfoliatingValue = 0.5f;
+        self.beautySetModel.ruddyValue = 0.1f;
+    }
     
     [self setupAVAudio];
 
@@ -267,10 +270,14 @@
     CHBeautySetView *beautySetView = [[CHBeautySetView alloc] initWithFrame:self.view.bounds];
     beautySetView.liveManager = self.liveManager;
     beautySetView.delegate = self;
-    beautySetView.beautySetModel = self.beautySetModel;
     beautySetView.hidden = YES;
     [self.bottomView addSubview:beautySetView];
     self.beautySetView = beautySetView;
+    
+    if (YSCurrentUser.role == CHUserType_Teacher)
+    {
+        beautySetView.beautySetModel = self.beautySetModel;
+    }
     
     CGFloat btnWidth = 90.0f;
     if ([UIDevice bm_isiPad])
@@ -331,7 +338,10 @@
     self.beautySetModel.propUrlArray = propUrlArray;
     self.beautySetModel.propIndex = 2;
 
-    self.beautySetView.beautySetModel = self.beautySetModel;
+    if (YSCurrentUser.role == CHUserType_Teacher)
+    {
+        self.beautySetView.beautySetModel = self.beautySetModel;
+    }
 }
 
 - (void)enterBtnClick:(id)sender

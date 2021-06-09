@@ -230,6 +230,13 @@
     // permissions_cam_icon permissions_camswitch permissions_audiopause permissions_audioplay
     // permissions_beautyset permissions_beauty_icon permissions_mic_icon permissions_speaker_icon
     // permissions_unmirror permissions_mirror permissions_progress permissions_unprogress
+    
+    if (YSCurrentUser.role != CHUserType_Teacher)
+    {
+        beautyIcon.hidden = YES;
+        beautyLabel.hidden = YES;
+        beautyButton.hidden = YES;
+    }
 }
 
 - (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
