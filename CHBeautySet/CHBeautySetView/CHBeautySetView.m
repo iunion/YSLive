@@ -25,6 +25,9 @@
 /// 美颜按钮
 @property (nonatomic, weak) UIButton *beautyButton;
 
+/// 美颜开关
+@property (nonatomic, weak) UISwitch *beautySwitch;
+
 /// 动画道具按钮
 @property (nonatomic, weak) UIButton *propButton;
 
@@ -98,6 +101,7 @@
     beautySwitch.onTintColor = [UIColor bm_colorWithHex:0x82ABEC];
     [switchview addSubview:beautySwitch];
     [beautySwitch addTarget:self action:@selector(beautySwitchValueChange:) forControlEvents:UIControlEventValueChanged];
+    self.beautySwitch = beautySwitch;
     
     UIButton *propButton = [[UIButton alloc] init];
     [propButton setTitle:YSLocalized(@"BeautySet.Props") forState:UIControlStateNormal];
@@ -140,6 +144,8 @@
     
     self.beautyView.beautySetModel = self.beautySetModel;
     self.propsView.beautySetModel = self.beautySetModel;
+    
+    [self.beautySwitch setOn:self.beautySetModel.beautySwitch];
 }
 
 - (void)setFrame:(CGRect)frame

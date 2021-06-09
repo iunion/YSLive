@@ -247,9 +247,9 @@
     [self resetBeautySetEnvironmental];
     
     [self.liveManager playVideoWithUserId:self.liveManager.localUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:largeVideoView];
-    self.liveManager.sessionManagerSelfVolume = ^(NSUInteger volume) {
-        NSLog(@"volume: %@", @(volume));
-    };
+//    self.liveManager.sessionManagerSelfVolume = ^(NSUInteger volume) {
+//        NSLog(@"volume: %@", @(volume));
+//    };
     
     UIView *bottomView = [[UIView alloc] init];
     bottomView.backgroundColor = [UIColor bm_colorWithHex:0x1C1D20 alpha:0.4f];

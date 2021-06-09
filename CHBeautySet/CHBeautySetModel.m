@@ -69,6 +69,10 @@
 
 - (void)setBeautySwitch:(BOOL)beautySwitch
 {
+    if (beautySwitch == _beautySwitch)
+    {
+        return;
+    }
     _beautySwitch = beautySwitch;
     [self setCloudHubBeauty];
 }
