@@ -127,7 +127,7 @@
 }
 
 /// 上传图片
-+ (void)uploadImageWithImage:(UIImage *)image withImageUseType:(NSInteger)imageUseType success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure
++ (NSURLSessionTask *)uploadImageWithImage:(UIImage *)image withImageUseType:(NSInteger)imageUseType success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure
 {
     BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/%@/uploaddocument", YSLive_Http, [YSLiveManager sharedInstance].apiHost, CHRoomWebApiInterface];
@@ -152,7 +152,7 @@
     };
     
     NSData *imgData = UIImageJPEGRepresentation(image, 0.5);
-    NSURLSessionTask * task = [manager POST:urlStr parameters:paraDict headers:nil constructingBodyWithBlock:^(id<BMAFMultipartFormData>  _Nonnull formData) {
+    NSURLSessionTask *task = [manager POST:urlStr parameters:paraDict headers:nil constructingBodyWithBlock:^(id<BMAFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileData:imgData name:@"filedata" fileName:fileName mimeType:@"image/jpge, image/gif, image/jpeg, image/pjpeg, image/pjpeg"];
         
@@ -172,7 +172,9 @@
         BMLog(@"上传失败");
         failure(error.code);
     }];
-    [task resume];
+    //[task resume];
+    
+    return task;
 }
 
 + (NSMutableURLRequest *)getSimplifyAnswerCountWithRoomId:(NSString *)roomId answerId:(NSString *)answerId startTime:(NSTimeInterval)startTime endTime:(NSTimeInterval)endTime
