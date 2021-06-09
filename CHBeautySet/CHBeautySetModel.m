@@ -66,6 +66,13 @@
 }
 
 #pragma - setValue
+
+- (void)setBeautySwitch:(BOOL)beautySwitch
+{
+    _beautySwitch = beautySwitch;
+    [self setCloudHubBeauty];
+}
+
 - (void)setWhitenValue:(CGFloat)whitenValue
 {
     _whitenValue = whitenValue;
@@ -89,19 +96,26 @@
 
 - (void)setCloudHubBeauty
 {
-    CloudHubBeautyOptions * beautyOptions = [[CloudHubBeautyOptions alloc]init];
-    
-    if (!self.whitenValue && !self.exfoliatingValue && !self.ruddyValue)
+    if (!self.beautySwitch)
     {
         [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:NO options:nil];
     }
     else
     {
-        beautyOptions.lighteningLevel = self.whitenValue;
-        beautyOptions.smoothnessLevel = self.exfoliatingValue;
-        beautyOptions.rednessLevel = self.ruddyValue;
+        CloudHubBeautyOptions * beautyOptions = [[CloudHubBeautyOptions alloc]init];
         
-        [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:YES options:beautyOptions];
+        if (!self.whitenValue && !self.exfoliatingValue && !self.ruddyValue)
+        {
+            [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:NO options:nil];
+        }
+        else
+        {
+            beautyOptions.lighteningLevel = self.whitenValue;
+            beautyOptions.smoothnessLevel = self.exfoliatingValue;
+            beautyOptions.rednessLevel = self.ruddyValue;
+            
+            [self.liveManager.cloudHubRtcEngineKit setBeautyEffectOptions:YES options:beautyOptions];
+        }
     }
 }
 

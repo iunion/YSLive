@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 垂直镜像
 @property (nonatomic, assign) BOOL flipv;
 
+/// 美颜开关
+@property (nonatomic, assign) BOOL beautySwitch;
+
 /// 美白值
 @property (nonatomic, assign) CGFloat whitenValue;
 /// 瘦脸值

@@ -10,7 +10,7 @@
 #import "CHBeautyView.h"
 #import "CHPropsView.h"
 
-#define CHBeautySetView_BtnWidth        80.0f
+#define CHBeautySetView_BtnWidth        50.0f
 #define CHBeautySetView_BtnHeight       30.0f
 
 #define CHBeautySetView_Gap             20.0f
@@ -87,6 +87,18 @@
     [self.topView addSubview:beautyButton];
     self.beautyButton = beautyButton;
     
+    UIView *switchview = [[UIView alloc] initWithFrame:CGRectMake(CHBeautySetView_BtnHeight, 0, 51, 31)];
+    [self.topView addSubview:switchview];
+    switchview.backgroundColor = [UIColor bm_colorWithHex:0xC4C4C4];
+    switchview.layer.cornerRadius = 15.5;
+    switchview.layer.masksToBounds = YES;
+    switchview.transform = CGAffineTransformMakeScale(0.6, 0.6);
+    
+    UISwitch *beautySwitch = [[UISwitch alloc] init];
+    beautySwitch.onTintColor = [UIColor bm_colorWithHex:0x82ABEC];
+    [switchview addSubview:beautySwitch];
+    [beautySwitch addTarget:self action:@selector(beautySwitchValueChange:) forControlEvents:UIControlEventValueChanged];
+    
     UIButton *propButton = [[UIButton alloc] init];
     [propButton setTitle:YSLocalized(@"BeautySet.Props") forState:UIControlStateNormal];
     propButton.titleLabel.font = UI_FONT_12;
@@ -99,7 +111,7 @@
     // 隐藏道具功能
     propButton.hidden = YES;
     
-    UIButton *resetButton = [[UIButton alloc]init];
+    UIButton *resetButton = [[UIButton alloc] init];
     [resetButton setTitle:YSLocalized(@"BeautySet.Reset") forState:UIControlStateNormal];
     resetButton.titleLabel.font = UI_FONT_12;
     [resetButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
@@ -113,6 +125,8 @@
     CHBeautyView *beautyView = [[CHBeautyView alloc] initWithFrame:self.bounds itemGap:self.gap];
     [self addSubview:beautyView];
     self.beautyView = beautyView;
+    
+    beautyView.beautySwitch = self.beautySetModel.beautySwitch;
 
     /// 动画道具view
     CHPropsView *propsView = [[CHPropsView alloc] initWithFrame:CGRectMake(self.bm_width, 50, self.bm_width, beautyView.bm_height)];
@@ -180,6 +194,11 @@
             
         case 3:
         {
+            if (!self.beautyView.beautySetModel.beautySwitch)
+            {
+                return;
+            }
+            
             self.resetButton.selected = NO;
             
             [UIView animateWithDuration:0.25 animations:^{
@@ -198,6 +217,11 @@
         default:
             break;
     }
+}
+
+- (void)beautySwitchValueChange:(UISwitch *)beautySwitch
+{
+    self.beautyView.beautySwitch = beautySwitch.on;
 }
 
 @end

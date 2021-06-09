@@ -133,6 +133,29 @@
     return slider;
 }
 
+- (void)setBeautySwitch:(BOOL)beautySwitch
+{
+    _beautySwitch = beautySwitch;
+    
+    self.beautySetModel.beautySwitch = beautySwitch;
+    if (beautySwitch)
+    {
+        for (UISlider *slider in self.sliderArray)
+        {
+            slider.minimumTrackTintColor = [UIColor bm_colorWithHex:0x82ABEC];
+            slider.userInteractionEnabled = YES;
+        }
+    }
+    else
+    {
+        for (UISlider *slider in self.sliderArray)
+        {
+            slider.minimumTrackTintColor = [UIColor bm_colorWithHex:0xC4C4C4];
+            slider.userInteractionEnabled = NO;
+        }
+    }
+}
+
 - (void)setFrame:(CGRect)frame
 {
     CGFloat width = frame.size.width;

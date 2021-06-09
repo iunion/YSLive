@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 美颜数据
 @property (nonatomic, weak) CHBeautySetModel *beautySetModel;
 
+/// 美颜开关
+@property (nonatomic, assign) BOOL beautySwitch;
+
 - (instancetype)initWithFrame:(CGRect)frame itemGap:(CGFloat)gap;
 
 - (void)clearBeautyValues;
