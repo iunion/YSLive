@@ -851,7 +851,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 {
     sender.selected = !sender.selected;
     
-    CHVideoView *videoView = nil;
+//    CHVideoView *videoView = nil;
     
 //    if ([self.studentVideoView.roomUser.peerID bm_isNotEmpty])
 //    {

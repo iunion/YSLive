@@ -232,8 +232,9 @@
 
 - (void)clearBeautyValues
 {
-    self.beautySetModel.whitenValue = self.beautySetModel.exfoliatingValue = self.beautySetModel.ruddyValue = 0.0f;
-    
+    self.beautySetModel.whitenValue = 0.7f;
+    self.beautySetModel.exfoliatingValue = 0.5f;
+    self.beautySetModel.ruddyValue = 0.1f;
     self.beautySetModel = self.beautySetModel;
 }
 
