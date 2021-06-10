@@ -10,8 +10,6 @@
 #import <WebKit/WebKit.h>
 #import "AppDelegate.h"
 
-#if CHLIVE_USEVIP
-
 #define CHLogin_Privacy_CHS         @"https://rddoccdnws.cloudhub.vip/document/IOS_Privacy_PolicyJ.pdf"
 #define CHLogin_Privacy_CHT         @"https://rddoccdnws.cloudhub.vip/document/IOS_Privacy_PolicyF.pdf";
 #define CHLogin_Privacy_EN          @"https://rddoccdnws.cloudhub.vip/document/IOS_Privacy_PolicyE.pdf"
@@ -19,18 +17,6 @@
 #define CHLogin_UserAgreement_CHS   @"https://rddoccdnws.cloudhub.vip/document/IOS_User_AgreementJ.pdf"
 #define CHLogin_UserAgreement_CHT   @"https://rddoccdnws.cloudhub.vip/document/IOS_User_AgreementF.pdf"
 #define CHLogin_UserAgreement_EN    @"https://rddoccdnws.cloudhub.vip/document/IOS_User_AgreementE.pdf"
-
-#else
-
-#define CHLogin_Privacy_CHS         @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyJ.pdf"
-#define CHLogin_Privacy_CHT         @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyF.pdf";
-#define CHLogin_Privacy_EN          @"https://rddoccdnws.roadofcloud.net/document/IOS_Privacy_PolicyE.pdf"
-
-#define CHLogin_UserAgreement_CHS   @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementJ.pdf"
-#define CHLogin_UserAgreement_CHT   @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementF.pdf"
-#define CHLogin_UserAgreement_EN    @"https://rddoccdnws.roadofcloud.net/document/IOS_User_AgreementE.pdf"
-
-#endif
 
 @interface YSWebViewController ()
 <

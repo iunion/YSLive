@@ -57,9 +57,9 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     [parameters bm_setString:liveManager.room_Id forKey:@"serial"];
-    [parameters bm_setString:liveManager.localUser.peerID forKey:@"userId"];
+    [parameters bm_setString:liveManager.localUser.peerID forKey:@"user_id"];
     [parameters bm_setString:liveManager.localUser.nickName forKey:@"nickname"];
-    [parameters bm_setString:callRollId forKey:@"callrollid"];
+    [parameters bm_setString:callRollId forKey:@"call_roll_id"];
     
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
@@ -106,10 +106,10 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     [parameters bm_setString:liveManager.room_Id forKey:@"serial"];
-    [parameters bm_setString:liveManager.localUser.peerID forKey:@"senderid"];
-    [parameters bm_setString:liveManager.localUser.nickName forKey:@"sendername"];
-    [parameters bm_setString:liveManager.teacher.peerID forKey:@"flowerid"];
-    [parameters bm_setString:liveManager.teacher.nickName forKey:@"flowername"];
+    [parameters bm_setString:liveManager.localUser.peerID forKey:@"sender_id"];
+    [parameters bm_setString:liveManager.localUser.nickName forKey:@"sender_name"];
+    [parameters bm_setString:liveManager.teacher.peerID forKey:@"flower_id"];
+    [parameters bm_setString:liveManager.teacher.nickName forKey:@"flower_name"];
     [parameters bm_setInteger:count forKey:@"number"];
     
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];

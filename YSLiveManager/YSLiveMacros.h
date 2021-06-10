@@ -22,41 +22,26 @@
 #define YSLive_Port         YSLive_HTTPS ? (443) : (80)
 #define YSLive_IsHttps      YSLive_HTTPS ? @"YES" : @"NO"
 
-
-#if CHLIVE_USEVIP
 #define YSSchool_Server     @"school.cloudhub.vip"
-#else
-#define YSSchool_Server     @"school.roadofcloud.net"
-#endif
 
 #if USE_TEST_HELP
 
+
 // 开发环境
-#if CHLIVE_USEVIP
 #define YSLIVE_HOST_DEV         @"api-demo.cloudhub.vip"
-#else
-#define YSLIVE_HOST_DEV         @"demo.roadofcloud.net"
-#endif
-#define YS_SIGNINADDRESS_DEV    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/addsignin/"
-#define YS_FLOWERADDRESS_DEV    @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/demo/sendflowers/"
+#define YS_SIGNINADDRESS_DEV [NSString stringWithFormat:@"https://%@/ara-room-api/room/user_check_in",YSLIVE_HOST_DEV]
+#define YS_FLOWERADDRESS_DEV    [NSString stringWithFormat:@"https://%@/ara-room-api/room/send_flowers",YSLIVE_HOST_DEV]
 
 // 测试环境
-#if CHLIVE_USEVIP
 #define YSLIVE_HOST_TEST        @"api-release.cloudhub.vip"
-#else
-#define YSLIVE_HOST_TEST        @"release.roadofcloud.net"
-#endif
-#define YS_SIGNINADDRESS_TEST   @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/release/addsignin/"
-#define YS_FLOWERADDRESS_TEST   @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/release/sendflowers/"
+#define YS_SIGNINADDRESS_TEST [NSString stringWithFormat:@"https://%@/ara-room-api/room/user_check_in",YSLIVE_HOST_TEST]
+#define YS_FLOWERADDRESS_TEST    [NSString stringWithFormat:@"https://%@/ara-room-api/room/send_flowers",YSLIVE_HOST_TEST]
 
 // 线上环境
-#if CHLIVE_USEVIP
 #define YSLIVE_HOST_ONLINE      @"api.cloudhub.vip"
-#else
-#define YSLIVE_HOST_ONLINE      @"api.roadofcloud.net"
-#endif
-#define YS_SIGNINADDRESS_ONLINE @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/addsignin/"
-#define YS_FLOWERADDRESS_ONLINE @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/sendflowers/"
+#define YS_SIGNINADDRESS_ONLINE [NSString stringWithFormat:@"https://%@/ara-room-api/room/user_check_in",YSLIVE_HOST_ONLINE]
+#define YS_FLOWERADDRESS_ONLINE [NSString stringWithFormat:@"https://%@/ara-room-api/room/send_flowers",YSLIVE_HOST_ONLINE]
+
 
 #define YSLIVE_HOST_INIT        YSLIVE_HOST_DEV
 #define YS_SIGNINADDRESS_INIT   YS_SIGNINADDRESS_DEV
@@ -78,14 +63,9 @@
 
 //#define YSLIVE_HOST_INIT        @"api.roadofcloud.com"
 //#define YSLIVE_HOST_KEY         (@"release_roomhost")
-#if CHLIVE_USEVIP
 #define YSLIVE_HOST             @"api.cloudhub.vip"
-#else
-#define YSLIVE_HOST             @"api.roadofcloud.net"
-#endif
-
-#define YS_SIGNINADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/addsignin/"
-#define YS_FLOWERADDRESS        @"https://1069568596212347.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/interaction/sendflowers/"
+#define YS_SIGNINADDRESS [NSString stringWithFormat:@"https://%@/ara-room-api/room/user_check_in",YSLIVE_HOST]
+#define YS_FLOWERADDRESS [NSString stringWithFormat:@"https://%@/ara-room-api/room/send_flowers",YSLIVE_HOST]
 
 #endif
 
