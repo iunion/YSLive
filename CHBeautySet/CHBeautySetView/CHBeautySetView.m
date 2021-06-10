@@ -146,6 +146,7 @@
     self.propsView.beautySetModel = self.beautySetModel;
     
     [self.beautySwitch setOn:self.beautySetModel.beautySwitch];
+    self.beautyView.beautySwitch = self.beautySetModel.beautySwitch;
 }
 
 - (void)setFrame:(CGRect)frame
