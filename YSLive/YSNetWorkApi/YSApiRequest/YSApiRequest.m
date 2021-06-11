@@ -234,6 +234,12 @@
         return nil;
     }
     
+    YSLiveManager *liveManager = [YSLiveManager sharedInstance];
+    if (liveManager.room_Id)
+    {
+        [request setValue:liveManager.room_Id forHTTPHeaderField:@"serial"];
+    }
+
 //    sign: 3bd14e8442dd368a9d8d5ad886ce341b
 //    starttime: 1581408462000
 //    token: 360960395426803

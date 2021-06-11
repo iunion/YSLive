@@ -115,68 +115,6 @@
     return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
 }
 
-#pragma mark - 上传图片
-
-/// 上传图片
-+ (NSMutableURLRequest *)uploadImage
-{
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/%@/uploaddocument", YSLive_Http, [YSLiveManager sharedInstance].apiHost, CHRoomWebApiInterface];
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
-}
-
-/// 上传图片
-+ (NSURLSessionTask *)uploadImageWithImage:(UIImage *)image withImageUseType:(NSInteger)imageUseType success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSInteger errorCode))failure
-{
-    BMAFHTTPSessionManager *manager = [BMAFHTTPSessionManager manager];
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/%@/uploaddocument", YSLive_Http, [YSLiveManager sharedInstance].apiHost, CHRoomWebApiInterface];
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[
-        @"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript",
-        @"text/xml", @"image/jpeg", @"image/*"
-    ]];
-    
-    NSString *fileName  = [NSString stringWithFormat:@"%@_mobile_%@.jpg",YSCurrentUser.nickName, [NSDate bm_stringFromDate:[NSDate date] formatter:@"yyyy-MM-dd_HH_mm_ss"]];
-    
-    NSDictionary * paraDict = @{
-        @"serial" : [YSLiveManager sharedInstance].room_Id,
-        @"userid" : YSCurrentUser.peerID,
-        @"sender" : YSCurrentUser.nickName ? YSCurrentUser.nickName : @"",
-        @"conversion" : @1,
-        @"isconversiondone" : @0,
-        @"writedb" : imageUseType>0? @0 : @1,
-        @"fileoldname" : fileName,
-        @"filetype" : @"jpg",
-        @"alluser" : @1
-    };
-    
-    NSData *imgData = UIImageJPEGRepresentation(image, 0.5);
-    NSURLSessionTask *task = [manager POST:urlStr parameters:paraDict headers:nil constructingBodyWithBlock:^(id<BMAFMultipartFormData>  _Nonnull formData) {
-        
-        [formData appendPartWithFileData:imgData name:@"filedata" fileName:fileName mimeType:@"image/jpge, image/gif, image/jpeg, image/pjpeg, image/pjpeg"];
-        
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = [BMCloudHubUtil convertWithData:responseObject];
-        if ([dict bm_uintForKey:@"result" withDefault:-1] == 0) {
-            success(dict);
-        }
-        else
-        {
-            failure([dict bm_uintForKey:@"result"]);
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        BMLog(@"上传失败");
-        failure(error.code);
-    }];
-    //[task resume];
-    
-    return task;
-}
-
 + (NSMutableURLRequest *)getSimplifyAnswerCountWithRoomId:(NSString *)roomId answerId:(NSString *)answerId startTime:(NSTimeInterval)startTime endTime:(NSTimeInterval)endTime
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@://%@/%@/simplifyAnswer", YSLive_Http, [YSLiveManager sharedInstance].apiHost, CHRoomWebApiInterface];
@@ -224,15 +162,5 @@
 }
 #endif
 
-/// 删除课件
-+ (NSMutableURLRequest *)deleteCoursewareWithRoomId:(NSString *)roomId fileId:(NSString *)fileId
-{
-    //https://demo.roadofcloud.com/ClientAPI/delroomfile?ts=1578305280751
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@/%@/delroomfile", YSLive_Http, [YSLiveManager sharedInstance].apiHost, CHRoomWebApiInterface];
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters bm_setInteger:roomId.integerValue forKey:@"serial"];
-    [parameters bm_setString:fileId forKey:@"fileid"];
-    return [YSApiRequest makeRequestWithURL:urlStr parameters:parameters];
-}
 
 @end
