@@ -246,7 +246,10 @@
     // 初始美颜设置环境
     [self resetBeautySetEnvironmental];
     
-    [self.liveManager playVideoWithUserId:self.liveManager.localUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:largeVideoView];
+    //[self.liveManager playVideoWithUserId:self.liveManager.localUser.peerID streamID:nil renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:largeVideoView];
+    
+    [self.liveManager.cloudHubRtcEngineKit startPlayingLocalVideo:largeVideoView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeAuto];
+
 //    self.liveManager.sessionManagerSelfVolume = ^(NSUInteger volume) {
 //        NSLog(@"volume: %@", @(volume));
 //    };
