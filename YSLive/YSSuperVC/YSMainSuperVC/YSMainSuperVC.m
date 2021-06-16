@@ -126,7 +126,7 @@
     
     NSString *userId = CHLocalUser.peerID;
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeFit;
-    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+    CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
     NSString *streamId = [NSString stringWithFormat:@"%@:video:%@", userId, sCHUserDefaultSourceId];
 
     [self.liveManager stopVideoWithUserId:userId streamID:streamId];
@@ -275,7 +275,7 @@
 
     fresh = NO;
     
-    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+    CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
     if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {
         if (self.liveManager.roomConfig.isMirrorVideo)
@@ -340,7 +340,7 @@
     
     CHSessionMuteState newVideoMute = [sourceDict bm_uintForKey:sCHUserDiveceMute];
     CloudHubVideoRenderMode renderType = CloudHubVideoRenderModeHidden;
-    CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+    CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
     if (self.appUseTheType != CHRoomUseTypeLiveRoom)
     {
         if (self.liveManager.roomConfig.isMirrorVideo)
@@ -1484,7 +1484,7 @@
     {
         CHRoomUser *roomUser = videoView.roomUser;
         BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sCHUserIsVideoMirror];
-        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
         if (isVideoMirror)
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
@@ -1507,7 +1507,7 @@
     {
         CHRoomUser *roomUser = videoViewFull.roomUser;
         BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sCHUserIsVideoMirror];
-        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
         if (isVideoMirror)
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
