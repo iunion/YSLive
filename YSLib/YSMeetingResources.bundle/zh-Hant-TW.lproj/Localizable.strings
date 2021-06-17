@@ -36,6 +36,8 @@
 "Error.ServerError" = "服務器訪問異常";
 "Error.UpPlatformMemberOverRoomLimit" = "上臺人數超出最大限制";
 "Error.ForbiddenEnter" = "禁止進入房間";
+"Error.OpenFileFailed" = "需要關閉當前課件再打開其他課件";
+"Error.OpenUploadFileFailed" = "課件已上傳，請在課件庫中打開";
 
 //Prompt
 "Prompt.inputPlaceholder" = "請輸入房間密碼";

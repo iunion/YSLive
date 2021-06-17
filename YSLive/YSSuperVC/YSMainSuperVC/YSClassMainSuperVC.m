@@ -342,7 +342,7 @@
                 self.myVideoView = videoView;
             }
 
-            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
+            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CHDefaultDisableVideoMirrorMode inView:videoView.contentView];
         }
         
         [[CHPanGestureControl shareInfo] addPanGestureAction:CHLONG_PRESS_VIEW_VIDEO];
@@ -361,7 +361,7 @@
                 self.myVideoView = videoView;
             }
             
-            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:videoView.contentView];
+            [self.liveManager playVideoWithUserId:videoView.roomUser.peerID streamID:videoView.streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CHDefaultDisableVideoMirrorMode inView:videoView.contentView];
         }
         
         [[CHPanGestureControl shareInfo] removePanGestureAction:CHLONG_PRESS_VIEW_VIDEO];

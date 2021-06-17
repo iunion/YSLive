@@ -2534,7 +2534,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     if ([properties bm_containsObjectForKey:sCHUserIsVideoMirror])
     {
         BOOL isVideoMirror = [properties bm_boolForKey:sCHUserIsVideoMirror];
-        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
         if (isVideoMirror)
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
@@ -2885,7 +2885,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 
 - (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView isMediaStream:YES];
+    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.shareVideoView isMediaStream:YES];
     [self.shareVideoFloatView showMp4WaitingView];
     
     [self arrangeAllViewInVCView];
@@ -3684,7 +3684,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     
 //    CloudHubMediaType mediaType = [self.liveManager getMediaTypeByUserId:userId andSourceID:sourceId];
     
-    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView];
+    [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.shareVideoView];
     [self.shareVideoFloatView showMp4WaitingView];
 
     [self arrangeAllViewInVCView];
@@ -3745,7 +3745,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     self.mp4ControlView.mediaFileModel = mediaModel;
     self.closeMp4Btn.hidden = NO;
         
-    [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.shareVideoView isMediaStream:YES];
+    [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.shareVideoView isMediaStream:YES];
     if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
     {
         [self.shareVideoFloatView showMp4PauseView];
@@ -3866,6 +3866,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.spreadBottomToolBar closeToolBar];
 }
+
+/// 打开课件失败
+- (void)handleonWhiteBoardOpenFailedIsUpload:(BOOL)isUpload
+{
+    NSString *message = YSLocalized(@"Error.OpenFileFailed");
+    if (isUpload)
+    {
+        message = YSLocalized(@"Error.OpenUploadFileFailed");
+    }
+    
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+}
+
 #pragma mark -
 #pragma mark 底部Bar -- SCTeacherTopBarDelegate
 
@@ -5560,7 +5573,7 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
             }
             else
             {
-                [self.liveManager changeLocalVideoMirrorMode:CloudHubVideoMirrorModeDisabled];
+                [self.liveManager changeLocalVideoMirrorMode:CHDefaultDisableVideoMirrorMode];
             }
         }
             break;

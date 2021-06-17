@@ -1491,7 +1491,12 @@ typedef void (^YSRoomLeftDoBlock)(void);
     }
 #endif
 
-    [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:@"" roomParams:roomParams userParams:userParams];
+    NSString *nickname = [roomParams bm_stringTrimForKey:CHJoinRoomParamsUserNameKey];
+    if (![nickname bm_isNotEmpty])
+    {
+        nickname = sCHUserDefaultNickname;
+    }
+    [liveManager initializeWhiteBoardWithWithHost:liveManager.apiHost port:YSLive_Port nickName:nickname roomParams:roomParams userParams:userParams];
     
     [self.progressHUD bm_showAnimated:NO showBackground:YES];
     

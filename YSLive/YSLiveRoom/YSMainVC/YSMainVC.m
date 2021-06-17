@@ -932,7 +932,7 @@
     {
         CHRoomUser *roomUser = videoView.roomUser;
         BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sCHUserIsVideoMirror];
-        CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+        CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
         if (isVideoMirror)
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
@@ -948,7 +948,7 @@
         if (!self.shareDesktop && roomUser && roomUser.role == CHUserType_Teacher)
         {
             BOOL isVideoMirror = [roomUser.properties bm_boolForKey:sCHUserIsVideoMirror];
-            CloudHubVideoMirrorMode videoMirrorMode = CloudHubVideoMirrorModeDisabled;
+            CloudHubVideoMirrorMode videoMirrorMode = CHDefaultDisableVideoMirrorMode;
             if (isVideoMirror)
             {
                 videoMirrorMode = CloudHubVideoMirrorModeEnabled;
@@ -1086,7 +1086,7 @@
             if ([streamIdArray bm_isNotEmpty])
             {
                 self.currentTopStreamId = streamIdArray.firstObject;
-                [self.liveManager playVideoWithUserId:user.peerID streamID:streamIdArray.firstObject renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+                [self.liveManager playVideoWithUserId:user.peerID streamID:streamIdArray.firstObject renderMode:CloudHubVideoRenderModeHidden mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.teacherVideoView];
             }
         }
         [self freshMediaView];
@@ -1160,7 +1160,7 @@
             if (streamId)
             {
                 self.currentTopStreamId = streamId;
-                [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+                [self.liveManager playVideoWithUserId:roomUser.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.teacherVideoView];
             }
         }
         else
@@ -1275,7 +1275,7 @@
             if ([sourceId bm_isNotEmpty] && [teacher getVideoMuteWithSourceId:sourceId] == CHSessionMuteState_UnMute)
             {
                 self.currentTopStreamId = streamId;
-                [self.liveManager playVideoWithUserId:teacher.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+                [self.liveManager playVideoWithUserId:teacher.peerID streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.teacherVideoView];
             }
         }
     }
@@ -1368,7 +1368,7 @@
 
 - (void)handlePlayMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
-    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View isMediaStream:YES];
+    [self.liveManager playVideoWithUserId:userID streamID:movieStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.mp4View isMediaStream:YES];
     
     if (self.isFullScreen)
     {
@@ -1401,7 +1401,7 @@
         }
         else
         {
-            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView isMediaStream:YES];
+            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.teacherVideoView isMediaStream:YES];
             self.teacherMaskView.hidden = YES;
         }
     }
@@ -1413,7 +1413,7 @@
         }
         else
         {
-            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.mp4View isMediaStream:YES];
+            [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.mp4View isMediaStream:YES];
             if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
             {
                 [self.mp4BgView showMp4PauseView];
@@ -1549,7 +1549,7 @@
 {
     if (self.liveManager.roomModel.liveType == CHLiveType_MediaFake)
     {
-        [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+        [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.teacherVideoView];
         self.teacherMaskView.hidden = YES;
     }
     else
@@ -1560,7 +1560,7 @@
         [self.liveManager stopVideoWithUserId:self.liveManager.teacher.peerID streamID:userStreamID];
         
         self.currentTopStreamId = streamId;
-        [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+        [self.liveManager playVideoWithUserId:userId streamID:streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.teacherVideoView];
         
         self.teacherFloatView.canZoom = YES;
         [self freshMediaView];
@@ -1588,7 +1588,7 @@
         {
             renderMode = CloudHubVideoRenderModeFit;
         }
-        [self.liveManager playVideoWithUserId:userId streamID:userStreamID renderMode:renderMode mirrorMode:CloudHubVideoMirrorModeDisabled inView:self.teacherVideoView];
+        [self.liveManager playVideoWithUserId:userId streamID:userStreamID renderMode:renderMode mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.teacherVideoView];
         
         self.teacherFloatView.canZoom = NO;
         self.teacherFloatView.backScrollView.zoomScale = 1.0;
@@ -2437,7 +2437,7 @@
                 NSString *userStreamID = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
                 if (self.currentTopStreamId && [self.currentTopStreamId isEqualToString:userStreamID])
                 {
-                    [self.liveManager.cloudHubRtcEngineKit setRemoteRenderMode:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+                    [self.liveManager.cloudHubRtcEngineKit setRemoteRenderMode:userStreamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CHDefaultDisableVideoMirrorMode];
                 }
                 
                 [self setNeedsStatusBarAppearanceUpdate];
@@ -2475,7 +2475,7 @@
                 NSString *userStreamID = [self.liveManager getUserFirstStreamIdWithUserId:self.liveManager.teacher.peerID];
                 if (self.currentTopStreamId && [self.currentTopStreamId isEqualToString:userStreamID])
                 {
-                    [self.liveManager.cloudHubRtcEngineKit setRemoteRenderMode:userStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CloudHubVideoMirrorModeDisabled];
+                    [self.liveManager.cloudHubRtcEngineKit setRemoteRenderMode:userStreamID renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode];
                 }
 
                 [self setNeedsStatusBarAppearanceUpdate];

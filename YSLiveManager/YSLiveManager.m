@@ -650,6 +650,16 @@
     }
 }
 
+/// 打开课件失败提示
+- (void)onWhiteBoardOpenFailedIsUpload:(BOOL)isUpload
+{
+    if ([self.whiteBoardDelegate respondsToSelector:@selector(handleonWhiteBoardOpenFailedIsUpload:)])
+    {
+        [self.whiteBoardDelegate handleonWhiteBoardOpenFailedIsUpload:isUpload];
+    }
+}
+
+
 #pragma mark - 媒体课件操作回调
 
 /// 媒体播放状态

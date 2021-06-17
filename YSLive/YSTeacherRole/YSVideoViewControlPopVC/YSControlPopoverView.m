@@ -455,7 +455,7 @@
     {
         self.mirrorBtn.selected = YES;
     }
-    else if (videoMirrorMode == CloudHubVideoMirrorModeDisabled)
+    else if (videoMirrorMode == CHDefaultDisableVideoMirrorMode)
     {
         self.mirrorBtn.selected = NO;
     }
