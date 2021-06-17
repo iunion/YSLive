@@ -3866,6 +3866,19 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
 {
     [self.spreadBottomToolBar closeToolBar];
 }
+
+/// 打开课件失败
+- (void)handleonWhiteBoardOpenFailedIsUpload:(BOOL)isUpload
+{
+    NSString *message = YSLocalized(@"Error.OpenFileFailed");
+    if (isUpload)
+    {
+        message = YSLocalized(@"Error.OpenUploadFileFailed");
+    }
+    
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+}
+
 #pragma mark -
 #pragma mark 底部Bar -- SCTeacherTopBarDelegate
 

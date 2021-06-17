@@ -24,7 +24,8 @@
 - (void)handleonWhiteBoardFullScreen:(BOOL)isAllScreen;
 /// 课件最大化
 - (void)handleonWhiteBoardMaximizeView;
-
+/// 课件打开失败
+- (void)handleonWhiteBoardOpenFailedIsUpload:(BOOL)isUpload;
 /// 媒体课件状态
 - (void)handleonWhiteBoardMediaFileStateWithFileId:(NSString *)fileId state:(CHWhiteBoardShareMediaState)state;
 /// 共享媒体播放回调
