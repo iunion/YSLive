@@ -70,6 +70,11 @@
 
 - (BOOL)bm_addObject:(id)anObject withMaxCount:(NSUInteger)maxCount
 {
+    return [self bm_addObject:anObject withMaxCount:maxCount fresh:NO];
+}
+
+- (BOOL)bm_addObject:(nonnull id)anObject withMaxCount:(NSUInteger)maxCount fresh:(BOOL)fresh
+{
     if (![anObject bm_isNotEmpty])
     {
         return NO;
@@ -80,10 +85,25 @@
         [self addObject:anObject];
         return YES;
     }
+    else
+    {
+        if (fresh)
+        {
+            [self bm_removeFirstObject];
+            [self addObject:anObject];
+            return YES;
+        }
+    }
+
     return NO;
 }
 
 - (NSUInteger)bm_addObjects:(NSArray *)array withMaxCount:(NSUInteger)maxCount
+{
+    return [self bm_addObjects:array withMaxCount:maxCount fresh:NO];
+}
+
+- (NSUInteger)bm_addObjects:(nullable NSArray *)array withMaxCount:(NSUInteger)maxCount fresh:(BOOL)fresh
 {
     NSUInteger count = 0;
     for (id anObject in array)

@@ -36,7 +36,7 @@
 "Error.UpPlatformMemberOverRoomLimit" = "The number of people on stage exceeded the maximum limit";
 "Error.ForbiddenEnter" = "Forbidden to enter room";
 "Error.OpenFileFailed" = "Need to close the current open other courseware";
-"Error.OpenUploadFileFailed" = "Courseware has been uploaded, please open in  library";
+"Error.OpenUploadFileFailed" = "Courseware has been uploaded, please open in library";
 
 //Prompt
 "Prompt.inputPlaceholder" = "Please input a password";
