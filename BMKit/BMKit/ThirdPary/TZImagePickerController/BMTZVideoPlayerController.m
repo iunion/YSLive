@@ -8,7 +8,7 @@
 
 #import "BMTZVideoPlayerController.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import "UIView+BMLayout.h"
+#import "UIView+BMTZLayout.h"
 #import "BMTZImageManager.h"
 #import "BMTZAssetModel.h"
 #import "BMTZImagePickerController.h"

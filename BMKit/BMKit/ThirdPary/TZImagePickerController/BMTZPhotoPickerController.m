@@ -11,7 +11,7 @@
 #import "BMTZPhotoPreviewController.h"
 #import "BMTZAssetCell.h"
 #import "BMTZAssetModel.h"
-#import "UIView+BMLayout.h"
+#import "UIView+BMTZLayout.h"
 #import "BMTZImageManager.h"
 #import "BMTZVideoPlayerController.h"
 #import "BMTZGifPhotoPreviewController.h"

@@ -8,7 +8,7 @@
 
 #import "BMTZAssetCell.h"
 #import "BMTZAssetModel.h"
-#import "UIView+BMLayout.h"
+#import "UIView+BMTZLayout.h"
 #import "BMTZImageManager.h"
 #import "BMTZImagePickerController.h"
 #import "BMTZProgressView.h"

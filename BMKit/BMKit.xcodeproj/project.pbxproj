@@ -483,8 +483,8 @@
 		87901A2D2417349D00FF38EC /* BMTZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A2B2417349D00FF38EC /* BMTZImageManager.m */; };
 		87901A3224173ACF00FF38EC /* BMTZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A3024173ACF00FF38EC /* BMTZImagePickerController.m */; };
 		87901A3324173ACF00FF38EC /* BMTZImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3124173ACF00FF38EC /* BMTZImagePickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		87901A3624173E3C00FF38EC /* UIView+BMLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3424173E3C00FF38EC /* UIView+BMLayout.h */; };
-		87901A3724173E3C00FF38EC /* UIView+BMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A3524173E3C00FF38EC /* UIView+BMLayout.m */; };
+		87901A3624173E3C00FF38EC /* UIView+BMTZLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3424173E3C00FF38EC /* UIView+BMTZLayout.h */; };
+		87901A3724173E3C00FF38EC /* UIView+BMTZLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A3524173E3C00FF38EC /* UIView+BMTZLayout.m */; };
 		87901A5624176EB500FF38EC /* BMMASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3D24176EB500FF38EC /* BMMASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87901A5724176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87901A3E24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m */; };
 		87901A5824176EB500FF38EC /* BMMASConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 87901A3F24176EB500FF38EC /* BMMASConstraint+Private.h */; };
@@ -1010,8 +1010,8 @@
 		87901A2E2417353800FF38EC /* BMTZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMTZImagePickerController.bundle; sourceTree = "<group>"; };
 		87901A3024173ACF00FF38EC /* BMTZImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTZImagePickerController.m; sourceTree = "<group>"; };
 		87901A3124173ACF00FF38EC /* BMTZImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTZImagePickerController.h; sourceTree = "<group>"; };
-		87901A3424173E3C00FF38EC /* UIView+BMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BMLayout.h"; sourceTree = "<group>"; };
-		87901A3524173E3C00FF38EC /* UIView+BMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BMLayout.m"; sourceTree = "<group>"; };
+		87901A3424173E3C00FF38EC /* UIView+BMTZLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BMTZLayout.h"; sourceTree = "<group>"; };
+		87901A3524173E3C00FF38EC /* UIView+BMTZLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BMTZLayout.m"; sourceTree = "<group>"; };
 		87901A3D24176EB500FF38EC /* BMMASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMASCompositeConstraint.h; sourceTree = "<group>"; };
 		87901A3E24176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BMMASDebugAdditions.m"; sourceTree = "<group>"; };
 		87901A3F24176EB500FF38EC /* BMMASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BMMASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -1994,8 +1994,8 @@
 				87F31B25267C77EE00D48641 /* BMTZVideoEditedPreviewController.m */,
 				879019F1241727BF00FF38EC /* BMTZVideoPlayerController.h */,
 				879019DF241727BF00FF38EC /* BMTZVideoPlayerController.m */,
-				87901A3424173E3C00FF38EC /* UIView+BMLayout.h */,
-				87901A3524173E3C00FF38EC /* UIView+BMLayout.m */,
+				87901A3424173E3C00FF38EC /* UIView+BMTZLayout.h */,
+				87901A3524173E3C00FF38EC /* UIView+BMTZLayout.m */,
 			);
 			path = TZImagePickerController;
 			sourceTree = "<group>";
@@ -2175,7 +2175,7 @@
 				87901A6924176EB500FF38EC /* View+BMMASShorthandAdditions.h in Headers */,
 				87901A11241727BF00FF38EC /* BMTZPhotoPreviewController.h in Headers */,
 				879019F9241727BF00FF38EC /* BMTZPhotoPreviewCell.h in Headers */,
-				87901A3624173E3C00FF38EC /* UIView+BMLayout.h in Headers */,
+				87901A3624173E3C00FF38EC /* UIView+BMTZLayout.h in Headers */,
 				87901A07241727BF00FF38EC /* BMTZGifPhotoPreviewController.h in Headers */,
 				87901A01241727BF00FF38EC /* BMTZLocationManager.h in Headers */,
 				87901A10241727BF00FF38EC /* BMTZVideoPlayerController.h in Headers */,
@@ -2553,7 +2553,7 @@
 				8701AE2E23714E6000A43607 /* UIImage+BMAssets.m in Sources */,
 				87901A6724176EB500FF38EC /* NSArray+BMMASAdditions.m in Sources */,
 				8701AE2623714E6000A43607 /* UILabel+BMCategory.m in Sources */,
-				87901A3724173E3C00FF38EC /* UIView+BMLayout.m in Sources */,
+				87901A3724173E3C00FF38EC /* UIView+BMTZLayout.m in Sources */,
 				8777C78523EA72A2002002BF /* BMFreshCircleHeader.m in Sources */,
 				8742FDE124F3A12A00BDF294 /* NSButton+BMWebCache.m in Sources */,
 				8701B0F3237165AA00A43607 /* BMTableViewImageDetailCell.m in Sources */,

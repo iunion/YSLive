@@ -10,7 +10,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "BMTZImageManager.h"
 #import "BMTZImagePickerController.h"
-#import "UIView+BMLayout.h"
+#import "UIView+BMTZLayout.h"
 
 @interface BMTZVideoEditedPreviewController () {
     AVPlayer *_player;

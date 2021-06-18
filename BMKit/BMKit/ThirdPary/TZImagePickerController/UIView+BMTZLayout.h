@@ -12,7 +12,7 @@ typedef enum : NSUInteger {
     BMTZOscillatoryAnimationToSmaller,
 } BMTZOscillatoryAnimationType;
 
-@interface UIView (BMLayout)
+@interface UIView (BMTZLayout)
 
 @property (nonatomic) CGFloat bmtz_left;        ///< Shortcut for frame.origin.x.
 @property (nonatomic) CGFloat bmtz_top;         ///< Shortcut for frame.origin.y
