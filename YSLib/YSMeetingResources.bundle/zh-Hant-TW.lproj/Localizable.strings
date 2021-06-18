@@ -486,7 +486,7 @@
 "KeystoneCorrection.Finish" = "完成";
 "KeystoneCorrection.Reset" = "還原";
 
-"BeautySet.note" = "為了獲得更好的課堂體驗，\n建議打開監視器許可權。";
+"BeautySet.Note" = "為了獲得更好的課堂體驗，\n建議打開監視器許可權。";
 "BeautySet.Cam" = "監視器";
 "BeautySet.Cam.HMirror" = "水准鏡像";
 "BeautySet.Cam.VMirror" = "垂直鏡像";

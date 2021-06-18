@@ -169,11 +169,6 @@
         return NO;
     }
 
-    if (![nickName bm_isNotEmpty])
-    {
-        return NO;
-    }
-
     NSString *roomId = [roomParams bm_stringForKey:CHJoinRoomParamsRoomSerialKey];
     if (![roomId bm_isNotEmpty])
     {
@@ -191,7 +186,7 @@
 
 - (BOOL)realInitializeWhiteBoardWithWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
 {
-    [self prepareToJoinRoomWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams];
+    [self prepareWhiteBoardWithHost:host port:port];
     
     if ([super initializeWhiteBoardWithWithHost:host port:port nickName:nickname roomParams:roomParams userParams:userParams])
     {
@@ -402,7 +397,7 @@
 
 #endif
 
-- (void)prepareToJoinRoomWithHost:(NSString *)host port:(int)port nickName:(NSString *)nickname roomParams:(NSDictionary *)roomParams userParams:(NSDictionary *)userParams
+- (void)prepareWhiteBoardWithHost:(NSString *)host port:(int)port
 {
     self.whiteBoardManager = [CHWhiteBoardManager sharedInstance];
     NSLog(@"WhiteBoard SDK Version: %@", [CHWhiteBoardManager whiteBoardVersion]);

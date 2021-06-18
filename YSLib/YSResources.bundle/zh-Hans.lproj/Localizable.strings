@@ -492,7 +492,7 @@
 "KeystoneCorrection.Finish" = "完成";
 "KeystoneCorrection.Reset" = "还原";
 
-"BeautySet.note" = "为了获得更好的课堂体验，\n建议打开摄像头权限。";
+"BeautySet.Note" = "为了获得更好的课堂体验，\n建议打开摄像头权限。";
 "BeautySet.Cam" = "摄像头";
 "BeautySet.Cam.HMirror" = "水平镜像";
 "BeautySet.Cam.VMirror" = "垂直镜像";

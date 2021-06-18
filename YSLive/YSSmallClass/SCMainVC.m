@@ -4246,6 +4246,18 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [self freshTeacherCoursewareListData];
 }
 
+/// 打开课件失败
+- (void)handleonWhiteBoardOpenFailedIsUpload:(BOOL)isUpload
+{
+    NSString *message = YSLocalized(@"Error.OpenFileFailed");
+    if (isUpload)
+    {
+        message = YSLocalized(@"Error.OpenUploadFileFailed");
+    }
+    
+    [BMProgressHUD bm_showHUDAddedTo:self.view animated:YES withDetailText:message delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
+}
+
 //
 - (void)handleSignalingSetSmallBoardStageState:(CHSmallBoardStageState)smallBoardStageState
 {
