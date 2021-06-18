@@ -13,15 +13,19 @@
 #import "BMTZAssetModel.h"
 #import "BMTZImagePickerController.h"
 #import "BMTZPhotoPreviewController.h"
+#import "BMTZVideoCropController.h"
 
 @interface BMTZVideoPlayerController () {
     AVPlayer *_player;
     AVPlayerLayer *_playerLayer;
     UIButton *_playButton;
     UIImage *_cover;
-    
+    NSString *_outputPath;
+    NSString *_errorMsg;
+
     UIView *_toolBar;
     UIButton *_doneButton;
+    UIButton *_editButton;
     UIProgressView *_progress;
     
     UIStatusBarStyle _originStatusBarStyle;
@@ -71,6 +75,7 @@
         if (!isDegraded && photo) {
             self->_cover = photo;
             self->_doneButton.enabled = YES;
+            self->_editButton.enabled = YES;
         }
     }];
     [[BMTZImageManager manager] getVideoWithAsset:_model.asset completion:^(AVPlayerItem *playerItem, NSDictionary *info) {
@@ -131,8 +136,21 @@
     [_toolBar addSubview:_doneButton];
     [self.view addSubview:_toolBar];
     
+    if (tzImagePickerVc && tzImagePickerVc.allowEditVideo && roundf(self.model.asset.duration) > 1) {
+        _editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _editButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        if (!_cover) {
+            _editButton.enabled = NO;
+        }
+        [_editButton addTarget:self action:@selector(editButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [_editButton setTitle:tzImagePickerVc.editBtnTitleStr forState:UIControlStateNormal];
+        [_editButton setTitleColor:tzImagePickerVc.oKButtonTitleColorNormal forState:UIControlStateNormal];
+        [_editButton setTitleColor:tzImagePickerVc.oKButtonTitleColorDisabled forState:UIControlStateDisabled];
+        [_toolBar addSubview:_editButton];
+    }
+    
     if (tzImagePickerVc.videoPreviewPageUIConfigBlock) {
-        tzImagePickerVc.videoPreviewPageUIConfigBlock(_playButton, _toolBar, _doneButton);
+        tzImagePickerVc.videoPreviewPageUIConfigBlock(_playButton, _toolBar, _editButton, _doneButton);
     }
 }
 
@@ -148,7 +166,8 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    
+    BMTZImagePickerController *tzImagePickerVc = (BMTZImagePickerController *)self.navigationController;
+
     BOOL isFullScreen = self.view.bmtz_height == [UIScreen mainScreen].bounds.size.height;
     CGFloat statusBarHeight = isFullScreen ? [BMTZCommonTools tz_statusBarHeight] : 0;
     CGFloat statusBarAndNaviBarHeight = statusBarHeight + self.navigationController.navigationBar.bmtz_height;
@@ -157,10 +176,12 @@
     _toolBar.frame = CGRectMake(0, self.view.bmtz_height - toolBarHeight, self.view.bmtz_width, toolBarHeight);
     _doneButton.frame = CGRectMake(self.view.bmtz_width - 44 - 12, 0, 44, 44);
     _playButton.frame = CGRectMake(0, statusBarAndNaviBarHeight, self.view.bmtz_width, self.view.bmtz_height - statusBarAndNaviBarHeight - toolBarHeight);
-    
-    BMTZImagePickerController *tzImagePickerVc = (BMTZImagePickerController *)self.navigationController;
+    if (tzImagePickerVc.allowEditVideo) {
+        _editButton.frame = CGRectMake(12, 0, 44, 44);
+        [_editButton sizeToFit];
+    }
     if (tzImagePickerVc.videoPreviewPageDidLayoutSubviewsBlock) {
-        tzImagePickerVc.videoPreviewPageDidLayoutSubviewsBlock(_playButton, _toolBar, _doneButton);
+        tzImagePickerVc.videoPreviewPageDidLayoutSubviewsBlock(_playButton, _toolBar, _editButton, _doneButton);
     }
 }
 
@@ -182,33 +203,78 @@
     }
 }
 
+- (void)editButtonClick {
+    BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
+    BMTZVideoCropController *videoCropVc = [[BMTZVideoCropController alloc] init];
+    videoCropVc.model = self.model;
+    videoCropVc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    videoCropVc.modalPresentationStyle = UIModalPresentationFullScreen;
+    videoCropVc.modalPresentationCapturesStatusBarAppearance = YES;
+    videoCropVc.imagePickerVc = imagePickerVc;
+    [self presentViewController:videoCropVc animated:YES completion:nil];
+}
+
 - (void)doneButtonClick {
     if ([[BMTZImageManager manager] isAssetCannotBeSelected:_model.asset]) {
         return;
     }
-    if (self.navigationController) {
-        BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
-        if (imagePickerVc.autoDismiss) {
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                [self callDelegateMethod];
-            }];
-        } else {
-            [self callDelegateMethod];
-        }
+    BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
+    if (imagePickerVc.allowEditVideo) {
+        [imagePickerVc showProgressHUD];
+        [[BMTZImageManager manager] getVideoOutputPathWithAsset:_model.asset presetName:imagePickerVc.presetName success:^(NSString *outputPath) {
+            [imagePickerVc hideProgressHUD];
+            self->_outputPath = outputPath;
+            [self dismissAndCallDelegateMethod];
+        } failure:^(NSString *errorMessage, NSError *error) {
+            [imagePickerVc hideProgressHUD];
+            self->_errorMsg = errorMessage;
+            [self dismissAndCallDelegateMethod];
+        }];
     } else {
-        [self dismissViewControllerAnimated:YES completion:^{
+        [self dismissAndCallDelegateMethod];
+    }
+}
+
+- (void)dismissAndCallDelegateMethod {
+    UIViewController *vc = self.navigationController;
+    if (!vc) {
+        vc = self;
+    }
+    BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
+    if (imagePickerVc.autoDismiss) {
+        [vc dismissViewControllerAnimated:YES completion:^{
             [self callDelegateMethod];
         }];
+    } else {
+        [self callDelegateMethod];
     }
 }
 
 - (void)callDelegateMethod {
     BMTZImagePickerController *imagePickerVc = (BMTZImagePickerController *)self.navigationController;
-    if ([imagePickerVc.pickerDelegate respondsToSelector:@selector(imagePickerController:didFinishPickingVideo:sourceAssets:)]) {
-        [imagePickerVc.pickerDelegate imagePickerController:imagePickerVc didFinishPickingVideo:_cover sourceAssets:_model.asset];
-    }
-    if (imagePickerVc.didFinishPickingVideoHandle) {
-        imagePickerVc.didFinishPickingVideoHandle(_cover,_model.asset);
+    if (imagePickerVc.allowEditVideo) {
+        if (_outputPath) {
+            if ([imagePickerVc.pickerDelegate respondsToSelector:@selector(imagePickerController:didFinishPickingAndEditingVideo:outputPath:error:)]) {
+                [imagePickerVc.pickerDelegate imagePickerController:imagePickerVc didFinishPickingAndEditingVideo:self->_cover outputPath:self->_outputPath error:nil];
+            }
+            if (imagePickerVc.didFinishPickingAndEditingVideoHandle) {
+                imagePickerVc.didFinishPickingAndEditingVideoHandle(self->_cover, self->_outputPath, nil);
+            }
+        } else {
+            if ([imagePickerVc.pickerDelegate respondsToSelector:@selector(imagePickerController:didFinishPickingAndEditingVideo:outputPath:error:)]) {
+                [imagePickerVc.pickerDelegate imagePickerController:imagePickerVc didFinishPickingAndEditingVideo:nil outputPath:nil error:self->_errorMsg];
+            }
+            if (imagePickerVc.didFinishPickingAndEditingVideoHandle) {
+                imagePickerVc.didFinishPickingAndEditingVideoHandle(nil, nil, self->_errorMsg);
+            }
+        }
+    } else {
+        if ([imagePickerVc.pickerDelegate respondsToSelector:@selector(imagePickerController:didFinishPickingVideo:sourceAssets:)]) {
+            [imagePickerVc.pickerDelegate imagePickerController:imagePickerVc didFinishPickingVideo:_cover sourceAssets:_model.asset];
+        }
+        if (imagePickerVc.didFinishPickingVideoHandle) {
+            imagePickerVc.didFinishPickingVideoHandle(_cover,_model.asset);
+        }
     }
 }
 

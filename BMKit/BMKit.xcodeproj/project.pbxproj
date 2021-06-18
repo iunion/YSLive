@@ -531,6 +531,10 @@
 		87CB8D3D25834A58000B402D /* UIBezierPath+BMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */; };
 		87E3DDF025D0DD7000B8DA17 /* BMIconFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E3DDEE25D0DD6F00B8DA17 /* BMIconFont.h */; };
 		87E3DDF125D0DD7000B8DA17 /* BMIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDEF25D0DD6F00B8DA17 /* BMIconFont.m */; };
+		87F31B26267C77EE00D48641 /* BMTZVideoCropController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F31B22267C77ED00D48641 /* BMTZVideoCropController.m */; };
+		87F31B27267C77EE00D48641 /* BMTZVideoCropController.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F31B23267C77ED00D48641 /* BMTZVideoCropController.h */; };
+		87F31B28267C77EE00D48641 /* BMTZVideoEditedPreviewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F31B24267C77ED00D48641 /* BMTZVideoEditedPreviewController.h */; };
+		87F31B29267C77EE00D48641 /* BMTZVideoEditedPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F31B25267C77EE00D48641 /* BMTZVideoEditedPreviewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1057,6 +1061,10 @@
 		87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+BMCategory.m"; sourceTree = "<group>"; };
 		87E3DDEE25D0DD6F00B8DA17 /* BMIconFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMIconFont.h; sourceTree = "<group>"; };
 		87E3DDEF25D0DD6F00B8DA17 /* BMIconFont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMIconFont.m; sourceTree = "<group>"; };
+		87F31B22267C77ED00D48641 /* BMTZVideoCropController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTZVideoCropController.m; sourceTree = "<group>"; };
+		87F31B23267C77ED00D48641 /* BMTZVideoCropController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTZVideoCropController.h; sourceTree = "<group>"; };
+		87F31B24267C77ED00D48641 /* BMTZVideoEditedPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTZVideoEditedPreviewController.h; sourceTree = "<group>"; };
+		87F31B25267C77EE00D48641 /* BMTZVideoEditedPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTZVideoEditedPreviewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1980,6 +1988,10 @@
 				879019E5241727BF00FF38EC /* BMTZPhotoPreviewController.m */,
 				879019F8241727BF00FF38EC /* BMTZProgressView.h */,
 				879019E7241727BF00FF38EC /* BMTZProgressView.m */,
+				87F31B23267C77ED00D48641 /* BMTZVideoCropController.h */,
+				87F31B22267C77ED00D48641 /* BMTZVideoCropController.m */,
+				87F31B24267C77ED00D48641 /* BMTZVideoEditedPreviewController.h */,
+				87F31B25267C77EE00D48641 /* BMTZVideoEditedPreviewController.m */,
 				879019F1241727BF00FF38EC /* BMTZVideoPlayerController.h */,
 				879019DF241727BF00FF38EC /* BMTZVideoPlayerController.m */,
 				87901A3424173E3C00FF38EC /* UIView+BMLayout.h */,
@@ -2136,6 +2148,7 @@
 				8742FE2524F3A12A00BDF294 /* BMSDWebImageCacheKeyFilter.h in Headers */,
 				8742FE2E24F3A12A00BDF294 /* BMSDWebImageManager.h in Headers */,
 				8742F87C24EF6E7600BDF294 /* BMProgressHUD.h in Headers */,
+				87F31B28267C77EE00D48641 /* BMTZVideoEditedPreviewController.h in Headers */,
 				8742FE4124F3A12A00BDF294 /* BMSDImageCachesManagerOperation.h in Headers */,
 				871C87C92623E1CE00AB898E /* BMStepCountDowmManager.h in Headers */,
 				87832D9224863E8700F1178E /* BMImageTitleButtonView.h in Headers */,
@@ -2176,6 +2189,7 @@
 				879019BF2416492100FF38EC /* BMAFHTTPSessionManager.h in Headers */,
 				879019C824164D1F00FF38EC /* BMAFSecurityPolicy.h in Headers */,
 				8742FE5324F3A12A00BDF294 /* BMSDImageIOAnimatedCoderInternal.h in Headers */,
+				87F31B27267C77EE00D48641 /* BMTZVideoCropController.h in Headers */,
 				879019BB2416486700FF38EC /* BMAFCompatibilityMacros.h in Headers */,
 				8790199C24163F4C00FF38EC /* BMKitThird.h in Headers */,
 				8742FE5224F3A12A00BDF294 /* BMSDDisplayLink.h in Headers */,
@@ -2477,6 +2491,7 @@
 				8742FE3F24F3A12A00BDF294 /* BMSDImageTransformer.m in Sources */,
 				879019CC2416530A00FF38EC /* BMAFURLRequestSerialization.m in Sources */,
 				8701AE1523714E6000A43607 /* UIView+BMInnerShadow.m in Sources */,
+				87F31B29267C77EE00D48641 /* BMTZVideoEditedPreviewController.m in Sources */,
 				8701AE2423714E6000A43607 /* UIDevice+BMCategory.m in Sources */,
 				8742FDE724F3A12A00BDF294 /* BMSDWebImageDownloaderResponseModifier.m in Sources */,
 				8701AE4523714E6000A43607 /* NSData+BMEncrypt.m in Sources */,
@@ -2550,6 +2565,7 @@
 				8701AF8C23715F5500A43607 /* BMNavigationTitleLabel.m in Sources */,
 				8701AE5623714E6000A43607 /* NSString+BMFormat.m in Sources */,
 				8701AE3223714E6000A43607 /* UIImage+BMTint.m in Sources */,
+				87F31B26267C77EE00D48641 /* BMTZVideoCropController.m in Sources */,
 				8701AFE2237163B100A43607 /* BMVerifyFieldTextPosition.m in Sources */,
 				8701B103237165AA00A43607 /* BMTableViewSection.m in Sources */,
 				8777C7A323EA7489002002BF /* BMEmptyView.m in Sources */,
