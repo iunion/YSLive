@@ -629,7 +629,9 @@ didReceiveResponse:(NSURLResponse *)response
                         credential = self.credential;
                         disposition = NSURLSessionAuthChallengeUseCredential;
                     } else {
-                        disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+                        // Web Server like Nginx can set `ssl_verify_client` to optional but not always on
+                        // We'd better use default handling here
+                        disposition = NSURLSessionAuthChallengePerformDefaultHandling;
                     }
                 } else {
                     disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
@@ -681,7 +683,9 @@ didReceiveResponse:(NSURLResponse *)response
                 credential = self.credential;
                 disposition = NSURLSessionAuthChallengeUseCredential;
             } else {
-                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+                // Web Server like Nginx can set `ssl_verify_client` to optional but not always on
+                // We'd better use default handling here
+                disposition = NSURLSessionAuthChallengePerformDefaultHandling;
             }
         } else {
             disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
