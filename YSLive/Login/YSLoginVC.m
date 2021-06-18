@@ -474,7 +474,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 #endif
     [parameters bm_setString:commitVersion forKey:@"version"];
     [parameters bm_setInteger:3 forKey:@"type"];
-    
+    [parameters bm_setInteger:4 forKey:@"level"];
     [manager POST:urlStr parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
 #ifdef DEBUG
