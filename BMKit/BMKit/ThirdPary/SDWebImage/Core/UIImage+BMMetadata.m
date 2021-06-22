@@ -29,6 +29,32 @@
     objc_setAssociatedObject(self, @selector(bmsd_imageLoopCount), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (NSUInteger)bmsd_imageFrameCount {
+    NSArray<UIImage *> *animatedImages = self.images;
+    if (!animatedImages || animatedImages.count <= 1) {
+        return 1;
+    }
+    NSNumber *value = objc_getAssociatedObject(self, @selector(bmsd_imageFrameCount));
+    if ([value isKindOfClass:[NSNumber class]]) {
+        return [value unsignedIntegerValue];
+    }
+    __block NSUInteger frameCount = 1;
+    __block UIImage *previousImage = animatedImages.firstObject;
+    [animatedImages enumerateObjectsUsingBlock:^(UIImage * _Nonnull image, NSUInteger idx, BOOL * _Nonnull stop) {
+        // ignore first
+        if (idx == 0) {
+            return;
+        }
+        if (![image isEqual:previousImage]) {
+            frameCount++;
+        }
+        previousImage = image;
+    }];
+    objc_setAssociatedObject(self, @selector(bmsd_imageFrameCount), @(frameCount), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    return frameCount;
+}
+
 - (BOOL)bmsd_isAnimated {
     return (self.images != nil);
 }
@@ -85,6 +111,19 @@
     if (bitmapImageRep) {
         [bitmapImageRep setProperty:NSImageLoopCount withValue:@(bmsd_imageLoopCount)];
     }
+}
+
+- (NSUInteger)bmsd_imageFrameCount {
+    NSRect imageRect = NSMakeRect(0, 0, self.size.width, self.size.height);
+    NSImageRep *imageRep = [self bestRepresentationForRect:imageRect context:nil hints:nil];
+    NSBitmapImageRep *bitmapImageRep;
+    if ([imageRep isKindOfClass:[NSBitmapImageRep class]]) {
+        bitmapImageRep = (NSBitmapImageRep *)imageRep;
+    }
+    if (bitmapImageRep) {
+        return [[bitmapImageRep valueForProperty:NSImageFrameCount] unsignedIntegerValue];
+    }
+    return 1;
 }
 
 - (BOOL)bmsd_isAnimated {

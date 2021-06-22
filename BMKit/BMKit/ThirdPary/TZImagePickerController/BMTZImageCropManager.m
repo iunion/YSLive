@@ -7,7 +7,7 @@
 //
 
 #import "BMTZImageCropManager.h"
-#import "UIView+BMLayout.h"
+#import "UIView+BMTZLayout.h"
 #import <ImageIO/ImageIO.h>
 #import "BMTZImageManager.h"
 #import "BMTZImagePickerController.h"

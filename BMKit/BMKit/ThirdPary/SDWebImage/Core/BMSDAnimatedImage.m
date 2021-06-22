@@ -314,6 +314,10 @@ static CGFloat BMSDImageScaleFromPath(NSString *string) {
     return;
 }
 
+- (NSUInteger)sd_imageFrameCount {
+    return self.animatedImageFrameCount;
+}
+
 - (BMSDImageFormat)sd_imageFormat {
     return self.animatedImageFormat;
 }

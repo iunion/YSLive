@@ -9,7 +9,7 @@
 #import "BMTZPhotoPreviewController.h"
 #import "BMTZPhotoPreviewCell.h"
 #import "BMTZAssetModel.h"
-#import "UIView+BMLayout.h"
+#import "UIView+BMTZLayout.h"
 #import "BMTZImagePickerController.h"
 #import "BMTZImageManager.h"
 #import "BMTZImageCropManager.h"

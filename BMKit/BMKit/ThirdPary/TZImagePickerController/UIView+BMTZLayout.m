@@ -5,9 +5,9 @@
 //  Copyright © 2015年 谭真. All rights reserved.
 //
 
-#import "UIView+BMLayout.h"
+#import "UIView+BMTZLayout.h"
 
-@implementation UIView (BMLayout)
+@implementation UIView (BMTZLayout)
 
 - (CGFloat)bmtz_left {
     return self.frame.origin.x;
