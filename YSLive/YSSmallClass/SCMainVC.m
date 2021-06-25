@@ -4642,6 +4642,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.studentTimerView = [[YSStudentTimerView alloc] init];
     [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
 
+    [[BMCountDownManager manager] removeProcessBlockWithIdentifier:YSStudentTimerCountDownKey];
     [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
     if (!pause)
        {
@@ -4712,28 +4713,32 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.studentTimerView = [[YSStudentTimerView alloc] init];
         [self.studentTimerView showYSStudentTimerViewInView:self.view backgroundEdgeInsets:UIEdgeInsetsZero topDistance:0];
     }
-    BMWeakSelf
-    [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
-    [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
-        [weakSelf.studentTimerView showTimeInterval:timeInterval];
-        if (timeInterval == 0)
-        {
-            [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
-            NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
-            NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
-            if (filePath)
+    
+    if (![[BMCountDownManager manager] isCountDownWithIdentifier:YSStudentTimerCountDownKey])
+    {
+        BMWeakSelf
+        [[BMCountDownManager manager] stopCountDownIdentifier:YSStudentTimerCountDownKey];
+        [[BMCountDownManager manager] startCountDownWithIdentifier:YSStudentTimerCountDownKey timeInterval:time processBlock:^(id  _Nonnull identifier, NSInteger timeInterval, BOOL reStart, BOOL forcedStop) {
+            [weakSelf.studentTimerView showTimeInterval:timeInterval];
+            if (timeInterval == 0)
             {
-                weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
-                [weakSelf.player setVolume:1.0];
-                if (studentPlayerFirst == 0)
+                [weakSelf.studentTimerView showResponderWithType:YSStudentTimerViewType_End];
+                NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"YSResources.bundle"]];
+                NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:@"timer_default.wav"];;
+                if (filePath)
                 {
-                    [weakSelf.player play];
-                    studentPlayerFirst = 1;
+                    weakSelf.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:filePath] error:nil];
+                    [weakSelf.player setVolume:1.0];
+                    if (studentPlayerFirst == 0)
+                    {
+                        [weakSelf.player play];
+                        studentPlayerFirst = 1;
+                    }
+                    
                 }
-
             }
-        }
-    }];
+        }];
+    }
     [[BMCountDownManager manager] pauseCountDownIdentifier:YSStudentTimerCountDownKey];
 
 }
