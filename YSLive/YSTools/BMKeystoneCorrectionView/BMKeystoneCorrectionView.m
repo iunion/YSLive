@@ -129,6 +129,12 @@
     [topView bm_centerHorizontallyInSuperViewWithTop:40.0f];
     
     CGFloat toolsViewHeight = 30.0f*4 + 10*2 + 15*3;
+    
+    if (CHLocalUser.role == CHUserType_Student)
+    {
+        toolsViewHeight = 30.0f*3 + 10*2 + 15*2;
+    }
+    
     UIView *toolsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40.0f, toolsViewHeight)];
     [self addSubview:toolsView];
     self.toolsView = toolsView;
@@ -152,6 +158,11 @@
     self.beautyBtn = [self creatBtnWithNormalImage:[UIImage imageNamed:@"keystonecorrection_beauty"] action:@selector(showBeauty)];
     [self.toolsView addSubview:self.beautyBtn];
     self.beautyBtn.bm_top = 145.0f;
+    
+    if (CHLocalUser.role == CHUserType_Student)
+    {
+        self.beautyBtn.hidden = YES;
+    }
 
     UIView *btnsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 220.0f, 36.0f)];
     [self addSubview:btnsView];
