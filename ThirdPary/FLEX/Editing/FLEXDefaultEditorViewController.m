@@ -66,7 +66,7 @@
     if (sender) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-    self.firstInputView.inputValue = [self.defaults objectForKey:self.key];
+        self.firstInputView.inputValue = [self.defaults objectForKey:self.key];
     }
 }
 

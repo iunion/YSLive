@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, FLEXFileBrowserSortAttribute) {
         self.path = path;
         self.title = [path lastPathComponent];
         self.operationQueue = [NSOperationQueue new];
-                
+        
         // Compute path size
         weakify(self)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

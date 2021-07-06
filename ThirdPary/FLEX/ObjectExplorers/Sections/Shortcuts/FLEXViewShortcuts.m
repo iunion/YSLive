@@ -63,27 +63,27 @@
 
     return [self forObject:view additionalRows:@[
         [FLEXActionShortcut title:@"Nearest View Controller"
-                         subtitle:^NSString *(id view) {
-            return [FLEXRuntimeUtility safeDescriptionForObject:controller];
-        }
-                           viewer:^UIViewController *(id view) {
-            return [FLEXObjectExplorerFactory explorerViewControllerForObject:controller];
-        }
-                    accessoryType:^UITableViewCellAccessoryType(id view) {
-            return controller ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-        }
-         ],
+            subtitle:^NSString *(id view) {
+                return [FLEXRuntimeUtility safeDescriptionForObject:controller];
+            }
+            viewer:^UIViewController *(id view) {
+                return [FLEXObjectExplorerFactory explorerViewControllerForObject:controller];
+            }
+            accessoryType:^UITableViewCellAccessoryType(id view) {
+                return controller ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+            }
+        ],
         [FLEXActionShortcut title:@"Preview Image" subtitle:^NSString *(UIView *view) {
-        return !CGRectIsEmpty(view.bounds) ? @"" : @"Unavailable with empty bounds";
-    }
-                           viewer:^UIViewController *(UIView *view) {
-            return [FLEXImagePreviewViewController previewForView:view];
-        }
-                    accessoryType:^UITableViewCellAccessoryType(UIView *view) {
-            // Disable preview if bounds are CGRectZero
-            return !CGRectIsEmpty(view.bounds) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-        }
-         ]
+                return !CGRectIsEmpty(view.bounds) ? @"" : @"Unavailable with empty bounds";
+            }
+            viewer:^UIViewController *(UIView *view) {
+                return [FLEXImagePreviewViewController previewForView:view];
+            }
+            accessoryType:^UITableViewCellAccessoryType(UIView *view) {
+                // Disable preview if bounds are CGRectZero
+                return !CGRectIsEmpty(view.bounds) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+            }
+        ]
     ]];
 }
 

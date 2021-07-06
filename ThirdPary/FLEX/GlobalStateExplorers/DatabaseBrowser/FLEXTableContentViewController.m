@@ -141,7 +141,7 @@
                 [b respondsToSelector:@selector(compare:options:)]) {
                 return [a compare:b options:NSNumericSearch];
             }
-
+            
             if ([a respondsToSelector:@selector(compare:)] && [b respondsToSelector:@selector(compare:)]) {
                 return [a compare:b];
             }

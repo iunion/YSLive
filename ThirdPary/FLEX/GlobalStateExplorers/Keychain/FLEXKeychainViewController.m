@@ -40,33 +40,33 @@
 
 - (NSArray<FLEXTableViewSection *> *)makeSections {
     _section = [FLEXMutableListSection list:FLEXKeychain.allAccounts.mutableCopy
-                          cellConfiguration:^(__kindof FLEXTableViewCell *cell, NSDictionary *item, NSInteger row) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cellConfiguration:^(__kindof FLEXTableViewCell *cell, NSDictionary *item, NSInteger row) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        id service = item[kFLEXKeychainWhereKey];
-        if ([service isKindOfClass:[NSString class]]) {
-            cell.textLabel.text = service;
-            cell.detailTextLabel.text = [item[kFLEXKeychainAccountKey] description];
-        } else {
-            cell.textLabel.text = [NSString stringWithFormat:
-                                   @"[%@]\n\n%@",
-                                   NSStringFromClass([service class]),
-                                   [service description]
-                                   ];
-        }
-    } filterMatcher:^BOOL(NSString *filterText, NSDictionary *item) {
-        // Loop over contents of the keychain item looking for a match
-        for (NSString *field in item.allValues) {
-            if ([field isKindOfClass:[NSString class]]) {
-                if ([field localizedCaseInsensitiveContainsString:filterText]) {
-                    return YES;
+            id service = item[kFLEXKeychainWhereKey];
+            if ([service isKindOfClass:[NSString class]]) {
+                cell.textLabel.text = service;
+                cell.detailTextLabel.text = [item[kFLEXKeychainAccountKey] description];
+            } else {
+                cell.textLabel.text = [NSString stringWithFormat:
+                    @"[%@]\n\n%@",
+                    NSStringFromClass([service class]),
+                    [service description]
+                ];
+            }
+        } filterMatcher:^BOOL(NSString *filterText, NSDictionary *item) {
+            // Loop over contents of the keychain item looking for a match
+            for (NSString *field in item.allValues) {
+                if ([field isKindOfClass:[NSString class]]) {
+                    if ([field localizedCaseInsensitiveContainsString:filterText]) {
+                        return YES;
+                    }
                 }
             }
+            
+            return NO;
         }
-        
-        return NO;
-    }
-                ];
+    ];
     
     return @[self.section];
 }

@@ -11,8 +11,8 @@
 @interface UIMenu (FLEX)
 
 + (instancetype)flex_inlineMenuWithTitle:(NSString *)title
-                              image:(UIImage *)image
-                           children:(NSArray<UIMenuElement *> *)children;
+                                   image:(UIImage *)image
+                                children:(NSArray<UIMenuElement *> *)children;
 
 - (instancetype)flex_collapsed;
 

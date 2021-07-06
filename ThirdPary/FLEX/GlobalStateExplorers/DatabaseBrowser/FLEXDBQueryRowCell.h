@@ -12,7 +12,6 @@
 
 extern NSString * const kFLEXDBQueryRowCellReuse;
 
-
 @protocol FLEXDBQueryRowCellLayoutSource <NSObject>
 
 - (CGFloat)dbQueryRowCell:(FLEXDBQueryRowCell *)dbQueryRowCell minXForColumn:(NSUInteger)column;
