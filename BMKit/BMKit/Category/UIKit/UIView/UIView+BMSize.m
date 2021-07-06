@@ -150,6 +150,15 @@
   [self setFrame:CGRectStandardize(frame)];
 }
 
+- (CGFloat)bm_halfwidth
+{
+    return self.bm_width * 0.5f;
+}
+
+- (CGFloat)bm_halfheight
+{
+    return self.bm_height * 0.5f;
+}
 
 // bounds accessors
 

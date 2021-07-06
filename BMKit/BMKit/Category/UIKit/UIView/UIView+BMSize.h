@@ -83,6 +83,9 @@
  */
 @property (nonatomic, assign) CGFloat bm_height;
 
+@property (nonatomic, assign, readonly) CGFloat bm_halfwidth;
+@property (nonatomic, assign, readonly) CGFloat bm_halfheight;
+
 
 // bounds accessors
 @property (nonatomic, assign) CGSize bm_boundsSize;

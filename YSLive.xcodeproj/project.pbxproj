@@ -1690,21 +1690,21 @@
 		0447E0602668ADD400BB380B /* FLEX */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0612668ADD400BB380B /* FLEX-Runtime.h */,
 				0447E0622668ADD400BB380B /* Core */,
-				0447E0812668ADD400BB380B /* FLEX.h */,
-				0447E0822668ADD400BB380B /* ObjectExplorers */,
-				0447E0B02668ADD400BB380B /* Network */,
-				0447E0C22668ADD400BB380B /* Toolbar */,
-				0447E0C72668ADD400BB380B /* FLEX-Categories.h */,
-				0447E0C82668ADD400BB380B /* FLEX-Core.h */,
-				0447E0C92668ADD400BB380B /* FLEX-ObjectExploring.h */,
-				0447E0CA2668ADD400BB380B /* Manager */,
 				0447E0D32668ADD400BB380B /* Editing */,
 				0447E0F92668ADD400BB380B /* ExplorerInterface */,
 				0447E10C2668ADD500BB380B /* GlobalStateExplorers */,
-				0447E1662668ADD500BB380B /* ViewHierarchy */,
+				0447E0CA2668ADD400BB380B /* Manager */,
+				0447E0B02668ADD400BB380B /* Network */,
+				0447E0822668ADD400BB380B /* ObjectExplorers */,
+				0447E0C22668ADD400BB380B /* Toolbar */,
 				0447E1802668ADD500BB380B /* Utility */,
+				0447E1662668ADD500BB380B /* ViewHierarchy */,
+				0447E0C72668ADD400BB380B /* FLEX-Categories.h */,
+				0447E0C82668ADD400BB380B /* FLEX-Core.h */,
+				0447E0C92668ADD400BB380B /* FLEX-ObjectExploring.h */,
+				0447E0612668ADD400BB380B /* FLEX-Runtime.h */,
+				0447E0812668ADD400BB380B /* FLEX.h */,
 			);
 			path = FLEX;
 			sourceTree = "<group>";
@@ -1712,12 +1712,12 @@
 		0447E0622668ADD400BB380B /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0632668ADD400BB380B /* FLEXTableViewSection.h */,
-				0447E0642668ADD400BB380B /* FLEXSingleRowSection.m */,
-				0447E0652668ADD400BB380B /* FLEXTableViewSection.m */,
 				0447E0662668ADD400BB380B /* Controllers */,
 				0447E06D2668ADD400BB380B /* Views */,
 				0447E0802668ADD400BB380B /* FLEXSingleRowSection.h */,
+				0447E0642668ADD400BB380B /* FLEXSingleRowSection.m */,
+				0447E0632668ADD400BB380B /* FLEXTableViewSection.h */,
+				0447E0652668ADD400BB380B /* FLEXTableViewSection.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1725,12 +1725,12 @@
 		0447E0662668ADD400BB380B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0672668ADD400BB380B /* FLEXTableViewController.m */,
-				0447E0682668ADD400BB380B /* FLEXNavigationController.m */,
 				0447E0692668ADD400BB380B /* FLEXFilteringTableViewController.h */,
-				0447E06A2668ADD400BB380B /* FLEXNavigationController.h */,
-				0447E06B2668ADD400BB380B /* FLEXTableViewController.h */,
 				0447E06C2668ADD400BB380B /* FLEXFilteringTableViewController.m */,
+				0447E06A2668ADD400BB380B /* FLEXNavigationController.h */,
+				0447E0682668ADD400BB380B /* FLEXNavigationController.m */,
+				0447E06B2668ADD400BB380B /* FLEXTableViewController.h */,
+				0447E0672668ADD400BB380B /* FLEXTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1738,9 +1738,9 @@
 		0447E06D2668ADD400BB380B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0447E07A2668ADD400BB380B /* Carousel */,
 				0447E06E2668ADD400BB380B /* Cells */,
 				0447E0792668ADD400BB380B /* FLEXTableView.h */,
-				0447E07A2668ADD400BB380B /* Carousel */,
 				0447E07F2668ADD400BB380B /* FLEXTableView.m */,
 			);
 			path = Views;
@@ -1750,14 +1750,14 @@
 			isa = PBXGroup;
 			children = (
 				0447E06F2668ADD400BB380B /* FLEXCodeFontCell.h */,
-				0447E0702668ADD400BB380B /* FLEXKeyValueTableViewCell.m */,
-				0447E0712668ADD400BB380B /* FLEXSubtitleTableViewCell.h */,
-				0447E0722668ADD400BB380B /* FLEXTableViewCell.h */,
-				0447E0732668ADD400BB380B /* FLEXMultilineTableViewCell.h */,
-				0447E0742668ADD400BB380B /* FLEXKeyValueTableViewCell.h */,
 				0447E0752668ADD400BB380B /* FLEXCodeFontCell.m */,
-				0447E0762668ADD400BB380B /* FLEXSubtitleTableViewCell.m */,
+				0447E0742668ADD400BB380B /* FLEXKeyValueTableViewCell.h */,
+				0447E0702668ADD400BB380B /* FLEXKeyValueTableViewCell.m */,
+				0447E0732668ADD400BB380B /* FLEXMultilineTableViewCell.h */,
 				0447E0772668ADD400BB380B /* FLEXMultilineTableViewCell.m */,
+				0447E0712668ADD400BB380B /* FLEXSubtitleTableViewCell.h */,
+				0447E0762668ADD400BB380B /* FLEXSubtitleTableViewCell.m */,
+				0447E0722668ADD400BB380B /* FLEXTableViewCell.h */,
 				0447E0782668ADD400BB380B /* FLEXTableViewCell.m */,
 			);
 			path = Cells;
@@ -1767,9 +1767,9 @@
 			isa = PBXGroup;
 			children = (
 				0447E07B2668ADD400BB380B /* FLEXCarouselCell.h */,
-				0447E07C2668ADD400BB380B /* FLEXScopeCarousel.m */,
-				0447E07D2668ADD400BB380B /* FLEXScopeCarousel.h */,
 				0447E07E2668ADD400BB380B /* FLEXCarouselCell.m */,
+				0447E07D2668ADD400BB380B /* FLEXScopeCarousel.h */,
+				0447E07C2668ADD400BB380B /* FLEXScopeCarousel.m */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -1777,13 +1777,13 @@
 		0447E0822668ADD400BB380B /* ObjectExplorers */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0832668ADD400BB380B /* FLEXObjectExplorerFactory.m */,
 				0447E0842668ADD400BB380B /* Sections */,
-				0447E0AB2668ADD400BB380B /* FLEXObjectExplorerViewController.h */,
 				0447E0AC2668ADD400BB380B /* FLEXObjectExplorer.h */,
-				0447E0AD2668ADD400BB380B /* FLEXObjectExplorerFactory.h */,
-				0447E0AE2668ADD400BB380B /* FLEXObjectExplorerViewController.m */,
 				0447E0AF2668ADD400BB380B /* FLEXObjectExplorer.m */,
+				0447E0AD2668ADD400BB380B /* FLEXObjectExplorerFactory.h */,
+				0447E0832668ADD400BB380B /* FLEXObjectExplorerFactory.m */,
+				0447E0AB2668ADD400BB380B /* FLEXObjectExplorerViewController.h */,
+				0447E0AE2668ADD400BB380B /* FLEXObjectExplorerViewController.m */,
 			);
 			path = ObjectExplorers;
 			sourceTree = "<group>";
@@ -1791,18 +1791,18 @@
 		0447E0842668ADD400BB380B /* Sections */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0852668ADD400BB380B /* FLEXColorPreviewSection.h */,
+				0447E08D2668ADD400BB380B /* Shortcuts */,
 				0447E0862668ADD400BB380B /* FLEXCollectionContentSection.h */,
-				0447E0872668ADD400BB380B /* FLEXDefaultsContentSection.m */,
-				0447E0882668ADD400BB380B /* FLEXMutableListSection.m */,
-				0447E0892668ADD400BB380B /* FLEXMetadataSection.h */,
 				0447E08A2668ADD400BB380B /* FLEXCollectionContentSection.m */,
+				0447E0852668ADD400BB380B /* FLEXColorPreviewSection.h */,
 				0447E08B2668ADD400BB380B /* FLEXColorPreviewSection.m */,
 				0447E08C2668ADD400BB380B /* FLEXDefaultsContentSection.h */,
-				0447E08D2668ADD400BB380B /* Shortcuts */,
-				0447E0A82668ADD400BB380B /* FLEXMutableListSection.h */,
-				0447E0A92668ADD400BB380B /* FLEXObjectInfoSection.h */,
+				0447E0872668ADD400BB380B /* FLEXDefaultsContentSection.m */,
+				0447E0892668ADD400BB380B /* FLEXMetadataSection.h */,
 				0447E0AA2668ADD400BB380B /* FLEXMetadataSection.m */,
+				0447E0A82668ADD400BB380B /* FLEXMutableListSection.h */,
+				0447E0882668ADD400BB380B /* FLEXMutableListSection.m */,
+				0447E0A92668ADD400BB380B /* FLEXObjectInfoSection.h */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -1810,32 +1810,32 @@
 		0447E08D2668ADD400BB380B /* Shortcuts */ = {
 			isa = PBXGroup;
 			children = (
-				0447E08E2668ADD400BB380B /* FLEXBundleShortcuts.h */,
-				0447E08F2668ADD400BB380B /* FLEXShortcutsSection.m */,
-				0447E0902668ADD400BB380B /* FLEXViewShortcuts.h */,
-				0447E0912668ADD400BB380B /* FLEXNSStringShortcuts.h */,
+				0447E09F2668ADD400BB380B /* FLEXBlockShortcuts.h */,
 				0447E0922668ADD400BB380B /* FLEXBlockShortcuts.m */,
-				0447E0932668ADD400BB380B /* FLEXClassShortcuts.m */,
-				0447E0942668ADD400BB380B /* FLEXShortcutsFactory+Defaults.h */,
-				0447E0952668ADD400BB380B /* FLEXUIAppShortcuts.h */,
-				0447E0962668ADD400BB380B /* FLEXLayerShortcuts.h */,
-				0447E0972668ADD400BB380B /* FLEXImageShortcuts.m */,
-				0447E0982668ADD400BB380B /* FLEXNSDataShortcuts.h */,
-				0447E0992668ADD400BB380B /* FLEXViewControllerShortcuts.h */,
-				0447E09A2668ADD400BB380B /* FLEXShortcut.h */,
-				0447E09B2668ADD400BB380B /* FLEXViewShortcuts.m */,
-				0447E09C2668ADD400BB380B /* FLEXShortcutsSection.h */,
+				0447E08E2668ADD400BB380B /* FLEXBundleShortcuts.h */,
 				0447E09D2668ADD400BB380B /* FLEXBundleShortcuts.m */,
 				0447E09E2668ADD400BB380B /* FLEXClassShortcuts.h */,
-				0447E09F2668ADD400BB380B /* FLEXBlockShortcuts.h */,
-				0447E0A02668ADD400BB380B /* FLEXNSStringShortcuts.m */,
+				0447E0932668ADD400BB380B /* FLEXClassShortcuts.m */,
 				0447E0A12668ADD400BB380B /* FLEXImageShortcuts.h */,
+				0447E0972668ADD400BB380B /* FLEXImageShortcuts.m */,
+				0447E0962668ADD400BB380B /* FLEXLayerShortcuts.h */,
 				0447E0A22668ADD400BB380B /* FLEXLayerShortcuts.m */,
-				0447E0A32668ADD400BB380B /* FLEXUIAppShortcuts.m */,
-				0447E0A42668ADD400BB380B /* FLEXShortcutsFactory+Defaults.m */,
-				0447E0A52668ADD400BB380B /* FLEXShortcut.m */,
-				0447E0A62668ADD400BB380B /* FLEXViewControllerShortcuts.m */,
+				0447E0982668ADD400BB380B /* FLEXNSDataShortcuts.h */,
 				0447E0A72668ADD400BB380B /* FLEXNSDataShortcuts.m */,
+				0447E0912668ADD400BB380B /* FLEXNSStringShortcuts.h */,
+				0447E0A02668ADD400BB380B /* FLEXNSStringShortcuts.m */,
+				0447E09A2668ADD400BB380B /* FLEXShortcut.h */,
+				0447E0A52668ADD400BB380B /* FLEXShortcut.m */,
+				0447E0942668ADD400BB380B /* FLEXShortcutsFactory+Defaults.h */,
+				0447E0A42668ADD400BB380B /* FLEXShortcutsFactory+Defaults.m */,
+				0447E09C2668ADD400BB380B /* FLEXShortcutsSection.h */,
+				0447E08F2668ADD400BB380B /* FLEXShortcutsSection.m */,
+				0447E0952668ADD400BB380B /* FLEXUIAppShortcuts.h */,
+				0447E0A32668ADD400BB380B /* FLEXUIAppShortcuts.m */,
+				0447E0992668ADD400BB380B /* FLEXViewControllerShortcuts.h */,
+				0447E0A62668ADD400BB380B /* FLEXViewControllerShortcuts.m */,
+				0447E0902668ADD400BB380B /* FLEXViewShortcuts.h */,
+				0447E09B2668ADD400BB380B /* FLEXViewShortcuts.m */,
 			);
 			path = Shortcuts;
 			sourceTree = "<group>";
@@ -1843,21 +1843,21 @@
 		0447E0B02668ADD400BB380B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0447E0BD2668ADD400BB380B /* PonyDebugger */,
 				0447E0B12668ADD400BB380B /* FLEXNetworkCurlLogger.h */,
-				0447E0B22668ADD400BB380B /* FLEXNetworkTransaction.m */,
-				0447E0B32668ADD400BB380B /* FLEXNetworkSettingsController.m */,
-				0447E0B42668ADD400BB380B /* FLEXNetworkRecorder.m */,
-				0447E0B52668ADD400BB380B /* FLEXNetworkMITMViewController.m */,
-				0447E0B62668ADD400BB380B /* FLEXNetworkTransactionDetailController.m */,
-				0447E0B72668ADD400BB380B /* FLEXNetworkTransactionCell.m */,
-				0447E0B82668ADD400BB380B /* FLEXNetworkTransaction.h */,
 				0447E0B92668ADD400BB380B /* FLEXNetworkCurlLogger.m */,
 				0447E0BA2668ADD400BB380B /* FLEXNetworkMITMViewController.h */,
+				0447E0B52668ADD400BB380B /* FLEXNetworkMITMViewController.m */,
 				0447E0BB2668ADD400BB380B /* FLEXNetworkRecorder.h */,
+				0447E0B42668ADD400BB380B /* FLEXNetworkRecorder.m */,
 				0447E0BC2668ADD400BB380B /* FLEXNetworkSettingsController.h */,
-				0447E0BD2668ADD400BB380B /* PonyDebugger */,
-				0447E0C02668ADD400BB380B /* FLEXNetworkTransactionDetailController.h */,
+				0447E0B32668ADD400BB380B /* FLEXNetworkSettingsController.m */,
+				0447E0B82668ADD400BB380B /* FLEXNetworkTransaction.h */,
+				0447E0B22668ADD400BB380B /* FLEXNetworkTransaction.m */,
 				0447E0C12668ADD400BB380B /* FLEXNetworkTransactionCell.h */,
+				0447E0B72668ADD400BB380B /* FLEXNetworkTransactionCell.m */,
+				0447E0C02668ADD400BB380B /* FLEXNetworkTransactionDetailController.h */,
+				0447E0B62668ADD400BB380B /* FLEXNetworkTransactionDetailController.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1874,10 +1874,10 @@
 		0447E0C22668ADD400BB380B /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0C32668ADD400BB380B /* FLEXExplorerToolbarItem.h */,
 				0447E0C42668ADD400BB380B /* FLEXExplorerToolbar.h */,
-				0447E0C52668ADD400BB380B /* FLEXExplorerToolbarItem.m */,
 				0447E0C62668ADD400BB380B /* FLEXExplorerToolbar.m */,
+				0447E0C32668ADD400BB380B /* FLEXExplorerToolbarItem.h */,
+				0447E0C52668ADD400BB380B /* FLEXExplorerToolbarItem.m */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -1885,13 +1885,13 @@
 		0447E0CA2668ADD400BB380B /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				0447E0CF2668ADD400BB380B /* Private */,
 				0447E0CB2668ADD400BB380B /* FLEXManager.h */,
+				0447E0CE2668ADD400BB380B /* FLEXManager.m */,
+				0447E0D22668ADD400BB380B /* FLEXManager+Extensibility.h */,
 				0447E0CC2668ADD400BB380B /* FLEXManager+Extensibility.m */,
 				0447E0CD2668ADD400BB380B /* FLEXManager+Networking.h */,
-				0447E0CE2668ADD400BB380B /* FLEXManager.m */,
-				0447E0CF2668ADD400BB380B /* Private */,
 				0447E0D12668ADD400BB380B /* FLEXManager+Networking.m */,
-				0447E0D22668ADD400BB380B /* FLEXManager+Extensibility.h */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1907,19 +1907,19 @@
 		0447E0D32668ADD400BB380B /* Editing */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0D42668ADD400BB380B /* FLEXDefaultEditorViewController.m */,
-				0447E0D52668ADD400BB380B /* FLEXVariableEditorViewController.h */,
-				0447E0D62668ADD400BB380B /* FLEXFieldEditorViewController.h */,
-				0447E0D72668ADD400BB380B /* FLEXFieldEditorView.h */,
-				0447E0D82668ADD400BB380B /* FLEXMethodCallingViewController.m */,
-				0447E0D92668ADD400BB380B /* FLEXArgumentInputViewFactory.h */,
-				0447E0DA2668ADD400BB380B /* FLEXFieldEditorViewController.m */,
-				0447E0DB2668ADD400BB380B /* FLEXVariableEditorViewController.m */,
-				0447E0DC2668ADD400BB380B /* FLEXDefaultEditorViewController.h */,
 				0447E0DD2668ADD400BB380B /* ArgumentInputViews */,
+				0447E0D92668ADD400BB380B /* FLEXArgumentInputViewFactory.h */,
 				0447E0F62668ADD400BB380B /* FLEXArgumentInputViewFactory.m */,
-				0447E0F72668ADD400BB380B /* FLEXMethodCallingViewController.h */,
+				0447E0DC2668ADD400BB380B /* FLEXDefaultEditorViewController.h */,
+				0447E0D42668ADD400BB380B /* FLEXDefaultEditorViewController.m */,
+				0447E0D72668ADD400BB380B /* FLEXFieldEditorView.h */,
 				0447E0F82668ADD400BB380B /* FLEXFieldEditorView.m */,
+				0447E0D62668ADD400BB380B /* FLEXFieldEditorViewController.h */,
+				0447E0DA2668ADD400BB380B /* FLEXFieldEditorViewController.m */,
+				0447E0F72668ADD400BB380B /* FLEXMethodCallingViewController.h */,
+				0447E0D82668ADD400BB380B /* FLEXMethodCallingViewController.m */,
+				0447E0D52668ADD400BB380B /* FLEXVariableEditorViewController.h */,
+				0447E0DB2668ADD400BB380B /* FLEXVariableEditorViewController.m */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -1927,30 +1927,30 @@
 		0447E0DD2668ADD400BB380B /* ArgumentInputViews */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0DE2668ADD400BB380B /* FLEXArgumentInputStringView.m */,
-				0447E0DF2668ADD400BB380B /* FLEXArgumentInputColorView.m */,
-				0447E0E02668ADD400BB380B /* FLEXArgumentInputView.m */,
-				0447E0E12668ADD400BB380B /* FLEXArgumentInputFontView.h */,
-				0447E0E22668ADD400BB380B /* FLEXArgumentInputTextView.h */,
-				0447E0E32668ADD400BB380B /* FLEXArgumentInputSwitchView.m */,
-				0447E0E42668ADD400BB380B /* FLEXArgumentInputStructView.m */,
-				0447E0E52668ADD400BB380B /* FLEXArgumentInputDateView.m */,
-				0447E0E62668ADD400BB380B /* FLEXArgumentInputNumberView.h */,
-				0447E0E72668ADD400BB380B /* FLEXArgumentInputFontsPickerView.h */,
-				0447E0E82668ADD400BB380B /* FLEXArgumentInputNotSupportedView.h */,
-				0447E0E92668ADD400BB380B /* FLEXArgumentInputObjectView.m */,
-				0447E0EA2668ADD400BB380B /* FLEXArgumentInputFontView.m */,
-				0447E0EB2668ADD400BB380B /* FLEXArgumentInputView.h */,
 				0447E0EC2668ADD400BB380B /* FLEXArgumentInputColorView.h */,
-				0447E0ED2668ADD400BB380B /* FLEXArgumentInputStringView.h */,
-				0447E0EE2668ADD400BB380B /* FLEXArgumentInputSwitchView.h */,
-				0447E0EF2668ADD400BB380B /* FLEXArgumentInputTextView.m */,
-				0447E0F02668ADD400BB380B /* FLEXArgumentInputFontsPickerView.m */,
-				0447E0F12668ADD400BB380B /* FLEXArgumentInputNumberView.m */,
+				0447E0DF2668ADD400BB380B /* FLEXArgumentInputColorView.m */,
 				0447E0F22668ADD400BB380B /* FLEXArgumentInputDateView.h */,
-				0447E0F32668ADD400BB380B /* FLEXArgumentInputStructView.h */,
-				0447E0F42668ADD400BB380B /* FLEXArgumentInputObjectView.h */,
+				0447E0E52668ADD400BB380B /* FLEXArgumentInputDateView.m */,
+				0447E0E72668ADD400BB380B /* FLEXArgumentInputFontsPickerView.h */,
+				0447E0F02668ADD400BB380B /* FLEXArgumentInputFontsPickerView.m */,
+				0447E0E12668ADD400BB380B /* FLEXArgumentInputFontView.h */,
+				0447E0EA2668ADD400BB380B /* FLEXArgumentInputFontView.m */,
+				0447E0E82668ADD400BB380B /* FLEXArgumentInputNotSupportedView.h */,
 				0447E0F52668ADD400BB380B /* FLEXArgumentInputNotSupportedView.m */,
+				0447E0E62668ADD400BB380B /* FLEXArgumentInputNumberView.h */,
+				0447E0F12668ADD400BB380B /* FLEXArgumentInputNumberView.m */,
+				0447E0F42668ADD400BB380B /* FLEXArgumentInputObjectView.h */,
+				0447E0E92668ADD400BB380B /* FLEXArgumentInputObjectView.m */,
+				0447E0ED2668ADD400BB380B /* FLEXArgumentInputStringView.h */,
+				0447E0DE2668ADD400BB380B /* FLEXArgumentInputStringView.m */,
+				0447E0F32668ADD400BB380B /* FLEXArgumentInputStructView.h */,
+				0447E0E42668ADD400BB380B /* FLEXArgumentInputStructView.m */,
+				0447E0EE2668ADD400BB380B /* FLEXArgumentInputSwitchView.h */,
+				0447E0E32668ADD400BB380B /* FLEXArgumentInputSwitchView.m */,
+				0447E0E22668ADD400BB380B /* FLEXArgumentInputTextView.h */,
+				0447E0EF2668ADD400BB380B /* FLEXArgumentInputTextView.m */,
+				0447E0EB2668ADD400BB380B /* FLEXArgumentInputView.h */,
+				0447E0E02668ADD400BB380B /* FLEXArgumentInputView.m */,
 			);
 			path = ArgumentInputViews;
 			sourceTree = "<group>";
@@ -1958,16 +1958,16 @@
 		0447E0F92668ADD400BB380B /* ExplorerInterface */ = {
 			isa = PBXGroup;
 			children = (
-				0447E0FA2668ADD400BB380B /* Tabs */,
-				0447E0FF2668ADD400BB380B /* FLEXExplorerViewController.m */,
-				0447E1002668ADD400BB380B /* FLEXWindow.m */,
-				0447E1012668ADD400BB380B /* FLEXViewControllersViewController.h */,
-				0447E1022668ADD400BB380B /* FLEXWindowManagerController.m */,
 				0447E1032668ADD400BB380B /* Bookmarks */,
+				0447E0FA2668ADD400BB380B /* Tabs */,
 				0447E1082668ADD400BB380B /* FLEXExplorerViewController.h */,
-				0447E1092668ADD400BB380B /* FLEXWindow.h */,
-				0447E10A2668ADD400BB380B /* FLEXWindowManagerController.h */,
+				0447E0FF2668ADD400BB380B /* FLEXExplorerViewController.m */,
+				0447E1012668ADD400BB380B /* FLEXViewControllersViewController.h */,
 				0447E10B2668ADD400BB380B /* FLEXViewControllersViewController.m */,
+				0447E1092668ADD400BB380B /* FLEXWindow.h */,
+				0447E1002668ADD400BB380B /* FLEXWindow.m */,
+				0447E10A2668ADD400BB380B /* FLEXWindowManagerController.h */,
+				0447E1022668ADD400BB380B /* FLEXWindowManagerController.m */,
 			);
 			path = ExplorerInterface;
 			sourceTree = "<group>";
@@ -1976,9 +1976,9 @@
 			isa = PBXGroup;
 			children = (
 				0447E0FB2668ADD400BB380B /* FLEXTabList.h */,
-				0447E0FC2668ADD400BB380B /* FLEXTabsViewController.m */,
 				0447E0FD2668ADD400BB380B /* FLEXTabList.m */,
 				0447E0FE2668ADD400BB380B /* FLEXTabsViewController.h */,
+				0447E0FC2668ADD400BB380B /* FLEXTabsViewController.m */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -1987,8 +1987,8 @@
 			isa = PBXGroup;
 			children = (
 				0447E1042668ADD400BB380B /* FLEXBookmarkManager.h */,
-				0447E1052668ADD400BB380B /* FLEXBookmarksViewController.h */,
 				0447E1062668ADD400BB380B /* FLEXBookmarkManager.m */,
+				0447E1052668ADD400BB380B /* FLEXBookmarksViewController.h */,
 				0447E1072668ADD400BB380B /* FLEXBookmarksViewController.m */,
 			);
 			path = Bookmarks;
@@ -1997,24 +1997,24 @@
 		0447E10C2668ADD500BB380B /* GlobalStateExplorers */ = {
 			isa = PBXGroup;
 			children = (
-				0447E10D2668ADD500BB380B /* Globals */,
-				0447E1142668ADD500BB380B /* FLEXObjectListViewController.h */,
-				0447E1152668ADD500BB380B /* FLEXLiveObjectsController.m */,
-				0447E1162668ADD500BB380B /* FLEXObjectRef.m */,
-				0447E1172668ADD500BB380B /* FLEXWebViewController.m */,
-				0447E1182668ADD500BB380B /* FLEXAddressExplorerCoordinator.h */,
-				0447E1192668ADD500BB380B /* FLEXCookiesViewController.h */,
-				0447E11A2668ADD500BB380B /* FLEXLiveObjectsController.h */,
-				0447E11B2668ADD500BB380B /* FLEXObjectListViewController.m */,
-				0447E11C2668ADD500BB380B /* Keychain */,
-				0447E1232668ADD500BB380B /* FLEXObjectRef.h */,
-				0447E1242668ADD500BB380B /* FileBrowser */,
-				0447E1292668ADD500BB380B /* SystemLog */,
-				0447E1362668ADD500BB380B /* FLEXAddressExplorerCoordinator.m */,
 				0447E1372668ADD500BB380B /* DatabaseBrowser */,
-				0447E14C2668ADD500BB380B /* FLEXWebViewController.h */,
-				0447E14D2668ADD500BB380B /* FLEXCookiesViewController.m */,
+				0447E1242668ADD500BB380B /* FileBrowser */,
+				0447E10D2668ADD500BB380B /* Globals */,
+				0447E11C2668ADD500BB380B /* Keychain */,
 				0447E14E2668ADD500BB380B /* RuntimeBrowser */,
+				0447E1292668ADD500BB380B /* SystemLog */,
+				0447E1182668ADD500BB380B /* FLEXAddressExplorerCoordinator.h */,
+				0447E1362668ADD500BB380B /* FLEXAddressExplorerCoordinator.m */,
+				0447E1192668ADD500BB380B /* FLEXCookiesViewController.h */,
+				0447E14D2668ADD500BB380B /* FLEXCookiesViewController.m */,
+				0447E11A2668ADD500BB380B /* FLEXLiveObjectsController.h */,
+				0447E1152668ADD500BB380B /* FLEXLiveObjectsController.m */,
+				0447E1142668ADD500BB380B /* FLEXObjectListViewController.h */,
+				0447E11B2668ADD500BB380B /* FLEXObjectListViewController.m */,
+				0447E1232668ADD500BB380B /* FLEXObjectRef.h */,
+				0447E1162668ADD500BB380B /* FLEXObjectRef.m */,
+				0447E14C2668ADD500BB380B /* FLEXWebViewController.h */,
+				0447E1172668ADD500BB380B /* FLEXWebViewController.m */,
 			);
 			path = GlobalStateExplorers;
 			sourceTree = "<group>";
@@ -2022,12 +2022,12 @@
 		0447E10D2668ADD500BB380B /* Globals */ = {
 			isa = PBXGroup;
 			children = (
-				0447E10E2668ADD500BB380B /* FLEXGlobalsEntry.m */,
-				0447E10F2668ADD500BB380B /* FLEXGlobalsViewController.h */,
-				0447E1102668ADD500BB380B /* FLEXGlobalsSection.m */,
 				0447E1112668ADD500BB380B /* FLEXGlobalsEntry.h */,
-				0447E1122668ADD500BB380B /* FLEXGlobalsViewController.m */,
+				0447E10E2668ADD500BB380B /* FLEXGlobalsEntry.m */,
 				0447E1132668ADD500BB380B /* FLEXGlobalsSection.h */,
+				0447E1102668ADD500BB380B /* FLEXGlobalsSection.m */,
+				0447E10F2668ADD500BB380B /* FLEXGlobalsViewController.h */,
+				0447E1122668ADD500BB380B /* FLEXGlobalsViewController.m */,
 			);
 			path = Globals;
 			sourceTree = "<group>";
@@ -2036,11 +2036,11 @@
 			isa = PBXGroup;
 			children = (
 				0447E11D2668ADD500BB380B /* FLEXKeychain.h */,
-				0447E11E2668ADD500BB380B /* FLEXKeychainViewController.m */,
-				0447E11F2668ADD500BB380B /* FLEXKeychainQuery.h */,
 				0447E1202668ADD500BB380B /* FLEXKeychain.m */,
-				0447E1212668ADD500BB380B /* FLEXKeychainViewController.h */,
+				0447E11F2668ADD500BB380B /* FLEXKeychainQuery.h */,
 				0447E1222668ADD500BB380B /* FLEXKeychainQuery.m */,
+				0447E1212668ADD500BB380B /* FLEXKeychainViewController.h */,
+				0447E11E2668ADD500BB380B /* FLEXKeychainViewController.m */,
 			);
 			path = Keychain;
 			sourceTree = "<group>";
@@ -2048,10 +2048,10 @@
 		0447E1242668ADD500BB380B /* FileBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1252668ADD500BB380B /* FLEXFileBrowserSearchOperation.m */,
+				0447E1282668ADD500BB380B /* FLEXFileBrowserController.h */,
 				0447E1262668ADD500BB380B /* FLEXFileBrowserController.m */,
 				0447E1272668ADD500BB380B /* FLEXFileBrowserSearchOperation.h */,
-				0447E1282668ADD500BB380B /* FLEXFileBrowserController.h */,
+				0447E1252668ADD500BB380B /* FLEXFileBrowserSearchOperation.m */,
 			);
 			path = FileBrowser;
 			sourceTree = "<group>";
@@ -2059,18 +2059,18 @@
 		0447E1292668ADD500BB380B /* SystemLog */ = {
 			isa = PBXGroup;
 			children = (
-				0447E12A2668ADD500BB380B /* FLEXASLLogController.h */,
-				0447E12B2668ADD500BB380B /* FLEXLogController.h */,
-				0447E12C2668ADD500BB380B /* FLEXSystemLogCell.m */,
-				0447E12D2668ADD500BB380B /* FLEXOSLogController.h */,
-				0447E12E2668ADD500BB380B /* FLEXSystemLogViewController.m */,
-				0447E12F2668ADD500BB380B /* FLEXSystemLogMessage.m */,
-				0447E1302668ADD500BB380B /* FLEXASLLogController.m */,
-				0447E1312668ADD500BB380B /* FLEXSystemLogCell.h */,
-				0447E1322668ADD500BB380B /* FLEXSystemLogViewController.h */,
-				0447E1332668ADD500BB380B /* FLEXOSLogController.m */,
 				0447E1342668ADD500BB380B /* ActivityStreamAPI.h */,
+				0447E12A2668ADD500BB380B /* FLEXASLLogController.h */,
+				0447E1302668ADD500BB380B /* FLEXASLLogController.m */,
+				0447E12B2668ADD500BB380B /* FLEXLogController.h */,
+				0447E12D2668ADD500BB380B /* FLEXOSLogController.h */,
+				0447E1332668ADD500BB380B /* FLEXOSLogController.m */,
+				0447E1312668ADD500BB380B /* FLEXSystemLogCell.h */,
+				0447E12C2668ADD500BB380B /* FLEXSystemLogCell.m */,
 				0447E1352668ADD500BB380B /* FLEXSystemLogMessage.h */,
+				0447E12F2668ADD500BB380B /* FLEXSystemLogMessage.m */,
+				0447E1322668ADD500BB380B /* FLEXSystemLogViewController.h */,
+				0447E12E2668ADD500BB380B /* FLEXSystemLogViewController.m */,
 			);
 			path = SystemLog;
 			sourceTree = "<group>";
@@ -2078,26 +2078,26 @@
 		0447E1372668ADD500BB380B /* DatabaseBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1382668ADD500BB380B /* FLEXRealmDefines.h */,
-				0447E1392668ADD500BB380B /* FLEXTableLeftCell.m */,
-				0447E13A2668ADD500BB380B /* FLEXRealmDatabaseManager.h */,
-				0447E13B2668ADD500BB380B /* FLEXSQLResult.m */,
-				0447E13C2668ADD500BB380B /* FLEXTableContentViewController.m */,
-				0447E13D2668ADD500BB380B /* FLEXDBQueryRowCell.h */,
-				0447E13E2668ADD500BB380B /* FLEXTableListViewController.m */,
-				0447E13F2668ADD500BB380B /* FLEXTableColumnHeader.m */,
-				0447E1402668ADD500BB380B /* FLEXMultiColumnTableView.m */,
-				0447E1412668ADD500BB380B /* FLEXSQLiteDatabaseManager.h */,
-				0447E1422668ADD500BB380B /* FLEXTableLeftCell.h */,
 				0447E1432668ADD500BB380B /* FLEXDatabaseManager.h */,
-				0447E1442668ADD500BB380B /* FLEXSQLResult.h */,
-				0447E1452668ADD500BB380B /* FLEXRealmDatabaseManager.m */,
+				0447E13D2668ADD500BB380B /* FLEXDBQueryRowCell.h */,
 				0447E1462668ADD500BB380B /* FLEXDBQueryRowCell.m */,
-				0447E1472668ADD500BB380B /* FLEXTableContentViewController.h */,
-				0447E1482668ADD500BB380B /* FLEXSQLiteDatabaseManager.m */,
 				0447E1492668ADD500BB380B /* FLEXMultiColumnTableView.h */,
+				0447E1402668ADD500BB380B /* FLEXMultiColumnTableView.m */,
+				0447E13A2668ADD500BB380B /* FLEXRealmDatabaseManager.h */,
+				0447E1452668ADD500BB380B /* FLEXRealmDatabaseManager.m */,
+				0447E1382668ADD500BB380B /* FLEXRealmDefines.h */,
+				0447E1412668ADD500BB380B /* FLEXSQLiteDatabaseManager.h */,
+				0447E1482668ADD500BB380B /* FLEXSQLiteDatabaseManager.m */,
+				0447E1442668ADD500BB380B /* FLEXSQLResult.h */,
+				0447E13B2668ADD500BB380B /* FLEXSQLResult.m */,
 				0447E14A2668ADD500BB380B /* FLEXTableColumnHeader.h */,
+				0447E13F2668ADD500BB380B /* FLEXTableColumnHeader.m */,
+				0447E1472668ADD500BB380B /* FLEXTableContentViewController.h */,
+				0447E13C2668ADD500BB380B /* FLEXTableContentViewController.m */,
+				0447E1422668ADD500BB380B /* FLEXTableLeftCell.h */,
+				0447E1392668ADD500BB380B /* FLEXTableLeftCell.m */,
 				0447E14B2668ADD500BB380B /* FLEXTableListViewController.h */,
+				0447E13E2668ADD500BB380B /* FLEXTableListViewController.m */,
 			);
 			path = DatabaseBrowser;
 			sourceTree = "<group>";
@@ -2107,21 +2107,21 @@
 			children = (
 				0447E14F2668ADD500BB380B /* DataSources */,
 				0447E1562668ADD500BB380B /* FLEXKBToolbarButton.h */,
-				0447E1572668ADD500BB380B /* FLEXRuntimeKeyPathTokenizer.h */,
-				0447E1582668ADD500BB380B /* FLEXObjcRuntimeViewController.h */,
-				0447E1592668ADD500BB380B /* FLEXKeyboardToolbar.h */,
-				0447E15A2668ADD500BB380B /* FLEXRuntimeKeyPath.m */,
-				0447E15B2668ADD500BB380B /* FLEXRuntimeBrowserToolbar.m */,
-				0447E15C2668ADD500BB380B /* FLEXKeyPathSearchController.h */,
-				0447E15D2668ADD500BB380B /* FLEXSearchToken.m */,
 				0447E15E2668ADD500BB380B /* FLEXKBToolbarButton.m */,
+				0447E1592668ADD500BB380B /* FLEXKeyboardToolbar.h */,
 				0447E15F2668ADD500BB380B /* FLEXKeyboardToolbar.m */,
-				0447E1602668ADD500BB380B /* FLEXObjcRuntimeViewController.m */,
-				0447E1612668ADD500BB380B /* FLEXRuntimeKeyPathTokenizer.m */,
-				0447E1622668ADD500BB380B /* FLEXRuntimeBrowserToolbar.h */,
-				0447E1632668ADD500BB380B /* FLEXRuntimeKeyPath.h */,
-				0447E1642668ADD500BB380B /* FLEXSearchToken.h */,
+				0447E15C2668ADD500BB380B /* FLEXKeyPathSearchController.h */,
 				0447E1652668ADD500BB380B /* FLEXKeyPathSearchController.m */,
+				0447E1582668ADD500BB380B /* FLEXObjcRuntimeViewController.h */,
+				0447E1602668ADD500BB380B /* FLEXObjcRuntimeViewController.m */,
+				0447E1622668ADD500BB380B /* FLEXRuntimeBrowserToolbar.h */,
+				0447E15B2668ADD500BB380B /* FLEXRuntimeBrowserToolbar.m */,
+				0447E1632668ADD500BB380B /* FLEXRuntimeKeyPath.h */,
+				0447E15A2668ADD500BB380B /* FLEXRuntimeKeyPath.m */,
+				0447E1572668ADD500BB380B /* FLEXRuntimeKeyPathTokenizer.h */,
+				0447E1612668ADD500BB380B /* FLEXRuntimeKeyPathTokenizer.m */,
+				0447E1642668ADD500BB380B /* FLEXSearchToken.h */,
+				0447E15D2668ADD500BB380B /* FLEXSearchToken.m */,
 			);
 			path = RuntimeBrowser;
 			sourceTree = "<group>";
@@ -2129,11 +2129,11 @@
 		0447E14F2668ADD500BB380B /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1502668ADD500BB380B /* FLEXRuntimeController.h */,
-				0447E1512668ADD500BB380B /* FLEXRuntimeClient.m */,
-				0447E1522668ADD500BB380B /* FLEXRuntimeExporter.h */,
 				0447E1532668ADD500BB380B /* FLEXRuntimeClient.h */,
+				0447E1512668ADD500BB380B /* FLEXRuntimeClient.m */,
+				0447E1502668ADD500BB380B /* FLEXRuntimeController.h */,
 				0447E1542668ADD500BB380B /* FLEXRuntimeController.m */,
+				0447E1522668ADD500BB380B /* FLEXRuntimeExporter.h */,
 				0447E1552668ADD500BB380B /* FLEXRuntimeExporter.m */,
 			);
 			path = DataSources;
@@ -2142,12 +2142,12 @@
 		0447E1662668ADD500BB380B /* ViewHierarchy */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1672668ADD500BB380B /* FLEXImagePreviewViewController.m */,
 				0447E1682668ADD500BB380B /* SnapshotExplorer */,
-				0447E1782668ADD500BB380B /* FLEXHierarchyViewController.h */,
 				0447E1792668ADD500BB380B /* TreeExplorer */,
-				0447E17E2668ADD500BB380B /* FLEXImagePreviewViewController.h */,
+				0447E1782668ADD500BB380B /* FLEXHierarchyViewController.h */,
 				0447E17F2668ADD500BB380B /* FLEXHierarchyViewController.m */,
+				0447E17E2668ADD500BB380B /* FLEXImagePreviewViewController.h */,
+				0447E1672668ADD500BB380B /* FLEXImagePreviewViewController.m */,
 			);
 			path = ViewHierarchy;
 			sourceTree = "<group>";
@@ -2155,17 +2155,17 @@
 		0447E1682668ADD500BB380B /* SnapshotExplorer */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1692668ADD500BB380B /* FHSViewSnapshot.m */,
-				0447E16A2668ADD500BB380B /* FHSView.h */,
-				0447E16B2668ADD500BB380B /* FHSViewController.h */,
+				0447E1712668ADD500BB380B /* Scene */,
+				0447E1772668ADD500BB380B /* FHSRangeSlider.h */,
 				0447E16C2668ADD500BB380B /* FHSRangeSlider.m */,
 				0447E16D2668ADD500BB380B /* FHSSnapshotView.h */,
-				0447E16E2668ADD500BB380B /* FHSView.m */,
-				0447E16F2668ADD500BB380B /* FHSViewSnapshot.h */,
-				0447E1702668ADD500BB380B /* FHSViewController.m */,
-				0447E1712668ADD500BB380B /* Scene */,
 				0447E1762668ADD500BB380B /* FHSSnapshotView.m */,
-				0447E1772668ADD500BB380B /* FHSRangeSlider.h */,
+				0447E16A2668ADD500BB380B /* FHSView.h */,
+				0447E16E2668ADD500BB380B /* FHSView.m */,
+				0447E16B2668ADD500BB380B /* FHSViewController.h */,
+				0447E1702668ADD500BB380B /* FHSViewController.m */,
+				0447E16F2668ADD500BB380B /* FHSViewSnapshot.h */,
+				0447E1692668ADD500BB380B /* FHSViewSnapshot.m */,
 			);
 			path = SnapshotExplorer;
 			sourceTree = "<group>";
@@ -2173,10 +2173,10 @@
 		0447E1712668ADD500BB380B /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1722668ADD500BB380B /* SceneKit+Snapshot.m */,
+				0447E1752668ADD500BB380B /* FHSSnapshotNodes.h */,
 				0447E1732668ADD500BB380B /* FHSSnapshotNodes.m */,
 				0447E1742668ADD500BB380B /* SceneKit+Snapshot.h */,
-				0447E1752668ADD500BB380B /* FHSSnapshotNodes.h */,
+				0447E1722668ADD500BB380B /* SceneKit+Snapshot.m */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -2184,9 +2184,9 @@
 		0447E1792668ADD500BB380B /* TreeExplorer */ = {
 			isa = PBXGroup;
 			children = (
+				0447E17C2668ADD500BB380B /* FLEXHierarchyTableViewCell.h */,
 				0447E17A2668ADD500BB380B /* FLEXHierarchyTableViewCell.m */,
 				0447E17B2668ADD500BB380B /* FLEXHierarchyTableViewController.h */,
-				0447E17C2668ADD500BB380B /* FLEXHierarchyTableViewCell.h */,
 				0447E17D2668ADD500BB380B /* FLEXHierarchyTableViewController.m */,
 			);
 			path = TreeExplorer;
@@ -2195,20 +2195,20 @@
 		0447E1802668ADD500BB380B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1812668ADD500BB380B /* FLEXUtility.m */,
-				0447E1822668ADD500BB380B /* FLEXMacros.h */,
-				0447E1832668ADD500BB380B /* FLEXHeapEnumerator.m */,
-				0447E1842668ADD500BB380B /* FLEXResources.h */,
+				0447E1AE2668ADD500BB380B /* Categories */,
+				0447E1D72668ADD500BB380B /* Keyboard */,
 				0447E1852668ADD500BB380B /* Runtime */,
+				0447E1D62668ADD500BB380B /* FLEXAlert.h */,
 				0447E1A82668ADD500BB380B /* FLEXAlert.m */,
 				0447E1A92668ADD500BB380B /* FLEXColor.h */,
-				0447E1AA2668ADD500BB380B /* FLEXHeapEnumerator.h */,
-				0447E1AB2668ADD500BB380B /* FLEXUtility.h */,
-				0447E1AC2668ADD500BB380B /* FLEXResources.m */,
 				0447E1AD2668ADD500BB380B /* FLEXColor.m */,
-				0447E1AE2668ADD500BB380B /* Categories */,
-				0447E1D62668ADD500BB380B /* FLEXAlert.h */,
-				0447E1D72668ADD500BB380B /* Keyboard */,
+				0447E1AA2668ADD500BB380B /* FLEXHeapEnumerator.h */,
+				0447E1832668ADD500BB380B /* FLEXHeapEnumerator.m */,
+				0447E1822668ADD500BB380B /* FLEXMacros.h */,
+				0447E1842668ADD500BB380B /* FLEXResources.h */,
+				0447E1AC2668ADD500BB380B /* FLEXResources.m */,
+				0447E1AB2668ADD500BB380B /* FLEXUtility.h */,
+				0447E1812668ADD500BB380B /* FLEXUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -2216,11 +2216,11 @@
 		0447E1852668ADD500BB380B /* Runtime */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1862668ADD500BB380B /* flex_fishhook.c */,
-				0447E1872668ADD500BB380B /* FLEXRuntimeUtility.m */,
-				0447E1882668ADD500BB380B /* FLEXRuntimeUtility.h */,
-				0447E1892668ADD500BB380B /* flex_fishhook.h */,
 				0447E18A2668ADD500BB380B /* Objc */,
+				0447E1862668ADD500BB380B /* flex_fishhook.c */,
+				0447E1892668ADD500BB380B /* flex_fishhook.h */,
+				0447E1882668ADD500BB380B /* FLEXRuntimeUtility.h */,
+				0447E1872668ADD500BB380B /* FLEXRuntimeUtility.m */,
 			);
 			path = Runtime;
 			sourceTree = "<group>";
@@ -2228,15 +2228,15 @@
 		0447E18A2668ADD500BB380B /* Objc */ = {
 			isa = PBXGroup;
 			children = (
-				0447E18B2668ADD500BB380B /* FLEXRuntimeSafety.h */,
-				0447E18C2668ADD500BB380B /* FLEXTypeEncodingParser.h */,
-				0447E18D2668ADD500BB380B /* FLEXRuntimeConstants.h */,
-				0447E18E2668ADD500BB380B /* FLEXRuntimeSafety.m */,
-				0447E18F2668ADD500BB380B /* FLEXRuntimeConstants.m */,
-				0447E1902668ADD500BB380B /* FLEXTypeEncodingParser.m */,
+				0447E1932668ADD500BB380B /* Reflection */,
 				0447E1912668ADD500BB380B /* FLEXObjcInternal.h */,
 				0447E1922668ADD500BB380B /* FLEXObjcInternal.mm */,
-				0447E1932668ADD500BB380B /* Reflection */,
+				0447E18D2668ADD500BB380B /* FLEXRuntimeConstants.h */,
+				0447E18F2668ADD500BB380B /* FLEXRuntimeConstants.m */,
+				0447E18B2668ADD500BB380B /* FLEXRuntimeSafety.h */,
+				0447E18E2668ADD500BB380B /* FLEXRuntimeSafety.m */,
+				0447E18C2668ADD500BB380B /* FLEXTypeEncodingParser.h */,
+				0447E1902668ADD500BB380B /* FLEXTypeEncodingParser.m */,
 			);
 			path = Objc;
 			sourceTree = "<group>";
@@ -2244,26 +2244,26 @@
 		0447E1932668ADD500BB380B /* Reflection */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1942668ADD500BB380B /* FLEXMirror.m */,
-				0447E1952668ADD500BB380B /* FLEXPropertyAttributes.m */,
 				0447E1962668ADD500BB380B /* FLEXBlockDescription.h */,
-				0447E1972668ADD500BB380B /* FLEXProtocolBuilder.h */,
-				0447E1982668ADD500BB380B /* FLEXProperty.m */,
-				0447E1992668ADD500BB380B /* FLEXClassBuilder.h */,
-				0447E19A2668ADD500BB380B /* FLEXMethodBase.h */,
-				0447E19B2668ADD500BB380B /* FLEXMethod.m */,
-				0447E19C2668ADD500BB380B /* FLEXIvar.m */,
-				0447E19D2668ADD500BB380B /* FLEXProtocol.h */,
-				0447E19E2668ADD500BB380B /* FLEXProtocolBuilder.m */,
 				0447E19F2668ADD500BB380B /* FLEXBlockDescription.m */,
-				0447E1A02668ADD500BB380B /* FLEXPropertyAttributes.h */,
-				0447E1A12668ADD500BB380B /* FLEXMirror.h */,
+				0447E1992668ADD500BB380B /* FLEXClassBuilder.h */,
 				0447E1A22668ADD500BB380B /* FLEXClassBuilder.m */,
-				0447E1A32668ADD500BB380B /* FLEXProperty.h */,
-				0447E1A42668ADD500BB380B /* FLEXProtocol.m */,
 				0447E1A52668ADD500BB380B /* FLEXIvar.h */,
+				0447E19C2668ADD500BB380B /* FLEXIvar.m */,
 				0447E1A62668ADD500BB380B /* FLEXMethod.h */,
+				0447E19B2668ADD500BB380B /* FLEXMethod.m */,
+				0447E19A2668ADD500BB380B /* FLEXMethodBase.h */,
 				0447E1A72668ADD500BB380B /* FLEXMethodBase.m */,
+				0447E1A12668ADD500BB380B /* FLEXMirror.h */,
+				0447E1942668ADD500BB380B /* FLEXMirror.m */,
+				0447E1A32668ADD500BB380B /* FLEXProperty.h */,
+				0447E1982668ADD500BB380B /* FLEXProperty.m */,
+				0447E1A02668ADD500BB380B /* FLEXPropertyAttributes.h */,
+				0447E1952668ADD500BB380B /* FLEXPropertyAttributes.m */,
+				0447E19D2668ADD500BB380B /* FLEXProtocol.h */,
+				0447E1A42668ADD500BB380B /* FLEXProtocol.m */,
+				0447E1972668ADD500BB380B /* FLEXProtocolBuilder.h */,
+				0447E19E2668ADD500BB380B /* FLEXProtocolBuilder.m */,
 			);
 			path = Reflection;
 			sourceTree = "<group>";
@@ -2271,33 +2271,33 @@
 		0447E1AE2668ADD500BB380B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1AF2668ADD500BB380B /* UIGestureRecognizer+Blocks.m */,
-				0447E1B02668ADD500BB380B /* FLEXRuntime+Compare.m */,
-				0447E1B12668ADD500BB380B /* NSArray+FLEX.m */,
-				0447E1B22668ADD500BB380B /* NSObject+FLEX_Reflection.m */,
-				0447E1B32668ADD500BB380B /* UIBarButtonItem+FLEX.h */,
-				0447E1B42668ADD500BB380B /* FLEXRuntime+UIKitHelpers.m */,
-				0447E1B52668ADD500BB380B /* NSTimer+FLEX.m */,
-				0447E1B62668ADD500BB380B /* UIMenu+FLEX.m */,
-				0447E1B72668ADD500BB380B /* CALayer+FLEX.h */,
-				0447E1B82668ADD500BB380B /* UIPasteboard+FLEX.m */,
-				0447E1B92668ADD500BB380B /* UIFont+FLEX.h */,
-				0447E1BA2668ADD500BB380B /* NSUserDefaults+FLEX.m */,
-				0447E1BB2668ADD500BB380B /* UITextField+Range.m */,
-				0447E1BC2668ADD500BB380B /* NSObject+FLEX_Reflection.h */,
-				0447E1BD2668ADD500BB380B /* NSArray+FLEX.h */,
-				0447E1BE2668ADD500BB380B /* FLEXRuntime+Compare.h */,
-				0447E1BF2668ADD500BB380B /* UIGestureRecognizer+Blocks.h */,
 				0447E1C02668ADD500BB380B /* Private */,
-				0447E1CD2668ADD500BB380B /* NSTimer+FLEX.h */,
-				0447E1CE2668ADD500BB380B /* FLEXRuntime+UIKitHelpers.h */,
-				0447E1CF2668ADD500BB380B /* UIBarButtonItem+FLEX.m */,
-				0447E1D02668ADD500BB380B /* UIPasteboard+FLEX.h */,
-				0447E1D12668ADD500BB380B /* UIMenu+FLEX.h */,
+				0447E1B72668ADD500BB380B /* CALayer+FLEX.h */,
 				0447E1D22668ADD500BB380B /* CALayer+FLEX.m */,
-				0447E1D32668ADD500BB380B /* UITextField+Range.h */,
+				0447E1BE2668ADD500BB380B /* FLEXRuntime+Compare.h */,
+				0447E1B02668ADD500BB380B /* FLEXRuntime+Compare.m */,
+				0447E1CE2668ADD500BB380B /* FLEXRuntime+UIKitHelpers.h */,
+				0447E1B42668ADD500BB380B /* FLEXRuntime+UIKitHelpers.m */,
+				0447E1BD2668ADD500BB380B /* NSArray+FLEX.h */,
+				0447E1B12668ADD500BB380B /* NSArray+FLEX.m */,
+				0447E1BC2668ADD500BB380B /* NSObject+FLEX_Reflection.h */,
+				0447E1B22668ADD500BB380B /* NSObject+FLEX_Reflection.m */,
+				0447E1CD2668ADD500BB380B /* NSTimer+FLEX.h */,
+				0447E1B52668ADD500BB380B /* NSTimer+FLEX.m */,
 				0447E1D42668ADD500BB380B /* NSUserDefaults+FLEX.h */,
+				0447E1BA2668ADD500BB380B /* NSUserDefaults+FLEX.m */,
+				0447E1B32668ADD500BB380B /* UIBarButtonItem+FLEX.h */,
+				0447E1CF2668ADD500BB380B /* UIBarButtonItem+FLEX.m */,
+				0447E1B92668ADD500BB380B /* UIFont+FLEX.h */,
 				0447E1D52668ADD500BB380B /* UIFont+FLEX.m */,
+				0447E1BF2668ADD500BB380B /* UIGestureRecognizer+Blocks.h */,
+				0447E1AF2668ADD500BB380B /* UIGestureRecognizer+Blocks.m */,
+				0447E1D12668ADD500BB380B /* UIMenu+FLEX.h */,
+				0447E1B62668ADD500BB380B /* UIMenu+FLEX.m */,
+				0447E1D02668ADD500BB380B /* UIPasteboard+FLEX.h */,
+				0447E1B82668ADD500BB380B /* UIPasteboard+FLEX.m */,
+				0447E1D32668ADD500BB380B /* UITextField+Range.h */,
+				0447E1BB2668ADD500BB380B /* UITextField+Range.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2305,18 +2305,18 @@
 		0447E1C02668ADD500BB380B /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				0447E1C12668ADD500BB380B /* UIView+FLEX_Layout.m */,
-				0447E1C22668ADD500BB380B /* NSString+ObjcRuntime.h */,
-				0447E1C32668ADD500BB380B /* NSMapTable+FLEX_Subscripting.h */,
-				0447E1C42668ADD500BB380B /* NSString+FLEX.h */,
 				0447E1C52668ADD500BB380B /* Cocoa+FLEXShortcuts.h */,
-				0447E1C62668ADD500BB380B /* NSDictionary+ObjcRuntime.h */,
-				0447E1C72668ADD500BB380B /* UIView+FLEX_Layout.h */,
-				0447E1C82668ADD500BB380B /* NSMapTable+FLEX_Subscripting.m */,
-				0447E1C92668ADD500BB380B /* NSString+ObjcRuntime.m */,
 				0447E1CA2668ADD500BB380B /* Cocoa+FLEXShortcuts.m */,
-				0447E1CB2668ADD500BB380B /* NSString+FLEX.m */,
+				0447E1C62668ADD500BB380B /* NSDictionary+ObjcRuntime.h */,
 				0447E1CC2668ADD500BB380B /* NSDictionary+ObjcRuntime.m */,
+				0447E1C32668ADD500BB380B /* NSMapTable+FLEX_Subscripting.h */,
+				0447E1C82668ADD500BB380B /* NSMapTable+FLEX_Subscripting.m */,
+				0447E1C42668ADD500BB380B /* NSString+FLEX.h */,
+				0447E1CB2668ADD500BB380B /* NSString+FLEX.m */,
+				0447E1C22668ADD500BB380B /* NSString+ObjcRuntime.h */,
+				0447E1C92668ADD500BB380B /* NSString+ObjcRuntime.m */,
+				0447E1C72668ADD500BB380B /* UIView+FLEX_Layout.h */,
+				0447E1C12668ADD500BB380B /* UIView+FLEX_Layout.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -2325,9 +2325,9 @@
 			isa = PBXGroup;
 			children = (
 				0447E1D82668ADD500BB380B /* FLEXKeyboardHelpViewController.h */,
-				0447E1D92668ADD500BB380B /* FLEXKeyboardShortcutManager.m */,
 				0447E1DA2668ADD500BB380B /* FLEXKeyboardHelpViewController.m */,
 				0447E1DB2668ADD500BB380B /* FLEXKeyboardShortcutManager.h */,
+				0447E1D92668ADD500BB380B /* FLEXKeyboardShortcutManager.m */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -4554,6 +4554,7 @@
 		871336FD237270F6006534A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = YSAll.entitlements;
