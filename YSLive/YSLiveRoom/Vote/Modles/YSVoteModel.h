@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YSVoteModel : NSObject
+@property (nonatomic, strong) NSString * msgId;
 @property (nonatomic, strong) NSString * teacherName;
 @property (nonatomic, strong) NSString * timeStr;
 @property (nonatomic, strong) NSString * voteId;

@@ -1870,7 +1870,7 @@
 #pragma mark 投票
 
 // 投票
-- (void)handleSignalingVoteStartWithVoteId:(NSString *)voteId userName:(NSString *)userName subject:(nonnull NSString *)subject time:(nonnull NSString *)time desc:(nonnull NSString *)desc isMulti:(BOOL)multi voteList:(nonnull NSArray<NSString *> *)voteList
+- (void)handleSignalingVoteStartWithVoteId:(NSString *)voteId userName:(NSString *)userName subject:(nonnull NSString *)subject time:(nonnull NSString *)time desc:(nonnull NSString *)desc isMulti:(BOOL)multi voteList:(nonnull NSArray<NSString *> *)voteList msgId:(nonnull NSString *)msgId
 {
     //当在投票结果页面时  收到老师投票信令  将投票结果页面pop掉
     [self.navigationController popToViewController:self animated:NO];
@@ -1881,6 +1881,7 @@
     }
     
     YSVoteModel *voteModel = [[YSVoteModel alloc] init];
+    voteModel.msgId = msgId;
     voteModel.teacherName = self.liveManager.teacher.nickName;
     voteModel.timeStr = time;
     voteModel.voteId = voteId;
